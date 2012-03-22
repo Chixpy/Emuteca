@@ -1,0 +1,793 @@
+﻿object frmMediaManager: TfrmMediaManager
+  Left = 426
+  Height = 571
+  Top = 124
+  Width = 800
+  Caption = 'Media Manager'
+  ClientHeight = 571
+  ClientWidth = 800
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  Position = poMainFormCenter
+  LCLVersion = '0.9.31'
+  object StatusBar: TStatusBar
+    Left = 0
+    Height = 20
+    Top = 551
+    Width = 800
+    Panels = <>
+  end
+  object pMedia: TPanel
+    Left = 600
+    Height = 473
+    Top = 50
+    Width = 200
+    Align = alRight
+    BevelOuter = bvNone
+    ClientHeight = 473
+    ClientWidth = 200
+    TabOrder = 5
+    object bAssign: TButton
+      Left = 0
+      Height = 25
+      Top = 448
+      Width = 200
+      Action = actChangeFileName
+      Align = alBottom
+      TabOrder = 0
+    end
+    object chkCopyFile: TCheckBox
+      Left = 0
+      Height = 17
+      Top = 431
+      Width = 200
+      Align = alBottom
+      Caption = 'Don''t delete source file'
+      TabOrder = 1
+    end
+    object iImage: TImage
+      Left = 0
+      Height = 200
+      Top = 0
+      Width = 200
+      Align = alTop
+      Center = True
+      OnDblClick = iImageDblClick
+      PopupMenu = pmImage
+      Proportional = True
+      Stretch = True
+    end
+    object Splitter4: TSplitter
+      Cursor = crVSplit
+      Left = 0
+      Height = 5
+      Top = 200
+      Width = 200
+      Align = alTop
+      ResizeAnchor = akTop
+    end
+    object tbMedia: TToolBar
+      Left = 0
+      Height = 26
+      Top = 205
+      Width = 200
+      Caption = 'Media toolbar'
+      EdgeBorders = []
+      EdgeInner = esNone
+      EdgeOuter = esNone
+      Images = ilActions
+      TabOrder = 3
+      object tbPreviousMedia: TToolButton
+        Left = 1
+        Top = 0
+        Action = actPreviousMedia
+      end
+      object tbNextMedia: TToolButton
+        Left = 24
+        Top = 0
+        Action = actNextMedia
+      end
+    end
+    object pInfoMedia: TPanel
+      Left = 0
+      Height = 23
+      Top = 408
+      Width = 200
+      Align = alBottom
+      BevelOuter = bvNone
+      TabOrder = 4
+    end
+    object mText: TMemo
+      Left = 0
+      Height = 177
+      Top = 231
+      Width = 200
+      Align = alClient
+      ParentFont = False
+      ScrollBars = ssAutoVertical
+      TabOrder = 5
+    end
+  end
+  object SplitterRight: TSplitter
+    Left = 595
+    Height = 473
+    Top = 50
+    Width = 5
+    Align = alRight
+    ResizeAnchor = akRight
+  end
+  object pSystem: TPanel
+    Left = 0
+    Height = 50
+    Top = 0
+    Width = 800
+    Align = alTop
+    BevelOuter = bvNone
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 0
+  end
+  object pMain: TPanel
+    Left = 155
+    Height = 473
+    Top = 50
+    Width = 440
+    Align = alClient
+    BevelOuter = bvNone
+    ClientHeight = 473
+    ClientWidth = 440
+    TabOrder = 3
+    object SplitterTargetSoure: TSplitter
+      Cursor = crVSplit
+      Left = 0
+      Height = 5
+      Top = 262
+      Width = 440
+      Align = alTop
+      ResizeAnchor = akTop
+    end
+    object pSource: TPanel
+      Left = 0
+      Height = 262
+      Top = 0
+      Width = 440
+      Align = alTop
+      BevelOuter = bvNone
+      ClientHeight = 262
+      ClientWidth = 440
+      TabOrder = 1
+      object pFileOperations: TPanel
+        Left = 0
+        Height = 23
+        Top = 239
+        Width = 440
+        Align = alBottom
+        AutoSize = True
+        BevelOuter = bvNone
+        ClientHeight = 23
+        ClientWidth = 440
+        TabOrder = 0
+        object bDeleteFile: TButton
+          Left = 365
+          Height = 23
+          Top = 0
+          Width = 75
+          Action = actDeleteFile
+          Align = alRight
+          TabOrder = 0
+        end
+        object bDeleteAllFiles: TButton
+          Left = 290
+          Height = 23
+          Top = 0
+          Width = 75
+          Action = actDeleteAllFiles
+          Align = alRight
+          TabOrder = 1
+        end
+        object bMoveAllFiles: TButton
+          Left = 75
+          Height = 23
+          Top = 0
+          Width = 75
+          Action = actMoveAllFiles
+          Align = alLeft
+          TabOrder = 2
+        end
+        object bMoveFile: TButton
+          Left = 0
+          Height = 23
+          Top = 0
+          Width = 75
+          Action = actMoveFile
+          Align = alLeft
+          TabOrder = 3
+        end
+        object chkOnlySimilar: TCheckBox
+          Left = 150
+          Height = 23
+          Top = 0
+          Width = 140
+          Align = alClient
+          Caption = 'Only similar file names'
+          OnChange = chkOnlySimilarChange
+          TabOrder = 4
+        end
+      end
+      object pcSource: TPageControl
+        Left = 0
+        Height = 239
+        Top = 0
+        Width = 440
+        ActivePage = pagAllFiles
+        Align = alClient
+        TabIndex = 0
+        TabOrder = 1
+        object pagAllFiles: TTabSheet
+          Caption = 'All files'
+          ClientHeight = 213
+          ClientWidth = 432
+          object vstAllFiles: TVirtualStringTree
+            Left = 0
+            Height = 213
+            Top = 0
+            Width = 432
+            Align = alClient
+            Color = clWindow
+            DefaultText = 'Node'
+            Header.AutoSizeIndex = 0
+            Header.Columns = <            
+              item
+                Position = 0
+                Text = 'File'
+                Width = 428
+              end>
+            Header.DefaultHeight = 17
+            Header.Options = [hoColumnResize, hoDrag, hoShowSortGlyphs, hoVisible]
+            Header.Style = hsPlates
+            TabOrder = 0
+            TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScrollOnExpand, toAutoSort, toAutoTristateTracking, toAutoDeleteMovedNodes]
+            TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toReportMode, toToggleOnDblClick, toWheelPanning]
+            TreeOptions.PaintOptions = [toShowButtons, toShowDropmark, toShowHorzGridLines, toShowTreeLines, toShowVertGridLines, toThemeAware, toUseBlendedImages, toFullVertGridLines]
+            TreeOptions.SelectionOptions = [toFullRowSelect, toRightClickSelect]
+            OnChange = vstFilesChange
+            OnCompareNodes = vstFilesCompareNodes
+            OnFreeNode = vstFilesFreeNode
+            OnGetText = vstFilesGetText
+            OnHeaderClick = vstHeaderClick
+            OnKeyDown = vstFilesKeyDown
+            OnKeyPress = vstFilesKeyPress
+          end
+        end
+        object pagOtherFiles: TTabSheet
+          Caption = 'Other files'
+          ClientHeight = 213
+          ClientWidth = 432
+          object vstOtherFiles: TVirtualStringTree
+            Left = 0
+            Height = 213
+            Top = 0
+            Width = 432
+            Align = alClient
+            Color = clWindow
+            DefaultText = 'Node'
+            Header.AutoSizeIndex = 0
+            Header.Columns = <            
+              item
+                Position = 0
+                Text = 'File'
+                Width = 428
+              end>
+            Header.DefaultHeight = 17
+            Header.Options = [hoColumnResize, hoDrag, hoShowSortGlyphs, hoVisible]
+            Header.Style = hsPlates
+            TabOrder = 0
+            TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScrollOnExpand, toAutoSort, toAutoTristateTracking, toAutoDeleteMovedNodes]
+            TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toReportMode, toToggleOnDblClick, toWheelPanning]
+            TreeOptions.PaintOptions = [toShowButtons, toShowDropmark, toShowHorzGridLines, toShowTreeLines, toShowVertGridLines, toThemeAware, toUseBlendedImages, toFullVertGridLines]
+            TreeOptions.SelectionOptions = [toFullRowSelect, toRightClickSelect]
+            OnChange = vstFilesChange
+            OnCompareNodes = vstFilesCompareNodes
+            OnFreeNode = vstFilesFreeNode
+            OnGetText = vstFilesGetText
+            OnHeaderClick = vstHeaderClick
+            OnKeyDown = vstFilesKeyDown
+            OnKeyPress = vstFilesKeyPress
+          end
+        end
+        object pagFilesWOGroup: TTabSheet
+          Caption = 'Files without group'
+          ClientHeight = 213
+          ClientWidth = 432
+          object vstFilesWOGroup: TVirtualStringTree
+            Left = 0
+            Height = 213
+            Top = 0
+            Width = 432
+            Align = alClient
+            Color = clWindow
+            DefaultText = 'Node'
+            Header.AutoSizeIndex = 0
+            Header.Columns = <            
+              item
+                Position = 0
+                Text = 'File'
+                Width = 428
+              end>
+            Header.DefaultHeight = 17
+            Header.Options = [hoColumnResize, hoDrag, hoShowSortGlyphs, hoVisible]
+            Header.Style = hsPlates
+            TabOrder = 0
+            TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScrollOnExpand, toAutoSort, toAutoTristateTracking, toAutoDeleteMovedNodes]
+            TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toReportMode, toToggleOnDblClick, toWheelPanning]
+            TreeOptions.PaintOptions = [toShowButtons, toShowDropmark, toShowHorzGridLines, toShowTreeLines, toShowVertGridLines, toThemeAware, toUseBlendedImages, toFullVertGridLines]
+            TreeOptions.SelectionOptions = [toFullRowSelect, toRightClickSelect]
+            OnChange = vstFilesChange
+            OnCompareNodes = vstFilesCompareNodes
+            OnFreeNode = vstFilesFreeNode
+            OnGetText = vstFilesGetText
+            OnHeaderClick = vstHeaderClick
+            OnKeyDown = vstFilesKeyDown
+            OnKeyPress = vstFilesKeyPress
+          end
+        end
+        object pagFilesWOGame: TTabSheet
+          Caption = 'Files without game'
+          ClientHeight = 213
+          ClientWidth = 432
+          object vstFilesWOGame: TVirtualStringTree
+            Left = 0
+            Height = 213
+            Top = 0
+            Width = 432
+            Align = alClient
+            Color = clWindow
+            DefaultText = 'Node'
+            Header.AutoSizeIndex = 0
+            Header.Columns = <            
+              item
+                Options = [coAllowClick, coDraggable, coEnabled, coParentBidiMode, coParentColor, coResizable, coShowDropMark, coVisible, coSmartResize, coAllowFocus]
+                Position = 0
+                Text = 'File'
+                Width = 428
+              end>
+            Header.DefaultHeight = 17
+            Header.Options = [hoColumnResize, hoDrag, hoShowSortGlyphs, hoVisible]
+            Header.Style = hsPlates
+            TabOrder = 0
+            TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScrollOnExpand, toAutoSort, toAutoTristateTracking, toAutoDeleteMovedNodes]
+            TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toReportMode, toToggleOnDblClick, toWheelPanning]
+            TreeOptions.PaintOptions = [toShowButtons, toShowDropmark, toShowHorzGridLines, toShowTreeLines, toShowVertGridLines, toThemeAware, toUseBlendedImages, toFullVertGridLines]
+            TreeOptions.SelectionOptions = [toFullRowSelect, toRightClickSelect]
+            OnChange = vstFilesChange
+            OnCompareNodes = vstFilesCompareNodes
+            OnFreeNode = vstFilesFreeNode
+            OnGetText = vstFilesGetText
+            OnHeaderClick = vstHeaderClick
+            OnKeyDown = vstFilesKeyDown
+            OnKeyPress = vstFilesKeyPress
+          end
+        end
+        object pagFilesOtherFolder: TTabSheet
+          Caption = 'Files in other folder'
+          ClientHeight = 213
+          ClientWidth = 432
+          object pOtherFolder: TPanel
+            Left = 0
+            Height = 21
+            Top = 192
+            Width = 432
+            Align = alBottom
+            AutoSize = True
+            BevelOuter = bvNone
+            ClientHeight = 21
+            ClientWidth = 432
+            TabOrder = 0
+            object eOtherFolder: TDirectoryEdit
+              Left = 0
+              Height = 21
+              Top = 0
+              Width = 409
+              OnAcceptDirectory = eOtherFolderAcceptDirectory
+              ShowHidden = False
+              ButtonWidth = 23
+              DirectInput = False
+              NumGlyphs = 0
+              Flat = True
+              Align = alCustom
+              Anchors = [akTop, akLeft, akRight]
+              MaxLength = 0
+              TabOrder = 0
+            end
+          end
+          object vstFilesOtherFolder: TVirtualStringTree
+            Left = 0
+            Height = 192
+            Top = 0
+            Width = 432
+            Align = alClient
+            Color = clWindow
+            DefaultText = 'Node'
+            Header.AutoSizeIndex = 0
+            Header.Columns = <            
+              item
+                Options = [coAllowClick, coDraggable, coEnabled, coParentBidiMode, coParentColor, coResizable, coShowDropMark, coVisible, coSmartResize, coAllowFocus]
+                Position = 0
+                Text = 'File'
+                Width = 428
+              end>
+            Header.DefaultHeight = 17
+            Header.Options = [hoColumnResize, hoDrag, hoShowSortGlyphs, hoVisible]
+            Header.Style = hsPlates
+            TabOrder = 1
+            TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScrollOnExpand, toAutoSort, toAutoTristateTracking, toAutoDeleteMovedNodes]
+            TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toReportMode, toToggleOnDblClick, toWheelPanning]
+            TreeOptions.PaintOptions = [toShowButtons, toShowDropmark, toShowHorzGridLines, toShowTreeLines, toShowVertGridLines, toThemeAware, toUseBlendedImages, toFullVertGridLines]
+            TreeOptions.SelectionOptions = [toFullRowSelect, toRightClickSelect]
+            OnChange = vstFilesOtherFolderChange
+            OnCompareNodes = vstFilesCompareNodes
+            OnFreeNode = vstFilesFreeNode
+            OnGetText = vstFilesGetText
+            OnHeaderClick = vstHeaderClick
+            OnKeyDown = vstFilesKeyDown
+            OnKeyPress = vstFilesKeyPress
+          end
+        end
+      end
+    end
+    object pTarget: TPanel
+      Left = 0
+      Height = 206
+      Top = 267
+      Width = 440
+      Align = alClient
+      BevelOuter = bvNone
+      ClientHeight = 206
+      ClientWidth = 440
+      TabOrder = 2
+      object pcTarget: TPageControl
+        Left = 0
+        Height = 206
+        Top = 0
+        Width = 440
+        ActivePage = pagAllGroups
+        Align = alClient
+        TabIndex = 0
+        TabOrder = 0
+        object pagAllGroups: TTabSheet
+          Caption = 'All groups'
+          ClientHeight = 180
+          ClientWidth = 432
+          object vstAllGroups: TVirtualStringTree
+            Left = 0
+            Height = 180
+            Top = 0
+            Width = 432
+            Align = alClient
+            Color = clWindow
+            DefaultText = 'Node'
+            Header.AutoSizeIndex = 0
+            Header.Columns = <            
+              item
+                Position = 0
+                Text = 'Group'
+                Width = 228
+              end            
+              item
+                Position = 1
+                Text = 'File'
+                Width = 200
+              end>
+            Header.DefaultHeight = 17
+            Header.Options = [hoColumnResize, hoDrag, hoShowSortGlyphs, hoVisible]
+            Header.Style = hsPlates
+            TabOrder = 0
+            TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScrollOnExpand, toAutoSort, toAutoTristateTracking, toAutoDeleteMovedNodes]
+            TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toReportMode, toToggleOnDblClick, toWheelPanning]
+            TreeOptions.PaintOptions = [toShowButtons, toShowDropmark, toShowHorzGridLines, toShowTreeLines, toShowVertGridLines, toThemeAware, toUseBlendedImages, toFullVertGridLines]
+            TreeOptions.SelectionOptions = [toFullRowSelect, toRightClickSelect]
+            OnChange = vstGroupsChange
+            OnCompareNodes = vstGroupsCompareNodes
+            OnGetText = vstGroupsGetText
+            OnHeaderClick = vstHeaderClick
+            OnKeyDown = vstGroupsKeyDown
+            OnKeyPress = vstGroupsKeyPress
+          end
+        end
+        object pagAllGames: TTabSheet
+          Caption = 'All games'
+          ClientHeight = 180
+          ClientWidth = 432
+          object vstAllGames: TVirtualStringTree
+            Left = 0
+            Height = 180
+            Top = 0
+            Width = 432
+            Align = alClient
+            Color = clWindow
+            DefaultText = 'Node'
+            Header.AutoSizeIndex = 0
+            Header.Columns = <            
+              item
+                Position = 0
+                Text = 'Game'
+                Width = 178
+              end            
+              item
+                Position = 1
+                Text = 'Group'
+                Width = 100
+              end            
+              item
+                Position = 2
+                Text = 'File'
+                Width = 150
+              end>
+            Header.DefaultHeight = 17
+            Header.Options = [hoColumnResize, hoDrag, hoShowSortGlyphs, hoVisible]
+            Header.Style = hsPlates
+            TabOrder = 0
+            TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScrollOnExpand, toAutoSort, toAutoTristateTracking, toAutoDeleteMovedNodes]
+            TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toReportMode, toToggleOnDblClick, toWheelPanning]
+            TreeOptions.PaintOptions = [toShowButtons, toShowDropmark, toShowHorzGridLines, toShowTreeLines, toShowVertGridLines, toThemeAware, toUseBlendedImages, toFullVertGridLines]
+            TreeOptions.SelectionOptions = [toFullRowSelect, toRightClickSelect]
+            OnChange = vstGamesChange
+            OnCompareNodes = vstAllGamesCompareNodes
+            OnGetText = vstGamesGetText
+            OnHeaderClick = vstHeaderClick
+            OnKeyDown = vstGroupsKeyDown
+            OnKeyPress = vstGroupsKeyPress
+          end
+        end
+        object pagGroupsWOFile: TTabSheet
+          Caption = 'Groups without file'
+          ClientHeight = 180
+          ClientWidth = 432
+          object vstGroupsWOFile: TVirtualStringTree
+            Left = 0
+            Height = 180
+            Top = 0
+            Width = 432
+            Align = alClient
+            Color = clWindow
+            DefaultText = 'Node'
+            Header.AutoSizeIndex = 0
+            Header.Columns = <            
+              item
+                Position = 0
+                Text = 'Group'
+                Width = 228
+              end            
+              item
+                Position = 1
+                Text = 'File'
+                Width = 200
+              end>
+            Header.DefaultHeight = 17
+            Header.Options = [hoColumnResize, hoDrag, hoShowSortGlyphs, hoVisible]
+            Header.Style = hsPlates
+            TabOrder = 0
+            TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScrollOnExpand, toAutoSort, toAutoTristateTracking, toAutoDeleteMovedNodes]
+            TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toReportMode, toToggleOnDblClick, toWheelPanning]
+            TreeOptions.PaintOptions = [toShowButtons, toShowDropmark, toShowHorzGridLines, toShowTreeLines, toShowVertGridLines, toThemeAware, toUseBlendedImages, toFullVertGridLines]
+            TreeOptions.SelectionOptions = [toFullRowSelect, toRightClickSelect]
+            OnChange = vstGroupsChange
+            OnCompareNodes = vstGroupsCompareNodes
+            OnGetText = vstGroupsGetText
+            OnHeaderClick = vstHeaderClick
+            OnKeyDown = vstGroupsKeyDown
+            OnKeyPress = vstGroupsKeyPress
+          end
+        end
+      end
+    end
+  end
+  object SplitterLeft: TSplitter
+    Left = 150
+    Height = 473
+    Top = 50
+    Width = 5
+  end
+  object lSource: TLabel
+    Left = 0
+    Height = 14
+    Top = 523
+    Width = 800
+    Align = alBottom
+    Caption = 'Source: '
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+  end
+  object lTarget: TLabel
+    Left = 0
+    Height = 14
+    Top = 537
+    Width = 800
+    Align = alBottom
+    Caption = 'Target: '
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+  end
+  object pLeft: TPanel
+    Left = 0
+    Height = 473
+    Top = 50
+    Width = 150
+    Align = alLeft
+    BevelOuter = bvNone
+    ClientHeight = 473
+    ClientWidth = 150
+    TabOrder = 1
+    object gbxImages: TGroupBox
+      Left = 0
+      Height = 113
+      Top = 0
+      Width = 150
+      Align = alClient
+      Caption = 'Images'
+      ClientHeight = 95
+      ClientWidth = 146
+      TabOrder = 0
+      object lbxImages: TListBox
+        Left = 0
+        Height = 95
+        Top = 0
+        Width = 146
+        Align = alClient
+        ItemHeight = 0
+        OnSelectionChange = lbxImagesSelectionChange
+        TabOrder = 0
+      end
+    end
+    object gbxVideos: TGroupBox
+      Left = 0
+      Height = 90
+      Top = 293
+      Width = 150
+      Align = alBottom
+      Caption = 'Videos'
+      ClientHeight = 72
+      ClientWidth = 146
+      TabOrder = 3
+      object lbxVideos: TListBox
+        Left = 0
+        Height = 72
+        Top = 0
+        Width = 146
+        Align = alClient
+        ItemHeight = 0
+        OnSelectionChange = lbxVideosSelectionChange
+        TabOrder = 0
+      end
+    end
+    object gbxOtherFiles: TGroupBox
+      Left = 0
+      Height = 90
+      Top = 383
+      Width = 150
+      Align = alBottom
+      Caption = 'Other files'
+      ClientHeight = 72
+      ClientWidth = 146
+      TabOrder = 4
+      object lbxOtherFiles: TListBox
+        Left = 0
+        Height = 72
+        Top = 0
+        Width = 146
+        Align = alClient
+        ItemHeight = 0
+        TabOrder = 0
+      end
+    end
+    object gbxMusic: TGroupBox
+      Left = 0
+      Height = 90
+      Top = 203
+      Width = 150
+      Align = alBottom
+      Caption = 'Music'
+      ClientHeight = 72
+      ClientWidth = 146
+      TabOrder = 1
+      object lbxMusic: TListBox
+        Left = 0
+        Height = 72
+        Top = 0
+        Width = 146
+        Align = alClient
+        ItemHeight = 0
+        OnSelectionChange = lbxMusicSelectionChange
+        TabOrder = 0
+      end
+    end
+    object gbxTexts: TGroupBox
+      Left = 0
+      Height = 90
+      Top = 113
+      Width = 150
+      Align = alBottom
+      Caption = 'Texts'
+      ClientHeight = 72
+      ClientWidth = 146
+      TabOrder = 2
+      object lbxTexts: TListBox
+        Left = 0
+        Height = 72
+        Top = 0
+        Width = 146
+        Align = alClient
+        ItemHeight = 0
+        OnSelectionChange = lbxTextsSelectionChange
+        TabOrder = 0
+      end
+    end
+  end
+  object ActionList: TActionList
+    Images = ilActions
+    left = 232
+    top = 101
+    object actChangeFileName: TAction
+      Category = 'File operations'
+      Caption = 'Assign file'
+      OnExecute = actChangeFileNameExecute
+    end
+    object actOpenImages: TAction
+      Category = 'Image'
+      Caption = 'Open images in viewer'
+      OnExecute = actOpenImagesExecute
+    end
+    object actDeleteFile: TAction
+      Category = 'File operations'
+      Caption = 'Delete file'
+      OnExecute = actDeleteFileExecute
+    end
+    object actDeleteAllFiles: TAction
+      Category = 'File operations'
+      Caption = 'Delete all'
+      OnExecute = actDeleteAllFilesExecute
+    end
+    object actMoveFile: TAction
+      Category = 'File operations'
+      Caption = 'Move file'
+      OnExecute = actMoveFileExecute
+    end
+    object actMoveAllFiles: TAction
+      Category = 'File operations'
+      Caption = 'Move all'
+      OnExecute = actMoveAllFilesExecute
+    end
+    object actNextMedia: TAction
+      Category = 'Image'
+      Caption = 'Next media file'
+      OnExecute = actNextMediaExecute
+    end
+    object actPreviousMedia: TAction
+      Category = 'Image'
+      Caption = 'Previous media file'
+      OnExecute = actPreviousMediaExecute
+    end
+  end
+  object pmImage: TPopupMenu
+    left = 656
+    top = 101
+    object miOpenImages: TMenuItem
+      Action = actOpenImages
+    end
+  end
+  object ilActions: TImageList
+    left = 176
+    top = 101
+  end
+  object SelectDirectoryDialog: TSelectDirectoryDialog
+    Options = [ofNoChangeDir, ofPathMustExist, ofEnableSizing, ofViewDetail]
+    left = 512
+    top = 96
+  end
+  object pmFileList: TPopupMenu
+    left = 330
+    top = 203
+  end
+end

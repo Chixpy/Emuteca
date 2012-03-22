@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<meta name="GENERATOR" content="PasDoc 0.12.1">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<title>Emuteca: fGameManager</title>
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#800080" alink="#FF0000">
+<h1 class="unit">Unit fGameManager</h1>
+<table class="sections wide_list">
+<tr>
+<td><a class="section"  href="#%40Description">Description</a></td><td><a class="section"  href="#%40Uses">Uses</a></td><td><a class="section"  href="#%40Classes">Classes, Interfaces, Objects and Records</a></td><td>Functions and Procedures</td><td><a class="section"  href="#%40Types">Types</a></td><td><a class="section"  href="#%40Constants">Constants</a></td><td><a class="section"  href="#%40Variables">Variables</a></td></tr></table>
+<a name="%40Description"></a><h2 class="description">Description</h2>
+<p>
+Unit of Game Manager form</p>
+<a name="%40Uses"></a><h2 class="uses">Uses</h2>
+<ul class="useslist"><li>ActnList</li><li>Buttons</li><li>Classes</li><li>Clipbrd</li><li>ComCtrls</li><li>contnrs</li><li>Controls</li><li>dateutils</li><li>Dialogs</li><li>ExtCtrls</li><li><a   href="fAbout.html">fAbout</a></li><li><a   href="fEmulatorManager.html">fEmulatorManager</a></li><li>FileUtil</li><li><a   href="fImageViewer.html">fImageViewer</a></li><li><a   href="fMediaManager.html">fMediaManager</a></li><li>Forms</li><li><a   href="fProgress.html">fProgress</a></li><li><a   href="fScriptManager.html">fScriptManager</a></li><li><a   href="fSystemManager.html">fSystemManager</a></li><li>Graphics</li><li>LazHelpHTML</li><li>LazUTF8</li><li>lazutf8classes</li><li>lclintf</li><li>LCLType</li><li>LResources</li><li>Menus</li><li>StdCtrls</li><li>strutils</li><li>SysUtils</li><li><a   href="u7zWrapper.html">u7zWrapper</a></li><li><a   href="uConfig.html">uConfig</a></li><li><a   href="uCustomUtils.html">uCustomUtils</a></li><li><a   href="uGame.html">uGame</a></li><li><a   href="uGameGroup.html">uGameGroup</a></li><li><a   href="uGameManager.html">uGameManager</a></li><li><a   href="uGameStats.html">uGameStats</a></li><li><a   href="uImageList.html">uImageList</a></li><li><a   href="uSystemManager.html">uSystemManager</a></li><li><a   href="uTranslator.html">uTranslator</a></li><li><a   href="uVersionSupport.html">uVersionSupport</a></li><li>VirtualTrees</li><li>VTHeaderPopup</li><li>Windows</li></ul><h2 class="overview">Overview</h2>
+<a name="%40Classes"></a><h3 class="cio">Classes, Interfaces, Objects and Records</h3>
+<table class="classestable wide_list">
+<tr class="listheader">
+<th class="itemname">Name</th>
+<th class="itemdesc">Description</th>
+</tr>
+<tr class="list">
+<td class="itemname">Class&nbsp;<a class="bold"  href="fGameManager.TfrmGameManager.html"><code>TfrmGameManager</code></a></td>
+<td class="itemdesc"><code>TfrmGameManager</code></td>
+</tr>
+</table>
+<a name="%40Types"></a><h3 class="summary">Types</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="itemcode"><code><b><a   href="fGameManager.html#TlvGroupMode">TlvGroupMode</a></b> = (...);</code></td>
+</tr>
+</table>
+<a name="%40Constants"></a><h3 class="summary">Constants</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="itemcode"><code><b><a   href="fGameManager.html#CDBExt">CDBExt</a></b> = '.edb';</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a   href="fGameManager.html#CDBFilter">CDBFilter</a></b> = 'Emuteca database' + ' (*' + <a   href="fGameManager.html#CDBExt">CDBExt</a> + ')|*' + <a   href="fGameManager.html#CDBExt">CDBExt</a>;</code></td>
+</tr>
+</table>
+<a name="%40Variables"></a><h3 class="summary">Variables</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="itemcode"><code><b><a   href="fGameManager.html#frmGameManager">frmGameManager</a></b>: <a   href="fGameManager.TfrmGameManager.html">TfrmGameManager</a>;</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Types</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="TlvGroupMode"></a><code><b>TlvGroupMode</b> = (...);</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;<h6 class="description_section">Values</h6>
+<ul>
+<li>
+lvGMGameGroup: Group by game.</li>
+<li>
+lvGMName: Group by version name (SortName property).</li>
+<li>
+lvGMYear: Group by year (published).</li>
+<li>
+lvGMDeveloper: Group by developer.</li>
+<li>
+lvGMPublisher: Group by publisher.</li>
+<li>
+lvGMFolder: Group by folder (or 7z).</li>
+<li>
+lvGMTags: Group by tags.</li>
+</ul>
+</td></tr>
+</table>
+<h3 class="detail">Constants</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="CDBExt"></a><code><b>CDBExt</b> = '.edb';</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+TODO 4: May be I try to remove <a class="normal"  href="uSystemManager.html">uSystemManager</a>? <a class="normal"  href="uEmulatorManager.html">uEmulatorManager</a> isn't needed... Bueno en verdad sí que puede que lo necesite luego...</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="CDBFilter"></a><code><b>CDBFilter</b> = 'Emuteca database' + ' (*' + <a   href="fGameManager.html#CDBExt">CDBExt</a> + ')|*' + <a   href="fGameManager.html#CDBExt">CDBExt</a>;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+TODO 4 -oChixpy -cLocalization : Make localizable</p>
+</td></tr>
+</table>
+<h3 class="detail">Variables</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="frmGameManager"></a><code><b>frmGameManager</b>: <a   href="fGameManager.TfrmGameManager.html">TfrmGameManager</a>;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+public declarations</p>
+</td></tr>
+</table>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.12.1</a> on 2011-12-27 19:40:25</em>
+</span>
+</body></html>

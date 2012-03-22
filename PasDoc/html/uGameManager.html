@@ -1,0 +1,128 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<meta name="GENERATOR" content="PasDoc 0.12.1">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<title>Emuteca: uGameManager</title>
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#800080" alink="#FF0000">
+<h1 class="unit">Unit uGameManager</h1>
+<table class="sections wide_list">
+<tr>
+<td><a class="section"  href="#%40Description">Description</a></td><td><a class="section"  href="#%40Uses">Uses</a></td><td><a class="section"  href="#%40Classes">Classes, Interfaces, Objects and Records</a></td><td>Functions and Procedures</td><td><a class="section"  href="#%40Types">Types</a></td><td><a class="section"  href="#%40Constants">Constants</a></td><td>Variables</td></tr></table>
+<a name="%40Description"></a><h2 class="description">Description</h2>
+<p>
+<a class="normal"  href="uGameManager.cGameManager.html">cGameManager</a> unit</p>
+<a name="%40Uses"></a><h2 class="uses">Uses</h2>
+<ul class="useslist"><li>Classes</li><li>contnrs</li><li>FileUtil</li><li>IniFiles</li><li>LazUTF8</li><li>lazutf8classes</li><li>SysUtils</li><li><a   href="u7zWrapper.html">u7zWrapper</a></li><li><a   href="uCustomUtils.html">uCustomUtils</a></li><li><a   href="uEmulator.html">uEmulator</a></li><li><a   href="uGame.html">uGame</a></li><li><a   href="uGameGroup.html">uGameGroup</a></li><li><a   href="uSystem.html">uSystem</a></li></ul><h2 class="overview">Overview</h2>
+<a name="%40Classes"></a><h3 class="cio">Classes, Interfaces, Objects and Records</h3>
+<table class="classestable wide_list">
+<tr class="listheader">
+<th class="itemname">Name</th>
+<th class="itemdesc">Description</th>
+</tr>
+<tr class="list">
+<td class="itemname">Class&nbsp;<a class="bold"  href="uGameManager.cGameManager.html"><code>cGameManager</code></a></td>
+<td class="itemdesc"><code>cGameManager</code></td>
+</tr>
+</table>
+<a name="%40Types"></a><h3 class="summary">Types</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="itemcode"><code><b><a   href="uGameManager.html#TGMCallBackType">TGMCallBackType</a></b> = (...);</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a   href="uGameManager.html#TGMProgressCallBack">TGMProgressCallBack</a></b> = function(const TypeCB: <a   href="uGameManager.html#TGMCallBackType">TGMCallBackType</a>; const Info1, Info2: UTF8String; const Value, MaxValue: int64): boolean of object;</code></td>
+</tr>
+</table>
+<a name="%40Constants"></a><h3 class="summary">Constants</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="itemcode"><code><b><a   href="uGameManager.html#CGMDecompressError">CGMDecompressError</a></b> = 301;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a   href="uGameManager.html#CGMExecErrorNoGame">CGMExecErrorNoGame</a></b> = 300;</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a   href="uGameManager.html#CGMGameSubFolder">CGMGameSubFolder</a></b> = 'Game';</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Types</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="TGMCallBackType"></a><code><b>TGMCallBackType</b> = (...);</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;<h6 class="description_section">Values</h6>
+<ul>
+<li>
+GMCBAddFile: &nbsp;</li>
+<li>
+GMCBImportData: &nbsp;</li>
+<li>
+GMCBExportData: &nbsp;</li>
+<li>
+GMCBSaveList: &nbsp;</li>
+<li>
+GMCBLoadList: &nbsp;</li>
+<li>
+GMCBDecompress: Action doing the callback.</li>
+</ul>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="TGMProgressCallBack"></a><code><b>TGMProgressCallBack</b> = function(const TypeCB: <a   href="uGameManager.html#TGMCallBackType">TGMCallBackType</a>; const Info1, Info2: UTF8String; const Value, MaxValue: int64): boolean of object;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Type for calling back a function a show the progress.
+
+<p>Used as <a class="normal"  href="uGameManager.cGameManager.html#ProgressCallBack">cGameManager.ProgressCallBack</a>, this function is called in some iterations that can be slow.
+
+<p>     </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>TypeCB</dt>
+<dd><a class="normal"  href="uGameManager.html#TGMCallBackType">TGMCallBackType</a> indicating the current action.</dd>
+<dt>Info1</dt>
+<dd>First string of info (i.e. Folder).</dd>
+<dt>Info2</dt>
+<dd>Second string of info (i.e. Filename).</dd>
+<dt>Value</dt>
+<dd>Current value in the iteration.</dd>
+<dt>MaxValue</dt>
+<dd>Max value in the iteration.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Abort the iteration? (Although it can be ignored :P)</p></td></tr>
+</table>
+<h3 class="detail">Constants</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="CGMDecompressError"></a><code><b>CGMDecompressError</b> = 301;</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="CGMExecErrorNoGame"></a><code><b>CGMExecErrorNoGame</b> = 300;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Praying for no emulator use these exit codes.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="CGMGameSubFolder"></a><code><b>CGMGameSubFolder</b> = 'Game';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.12.1</a> on 2011-12-27 19:40:25</em>
+</span>
+</body></html>

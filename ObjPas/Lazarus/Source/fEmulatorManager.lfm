@@ -1,0 +1,609 @@
+﻿object frmEmulatorManager: TfrmEmulatorManager
+  Left = 384
+  Height = 480
+  Top = 89
+  Width = 640
+  Caption = 'Emulator Manager'
+  ClientHeight = 480
+  ClientWidth = 640
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  Position = poMainFormCenter
+  LCLVersion = '0.9.31'
+  object pnlEmulator: TPanel
+    Left = 0
+    Height = 40
+    Top = 0
+    Width = 640
+    Align = alTop
+    BevelOuter = bvNone
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 0
+  end
+  object StatusBar: TStatusBar
+    Left = 0
+    Height = 20
+    Top = 460
+    Width = 640
+    AutoHint = True
+    Panels = <>
+  end
+  object pnlEmulators: TPanel
+    Left = 0
+    Height = 394
+    Top = 40
+    Width = 170
+    Align = alLeft
+    BevelOuter = bvNone
+    ClientHeight = 394
+    ClientWidth = 170
+    TabOrder = 1
+    object tbEmulators: TToolBar
+      Left = 0
+      Height = 22
+      Top = 0
+      Width = 170
+      AutoSize = True
+      Caption = 'Emulators toolbar'
+      EdgeBorders = []
+      EdgeInner = esNone
+      EdgeOuter = esNone
+      Images = ilActions
+      TabOrder = 0
+      object bAddEmulator: TToolButton
+        Left = 1
+        Top = 0
+        Action = actAddEmulator
+      end
+      object ToolButton1: TToolButton
+        Left = 24
+        Top = 0
+        Width = 5
+        Caption = '-'
+        Style = tbsDivider
+      end
+      object bRemoveEmulator: TToolButton
+        Left = 29
+        Top = 0
+        Action = actRemoveEmulator
+      end
+      object ToolButton3: TToolButton
+        Left = 52
+        Top = 0
+        Width = 10
+        Caption = '-'
+        Style = tbsSeparator
+      end
+      object bExportEmulators: TToolButton
+        Left = 62
+        Top = 0
+        Action = actExportEmulators
+      end
+      object ToolButton5: TToolButton
+        Left = 85
+        Top = 0
+        Width = 5
+        Caption = '-'
+        Style = tbsDivider
+      end
+      object bImportEmulator: TToolButton
+        Left = 90
+        Top = 0
+        Action = actImportEmulators
+      end
+    end
+    object clbEmulators: TCheckListBox
+      Left = 0
+      Height = 372
+      Top = 22
+      Width = 170
+      Align = alClient
+      ItemHeight = 0
+      OnClick = clbEmulatorsClick
+      OnItemClick = clbEmulatorsItemClick
+      TabOrder = 1
+    end
+  end
+  object pnlButtons: TPanel
+    Left = 0
+    Height = 26
+    Top = 434
+    Width = 640
+    Align = alBottom
+    AutoSize = True
+    BevelOuter = bvNone
+    Caption = 'Remember: Only checked emulators will be shown in other sections'
+    ClientHeight = 26
+    ClientWidth = 640
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 3
+    object btnCancel: TBitBtn
+      Left = 0
+      Height = 26
+      Top = 0
+      Width = 75
+      Align = alLeft
+      Cancel = True
+      Caption = 'Cancelar'
+      Kind = bkCancel
+      ModalResult = 2
+      TabOrder = 0
+    end
+    object btnOK: TBitBtn
+      Left = 565
+      Height = 26
+      Top = 0
+      Width = 75
+      Align = alRight
+      Caption = 'Aceptar'
+      Kind = bkOK
+      ModalResult = 1
+      OnClick = btnOKClick
+      TabOrder = 1
+    end
+  end
+  object pcEmulatorConfig: TPageControl
+    Left = 170
+    Height = 394
+    Top = 40
+    Width = 470
+    ActivePage = pagInfo
+    Align = alClient
+    TabIndex = 0
+    TabOrder = 2
+    object pagInfo: TTabSheet
+      Caption = 'Information'
+      ClientHeight = 368
+      ClientWidth = 462
+      object gbEmulatorImages: TGroupBox
+        Left = 308
+        Height = 368
+        Top = 0
+        Width = 154
+        Align = alRight
+        Caption = 'Emulator images'
+        ClientHeight = 350
+        ClientWidth = 150
+        TabOrder = 1
+        object iEmulatorImage: TImage
+          Left = 0
+          Height = 150
+          Top = 14
+          Width = 150
+          Align = alTop
+          Center = True
+          Proportional = True
+          Stretch = True
+        end
+        object eEmulatorImage: TFileNameEdit
+          Left = 0
+          Height = 21
+          Top = 164
+          Width = 127
+          OnAcceptFileName = eEmulatorImageAcceptFileName
+          DialogKind = dkPictureOpen
+          DialogOptions = [ofNoChangeDir, ofAutoPreview]
+          FilterIndex = 0
+          HideDirectories = False
+          ButtonWidth = 23
+          NumGlyphs = 0
+          Flat = True
+          MaxLength = 0
+          TabOrder = 0
+          OnEditingDone = eEmulatorImageEditingDone
+        end
+        object iEmulatorIcon: TImage
+          Left = 43
+          Height = 64
+          Top = 266
+          Width = 64
+          Center = True
+          Proportional = True
+          Stretch = True
+        end
+        object eEmulatorIcon: TFileNameEdit
+          Left = 0
+          Height = 21
+          Top = 329
+          Width = 127
+          OnAcceptFileName = eEmulatorIconAcceptFileName
+          DialogKind = dkPictureOpen
+          DialogOptions = [ofNoChangeDir, ofAutoPreview]
+          FilterIndex = 0
+          HideDirectories = False
+          ButtonWidth = 23
+          NumGlyphs = 0
+          Flat = True
+          MaxLength = 0
+          TabOrder = 1
+          OnEditingDone = eEmulatorIconEditingDone
+        end
+        object lEmulatorImage: TLabel
+          Left = 0
+          Height = 14
+          Top = 0
+          Width = 150
+          Align = alTop
+          Alignment = taCenter
+          AutoSize = False
+          Caption = 'Emulator Image'
+          ParentColor = False
+        end
+        object lEmulatorIcon: TLabel
+          Left = 0
+          Height = 14
+          Top = 250
+          Width = 150
+          Alignment = taCenter
+          AutoSize = False
+          Caption = 'Emulator icon'
+          ParentColor = False
+        end
+      end
+      object gbGeneralData: TGroupBox
+        Left = 0
+        Height = 368
+        Top = 0
+        Width = 308
+        Align = alClient
+        Caption = 'General data'
+        ClientHeight = 350
+        ClientWidth = 304
+        TabOrder = 0
+        object lEmulatorName: TLabel
+          Left = 0
+          Height = 14
+          Top = 0
+          Width = 304
+          Align = alTop
+          Alignment = taCenter
+          Caption = 'Name'
+          ParentColor = False
+        end
+        object eEmulatorName: TEdit
+          Left = 0
+          Height = 21
+          Top = 14
+          Width = 304
+          Align = alTop
+          OnEditingDone = eEmulatorNameEditingDone
+          TabOrder = 0
+        end
+        object lEmulatorAuthor: TLabel
+          Left = 0
+          Height = 14
+          Top = 35
+          Width = 304
+          Align = alTop
+          Alignment = taCenter
+          Caption = 'Author'
+          ParentColor = False
+        end
+        object eEmulatorAuthor: TEdit
+          Left = 0
+          Height = 21
+          Top = 49
+          Width = 304
+          Align = alTop
+          OnEditingDone = eEmulatorAuthorEditingDone
+          TabOrder = 1
+        end
+        object lWebPage: TLabel
+          Left = 0
+          Height = 14
+          Top = 70
+          Width = 304
+          Align = alTop
+          Alignment = taCenter
+          Caption = 'Webpage'
+          ParentColor = False
+        end
+        object eWebPage: TEdit
+          Left = 0
+          Height = 21
+          Top = 84
+          Width = 304
+          Align = alTop
+          OnEditingDone = eWebPageEditingDone
+          TabOrder = 2
+        end
+        object lInfoFile: TLabel
+          Left = 0
+          Height = 14
+          Top = 105
+          Width = 304
+          Align = alTop
+          Alignment = taCenter
+          Caption = 'Information file'
+          ParentColor = False
+        end
+        object pInfoFile: TPanel
+          Left = 0
+          Height = 21
+          Top = 119
+          Width = 304
+          Align = alTop
+          BevelOuter = bvNone
+          ClientHeight = 21
+          ClientWidth = 304
+          TabOrder = 3
+          object eInfoFile: TFileNameEdit
+            Left = 0
+            Height = 21
+            Top = 0
+            Width = 281
+            OnAcceptFileName = eInfoFileAcceptFileName
+            DialogOptions = []
+            FilterIndex = 0
+            HideDirectories = False
+            ButtonWidth = 23
+            NumGlyphs = 0
+            Flat = True
+            Anchors = [akTop, akLeft, akRight]
+            MaxLength = 0
+            TabOrder = 0
+            OnEditingDone = eInfoFileEditingDone
+          end
+        end
+      end
+    end
+    object pagCommandLine: TTabSheet
+      Caption = 'Command line'
+      ClientHeight = 368
+      ClientWidth = 462
+      object gbOtherFiles: TGroupBox
+        Left = 0
+        Height = 55
+        Top = 313
+        Width = 462
+        Align = alBottom
+        Caption = 'Other files'
+        ClientHeight = 37
+        ClientWidth = 458
+        TabOrder = 2
+        object lConfigFile: TLabel
+          Left = 0
+          Height = 14
+          Top = 0
+          Width = 458
+          Align = alTop
+          Alignment = taCenter
+          Caption = 'Config file'
+          ParentColor = False
+        end
+        object eConfigFile: TFileNameEdit
+          Left = 0
+          Height = 21
+          Top = 14
+          Width = 435
+          OnAcceptFileName = eConfigFileAcceptFileName
+          DialogOptions = [ofNoChangeDir]
+          FilterIndex = 0
+          HideDirectories = False
+          ButtonWidth = 23
+          NumGlyphs = 0
+          Flat = True
+          Anchors = [akTop, akLeft, akRight]
+          MaxLength = 0
+          TabOrder = 0
+          OnEditingDone = eConfigFileEditingDone
+        end
+      end
+      object gbWorkingFolder: TGroupBox
+        Left = 0
+        Height = 105
+        Top = 208
+        Width = 462
+        Align = alBottom
+        Caption = 'Working folder'
+        ClientHeight = 87
+        ClientWidth = 458
+        TabOrder = 1
+        object rgWorkingFolder: TRadioGroup
+          Left = 0
+          Height = 64
+          Top = 0
+          Width = 458
+          Align = alTop
+          AutoFill = True
+          AutoSize = True
+          Caption = 'Change to folder'
+          ChildSizing.LeftRightSpacing = 6
+          ChildSizing.TopBottomSpacing = 6
+          ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+          ChildSizing.EnlargeVertical = crsHomogenousChildResize
+          ChildSizing.ShrinkHorizontal = crsScaleChilds
+          ChildSizing.ShrinkVertical = crsScaleChilds
+          ChildSizing.Layout = cclLeftToRightThenTopToBottom
+          ChildSizing.ControlsPerLine = 2
+          ClientHeight = 46
+          ClientWidth = 454
+          Columns = 2
+          ItemIndex = 0
+          Items.Strings = (
+            'Emulator folder'
+            'Game folder'
+            'Current folder (Emuteca folder)'
+            'Custom folder'
+          )
+          OnClick = rgWorkingFolderClick
+          TabOrder = 0
+        end
+        object eWorkingFolder: TDirectoryEdit
+          Left = 0
+          Height = 21
+          Top = 64
+          Width = 435
+          OnAcceptDirectory = eWorkingFolderAcceptDirectory
+          ShowHidden = False
+          ButtonWidth = 23
+          NumGlyphs = 0
+          Flat = True
+          Anchors = [akTop, akLeft, akRight]
+          Enabled = False
+          MaxLength = 0
+          TabOrder = 1
+          OnEditingDone = eWorkingFolderEditingDone
+        end
+      end
+      object gbProgram: TGroupBox
+        Left = 0
+        Height = 208
+        Top = 0
+        Width = 462
+        Align = alClient
+        Caption = 'Program'
+        ClientHeight = 190
+        ClientWidth = 458
+        TabOrder = 0
+        object lExecutable: TLabel
+          Left = 0
+          Height = 14
+          Top = 0
+          Width = 458
+          Align = alTop
+          Alignment = taCenter
+          Caption = 'Executable'
+          ParentColor = False
+        end
+        object eExecutable: TFileNameEdit
+          Left = 0
+          Height = 21
+          Top = 14
+          Width = 435
+          OnAcceptFileName = eExecutableAcceptFileName
+          DialogOptions = [ofNoChangeDir]
+          FilterIndex = 0
+          HideDirectories = False
+          ButtonWidth = 23
+          NumGlyphs = 0
+          Flat = True
+          MaxLength = 0
+          TabOrder = 0
+          OnEditingDone = eExecutableEditingDone
+        end
+        object lParameters: TLabel
+          Left = 0
+          Height = 14
+          Top = 35
+          Width = 458
+          Align = alBottom
+          Alignment = taCenter
+          Caption = 'Parameters'
+          ParentColor = False
+        end
+        object eParameters: TEdit
+          Left = 0
+          Height = 21
+          Top = 49
+          Width = 458
+          Align = alBottom
+          OnEditingDone = eParametersEditingDone
+          TabOrder = 1
+        end
+        object mParametersHelp: TMemo
+          Left = 0
+          Height = 120
+          Top = 70
+          Width = 458
+          Align = alBottom
+          Font.CharSet = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Courier New'
+          Font.Pitch = fpFixed
+          Font.Quality = fqDraft
+          Lines.Strings = (
+            '%ROM% ---------- Folder/Name.Ext'
+            '%ROMDIR% ------- Folder'
+            '%ROMNAME% ------ Name.Ext'
+            '%ROMNAMENOEXT% - Name'
+            '%ROMEXT% ------ Ext'
+            '-------'
+            '%_% -> No pasar parámetros'
+          )
+          ParentFont = False
+          ReadOnly = True
+          TabOrder = 2
+        end
+      end
+    end
+    object pagAdvanced: TTabSheet
+      Caption = 'Advanced'
+      ClientHeight = 368
+      ClientWidth = 462
+      object gbxAdvanced: TGroupBox
+        Left = 0
+        Height = 368
+        Top = 0
+        Width = 130
+        Align = alLeft
+        Caption = 'Advanced config'
+        ClientHeight = 350
+        ClientWidth = 126
+        TabOrder = 0
+        object lExitCode: TLabel
+          Left = 0
+          Height = 14
+          Top = 0
+          Width = 126
+          Align = alTop
+          Alignment = taCenter
+          Caption = 'No problem exit code'
+          ParentColor = False
+        end
+        object eExitCode: TSpinEdit
+          Left = 0
+          Height = 21
+          Top = 14
+          Width = 126
+          Align = alTop
+          MaxValue = 65000
+          OnEditingDone = eExitCodeEditingDone
+          TabOrder = 0
+        end
+      end
+    end
+  end
+  object ilActions: TImageList
+    left = 44
+    top = 116
+  end
+  object ActionList: TActionList
+    Images = ilActions
+    left = 100
+    top = 116
+    object actAddEmulator: TAction
+      Category = 'EmulatorList'
+      Caption = 'Add emulator...'
+      OnExecute = actAddEmulatorExecute
+    end
+    object actRemoveEmulator: TAction
+      Category = 'EmulatorList'
+      Caption = 'Remove emulator'
+      OnExecute = actRemoveEmulatorExecute
+    end
+    object actExportEmulators: TAction
+      Category = 'EmulatorList'
+      Caption = 'Export emulator list'
+      OnExecute = actExportEmulatorsExecute
+    end
+    object actImportEmulators: TAction
+      Category = 'EmulatorList'
+      Caption = 'Import emulator list'
+      OnExecute = actImportEmulatorsExecute
+    end
+  end
+  object SaveDialog: TSaveDialog
+    Options = [ofNoChangeDir, ofEnableSizing, ofViewDetail]
+    left = 136
+    top = 392
+  end
+  object OpenDialog: TOpenDialog
+    Options = [ofNoChangeDir, ofFileMustExist, ofEnableSizing, ofViewDetail]
+    left = 72
+    top = 392
+  end
+end

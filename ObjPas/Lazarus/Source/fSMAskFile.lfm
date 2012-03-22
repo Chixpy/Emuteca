@@ -1,0 +1,82 @@
+﻿object frmSMAskFile: TfrmSMAskFile
+  Left = 261
+  Height = 65
+  Top = 126
+  Width = 400
+  Caption = 'Select a file'
+  ClientHeight = 65
+  ClientWidth = 400
+  Position = poMainFormCenter
+  LCLVersion = '0.9.31'
+  object pFilename: TPanel
+    Left = 0
+    Height = 21
+    Top = 14
+    Width = 400
+    Align = alTop
+    AutoSize = True
+    BevelOuter = bvNone
+    ClientHeight = 21
+    ClientWidth = 400
+    TabOrder = 0
+    object eFileName: TFileNameEdit
+      Left = 0
+      Height = 21
+      Top = 0
+      Width = 377
+      DialogOptions = [ofNoChangeDir]
+      FilterIndex = 0
+      HideDirectories = False
+      ButtonWidth = 23
+      NumGlyphs = 0
+      Flat = True
+      Anchors = [akTop, akLeft, akRight]
+      MaxLength = 0
+      TabOrder = 0
+    end
+  end
+  object lTitle: TLabel
+    Left = 0
+    Height = 14
+    Top = 0
+    Width = 400
+    Align = alTop
+    Caption = 'Select a file:'
+    ParentColor = False
+  end
+  object pButtons: TPanel
+    Left = 0
+    Height = 30
+    Top = 35
+    Width = 400
+    Align = alTop
+    BevelOuter = bvNone
+    ClientHeight = 30
+    ClientWidth = 400
+    TabOrder = 1
+    object bCancel: TBitBtn
+      Left = 0
+      Height = 30
+      Top = 0
+      Width = 75
+      Align = alLeft
+      Cancel = True
+      Caption = 'Cancelar'
+      Kind = bkCancel
+      ModalResult = 2
+      TabOrder = 0
+    end
+    object bAccept: TBitBtn
+      Left = 325
+      Height = 30
+      Top = 0
+      Width = 75
+      Align = alRight
+      Caption = 'Aceptar'
+      Default = True
+      Kind = bkOK
+      ModalResult = 1
+      TabOrder = 1
+    end
+  end
+end

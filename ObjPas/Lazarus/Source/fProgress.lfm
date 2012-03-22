@@ -1,0 +1,64 @@
+﻿object frmProgress: TfrmProgress
+  Left = 617
+  Height = 123
+  Top = 276
+  Width = 500
+  BorderIcons = []
+  BorderStyle = bsDialog
+  Caption = 'Please wait...'
+  ClientHeight = 123
+  ClientWidth = 500
+  FormStyle = fsStayOnTop
+  OnCreate = FormCreate
+  Position = poMainFormCenter
+  LCLVersion = '0.9.31'
+  Visible = True
+  object lAction: TLabel
+    Left = 0
+    Height = 14
+    Top = 0
+    Width = 500
+    Align = alTop
+    AutoSize = False
+    ParentColor = False
+  end
+  object lInfo1: TLabel
+    Left = 0
+    Height = 14
+    Top = 14
+    Width = 500
+    Align = alTop
+    AutoSize = False
+    ParentColor = False
+  end
+  object lInfo2: TLabel
+    Left = 0
+    Height = 14
+    Top = 28
+    Width = 500
+    Align = alTop
+    AutoSize = False
+    ParentColor = False
+  end
+  object ProgressBar: TProgressBar
+    Left = 5
+    Height = 44
+    Top = 47
+    Width = 490
+    Align = alClient
+    BorderSpacing.Around = 5
+    Step = 1
+    TabOrder = 0
+    BarShowText = True
+  end
+  object bCancel: TBitBtn
+    Left = 0
+    Height = 27
+    Top = 96
+    Width = 500
+    Align = alBottom
+    Caption = 'Cancel'
+    OnClick = bCancelClick
+    TabOrder = 1
+  end
+end

@@ -1,0 +1,113 @@
+﻿# ¡INCOMPLETE! data for merging Atari 2600
+#   Based on Good2600.xmdb, Good2600 3.14 and TOSEC 2011-11-11 flags
+# Format: 
+#   aSearch==>aGroup -> Files that begin with aSearch assigned to aGroup
+#   *aSearch==>aGroup -> Files with aSearch (at any position) assigned to aGroup
+# Upper rules have precedence.
+
+# Special
+# -------
+*(PD)==>!Public Domain
+
+# Hacks
+# -----
+# Hacks from TOSEC tags
+*[A-Team==>A-Team
+*[Adventure]==>Adventure
+*[Air Raiders]==>Air Raiders
+*[Alien]==>Alien
+*[Amidar]==>Amidar
+*[Asteroids]==>Asteroids
+*[Astro War]==>Astro War
+*[Astroblast]==>Astroblast
+*[Atlantis]==>Atlantis
+*[Battlezone]==>Battlezone
+*[Beany Bopper]==>Beany Bopper
+*[Berzerk]==>Berzerk
+*[Boing!]==>Boing!
+*[Bowling]==>Bowling
+*[Bump 'n' Jump]==>Bump 'n' Jump
+*[Carnival]==>Carnival
+*[Combat]==>Combat
+*[Dodge 'Em]==>Dodge 'Em
+*[Donkey Kong]==>Donkey Kong
+*[Dukes of Hazzard]==>Dukes of Hazzard
+*[Fantastic Voyage]==>Fantastic Voyage
+*[Freeway]==>Freeway
+*[Galaxian]==>Galaxian
+*[Gremlins]==>Gremlins
+*[Haunted House]==>Haunted House
+*[Home Run]==>Home Run
+*[Human Cannonball==>Human Cannonball
+*[Infiltrate]==>Infiltrate
+*[Journey Escape]==>Journey Escape
+*[King Kong]==>King Kong
+*[Lost Luggage]==>Lost Luggage
+*[Midnight Magic]==>Midnight Magic
+*[Outlaw]==>Outlaw
+*[Paris Attack]==>Paris Attack
+*[Pepsi Invaders]==>Pepsi Invaders
+*[Pitfall!]==>Pitfall!
+*[Pitfall]==>Pitfall!
+*[Planet Patrol]==>Planet Patrol
+*[River Raid]==>River Raid
+*[Room of Doom]==>Room of Doom
+*[Sadistroids]==>Sadistroids
+*[Space Cavern]==>Space Cavern
+*[Space Invaders Arcade]==>Space Invaders Arcade
+*[Space Invaders]==>Space Invaders
+*[Space Robot]==>Space Robot
+*[Star Trek - Strategic Operations Simulator]==>Star Trek: Strategic Operations Simulator
+*[Targ]==>Targ
+*[Taz]==>Taz
+*[Tennis]==>Tennis
+*[Thunderground]==>Thunderground
+*[Video Pinball]==>Video Pinball
+*[Yars' Revenge]==>Yars' Revenge
+*[Kaboom!==>Kaboom!
+*[Pac-Man]==>Pac-Man
+*[Kangaroo==>Kangaroo
+*[Centipede]==>Centipede
+*[Missile Command]==>Missile Command
+*[Pele's Soccer]==>Pele's Soccer
+*[Space Jockey]==>Space Jockey
+*[Ms. Pac-Man]==>Ms. Pac-Man
+*[Demon Attack]==>Demon Attack
+*[Custer's Revenge]==>Custer's Revenge
+*[Bi! Bi!]==>Bi! Bi!
+*[Worm War I]==>Worm War I
+*[Defender]==>Defender
+
+# Hacks from GoodXXX tags 
+
+
+# Pirates and unlicensed
+
+
+# Disambiguations
+# ---------------
+2 Pak Special (Black)==>2 Pak Special <Black>: Challenge & Surfing
+2 Pak Special Black==>2 Pak Special <Black>: Challenge & Surfing
+2 Pak Special (Blue)==>2 Pak Special <Blue>: Dungeon Master & Creature Strike
+2 Pak Special Blue==>2 Pak Special <Blue>: Dungeon Master & Creature Strike
+2 Pak Special (Dark Blue)==>2 Pak Special <Dark Blue>: Wall Defender & Planet Patrol
+2 Pak Special Dark Blue==>2 Pak Special <Dark Blue>: Wall Defender & Planet Patrol
+2 Pak Special (Green)==>2 Pak Special <Green>: Dolphin & Pigs 'N Wolf
+2 Pak Special Green==>2 Pak Special <Green>: Dolphin & Pigs 'N Wolf
+2 Pak Special (Light Green)==>2 Pak Special <Light Green>: Hoppy & Alien Force
+2 Pak Special Light Green==>2 Pak Special <Light Green>: Hoppy & Alien Force
+2 Pak Special (Magenta)==>2 Pak Special <Magenta>: Cavern Blaster & City War
+2 Pak Special Magenta==>2 Pak Special <Magenta>: Cavern Blaster & City War
+2 Pak Special (Orange)==>2 Pak Special <Orange>: Space Voyage & Fire Alert
+2 Pak Special Orange==>2 Pak Special <Orange>: Space Voyage & Fire Alert
+2 Pak Special (Red)==>2 Pak Special <Red>: Motocross & Boom Bang
+2 Pak Special Red==>2 Pak Special <Red>: Motocross & Boom Bang
+2 Pak Special (Yellow)==>2 Pak Special <Yellow>: Star Warrior & Frogger
+2 Pak Special Yellow==>2 Pak Special <Yellow>: Star Warrior & Frogger
+
+
+# Zone names and some aliases
+# ---------------------------
+
+# Alternate names
+# ---------------

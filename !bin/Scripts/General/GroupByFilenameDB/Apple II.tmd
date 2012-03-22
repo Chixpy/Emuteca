@@ -1,0 +1,33 @@
+﻿# ¡INCOMPLETE! data for merging Apple II
+# Format: 
+#   aSearch==>aGroup -> Files that begin with aSearch assigned to aGroup
+#   *aSearch==>aGroup -> Files with aSearch (at any position) assigned to aGroup
+# Upper rules have precedence.
+
+# Eamon Adventures
+Eamon 0==>Eamon Adventures
+Eamon 1==>Eamon Adventures
+Eamon 2==>Eamon Adventures
+Eamon0==>Eamon Adventures
+Eamon1==>Eamon Adventures
+Eamon2==>Eamon Adventures
+
+Ali Baba and The Forty Thieves==>Ali Baba & The Forty Thieves
+
+# Compilations
+Apple II Compilation ==>Apple II Compilation
+
+# Rewording
+Space Quest 1==>Space Quest I
+Space Quest II==>Space Quest II
+Spy vs Spy 3==>Spy vs. Spy 3: Artic Antics
+Spy vs Spy==>Spy vs. Spy
+King's Quest 1==>King's Quest
+King's Quest 2==>King's Quest II: Romancing the Throne
+King's Quest 3==>King's Quest III
+King's Quest 4==>King's Quest IV
+King Quest IV==>King's Quest IV
+King Quest III==>King's Quest III
+Kings' Quest II==>King's Quest II: Romancing the Throne
+King Quest II==>King's Quest II: Romancing the Throne
+King Quest==>King's Quest

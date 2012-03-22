@@ -1,0 +1,509 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<meta name="GENERATOR" content="PasDoc 0.12.1">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<title>Emuteca: uGame: Class cGame</title>
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#800080" alink="#FF0000">
+<a name="cGame"></a><h1 class="cio">Class cGame</h1>
+<table class="sections wide_list">
+<tr>
+<td><a class="section"  href="#%40Description">Description</a></td><td><a class="section"  href="#%40Hierarchy">Hierarchy</a></td><td>Fields</td><td><a class="section"  href="#%40Methods">Methods</a></td><td><a class="section"  href="#%40Properties">Properties</a></td></tr></table>
+<a name="%40Description"></a><h2 class="unit">Unit</h2>
+<p class="unitlink">
+<a   href="uGame.html">uGame</a></p>
+<h2 class="declaration">Declaration</h2>
+<p class="declaration">
+<code>type cGame = class(<a class="normal"  href="uGameStats.cGameStats.html">cGameStats</a>)</code></p>
+<h2 class="description">Description</h2>
+<p>
+<code>cGame</code>.
+
+<p></p>
+
+<dl class="paragraph_spacing">
+  <dt>NOTE:</dt>
+  <dd><p>Because PascalScript don't suport overloaded methods, we don't use them right here.</p></dd>
+</dl>
+
+<p></p>
+<a name="%40Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
+<ul class="hierarchy"><li class="ancestor">TObject</li>
+<li class="ancestor"><a class="normal"  href="uGameStats.cGameStats.html">cGameStats</a></li>
+<li class="thisitem">cGame</li></ul><h2 class="overview">Overview</h2>
+<a name="%40Methods"></a><h3 class="summary">Methods</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>constructor <b><a   href="uGame.cGame.html#Create">Create</a></b>(const aFolder: UTF8String; const aFileName: UTF8String; const aKey: UTF8String);</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>destructor <b><a   href="uGame.cGame.html#Destroy">Destroy</a></b>; override;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="uGame.cGame.html#ExportData">ExportData</a></b>(aFilename: UTF8String; ExportMode: boolean);</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="uGame.cGame.html#ExportDataIni">ExportDataIni</a></b>(aIniFile: TCustomIniFile; ExportMode: boolean);</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="uGame.cGame.html#ImportData">ImportData</a></b>(aFilename: UTF8String);</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="uGame.cGame.html#ImportDataIni">ImportDataIni</a></b>(aIniFile: TCustomIniFile);</code></td>
+</tr>
+</table>
+<a name="%40Properties"></a><h3 class="summary">Properties</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="uGame.cGame.html#Alternate">Alternate</a></b>: UTF8String read FAlternate write SetAlternate;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="uGame.cGame.html#BadDump">BadDump</a></b>: UTF8String read FBadDump write SetBadDump;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="uGame.cGame.html#Cracked">Cracked</a></b>: UTF8String read FCracked write SetCracked;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="uGame.cGame.html#DataString">DataString</a></b>: UTF8String read GetDataString write SetDataString;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="uGame.cGame.html#FileName">FileName</a></b>: UTF8String read FFileName write SetFileName;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="uGame.cGame.html#Fixed">Fixed</a></b>: UTF8String read FFixed write SetFixed;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="uGame.cGame.html#Folder">Folder</a></b>: UTF8String read FFolder write SetFolder;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="uGame.cGame.html#GameGroup">GameGroup</a></b>: UTF8String read FGameGroup write SetGameGroup;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="uGame.cGame.html#Hack">Hack</a></b>: UTF8String read FHack write SetHack;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="uGame.cGame.html#Key">Key</a></b>: UTF8String read FKey write SetKey;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="uGame.cGame.html#Languages">Languages</a></b>: TStringListUTF8 read FLanguages;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="uGame.cGame.html#License">License</a></b>: UTF8String read FLicense write SetLicense;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="uGame.cGame.html#Modified">Modified</a></b>: UTF8String read FModified write SetModified;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="uGame.cGame.html#Name">Name</a></b>: UTF8String read FName write SetName;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="uGame.cGame.html#Pirate">Pirate</a></b>: UTF8String read FPirate write SetPirate;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="uGame.cGame.html#Publisher">Publisher</a></b>: UTF8String read FPublisher write SetPublisher;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="uGame.cGame.html#ReleaseType">ReleaseType</a></b>: UTF8String read FReleaseType write SetReleaseType;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="uGame.cGame.html#SortKey">SortKey</a></b>: UTF8String read FSortKey write SetSortKey;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="uGame.cGame.html#Tags">Tags</a></b>: TStringListUTF8 read FTags;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="uGame.cGame.html#Trainer">Trainer</a></b>: UTF8String read FTrainer write SetTrainer;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="uGame.cGame.html#Translation">Translation</a></b>: UTF8String read FTranslation write SetTranslation;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="uGame.cGame.html#Verified">Verified</a></b>: boolean read FVerified write SetVerified;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="uGame.cGame.html#Version">Version</a></b>: UTF8String read FVersion write SetVersion;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="uGame.cGame.html#Year">Year</a></b>: UTF8String read FYear write SetYear;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="uGame.cGame.html#Zones">Zones</a></b>: TStringListUTF8 read FZones;</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Methods</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Create"></a><code>constructor <b>Create</b>(const aFolder: UTF8String; const aFileName: UTF8String; const aKey: UTF8String);</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Destroy"></a><code>destructor <b>Destroy</b>; override;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="ExportData"></a><code>procedure <b>ExportData</b>(aFilename: UTF8String; ExportMode: boolean);</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="ExportDataIni"></a><code>procedure <b>ExportDataIni</b>(aIniFile: TCustomIniFile; ExportMode: boolean);</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="ImportData"></a><code>procedure <b>ImportData</b>(aFilename: UTF8String);</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="ImportDataIni"></a><code>procedure <b>ImportDataIni</b>(aIniFile: TCustomIniFile);</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<h3 class="detail">Properties</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Alternate"></a><code>property <b>Alternate</b>: UTF8String read FAlternate write SetAlternate;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+<code>Alternate</code> dump.
+
+<p>Usually have an ID number, but its better to have the main difference.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="BadDump"></a><code>property <b>BadDump</b>: UTF8String read FBadDump write SetBadDump;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Bad dump, underdump or overdump.
+
+<p></p>
+
+<dl class="paragraph_spacing">
+  <dt>Bad dumps</dt>
+  <dd><p>ID number or problem.</p></dd>
+  <dt>Underdump</dt>
+  <dd><p>'-' + ID number or problem.</p></dd>
+  <dt>Overdump</dt>
+  <dd><p>'+' + ID number or problem.</p></dd>
+</dl>
+
+<p></p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Cracked"></a><code>property <b>Cracked</b>: UTF8String read FCracked write SetCracked;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The has been <a class="normal"  href="uGame.cGame.html#Modified">modified</a> for breaking some segurity check.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="DataString"></a><code>property <b>DataString</b>: UTF8String read GetDataString write SetDataString;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="FileName"></a><code>property <b>FileName</b>: UTF8String read FFileName write SetFileName;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Actual file of then game.
+
+<p>If the game have many files, it's the file used as reference.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Fixed"></a><code>property <b>Fixed</b>: UTF8String read FFixed write SetFixed;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The game has been <code>fixed</code> for make it to work.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Folder"></a><code>property <b>Folder</b>: UTF8String read FFolder write SetFolder;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+<code>Folder</code> or compressed file where the game is.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="GameGroup"></a><code>property <b>GameGroup</b>: UTF8String read FGameGroup write SetGameGroup;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+<code>Gamegroup</code> <a class="normal"  href="uGame.cGame.html#Key">key</a>.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Hack"></a><code>property <b>Hack</b>: UTF8String read FHack write SetHack;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The game is <a class="normal"  href="uGame.cGame.html#Modified">modified</a> for changing something (intros, sprites).</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Key"></a><code>property <b>Key</b>: UTF8String read FKey write SetKey;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+<code>Key</code> used to identify data (CRC32, Keyname, etc).
+
+<p>It's system dependant. Some systems will use CRC32 (maybe in the future SHA1 or MD5 will be used), other ones have a common <code>key</code> as reference (arcade = MAME <code>key</code>).</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Languages"></a><code>property <b>Languages</b>: TStringListUTF8 read FLanguages;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+<code>Languages</code> of the game.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="License"></a><code>property <b>License</b>: UTF8String read FLicense write SetLicense;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Original <code>license</code>.
+
+<p>Empty means a commercial one, but better if it's stored.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Modified"></a><code>property <b>Modified</b>: UTF8String read FModified write SetModified;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The game is <code>modified</code> by use (hiscores or saves).</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Name"></a><code>property <b>Name</b>: UTF8String read FName write SetName;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Original title of the game <a class="normal"  href="uGame.cGame.html#Version">version</a>.
+
+<p>Ideally it will contain cyrilic, korean and other fancy characters. Until someone make a database with original names it will contain transliterated names.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Pirate"></a><code>property <b>Pirate</b>: UTF8String read FPirate write SetPirate;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The game was released physically breaking some IP laws.
+
+<p>This is for not licensed copies of the games, mainly in China, Korea, etc.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Publisher"></a><code>property <b>Publisher</b>: UTF8String read FPublisher write SetPublisher;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+<code>Publisher</code> company.
+
+<p>Don't confuse with developer.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="ReleaseType"></a><code>property <b>ReleaseType</b>: UTF8String read FReleaseType write SetReleaseType;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Type of release (prototype, demo, etc).</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="SortKey"></a><code>property <b>SortKey</b>: UTF8String read FSortKey write SetSortKey;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Title formated for sorting purposes.
+
+<p>It contains the <a class="normal"  href="uGame.cGame.html#Name">name</a> for sorting: </p>
+
+<ul class="paragraph_spacing">
+  <li><p>Articles <i>The</i> or <i>A</i> at the end of the <a class="normal"  href="uGame.cGame.html#Name">name</a>. &quot;<i>The Emuteca collection</i>&quot; -&gt; &quot;<i>Emuteca collection, The</i>&quot;. If title is in another language, its rules will be used.</p></li>
+  <li><p>The fancy characters will be trasliterated to latin ones. Obviusly, if original <a class="normal"  href="uGame.cGame.html#Name">name</a> is a trasliteration from words in latin, original words will be used. As example: Final Fantasy in Japanese is <i>ファイナルファンタジー</i>, trasliteration is <i>Fainaru Fantajī</i> but here will be <i>Final Fantasy</i>.</p></li>
+</ul>
+
+<p></p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Tags"></a><code>property <b>Tags</b>: TStringListUTF8 read FTags;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+<code>Tags</code> for grouping games.
+
+<p>Format: Generic/Especific (Players/1 player; Series/Batman; Genre/Shot'm up; Perspective/2.5D; Location/Europe/Spain)</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Trainer"></a><code>property <b>Trainer</b>: UTF8String read FTrainer write SetTrainer;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The game has been <a class="normal"  href="uGame.cGame.html#Modified">modified</a> to add cheats.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Translation"></a><code>property <b>Translation</b>: UTF8String read FTranslation write SetTranslation;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The game is fan-traslated.
+
+<p>Lenguage of traslatration.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Verified"></a><code>property <b>Verified</b>: boolean read FVerified write SetVerified;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+<code>Verified</code> good dump.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Version"></a><code>property <b>Version</b>: UTF8String read FVersion write SetVersion;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+<code>Version</code>, revision or update of the game.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Year"></a><code>property <b>Year</b>: UTF8String read FYear write SetYear;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Date of the release (no development one).
+
+<p>Format: YYYY-MM-DD</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Zones"></a><code>property <b>Zones</b>: TStringListUTF8 read FZones;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+<code>Zones</code>.</p>
+</td></tr>
+</table>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.12.1</a> on 2011-12-27 19:40:25</em>
+</span>
+</body></html>

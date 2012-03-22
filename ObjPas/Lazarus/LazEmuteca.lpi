@@ -1,0 +1,355 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <ProjectOptions>
+    <Version Value="9"/>
+    <General>
+      <SessionStorage Value="InProjectDir"/>
+      <MainUnit Value="0"/>
+      <AutoCreateForms Value="False"/>
+      <Title Value="Emuteca"/>
+      <UseXPManifest Value="True"/>
+      <Icon Value="0"/>
+    </General>
+    <VersionInfo>
+      <UseVersionInfo Value="True"/>
+      <AutoIncrementBuild Value="True"/>
+      <MinorVersionNr Value="7"/>
+      <BuildNr Value="53"/>
+      <Language Value=""/>
+      <StringTable LegalCopyright="(C) 2006-2011 Chixpy" ProductVersion="0.7" FileDescription="Emuteca Emulator Front-End" OriginalFilename="LazEmuteca.exe"/>
+    </VersionInfo>
+    <BuildModes Count="2">
+      <Item1 Name="Debug" Default="True"/>
+      <Item2 Name="Release">
+        <CompilerOptions>
+          <Version Value="11"/>
+          <PathDelim Value="\"/>
+          <Target>
+            <Filename Value="..\..\!bin\LazEmuteca"/>
+          </Target>
+          <SearchPaths>
+            <IncludeFiles Value="$(ProjOutDir);..\Common\JEDI\include"/>
+            <OtherUnitFiles Value="..\Common;..\Common\JEDI\common;..\Common\JEDI\windows;source"/>
+            <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+          </SearchPaths>
+          <CodeGeneration>
+            <Checks>
+              <IOChecks Value="True"/>
+              <RangeChecks Value="True"/>
+              <OverflowChecks Value="True"/>
+              <StackChecks Value="True"/>
+            </Checks>
+            <Optimizations>
+              <OptimizationLevel Value="3"/>
+            </Optimizations>
+          </CodeGeneration>
+          <Linking>
+            <Debugging>
+              <GenerateDebugInfo Value="False"/>
+            </Debugging>
+            <Options>
+              <Win32>
+                <GraphicApplication Value="True"/>
+              </Win32>
+            </Options>
+          </Linking>
+          <Other>
+            <Verbosity>
+              <ShowSummary Value="True"/>
+            </Verbosity>
+            <CompilerMessages>
+              <UseMsgFile Value="True"/>
+            </CompilerMessages>
+            <CompilerPath Value="$(CompPath)"/>
+          </Other>
+        </CompilerOptions>
+      </Item2>
+    </BuildModes>
+    <PublishOptions>
+      <Version Value="2"/>
+      <IgnoreBinaries Value="False"/>
+      <IncludeFileFilter Value="*.(pas|pp|inc|lfm|lpr|lrs|lpi|lpk|sh|xml)"/>
+      <ExcludeFileFilter Value="*.(bak|ppu|ppw|o|so);*~;backup"/>
+    </PublishOptions>
+    <RunParams>
+      <local>
+        <FormatVersion Value="1"/>
+        <LaunchingApplication PathPlusParams="/usr/X11R6/bin/xterm -T 'Lazarus Run Output' -e $(LazarusDir)/tools/runwait.sh $(TargetCmdLine)"/>
+      </local>
+    </RunParams>
+    <RequiredPackages Count="7">
+      <Item1>
+        <PackageName Value="IDEIntf"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="pl_jujiboutils"/>
+      </Item2>
+      <Item3>
+        <PackageName Value="pl_pascalscript"/>
+      </Item3>
+      <Item4>
+        <PackageName Value="pl_virtualtrees"/>
+      </Item4>
+      <Item5>
+        <PackageName Value="SynEdit"/>
+        <MinVersion Major="1" Valid="True"/>
+      </Item5>
+      <Item6>
+        <PackageName Value="LazControls"/>
+        <MinVersion Valid="True"/>
+      </Item6>
+      <Item7>
+        <PackageName Value="LCL"/>
+      </Item7>
+    </RequiredPackages>
+    <Units Count="35">
+      <Unit0>
+        <Filename Value="LazEmuteca.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="LazEmuteca"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="Source/fGameManager.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmGameManager"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="fGameManager"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="../Common/uGameManager.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uGameManager"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="../Common/uConfig.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uConfig"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="../Common/uTranslator.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uTranslator"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="../Common/uSystem.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uSystem"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="../Common/uCustomUtils.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uCustomUtils"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="Source/fSystemManager.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmSystemManager"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="fSystemManager"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="../Common/uGame.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uGame"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="../Common/uSystemManager.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uSystemManager"/>
+      </Unit9>
+      <Unit10>
+        <Filename Value="../Common/uEmulatorManager.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uEmulatorManager"/>
+      </Unit10>
+      <Unit11>
+        <Filename Value="../Common/uEmulator.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uEmulator"/>
+      </Unit11>
+      <Unit12>
+        <Filename Value="../Common/uImageList.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uImageList"/>
+      </Unit12>
+      <Unit13>
+        <Filename Value="Source/fEmulatorManager.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmEmulatorManager"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="fEmulatorManager"/>
+      </Unit13>
+      <Unit14>
+        <Filename Value="Source/fMediaManager.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmMediaManager"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="fMediaManager"/>
+      </Unit14>
+      <Unit15>
+        <Filename Value="../Common/uGameGroup.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uGameGroup"/>
+      </Unit15>
+      <Unit16>
+        <Filename Value="Source/fImageViewer.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmImageViewer"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="fImageViewer"/>
+      </Unit16>
+      <Unit17>
+        <Filename Value="Source/fScriptManager.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmScriptManager"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="fScriptManager"/>
+      </Unit17>
+      <Unit18>
+        <Filename Value="Source/fProgress.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmProgress"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="fProgress"/>
+      </Unit18>
+      <Unit19>
+        <Filename Value="../Common/uPSI_uGame.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uPSI_uGame"/>
+      </Unit19>
+      <Unit20>
+        <Filename Value="../Common/uPSI_uGameGroup.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uPSI_uGameGroup"/>
+      </Unit20>
+      <Unit21>
+        <Filename Value="../Common/uPSI_uGameManager.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uPSI_uGameManager"/>
+      </Unit21>
+      <Unit22>
+        <Filename Value="Source/fAbout.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmAbout"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="fAbout"/>
+      </Unit22>
+      <Unit23>
+        <Filename Value="Source/fSMAskFile.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmSMAskFile"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="fSMAskFile"/>
+      </Unit23>
+      <Unit24>
+        <Filename Value="../Common/uGameStats.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uGameStats"/>
+      </Unit24>
+      <Unit25>
+        <Filename Value="../../DevNotes.txt"/>
+        <IsPartOfProject Value="True"/>
+      </Unit25>
+      <Unit26>
+        <Filename Value="../Common/u7zWrapper.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="u7zWrapper"/>
+      </Unit26>
+      <Unit27>
+        <Filename Value="../Common/uVersionSupport.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uVersionSupport"/>
+      </Unit27>
+      <Unit28>
+        <Filename Value="../StyleGuide.txt"/>
+        <IsPartOfProject Value="True"/>
+      </Unit28>
+      <Unit29>
+        <Filename Value="Source/fSMAskFolder.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmSMAskFolder"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="fSMAskFolder"/>
+      </Unit29>
+      <Unit30>
+        <Filename Value="../Common/uPSI_u7zWrapper.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uPSI_u7zWrapper"/>
+      </Unit30>
+      <Unit31>
+        <Filename Value="../Common/uPSI_uSystem.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uPSI_uSystem"/>
+      </Unit31>
+      <Unit32>
+        <Filename Value="../Common/uPSI_uEmulator.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uPSI_uEmulator"/>
+      </Unit32>
+      <Unit33>
+        <Filename Value="../Common/uPSI_uGameStats.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uPSI_uGameStats"/>
+      </Unit33>
+      <Unit34>
+        <Filename Value="Source/fConfigManager.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmConfigManager"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="fConfigManager"/>
+      </Unit34>
+    </Units>
+  </ProjectOptions>
+  <CompilerOptions>
+    <Version Value="11"/>
+    <PathDelim Value="\"/>
+    <Target>
+      <Filename Value="..\..\!bin\LazEmuteca"/>
+    </Target>
+    <SearchPaths>
+      <IncludeFiles Value="$(ProjOutDir)"/>
+      <OtherUnitFiles Value="..\Common;source"/>
+      <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+    </SearchPaths>
+    <CodeGeneration>
+      <Checks>
+        <IOChecks Value="True"/>
+        <RangeChecks Value="True"/>
+        <OverflowChecks Value="True"/>
+        <StackChecks Value="True"/>
+      </Checks>
+    </CodeGeneration>
+    <Linking>
+      <Debugging>
+        <UseHeaptrc Value="True"/>
+      </Debugging>
+      <Options>
+        <Win32>
+          <GraphicApplication Value="True"/>
+        </Win32>
+      </Options>
+    </Linking>
+    <Other>
+      <Verbosity>
+        <ShowSummary Value="True"/>
+      </Verbosity>
+      <CompilerMessages>
+        <UseMsgFile Value="True"/>
+      </CompilerMessages>
+      <CompilerPath Value="$(CompPath)"/>
+    </Other>
+  </CompilerOptions>
+  <Debugging>
+    <Exceptions Count="3">
+      <Item1>
+        <Name Value="EAbort"/>
+      </Item1>
+      <Item2>
+        <Name Value="ECodetoolError"/>
+      </Item2>
+      <Item3>
+        <Name Value="EFOpenError"/>
+      </Item3>
+    </Exceptions>
+  </Debugging>
+</CONFIG>

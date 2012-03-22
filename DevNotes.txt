@@ -1,0 +1,73 @@
+¡¡¡Terminar el FixZoneLang!!!
+
+Para hacer las bases de datos:
+  1. GoodXXX
+  2. GoodMerge
+  3. Emuteca
+    3.1. Load Game list
+    3.2. Script Manager
+      3.2.1. GoodXXXFilenames
+      3.2.2. GroupByFolder
+      3.2.3. ChangeTitleDelimiter
+      3.2.4. MoveArticles
+      3.2.5. FixZoneLang
+    3.3. Export Games Data
+
+  4. Decompress all.
+  5. ClrMAMEPro the files
+  6. Emuteca
+    6.1. Purge Emuteca Data
+    6.2. Load GameList
+    6.3. Script Manager
+      6.3. TOSECFilenames
+      3.2.3. ChangeTitleDelimiter
+      3.2.4. MoveArticles
+      3.2.5. FixZoneLang
+    6.4. Delete previous exported game data
+    6.5. Export Games Data
+
+
+Bugs:
+  * Al usar el gestor de script, este código genera un leak de memoria:
+      aStringList := TStringList.Create
+      aStringList.Free
+    ¿Bug de Pascal Script?
+
+Cosillas:
+  * Las listas de grupos, juegos, emuladores y sistemas son lo mismo
+    Tengo que encontrar una forma de fusionar código...
+  * Usar excepciones...
+  * Script para extraer iconos de los .jar de móvil XD
+  * Cambiar Game -> GameVersion y Group -> GameGroup
+
+General:
+  * Estaría bien hacer añadir ayuda al programa...
+  * Arreglar lo de los códigos de error tras a ejecución de un programa
+    (Es un caos, uGameManager usa el 300, u7zWrapper 257, y no se que
+    otra unidad también usa el 256).
+
+Gestor de juegos:
+  * Rellenar el árbol de otros ficheros.
+
+Gestor de scripts:
+  * Script para extraer la información del MAME y convertirlo a una base de
+    datos.
+  * Añadir más chorradas, como el poder acceder a internet.
+
+En un futuro lejano...
+----------------------
+¿SqLite? Es que tampoco es que haya muchas relaciones,
+si en un futuro reestructuro los grupos...
+
+Ejemplo de dos versiones que comparten un archivo...
+  + Nombre juego
+  |--+ Version 1 del juego
+  |  |--- Fichero1a.dsk
+  |  |--- Fichero2.dsk
+  |
+  |--+ Version 2 del juego
+  |  |--- Fichero1b.dsk
+  |  |--- Fichero2.dsk
+
+
+

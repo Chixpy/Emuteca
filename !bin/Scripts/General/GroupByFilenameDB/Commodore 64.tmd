@@ -1,0 +1,10 @@
+﻿# ¡INCOMPLETE! data for merging Commodore 64
+#   Based on Good2600.xmdb, Good2600 3.14 and TOSEC 2011-11-11 flags
+# Format: 
+#   aSearch==>aGroup -> Files that begin with aSearch assigned to aGroup
+#   *aSearch==>aGroup -> Files with aSearch (at any position) assigned to aGroup
+# Upper rules have precedence.
+
+# Special
+# -------
+*(PD)==>!Public Domain

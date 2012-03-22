@@ -1,0 +1,177 @@
+[c174d802]
+Name=007: The Living Daylights
+SortName=007: The Living Daylights
+Version=
+GameGroup=007; The Living Daylights
+Year=
+Publisher=
+Zones=
+Languages=
+License=
+ReleaseType=
+Tags=
+Verified=0
+Alternate=
+BadDump=
+Fixed=
+Hack=
+Trainer=
+Translation=
+Pirate=
+Cracked=
+Modified=
+
+[00f580b6]
+Name=CP-M Plus
+SortName=CP-M Plus v1.2
+Version=v1.2
+GameGroup=CP-M Plus
+Year=
+Publisher=
+Zones=
+Languages=
+License=
+ReleaseType=
+Tags=
+Verified=0
+Alternate=
+BadDump=
+Fixed=
+Hack=
+Trainer=
+Translation=
+Pirate=
+Cracked=
+Modified=
+
+[67e60c53]
+Name=CP-M Plus
+SortName=CP-M Plus v1.4
+Version=v1.4
+GameGroup=CP-M Plus
+Year=
+Publisher=
+Zones=
+Languages=
+License=
+ReleaseType=
+Tags=
+Verified=0
+Alternate=
+BadDump=
+Fixed=
+Hack=
+Trainer=
+Translation=
+Pirate=
+Cracked=
+Modified=
+
+[eb7eb8c9]
+Name=LocoScript
+SortName=LocoScript v1.11
+Version=v1.11
+GameGroup=LocoScript
+Year=
+Publisher=
+Zones=
+Languages=
+License=
+ReleaseType=
+Tags=
+Verified=0
+Alternate=
+BadDump=
+Fixed=
+Hack=
+Trainer=
+Translation=
+Pirate=
+Cracked=
+Modified=
+
+[842dd97c]
+Name=Match Day 2
+SortName=Match Day 2
+Version=
+GameGroup=Match Day 2
+Year=
+Publisher=
+Zones=
+Languages=
+License=
+ReleaseType=
+Tags=
+Verified=0
+Alternate=
+BadDump=
+Fixed=
+Hack=
+Trainer=
+Translation=
+Pirate=
+Cracked=
+Modified=
+
+[2006c1a2]
+Name=Sky War
+SortName=Sky War
+Version=
+GameGroup=Sky War
+Year=
+Publisher=
+Zones=
+Languages=
+License=
+ReleaseType=
+Tags=
+Verified=0
+Alternate=
+BadDump=
+Fixed=
+Hack=
+Trainer=
+Translation=
+Pirate=
+Cracked=
+Modified=
+
+[Group: 007; the living daylights]
+Name=007: The Living Daylights
+SortName=007: The Living Daylights
+Year=
+Developer=
+Tags=
+MediaFileName=007 - The Living Daylights.(group)
+
+[Group: cp-m plus]
+Name=CP/M Plus
+SortName=CP/M Plus
+Year=
+Developer=
+Tags=
+MediaFileName=CP-M Plus.(group)
+
+[Group: locoscript]
+Name=LocoScript
+SortName=LocoScript
+Year=
+Developer=
+Tags=
+MediaFileName=LocoScript.(group)
+
+[Group: match day 2]
+Name=Match Day 2
+SortName=Match Day 2
+Year=
+Developer=
+Tags=
+MediaFileName=Match Day 2.(group)
+
+[Group: sky war]
+Name=Sky War
+SortName=Sky War
+Year=
+Developer=
+Tags=
+MediaFileName=Sky War.(group)

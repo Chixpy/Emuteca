@@ -1,0 +1,302 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<meta name="GENERATOR" content="PasDoc 0.12.1">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<title>Emuteca: uCustomUtils</title>
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#800080" alink="#FF0000">
+<h1 class="unit">Unit uCustomUtils</h1>
+<table class="sections wide_list">
+<tr>
+<td><a class="section"  href="#%40Description">Description</a></td><td><a class="section"  href="#%40Uses">Uses</a></td><td>Classes, Interfaces, Objects and Records</td><td><a class="section"  href="#%40FuncsProcs">Functions and Procedures</a></td><td><a class="section"  href="#%40Types">Types</a></td><td><a class="section"  href="#%40Constants">Constants</a></td><td>Variables</td></tr></table>
+<a name="%40Description"></a><h2 class="description">Description</h2>
+<p>
+Unit with miscelaneous procedures and functions used in Emuteca</p>
+<a name="%40Uses"></a><h2 class="uses">Uses</h2>
+<ul class="useslist"><li>ActnList</li><li>Classes</li><li>Controls</li><li>crc</li><li>dateutils</li><li>FileUtil</li><li>Forms</li><li>Graphics</li><li>IniFiles</li><li>LazUTF8</li><li>lazutf8classes</li><li>Menus</li><li>strutils</li><li>SysUtils</li></ul><h2 class="overview">Overview</h2>
+<a name="%40FuncsProcs"></a><h3 class="summary">Functions and Procedures</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="itemcode"><code>function <b><a   href="uCustomUtils.html#AddToImageList">AddToImageList</a></b>(aImageList: TImageList; const FileName: UTF8String): Integer;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code>function <b><a   href="uCustomUtils.html#AddToStringList">AddToStringList</a></b>(aList: TStrings; aString: UTF8String): Integer;</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code>function <b><a   href="uCustomUtils.html#CleanFileName">CleanFileName</a></b>(const AFileName: UTF8String): UTF8String;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code>function <b><a   href="uCustomUtils.html#CRC32File">CRC32File</a></b>(const aFileName: UTF8String): Cardinal;</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code>function <b><a   href="uCustomUtils.html#FilesInFolder">FilesInFolder</a></b>(Folder: UTF8String): Integer;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code>function <b><a   href="uCustomUtils.html#IterateFolderFun">IterateFolderFun</a></b>(Folder: UTF8String; aFunction: <a   href="uCustomUtils.html#TItFolderFun">TItFolderFun</a>; Recursive: Boolean = True): Boolean;</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code>function <b><a   href="uCustomUtils.html#IterateFolderObj">IterateFolderObj</a></b>(Folder: UTF8String; aFunction: <a   href="uCustomUtils.html#TItFolderObj">TItFolderObj</a>; Recursive: Boolean = True): Boolean;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code>procedure <b><a   href="uCustomUtils.html#ReadActionsIcons">ReadActionsIcons</a></b>(const aFileName, Section, BaseDir: UTF8String; ImageList: TImageList; ActionList: TCustomActionList);</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code>procedure <b><a   href="uCustomUtils.html#ReadMenuIcons">ReadMenuIcons</a></b>(const aFileName, Section, BaseDir: UTF8String; ImageList: TImageList; Menu: TMenu);</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code>function <b><a   href="uCustomUtils.html#RemoveFromBrackets">RemoveFromBrackets</a></b>(const aFileName: UTF8String): UTF8String;</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code>function <b><a   href="uCustomUtils.html#SecondToFmtStr">SecondToFmtStr</a></b>(aValue: Int64): UTF8String;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code>function <b><a   href="uCustomUtils.html#SetAsFolder">SetAsFolder</a></b>(const aValue: UTF8String): UTF8String;</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code>function <b><a   href="uCustomUtils.html#StrToCardinal">StrToCardinal</a></b>(const aString:UTF8String): Cardinal;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code>function <b><a   href="uCustomUtils.html#StrToCardinalDef">StrToCardinalDef</a></b>(const aString: UTF8String; const Default: Cardinal): Cardinal;</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code>function <b><a   href="uCustomUtils.html#TextSimilarity">TextSimilarity</a></b>(const aString1, aString2: UTF8String): Byte;</code></td>
+</tr>
+</table>
+<a name="%40Types"></a><h3 class="summary">Types</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="itemcode"><code><b><a   href="uCustomUtils.html#TItFolderFun">TItFolderFun</a></b> = function(Folder: UTF8String; Info: TSearchRec): Boolean;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a   href="uCustomUtils.html#TItFolderObj">TItFolderObj</a></b> = function(Folder: UTF8String; Info: TSearchRec): Boolean of object;</code></td>
+</tr>
+</table>
+<a name="%40Constants"></a><h3 class="summary">Constants</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="itemcode"><code><b><a   href="uCustomUtils.html#CHTMLBegin">CHTMLBegin</a></b> = '&lt;html&gt;&lt;body&gt;';</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a   href="uCustomUtils.html#CHTMLEnd">CHTMLEnd</a></b> = '&lt;/body&gt;&lt;/html&gt;';</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a   href="uCustomUtils.html#CUTF8Delimiters">CUTF8Delimiters</a></b>: set of Char = [#0..#127] - ['a'..'z','A'..'Z','1'..'9','0'];</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a   href="uCustomUtils.html#CVirtualFolderExt">CVirtualFolderExt</a></b> = '.(folder)';</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a   href="uCustomUtils.html#CVirtualGameExt">CVirtualGameExt</a></b> = '.(game)';</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a   href="uCustomUtils.html#CVirtualGroupExt">CVirtualGroupExt</a></b> = '.(group)';</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Functions and Procedures</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="AddToImageList"></a><code>function <b>AddToImageList</b>(aImageList: TImageList; const FileName: UTF8String): Integer;</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="AddToStringList"></a><code>function <b>AddToStringList</b>(aList: TStrings; aString: UTF8String): Integer;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Add a String to a StringList.
+
+<p>Don't add repeated strings.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="CleanFileName"></a><code>function <b>CleanFileName</b>(const AFileName: UTF8String): UTF8String;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Change some invalid characters in filenames.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="CRC32File"></a><code>function <b>CRC32File</b>(const aFileName: UTF8String): Cardinal;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Calculate the CRC32 checksum of a file</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="FilesInFolder"></a><code>function <b>FilesInFolder</b>(Folder: UTF8String): Integer;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+TODO 2: Is there a better way?</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="IterateFolderFun"></a><code>function <b>IterateFolderFun</b>(Folder: UTF8String; aFunction: <a   href="uCustomUtils.html#TItFolderFun">TItFolderFun</a>; Recursive: Boolean = True): Boolean;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Recorre el directorio especificado y ejecuta aFuncion(TSearchRec) con cada uno de los archivos encontrados
+
+<p>Parámetros: - Directorio: string -&gt; Directorio a recorrer - Funcion: function(Directorio: string; Info: TSearchRec): Boolean -&gt; Metodo de un objeto al que se le pasa el TSearchRec y el directorio del archivo actual como parámetro para operar con él. Si devuelve True continua con el siguiente fichero. - Recursivo: Boolean -&gt; Indica si también se deben recorrer los subdirectorios - Result: Boolean -&gt; Indica si se ha abortado la operación
+
+<p>Notas: - Si Funcion devuelve True continúa recorriendo el directorio, si devuelve False no pasa al siguiente archivo.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="IterateFolderObj"></a><code>function <b>IterateFolderObj</b>(Folder: UTF8String; aFunction: <a   href="uCustomUtils.html#TItFolderObj">TItFolderObj</a>; Recursive: Boolean = True): Boolean;</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="ReadActionsIcons"></a><code>procedure <b>ReadActionsIcons</b>(const aFileName, Section, BaseDir: UTF8String; ImageList: TImageList; ActionList: TCustomActionList);</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="ReadMenuIcons"></a><code>procedure <b>ReadMenuIcons</b>(const aFileName, Section, BaseDir: UTF8String; ImageList: TImageList; Menu: TMenu);</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="RemoveFromBrackets"></a><code>function <b>RemoveFromBrackets</b>(const aFileName: UTF8String): UTF8String;</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="SecondToFmtStr"></a><code>function <b>SecondToFmtStr</b>(aValue: Int64): UTF8String;</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="SetAsFolder"></a><code>function <b>SetAsFolder</b>(const aValue: UTF8String): UTF8String;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Add PathDelim at the end of string and changes it to '/'
+
+<p>IncludeTrailingPathDelimiter includes the PathDelim even if aValue = ''. This function non't add it in this case, so when testing if it's empty we don't need <code>((aFolder='') or (aFolder=PathDelim))</code>
+
+<p>In the other hand, paths are converted to Linux one as Windows AND MS-DOS (+2.0) recognise without problem</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="StrToCardinal"></a><code>function <b>StrToCardinal</b>(const aString:UTF8String): Cardinal;</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="StrToCardinalDef"></a><code>function <b>StrToCardinalDef</b>(const aString: UTF8String; const Default: Cardinal): Cardinal;</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="TextSimilarity"></a><code>function <b>TextSimilarity</b>(const aString1, aString2: UTF8String): Byte;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Returns the similarity between 2 strings.
+
+<p>Based in <a  target="_parent" href="http://www.catalysoft.com/articles/StrikeAMatch.html">http://www.catalysoft.com/articles/StrikeAMatch.html</a> method tweaked a little.</p>
+</td></tr>
+</table>
+<h3 class="detail">Types</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="TItFolderFun"></a><code><b>TItFolderFun</b> = function(Folder: UTF8String; Info: TSearchRec): Boolean;</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="TItFolderObj"></a><code><b>TItFolderObj</b> = function(Folder: UTF8String; Info: TSearchRec): Boolean of object;</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<h3 class="detail">Constants</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="CHTMLBegin"></a><code><b>CHTMLBegin</b> = '&lt;html&gt;&lt;body&gt;';</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Simple HTML file struct begin</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="CHTMLEnd"></a><code><b>CHTMLEnd</b> = '&lt;/body&gt;&lt;/html&gt;';</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Simple HTML file struct end</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="CUTF8Delimiters"></a><code><b>CUTF8Delimiters</b>: set of Char = [#0..#127] - ['a'..'z','A'..'Z','1'..'9','0'];</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+WordDelimiters except utf8 bit mask (Dirty way &circ;_&circ;)</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="CVirtualFolderExt"></a><code><b>CVirtualFolderExt</b> = '.(folder)';</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Virtual extension used for folders y some contexts</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="CVirtualGameExt"></a><code><b>CVirtualGameExt</b> = '.(game)';</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Virtual extension used for game filenames</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="CVirtualGroupExt"></a><code><b>CVirtualGroupExt</b> = '.(group)';</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Virtual extension used for groups filenames</p>
+</td></tr>
+</table>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.12.1</a> on 2011-12-27 19:40:25</em>
+</span>
+</body></html>
