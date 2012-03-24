@@ -3707,6 +3707,7 @@ var
   aCBX: TComboBox;
 
 begin
+  if odInactive in State then Exit;
   aCBX := TComboBox(Control);
 
   // Icon
