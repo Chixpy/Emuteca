@@ -1067,6 +1067,7 @@ procedure TfrmGameManager.FormCreate(Sender: TObject);
 begin
   Randomize;
   // Always work from program folder :P
+  // TODO 3: Change for Linux... ¬_¬U
   ChDir(ProgramDirectory);
 
   // Standard format setting (for .ini and other conversions)

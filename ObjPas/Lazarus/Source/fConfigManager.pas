@@ -13,6 +13,7 @@ type
   { TfrmConfigManager }
 
   TfrmConfigManager = class(TForm)
+    bMakePathsRelative: TButton;
     e7zPath: TFileNameEdit;
     emPlayerPath: TFileNameEdit;
     gbxImageExt: TGroupBox;
@@ -29,6 +30,7 @@ type
     pcConfig: TPageControl;
     pagExtensions: TTabSheet;
     pagPaths: TTabSheet;
+    procedure bMakePathsRelativeClick(Sender: TObject);
 
   private
     { private declarations }
@@ -47,6 +49,12 @@ var
 implementation
 
 { TfrmConfigManager }
+
+procedure TfrmConfigManager.bMakePathsRelativeClick(Sender: TObject);
+begin
+  e7zPath.Text := ExtractRelativepath(GetCurrentDir,e7zPath.Text);
+  emPlayerPath.Text := ExtractRelativepath(GetCurrentDir,emPlayerPath.Text);
+end;
 
 procedure TfrmConfigManager.SetConfig(AValue: cConfig);
 begin

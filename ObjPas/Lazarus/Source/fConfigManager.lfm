@@ -98,6 +98,16 @@ object frmConfigManager: TfrmConfigManager
           TabOrder = 0
         end
       end
+      object bMakePathsRelative: TButton
+        Left = 92
+        Height = 23
+        Top = 138
+        Width = 120
+        AutoSize = True
+        Caption = 'Make paths relative'
+        OnClick = bMakePathsRelativeClick
+        TabOrder = 2
+      end
     end
     object pagExtensions: TTabSheet
       Caption = 'Extensions'

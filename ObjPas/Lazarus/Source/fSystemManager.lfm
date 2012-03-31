@@ -38,9 +38,9 @@
     Height = 410
     Top = 24
     Width = 470
-    ActivePage = pagMainFolders
+    ActivePage = pagGeneral
     Align = alClient
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 2
     object pagGeneral: TTabSheet
       Caption = 'General'
@@ -56,59 +56,6 @@
         ClientHeight = 366
         ClientWidth = 150
         TabOrder = 1
-        object iSystemImage: TImage
-          Left = 0
-          Height = 150
-          Top = 14
-          Width = 150
-          Align = alTop
-          Center = True
-          Proportional = True
-          Stretch = True
-        end
-        object eSystemImage: TFileNameEdit
-          Left = 0
-          Height = 21
-          Top = 164
-          Width = 127
-          OnAcceptFileName = eSystemImageAcceptFileName
-          DialogKind = dkPictureOpen
-          DialogOptions = [ofNoChangeDir, ofAutoPreview]
-          FilterIndex = 0
-          HideDirectories = False
-          ButtonWidth = 23
-          NumGlyphs = 0
-          Flat = True
-          MaxLength = 0
-          TabOrder = 0
-          OnEditingDone = eSystemImageEditingDone
-        end
-        object iSystemIcon: TImage
-          Left = 44
-          Height = 64
-          Top = 274
-          Width = 64
-          Center = True
-          Proportional = True
-          Stretch = True
-        end
-        object eSystemIcon: TFileNameEdit
-          Left = 0
-          Height = 21
-          Top = 338
-          Width = 127
-          OnAcceptFileName = eSystemIconAcceptFileName
-          DialogKind = dkPictureOpen
-          DialogOptions = [ofNoChangeDir, ofAutoPreview]
-          FilterIndex = 0
-          HideDirectories = False
-          ButtonWidth = 23
-          NumGlyphs = 0
-          Flat = True
-          MaxLength = 0
-          TabOrder = 1
-          OnEditingDone = eSystemIconEditingDone
-        end
         object lSystemImage: TLabel
           Left = 0
           Height = 14
@@ -123,38 +70,155 @@
         object lSystemIcon: TLabel
           Left = 0
           Height = 14
-          Top = 258
+          Top = 232
           Width = 150
+          Align = alBottom
           Alignment = taCenter
           AutoSize = False
           Caption = 'System icon'
           ParentColor = False
         end
-        object lBackgroundImage: TLabel
-          Left = 28
-          Height = 14
-          Top = 194
-          Width = 87
-          Caption = 'BackgroundImage'
-          ParentColor = False
-        end
-        object eBackgroundImage: TFileNameEdit
+        object pSystemImage: TPanel
           Left = 0
           Height = 21
-          Top = 226
-          Width = 127
-          OnAcceptFileName = eBackgroundImageAcceptFileName
-          DialogKind = dkPictureOpen
-          DialogTitle = 'Select a backgroung image'
-          DialogOptions = [ofNoChangeDir, ofAutoPreview]
-          FilterIndex = 0
-          HideDirectories = False
-          ButtonWidth = 23
-          NumGlyphs = 0
-          Flat = True
-          MaxLength = 0
+          Top = 14
+          Width = 150
+          Align = alTop
+          BevelOuter = bvNone
+          ClientHeight = 21
+          ClientWidth = 150
+          TabOrder = 0
+          object eSystemImage: TFileNameEdit
+            Left = 0
+            Height = 21
+            Top = 0
+            Width = 127
+            OnAcceptFileName = eSystemImageAcceptFileName
+            DialogKind = dkPictureOpen
+            DialogOptions = [ofNoChangeDir, ofAutoPreview]
+            FilterIndex = 0
+            HideDirectories = False
+            ButtonWidth = 23
+            NumGlyphs = 0
+            Flat = True
+            Anchors = [akTop, akLeft, akRight]
+            AutoSize = False
+            MaxLength = 0
+            TabOrder = 0
+            OnEditingDone = eSystemImageEditingDone
+          end
+        end
+        object pSystemIcon: TPanel
+          Left = 0
+          Height = 21
+          Top = 246
+          Width = 150
+          Align = alBottom
+          BevelOuter = bvNone
+          ClientHeight = 21
+          ClientWidth = 150
+          TabOrder = 1
+          object eSystemIcon: TFileNameEdit
+            Left = 0
+            Height = 21
+            Top = 0
+            Width = 127
+            OnAcceptFileName = eSystemIconAcceptFileName
+            DialogKind = dkPictureOpen
+            DialogOptions = [ofNoChangeDir, ofAutoPreview]
+            FilterIndex = 0
+            HideDirectories = False
+            ButtonWidth = 23
+            NumGlyphs = 0
+            Flat = True
+            Anchors = [akTop, akLeft, akRight]
+            AutoSize = False
+            MaxLength = 0
+            TabOrder = 0
+            OnEditingDone = eSystemIconEditingDone
+          end
+        end
+        object pSystemBack: TPanel
+          Left = 0
+          Height = 21
+          Top = 281
+          Width = 150
+          Align = alBottom
+          BevelOuter = bvNone
+          ClientHeight = 21
+          ClientWidth = 150
           TabOrder = 2
-          OnEditingDone = eBackgroundImageEditingDone
+          object eBackgroundImage: TFileNameEdit
+            Left = 0
+            Height = 21
+            Top = 0
+            Width = 127
+            OnAcceptFileName = eBackgroundImageAcceptFileName
+            DialogKind = dkPictureOpen
+            DialogTitle = 'Select a backgroung image'
+            DialogOptions = [ofNoChangeDir, ofAutoPreview]
+            FilterIndex = 0
+            HideDirectories = False
+            ButtonWidth = 23
+            NumGlyphs = 0
+            Flat = True
+            Anchors = [akTop, akLeft, akRight]
+            AutoSize = False
+            MaxLength = 0
+            TabOrder = 0
+            OnEditingDone = eBackgroundImageEditingDone
+          end
+        end
+        object pIconBack: TPanel
+          Left = 0
+          Height = 64
+          Top = 302
+          Width = 150
+          Align = alBottom
+          BevelOuter = bvNone
+          ClientHeight = 64
+          ClientWidth = 150
+          TabOrder = 3
+          object iSystemIcon: TImage
+            Left = 0
+            Height = 64
+            Top = 0
+            Width = 64
+            Align = alLeft
+            Center = True
+            Proportional = True
+            Stretch = True
+          end
+          object iBackgroundImage: TImage
+            Left = 86
+            Height = 64
+            Top = 0
+            Width = 64
+            Align = alRight
+            Center = True
+            Proportional = True
+            Stretch = True
+          end
+        end
+        object lBackgroundImage: TLabel
+          Left = 0
+          Height = 14
+          Top = 267
+          Width = 150
+          Align = alBottom
+          Alignment = taCenter
+          Caption = 'Background Image'
+          ParentColor = False
+        end
+        object iSystemImage: TImage
+          Left = 0
+          Height = 150
+          Top = 35
+          Width = 150
+          Align = alTop
+          Center = True
+          Proportional = True
+          Stretch = True
         end
       end
       object pnlMainGeneral: TPanel
@@ -407,15 +471,6 @@
             Caption = 'Extract all files from compressed archives'
             OnEditingDone = chkExtractAllEditingDone
             TabOrder = 2
-          end
-          object iBackgroundImage: TImage
-            Left = 224
-            Height = 64
-            Top = 74
-            Width = 64
-            Center = True
-            Proportional = True
-            Stretch = True
           end
         end
       end

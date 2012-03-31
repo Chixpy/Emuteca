@@ -180,6 +180,7 @@ type
     pEOtherVideoFolder: TPanel;
     pEOtherMusicFolderExecutable: TPanel;
     pEOtherVideoFolderExecutable: TPanel;
+    pIconBack: TPanel;
     pIconFolder: TPanel;
     pImageCaptions: TPanel;
     pImageFolders: TPanel;
@@ -195,6 +196,9 @@ type
     pOtherFilesButtons: TPanel;
     pOtherVideoButtons: TPanel;
     pSpineFolder: TPanel;
+    pSystemBack: TPanel;
+    pSystemIcon: TPanel;
+    pSystemImage: TPanel;
     pTextCaptions: TPanel;
     pTextFolders: TPanel;
     rgbTempFolder: TRadioGroup;
