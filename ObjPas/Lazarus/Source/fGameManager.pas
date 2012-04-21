@@ -886,7 +886,7 @@ procedure TfrmGameManager.FormCreate(Sender: TObject);
       // File extensions
       GameDataExt := 'gam';
       GameGroupExt := 'fam';
-      CompressedExtensions.CommaText := s7zFileExt;
+      CompressedExtensions.CommaText := w7zFileExts;
       TextExtensions.CommaText := 'txt,nfo';
       ImageExtensions.CommaText := ImgExt;
       MusicExtensions.CommaText := 'ogg,mp3,wav,aac,flac';
@@ -1087,9 +1087,9 @@ begin
   ForceDirectoriesUTF8(TempFolder);
 
   // u7zWrapper vars;
-  Path_7zG_exe := Config.ToolsFolder + Config.z7Subfolder + Config.z7GExecutable;
-  Path_7z_exe := Config.ToolsFolder + Config.z7Subfolder + Config.z7CMExecutable;
-  s7zFileExt := Config.CompressedExtensions.CommaText;
+  w7zPathTo7zGexe := Config.ToolsFolder + Config.z7Subfolder + Config.z7GExecutable;
+  w7zPathTo7zexe := Config.ToolsFolder + Config.z7Subfolder + Config.z7CMExecutable;
+  w7zFileExts := Config.CompressedExtensions.CommaText;
 
   Translate;
   Self.Caption := Application.Title + ' ' + GetFileVersion + ': ' + Self.Caption;
@@ -2792,25 +2792,29 @@ begin
   case GroupMode of
     // Aprovechamos las ventajas del cGameManager :P
     lvGMYear: GameManager.SearchGroupMedia(StrList,
-        Config.CommonMediaFolder + 'Years' + PathDelim + 'Texts' +
-        PathDelim, aGameGroup, Config.TextExtensions, False, True);
+        Config.CommonMediaFolder + SetAsFolder('Years') + SetAsFolder('Texts'),
+        aGameGroup, Config.TextExtensions, False, True);
     lvGMDeveloper: GameManager.SearchGroupMedia(StrList,
-        Config.CommonMediaFolder + 'Companies' + PathDelim + 'Texts' +
-        PathDelim, aGameGroup, Config.TextExtensions, False, True);
+        Config.CommonMediaFolder + SetAsFolder('Companies') + SetAsFolder('Texts'),
+        aGameGroup, Config.TextExtensions, False, True);
     lvGMPublisher: GameManager.SearchGroupMedia(StrList,
-        Config.CommonMediaFolder + 'Companies' + PathDelim + 'Texts' +
-        PathDelim, aGameGroup, Config.TextExtensions, False, True);
+        Config.CommonMediaFolder + SetAsFolder('Companies') + SetAsFolder('Texts'),
+        aGameGroup, Config.TextExtensions, False, True);
+    { In folder mode... search in default location...
     lvGMFolder: GameManager.SearchGroupMedia(StrList,
-        Config.CommonMediaFolder + 'Folders' + PathDelim + 'Texts' +
-        PathDelim, aGameGroup, Config.TextExtensions, False, True);
+        Config.CommonMediaFolder + SetAsFolder('Folders') + SetAsFolder('Texts'),
+        aGameGroup, Config.TextExtensions, False, True);
+    }
     lvGMTags: GameManager.SearchGroupMedia(StrList,
-        Config.CommonMediaFolder + 'Tags' + PathDelim + 'Texts' +
-        PathDelim, aGameGroup, Config.TextExtensions, False, True);
+        Config.CommonMediaFolder + SetAsFolder('Tags') + SetAsFolder('Texts'),
+        aGameGroup, Config.TextExtensions, False, True);
     else
       if cbGameTexts.ItemIndex > -1 then
         GameManager.SearchGroupMedia(StrList,
           GameManager.System.TextFolders[cbGameTexts.ItemIndex], aGameGroup,
-          Config.TextExtensions, False, True);
+          Config.TextExtensions,
+          StrToBoolDef(GameManager.System.TextModes[cbGameImages.ItemIndex],
+          False), True);
   end;
 end;
 

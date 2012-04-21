@@ -113,6 +113,7 @@
         <Filename Value="Source/fGameManager.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmGameManager"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="fGameManager"/>
       </Unit1>

@@ -345,8 +345,6 @@ begin
   if FindFirstUTF8(Folder + AllFilesMask, faAnyFile, Info) = 0 then
     try
       repeat
-        Info.Name := ConvertEncoding(Info.Name, GetDefaultTextEncoding,
-          EncodingUTF8);
         Result := aFunction(Folder, Info);
       until (FindNextUTF8(Info) <> 0) or not Result;
     finally
@@ -357,8 +355,6 @@ begin
     if FindFirstUTF8(Folder + AllFilesMask, faDirectory, Info) = 0 then
       try
         repeat
-          Info.Name := ConvertEncoding(Info.Name, GetDefaultTextEncoding,
-            EncodingUTF8);
           if (Info.Name <> '.') and (Info.Name <> '') and
             (Info.Name <> '..') and
             ((Info.Attr and faDirectory) <> 0) then
@@ -382,8 +378,6 @@ begin
   if FindFirstUTF8(Folder + AllFilesMask, faAnyFile, Info) = 0 then
     try
       repeat
-        Info.Name := ConvertEncoding(Info.Name, GetDefaultTextEncoding,
-          EncodingUTF8);
         Result := aFunction(Folder, Info);
       until (FindNextUTF8(Info) <> 0) or not Result;
     finally
@@ -394,8 +388,6 @@ begin
     if FindFirstUTF8(Folder + AllFilesMask, faDirectory, Info) = 0 then
       try
         repeat
-          Info.Name := ConvertEncoding(Info.Name, GetDefaultTextEncoding,
-            EncodingUTF8);
           if (Info.Name <> '.') and (Info.Name <> '') and
             (Info.Name <> '..') and
             ((Info.Attr and faDirectory) <> 0) then

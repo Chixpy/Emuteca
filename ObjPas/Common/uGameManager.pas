@@ -640,7 +640,7 @@ procedure cGameManager.SearchMediaFiles(FileList: TStrings;
 
     // No backwards trick, image extensions are sortened by preference.
     //   instead j is used and Extensions.Count is not called each iteration.
-    // No Break, as hidden feature ;-)
+    // No Break if found, as hidden feature ;-); but it's slower.
     i := 0;
     j := Extensions.Count;
     while i < j do
@@ -672,8 +672,6 @@ procedure cGameManager.SearchMediaFiles(FileList: TStrings;
     if FindFirstUTF8(aFolder + AllFilesMask, 0, Info) = 0 then
       try
         repeat
-          Info.Name := ConvertEncoding(Info.Name, GetDefaultTextEncoding,
-            EncodingUTF8);
           TmpStr := UTF8LowerCase(UTF8Copy(ExtractFileExt(Info.Name), 2, MaxInt));
           if CompressedExt.IndexOf(TmpStr) <> -1 then
           begin
@@ -690,7 +688,7 @@ procedure cGameManager.SearchMediaFiles(FileList: TStrings;
                 while (k >= 0) do
                 begin
                   // TODO 1: LINUX
-                  if UTF8CompareText(ExtractFileName(CompFiles[k]), TmpStr) = 0 then
+                  if CompareFilenames(ExtractFileName(CompFiles[k]), TmpStr) = 0 then
                   begin
                     if ExtractFile then
                     begin
@@ -735,8 +733,6 @@ procedure cGameManager.SearchMediaFiles(FileList: TStrings;
       if FindFirstUTF8(aFolder + AllFilesMask, faAnyFile, Info) = 0 then
         try
           repeat
-            Info.Name := ConvertEncoding(Info.Name, GetDefaultTextEncoding,
-              EncodingUTF8);
             Ext := UTF8LowerCase(UTF8Copy(ExtractFileExt(Info.Name), 2, MaxInt));
             if Extensions.IndexOf(Ext) <> -1 then
               FileList.Add(aFolder + Info.Name);
@@ -748,8 +744,6 @@ procedure cGameManager.SearchMediaFiles(FileList: TStrings;
       if FindFirstUTF8(aFolder + AllFilesMask, faDirectory, Info) = 0 then
         try
           repeat
-            Info.Name := ConvertEncoding(Info.Name, GetDefaultTextEncoding,
-              EncodingUTF8);
             if (Info.Name <> '.') and (Info.Name <> '') and
               (Info.Name <> '..') and
               ((Info.Attr and faDirectory) <> 0) then
@@ -1159,7 +1153,7 @@ begin
   FGroupList := TFPObjectList.Create(True);
 
   FCompressedExt := TStringList.Create;
-  CompressedExt.CommaText := s7zFileExt;
+  CompressedExt.CommaText := w7zFileExts;
 end;
 
 destructor cGameManager.Destroy;

@@ -45,23 +45,30 @@ const
   C7zExeNotExists = 258;
 
 var
-  s7zFileExt: String;
+  w7zFileExts: String;
   {< String with suported file extensions by 7z.
 
      Format: 'ext,ext,ext' for easy creating a TStringList. At least until
-       there is a better way for searching files with different extension.
+       we found a better way for searching files with different extension.
 
      Warning: It's not used for test if the files passed as params are
-       a compressed file. It's only a reference list.
+       compressed files. It's only a reference list.
   }
-  Path_7z_exe: String;
-  {< Path to 7z.exe.
+  w7zPathTo7zexe: String;
+  {< Path to 7z.exe executable.
 
     It can be usefull for hidding the processes, but it's
       needed for listing archives anyways.
   }
-  Path_7zG_exe: String;
-  //< Path to 7zG.exe
+  w7zPathTo7zGexe: String;
+  {< Path to 7zG.exe executable.
+  }
+
+  w7zCacheDir: String;
+  {< Directory were file lists in compressed archives are sterored.
+
+    Defaults to '%USERTEMPDIR%/w7zCache', and it's deleted at the end.
+  }
 
 function List7zFiles(const aFilename: String;
   PackedFiles: TStrings; OnlyPaths: boolean = False;
@@ -129,7 +136,7 @@ begin
   else
     PackedFiles := TStringList.Create;
 
-  if not FileExistsUTF8(Path_7z_exe) then
+  if not FileExistsUTF8(w7zPathTo7zexe) then
   begin
     // TODO 2: Show message or raise an exception?.
     Result := C7zExeNotExists;
@@ -150,7 +157,7 @@ begin
       // Executing '7z.exe l archive'
       aProcess := TProcess.Create(nil);
       try
-        aProcess.Executable := UTF8ToSys(Path_7z_exe);
+        aProcess.Executable := UTF8ToSys(w7zPathTo7zexe);
         aProcess.Parameters.Add('l');
         aProcess.Parameters.Add('-slt');
         aProcess.Parameters.Add('-scsUTF-8');
@@ -292,13 +299,13 @@ begin
   end;
 
   aOptions := [poWaitOnExit];
-  aExeString := Path_7z_exe;
+  aExeString := w7zPathTo7zexe;
   aFolder := SetAsFolder(aFolder);
-  if (ShowProgress) and (FileExistsUTF8(Path_7zG_exe)) then
-    aExeString := Path_7zG_exe
+  if (ShowProgress) and (FileExistsUTF8(w7zPathTo7zGexe)) then
+    aExeString := w7zPathTo7zGexe
   else
   begin
-    if not FileExistsUTF8(Path_7z_exe) then
+    if not FileExistsUTF8(w7zPathTo7zexe) then
     begin
       Result := C7zExeNotExists;
       Exit;
@@ -352,12 +359,12 @@ var
 
 begin
   aOptions := [poWaitOnExit];
-  aExeString := Path_7z_exe;
-  if (ShowProgress) and (FileExistsUTF8(Path_7zG_exe)) then
-    aExeString := Path_7zG_exe
+  aExeString := w7zPathTo7zexe;
+  if (ShowProgress) and (FileExistsUTF8(w7zPathTo7zGexe)) then
+    aExeString := w7zPathTo7zGexe
   else
   begin
-    if FileExistsUTF8(Path_7z_exe) then
+    if FileExistsUTF8(w7zPathTo7zexe) then
     begin
       Result := C7zExeNotExists;
       Exit;
@@ -404,16 +411,28 @@ begin
 end;
 
 initialization
-  s7zFileExt := '001,7z,arj,bpl,bzip2,cab,cb7,cbr,cbz,chi,chm,chq,chw,' +
+  // Meh, harcoding pseudo-constants
+
+  w7zFileExts := '001,7z,arj,bpl,bzip2,cab,cb7,cbr,cbz,chi,chm,chq,chw,' +
     'cpio,cramfs,deb,dll,dmg,doc,exe,fat,flv,gz,gzip,hfs,hxi,hxq,hxr,hxs,' +
     'hxw,img,iso,jar,lha,lit,lzh,lzma,lzma86,mbr,msi,msp,nsis,ntfs,ppt,' +
     'r00,rar,rpm,scap,squashfs,swf,swm,sys,tar,taz,tbz,tbz2,tgz,tpz,vhd,' +
     'wim,xar,xls,xpi,xz,z,zip';
-  Path_7z_exe := '7z.exe';
-  if not FileExistsUTF8(Path_7z_exe) then
-    Path_7z_exe := '7z/7z.exe';
-  Path_7zG_exe := '7zG.exe';
-  if not FileExistsUTF8(Path_7zG_exe) then
-    Path_7zG_exe := '7z/7z.exe';
+
+  // Little checks before default location...
+  w7zPathTo7zexe := '7z.exe';
+  if not FileExistsUTF8(w7zPathTo7zexe) then
+    w7zPathTo7zexe := '7z/7z.exe';
+  w7zPathTo7zGexe := '7zG.exe';
+  if not FileExistsUTF8(w7zPathTo7zGexe) then
+    w7zPathTo7zGexe := '7z/7z.exe';
+
+  // We want to delete this dir on finalization.
+  ForceDirectoriesUTF8(SetAsFolder(GetTempDir(false)) + 'w7zCache');
+
+finalization
+
+  DeleteDirectory(SetAsFolder(GetTempDir(false)) + 'w7zCache', false);
+
 end.
 

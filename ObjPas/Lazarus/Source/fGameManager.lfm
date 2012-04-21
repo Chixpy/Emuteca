@@ -11,7 +11,7 @@
   Position = poDesktopCenter
   SessionProperties = 'pcGame.Width;pcLeft.Width;pnlEmulatorImage.Height;pnlGameImage.Height;pnlSystemImage.Height;vstGames.Font;WindowState;vstGames.DefaultNodeHeight'
   ShowHint = True
-  LCLVersion = '0.9.31'
+  LCLVersion = '1.1'
   object splSystemPanel: TSplitter
     Left = 208
     Height = 531
@@ -301,6 +301,7 @@
     Width = 208
     ActivePage = pagSystem
     Align = alLeft
+    Constraints.MinWidth = 200
     TabIndex = 0
     TabOrder = 4
     object pagSystem: TTabSheet
@@ -789,6 +790,7 @@
     Width = 208
     ActivePage = pagGameMedia
     Align = alRight
+    Constraints.MinWidth = 200
     TabIndex = 0
     TabOrder = 2
     object pagGameMedia: TTabSheet
