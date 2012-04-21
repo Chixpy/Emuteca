@@ -145,6 +145,7 @@
         <Filename Value="Source/fSystemManager.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmSystemManager"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="fSystemManager"/>
       </Unit7>
@@ -305,7 +306,7 @@
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="..\..\!bin\LazEmuteca"/>
+      <Filename Value="..\..\!bin\$NameOnly($(ProjFile))-$(TargetCPU)-$(TargetOS)"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
