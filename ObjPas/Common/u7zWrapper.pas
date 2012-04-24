@@ -65,12 +65,13 @@ var
   }
 
   w7zCacheDir: String;
-  {< Directory were file lists in compressed archives are sterored.
+  {< Directory were lists of files from compressed archives are stored.
 
-    Defaults to '%USERTEMPDIR%/w7zCache', and it's deleted at the end.
+    Defaults to '%USERTEMPDIR%/w7zCache', and the directory is deleted at
+      program exit.
   }
 
-function List7zFiles(const aFilename: String;
+function w7zListFiles(const aFilename: String;
   PackedFiles: TStrings; OnlyPaths: boolean = False;
   const Password: String = ''): Integer;
 {< List files and properties in a 7z (or other format) archive.
@@ -118,7 +119,7 @@ function Compress7zFile(const a7zArchive: String; aFileList: TStrings;
 
 implementation
 
-function List7zFiles(const aFilename: String;
+function w7zListFiles(const aFilename: String;
   PackedFiles: TStrings; OnlyPaths: boolean = False;
   const Password: String = ''): Integer;
 var
@@ -427,12 +428,16 @@ initialization
   if not FileExistsUTF8(w7zPathTo7zGexe) then
     w7zPathTo7zGexe := '7z/7z.exe';
 
-  // We want to delete this dir on finalization.
-  ForceDirectoriesUTF8(SetAsFolder(GetTempDir(false)) + 'w7zCache');
+  w7zCacheDir := SetAsFolder(GetTempDir(false)) + 'w7zCache';
+  ForceDirectoriesUTF8(w7zCacheDir);
 
 finalization
 
+  // We want to delete this directory anyways on finalization.
   DeleteDirectory(SetAsFolder(GetTempDir(false)) + 'w7zCache', false);
+
+  if DirectoryExistsUTF8(w7zCacheDir) = True then
+    DeleteDirectory(w7zCacheDir);
 
 end.
 
