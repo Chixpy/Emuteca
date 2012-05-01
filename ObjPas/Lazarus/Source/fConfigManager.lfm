@@ -7,7 +7,7 @@ object frmConfigManager: TfrmConfigManager
   ClientHeight = 240
   ClientWidth = 320
   Position = poOwnerFormCenter
-  LCLVersion = '0.9.31'
+  LCLVersion = '1.1'
   object pBottom: TPanel
     Left = 0
     Height = 50

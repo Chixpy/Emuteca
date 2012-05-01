@@ -18,7 +18,7 @@
   MA 02111-1307, USA.
 }
 
-{ Unit of rgbMedia Manager form }
+{ Unit of Media Manager form }
 unit fMediaManager;
 
 {$mode objfpc}{$H+}
@@ -250,17 +250,17 @@ type
     property SourceFolder: String read FSourceFolder write SetSourceFolder;
     {< Folder of the source file.
 
-    Always have the trailing path delimiter
+    Always have the trailing path delimiter.
     }
     property TargetFile: String read FTargetFile write SetTargetFile;
     //< Name of the target file.
     property TargetFolder: String read FTargetFolder write SetTargetFolder;
     {< Folder of the target file.
 
-    Always have the trailing path delimiter
+    Always have the trailing path delimiter.
     }
     property ExtFilter: TStrings read FExtFilter write SetExtFilter;
-    {< Extensions of the current selected rgbMedia.
+    {< Extensions of the current selected Media.
 
     One extension for each string without dot.
 
@@ -268,7 +268,7 @@ type
     TStringList
     }
     property MultiFile: boolean read FMultiFile write SetMultiFile;
-    //< Mode of current selected rgbMedia.
+    //< Mode of current selected Media.
     property MediaFiles: TStringList read FMediaFiles write SetMediaFiles;
     //< Mediafiles assigned to the current game or group.
     property CurrentMediaIndex: integer
@@ -276,7 +276,6 @@ type
     //< Index of te current media file.
 
     // TODO 3: Maybe this 4 methods can be reduced to 2 without ofuscate them...
-    // TODO 3: AddFile(aFolder, aName: String)
     function AddFile(aFolder: String; Info: TSearchRec): boolean; overload;
     {< Adds a file to the lists in not MultiFile mode.
 
@@ -290,12 +289,12 @@ type
     function AddFile(aFolder, aName: String): boolean; overload;
     {< Adds a file to the lists in not MultiFile mode.
 
-      For manual use (and hacky updates).
+      For manual use @(and hacky updates@).
 
       @param (aFolder Folder where the file is in.)
       @param (aName Name of the file.)
 
-      @result (Alwasy @true @(useless until a reason to stop batch operations
+      @result (Always @true @(useless until a reason to stop batch operations
         will be found.@).)
     }
     function AddFolder(aFolder: String; Info: TSearchRec): boolean;
@@ -312,7 +311,7 @@ type
     function AddFolder(aFolder, aName: String): boolean; overload;
     {< Add a folder (or compressed archive) to the lists in MultiFile mode.
 
-      For manual use (and hacky updates)
+      For manual use @(and hacky updates@).
 
       @param (aFolder Folder where the file is in.)
       @param (aName Name of the subfolder.)
@@ -320,7 +319,6 @@ type
       @result (Always @true @(useless until a reason to stop batch operations
         will be found@).)
     }
-
     function AddFilesOtherFolder(aFolder: String;
       Info: TSearchRec): boolean; overload;
     {< Add files or folders to vstFilesOtherFolder.
@@ -355,6 +353,12 @@ type
     }
     procedure ClearMedia;
     {< Clear media preview fields.
+    }
+    procedure NextMedia;
+    {< Change to next media file found.
+    }
+    procedure PreviousMedia;
+    {< Change to previous media file found.
     }
     procedure ShowMedia;
     {< Update current media preview. }
@@ -393,12 +397,16 @@ type
     }
 
     function CurrentFileList: TCustomVirtualStringTree;
+    {< Returns the current file list shown.
+    }
     procedure ShowSimilarFiles;
+    {< Show only files with similar name to current selected game or group.
+    }
 
   public
     { public declarations }
     property Config: cConfig read FConfig write SetConfig;
-    {< Config object. }
+    {< Config object with actual configuration. }
 
     property GameManager: cGameManager read FGameManager write SetGameManager;
     {< GameManager with current system. }
@@ -465,13 +473,7 @@ end;
 
 procedure TfrmMediaManager.actNextMediaExecute(Sender: TObject);
 begin
-  if MediaFiles.Count <= 1 then
-    Exit;
-
-  Dec(FCurrentMediaIndex);
-  if CurrentMediaIndex < 0 then
-    CurrentMediaIndex := MediaFiles.Count - 1;
-  ShowMedia;
+  NextMedia;
 end;
 
 procedure TfrmMediaManager.actOpenImagesExecute(Sender: TObject);
@@ -481,13 +483,7 @@ end;
 
 procedure TfrmMediaManager.actPreviousMediaExecute(Sender: TObject);
 begin
-  if MediaFiles.Count <= 1 then
-    Exit;
-
-  Inc(FCurrentMediaIndex);
-  if CurrentMediaIndex >= MediaFiles.Count then
-    CurrentMediaIndex := 0;
-  ShowMedia;
+  PreviousMedia;
 end;
 
 procedure TfrmMediaManager.chkOnlySimilarChange(Sender: TObject);
@@ -1388,6 +1384,28 @@ procedure TfrmMediaManager.ClearMedia;
 begin
   iImage.Picture.Clear;
   mText.Clear;
+end;
+
+procedure TfrmMediaManager.NextMedia;
+begin
+  if MediaFiles.Count <= 1 then
+    Exit;
+
+  Inc(FCurrentMediaIndex);
+  if CurrentMediaIndex >= MediaFiles.Count then
+    CurrentMediaIndex := 0;
+  ShowMedia;
+end;
+
+procedure TfrmMediaManager.PreviousMedia;
+begin
+  if MediaFiles.Count <= 1 then
+    Exit;
+
+  Dec(FCurrentMediaIndex);
+  if CurrentMediaIndex < 0 then
+    CurrentMediaIndex := MediaFiles.Count - 1;
+  ShowMedia;
 end;
 
 procedure TfrmMediaManager.ShowMedia;

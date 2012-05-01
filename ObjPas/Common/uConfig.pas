@@ -35,7 +35,7 @@ type
 
     All folder paths (absolute and relative) have the trailing path separator.
   }
-  cConfig = class
+  cConfig = class (TObject)
   private
     FCompanySubFolder: String;
     FCompressedExtensions: TStringList;

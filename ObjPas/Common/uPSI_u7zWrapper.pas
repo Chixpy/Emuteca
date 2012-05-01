@@ -54,9 +54,9 @@ end;
 (*----------------------------------------------------------------------------*)
 procedure SIRegister_u7zWrapper(CL: TPSPascalCompiler);
 begin
- CL.AddDelphiFunction('Function w7zListFiles( const aFilename : String; PackedFiles : TStrings; OnlyPaths : boolean; const Password : String) : Integer');
- CL.AddDelphiFunction('Function Extract7zFile( const a7zArchive : String; const aFileMask : String; aFolder : String; ShowProgress : Boolean; const Password : String) : Integer');
- CL.AddDelphiFunction('Function Compress7zFile( const a7zArchive : String; aFileList : TStrings; ShowProgress : Boolean; CompType : String) : Integer');
+ CL.AddDelphiFunction('Function w7zListFiles( const aFilename : String; PackedFiles : TStrings; const OnlyPaths : boolean; const UseCache: boolean; const Password : String) : Integer');
+ CL.AddDelphiFunction('Function w7zExtractFile( const a7zArchive : String; const aFileMask : String; aFolder : String; const ShowProgress : Boolean; const Password : String) : Integer');
+ CL.AddDelphiFunction('Function w7zCompressFile( const a7zArchive : String; aFileList : TStrings; const ShowProgress : Boolean; const CompType : String) : Integer');
 end;
 
 (* === run-time registration functions === *)
@@ -64,8 +64,8 @@ end;
 procedure RIRegister_u7zWrapper_Routines(S: TPSExec);
 begin
  S.RegisterDelphiFunction(@w7zListFiles, 'w7zListFiles', cdRegister);
- S.RegisterDelphiFunction(@Extract7zFile, 'Extract7zFile', cdRegister);
- S.RegisterDelphiFunction(@w7zCompressFile, 'Compress7zFile', cdRegister);
+ S.RegisterDelphiFunction(@w7zExtractFile, 'w7zExtractFile', cdRegister);
+ S.RegisterDelphiFunction(@w7zCompressFile, 'w7zCompressFile', cdRegister);
 end;
 
  

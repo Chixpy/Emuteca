@@ -77,7 +77,7 @@ var
   }
 
 procedure w7zListFiles(const aFilename: string; PackedFiles: TStrings;
-  OnlyPaths: boolean = False; const UseCache: boolean = True;
+  const OnlyPaths: boolean = False; const UseCache: boolean = True;
   const Password: string = '');
 {< List files and properties in a 7z (or other format) archive.
 
@@ -101,7 +101,7 @@ procedure w7zListFiles(const aFilename: string; PackedFiles: TStrings;
 }
 
 function w7zExtractFile(const a7zArchive: string; const aFileMask: string;
-  aFolder: string; ShowProgress: boolean; const Password: string): integer;
+  aFolder: string; const ShowProgress: boolean; const Password: string): integer;
 {< Extract de file (or files) from 7z archive.
 
   @param(aFilename Name of the 7z archive.)
@@ -113,7 +113,7 @@ function w7zExtractFile(const a7zArchive: string; const aFileMask: string;
 }
 
 function w7zCompressFile(const a7zArchive: string; aFileList: TStrings;
-  ShowProgress: boolean; CompType: string = ''): integer;
+  const ShowProgress: boolean; const CompType: string = ''): integer;
 {< Compress files in a 7z (or other type) archive.
 
   @param(a7zArchive Name of the 7z/zip archive.)
@@ -125,7 +125,7 @@ function w7zCompressFile(const a7zArchive: string; aFileList: TStrings;
 implementation
 
 procedure w7zListFiles(const aFilename: string; PackedFiles: TStrings;
-  OnlyPaths: boolean = False; const UseCache: boolean = True;
+  const OnlyPaths: boolean = False; const UseCache: boolean = True;
   const Password: string = '');
 
   procedure ReturnOnlyPaths(aFileList: TStrings);
@@ -138,9 +138,9 @@ procedure w7zListFiles(const aFilename: string; PackedFiles: TStrings;
     slLine := TStringList.Create;
     try
       i := 0;
-      while i < PackedFiles.Count do
+      while i < aFileList.Count do
       begin
-        slLine.CommaText := PackedFiles[i];
+        slLine.CommaText := aFileList[i];
         if slLine.Count > 0 then
         begin
           PackedFiles[i] := slLine[0];
@@ -149,7 +149,7 @@ procedure w7zListFiles(const aFilename: string; PackedFiles: TStrings;
         else
         begin
           // Uhm... this must not happen... but...
-          PackedFiles.Delete(i);
+          aFileList.Delete(i);
         end;
       end;
     finally
@@ -183,7 +183,7 @@ begin
     raise EInOutError.CreateFmt(aFilename, [w7zPathTo7zexe]);
 
   // SHA1 of the file... cache file is saved allways
-  FileSHA1 := SHA1Print(SHA1File(aFilename));
+  FileSHA1 := SHA1Print(SHA1File(UTF8ToSys(aFilename)));
 
   // Searching for cache file
   // ------------------------
@@ -191,7 +191,7 @@ begin
   begin
     if FileExistsUTF8(w7zCacheDir + FileSHA1 + w7zCacheFileExt) then
     begin
-      PackedFiles.LoadFromFile(w7zCacheDir + FileSHA1 + w7zCacheFileExt);
+      PackedFiles.LoadFromFile(UTF8ToSys(w7zCacheDir + FileSHA1 + w7zCacheFileExt));
       if OnlyPaths then
         ReturnOnlyPaths(PackedFiles);
       Exit; // Job done.
@@ -229,7 +229,7 @@ begin
             Sleep(100); // Waiting for more output
           }
     end;
-    msOutput.SaveToFile(w7zCacheDir + 'w7zOutput' + w7zCacheFileExt);
+    msOutput.SaveToFile(UTF8ToSys(w7zCacheDir + 'w7zOutput' + w7zCacheFileExt));
   finally
     i := aProcess.ExitStatus;
     FreeAndNil(aProcess);
@@ -246,7 +246,7 @@ begin
   slOutput := TStringList.Create;
   slLine := TStringList.Create;
   try
-    slOutput.LoadFromFile(w7zCacheDir + 'w7zOutput' + w7zCacheFileExt);
+    slOutput.LoadFromFile(UTF8ToSys(w7zCacheDir + 'w7zOutput' + w7zCacheFileExt));
 
     // Skipping until '----------'
     i := 0;
@@ -314,7 +314,7 @@ begin
       PackedFiles.Add(slLine.CommaText);
 
       // Only save if there is at least one file in the compressed archive
-      PackedFiles.SaveToFile(w7zCacheDir + FileSHA1 + w7zCacheFileExt);
+      PackedFiles.SaveToFile(UTF8ToSys(w7zCacheDir + FileSHA1 + w7zCacheFileExt));
     end;
   finally
     FreeAndNil(slLine);
@@ -327,7 +327,7 @@ begin
 end;
 
 function w7zExtractFile(const a7zArchive: string; const aFileMask: string;
-  aFolder: string; ShowProgress: boolean; const Password: string): integer;
+  aFolder: string; const ShowProgress: boolean; const Password: string): integer;
 var
   aProcess: TProcess;
   aOptions: TProcessOptions;
@@ -386,7 +386,7 @@ begin
 end;
 
 function w7zCompressFile(const a7zArchive: string; aFileList: TStrings;
-  ShowProgress: boolean; CompType: string): integer;
+  const ShowProgress: boolean; const CompType: string): integer;
 var
   aProcess: TProcess;
   aOptions: TProcessOptions;
