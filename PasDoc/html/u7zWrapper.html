@@ -7,13 +7,13 @@
 <link rel="StyleSheet" type="text/css" href="pasdoc.css">
 </head>
 <body bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#800080" alink="#FF0000">
-<h1 class="unit">Unit u7zWrapper</h1>
+Emuteca<h1 class="unit">Unit u7zWrapper</h1>
 <table class="sections wide_list">
 <tr>
-<td><a class="section"  href="#%40Description">Description</a></td><td><a class="section"  href="#%40Uses">Uses</a></td><td>Classes, Interfaces, Objects and Records</td><td><a class="section"  href="#%40FuncsProcs">Functions and Procedures</a></td><td>Types</td><td><a class="section"  href="#%40Constants">Constants</a></td><td><a class="section"  href="#%40Variables">Variables</a></td></tr></table>
+<td><a class="section"  href="#%40Description">Description</a></td><td><a class="section"  href="#%40Uses">Uses</a></td><td><a class="section"  href="#%40Classes">Classes, Interfaces, Objects and Records</a></td><td><a class="section"  href="#%40FuncsProcs">Functions and Procedures</a></td><td>Types</td><td><a class="section"  href="#%40Constants">Constants</a></td><td><a class="section"  href="#%40Variables">Variables</a></td></tr></table>
 <a name="%40Description"></a><h2 class="description">Description</h2>
 <p>
-Simple 7z.exe AND 7zG.exe wrapper.
+Simple 7z.exe AND 7zG.exe wrapper until something better is found.
 
 <p></p>
 
@@ -33,45 +33,62 @@ Simple 7z.exe AND 7zG.exe wrapper.
 
 <p></p>
 <a name="%40Uses"></a><h2 class="uses">Uses</h2>
-<ul class="useslist"><li>Classes</li><li>FileUtil</li><li>Process</li><li>strutils</li><li>SysUtils</li></ul><h2 class="overview">Overview</h2>
+<ul class="useslist"><li>Classes</li><li>FileUtil</li><li>LazUTF8</li><li>Process</li><li>sha1</li><li>StrUtils</li><li>SysUtils</li><li><a   href="uCustomUtils.html">uCustomUtils</a></li></ul><h2 class="overview">Overview</h2>
+<a name="%40Classes"></a><h3 class="cio">Classes, Interfaces, Objects and Records</h3>
+<table class="classestable wide_list">
+<tr class="listheader">
+<th class="itemname">Name</th>
+<th class="itemdesc">Description</th>
+</tr>
+<tr class="list">
+<td class="itemname">Class&nbsp;<a class="bold"  href="u7zWrapper.w7zException.html"><code>w7zException</code></a></td>
+<td class="itemdesc">&nbsp;</td>
+</tr>
+</table>
 <a name="%40FuncsProcs"></a><h3 class="summary">Functions and Procedures</h3>
 <table class="summary wide_list">
 <tr class="list">
-<td class="itemcode"><code>function <b><a   href="u7zWrapper.html#Compress7zFile">Compress7zFile</a></b>(const a7zArchive: UTF8String; aFileList: TStrings; ShowProgress: Boolean; CompType: UTF8String = ''): Integer;</code></td>
+<td class="itemcode"><code>function <b><a   href="u7zWrapper.html#w7zCompressFile">w7zCompressFile</a></b>(const a7zArchive: string; aFileList: TStrings; ShowProgress: boolean; CompType: string = ''): integer;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>function <b><a   href="u7zWrapper.html#Extract7zFile">Extract7zFile</a></b>(const a7zArchive: UTF8String; const aFileMask: UTF8String; aFolder: UTF8String; ShowProgress: Boolean; const Password: UTF8String): Integer;</code></td>
+<td class="itemcode"><code>function <b><a   href="u7zWrapper.html#w7zExtractFile">w7zExtractFile</a></b>(const a7zArchive: string; const aFileMask: string; aFolder: string; ShowProgress: boolean; const Password: string): integer;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>function <b><a   href="u7zWrapper.html#List7zFiles">List7zFiles</a></b>(const aFilename: UTF8String; PackedFiles: TStrings; OnlyPaths: boolean = False; const Password: UTF8String = ''): Integer;</code></td>
+<td class="itemcode"><code>procedure <b><a   href="u7zWrapper.html#w7zListFiles">w7zListFiles</a></b>(const aFilename: string; PackedFiles: TStrings; OnlyPaths: boolean = False; const UseCache: boolean = True; const Password: string = '');</code></td>
 </tr>
 </table>
 <a name="%40Constants"></a><h3 class="summary">Constants</h3>
 <table class="summary wide_list">
 <tr class="list">
-<td class="itemcode"><code><b><a   href="u7zWrapper.html#C7zExeNotExists">C7zExeNotExists</a></b> = 258;</code></td>
+<td class="itemcode"><code><b><a   href="u7zWrapper.html#w7zCacheFileExt">w7zCacheFileExt</a></b> = '.txt';</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code><b><a   href="u7zWrapper.html#C7zFileNotExists">C7zFileNotExists</a></b> = 257;</code></td>
+<td class="itemcode"><code><b><a   href="u7zWrapper.html#w7zExeError">w7zExeError</a></b> = '7z/7zG returned %d exit code.';</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a   href="u7zWrapper.html#w7zFileNotFound">w7zFileNotFound</a></b> = '&quot;%s&quot; file not found';</code></td>
 </tr>
 </table>
 <a name="%40Variables"></a><h3 class="summary">Variables</h3>
 <table class="summary wide_list">
 <tr class="list">
-<td class="itemcode"><code><b><a   href="u7zWrapper.html#Path_7zG_exe">Path_7zG_exe</a></b>: UTF8String;</code></td>
+<td class="itemcode"><code><b><a   href="u7zWrapper.html#w7zCacheDir">w7zCacheDir</a></b>: string;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code><b><a   href="u7zWrapper.html#Path_7z_exe">Path_7z_exe</a></b>: UTF8String;</code></td>
+<td class="itemcode"><code><b><a   href="u7zWrapper.html#w7zFileExts">w7zFileExts</a></b>: string;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code><b><a   href="u7zWrapper.html#s7zFileExt">s7zFileExt</a></b>: UTF8String;</code></td>
+<td class="itemcode"><code><b><a   href="u7zWrapper.html#w7zPathTo7zexe">w7zPathTo7zexe</a></b>: string;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a   href="u7zWrapper.html#w7zPathTo7zGexe">w7zPathTo7zGexe</a></b>: string;</code></td>
 </tr>
 </table>
 <h2 class="description">Description</h2>
 <h3 class="detail">Functions and Procedures</h3>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Compress7zFile"></a><code>function <b>Compress7zFile</b>(const a7zArchive: UTF8String; aFileList: TStrings; ShowProgress: Boolean; CompType: UTF8String = ''): Integer;</code></td>
+<td class="itemcode"><a name="w7zCompressFile"></a><code>function <b>w7zCompressFile</b>(const a7zArchive: string; aFileList: TStrings; ShowProgress: boolean; CompType: string = ''): integer;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -93,7 +110,7 @@ Compress files in a 7z (or other type) archive.
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Extract7zFile"></a><code>function <b>Extract7zFile</b>(const a7zArchive: UTF8String; const aFileMask: UTF8String; aFolder: UTF8String; ShowProgress: Boolean; const Password: UTF8String): Integer;</code></td>
+<td class="itemcode"><a name="w7zExtractFile"></a><code>function <b>w7zExtractFile</b>(const a7zArchive: string; const aFileMask: string; aFolder: string; ShowProgress: boolean; const Password: string): integer;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -107,7 +124,7 @@ Extract de file (or files) from 7z archive.
 <dt>aFolder</dt>
 <dd>Folder where the file(s) will be extracted.</dd>
 <dt>aFileMask</dt>
-<dd>Mask or file to extract. Remember in 7z '*' means all files, not '*.*' wich means all files with extension.</dd>
+<dd>Mask or file to extract. Remember, for 7z.exe '*' means all files, not '*.*' wich means all files with extension.</dd>
 <dt>ShowProgress</dt>
 <dd>If true, progress of decompression will be shown.</dd>
 <dt>Password</dt>
@@ -117,7 +134,7 @@ Extract de file (or files) from 7z archive.
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="List7zFiles"></a><code>function <b>List7zFiles</b>(const aFilename: UTF8String; PackedFiles: TStrings; OnlyPaths: boolean = False; const Password: UTF8String = ''): Integer;</code></td>
+<td class="itemcode"><a name="w7zListFiles"></a><code>procedure <b>w7zListFiles</b>(const aFilename: string; PackedFiles: TStrings; OnlyPaths: boolean = False; const UseCache: boolean = True; const Password: string = '');</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -129,7 +146,7 @@ List files and properties in a 7z (or other format) archive.
 
 <p>I you want only the file names maybe you want use List7zFileNames
 
-<p>    </p>
+<p>     </p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>aFilename</dt>
@@ -138,6 +155,8 @@ List files and properties in a 7z (or other format) archive.
 <dd>StringList where the files will be added. If the StringList = nil will be created (and you must free it, of course), otherwise it will be cleared. If OnlyPaths = <code>True</code>, every string have the following format for easy TStringList.CommaText reading: &quot;Dir/Filename&quot;,&quot;size&quot;,&quot;packed size&quot;,&quot;Date modified&quot;,&quot;CRC&quot;</dd>
 <dt>OnlyPaths</dt>
 <dd>List only file names and no properties</dd>
+<dt>UseCache</dt>
+<dd>Use cached file list?</dd>
 <dt>Password</dt>
 <dd>Is there archives that need a password to list files? Just in case.</dd>
 </dl>
@@ -147,14 +166,21 @@ List files and properties in a 7z (or other format) archive.
 <h3 class="detail">Constants</h3>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="C7zExeNotExists"></a><code><b>C7zExeNotExists</b> = 258;</code></td>
+<td class="itemcode"><a name="w7zCacheFileExt"></a><code><b>w7zCacheFileExt</b> = '.txt';</code></td>
 </tr>
 <tr><td colspan="1">
 &nbsp;</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="C7zFileNotExists"></a><code><b>C7zFileNotExists</b> = 257;</code></td>
+<td class="itemcode"><a name="w7zExeError"></a><code><b>w7zExeError</b> = '7z/7zG returned %d exit code.';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="w7zFileNotFound"></a><code><b>w7zFileNotFound</b> = '&quot;%s&quot; file not found';</code></td>
 </tr>
 <tr><td colspan="1">
 &nbsp;</td></tr>
@@ -162,37 +188,48 @@ List files and properties in a 7z (or other format) archive.
 <h3 class="detail">Variables</h3>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Path_7zG_exe"></a><code><b>Path_7zG_exe</b>: UTF8String;</code></td>
+<td class="itemcode"><a name="w7zCacheDir"></a><code><b>w7zCacheDir</b>: string;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
-Path to 7zG.exe</p>
+Directory were lists of files from compressed archives are stored.
+
+<p>Defaults to '%USERTEMPDIR%/w7zCache', and the directory is deleted at program exit.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Path_7z_exe"></a><code><b>Path_7z_exe</b>: UTF8String;</code></td>
+<td class="itemcode"><a name="w7zFileExts"></a><code><b>w7zFileExts</b>: string;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
-Path to 7z.exe.
+String with suported file extensions by 7z.
+
+<p>Format: 'ext,ext,ext' for easy creating a TStringList. At least until we found a better way for searching files with different extension.
+
+<p>Warning: It's not used for test if the files passed as params are compressed files. It's only a reference list.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="w7zPathTo7zexe"></a><code><b>w7zPathTo7zexe</b>: string;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Path to 7z.exe executable.
 
 <p>It can be usefull for hidding the processes, but it's needed for listing archives anyways.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="s7zFileExt"></a><code><b>s7zFileExt</b>: UTF8String;</code></td>
+<td class="itemcode"><a name="w7zPathTo7zGexe"></a><code><b>w7zPathTo7zGexe</b>: string;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
-String with suported file extensions by 7z.
-
-<p>Format: 'ext,ext,ext' for easy creating a TStringList. At least until there is a better way for searching files with different extension.
-
-<p>Warning: It's not used for test if the files passed as params are a compressed file. It's only a reference list.</p>
+Path to 7zG.exe executable.</p>
 </td></tr>
 </table>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.12.1</a> on 2011-12-27 19:40:25</em>
+Chixpy<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.12.1</a> on 2012-05-01 19:42:38</em>
 </span>
 </body></html>

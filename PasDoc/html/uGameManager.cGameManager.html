@@ -7,7 +7,7 @@
 <link rel="StyleSheet" type="text/css" href="pasdoc.css">
 </head>
 <body bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#800080" alink="#FF0000">
-<a name="cGameManager"></a><h1 class="cio">Class cGameManager</h1>
+Emuteca<a name="cGameManager"></a><h1 class="cio">Class cGameManager</h1>
 <table class="sections wide_list">
 <tr>
 <td><a class="section"  href="#%40Description">Description</a></td><td><a class="section"  href="#%40Hierarchy">Hierarchy</a></td><td>Fields</td><td><a class="section"  href="#%40Methods">Methods</a></td><td><a class="section"  href="#%40Properties">Properties</a></td></tr></table>
@@ -19,7 +19,18 @@
 <code>type cGameManager = class(TObject)</code></p>
 <h2 class="description">Description</h2>
 <p>
-<code>cGameManager</code></p>
+Manager of the games and groups (families).
+
+<p>This entity manages the lists of games and <a class="normal"  href="uGameManager.cGameManager.html#Group">group</a> internally regaderless of the Form, GUI o interface used.
+
+<p></p>
+
+<dl class="paragraph_spacing">
+  <dt>NOTE:</dt>
+  <dd><p>Because PascalScript don't suport overloaded methods, we don't use them right here.</p></dd>
+</dl>
+
+<p></p>
 <a name="%40Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
 <ul class="hierarchy"><li class="ancestor">TObject</li>
 <li class="thisitem">cGameManager</li></ul><h2 class="overview">Overview</h2>
@@ -27,7 +38,7 @@
 <table class="summary wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>constructor <b><a   href="uGameManager.cGameManager.html#Create">Create</a></b>(const aSystemsFile: UTF8String; const aTempFolder: UTF8String; const aTempFile: UTF8String);</code></td>
+<td class="itemcode"><code>constructor <b><a   href="uGameManager.cGameManager.html#Create">Create</a></b>(const aSystemsFile: String; const aTempFolder: String; const aTempFile: String);</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -35,15 +46,15 @@
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>function <b><a   href="uGameManager.cGameManager.html#AddFile">AddFile</a></b>(aFolder: UTF8String; Info: TSearchRec): boolean;</code></td>
+<td class="itemcode"><code>function <b><a   href="uGameManager.cGameManager.html#AddFile">AddFile</a></b>(aFolder: String; Info: TSearchRec): boolean;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>function <b><a   href="uGameManager.cGameManager.html#AddGame">AddGame</a></b>(const aFolder: UTF8String; const aFileName: UTF8String; const aKey: UTF8String): <a   href="uGame.cGame.html">cGame</a>;</code></td>
+<td class="itemcode"><code>function <b><a   href="uGameManager.cGameManager.html#AddGame">AddGame</a></b>(const aFolder: String; const aFileName: String; const aKey: String): <a   href="uGame.cGame.html">cGame</a>;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>function <b><a   href="uGameManager.cGameManager.html#AddGroup">AddGroup</a></b>(aGameGroupID: UTF8String): <a   href="uGameGroup.cGameGroup.html">cGameGroup</a>;</code></td>
+<td class="itemcode"><code>function <b><a   href="uGameManager.cGameManager.html#AddGroup">AddGroup</a></b>(aGameGroupID: String): <a   href="uGameGroup.cGameGroup.html">cGameGroup</a>;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -51,7 +62,7 @@
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>function <b><a   href="uGameManager.cGameManager.html#Game">Game</a></b>(aGameKey: UTF8String): <a   href="uGame.cGame.html">cGame</a>;</code></td>
+<td class="itemcode"><code>function <b><a   href="uGameManager.cGameManager.html#Game">Game</a></b>(aGameKey: String): <a   href="uGame.cGame.html">cGame</a>;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -63,11 +74,11 @@
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>function <b><a   href="uGameManager.cGameManager.html#GameMediaExists">GameMediaExists</a></b>(aFolder: UTF8String; aGameVersion: <a   href="uGame.cGame.html">cGame</a>; Extensions: TStrings; MultiFile: boolean; SearchInZip: boolean): boolean;</code></td>
+<td class="itemcode"><code>function <b><a   href="uGameManager.cGameManager.html#GameMediaExists">GameMediaExists</a></b>(aFolder: String; aGameVersion: <a   href="uGame.cGame.html">cGame</a>; Extensions: TStrings; MultiFile: boolean; SearchInZip: boolean): boolean;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>function <b><a   href="uGameManager.cGameManager.html#Group">Group</a></b>(aGroupKey: UTF8String): <a   href="uGameGroup.cGameGroup.html">cGameGroup</a>;</code></td>
+<td class="itemcode"><code>function <b><a   href="uGameManager.cGameManager.html#Group">Group</a></b>(aGroupKey: String): <a   href="uGameGroup.cGameGroup.html">cGameGroup</a>;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -79,19 +90,19 @@
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>function <b><a   href="uGameManager.cGameManager.html#GroupMediaExists">GroupMediaExists</a></b>(aFolder: UTF8String; aGameGroup: <a   href="uGameGroup.cGameGroup.html">cGameGroup</a>; Extensions: TStrings; MultiFile: boolean; SearchInZip: boolean): boolean;</code></td>
+<td class="itemcode"><code>function <b><a   href="uGameManager.cGameManager.html#GroupMediaExists">GroupMediaExists</a></b>(aFolder: String; aGameGroup: <a   href="uGameGroup.cGameGroup.html">cGameGroup</a>; Extensions: TStrings; MultiFile: boolean; SearchInZip: boolean): boolean;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a   href="uGameManager.cGameManager.html#ChangeEmulator">ChangeEmulator</a></b>(const EmulatorName: UTF8String);</code></td>
+<td class="itemcode"><code>procedure <b><a   href="uGameManager.cGameManager.html#ChangeEmulator">ChangeEmulator</a></b>(const EmulatorName: String);</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a   href="uGameManager.cGameManager.html#ChangeSystem">ChangeSystem</a></b>(const SystemName: UTF8String);</code></td>
+<td class="itemcode"><code>procedure <b><a   href="uGameManager.cGameManager.html#ChangeSystem">ChangeSystem</a></b>(const SystemName: String);</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a   href="uGameManager.cGameManager.html#ExportGameData">ExportGameData</a></b>(const aFileName: UTF8String; const ExportMode: boolean);</code></td>
+<td class="itemcode"><code>procedure <b><a   href="uGameManager.cGameManager.html#ExportGameData">ExportGameData</a></b>(const aFileName: String; const ExportMode: boolean);</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -99,7 +110,7 @@
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a   href="uGameManager.cGameManager.html#ImportGameData">ImportGameData</a></b>(const aFileName: UTF8String);</code></td>
+<td class="itemcode"><code>procedure <b><a   href="uGameManager.cGameManager.html#ImportGameData">ImportGameData</a></b>(const aFileName: String);</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -123,15 +134,15 @@
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a   href="uGameManager.cGameManager.html#SearchGameMedia">SearchGameMedia</a></b>(FileList: TStrings; aFolder: UTF8String; aGameVersion: <a   href="uGame.cGame.html">cGame</a>; Extensions: TStrings; MultiFile: boolean; SearchInZip: boolean);</code></td>
+<td class="itemcode"><code>procedure <b><a   href="uGameManager.cGameManager.html#SearchGameMedia">SearchGameMedia</a></b>(FileList: TStrings; aFolder: String; aGameVersion: <a   href="uGame.cGame.html">cGame</a>; Extensions: TStrings; MultiFile: boolean; SearchInZip: boolean);</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a   href="uGameManager.cGameManager.html#SearchGroupMedia">SearchGroupMedia</a></b>(FileList: TStrings; aFolder: UTF8String; aGameGroup: <a   href="uGameGroup.cGameGroup.html">cGameGroup</a>; Extensions: TStrings; MultiFile: boolean; SearchInZip: boolean);</code></td>
+<td class="itemcode"><code>procedure <b><a   href="uGameManager.cGameManager.html#SearchGroupMedia">SearchGroupMedia</a></b>(FileList: TStrings; aFolder: String; aGameGroup: <a   href="uGameGroup.cGameGroup.html">cGameGroup</a>; Extensions: TStrings; MultiFile: boolean; SearchInZip: boolean);</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a   href="uGameManager.cGameManager.html#SearchMediaFiles">SearchMediaFiles</a></b>(FileList: TStrings; aFolder: UTF8String; aFileName: UTF8String; Extensions: TStrings; MultiFile: boolean; SearchInZip: boolean; ExtractFile: boolean = True);</code></td>
+<td class="itemcode"><code>procedure <b><a   href="uGameManager.cGameManager.html#SearchMediaFiles">SearchMediaFiles</a></b>(FileList: TStrings; aFolder: String; aFileName: String; Extensions: TStrings; MultiFile: boolean; SearchInZip: boolean; ExtractFile: boolean = True);</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -150,7 +161,7 @@
 <table class="summary wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uGameManager.cGameManager.html#CompressedExt">CompressedExt</a></b>: TStringListUTF8 read FCompressedExt;</code></td>
+<td class="itemcode"><code>property <b><a   href="uGameManager.cGameManager.html#CompressedExt">CompressedExt</a></b>: TStringList read FCompressedExt;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -162,12 +173,12 @@
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uGameManager.cGameManager.html#EmulatorsFile">EmulatorsFile</a></b>: UTF8String read FEmulatorsFile
+<td class="itemcode"><code>property <b><a   href="uGameManager.cGameManager.html#EmulatorsFile">EmulatorsFile</a></b>: String read FEmulatorsFile
       write SetEmulatorsFile;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uGameManager.cGameManager.html#GameDataFileExt">GameDataFileExt</a></b>: UTF8String
+<td class="itemcode"><code>property <b><a   href="uGameManager.cGameManager.html#GameDataFileExt">GameDataFileExt</a></b>: String
       read FGameDataFileExt write SetGameDataFileExt;</code></td>
 </tr>
 <tr class="list2">
@@ -176,7 +187,7 @@
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uGameManager.cGameManager.html#GroupDataFileExt">GroupDataFileExt</a></b>: UTF8String
+<td class="itemcode"><code>property <b><a   href="uGameManager.cGameManager.html#GroupDataFileExt">GroupDataFileExt</a></b>: String
       read FGroupDataFileExt write SetGroupDataFileExt;</code></td>
 </tr>
 <tr class="list2">
@@ -194,15 +205,15 @@
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uGameManager.cGameManager.html#SystemsFile">SystemsFile</a></b>: UTF8String read FSystemsFile write SetSystemsFile;</code></td>
+<td class="itemcode"><code>property <b><a   href="uGameManager.cGameManager.html#SystemsFile">SystemsFile</a></b>: String read FSystemsFile write SetSystemsFile;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uGameManager.cGameManager.html#TempFile">TempFile</a></b>: UTF8String read FTempFile write SetTempFile;</code></td>
+<td class="itemcode"><code>property <b><a   href="uGameManager.cGameManager.html#TempFile">TempFile</a></b>: String read FTempFile write SetTempFile;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uGameManager.cGameManager.html#TempFolder">TempFolder</a></b>: UTF8String read FTempFolder write SetTempFolder;</code></td>
+<td class="itemcode"><code>property <b><a   href="uGameManager.cGameManager.html#TempFolder">TempFolder</a></b>: String read FTempFolder write SetTempFolder;</code></td>
 </tr>
 </table>
 <h2 class="description">Description</h2>
@@ -210,7 +221,7 @@
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Create"></a><code>constructor <b>Create</b>(const aSystemsFile: UTF8String; const aTempFolder: UTF8String; const aTempFile: UTF8String);</code></td>
+<td class="itemcode"><a name="Create"></a><code>constructor <b>Create</b>(const aSystemsFile: String; const aTempFolder: String; const aTempFile: String);</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -226,7 +237,7 @@
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="AddFile"></a><code>function <b>AddFile</b>(aFolder: UTF8String; Info: TSearchRec): boolean;</code></td>
+<td class="itemcode"><a name="AddFile"></a><code>function <b>AddFile</b>(aFolder: String; Info: TSearchRec): boolean;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -236,7 +247,7 @@ Add a file (or all files if it's a compressed archive) to the <a class="normal" 
 
 <p>if the file is not in the <a class="normal"  href="uGameManager.cGameManager.html#System">system</a> extesion filter, this function search if the file is a compressed archive and adds every <a class="normal"  href="uGameManager.cGameManager.html#Game">game</a> found in it.
 
-<p>This funtion is for FindFirst..FindNext use, if you want to add a <a class="normal"  href="uGameManager.cGameManager.html#Game">game</a> or <a class="normal"  href="uGameManager.cGameManager.html#Group">group</a> straight use <a class="normal"  href="uGameManager.cGameManager.html#AddGame">AddGame</a>/<a class="normal"  href="uGameManager.cGameManager.html#AddGroup">AddGroup</a>.
+<p>This funtion is for <a class="normal"  href="uCustomUtils.html#IterateFolderObj">IterateFolderObj</a> use, if you want to add a <a class="normal"  href="uGameManager.cGameManager.html#Game">game</a> or <a class="normal"  href="uGameManager.cGameManager.html#Group">group</a> straight use <a class="normal"  href="uGameManager.cGameManager.html#AddGame">AddGame</a>/<a class="normal"  href="uGameManager.cGameManager.html#AddGroup">AddGroup</a>.
 
 <p>  </p>
 <h6 class="description_section">Parameters</h6>
@@ -252,7 +263,7 @@ Add a file (or all files if it's a compressed archive) to the <a class="normal" 
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="AddGame"></a><code>function <b>AddGame</b>(const aFolder: UTF8String; const aFileName: UTF8String; const aKey: UTF8String): <a   href="uGame.cGame.html">cGame</a>;</code></td>
+<td class="itemcode"><a name="AddGame"></a><code>function <b>AddGame</b>(const aFolder: String; const aFileName: String; const aKey: String): <a   href="uGame.cGame.html">cGame</a>;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -262,7 +273,7 @@ Add a <a class="normal"  href="uGameManager.cGameManager.html#Game">game</a>.</p
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="AddGroup"></a><code>function <b>AddGroup</b>(aGameGroupID: UTF8String): <a   href="uGameGroup.cGameGroup.html">cGameGroup</a>;</code></td>
+<td class="itemcode"><a name="AddGroup"></a><code>function <b>AddGroup</b>(aGameGroupID: String): <a   href="uGameGroup.cGameGroup.html">cGameGroup</a>;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -282,7 +293,7 @@ Add a <a class="normal"  href="uGameManager.cGameManager.html#Group">group</a>.<
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Game"></a><code>function <b>Game</b>(aGameKey: UTF8String): <a   href="uGame.cGame.html">cGame</a>;</code></td>
+<td class="itemcode"><a name="Game"></a><code>function <b>Game</b>(aGameKey: String): <a   href="uGame.cGame.html">cGame</a>;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -312,7 +323,7 @@ Return the number of games.</p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="GameMediaExists"></a><code>function <b>GameMediaExists</b>(aFolder: UTF8String; aGameVersion: <a   href="uGame.cGame.html">cGame</a>; Extensions: TStrings; MultiFile: boolean; SearchInZip: boolean): boolean;</code></td>
+<td class="itemcode"><a name="GameMediaExists"></a><code>function <b>GameMediaExists</b>(aFolder: String; aGameVersion: <a   href="uGame.cGame.html">cGame</a>; Extensions: TStrings; MultiFile: boolean; SearchInZip: boolean): boolean;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -320,7 +331,7 @@ Return the number of games.</p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Group"></a><code>function <b>Group</b>(aGroupKey: UTF8String): <a   href="uGameGroup.cGameGroup.html">cGameGroup</a>;</code></td>
+<td class="itemcode"><a name="Group"></a><code>function <b>Group</b>(aGroupKey: String): <a   href="uGameGroup.cGameGroup.html">cGameGroup</a>;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -350,7 +361,7 @@ Return the number of groups.</p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="GroupMediaExists"></a><code>function <b>GroupMediaExists</b>(aFolder: UTF8String; aGameGroup: <a   href="uGameGroup.cGameGroup.html">cGameGroup</a>; Extensions: TStrings; MultiFile: boolean; SearchInZip: boolean): boolean;</code></td>
+<td class="itemcode"><a name="GroupMediaExists"></a><code>function <b>GroupMediaExists</b>(aFolder: String; aGameGroup: <a   href="uGameGroup.cGameGroup.html">cGameGroup</a>; Extensions: TStrings; MultiFile: boolean; SearchInZip: boolean): boolean;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -358,7 +369,7 @@ Return the number of groups.</p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="ChangeEmulator"></a><code>procedure <b>ChangeEmulator</b>(const EmulatorName: UTF8String);</code></td>
+<td class="itemcode"><a name="ChangeEmulator"></a><code>procedure <b>ChangeEmulator</b>(const EmulatorName: String);</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -368,7 +379,7 @@ Change the current emultor.</p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="ChangeSystem"></a><code>procedure <b>ChangeSystem</b>(const SystemName: UTF8String);</code></td>
+<td class="itemcode"><a name="ChangeSystem"></a><code>procedure <b>ChangeSystem</b>(const SystemName: String);</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -378,7 +389,7 @@ Change the current <a class="normal"  href="uGameManager.cGameManager.html#Syste
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="ExportGameData"></a><code>procedure <b>ExportGameData</b>(const aFileName: UTF8String; const ExportMode: boolean);</code></td>
+<td class="itemcode"><a name="ExportGameData"></a><code>procedure <b>ExportGameData</b>(const aFileName: String; const ExportMode: boolean);</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -412,7 +423,7 @@ Export current <a class="normal"  href="uGameManager.cGameManager.html#System">s
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="ImportGameData"></a><code>procedure <b>ImportGameData</b>(const aFileName: UTF8String);</code></td>
+<td class="itemcode"><a name="ImportGameData"></a><code>procedure <b>ImportGameData</b>(const aFileName: String);</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -468,7 +479,7 @@ Save the current <a class="normal"  href="uGameManager.cGameManager.html#System"
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="SearchGameMedia"></a><code>procedure <b>SearchGameMedia</b>(FileList: TStrings; aFolder: UTF8String; aGameVersion: <a   href="uGame.cGame.html">cGame</a>; Extensions: TStrings; MultiFile: boolean; SearchInZip: boolean);</code></td>
+<td class="itemcode"><a name="SearchGameMedia"></a><code>procedure <b>SearchGameMedia</b>(FileList: TStrings; aFolder: String; aGameVersion: <a   href="uGame.cGame.html">cGame</a>; Extensions: TStrings; MultiFile: boolean; SearchInZip: boolean);</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -476,7 +487,7 @@ Save the current <a class="normal"  href="uGameManager.cGameManager.html#System"
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="SearchGroupMedia"></a><code>procedure <b>SearchGroupMedia</b>(FileList: TStrings; aFolder: UTF8String; aGameGroup: <a   href="uGameGroup.cGameGroup.html">cGameGroup</a>; Extensions: TStrings; MultiFile: boolean; SearchInZip: boolean);</code></td>
+<td class="itemcode"><a name="SearchGroupMedia"></a><code>procedure <b>SearchGroupMedia</b>(FileList: TStrings; aFolder: String; aGameGroup: <a   href="uGameGroup.cGameGroup.html">cGameGroup</a>; Extensions: TStrings; MultiFile: boolean; SearchInZip: boolean);</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -484,7 +495,7 @@ Save the current <a class="normal"  href="uGameManager.cGameManager.html#System"
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="SearchMediaFiles"></a><code>procedure <b>SearchMediaFiles</b>(FileList: TStrings; aFolder: UTF8String; aFileName: UTF8String; Extensions: TStrings; MultiFile: boolean; SearchInZip: boolean; ExtractFile: boolean = True);</code></td>
+<td class="itemcode"><a name="SearchMediaFiles"></a><code>procedure <b>SearchMediaFiles</b>(FileList: TStrings; aFolder: String; aFileName: String; Extensions: TStrings; MultiFile: boolean; SearchInZip: boolean; ExtractFile: boolean = True);</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -517,7 +528,7 @@ Save the current <a class="normal"  href="uGameManager.cGameManager.html#System"
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="CompressedExt"></a><code>property <b>CompressedExt</b>: TStringListUTF8 read FCompressedExt;</code></td>
+<td class="itemcode"><a name="CompressedExt"></a><code>property <b>CompressedExt</b>: TStringList read FCompressedExt;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -547,7 +558,7 @@ Current selected <code>emulator</code>.</p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="EmulatorsFile"></a><code>property <b>EmulatorsFile</b>: UTF8String read FEmulatorsFile
+<td class="itemcode"><a name="EmulatorsFile"></a><code>property <b>EmulatorsFile</b>: String read FEmulatorsFile
       write SetEmulatorsFile;</code></td>
 </tr>
 <tr><td colspan="2">
@@ -558,7 +569,7 @@ Path of the file where <a class="normal"  href="uGameManager.cGameManager.html#E
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="GameDataFileExt"></a><code>property <b>GameDataFileExt</b>: UTF8String
+<td class="itemcode"><a name="GameDataFileExt"></a><code>property <b>GameDataFileExt</b>: String
       read FGameDataFileExt write SetGameDataFileExt;</code></td>
 </tr>
 <tr><td colspan="2">
@@ -579,7 +590,7 @@ Actual list where the games of the current <a class="normal"  href="uGameManager
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="GroupDataFileExt"></a><code>property <b>GroupDataFileExt</b>: UTF8String
+<td class="itemcode"><a name="GroupDataFileExt"></a><code>property <b>GroupDataFileExt</b>: String
       read FGroupDataFileExt write SetGroupDataFileExt;</code></td>
 </tr>
 <tr><td colspan="2">
@@ -621,7 +632,7 @@ Current loaded <code>system</code>.</p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="SystemsFile"></a><code>property <b>SystemsFile</b>: UTF8String read FSystemsFile write SetSystemsFile;</code></td>
+<td class="itemcode"><a name="SystemsFile"></a><code>property <b>SystemsFile</b>: String read FSystemsFile write SetSystemsFile;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -631,7 +642,7 @@ Path of the file where <a class="normal"  href="uGameManager.cGameManager.html#S
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="TempFile"></a><code>property <b>TempFile</b>: UTF8String read FTempFile write SetTempFile;</code></td>
+<td class="itemcode"><a name="TempFile"></a><code>property <b>TempFile</b>: String read FTempFile write SetTempFile;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -641,13 +652,13 @@ Temp file for... nothing. May be for export/import when updating.</p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="TempFolder"></a><code>property <b>TempFolder</b>: UTF8String read FTempFolder write SetTempFolder;</code></td>
+<td class="itemcode"><a name="TempFolder"></a><code>property <b>TempFolder</b>: String read FTempFolder write SetTempFolder;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
 Temp folder used for decompress and other dirty things.</p>
 </td></tr>
 </table>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.12.1</a> on 2011-12-27 19:40:25</em>
+Chixpy<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.12.1</a> on 2012-05-01 19:42:38</em>
 </span>
 </body></html>

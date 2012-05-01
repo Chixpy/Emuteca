@@ -7,7 +7,7 @@
 <link rel="StyleSheet" type="text/css" href="pasdoc.css">
 </head>
 <body bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#800080" alink="#FF0000">
-<a name="cSystem"></a><h1 class="cio">Class cSystem</h1>
+Emuteca<a name="cSystem"></a><h1 class="cio">Class cSystem</h1>
 <table class="sections wide_list">
 <tr>
 <td><a class="section"  href="#%40Description">Description</a></td><td><a class="section"  href="#%40Hierarchy">Hierarchy</a></td><td>Fields</td><td><a class="section"  href="#%40Methods">Methods</a></td><td><a class="section"  href="#%40Properties">Properties</a></td></tr></table>
@@ -27,7 +27,7 @@
 <table class="summary wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>constructor <b><a   href="uSystem.cSystem.html#Create">Create</a></b>(const AName: UTF8String);</code></td>
+<td class="itemcode"><code>constructor <b><a   href="uSystem.cSystem.html#Create">Create</a></b>(const AName: String);</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -35,7 +35,7 @@
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a   href="uSystem.cSystem.html#LoadFromFile">LoadFromFile</a></b>(const IniFile: UTF8String);</code></td>
+<td class="itemcode"><code>procedure <b><a   href="uSystem.cSystem.html#LoadFromFile">LoadFromFile</a></b>(const IniFile: String);</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -43,7 +43,7 @@
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a   href="uSystem.cSystem.html#SaveToFile">SaveToFile</a></b>(const IniFile: UTF8String; const ExportMode: boolean = False);</code></td>
+<td class="itemcode"><code>procedure <b><a   href="uSystem.cSystem.html#SaveToFile">SaveToFile</a></b>(const IniFile: String; const ExportMode: boolean = False);</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -58,172 +58,176 @@
 <table class="summary wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#BaseFolder">BaseFolder</a></b>: UTF8String read FBaseFolder write SetBaseFolder;</code></td>
+<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#BackgroundImage">BackgroundImage</a></b>: String read FBackgroundImage write SetBackgroundImage;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#Company">Company</a></b>: UTF8String read FCompany write SetCompany;</code></td>
+<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#BaseFolder">BaseFolder</a></b>: String read FBaseFolder write SetBaseFolder;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#DataFile">DataFile</a></b>: UTF8String read FDataFile write SetDataFile;</code></td>
+<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#Company">Company</a></b>: String read FCompany write SetCompany;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#DemoMusicFolder">DemoMusicFolder</a></b>: UTF8String
+<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#DataFile">DataFile</a></b>: String read FDataFile write SetDataFile;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#DemoMusicFolder">DemoMusicFolder</a></b>: String
       read FDemoMusicFolder write SetDemoMusicFolder;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#DemoVideoFolder">DemoVideoFolder</a></b>: UTF8String
+<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#DemoVideoFolder">DemoVideoFolder</a></b>: String
       read FDemoVideoFolder write SetDemoVideoFolder;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#Enabled">Enabled</a></b>: boolean read FEnabled write SetEnabled;</code></td>
 </tr>
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#Extensions">Extensions</a></b>: TStringListUTF8 read FExtensions;</code></td>
-</tr>
 <tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#Extensions">Extensions</a></b>: TStringList read FExtensions;</code></td>
+</tr>
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#ExtractAll">ExtractAll</a></b>: boolean read FExtractAll write SetExtractAll;</code></td>
 </tr>
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#FirstYear">FirstYear</a></b>: UTF8String read FFirstYear write SetFirstYear;</code></td>
-</tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#GameFolder">GameFolder</a></b>: UTF8String read FGameFolder write SetGameFolder;</code></td>
+<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#FirstYear">FirstYear</a></b>: String read FFirstYear write SetFirstYear;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#Icon">Icon</a></b>: UTF8String read FIcon write SetIcon;</code></td>
+<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#GameFolder">GameFolder</a></b>: String read FGameFolder write SetGameFolder;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#IconFolder">IconFolder</a></b>: UTF8String read FIconFolder write SetIconFolder;</code></td>
+<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#Icon">Icon</a></b>: String read FIcon write SetIcon;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#ID">ID</a></b>: UTF8String read FID write SetID;</code></td>
+<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#IconFolder">IconFolder</a></b>: String read FIconFolder write SetIconFolder;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#Image">Image</a></b>: UTF8String read FImage write SetImage;</code></td>
+<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#ID">ID</a></b>: String read FID write SetID;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#ImageCaptions">ImageCaptions</a></b>: TStringListUTF8 read FImageCaptions;</code></td>
+<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#Image">Image</a></b>: String read FImage write SetImage;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#ImageFolders">ImageFolders</a></b>: TStringListUTF8 read FImageFolders;</code></td>
+<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#ImageCaptions">ImageCaptions</a></b>: TStringList read FImageCaptions;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#ImageModes">ImageModes</a></b>: TStringListUTF8 read FImageModes;</code></td>
+<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#ImageFolders">ImageFolders</a></b>: TStringList read FImageFolders;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#InfoText">InfoText</a></b>: UTF8String read FInfoText write SetInfoText;</code></td>
+<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#ImageModes">ImageModes</a></b>: TStringList read FImageModes;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#LastYear">LastYear</a></b>: UTF8String read FLastYear write SetLastYear;</code></td>
+<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#InfoText">InfoText</a></b>: String read FInfoText write SetInfoText;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#MainEmulator">MainEmulator</a></b>: UTF8String
+<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#LastYear">LastYear</a></b>: String read FLastYear write SetLastYear;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#MainEmulator">MainEmulator</a></b>: String
       read FMainEmulator write SetMainEmulator;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#MarqueeFolder">MarqueeFolder</a></b>: UTF8String read FMarqueeFolder
+<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#MarqueeFolder">MarqueeFolder</a></b>: String read FMarqueeFolder
       write SetMarqueeFolder;</code></td>
 </tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#Model">Model</a></b>: String read FModel write SetModel;</code></td>
+</tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#Model">Model</a></b>: UTF8String read FModel write SetModel;</code></td>
+<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#MusicCaptions">MusicCaptions</a></b>: TStringList read FMusicCaptions;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#MusicCaptions">MusicCaptions</a></b>: TStringListUTF8 read FMusicCaptions;</code></td>
+<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#MusicExecutables">MusicExecutables</a></b>: TStringList read FMusicExecutables;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#MusicExecutables">MusicExecutables</a></b>: TStringListUTF8 read FMusicExecutables;</code></td>
+<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#MusicExtensions">MusicExtensions</a></b>: TStringList read FMusicExtensions;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#MusicExtensions">MusicExtensions</a></b>: TStringListUTF8 read FMusicExtensions;</code></td>
+<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#MusicFolders">MusicFolders</a></b>: TStringList read FMusicFolders;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#MusicFolders">MusicFolders</a></b>: TStringListUTF8 read FMusicFolders;</code></td>
+<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#MusicModes">MusicModes</a></b>: TStringList read FMusicModes;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#MusicModes">MusicModes</a></b>: TStringListUTF8 read FMusicModes;</code></td>
+<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#MusicParameters">MusicParameters</a></b>: TStringList read FMusicParameters;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#MusicParameters">MusicParameters</a></b>: TStringListUTF8 read FMusicParameters;</code></td>
+<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#OtherEmulators">OtherEmulators</a></b>: TStringList read FOtherEmulators;</code></td>
 </tr>
 <tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#OtherEmulators">OtherEmulators</a></b>: TStringListUTF8 read FOtherEmulators;</code></td>
-</tr>
-<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#RecursiveGameFolder">RecursiveGameFolder</a></b>: boolean
       read FRecursiveGameFolder write SetRecursiveGameFolder;</code></td>
 </tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#TempFolder">TempFolder</a></b>: String read FTempFolder write SetTempFolder;</code></td>
+</tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#TempFolder">TempFolder</a></b>: UTF8String read FTempFolder write SetTempFolder;</code></td>
+<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#TextCaptions">TextCaptions</a></b>: TStringList read FTextCaptions;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#TextCaptions">TextCaptions</a></b>: TStringListUTF8 read FTextCaptions;</code></td>
+<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#TextFolders">TextFolders</a></b>: TStringList read FTextFolders;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#TextFolders">TextFolders</a></b>: TStringListUTF8 read FTextFolders;</code></td>
+<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#TextModes">TextModes</a></b>: TStringList read FTextModes;</code></td>
 </tr>
 <tr class="list2">
-<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#TextModes">TextModes</a></b>: TStringListUTF8 read FTextModes;</code></td>
-</tr>
-<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#UseCRC">UseCRC</a></b>: boolean read FUseCRC write SetUseCRC;</code></td>
 </tr>
-<tr class="list2">
-<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#VideoCaptions">VideoCaptions</a></b>: TStringListUTF8 read FVideoCaptions;</code></td>
-</tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#VideoExecutables">VideoExecutables</a></b>: TStringListUTF8 read FVideoExecutables;</code></td>
+<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#VideoCaptions">VideoCaptions</a></b>: TStringList read FVideoCaptions;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#VideoExtensions">VideoExtensions</a></b>: TStringListUTF8 read FVideoExtensions;</code></td>
+<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#VideoExecutables">VideoExecutables</a></b>: TStringList read FVideoExecutables;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#VideoFolders">VideoFolders</a></b>: TStringListUTF8 read FVideoFolders;</code></td>
+<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#VideoExtensions">VideoExtensions</a></b>: TStringList read FVideoExtensions;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#VideoModes">VideoModes</a></b>: TStringListUTF8 read FVideoModes;</code></td>
+<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#VideoFolders">VideoFolders</a></b>: TStringList read FVideoFolders;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#VideoParameters">VideoParameters</a></b>: TStringListUTF8 read FVideoParameters;</code></td>
+<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#VideoModes">VideoModes</a></b>: TStringList read FVideoModes;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#VideoParameters">VideoParameters</a></b>: TStringList read FVideoParameters;</code></td>
 </tr>
 </table>
 <h2 class="description">Description</h2>
@@ -231,7 +235,7 @@
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Create"></a><code>constructor <b>Create</b>(const AName: UTF8String);</code></td>
+<td class="itemcode"><a name="Create"></a><code>constructor <b>Create</b>(const AName: String);</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -256,7 +260,7 @@
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="LoadFromFile"></a><code>procedure <b>LoadFromFile</b>(const IniFile: UTF8String);</code></td>
+<td class="itemcode"><a name="LoadFromFile"></a><code>procedure <b>LoadFromFile</b>(const IniFile: String);</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -290,7 +294,7 @@ Loads system data from a ini file.
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="SaveToFile"></a><code>procedure <b>SaveToFile</b>(const IniFile: UTF8String; const ExportMode: boolean = False);</code></td>
+<td class="itemcode"><a name="SaveToFile"></a><code>procedure <b>SaveToFile</b>(const IniFile: String; const ExportMode: boolean = False);</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -343,7 +347,17 @@ Try to fix some incosistences in folders, captions and modes data.
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="BaseFolder"></a><code>property <b>BaseFolder</b>: UTF8String read FBaseFolder write SetBaseFolder;</code></td>
+<td class="itemcode"><a name="BackgroundImage"></a><code>property <b>BackgroundImage</b>: String read FBackgroundImage write SetBackgroundImage;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+<a class="normal"  href="uSystem.cSystem.html#Image">Image</a> used for list background</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="BaseFolder"></a><code>property <b>BaseFolder</b>: String read FBaseFolder write SetBaseFolder;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -355,7 +369,7 @@ System base folder
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Company"></a><code>property <b>Company</b>: UTF8String read FCompany write SetCompany;</code></td>
+<td class="itemcode"><a name="Company"></a><code>property <b>Company</b>: String read FCompany write SetCompany;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -365,7 +379,7 @@ System base folder
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="DataFile"></a><code>property <b>DataFile</b>: UTF8String read FDataFile write SetDataFile;</code></td>
+<td class="itemcode"><a name="DataFile"></a><code>property <b>DataFile</b>: String read FDataFile write SetDataFile;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -377,7 +391,7 @@ Name of the files with the game/group data.
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="DemoMusicFolder"></a><code>property <b>DemoMusicFolder</b>: UTF8String
+<td class="itemcode"><a name="DemoMusicFolder"></a><code>property <b>DemoMusicFolder</b>: String
       read FDemoMusicFolder write SetDemoMusicFolder;</code></td>
 </tr>
 <tr><td colspan="2">
@@ -390,7 +404,7 @@ Folder with demo music of the games.
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="DemoVideoFolder"></a><code>property <b>DemoVideoFolder</b>: UTF8String
+<td class="itemcode"><a name="DemoVideoFolder"></a><code>property <b>DemoVideoFolder</b>: String
       read FDemoVideoFolder write SetDemoVideoFolder;</code></td>
 </tr>
 <tr><td colspan="2">
@@ -413,7 +427,7 @@ Is the system <code>enabled</code>?</p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Extensions"></a><code>property <b>Extensions</b>: TStringListUTF8 read FExtensions;</code></td>
+<td class="itemcode"><a name="Extensions"></a><code>property <b>Extensions</b>: TStringList read FExtensions;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -435,7 +449,7 @@ Must all files be extracted from compressed archives?</p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="FirstYear"></a><code>property <b>FirstYear</b>: UTF8String read FFirstYear write SetFirstYear;</code></td>
+<td class="itemcode"><a name="FirstYear"></a><code>property <b>FirstYear</b>: String read FFirstYear write SetFirstYear;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -445,7 +459,7 @@ Year of release</p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="GameFolder"></a><code>property <b>GameFolder</b>: UTF8String read FGameFolder write SetGameFolder;</code></td>
+<td class="itemcode"><a name="GameFolder"></a><code>property <b>GameFolder</b>: String read FGameFolder write SetGameFolder;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -455,17 +469,17 @@ Folder for games of the system.</p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Icon"></a><code>property <b>Icon</b>: UTF8String read FIcon write SetIcon;</code></td>
+<td class="itemcode"><a name="Icon"></a><code>property <b>Icon</b>: String read FIcon write SetIcon;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
-Path to the <code>icon</code> of the system</p>
+Path to the <code>icon</code> of the system.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="IconFolder"></a><code>property <b>IconFolder</b>: UTF8String read FIconFolder write SetIconFolder;</code></td>
+<td class="itemcode"><a name="IconFolder"></a><code>property <b>IconFolder</b>: String read FIconFolder write SetIconFolder;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -475,7 +489,7 @@ Folder for the icons of the games.</p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="ID"></a><code>property <b>ID</b>: UTF8String read FID write SetID;</code></td>
+<td class="itemcode"><a name="ID"></a><code>property <b>ID</b>: String read FID write SetID;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -485,17 +499,17 @@ Name or <code>ID</code> of the system (usually, <a class="normal"  href="uSystem
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Image"></a><code>property <b>Image</b>: UTF8String read FImage write SetImage;</code></td>
+<td class="itemcode"><a name="Image"></a><code>property <b>Image</b>: String read FImage write SetImage;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
-Path to <code>image</code> of the system</p>
+Path to <code>image</code> of the system.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="ImageCaptions"></a><code>property <b>ImageCaptions</b>: TStringListUTF8 read FImageCaptions;</code></td>
+<td class="itemcode"><a name="ImageCaptions"></a><code>property <b>ImageCaptions</b>: TStringList read FImageCaptions;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -505,7 +519,7 @@ Captions for the folders of game's images.</p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="ImageFolders"></a><code>property <b>ImageFolders</b>: TStringListUTF8 read FImageFolders;</code></td>
+<td class="itemcode"><a name="ImageFolders"></a><code>property <b>ImageFolders</b>: TStringList read FImageFolders;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -515,7 +529,7 @@ Folders for the game images.</p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="ImageModes"></a><code>property <b>ImageModes</b>: TStringListUTF8 read FImageModes;</code></td>
+<td class="itemcode"><a name="ImageModes"></a><code>property <b>ImageModes</b>: TStringList read FImageModes;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -536,17 +550,17 @@ File search mode for the folders of game's images.
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="InfoText"></a><code>property <b>InfoText</b>: UTF8String read FInfoText write SetInfoText;</code></td>
+<td class="itemcode"><a name="InfoText"></a><code>property <b>InfoText</b>: String read FInfoText write SetInfoText;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
-Path to text file of the system</p>
+Path to text file of the system.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="LastYear"></a><code>property <b>LastYear</b>: UTF8String read FLastYear write SetLastYear;</code></td>
+<td class="itemcode"><a name="LastYear"></a><code>property <b>LastYear</b>: String read FLastYear write SetLastYear;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -556,7 +570,7 @@ Year of discontinuation</p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="MainEmulator"></a><code>property <b>MainEmulator</b>: UTF8String
+<td class="itemcode"><a name="MainEmulator"></a><code>property <b>MainEmulator</b>: String
       read FMainEmulator write SetMainEmulator;</code></td>
 </tr>
 <tr><td colspan="2">
@@ -567,7 +581,7 @@ Main emulator <a class="normal"  href="uSystem.cSystem.html#ID">ID</a>.</p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="MarqueeFolder"></a><code>property <b>MarqueeFolder</b>: UTF8String read FMarqueeFolder
+<td class="itemcode"><a name="MarqueeFolder"></a><code>property <b>MarqueeFolder</b>: String read FMarqueeFolder
       write SetMarqueeFolder;</code></td>
 </tr>
 <tr><td colspan="2">
@@ -578,7 +592,7 @@ Folder for marquees (or box side).</p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Model"></a><code>property <b>Model</b>: UTF8String read FModel write SetModel;</code></td>
+<td class="itemcode"><a name="Model"></a><code>property <b>Model</b>: String read FModel write SetModel;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -588,7 +602,7 @@ Folder for marquees (or box side).</p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="MusicCaptions"></a><code>property <b>MusicCaptions</b>: TStringListUTF8 read FMusicCaptions;</code></td>
+<td class="itemcode"><a name="MusicCaptions"></a><code>property <b>MusicCaptions</b>: TStringList read FMusicCaptions;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -598,7 +612,7 @@ Captions for the folders of game's music.</p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="MusicExecutables"></a><code>property <b>MusicExecutables</b>: TStringListUTF8 read FMusicExecutables;</code></td>
+<td class="itemcode"><a name="MusicExecutables"></a><code>property <b>MusicExecutables</b>: TStringList read FMusicExecutables;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -608,7 +622,7 @@ Executables for play music files (i.e. call a external program).</p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="MusicExtensions"></a><code>property <b>MusicExtensions</b>: TStringListUTF8 read FMusicExtensions;</code></td>
+<td class="itemcode"><a name="MusicExtensions"></a><code>property <b>MusicExtensions</b>: TStringList read FMusicExtensions;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -618,7 +632,7 @@ Executables for play music files (i.e. call a external program).</p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="MusicFolders"></a><code>property <b>MusicFolders</b>: TStringListUTF8 read FMusicFolders;</code></td>
+<td class="itemcode"><a name="MusicFolders"></a><code>property <b>MusicFolders</b>: TStringList read FMusicFolders;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -628,7 +642,7 @@ Folders for game music (OST, remixes).</p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="MusicModes"></a><code>property <b>MusicModes</b>: TStringListUTF8 read FMusicModes;</code></td>
+<td class="itemcode"><a name="MusicModes"></a><code>property <b>MusicModes</b>: TStringList read FMusicModes;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -649,7 +663,7 @@ Music search mode for the folders of game's music.
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="MusicParameters"></a><code>property <b>MusicParameters</b>: TStringListUTF8 read FMusicParameters;</code></td>
+<td class="itemcode"><a name="MusicParameters"></a><code>property <b>MusicParameters</b>: TStringList read FMusicParameters;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -659,7 +673,7 @@ Parameter for executables.</p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="OtherEmulators"></a><code>property <b>OtherEmulators</b>: TStringListUTF8 read FOtherEmulators;</code></td>
+<td class="itemcode"><a name="OtherEmulators"></a><code>property <b>OtherEmulators</b>: TStringList read FOtherEmulators;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -680,7 +694,7 @@ Search in the subfolder of the game folder?</p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="TempFolder"></a><code>property <b>TempFolder</b>: UTF8String read FTempFolder write SetTempFolder;</code></td>
+<td class="itemcode"><a name="TempFolder"></a><code>property <b>TempFolder</b>: String read FTempFolder write SetTempFolder;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -690,7 +704,7 @@ Custom temporal folder for decompress game files.</p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="TextCaptions"></a><code>property <b>TextCaptions</b>: TStringListUTF8 read FTextCaptions;</code></td>
+<td class="itemcode"><a name="TextCaptions"></a><code>property <b>TextCaptions</b>: TStringList read FTextCaptions;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -700,7 +714,7 @@ Captions for the folders of game's texts.</p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="TextFolders"></a><code>property <b>TextFolders</b>: TStringListUTF8 read FTextFolders;</code></td>
+<td class="itemcode"><a name="TextFolders"></a><code>property <b>TextFolders</b>: TStringList read FTextFolders;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -710,7 +724,7 @@ Folders for game texts.</p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="TextModes"></a><code>property <b>TextModes</b>: TStringListUTF8 read FTextModes;</code></td>
+<td class="itemcode"><a name="TextModes"></a><code>property <b>TextModes</b>: TStringList read FTextModes;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -741,7 +755,7 @@ Must CRC be used as game identifiers (when importing/exporting data)</p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="VideoCaptions"></a><code>property <b>VideoCaptions</b>: TStringListUTF8 read FVideoCaptions;</code></td>
+<td class="itemcode"><a name="VideoCaptions"></a><code>property <b>VideoCaptions</b>: TStringList read FVideoCaptions;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -751,7 +765,7 @@ Captions for the folders of game's videos.</p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="VideoExecutables"></a><code>property <b>VideoExecutables</b>: TStringListUTF8 read FVideoExecutables;</code></td>
+<td class="itemcode"><a name="VideoExecutables"></a><code>property <b>VideoExecutables</b>: TStringList read FVideoExecutables;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -761,7 +775,7 @@ Commandline for play video files (i.e. call a external program).</p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="VideoExtensions"></a><code>property <b>VideoExtensions</b>: TStringListUTF8 read FVideoExtensions;</code></td>
+<td class="itemcode"><a name="VideoExtensions"></a><code>property <b>VideoExtensions</b>: TStringList read FVideoExtensions;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -771,7 +785,7 @@ Commandline for play video files (i.e. call a external program).</p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="VideoFolders"></a><code>property <b>VideoFolders</b>: TStringListUTF8 read FVideoFolders;</code></td>
+<td class="itemcode"><a name="VideoFolders"></a><code>property <b>VideoFolders</b>: TStringList read FVideoFolders;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -781,7 +795,7 @@ Folders for game videos (Speedruns, TAS, etc.).</p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="VideoModes"></a><code>property <b>VideoModes</b>: TStringListUTF8 read FVideoModes;</code></td>
+<td class="itemcode"><a name="VideoModes"></a><code>property <b>VideoModes</b>: TStringList read FVideoModes;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -802,13 +816,13 @@ Video search mode for the folders of game's music.
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="VideoParameters"></a><code>property <b>VideoParameters</b>: TStringListUTF8 read FVideoParameters;</code></td>
+<td class="itemcode"><a name="VideoParameters"></a><code>property <b>VideoParameters</b>: TStringList read FVideoParameters;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
 Parameters for executables.</p>
 </td></tr>
 </table>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.12.1</a> on 2011-12-27 19:40:25</em>
+Chixpy<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.12.1</a> on 2012-05-01 19:42:38</em>
 </span>
 </body></html>

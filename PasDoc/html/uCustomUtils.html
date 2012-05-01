@@ -7,7 +7,7 @@
 <link rel="StyleSheet" type="text/css" href="pasdoc.css">
 </head>
 <body bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#800080" alink="#FF0000">
-<h1 class="unit">Unit uCustomUtils</h1>
+Emuteca<h1 class="unit">Unit uCustomUtils</h1>
 <table class="sections wide_list">
 <tr>
 <td><a class="section"  href="#%40Description">Description</a></td><td><a class="section"  href="#%40Uses">Uses</a></td><td>Classes, Interfaces, Objects and Records</td><td><a class="section"  href="#%40FuncsProcs">Functions and Procedures</a></td><td><a class="section"  href="#%40Types">Types</a></td><td><a class="section"  href="#%40Constants">Constants</a></td><td>Variables</td></tr></table>
@@ -15,62 +15,65 @@
 <p>
 Unit with miscelaneous procedures and functions used in Emuteca</p>
 <a name="%40Uses"></a><h2 class="uses">Uses</h2>
-<ul class="useslist"><li>ActnList</li><li>Classes</li><li>Controls</li><li>crc</li><li>dateutils</li><li>FileUtil</li><li>Forms</li><li>Graphics</li><li>IniFiles</li><li>LazUTF8</li><li>lazutf8classes</li><li>Menus</li><li>strutils</li><li>SysUtils</li></ul><h2 class="overview">Overview</h2>
+<ul class="useslist"><li>ActnList</li><li>Classes</li><li>Controls</li><li>crc</li><li>dateutils</li><li>FileUtil</li><li>Forms</li><li>Graphics</li><li>IniFiles</li><li>LazUTF8</li><li>LConvEncoding</li><li>Menus</li><li>strutils</li><li>SysUtils</li></ul><h2 class="overview">Overview</h2>
 <a name="%40FuncsProcs"></a><h3 class="summary">Functions and Procedures</h3>
 <table class="summary wide_list">
 <tr class="list">
-<td class="itemcode"><code>function <b><a   href="uCustomUtils.html#AddToImageList">AddToImageList</a></b>(aImageList: TImageList; const FileName: UTF8String): Integer;</code></td>
+<td class="itemcode"><code>function <b><a   href="uCustomUtils.html#AddToImageList">AddToImageList</a></b>(aImageList: TImageList; const FileName: String): integer;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>function <b><a   href="uCustomUtils.html#AddToStringList">AddToStringList</a></b>(aList: TStrings; aString: UTF8String): Integer;</code></td>
+<td class="itemcode"><code>function <b><a   href="uCustomUtils.html#AddToStringList">AddToStringList</a></b>(aList: TStrings; aString: String): integer;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>function <b><a   href="uCustomUtils.html#CleanFileName">CleanFileName</a></b>(const AFileName: UTF8String): UTF8String;</code></td>
+<td class="itemcode"><code>function <b><a   href="uCustomUtils.html#CleanFileName">CleanFileName</a></b>(const AFileName: String): String;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>function <b><a   href="uCustomUtils.html#CRC32File">CRC32File</a></b>(const aFileName: UTF8String): Cardinal;</code></td>
+<td class="itemcode"><code>function <b><a   href="uCustomUtils.html#CorrectAspetRatio">CorrectAspetRatio</a></b>(OrigRect: TRect; aImage: TPicture): TRect;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>function <b><a   href="uCustomUtils.html#FilesInFolder">FilesInFolder</a></b>(Folder: UTF8String): Integer;</code></td>
+<td class="itemcode"><code>function <b><a   href="uCustomUtils.html#CRC32File">CRC32File</a></b>(const aFileName: String): cardinal;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>function <b><a   href="uCustomUtils.html#IterateFolderFun">IterateFolderFun</a></b>(Folder: UTF8String; aFunction: <a   href="uCustomUtils.html#TItFolderFun">TItFolderFun</a>; Recursive: Boolean = True): Boolean;</code></td>
+<td class="itemcode"><code>function <b><a   href="uCustomUtils.html#FilesInFolder">FilesInFolder</a></b>(Folder: String): integer;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>function <b><a   href="uCustomUtils.html#IterateFolderObj">IterateFolderObj</a></b>(Folder: UTF8String; aFunction: <a   href="uCustomUtils.html#TItFolderObj">TItFolderObj</a>; Recursive: Boolean = True): Boolean;</code></td>
+<td class="itemcode"><code>function <b><a   href="uCustomUtils.html#IterateFolderFun">IterateFolderFun</a></b>(Folder: String; aFunction: <a   href="uCustomUtils.html#TItFolderFun">TItFolderFun</a>; Recursive: boolean = True): boolean;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>procedure <b><a   href="uCustomUtils.html#ReadActionsIcons">ReadActionsIcons</a></b>(const aFileName, Section, BaseDir: UTF8String; ImageList: TImageList; ActionList: TCustomActionList);</code></td>
+<td class="itemcode"><code>function <b><a   href="uCustomUtils.html#IterateFolderObj">IterateFolderObj</a></b>(Folder: String; aFunction: <a   href="uCustomUtils.html#TItFolderObj">TItFolderObj</a>; Recursive: boolean = True): boolean;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>procedure <b><a   href="uCustomUtils.html#ReadMenuIcons">ReadMenuIcons</a></b>(const aFileName, Section, BaseDir: UTF8String; ImageList: TImageList; Menu: TMenu);</code></td>
+<td class="itemcode"><code>procedure <b><a   href="uCustomUtils.html#ReadActionsIcons">ReadActionsIcons</a></b>(const aFileName, Section, BaseDir: String; ImageList: TImageList; ActionList: TCustomActionList);</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>function <b><a   href="uCustomUtils.html#RemoveFromBrackets">RemoveFromBrackets</a></b>(const aFileName: UTF8String): UTF8String;</code></td>
+<td class="itemcode"><code>procedure <b><a   href="uCustomUtils.html#ReadMenuIcons">ReadMenuIcons</a></b>(const aFileName, Section, BaseDir: String; ImageList: TImageList; Menu: TMenu);</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>function <b><a   href="uCustomUtils.html#SecondToFmtStr">SecondToFmtStr</a></b>(aValue: Int64): UTF8String;</code></td>
+<td class="itemcode"><code>function <b><a   href="uCustomUtils.html#RemoveFromBrackets">RemoveFromBrackets</a></b>(const aFileName: String): String;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>function <b><a   href="uCustomUtils.html#SetAsFolder">SetAsFolder</a></b>(const aValue: UTF8String): UTF8String;</code></td>
+<td class="itemcode"><code>function <b><a   href="uCustomUtils.html#SecondToFmtStr">SecondToFmtStr</a></b>(aValue: int64): String;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>function <b><a   href="uCustomUtils.html#StrToCardinal">StrToCardinal</a></b>(const aString:UTF8String): Cardinal;</code></td>
+<td class="itemcode"><code>function <b><a   href="uCustomUtils.html#SetAsFolder">SetAsFolder</a></b>(const aValue: String): String;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>function <b><a   href="uCustomUtils.html#StrToCardinalDef">StrToCardinalDef</a></b>(const aString: UTF8String; const Default: Cardinal): Cardinal;</code></td>
+<td class="itemcode"><code>function <b><a   href="uCustomUtils.html#StrToCardinal">StrToCardinal</a></b>(const aString: String): cardinal;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>function <b><a   href="uCustomUtils.html#TextSimilarity">TextSimilarity</a></b>(const aString1, aString2: UTF8String): Byte;</code></td>
+<td class="itemcode"><code>function <b><a   href="uCustomUtils.html#StrToCardinalDef">StrToCardinalDef</a></b>(const aString: String; const Default: cardinal): cardinal;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code>function <b><a   href="uCustomUtils.html#TextSimilarity">TextSimilarity</a></b>(const aString1, aString2: String): byte;</code></td>
 </tr>
 </table>
 <a name="%40Types"></a><h3 class="summary">Types</h3>
 <table class="summary wide_list">
 <tr class="list">
-<td class="itemcode"><code><b><a   href="uCustomUtils.html#TItFolderFun">TItFolderFun</a></b> = function(Folder: UTF8String; Info: TSearchRec): Boolean;</code></td>
+<td class="itemcode"><code><b><a   href="uCustomUtils.html#TItFolderFun">TItFolderFun</a></b> = function(Folder: String; Info: TSearchRec): boolean;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code><b><a   href="uCustomUtils.html#TItFolderObj">TItFolderObj</a></b> = function(Folder: UTF8String; Info: TSearchRec): Boolean of object;</code></td>
+<td class="itemcode"><code><b><a   href="uCustomUtils.html#TItFolderObj">TItFolderObj</a></b> = function(Folder: String; Info: TSearchRec): boolean of object;</code></td>
 </tr>
 </table>
 <a name="%40Constants"></a><h3 class="summary">Constants</h3>
@@ -82,7 +85,8 @@ Unit with miscelaneous procedures and functions used in Emuteca</p>
 <td class="itemcode"><code><b><a   href="uCustomUtils.html#CHTMLEnd">CHTMLEnd</a></b> = '&lt;/body&gt;&lt;/html&gt;';</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code><b><a   href="uCustomUtils.html#CUTF8Delimiters">CUTF8Delimiters</a></b>: set of Char = [#0..#127] - ['a'..'z','A'..'Z','1'..'9','0'];</code></td>
+<td class="itemcode"><code><b><a   href="uCustomUtils.html#CUTF8Delimiters">CUTF8Delimiters</a></b>: set of char =
+    [#0..#127] - ['a'..'z', 'A'..'Z', '1'..'9', '0'];</code></td>
 </tr>
 <tr class="list2">
 <td class="itemcode"><code><b><a   href="uCustomUtils.html#CVirtualFolderExt">CVirtualFolderExt</a></b> = '.(folder)';</code></td>
@@ -98,14 +102,14 @@ Unit with miscelaneous procedures and functions used in Emuteca</p>
 <h3 class="detail">Functions and Procedures</h3>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="AddToImageList"></a><code>function <b>AddToImageList</b>(aImageList: TImageList; const FileName: UTF8String): Integer;</code></td>
+<td class="itemcode"><a name="AddToImageList"></a><code>function <b>AddToImageList</b>(aImageList: TImageList; const FileName: String): integer;</code></td>
 </tr>
 <tr><td colspan="1">
 &nbsp;</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="AddToStringList"></a><code>function <b>AddToStringList</b>(aList: TStrings; aString: UTF8String): Integer;</code></td>
+<td class="itemcode"><a name="AddToStringList"></a><code>function <b>AddToStringList</b>(aList: TStrings; aString: String): integer;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -116,7 +120,7 @@ Add a String to a StringList.
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="CleanFileName"></a><code>function <b>CleanFileName</b>(const AFileName: UTF8String): UTF8String;</code></td>
+<td class="itemcode"><a name="CleanFileName"></a><code>function <b>CleanFileName</b>(const AFileName: String): String;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -125,7 +129,16 @@ Change some invalid characters in filenames.</p>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="CRC32File"></a><code>function <b>CRC32File</b>(const aFileName: UTF8String): Cardinal;</code></td>
+<td class="itemcode"><a name="CorrectAspetRatio"></a><code>function <b>CorrectAspetRatio</b>(OrigRect: TRect; aImage: TPicture): TRect;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Returns a TRect with the correct aspect ratio for the picture inside the OrigRect.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="CRC32File"></a><code>function <b>CRC32File</b>(const aFileName: String): cardinal;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -134,7 +147,7 @@ Calculate the CRC32 checksum of a file</p>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="FilesInFolder"></a><code>function <b>FilesInFolder</b>(Folder: UTF8String): Integer;</code></td>
+<td class="itemcode"><a name="FilesInFolder"></a><code>function <b>FilesInFolder</b>(Folder: String): integer;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -143,7 +156,7 @@ TODO 2: Is there a better way?</p>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="IterateFolderFun"></a><code>function <b>IterateFolderFun</b>(Folder: UTF8String; aFunction: <a   href="uCustomUtils.html#TItFolderFun">TItFolderFun</a>; Recursive: Boolean = True): Boolean;</code></td>
+<td class="itemcode"><a name="IterateFolderFun"></a><code>function <b>IterateFolderFun</b>(Folder: String; aFunction: <a   href="uCustomUtils.html#TItFolderFun">TItFolderFun</a>; Recursive: boolean = True): boolean;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -156,42 +169,46 @@ Recorre el directorio especificado y ejecuta aFuncion(TSearchRec) con cada uno d
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="IterateFolderObj"></a><code>function <b>IterateFolderObj</b>(Folder: UTF8String; aFunction: <a   href="uCustomUtils.html#TItFolderObj">TItFolderObj</a>; Recursive: Boolean = True): Boolean;</code></td>
+<td class="itemcode"><a name="IterateFolderObj"></a><code>function <b>IterateFolderObj</b>(Folder: String; aFunction: <a   href="uCustomUtils.html#TItFolderObj">TItFolderObj</a>; Recursive: boolean = True): boolean;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+FOLDERS AND FILES &mdash;&mdash;&mdash;&mdash;&mdash;&ndash;</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="ReadActionsIcons"></a><code>procedure <b>ReadActionsIcons</b>(const aFileName, Section, BaseDir: String; ImageList: TImageList; ActionList: TCustomActionList);</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+IMAGES AND IMAGELISTS &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="ReadMenuIcons"></a><code>procedure <b>ReadMenuIcons</b>(const aFileName, Section, BaseDir: String; ImageList: TImageList; Menu: TMenu);</code></td>
 </tr>
 <tr><td colspan="1">
 &nbsp;</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="ReadActionsIcons"></a><code>procedure <b>ReadActionsIcons</b>(const aFileName, Section, BaseDir: UTF8String; ImageList: TImageList; ActionList: TCustomActionList);</code></td>
+<td class="itemcode"><a name="RemoveFromBrackets"></a><code>function <b>RemoveFromBrackets</b>(const aFileName: String): String;</code></td>
 </tr>
 <tr><td colspan="1">
 &nbsp;</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="ReadMenuIcons"></a><code>procedure <b>ReadMenuIcons</b>(const aFileName, Section, BaseDir: UTF8String; ImageList: TImageList; Menu: TMenu);</code></td>
+<td class="itemcode"><a name="SecondToFmtStr"></a><code>function <b>SecondToFmtStr</b>(aValue: int64): String;</code></td>
 </tr>
 <tr><td colspan="1">
 &nbsp;</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="RemoveFromBrackets"></a><code>function <b>RemoveFromBrackets</b>(const aFileName: UTF8String): UTF8String;</code></td>
-</tr>
-<tr><td colspan="1">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="SecondToFmtStr"></a><code>function <b>SecondToFmtStr</b>(aValue: Int64): UTF8String;</code></td>
-</tr>
-<tr><td colspan="1">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="SetAsFolder"></a><code>function <b>SetAsFolder</b>(const aValue: UTF8String): UTF8String;</code></td>
+<td class="itemcode"><a name="SetAsFolder"></a><code>function <b>SetAsFolder</b>(const aValue: String): String;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -204,21 +221,21 @@ Add PathDelim at the end of string and changes it to '/'
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="StrToCardinal"></a><code>function <b>StrToCardinal</b>(const aString:UTF8String): Cardinal;</code></td>
+<td class="itemcode"><a name="StrToCardinal"></a><code>function <b>StrToCardinal</b>(const aString: String): cardinal;</code></td>
 </tr>
 <tr><td colspan="1">
 &nbsp;</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="StrToCardinalDef"></a><code>function <b>StrToCardinalDef</b>(const aString: UTF8String; const Default: Cardinal): Cardinal;</code></td>
+<td class="itemcode"><a name="StrToCardinalDef"></a><code>function <b>StrToCardinalDef</b>(const aString: String; const Default: cardinal): cardinal;</code></td>
 </tr>
 <tr><td colspan="1">
 &nbsp;</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="TextSimilarity"></a><code>function <b>TextSimilarity</b>(const aString1, aString2: UTF8String): Byte;</code></td>
+<td class="itemcode"><a name="TextSimilarity"></a><code>function <b>TextSimilarity</b>(const aString1, aString2: String): byte;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -230,14 +247,14 @@ Returns the similarity between 2 strings.
 <h3 class="detail">Types</h3>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="TItFolderFun"></a><code><b>TItFolderFun</b> = function(Folder: UTF8String; Info: TSearchRec): Boolean;</code></td>
+<td class="itemcode"><a name="TItFolderFun"></a><code><b>TItFolderFun</b> = function(Folder: String; Info: TSearchRec): boolean;</code></td>
 </tr>
 <tr><td colspan="1">
 &nbsp;</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="TItFolderObj"></a><code><b>TItFolderObj</b> = function(Folder: UTF8String; Info: TSearchRec): Boolean of object;</code></td>
+<td class="itemcode"><a name="TItFolderObj"></a><code><b>TItFolderObj</b> = function(Folder: String; Info: TSearchRec): boolean of object;</code></td>
 </tr>
 <tr><td colspan="1">
 &nbsp;</td></tr>
@@ -263,7 +280,8 @@ Simple HTML file struct end</p>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="CUTF8Delimiters"></a><code><b>CUTF8Delimiters</b>: set of Char = [#0..#127] - ['a'..'z','A'..'Z','1'..'9','0'];</code></td>
+<td class="itemcode"><a name="CUTF8Delimiters"></a><code><b>CUTF8Delimiters</b>: set of char =
+    [#0..#127] - ['a'..'z', 'A'..'Z', '1'..'9', '0'];</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -297,6 +315,6 @@ Virtual extension used for game filenames</p>
 Virtual extension used for groups filenames</p>
 </td></tr>
 </table>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.12.1</a> on 2011-12-27 19:40:25</em>
+Chixpy<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.12.1</a> on 2012-05-01 19:42:38</em>
 </span>
 </body></html>

@@ -7,21 +7,21 @@
 <link rel="StyleSheet" type="text/css" href="pasdoc.css">
 </head>
 <body bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#800080" alink="#FF0000">
-<a name="cImageList"></a><h1 class="cio">Class cImageList</h1>
+Emuteca<a name="cImageList"></a><h1 class="cio">Class cImageList</h1>
 <table class="sections wide_list">
 <tr>
-<td><a class="section"  href="#%40Description">Description</a></td><td><a class="section"  href="#%40Hierarchy">Hierarchy</a></td><td>Fields</td><td><a class="section"  href="#%40Methods">Methods</a></td><td><a class="section"  href="#%40Properties">Properties</a></td></tr></table>
+<td><a class="section"  href="#%40Description">Description</a></td><td><a class="section"  href="#%40Hierarchy">Hierarchy</a></td><td>Fields</td><td><a class="section"  href="#%40Methods">Methods</a></td><td>Properties</td></tr></table>
 <a name="%40Description"></a><h2 class="unit">Unit</h2>
 <p class="unitlink">
 <a   href="uImageList.html">uImageList</a></p>
 <h2 class="declaration">Declaration</h2>
 <p class="declaration">
-<code>type cImageList = class(TObject)</code></p>
+<code>type cImageList = class(specialize TFPGObjectList&lt;TPicture&gt;)</code></p>
 <h2 class="description">Description</h2>
 <p>
 <code>cImageList</code></p>
 <a name="%40Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
-<ul class="hierarchy"><li class="ancestor">TObject</li>
+<ul class="hierarchy"><li class="ancestor">TFPGObjectList</li>
 <li class="thisitem">cImageList</li></ul><h2 class="overview">Overview</h2>
 <a name="%40Methods"></a><h3 class="summary">Methods</h3>
 <table class="summary wide_list">
@@ -35,30 +35,11 @@
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>function <b><a   href="uImageList.cImageList.html#AddEmptyImage">AddEmptyImage</a></b>: Integer; overload;</code></td>
+<td class="itemcode"><code>function <b><a   href="uImageList.cImageList.html#AddEmptyImage">AddEmptyImage</a></b>: Integer;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>function <b><a   href="uImageList.cImageList.html#AddImage">AddImage</a></b>(aImage: TPicture): Integer; overload;</code></td>
-</tr>
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>function <b><a   href="uImageList.cImageList.html#AddImage">AddImage</a></b>(aFile: UTF8String): Integer; overload;</code></td>
-</tr>
-<tr class="list2">
-<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>function <b><a   href="uImageList.cImageList.html#Count">Count</a></b>: Integer;</code></td>
-</tr>
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a   href="uImageList.cImageList.html#Clear">Clear</a></b>;</code></td>
-</tr>
-</table>
-<a name="%40Properties"></a><h3 class="summary">Properties</h3>
-<table class="summary wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uImageList.cImageList.html#Image">Image</a></b>[aPos: Integer]: TPicture read GetImage;</code></td>
+<td class="itemcode"><code>function <b><a   href="uImageList.cImageList.html#AddImageFile">AddImageFile</a></b>(aFile: String): Integer;</code></td>
 </tr>
 </table>
 <h2 class="description">Description</h2>
@@ -82,7 +63,7 @@
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="AddEmptyImage"></a><code>function <b>AddEmptyImage</b>: Integer; overload;</code></td>
+<td class="itemcode"><a name="AddEmptyImage"></a><code>function <b>AddEmptyImage</b>: Integer;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -90,44 +71,11 @@
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="AddImage"></a><code>function <b>AddImage</b>(aImage: TPicture): Integer; overload;</code></td>
+<td class="itemcode"><a name="AddImageFile"></a><code>function <b>AddImageFile</b>(aFile: String): Integer;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
 </table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="AddImage"></a><code>function <b>AddImage</b>(aFile: UTF8String): Integer; overload;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Count"></a><code>function <b>Count</b>: Integer;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Clear"></a><code>procedure <b>Clear</b>;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<h3 class="detail">Properties</h3>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Image"></a><code>property <b>Image</b>[aPos: Integer]: TPicture read GetImage;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.12.1</a> on 2011-12-27 19:40:25</em>
+Chixpy<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.12.1</a> on 2012-05-01 19:42:38</em>
 </span>
 </body></html>

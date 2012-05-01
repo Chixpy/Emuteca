@@ -7,7 +7,7 @@
 <link rel="StyleSheet" type="text/css" href="pasdoc.css">
 </head>
 <body bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#800080" alink="#FF0000">
-<a name="cSystemManager"></a><h1 class="cio">Class cSystemManager</h1>
+Emuteca<a name="cSystemManager"></a><h1 class="cio">Class cSystemManager</h1>
 <table class="sections wide_list">
 <tr>
 <td><a class="section"  href="#%40Description">Description</a></td><td><a class="section"  href="#%40Hierarchy">Hierarchy</a></td><td>Fields</td><td><a class="section"  href="#%40Methods">Methods</a></td><td><a class="section"  href="#%40Properties">Properties</a></td></tr></table>
@@ -27,7 +27,7 @@
 <table class="summary wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>constructor <b><a   href="uSystemManager.cSystemManager.html#Create">Create</a></b>(const aSystemsFile: UTF8String = '');</code></td>
+<td class="itemcode"><code>constructor <b><a   href="uSystemManager.cSystemManager.html#Create">Create</a></b>(const aSystemsFile: String = '');</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -39,7 +39,7 @@
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>function <b><a   href="uSystemManager.cSystemManager.html#AddSystem">AddSystem</a></b>(const SystemID: UTF8String): <a   href="uSystem.cSystem.html">cSystem</a>; overload;</code></td>
+<td class="itemcode"><code>function <b><a   href="uSystemManager.cSystemManager.html#AddSystem">AddSystem</a></b>(const SystemID: String): <a   href="uSystem.cSystem.html">cSystem</a>; overload;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -51,7 +51,7 @@
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>function <b><a   href="uSystemManager.cSystemManager.html#IndexOf">IndexOf</a></b>(SystemID: UTF8String): integer;</code></td>
+<td class="itemcode"><code>function <b><a   href="uSystemManager.cSystemManager.html#IndexOf">IndexOf</a></b>(SystemID: String): integer;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -59,15 +59,15 @@
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>function <b><a   href="uSystemManager.cSystemManager.html#System">System</a></b>(const SystemID: UTF8String): <a   href="uSystem.cSystem.html">cSystem</a>; overload;</code></td>
+<td class="itemcode"><code>function <b><a   href="uSystemManager.cSystemManager.html#System">System</a></b>(const SystemID: String): <a   href="uSystem.cSystem.html">cSystem</a>; overload;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a   href="uSystemManager.cSystemManager.html#ExportSystemsFile">ExportSystemsFile</a></b>(const aFilename: UTF8String; const ExportMode: boolean = True);</code></td>
+<td class="itemcode"><code>procedure <b><a   href="uSystemManager.cSystemManager.html#ExportSystemsFile">ExportSystemsFile</a></b>(const aFilename: String; const ExportMode: boolean = True);</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a   href="uSystemManager.cSystemManager.html#ImportSystemsFile">ImportSystemsFile</a></b>(const aFilename: UTF8String);</code></td>
+<td class="itemcode"><code>procedure <b><a   href="uSystemManager.cSystemManager.html#ImportSystemsFile">ImportSystemsFile</a></b>(const aFilename: String);</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -87,7 +87,7 @@
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a   href="uSystemManager.cSystemManager.html#RemoveSystem">RemoveSystem</a></b>(const SystemID: UTF8String); overload;</code></td>
+<td class="itemcode"><code>procedure <b><a   href="uSystemManager.cSystemManager.html#RemoveSystem">RemoveSystem</a></b>(const SystemID: String); overload;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -98,7 +98,7 @@
 <table class="summary wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystemManager.cSystemManager.html#ConfigFile">ConfigFile</a></b>: UTF8String read FConfigFile write SetConfigFile;</code></td>
+<td class="itemcode"><code>property <b><a   href="uSystemManager.cSystemManager.html#ConfigFile">ConfigFile</a></b>: String read FConfigFile write SetConfigFile;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
@@ -110,7 +110,7 @@
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Create"></a><code>constructor <b>Create</b>(const aSystemsFile: UTF8String = '');</code></td>
+<td class="itemcode"><a name="Create"></a><code>constructor <b>Create</b>(const aSystemsFile: String = '');</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -134,7 +134,7 @@
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="AddSystem"></a><code>function <b>AddSystem</b>(const SystemID: UTF8String): <a   href="uSystem.cSystem.html">cSystem</a>; overload;</code></td>
+<td class="itemcode"><a name="AddSystem"></a><code>function <b>AddSystem</b>(const SystemID: String): <a   href="uSystem.cSystem.html">cSystem</a>; overload;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -158,7 +158,7 @@
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="IndexOf"></a><code>function <b>IndexOf</b>(SystemID: UTF8String): integer;</code></td>
+<td class="itemcode"><a name="IndexOf"></a><code>function <b>IndexOf</b>(SystemID: String): integer;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -174,7 +174,7 @@
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="System"></a><code>function <b>System</b>(const SystemID: UTF8String): <a   href="uSystem.cSystem.html">cSystem</a>; overload;</code></td>
+<td class="itemcode"><a name="System"></a><code>function <b>System</b>(const SystemID: String): <a   href="uSystem.cSystem.html">cSystem</a>; overload;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -182,7 +182,7 @@
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="ExportSystemsFile"></a><code>procedure <b>ExportSystemsFile</b>(const aFilename: UTF8String; const ExportMode: boolean = True);</code></td>
+<td class="itemcode"><a name="ExportSystemsFile"></a><code>procedure <b>ExportSystemsFile</b>(const aFilename: String; const ExportMode: boolean = True);</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -190,7 +190,7 @@
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="ImportSystemsFile"></a><code>procedure <b>ImportSystemsFile</b>(const aFilename: UTF8String);</code></td>
+<td class="itemcode"><a name="ImportSystemsFile"></a><code>procedure <b>ImportSystemsFile</b>(const aFilename: String);</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -230,7 +230,7 @@
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="RemoveSystem"></a><code>procedure <b>RemoveSystem</b>(const SystemID: UTF8String); overload;</code></td>
+<td class="itemcode"><a name="RemoveSystem"></a><code>procedure <b>RemoveSystem</b>(const SystemID: String); overload;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -247,7 +247,7 @@
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="ConfigFile"></a><code>property <b>ConfigFile</b>: UTF8String read FConfigFile write SetConfigFile;</code></td>
+<td class="itemcode"><a name="ConfigFile"></a><code>property <b>ConfigFile</b>: String read FConfigFile write SetConfigFile;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -260,6 +260,6 @@
 <tr><td colspan="2">
 &nbsp;</td></tr>
 </table>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.12.1</a> on 2011-12-27 19:40:25</em>
+Chixpy<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.12.1</a> on 2012-05-01 19:42:38</em>
 </span>
 </body></html>

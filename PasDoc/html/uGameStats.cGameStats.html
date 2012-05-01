@@ -7,7 +7,7 @@
 <link rel="StyleSheet" type="text/css" href="pasdoc.css">
 </head>
 <body bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#800080" alink="#FF0000">
-<a name="cGameStats"></a><h1 class="cio">Class cGameStats</h1>
+Emuteca<a name="cGameStats"></a><h1 class="cio">Class cGameStats</h1>
 <table class="sections wide_list">
 <tr>
 <td><a class="section"  href="#%40Description">Description</a></td><td><a class="section"  href="#%40Hierarchy">Hierarchy</a></td><td>Fields</td><td><a class="section"  href="#%40Methods">Methods</a></td><td><a class="section"  href="#%40Properties">Properties</a></td></tr></table>
@@ -19,7 +19,18 @@
 <code>type cGameStats = class(TObject)</code></p>
 <h2 class="description">Description</h2>
 <p>
-<code>cGameStats</code></p>
+<code>cGameStats</code> class.
+
+<p>This class is the ancestor of <a class="normal"  href="uGame.cGame.html">cGame</a> and cGroup, giving them some properties used for storing stats by <a class="normal"  href="uGameManager.cGameManager.html">cGameManager</a> or other information that can be used by GUI as cache.
+
+<p></p>
+
+<dl class="paragraph_spacing">
+  <dt>NOTE:</dt>
+  <dd><p>Because PascalScript don't suport overloaded methods, we don't use them right here.</p></dd>
+</dl>
+
+<p></p>
 <a name="%40Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
 <ul class="hierarchy"><li class="ancestor">TObject</li>
 <li class="thisitem">cGameStats</li></ul><h2 class="overview">Overview</h2>
@@ -46,19 +57,19 @@
 <table class="summary wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uGameStats.cGameStats.html#IconIndex">IconIndex</a></b>: Integer read FIconIndex write SetIconIndex;</code></td>
-</tr>
-<tr class="list2">
-<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uGameStats.cGameStats.html#LastTime">LastTime</a></b>: TDateTime read FLastTime write SetLastTime;</code></td>
-</tr>
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>property <b><a   href="uGameStats.cGameStats.html#PlayingTime">PlayingTime</a></b>: LongWord read FPlayingTime write SetPlayingTime;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>property <b><a   href="uGameStats.cGameStats.html#TimesPlayed">TimesPlayed</a></b>: LongWord read FTimesPlayed write SetTimesPlayed;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="uGameStats.cGameStats.html#IconIndex">IconIndex</a></b>: Integer read FIconIndex write SetIconIndex;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="uGameStats.cGameStats.html#LastTime">LastTime</a></b>: TDateTime read FLastTime write SetLastTime;</code></td>
 </tr>
 </table>
 <h2 class="description">Description</h2>
@@ -105,6 +116,26 @@ Increment the times played by 1.
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="PlayingTime"></a><code>property <b>PlayingTime</b>: LongWord read FPlayingTime write SetPlayingTime;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Total seconds played.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="TimesPlayed"></a><code>property <b>TimesPlayed</b>: LongWord read FTimesPlayed write SetTimesPlayed;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Total times played the game.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><a name="IconIndex"></a><code>property <b>IconIndex</b>: Integer read FIconIndex write SetIconIndex;</code></td>
 </tr>
 <tr><td colspan="2">
@@ -124,26 +155,6 @@ Last time played the game.
 <p>In cGroup maybe used to store the last time that a game has played from the group.</p>
 </td></tr>
 </table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="PlayingTime"></a><code>property <b>PlayingTime</b>: LongWord read FPlayingTime write SetPlayingTime;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-Total seconds played.</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="TimesPlayed"></a><code>property <b>TimesPlayed</b>: LongWord read FTimesPlayed write SetTimesPlayed;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-Total times played the game.</p>
-</td></tr>
-</table>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.12.1</a> on 2011-12-27 19:40:25</em>
+Chixpy<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.12.1</a> on 2012-05-01 19:42:38</em>
 </span>
 </body></html>

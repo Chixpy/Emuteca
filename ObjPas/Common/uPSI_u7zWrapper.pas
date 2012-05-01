@@ -65,7 +65,7 @@ procedure RIRegister_u7zWrapper_Routines(S: TPSExec);
 begin
  S.RegisterDelphiFunction(@w7zListFiles, 'w7zListFiles', cdRegister);
  S.RegisterDelphiFunction(@Extract7zFile, 'Extract7zFile', cdRegister);
- S.RegisterDelphiFunction(@Compress7zFile, 'Compress7zFile', cdRegister);
+ S.RegisterDelphiFunction(@w7zCompressFile, 'Compress7zFile', cdRegister);
 end;
 
  

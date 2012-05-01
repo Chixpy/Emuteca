@@ -7,7 +7,7 @@
 <link rel="StyleSheet" type="text/css" href="pasdoc.css">
 </head>
 <body bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#800080" alink="#FF0000">
-<a name="cTranslator"></a><h1 class="cio">Class cTranslator</h1>
+Emuteca<a name="cTranslator"></a><h1 class="cio">Class cTranslator</h1>
 <table class="sections wide_list">
 <tr>
 <td><a class="section"  href="#%40Description">Description</a></td><td><a class="section"  href="#%40Hierarchy">Hierarchy</a></td><td>Fields</td><td><a class="section"  href="#%40Methods">Methods</a></td><td><a class="section"  href="#%40Properties">Properties</a></td></tr></table>
@@ -29,7 +29,7 @@ Entity that translates texts and component captions.
 <table class="summary wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>constructor <b><a   href="uTranslator.cTranslator.html#Create">Create</a></b>(const aFileName: UTF8String); overload;</code></td>
+<td class="itemcode"><code>constructor <b><a   href="uTranslator.cTranslator.html#Create">Create</a></b>(const aFileName: String); overload;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -41,18 +41,18 @@ Entity that translates texts and component captions.
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>function <b><a   href="uTranslator.cTranslator.html#Translate">Translate</a></b>(const Key, sDefault: UTF8String): UTF8String; overload;</code></td>
+<td class="itemcode"><code>function <b><a   href="uTranslator.cTranslator.html#Translate">Translate</a></b>(const Key, sDefault: String): String; overload;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>function <b><a   href="uTranslator.cTranslator.html#Translate">Translate</a></b>(aComponent: TComponent): UTF8String; overload;</code></td>
+<td class="itemcode"><code>function <b><a   href="uTranslator.cTranslator.html#Translate">Translate</a></b>(aComponent: TComponent): String; overload;</code></td>
 </tr>
 </table>
 <a name="%40Properties"></a><h3 class="summary">Properties</h3>
 <table class="summary wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uTranslator.cTranslator.html#Section">Section</a></b>: UTF8String read FSection write SetSection;</code></td>
+<td class="itemcode"><code>property <b><a   href="uTranslator.cTranslator.html#Section">Section</a></b>: String read FSection write SetSection;</code></td>
 </tr>
 </table>
 <h2 class="description">Description</h2>
@@ -60,7 +60,7 @@ Entity that translates texts and component captions.
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Create"></a><code>constructor <b>Create</b>(const aFileName: UTF8String); overload;</code></td>
+<td class="itemcode"><a name="Create"></a><code>constructor <b>Create</b>(const aFileName: String); overload;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -106,7 +106,7 @@ Creates a <a class="normal"  href="uTranslator.cTranslator.html">cTranslator</a>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Translate"></a><code>function <b>Translate</b>(const Key, sDefault: UTF8String): UTF8String; overload;</code></td>
+<td class="itemcode"><a name="Translate"></a><code>function <b>Translate</b>(const Key, sDefault: String): String; overload;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -130,7 +130,7 @@ Translates a string.
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Translate"></a><code>function <b>Translate</b>(aComponent: TComponent): UTF8String; overload;</code></td>
+<td class="itemcode"><a name="Translate"></a><code>function <b>Translate</b>(aComponent: TComponent): String; overload;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -148,7 +148,7 @@ Translates a component caption and all its children.
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Section"></a><code>property <b>Section</b>: UTF8String read FSection write SetSection;</code></td>
+<td class="itemcode"><a name="Section"></a><code>property <b>Section</b>: String read FSection write SetSection;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -157,6 +157,6 @@ Current internal <code>section</code>.
 <p>This property contains the current <code>section</code> of the .ini file where the translation key must be searched.</p>
 </td></tr>
 </table>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.12.1</a> on 2011-12-27 19:40:25</em>
+Chixpy<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.12.1</a> on 2012-05-01 19:42:38</em>
 </span>
 </body></html>

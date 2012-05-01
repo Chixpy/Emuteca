@@ -100,7 +100,7 @@ procedure w7zListFiles(const aFilename: string; PackedFiles: TStrings;
   @return(Error code)
 }
 
-function Extract7zFile(const a7zArchive: string; const aFileMask: string;
+function w7zExtractFile(const a7zArchive: string; const aFileMask: string;
   aFolder: string; ShowProgress: boolean; const Password: string): integer;
 {< Extract de file (or files) from 7z archive.
 
@@ -112,7 +112,7 @@ function Extract7zFile(const a7zArchive: string; const aFileMask: string;
   @param(Password Password for 7z archive.)
 }
 
-function Compress7zFile(const a7zArchive: string; aFileList: TStrings;
+function w7zCompressFile(const a7zArchive: string; aFileList: TStrings;
   ShowProgress: boolean; CompType: string = ''): integer;
 {< Compress files in a 7z (or other type) archive.
 
@@ -326,7 +326,7 @@ begin
 
 end;
 
-function Extract7zFile(const a7zArchive: string; const aFileMask: string;
+function w7zExtractFile(const a7zArchive: string; const aFileMask: string;
   aFolder: string; ShowProgress: boolean; const Password: string): integer;
 var
   aProcess: TProcess;
@@ -385,7 +385,7 @@ begin
   end;
 end;
 
-function Compress7zFile(const a7zArchive: string; aFileList: TStrings;
+function w7zCompressFile(const a7zArchive: string; aFileList: TStrings;
   ShowProgress: boolean; CompType: string): integer;
 var
   aProcess: TProcess;

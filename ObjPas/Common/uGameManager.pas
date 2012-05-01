@@ -689,7 +689,7 @@ procedure cGameManager.SearchMediaFiles(FileList: TStrings;
                   begin
                     if ExtractFile then
                     begin
-                      if Extract7zFile(aFolder + Info.Name,
+                      if w7zExtractFile(aFolder + Info.Name,
                         CompFiles[k], CacheFolder, False, '') = 0 then
                         FileList.Add(CacheFolder + CompFiles[k]);
                     end
@@ -796,7 +796,7 @@ procedure cGameManager.SearchMediaFiles(FileList: TStrings;
           if ExtractFile then
           begin
             // 3.1. Extracting the files
-            Error := Extract7zFile(ComFile, '*', TempStr, False, '');
+            Error := w7zExtractFile(ComFile, '*', TempStr, False, '');
             if Error = 0 then MediaFolder := TempStr;
           end
           else
@@ -1082,9 +1082,9 @@ begin
   if Compressed then
   begin
     if System.ExtractAll then
-      Error := Extract7zFile(CompressedFile, AllFilesMask, aFolder, True, '')
+      Error := w7zExtractFile(CompressedFile, AllFilesMask, aFolder, True, '')
     else
-      Error := Extract7zFile(CompressedFile, aGame.FileName, aFolder, True, '');
+      Error := w7zExtractFile(CompressedFile, aGame.FileName, aFolder, True, '');
     if Error <> 0 then
       Exit;
     RomFile := aFolder + aGame.FileName;
@@ -1096,7 +1096,7 @@ begin
       (CompressedExt.IndexOf(UTF8Copy(ExtractFileExt(aGame.FileName),
       2, MaxInt)) <> -1) then
     begin // The ROM is a compressed file but must be extracted anyways
-      Error := Extract7zFile(RomFile, '*', aFolder, True, '');
+      Error := w7zExtractFile(RomFile, '*', aFolder, True, '');
       if Error <> 0 then
         Exit;
       Compressed := True;

@@ -7,7 +7,7 @@
 <link rel="StyleSheet" type="text/css" href="pasdoc.css">
 </head>
 <body bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#800080" alink="#FF0000">
-<a name="TfrmEmulatorManager"></a><h1 class="cio">Class TfrmEmulatorManager</h1>
+Emuteca<a name="TfrmEmulatorManager"></a><h1 class="cio">Class TfrmEmulatorManager</h1>
 <table class="sections wide_list">
 <tr>
 <td><a class="section"  href="#%40Description">Description</a></td><td><a class="section"  href="#%40Hierarchy">Hierarchy</a></td><td><a class="section"  href="#%40Fields">Fields</a></td><td><a class="section"  href="#%40Methods">Methods</a></td><td><a class="section"  href="#%40Properties">Properties</a></td></tr></table>
@@ -374,7 +374,7 @@
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>procedure <b><a   href="fEmulatorManager.TfrmEmulatorManager.html#ChangeImage">ChangeImage</a></b>(const aFileName: UTF8String; aImage: TImage);</code></td>
+<td class="itemcode"><code>procedure <b><a   href="fEmulatorManager.TfrmEmulatorManager.html#ChangeImage">ChangeImage</a></b>(const aFileName: String; aImage: TImage);</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
@@ -413,17 +413,17 @@
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>property <b><a   href="fEmulatorManager.TfrmEmulatorManager.html#rsEmulatorIniFilter">rsEmulatorIniFilter</a></b>: UTF8String
+<td class="itemcode"><code>property <b><a   href="fEmulatorManager.TfrmEmulatorManager.html#rsEmulatorIniFilter">rsEmulatorIniFilter</a></b>: String
       read FrsEmulatorIniFilter write SetrsEmulatorIniFilter;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>property <b><a   href="fEmulatorManager.TfrmEmulatorManager.html#rsEmulatorName">rsEmulatorName</a></b>: UTF8String read FrsEmulatorName
+<td class="itemcode"><code>property <b><a   href="fEmulatorManager.TfrmEmulatorManager.html#rsEmulatorName">rsEmulatorName</a></b>: String read FrsEmulatorName
       write SetrsEmulatorName;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>property <b><a   href="fEmulatorManager.TfrmEmulatorManager.html#rsSelectEmulator">rsSelectEmulator</a></b>: UTF8String
+<td class="itemcode"><code>property <b><a   href="fEmulatorManager.TfrmEmulatorManager.html#rsSelectEmulator">rsSelectEmulator</a></b>: String
       read FrsSelectEmulator write SetrsSelectEmulator;</code></td>
 </tr>
 </table>
@@ -1121,7 +1121,7 @@
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><a name="ChangeImage"></a><code>procedure <b>ChangeImage</b>(const aFileName: UTF8String; aImage: TImage);</code></td>
+<td class="itemcode"><a name="ChangeImage"></a><code>procedure <b>ChangeImage</b>(const aFileName: String; aImage: TImage);</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -1211,7 +1211,7 @@ Current selected <code>emulator</code></p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><a name="rsEmulatorIniFilter"></a><code>property <b>rsEmulatorIniFilter</b>: UTF8String
+<td class="itemcode"><a name="rsEmulatorIniFilter"></a><code>property <b>rsEmulatorIniFilter</b>: String
       read FrsEmulatorIniFilter write SetrsEmulatorIniFilter;</code></td>
 </tr>
 <tr><td colspan="2">
@@ -1224,7 +1224,7 @@ Translated string &quot;Emulators Ini File (*.ini)&quot;
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><a name="rsEmulatorName"></a><code>property <b>rsEmulatorName</b>: UTF8String read FrsEmulatorName
+<td class="itemcode"><a name="rsEmulatorName"></a><code>property <b>rsEmulatorName</b>: String read FrsEmulatorName
       write SetrsEmulatorName;</code></td>
 </tr>
 <tr><td colspan="2">
@@ -1237,7 +1237,7 @@ Translated string &quot;<a class="normal"  href="fEmulatorManager.TfrmEmulatorMa
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><a name="rsSelectEmulator"></a><code>property <b>rsSelectEmulator</b>: UTF8String
+<td class="itemcode"><a name="rsSelectEmulator"></a><code>property <b>rsSelectEmulator</b>: String
       read FrsSelectEmulator write SetrsSelectEmulator;</code></td>
 </tr>
 <tr><td colspan="2">
@@ -1245,6 +1245,6 @@ Translated string &quot;<a class="normal"  href="fEmulatorManager.TfrmEmulatorMa
 Strings for translate that no belong to a form component</p>
 </td></tr>
 </table>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.12.1</a> on 2011-12-27 19:40:25</em>
+Chixpy<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.12.1</a> on 2012-05-01 19:42:38</em>
 </span>
 </body></html>
