@@ -37,17 +37,17 @@ const
   CGMGameSubFolder = 'Game';
 
 type
-  TGMCallBackType = ( GMCBAddFile, //< Adding a file.
+  TGMCallBackType = (GMCBAddFile, //< Adding a file.
     GMCBImportData, //< Importing data.
     GMCBExportData, //< Exporting data.
     GMCBSaveList, //< Saving game list.
     GMCBLoadList, //< Loading game list.
     GMCBDecompress //< Decompressing a file
-  );
+    );
   //< Action doing the callback.
 
   TGMProgressCallBack = function(const TypeCB: TGMCallBackType;
-    const Info1, Info2: String; const Value, MaxValue: int64): boolean of
+    const Info1, Info2: string; const Value, MaxValue: int64): boolean of
     object;
   {< Type for calling back a function a show the progress.
 
@@ -79,24 +79,24 @@ type
     FCompressedExt: TStringList;
     FCRCMaxSize: cardinal;
     FEmulator: cEmulator;
-    FEmulatorsFile: String;
-    FGameDataFileExt: String;
-    FGroupDataFileExt: String;
+    FEmulatorsFile: string;
+    FGameDataFileExt: string;
+    FGroupDataFileExt: string;
     FGameList: TFPObjectList;
     FGroupList: TFPObjectList;
     FProgressCallBack: TGMProgressCallBack;
     FSystem: cSystem;
-    FSystemsFile: String;
-    FTempFolder: String;
-    FTempFile: String;
+    FSystemsFile: string;
+    FTempFolder: string;
+    FTempFile: string;
     procedure SetCRCMaxSize(const AValue: cardinal);
-    procedure SetEmulatorsFile(const AValue: String);
-    procedure SetGameDataFileExt(const AValue: String);
-    procedure SetGroupDataFileExt(const AValue: String);
+    procedure SetEmulatorsFile(const AValue: string);
+    procedure SetGameDataFileExt(const AValue: string);
+    procedure SetGroupDataFileExt(const AValue: string);
     procedure SetProgressCallBack(const AValue: TGMProgressCallBack);
-    procedure SetSystemsFile(const AValue: String);
-    procedure SetTempFolder(const AValue: String);
-    procedure SetTempFile(const AValue: String);
+    procedure SetSystemsFile(const AValue: string);
+    procedure SetTempFolder(const AValue: string);
+    procedure SetTempFile(const AValue: string);
 
   protected
     property GroupList: TFPObjectList read FGroupList;
@@ -105,16 +105,15 @@ type
     {< Actual list where the games of the current system are stored. }
 
   public
-    property SystemsFile: String read FSystemsFile write SetSystemsFile;
+    property SystemsFile: string read FSystemsFile write SetSystemsFile;
     {< Path of the file where system configurations are stored. }
-    property EmulatorsFile: String read FEmulatorsFile
-      write SetEmulatorsFile;
+    property EmulatorsFile: string read FEmulatorsFile write SetEmulatorsFile;
     {< Path of the file where emulator configurations are stored. }
 
-    property GameDataFileExt: String
-      read FGameDataFileExt write SetGameDataFileExt;
+    property GameDataFileExt: string read FGameDataFileExt
+      write SetGameDataFileExt;
     {< Extension used for files with game data. }
-    property GroupDataFileExt: String
+    property GroupDataFileExt: string
       read FGroupDataFileExt write SetGroupDataFileExt;
     {< Extension used for files with group data. }
 
@@ -123,9 +122,9 @@ type
     property Emulator: cEmulator read FEmulator;
     {< Current selected emulator. }
 
-    property TempFolder: String read FTempFolder write SetTempFolder;
+    property TempFolder: string read FTempFolder write SetTempFolder;
     //< Temp folder used for decompress and other dirty things.
-    property TempFile: String read FTempFile write SetTempFile;
+    property TempFile: string read FTempFile write SetTempFile;
     //< Temp file for... nothing. May be for export/import when updating.
     property CRCMaxSize: cardinal read FCRCMaxSize write SetCRCMaxSize;
     //< Max file size for calculate the CRC32 of the file.
@@ -139,23 +138,23 @@ type
 
     function GameAtPos(const aIndex: integer): cGame;
     //< Return the game at a position.
-    function Game(aGameKey: String): cGame;
+    function Game(aGameKey: string): cGame;
     //< Return the game with have aGameKey key.
     function GameCount: longint;
     //< Return the number of games.
 
     function GroupAtPos(const aIndex: integer): cGameGroup;
     //< Return the group at a position.
-    function Group(aGroupKey: String): cGameGroup;
+    function Group(aGroupKey: string): cGameGroup;
     //< Return the game with have aGroupKey key.
     function GroupCount: longint;
     //< Return the number of groups.
 
     procedure SaveSystem;
     //< Save current system configuration.
-    procedure ChangeSystem(const SystemName: String);
+    procedure ChangeSystem(const SystemName: string);
     //< Change the current system.
-    procedure ChangeEmulator(const EmulatorName: String);
+    procedure ChangeEmulator(const EmulatorName: string);
     //< Change the current emultor.
     procedure PurgeGameData;
     //< Removes al games and groups from the system.
@@ -164,7 +163,7 @@ type
     procedure SoftUpdateGameList;
     procedure UpdateGroupList;
 
-    function AddFile(aFolder: String; Info: TSearchRec): boolean;
+    function AddFile(aFolder: string; Info: TSearchRec): boolean;
     {< Add a file (or all files if it's a compressed archive) to the game list.
 
       Automatically searchs if the file is a game using the current system
@@ -181,26 +180,25 @@ type
       @return(@false => Abort.)
     }
 
-    function AddGame(const aFolder: String; const aFileName: String;
-      const aKey: String): cGame;
+    function AddGame(const aFolder: string; const aFileName: string;
+      const aKey: string): cGame;
     //< Add a game.
-    function AddGroup(aGameGroupID: String): cGameGroup;
+    function AddGroup(aGameGroupID: string): cGameGroup;
     //< Add a group.
 
-    function GameMediaExists(aFolder: String; aGameVersion: cGame;
+    function GameMediaExists(aFolder: string; aGameVersion: cGame;
       Extensions: TStrings; MultiFile: boolean; SearchInZip: boolean): boolean;
-    function GroupMediaExists(aFolder: String;
-      aGameGroup: cGameGroup; Extensions: TStrings; MultiFile: boolean;
-      SearchInZip: boolean): boolean;
+    function GroupMediaExists(aFolder: string; aGameGroup: cGameGroup;
+      Extensions: TStrings; MultiFile: boolean; SearchInZip: boolean): boolean;
 
-    procedure SearchGameMedia(FileList: TStrings; aFolder: String;
+    procedure SearchGameMedia(FileList: TStrings; aFolder: string;
       aGameVersion: cGame; Extensions: TStrings; MultiFile: boolean;
       SearchInZip: boolean);
-    procedure SearchGroupMedia(FileList: TStrings; aFolder: String;
+    procedure SearchGroupMedia(FileList: TStrings; aFolder: string;
       aGameGroup: cGameGroup; Extensions: TStrings; MultiFile: boolean;
       SearchInZip: boolean);
-    procedure SearchMediaFiles(FileList: TStrings; aFolder: String;
-      aFileName: String; Extensions: TStrings; MultiFile: boolean;
+    procedure SearchMediaFiles(FileList: TStrings; aFolder: string;
+      aFileName: string; Extensions: TStrings; MultiFile: boolean;
       SearchInZip: boolean; ExtractFile: boolean = True);
 
 
@@ -208,7 +206,7 @@ type
     //< Save the current system game list (and groups).
     procedure LoadSystemGameList;
     //< Load the current system game list (and groups).
-    procedure ExportGameData(const aFileName: String;
+    procedure ExportGameData(const aFileName: string;
       const ExportMode: boolean);
     {< Export current system game list to a .ini file.
 
@@ -222,14 +220,14 @@ type
      @param(ExportMode Boolean. If false saves some data for internal
         purpourses: times played, last time, total time,... )
     }
-    procedure ImportGameData(const aFileName: String);
+    procedure ImportGameData(const aFileName: string);
     procedure ImportGameDataIni(const aIniFile: TCustomIniFile);
 
     function Execute(aGame: cGame): integer;
     //< Execute a Game.
 
-    constructor Create(const aSystemsFile: String;
-      const aTempFolder: String; const aTempFile: String);
+    constructor Create(const aSystemsFile: string;
+      const aTempFolder: string; const aTempFile: string);
     destructor Destroy; override;
   end;
 
@@ -237,30 +235,30 @@ implementation
 
 { cGameManager }
 
-procedure cGameManager.SetEmulatorsFile(const AValue: String);
+procedure cGameManager.SetEmulatorsFile(const AValue: string);
 begin
   FEmulatorsFile := AValue;
 end;
 
-procedure cGameManager.SetGameDataFileExt(const AValue: String);
+procedure cGameManager.SetGameDataFileExt(const AValue: string);
 var
-  TrValue: String;
+  TrValue: string;
 begin
   TrValue := Trim(AValue);
   if (UTF8Length(TrValue) > 0) and
-    (UTF8CompareText(UTF8Copy(TrValue,1,1), ExtensionSeparator) = 0) then
+    (UTF8CompareText(UTF8Copy(TrValue, 1, 1), ExtensionSeparator) = 0) then
     FGameDataFileExt := TrValue
   else
     FGameDataFileExt := ExtensionSeparator + TrValue;
 end;
 
-procedure cGameManager.SetGroupDataFileExt(const AValue: String);
+procedure cGameManager.SetGroupDataFileExt(const AValue: string);
 var
-  TrValue: String;
+  TrValue: string;
 begin
   TrValue := Trim(AValue);
   if (UTF8Length(TrValue) > 0) and
-    (UTF8CompareText(UTF8Copy(TrValue,1,1), ExtensionSeparator) = 0) then
+    (UTF8CompareText(UTF8Copy(TrValue, 1, 1), ExtensionSeparator) = 0) then
     FGroupDataFileExt := TrValue
   else
     FGroupDataFileExt := ExtensionSeparator + TrValue;
@@ -276,17 +274,17 @@ begin
   FCRCMaxSize := AValue;
 end;
 
-procedure cGameManager.SetSystemsFile(const AValue: String);
+procedure cGameManager.SetSystemsFile(const AValue: string);
 begin
   FSystemsFile := AValue;
 end;
 
-procedure cGameManager.SetTempFolder(const AValue: String);
+procedure cGameManager.SetTempFolder(const AValue: string);
 begin
   FTempFolder := SetAsFolder(AValue);
 end;
 
-procedure cGameManager.SetTempFile(const AValue: String);
+procedure cGameManager.SetTempFile(const AValue: string);
 begin
   FTempFile := AValue;
 end;
@@ -299,9 +297,9 @@ begin
     Result := nil;
 end;
 
-function cGameManager.Game(aGameKey: String): cGame;
+function cGameManager.Game(aGameKey: string): cGame;
 var
-  i: Integer;
+  i: integer;
   aGame: cGame;
 begin
   Result := nil;
@@ -335,7 +333,7 @@ begin
     Result := nil;
 end;
 
-function cGameManager.Group(aGroupKey: String): cGameGroup;
+function cGameManager.Group(aGroupKey: string): cGameGroup;
 var
   i: integer;
   aGroup: cGameGroup;
@@ -348,7 +346,7 @@ begin
   i := GroupCount - 1;
   while (i >= 0) do
   begin
-    aGroup :=GroupAtPos(i);
+    aGroup := GroupAtPos(i);
     if UTF8CompareText(aGroup.Key, aGroupKey) = 0 then
     begin
       Result := aGroup;
@@ -370,7 +368,7 @@ begin
   System.SaveToFile(SystemsFile);
 end;
 
-procedure cGameManager.ChangeSystem(const SystemName: String);
+procedure cGameManager.ChangeSystem(const SystemName: string);
 begin
   if System <> nil then
     if UTF8CompareText(System.ID, SystemName) = 0 then
@@ -386,8 +384,8 @@ begin
   System.LoadFromFile(SystemsFile);
   if not System.Enabled then
   begin
-     FreeAndNil(FSystem);
-     Exit;
+    FreeAndNil(FSystem);
+    Exit;
   end;
 
   ChangeEmulator(System.MainEmulator);
@@ -395,14 +393,16 @@ begin
   LoadSystemGameList;
 end;
 
-procedure cGameManager.ChangeEmulator(const EmulatorName: String);
+procedure cGameManager.ChangeEmulator(const EmulatorName: string);
 begin
-  if Emulator <> nil then Emulator.SaveToFile(EmulatorsFile);
+  if Emulator <> nil then
+    Emulator.SaveToFile(EmulatorsFile);
   FreeAndNil(FEmulator);
 
   FEmulator := cEmulator.Create(EmulatorName);
   Emulator.LoadFromFile(EmulatorsFile);
-  if not Emulator.Enabled then FreeAndNil(FEmulator);
+  if not Emulator.Enabled then
+    FreeAndNil(FEmulator);
 end;
 
 procedure cGameManager.PurgeGameData;
@@ -413,16 +413,20 @@ end;
 
 procedure cGameManager.UpdateGameList;
 var
-  DataFile: String;
+  DataFile: string;
 begin
-  if System = nil then Exit;
+  if System = nil then
+    Exit;
   DataFile := TempFolder + TempFile;
-  if FileExistsUTF8(DataFile) then DeleteFileUTF8(DataFile);
+  if FileExistsUTF8(DataFile) then
+    DeleteFileUTF8(DataFile);
   ExportGameData(DataFile, False);
   PurgeGameData;
-  IterateFolderObj(System.GameFolder, @Self.AddFile, System.RecursiveGameFolder);
+  IterateFolderObj(System.GameFolder, @Self.AddFile,
+    System.RecursiveGameFolder);
   ImportGameData(DataFile);
-  if FileExistsUTF8(DataFile) then DeleteFileUTF8(DataFile);
+  if FileExistsUTF8(DataFile) then
+    DeleteFileUTF8(DataFile);
 end;
 
 procedure cGameManager.SoftUpdateGameList;
@@ -449,9 +453,9 @@ begin
   end;
 end;
 
-function cGameManager.AddFile(aFolder: String; Info: TSearchRec): boolean;
+function cGameManager.AddFile(aFolder: string; Info: TSearchRec): boolean;
 var
-  Extension: String;
+  Extension: string;
   i, j: integer;
   CompFiles, aFile: TStringList;
 begin
@@ -518,8 +522,8 @@ begin
   end;
 end;
 
-function cGameManager.AddGame(const aFolder: String;
-  const aFileName: String; const aKey: String): cGame;
+function cGameManager.AddGame(const aFolder: string;
+  const aFileName: string; const aKey: string): cGame;
 var
   aGame: cGame;
 begin
@@ -529,7 +533,7 @@ begin
   Result := aGame;
 end;
 
-function cGameManager.AddGroup(aGameGroupID: String): cGameGroup;
+function cGameManager.AddGroup(aGameGroupID: string): cGameGroup;
 begin
   aGameGroupID := Trim(aGameGroupID);
   Result := Group(aGameGroupID);
@@ -541,7 +545,7 @@ begin
   end;
 end;
 
-function cGameManager.GameMediaExists(aFolder: String;
+function cGameManager.GameMediaExists(aFolder: string;
   aGameVersion: cGame; Extensions: TStrings; MultiFile: boolean;
   SearchInZip: boolean): boolean;
 var
@@ -567,7 +571,7 @@ begin
   end;
 end;
 
-function cGameManager.GroupMediaExists(aFolder: String;
+function cGameManager.GroupMediaExists(aFolder: string;
   aGameGroup: cGameGroup; Extensions: TStrings; MultiFile: boolean;
   SearchInZip: boolean): boolean;
 var
@@ -586,23 +590,27 @@ begin
 end;
 
 procedure cGameManager.SearchGameMedia(FileList: TStrings;
-  aFolder: String; aGameVersion: cGame; Extensions: TStrings;
+  aFolder: string; aGameVersion: cGame; Extensions: TStrings;
   MultiFile: boolean; SearchInZip: boolean);
 begin
-  SearchMediaFiles(FileList, aFolder, RemoveFromBrackets(aGameVersion.FileName) + CVirtualGameExt, Extensions, MultiFile, SearchInZip, True);
+  SearchMediaFiles(FileList, aFolder,
+    RemoveFromBrackets(aGameVersion.FileName) + CVirtualGameExt,
+    Extensions, MultiFile, SearchInZip, True);
   if FileList.Count = 0 then
-    SearchGroupMedia(FileList, aFolder, Group(aGameVersion.GameGroup), Extensions, MultiFile, SearchInZip);
+    SearchGroupMedia(FileList, aFolder, Group(aGameVersion.GameGroup),
+      Extensions, MultiFile, SearchInZip);
 end;
 
 procedure cGameManager.SearchGroupMedia(FileList: TStrings;
-  aFolder: String; aGameGroup: cGameGroup; Extensions: TStrings;
+  aFolder: string; aGameGroup: cGameGroup; Extensions: TStrings;
   MultiFile: boolean; SearchInZip: boolean);
 begin
-  SearchMediaFiles(FileList, aFolder, aGameGroup.MediaFileName, Extensions, MultiFile, SearchInZip, True);
+  SearchMediaFiles(FileList, aFolder, aGameGroup.MediaFileName,
+    Extensions, MultiFile, SearchInZip, True);
 end;
 
 procedure cGameManager.SearchMediaFiles(FileList: TStrings;
-  aFolder: String; aFileName: String; Extensions: TStrings;
+  aFolder: string; aFileName: string; Extensions: TStrings;
   MultiFile: boolean; SearchInZip: boolean; ExtractFile: boolean);
 { ¡¡AHHHH!!, A monster method... that simply return a StringList with
   found media files
@@ -624,112 +632,137 @@ procedure cGameManager.SearchMediaFiles(FileList: TStrings;
     end if
 }
 
-  procedure FindSingleFile(FileList: TStrings; aFolder: String;
-    aFileName: String; Extensions: TStrings; SearchInZip: boolean;
+  procedure SearchSingleFile(FileList: TStrings; aFolder: string;
+    aFileName: string; Extensions: TStrings; SearchInZip: boolean;
     ExtractFile: boolean);
-  var
-    i, j, k: integer;
-    TmpStr, CacheFolder: String;
-    Info: TSearchRec;
-    CompFiles: TStringList;
-  begin
-    // 1. Searching the file in the folder.
-    TmpStr := aFolder + aFileName;
 
-    // No backwards trick, image extensions are sortened by preference.
-    //   instead j is used and Extensions.Count is not called each iteration.
-    // No Break if found, as hidden feature ;-); but it's slower.
-    i := 0;
-    j := Extensions.Count;
-    while i < j do
+    procedure SearchActualFile(aBaseFileName: string;
+      aExtList, aFileList: TStrings);
+    var
+      i, j: integer;
     begin
-      if FileExistsUTF8(TmpStr + ExtensionSeparator + Extensions[i]) then
-        FileList.Add(TmpStr + ExtensionSeparator + Extensions[i]);
-      Inc(i);
+      // No backwards trick, image extensions are sortened by preference.
+      //   instead j is used and Extensions.Count is not called each iteration.
+      // No Break if found, as hidden feature ;-); but it's slower.
+      i := 0;
+      j := aExtList.Count;
+      while i < j do
+      begin
+        if FileExistsUTF8(aBaseFileName + ExtensionSeparator +
+          aExtList[i]) then
+          aFileList.Add(aBaseFileName + ExtensionSeparator + aExtList[i]);
+        Inc(i);
+      end;
     end;
-    if FileList.Count <> 0 then Exit;
+
+  var
+    CacheFolder: string;
+    Info: TSearchRec;
+  begin
+    // 1. Searching the file in the expected folder.
+    SearchActualFile(aFolder + aFileName, Extensions, FileList);
+    if FileList.Count <> 0 then
+      Exit;
 
     // 2. Searching in cache folder.
-    //  Nearly same code as step 1
-    CacheFolder := SetAsFolder(TempFolder + ExtractFileName(ExcludeTrailingPathDelimiter(aFolder)));
-    TmpStr := CacheFolder + aFileName;
-
-    i := 0;
-    j := Extensions.Count;
-    while i < j do
-    begin
-      if FileExistsUTF8(TmpStr + ExtensionSeparator + Extensions[i]) then
-        FileList.Add(TmpStr + ExtensionSeparator + Extensions[i]);
-      Inc(i);
-    end;
-    if (FileList.Count <> 0) or (not SearchInZip) then Exit;
+    CacheFolder := SetAsFolder(TempFolder +
+      ExtractFileName(ExcludeTrailingPathDelimiter(aFolder)));
+    SearchActualFile(CacheFolder + aFileName, Extensions, FileList);
+    if (FileList.Count <> 0) or (not SearchInZip) then
+      Exit;
 
     // 3. Searching in compressed archives.
+    // Simply try to extract files, and search in cache again...
+    if FindFirstUTF8(aFolder + AllFilesMask, 0, Info) = 0 then
+      try
+        repeat
+          // Ough, we really need a easy way to check extensions
+          if CompressedExt.IndexOf(UTF8LowerCase(UTF8Copy(
+            ExtractFileExt(Info.Name), 2, MaxInt))) <> -1 then
+          begin
+            // AllFilesMask... Maybe is a good idea...
+            w7zExtractFile(aFolder + Info.Name, aFileName + AllFilesMask,
+              CacheFolder, False, '');
+            SearchActualFile(CacheFolder + aFileName, Extensions, FileList);
+          end;
+        until (FileList.Count <> 0) or (FindNextUTF8(Info) <> 0);
+      finally
+        FindCloseUTF8(Info);
+      end;
+
+
+    { HISTORY: 3. Old slower way...
+
     CompFiles := TStringList.Create;
     // 3.1. Search in every zip in the folder
     if FindFirstUTF8(aFolder + AllFilesMask, 0, Info) = 0 then
       try
         repeat
-          TmpStr := UTF8LowerCase(UTF8Copy(ExtractFileExt(Info.Name), 2, MaxInt));
+          TmpStr := UTF8LowerCase(UTF8Copy(ExtractFileExt(Info.Name),
+            2, MaxInt));
           if CompressedExt.IndexOf(TmpStr) <> -1 then
           begin
             CompFiles.Clear;
             w7zListFiles(aFolder + Info.Name, CompFiles, True);
-              i := 0;
-              j := Extensions.Count;
-              while i < j do
-              begin
-                TmpStr := aFileName + ExtensionSeparator + Extensions[i];
+            i := 0;
+            j := Extensions.Count;
+            while i < j do
+            begin
+              TmpStr := aFileName + ExtensionSeparator + Extensions[i];
 
-                k := CompFiles.Count - 1;
-                while (k >= 0) do
+              k := CompFiles.Count - 1;
+              while (k >= 0) do
+              begin
+                // TODO 1: LINUX
+                if CompareFilenames(ExtractFileName(CompFiles[k]),
+                  TmpStr) = 0 then
                 begin
-                  // TODO 1: LINUX
-                  if CompareFilenames(ExtractFileName(CompFiles[k]), TmpStr) = 0 then
+                  if ExtractFile then
                   begin
-                    if ExtractFile then
-                    begin
-                      if w7zExtractFile(aFolder + Info.Name,
-                        CompFiles[k], CacheFolder, False, '') = 0 then
-                        FileList.Add(CacheFolder + CompFiles[k]);
-                    end
-                    else
-                      FileList.Add(aFolder + Info.Name + ';' + CompFiles[k]);
-                    // Don't break: while
-                    // As hidden feature we can detect many files in subfolders
-                    //   in the compressed archive... but it's not suported
-                    //   in rest of code :-(
-                    // TODO 3: Files in subfolder in compressed archives
-                  end;
-                  Dec(k);
+                    if w7zExtractFile(aFolder + Info.Name,
+                      CompFiles[k], CacheFolder, False, '') = 0 then
+                      FileList.Add(CacheFolder + CompFiles[k]);
+                  end
+                  else
+                    FileList.Add(aFolder + Info.Name + ';' + CompFiles[k]);
+                  // Don't break: while
+                  // As hidden feature we can detect many files in subfolders
+                  //   in the compressed archive... but it's not suported
+                  //   in rest of code :-(
+                  // TODO 3: Files in subfolder in compressed archives
                 end;
-                Inc(i);
+                Dec(k);
               end;
+              Inc(i);
+            end;
           end;
         until (FileList.Count <> 0) or (FindNextUTF8(Info) <> 0);
       finally
         FindCloseUTF8(Info);
       end;
     FreeAndNil(CompFiles);
+    }
   end;
 
-  procedure FindMultiFile(FileList: TStrings; aFolder: String;
-    aFileName: String; Extensions: TStrings; SearchInZip: boolean;
+  procedure FindMultiFile(FileList: TStrings; aFolder: string;
+    aFileName: string; Extensions: TStrings; SearchInZip: boolean;
     ExtractFile: boolean);
 
-    procedure AddMediaFiles(FileList: TStrings; aFolder: String;
+    procedure AddMediaFiles(FileList: TStrings; aFolder: string;
       Extensions: TStrings);
     var
       Info: TSearchRec;
-      Ext: String;
+      Ext: string;
     begin
       aFolder := SetAsFolder(aFolder);
-      if (aFolder = '') or (not DirectoryExistsUTF8(aFolder)) then Exit;
+      if (aFolder = '') or (not DirectoryExistsUTF8(aFolder)) then
+        Exit;
 
       if FindFirstUTF8(aFolder + AllFilesMask, faAnyFile, Info) = 0 then
         try
           repeat
-            Ext := UTF8LowerCase(UTF8Copy(ExtractFileExt(Info.Name), 2, MaxInt));
+            Ext := UTF8LowerCase(UTF8Copy(ExtractFileExt(Info.Name),
+              2, MaxInt));
             if Extensions.IndexOf(Ext) <> -1 then
               FileList.Add(aFolder + Info.Name);
           until (FindNextUTF8(Info) <> 0);
@@ -751,15 +784,16 @@ procedure cGameManager.SearchMediaFiles(FileList: TStrings;
     end;
 
   var
-    SubFolder: String;
-    MediaFolder: String;
-    ComFile: String;
-    TempStr: String;
+    SubFolder: string;
+    MediaFolder: string;
+    ComFile: string;
+    TempStr: string;
     TempStrList: TStringList;
     Error: integer;
   begin
     MediaFolder := '';
-    SubFolder := SetAsFolder(ExtractFileName(ExcludeTrailingPathDelimiter(aFolder)));
+    SubFolder := SetAsFolder(ExtractFileName(
+      ExcludeTrailingPathDelimiter(aFolder)));
 
     // 1. Search for the subfolder in actual folder
     TempStr := aFolder + SetAsFolder(aFileName);
@@ -775,13 +809,15 @@ procedure cGameManager.SearchMediaFiles(FileList: TStrings;
       end
       else
       begin
-        if not SearchInZip then Exit;
+        if not SearchInZip then
+          Exit;
 
         // 3. Search for compressed file
         TempStrList := TStringList.Create;
         try
           // Happy trick
-          FindSingleFile(TempStrList, aFolder, aFileName, CompressedExt, False, False);
+          SearchSingleFile(TempStrList, aFolder, aFileName,
+            CompressedExt, False, False);
           if TempStrList.Count > 0 then
           begin
             // Only first compressed archive found
@@ -797,7 +833,8 @@ procedure cGameManager.SearchMediaFiles(FileList: TStrings;
           begin
             // 3.1. Extracting the files
             Error := w7zExtractFile(ComFile, '*', TempStr, False, '');
-            if Error = 0 then MediaFolder := TempStr;
+            if Error = 0 then
+              MediaFolder := TempStr;
           end
           else
           begin
@@ -809,7 +846,8 @@ procedure cGameManager.SearchMediaFiles(FileList: TStrings;
       end;
     end;
 
-    if MediaFolder = '' then Exit;
+    if MediaFolder = '' then
+      Exit;
 
     AddMediaFiles(FileList, MediaFolder, Extensions);
   end;
@@ -828,22 +866,27 @@ begin
     Exit;
 
   if MultiFile then
-    FindMultiFile(FileList, aFolder, aFileName, Extensions, SearchInZip, ExtractFile)
+    FindMultiFile(FileList, aFolder, aFileName, Extensions,
+      SearchInZip, ExtractFile)
   else
-    FindSingleFile(FileList, aFolder, aFileName, Extensions, SearchInZip, ExtractFile);
+    SearchSingleFile(FileList, aFolder, aFileName, Extensions,
+      SearchInZip, ExtractFile);
 end;
 
 procedure cGameManager.SaveSystemGameList;
 var
   i, j: integer;
-  aFileName: String;
+  aFileName: string;
   aStringList: TStringList;
   aGame: cGame;
   aGroup: cGameGroup;
 begin
-  if System = nil then Exit;
-  aFileName := ExtractFilePath(SystemsFile) + System.DataFile + GroupDataFileExt;
-  if FileExistsUTF8(aFileName) then DeleteFileUTF8(aFileName);
+  if System = nil then
+    Exit;
+  aFileName := ExtractFilePath(SystemsFile) + System.DataFile +
+    GroupDataFileExt;
+  if FileExistsUTF8(aFileName) then
+    DeleteFileUTF8(aFileName);
 
   aStringList := TStringList.Create;
   try
@@ -853,7 +896,8 @@ begin
     while i < j do
     begin
       aGroup := GroupAtPos(i);
-      if ProgressCallBack <> nil then ProgressCallBack(GMCBSaveList, aGroup.Key, aGroup.Name, i, j);
+      if ProgressCallBack <> nil then
+        ProgressCallBack(GMCBSaveList, aGroup.Key, aGroup.Name, i, j);
       aStringList.Add(aGroup.DataString);
       Inc(i);
     end;
@@ -863,8 +907,10 @@ begin
   end;
   FreeAndNil(aStringList);
 
-  aFileName := ExtractFilePath(SystemsFile) + System.DataFile + GameDataFileExt;
-  if FileExistsUTF8(aFileName) then DeleteFileUTF8(aFileName);
+  aFileName := ExtractFilePath(SystemsFile) + System.DataFile +
+    GameDataFileExt;
+  if FileExistsUTF8(aFileName) then
+    DeleteFileUTF8(aFileName);
 
   aStringList := TStringList.Create;
   try
@@ -874,7 +920,8 @@ begin
     while i < j do
     begin
       aGame := GameAtPos(i);
-      if ProgressCallBack <> nil then ProgressCallBack(GMCBSaveList, aGame.Name, aGame.Version, i, j);
+      if ProgressCallBack <> nil then
+        ProgressCallBack(GMCBSaveList, aGame.Name, aGame.Version, i, j);
       aStringList.Add(aGame.DataString);
       Inc(i);
     end;
@@ -891,7 +938,7 @@ var
   aStringList: TStringList;
   aGame: cGame;
   aGroup: cGameGroup;
-  aFilename: String;
+  aFilename: string;
 begin
   if System = nil then
     Exit;
@@ -899,7 +946,8 @@ begin
   FGameList.Clear;
   FGroupList.Clear;
 
-  aFilename := ExtractFilePath(SystemsFile) + System.DataFile + GroupDataFileExt;
+  aFilename := ExtractFilePath(SystemsFile) + System.DataFile +
+    GroupDataFileExt;
   if not FileExistsUTF8(aFilename) then
     Exit;
 
@@ -946,7 +994,7 @@ begin
   end;
 end;
 
-procedure cGameManager.ExportGameData(const aFileName: String;
+procedure cGameManager.ExportGameData(const aFileName: string;
   const ExportMode: boolean);
 var
   F: TMemInifile;
@@ -962,7 +1010,7 @@ end;
 procedure cGameManager.ExportGameDataIni(const aIniFile: TCustomIniFile;
   const ExportMode: boolean);
 var
-  i,j: integer;
+  i, j: integer;
   aGame: cGame;
   aGameGroup: cGameGroup;
   Continue: boolean;
@@ -994,7 +1042,7 @@ begin
   end;
 end;
 
-procedure cGameManager.ImportGameData(const aFileName: String);
+procedure cGameManager.ImportGameData(const aFileName: string);
 var
   F: TMemInifile;
 begin
@@ -1013,7 +1061,7 @@ var
   i, j: integer;
   aGame: cGame;
   aGameGroup: cGameGroup;
-  Continue: Boolean;
+  Continue: boolean;
 begin
   i := 0;
   j := GameCount;
@@ -1023,7 +1071,8 @@ begin
     aGame := GameAtPos(i);
     aGame.ImportDataIni(aIniFile);
     if ProgressCallBack <> nil then
-      Continue := ProgressCallBack(GMCBImportData, aGame.Name, aGame.Version, i, j);
+      Continue := ProgressCallBack(GMCBImportData, aGame.Name,
+        aGame.Version, i, j);
     Inc(i);
   end;
 
@@ -1045,12 +1094,12 @@ end;
 
 function cGameManager.Execute(aGame: cGame): integer;
 var
-  RomFile, CompressedFile: String;
+  RomFile, CompressedFile: string;
   Error: integer;
   Compressed: boolean;
   NewDir: boolean;
   TempTime: TTime;
-  aFolder: String;
+  aFolder: string;
 begin
   // Uhm. If things go bad from the begin, they only can improve :-D
   Result := CGMExecErrorNoGame;
@@ -1084,7 +1133,8 @@ begin
     if System.ExtractAll then
       Error := w7zExtractFile(CompressedFile, AllFilesMask, aFolder, True, '')
     else
-      Error := w7zExtractFile(CompressedFile, aGame.FileName, aFolder, True, '');
+      Error := w7zExtractFile(CompressedFile, aGame.FileName,
+        aFolder, True, '');
     if Error <> 0 then
       Exit;
     RomFile := aFolder + aGame.FileName;
@@ -1137,8 +1187,8 @@ begin
   end;
 end;
 
-constructor cGameManager.Create(const aSystemsFile: String;
-  const aTempFolder: String; const aTempFile: String);
+constructor cGameManager.Create(const aSystemsFile: string;
+  const aTempFolder: string; const aTempFile: string);
 begin
   SystemsFile := aSystemsFile;
   TempFolder := aTempFolder;
@@ -1164,4 +1214,3 @@ begin
 end;
 
 end.
-
