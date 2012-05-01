@@ -38,14 +38,19 @@ unit u7zWrapper;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Process, StrUtils, LazUTF8, uCustomUtils;
+  Classes, SysUtils, FileUtil, Process, StrUtils, LazUTF8, sha1,
+  uCustomUtils;
 
-const
-  C7zFileNotExists = 257;
-  C7zExeNotExists = 258;
+resourcestring
+  w7zCacheFileExt = '.txt';
+  w7zFileNotFound = '"%s" file not found';
+  w7zExeError = '7z/7zG returned %d exit code.';
+
+type
+  w7zException = class(Exception);
 
 var
-  w7zFileExts: String;
+  w7zFileExts: string;
   {< String with suported file extensions by 7z.
 
      Format: 'ext,ext,ext' for easy creating a TStringList. At least until
@@ -54,26 +59,26 @@ var
      Warning: It's not used for test if the files passed as params are
        compressed files. It's only a reference list.
   }
-  w7zPathTo7zexe: String;
+  w7zPathTo7zexe: string;
   {< Path to 7z.exe executable.
 
     It can be usefull for hidding the processes, but it's
       needed for listing archives anyways.
   }
-  w7zPathTo7zGexe: String;
+  w7zPathTo7zGexe: string;
   {< Path to 7zG.exe executable.
   }
 
-  w7zCacheDir: String;
+  w7zCacheDir: string;
   {< Directory were lists of files from compressed archives are stored.
 
     Defaults to '%USERTEMPDIR%/w7zCache', and the directory is deleted at
       program exit.
   }
 
-function w7zListFiles(const aFilename: String;
-  PackedFiles: TStrings; OnlyPaths: boolean = False;
-  const Password: String = ''): Integer;
+procedure w7zListFiles(const aFilename: string; PackedFiles: TStrings;
+  OnlyPaths: boolean = False; const UseCache: boolean = True;
+  const Password: string = '');
 {< List files and properties in a 7z (or other format) archive.
 
   Executes "7z.exe l -slt aFilename" but don't use wildcards.
@@ -89,26 +94,26 @@ function w7zListFiles(const aFilename: String;
     for easy TStringList.CommaText reading:
     "Dir/Filename","size","packed size","Date modified","CRC")
   @param(OnlyPaths List only file names and no properties)
+  @param(UseCache Use cached file list?)
   @param(Password Is there archives that need a password to list files?
     Just in case.)
   @return(Error code)
 }
 
-function Extract7zFile(const a7zArchive: String;
-  const aFileMask: String; aFolder: String;
-  ShowProgress: Boolean; const Password: String): Integer;
+function Extract7zFile(const a7zArchive: string; const aFileMask: string;
+  aFolder: string; ShowProgress: boolean; const Password: string): integer;
 {< Extract de file (or files) from 7z archive.
 
   @param(aFilename Name of the 7z archive.)
   @param(aFolder Folder where the file(s) will be extracted.)
-  @param(aFileMask Mask or file to extract. Remember in 7z '*' means all files,
-    not '*.*' wich means all files with extension.)
+  @param(aFileMask Mask or file to extract. Remember, for 7z.exe '*' means all
+    files, not '*.*' wich means all files with extension.)
   @param(ShowProgress If true, progress of decompression will be shown.)
   @param(Password Password for 7z archive.)
 }
 
-function Compress7zFile(const a7zArchive: String; aFileList: TStrings;
-  ShowProgress: Boolean; CompType: String = ''): Integer;
+function Compress7zFile(const a7zArchive: string; aFileList: TStrings;
+  ShowProgress: boolean; CompType: string = ''): integer;
 {< Compress files in a 7z (or other type) archive.
 
   @param(a7zArchive Name of the 7z/zip archive.)
@@ -119,89 +124,134 @@ function Compress7zFile(const a7zArchive: String; aFileList: TStrings;
 
 implementation
 
-function w7zListFiles(const aFilename: String;
-  PackedFiles: TStrings; OnlyPaths: boolean = False;
-  const Password: String = ''): Integer;
+procedure w7zListFiles(const aFilename: string; PackedFiles: TStrings;
+  OnlyPaths: boolean = False; const UseCache: boolean = True;
+  const Password: string = '');
+
+  procedure ReturnOnlyPaths(aFileList: TStrings);
+  var
+    slLine: TStringList;
+    i: integer;
+  begin
+    // Removing additional data
+    // slLine is out of the iteration to avoid creating-deleting every time.
+    slLine := TStringList.Create;
+    try
+      i := 0;
+      while i < PackedFiles.Count do
+      begin
+        slLine.CommaText := PackedFiles[i];
+        if slLine.Count > 0 then
+        begin
+          PackedFiles[i] := slLine[0];
+          Inc(i);
+        end
+        else
+        begin
+          // Uhm... this must not happen... but...
+          PackedFiles.Delete(i);
+        end;
+      end;
+    finally
+      FreeAndNil(slLine);
+    end;
+  end;
+
 var
-  msOut: TMemoryStream;
+  FileSHA1: string;
+  aPos, i: integer;
+  slLine, slOutput: TStringList;
+  msOutput: TMemoryStream;
   aProcess: TProcess;
-  slOut: TStringList;
-  slLine: TStringList;
-  aPos, i, n: integer;
-  aParam, aValue: String;
-  aPath, Size, PSize, aDate, aCRC: String;
+  aParam, aValue: string;
+  aPath, Size, PSize, aDate, aCRC: string;
 begin
-  Result := 0;
+  // Just to be sure...
+  w7zCacheDir := SetAsFolder(w7zCacheDir);
+
+  // Clearing PackedFiles file list
   if PackedFiles <> nil then
     PackedFiles.Clear
   else
     PackedFiles := TStringList.Create;
 
+  // Checking needed files
   if not FileExistsUTF8(w7zPathTo7zexe) then
-  begin
-    // TODO 2: Show message or raise an exception?.
-    Result := C7zExeNotExists;
-    Exit;
-  end;
+    raise EInOutError.CreateFmt(w7zFileNotFound, [w7zPathTo7zexe]);
 
   if not FileExistsUTF8(aFilename) then
+    raise EInOutError.CreateFmt(aFilename, [w7zPathTo7zexe]);
+
+  // SHA1 of the file... cache file is saved allways
+  FileSHA1 := SHA1Print(SHA1File(aFilename));
+
+  // Searching for cache file
+  // ------------------------
+  if UseCache then
   begin
-    // TODO 2: Show message or raise an exception?.
-    Result := C7zFileNotExists;
-    Exit;
+    if FileExistsUTF8(w7zCacheDir + FileSHA1 + w7zCacheFileExt) then
+    begin
+      PackedFiles.LoadFromFile(w7zCacheDir + FileSHA1 + w7zCacheFileExt);
+      if OnlyPaths then
+        ReturnOnlyPaths(PackedFiles);
+      Exit; // Job done.
+    end;
   end;
 
-  slOut := TStringList.Create;
+  // Executing '7z.exe l -slt -scsUTF-8 -sccUTF-8 <archive>'
+  // -------------------------------------------------------
+  aProcess := TProcess.Create(nil);
+  msOutput := TMemoryStream.Create;
   try
-    msOut := TMemoryStream.Create;
-    try
-      // Executing '7z.exe l archive'
-      aProcess := TProcess.Create(nil);
-      try
-        aProcess.Executable := UTF8ToSys(w7zPathTo7zexe);
-        aProcess.Parameters.Add('l');
-        aProcess.Parameters.Add('-slt');
-        aProcess.Parameters.Add('-scsUTF-8');
-        aProcess.Parameters.Add('-sccUTF-8');
-        if Password <> '' then
-          aProcess.Parameters.Add('-p' + UTF8ToSys(Password));
-        aProcess.Parameters.Add(UTF8ToSys(aFilename));
-        aProcess.Options := aProcess.Options + [poUsePipes, poNoConsole];
-        aProcess.Execute;
+    aProcess.Executable := UTF8ToSys(w7zPathTo7zexe);
+    aProcess.Parameters.Add('l');
+    aProcess.Parameters.Add('-slt');
+    aProcess.Parameters.Add('-scsUTF-8');
+    aProcess.Parameters.Add('-sccUTF-8');
+    if Password <> '' then
+      aProcess.Parameters.Add('-p' + UTF8ToSys(Password));
+    aProcess.Parameters.Add(UTF8ToSys(aFilename));
+    aProcess.Options := aProcess.Options + [poUsePipes, poNoConsole];
+    aProcess.Execute;
 
-        aPos := 0;
-        // Reading output
-        while (aProcess.Running) or (aProcess.Output.NumBytesAvailable > 0) do
-        begin
-          i := aProcess.Output.NumBytesAvailable;
-          if i > 0 then
-          begin
-            msOut.SetSize(aPos + i);
-            n := aProcess.Output.Read((msOut.Memory + aPos)^, i);
-            Inc(aPos, n);
-          end;
-          {
+    // Reading output
+    aPos := 0;
+    while (aProcess.Running) or (aProcess.Output.NumBytesAvailable > 0) do
+    begin
+      i := aProcess.Output.NumBytesAvailable;
+      if i > 0 then
+      begin
+        msOutput.SetSize(aPos + i);
+        Inc(aPos, aProcess.Output.Read((msOutput.Memory + aPos)^, i));
+      end;
+          { Meh, don't sleep
           else
             Sleep(100); // Waiting for more output
           }
-        end;
-        slOut.LoadFromStream(msOut);
-        slOut.SaveToFile('7zOutput.txt');
-      finally
-        FreeAndNil(aProcess);
-      end;
-    finally
-      FreeAndNil(msOut);
     end;
+    msOutput.SaveToFile(w7zCacheDir + 'w7zOutput' + w7zCacheFileExt);
+  finally
+    i := aProcess.ExitStatus;
+    FreeAndNil(aProcess);
+    FreeAndNil(msOutput);
+  end;
 
-    // TODO 2: Check errors...
+  // TODO 3: Handle Warnings too...
+  if (i <> 0) and (i <> 1) then // 1 = Warning
+    raise w7zException.CreateFmt(w7zExeError, [i]);
 
-    // Procesing the lines...
+  // Reading files and creating cache file
+  // -------------------------------------
+
+  slOutput := TStringList.Create;
+  slLine := TStringList.Create;
+  try
+    slOutput.LoadFromFile(w7zCacheDir + 'w7zOutput' + w7zCacheFileExt);
 
     // Skipping until '----------'
-    n := 0;
-    while (n < slOut.Count) and (slOut[n] <> '----------') do
-      Inc(n);
+    i := 0;
+    while (i < slOutput.Count) and (slOutput[i] <> '----------') do
+      Inc(i);
 
     // Now adding files
     aPath := '';
@@ -209,38 +259,31 @@ begin
     PSize := '';
     aDate := '';
     aCRC := '';
-    while (n < slOut.Count) do
+    while (i < slOutput.Count) do
     begin
-      // Well, I hope that always 'Path = ' is the first line
-      //   of the file data, because a new line to the StringList is added.
+      aPos := UTF8Pos('=', slOutput[i]);
 
-      aPos := UTF8Pos('=', slOut[n]);
       if aPos <> 0 then
       begin
-        aParam := UTF8LowerCase(Trim(UTF8Copy(slOut[n], 1, aPos-1)));
-        aValue := Trim(UTF8Copy(slOut[n], aPos + 1, MaxInt));
+        aParam := UTF8LowerCase(Trim(UTF8Copy(slOutput[i], 1, aPos - 1)));
+        aValue := Trim(UTF8Copy(slOutput[i], aPos + 1, MaxInt));
+
+        // Well, I hope that always 'Path = ' will be the first line
+        //   of the file data, because a new line to the StringList is added.
         if UTF8CompareText(aParam, 'path') = 0 then
         begin
           // Adding the file
           if aPath <> '' then
           begin
-            if OnlyPaths then
-              PackedFiles.Add(aPath)
-            else
-            begin
-              slLine := TStringList.Create;
-              try
-                slLine.Add(aPath);
-                slLine.Add(Size);
-                slLine.Add(PSize);
-                slLine.Add(aDate);
-                slLine.Add(aCRC);
-                PackedFiles.Add(slLine.CommaText)
-              finally
-                FreeAndNil(slLine);
-              end;
-            end;
+            slLine.Clear;
+            slLine.Add(aPath);
+            slLine.Add(Size);
+            slLine.Add(PSize);
+            slLine.Add(aDate);
+            slLine.Add(aCRC);
+            PackedFiles.Add(slLine.CommaText);
           end;
+
           aPath := aValue;
           Size := '';
           PSize := '';
@@ -256,48 +299,43 @@ begin
         else if UTF8CompareText(aParam, 'crc') = 0 then
           aCRC := aValue;
       end;
-      Inc(n);
+      Inc(i);
+    end;
+
+    // Adding the last packed file
+    if aPath <> '' then
+    begin
+      slLine.Clear;
+      slLine.Add(aPath);
+      slLine.Add(Size);
+      slLine.Add(PSize);
+      slLine.Add(aDate);
+      slLine.Add(aCRC);
+      PackedFiles.Add(slLine.CommaText);
+
+      // Only save if there is at least one file in the compressed archive
+      PackedFiles.SaveToFile(w7zCacheDir + FileSHA1 + w7zCacheFileExt);
     end;
   finally
-    FreeAndNil(slOut);
+    FreeAndNil(slLine);
+    FreeAndNil(slOutput);
   end;
 
-  // Adding the last packed file
-  if aPath <> '' then
-  begin
-    if OnlyPaths then
-      PackedFiles.Add(aPath)
-    else
-    begin
-      slLine := TStringList.Create;
-      try
-        slLine.Add(aPath);
-        slLine.Add(Size);
-        slLine.Add(PSize);
-        slLine.Add(aDate);
-        slLine.Add(aCRC);
-        PackedFiles.Add(slLine.CommaText)
-      finally
-        FreeAndNil(slLine);
-      end;
-    end;
-  end;
+  if OnlyPaths then
+    ReturnOnlyPaths(PackedFiles);
+
 end;
 
-function Extract7zFile(const a7zArchive: String;
-  const aFileMask: String; aFolder: String;
-  ShowProgress: boolean; const Password: String): integer;
+function Extract7zFile(const a7zArchive: string; const aFileMask: string;
+  aFolder: string; ShowProgress: boolean; const Password: string): integer;
 var
   aProcess: TProcess;
   aOptions: TProcessOptions;
-  aExeString: String;
+  aExeString: string;
 begin
   Result := 0;
   if not FileExistsUTF8(a7zArchive) then
-  begin
-    Result:=C7zFileNotExists;
-    Exit;
-  end;
+  raise EInOutError.CreateFmt(w7zFileNotFound, [w7zPathTo7zexe]);
 
   aOptions := [poWaitOnExit];
   aExeString := w7zPathTo7zexe;
@@ -307,10 +345,7 @@ begin
   else
   begin
     if not FileExistsUTF8(w7zPathTo7zexe) then
-    begin
-      Result := C7zExeNotExists;
-      Exit;
-    end;
+    raise EInOutError.CreateFmt(w7zFileNotFound, [w7zPathTo7zexe]);
 
     if ShowProgress then
       aOptions := aOptions + [poNewConsole]
@@ -350,13 +385,13 @@ begin
   end;
 end;
 
-function Compress7zFile(const a7zArchive: String; aFileList: TStrings;
-  ShowProgress: Boolean; CompType: String): Integer;
+function Compress7zFile(const a7zArchive: string; aFileList: TStrings;
+  ShowProgress: boolean; CompType: string): integer;
 var
   aProcess: TProcess;
   aOptions: TProcessOptions;
-  aExeString: String;
-  i: Integer;
+  aExeString: string;
+  i: integer;
 
 begin
   aOptions := [poWaitOnExit];
@@ -366,10 +401,7 @@ begin
   else
   begin
     if FileExistsUTF8(w7zPathTo7zexe) then
-    begin
-      Result := C7zExeNotExists;
-      Exit;
-    end;
+    raise EInOutError.CreateFmt(w7zFileNotFound, [w7zPathTo7zexe]);
 
     if ShowProgress then
       aOptions := aOptions + [poNewConsole]
@@ -428,16 +460,25 @@ initialization
   if not FileExistsUTF8(w7zPathTo7zGexe) then
     w7zPathTo7zGexe := '7z/7z.exe';
 
-  w7zCacheDir := SetAsFolder(GetTempDir(false)) + 'w7zCache';
+  w7zCacheDir := SetAsFolder(GetTempDir(False)) + 'w7zCache';
   ForceDirectoriesUTF8(w7zCacheDir);
 
 finalization
 
   // We want to delete this directory anyways on finalization.
-  DeleteDirectory(SetAsFolder(GetTempDir(false)) + 'w7zCache', false);
+  DeleteDirectory(SetAsFolder(GetTempDir(False)) + 'w7zCache', False);
 
   if DirectoryExistsUTF8(w7zCacheDir) = True then
-    DeleteDirectory(w7zCacheDir);
+    DeleteDirectory(w7zCacheDir, false);
 
 end.
+
+
+
+
+
+
+
+
+
 

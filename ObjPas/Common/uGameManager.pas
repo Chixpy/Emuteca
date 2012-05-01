@@ -477,7 +477,7 @@ begin
   begin // It's a extensión of a compressed archive
     CompFiles := TStringList.Create;
     try
-      List7zFiles(aFolder + Info.Name, CompFiles, False);
+      w7zListFiles(aFolder + Info.Name, CompFiles, False);
 
       i := 0;
       j := CompFiles.Count;
@@ -588,8 +588,6 @@ end;
 procedure cGameManager.SearchGameMedia(FileList: TStrings;
   aFolder: String; aGameVersion: cGame; Extensions: TStrings;
   MultiFile: boolean; SearchInZip: boolean);
-var
-  aGameGroup: cGameGroup;
 begin
   SearchMediaFiles(FileList, aFolder, RemoveFromBrackets(aGameVersion.FileName) + CVirtualGameExt, Extensions, MultiFile, SearchInZip, True);
   if FileList.Count = 0 then
@@ -676,8 +674,7 @@ procedure cGameManager.SearchMediaFiles(FileList: TStrings;
           if CompressedExt.IndexOf(TmpStr) <> -1 then
           begin
             CompFiles.Clear;
-            if List7zFiles(aFolder + Info.Name, CompFiles, True) = 0 then
-            begin
+            w7zListFiles(aFolder + Info.Name, CompFiles, True);
               i := 0;
               j := Extensions.Count;
               while i < j do
@@ -708,7 +705,6 @@ procedure cGameManager.SearchMediaFiles(FileList: TStrings;
                 end;
                 Inc(i);
               end;
-            end;
           end;
         until (FileList.Count <> 0) or (FindNextUTF8(Info) <> 0);
       finally
