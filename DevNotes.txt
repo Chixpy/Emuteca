@@ -69,5 +69,5 @@ Ejemplo de dos versiones que comparten un archivo...
   |  |--- Fichero1b.dsk
   |  |--- Fichero2.dsk
 
-
+De esta forma podría auditar los juegos de MAME...
 

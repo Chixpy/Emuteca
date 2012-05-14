@@ -2185,13 +2185,14 @@ begin
     FreeAndNil(frmProgress);
   end;
   Self.Enabled := True;
-  if Self.CanFocus then
-    Self.SetFocus;
 
   UpdateSystemMedia;
   UpdateGameMedia;
   UpdateEmulatorList;
   FillOtherFilesTree;
+
+  if Self.CanFocus then
+    Self.SetFocus;
 end;
 
 procedure TfrmGameManager.UpdateGameImage;

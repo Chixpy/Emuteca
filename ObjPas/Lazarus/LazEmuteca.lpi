@@ -3,6 +3,9 @@
   <ProjectOptions>
     <Version Value="9"/>
     <General>
+      <Flags>
+        <SaveOnlyProjectUnits Value="True"/>
+      </Flags>
       <SessionStorage Value="InProjectDir"/>
       <MainUnit Value="0"/>
       <AutoCreateForms Value="False"/>
@@ -14,13 +17,17 @@
       </XPManifest>
       <Icon Value="0"/>
     </General>
+    <i18n>
+      <EnableI18N Value="True"/>
+      <OutDir Value="i18n"/>
+    </i18n>
     <VersionInfo>
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="7"/>
       <BuildNr Value="53"/>
       <Language Value=""/>
-      <StringTable LegalCopyright="(C) 2006-2011 Chixpy" ProductVersion="0.7" FileDescription="Emuteca Emulator Front-End" OriginalFilename="LazEmuteca.exe"/>
+      <StringTable FileDescription="Emuteca Emulator Front-End" LegalCopyright="(C) 2006-2012 Chixpy" OriginalFilename="LazEmuteca.exe" ProductVersion="0.7"/>
     </VersionInfo>
     <BuildModes Count="2">
       <Item1 Name="Debug" Default="True"/>
@@ -75,32 +82,29 @@
         <LaunchingApplication PathPlusParams="/usr/X11R6/bin/xterm -T 'Lazarus Run Output' -e $(LazarusDir)/tools/runwait.sh $(TargetCmdLine)"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="7">
+    <RequiredPackages Count="6">
       <Item1>
         <PackageName Value="IDEIntf"/>
       </Item1>
       <Item2>
-        <PackageName Value="pl_jujiboutils"/>
+        <PackageName Value="pl_pascalscript"/>
       </Item2>
       <Item3>
-        <PackageName Value="pl_pascalscript"/>
+        <PackageName Value="pl_virtualtrees"/>
       </Item3>
       <Item4>
-        <PackageName Value="pl_virtualtrees"/>
-      </Item4>
-      <Item5>
         <PackageName Value="SynEdit"/>
         <MinVersion Major="1" Valid="True"/>
-      </Item5>
-      <Item6>
+      </Item4>
+      <Item5>
         <PackageName Value="LazControls"/>
         <MinVersion Valid="True"/>
-      </Item6>
-      <Item7>
+      </Item5>
+      <Item6>
         <PackageName Value="LCL"/>
-      </Item7>
+      </Item6>
     </RequiredPackages>
-    <Units Count="35">
+    <Units Count="33">
       <Unit0>
         <Filename Value="LazEmuteca.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -248,58 +252,50 @@
         <UnitName Value="uGameStats"/>
       </Unit24>
       <Unit25>
-        <Filename Value="../../DevNotes.txt"/>
-        <IsPartOfProject Value="True"/>
-      </Unit25>
-      <Unit26>
         <Filename Value="../Common/u7zWrapper.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="u7zWrapper"/>
-      </Unit26>
-      <Unit27>
+      </Unit25>
+      <Unit26>
         <Filename Value="../Common/uVersionSupport.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uVersionSupport"/>
-      </Unit27>
-      <Unit28>
-        <Filename Value="../StyleGuide.txt"/>
-        <IsPartOfProject Value="True"/>
-      </Unit28>
-      <Unit29>
+      </Unit26>
+      <Unit27>
         <Filename Value="Source/fSMAskFolder.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmSMAskFolder"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="fSMAskFolder"/>
-      </Unit29>
-      <Unit30>
+      </Unit27>
+      <Unit28>
         <Filename Value="../Common/uPSI_u7zWrapper.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uPSI_u7zWrapper"/>
-      </Unit30>
-      <Unit31>
+      </Unit28>
+      <Unit29>
         <Filename Value="../Common/uPSI_uSystem.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uPSI_uSystem"/>
-      </Unit31>
-      <Unit32>
+      </Unit29>
+      <Unit30>
         <Filename Value="../Common/uPSI_uEmulator.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uPSI_uEmulator"/>
-      </Unit32>
-      <Unit33>
+      </Unit30>
+      <Unit31>
         <Filename Value="../Common/uPSI_uGameStats.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uPSI_uGameStats"/>
-      </Unit33>
-      <Unit34>
+      </Unit31>
+      <Unit32>
         <Filename Value="Source/fConfigManager.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmConfigManager"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="fConfigManager"/>
-      </Unit34>
+      </Unit32>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

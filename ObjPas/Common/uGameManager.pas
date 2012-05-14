@@ -376,6 +376,8 @@ begin
     else
       SaveSystemGameList;
 
+  DeleteDirectory(TempFolder, True);
+
   FreeAndNil(FSystem);
   FreeAndNil(FEmulator);
   PurgeGameData;
@@ -672,7 +674,7 @@ procedure cGameManager.SearchMediaFiles(FileList: TStrings;
       Exit;
 
     // 3. Searching in compressed archives.
-    // Simply try to extract files, and search in cache again...
+    // Simply try to extract files, and search in cache folder again...
     if FindFirstUTF8(aFolder + AllFilesMask, 0, Info) = 0 then
       try
         repeat

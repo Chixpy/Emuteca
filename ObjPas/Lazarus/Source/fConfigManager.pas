@@ -27,30 +27,37 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs,
-  StdCtrls, ExtCtrls, ComCtrls, EditBtn, uConfig;
+  StdCtrls, ExtCtrls, ComCtrls, EditBtn, Buttons, uConfig;
 
 type
 
   { TfrmConfigManager }
 
   TfrmConfigManager = class(TForm)
+    bAceptar: TBitBtn;
+    bCancel: TBitBtn;
     bMakePathsRelative: TButton;
     e7zPath: TFileNameEdit;
+    e7zGPath: TFileNameEdit;
     emPlayerPath: TFileNameEdit;
     gbxImageExt: TGroupBox;
     gbxCompExt: TGroupBox;
     gbxTextExt: TGroupBox;
     l7zPath: TLabel;
+    l7zGPath: TLabel;
+    lConfigFile: TLabel;
     lmPlayerPath: TLabel;
     mCompExt: TMemo;
     mTextExt: TMemo;
     mImageExt: TMemo;
     p7zPath: TPanel;
+    p7zGPath: TPanel;
     pmPlayerPath: TPanel;
     pBottom: TPanel;
     pcConfig: TPageControl;
     pagExtensions: TTabSheet;
     pagPaths: TTabSheet;
+    procedure bAceptarClick(Sender: TObject);
     procedure bMakePathsRelativeClick(Sender: TObject);
 
   private
@@ -77,14 +84,22 @@ begin
   emPlayerPath.Text := ExtractRelativepath(GetCurrentDir, emPlayerPath.Text);
 end;
 
+procedure TfrmConfigManager.bAceptarClick(Sender: TObject);
+begin
+  // TODO 1: Change config values and close...
+end;
+
 procedure TfrmConfigManager.SetConfig(AValue: cConfig);
 begin
   FConfig := AValue;
 
   if AValue = nil then Exit;
 
+  lConfigFile.Caption:=AValue.ConfigFile;
+
   // Paths
   e7zPath.Text:= AValue.z7Subfolder + AValue.z7CMExecutable;
+  e7zGPath.Text:= AValue.z7Subfolder + AValue.z7GExecutable;
   emPlayerPath.Text:=AValue.mPlayerSubfolder + AValue.mPlayerExecutable;
 
   // Extensions

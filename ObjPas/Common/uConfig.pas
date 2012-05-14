@@ -29,6 +29,9 @@ uses
   Classes, SysUtils, FileUtil, LazUTF8, lazutf8classes,
   uCustomUtils;
 
+resourcestring
+  rsENotFilename = 'Not defined filename.';
+
 type
 
   { cConfig: Class wich has all general options and configurations.
@@ -39,6 +42,7 @@ type
   private
     FCompanySubFolder: String;
     FCompressedExtensions: TStringList;
+    FConfigFile: string;
     FDataFolder: String;
     FDefaultEmulatorIcon: String;
     FDefaultEmulatorImage: String;
@@ -82,6 +86,7 @@ type
     Fz7GExecutable: String;
     Fz7Subfolder: String;
     procedure SetCompanySubFolder(const AValue: String);
+    procedure SetConfigFile(AValue: string);
     procedure SetDataFolder(const AValue: String);
     procedure SetDefaultEmulatorIcon(const AValue: String);
     procedure SetDefaultEmulatorImage(const AValue: String);
@@ -200,6 +205,8 @@ type
     property TempSubfolder: String read FTempFolder write SetTempFolder;
     property TempFile: String read FTempFile write SetTempFile;
 
+
+    property ConfigFile: string read FConfigFile write SetConfigFile;
     procedure ReadConfig(const aFileName: String);
     procedure SaveConfig(const aFilename: String);
 
@@ -222,6 +229,11 @@ end;
 procedure cConfig.SetCompanySubFolder(const AValue: String);
 begin
   FCompanySubFolder := SetAsFolder(AValue);
+end;
+
+procedure cConfig.SetConfigFile(AValue: string);
+begin
+  FConfigFile := AValue;
 end;
 
 procedure cConfig.SetDefaultEmulatorIcon(const AValue: String);
@@ -426,7 +438,12 @@ var
   end;
 
 begin
-  IniFile := TMemIniFile.Create(UTF8ToSys(aFileName));
+  if aFilename <> '' then
+    ConfigFile := aFileName;
+  if ConfigFile = '' then
+    raise EInOutError.Create(self.ClassName + '.SaveConfig:' + rsENotFilename);
+
+  IniFile := TMemIniFile.Create(UTF8ToSys(ConfigFile));
   try
     // i18n
     LanguageFolder := ReadValue('Localization', 'LanguageFolder',
@@ -525,7 +542,12 @@ procedure cConfig.SaveConfig(const aFilename: String);
 var
   IniFile: TMemIniFile;
 begin
-  IniFile := TMemIniFile.Create(UTF8ToSys(aFileName));
+  if aFilename <> '' then
+    ConfigFile := aFileName;
+  if ConfigFile = '' then
+    raise EInOutError.Create(self.ClassName + '.SaveConfig:' + rsENotFilename);
+
+  IniFile := TMemIniFile.Create(UTF8ToSys(ConfigFile));
   try
     // i18n
     IniFile.WriteString('Localization', 'LanguageFolder', LanguageFolder);
