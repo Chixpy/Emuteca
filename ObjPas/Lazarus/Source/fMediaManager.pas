@@ -30,8 +30,31 @@ uses
   ComCtrls, StdCtrls, ExtCtrls, ActnList, EditBtn, Menus, VirtualTrees,
   LCLType, LazUTF8,
   fProgress,
-  uConfig, uGameManager, uGame, uGameGroup, uTranslator,
+  uConfig, uGameManager, uGame, uGameGroup,
   uCustomUtils, fImageViewer;
+
+resourcestring
+  rsfmmSource = 'Source: %0:s';
+  rsfmmTarget = 'Target: %0:s';
+  rsfmmDeleteFile = 'Do you want to delete the file?\n\n%0:s';
+  rsfmmDeleteAll = 'Do you want to delete all current listed files?\n\n' +
+    'Folder: %0:s\nNumber of files: %1:d';
+  rsfmmDeleteFileError = 'Error deleting the file:\n\n%0:s';
+
+  rsfmmTargetExists =
+    'Target file already exists.\n\nDo you want to overwrite?';
+
+  rsfmmIcons = 'Icons';
+  rsfmmMarquees = 'Spines / Marquees';
+  rsfmmDemoMusic = 'Demo music';
+  rsfmmDemoVideo = 'Demo vídeo';
+
+  rsfmmAddingFiles = 'Adding files to the list...';
+  rsfmmCopyingFileList = 'Copying file list...';
+  rsfmmSearchFilesWOGroup = 'Searching files without group...';
+  rsfmmSearchFilesWOGame = 'Searching files without game...';
+
+  rsNFiles = '%0:d files found.';
 
 const
   CSimilarityThresold = 25;
@@ -131,7 +154,7 @@ type
     procedure lbxTextsSelectionChange(Sender: TObject; User: boolean);
     procedure lbxVideosSelectionChange(Sender: TObject; User: boolean);
     procedure vstGroupsKeyPress(Sender: TObject; var Key: char);
-    procedure vstGroupsKeyDown(Sender: TObject; var Key: Word;
+    procedure vstGroupsKeyDown(Sender: TObject; var Key: word;
       Shift: TShiftState);
     procedure vstFilesKeyDown(Sender: TObject; var Key: word;
       Shift: TShiftState);
@@ -166,95 +189,33 @@ type
     FGameManager: cGameManager;
     FMediaFiles: TStringList;
     FMultiFile: boolean;
-    FrsAddingFiles: String;
-    FrsCopyingFileList: String;
-    FrsDeleteAll: String;
-    FrsDeleteFile: String;
-    FrsDeleteFileError: String;
-    FrsDemoMusic: String;
-    FrsDemoVideo: String;
-    FrsIcons: String;
-    FrsMarquees: String;
-    FrsNFiles: String;
-    FrsSearchFilesWOGame: String;
-    FrsSearchFilesWOGroup: String;
-    FrsSource: String;
-    FrsTarget: String;
-    FrsTargetExists: String;
-    FSourceFile: String;
-    FSourceFolder: String;
-    FTargetFile: String;
-    FTargetFolder: String;
+    FSourceFile: string;
+    FSourceFolder: string;
+    FTargetFile: string;
+    FTargetFolder: string;
     procedure SetConfig(const AValue: cConfig);
     procedure SetCurrentMediaIndex(const AValue: integer);
     procedure SetExtFilter(const AValue: TStrings);
     procedure SetGameManager(const AValue: cGameManager);
     procedure SetMediaFiles(const AValue: TStringList);
     procedure SetMultiFile(const AValue: boolean);
-    procedure SetrsAddingFiles(AValue: String);
-    procedure SetrsCopyingFileList(AValue: String);
-    procedure SetrsDeleteAll(AValue: String);
-    procedure SetrsDeleteFile(AValue: String);
-    procedure SetrsDeleteFileError(AValue: String);
-    procedure SetrsDemoMusic(AValue: String);
-    procedure SetrsDemoVideo(AValue: String);
-    procedure SetrsIcons(AValue: String);
-    procedure SetrsMarquees(AValue: String);
-    procedure SetrsNFiles(AValue: String);
-    procedure SetrsSearchFilesWOGame(AValue: String);
-    procedure SetrsSearchFilesWOGroup(AValue: String);
-    procedure SetrsSource(AValue: String);
-    procedure SetrsTarget(AValue: String);
-    procedure SetrsTargetExists(AValue: String);
-    procedure SetSourceFile(const AValue: String);
-    procedure SetSourceFolder(const AValue: String);
-    procedure SetTargetFile(const AValue: String);
-    procedure SetTargetFolder(const AValue: String);
+    procedure SetSourceFile(const AValue: string);
+    procedure SetSourceFolder(const AValue: string);
+    procedure SetTargetFile(const AValue: string);
+    procedure SetTargetFolder(const AValue: string);
 
   protected
-    // Strings for translation
-    property rsSource: String read FrsSource write SetrsSource;
-    //< 'Source:'.
-    property rsTarget: String read FrsTarget write SetrsTarget;
-    //< 'Target:'.
-    property rsDeleteFile: String read FrsDeleteFile write SetrsDeleteFile;
-    //< 'Do you want to delete the next file?\n\n%s'.
-    property rsDeleteAll: String read FrsDeleteAll write SetrsDeleteAll;
-    //< 'Do you want to delete all current listed files?\n\nFolder: %s'.
-    property rsDeleteFileError: String
-      read FrsDeleteFileError write SetrsDeleteFileError;
-    //< 'Error deleting the file:\n\n%s'.
-    property rsTargetExists: String
-      read FrsTargetExists write SetrsTargetExists;
-    //< 'Target file already exists. Do you want to overwrite?'.
-    property rsIcons: String read FrsIcons write SetrsIcons;
-    //< 'Icons'.
-    property rsMarquees: String read FrsMarquees write SetrsMarquees;
-    //< 'Side / Marquee'.
-    property rsDemoMusic: String read FrsDemoMusic write SetrsDemoMusic;
-    //< 'Demo music'
-    property rsDemoVideo: String read FrsDemoVideo write SetrsDemoVideo;
-    //< 'Demo video'
-    property rsAddingFiles: String read FrsAddingFiles write SetrsAddingFiles;
-    //< 'Adding files to the list...'
-    property rsCopyingFileList: String read FrsCopyingFileList write SetrsCopyingFileList;
-    //< 'Copying file list...'
-    property rsSearchFilesWOGroup: String read FrsSearchFilesWOGroup write SetrsSearchFilesWOGroup;
-    //< 'Searching files without group...'
-    property rsSearchFilesWOGame: String read FrsSearchFilesWOGame write SetrsSearchFilesWOGame;
-    //< 'Searching files without game...'
-    property rsNFiles: String read FrsNFiles write SetrsNFiles;
 
-    property SourceFile: String read FSourceFile write SetSourceFile;
+    property SourceFile: string read FSourceFile write SetSourceFile;
     //< Name of the source file.
-    property SourceFolder: String read FSourceFolder write SetSourceFolder;
+    property SourceFolder: string read FSourceFolder write SetSourceFolder;
     {< Folder of the source file.
 
     Always have the trailing path delimiter.
     }
-    property TargetFile: String read FTargetFile write SetTargetFile;
+    property TargetFile: string read FTargetFile write SetTargetFile;
     //< Name of the target file.
-    property TargetFolder: String read FTargetFolder write SetTargetFolder;
+    property TargetFolder: string read FTargetFolder write SetTargetFolder;
     {< Folder of the target file.
 
     Always have the trailing path delimiter.
@@ -276,7 +237,7 @@ type
     //< Index of te current media file.
 
     // TODO 3: Maybe this 4 methods can be reduced to 2 without ofuscate them...
-    function AddFile(aFolder: String; Info: TSearchRec): boolean; overload;
+    function AddFile(aFolder: string; Info: TSearchRec): boolean; overload;
     {< Adds a file to the lists in not MultiFile mode.
 
       For use with IterateFolder.
@@ -286,7 +247,7 @@ type
 
       @result (Alwasy @true; needed for IterateFolder.)
     }
-    function AddFile(aFolder, aName: String): boolean; overload;
+    function AddFile(aFolder, aName: string): boolean; overload;
     {< Adds a file to the lists in not MultiFile mode.
 
       For manual use @(and hacky updates@).
@@ -297,7 +258,7 @@ type
       @result (Always @true @(useless until a reason to stop batch operations
         will be found.@).)
     }
-    function AddFolder(aFolder: String; Info: TSearchRec): boolean;
+    function AddFolder(aFolder: string; Info: TSearchRec): boolean;
       overload;
     {< Adds a folder (or compressed archive) to the lists in MultiFile mode.
 
@@ -308,7 +269,7 @@ type
 
     @result (Always @true; needed for IterateFolder.)
     }
-    function AddFolder(aFolder, aName: String): boolean; overload;
+    function AddFolder(aFolder, aName: string): boolean; overload;
     {< Add a folder (or compressed archive) to the lists in MultiFile mode.
 
       For manual use @(and hacky updates@).
@@ -319,7 +280,7 @@ type
       @result (Always @true @(useless until a reason to stop batch operations
         will be found@).)
     }
-    function AddFilesOtherFolder(aFolder: String;
+    function AddFilesOtherFolder(aFolder: string;
       Info: TSearchRec): boolean; overload;
     {< Add files or folders to vstFilesOtherFolder.
 
@@ -329,7 +290,7 @@ type
       @result (Always @true; needed for IterateFolder.)
     }
 
-    procedure VSTUpdate(aFolder: String);
+    procedure VSTUpdate(aFolder: string);
     {< Update the Virtual String Trees.
 
       @param (aFolder Folder where search the media.)
@@ -345,7 +306,7 @@ type
 
       @param (aGame The game with it's media will be previewed.)
     }
-    procedure ChangeFileMedia(aFolder, aName: String);
+    procedure ChangeFileMedia(aFolder, aName: string);
     {< Change the media preview to the file.
 
       @param (aFolder Folder were the file is.)
@@ -380,7 +341,7 @@ type
     {< Move all VISIBLE (i.e. no hidden) files from the current list to
         another folder. }
 
-    procedure RemoveFileVSTFiles(aFolder, aFile: String);
+    procedure RemoveFileVSTFiles(aFolder, aFile: string);
     {< Remove a file from lists (not physically).
 
       Used for hacky updates.
@@ -388,7 +349,7 @@ type
       @param (aFolder Folder were the file is.)
       @param (aFile Name of the file.)
     }
-    procedure RemoveGroupWOFile(aFile: String);
+    procedure RemoveGroupWOFile(aFile: string);
     {< Remove groups from vstGroupsWOFile list that uses aFile.
 
       Used for hacky updates.
@@ -424,11 +385,11 @@ begin
   vstAllGroups.NodeDataSize := SizeOf(TObject);
   vstAllGames.NodeDataSize := SizeOf(TObject);
   vstGroupsWOFile.NodeDataSize := SizeOf(TObject);
-  vstAllFiles.NodeDataSize := SizeOf(String);
-  vstFilesWOGroup.NodeDataSize := SizeOf(String);
-  vstFilesWOGame.NodeDataSize := SizeOf(String);
-  vstOtherFiles.NodeDataSize := SizeOf(String);
-  vstFilesOtherFolder.NodeDataSize := SizeOf(String);
+  vstAllFiles.NodeDataSize := SizeOf(string);
+  vstFilesWOGroup.NodeDataSize := SizeOf(string);
+  vstFilesWOGame.NodeDataSize := SizeOf(string);
+  vstOtherFiles.NodeDataSize := SizeOf(string);
+  vstFilesOtherFolder.NodeDataSize := SizeOf(string);
 
   pcSource.ActivePageIndex := 0;
   pcTarget.ActivePageIndex := 0;
@@ -504,7 +465,7 @@ end;
 procedure TfrmMediaManager.lbxImagesSelectionChange(Sender: TObject;
   User: boolean);
 var
-  aFolder: String;
+  aFolder: string;
 begin
   if not User then
     Exit;
@@ -523,8 +484,8 @@ begin
     1: aFolder := GameManager.System.MarqueeFolder;
     else
     begin
-      MultiFile := StrToBoolDef(GameManager.System.ImageModes[lbxImages.ItemIndex -
-        2], False);
+      MultiFile := StrToBoolDef(
+        GameManager.System.ImageModes[lbxImages.ItemIndex - 2], False);
       aFolder := GameManager.System.ImageFolders[lbxImages.ItemIndex - 2];
     end;
   end;
@@ -534,7 +495,7 @@ end;
 procedure TfrmMediaManager.lbxMusicSelectionChange(Sender: TObject;
   User: boolean);
 var
-  aFolder: String;
+  aFolder: string;
 begin
   if not User then
     Exit;
@@ -601,7 +562,7 @@ end;
 procedure TfrmMediaManager.lbxVideosSelectionChange(Sender: TObject;
   User: boolean);
 var
-  aFolder: String;
+  aFolder: string;
 begin
   if not User then
     Exit;
@@ -634,8 +595,8 @@ begin
   end;
 end;
 
-procedure TfrmMediaManager.vstGroupsKeyDown(Sender: TObject; var Key: Word;
-  Shift: TShiftState);
+procedure TfrmMediaManager.vstGroupsKeyDown(Sender: TObject;
+  var Key: word; Shift: TShiftState);
 begin
   if Shift = [] then
   begin
@@ -688,7 +649,7 @@ begin
   if Node = nil then
     Exit;
   SourceFolder := SetAsFolder(eOtherFolder.Text);
-  SourceFile := String(Sender.GetNodeData(Node)^);
+  SourceFile := string(Sender.GetNodeData(Node)^);
   ChangeFileMedia(SourceFolder, SourceFile);
 end;
 
@@ -711,7 +672,7 @@ end;
 procedure TfrmMediaManager.vstFilesCompareNodes(Sender: TBaseVirtualTree;
   Node1, Node2: PVirtualNode; Column: TColumnIndex; var Result: integer);
 var
-  Nodo1, Nodo2: ^String;
+  Nodo1, Nodo2: ^string;
 begin
   Result := 0;
   Nodo1 := Sender.GetNodeData(Node1);
@@ -730,14 +691,14 @@ begin
   if Node = nil then
     Exit;
   SourceFolder := TargetFolder;
-  SourceFile := String(Sender.GetNodeData(Node)^);
+  SourceFile := string(Sender.GetNodeData(Node)^);
   ChangeFileMedia(SourceFolder, SourceFile);
 end;
 
 procedure TfrmMediaManager.vstFilesFreeNode(Sender: TBaseVirtualTree;
   Node: PVirtualNode);
 var
-  PData: ^String;
+  PData: ^string;
 begin
   PData := Sender.GetNodeData(Node);
   Finalize(PData^);
@@ -747,7 +708,7 @@ procedure TfrmMediaManager.vstFilesGetText(Sender: TBaseVirtualTree;
   Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType;
   var CellText: string);
 var
-  PData: ^String;
+  PData: ^string;
 begin
   PData := Sender.GetNodeData(Node);
   if PData^ = '' then
@@ -843,59 +804,16 @@ begin
 end;
 
 procedure TfrmMediaManager.SetConfig(const AValue: cConfig);
-
-  procedure Translate;
-  var
-    Translator: cTranslator;
-  begin
-    Translator := cTranslator.Create(Config.LanguageFolder +
-      Config.LanguageFile);
-    try
-      Translator.Section := Self.Name;
-      {Self.Caption := }Translator.Translate(Self);
-
-      // Título y paneles
-      Self.Caption := Application.Title + ': ' + Self.Caption;
-
-      rsSource := lSource.Caption + ' ';
-      rsTarget := lTarget.Caption + ' ';
-
-      rsDeleteFile := Translator.Translate('rsDeleteFile',
-        'Do you want to delete the file?\n\n%s');
-      rsDeleteAll := Translator.Translate('rsDeleteAll',
-        'Do you want to delete all current listed files?\n\nFolder: %s\nNumber of files: %d');
-      rsDeleteFileError :=
-        Translator.Translate('rsDeleteFileError',
-        'Error deleting the file:\n\n%s');
-
-      rsTargetExists := Translator.Translate('rsTargetExists',
-        'Target file already exists. Do you want to overwrite?');
-
-      rsIcons := Translator.Translate('rsIcons', 'Icons');
-      rsMarquees := Translator.Translate('rsMarquees', 'Spines / Marquees');
-      rsDemoMusic := Translator.Translate('rsDemoMusic', 'Demo music');
-      rsDemoVideo := Translator.Translate('rsDemoVideo', 'Demo vídeo');
-
-      rsAddingFiles := Translator.Translate(rsAddingFiles, 'Adding files to the list...');
-      rsCopyingFileList := Translator.Translate(rsCopyingFileList, 'Copying file list...');
-      rsSearchFilesWOGroup := Translator.Translate(rsSearchFilesWOGroup, 'Searching files without group...');
-      rsSearchFilesWOGame := Translator.Translate(rsSearchFilesWOGame, 'Searching files without game...');
-
-      rsNFiles := Translator.Translate(rsNFiles, '%d files found.');
-    finally
-      FreeAndNil(Translator);
-    end;
-  end;
-
 begin
   FConfig := AValue;
   // Actions icons
   ReadActionsIcons(Config.IconsIniFile, Self.Name, Config.ImagesFolder +
     Config.IconsSubfolder, ilActions, ActionList);
 
-  Translate;
-  lSource.Caption := rsSource;
-  lTarget.Caption := rsTarget;
+  Self.Caption := Application.Title + ': ' + Self.Caption;
+
+  lSource.Caption := format(rsfmmSource, ['']);
+  lTarget.Caption := format(rsfmmTarget, ['']);
 end;
 
 procedure TfrmMediaManager.SetCurrentMediaIndex(const AValue: integer);
@@ -927,8 +845,8 @@ begin
     GameManager.System.Company + ' ' + GameManager.System.Model + ')';
 
   lbxImages.Clear;
-  lbxImages.Items.Add(rsIcons);
-  lbxImages.Items.Add(rsMarquees);
+  lbxImages.Items.Add(rsfmmIcons);
+  lbxImages.Items.Add(rsfmmMarquees);
   lbxImages.Items.AddStrings(GameManager.System.ImageCaptions);
   lbxTexts.Clear;
   lbxTexts.Items.AddStrings(GameManager.System.TextCaptions);
@@ -970,82 +888,7 @@ begin
   FMultiFile := AValue;
 end;
 
-procedure TfrmMediaManager.SetrsAddingFiles(AValue: String);
-begin
-  FrsAddingFiles := AValue;
-end;
-
-procedure TfrmMediaManager.SetrsCopyingFileList(AValue: String);
-begin
-  FrsCopyingFileList := AValue;
-end;
-
-procedure TfrmMediaManager.SetrsDeleteAll(AValue: String);
-begin
-  FrsDeleteAll := AValue;
-end;
-
-procedure TfrmMediaManager.SetrsDeleteFile(AValue: String);
-begin
-  FrsDeleteFile := AValue;
-end;
-
-procedure TfrmMediaManager.SetrsDeleteFileError(AValue: String);
-begin
-  FrsDeleteFileError := AValue;
-end;
-
-procedure TfrmMediaManager.SetrsDemoMusic(AValue: String);
-begin
-  FrsDemoMusic := AValue;
-end;
-
-procedure TfrmMediaManager.SetrsDemoVideo(AValue: String);
-begin
-  FrsDemoVideo := AValue;
-end;
-
-procedure TfrmMediaManager.SetrsIcons(AValue: String);
-begin
-  FrsIcons := AValue;
-end;
-
-procedure TfrmMediaManager.SetrsMarquees(AValue: String);
-begin
-  FrsMarquees := AValue;
-end;
-
-procedure TfrmMediaManager.SetrsNFiles(AValue: String);
-begin
-  FrsNFiles := AValue;
-end;
-
-procedure TfrmMediaManager.SetrsSearchFilesWOGame(AValue: String);
-begin
-  FrsSearchFilesWOGame := AValue;
-end;
-
-procedure TfrmMediaManager.SetrsSearchFilesWOGroup(AValue: String);
-begin
-  FrsSearchFilesWOGroup := AValue;
-end;
-
-procedure TfrmMediaManager.SetrsSource(AValue: String);
-begin
-  FrsSource := AValue;
-end;
-
-procedure TfrmMediaManager.SetrsTarget(AValue: String);
-begin
-  FrsTarget := AValue;
-end;
-
-procedure TfrmMediaManager.SetrsTargetExists(AValue: String);
-begin
-  FrsTargetExists := AValue;
-end;
-
-procedure TfrmMediaManager.SetSourceFile(const AValue: String);
+procedure TfrmMediaManager.SetSourceFile(const AValue: string);
 begin
   FSourceFile := AValue;
   // ¿Next instruction is a dummy? Well, not at all
@@ -1053,16 +896,16 @@ begin
   if TargetFile <> '' then
     TargetFile := FTargetFile;
 
-  lSource.Caption := rsSource + ' ' + SourceFolder + SourceFile;
+  lSource.Caption := format(rsfmmSource, [SourceFolder + SourceFile]);
 end;
 
-procedure TfrmMediaManager.SetSourceFolder(const AValue: String);
+procedure TfrmMediaManager.SetSourceFolder(const AValue: string);
 begin
   FSourceFolder := SetAsFolder(AValue);
-  lSource.Caption := rsSource + ' ' + SourceFolder + SourceFile;
+  lSource.Caption := rsfmmSource + ' ' + SourceFolder + SourceFile;
 end;
 
-procedure TfrmMediaManager.SetTargetFile(const AValue: String);
+procedure TfrmMediaManager.SetTargetFile(const AValue: string);
 begin
   FTargetFile := ExtractFileName(RemoveFromBrackets(AValue));
 
@@ -1070,17 +913,16 @@ begin
     FTargetFile := FTargetFile + UTF8LowerCase(ExtractFileExt(SourceFile))
   else
     FTargetFile := FTargetFile + CVirtualGameExt;
-  lTarget.Caption := rsTarget + ' ' + TargetFolder + TargetFile;
+  lTarget.Caption := rsfmmTarget + ' ' + TargetFolder + TargetFile;
 end;
 
-procedure TfrmMediaManager.SetTargetFolder(const AValue: String);
+procedure TfrmMediaManager.SetTargetFolder(const AValue: string);
 begin
   FTargetFolder := SetAsFolder(AValue);
-  lTarget.Caption := rsTarget + ' ' + TargetFolder + TargetFile;
+  lTarget.Caption := rsfmmTarget + ' ' + TargetFolder + TargetFile;
 end;
 
-function TfrmMediaManager.AddFile(aFolder: String;
-  Info: TSearchRec): boolean;
+function TfrmMediaManager.AddFile(aFolder: string; Info: TSearchRec): boolean;
 begin
   Result := True;
   if (Info.Attr and faDirectory) <> 0 then
@@ -1088,7 +930,7 @@ begin
   Result := AddFile(aFolder, Info.Name);
 end;
 
-function TfrmMediaManager.AddFolder(aFolder: String;
+function TfrmMediaManager.AddFolder(aFolder: string;
   Info: TSearchRec): boolean;
 begin
   Result := True;
@@ -1102,10 +944,10 @@ begin
     AddFolder(aFolder, Info.Name);
 end;
 
-function TfrmMediaManager.AddFile(aFolder, aName: String): boolean;
+function TfrmMediaManager.AddFile(aFolder, aName: string): boolean;
 var
-  PData: ^String;
-  Extension: String;
+  PData: ^string;
+  Extension: string;
 begin
   Result := True;
   Extension := UTF8LowerCase(ExtractFileExt(aName));
@@ -1118,10 +960,10 @@ begin
   PData^ := aName;
 end;
 
-function TfrmMediaManager.AddFolder(aFolder, aName: String): boolean;
+function TfrmMediaManager.AddFolder(aFolder, aName: string): boolean;
 var
-  Extension: String;
-  PData: ^String;
+  Extension: string;
+  PData: ^string;
 begin
   Result := True;
   Extension := UTF8LowerCase(ExtractFileExt(aName));
@@ -1144,11 +986,11 @@ begin
   end;
 end;
 
-function TfrmMediaManager.AddFilesOtherFolder(aFolder: String;
+function TfrmMediaManager.AddFilesOtherFolder(aFolder: string;
   Info: TSearchRec): boolean;
 var
-  aFileName: String;
-  PData: ^String;
+  aFileName: string;
+  PData: ^string;
 begin
   Result := True;
 
@@ -1166,15 +1008,15 @@ begin
   PData^ := aFileName;
 end;
 
-procedure TfrmMediaManager.VSTUpdate(aFolder: String);
+procedure TfrmMediaManager.VSTUpdate(aFolder: string);
 var
-  PStringData: ^String;
+  PStringData: ^string;
   PGameGroup, PGameGroup2: ^cGameGroup;
   PGame: ^cGame;
-  aFileName: String;
+  aFileName: string;
   Nodo1, Nodo2: PVirtualNode;
   Found, Continue: boolean;
-  i,j: Integer;
+  i, j: integer;
 begin
   if not DirectoryExistsUTF8(aFolder) then
     Exit;
@@ -1192,129 +1034,129 @@ begin
   Application.CreateForm(TfrmProgress, frmProgress);
   try
 
-  // Adding all files/folders of the target folder
-  StatusBar.SimpleText := rsAddingFiles;
-  Application.ProcessMessages;
-  vstAllFiles.Clear;
-  vstOtherFiles.Clear;
-  vstAllFiles.BeginUpdate;
-  vstOtherFiles.BeginUpdate;
-  if MultiFile then
-  begin // Modo carpetas
-    IterateFolderObj(aFolder, @AddFolder, False);
-  end
-  else
-  begin // Modo normal
-    IterateFolderObj(aFolder, @AddFile, False);
-  end;
-  vstAllFiles.EndUpdate;
-  vstOtherFiles.EndUpdate;
-  vstAllFiles.SortTree(0, sdAscending, True);
-  vstOtherFiles.SortTree(0, sdAscending, True);
-
-  // Copying vstAllFiles -> vstFilesWOGroup;
-  StatusBar.SimpleText := rsCopyingFileList;
-  Application.ProcessMessages;
-  vstFilesWOGroup.Clear;
-  vstFilesWOGroup.BeginUpdate;
-  Nodo1 := vstAllFiles.GetFirstChild(nil);
-  while Nodo1 <> nil do
-  begin
-    PStringData := vstFilesWOGroup.GetNodeData(vstFilesWOGroup.AddChild(nil));
-    PStringData^ := String(vstAllFiles.GetNodeData(Nodo1)^);
-    Nodo1 := vstAllFiles.GetNextSibling(Nodo1);
-  end;
-  vstFilesWOGroup.EndUpdate;
-  vstFilesWOGroup.SortTree(0, sdAscending, True);
-
-  // Searching for files used by the groups and groups without file
-  StatusBar.SimpleText := rsSearchFilesWOGroup;
-  Continue := True;
-  i := 0;
-  j := GameManager.GroupCount;
-  Application.ProcessMessages;
-  vstFilesWOGroup.BeginUpdate;
-  vstGroupsWOFile.BeginUpdate;
-  vstGroupsWOFile.Clear;
-  Nodo1 := vstAllGroups.GetFirstChild(nil);
-  while (Nodo1 <> nil) and (Continue) do
-  begin
-    PGameGroup := vstAllGroups.GetNodeData(Nodo1);
-    if frmProgress <> nil then
-      Continue := frmProgress.UpdTextAndBar(rsSearchFilesWOGroup,
-        PGameGroup^.Name, '', i, j);
-
-    Nodo2 := vstFilesWOGroup.GetFirstChild(nil);
-    Found := False;
-    while (Nodo2 <> nil) and (not Found) do
-    begin
-      PStringData := vstFilesWOGroup.GetNodeData(Nodo2);
-      aFileName := ChangeFileExt(PStringData^, CVirtualGroupExt);
-      // TODO 1: LINUX
-      if UTF8CompareText(aFileName, PGameGroup^.MediaFileName) = 0 then
-        Found := True
-      else
-        Nodo2 := vstFilesWOGroup.GetNextSibling(Nodo2);
-    end;
-
-    if Found then
-      vstFilesWOGroup.DeleteNode(Nodo2)
+    // Adding all files/folders of the target folder
+    StatusBar.SimpleText := rsfmmAddingFiles;
+    Application.ProcessMessages;
+    vstAllFiles.Clear;
+    vstOtherFiles.Clear;
+    vstAllFiles.BeginUpdate;
+    vstOtherFiles.BeginUpdate;
+    if MultiFile then
+    begin // Modo carpetas
+      IterateFolderObj(aFolder, @AddFolder, False);
+    end
     else
+    begin // Modo normal
+      IterateFolderObj(aFolder, @AddFile, False);
+    end;
+    vstAllFiles.EndUpdate;
+    vstOtherFiles.EndUpdate;
+    vstAllFiles.SortTree(0, sdAscending, True);
+    vstOtherFiles.SortTree(0, sdAscending, True);
+
+    // Copying vstAllFiles -> vstFilesWOGroup;
+    StatusBar.SimpleText := rsfmmCopyingFileList;
+    Application.ProcessMessages;
+    vstFilesWOGroup.Clear;
+    vstFilesWOGroup.BeginUpdate;
+    Nodo1 := vstAllFiles.GetFirstChild(nil);
+    while Nodo1 <> nil do
     begin
-      if not GameManager.GroupMediaExists(aFolder, PGameGroup^,
-        ExtFilter, Multifile, True) then
+      PStringData := vstFilesWOGroup.GetNodeData(vstFilesWOGroup.AddChild(nil));
+      PStringData^ := string(vstAllFiles.GetNodeData(Nodo1)^);
+      Nodo1 := vstAllFiles.GetNextSibling(Nodo1);
+    end;
+    vstFilesWOGroup.EndUpdate;
+    vstFilesWOGroup.SortTree(0, sdAscending, True);
+
+    // Searching for files used by the groups and groups without file
+    StatusBar.SimpleText := rsfmmSearchFilesWOGroup;
+    Continue := True;
+    i := 0;
+    j := GameManager.GroupCount;
+    Application.ProcessMessages;
+    vstFilesWOGroup.BeginUpdate;
+    vstGroupsWOFile.BeginUpdate;
+    vstGroupsWOFile.Clear;
+    Nodo1 := vstAllGroups.GetFirstChild(nil);
+    while (Nodo1 <> nil) and (Continue) do
+    begin
+      PGameGroup := vstAllGroups.GetNodeData(Nodo1);
+      if frmProgress <> nil then
+        Continue := frmProgress.UpdTextAndBar(rsfmmSearchFilesWOGroup,
+          PGameGroup^.Name, '', i, j);
+
+      Nodo2 := vstFilesWOGroup.GetFirstChild(nil);
+      Found := False;
+      while (Nodo2 <> nil) and (not Found) do
       begin
-        PGameGroup2 := vstGroupsWOFile.GetNodeData(
-          vstGroupsWOFile.AddChild(nil));
-        PGameGroup2^ := PGameGroup^;
+        PStringData := vstFilesWOGroup.GetNodeData(Nodo2);
+        aFileName := ChangeFileExt(PStringData^, CVirtualGroupExt);
+        // TODO 1: LINUX
+        if UTF8CompareText(aFileName, PGameGroup^.MediaFileName) = 0 then
+          Found := True
+        else
+          Nodo2 := vstFilesWOGroup.GetNextSibling(Nodo2);
       end;
-    end;
-    Inc(i);
-    Nodo1 := vstAllGroups.GetNextSibling(Nodo1);
-  end;
-  vstGroupsWOFile.EndUpdate;
-  vstFilesWOGroup.EndUpdate;
-  vstGroupsWOFile.SortTree(0, sdAscending, True);
-  vstFilesWOGroup.SortTree(0, sdAscending, True);
 
-  // Searching files not used by games
-  StatusBar.SimpleText := rsSearchFilesWOGame;
-  Application.ProcessMessages;
-  Continue := True;
-  i := 0;
-  j := vstFilesWOGroup.ChildCount[nil];
-  if frmProgress <> nil then
-    frmProgress.Show;
-  vstFilesWOGame.Clear;
-  vstFilesWOGame.BeginUpdate;
-  Nodo1 := vstFilesWOGroup.GetFirstChild(nil);
-  while (Nodo1 <> nil) and (Continue) do
-  begin
-    Found := False;
-    PStringData := vstFilesWOGroup.GetNodeData(Nodo1);
-    aFileName := ExtractFileNameOnly(PStringData^);
-    Continue := frmProgress.UpdTextAndBar(rsSearchFilesWOGame,
-      aFileName, '', i, j);
-    Nodo2 := vstAllGames.GetFirstChild(nil);
-    while not Found and (Nodo2 <> nil) do
+      if Found then
+        vstFilesWOGroup.DeleteNode(Nodo2)
+      else
+      begin
+        if not GameManager.GroupMediaExists(aFolder, PGameGroup^,
+          ExtFilter, Multifile, True) then
+        begin
+          PGameGroup2 := vstGroupsWOFile.GetNodeData(
+            vstGroupsWOFile.AddChild(nil));
+          PGameGroup2^ := PGameGroup^;
+        end;
+      end;
+      Inc(i);
+      Nodo1 := vstAllGroups.GetNextSibling(Nodo1);
+    end;
+    vstGroupsWOFile.EndUpdate;
+    vstFilesWOGroup.EndUpdate;
+    vstGroupsWOFile.SortTree(0, sdAscending, True);
+    vstFilesWOGroup.SortTree(0, sdAscending, True);
+
+    // Searching files not used by games
+    StatusBar.SimpleText := rsfmmSearchFilesWOGame;
+    Application.ProcessMessages;
+    Continue := True;
+    i := 0;
+    j := vstFilesWOGroup.ChildCount[nil];
+    if frmProgress <> nil then
+      frmProgress.Show;
+    vstFilesWOGame.Clear;
+    vstFilesWOGame.BeginUpdate;
+    Nodo1 := vstFilesWOGroup.GetFirstChild(nil);
+    while (Nodo1 <> nil) and (Continue) do
     begin
-      PGame := vstAllGames.GetNodeData(Nodo2);
-      if SameFileName(aFileName, RemoveFromBrackets(PGame^.FileName)) then
-        Found := True;
-      Nodo2 := vstAllGames.GetNextSibling(Nodo2);
-    end;
+      Found := False;
+      PStringData := vstFilesWOGroup.GetNodeData(Nodo1);
+      aFileName := ExtractFileNameOnly(PStringData^);
+      Continue := frmProgress.UpdTextAndBar(rsfmmSearchFilesWOGame,
+        aFileName, '', i, j);
+      Nodo2 := vstAllGames.GetFirstChild(nil);
+      while not Found and (Nodo2 <> nil) do
+      begin
+        PGame := vstAllGames.GetNodeData(Nodo2);
+        if SameFileName(aFileName, RemoveFromBrackets(PGame^.FileName)) then
+          Found := True;
+        Nodo2 := vstAllGames.GetNextSibling(Nodo2);
+      end;
 
-    if not Found then
-    begin
-      PStringData := vstFilesWOGame.GetNodeData(vstFilesWOGame.AddChild(nil));
-      PStringData^ := String(vstFilesWOGroup.GetNodeData(Nodo1)^);
-    end;
+      if not Found then
+      begin
+        PStringData := vstFilesWOGame.GetNodeData(vstFilesWOGame.AddChild(nil));
+        PStringData^ := string(vstFilesWOGroup.GetNodeData(Nodo1)^);
+      end;
 
-    Nodo1 := vstFilesWOGroup.GetNextSibling(Nodo1);
-    Inc(i);
-  end;
-  vstFilesWOGame.EndUpdate;
-  vstFilesWOGame.SortTree(0, sdAscending, True);
+      Nodo1 := vstFilesWOGroup.GetNextSibling(Nodo1);
+      Inc(i);
+    end;
+    vstFilesWOGame.EndUpdate;
+    vstFilesWOGame.SortTree(0, sdAscending, True);
 
   finally
     FreeAndNil(frmProgress);
@@ -1358,9 +1200,9 @@ begin
   ShowMedia;
 end;
 
-procedure TfrmMediaManager.ChangeFileMedia(aFolder, aName: String);
+procedure TfrmMediaManager.ChangeFileMedia(aFolder, aName: string);
 var
-  aExt: String;
+  aExt: string;
 begin
   ClearMedia;
   MediaFiles.Clear;
@@ -1410,8 +1252,8 @@ end;
 
 procedure TfrmMediaManager.ShowMedia;
 var
-  aMediaFile: String;
-  aExt: String;
+  aMediaFile: string;
+  aExt: string;
 begin
   ClearMedia;
   if not (CurrentMediaIndex in [0..MediaFiles.Count - 1]) then
@@ -1452,8 +1294,8 @@ end;
 
 procedure TfrmMediaManager.ChangeFileName;
 var
-  TargetPath: String;
-  SourcePath: String;
+  TargetPath: string;
+  SourcePath: string;
   IsFolder: boolean;
   aBool: boolean;
 begin
@@ -1473,7 +1315,8 @@ begin
     Exit;
 
   // TODO 1: LINUX
-  IsFolder := UTF8CompareText(ExtractFileExt(SourceFile), CVirtualFolderExt) = 0;
+  IsFolder := UTF8CompareText(ExtractFileExt(SourceFile),
+    CVirtualFolderExt) = 0;
 
   if IsFolder then
   begin // Removing virtual extension of folders
@@ -1496,7 +1339,7 @@ begin
     aBool := FileExistsUTF8(TargetPath);
   if aBool then
   begin
-    if MessageDlg(Format(rsTargetExists, [TargetPath]),
+    if MessageDlg(Format(rsfmmTargetExists, [TargetPath]),
       mtConfirmation, [mbYes, mbNo], -1) = mrNo then
       // TODO 2: Merge folders?
       Exit
@@ -1531,6 +1374,7 @@ begin
 
   // Quick update of VST lists
   // -------------------------
+
   // Removing Target file from vstGroupWOFile.
   RemoveGroupWOFile(TargetFile);
 
@@ -1560,13 +1404,13 @@ begin
   if SourceFolder = '' then
     Exit;
 
-  if MessageDlg(Format(rsDeleteFile, [SourceFolder + SourceFile]),
+  if MessageDlg(Format(rsfmmDeleteFile, [SourceFolder + SourceFile]),
     mtConfirmation, [mbYes, mbNo], -1) = mrNo then
     Exit;
 
   if not DeleteFileUTF8(SourceFolder + SourceFile) then
   begin
-    ShowMessageFmt(rsDeleteFileError, [SourceFolder + SourceFile]);
+    ShowMessageFmt(rsfmmDeleteFileError, [SourceFolder + SourceFile]);
     Exit;
   end;
 
@@ -1578,27 +1422,29 @@ end;
 
 procedure TfrmMediaManager.DeleteAllFiles;
 var
-  aFolder: String;
-  PStringData: ^String;
+  aFolder: string;
+  PStringData: ^string;
   Nodo: PVirtualNode;
   aVST: TBaseVirtualTree;
 begin
   aVST := CurrentFileList;
-  if aVST = nil then Exit;
+  if aVST = nil then
+    Exit;
 
   if aVST = vstFilesOtherFolder then
     aFolder := SetAsFolder(eOtherFolder.Directory)
   else
     aFolder := SourceFolder;
-  if aFolder = '' then Exit;
+  if aFolder = '' then
+    Exit;
 
-  if MessageDlg(Format(rsDeleteAll, [SourceFolder, aVST.ChildCount[nil]]),
+  if MessageDlg(Format(rsfmmDeleteAll, [SourceFolder, aVST.ChildCount[nil]]),
     mtConfirmation, [mbYes, mbNo], -1) = mrNo then
     Exit;
 
   aVST.BeginUpdate;
   Nodo := aVST.GetFirstChild(nil);
-  while Nodo<>nil do
+  while Nodo <> nil do
   begin
     if not aVST.IsHidden[Nodo] then
     begin // Only delete it if not hidden
@@ -1620,9 +1466,12 @@ end;
 procedure TfrmMediaManager.MoveFile;
 begin
   // TODO 1: Mover fichero
-  if (SourceFolder = '') or (SourceFile = '') then Exit;
-  if not SelectDirectoryDialog.Execute then Exit;
-  SelectDirectoryDialog.FileName := SetAsFolder(SelectDirectoryDialog.FileName);
+  if (SourceFolder = '') or (SourceFile = '') then
+    Exit;
+  if not SelectDirectoryDialog.Execute then
+    Exit;
+  SelectDirectoryDialog.FileName :=
+    SetAsFolder(SelectDirectoryDialog.FileName);
 
   if FileExistsUTF8(SelectDirectoryDialog.FileName + SourceFile) then
   begin
@@ -1631,7 +1480,7 @@ begin
   end;
 
   if not RenameFileUTF8(SourceFolder + SourceFile,
-          SelectDirectoryDialog.FileName + SourceFile) then
+    SelectDirectoryDialog.FileName + SourceFile) then
   begin
     // TODO 2 -oChixpy : Error message... Can't be moved
     Exit;
@@ -1642,26 +1491,30 @@ end;
 
 procedure TfrmMediaManager.MoveAllFiles;
 var
-  aFolder: String;
-  PStringData: ^String;
+  aFolder: string;
+  PStringData: ^string;
   Nodo: PVirtualNode;
   aVST: TBaseVirtualTree;
 begin
   aVST := CurrentFileList;
-  if aVST = nil then Exit;
+  if aVST = nil then
+    Exit;
 
   if aVST = vstFilesOtherFolder then
     aFolder := SetAsFolder(eOtherFolder.Directory)
   else
     aFolder := SourceFolder;
 
-  if aFolder = '' then Exit;
-  if not SelectDirectoryDialog.Execute then Exit;
-  SelectDirectoryDialog.FileName := SetAsFolder(SelectDirectoryDialog.FileName);
+  if aFolder = '' then
+    Exit;
+  if not SelectDirectoryDialog.Execute then
+    Exit;
+  SelectDirectoryDialog.FileName :=
+    SetAsFolder(SelectDirectoryDialog.FileName);
 
   aVST.BeginUpdate;
   Nodo := aVST.GetFirstChild(nil);
-  while Nodo<>nil do
+  while Nodo <> nil do
   begin
     if not aVST.IsHidden[Nodo] then
     begin // Only move it if not hidden
@@ -1695,11 +1548,11 @@ begin
   aVST.EndUpdate;
 end;
 
-procedure TfrmMediaManager.RemoveFileVSTFiles(aFolder, aFile: String);
+procedure TfrmMediaManager.RemoveFileVSTFiles(aFolder, aFile: string);
 
-  procedure RemoveFileFromVST(aVST: TBaseVirtualTree; aFile: String);
+  procedure RemoveFileFromVST(aVST: TBaseVirtualTree; aFile: string);
   var
-    PStringData: ^String;
+    PStringData: ^string;
     Nodo: PVirtualNode;
   begin
     aVST.BeginUpdate;
@@ -1737,7 +1590,7 @@ begin
     RemoveFileFromVST(vstFilesOtherFolder, aFile);
 end;
 
-procedure TfrmMediaManager.RemoveGroupWOFile(aFile: String);
+procedure TfrmMediaManager.RemoveGroupWOFile(aFile: string);
 var
   Nodo: PVirtualNode;
   PGroup: ^cGameGroup;
@@ -1770,20 +1623,21 @@ begin
     2: Result := vstFilesWOGroup;
     3: Result := vstFilesWOGame;
     4: Result := vstFilesOtherFolder;
-  else
-    Result := nil;
+    else
+      Result := nil;
   end;
 end;
 
 procedure TfrmMediaManager.ShowSimilarFiles;
 var
   Nodo: PVirtualNode;
-  aTargetFile: String;
-  PStringData: ^String;
+  aTargetFile: string;
+  PStringData: ^string;
   aVST: TCustomVirtualStringTree;
 begin
-  aVST:=CurrentFileList;
-  if aVST = nil then Exit;
+  aVST := CurrentFileList;
+  if aVST = nil then
+    Exit;
 
   aTargetFile := Trim(ExtractFileNameOnly(TargetFile));
   aVST.BeginUpdate;
@@ -1793,8 +1647,8 @@ begin
     if chkOnlySimilar.Checked and (aTargetFile <> '') then
     begin
       PStringData := aVST.GetNodeData(Nodo);
-      aVST.IsVisible[Nodo] := TextSimilarity(aTargetFile, PStringData^) >=
-        CSimilarityThresold;
+      aVST.IsVisible[Nodo] :=
+        TextSimilarity(aTargetFile, PStringData^) >= CSimilarityThresold;
     end
     else
     begin
@@ -1810,4 +1664,3 @@ initialization
   {$I fMediaManager.lrs}
 
 end.
-

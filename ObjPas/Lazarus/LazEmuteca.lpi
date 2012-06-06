@@ -180,6 +180,7 @@
         <Filename Value="Source/fEmulatorManager.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmEmulatorManager"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="fEmulatorManager"/>
       </Unit13>
@@ -316,6 +317,7 @@
         <OverflowChecks Value="True"/>
         <StackChecks Value="True"/>
       </Checks>
+      <VerifyObjMethodCallValidity Value="True"/>
     </CodeGeneration>
     <Linking>
       <Debugging>

@@ -207,8 +207,8 @@ type
 
 
     property ConfigFile: string read FConfigFile write SetConfigFile;
-    procedure ReadConfig(const aFileName: String);
-    procedure SaveConfig(const aFilename: String);
+    procedure ReadConfig(aFileName: String);
+    procedure SaveConfig(aFilename: String);
 
     constructor Create;
     destructor Destroy; override;
@@ -421,7 +421,7 @@ begin
   Fz7Subfolder := SetAsFolder(AValue);
 end;
 
-procedure cConfig.ReadConfig(const aFileName: String);
+procedure cConfig.ReadConfig(aFileName: String);
 var
   IniFile: TMemIniFile;
 
@@ -438,10 +438,12 @@ var
   end;
 
 begin
-  if aFilename <> '' then
-    ConfigFile := aFileName;
-  if ConfigFile = '' then
-    raise EInOutError.Create(self.ClassName + '.SaveConfig:' + rsENotFilename);
+  if aFilename = '' then
+    aFilename := ConfigFile;
+  if aFilename = '' then Exit;
+  if not FileExistsUTF8(aFilename) then
+    raise EInOutError.Create(self.ClassName + '.ReadConfig:' + rsENotFilename);
+  ConfigFile := aFilename;
 
   IniFile := TMemIniFile.Create(UTF8ToSys(ConfigFile));
   try
@@ -538,14 +540,15 @@ begin
   end;
 end;
 
-procedure cConfig.SaveConfig(const aFilename: String);
+procedure cConfig.SaveConfig(aFilename: String);
 var
   IniFile: TMemIniFile;
 begin
-  if aFilename <> '' then
-    ConfigFile := aFileName;
-  if ConfigFile = '' then
+  if aFilename = '' then
+    aFilename := ConfigFile;
+  if aFilename = '' then
     raise EInOutError.Create(self.ClassName + '.SaveConfig:' + rsENotFilename);
+  ConfigFile := aFilename;
 
   IniFile := TMemIniFile.Create(UTF8ToSys(ConfigFile));
   try

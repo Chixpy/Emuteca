@@ -27,7 +27,8 @@ msgstr ""
 
 #: fmediamanager.rsdemovideo
 msgid ""
-"#192#245#27+#0#0#0#0\n"
+"`#170-#16\n"
+"#0#0#0\n"
 "#0\n"
 msgstr ""
 

@@ -43,8 +43,8 @@ uses
 
 resourcestring
   w7zCacheFileExt = '.txt';
-  w7zFileNotFound = '"%s" file not found';
-  w7zExeError = '7z/7zG returned %d exit code.';
+  w7zFileNotFound = '"%0:s" file not found';
+  w7zExeError = '7z.exe/7zG.exe returned %0:d exit code.';
 
 type
   w7zException = class(Exception);
