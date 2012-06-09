@@ -27,7 +27,7 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   cthreads, {$ENDIF} {$ENDIF}
   Interfaces, // this includes the LCL widgetset
   Forms, lazcontrols, pl_virtualtrees, pl_pascalscript, fGameManager,
-  uGameManager, uConfig, uTranslator, uSystem, uCustomUtils, fSystemManager,
+  uGameManager, uConfig, uSystem, uCustomUtils, fSystemManager,
   uSystemManager, uEmulatorManager, uEmulator, uImageList, uGameGroup,
   uPSI_uGame, uPSI_uGameGroup, uPSI_uGameManager, fEmulatorManager,
   fMediaManager, fImageViewer, fScriptManager, fProgress, fAbout, fSMAskFile,

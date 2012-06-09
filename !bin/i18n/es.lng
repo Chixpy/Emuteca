@@ -127,6 +127,8 @@ actRemoveMusicFolderCaption=actRemoveMusicFolder
 actAddVideoFolderCaption=actAddVideoFolder
 actRemoveVideoFolderCaption=actRemoveVideoFolder
 lBackgroundImageCaption=BackgroundImage
+actMakeRelativePathsCaption=Make all paths relative
+actMakeAbsolutePathsCaption=Make all paths absolute
 
 [frmGameManager]
 frmGameManagerCaption=Gestor de juegos

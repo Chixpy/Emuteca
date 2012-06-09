@@ -28,8 +28,44 @@ interface
 uses
   Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs,
   CheckLst, ComCtrls, ExtCtrls, Buttons, StdCtrls, EditBtn, ActnList,
-  uSystemManager, uEmulatorManager, uConfig, uSystem, uTranslator,
+  uSystemManager, uEmulatorManager, uConfig, uSystem,
   uCustomUtils;
+
+resourcestring
+  rsSelectSystem = 'Select a system.';
+      rsSystemName = 'System name';
+      rsAutoConfigSystem = 'This action will create many subfolders in:' +
+        sLineBreak + '%0:s' + sLineBreak + 'Are you sure?';
+      rsAutoFolderImg = 'Images/';
+      rsAutoFolderImgTitle = 'Title/';
+      rsAutoFolderImgInGame = 'In game/';
+      rsAutoFolderImgFront = 'Front/';
+      rsAutoFolderImgMarquee = 'Spine/';
+      rsAutoFolderImgBack = 'Back/';
+      rsAutoFolderImgMedia = 'Media/';
+      rsAutoFolderIcons = 'Icon/';
+      rsAutoFolderGames = 'Games/';
+      rsAutoFolderMusic = 'Music/';
+      rsAutoFolderMusicDemo = 'Demo/';
+      rsAutoFolderMusicOST = 'OST/';
+      rsAutoFolderMusicMix = 'Mix/';
+      rsAutoFolderTemp =  'Temp/';
+      rsAutoFolderTxt = 'Texts/';
+      rsAutoFolderTxtInfo = 'Information/';
+      rsAutoFolderTxtManual = 'Instructions/';
+      rsAutoFolderTxtCheat = 'Cheats/';
+      rsAutoFolderTxtNotes = 'Notes/';
+      rsAutoFolderTxtCredit = 'Credits/';
+      rsAutoFolderVideo = 'Videos/';
+      rsAutoFolderVideoDemo = 'Demo/';
+      rsAutoFolderVideoTAS = 'Inputs/';
+      rsAutoFolderVideoInGame = 'In game/';
+      rsAutoFolderBIOS = 'BIOS/';
+      rsAutoFolderSaves = 'Saves/';
+      rsAutoFolderTools =  'Tools/';
+
+const
+      kFSMSystemIniFilter = 'Systems Ini File (*.ini)';
 
 
 // TODO 1: ¡¡REHACER TODO!!, Bueno no tanto...
@@ -48,6 +84,8 @@ type
     actAddTextFolder: TAction;
     actAddMusicFolder: TAction;
     actAddVideoFolder: TAction;
+    actMakeAbsolutePaths: TAction;
+    actMakeRelativePaths: TAction;
     actRemoveVideoFolder: TAction;
     actRemoveMusicFolder: TAction;
     actRemoveTextFolder: TAction;
@@ -58,6 +96,8 @@ type
     bAddOtherFilesFolder: TButton;
     bAddOtherVideoFolder: TButton;
     bAutoConfig: TButton;
+    bMakeAbsolutePaths: TButton;
+    bMakeRelativePaths: TButton;
     bRemoveOtherMusicFolder: TButton;
     bRemoveOtherFilesFolder: TButton;
     bRemoveOtherVideoFolder: TButton;
@@ -284,140 +324,16 @@ type
     procedure rgbTempFolderClick(Sender: TObject);
     procedure rgOtherMusicPlayerClick(Sender: TObject);
     procedure rgOtherVideoPlayerClick(Sender: TObject);
+
   private
     FConfig: cConfig;
-    FrsAutoConfigSystem: String;
-    FrsAutoFolderBIOS: String;
-    FrsAutoFolderGames: String;
-    FrsAutoFolderIcons: String;
-    FrsAutoFolderImg: String;
-    FrsAutoFolderImgBack: String;
-    FrsAutoFolderImgFront: String;
-    FrsAutoFolderImgInGame: String;
-    FrsAutoFolderImgMarquee: String;
-    FrsAutoFolderImgMedia: String;
-    FrsAutoFolderImgTitle: String;
-    FrsAutoFolderMusic: String;
-    FrsAutoFolderMusicDemo: String;
-    FrsAutoFolderMusicMix: String;
-    FrsAutoFolderMusicOST: String;
-    FrsAutoFolderSaves: String;
-    FrsAutoFolderTemp: String;
-    FrsAutoFolderTools: String;
-    FrsAutoFolderTxt: String;
-    FrsAutoFolderTxtCheat: String;
-    FrsAutoFolderTxtCredit: String;
-    FrsAutoFolderTxtInfo: String;
-    FrsAutoFolderTxtManual: String;
-    FrsAutoFolderTxtNotes: String;
-    FrsAutoFolderVideo: String;
-    FrsAutoFolderVideoDemo: String;
-    FrsAutoFolderVideoInGame: String;
-    FrsAutoFolderVideoTAS: String;
-    FrsSelectSystem: String;
-    FrsSystemIniFilter: String;
-    FrsSystemName: String;
     FSystem: cSystem;
     FSystemManager: cSystemManager;
     procedure SetConfig(const AValue: cConfig);
-    procedure SetrsAutoConfigSystem(AValue: String);
-    procedure SetrsAutoFolderBIOS(AValue: String);
-    procedure SetrsAutoFolderGames(AValue: String);
-    procedure SetrsAutoFolderIcons(AValue: String);
-    procedure SetrsAutoFolderImg(AValue: String);
-    procedure SetrsAutoFolderImgBack(AValue: String);
-    procedure SetrsAutoFolderImgFront(AValue: String);
-    procedure SetrsAutoFolderImgInGame(AValue: String);
-    procedure SetrsAutoFolderImgMarquee(AValue: String);
-    procedure SetrsAutoFolderImgMedia(AValue: String);
-    procedure SetrsAutoFolderImgTitle(AValue: String);
-    procedure SetrsAutoFolderMusic(AValue: String);
-    procedure SetrsAutoFolderMusicDemo(AValue: String);
-    procedure SetrsAutoFolderMusicMix(AValue: String);
-    procedure SetrsAutoFolderMusicOST(AValue: String);
-    procedure SetrsAutoFolderSaves(AValue: String);
-    procedure SetrsAutoFolderTemp(AValue: String);
-    procedure SetrsAutoFolderTools(AValue: String);
-    procedure SetrsAutoFolderTxt(AValue: String);
-    procedure SetrsAutoFolderTxtCheat(AValue: String);
-    procedure SetrsAutoFolderTxtCredit(AValue: String);
-    procedure SetrsAutoFolderTxtInfo(AValue: String);
-    procedure SetrsAutoFolderTxtManual(AValue: String);
-    procedure SetrsAutoFolderTxtNotes(AValue: String);
-    procedure SetrsAutoFolderVideo(AValue: String);
-    procedure SetrsAutoFolderVideoDemo(AValue: String);
-    procedure SetrsAutoFolderVideoInGame(AValue: String);
-    procedure SetrsAutoFolderVideoTAS(AValue: String);
-    procedure SetrsSelectSystem(AValue: String);
-    procedure SetrsSystemIniFilter(AValue: String);
-    procedure SetrsSystemName(AValue: String);
     procedure SetSystem(const AValue: cSystem);
     procedure SetSystemManager(const AValue: cSystemManager);
 
   protected
-    // Strings para traducir
-    property rsSelectSystem: String read FrsSelectSystem
-      write SetrsSelectSystem;
-    property rsSystemName: String read FrsSystemName write SetrsSystemName;
-    property rsAutoConfigSystem: String
-      read FrsAutoConfigSystem write SetrsAutoConfigSystem;
-    property rsAutoFolderImg: String
-      read FrsAutoFolderImg write SetrsAutoFolderImg;
-    property rsAutoFolderImgFront: String
-      read FrsAutoFolderImgFront write SetrsAutoFolderImgFront;
-    property rsAutoFolderImgBack: String
-      read FrsAutoFolderImgBack write SetrsAutoFolderImgBack;
-    property rsAutoFolderImgMarquee: String
-      read FrsAutoFolderImgMarquee write SetrsAutoFolderImgMarquee;
-    property rsAutoFolderImgMedia: String
-      read FrsAutoFolderImgMedia write SetrsAutoFolderImgMedia;
-    property rsAutoFolderImgTitle: String
-      read FrsAutoFolderImgTitle write SetrsAutoFolderImgTitle;
-    property rsAutoFolderImgInGame: String
-      read FrsAutoFolderImgInGame write SetrsAutoFolderImgInGame;
-    property rsAutoFolderIcons: String
-      read FrsAutoFolderIcons write SetrsAutoFolderIcons;
-    property rsAutoFolderGames: String
-      read FrsAutoFolderGames write SetrsAutoFolderGames;
-    property rsAutoFolderMusic: String
-      read FrsAutoFolderMusic write SetrsAutoFolderMusic;
-    property rsAutoFolderMusicDemo: String
-      read FrsAutoFolderMusicDemo write SetrsAutoFolderMusicDemo;
-    property rsAutoFolderMusicOST: String
-      read FrsAutoFolderMusicOST write SetrsAutoFolderMusicOST;
-    property rsAutoFolderMusicMix: String
-      read FrsAutoFolderMusicMix write SetrsAutoFolderMusicMix;
-    property rsAutoFolderTemp: String
-      read FrsAutoFolderTemp write SetrsAutoFolderTemp;
-    property rsAutoFolderTxt: String
-      read FrsAutoFolderTxt write SetrsAutoFolderTxt;
-    property rsAutoFolderTxtInfo: String
-      read FrsAutoFolderTxtInfo write SetrsAutoFolderTxtInfo;
-    property rsAutoFolderTxtManual: String
-      read FrsAutoFolderTxtManual write SetrsAutoFolderTxtManual;
-    property rsAutoFolderTxtCheat: String
-      read FrsAutoFolderTxtCheat write SetrsAutoFolderTxtCheat;
-    property rsAutoFolderTxtNotes: String
-      read FrsAutoFolderTxtNotes write SetrsAutoFolderTxtNotes;
-    property rsAutoFolderTxtCredit: String
-      read FrsAutoFolderTxtCredit write SetrsAutoFolderTxtCredit;
-    property rsAutoFolderVideo: String
-      read FrsAutoFolderVideo write SetrsAutoFolderVideo;
-    property rsAutoFolderVideoDemo: String
-      read FrsAutoFolderVideoDemo write SetrsAutoFolderVideoDemo;
-    property rsAutoFolderVideoTAS: String
-      read FrsAutoFolderVideoTAS write SetrsAutoFolderVideoTAS;
-    property rsAutoFolderVideoInGame: String
-      read FrsAutoFolderVideoInGame write SetrsAutoFolderVideoInGame;
-    property rsAutoFolderBIOS: String
-      read FrsAutoFolderBIOS write SetrsAutoFolderBIOS;
-    property rsAutoFolderSaves: String
-      read FrsAutoFolderSaves write SetrsAutoFolderSaves;
-    property rsAutoFolderTools: String
-      read FrsAutoFolderTools write SetrsAutoFolderTools;
-    property rsSystemIniFilter: String
-      read FrsSystemIniFilter write SetrsSystemIniFilter;
-
     property SystemManager: cSystemManager
       read FSystemManager write SetSystemManager;
     property System: cSystem read FSystem write SetSystem;
@@ -683,7 +599,7 @@ procedure TfrmSystemManager.actExportSystemsExecute(Sender: TObject);
 begin
   if SystemManager = nil then Exit;
 
-  SaveDialog.Filter := rsSystemIniFilter + '|*.ini';
+  SaveDialog.Filter := kFSMSystemIniFilter + '|*.ini';
   SaveDialog.DefaultExt := 'ini';
   if not SaveDialog.Execute then Exit;
   SystemManager.ExportSystemsFile(SaveDialog.FileName, True);
@@ -693,7 +609,7 @@ procedure TfrmSystemManager.actImportSystemsExecute(Sender: TObject);
 begin
   if SystemManager = nil then Exit;
 
-  OpenDialog.Filter := rsSystemIniFilter + '|*.ini';
+  OpenDialog.Filter := kFSMSystemIniFilter + '|*.ini';
   OpenDialog.DefaultExt := 'ini';
   if not OpenDialog.Execute then Exit;
   SystemManager.ImportSystemsFile(OpenDialog.FileName);
@@ -864,7 +780,6 @@ procedure TfrmSystemManager.clbSystemsItemClick(Sender: TObject;
   Index: integer);
 begin
   // TODO 3: clbSystemsClick code must be here...
-  ShowMessage('Por fin entra en TfrmSystemManager.clbSystemsItemClick');
 end;
 
 procedure TfrmSystemManager.clbTextFoldersClickCheck(Sender: TObject);
@@ -1098,75 +1013,8 @@ end;
 procedure TfrmSystemManager.SetConfig(const AValue: cConfig);
 
   procedure Translate;
-  var
-    Translator: cTranslator;
   begin
-    Translator := cTranslator.Create(Config.LanguageFolder +
-      Config.LanguageFile);
-    try
-      Translator.Section := Self.Name;
-      {Self.Caption := }Translator.Translate(Self);
-
-      // Título y paneles
-      Self.Caption := Application.Title + ': ' + Self.Caption;
-
-      // Cadenas de texto
-      rsSelectSystem := Translator.Translate('rsSelectSystem',
-        'Select a system.');
-      rsSystemName := Translator.Translate('rsSystemName', 'System name');
-      rsAutoConfigSystem :=
-        Translator.Translate('rsAutoConfigSystem',
-        'This action will create many subfolders in:' +
-        sLineBreak + '%s' + sLineBreak + 'Are you sure?');
-      rsAutoFolderImg := Translator.Translate('rsAutoFolderImages', 'Images');
-      rsAutoFolderImgTitle :=
-        Translator.Translate('rsAutoFolderImgTitle', 'Title');
-      rsAutoFolderImgInGame :=
-        Translator.Translate('rsAutoFolderImgInGame', 'In game');
-      rsAutoFolderImgFront :=
-        Translator.Translate('rsAutoFolderImgFront', 'Front');
-      rsAutoFolderImgMarquee :=
-        Translator.Translate('rsAutoFolderImgSpine', 'Spine');
-      rsAutoFolderImgBack :=
-        Translator.Translate('rsAutoFolderImgBack', 'Back');
-      rsAutoFolderImgMedia :=
-        Translator.Translate('rsAutoFolderImgMedia', 'Media');
-      rsAutoFolderIcons := Translator.Translate('rsAutoFolderIcons', 'Icon');
-      rsAutoFolderGames := Translator.Translate('rsAutoFolderGames', 'Games');
-      rsAutoFolderMusic := Translator.Translate('rsAutoFolderMusic', 'Music');
-      rsAutoFolderMusicDemo :=
-        Translator.Translate('rsAutoFolderMusicDemo', 'Demo');
-      rsAutoFolderMusicOST :=
-        Translator.Translate('rsAutoFolderMusicOST', 'OST');
-      rsAutoFolderMusicMix :=
-        Translator.Translate('rsAutoFolderMusicMix', 'Mix');
-      rsAutoFolderTxt := Translator.Translate('rsAutoFolderTexts', 'Texts');
-      rsAutoFolderTemp := Translator.Translate('rsAutoFolderTemp', 'Temp');
-      rsAutoFolderTxtInfo :=
-        Translator.Translate('rsAutoFolderTxtInfo', 'Information');
-      rsAutoFolderTxtManual :=
-        Translator.Translate('rsAutoFolderTxtInstr', 'Instructions');
-      rsAutoFolderTxtCheat :=
-        Translator.Translate('rsAutoFolderTxtCheats', 'Cheats');
-      rsAutoFolderTxtNotes :=
-        Translator.Translate('rsAutoFolderTxtNotes', 'Notes');
-      rsAutoFolderTxtCredit :=
-        Translator.Translate('rsAutoFolderTxtCredits', 'Credits');
-      rsAutoFolderVideo := Translator.Translate('rsAutoDirVideo', 'Videos');
-      rsAutoFolderVideoDemo :=
-        Translator.Translate('rsAutoFolderVideoDemo', 'Demo');
-      rsAutoFolderVideoTAS :=
-        Translator.Translate('rsAutoFolderVideoInputs', 'Inputs');
-      rsAutoFolderVideoInGame :=
-        Translator.Translate('rsAutoFolderVideoGame', 'In game');
-      rsAutoFolderBIOS := Translator.Translate('rsAutoFolderBIOS', 'BIOS');
-      rsAutoFolderSaves := Translator.Translate('rsAutoFolderSaves', 'Saves');
-      rsAutoFolderTools := Translator.Translate('rsAutoFolderTools', 'Tools');
-      rsSystemIniFilter :=
-        Translator.Translate('rsSystemsIniFile', 'Systems Ini File (*.ini)');
-    finally
-      FreeAndNil(Translator);
-    end;
+    Self.Caption := Application.Title + ': ' + Self.Caption;
   end;
 
   procedure LoadEmulatorList;
@@ -1205,161 +1053,6 @@ begin
 
   LoadSystemList;
   SelectSystem;
-end;
-
-procedure TfrmSystemManager.SetrsAutoConfigSystem(AValue: String);
-begin
-  FrsAutoConfigSystem := AValue;
-end;
-
-procedure TfrmSystemManager.SetrsAutoFolderBIOS(AValue: String);
-begin
-  FrsAutoFolderBIOS := SetAsFolder(AValue);
-end;
-
-procedure TfrmSystemManager.SetrsAutoFolderGames(AValue: String);
-begin
-  FrsAutoFolderGames := SetAsFolder(AValue);
-end;
-
-procedure TfrmSystemManager.SetrsAutoFolderIcons(AValue: String);
-begin
-  FrsAutoFolderIcons := SetAsFolder(AValue);
-end;
-
-procedure TfrmSystemManager.SetrsAutoFolderImg(AValue: String);
-begin
-  FrsAutoFolderImg := SetAsFolder(AValue);
-end;
-
-procedure TfrmSystemManager.SetrsAutoFolderImgBack(AValue: String);
-begin
-  FrsAutoFolderImgBack := SetAsFolder(AValue);
-end;
-
-procedure TfrmSystemManager.SetrsAutoFolderImgFront(AValue: String);
-begin
-  FrsAutoFolderImgFront := SetAsFolder(AValue);
-end;
-
-procedure TfrmSystemManager.SetrsAutoFolderImgInGame(AValue: String);
-begin
-  FrsAutoFolderImgInGame := SetAsFolder(AValue);
-end;
-
-procedure TfrmSystemManager.SetrsAutoFolderImgMarquee(AValue: String);
-begin
-  FrsAutoFolderImgMarquee := SetAsFolder(AValue);
-end;
-
-procedure TfrmSystemManager.SetrsAutoFolderImgMedia(AValue: String);
-begin
-  FrsAutoFolderImgMedia := SetAsFolder(AValue);
-end;
-
-procedure TfrmSystemManager.SetrsAutoFolderImgTitle(AValue: String);
-begin
-  FrsAutoFolderImgTitle := SetAsFolder(AValue);
-end;
-
-procedure TfrmSystemManager.SetrsAutoFolderMusic(AValue: String);
-begin
-  FrsAutoFolderMusic := SetAsFolder(AValue);
-end;
-
-procedure TfrmSystemManager.SetrsAutoFolderMusicDemo(AValue: String);
-begin
-  FrsAutoFolderMusicDemo := SetAsFolder(AValue);
-end;
-
-procedure TfrmSystemManager.SetrsAutoFolderMusicMix(AValue: String);
-begin
-  FrsAutoFolderMusicMix := SetAsFolder(AValue);
-end;
-
-procedure TfrmSystemManager.SetrsAutoFolderMusicOST(AValue: String);
-begin
-  FrsAutoFolderMusicOST := SetAsFolder(AValue);
-end;
-
-procedure TfrmSystemManager.SetrsAutoFolderSaves(AValue: String);
-begin
-  FrsAutoFolderSaves := SetAsFolder(AValue);
-end;
-
-procedure TfrmSystemManager.SetrsAutoFolderTemp(AValue: String);
-begin
-  FrsAutoFolderTemp := SetAsFolder(AValue);
-end;
-
-procedure TfrmSystemManager.SetrsAutoFolderTools(AValue: String);
-begin
-  FrsAutoFolderTools := SetAsFolder(AValue);
-end;
-
-procedure TfrmSystemManager.SetrsAutoFolderTxt(AValue: String);
-begin
-  FrsAutoFolderTxt := SetAsFolder(AValue);
-end;
-
-procedure TfrmSystemManager.SetrsAutoFolderTxtCheat(AValue: String);
-begin
-  FrsAutoFolderTxtCheat := SetAsFolder(AValue);
-end;
-
-procedure TfrmSystemManager.SetrsAutoFolderTxtCredit(AValue: String);
-begin
-  FrsAutoFolderTxtCredit := SetAsFolder(AValue);
-end;
-
-procedure TfrmSystemManager.SetrsAutoFolderTxtInfo(AValue: String);
-begin
-  FrsAutoFolderTxtInfo := SetAsFolder(AValue);
-end;
-
-procedure TfrmSystemManager.SetrsAutoFolderTxtManual(AValue: String);
-begin
-  FrsAutoFolderTxtManual := SetAsFolder(AValue);
-end;
-
-procedure TfrmSystemManager.SetrsAutoFolderTxtNotes(AValue: String);
-begin
-  FrsAutoFolderTxtNotes := SetAsFolder(AValue);
-end;
-
-procedure TfrmSystemManager.SetrsAutoFolderVideo(AValue: String);
-begin
-  FrsAutoFolderVideo := SetAsFolder(AValue);
-end;
-
-procedure TfrmSystemManager.SetrsAutoFolderVideoDemo(AValue: String);
-begin
-  FrsAutoFolderVideoDemo := SetAsFolder(AValue);
-end;
-
-procedure TfrmSystemManager.SetrsAutoFolderVideoInGame(AValue: String);
-begin
-  FrsAutoFolderVideoInGame := SetAsFolder(AValue);
-end;
-
-procedure TfrmSystemManager.SetrsAutoFolderVideoTAS(AValue: String);
-begin
-  FrsAutoFolderVideoTAS := SetAsFolder(AValue);
-end;
-
-procedure TfrmSystemManager.SetrsSelectSystem(AValue: String);
-begin
-  FrsSelectSystem := AValue;
-end;
-
-procedure TfrmSystemManager.SetrsSystemIniFilter(AValue: String);
-begin
-  FrsSystemIniFilter := AValue;
-end;
-
-procedure TfrmSystemManager.SetrsSystemName(AValue: String);
-begin
-  FrsSystemName := AValue;
 end;
 
 procedure TfrmSystemManager.AddFolderWithCaption(FolderList, CaptionList: TStrings;

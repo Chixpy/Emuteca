@@ -144,6 +144,7 @@ begin
   TempDir := AnsiReplaceText(TempDir, CEmuDir, ExtractFileDir(ExeFile));
   TempDir := AnsiReplaceText(TempDir, CROMDir, ExtractFileDir(GameFile));
   TempDir := AnsiReplaceText(TempDir, CCurrentDir, ExtractFileDir(CurrFolder));
+  TempDir := SetAsFolder(TempDir);
   if TempDir <> '' then
     ChDir(TempDir);
 

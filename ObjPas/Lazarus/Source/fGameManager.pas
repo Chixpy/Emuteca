@@ -30,7 +30,7 @@ uses
   Dialogs, ExtCtrls, ComCtrls, Menus, ActnList, StdCtrls, Buttons, Clipbrd,
   contnrs, VirtualTrees, VTHeaderPopup, lclintf, LCLType, LazHelpHTML,
   IniPropStorage, IDEWindowIntf, dateutils, strutils, LazUTF8,
-  uGameManager, uConfig, uTranslator, uCustomUtils, uImageList, uSystemManager,
+  uGameManager, uConfig, uCustomUtils, uImageList, uSystemManager,
   uGame, uGameGroup, uGameStats, u7zWrapper, uVersionSupport, fSystemManager,
   fEmulatorManager, fImageViewer, fScriptManager, fMediaManager, fProgress,
   fAbout, fConfigManager;
@@ -747,62 +747,9 @@ implementation
 procedure TfrmGameManager.FormCreate(Sender: TObject);
 
   procedure Translate;
-  var
-    Translator: cTranslator;
+
   begin
-    Translator := cTranslator.Create(Config.LanguageFolder + Config.LanguageFile);
-    Translator.Section := Self.Name;
-    Translator.Translate(Self);
-
-    rsAddingFile := Translator.Translate('rsAddingFile', 'Adding file:');
-    rsUpdatingList := Translator.Translate('rsUpdatingList', 'Updating List:');
-    rsLoadingGameList := Translator.Translate('rsLoadingGameList',
-      'Loading games:');
-    rsSavingGameList := Translator.Translate('rsSavingGameList', 'Saving games:');
-    rsEmutecaGameDatabase :=
-      Translator.Translate('rsEmutecaGameDatabase', 'Emuteca game database');
-    rsDecompressing := Translator.Translate('rsDecompressing', 'Decompressing:');
-    rsImportingData := Translator.Translate('rsImportingData', 'Importing data:');
-    rsExportingData := Translator.Translate('rsExportingData', 'Exporting data:');
-
-    rsKey := Translator.Translate('rsKey', 'Key');
-    rsZones := Translator.Translate('rsZone', 'Zone');
-    rsDeveloper := Translator.Translate('rsDeveloper', 'Developer');
-    rsPublisher := Translator.Translate('rsPublisher', 'Publisher');
-    lPublisher.Caption := rsPublisher;
-
-    rsVersion := Translator.Translate('rsVersion', 'Version');
-    rsFilename := Translator.Translate('rsFilename', 'Filename');
-    lVersion.Caption := rsVersion;
-
-    rsNGroups := Translator.Translate('rsNGroups', '%d groups');
-    rsNGames := Translator.Translate('rsNGames', '%d games');
-    rsNTimes := Translator.Translate('rsNTimes', '%d times');
-
-    rsNever := Translator.Translate('rsNever', 'Never');
-    rsUnknown := Translator.Translate('rsUnknown', '!Unknown');
-
-    rsAssignToGroup := Translator.Translate('rsAssignToGroup',
-      'Do you want to assign it to the game''s group?');
-    rsChooseImageFileFormat :=
-      Translator.Translate('rsChooseImageFileFormat',
-      'Do you want to save it in a lossless format:\n' +
-      'YES -> .png (lossless for screenshots)\n' +
-      'NO -> .jpg (better for photographs)');
-    rsConfirmOverwriteFile :=
-      Translator.Translate('rsConfirmOverwriteFile', '%s\n' +
-      'The file already exists.\n' + 'Do you want overwrite it?');
-
-    rsErrorGameNotFound :=
-      Translator.Translate('rsErrorGameNotFound', 'Game not found:\n%s%s');
-    rsErrorEmulator := Translator.Translate('rsErrorEmulator',
-      'Emulator exited with error code: %d');
-    rsPurgeMessage :=
-      Translator.Translate('rsPurgeMessage', 'Warning:\n' +
-      'This action will erase all the game and group list.\n' +
-      'Do you want to continue?');
-
-    FreeAndNil(Translator);
+    ;
   end;
 
   procedure DefaultConfig;

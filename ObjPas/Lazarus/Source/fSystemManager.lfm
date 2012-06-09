@@ -12,7 +12,7 @@
   OnDestroy = FormDestroy
   Position = poMainFormCenter
   ShowHint = True
-  LCLVersion = '0.9.31'
+  LCLVersion = '1.1'
   object StatusBar: TStatusBar
     Left = 0
     Height = 20
@@ -471,6 +471,25 @@
             Caption = 'Extract all files from compressed archives'
             OnEditingDone = chkExtractAllEditingDone
             TabOrder = 2
+          end
+          object bMakeRelativePaths: TButton
+            Left = 0
+            Height = 23
+            Top = 90
+            Width = 304
+            Action = actMakeRelativePaths
+            Align = alBottom
+            AutoSize = True
+            TabOrder = 3
+          end
+          object bMakeAbsolutePaths: TButton
+            Left = 0
+            Height = 25
+            Top = 113
+            Width = 304
+            Action = actMakeAbsolutePaths
+            Align = alBottom
+            TabOrder = 4
           end
         end
       end
@@ -2024,6 +2043,14 @@
       Category = 'Folders'
       Caption = 'actRemoveVideoFolder'
       OnExecute = actRemoveVideoFolderExecute
+    end
+    object actMakeRelativePaths: TAction
+      Category = 'Folders'
+      Caption = 'Make all paths relative'
+    end
+    object actMakeAbsolutePaths: TAction
+      Category = 'Folders'
+      Caption = 'Make all paths absolute'
     end
   end
   object DirectoryDialog: TSelectDirectoryDialog

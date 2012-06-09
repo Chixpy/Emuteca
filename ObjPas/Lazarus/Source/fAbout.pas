@@ -28,7 +28,15 @@ interface
 uses
   Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs,
   Buttons, ExtCtrls, StdCtrls, LCLIntf, strutils,
-  uConfig, uTranslator, uGameManager, uVersionSupport;
+  uConfig, uGameManager, uVersionSupport;
+
+resourcestring
+  rsFABCopyright = 'Copyright';
+  rsFABUnderLicense = 'Under license %0:s';
+
+const
+  kFABCopyright = '(C) 2006-2012 Chixpy';
+  kFABLicense = 'GNU GPL v3';
 
 type
 
@@ -79,20 +87,8 @@ end;
 procedure TfrmAbout.SetConfig(const AValue: cConfig);
 
   procedure Translate;
-  var
-    Translator: cTranslator;
   begin
-    Translator := cTranslator.Create(Config.LanguageFolder +
-      Config.LanguageFile);
-    try
-      Translator.Section := Self.Name;
-      {Self.Caption := }Translator.Translate(Self);
-
-      // Título
       Self.Caption := Application.Title + ': ' + Self.Caption;
-    finally
-      FreeAndNil(Translator);
-    end;
   end;
 
 begin
@@ -104,8 +100,8 @@ begin
 
   lTitle.Caption := Application.Title;
 
-  lLegalInfo.Caption := 'Copyright (C) 2006-2012 Chixpy' +
-    LineEnding + LineEnding + 'Under license GNU GPL v3';
+  lLegalInfo.Caption := rsFABCopyright + kFABCopyright +
+    LineEnding + LineEnding + format(rsFABUnderLicense, [kFABLicense]);
 
   lImageFiles.Caption := AnsiReplaceText(Config.ImageExtensions.CommaText, ',', ' ');;
 

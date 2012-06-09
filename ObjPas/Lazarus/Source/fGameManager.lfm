@@ -14,13 +14,13 @@
   LCLVersion = '1.1'
   object splSystemPanel: TSplitter
     Left = 208
-    Height = 533
+    Height = 531
     Top = 0
     Width = 5
   end
   object splGamePanel: TSplitter
     Left = 587
-    Height = 533
+    Height = 531
     Top = 0
     Width = 5
     Align = alRight
@@ -28,12 +28,12 @@
   end
   object pnlCenter: TPanel
     Left = 213
-    Height = 533
+    Height = 531
     Top = 0
     Width = 374
     Align = alClient
     BevelOuter = bvNone
-    ClientHeight = 533
+    ClientHeight = 531
     ClientWidth = 374
     TabOrder = 0
     object tbMain: TToolBar
@@ -177,7 +177,7 @@
     end
     object vstGames: TVirtualStringTree
       Left = 0
-      Height = 460
+      Height = 458
       Top = 73
       Width = 374
       Align = alClient
@@ -259,8 +259,8 @@
   end
   object sbHelp: TStatusBar
     Left = 0
-    Height = 19
-    Top = 552
+    Height = 20
+    Top = 551
     Width = 800
     AutoHint = True
     Panels = <>
@@ -269,8 +269,8 @@
   end
   object sbInfo: TStatusBar
     Left = 0
-    Height = 19
-    Top = 533
+    Height = 20
+    Top = 531
     Width = 800
     Panels = <    
       item
@@ -296,7 +296,7 @@
   end
   object pcLeft: TPageControl
     Left = 0
-    Height = 533
+    Height = 531
     Top = 0
     Width = 208
     ActivePage = pagSystem
@@ -306,7 +306,7 @@
     TabOrder = 4
     object pagSystem: TTabSheet
       Caption = 'System'
-      ClientHeight = 507
+      ClientHeight = 505
       ClientWidth = 200
       object splSystemImage: TSplitter
         Cursor = crVSplit
@@ -357,23 +357,22 @@
           PopupMenu = pmSystemImage
           Proportional = True
           Stretch = True
-          Transparent = True
         end
       end
       object pnlSystemText: TPanel
         Left = 0
-        Height = 280
+        Height = 278
         Top = 227
         Width = 200
         Align = alClient
         BevelOuter = bvNone
-        ClientHeight = 280
+        ClientHeight = 278
         ClientWidth = 200
         TabOrder = 2
         object tbSystemText: TToolBar
           Left = 0
           Height = 22
-          Top = 258
+          Top = 256
           Width = 200
           Align = alBottom
           AutoSize = True
@@ -404,7 +403,7 @@
         end
         object memoSystem: TMemo
           Left = 0
-          Height = 258
+          Height = 256
           Top = 0
           Width = 200
           Align = alClient
@@ -786,7 +785,7 @@
   end
   object pcGame: TPageControl
     Left = 592
-    Height = 533
+    Height = 531
     Top = 0
     Width = 208
     ActivePage = pagGameMedia
@@ -796,7 +795,7 @@
     TabOrder = 2
     object pagGameMedia: TTabSheet
       Caption = 'Game Media'
-      ClientHeight = 507
+      ClientHeight = 505
       ClientWidth = 200
       object pnlGameImage: TPanel
         Left = 0
@@ -820,7 +819,6 @@
           PopupMenu = pmGameImage
           Proportional = True
           Stretch = True
-          Transparent = True
         end
         object cbGameImages: TComboBox
           Left = 0
@@ -903,17 +901,17 @@
       end
       object pnlGameText: TPanel
         Left = 0
-        Height = 259
+        Height = 257
         Top = 248
         Width = 200
         Align = alClient
         BevelOuter = bvNone
-        ClientHeight = 259
+        ClientHeight = 257
         ClientWidth = 200
         TabOrder = 2
         object memoGame: TMemo
           Left = 0
-          Height = 216
+          Height = 214
           Top = 21
           Width = 200
           Align = alClient
@@ -924,7 +922,7 @@
         object tbTexts: TToolBar
           Left = 0
           Height = 22
-          Top = 237
+          Top = 235
           Width = 200
           Align = alBottom
           AutoSize = True

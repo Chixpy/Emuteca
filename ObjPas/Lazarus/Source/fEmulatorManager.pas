@@ -29,7 +29,14 @@ uses
   Classes, SysUtils, FileUtil, LResources, Forms,
   Controls, Graphics, Dialogs, ExtCtrls, ComCtrls, CheckLst, ActnList, Buttons,
   StdCtrls, EditBtn, Spin,
-  uEmulator, uEmulatorManager, uConfig, uCustomUtils, uTranslator;
+  uEmulator, uEmulatorManager, uConfig, uCustomUtils;
+
+resourcestring
+rsSelectEmulator = 'Select an emulator.';
+      rsEmulatorName = 'Emulator name';
+      rsEmulatorIniFilter = 'Emulators Ini File (*.ini)';
+
+
 
 type
   { Form used to manage emulators and their configuration.
@@ -131,34 +138,14 @@ type
     FConfig: cConfig;
     FEmulator: cEmulator;
     FEmulatorManager: cEmulatorManager;
-    FrsEmulatorIniFilter: String;
-    FrsEmulatorName: String;
-    FrsSelectEmulator: String;
     procedure SetConfig(const AValue: cConfig);
     procedure SetEmulator(AValue: cEmulator);
-    procedure SetrsEmulatorIniFilter(AValue: String);
-    procedure SetrsEmulatorName(AValue: String);
-    procedure SetrsSelectEmulator(AValue: String);
 
   protected
     property EmulatorManager: cEmulatorManager read FEmulatorManager;
     {< cEmulatorManager object used by this form }
     property Emulator: cEmulator read FEmulator write SetEmulator;
     {< Current selected emulator }
-
-    // Strings for translate that no belong to a form component
-    property rsSelectEmulator: String
-      read FrsSelectEmulator write SetrsSelectEmulator;
-    property rsEmulatorName: String read FrsEmulatorName
-      write SetrsEmulatorName;
-    {< Translated string "Emulator name"
-
-    Used in "Add Emulator" InputQuery}
-    property rsEmulatorIniFilter: String
-      read FrsEmulatorIniFilter write SetrsEmulatorIniFilter;
-    {< Translated string "Emulators Ini File (*.ini)"
-
-    Used in Import/Export Emulators Data dialogs}
 
     procedure ChangeImage(const aFileName: String; aImage: TImage);
     {< Changes the aImage picture or show the default if aFileName don't exists.
@@ -420,28 +407,9 @@ end;
 procedure TfrmEmulatorManager.SetConfig(const AValue: cConfig);
 
   procedure Translate;
-  var
-    Translator: cTranslator;
   begin
-    Translator := cTranslator.Create(Config.LanguageFolder +
-      Config.LanguageFile);
-    try
-      Translator.Section := Self.Name;
-      Translator.Translate(Self);
-
       // Título y paneles
       Self.Caption := Application.Title + ': ' + Self.Caption;
-
-      // Cadenas de texto
-      rsSelectEmulator := Translator.Translate('rsSelectEmulator',
-        'Select an emulator.');
-      rsEmulatorName := Translator.Translate('rsEmulatorName',
-        'Emulator name');
-      rsEmulatorIniFilter :=
-        Translator.Translate('rsEmulatorIniFilter', 'Emulators Ini File (*.ini)');
-    finally
-      FreeAndNil(Translator);
-    end;
   end;
 
 begin
@@ -463,21 +431,6 @@ end;
 procedure TfrmEmulatorManager.SetEmulator(AValue: cEmulator);
 begin
   FEmulator := AValue;
-end;
-
-procedure TfrmEmulatorManager.SetrsEmulatorIniFilter(AValue: String);
-begin
-  FrsEmulatorIniFilter := AValue;
-end;
-
-procedure TfrmEmulatorManager.SetrsEmulatorName(AValue: String);
-begin
-  FrsEmulatorName := AValue;
-end;
-
-procedure TfrmEmulatorManager.SetrsSelectEmulator(AValue: String);
-begin
-  FrsSelectEmulator := AValue;
 end;
 
 procedure TfrmEmulatorManager.FillFields;

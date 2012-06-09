@@ -28,7 +28,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs,
   ActnList, ComCtrls, Spin, ExtCtrls, StdCtrls, Menus, Buttons,
-  uConfig, uTranslator, uCustomUtils;
+  uConfig, uCustomUtils;
 
 type
 
@@ -257,20 +257,8 @@ end;
 
 procedure TfrmImageViewer.SetConfig(const AValue: cConfig);
   procedure Translate;
-  var
-    Translator: cTranslator;
   begin
-    Translator := cTranslator.Create(Config.LanguageFolder +
-      Config.LanguageFile);
-    try
-      Translator.Section := Self.Name;
-      Translator.Translate(Self);
-
-      // Título y paneles
       Self.Caption := Application.Title + ': ' + Self.Caption;
-    finally
-      FreeAndNil(Translator);
-    end;
   end;
 
   //procedure TfrmImageViewer.SetConfig(const AValue: cConfig);

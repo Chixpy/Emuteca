@@ -36,7 +36,7 @@
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="..\..\!bin\$NameOnly($(ProjFile))-$(TargetCPU)-$(TargetOS)-Release"/>
+            <Filename Value="..\..\!bin\$NameOnly($(ProjFile))-$(TargetOS)-$(TargetCPU)-Release"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
@@ -104,7 +104,7 @@
         <PackageName Value="LCL"/>
       </Item6>
     </RequiredPackages>
-    <Units Count="33">
+    <Units Count="32">
       <Unit0>
         <Filename Value="LazEmuteca.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -129,181 +129,176 @@
         <UnitName Value="uConfig"/>
       </Unit3>
       <Unit4>
-        <Filename Value="../Common/uTranslator.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="uTranslator"/>
-      </Unit4>
-      <Unit5>
         <Filename Value="../Common/uSystem.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uSystem"/>
-      </Unit5>
-      <Unit6>
+      </Unit4>
+      <Unit5>
         <Filename Value="../Common/uCustomUtils.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uCustomUtils"/>
-      </Unit6>
-      <Unit7>
+      </Unit5>
+      <Unit6>
         <Filename Value="Source/fSystemManager.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmSystemManager"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="fSystemManager"/>
-      </Unit7>
-      <Unit8>
+      </Unit6>
+      <Unit7>
         <Filename Value="../Common/uGame.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uGame"/>
-      </Unit8>
-      <Unit9>
+      </Unit7>
+      <Unit8>
         <Filename Value="../Common/uSystemManager.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uSystemManager"/>
-      </Unit9>
-      <Unit10>
+      </Unit8>
+      <Unit9>
         <Filename Value="../Common/uEmulatorManager.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uEmulatorManager"/>
-      </Unit10>
-      <Unit11>
+      </Unit9>
+      <Unit10>
         <Filename Value="../Common/uEmulator.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uEmulator"/>
-      </Unit11>
-      <Unit12>
+      </Unit10>
+      <Unit11>
         <Filename Value="../Common/uImageList.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uImageList"/>
-      </Unit12>
-      <Unit13>
+      </Unit11>
+      <Unit12>
         <Filename Value="Source/fEmulatorManager.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmEmulatorManager"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="fEmulatorManager"/>
-      </Unit13>
-      <Unit14>
+      </Unit12>
+      <Unit13>
         <Filename Value="Source/fMediaManager.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmMediaManager"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="fMediaManager"/>
-      </Unit14>
-      <Unit15>
+      </Unit13>
+      <Unit14>
         <Filename Value="../Common/uGameGroup.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uGameGroup"/>
-      </Unit15>
-      <Unit16>
+      </Unit14>
+      <Unit15>
         <Filename Value="Source/fImageViewer.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmImageViewer"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="fImageViewer"/>
-      </Unit16>
-      <Unit17>
+      </Unit15>
+      <Unit16>
         <Filename Value="Source/fScriptManager.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmScriptManager"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="fScriptManager"/>
-      </Unit17>
-      <Unit18>
+      </Unit16>
+      <Unit17>
         <Filename Value="Source/fProgress.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmProgress"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="fProgress"/>
-      </Unit18>
-      <Unit19>
+      </Unit17>
+      <Unit18>
         <Filename Value="../Common/uPSI_uGame.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uPSI_uGame"/>
-      </Unit19>
-      <Unit20>
+      </Unit18>
+      <Unit19>
         <Filename Value="../Common/uPSI_uGameGroup.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uPSI_uGameGroup"/>
-      </Unit20>
-      <Unit21>
+      </Unit19>
+      <Unit20>
         <Filename Value="../Common/uPSI_uGameManager.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uPSI_uGameManager"/>
-      </Unit21>
-      <Unit22>
+      </Unit20>
+      <Unit21>
         <Filename Value="Source/fAbout.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmAbout"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="fAbout"/>
-      </Unit22>
-      <Unit23>
+      </Unit21>
+      <Unit22>
         <Filename Value="Source/fSMAskFile.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmSMAskFile"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="fSMAskFile"/>
-      </Unit23>
-      <Unit24>
+      </Unit22>
+      <Unit23>
         <Filename Value="../Common/uGameStats.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uGameStats"/>
-      </Unit24>
-      <Unit25>
+      </Unit23>
+      <Unit24>
         <Filename Value="../Common/u7zWrapper.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="u7zWrapper"/>
-      </Unit25>
-      <Unit26>
+      </Unit24>
+      <Unit25>
         <Filename Value="../Common/uVersionSupport.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uVersionSupport"/>
-      </Unit26>
-      <Unit27>
+      </Unit25>
+      <Unit26>
         <Filename Value="Source/fSMAskFolder.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmSMAskFolder"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="fSMAskFolder"/>
-      </Unit27>
-      <Unit28>
+      </Unit26>
+      <Unit27>
         <Filename Value="../Common/uPSI_u7zWrapper.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uPSI_u7zWrapper"/>
-      </Unit28>
-      <Unit29>
+      </Unit27>
+      <Unit28>
         <Filename Value="../Common/uPSI_uSystem.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uPSI_uSystem"/>
-      </Unit29>
-      <Unit30>
+      </Unit28>
+      <Unit29>
         <Filename Value="../Common/uPSI_uEmulator.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uPSI_uEmulator"/>
-      </Unit30>
-      <Unit31>
+      </Unit29>
+      <Unit30>
         <Filename Value="../Common/uPSI_uGameStats.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uPSI_uGameStats"/>
-      </Unit31>
-      <Unit32>
+      </Unit30>
+      <Unit31>
         <Filename Value="Source/fConfigManager.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmConfigManager"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="fConfigManager"/>
-      </Unit32>
+      </Unit31>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="..\..\!bin\$NameOnly($(ProjFile))-$(TargetCPU)-$(TargetOS)-Debug"/>
+      <Filename Value="..\..\!bin\$NameOnly($(ProjFile))-$(TargetOS)-$(TargetCPU)-Debug"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>

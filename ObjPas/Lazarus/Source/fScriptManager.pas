@@ -35,15 +35,20 @@ uses
   uPSI_uGame,  uPSI_uGameGroup,
   uPSI_uGameManager, uPSI_uGameStats, uPSI_u7zWrapper, uPSI_uEmulator,
   uPSI_uSystem,
-  uConfig, uTranslator, uCustomUtils, uGameManager;
+  uConfig, uCustomUtils, uGameManager;
+
+resourcestring
+      rsCompilationOK = 'Compilation: OK.';
+      rsCompilationError = 'Compilation: Error.';
+      rsExecutionOK = 'Execution: OK.';
+      rsExecutionError = 'Execution: Error.';
+      rsScriptFileSaved = 'Script file saved: %s';
 
 const
   // Script file extension
-  CScriptExt = '.pas';
-  // TODO 5: Convertir a traducible
-  CScritpFilter = 'Emuteca Script (*' + CScriptExt + ')|*' +
-    CScriptExt + '|All files|*.*';
-
+  kFSMScriptExt = '.pas';
+  kFSMScriptFilter = 'Emuteca Script (*' + kFSMScriptExt + ')|*' +
+    kFSMScriptExt + '|All files|*.*';
 type
 
   TSMLoadingListCallBack = function(const Game, Version: String;
@@ -115,17 +120,6 @@ type
     procedure SetGameManager(const AValue: cGameManager);
 
   protected
-    // Cadenas de texto
-    rsCompilationOK: String;
-    rsCompilationError: String;
-    rsExecutionOK: String;
-    rsExecutionError: String;
-    rsScriptFileSaved: String;
-    rsNoGroupChecked: String;
-    rsNoGameChecked: String;
-    rsLoadingGames: String;
-    rsLoadingGroups: String;
-
     // Added functions
     // ---------------
     // This functions are those which don't work with a simple
@@ -283,8 +277,8 @@ var
   aFile: String;
 begin
   SaveDialog.InitialDir := lvScripts.Root;
-  SaveDialog.DefaultExt := CScriptExt;
-  SaveDialog.Filter := CScritpFilter;
+  SaveDialog.DefaultExt := kFSMScriptExt;
+  SaveDialog.Filter := kFSMScriptFilter;
   if not SaveDialog.Execute then
     Exit;
 
@@ -371,30 +365,8 @@ end;
 procedure TfrmScriptManager.SetConfig(const AValue: cConfig);
 
   procedure Translate;
-  var
-    Translator: cTranslator;
-  begin
-    Translator := cTranslator.Create(Config.LanguageFolder +
-      Config.LanguageFile);
-    try
-      Translator.Section := Self.Name;
-      {Self.Caption := } Translator.Translate(Self);
-
-      // Título y paneles
+begin
       Self.Caption := Application.Title + ': ' + Self.Caption;
-
-      rsCompilationOK := Translator.Translate('rsCompilationOK',
-        'Compilation: OK.');
-      rsCompilationError :=
-        Translator.Translate('rsCompilationError', 'Compilation: Error.');
-      rsExecutionOK := Translator.Translate('rsExecutionOK', 'Execution: OK.');
-      rsExecutionError := Translator.Translate('rsExecutionError',
-        'Execution: Error.');
-      rsScriptFileSaved :=
-        Translator.Translate('rsScriptFileSaved', 'Script file saved: %s');
-    finally
-      FreeAndNil(Translator);
-    end;
   end;
 
 begin
