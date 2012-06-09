@@ -30,7 +30,7 @@ This unit localizes LCL too, if it finds lclstrconsts.xx.po/lclstrconsts.xx.mo
 in directory where your program translation files are placed.
 
 Emuteca changes:
-  - ParamStrUTF8(0) --> Application.Title
+  - ParamStrUTF8(0) --> kCDTName = 'Emuteca'
 }
 {$mode objfpc}{$H+}
 
@@ -39,6 +39,9 @@ interface
 uses
   Classes, SysUtils, LResources, GetText, Controls, typinfo, FileUtil, LCLProc,
   Translations, Forms;
+
+const
+  kCDTName = 'Emuteca';
 
 type
   TDefaultTranslator = class(TAbstractTranslator)
@@ -82,30 +85,30 @@ var
     begin
       //ParamStrUTF8(0) is said not to work properly in linux, but I've tested it
       Result := ExtractFilePath(ParamStrUTF8(0)) + LangID +
-        DirectorySeparator + Application.Title + LCExt;
+        DirectorySeparator + kCDTName + LCExt;
       if FileExistsUTF8(Result) then
         exit;
 
       Result := ExtractFilePath(ParamStrUTF8(0)) + 'languages' + DirectorySeparator + LangID +
-        DirectorySeparator + Application.Title + LCExt;
+        DirectorySeparator + kCDTName + LCExt;
       if FileExistsUTF8(Result) then
         exit;
 
       Result := ExtractFilePath(ParamStrUTF8(0)) + 'locale' + DirectorySeparator
-        + LangID + DirectorySeparator + Application.Title + LCExt;
+        + LangID + DirectorySeparator + kCDTName + LCExt;
       if FileExistsUTF8(Result) then
         exit;
 
       Result := ExtractFilePath(ParamStrUTF8(0)) + 'locale' + DirectorySeparator
         + LangID + DirectorySeparator + 'LC_MESSAGES' + DirectorySeparator +
-        Application.Title + LCExt;
+        kCDTName + LCExt;
       if FileExistsUTF8(Result) then
         exit;
 
       {$IFDEF UNIX}
       //In unix-like systems we can try to search for global locale
       Result := '/usr/share/locale/' + LangID + '/LC_MESSAGES/' +
-        Application.Title +  LCExt;
+        kCDTName +  LCExt;
       if FileExistsUTF8(Result) then
         exit;
       {$ENDIF}
@@ -113,40 +116,40 @@ var
       LangShortID := copy(LangID, 1, 2);
       //At first, check all was checked
       Result := ExtractFilePath(ParamStrUTF8(0)) + LangShortID +
-        DirectorySeparator + Application.Title + LCExt;
+        DirectorySeparator + kCDTName + LCExt;
       if FileExistsUTF8(Result) then
         exit;
 
       Result := ExtractFilePath(ParamStrUTF8(0)) + 'languages' + DirectorySeparator +
-        LangShortID + DirectorySeparator + Application.Title + LCExt;
+        LangShortID + DirectorySeparator + kCDTName + LCExt;
       if FileExistsUTF8(Result) then
         exit;
 
       Result := ExtractFilePath(ParamStrUTF8(0)) + 'locale' + DirectorySeparator
-        + LangShortID + DirectorySeparator + Application.Title + LCExt;
+        + LangShortID + DirectorySeparator + kCDTName + LCExt;
       if FileExistsUTF8(Result) then
         exit;
 
       Result := ExtractFilePath(ParamStrUTF8(0)) + 'locale' + DirectorySeparator
         + LangShortID + DirectorySeparator + 'LC_MESSAGES' + DirectorySeparator +
-        Application.Title + LCExt;
+        kCDTName + LCExt;
       if FileExistsUTF8(Result) then
         exit;
 
       //Full language in file name - this will be default for the project
       //We need more careful handling, as it MAY result in incorrect filename
       try
-        Result := ExtractFilePath(ParamStrUTF8(0)) + Application.Title + '.' + LangID + LCExt;
+        Result := ExtractFilePath(ParamStrUTF8(0)) + kCDTName + '.' + LangID + LCExt;
         if FileExistsUTF8(Result) then
           exit;
         //Common location (like in Lazarus)
         Result := ExtractFilePath(ParamStrUTF8(0)) + 'locale' + DirectorySeparator +
-          Application.Title + '.' + LangID + LCExt;
+          kCDTName + '.' + LangID + LCExt;
         if FileExistsUTF8(Result) then
           exit;
 
         Result := ExtractFilePath(ParamStrUTF8(0)) + 'languages' +
-          DirectorySeparator + Application.Title + '.' + LangID + LCExt;
+          DirectorySeparator + kCDTName + '.' + LangID + LCExt;
         if FileExistsUTF8(Result) then
           exit;
       except
@@ -154,22 +157,22 @@ var
       end;
       {$IFDEF UNIX}
       Result := '/usr/share/locale/' + LangShortID + '/LC_MESSAGES/' +
-        Application.Title +  LCExt;
+        kCDTName +  LCExt;
       if FileExistsUTF8(Result) then
         exit;
       {$ENDIF}
-      Result := ExtractFilePath(ParamStrUTF8(0)) + Application.Title +
+      Result := ExtractFilePath(ParamStrUTF8(0)) + kCDTName +
         '.' + LangShortID + LCExt;
       if FileExistsUTF8(Result) then
         exit;
 
       Result := ExtractFilePath(ParamStrUTF8(0)) + 'locale' + DirectorySeparator +
-        Application.Title + '.' + LangShortID + LCExt;
+        kCDTName + '.' + LangShortID + LCExt;
       if FileExistsUTF8(Result) then
         exit;
 
       Result := ExtractFilePath(ParamStrUTF8(0)) + 'languages' + DirectorySeparator +
-        Application.Title + '.' + LangShortID + LCExt;
+        kCDTName + '.' + LangShortID + LCExt;
       if FileExistsUTF8(Result) then
         exit;
     end;
@@ -197,7 +200,7 @@ begin
   if Result <> '' then
     exit;
 
-  Result := Application.Title + LCExt;
+  Result := kCDTName + LCExt;
   if FileExistsUTF8(Result) then
     exit;
 

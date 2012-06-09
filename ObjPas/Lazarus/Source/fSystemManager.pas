@@ -32,37 +32,37 @@ uses
   uCustomUtils;
 
 resourcestring
-  rsSelectSystem = 'Select a system.';
-      rsSystemName = 'System name';
-      rsAutoConfigSystem = 'This action will create many subfolders in:' +
+  rsFSMSelectSystem = 'Select a system.';
+      rsFSMSystemName = 'System name';
+      rsFSMAutoConfigSystem = 'This action will create many subfolders in:' +
         sLineBreak + '%0:s' + sLineBreak + 'Are you sure?';
-      rsAutoFolderImg = 'Images/';
-      rsAutoFolderImgTitle = 'Title/';
-      rsAutoFolderImgInGame = 'In game/';
-      rsAutoFolderImgFront = 'Front/';
-      rsAutoFolderImgMarquee = 'Spine/';
-      rsAutoFolderImgBack = 'Back/';
-      rsAutoFolderImgMedia = 'Media/';
-      rsAutoFolderIcons = 'Icon/';
-      rsAutoFolderGames = 'Games/';
-      rsAutoFolderMusic = 'Music/';
-      rsAutoFolderMusicDemo = 'Demo/';
-      rsAutoFolderMusicOST = 'OST/';
-      rsAutoFolderMusicMix = 'Mix/';
-      rsAutoFolderTemp =  'Temp/';
-      rsAutoFolderTxt = 'Texts/';
-      rsAutoFolderTxtInfo = 'Information/';
-      rsAutoFolderTxtManual = 'Instructions/';
-      rsAutoFolderTxtCheat = 'Cheats/';
-      rsAutoFolderTxtNotes = 'Notes/';
-      rsAutoFolderTxtCredit = 'Credits/';
-      rsAutoFolderVideo = 'Videos/';
-      rsAutoFolderVideoDemo = 'Demo/';
-      rsAutoFolderVideoTAS = 'Inputs/';
-      rsAutoFolderVideoInGame = 'In game/';
-      rsAutoFolderBIOS = 'BIOS/';
-      rsAutoFolderSaves = 'Saves/';
-      rsAutoFolderTools =  'Tools/';
+      rsFSMAutoFolderImg = 'Images/';
+      rsFSMAutoFolderImgTitle = 'Title/';
+      rsFSMAutoFolderImgInGame = 'In game/';
+      rsFSMAutoFolderImgFront = 'Front/';
+      rsFSMAutoFolderImgMarquee = 'Spine/';
+      rsFSMAutoFolderImgBack = 'Back/';
+      rsFSMAutoFolderImgMedia = 'Media/';
+      rsFSMAutoFolderIcons = 'Icon/';
+      rsFSMAutoFolderGames = 'Games/';
+      rsFSMAutoFolderMusic = 'Music/';
+      rsFSMAutoFolderMusicDemo = 'Demo/';
+      rsFSMAutoFolderMusicOST = 'OST/';
+      rsFSMAutoFolderMusicMix = 'Mix/';
+      rsFSMAutoFolderTemp =  'Temp/';
+      rsFSMAutoFolderTxt = 'Texts/';
+      rsFSMAutoFolderTxtInfo = 'Information/';
+      rsFSMAutoFolderTxtManual = 'Instructions/';
+      rsFSMAutoFolderTxtCheat = 'Cheats/';
+      rsFSMAutoFolderTxtNotes = 'Notes/';
+      rsFSMAutoFolderTxtCredit = 'Credits/';
+      rsFSMAutoFolderVideo = 'Videos/';
+      rsFSMAutoFolderVideoDemo = 'Demo/';
+      rsFSMAutoFolderVideoTAS = 'Inputs/';
+      rsFSMAutoFolderVideoInGame = 'In game/';
+      rsFSMAutoFolderBIOS = 'BIOS/';
+      rsFSMAutoFolderSaves = 'Saves/';
+      rsFSMAutoFolderTools =  'Tools/';
 
 const
       kFSMSystemIniFilter = 'Systems Ini File (*.ini)';
@@ -427,7 +427,7 @@ var
   SystemName: String;
   aSystem: cSystem;
 begin
-  SystemName := Trim(InputBox(actAddSystem.Caption, rsSystemName, ''));
+  SystemName := Trim(InputBox(actAddSystem.Caption, rsFSMSystemName, ''));
   if SystemName = '' then Exit;
 
   aSystem := SystemManager.AddSystem(SystemName);
@@ -510,84 +510,84 @@ begin
     (not DirectoryExistsUTF8(System.BaseFolder)) then
     Exit;
 
-  if MessageDlg(Format(rsAutoConfigSystem, [System.BaseFolder]),
+  if MessageDlg(Format(rsFSMAutoConfigSystem, [System.BaseFolder]),
     mtConfirmation, [mbYes, mbNo], 0) = mrNo then
     Exit;
 
   // Creating folders
-  CreateDirUTF8(System.BaseFolder + rsAutoFolderGames);
-  System.GameFolder := System.BaseFolder + rsAutoFolderGames;
+  CreateDirUTF8(System.BaseFolder + rsFSMAutoFolderGames);
+  System.GameFolder := System.BaseFolder + rsFSMAutoFolderGames;
 
   // Images
-  CreateDirUTF8(System.BaseFolder + rsAutoFolderImg);
-  CreateDirUTF8(System.BaseFolder + rsAutoFolderImg + rsAutoFolderImgTitle);
+  CreateDirUTF8(System.BaseFolder + rsFSMAutoFolderImg);
+  CreateDirUTF8(System.BaseFolder + rsFSMAutoFolderImg + rsFSMAutoFolderImgTitle);
   AddFolderWithCaption(System.ImageFolders, System.ImageCaptions,
-    System.BaseFolder + rsAutoFolderImg + rsAutoFolderImgTitle,
-    rsAutoFolderImgTitle);
-  CreateDirUTF8(System.BaseFolder + rsAutoFolderImg + rsAutoFolderImgInGame);
+    System.BaseFolder + rsFSMAutoFolderImg + rsFSMAutoFolderImgTitle,
+    rsFSMAutoFolderImgTitle);
+  CreateDirUTF8(System.BaseFolder + rsFSMAutoFolderImg + rsFSMAutoFolderImgInGame);
   AddFolderWithCaption(System.ImageFolders, System.ImageCaptions,
-    System.BaseFolder + rsAutoFolderImg + rsAutoFolderImgInGame,
-    rsAutoFolderImgInGame);
-  CreateDirUTF8(System.BaseFolder + rsAutoFolderImg + rsAutoFolderImgFront);
+    System.BaseFolder + rsFSMAutoFolderImg + rsFSMAutoFolderImgInGame,
+    rsFSMAutoFolderImgInGame);
+  CreateDirUTF8(System.BaseFolder + rsFSMAutoFolderImg + rsFSMAutoFolderImgFront);
   AddFolderWithCaption(System.ImageFolders, System.ImageCaptions,
-    System.BaseFolder + rsAutoFolderImg + rsAutoFolderImgFront,
-    rsAutoFolderImgFront);
-  CreateDirUTF8(System.BaseFolder + rsAutoFolderImg + rsAutoFolderImgBack);
+    System.BaseFolder + rsFSMAutoFolderImg + rsFSMAutoFolderImgFront,
+    rsFSMAutoFolderImgFront);
+  CreateDirUTF8(System.BaseFolder + rsFSMAutoFolderImg + rsFSMAutoFolderImgBack);
   AddFolderWithCaption(System.ImageFolders, System.ImageCaptions,
-    System.BaseFolder + rsAutoFolderImg + rsAutoFolderImgBack,
-    rsAutoFolderImgBack);
-  CreateDirUTF8(System.BaseFolder + rsAutoFolderImg + rsAutoFolderImgMedia);
+    System.BaseFolder + rsFSMAutoFolderImg + rsFSMAutoFolderImgBack,
+    rsFSMAutoFolderImgBack);
+  CreateDirUTF8(System.BaseFolder + rsFSMAutoFolderImg + rsFSMAutoFolderImgMedia);
   AddFolderWithCaption(System.ImageFolders, System.ImageCaptions,
-    System.BaseFolder + rsAutoFolderImg + rsAutoFolderImgMedia,
-    rsAutoFolderImgMedia);
-  CreateDirUTF8(System.BaseFolder + rsAutoFolderImg + rsAutoFolderImgMarquee);
-  System.MarqueeFolder := System.BaseFolder + rsAutoFolderImg +
-    rsAutoFolderImgMarquee;
-  CreateDirUTF8(System.BaseFolder + rsAutoFolderImg + rsAutoFolderIcons);
-  System.IconFolder := System.BaseFolder + rsAutoFolderImg + rsAutoFolderIcons;
+    System.BaseFolder + rsFSMAutoFolderImg + rsFSMAutoFolderImgMedia,
+    rsFSMAutoFolderImgMedia);
+  CreateDirUTF8(System.BaseFolder + rsFSMAutoFolderImg + rsFSMAutoFolderImgMarquee);
+  System.MarqueeFolder := System.BaseFolder + rsFSMAutoFolderImg +
+    rsFSMAutoFolderImgMarquee;
+  CreateDirUTF8(System.BaseFolder + rsFSMAutoFolderImg + rsFSMAutoFolderIcons);
+  System.IconFolder := System.BaseFolder + rsFSMAutoFolderImg + rsFSMAutoFolderIcons;
 
   // Texts
-  CreateDirUTF8(System.BaseFolder + rsAutoFolderTxt);
-  CreateDirUTF8(System.BaseFolder + rsAutoFolderTxt + rsAutoFolderTxtInfo);
+  CreateDirUTF8(System.BaseFolder + rsFSMAutoFolderTxt);
+  CreateDirUTF8(System.BaseFolder + rsFSMAutoFolderTxt + rsFSMAutoFolderTxtInfo);
   AddFolderWithCaption(System.TextFolders, System.TextCaptions,
-    System.BaseFolder + rsAutoFolderTxt + rsAutoFolderTxtInfo,
-    rsAutoFolderTxtInfo);
-  CreateDirUTF8(System.BaseFolder + rsAutoFolderTxt + rsAutoFolderTxtManual);
+    System.BaseFolder + rsFSMAutoFolderTxt + rsFSMAutoFolderTxtInfo,
+    rsFSMAutoFolderTxtInfo);
+  CreateDirUTF8(System.BaseFolder + rsFSMAutoFolderTxt + rsFSMAutoFolderTxtManual);
   AddFolderWithCaption(System.TextFolders, System.TextCaptions,
-    System.BaseFolder + rsAutoFolderTxt + rsAutoFolderTxtManual,
-    rsAutoFolderTxtManual);
-  CreateDirUTF8(System.BaseFolder + rsAutoFolderTxt + rsAutoFolderTxtCheat);
+    System.BaseFolder + rsFSMAutoFolderTxt + rsFSMAutoFolderTxtManual,
+    rsFSMAutoFolderTxtManual);
+  CreateDirUTF8(System.BaseFolder + rsFSMAutoFolderTxt + rsFSMAutoFolderTxtCheat);
   AddFolderWithCaption(System.TextFolders, System.TextCaptions,
-    System.BaseFolder + rsAutoFolderTxt + rsAutoFolderTxtCheat,
-    rsAutoFolderTxtCheat);
-  CreateDirUTF8(System.BaseFolder + rsAutoFolderTxt + rsAutoFolderTxtNotes);
+    System.BaseFolder + rsFSMAutoFolderTxt + rsFSMAutoFolderTxtCheat,
+    rsFSMAutoFolderTxtCheat);
+  CreateDirUTF8(System.BaseFolder + rsFSMAutoFolderTxt + rsFSMAutoFolderTxtNotes);
   AddFolderWithCaption(System.TextFolders, System.TextCaptions,
-    System.BaseFolder + rsAutoFolderTxt + rsAutoFolderTxtNotes,
-    rsAutoFolderTxtNotes);
-  CreateDirUTF8(System.BaseFolder + rsAutoFolderTxt + rsAutoFolderTxtCredit);
+    System.BaseFolder + rsFSMAutoFolderTxt + rsFSMAutoFolderTxtNotes,
+    rsFSMAutoFolderTxtNotes);
+  CreateDirUTF8(System.BaseFolder + rsFSMAutoFolderTxt + rsFSMAutoFolderTxtCredit);
   AddFolderWithCaption(System.TextFolders, System.TextCaptions,
-    System.BaseFolder + rsAutoFolderTxt + rsAutoFolderTxtCredit,
-    rsAutoFolderTxtCredit);
+    System.BaseFolder + rsFSMAutoFolderTxt + rsFSMAutoFolderTxtCredit,
+    rsFSMAutoFolderTxtCredit);
 
   // TODO 1: Música
-  CreateDirUTF8(System.BaseFolder + rsAutoFolderMusic);
-  CreateDirUTF8(System.BaseFolder + rsAutoFolderMusic + rsAutoFolderMusicDemo);
+  CreateDirUTF8(System.BaseFolder + rsFSMAutoFolderMusic);
+  CreateDirUTF8(System.BaseFolder + rsFSMAutoFolderMusic + rsFSMAutoFolderMusicDemo);
   System.DemoMusicFolder :=
-    System.BaseFolder + rsAutoFolderMusic + rsAutoFolderMusicDemo;
+    System.BaseFolder + rsFSMAutoFolderMusic + rsFSMAutoFolderMusicDemo;
 
   // TODO 1: Videos
-  CreateDirUTF8(System.BaseFolder + rsAutoFolderVideo);
-  CreateDirUTF8(System.BaseFolder + rsAutoFolderVideo + rsAutoFolderVideoDemo);
+  CreateDirUTF8(System.BaseFolder + rsFSMAutoFolderVideo);
+  CreateDirUTF8(System.BaseFolder + rsFSMAutoFolderVideo + rsFSMAutoFolderVideoDemo);
   System.DemoVideoFolder :=
-    System.BaseFolder + rsAutoFolderVideo + rsAutoFolderVideoDemo;
+    System.BaseFolder + rsFSMAutoFolderVideo + rsFSMAutoFolderVideoDemo;
 
   // TODO 1: Otros archivos
 
   // Un par de directorios extra
-  CreateDirUTF8(System.BaseFolder + rsAutoFolderBIOS);
-  CreateDirUTF8(System.BaseFolder + rsAutoFolderTemp);
-  CreateDirUTF8(System.BaseFolder + rsAutoFolderSaves);
-  CreateDirUTF8(System.BaseFolder + rsAutoFolderTools);
+  CreateDirUTF8(System.BaseFolder + rsFSMAutoFolderBIOS);
+  CreateDirUTF8(System.BaseFolder + rsFSMAutoFolderTemp);
+  CreateDirUTF8(System.BaseFolder + rsFSMAutoFolderSaves);
+  CreateDirUTF8(System.BaseFolder + rsFSMAutoFolderTools);
 
   // Además configuramos el texto del sistema
   System.InfoText := System.BaseFolder + CleanFileName(Self.System.ID) + '.txt';
@@ -1144,7 +1144,7 @@ procedure TfrmSystemManager.ClearFields;
 var
   i: integer;
 begin
-  pnlSystem.Caption := rsSelectSystem;
+  pnlSystem.Caption := rsFSMSelectSystem;
 
   eCompany.Text := '';
   eModel.Text := '';

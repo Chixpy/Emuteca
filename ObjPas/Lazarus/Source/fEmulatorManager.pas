@@ -31,10 +31,14 @@ uses
   StdCtrls, EditBtn, Spin,
   uEmulator, uEmulatorManager, uConfig, uCustomUtils;
 
+const
+  kFEMEmulatorsFileExt = '.ini';
+
 resourcestring
 rsSelectEmulator = 'Select an emulator.';
       rsEmulatorName = 'Emulator name';
-      rsEmulatorIniFilter = 'Emulators Ini File (*.ini)';
+      rsEmulatorIniFilter = 'Emulators Ini File';
+
 
 
 
@@ -218,8 +222,8 @@ procedure TfrmEmulatorManager.actExportEmulatorsExecute(Sender: TObject);
 begin
   if EmulatorManager = nil then Exit;
 
-  SaveDialog.Filter := rsEmulatorIniFilter + '|*.ini';
-  SaveDialog.DefaultExt := 'ini';
+  SaveDialog.Filter := rsEmulatorIniFilter + '(*' + kFEMEmulatorsFileExt + ')|*' + kFEMEmulatorsFileExt;
+  SaveDialog.DefaultExt := kFEMEmulatorsFileExt;
   if not SaveDialog.Execute then Exit;
   EmulatorManager.ExportEmulatorsFile(SaveDialog.FileName, True);
 end;
@@ -228,8 +232,8 @@ procedure TfrmEmulatorManager.actImportEmulatorsExecute(Sender: TObject);
 begin
   if EmulatorManager = nil then Exit;
 
-  OpenDialog.Filter := rsEmulatorIniFilter + '|*.ini';
-  OpenDialog.DefaultExt := 'ini';
+  OpenDialog.Filter := rsEmulatorIniFilter + '(*' + kFEMEmulatorsFileExt + ')|*' + kFEMEmulatorsFileExt;
+  OpenDialog.DefaultExt := kFEMEmulatorsFileExt;
   if not OpenDialog.Execute then Exit;
   EmulatorManager.ImportEmulatorsFile(OpenDialog.FileName);
   LoadEmulatorList;

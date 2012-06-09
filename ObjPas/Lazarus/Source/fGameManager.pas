@@ -30,7 +30,6 @@ uses
   Dialogs, ExtCtrls, ComCtrls, Menus, ActnList, StdCtrls, Buttons, Clipbrd,
   contnrs, VirtualTrees, VTHeaderPopup, lclintf, LCLType, LazHelpHTML,
   IniPropStorage, IDEWindowIntf, dateutils, strutils, LazUTF8,
-  uCustomDefaultTraslator,
   uGameManager, uConfig, uCustomUtils, uImageList, uSystemManager,
   uGame, uGameGroup, uGameStats, u7zWrapper, uVersionSupport, fSystemManager,
   fEmulatorManager, fImageViewer, fScriptManager, fMediaManager, fProgress,

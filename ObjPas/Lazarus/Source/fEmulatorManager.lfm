@@ -9,7 +9,7 @@
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   Position = poMainFormCenter
-  LCLVersion = '0.9.31'
+  LCLVersion = '1.1'
   object pnlEmulator: TPanel
     Left = 0
     Height = 40
