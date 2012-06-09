@@ -30,6 +30,7 @@ uses
   Dialogs, ExtCtrls, ComCtrls, Menus, ActnList, StdCtrls, Buttons, Clipbrd,
   contnrs, VirtualTrees, VTHeaderPopup, lclintf, LCLType, LazHelpHTML,
   IniPropStorage, IDEWindowIntf, dateutils, strutils, LazUTF8,
+  uCustomDefaultTraslator,
   uGameManager, uConfig, uCustomUtils, uImageList, uSystemManager,
   uGame, uGameGroup, uGameStats, u7zWrapper, uVersionSupport, fSystemManager,
   fEmulatorManager, fImageViewer, fScriptManager, fMediaManager, fProgress,
@@ -38,6 +39,46 @@ uses
 const
   CDBExt = '.edb';
   CDBFilter = ' (*' + CDBExt + ')|*' + CDBExt;
+
+resourcestring
+  rsAddingFile = 'Adding file:';
+    rsUpdatingList ='Updating List:';
+    rsLoadingGameList =
+      'Loading games:';
+    rsSavingGameList = 'Saving games:';
+    rsEmutecaGameDatabase = 'Emuteca game database';
+    rsDecompressing = 'Decompressing:';
+    rsImportingData = 'Importing data:';
+    rsExportingData = 'Exporting data:';
+
+    rsKey= 'Key';
+    rsZones = 'Zone';
+    rsDeveloper = 'Developer';
+    rsPublisher = 'Publisher';
+
+    rsVersion =  'Version';
+    rsFilename =  'Filename';
+
+    rsNGroups= '%0:d groups';
+    rsNGames = '%0:d games';
+    rsNTimes = '%0:d times';
+
+    rsNever =  'Never';
+    rsUnknown =  '!Unknown';
+
+    rsAssignToGroup =
+      'Do you want to assign it to the game''s group?';
+    rsChooseImageFileFormat = 'Do you want to save it in a lossless format:' + slinebreak +
+      'YES -> .png (lossless for screenshots)' + slinebreak +
+      'NO -> .jpg (better for photographs)';
+    rsConfirmOverwriteFile = '%0:s' + slinebreak +
+      'The file already exists.' + slinebreak +      'Do you want overwrite it?';
+
+    rsErrorGameNotFound = 'Game not found:' + slinebreak +  '%0:s%1:s';
+    rsErrorEmulator = 'Emulator exited with error code: %0:d';
+    rsPurgeMessage = 'Warning:' + slinebreak +
+      'This action will erase all the game and group list.'  + slinebreak +
+      'Do you want to continue?';
 
 type
   TlvGroupMode = (
@@ -386,31 +427,6 @@ type
     FGroupIcons: cImageList;
     FGroupList: TFPObjectList;
     FGroupMode: TlvGroupMode;
-    FrsAddingFile: string;
-    FrsAssignToGroup: string;
-    FrsChooseImageFileFormat: string;
-    FrsConfirmOverwriteFile: string;
-    FrsDecompressing: string;
-    FrsDeveloper: string;
-    FrsEmutecaGameDatabase: string;
-    FrsErrorEmulator: string;
-    FrsExportingData: string;
-    FrsFilename: string;
-    FrsErrorGameNotFound: string;
-    FrsImportingData: string;
-    FrsKey: string;
-    FrsLoadingGameList: string;
-    FrsNever: string;
-    FrsNGames: string;
-    FrsNGroups: string;
-    FrsNTimes: string;
-    FrsPublisher: string;
-    FrsPurgeMessage: string;
-    FrsSavingGameList: string;
-    FrsZones: string;
-    FrsUnknown: string;
-    FrsUpdatingList: string;
-    FrsVersion: string;
     FSystemIcons: cImageList;
     FTempFolder: string;
     FVerInfoIcons: cImageList;
@@ -426,101 +442,10 @@ type
     procedure SetGroupIcons(const AValue: cImageList);
     procedure SetGroupList(const AValue: TFPObjectList);
     procedure SetGroupMode(const AValue: TlvGroupMode);
-    procedure SetrsAddingFile(const AValue: string);
-    procedure SetrsAssignToGroup(const AValue: string);
-    procedure SetrsChooseImageFileFormat(const AValue: string);
-    procedure SetrsConfirmOverwriteFile(AValue: string);
-    procedure SetrsDecompressing(const AValue: string);
-    procedure SetrsDeveloper(const AValue: string);
-    procedure SetrsEmutecaGameDatabase(AValue: string);
-    procedure SetrsErrorEmulator(AValue: string);
-    procedure SetrsExportingData(const AValue: string);
-    procedure SetrsFilename(const AValue: string);
-    procedure SetrsErrorGameNotFound(const AValue: string);
-    procedure SetrsImportingData(const AValue: string);
-    procedure SetrsKey(const AValue: string);
-    procedure SetrsLoadingGameList(const AValue: string);
-    procedure SetrsNever(const AValue: string);
-    procedure SetrsNGames(const AValue: string);
-    procedure SetrsNGroups(const AValue: string);
-    procedure SetrsNTimes(const AValue: string);
-    procedure SetrsPublisher(const AValue: string);
-    procedure SetrsPurgeMessage(AValue: string);
-    procedure SetrsSavingGameList(const AValue: string);
-    procedure SetrsZones(const AValue: string);
-    procedure SetrsUnknown(const AValue: string);
-    procedure SetrsUpdatingList(const AValue: string);
-    procedure SetrsVersion(const AValue: string);
     procedure SetSystemIcons(const AValue: cImageList);
     procedure SetTempFolder(const AValue: string);
 
   protected
-    // Strings for translation
-    // -----------------------
-
-    property rsAddingFile: string read FrsAddingFile write SetrsAddingFile;
-    //< Localizable string: 'Adding file:'.
-    property rsUpdatingList: string read FrsUpdatingList write SetrsUpdatingList;
-    //< Localizable string: 'Updating list:'.
-    property rsLoadingGameList: string read FrsLoadingGameList
-      write SetrsLoadingGameList;
-    //< Localizable string: 'Loading game list:'.
-    property rsSavingGameList: string read FrsSavingGameList write SetrsSavingGameList;
-    //< Localizable string: 'Saving game list:'.
-    property rsDecompressing: string read FrsDecompressing write SetrsDecompressing;
-    //< Localizable string: 'Decompressing:'.
-    property rsEmutecaGameDatabase: string
-      read FrsEmutecaGameDatabase write SetrsEmutecaGameDatabase;
-    property rsImportingData: string read FrsImportingData write SetrsImportingData;
-    //< Localizable string: 'Importing data:'.
-    property rsExportingData: string read FrsExportingData write SetrsExportingData;
-    //< Localizable string: 'Exporting data:'.
-    property rsKey: string read FrsKey write SetrsKey;
-    //< Localizable string: 'Key'.
-    property rsZones: string read FrsZones write SetrsZones;
-    //< Localizable string: 'Sort name'.
-    property rsDeveloper: string read FrsDeveloper write SetrsDeveloper;
-    //< Localizable string: 'Developer'.
-    property rsPublisher: string read FrsPublisher write SetrsPublisher;
-    //< Localizable string: 'Publisher'.
-    property rsVersion: string read FrsVersion write SetrsVersion;
-    //< Localizable string: 'Version'.
-    property rsFilename: string read FrsFilename write SetrsFilename;
-    //< Localizable string: 'Filename'.
-    property rsNGroups: string read FrsNGroups write SetrsNGroups;
-    //< Localizable string: '%d groups'.
-    property rsNGames: string read FrsNGames write SetrsNGames;
-    //< Localizable string: '%d games'.
-    property rsNTimes: string read FrsNTimes write SetrsNTimes;
-    //< Localizable string: '%d times'.
-    property rsNever: string read FrsNever write SetrsNever;
-    //< Localizable string: 'Never'.
-    property rsUnknown: string read FrsUnknown write SetrsUnknown;
-    //< Localizable string: '!Unknown'.
-    property rsAssignToGroup: string read FrsAssignToGroup write SetrsAssignToGroup;
-    //< 'Do you want to assign it to the game''s group?'.
-    property rsChooseImageFileFormat: string
-      read FrsChooseImageFileFormat write SetrsChooseImageFileFormat;
-    {< Localizable string for chosing image format.
-      'Do you want to save it in a lossless format:
-        YES -> .png (lossless for screenshots)
-        NO -> .jpg (better for photographs)'
-    }
-    property rsConfirmOverwriteFile: string
-      read FrsConfirmOverwriteFile write SetrsConfirmOverwriteFile;
-    {< Localizable string to confirm overwrite a file.
-      ' %s
-      The file already exists.
-      Do you want overwrite it?'
-    }
-    property rsErrorGameNotFound: string read FrsErrorGameNotFound
-      write SetrsErrorGameNotFound;
-    //< Localizable string: 'Game not found: %s / %s'.
-    property rsErrorEmulator: string read FrsErrorEmulator write SetrsErrorEmulator;
-    //< Localizable string: 'Emulator exited with errorcode: %d'.
-    property rsPurgeMessage: string read FrsPurgeMessage write SetrsPurgeMessage;
-    //< Purge data warning.
-
     property GroupMode: TlvGroupMode read FGroupMode write SetGroupMode;
     //< Listing mode used in vstGames.
 
@@ -746,12 +671,6 @@ implementation
 
 procedure TfrmGameManager.FormCreate(Sender: TObject);
 
-  procedure Translate;
-
-  begin
-    ;
-  end;
-
   procedure DefaultConfig;
   var
     ImgExt: string;
@@ -782,11 +701,6 @@ procedure TfrmGameManager.FormCreate(Sender: TObject);
 
     with Config do
     begin
-      // i18n
-      LanguageFolder := 'i18n';
-      LanguageFile := 'en.lng';
-      HelpFolder := 'http://code.google.com/p/emuteca/wiki/';
-
       // Images
       ImagesFolder := SetAsFolder('Images');
 
@@ -804,6 +718,7 @@ procedure TfrmGameManager.FormCreate(Sender: TObject);
       IconsIniFile := 'Icons.ini';
 
       // Config/Data
+      HelpFolder:= 'http://code.google.com/p/emuteca/wiki/';
       SearchFile := 'Search.ini';
       DataFolder := SetAsFolder('Data');
       EmulatorsIniFile := 'Emulators.ini';
@@ -1038,7 +953,6 @@ begin
   w7zPathTo7zexe := Config.ToolsFolder + Config.z7Subfolder + Config.z7CMExecutable;
   w7zFileExts := Config.CompressedExtensions.CommaText;
 
-  Translate;
   Self.Caption := Application.Title + ' ' + GetFileVersion + ': ' + Self.Caption;
 
   HTMLHelpDatabase.BaseURL := Config.HelpFolder;
@@ -1590,131 +1504,6 @@ end;
 procedure TfrmGameManager.SetGroupMode(const AValue: TlvGroupMode);
 begin
   FGroupMode := AValue;
-end;
-
-procedure TfrmGameManager.SetrsAddingFile(const AValue: string);
-begin
-  FrsAddingFile := AValue;
-end;
-
-procedure TfrmGameManager.SetrsAssignToGroup(const AValue: string);
-begin
-  FrsAssignToGroup := AValue;
-end;
-
-procedure TfrmGameManager.SetrsChooseImageFileFormat(const AValue: string);
-begin
-  FrsChooseImageFileFormat := AValue;
-end;
-
-procedure TfrmGameManager.SetrsConfirmOverwriteFile(AValue: string);
-begin
-  FrsConfirmOverwriteFile := AValue;
-end;
-
-procedure TfrmGameManager.SetrsDecompressing(const AValue: string);
-begin
-  FrsDecompressing := AValue;
-end;
-
-procedure TfrmGameManager.SetrsDeveloper(const AValue: string);
-begin
-  FrsDeveloper := AValue;
-end;
-
-procedure TfrmGameManager.SetrsEmutecaGameDatabase(AValue: string);
-begin
-  FrsEmutecaGameDatabase := AValue;
-end;
-
-procedure TfrmGameManager.SetrsErrorEmulator(AValue: string);
-begin
-  FrsErrorEmulator := AValue;
-end;
-
-procedure TfrmGameManager.SetrsExportingData(const AValue: string);
-begin
-  FrsExportingData := AValue;
-end;
-
-procedure TfrmGameManager.SetrsFilename(const AValue: string);
-begin
-  FrsFilename := AValue;
-end;
-
-procedure TfrmGameManager.SetrsErrorGameNotFound(const AValue: string);
-begin
-  FrsErrorGameNotFound := AValue;
-end;
-
-procedure TfrmGameManager.SetrsImportingData(const AValue: string);
-begin
-  FrsImportingData := AValue;
-end;
-
-procedure TfrmGameManager.SetrsKey(const AValue: string);
-begin
-  FrsKey := AValue;
-end;
-
-procedure TfrmGameManager.SetrsLoadingGameList(const AValue: string);
-begin
-  FrsLoadingGameList := AValue;
-end;
-
-procedure TfrmGameManager.SetrsNever(const AValue: string);
-begin
-  FrsNever := AValue;
-end;
-
-procedure TfrmGameManager.SetrsNGames(const AValue: string);
-begin
-  FrsNGames := AValue;
-end;
-
-procedure TfrmGameManager.SetrsNGroups(const AValue: string);
-begin
-  FrsNGroups := AValue;
-end;
-
-procedure TfrmGameManager.SetrsNTimes(const AValue: string);
-begin
-  FrsNTimes := AValue;
-end;
-
-procedure TfrmGameManager.SetrsPublisher(const AValue: string);
-begin
-  FrsPublisher := AValue;
-end;
-
-procedure TfrmGameManager.SetrsPurgeMessage(AValue: string);
-begin
-  FrsPurgeMessage := AValue;
-end;
-
-procedure TfrmGameManager.SetrsSavingGameList(const AValue: string);
-begin
-  FrsSavingGameList := AValue;
-end;
-
-procedure TfrmGameManager.SetrsZones(const AValue: string);
-begin
-  FrsZones := AValue;
-end;
-
-procedure TfrmGameManager.SetrsUnknown(const AValue: string);
-begin
-  FrsUnknown := AValue;
-end;
-
-procedure TfrmGameManager.SetrsUpdatingList(const AValue: string);
-begin
-  FrsUpdatingList := AValue;
-end;
-
-procedure TfrmGameManager.SetrsVersion(const AValue: string);
-begin
-  FrsVersion := AValue;
 end;
 
 procedure TfrmGameManager.SetSystemIcons(const AValue: cImageList);

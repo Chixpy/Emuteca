@@ -19,13 +19,13 @@
     </General>
     <i18n>
       <EnableI18N Value="True"/>
-      <OutDir Value="i18n"/>
+      <OutDir Value="../../!bin/locale"/>
     </i18n>
     <VersionInfo>
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="7"/>
-      <BuildNr Value="53"/>
+      <BuildNr Value="54"/>
       <Language Value=""/>
       <StringTable FileDescription="Emuteca Emulator Front-End" LegalCopyright="(C) 2006-2012 Chixpy" OriginalFilename="LazEmuteca.exe" ProductVersion="0.7"/>
     </VersionInfo>
@@ -104,7 +104,7 @@
         <PackageName Value="LCL"/>
       </Item6>
     </RequiredPackages>
-    <Units Count="32">
+    <Units Count="33">
       <Unit0>
         <Filename Value="LazEmuteca.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -292,6 +292,11 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="fConfigManager"/>
       </Unit31>
+      <Unit32>
+        <Filename Value="Source/uCustomDefaultTraslator.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uCustomDefaultTraslator"/>
+      </Unit32>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -312,7 +317,6 @@
         <OverflowChecks Value="True"/>
         <StackChecks Value="True"/>
       </Checks>
-      <VerifyObjMethodCallValidity Value="True"/>
     </CodeGeneration>
     <Linking>
       <Debugging>

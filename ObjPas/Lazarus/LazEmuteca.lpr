@@ -33,7 +33,7 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   fMediaManager, fImageViewer, fScriptManager, fProgress, fAbout, fSMAskFile,
   uGameStats, u7zWrapper, uVersionSupport, uPSI_u7zWrapper, uPSI_uSystem,
   uPSI_uEmulator, uPSI_uGameStats,
-  fSMAskFolder, fConfigManager;
+  fSMAskFolder, fConfigManager, uCustomDefaultTraslator;
 
 {$R LazEmuteca.res}
 

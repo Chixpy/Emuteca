@@ -1,0 +1,1654 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: fabout.rsfabcopyright
+msgid "Copyright"
+msgstr ""
+
+#: fabout.rsfabunderlicense
+msgid "Under license %0:s"
+msgstr ""
+
+#: femulatormanager.rsemulatorinifilter
+msgid "Emulators Ini File (*.ini)"
+msgstr ""
+
+#: femulatormanager.rsemulatorname
+msgid "Emulator name"
+msgstr ""
+
+#: femulatormanager.rsselectemulator
+msgid "Select an emulator."
+msgstr ""
+
+#: fgamemanager.rsaddingfile
+msgid "Adding file:"
+msgstr ""
+
+#: fgamemanager.rsassigntogroup
+msgid "Do you want to assign it to the game's group?"
+msgstr ""
+
+#: fgamemanager.rschooseimagefileformat
+msgid ""
+"Do you want to save it in a lossless format:\n"
+"YES -> .png (lossless for screenshots)\n"
+"NO -> .jpg (better for photographs)\n"
+msgstr ""
+
+#: fgamemanager.rsconfirmoverwritefile
+msgid ""
+"%0:s\n"
+"The file already exists.\n"
+"Do you want overwrite it?\n"
+msgstr ""
+
+#: fgamemanager.rsdecompressing
+msgid "Decompressing:"
+msgstr ""
+
+#: fgamemanager.rsdeveloper
+msgid "Developer"
+msgstr ""
+
+#: fgamemanager.rsemutecagamedatabase
+msgid "Emuteca game database"
+msgstr ""
+
+#: fgamemanager.rserroremulator
+msgid "Emulator exited with error code: %0:d"
+msgstr ""
+
+#: fgamemanager.rserrorgamenotfound
+msgid ""
+"Game not found:\n"
+"%0:s%1:s\n"
+msgstr ""
+
+#: fgamemanager.rsexportingdata
+msgid "Exporting data:"
+msgstr ""
+
+#: fgamemanager.rsfilename
+msgid "Filename"
+msgstr ""
+
+#: fgamemanager.rsimportingdata
+msgid "Importing data:"
+msgstr ""
+
+#: fgamemanager.rskey
+msgid "Key"
+msgstr ""
+
+#: fgamemanager.rsloadinggamelist
+msgid "Loading games:"
+msgstr ""
+
+#: fgamemanager.rsnever
+msgid "Never"
+msgstr ""
+
+#: fgamemanager.rsngames
+msgid "%0:d juegos"
+msgstr ""
+
+#: fgamemanager.rsngroups
+msgid "%0:d grupos"
+msgstr ""
+
+#: fgamemanager.rsntimes
+msgid "%0:d veces"
+msgstr ""
+
+#: fgamemanager.rspublisher
+msgctxt "fgamemanager.rspublisher"
+msgid "Publisher"
+msgstr ""
+
+#: fgamemanager.rspurgemessage
+msgid ""
+"Warning:\n"
+"This action will erase all the game and group list.\n"
+"Do you want to continue?\n"
+msgstr ""
+
+#: fgamemanager.rssavinggamelist
+msgid "Saving games:"
+msgstr ""
+
+#: fgamemanager.rsunknown
+msgid "!Unknown"
+msgstr ""
+
+#: fgamemanager.rsupdatinglist
+msgid "Updating List:"
+msgstr ""
+
+#: fgamemanager.rsversion
+msgctxt "fgamemanager.rsversion"
+msgid "Version"
+msgstr ""
+
+#: fgamemanager.rszones
+msgid "Zone"
+msgstr ""
+
+#: fmediamanager.rsfmmaddingfiles
+msgid "Adding files to the list..."
+msgstr ""
+
+#: fmediamanager.rsfmmcopyingfilelist
+msgid "Copying file list..."
+msgstr ""
+
+#: fmediamanager.rsfmmdeleteall
+msgid "Do you want to delete all current listed files?\\n\\nFolder: %0:s\\nNumber of files: %1:d"
+msgstr ""
+
+#: fmediamanager.rsfmmdeletefile
+msgid "Do you want to delete the file?\\n\\n%0:s"
+msgstr ""
+
+#: fmediamanager.rsfmmdeletefileerror
+msgid "Error deleting the file:\\n\\n%0:s"
+msgstr ""
+
+#: fmediamanager.rsfmmdemomusic
+msgid "Demo music"
+msgstr ""
+
+#: fmediamanager.rsfmmdemovideo
+msgid ""
+"#176#197n+#0#0#0#0\n"
+"#0\n"
+msgstr ""
+
+#: fmediamanager.rsfmmicons
+msgid "Icons"
+msgstr ""
+
+#: fmediamanager.rsfmmmarquees
+msgid "Spines / Marquees"
+msgstr ""
+
+#: fmediamanager.rsfmmsearchfileswogame
+msgid "Searching files without game..."
+msgstr ""
+
+#: fmediamanager.rsfmmsearchfileswogroup
+msgid "Searching files without group..."
+msgstr ""
+
+#: fmediamanager.rsfmmsource
+msgid "Source: %0:s"
+msgstr ""
+
+#: fmediamanager.rsfmmtarget
+msgid "Target: %0:s"
+msgstr ""
+
+#: fmediamanager.rsfmmtargetexists
+msgid "Target file already exists.\\n\\nDo you want to overwrite?"
+msgstr ""
+
+#: fmediamanager.rsnfiles
+msgid "%0:d files found."
+msgstr ""
+
+#: fscriptmanager.rscompilationerror
+msgid "Compilation: Error."
+msgstr ""
+
+#: fscriptmanager.rscompilationok
+msgid "Compilation: OK."
+msgstr ""
+
+#: fscriptmanager.rsexecutionerror
+msgid "Execution: Error."
+msgstr ""
+
+#: fscriptmanager.rsexecutionok
+msgid "Execution: OK."
+msgstr ""
+
+#: fscriptmanager.rsscriptfilesaved
+msgid "Script file saved: %s"
+msgstr ""
+
+#: fsystemmanager.rsautoconfigsystem
+msgid ""
+"This action will create many subfolders in:\n"
+"%0:s\n"
+"Are you sure?\n"
+msgstr ""
+
+#: fsystemmanager.rsautofolderbios
+msgid "BIOS/"
+msgstr ""
+
+#: fsystemmanager.rsautofoldergames
+msgid "Games/"
+msgstr ""
+
+#: fsystemmanager.rsautofoldericons
+msgid "Icon/"
+msgstr ""
+
+#: fsystemmanager.rsautofolderimg
+msgid "Images/"
+msgstr ""
+
+#: fsystemmanager.rsautofolderimgback
+msgid "Back/"
+msgstr ""
+
+#: fsystemmanager.rsautofolderimgfront
+msgid "Front/"
+msgstr ""
+
+#: fsystemmanager.rsautofolderimgingame
+msgctxt "fsystemmanager.rsautofolderimgingame"
+msgid "In game/"
+msgstr ""
+
+#: fsystemmanager.rsautofolderimgmarquee
+msgid "Spine/"
+msgstr ""
+
+#: fsystemmanager.rsautofolderimgmedia
+msgid "Media/"
+msgstr ""
+
+#: fsystemmanager.rsautofolderimgtitle
+msgid "Title/"
+msgstr ""
+
+#: fsystemmanager.rsautofoldermusic
+msgid "Music/"
+msgstr ""
+
+#: fsystemmanager.rsautofoldermusicdemo
+msgctxt "fsystemmanager.rsautofoldermusicdemo"
+msgid "Demo/"
+msgstr ""
+
+#: fsystemmanager.rsautofoldermusicmix
+msgid "Mix/"
+msgstr ""
+
+#: fsystemmanager.rsautofoldermusicost
+msgid "OST/"
+msgstr ""
+
+#: fsystemmanager.rsautofoldersaves
+msgid "Saves/"
+msgstr ""
+
+#: fsystemmanager.rsautofoldertemp
+msgid "Temp/"
+msgstr ""
+
+#: fsystemmanager.rsautofoldertools
+msgid "Tools/"
+msgstr ""
+
+#: fsystemmanager.rsautofoldertxt
+msgid "Texts/"
+msgstr ""
+
+#: fsystemmanager.rsautofoldertxtcheat
+msgid "Cheats/"
+msgstr ""
+
+#: fsystemmanager.rsautofoldertxtcredit
+msgid "Credits/"
+msgstr ""
+
+#: fsystemmanager.rsautofoldertxtinfo
+msgid "Information/"
+msgstr ""
+
+#: fsystemmanager.rsautofoldertxtmanual
+msgid "Instructions/"
+msgstr ""
+
+#: fsystemmanager.rsautofoldertxtnotes
+msgid "Notes/"
+msgstr ""
+
+#: fsystemmanager.rsautofoldervideo
+msgid "Videos/"
+msgstr ""
+
+#: fsystemmanager.rsautofoldervideodemo
+msgctxt "fsystemmanager.rsautofoldervideodemo"
+msgid "Demo/"
+msgstr ""
+
+#: fsystemmanager.rsautofoldervideoingame
+msgctxt "fsystemmanager.rsautofoldervideoingame"
+msgid "In game/"
+msgstr ""
+
+#: fsystemmanager.rsautofoldervideotas
+msgid "Inputs/"
+msgstr ""
+
+#: fsystemmanager.rsselectsystem
+msgid "Select a system."
+msgstr ""
+
+#: fsystemmanager.rssystemname
+msgid "System name"
+msgstr ""
+
+#: tfrmconfigmanager.bmakepathsrelative.caption
+msgid "Make paths relative"
+msgstr ""
+
+#: tfrmconfigmanager.caption
+msgid "Config Manager"
+msgstr ""
+
+#: tfrmconfigmanager.gbxcompext.caption
+msgid "Compressed Ext."
+msgstr ""
+
+#: tfrmconfigmanager.gbximageext.caption
+msgid "Image Ext."
+msgstr ""
+
+#: tfrmconfigmanager.gbxtextext.caption
+msgid "Text Ext."
+msgstr ""
+
+#: tfrmconfigmanager.l7zgpath.caption
+msgid "7zG.exe path"
+msgstr ""
+
+#: tfrmconfigmanager.l7zpath.caption
+msgid "7z.exe path"
+msgstr ""
+
+#: tfrmconfigmanager.lconfigfile.caption
+msgid " "
+msgstr ""
+
+#: tfrmconfigmanager.lmplayerpath.caption
+msgid "mPlayer path"
+msgstr ""
+
+#: tfrmconfigmanager.pagextensions.caption
+msgctxt "tfrmconfigmanager.pagextensions.caption"
+msgid "Extensions"
+msgstr ""
+
+#: tfrmconfigmanager.pagpaths.caption
+msgid "Paths"
+msgstr ""
+
+#: tfrmgamemanager.actabout.caption
+msgid "About..."
+msgstr ""
+
+#: tfrmgamemanager.actabout.hint
+msgid "Show About dialog"
+msgstr ""
+
+#: tfrmgamemanager.actchangegamelistfont.caption
+msgid "Change game list font..."
+msgstr ""
+
+#: tfrmgamemanager.actchangegamelistfont.hint
+msgid "Change game list text font"
+msgstr ""
+
+#: tfrmgamemanager.actconfigmanager.caption
+msgid "Config Manager..."
+msgstr ""
+
+#: tfrmgamemanager.actconfigmanager.hint
+msgid "Open Config Manager window"
+msgstr ""
+
+#: tfrmgamemanager.actemulatorfolder.caption
+msgid "Open emulator folder..."
+msgstr ""
+
+#: tfrmgamemanager.actemulatorfolder.hint
+msgid "Open emulator folder"
+msgstr ""
+
+#: tfrmgamemanager.actemulatormanager.caption
+msgid "Emulator manager..."
+msgstr ""
+
+#: tfrmgamemanager.actemulatormanager.hint
+msgid "Show the emulator manager window"
+msgstr ""
+
+#: tfrmgamemanager.actemulatorwebpage.caption
+msgid "Open emulator webpage..."
+msgstr ""
+
+#: tfrmgamemanager.actemulatorwebpage.hint
+msgid "Open emulator web page in default browser"
+msgstr ""
+
+#: tfrmgamemanager.actexit.caption
+msgid "Exit"
+msgstr ""
+
+#: tfrmgamemanager.actexit.hint
+msgid "Close the program :,-(|Close the program (>_<)"
+msgstr ""
+
+#: tfrmgamemanager.actexportsystemdata.caption
+msgid "Export system data..."
+msgstr ""
+
+#: tfrmgamemanager.actexportsystemdata.hint
+msgid "Export system game data"
+msgstr ""
+
+#: tfrmgamemanager.actgroupbydeveloper.caption
+msgid "Group by developer"
+msgstr ""
+
+#: tfrmgamemanager.actgroupbydeveloper.hint
+msgid "Group games by game developer"
+msgstr ""
+
+#: tfrmgamemanager.actgroupbyfamily.caption
+msgid "Group by family"
+msgstr ""
+
+#: tfrmgamemanager.actgroupbyfamily.hint
+msgid "Group games by family name"
+msgstr ""
+
+#: tfrmgamemanager.actgroupbyfolder.caption
+msgid "Group by folder"
+msgstr ""
+
+#: tfrmgamemanager.actgroupbyfolder.hint
+msgid "Group games by file folder"
+msgstr ""
+
+#: tfrmgamemanager.actgroupbyname.caption
+msgid "Group by name"
+msgstr ""
+
+#: tfrmgamemanager.actgroupbyname.hint
+msgid "Group games by game (version) name"
+msgstr ""
+
+#: tfrmgamemanager.actgroupbypublisher.caption
+msgid "Group by publisher"
+msgstr ""
+
+#: tfrmgamemanager.actgroupbypublisher.hint
+msgid "Group games by game publisher"
+msgstr ""
+
+#: tfrmgamemanager.actgroupbytags.caption
+msgid "Group by tags"
+msgstr ""
+
+#: tfrmgamemanager.actgroupbytags.hint
+msgid "Group games by game tags"
+msgstr ""
+
+#: tfrmgamemanager.actgroupbyyear.caption
+msgid "Group by year"
+msgstr ""
+
+#: tfrmgamemanager.actgroupbyyear.hint
+msgid "Group games by publication year"
+msgstr ""
+
+#: tfrmgamemanager.actimportsystemdata.caption
+msgid "Import system data..."
+msgstr ""
+
+#: tfrmgamemanager.actimportsystemdata.hint
+msgid "Import system game data"
+msgstr ""
+
+#: tfrmgamemanager.actlockemutext.caption
+msgid "Lock emulator text"
+msgstr ""
+
+#: tfrmgamemanager.actlockemutext.hint
+msgid "(Un)Lock emulator text from editing"
+msgstr ""
+
+#: tfrmgamemanager.actlockgametext.caption
+msgid "Lock game text"
+msgstr ""
+
+#: tfrmgamemanager.actlockgametext.hint
+msgid "(Un)Lock game text from editing"
+msgstr ""
+
+#: tfrmgamemanager.actlocksystemtext.caption
+msgid "Lock system text"
+msgstr ""
+
+#: tfrmgamemanager.actlocksystemtext.hint
+msgid "(Un)Lock system text from editing"
+msgstr ""
+
+#: tfrmgamemanager.actmediamanager.caption
+msgid "Media Manager..."
+msgstr ""
+
+#: tfrmgamemanager.actmediamanager.hint
+msgid "Open Media Manager window"
+msgstr ""
+
+#: tfrmgamemanager.actnextgameimage.caption
+msgid "Next game image"
+msgstr ""
+
+#: tfrmgamemanager.actnextgameimage.hint
+msgid "Change to next image"
+msgstr ""
+
+#: tfrmgamemanager.actnextgametext.caption
+msgid "Next game text"
+msgstr ""
+
+#: tfrmgamemanager.actnextgametext.hint
+msgid "Change to next game text"
+msgstr ""
+
+#: tfrmgamemanager.actopensystemfolder.caption
+msgid "Open system folder..."
+msgstr ""
+
+#: tfrmgamemanager.actopensystemfolder.hint
+msgid "Open system base folder"
+msgstr ""
+
+#: tfrmgamemanager.actpastegameiconimage.caption
+msgid "Paste game icon"
+msgstr ""
+
+#: tfrmgamemanager.actpastegameiconimage.hint
+msgid "Paste game image from clipboard as icon image"
+msgstr ""
+
+#: tfrmgamemanager.actpastegameimage.caption
+msgid "Paste game image"
+msgstr ""
+
+#: tfrmgamemanager.actpastegameimage.hint
+msgid "Paste game image from clipboard"
+msgstr ""
+
+#: tfrmgamemanager.actpastegamespineimage.caption
+msgid "Paste game spine/marquee image"
+msgstr ""
+
+#: tfrmgamemanager.actpastegamespineimage.hint
+msgid "Paste game image from clipboard as spine/marquee image"
+msgstr ""
+
+#: tfrmgamemanager.actplaygame.caption
+msgid "Play game"
+msgstr ""
+
+#: tfrmgamemanager.actplaygame.hint
+msgid "Play the selected game"
+msgstr ""
+
+#: tfrmgamemanager.actpreviousgameimage.caption
+msgid "Previous game image"
+msgstr ""
+
+#: tfrmgamemanager.actpreviousgameimage.hint
+msgid "Change to previous image"
+msgstr ""
+
+#: tfrmgamemanager.actpreviousgametext.caption
+msgid "Previous game text"
+msgstr ""
+
+#: tfrmgamemanager.actpreviousgametext.hint
+msgid "Change to previous game text"
+msgstr ""
+
+#: tfrmgamemanager.actpurgesystemdata.caption
+msgid "Purge system data"
+msgstr ""
+
+#: tfrmgamemanager.actpurgesystemdata.hint
+msgid "Delete al system game data"
+msgstr ""
+
+#: tfrmgamemanager.actquickupdatelist.caption
+msgid "Quick update list"
+msgstr ""
+
+#: tfrmgamemanager.actrunemulator.caption
+msgid "Run emulator"
+msgstr ""
+
+#: tfrmgamemanager.actrunemulator.hint
+msgid "Run emulator without game"
+msgstr ""
+
+#: tfrmgamemanager.actsaveeditordata.caption
+msgid "Save changes"
+msgstr ""
+
+#: tfrmgamemanager.actsaveeditordata.hint
+msgid "Save game data changes"
+msgstr ""
+
+#: tfrmgamemanager.actsaveemutext.caption
+msgid "Save emulator text"
+msgstr ""
+
+#: tfrmgamemanager.actsaveemutext.hint
+msgid "Save emulator text to file"
+msgstr ""
+
+#: tfrmgamemanager.actsavegamelist.caption
+msgid "Save game list"
+msgstr ""
+
+#: tfrmgamemanager.actsavegamelist.hint
+msgid "Save system game list"
+msgstr ""
+
+#: tfrmgamemanager.actsavegametext.caption
+msgid "Save game text"
+msgstr ""
+
+#: tfrmgamemanager.actsavegametext.hint
+msgid "Save game text to file"
+msgstr ""
+
+#: tfrmgamemanager.actsaveproperties.caption
+msgid "Save properties"
+msgstr ""
+
+#: tfrmgamemanager.actsaveproperties.hint
+msgid "Save game property changes"
+msgstr ""
+
+#: tfrmgamemanager.actsavesystemtext.caption
+msgid "Save system text"
+msgstr ""
+
+#: tfrmgamemanager.actsavesystemtext.hint
+msgid "Save system text to file"
+msgstr ""
+
+#: tfrmgamemanager.actscriptmanager.caption
+msgid "Script Manager..."
+msgstr ""
+
+#: tfrmgamemanager.actscriptmanager.hint
+msgid "Open Script Manager window"
+msgstr ""
+
+#: tfrmgamemanager.actshowgrouptypemenu.caption
+msgid "Show list menu"
+msgstr ""
+
+#: tfrmgamemanager.actshowgrouptypemenu.hint
+msgid "Show group type menu"
+msgstr ""
+
+#: tfrmgamemanager.actshowhelp.caption
+msgid "Show Help..."
+msgstr ""
+
+#: tfrmgamemanager.actshowhelp.hint
+msgid "Show help"
+msgstr ""
+
+#: tfrmgamemanager.actshowmainmenu.caption
+msgid "Show main menu"
+msgstr ""
+
+#: tfrmgamemanager.actshowmainmenu.hint
+msgid "Shows the main menu"
+msgstr ""
+
+#: tfrmgamemanager.actsystemmanager.caption
+msgid "System Manager..."
+msgstr ""
+
+#: tfrmgamemanager.actsystemmanager.hint
+msgid "Open the system manager window"
+msgstr ""
+
+#: tfrmgamemanager.actupdategamelist.caption
+msgid "Update game list"
+msgstr ""
+
+#: tfrmgamemanager.actupdategamelist.hint
+msgid "Reload the games folder"
+msgstr ""
+
+#: tfrmgamemanager.actviewemulatorimage.caption
+msgid "View emulator image..."
+msgstr ""
+
+#: tfrmgamemanager.actviewemulatorimage.hint
+msgid "View emulator image in Image Viewer"
+msgstr ""
+
+#: tfrmgamemanager.actviewgameimage.caption
+msgid "View game image..."
+msgstr ""
+
+#: tfrmgamemanager.actviewgameimage.hint
+msgid "View game image in Image Viewer"
+msgstr ""
+
+#: tfrmgamemanager.actviewsystemimage.caption
+msgid "View system image..."
+msgstr ""
+
+#: tfrmgamemanager.actviewsystemimage.hint
+msgid "View system image in Image Viewer"
+msgstr ""
+
+#: tfrmgamemanager.bseptbgameimg1.caption
+msgctxt "TFRMGAMEMANAGER.BSEPTBGAMEIMG1.CAPTION"
+msgid "-"
+msgstr ""
+
+#: tfrmgamemanager.bseptbgameimg2.caption
+msgctxt "TFRMGAMEMANAGER.BSEPTBGAMEIMG2.CAPTION"
+msgid "-"
+msgstr ""
+
+#: tfrmgamemanager.bseptbgametext1.caption
+msgctxt "TFRMGAMEMANAGER.BSEPTBGAMETEXT1.CAPTION"
+msgid "-"
+msgstr ""
+
+#: tfrmgamemanager.bseptbmaintb3.caption
+msgctxt "tfrmgamemanager.bseptbmaintb3.caption"
+msgid "-"
+msgstr ""
+
+#: tfrmgamemanager.bseptbsystemtext1.caption
+msgctxt "TFRMGAMEMANAGER.BSEPTBSYSTEMTEXT1.CAPTION"
+msgid "-"
+msgstr ""
+
+#: tfrmgamemanager.caption
+msgid "Game Manager"
+msgstr ""
+
+#: tfrmgamemanager.cbsearch.text
+msgctxt "tfrmgamemanager.cbsearch.text"
+msgid "Name"
+msgstr ""
+
+#: tfrmgamemanager.chkverified.caption
+msgid "Verified"
+msgstr ""
+
+#: tfrmgamemanager.iemulatorimage.hint
+msgctxt "tfrmgamemanager.iemulatorimage.hint"
+msgid "Game or group image"
+msgstr ""
+
+#: tfrmgamemanager.igameimage.hint
+msgctxt "TFRMGAMEMANAGER.IGAMEIMAGE.HINT"
+msgid "Game or group image"
+msgstr ""
+
+#: tfrmgamemanager.isystemimage.hint
+msgid "Double click to view in Image Viewer.|System image."
+msgstr ""
+
+#: tfrmgamemanager.lalternate.caption
+msgid "Alternate"
+msgstr ""
+
+#: tfrmgamemanager.lbaddump.caption
+msgid "Bad dump"
+msgstr ""
+
+#: tfrmgamemanager.lcracked.caption
+msgid "Cracked"
+msgstr ""
+
+#: tfrmgamemanager.lfixed.caption
+msgid "Fixed"
+msgstr ""
+
+#: tfrmgamemanager.lgamegroup.caption
+msgid "Game group"
+msgstr ""
+
+#: tfrmgamemanager.lgametags.caption
+msgid "Game tags"
+msgstr ""
+
+#: tfrmgamemanager.lgrouptags.caption
+msgid "Group tags"
+msgstr ""
+
+#: tfrmgamemanager.lhack.caption
+msgid "Hack"
+msgstr ""
+
+#: tfrmgamemanager.llanguages.caption
+msgid "Languages"
+msgstr ""
+
+#: tfrmgamemanager.llicense.caption
+msgid "License"
+msgstr ""
+
+#: tfrmgamemanager.lmodified.caption
+msgid "Modified"
+msgstr ""
+
+#: tfrmgamemanager.lname.caption
+msgctxt "TFRMGAMEMANAGER.LNAME.CAPTION"
+msgid "Name"
+msgstr ""
+
+#: tfrmgamemanager.lpirate.caption
+msgid "Pirate"
+msgstr ""
+
+#: tfrmgamemanager.lpublisher.caption
+msgctxt "TFRMGAMEMANAGER.LPUBLISHER.CAPTION"
+msgid "Publisher"
+msgstr ""
+
+#: tfrmgamemanager.lsortkey.caption
+msgid "Sort Key"
+msgstr ""
+
+#: tfrmgamemanager.ltrainer.caption
+msgid "Trainer"
+msgstr ""
+
+#: tfrmgamemanager.ltranslation.caption
+msgid "Translation"
+msgstr ""
+
+#: tfrmgamemanager.lversion.caption
+msgctxt "TFRMGAMEMANAGER.LVERSION.CAPTION"
+msgid "Version"
+msgstr ""
+
+#: tfrmgamemanager.lyear.caption
+msgid "Year"
+msgstr ""
+
+#: tfrmgamemanager.lzones.caption
+msgid "Zones"
+msgstr ""
+
+#: tfrmgamemanager.miemulator.caption
+msgctxt "TFRMGAMEMANAGER.MIEMULATOR.CAPTION"
+msgid "Emulator"
+msgstr ""
+
+#: tfrmgamemanager.mifile.caption
+msgid "File"
+msgstr ""
+
+#: tfrmgamemanager.mifileseparator.caption
+msgctxt "TFRMGAMEMANAGER.MIFILESEPARATOR.CAPTION"
+msgid "-"
+msgstr ""
+
+#: tfrmgamemanager.migame.caption
+msgid "Game"
+msgstr ""
+
+#: tfrmgamemanager.migmsearchgameinternet.caption
+msgid "Search Game in Internet"
+msgstr ""
+
+#: tfrmgamemanager.migmsep1.caption
+msgctxt "TFRMGAMEMANAGER.MIGMSEP1.CAPTION"
+msgid "-"
+msgstr ""
+
+#: tfrmgamemanager.mihelp.caption
+msgid "Help"
+msgstr ""
+
+#: tfrmgamemanager.mipasteclipboardimage.caption
+msgid "Paste clipboard image..."
+msgstr ""
+
+#: tfrmgamemanager.misearchemulatorinternet.caption
+msgid "Search emulator in Internet"
+msgstr ""
+
+#: tfrmgamemanager.misearchgameinternet.caption
+msgid "Search game in Internet"
+msgstr ""
+
+#: tfrmgamemanager.misearchsysteminternet.caption
+msgid "Search system in Internet"
+msgstr ""
+
+#: tfrmgamemanager.misep1.caption
+msgctxt "TFRMGAMEMANAGER.MISEP1.CAPTION"
+msgid "-"
+msgstr ""
+
+#: tfrmgamemanager.misep2.caption
+msgctxt "TFRMGAMEMANAGER.MISEP2.CAPTION"
+msgid "-"
+msgstr ""
+
+#: tfrmgamemanager.misystem.caption
+msgctxt "TFRMGAMEMANAGER.MISYSTEM.CAPTION"
+msgid "System"
+msgstr ""
+
+#: tfrmgamemanager.mitools.caption
+msgid "Tools"
+msgstr ""
+
+#: tfrmgamemanager.miview.caption
+msgid "View"
+msgstr ""
+
+#: tfrmgamemanager.pageditor.caption
+msgid "Editor"
+msgstr ""
+
+#: tfrmgamemanager.pagemulator.caption
+msgctxt "tfrmgamemanager.pagemulator.caption"
+msgid "Emulator"
+msgstr ""
+
+#: tfrmgamemanager.paggamemedia.caption
+msgid "Game Media"
+msgstr ""
+
+#: tfrmgamemanager.pagotherfiles.caption
+msgid "Other Files"
+msgstr ""
+
+#: tfrmgamemanager.pagproperties.caption
+msgid "Properties"
+msgstr ""
+
+#: tfrmgamemanager.pagsystem.caption
+msgctxt "tfrmgamemanager.pagsystem.caption"
+msgid "System"
+msgstr ""
+
+#: tfrmgamemanager.tbemulatorimage.caption
+msgid "Emulator image toolbar"
+msgstr ""
+
+#: tfrmgamemanager.tbemulatortext.caption
+msgid "Emulator text toolbar"
+msgstr ""
+
+#: tfrmgamemanager.tbgameimage.caption
+msgid "Game image toolbar"
+msgstr ""
+
+#: tfrmgamemanager.tbmain.caption
+msgid "Main toolbar"
+msgstr ""
+
+#: tfrmgamemanager.tbsystemimage.caption
+msgid "System image toolbar"
+msgstr ""
+
+#: tfrmgamemanager.tbsystemtext.caption
+msgid "System text toolbar"
+msgstr ""
+
+#: tfrmgamemanager.tbtexts.caption
+msgid "Game text toolbar"
+msgstr ""
+
+#: tfrmmediamanager.actchangefilename.caption
+msgid "Assign file"
+msgstr ""
+
+#: tfrmmediamanager.actdeleteallfiles.caption
+msgid "Delete all"
+msgstr ""
+
+#: tfrmmediamanager.actdeletefile.caption
+msgid "Delete file"
+msgstr ""
+
+#: tfrmmediamanager.actmoveallfiles.caption
+msgid "Move all"
+msgstr ""
+
+#: tfrmmediamanager.actmovefile.caption
+msgid "Move file"
+msgstr ""
+
+#: tfrmmediamanager.actnextmedia.caption
+msgid "Next media file"
+msgstr ""
+
+#: tfrmmediamanager.actopenimages.caption
+msgid "Open images in viewer"
+msgstr ""
+
+#: tfrmmediamanager.actpreviousmedia.caption
+msgid "Previous media file"
+msgstr ""
+
+#: tfrmmediamanager.caption
+msgid "Media Manager"
+msgstr ""
+
+#: tfrmmediamanager.chkcopyfile.caption
+msgid "Don't delete source file"
+msgstr ""
+
+#: tfrmmediamanager.chkonlysimilar.caption
+msgid "Only similar file names"
+msgstr ""
+
+#: tfrmmediamanager.gbximages.caption
+msgid "Images"
+msgstr ""
+
+#: tfrmmediamanager.gbxmusic.caption
+msgctxt "tfrmmediamanager.gbxmusic.caption"
+msgid "Music"
+msgstr ""
+
+#: tfrmmediamanager.gbxotherfiles.caption
+msgctxt "TFRMMEDIAMANAGER.GBXOTHERFILES.CAPTION"
+msgid "Other files"
+msgstr ""
+
+#: tfrmmediamanager.gbxtexts.caption
+msgid "Texts"
+msgstr ""
+
+#: tfrmmediamanager.gbxvideos.caption
+msgctxt "tfrmmediamanager.gbxvideos.caption"
+msgid "Videos"
+msgstr ""
+
+#: tfrmmediamanager.lsource.caption
+msgid "Source: "
+msgstr ""
+
+#: tfrmmediamanager.ltarget.caption
+msgid "Target: "
+msgstr ""
+
+#: tfrmmediamanager.pagallfiles.caption
+msgid "All files"
+msgstr ""
+
+#: tfrmmediamanager.pagallgames.caption
+msgid "All games"
+msgstr ""
+
+#: tfrmmediamanager.pagallgroups.caption
+msgid "All groups"
+msgstr ""
+
+#: tfrmmediamanager.pagfilesotherfolder.caption
+msgid "Files in other folder"
+msgstr ""
+
+#: tfrmmediamanager.pagfileswogame.caption
+msgid "Files without game"
+msgstr ""
+
+#: tfrmmediamanager.pagfileswogroup.caption
+msgid "Files without group"
+msgstr ""
+
+#: tfrmmediamanager.paggroupswofile.caption
+msgid "Groups without file"
+msgstr ""
+
+#: tfrmmediamanager.pagotherfiles.caption
+msgctxt "tfrmmediamanager.pagotherfiles.caption"
+msgid "Other files"
+msgstr ""
+
+#: tfrmmediamanager.tbmedia.caption
+msgid "Media toolbar"
+msgstr ""
+
+#: tfrmsystemmanager.actaddimagefolder.caption
+msgid "Add image folder"
+msgstr ""
+
+#: tfrmsystemmanager.actaddmusicfolder.caption
+msgid "Add folder"
+msgstr ""
+
+#: tfrmsystemmanager.actaddsystem.caption
+msgid "Add system..."
+msgstr ""
+
+#: tfrmsystemmanager.actaddtextfolder.caption
+msgid "actAddTextFolder"
+msgstr ""
+
+#: tfrmsystemmanager.actaddvideofolder.caption
+msgid "actAddVideoFolder"
+msgstr ""
+
+#: tfrmsystemmanager.actautoconfig.caption
+msgid "Auto config"
+msgstr ""
+
+#: tfrmsystemmanager.actexportsystems.caption
+msgid "Export Systems"
+msgstr ""
+
+#: tfrmsystemmanager.actimportsystems.caption
+msgid "Import Systems"
+msgstr ""
+
+#: tfrmsystemmanager.actmakeabsolutepaths.caption
+msgid "Make all paths absolute"
+msgstr ""
+
+#: tfrmsystemmanager.actmakerelativepaths.caption
+msgid "Make all paths relative"
+msgstr ""
+
+#: tfrmsystemmanager.actremoveimagefolder.caption
+msgid "actRemoveImageFolder"
+msgstr ""
+
+#: tfrmsystemmanager.actremovemusicfolder.caption
+msgid "actRemoveMusicFolder"
+msgstr ""
+
+#: tfrmsystemmanager.actremovesystem.caption
+msgid "Remove system"
+msgstr ""
+
+#: tfrmsystemmanager.actremovetextfolder.caption
+msgid "actRemoveTextFolder"
+msgstr ""
+
+#: tfrmsystemmanager.actremovevideofolder.caption
+msgid "actRemoveVideoFolder"
+msgstr ""
+
+#: tfrmsystemmanager.bremoveotherfilesfolder.caption
+msgctxt "TFRMSYSTEMMANAGER.BREMOVEOTHERFILESFOLDER.CAPTION"
+msgid "Remove folder"
+msgstr ""
+
+#: tfrmsystemmanager.bremoveothermusicfolder.caption
+msgctxt "tfrmsystemmanager.bremoveothermusicfolder.caption"
+msgid "Remove folder"
+msgstr ""
+
+#: tfrmsystemmanager.bremoveothervideofolder.caption
+msgctxt "TFRMSYSTEMMANAGER.BREMOVEOTHERVIDEOFOLDER.CAPTION"
+msgid "Remove folder"
+msgstr ""
+
+#: tfrmsystemmanager.btncancel.caption
+msgid "Cancelar"
+msgstr ""
+
+#: tfrmsystemmanager.btnok.caption
+msgid "Aceptar"
+msgstr ""
+
+#: tfrmsystemmanager.caption
+msgid "System Manager"
+msgstr ""
+
+#: tfrmsystemmanager.chkextractall.caption
+msgid "Extract all files from compressed archives"
+msgstr ""
+
+#: tfrmsystemmanager.chkotherfilesmultifile.caption
+msgctxt "TFRMSYSTEMMANAGER.CHKOTHERFILESMULTIFILE.CAPTION"
+msgid "Search all files in a folder or zip with the game's filename"
+msgstr ""
+
+#: tfrmsystemmanager.chkothermusicmultifile.caption
+msgctxt "tfrmsystemmanager.chkothermusicmultifile.caption"
+msgid "Search all files in a folder or zip with the game's filename"
+msgstr ""
+
+#: tfrmsystemmanager.chkothervideomultifile.caption
+msgctxt "TFRMSYSTEMMANAGER.CHKOTHERVIDEOMULTIFILE.CAPTION"
+msgid "Search all files in a folder or zip with the game's filename"
+msgstr ""
+
+#: tfrmsystemmanager.chkusecrc.caption
+msgid "Use checksum of files for Export/Import data"
+msgstr ""
+
+#: tfrmsystemmanager.clbimagefolders.hint
+msgid "Checked folders will be in folder mode."
+msgstr ""
+
+#: tfrmsystemmanager.clbtextfolders.hint
+msgid "Checked folders are in folder mode"
+msgstr ""
+
+#: tfrmsystemmanager.ecompany.hint
+msgid "Company of the system"
+msgstr ""
+
+#: tfrmsystemmanager.eextensions.hint
+msgid "Game extensions used by the system"
+msgstr ""
+
+#: tfrmsystemmanager.emodel.hint
+msgid "Model of the system"
+msgstr ""
+
+#: tfrmsystemmanager.eotherfilesparameters.text
+msgid "\"%FILENAME%\""
+msgstr ""
+
+#: tfrmsystemmanager.gbbasefolder.caption
+msgid "Base folder"
+msgstr ""
+
+#: tfrmsystemmanager.gbdemomusicfolder.caption
+msgid "Demo music folder"
+msgstr ""
+
+#: tfrmsystemmanager.gbdemovideofolder.caption
+msgid "Demo video folder"
+msgstr ""
+
+#: tfrmsystemmanager.gbemulators.caption
+msgctxt "TFRMSYSTEMMANAGER.GBEMULATORS.CAPTION"
+msgid "Emulators"
+msgstr ""
+
+#: tfrmsystemmanager.gbgamefolder.caption
+msgid "Games folder"
+msgstr ""
+
+#: tfrmsystemmanager.gbimagefolders.caption
+msgctxt "tfrmsystemmanager.gbimagefolders.caption"
+msgid "Images folders"
+msgstr ""
+
+#: tfrmsystemmanager.gbotherfilesfolders.caption
+msgctxt "TFRMSYSTEMMANAGER.GBOTHERFILESFOLDERS.CAPTION"
+msgid "Other music folders"
+msgstr ""
+
+#: tfrmsystemmanager.gbothermusicfolders.caption
+msgctxt "tfrmsystemmanager.gbothermusicfolders.caption"
+msgid "Other music folders"
+msgstr ""
+
+#: tfrmsystemmanager.gbothervideofolders.caption
+msgid "Other video folders"
+msgstr ""
+
+#: tfrmsystemmanager.gbreserved.caption
+msgid "Reserved"
+msgstr ""
+
+#: tfrmsystemmanager.gbsystemconfig.caption
+msgid "System config"
+msgstr ""
+
+#: tfrmsystemmanager.gbsystemdata.caption
+msgid "System Data"
+msgstr ""
+
+#: tfrmsystemmanager.gbsystemimages.caption
+msgid "System images"
+msgstr ""
+
+#: tfrmsystemmanager.gbtempfolder.caption
+msgid "Temporal folder"
+msgstr ""
+
+#: tfrmsystemmanager.gbtextfolders.caption
+msgctxt "tfrmsystemmanager.gbtextfolders.caption"
+msgid "Texts folders"
+msgstr ""
+
+#: tfrmsystemmanager.lautoconfig.caption
+msgid "This will autocreate some folders and add them to the system configuration."
+msgstr ""
+
+#: tfrmsystemmanager.lbackgroundimage.caption
+msgid "Background Image"
+msgstr ""
+
+#: tfrmsystemmanager.lcompany.caption
+msgid "Company"
+msgstr ""
+
+#: tfrmsystemmanager.lextensions.caption
+msgid "Game extensions (Separator \",\")"
+msgstr ""
+
+#: tfrmsystemmanager.lfirstyear.caption
+msgid "First year"
+msgstr ""
+
+#: tfrmsystemmanager.liconfolder.caption
+msgid "Icons folder"
+msgstr ""
+
+#: tfrmsystemmanager.limagecaptions.caption
+msgid "Images captions"
+msgstr ""
+
+#: tfrmsystemmanager.limagefolders.caption
+msgctxt "TFRMSYSTEMMANAGER.LIMAGEFOLDERS.CAPTION"
+msgid "Images folders"
+msgstr ""
+
+#: tfrmsystemmanager.llastyear.caption
+msgid "Last year"
+msgstr ""
+
+#: tfrmsystemmanager.lmainemulator.caption
+msgid "Main emulator"
+msgstr ""
+
+#: tfrmsystemmanager.lmodel.caption
+msgid "Model"
+msgstr ""
+
+#: tfrmsystemmanager.lotheremulators.caption
+msgid "Other emulators"
+msgstr ""
+
+#: tfrmsystemmanager.lotherfilescaption.caption
+msgctxt "TFRMSYSTEMMANAGER.LOTHERFILESCAPTION.CAPTION"
+msgid "Folder caption"
+msgstr ""
+
+#: tfrmsystemmanager.lotherfilesexecutable.caption
+msgctxt "TFRMSYSTEMMANAGER.LOTHERFILESEXECUTABLE.CAPTION"
+msgid "Custom executable"
+msgstr ""
+
+#: tfrmsystemmanager.lotherfilesextensions.caption
+msgctxt "TFRMSYSTEMMANAGER.LOTHERFILESEXTENSIONS.CAPTION"
+msgid "Extensions"
+msgstr ""
+
+#: tfrmsystemmanager.lotherfilesfolder.caption
+msgctxt "TFRMSYSTEMMANAGER.LOTHERFILESFOLDER.CAPTION"
+msgid "Folder"
+msgstr ""
+
+#: tfrmsystemmanager.lotherfilesparameters.caption
+msgctxt "TFRMSYSTEMMANAGER.LOTHERFILESPARAMETERS.CAPTION"
+msgid "Parameters"
+msgstr ""
+
+#: tfrmsystemmanager.lothermusiccaption.caption
+msgctxt "tfrmsystemmanager.lothermusiccaption.caption"
+msgid "Folder caption"
+msgstr ""
+
+#: tfrmsystemmanager.lothermusicexecutable.caption
+msgctxt "tfrmsystemmanager.lothermusicexecutable.caption"
+msgid "Custom executable"
+msgstr ""
+
+#: tfrmsystemmanager.lothermusicextensions.caption
+msgctxt "TFRMSYSTEMMANAGER.LOTHERMUSICEXTENSIONS.CAPTION"
+msgid "Extensions"
+msgstr ""
+
+#: tfrmsystemmanager.lothermusicfolder.caption
+msgctxt "TFRMSYSTEMMANAGER.LOTHERMUSICFOLDER.CAPTION"
+msgid "Folder"
+msgstr ""
+
+#: tfrmsystemmanager.lothermusicparameters.caption
+msgctxt "tfrmsystemmanager.lothermusicparameters.caption"
+msgid "Parameters"
+msgstr ""
+
+#: tfrmsystemmanager.lothervideocaption.caption
+msgctxt "TFRMSYSTEMMANAGER.LOTHERVIDEOCAPTION.CAPTION"
+msgid "Folder caption"
+msgstr ""
+
+#: tfrmsystemmanager.lothervideoexecutable.caption
+msgctxt "TFRMSYSTEMMANAGER.LOTHERVIDEOEXECUTABLE.CAPTION"
+msgid "Custom executable"
+msgstr ""
+
+#: tfrmsystemmanager.lothervideoextensions.caption
+msgctxt "TFRMSYSTEMMANAGER.LOTHERVIDEOEXTENSIONS.CAPTION"
+msgid "Extensions"
+msgstr ""
+
+#: tfrmsystemmanager.lothervideofolder.caption
+msgctxt "TFRMSYSTEMMANAGER.LOTHERVIDEOFOLDER.CAPTION"
+msgid "Folder"
+msgstr ""
+
+#: tfrmsystemmanager.lothervideoparameters.caption
+msgctxt "TFRMSYSTEMMANAGER.LOTHERVIDEOPARAMETERS.CAPTION"
+msgid "Parameters"
+msgstr ""
+
+#: tfrmsystemmanager.lspinefolder.caption
+msgid "Spines / Marquees folder"
+msgstr ""
+
+#: tfrmsystemmanager.lsystemicon.caption
+msgid "System icon"
+msgstr ""
+
+#: tfrmsystemmanager.lsystemimage.caption
+msgid "System Image"
+msgstr ""
+
+#: tfrmsystemmanager.lsystemtextfile.caption
+msgid "System text file"
+msgstr ""
+
+#: tfrmsystemmanager.ltextcaptions.caption
+msgid "Text captions"
+msgstr ""
+
+#: tfrmsystemmanager.ltextfolders.caption
+msgctxt "TFRMSYSTEMMANAGER.LTEXTFOLDERS.CAPTION"
+msgid "Texts folders"
+msgstr ""
+
+#: tfrmsystemmanager.lvotherfilesfolders.columns[0].caption
+msgctxt "TFRMSYSTEMMANAGER.LVOTHERFILESFOLDERS.COLUMNS[0].CAPTION"
+msgid "Folder"
+msgstr ""
+
+#: tfrmsystemmanager.lvotherfilesfolders.columns[1].caption
+msgctxt "TFRMSYSTEMMANAGER.LVOTHERFILESFOLDERS.COLUMNS[1].CAPTION"
+msgid "*"
+msgstr ""
+
+#: tfrmsystemmanager.lvotherfilesfolders.columns[2].caption
+msgctxt "TFRMSYSTEMMANAGER.LVOTHERFILESFOLDERS.COLUMNS[2].CAPTION"
+msgid "Caption"
+msgstr ""
+
+#: tfrmsystemmanager.lvotherfilesfolders.columns[3].caption
+msgctxt "TFRMSYSTEMMANAGER.LVOTHERFILESFOLDERS.COLUMNS[3].CAPTION"
+msgid "Ext"
+msgstr ""
+
+#: tfrmsystemmanager.lvotherfilesfolders.columns[4].caption
+msgctxt "TFRMSYSTEMMANAGER.LVOTHERFILESFOLDERS.COLUMNS[4].CAPTION"
+msgid "Command Line"
+msgstr ""
+
+#: tfrmsystemmanager.lvothermusicfolders.columns[0].caption
+msgctxt "tfrmsystemmanager.lvothermusicfolders.columns[0].caption"
+msgid "Folder"
+msgstr ""
+
+#: tfrmsystemmanager.lvothermusicfolders.columns[1].caption
+msgctxt "tfrmsystemmanager.lvothermusicfolders.columns[1].caption"
+msgid "*"
+msgstr ""
+
+#: tfrmsystemmanager.lvothermusicfolders.columns[2].caption
+msgctxt "tfrmsystemmanager.lvothermusicfolders.columns[2].caption"
+msgid "Caption"
+msgstr ""
+
+#: tfrmsystemmanager.lvothermusicfolders.columns[3].caption
+msgctxt "tfrmsystemmanager.lvothermusicfolders.columns[3].caption"
+msgid "Ext"
+msgstr ""
+
+#: tfrmsystemmanager.lvothermusicfolders.columns[4].caption
+msgctxt "tfrmsystemmanager.lvothermusicfolders.columns[4].caption"
+msgid "Command Line"
+msgstr ""
+
+#: tfrmsystemmanager.lvothervideofolders.columns[0].caption
+msgctxt "TFRMSYSTEMMANAGER.LVOTHERVIDEOFOLDERS.COLUMNS[0].CAPTION"
+msgid "Folder"
+msgstr ""
+
+#: tfrmsystemmanager.lvothervideofolders.columns[1].caption
+msgctxt "TFRMSYSTEMMANAGER.LVOTHERVIDEOFOLDERS.COLUMNS[1].CAPTION"
+msgid "*"
+msgstr ""
+
+#: tfrmsystemmanager.lvothervideofolders.columns[2].caption
+msgctxt "TFRMSYSTEMMANAGER.LVOTHERVIDEOFOLDERS.COLUMNS[2].CAPTION"
+msgid "Caption"
+msgstr ""
+
+#: tfrmsystemmanager.lvothervideofolders.columns[3].caption
+msgctxt "TFRMSYSTEMMANAGER.LVOTHERVIDEOFOLDERS.COLUMNS[3].CAPTION"
+msgid "Ext"
+msgstr ""
+
+#: tfrmsystemmanager.lvothervideofolders.columns[4].caption
+msgctxt "TFRMSYSTEMMANAGER.LVOTHERVIDEOFOLDERS.COLUMNS[4].CAPTION"
+msgid "Command Line"
+msgstr ""
+
+#: tfrmsystemmanager.pagemulator.caption
+msgctxt "tfrmsystemmanager.pagemulator.caption"
+msgid "Emulators"
+msgstr ""
+
+#: tfrmsystemmanager.paggeneral.caption
+msgid "General"
+msgstr ""
+
+#: tfrmsystemmanager.pagmainfolders.caption
+msgid "Main folders"
+msgstr ""
+
+#: tfrmsystemmanager.pagmusic.caption
+msgctxt "TFRMSYSTEMMANAGER.PAGMUSIC.CAPTION"
+msgid "Music"
+msgstr ""
+
+#: tfrmsystemmanager.pagotherfile.caption
+msgctxt "TFRMSYSTEMMANAGER.PAGOTHERFILE.CAPTION"
+msgid "Other files"
+msgstr ""
+
+#: tfrmsystemmanager.pagvideos.caption
+msgctxt "TFRMSYSTEMMANAGER.PAGVIDEOS.CAPTION"
+msgid "Videos"
+msgstr ""
+
+#: tfrmsystemmanager.pnlbuttons.caption
+msgid "Remember: Only checked systems will be shown in main window"
+msgstr ""
+
+#: tfrmsystemmanager.pnlsystem.caption
+msgid "Select a system"
+msgstr ""
+
+#: tfrmsystemmanager.rgbtempfolder.caption
+msgid "Decompress games in..."
+msgstr ""
+
+#: tfrmsystemmanager.rgotherfilesplayer.caption
+msgctxt "TFRMSYSTEMMANAGER.RGOTHERFILESPLAYER.CAPTION"
+msgid "Player"
+msgstr ""
+
+#: tfrmsystemmanager.rgothermusicplayer.caption
+msgctxt "tfrmsystemmanager.rgothermusicplayer.caption"
+msgid "Player"
+msgstr ""
+
+#: tfrmsystemmanager.rgothervideoplayer.caption
+msgctxt "TFRMSYSTEMMANAGER.RGOTHERVIDEOPLAYER.CAPTION"
+msgid "Player"
+msgstr ""
+
+#: tfrmsystemmanager.tbimages.caption
+msgid "Image folders"
+msgstr ""
+
+#: tfrmsystemmanager.tbsystems.caption
+msgid "Systems toolbar"
+msgstr ""
+
+#: tfrmsystemmanager.tbtextfolders.caption
+msgid "Text folders"
+msgstr ""
+
+#: tfrmsystemmanager.toolbutton1.caption
+msgctxt "TFRMSYSTEMMANAGER.TOOLBUTTON1.CAPTION"
+msgid "-"
+msgstr ""
+
+#: tfrmsystemmanager.toolbutton3.caption
+msgctxt "TFRMSYSTEMMANAGER.TOOLBUTTON3.CAPTION"
+msgid "-"
+msgstr ""
+
+#: tfrmsystemmanager.toolbutton5.caption
+msgctxt "TFRMSYSTEMMANAGER.TOOLBUTTON5.CAPTION"
+msgid "-"
+msgstr ""
+
+#: u7zwrapper.w7zcachefileext
+msgid ".txt"
+msgstr ""
+
+#: u7zwrapper.w7zexeerror
+msgid "7z.exe/7zG.exe returned %0:d exit code."
+msgstr ""
+
+#: u7zwrapper.w7zfilenotfound
+msgid "\"%0:s\" file not found"
+msgstr ""
+
+#: uconfig.rsenotfilename
+msgid "Not defined filename."
+msgstr ""
+

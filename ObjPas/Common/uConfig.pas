@@ -65,8 +65,6 @@ type
     FIconsSubfolder: String;
     FImageExtensions: TStringList;
     FImagesFolder: String;
-    FLanguageFile: String;
-    FLanguageFolder: String;
     FMinTime: Cardinal;
     FmPlayerExecutable: String;
     FmPlayerSubfolder: String;
@@ -108,8 +106,6 @@ type
     procedure SetIconsIniFile(const AValue: String);
     procedure SetIconsSubfolder(const AValue: String);
     procedure SetImagesFolder(const AValue: String);
-    procedure SetLanguageFile(const AValue: String);
-    procedure SetLanguageFolder(const AValue: String);
     procedure SetMinTime(const AValue: Cardinal);
     procedure SetmPlayerExecutable(AValue: String);
     procedure SetmPlayerSubfolder(AValue: String);
@@ -127,12 +123,6 @@ type
     procedure Setz7Subfolder(const AValue: String);
 
   public
-    // i18n
-    property LanguageFolder: String
-      read FLanguageFolder write SetLanguageFolder;
-    property LanguageFile: String read FLanguageFile write SetLanguageFile;
-    property HelpFolder: String read FHelpFolder write SetHelpFolder;
-
     // Default images
     property ImagesFolder: String read FImagesFolder write SetImagesFolder;
     property DefaultImagesSubfolder: String
@@ -185,6 +175,7 @@ type
       read FGroupScriptsSubFolder write SetGroupScriptsSubFolder;
 
     // Config/Data
+    property HelpFolder: String read FHelpFolder write SetHelpFolder;
     property SearchFile: String read FSearchFile write SetSearchFile;
     property DataFolder: String read FDataFolder write SetDataFolder;
     property EmulatorsIniFile: String
@@ -336,16 +327,6 @@ begin
   FImagesFolder := SetAsFolder(AValue);
 end;
 
-procedure cConfig.SetLanguageFile(const AValue: String);
-begin
-  FLanguageFile := AValue;
-end;
-
-procedure cConfig.SetLanguageFolder(const AValue: String);
-begin
-  FLanguageFolder := SetAsFolder(AValue);
-end;
-
 procedure cConfig.SetMinTime(const AValue: Cardinal);
 begin
   FMinTime := AValue;
@@ -447,12 +428,6 @@ begin
 
   IniFile := TMemIniFile.Create(UTF8ToSys(ConfigFile));
   try
-    // i18n
-    LanguageFolder := ReadValue('Localization', 'LanguageFolder',
-      LanguageFolder);
-    LanguageFile := ReadValue('Localization', 'LanguageFile', LanguageFile);
-    HelpFolder := ReadValue('Localization', 'HelpFolder', HelpFolder);
-
     // Images
     ImagesFolder := ReadValue('Images', 'ImagesFolder', ImagesFolder);
 
@@ -476,6 +451,7 @@ begin
     IconsIniFile := ReadValue('Images', 'IconsIniFile', IconsIniFile);
 
     // Config/Data
+    HelpFolder := ReadValue('Config', 'HelpFolder', SearchFile);
     SearchFile := ReadValue('Config', 'SearchFile', SearchFile);
     DataFolder := ReadValue('Config', 'DataFolder', DataFolder);
     EmulatorsIniFile := ReadValue('Config', 'EmulatorsIniFile',
@@ -552,11 +528,6 @@ begin
 
   IniFile := TMemIniFile.Create(UTF8ToSys(ConfigFile));
   try
-    // i18n
-    IniFile.WriteString('Localization', 'LanguageFolder', LanguageFolder);
-    IniFile.WriteString('Localization', 'LanguageFile', LanguageFile);
-    IniFile.WriteString('Localization', 'HelpFolder', HelpFolder);
-
     // Images
     IniFile.WriteString('Images', 'ImagesFolder', ImagesFolder);
 
