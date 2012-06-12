@@ -146,7 +146,8 @@ begin
   TempDir := AnsiReplaceText(TempDir, CCurrentDir, ExtractFileDir(CurrFolder));
   TempDir := SetAsFolder(TempDir);
   if TempDir <> '' then
-    ChDir(TempDir);
+    if DirectoryExistsUTF8(TempDir) then
+      ChDir(TempDir);
 
   TempParam := Self.Parameters;
   TempParam := AnsiReplaceText(TempParam, CROMPath, GameFile);
@@ -170,7 +171,7 @@ begin
         UTF8ToSys(TempParam));
 
     // Is there an error? No, then add statistics
-    // TODO 2: Statistics are not saved in the file...
+    // TODO 2: Emulator statistics are not saved in the file...
     if (Result = Self.NormalExitCode) and
       (Now > (EncodeTime(0, 1, 0, 0) + TempTime)) then
     begin

@@ -182,7 +182,7 @@ type
     //< Folder for the icons of the games.
     property MarqueeFolder: String read FMarqueeFolder
       write SetMarqueeFolder;
-    //< Folder for marquees (or box side).
+    //< Folder for marquees (or box spine).
     property ImageFolders: TStringList read FImageFolders;
     //< Folders for the game images.
     property ImageCaptions: TStringList read FImageCaptions;
@@ -238,7 +238,7 @@ type
     property MusicModes: TStringList read FMusicModes;
     {< Music search mode for the folders of game's music.
 
-      @definitionList(
+      @definitionList (
         @itemLabel("0")
         @item(Single text. Search in the folder only one music file with
           the game's name.)

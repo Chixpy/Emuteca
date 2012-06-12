@@ -275,6 +275,8 @@ type
     procedure actAutoConfigExecute(Sender: TObject);
     procedure actExportSystemsExecute(Sender: TObject);
     procedure actImportSystemsExecute(Sender: TObject);
+    procedure actMakeAbsolutePathsExecute(Sender: TObject);
+    procedure actMakeRelativePathsExecute(Sender: TObject);
     procedure actRemoveImageFolderExecute(Sender: TObject);
     procedure actRemoveMusicFolderExecute(Sender: TObject);
     procedure actRemoveSystemExecute(Sender: TObject);
@@ -614,6 +616,118 @@ begin
   if not OpenDialog.Execute then Exit;
   SystemManager.ImportSystemsFile(OpenDialog.FileName);
   LoadSystemList;
+end;
+
+procedure TfrmSystemManager.actMakeAbsolutePathsExecute(Sender: TObject);
+
+  function MakeAbsolute(const aFolder: string): string;
+  begin
+    Result := aFolder;
+
+    // CreateRelativePath doesn't like Unix Style under Windows... :-(
+    {$IFDEF MSWindows}
+    Result := StringReplace(Result, '/', '\', [rfReplaceAll, rfIgnoreCase]);
+    {$ENDIF}
+
+    Result := CreateAbsolutePath(Result, GetCurrentDirUTF8);
+
+    {$IFDEF MSWindows}
+    Result := StringReplace(Result, '\', '/', [rfReplaceAll, rfIgnoreCase]);
+    {$ENDIF}
+  end;
+
+var
+  i: integer;
+begin
+  if System = nil then
+    Exit;
+
+  System.Icon := MakeAbsolute(System.Icon);
+  System.Image := MakeAbsolute(System.Image);
+  System.BackgroundImage := MakeAbsolute(System.BackgroundImage);
+  System.InfoText := MakeAbsolute(System.InfoText);
+  System.TempFolder := MakeAbsolute(System.TempFolder);
+
+  System.BaseFolder := MakeAbsolute(System.BaseFolder);
+  System.GameFolder := MakeAbsolute(System.GameFolder);
+  System.IconFolder := MakeAbsolute(System.IconFolder);
+  System.MarqueeFolder := MakeAbsolute(System.MarqueeFolder);
+
+  for i := 0 to System.ImageFolders.Count - 1 do
+    System.ImageFolders[i] := MakeAbsolute(System.ImageFolders[i]);
+
+  for i := 0 to System.TextFolders.Count - 1 do
+    System.TextFolders[i] := MakeAbsolute(System.TextFolders[i]);
+
+  System.DemoMusicFolder := MakeAbsolute(System.DemoMusicFolder);
+  for i := 0 to System.MusicFolders.Count - 1 do
+    System.MusicFolders[i] := MakeAbsolute(System.MusicFolders[i]);
+  for i := 0 to System.MusicExecutables.Count - 1 do
+    System.MusicExecutables[i] := MakeAbsolute(System.MusicExecutables[i]);
+
+  System.DemoVideoFolder := MakeAbsolute(System.DemoVideoFolder);
+  for i := 0 to System.VideoFolders.Count - 1 do
+    System.VideoFolders[i] := MakeAbsolute(System.VideoFolders[i]);
+  for i := 0 to System.VideoExecutables.Count - 1 do
+    System.VideoExecutables[i] := MakeAbsolute(System.VideoExecutables[i]);
+
+  FillFields;
+end;
+
+procedure TfrmSystemManager.actMakeRelativePathsExecute(Sender: TObject);
+
+  function MakeRelative(const aFolder: string): string;
+  begin
+    Result := aFolder;
+
+    // CreateRelativePath doesn't like Unix Style under Windows... :-(
+    {$IFDEF MSWindows}
+    Result := StringReplace(Result, '/', '\', [rfReplaceAll, rfIgnoreCase]);
+    {$ENDIF}
+
+    Result := CreateRelativePath(Result, GetCurrentDirUTF8, true);
+
+    {$IFDEF MSWindows}
+    Result := StringReplace(Result, '\', '/', [rfReplaceAll, rfIgnoreCase]);
+    {$ENDIF}
+  end;
+
+var
+  i: integer;
+begin
+  if System = nil then
+    Exit;
+
+  System.Icon := MakeRelative(System.Icon);
+  System.Image := MakeRelative(System.Image);
+  System.BackgroundImage := MakeRelative(System.BackgroundImage);
+  System.InfoText := MakeRelative(System.InfoText);
+  System.TempFolder := MakeRelative(System.TempFolder);
+
+  System.BaseFolder := MakeRelative(System.BaseFolder);
+  System.GameFolder := MakeRelative(System.GameFolder);
+  System.IconFolder := MakeRelative(System.IconFolder);
+  System.MarqueeFolder := MakeRelative(System.MarqueeFolder);
+
+  for i := 0 to System.ImageFolders.Count - 1 do
+    System.ImageFolders[i] := MakeRelative(System.ImageFolders[i]);
+
+  for i := 0 to System.TextFolders.Count - 1 do
+    System.TextFolders[i] := MakeRelative(System.TextFolders[i]);
+
+  System.DemoMusicFolder := MakeRelative(System.DemoMusicFolder);
+  for i := 0 to System.MusicFolders.Count - 1 do
+    System.MusicFolders[i] := MakeRelative(System.MusicFolders[i]);
+  for i := 0 to System.MusicExecutables.Count - 1 do
+    System.MusicExecutables[i] := MakeRelative(System.MusicExecutables[i]);
+
+  System.DemoVideoFolder := MakeRelative(System.DemoVideoFolder);
+  for i := 0 to System.VideoFolders.Count - 1 do
+    System.VideoFolders[i] := MakeRelative(System.VideoFolders[i]);
+  for i := 0 to System.VideoExecutables.Count - 1 do
+    System.VideoExecutables[i] := MakeRelative(System.VideoExecutables[i]);
+
+  FillFields;
 end;
 
 procedure TfrmSystemManager.actRemoveImageFolderExecute(Sender: TObject);

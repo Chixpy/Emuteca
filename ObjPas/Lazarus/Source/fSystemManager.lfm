@@ -2047,10 +2047,12 @@
     object actMakeRelativePaths: TAction
       Category = 'Folders'
       Caption = 'Make all paths relative'
+      OnExecute = actMakeRelativePathsExecute
     end
     object actMakeAbsolutePaths: TAction
       Category = 'Folders'
       Caption = 'Make all paths absolute'
+      OnExecute = actMakeAbsolutePathsExecute
     end
   end
   object DirectoryDialog: TSelectDirectoryDialog
