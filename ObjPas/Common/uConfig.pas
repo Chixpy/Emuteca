@@ -264,7 +264,7 @@ end;
 
 procedure cConfig.SetEmulatorsIniFile(const AValue: String);
 begin
-  FEmulatorsIniFile := AValue;
+  FEmulatorsIniFile :=AValue;
 end;
 
 procedure cConfig.SetEmulatorSubFolder(const AValue: String);
@@ -423,7 +423,7 @@ begin
     aFilename := ConfigFile;
   if aFilename = '' then Exit;
   if not FileExistsUTF8(aFilename) then
-    raise EInOutError.Create(self.ClassName + '.ReadConfig:' + rsENotFilename);
+    raise EInOutError.Create(self.ClassName + '.ReadConfig: ' + rsENotFilename);
   ConfigFile := aFilename;
 
   IniFile := TMemIniFile.Create(UTF8ToSys(ConfigFile));
@@ -523,7 +523,7 @@ begin
   if aFilename = '' then
     aFilename := ConfigFile;
   if aFilename = '' then
-    raise EInOutError.Create(self.ClassName + '.SaveConfig:' + rsENotFilename);
+    raise EInOutError.Create(self.ClassName + '.SaveConfig: ' + rsENotFilename);
   ConfigFile := aFilename;
 
   IniFile := TMemIniFile.Create(UTF8ToSys(ConfigFile));

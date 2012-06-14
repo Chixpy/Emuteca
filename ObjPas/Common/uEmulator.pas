@@ -103,7 +103,7 @@ type
     property NormalExitCode: integer
       read FNormalExitCode write SetNormalExitCode;
 
-    function Execute(const GameFile: String): integer;
+    function Execute(GameFile: String): integer;
     function ExecuteAlone: integer;
 
     procedure LoadFromFile(const IniFile: String);
@@ -132,7 +132,7 @@ begin
   self.Parameters := '"' + CROMPath + '"';
 end;
 
-function cEmulator.Execute(const GameFile: String): integer;
+function cEmulator.Execute(GameFile: String): integer;
 var
   CurrFolder: String;
   TempDir: String;
@@ -140,6 +140,14 @@ var
   TempTime: TTime;
 begin
   CurrFolder := GetCurrentDirUTF8;
+
+  {$IFDEF MSWindows}
+  GameFile := StringReplace(GameFile, '/', '\', [rfReplaceAll, rfIgnoreCase]);
+  {$ENDIF}
+
+  if not FilenameIsAbsolute(GameFile) then
+    GameFile:= CreateAbsolutePath(GameFile, CurrFolder);
+
   TempDir := Self.WorkingFolder;
   TempDir := AnsiReplaceText(TempDir, CEmuDir, ExtractFileDir(ExeFile));
   TempDir := AnsiReplaceText(TempDir, CROMDir, ExtractFileDir(GameFile));

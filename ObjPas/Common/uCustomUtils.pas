@@ -125,6 +125,8 @@ function SetAsFolder(const aValue: String): String;
     MS-DOS (+2.0) recognise without problem
 }
 
+function SetAsFile(const aFileName: string): string;
+
 function TextSimilarity(const aString1, aString2: String): byte;
 {< Returns the similarity between 2 strings.
 
@@ -531,11 +533,41 @@ end;
 
 function SetAsFolder(const aValue: String): String;
 begin
-  Result := '';
-  if ExcludeTrailingPathDelimiter(AValue) <> '' then
-    Result := IncludeTrailingPathDelimiter(AValue);
+  Result := aValue;
 
-  Result := AnsiReplaceText(Result, '\', '/');
+    // CreateRelativePath doesn't like Unix Style under Windows... :-(
+  {$IFDEF MSWindows}
+  Result := StringReplace(Result, '/', '\', [rfReplaceAll, rfIgnoreCase]);
+  {$ENDIF}
+
+  // Always relative...
+  if FilenameIsAbsolute(Result) then
+    Result := CreateRelativePath(Result, GetCurrentDirUTF8, false);
+
+  { Always with TrailingPathDelimiter, but only if it's not empty or root }
+  if ExcludeTrailingPathDelimiter(Result) <> '' then
+    Result := IncludeTrailingPathDelimiter(Result);
+
+  // I like UNIX like PathSep (and it's better for cross-configuring)
+  {$IFDEF MSWindows}
+  Result := StringReplace(Result, '\', '/', [rfReplaceAll, rfIgnoreCase]);
+  {$ENDIF}
+end;
+
+function SetAsFile(const aFileName: string): string;
+begin
+  Result := aFileName;
+
+  // CreateRelativePath doesn't like Unix Style under Windows... :-(
+  {$IFDEF MSWindows}
+  Result := StringReplace(Result, '/', '\', [rfReplaceAll, rfIgnoreCase]);
+  {$ENDIF}
+
+  Result := CreateRelativePath(Result, GetCurrentDirUTF8, false);
+
+  {$IFDEF MSWindows}
+  Result := StringReplace(Result, '\', '/', [rfReplaceAll, rfIgnoreCase]);
+  {$ENDIF}
 end;
 
 function SecondToFmtStr(aValue: int64): String;
