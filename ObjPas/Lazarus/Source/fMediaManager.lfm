@@ -1,7 +1,7 @@
 ﻿object frmMediaManager: TfrmMediaManager
-  Left = 426
+  Left = 558
   Height = 571
-  Top = 124
+  Top = 90
   Width = 800
   Caption = 'Media Manager'
   ClientHeight = 571

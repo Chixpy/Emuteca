@@ -29,7 +29,7 @@ uses
   Classes, SysUtils, FileUtil, LResources, Forms, Controls, Windows, Graphics,
   Dialogs, ExtCtrls, ComCtrls, Menus, ActnList, StdCtrls, Buttons, Clipbrd,
   contnrs, VirtualTrees, VTHeaderPopup, lclintf, LCLType, LazHelpHTML,
-  IniPropStorage, IDEWindowIntf, dateutils, strutils, LazUTF8,
+  IniPropStorage, IDEWindowIntf, dateutils, strutils, LazUTF8, vte_stringlist,
   uGameManager, uConfig, uCustomUtils, uImageList, uSystemManager,
   uGame, uGameGroup, uGameStats, u7zWrapper, uVersionSupport, fSystemManager,
   fEmulatorManager, fImageViewer, fScriptManager, fMediaManager, fProgress,
@@ -40,44 +40,44 @@ const
   CDBFilter = ' (*' + CDBExt + ')|*' + CDBExt;
 
 resourcestring
-  rsAddingFile = 'Adding file:';
-    rsUpdatingList ='Updating List:';
-    rsLoadingGameList =
-      'Loading games:';
-    rsSavingGameList = 'Saving games:';
-    rsEmutecaGameDatabase = 'Emuteca game database';
-    rsDecompressing = 'Decompressing:';
-    rsImportingData = 'Importing data:';
-    rsExportingData = 'Exporting data:';
+  rsFGMAddingFile = 'Adding file:';
+  rsFGMUpdatingList = 'Updating List:';
+  rsFGMLoadingGameList = 'Loading games:';
+  rsFGMSavingGameList = 'Saving games:';
+  rsFGMEmutecaGameDatabase = 'Emuteca game database';
+  rsFGMDecompressing = 'Decompressing:';
+  rsFGMImportingData = 'Importing data:';
+  rsFGMExportingData = 'Exporting data:';
 
-    rsKey= 'Key';
-    rsZones = 'Zone';
-    rsDeveloper = 'Developer';
-    rsPublisher = 'Publisher';
+  rsFGMKey = 'Key';
+  rsFGMZones = 'Zone';
+  rsFGMDeveloper = 'Developer';
+  rsFGMPublisher = 'Publisher';
 
-    rsVersion =  'Version';
-    rsFilename =  'Filename';
+  rsFGMVersion = 'Version';
+  rsFGMFilename = 'Filename';
 
-    rsNGroups= '%0:d groups';
-    rsNGames = '%0:d games';
-    rsNTimes = '%0:d times';
+  rsFGMNGroups = '%0:d groups';
+  rsFGMNGames = '%0:d games';
+  rsFGMNTimes = '%0:d times';
 
-    rsNever =  'Never';
-    rsUnknown =  '!Unknown';
+  rsFGMNever = 'Never';
+  rsFGMUnknown = '!Unknown';
 
-    rsAssignToGroup =
-      'Do you want to assign it to the game''s group?';
-    rsChooseImageFileFormat = 'Do you want to save it in a lossless format:' + slinebreak +
-      'YES -> .png (lossless for screenshots)' + slinebreak +
-      'NO -> .jpg (better for photographs)';
-    rsConfirmOverwriteFile = '%0:s' + slinebreak +
-      'The file already exists.' + slinebreak +      'Do you want overwrite it?';
+  rsFGMAssignToGroup = 'Do you want to assign it to the game''s group?';
+  rsFGMChooseImageFileFormat =
+    'Do you want to save it in a lossless format:' + slinebreak +
+    'YES -> .png (lossless for screenshots)' + slinebreak +
+    'NO -> .jpg (better for photographs)';
+  rsFGMConfirmOverwriteFile =
+    '%0:s' + slinebreak + 'The file already exists.' + slinebreak +
+    'Do you want overwrite it?';
 
-    rsErrorGameNotFound = 'Game not found:' + slinebreak +  '%0:s%1:s';
-    rsErrorEmulator = 'Emulator exited with error code: %0:d';
-    rsPurgeMessage = 'Warning:' + slinebreak +
-      'This action will erase all the game and group list.'  + slinebreak +
-      'Do you want to continue?';
+  rsFGMErrorGameNotFound = 'Game not found:' + slinebreak + '%0:s%1:s';
+  rsFGMErrorEmulator = 'Emulator exited with error code: %0:d';
+  rsFGMPurgeMessage = 'Warning:' + slinebreak +
+    'This action will erase all the game and group list.' +
+    slinebreak + 'Do you want to continue?';
 
 type
   TlvGroupMode = (
@@ -337,7 +337,7 @@ type
     bSaveSystemText: TToolButton;
     VTHGamesPopupMenu: TVTHeaderPopupMenu;
     vstFiles: TVirtualStringTree;
-    vstGames: TVirtualStringTree;
+    vstGroups: TVirtualStringTree;
     procedure actAboutExecute(Sender: TObject);
     procedure actChangeGameListFontExecute(Sender: TObject);
     procedure actConfigManagerExecute(Sender: TObject);
@@ -391,7 +391,8 @@ type
     procedure cbSystemSelect(Sender: TObject);
     procedure ePropertiesKeyDown(Sender: TObject; var Key: word;
       Shift: TShiftState);
-    procedure eEditorKeyDown(Sender: TObject; var Key: word; Shift: TShiftState);
+    procedure eEditorKeyDown(Sender: TObject; var Key: word;
+      Shift: TShiftState);
     procedure eNameChange(Sender: TObject);
     procedure eSearchChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -400,17 +401,19 @@ type
     procedure tbLockGameTextClick(Sender: TObject);
     procedure vstFilesChange(Sender: TBaseVirtualTree; Node: PVirtualNode);
     procedure vstFilesFreeNode(Sender: TBaseVirtualTree; Node: PVirtualNode);
-    procedure vstFilesGetText(Sender: TBaseVirtualTree; Node: PVirtualNode;
-      Column: TColumnIndex; TextType: TVSTTextType; var CellText: string);
-    procedure vstGamesChange(Sender: TBaseVirtualTree; Node: PVirtualNode);
-    procedure vstGamesCompareNodes(Sender: TBaseVirtualTree;
+    procedure vstFilesGetText(Sender: TBaseVirtualTree;
+      Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType;
+      var CellText: string);
+    procedure vstGroupsChange(Sender: TBaseVirtualTree; Node: PVirtualNode);
+    procedure vstCompareNodes(Sender: TBaseVirtualTree;
       Node1, Node2: PVirtualNode; Column: TColumnIndex; var Result: integer);
-    procedure vstGamesDblClick(Sender: TObject);
-    procedure vstGamesDrawText(Sender: TBaseVirtualTree;
+    procedure vstGroupsDblClick(Sender: TObject);
+    procedure vstGroupsDrawText(Sender: TBaseVirtualTree;
       TargetCanvas: TCanvas; Node: PVirtualNode; Column: TColumnIndex;
       const CellText: string; const CellRect: TRect; var DefaultDraw: boolean);
-    procedure vstGamesGetText(Sender: TBaseVirtualTree; Node: PVirtualNode;
-      Column: TColumnIndex; TextType: TVSTTextType; var CellText: string);
+    procedure vstGroupsGetText(Sender: TBaseVirtualTree;
+      Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType;
+      var CellText: string);
     procedure vstHeaderClick(Sender: TVTHeader; HitInfo: TVTHeaderHitInfo);
 
   private
@@ -446,12 +449,12 @@ type
 
   protected
     property GroupMode: TlvGroupMode read FGroupMode write SetGroupMode;
-    //< Listing mode used in vstGames.
+    //< Listing mode used in vstGroups.
 
     property GroupList: TFPObjectList read FGroupList write SetGroupList;
-    {< List with the groups for vstGames.
+    {< List with the groups for vstGroups.
 
-      Here are the groups with the data for vstGames.
+      Here are the groups with the data for vstGroups.
 
       @definitionList(
         @itemLabel(NOTE:)
@@ -466,11 +469,13 @@ type
     {< Current seleted GameGroup or the GameGroup of selected game version. }
     property GameImages: TStringList read FGameImages;
     //< Images of the current selected item.
-    property GameImagesIndex: integer read FGameImagesIndex write SetGameImagesIndex;
+    property GameImagesIndex: integer read FGameImagesIndex
+      write SetGameImagesIndex;
     //< Index of the current Image.
     property GameTexts: TStringList read FGameTexts;
     //< Texts of the current selected item.
-    property GameTextsIndex: integer read FGameTextsIndex write SetGameTextsIndex;
+    property GameTextsIndex: integer read FGameTextsIndex
+      write SetGameTextsIndex;
     //< Index of the current Text.
 
     property GameManager: cGameManager read FGameManager;
@@ -530,9 +535,11 @@ type
       @return(Number of the Groups.)
     }
     function AddGroupVTV(aGameGroupID: string): PVirtualNode;
-    //< Adds a group to vstGames.
+    //< Adds a group to vstGroups.
     procedure UpdateGroupNodeTempData(Node: PVirtualNode);
     //< Updates number of childs (versions), time played, last time, etc.
+    procedure UpdateVTVGroupList;
+    //< Updates the vstGroups
     procedure UpdateVTVGameList;
     //< Updates the vstGames
 
@@ -632,8 +639,8 @@ type
 
     procedure SearchGames;
     //< Search games that contain eSearch.Text
-    procedure ShowAllNodes(Sender: TBaseVirtualTree; Node: PVirtualNode;
-      Data: Pointer; var Abort: boolean);
+    procedure ShowAllNodes(Sender: TBaseVirtualTree;
+      Node: PVirtualNode; Data: Pointer; var Abort: boolean);
     procedure HideNodes(Sender: TBaseVirtualTree; Node: PVirtualNode;
       Data: Pointer; var Abort: boolean);
 
@@ -717,7 +724,7 @@ procedure TfrmGameManager.FormCreate(Sender: TObject);
       IconsIniFile := 'Icons.ini';
 
       // Config/Data
-      HelpFolder:= 'http://code.google.com/p/emuteca/wiki/';
+      HelpFolder := 'http://code.google.com/p/emuteca/wiki/';
       SearchFile := 'Search.ini';
       DataFolder := SetAsFolder('Data');
       EmulatorsIniFile := 'Emulators.ini';
@@ -944,15 +951,19 @@ begin
   DefaultConfig;
   Config.ReadConfig(Application.Title + '.ini');
 
-  TempFolder := IncludeTrailingPathDelimiter(GetTempDir) + Config.TempSubfolder;
+  TempFolder := IncludeTrailingPathDelimiter(GetTempDir) +
+    Config.TempSubfolder;
   ForceDirectoriesUTF8(TempFolder);
 
   // u7zWrapper vars;
-  w7zPathTo7zGexe := Config.ToolsFolder + Config.z7Subfolder + Config.z7GExecutable;
-  w7zPathTo7zexe := Config.ToolsFolder + Config.z7Subfolder + Config.z7CMExecutable;
+  w7zPathTo7zGexe := Config.ToolsFolder + Config.z7Subfolder +
+    Config.z7GExecutable;
+  w7zPathTo7zexe := Config.ToolsFolder + Config.z7Subfolder +
+    Config.z7CMExecutable;
   w7zFileExts := Config.CompressedExtensions.CommaText;
 
-  Self.Caption := Application.Title + ' ' + GetFileVersion + ': ' + Self.Caption;
+  Self.Caption := Application.Title + ' ' + GetFileVersion +
+    ': ' + Self.Caption;
 
   HTMLHelpDatabase.BaseURL := Config.HelpFolder;
 
@@ -976,8 +987,8 @@ begin
   cbSearch.ItemIndex := 0;
 
   FGroupList := TFPObjectList.Create(True);
-  vstGames.NodeDataSize := SizeOf(TObject);
-  vstGames.DefaultNodeHeight := abs(vstGames.Font.Height) * 2;
+  vstGroups.NodeDataSize := SizeOf(TObject);
+  vstGroups.DefaultNodeHeight := abs(vstGroups.Font.Height) * 2;
 
   vstFiles.NodeDataSize := SizeOf(string);
   FillOtherFilesTree;
@@ -1017,7 +1028,8 @@ begin
   memoGame.ReadOnly := bLockGameText.Enabled;
 end;
 
-procedure TfrmGameManager.vstFilesChange(Sender: TBaseVirtualTree; Node: PVirtualNode);
+procedure TfrmGameManager.vstFilesChange(Sender: TBaseVirtualTree;
+  Node: PVirtualNode);
 begin
   if Node = nil then
     Exit;
@@ -1051,7 +1063,8 @@ begin
   end;
 end;
 
-procedure TfrmGameManager.vstGamesChange(Sender: TBaseVirtualTree; Node: PVirtualNode);
+procedure TfrmGameManager.vstGroupsChange(Sender: TBaseVirtualTree;
+  Node: PVirtualNode);
 var
   Data: ^TObject;
 begin
@@ -1062,6 +1075,7 @@ begin
     Exit;
 
   Data := Sender.GetNodeData(Node);
+
 
   if Data^ is cGameGroup then
   begin
@@ -1075,9 +1089,10 @@ begin
     CurrGroup := GameManager.Group(CurrGame.GameGroup);
     UpdateGameMedia;
   end;
+
 end;
 
-procedure TfrmGameManager.vstGamesCompareNodes(Sender: TBaseVirtualTree;
+procedure TfrmGameManager.vstCompareNodes(Sender: TBaseVirtualTree;
   Node1, Node2: PVirtualNode; Column: TColumnIndex; var Result: integer);
 var
   Nodo1, Nodo2: ^TObject;
@@ -1139,19 +1154,20 @@ begin
       6: // Last time
         Result := Trunc(aGroup1.LastTime - aGroup2.LastTime);
       7: // Filename
-        Result := UTF8CompareText(aGroup1.MediaFileName, aGroup2.MediaFileName);
+        Result := UTF8CompareText(aGroup1.MediaFileName,
+          aGroup2.MediaFileName);
       8: // Folder
         ;
     end;
   end;
 end;
 
-procedure TfrmGameManager.vstGamesDblClick(Sender: TObject);
+procedure TfrmGameManager.vstGroupsDblClick(Sender: TObject);
 begin
   actPlayGame.Execute;
 end;
 
-procedure TfrmGameManager.vstGamesDrawText(Sender: TBaseVirtualTree;
+procedure TfrmGameManager.vstGroupsDrawText(Sender: TBaseVirtualTree;
   TargetCanvas: TCanvas; Node: PVirtualNode; Column: TColumnIndex;
   const CellText: string; const CellRect: TRect; var DefaultDraw: boolean);
 var
@@ -1165,7 +1181,7 @@ begin
   DefaultDraw := True;
   if (Node = nil) or (GameManager.System = nil) then
     Exit;
-  Data := vstGames.GetNodeData(Node);
+  Data := vstGroups.GetNodeData(Node);
   if (Data^ = nil) then
     Exit;
 
@@ -1239,8 +1255,8 @@ begin
           GameIcons[Data^.IconIndex].Graphic);
 
       IconRect := CellRect;
-      IconRect.Left := IconRect.Left + IconRect.Bottom - IconRect.Top +
-        vstGames.TextMargin;
+      IconRect.Left := IconRect.Left + IconRect.Bottom -
+        IconRect.Top + vstGroups.TextMargin;
 
       DrawText(TargetCanvas.Handle, PChar(CellText), -1, IconRect,
         DT_NOPREFIX or DT_VCENTER or DT_SINGLELINE or DT_WORDBREAK or
@@ -1326,7 +1342,7 @@ begin
         IconRect.Right := CellRect.Right;
         IconRect.Top := CellRect.Top;
         IconRect.Bottom := CellRect.Bottom;
-        IconRect.Left := IconRect.Left + vstGames.TextMargin;
+        IconRect.Left := IconRect.Left + vstGroups.TextMargin;
 
         DrawText(TargetCanvas.Handle, PChar(CellText), -1, IconRect,
           DT_NOPREFIX or DT_VCENTER or DT_SINGLELINE or DT_RIGHT or
@@ -1338,14 +1354,14 @@ begin
   end;
 end;
 
-procedure TfrmGameManager.vstGamesGetText(Sender: TBaseVirtualTree;
+procedure TfrmGameManager.vstGroupsGetText(Sender: TBaseVirtualTree;
   Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType;
   var CellText: string);
 var
   Data: ^TObject;
   TmpStr: string;
 begin
-  Data := vstGames.GetNodeData(Node);
+  Data := vstGroups.GetNodeData(Node);
   if Data^ = nil then
     Exit;
 
@@ -1358,11 +1374,11 @@ begin
       case Column of
         -1, 0: // Name
           if Name = '' then
-            CellText := rsUnknown
+            CellText := rsFGMUnknown
           else
             CellText := Name;
         1: // Versión
-          CellText := Format(rsNGames, [Node^.ChildCount]);
+          CellText := Format(rsFGMNGames, [Node^.ChildCount]);
         2: // Developer / Publisher
           CellText := Developer;
         3: // Year
@@ -1370,10 +1386,10 @@ begin
         4: // Time played
           CellText := SecondToFmtStr(PlayingTime);
         5: // Times
-          CellText := Format(rsNTimes, [TimesPlayed]);
+          CellText := Format(rsFGMNTimes, [TimesPlayed]);
         6: // Last time
           if LastTime = 0 then
-            CellText := rsNever
+            CellText := rsFGMNever
           else
             CellText := DateTimeToStr(LastTime);
         7: // Filename
@@ -1423,10 +1439,10 @@ begin
         4: // Time played
           CellText := SecondToFmtStr(PlayingTime);
         5: // Times
-          CellText := Format(rsNTimes, [TimesPlayed]);
+          CellText := Format(rsFGMNTimes, [TimesPlayed]);
         6: // Last time
           if LastTime = 0 then
-            CellText := rsNever
+            CellText := rsFGMNever
           else
             CellText := DateTimeToStr(LastTime);
         7: // Filename
@@ -1438,7 +1454,8 @@ begin
   end;
 end;
 
-procedure TfrmGameManager.vstHeaderClick(Sender: TVTHeader; HitInfo: TVTHeaderHitInfo);
+procedure TfrmGameManager.vstHeaderClick(Sender: TVTHeader;
+  HitInfo: TVTHeaderHitInfo);
 begin
   if Sender.SortColumn <> HitInfo.Column then
     Sender.SortDirection := sdAscending
@@ -1575,19 +1592,19 @@ begin
       aGroup := cGameGroup.Create(aGameGroupID);
 
     GroupList.Add(aGroup);
-    Result := vstGames.AddChild(nil);
-    PData := vstGames.GetNodeData(Result);
+    Result := vstGroups.AddChild(nil);
+    PData := vstGroups.GetNodeData(Result);
     PData^ := aGroup;
   end
   else
   begin // We must search the node with the group
-    Nodo := vstGames.GetLastChild(nil);
+    Nodo := vstGroups.GetLastChild(nil);
     while (Result = nil) and (Nodo <> nil) do
     begin
-      PData := vstGames.GetNodeData(Nodo);
+      PData := vstGroups.GetNodeData(Nodo);
       if PData^ = aGroup then
         Result := Nodo;
-      Nodo := vstGames.GetPreviousSibling(Nodo);
+      Nodo := vstGroups.GetPreviousSibling(Nodo);
     end;
   end;
 end;
@@ -1613,8 +1630,8 @@ begin
       aPos := SystemIcons.AddImageFile(SysMan.System(cbSystem.Items[i]).Icon);
       if aPos = -1 then
       begin
-        if FileExistsUTF8(Config.ImagesFolder + Config.DefaultImagesSubfolder +
-          Config.DefaultSystemIcon) then
+        if FileExistsUTF8(Config.ImagesFolder +
+          Config.DefaultImagesSubfolder + Config.DefaultSystemIcon) then
         begin
           aPos := SystemIcons.AddImageFile(Config.ImagesFolder +
             Config.DefaultImagesSubfolder + Config.DefaultSystemIcon);
@@ -1678,14 +1695,14 @@ begin
     try
       aPicture.LoadFromFile(GameManager.System.BackgroundImage);
       aBitmap.Assign(aPicture.Bitmap);
-      vstGames.Background.Assign(aBitmap);
+      vstGroups.Background.Assign(aBitmap);
     finally
       FreeAndNil(aBitmap);
       FreeAndNil(aPicture);
     end;
   end
   else
-    vstGames.Background.Assign(nil);
+    vstGroups.Background.Assign(nil);
 end;
 
 procedure TfrmGameManager.UpdateSystemText;
@@ -1695,7 +1712,7 @@ begin
   ShowText(GameManager.System.InfoText, memoSystem);
 end;
 
-procedure TfrmGameManager.UpdateVTVGameList;
+procedure TfrmGameManager.UpdateVTVGroupList;
 var
   i, j: integer;
   aGame: cGame;
@@ -1706,15 +1723,16 @@ var
 begin
   Self.Enabled := False;
 
-  vstGames.Clear;
+  vstGroups.Clear;
+
   ClearGameMedia;
   CurrGame := nil;
   CurrGroup := nil;
   GameIcons.Clear;
   if FileExistsUTF8(Config.ImagesFolder + Config.DefaultImagesSubfolder +
     Config.DefaultGameIcon) then
-    GameIcons.AddImageFile(Config.ImagesFolder + Config.DefaultImagesSubfolder +
-      Config.DefaultGameIcon)
+    GameIcons.AddImageFile(Config.ImagesFolder +
+      Config.DefaultImagesSubfolder + Config.DefaultGameIcon)
   else
     GameIcons.AddEmptyImage;
 
@@ -1742,7 +1760,7 @@ begin
   //   because they are owned by cGameManager
   GroupList.OwnsObjects := GroupMode <> lvGMGameGroup;
 
-  vstGames.BeginUpdate;
+  vstGroups.BeginUpdate;
   Application.CreateForm(TfrmProgress, frmProgress);
   try
     i := 0;
@@ -1751,7 +1769,7 @@ begin
     begin
       aGame := GameManager.GameAtPos(i);
       aGame.IconIndex := -1;
-      Continue := frmProgress.UpdTextAndBar(rsUpdatingList,
+      Continue := frmProgress.UpdTextAndBar(rsFGMUpdatingList,
         aGame.GameGroup, aGame.Name, i, GameManager.GameCount);
 
       // Adding Publisher to ComboBox
@@ -1776,7 +1794,7 @@ begin
           while j < aGroup.Tags.Count do
           begin
             Nodo := AddGroupVTV(aGroup.Tags[j]);
-            PData := vstGames.GetNodeData(vstGames.AddChild(Nodo));
+            PData := vstGroups.GetNodeData(vstGroups.AddChild(Nodo));
             PData^ := aGame;
             Inc(j);
           end;
@@ -1785,7 +1803,7 @@ begin
           while j < aGame.Tags.Count do
           begin
             Nodo := AddGroupVTV(aGame.Tags[j]);
-            PData := vstGames.GetNodeData(vstGames.AddChild(Nodo));
+            PData := vstGroups.GetNodeData(vstGroups.AddChild(Nodo));
             PData^ := aGame;
             Inc(j);
           end;
@@ -1796,33 +1814,38 @@ begin
         end;
       end;
 
-      if Nodo <> nil then
+      if (Nodo <> nil) then
       begin
-        PData := vstGames.GetNodeData(vstGames.AddChild(Nodo));
+        PData := vstGroups.GetNodeData(vstGroups.AddChild(Nodo));
         PData^ := aGame;
       end;
       Inc(i);
     end;
 
     // Adding playing time, times played and last time to groups
-    Nodo := vstGames.GetLastChild(nil);
+    Nodo := vstGroups.GetLastChild(nil);
     while (Nodo <> nil) do
     begin
       UpdateGroupNodeTempData(Nodo);
-      Nodo := vstGames.GetPreviousSibling(Nodo);
+      Nodo := vstGroups.GetPreviousSibling(Nodo);
     end;
 
   finally
-    vstGames.EndUpdate;
+    vstGroups.EndUpdate;
     FreeAndNil(frmProgress);
   end;
 
-  sbInfo.Panels[0].Text := Format(rsNGroups, [GroupCount]);
-  sbInfo.Panels[1].Text := Format(rsNGames, [GameManager.GameCount]);
+  sbInfo.Panels[0].Text := Format(rsFGMNGroups, [GroupCount]);
+  sbInfo.Panels[1].Text := Format(rsFGMNGames, [GameManager.GameCount]);
 
   Self.Enabled := True;
   if Self.CanFocus then
     Self.SetFocus;
+end;
+
+procedure TfrmGameManager.UpdateVTVGameList;
+begin
+
 end;
 
 procedure TfrmGameManager.UpdateGroupNodeTempData(Node: PVirtualNode);
@@ -1833,7 +1856,7 @@ var
 begin
   if Node = nil then
     Exit;
-  Data := vstGames.GetNodeData(Node);
+  Data := vstGroups.GetNodeData(Node);
   if not (Data^ is cGameGroup) then
     Exit;
 
@@ -1842,10 +1865,10 @@ begin
   aGroup.TimesPlayed := 0;
   aGroup.PlayingTime := 0;
 
-  aChildren := vstGames.GetFirstChild(Node);
+  aChildren := vstGroups.GetFirstChild(Node);
   while (aChildren <> nil) do
   begin
-    Data := vstGames.GetNodeData(aChildren);
+    Data := vstGroups.GetNodeData(aChildren);
 
     if Data^ is cGame then
     begin
@@ -1857,7 +1880,7 @@ begin
         aGroup.PlayingTime := aGroup.PlayingTime + PlayingTime;
       end;
     end;
-    aChildren := vstGames.GetNextSibling(aChildren);
+    aChildren := vstGroups.GetNextSibling(aChildren);
   end;
 end;
 
@@ -1867,7 +1890,7 @@ begin
   UpdateSystemBackground;
   UpdateSystemText;
   UpdateSystemMediaCaptions;
-  UpdateVTVGameList;
+  UpdateVTVGroupList;
 end;
 
 procedure TfrmGameManager.UpdateGameMedia;
@@ -1990,23 +2013,41 @@ begin
 
   // Check if can be assigned to game
   if (CurrGame <> nil) then
-    if MessageDlg(rsAssignToGroup, mtConfirmation, [mbYes, mbNo], 0) = mrNo then
+    if MessageDlg(rsFGMAssignToGroup, mtConfirmation, [mbYes, mbNo],
+      0) = mrNo then
       // TODO 1: Avisar que el juego no puede tener su propia imagen si se
       //   llama igual que el grupo...
       aFilename := RemoveFromBrackets(CurrGame.FileName) + CVirtualGameExt;
 
-  if StrToBoolDef(GameManager.System.ImageModes[cbGameImages.ItemIndex], False) then
+  if StrToBoolDef(GameManager.System.ImageModes[cbGameImages.ItemIndex],
+    False) then
   begin // Folders mode
     aFilename := SetAsFolder(GameManager.System.ImageFolders[
       cbGameImages.ItemIndex] + ExtractFileNameOnly(aFilename));
     ForceDirectoriesUTF8(aFilename);
     // We need a unique filename...
-    aFilename := aFilename + FormatDateTime('yyyymmddhhnn', Now) + CVirtualGameExt;
+    aFilename := aFilename + FormatDateTime('yyyymmddhhnn', Now) +
+      CVirtualGameExt;
   end
   else
   begin
-    aFilename := GameManager.System.ImageFolders[cbGameImages.ItemIndex] +
-      aFileName;
+    case GroupMode of
+      lvGMYear:
+        aFilename := Config.CommonMediaFolder + SetAsFolder('Years') +
+          SetAsFolder('Images') + aFileName;
+
+      lvGMDeveloper, lvGMPublisher:
+        aFilename := Config.CommonMediaFolder +
+          SetAsFolder('Companies') + SetAsFolder('Images') + aFileName;
+
+      lvGMTags:
+        aFilename := Config.CommonMediaFolder + SetAsFolder('Tags') +
+          SetAsFolder('Images') + aFileName;
+      else
+        aFilename := GameManager.System.ImageFolders[cbGameImages.ItemIndex] +
+          aFileName;
+
+    end;
   end;
 
   SaveImageToFile(iGameImage.Picture, aFileName);
@@ -2028,10 +2069,30 @@ begin
     aFilename := CurrGroup.MediaFileName;
     // Check if it must be assigned to the game
     if (CurrGame <> nil) then
-      if MessageDlg(rsAssignToGroup, mtConfirmation, [mbYes, mbNo], 0) = mrNo then
+    begin
+      if MessageDlg(rsFGMAssignToGroup, mtConfirmation,
+        [mbYes, mbNo], 0) = mrNo then
         aFilename := RemoveFromBrackets(CurrGame.FileName) + CVirtualGameExt;
+    end
+    else
+    begin
+    case GroupMode of
+      lvGMYear:
+        aFilename := Config.CommonMediaFolder + SetAsFolder('Years') +
+          SetAsFolder('Spines') + aFileName;
 
-    aFilename := GameManager.System.MarqueeFolder + aFileName;
+      lvGMDeveloper, lvGMPublisher:
+        aFilename := Config.CommonMediaFolder +
+          SetAsFolder('Spines') + SetAsFolder('Images') + aFileName;
+
+      lvGMTags:
+        aFilename := Config.CommonMediaFolder + SetAsFolder('Tags') +
+          SetAsFolder('Spines') + aFileName;
+      else
+        aFilename := GameManager.System.MarqueeFolder + aFileName;
+    end;
+
+    end;
 
     SaveImageToFile(aPicture, aFileName);
   finally
@@ -2055,10 +2116,30 @@ begin
     aFilename := CurrGroup.MediaFileName;
     // Check if it must be assigned to the game
     if (CurrGame <> nil) then
-      if MessageDlg(rsAssignToGroup, mtConfirmation, [mbYes, mbNo], 0) = mrNo then
+    begin
+      if MessageDlg(rsFGMAssignToGroup, mtConfirmation,
+        [mbYes, mbNo], 0) = mrNo then
         aFilename := RemoveFromBrackets(CurrGame.FileName) + CVirtualGameExt;
+    end
+    else
+    begin
+    case GroupMode of
+      lvGMYear:
+        aFilename := Config.CommonMediaFolder + SetAsFolder('Years') +
+          SetAsFolder('Icons') + aFileName;
 
-    aFilename := GameManager.System.IconFolder + aFileName;
+      lvGMDeveloper, lvGMPublisher:
+        aFilename := Config.CommonMediaFolder +
+          SetAsFolder('Icons') + SetAsFolder('Images') + aFileName;
+
+      lvGMTags:
+        aFilename := Config.CommonMediaFolder + SetAsFolder('Tags') +
+          SetAsFolder('Icons') + aFileName;
+      else
+        aFilename := GameManager.System.IconFolder + aFileName;
+    end;
+
+    end;
 
     SaveImageToFile(aPicture, aFileName);
   finally
@@ -2090,12 +2171,14 @@ begin
     aFilename := CurrGroup.MediaFileName;
     if (CurrGame <> nil) then
     begin
-      if MessageDlg(rsAssignToGroup, mtConfirmation, [mbYes, mbNo], 0) = mrNo then
+      if MessageDlg(rsFGMAssignToGroup, mtConfirmation,
+        [mbYes, mbNo], 0) = mrNo then
         // Whoops, only for the game
         aFilename := RemoveFromBrackets(CurrGame.FileName) + CVirtualGameExt;
     end;
 
-    if StrToBoolDef(GameManager.System.TextModes[cbGameTexts.ItemIndex], False) then
+    if StrToBoolDef(GameManager.System.TextModes[cbGameTexts.ItemIndex],
+      False) then
     begin // Folders mode
       aFilename := SetAsFolder(
         GameManager.System.TextFolders[cbGameTexts.ItemIndex] +
@@ -2114,7 +2197,8 @@ begin
   SaveTextToFile(memoGame.Lines, aFileName);
 end;
 
-procedure TfrmGameManager.SaveImageToFile(aPicture: TPicture; aFilename: string);
+procedure TfrmGameManager.SaveImageToFile(aPicture: TPicture;
+  aFilename: string);
 var
   Extension: string;
 begin
@@ -2125,7 +2209,8 @@ begin
   if ExtractFileExt(aFilename) = '' then
     aFilename := aFilename + ExtensionSeparator + 'ext';
 
-  if MessageDlg(rsChooseImageFileFormat, mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+  if MessageDlg(rsFGMChooseImageFileFormat, mtConfirmation, [mbYes, mbNo], 0) =
+    mrYes then
     Extension := '.png'
   else
     Extension := '.jpg';
@@ -2133,7 +2218,7 @@ begin
   aFilename := ChangeFileExt(aFilename, Extension);
 
   if FileExistsUTF8(aFilename) then
-    if MessageDlg(Format(rsConfirmOverwriteFile, [aFilename]),
+    if MessageDlg(Format(rsFGMConfirmOverwriteFile, [aFilename]),
       mtConfirmation, [mbYes, mbNo], 0) = mrNo then
       Exit;
 
@@ -2152,7 +2237,7 @@ begin
   aFilename := ChangeFileExt(aFilename, '.txt');
 
   if FileExistsUTF8(aFilename) then
-    if MessageDlg(Format(rsConfirmOverwriteFile, [aFilename]),
+    if MessageDlg(Format(rsFGMConfirmOverwriteFile, [aFilename]),
       mtConfirmation, [mbYes, mbNo], 0) = mrNo then
       Exit;
 
@@ -2169,7 +2254,8 @@ begin
   // Loading from clipboard
   CF := Clipboard.FindPictureFormatID;
   if CF = Windows.CF_BITMAP then // Handle CF_BITMAP separately
-    aPicture.LoadFromClipboardFormat(PredefinedClipboardFormat(pcfDelphiBitmap))
+    aPicture.LoadFromClipboardFormat(PredefinedClipboardFormat(
+      pcfDelphiBitmap))
   else
     aPicture.LoadFromClipboardFormat(CF);
 end;
@@ -2326,13 +2412,13 @@ begin
   eSortKey.Text := CurrGroup.SortKey;
 
   lPublisher.Enabled := True;
-  lPublisher.Caption := rsDeveloper;
+  lPublisher.Caption := rsFGMDeveloper;
   cbPublisher.Enabled := True;
   cbPublisher.Caption := CurrGroup.Developer;
 
   // Reusing Zone edit to show group key
   lZones.Enabled := False;
-  lZones.Caption := rsKey;
+  lZones.Caption := rsFGMKey;
   eZones.Enabled := False;
   eZones.Text := CurrGroup.Key;
 
@@ -2340,7 +2426,7 @@ begin
   cbYear.Caption := CurrGroup.Year;
 
   lVersion.Enabled := True;
-  lVersion.Caption := rsFilename;
+  lVersion.Caption := rsFGMFilename;
   eVersion.Enabled := True;
   eVersion.Caption := ExtractFileNameWithoutExt(CurrGroup.MediaFileName);
 
@@ -2384,9 +2470,9 @@ begin
       end;
 
       if UpdateVTV then
-        UpdateVTVGameList
+        UpdateVTVGroupList
       else
-        vstGames.Refresh;
+        vstGroups.Refresh;
     end;
   end;
 end;
@@ -2521,7 +2607,8 @@ begin
   OpenURL(TempStr);
 end;
 
-procedure TfrmGameManager.SearchGroupText(StrList: TStrings; aGameGroup: cGameGroup);
+procedure TfrmGameManager.SearchGroupText(StrList: TStrings;
+  aGameGroup: cGameGroup);
 begin
   if aGameGroup = nil then
     Exit;
@@ -2531,10 +2618,12 @@ begin
         Config.CommonMediaFolder + SetAsFolder('Years') + SetAsFolder('Texts'),
         aGameGroup, Config.TextExtensions, False, True);
     lvGMDeveloper: GameManager.SearchGroupMedia(StrList,
-        Config.CommonMediaFolder + SetAsFolder('Companies') + SetAsFolder('Texts'),
+        Config.CommonMediaFolder + SetAsFolder('Companies') +
+        SetAsFolder('Texts'),
         aGameGroup, Config.TextExtensions, False, True);
     lvGMPublisher: GameManager.SearchGroupMedia(StrList,
-        Config.CommonMediaFolder + SetAsFolder('Companies') + SetAsFolder('Texts'),
+        Config.CommonMediaFolder + SetAsFolder('Companies') +
+        SetAsFolder('Texts'),
         aGameGroup, Config.TextExtensions, False, True);
     { In folder mode... search in default location...
     lvGMFolder: GameManager.SearchGroupMedia(StrList,
@@ -2554,7 +2643,8 @@ begin
   end;
 end;
 
-procedure TfrmGameManager.SearchGroupImage(StrList: TStrings; aGameGroup: cGameGroup);
+procedure TfrmGameManager.SearchGroupImage(StrList: TStrings;
+  aGameGroup: cGameGroup);
 begin
   if aGameGroup = nil then
     Exit;
@@ -2562,7 +2652,8 @@ begin
   case GroupMode of
     // Aprovechamos las ventajas del cGameManager :P
     lvGMYear: GameManager.SearchGroupMedia(StrList,
-        Config.CommonMediaFolder + SetAsFolder('Years') + SetAsFolder('Images'),
+        Config.CommonMediaFolder + SetAsFolder('Years') +
+        SetAsFolder('Images'),
         aGameGroup, Config.ImageExtensions, False, True);
     lvGMDeveloper: GameManager.SearchGroupMedia(StrList,
         Config.CommonMediaFolder + SetAsFolder('Companies') +
@@ -2614,15 +2705,15 @@ end;
 
 procedure TfrmGameManager.SearchGames;
 begin
-  vstGames.BeginUpdate;
+  vstGroups.BeginUpdate;
   try
     // Show all nodes
-    vstGames.IterateSubtree(nil, @ShowAllNodes, nil);
+    vstGroups.IterateSubtree(nil, @ShowAllNodes, nil);
     // Hide non matching nodes
     if eSearch.Text <> '' then
-      vstGames.IterateSubtree(nil, @HideNodes, nil);
+      vstGroups.IterateSubtree(nil, @HideNodes, nil);
   finally
-    vstGames.EndUpdate;
+    vstGroups.EndUpdate;
   end;
 end;
 
@@ -2645,7 +2736,7 @@ begin
   if eSearch.Text = '' then
     Exit;
 
-  NodeData := vstGames.GetNodeData(Node);
+  NodeData := vstGroups.GetNodeData(Node);
 
   // Hidding groups
   if not (NodeData^ is cGame) then
@@ -2696,7 +2787,7 @@ begin
   eSortKey.Text := CurrGame.SortKey;
 
   lPublisher.Enabled := True;
-  lPublisher.Caption := rsPublisher;
+  lPublisher.Caption := rsFGMPublisher;
   cbPublisher.Enabled := True;
   cbPublisher.Text := CurrGame.Publisher;
 
@@ -2705,11 +2796,11 @@ begin
   cbYear.Text := CurrGame.Year;
 
   lZones.Enabled := True;
-  lZones.Caption := rsZones;
+  lZones.Caption := rsFGMZones;
   eZones.Enabled := True;
   eZones.Text := CurrGame.Zones.CommaText;
 
-  lVersion.Caption := rsVersion;
+  lVersion.Caption := rsFGMVersion;
   eVersion.Enabled := True;
   eVersion.Text := CurrGame.Version;
 
@@ -2744,7 +2835,7 @@ begin
   if (eName.Text <> '') and (eName.Text <> CurrGame.Name) then
   begin
     CurrGame.Name := eName.Text;
-    UpdateVTV := GroupMode = lvGMName;
+    UpdateVTV := (GroupMode = lvGMName) or UpdateVTV;
   end;
 
   if (eSortKey.Text <> '') and (eSortKey.Text <> CurrGame.SortKey) then
@@ -2755,7 +2846,7 @@ begin
   if cbYear.Text <> CurrGame.Year then
   begin
     CurrGame.Year := cbYear.Text;
-    UpdateVTV := GroupMode = lvGMYear;
+    UpdateVTV := (GroupMode = lvGMYear) or UpdateVTV;
   end;
 
   CurrGame.Version := eVersion.Text;
@@ -2764,7 +2855,7 @@ begin
   begin
     CurrGame.Publisher := cbPublisher.Text;
     AddToStringList(cbPublisher.Items, CurrGame.Publisher);
-    UpdateVTV := GroupMode = lvGMPublisher;
+    UpdateVTV := (GroupMode = lvGMPublisher) or UpdateVTV;
   end;
 
   // TODO 1: We can't create new groups from editor
@@ -2772,9 +2863,10 @@ begin
   begin
     if cbGameGroup.ItemIndex <> -1 then
     begin
-      aGameGroup := cGameGroup(cbGameGroup.Items.Objects[cbGameGroup.ItemIndex]);
+      aGameGroup := cGameGroup(
+        cbGameGroup.Items.Objects[cbGameGroup.ItemIndex]);
       CurrGame.GameGroup := aGameGroup.Key;
-      UpdateVTV := GroupMode = lvGMGameGroup;
+      UpdateVTV := (GroupMode = lvGMGameGroup) or UpdateVTV;
     end;
   end;
 
@@ -2786,20 +2878,20 @@ begin
     aGameGroup := GameManager.Group(CurrGame.GameGroup);
     aGameGroup.Tags.Clear;
     aGameGroup.Tags.AddStrings(mmGroupTags.Lines);
-    UpdateVTV := GroupMode = lvGMTags;
+    UpdateVTV := (GroupMode = lvGMTags) or UpdateVTV;
   end;
 
   if mmGameTags.Modified then
   begin
     CurrGame.Tags.Clear;
     CurrGame.Tags.AddStrings(mmGameTags.Lines);
-    UpdateVTV := GroupMode = lvGMTags;
+    UpdateVTV := (GroupMode = lvGMTags) or UpdateVTV;
   end;
 
   if UpdateVTV then
-    UpdateVTVGameList
+    UpdateVTVGroupList
   else
-    vstGames.Refresh;
+    vstGroups.Refresh;
 end;
 
 procedure TfrmGameManager.OpenGameImages;
@@ -2912,7 +3004,8 @@ begin
     IntToStr(GameTexts.Count);
 end;
 
-function TfrmGameManager.AddZoneIcon(Folder: string; Info: TSearchRec): boolean;
+function TfrmGameManager.AddZoneIcon(Folder: string;
+  Info: TSearchRec): boolean;
 var
   aString: string;
 begin
@@ -2943,12 +3036,12 @@ begin
     Exit;
 
   case TypeCB of
-    GMCBAddFile: aAction := rsAddingFile;
-    GMCBImportData: aAction := rsImportingData;
-    GMCBExportData: aAction := rsExportingData;
-    GMCBSaveList: aAction := rsSavingGameList;
-    GMCBLoadList: aAction := rsLoadingGameList;
-    GMCBDecompress: aAction := rsDecompressing;
+    GMCBAddFile: aAction := rsFGMAddingFile;
+    GMCBImportData: aAction := rsFGMImportingData;
+    GMCBExportData: aAction := rsFGMExportingData;
+    GMCBSaveList: aAction := rsFGMSavingGameList;
+    GMCBLoadList: aAction := rsFGMLoadingGameList;
+    GMCBDecompress: aAction := rsFGMDecompressing;
   end;
 
   Result := frmProgress.UpdTextAndBar(aAction, Info1, Info2, Value, Max);
@@ -2961,7 +3054,7 @@ end;
 
 procedure TfrmGameManager.actExportSystemDataExecute(Sender: TObject);
 begin
-  SaveDialog.Filter := rsEmutecaGameDatabase + CDBFilter;
+  SaveDialog.Filter := rsFGMEmutecaGameDatabase + CDBFilter;
   SaveDialog.DefaultExt := CDBExt;
   if not SaveDialog.Execute then
     Exit;
@@ -2976,53 +3069,53 @@ end;
 procedure TfrmGameManager.actGroupByDeveloperExecute(Sender: TObject);
 begin
   GroupMode := lvGMDeveloper;
-  UpdateVTVGameList;
+  UpdateVTVGroupList;
 end;
 
 procedure TfrmGameManager.actGroupByFamilyExecute(Sender: TObject);
 begin
   GroupMode := lvGMGameGroup;
-  UpdateVTVGameList;
+  UpdateVTVGroupList;
 end;
 
 procedure TfrmGameManager.actGroupByFolderExecute(Sender: TObject);
 begin
   GroupMode := lvGMFolder;
-  UpdateVTVGameList;
+  UpdateVTVGroupList;
 end;
 
 procedure TfrmGameManager.actGroupByNameExecute(Sender: TObject);
 begin
   GroupMode := lvGMName;
-  UpdateVTVGameList;
+  UpdateVTVGroupList;
 end;
 
 procedure TfrmGameManager.actGroupByPublisherExecute(Sender: TObject);
 begin
   GroupMode := lvGMPublisher;
-  UpdateVTVGameList;
+  UpdateVTVGroupList;
 end;
 
 procedure TfrmGameManager.actGroupByTagsExecute(Sender: TObject);
 begin
   GroupMode := lvGMTags;
-  UpdateVTVGameList;
+  UpdateVTVGroupList;
 end;
 
 procedure TfrmGameManager.actGroupByYearExecute(Sender: TObject);
 begin
   GroupMode := lvGMYear;
-  UpdateVTVGameList;
+  UpdateVTVGroupList;
 end;
 
 procedure TfrmGameManager.actImportSystemDataExecute(Sender: TObject);
 begin
-  OpenDialog.Filter := rsEmutecaGameDatabase + CDBFilter;
+  OpenDialog.Filter := rsFGMEmutecaGameDatabase + CDBFilter;
   OpenDialog.DefaultExt := CDBExt;
   if not OpenDialog.Execute then
     Exit;
 
-  vstGames.Clear;
+  vstGroups.Clear;
   Application.CreateForm(TfrmProgress, frmProgress);
   try
     GameManager.ImportGameData(OpenDialog.FileName);
@@ -3030,7 +3123,7 @@ begin
     FreeAndNil(frmProgress);
   end;
 
-  UpdateVTVGameList;
+  UpdateVTVGroupList;
 end;
 
 procedure TfrmGameManager.actLockGameTextExecute(Sender: TObject);
@@ -3101,11 +3194,11 @@ begin
     case ExitCode of
       0: ; // Do nothing. Maybe I must show airbursts
       CGMExecErrorNoGame: // Emuteca's error code
-        ShowMessage(Format(rsErrorGameNotFound,
+        ShowMessage(Format(rsFGMErrorGameNotFound,
           [CurrGame.Folder, CurrGame.FileName]));
       else
         // User must search emulator doc the meaning of code as homework
-        ShowMessage(Format(rsErrorEmulator, [ExitCode]));
+        ShowMessage(Format(rsFGMErrorEmulator, [ExitCode]));
     end;
   finally
     Self.Enabled := True;
@@ -3122,10 +3215,10 @@ end;
 
 procedure TfrmGameManager.actPurgeSystemDataExecute(Sender: TObject);
 begin
-  if MessageDlg(rsPurgeMessage, mtWarning, [mbYes, mbNo], 0) = mrNo then
+  if MessageDlg(rsFGMPurgeMessage, mtWarning, [mbYes, mbNo], 0) = mrNo then
     Exit;
   GameManager.PurgeGameData;
-  UpdateVTVGameList;
+  UpdateVTVGroupList;
 end;
 
 procedure TfrmGameManager.actScriptManagerExecute(Sender: TObject);
@@ -3135,9 +3228,9 @@ begin
   if GameManager.System = nil then
     Exit;
 
-  // Fix a posible crash while updating te form, after closing the
+  // Fix a posible crash while updating the form, after closing the
   //   Script Manager, because games or groups can have been modified.
-  vstGames.Clear;
+  vstGroups.Clear;
 
   Application.CreateForm(TfrmScriptManager, FormSM);
   try
@@ -3148,7 +3241,7 @@ begin
     FreeAndNil(FormSM);
   end;
 
-  UpdateVTVGameList;
+  UpdateVTVGroupList;
 end;
 
 procedure TfrmGameManager.actShowGroupTypeMenuExecute(Sender: TObject);
@@ -3190,12 +3283,13 @@ procedure TfrmGameManager.actChangeGameListFontExecute(Sender: TObject);
 var
   TmpFontQuality: TFontQuality;
 begin
-  TmpFontQuality := vstGames.Font.Quality;
-  FontDialog.Font.Assign(vstGames.Font);
-  if not FontDialog.Execute then Exit;
-  vstGames.Font.Assign(FontDialog.Font);
-  vstGames.Font.Quality := TmpFontQuality;
-  vstGames.DefaultNodeHeight := abs(vstGames.Font.Height) * 2;
+  TmpFontQuality := vstGroups.Font.Quality;
+  FontDialog.Font.Assign(vstGroups.Font);
+  if not FontDialog.Execute then
+    Exit;
+  vstGroups.Font.Assign(FontDialog.Font);
+  vstGroups.Font.Quality := TmpFontQuality;
+  vstGroups.DefaultNodeHeight := abs(vstGroups.Font.Height) * 2;
 
   // TODO 2: Change height of existing nodes
 
@@ -3238,11 +3332,11 @@ begin
     case ExitCode of
       0: ; // Do nothing. Maybe I must show airbursts
       CGMExecErrorNoGame: // Emuteca's error code
-        ShowMessage(Format(rsErrorGameNotFound,
+        ShowMessage(Format(rsFGMErrorGameNotFound,
           [CurrGame.Folder, CurrGame.FileName]));
       else
         // User must search emulator doc the meaning of code as homework
-        ShowMessage(Format(rsErrorEmulator, [ExitCode]));
+        ShowMessage(Format(rsFGMErrorEmulator, [ExitCode]));
     end;
   finally
     Self.Enabled := True;
@@ -3316,7 +3410,7 @@ begin
   CurrGame.Trainer := eTrainer.Text;
   CurrGame.Hack := eHack.Text;
 
-  vstGames.Refresh;
+  vstGroups.Refresh;
 end;
 
 procedure TfrmGameManager.actSaveSystemTextExecute(Sender: TObject);
@@ -3332,7 +3426,8 @@ begin
     if not SaveDialog.Execute then
       Exit;
     GameManager.System.InfoText := SaveDialog.FileName;
-    GameManager.System.SaveToFile(Config.DataFolder + Config.SystemsIniFile, False);
+    GameManager.System.SaveToFile(Config.DataFolder +
+      Config.SystemsIniFile, False);
   end;
 
   SaveTextToFile(memoSystem.Lines, GameManager.System.InfoText);
@@ -3355,11 +3450,17 @@ begin
 
     if FormResult = mrOk then
     begin
-      // ¿Fix a posible crash while updating te form?
-      vstGames.Clear;
+      // ¿Fix a posible crash while updating the form?
+      vstGroups.Clear;
+      cbSystem.Clear;
 
       GameManager.SaveSystemGameList;
       UpdateSystemList;
+
+      { ¿This Fix cbSystem not showing the dropdown after opening
+        system Manager?
+      }
+      cbSystem.DropDownCount := 8;
     end;
 
   finally
@@ -3372,7 +3473,7 @@ begin
   if GameManager.System = nil then
     Exit;
 
-  vstGames.Clear;
+  vstGroups.Clear;
   Self.Enabled := False;
   Application.CreateForm(TfrmProgress, frmProgress);
   try
@@ -3384,7 +3485,7 @@ begin
   if Self.CanFocus then
     Self.SetFocus;
 
-  UpdateVTVGameList;
+  UpdateVTVGroupList;
 end;
 
 procedure TfrmGameManager.actViewEmulatorImageExecute(Sender: TObject);
@@ -3448,7 +3549,8 @@ var
   aCBX: TComboBox;
 
 begin
-  if odInactive in State then Exit;
+  if odInactive in State then
+    Exit;
   aCBX := TComboBox(Control);
 
   // Icon
@@ -3483,8 +3585,8 @@ begin
   end;
 end;
 
-procedure TfrmGameManager.eEditorKeyDown(Sender: TObject; var Key: word;
-  Shift: TShiftState);
+procedure TfrmGameManager.eEditorKeyDown(Sender: TObject;
+  var Key: word; Shift: TShiftState);
 begin
   case Key of
     VK_RETURN:
@@ -3513,4 +3615,3 @@ initialization
   {$I fGameManager.lrs}
 
 end.
-

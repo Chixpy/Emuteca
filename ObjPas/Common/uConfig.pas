@@ -26,7 +26,7 @@ unit uConfig;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, LazUTF8, lazutf8classes,
+  Classes, SysUtils, FileUtil, LazUTF8,
   uCustomUtils;
 
 resourcestring

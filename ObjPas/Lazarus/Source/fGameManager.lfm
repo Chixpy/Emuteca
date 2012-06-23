@@ -1,7 +1,7 @@
 ﻿object frmGameManager: TfrmGameManager
-  Left = 255
+  Left = 412
   Height = 571
-  Top = 83
+  Top = 140
   Width = 800
   Caption = 'Game Manager'
   ClientHeight = 571
@@ -175,7 +175,7 @@
       Style = csOwnerDrawVariable
       TabOrder = 1
     end
-    object vstGames: TVirtualStringTree
+    object vstGroups: TVirtualStringTree
       Left = 0
       Height = 458
       Top = 73
@@ -249,11 +249,11 @@
       TreeOptions.PaintOptions = [toShowBackground, toShowButtons, toShowDropmark, toShowHorzGridLines, toShowTreeLines, toShowVertGridLines, toThemeAware, toUseBlendedImages, toFullVertGridLines, toUseBlendedSelection, toUseExplorerTheme]
       TreeOptions.SelectionOptions = [toDisableDrawSelection, toFullRowSelect, toMiddleClickSelect, toRightClickSelect]
       TreeOptions.StringOptions = []
-      OnChange = vstGamesChange
-      OnCompareNodes = vstGamesCompareNodes
-      OnDblClick = vstGamesDblClick
-      OnDrawText = vstGamesDrawText
-      OnGetText = vstGamesGetText
+      OnChange = vstGroupsChange
+      OnCompareNodes = vstCompareNodes
+      OnDblClick = vstGroupsDblClick
+      OnDrawText = vstGroupsDrawText
+      OnGetText = vstGroupsGetText
       OnHeaderClick = vstHeaderClick
     end
   end

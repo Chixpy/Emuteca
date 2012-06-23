@@ -36,13 +36,15 @@ uses
 resourcestring
   rsfmmSource = 'Source: %0:s';
   rsfmmTarget = 'Target: %0:s';
-  rsfmmDeleteFile = 'Do you want to delete the file?\n\n%0:s';
-  rsfmmDeleteAll = 'Do you want to delete all current listed files?\n\n' +
-    'Folder: %0:s\nNumber of files: %1:d';
+  rsfmmDeleteFile = 'Do you want to delete the file?' + sLineBreak +
+    sLineBreak + '%0:s';
+  rsfmmDeleteAll = 'Do you want to delete all current listed files?' + sLineBreak +
+    sLineBreak + 'Folder: %0:s' + sLineBreak + 'Number of files: %1:d';
   rsfmmDeleteFileError = 'Error deleting the file:\n\n%0:s';
 
   rsfmmTargetExists =
-    'Target file already exists.\n\nDo you want to overwrite?';
+    'Target file already exists.' + sLineBreak +
+    sLineBreak + 'Do you want to overwrite?';
 
   rsfmmIcons = 'Icons';
   rsfmmMarquees = 'Spines / Marquees';
@@ -513,7 +515,7 @@ begin
     0: aFolder := GameManager.System.DemoMusicFolder;
     else
     begin
-      // TODO 3: MultiFile := StrToBoolDef(GameManager.System.MusicModes[lbxMusic.ItemIndex-1], False);
+      MultiFile := StrToBoolDef(GameManager.System.MusicModes[lbxMusic.ItemIndex-1], False);
       aFolder := GameManager.System.MusicFolders[lbxMusic.ItemIndex - 1];
     end;
   end;
@@ -580,7 +582,7 @@ begin
     0: aFolder := GameManager.System.DemoVideoFolder;
     else
     begin
-      // TODO 3: MultiFile := StrToBoolDef(GameManager.System.VideoModes[lbxVideos.ItemIndex-1], False);
+      MultiFile := StrToBoolDef(GameManager.System.VideoModes[lbxVideos.ItemIndex-1], False);
       aFolder := GameManager.System.VideoFolders[lbxVideos.ItemIndex - 1];
     end;
   end;
@@ -902,7 +904,7 @@ end;
 procedure TfrmMediaManager.SetSourceFolder(const AValue: string);
 begin
   FSourceFolder := SetAsFolder(AValue);
-  lSource.Caption := rsfmmSource + ' ' + SourceFolder + SourceFile;
+  lSource.Caption := format(rsfmmSource, [SourceFolder + SourceFile]);
 end;
 
 procedure TfrmMediaManager.SetTargetFile(const AValue: string);
@@ -913,13 +915,13 @@ begin
     FTargetFile := FTargetFile + UTF8LowerCase(ExtractFileExt(SourceFile))
   else
     FTargetFile := FTargetFile + CVirtualGameExt;
-  lTarget.Caption := rsfmmTarget + ' ' + TargetFolder + TargetFile;
+  lTarget.Caption := format(rsfmmTarget, [TargetFolder + TargetFile]);
 end;
 
 procedure TfrmMediaManager.SetTargetFolder(const AValue: string);
 begin
   FTargetFolder := SetAsFolder(AValue);
-  lTarget.Caption := rsfmmTarget + ' ' + TargetFolder + TargetFile;
+  lTarget.Caption := format(rsfmmTarget, [TargetFolder + TargetFile]);;
 end;
 
 function TfrmMediaManager.AddFile(aFolder: string; Info: TSearchRec): boolean;
