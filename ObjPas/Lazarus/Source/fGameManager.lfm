@@ -299,10 +299,10 @@
     Height = 531
     Top = 0
     Width = 208
-    ActivePage = pagSystem
+    ActivePage = pagEditor
     Align = alLeft
     Constraints.MinWidth = 200
-    TabIndex = 0
+    TabIndex = 2
     TabOrder = 4
     object pagSystem: TTabSheet
       Caption = 'System'
@@ -517,7 +517,7 @@
     end
     object pagEditor: TTabSheet
       Caption = 'Editor'
-      ClientHeight = 507
+      ClientHeight = 505
       ClientWidth = 200
       object lName: TLabel
         Left = 0
@@ -746,7 +746,7 @@
       end
       object mmGroupTags: TMemo
         Left = 0
-        Height = 144
+        Height = 142
         Top = 224
         Width = 200
         Align = alClient
@@ -756,7 +756,7 @@
       object lGameTags: TLabel
         Left = 0
         Height = 14
-        Top = 368
+        Top = 366
         Width = 200
         Align = alBottom
         Alignment = taCenter
@@ -766,7 +766,7 @@
       object mmGameTags: TMemo
         Left = 0
         Height = 100
-        Top = 382
+        Top = 380
         Width = 200
         Align = alBottom
         ScrollBars = ssAutoVertical
@@ -775,7 +775,7 @@
       object bEditorSave: TBitBtn
         Left = 0
         Height = 25
-        Top = 482
+        Top = 480
         Width = 200
         Action = actSaveEditorData
         Align = alBottom
