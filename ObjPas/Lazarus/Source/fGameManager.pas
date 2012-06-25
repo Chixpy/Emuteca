@@ -2014,11 +2014,15 @@ begin
     (GroupMode in [lvGMYear, lvGMDeveloper, lvGMTags])) then
   begin
     if CurrGame <> nil then
+    begin
+              aFilename := GameManager.Group(CurrGame.GameGroup).MediaFileName;
+
       if MessageDlg(rsFGMAssignToGroup, mtConfirmation,
         [mbYes, mbNo], 0) = mrNo then
         { TODO 1: Warn about a game can't have it's own file if
           it has the same filename as group. }
         aFilename := RemoveFromBrackets(CurrGame.FileName) + CVirtualGameExt;
+    end;
 
     // Normal mode o folder mode...
     if StrToBoolDef(GameManager.System.ImageModes[cbGameImages.ItemIndex],
@@ -2077,11 +2081,15 @@ begin
       (GroupMode in [lvGMYear, lvGMDeveloper, lvGMTags])) then
     begin
       if CurrGame <> nil then
+      begin
+                aFilename := GameManager.Group(CurrGame.GameGroup).MediaFileName;
+
         if MessageDlg(rsFGMAssignToGroup, mtConfirmation,
           [mbYes, mbNo], 0) = mrNo then
           { TODO 1: Warn about a game can't have it's own file if
             it has the same filename as group. }
           aFilename := RemoveFromBrackets(CurrGame.FileName) + CVirtualGameExt;
+      end;
       aFilename := GameManager.System.ImageFolders[cbGameImages.ItemIndex] +
         aFilename;
     end
@@ -2130,11 +2138,14 @@ begin
       (GroupMode in [lvGMYear, lvGMDeveloper, lvGMTags])) then
     begin
       if CurrGame <> nil then
+      begin
+        aFilename := GameManager.Group(CurrGame.GameGroup).MediaFileName;
         if MessageDlg(rsFGMAssignToGroup, mtConfirmation,
           [mbYes, mbNo], 0) = mrNo then
           { TODO 1: Warn about a game can't have it's own file if
             it has the same filename as group. }
           aFilename := RemoveFromBrackets(CurrGame.FileName) + CVirtualGameExt;
+      end;
       aFilename := GameManager.System.ImageFolders[cbGameImages.ItemIndex] +
         aFilename;
     end
@@ -2191,12 +2202,16 @@ begin
     if (CurrGame <> nil) or ((CurrGame = nil) and not
       (GroupMode in [lvGMYear, lvGMDeveloper, lvGMTags])) then
     begin
+
       if CurrGame <> nil then
+      begin
+        aFilename := GameManager.Group(CurrGame.GameGroup).MediaFileName;
         if MessageDlg(rsFGMAssignToGroup, mtConfirmation,
           [mbYes, mbNo], 0) = mrNo then
         { TODO 1: Warn about a game can't have it's own file if
           it has the same filename as group. }
           aFilename := RemoveFromBrackets(CurrGame.FileName) + CVirtualGameExt;
+      end;
 
       // Normal mode o folder mode...
       if StrToBoolDef(GameManager.System.TextModes[cbGameTexts.ItemIndex],
