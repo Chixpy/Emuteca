@@ -21,133 +21,171 @@ msgstr "Nombre del emulador"
 msgid "Select an emulator."
 msgstr "Elija un emulador."
 
-#: fgamemanager.rsaddingfile
+#: fgamemanager.rsfgmaddingfile
+msgctxt "fgamemanager.rsfgmaddingfile"
 msgid "Adding file:"
 msgstr "Añadiendo fichero"
 
-#: fgamemanager.rsassigntogroup
+#: fgamemanager.rsfgmassigntogroup
+msgctxt "fgamemanager.rsfgmassigntogroup"
 msgid "Do you want to assign it to the game's group?"
 msgstr "¿Desea asignarlo al grupo del juego?"
 
-#: fgamemanager.rschooseimagefileformat
+#: fgamemanager.rsfgmchooseimagefileformat
+msgctxt "fgamemanager.rsfgmchooseimagefileformat"
 msgid ""
 "Do you want to save it in a lossless format:\n"
 "YES -> .png (lossless for screenshots)\n"
 "NO -> .jpg (better for photographs)\n"
 msgstr ""
+"¿Quiere grabar la imagen en un formato sin pérdida?\n"
+"SÍ -> .png (Sin pérdida para capturas)\n"
+"NO -> .jpg (Mejor para fotografías y escaneados)\n"
 
-#: fgamemanager.rsconfirmoverwritefile
+#: fgamemanager.rsfgmconfirmoverwritefile
+msgctxt "fgamemanager.rsfgmconfirmoverwritefile"
 msgid ""
 "%0:s\n"
 "The file already exists.\n"
 "Do you want overwrite it?\n"
 msgstr ""
+"%0:s\n"
+"El fichero ya existe.\n"
+"¿Quiere sobrescribirlo?\n"
 
-#: fgamemanager.rsdecompressing
+#: fgamemanager.rsfgmdecompressing
+msgctxt "fgamemanager.rsfgmdecompressing"
 msgid "Decompressing:"
-msgstr ""
+msgstr "Descomprimiendo:"
 
-#: fgamemanager.rsdeveloper
+#: fgamemanager.rsfgmdeveloper
+msgctxt "fgamemanager.rsfgmdeveloper"
 msgid "Developer"
-msgstr ""
+msgstr "Desarrollador"
 
-#: fgamemanager.rsemutecagamedatabase
+#: fgamemanager.rsfgmemutecagamedatabase
+msgctxt "fgamemanager.rsfgmemutecagamedatabase"
 msgid "Emuteca game database"
-msgstr ""
+msgstr "Base de datos de juegos de Emuteca"
 
-#: fgamemanager.rserroremulator
+#: fgamemanager.rsfgmerroremulator
+msgctxt "fgamemanager.rsfgmerroremulator"
 msgid "Emulator exited with error code: %0:d"
-msgstr ""
+msgstr "El emulador a finalizado con el código de error: %0:d"
 
-#: fgamemanager.rserrorgamenotfound
+#: fgamemanager.rsfgmerrorgamenotfound
+msgctxt "fgamemanager.rsfgmerrorgamenotfound"
 msgid ""
 "Game not found:\n"
 "%0:s%1:s\n"
 msgstr ""
+"Juego no encontrado:\n"
+"%0:s%1:s\n"
 
-#: fgamemanager.rsexportingdata
+#: fgamemanager.rsfgmexportingdata
+msgctxt "fgamemanager.rsfgmexportingdata"
 msgid "Exporting data:"
-msgstr ""
+msgstr "Exportando datos:"
 
-#: fgamemanager.rsfilename
+#: fgamemanager.rsfgmfilename
+msgctxt "fgamemanager.rsfgmfilename"
 msgid "Filename"
-msgstr ""
+msgstr "Nombre del fichero"
 
-#: fgamemanager.rsimportingdata
+#: fgamemanager.rsfgmimportingdata
+msgctxt "fgamemanager.rsfgmimportingdata"
 msgid "Importing data:"
-msgstr ""
+msgstr "Importando datos: "
 
-#: fgamemanager.rskey
+#: fgamemanager.rsfgmkey
+msgctxt "fgamemanager.rsfgmkey"
 msgid "Key"
-msgstr ""
+msgstr "Clave"
 
-#: fgamemanager.rsloadinggamelist
+#: fgamemanager.rsfgmloadinggamelist
+msgctxt "fgamemanager.rsfgmloadinggamelist"
 msgid "Loading games:"
-msgstr ""
+msgstr "Cargando juegos:"
 
-#: fgamemanager.rsnever
+#: fgamemanager.rsfgmnever
+msgctxt "fgamemanager.rsfgmnever"
 msgid "Never"
-msgstr ""
+msgstr "Nunca"
 
-#: fgamemanager.rsngames
+#: fgamemanager.rsfgmngames
+msgctxt "fgamemanager.rsfgmngames"
 msgid "%0:d games"
-msgstr ""
+msgstr "%0:d juegos"
 
-#: fgamemanager.rsngroups
+#: fgamemanager.rsfgmngroups
+msgctxt "fgamemanager.rsfgmngroups"
 msgid "%0:d groups"
 msgstr "%0:d grupos"
 
-#: fgamemanager.rsntimes
+#: fgamemanager.rsfgmntimes
+msgctxt "fgamemanager.rsfgmntimes"
 msgid "%0:d times"
 msgstr "%0:d veces"
 
-#: fgamemanager.rspublisher
-msgctxt "fgamemanager.rspublisher"
+#: fgamemanager.rsfgmpublisher
+msgctxt "fgamemanager.rsfgmpublisher"
 msgid "Publisher"
 msgstr "Publicador"
 
-#: fgamemanager.rspurgemessage
+#: fgamemanager.rsfgmpurgemessage
+msgctxt "fgamemanager.rsfgmpurgemessage"
 msgid ""
 "Warning:\n"
 "This action will erase all the game and group list.\n"
 "Do you want to continue?\n"
 msgstr ""
 
-#: fgamemanager.rssavinggamelist
+#: fgamemanager.rsfgmsavinggamelist
+msgctxt "fgamemanager.rsfgmsavinggamelist"
 msgid "Saving games:"
 msgstr "Guardando juegos:"
 
-#: fgamemanager.rsunknown
+#: fgamemanager.rsfgmunknown
+msgctxt "fgamemanager.rsfgmunknown"
 msgid "!Unknown"
 msgstr "!Desconocido"
 
-#: fgamemanager.rsupdatinglist
+#: fgamemanager.rsfgmupdatinglist
+msgctxt "fgamemanager.rsfgmupdatinglist"
 msgid "Updating List:"
 msgstr ""
 
-#: fgamemanager.rsversion
-msgctxt "fgamemanager.rsversion"
+#: fgamemanager.rsfgmversion
+msgctxt "fgamemanager.rsfgmversion"
 msgid "Version"
 msgstr "Versión"
 
-#: fgamemanager.rszones
+#: fgamemanager.rsfgmzones
+msgctxt "fgamemanager.rsfgmzones"
 msgid "Zone"
 msgstr "Zona"
 
 #: fmediamanager.rsfmmaddingfiles
 msgid "Adding files to the list..."
-msgstr ""
+msgstr "Añadiendo ficheros a la lista"
 
 #: fmediamanager.rsfmmcopyingfilelist
 msgid "Copying file list..."
 msgstr ""
 
 #: fmediamanager.rsfmmdeleteall
-msgid "Do you want to delete all current listed files?\\n\\nFolder: %0:s\\nNumber of files: %1:d"
+msgid ""
+"Do you want to delete all current listed files?\n"
+"\n"
+"Folder: %0:s\n"
+"Number of files: %1:d\n"
 msgstr ""
 
 #: fmediamanager.rsfmmdeletefile
-msgid "Do you want to delete the file?\\n\\n%0:s"
+msgid ""
+"Do you want to delete the file?\n"
+"\n"
+"%0:s\n"
 msgstr ""
 
 #: fmediamanager.rsfmmdeletefileerror
@@ -160,17 +198,17 @@ msgstr ""
 
 #: fmediamanager.rsfmmdemovideo
 msgid ""
-"`#201p+#0#0#0#0\n"
+"#0e#143+#0#0#0#0\n"
 "#0\n"
 msgstr ""
 
 #: fmediamanager.rsfmmicons
 msgid "Icons"
-msgstr ""
+msgstr "Iconos"
 
 #: fmediamanager.rsfmmmarquees
 msgid "Spines / Marquees"
-msgstr ""
+msgstr "Laterales / Marquesinas"
 
 #: fmediamanager.rsfmmsearchfileswogame
 msgid "Searching files without game..."
@@ -182,14 +220,17 @@ msgstr ""
 
 #: fmediamanager.rsfmmsource
 msgid "Source: %0:s"
-msgstr ""
+msgstr "Origen: %0:s"
 
 #: fmediamanager.rsfmmtarget
 msgid "Target: %0:s"
-msgstr ""
+msgstr "Destino: %0:s"
 
 #: fmediamanager.rsfmmtargetexists
-msgid "Target file already exists.\\n\\nDo you want to overwrite?"
+msgid ""
+"Target file already exists.\n"
+"\n"
+"Do you want to overwrite?\n"
 msgstr ""
 
 #: fmediamanager.rsnfiles
@@ -198,165 +239,22 @@ msgstr ""
 
 #: fscriptmanager.rscompilationerror
 msgid "Compilation: Error."
-msgstr ""
+msgstr "Compilación: Error."
 
 #: fscriptmanager.rscompilationok
 msgid "Compilation: OK."
-msgstr ""
+msgstr "Compilación: OK."
 
 #: fscriptmanager.rsexecutionerror
 msgid "Execution: Error."
-msgstr ""
+msgstr "Ejecución: Error."
 
 #: fscriptmanager.rsexecutionok
 msgid "Execution: OK."
-msgstr ""
+msgstr "Execución: OK."
 
 #: fscriptmanager.rsscriptfilesaved
 msgid "Script file saved: %s"
-msgstr ""
-
-#: fsystemmanager.rsautoconfigsystem
-msgctxt "fsystemmanager.rsautoconfigsystem"
-msgid ""
-"This action will create many subfolders in:\n"
-"%0:s\n"
-"Are you sure?\n"
-msgstr ""
-
-#: fsystemmanager.rsautofolderbios
-msgctxt "fsystemmanager.rsautofolderbios"
-msgid "BIOS/"
-msgstr ""
-
-#: fsystemmanager.rsautofoldergames
-msgctxt "fsystemmanager.rsautofoldergames"
-msgid "Games/"
-msgstr ""
-
-#: fsystemmanager.rsautofoldericons
-msgctxt "fsystemmanager.rsautofoldericons"
-msgid "Icon/"
-msgstr ""
-
-#: fsystemmanager.rsautofolderimg
-msgctxt "fsystemmanager.rsautofolderimg"
-msgid "Images/"
-msgstr ""
-
-#: fsystemmanager.rsautofolderimgback
-msgctxt "fsystemmanager.rsautofolderimgback"
-msgid "Back/"
-msgstr ""
-
-#: fsystemmanager.rsautofolderimgfront
-msgctxt "fsystemmanager.rsautofolderimgfront"
-msgid "Front/"
-msgstr ""
-
-#: fsystemmanager.rsautofolderimgingame
-msgctxt "fsystemmanager.rsautofolderimgingame"
-msgid "In game/"
-msgstr ""
-
-#: fsystemmanager.rsautofolderimgmarquee
-msgctxt "fsystemmanager.rsautofolderimgmarquee"
-msgid "Spine/"
-msgstr ""
-
-#: fsystemmanager.rsautofolderimgmedia
-msgctxt "fsystemmanager.rsautofolderimgmedia"
-msgid "Media/"
-msgstr ""
-
-#: fsystemmanager.rsautofolderimgtitle
-msgctxt "fsystemmanager.rsautofolderimgtitle"
-msgid "Title/"
-msgstr ""
-
-#: fsystemmanager.rsautofoldermusic
-msgctxt "fsystemmanager.rsautofoldermusic"
-msgid "Music/"
-msgstr ""
-
-#: fsystemmanager.rsautofoldermusicdemo
-msgctxt "fsystemmanager.rsautofoldermusicdemo"
-msgid "Demo/"
-msgstr ""
-
-#: fsystemmanager.rsautofoldermusicmix
-msgctxt "fsystemmanager.rsautofoldermusicmix"
-msgid "Mix/"
-msgstr ""
-
-#: fsystemmanager.rsautofoldermusicost
-msgctxt "fsystemmanager.rsautofoldermusicost"
-msgid "OST/"
-msgstr ""
-
-#: fsystemmanager.rsautofoldersaves
-msgctxt "fsystemmanager.rsautofoldersaves"
-msgid "Saves/"
-msgstr ""
-
-#: fsystemmanager.rsautofoldertemp
-msgctxt "fsystemmanager.rsautofoldertemp"
-msgid "Temp/"
-msgstr ""
-
-#: fsystemmanager.rsautofoldertools
-msgctxt "fsystemmanager.rsautofoldertools"
-msgid "Tools/"
-msgstr ""
-
-#: fsystemmanager.rsautofoldertxt
-msgctxt "fsystemmanager.rsautofoldertxt"
-msgid "Texts/"
-msgstr ""
-
-#: fsystemmanager.rsautofoldertxtcheat
-msgctxt "fsystemmanager.rsautofoldertxtcheat"
-msgid "Cheats/"
-msgstr ""
-
-#: fsystemmanager.rsautofoldertxtcredit
-msgctxt "fsystemmanager.rsautofoldertxtcredit"
-msgid "Credits/"
-msgstr ""
-
-#: fsystemmanager.rsautofoldertxtinfo
-msgctxt "fsystemmanager.rsautofoldertxtinfo"
-msgid "Information/"
-msgstr ""
-
-#: fsystemmanager.rsautofoldertxtmanual
-msgctxt "fsystemmanager.rsautofoldertxtmanual"
-msgid "Instructions/"
-msgstr ""
-
-#: fsystemmanager.rsautofoldertxtnotes
-msgctxt "fsystemmanager.rsautofoldertxtnotes"
-msgid "Notes/"
-msgstr ""
-
-#: fsystemmanager.rsautofoldervideo
-msgctxt "fsystemmanager.rsautofoldervideo"
-msgid "Videos/"
-msgstr ""
-
-#: fsystemmanager.rsautofoldervideodemo
-msgctxt "fsystemmanager.rsautofoldervideodemo"
-msgid "Demo/"
-msgstr ""
-
-#: fsystemmanager.rsautofoldervideoingame
-msgctxt "fsystemmanager.rsautofoldervideoingame"
-msgid "In game/"
-msgstr ""
-
-#: fsystemmanager.rsautofoldervideotas
-msgctxt "fsystemmanager.rsautofoldervideotas"
-msgid "Inputs/"
 msgstr ""
 
 #: fsystemmanager.rsfsmautoconfigsystem
@@ -510,45 +408,35 @@ msgstr ""
 #: fsystemmanager.rsfsmsystemname
 msgctxt "fsystemmanager.rsfsmsystemname"
 msgid "System name"
-msgstr ""
-
-#: fsystemmanager.rsselectsystem
-msgctxt "fsystemmanager.rsselectsystem"
-msgid "Select a system."
-msgstr ""
-
-#: fsystemmanager.rssystemname
-msgctxt "fsystemmanager.rssystemname"
-msgid "System name"
-msgstr ""
+msgstr "Nombre del sistema"
 
 #: tfrmconfigmanager.bmakepathsrelative.caption
 msgid "Make paths relative"
-msgstr ""
+msgstr "Convertir en directorios relativos"
 
 #: tfrmconfigmanager.caption
 msgid "Config Manager"
-msgstr ""
+msgstr "Gestor de configuración"
 
 #: tfrmconfigmanager.gbxcompext.caption
 msgid "Compressed Ext."
-msgstr ""
+msgstr "Extensiones de comprimidos"
 
 #: tfrmconfigmanager.gbximageext.caption
 msgid "Image Ext."
-msgstr ""
+msgstr "Extensiones de imágenes"
 
 #: tfrmconfigmanager.gbxtextext.caption
 msgid "Text Ext."
-msgstr ""
+msgstr "Extensiones de textos"
 
 #: tfrmconfigmanager.l7zgpath.caption
 msgid "7zG.exe path"
-msgstr ""
+msgstr "Ruta a 7zG.exe"
 
 #: tfrmconfigmanager.l7zpath.caption
 msgid "7z.exe path"
-msgstr ""
+msgstr "Ruta a 7z.exe"
 
 #: tfrmconfigmanager.lconfigfile.caption
 msgid " "
@@ -556,12 +444,12 @@ msgstr ""
 
 #: tfrmconfigmanager.lmplayerpath.caption
 msgid "mPlayer path"
-msgstr ""
+msgstr "Ruta a mPlayer"
 
 #: tfrmconfigmanager.pagextensions.caption
 msgctxt "tfrmconfigmanager.pagextensions.caption"
 msgid "Extensions"
-msgstr ""
+msgstr "Extensiones"
 
 #: tfrmconfigmanager.pagpaths.caption
 msgid "Paths"
@@ -569,19 +457,19 @@ msgstr ""
 
 #: tfrmemulatormanager.actaddemulator.caption
 msgid "Add emulator..."
-msgstr ""
+msgstr "Añadir emulador..."
 
 #: tfrmemulatormanager.actexportemulators.caption
 msgid "Export emulator list"
-msgstr ""
+msgstr "Exportar lista de emuladores"
 
 #: tfrmemulatormanager.actimportemulators.caption
 msgid "Import emulator list"
-msgstr ""
+msgstr "mportaar lista de emuladores"
 
 #: tfrmemulatormanager.actremoveemulator.caption
 msgid "Remove emulator"
-msgstr ""
+msgstr "Quitar emulador"
 
 #: tfrmemulatormanager.btncancel.caption
 msgctxt "TFRMEMULATORMANAGER.BTNCANCEL.CAPTION"
@@ -595,7 +483,7 @@ msgstr ""
 
 #: tfrmemulatormanager.caption
 msgid "Emulator Manager"
-msgstr ""
+msgstr "Gestor de emuladores"
 
 #: tfrmemulatormanager.gbemulatorimages.caption
 msgid "Emulator images"
@@ -1037,7 +925,7 @@ msgstr ""
 
 #: tfrmgamemanager.actsystemmanager.caption
 msgid "System Manager..."
-msgstr ""
+msgstr "Gestor de Sistemas..."
 
 #: tfrmgamemanager.actsystemmanager.hint
 msgid "Open the system manager window"
@@ -1053,7 +941,7 @@ msgstr ""
 
 #: tfrmgamemanager.actviewemulatorimage.caption
 msgid "View emulator image..."
-msgstr ""
+msgstr "Ver imagen del emulador..."
 
 #: tfrmgamemanager.actviewemulatorimage.hint
 msgid "View emulator image in Image Viewer"
@@ -1102,11 +990,19 @@ msgstr ""
 
 #: tfrmgamemanager.caption
 msgid "Game Manager"
-msgstr ""
+msgstr "Gestor de juegos"
 
 #: tfrmgamemanager.cbsearch.text
 msgctxt "tfrmgamemanager.cbsearch.text"
 msgid "Name"
+msgstr ""
+
+#: tfrmgamemanager.chkupdatetreeaftersaving.caption
+msgid "Update tree after saving"
+msgstr "Actualizar árbol al grabar"
+
+#: tfrmgamemanager.chkupdatetreeaftersaving.hint
+msgid "Sometimes all games must be sortened after saving."
 msgstr ""
 
 #: tfrmgamemanager.chkverified.caption
@@ -1125,11 +1021,11 @@ msgstr ""
 
 #: tfrmgamemanager.isystemimage.hint
 msgid "Double click to view in Image Viewer.|System image."
-msgstr ""
+msgstr "Doble click para verla en el Visor de Imágenes|Imagen del sistema."
 
 #: tfrmgamemanager.lalternate.caption
 msgid "Alternate"
-msgstr ""
+msgstr "Versión alternativa"
 
 #: tfrmgamemanager.lbaddump.caption
 msgid "Bad dump"
@@ -1137,23 +1033,23 @@ msgstr ""
 
 #: tfrmgamemanager.lcracked.caption
 msgid "Cracked"
-msgstr ""
+msgstr "Crackeado"
 
 #: tfrmgamemanager.lfixed.caption
 msgid "Fixed"
-msgstr ""
+msgstr "Arreglado"
 
 #: tfrmgamemanager.lgamegroup.caption
 msgid "Game group"
-msgstr ""
+msgstr "Grupo"
 
 #: tfrmgamemanager.lgametags.caption
 msgid "Game tags"
-msgstr ""
+msgstr "Etiquetas del juego"
 
 #: tfrmgamemanager.lgrouptags.caption
 msgid "Group tags"
-msgstr ""
+msgstr "Etiquetas del grupo"
 
 #: tfrmgamemanager.lhack.caption
 msgid "Hack"
@@ -1161,24 +1057,24 @@ msgstr ""
 
 #: tfrmgamemanager.llanguages.caption
 msgid "Languages"
-msgstr ""
+msgstr "Lenguajes"
 
 #: tfrmgamemanager.llicense.caption
 msgid "License"
-msgstr ""
+msgstr "Licencia"
 
 #: tfrmgamemanager.lmodified.caption
 msgid "Modified"
-msgstr ""
+msgstr "Modificado"
 
 #: tfrmgamemanager.lname.caption
 msgctxt "TFRMGAMEMANAGER.LNAME.CAPTION"
 msgid "Name"
-msgstr ""
+msgstr "Nombre"
 
 #: tfrmgamemanager.lpirate.caption
 msgid "Pirate"
-msgstr ""
+msgstr "Pirata"
 
 #: tfrmgamemanager.lpublisher.caption
 msgctxt "TFRMGAMEMANAGER.LPUBLISHER.CAPTION"
@@ -1187,7 +1083,7 @@ msgstr "Publicador"
 
 #: tfrmgamemanager.lsortkey.caption
 msgid "Sort Key"
-msgstr ""
+msgstr "Clave de ordenación"
 
 #: tfrmgamemanager.ltrainer.caption
 msgid "Trainer"
@@ -1195,7 +1091,7 @@ msgstr ""
 
 #: tfrmgamemanager.ltranslation.caption
 msgid "Translation"
-msgstr ""
+msgstr "Traducción"
 
 #: tfrmgamemanager.lversion.caption
 msgctxt "TFRMGAMEMANAGER.LVERSION.CAPTION"
@@ -1204,20 +1100,20 @@ msgstr "Versión"
 
 #: tfrmgamemanager.lyear.caption
 msgid "Year"
-msgstr ""
+msgstr "Año"
 
 #: tfrmgamemanager.lzones.caption
 msgid "Zones"
-msgstr ""
+msgstr "Zonas"
 
 #: tfrmgamemanager.miemulator.caption
 msgctxt "TFRMGAMEMANAGER.MIEMULATOR.CAPTION"
 msgid "Emulator"
-msgstr ""
+msgstr "Emulador"
 
 #: tfrmgamemanager.mifile.caption
 msgid "File"
-msgstr ""
+msgstr "Fichero"
 
 #: tfrmgamemanager.mifileseparator.caption
 msgctxt "TFRMGAMEMANAGER.MIFILESEPARATOR.CAPTION"
@@ -1230,7 +1126,7 @@ msgstr ""
 
 #: tfrmgamemanager.migmsearchgameinternet.caption
 msgid "Search Game in Internet"
-msgstr ""
+msgstr "Buscar juego en Internet"
 
 #: tfrmgamemanager.migmsep1.caption
 msgctxt "TFRMGAMEMANAGER.MIGMSEP1.CAPTION"
@@ -1239,19 +1135,19 @@ msgstr ""
 
 #: tfrmgamemanager.mihelp.caption
 msgid "Help"
-msgstr ""
+msgstr "Ayuda"
 
 #: tfrmgamemanager.mipasteclipboardimage.caption
 msgid "Paste clipboard image..."
-msgstr ""
+msgstr "Pegar imagen del portapapeles..."
 
 #: tfrmgamemanager.misearchemulatorinternet.caption
 msgid "Search emulator in Internet"
-msgstr ""
+msgstr "Buscar emulador en Internet"
 
 #: tfrmgamemanager.misearchgameinternet.caption
 msgid "Search game in Internet"
-msgstr ""
+msgstr "Buscar juego en Internet"
 
 #: tfrmgamemanager.misearchsysteminternet.caption
 msgid "Search system in Internet"
@@ -1376,16 +1272,16 @@ msgstr ""
 
 #: tfrmmediamanager.chkonlysimilar.caption
 msgid "Only similar file names"
-msgstr ""
+msgstr "Solo nombres similares"
 
 #: tfrmmediamanager.gbximages.caption
 msgid "Images"
-msgstr ""
+msgstr "Imágenes"
 
 #: tfrmmediamanager.gbxmusic.caption
 msgctxt "tfrmmediamanager.gbxmusic.caption"
 msgid "Music"
-msgstr ""
+msgstr "Música"
 
 #: tfrmmediamanager.gbxotherfiles.caption
 msgctxt "TFRMMEDIAMANAGER.GBXOTHERFILES.CAPTION"
@@ -1394,20 +1290,20 @@ msgstr ""
 
 #: tfrmmediamanager.gbxtexts.caption
 msgid "Texts"
-msgstr ""
+msgstr "Textos"
 
 #: tfrmmediamanager.gbxvideos.caption
 msgctxt "tfrmmediamanager.gbxvideos.caption"
 msgid "Videos"
-msgstr ""
+msgstr "Vídeos"
 
 #: tfrmmediamanager.lsource.caption
 msgid "Source: "
-msgstr ""
+msgstr "Origen: "
 
 #: tfrmmediamanager.ltarget.caption
 msgid "Target: "
-msgstr ""
+msgstr "Destino: "
 
 #: tfrmmediamanager.pagallfiles.caption
 msgid "All files"
@@ -1427,11 +1323,11 @@ msgstr ""
 
 #: tfrmmediamanager.pagfileswogame.caption
 msgid "Files without game"
-msgstr ""
+msgstr "Ficheros sin juego"
 
 #: tfrmmediamanager.pagfileswogroup.caption
 msgid "Files without group"
-msgstr ""
+msgstr "Ficheros sin grupo"
 
 #: tfrmmediamanager.paggroupswofile.caption
 msgid "Groups without file"
@@ -1542,17 +1438,17 @@ msgstr ""
 #: tfrmsystemmanager.chkotherfilesmultifile.caption
 msgctxt "TFRMSYSTEMMANAGER.CHKOTHERFILESMULTIFILE.CAPTION"
 msgid "Search all files in a folder or zip with the game's filename"
-msgstr ""
+msgstr "Buscar todos los ficheros en una carpeta o zip con el nombre del juego"
 
 #: tfrmsystemmanager.chkothermusicmultifile.caption
 msgctxt "tfrmsystemmanager.chkothermusicmultifile.caption"
 msgid "Search all files in a folder or zip with the game's filename"
-msgstr ""
+msgstr "Buscar todos los ficheros en una carpeta o zip con el nombre del juego"
 
 #: tfrmsystemmanager.chkothervideomultifile.caption
 msgctxt "TFRMSYSTEMMANAGER.CHKOTHERVIDEOMULTIFILE.CAPTION"
 msgid "Search all files in a folder or zip with the game's filename"
-msgstr ""
+msgstr "Buscar todos los ficheros en una carpeta o zip con el nombre del juego"
 
 #: tfrmsystemmanager.chkusecrc.caption
 msgid "Use checksum of files for Export/Import data"
@@ -1682,15 +1578,15 @@ msgstr ""
 
 #: tfrmsystemmanager.llastyear.caption
 msgid "Last year"
-msgstr ""
+msgstr "Ult. año"
 
 #: tfrmsystemmanager.lmainemulator.caption
 msgid "Main emulator"
-msgstr ""
+msgstr "Emulador principal"
 
 #: tfrmsystemmanager.lmodel.caption
 msgid "Model"
-msgstr ""
+msgstr "Modelo"
 
 #: tfrmsystemmanager.lotheremulators.caption
 msgid "Other emulators"
@@ -1709,17 +1605,17 @@ msgstr ""
 #: tfrmsystemmanager.lotherfilesextensions.caption
 msgctxt "TFRMSYSTEMMANAGER.LOTHERFILESEXTENSIONS.CAPTION"
 msgid "Extensions"
-msgstr ""
+msgstr "Extensiones"
 
 #: tfrmsystemmanager.lotherfilesfolder.caption
 msgctxt "TFRMSYSTEMMANAGER.LOTHERFILESFOLDER.CAPTION"
 msgid "Folder"
-msgstr ""
+msgstr "Carpeta"
 
 #: tfrmsystemmanager.lotherfilesparameters.caption
 msgctxt "TFRMSYSTEMMANAGER.LOTHERFILESPARAMETERS.CAPTION"
 msgid "Parameters"
-msgstr ""
+msgstr "Parámetros"
 
 #: tfrmsystemmanager.lothermusiccaption.caption
 msgctxt "tfrmsystemmanager.lothermusiccaption.caption"
@@ -1734,7 +1630,7 @@ msgstr ""
 #: tfrmsystemmanager.lothermusicextensions.caption
 msgctxt "TFRMSYSTEMMANAGER.LOTHERMUSICEXTENSIONS.CAPTION"
 msgid "Extensions"
-msgstr ""
+msgstr "Extensiones"
 
 #: tfrmsystemmanager.lothermusicfolder.caption
 msgctxt "TFRMSYSTEMMANAGER.LOTHERMUSICFOLDER.CAPTION"
@@ -1759,7 +1655,7 @@ msgstr ""
 #: tfrmsystemmanager.lothervideoextensions.caption
 msgctxt "TFRMSYSTEMMANAGER.LOTHERVIDEOEXTENSIONS.CAPTION"
 msgid "Extensions"
-msgstr ""
+msgstr "Extensiones"
 
 #: tfrmsystemmanager.lothervideofolder.caption
 msgctxt "TFRMSYSTEMMANAGER.LOTHERVIDEOFOLDER.CAPTION"
@@ -1859,7 +1755,7 @@ msgstr ""
 #: tfrmsystemmanager.lvothervideofolders.columns[2].caption
 msgctxt "TFRMSYSTEMMANAGER.LVOTHERVIDEOFOLDERS.COLUMNS[2].CAPTION"
 msgid "Caption"
-msgstr ""
+msgstr "Título"
 
 #: tfrmsystemmanager.lvothervideofolders.columns[3].caption
 msgctxt "TFRMSYSTEMMANAGER.LVOTHERVIDEOFOLDERS.COLUMNS[3].CAPTION"
@@ -1869,47 +1765,47 @@ msgstr ""
 #: tfrmsystemmanager.lvothervideofolders.columns[4].caption
 msgctxt "TFRMSYSTEMMANAGER.LVOTHERVIDEOFOLDERS.COLUMNS[4].CAPTION"
 msgid "Command Line"
-msgstr ""
+msgstr "Línea de parámetros"
 
 #: tfrmsystemmanager.pagemulator.caption
 msgctxt "tfrmsystemmanager.pagemulator.caption"
 msgid "Emulators"
-msgstr ""
+msgstr "Emuladores"
 
 #: tfrmsystemmanager.paggeneral.caption
 msgid "General"
-msgstr ""
+msgstr "General"
 
 #: tfrmsystemmanager.pagmainfolders.caption
 msgid "Main folders"
-msgstr ""
+msgstr "Carpetas principales"
 
 #: tfrmsystemmanager.pagmusic.caption
 msgctxt "TFRMSYSTEMMANAGER.PAGMUSIC.CAPTION"
 msgid "Music"
-msgstr ""
+msgstr "Música"
 
 #: tfrmsystemmanager.pagotherfile.caption
 msgctxt "TFRMSYSTEMMANAGER.PAGOTHERFILE.CAPTION"
 msgid "Other files"
-msgstr ""
+msgstr "Otros fichero"
 
 #: tfrmsystemmanager.pagvideos.caption
 msgctxt "TFRMSYSTEMMANAGER.PAGVIDEOS.CAPTION"
 msgid "Videos"
-msgstr ""
+msgstr "Vídeos"
 
 #: tfrmsystemmanager.pnlbuttons.caption
 msgid "Remember: Only checked systems will be shown in main window"
-msgstr ""
+msgstr "Recuerda: Solo los sistemas marcados se mostraran en ventana principal"
 
 #: tfrmsystemmanager.pnlsystem.caption
 msgid "Select a system"
-msgstr ""
+msgstr "Seleccione un sistema"
 
 #: tfrmsystemmanager.rgbtempfolder.caption
 msgid "Decompress games in..."
-msgstr ""
+msgstr "Descomprimir juegos en..."
 
 #: tfrmsystemmanager.rgotherfilesplayer.caption
 msgctxt "TFRMSYSTEMMANAGER.RGOTHERFILESPLAYER.CAPTION"
@@ -1919,24 +1815,24 @@ msgstr ""
 #: tfrmsystemmanager.rgothermusicplayer.caption
 msgctxt "tfrmsystemmanager.rgothermusicplayer.caption"
 msgid "Player"
-msgstr ""
+msgstr "Reproductor"
 
 #: tfrmsystemmanager.rgothervideoplayer.caption
 msgctxt "TFRMSYSTEMMANAGER.RGOTHERVIDEOPLAYER.CAPTION"
 msgid "Player"
-msgstr ""
+msgstr "Reproductor"
 
 #: tfrmsystemmanager.tbimages.caption
 msgid "Image folders"
-msgstr ""
+msgstr "Carpetas de imágenes"
 
 #: tfrmsystemmanager.tbsystems.caption
 msgid "Systems toolbar"
-msgstr ""
+msgstr "Barra de herramientas de sistemas"
 
 #: tfrmsystemmanager.tbtextfolders.caption
 msgid "Text folders"
-msgstr ""
+msgstr "Carpetas de textos"
 
 #: tfrmsystemmanager.toolbutton1.caption
 msgctxt "TFRMSYSTEMMANAGER.TOOLBUTTON1.CAPTION"
@@ -1959,11 +1855,11 @@ msgstr ""
 
 #: u7zwrapper.w7zexeerror
 msgid "7z.exe/7zG.exe returned %0:d exit code."
-msgstr ""
+msgstr "7z.exe/7zG.exe han terminado con el valor de salido %0:d."
 
 #: u7zwrapper.w7zfilenotfound
 msgid "\"%0:s\" file not found"
-msgstr ""
+msgstr "Fichero no encontrado: \"%0:s\""
 
 #: uconfig.rsenotfilename
 msgid "Not defined filename."

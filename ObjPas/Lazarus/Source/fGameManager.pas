@@ -154,6 +154,7 @@ type
     cbSearch: TComboBox;
     cbSystem: TComboBox;
     cbYear: TComboBox;
+    chkUpdateTreeAfterSaving: TCheckBox;
     chkVerified: TCheckBox;
     eAlternate: TEdit;
     eBadDump: TEdit;
@@ -389,6 +390,7 @@ type
     procedure cbSystemDrawItem(Control: TWinControl; Index: integer;
       ARect: TRect; State: TOwnerDrawState);
     procedure cbSystemSelect(Sender: TObject);
+    procedure chkUpdateTreeAfterSavingChange(Sender: TObject);
     procedure ePropertiesKeyDown(Sender: TObject; var Key: word;
       Shift: TShiftState);
     procedure eEditorKeyDown(Sender: TObject; var Key: word;
@@ -982,8 +984,6 @@ begin
   // Initial pages (Sometimes I forgot restore they at design time XD )
   pcGame.PageIndex := 0;
   pcLeft.PageIndex := 0;
-  // TODO 4: This is broken for unknown reason...
-  //   cbSearch worked well before with translations :-/...
   cbSearch.ItemIndex := 0;
 
   FGroupList := TFPObjectList.Create(True);
@@ -2506,7 +2506,6 @@ begin
   case GroupMode of
     lvGMGameGroup:
     begin
-      UpdateVTV := False;
       CurrGroup.Name := eName.Text;
 
       // TODO 1: We can't change/merge groups and their keys...
@@ -2521,14 +2520,12 @@ begin
       begin
         CurrGroup.Tags.Clear;
         CurrGroup.Tags.AddStrings(mmGroupTags.Lines);
-        UpdateVTV := GroupMode = lvGMTags;
       end;
 
-      if UpdateVTV then
-        UpdateVTVGroupList
-      else
-        vstGroups.Refresh;
+      vstGroups.Refresh;
     end;
+
+    // TODO 1: Edit groups in other modes (well change their childs)
   end;
 end;
 
@@ -2943,7 +2940,7 @@ begin
     UpdateVTV := (GroupMode = lvGMTags) or UpdateVTV;
   end;
 
-  if UpdateVTV then
+  if UpdateVTV and chkUpdateTreeAfterSaving.Checked then
     UpdateVTVGroupList
   else
     vstGroups.Refresh;
@@ -3623,6 +3620,13 @@ end;
 procedure TfrmGameManager.cbSystemSelect(Sender: TObject);
 begin
   ChangeCurrentSystem;
+end;
+
+procedure TfrmGameManager.chkUpdateTreeAfterSavingChange(Sender: TObject);
+begin
+  // TODO 3: We need something to check that a UpdateVTVGameList is needed...
+  if chkUpdateTreeAfterSaving.Checked then
+   UpdateVTVGroupList;
 end;
 
 procedure TfrmGameManager.ePropertiesKeyDown(Sender: TObject;

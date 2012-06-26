@@ -26,7 +26,7 @@ unit uImageList;
 interface
 
 uses
-  Classes, SysUtils, contnrs, Graphics, FileUtil, fgl;
+  Classes, SysUtils, Graphics, FileUtil, fgl;
 
 type
 

@@ -362,8 +362,6 @@ begin
 end;
 
 procedure cGame.SetGameGroup(const AValue: String);
-var
-  aKey: String;
 begin
   FGameGroup := Trim(AValue);
 end;

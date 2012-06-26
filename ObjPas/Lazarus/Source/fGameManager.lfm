@@ -746,7 +746,7 @@
       end
       object mmGroupTags: TMemo
         Left = 0
-        Height = 142
+        Height = 108
         Top = 224
         Width = 200
         Align = alClient
@@ -756,7 +756,7 @@
       object lGameTags: TLabel
         Left = 0
         Height = 14
-        Top = 366
+        Top = 332
         Width = 200
         Align = alBottom
         Alignment = taCenter
@@ -765,8 +765,8 @@
       end
       object mmGameTags: TMemo
         Left = 0
-        Height = 100
-        Top = 380
+        Height = 117
+        Top = 346
         Width = 200
         Align = alBottom
         ScrollBars = ssAutoVertical
@@ -775,11 +775,24 @@
       object bEditorSave: TBitBtn
         Left = 0
         Height = 25
-        Top = 480
+        Top = 463
         Width = 200
         Action = actSaveEditorData
         Align = alBottom
         TabOrder = 8
+      end
+      object chkUpdateTreeAfterSaving: TCheckBox
+        Left = 0
+        Height = 17
+        Hint = 'Sometimes all games must be sortened after saving.'#13#10'This can be slow for batch editing, so this option disable it temporally.'
+        Top = 488
+        Width = 200
+        Align = alBottom
+        Caption = 'Update tree after saving'
+        Checked = True
+        OnChange = chkUpdateTreeAfterSavingChange
+        State = cbChecked
+        TabOrder = 9
       end
     end
   end

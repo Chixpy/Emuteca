@@ -26,8 +26,8 @@ unit uGameGroup;
 interface
 
 uses
-  Classes, SysUtils, contnrs, IniFiles, uCustomUtils, FileUtil, LazUTF8,
-  uGameStats, fgl;
+  Classes, SysUtils, IniFiles, uCustomUtils, FileUtil, LazUTF8,
+  uGameStats;
 
 const
   CGAMEGROUPKEY = 'Group: ';

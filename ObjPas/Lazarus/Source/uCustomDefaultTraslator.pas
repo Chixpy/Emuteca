@@ -183,6 +183,7 @@ var
 begin
   Result := '';
   Lang := '';
+  T:='';
 
   for i := 1 to Paramcount - 1 do
     if (ParamStrUTF8(i) = '--LANG') or (ParamStrUTF8(i) = '-l') or

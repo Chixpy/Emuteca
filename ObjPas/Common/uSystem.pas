@@ -26,7 +26,7 @@ unit uSystem;
 interface
 
 uses
-  Classes, SysUtils, IniFiles, FileUtil, lazutf8classes, fgl;
+  Classes, SysUtils, IniFiles, FileUtil, fgl;
 
 type
 

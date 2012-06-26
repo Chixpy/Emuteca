@@ -199,7 +199,7 @@ type
       SearchInZip: boolean);
     procedure SearchMediaFiles(FileList: TStrings; aFolder: string;
       aFileName: string; Extensions: TStrings; MultiFile: boolean;
-      SearchInZip: boolean; ExtractFile: boolean = True);
+      SearchInZip: boolean);
 
 
     procedure SaveSystemGameList;
@@ -437,7 +437,7 @@ begin
   //   1. Remove Games wich file don't exists
   //   2. Add the new files
   // Is it faster than UpdateGameList?
-  //   YES, if as not Export/Import is needed
+  //   YES, because not Export/Import is needed
   UpdateGameList;
 end;
 
@@ -559,7 +559,7 @@ begin
   try
     SearchMediaFiles(TmpStrList, aFolder,
       RemoveFromBrackets(aGameVersion.FileName) + CVirtualGameExt,
-      Extensions, MultiFile, SearchInZip, False);
+      Extensions, MultiFile, SearchInZip);
     if TmpStrList.Count = 0 then
     begin
       aGameGroup := Group(aGameVersion.GameGroup);
@@ -583,7 +583,7 @@ begin
   TmpStrList := TStringList.Create;
   try
     SearchMediaFiles(TmpStrList, aFolder, aGameGroup.MediaFileName,
-      Extensions, MultiFile, SearchInZip, False);
+      Extensions, MultiFile, SearchInZip);
     if TmpStrList.Count <> 0 then
       Result := True;
   finally
@@ -597,7 +597,7 @@ procedure cGameManager.SearchGameMedia(FileList: TStrings;
 begin
   SearchMediaFiles(FileList, aFolder,
     RemoveFromBrackets(aGameVersion.FileName) + CVirtualGameExt,
-    Extensions, MultiFile, SearchInZip, True);
+    Extensions, MultiFile, SearchInZip);
   if FileList.Count = 0 then
     SearchGroupMedia(FileList, aFolder, Group(aGameVersion.GameGroup),
       Extensions, MultiFile, SearchInZip);
@@ -608,12 +608,12 @@ procedure cGameManager.SearchGroupMedia(FileList: TStrings;
   MultiFile: boolean; SearchInZip: boolean);
 begin
   SearchMediaFiles(FileList, aFolder, aGameGroup.MediaFileName,
-    Extensions, MultiFile, SearchInZip, True);
+    Extensions, MultiFile, SearchInZip);
 end;
 
 procedure cGameManager.SearchMediaFiles(FileList: TStrings;
   aFolder: string; aFileName: string; Extensions: TStrings;
-  MultiFile: boolean; SearchInZip: boolean; ExtractFile: boolean);
+  MultiFile: boolean; SearchInZip: boolean);
 { ¡¡AHHHH!!, A monster method... that simply return a StringList with
   found media files
 
@@ -635,8 +635,7 @@ procedure cGameManager.SearchMediaFiles(FileList: TStrings;
 }
 
   procedure SearchSingleFile(FileList: TStrings; aFolder: string;
-    aFileName: string; Extensions: TStrings; SearchInZip: boolean;
-    ExtractFile: boolean);
+    aFileName: string; Extensions: TStrings; SearchInZip: boolean);
 
     procedure SearchActualFile(aBaseFileName: string;
       aExtList, aFileList: TStrings);
@@ -661,6 +660,7 @@ procedure cGameManager.SearchMediaFiles(FileList: TStrings;
     CacheFolder: string;
     Info: TSearchRec;
   begin
+    if aFileName = '' then Exit;
     // 1. Searching the file in the expected folder.
     SearchActualFile(aFolder + aFileName, Extensions, FileList);
     if FileList.Count <> 0 then
@@ -747,8 +747,7 @@ procedure cGameManager.SearchMediaFiles(FileList: TStrings;
   end;
 
   procedure FindMultiFile(FileList: TStrings; aFolder: string;
-    aFileName: string; Extensions: TStrings; SearchInZip: boolean;
-    ExtractFile: boolean);
+    aFileName: string; Extensions: TStrings; SearchInZip: boolean);
 
     procedure AddMediaFiles(FileList: TStrings; aFolder: string;
       Extensions: TStrings);
@@ -819,7 +818,7 @@ procedure cGameManager.SearchMediaFiles(FileList: TStrings;
         try
           // Happy trick
           SearchSingleFile(TempStrList, aFolder, aFileName,
-            CompressedExt, False, False);
+            CompressedExt, False);
           if TempStrList.Count > 0 then
           begin
             // Only first compressed archive found
@@ -831,19 +830,9 @@ procedure cGameManager.SearchMediaFiles(FileList: TStrings;
 
         if ComFile <> '' then
         begin
-          if ExtractFile then
-          begin
-            // 3.1. Extracting the files
             Error := w7zExtractFile(ComFile, '*', TempStr, False, '');
             if Error = 0 then
               MediaFolder := TempStr;
-          end
-          else
-          begin
-            // Found but we don't extract
-            FileList.Add(ComFile);
-            MediaFolder := '';
-          end;
         end;
       end;
     end;
@@ -869,10 +858,10 @@ begin
 
   if MultiFile then
     FindMultiFile(FileList, aFolder, aFileName, Extensions,
-      SearchInZip, ExtractFile)
+      SearchInZip)
   else
     SearchSingleFile(FileList, aFolder, aFileName, Extensions,
-      SearchInZip, ExtractFile);
+      SearchInZip);
 end;
 
 procedure cGameManager.SaveSystemGameList;
