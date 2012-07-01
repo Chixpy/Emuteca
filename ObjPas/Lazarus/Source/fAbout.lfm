@@ -1,4 +1,4 @@
-﻿object frmAbout: TfrmAbout
+object frmAbout: TfrmAbout
   Left = 502
   Height = 400
   Top = 196

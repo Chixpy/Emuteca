@@ -1,4 +1,4 @@
-﻿object frmMediaManager: TfrmMediaManager
+object frmMediaManager: TfrmMediaManager
   Left = 558
   Height = 571
   Top = 90

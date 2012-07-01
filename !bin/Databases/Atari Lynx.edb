@@ -25,7 +25,7 @@ Modified=
 Name=All Points Bulletin
 SortName=All Points Bulletin
 Version=
-GameGroup=APB: All Points Bulletin <1990>
+GameGroup=All Points Bulletin <1990>
 Year=1990
 Publisher=Tengen Inc
 Zones=
@@ -48,7 +48,7 @@ Modified=
 Name=All Points Bulletin
 SortName=All Points Bulletin
 Version=
-GameGroup=APB: All Points Bulletin <1990>
+GameGroup=All Points Bulletin <1990>
 Year=1990
 Publisher=Tengen Inc
 Zones=
@@ -784,7 +784,7 @@ Modified=
 Name=Desert Strike: Return to the Gulf
 SortName=Desert Strike: Return to the Gulf
 Version=
-GameGroup=Desert Strike: Return to the Gulf <1993> <Telegames>
+GameGroup=Return to the Gulf <1993> <Telegames>
 Year=1993
 Publisher=Telegames
 Zones=
@@ -807,7 +807,7 @@ Modified=
 Name=Desert Strike: Return to the Gulf
 SortName=Desert Strike: Return to the Gulf
 Version=
-GameGroup=Desert Strike: Return to the Gulf <1993> <Telegames>
+GameGroup=Return to the Gulf <1993> <Telegames>
 Year=1993
 Publisher=Telegames
 Zones=
@@ -876,7 +876,7 @@ Modified=
 Name=Dirty Larry: Renegade Cop
 SortName=Dirty Larry: Renegade Cop
 Version=
-GameGroup=Dirty Larry: Renegade Cop <1992>
+GameGroup=Renegade Cop <1992>
 Year=1992
 Publisher=Atari Corp
 Zones=
@@ -899,7 +899,7 @@ Modified=
 Name=Dirty Larry: Renegade Cop
 SortName=Dirty Larry: Renegade Cop
 Version=
-GameGroup=Dirty Larry: Renegade Cop <1992>
+GameGroup=Renegade Cop <1992>
 Year=1992
 Publisher=Atari Corp
 Zones=
@@ -968,7 +968,7 @@ Modified=
 Name=Dracula: The Undead
 SortName=Dracula: The Undead
 Version=
-GameGroup=Dracula: The Undead <1991>
+GameGroup=Undead <1991>, The
 Year=1991
 Publisher=Atari Corp
 Zones=
@@ -991,7 +991,7 @@ Modified=
 Name=Dracula: The Undead
 SortName=Dracula: The Undead
 Version=
-GameGroup=Dracula: The Undead <1991>
+GameGroup=Undead <1991>, The
 Year=1991
 Publisher=Atari Corp
 Zones=
@@ -1267,7 +1267,7 @@ Modified=
 Name=Gauntlet: The Third Encounter
 SortName=Gauntlet: The Third Encounter
 Version=
-GameGroup=Gauntlet: The Third Encounter <1990>
+GameGroup=Third Encounter <1990>, The
 Year=1989
 Publisher=Tengen Inc
 Zones=
@@ -1290,7 +1290,7 @@ Modified=
 Name=Gauntlet: The Third Encounter
 SortName=Gauntlet: The Third Encounter
 Version=
-GameGroup=Gauntlet: The Third Encounter <1990>
+GameGroup=Third Encounter <1990>, The
 Year=1989
 Publisher=Tengen Inc
 Zones=
@@ -1313,7 +1313,7 @@ Modified=
 Name=Gordo 106: The Mutated Lab Monkey
 SortName=Gordo 106: The Mutated Lab Monkey
 Version=
-GameGroup=Gordo 106: The Mutated Lab Monkey <1993>
+GameGroup=Mutated Lab Monkey <1993>, The
 Year=1992
 Publisher=Tenth Planet
 Zones=
@@ -1336,7 +1336,7 @@ Modified=
 Name=Gordo 106: The Mutated Lab Monkey
 SortName=Gordo 106: The Mutated Lab Monkey
 Version=
-GameGroup=Gordo 106: The Mutated Lab Monkey <1993>
+GameGroup=Mutated Lab Monkey <1993>, The
 Year=1992
 Publisher=Tenth Planet
 Zones=
@@ -1359,7 +1359,7 @@ Modified=
 Name=Gordo 106: The Mutated Lab Monkey
 SortName=Gordo 106: The Mutated Lab Monkey
 Version=
-GameGroup=Gordo 106: The Mutated Lab Monkey <1993>
+GameGroup=Mutated Lab Monkey <1993>, The
 Year=1992
 Publisher=Tenth Planet
 Zones=
@@ -1520,7 +1520,7 @@ Modified=
 Name=Ishido: The Way of the Stones
 SortName=Ishido: The Way of the Stones
 Version=
-GameGroup=Ishido: The Way of the Stones <1991>
+GameGroup=Way of the Stones <1991>, The
 Year=1991
 Publisher=Atari Corp
 Zones=
@@ -1543,7 +1543,7 @@ Modified=
 Name=Ishido: The Way of the Stones
 SortName=Ishido: The Way of the Stones
 Version=
-GameGroup=Ishido: The Way of the Stones <1991>
+GameGroup=Way of the Stones <1991>, The
 Year=1991
 Publisher=Atari Corp
 Zones=
@@ -2279,7 +2279,7 @@ Modified=
 Name=Ninja Gaiden III: Ancient Ship of Doom
 SortName=Ninja Gaiden III: Ancient Ship of Doom
 Version=
-GameGroup=Ninja Gaiden III: The Ancient Ship of Doom <1993>
+GameGroup=Ancient Ship of Doom <1993>, The
 Year=1993
 Publisher=Atari Corp
 Zones=
@@ -2302,7 +2302,7 @@ Modified=
 Name=Ninja Gaiden III: Ancient Ship of Doom
 SortName=Ninja Gaiden III: Ancient Ship of Doom
 Version=
-GameGroup=Ninja Gaiden III: The Ancient Ship of Doom <1993>
+GameGroup=Ancient Ship of Doom <1993>, The
 Year=1993
 Publisher=Atari Corp
 Zones=
@@ -2325,7 +2325,7 @@ Modified=
 Name=Ninja Gaiden III: Ancient Ship of Doom
 SortName=Ninja Gaiden III: Ancient Ship of Doom
 Version=
-GameGroup=Ninja Gaiden III: The Ancient Ship of Doom <1993>
+GameGroup=Ancient Ship of Doom <1993>, The
 Year=1993
 Publisher=Atari Corp
 Zones=
@@ -2486,7 +2486,7 @@ Modified=
 Name=Pit Fighter
 SortName=Pit Fighter
 Version=
-GameGroup=Pit Fighter: The Ultimate Competition <1992>
+GameGroup=Ultimate Competition <1992>, The
 Year=1992
 Publisher=Tengen Inc
 Zones=
@@ -2509,7 +2509,7 @@ Modified=
 Name=Pit Fighter
 SortName=Pit Fighter
 Version=
-GameGroup=Pit Fighter: The Ultimate Competition <1992>
+GameGroup=Ultimate Competition <1992>, The
 Year=1992
 Publisher=Tengen Inc
 Zones=
@@ -5775,7 +5775,7 @@ Modified=
 Name=Rygar: Legendary Warrior
 SortName=Rygar: Legendary Warrior
 Version=
-GameGroup=Rygar: Legendary Warrior <1990>
+GameGroup=Legendary Warrior <1990>
 Year=1990
 Publisher=Atari Corp
 Zones=
@@ -5798,7 +5798,7 @@ Modified=
 Name=Rygar: Legendary Warrior
 SortName=Rygar: Legendary Warrior
 Version=
-GameGroup=Rygar: Legendary Warrior <1990>
+GameGroup=Legendary Warrior <1990>
 Year=1990
 Publisher=Atari Corp
 Zones=
@@ -6901,55 +6901,55 @@ Modified=
 [Group: zarlor mercenary <1990>]
 Name=Zarlor Mercenary
 SortName=Zarlor Mercenary
-Year=
-Developer=
+Year=1990
+Developer=Epyx Inc
 Tags=
 MediaFileName=Zarlor Mercenary.(group)
 
 [Group: xybots <1991>]
 Name=Xybots
 SortName=Xybots
-Year=
-Developer=
+Year=1991
+Developer=Tengen Inc
 Tags=
 MediaFileName=Xybots.(group)
 
 [Group: xenophobe <1990>]
 Name=Xenophobe
 SortName=Xenophobe
-Year=
-Developer=
+Year=1990
+Developer=Atari Corp
 Tags=
 MediaFileName=Xenophobe.(group)
 
 [Group: world class soccer <1992>]
 Name=World Class Soccer
 SortName=World Class Soccer
-Year=
-Developer=
+Year=1992
+Developer=Atari Corp
 Tags=
 MediaFileName=World Class Soccer.(group)
 
 [Group: warbirds <1990>]
 Name=Warbirds
 SortName=Warbirds
-Year=
-Developer=
+Year=1990
+Developer=Atari Corp
 Tags=
 MediaFileName=Warbirds.(group)
 
 [Group: viking child <1991>]
 Name=Viking Child
 SortName=Viking Child
-Year=
-Developer=
+Year=1991
+Developer=Atari Corp
 Tags=
 MediaFileName=Viking Child.(group)
 
 [Group: unknown game 't-res' <199x>]
 Name=Unknown Game 'T-RES'
 SortName=Unknown Game 'T-RES'
-Year=
+Year=199x
 Developer=
 Tags=
 MediaFileName=Unknown Game 'T-RES'.(group)
@@ -6957,39 +6957,39 @@ MediaFileName=Unknown Game 'T-RES'.(group)
 [Group: turbo sub <1991>]
 Name=Turbo Sub
 SortName=Turbo Sub
-Year=
-Developer=
+Year=1991
+Developer=Atari Corp
 Tags=
 MediaFileName=Turbo Sub.(group)
 
 [Group: tournament cyberball 2072 <1991>]
 Name=Tournament Cyberball 2072
 SortName=Tournament Cyberball 2072
-Year=
-Developer=
+Year=1991
+Developer=Tengen Inc
 Tags=
 MediaFileName=Tournament Cyberball 2072.(group)
 
 [Group: toki <1990>]
 Name=Toki
 SortName=Toki
-Year=
-Developer=
+Year=1990
+Developer=Atari Corp
 Tags=
 MediaFileName=Toki.(group)
 
 [Group: todd's adventure in slime world <1990>]
 Name=Todd's Adventure in Slime World
 SortName=Todd's Adventure in Slime World
-Year=
-Developer=
+Year=1990
+Developer=Epyx Inc
 Tags=
 MediaFileName=Todd's Adventure in Slime World.(group)
 
 [Group: tetris <1996>]
 Name=Tetris
 SortName=Tetris
-Year=
+Year=199x
 Developer=
 Tags=
 MediaFileName=Tetris.(group)
@@ -6997,80 +6997,80 @@ MediaFileName=Tetris.(group)
 [Group: t-tris <1996> by bastian schick]
 Name=T-Tris
 SortName=T-Tris
-Year=
-Developer=
+Year=1993
+Developer=Bastian Schick
 Tags=
 MediaFileName=T-Tris.(group)
 
 [Group: switchblade ii <1992>]
 Name=Switchblade II
 SortName=Switchblade II
-Year=
-Developer=
+Year=1992
+Developer=Atari Corp
 Tags=
 MediaFileName=Switchblade II.(group)
 
 [Group: super skweek <1991>]
 Name=Super Skweek
 SortName=Super Skweek
-Year=
-Developer=
+Year=1991
+Developer=Atari Corp
 Tags=
 MediaFileName=Super Skweek.(group)
 
 [Group: super off-road <1996> <telegames>]
 Name=Super Off-Road
 SortName=Super Off-Road
-Year=
-Developer=
+Year=1993
+Developer=Telegames
 Tags=
 MediaFileName=Super Off-Road.(group)
 
 [Group: super asteroids & missile command <1995>]
 Name=Super Asteroids & Missile Command
 SortName=Super Asteroids & Missile Command
-Year=
-Developer=
+Year=1994
+Developer=Atari Corp
 Tags=
 MediaFileName=Super Asteroids & Missile Command.(group)
 
 [Group: steel talons <1991>]
 Name=Steel Talons
 SortName=Steel Talons
-Year=
-Developer=
+Year=1991
+Developer=Tengen Inc
 Tags=
 MediaFileName=Steel Talons.(group)
 
 [Group: shanghai <1990>]
 Name=Shanghai
 SortName=Shanghai
-Year=
-Developer=
+Year=1990
+Developer=Atari Corp
 Tags=
 MediaFileName=Shanghai.(group)
 
 [Group: shadow of the beast <1992>]
 Name=Shadow of the Beast
 SortName=Shadow of the Beast
-Year=
-Developer=
+Year=1992
+Developer=Atari Corp
 Tags=
 MediaFileName=Shadow of the Beast.(group)
 
 [Group: scrapyard dog <1991>]
 Name=Scrapyard Dog
 SortName=Scrapyard Dog
-Year=
-Developer=
+Year=1991
+Developer=Atari Corp
 Tags=
 MediaFileName=Scrapyard Dog.(group)
 
 [Group: s.t.u.n. runner <1991>]
 Name=S.T.U.N. Runner
 SortName=S.T.U.N. Runner
-Year=
-Developer=
+Year=1991
+Developer=Tengen Inc
 Tags=
 MediaFileName=S.T.U.N. Runner.(group)
 
@@ -7085,80 +7085,80 @@ MediaFileName=Rygar - Legendary Warrior.(group)
 [Group: robotron 2084 <1991> <williams>]
 Name=Robotron 2084
 SortName=Robotron 2084
-Year=
-Developer=
+Year=1991
+Developer=Shadowsoft Inc
 Tags=
 MediaFileName=Robotron 2084.(group)
 
 [Group: robo-squash <1990>]
 Name=Robo-Squash
 SortName=Robo-Squash
-Year=
-Developer=
+Year=1990
+Developer=Atari Corp
 Tags=
 MediaFileName=Robo-Squash.(group)
 
 [Group: roadblasters <1990>]
 Name=RoadBlasters
 SortName=RoadBlasters
-Year=
-Developer=
+Year=1990
+Developer=Tengen Inc
 Tags=
 MediaFileName=RoadBlasters.(group)
 
 [Group: road riot 4wd <beta> <1994>]
 Name=Road Riot 4WD
 SortName=Road Riot 4WD
-Year=
-Developer=
+Year=1994
+Developer=Tengen Inc
 Tags=
 MediaFileName=Road Riot 4WD.(group)
 
 [Group: rampart <1991>]
 Name=Rampart
 SortName=Rampart
-Year=
-Developer=
+Year=1991
+Developer=Tengen Inc
 Tags=
 MediaFileName=Rampart.(group)
 
 [Group: rampage <1991>]
 Name=Rampage
 SortName=Rampage
-Year=
-Developer=
+Year=1991
+Developer=Atari Corp
 Tags=
 MediaFileName=Rampage.(group)
 
 [Group: raiden <1997> <telegames>]
 Name=Raiden
 SortName=Raiden
-Year=
-Developer=
+Year=1997
+Developer=Atari Corp
 Tags=
 MediaFileName=Raiden.(group)
 
 [Group: qix <1991> <telegames>]
 Name=Qix
 SortName=Qix
-Year=
-Developer=
+Year=1991
+Developer=Telegames
 Tags=
 MediaFileName=Qix.(group)
 
 [Group: public domain]
 Name=Public Domain
 SortName=Public Domain
-Year=
-Developer=
+Year=1993
+Developer=Schick, Bastian
 Tags=
 MediaFileName=Public Domain.(group)
 
 [Group: power factor <1992>]
 Name=Power Factor
 SortName=Power Factor
-Year=
-Developer=
+Year=1992
+Developer=Atari Corp
 Tags=
 MediaFileName=Power Factor.(group)
 
@@ -7173,24 +7173,24 @@ MediaFileName=Pit Fighter - The Ultimate Competition.(group)
 [Group: pinball jam <1992>]
 Name=Pinball Jam
 SortName=Pinball Jam
-Year=
-Developer=
+Year=1992
+Developer=Atari Corp
 Tags=
 MediaFileName=Pinball Jam.(group)
 
 [Group: paperboy <1990>]
 Name=Paperboy
 SortName=Paperboy
-Year=
-Developer=
+Year=1990
+Developer=Tengen Inc
 Tags=
 MediaFileName=Paperboy.(group)
 
 [Group: pac-land <1991>]
 Name=Pac-Land
 SortName=Pac-Land
-Year=
-Developer=
+Year=1991
+Developer=Atari Corp
 Tags=
 MediaFileName=Pac-Land.(group)
 
@@ -7205,128 +7205,128 @@ MediaFileName=Ninja Gaiden III - The Ancient Ship of Doom.(group)
 [Group: ninja gaiden <1990>]
 Name=Ninja Gaiden
 SortName=Ninja Gaiden
-Year=
-Developer=
+Year=1990
+Developer=Atari Corp
 Tags=
 MediaFileName=Ninja Gaiden.(group)
 
 [Group: nfl football <1990>]
 Name=NFL Football
 SortName=NFL Football
-Year=
-Developer=
+Year=1990
+Developer=Atari Corp
 Tags=
 MediaFileName=NFL Football.(group)
 
 [Group: ms. pac-man <1990>]
 Name=Ms. Pac-Man
 SortName=Ms. Pac-Man
-Year=
-Developer=
+Year=1990
+Developer=Atari Corp
 Tags=
 MediaFileName=Ms. Pac-Man.(group)
 
 [Group: marlboro go! <1993> <digital image>]
 Name=Marlboro Go!
 SortName=Marlboro Go!
-Year=
-Developer=
+Year=1993
+Developer=Digital Image
 Tags=
 MediaFileName=Marlboro Go!.(group)
 
 [Group: malibu bikini volleyball <1993>]
 Name=Malibu Bikini Volleyball
 SortName=Malibu Bikini Volleyball
-Year=
-Developer=
+Year=1993
+Developer=Atari Corp
 Tags=
 MediaFileName=Malibu Bikini Volleyball.(group)
 
 [Group: lynx diagnostic cart v0.02 <1989>]
 Name=Lynx Diagnostic Cart V0.02
 SortName=Lynx Diagnostic Cart V0.02
-Year=
-Developer=
+Year=1989
+Developer=Atari
 Tags=
 MediaFileName=Lynx Diagnostic Cart V0.02.(group)
 
 [Group: lynx casino <1992>]
 Name=Lynx Casino
 SortName=Lynx Casino
-Year=
-Developer=
+Year=1992
+Developer=Atari Corp
 Tags=
 MediaFileName=Lynx Casino.(group)
 
 [Group: loopz <1992> <handmade software>]
 Name=Loopz
 SortName=Loopz
-Year=
-Developer=
+Year=1992
+Developer=Hand Made Software
 Tags=
 MediaFileName=Loopz.(group)
 
 [Group: lode runner <1996> <kurt olsen>]
 Name=Lode Runner
 SortName=Lode Runner
-Year=
-Developer=
+Year=1996
+Developer=Broderbund Software
 Tags=
 MediaFileName=Lode Runner.(group)
 
 [Group: lexis <1999> <songbird>]
 Name=Lexis
 SortName=Lexis
-Year=
-Developer=
+Year=1994
+Developer=Shadowsoft Inc
 Tags=
 MediaFileName=Lexis.(group)
 
 [Group: lemmings <1993>]
 Name=Lemmings
 SortName=Lemmings
-Year=
-Developer=
+Year=1993
+Developer=Atari Corp
 Tags=
 MediaFileName=Lemmings.(group)
 
 [Group: kung food <1992>]
 Name=Kung Food
 SortName=Kung Food
-Year=
-Developer=
+Year=1992
+Developer=Atari Corp
 Tags=
 MediaFileName=Kung Food.(group)
 
 [Group: krazy ace minature golf <1997> <telegames>]
 Name=Krazy Ace Minature Golf
 SortName=Krazy Ace Minature Golf
-Year=
-Developer=
+Year=1992
+Developer=Telegames
 Tags=
 MediaFileName=Krazy Ace Minature Golf.(group)
 
 [Group: klax <1990>]
 Name=Klax
 SortName=Klax
-Year=
-Developer=
+Year=1990
+Developer=Tengen Inc
 Tags=
 MediaFileName=Klax.(group)
 
 [Group: joust <1993> <williams>]
 Name=Joust
 SortName=Joust
-Year=
-Developer=
+Year=1993
+Developer=Shadowsoft Inc
 Tags=
 MediaFileName=Joust.(group)
 
 [Group: jimmy conners tennis <1991>]
 Name=Jimmy Conners Tennis
 SortName=Jimmy Conners Tennis
-Year=
-Developer=
+Year=1993
+Developer=Atari Corp
 Tags=
 MediaFileName=Jimmy Conners Tennis.(group)
 
@@ -7341,24 +7341,24 @@ MediaFileName=Ishido - The Way of the Stones.(group)
 [Group: hydra <1992>]
 Name=Hydra
 SortName=Hydra
-Year=
-Developer=
+Year=1992
+Developer=Tengen Inc
 Tags=
 MediaFileName=Hydra.(group)
 
 [Group: hockey <1992>]
 Name=Hockey
 SortName=Hockey
-Year=
-Developer=
+Year=1992
+Developer=Atari Corp
 Tags=
 MediaFileName=Hockey.(group)
 
 [Group: hard drivin' <1993>]
 Name=Hard Drivin'
 SortName=Hard Drivin'
-Year=
-Developer=
+Year=1993
+Developer=Tengen Inc
 Tags=
 MediaFileName=Hard Drivin'.(group)
 
@@ -7379,58 +7379,58 @@ Tags=
 MediaFileName=Gauntlet - The Third Encounter.(group)
 
 [Group: gates of zendocon, the <1989>]
-Name=Gates of Zendocon, The
+Name=The Gates of Zendocon
 SortName=Gates of Zendocon, The
-Year=
-Developer=
+Year=1989
+Developer=Epyx Inc
 Tags=
 MediaFileName=Gates of Zendocon, The.(group)
 
 [Group: fidelity ultimate chess challenge <1991> <telegames>]
 Name=Fidelity Ultimate Chess Challenge
 SortName=Fidelity Ultimate Chess Challenge
-Year=
-Developer=
+Year=1991
+Developer=Telegames
 Tags=
 MediaFileName=Fidelity Ultimate Chess Challenge.(group)
 
 [Group: fat bobby <1997> <telegames>]
 Name=Fat Bobby
 SortName=Fat Bobby
-Year=
-Developer=
+Year=1993
+Developer=Atari Corp
 Tags=
 MediaFileName=Fat Bobby.(group)
 
 [Group: eye of the beholder <1990> <nufx>]
 Name=Eye of the Beholder
 SortName=Eye of the Beholder
-Year=
-Developer=
+Year=1990
+Developer=Atari Corp
 Tags=
 MediaFileName=Eye of the Beholder.(group)
 
 [Group: european soccer challenge <1993> <telegames>]
 Name=European Soccer Challenge
 SortName=European Soccer Challenge
-Year=
-Developer=
+Year=1993
+Developer=Telegames
 Tags=
 MediaFileName=European Soccer Challenge.(group)
 
 [Group: electrocop <1989>]
 Name=Electrocop
 SortName=Electrocop
-Year=
-Developer=
+Year=1989
+Developer=Atari Corp
 Tags=
 MediaFileName=Electrocop.(group)
 
 [Group: dragnet <1995>]
 Name=Dragnet
 SortName=Dragnet
-Year=
-Developer=
+Year=1994
+Developer=Schick, Bastian
 Tags=
 MediaFileName=Dragnet.(group)
 
@@ -7445,8 +7445,8 @@ MediaFileName=Dracula - The Undead.(group)
 [Group: double dragon <1993> <telegames>]
 Name=Double Dragon
 SortName=Double Dragon
-Year=
-Developer=
+Year=1993
+Developer=Telegames
 Tags=
 MediaFileName=Double Dragon.(group)
 
@@ -7461,8 +7461,8 @@ MediaFileName=Dirty Larry - Renegade Cop.(group)
 [Group: dinolympics <1992>]
 Name=Dinolympics
 SortName=Dinolympics
-Year=
-Developer=
+Year=1992
+Developer=Atari Corp
 Tags=
 MediaFileName=Dinolympics.(group)
 
@@ -7477,119 +7477,119 @@ MediaFileName=Desert Strike - Return to the Gulf.(group)
 [Group: crystal mines ii <1990>]
 Name=Crystal Mines II
 SortName=Crystal Mines II
-Year=
-Developer=
+Year=1991
+Developer=Atari Corp
 Tags=
 MediaFileName=Crystal Mines II.(group)
 
 [Group: conquest of zow <1996>]
 Name=Conquest of Zow
 SortName=Conquest of Zow
-Year=
-Developer=
+Year=1996
+Developer=Dodgson, Harry
 Tags=
 MediaFileName=Conquest of Zow.(group)
 
 [Group: chip's challenge <1989>]
 Name=Chip's Challenge
 SortName=Chip's Challenge
-Year=
-Developer=
+Year=1989
+Developer=Epyx Inc
 Tags=
 MediaFileName=Chip's Challenge.(group)
 
 [Group: checkered flag <1991>]
 Name=Checkered Flag
 SortName=Checkered Flag
-Year=
-Developer=
+Year=1991
+Developer=Atari Corp
 Tags=
 MediaFileName=Checkered Flag.(group)
 
 [Group: centipede <1987> <shadowsoft>]
 Name=Centipede
 SortName=Centipede
-Year=
-Developer=
+Year=198x
+Developer=Shadowsoft Inc
 Tags=
 MediaFileName=Centipede.(group)
 
 [Group: california games <1991>]
 Name=California Games
 SortName=California Games
-Year=
-Developer=
+Year=1991
+Developer=Epyx Inc
 Tags=
 MediaFileName=California Games.(group)
 
 [Group: bubble trouble <1997> <telegames>]
 Name=Bubble Trouble
 SortName=Bubble Trouble
-Year=
-Developer=
+Year=1993
+Developer=Lore Design Ltd
 Tags=
 MediaFileName=Bubble Trouble.(group)
 
 [Group: blue lightning <1989>]
 Name=Blue Lightning
 SortName=Blue Lightning
-Year=
-Developer=
+Year=1989
+Developer=Epyx Inc
 Tags=
 MediaFileName=Blue Lightning.(group)
 
 [Group: block out <1990>]
 Name=Block Out
 SortName=Block Out
-Year=
-Developer=
+Year=1990
+Developer=Atari Corp
 Tags=
 MediaFileName=Block Out.(group)
 
 [Group: bill & ted's excellent adventure <1991>]
 Name=Bill & Ted's Excellent Adventure
 SortName=Bill & Ted's Excellent Adventure
-Year=
-Developer=
+Year=1991
+Developer=Atari Corp
 Tags=
 MediaFileName=Bill & Ted's Excellent Adventure.(group)
 
 [Group: battlezone 2000 <1996>]
 Name=Battlezone 2000
 SortName=Battlezone 2000
-Year=
-Developer=
+Year=1993
+Developer=Atari Corp
 Tags=
 MediaFileName=Battlezone 2000.(group)
 
 [Group: battle wheels <1993> <beyond games>]
 Name=Battle Wheels
 SortName=Battle Wheels
-Year=
-Developer=
+Year=1993
+Developer=Beyond Games
 Tags=
 MediaFileName=Battle Wheels.(group)
 
 [Group: batman returns <1992>]
 Name=Batman Returns
 SortName=Batman Returns
-Year=
-Developer=
+Year=1992
+Developer=DC Comics Inc
 Tags=
 MediaFileName=Batman Returns.(group)
 
 [Group: basketbrawl <1992>]
 Name=Basketbrawl
 SortName=Basketbrawl
-Year=
-Developer=
+Year=1992
+Developer=Atari Corp
 Tags=
 MediaFileName=Basketbrawl.(group)
 
 [Group: baseball heroes <1991>]
 Name=Baseball Heroes
 SortName=Baseball Heroes
-Year=
+Year=199x
 Developer=
 Tags=
 MediaFileName=Baseball Heroes.(group)
@@ -7597,8 +7597,8 @@ MediaFileName=Baseball Heroes.(group)
 [Group: awesome golf <1991>]
 Name=Awesome Golf
 SortName=Awesome Golf
-Year=
-Developer=
+Year=1991
+Developer=Atari Corp
 Tags=
 MediaFileName=Awesome Golf.(group)
 
@@ -7611,9 +7611,89 @@ Tags=
 MediaFileName=APB - All Points Bulletin.(group)
 
 [Group: alien vs predator <1993>]
-Name=Alien Vs Predator
-SortName=Alien Vs Predator
-Year=
-Developer=
+Name=Alien vs. Predator
+SortName=Alien vs. Predator
+Year=1994
+Developer=Images
 Tags=
-MediaFileName=Alien Vs Predator.(group)
+MediaFileName=Alien vs. Predator.(group)
+
+[Group: all points bulletin <1990>]
+Name=All Points Bulletin <1990>
+SortName=All Points Bulletin <1990>
+Year=1990
+Developer=Tengen Inc
+Tags=
+MediaFileName=All Points Bulletin -1990-.(group)
+
+[Group: return to the gulf <1993> <telegames>]
+Name=Return to the Gulf <1993> <Telegames>
+SortName=Return to the Gulf <1993> <Telegames>
+Year=1993
+Developer=Telegames
+Tags=
+MediaFileName=Return to the Gulf -1993- -Telegames-.(group)
+
+[Group: renegade cop <1992>]
+Name=Renegade Cop <1992>
+SortName=Renegade Cop <1992>
+Year=1992
+Developer=Atari Corp
+Tags=
+MediaFileName=Renegade Cop -1992-.(group)
+
+[Group: undead <1991>, the]
+Name=The Undead <1991>
+SortName=Undead <1991>, The
+Year=1991
+Developer=Atari Corp
+Tags=
+MediaFileName=Undead -1991-, The.(group)
+
+[Group: third encounter <1990>, the]
+Name=The Third Encounter <1990>
+SortName=Third Encounter <1990>, The
+Year=1989
+Developer=Tengen Inc
+Tags=
+MediaFileName=Third Encounter -1990-, The.(group)
+
+[Group: mutated lab monkey <1993>, the]
+Name=The Mutated Lab Monkey <1993>
+SortName=Mutated Lab Monkey <1993>, The
+Year=1992
+Developer=Tenth Planet
+Tags=
+MediaFileName=Mutated Lab Monkey -1993-, The.(group)
+
+[Group: way of the stones <1991>, the]
+Name=The Way of the Stones <1991>
+SortName=Way of the Stones <1991>, The
+Year=1991
+Developer=Atari Corp
+Tags=
+MediaFileName=Way of the Stones -1991-, The.(group)
+
+[Group: ancient ship of doom <1993>, the]
+Name=The Ancient Ship of Doom <1993>
+SortName=Ancient Ship of Doom <1993>, The
+Year=1993
+Developer=Atari Corp
+Tags=
+MediaFileName=Ancient Ship of Doom -1993-, The.(group)
+
+[Group: ultimate competition <1992>, the]
+Name=The Ultimate Competition <1992>
+SortName=Ultimate Competition <1992>, The
+Year=1992
+Developer=Tengen Inc
+Tags=
+MediaFileName=Ultimate Competition -1992-, The.(group)
+
+[Group: legendary warrior <1990>]
+Name=Legendary Warrior <1990>
+SortName=Legendary Warrior <1990>
+Year=1990
+Developer=Atari Corp
+Tags=
+MediaFileName=Legendary Warrior -1990-.(group)

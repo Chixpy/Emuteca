@@ -1,4 +1,4 @@
-﻿{ 7z.exe and 7zG.exe Wrapper
+{ 7z.exe and 7zG.exe Wrapper
 
   Copyright (C) 2011-2012 Chixpy
 

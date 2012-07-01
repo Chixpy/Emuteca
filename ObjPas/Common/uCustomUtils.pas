@@ -1,4 +1,4 @@
-﻿{ This file is part of Emuteca
+{ This file is part of Emuteca
 
   Copyright (C) 2006-2012 Chixpy
 
@@ -126,6 +126,10 @@ function SetAsFolder(const aValue: String): String;
 }
 
 function SetAsFile(const aFileName: string): string;
+
+function SysPath(aPath: string): string;
+function WinPath(aPath: string): string;
+function UnixPath(aPath: string): string;
 
 function TextSimilarity(const aString1, aString2: String): byte;
 {< Returns the similarity between 2 strings.
@@ -418,6 +422,25 @@ begin
     end;
 end;
 
+function SysPath(aPath: string): string;
+begin
+  {$IFDEF Windows}
+  Result := WinPath(aPath);
+  {$ELSE}
+  Result := UnixPath(aPath);
+  {$ENDIF}
+end;
+
+function WinPath(aPath: string): string;
+begin
+  Result := StringReplace(aPath, '/', '\', [rfReplaceAll, rfIgnoreCase]);
+end;
+
+function UnixPath(aPath: string): string;
+begin
+  Result := StringReplace(aPath, '\', '/', [rfReplaceAll, rfIgnoreCase]);
+end;
+
 function TextSimilarity(const aString1, aString2: String): byte;
 
   procedure LetterPairs(aStrList: TStrings; const aString: String);
@@ -533,12 +556,7 @@ end;
 
 function SetAsFolder(const aValue: String): String;
 begin
-  Result := aValue;
-
-    // CreateRelativePath doesn't like Unix Style under Windows... :-(
-  {$IFDEF MSWindows}
-  Result := StringReplace(Result, '/', '\', [rfReplaceAll, rfIgnoreCase]);
-  {$ENDIF}
+  Result := SysPath(aValue);
 
   // Always relative...
   if FilenameIsAbsolute(Result) then
@@ -549,25 +567,17 @@ begin
     Result := IncludeTrailingPathDelimiter(Result);
 
   // I like UNIX like PathSep (and it's better for cross-configuring)
-  {$IFDEF MSWindows}
-  Result := StringReplace(Result, '\', '/', [rfReplaceAll, rfIgnoreCase]);
-  {$ENDIF}
+  Result := UnixPath(Result);
 end;
 
 function SetAsFile(const aFileName: string): string;
 begin
-  Result := aFileName;
+  Result := SysPath(aFileName);
 
   // CreateRelativePath doesn't like Unix Style under Windows... :-(
-  {$IFDEF MSWindows}
-  Result := StringReplace(Result, '/', '\', [rfReplaceAll, rfIgnoreCase]);
-  {$ENDIF}
-
   Result := CreateRelativePath(Result, GetCurrentDirUTF8, false);
 
-  {$IFDEF MSWindows}
-  Result := StringReplace(Result, '\', '/', [rfReplaceAll, rfIgnoreCase]);
-  {$ENDIF}
+  Result := UnixPath(Result);
 end;
 
 function SecondToFmtStr(aValue: int64): String;

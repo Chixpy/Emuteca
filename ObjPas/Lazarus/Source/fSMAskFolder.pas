@@ -1,4 +1,4 @@
-﻿unit fSMAskFolder; 
+unit fSMAskFolder; 
 
 {$mode objfpc}{$H+}
 

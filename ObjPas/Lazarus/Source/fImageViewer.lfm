@@ -1,4 +1,4 @@
-﻿object frmImageViewer: TfrmImageViewer
+object frmImageViewer: TfrmImageViewer
   Left = 492
   Height = 480
   Top = 129

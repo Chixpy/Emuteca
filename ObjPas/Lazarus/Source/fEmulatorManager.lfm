@@ -1,4 +1,4 @@
-﻿object frmEmulatorManager: TfrmEmulatorManager
+object frmEmulatorManager: TfrmEmulatorManager
   Left = 384
   Height = 480
   Top = 89

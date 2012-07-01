@@ -107,7 +107,7 @@
         <PackageName Value="LCL"/>
       </Item7>
     </RequiredPackages>
-    <Units Count="33">
+    <Units Count="34">
       <Unit0>
         <Filename Value="LazEmuteca.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -206,6 +206,7 @@
         <Filename Value="Source/fScriptManager.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmScriptManager"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="fScriptManager"/>
       </Unit16>
@@ -300,6 +301,11 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="uCustomDefaultTraslator"/>
       </Unit32>
+      <Unit33>
+        <Filename Value="../Common/uscriptengine.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uScriptEngine"/>
+      </Unit33>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

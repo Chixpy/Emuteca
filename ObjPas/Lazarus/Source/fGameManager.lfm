@@ -1,4 +1,4 @@
-﻿object frmGameManager: TfrmGameManager
+object frmGameManager: TfrmGameManager
   Left = 412
   Height = 571
   Top = 140
@@ -1269,6 +1269,9 @@
       object miChangeGameListFont: TMenuItem
         Action = actChangeGameListFont
       end
+      object miOpenEmutecaFolder: TMenuItem
+        Action = actOpenEmutecaFolder
+      end
       object miFileSeparator: TMenuItem
         Caption = '-'
       end
@@ -1684,6 +1687,11 @@
       Hint = 'Paste game image from clipboard as icon image'
       OnExecute = actPasteGameIconImageExecute
     end
+    object actOpenEmutecaFolder: TAction
+      Category = 'File'
+      Caption = 'Open Emuteca folder...'
+      OnExecute = actOpenEmutecaFolderExecute
+    end
   end
   object ilActions: TImageList
     left = 240
@@ -1802,6 +1810,12 @@
     end
     object miGMSearchGameInternet: TMenuItem
       Caption = 'Search Game in Internet'
+    end
+    object miGMSep2: TMenuItem
+      Caption = '-'
+    end
+    object miGMScripts: TMenuItem
+      Caption = 'Scripts'
     end
   end
   object IniPropStorage: TIniPropStorage

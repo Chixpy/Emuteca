@@ -1,4 +1,4 @@
-﻿{ This file is part of Emuteca Front End
+{ This file is part of Emuteca Front End
 
   Copyright (C) 2006-2012 Chixpy
 

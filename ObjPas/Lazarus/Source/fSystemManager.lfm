@@ -1,4 +1,4 @@
-﻿object frmSystemManager: TfrmSystemManager
+object frmSystemManager: TfrmSystemManager
   Left = 360
   Height = 480
   Top = 104

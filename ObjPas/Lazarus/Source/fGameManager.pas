@@ -1,4 +1,4 @@
-﻿{ This file is part of Emuteca Front End.
+{ This file is part of Emuteca Front End.
 
   Copyright (C) 2006-2012 Chixpy
 
@@ -112,6 +112,7 @@ type
     actImportSystemData: TAction;
     actConfigManager: TAction;
     actChangeGameListFont: TAction;
+    actOpenEmutecaFolder: TAction;
     actPasteGameIconImage: TAction;
     actPasteGameSpineImage: TAction;
     actSaveGameList: TAction;
@@ -202,6 +203,9 @@ type
     lYear: TLabel;
     lZones: TLabel;
     memoEmulator: TMemo;
+    miOpenEmutecaFolder: TMenuItem;
+    miGMScripts: TMenuItem;
+    miGMSep2: TMenuItem;
     miPasteIconImage: TMenuItem;
     miPasteSpineGame: TMenuItem;
     miPasteGameImage: TMenuItem;
@@ -359,6 +363,7 @@ type
     procedure actLockSystemTextExecute(Sender: TObject);
     procedure actMediaManagerExecute(Sender: TObject);
     procedure actNextGameImageExecute(Sender: TObject);
+    procedure actOpenEmutecaFolderExecute(Sender: TObject);
     procedure actOpenSystemFolderExecute(Sender: TObject);
     procedure actPasteGameIconImageExecute(Sender: TObject);
     procedure actPasteGameImageExecute(Sender: TObject);
@@ -2500,8 +2505,6 @@ begin
 end;
 
 procedure TfrmGameManager.SaveGroupData;
-var
-  UpdateVTV: boolean;
 begin
   case GroupMode of
     lvGMGameGroup:
@@ -3024,7 +3027,7 @@ begin
   if GameManager.Emulator = nil then
     Exit;
 
-  EmulatorFolder := ExtractFilePath(GameManager.Emulator.ExeFile);
+  EmulatorFolder := ExtractFilePath(SysPath(GameManager.Emulator.ExeFile));
 
   if not DirectoryExistsUTF8(EmulatorFolder) then
     Exit;
@@ -3207,13 +3210,22 @@ begin
   NextGameImage;
 end;
 
+procedure TfrmGameManager.actOpenEmutecaFolderExecute(Sender: TObject);
+begin
+  OpenDocument(ProgramDirectory);
+end;
+
 procedure TfrmGameManager.actOpenSystemFolderExecute(Sender: TObject);
+var
+  SysFolder: string;
 begin
   if GameManager.System = nil then
     Exit;
-  if not DirectoryExistsUTF8(GameManager.System.BaseFolder) then
+
+  SysFolder := SysPath(GameManager.System.BaseFolder);
+  if not DirectoryExistsUTF8(SysFolder) then
     Exit;
-  OpenDocument(GameManager.System.BaseFolder);
+  OpenDocument(SysFolder);
 end;
 
 procedure TfrmGameManager.actPasteGameIconImageExecute(Sender: TObject);
@@ -3288,6 +3300,7 @@ begin
   try
     FormSM.Config := Self.Config;
     FormSM.GameManager := GameManager;
+    FormSM.ScriptFolder:= Config.ScriptsFolder + Config.GeneralScriptsSubFolder;
     FormSM.ShowModal;
   finally
     FreeAndNil(FormSM);

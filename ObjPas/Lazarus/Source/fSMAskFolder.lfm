@@ -1,4 +1,4 @@
-﻿object frmSMAskFolder: TfrmSMAskFolder
+object frmSMAskFolder: TfrmSMAskFolder
   Left = 398
   Height = 65
   Top = 270

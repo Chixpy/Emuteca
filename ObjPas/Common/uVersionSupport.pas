@@ -1,4 +1,4 @@
-﻿Unit uVersionSupport;
+Unit uVersionSupport;
 
 {$mode objfpc}
 

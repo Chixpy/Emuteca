@@ -232,7 +232,7 @@ Modified=
 Name=Dragon: The Bruce Lee Story
 SortName=Dragon: The Bruce Lee Story
 Version=
-GameGroup=Dragon: The Bruce Lee Story
+GameGroup=The Bruce Lee Story
 Year=1994
 Publisher=Atari
 Zones=
@@ -255,7 +255,7 @@ Modified=
 Name=Evolution: Dino Dudes
 SortName=Evolution: Dino Dudes
 Version=
-GameGroup=Evolution: Dino Dudes
+GameGroup=Dino Dudes
 Year=1994
 Publisher=Atari
 Zones=
@@ -554,7 +554,7 @@ Modified=
 Name=Pitfall: The Mayan Adventure
 SortName=Pitfall: The Mayan Adventure
 Version=
-GameGroup=Pitfall: The Mayan Adventure
+GameGroup=The Mayan Adventure
 Year=1995
 Publisher=Atari
 Zones=
@@ -1198,7 +1198,7 @@ Modified=
 Name=Tiny Toons Adventures: Plucky Duck DEMO
 SortName=Tiny Toons Adventures: Plucky Duck DEMO
 Version=
-GameGroup=Tiny Toons Adventures: Plucky Duck DEMO
+GameGroup=Plucky Duck DEMO
 Year=1994
 Publisher=
 Zones=
@@ -1241,8 +1241,8 @@ Cracked=
 Modified=
 
 [caf33bd6]
-Name=Towers II
-SortName=Towers II
+Name=Towers II: Plight of the Stargazer
+SortName=Towers II: Plight of the Stargazer
 Version=
 GameGroup=Towers II
 Year=1996
@@ -1312,7 +1312,7 @@ Modified=
 [Group: zero 5]
 Name=Zero 5
 SortName=Zero 5
-Year=
+Year=1997
 Developer=
 Tags=
 MediaFileName=Zero 5.(group)
@@ -1320,23 +1320,23 @@ MediaFileName=Zero 5.(group)
 [Group: worms]
 Name=Worms
 SortName=Worms
-Year=
+Year=1996
 Developer=
 Tags=
 MediaFileName=Worms.(group)
 
 [Group: towers ii]
-Name=Towers II
-SortName=Towers II
-Year=
+Name=Towers II: Plight of the Stargazer
+SortName=Towers II: Plight of the Stargazer
+Year=1996
 Developer=
 Tags=
-MediaFileName=Towers II.(group)
+MediaFileName=Towers II - Plight of the Stargazer.(group)
 
 [Group: total carnage]
 Name=Total Carnage
 SortName=Total Carnage
-Year=
+Year=1995
 Developer=
 Tags=
 MediaFileName=Total Carnage.(group)
@@ -1352,7 +1352,7 @@ MediaFileName=Tiny Toons Adventures - Plucky Duck DEMO.(group)
 [Group: space war 2000]
 Name=Space War 2000
 SortName=Space War 2000
-Year=
+Year=2001
 Developer=
 Tags=
 MediaFileName=Space War 2000.(group)
@@ -1360,7 +1360,7 @@ MediaFileName=Space War 2000.(group)
 [Group: missile command vr]
 Name=Missile Command VR
 SortName=Missile Command VR
-Year=
+Year=1995
 Developer=
 Tags=
 MediaFileName=Missile Command VR.(group)
@@ -1368,7 +1368,7 @@ MediaFileName=Missile Command VR.(group)
 [Group: hyper force]
 Name=Hyper Force
 SortName=Hyper Force
-Year=
+Year=1995
 Developer=
 Tags=
 MediaFileName=Hyper Force.(group)
@@ -1392,7 +1392,7 @@ MediaFileName=Doom2 v98.(group)
 [Group: brett hull hockey]
 Name=Brett Hull Hockey
 SortName=Brett Hull Hockey
-Year=
+Year=1995
 Developer=
 Tags=
 MediaFileName=Brett Hull Hockey.(group)
@@ -1400,7 +1400,7 @@ MediaFileName=Brett Hull Hockey.(group)
 [Group: breakout 2000]
 Name=Breakout 2000
 SortName=Breakout 2000
-Year=
+Year=1996
 Developer=
 Tags=
 MediaFileName=Breakout 2000.(group)
@@ -1416,7 +1416,7 @@ MediaFileName=Barkley Shut Up and Jam.(group)
 [Group: arena football '95]
 Name=Arena Football '95
 SortName=Arena Football '95
-Year=
+Year=1995
 Developer=
 Tags=
 MediaFileName=Arena Football '95.(group)
@@ -1424,7 +1424,7 @@ MediaFileName=Arena Football '95.(group)
 [Group: aircars]
 Name=Aircars
 SortName=Aircars
-Year=
+Year=1995
 Developer=
 Tags=
 MediaFileName=Aircars.(group)
@@ -1432,128 +1432,128 @@ MediaFileName=Aircars.(group)
 [Group: zoop]
 Name=Zoop
 SortName=Zoop
-Year=
-Developer=
+Year=1996
+Developer=Atari
 Tags=
 MediaFileName=Zoop.(group)
 
 [Group: zool 2]
 Name=Zool 2
 SortName=Zool 2
-Year=
-Developer=
+Year=1994
+Developer=Atari
 Tags=
 MediaFileName=Zool 2.(group)
 
 [Group: white men can't jump]
 Name=White Men Can't Jump
 SortName=White Men Can't Jump
-Year=
-Developer=
+Year=1995
+Developer=Atari
 Tags=
 MediaFileName=White Men Can't Jump.(group)
 
 [Group: val d'isere skiing & snowboarding]
 Name=Val D'Isere Skiing & Snowboarding
 SortName=Val D'Isere Skiing & Snowboarding
-Year=
-Developer=
+Year=1994
+Developer=Atari
 Tags=
 MediaFileName=Val D'Isere Skiing & Snowboarding.(group)
 
 [Group: ultra vortek]
 Name=Ultra Vortek
 SortName=Ultra Vortek
-Year=
-Developer=
+Year=1995
+Developer=Beyond Games
 Tags=
 MediaFileName=Ultra Vortek.(group)
 
 [Group: troy aikman nfl football]
 Name=Troy Aikman NFL Football
 SortName=Troy Aikman NFL Football
-Year=
-Developer=
+Year=1995
+Developer=Atari
 Tags=
 MediaFileName=Troy Aikman NFL Football.(group)
 
 [Group: trevor mcfur in the crescent galaxy]
 Name=Trevor McFur in the Crescent Galaxy
 SortName=Trevor McFur in the Crescent Galaxy
-Year=
-Developer=
+Year=1993
+Developer=Atari
 Tags=
 MediaFileName=Trevor McFur in the Crescent Galaxy.(group)
 
 [Group: theme park]
 Name=Theme Park
 SortName=Theme Park
-Year=
-Developer=
+Year=1995
+Developer=Ocean
 Tags=
 MediaFileName=Theme Park.(group)
 
 [Group: tempest 2000]
 Name=Tempest 2000
 SortName=Tempest 2000
-Year=
-Developer=
+Year=1994
+Developer=Atari
 Tags=
 MediaFileName=Tempest 2000.(group)
 
 [Group: syndicate]
 Name=Syndicate
 SortName=Syndicate
-Year=
-Developer=
+Year=1995
+Developer=Ocean
 Tags=
 MediaFileName=Syndicate.(group)
 
 [Group: super cross 3d]
 Name=Super Cross 3D
 SortName=Super Cross 3D
-Year=
-Developer=
+Year=1995
+Developer=Atari
 Tags=
 MediaFileName=Super Cross 3D.(group)
 
 [Group: super burnout]
 Name=Super Burnout
 SortName=Super Burnout
-Year=
-Developer=
+Year=1995
+Developer=Atari
 Tags=
 MediaFileName=Super Burnout.(group)
 
 [Group: sensible soccer]
 Name=International Sensible Soccer
 SortName=International Sensible Soccer
-Year=
-Developer=
+Year=1995
+Developer=Atari
 Tags=
 MediaFileName=International Sensible Soccer.(group)
 
 [Group: ruiner pinball]
 Name=Ruiner Pinball
 SortName=Ruiner Pinball
-Year=
-Developer=
+Year=1995
+Developer=Atari
 Tags=
 MediaFileName=Ruiner Pinball.(group)
 
 [Group: raiden]
 Name=Raiden
 SortName=Raiden
-Year=
-Developer=
+Year=1994
+Developer=Atari
 Tags=
 MediaFileName=Raiden.(group)
 
 [Group: power drive rally]
 Name=Power Drive Rally
 SortName=Power Drive Rally
-Year=
-Developer=
+Year=1995
+Developer=Time Warner
 Tags=
 MediaFileName=Power Drive Rally.(group)
 
@@ -1568,15 +1568,15 @@ MediaFileName=Pitfall - The Mayan Adventure.(group)
 [Group: pinball fantasies]
 Name=Pinball Fantasies
 SortName=Pinball Fantasies
-Year=
-Developer=
+Year=1995
+Developer=Atari
 Tags=
 MediaFileName=Pinball Fantasies.(group)
 
 [Group: phase zero]
 Name=Phase Zero
 SortName=Phase Zero
-Year=
+Year=2000
 Developer=
 Tags=
 MediaFileName=Phase Zero.(group)
@@ -1584,80 +1584,80 @@ MediaFileName=Phase Zero.(group)
 [Group: nba jam te]
 Name=NBA Jam TE
 SortName=NBA Jam TE
-Year=
-Developer=
+Year=1996
+Developer=High Voltage Software
 Tags=
 MediaFileName=NBA Jam TE.(group)
 
 [Group: missile command 3d]
 Name=Missile Command 3D
 SortName=Missile Command 3D
-Year=
-Developer=
+Year=1995
+Developer=Atari
 Tags=
 MediaFileName=Missile Command 3D.(group)
 
 [Group: kasumi ninja]
 Name=Kasumi Ninja
 SortName=Kasumi Ninja
-Year=
-Developer=
+Year=1994
+Developer=Atari
 Tags=
 MediaFileName=Kasumi Ninja.(group)
 
 [Group: iron soldier]
 Name=Iron Soldier
 SortName=Iron Soldier
-Year=
-Developer=
+Year=1994
+Developer=Atari
 Tags=
 MediaFileName=Iron Soldier.(group)
 
 [Group: i war]
 Name=I-War
 SortName=I-War
-Year=
-Developer=
+Year=1995
+Developer=Atari
 Tags=
 MediaFileName=I-War.(group)
 
 [Group: hover strike]
 Name=Hover Strike
 SortName=Hover Strike
-Year=
-Developer=
+Year=1995
+Developer=Atari
 Tags=
 MediaFileName=Hover Strike.(group)
 
 [Group: flip out]
 Name=Flip Out!
 SortName=Flip Out!
-Year=
-Developer=
+Year=1995
+Developer=Atari
 Tags=
 MediaFileName=Flip Out!.(group)
 
 [Group: flashback]
 Name=Flashback
 SortName=Flashback
-Year=
-Developer=
+Year=1995
+Developer=Atari
 Tags=
 MediaFileName=Flashback.(group)
 
 [Group: fight for your life]
 Name=Fight For Your Life
 SortName=Fight For Your Life
-Year=
-Developer=
+Year=1996
+Developer=Atari
 Tags=
 MediaFileName=Fight For Your Life.(group)
 
 [Group: fever pitch soccer]
 Name=Fever Pitch Soccer
 SortName=Fever Pitch Soccer
-Year=
-Developer=
+Year=1995
+Developer=Atari
 Tags=
 MediaFileName=Fever Pitch Soccer.(group)
 
@@ -1680,79 +1680,111 @@ MediaFileName=Dragon - The Bruce Lee Story.(group)
 [Group: double dragon v]
 Name=Double Dragon V
 SortName=Double Dragon V
-Year=
-Developer=
+Year=1995
+Developer=Atari
 Tags=
 MediaFileName=Double Dragon V.(group)
 
 [Group: defender 2000]
 Name=Defender 2000
 SortName=Defender 2000
-Year=
-Developer=
+Year=1996
+Developer=Atari
 Tags=
 MediaFileName=Defender 2000.(group)
 
 [Group: cybermorph]
 Name=Cybermorph
 SortName=Cybermorph
-Year=
-Developer=
+Year=1993
+Developer=Atari
 Tags=
 MediaFileName=Cybermorph.(group)
 
 [Group: club drive]
 Name=Club Drive
 SortName=Club Drive
-Year=
-Developer=
+Year=1994
+Developer=Atari
 Tags=
 MediaFileName=Club Drive.(group)
 
 [Group: checkered flag]
 Name=Checkered Flag
 SortName=Checkered Flag
-Year=
-Developer=
+Year=1994
+Developer=Atari
 Tags=
 MediaFileName=Checkered Flag.(group)
 
 [Group: cannon fodder]
 Name=Cannon Fodder
 SortName=Cannon Fodder
-Year=
-Developer=
+Year=1995
+Developer=Atari
 Tags=
 MediaFileName=Cannon Fodder.(group)
 
 [Group: bubsy in fractured furry tails]
 Name=Bubsy in Fractured Furry Tails
 SortName=Bubsy in Fractured Furry Tails
-Year=
-Developer=
+Year=1994
+Developer=Atari
 Tags=
 MediaFileName=Bubsy in Fractured Furry Tails.(group)
 
 [Group: brutal sports football]
 Name=Brutal Sports Football
 SortName=Brutal Sports Football
-Year=
-Developer=
+Year=1994
+Developer=Atari
 Tags=
 MediaFileName=Brutal Sports Football.(group)
 
 [Group: attack of the mutant penguins]
 Name=Attack of the Mutant Penguins
 SortName=Attack of the Mutant Penguins
-Year=
-Developer=
+Year=1996
+Developer=Sunrise Games
 Tags=
 MediaFileName=Attack of the Mutant Penguins.(group)
 
 [Group: atari karts]
 Name=Atari Karts
 SortName=Atari Karts
-Year=
-Developer=
+Year=1995
+Developer=Atari
 Tags=
 MediaFileName=Atari Karts.(group)
+
+[Group: the bruce lee story]
+Name=The Bruce Lee Story
+SortName=The Bruce Lee Story
+Year=1994
+Developer=Atari
+Tags=
+MediaFileName=The Bruce Lee Story.(group)
+
+[Group: dino dudes]
+Name=Dino Dudes
+SortName=Dino Dudes
+Year=1994
+Developer=Atari
+Tags=
+MediaFileName=Dino Dudes.(group)
+
+[Group: the mayan adventure]
+Name=The Mayan Adventure
+SortName=The Mayan Adventure
+Year=1995
+Developer=Atari
+Tags=
+MediaFileName=The Mayan Adventure.(group)
+
+[Group: plucky duck demo]
+Name=Plucky Duck DEMO
+SortName=Plucky Duck DEMO
+Year=1994
+Developer=
+Tags=
+MediaFileName=Plucky Duck DEMO.(group)

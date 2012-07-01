@@ -1,4 +1,4 @@
-﻿object frmSMAskFile: TfrmSMAskFile
+object frmSMAskFile: TfrmSMAskFile
   Left = 261
   Height = 65
   Top = 126

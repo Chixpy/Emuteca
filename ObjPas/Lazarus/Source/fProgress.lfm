@@ -1,4 +1,4 @@
-﻿object frmProgress: TfrmProgress
+object frmProgress: TfrmProgress
   Left = 617
   Height = 123
   Top = 276

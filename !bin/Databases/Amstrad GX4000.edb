@@ -555,7 +555,7 @@ Name=Barbarian II: The Dungeon of Drax
 SortName=Barbarian II: The Dungeon of Drax
 Year=1990
 Developer=Palace Software
-Tags=
+Tags="Players/1 Player"
 MediaFileName=Barbarian II - The Dungeon of Drax.(group)
 
 [Group: batman the movie]
@@ -563,7 +563,7 @@ Name=Batman: The Movie
 SortName=Batman: The Movie
 Year=1990
 Developer=Ocean
-Tags=Series/Batman,Genre/Platformer
+Tags=Series/Batman,Genre/Platformer,"Players/1 Player"
 MediaFileName=Batman - The Movie.(group)
 
 [Group: burnin' rubber]
@@ -571,7 +571,7 @@ Name=Burnin' Rubber
 SortName=Burnin' Rubber
 Year=1990
 Developer=Ocean
-Tags=
+Tags="Players/1 Player"
 MediaFileName=Burnin' Rubber.(group)
 
 [Group: crazy cars 2]
@@ -579,7 +579,7 @@ Name=Crazy Cars II
 SortName=Crazy Cars 2
 Year=1990
 Developer=Titus
-Tags=
+Tags="Players/1 Player"
 MediaFileName=Crazy Cars II.(group)
 
 [Group: dick tracy]
@@ -595,7 +595,7 @@ Name=The Enforcer
 SortName=Enforcer, The
 Year=1990
 Developer=Trojan
-Tags=
+Tags="Players/1 Player"
 MediaFileName=Enforcer, The.(group)
 
 [Group: fire and forget 2]
@@ -603,7 +603,7 @@ Name=Fire & Forget II
 SortName=Fire and Forget 2
 Year=1990
 Developer=Titus
-Tags=
+Tags="Players/1 Player"
 MediaFileName=Fire and Forget II.(group)
 
 [Group: klax]
@@ -611,7 +611,7 @@ Name=Klax
 SortName=Klax
 Year=1990
 Developer=Teque Software Development
-Tags=
+Tags="Players/1 Player"
 MediaFileName=Klax.(group)
 
 [Group: mystical]
@@ -619,7 +619,7 @@ Name=Mystical
 SortName=Mystical
 Year=1990
 Developer=Infogrames
-Tags=
+Tags="Players/1 Player","Players/2 Player Cooperative"
 MediaFileName=Mystical.(group)
 
 [Group: navy seals]

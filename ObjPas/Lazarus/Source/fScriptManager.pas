@@ -1,4 +1,4 @@
-﻿{ This file is part of Emuteca
+{ This file is part of Emuteca
 
   Copyright (C) 2006-2012 Chixpy
 
@@ -29,26 +29,29 @@ uses
   Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs,
   ExtCtrls, ComCtrls, ShellCtrls, StdCtrls, ActnList, Buttons, StdActns,
   strutils, SynHighlighterPas, SynMemo, LazUTF8,
+  uPSCompiler, uPSRuntime, uPSPreProcessor,
   fSMAskFile, fSMAskFolder,
   uPSComponent, uPSComponent_Default, uPSComponent_Controls, uPSUtils,
   uPSComponent_Forms, uPSComponent_StdCtrls, uPSC_strutils,
   uPSI_uGame,  uPSI_uGameGroup,
   uPSI_uGameManager, uPSI_uGameStats, uPSI_u7zWrapper, uPSI_uEmulator,
   uPSI_uSystem,
-  uConfig, uCustomUtils, uGameManager;
+  uConfig, uCustomUtils, uGameManager, uGame, uGameGroup;
 
 resourcestring
-      rsCompilationOK = 'Compilation: OK.';
-      rsCompilationError = 'Compilation: Error.';
-      rsExecutionOK = 'Execution: OK.';
-      rsExecutionError = 'Execution: Error.';
-      rsScriptFileSaved = 'Script file saved: %s';
+      rsFSMCompilationOK = 'Compilation: OK.';
+      rsFSMCompilationError = 'Compilation: Error.';
+      rsFSMExecutionOK = 'Execution: OK.';
+      rsFSMExecutionError = 'Execution: Error.';
+      rsFSMScriptFileSaved = 'Script file saved: %s';
+      rsFSMEmutecaScript = 'Emuteca Script';
 
 const
   // Script file extension
   kFSMScriptExt = '.pas';
-  kFSMScriptFilter = 'Emuteca Script (*' + kFSMScriptExt + ')|*' +
-    kFSMScriptExt + '|All files|*.*';
+  kFSMScriptFilter =  ' (*' + kFSMScriptExt + ')|*' +
+    kFSMScriptExt + '|All files|' + AllFilesMask;
+  kFSMUnitsFolder = 'Common' + PathDelim;
 type
 
   TSMLoadingListCallBack = function(const Game, Version: String;
@@ -73,7 +76,7 @@ type
     gbxFile: TGroupBox;
     gbRun: TGroupBox;
     ilActions: TImageList;
-    lvScripts: TShellListView;
+    slvScripts: TShellListView;
     mCompMess: TMemo;
     mOutput: TMemo;
     PageControl: TPageControl;
@@ -92,9 +95,11 @@ type
     sbInfo: TStatusBar;
     pagScriptList: TTabSheet;
     pagSourceCode: TTabSheet;
+    slvUnits: TShellListView;
     SynFreePascalSyn: TSynFreePascalSyn;
     SynMemo: TSynMemo;
     pagOutput: TTabSheet;
+    pagCommonScripts: TTabSheet;
     ToolBarEditor: TToolBar;
     bEditCopy: TToolButton;
     bEditCut: TToolButton;
@@ -105,19 +110,26 @@ type
     procedure actSaveScriptExecute(Sender: TObject);
     procedure chkReadOnlyChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-    procedure lvScriptsSelectItem(Sender: TObject; Item: TListItem;
+    procedure slvScriptsSelectItem(Sender: TObject; Item: TListItem;
       Selected: Boolean);
     procedure PSScriptCompile(Sender: TPSScript);
     procedure PSScriptExecute(Sender: TPSScript);
+    function PSScriptFindUnknownFile(Sender: TObject;
+      const OrginFileName: tbtstring; var FileName, Output: tbtstring): Boolean;
     function PSScriptNeedFile(Sender: TObject; const OriginFileName: tbtstring;
       var FileName, Output: tbtstring): Boolean;
-
   private
     { private declarations }
     FConfig: cConfig;
+    FCurrGame: cGame;
+    FCurrGroup: cGameGroup;
     FGameManager: cGameManager;
+    FScriptFolder: string;
     procedure SetConfig(const AValue: cConfig);
+    procedure SetCurrGame(AValue: cGame);
+    procedure SetCurrGroup(AValue: cGameGroup);
     procedure SetGameManager(const AValue: cGameManager);
+    procedure SetScriptFolder(AValue: string);
 
   protected
     // Added functions
@@ -146,6 +158,9 @@ type
     { public declarations }
     property Config: cConfig read FConfig write SetConfig;
     property GameManager: cGameManager read FGameManager write SetGameManager;
+    property CurrGame: cGame read FCurrGame write SetCurrGame;
+    property CurrGroup: cGameGroup read FCurrGroup write SetCurrGroup;
+    property ScriptFolder: string read FScriptFolder write SetScriptFolder;
   end;
 
 var
@@ -219,12 +234,48 @@ begin
     PSScript.FindNamedType('cGameManager'));
 end;
 
+function TfrmScriptManager.PSScriptFindUnknownFile(Sender: TObject;
+  const OrginFileName: tbtstring; var FileName, Output: tbtstring): Boolean;
+var
+  FullFileName: String;
+  f: TFileStream;
+begin
+  Result := False;
+  FullFileName := SetAsFolder(ExtractFilePath(OrginFileName)) + FileName;
+  if not FileExistsUTF8(FullFileName) then
+  begin
+    FullFileName := SetAsFolder(Config.ScriptsFolder + 'Common') + FileName;
+    if not FileExistsUTF8(FullFileName) then
+      Exit;
+  end;
+
+  try
+    f := TFileStream.Create(FullFileName, fmOpenRead or fmShareDenyWrite);
+  except
+    Exit;
+  end;
+  try
+    SetLength(Output, f.Size);
+    f.Read(Output[1], Length(Output));
+  finally
+    f.Free;
+  end;
+  Result := True;
+end;
+
 function TfrmScriptManager.PSScriptNeedFile(Sender: TObject;
   const OriginFileName: tbtstring; var FileName, Output: tbtstring): Boolean;
 var
-  aFile: TStringList;
   FullFileName: String;
+  F: TFileStream;
 begin
+  ShowMessage('PSScriptNeedFile:' + sLineBreak +
+  'OriginFileName: ' +OriginFileName +  sLineBreak +
+  'FileName: ' +FileName +  sLineBreak +
+  'Output: ' +Output +  sLineBreak
+  );
+
+
   Result := False;
   FullFileName := SetAsFolder(ExtractFilePath(OriginFileName)) + FileName;
   if not FileExistsUTF8(FullFileName) then
@@ -234,14 +285,18 @@ begin
       Exit;
   end;
 
-  aFile := TStringList.Create;
   try
-    aFile.LoadFromFile(UTF8ToSys(FullFileName));
-    Output := aFile.Text;
-    Result := True
-  finally
-    FreeAndNil(aFile);
+    F := TFileStream.Create(FullFileName, fmOpenRead or fmShareDenyWrite);
+  except
+    Exit;
   end;
+  try
+    SetLength(Output, f.Size);
+    f.Read(Output[1], Length(Output));
+  finally
+    f.Free;
+  end;
+  Result := True;
 end;
 
 procedure TfrmScriptManager.actExecuteExecute(Sender: TObject);
@@ -256,7 +311,7 @@ begin
 
   if not Compiled then
   begin
-    mCompMess.Lines.Add(rsCompilationError);
+    mCompMess.Lines.Add(rsFSMCompilationError);
     Exit;
   end;
 
@@ -264,31 +319,31 @@ begin
 
   if not Executed then
   begin
-    mCompMess.Lines.Add(rsExecutionError);
+    mCompMess.Lines.Add(rsFSMExecutionError);
     mCompMess.Lines.Add(PSScript.ExecErrorToString);
     Exit;
   end;
 
-  mCompMess.Lines.Add(rsExecutionOK);
+  mCompMess.Lines.Add(rsFSMExecutionOK);
 end;
 
 procedure TfrmScriptManager.actSaveAsExecute(Sender: TObject);
 var
   aFile: String;
 begin
-  SaveDialog.InitialDir := lvScripts.Root;
+  SaveDialog.InitialDir := slvScripts.Root;
   SaveDialog.DefaultExt := kFSMScriptExt;
-  SaveDialog.Filter := kFSMScriptFilter;
+  SaveDialog.Filter :=  rsFSMEmutecaScript + kFSMScriptFilter;
   if not SaveDialog.Execute then
     Exit;
 
   aFile := SaveDialog.FileName;
   SynMemo.Lines.SaveToFile(aFile);
-  mCompMess.Lines.Add(Format(rsScriptFileSaved, [aFile]));
+  mCompMess.Lines.Add(Format(rsFSMScriptFileSaved, [aFile]));
   if aFile <> PSScript.MainFileName then
-    lvScripts.Selected := nil;
+    slvScripts.Selected := nil;
   PSScript.MainFileName := aFile;
-  lvScripts.Update;
+  slvScripts.Update;
   if SynMemo.CanFocus then
     SynMemo.SetFocus;
 end;
@@ -296,7 +351,7 @@ end;
 procedure TfrmScriptManager.actSaveScriptExecute(Sender: TObject);
 begin
   SynMemo.Lines.SaveToFile(PSScript.MainFileName);
-  mCompMess.Lines.Add(Format(rsScriptFileSaved, [PSScript.MainFileName]));
+  mCompMess.Lines.Add(Format(rsFSMScriptFileSaved, [PSScript.MainFileName]));
   if SynMemo.CanFocus then
     SynMemo.SetFocus;
 end;
@@ -337,12 +392,12 @@ begin
   PageControl.ActivePageIndex := 0;
 end;
 
-procedure TfrmScriptManager.lvScriptsSelectItem(Sender: TObject;
+procedure TfrmScriptManager.slvScriptsSelectItem(Sender: TObject;
   Item: TListItem; Selected: Boolean);
 var
   aPos: Longint;
 begin
-  // This metod is called when deselecting something too
+  // This method is called when deselecting something too
   mCompMess.Clear;
   chkReadOnly.Checked := True;
   SynMemo.ReadOnly := True;
@@ -350,7 +405,11 @@ begin
   if not Selected then
     Exit;
 
-  PSScript.MainFileName := SetAsFolder(lvScripts.Root) + Item.Caption;
+  // TODO: Ask if we must save changes.
+  // if SynMemo.Modified then
+
+
+  PSScript.MainFileName := SetAsFolder(TShellListView(Sender).Root) + Item.Caption;
 
   SynMemo.Lines.LoadFromFile(PSScript.MainFileName);
 
@@ -378,8 +437,20 @@ begin
   ReadActionsIcons(Config.IconsIniFile, Self.Name, Config.ImagesFolder +
     Config.IconsSubfolder, ilActions, ActionList);
 
-  lvScripts.Root := Config.ScriptsFolder + Config.GeneralScriptsSubFolder;
-  lvScripts.Update;
+  slvUnits.Root := Config.ScriptsFolder + kFSMUnitsFolder;
+  slvUnits.Update;
+end;
+
+procedure TfrmScriptManager.SetCurrGame(AValue: cGame);
+begin
+  if FCurrGame=AValue then Exit;
+  FCurrGame:=AValue;
+end;
+
+procedure TfrmScriptManager.SetCurrGroup(AValue: cGameGroup);
+begin
+  if FCurrGroup=AValue then Exit;
+  FCurrGroup:=AValue;
 end;
 
 procedure TfrmScriptManager.SetGameManager(const AValue: cGameManager);
@@ -389,6 +460,15 @@ begin
   FGameManager := AValue;
 
   pTop.Caption := GameManager.System.ID;
+end;
+
+procedure TfrmScriptManager.SetScriptFolder(AValue: string);
+begin
+  if FScriptFolder=AValue then Exit;
+  FScriptFolder:=SetAsFolder(AValue);
+
+  slvScripts.Root := FScriptFolder;
+  slvScripts.Update;
 end;
 
 procedure TfrmScriptManager.WriteLn(const Str: String);
@@ -427,7 +507,7 @@ begin
   Result := PSScript.Compile;
 
   if Result then
-    mCompMess.Lines.Add(rsCompilationOK)
+    mCompMess.Lines.Add(rsFSMCompilationOK)
   else
   begin
     for i := 0 to PSScript.CompilerMessageCount - 1 do
