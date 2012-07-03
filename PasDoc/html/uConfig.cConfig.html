@@ -7,7 +7,8 @@
 <link rel="StyleSheet" type="text/css" href="pasdoc.css">
 </head>
 <body bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#800080" alink="#FF0000">
-Emuteca<a name="cConfig"></a><h1 class="cio">Class cConfig</h1>
+Emuteca documentation
+<a name="cConfig"></a><h1 class="cio">Class cConfig</h1>
 <table class="sections wide_list">
 <tr>
 <td><a class="section"  href="#%40Description">Description</a></td><td><a class="section"  href="#%40Hierarchy">Hierarchy</a></td><td>Fields</td><td><a class="section"  href="#%40Methods">Methods</a></td><td><a class="section"  href="#%40Properties">Properties</a></td></tr></table>
@@ -37,11 +38,11 @@ Emuteca<a name="cConfig"></a><h1 class="cio">Class cConfig</h1>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a   href="uConfig.cConfig.html#ReadConfig">ReadConfig</a></b>(const aFileName: String);</code></td>
+<td class="itemcode"><code>procedure <b><a   href="uConfig.cConfig.html#ReadConfig">ReadConfig</a></b>(aFileName: String);</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a   href="uConfig.cConfig.html#SaveConfig">SaveConfig</a></b>(const aFilename: String);</code></td>
+<td class="itemcode"><code>procedure <b><a   href="uConfig.cConfig.html#SaveConfig">SaveConfig</a></b>(aFilename: String);</code></td>
 </tr>
 </table>
 <a name="%40Properties"></a><h3 class="summary">Properties</h3>
@@ -62,178 +63,173 @@ Emuteca<a name="cConfig"></a><h1 class="cio">Class cConfig</h1>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uConfig.cConfig.html#DataFolder">DataFolder</a></b>: String read FDataFolder write SetDataFolder;</code></td>
+<td class="itemcode"><code>property <b><a   href="uConfig.cConfig.html#ConfigFile">ConfigFile</a></b>: string read FConfigFile write SetConfigFile;</code></td>
 </tr>
 <tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="uConfig.cConfig.html#DataFolder">DataFolder</a></b>: String read FDataFolder write SetDataFolder;</code></td>
+</tr>
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>property <b><a   href="uConfig.cConfig.html#DefaultEmulatorIcon">DefaultEmulatorIcon</a></b>: String
       read FDefaultEmulatorIcon write SetDefaultEmulatorIcon;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>property <b><a   href="uConfig.cConfig.html#DefaultEmulatorImage">DefaultEmulatorImage</a></b>: String
       read FDefaultEmulatorImage write SetDefaultEmulatorImage;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>property <b><a   href="uConfig.cConfig.html#DefaultGameIcon">DefaultGameIcon</a></b>: String
       read FDefaultGameIcon write SetDefaultGameIcon;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>property <b><a   href="uConfig.cConfig.html#DefaultGameImage">DefaultGameImage</a></b>: String
       read FDefaultGameImage write SetDefaultGameImage;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>property <b><a   href="uConfig.cConfig.html#DefaultImagesSubfolder">DefaultImagesSubfolder</a></b>: String
       read FDefaultImagesSubfolder write SetDefaultImagesSubfolder;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>property <b><a   href="uConfig.cConfig.html#DefaultSystemIcon">DefaultSystemIcon</a></b>: String
       read FDefaultSystemIcon write SetDefaultSystemIcon;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>property <b><a   href="uConfig.cConfig.html#DefaultSystemImage">DefaultSystemImage</a></b>: String
       read FDefaultSystemImage write SetDefaultSystemImage;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>property <b><a   href="uConfig.cConfig.html#EmulatorsIniFile">EmulatorsIniFile</a></b>: String
       read FEmulatorsIniFile write SetEmulatorsIniFile;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>property <b><a   href="uConfig.cConfig.html#EmulatorSubFolder">EmulatorSubFolder</a></b>: String
       read FEmulatorSubFolder write SetEmulatorSubFolder;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>property <b><a   href="uConfig.cConfig.html#FlagsSubfolder">FlagsSubfolder</a></b>: String read FFlagsSubfolder write SetFlagsSubfolder;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>property <b><a   href="uConfig.cConfig.html#GameDataExt">GameDataExt</a></b>: String read FGameDataExt write SetGameDataExt;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>property <b><a   href="uConfig.cConfig.html#GameGroupExt">GameGroupExt</a></b>: String read FGameGroupExt write SetGameGroupExt;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>property <b><a   href="uConfig.cConfig.html#GameScriptsSubFolder">GameScriptsSubFolder</a></b>: String
       read FGameScriptsSubFolder write SetGameScriptsSubFolder;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>property <b><a   href="uConfig.cConfig.html#GeneralScriptsSubFolder">GeneralScriptsSubFolder</a></b>: String
       read FGeneralScriptsSubFolder write SetGeneralScriptsSubFolder;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>property <b><a   href="uConfig.cConfig.html#GroupScriptsSubFolder">GroupScriptsSubFolder</a></b>: String
       read FGroupScriptsSubFolder write SetGroupScriptsSubFolder;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>property <b><a   href="uConfig.cConfig.html#HelpFolder">HelpFolder</a></b>: String read FHelpFolder write SetHelpFolder;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>property <b><a   href="uConfig.cConfig.html#IconsIniFile">IconsIniFile</a></b>: String read FIconsIniFile write SetIconsIniFile;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>property <b><a   href="uConfig.cConfig.html#IconsSubfolder">IconsSubfolder</a></b>: String
       read FIconsSubfolder write SetIconsSubfolder;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>property <b><a   href="uConfig.cConfig.html#ImageExtensions">ImageExtensions</a></b>: TStringList read FImageExtensions;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>property <b><a   href="uConfig.cConfig.html#ImagesFolder">ImagesFolder</a></b>: String read FImagesFolder write SetImagesFolder;</code></td>
 </tr>
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uConfig.cConfig.html#LanguageFile">LanguageFile</a></b>: String read FLanguageFile write SetLanguageFile;</code></td>
-</tr>
 <tr class="list2">
-<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uConfig.cConfig.html#LanguageFolder">LanguageFolder</a></b>: String
-      read FLanguageFolder write SetLanguageFolder;</code></td>
-</tr>
-<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>property <b><a   href="uConfig.cConfig.html#mPlayerExecutable">mPlayerExecutable</a></b>: String read FmPlayerExecutable write SetmPlayerExecutable;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>property <b><a   href="uConfig.cConfig.html#mPlayerSubfolder">mPlayerSubfolder</a></b>: String read FmPlayerSubfolder write SetmPlayerSubfolder;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>property <b><a   href="uConfig.cConfig.html#MusicExtensions">MusicExtensions</a></b>: TStringList read FMusicExtensions;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>property <b><a   href="uConfig.cConfig.html#ScriptsFolder">ScriptsFolder</a></b>: String read FScriptsFolder
       write SetScriptsFolder;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>property <b><a   href="uConfig.cConfig.html#SearchFile">SearchFile</a></b>: String read FSearchFile write SetSearchFile;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>property <b><a   href="uConfig.cConfig.html#SystemsIniFile">SystemsIniFile</a></b>: String
       read FSystemsIniFile write SetSystemsIniFile;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>property <b><a   href="uConfig.cConfig.html#TagSubFolder">TagSubFolder</a></b>: String read FTagSubFolder write SetTagSubFolder;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>property <b><a   href="uConfig.cConfig.html#TempFile">TempFile</a></b>: String read FTempFile write SetTempFile;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>property <b><a   href="uConfig.cConfig.html#TempSubfolder">TempSubfolder</a></b>: String read FTempFolder write SetTempFolder;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>property <b><a   href="uConfig.cConfig.html#TextExtensions">TextExtensions</a></b>: TStringList read FTextExtensions;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>property <b><a   href="uConfig.cConfig.html#ToolsFolder">ToolsFolder</a></b>: String read FToolsFolder write SetToolsFolder;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>property <b><a   href="uConfig.cConfig.html#VideoExtensions">VideoExtensions</a></b>: TStringList read FVideoExtensions;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>property <b><a   href="uConfig.cConfig.html#VIIconsSubfolder">VIIconsSubfolder</a></b>: String read FVIIconsSubfolder write SetVIIconsSubfolder;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>property <b><a   href="uConfig.cConfig.html#YearSubFolder">YearSubFolder</a></b>: String
       read FYearSubFolder write SetYearSubFolder;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>property <b><a   href="uConfig.cConfig.html#z7CMExecutable">z7CMExecutable</a></b>: String read Fz7CMExecutable write Setz7CMExecutable;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>property <b><a   href="uConfig.cConfig.html#z7GExecutable">z7GExecutable</a></b>: String read Fz7GExecutable write Setz7GExecutable;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>property <b><a   href="uConfig.cConfig.html#z7Subfolder">z7Subfolder</a></b>: String read Fz7Subfolder write Setz7Subfolder;</code></td>
 </tr>
@@ -259,7 +255,7 @@ Emuteca<a name="cConfig"></a><h1 class="cio">Class cConfig</h1>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="ReadConfig"></a><code>procedure <b>ReadConfig</b>(const aFileName: String);</code></td>
+<td class="itemcode"><a name="ReadConfig"></a><code>procedure <b>ReadConfig</b>(aFileName: String);</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -267,7 +263,7 @@ Emuteca<a name="cConfig"></a><h1 class="cio">Class cConfig</h1>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="SaveConfig"></a><code>procedure <b>SaveConfig</b>(const aFilename: String);</code></td>
+<td class="itemcode"><a name="SaveConfig"></a><code>procedure <b>SaveConfig</b>(aFilename: String);</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -297,6 +293,14 @@ CommonMedia folder</p>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><a name="CompressedExtensions"></a><code>property <b>CompressedExtensions</b>: TStringList read FCompressedExtensions;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="ConfigFile"></a><code>property <b>ConfigFile</b>: string read FConfigFile write SetConfigFile;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -449,7 +453,9 @@ File extensions</p>
 <td class="itemcode"><a name="HelpFolder"></a><code>property <b>HelpFolder</b>: String read FHelpFolder write SetHelpFolder;</code></td>
 </tr>
 <tr><td colspan="2">
-&nbsp;</td></tr>
+<p>
+Config/Data</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -484,25 +490,6 @@ File extensions</p>
 <tr><td colspan="2">
 <p>
 Default images</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="LanguageFile"></a><code>property <b>LanguageFile</b>: String read FLanguageFile write SetLanguageFile;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="LanguageFolder"></a><code>property <b>LanguageFolder</b>: String
-      read FLanguageFolder write SetLanguageFolder;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-i18n</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -546,9 +533,7 @@ Scripts</p>
 <td class="itemcode"><a name="SearchFile"></a><code>property <b>SearchFile</b>: String read FSearchFile write SetSearchFile;</code></td>
 </tr>
 <tr><td colspan="2">
-<p>
-Config/Data</p>
-</td></tr>
+&nbsp;</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -652,6 +637,6 @@ Tools folder</p>
 <tr><td colspan="2">
 &nbsp;</td></tr>
 </table>
-Chixpy<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.12.1</a> on 2012-05-01 19:42:38</em>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.12.1</a> on 2012-07-03 22:35:13</em>
 </span>
 </body></html>

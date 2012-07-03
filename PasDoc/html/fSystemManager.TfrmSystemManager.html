@@ -7,7 +7,8 @@
 <link rel="StyleSheet" type="text/css" href="pasdoc.css">
 </head>
 <body bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#800080" alink="#FF0000">
-Emuteca<a name="TfrmSystemManager"></a><h1 class="cio">Class TfrmSystemManager</h1>
+Emuteca documentation
+<a name="TfrmSystemManager"></a><h1 class="cio">Class TfrmSystemManager</h1>
 <table class="sections wide_list">
 <tr>
 <td><a class="section"  href="#%40Description">Description</a></td><td><a class="section"  href="#%40Hierarchy">Hierarchy</a></td><td><a class="section"  href="#%40Fields">Fields</a></td><td><a class="section"  href="#%40Methods">Methods</a></td><td><a class="section"  href="#%40Properties">Properties</a></td></tr></table>
@@ -63,6 +64,14 @@ Emuteca<a name="TfrmSystemManager"></a><h1 class="cio">Class TfrmSystemManager</
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code><b><a   href="fSystemManager.TfrmSystemManager.html#actMakeAbsolutePaths">actMakeAbsolutePaths</a></b>: TAction;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code><b><a   href="fSystemManager.TfrmSystemManager.html#actMakeRelativePaths">actMakeRelativePaths</a></b>: TAction;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fSystemManager.TfrmSystemManager.html#actRemoveImageFolder">actRemoveImageFolder</a></b>: TAction;</code></td>
 </tr>
 <tr class="list">
@@ -96,6 +105,14 @@ Emuteca<a name="TfrmSystemManager"></a><h1 class="cio">Class TfrmSystemManager</
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fSystemManager.TfrmSystemManager.html#bAutoConfig">bAutoConfig</a></b>: TButton;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code><b><a   href="fSystemManager.TfrmSystemManager.html#bMakeAbsolutePaths">bMakeAbsolutePaths</a></b>: TButton;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code><b><a   href="fSystemManager.TfrmSystemManager.html#bMakeRelativePaths">bMakeRelativePaths</a></b>: TButton;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -810,6 +827,14 @@ Emuteca<a name="TfrmSystemManager"></a><h1 class="cio">Class TfrmSystemManager</
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="fSystemManager.TfrmSystemManager.html#actMakeAbsolutePathsExecute">actMakeAbsolutePathsExecute</a></b>(Sender: TObject);</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="fSystemManager.TfrmSystemManager.html#actMakeRelativePathsExecute">actMakeRelativePathsExecute</a></b>(Sender: TObject);</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>procedure <b><a   href="fSystemManager.TfrmSystemManager.html#actRemoveImageFolderExecute">actRemoveImageFolderExecute</a></b>(Sender: TObject);</code></td>
 </tr>
 <tr class="list2">
@@ -1029,163 +1054,9 @@ Emuteca<a name="TfrmSystemManager"></a><h1 class="cio">Class TfrmSystemManager</
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>property <b><a   href="fSystemManager.TfrmSystemManager.html#rsAutoConfigSystem">rsAutoConfigSystem</a></b>: String
-      read FrsAutoConfigSystem write SetrsAutoConfigSystem;</code></td>
-</tr>
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>property <b><a   href="fSystemManager.TfrmSystemManager.html#rsAutoFolderBIOS">rsAutoFolderBIOS</a></b>: String
-      read FrsAutoFolderBIOS write SetrsAutoFolderBIOS;</code></td>
-</tr>
-<tr class="list2">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>property <b><a   href="fSystemManager.TfrmSystemManager.html#rsAutoFolderGames">rsAutoFolderGames</a></b>: String
-      read FrsAutoFolderGames write SetrsAutoFolderGames;</code></td>
-</tr>
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>property <b><a   href="fSystemManager.TfrmSystemManager.html#rsAutoFolderIcons">rsAutoFolderIcons</a></b>: String
-      read FrsAutoFolderIcons write SetrsAutoFolderIcons;</code></td>
-</tr>
-<tr class="list2">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>property <b><a   href="fSystemManager.TfrmSystemManager.html#rsAutoFolderImg">rsAutoFolderImg</a></b>: String
-      read FrsAutoFolderImg write SetrsAutoFolderImg;</code></td>
-</tr>
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>property <b><a   href="fSystemManager.TfrmSystemManager.html#rsAutoFolderImgBack">rsAutoFolderImgBack</a></b>: String
-      read FrsAutoFolderImgBack write SetrsAutoFolderImgBack;</code></td>
-</tr>
-<tr class="list2">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>property <b><a   href="fSystemManager.TfrmSystemManager.html#rsAutoFolderImgFront">rsAutoFolderImgFront</a></b>: String
-      read FrsAutoFolderImgFront write SetrsAutoFolderImgFront;</code></td>
-</tr>
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>property <b><a   href="fSystemManager.TfrmSystemManager.html#rsAutoFolderImgInGame">rsAutoFolderImgInGame</a></b>: String
-      read FrsAutoFolderImgInGame write SetrsAutoFolderImgInGame;</code></td>
-</tr>
-<tr class="list2">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>property <b><a   href="fSystemManager.TfrmSystemManager.html#rsAutoFolderImgMarquee">rsAutoFolderImgMarquee</a></b>: String
-      read FrsAutoFolderImgMarquee write SetrsAutoFolderImgMarquee;</code></td>
-</tr>
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>property <b><a   href="fSystemManager.TfrmSystemManager.html#rsAutoFolderImgMedia">rsAutoFolderImgMedia</a></b>: String
-      read FrsAutoFolderImgMedia write SetrsAutoFolderImgMedia;</code></td>
-</tr>
-<tr class="list2">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>property <b><a   href="fSystemManager.TfrmSystemManager.html#rsAutoFolderImgTitle">rsAutoFolderImgTitle</a></b>: String
-      read FrsAutoFolderImgTitle write SetrsAutoFolderImgTitle;</code></td>
-</tr>
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>property <b><a   href="fSystemManager.TfrmSystemManager.html#rsAutoFolderMusic">rsAutoFolderMusic</a></b>: String
-      read FrsAutoFolderMusic write SetrsAutoFolderMusic;</code></td>
-</tr>
-<tr class="list2">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>property <b><a   href="fSystemManager.TfrmSystemManager.html#rsAutoFolderMusicDemo">rsAutoFolderMusicDemo</a></b>: String
-      read FrsAutoFolderMusicDemo write SetrsAutoFolderMusicDemo;</code></td>
-</tr>
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>property <b><a   href="fSystemManager.TfrmSystemManager.html#rsAutoFolderMusicMix">rsAutoFolderMusicMix</a></b>: String
-      read FrsAutoFolderMusicMix write SetrsAutoFolderMusicMix;</code></td>
-</tr>
-<tr class="list2">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>property <b><a   href="fSystemManager.TfrmSystemManager.html#rsAutoFolderMusicOST">rsAutoFolderMusicOST</a></b>: String
-      read FrsAutoFolderMusicOST write SetrsAutoFolderMusicOST;</code></td>
-</tr>
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>property <b><a   href="fSystemManager.TfrmSystemManager.html#rsAutoFolderSaves">rsAutoFolderSaves</a></b>: String
-      read FrsAutoFolderSaves write SetrsAutoFolderSaves;</code></td>
-</tr>
-<tr class="list2">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>property <b><a   href="fSystemManager.TfrmSystemManager.html#rsAutoFolderTemp">rsAutoFolderTemp</a></b>: String
-      read FrsAutoFolderTemp write SetrsAutoFolderTemp;</code></td>
-</tr>
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>property <b><a   href="fSystemManager.TfrmSystemManager.html#rsAutoFolderTools">rsAutoFolderTools</a></b>: String
-      read FrsAutoFolderTools write SetrsAutoFolderTools;</code></td>
-</tr>
-<tr class="list2">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>property <b><a   href="fSystemManager.TfrmSystemManager.html#rsAutoFolderTxt">rsAutoFolderTxt</a></b>: String
-      read FrsAutoFolderTxt write SetrsAutoFolderTxt;</code></td>
-</tr>
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>property <b><a   href="fSystemManager.TfrmSystemManager.html#rsAutoFolderTxtCheat">rsAutoFolderTxtCheat</a></b>: String
-      read FrsAutoFolderTxtCheat write SetrsAutoFolderTxtCheat;</code></td>
-</tr>
-<tr class="list2">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>property <b><a   href="fSystemManager.TfrmSystemManager.html#rsAutoFolderTxtCredit">rsAutoFolderTxtCredit</a></b>: String
-      read FrsAutoFolderTxtCredit write SetrsAutoFolderTxtCredit;</code></td>
-</tr>
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>property <b><a   href="fSystemManager.TfrmSystemManager.html#rsAutoFolderTxtInfo">rsAutoFolderTxtInfo</a></b>: String
-      read FrsAutoFolderTxtInfo write SetrsAutoFolderTxtInfo;</code></td>
-</tr>
-<tr class="list2">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>property <b><a   href="fSystemManager.TfrmSystemManager.html#rsAutoFolderTxtManual">rsAutoFolderTxtManual</a></b>: String
-      read FrsAutoFolderTxtManual write SetrsAutoFolderTxtManual;</code></td>
-</tr>
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>property <b><a   href="fSystemManager.TfrmSystemManager.html#rsAutoFolderTxtNotes">rsAutoFolderTxtNotes</a></b>: String
-      read FrsAutoFolderTxtNotes write SetrsAutoFolderTxtNotes;</code></td>
-</tr>
-<tr class="list2">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>property <b><a   href="fSystemManager.TfrmSystemManager.html#rsAutoFolderVideo">rsAutoFolderVideo</a></b>: String
-      read FrsAutoFolderVideo write SetrsAutoFolderVideo;</code></td>
-</tr>
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>property <b><a   href="fSystemManager.TfrmSystemManager.html#rsAutoFolderVideoDemo">rsAutoFolderVideoDemo</a></b>: String
-      read FrsAutoFolderVideoDemo write SetrsAutoFolderVideoDemo;</code></td>
-</tr>
-<tr class="list2">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>property <b><a   href="fSystemManager.TfrmSystemManager.html#rsAutoFolderVideoInGame">rsAutoFolderVideoInGame</a></b>: String
-      read FrsAutoFolderVideoInGame write SetrsAutoFolderVideoInGame;</code></td>
-</tr>
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>property <b><a   href="fSystemManager.TfrmSystemManager.html#rsAutoFolderVideoTAS">rsAutoFolderVideoTAS</a></b>: String
-      read FrsAutoFolderVideoTAS write SetrsAutoFolderVideoTAS;</code></td>
-</tr>
-<tr class="list2">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>property <b><a   href="fSystemManager.TfrmSystemManager.html#rsSelectSystem">rsSelectSystem</a></b>: String read FrsSelectSystem
-      write SetrsSelectSystem;</code></td>
-</tr>
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>property <b><a   href="fSystemManager.TfrmSystemManager.html#rsSystemIniFilter">rsSystemIniFilter</a></b>: String
-      read FrsSystemIniFilter write SetrsSystemIniFilter;</code></td>
-</tr>
-<tr class="list2">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>property <b><a   href="fSystemManager.TfrmSystemManager.html#rsSystemName">rsSystemName</a></b>: String read FrsSystemName write SetrsSystemName;</code></td>
-</tr>
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
 <td class="itemcode"><code>property <b><a   href="fSystemManager.TfrmSystemManager.html#System">System</a></b>: <a   href="uSystem.cSystem.html">cSystem</a> read FSystem write SetSystem;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
 <td class="itemcode"><code>property <b><a   href="fSystemManager.TfrmSystemManager.html#SystemManager">SystemManager</a></b>: <a   href="uSystemManager.cSystemManager.html">cSystemManager</a>
       read <a   href="fSystemManager.html">FSystemManager</a> write SetSystemManager;</code></td>
@@ -1268,6 +1139,22 @@ Emuteca<a name="TfrmSystemManager"></a><h1 class="cio">Class TfrmSystemManager</
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="actMakeAbsolutePaths"></a><code><b>actMakeAbsolutePaths</b>: TAction;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="actMakeRelativePaths"></a><code><b>actMakeRelativePaths</b>: TAction;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><a name="actRemoveImageFolder"></a><code><b>actRemoveImageFolder</b>: TAction;</code></td>
 </tr>
 <tr><td colspan="2">
@@ -1333,6 +1220,22 @@ Emuteca<a name="TfrmSystemManager"></a><h1 class="cio">Class TfrmSystemManager</
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><a name="bAutoConfig"></a><code><b>bAutoConfig</b>: TButton;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="bMakeAbsolutePaths"></a><code><b>bMakeAbsolutePaths</b>: TButton;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="bMakeRelativePaths"></a><code><b>bMakeRelativePaths</b>: TButton;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -2757,6 +2660,22 @@ Emuteca<a name="TfrmSystemManager"></a><h1 class="cio">Class TfrmSystemManager</
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="actMakeAbsolutePathsExecute"></a><code>procedure <b>actMakeAbsolutePathsExecute</b>(Sender: TObject);</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="actMakeRelativePathsExecute"></a><code>procedure <b>actMakeRelativePathsExecute</b>(Sender: TObject);</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><a name="actRemoveImageFolderExecute"></a><code>procedure <b>actRemoveImageFolderExecute</b>(Sender: TObject);</code></td>
 </tr>
 <tr><td colspan="2">
@@ -3190,286 +3109,6 @@ Emuteca<a name="TfrmSystemManager"></a><h1 class="cio">Class TfrmSystemManager</
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><a name="rsAutoConfigSystem"></a><code>property <b>rsAutoConfigSystem</b>: String
-      read FrsAutoConfigSystem write SetrsAutoConfigSystem;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><a name="rsAutoFolderBIOS"></a><code>property <b>rsAutoFolderBIOS</b>: String
-      read FrsAutoFolderBIOS write SetrsAutoFolderBIOS;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><a name="rsAutoFolderGames"></a><code>property <b>rsAutoFolderGames</b>: String
-      read FrsAutoFolderGames write SetrsAutoFolderGames;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><a name="rsAutoFolderIcons"></a><code>property <b>rsAutoFolderIcons</b>: String
-      read FrsAutoFolderIcons write SetrsAutoFolderIcons;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><a name="rsAutoFolderImg"></a><code>property <b>rsAutoFolderImg</b>: String
-      read FrsAutoFolderImg write SetrsAutoFolderImg;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><a name="rsAutoFolderImgBack"></a><code>property <b>rsAutoFolderImgBack</b>: String
-      read FrsAutoFolderImgBack write SetrsAutoFolderImgBack;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><a name="rsAutoFolderImgFront"></a><code>property <b>rsAutoFolderImgFront</b>: String
-      read FrsAutoFolderImgFront write SetrsAutoFolderImgFront;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><a name="rsAutoFolderImgInGame"></a><code>property <b>rsAutoFolderImgInGame</b>: String
-      read FrsAutoFolderImgInGame write SetrsAutoFolderImgInGame;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><a name="rsAutoFolderImgMarquee"></a><code>property <b>rsAutoFolderImgMarquee</b>: String
-      read FrsAutoFolderImgMarquee write SetrsAutoFolderImgMarquee;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><a name="rsAutoFolderImgMedia"></a><code>property <b>rsAutoFolderImgMedia</b>: String
-      read FrsAutoFolderImgMedia write SetrsAutoFolderImgMedia;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><a name="rsAutoFolderImgTitle"></a><code>property <b>rsAutoFolderImgTitle</b>: String
-      read FrsAutoFolderImgTitle write SetrsAutoFolderImgTitle;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><a name="rsAutoFolderMusic"></a><code>property <b>rsAutoFolderMusic</b>: String
-      read FrsAutoFolderMusic write SetrsAutoFolderMusic;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><a name="rsAutoFolderMusicDemo"></a><code>property <b>rsAutoFolderMusicDemo</b>: String
-      read FrsAutoFolderMusicDemo write SetrsAutoFolderMusicDemo;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><a name="rsAutoFolderMusicMix"></a><code>property <b>rsAutoFolderMusicMix</b>: String
-      read FrsAutoFolderMusicMix write SetrsAutoFolderMusicMix;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><a name="rsAutoFolderMusicOST"></a><code>property <b>rsAutoFolderMusicOST</b>: String
-      read FrsAutoFolderMusicOST write SetrsAutoFolderMusicOST;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><a name="rsAutoFolderSaves"></a><code>property <b>rsAutoFolderSaves</b>: String
-      read FrsAutoFolderSaves write SetrsAutoFolderSaves;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><a name="rsAutoFolderTemp"></a><code>property <b>rsAutoFolderTemp</b>: String
-      read FrsAutoFolderTemp write SetrsAutoFolderTemp;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><a name="rsAutoFolderTools"></a><code>property <b>rsAutoFolderTools</b>: String
-      read FrsAutoFolderTools write SetrsAutoFolderTools;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><a name="rsAutoFolderTxt"></a><code>property <b>rsAutoFolderTxt</b>: String
-      read FrsAutoFolderTxt write SetrsAutoFolderTxt;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><a name="rsAutoFolderTxtCheat"></a><code>property <b>rsAutoFolderTxtCheat</b>: String
-      read FrsAutoFolderTxtCheat write SetrsAutoFolderTxtCheat;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><a name="rsAutoFolderTxtCredit"></a><code>property <b>rsAutoFolderTxtCredit</b>: String
-      read FrsAutoFolderTxtCredit write SetrsAutoFolderTxtCredit;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><a name="rsAutoFolderTxtInfo"></a><code>property <b>rsAutoFolderTxtInfo</b>: String
-      read FrsAutoFolderTxtInfo write SetrsAutoFolderTxtInfo;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><a name="rsAutoFolderTxtManual"></a><code>property <b>rsAutoFolderTxtManual</b>: String
-      read FrsAutoFolderTxtManual write SetrsAutoFolderTxtManual;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><a name="rsAutoFolderTxtNotes"></a><code>property <b>rsAutoFolderTxtNotes</b>: String
-      read FrsAutoFolderTxtNotes write SetrsAutoFolderTxtNotes;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><a name="rsAutoFolderVideo"></a><code>property <b>rsAutoFolderVideo</b>: String
-      read FrsAutoFolderVideo write SetrsAutoFolderVideo;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><a name="rsAutoFolderVideoDemo"></a><code>property <b>rsAutoFolderVideoDemo</b>: String
-      read FrsAutoFolderVideoDemo write SetrsAutoFolderVideoDemo;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><a name="rsAutoFolderVideoInGame"></a><code>property <b>rsAutoFolderVideoInGame</b>: String
-      read FrsAutoFolderVideoInGame write SetrsAutoFolderVideoInGame;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><a name="rsAutoFolderVideoTAS"></a><code>property <b>rsAutoFolderVideoTAS</b>: String
-      read FrsAutoFolderVideoTAS write SetrsAutoFolderVideoTAS;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><a name="rsSelectSystem"></a><code>property <b>rsSelectSystem</b>: String read FrsSelectSystem
-      write SetrsSelectSystem;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-Strings para traducir</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><a name="rsSystemIniFilter"></a><code>property <b>rsSystemIniFilter</b>: String
-      read FrsSystemIniFilter write SetrsSystemIniFilter;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><a name="rsSystemName"></a><code>property <b>rsSystemName</b>: String read FrsSystemName write SetrsSystemName;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
 <td class="itemcode"><a name="System"></a><code>property <b>System</b>: <a   href="uSystem.cSystem.html">cSystem</a> read FSystem write SetSystem;</code></td>
 </tr>
 <tr><td colspan="2">
@@ -3484,6 +3123,6 @@ Strings para traducir</p>
 <tr><td colspan="2">
 &nbsp;</td></tr>
 </table>
-Chixpy<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.12.1</a> on 2012-05-01 19:42:38</em>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.12.1</a> on 2012-07-03 22:35:13</em>
 </span>
 </body></html>

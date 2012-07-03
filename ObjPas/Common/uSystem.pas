@@ -238,15 +238,15 @@ type
     property MusicModes: TStringList read FMusicModes;
     {< Music search mode for the folders of game's music.
 
-      @definitionList (
-        @itemLabel("0")
-        @item(Single text. Search in the folder only one music file with
-          the game's name.)
+    @definitionList (
+      @itemLabel ("0")
+      @item (Single music file. Search in the folder only one text file with
+        the game's name.)
 
-        @itemLabel("1")
-        @item(Multiple texts. Search in the folder all files in a subfolder
-          with the game's name. Something like MAME's style.)
-      )
+      @itemLabel ("1")
+      @item (Multiple music files. Search in the folder all files in a subfolder
+        with the game's name. Something like MAME's style.)
+    )
     }
 
     property DemoVideoFolder: String

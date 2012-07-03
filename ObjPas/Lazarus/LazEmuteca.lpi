@@ -302,7 +302,7 @@
         <UnitName Value="uCustomDefaultTraslator"/>
       </Unit32>
       <Unit33>
-        <Filename Value="../Common/uscriptengine.pas"/>
+        <Filename Value="../Common/uScriptEngine.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uScriptEngine"/>
       </Unit33>

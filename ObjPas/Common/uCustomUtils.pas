@@ -58,6 +58,7 @@ function CRC32File(const aFileName: String): cardinal;
 {< Calculates the CRC32 checksum of a file.
 }
 
+// ---------------------
 // IMAGES AND IMAGELISTS
 // ---------------------
 
@@ -76,6 +77,7 @@ function CorrectAspetRatio(OrigRect: TRect; aImage: TPicture): TRect;
 }
 
 
+// -----------------
 // FOLDERS AND FILES
 // -----------------
 
@@ -104,6 +106,7 @@ function FilesInFolder(Folder: String): integer;
 //< TODO 2: Is there a better way?
 
 
+//  --------------------------------
 //  STRINGS AND STRINGLISTS HANDLING
 //  --------------------------------
 

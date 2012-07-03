@@ -7,7 +7,8 @@
 <link rel="StyleSheet" type="text/css" href="pasdoc.css">
 </head>
 <body bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#800080" alink="#FF0000">
-Emuteca<h1 class="unit">Unit uCustomUtils</h1>
+Emuteca documentation
+<h1 class="unit">Unit uCustomUtils</h1>
 <table class="sections wide_list">
 <tr>
 <td><a class="section"  href="#%40Description">Description</a></td><td><a class="section"  href="#%40Uses">Uses</a></td><td>Classes, Interfaces, Objects and Records</td><td><a class="section"  href="#%40FuncsProcs">Functions and Procedures</a></td><td><a class="section"  href="#%40Types">Types</a></td><td><a class="section"  href="#%40Constants">Constants</a></td><td>Variables</td></tr></table>
@@ -55,47 +56,62 @@ Unit with miscelaneous procedures and functions used in Emuteca</p>
 <td class="itemcode"><code>function <b><a   href="uCustomUtils.html#SecondToFmtStr">SecondToFmtStr</a></b>(aValue: int64): String;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>function <b><a   href="uCustomUtils.html#SetAsFolder">SetAsFolder</a></b>(const aValue: String): String;</code></td>
+<td class="itemcode"><code>function <b><a   href="uCustomUtils.html#SetAsFile">SetAsFile</a></b>(const aFileName: string): string;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>function <b><a   href="uCustomUtils.html#StrToCardinal">StrToCardinal</a></b>(const aString: String): cardinal;</code></td>
+<td class="itemcode"><code>function <b><a   href="uCustomUtils.html#SetAsFolder">SetAsFolder</a></b>(const aValue: String): String;</code></td>
 </tr>
 <tr class="list">
+<td class="itemcode"><code>function <b><a   href="uCustomUtils.html#StrToCardinal">StrToCardinal</a></b>(const aString: String): cardinal;</code></td>
+</tr>
+<tr class="list2">
 <td class="itemcode"><code>function <b><a   href="uCustomUtils.html#StrToCardinalDef">StrToCardinalDef</a></b>(const aString: String; const Default: cardinal): cardinal;</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code>function <b><a   href="uCustomUtils.html#SysPath">SysPath</a></b>(aPath: string): string;</code></td>
 </tr>
 <tr class="list2">
 <td class="itemcode"><code>function <b><a   href="uCustomUtils.html#TextSimilarity">TextSimilarity</a></b>(const aString1, aString2: String): byte;</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code>function <b><a   href="uCustomUtils.html#UnixPath">UnixPath</a></b>(aPath: string): string;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code>function <b><a   href="uCustomUtils.html#WinPath">WinPath</a></b>(aPath: string): string;</code></td>
 </tr>
 </table>
 <a name="%40Types"></a><h3 class="summary">Types</h3>
 <table class="summary wide_list">
 <tr class="list">
-<td class="itemcode"><code><b><a   href="uCustomUtils.html#TItFolderFun">TItFolderFun</a></b> = function(Folder: String; Info: TSearchRec): boolean;</code></td>
+<td class="itemcode"><code><b><a   href="uCustomUtils.html#TItFolderFun">TItFolderFun</a></b> = function(Folder: String; FileInfo: TSearchRec): boolean;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code><b><a   href="uCustomUtils.html#TItFolderObj">TItFolderObj</a></b> = function(Folder: String; Info: TSearchRec): boolean of object;</code></td>
+<td class="itemcode"><code><b><a   href="uCustomUtils.html#TItFolderObj">TItFolderObj</a></b> = function(Folder: String; FileInfo: TSearchRec): boolean of object;</code></td>
 </tr>
 </table>
 <a name="%40Constants"></a><h3 class="summary">Constants</h3>
 <table class="summary wide_list">
 <tr class="list">
-<td class="itemcode"><code><b><a   href="uCustomUtils.html#CHTMLBegin">CHTMLBegin</a></b> = '&lt;html&gt;&lt;body&gt;';</code></td>
+<td class="itemcode"><code><b><a   href="uCustomUtils.html#kCUHTMLBegin">kCUHTMLBegin</a></b> = '&lt;html&gt;&lt;body&gt;';</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code><b><a   href="uCustomUtils.html#CHTMLEnd">CHTMLEnd</a></b> = '&lt;/body&gt;&lt;/html&gt;';</code></td>
+<td class="itemcode"><code><b><a   href="uCustomUtils.html#kCUHTMLEnd">kCUHTMLEnd</a></b> = '&lt;/body&gt;&lt;/html&gt;';</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code><b><a   href="uCustomUtils.html#CUTF8Delimiters">CUTF8Delimiters</a></b>: set of char =
+<td class="itemcode"><code><b><a   href="uCustomUtils.html#kCUUTF8Delimiters">kCUUTF8Delimiters</a></b>: set of char =
     [#0..#127] - ['a'..'z', 'A'..'Z', '1'..'9', '0'];</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code><b><a   href="uCustomUtils.html#CVirtualFolderExt">CVirtualFolderExt</a></b> = '.(folder)';</code></td>
+<td class="itemcode"><code><b><a   href="uCustomUtils.html#kCUVirtualFolderExt">kCUVirtualFolderExt</a></b> = '.(folder)';</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code><b><a   href="uCustomUtils.html#CVirtualGameExt">CVirtualGameExt</a></b> = '.(game)';</code></td>
+<td class="itemcode"><code><b><a   href="uCustomUtils.html#kCUVirtualGameExt">kCUVirtualGameExt</a></b> = '.(game)';</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code><b><a   href="uCustomUtils.html#CVirtualGroupExt">CVirtualGroupExt</a></b> = '.(group)';</code></td>
+<td class="itemcode"><code><b><a   href="uCustomUtils.html#kCUVirtualGroupExt">kCUVirtualGroupExt</a></b> = '.(group)';</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a   href="uCustomUtils.html#rsCUExcCardRange">rsCUExcCardRange</a></b> = '&quot;%0:d&quot; is not in cardinal range.';</code></td>
 </tr>
 </table>
 <h2 class="description">Description</h2>
@@ -142,7 +158,7 @@ Returns a TRect with the correct aspect ratio for the picture inside the OrigRec
 </tr>
 <tr><td colspan="1">
 <p>
-Calculate the CRC32 checksum of a file</p>
+Calculates the CRC32 checksum of a file.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -173,7 +189,7 @@ Recorre el directorio especificado y ejecuta aFuncion(TSearchRec) con cada uno d
 </tr>
 <tr><td colspan="1">
 <p>
-FOLDERS AND FILES &mdash;&mdash;&mdash;&mdash;&mdash;&ndash;</p>
+&mdash;&mdash;&mdash;&mdash;&mdash;&ndash; FOLDERS AND FILES &mdash;&mdash;&mdash;&mdash;&mdash;&ndash;</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -182,7 +198,7 @@ FOLDERS AND FILES &mdash;&mdash;&mdash;&mdash;&mdash;&ndash;</p>
 </tr>
 <tr><td colspan="1">
 <p>
-IMAGES AND IMAGELISTS &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;</p>
+&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash; IMAGES AND IMAGELISTS &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -202,6 +218,13 @@ IMAGES AND IMAGELISTS &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;</p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="SecondToFmtStr"></a><code>function <b>SecondToFmtStr</b>(aValue: int64): String;</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="SetAsFile"></a><code>function <b>SetAsFile</b>(const aFileName: string): string;</code></td>
 </tr>
 <tr><td colspan="1">
 &nbsp;</td></tr>
@@ -235,26 +258,47 @@ Add PathDelim at the end of string and changes it to '/'
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="TextSimilarity"></a><code>function <b>TextSimilarity</b>(const aString1, aString2: String): byte;</code></td>
-</tr>
-<tr><td colspan="1">
-<p>
-Returns the similarity between 2 strings.
-
-<p>Based in <a  target="_parent" href="http://www.catalysoft.com/articles/StrikeAMatch.html">http://www.catalysoft.com/articles/StrikeAMatch.html</a> method tweaked a little.</p>
-</td></tr>
-</table>
-<h3 class="detail">Types</h3>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="TItFolderFun"></a><code><b>TItFolderFun</b> = function(Folder: String; Info: TSearchRec): boolean;</code></td>
+<td class="itemcode"><a name="SysPath"></a><code>function <b>SysPath</b>(aPath: string): string;</code></td>
 </tr>
 <tr><td colspan="1">
 &nbsp;</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="TItFolderObj"></a><code><b>TItFolderObj</b> = function(Folder: String; Info: TSearchRec): boolean of object;</code></td>
+<td class="itemcode"><a name="TextSimilarity"></a><code>function <b>TextSimilarity</b>(const aString1, aString2: String): byte;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Returns the similarity between 2 strings.
+
+<p>Based in <a  target="_parent" href="http://www.catalysoft.com/articles/StrikeAMatch.html">http://www.catalysoft.com/articles/StrikeAMatch.html</a> method and tweaked a little.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="UnixPath"></a><code>function <b>UnixPath</b>(aPath: string): string;</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="WinPath"></a><code>function <b>WinPath</b>(aPath: string): string;</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<h3 class="detail">Types</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="TItFolderFun"></a><code><b>TItFolderFun</b> = function(Folder: String; FileInfo: TSearchRec): boolean;</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="TItFolderObj"></a><code><b>TItFolderObj</b> = function(Folder: String; FileInfo: TSearchRec): boolean of object;</code></td>
 </tr>
 <tr><td colspan="1">
 &nbsp;</td></tr>
@@ -262,7 +306,7 @@ Returns the similarity between 2 strings.
 <h3 class="detail">Constants</h3>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="CHTMLBegin"></a><code><b>CHTMLBegin</b> = '&lt;html&gt;&lt;body&gt;';</code></td>
+<td class="itemcode"><a name="kCUHTMLBegin"></a><code><b>kCUHTMLBegin</b> = '&lt;html&gt;&lt;body&gt;';</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -271,7 +315,7 @@ Simple HTML file struct begin</p>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="CHTMLEnd"></a><code><b>CHTMLEnd</b> = '&lt;/body&gt;&lt;/html&gt;';</code></td>
+<td class="itemcode"><a name="kCUHTMLEnd"></a><code><b>kCUHTMLEnd</b> = '&lt;/body&gt;&lt;/html&gt;';</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -280,7 +324,7 @@ Simple HTML file struct end</p>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="CUTF8Delimiters"></a><code><b>CUTF8Delimiters</b>: set of char =
+<td class="itemcode"><a name="kCUUTF8Delimiters"></a><code><b>kCUUTF8Delimiters</b>: set of char =
     [#0..#127] - ['a'..'z', 'A'..'Z', '1'..'9', '0'];</code></td>
 </tr>
 <tr><td colspan="1">
@@ -290,7 +334,7 @@ WordDelimiters except utf8 bit mask (Dirty way &circ;_&circ;)</p>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="CVirtualFolderExt"></a><code><b>CVirtualFolderExt</b> = '.(folder)';</code></td>
+<td class="itemcode"><a name="kCUVirtualFolderExt"></a><code><b>kCUVirtualFolderExt</b> = '.(folder)';</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -299,7 +343,7 @@ Virtual extension used for folders y some contexts</p>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="CVirtualGameExt"></a><code><b>CVirtualGameExt</b> = '.(game)';</code></td>
+<td class="itemcode"><a name="kCUVirtualGameExt"></a><code><b>kCUVirtualGameExt</b> = '.(game)';</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -308,13 +352,20 @@ Virtual extension used for game filenames</p>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="CVirtualGroupExt"></a><code><b>CVirtualGroupExt</b> = '.(group)';</code></td>
+<td class="itemcode"><a name="kCUVirtualGroupExt"></a><code><b>kCUVirtualGroupExt</b> = '.(group)';</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
 Virtual extension used for groups filenames</p>
 </td></tr>
 </table>
-Chixpy<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.12.1</a> on 2012-05-01 19:42:38</em>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="rsCUExcCardRange"></a><code><b>rsCUExcCardRange</b> = '&quot;%0:d&quot; is not in cardinal range.';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.12.1</a> on 2012-07-03 22:35:13</em>
 </span>
 </body></html>

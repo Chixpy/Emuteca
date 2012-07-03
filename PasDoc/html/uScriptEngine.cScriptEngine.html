@@ -3,60 +3,59 @@
 <head>
 <meta name="GENERATOR" content="PasDoc 0.12.1">
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
-<title>Emuteca: fSMAskFolder: Class TfrmSMAskFolder</title>
+<title>Emuteca: uScriptEngine: Class cScriptEngine</title>
 <link rel="StyleSheet" type="text/css" href="pasdoc.css">
 </head>
 <body bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#800080" alink="#FF0000">
 Emuteca documentation
-<a name="TfrmSMAskFolder"></a><h1 class="cio">Class TfrmSMAskFolder</h1>
+<a name="cScriptEngine"></a><h1 class="cio">Class cScriptEngine</h1>
 <table class="sections wide_list">
 <tr>
-<td><a class="section"  href="#%40Description">Description</a></td><td><a class="section"  href="#%40Hierarchy">Hierarchy</a></td><td><a class="section"  href="#%40Fields">Fields</a></td><td>Methods</td><td>Properties</td></tr></table>
+<td><a class="section"  href="#%40Description">Description</a></td><td><a class="section"  href="#%40Hierarchy">Hierarchy</a></td><td>Fields</td><td><a class="section"  href="#%40Methods">Methods</a></td><td><a class="section"  href="#%40Properties">Properties</a></td></tr></table>
 <a name="%40Description"></a><h2 class="unit">Unit</h2>
 <p class="unitlink">
-<a   href="fSMAskFolder.html">fSMAskFolder</a></p>
+<a   href="uScriptEngine.html">uScriptEngine</a></p>
 <h2 class="declaration">Declaration</h2>
 <p class="declaration">
-<code>type TfrmSMAskFolder = class(TForm)</code></p>
+<code>type cScriptEngine = class(TObject)</code></p>
 <h2 class="description">Description</h2>
 <p>
-<code>TfrmSMAskFolder</code></p>
+<code>cScriptEngine</code></p>
 <a name="%40Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
-<ul class="hierarchy"><li class="ancestor">TForm</li>
-<li class="thisitem">TfrmSMAskFolder</li></ul><h2 class="overview">Overview</h2>
-<a name="%40Fields"></a><h3 class="summary">Fields</h3>
+<ul class="hierarchy"><li class="ancestor">TObject</li>
+<li class="thisitem">cScriptEngine</li></ul><h2 class="overview">Overview</h2>
+<a name="%40Methods"></a><h3 class="summary">Methods</h3>
 <table class="summary wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code><b><a   href="fSMAskFolder.TfrmSMAskFolder.html#bAccept">bAccept</a></b>: TBitBtn;</code></td>
+<td class="itemcode"><code>constructor <b><a   href="uScriptEngine.cScriptEngine.html#Create">Create</a></b>;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code><b><a   href="fSMAskFolder.TfrmSMAskFolder.html#bCancel">bCancel</a></b>: TBitBtn;</code></td>
+<td class="itemcode"><code>destructor <b><a   href="uScriptEngine.cScriptEngine.html#Destroy">Destroy</a></b>; override;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code><b><a   href="fSMAskFolder.TfrmSMAskFolder.html#eDirectory">eDirectory</a></b>: TDirectoryEdit;</code></td>
+<td class="itemcode"><code>procedure <b><a   href="uScriptEngine.cScriptEngine.html#Run">Run</a></b>;</code></td>
 </tr>
-<tr class="list2">
-<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code><b><a   href="fSMAskFolder.TfrmSMAskFolder.html#lTitle">lTitle</a></b>: TLabel;</code></td>
-</tr>
+</table>
+<a name="%40Properties"></a><h3 class="summary">Properties</h3>
+<table class="summary wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code><b><a   href="fSMAskFolder.TfrmSMAskFolder.html#pButtons">pButtons</a></b>: TPanel;</code></td>
+<td class="itemcode"><code>property <b><a   href="uScriptEngine.cScriptEngine.html#ScriptFile">ScriptFile</a></b>: string read FScriptFile write SetScriptFile;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code><b><a   href="fSMAskFolder.TfrmSMAskFolder.html#pFolderName">pFolderName</a></b>: TPanel;</code></td>
+<td class="itemcode"><code>property <b><a   href="uScriptEngine.cScriptEngine.html#ScriptText">ScriptText</a></b>: TStringList read FScriptText write SetScriptText;</code></td>
 </tr>
 </table>
 <h2 class="description">Description</h2>
-<h3 class="detail">Fields</h3>
+<h3 class="detail">Methods</h3>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="bAccept"></a><code><b>bAccept</b>: TBitBtn;</code></td>
+<td class="itemcode"><a name="Create"></a><code>constructor <b>Create</b>;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -64,7 +63,7 @@ Emuteca documentation
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="bCancel"></a><code><b>bCancel</b>: TBitBtn;</code></td>
+<td class="itemcode"><a name="Destroy"></a><code>destructor <b>Destroy</b>; override;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -72,7 +71,16 @@ Emuteca documentation
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="eDirectory"></a><code><b>eDirectory</b>: TDirectoryEdit;</code></td>
+<td class="itemcode"><a name="Run"></a><code>procedure <b>Run</b>;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<h3 class="detail">Properties</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="ScriptFile"></a><code>property <b>ScriptFile</b>: string read FScriptFile write SetScriptFile;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -80,23 +88,7 @@ Emuteca documentation
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="lTitle"></a><code><b>lTitle</b>: TLabel;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="pButtons"></a><code><b>pButtons</b>: TPanel;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="pFolderName"></a><code><b>pFolderName</b>: TPanel;</code></td>
+<td class="itemcode"><a name="ScriptText"></a><code>property <b>ScriptText</b>: TStringList read FScriptText write SetScriptText;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>

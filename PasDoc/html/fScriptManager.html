@@ -7,7 +7,8 @@
 <link rel="StyleSheet" type="text/css" href="pasdoc.css">
 </head>
 <body bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#800080" alink="#FF0000">
-Emuteca<h1 class="unit">Unit fScriptManager</h1>
+Emuteca documentation
+<h1 class="unit">Unit fScriptManager</h1>
 <table class="sections wide_list">
 <tr>
 <td><a class="section"  href="#%40Description">Description</a></td><td><a class="section"  href="#%40Uses">Uses</a></td><td><a class="section"  href="#%40Classes">Classes, Interfaces, Objects and Records</a></td><td>Functions and Procedures</td><td><a class="section"  href="#%40Types">Types</a></td><td><a class="section"  href="#%40Constants">Constants</a></td><td><a class="section"  href="#%40Variables">Variables</a></td></tr></table>
@@ -15,7 +16,7 @@ Emuteca<h1 class="unit">Unit fScriptManager</h1>
 <p>
 Unit of Script Manager form.</p>
 <a name="%40Uses"></a><h2 class="uses">Uses</h2>
-<ul class="useslist"><li>ActnList</li><li>Buttons</li><li>Classes</li><li>ComCtrls</li><li>Controls</li><li>Dialogs</li><li>ExtCtrls</li><li>FileUtil</li><li>Forms</li><li><a   href="fSMAskFile.html">fSMAskFile</a></li><li><a   href="fSMAskFolder.html">fSMAskFolder</a></li><li>Graphics</li><li>LazUTF8</li><li>LResources</li><li>ShellCtrls</li><li>StdActns</li><li>StdCtrls</li><li>strutils</li><li>SynHighlighterPas</li><li>SynMemo</li><li>SysUtils</li><li><a   href="uConfig.html">uConfig</a></li><li><a   href="uCustomUtils.html">uCustomUtils</a></li><li><a   href="uGameManager.html">uGameManager</a></li><li>uPSC_strutils</li><li>uPSComponent</li><li>uPSComponent_Controls</li><li>uPSComponent_Default</li><li>uPSComponent_Forms</li><li>uPSComponent_StdCtrls</li><li><a   href="uPSI_u7zWrapper.html">uPSI_u7zWrapper</a></li><li><a   href="uPSI_uEmulator.html">uPSI_uEmulator</a></li><li><a   href="uPSI_uGame.html">uPSI_uGame</a></li><li><a   href="uPSI_uGameGroup.html">uPSI_uGameGroup</a></li><li><a   href="uPSI_uGameManager.html">uPSI_uGameManager</a></li><li><a   href="uPSI_uGameStats.html">uPSI_uGameStats</a></li><li><a   href="uPSI_uSystem.html">uPSI_uSystem</a></li><li>uPSUtils</li><li><a   href="uTranslator.html">uTranslator</a></li></ul><h2 class="overview">Overview</h2>
+<ul class="useslist"><li>ActnList</li><li>Buttons</li><li>Classes</li><li>ComCtrls</li><li>Controls</li><li>Dialogs</li><li>ExtCtrls</li><li>FileUtil</li><li>Forms</li><li><a   href="fSMAskFile.html">fSMAskFile</a></li><li><a   href="fSMAskFolder.html">fSMAskFolder</a></li><li>Graphics</li><li>LazUTF8</li><li>LResources</li><li>ShellCtrls</li><li>StdActns</li><li>StdCtrls</li><li>strutils</li><li>SynHighlighterPas</li><li>SynMemo</li><li>SysUtils</li><li><a   href="uConfig.html">uConfig</a></li><li><a   href="uCustomUtils.html">uCustomUtils</a></li><li><a   href="uGame.html">uGame</a></li><li><a   href="uGameGroup.html">uGameGroup</a></li><li><a   href="uGameManager.html">uGameManager</a></li><li>uPSC_strutils</li><li>uPSCompiler</li><li>uPSComponent</li><li>uPSComponent_Controls</li><li>uPSComponent_Default</li><li>uPSComponent_Forms</li><li>uPSComponent_StdCtrls</li><li><a   href="uPSI_u7zWrapper.html">uPSI_u7zWrapper</a></li><li><a   href="uPSI_uEmulator.html">uPSI_uEmulator</a></li><li><a   href="uPSI_uGame.html">uPSI_uGame</a></li><li><a   href="uPSI_uGameGroup.html">uPSI_uGameGroup</a></li><li><a   href="uPSI_uGameManager.html">uPSI_uGameManager</a></li><li><a   href="uPSI_uGameStats.html">uPSI_uGameStats</a></li><li><a   href="uPSI_uSystem.html">uPSI_uSystem</a></li><li>uPSPreProcessor</li><li>uPSRuntime</li><li>uPSUtils</li></ul><h2 class="overview">Overview</h2>
 <a name="%40Classes"></a><h3 class="cio">Classes, Interfaces, Objects and Records</h3>
 <table class="classestable wide_list">
 <tr class="listheader">
@@ -36,11 +37,32 @@ Unit of Script Manager form.</p>
 <a name="%40Constants"></a><h3 class="summary">Constants</h3>
 <table class="summary wide_list">
 <tr class="list">
-<td class="itemcode"><code><b><a   href="fScriptManager.html#CScriptExt">CScriptExt</a></b> = '.pas';</code></td>
+<td class="itemcode"><code><b><a   href="fScriptManager.html#kFSMScriptExt">kFSMScriptExt</a></b> = '.pas';</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code><b><a   href="fScriptManager.html#CScritpFilter">CScritpFilter</a></b> = 'Emuteca Script (*' + <a   href="fScriptManager.html#CScriptExt">CScriptExt</a> + ')|*' +
-    <a   href="fScriptManager.html#CScriptExt">CScriptExt</a> + '|All files|*.*';</code></td>
+<td class="itemcode"><code><b><a   href="fScriptManager.html#kFSMScriptFilter">kFSMScriptFilter</a></b> =  ' (*' + <a   href="fScriptManager.html#kFSMScriptExt">kFSMScriptExt</a> + ')|*' +
+    <a   href="fScriptManager.html#kFSMScriptExt">kFSMScriptExt</a> + '|All files|' + AllFilesMask;</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a   href="fScriptManager.html#kFSMUnitsFolder">kFSMUnitsFolder</a></b> = 'Common' + PathDelim;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a   href="fScriptManager.html#rsFSMCompilationError">rsFSMCompilationError</a></b> = 'Compilation: Error.';</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a   href="fScriptManager.html#rsFSMCompilationOK">rsFSMCompilationOK</a></b> = 'Compilation: OK.';</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a   href="fScriptManager.html#rsFSMEmutecaScript">rsFSMEmutecaScript</a></b> = 'Emuteca Script';</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a   href="fScriptManager.html#rsFSMExecutionError">rsFSMExecutionError</a></b> = 'Execution: Error.';</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a   href="fScriptManager.html#rsFSMExecutionOK">rsFSMExecutionOK</a></b> = 'Execution: OK.';</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a   href="fScriptManager.html#rsFSMScriptFileSaved">rsFSMScriptFileSaved</a></b> = 'Script file saved: %s';</code></td>
 </tr>
 </table>
 <a name="%40Variables"></a><h3 class="summary">Variables</h3>
@@ -61,7 +83,7 @@ Unit of Script Manager form.</p>
 <h3 class="detail">Constants</h3>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="CScriptExt"></a><code><b>CScriptExt</b> = '.pas';</code></td>
+<td class="itemcode"><a name="kFSMScriptExt"></a><code><b>kFSMScriptExt</b> = '.pas';</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -70,13 +92,60 @@ Script file extension</p>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="CScritpFilter"></a><code><b>CScritpFilter</b> = 'Emuteca Script (*' + <a   href="fScriptManager.html#CScriptExt">CScriptExt</a> + ')|*' +
-    <a   href="fScriptManager.html#CScriptExt">CScriptExt</a> + '|All files|*.*';</code></td>
+<td class="itemcode"><a name="kFSMScriptFilter"></a><code><b>kFSMScriptFilter</b> =  ' (*' + <a   href="fScriptManager.html#kFSMScriptExt">kFSMScriptExt</a> + ')|*' +
+    <a   href="fScriptManager.html#kFSMScriptExt">kFSMScriptExt</a> + '|All files|' + AllFilesMask;</code></td>
 </tr>
 <tr><td colspan="1">
-<p>
-TODO 5: Convertir a traducible</p>
-</td></tr>
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="kFSMUnitsFolder"></a><code><b>kFSMUnitsFolder</b> = 'Common' + PathDelim;</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="rsFSMCompilationError"></a><code><b>rsFSMCompilationError</b> = 'Compilation: Error.';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="rsFSMCompilationOK"></a><code><b>rsFSMCompilationOK</b> = 'Compilation: OK.';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="rsFSMEmutecaScript"></a><code><b>rsFSMEmutecaScript</b> = 'Emuteca Script';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="rsFSMExecutionError"></a><code><b>rsFSMExecutionError</b> = 'Execution: Error.';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="rsFSMExecutionOK"></a><code><b>rsFSMExecutionOK</b> = 'Execution: OK.';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="rsFSMScriptFileSaved"></a><code><b>rsFSMScriptFileSaved</b> = 'Script file saved: %s';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
 </table>
 <h3 class="detail">Variables</h3>
 <table class="detail wide_list">
@@ -86,6 +155,6 @@ TODO 5: Convertir a traducible</p>
 <tr><td colspan="1">
 &nbsp;</td></tr>
 </table>
-Chixpy<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.12.1</a> on 2012-05-01 19:42:38</em>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.12.1</a> on 2012-07-03 22:35:13</em>
 </span>
 </body></html>

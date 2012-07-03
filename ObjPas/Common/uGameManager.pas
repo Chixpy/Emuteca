@@ -44,7 +44,7 @@ type
     GMCBLoadList, //< Loading game list.
     GMCBDecompress //< Decompressing a file
     );
-  //< Action doing the callback.
+  //< Type of action doing the callback.
 
   TGMProgressCallBack = function(const TypeCB: TGMCallBackType;
     const Info1, Info2: string; const Value, MaxValue: int64): boolean of

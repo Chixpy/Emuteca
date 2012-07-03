@@ -17,9 +17,8 @@
   writing to the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
   Boston, MA 02111-1307, USA.
 }
-unit u7zWrapper;
 
-{< Simple 7z.exe AND 7zG.exe wrapper until something better is found.
+{ Simple 7z.exe AND 7zG.exe wrapper until something better is found.
 
   @definitionList(
     @itemLabel(NOTE:)
@@ -32,6 +31,7 @@ unit u7zWrapper;
       we don't use them right here.)
   )
 }
+unit u7zWrapper;
 
 {$mode objfpc}{$H+}
 
@@ -42,9 +42,13 @@ uses
   uCustomUtils;
 
 resourcestring
-  w7zCacheFileExt = '.txt';
   w7zFileNotFound = '"%0:s" file not found';
+  //< Translatable string: '"%0:s" file not found'
   w7zExeError = '7z.exe/7zG.exe returned %0:d exit code';
+  //< Translatable string: '7z.exe/7zG.exe returned %0:d exit code'
+
+const
+  kw7zCacheFileExt = '.txt';
 
 type
   w7zException = class(Exception);
@@ -95,7 +99,7 @@ procedure w7zListFiles(const aFilename: string; PackedFiles: TStrings;
   @param(UseCache Use cached file list?)
   @param(Password Is there archives that need a password to list files?
     Just in case.)
-  @return(Error code)
+  @return(Exit code)
 }
 
 function w7zExtractFile(const a7zArchive: string; const aFileMask: string;
@@ -108,7 +112,7 @@ function w7zExtractFile(const a7zArchive: string; const aFileMask: string;
     files, not '*.*' wich means all files with extension.)
   @param(ShowProgress If true, progress of decompression will be shown.)
   @param(Password Password for 7z archive.)
-  @return(Error code)
+  @return(Exit code)
 }
 
 function w7zCompressFile(const a7zArchive: string; aFileList: TStrings;
@@ -119,7 +123,7 @@ function w7zCompressFile(const a7zArchive: string; aFileList: TStrings;
   @param(aFileList List of files to add to the archive.)
   @param(ShowProgress If true, progress of decompression will be shown.)
   @param(CompType Type of the archive.)
-  @return(Error code)
+  @return(Exit code)
 }
 
 implementation
@@ -189,9 +193,9 @@ begin
   // ------------------------
   if UseCache then
   begin
-    if FileExistsUTF8(w7zCacheDir + FileSHA1 + w7zCacheFileExt) then
+    if FileExistsUTF8(w7zCacheDir + FileSHA1 + kw7zCacheFileExt) then
     begin
-      PackedFiles.LoadFromFile(UTF8ToSys(w7zCacheDir + FileSHA1 + w7zCacheFileExt));
+      PackedFiles.LoadFromFile(UTF8ToSys(w7zCacheDir + FileSHA1 + kw7zCacheFileExt));
       if OnlyPaths then
         ReturnOnlyPaths(PackedFiles);
       Exit; // Job done.
@@ -229,7 +233,7 @@ begin
             Sleep(100); // Waiting for more output
           }
     end;
-    msOutput.SaveToFile(UTF8ToSys(w7zCacheDir + 'w7zOutput' + w7zCacheFileExt));
+    msOutput.SaveToFile(UTF8ToSys(w7zCacheDir + 'w7zOutput' + kw7zCacheFileExt));
   finally
     i := aProcess.ExitStatus;
     FreeAndNil(aProcess);
@@ -246,7 +250,7 @@ begin
   slOutput := TStringList.Create;
   slLine := TStringList.Create;
   try
-    slOutput.LoadFromFile(UTF8ToSys(w7zCacheDir + 'w7zOutput' + w7zCacheFileExt));
+    slOutput.LoadFromFile(UTF8ToSys(w7zCacheDir + 'w7zOutput' + kw7zCacheFileExt));
 
     // Skipping until '----------'
     i := 0;
@@ -314,7 +318,7 @@ begin
       PackedFiles.Add(slLine.CommaText);
 
       // Only save if there is at least one file in the compressed archive
-      PackedFiles.SaveToFile(UTF8ToSys(w7zCacheDir + FileSHA1 + w7zCacheFileExt));
+      PackedFiles.SaveToFile(UTF8ToSys(w7zCacheDir + FileSHA1 + kw7zCacheFileExt));
     end;
   finally
     FreeAndNil(slLine);

@@ -247,7 +247,7 @@ type
       @param (aFolder Folder where the file is in.)
       @param (Info TSearchRec with file data.)
 
-      @result (Alwasy @true; needed for IterateFolder.)
+      @return (Always @true; needed for IterateFolder.)
     }
     function AddFile(aFolder, aName: string): boolean; overload;
     {< Adds a file to the lists in not MultiFile mode.
@@ -257,19 +257,19 @@ type
       @param (aFolder Folder where the file is in.)
       @param (aName Name of the file.)
 
-      @result (Always @true @(useless until a reason to stop batch operations
+      @return (Always @true @(useless until a reason to stop batch operations
         will be found.@).)
     }
     function AddFolder(aFolder: string; Info: TSearchRec): boolean;
       overload;
     {< Adds a folder (or compressed archive) to the lists in MultiFile mode.
 
-    For use with IterateFolder.
+      For use with IterateFolder.
 
-    @param (aFolder Folder where the file is in.)
-    @param (Info TSearchRec with folder or compressed archive data.)
+      @param (aFolder Folder where the file is in.)
+      @param (Info TSearchRec with folder or compressed archive data.)
 
-    @result (Always @true; needed for IterateFolder.)
+      @return (Always @true; needed for IterateFolder.)
     }
     function AddFolder(aFolder, aName: string): boolean; overload;
     {< Add a folder (or compressed archive) to the lists in MultiFile mode.
@@ -279,7 +279,7 @@ type
       @param (aFolder Folder where the file is in.)
       @param (aName Name of the subfolder.)
 
-      @result (Always @true @(useless until a reason to stop batch operations
+      @return (Always @true @(useless until a reason to stop batch operations
         will be found@).)
     }
     function AddFilesOtherFolder(aFolder: string;
@@ -289,7 +289,7 @@ type
       @param (aFolder Folder where the file is in.)
       @param (Info TSearchRec with folder or file data.)
 
-      @result (Always @true; needed for IterateFolder.)
+      @return (Always @true; needed for IterateFolder.)
     }
 
     procedure VSTUpdate(aFolder: string);

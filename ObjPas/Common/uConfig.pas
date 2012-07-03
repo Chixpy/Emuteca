@@ -31,6 +31,7 @@ uses
 
 resourcestring
   rsENotFilename = 'Not defined filename';
+  //< Translatable string: 'Not defined filename'
 
 type
 
