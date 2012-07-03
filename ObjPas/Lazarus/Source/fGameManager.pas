@@ -204,8 +204,6 @@ type
     lZones: TLabel;
     memoEmulator: TMemo;
     miOpenEmutecaFolder: TMenuItem;
-    miGMScripts: TMenuItem;
-    miGMSep2: TMenuItem;
     miPasteIconImage: TMenuItem;
     miPasteSpineGame: TMenuItem;
     miPasteGameImage: TMenuItem;
@@ -2026,7 +2024,7 @@ begin
         [mbYes, mbNo], 0) = mrNo then
         { TODO 1: Warn about a game can't have it's own file if
           it has the same filename as group. }
-        aFilename := RemoveFromBrackets(CurrGame.FileName) + CVirtualGameExt;
+        aFilename := RemoveFromBrackets(CurrGame.FileName) + kCUVirtualGameExt;
     end;
 
     // Normal mode o folder mode...
@@ -2039,7 +2037,7 @@ begin
       ForceDirectoriesUTF8(aFilename);
       // We need a unique filename...
       aFilename := aFilename + FormatDateTime('yyyymmddhhnn', Now) +
-        CVirtualGameExt;
+        kCUVirtualGameExt;
     end
     else
       aFilename := GameManager.System.ImageFolders[cbGameImages.ItemIndex] +
@@ -2093,7 +2091,7 @@ begin
           [mbYes, mbNo], 0) = mrNo then
           { TODO 1: Warn about a game can't have it's own file if
             it has the same filename as group. }
-          aFilename := RemoveFromBrackets(CurrGame.FileName) + CVirtualGameExt;
+          aFilename := RemoveFromBrackets(CurrGame.FileName) + kCUVirtualGameExt;
       end;
       aFilename := GameManager.System.ImageFolders[cbGameImages.ItemIndex] +
         aFilename;
@@ -2149,7 +2147,7 @@ begin
           [mbYes, mbNo], 0) = mrNo then
           { TODO 1: Warn about a game can't have it's own file if
             it has the same filename as group. }
-          aFilename := RemoveFromBrackets(CurrGame.FileName) + CVirtualGameExt;
+          aFilename := RemoveFromBrackets(CurrGame.FileName) + kCUVirtualGameExt;
       end;
       aFilename := GameManager.System.ImageFolders[cbGameImages.ItemIndex] +
         aFilename;
@@ -2215,7 +2213,7 @@ begin
           [mbYes, mbNo], 0) = mrNo then
         { TODO 1: Warn about a game can't have it's own file if
           it has the same filename as group. }
-          aFilename := RemoveFromBrackets(CurrGame.FileName) + CVirtualGameExt;
+          aFilename := RemoveFromBrackets(CurrGame.FileName) + kCUVirtualGameExt;
       end;
 
       // Normal mode o folder mode...
@@ -2228,7 +2226,7 @@ begin
         ForceDirectoriesUTF8(aFilename);
         // We need a unique filename...
         aFilename := aFilename + FormatDateTime('yyyymmddhhnn', Now) +
-          CVirtualGameExt;
+          kCUVirtualGameExt;
       end
       else
         aFilename := GameManager.System.TextFolders[cbGameTexts.ItemIndex] +

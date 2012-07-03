@@ -161,13 +161,13 @@ end;
 
 procedure cGameGroup.SetMediaFileName(const AValue: String);
 begin
-  if RightStr(AValue, Length(CVirtualGroupExt)) = CVirtualGroupExt then
+  if RightStr(AValue, Length(kCUVirtualGroupExt)) = kCUVirtualGroupExt then
   begin
     FMediaFileName := Trim(ExtractFileNameOnly(AValue));
-    FMediaFileName := CleanFileName(FMediaFileName + CVirtualGroupExt);
+    FMediaFileName := CleanFileName(FMediaFileName + kCUVirtualGroupExt);
   end
   else
-    FMediaFileName := CleanFileName(Trim(AValue) + CVirtualGroupExt);
+    FMediaFileName := CleanFileName(Trim(AValue) + kCUVirtualGroupExt);
 end;
 
 procedure cGameGroup.SetSortKey(AValue: String);
@@ -246,7 +246,7 @@ begin
   Name := aName;
   Key := aName;
   SortKey := aName;
-  MediaFileName := aName + CVirtualGroupExt;
+  MediaFileName := aName + kCUVirtualGroupExt;
   FTags := TStringList.Create;
 end;
 

@@ -299,10 +299,10 @@ object frmGameManager: TfrmGameManager
     Height = 531
     Top = 0
     Width = 208
-    ActivePage = pagEditor
+    ActivePage = pagSystem
     Align = alLeft
     Constraints.MinWidth = 200
-    TabIndex = 2
+    TabIndex = 0
     TabOrder = 4
     object pagSystem: TTabSheet
       Caption = 'System'
@@ -1810,12 +1810,6 @@ object frmGameManager: TfrmGameManager
     end
     object miGMSearchGameInternet: TMenuItem
       Caption = 'Search Game in Internet'
-    end
-    object miGMSep2: TMenuItem
-      Caption = '-'
-    end
-    object miGMScripts: TMenuItem
-      Caption = 'Scripts'
     end
   end
   object IniPropStorage: TIniPropStorage

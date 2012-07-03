@@ -44,7 +44,7 @@ uses
 resourcestring
   w7zCacheFileExt = '.txt';
   w7zFileNotFound = '"%0:s" file not found';
-  w7zExeError = '7z.exe/7zG.exe returned %0:d exit code.';
+  w7zExeError = '7z.exe/7zG.exe returned %0:d exit code';
 
 type
   w7zException = class(Exception);
@@ -62,7 +62,7 @@ var
   w7zPathTo7zexe: string;
   {< Path to 7z.exe executable.
 
-    It can be usefull for hidding the processes, but it's
+    It can be usefull for hidding the process, but it's
       needed for listing archives anyways.
   }
   w7zPathTo7zGexe: string;
@@ -85,13 +85,11 @@ procedure w7zListFiles(const aFilename: string; PackedFiles: TStrings;
 
   7zG.exe can't list files so always 7z.exe is used, and console is hidden.
 
-  I you want only the file names maybe you want use List7zFileNames
-
   @param(aFilename Name of the 7z archive.)
   @param(PackedFiles StringList where the files will be added. If the
     StringList = nil will be created @(and you must free it, of course@),
-    otherwise it will be cleared. If OnlyPaths = @true, every string have the following format
-    for easy TStringList.CommaText reading:
+    otherwise it will be cleared. If OnlyPaths = @false, every string have the
+    following format for easy TStringList.CommaText reading:
     "Dir/Filename","size","packed size","Date modified","CRC")
   @param(OnlyPaths List only file names and no properties)
   @param(UseCache Use cached file list?)
@@ -110,6 +108,7 @@ function w7zExtractFile(const a7zArchive: string; const aFileMask: string;
     files, not '*.*' wich means all files with extension.)
   @param(ShowProgress If true, progress of decompression will be shown.)
   @param(Password Password for 7z archive.)
+  @return(Error code)
 }
 
 function w7zCompressFile(const a7zArchive: string; aFileList: TStrings;
@@ -120,6 +119,7 @@ function w7zCompressFile(const a7zArchive: string; aFileList: TStrings;
   @param(aFileList List of files to add to the archive.)
   @param(ShowProgress If true, progress of decompression will be shown.)
   @param(CompType Type of the archive.)
+  @return(Error code)
 }
 
 implementation
@@ -353,7 +353,7 @@ begin
       aOptions := aOptions + [poNoConsole];
 
     // 7z.exe returns Fatal Error if not changed back to windows style :-(
-    aFolder := AnsiReplaceStr(aFolder, '/', '\');
+    aFolder := SysPath(aFolder);
   end;
 
   aProcess := TProcess.Create(nil);
@@ -458,7 +458,7 @@ initialization
     w7zPathTo7zexe := '7z/7z.exe';
   w7zPathTo7zGexe := '7zG.exe';
   if not FileExistsUTF8(w7zPathTo7zGexe) then
-    w7zPathTo7zGexe := '7z/7z.exe';
+    w7zPathTo7zGexe := '7z/7zG.exe';
 
   w7zCacheDir := SetAsFolder(GetTempDir(False)) + 'w7zCache';
   ForceDirectoriesUTF8(w7zCacheDir);

@@ -4,7 +4,7 @@ Version =
 Date =
 Description =
 ~begin~
-
+  Creates a Emuteca's .edb from Quickplay's .dat file.
 ~end~
 Changes =
 ~begin~

@@ -44,7 +44,7 @@ begin
   //   http://en.wikipedia.org/wiki/ISO_3166-1_alpha-3
   // I need to add more...
   SetLength(ZoneAcronyms, 22);
-  ZoneAcronyms[0] := ['world','w'];
+  ZoneAcronyms[0] := ['world','w', 'jue', 'ju', 'je', 'ue'];
   ZoneAcronyms[1] := ['jp','jpn','japan','j','jap','ja'];
   ZoneAcronyms[2] := ['eu','eur','europe','e'];
   ZoneAcronyms[3] := ['us','usa','united states','u'];

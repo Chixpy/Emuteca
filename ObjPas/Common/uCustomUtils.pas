@@ -30,29 +30,32 @@ uses
   ActnList, Forms, dateutils, strutils, LConvEncoding,
   crc, LazUTF8;
 
+resourcestring
+  rsCUExcCardRange = '"%0:d" is not in cardinal range.';
+
 const
-  CHTMLBegin = '<html><body>';
+  kCUHTMLBegin = '<html><body>';
   //< Simple HTML file struct begin
-  CHTMLEnd = '</body></html>';
+  kCUHTMLEnd = '</body></html>';
   //< Simple HTML file struct end
-  CVirtualFolderExt = '.(folder)';
+  kCUVirtualFolderExt = '.(folder)';
   //< Virtual extension used for folders y some contexts
-  CVirtualGroupExt = '.(group)';
+  kCUVirtualGroupExt = '.(group)';
   //< Virtual extension used for groups filenames
-  CVirtualGameExt = '.(game)';
+  kCUVirtualGameExt = '.(game)';
   //< Virtual extension used for game filenames
 
   // WordDelimiters except utf8 bit mask (Dirty way ^_^)
-  CUTF8Delimiters: set of char =
+  kCUUTF8Delimiters: set of char =
     [#0..#127] - ['a'..'z', 'A'..'Z', '1'..'9', '0'];
 
 type
   TItFolderObj = function(Folder: String;
-    Info: TSearchRec): boolean of object;
-  TItFolderFun = function(Folder: String; Info: TSearchRec): boolean;
+    FileInfo: TSearchRec): boolean of object;
+  TItFolderFun = function(Folder: String; FileInfo: TSearchRec): boolean;
 
 function CRC32File(const aFileName: String): cardinal;
-{< Calculate the CRC32 checksum of a file
+{< Calculates the CRC32 checksum of a file.
 }
 
 // IMAGES AND IMAGELISTS
@@ -134,8 +137,8 @@ function UnixPath(aPath: string): string;
 function TextSimilarity(const aString1, aString2: String): byte;
 {< Returns the similarity between 2 strings.
 
-  Based in http://www.catalysoft.com/articles/StrikeAMatch.html method tweaked
-    a little.
+  Based in http://www.catalysoft.com/articles/StrikeAMatch.html method and
+  tweaked a little.
 }
 
 function RemoveFromBrackets(const aFileName: String): String;
@@ -151,7 +154,7 @@ implementation
 
 function CleanFileName(const AFileName: String): String;
 begin
-  // Quitamos/sustituimos caracteres ilegales de los nombres de ficheros.
+  // Windows (and Linux) invalid characters
   Result := AnsiReplaceText(AFileName, '?', '_');
   Result := AnsiReplaceText(Result, '*', '-');
   Result := AnsiReplaceText(Result, '"', '_');
@@ -161,7 +164,7 @@ begin
   Result := AnsiReplaceText(Result, '<', '-');
   Result := AnsiReplaceText(Result, '>', '-');
 
-  // Tontada con los dos puntos, para que no se pongan espacios de más
+  // Playing with ":"
   Result := AnsiReplaceText(Result, ' : ', ' - ');
   Result := AnsiReplaceText(Result, ': ', ' - ');
   Result := AnsiReplaceText(Result, ' :', ' - ');
@@ -466,14 +469,14 @@ function TextSimilarity(const aString1, aString2: String): byte;
       end;
 
       // Removing some separators...
-      if CurrPair[1] in CUTF8Delimiters then
+      if CurrPair[1] in kCUUTF8Delimiters then
       begin
         Inc(i);
         Continue;
       end;
 
       CharUTF8 := UTF8Copy(CurrPair, 2, 1);
-      if CharUTF8[1] in CUTF8Delimiters then
+      if CharUTF8[1] in kCUUTF8Delimiters then
       begin
         CurrPair := UTF8Copy(CurrPair, 1, 1);
       end;
@@ -566,16 +569,14 @@ begin
   if ExcludeTrailingPathDelimiter(Result) <> '' then
     Result := IncludeTrailingPathDelimiter(Result);
 
-  // I like UNIX like PathSep (and it's better for cross-configuring)
+  // I like UNIX PathSep (and it's better for cross-configuring)
   Result := UnixPath(Result);
 end;
 
 function SetAsFile(const aFileName: string): string;
 begin
-  Result := SysPath(aFileName);
-
   // CreateRelativePath doesn't like Unix Style under Windows... :-(
-  Result := CreateRelativePath(Result, GetCurrentDirUTF8, false);
+  Result := CreateRelativePath(SysPath(aFileName), GetCurrentDirUTF8, false);
 
   Result := UnixPath(Result);
 end;
@@ -593,9 +594,10 @@ function StrToCardinal(const aString: String): cardinal;
 var
   h: int64;
 begin
+
   h := StrToInt64(aString);
   if (h > High(cardinal)) or (h < 0) then
-    raise EConvertError.CreateFmt('Number %s is out of range.', [h]);
+    raise EConvertError.CreateFmt(rsCUExcCardRange, [h]);
   Result := h;
 end;
 

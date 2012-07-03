@@ -580,7 +580,7 @@ begin
   FLanguages := TStringList.Create;
   FTags := TStringList.Create;
   FZones := TStringList.Create;
-  GameGroup := Trim(RemoveFromBrackets(Name + CVirtualGroupExt));
+  GameGroup := Trim(RemoveFromBrackets(Name + kCUVirtualGroupExt));
 end;
 
 destructor cGame.Destroy;

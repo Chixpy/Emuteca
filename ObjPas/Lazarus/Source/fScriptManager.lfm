@@ -124,9 +124,9 @@ object frmScriptManager: TfrmScriptManager
     Height = 394
     Top = 28
     Width = 704
-    ActivePage = pagCommonScripts
+    ActivePage = pagScriptList
     Align = alClient
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 3
     object pagScriptList: TTabSheet
       Caption = 'Script List'
@@ -153,6 +153,7 @@ object frmScriptManager: TfrmScriptManager
       Caption = 'Common Units List'
       ClientHeight = 368
       ClientWidth = 696
+      TabVisible = False
       object slvUnits: TShellListView
         Left = 0
         Height = 368

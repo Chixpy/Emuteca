@@ -914,7 +914,7 @@ begin
   if SourceFile <> '' then
     FTargetFile := FTargetFile + UTF8LowerCase(ExtractFileExt(SourceFile))
   else
-    FTargetFile := FTargetFile + CVirtualGameExt;
+    FTargetFile := FTargetFile + kCUVirtualGameExt;
   lTarget.Caption := format(rsfmmTarget, [TargetFolder + TargetFile]);
 end;
 
@@ -940,7 +940,7 @@ begin
   begin
     if (Info.Name = '.') or (Info.Name = '..') then
       Exit;
-    AddFolder(aFolder, Info.Name + CVirtualFolderExt);
+    AddFolder(aFolder, Info.Name + kCUVirtualFolderExt);
   end
   else
     AddFolder(aFolder, Info.Name);
@@ -970,7 +970,7 @@ begin
   Result := True;
   Extension := UTF8LowerCase(ExtractFileExt(aName));
 
-  if Extension = CVirtualFolderExt then
+  if Extension = kCUVirtualFolderExt then
   begin
     PData := vstAllFiles.GetNodeData(vstAllFiles.AddChild(nil));
     // See: TfrmMediaManager.vstAllFilesFreeNode;
@@ -1000,7 +1000,7 @@ begin
   begin
     if (Info.Name = '.') or (Info.Name = '..') then
       Exit;
-    aFileName := Info.Name + CVirtualFolderExt;
+    aFileName := Info.Name + kCUVirtualFolderExt;
   end
   else
     aFileName := Info.Name;
@@ -1035,7 +1035,7 @@ begin
 
   Application.CreateForm(TfrmProgress, frmProgress);
   try
-
+    self.Enabled:= False;
     // Adding all files/folders of the target folder
     StatusBar.SimpleText := rsfmmAddingFiles;
     Application.ProcessMessages;
@@ -1093,7 +1093,7 @@ begin
       while (Nodo2 <> nil) and (not Found) do
       begin
         PStringData := vstFilesWOGroup.GetNodeData(Nodo2);
-        aFileName := ChangeFileExt(PStringData^, CVirtualGroupExt);
+        aFileName := ChangeFileExt(PStringData^, kCUVirtualGroupExt);
         // TODO 1: LINUX
         if UTF8CompareText(aFileName, PGameGroup^.MediaFileName) = 0 then
           Found := True
@@ -1161,6 +1161,7 @@ begin
     vstFilesWOGame.SortTree(0, sdAscending, True);
 
   finally
+    Self.Enabled:= True;
     FreeAndNil(frmProgress);
   end;
 
@@ -1318,7 +1319,7 @@ begin
 
   // TODO 1: LINUX
   IsFolder := UTF8CompareText(ExtractFileExt(SourceFile),
-    CVirtualFolderExt) = 0;
+    kCUVirtualFolderExt) = 0;
 
   if IsFolder then
   begin // Removing virtual extension of folders
@@ -1598,7 +1599,7 @@ var
   PGroup: ^cGameGroup;
 begin
   // Meh, I don't like this way, but...
-  aFile := ExtractFileNameOnly(aFile) + CVirtualGroupExt;
+  aFile := ExtractFileNameOnly(aFile) + kCUVirtualGroupExt;
   vstGroupsWOFile.BeginUpdate;
   Nodo := vstGroupsWOFile.GetFirstChild(nil);
   while (Nodo <> nil) do

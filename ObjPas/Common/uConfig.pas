@@ -30,7 +30,7 @@ uses
   uCustomUtils;
 
 resourcestring
-  rsENotFilename = 'Not defined filename.';
+  rsENotFilename = 'Not defined filename';
 
 type
 

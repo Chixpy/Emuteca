@@ -558,7 +558,7 @@ begin
   TmpStrList := TStringList.Create;
   try
     SearchMediaFiles(TmpStrList, aFolder,
-      RemoveFromBrackets(aGameVersion.FileName) + CVirtualGameExt,
+      RemoveFromBrackets(aGameVersion.FileName) + kCUVirtualGameExt,
       Extensions, MultiFile, SearchInZip);
     if TmpStrList.Count = 0 then
     begin
@@ -596,7 +596,7 @@ procedure cGameManager.SearchGameMedia(FileList: TStrings;
   MultiFile: boolean; SearchInZip: boolean);
 begin
   SearchMediaFiles(FileList, aFolder,
-    RemoveFromBrackets(aGameVersion.FileName) + CVirtualGameExt,
+    RemoveFromBrackets(aGameVersion.FileName) + kCUVirtualGameExt,
     Extensions, MultiFile, SearchInZip);
   if FileList.Count = 0 then
     SearchGroupMedia(FileList, aFolder, Group(aGameVersion.GameGroup),
@@ -1028,7 +1028,7 @@ begin
     aGameGroup.ExportDataIni(aIniFile, ExportMode);
     if ProgressCallBack <> nil then
       Continue := ProgressCallBack(GMCBExportData, aGameGroup.Name,
-        CVirtualGroupExt, i, j);
+        kCUVirtualGroupExt, i, j);
     Inc(i);
   end;
 end;
@@ -1078,7 +1078,7 @@ begin
     aGameGroup.ImportDataIni(aIniFile);
     if Assigned(ProgressCallBack) then
       Continue := ProgressCallBack(GMCBImportData, aGameGroup.Name,
-        CVirtualGroupExt, i, j);
+        kCUVirtualGroupExt, i, j);
     Inc(i);
   end;
 end;
