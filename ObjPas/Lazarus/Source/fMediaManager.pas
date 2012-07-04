@@ -35,31 +35,46 @@ uses
 
 resourcestring
   rsfmmSource = 'Source: %0:s';
+  //< Translatable string:
   rsfmmTarget = 'Target: %0:s';
+  //< Translatable string:
   rsfmmDeleteFile = 'Do you want to delete the file?' + sLineBreak +
     sLineBreak + '%0:s';
+  //< Translatable string:
   rsfmmDeleteAll = 'Do you want to delete all current listed files?' + sLineBreak +
     sLineBreak + 'Folder: %0:s' + sLineBreak + 'Number of files: %1:d';
+  //< Translatable string:
   rsfmmDeleteFileError = 'Error deleting the file:\n\n%0:s';
+  //< Translatable string:
 
   rsfmmTargetExists =
     'Target file already exists.' + sLineBreak +
     sLineBreak + 'Do you want to overwrite?';
+  //< Translatable string:
 
   rsfmmIcons = 'Icons';
+  //< Translatable string:
   rsfmmMarquees = 'Spines / Marquees';
+  //< Translatable string:
   rsfmmDemoMusic = 'Demo music';
+  //< Translatable string:
   rsfmmDemoVideo = 'Demo vídeo';
+  //< Translatable string:
 
   rsfmmAddingFiles = 'Adding files to the list...';
+  //< Translatable string:
   rsfmmCopyingFileList = 'Copying file list...';
+  //< Translatable string:
   rsfmmSearchFilesWOGroup = 'Searching files without group...';
+  //< Translatable string:
   rsfmmSearchFilesWOGame = 'Searching files without game...';
+  //< Translatable string:
 
   rsNFiles = '%0:d files found.';
+  //< Translatable string:
 
 const
-  CSimilarityThresold = 25;
+  kSimilarityThresold = 25;
 
 type
 
@@ -244,20 +259,20 @@ type
 
       For use with IterateFolder.
 
-      @param (aFolder Folder where the file is in.)
-      @param (Info TSearchRec with file data.)
+      @param(aFolder Folder where the file is in.)
+      @param(Info TSearchRec with file data.)
 
-      @return (Always @true; needed for IterateFolder.)
+      @return(Always @true; needed for IterateFolder.)
     }
     function AddFile(aFolder, aName: string): boolean; overload;
     {< Adds a file to the lists in not MultiFile mode.
 
       For manual use @(and hacky updates@).
 
-      @param (aFolder Folder where the file is in.)
-      @param (aName Name of the file.)
+      @param(aFolder Folder where the file is in.)
+      @param(aName Name of the file.)
 
-      @return (Always @true @(useless until a reason to stop batch operations
+      @return(Always @true @(useless until a reason to stop batch operations
         will be found.@).)
     }
     function AddFolder(aFolder: string; Info: TSearchRec): boolean;
@@ -266,53 +281,53 @@ type
 
       For use with IterateFolder.
 
-      @param (aFolder Folder where the file is in.)
-      @param (Info TSearchRec with folder or compressed archive data.)
+      @param(aFolder Folder where the file is in.)
+      @param(Info TSearchRec with folder or compressed archive data.)
 
-      @return (Always @true; needed for IterateFolder.)
+      @return(Always @true; needed for IterateFolder.)
     }
     function AddFolder(aFolder, aName: string): boolean; overload;
     {< Add a folder (or compressed archive) to the lists in MultiFile mode.
 
       For manual use @(and hacky updates@).
 
-      @param (aFolder Folder where the file is in.)
-      @param (aName Name of the subfolder.)
+      @param(aFolder Folder where the file is in.)
+      @param(aName Name of the subfolder.)
 
-      @return (Always @true @(useless until a reason to stop batch operations
+      @return(Always @true @(useless until a reason to stop batch operations
         will be found@).)
     }
     function AddFilesOtherFolder(aFolder: string;
       Info: TSearchRec): boolean; overload;
     {< Add files or folders to vstFilesOtherFolder.
 
-      @param (aFolder Folder where the file is in.)
-      @param (Info TSearchRec with folder or file data.)
+      @param(aFolder Folder where the file is in.)
+      @param(Info TSearchRec with folder or file data.)
 
-      @return (Always @true; needed for IterateFolder.)
+      @return(Always @true; needed for IterateFolder.)
     }
 
     procedure VSTUpdate(aFolder: string);
     {< Update the Virtual String Trees.
 
-      @param (aFolder Folder where search the media.)
+      @param(aFolder Folder where search the media.)
     }
 
     procedure ChangeGroupMedia(aGroup: cGameGroup);
     {< Change the media preview to the group media.
 
-      @param (aGroup The game group with it's media will be previewed.)
+      @param(aGroup The game group with it's media will be previewed.)
     }
     procedure ChangeGameMedia(aGame: cGame);
     {< Change the media preview to the game media.
 
-      @param (aGame The game with it's media will be previewed.)
+      @param(aGame The game with it's media will be previewed.)
     }
     procedure ChangeFileMedia(aFolder, aName: string);
     {< Change the media preview to the file.
 
-      @param (aFolder Folder were the file is.)
-      @param (aName Name of the file.)
+      @param(aFolder Folder were the file is.)
+      @param(aName Name of the file.)
     }
     procedure ClearMedia;
     {< Clear media preview fields.
@@ -348,15 +363,15 @@ type
 
       Used for hacky updates.
 
-      @param (aFolder Folder were the file is.)
-      @param (aFile Name of the file.)
+      @param(aFolder Folder were the file is.)
+      @param(aFile Name of the file.)
     }
     procedure RemoveGroupWOFile(aFile: string);
     {< Remove groups from vstGroupsWOFile list that uses aFile.
 
       Used for hacky updates.
 
-      @param (aFile Name of file that maybe is used by groups.)
+      @param(aFile Name of file that maybe is used by groups.)
     }
 
     function CurrentFileList: TCustomVirtualStringTree;
@@ -1651,7 +1666,7 @@ begin
     begin
       PStringData := aVST.GetNodeData(Nodo);
       aVST.IsVisible[Nodo] :=
-        TextSimilarity(aTargetFile, PStringData^) >= CSimilarityThresold;
+        TextSimilarity(aTargetFile, PStringData^) >= kSimilarityThresold;
     end
     else
     begin

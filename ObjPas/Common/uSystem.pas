@@ -39,8 +39,6 @@ type
     )
   }
 
-  { cSystem }
-
   cSystem = class
   private
     FBackgroundImage: String;
@@ -238,13 +236,13 @@ type
     property MusicModes: TStringList read FMusicModes;
     {< Music search mode for the folders of game's music.
 
-    @definitionList (
-      @itemLabel ("0")
-      @item (Single music file. Search in the folder only one text file with
+    @definitionList(
+      @itemLabel("0")
+      @item(Single music file. Search in the folder only one text file with
         the game's name.)
 
-      @itemLabel ("1")
-      @item (Multiple music files. Search in the folder all files in a subfolder
+      @itemLabel("1")
+      @item(Multiple music files. Search in the folder all files in a subfolder
         with the game's name. Something like MAME's style.)
     )
     }
@@ -289,34 +287,34 @@ type
     procedure LoadFromFile(const IniFile: String);
     {< Loads system data from a ini file.
 
-      @param (IniFile A Ini file name.)
+      @param(IniFile A Ini file name.)
     }
     procedure LoadFromFileIni(IniFile: TCustomIniFile);
     {< Loads system data from a ini file.
 
-      @param (IniFile An already opened TInifile.)
+      @param(IniFile An already opened TInifile.)
     }
     procedure SaveToFile(const IniFile: String;
       const ExportMode: boolean = False);
     {< Saves system data to a Ini file.
 
-      @param (IniFile A Ini file name.)
-      @param (ExportMode Is it for export data? Don't write personal settings
+      @param(IniFile A Ini file name.)
+      @param(ExportMode Is it for export data? Don't write personal settings
         as folders or files.)
     }
     procedure SaveToFileIni(IniFile: TCustomIniFile;
       const ExportMode: boolean = False);
     {< Saves system data to a Ini file.
 
-      @param (IniFile An already opened TInifile.)
-      @param (ExportMode Is it for export data? Don't write personal settings
+      @param(IniFile An already opened TInifile.)
+      @param(ExportMode Is it for export data? Don't write personal settings
         as folders or files.)
     }
 
     constructor Create(const AName: String);
     {< Create a new system.
 
-      @param (AName Name/Key of the system.)
+      @param(AName Name/Key of the system.)
     }
 
     destructor Destroy; override;

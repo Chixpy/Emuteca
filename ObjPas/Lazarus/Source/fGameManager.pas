@@ -41,43 +41,68 @@ const
 
 resourcestring
   rsFGMAddingFile = 'Adding file:';
+  //< Translatable string:
   rsFGMUpdatingList = 'Updating List:';
+  //< Translatable string:
   rsFGMLoadingGameList = 'Loading games:';
+  //< Translatable string:
   rsFGMSavingGameList = 'Saving games:';
+  //< Translatable string:
   rsFGMEmutecaGameDatabase = 'Emuteca game database';
+  //< Translatable string:
   rsFGMDecompressing = 'Decompressing:';
+  //< Translatable string:
   rsFGMImportingData = 'Importing data:';
+  //< Translatable string:
   rsFGMExportingData = 'Exporting data:';
+  //< Translatable string:
 
   rsFGMKey = 'Key';
+  //< Translatable string:
   rsFGMZones = 'Zone';
+  //< Translatable string:
   rsFGMDeveloper = 'Developer';
+  //< Translatable string:
   rsFGMPublisher = 'Publisher';
+  //< Translatable string:
 
   rsFGMVersion = 'Version';
+  //< Translatable string:
   rsFGMFilename = 'Filename';
+  //< Translatable string:
 
   rsFGMNGroups = '%0:d groups';
+  //< Translatable string:
   rsFGMNGames = '%0:d games';
+  //< Translatable string:
   rsFGMNTimes = '%0:d times';
+  //< Translatable string:
 
   rsFGMNever = 'Never';
+  //< Translatable string:
   rsFGMUnknown = '!Unknown';
+  //< Translatable string:
 
   rsFGMAssignToGroup = 'Do you want to assign it to the game''s group?';
+  //< Translatable string:
   rsFGMChooseImageFileFormat =
     'Do you want to save it in a lossless format:' + slinebreak +
     'YES -> .png (lossless for screenshots)' + slinebreak +
     'NO -> .jpg (better for photographs)';
+  //< Translatable string:
   rsFGMConfirmOverwriteFile =
     '%0:s' + slinebreak + 'The file already exists.' + slinebreak +
     'Do you want overwrite it?';
+  //< Translatable string:
 
   rsFGMErrorGameNotFound = 'Game not found:' + slinebreak + '%0:s%1:s';
+  //< Translatable string:
   rsFGMErrorEmulator = 'Emulator exited with error code: %0:d';
+  //< Translatable string:
   rsFGMPurgeMessage = 'Warning:' + slinebreak +
     'This action will erase all the game and group list.' +
     slinebreak + 'Do you want to continue?';
+  //< Translatable string:
 
 type
   TlvGroupMode = (
@@ -88,12 +113,12 @@ type
     lvGMPublisher, //< Group by publisher.
     lvGMFolder,    //< Group by folder (or 7z).
     lvGMTags       //< Group by tags.
-    );
-  {< Modes for grouping the games. }
+    ); {< Modes for grouping the games. }
 
-  { Form for Game Manager (Main Form). }
+  { TfrmGameManager
 
-  { TfrmGameManager }
+    - Form for Game Manager (Main Form).
+  }
 
   TfrmGameManager = class(TForm)
     actExit: TAction;
@@ -643,26 +668,34 @@ type
     procedure SearchGameImage(aGame: cGame);
 
     procedure SearchGames;
-    //< Search games that contain eSearch.Text
+    //< Searches games that contains eSearch.Text string.
     procedure ShowAllNodes(Sender: TBaseVirtualTree;
       Node: PVirtualNode; Data: Pointer; var Abort: boolean);
+    //< Shows all nodes in the VTV.
     procedure HideNodes(Sender: TBaseVirtualTree; Node: PVirtualNode;
       Data: Pointer; var Abort: boolean);
+    //< Hides the node if not match eSearch.Text string.
 
     procedure OpenGameImages;
-    //< Open game images in Image Viewer
+    //< Open game images in Image Viewer.
     procedure OpenSystemImages;
-    //< Open system images in Image Viewer
+    //< Open system images in Image Viewer.
     procedure OpenSystemFolder;
-    //< Open system folder with explorer
+    //< Open system folder with explorer.
     procedure OpenEmulatorImages;
-    //< Open emulator images in Image Viewer
+    //< Open emulator images in Image Viewer.
     procedure OpenEmulatorFolder;
-    //< Open emulator folder with explorer
+    //< Open emulator folder with explorer.
     procedure ShowImage(aFileName: string; aViewer: TImage);
-    //< Show image in the TImage
+    {< Show an image file in a TImage.
+      @param(aFileName An image filename.)
+      @param(aViewer TImage where image will be showed.)
+    }
     procedure ShowText(aFileName: string; aViewer: TMemo);
-    //< Show text file in the TMemo
+    {< Show a text file in the TImage.
+      @param(aFileName A text filename.)
+      @param(aViewer TMemo where text will be showed.)
+    }
 
     function AddZoneIcon(Folder: string; Info: TSearchRec): boolean;
 

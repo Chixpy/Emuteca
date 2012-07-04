@@ -49,11 +49,10 @@ Item_3=CPU386
 
 [Header]
 Count=1
-Item_0=Emuteca
+Item_0=Emuteca documentation
 
 [Footer]
-Count=1
-Item_0=Chixpy
+Count=0
 
 [IncludeDirectories]
 Count=2

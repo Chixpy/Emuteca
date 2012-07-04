@@ -25,7 +25,7 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="7"/>
-      <BuildNr Value="55"/>
+      <BuildNr Value="56"/>
       <Language Value=""/>
       <StringTable FileDescription="Emuteca Emulator Front-End" LegalCopyright="(C) 2006-2012 Chixpy" OriginalFilename="LazEmuteca.exe" ProductVersion="0.7"/>
     </VersionInfo>
