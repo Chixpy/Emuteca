@@ -104,6 +104,9 @@ resourcestring
     slinebreak + 'Do you want to continue?';
   //< Translatable string:
 
+  rsFGMSystemRequired = 'You need select a system before do this action.';
+  //< Translatable string:
+
 type
   TlvGroupMode = (
     lvGMGameGroup, //< Group by game.
@@ -2724,7 +2727,7 @@ begin
         GameManager.SearchGroupMedia(StrList,
           GameManager.System.TextFolders[cbGameTexts.ItemIndex], aGameGroup,
           Config.TextExtensions,
-          StrToBoolDef(GameManager.System.TextModes[cbGameImages.ItemIndex],
+          StrToBoolDef(GameManager.System.TextModes[cbGameTexts.ItemIndex],
           False), True);
   end;
 end;
@@ -3140,6 +3143,9 @@ end;
 
 procedure TfrmGameManager.actExportSystemDataExecute(Sender: TObject);
 begin
+  if GameManager.System = nil then
+    raise ENotImplemented.Create(rsFGMSystemRequired);
+
   SaveDialog.Filter := rsFGMEmutecaGameDatabase + CDBFilter;
   SaveDialog.DefaultExt := CDBExt;
   if not SaveDialog.Execute then
@@ -3196,6 +3202,9 @@ end;
 
 procedure TfrmGameManager.actImportSystemDataExecute(Sender: TObject);
 begin
+  if GameManager.System = nil then
+    raise ENotImplemented.Create(rsFGMSystemRequired);
+
   OpenDialog.Filter := rsFGMEmutecaGameDatabase + CDBFilter;
   OpenDialog.DefaultExt := CDBExt;
   if not OpenDialog.Execute then
@@ -3226,6 +3235,9 @@ procedure TfrmGameManager.actMediaManagerExecute(Sender: TObject);
 var
   FormMM: TfrmMediaManager;
 begin
+  if GameManager.System = nil then
+    raise ENotImplemented.Create(rsFGMSystemRequired);
+
   Application.CreateForm(TfrmMediaManager, FormMM);
   try
     FormMM.Config := Self.Config;
@@ -3251,7 +3263,7 @@ var
   SysFolder: string;
 begin
   if GameManager.System = nil then
-    Exit;
+    raise ENotImplemented.Create(rsFGMSystemRequired);
 
   SysFolder := SysPath(GameManager.System.BaseFolder);
   if not DirectoryExistsUTF8(SysFolder) then
@@ -3310,6 +3322,9 @@ end;
 
 procedure TfrmGameManager.actPurgeSystemDataExecute(Sender: TObject);
 begin
+  if GameManager.System = nil then
+    raise ENotImplemented.Create(rsFGMSystemRequired);
+
   if MessageDlg(rsFGMPurgeMessage, mtWarning, [mbYes, mbNo], 0) = mrNo then
     Exit;
   GameManager.PurgeGameData;
@@ -3321,7 +3336,7 @@ var
   FormSM: TfrmScriptManager;
 begin
   if GameManager.System = nil then
-    Exit;
+    raise ENotImplemented.Create(rsFGMSystemRequired);
 
   // Fix a posible crash while updating the form, after closing the
   //   Script Manager, because games or groups can have been modified.
@@ -3512,7 +3527,8 @@ end;
 procedure TfrmGameManager.actSaveSystemTextExecute(Sender: TObject);
 begin
   if GameManager.System = nil then
-    Exit;
+    raise ENotImplemented.Create(rsFGMSystemRequired);
+
   if not FileExistsUTF8(GameManager.System.InfoText) then
   begin
     // TODO 1: Make localizable
@@ -3567,7 +3583,7 @@ end;
 procedure TfrmGameManager.actUpdateGameListExecute(Sender: TObject);
 begin
   if GameManager.System = nil then
-    Exit;
+    raise ENotImplemented.Create(rsFGMSystemRequired);
 
   vstGroups.Clear;
   Self.Enabled := False;

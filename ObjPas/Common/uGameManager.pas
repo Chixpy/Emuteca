@@ -18,6 +18,22 @@
   MA 02111-1307, USA.
 }
 
+{ TODO 1: Ficheros
+
+  Cambiar por enésima vez como se buscan las imágenes a la forma
+    hipermegacomplicada y eliminar tener que elegir uno de los 2 modos:
+
+  Por ejemplo, para el juego ABC:
+
+    * Images/Type/ABC/Ficheros.ext
+    * Images/Type/ABC.zip/Ficheros.ext
+
+    * Images/Type/ABC.ext
+    * Images/Type/Comprimido.zip/ABC.ext
+}
+
+
+
 {cGameManager unit}
 unit uGameManager;
 

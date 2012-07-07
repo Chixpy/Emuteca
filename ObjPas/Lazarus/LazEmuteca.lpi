@@ -82,30 +82,27 @@
         <LaunchingApplication PathPlusParams="/usr/X11R6/bin/xterm -T 'Lazarus Run Output' -e $(LazarusDir)/tools/runwait.sh $(TargetCmdLine)"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="7">
+    <RequiredPackages Count="6">
       <Item1>
-        <PackageName Value="pl_virtualtreesextra"/>
+        <PackageName Value="IDEIntf"/>
       </Item1>
       <Item2>
-        <PackageName Value="IDEIntf"/>
+        <PackageName Value="pl_pascalscript"/>
       </Item2>
       <Item3>
-        <PackageName Value="pl_pascalscript"/>
+        <PackageName Value="pl_virtualtrees"/>
       </Item3>
       <Item4>
-        <PackageName Value="pl_virtualtrees"/>
-      </Item4>
-      <Item5>
         <PackageName Value="SynEdit"/>
         <MinVersion Major="1" Valid="True"/>
-      </Item5>
-      <Item6>
+      </Item4>
+      <Item5>
         <PackageName Value="LazControls"/>
         <MinVersion Valid="True"/>
-      </Item6>
-      <Item7>
+      </Item5>
+      <Item6>
         <PackageName Value="LCL"/>
-      </Item7>
+      </Item6>
     </RequiredPackages>
     <Units Count="34">
       <Unit0>

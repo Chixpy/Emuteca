@@ -28,7 +28,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs,
   ComCtrls, StdCtrls, ExtCtrls, ActnList, EditBtn, Menus, VirtualTrees,
-  LCLType, LazUTF8,
+  LCLType, LazUTF8, LCLIntf,
   fProgress,
   uConfig, uGameManager, uGame, uGameGroup,
   uCustomUtils, fImageViewer;
@@ -84,6 +84,8 @@ type
     actChangeFileName: TAction;
     actDeleteFile: TAction;
     actDeleteAllFiles: TAction;
+    actOpenSourceFolder: TAction;
+    actOpenTargetFolder: TAction;
     actPreviousMedia: TAction;
     actNextMedia: TAction;
     actMoveAllFiles: TAction;
@@ -109,7 +111,12 @@ type
     lbxMusic: TListBox;
     lbxVideos: TListBox;
     lbxOtherFiles: TListBox;
+    MenuItem1: TMenuItem;
+    miOpenSourceFolder: TMenuItem;
+    miOpenMediaFolder: TMenuItem;
+    miMMSystem: TMenuItem;
     miOpenImages: TMenuItem;
+    mmMediaManager: TMainMenu;
     mText: TMemo;
     pagAllGroups: TTabSheet;
     pagFilesWOGroup: TTabSheet;
@@ -135,7 +142,6 @@ type
     pcSource: TPageControl;
     pMain: TPanel;
     pMedia: TPanel;
-    pSystem: TPanel;
     SplitterRight: TSplitter;
     SplitterLeft: TSplitter;
     SplitterTargetSoure: TSplitter;
@@ -159,6 +165,8 @@ type
     procedure actMoveFileExecute(Sender: TObject);
     procedure actNextMediaExecute(Sender: TObject);
     procedure actOpenImagesExecute(Sender: TObject);
+    procedure actOpenSourceFolderExecute(Sender: TObject);
+    procedure actOpenTargetFolderExecute(Sender: TObject);
     procedure actPreviousMediaExecute(Sender: TObject);
     procedure chkOnlySimilarChange(Sender: TObject);
     procedure eOtherFolderAcceptDirectory(Sender: TObject; var Value: string);
@@ -457,6 +465,26 @@ end;
 procedure TfrmMediaManager.actOpenImagesExecute(Sender: TObject);
 begin
   OpenImagesInViewer;
+end;
+
+procedure TfrmMediaManager.actOpenSourceFolderExecute(Sender: TObject);
+var
+  aFolder: string;
+begin
+  aFolder := SysPath(SourceFolder);
+  if not DirectoryExistsUTF8(aFolder) then
+    Exit;
+  OpenDocument(aFolder);
+end;
+
+procedure TfrmMediaManager.actOpenTargetFolderExecute(Sender: TObject);
+var
+  aFolder: string;
+begin
+  aFolder := SysPath(TargetFolder);
+  if not DirectoryExistsUTF8(aFolder) then
+    Exit;
+  OpenDocument(aFolder);
 end;
 
 procedure TfrmMediaManager.actPreviousMediaExecute(Sender: TObject);
@@ -857,9 +885,6 @@ begin
     Exit;
   if GameManager.System = nil then
     Exit;
-
-  pSystem.Caption := GameManager.System.ID + sLineBreak + '(' +
-    GameManager.System.Company + ' ' + GameManager.System.Model + ')';
 
   lbxImages.Clear;
   lbxImages.Items.Add(rsfmmIcons);

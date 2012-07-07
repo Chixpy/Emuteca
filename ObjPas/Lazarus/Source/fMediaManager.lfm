@@ -4,8 +4,9 @@ object frmMediaManager: TfrmMediaManager
   Top = 90
   Width = 800
   Caption = 'Media Manager'
-  ClientHeight = 571
+  ClientHeight = 552
   ClientWidth = 800
+  Menu = mmMediaManager
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   Position = poMainFormCenter
@@ -13,24 +14,24 @@ object frmMediaManager: TfrmMediaManager
   object StatusBar: TStatusBar
     Left = 0
     Height = 20
-    Top = 551
+    Top = 532
     Width = 800
     Panels = <>
   end
   object pMedia: TPanel
     Left = 600
-    Height = 473
-    Top = 50
+    Height = 504
+    Top = 0
     Width = 200
     Align = alRight
     BevelOuter = bvNone
-    ClientHeight = 473
+    ClientHeight = 504
     ClientWidth = 200
-    TabOrder = 5
+    TabOrder = 4
     object bAssign: TButton
       Left = 0
       Height = 25
-      Top = 448
+      Top = 479
       Width = 200
       Action = actChangeFileName
       Align = alBottom
@@ -39,7 +40,7 @@ object frmMediaManager: TfrmMediaManager
     object chkCopyFile: TCheckBox
       Left = 0
       Height = 17
-      Top = 431
+      Top = 462
       Width = 200
       Align = alBottom
       Caption = 'Don''t delete source file'
@@ -91,7 +92,7 @@ object frmMediaManager: TfrmMediaManager
     object pInfoMedia: TPanel
       Left = 0
       Height = 23
-      Top = 408
+      Top = 439
       Width = 200
       Align = alBottom
       BevelOuter = bvNone
@@ -99,7 +100,7 @@ object frmMediaManager: TfrmMediaManager
     end
     object mText: TMemo
       Left = 0
-      Height = 177
+      Height = 208
       Top = 231
       Width = 200
       Align = alClient
@@ -110,33 +111,22 @@ object frmMediaManager: TfrmMediaManager
   end
   object SplitterRight: TSplitter
     Left = 595
-    Height = 473
-    Top = 50
+    Height = 504
+    Top = 0
     Width = 5
     Align = alRight
     ResizeAnchor = akRight
   end
-  object pSystem: TPanel
-    Left = 0
-    Height = 50
-    Top = 0
-    Width = 800
-    Align = alTop
-    BevelOuter = bvNone
-    Font.Style = [fsBold]
-    ParentFont = False
-    TabOrder = 0
-  end
   object pMain: TPanel
     Left = 155
-    Height = 473
-    Top = 50
+    Height = 504
+    Top = 0
     Width = 440
     Align = alClient
     BevelOuter = bvNone
-    ClientHeight = 473
+    ClientHeight = 504
     ClientWidth = 440
-    TabOrder = 3
+    TabOrder = 2
     object SplitterTargetSoure: TSplitter
       Cursor = crVSplit
       Left = 0
@@ -437,17 +427,17 @@ object frmMediaManager: TfrmMediaManager
     end
     object pTarget: TPanel
       Left = 0
-      Height = 206
+      Height = 237
       Top = 267
       Width = 440
       Align = alClient
       BevelOuter = bvNone
-      ClientHeight = 206
+      ClientHeight = 237
       ClientWidth = 440
       TabOrder = 2
       object pcTarget: TPageControl
         Left = 0
-        Height = 206
+        Height = 237
         Top = 0
         Width = 440
         ActivePage = pagAllGroups
@@ -456,11 +446,11 @@ object frmMediaManager: TfrmMediaManager
         TabOrder = 0
         object pagAllGroups: TTabSheet
           Caption = 'All groups'
-          ClientHeight = 180
+          ClientHeight = 211
           ClientWidth = 432
           object vstAllGroups: TVirtualStringTree
             Left = 0
-            Height = 180
+            Height = 211
             Top = 0
             Width = 432
             Align = alClient
@@ -584,14 +574,14 @@ object frmMediaManager: TfrmMediaManager
   end
   object SplitterLeft: TSplitter
     Left = 150
-    Height = 473
-    Top = 50
+    Height = 504
+    Top = 0
     Width = 5
   end
   object lSource: TLabel
     Left = 0
     Height = 14
-    Top = 523
+    Top = 504
     Width = 800
     Align = alBottom
     Caption = 'Source: '
@@ -602,7 +592,7 @@ object frmMediaManager: TfrmMediaManager
   object lTarget: TLabel
     Left = 0
     Height = 14
-    Top = 537
+    Top = 518
     Width = 800
     Align = alBottom
     Caption = 'Target: '
@@ -612,27 +602,27 @@ object frmMediaManager: TfrmMediaManager
   end
   object pLeft: TPanel
     Left = 0
-    Height = 473
-    Top = 50
+    Height = 504
+    Top = 0
     Width = 150
     Align = alLeft
     BevelOuter = bvNone
-    ClientHeight = 473
+    ClientHeight = 504
     ClientWidth = 150
-    TabOrder = 1
+    TabOrder = 0
     object gbxImages: TGroupBox
       Left = 0
-      Height = 113
+      Height = 144
       Top = 0
       Width = 150
       Align = alClient
       Caption = 'Images'
-      ClientHeight = 95
+      ClientHeight = 126
       ClientWidth = 146
       TabOrder = 0
       object lbxImages: TListBox
         Left = 0
-        Height = 95
+        Height = 126
         Top = 0
         Width = 146
         Align = alClient
@@ -644,7 +634,7 @@ object frmMediaManager: TfrmMediaManager
     object gbxVideos: TGroupBox
       Left = 0
       Height = 90
-      Top = 293
+      Top = 324
       Width = 150
       Align = alBottom
       Caption = 'Videos'
@@ -665,7 +655,7 @@ object frmMediaManager: TfrmMediaManager
     object gbxOtherFiles: TGroupBox
       Left = 0
       Height = 90
-      Top = 383
+      Top = 414
       Width = 150
       Align = alBottom
       Caption = 'Other files'
@@ -685,7 +675,7 @@ object frmMediaManager: TfrmMediaManager
     object gbxMusic: TGroupBox
       Left = 0
       Height = 90
-      Top = 203
+      Top = 234
       Width = 150
       Align = alBottom
       Caption = 'Music'
@@ -706,7 +696,7 @@ object frmMediaManager: TfrmMediaManager
     object gbxTexts: TGroupBox
       Left = 0
       Height = 90
-      Top = 113
+      Top = 144
       Width = 150
       Align = alBottom
       Caption = 'Texts'
@@ -769,6 +759,16 @@ object frmMediaManager: TfrmMediaManager
       Caption = 'Previous media file'
       OnExecute = actPreviousMediaExecute
     end
+    object actOpenTargetFolder: TAction
+      Category = 'File operations'
+      Caption = 'Open target folder...'
+      OnExecute = actOpenTargetFolderExecute
+    end
+    object actOpenSourceFolder: TAction
+      Category = 'File operations'
+      Caption = 'Open source folder...'
+      OnExecute = actOpenSourceFolderExecute
+    end
   end
   object pmImage: TPopupMenu
     left = 656
@@ -787,7 +787,23 @@ object frmMediaManager: TfrmMediaManager
     top = 96
   end
   object pmFileList: TPopupMenu
-    left = 330
-    top = 203
+    left = 272
+    top = 168
+    object MenuItem1: TMenuItem
+      Caption = 'New Item1'
+    end
+  end
+  object mmMediaManager: TMainMenu
+    left = 357
+    top = 93
+    object miMMSystem: TMenuItem
+      Caption = 'System'
+      object miOpenSourceFolder: TMenuItem
+        Action = actOpenSourceFolder
+      end
+      object miOpenMediaFolder: TMenuItem
+        Action = actOpenTargetFolder
+      end
+    end
   end
 end
