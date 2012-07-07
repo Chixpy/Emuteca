@@ -528,11 +528,7 @@ begin
     0: aFolder := GameManager.System.IconFolder;
     1: aFolder := GameManager.System.MarqueeFolder;
     else
-    begin
-      MultiFile := StrToBoolDef(
-        GameManager.System.ImageModes[lbxImages.ItemIndex - 2], False);
       aFolder := GameManager.System.ImageFolders[lbxImages.ItemIndex - 2];
-    end;
   end;
   VSTUpdate(aFolder);
 end;
@@ -557,10 +553,7 @@ begin
   case lbxMusic.ItemIndex of
     0: aFolder := GameManager.System.DemoMusicFolder;
     else
-    begin
-      MultiFile := StrToBoolDef(GameManager.System.MusicModes[lbxMusic.ItemIndex-1], False);
       aFolder := GameManager.System.MusicFolders[lbxMusic.ItemIndex - 1];
-    end;
   end;
 
   VSTUpdate(aFolder);
@@ -599,8 +592,6 @@ begin
   lbxOtherFiles.ItemIndex := -1;
 
   ExtFilter := Config.TextExtensions;
-  MultiFile := StrToBoolDef(
-    GameManager.System.TextModes[lbxTexts.ItemIndex], False);
   VSTUpdate(GameManager.System.TextFolders[lbxTexts.ItemIndex]);
 end;
 
@@ -624,10 +615,7 @@ begin
   case lbxVideos.ItemIndex of
     0: aFolder := GameManager.System.DemoVideoFolder;
     else
-    begin
-      MultiFile := StrToBoolDef(GameManager.System.VideoModes[lbxVideos.ItemIndex-1], False);
       aFolder := GameManager.System.VideoFolders[lbxVideos.ItemIndex - 1];
-    end;
   end;
 
   VSTUpdate(aFolder);
@@ -1145,8 +1133,7 @@ begin
         vstFilesWOGroup.DeleteNode(Nodo2)
       else
       begin
-        if not GameManager.GroupMediaExists(aFolder, PGameGroup^,
-          ExtFilter, Multifile, True) then
+        if not GameManager.GroupMediaExists(aFolder, PGameGroup^, ExtFilter) then
         begin
           PGameGroup2 := vstGroupsWOFile.GetNodeData(
             vstGroupsWOFile.AddChild(nil));
@@ -1214,8 +1201,7 @@ begin
   MediaFiles.Clear;
   CurrentMediaIndex := -1;
 
-  GameManager.SearchGroupMedia(MediaFiles, TargetFolder, aGroup,
-    ExtFilter, MultiFile, True);
+  GameManager.SearchGroupMedia(MediaFiles, TargetFolder, aGroup, ExtFilter);
 
   if MediaFiles.Count < 1 then
     Exit;
@@ -1233,8 +1219,7 @@ begin
   ClearMedia;
   MediaFiles.Clear;
   CurrentMediaIndex := -1;
-  GameManager.SearchGameMedia(MediaFiles, TargetFolder, aGame,
-    ExtFilter, MultiFile, True);
+  GameManager.SearchGameMedia(MediaFiles, TargetFolder, aGame, ExtFilter);
   if MediaFiles.Count < 1 then
     Exit;
 

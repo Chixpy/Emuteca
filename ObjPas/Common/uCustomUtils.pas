@@ -95,7 +95,7 @@ Parámetros:
     actual como parámetro para operar con él. Si devuelve True continua con el
     siguiente fichero.
   - Recursivo: Boolean -> Indica si también se deben recorrer los subdirectorios
-  - Result: Boolean -> Indica si se ha abortado la operación
+  - Result: Boolean -> Indica si se ha continuar la operación
 
 Notas:
   - Si Funcion devuelve True continúa recorriendo el directorio, si devuelve

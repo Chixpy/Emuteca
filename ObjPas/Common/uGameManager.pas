@@ -18,22 +18,6 @@
   MA 02111-1307, USA.
 }
 
-{ TODO 1: Ficheros
-
-  Cambiar por enésima vez como se buscan las imágenes a la forma
-    hipermegacomplicada y eliminar tener que elegir uno de los 2 modos:
-
-  Por ejemplo, para el juego ABC:
-
-    * Images/Type/ABC/Ficheros.ext
-    * Images/Type/ABC.zip/Ficheros.ext
-
-    * Images/Type/ABC.ext
-    * Images/Type/Comprimido.zip/ABC.ext
-}
-
-
-
 {cGameManager unit}
 unit uGameManager;
 
@@ -203,19 +187,16 @@ type
     //< Add a group.
 
     function GameMediaExists(aFolder: string; aGameVersion: cGame;
-      Extensions: TStrings; MultiFile: boolean; SearchInZip: boolean): boolean;
+      Extensions: TStrings): boolean;
     function GroupMediaExists(aFolder: string; aGameGroup: cGameGroup;
-      Extensions: TStrings; MultiFile: boolean; SearchInZip: boolean): boolean;
+      Extensions: TStrings): boolean;
 
     procedure SearchGameMedia(FileList: TStrings; aFolder: string;
-      aGameVersion: cGame; Extensions: TStrings; MultiFile: boolean;
-      SearchInZip: boolean);
+      aGameVersion: cGame; Extensions: TStrings);
     procedure SearchGroupMedia(FileList: TStrings; aFolder: string;
-      aGameGroup: cGameGroup; Extensions: TStrings; MultiFile: boolean;
-      SearchInZip: boolean);
+      aGameGroup: cGameGroup; Extensions: TStrings);
     procedure SearchMediaFiles(FileList: TStrings; aFolder: string;
-      aFileName: string; Extensions: TStrings; MultiFile: boolean;
-      SearchInZip: boolean);
+      aFileName: string; Extensions: TStrings);
 
 
     procedure SaveSystemGameList;
@@ -564,8 +545,7 @@ begin
 end;
 
 function cGameManager.GameMediaExists(aFolder: string;
-  aGameVersion: cGame; Extensions: TStrings; MultiFile: boolean;
-  SearchInZip: boolean): boolean;
+  aGameVersion: cGame; Extensions: TStrings): boolean;
 var
   TmpStrList: TStringList;
   aGameGroup: cGameGroup;
@@ -575,12 +555,11 @@ begin
   try
     SearchMediaFiles(TmpStrList, aFolder,
       RemoveFromBrackets(aGameVersion.FileName) + kCUVirtualGameExt,
-      Extensions, MultiFile, SearchInZip);
+      Extensions);
     if TmpStrList.Count = 0 then
     begin
       aGameGroup := Group(aGameVersion.GameGroup);
-      Result := GroupMediaExists(aFolder, aGameGroup, Extensions,
-        MultiFile, SearchInZip);
+      Result := GroupMediaExists(aFolder, aGameGroup, Extensions);
     end
     else
       Result := True;
@@ -590,8 +569,7 @@ begin
 end;
 
 function cGameManager.GroupMediaExists(aFolder: string;
-  aGameGroup: cGameGroup; Extensions: TStrings; MultiFile: boolean;
-  SearchInZip: boolean): boolean;
+  aGameGroup: cGameGroup; Extensions: TStrings): boolean;
 var
   TmpStrList: TStringList;
 begin
@@ -599,7 +577,7 @@ begin
   TmpStrList := TStringList.Create;
   try
     SearchMediaFiles(TmpStrList, aFolder, aGameGroup.MediaFileName,
-      Extensions, MultiFile, SearchInZip);
+      Extensions);
     if TmpStrList.Count <> 0 then
       Result := True;
   finally
@@ -608,257 +586,80 @@ begin
 end;
 
 procedure cGameManager.SearchGameMedia(FileList: TStrings;
-  aFolder: string; aGameVersion: cGame; Extensions: TStrings;
-  MultiFile: boolean; SearchInZip: boolean);
+  aFolder: string; aGameVersion: cGame; Extensions: TStrings);
 begin
   SearchMediaFiles(FileList, aFolder,
-    RemoveFromBrackets(aGameVersion.FileName) + kCUVirtualGameExt,
-    Extensions, MultiFile, SearchInZip);
+    RemoveFromBrackets(aGameVersion.FileName) + kCUVirtualGameExt, Extensions);
   if FileList.Count = 0 then
     SearchGroupMedia(FileList, aFolder, Group(aGameVersion.GameGroup),
-      Extensions, MultiFile, SearchInZip);
+      Extensions);
 end;
 
 procedure cGameManager.SearchGroupMedia(FileList: TStrings;
-  aFolder: string; aGameGroup: cGameGroup; Extensions: TStrings;
-  MultiFile: boolean; SearchInZip: boolean);
+  aFolder: string; aGameGroup: cGameGroup; Extensions: TStrings);
 begin
-  SearchMediaFiles(FileList, aFolder, aGameGroup.MediaFileName,
-    Extensions, MultiFile, SearchInZip);
+  SearchMediaFiles(FileList, aFolder, aGameGroup.MediaFileName, Extensions);
 end;
 
 procedure cGameManager.SearchMediaFiles(FileList: TStrings;
-  aFolder: string; aFileName: string; Extensions: TStrings;
-  MultiFile: boolean; SearchInZip: boolean);
-{ ¡¡AHHHH!!, A monster method... that simply return a StringList with
-  found media files
+  aFolder: string; aFileName: string; Extensions: TStrings);
 
-  PSEUDOCODE for kids:
-    if MultiFile then
-      // This branch return all files found in the folder.
-      1. Search aFileName folder in aFolder (as folder)
-      if not SearchInZip then Exit
-      2. Search aFilename in caché folder (as folder)
-      3. Search aFilename.zip in aFolder (zip -> 7z, rar, etc.)
-        (and extract files in caché folder)
-    else
-      1. Search aFileName.xxx in aFolder (xxx -> Extensions)
-      if not SearchInZip then Exit
-      2. Search aFilename.xxx in caché folder
-      3. Search aFilename.xxx in all compressed archives in aFolder
-        (and extract the file in caché folder)
-    end if
-}
-
-  procedure SearchSingleFile(FileList: TStrings; aFolder: string;
-    aFileName: string; Extensions: TStrings; SearchInZip: boolean);
-
-    procedure SearchActualFile(aBaseFileName: string;
-      aExtList, aFileList: TStrings);
-    var
-      i, j: integer;
-    begin
-      // No backwards trick, image extensions are sortened by preference.
-      //   instead j is used and Extensions.Count is not called each iteration.
-      // No Break if found, as hidden feature ;-); but it's slower.
-      i := 0;
-      j := aExtList.Count;
-      while i < j do
-      begin
-        if FileExistsUTF8(aBaseFileName + ExtensionSeparator +
-          aExtList[i]) then
-          aFileList.Add(aBaseFileName + ExtensionSeparator + aExtList[i]);
-        Inc(i);
-      end;
-    end;
-
+  procedure SearchFileByExt(aFileList: TStrings; aBaseFileName: string;
+    aExtList: TStrings);
   var
-    CacheFolder: string;
+    i, j: integer;
+  begin
+    i := 0;
+    j := aExtList.Count;
+    while i < j do
+    begin
+      if FileExistsUTF8(aBaseFileName + ExtensionSeparator +
+        aExtList[i]) then
+        aFileList.Add(aBaseFileName + ExtensionSeparator + aExtList[i]);
+      Inc(i);
+    end;
+  end;
+
+  procedure AddFilesFromFolder(FileList: TStrings; aFolder: string;
+    Extensions: TStrings);
+  var
     Info: TSearchRec;
   begin
-    if aFileName = '' then Exit;
-    // 1. Searching the file in the expected folder.
-    SearchActualFile(aFolder + aFileName, Extensions, FileList);
-    if FileList.Count <> 0 then
+    aFolder := SetAsFolder(aFolder);
+    if (aFolder = '') or (not DirectoryExistsUTF8(aFolder)) then
       Exit;
 
-    // 2. Searching in cache folder.
-    CacheFolder := SetAsFolder(TempFolder +
-      ExtractFileName(ExcludeTrailingPathDelimiter(aFolder)));
-    SearchActualFile(CacheFolder + aFileName, Extensions, FileList);
-    if (FileList.Count <> 0) or (not SearchInZip) then
-      Exit;
-
-    // 3. Searching in compressed archives.
-    // Simply try to extract files, and search in cache folder again...
-    if FindFirstUTF8(aFolder + AllFilesMask, 0, Info) = 0 then
+    if FindFirstUTF8(aFolder + AllFilesMask, faAnyFile, Info) = 0 then
       try
         repeat
-          // Ough, we really need a easy way to check extensions
-          if CompressedExt.IndexOf(UTF8LowerCase(UTF8Copy(
+          if Extensions.IndexOf(UTF8LowerCase(UTF8Copy(
             ExtractFileExt(Info.Name), 2, MaxInt))) <> -1 then
-          begin
-            // AllFilesMask... Maybe is a good idea...
-            w7zExtractFile(aFolder + Info.Name, aFileName + AllFilesMask,
-              CacheFolder, False, '');
-            SearchActualFile(CacheFolder + aFileName, Extensions, FileList);
-          end;
-        until (FileList.Count <> 0) or (FindNextUTF8(Info) <> 0);
+            FileList.Add(aFolder + Info.Name);
+        until (FindNextUTF8(Info) <> 0);
       finally
         FindCloseUTF8(Info);
       end;
 
 
-    { HISTORY: 3. Old slower way...
-
-    CompFiles := TStringList.Create;
-    // 3.1. Search in every zip in the folder
-    if FindFirstUTF8(aFolder + AllFilesMask, 0, Info) = 0 then
+    if FindFirstUTF8(aFolder + AllFilesMask, faDirectory, Info) = 0 then
       try
         repeat
-          TmpStr := UTF8LowerCase(UTF8Copy(ExtractFileExt(Info.Name),
-            2, MaxInt));
-          if CompressedExt.IndexOf(TmpStr) <> -1 then
-          begin
-            CompFiles.Clear;
-            w7zListFiles(aFolder + Info.Name, CompFiles, True);
-            i := 0;
-            j := Extensions.Count;
-            while i < j do
-            begin
-              TmpStr := aFileName + ExtensionSeparator + Extensions[i];
-
-              k := CompFiles.Count - 1;
-              while (k >= 0) do
-              begin
-                // TODO 1: LINUX
-                if CompareFilenames(ExtractFileName(CompFiles[k]),
-                  TmpStr) = 0 then
-                begin
-                  if ExtractFile then
-                  begin
-                    if w7zExtractFile(aFolder + Info.Name,
-                      CompFiles[k], CacheFolder, False, '') = 0 then
-                      FileList.Add(CacheFolder + CompFiles[k]);
-                  end
-                  else
-                    FileList.Add(aFolder + Info.Name + ';' + CompFiles[k]);
-                  // Don't break: while
-                  // As hidden feature we can detect many files in subfolders
-                  //   in the compressed archive... but it's not suported
-                  //   in rest of code :-(
-                  // TODO 3: Files in subfolder in compressed archives
-                end;
-                Dec(k);
-              end;
-              Inc(i);
-            end;
-          end;
-        until (FileList.Count <> 0) or (FindNextUTF8(Info) <> 0);
+          if (Info.Name <> '.') and (Info.Name <> '') and
+            (Info.Name <> '..') and
+            ((Info.Attr and faDirectory) <> 0) then
+            AddFilesFromFolder(FileList, aFolder + Info.Name, Extensions);
+        until (FindNextUTF8(Info) <> 0);
       finally
         FindCloseUTF8(Info);
       end;
-    FreeAndNil(CompFiles);
-    }
   end;
 
-  procedure FindMultiFile(FileList: TStrings; aFolder: string;
-    aFileName: string; Extensions: TStrings; SearchInZip: boolean);
+var
+  TempTypeSubFolder: string;
+  CompressedArchives: TStringList;
+  i, j: integer;
 
-    procedure AddMediaFiles(FileList: TStrings; aFolder: string;
-      Extensions: TStrings);
-    var
-      Info: TSearchRec;
-      Ext: string;
-    begin
-      aFolder := SetAsFolder(aFolder);
-      if (aFolder = '') or (not DirectoryExistsUTF8(aFolder)) then
-        Exit;
-
-      if FindFirstUTF8(aFolder + AllFilesMask, faAnyFile, Info) = 0 then
-        try
-          repeat
-            Ext := UTF8LowerCase(UTF8Copy(ExtractFileExt(Info.Name),
-              2, MaxInt));
-            if Extensions.IndexOf(Ext) <> -1 then
-              FileList.Add(aFolder + Info.Name);
-          until (FindNextUTF8(Info) <> 0);
-        finally
-          FindCloseUTF8(Info);
-        end;
-
-      if FindFirstUTF8(aFolder + AllFilesMask, faDirectory, Info) = 0 then
-        try
-          repeat
-            if (Info.Name <> '.') and (Info.Name <> '') and
-              (Info.Name <> '..') and
-              ((Info.Attr and faDirectory) <> 0) then
-              AddMediaFiles(FileList, aFolder + Info.Name, Extensions);
-          until (FindNextUTF8(Info) <> 0);
-        finally
-          FindCloseUTF8(Info);
-        end;
-    end;
-
-  var
-    SubFolder: string;
-    MediaFolder: string;
-    ComFile: string;
-    TempStr: string;
-    TempStrList: TStringList;
-    Error: integer;
-  begin
-    MediaFolder := '';
-    SubFolder := SetAsFolder(ExtractFileName(
-      ExcludeTrailingPathDelimiter(aFolder)));
-
-    // 1. Search for the subfolder in actual folder
-    TempStr := aFolder + SetAsFolder(aFileName);
-    if DirectoryExistsUTF8(TempStr) then
-      MediaFolder := TempStr
-    else
-    begin
-      // 2. Search for the subfolder in caché
-      TempStr := TempFolder + SubFolder + SetAsFolder(aFileName);
-      if DirectoryExistsUTF8(TempStr) then
-      begin
-        MediaFolder := TempStr;
-      end
-      else
-      begin
-        if not SearchInZip then
-          Exit;
-
-        // 3. Search for compressed file
-        TempStrList := TStringList.Create;
-        try
-          // Happy trick
-          SearchSingleFile(TempStrList, aFolder, aFileName,
-            CompressedExt, False);
-          if TempStrList.Count > 0 then
-          begin
-            // Only first compressed archive found
-            ComFile := TempStrList[0];
-          end;
-        finally
-          FreeAndNil(TempStrList);
-        end;
-
-        if ComFile <> '' then
-        begin
-            Error := w7zExtractFile(ComFile, '*', TempStr, False, '');
-            if Error = 0 then
-              MediaFolder := TempStr;
-        end;
-      end;
-    end;
-
-    if MediaFolder = '' then
-      Exit;
-
-    AddMediaFiles(FileList, MediaFolder, Extensions);
-  end;
-
+  Info: TSearchRec;
 begin
   if FileList = nil then
     FileList := TStringList.Create
@@ -872,12 +673,67 @@ begin
     (Extensions.Count = 0) then
     Exit;
 
-  if MultiFile then
-    FindMultiFile(FileList, aFolder, aFileName, Extensions,
-      SearchInZip)
+  // 1. Basic search
+  // Folder/aFileName.mext
+  SearchFileByExt(FileList, aFolder + aFileName, Extensions);
+
+  // 2. Search in folder
+  // Folder/aFileName/*.mext
+  AddFilesFromFolder(FileList, aFolder + SetAsFolder(aFileName), Extensions);
+
+  // 3.a Search in cache folder
+  // TempFolder/Type/aFileName/*.mext
+  TempTypeSubFolder := TempFolder +
+    SetAsFolder(ExtractFileName(ExcludeTrailingPathDelimiter(aFolder))) +
+    SetAsFolder(aFileName);
+
+  if DirectoryExistsUTF8(TempTypeSubFolder) then
+    AddFilesFromFolder(FileList, TempTypeSubFolder, Extensions)
   else
-    SearchSingleFile(FileList, aFolder, aFileName, Extensions,
-      SearchInZip);
+  begin
+    // 3.b Search in compressed archive
+    // Folder/aFileName.zip/*.mext (extract to TempFolder/Type/aFileName/*.mext)
+
+    CompressedArchives := TStringList.Create;
+    try
+      SearchFileByExt(CompressedArchives, aFolder + aFileName, CompressedExt);
+
+      i := 0;
+      j := CompressedArchives.Count;
+      while i < j do
+      begin
+        w7zExtractFile(CompressedArchives[i], AllFilesMask, TempTypeSubFolder,
+          False, '');
+        Inc(i);
+      end;
+
+      AddFilesFromFolder(FileList, TempTypeSubFolder, Extensions);
+    finally
+      FreeAndNil(CompressedArchives);
+    end;
+  end;
+
+  if FileList.Count > 0 then
+    Exit;
+
+  // 4. If none found, search ONLY ONE from every compressed archive.
+  // Folder/*.zip/aFileName.mext
+  if FindFirstUTF8(aFolder + AllFilesMask, 0, Info) = 0 then
+    try
+      repeat
+        // Ough, we really need a easy way to check extensions
+        if CompressedExt.IndexOf(UTF8LowerCase(UTF8Copy(
+          ExtractFileExt(Info.Name), 2, MaxInt))) <> -1 then
+        begin
+          // AllFilesMask... Maybe is a good idea...
+          w7zExtractFile(aFolder + Info.Name, aFileName + '.*',
+            TempTypeSubFolder, False, '');
+          AddFilesFromFolder(FileList, TempTypeSubFolder, Extensions);
+        end;
+      until (FileList.Count > 0) or (FindNextUTF8(Info) <> 0);
+    finally
+      FindCloseUTF8(Info);
+    end;
 end;
 
 procedure cGameManager.SaveSystemGameList;

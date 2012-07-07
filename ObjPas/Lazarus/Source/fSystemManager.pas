@@ -463,14 +463,12 @@ begin
     Exit;
   if not FileExistsUTF8(eOtherVideoFolder.Directory) then
     Exit;
-  aItem := lvOtherVideoFolders.Items.Add;
 
   System.VideoFolders.Add(eOtherVideoFolder.Directory);
   System.VideoCaptions.Add(eOtherVideoCaption.Text);
-  System.VideoModes.Add(BoolToStr(chkOtherVideoMultiFile.Checked));
   System.VideoExtensions.Add(eOtherVideoExtensions.Text);
   System.VideoExecutables.Add(eOtherVideoExecutable.Text);
-  System.VideoParameters.Add(eOtherVideoParameters.Text);;
+  System.VideoParameters.Add(eOtherVideoParameters.Text);
 
   FillFields;
 end;
@@ -492,14 +490,12 @@ begin
     Exit;
   if not FileExistsUTF8(eOtherMusicFolder.Directory) then
     Exit;
-  aItem := lvOtherMusicFolders.Items.Add;
 
   System.MusicFolders.Add(eOtherMusicFolder.Directory);
   System.MusicCaptions.Add(eOtherMusicCaption.Text);
-  System.MusicModes.Add(BoolToStr(chkOtherMusicMultiFile.Checked));
   System.MusicExtensions.Add(eOtherMusicExtensions.Text);
   System.MusicExecutables.Add(eOtherMusicExecutable.Text);
-  System.MusicParameters.Add(eOtherMusicParameters.Text);;
+  System.MusicParameters.Add(eOtherMusicParameters.Text);
 
   FillFields;
 end;
@@ -743,9 +739,6 @@ begin
   if System.ImageCaptions.Count > clbImageFolders.ItemIndex then
     System.ImageCaptions.Delete(clbImageFolders.ItemIndex);
 
-  if System.ImageModes.Count > clbImageFolders.ItemIndex then
-    System.ImageModes.Delete(clbImageFolders.ItemIndex);
-
   FillFields;
 end;
 
@@ -757,7 +750,6 @@ begin
 
   System.MusicFolders.Delete(lvOtherMusicFolders.ItemIndex);
   System.MusicCaptions.Delete(lvOtherMusicFolders.ItemIndex);
-  System.MusicModes.Delete(lvOtherMusicFolders.ItemIndex);
   System.MusicExtensions.Delete(lvOtherMusicFolders.ItemIndex);
   System.MusicExecutables.Delete(lvOtherMusicFolders.ItemIndex);
   System.MusicParameters.Delete(lvOtherMusicFolders.ItemIndex);;
@@ -796,9 +788,6 @@ begin
   if System.TextCaptions.Count > clbTextFolders.ItemIndex then
     System.TextCaptions.Delete(clbTextFolders.ItemIndex);
 
-  if System.TextModes.Count > clbTextFolders.ItemIndex then
-    System.TextModes.Delete(clbTextFolders.ItemIndex);
-
   FillFields;
 end;
 
@@ -810,7 +799,6 @@ begin
 
   System.VideoFolders.Delete(lvOtherVideoFolders.ItemIndex);
   System.VideoCaptions.Delete(lvOtherVideoFolders.ItemIndex);
-  System.VideoModes.Delete(lvOtherVideoFolders.ItemIndex);
   System.VideoExtensions.Delete(lvOtherVideoFolders.ItemIndex);
   System.VideoExecutables.Delete(lvOtherVideoFolders.ItemIndex);
   System.VideoParameters.Delete(lvOtherVideoFolders.ItemIndex);;
@@ -846,25 +834,8 @@ begin
 end;
 
 procedure TfrmSystemManager.clbImageFoldersClickCheck(Sender: TObject);
-
-var
-  Cont: integer;
 begin
-  if System = nil then
-    Exit;
-  // Updating Image modes
-  // TODO 3: Hacer un método generico, ya que lo textos usan uno igual,
-  //   vendría bien...
-  Cont := 0;
-  System.ImageModes.Clear;
-  while Cont < clbImageFolders.Count do
-  begin
-    if clbImageFolders.Checked[Cont] then
-      System.ImageModes.Add(BoolToStr(True))
-    else
-      System.ImageModes.Add(BoolToStr(False));
-    Inc(Cont);
-  end;
+
 end;
 
 procedure TfrmSystemManager.clbOtherEmulatorsClickCheck(Sender: TObject);
@@ -900,18 +871,7 @@ procedure TfrmSystemManager.clbTextFoldersClickCheck(Sender: TObject);
 var
   Cont: integer;
 begin
-  if System = nil then
-    Exit;
-  Cont := 0;
-  System.TextModes.Clear;
-  while Cont < clbTextFolders.Count do
-  begin
-    if clbTextFolders.Checked[Cont] then
-      System.TextModes.Add(BoolToStr(True))
-    else
-      System.TextModes.Add(BoolToStr(False));
-    Inc(Cont);
-  end;
+
 end;
 
 procedure TfrmSystemManager.eBackgroundImageAcceptFileName(Sender: TObject;
@@ -1398,25 +1358,11 @@ begin
   clbImageFolders.Items.AddStrings(System.ImageFolders);
   lbImageCaptions.Clear;
   lbImageCaptions.Items.AddStrings(System.ImageCaptions);
-  i := 0;
-  while i < System.ImageModes.Count do
-  begin
-    if StrToBoolDef(System.ImageModes[i], False) then
-      clbImageFolders.Checked[i] := True;
-    Inc(i);
-  end;
 
   clbTextFolders.Clear;
   clbTextFolders.Items.AddStrings(System.TextFolders);
   lbTextCaptions.Clear;
   lbTextCaptions.Items.AddStrings(System.TextCaptions);
-  i := 0;
-  while i < System.TextModes.Count do
-  begin
-    if StrToBoolDef(System.TextModes[i], False) then
-      clbTextFolders.Checked[i] := True;
-    Inc(i);
-  end;
 
   // Emulators
   cbMainEmulator.ItemIndex :=
@@ -1442,10 +1388,6 @@ begin
   begin
     aItem := lvOtherMusicFolders.Items.Add;
     aItem.Caption := System.MusicFolders[i];
-    if StrToBool(System.MusicModes[i]) then
-      aItem.SubItems.Add('*')
-    else
-      aItem.SubItems.Add('');
     aItem.SubItems.Add(System.MusicCaptions[i]);
     aItem.SubItems.Add(System.MusicExtensions[i]);
     aItem.SubItems.Add(System.MusicExecutables[i] + ' ' +
@@ -1473,10 +1415,6 @@ begin
   begin
     aItem := lvOtherVideoFolders.Items.Add;
     aItem.Caption := System.VideoFolders[i];
-    if StrToBool(System.VideoModes[i]) then
-      aItem.SubItems.Add('*')
-    else
-      aItem.SubItems.Add('');
     aItem.SubItems.Add(System.VideoCaptions[i]);
     aItem.SubItems.Add(System.VideoExtensions[i]);
     aItem.SubItems.Add(System.VideoExecutables[i] + ' ' +

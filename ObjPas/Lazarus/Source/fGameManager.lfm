@@ -1604,11 +1604,13 @@ object frmGameManager: TfrmGameManager
       Category = 'Game text'
       Caption = 'Next game text'
       Hint = 'Change to next game text'
+      OnExecute = actNextGameTextExecute
     end
     object actPreviousGameText: TAction
       Category = 'Game text'
       Caption = 'Previous game text'
       Hint = 'Change to previous game text'
+      OnExecute = actPreviousGameTextExecute
     end
     object actExportSystemData: TAction
       Category = 'System'

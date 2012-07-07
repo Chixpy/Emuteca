@@ -90,6 +90,9 @@ resourcestring
     'YES -> .png (lossless for screenshots)' + slinebreak +
     'NO -> .jpg (better for photographs)';
   //< Translatable string:
+  rsFolderNotExists = '%0:s' + slinebreak + 'Folder not exists.' + slinebreak +
+    'Do you want create it?';
+  //< Translatable string:
   rsFGMConfirmOverwriteFile =
     '%0:s' + slinebreak + 'The file already exists.' + slinebreak +
     'Do you want overwrite it?';
@@ -389,6 +392,7 @@ type
     procedure actLockSystemTextExecute(Sender: TObject);
     procedure actMediaManagerExecute(Sender: TObject);
     procedure actNextGameImageExecute(Sender: TObject);
+    procedure actNextGameTextExecute(Sender: TObject);
     procedure actOpenEmutecaFolderExecute(Sender: TObject);
     procedure actOpenSystemFolderExecute(Sender: TObject);
     procedure actPasteGameIconImageExecute(Sender: TObject);
@@ -396,6 +400,7 @@ type
     procedure actPasteGameSpineImageExecute(Sender: TObject);
     procedure actPlayGameExecute(Sender: TObject);
     procedure actPreviousGameImageExecute(Sender: TObject);
+    procedure actPreviousGameTextExecute(Sender: TObject);
     procedure actPurgeSystemDataExecute(Sender: TObject);
     procedure actQuickUpdateListExecute(Sender: TObject);
     procedure actRunEmulatorExecute(Sender: TObject);
@@ -634,6 +639,11 @@ type
     procedure NextGameImage;
     //< Change to the next game image.
     procedure PreviousGameImage;
+    //< Change to the previous game image.
+
+    procedure NextGameText;
+    //< Change to the next game image.
+    procedure PreviousGameText;
     //< Change to the previous game image.
 
     procedure PasteGameImage;
@@ -1245,15 +1255,15 @@ begin
               lvGMYear: GameManager.SearchGroupMedia(StrList,
                   Config.CommonMediaFolder + SetAsFolder('Years') +
                   SetAsFolder('Icons'),
-                  cGameGroup(Data^), Config.ImageExtensions, False, True);
+                  cGameGroup(Data^), Config.ImageExtensions);
               lvGMDeveloper: GameManager.SearchGroupMedia(StrList,
                   Config.CommonMediaFolder + SetAsFolder('Companies') +
                   SetAsFolder('Icons'), cGameGroup(Data^),
-                  Config.ImageExtensions, False, True);
+                  Config.ImageExtensions);
               lvGMPublisher: GameManager.SearchGroupMedia(StrList,
                   Config.CommonMediaFolder + SetAsFolder('Companies') +
                   SetAsFolder('Icons'), cGameGroup(Data^),
-                  Config.ImageExtensions, False, True);
+                  Config.ImageExtensions);
               { In folder mode... search in default location...
 
                lvGMFolder: GameManager.SearchGroupMedia(StrList,
@@ -1265,16 +1275,16 @@ begin
               lvGMTags: GameManager.SearchGroupMedia(StrList,
                   Config.CommonMediaFolder + SetAsFolder('Tags') +
                   SetAsFolder('Icons'),
-                  cGameGroup(Data^), Config.ImageExtensions, False, True);
+                  cGameGroup(Data^), Config.ImageExtensions);
               else  // By default, standard search
                 GameManager.SearchGroupMedia(StrList,
                   GameManager.System.IconFolder, cGameGroup(Data^),
-                  Config.ImageExtensions, False, True);
+                  Config.ImageExtensions);
             end;
           end
           else if Data^ is cGame then
             GameManager.SearchGameMedia(StrList, GameManager.System.IconFolder,
-              cGame(Data^), Config.ImageExtensions, False, True);
+              cGame(Data^), Config.ImageExtensions);
 
           if StrList.Count > 0 then
           begin
@@ -2039,64 +2049,85 @@ begin
   ShowImage(GameImages[GameImagesIndex], iGameImage);
 end;
 
+procedure TfrmGameManager.NextGameText;
+begin
+  if GameTexts.Count <= 1 then
+    Exit;
+
+  Inc(FGameTextsIndex);
+  if GameTextsIndex >= GameTexts.Count then
+    GameTextsIndex := 0;
+
+  ShowText(GameTexts[GameTextsIndex], memoGame);
+end;
+
+procedure TfrmGameManager.PreviousGameText;
+begin
+  if GameTexts.Count <= 1 then
+    Exit;
+
+  Dec(FGameTextsIndex);
+  if GameTextsIndex < 0 then
+    GameTextsIndex := GameTexts.Count - 1;
+
+  ShowText(GameTexts[GameTextsIndex], memoGame);
+end;
+
 procedure TfrmGameManager.PasteGameImage;
 var
   aFileName: string;
 begin
-  if (CurrGroup = nil) or (cbGameImages.ItemIndex = -1) then
-    Exit;
+  if (CurrGroup = nil)  then  Exit;
+
+  aFilename := CurrGroup.MediaFileName;
 
   LoadImageFromClipboard(iGameImage.Picture);
 
-  aFilename := CurrGroup.MediaFileName;
-  if (CurrGame <> nil) or ((CurrGame = nil) and not
-    (GroupMode in [lvGMYear, lvGMDeveloper, lvGMTags])) then
+  if (CurrGame = nil) and (GroupMode in [lvGMYear, lvGMDeveloper,
+    lvGMPublisher, lvGMTags]) then
   begin
-    if CurrGame <> nil then
-    begin
-              aFilename := GameManager.Group(CurrGame.GameGroup).MediaFileName;
-
-      if MessageDlg(rsFGMAssignToGroup, mtConfirmation,
-        [mbYes, mbNo], 0) = mrNo then
-        { TODO 1: Warn about a game can't have it's own file if
-          it has the same filename as group. }
-        aFilename := RemoveFromBrackets(CurrGame.FileName) + kCUVirtualGameExt;
-    end;
-
-    // Normal mode o folder mode...
-    if StrToBoolDef(GameManager.System.ImageModes[cbGameImages.ItemIndex],
-      False) then
-    begin // Folders mode
-      aFilename := SetAsFolder(
-        GameManager.System.ImageFolders[cbGameImages.ItemIndex] +
-        ExtractFileNameOnly(aFilename));
-      ForceDirectoriesUTF8(aFilename);
-      // We need a unique filename...
-      aFilename := aFilename + FormatDateTime('yyyymmddhhnn', Now) +
-        kCUVirtualGameExt;
-    end
-    else
-      aFilename := GameManager.System.ImageFolders[cbGameImages.ItemIndex] +
-        aFilename;
-  end
-  else
-  begin
-    // Special GroupModes
+    // It's a group and special group mode
     case GroupMode of
       lvGMYear:
-        aFilename := Config.CommonMediaFolder + SetAsFolder('Years') +
-          SetAsFolder('Images') + aFileName;
+        aFilename := Config.CommonMediaFolder +
+          SetAsFolder('Years') + SetAsFolder('Images') + aFileName;
       lvGMDeveloper, lvGMPublisher:
-        aFilename := Config.CommonMediaFolder + SetAsFolder('Companies') +
-          SetAsFolder('Images') + aFileName;
+        aFilename := Config.CommonMediaFolder +
+          SetAsFolder('Companies') + SetAsFolder('Images') + aFileName;
       lvGMTags:
         aFilename := Config.CommonMediaFolder + SetAsFolder('Tags') +
           SetAsFolder('Images') + aFileName;
       else
         // This case must not happen
-        aFilename := GameManager.System.ImageFolders[cbGameImages.ItemIndex] +
-          aFilename;
+        aFilename := GameManager.System.ImageFolders[
+          cbGameImages.ItemIndex] + aFilename;
     end;
+  end
+  else
+  begin
+    if (cbGameImages.ItemIndex = -1) then Exit;
+
+    aFilename := ExtractFileNameOnly(aFilename);
+
+    if CurrGame <> nil then
+    begin
+      aFilename := ExtractFileNameOnly(GameManager.Group(
+        CurrGame.GameGroup).MediaFileName);
+
+      if MessageDlg(rsFGMAssignToGroup, mtConfirmation,
+        [mbYes, mbNo], 0) = mrNo then
+        { TODO 2: Warn about a game can't have it's own file if
+           it has the same filename as used by group. }
+        aFilename := RemoveFromBrackets(CurrGame.FileName);
+    end;
+
+    // 'Filename' -> 'Folder/Filename/'
+    aFilename := SetAsFolder(
+      GameManager.System.ImageFolders[cbGameImages.ItemIndex] + aFilename);
+
+    // We need a unique filename... 'Folder/Filename/yyyymmddhhnnss.ext'
+    aFilename := aFilename + FormatDateTime('yyyymmddhhnnss', Now) +
+      kCUVirtualGameExt;
   end;
 
   SaveImageToFile(iGameImage.Picture, aFileName);
@@ -2107,50 +2138,47 @@ var
   aFileName: string;
   aPicture: TPicture;
 begin
-  if (CurrGroup = nil) or (cbGameImages.ItemIndex = -1) then
-    Exit;
+  if CurrGroup = nil then  Exit;
 
   aPicture := TPicture.Create;
   try
-    // Loading from clipboard
+    aFilename := CurrGroup.MediaFileName;
+
     LoadImageFromClipboard(aPicture);
 
-    aFilename := CurrGroup.MediaFileName;
-    if (CurrGame <> nil) or ((CurrGame = nil) and not
-      (GroupMode in [lvGMYear, lvGMDeveloper, lvGMTags])) then
+    if (CurrGame = nil) and (GroupMode in [lvGMYear, lvGMDeveloper,
+      lvGMPublisher, lvGMTags]) then
     begin
-      if CurrGame <> nil then
-      begin
-                aFilename := GameManager.Group(CurrGame.GameGroup).MediaFileName;
-
-        if MessageDlg(rsFGMAssignToGroup, mtConfirmation,
-          [mbYes, mbNo], 0) = mrNo then
-          { TODO 1: Warn about a game can't have it's own file if
-            it has the same filename as group. }
-          aFilename := RemoveFromBrackets(CurrGame.FileName) + kCUVirtualGameExt;
-      end;
-      aFilename := GameManager.System.ImageFolders[cbGameImages.ItemIndex] +
-        aFilename;
-    end
-    else
-    begin
-      // Special GroupModes
+      // It's a group and special group mode
       case GroupMode of
         lvGMYear:
-          aFilename := Config.CommonMediaFolder + SetAsFolder('Years') +
-            SetAsFolder('Spines') + aFileName;
+          aFilename := Config.CommonMediaFolder +
+            SetAsFolder('Years') + SetAsFolder('Spines') + aFileName;
         lvGMDeveloper, lvGMPublisher:
-          aFilename := Config.CommonMediaFolder + SetAsFolder('Companies') +
-            SetAsFolder('Spines') + aFileName;
+          aFilename := Config.CommonMediaFolder +
+            SetAsFolder('Companies') + SetAsFolder('Spines') + aFileName;
         lvGMTags:
           aFilename := Config.CommonMediaFolder + SetAsFolder('Tags') +
             SetAsFolder('Spines') + aFileName;
         else
           // This case must not happen
-          aFilename := GameManager.System.ImageFolders[
-            cbGameImages.ItemIndex] +
-            aFilename;
+          aFilename := GameManager.System.MarqueeFolder + aFilename;
       end;
+    end
+    else
+    begin
+      if CurrGame <> nil then
+      begin
+        aFilename := GameManager.Group(CurrGame.GameGroup).MediaFileName;
+
+        if MessageDlg(rsFGMAssignToGroup, mtConfirmation,
+          [mbYes, mbNo], 0) = mrNo then
+          { TODO 2: Warn about a game can't have it's own file if
+             it has the same filename as used by group. }
+          aFilename := RemoveFromBrackets(CurrGame.FileName) + kCUVirtualGameExt;
+      end;
+
+      aFilename := GameManager.System.MarqueeFolder + aFilename;
     end;
 
     SaveImageToFile(aPicture, aFileName);
@@ -2164,49 +2192,47 @@ var
   aFileName: string;
   aPicture: TPicture;
 begin
-  if (CurrGroup = nil) or (cbGameImages.ItemIndex = -1) then
-    Exit;
+  if (CurrGroup = nil) then Exit;
 
   aPicture := TPicture.Create;
   try
-    // Loading from clipboard
+    aFilename := CurrGroup.MediaFileName;
+
     LoadImageFromClipboard(aPicture);
 
-    aFilename := CurrGroup.MediaFileName;
-    if (CurrGame <> nil) or ((CurrGame = nil) and not
-      (GroupMode in [lvGMYear, lvGMDeveloper, lvGMTags])) then
+    if (CurrGame = nil) and (GroupMode in [lvGMYear, lvGMDeveloper,
+      lvGMPublisher, lvGMTags]) then
     begin
-      if CurrGame <> nil then
-      begin
-        aFilename := GameManager.Group(CurrGame.GameGroup).MediaFileName;
-        if MessageDlg(rsFGMAssignToGroup, mtConfirmation,
-          [mbYes, mbNo], 0) = mrNo then
-          { TODO 1: Warn about a game can't have it's own file if
-            it has the same filename as group. }
-          aFilename := RemoveFromBrackets(CurrGame.FileName) + kCUVirtualGameExt;
-      end;
-      aFilename := GameManager.System.ImageFolders[cbGameImages.ItemIndex] +
-        aFilename;
-    end
-    else
-    begin
-      // Special GroupModes
+      // It's a group and special group mode
       case GroupMode of
         lvGMYear:
-          aFilename := Config.CommonMediaFolder + SetAsFolder('Years') +
-            SetAsFolder('Icons') + aFileName;
+          aFilename := Config.CommonMediaFolder +
+            SetAsFolder('Years') + SetAsFolder('Icons') + aFileName;
         lvGMDeveloper, lvGMPublisher:
-          aFilename := Config.CommonMediaFolder + SetAsFolder('Companies') +
-            SetAsFolder('Icons') + aFileName;
+          aFilename := Config.CommonMediaFolder +
+            SetAsFolder('Companies') + SetAsFolder('Icons') + aFileName;
         lvGMTags:
           aFilename := Config.CommonMediaFolder + SetAsFolder('Tags') +
             SetAsFolder('Icons') + aFileName;
         else
           // This case must not happen
-          aFilename := GameManager.System.ImageFolders[
-            cbGameImages.ItemIndex] +
-            aFilename;
+          aFilename := GameManager.System.IconFolder + aFilename;
       end;
+    end
+    else
+    begin
+      if CurrGame <> nil then
+      begin
+        aFilename := GameManager.Group(CurrGame.GameGroup).MediaFileName;
+
+        if MessageDlg(rsFGMAssignToGroup, mtConfirmation,
+          [mbYes, mbNo], 0) = mrNo then
+          { TODO 2: Warn about a game can't have it's own file if
+             it has the same filename as used by group. }
+          aFilename := RemoveFromBrackets(CurrGame.FileName) + kCUVirtualGameExt;
+      end;
+
+      aFilename := GameManager.System.IconFolder + aFilename;
     end;
 
     SaveImageToFile(aPicture, aFileName);
@@ -2214,80 +2240,61 @@ begin
     FreeAndNil(aPicture);
   end;
 
-  // TODO 2: Actualizar icono en la lista...
+  // TODO 2: Update ions in game list...
 end;
 
 procedure TfrmGameManager.SaveGameText;
 var
   aFileName: string;
 begin
-  if (CurrGroup = nil) or (cbGameTexts.ItemIndex = -1) then
-    Exit;
+  if CurrGroup = nil then Exit;
 
-  // TODO 2: We must diferenciate between adding a new file
-  //   o overwrite existing one in folders mode.
-  //   By now, Emuteca always overwrite existing file.
+  aFilename := CurrGroup.MediaFileName;
 
-  if (GameTexts.Count <> 0) and
-    // Test if it is not in a compressed archive
-    (UTF8Pos(TempFolder, GameTexts[GameTextsIndex]) = 0) then
-  begin // File already exists
-    aFileName := GameTexts[GameTextsIndex];
+  if (CurrGame = nil) and (GroupMode in [lvGMYear, lvGMDeveloper,
+    lvGMPublisher, lvGMTags]) then
+  begin
+    // It's a group and special group mode
+    case GroupMode of
+      lvGMYear:
+        aFilename := Config.CommonMediaFolder +
+          SetAsFolder('Years') + SetAsFolder('Texts') + aFileName;
+      lvGMDeveloper, lvGMPublisher:
+        aFilename := Config.CommonMediaFolder +
+          SetAsFolder('Companies') + SetAsFolder('Texts') + aFileName;
+      lvGMTags:
+        aFilename := Config.CommonMediaFolder + SetAsFolder('Tags') +
+          SetAsFolder('Texts') + aFileName;
+      else
+        // This case must not happen
+        aFilename := GameManager.System.TextFolders[cbGameTexts.ItemIndex] + aFilename;
+    end;
   end
   else
-  begin // New file or it's in compressed archive
+  begin
+    if (cbGameTexts.ItemIndex = -1) then Exit;
 
-    aFilename := CurrGroup.MediaFileName;
-    if (CurrGame <> nil) or ((CurrGame = nil) and not
-      (GroupMode in [lvGMYear, lvGMDeveloper, lvGMTags])) then
+    aFilename := ExtractFileNameOnly(aFilename);
+
+    if CurrGame <> nil then
     begin
+      aFilename := ExtractFileNameOnly(GameManager.Group(CurrGame.GameGroup).MediaFileName);
 
-      if CurrGame <> nil then
-      begin
-        aFilename := GameManager.Group(CurrGame.GameGroup).MediaFileName;
-        if MessageDlg(rsFGMAssignToGroup, mtConfirmation,
-          [mbYes, mbNo], 0) = mrNo then
-        { TODO 1: Warn about a game can't have it's own file if
-          it has the same filename as group. }
-          aFilename := RemoveFromBrackets(CurrGame.FileName) + kCUVirtualGameExt;
-      end;
-
-      // Normal mode o folder mode...
-      if StrToBoolDef(GameManager.System.TextModes[cbGameTexts.ItemIndex],
-        False) then
-      begin // Folders mode
-        aFilename := SetAsFolder(
-          GameManager.System.TextModes[cbGameTexts.ItemIndex] +
-          ExtractFileNameOnly(aFilename));
-        ForceDirectoriesUTF8(aFilename);
-        // We need a unique filename...
-        aFilename := aFilename + FormatDateTime('yyyymmddhhnn', Now) +
-          kCUVirtualGameExt;
-      end
-      else
-        aFilename := GameManager.System.TextFolders[cbGameTexts.ItemIndex] +
-          aFilename;
-    end
-    else
-    begin
-      // Special GroupModes
-      case GroupMode of
-        lvGMYear:
-          aFilename := Config.CommonMediaFolder + SetAsFolder('Years') +
-            SetAsFolder('Texts') + aFileName;
-        lvGMDeveloper, lvGMPublisher:
-          aFilename := Config.CommonMediaFolder + SetAsFolder('Companies') +
-            SetAsFolder('Texts') + aFileName;
-        lvGMTags:
-          aFilename := Config.CommonMediaFolder + SetAsFolder('Tags') +
-            SetAsFolder('Texts') + aFileName;
-        else
-          // This case must not happen
-          aFilename := GameManager.System.ImageFolders[cbGameImages.ItemIndex] +
-            aFilename;
-      end;
+      if MessageDlg(rsFGMAssignToGroup, mtConfirmation, [mbYes, mbNo], 0) = mrNo then
+        { TODO 2: Warn about a game can't have it's own file if
+           it has the same filename as used by group. }
+        aFilename := RemoveFromBrackets(CurrGame.FileName);
     end;
+
+    // 'Filename' -> 'Folder/Filename/'
+    aFilename := SetAsFolder(
+      GameManager.System.TextFolders[cbGameTexts.ItemIndex] + aFilename);
+
+    // We need a unique filename... 'Folder/Filename/yyyymmddhhnnss.ext'
+    aFilename := aFilename + FormatDateTime('yyyymmddhhnnss', Now) +
+      kCUVirtualGameExt;
   end;
+
   SaveTextToFile(memoGame.Lines, aFileName);
 end;
 
@@ -2316,6 +2323,13 @@ begin
       mtConfirmation, [mbYes, mbNo], 0) = mrNo then
       Exit;
 
+  if not DirectoryExistsUTF8(aFilename) then
+    if MessageDlg(Format(rsFolderNotExists, [ExtractFilePath(aFilename)]),
+      mtConfirmation, [mbYes, mbNo], 0) = mrNo then
+      Exit
+    else
+      ForceDirectoriesUTF8(ExtractFilePath(aFilename));
+
   aPicture.SaveToFile(aFilename);
 end;
 
@@ -2334,6 +2348,13 @@ begin
     if MessageDlg(Format(rsFGMConfirmOverwriteFile, [aFilename]),
       mtConfirmation, [mbYes, mbNo], 0) = mrNo then
       Exit;
+
+  if not DirectoryExistsUTF8(aFilename) then
+    if MessageDlg(Format(rsFolderNotExists, [ExtractFilePath(aFilename)]),
+      mtConfirmation, [mbYes, mbNo], 0) = mrNo then
+      Exit
+    else
+      ForceDirectoriesUTF8(ExtractFilePath(aFilename));
 
   aText.SaveToFile(UTF8ToSys(aFilename));
 end;
@@ -2705,15 +2726,11 @@ begin
     // Aprovechamos las ventajas del cGameManager :P
     lvGMYear: GameManager.SearchGroupMedia(StrList,
         Config.CommonMediaFolder + SetAsFolder('Years') + SetAsFolder('Texts'),
-        aGameGroup, Config.TextExtensions, False, True);
-    lvGMDeveloper: GameManager.SearchGroupMedia(StrList,
+        aGameGroup, Config.TextExtensions);
+    lvGMDeveloper, lvGMPublisher: GameManager.SearchGroupMedia(StrList,
         Config.CommonMediaFolder + SetAsFolder('Companies') +
         SetAsFolder('Texts'),
-        aGameGroup, Config.TextExtensions, False, True);
-    lvGMPublisher: GameManager.SearchGroupMedia(StrList,
-        Config.CommonMediaFolder + SetAsFolder('Companies') +
-        SetAsFolder('Texts'),
-        aGameGroup, Config.TextExtensions, False, True);
+        aGameGroup, Config.TextExtensions);
     { In folder mode... search in default location...
     lvGMFolder: GameManager.SearchGroupMedia(StrList,
         Config.CommonMediaFolder + SetAsFolder('Folders') + SetAsFolder('Texts'),
@@ -2721,14 +2738,12 @@ begin
     }
     lvGMTags: GameManager.SearchGroupMedia(StrList,
         Config.CommonMediaFolder + SetAsFolder('Tags') + SetAsFolder('Texts'),
-        aGameGroup, Config.TextExtensions, False, True);
+        aGameGroup, Config.TextExtensions);
     else
       if cbGameTexts.ItemIndex > -1 then
         GameManager.SearchGroupMedia(StrList,
           GameManager.System.TextFolders[cbGameTexts.ItemIndex], aGameGroup,
-          Config.TextExtensions,
-          StrToBoolDef(GameManager.System.TextModes[cbGameTexts.ItemIndex],
-          False), True);
+          Config.TextExtensions);
   end;
 end;
 
@@ -2743,15 +2758,13 @@ begin
     lvGMYear: GameManager.SearchGroupMedia(StrList,
         Config.CommonMediaFolder + SetAsFolder('Years') +
         SetAsFolder('Images'),
-        aGameGroup, Config.ImageExtensions, False, True);
+        aGameGroup, Config.ImageExtensions);
     lvGMDeveloper: GameManager.SearchGroupMedia(StrList,
         Config.CommonMediaFolder + SetAsFolder('Companies') +
-        SetAsFolder('Images'), aGameGroup, Config.ImageExtensions,
-        False, True);
+        SetAsFolder('Images'), aGameGroup, Config.ImageExtensions);
     lvGMPublisher: GameManager.SearchGroupMedia(StrList,
         Config.CommonMediaFolder + SetAsFolder('Companies') +
-        SetAsFolder('Images'), aGameGroup, Config.ImageExtensions,
-        False, True);
+        SetAsFolder('Images'), aGameGroup, Config.ImageExtensions);
     { In folder mode... search in default location...
 
      lvGMFolder: GameManager.SearchGroupMedia(StrList,
@@ -2761,14 +2774,12 @@ begin
     }
     lvGMTags: GameManager.SearchGroupMedia(StrList,
         Config.CommonMediaFolder + SetAsFolder('Tags') + SetAsFolder('Images'),
-        aGameGroup, Config.ImageExtensions, False, True);
+        aGameGroup, Config.ImageExtensions);
     else  // By default, standard search
       if cbGameImages.ItemIndex > -1 then
         GameManager.SearchGroupMedia(StrList,
           GameManager.System.ImageFolders[cbGameImages.ItemIndex],
-          aGameGroup, Config.ImageExtensions,
-          StrToBoolDef(GameManager.System.ImageModes[cbGameImages.ItemIndex],
-          False), True);
+          aGameGroup, Config.ImageExtensions);
   end;
 end;
 
@@ -2778,8 +2789,7 @@ begin
   if cbGameTexts.ItemIndex > -1 then
     GameManager.SearchGameMedia(GameTexts,
       GameManager.System.TextFolders[cbGameTexts.ItemIndex], aGame,
-      Config.TextExtensions, StrToBoolDef(
-      GameManager.System.TextModes[cbGameTexts.ItemIndex], False), True);
+      Config.TextExtensions);
 end;
 
 procedure TfrmGameManager.SearchGameImage(aGame: cGame);
@@ -2788,8 +2798,7 @@ begin
   if cbGameImages.ItemIndex > -1 then
     GameManager.SearchGameMedia(GameImages,
       GameManager.System.ImageFolders[cbGameImages.ItemIndex], aGame,
-      Config.ImageExtensions, StrToBoolDef(
-      GameManager.System.ImageModes[cbGameImages.ItemIndex], False), True);
+      Config.ImageExtensions);
 end;
 
 procedure TfrmGameManager.SearchGames;
@@ -3253,6 +3262,11 @@ begin
   NextGameImage;
 end;
 
+procedure TfrmGameManager.actNextGameTextExecute(Sender: TObject);
+begin
+  NextGameText;
+end;
+
 procedure TfrmGameManager.actOpenEmutecaFolderExecute(Sender: TObject);
 begin
   OpenDocument(ProgramDirectory);
@@ -3320,6 +3334,11 @@ begin
   PreviousGameImage;
 end;
 
+procedure TfrmGameManager.actPreviousGameTextExecute(Sender: TObject);
+begin
+  PreviousGameText;
+end;
+
 procedure TfrmGameManager.actPurgeSystemDataExecute(Sender: TObject);
 begin
   if GameManager.System = nil then
@@ -3346,7 +3365,8 @@ begin
   try
     FormSM.Config := Self.Config;
     FormSM.GameManager := GameManager;
-    FormSM.ScriptFolder:= Config.ScriptsFolder + Config.GeneralScriptsSubFolder;
+    FormSM.ScriptFolder := Config.ScriptsFolder +
+      Config.GeneralScriptsSubFolder;
     FormSM.ShowModal;
   finally
     FreeAndNil(FormSM);
@@ -3686,7 +3706,7 @@ procedure TfrmGameManager.chkUpdateTreeAfterSavingChange(Sender: TObject);
 begin
   // TODO 3: We need something to check that a UpdateVTVGameList is needed...
   if chkUpdateTreeAfterSaving.Checked then
-   UpdateVTVGroupList;
+    UpdateVTVGroupList;
 end;
 
 procedure TfrmGameManager.ePropertiesKeyDown(Sender: TObject;

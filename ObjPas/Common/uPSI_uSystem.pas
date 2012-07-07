@@ -181,20 +181,12 @@ procedure cSystemDemoMusicFolder_R(Self: cSystem; var T: String);
 begin T := Self.DemoMusicFolder; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cSystemTextModes_R(Self: cSystem; var T: TStringList);
-begin T := Self.TextModes; end;
-
-(*----------------------------------------------------------------------------*)
 procedure cSystemTextCaptions_R(Self: cSystem; var T: TStringList);
 begin T := Self.TextCaptions; end;
 
 (*----------------------------------------------------------------------------*)
 procedure cSystemTextFolders_R(Self: cSystem; var T: TStringList);
 begin T := Self.TextFolders; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cSystemImageModes_R(Self: cSystem; var T: TStringList);
-begin T := Self.ImageModes; end;
 
 (*----------------------------------------------------------------------------*)
 procedure cSystemImageCaptions_R(Self: cSystem; var T: TStringList);
@@ -378,10 +370,8 @@ begin
     RegisterPropertyHelper(@cSystemMarqueeFolder_R,@cSystemMarqueeFolder_W,'MarqueeFolder');
     RegisterPropertyHelper(@cSystemImageFolders_R,nil,'ImageFolders');
     RegisterPropertyHelper(@cSystemImageCaptions_R,nil,'ImageCaptions');
-    RegisterPropertyHelper(@cSystemImageModes_R,nil,'ImageModes');
     RegisterPropertyHelper(@cSystemTextFolders_R,nil,'TextFolders');
     RegisterPropertyHelper(@cSystemTextCaptions_R,nil,'TextCaptions');
-    RegisterPropertyHelper(@cSystemTextModes_R,nil,'TextModes');
     RegisterPropertyHelper(@cSystemDemoMusicFolder_R,@cSystemDemoMusicFolder_W,'DemoMusicFolder');
     RegisterPropertyHelper(@cSystemMusicFolders_R,nil,'MusicFolders');
     RegisterPropertyHelper(@cSystemMusicCaptions_R,nil,'MusicCaptions');

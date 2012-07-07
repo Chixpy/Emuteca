@@ -48,9 +48,7 @@ type
     FDataFile: String;
     FDemoMusicFolder: String;
     FDemoVideoFolder: String;
-    FImageModes: TStringList;
     FMarqueeFolder: String;
-    FMusicModes: TStringList;
     FMusicParameters: TStringList;
     FOtherEmulators: TStringList;
     FEnabled: boolean;
@@ -77,13 +75,11 @@ type
     FInfoText: String;
     FTextCaptions: TStringList;
     FTextFolders: TStringList;
-    FTextModes: TStringList;
     FUseCRC: boolean;
     FVideoCaptions: TStringList;
     FVideoExecutables: TStringList;
     FVideoExtensions: TStringList;
     FVideoFolders: TStringList;
-    FVideoModes: TStringList;
     FVideoParameters: TStringList;
     procedure SetBackgroundImage(AValue: String);
     procedure SetBaseFolder(const AValue: String);
@@ -110,7 +106,7 @@ type
     procedure SetInfoText(const AValue: String);
     procedure SetUseCRC(const AValue: boolean);
   protected
-    procedure FixFolderListData(FolderList, CaptionList, ModeList: TStrings);
+    procedure FixFolderListData(FolderList, CaptionList: TStrings);
     {< Try to fix some incosistences in folders, captions and modes data.
 
     FolderList, CaptionList and ModeList must be the images or texts ones.
@@ -185,36 +181,11 @@ type
     //< Folders for the game images.
     property ImageCaptions: TStringList read FImageCaptions;
     //< Captions for the folders of game's images.
-    property ImageModes: TStringList read FImageModes;
-    {< File search mode for the folders of game's images.
 
-      @definitionList(
-        @itemLabel("0")
-        @item(Single image. Search in the folder only one image file with
-          the game's name.)
-
-        @itemLabel("1")
-        @item(Multiple image. Search in the folder all files in a subfolder
-          with the game's name. Something like MAME's style.)
-      )
-    }
     property TextFolders: TStringList read FTextFolders;
     //< Folders for game texts.
     property TextCaptions: TStringList read FTextCaptions;
     //< Captions for the folders of game's texts.
-    property TextModes: TStringList read FTextModes;
-    {< Text search mode for the folders of game's text.
-
-      @definitionList(
-        @itemLabel("0")
-        @item(Single text. Search in the folder only one text file with
-          the game's name.)
-
-        @itemLabel("1")
-        @item(Multiple texts. Search in the folder all files in a subfolder
-          with the game's name. Something like MAME's style.)
-      )
-    }
 
     property DemoMusicFolder: String
       read FDemoMusicFolder write SetDemoMusicFolder;
@@ -233,19 +204,6 @@ type
     //< Executables for play music files (i.e. call a external program).
     property MusicParameters: TStringList read FMusicParameters;
     //< Parameter for executables.
-    property MusicModes: TStringList read FMusicModes;
-    {< Music search mode for the folders of game's music.
-
-    @definitionList(
-      @itemLabel("0")
-      @item(Single music file. Search in the folder only one text file with
-        the game's name.)
-
-      @itemLabel("1")
-      @item(Multiple music files. Search in the folder all files in a subfolder
-        with the game's name. Something like MAME's style.)
-    )
-    }
 
     property DemoVideoFolder: String
       read FDemoVideoFolder write SetDemoVideoFolder;
@@ -264,19 +222,6 @@ type
     //< Commandline for play video files (i.e. call a external program).
     property VideoParameters: TStringList read FVideoParameters;
     //< Parameters for executables.
-    property VideoModes: TStringList read FVideoModes;
-    {< Video search mode for the folders of game's music.
-
-      @definitionList(
-        @itemLabel("0")
-        @item(Single text. Search in the folder only one video file with
-          the game's name.)
-
-        @itemLabel("1")
-        @item(Multiple texts. Search in the folder all files in a subfolder
-          with the game's name. Something like MAME's style.)
-      )
-    }
 
     property MainEmulator: String
       read FMainEmulator write SetMainEmulator;
@@ -453,8 +398,7 @@ begin
   FUseCRC := AValue;
 end;
 
-procedure cSystem.FixFolderListData(FolderList, CaptionList,
-  ModeList: TStrings);
+procedure cSystem.FixFolderListData(FolderList, CaptionList: TStrings);
 var
   i: integer;
 begin
@@ -483,20 +427,6 @@ begin
 
   while FolderList.Count < CaptionList.Count do
     CaptionList.Delete(CaptionList.Count - 1);
-
-  // Modes
-  if FolderList.Count > ModeList.Count then
-  begin
-    i := ModeList.Count;
-    while i < FolderList.Count do
-    begin
-      ModeList.Add(BoolToStr(False));
-      Inc(i);
-    end;
-  end;
-
-  while FolderList.Count < ModeList.Count do
-    ModeList.Delete(ModeList.Count - 1);
 end;
 
 procedure cSystem.LoadFromFile(const IniFile: String);
@@ -546,16 +476,13 @@ begin
   MarqueeFolder := IniFile.ReadString(ID, 'MarqueeFolder', MarqueeFolder);
   ImageFolders.CommaText := IniFile.ReadString(ID, 'ImageFolders', ImageFolders.CommaText);
   ImageCaptions.CommaText := IniFile.ReadString(ID, 'ImageCaptions', ImageCaptions.CommaText);
-  ImageModes.CommaText := IniFile.ReadString(ID, 'ImageModes', ImageModes.CommaText);
 
   TextFolders.CommaText := IniFile.ReadString(ID, 'TextFolders', TextFolders.CommaText);
   TextCaptions.CommaText :=IniFile.ReadString(ID, 'TextCaptions', TextCaptions.CommaText);
-  TextModes.CommaText := IniFile.ReadString(ID, 'TextModes', TextModes.CommaText);
 
   DemoMusicFolder := IniFile.ReadString(ID, 'DemoMusicFolder', DemoMusicFolder);
   MusicFolders.CommaText := IniFile.ReadString(ID, 'MusicFolders', MusicFolders.CommaText);
   MusicCaptions.CommaText := IniFile.ReadString(ID, 'MusicCaptions', MusicCaptions.CommaText);
-  MusicModes.CommaText := IniFile.ReadString(ID, 'MusicModes', MusicModes.CommaText);
   MusicExtensions.CommaText := IniFile.ReadString(ID, 'MusicExtensions', MusicExtensions.CommaText);
   MusicExecutables.CommaText := IniFile.ReadString(ID, 'MusicExecutables', MusicExecutables.CommaText);
   MusicParameters.CommaText := IniFile.ReadString(ID, 'MusicParameters', MusicParameters.CommaText);
@@ -563,7 +490,6 @@ begin
   DemoVideoFolder := IniFile.ReadString(ID, 'DemoVideoFolder', DemoVideoFolder);
   VideoFolders.CommaText := IniFile.ReadString(ID, 'VideoFolders', VideoFolders.CommaText);
   VideoCaptions.CommaText := IniFile.ReadString(ID, 'VideoCaptions', VideoCaptions.CommaText);
-  VideoModes.CommaText := IniFile.ReadString(ID, 'VideoModes', VideoModes.CommaText);
   VideoExtensions.CommaText := IniFile.ReadString(ID, 'VideoExtensions', VideoExtensions.CommaText);
   VideoExecutables.CommaText := IniFile.ReadString(ID, 'VideoExecutables', VideoExecutables.CommaText);
   VideoParameters.CommaText := IniFile.ReadString(ID, 'VideoParameters', VideoParameters.CommaText);
@@ -572,16 +498,16 @@ begin
   OtherEmulators.CommaText := IniFile.ReadString(ID, 'OtherEmulators', OtherEmulators.CommaText);
 
   // Reparamos posibles incosistencias...
-  FixFolderListData(ImageFolders, ImageCaptions, ImageModes);
-  FixFolderListData(TextFolders, TextCaptions, TextModes);
+  FixFolderListData(ImageFolders, ImageCaptions);
+  FixFolderListData(TextFolders, TextCaptions);
 
   // TODO 4: Ough...
-  FixFolderListData(MusicFolders, MusicCaptions, MusicModes);
-  FixFolderListData(MusicFolders, MusicExtensions, MusicModes);
-  FixFolderListData(MusicFolders, MusicExecutables, MusicModes);
-  FixFolderListData(VideoFolders, VideoCaptions, VideoModes);
-  FixFolderListData(VideoFolders, VideoExtensions, VideoModes);
-  FixFolderListData(VideoFolders, VideoExecutables, VideoModes);
+  FixFolderListData(MusicFolders, MusicCaptions);
+  FixFolderListData(MusicFolders, MusicExtensions);
+  FixFolderListData(MusicFolders, MusicExecutables);
+  FixFolderListData(VideoFolders, VideoCaptions);
+  FixFolderListData(VideoFolders, VideoExtensions);
+  FixFolderListData(VideoFolders, VideoExecutables);
 end;
 
 procedure cSystem.SaveToFile(const IniFile: String;
@@ -602,8 +528,8 @@ procedure cSystem.SaveToFileIni(IniFile: TCustomIniFile;
   const ExportMode: boolean);
 begin
   // Reparamos posibles incosistencias...
-  FixFolderListData(ImageFolders, ImageCaptions, ImageModes);
-  FixFolderListData(TextFolders, TextCaptions, TextModes);
+  FixFolderListData(ImageFolders, ImageCaptions);
+  FixFolderListData(TextFolders, TextCaptions);
 
   if IniFile = nil then
     Exit;
@@ -679,10 +605,8 @@ begin
     IniFile.WriteString(ID, 'MarqueeFolder', MarqueeFolder);
     IniFile.WriteString(ID, 'ImageFolders', ImageFolders.CommaText);
     IniFile.WriteString(ID, 'ImageCaptions', ImageCaptions.CommaText);
-    IniFile.WriteString(ID, 'ImageModes', ImageModes.CommaText);
     IniFile.WriteString(ID, 'TextFolders', TextFolders.CommaText);
     IniFile.WriteString(ID, 'TextCaptions', TextCaptions.CommaText);
-    IniFile.WriteString(ID, 'TextModes', TextModes.CommaText);
 
     IniFile.WriteString(ID, 'DemoMusicFolder', DemoMusicFolder);
     IniFile.WriteString(ID, 'MusicFolders', MusicFolders.CommaText);
@@ -717,17 +641,14 @@ begin
 
   Self.FImageCaptions := TStringList.Create;
   Self.FImageFolders := TStringList.Create;
-  Self.FImageModes := TStringList.Create;
 
   Self.FTextCaptions := TStringList.Create;
   Self.FTextFolders := TStringList.Create;
-  Self.FTextModes := TStringList.Create;
 
   Self.FMusicCaptions := TStringList.Create;
   Self.FMusicExtensions := TStringList.Create;
   Self.FMusicExtensions.CaseSensitive := False;
   Self.FMusicFolders := TStringList.Create;
-  Self.FMusicModes := TStringList.Create;
   Self.FMusicExecutables := TStringList.Create;
   Self.FMusicParameters := TStringList.Create;
 
@@ -735,7 +656,6 @@ begin
   Self.FVideoExtensions := TStringList.Create;
   Self.FVideoExtensions.CaseSensitive := False;
   Self.FVideoFolders := TStringList.Create;
-  Self.FVideoModes := TStringList.Create;
   Self.FVideoExecutables := TStringList.Create;
   Self.FVideoParameters := TStringList.Create;
 end;
@@ -747,23 +667,19 @@ begin
 
   FreeAndNil(Self.FImageCaptions);
   FreeAndNil(Self.FImageFolders);
-  FreeAndNil(Self.FImageModes);
 
   FreeAndNil(Self.FTextCaptions);
   FreeAndNil(Self.FTextFolders);
-  FreeAndNil(Self.FTextModes);
 
   FreeAndNil(Self.FMusicCaptions);
   FreeAndNil(Self.FMusicExtensions);
   FreeAndNil(Self.FMusicFolders);
-  FreeAndNil(Self.FMusicModes);
   FreeAndNil(Self.FMusicExecutables);
   FreeAndNil(Self.FMusicParameters);
 
   FreeAndNil(Self.FVideoCaptions);
   FreeAndNil(Self.FVideoExtensions);
   FreeAndNil(Self.FVideoFolders);
-  FreeAndNil(Self.FVideoModes);
   FreeAndNil(Self.FVideoExecutables);
   FreeAndNil(Self.FVideoParameters);
 
