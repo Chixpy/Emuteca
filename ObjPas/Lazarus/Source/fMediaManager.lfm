@@ -1,7 +1,7 @@
 object frmMediaManager: TfrmMediaManager
-  Left = 558
+  Left = 321
   Height = 571
-  Top = 90
+  Top = 117
   Width = 800
   Caption = 'Media Manager'
   ClientHeight = 552
@@ -148,65 +148,29 @@ object frmMediaManager: TfrmMediaManager
       TabOrder = 1
       object pFileOperations: TPanel
         Left = 0
-        Height = 23
-        Top = 239
+        Height = 17
+        Top = 245
         Width = 440
         Align = alBottom
         AutoSize = True
         BevelOuter = bvNone
-        ClientHeight = 23
+        ClientHeight = 17
         ClientWidth = 440
         TabOrder = 0
-        object bDeleteFile: TButton
-          Left = 365
-          Height = 23
-          Top = 0
-          Width = 75
-          Action = actDeleteFile
-          Align = alRight
-          TabOrder = 0
-        end
-        object bDeleteAllFiles: TButton
-          Left = 290
-          Height = 23
-          Top = 0
-          Width = 75
-          Action = actDeleteAllFiles
-          Align = alRight
-          TabOrder = 1
-        end
-        object bMoveAllFiles: TButton
-          Left = 75
-          Height = 23
-          Top = 0
-          Width = 75
-          Action = actMoveAllFiles
-          Align = alLeft
-          TabOrder = 2
-        end
-        object bMoveFile: TButton
-          Left = 0
-          Height = 23
-          Top = 0
-          Width = 75
-          Action = actMoveFile
-          Align = alLeft
-          TabOrder = 3
-        end
         object chkOnlySimilar: TCheckBox
-          Left = 150
-          Height = 23
+          Left = 0
+          Height = 17
           Top = 0
-          Width = 140
+          Width = 440
           Align = alClient
           Caption = 'Only similar file names'
           OnChange = chkOnlySimilarChange
-          TabOrder = 4
+          TabOrder = 0
         end
       end
       object pcSource: TPageControl
         Left = 0
-        Height = 239
+        Height = 219
         Top = 0
         Width = 440
         ActivePage = pagAllFiles
@@ -215,11 +179,11 @@ object frmMediaManager: TfrmMediaManager
         TabOrder = 1
         object pagAllFiles: TTabSheet
           Caption = 'All files'
-          ClientHeight = 213
+          ClientHeight = 193
           ClientWidth = 432
           object vstAllFiles: TVirtualStringTree
             Left = 0
-            Height = 213
+            Height = 193
             Top = 0
             Width = 432
             Align = alClient
@@ -235,6 +199,7 @@ object frmMediaManager: TfrmMediaManager
             Header.DefaultHeight = 17
             Header.Options = [hoColumnResize, hoDrag, hoShowSortGlyphs, hoVisible]
             Header.Style = hsPlates
+            PopupMenu = pmFileList
             TabOrder = 0
             TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScrollOnExpand, toAutoSort, toAutoTristateTracking, toAutoDeleteMovedNodes]
             TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toReportMode, toToggleOnDblClick, toWheelPanning]
@@ -251,11 +216,11 @@ object frmMediaManager: TfrmMediaManager
         end
         object pagOtherFiles: TTabSheet
           Caption = 'Other files'
-          ClientHeight = 213
+          ClientHeight = 193
           ClientWidth = 432
           object vstOtherFiles: TVirtualStringTree
             Left = 0
-            Height = 213
+            Height = 193
             Top = 0
             Width = 432
             Align = alClient
@@ -271,6 +236,7 @@ object frmMediaManager: TfrmMediaManager
             Header.DefaultHeight = 17
             Header.Options = [hoColumnResize, hoDrag, hoShowSortGlyphs, hoVisible]
             Header.Style = hsPlates
+            PopupMenu = pmFileList
             TabOrder = 0
             TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScrollOnExpand, toAutoSort, toAutoTristateTracking, toAutoDeleteMovedNodes]
             TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toReportMode, toToggleOnDblClick, toWheelPanning]
@@ -287,11 +253,11 @@ object frmMediaManager: TfrmMediaManager
         end
         object pagFilesWOGroup: TTabSheet
           Caption = 'Files without group'
-          ClientHeight = 213
+          ClientHeight = 193
           ClientWidth = 432
           object vstFilesWOGroup: TVirtualStringTree
             Left = 0
-            Height = 213
+            Height = 193
             Top = 0
             Width = 432
             Align = alClient
@@ -307,6 +273,7 @@ object frmMediaManager: TfrmMediaManager
             Header.DefaultHeight = 17
             Header.Options = [hoColumnResize, hoDrag, hoShowSortGlyphs, hoVisible]
             Header.Style = hsPlates
+            PopupMenu = pmFileList
             TabOrder = 0
             TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScrollOnExpand, toAutoSort, toAutoTristateTracking, toAutoDeleteMovedNodes]
             TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toReportMode, toToggleOnDblClick, toWheelPanning]
@@ -323,11 +290,11 @@ object frmMediaManager: TfrmMediaManager
         end
         object pagFilesWOGame: TTabSheet
           Caption = 'Files without game'
-          ClientHeight = 213
+          ClientHeight = 193
           ClientWidth = 432
           object vstFilesWOGame: TVirtualStringTree
             Left = 0
-            Height = 213
+            Height = 193
             Top = 0
             Width = 432
             Align = alClient
@@ -344,6 +311,7 @@ object frmMediaManager: TfrmMediaManager
             Header.DefaultHeight = 17
             Header.Options = [hoColumnResize, hoDrag, hoShowSortGlyphs, hoVisible]
             Header.Style = hsPlates
+            PopupMenu = pmFileList
             TabOrder = 0
             TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScrollOnExpand, toAutoSort, toAutoTristateTracking, toAutoDeleteMovedNodes]
             TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toReportMode, toToggleOnDblClick, toWheelPanning]
@@ -360,12 +328,12 @@ object frmMediaManager: TfrmMediaManager
         end
         object pagFilesOtherFolder: TTabSheet
           Caption = 'Files in other folder'
-          ClientHeight = 213
+          ClientHeight = 193
           ClientWidth = 432
           object pOtherFolder: TPanel
             Left = 0
             Height = 21
-            Top = 192
+            Top = 172
             Width = 432
             Align = alBottom
             AutoSize = True
@@ -392,7 +360,7 @@ object frmMediaManager: TfrmMediaManager
           end
           object vstFilesOtherFolder: TVirtualStringTree
             Left = 0
-            Height = 192
+            Height = 172
             Top = 0
             Width = 432
             Align = alClient
@@ -409,6 +377,7 @@ object frmMediaManager: TfrmMediaManager
             Header.DefaultHeight = 17
             Header.Options = [hoColumnResize, hoDrag, hoShowSortGlyphs, hoVisible]
             Header.Style = hsPlates
+            PopupMenu = pmFileList
             TabOrder = 1
             TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScrollOnExpand, toAutoSort, toAutoTristateTracking, toAutoDeleteMovedNodes]
             TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toReportMode, toToggleOnDblClick, toWheelPanning]
@@ -422,6 +391,45 @@ object frmMediaManager: TfrmMediaManager
             OnKeyDown = vstFilesKeyDown
             OnKeyPress = vstFilesKeyPress
           end
+        end
+      end
+      object ToolBarFiles: TToolBar
+        Left = 0
+        Height = 26
+        Top = 219
+        Width = 440
+        Align = alBottom
+        Caption = 'ToolBar'
+        EdgeInner = esNone
+        EdgeOuter = esNone
+        Images = ilActions
+        TabOrder = 2
+        object bMoveFile: TToolButton
+          Left = 1
+          Top = 0
+          Action = actMoveFile
+        end
+        object bMoveAllFiles: TToolButton
+          Left = 24
+          Top = 0
+          Action = actMoveAllFiles
+        end
+        object bTBSep1: TToolButton
+          Left = 47
+          Top = 0
+          Width = 10
+          Caption = 'bTBSep1'
+          Style = tbsSeparator
+        end
+        object bDeleteFile: TToolButton
+          Left = 57
+          Top = 0
+          Action = actDeleteFile
+        end
+        object bDeleteAllFiles: TToolButton
+          Left = 80
+          Top = 0
+          Action = actDeleteAllFiles
         end
       end
     end
@@ -440,9 +448,9 @@ object frmMediaManager: TfrmMediaManager
         Height = 237
         Top = 0
         Width = 440
-        ActivePage = pagAllGroups
+        ActivePage = pagGroupsWOFile
         Align = alClient
-        TabIndex = 0
+        TabIndex = 2
         TabOrder = 0
         object pagAllGroups: TTabSheet
           Caption = 'All groups'
@@ -471,6 +479,7 @@ object frmMediaManager: TfrmMediaManager
             Header.DefaultHeight = 17
             Header.Options = [hoColumnResize, hoDrag, hoShowSortGlyphs, hoVisible]
             Header.Style = hsPlates
+            PopupMenu = pmGroupList
             TabOrder = 0
             TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScrollOnExpand, toAutoSort, toAutoTristateTracking, toAutoDeleteMovedNodes]
             TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toReportMode, toToggleOnDblClick, toWheelPanning]
@@ -531,11 +540,11 @@ object frmMediaManager: TfrmMediaManager
         end
         object pagGroupsWOFile: TTabSheet
           Caption = 'Groups without file'
-          ClientHeight = 180
+          ClientHeight = 211
           ClientWidth = 432
           object vstGroupsWOFile: TVirtualStringTree
             Left = 0
-            Height = 180
+            Height = 211
             Top = 0
             Width = 432
             Align = alClient
@@ -556,6 +565,7 @@ object frmMediaManager: TfrmMediaManager
             Header.DefaultHeight = 17
             Header.Options = [hoColumnResize, hoDrag, hoShowSortGlyphs, hoVisible]
             Header.Style = hsPlates
+            PopupMenu = pmGroupList
             TabOrder = 0
             TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScrollOnExpand, toAutoSort, toAutoTristateTracking, toAutoDeleteMovedNodes]
             TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toReportMode, toToggleOnDblClick, toWheelPanning]
@@ -720,7 +730,7 @@ object frmMediaManager: TfrmMediaManager
     left = 232
     top = 101
     object actChangeFileName: TAction
-      Category = 'File operations'
+      Category = 'FileLists'
       Caption = 'Assign file'
       OnExecute = actChangeFileNameExecute
     end
@@ -730,23 +740,24 @@ object frmMediaManager: TfrmMediaManager
       OnExecute = actOpenImagesExecute
     end
     object actDeleteFile: TAction
-      Category = 'File operations'
+      Category = 'FileLists'
       Caption = 'Delete file'
       OnExecute = actDeleteFileExecute
     end
     object actDeleteAllFiles: TAction
-      Category = 'File operations'
-      Caption = 'Delete all'
+      Category = 'FileLists'
+      Caption = 'Delete all listed files'
+      Hint = 'Deletes all visible (i.e not hidden) files in the list'
       OnExecute = actDeleteAllFilesExecute
     end
     object actMoveFile: TAction
-      Category = 'File operations'
-      Caption = 'Move file'
+      Category = 'FileLists'
+      Caption = 'Move file...'
       OnExecute = actMoveFileExecute
     end
     object actMoveAllFiles: TAction
-      Category = 'File operations'
-      Caption = 'Move all'
+      Category = 'FileLists'
+      Caption = 'Move all files...'
       OnExecute = actMoveAllFilesExecute
     end
     object actNextMedia: TAction
@@ -760,14 +771,22 @@ object frmMediaManager: TfrmMediaManager
       OnExecute = actPreviousMediaExecute
     end
     object actOpenTargetFolder: TAction
-      Category = 'File operations'
+      Category = 'FileLists'
       Caption = 'Open target folder...'
       OnExecute = actOpenTargetFolderExecute
     end
     object actOpenSourceFolder: TAction
-      Category = 'File operations'
+      Category = 'FileLists'
       Caption = 'Open source folder...'
       OnExecute = actOpenSourceFolderExecute
+    end
+    object actRenameGroup: TAction
+      Category = 'GroupLists'
+      Caption = 'Rename group'
+    end
+    object actRenameGroupMediaFile: TAction
+      Category = 'GroupLists'
+      Caption = 'Rename group mediafile'
     end
   end
   object pmImage: TPopupMenu
@@ -789,11 +808,30 @@ object frmMediaManager: TfrmMediaManager
   object pmFileList: TPopupMenu
     left = 272
     top = 168
-    object MenuItem1: TMenuItem
-      Caption = 'New Item1'
+    object miFLAssign: TMenuItem
+      Action = actChangeFileName
+    end
+    object miFLSep1: TMenuItem
+      Caption = '-'
+    end
+    object miFLMoveFile: TMenuItem
+      Action = actMoveFile
+    end
+    object miMoveAllFiles: TMenuItem
+      Action = actMoveAllFiles
+    end
+    object miFLSep2: TMenuItem
+      Caption = '-'
+    end
+    object miFLDeleteFile: TMenuItem
+      Action = actDeleteFile
+    end
+    object miFLDeleteAll: TMenuItem
+      Action = actDeleteAllFiles
     end
   end
   object mmMediaManager: TMainMenu
+    Images = ilActions
     left = 357
     top = 93
     object miMMSystem: TMenuItem
@@ -804,6 +842,40 @@ object frmMediaManager: TfrmMediaManager
       object miOpenMediaFolder: TMenuItem
         Action = actOpenTargetFolder
       end
+    end
+    object miMMMMFile: TMenuItem
+      Caption = 'File'
+      object miMMMMAssingFile: TMenuItem
+        Action = actChangeFileName
+      end
+      object miMMMMSep1: TMenuItem
+        Caption = '-'
+      end
+      object miMMMMMoveFile: TMenuItem
+        Action = actMoveFile
+      end
+      object miMMMMMoveAllFiles: TMenuItem
+        Action = actMoveAllFiles
+      end
+      object miMMMMSep2: TMenuItem
+        Caption = '-'
+      end
+      object miMMMMDeleteFile: TMenuItem
+        Action = actDeleteFile
+      end
+      object miMMMMDeleteAllFiles: TMenuItem
+        Action = actDeleteAllFiles
+      end
+    end
+  end
+  object pmGroupList: TPopupMenu
+    left = 288
+    top = 374
+    object miGLRenameGroup: TMenuItem
+      Action = actRenameGroup
+    end
+    object miGLRenameGroupMediaFile: TMenuItem
+      Action = actRenameGroupMediaFile
     end
   end
 end

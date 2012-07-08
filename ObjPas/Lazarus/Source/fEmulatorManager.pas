@@ -28,18 +28,15 @@ interface
 uses
   Classes, SysUtils, FileUtil, LResources, Forms,
   Controls, Graphics, Dialogs, ExtCtrls, ComCtrls, CheckLst, ActnList, Buttons,
-  StdCtrls, EditBtn, Spin,
+  StdCtrls, EditBtn, Spin, Menus,
   uEmulator, uEmulatorManager, uConfig, uCustomUtils;
 
 const
   kFEMEmulatorsFileExt = '.ini';
 
 resourcestring
-rsSelectEmulator = 'Select an emulator.';
-      rsEmulatorName = 'Emulator name';
-      rsEmulatorIniFilter = 'Emulators Ini File';
-
-
+  rsEmulatorName = 'Emulator name';
+  rsEmulatorIniFilter = 'Emulators Ini File';
 
 
 type
@@ -89,12 +86,19 @@ type
     lInfoFile: TLabel;
     lParameters: TLabel;
     lWebPage: TLabel;
+    miMMEMImportEmulatorList: TMenuItem;
+    miMMEMExportEmulatorList: TMenuItem;
+    miMMEMELSep1: TMenuItem;
+    miMMEMRemoveEmulator: TMenuItem;
+    miMMEMAddEmulator: TMenuItem;
+    miMMEMList: TMenuItem;
+    miMMEMEmulator: TMenuItem;
+    mmEmulatorManager: TMainMenu;
     mParametersHelp: TMemo;
     OpenDialog: TOpenDialog;
     pcEmulatorConfig: TPageControl;
     pInfoFile: TPanel;
     pnlButtons: TPanel;
-    pnlEmulator: TPanel;
     pnlEmulators: TPanel;
     rgWorkingFolder: TRadioGroup;
     SaveDialog: TSaveDialog;
@@ -117,22 +121,23 @@ type
     procedure btnOKClick(Sender: TObject);
     procedure clbEmulatorsClick(Sender: TObject);
     procedure clbEmulatorsItemClick(Sender: TObject; Index: integer);
-    procedure eConfigFileAcceptFileName(Sender: TObject; var Value: String);
+    procedure eConfigFileAcceptFileName(Sender: TObject; var Value: string);
     procedure eConfigFileEditingDone(Sender: TObject);
     procedure eEmulatorAuthorEditingDone(Sender: TObject);
-    procedure eEmulatorIconAcceptFileName(Sender: TObject; var Value: String);
+    procedure eEmulatorIconAcceptFileName(Sender: TObject; var Value: string);
     procedure eEmulatorIconEditingDone(Sender: TObject);
-    procedure eEmulatorImageAcceptFileName(Sender: TObject; var Value: String);
+    procedure eEmulatorImageAcceptFileName(Sender: TObject; var Value: string);
     procedure eEmulatorImageEditingDone(Sender: TObject);
     procedure eEmulatorNameEditingDone(Sender: TObject);
-    procedure eExecutableAcceptFileName(Sender: TObject; var Value: String);
+    procedure eExecutableAcceptFileName(Sender: TObject; var Value: string);
     procedure eExecutableEditingDone(Sender: TObject);
     procedure eExitCodeEditingDone(Sender: TObject);
-    procedure eInfoFileAcceptFileName(Sender: TObject; var Value: String);
+    procedure eInfoFileAcceptFileName(Sender: TObject; var Value: string);
     procedure eInfoFileEditingDone(Sender: TObject);
     procedure eParametersEditingDone(Sender: TObject);
     procedure eWebPageEditingDone(Sender: TObject);
-    procedure eWorkingFolderAcceptDirectory(Sender: TObject; var Value: String);
+    procedure eWorkingFolderAcceptDirectory(Sender: TObject;
+      var Value: string);
     procedure eWorkingFolderEditingDone(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -151,7 +156,7 @@ type
     property Emulator: cEmulator read FEmulator write SetEmulator;
     {< Current selected emulator }
 
-    procedure ChangeImage(const aFileName: String; aImage: TImage);
+    procedure ChangeImage(const aFileName: string; aImage: TImage);
     {< Changes the aImage picture or show the default if aFileName don't exists.
 
     @param aFileName Image file
@@ -193,7 +198,7 @@ begin
 end;
 
 procedure TfrmEmulatorManager.eConfigFileAcceptFileName(Sender: TObject;
-  var Value: String);
+  var Value: string);
 begin
   if Emulator = nil then
     Exit;
@@ -202,11 +207,12 @@ end;
 
 procedure TfrmEmulatorManager.actAddEmulatorExecute(Sender: TObject);
 var
-  EmulatorID: String;
+  EmulatorID: string;
   aEmulator: cEmulator;
 begin
   EmulatorID := Trim(InputBox(actAddEmulator.Caption, rsEmulatorName, ''));
-  if EmulatorID = '' then Exit;
+  if EmulatorID = '' then
+    Exit;
 
   aEmulator := EmulatorManager.AddEmulator(EmulatorID);
   if aEmulator <> nil then
@@ -220,21 +226,27 @@ end;
 
 procedure TfrmEmulatorManager.actExportEmulatorsExecute(Sender: TObject);
 begin
-  if EmulatorManager = nil then Exit;
+  if EmulatorManager = nil then
+    Exit;
 
-  SaveDialog.Filter := rsEmulatorIniFilter + '(*' + kFEMEmulatorsFileExt + ')|*' + kFEMEmulatorsFileExt;
+  SaveDialog.Filter := rsEmulatorIniFilter + '(*' +
+    kFEMEmulatorsFileExt + ')|*' + kFEMEmulatorsFileExt;
   SaveDialog.DefaultExt := kFEMEmulatorsFileExt;
-  if not SaveDialog.Execute then Exit;
+  if not SaveDialog.Execute then
+    Exit;
   EmulatorManager.ExportEmulatorsFile(SaveDialog.FileName, True);
 end;
 
 procedure TfrmEmulatorManager.actImportEmulatorsExecute(Sender: TObject);
 begin
-  if EmulatorManager = nil then Exit;
+  if EmulatorManager = nil then
+    Exit;
 
-  OpenDialog.Filter := rsEmulatorIniFilter + '(*' + kFEMEmulatorsFileExt + ')|*' + kFEMEmulatorsFileExt;
+  OpenDialog.Filter := rsEmulatorIniFilter + '(*' +
+    kFEMEmulatorsFileExt + ')|*' + kFEMEmulatorsFileExt;
   OpenDialog.DefaultExt := kFEMEmulatorsFileExt;
-  if not OpenDialog.Execute then Exit;
+  if not OpenDialog.Execute then
+    Exit;
   EmulatorManager.ImportEmulatorsFile(OpenDialog.FileName);
   LoadEmulatorList;
 end;
@@ -243,7 +255,8 @@ procedure TfrmEmulatorManager.actRemoveEmulatorExecute(Sender: TObject);
 var
   Prev: integer;
 begin
-  if EmulatorManager = nil then Exit;
+  if EmulatorManager = nil then
+    Exit;
   if clbEmulators.ItemIndex = -1 then
     Exit;
   EmulatorManager.RemoveEmulator(clbEmulators.Items[clbEmulators.ItemIndex]);
@@ -278,7 +291,7 @@ begin
 end;
 
 procedure TfrmEmulatorManager.eEmulatorIconAcceptFileName(Sender: TObject;
-  var Value: String);
+  var Value: string);
 begin
   if Emulator = nil then
     Exit;
@@ -295,7 +308,7 @@ begin
 end;
 
 procedure TfrmEmulatorManager.eEmulatorImageAcceptFileName(Sender: TObject;
-  var Value: String);
+  var Value: string);
 begin
   if Emulator = nil then
     Exit;
@@ -319,15 +332,17 @@ begin
 end;
 
 procedure TfrmEmulatorManager.eExecutableAcceptFileName(Sender: TObject;
-  var Value: String);
+  var Value: string);
 begin
-  if Emulator = nil then Exit;
+  if Emulator = nil then
+    Exit;
   Emulator.ExeFile := Value;
 end;
 
 procedure TfrmEmulatorManager.eExecutableEditingDone(Sender: TObject);
 begin
-  if Emulator = nil then Exit;
+  if Emulator = nil then
+    Exit;
   Emulator.ExeFile := eExecutable.Text;
 end;
 
@@ -337,7 +352,7 @@ begin
 end;
 
 procedure TfrmEmulatorManager.eInfoFileAcceptFileName(Sender: TObject;
-  var Value: String);
+  var Value: string);
 begin
   if Emulator = nil then
     Exit;
@@ -366,7 +381,7 @@ begin
 end;
 
 procedure TfrmEmulatorManager.eWorkingFolderAcceptDirectory(Sender: TObject;
-  var Value: String);
+  var Value: string);
 begin
   if Emulator = nil then
     Exit;
@@ -412,8 +427,8 @@ procedure TfrmEmulatorManager.SetConfig(const AValue: cConfig);
 
   procedure Translate;
   begin
-      // Título y paneles
-      Self.Caption := Application.Title + ': ' + Self.Caption;
+    // Título y paneles
+    Self.Caption := Application.Title + ': ' + Self.Caption;
   end;
 
 begin
@@ -445,8 +460,6 @@ begin
     Exit;
   end;
 
-  pnlEmulator.Caption := Emulator.ID;
-
   eEmulatorName.Text := Emulator.Name;
   eEmulatorAuthor.Text := Emulator.Developer;
   eWebPage.Text := Emulator.WebPage;
@@ -465,10 +478,10 @@ begin
   rgWorkingFolder.ItemIndex := 3;
 
   eConfigFile.Text := Emulator.ConfigFile;
-  eExitCode.Value:= Emulator.NormalExitCode;
+  eExitCode.Value := Emulator.NormalExitCode;
 end;
 
-procedure TfrmEmulatorManager.ChangeImage(const aFileName: String;
+procedure TfrmEmulatorManager.ChangeImage(const aFileName: string;
   aImage: TImage);
 begin
   if FileExistsUTF8(aFileName) then
@@ -488,7 +501,8 @@ var
 begin
   // Updating active emulators
   // I don't do in OnClickCheck because OnClick is called before.
-  if EmulatorManager = nil then Exit;
+  if EmulatorManager = nil then
+    Exit;
   Cont := 0;
   while Cont < clbEmulators.Count do
   begin
@@ -535,8 +549,6 @@ end;
 
 procedure TfrmEmulatorManager.ClearFields;
 begin
-  pnlEmulator.Caption := rsSelectEmulator;
-
   eEmulatorName.Text := '';
   eEmulatorAuthor.Text := '';
   eWebPage.Text := '';
@@ -554,11 +566,10 @@ begin
 
   eConfigFile.Text := '';
 
-  eExitCode.Value:=0;
+  eExitCode.Value := 0;
 end;
 
 initialization
   {$I fEmulatorManager.lrs}
 
 end.
-

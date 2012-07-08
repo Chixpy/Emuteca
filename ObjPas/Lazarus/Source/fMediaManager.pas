@@ -28,7 +28,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs,
   ComCtrls, StdCtrls, ExtCtrls, ActnList, EditBtn, Menus, VirtualTrees,
-  LCLType, LazUTF8, LCLIntf,
+  LCLType, LazUTF8, LCLIntf, Buttons,
   fProgress,
   uConfig, uGameManager, uGame, uGameGroup,
   uCustomUtils, fImageViewer;
@@ -48,8 +48,7 @@ resourcestring
   //< Translatable string:
 
   rsfmmTargetExists =
-    'Target file already exists.' + sLineBreak +
-    sLineBreak + 'Do you want to overwrite?';
+    'Target file already exists.' + sLineBreak + '%0:s'+ sLineBreak + 'Do you want to overwrite?';
   //< Translatable string:
 
   rsfmmIcons = 'Icons';
@@ -84,6 +83,8 @@ type
     actChangeFileName: TAction;
     actDeleteFile: TAction;
     actDeleteAllFiles: TAction;
+    actRenameGroupMediaFile: TAction;
+    actRenameGroup: TAction;
     actOpenSourceFolder: TAction;
     actOpenTargetFolder: TAction;
     actPreviousMedia: TAction;
@@ -93,10 +94,6 @@ type
     actOpenImages: TAction;
     ActionList: TActionList;
     bAssign: TButton;
-    bDeleteFile: TButton;
-    bDeleteAllFiles: TButton;
-    bMoveFile: TButton;
-    bMoveAllFiles: TButton;
     chkCopyFile: TCheckBox;
     chkOnlySimilar: TCheckBox;
     eOtherFolder: TDirectoryEdit;
@@ -111,7 +108,23 @@ type
     lbxMusic: TListBox;
     lbxVideos: TListBox;
     lbxOtherFiles: TListBox;
-    MenuItem1: TMenuItem;
+    miGLRenameGroupMediaFile: TMenuItem;
+    miGLRenameGroup: TMenuItem;
+    miMMMMDeleteAllFiles: TMenuItem;
+    miMMMMDeleteFile: TMenuItem;
+    miMMMMSep2: TMenuItem;
+    miMMMMMoveAllFiles: TMenuItem;
+    miMMMMMoveFile: TMenuItem;
+    miMMMMSep1: TMenuItem;
+    miMMMMAssingFile: TMenuItem;
+    miFLDeleteAll: TMenuItem;
+    miFLDeleteFile: TMenuItem;
+    miFLSep2: TMenuItem;
+    miMoveAllFiles: TMenuItem;
+    miFLMoveFile: TMenuItem;
+    miFLSep1: TMenuItem;
+    miFLAssign: TMenuItem;
+    miMMMMFile: TMenuItem;
     miOpenSourceFolder: TMenuItem;
     miOpenMediaFolder: TMenuItem;
     miMMSystem: TMenuItem;
@@ -127,6 +140,7 @@ type
     pFileOperations: TPanel;
     pInfoMedia: TPanel;
     pmFileList: TPopupMenu;
+    pmGroupList: TPopupMenu;
     pmImage: TPopupMenu;
     pOtherFolder: TPanel;
     pSource: TPanel;
@@ -150,6 +164,12 @@ type
     pagAllGames: TTabSheet;
     pagAllFiles: TTabSheet;
     pLeft: TPanel;
+    ToolBarFiles: TToolBar;
+    bMoveFile: TToolButton;
+    bMoveAllFiles: TToolButton;
+    bTBSep1: TToolButton;
+    bDeleteFile: TToolButton;
+    bDeleteAllFiles: TToolButton;
     vstGroupsWOFile: TVirtualStringTree;
     vstFilesWOGroup: TVirtualStringTree;
     vstAllGames: TVirtualStringTree;
@@ -253,8 +273,6 @@ type
     This object is not created nor freed, it must be assigned from a existing
     TStringList
     }
-    property MultiFile: boolean read FMultiFile write SetMultiFile;
-    //< Mode of current selected Media.
     property MediaFiles: TStringList read FMediaFiles write SetMediaFiles;
     //< Mediafiles assigned to the current game or group.
     property CurrentMediaIndex: integer
@@ -283,28 +301,7 @@ type
       @return(Always @true @(useless until a reason to stop batch operations
         will be found.@).)
     }
-    function AddFolder(aFolder: string; Info: TSearchRec): boolean;
-      overload;
-    {< Adds a folder (or compressed archive) to the lists in MultiFile mode.
 
-      For use with IterateFolder.
-
-      @param(aFolder Folder where the file is in.)
-      @param(Info TSearchRec with folder or compressed archive data.)
-
-      @return(Always @true; needed for IterateFolder.)
-    }
-    function AddFolder(aFolder, aName: string): boolean; overload;
-    {< Add a folder (or compressed archive) to the lists in MultiFile mode.
-
-      For manual use @(and hacky updates@).
-
-      @param(aFolder Folder where the file is in.)
-      @param(aName Name of the subfolder.)
-
-      @return(Always @true @(useless until a reason to stop batch operations
-        will be found@).)
-    }
     function AddFilesOtherFolder(aFolder: string;
       Info: TSearchRec): boolean; overload;
     {< Add files or folders to vstFilesOtherFolder.
@@ -523,7 +520,6 @@ begin
   lbxOtherFiles.ItemIndex := -1;
 
   ExtFilter := Config.ImageExtensions;
-  MultiFile := False;
   case lbxImages.ItemIndex of
     0: aFolder := GameManager.System.IconFolder;
     1: aFolder := GameManager.System.MarqueeFolder;
@@ -549,7 +545,6 @@ begin
   lbxOtherFiles.ItemIndex := -1;
 
   ExtFilter := Config.MusicExtensions;
-  MultiFile := False;
   case lbxMusic.ItemIndex of
     0: aFolder := GameManager.System.DemoMusicFolder;
     else
@@ -611,7 +606,6 @@ begin
   lbxOtherFiles.ItemIndex := -1;
 
   ExtFilter := Config.VideoExtensions;
-  MultiFile := False;
   case lbxVideos.ItemIndex of
     0: aFolder := GameManager.System.DemoVideoFolder;
     else
@@ -956,41 +950,16 @@ function TfrmMediaManager.AddFile(aFolder: string; Info: TSearchRec): boolean;
 begin
   Result := True;
   if (Info.Attr and faDirectory) <> 0 then
-    Exit;
-  Result := AddFile(aFolder, Info.Name);
-end;
-
-function TfrmMediaManager.AddFolder(aFolder: string;
-  Info: TSearchRec): boolean;
-begin
-  Result := True;
-  if (Info.Attr and faDirectory) <> 0 then
   begin
     if (Info.Name = '.') or (Info.Name = '..') then
       Exit;
-    AddFolder(aFolder, Info.Name + kCUVirtualFolderExt);
+    Result := AddFile(aFolder, Info.Name + kCUVirtualFolderExt);
   end
   else
-    AddFolder(aFolder, Info.Name);
+    Result := AddFile(aFolder, Info.Name);
 end;
 
 function TfrmMediaManager.AddFile(aFolder, aName: string): boolean;
-var
-  PData: ^string;
-  Extension: string;
-begin
-  Result := True;
-  Extension := UTF8LowerCase(ExtractFileExt(aName));
-  Extension := UTF8Copy(Extension, 2, MAXINT);
-  if (ExtFilter.IndexOf(Extension) <> -1) then
-    PData := vstAllFiles.GetNodeData(vstAllFiles.AddChild(nil))
-  else
-    PData := vstOtherFiles.GetNodeData(vstOtherFiles.AddChild(nil));
-  // See: TfrmMediaManager.vstAllFilesFreeNode;
-  PData^ := aName;
-end;
-
-function TfrmMediaManager.AddFolder(aFolder, aName: string): boolean;
 var
   Extension: string;
   PData: ^string;
@@ -1000,14 +969,18 @@ begin
 
   if Extension = kCUVirtualFolderExt then
   begin
+    // It's a folder
+
+    // TOD0 2: Test if it's empty or not have the current type of mediafiles
     PData := vstAllFiles.GetNodeData(vstAllFiles.AddChild(nil));
     // See: TfrmMediaManager.vstAllFilesFreeNode;
     PData^ := aName;
   end
   else
-  begin // Look if it is a compressed archive
+  begin // Look if it is a compressed archive or current type of mediafiles
     Extension := UTF8Copy(Extension, 2, MAXINT);
-    if (GameManager.CompressedExt.IndexOf(Extension) <> -1) then
+    if (GameManager.CompressedExt.IndexOf(Extension) <> -1) or
+      (ExtFilter.IndexOf(Extension) <> -1) then
       PData := vstAllFiles.GetNodeData(vstAllFiles.AddChild(nil))
     else
       PData := vstOtherFiles.GetNodeData(vstOtherFiles.AddChild(nil));
@@ -1048,6 +1021,7 @@ var
   Found, Continue: boolean;
   i, j: integer;
 begin
+  aFolder := SetAsFolder(aFolder);
   if not DirectoryExistsUTF8(aFolder) then
     Exit;
 
@@ -1071,14 +1045,7 @@ begin
     vstOtherFiles.Clear;
     vstAllFiles.BeginUpdate;
     vstOtherFiles.BeginUpdate;
-    if MultiFile then
-    begin // Modo carpetas
-      IterateFolderObj(aFolder, @AddFolder, False);
-    end
-    else
-    begin // Modo normal
-      IterateFolderObj(aFolder, @AddFile, False);
-    end;
+    IterateFolderObj(aFolder, @AddFile, False);
     vstAllFiles.EndUpdate;
     vstOtherFiles.EndUpdate;
     vstAllFiles.SortTree(0, sdAscending, True);
@@ -1407,10 +1374,7 @@ begin
   RemoveGroupWOFile(TargetFile);
 
   // Adding TargetFile.
-  if MultiFile then
-    AddFolder(TargetFolder, TargetFile)
-  else
-    AddFile(TargetFolder, TargetFile);
+  AddFile(TargetFolder, TargetFile);
 
   SourceFile := '';
 

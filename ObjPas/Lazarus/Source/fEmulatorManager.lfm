@@ -4,41 +4,31 @@ object frmEmulatorManager: TfrmEmulatorManager
   Top = 89
   Width = 640
   Caption = 'Emulator Manager'
-  ClientHeight = 480
+  ClientHeight = 461
   ClientWidth = 640
+  Menu = mmEmulatorManager
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   Position = poMainFormCenter
   LCLVersion = '1.1'
-  object pnlEmulator: TPanel
-    Left = 0
-    Height = 40
-    Top = 0
-    Width = 640
-    Align = alTop
-    BevelOuter = bvNone
-    Font.Style = [fsBold]
-    ParentFont = False
-    TabOrder = 0
-  end
   object StatusBar: TStatusBar
     Left = 0
     Height = 20
-    Top = 460
+    Top = 441
     Width = 640
     AutoHint = True
     Panels = <>
   end
   object pnlEmulators: TPanel
     Left = 0
-    Height = 394
-    Top = 40
+    Height = 415
+    Top = 0
     Width = 170
     Align = alLeft
     BevelOuter = bvNone
-    ClientHeight = 394
+    ClientHeight = 415
     ClientWidth = 170
-    TabOrder = 1
+    TabOrder = 0
     object tbEmulators: TToolBar
       Left = 0
       Height = 22
@@ -95,7 +85,7 @@ object frmEmulatorManager: TfrmEmulatorManager
     end
     object clbEmulators: TCheckListBox
       Left = 0
-      Height = 372
+      Height = 393
       Top = 22
       Width = 170
       Align = alClient
@@ -108,7 +98,7 @@ object frmEmulatorManager: TfrmEmulatorManager
   object pnlButtons: TPanel
     Left = 0
     Height = 26
-    Top = 434
+    Top = 415
     Width = 640
     Align = alBottom
     AutoSize = True
@@ -118,7 +108,7 @@ object frmEmulatorManager: TfrmEmulatorManager
     ClientWidth = 640
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 3
+    TabOrder = 2
     object btnCancel: TBitBtn
       Left = 0
       Height = 26
@@ -146,25 +136,25 @@ object frmEmulatorManager: TfrmEmulatorManager
   end
   object pcEmulatorConfig: TPageControl
     Left = 170
-    Height = 394
-    Top = 40
+    Height = 415
+    Top = 0
     Width = 470
     ActivePage = pagInfo
     Align = alClient
     TabIndex = 0
-    TabOrder = 2
+    TabOrder = 1
     object pagInfo: TTabSheet
       Caption = 'Information'
-      ClientHeight = 368
+      ClientHeight = 389
       ClientWidth = 462
       object gbEmulatorImages: TGroupBox
         Left = 308
-        Height = 368
+        Height = 389
         Top = 0
         Width = 154
         Align = alRight
         Caption = 'Emulator images'
-        ClientHeight = 350
+        ClientHeight = 371
         ClientWidth = 150
         TabOrder = 1
         object iEmulatorImage: TImage
@@ -244,12 +234,12 @@ object frmEmulatorManager: TfrmEmulatorManager
       end
       object gbGeneralData: TGroupBox
         Left = 0
-        Height = 368
+        Height = 389
         Top = 0
         Width = 308
         Align = alClient
         Caption = 'General data'
-        ClientHeight = 350
+        ClientHeight = 371
         ClientWidth = 304
         TabOrder = 0
         object lEmulatorName: TLabel
@@ -605,5 +595,31 @@ object frmEmulatorManager: TfrmEmulatorManager
     Options = [ofNoChangeDir, ofFileMustExist, ofEnableSizing, ofViewDetail]
     left = 72
     top = 392
+  end
+  object mmEmulatorManager: TMainMenu
+    Images = ilActions
+    left = 40
+    top = 48
+    object miMMEMList: TMenuItem
+      Caption = 'Emulator List'
+      object miMMEMAddEmulator: TMenuItem
+        Action = actAddEmulator
+      end
+      object miMMEMRemoveEmulator: TMenuItem
+        Action = actRemoveEmulator
+      end
+      object miMMEMELSep1: TMenuItem
+        Caption = '-'
+      end
+      object miMMEMImportEmulatorList: TMenuItem
+        Action = actImportEmulators
+      end
+      object miMMEMExportEmulatorList: TMenuItem
+        Action = actExportEmulators
+      end
+    end
+    object miMMEMEmulator: TMenuItem
+      Caption = 'Emulator'
+    end
   end
 end

@@ -90,7 +90,10 @@ resourcestring
     'YES -> .png (lossless for screenshots)' + slinebreak +
     'NO -> .jpg (better for photographs)';
   //< Translatable string:
-  rsFolderNotExists = '%0:s' + slinebreak + 'Folder not exists.' + slinebreak +
+  rsFGMDeleteFile = 'Are you sure that you want to delete this file?' + slinebreak +
+    '%0:s';
+  //< Translatable string:
+  rsFGMFolderNotExists = '%0:s' + slinebreak + 'Folder not exists.' + slinebreak +
     'Do you want create it?';
   //< Translatable string:
   rsFGMConfirmOverwriteFile =
@@ -143,6 +146,8 @@ type
     actImportSystemData: TAction;
     actConfigManager: TAction;
     actChangeGameListFont: TAction;
+    actDeleteGameText: TAction;
+    actDeleteGameImage: TAction;
     actOpenEmutecaFolder: TAction;
     actPasteGameIconImage: TAction;
     actPasteGameSpineImage: TAction;
@@ -234,6 +239,9 @@ type
     lYear: TLabel;
     lZones: TLabel;
     memoEmulator: TMemo;
+    miPasteGameSpine: TMenuItem;
+    miPGIPasteGameIcon: TMenuItem;
+    miPGIPasteGameImage: TMenuItem;
     miOpenEmutecaFolder: TMenuItem;
     miPasteIconImage: TMenuItem;
     miPasteSpineGame: TMenuItem;
@@ -274,6 +282,7 @@ type
     pagOtherFiles: TTabSheet;
     pmEmulatorImage: TPopupMenu;
     pmGameList: TPopupMenu;
+    pmPasteGameImage: TPopupMenu;
     pnlEmulatorImage: TPanel;
     pnlGameText: TPanel;
     pnlSystemImage: TPanel;
@@ -369,12 +378,17 @@ type
     bSaveEmuText: TToolButton;
     bSaveGameText: TToolButton;
     bSaveSystemText: TToolButton;
+    bDeleteGameImage: TToolButton;
+    bSepTBGameText2: TToolButton;
+    bDeleteGameText: TToolButton;
     VTHGamesPopupMenu: TVTHeaderPopupMenu;
     vstFiles: TVirtualStringTree;
     vstGroups: TVirtualStringTree;
     procedure actAboutExecute(Sender: TObject);
     procedure actChangeGameListFontExecute(Sender: TObject);
     procedure actConfigManagerExecute(Sender: TObject);
+    procedure actDeleteGameImageExecute(Sender: TObject);
+    procedure actDeleteGameTextExecute(Sender: TObject);
     procedure actEmulatorFolderExecute(Sender: TObject);
     procedure actEmulatorManagerExecute(Sender: TObject);
     procedure actEmulatorWebPageExecute(Sender: TObject);
@@ -652,8 +666,13 @@ type
     //< Pastes and assings the game spine image in the clipboard to the game/group.
     procedure PasteGameIconImage;
     //< Pastes and assings the game icon in the clipboard to the game/group.
+    procedure DeleteGameImage;
+    //< Deletes current game image file
     procedure SaveGameText;
     //< Saves the game text.
+    procedure DeleteGameText;
+    //< Deletes current game text file
+
     procedure LoadImageFromClipboard(aPicture: TPicture);
     {< Assigns the image from clipcboard and assings it to a TPicture.
     }
@@ -2243,6 +2262,27 @@ begin
   // TODO 2: Update ions in game list...
 end;
 
+procedure TfrmGameManager.DeleteGameImage;
+begin
+  if GameImages.Count <= 0 then Exit;
+
+  if MessageDlg(format(rsFGMDeleteFile, [GameImages[GameImagesIndex]]),
+    mtConfirmation, [mbYes, mbNo], 0) =
+    mrNo then Exit;
+
+  DeleteFileUTF8(GameImages[GameImagesIndex]);
+
+  GameImages.Delete(GameImagesIndex);
+
+  if GameImagesIndex >= GameImages.Count then
+    GameImagesIndex := GameImages.Count - 1;
+
+  if GameImages.Count > 0 then
+    ShowImage(GameImages[GameImagesIndex], iGameImage)
+  else
+    ShowImage('', iGameImage);
+end;
+
 procedure TfrmGameManager.SaveGameText;
 var
   aFileName: string;
@@ -2298,10 +2338,32 @@ begin
   SaveTextToFile(memoGame.Lines, aFileName);
 end;
 
+procedure TfrmGameManager.DeleteGameText;
+begin
+  if GameTexts.Count <= 0 then Exit;
+
+  if MessageDlg(format(rsFGMDeleteFile, [GameTexts[GameTextsIndex]]),
+    mtConfirmation, [mbYes, mbNo], 0) =
+    mrNo then Exit;
+
+  DeleteFileUTF8(GameTexts[GameTextsIndex]);
+
+  GameTexts.Delete(GameTextsIndex);
+
+  if GameTextsIndex >= GameTexts.Count then
+    GameTextsIndex := GameTexts.Count - 1;
+
+  if GameTexts.Count > 0 then
+    ShowText(GameTexts[GameTextsIndex], memoGame)
+  else
+    ShowText('', memoGame);
+end;
+
 procedure TfrmGameManager.SaveImageToFile(aPicture: TPicture;
   aFilename: string);
 var
   Extension: string;
+  FilePath: String;
 begin
   if aPicture = nil then
     Exit;
@@ -2323,17 +2385,21 @@ begin
       mtConfirmation, [mbYes, mbNo], 0) = mrNo then
       Exit;
 
-  if not DirectoryExistsUTF8(aFilename) then
-    if MessageDlg(Format(rsFolderNotExists, [ExtractFilePath(aFilename)]),
+  FilePath := SysPath(ExtractFilePath(aFilename));
+
+  if not DirectoryExistsUTF8(FilePath) then
+    if MessageDlg(Format(rsFGMFolderNotExists, [FilePath]),
       mtConfirmation, [mbYes, mbNo], 0) = mrNo then
       Exit
     else
-      ForceDirectoriesUTF8(ExtractFilePath(aFilename));
+      ForceDirectoriesUTF8(FilePath);
 
   aPicture.SaveToFile(aFilename);
 end;
 
 procedure TfrmGameManager.SaveTextToFile(aText: TStrings; aFilename: string);
+var
+  FilePath: string;
 begin
   if aText = nil then
     Exit;
@@ -2349,12 +2415,14 @@ begin
       mtConfirmation, [mbYes, mbNo], 0) = mrNo then
       Exit;
 
-  if not DirectoryExistsUTF8(aFilename) then
-    if MessageDlg(Format(rsFolderNotExists, [ExtractFilePath(aFilename)]),
+  FilePath := SysPath(ExtractFilePath(aFilename));
+
+  if not DirectoryExistsUTF8(FilePath) then
+    if MessageDlg(Format(rsFGMFolderNotExists, [FilePath]),
       mtConfirmation, [mbYes, mbNo], 0) = mrNo then
       Exit
     else
-      ForceDirectoriesUTF8(ExtractFilePath(aFilename));
+      ForceDirectoriesUTF8(FilePath);
 
   aText.SaveToFile(UTF8ToSys(aFilename));
 end;
@@ -3086,6 +3154,7 @@ begin
     aViewer.Picture.Clear;
 
   // Meh, I don't like this code here...
+  // But it's usefull for PasteGameImage and DeleteGameImage;
   lImageCount.Caption := IntToStr(GameImagesIndex + 1) + ' / ' +
     IntToStr(GameImages.Count);
 end;
@@ -3098,6 +3167,7 @@ begin
     aViewer.Clear;
 
   // Meh, I don't like this code here...
+  // But it's usefull for SaveGameText and DeleteGameText;
   lTextCount.Caption := IntToStr(GameTextsIndex + 1) + ' / ' +
     IntToStr(GameTexts.Count);
 end;
@@ -3438,6 +3508,16 @@ begin
   finally
     FreeAndNil(FormCM);
   end;
+end;
+
+procedure TfrmGameManager.actDeleteGameImageExecute(Sender: TObject);
+begin
+  DeleteGameImage;
+end;
+
+procedure TfrmGameManager.actDeleteGameTextExecute(Sender: TObject);
+begin
+  DeleteGameText;
 end;
 
 procedure TfrmGameManager.actEmulatorWebPageExecute(Sender: TObject);

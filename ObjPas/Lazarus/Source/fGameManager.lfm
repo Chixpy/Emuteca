@@ -863,7 +863,7 @@ object frmGameManager: TfrmGameManager
             Action = actViewGameImage
           end
           object bSepTBGameImg1: TToolButton
-            Left = 104
+            Left = 116
             Top = 0
             Width = 10
             Caption = '-'
@@ -883,6 +883,8 @@ object frmGameManager: TfrmGameManager
             Left = 81
             Top = 0
             Action = actPasteGameImage
+            DropdownMenu = pmPasteGameImage
+            Style = tbsDropDown
           end
           object bSepTBGameImg2: TToolButton
             Left = 71
@@ -900,6 +902,11 @@ object frmGameManager: TfrmGameManager
             Alignment = taCenter
             Layout = tlCenter
             ParentColor = False
+          end
+          object bDeleteGameImage: TToolButton
+            Left = 126
+            Top = 0
+            Action = actDeleteGameImage
           end
         end
       end
@@ -981,6 +988,18 @@ object frmGameManager: TfrmGameManager
             Align = alLeft
             Layout = tlCenter
             ParentColor = False
+          end
+          object bSepTBGameText2: TToolButton
+            Left = 104
+            Top = 0
+            Width = 10
+            Caption = 'bSepTBGameText2'
+            Style = tbsSeparator
+          end
+          object bDeleteGameText: TToolButton
+            Left = 114
+            Top = 0
+            Action = actDeleteGameText
           end
         end
         object cbGameTexts: TComboBox
@@ -1694,6 +1713,16 @@ object frmGameManager: TfrmGameManager
       Caption = 'Open Emuteca folder...'
       OnExecute = actOpenEmutecaFolderExecute
     end
+    object actDeleteGameText: TAction
+      Category = 'Game text'
+      Caption = 'Delete game text'
+      OnExecute = actDeleteGameTextExecute
+    end
+    object actDeleteGameImage: TAction
+      Category = 'Game image'
+      Caption = 'Delete game image'
+      OnExecute = actDeleteGameImageExecute
+    end
   end
   object ilActions: TImageList
     left = 240
@@ -1827,5 +1856,19 @@ object frmGameManager: TfrmGameManager
     Options = [fdEffects, fdWysiwyg]
     left = 480
     top = 264
+  end
+  object pmPasteGameImage: TPopupMenu
+    Images = ilActions
+    left = 685
+    top = 175
+    object miPGIPasteGameImage: TMenuItem
+      Action = actPasteGameImage
+    end
+    object miPGIPasteGameIcon: TMenuItem
+      Action = actPasteGameIconImage
+    end
+    object miPasteGameSpine: TMenuItem
+      Action = actPasteGameSpineImage
+    end
   end
 end
