@@ -251,25 +251,26 @@ end;
 
 procedure TfrmScriptManager.SetCurrGame(AValue: cGame);
 begin
-  if FCurrGame = AValue then
-    Exit;
   FCurrGame := AValue;
+  ScriptEngine.Game := AValue;
 end;
 
 procedure TfrmScriptManager.SetCurrGroup(AValue: cGameGroup);
 begin
-  if FCurrGroup = AValue then
-    Exit;
   FCurrGroup := AValue;
+  ScriptEngine.GameGroup := AValue;
 end;
 
 procedure TfrmScriptManager.SetGameManager(const AValue: cGameManager);
 begin
-  if FGameManager = AValue then
-    exit;
   FGameManager := AValue;
+  ScriptEngine.GameManager := AValue;
 
-  pTop.Caption := GameManager.System.ID;
+  if AValue <> nil then
+    pTop.Caption := GameManager.System.ID
+  else
+    pTop.Caption := '';
+
 end;
 
 procedure TfrmScriptManager.SetScriptEngine(AValue: cScriptEngEmuteca);
@@ -329,7 +330,9 @@ begin
   ScriptEngine.ScriptText := SynEdit.Lines;
 
   // TODO 4: Put this in a better place near ScriptEngine creation.
-  //   But serch why a SIGEVN error is raised...
+  //   But search why a SIGEVN error is raised...
+  //   ScriptEngine.ScriptOutput, ScriptEngine.ScriptInfo and
+  //   ScriptEngine.ScriptError change to nil... When and Where?
   ScriptEngine.ScriptOutput := mOutPut.Lines;
   ScriptEngine.ScriptInfo := mInfo.Lines;
   ScriptEngine.ScriptError := mInfo.Lines;
@@ -341,7 +344,7 @@ function TfrmScriptManager.Execute: boolean;
 begin
   PageControl.ActivePage := pagOutput;
 
-  Result := ScriptEngine.CompileScript;
+  Result := Compile;
 
   if not Result then
     Exit;
