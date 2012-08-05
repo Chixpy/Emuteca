@@ -7,7 +7,6 @@
 <link rel="StyleSheet" type="text/css" href="pasdoc.css">
 </head>
 <body bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#800080" alink="#FF0000">
-Emuteca documentation
 <h1 class="unit">Unit fGameManager</h1>
 <table class="sections wide_list">
 <tr>
@@ -25,7 +24,9 @@ Unit of Game Manager form</p>
 </tr>
 <tr class="list">
 <td class="itemname">Class&nbsp;<a class="bold"  href="fGameManager.TfrmGameManager.html"><code>TfrmGameManager</code></a></td>
-<td class="itemdesc"><code>TfrmGameManager</code></td>
+<td class="itemdesc"><code>TfrmGameManager</code>
+
+<p>- Form for Game Manager (Main Form).</td>
 </tr>
 </table>
 <a name="%40Types"></a><h3 class="summary">Types</h3>
@@ -63,22 +64,30 @@ Unit of Game Manager form</p>
 <td class="itemcode"><code><b><a   href="fGameManager.html#rsFGMDecompressing">rsFGMDecompressing</a></b> = 'Decompressing:';</code></td>
 </tr>
 <tr class="list2">
+<td class="itemcode"><code><b><a   href="fGameManager.html#rsFGMDeleteFile">rsFGMDeleteFile</a></b> = 'Are you sure that you want to delete this file?' + slinebreak +
+    '%0:s';</code></td>
+</tr>
+<tr class="list">
 <td class="itemcode"><code><b><a   href="fGameManager.html#rsFGMDeveloper">rsFGMDeveloper</a></b> = 'Developer';</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemcode"><code><b><a   href="fGameManager.html#rsFGMEmutecaGameDatabase">rsFGMEmutecaGameDatabase</a></b> = 'Emuteca game database';</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemcode"><code><b><a   href="fGameManager.html#rsFGMErrorEmulator">rsFGMErrorEmulator</a></b> = 'Emulator exited with error code: %0:d';</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemcode"><code><b><a   href="fGameManager.html#rsFGMErrorGameNotFound">rsFGMErrorGameNotFound</a></b> = 'Game not found:' + slinebreak + '%0:s%1:s';</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemcode"><code><b><a   href="fGameManager.html#rsFGMExportingData">rsFGMExportingData</a></b> = 'Exporting data:';</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemcode"><code><b><a   href="fGameManager.html#rsFGMFilename">rsFGMFilename</a></b> = 'Filename';</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a   href="fGameManager.html#rsFGMFolderNotExists">rsFGMFolderNotExists</a></b> = '%0:s' + slinebreak + 'Folder not exists.' + slinebreak +
+    'Do you want create it?';</code></td>
 </tr>
 <tr class="list2">
 <td class="itemcode"><code><b><a   href="fGameManager.html#rsFGMImportingData">rsFGMImportingData</a></b> = 'Importing data:';</code></td>
@@ -113,15 +122,18 @@ Unit of Game Manager form</p>
 <td class="itemcode"><code><b><a   href="fGameManager.html#rsFGMSavingGameList">rsFGMSavingGameList</a></b> = 'Saving games:';</code></td>
 </tr>
 <tr class="list2">
+<td class="itemcode"><code><b><a   href="fGameManager.html#rsFGMSystemRequired">rsFGMSystemRequired</a></b> = 'You need select a system before do this action.';</code></td>
+</tr>
+<tr class="list">
 <td class="itemcode"><code><b><a   href="fGameManager.html#rsFGMUnknown">rsFGMUnknown</a></b> = '!Unknown';</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemcode"><code><b><a   href="fGameManager.html#rsFGMUpdatingList">rsFGMUpdatingList</a></b> = 'Updating List:';</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemcode"><code><b><a   href="fGameManager.html#rsFGMVersion">rsFGMVersion</a></b> = 'Version';</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemcode"><code><b><a   href="fGameManager.html#rsFGMZones">rsFGMZones</a></b> = 'Zone';</code></td>
 </tr>
 </table>
@@ -177,14 +189,18 @@ lvGMTags: Group by tags.</li>
 <td class="itemcode"><a name="rsFGMAddingFile"></a><code><b>rsFGMAddingFile</b> = 'Adding file:';</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Translatable string:</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="rsFGMAssignToGroup"></a><code><b>rsFGMAssignToGroup</b> = 'Do you want to assign it to the game''s group?';</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Translatable string:</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -194,7 +210,9 @@ lvGMTags: Group by tags.</li>
     'NO -&gt; .jpg (better for photographs)';</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Translatable string:</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -203,112 +221,164 @@ lvGMTags: Group by tags.</li>
     'Do you want overwrite it?';</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Translatable string:</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="rsFGMDecompressing"></a><code><b>rsFGMDecompressing</b> = 'Decompressing:';</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Translatable string:</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="rsFGMDeleteFile"></a><code><b>rsFGMDeleteFile</b> = 'Are you sure that you want to delete this file?' + slinebreak +
+    '%0:s';</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Translatable string:</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="rsFGMDeveloper"></a><code><b>rsFGMDeveloper</b> = 'Developer';</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Translatable string:</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="rsFGMEmutecaGameDatabase"></a><code><b>rsFGMEmutecaGameDatabase</b> = 'Emuteca game database';</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Translatable string:</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="rsFGMErrorEmulator"></a><code><b>rsFGMErrorEmulator</b> = 'Emulator exited with error code: %0:d';</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Translatable string:</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="rsFGMErrorGameNotFound"></a><code><b>rsFGMErrorGameNotFound</b> = 'Game not found:' + slinebreak + '%0:s%1:s';</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Translatable string:</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="rsFGMExportingData"></a><code><b>rsFGMExportingData</b> = 'Exporting data:';</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Translatable string:</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="rsFGMFilename"></a><code><b>rsFGMFilename</b> = 'Filename';</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Translatable string:</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="rsFGMFolderNotExists"></a><code><b>rsFGMFolderNotExists</b> = '%0:s' + slinebreak + 'Folder not exists.' + slinebreak +
+    'Do you want create it?';</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Translatable string:</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="rsFGMImportingData"></a><code><b>rsFGMImportingData</b> = 'Importing data:';</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Translatable string:</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="rsFGMKey"></a><code><b>rsFGMKey</b> = 'Key';</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Translatable string:</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="rsFGMLoadingGameList"></a><code><b>rsFGMLoadingGameList</b> = 'Loading games:';</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Translatable string:</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="rsFGMNever"></a><code><b>rsFGMNever</b> = 'Never';</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Translatable string:</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="rsFGMNGames"></a><code><b>rsFGMNGames</b> = '%0:d games';</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Translatable string:</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="rsFGMNGroups"></a><code><b>rsFGMNGroups</b> = '%0:d groups';</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Translatable string:</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="rsFGMNTimes"></a><code><b>rsFGMNTimes</b> = '%0:d times';</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Translatable string:</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="rsFGMPublisher"></a><code><b>rsFGMPublisher</b> = 'Publisher';</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Translatable string:</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -317,42 +387,63 @@ lvGMTags: Group by tags.</li>
     slinebreak + 'Do you want to continue?';</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Translatable string:</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="rsFGMSavingGameList"></a><code><b>rsFGMSavingGameList</b> = 'Saving games:';</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Translatable string:</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="rsFGMSystemRequired"></a><code><b>rsFGMSystemRequired</b> = 'You need select a system before do this action.';</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Translatable string:</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="rsFGMUnknown"></a><code><b>rsFGMUnknown</b> = '!Unknown';</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Translatable string:</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="rsFGMUpdatingList"></a><code><b>rsFGMUpdatingList</b> = 'Updating List:';</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Translatable string:</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="rsFGMVersion"></a><code><b>rsFGMVersion</b> = 'Version';</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Translatable string:</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="rsFGMZones"></a><code><b>rsFGMZones</b> = 'Zone';</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Translatable string:</p>
+</td></tr>
 </table>
 <h3 class="detail">Variables</h3>
 <table class="detail wide_list">
@@ -364,6 +455,6 @@ lvGMTags: Group by tags.</li>
 public declarations</p>
 </td></tr>
 </table>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.12.1</a> on 2012-07-03 22:35:13</em>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.12.1</a> on 2012-07-25 23:30:46</em>
 </span>
 </body></html>

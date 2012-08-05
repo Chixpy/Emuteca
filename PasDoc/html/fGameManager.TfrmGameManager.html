@@ -7,7 +7,6 @@
 <link rel="StyleSheet" type="text/css" href="pasdoc.css">
 </head>
 <body bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#800080" alink="#FF0000">
-Emuteca documentation
 <a name="TfrmGameManager"></a><h1 class="cio">Class TfrmGameManager</h1>
 <table class="sections wide_list">
 <tr>
@@ -20,7 +19,9 @@ Emuteca documentation
 <code>type TfrmGameManager = class(TForm)</code></p>
 <h2 class="description">Description</h2>
 <p>
-<code>TfrmGameManager</code></p>
+<code>TfrmGameManager</code>
+
+<p>- Form for Game Manager (Main Form).</p>
 <a name="%40Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
 <ul class="hierarchy"><li class="ancestor">TForm</li>
 <li class="thisitem">TfrmGameManager</li></ul><h2 class="overview">Overview</h2>
@@ -37,6 +38,14 @@ Emuteca documentation
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#actConfigManager">actConfigManager</a></b>: TAction;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#actDeleteGameImage">actDeleteGameImage</a></b>: TAction;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#actDeleteGameText">actDeleteGameText</a></b>: TAction;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -224,6 +233,14 @@ Emuteca documentation
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#bDeleteGameImage">bDeleteGameImage</a></b>: TToolButton;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#bDeleteGameText">bDeleteGameText</a></b>: TToolButton;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#bEditorSave">bEditorSave</a></b>: TBitBtn;</code></td>
 </tr>
 <tr class="list">
@@ -316,423 +333,431 @@ Emuteca documentation
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#bSepTBMainTB1">bSepTBMainTB1</a></b>: TToolButton;</code></td>
+<td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#bSepTBGameText2">bSepTBGameText2</a></b>: TToolButton;</code></td>
 </tr>
 <tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#bSepTBMainTB1">bSepTBMainTB1</a></b>: TToolButton;</code></td>
+</tr>
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#bSepTBMainTB2">bSepTBMainTB2</a></b>: TToolButton;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#bSepTBMainTB3">bSepTBMainTB3</a></b>: TToolButton;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#bSepTBSystemText1">bSepTBSystemText1</a></b>: TToolButton;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#bSysteManager">bSysteManager</a></b>: TToolButton;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#bViewEmulatorImage">bViewEmulatorImage</a></b>: TToolButton;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#bViewGameImage">bViewGameImage</a></b>: TToolButton;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#bViewSystemImage">bViewSystemImage</a></b>: TToolButton;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#cbEmulators">cbEmulators</a></b>: TComboBox;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#cbGameGroup">cbGameGroup</a></b>: TComboBox;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#cbGameImages">cbGameImages</a></b>: TComboBox;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#cbGameTexts">cbGameTexts</a></b>: TComboBox;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#cbPublisher">cbPublisher</a></b>: TComboBox;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#cbSearch">cbSearch</a></b>: TComboBox;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#cbSystem">cbSystem</a></b>: TComboBox;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#cbYear">cbYear</a></b>: TComboBox;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#chkUpdateTreeAfterSaving">chkUpdateTreeAfterSaving</a></b>: TCheckBox;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#chkVerified">chkVerified</a></b>: TCheckBox;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#eAlternate">eAlternate</a></b>: TEdit;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#eBadDump">eBadDump</a></b>: TEdit;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#eCracked">eCracked</a></b>: TEdit;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#eFixed">eFixed</a></b>: TEdit;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#eHack">eHack</a></b>: TEdit;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#eLanguages">eLanguages</a></b>: TEdit;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#eLicense">eLicense</a></b>: TEdit;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#eModified">eModified</a></b>: TEdit;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#eName">eName</a></b>: TEdit;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#ePirate">ePirate</a></b>: TEdit;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#eSearch">eSearch</a></b>: TEdit;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#eSortKey">eSortKey</a></b>: TEdit;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#eTrainer">eTrainer</a></b>: TEdit;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#eTranslation">eTranslation</a></b>: TEdit;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#eVersion">eVersion</a></b>: TEdit;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#eZones">eZones</a></b>: TEdit;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#FontDialog">FontDialog</a></b>: TFontDialog;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#HTMLBrowserHelpViewer">HTMLBrowserHelpViewer</a></b>: THTMLBrowserHelpViewer;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#HTMLHelpDatabase">HTMLHelpDatabase</a></b>: THTMLHelpDatabase;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#iEmulatorImage">iEmulatorImage</a></b>: TImage;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#iGameImage">iGameImage</a></b>: TImage;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#ilActions">ilActions</a></b>: TImageList;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#IniPropStorage">IniPropStorage</a></b>: TIniPropStorage;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#iSystemImage">iSystemImage</a></b>: TImage;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#lAlternate">lAlternate</a></b>: TLabel;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#lBadDump">lBadDump</a></b>: TLabel;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#lCracked">lCracked</a></b>: TLabel;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#lFixed">lFixed</a></b>: TLabel;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#lGameGroup">lGameGroup</a></b>: TLabel;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#lGameTags">lGameTags</a></b>: TLabel;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#lGroupTags">lGroupTags</a></b>: TLabel;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#lHack">lHack</a></b>: TLabel;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#lImageCount">lImageCount</a></b>: TLabel;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#lLanguages">lLanguages</a></b>: TLabel;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#lLicense">lLicense</a></b>: TLabel;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#lModified">lModified</a></b>: TLabel;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#lName">lName</a></b>: TLabel;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#lPirate">lPirate</a></b>: TLabel;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#lPublisher">lPublisher</a></b>: TLabel;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#lSortKey">lSortKey</a></b>: TLabel;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#lTextCount">lTextCount</a></b>: TLabel;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#lTrainer">lTrainer</a></b>: TLabel;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#lTranslation">lTranslation</a></b>: TLabel;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#lVersion">lVersion</a></b>: TLabel;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#lYear">lYear</a></b>: TLabel;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#lZones">lZones</a></b>: TLabel;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#memoEmulator">memoEmulator</a></b>: TMemo;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#memoGame">memoGame</a></b>: TMemo;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#memoSystem">memoSystem</a></b>: TMemo;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#miAbout">miAbout</a></b>: TMenuItem;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#miChangeGameListFont">miChangeGameListFont</a></b>: TMenuItem;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#miConfigManager">miConfigManager</a></b>: TMenuItem;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#miEmulator">miEmulator</a></b>: TMenuItem;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#miEmulatorFolder">miEmulatorFolder</a></b>: TMenuItem;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#miEmulatorManager">miEmulatorManager</a></b>: TMenuItem;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#miEmulatorWebPage">miEmulatorWebPage</a></b>: TMenuItem;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#miExit">miExit</a></b>: TMenuItem;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#miExportSystemData">miExportSystemData</a></b>: TMenuItem;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#miFile">miFile</a></b>: TMenuItem;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#miFileSeparator">miFileSeparator</a></b>: TMenuItem;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#miGame">miGame</a></b>: TMenuItem;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#miGMPlayGame">miGMPlayGame</a></b>: TMenuItem;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#miGMSearchGameInternet">miGMSearchGameInternet</a></b>: TMenuItem;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#miGMSep1">miGMSep1</a></b>: TMenuItem;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#miGroupByDeveloper">miGroupByDeveloper</a></b>: TMenuItem;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#miGroupByDeveloper2">miGroupByDeveloper2</a></b>: TMenuItem;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#miGroupByFamily">miGroupByFamily</a></b>: TMenuItem;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#miGroupByFamily2">miGroupByFamily2</a></b>: TMenuItem;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#miGroupByFolder">miGroupByFolder</a></b>: TMenuItem;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#miGroupByFolder2">miGroupByFolder2</a></b>: TMenuItem;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#miGroupByName">miGroupByName</a></b>: TMenuItem;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#miGroupByName2">miGroupByName2</a></b>: TMenuItem;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#miGroupByPublisher">miGroupByPublisher</a></b>: TMenuItem;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#miGroupByPublisher2">miGroupByPublisher2</a></b>: TMenuItem;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#miGroupByTags">miGroupByTags</a></b>: TMenuItem;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#miGroupByTags2">miGroupByTags2</a></b>: TMenuItem;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#miGroupByYear">miGroupByYear</a></b>: TMenuItem;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#miGroupByYear2">miGroupByYear2</a></b>: TMenuItem;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#miHelp">miHelp</a></b>: TMenuItem;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#miHelpOnLine">miHelpOnLine</a></b>: TMenuItem;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#miImportSystemData">miImportSystemData</a></b>: TMenuItem;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#miMediaManager">miMediaManager</a></b>: TMenuItem;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#miNextGameImage">miNextGameImage</a></b>: TMenuItem;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#miOpenEmutecaFolder">miOpenEmutecaFolder</a></b>: TMenuItem;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#miOpenSystemFolder">miOpenSystemFolder</a></b>: TMenuItem;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#miPasteClipboardImage">miPasteClipboardImage</a></b>: TMenuItem;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#miPasteGameImage">miPasteGameImage</a></b>: TMenuItem;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#miPasteGameSpine">miPasteGameSpine</a></b>: TMenuItem;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -741,6 +766,14 @@ Emuteca documentation
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#miPasteSpineGame">miPasteSpineGame</a></b>: TMenuItem;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#miPGIPasteGameIcon">miPGIPasteGameIcon</a></b>: TMenuItem;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#miPGIPasteGameImage">miPGIPasteGameImage</a></b>: TMenuItem;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -892,117 +925,121 @@ Emuteca documentation
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#pmSystemImage">pmSystemImage</a></b>: TPopupMenu;</code></td>
+<td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#pmPasteGameImage">pmPasteGameImage</a></b>: TPopupMenu;</code></td>
 </tr>
 <tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#pmSystemImage">pmSystemImage</a></b>: TPopupMenu;</code></td>
+</tr>
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#pnlCenter">pnlCenter</a></b>: TPanel;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#pnlEmulatorImage">pnlEmulatorImage</a></b>: TPanel;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#pnlGameImage">pnlGameImage</a></b>: TPanel;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#pnlGameText">pnlGameText</a></b>: TPanel;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#pnlSearch">pnlSearch</a></b>: TPanel;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#pnlSystemImage">pnlSystemImage</a></b>: TPanel;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#pnlSystemText">pnlSystemText</a></b>: TPanel;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#pYear">pYear</a></b>: TPanel;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#pZone">pZone</a></b>: TPanel;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#pZoneYear">pZoneYear</a></b>: TPanel;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#SaveDialog">SaveDialog</a></b>: TSaveDialog;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#sbHelp">sbHelp</a></b>: TStatusBar;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#sbInfo">sbInfo</a></b>: TStatusBar;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#splEmulator">splEmulator</a></b>: TSplitter;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#splGameMedia">splGameMedia</a></b>: TSplitter;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#splGamePanel">splGamePanel</a></b>: TSplitter;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#splSystemImage">splSystemImage</a></b>: TSplitter;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#splSystemPanel">splSystemPanel</a></b>: TSplitter;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#tbEmulatorImage">tbEmulatorImage</a></b>: TToolBar;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#tbEmulatorText">tbEmulatorText</a></b>: TToolBar;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#tbGameImage">tbGameImage</a></b>: TToolBar;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#tbMain">tbMain</a></b>: TToolBar;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#tbSystemImage">tbSystemImage</a></b>: TToolBar;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#tbSystemText">tbSystemText</a></b>: TToolBar;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#tbTexts">tbTexts</a></b>: TToolBar;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#vstFiles">vstFiles</a></b>: TVirtualStringTree;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#vstGroups">vstGroups</a></b>: TVirtualStringTree;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fGameManager.TfrmGameManager.html#VTHGamesPopupMenu">VTHGamesPopupMenu</a></b>: TVTHeaderPopupMenu;</code></td>
 </tr>
@@ -1044,6 +1081,14 @@ Emuteca documentation
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>procedure <b><a   href="fGameManager.TfrmGameManager.html#actConfigManagerExecute">actConfigManagerExecute</a></b>(Sender: TObject);</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="fGameManager.TfrmGameManager.html#actDeleteGameImageExecute">actDeleteGameImageExecute</a></b>(Sender: TObject);</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="fGameManager.TfrmGameManager.html#actDeleteGameTextExecute">actDeleteGameTextExecute</a></b>(Sender: TObject);</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -1115,31 +1160,39 @@ Emuteca documentation
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a   href="fGameManager.TfrmGameManager.html#actOpenEmutecaFolderExecute">actOpenEmutecaFolderExecute</a></b>(Sender: TObject);</code></td>
+<td class="itemcode"><code>procedure <b><a   href="fGameManager.TfrmGameManager.html#actNextGameTextExecute">actNextGameTextExecute</a></b>(Sender: TObject);</code></td>
 </tr>
 <tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="fGameManager.TfrmGameManager.html#actOpenEmutecaFolderExecute">actOpenEmutecaFolderExecute</a></b>(Sender: TObject);</code></td>
+</tr>
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>procedure <b><a   href="fGameManager.TfrmGameManager.html#actOpenSystemFolderExecute">actOpenSystemFolderExecute</a></b>(Sender: TObject);</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>procedure <b><a   href="fGameManager.TfrmGameManager.html#actPasteGameIconImageExecute">actPasteGameIconImageExecute</a></b>(Sender: TObject);</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>procedure <b><a   href="fGameManager.TfrmGameManager.html#actPasteGameImageExecute">actPasteGameImageExecute</a></b>(Sender: TObject);</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>procedure <b><a   href="fGameManager.TfrmGameManager.html#actPasteGameSpineImageExecute">actPasteGameSpineImageExecute</a></b>(Sender: TObject);</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>procedure <b><a   href="fGameManager.TfrmGameManager.html#actPlayGameExecute">actPlayGameExecute</a></b>(Sender: TObject);</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>procedure <b><a   href="fGameManager.TfrmGameManager.html#actPreviousGameImageExecute">actPreviousGameImageExecute</a></b>(Sender: TObject);</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="fGameManager.TfrmGameManager.html#actPreviousGameTextExecute">actPreviousGameTextExecute</a></b>(Sender: TObject);</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -1327,6 +1380,14 @@ Emuteca documentation
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="fGameManager.TfrmGameManager.html#DeleteGameImage">DeleteGameImage</a></b>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="fGameManager.TfrmGameManager.html#DeleteGameText">DeleteGameText</a></b>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
 <td class="itemcode"><code>procedure <b><a   href="fGameManager.TfrmGameManager.html#FillOtherFilesTree">FillOtherFilesTree</a></b>;</code></td>
 </tr>
 <tr class="list">
@@ -1343,39 +1404,47 @@ Emuteca documentation
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>procedure <b><a   href="fGameManager.TfrmGameManager.html#OpenEmulatorFolder">OpenEmulatorFolder</a></b>;</code></td>
+<td class="itemcode"><code>procedure <b><a   href="fGameManager.TfrmGameManager.html#NextGameText">NextGameText</a></b>;</code></td>
 </tr>
 <tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="fGameManager.TfrmGameManager.html#OpenEmulatorFolder">OpenEmulatorFolder</a></b>;</code></td>
+</tr>
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
 <td class="itemcode"><code>procedure <b><a   href="fGameManager.TfrmGameManager.html#OpenEmulatorImages">OpenEmulatorImages</a></b>;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
 <td class="itemcode"><code>procedure <b><a   href="fGameManager.TfrmGameManager.html#OpenGameImages">OpenGameImages</a></b>;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
 <td class="itemcode"><code>procedure <b><a   href="fGameManager.TfrmGameManager.html#OpenSystemFolder">OpenSystemFolder</a></b>;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
 <td class="itemcode"><code>procedure <b><a   href="fGameManager.TfrmGameManager.html#OpenSystemImages">OpenSystemImages</a></b>;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
 <td class="itemcode"><code>procedure <b><a   href="fGameManager.TfrmGameManager.html#PasteGameIconImage">PasteGameIconImage</a></b>;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
 <td class="itemcode"><code>procedure <b><a   href="fGameManager.TfrmGameManager.html#PasteGameImage">PasteGameImage</a></b>;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
 <td class="itemcode"><code>procedure <b><a   href="fGameManager.TfrmGameManager.html#PasteGameSpineImage">PasteGameSpineImage</a></b>;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
 <td class="itemcode"><code>procedure <b><a   href="fGameManager.TfrmGameManager.html#PreviousGameImage">PreviousGameImage</a></b>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="fGameManager.TfrmGameManager.html#PreviousGameText">PreviousGameText</a></b>;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
@@ -1617,6 +1686,22 @@ Emuteca documentation
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><a name="actConfigManager"></a><code><b>actConfigManager</b>: TAction;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="actDeleteGameImage"></a><code><b>actDeleteGameImage</b>: TAction;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="actDeleteGameText"></a><code><b>actDeleteGameText</b>: TAction;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -1992,6 +2077,22 @@ Emuteca documentation
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="bDeleteGameImage"></a><code><b>bDeleteGameImage</b>: TToolButton;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="bDeleteGameText"></a><code><b>bDeleteGameText</b>: TToolButton;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><a name="bEditorSave"></a><code><b>bEditorSave</b>: TBitBtn;</code></td>
 </tr>
 <tr><td colspan="2">
@@ -2169,6 +2270,14 @@ Emuteca documentation
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><a name="bSepTBGameText1"></a><code><b>bSepTBGameText1</b>: TToolButton;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="bSepTBGameText2"></a><code><b>bSepTBGameText2</b>: TToolButton;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -3016,6 +3125,14 @@ Emuteca documentation
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="miPasteGameSpine"></a><code><b>miPasteGameSpine</b>: TMenuItem;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><a name="miPasteIconImage"></a><code><b>miPasteIconImage</b>: TMenuItem;</code></td>
 </tr>
 <tr><td colspan="2">
@@ -3025,6 +3142,22 @@ Emuteca documentation
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><a name="miPasteSpineGame"></a><code><b>miPasteSpineGame</b>: TMenuItem;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="miPGIPasteGameIcon"></a><code><b>miPGIPasteGameIcon</b>: TMenuItem;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="miPGIPasteGameImage"></a><code><b>miPGIPasteGameImage</b>: TMenuItem;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -3321,6 +3454,14 @@ Emuteca documentation
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><a name="pmMainMenu"></a><code><b>pmMainMenu</b>: TPopupMenu;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="pmPasteGameImage"></a><code><b>pmPasteGameImage</b>: TPopupMenu;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -3685,6 +3826,22 @@ Gets the number of te item in the <a class="normal"  href="fGameManager.TfrmGame
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="actDeleteGameImageExecute"></a><code>procedure <b>actDeleteGameImageExecute</b>(Sender: TObject);</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="actDeleteGameTextExecute"></a><code>procedure <b>actDeleteGameTextExecute</b>(Sender: TObject);</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><a name="actEmulatorFolderExecute"></a><code>procedure <b>actEmulatorFolderExecute</b>(Sender: TObject);</code></td>
 </tr>
 <tr><td colspan="2">
@@ -3821,6 +3978,14 @@ Gets the number of te item in the <a class="normal"  href="fGameManager.TfrmGame
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="actNextGameTextExecute"></a><code>procedure <b>actNextGameTextExecute</b>(Sender: TObject);</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><a name="actOpenEmutecaFolderExecute"></a><code>procedure <b>actOpenEmutecaFolderExecute</b>(Sender: TObject);</code></td>
 </tr>
 <tr><td colspan="2">
@@ -3870,6 +4035,14 @@ Gets the number of te item in the <a class="normal"  href="fGameManager.TfrmGame
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><a name="actPreviousGameImageExecute"></a><code>procedure <b>actPreviousGameImageExecute</b>(Sender: TObject);</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="actPreviousGameTextExecute"></a><code>procedure <b>actPreviousGameTextExecute</b>(Sender: TObject);</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -4253,6 +4426,26 @@ Clears the game properties fields.</p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="DeleteGameImage"></a><code>procedure <b>DeleteGameImage</b>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Deletes current game image file</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="DeleteGameText"></a><code>procedure <b>DeleteGameText</b>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Deletes current game text file</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
 <td class="itemcode"><a name="FillOtherFilesTree"></a><code>procedure <b>FillOtherFilesTree</b>;</code></td>
 </tr>
 <tr><td colspan="2">
@@ -4266,7 +4459,9 @@ Fills other files vst.</p>
 <td class="itemcode"><a name="HideNodes"></a><code>procedure <b>HideNodes</b>(Sender: TBaseVirtualTree; Node: PVirtualNode; Data: Pointer; var Abort: boolean);</code></td>
 </tr>
 <tr><td colspan="2">
-&nbsp;</td></tr>
+<p>
+Hides the node if not match eSearch.Text string.</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -4291,11 +4486,21 @@ Change to the next game image.</p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="NextGameText"></a><code>procedure <b>NextGameText</b>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Change to the next game image.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
 <td class="itemcode"><a name="OpenEmulatorFolder"></a><code>procedure <b>OpenEmulatorFolder</b>;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
-Open emulator folder with explorer</p>
+Open emulator folder with explorer.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -4305,7 +4510,7 @@ Open emulator folder with explorer</p>
 </tr>
 <tr><td colspan="2">
 <p>
-Open emulator images in Image Viewer</p>
+Open emulator images in Image Viewer.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -4315,7 +4520,7 @@ Open emulator images in Image Viewer</p>
 </tr>
 <tr><td colspan="2">
 <p>
-Open game images in Image Viewer</p>
+Open game images in Image Viewer.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -4325,7 +4530,7 @@ Open game images in Image Viewer</p>
 </tr>
 <tr><td colspan="2">
 <p>
-Open system folder with explorer</p>
+Open system folder with explorer.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -4335,7 +4540,7 @@ Open system folder with explorer</p>
 </tr>
 <tr><td colspan="2">
 <p>
-Open system images in Image Viewer</p>
+Open system images in Image Viewer.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -4372,6 +4577,16 @@ Pastes and assings the game spine image in the clipboard to the game/<a class="n
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
 <td class="itemcode"><a name="PreviousGameImage"></a><code>procedure <b>PreviousGameImage</b>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Change to the previous game image.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="PreviousGameText"></a><code>procedure <b>PreviousGameText</b>;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -4443,7 +4658,7 @@ Saves a TStrings to a file.</p>
 </tr>
 <tr><td colspan="2">
 <p>
-Search games that contain eSearch.Text</p>
+Searches games that contains eSearch.Text string.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -4488,7 +4703,9 @@ Opens a searcher web page.
 <td class="itemcode"><a name="ShowAllNodes"></a><code>procedure <b>ShowAllNodes</b>(Sender: TBaseVirtualTree; Node: PVirtualNode; Data: Pointer; var Abort: boolean);</code></td>
 </tr>
 <tr><td colspan="2">
-&nbsp;</td></tr>
+<p>
+Shows all nodes in the VTV.</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -4497,7 +4714,14 @@ Opens a searcher web page.
 </tr>
 <tr><td colspan="2">
 <p>
-Show image in the TImage</p>
+Show an image file in a TImage.  </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>aFileName</dt>
+<dd>An image filename.</dd>
+<dt>aViewer</dt>
+<dd>TImage where image will be showed.</dd>
+</dl>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -4507,7 +4731,14 @@ Show image in the TImage</p>
 </tr>
 <tr><td colspan="2">
 <p>
-Show text file in the TMemo</p>
+Show a text file in the TImage.  </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>aFileName</dt>
+<dd>A text filename.</dd>
+<dt>aViewer</dt>
+<dd>TMemo where text will be showed.</dd>
+</dl>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -4914,6 +5145,6 @@ Icons for zones.</p>
 Keys for zones</p>
 </td></tr>
 </table>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.12.1</a> on 2012-07-03 22:35:13</em>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.12.1</a> on 2012-07-25 23:30:46</em>
 </span>
 </body></html>

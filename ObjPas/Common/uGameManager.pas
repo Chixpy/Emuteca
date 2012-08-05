@@ -434,7 +434,7 @@ begin
   //   1. Remove Games wich file don't exists
   //   2. Add the new files
   // Is it faster than UpdateGameList?
-  //   YES, because not Export/Import is needed
+  //   No Export/Import is needed...
   UpdateGameList;
 end;
 

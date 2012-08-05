@@ -14,6 +14,7 @@ Changes =
   0.1 - 20111206:
     + Initial version.
 ~end~
+[END]
 }
 program SplitHistoryDat;
 

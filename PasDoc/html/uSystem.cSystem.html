@@ -7,7 +7,6 @@
 <link rel="StyleSheet" type="text/css" href="pasdoc.css">
 </head>
 <body bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#800080" alink="#FF0000">
-Emuteca documentation
 <a name="cSystem"></a><h1 class="cio">Class cSystem</h1>
 <table class="sections wide_list">
 <tr>
@@ -20,7 +19,16 @@ Emuteca documentation
 <code>type cSystem = class(TObject)</code></p>
 <h2 class="description">Description</h2>
 <p>
-<code>cSystem</code></p>
+<code>cSystem</code>.
+
+<p></p>
+
+<dl class="paragraph_spacing">
+  <dt>NOTE:</dt>
+  <dd><p>Because PascalScript don't suport overloaded methods, we don't use them right here.</p></dd>
+</dl>
+
+<p></p>
 <a name="%40Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
 <ul class="hierarchy"><li class="ancestor">TObject</li>
 <li class="thisitem">cSystem</li></ul><h2 class="overview">Overview</h2>
@@ -52,7 +60,7 @@ Emuteca documentation
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>procedure <b><a   href="uSystem.cSystem.html#FixFolderListData">FixFolderListData</a></b>(FolderList, CaptionList, ModeList: TStrings);</code></td>
+<td class="itemcode"><code>procedure <b><a   href="uSystem.cSystem.html#FixFolderListData">FixFolderListData</a></b>(FolderList, CaptionList: TStrings);</code></td>
 </tr>
 </table>
 <a name="%40Properties"></a><h3 class="summary">Properties</h3>
@@ -129,49 +137,41 @@ Emuteca documentation
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#ImageModes">ImageModes</a></b>: TStringList read FImageModes;</code></td>
-</tr>
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#InfoText">InfoText</a></b>: String read FInfoText write SetInfoText;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#LastYear">LastYear</a></b>: String read FLastYear write SetLastYear;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#MainEmulator">MainEmulator</a></b>: String
       read FMainEmulator write SetMainEmulator;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#MarqueeFolder">MarqueeFolder</a></b>: String read FMarqueeFolder
       write SetMarqueeFolder;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#Model">Model</a></b>: String read FModel write SetModel;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#MusicCaptions">MusicCaptions</a></b>: TStringList read FMusicCaptions;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#MusicExecutables">MusicExecutables</a></b>: TStringList read FMusicExecutables;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#MusicExtensions">MusicExtensions</a></b>: TStringList read FMusicExtensions;</code></td>
 </tr>
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#MusicFolders">MusicFolders</a></b>: TStringList read FMusicFolders;</code></td>
-</tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#MusicModes">MusicModes</a></b>: TStringList read FMusicModes;</code></td>
+<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#MusicFolders">MusicFolders</a></b>: TStringList read FMusicFolders;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -200,31 +200,23 @@ Emuteca documentation
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#TextModes">TextModes</a></b>: TStringList read FTextModes;</code></td>
-</tr>
-<tr class="list2">
-<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#UseCRC">UseCRC</a></b>: boolean read FUseCRC write SetUseCRC;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#VideoCaptions">VideoCaptions</a></b>: TStringList read FVideoCaptions;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#VideoExecutables">VideoExecutables</a></b>: TStringList read FVideoExecutables;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#VideoExtensions">VideoExtensions</a></b>: TStringList read FVideoExtensions;</code></td>
 </tr>
-<tr class="list2">
-<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#VideoFolders">VideoFolders</a></b>: TStringList read FVideoFolders;</code></td>
-</tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#VideoModes">VideoModes</a></b>: TStringList read FVideoModes;</code></td>
+<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#VideoFolders">VideoFolders</a></b>: TStringList read FVideoFolders;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -245,8 +237,8 @@ Emuteca documentation
 <p></p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
-<dt>(AName</dt>
-<dd>Name/Key of the system.)</dd>
+<dt>AName</dt>
+<dd>Name/Key of the system.</dd>
 </dl>
 </td></tr>
 </table>
@@ -270,8 +262,8 @@ Loads system data from a ini file.
 <p></p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
-<dt>(IniFile</dt>
-<dd>A Ini file name.)</dd>
+<dt>IniFile</dt>
+<dd>A Ini file name.</dd>
 </dl>
 </td></tr>
 </table>
@@ -287,8 +279,8 @@ Loads system data from a ini file.
 <p></p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
-<dt>(IniFile</dt>
-<dd>An already opened TInifile.)</dd>
+<dt>IniFile</dt>
+<dd>An already opened TInifile.</dd>
 </dl>
 </td></tr>
 </table>
@@ -301,13 +293,13 @@ Loads system data from a ini file.
 <p>
 Saves system data to a Ini file.
 
-<p>  as folders or files.)</p>
+<p> </p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
-<dt>(IniFile</dt>
-<dd>A Ini file name.)</dd>
-<dt>(ExportMode</dt>
-<dd>Is it for export data? Don't write personal settings</dd>
+<dt>IniFile</dt>
+<dd>A Ini file name.</dd>
+<dt>ExportMode</dt>
+<dd>Is it for export data? Don't write personal settings as folders or files.</dd>
 </dl>
 </td></tr>
 </table>
@@ -320,20 +312,20 @@ Saves system data to a Ini file.
 <p>
 Saves system data to a Ini file.
 
-<p>  as folders or files.)</p>
+<p> </p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
-<dt>(IniFile</dt>
-<dd>An already opened TInifile.)</dd>
-<dt>(ExportMode</dt>
-<dd>Is it for export data? Don't write personal settings</dd>
+<dt>IniFile</dt>
+<dd>An already opened TInifile.</dd>
+<dt>ExportMode</dt>
+<dd>Is it for export data? Don't write personal settings as folders or files.</dd>
 </dl>
 </td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><a name="FixFolderListData"></a><code>procedure <b>FixFolderListData</b>(FolderList, CaptionList, ModeList: TStrings);</code></td>
+<td class="itemcode"><a name="FixFolderListData"></a><code>procedure <b>FixFolderListData</b>(FolderList, CaptionList: TStrings);</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -530,27 +522,6 @@ Folders for the game images.</p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="ImageModes"></a><code>property <b>ImageModes</b>: TStringList read FImageModes;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-File search mode for the folders of game's images.
-
-<p></p>
-
-<dl class="paragraph_spacing">
-  <dt>&quot;0&quot;</dt>
-  <dd><p>Single <a class="normal"  href="uSystem.cSystem.html#Image">image</a>. Search in the folder only one <a class="normal"  href="uSystem.cSystem.html#Image">image</a> file with the game's name.</p></dd>
-  <dt>&quot;1&quot;</dt>
-  <dd><p>Multiple <a class="normal"  href="uSystem.cSystem.html#Image">image</a>. Search in the folder all files in a subfolder with the game's name. Something like MAME's style.</p></dd>
-</dl>
-
-<p></p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><a name="InfoText"></a><code>property <b>InfoText</b>: String read FInfoText write SetInfoText;</code></td>
 </tr>
 <tr><td colspan="2">
@@ -643,22 +614,6 @@ Folders for game music (OST, remixes).</p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="MusicModes"></a><code>property <b>MusicModes</b>: TStringList read FMusicModes;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-Music search mode for the folders of game's music.
-
-<p></p>
-
-<p>   the game's name.)
-
-<p>  with the game's name. Something like MAME's style.) )</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><a name="MusicParameters"></a><code>property <b>MusicParameters</b>: TStringList read FMusicParameters;</code></td>
 </tr>
 <tr><td colspan="2">
@@ -720,27 +675,6 @@ Folders for game texts.</p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="TextModes"></a><code>property <b>TextModes</b>: TStringList read FTextModes;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-Text search mode for the folders of game's text.
-
-<p></p>
-
-<dl class="paragraph_spacing">
-  <dt>&quot;0&quot;</dt>
-  <dd><p>Single text. Search in the folder only one text file with the game's name.</p></dd>
-  <dt>&quot;1&quot;</dt>
-  <dd><p>Multiple texts. Search in the folder all files in a subfolder with the game's name. Something like MAME's style.</p></dd>
-</dl>
-
-<p></p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><a name="UseCRC"></a><code>property <b>UseCRC</b>: boolean read FUseCRC write SetUseCRC;</code></td>
 </tr>
 <tr><td colspan="2">
@@ -791,27 +725,6 @@ Folders for game videos (Speedruns, TAS, etc.).</p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="VideoModes"></a><code>property <b>VideoModes</b>: TStringList read FVideoModes;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-Video search mode for the folders of game's music.
-
-<p></p>
-
-<dl class="paragraph_spacing">
-  <dt>&quot;0&quot;</dt>
-  <dd><p>Single text. Search in the folder only one video file with the game's name.</p></dd>
-  <dt>&quot;1&quot;</dt>
-  <dd><p>Multiple texts. Search in the folder all files in a subfolder with the game's name. Something like MAME's style.</p></dd>
-</dl>
-
-<p></p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><a name="VideoParameters"></a><code>property <b>VideoParameters</b>: TStringList read FVideoParameters;</code></td>
 </tr>
 <tr><td colspan="2">
@@ -819,6 +732,6 @@ Video search mode for the folders of game's music.
 Parameters for executables.</p>
 </td></tr>
 </table>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.12.1</a> on 2012-07-03 22:35:13</em>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.12.1</a> on 2012-07-25 23:30:46</em>
 </span>
 </body></html>

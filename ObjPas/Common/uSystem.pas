@@ -497,11 +497,9 @@ begin
   MainEmulator := IniFile.ReadString(ID, 'MainEmulator', MainEmulator);
   OtherEmulators.CommaText := IniFile.ReadString(ID, 'OtherEmulators', OtherEmulators.CommaText);
 
-  // Reparamos posibles incosistencias...
+  // Fixing lists...
   FixFolderListData(ImageFolders, ImageCaptions);
   FixFolderListData(TextFolders, TextCaptions);
-
-  // TODO 4: Ough...
   FixFolderListData(MusicFolders, MusicCaptions);
   FixFolderListData(MusicFolders, MusicExtensions);
   FixFolderListData(MusicFolders, MusicExecutables);

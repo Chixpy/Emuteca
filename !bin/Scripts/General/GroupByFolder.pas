@@ -8,13 +8,12 @@ Description =
   ~end~
 Changes =
 ~begin~
-  0.3 - 20111206
-    f - '(' and ')' -> '<' and '>'
   0.2 - 20110401
     m More verbose but show only changed
   0.1 - 20110102:
     + Initial version
 ~end~
+[END]
 }
 program GroupByFolder;
 
@@ -35,8 +34,6 @@ begin
     Compressed := FileExistsUTF8(GroupName);
 
     GroupName := ExtractFileName(GroupName);
-    GroupName := AnsiReplaceText(GroupName, '(', '<');
-    GroupName := AnsiReplaceText(GroupName, ')', '>');
 
     if Compressed then
     begin // begin..end needed

@@ -7,7 +7,6 @@
 <link rel="StyleSheet" type="text/css" href="pasdoc.css">
 </head>
 <body bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#800080" alink="#FF0000">
-Emuteca documentation
 <a name="TfrmMediaManager"></a><h1 class="cio">Class TfrmMediaManager</h1>
 <table class="sections wide_list">
 <tr>
@@ -60,7 +59,23 @@ Emuteca documentation
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#actOpenSourceFolder">actOpenSourceFolder</a></b>: TAction;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#actOpenTargetFolder">actOpenTargetFolder</a></b>: TAction;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#actPreviousMedia">actPreviousMedia</a></b>: TAction;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#actRenameGroup">actRenameGroup</a></b>: TAction;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#actRenameGroupMediaFile">actRenameGroupMediaFile</a></b>: TAction;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -68,91 +83,179 @@ Emuteca documentation
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#bDeleteAllFiles">bDeleteAllFiles</a></b>: TButton;</code></td>
+<td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#bDeleteAllFiles">bDeleteAllFiles</a></b>: TToolButton;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#bDeleteFile">bDeleteFile</a></b>: TButton;</code></td>
+<td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#bDeleteFile">bDeleteFile</a></b>: TToolButton;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#bMoveAllFiles">bMoveAllFiles</a></b>: TButton;</code></td>
+<td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#bMoveAllFiles">bMoveAllFiles</a></b>: TToolButton;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#bMoveFile">bMoveFile</a></b>: TButton;</code></td>
+<td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#bMoveFile">bMoveFile</a></b>: TToolButton;</code></td>
 </tr>
 <tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#bTBSep1">bTBSep1</a></b>: TToolButton;</code></td>
+</tr>
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#chkCopyFile">chkCopyFile</a></b>: TCheckBox;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#chkOnlySimilar">chkOnlySimilar</a></b>: TCheckBox;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#eOtherFolder">eOtherFolder</a></b>: TDirectoryEdit;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#gbxImages">gbxImages</a></b>: TGroupBox;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#gbxMusic">gbxMusic</a></b>: TGroupBox;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#gbxOtherFiles">gbxOtherFiles</a></b>: TGroupBox;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#gbxTexts">gbxTexts</a></b>: TGroupBox;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#gbxVideos">gbxVideos</a></b>: TGroupBox;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#iImage">iImage</a></b>: TImage;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#ilActions">ilActions</a></b>: TImageList;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#lbxImages">lbxImages</a></b>: TListBox;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#lbxMusic">lbxMusic</a></b>: TListBox;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#lbxOtherFiles">lbxOtherFiles</a></b>: TListBox;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#lbxTexts">lbxTexts</a></b>: TListBox;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#lbxVideos">lbxVideos</a></b>: TListBox;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#lSource">lSource</a></b>: TLabel;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#lTarget">lTarget</a></b>: TLabel;</code></td>
 </tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#miFLAssign">miFLAssign</a></b>: TMenuItem;</code></td>
+</tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#miFLDeleteAll">miFLDeleteAll</a></b>: TMenuItem;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#miFLDeleteFile">miFLDeleteFile</a></b>: TMenuItem;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#miFLMoveFile">miFLMoveFile</a></b>: TMenuItem;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#miFLSep1">miFLSep1</a></b>: TMenuItem;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#miFLSep2">miFLSep2</a></b>: TMenuItem;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#miGLRenameGroup">miGLRenameGroup</a></b>: TMenuItem;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#miGLRenameGroupMediaFile">miGLRenameGroupMediaFile</a></b>: TMenuItem;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#miMMMMAssingFile">miMMMMAssingFile</a></b>: TMenuItem;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#miMMMMDeleteAllFiles">miMMMMDeleteAllFiles</a></b>: TMenuItem;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#miMMMMDeleteFile">miMMMMDeleteFile</a></b>: TMenuItem;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#miMMMMFile">miMMMMFile</a></b>: TMenuItem;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#miMMMMMoveAllFiles">miMMMMMoveAllFiles</a></b>: TMenuItem;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#miMMMMMoveFile">miMMMMMoveFile</a></b>: TMenuItem;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#miMMMMSep1">miMMMMSep1</a></b>: TMenuItem;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#miMMMMSep2">miMMMMSep2</a></b>: TMenuItem;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#miMMSystem">miMMSystem</a></b>: TMenuItem;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#miMoveAllFiles">miMoveAllFiles</a></b>: TMenuItem;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#miOpenImages">miOpenImages</a></b>: TMenuItem;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#miOpenMediaFolder">miOpenMediaFolder</a></b>: TMenuItem;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#miOpenSourceFolder">miOpenSourceFolder</a></b>: TMenuItem;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#mmMediaManager">mmMediaManager</a></b>: TMainMenu;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -224,19 +327,19 @@ Emuteca documentation
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#pmImage">pmImage</a></b>: TPopupMenu;</code></td>
+<td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#pmGroupList">pmGroupList</a></b>: TPopupMenu;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#pOtherFolder">pOtherFolder</a></b>: TPanel;</code></td>
+<td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#pmImage">pmImage</a></b>: TPopupMenu;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#pSource">pSource</a></b>: TPanel;</code></td>
+<td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#pOtherFolder">pOtherFolder</a></b>: TPanel;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#pSystem">pSystem</a></b>: TPanel;</code></td>
+<td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#pSource">pSource</a></b>: TPanel;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -280,33 +383,37 @@ Emuteca documentation
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#vstAllFiles">vstAllFiles</a></b>: TVirtualStringTree;</code></td>
+<td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#ToolBarFiles">ToolBarFiles</a></b>: TToolBar;</code></td>
 </tr>
 <tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#vstAllFiles">vstAllFiles</a></b>: TVirtualStringTree;</code></td>
+</tr>
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#vstAllGames">vstAllGames</a></b>: TVirtualStringTree;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#vstAllGroups">vstAllGroups</a></b>: TVirtualStringTree;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#vstFilesOtherFolder">vstFilesOtherFolder</a></b>: TVirtualStringTree;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#vstFilesWOGame">vstFilesWOGame</a></b>: TVirtualStringTree;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#vstFilesWOGroup">vstFilesWOGroup</a></b>: TVirtualStringTree;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#vstGroupsWOFile">vstGroupsWOFile</a></b>: TVirtualStringTree;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a   href="fMediaManager.TfrmMediaManager.html#vstOtherFiles">vstOtherFiles</a></b>: TVirtualStringTree;</code></td>
 </tr>
@@ -315,23 +422,15 @@ Emuteca documentation
 <table class="summary wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>function <b><a   href="fMediaManager.TfrmMediaManager.html#AddFile">AddFile</a></b>(aFolder, aName: string): boolean; overload;</code></td>
+<td class="itemcode"><code>function <b><a   href="fMediaManager.TfrmMediaManager.html#AddFile">AddFile</a></b>(aFolder: string; Info: TSearchRec): boolean; overload;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>function <b><a   href="fMediaManager.TfrmMediaManager.html#AddFile">AddFile</a></b>(aFolder: string; Info: TSearchRec): boolean; overload;</code></td>
+<td class="itemcode"><code>function <b><a   href="fMediaManager.TfrmMediaManager.html#AddFile">AddFile</a></b>(aFolder, aName: string): boolean; overload;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
 <td class="itemcode"><code>function <b><a   href="fMediaManager.TfrmMediaManager.html#AddFilesOtherFolder">AddFilesOtherFolder</a></b>(aFolder: string; Info: TSearchRec): boolean; overload;</code></td>
-</tr>
-<tr class="list2">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>function <b><a   href="fMediaManager.TfrmMediaManager.html#AddFolder">AddFolder</a></b>(aFolder, aName: string): boolean; overload;</code></td>
-</tr>
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>function <b><a   href="fMediaManager.TfrmMediaManager.html#AddFolder">AddFolder</a></b>(aFolder: string; Info: TSearchRec): boolean; overload;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
@@ -364,6 +463,14 @@ Emuteca documentation
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>procedure <b><a   href="fMediaManager.TfrmMediaManager.html#actOpenImagesExecute">actOpenImagesExecute</a></b>(Sender: TObject);</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="fMediaManager.TfrmMediaManager.html#actOpenSourceFolderExecute">actOpenSourceFolderExecute</a></b>(Sender: TObject);</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="fMediaManager.TfrmMediaManager.html#actOpenTargetFolderExecute">actOpenTargetFolderExecute</a></b>(Sender: TObject);</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -567,21 +674,17 @@ Emuteca documentation
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>property <b><a   href="fMediaManager.TfrmMediaManager.html#MultiFile">MultiFile</a></b>: boolean read FMultiFile write SetMultiFile;</code></td>
-</tr>
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
 <td class="itemcode"><code>property <b><a   href="fMediaManager.TfrmMediaManager.html#SourceFile">SourceFile</a></b>: string read FSourceFile write SetSourceFile;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
 <td class="itemcode"><code>property <b><a   href="fMediaManager.TfrmMediaManager.html#SourceFolder">SourceFolder</a></b>: string read FSourceFolder write SetSourceFolder;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
 <td class="itemcode"><code>property <b><a   href="fMediaManager.TfrmMediaManager.html#TargetFile">TargetFile</a></b>: string read FTargetFile write SetTargetFile;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
 <td class="itemcode"><code>property <b><a   href="fMediaManager.TfrmMediaManager.html#TargetFolder">TargetFolder</a></b>: string read FTargetFolder write SetTargetFolder;</code></td>
 </tr>
@@ -655,7 +758,39 @@ Emuteca documentation
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="actOpenSourceFolder"></a><code><b>actOpenSourceFolder</b>: TAction;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="actOpenTargetFolder"></a><code><b>actOpenTargetFolder</b>: TAction;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><a name="actPreviousMedia"></a><code><b>actPreviousMedia</b>: TAction;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="actRenameGroup"></a><code><b>actRenameGroup</b>: TAction;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="actRenameGroupMediaFile"></a><code><b>actRenameGroupMediaFile</b>: TAction;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -671,7 +806,7 @@ Emuteca documentation
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="bDeleteAllFiles"></a><code><b>bDeleteAllFiles</b>: TButton;</code></td>
+<td class="itemcode"><a name="bDeleteAllFiles"></a><code><b>bDeleteAllFiles</b>: TToolButton;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -679,7 +814,7 @@ Emuteca documentation
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="bDeleteFile"></a><code><b>bDeleteFile</b>: TButton;</code></td>
+<td class="itemcode"><a name="bDeleteFile"></a><code><b>bDeleteFile</b>: TToolButton;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -687,7 +822,7 @@ Emuteca documentation
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="bMoveAllFiles"></a><code><b>bMoveAllFiles</b>: TButton;</code></td>
+<td class="itemcode"><a name="bMoveAllFiles"></a><code><b>bMoveAllFiles</b>: TToolButton;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -695,7 +830,15 @@ Emuteca documentation
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="bMoveFile"></a><code><b>bMoveFile</b>: TButton;</code></td>
+<td class="itemcode"><a name="bMoveFile"></a><code><b>bMoveFile</b>: TToolButton;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="bTBSep1"></a><code><b>bTBSep1</b>: TToolButton;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -839,7 +982,175 @@ Emuteca documentation
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="miFLAssign"></a><code><b>miFLAssign</b>: TMenuItem;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="miFLDeleteAll"></a><code><b>miFLDeleteAll</b>: TMenuItem;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="miFLDeleteFile"></a><code><b>miFLDeleteFile</b>: TMenuItem;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="miFLMoveFile"></a><code><b>miFLMoveFile</b>: TMenuItem;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="miFLSep1"></a><code><b>miFLSep1</b>: TMenuItem;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="miFLSep2"></a><code><b>miFLSep2</b>: TMenuItem;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="miGLRenameGroup"></a><code><b>miGLRenameGroup</b>: TMenuItem;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="miGLRenameGroupMediaFile"></a><code><b>miGLRenameGroupMediaFile</b>: TMenuItem;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="miMMMMAssingFile"></a><code><b>miMMMMAssingFile</b>: TMenuItem;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="miMMMMDeleteAllFiles"></a><code><b>miMMMMDeleteAllFiles</b>: TMenuItem;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="miMMMMDeleteFile"></a><code><b>miMMMMDeleteFile</b>: TMenuItem;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="miMMMMFile"></a><code><b>miMMMMFile</b>: TMenuItem;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="miMMMMMoveAllFiles"></a><code><b>miMMMMMoveAllFiles</b>: TMenuItem;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="miMMMMMoveFile"></a><code><b>miMMMMMoveFile</b>: TMenuItem;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="miMMMMSep1"></a><code><b>miMMMMSep1</b>: TMenuItem;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="miMMMMSep2"></a><code><b>miMMMMSep2</b>: TMenuItem;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="miMMSystem"></a><code><b>miMMSystem</b>: TMenuItem;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="miMoveAllFiles"></a><code><b>miMoveAllFiles</b>: TMenuItem;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><a name="miOpenImages"></a><code><b>miOpenImages</b>: TMenuItem;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="miOpenMediaFolder"></a><code><b>miOpenMediaFolder</b>: TMenuItem;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="miOpenSourceFolder"></a><code><b>miOpenSourceFolder</b>: TMenuItem;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="mmMediaManager"></a><code><b>mmMediaManager</b>: TMainMenu;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -983,6 +1294,14 @@ Emuteca documentation
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="pmGroupList"></a><code><b>pmGroupList</b>: TPopupMenu;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><a name="pmImage"></a><code><b>pmImage</b>: TPopupMenu;</code></td>
 </tr>
 <tr><td colspan="2">
@@ -1000,14 +1319,6 @@ Emuteca documentation
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><a name="pSource"></a><code><b>pSource</b>: TPanel;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="pSystem"></a><code><b>pSystem</b>: TPanel;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -1095,6 +1406,14 @@ Emuteca documentation
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="ToolBarFiles"></a><code><b>ToolBarFiles</b>: TToolBar;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><a name="vstAllFiles"></a><code><b>vstAllFiles</b>: TVirtualStringTree;</code></td>
 </tr>
 <tr><td colspan="2">
@@ -1160,35 +1479,11 @@ Emuteca documentation
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><a name="AddFile"></a><code>function <b>AddFile</b>(aFolder, aName: string): boolean; overload;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-Adds a file to the lists in not <a class="normal"  href="fMediaManager.TfrmMediaManager.html#MultiFile">MultiFile</a> mode.
-
-<p>For manual use (and hacky updates).
-
-<p> 
-
-<p> will be found.).)</p>
-<h6 class="description_section">Parameters</h6>
-<dl class="parameters">
-<dt>(aFolder</dt>
-<dd>Folder where the file is in.)</dd>
-<dt>(aName</dt>
-<dd>Name of the file.)</dd>
-</dl>
-<h6 class="description_section">Returns</h6>
-<p class="return">(Always <code>True</code> (useless until a reason to stop batch operations</p></td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
 <td class="itemcode"><a name="AddFile"></a><code>function <b>AddFile</b>(aFolder: string; Info: TSearchRec): boolean; overload;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
-Adds a file to the lists in not <a class="normal"  href="fMediaManager.TfrmMediaManager.html#MultiFile">MultiFile</a> mode.
+Adds a file to the lists in not MultiFile mode.
 
 <p>For use with IterateFolder.
 
@@ -1197,13 +1492,37 @@ Adds a file to the lists in not <a class="normal"  href="fMediaManager.TfrmMedia
 <p></p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
-<dt>(aFolder</dt>
-<dd>Folder where the file is in.)</dd>
-<dt>(Info</dt>
-<dd>TSearchRec with file data.)</dd>
+<dt>aFolder</dt>
+<dd>Folder where the file is in.</dd>
+<dt>Info</dt>
+<dd>TSearchRec with file data.</dd>
 </dl>
 <h6 class="description_section">Returns</h6>
-<p class="return">(Always <code>True</code>; needed for IterateFolder.)</p></td></tr>
+<p class="return">Always <code>True</code>; needed for IterateFolder.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="AddFile"></a><code>function <b>AddFile</b>(aFolder, aName: string): boolean; overload;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Adds a file to the lists in not MultiFile mode.
+
+<p>For manual use (and hacky updates).
+
+<p> 
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>aFolder</dt>
+<dd>Folder where the file is in.</dd>
+<dt>aName</dt>
+<dd>Name of the file.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Always <code>True</code> (useless until a reason to stop batch operations will be found.).</p></td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -1219,61 +1538,13 @@ Add files or folders to <a class="normal"  href="fMediaManager.TfrmMediaManager.
 <p></p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
-<dt>(aFolder</dt>
-<dd>Folder where the file is in.)</dd>
-<dt>(Info</dt>
-<dd>TSearchRec with folder or file data.)</dd>
+<dt>aFolder</dt>
+<dd>Folder where the file is in.</dd>
+<dt>Info</dt>
+<dd>TSearchRec with folder or file data.</dd>
 </dl>
 <h6 class="description_section">Returns</h6>
-<p class="return">(Always <code>True</code>; needed for IterateFolder.)</p></td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><a name="AddFolder"></a><code>function <b>AddFolder</b>(aFolder, aName: string): boolean; overload;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-Add a folder (or compressed archive) to the lists in <a class="normal"  href="fMediaManager.TfrmMediaManager.html#MultiFile">MultiFile</a> mode.
-
-<p>For manual use (and hacky updates).
-
-<p> 
-
-<p> will be found).)</p>
-<h6 class="description_section">Parameters</h6>
-<dl class="parameters">
-<dt>(aFolder</dt>
-<dd>Folder where the file is in.)</dd>
-<dt>(aName</dt>
-<dd>Name of the subfolder.)</dd>
-</dl>
-<h6 class="description_section">Returns</h6>
-<p class="return">(Always <code>True</code> (useless until a reason to stop batch operations</p></td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><a name="AddFolder"></a><code>function <b>AddFolder</b>(aFolder: string; Info: TSearchRec): boolean; overload;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-Adds a folder (or compressed archive) to the lists in <a class="normal"  href="fMediaManager.TfrmMediaManager.html#MultiFile">MultiFile</a> mode.
-
-<p>For use with IterateFolder.
-
-<p> 
-
-<p></p>
-<h6 class="description_section">Parameters</h6>
-<dl class="parameters">
-<dt>(aFolder</dt>
-<dd>Folder where the file is in.)</dd>
-<dt>(Info</dt>
-<dd>TSearchRec with folder or compressed archive data.)</dd>
-</dl>
-<h6 class="description_section">Returns</h6>
-<p class="return">(Always <code>True</code>; needed for IterateFolder.)</p></td></tr>
+<p class="return">Always <code>True</code>; needed for IterateFolder.</p></td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -1337,6 +1608,22 @@ Returns the current file list shown.</p>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><a name="actOpenImagesExecute"></a><code>procedure <b>actOpenImagesExecute</b>(Sender: TObject);</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="actOpenSourceFolderExecute"></a><code>procedure <b>actOpenSourceFolderExecute</b>(Sender: TObject);</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="actOpenTargetFolderExecute"></a><code>procedure <b>actOpenTargetFolderExecute</b>(Sender: TObject);</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -1569,10 +1856,10 @@ Change the media preview to the file.
 <p> </p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
-<dt>(aFolder</dt>
-<dd>Folder were the file is.)</dd>
-<dt>(aName</dt>
-<dd>Name of the file.)</dd>
+<dt>aFolder</dt>
+<dd>Folder were the file is.</dd>
+<dt>aName</dt>
+<dd>Name of the file.</dd>
 </dl>
 </td></tr>
 </table>
@@ -1598,8 +1885,8 @@ Change the media preview to the game media.
 <p></p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
-<dt>(aGame</dt>
-<dd>The game with it's media will be previewed.)</dd>
+<dt>aGame</dt>
+<dd>The game with it's media will be previewed.</dd>
 </dl>
 </td></tr>
 </table>
@@ -1615,8 +1902,8 @@ Change the media preview to the group media.
 <p></p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
-<dt>(aGroup</dt>
-<dd>The game group with it's media will be previewed.)</dd>
+<dt>aGroup</dt>
+<dd>The game group with it's media will be previewed.</dd>
 </dl>
 </td></tr>
 </table>
@@ -1714,10 +2001,10 @@ Remove a file from lists (not physically).
 <p> </p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
-<dt>(aFolder</dt>
-<dd>Folder were the file is.)</dd>
-<dt>(aFile</dt>
-<dd>Name of the file.)</dd>
+<dt>aFolder</dt>
+<dd>Folder were the file is.</dd>
+<dt>aFile</dt>
+<dd>Name of the file.</dd>
 </dl>
 </td></tr>
 </table>
@@ -1735,8 +2022,8 @@ Remove groups from <a class="normal"  href="fMediaManager.TfrmMediaManager.html#
 <p></p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
-<dt>(aFile</dt>
-<dd>Name of file that maybe is used by groups.)</dd>
+<dt>aFile</dt>
+<dd>Name of file that maybe is used by groups.</dd>
 </dl>
 </td></tr>
 </table>
@@ -1772,8 +2059,8 @@ Update the Virtual String Trees.
 <p></p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
-<dt>(aFolder</dt>
-<dd>Folder where search the media.)</dd>
+<dt>aFolder</dt>
+<dd>Folder where search the media.</dd>
 </dl>
 </td></tr>
 </table>
@@ -1836,16 +2123,6 @@ Extensions of the current selected Media.
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><a name="MultiFile"></a><code>property <b>MultiFile</b>: boolean read FMultiFile write SetMultiFile;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-Mode of current selected Media.</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
 <td class="itemcode"><a name="SourceFile"></a><code>property <b>SourceFile</b>: string read FSourceFile write SetSourceFile;</code></td>
 </tr>
 <tr><td colspan="2">
@@ -1887,6 +2164,6 @@ Folder of the target file.
 <p>Always have the trailing path delimiter.</p>
 </td></tr>
 </table>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.12.1</a> on 2012-07-03 22:35:13</em>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.12.1</a> on 2012-07-25 23:30:46</em>
 </span>
 </body></html>

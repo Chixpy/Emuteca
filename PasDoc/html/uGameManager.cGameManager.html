@@ -7,7 +7,6 @@
 <link rel="StyleSheet" type="text/css" href="pasdoc.css">
 </head>
 <body bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#800080" alink="#FF0000">
-Emuteca documentation
 <a name="cGameManager"></a><h1 class="cio">Class cGameManager</h1>
 <table class="sections wide_list">
 <tr>
@@ -75,7 +74,7 @@ Manager of the games and groups (families).
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>function <b><a   href="uGameManager.cGameManager.html#GameMediaExists">GameMediaExists</a></b>(aFolder: string; aGameVersion: <a   href="uGame.cGame.html">cGame</a>; Extensions: TStrings; MultiFile: boolean; SearchInZip: boolean): boolean;</code></td>
+<td class="itemcode"><code>function <b><a   href="uGameManager.cGameManager.html#GameMediaExists">GameMediaExists</a></b>(aFolder: string; aGameVersion: <a   href="uGame.cGame.html">cGame</a>; Extensions: TStrings): boolean;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -91,7 +90,7 @@ Manager of the games and groups (families).
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>function <b><a   href="uGameManager.cGameManager.html#GroupMediaExists">GroupMediaExists</a></b>(aFolder: string; aGameGroup: <a   href="uGameGroup.cGameGroup.html">cGameGroup</a>; Extensions: TStrings; MultiFile: boolean; SearchInZip: boolean): boolean;</code></td>
+<td class="itemcode"><code>function <b><a   href="uGameManager.cGameManager.html#GroupMediaExists">GroupMediaExists</a></b>(aFolder: string; aGameGroup: <a   href="uGameGroup.cGameGroup.html">cGameGroup</a>; Extensions: TStrings): boolean;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -135,15 +134,15 @@ Manager of the games and groups (families).
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a   href="uGameManager.cGameManager.html#SearchGameMedia">SearchGameMedia</a></b>(FileList: TStrings; aFolder: string; aGameVersion: <a   href="uGame.cGame.html">cGame</a>; Extensions: TStrings; MultiFile: boolean; SearchInZip: boolean);</code></td>
+<td class="itemcode"><code>procedure <b><a   href="uGameManager.cGameManager.html#SearchGameMedia">SearchGameMedia</a></b>(FileList: TStrings; aFolder: string; aGameVersion: <a   href="uGame.cGame.html">cGame</a>; Extensions: TStrings);</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a   href="uGameManager.cGameManager.html#SearchGroupMedia">SearchGroupMedia</a></b>(FileList: TStrings; aFolder: string; aGameGroup: <a   href="uGameGroup.cGameGroup.html">cGameGroup</a>; Extensions: TStrings; MultiFile: boolean; SearchInZip: boolean);</code></td>
+<td class="itemcode"><code>procedure <b><a   href="uGameManager.cGameManager.html#SearchGroupMedia">SearchGroupMedia</a></b>(FileList: TStrings; aFolder: string; aGameGroup: <a   href="uGameGroup.cGameGroup.html">cGameGroup</a>; Extensions: TStrings);</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a   href="uGameManager.cGameManager.html#SearchMediaFiles">SearchMediaFiles</a></b>(FileList: TStrings; aFolder: string; aFileName: string; Extensions: TStrings; MultiFile: boolean; SearchInZip: boolean);</code></td>
+<td class="itemcode"><code>procedure <b><a   href="uGameManager.cGameManager.html#SearchMediaFiles">SearchMediaFiles</a></b>(FileList: TStrings; aFolder: string; aFileName: string; Extensions: TStrings);</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -323,7 +322,7 @@ Return the number of games.</p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="GameMediaExists"></a><code>function <b>GameMediaExists</b>(aFolder: string; aGameVersion: <a   href="uGame.cGame.html">cGame</a>; Extensions: TStrings; MultiFile: boolean; SearchInZip: boolean): boolean;</code></td>
+<td class="itemcode"><a name="GameMediaExists"></a><code>function <b>GameMediaExists</b>(aFolder: string; aGameVersion: <a   href="uGame.cGame.html">cGame</a>; Extensions: TStrings): boolean;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -361,7 +360,7 @@ Return the number of groups.</p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="GroupMediaExists"></a><code>function <b>GroupMediaExists</b>(aFolder: string; aGameGroup: <a   href="uGameGroup.cGameGroup.html">cGameGroup</a>; Extensions: TStrings; MultiFile: boolean; SearchInZip: boolean): boolean;</code></td>
+<td class="itemcode"><a name="GroupMediaExists"></a><code>function <b>GroupMediaExists</b>(aFolder: string; aGameGroup: <a   href="uGameGroup.cGameGroup.html">cGameGroup</a>; Extensions: TStrings): boolean;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -479,7 +478,7 @@ Save the current <a class="normal"  href="uGameManager.cGameManager.html#System"
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="SearchGameMedia"></a><code>procedure <b>SearchGameMedia</b>(FileList: TStrings; aFolder: string; aGameVersion: <a   href="uGame.cGame.html">cGame</a>; Extensions: TStrings; MultiFile: boolean; SearchInZip: boolean);</code></td>
+<td class="itemcode"><a name="SearchGameMedia"></a><code>procedure <b>SearchGameMedia</b>(FileList: TStrings; aFolder: string; aGameVersion: <a   href="uGame.cGame.html">cGame</a>; Extensions: TStrings);</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -487,7 +486,7 @@ Save the current <a class="normal"  href="uGameManager.cGameManager.html#System"
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="SearchGroupMedia"></a><code>procedure <b>SearchGroupMedia</b>(FileList: TStrings; aFolder: string; aGameGroup: <a   href="uGameGroup.cGameGroup.html">cGameGroup</a>; Extensions: TStrings; MultiFile: boolean; SearchInZip: boolean);</code></td>
+<td class="itemcode"><a name="SearchGroupMedia"></a><code>procedure <b>SearchGroupMedia</b>(FileList: TStrings; aFolder: string; aGameGroup: <a   href="uGameGroup.cGameGroup.html">cGameGroup</a>; Extensions: TStrings);</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -495,7 +494,7 @@ Save the current <a class="normal"  href="uGameManager.cGameManager.html#System"
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="SearchMediaFiles"></a><code>procedure <b>SearchMediaFiles</b>(FileList: TStrings; aFolder: string; aFileName: string; Extensions: TStrings; MultiFile: boolean; SearchInZip: boolean);</code></td>
+<td class="itemcode"><a name="SearchMediaFiles"></a><code>procedure <b>SearchMediaFiles</b>(FileList: TStrings; aFolder: string; aFileName: string; Extensions: TStrings);</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -658,6 +657,6 @@ Temp file for... nothing. May be for export/import when updating.</p>
 Temp folder used for decompress and other dirty things.</p>
 </td></tr>
 </table>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.12.1</a> on 2012-07-03 22:35:13</em>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.12.1</a> on 2012-07-25 23:30:46</em>
 </span>
 </body></html>

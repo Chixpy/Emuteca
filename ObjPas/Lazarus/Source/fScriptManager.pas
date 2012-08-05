@@ -26,133 +26,122 @@ unit fScriptManager;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs,
-  ExtCtrls, ComCtrls, ShellCtrls, StdCtrls, ActnList, Buttons, StdActns,
-  strutils, SynHighlighterPas, SynMemo, LazUTF8,
-  uPSCompiler, uPSRuntime, uPSPreProcessor,
-  fSMAskFile, fSMAskFolder,
-  uPSComponent, uPSComponent_Default, uPSComponent_Controls, uPSUtils,
-  uPSComponent_Forms, uPSComponent_StdCtrls, uPSC_strutils,
-  uPSI_uGame,  uPSI_uGameGroup,
-  uPSI_uGameManager, uPSI_uGameStats, uPSI_u7zWrapper, uPSI_uEmulator,
-  uPSI_uSystem,
-  uConfig, uCustomUtils, uGameManager, uGame, uGameGroup;
+  Classes, SysUtils, Forms, ActnList, Controls, ComCtrls, ExtCtrls, LResources,
+  StdCtrls, ShellCtrls, FileUtil, Dialogs, StdActns, Buttons, IniFiles,
+  SynHighlighterPas, SynEdit, SynMacroRecorder,
+  uScriptEngEmuteca, uConfig, uCustomUtils, uGameManager, uGame, uGameGroup;
 
 resourcestring
-      rsFSMCompilationOK = 'Compilation: OK.';
-      rsFSMCompilationError = 'Compilation: Error.';
-      rsFSMExecutionOK = 'Execution: OK.';
-      rsFSMExecutionError = 'Execution: Error.';
-      rsFSMScriptFileSaved = 'Script file saved: %s';
-      rsFSMEmutecaScript = 'Emuteca Script';
+  rsFSMScriptFileSaved = 'Script file saved: %0:s';
+  rsFSMEmutecaScript = 'Emuteca Script File';
+  rsFSMSaveChanges = 'The source was modified:' +
+    sLineBreak + '%0:s' + sLineBreak + 'Do you want to save the changes?';
 
 const
   // Script file extension
   kFSMScriptExt = '.pas';
-  kFSMScriptFilter =  ' (*' + kFSMScriptExt + ')|*' +
+  kFSMScriptFilter = ' (*' + kFSMScriptExt + ')|*' +
     kFSMScriptExt + '|All files|' + AllFilesMask;
   kFSMUnitsFolder = 'Common' + PathDelim;
+  kFSMDataSection = 'SCRIPTDATA';
+
 type
 
-  TSMLoadingListCallBack = function(const Game, Version: String;
-    const Max, Value: Int64): Boolean of object;
+  TSMLoadingListCallBack = function(const Game, Version: string;
+    const Max, Value: int64): boolean of object;
 
   { TfrmScriptManager }
 
   TfrmScriptManager = class(TForm)
-    actExecute: TAction;
     actCompile: TAction;
-    actSaveAs: TAction;
-    actSaveScript: TAction;
+    actExecute: TAction;
     ActionList: TActionList;
-    bExecute: TBitBtn;
-    bSave: TBitBtn;
-    bSaveAs: TBitBtn;
-    cCompile: TBitBtn;
-    chkReadOnly: TCheckBox;
     actEditCopy: TEditCopy;
     actEditCut: TEditCut;
     actEditPaste: TEditPaste;
-    gbxFile: TGroupBox;
-    gbRun: TGroupBox;
+    actEditSelectAll: TEditSelectAll;
+    actEditUndo: TEditUndo;
+    actEditDelete: TEditDelete;
+    bCompile2: TBitBtn;
+    bExecute2: TBitBtn;
+    actFileSaveAs: TFileSaveAs;
+    gbxScript: TGroupBox;
     ilActions: TImageList;
-    slvScripts: TShellListView;
-    mCompMess: TMemo;
-    mOutput: TMemo;
+    mInfo: TMemo;
+    mOutPut: TMemo;
     PageControl: TPageControl;
-    PSDllPlugin: TPSDllPlugin;
-    PSImport_Forms: TPSImport_Forms;
-    PSImport_StdCtrls: TPSImport_StdCtrls;
-    PSImport_StrUtils: TPSImport_StrUtils;
+    pRight: TPanel;
     pTop: TPanel;
-    pButtons: TPanel;
     pInfo: TPanel;
-    PSImport_Classes: TPSImport_Classes;
-    PSImport_Controls: TPSImport_Controls;
-    PSImport_DateUtils: TPSImport_DateUtils;
-    PSScript: TPSScript;
-    SaveDialog: TSaveDialog;
     sbInfo: TStatusBar;
-    pagScriptList: TTabSheet;
+    pagGeneralScriptList: TTabSheet;
     pagSourceCode: TTabSheet;
-    slvUnits: TShellListView;
-    SynFreePascalSyn: TSynFreePascalSyn;
-    SynMemo: TSynMemo;
     pagOutput: TTabSheet;
+    pagGameScripts: TTabSheet;
+    pagGroupScripts: TTabSheet;
     pagCommonScripts: TTabSheet;
-    ToolBarEditor: TToolBar;
+    actSearchFind: TSearchFind;
+    actSearchReplace: TSearchReplace;
+    slvGeneral: TShellListView;
+    slvGame: TShellListView;
+    slvCommon: TShellListView;
+    slvGroup: TShellListView;
+    SynEdit: TSynEdit;
+    SynFreePascalSyn: TSynFreePascalSyn;
+    SynMacroRecorder: TSynMacroRecorder;
+    tbEditor: TToolBar;
     bEditCopy: TToolButton;
     bEditCut: TToolButton;
+    bEditDelete: TToolButton;
     bEditPaste: TToolButton;
+    bSeparator1: TToolButton;
+    bEditSelectAll: TToolButton;
+    bSeparator2: TToolButton;
+    bEditUndo: TToolButton;
+    bSeparator3: TToolButton;
+    bSearchFind: TToolButton;
+    bSearchReplace: TToolButton;
+    bSeparator4: TToolButton;
+    bSaveFileAs: TToolButton;
+    bSeparator5: TToolButton;
+    bCompile: TToolButton;
+    bExecute: TToolButton;
     procedure actCompileExecute(Sender: TObject);
     procedure actExecuteExecute(Sender: TObject);
-    procedure actSaveAsExecute(Sender: TObject);
-    procedure actSaveScriptExecute(Sender: TObject);
-    procedure chkReadOnlyChange(Sender: TObject);
+    procedure actFileSaveAsAccept(Sender: TObject);
+    procedure actFileSaveAsBeforeExecute(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-    procedure slvScriptsSelectItem(Sender: TObject; Item: TListItem;
-      Selected: Boolean);
-    procedure PSScriptCompile(Sender: TPSScript);
-    procedure PSScriptExecute(Sender: TPSScript);
-    function PSScriptFindUnknownFile(Sender: TObject;
-      const OrginFileName: tbtstring; var FileName, Output: tbtstring): Boolean;
-    function PSScriptNeedFile(Sender: TObject; const OriginFileName: tbtstring;
-      var FileName, Output: tbtstring): Boolean;
+    procedure FormDestroy(Sender: TObject);
+    procedure slvSelectItem(Sender: TObject; Item: TListItem;
+      Selected: boolean);
   private
     { private declarations }
     FConfig: cConfig;
+    FCurrentFile: string;
     FCurrGame: cGame;
     FCurrGroup: cGameGroup;
     FGameManager: cGameManager;
+    FScriptEngine: cScriptEngEmuteca;
     FScriptFolder: string;
     procedure SetConfig(const AValue: cConfig);
+    procedure SetCurrentFile(AValue: string);
     procedure SetCurrGame(AValue: cGame);
     procedure SetCurrGroup(AValue: cGameGroup);
     procedure SetGameManager(const AValue: cGameManager);
+    procedure SetScriptEngine(AValue: cScriptEngEmuteca);
     procedure SetScriptFolder(AValue: string);
 
   protected
-    // Added functions
-    // ---------------
-    // This functions are those which don't work with a simple
-    //   "Sender.AddFunction" (Overloaded or default parameters) or
-    //   they can help for some tasks.
+    property CurrentFile: string read FCurrentFile write SetCurrentFile;
+    property ScriptEngine: cScriptEngEmuteca
+      read FScriptEngine write SetScriptEngine;
 
-    // Input / Output
-    procedure WriteLn(const Str: String);
-    function ReadLn(const aQuestion, DefAnswer: String): String;
+    procedure LoadScriptFile(const aFile: string);
 
-    // Strings
-    function RPos(const Substr, Source: String): Integer;
+    function Compile: boolean;
+    function Execute: boolean;
 
-    function UTF8LowerCase(const AInStr: String): String;
-    function UTF8UpperCase(const AInStr: String): String;
-
-    // Dialog forms
-    function AskFile(const aTitle, aExt, DefFile: String): String;
-    function AskFolder(const aTitle, DefFolder: String): String;
-
-    function Compile: Boolean;
+    procedure UpdateSLV;
 
   public
     { public declarations }
@@ -160,7 +149,6 @@ type
     property GameManager: cGameManager read FGameManager write SetGameManager;
     property CurrGame: cGame read FCurrGame write SetCurrGame;
     property CurrGroup: cGameGroup read FCurrGroup write SetCurrGroup;
-    property ScriptFolder: string read FScriptFolder write SetScriptFolder;
   end;
 
 var
@@ -170,262 +158,66 @@ implementation
 
 { TfrmScriptManager }
 
-procedure TfrmScriptManager.PSScriptCompile(Sender: TPSScript);
-begin
-  // Input and Output
-  Sender.AddMethod(Self, @TfrmScriptManager.WriteLn,
-    'procedure WriteLn(const s: String)');
-  Sender.AddMethod(Self, @TfrmScriptManager.ReadLn,
-    'function ReadLn(const aQuestion, DefAnswer: String): String;');
-
-  // String handling UTF8 from LazUTF8 unit
-  Sender.AddFunction(@UTF8CompareText,
-    'function UTF8CompareText(const S1, S2: String): Integer;');
-  Sender.AddFunction(@UTF8CompareStr,
-    'function UTF8CompareStr(const S1, S2: String): Integer;');
-  Sender.AddFunction(@UTF8ToSys,
-    'function UTF8ToSys(const S: String): String;');
-  Sender.AddFunction(@SysToUTF8,
-    'function SysToUTF8(const S: String): String;');
-  Sender.AddMethod(Self, @TfrmScriptManager.UTF8LowerCase,
-    'function UTF8LowerCase(const AInStr: String): String;');
-  Sender.AddMethod(Self, @TfrmScriptManager.UTF8UpperCase,
-    'function UTF8UpperCase(const AInStr: String): String;');
-
-  // Misc string functions
-  Sender.AddMethod(Self, @TfrmScriptManager.RPos,
-    'function RPos (const Substr: String; const Source: String) : Integer;');
-
-  // Path and filename strings
-  Sender.AddFunction(@CleanFileName,
-    'function CleanFileName(const AFileName: String): String;');
-  Sender.AddFunction(@ExcludeTrailingPathDelimiter,
-    'function ExcludeTrailingPathDelimiter(const aString: String): String;');
-  Sender.AddFunction(@ExtractFilePath,
-    'function ExtractFilePath(const aFileName: String): String;');
-  Sender.AddFunction(@ExtractFileName,
-    'function ExtractFileName(const aFileName: String): String;');
-  Sender.AddFunction(@ExtractFileNameOnly,
-    'function ExtractFileNameOnly(const AFilename: String): String;');
-  Sender.AddFunction(@ExtractFileExt,
-    'function ExtractFileExt(const AFilename: String): String;');
-  Sender.AddFunction(@ChangeFileExt,
-    'function ChangeFileExt(const aFileName, aExtension: String): String;');
-
-  // Files and Folders UTF8
-  Sender.AddFunction(@FileExistsUTF8,
-    'function FileExistsUTF8(const aFileName: String): Boolean;');
-  Sender.AddFunction(@DirectoryExistsUTF8,
-    'function DirectoryExistsUTF8(const aFileName: String): Boolean;');
-
-  // Dialogs
-  Sender.AddMethod(Self, @TfrmScriptManager.AskFile,
-    'function AskFile(const aTitle, aExt, DefFile: String): String;');
-  Sender.AddMethod(Self, @TfrmScriptManager.AskFolder,
-    'function AskFolder(const aTitle, DefFolder: String): String;');
-
-  // Variables
-  Sender.AddRegisteredPTRVariable('GameManager', 'cGameManager');
-end;
-
-procedure TfrmScriptManager.PSScriptExecute(Sender: TPSScript);
-begin
-  PSScript.SetPointerToData('GameManager', @FGameManager,
-    PSScript.FindNamedType('cGameManager'));
-end;
-
-function TfrmScriptManager.PSScriptFindUnknownFile(Sender: TObject;
-  const OrginFileName: tbtstring; var FileName, Output: tbtstring): Boolean;
+procedure TfrmScriptManager.slvSelectItem(Sender: TObject;
+  Item: TListItem; Selected: boolean);
 var
-  FullFileName: String;
-  f: TFileStream;
+  aSLV: TShellListView;
 begin
-  Result := False;
-  FullFileName := SetAsFolder(ExtractFilePath(OrginFileName)) + FileName;
-  if not FileExistsUTF8(FullFileName) then
-  begin
-    FullFileName := SetAsFolder(Config.ScriptsFolder + 'Common') + FileName;
-    if not FileExistsUTF8(FullFileName) then
-      Exit;
-  end;
-
-  try
-    f := TFileStream.Create(FullFileName, fmOpenRead or fmShareDenyWrite);
-  except
+  if not (Sender is TShellListView) then
     Exit;
-  end;
-  try
-    SetLength(Output, f.Size);
-    f.Read(Output[1], Length(Output));
-  finally
-    f.Free;
-  end;
-  Result := True;
-end;
+  aSLV := TShellListView(Sender);
 
-function TfrmScriptManager.PSScriptNeedFile(Sender: TObject;
-  const OriginFileName: tbtstring; var FileName, Output: tbtstring): Boolean;
-var
-  FullFileName: String;
-  F: TFileStream;
-begin
-  ShowMessage('PSScriptNeedFile:' + sLineBreak +
-  'OriginFileName: ' +OriginFileName +  sLineBreak +
-  'FileName: ' +FileName +  sLineBreak +
-  'Output: ' +Output +  sLineBreak
-  );
-
-
-  Result := False;
-  FullFileName := SetAsFolder(ExtractFilePath(OriginFileName)) + FileName;
-  if not FileExistsUTF8(FullFileName) then
-  begin
-    FullFileName := SetAsFolder(Config.ScriptsFolder + 'Common') + FileName;
-    if not FileExistsUTF8(FullFileName) then
-      Exit;
-  end;
-
-  try
-    F := TFileStream.Create(FullFileName, fmOpenRead or fmShareDenyWrite);
-  except
-    Exit;
-  end;
-  try
-    SetLength(Output, f.Size);
-    f.Read(Output[1], Length(Output));
-  finally
-    f.Free;
-  end;
-  Result := True;
-end;
-
-procedure TfrmScriptManager.actExecuteExecute(Sender: TObject);
-var
-  Compiled: Boolean;
-  Executed: Boolean;
-begin
-  PageControl.ActivePage := pagOutput;
-  mOutput.Clear;
-
-  Compiled := Compile();
-
-  if not Compiled then
-  begin
-    mCompMess.Lines.Add(rsFSMCompilationError);
-    Exit;
-  end;
-
-  Executed := PSScript.Execute;
-
-  if not Executed then
-  begin
-    mCompMess.Lines.Add(rsFSMExecutionError);
-    mCompMess.Lines.Add(PSScript.ExecErrorToString);
-    Exit;
-  end;
-
-  mCompMess.Lines.Add(rsFSMExecutionOK);
-end;
-
-procedure TfrmScriptManager.actSaveAsExecute(Sender: TObject);
-var
-  aFile: String;
-begin
-  SaveDialog.InitialDir := slvScripts.Root;
-  SaveDialog.DefaultExt := kFSMScriptExt;
-  SaveDialog.Filter :=  rsFSMEmutecaScript + kFSMScriptFilter;
-  if not SaveDialog.Execute then
-    Exit;
-
-  aFile := SaveDialog.FileName;
-  SynMemo.Lines.SaveToFile(aFile);
-  mCompMess.Lines.Add(Format(rsFSMScriptFileSaved, [aFile]));
-  if aFile <> PSScript.MainFileName then
-    slvScripts.Selected := nil;
-  PSScript.MainFileName := aFile;
-  slvScripts.Update;
-  if SynMemo.CanFocus then
-    SynMemo.SetFocus;
-end;
-
-procedure TfrmScriptManager.actSaveScriptExecute(Sender: TObject);
-begin
-  SynMemo.Lines.SaveToFile(PSScript.MainFileName);
-  mCompMess.Lines.Add(Format(rsFSMScriptFileSaved, [PSScript.MainFileName]));
-  if SynMemo.CanFocus then
-    SynMemo.SetFocus;
+  if Selected then
+    LoadScriptFile(SetAsFolder(aSLV.Root) + Item.Caption)
+  else
+    LoadScriptFile('');
 end;
 
 procedure TfrmScriptManager.actCompileExecute(Sender: TObject);
 begin
-  Compile();
+  Compile;
 end;
 
-procedure TfrmScriptManager.chkReadOnlyChange(Sender: TObject);
+procedure TfrmScriptManager.actExecuteExecute(Sender: TObject);
 begin
-  SynMemo.ReadOnly := chkReadOnly.Checked;
-  if SynMemo.CanFocus then
-    SynMemo.SetFocus;
+  Execute;
+end;
+
+procedure TfrmScriptManager.actFileSaveAsAccept(Sender: TObject);
+begin
+  SynEdit.Lines.SaveToFile(actFileSaveAs.Dialog.FileName);
+
+  mInfo.Lines.Add(Format(rsFSMScriptFileSaved, [actFileSaveAs.Dialog.FileName]));
+  CurrentFile := actFileSaveAs.Dialog.FileName;
+  UpdateSLV;
+  if SynEdit.CanFocus then
+    SynEdit.SetFocus;
+end;
+
+procedure TfrmScriptManager.actFileSaveAsBeforeExecute(Sender: TObject);
+begin
+  actFileSaveAs.Dialog.InitialDir := ExtractFileDir(CurrentFile);
+  actFileSaveAs.Dialog.FileName := ExtractFileName(CurrentFile);
+
+  actFileSaveAs.Dialog.DefaultExt := kFSMScriptExt;
+  actFileSaveAs.Dialog.Filter :=  rsFSMEmutecaScript + kFSMScriptFilter;
 end;
 
 procedure TfrmScriptManager.FormCreate(Sender: TObject);
-var
-  Plugin: TPSPlugin;
 begin
-  // Preparamos las unidades que se pueden usar...
-  Plugin := TPSImport_uGameStats.Create(Self);
-  TPSPluginItem(PSScript.Plugins.Add).Plugin := Plugin;
-  Plugin := TPSImport_uEmulator.Create(Self);
-  TPSPluginItem(PSScript.Plugins.Add).Plugin := Plugin;
-  Plugin := TPSImport_uSystem.Create(Self);
-  TPSPluginItem(PSScript.Plugins.Add).Plugin := Plugin;
-
-  Plugin := TPSImport_uGame.Create(Self);
-  TPSPluginItem(PSScript.Plugins.Add).Plugin := Plugin;
-  Plugin := TPSImport_uGameGroup.Create(Self);
-  TPSPluginItem(PSScript.Plugins.Add).Plugin := Plugin;
-  Plugin := TPSImport_uGameManager.Create(Self);
-  TPSPluginItem(PSScript.Plugins.Add).Plugin := Plugin;
-  Plugin := TPSImport_u7zWrapper.Create(Self);
-  TPSPluginItem(PSScript.Plugins.Add).Plugin := Plugin;
-
-  PageControl.ActivePageIndex := 0;
+  FScriptEngine := cScriptEngEmuteca.Create;
 end;
 
-procedure TfrmScriptManager.slvScriptsSelectItem(Sender: TObject;
-  Item: TListItem; Selected: Boolean);
-var
-  aPos: Longint;
+procedure TfrmScriptManager.FormDestroy(Sender: TObject);
 begin
-  // This method is called when deselecting something too
-  mCompMess.Clear;
-  chkReadOnly.Checked := True;
-  SynMemo.ReadOnly := True;
-  PSScript.MainFileName := '';
-  if not Selected then
-    Exit;
-
-  // TODO: Ask if we must save changes.
-  // if SynMemo.Modified then
-
-
-  PSScript.MainFileName := SetAsFolder(TShellListView(Sender).Root) + Item.Caption;
-
-  SynMemo.Lines.LoadFromFile(PSScript.MainFileName);
-
-  // Removing UTF-8 BOM...
-  if SynMemo.Lines.Count > 0 then
-    aPos := Pos(UTF8FileHeader, SynMemo.Lines[0]);
-  if aPos = 1 then
-    SynMemo.Lines[0] := Copy(SynMemo.Lines[0], Length(UTF8FileHeader) +
-      1, MaxInt);
+  FreeAndNil(FScriptEngine);
 end;
 
 procedure TfrmScriptManager.SetConfig(const AValue: cConfig);
 
   procedure Translate;
-begin
-      Self.Caption := Application.Title + ': ' + Self.Caption;
+  begin
+    Self.Caption := Application.Title + ': ' + Self.Caption;
   end;
 
 begin
@@ -437,20 +229,38 @@ begin
   ReadActionsIcons(Config.IconsIniFile, Self.Name, Config.ImagesFolder +
     Config.IconsSubfolder, ilActions, ActionList);
 
-  slvUnits.Root := Config.ScriptsFolder + kFSMUnitsFolder;
-  slvUnits.Update;
+  PageControl.ActivePageIndex := 0;
+
+  // Listing Scripts...
+  slvGeneral.Root := Config.ScriptsFolder + Config.GeneralScriptsSubFolder;
+  slvGeneral.Update;
+  slvGroup.Root := Config.ScriptsFolder + Config.GroupScriptsSubFolder;
+  slvGroup.Update;
+  slvGame.Root := Config.ScriptsFolder + Config.GameScriptsSubFolder;
+  slvGame.Update;
+  slvCommon.Root := Config.ScriptsFolder + kFSMUnitsFolder;
+  slvCommon.Update;
+end;
+
+procedure TfrmScriptManager.SetCurrentFile(AValue: string);
+begin
+  if FCurrentFile = AValue then
+    Exit;
+  FCurrentFile := AValue;
 end;
 
 procedure TfrmScriptManager.SetCurrGame(AValue: cGame);
 begin
-  if FCurrGame=AValue then Exit;
-  FCurrGame:=AValue;
+  if FCurrGame = AValue then
+    Exit;
+  FCurrGame := AValue;
 end;
 
 procedure TfrmScriptManager.SetCurrGroup(AValue: cGameGroup);
 begin
-  if FCurrGroup=AValue then Exit;
-  FCurrGroup:=AValue;
+  if FCurrGroup = AValue then
+    Exit;
+  FCurrGroup := AValue;
 end;
 
 procedure TfrmScriptManager.SetGameManager(const AValue: cGameManager);
@@ -462,103 +272,92 @@ begin
   pTop.Caption := GameManager.System.ID;
 end;
 
+procedure TfrmScriptManager.SetScriptEngine(AValue: cScriptEngEmuteca);
+begin
+  if FScriptEngine = AValue then
+    Exit;
+  FScriptEngine := AValue;
+end;
+
 procedure TfrmScriptManager.SetScriptFolder(AValue: string);
 begin
-  if FScriptFolder=AValue then Exit;
-  FScriptFolder:=SetAsFolder(AValue);
-
-  slvScripts.Root := FScriptFolder;
-  slvScripts.Update;
+  if FScriptFolder = AValue then
+    Exit;
+  FScriptFolder := AValue;
 end;
 
-procedure TfrmScriptManager.WriteLn(const Str: String);
-begin
-  mOutput.Lines.Add(Str);
-end;
-
-function TfrmScriptManager.ReadLn(const aQuestion, DefAnswer: String): String;
-begin
-  Result := InputBox('Emuteca', aQuestion, DefAnswer);
-end;
-
-function TfrmScriptManager.RPos(const Substr, Source: String): Integer;
-begin
-  Result := strutils.RPos(Substr, Source);
-end;
-
-function TfrmScriptManager.UTF8LowerCase(const AInStr: String): String;
-begin
-  Result := LazUTF8.UTF8LowerCase(AInStr, '');
-end;
-
-function TfrmScriptManager.UTF8UpperCase(const AInStr: String): String;
-begin
-  Result := LazUTF8.UTF8UpperCase(AInStr, '');
-end;
-
-function TfrmScriptManager.Compile: Boolean;
+procedure TfrmScriptManager.LoadScriptFile(const aFile: string);
 var
-  i: Integer;
+  i: SizeInt;
+  aIni: TIniFile;
 begin
-  PSScript.Script.Clear;
-  mCompMess.Clear;
+  if SynEdit.Modified then
+    if MessageDlg(Format(rsFSMSaveChanges, [CurrentFile]),
+      mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+      SynEdit.Lines.SaveToFile(CurrentFile);
 
-  PSScript.Script.AddStrings(SynMemo.Lines);
-  Result := PSScript.Compile;
+  CurrentFile := aFile;
 
-  if Result then
-    mCompMess.Lines.Add(rsFSMCompilationOK)
-  else
+  if not FileExistsUTF8(CurrentFile) then
   begin
-    for i := 0 to PSScript.CompilerMessageCount - 1 do
-    begin
-      mCompMess.Lines.BeginUpdate;
-      mCompMess.Lines.Add(PSScript.CompilerErrorToStr(i));
-      mCompMess.Lines.EndUpdate;
-    end;
-    PageControl.ActivePage := pagSourceCode;
-    if PSScript.CompilerMessages[i].Col > 0 then
-      SynMemo.CaretX := PSScript.CompilerMessages[i].Col;
-    if PSScript.CompilerMessages[i].Row > 0 then
-      SynMemo.CaretY := PSScript.CompilerMessages[i].Row;
-    SynMemo.SetFocus;
+    SynEdit.Lines.Clear;
+    Exit;
+  end;
+
+  SynEdit.Lines.LoadFromFile(CurrentFile);
+
+  // Removing UTF-8 BOM...
+  if SynEdit.Lines.Count > 0 then
+    i := Pos(UTF8FileHeader, SynEdit.Lines[0]);
+  if i = 1 then
+    SynEdit.Lines[0] := Copy(SynEdit.Lines[0], Length(UTF8FileHeader) +
+      1, MaxInt);
+
+  mInfo.Clear;
+
+  // TODO 2: Temporal script info until section is parsed properly.
+  aIni := TIniFile.Create(CurrentFile, True);
+  try
+    aIni.ReadSectionRaw(kFSMDataSection, mInfo.Lines);
+  finally
+    FreeAndNil(aIni);
   end;
 end;
 
-function TfrmScriptManager.AskFile(const aTitle, aExt, DefFile: String): String;
+function TfrmScriptManager.Compile: boolean;
 begin
-  Result := '';
-  Application.CreateForm(TfrmSMAskFile, frmSMAskFile);
-  try
-    frmSMAskFile.lTitle.Caption := aTitle;
-    frmSMAskFile.eFileName.DialogTitle := aTitle;
-    frmSMAskFile.eFileName.Filter := aExt;
-    frmSMAskFile.eFileName.FileName := DefFile;
-    if frmSMAskFile.ShowModal = mrOk then
-      Result := frmSMAskFile.eFileName.FileName;
-  finally
-    FreeAndNil(frmSMAskFile);
-  end;
+  ScriptEngine.ScriptText := SynEdit.Lines;
+
+  // TODO 4: Put this in a better place near ScriptEngine creation.
+  //   But serch why a SIGEVN error is raised...
+  ScriptEngine.ScriptOutput := mOutPut.Lines;
+  ScriptEngine.ScriptInfo := mInfo.Lines;
+  ScriptEngine.ScriptError := mInfo.Lines;
+
+  Result := ScriptEngine.CompileScript;
 end;
 
-function TfrmScriptManager.AskFolder(const aTitle,
-  DefFolder: String): String;
+function TfrmScriptManager.Execute: boolean;
 begin
-  Result := '';
-  Application.CreateForm(TfrmSMAskFolder, frmSMAskFolder);
-  try
-    frmSMAskFolder.lTitle.Caption := aTitle;
-    frmSMAskFolder.eDirectory.DialogTitle := aTitle;
-    frmSMAskFolder.eDirectory.Directory := DefFolder;
-    if frmSMAskFolder.ShowModal = mrOk then
-      Result := SetAsFolder(frmSMAskFolder.eDirectory.Directory);
-  finally
-    FreeAndNil(frmSMAskFolder);
-  end;
+  PageControl.ActivePage := pagOutput;
+
+  Result := ScriptEngine.CompileScript;
+
+  if not Result then
+    Exit;
+
+  Result := ScriptEngine.RunScript;
+end;
+
+procedure TfrmScriptManager.UpdateSLV;
+begin
+  slvGeneral.Update;
+  slvGame.Update;
+  slvGroup.Update;
+  slvCommon.Update;
 end;
 
 initialization
   {$I fScriptManager.lrs}
 
 end.
-

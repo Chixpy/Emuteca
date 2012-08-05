@@ -54,9 +54,9 @@ end;
 (*----------------------------------------------------------------------------*)
 procedure SIRegister_u7zWrapper(CL: TPSPascalCompiler);
 begin
- CL.AddDelphiFunction('Function w7zListFiles( const aFilename : String; PackedFiles : TStrings; const OnlyPaths : boolean; const UseCache: boolean; const Password : String) : Integer');
- CL.AddDelphiFunction('Function w7zExtractFile( const a7zArchive : String; const aFileMask : String; aFolder : String; const ShowProgress : Boolean; const Password : String) : Integer');
- CL.AddDelphiFunction('Function w7zCompressFile( const a7zArchive : String; aFileList : TStrings; const ShowProgress : Boolean; const CompType : String) : Integer');
+ CL.AddDelphiFunction('procedure w7zListFiles( const aFilename : String; PackedFiles : TStrings; const OnlyPaths : boolean; const UseCache: boolean; const Password : String)');
+ CL.AddDelphiFunction('procedure w7zExtractFile( const a7zArchive : String; const aFileMask : String; aFolder : String; const ShowProgress : Boolean; const Password : String)');
+ CL.AddDelphiFunction('procedure w7zCompressFile( const a7zArchive : String; aFileList : TStrings; const ShowProgress : Boolean; const CompType : String)');
 end;
 
 (* === run-time registration functions === *)

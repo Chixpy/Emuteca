@@ -12,6 +12,7 @@ Changes =
   0.1 - 20110121:
     + Initial version
 ~end~
+[END]
 }
 program GoodXXXFilenames;
 

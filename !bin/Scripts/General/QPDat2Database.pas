@@ -11,6 +11,7 @@ Changes =
   0.1 - 20101109:
     + Initial version
 ~end~
+[END]
 }
 program GroupByFolder;
 const

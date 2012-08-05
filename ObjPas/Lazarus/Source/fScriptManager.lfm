@@ -1,204 +1,257 @@
 object frmScriptManager: TfrmScriptManager
-  Left = 478
-  Height = 500
-  Top = 169
-  Width = 800
+  Left = 270
+  Height = 480
+  Top = 131
+  Width = 818
   Caption = 'Script Manager'
-  ClientHeight = 500
-  ClientWidth = 800
+  ClientHeight = 480
+  ClientWidth = 818
   OnCreate = FormCreate
+  OnDestroy = FormDestroy
   Position = poMainFormCenter
   LCLVersion = '1.1'
-  object pButtons: TPanel
-    Left = 704
-    Height = 394
-    Top = 28
-    Width = 96
-    Align = alRight
-    AutoSize = True
-    BevelOuter = bvNone
-    ClientHeight = 394
-    ClientWidth = 96
-    TabOrder = 0
-    object gbxFile: TGroupBox
-      Left = 0
-      Height = 85
-      Top = 241
-      Width = 96
-      Align = alBottom
-      AutoSize = True
-      Caption = 'File'
-      ClientHeight = 67
-      ClientWidth = 92
-      TabOrder = 0
-      object bSave: TBitBtn
-        Left = 0
-        Height = 25
-        Top = 17
-        Width = 92
-        Action = actSaveScript
-        Align = alTop
-        TabOrder = 0
-      end
-      object bSaveAs: TBitBtn
-        Left = 0
-        Height = 25
-        Top = 42
-        Width = 92
-        Action = actSaveAs
-        Align = alTop
-        TabOrder = 1
-      end
-      object chkReadOnly: TCheckBox
-        Left = 0
-        Height = 17
-        Top = 0
-        Width = 92
-        Align = alTop
-        Caption = 'Read only'
-        OnChange = chkReadOnlyChange
-        TabOrder = 2
-      end
-    end
-    object gbRun: TGroupBox
-      Left = 0
-      Height = 68
-      Top = 326
-      Width = 96
-      Align = alBottom
-      AutoSize = True
-      Caption = 'Run'
-      ClientHeight = 50
-      ClientWidth = 92
-      TabOrder = 1
-      object bExecute: TBitBtn
-        Left = 0
-        Height = 25
-        Top = 0
-        Width = 92
-        Action = actExecute
-        Align = alTop
-        TabOrder = 0
-      end
-      object cCompile: TBitBtn
-        Left = 0
-        Height = 25
-        Top = 25
-        Width = 92
-        Action = actCompile
-        Align = alTop
-        TabOrder = 1
-      end
-    end
-  end
   object pInfo: TPanel
     Left = 0
     Height = 58
-    Top = 422
-    Width = 800
+    Top = 402
+    Width = 818
     Align = alBottom
     BevelOuter = bvNone
     ClientHeight = 58
-    ClientWidth = 800
-    TabOrder = 1
-    object mCompMess: TMemo
+    ClientWidth = 818
+    TabOrder = 2
+    object mInfo: TMemo
       Left = 0
       Height = 58
       Top = 0
-      Width = 800
+      Width = 818
       Align = alClient
+      ReadOnly = True
       ScrollBars = ssAutoBoth
       TabOrder = 0
+      TabStop = False
     end
   end
   object sbInfo: TStatusBar
     Left = 0
     Height = 20
-    Top = 480
-    Width = 800
+    Top = 460
+    Width = 818
     AutoHint = True
     Panels = <>
   end
   object PageControl: TPageControl
     Left = 0
-    Height = 394
+    Height = 374
     Top = 28
-    Width = 704
-    ActivePage = pagScriptList
+    Width = 718
+    ActivePage = pagSourceCode
     Align = alClient
-    TabIndex = 0
-    TabOrder = 3
-    object pagScriptList: TTabSheet
-      Caption = 'Script List'
-      ClientHeight = 368
-      ClientWidth = 696
-      object slvScripts: TShellListView
+    TabIndex = 4
+    TabOrder = 0
+    object pagGeneralScriptList: TTabSheet
+      Caption = 'General Scripts'
+      ClientHeight = 348
+      ClientWidth = 662
+      object slvGeneral: TShellListView
         Left = 0
-        Height = 368
+        Height = 348
         Top = 0
-        Width = 696
+        Width = 662
         Align = alClient
         Color = clDefault
-        HideSelection = False
         RowSelect = True
         ScrollBars = ssAutoBoth
         SortType = stBoth
         TabOrder = 0
         ViewStyle = vsReport
-        OnSelectItem = slvScriptsSelectItem
+        OnSelectItem = slvSelectItem
+        ObjectTypes = [otNonFolders]
+      end
+    end
+    object pagGameScripts: TTabSheet
+      Caption = 'Game Scripts'
+      ClientHeight = 348
+      ClientWidth = 592
+      object slvGame: TShellListView
+        Left = 0
+        Height = 348
+        Top = 0
+        Width = 592
+        Align = alClient
+        Color = clDefault
+        RowSelect = True
+        ScrollBars = ssAutoBoth
+        SortType = stBoth
+        TabOrder = 0
+        ViewStyle = vsReport
+        OnSelectItem = slvSelectItem
+        ObjectTypes = [otNonFolders]
+      end
+    end
+    object pagGroupScripts: TTabSheet
+      Caption = 'Group Scripts'
+      ClientHeight = 348
+      ClientWidth = 592
+      object slvGroup: TShellListView
+        Left = 0
+        Height = 348
+        Top = 0
+        Width = 592
+        Align = alClient
+        Color = clDefault
+        RowSelect = True
+        ScrollBars = ssAutoBoth
+        SortType = stBoth
+        TabOrder = 0
+        ViewStyle = vsReport
+        OnSelectItem = slvSelectItem
         ObjectTypes = [otNonFolders]
       end
     end
     object pagCommonScripts: TTabSheet
-      Caption = 'Common Units List'
-      ClientHeight = 368
-      ClientWidth = 696
-      TabVisible = False
-      object slvUnits: TShellListView
+      Caption = 'Common Scripts'
+      ClientHeight = 348
+      ClientWidth = 592
+      object slvCommon: TShellListView
         Left = 0
-        Height = 368
+        Height = 348
         Top = 0
-        Width = 696
+        Width = 592
         Align = alClient
         Color = clDefault
-        HideSelection = False
         RowSelect = True
         ScrollBars = ssAutoBoth
         SortType = stBoth
         TabOrder = 0
         ViewStyle = vsReport
-        OnSelectItem = slvScriptsSelectItem
+        OnSelectItem = slvSelectItem
         ObjectTypes = [otNonFolders]
       end
     end
     object pagSourceCode: TTabSheet
       Caption = 'Source Code'
-      ClientHeight = 368
-      ClientWidth = 696
-      inline SynMemo: TSynMemo
+      ClientHeight = 348
+      ClientWidth = 710
+      object tbEditor: TToolBar
         Left = 0
-        Height = 342
+        Height = 26
+        Top = 0
+        Width = 710
+        Caption = 'tbEditor'
+        EdgeInner = esNone
+        EdgeOuter = esNone
+        Images = ilActions
+        TabOrder = 0
+        object bEditCopy: TToolButton
+          Left = 57
+          Top = 0
+          Action = actEditCopy
+        end
+        object bEditCut: TToolButton
+          Left = 80
+          Top = 0
+          Action = actEditCut
+        end
+        object bEditDelete: TToolButton
+          Left = 136
+          Top = 0
+          Action = actEditDelete
+        end
+        object bEditPaste: TToolButton
+          Left = 103
+          Top = 0
+          Action = actEditPaste
+        end
+        object bSeparator1: TToolButton
+          Left = 24
+          Top = 0
+          Width = 10
+          Caption = '-'
+          Style = tbsSeparator
+        end
+        object bEditSelectAll: TToolButton
+          Left = 34
+          Top = 0
+          Action = actEditSelectAll
+        end
+        object bSeparator2: TToolButton
+          Left = 126
+          Top = 0
+          Width = 10
+          Caption = '-'
+          Style = tbsSeparator
+        end
+        object bEditUndo: TToolButton
+          Left = 1
+          Top = 0
+          Action = actEditUndo
+        end
+        object bSeparator3: TToolButton
+          Left = 159
+          Top = 0
+          Width = 10
+          Caption = '-'
+          Style = tbsSeparator
+        end
+        object bSearchFind: TToolButton
+          Left = 169
+          Top = 0
+          Action = actSearchFind
+        end
+        object bSearchReplace: TToolButton
+          Left = 192
+          Top = 0
+          Action = actSearchReplace
+        end
+        object bSeparator4: TToolButton
+          Left = 215
+          Top = 0
+          Width = 10
+          Caption = 'bSeparator4'
+          Style = tbsSeparator
+        end
+        object bSaveFileAs: TToolButton
+          Left = 225
+          Top = 0
+          Action = actFileSaveAs
+        end
+        object bSeparator5: TToolButton
+          Left = 248
+          Top = 0
+          Width = 10
+          Caption = 'bSeparator5'
+          Style = tbsSeparator
+        end
+        object bCompile: TToolButton
+          Left = 258
+          Top = 0
+          Action = actCompile
+        end
+        object bExecute: TToolButton
+          Left = 281
+          Top = 0
+          Action = actExecute
+        end
+      end
+      inline SynEdit: TSynEdit
+        Left = 0
+        Height = 322
         Top = 26
-        Width = 696
+        Width = 710
         Align = alClient
+        BlockTabIndent = 2
         Font.Height = -13
         Font.Name = 'Courier New'
         Font.Pitch = fpFixed
         Font.Quality = fqNonAntialiased
         ParentColor = False
         ParentFont = False
-        TabOrder = 0
+        TabOrder = 1
         Gutter.Width = 57
-        Gutter.MouseActions = <        
-          item
-            ClickCount = ccAny
-            ClickDir = cdDown
-            Command = emcOnMainGutterClick
-          end        
-          item
-            Button = mbRight
-            Command = emcContextMenu
-          end>
+        Gutter.MouseActions = <>
+        RightGutter.Width = 0
+        RightGutter.MouseActions = <>
         Highlighter = SynFreePascalSyn
         Keystrokes = <        
           item
@@ -621,122 +674,21 @@ object frmScriptManager: TfrmScriptManager
             Command = ecColSelEditorBottom
             ShortCut = 57379
           end>
-        MouseActions = <        
-          item
-            ShiftMask = [ssShift, ssAlt]
-            ClickDir = cdDown
-            Command = emcStartSelections
-            MoveCaret = True
-          end        
-          item
-            Shift = [ssShift]
-            ShiftMask = [ssShift, ssAlt]
-            ClickDir = cdDown
-            Command = emcStartSelections
-            MoveCaret = True
-            Option = 1
-          end        
-          item
-            Shift = [ssAlt]
-            ShiftMask = [ssShift, ssAlt]
-            ClickDir = cdDown
-            Command = emcStartColumnSelections
-            MoveCaret = True
-          end        
-          item
-            Shift = [ssShift, ssAlt]
-            ShiftMask = [ssShift, ssAlt]
-            ClickDir = cdDown
-            Command = emcStartColumnSelections
-            MoveCaret = True
-            Option = 1
-          end        
-          item
-            Button = mbRight
-            Command = emcContextMenu
-          end        
-          item
-            ClickCount = ccDouble
-            ClickDir = cdDown
-            Command = emcSelectWord
-            MoveCaret = True
-          end        
-          item
-            ClickCount = ccTriple
-            ClickDir = cdDown
-            Command = emcSelectLine
-            MoveCaret = True
-          end        
-          item
-            ClickCount = ccQuad
-            ClickDir = cdDown
-            Command = emcSelectPara
-            MoveCaret = True
-          end        
-          item
-            Button = mbMiddle
-            ClickDir = cdDown
-            Command = emcPasteSelection
-            MoveCaret = True
-          end        
-          item
-            Shift = [ssCtrl]
-            ShiftMask = [ssShift, ssAlt, ssCtrl]
-            Command = emcMouseLink
-          end        
-          item
-            Shift = [ssCtrl]
-            ShiftMask = [ssShift, ssAlt, ssCtrl]
-            Command = emcMouseLink
-          end        
-          item
-            Shift = [ssCtrl]
-            ShiftMask = [ssShift, ssAlt, ssCtrl]
-            Command = emcMouseLink
-          end        
-          item
-            Shift = [ssCtrl]
-            ShiftMask = [ssShift, ssAlt, ssCtrl]
-            Command = emcMouseLink
-          end        
-          item
-            Shift = [ssCtrl]
-            ShiftMask = [ssShift, ssAlt, ssCtrl]
-            Command = emcMouseLink
-          end        
-          item
-            Shift = [ssCtrl]
-            ShiftMask = [ssShift, ssAlt, ssCtrl]
-            Command = emcMouseLink
-          end        
-          item
-            Shift = [ssCtrl]
-            ShiftMask = [ssShift, ssAlt, ssCtrl]
-            Command = emcMouseLink
-          end        
-          item
-            Shift = [ssCtrl]
-            ShiftMask = [ssShift, ssAlt, ssCtrl]
-            Command = emcMouseLink
-          end        
-          item
-            Shift = [ssCtrl]
-            ShiftMask = [ssShift, ssAlt, ssCtrl]
-            Command = emcMouseLink
-          end        
-          item
-            Shift = [ssCtrl]
-            ShiftMask = [ssShift, ssAlt, ssCtrl]
-            Command = emcMouseLink
-          end>
-        MouseSelActions = <        
-          item
-            ClickDir = cdDown
-            Command = emcStartDragMove
-          end>
-        Options = [eoAutoIndent, eoBracketHighlight, eoGroupUndo, eoScrollPastEol, eoSmartTabs, eoTabsToSpaces, eoTrimTrailingSpaces, eoShowCtrlMouseLinks]
-        OverwriteCaret = ctHalfBlock
+        MouseActions = <>
+        MouseSelActions = <>
+        VisibleSpecialChars = [vscSpace, vscTabAtLast]
         ScrollBars = ssAutoBoth
+        BracketHighlightStyle = sbhsBoth
+        BracketMatchColor.Background = clNone
+        BracketMatchColor.Foreground = clNone
+        BracketMatchColor.Style = [fsBold]
+        FoldedCodeColor.Background = clNone
+        FoldedCodeColor.Foreground = clGray
+        FoldedCodeColor.FrameColor = clGray
+        MouseLinkColor.Background = clNone
+        MouseLinkColor.Foreground = clBlue
+        LineHighlightColor.Background = clNone
+        LineHighlightColor.Foreground = clNone
         inline SynLeftGutterPartList1: TSynGutterPartList
           object SynGutterMarks1: TSynGutterMarks
             Width = 24
@@ -763,99 +715,29 @@ object frmScriptManager: TfrmScriptManager
             MouseActions = <>
           end
           object SynGutterCodeFolding1: TSynGutterCodeFolding
-            MouseActions = <            
-              item
-                Button = mbRight
-                Command = emcCodeFoldContextMenu
-              end            
-              item
-                ShiftMask = [ssShift]
-                Button = mbMiddle
-                ClickCount = ccAny
-                ClickDir = cdDown
-                Command = emcCodeFoldCollaps
-              end            
-              item
-                Shift = [ssShift]
-                ShiftMask = [ssShift]
-                Button = mbMiddle
-                ClickCount = ccAny
-                ClickDir = cdDown
-                Command = emcCodeFoldCollaps
-                Option = 1
-              end            
-              item
-                ClickCount = ccAny
-                ClickDir = cdDown
-                Command = emcNone
-              end>
+            MouseActions = <>
             MarkupInfo.Background = clNone
             MarkupInfo.Foreground = clGray
-            MouseActionsExpanded = <            
-              item
-                ClickCount = ccAny
-                ClickDir = cdDown
-                Command = emcCodeFoldCollaps
-              end>
-            MouseActionsCollapsed = <            
-              item
-                Shift = [ssCtrl]
-                ShiftMask = [ssCtrl]
-                ClickCount = ccAny
-                ClickDir = cdDown
-                Command = emcCodeFoldExpand
-              end            
-              item
-                ShiftMask = [ssCtrl]
-                ClickCount = ccAny
-                ClickDir = cdDown
-                Command = emcCodeFoldExpand
-                Option = 1
-              end>
+            MouseActionsExpanded = <>
+            MouseActionsCollapsed = <>
           end
-        end
-      end
-      object ToolBarEditor: TToolBar
-        Left = 0
-        Height = 26
-        Top = 0
-        Width = 696
-        Caption = 'ToolBarEditor'
-        EdgeBorders = []
-        EdgeInner = esNone
-        EdgeOuter = esNone
-        Images = ilActions
-        TabOrder = 1
-        object bEditCopy: TToolButton
-          Left = 1
-          Top = 0
-          Action = actEditCopy
-        end
-        object bEditCut: TToolButton
-          Left = 24
-          Top = 0
-          Action = actEditCut
-        end
-        object bEditPaste: TToolButton
-          Left = 47
-          Top = 0
-          Action = actEditPaste
         end
       end
     end
     object pagOutput: TTabSheet
       Caption = 'Output'
-      ClientHeight = 368
-      ClientWidth = 696
-      object mOutput: TMemo
+      ClientHeight = 348
+      ClientWidth = 710
+      object mOutPut: TMemo
         Left = 0
-        Height = 368
+        Height = 348
         Top = 0
-        Width = 696
+        Width = 710
         Align = alClient
         ReadOnly = True
-        ScrollBars = ssAutoVertical
+        ScrollBars = ssAutoBoth
         TabOrder = 0
+        TabStop = False
       end
     end
   end
@@ -863,37 +745,64 @@ object frmScriptManager: TfrmScriptManager
     Left = 0
     Height = 28
     Top = 0
-    Width = 800
+    Width = 818
     Align = alTop
     BevelOuter = bvNone
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 4
   end
+  object pRight: TPanel
+    Left = 718
+    Height = 374
+    Top = 28
+    Width = 100
+    Align = alRight
+    BevelOuter = bvNone
+    ClientHeight = 374
+    ClientWidth = 100
+    TabOrder = 1
+    object gbxScript: TGroupBox
+      Left = 0
+      Height = 64
+      Top = 310
+      Width = 100
+      Align = alBottom
+      AutoSize = True
+      Caption = 'Script'
+      ClientHeight = 46
+      ClientWidth = 96
+      TabOrder = 0
+      object bExecute2: TBitBtn
+        Left = 0
+        Height = 23
+        Top = 23
+        Width = 96
+        Action = actExecute
+        Align = alBottom
+        AutoSize = True
+        TabOrder = 0
+      end
+      object bCompile2: TBitBtn
+        Left = 0
+        Height = 23
+        Top = 0
+        Width = 96
+        Action = actCompile
+        Align = alBottom
+        AutoSize = True
+        TabOrder = 1
+      end
+    end
+  end
+  object ilActions: TImageList
+    left = 8
+    top = 408
+  end
   object ActionList: TActionList
-    left = 656
-    top = 88
-    object actExecute: TAction
-      Category = 'Buttons'
-      Caption = 'Execute'
-      OnExecute = actExecuteExecute
-    end
-    object actCompile: TAction
-      Category = 'Buttons'
-      Caption = 'Syntax Check'
-      Hint = 'Check the syntaxis (actually, try to compile :P )'
-      OnExecute = actCompileExecute
-    end
-    object actSaveScript: TAction
-      Category = 'Buttons'
-      Caption = 'Save Script'
-      OnExecute = actSaveScriptExecute
-    end
-    object actSaveAs: TAction
-      Category = 'Buttons'
-      Caption = 'Save as...'
-      OnExecute = actSaveAsExecute
-    end
+    Images = ilActions
+    left = 48
+    top = 408
     object actEditCut: TEditCut
       Category = 'Edit'
       Caption = 'Cor&tar'
@@ -912,6 +821,53 @@ object frmScriptManager: TfrmScriptManager
       Hint = 'Pegar'
       ShortCut = 16470
     end
+    object actEditSelectAll: TEditSelectAll
+      Category = 'Edit'
+      Caption = 'Seleccion&ar todo'
+      Hint = 'Seleccionar Todo'
+      ShortCut = 16449
+    end
+    object actEditUndo: TEditUndo
+      Category = 'Edit'
+      Caption = '&Deshacer'
+      Hint = 'Deshacer'
+      ShortCut = 16474
+    end
+    object actEditDelete: TEditDelete
+      Category = 'Edit'
+      Caption = '&Suprimir'
+      Hint = 'Suprimir'
+      ShortCut = 46
+    end
+    object actSearchFind: TSearchFind
+      Category = 'Search'
+      Caption = '&Buscar...'
+      ShortCut = 16454
+    end
+    object actSearchReplace: TSearchReplace
+      Category = 'Search'
+      Caption = '&Reemplazar'
+      Dialog.Options = [frDown, frReplace, frReplaceAll, frHidePromptOnReplace]
+    end
+    object actCompile: TAction
+      Category = 'Script'
+      Caption = 'Syntax check'
+      Hint = 'Checks the script syntax (actually tries to compile)'
+      OnExecute = actCompileExecute
+    end
+    object actExecute: TAction
+      Category = 'Script'
+      Caption = 'Execute'
+      OnExecute = actExecuteExecute
+    end
+    object actFileSaveAs: TFileSaveAs
+      Category = 'File'
+      Caption = 'Gu&ardar Como...'
+      Dialog.Options = [ofNoChangeDir, ofEnableSizing, ofViewDetail]
+      Hint = 'Guardar Como'
+      BeforeExecute = actFileSaveAsBeforeExecute
+      OnAccept = actFileSaveAsAccept
+    end
   end
   object SynFreePascalSyn: TSynFreePascalSyn
     Enabled = False
@@ -928,85 +884,14 @@ object frmScriptManager: TfrmScriptManager
     DirectiveAttri.FrameEdges = sfeAround
     CompilerMode = pcmObjFPC
     NestedComments = True
-    left = 40
+    left = 552
     top = 120
   end
-  object PSScript: TPSScript
-    CompilerOptions = [icAllowNoBegin, icAllowUnit, icAllowNoEnd, icBooleanShortCircuit]
-    OnCompile = PSScriptCompile
-    OnExecute = PSScriptExecute
-    Plugins = <    
-      item
-        Plugin = PSImport_Classes
-      end    
-      item
-        Plugin = PSImport_DateUtils
-      end    
-      item
-        Plugin = PSImport_Controls
-      end    
-      item
-        Plugin = PSDllPlugin
-      end    
-      item
-        Plugin = PSImport_Forms
-      end    
-      item
-        Plugin = PSImport_StdCtrls
-      end    
-      item
-        Plugin = PSImport_StrUtils
-      end>
-    UsePreProcessor = True
-    OnNeedFile = PSScriptNeedFile
-    OnFindUnknownFile = PSScriptFindUnknownFile
-    left = 40
-    top = 168
-  end
-  object PSImport_Classes: TPSImport_Classes
-    EnableStreams = True
-    EnableClasses = True
-    left = 40
-    top = 216
-  end
-  object PSImport_DateUtils: TPSImport_DateUtils
-    left = 40
-    top = 264
-  end
-  object PSImport_Controls: TPSImport_Controls
-    EnableStreams = True
-    EnableGraphics = True
-    EnableControls = True
-    left = 40
-    top = 312
-  end
-  object SaveDialog: TSaveDialog
-    Options = [ofNoChangeDir, ofEnableSizing, ofViewDetail]
-    left = 656
-    top = 240
-  end
-  object PSDllPlugin: TPSDllPlugin
-    left = 144
-    top = 264
-  end
-  object PSImport_Forms: TPSImport_Forms
-    EnableForms = True
-    EnableMenus = True
-    left = 144
-    top = 312
-  end
-  object PSImport_StdCtrls: TPSImport_StdCtrls
-    EnableExtCtrls = True
-    EnableButtons = True
-    left = 144
-    top = 216
-  end
-  object ilActions: TImageList
-    left = 237
-    top = 150
-  end
-  object PSImport_StrUtils: TPSImport_StrUtils
-    left = 143
-    top = 142
+  object SynMacroRecorder: TSynMacroRecorder
+    RecordShortCut = 24658
+    PlaybackShortCut = 24656
+    Editor = SynEdit
+    left = 552
+    top = 64
   end
 end

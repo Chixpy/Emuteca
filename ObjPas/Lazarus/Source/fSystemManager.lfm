@@ -688,13 +688,13 @@ object frmSystemManager: TfrmSystemManager
               Caption = 'Images captions'
               ParentColor = False
             end
-            object lbImageCaptions: TListBox
+            object mImageCaptions: TMemo
               Left = 0
               Height = 82
               Top = 14
               Width = 130
               Align = alClient
-              ItemHeight = 0
+              ScrollBars = ssAutoBoth
               TabOrder = 0
             end
           end
@@ -742,7 +742,7 @@ object frmSystemManager: TfrmSystemManager
                 Action = actRemoveImageFolder
               end
             end
-            object clbImageFolders: TCheckListBox
+            object lbImageFolders: TListBox
               Left = 23
               Height = 82
               Hint = 'Checked folders will be in folder mode.'
@@ -750,7 +750,6 @@ object frmSystemManager: TfrmSystemManager
               Width = 305
               Align = alClient
               ItemHeight = 0
-              OnClickCheck = clbImageFoldersClickCheck
               TabOrder = 1
             end
           end
@@ -838,7 +837,7 @@ object frmSystemManager: TfrmSystemManager
               Action = actRemoveTextFolder
             end
           end
-          object clbTextFolders: TCheckListBox
+          object lbTextFolders: TListBox
             Left = 23
             Height = 67
             Hint = 'Checked folders are in folder mode'
@@ -846,7 +845,6 @@ object frmSystemManager: TfrmSystemManager
             Width = 305
             Align = alClient
             ItemHeight = 0
-            OnClickCheck = clbTextFoldersClickCheck
             TabOrder = 1
           end
         end
@@ -870,13 +868,13 @@ object frmSystemManager: TfrmSystemManager
             Caption = 'Text captions'
             ParentColor = False
           end
-          object lbTextCaptions: TListBox
+          object mTextCaptions: TMemo
             Left = 0
             Height = 67
             Top = 14
             Width = 130
             Align = alClient
-            ItemHeight = 0
+            ScrollBars = ssAutoBoth
             TabOrder = 0
           end
         end
@@ -1000,11 +998,6 @@ object frmSystemManager: TfrmSystemManager
             item
               Caption = 'Folder'
               Width = 200
-            end          
-            item
-              Alignment = taCenter
-              Caption = '*'
-              Width = 20
             end          
             item
               Alignment = taCenter
@@ -1313,11 +1306,6 @@ object frmSystemManager: TfrmSystemManager
             end          
             item
               Alignment = taCenter
-              Caption = '*'
-              Width = 20
-            end          
-            item
-              Alignment = taCenter
               Caption = 'Caption'
               Width = 80
             end          
@@ -1595,11 +1583,6 @@ object frmSystemManager: TfrmSystemManager
             item
               Caption = 'Folder'
               Width = 200
-            end          
-            item
-              Alignment = taCenter
-              Caption = '*'
-              Width = 20
             end          
             item
               Alignment = taCenter

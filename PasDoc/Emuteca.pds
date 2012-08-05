@@ -48,8 +48,7 @@ Item_2=WIN32
 Item_3=CPU386
 
 [Header]
-Count=1
-Item_0=Emuteca documentation
+Count=0
 
 [Footer]
 Count=0
@@ -60,7 +59,7 @@ Item_0=..\ObjPas\Common
 Item_1=..\ObjPas\Lazarus\Source
 
 [Files]
-Count=33
+Count=34
 Item_0=..\ObjPas\Common\u7zWrapper.pas
 Item_1=..\ObjPas\Common\uConfig.pas
 Item_2=..\ObjPas\Common\uCustomUtils.pas
@@ -78,22 +77,23 @@ Item_13=..\ObjPas\Common\uPSI_uGameGroup.pas
 Item_14=..\ObjPas\Common\uPSI_uGameManager.pas
 Item_15=..\ObjPas\Common\uPSI_uGameStats.pas
 Item_16=..\ObjPas\Common\uPSI_uSystem.pas
-Item_17=..\ObjPas\Common\uScriptEngine.pas
-Item_18=..\ObjPas\Common\uSystem.pas
-Item_19=..\ObjPas\Common\uSystemManager.pas
-Item_20=..\ObjPas\Common\uVersionSupport.pas
-Item_21=..\ObjPas\Lazarus\Source\fAbout.pas
-Item_22=..\ObjPas\Lazarus\Source\fConfigManager.pas
-Item_23=..\ObjPas\Lazarus\Source\fEmulatorManager.pas
-Item_24=..\ObjPas\Lazarus\Source\fGameManager.pas
-Item_25=..\ObjPas\Lazarus\Source\fImageViewer.pas
-Item_26=..\ObjPas\Lazarus\Source\fMediaManager.pas
-Item_27=..\ObjPas\Lazarus\Source\fProgress.pas
-Item_28=..\ObjPas\Lazarus\Source\fScriptManager.pas
-Item_29=..\ObjPas\Lazarus\Source\fSMAskFile.pas
-Item_30=..\ObjPas\Lazarus\Source\fSMAskFolder.pas
-Item_31=..\ObjPas\Lazarus\Source\fSystemManager.pas
-Item_32=..\ObjPas\Lazarus\Source\uCustomDefaultTraslator.pas
+Item_17=..\ObjPas\Common\uScriptEngEmuteca.pas
+Item_18=..\ObjPas\Common\uScriptEngine.pas
+Item_19=..\ObjPas\Common\uSystem.pas
+Item_20=..\ObjPas\Common\uSystemManager.pas
+Item_21=..\ObjPas\Common\uVersionSupport.pas
+Item_22=..\ObjPas\Lazarus\Source\fAbout.pas
+Item_23=..\ObjPas\Lazarus\Source\fConfigManager.pas
+Item_24=..\ObjPas\Lazarus\Source\fEmulatorManager.pas
+Item_25=..\ObjPas\Lazarus\Source\fGameManager.pas
+Item_26=..\ObjPas\Lazarus\Source\fImageViewer.pas
+Item_27=..\ObjPas\Lazarus\Source\fMediaManager.pas
+Item_28=..\ObjPas\Lazarus\Source\fProgress.pas
+Item_29=..\ObjPas\Lazarus\Source\fScriptManager.pas
+Item_30=..\ObjPas\Lazarus\Source\fSMAskFile.pas
+Item_31=..\ObjPas\Lazarus\Source\fSMAskFolder.pas
+Item_32=..\ObjPas\Lazarus\Source\fSystemManager.pas
+Item_33=..\ObjPas\Lazarus\Source\uCustomDefaultTraslator.pas
 
 [HyphenatedWords]
 Count=0

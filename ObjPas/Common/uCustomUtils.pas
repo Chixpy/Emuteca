@@ -133,9 +133,9 @@ function SetAsFolder(const aValue: String): String;
 
 function SetAsFile(const aFileName: string): string;
 
-function SysPath(aPath: string): string;
-function WinPath(aPath: string): string;
-function UnixPath(aPath: string): string;
+function SysPath(const aPath: string): string;
+function WinPath(const aPath: string): string;
+function UnixPath(const aPath: string): string;
 
 function TextSimilarity(const aString1, aString2: String): byte;
 {< Returns the similarity between 2 strings.
@@ -428,7 +428,7 @@ begin
     end;
 end;
 
-function SysPath(aPath: string): string;
+function SysPath(const aPath: string): string;
 begin
   {$IFDEF Windows}
   Result := WinPath(aPath);
@@ -437,14 +437,34 @@ begin
   {$ENDIF}
 end;
 
-function WinPath(aPath: string): string;
+function WinPath(const aPath: string): string;
+var
+  i: integer;
 begin
-  Result := StringReplace(aPath, '/', '\', [rfReplaceAll, rfIgnoreCase]);
+  // Seems to be faster than StringReplace...
+  Result := aPath;
+  i := Length(Result);
+  while i > 0 do
+  begin
+    if Result[i] = '/' then
+      Result[i] := '\';
+    Dec(i);
+  end;
 end;
 
-function UnixPath(aPath: string): string;
+function UnixPath(const aPath: string): string;
+var
+  i: integer;
 begin
-  Result := StringReplace(aPath, '\', '/', [rfReplaceAll, rfIgnoreCase]);
+  // Seems to be faster than StringReplace...
+  Result := aPath;
+  i := Length(Result);
+  while i > 0 do
+  begin
+    if Result[i] = '\' then
+      Result[i] := '/';
+    Dec(i);
+  end;
 end;
 
 function TextSimilarity(const aString1, aString2: String): byte;

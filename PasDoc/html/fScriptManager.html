@@ -7,7 +7,6 @@
 <link rel="StyleSheet" type="text/css" href="pasdoc.css">
 </head>
 <body bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#800080" alink="#FF0000">
-Emuteca documentation
 <h1 class="unit">Unit fScriptManager</h1>
 <table class="sections wide_list">
 <tr>
@@ -16,7 +15,7 @@ Emuteca documentation
 <p>
 Unit of Script Manager form.</p>
 <a name="%40Uses"></a><h2 class="uses">Uses</h2>
-<ul class="useslist"><li>ActnList</li><li>Buttons</li><li>Classes</li><li>ComCtrls</li><li>Controls</li><li>Dialogs</li><li>ExtCtrls</li><li>FileUtil</li><li>Forms</li><li><a   href="fSMAskFile.html">fSMAskFile</a></li><li><a   href="fSMAskFolder.html">fSMAskFolder</a></li><li>Graphics</li><li>LazUTF8</li><li>LResources</li><li>ShellCtrls</li><li>StdActns</li><li>StdCtrls</li><li>strutils</li><li>SynHighlighterPas</li><li>SynMemo</li><li>SysUtils</li><li><a   href="uConfig.html">uConfig</a></li><li><a   href="uCustomUtils.html">uCustomUtils</a></li><li><a   href="uGame.html">uGame</a></li><li><a   href="uGameGroup.html">uGameGroup</a></li><li><a   href="uGameManager.html">uGameManager</a></li><li>uPSC_strutils</li><li>uPSCompiler</li><li>uPSComponent</li><li>uPSComponent_Controls</li><li>uPSComponent_Default</li><li>uPSComponent_Forms</li><li>uPSComponent_StdCtrls</li><li><a   href="uPSI_u7zWrapper.html">uPSI_u7zWrapper</a></li><li><a   href="uPSI_uEmulator.html">uPSI_uEmulator</a></li><li><a   href="uPSI_uGame.html">uPSI_uGame</a></li><li><a   href="uPSI_uGameGroup.html">uPSI_uGameGroup</a></li><li><a   href="uPSI_uGameManager.html">uPSI_uGameManager</a></li><li><a   href="uPSI_uGameStats.html">uPSI_uGameStats</a></li><li><a   href="uPSI_uSystem.html">uPSI_uSystem</a></li><li>uPSPreProcessor</li><li>uPSRuntime</li><li>uPSUtils</li></ul><h2 class="overview">Overview</h2>
+<ul class="useslist"><li>ActnList</li><li>Buttons</li><li>Classes</li><li>ComCtrls</li><li>Controls</li><li>Dialogs</li><li>ExtCtrls</li><li>FileUtil</li><li>Forms</li><li>Graphics</li><li>LazUTF8</li><li>LResources</li><li>ShellCtrls</li><li>StdActns</li><li>StdCtrls</li><li>SynHighlighterPas</li><li>SynMemo</li><li>SysUtils</li><li><a   href="uConfig.html">uConfig</a></li><li><a   href="uCustomUtils.html">uCustomUtils</a></li><li><a   href="uGame.html">uGame</a></li><li><a   href="uGameGroup.html">uGameGroup</a></li><li><a   href="uGameManager.html">uGameManager</a></li><li><a   href="uScriptEngEmuteca.html">uScriptEngEmuteca</a></li></ul><h2 class="overview">Overview</h2>
 <a name="%40Classes"></a><h3 class="cio">Classes, Interfaces, Objects and Records</h3>
 <table class="classestable wide_list">
 <tr class="listheader">
@@ -47,22 +46,10 @@ Unit of Script Manager form.</p>
 <td class="itemcode"><code><b><a   href="fScriptManager.html#kFSMUnitsFolder">kFSMUnitsFolder</a></b> = 'Common' + PathDelim;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code><b><a   href="fScriptManager.html#rsFSMCompilationError">rsFSMCompilationError</a></b> = 'Compilation: Error.';</code></td>
+<td class="itemcode"><code><b><a   href="fScriptManager.html#rsFSMEmutecaScript">rsFSMEmutecaScript</a></b> = 'Emuteca Script File';</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code><b><a   href="fScriptManager.html#rsFSMCompilationOK">rsFSMCompilationOK</a></b> = 'Compilation: OK.';</code></td>
-</tr>
-<tr class="list2">
-<td class="itemcode"><code><b><a   href="fScriptManager.html#rsFSMEmutecaScript">rsFSMEmutecaScript</a></b> = 'Emuteca Script';</code></td>
-</tr>
-<tr class="list">
-<td class="itemcode"><code><b><a   href="fScriptManager.html#rsFSMExecutionError">rsFSMExecutionError</a></b> = 'Execution: Error.';</code></td>
-</tr>
-<tr class="list2">
-<td class="itemcode"><code><b><a   href="fScriptManager.html#rsFSMExecutionOK">rsFSMExecutionOK</a></b> = 'Execution: OK.';</code></td>
-</tr>
-<tr class="list">
-<td class="itemcode"><code><b><a   href="fScriptManager.html#rsFSMScriptFileSaved">rsFSMScriptFileSaved</a></b> = 'Script file saved: %s';</code></td>
+<td class="itemcode"><code><b><a   href="fScriptManager.html#rsFSMScriptFileSaved">rsFSMScriptFileSaved</a></b> = 'Script file saved: %0:s';</code></td>
 </tr>
 </table>
 <a name="%40Variables"></a><h3 class="summary">Variables</h3>
@@ -107,42 +94,14 @@ Script file extension</p>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="rsFSMCompilationError"></a><code><b>rsFSMCompilationError</b> = 'Compilation: Error.';</code></td>
+<td class="itemcode"><a name="rsFSMEmutecaScript"></a><code><b>rsFSMEmutecaScript</b> = 'Emuteca Script File';</code></td>
 </tr>
 <tr><td colspan="1">
 &nbsp;</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="rsFSMCompilationOK"></a><code><b>rsFSMCompilationOK</b> = 'Compilation: OK.';</code></td>
-</tr>
-<tr><td colspan="1">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="rsFSMEmutecaScript"></a><code><b>rsFSMEmutecaScript</b> = 'Emuteca Script';</code></td>
-</tr>
-<tr><td colspan="1">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="rsFSMExecutionError"></a><code><b>rsFSMExecutionError</b> = 'Execution: Error.';</code></td>
-</tr>
-<tr><td colspan="1">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="rsFSMExecutionOK"></a><code><b>rsFSMExecutionOK</b> = 'Execution: OK.';</code></td>
-</tr>
-<tr><td colspan="1">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="rsFSMScriptFileSaved"></a><code><b>rsFSMScriptFileSaved</b> = 'Script file saved: %s';</code></td>
+<td class="itemcode"><a name="rsFSMScriptFileSaved"></a><code><b>rsFSMScriptFileSaved</b> = 'Script file saved: %0:s';</code></td>
 </tr>
 <tr><td colspan="1">
 &nbsp;</td></tr>
@@ -155,6 +114,6 @@ Script file extension</p>
 <tr><td colspan="1">
 &nbsp;</td></tr>
 </table>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.12.1</a> on 2012-07-03 22:35:13</em>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.12.1</a> on 2012-07-25 23:30:46</em>
 </span>
 </body></html>

@@ -1,4 +1,5 @@
-{ [SCRIPTDATA]
+{
+[SCRIPTDATA]
 Author = Chixpy
 Version = 0.3
 Date = 20101109
@@ -19,11 +20,9 @@ Changes =
     + Versión inicial.
     + Escribe el número de grupos que hay en el GameManager.
 ~end~
+[END]
 }
 program TestGameManager;
-var
-  Game: cGame;
-  Group: cGameGroup;
 begin
   WriteLn('GAMEMANAGER PROPERTIES');
   WriteLn('----------------------');

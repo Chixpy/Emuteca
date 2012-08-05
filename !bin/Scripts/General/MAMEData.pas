@@ -14,6 +14,7 @@ Changes =
   0.1 - 20110420:
     + Initial version
 ~end~
+[END]
 }
 program GroupByFolder;
 var

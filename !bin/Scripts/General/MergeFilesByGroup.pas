@@ -20,6 +20,7 @@ Changes =
   0.1 - 20111203:
     + Initial version
 ~end~
+[END]
 }
 program MergeFilesByGroup;
 var

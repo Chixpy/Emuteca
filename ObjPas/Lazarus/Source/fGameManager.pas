@@ -183,6 +183,7 @@ type
     ActionList: TActionList;
     bEditorSave: TBitBtn;
     bSaveProperties: TButton;
+    bSearchOtherFiles: TButton;
     cbEmulators: TComboBox;
     cbGameGroup: TComboBox;
     cbGameImages: TComboBox;
@@ -191,6 +192,7 @@ type
     cbSearch: TComboBox;
     cbSystem: TComboBox;
     cbYear: TComboBox;
+    chkAutoSearchOtherFiles: TCheckBox;
     chkUpdateTreeAfterSaving: TCheckBox;
     chkVerified: TCheckBox;
     eAlternate: TEdit;
@@ -1059,7 +1061,7 @@ begin
   vstGroups.DefaultNodeHeight := abs(vstGroups.Font.Height) * 2;
 
   vstFiles.NodeDataSize := SizeOf(string);
-  FillOtherFilesTree;
+
   GroupMode := lvGMGameGroup;
   FGameImages := TStringList.Create;
   FGameTexts := TStringList.Create;
@@ -1712,12 +1714,6 @@ begin
   finally
     FreeAndNil(SysMan);
   end;
-
-  if cbSystem.Items.Count > 0 then
-  begin
-    cbSystem.ItemIndex := 0;
-    ChangeCurrentSystem;
-  end;
 end;
 
 procedure TfrmGameManager.UpdateSystemMediaCaptions;
@@ -1789,8 +1785,6 @@ var
   Nodo: PVirtualNode;
   Continue: boolean;
 begin
-  Self.Enabled := False;
-
   vstGroups.Clear;
 
   ClearGameMedia;
@@ -1807,6 +1801,7 @@ begin
   if (GameManager.System = nil) then
     Exit;
 
+  Self.Enabled := False;
   // Updating cbGameGroup list
   cbGameGroup.Items.Clear;
   i := GameManager.GroupCount - 1;
@@ -2150,6 +2145,8 @@ begin
   end;
 
   SaveImageToFile(iGameImage.Picture, aFileName);
+
+  // TODO 2: Update media list and lImageCount
 end;
 
 procedure TfrmGameManager.PasteGameSpineImage;
@@ -3223,7 +3220,10 @@ end;
 procedure TfrmGameManager.actExportSystemDataExecute(Sender: TObject);
 begin
   if GameManager.System = nil then
-    raise ENotImplemented.Create(rsFGMSystemRequired);
+  begin
+    ShowMessage(rsFGMSystemRequired);
+    Exit;
+  end;
 
   SaveDialog.Filter := rsFGMEmutecaGameDatabase + CDBFilter;
   SaveDialog.DefaultExt := CDBExt;
@@ -3282,7 +3282,10 @@ end;
 procedure TfrmGameManager.actImportSystemDataExecute(Sender: TObject);
 begin
   if GameManager.System = nil then
-    raise ENotImplemented.Create(rsFGMSystemRequired);
+  begin
+    ShowMessage(rsFGMSystemRequired);
+    Exit ;
+  end;
 
   OpenDialog.Filter := rsFGMEmutecaGameDatabase + CDBFilter;
   OpenDialog.DefaultExt := CDBExt;
@@ -3315,7 +3318,10 @@ var
   FormMM: TfrmMediaManager;
 begin
   if GameManager.System = nil then
-    raise ENotImplemented.Create(rsFGMSystemRequired);
+  begin
+    ShowMessage(rsFGMSystemRequired);
+    Exit        ;
+  end;
 
   Application.CreateForm(TfrmMediaManager, FormMM);
   try
@@ -3347,7 +3353,10 @@ var
   SysFolder: string;
 begin
   if GameManager.System = nil then
-    raise ENotImplemented.Create(rsFGMSystemRequired);
+  begin
+    ShowMessage(rsFGMSystemRequired);
+    Exit     ;
+  end;
 
   SysFolder := SysPath(GameManager.System.BaseFolder);
   if not DirectoryExistsUTF8(SysFolder) then
@@ -3374,6 +3383,12 @@ procedure TfrmGameManager.actPlayGameExecute(Sender: TObject);
 var
   ExitCode: integer;
 begin
+  if GameManager.System = nil then
+  begin
+    ShowMessage(rsFGMSystemRequired);
+    Exit      ;
+  end;
+
   if CurrGame = nil then
     Exit;
 
@@ -3412,7 +3427,10 @@ end;
 procedure TfrmGameManager.actPurgeSystemDataExecute(Sender: TObject);
 begin
   if GameManager.System = nil then
-    raise ENotImplemented.Create(rsFGMSystemRequired);
+  begin
+    ShowMessage(rsFGMSystemRequired);
+    Exit;
+  end;
 
   if MessageDlg(rsFGMPurgeMessage, mtWarning, [mbYes, mbNo], 0) = mrNo then
     Exit;
@@ -3425,7 +3443,10 @@ var
   FormSM: TfrmScriptManager;
 begin
   if GameManager.System = nil then
-    raise ENotImplemented.Create(rsFGMSystemRequired);
+  begin
+    ShowMessage(rsFGMSystemRequired);
+    Exit;
+  end;
 
   // Fix a posible crash while updating the form, after closing the
   //   Script Manager, because games or groups can have been modified.
@@ -3435,8 +3456,8 @@ begin
   try
     FormSM.Config := Self.Config;
     FormSM.GameManager := GameManager;
-    FormSM.ScriptFolder := Config.ScriptsFolder +
-      Config.GeneralScriptsSubFolder;
+    FormSM.CurrGame :=  CurrGame;
+    FormSM.CurrGroup :=  CurrGroup;
     FormSM.ShowModal;
   finally
     FreeAndNil(FormSM);
@@ -3535,6 +3556,12 @@ end;
 
 procedure TfrmGameManager.actRunEmulatorExecute(Sender: TObject);
 begin
+  if GameManager.System = nil then
+  begin
+    ShowMessage(rsFGMSystemRequired);
+    Exit;
+  end;
+
   Self.Enabled := False;
   Application.Minimize;
   try
@@ -3627,7 +3654,10 @@ end;
 procedure TfrmGameManager.actSaveSystemTextExecute(Sender: TObject);
 begin
   if GameManager.System = nil then
-    raise ENotImplemented.Create(rsFGMSystemRequired);
+  begin
+    ShowMessage(rsFGMSystemRequired);
+    Exit;
+  end;
 
   if not FileExistsUTF8(GameManager.System.InfoText) then
   begin
@@ -3683,7 +3713,10 @@ end;
 procedure TfrmGameManager.actUpdateGameListExecute(Sender: TObject);
 begin
   if GameManager.System = nil then
-    raise ENotImplemented.Create(rsFGMSystemRequired);
+  begin
+    ShowMessage(rsFGMSystemRequired);
+    Exit;
+  end;
 
   vstGroups.Clear;
   Self.Enabled := False;

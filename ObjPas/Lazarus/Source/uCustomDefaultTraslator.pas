@@ -30,7 +30,7 @@ This unit localizes LCL too, if it finds lclstrconsts.xx.po/lclstrconsts.xx.mo
 in directory where your program translation files are placed.
 
 Emuteca changes:
-  - ParamStrUTF8(0) --> kCDTName = 'Emuteca'
+  - ExtractFileName(ParamStrUTF8(0)) --> kCDTName = 'Emuteca'
 }
 {$mode objfpc}{$H+}
 

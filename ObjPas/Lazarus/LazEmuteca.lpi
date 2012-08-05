@@ -84,10 +84,10 @@
     </RunParams>
     <RequiredPackages Count="6">
       <Item1>
-        <PackageName Value="IDEIntf"/>
+        <PackageName Value="pl_pascalscript"/>
       </Item1>
       <Item2>
-        <PackageName Value="pl_pascalscript"/>
+        <PackageName Value="IDEIntf"/>
       </Item2>
       <Item3>
         <PackageName Value="pl_virtualtrees"/>
@@ -215,17 +215,17 @@
         <UnitName Value="fProgress"/>
       </Unit17>
       <Unit18>
-        <Filename Value="../Common/uPSI_uGame.pas"/>
+        <Filename Value="../Common/PSImports/uPSI_uGame.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uPSI_uGame"/>
       </Unit18>
       <Unit19>
-        <Filename Value="../Common/uPSI_uGameGroup.pas"/>
+        <Filename Value="../Common/PSImports/uPSI_uGameGroup.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uPSI_uGameGroup"/>
       </Unit19>
       <Unit20>
-        <Filename Value="../Common/uPSI_uGameManager.pas"/>
+        <Filename Value="../Common/PSImports/uPSI_uGameManager.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uPSI_uGameManager"/>
       </Unit20>
@@ -233,6 +233,7 @@
         <Filename Value="Source/fAbout.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmAbout"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="fAbout"/>
       </Unit21>
@@ -266,22 +267,22 @@
         <UnitName Value="fSMAskFolder"/>
       </Unit26>
       <Unit27>
-        <Filename Value="../Common/uPSI_u7zWrapper.pas"/>
+        <Filename Value="../Common/PSImports/uPSI_u7zWrapper.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uPSI_u7zWrapper"/>
       </Unit27>
       <Unit28>
-        <Filename Value="../Common/uPSI_uSystem.pas"/>
+        <Filename Value="../Common/PSImports/uPSI_uSystem.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uPSI_uSystem"/>
       </Unit28>
       <Unit29>
-        <Filename Value="../Common/uPSI_uEmulator.pas"/>
+        <Filename Value="../Common/PSImports/uPSI_uEmulator.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uPSI_uEmulator"/>
       </Unit29>
       <Unit30>
-        <Filename Value="../Common/uPSI_uGameStats.pas"/>
+        <Filename Value="../Common/PSImports/uPSI_uGameStats.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uPSI_uGameStats"/>
       </Unit30>
@@ -299,9 +300,9 @@
         <UnitName Value="uCustomDefaultTraslator"/>
       </Unit32>
       <Unit33>
-        <Filename Value="../Common/uScriptEngine.pas"/>
+        <Filename Value="../Common/uScriptEngEmuteca.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="uScriptEngine"/>
+        <UnitName Value="uScriptEngEmuteca"/>
       </Unit33>
     </Units>
   </ProjectOptions>
@@ -313,7 +314,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="..\Common;source"/>
+      <OtherUnitFiles Value="..\Common;source;..\Common\PSImports"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <CodeGeneration>

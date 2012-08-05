@@ -7,7 +7,6 @@
 <link rel="StyleSheet" type="text/css" href="pasdoc.css">
 </head>
 <body bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#800080" alink="#FF0000">
-Emuteca documentation
 <h1 class="unit">Unit fMediaManager</h1>
 <table class="sections wide_list">
 <tr>
@@ -16,7 +15,7 @@ Emuteca documentation
 <p>
 Unit of Media Manager form</p>
 <a name="%40Uses"></a><h2 class="uses">Uses</h2>
-<ul class="useslist"><li>ActnList</li><li>Classes</li><li>ComCtrls</li><li>Controls</li><li>Dialogs</li><li>EditBtn</li><li>ExtCtrls</li><li>FileUtil</li><li><a   href="fImageViewer.html">fImageViewer</a></li><li>Forms</li><li><a   href="fProgress.html">fProgress</a></li><li>Graphics</li><li>LazUTF8</li><li>LCLType</li><li>LResources</li><li>Menus</li><li>StdCtrls</li><li>SysUtils</li><li><a   href="uConfig.html">uConfig</a></li><li><a   href="uCustomUtils.html">uCustomUtils</a></li><li><a   href="uGame.html">uGame</a></li><li><a   href="uGameGroup.html">uGameGroup</a></li><li><a   href="uGameManager.html">uGameManager</a></li><li>VirtualTrees</li></ul><h2 class="overview">Overview</h2>
+<ul class="useslist"><li>ActnList</li><li>Buttons</li><li>Classes</li><li>ComCtrls</li><li>Controls</li><li>Dialogs</li><li>EditBtn</li><li>ExtCtrls</li><li>FileUtil</li><li><a   href="fImageViewer.html">fImageViewer</a></li><li>Forms</li><li><a   href="fProgress.html">fProgress</a></li><li>Graphics</li><li>LazUTF8</li><li>LCLIntf</li><li>LCLType</li><li>LResources</li><li>Menus</li><li>StdCtrls</li><li>SysUtils</li><li><a   href="uConfig.html">uConfig</a></li><li><a   href="uCustomUtils.html">uCustomUtils</a></li><li><a   href="uGame.html">uGame</a></li><li><a   href="uGameGroup.html">uGameGroup</a></li><li><a   href="uGameManager.html">uGameManager</a></li><li>VirtualTrees</li></ul><h2 class="overview">Overview</h2>
 <a name="%40Classes"></a><h3 class="cio">Classes, Interfaces, Objects and Records</h3>
 <table class="classestable wide_list">
 <tr class="listheader">
@@ -31,7 +30,7 @@ Unit of Media Manager form</p>
 <a name="%40Constants"></a><h3 class="summary">Constants</h3>
 <table class="summary wide_list">
 <tr class="list">
-<td class="itemcode"><code><b><a   href="fMediaManager.html#CSimilarityThresold">CSimilarityThresold</a></b> = 25;</code></td>
+<td class="itemcode"><code><b><a   href="fMediaManager.html#kSimilarityThresold">kSimilarityThresold</a></b> = 25;</code></td>
 </tr>
 <tr class="list2">
 <td class="itemcode"><code><b><a   href="fMediaManager.html#rsfmmAddingFiles">rsfmmAddingFiles</a></b> = 'Adding files to the list...';</code></td>
@@ -76,8 +75,7 @@ Unit of Media Manager form</p>
 </tr>
 <tr class="list">
 <td class="itemcode"><code><b><a   href="fMediaManager.html#rsfmmTargetExists">rsfmmTargetExists</a></b> =
-    'Target file already exists.' + sLineBreak +
-    sLineBreak + 'Do you want to overwrite?';</code></td>
+    'Target file already exists.' + sLineBreak + '%0:s'+ sLineBreak + 'Do you want to overwrite?';</code></td>
 </tr>
 <tr class="list2">
 <td class="itemcode"><code><b><a   href="fMediaManager.html#rsNFiles">rsNFiles</a></b> = '%0:d files found.';</code></td>
@@ -93,7 +91,7 @@ Unit of Media Manager form</p>
 <h3 class="detail">Constants</h3>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="CSimilarityThresold"></a><code><b>CSimilarityThresold</b> = 25;</code></td>
+<td class="itemcode"><a name="kSimilarityThresold"></a><code><b>kSimilarityThresold</b> = 25;</code></td>
 </tr>
 <tr><td colspan="1">
 &nbsp;</td></tr>
@@ -103,14 +101,18 @@ Unit of Media Manager form</p>
 <td class="itemcode"><a name="rsfmmAddingFiles"></a><code><b>rsfmmAddingFiles</b> = 'Adding files to the list...';</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Translatable string:</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="rsfmmCopyingFileList"></a><code><b>rsfmmCopyingFileList</b> = 'Copying file list...';</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Translatable string:</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -118,7 +120,9 @@ Unit of Media Manager form</p>
     sLineBreak + 'Folder: %0:s' + sLineBreak + 'Number of files: %1:d';</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Translatable string:</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -126,86 +130,109 @@ Unit of Media Manager form</p>
     sLineBreak + '%0:s';</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Translatable string:</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="rsfmmDeleteFileError"></a><code><b>rsfmmDeleteFileError</b> = 'Error deleting the file:\n\n%0:s';</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Translatable string:</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="rsfmmDemoMusic"></a><code><b>rsfmmDemoMusic</b> = 'Demo music';</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Translatable string:</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="rsfmmDemoVideo"></a><code><b>rsfmmDemoVideo</b> = 'Demo vídeo';</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Translatable string:</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="rsfmmIcons"></a><code><b>rsfmmIcons</b> = 'Icons';</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Translatable string:</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="rsfmmMarquees"></a><code><b>rsfmmMarquees</b> = 'Spines / Marquees';</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Translatable string:</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="rsfmmSearchFilesWOGame"></a><code><b>rsfmmSearchFilesWOGame</b> = 'Searching files without game...';</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Translatable string:</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="rsfmmSearchFilesWOGroup"></a><code><b>rsfmmSearchFilesWOGroup</b> = 'Searching files without group...';</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Translatable string:</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="rsfmmSource"></a><code><b>rsfmmSource</b> = 'Source: %0:s';</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Translatable string:</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="rsfmmTarget"></a><code><b>rsfmmTarget</b> = 'Target: %0:s';</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Translatable string:</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="rsfmmTargetExists"></a><code><b>rsfmmTargetExists</b> =
-    'Target file already exists.' + sLineBreak +
-    sLineBreak + 'Do you want to overwrite?';</code></td>
+    'Target file already exists.' + sLineBreak + '%0:s'+ sLineBreak + 'Do you want to overwrite?';</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Translatable string:</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="rsNFiles"></a><code><b>rsNFiles</b> = '%0:d files found.';</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Translatable string:</p>
+</td></tr>
 </table>
 <h3 class="detail">Variables</h3>
 <table class="detail wide_list">
@@ -215,6 +242,6 @@ Unit of Media Manager form</p>
 <tr><td colspan="1">
 &nbsp;</td></tr>
 </table>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.12.1</a> on 2012-07-03 22:35:13</em>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.12.1</a> on 2012-07-25 23:30:46</em>
 </span>
 </body></html>

@@ -108,11 +108,11 @@ type
     chkOtherFilesMultiFile: TCheckBox;
     chkOtherVideoMultiFile: TCheckBox;
     chkUseCRC: TCheckBox;
-    clbImageFolders: TCheckListBox;
+    lbImageFolders: TListBox;
     clbOtherEmulators: TCheckListBox;
     clbSystems: TCheckListBox;
-    clbTextFolders: TCheckListBox;
     cbMainEmulator: TComboBox;
+    lbTextFolders: TListBox;
     DirectoryDialog: TSelectDirectoryDialog;
     eBaseFolder: TDirectoryEdit;
     eDemoMusicFolder: TDirectoryEdit;
@@ -165,10 +165,10 @@ type
     iBackgroundImage: TImage;
     iSystemImage: TImage;
     lBackgroundImage: TLabel;
+    mImageCaptions: TMemo;
+    mTextCaptions: TMemo;
     lOtherEmulators: TLabel;
     lAutoConfig: TLabel;
-    lbImageCaptions: TListBox;
-    lbTextCaptions: TListBox;
     lExtensions: TLabel;
     lIconFolder: TLabel;
     lImageCaptions: TLabel;
@@ -286,11 +286,9 @@ type
     procedure cbMainEmulatorSelect(Sender: TObject);
     procedure chkExtractAllEditingDone(Sender: TObject);
     procedure chkUseCRCEditingDone(Sender: TObject);
-    procedure clbImageFoldersClickCheck(Sender: TObject);
     procedure clbOtherEmulatorsClickCheck(Sender: TObject);
     procedure clbSystemsClick(Sender: TObject);
     procedure clbSystemsItemClick(Sender: TObject; Index: integer);
-    procedure clbTextFoldersClickCheck(Sender: TObject);
     procedure eBackgroundImageAcceptFileName(Sender: TObject; var Value: String
       );
     procedure eBackgroundImageEditingDone(Sender: TObject);
@@ -730,14 +728,14 @@ procedure TfrmSystemManager.actRemoveImageFolderExecute(Sender: TObject);
 begin
   if System = nil then
     Exit;
-  if clbImageFolders.ItemIndex = -1 then
+  if lbImageFolders.ItemIndex = -1 then
     Exit;
 
-  if System.ImageFolders.Count > clbImageFolders.ItemIndex then
-    System.ImageFolders.Delete(clbImageFolders.ItemIndex);
+  if System.ImageFolders.Count > lbImageFolders.ItemIndex then
+    System.ImageFolders.Delete(lbImageFolders.ItemIndex);
 
-  if System.ImageCaptions.Count > clbImageFolders.ItemIndex then
-    System.ImageCaptions.Delete(clbImageFolders.ItemIndex);
+  if System.ImageCaptions.Count > lbImageFolders.ItemIndex then
+    System.ImageCaptions.Delete(lbImageFolders.ItemIndex);
 
   FillFields;
 end;
@@ -779,14 +777,14 @@ procedure TfrmSystemManager.actRemoveTextFolderExecute(Sender: TObject);
 begin
   if System = nil then
     Exit;
-  if clbTextFolders.ItemIndex = -1 then
+  if lbTextFolders.ItemIndex = -1 then
     Exit;
 
-  if System.TextFolders.Count > clbTextFolders.ItemIndex then
-    System.TextFolders.Delete(clbTextFolders.ItemIndex);
+  if System.TextFolders.Count > lbTextFolders.ItemIndex then
+    System.TextFolders.Delete(lbTextFolders.ItemIndex);
 
-  if System.TextCaptions.Count > clbTextFolders.ItemIndex then
-    System.TextCaptions.Delete(clbTextFolders.ItemIndex);
+  if System.TextCaptions.Count > lbTextFolders.ItemIndex then
+    System.TextCaptions.Delete(lbTextFolders.ItemIndex);
 
   FillFields;
 end;
@@ -833,11 +831,6 @@ begin
   System.UseCRC := chkUseCRC.Checked;
 end;
 
-procedure TfrmSystemManager.clbImageFoldersClickCheck(Sender: TObject);
-begin
-
-end;
-
 procedure TfrmSystemManager.clbOtherEmulatorsClickCheck(Sender: TObject);
 var
   Cont: integer;
@@ -865,13 +858,6 @@ procedure TfrmSystemManager.clbSystemsItemClick(Sender: TObject;
   Index: integer);
 begin
   // TODO 3: clbSystemsClick code must be here...
-end;
-
-procedure TfrmSystemManager.clbTextFoldersClickCheck(Sender: TObject);
-var
-  Cont: integer;
-begin
-
 end;
 
 procedure TfrmSystemManager.eBackgroundImageAcceptFileName(Sender: TObject;
@@ -1248,11 +1234,11 @@ begin
   eIconFolder.Text := '';
   eSpineFolder.Text := '';
 
-  clbImageFolders.Clear;
-  lbImageCaptions.Clear;
+  lbImageFolders.Clear;
+  mImageCaptions.Clear;
 
-  clbTextFolders.Clear;
-  lbTextCaptions.Clear;
+  lbTextFolders.Clear;
+  mTextCaptions.Clear;
 
   // Emuladores
   i := 0;
@@ -1354,15 +1340,15 @@ begin
   eIconFolder.Text := System.IconFolder;
   eSpineFolder.Text := System.MarqueeFolder;
 
-  clbImageFolders.Clear;
-  clbImageFolders.Items.AddStrings(System.ImageFolders);
-  lbImageCaptions.Clear;
-  lbImageCaptions.Items.AddStrings(System.ImageCaptions);
+  lbImageFolders.Clear;
+  lbImageFolders.Items.AddStrings(System.ImageFolders);
+  mImageCaptions.Clear;
+  mImageCaptions.Lines.AddStrings(System.ImageCaptions);
 
-  clbTextFolders.Clear;
-  clbTextFolders.Items.AddStrings(System.TextFolders);
-  lbTextCaptions.Clear;
-  lbTextCaptions.Items.AddStrings(System.TextCaptions);
+  lbTextFolders.Clear;
+  lbTextFolders.Items.AddStrings(System.TextFolders);
+  mTextCaptions.Clear;
+  mTextCaptions.Lines.AddStrings(System.TextCaptions);
 
   // Emulators
   cbMainEmulator.ItemIndex :=

@@ -1021,8 +1021,8 @@ object frmGameManager: TfrmGameManager
       ClientWidth = 200
       object vstFiles: TVirtualStringTree
         Left = 0
-        Height = 505
-        Top = 0
+        Height = 463
+        Top = 42
         Width = 200
         Align = alClient
         Color = clWindow
@@ -1044,6 +1044,25 @@ object frmGameManager: TfrmGameManager
         OnChange = vstFilesChange
         OnFreeNode = vstFilesFreeNode
         OnGetText = vstFilesGetText
+      end
+      object chkAutoSearchOtherFiles: TCheckBox
+        Left = 0
+        Height = 17
+        Hint = 'Searchs other related files when selecting a game (It can be slow when browsing games)'
+        Top = 0
+        Width = 200
+        Align = alTop
+        Caption = 'Autosearch other related files.'
+        TabOrder = 1
+      end
+      object bSearchOtherFiles: TButton
+        Left = 0
+        Height = 25
+        Top = 17
+        Width = 200
+        Align = alTop
+        Caption = 'Search Other Files'
+        TabOrder = 2
       end
     end
     object pagProperties: TTabSheet

@@ -13,6 +13,7 @@ Changes =
   0.1 - 20111127:
     + Initial version
 ~end~
+[END]
 }
 program TOSECFilenames;
 var
