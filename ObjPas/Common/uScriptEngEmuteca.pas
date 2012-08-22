@@ -60,6 +60,7 @@ type
   cScriptEngEmuteca = class(TObject)
 
   private
+    FCommonUnitFolder: string;
     FGame: cGame;
     FGameGroup: cGameGroup;
     FGameManager: cGameManager;
@@ -72,6 +73,7 @@ type
     FScriptOutput: TStrings;
     function getScriptFile: string;
     function getScriptText: TStrings;
+    procedure SetCommonUnitFolder(AValue: string);
     procedure SetGame(AValue: cGame);
     procedure SetGameGroup(AValue: cGameGroup);
     procedure SetGameManager(AValue: cGameManager);
@@ -104,6 +106,8 @@ type
     procedure PasScriptOnExecImport(Sender: TObject; se: TPSExec;
       x: TPSRuntimeClassImporter);
     procedure PasScriptOnExecute(Sender: TPSScript);
+    function PasScriptOnFindUnknownFile(Sender: TObject; const OrginFileName: tbtstring; var FileName, Output: tbtstring): Boolean;
+    function PasScriptOnNeedFile(Sender: TObject; const OriginFileName: tbtstring; var FileName, Output: tbtstring): Boolean;
 
     // Added functions
     // ---------------
@@ -127,6 +131,8 @@ type
 
   public
     property ScriptFile: string read getScriptFile write setScriptFile;
+    property CommonUnitFolder: string read FCommonUnitFolder write SetCommonUnitFolder;
+
     property ScriptText: TStrings read getScriptText write setScriptText;
     property ScriptOutput: TStrings read FScriptOutput write SetScriptOutput;
     property ScriptInfo: TStrings read FScriptInfo write SetScriptInfo;
@@ -162,6 +168,11 @@ end;
 function cScriptEngEmuteca.getScriptText: TStrings;
 begin
   Result := PasScript.Script;
+end;
+
+procedure cScriptEngEmuteca.SetCommonUnitFolder(AValue: string);
+begin
+  FCommonUnitFolder := SetAsFolder(AValue);
 end;
 
 procedure cScriptEngEmuteca.SetGameGroup(AValue: cGameGroup);
@@ -225,7 +236,7 @@ end;
 
 procedure cScriptEngEmuteca.setScriptFile(AValue: string);
 begin
-  PasScript.MainFileName := AValue;
+  PasScript.MainFileName := SetAsFile(AValue);
 end;
 
 procedure cScriptEngEmuteca.SetScriptInfo(AValue: TStrings);
@@ -360,6 +371,71 @@ begin
   Sender.SetPointerToData('Game', @FGame, Sender.FindNamedType('cGame'));
   Sender.SetPointerToData('GameGroup', @FGameGroup,
     Sender.FindNamedType('cGameGroup'));
+end;
+
+function cScriptEngEmuteca.PasScriptOnFindUnknownFile(Sender: TObject;
+  const OrginFileName: tbtstring; var FileName, Output: tbtstring): Boolean;
+var
+  FullFileName: String;
+  f: TFileStream;
+begin
+  Result := False;
+  FullFileName := SetAsFolder(ExtractFilePath(OrginFileName)) + FileName;
+  if not FileExistsUTF8(FullFileName) then
+  begin
+    FullFileName := SetAsFolder(CommonUnitFolder) + FileName;
+    if not FileExistsUTF8(FullFileName) then
+      Exit;
+  end;
+
+  try
+    f := TFileStream.Create(FullFileName, fmOpenRead or fmShareDenyWrite);
+  except
+    Exit;
+  end;
+  try
+    SetLength(Output, f.Size);
+    f.Read(Output[1], Length(Output));
+  finally
+    f.Free;
+  end;
+  Result := True;
+end;
+
+function cScriptEngEmuteca.PasScriptOnNeedFile(Sender: TObject;
+  const OriginFileName: tbtstring; var FileName, Output: tbtstring): Boolean;
+var
+  FullFileName: String;
+  F: TFileStream;
+begin
+  ShowMessage('PSScriptNeedFile:' + sLineBreak +
+  'OriginFileName: ' +OriginFileName +  sLineBreak +
+  'FileName: ' +FileName +  sLineBreak +
+  'Output: ' +Output +  sLineBreak
+  );
+
+
+  Result := False;
+  FullFileName := SetAsFolder(ExtractFilePath(OriginFileName)) + FileName;
+  if not FileExistsUTF8(FullFileName) then
+  begin
+    FullFileName := SetAsFolder(CommonUnitFolder) + FileName;
+    if not FileExistsUTF8(FullFileName) then
+      Exit;
+  end;
+
+  try
+    F := TFileStream.Create(FullFileName, fmOpenRead or fmShareDenyWrite);
+  except
+    Exit;
+  end;
+  try
+    SetLength(Output, f.Size);
+    f.Read(Output[1], Length(Output));
+  finally
+    f.Free;
+  end;
+  Result := True;
 end;
 
 procedure cScriptEngEmuteca.PasScriptOnExecImport(Sender: TObject;
@@ -499,6 +575,9 @@ begin
   PasScript.OnCompile := @PasScriptOnCompile;
   PasScript.OnExecImport := @PasScriptOnExecImport;
   PasScript.OnExecute := @PasScriptOnExecute;
+  PasScript.OnNeedFile := @PasScriptOnNeedFile;
+  PasScript.OnFindUnknownFile := @PasScriptOnFindUnknownFile;
+
 end;
 
 destructor cScriptEngEmuteca.Destroy;

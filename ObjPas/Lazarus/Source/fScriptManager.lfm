@@ -2,10 +2,10 @@ object frmScriptManager: TfrmScriptManager
   Left = 270
   Height = 480
   Top = 131
-  Width = 818
+  Width = 719
   Caption = 'Script Manager'
   ClientHeight = 480
-  ClientWidth = 818
+  ClientWidth = 719
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   Position = poMainFormCenter
@@ -14,17 +14,17 @@ object frmScriptManager: TfrmScriptManager
     Left = 0
     Height = 58
     Top = 402
-    Width = 818
+    Width = 719
     Align = alBottom
     BevelOuter = bvNone
     ClientHeight = 58
-    ClientWidth = 818
+    ClientWidth = 719
     TabOrder = 2
     object mInfo: TMemo
       Left = 0
       Height = 58
       Top = 0
-      Width = 818
+      Width = 719
       Align = alClient
       ReadOnly = True
       ScrollBars = ssAutoBoth
@@ -36,15 +36,15 @@ object frmScriptManager: TfrmScriptManager
     Left = 0
     Height = 20
     Top = 460
-    Width = 818
+    Width = 719
     AutoHint = True
     Panels = <>
   end
   object PageControl: TPageControl
     Left = 0
-    Height = 374
-    Top = 28
-    Width = 718
+    Height = 361
+    Top = 0
+    Width = 719
     ActivePage = pagSourceCode
     Align = alClient
     TabIndex = 4
@@ -131,13 +131,13 @@ object frmScriptManager: TfrmScriptManager
     end
     object pagSourceCode: TTabSheet
       Caption = 'Source Code'
-      ClientHeight = 348
-      ClientWidth = 710
+      ClientHeight = 335
+      ClientWidth = 711
       object tbEditor: TToolBar
         Left = 0
         Height = 26
         Top = 0
-        Width = 710
+        Width = 711
         Caption = 'tbEditor'
         EdgeInner = esNone
         EdgeOuter = esNone
@@ -236,15 +236,14 @@ object frmScriptManager: TfrmScriptManager
       end
       inline SynEdit: TSynEdit
         Left = 0
-        Height = 322
+        Height = 309
         Top = 26
-        Width = 710
+        Width = 711
         Align = alClient
         BlockTabIndent = 2
         Font.Height = -13
         Font.Name = 'Courier New'
         Font.Pitch = fpFixed
-        Font.Quality = fqNonAntialiased
         ParentColor = False
         ParentFont = False
         TabOrder = 1
@@ -676,6 +675,7 @@ object frmScriptManager: TfrmScriptManager
           end>
         MouseActions = <>
         MouseSelActions = <>
+        Options = [eoAutoIndent, eoBracketHighlight, eoGroupUndo, eoScrollByOneLess, eoScrollPastEol, eoSmartTabs, eoTabsToSpaces, eoTrimTrailingSpaces]
         VisibleSpecialChars = [vscSpace, vscTabAtLast]
         ScrollBars = ssAutoBoth
         BracketHighlightStyle = sbhsBoth
@@ -726,13 +726,13 @@ object frmScriptManager: TfrmScriptManager
     end
     object pagOutput: TTabSheet
       Caption = 'Output'
-      ClientHeight = 348
-      ClientWidth = 710
+      ClientHeight = 284
+      ClientWidth = 810
       object mOutPut: TMemo
         Left = 0
-        Height = 348
+        Height = 284
         Top = 0
-        Width = 710
+        Width = 810
         Align = alClient
         ReadOnly = True
         ScrollBars = ssAutoBoth
@@ -741,57 +741,72 @@ object frmScriptManager: TfrmScriptManager
       end
     end
   end
-  object pTop: TPanel
-    Left = 0
-    Height = 28
-    Top = 0
-    Width = 818
-    Align = alTop
-    BevelOuter = bvNone
-    Font.Style = [fsBold]
-    ParentFont = False
-    TabOrder = 4
-  end
   object pRight: TPanel
-    Left = 718
-    Height = 374
-    Top = 28
-    Width = 100
-    Align = alRight
+    Left = 0
+    Height = 41
+    Top = 361
+    Width = 719
+    Align = alBottom
+    AutoSize = True
     BevelOuter = bvNone
-    ClientHeight = 374
-    ClientWidth = 100
+    ClientHeight = 41
+    ClientWidth = 719
     TabOrder = 1
     object gbxScript: TGroupBox
-      Left = 0
-      Height = 64
-      Top = 310
-      Width = 100
-      Align = alBottom
+      Left = 650
+      Height = 41
+      Top = 0
+      Width = 69
+      Align = alRight
       AutoSize = True
       Caption = 'Script'
-      ClientHeight = 46
-      ClientWidth = 96
+      ClientHeight = 23
+      ClientWidth = 65
       TabOrder = 0
       object bExecute2: TBitBtn
         Left = 0
         Height = 23
-        Top = 23
-        Width = 96
+        Top = 0
+        Width = 65
         Action = actExecute
         Align = alBottom
         AutoSize = True
         TabOrder = 0
       end
-      object bCompile2: TBitBtn
-        Left = 0
-        Height = 23
-        Top = 0
-        Width = 96
-        Action = actCompile
-        Align = alBottom
-        AutoSize = True
-        TabOrder = 1
+    end
+    object pCurrentData: TPanel
+      Left = 0
+      Height = 41
+      Top = 0
+      Width = 650
+      Align = alClient
+      AutoSize = True
+      ClientHeight = 41
+      ClientWidth = 650
+      TabOrder = 1
+      object lSystem: TLabel
+        Left = 1
+        Height = 1
+        Top = 1
+        Width = 648
+        Align = alTop
+        ParentColor = False
+      end
+      object lGroup: TLabel
+        Left = 1
+        Height = 1
+        Top = 2
+        Width = 648
+        Align = alTop
+        ParentColor = False
+      end
+      object lGame: TLabel
+        Left = 1
+        Height = 1
+        Top = 3
+        Width = 648
+        Align = alTop
+        ParentColor = False
       end
     end
   end

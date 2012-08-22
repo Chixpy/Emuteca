@@ -3448,16 +3448,19 @@ begin
     Exit;
   end;
 
-  // Fix a posible crash while updating the form, after closing the
-  //   Script Manager, because games or groups can have been modified.
-  vstGroups.Clear;
-
   Application.CreateForm(TfrmScriptManager, FormSM);
   try
     FormSM.Config := Self.Config;
-    FormSM.GameManager := GameManager;
-    FormSM.CurrGame :=  CurrGame;
-    FormSM.CurrGroup :=  CurrGroup;
+    FormSM.GameManager := Self.GameManager;
+    FormSM.CurrGame :=  Self.CurrGame;
+    FormSM.CurrGroup :=  Self.CurrGroup;
+
+    // Fix a posible crash while repainting the form, after closing the
+    //   Script Manager, because games or groups can have been modified.
+    // It's here because CurrGame and CurrGroup are changed to nil on
+    //   vstGroups change.
+    vstGroups.Clear;
+
     FormSM.ShowModal;
   finally
     FreeAndNil(FormSM);

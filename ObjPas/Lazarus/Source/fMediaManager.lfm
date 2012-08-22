@@ -20,18 +20,18 @@ object frmMediaManager: TfrmMediaManager
   end
   object pMedia: TPanel
     Left = 600
-    Height = 504
+    Height = 506
     Top = 0
     Width = 200
     Align = alRight
     BevelOuter = bvNone
-    ClientHeight = 504
+    ClientHeight = 506
     ClientWidth = 200
     TabOrder = 4
     object bAssign: TButton
       Left = 0
       Height = 25
-      Top = 479
+      Top = 481
       Width = 200
       Action = actChangeFileName
       Align = alBottom
@@ -40,7 +40,7 @@ object frmMediaManager: TfrmMediaManager
     object chkCopyFile: TCheckBox
       Left = 0
       Height = 17
-      Top = 462
+      Top = 464
       Width = 200
       Align = alBottom
       Caption = 'Don''t delete source file'
@@ -92,7 +92,7 @@ object frmMediaManager: TfrmMediaManager
     object pInfoMedia: TPanel
       Left = 0
       Height = 23
-      Top = 439
+      Top = 441
       Width = 200
       Align = alBottom
       BevelOuter = bvNone
@@ -100,7 +100,7 @@ object frmMediaManager: TfrmMediaManager
     end
     object mText: TMemo
       Left = 0
-      Height = 208
+      Height = 210
       Top = 231
       Width = 200
       Align = alClient
@@ -111,7 +111,7 @@ object frmMediaManager: TfrmMediaManager
   end
   object SplitterRight: TSplitter
     Left = 595
-    Height = 504
+    Height = 506
     Top = 0
     Width = 5
     Align = alRight
@@ -119,12 +119,12 @@ object frmMediaManager: TfrmMediaManager
   end
   object pMain: TPanel
     Left = 155
-    Height = 504
+    Height = 506
     Top = 0
     Width = 440
     Align = alClient
     BevelOuter = bvNone
-    ClientHeight = 504
+    ClientHeight = 506
     ClientWidth = 440
     TabOrder = 2
     object SplitterTargetSoure: TSplitter
@@ -350,7 +350,7 @@ object frmMediaManager: TfrmMediaManager
               ShowHidden = False
               ButtonWidth = 23
               DirectInput = False
-              NumGlyphs = 0
+              NumGlyphs = 1
               Flat = True
               Align = alCustom
               Anchors = [akTop, akLeft, akRight]
@@ -435,30 +435,30 @@ object frmMediaManager: TfrmMediaManager
     end
     object pTarget: TPanel
       Left = 0
-      Height = 237
+      Height = 239
       Top = 267
       Width = 440
       Align = alClient
       BevelOuter = bvNone
-      ClientHeight = 237
+      ClientHeight = 239
       ClientWidth = 440
       TabOrder = 2
       object pcTarget: TPageControl
         Left = 0
-        Height = 237
+        Height = 239
         Top = 0
         Width = 440
-        ActivePage = pagGroupsWOFile
+        ActivePage = pagAllGroups
         Align = alClient
-        TabIndex = 2
+        TabIndex = 0
         TabOrder = 0
         object pagAllGroups: TTabSheet
           Caption = 'All groups'
-          ClientHeight = 211
+          ClientHeight = 213
           ClientWidth = 432
           object vstAllGroups: TVirtualStringTree
             Left = 0
-            Height = 211
+            Height = 213
             Top = 0
             Width = 432
             Align = alClient
@@ -495,11 +495,11 @@ object frmMediaManager: TfrmMediaManager
         end
         object pagAllGames: TTabSheet
           Caption = 'All games'
-          ClientHeight = 180
+          ClientHeight = 213
           ClientWidth = 432
           object vstAllGames: TVirtualStringTree
             Left = 0
-            Height = 180
+            Height = 213
             Top = 0
             Width = 432
             Align = alClient
@@ -540,11 +540,11 @@ object frmMediaManager: TfrmMediaManager
         end
         object pagGroupsWOFile: TTabSheet
           Caption = 'Groups without file'
-          ClientHeight = 211
+          ClientHeight = 213
           ClientWidth = 432
           object vstGroupsWOFile: TVirtualStringTree
             Left = 0
-            Height = 211
+            Height = 213
             Top = 0
             Width = 432
             Align = alClient
@@ -584,14 +584,14 @@ object frmMediaManager: TfrmMediaManager
   end
   object SplitterLeft: TSplitter
     Left = 150
-    Height = 504
+    Height = 506
     Top = 0
     Width = 5
   end
   object lSource: TLabel
     Left = 0
-    Height = 14
-    Top = 504
+    Height = 13
+    Top = 506
     Width = 800
     Align = alBottom
     Caption = 'Source: '
@@ -601,8 +601,8 @@ object frmMediaManager: TfrmMediaManager
   end
   object lTarget: TLabel
     Left = 0
-    Height = 14
-    Top = 518
+    Height = 13
+    Top = 519
     Width = 800
     Align = alBottom
     Caption = 'Target: '
@@ -612,27 +612,27 @@ object frmMediaManager: TfrmMediaManager
   end
   object pLeft: TPanel
     Left = 0
-    Height = 504
+    Height = 506
     Top = 0
     Width = 150
     Align = alLeft
     BevelOuter = bvNone
-    ClientHeight = 504
+    ClientHeight = 506
     ClientWidth = 150
     TabOrder = 0
     object gbxImages: TGroupBox
       Left = 0
-      Height = 144
+      Height = 146
       Top = 0
       Width = 150
       Align = alClient
       Caption = 'Images'
-      ClientHeight = 126
+      ClientHeight = 128
       ClientWidth = 146
       TabOrder = 0
       object lbxImages: TListBox
         Left = 0
-        Height = 126
+        Height = 128
         Top = 0
         Width = 146
         Align = alClient
@@ -644,7 +644,7 @@ object frmMediaManager: TfrmMediaManager
     object gbxVideos: TGroupBox
       Left = 0
       Height = 90
-      Top = 324
+      Top = 326
       Width = 150
       Align = alBottom
       Caption = 'Videos'
@@ -665,7 +665,7 @@ object frmMediaManager: TfrmMediaManager
     object gbxOtherFiles: TGroupBox
       Left = 0
       Height = 90
-      Top = 414
+      Top = 416
       Width = 150
       Align = alBottom
       Caption = 'Other files'
@@ -685,7 +685,7 @@ object frmMediaManager: TfrmMediaManager
     object gbxMusic: TGroupBox
       Left = 0
       Height = 90
-      Top = 234
+      Top = 236
       Width = 150
       Align = alBottom
       Caption = 'Music'
@@ -706,7 +706,7 @@ object frmMediaManager: TfrmMediaManager
     object gbxTexts: TGroupBox
       Left = 0
       Height = 90
-      Top = 144
+      Top = 146
       Width = 150
       Align = alBottom
       Caption = 'Texts'
@@ -783,10 +783,12 @@ object frmMediaManager: TfrmMediaManager
     object actRenameGroup: TAction
       Category = 'GroupLists'
       Caption = 'Rename group'
+      OnExecute = actRenameGroupExecute
     end
     object actRenameGroupMediaFile: TAction
       Category = 'GroupLists'
       Caption = 'Rename group mediafile'
+      OnExecute = actRenameGroupMediaFileExecute
     end
   end
   object pmImage: TPopupMenu

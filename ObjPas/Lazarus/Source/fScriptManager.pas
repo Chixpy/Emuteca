@@ -36,6 +36,9 @@ resourcestring
   rsFSMEmutecaScript = 'Emuteca Script File';
   rsFSMSaveChanges = 'The source was modified:' +
     sLineBreak + '%0:s' + sLineBreak + 'Do you want to save the changes?';
+  rsFSMCurrentSystem = 'Current System: %0:s';
+  rsFSMCurrentGroup = 'Current Group: %0:s (%1:s)';
+  rsFSMCurrentGame = 'Current Game: %0:s (%1:s)';
 
 const
   // Script file extension
@@ -62,16 +65,18 @@ type
     actEditSelectAll: TEditSelectAll;
     actEditUndo: TEditUndo;
     actEditDelete: TEditDelete;
-    bCompile2: TBitBtn;
     bExecute2: TBitBtn;
     actFileSaveAs: TFileSaveAs;
     gbxScript: TGroupBox;
     ilActions: TImageList;
+    lGame: TLabel;
+    lGroup: TLabel;
+    lSystem: TLabel;
     mInfo: TMemo;
     mOutPut: TMemo;
     PageControl: TPageControl;
+    pCurrentData: TPanel;
     pRight: TPanel;
-    pTop: TPanel;
     pInfo: TPanel;
     sbInfo: TStatusBar;
     pagGeneralScriptList: TTabSheet;
@@ -240,6 +245,8 @@ begin
   slvGame.Update;
   slvCommon.Root := Config.ScriptsFolder + kFSMUnitsFolder;
   slvCommon.Update;
+
+  ScriptEngine.CommonUnitFolder := slvCommon.Root;
 end;
 
 procedure TfrmScriptManager.SetCurrentFile(AValue: string);
@@ -253,12 +260,23 @@ procedure TfrmScriptManager.SetCurrGame(AValue: cGame);
 begin
   FCurrGame := AValue;
   ScriptEngine.Game := AValue;
+
+  if AValue <> nil then
+    lGame.Caption := format(rsFSMCurrentGame,
+      [AValue.Name, SetAsFolder(AValue.Folder) + AValue.FileName])
+  else
+    lGame.Caption := ' ';
 end;
 
 procedure TfrmScriptManager.SetCurrGroup(AValue: cGameGroup);
 begin
   FCurrGroup := AValue;
   ScriptEngine.GameGroup := AValue;
+
+  if AValue <> nil then
+    lGroup.Caption := format(rsFSMCurrentGroup, [AValue.Name, AValue.Key] )
+  else
+    lGroup.Caption := ' ';
 end;
 
 procedure TfrmScriptManager.SetGameManager(const AValue: cGameManager);
@@ -267,9 +285,9 @@ begin
   ScriptEngine.GameManager := AValue;
 
   if AValue <> nil then
-    pTop.Caption := GameManager.System.ID
+    lSystem.Caption := format(rsFSMCurrentSystem, [AValue.System.ID])
   else
-    pTop.Caption := '';
+    lSystem.Caption := ' ';
 
 end;
 

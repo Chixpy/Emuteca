@@ -35,39 +35,48 @@ uses
 
 resourcestring
   rsfmmSource = 'Source: %0:s';
-  //< Translatable string:
+  //< Translatable string: 'Source: %0:s'
   rsfmmTarget = 'Target: %0:s';
-  //< Translatable string:
+  //< Translatable string: 'Target: %0:s'
   rsfmmDeleteFile = 'Do you want to delete the file?' + sLineBreak +
     sLineBreak + '%0:s';
-  //< Translatable string:
+  //< Translatable string: 'Do you want to delete the file?' + sLineBreak
+  //    + sLineBreak + '%0:s'
   rsfmmDeleteAll = 'Do you want to delete all current listed files?' + sLineBreak +
     sLineBreak + 'Folder: %0:s' + sLineBreak + 'Number of files: %1:d';
-  //< Translatable string:
-  rsfmmDeleteFileError = 'Error deleting the file:\n\n%0:s';
-  //< Translatable string:
+  //< Translatable string: 'Do you want to delete all current listed files?'
+  //    + sLineBreak + sLineBreak + 'Folder: %0:s' + sLineBreak +
+  //    'Number of files: %1:d'
+  rsfmmDeleteFileError = 'Error deleting the file:' + sLineBreak + '%0:s';
+  //< Translatable string: 'Error deleting the file:' + sLineBreak + '%0:s'
 
   rsfmmTargetExists =
-    'Target file already exists.' + sLineBreak + '%0:s'+ sLineBreak + 'Do you want to overwrite?';
-  //< Translatable string:
+    'Target file already exists.' + sLineBreak + '%0:s' + sLineBreak + 'Do you want to overwrite?';
+  //< Translatable string: 'Target file already exists.' + sLineBreak + '%0:s'+
+  //    sLineBreak + 'Do you want to overwrite?';
 
   rsfmmIcons = 'Icons';
-  //< Translatable string:
+  //< Translatable string: 'Icons'
   rsfmmMarquees = 'Spines / Marquees';
-  //< Translatable string:
+  //< Translatable string: 'Spines / Marquees'
   rsfmmDemoMusic = 'Demo music';
-  //< Translatable string:
+  //< Translatable string: 'Demo music'
   rsfmmDemoVideo = 'Demo vídeo';
-  //< Translatable string:
+  //< Translatable string: 'Demo vídeo'
 
   rsfmmAddingFiles = 'Adding files to the list...';
-  //< Translatable string:
+  //< Translatable string: 'Adding files to the list...'
   rsfmmCopyingFileList = 'Copying file list...';
-  //< Translatable string:
+  //< Translatable string: 'Copying file list...'
   rsfmmSearchFilesWOGroup = 'Searching files without group...';
-  //< Translatable string:
+  //< Translatable string: 'Searching files without group...'
   rsfmmSearchFilesWOGame = 'Searching files without game...';
-  //< Translatable string:
+  //< Translatable string: 'Searching files without game...'
+
+  rsfmmRenameGroup = 'Rename group.';
+  rsfmmRenameMediaFileToo ='Do you want to rename group''s media filename ' +
+    'to match the new name?';
+  rsfmmRenameMediaFile = 'Rename group media filename.';
 
   rsNFiles = '%0:d files found.';
   //< Translatable string:
@@ -188,6 +197,8 @@ type
     procedure actOpenSourceFolderExecute(Sender: TObject);
     procedure actOpenTargetFolderExecute(Sender: TObject);
     procedure actPreviousMediaExecute(Sender: TObject);
+    procedure actRenameGroupExecute(Sender: TObject);
+    procedure actRenameGroupMediaFileExecute(Sender: TObject);
     procedure chkOnlySimilarChange(Sender: TObject);
     procedure eOtherFolderAcceptDirectory(Sender: TObject; var Value: string);
     procedure FormCreate(Sender: TObject);
@@ -229,6 +240,7 @@ type
       HitInfo: TVTHeaderHitInfo);
   private
     FConfig: cConfig;
+    FCurrentGroup: cGameGroup;
     FCurrentMediaIndex: integer;
     FExtFilter: TStrings;
     FGameManager: cGameManager;
@@ -239,6 +251,7 @@ type
     FTargetFile: string;
     FTargetFolder: string;
     procedure SetConfig(const AValue: cConfig);
+    procedure SetCurrentGroup(AValue: cGameGroup);
     procedure SetCurrentMediaIndex(const AValue: integer);
     procedure SetExtFilter(const AValue: TStrings);
     procedure SetGameManager(const AValue: cGameManager);
@@ -277,7 +290,8 @@ type
     //< Mediafiles assigned to the current game or group.
     property CurrentMediaIndex: integer
       read FCurrentMediaIndex write SetCurrentMediaIndex;
-    //< Index of te current media file.
+    //< Index of the current media file.
+    property CurrentGroup: cGameGroup read FCurrentGroup write SetCurrentGroup;
 
     // TODO 3: Maybe this 4 methods can be reduced to 2 without ofuscate them...
     function AddFile(aFolder: string; Info: TSearchRec): boolean; overload;
@@ -487,6 +501,33 @@ end;
 procedure TfrmMediaManager.actPreviousMediaExecute(Sender: TObject);
 begin
   PreviousMedia;
+end;
+
+procedure TfrmMediaManager.actRenameGroupExecute(Sender: TObject);
+var
+  NewName: string;
+begin
+  NewName := CurrentGroup.Name;
+
+  if not InputQuery(self.Caption, rsfmmRenameGroup, NewName) then Exit;
+
+  CurrentGroup.Name := NewName;
+
+  if MessageDlg(self.Caption, rsfmmRenameMediaFileToo, mtConfirmation, mbYesNo,
+  '') = mrNo then Exit;
+
+  CurrentGroup.MediaFileName := NewName;
+end;
+
+procedure TfrmMediaManager.actRenameGroupMediaFileExecute(Sender: TObject);
+var
+  NewName: string;
+begin
+  NewName := ChangeFileExt(CurrentGroup.MediaFileName, '');
+
+  if not InputQuery(self.Caption, rsfmmRenameMediaFile, NewName) then Exit;
+
+  CurrentGroup.MediaFileName := NewName;
 end;
 
 procedure TfrmMediaManager.chkOnlySimilarChange(Sender: TObject);
@@ -789,9 +830,10 @@ begin
     Exit;
 
   PData := Sender.GetNodeData(Node);
-  TargetFile := PData^.MediaFileName;
+  CurrentGroup := PData^;
+  TargetFile := CurrentGroup.MediaFileName;
 
-  ChangeGroupMedia(PData^);
+  ChangeGroupMedia(CurrentGroup);
   ShowSimilarFiles;
 end;
 
@@ -841,6 +883,12 @@ begin
 
   lSource.Caption := format(rsfmmSource, ['']);
   lTarget.Caption := format(rsfmmTarget, ['']);
+end;
+
+procedure TfrmMediaManager.SetCurrentGroup(AValue: cGameGroup);
+begin
+  if FCurrentGroup = AValue then Exit;
+  FCurrentGroup := AValue;
 end;
 
 procedure TfrmMediaManager.SetCurrentMediaIndex(const AValue: integer);
