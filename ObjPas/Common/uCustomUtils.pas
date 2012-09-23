@@ -64,7 +64,20 @@ function CRC32File(const aFileName: String): cardinal;
 
 procedure ReadActionsIcons(const aFileName, Section, BaseDir: String;
   ImageList: TImageList; ActionList: TCustomActionList);
+{< Reads icons for the diferent actions a ImageList and assigns them.
 
+  It reads a .ini file to search which images must be loaded, relative paths
+    are searched from BaseDir.
+
+  If ini file don't have the necesary key=value pair, the will be created.
+
+  @param(aFileName Filename of a ini file where the icons filenames are
+    stored.)
+  @param(Section Section where nfo will be searched.)
+  @param(BaseDir Base directory where icons wth rlative path are searched from.)
+  @param(ImageList An image list where images ade stored)
+  @param(ActionList An action list which actions will assigned an image.)
+}  
 procedure ReadMenuIcons(const aFileName, Section, BaseDir: String;
   ImageList: TImageList; Menu: TMenu);
 
@@ -212,6 +225,8 @@ var
   Cont: integer;
   IconFile: String;
 begin
+  ActionList.Images := ActionList;
+  
   IniFile := TMemIniFile.Create(UTF8ToSys(aFileName));
   try
     Cont := 0;
@@ -270,6 +285,7 @@ var
   IniFile: TMemIniFile;
   Cont: integer;
 begin
+  Menu.Images := ImageList;
   IniFile := TMemIniFile.Create(UTF8ToSys(aFileName));
   try
     Cont := 0;
@@ -337,6 +353,7 @@ end;
 function AddToStringList(aList: TStrings; aString: String): integer;
 begin
   Result := -1;
+  aString := Trim(aString);
   if (aList = nil) or (aString = '') then
     Exit;
   Result := aList.IndexOf(aString);
@@ -584,9 +601,9 @@ function SetAsFolder(const aValue: String): String;
 begin
   Result := SysPath(aValue);
 
-  // Always relative...
+  // For Emuteca, always relative...
   if FilenameIsAbsolute(Result) then
-    Result := CreateRelativePath(Result, GetCurrentDirUTF8, false);
+    Result := CreateRelativePath(Result, SysPath(GetCurrentDirUTF8), false);
 
   { Always with TrailingPathDelimiter, but only if it's not empty or root }
   if ExcludeTrailingPathDelimiter(Result) <> '' then
@@ -599,7 +616,7 @@ end;
 function SetAsFile(const aFileName: string): string;
 begin
   // CreateRelativePath doesn't like Unix Style under Windows... :-(
-  Result := CreateRelativePath(SysPath(aFileName), GetCurrentDirUTF8, false);
+  Result := CreateRelativePath(SysPath(aFileName), SysPath(GetCurrentDirUTF8), false);
 
   Result := UnixPath(Result);
 end;
