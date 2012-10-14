@@ -19,7 +19,7 @@
 }
 
 {cGame unit}
-unit uGame;
+unit uEmutecaGame;
 
 {$mode objfpc}{$H+}
 
@@ -27,7 +27,7 @@ interface
 
 uses
   Classes, SysUtils, fileutil, IniFiles, LazUTF8, fgl,
-  uCustomUtils, uGameStats;
+  uCHXStrUtils, uGameStats;
 
 type
 

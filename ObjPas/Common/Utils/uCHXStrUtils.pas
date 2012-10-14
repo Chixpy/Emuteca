@@ -19,7 +19,7 @@
 }
 
 { Unit with miscelaneous procedures and functions used in Emuteca }
-unit uCustomUtils;
+unit uCHXStrUtils;
 
 {$mode objfpc}{$H+}
 
@@ -62,7 +62,7 @@ function CRC32File(const aFileName: String): cardinal;
 // IMAGES AND IMAGELISTS
 // ---------------------
 
-procedure ReadActionsIcons(const aFileName, Section, BaseDir: String;
+procedure ReadActionsIcons(const aFileName, Section: String; BaseDir: String;
   ImageList: TImageList; ActionList: TCustomActionList);
 {< Reads icons for the diferent actions a ImageList and assigns them.
 
@@ -218,16 +218,19 @@ begin
   end;
 end;
 
-procedure ReadActionsIcons(const aFileName, Section, BaseDir: String;
+procedure ReadActionsIcons(const aFileName, Section: String; BaseDir: String;
   ImageList: TImageList; ActionList: TCustomActionList);
 var
   IniFile: TMemIniFile;
   Cont: integer;
   IconFile: String;
 begin
-  ActionList.Images := ActionList;
-  
+  BaseDir := SetAsFolder(BaseDir);
+  if BaseDir = '' then
+    BaseDir := ExtractFilePath(aFileName);
+  ActionList.Images := ImageList;
   IniFile := TMemIniFile.Create(UTF8ToSys(aFileName));
+
   try
     Cont := 0;
     while Cont < ActionList.ActionCount do

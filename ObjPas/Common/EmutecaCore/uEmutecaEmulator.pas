@@ -19,7 +19,7 @@
 }
 
 {cGame unit}
-unit uEmulator;
+unit uEmutecaEmulator;
 
 {$mode objfpc}{$H+}
 
@@ -27,19 +27,10 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, IniFiles, strutils,
-  uGameStats, uCustomUtils;
-
-const
-  CEmuDir = '%EMUDIR%';
-  CRomDir = '%ROMDIR%';
-  CCurrentDir = '%CURRENTDIR%';
-
-  CROMPath = '%ROM%';
-  CROMName = '%ROMNAME%';
-  CROMNameNoExt = '%ROMNAMENOEXT%';
-  CROMExt = '%ROMEXT%';
-  CROMNull = '%_%';
-
+  // Common
+  uEmutecaRscStr, uEmutecaConst,
+  // Emuteca
+  uGameStats, uCHXStrUtils;
 
 type
 

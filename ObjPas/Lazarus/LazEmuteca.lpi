@@ -104,14 +104,14 @@
         <PackageName Value="LCL"/>
       </Item6>
     </RequiredPackages>
-    <Units Count="34">
+    <Units Count="38">
       <Unit0>
         <Filename Value="LazEmuteca.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="LazEmuteca"/>
       </Unit0>
       <Unit1>
-        <Filename Value="Source/fGameManager.pas"/>
+        <Filename Value="Source/Forms/fGameManager.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmGameManager"/>
         <HasResources Value="True"/>
@@ -119,27 +119,27 @@
         <UnitName Value="fGameManager"/>
       </Unit1>
       <Unit2>
-        <Filename Value="../Common/uGameManager.pas"/>
+        <Filename Value="../Common/EmutecaCore/uEmutecaGameManager.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="uGameManager"/>
+        <UnitName Value="uEmutecaGameManager"/>
       </Unit2>
       <Unit3>
-        <Filename Value="../Common/uConfig.pas"/>
+        <Filename Value="../Common/Utils/uConfig.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uConfig"/>
       </Unit3>
       <Unit4>
-        <Filename Value="../Common/uSystem.pas"/>
+        <Filename Value="../Common/EmutecaCore/uEmutecaSystem.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="uSystem"/>
+        <UnitName Value="uEmutecaSystem"/>
       </Unit4>
       <Unit5>
-        <Filename Value="../Common/uCustomUtils.pas"/>
+        <Filename Value="../Common/Utils/uCHXStrUtils.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="uCustomUtils"/>
+        <UnitName Value="uCHXStrUtils"/>
       </Unit5>
       <Unit6>
-        <Filename Value="Source/fSystemManager.pas"/>
+        <Filename Value="Source/Forms/fSystemManager.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmSystemManager"/>
         <HasResources Value="True"/>
@@ -147,24 +147,24 @@
         <UnitName Value="fSystemManager"/>
       </Unit6>
       <Unit7>
-        <Filename Value="../Common/uGame.pas"/>
+        <Filename Value="../Common/EmutecaCore/uEmutecaGame.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="uGame"/>
+        <UnitName Value="uEmutecaGame"/>
       </Unit7>
       <Unit8>
-        <Filename Value="../Common/uSystemManager.pas"/>
+        <Filename Value="../Common/EmutecaCore/uEmutecaSystemManager.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="uSystemManager"/>
+        <UnitName Value="uEmutecaSystemManager"/>
       </Unit8>
       <Unit9>
-        <Filename Value="../Common/uEmulatorManager.pas"/>
+        <Filename Value="../Common/EmutecaCore/uEmutecaEmulatorManager.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="uEmulatorManager"/>
+        <UnitName Value="uEmutecaEmulatorManager"/>
       </Unit9>
       <Unit10>
-        <Filename Value="../Common/uEmulator.pas"/>
+        <Filename Value="../Common/EmutecaCore/uEmutecaEmulator.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="uEmulator"/>
+        <UnitName Value="uEmutecaEmulator"/>
       </Unit10>
       <Unit11>
         <Filename Value="../Common/uImageList.pas"/>
@@ -172,7 +172,7 @@
         <UnitName Value="uImageList"/>
       </Unit11>
       <Unit12>
-        <Filename Value="Source/fEmulatorManager.pas"/>
+        <Filename Value="Source/Forms/fEmulatorManager.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmEmulatorManager"/>
         <HasResources Value="True"/>
@@ -180,7 +180,7 @@
         <UnitName Value="fEmulatorManager"/>
       </Unit12>
       <Unit13>
-        <Filename Value="Source/fMediaManager.pas"/>
+        <Filename Value="Source/Forms/fMediaManager.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmMediaManager"/>
         <HasResources Value="True"/>
@@ -188,19 +188,19 @@
         <UnitName Value="fMediaManager"/>
       </Unit13>
       <Unit14>
-        <Filename Value="../Common/uGameGroup.pas"/>
+        <Filename Value="../Common/EmutecaCore/uEmutecaGroup.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="uGameGroup"/>
+        <UnitName Value="uEmutecaGroup"/>
       </Unit14>
       <Unit15>
-        <Filename Value="Source/fImageViewer.pas"/>
+        <Filename Value="Source/Forms/fImageViewer.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmImageViewer"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="fImageViewer"/>
       </Unit15>
       <Unit16>
-        <Filename Value="Source/fScriptManager.pas"/>
+        <Filename Value="Source/Forms/fScriptManager.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmScriptManager"/>
         <HasResources Value="True"/>
@@ -208,11 +208,11 @@
         <UnitName Value="fScriptManager"/>
       </Unit16>
       <Unit17>
-        <Filename Value="Source/fProgress.pas"/>
+        <Filename Value="Source/Forms/fProgressBar.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmProgress"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="fProgress"/>
+        <UnitName Value="fProgressBar"/>
       </Unit17>
       <Unit18>
         <Filename Value="../Common/PSImports/uPSI_uGame.pas"/>
@@ -230,7 +230,7 @@
         <UnitName Value="uPSI_uGameManager"/>
       </Unit20>
       <Unit21>
-        <Filename Value="Source/fAbout.pas"/>
+        <Filename Value="Source/Forms/fAbout.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmAbout"/>
         <HasResources Value="True"/>
@@ -238,7 +238,7 @@
         <UnitName Value="fAbout"/>
       </Unit21>
       <Unit22>
-        <Filename Value="Source/fSMAskFile.pas"/>
+        <Filename Value="Source/Forms/ScriptManager/fSMAskFile.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmSMAskFile"/>
         <ResourceBaseClass Value="Form"/>
@@ -250,17 +250,17 @@
         <UnitName Value="uGameStats"/>
       </Unit23>
       <Unit24>
-        <Filename Value="../Common/u7zWrapper.pas"/>
+        <Filename Value="../Common/Utils/u7zWrapper.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="u7zWrapper"/>
       </Unit24>
       <Unit25>
-        <Filename Value="../Common/uVersionSupport.pas"/>
+        <Filename Value="../Common/Utils/uVersionSupport.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uVersionSupport"/>
       </Unit25>
       <Unit26>
-        <Filename Value="Source/fSMAskFolder.pas"/>
+        <Filename Value="Source/Forms/ScriptManager/fSMAskFolder.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmSMAskFolder"/>
         <ResourceBaseClass Value="Form"/>
@@ -287,7 +287,7 @@
         <UnitName Value="uPSI_uGameStats"/>
       </Unit30>
       <Unit31>
-        <Filename Value="Source/fConfigManager.pas"/>
+        <Filename Value="Source/Forms/fConfigManager.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmConfigManager"/>
         <HasResources Value="True"/>
@@ -295,15 +295,35 @@
         <UnitName Value="fConfigManager"/>
       </Unit31>
       <Unit32>
-        <Filename Value="Source/uCustomDefaultTraslator.pas"/>
+        <Filename Value="Source/Utils/uCHXRscStrTranslator.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="uCustomDefaultTraslator"/>
+        <UnitName Value="uCHXRscStrTranslator"/>
       </Unit32>
       <Unit33>
-        <Filename Value="../Common/uScriptEngEmuteca.pas"/>
+        <Filename Value="../Common/EmutecaCore/uEmutecaScriptEngine.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="uScriptEngEmuteca"/>
+        <UnitName Value="uEmutecaScriptEngine"/>
       </Unit33>
+      <Unit34>
+        <Filename Value="Source/uRscStr.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uRscStr"/>
+      </Unit34>
+      <Unit35>
+        <Filename Value="Source/uConst.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uConst"/>
+      </Unit35>
+      <Unit36>
+        <Filename Value="../Common/EmutecaCore/uEmutecaConst.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uEmutecaConst"/>
+      </Unit36>
+      <Unit37>
+        <Filename Value="../Common/EmutecaCore/uEmutecaRscStr.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uEmutecaRscStr"/>
+      </Unit37>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -314,7 +334,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="..\Common;source;..\Common\PSImports"/>
+      <OtherUnitFiles Value="..\Common;source;..\Common\PSImports;..\Common\EmutecaCore;..\Common\Utils;Source\Forms;Source\Utils;Source\Forms\ScriptManager"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <CodeGeneration>

@@ -28,15 +28,10 @@ interface
 uses
   Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs,
   Buttons, ExtCtrls, StdCtrls, LCLIntf, strutils,
-  uConfig, uGameManager, uVersionSupport;
-
-resourcestring
-  rsFABCopyright = 'Copyright';
-  rsFABUnderLicense = 'Under license %0:s';
-
-const
-  kFABCopyright = '(C) 2006-2012 Chixpy';
-  kFABLicense = 'GNU GPL v3';
+  // Common
+  uRscStr, uConst,
+  // Emuteca
+  uConfig, uEmutecaGameManager, uVersionSupport;
 
 type
 

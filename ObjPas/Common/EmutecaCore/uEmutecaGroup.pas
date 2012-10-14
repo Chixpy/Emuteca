@@ -19,18 +19,18 @@
 }
 
 {cGameGroup unit}
-unit uGameGroup;
+unit uEmutecaGroup;
 
 {$mode objfpc}{$H+}
 
 interface
 
 uses
-  Classes, SysUtils, IniFiles, uCustomUtils, FileUtil, LazUTF8,
+  Classes, SysUtils, IniFiles, uCHXStrUtils, FileUtil, LazUTF8,
+  // Common
+  uEmutecaRscStr, uEmutecaConst,
+  // Emuteca
   uGameStats;
-
-const
-  CGAMEGROUPKEY = 'Group: ';
 
 type
 

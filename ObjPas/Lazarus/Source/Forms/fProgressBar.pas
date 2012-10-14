@@ -19,7 +19,7 @@
 }
 
 { Unit of Progress Bar form. }
-unit fProgress;
+unit fProgressBar;
 
 {$mode objfpc}{$H+}
 
@@ -97,7 +97,7 @@ begin
 end;
 
 initialization
-  {$I fProgress.lrs}
+  {$I fProgressBar.lrs}
 
 end.
 

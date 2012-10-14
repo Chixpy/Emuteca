@@ -44,13 +44,13 @@ uses
   ,FileUtil
   ,IniFiles
   ,LazUTF8
-  ,uSystem
-  ,uGame
-  ,uGameGroup
-  ,uEmulator
-  ,uCustomUtils
+  ,uEmutecaSystem
+  ,uEmutecaGame
+  ,uEmutecaGroup
+  ,uEmutecaEmulator
+  ,uCHXStrUtils
   ,u7zWrapper
-  ,uGameManager
+  ,uEmutecaGameManager
   ;
  
  

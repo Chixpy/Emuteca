@@ -27,7 +27,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, LazUTF8,
-  uCustomUtils;
+  uCHXStrUtils;
 
 resourcestring
   rsENotFilename = 'Not defined filename';

@@ -29,24 +29,10 @@ uses
   Classes, SysUtils, Forms, ActnList, Controls, ComCtrls, ExtCtrls, LResources,
   StdCtrls, ShellCtrls, FileUtil, Dialogs, StdActns, Buttons, IniFiles,
   SynHighlighterPas, SynEdit, SynMacroRecorder,
-  uScriptEngEmuteca, uConfig, uCustomUtils, uGameManager, uGame, uGameGroup;
-
-resourcestring
-  rsFSMScriptFileSaved = 'Script file saved: %0:s';
-  rsFSMEmutecaScript = 'Emuteca Script File';
-  rsFSMSaveChanges = 'The source was modified:' +
-    sLineBreak + '%0:s' + sLineBreak + 'Do you want to save the changes?';
-  rsFSMCurrentSystem = 'Current System: %0:s';
-  rsFSMCurrentGroup = 'Current Group: %0:s (%1:s)';
-  rsFSMCurrentGame = 'Current Game: %0:s (%1:s)';
-
-const
-  // Script file extension
-  kFSMScriptExt = '.pas';
-  kFSMScriptFilter = ' (*' + kFSMScriptExt + ')|*' +
-    kFSMScriptExt + '|All files|' + AllFilesMask;
-  kFSMUnitsFolder = 'Common' + PathDelim;
-  kFSMDataSection = 'SCRIPTDATA';
+  // Common
+  uRscStr, uConst,
+  // Emuteca
+  uEmutecaScriptEngine, uConfig, uCHXStrUtils, uEmutecaGameManager, uEmutecaGame, uEmutecaGroup;
 
 type
 

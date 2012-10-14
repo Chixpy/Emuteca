@@ -42,11 +42,11 @@ implementation
 uses
    contnrs
   ,IniFiles
-  ,uCustomUtils
+  ,uCHXStrUtils
   ,FileUtil
   ,LazUTF8
   ,uGameStats
-  ,uGameGroup
+  ,uEmutecaGroup
   ;
  
  

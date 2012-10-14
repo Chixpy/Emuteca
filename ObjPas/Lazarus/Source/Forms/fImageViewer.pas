@@ -18,7 +18,7 @@
   MA 02111-1307, USA.
 }
 
-{Unit of Image Viewer form}
+{ Unit of Image Viewer form. }
 unit fImageViewer;
 
 {$mode objfpc}{$H+}
@@ -28,7 +28,8 @@ interface
 uses
   Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs,
   ActnList, ComCtrls, Spin, ExtCtrls, StdCtrls, Menus, Buttons,
-  uConfig, uCustomUtils;
+  // Custom
+  uConfig, uCHXStrUtils;
 
 type
 

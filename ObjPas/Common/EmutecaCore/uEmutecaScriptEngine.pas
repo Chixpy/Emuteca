@@ -19,7 +19,7 @@
 }
 
 { Unit of Script Engine class. }
-unit uScriptEngEmuteca;
+unit uEmutecaScriptEngine;
 
 {$mode objfpc}{$H+}
 
@@ -29,7 +29,7 @@ uses
   // Common units
   Classes, SysUtils, Controls, StrUtils, LazUTF8, Dialogs, Forms, FileUtil,
   // Emuteca classes
-  uCustomUtils, uGame, uGameGroup, uGameManager,
+  uCHXStrUtils, uEmutecaGame, uEmutecaGroup, uEmutecaGameManager,
   // Pascal Script main units
   uPSComponent, uPSRuntime, uPSCompiler, uPSUtils,
   // Pascal script common units import
@@ -45,13 +45,11 @@ uses
   uPSI_uSystem,
   // TODO 2: Generalize input and output as events,
   //   and move these units to fScriptManager.
-  fSMAskFile, fSMAskFolder;
-
-resourcestring
-  rsSEECompilationMsg = 'Compilation: %0:s';
-  rsSEEExecutionMsg = 'Execution: %0:s';
-  rsSEEOK = 'OK';
-  rsSEEError = 'Error';
+  fSMAskFile, fSMAskFolder,
+  // Common
+  uRscStr, uConst
+  // Emuteca
+;
 
 type
 

@@ -28,45 +28,11 @@ interface
 uses
   Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs,
   CheckLst, ComCtrls, ExtCtrls, Buttons, StdCtrls, EditBtn, ActnList,
-  uSystemManager, uEmulatorManager, uConfig, uSystem,
-  uCustomUtils;
-
-resourcestring
-  rsFSMSelectSystem = 'Select a system.';
-      rsFSMSystemName = 'System name';
-      rsFSMAutoConfigSystem = 'This action will create many subfolders in:' +
-        sLineBreak + '%0:s' + sLineBreak + 'Are you sure?';
-      rsFSMAutoFolderImg = 'Images/';
-      rsFSMAutoFolderImgTitle = 'Title/';
-      rsFSMAutoFolderImgInGame = 'In game/';
-      rsFSMAutoFolderImgFront = 'Front/';
-      rsFSMAutoFolderImgMarquee = 'Spine/';
-      rsFSMAutoFolderImgBack = 'Back/';
-      rsFSMAutoFolderImgMedia = 'Media/';
-      rsFSMAutoFolderIcons = 'Icon/';
-      rsFSMAutoFolderGames = 'Games/';
-      rsFSMAutoFolderMusic = 'Music/';
-      rsFSMAutoFolderMusicDemo = 'Demo/';
-      rsFSMAutoFolderMusicOST = 'OST/';
-      rsFSMAutoFolderMusicMix = 'Mix/';
-      rsFSMAutoFolderTemp =  'Temp/';
-      rsFSMAutoFolderTxt = 'Texts/';
-      rsFSMAutoFolderTxtInfo = 'Information/';
-      rsFSMAutoFolderTxtManual = 'Instructions/';
-      rsFSMAutoFolderTxtCheat = 'Cheats/';
-      rsFSMAutoFolderTxtNotes = 'Notes/';
-      rsFSMAutoFolderTxtCredit = 'Credits/';
-      rsFSMAutoFolderVideo = 'Videos/';
-      rsFSMAutoFolderVideoDemo = 'Demo/';
-      rsFSMAutoFolderVideoTAS = 'Inputs/';
-      rsFSMAutoFolderVideoInGame = 'In game/';
-      rsFSMAutoFolderBIOS = 'BIOS/';
-      rsFSMAutoFolderSaves = 'Saves/';
-      rsFSMAutoFolderTools =  'Tools/';
-
-const
-      kFSMSystemIniFilter = 'Systems Ini File (*.ini)';
-
+    // Common
+  uRscStr, uConst,
+  // Emuteca
+  uEmutecaSystemManager, uEmutecaEmulatorManager, uConfig, uEmutecaSystem,
+  uCHXStrUtils;
 
 // TODO 1: ¡¡REHACER TODO!!, Bueno no tanto...
 //   Cambiar los OnClick, OnChange, etc por métodos más 'pofesionales',

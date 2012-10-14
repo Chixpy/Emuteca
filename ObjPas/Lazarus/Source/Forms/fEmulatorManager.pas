@@ -29,15 +29,10 @@ uses
   Classes, SysUtils, FileUtil, LResources, Forms,
   Controls, Graphics, Dialogs, ExtCtrls, ComCtrls, CheckLst, ActnList, Buttons,
   StdCtrls, EditBtn, Spin, Menus,
-  uEmulator, uEmulatorManager, uConfig, uCustomUtils;
-
-const
-  kFEMEmulatorsFileExt = '.ini';
-
-resourcestring
-  rsEmulatorName = 'Emulator name';
-  rsEmulatorIniFilter = 'Emulators Ini File';
-
+  // Common
+  uRscStr, uConst, uEmutecaConst,
+  // Emuteca
+  uEmutecaEmulator, uEmutecaEmulatorManager, uConfig, uCHXStrUtils;
 
 type
   { Form used to manage emulators and their configuration.

@@ -44,8 +44,8 @@ uses
   ,IniFiles
   ,strutils
   ,uGameStats
-  ,uCustomUtils
-  ,uEmulator
+  ,uCHXStrUtils
+  ,uEmutecaEmulator
   ;
  
  

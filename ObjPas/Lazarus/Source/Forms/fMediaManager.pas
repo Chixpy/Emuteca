@@ -29,65 +29,15 @@ uses
   Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs,
   ComCtrls, StdCtrls, ExtCtrls, ActnList, EditBtn, Menus, VirtualTrees,
   LCLType, LazUTF8, LCLIntf, Buttons,
-  fProgress,
-  uConfig, uGameManager, uGame, uGameGroup,
-  uCustomUtils, fImageViewer;
-
-resourcestring
-  rsfmmSource = 'Source: %0:s';
-  //< Translatable string: 'Source: %0:s'
-  rsfmmTarget = 'Target: %0:s';
-  //< Translatable string: 'Target: %0:s'
-  rsfmmDeleteFile = 'Do you want to delete the file?' + sLineBreak +
-    sLineBreak + '%0:s';
-  //< Translatable string: 'Do you want to delete the file?' + sLineBreak
-  //    + sLineBreak + '%0:s'
-  rsfmmDeleteAll = 'Do you want to delete all current listed files?' + sLineBreak +
-    sLineBreak + 'Folder: %0:s' + sLineBreak + 'Number of files: %1:d';
-  //< Translatable string: 'Do you want to delete all current listed files?'
-  //    + sLineBreak + sLineBreak + 'Folder: %0:s' + sLineBreak +
-  //    'Number of files: %1:d'
-  rsfmmDeleteFileError = 'Error deleting the file:' + sLineBreak + '%0:s';
-  //< Translatable string: 'Error deleting the file:' + sLineBreak + '%0:s'
-
-  rsfmmTargetExists =
-    'Target file already exists.' + sLineBreak + '%0:s' + sLineBreak + 'Do you want to overwrite?';
-  //< Translatable string: 'Target file already exists.' + sLineBreak + '%0:s'+
-  //    sLineBreak + 'Do you want to overwrite?';
-
-  rsfmmIcons = 'Icons';
-  //< Translatable string: 'Icons'
-  rsfmmMarquees = 'Spines / Marquees';
-  //< Translatable string: 'Spines / Marquees'
-  rsfmmDemoMusic = 'Demo music';
-  //< Translatable string: 'Demo music'
-  rsfmmDemoVideo = 'Demo vídeo';
-  //< Translatable string: 'Demo vídeo'
-
-  rsfmmAddingFiles = 'Adding files to the list...';
-  //< Translatable string: 'Adding files to the list...'
-  rsfmmCopyingFileList = 'Copying file list...';
-  //< Translatable string: 'Copying file list...'
-  rsfmmSearchFilesWOGroup = 'Searching files without group...';
-  //< Translatable string: 'Searching files without group...'
-  rsfmmSearchFilesWOGame = 'Searching files without game...';
-  //< Translatable string: 'Searching files without game...'
-
-  rsfmmRenameGroup = 'Rename group.';
-  rsfmmRenameMediaFileToo ='Do you want to rename group''s media filename ' +
-    'to match the new name?';
-  rsfmmRenameMediaFile = 'Rename group media filename.';
-
-  rsNFiles = '%0:d files found.';
-  //< Translatable string:
-
-const
-  kSimilarityThresold = 25;
+  // Common
+  uRscStr, uConst,
+  // Emuteca
+  fProgressBar,
+  uConfig, uEmutecaGameManager, uEmutecaGame, uEmutecaGroup,
+  uCHXStrUtils, fImageViewer;
 
 type
-
   { TfrmMediaManager }
-
   TfrmMediaManager = class(TForm)
     actChangeFileName: TAction;
     actDeleteFile: TAction;

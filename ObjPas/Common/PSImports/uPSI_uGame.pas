@@ -43,9 +43,9 @@ uses
    fileutil
   ,IniFiles
   ,LazUTF8
-  ,uCustomUtils
+  ,uCHXStrUtils
   ,uGameStats
-  ,uGame
+  ,uEmutecaGame
   ;
  
  

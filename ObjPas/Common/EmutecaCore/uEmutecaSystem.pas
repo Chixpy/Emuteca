@@ -19,14 +19,15 @@
 }
 
 {cSystem unit}
-unit uSystem;
+unit uEmutecaSystem;
 
 {$mode objfpc}{$H+}
 
 interface
 
 uses
-  Classes, SysUtils, IniFiles, FileUtil, fgl;
+  Classes, SysUtils, IniFiles, FileUtil, fgl,
+  uCHXStrUtils;
 
 type
 
@@ -268,10 +269,6 @@ type
   cSystemList = specialize TFPGObjectList<cSystem>;
 
 implementation
-
-uses
-  uCustomUtils;
-
 { cSystem }
 
 procedure cSystem.SetBaseFolder(const AValue: String);

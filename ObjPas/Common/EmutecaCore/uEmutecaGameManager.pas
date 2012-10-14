@@ -19,7 +19,7 @@
 }
 
 {cGameManager unit}
-unit uGameManager;
+unit uEmutecaGameManager;
 
 {$mode objfpc}{$H+}
 
@@ -27,14 +27,10 @@ interface
 
 uses
   Classes, SysUtils, contnrs, FileUtil, IniFiles, LazUTF8, LConvEncoding,
-  uSystem, uGame, uGameGroup, uEmulator, uCustomUtils, u7zWrapper;
-
-const
-  // Praying for no emulator use these exit codes.
-  CGMExecErrorNoGame = 300;
-  CGMDecompressError = 301;
-
-  CGMGameSubFolder = 'Game';
+  // Emuteca core
+  uEmutecaConst, uEmutecaSystem, uEmutecaGame, uEmutecaGroup, uEmutecaEmulator,
+  // Utils
+  uCHXStrUtils, u7zWrapper;
 
 type
   TGMCallBackType = (GMCBAddFile, //< Adding a file.

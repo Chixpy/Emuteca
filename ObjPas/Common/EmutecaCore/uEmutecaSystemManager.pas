@@ -19,14 +19,14 @@
 }
 
 {cSystemManager unit}
-unit uSystemManager;
+unit uEmutecaSystemManager;
 
 {$mode objfpc}{$H+}
 
 interface
 
 uses
-  Classes, SysUtils, uSystem, contnrs, IniFiles, FileUtil, LazUTF8;
+  Classes, SysUtils, uEmutecaSystem, contnrs, IniFiles, FileUtil, LazUTF8;
 
 type
 

@@ -19,7 +19,7 @@
 }
 
 {cEmulatorManager unit}
-unit uEmulatorManager;
+unit uEmutecaEmulatorManager;
 
 {$mode objfpc}{$H+}
 
@@ -27,7 +27,7 @@ interface
 
 uses
   Classes, SysUtils, contnrs, IniFiles, FileUtil, LazUTF8,
-  uEmulator;
+  uEmutecaEmulator;
 
 type
 

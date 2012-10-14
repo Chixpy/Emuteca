@@ -27,13 +27,14 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   cthreads, {$ENDIF} {$ENDIF}
   Interfaces, // this includes the LCL widgetset
   Forms, lazcontrols, pl_virtualtrees, pl_pascalscript, fGameManager,
-  uGameManager, uConfig, uSystem, uCustomUtils, fSystemManager,
-  uSystemManager, uEmulatorManager, uEmulator, uImageList, uGameGroup,
-  uPSI_uGame, uPSI_uGameGroup, uPSI_uGameManager, fEmulatorManager,
-  fMediaManager, fImageViewer, fScriptManager, fProgress, fAbout, fSMAskFile,
-  uGameStats, u7zWrapper, uVersionSupport, uPSI_u7zWrapper, uPSI_uSystem,
-  uPSI_uEmulator, uPSI_uGameStats,
-  fSMAskFolder, fConfigManager, uCustomDefaultTraslator, uScriptEngEmuteca;
+uEmutecaGameManager, uConfig, uEmutecaSystem, 
+uCHXStrUtils, fSystemManager, uEmutecaSystemManager,
+uEmutecaEmulatorManager, uEmutecaEmulator, uImageList, uEmutecaGroup, uPSI_uGame,
+  uPSI_uGameGroup, uPSI_uGameManager, fEmulatorManager, fMediaManager,
+  fImageViewer, fScriptManager, fProgressBar, fAbout, fSMAskFile, uGameStats,
+  u7zWrapper, uVersionSupport, uPSI_u7zWrapper, uPSI_uSystem, uPSI_uEmulator,
+  uPSI_uGameStats, fSMAskFolder, fConfigManager, uCHXRscStrTranslator,
+  uEmutecaScriptEngine, uRscStr, uConst, uEmutecaConst, uEmutecaRscStr;
 
 {$R LazEmuteca.res}
 

@@ -30,88 +30,13 @@ uses
   Dialogs, ExtCtrls, ComCtrls, Menus, ActnList, StdCtrls, Buttons, Clipbrd,
   contnrs, VirtualTrees, VTHeaderPopup, lclintf, LCLType, LazHelpHTML,
   IniPropStorage, IDEWindowIntf, dateutils, strutils, LazUTF8,
-  uGameManager, uConfig, uCustomUtils, uImageList, uSystemManager,
-  uGame, uGameGroup, uGameStats, u7zWrapper, uVersionSupport, fSystemManager,
-  fEmulatorManager, fImageViewer, fScriptManager, fMediaManager, fProgress,
+  // Common
+  uRscStr, uConst, uEmutecaConst,
+  // Emuteca
+  uEmutecaGameManager, uConfig, uCHXStrUtils, uImageList, uEmutecaSystemManager,
+  uEmutecaGame, uEmutecaGroup, uGameStats, u7zWrapper, uVersionSupport, fSystemManager,
+  fEmulatorManager, fImageViewer, fScriptManager, fMediaManager, fProgressBar,
   fAbout, fConfigManager;
-
-const
-  CDBExt = '.edb';
-  CDBFilter = ' (*' + CDBExt + ')|*' + CDBExt;
-
-resourcestring
-  rsFGMAddingFile = 'Adding file:';
-  //< Translatable string:
-  rsFGMUpdatingList = 'Updating List:';
-  //< Translatable string:
-  rsFGMLoadingGameList = 'Loading games:';
-  //< Translatable string:
-  rsFGMSavingGameList = 'Saving games:';
-  //< Translatable string:
-  rsFGMEmutecaGameDatabase = 'Emuteca game database';
-  //< Translatable string:
-  rsFGMDecompressing = 'Decompressing:';
-  //< Translatable string:
-  rsFGMImportingData = 'Importing data:';
-  //< Translatable string:
-  rsFGMExportingData = 'Exporting data:';
-  //< Translatable string:
-
-  rsFGMKey = 'Key';
-  //< Translatable string:
-  rsFGMZones = 'Zone';
-  //< Translatable string:
-  rsFGMDeveloper = 'Developer';
-  //< Translatable string:
-  rsFGMPublisher = 'Publisher';
-  //< Translatable string:
-
-  rsFGMVersion = 'Version';
-  //< Translatable string:
-  rsFGMFilename = 'Filename';
-  //< Translatable string:
-
-  rsFGMNGroups = '%0:d groups';
-  //< Translatable string:
-  rsFGMNGames = '%0:d games';
-  //< Translatable string:
-  rsFGMNTimes = '%0:d times';
-  //< Translatable string:
-
-  rsFGMNever = 'Never';
-  //< Translatable string:
-  rsFGMUnknown = '!Unknown';
-  //< Translatable string:
-
-  rsFGMAssignToGroup = 'Do you want to assign it to the game''s group?';
-  //< Translatable string:
-  rsFGMChooseImageFileFormat =
-    'Do you want to save it in a lossless format:' + slinebreak +
-    'YES -> .png (lossless for screenshots)' + slinebreak +
-    'NO -> .jpg (better for photographs)';
-  //< Translatable string:
-  rsFGMDeleteFile = 'Are you sure that you want to delete this file?' + slinebreak +
-    '%0:s';
-  //< Translatable string:
-  rsFGMFolderNotExists = '%0:s' + slinebreak + 'Folder not exists.' + slinebreak +
-    'Do you want create it?';
-  //< Translatable string:
-  rsFGMConfirmOverwriteFile =
-    '%0:s' + slinebreak + 'The file already exists.' + slinebreak +
-    'Do you want overwrite it?';
-  //< Translatable string:
-
-  rsFGMErrorGameNotFound = 'Game not found:' + slinebreak + '%0:s%1:s';
-  //< Translatable string:
-  rsFGMErrorEmulator = 'Emulator exited with error code: %0:d';
-  //< Translatable string:
-  rsFGMPurgeMessage = 'Warning:' + slinebreak +
-    'This action will erase all the game and group list.' +
-    slinebreak + 'Do you want to continue?';
-  //< Translatable string:
-
-  rsFGMSystemRequired = 'You need select a system before do this action.';
-  //< Translatable string:
 
 type
   TlvGroupMode = (

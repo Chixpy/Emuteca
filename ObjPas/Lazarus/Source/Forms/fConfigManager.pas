@@ -27,7 +27,11 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs,
-  StdCtrls, ExtCtrls, ComCtrls, EditBtn, Buttons, uConfig;
+  StdCtrls, ExtCtrls, ComCtrls, EditBtn, Buttons,
+  // Common
+  uRscStr, uConst,
+  // Emuteca
+  uConfig;
 
 type
 

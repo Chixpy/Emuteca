@@ -39,7 +39,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Process, StrUtils, LazUTF8, sha1,
-  uCustomUtils;
+  uCHXStrUtils;
 
 resourcestring
   w7zFileNotFound = '"%0:s" file not found';

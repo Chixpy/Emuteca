@@ -1,4 +1,4 @@
-unit uCustomDefaultTraslator;
+unit uCHXRscStrTranslator;
 
 { Copyright (C) 2004-2010 V.I.Volchenko and Lazarus Developers Team
 
