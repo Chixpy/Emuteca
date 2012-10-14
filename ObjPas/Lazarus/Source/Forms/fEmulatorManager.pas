@@ -32,7 +32,9 @@ uses
   // Common
   uRscStr, uConst, uEmutecaConst,
   // Emuteca
-  uEmutecaEmulator, uEmutecaEmulatorManager, uConfig, uCHXStrUtils;
+  uEmutecaEmulator, uEmutecaEmulatorManager, uConfig,
+  // Custom
+  uCHXStrUtils, uCHXImageUtils;
 
 type
   { Form used to manage emulators and their configuration.

@@ -29,7 +29,7 @@ uses
   Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs,
   ActnList, ComCtrls, Spin, ExtCtrls, StdCtrls, Menus, Buttons,
   // Custom
-  uConfig, uCHXStrUtils;
+  uConfig, uCHXStrUtils, uCHXImageUtils;
 
 type
 

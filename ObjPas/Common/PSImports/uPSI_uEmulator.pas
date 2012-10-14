@@ -43,7 +43,7 @@ uses
    FileUtil
   ,IniFiles
   ,strutils
-  ,uGameStats
+  ,uEmutecaStats
   ,uCHXStrUtils
   ,uEmutecaEmulator
   ;

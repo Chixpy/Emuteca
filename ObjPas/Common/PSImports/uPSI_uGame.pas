@@ -44,7 +44,7 @@ uses
   ,IniFiles
   ,LazUTF8
   ,uCHXStrUtils
-  ,uGameStats
+  ,uEmutecaStats
   ,uEmutecaGame
   ;
  

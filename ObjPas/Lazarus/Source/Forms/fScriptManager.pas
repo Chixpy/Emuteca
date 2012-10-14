@@ -32,7 +32,9 @@ uses
   // Common
   uRscStr, uConst,
   // Emuteca
-  uEmutecaScriptEngine, uConfig, uCHXStrUtils, uEmutecaGameManager, uEmutecaGame, uEmutecaGroup;
+  uEmutecaScriptEngine, uEmutecaGameManager, uEmutecaGame, uEmutecaGroup,
+   // Custom
+  uConfig, uCHXStrUtils, uCHXImageUtils;
 
 type
 

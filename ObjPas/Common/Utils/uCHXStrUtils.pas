@@ -1,10 +1,8 @@
-{ This file is part of Emuteca
-
-  Copyright (C) 2006-2012 Chixpy
+{ Copyright (C) Chixpy
 
   This source is free software; you can redistribute it and/or modify it under
   the terms of the GNU General Public License as published by the Free
-  Software Foundation; either version 3 of the License, or (at your option)
+  Software Foundation; either version 2 of the License, or (at your option)
   any later version.
 
   This code is distributed in the hope that it will be useful, but WITHOUT ANY
@@ -18,123 +16,43 @@
   MA 02111-1307, USA.
 }
 
-{ Unit with miscelaneous procedures and functions used in Emuteca }
+{
+  Unit with some string related function.
+}
 unit uCHXStrUtils;
 
-{$mode objfpc}{$H+}
+{$DEBUGINFO OFF}
 
 interface
 
-uses
-  Classes, SysUtils, Menus, Controls, FileUtil, IniFiles, Graphics,
-  ActnList, Forms, dateutils, strutils, LConvEncoding,
-  crc, LazUTF8;
+uses Classes, Strutils, SysUtils, FileUtil, LazUTF8, LazUTF8Classes, crc;
+
+const
+  KLinuxDirSeparator = '/';
+  KWinDirSeparator = '\';
+
+  // WordDelimiters except utf8 bit mask (Dirty way ^_^)
+  kCUUTF8Delimiters: set of char = [#0..#127] - ['a'..'z', 'A'..'Z', '1'..'9', '0'];
 
 resourcestring
   rsCUExcCardRange = '"%0:d" is not in cardinal range.';
 
-const
-  kCUHTMLBegin = '<html><body>';
-  //< Simple HTML file struct begin
-  kCUHTMLEnd = '</body></html>';
-  //< Simple HTML file struct end
-  kCUVirtualFolderExt = '.(folder)';
-  //< Virtual extension used for folders y some contexts
-  kCUVirtualGroupExt = '.(group)';
-  //< Virtual extension used for groups filenames
-  kCUVirtualGameExt = '.(game)';
-  //< Virtual extension used for game filenames
+// STRING UTILS
+// ------------
+function RemoveFromBrackets(const aString: string): string;
+{< Removes text from the first '(' o '[' found in the aString. }
 
-  // WordDelimiters except utf8 bit mask (Dirty way ^_^)
-  kCUUTF8Delimiters: set of char =
-    [#0..#127] - ['a'..'z', 'A'..'Z', '1'..'9', '0'];
+function TextSimilarity(const aString1, aString2: string): byte;
+{< Returns the similarity between 2 strings.
 
-type
-  TItFolderObj = function(Folder: String;
-    FileInfo: TSearchRec): boolean of object;
-  TItFolderFun = function(Folder: String; FileInfo: TSearchRec): boolean;
-
-function CRC32File(const aFileName: String): cardinal;
-{< Calculates the CRC32 checksum of a file.
+  Based in http://www.catalysoft.com/articles/StrikeAMatch.html method tweaked
+    a little.
 }
 
-// ---------------------
-// IMAGES AND IMAGELISTS
-// ---------------------
-
-procedure ReadActionsIcons(const aFileName, Section: String; BaseDir: String;
-  ImageList: TImageList; ActionList: TCustomActionList);
-{< Reads icons for the diferent actions a ImageList and assigns them.
-
-  It reads a .ini file to search which images must be loaded, relative paths
-    are searched from BaseDir.
-
-  If ini file don't have the necesary key=value pair, the will be created.
-
-  @param(aFileName Filename of a ini file where the icons filenames are
-    stored.)
-  @param(Section Section where nfo will be searched.)
-  @param(BaseDir Base directory where icons wth rlative path are searched from.)
-  @param(ImageList An image list where images ade stored)
-  @param(ActionList An action list which actions will assigned an image.)
-}  
-procedure ReadMenuIcons(const aFileName, Section, BaseDir: String;
-  ImageList: TImageList; Menu: TMenu);
-
-function AddToImageList(aImageList: TImageList;
-  const FileName: String): integer;
-
-function CorrectAspetRatio(OrigRect: TRect; aImage: TPicture): TRect;
-{< Returns a TRect with the correct aspect ratio for the picture inside the
-  OrigRect.
-}
-
-
-// -----------------
-// FOLDERS AND FILES
-// -----------------
-
-function IterateFolderObj(Folder: String; aFunction: TItFolderObj;
-  Recursive: boolean = True): boolean;
-function IterateFolderFun(Folder: String; aFunction: TItFolderFun;
-  Recursive: boolean = True): boolean;
-{< Recorre el directorio especificado y ejecuta aFuncion(TSearchRec) con cada uno
-  de los archivos encontrados
-
-Parámetros:
-  - Directorio: string -> Directorio a recorrer
-  - Funcion: function(Directorio: string; Info: TSearchRec): Boolean -> Metodo
-    de un objeto al que se le pasa el TSearchRec y el directorio del archivo
-    actual como parámetro para operar con él. Si devuelve True continua con el
-    siguiente fichero.
-  - Recursivo: Boolean -> Indica si también se deben recorrer los subdirectorios
-  - Result: Boolean -> Indica si se ha continuar la operación
-
-Notas:
-  - Si Funcion devuelve True continúa recorriendo el directorio, si devuelve
-    False no pasa al siguiente archivo.
-}
-
-function FilesInFolder(Folder: String): integer;
-//< TODO 2: Is there a better way?
-
-
-//  --------------------------------
-//  STRINGS AND STRINGLISTS HANDLING
-//  --------------------------------
-
-function AddToStringList(aList: TStrings; aString: String): integer;
-{< Add a String to a StringList.
-
-  Don't add repeated strings.
-}
-
-function CleanFileName(const AFileName: String): String;
-{< Change some invalid characters in filenames.
-}
-
-function SetAsFolder(const aValue: String): String;
-{< Add PathDelim at the end of string and changes it to '/'
+// DIRECTORY NAME UTILS
+// --------------------
+function SetAsFolder(const aValue: string): string;
+{< Adds PathDelim at the end of string and changes it to '/'
 
   IncludeTrailingPathDelimiter includes the PathDelim even if aValue = ''.
     This function non't add it in this case, so when testing if it's empty
@@ -143,21 +61,42 @@ function SetAsFolder(const aValue: String): String;
   In the other hand, paths are converted to Linux one as Windows AND
     MS-DOS (+2.0) recognise without problem
 }
-
-function SetAsFile(const aFileName: string): string;
-
 function SysPath(const aPath: string): string;
 function WinPath(const aPath: string): string;
 function UnixPath(const aPath: string): string;
 
-function TextSimilarity(const aString1, aString2: String): byte;
-{< Returns the similarity between 2 strings.
+// FILENAME UTILS
+// ---------------
+function CleanFileName(const AFileName: string): string;
+{< Changes some invalid characters in filenames.
+}
+function SetAsRelativeFile(const aFileName: string; BaseDir: string): string;
 
-  Based in http://www.catalysoft.com/articles/StrikeAMatch.html method and
-  tweaked a little.
+function SetAsFile(const aFileName: string): string;
+
+// TSTRINGLIST UTILS
+// ----------------------
+
+procedure CleanStringList(aStringList: TStrings;
+  CommentChar: string = ';');
+{< Removes comments and empty lines from a TStringList.
 }
 
-function RemoveFromBrackets(const aFileName: String): String;
+function AddToStringList(aList: TStrings; aString: String): integer;
+{< Add a String to a StringList.
+
+  Don't add repeated strings.
+}
+
+// UTILIDADES VARIAS
+// -----------------
+
+function StrCount(aString, ToSearch: string;
+  CaseSensitve: boolean = False): cardinal;
+{< Counts the times that a substring is in a string.
+
+  NOTE: StrCount('ooo', 'oo') = 2 .
+}
 
 function StrToCardinal(const aString: String): cardinal;
 
@@ -166,286 +105,142 @@ function StrToCardinalDef(const aString: String;
 
 function SecondToFmtStr(aValue: int64): String;
 
+
 implementation
 
-function CleanFileName(const AFileName: String): String;
+// STRING UTILS
+// ------------
+function RemoveFromBrackets(const aString: string): string;
+var
+  Position: integer;
 begin
-  // Windows (and Linux) invalid characters
-  Result := AnsiReplaceText(AFileName, '?', '_');
-  Result := AnsiReplaceText(Result, '*', '-');
-  Result := AnsiReplaceText(Result, '"', '_');
-  Result := AnsiReplaceText(Result, '\', '-');
-  Result := AnsiReplaceText(Result, '/', '-');
-  Result := AnsiReplaceText(Result, '|', '-');
-  Result := AnsiReplaceText(Result, '<', '-');
-  Result := AnsiReplaceText(Result, '>', '-');
-
-  // Playing with ":"
-  Result := AnsiReplaceText(Result, ' : ', ' - ');
-  Result := AnsiReplaceText(Result, ': ', ' - ');
-  Result := AnsiReplaceText(Result, ' :', ' - ');
-  Result := AnsiReplaceText(Result, ':', ' - ');
+  Result := ExtractFileNameOnly(aString);
+  Position := UTF8Pos('(', Result);
+  if Position <> 0 then
+    Result := UTF8Copy(Result, 1, Position - 1);
+  Position := UTF8Pos('[', Result);
+  if Position <> 0 then
+    Result := UTF8Copy(Result, 1, Position - 1);
 
   Result := Trim(Result);
 end;
 
-function CRC32File(const aFileName: String): cardinal;
-var
-  aFile: TFileStream;
-  BufferCRC: array[0..32767] of char;
-  BufferSize: cardinal;
-begin
-  BufferCRC[0] := #32; // Fix inicialization warning
-  BufferSize := SizeOf(BufferCRC);
-  Result := crc32(0, nil, 0);
+function TextSimilarity(const aString1, aString2: string): byte;
 
-  if not FileExistsUTF8(aFileName) then
-    Exit;
-
-  aFile := TFileStream.Create(UTF8ToSys(aFileName), fmOpenRead);
-  try
-    aFile.Position := 0;
-
-    while (aFile.Position < aFile.Size) do
-    begin
-      if (aFile.Size - aFile.Position) < BufferSize then
-        BufferSize := aFile.Size - aFile.Position;
-      aFile.ReadBuffer(BufferCRC, BufferSize);
-      Result := crc32(Result, @BufferCRC, BufferSize);
-    end;
-  finally
-    FreeAndNil(aFile);
-  end;
-end;
-
-procedure ReadActionsIcons(const aFileName, Section: String; BaseDir: String;
-  ImageList: TImageList; ActionList: TCustomActionList);
-var
-  IniFile: TMemIniFile;
-  Cont: integer;
-  IconFile: String;
-begin
-  BaseDir := SetAsFolder(BaseDir);
-  if BaseDir = '' then
-    BaseDir := ExtractFilePath(aFileName);
-  ActionList.Images := ImageList;
-  IniFile := TMemIniFile.Create(UTF8ToSys(aFileName));
-
-  try
-    Cont := 0;
-    while Cont < ActionList.ActionCount do
-    begin
-      IconFile := IniFile.ReadString(Section, ActionList.Actions[Cont].Name, '');
-      if IconFile = '' then
-      begin
-        IconFile := ActionList.Actions[Cont].Name + '.png';
-        IniFile.WriteString(Section, ActionList.Actions[Cont].Name, IconFile);
-        IniFile.UpdateFile;
-      end;
-      TCustomAction(ActionList.Actions[Cont]).ImageIndex :=
-        AddToImageList(ImageList, SetAsFolder(BaseDir) + IconFile);
-      Inc(Cont);
-    end;
-  finally
-    FreeAndNil(IniFile);
-  end;
-end;
-
-procedure ReadMenuIcons(const aFileName, Section, BaseDir: String;
-  ImageList: TImageList; Menu: TMenu);
-
-  procedure ReadIcon(IniFile: TMemIniFile; ImageList: TImageList;
-    Menu: TMenuItem; Section: String; BaseDir: String);
+  procedure LetterPairs(aStrList: TStrings; const aString: string);
   var
-    IconFile: string;
-    Cont: integer;
+    i: integer;
+    CurrPair: string;
+    CharUTF8: string;
   begin
-    BaseDir := SetAsFolder(BaseDir);
+    if aStrList = nil then
+      aStrList := TStringListUTF8.Create
+    else
+      aStrList.Clear;
 
-    if not (Menu.IsLine or Assigned(Menu.Action)) then
+    i := 1;
+    while i < UTF8Length(aString) do
     begin
-      IconFile := IniFile.ReadString(Section, Menu.Name, '');
-      if IconFile = '' then
+      CurrPair := UTF8Copy(aString, i, 2);
+
+      if UTF8Length(CurrPair) <> 2 then
       begin
-        IconFile := Menu.Name + '.png';
-        IniFile.WriteString(Section, Menu.Name, IconFile);
-        IniFile.UpdateFile;
+        Inc(i);
+        Continue;
       end;
-      Menu.ImageIndex := AddToImageList(ImageList, BaseDir + IconFile);
-    end;
 
-    Cont := 0;
-    while Cont < Menu.Count do
-    begin
-      ReadIcon(IniFile, ImageList, Menu.Items[Cont], Section, BaseDir);
-      Inc(Cont);
+      // Removing some separators...
+      if CurrPair[1] in kCUUTF8Delimiters then
+      begin
+        Inc(i);
+        Continue;
+      end;
+
+      CharUTF8 := UTF8Copy(CurrPair, 2, 1);
+      if CharUTF8[1] in kCUUTF8Delimiters then
+      begin
+        CurrPair := UTF8Copy(CurrPair, 1, 1);
+      end;
+
+      aStrList.Add(CurrPair);
+      Inc(i, Length(CurrPair));
     end;
   end;
 
-  //procedure ReadMenuIcons(const aFileName, Section, BaseDir: String;
-  //  ImageList: TImageList; Menu: TMenu);
 var
-  IniFile: TMemIniFile;
-  Cont: integer;
+  StrList1, StrList2: TStringListUTF8;
+  CurrPair: string;
+  i, j: integer;
+  Intersection: integer;
+  Union: integer;
 begin
-  Menu.Images := ImageList;
-  IniFile := TMemIniFile.Create(UTF8ToSys(aFileName));
+  Result := 0;
+  if (aString1 = '') or (aString2 = '') then
+    Exit;
+
+  StrList1 := TStringListUTF8.Create;
+  StrList2 := TStringListUTF8.Create;
+  StrList1.CaseSensitive := False;
+  StrList2.CaseSensitive := False;
   try
-    Cont := 0;
-    while Cont < Menu.Items.Count do
+    LetterPairs(StrList1, UTF8UpperCase(aString1));
+    StrList1.Sort;
+    LetterPairs(StrList2, UTF8UpperCase(aString2));
+    StrList2.Sort;
+
+    Intersection := 0;
+    Union := StrList1.Count + StrList2.Count;
+
+    i := StrList1.Count - 1;
+    while i >= 0 do
     begin
-      ReadIcon(IniFile, ImageList, Menu.Items[Cont], Section,
-        SetAsFolder(BaseDir));
-      Inc(Cont);
+      CurrPair := StrList1[i];
+      j := StrList2.IndexOf(CurrPair);
+      if j <> -1 then
+      begin
+        StrList2.Delete(j);
+        Inc(Intersection, 2);
+      end;
+      Dec(i);
     end;
   finally
-    FreeAndNil(IniFile);
+    FreeAndNil(StrList1);
+    FreeAndNil(StrList2);
   end;
+
+  if Union <> 0 then
+    Result := Round(Intersection / Union * 100);
 end;
 
-function AddToImageList(aImageList: TImageList;
-  const FileName: String): integer;
-var
-  Image: TPicture;
-  Extension: String;
+// DIRECTORY NAME UTILS
+// --------------------
+function SetAsFolder(const aValue: String): String;
 begin
-  Result := -1;
-  if aImageList = nil then
-    Exit;
-  if FileExistsUTF8(FileName) then
-  begin
-    Image := TPicture.Create;
-    try
-      Image.LoadFromFile(FileName);
-      // Cutrada para que los iconos se dibujen transparentes...
-      Extension := ExtractFileExt(FileName);
-      if (Extension = '.ico') or (Extension = '.icns') or
-        (Extension = '.cur') then
-        Result := aImageList.AddMasked(Image.Bitmap,
-          Image.Icon.TransparentColor)
-      else
-        Result := aImageList.Add(Image.PNG, nil);
-    finally
-      FreeAndNil(Image);
-    end;
-  end;
+  Result := SysPath(aValue);
+
+  // For Emuteca, always relative...
+  if FilenameIsAbsolute(Result) then
+    Result := CreateRelativePath(Result, SysPath(GetCurrentDirUTF8), false);
+
+  { Always with TrailingPathDelimiter, but only if it's not empty or root }
+  if ExcludeTrailingPathDelimiter(Result) <> '' then
+    Result := IncludeTrailingPathDelimiter(Result);
+
+  // I like UNIX PathSep (and it's better for cross-configuring)
+  Result := UnixPath(Result);
 end;
 
-function CorrectAspetRatio(OrigRect: TRect; aImage: TPicture): TRect;
-var
-  Adjustment: integer;
+function SetAsRelativeFile(const aFileName: string; BaseDir: string): string;
 begin
-  Result := OrigRect;
-  if aImage.Width > aImage.Height then
-  begin
-    // Crazy formula, don't ask
-    Adjustment := Round(((OrigRect.Right - OrigRect.Left) *
-      (1 - (aImage.Height / aImage.Width))) / 2);
-    Result.Top := OrigRect.Top + Adjustment;
-    Result.Bottom := OrigRect.Bottom - Adjustment;
-  end
-  else
-  begin
-    Adjustment := Round(((OrigRect.Bottom - OrigRect.Top) *
-      (1 - (aImage.Width / aImage.Height))) / 2);
-    Result.Left := OrigRect.Left + Adjustment;
-    Result.Right := OrigRect.Right - Adjustment;
-  end;
+  // CreateRelativePath doesn't like Unix Style under Windows... :-(
+  Result := CreateRelativePath(SysPath(aFileName), SysPath(BaseDir), False);
+
+  Result := UnixPath(Result);
 end;
 
-function AddToStringList(aList: TStrings; aString: String): integer;
+function SetAsFile(const aFileName: string): string;
 begin
-  Result := -1;
-  aString := Trim(aString);
-  if (aList = nil) or (aString = '') then
-    Exit;
-  Result := aList.IndexOf(aString);
-  if Result = -1 then
-    Result := aList.Add(aString);
-end;
-
-function IterateFolderObj(Folder: String; aFunction: TItFolderObj;
-  Recursive: boolean = True): boolean;
-var
-  Info: TSearchRec;
-begin
-  Result := True;
-  Folder := SetAsFolder(Folder);
-  if (Folder = '') or (not DirectoryExistsUTF8(Folder)) then
-    Exit;
-
-  if FindFirstUTF8(Folder + AllFilesMask, faAnyFile, Info) = 0 then
-    try
-      repeat
-        Result := aFunction(Folder, Info);
-      until (FindNextUTF8(Info) <> 0) or not Result;
-    finally
-      FindCloseUTF8(Info);
-    end;
-
-  if Recursive and Result then
-    if FindFirstUTF8(Folder + AllFilesMask, faDirectory, Info) = 0 then
-      try
-        repeat
-          if (Info.Name <> '.') and (Info.Name <> '') and
-            (Info.Name <> '..') and
-            ((Info.Attr and faDirectory) <> 0) then
-            Result := IterateFolderObj(Folder + Info.Name, aFunction, True);
-        until (FindNextUTF8(Info) <> 0) or not Result;
-      finally
-        FindCloseUTF8(Info);
-      end;
-end;
-
-function IterateFolderFun(Folder: String; aFunction: TItFolderFun;
-  Recursive: boolean): boolean;
-var
-  Info: TSearchRec;
-begin
-  Result := True;
-  Folder := SetAsFolder(Folder);
-  if (Folder = '') or (not DirectoryExistsUTF8(Folder)) then
-    Exit;
-
-  if FindFirstUTF8(Folder + AllFilesMask, faAnyFile, Info) = 0 then
-    try
-      repeat
-        Result := aFunction(Folder, Info);
-      until (FindNextUTF8(Info) <> 0) or not Result;
-    finally
-      FindCloseUTF8(Info);
-    end;
-
-  if Recursive and Result then
-    if FindFirstUTF8(Folder + AllFilesMask, faDirectory, Info) = 0 then
-      try
-        repeat
-          if (Info.Name <> '.') and (Info.Name <> '') and
-            (Info.Name <> '..') and
-            ((Info.Attr and faDirectory) <> 0) then
-            Result := IterateFolderFun(Folder + Info.Name, aFunction, True);
-        until (FindNextUTF8(Info) <> 0) or not Result;
-      finally
-        FindCloseUTF8(Info);
-      end;
-end;
-
-function FilesInFolder(Folder: String): integer;
-var
-  Info: TSearchRec;
-begin
-  // Podría usar IterateFolderObj pero no es plan de complicar la cosa
-  Result := 0;
-  Folder := SetAsFolder(Folder);
-
-  if FindFirstUTF8(Folder + '*', 0, Info) = 0 then
-    try
-      repeat
-        Inc(Result);
-      until (FindNextUTF8(Info) <> 0);
-    finally
-      FindCloseUTF8(Info);
-    end;
+  Result := UnixPath(aFileName);
 end;
 
 function SysPath(const aPath: string): string;
@@ -487,106 +282,85 @@ begin
   end;
 end;
 
-function TextSimilarity(const aString1, aString2: String): byte;
-
-  procedure LetterPairs(aStrList: TStrings; const aString: String);
-  var
-    i: integer;
-    CurrPair: String;
-    CharUTF8: String;
-  begin
-    if aStrList = nil then
-      aStrList := TStringList.Create
-    else
-      aStrList.Clear;
-
-    i := 1;
-    while i < UTF8Length(aString) do
-    begin
-      CurrPair := UTF8Copy(aString, i, 2);
-
-      if UTF8Length(CurrPair) <> 2 then
-      begin
-        Inc(i);
-        Continue;
-      end;
-
-      // Removing some separators...
-      if CurrPair[1] in kCUUTF8Delimiters then
-      begin
-        Inc(i);
-        Continue;
-      end;
-
-      CharUTF8 := UTF8Copy(CurrPair, 2, 1);
-      if CharUTF8[1] in kCUUTF8Delimiters then
-      begin
-        CurrPair := UTF8Copy(CurrPair, 1, 1);
-      end;
-
-      aStrList.Add(CurrPair);
-      Inc(i, Length(CurrPair));
-    end;
-  end;
-
-var
-  StrList1, StrList2: TStringList;
-  CurrPair: String;
-  i, j: integer;
-  Intersection: integer;
-  Union: integer;
+// FILE NAME UTILS
+// ---------------
+function CleanFileName(const AFileName: string): string;
 begin
-  Result := 0;
-  if (aString1 = '') or (aString2 = '') then
-    Exit;
+  // Windows (and Linux) invalid characters
+  Result := AnsiReplaceText(AFileName, '?', '_');
+  Result := AnsiReplaceText(Result, '*', '-');
+  Result := AnsiReplaceText(Result, '"', '_');
+  Result := AnsiReplaceText(Result, '\', '-');
+  Result := AnsiReplaceText(Result, '/', '-');
+  Result := AnsiReplaceText(Result, '|', '-');
+  Result := AnsiReplaceText(Result, '<', '-');
+  Result := AnsiReplaceText(Result, '>', '-');
 
-  StrList1 := TStringList.Create;
-  StrList2 := TStringList.Create;
-  StrList1.CaseSensitive := False;
-  StrList2.CaseSensitive := False;
-  try
-    LetterPairs(StrList1, UTF8UpperCase(aString1));
-    StrList1.Sort;
-    LetterPairs(StrList2, UTF8UpperCase(aString2));
-    StrList2.Sort;
-
-    Intersection := 0;
-    Union := StrList1.Count + StrList2.Count;
-
-    i := StrList1.Count - 1;
-    while i >= 0 do
-    begin
-      CurrPair := StrList1[i];
-      j := StrList2.IndexOf(CurrPair);
-      if j <> -1 then
-      begin
-        StrList2.Delete(j);
-        Inc(Intersection, 2);
-      end;
-      Dec(i);
-    end;
-  finally
-    FreeAndNil(StrList1);
-    FreeAndNil(StrList2);
-  end;
-
-  if Union <> 0 then
-    Result := Round(Intersection / Union * 100);
-end;
-
-function RemoveFromBrackets(const aFileName: String): String;
-var
-  Position: integer;
-begin
-  Result := ExtractFileNameOnly(aFileName);
-  Position := UTF8Pos('(', Result);
-  if Position <> 0 then
-    Result := UTF8Copy(Result, 1, Position - 1);
-  Position := UTF8Pos('[', Result);
-  if Position <> 0 then
-    Result := UTF8Copy(Result, 1, Position - 1);
+  // Playing with ":"
+  Result := AnsiReplaceText(Result, ' : ', ' - ');
+  Result := AnsiReplaceText(Result, ': ', ' - ');
+  Result := AnsiReplaceText(Result, ' :', ' - ');
+  Result := AnsiReplaceText(Result, ':', ' - ');
 
   Result := Trim(Result);
+end;
+
+// UTILIDADES TSTRINGLIST
+// ----------------------
+
+procedure CleanStringList(aStringList: TStrings;
+  CommentChar: string = ';');
+var
+  Cont: cardinal;
+begin
+  if aStringList = nil then
+    Exit;
+
+  for Cont := aStringList.Count - 1 downto 0 do
+  begin
+    if Pos(CommentChar, aStringList.Strings[Cont]) <> 0 then
+      aStringList.Strings[Cont] :=
+        Copy(aStringList.Strings[Cont], 1, Pos(CommentChar,
+        aStringList.Strings[Cont]) - 1);
+    aStringList.Strings[Cont] := Trim(aStringList.Strings[Cont]);
+    if aStringList.Strings[Cont] = '' then
+      aStringList.Delete(Cont);
+  end;
+end;
+
+function AddToStringList(aList: TStrings; aString: String): integer;
+begin
+  Result := -1;
+  aString := Trim(aString);
+  if (aList = nil) or (aString = '') then
+    Exit;
+  Result := aList.IndexOf(aString);
+  if Result = -1 then
+    Result := aList.Add(aString);
+end;
+
+// UTILIDADES VARIAS
+// -----------------
+
+function StrCount(aString, ToSearch: string;
+  CaseSensitve: boolean = False): cardinal;
+var
+  Cont: cardinal;
+  TempCadena: string;
+begin
+  Result := 0;
+  if not CaseSensitve then
+  begin
+    aString := AnsiUpperCase(aString);
+    ToSearch := AnsiUpperCase(ToSearch);
+  end;
+
+  for Cont := 1 to Length(aString) do
+  begin
+    TempCadena := Copy(aString, Cont, Length(ToSearch));
+    if TempCadena = ToSearch then
+      Result := Result + 1;
+  end;
 end;
 
 function StrToCardinalDef(const aString: String;
@@ -598,30 +372,6 @@ begin
   if (h > High(cardinal)) or (h < 0) then
     h := Default;
   Result := h;
-end;
-
-function SetAsFolder(const aValue: String): String;
-begin
-  Result := SysPath(aValue);
-
-  // For Emuteca, always relative...
-  if FilenameIsAbsolute(Result) then
-    Result := CreateRelativePath(Result, SysPath(GetCurrentDirUTF8), false);
-
-  { Always with TrailingPathDelimiter, but only if it's not empty or root }
-  if ExcludeTrailingPathDelimiter(Result) <> '' then
-    Result := IncludeTrailingPathDelimiter(Result);
-
-  // I like UNIX PathSep (and it's better for cross-configuring)
-  Result := UnixPath(Result);
-end;
-
-function SetAsFile(const aFileName: string): string;
-begin
-  // CreateRelativePath doesn't like Unix Style under Windows... :-(
-  Result := CreateRelativePath(SysPath(aFileName), SysPath(GetCurrentDirUTF8), false);
-
-  Result := UnixPath(Result);
 end;
 
 function SecondToFmtStr(aValue: int64): String;
@@ -644,5 +394,5 @@ begin
   Result := h;
 end;
 
-end.
 
+end.

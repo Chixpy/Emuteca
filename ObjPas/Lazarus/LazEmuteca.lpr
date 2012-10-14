@@ -26,15 +26,25 @@ program LazEmuteca;
 uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   cthreads, {$ENDIF} {$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, lazcontrols, pl_virtualtrees, pl_pascalscript, fGameManager,
-uEmutecaGameManager, uConfig, uEmutecaSystem, 
-uCHXStrUtils, fSystemManager, uEmutecaSystemManager,
-uEmutecaEmulatorManager, uEmutecaEmulator, uImageList, uEmutecaGroup, uPSI_uGame,
-  uPSI_uGameGroup, uPSI_uGameManager, fEmulatorManager, fMediaManager,
-  fImageViewer, fScriptManager, fProgressBar, fAbout, fSMAskFile, uGameStats,
-  u7zWrapper, uVersionSupport, uPSI_u7zWrapper, uPSI_uSystem, uPSI_uEmulator,
-  uPSI_uGameStats, fSMAskFolder, fConfigManager, uCHXRscStrTranslator,
-  uEmutecaScriptEngine, uRscStr, uConst, uEmutecaConst, uEmutecaRscStr;
+  Forms, lazcontrols, pl_virtualtrees, pl_pascalscript,
+  // Shared
+  uRscStr, uConst,
+  // Program forms
+  fGameManager, fMediaManager, fImageViewer, fScriptManager, fProgressBar,
+  fAbout, fSMAskFile, fSMAskFolder, fConfigManager, fSystemManager,
+  fEmulatorManager,
+  // Emuteca core
+  uEmutecaConst, uEmutecaRscStr, uEmutecaGameManager, uEmutecaSystem,
+  uEmutecaSystemManager, uEmutecaEmulatorManager, uEmutecaEmulator,
+  uEmutecaGroup, uEmutecaScriptEngine, uEmutecaStats,
+  // Pascal Script
+  uPSI_uGame, uPSI_uGameGroup, uPSI_uGameManager, uPSI_u7zWrapper, uPSI_uSystem,
+  uPSI_uEmulator, uPSI_uGameStats,
+  // Custom
+  uConfig, uCHXStrUtils, uCHXRscStrTranslator, uCHXFileUtils, uCHXImageList,
+  uCHXImageUtils,
+  // Other units
+  u7zWrapper, uVersionSupport;
 
 {$R LazEmuteca.res}
 

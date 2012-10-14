@@ -30,7 +30,7 @@ uses
   // Emuteca core
   uEmutecaConst, uEmutecaSystem, uEmutecaGame, uEmutecaGroup, uEmutecaEmulator,
   // Utils
-  uCHXStrUtils, u7zWrapper;
+  uCHXStrUtils, uCHXFileUtils, u7zWrapper;
 
 type
   TGMCallBackType = (GMCBAddFile, //< Adding a file.

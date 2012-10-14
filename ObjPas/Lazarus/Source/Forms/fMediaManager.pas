@@ -30,11 +30,12 @@ uses
   ComCtrls, StdCtrls, ExtCtrls, ActnList, EditBtn, Menus, VirtualTrees,
   LCLType, LazUTF8, LCLIntf, Buttons,
   // Common
-  uRscStr, uConst,
+  uRscStr, uConst, uEmutecaConst,
   // Emuteca
-  fProgressBar,
-  uConfig, uEmutecaGameManager, uEmutecaGame, uEmutecaGroup,
-  uCHXStrUtils, fImageViewer;
+  fProgressBar, fImageViewer,
+   uEmutecaGameManager, uEmutecaGame, uEmutecaGroup,
+   // Custom
+  uConfig, uCHXStrUtils, uCHXImageUtils, uCHXFileUtils;
 
 type
   { TfrmMediaManager }

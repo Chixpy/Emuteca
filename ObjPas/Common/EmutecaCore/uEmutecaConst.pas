@@ -22,6 +22,13 @@ const
   CROMNull = '%_%';
 
   CGAMEGROUPKEY = 'Group: ';
+  
+  kCUVirtualFolderExt = '.(folder)';
+  //< Virtual extension used for folders y some contexts
+  kCUVirtualGroupExt = '.(group)';
+  //< Virtual extension used for groups filenames
+  kCUVirtualGameExt = '.(game)';
+  //< Virtual extension used for game filenames  
 
 implementation
 

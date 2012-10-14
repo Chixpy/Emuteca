@@ -25,7 +25,7 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="7"/>
-      <BuildNr Value="57"/>
+      <BuildNr Value="58"/>
       <Language Value=""/>
       <StringTable FileDescription="Emuteca Emulator Front-End" LegalCopyright="(C) 2006-2012 Chixpy" OriginalFilename="LazEmuteca.exe" ProductVersion="0.7"/>
     </VersionInfo>
@@ -104,7 +104,7 @@
         <PackageName Value="LCL"/>
       </Item6>
     </RequiredPackages>
-    <Units Count="38">
+    <Units Count="40">
       <Unit0>
         <Filename Value="LazEmuteca.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -167,9 +167,9 @@
         <UnitName Value="uEmutecaEmulator"/>
       </Unit10>
       <Unit11>
-        <Filename Value="../Common/uImageList.pas"/>
+        <Filename Value="../Common/Utils/uCHXImageList.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="uImageList"/>
+        <UnitName Value="uCHXImageList"/>
       </Unit11>
       <Unit12>
         <Filename Value="Source/Forms/fEmulatorManager.pas"/>
@@ -245,9 +245,9 @@
         <UnitName Value="fSMAskFile"/>
       </Unit22>
       <Unit23>
-        <Filename Value="../Common/uGameStats.pas"/>
+        <Filename Value="../Common/EmutecaCore/uEmutecaStats.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="uGameStats"/>
+        <UnitName Value="uEmutecaStats"/>
       </Unit23>
       <Unit24>
         <Filename Value="../Common/Utils/u7zWrapper.pas"/>
@@ -324,6 +324,16 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="uEmutecaRscStr"/>
       </Unit37>
+      <Unit38>
+        <Filename Value="../Common/Utils/uCHXFileUtils.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uCHXFileUtils"/>
+      </Unit38>
+      <Unit39>
+        <Filename Value="../Common/Utils/uCHXImageUtils.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uCHXImageUtils"/>
+      </Unit39>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

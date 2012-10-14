@@ -33,10 +33,12 @@ uses
   // Common
   uRscStr, uConst, uEmutecaConst,
   // Emuteca
-  uEmutecaGameManager, uConfig, uCHXStrUtils, uImageList, uEmutecaSystemManager,
-  uEmutecaGame, uEmutecaGroup, uGameStats, u7zWrapper, uVersionSupport, fSystemManager,
+  uEmutecaGameManager,  uCHXImageList, uEmutecaSystemManager,
+  uEmutecaGame, uEmutecaGroup, uEmutecaStats, u7zWrapper, uVersionSupport, fSystemManager,
   fEmulatorManager, fImageViewer, fScriptManager, fMediaManager, fProgressBar,
-  fAbout, fConfigManager;
+  fAbout, fConfigManager,
+   // Custom
+  uConfig, uCHXStrUtils, uCHXImageUtils, uCHXFileUtils;
 
 type
   TlvGroupMode = (

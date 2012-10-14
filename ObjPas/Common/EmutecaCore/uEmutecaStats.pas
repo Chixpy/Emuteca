@@ -19,7 +19,7 @@
 }
 
 { Unit of cGameStats object. }
-unit uGameStats;
+unit uEmutecaStats;
 
 {$mode objfpc}{$H+}
 

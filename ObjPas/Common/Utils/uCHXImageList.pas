@@ -19,7 +19,7 @@
 }
 
 { cImageList unit. }
-unit uImageList;
+unit uCHXImageList;
 
 {$mode objfpc}{$H+}
 

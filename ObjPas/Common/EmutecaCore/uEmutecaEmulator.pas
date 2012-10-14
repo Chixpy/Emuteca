@@ -30,7 +30,7 @@ uses
   // Common
   uEmutecaRscStr, uEmutecaConst,
   // Emuteca
-  uGameStats, uCHXStrUtils;
+  uEmutecaStats, uCHXStrUtils;
 
 type
 

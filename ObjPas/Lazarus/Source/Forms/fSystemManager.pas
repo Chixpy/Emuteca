@@ -32,7 +32,7 @@ uses
   uRscStr, uConst,
   // Emuteca
   uEmutecaSystemManager, uEmutecaEmulatorManager, uConfig, uEmutecaSystem,
-  uCHXStrUtils;
+  uCHXStrUtils, uCHXImageUtils;
 
 // TODO 1: ¡¡REHACER TODO!!, Bueno no tanto...
 //   Cambiar los OnClick, OnChange, etc por métodos más 'pofesionales',

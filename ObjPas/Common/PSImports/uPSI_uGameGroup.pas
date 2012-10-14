@@ -45,7 +45,7 @@ uses
   ,uCHXStrUtils
   ,FileUtil
   ,LazUTF8
-  ,uGameStats
+  ,uEmutecaStats
   ,uEmutecaGroup
   ;
  

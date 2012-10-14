@@ -27,7 +27,7 @@ interface
 
 uses
   Classes, SysUtils, fileutil, IniFiles, LazUTF8, fgl,
-  uCHXStrUtils, uGameStats;
+  uEmutecaConst, uCHXStrUtils, uEmutecaStats;
 
 type
 
