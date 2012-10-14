@@ -224,7 +224,7 @@ type
   end;
 
 
-  cGameList = specialize TFPGObjectList<cGame>;
+  cGameList = class (specialize TFPGObjectList<cGame>);
 
 implementation
 

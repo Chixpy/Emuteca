@@ -3,112 +3,106 @@
 <head>
 <meta name="GENERATOR" content="PasDoc 0.12.1">
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
-<title>Emuteca: uEmulator: Class cEmulator</title>
+<title>Emuteca: uEmutecaSystemManager: Class cSystemManager</title>
 <link rel="StyleSheet" type="text/css" href="pasdoc.css">
 </head>
 <body bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#800080" alink="#FF0000">
-<a name="cEmulator"></a><h1 class="cio">Class cEmulator</h1>
+<a name="cSystemManager"></a><h1 class="cio">Class cSystemManager</h1>
 <table class="sections wide_list">
 <tr>
 <td><a class="section"  href="#%40Description">Description</a></td><td><a class="section"  href="#%40Hierarchy">Hierarchy</a></td><td>Fields</td><td><a class="section"  href="#%40Methods">Methods</a></td><td><a class="section"  href="#%40Properties">Properties</a></td></tr></table>
 <a name="%40Description"></a><h2 class="unit">Unit</h2>
 <p class="unitlink">
-<a   href="uEmulator.html">uEmulator</a></p>
+<a   href="uEmutecaSystemManager.html">uEmutecaSystemManager</a></p>
 <h2 class="declaration">Declaration</h2>
 <p class="declaration">
-<code>type cEmulator = class(<a class="normal"  href="uGameStats.cGameStats.html">cGameStats</a>)</code></p>
+<code>type cSystemManager = class(TObject)</code></p>
 <h2 class="description">Description</h2>
 <p>
-<code>cEmulator</code></p>
+<code>cSystemManager</code></p>
 <a name="%40Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
 <ul class="hierarchy"><li class="ancestor">TObject</li>
-<li class="ancestor"><a class="normal"  href="uGameStats.cGameStats.html">cGameStats</a></li>
-<li class="thisitem">cEmulator</li></ul><h2 class="overview">Overview</h2>
+<li class="thisitem">cSystemManager</li></ul><h2 class="overview">Overview</h2>
 <a name="%40Methods"></a><h3 class="summary">Methods</h3>
 <table class="summary wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>constructor <b><a   href="uEmulator.cEmulator.html#Create">Create</a></b>(const EmulatorID: String);</code></td>
+<td class="itemcode"><code>constructor <b><a   href="uEmutecaSystemManager.cSystemManager.html#Create">Create</a></b>(const aSystemsFile: String = '');</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>function <b><a   href="uEmulator.cEmulator.html#Execute">Execute</a></b>(GameFile: String): integer;</code></td>
+<td class="itemcode"><code>destructor <b><a   href="uEmutecaSystemManager.cSystemManager.html#Destroy">Destroy</a></b>; override;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>function <b><a   href="uEmulator.cEmulator.html#ExecuteAlone">ExecuteAlone</a></b>: integer;</code></td>
+<td class="itemcode"><code>function <b><a   href="uEmutecaSystemManager.cSystemManager.html#AddSystem">AddSystem</a></b>(aSystem: <a   href="uEmutecaSystem.cSystem.html">cSystem</a>): <a   href="uEmutecaSystem.cSystem.html">cSystem</a>; overload;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a   href="uEmulator.cEmulator.html#LoadFromFile">LoadFromFile</a></b>(const IniFile: String);</code></td>
+<td class="itemcode"><code>function <b><a   href="uEmutecaSystemManager.cSystemManager.html#AddSystem">AddSystem</a></b>(const SystemID: String): <a   href="uEmutecaSystem.cSystem.html">cSystem</a>; overload;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a   href="uEmulator.cEmulator.html#LoadFromFileIni">LoadFromFileIni</a></b>(aIniFile: TMemIniFile);</code></td>
+<td class="itemcode"><code>function <b><a   href="uEmutecaSystemManager.cSystemManager.html#Count">Count</a></b>: longint;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a   href="uEmulator.cEmulator.html#SaveToFile">SaveToFile</a></b>(const aIniFile: String; const ExportMode: boolean = False);</code></td>
+<td class="itemcode"><code>function <b><a   href="uEmutecaSystemManager.cSystemManager.html#IndexOf">IndexOf</a></b>(aSystem: <a   href="uEmutecaSystem.cSystem.html">cSystem</a>): integer;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a   href="uEmulator.cEmulator.html#SaveToFileIni">SaveToFileIni</a></b>(IniFile: TMemIniFile; const ExportMode: boolean = False);</code></td>
+<td class="itemcode"><code>function <b><a   href="uEmutecaSystemManager.cSystemManager.html#IndexOf">IndexOf</a></b>(SystemID: String): integer;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>function <b><a   href="uEmutecaSystemManager.cSystemManager.html#System">System</a></b>(const Index: longint): <a   href="uEmutecaSystem.cSystem.html">cSystem</a>; overload;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>function <b><a   href="uEmutecaSystemManager.cSystemManager.html#System">System</a></b>(const SystemID: String): <a   href="uEmutecaSystem.cSystem.html">cSystem</a>; overload;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="uEmutecaSystemManager.cSystemManager.html#ExportSystemsFile">ExportSystemsFile</a></b>(const aFilename: String; const ExportMode: boolean = True);</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="uEmutecaSystemManager.cSystemManager.html#ImportSystemsFile">ImportSystemsFile</a></b>(const aFilename: String);</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="uEmutecaSystemManager.cSystemManager.html#ListEnabledSystems">ListEnabledSystems</a></b>(aList: TStrings);</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="uEmutecaSystemManager.cSystemManager.html#ListSystems">ListSystems</a></b>(aList: TStrings);</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="uEmutecaSystemManager.cSystemManager.html#LoadSystemsFile">LoadSystemsFile</a></b>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="uEmutecaSystemManager.cSystemManager.html#RemoveSystem">RemoveSystem</a></b>(const Index: longint); overload;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="uEmutecaSystemManager.cSystemManager.html#RemoveSystem">RemoveSystem</a></b>(const SystemID: String); overload;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="uEmutecaSystemManager.cSystemManager.html#SaveSystemsFile">SaveSystemsFile</a></b>(const ExportMode: boolean = False);</code></td>
 </tr>
 </table>
 <a name="%40Properties"></a><h3 class="summary">Properties</h3>
 <table class="summary wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uEmulator.cEmulator.html#ConfigFile">ConfigFile</a></b>: String read FConfigFile write SetConfigFile;</code></td>
+<td class="itemcode"><code>property <b><a   href="uEmutecaSystemManager.cSystemManager.html#ConfigFile">ConfigFile</a></b>: String read FConfigFile write SetConfigFile;</code></td>
 </tr>
 <tr class="list2">
-<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uEmulator.cEmulator.html#Developer">Developer</a></b>: String read FDeveloper write SetDeveloper;</code></td>
-</tr>
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uEmulator.cEmulator.html#Enabled">Enabled</a></b>: boolean read FEnabled write SetEnabled;</code></td>
-</tr>
-<tr class="list2">
-<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uEmulator.cEmulator.html#ExeFile">ExeFile</a></b>: String read FExeFile write SetExeFile;</code></td>
-</tr>
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uEmulator.cEmulator.html#Icon">Icon</a></b>: String read FIcon write SetIcon;</code></td>
-</tr>
-<tr class="list2">
-<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uEmulator.cEmulator.html#ID">ID</a></b>: String read FID write SetID;</code></td>
-</tr>
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uEmulator.cEmulator.html#Image">Image</a></b>: String read FImage write SetImage;</code></td>
-</tr>
-<tr class="list2">
-<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uEmulator.cEmulator.html#InfoFile">InfoFile</a></b>: String read FInfoFile write SetInfoFile;</code></td>
-</tr>
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uEmulator.cEmulator.html#Name">Name</a></b>: String read FName write SetName;</code></td>
-</tr>
-<tr class="list2">
-<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uEmulator.cEmulator.html#NormalExitCode">NormalExitCode</a></b>: integer
-      read FNormalExitCode write SetNormalExitCode;</code></td>
-</tr>
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uEmulator.cEmulator.html#Parameters">Parameters</a></b>: String read FParameters write SetParameters;</code></td>
-</tr>
-<tr class="list2">
-<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uEmulator.cEmulator.html#WebPage">WebPage</a></b>: String read FWebPage write SetWebPage;</code></td>
-</tr>
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uEmulator.cEmulator.html#WorkingFolder">WorkingFolder</a></b>: String read FWorkingFolder write SetWorkingFolder;</code></td>
+<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>property <b><a   href="uEmutecaSystemManager.cSystemManager.html#Systems">Systems</a></b>: TFPObjectList read FSystems;</code></td>
 </tr>
 </table>
 <h2 class="description">Description</h2>
@@ -116,7 +110,7 @@
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Create"></a><code>constructor <b>Create</b>(const EmulatorID: String);</code></td>
+<td class="itemcode"><a name="Create"></a><code>constructor <b>Create</b>(const aSystemsFile: String = '');</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -124,7 +118,7 @@
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Execute"></a><code>function <b>Execute</b>(GameFile: String): integer;</code></td>
+<td class="itemcode"><a name="Destroy"></a><code>destructor <b>Destroy</b>; override;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -132,7 +126,7 @@
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="ExecuteAlone"></a><code>function <b>ExecuteAlone</b>: integer;</code></td>
+<td class="itemcode"><a name="AddSystem"></a><code>function <b>AddSystem</b>(aSystem: <a   href="uEmutecaSystem.cSystem.html">cSystem</a>): <a   href="uEmutecaSystem.cSystem.html">cSystem</a>; overload;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -140,7 +134,7 @@
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="LoadFromFile"></a><code>procedure <b>LoadFromFile</b>(const IniFile: String);</code></td>
+<td class="itemcode"><a name="AddSystem"></a><code>function <b>AddSystem</b>(const SystemID: String): <a   href="uEmutecaSystem.cSystem.html">cSystem</a>; overload;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -148,7 +142,7 @@
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="LoadFromFileIni"></a><code>procedure <b>LoadFromFileIni</b>(aIniFile: TMemIniFile);</code></td>
+<td class="itemcode"><a name="Count"></a><code>function <b>Count</b>: longint;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -156,7 +150,7 @@
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="SaveToFile"></a><code>procedure <b>SaveToFile</b>(const aIniFile: String; const ExportMode: boolean = False);</code></td>
+<td class="itemcode"><a name="IndexOf"></a><code>function <b>IndexOf</b>(aSystem: <a   href="uEmutecaSystem.cSystem.html">cSystem</a>): integer;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -164,7 +158,87 @@
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="SaveToFileIni"></a><code>procedure <b>SaveToFileIni</b>(IniFile: TMemIniFile; const ExportMode: boolean = False);</code></td>
+<td class="itemcode"><a name="IndexOf"></a><code>function <b>IndexOf</b>(SystemID: String): integer;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="System"></a><code>function <b>System</b>(const Index: longint): <a   href="uEmutecaSystem.cSystem.html">cSystem</a>; overload;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="System"></a><code>function <b>System</b>(const SystemID: String): <a   href="uEmutecaSystem.cSystem.html">cSystem</a>; overload;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="ExportSystemsFile"></a><code>procedure <b>ExportSystemsFile</b>(const aFilename: String; const ExportMode: boolean = True);</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="ImportSystemsFile"></a><code>procedure <b>ImportSystemsFile</b>(const aFilename: String);</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="ListEnabledSystems"></a><code>procedure <b>ListEnabledSystems</b>(aList: TStrings);</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="ListSystems"></a><code>procedure <b>ListSystems</b>(aList: TStrings);</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="LoadSystemsFile"></a><code>procedure <b>LoadSystemsFile</b>;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="RemoveSystem"></a><code>procedure <b>RemoveSystem</b>(const Index: longint); overload;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="RemoveSystem"></a><code>procedure <b>RemoveSystem</b>(const SystemID: String); overload;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="SaveSystemsFile"></a><code>procedure <b>SaveSystemsFile</b>(const ExportMode: boolean = False);</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -180,101 +254,12 @@
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Developer"></a><code>property <b>Developer</b>: String read FDeveloper write SetDeveloper;</code></td>
+<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="Systems"></a><code>property <b>Systems</b>: TFPObjectList read FSystems;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
 </table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Enabled"></a><code>property <b>Enabled</b>: boolean read FEnabled write SetEnabled;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="ExeFile"></a><code>property <b>ExeFile</b>: String read FExeFile write SetExeFile;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Icon"></a><code>property <b>Icon</b>: String read FIcon write SetIcon;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="ID"></a><code>property <b>ID</b>: String read FID write SetID;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Image"></a><code>property <b>Image</b>: String read FImage write SetImage;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="InfoFile"></a><code>property <b>InfoFile</b>: String read FInfoFile write SetInfoFile;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Name"></a><code>property <b>Name</b>: String read FName write SetName;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="NormalExitCode"></a><code>property <b>NormalExitCode</b>: integer
-      read FNormalExitCode write SetNormalExitCode;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Parameters"></a><code>property <b>Parameters</b>: String read FParameters write SetParameters;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="WebPage"></a><code>property <b>WebPage</b>: String read FWebPage write SetWebPage;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="WorkingFolder"></a><code>property <b>WorkingFolder</b>: String read FWorkingFolder write SetWorkingFolder;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.12.1</a> on 2012-07-25 23:30:46</em>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.12.1</a> on 2012-10-14 16:56:28</em>
 </span>
 </body></html>

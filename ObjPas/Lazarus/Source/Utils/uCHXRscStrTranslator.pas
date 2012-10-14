@@ -1,5 +1,3 @@
-unit uCHXRscStrTranslator;
-
 { Copyright (C) 2004-2010 V.I.Volchenko and Lazarus Developers Team
 
   Changes for Emuteca by Chixpy
@@ -18,7 +16,7 @@ unit uCHXRscStrTranslator;
   along with this library; if not, write to the Free Software Foundation,
   Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 }
-{This unit is needed for using translated form strings made by Lazarus IDE.
+{ This unit is needed for using translated form strings made by Lazarus IDE.
 It searches for translated .po/.mo files in some common places. If you need
 to have .po/.mo files anywhere else, don't use this unit but initialize
 LRSMoFile variable from LResources in your project by yourself.
@@ -30,38 +28,49 @@ This unit localizes LCL too, if it finds lclstrconsts.xx.po/lclstrconsts.xx.mo
 in directory where your program translation files are placed.
 
 Emuteca changes:
+  - Cleaning a little
   - ExtractFileName(ParamStrUTF8(0)) --> kCDTName = 'Emuteca'
 }
+unit uCHXRscStrTranslator;
+
+
 {$mode objfpc}{$H+}
 
 interface
 
 uses
-  Classes, SysUtils, LResources, GetText, Controls, typinfo, FileUtil, LCLProc,
+  Classes, SysUtils, LResources, GetText, Controls, typinfo,
+  FileUtil, LCLProc,
   Translations, Forms;
 
 const
   kCDTName = 'Emuteca';
 
 type
-  TDefaultTranslator = class(TAbstractTranslator)
+  TMOTranslator = class(TAbstractTranslator)
   private
     FMOFile: TMOFile;
+
   public
     constructor Create(MOFileName: string);
     destructor Destroy; override;
-    procedure TranslateStringProperty(Sender: TObject; const Instance: TPersistent;
-      PropInfo: PPropInfo; var Content: string); override;
+
+    procedure TranslateStringProperty(Sender: TObject;
+      const Instance: TPersistent; PropInfo: PPropInfo;
+      var Content: string); override;
   end;
 
   TPOTranslator = class(TAbstractTranslator)
   private
     FPOFile: TPOFile;
+
   public
     constructor Create(POFileName: string);
     destructor Destroy; override;
-    procedure TranslateStringProperty(Sender: TObject; const Instance: TPersistent;
-      PropInfo: PPropInfo; var Content: string); override;
+
+    procedure TranslateStringProperty(Sender: TObject;
+      const Instance: TPersistent; PropInfo: PPropInfo;
+      var Content: string); override;
   end;
 
 implementation
@@ -73,152 +82,115 @@ type
   TPersistentAccess = class(TPersistent);
 
 function FindLocaleFileName(LCExt: string): string;
-var
-  Lang, T: string;
-  i: integer;
 
   function GetLocaleFileName(const LangID, LCExt: string): string;
-  var
-    LangShortID: string;
-  begin
-    if LangID <> '' then
+
+    function SearchFile(const LangID, LCExt, ProgramName: string): string;
+    var
+      TmpStr: string;
     begin
-      //ParamStrUTF8(0) is said not to work properly in linux, but I've tested it
-      Result := ExtractFilePath(ParamStrUTF8(0)) + LangID +
-        DirectorySeparator + kCDTName + LCExt;
-      if FileExistsUTF8(Result) then
-        exit;
+      TmpStr := IncludeTrailingPathDelimiter(ProgramDirectory);
 
-      Result := ExtractFilePath(ParamStrUTF8(0)) + 'languages' + DirectorySeparator + LangID +
-        DirectorySeparator + kCDTName + LCExt;
+      Result := TmpStr + LangID + DirectorySeparator + ProgramName + LCExt;
       if FileExistsUTF8(Result) then
-        exit;
+        Exit;
 
-      Result := ExtractFilePath(ParamStrUTF8(0)) + 'locale' + DirectorySeparator
-        + LangID + DirectorySeparator + kCDTName + LCExt;
+      Result := TmpStr + 'languages' + DirectorySeparator +
+        LangID + DirectorySeparator + ProgramName + LCExt;
       if FileExistsUTF8(Result) then
-        exit;
+        Exit;
 
-      Result := ExtractFilePath(ParamStrUTF8(0)) + 'locale' + DirectorySeparator
-        + LangID + DirectorySeparator + 'LC_MESSAGES' + DirectorySeparator +
-        kCDTName + LCExt;
+      Result := TmpStr + 'locale' + DirectorySeparator + LangID +
+        DirectorySeparator + ProgramName + LCExt;
       if FileExistsUTF8(Result) then
-        exit;
+        Exit;
 
-      {$IFDEF UNIX}
+      Result := TmpStr + 'locale' + DirectorySeparator + LangID +
+        DirectorySeparator + 'LC_MESSAGES' + DirectorySeparator +
+        ProgramName + LCExt;
+      if FileExistsUTF8(Result) then
+        Exit;
+
+    {$IFDEF UNIX}
       //In unix-like systems we can try to search for global locale
       Result := '/usr/share/locale/' + LangID + '/LC_MESSAGES/' +
-        kCDTName +  LCExt;
+        ProgramName + LCExt;
       if FileExistsUTF8(Result) then
-        exit;
-      {$ENDIF}
-      //Let us search for reducted files
-      LangShortID := copy(LangID, 1, 2);
-      //At first, check all was checked
-      Result := ExtractFilePath(ParamStrUTF8(0)) + LangShortID +
-        DirectorySeparator + kCDTName + LCExt;
-      if FileExistsUTF8(Result) then
-        exit;
+        Exit;
+    {$ENDIF}
 
-      Result := ExtractFilePath(ParamStrUTF8(0)) + 'languages' + DirectorySeparator +
-        LangShortID + DirectorySeparator + kCDTName + LCExt;
-      if FileExistsUTF8(Result) then
-        exit;
-
-      Result := ExtractFilePath(ParamStrUTF8(0)) + 'locale' + DirectorySeparator
-        + LangShortID + DirectorySeparator + kCDTName + LCExt;
-      if FileExistsUTF8(Result) then
-        exit;
-
-      Result := ExtractFilePath(ParamStrUTF8(0)) + 'locale' + DirectorySeparator
-        + LangShortID + DirectorySeparator + 'LC_MESSAGES' + DirectorySeparator +
-        kCDTName + LCExt;
-      if FileExistsUTF8(Result) then
-        exit;
-
-      //Full language in file name - this will be default for the project
-      //We need more careful handling, as it MAY result in incorrect filename
-      try
-        Result := ExtractFilePath(ParamStrUTF8(0)) + kCDTName + '.' + LangID + LCExt;
-        if FileExistsUTF8(Result) then
-          exit;
-        //Common location (like in Lazarus)
-        Result := ExtractFilePath(ParamStrUTF8(0)) + 'locale' + DirectorySeparator +
-          kCDTName + '.' + LangID + LCExt;
-        if FileExistsUTF8(Result) then
-          exit;
-
-        Result := ExtractFilePath(ParamStrUTF8(0)) + 'languages' +
-          DirectorySeparator + kCDTName + '.' + LangID + LCExt;
-        if FileExistsUTF8(Result) then
-          exit;
-      except
-        Result := '';//Or do something else (useless)
-      end;
-      {$IFDEF UNIX}
-      Result := '/usr/share/locale/' + LangShortID + '/LC_MESSAGES/' +
-        kCDTName +  LCExt;
-      if FileExistsUTF8(Result) then
-        exit;
-      {$ENDIF}
-      Result := ExtractFilePath(ParamStrUTF8(0)) + kCDTName +
-        '.' + LangShortID + LCExt;
-      if FileExistsUTF8(Result) then
-        exit;
-
-      Result := ExtractFilePath(ParamStrUTF8(0)) + 'locale' + DirectorySeparator +
-        kCDTName + '.' + LangShortID + LCExt;
-      if FileExistsUTF8(Result) then
-        exit;
-
-      Result := ExtractFilePath(ParamStrUTF8(0)) + 'languages' + DirectorySeparator +
-        kCDTName + '.' + LangShortID + LCExt;
-      if FileExistsUTF8(Result) then
-        exit;
+      Result := '';
     end;
+
+  var
+    PrgName: string;
+    PrgNameCleaned: string;
+    aPos: integer;
+    LangShortID: string;
+  begin
+    Result := '';
+    if length(LangID) < 2 then
+      exit;
+
+    PrgName := ExtractFileNameWithoutExt(ExtractFileNameOnly(
+      ApplicationName));
+    PrgNameCleaned := PrgName;
+    aPos := Pos('-', PrgName);
+    if aPos <> 0 then
+      PrgNameCleaned := Copy(PrgName, 1, aPos - 1);
+    LangShortID := copy(LangID, 1, 2);
+
+    Result := SearchFile(LangID, LCExt, PrgName);
+    if Result <> '' then
+      Exit;
+    Result := SearchFile(LangID, LCExt, PrgNameCleaned);
+    if Result <> '' then
+      Exit;
+    Result := SearchFile(LangShortID, LCExt, PrgName);
+    if Result <> '' then
+      Exit;
+    Result := SearchFile(LangShortID, LCExt, PrgNameCleaned);
+    if Result <> '' then
+      Exit;
 
     Result := '';
   end;
 
+var
+  Lang, FallBackLang: string;
+  i: integer;
 begin
+  // Happy compiler now
   Result := '';
   Lang := '';
-  T:='';
+  FallBackLang := '';
 
   for i := 1 to Paramcount - 1 do
     if (ParamStrUTF8(i) = '--LANG') or (ParamStrUTF8(i) = '-l') or
       (ParamStrUTF8(i) = '--lang') then
       Lang := ParamStrUTF8(i + 1);
 
-  //Win32 user may decide to override locale with LANG variable.
+  // May be the enviroment variable...
   if Lang = '' then
     Lang := GetEnvironmentVariableUTF8('LANG');
 
-  if Lang = '' then
-    LCLGetLanguageIDs(Lang, T);
+  if Lang = '' then  // Getting system language
+    LCLGetLanguageIDs(Lang, FallBackLang);
 
+  // Searching locale file...
   Result := GetLocaleFileName(Lang, LCExt);
-  if Result <> '' then
-    exit;
-
-  Result := kCDTName + LCExt;
-  if FileExistsUTF8(Result) then
-    exit;
-
-  Result := '';
 end;
 
-function GetIdentifierPath(Sender: TObject;
-                           const Instance: TPersistent;
-                           PropInfo: PPropInfo): string;
+function GetIdentifierPath(Sender: TObject; const Instance: TPersistent;
+  PropInfo: PPropInfo): string;
 var
   Tmp: TPersistent;
   Component: TComponent;
   Reader: TReader;
 begin
   Result := '';
-  if (PropInfo = nil) or
-     (SysUtils.CompareText(PropInfo^.PropType^.Name, 'TTRANSLATESTRING') <> 0) then
+  if (PropInfo = nil) or (SysUtils.CompareText(PropInfo^.PropType^.Name,
+    'TTRANSLATESTRING') <> 0) then
     exit;
 
   // do not translate at design time
@@ -245,15 +217,15 @@ end;
 var
   lcfn: string;
 
-{ TDefaultTranslator }
+{ TMOTranslator }
 
-constructor TDefaultTranslator.Create(MOFileName: string);
+constructor TMOTranslator.Create(MOFileName: string);
 begin
   inherited Create;
   FMOFile := TMOFile.Create(UTF8ToSys(MOFileName));
 end;
 
-destructor TDefaultTranslator.Destroy;
+destructor TMOTranslator.Destroy;
 begin
   FMOFile.Free;
   //If someone will use this class incorrectly, it can be destroyed
@@ -262,7 +234,7 @@ begin
   inherited Destroy;
 end;
 
-procedure TDefaultTranslator.TranslateStringProperty(Sender: TObject;
+procedure TMOTranslator.TranslateStringProperty(Sender: TObject;
   const Instance: TPersistent; PropInfo: PPropInfo; var Content: string);
 var
   s: string;
@@ -330,25 +302,25 @@ initialization
   LocalTranslator := nil;
   // search first po translation resources
   try
-     lcfn := FindLocaleFileName('.po');
-     if lcfn <> '' then
-     begin
-       Translations.TranslateResourceStrings(lcfn);
-       LCLPath := ExtractFileName(lcfn);
-       Dot1 := pos('.', LCLPath);
-       if Dot1 > 1 then
-       begin
-         Delete(LCLPath, 1, Dot1 - 1);
-         LCLPath := ExtractFilePath(lcfn) + 'lclstrconsts' + LCLPath;
-         Translations.TranslateUnitResourceStrings('LCLStrConsts', LCLPath);
-       end;
-       LocalTranslator := TPOTranslator.Create(lcfn);
-     end;
-   except
-     lcfn := '';
-   end;
+    lcfn := FindLocaleFileName('.po');
+    if lcfn <> '' then
+    begin
+      Translations.TranslateResourceStrings(lcfn);
+      LCLPath := ExtractFileName(lcfn);
+      Dot1 := pos('.', LCLPath);
+      if Dot1 > 1 then
+      begin
+        Delete(LCLPath, 1, Dot1 - 1);
+        LCLPath := ExtractFilePath(lcfn) + 'lclstrconsts' + LCLPath;
+        Translations.TranslateUnitResourceStrings('LCLStrConsts', LCLPath);
+      end;
+      LocalTranslator := TPOTranslator.Create(lcfn);
+    end;
+  except
+    lcfn := '';
+  end;
 
-  if lcfn='' then
+  if lcfn = '' then
   begin
     // try now with MO traslation resources
     try
@@ -365,18 +337,17 @@ initialization
           if FileExistsUTF8(LCLPath) then
             GetText.TranslateResourceStrings(UTF8ToSys(LCLPath));
         end;
-        LocalTranslator := TDefaultTranslator.Create(lcfn);
+        LocalTranslator := TMOTranslator.Create(lcfn);
       end;
     except
       lcfn := '';
     end;
   end;
 
-  if LocalTranslator<>nil then
+  if LocalTranslator <> nil then
     LRSTranslator := LocalTranslator;
 
 finalization
   LocalTranslator.Free;
 
 end.
-

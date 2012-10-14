@@ -1,0 +1,417 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<meta name="GENERATOR" content="PasDoc 0.12.1">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<title>Emuteca: uEmutecaScriptEngine: Class cScriptEngEmuteca</title>
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#800080" alink="#FF0000">
+<a name="cScriptEngEmuteca"></a><h1 class="cio">Class cScriptEngEmuteca</h1>
+<table class="sections wide_list">
+<tr>
+<td><a class="section"  href="#%40Description">Description</a></td><td><a class="section"  href="#%40Hierarchy">Hierarchy</a></td><td>Fields</td><td><a class="section"  href="#%40Methods">Methods</a></td><td><a class="section"  href="#%40Properties">Properties</a></td></tr></table>
+<a name="%40Description"></a><h2 class="unit">Unit</h2>
+<p class="unitlink">
+<a   href="uEmutecaScriptEngine.html">uEmutecaScriptEngine</a></p>
+<h2 class="declaration">Declaration</h2>
+<p class="declaration">
+<code>type cScriptEngEmuteca = class(TObject)</code></p>
+<h2 class="description">Description</h2>
+<p>
+<code>cScriptEngEmuteca</code></p>
+<a name="%40Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
+<ul class="hierarchy"><li class="ancestor">TObject</li>
+<li class="thisitem">cScriptEngEmuteca</li></ul><h2 class="overview">Overview</h2>
+<a name="%40Methods"></a><h3 class="summary">Methods</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>constructor <b><a   href="uEmutecaScriptEngine.cScriptEngEmuteca.html#Create">Create</a></b>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>destructor <b><a   href="uEmutecaScriptEngine.cScriptEngEmuteca.html#Destroy">Destroy</a></b>; override;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>function <b><a   href="uEmutecaScriptEngine.cScriptEngEmuteca.html#CompileScript">CompileScript</a></b>: boolean;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>function <b><a   href="uEmutecaScriptEngine.cScriptEngEmuteca.html#RunScript">RunScript</a></b>: boolean;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>function <b><a   href="uEmutecaScriptEngine.cScriptEngEmuteca.html#AskFile">AskFile</a></b>(const aTitle, aExt, DefFile: string): string;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>function <b><a   href="uEmutecaScriptEngine.cScriptEngEmuteca.html#AskFolder">AskFolder</a></b>(const aTitle, DefFolder: string): string;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>function <b><a   href="uEmutecaScriptEngine.cScriptEngEmuteca.html#PasScriptOnFindUnknownFile">PasScriptOnFindUnknownFile</a></b>(Sender: TObject; const OrginFileName: tbtstring; var FileName, Output: tbtstring): Boolean;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>function <b><a   href="uEmutecaScriptEngine.cScriptEngEmuteca.html#PasScriptOnNeedFile">PasScriptOnNeedFile</a></b>(Sender: TObject; const OriginFileName: tbtstring; var FileName, Output: tbtstring): Boolean;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>function <b><a   href="uEmutecaScriptEngine.cScriptEngEmuteca.html#ReadLn">ReadLn</a></b>(const aQuestion, DefAnswer: string): string;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>function <b><a   href="uEmutecaScriptEngine.cScriptEngEmuteca.html#RPos">RPos</a></b>(const Substr, Source: string): integer;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>function <b><a   href="uEmutecaScriptEngine.cScriptEngEmuteca.html#UTF8LowerCase">UTF8LowerCase</a></b>(const AInStr: string): string;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>function <b><a   href="uEmutecaScriptEngine.cScriptEngEmuteca.html#UTF8UpperCase">UTF8UpperCase</a></b>(const AInStr: string): string;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="uEmutecaScriptEngine.cScriptEngEmuteca.html#PasScriptOnCompile">PasScriptOnCompile</a></b>(Sender: TPSScript);</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="uEmutecaScriptEngine.cScriptEngEmuteca.html#PasScriptOnCompImport">PasScriptOnCompImport</a></b>(Sender: TObject; x: TPSPascalCompiler);</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="uEmutecaScriptEngine.cScriptEngEmuteca.html#PasScriptOnExecImport">PasScriptOnExecImport</a></b>(Sender: TObject; se: TPSExec; x: TPSRuntimeClassImporter);</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="uEmutecaScriptEngine.cScriptEngEmuteca.html#PasScriptOnExecute">PasScriptOnExecute</a></b>(Sender: TPSScript);</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="uEmutecaScriptEngine.cScriptEngEmuteca.html#WriteLn">WriteLn</a></b>(const Str: string);</code></td>
+</tr>
+</table>
+<a name="%40Properties"></a><h3 class="summary">Properties</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="uEmutecaScriptEngine.cScriptEngEmuteca.html#CommonUnitFolder">CommonUnitFolder</a></b>: string read FCommonUnitFolder write SetCommonUnitFolder;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="uEmutecaScriptEngine.cScriptEngEmuteca.html#Game">Game</a></b>: <a   href="uEmutecaGame.cGame.html">cGame</a> read FGame write SetGame;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="uEmutecaScriptEngine.cScriptEngEmuteca.html#GameGroup">GameGroup</a></b>: <a   href="uEmutecaGroup.cGameGroup.html">cGameGroup</a> read FGameGroup write SetGameGroup;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="uEmutecaScriptEngine.cScriptEngEmuteca.html#GameManager">GameManager</a></b>: <a   href="uEmutecaGameManager.cGameManager.html">cGameManager</a> read <a   href="fGameManager.html">FGameManager</a> write SetGameManager;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>property <b><a   href="uEmutecaScriptEngine.cScriptEngEmuteca.html#OwnsScriptError">OwnsScriptError</a></b>: boolean read FOwnsScriptError
+      write SetOwnsScriptError;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>property <b><a   href="uEmutecaScriptEngine.cScriptEngEmuteca.html#OwnsScriptInfo">OwnsScriptInfo</a></b>: boolean read FOwnsScriptInfo
+      write SetOwnsScriptInfo;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>property <b><a   href="uEmutecaScriptEngine.cScriptEngEmuteca.html#OwnsScriptOutput">OwnsScriptOutput</a></b>: boolean
+      read FOwnsScriptOutput write SetOwnsScriptOutput;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>property <b><a   href="uEmutecaScriptEngine.cScriptEngEmuteca.html#PasScript">PasScript</a></b>: TPSScript read FPasScript write SetPasScript;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="uEmutecaScriptEngine.cScriptEngEmuteca.html#ScriptError">ScriptError</a></b>: TStrings read FScriptError write SetScriptError;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="uEmutecaScriptEngine.cScriptEngEmuteca.html#ScriptFile">ScriptFile</a></b>: string read getScriptFile write setScriptFile;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="uEmutecaScriptEngine.cScriptEngEmuteca.html#ScriptInfo">ScriptInfo</a></b>: TStrings read FScriptInfo write SetScriptInfo;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="uEmutecaScriptEngine.cScriptEngEmuteca.html#ScriptOutput">ScriptOutput</a></b>: TStrings read FScriptOutput write SetScriptOutput;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="uEmutecaScriptEngine.cScriptEngEmuteca.html#ScriptText">ScriptText</a></b>: TStrings read getScriptText write setScriptText;</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Methods</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Create"></a><code>constructor <b>Create</b>;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Destroy"></a><code>destructor <b>Destroy</b>; override;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="CompileScript"></a><code>function <b>CompileScript</b>: boolean;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="RunScript"></a><code>function <b>RunScript</b>: boolean;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="AskFile"></a><code>function <b>AskFile</b>(const aTitle, aExt, DefFile: string): string;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Dialog forms</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="AskFolder"></a><code>function <b>AskFolder</b>(const aTitle, DefFolder: string): string;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="PasScriptOnFindUnknownFile"></a><code>function <b>PasScriptOnFindUnknownFile</b>(Sender: TObject; const OrginFileName: tbtstring; var FileName, Output: tbtstring): Boolean;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="PasScriptOnNeedFile"></a><code>function <b>PasScriptOnNeedFile</b>(Sender: TObject; const OriginFileName: tbtstring; var FileName, Output: tbtstring): Boolean;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="ReadLn"></a><code>function <b>ReadLn</b>(const aQuestion, DefAnswer: string): string;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="RPos"></a><code>function <b>RPos</b>(const Substr, Source: string): integer;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Strings</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="UTF8LowerCase"></a><code>function <b>UTF8LowerCase</b>(const AInStr: string): string;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="UTF8UpperCase"></a><code>function <b>UTF8UpperCase</b>(const AInStr: string): string;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="PasScriptOnCompile"></a><code>procedure <b>PasScriptOnCompile</b>(Sender: TPSScript);</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="PasScriptOnCompImport"></a><code>procedure <b>PasScriptOnCompImport</b>(Sender: TObject; x: TPSPascalCompiler);</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="PasScriptOnExecImport"></a><code>procedure <b>PasScriptOnExecImport</b>(Sender: TObject; se: TPSExec; x: TPSRuntimeClassImporter);</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="PasScriptOnExecute"></a><code>procedure <b>PasScriptOnExecute</b>(Sender: TPSScript);</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="WriteLn"></a><code>procedure <b>WriteLn</b>(const Str: string);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Added functions &mdash;&mdash;&mdash;&mdash;&mdash; This functions are those which don't work with a simple &quot;Sender.AddFunction&quot; (because it's overloaded or it' has default parameters) or they can help for some common tasks. Input / Output</p>
+</td></tr>
+</table>
+<h3 class="detail">Properties</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="CommonUnitFolder"></a><code>property <b>CommonUnitFolder</b>: string read FCommonUnitFolder write SetCommonUnitFolder;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Game"></a><code>property <b>Game</b>: <a   href="uEmutecaGame.cGame.html">cGame</a> read FGame write SetGame;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="GameGroup"></a><code>property <b>GameGroup</b>: <a   href="uEmutecaGroup.cGameGroup.html">cGameGroup</a> read FGameGroup write SetGameGroup;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="GameManager"></a><code>property <b>GameManager</b>: <a   href="uEmutecaGameManager.cGameManager.html">cGameManager</a> read <a   href="fGameManager.html">FGameManager</a> write SetGameManager;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="OwnsScriptError"></a><code>property <b>OwnsScriptError</b>: boolean read FOwnsScriptError
+      write SetOwnsScriptError;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Script error must be freed?</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="OwnsScriptInfo"></a><code>property <b>OwnsScriptInfo</b>: boolean read FOwnsScriptInfo
+      write SetOwnsScriptInfo;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Script info must be freed?</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="OwnsScriptOutput"></a><code>property <b>OwnsScriptOutput</b>: boolean
+      read FOwnsScriptOutput write SetOwnsScriptOutput;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Script output must be freed?</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="PasScript"></a><code>property <b>PasScript</b>: TPSScript read FPasScript write SetPasScript;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+PSScript object.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="ScriptError"></a><code>property <b>ScriptError</b>: TStrings read FScriptError write SetScriptError;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="ScriptFile"></a><code>property <b>ScriptFile</b>: string read getScriptFile write setScriptFile;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="ScriptInfo"></a><code>property <b>ScriptInfo</b>: TStrings read FScriptInfo write SetScriptInfo;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="ScriptOutput"></a><code>property <b>ScriptOutput</b>: TStrings read FScriptOutput write SetScriptOutput;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="ScriptText"></a><code>property <b>ScriptText</b>: TStrings read getScriptText write setScriptText;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.12.1</a> on 2012-10-14 16:56:28</em>
+</span>
+</body></html>

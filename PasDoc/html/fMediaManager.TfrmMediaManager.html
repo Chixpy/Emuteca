@@ -478,6 +478,14 @@
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="fMediaManager.TfrmMediaManager.html#actRenameGroupExecute">actRenameGroupExecute</a></b>(Sender: TObject);</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a   href="fMediaManager.TfrmMediaManager.html#actRenameGroupMediaFileExecute">actRenameGroupMediaFileExecute</a></b>(Sender: TObject);</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>procedure <b><a   href="fMediaManager.TfrmMediaManager.html#chkOnlySimilarChange">chkOnlySimilarChange</a></b>(Sender: TObject);</code></td>
 </tr>
 <tr class="list2">
@@ -590,11 +598,11 @@
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>procedure <b><a   href="fMediaManager.TfrmMediaManager.html#ChangeGameMedia">ChangeGameMedia</a></b>(aGame: <a   href="uGame.cGame.html">cGame</a>);</code></td>
+<td class="itemcode"><code>procedure <b><a   href="fMediaManager.TfrmMediaManager.html#ChangeGameMedia">ChangeGameMedia</a></b>(aGame: <a   href="uEmutecaGame.cGame.html">cGame</a>);</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>procedure <b><a   href="fMediaManager.TfrmMediaManager.html#ChangeGroupMedia">ChangeGroupMedia</a></b>(aGroup: <a   href="uGameGroup.cGameGroup.html">cGameGroup</a>);</code></td>
+<td class="itemcode"><code>procedure <b><a   href="fMediaManager.TfrmMediaManager.html#ChangeGroupMedia">ChangeGroupMedia</a></b>(aGroup: <a   href="uEmutecaGroup.cGameGroup.html">cGameGroup</a>);</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
@@ -657,34 +665,38 @@
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>property <b><a   href="fMediaManager.TfrmMediaManager.html#CurrentGroup">CurrentGroup</a></b>: <a   href="uEmutecaGroup.cGameGroup.html">cGameGroup</a> read FCurrentGroup write SetCurrentGroup;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
 <td class="itemcode"><code>property <b><a   href="fMediaManager.TfrmMediaManager.html#CurrentMediaIndex">CurrentMediaIndex</a></b>: integer
       read FCurrentMediaIndex write SetCurrentMediaIndex;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
 <td class="itemcode"><code>property <b><a   href="fMediaManager.TfrmMediaManager.html#ExtFilter">ExtFilter</a></b>: TStrings read FExtFilter write SetExtFilter;</code></td>
 </tr>
-<tr class="list2">
-<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="fMediaManager.TfrmMediaManager.html#GameManager">GameManager</a></b>: <a   href="uGameManager.cGameManager.html">cGameManager</a> read <a   href="fGameManager.html">FGameManager</a> write SetGameManager;</code></td>
-</tr>
 <tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a   href="fMediaManager.TfrmMediaManager.html#GameManager">GameManager</a></b>: <a   href="uEmutecaGameManager.cGameManager.html">cGameManager</a> read <a   href="fGameManager.html">FGameManager</a> write SetGameManager;</code></td>
+</tr>
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
 <td class="itemcode"><code>property <b><a   href="fMediaManager.TfrmMediaManager.html#MediaFiles">MediaFiles</a></b>: TStringList read FMediaFiles write SetMediaFiles;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
 <td class="itemcode"><code>property <b><a   href="fMediaManager.TfrmMediaManager.html#SourceFile">SourceFile</a></b>: string read FSourceFile write SetSourceFile;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
 <td class="itemcode"><code>property <b><a   href="fMediaManager.TfrmMediaManager.html#SourceFolder">SourceFolder</a></b>: string read FSourceFolder write SetSourceFolder;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
 <td class="itemcode"><code>property <b><a   href="fMediaManager.TfrmMediaManager.html#TargetFile">TargetFile</a></b>: string read FTargetFile write SetTargetFile;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
 <td class="itemcode"><code>property <b><a   href="fMediaManager.TfrmMediaManager.html#TargetFolder">TargetFolder</a></b>: string read FTargetFolder write SetTargetFolder;</code></td>
 </tr>
@@ -1639,6 +1651,22 @@ Returns the current file list shown.</p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="actRenameGroupExecute"></a><code>procedure <b>actRenameGroupExecute</b>(Sender: TObject);</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="actRenameGroupMediaFileExecute"></a><code>procedure <b>actRenameGroupMediaFileExecute</b>(Sender: TObject);</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><a name="chkOnlySimilarChange"></a><code>procedure <b>chkOnlySimilarChange</b>(Sender: TObject);</code></td>
 </tr>
 <tr><td colspan="2">
@@ -1876,7 +1904,7 @@ Change the name of the current selected file, to one used by the selected game o
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><a name="ChangeGameMedia"></a><code>procedure <b>ChangeGameMedia</b>(aGame: <a   href="uGame.cGame.html">cGame</a>);</code></td>
+<td class="itemcode"><a name="ChangeGameMedia"></a><code>procedure <b>ChangeGameMedia</b>(aGame: <a   href="uEmutecaGame.cGame.html">cGame</a>);</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -1893,7 +1921,7 @@ Change the media preview to the game media.
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><a name="ChangeGroupMedia"></a><code>procedure <b>ChangeGroupMedia</b>(aGroup: <a   href="uGameGroup.cGameGroup.html">cGameGroup</a>);</code></td>
+<td class="itemcode"><a name="ChangeGroupMedia"></a><code>procedure <b>ChangeGroupMedia</b>(aGroup: <a   href="uEmutecaGroup.cGameGroup.html">cGameGroup</a>);</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -2078,12 +2106,20 @@ Update the Virtual String Trees.
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="CurrentGroup"></a><code>property <b>CurrentGroup</b>: <a   href="uEmutecaGroup.cGameGroup.html">cGameGroup</a> read FCurrentGroup write SetCurrentGroup;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
 <td class="itemcode"><a name="CurrentMediaIndex"></a><code>property <b>CurrentMediaIndex</b>: integer
       read FCurrentMediaIndex write SetCurrentMediaIndex;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
-Index of te current media file.</p>
+Index of the current media file.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -2103,7 +2139,7 @@ Extensions of the current selected Media.
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="GameManager"></a><code>property <b>GameManager</b>: <a   href="uGameManager.cGameManager.html">cGameManager</a> read <a   href="fGameManager.html">FGameManager</a> write SetGameManager;</code></td>
+<td class="itemcode"><a name="GameManager"></a><code>property <b>GameManager</b>: <a   href="uEmutecaGameManager.cGameManager.html">cGameManager</a> read <a   href="fGameManager.html">FGameManager</a> write SetGameManager;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -2164,6 +2200,6 @@ Folder of the target file.
 <p>Always have the trailing path delimiter.</p>
 </td></tr>
 </table>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.12.1</a> on 2012-07-25 23:30:46</em>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.12.1</a> on 2012-10-14 16:56:28</em>
 </span>
 </body></html>

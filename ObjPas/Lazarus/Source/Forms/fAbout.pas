@@ -95,8 +95,8 @@ begin
 
   lTitle.Caption := Application.Title;
 
-  lLegalInfo.Caption := rsFABCopyright + kFABCopyright +
-    LineEnding + LineEnding + format(rsFABUnderLicense, [kFABLicense]);
+  lLegalInfo.Caption := rsFABCopyright + kCopyrightString +
+    LineEnding + LineEnding + rsFABUnderLicense + ' ' + kLicenseString;
 
   lImageFiles.Caption := AnsiReplaceText(Config.ImageExtensions.CommaText, ',', ' ');;
 

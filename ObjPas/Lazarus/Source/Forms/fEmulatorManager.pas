@@ -227,8 +227,8 @@ begin
     Exit;
 
   SaveDialog.Filter := rsEmulatorIniFilter + '(*' +
-    kFEMEmulatorsFileExt + ')|*' + kFEMEmulatorsFileExt;
-  SaveDialog.DefaultExt := kFEMEmulatorsFileExt;
+    kFileExtensionEmuDB + ')|*' + kFileExtensionEmuDB;
+  SaveDialog.DefaultExt := kFileExtensionEmuDB;
   if not SaveDialog.Execute then
     Exit;
   EmulatorManager.ExportEmulatorsFile(SaveDialog.FileName, True);
@@ -240,8 +240,8 @@ begin
     Exit;
 
   OpenDialog.Filter := rsEmulatorIniFilter + '(*' +
-    kFEMEmulatorsFileExt + ')|*' + kFEMEmulatorsFileExt;
-  OpenDialog.DefaultExt := kFEMEmulatorsFileExt;
+    kFileExtensionEmuDB + ')|*' + kFileExtensionEmuDB;
+  OpenDialog.DefaultExt := kFileExtensionEmuDB;
   if not OpenDialog.Execute then
     Exit;
   EmulatorManager.ImportEmulatorsFile(OpenDialog.FileName);

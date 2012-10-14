@@ -10,12 +10,12 @@
 <h1 class="unit">Unit fScriptManager</h1>
 <table class="sections wide_list">
 <tr>
-<td><a class="section"  href="#%40Description">Description</a></td><td><a class="section"  href="#%40Uses">Uses</a></td><td><a class="section"  href="#%40Classes">Classes, Interfaces, Objects and Records</a></td><td>Functions and Procedures</td><td><a class="section"  href="#%40Types">Types</a></td><td><a class="section"  href="#%40Constants">Constants</a></td><td><a class="section"  href="#%40Variables">Variables</a></td></tr></table>
+<td><a class="section"  href="#%40Description">Description</a></td><td><a class="section"  href="#%40Uses">Uses</a></td><td><a class="section"  href="#%40Classes">Classes, Interfaces, Objects and Records</a></td><td>Functions and Procedures</td><td><a class="section"  href="#%40Types">Types</a></td><td>Constants</td><td><a class="section"  href="#%40Variables">Variables</a></td></tr></table>
 <a name="%40Description"></a><h2 class="description">Description</h2>
 <p>
 Unit of Script Manager form.</p>
 <a name="%40Uses"></a><h2 class="uses">Uses</h2>
-<ul class="useslist"><li>ActnList</li><li>Buttons</li><li>Classes</li><li>ComCtrls</li><li>Controls</li><li>Dialogs</li><li>ExtCtrls</li><li>FileUtil</li><li>Forms</li><li>Graphics</li><li>LazUTF8</li><li>LResources</li><li>ShellCtrls</li><li>StdActns</li><li>StdCtrls</li><li>SynHighlighterPas</li><li>SynMemo</li><li>SysUtils</li><li><a   href="uConfig.html">uConfig</a></li><li><a   href="uCustomUtils.html">uCustomUtils</a></li><li><a   href="uGame.html">uGame</a></li><li><a   href="uGameGroup.html">uGameGroup</a></li><li><a   href="uGameManager.html">uGameManager</a></li><li><a   href="uScriptEngEmuteca.html">uScriptEngEmuteca</a></li></ul><h2 class="overview">Overview</h2>
+<ul class="useslist"><li>ActnList</li><li>Buttons</li><li>Classes</li><li>ComCtrls</li><li>Controls</li><li>Dialogs</li><li>ExtCtrls</li><li>FileUtil</li><li>Forms</li><li>IniFiles</li><li>LResources</li><li>ShellCtrls</li><li>StdActns</li><li>StdCtrls</li><li>SynEdit</li><li>SynHighlighterPas</li><li>SynMacroRecorder</li><li>SysUtils</li><li><a   href="uCHXImageUtils.html">uCHXImageUtils</a></li><li><a   href="uCHXStrUtils.html">uCHXStrUtils</a></li><li><a   href="uConfig.html">uConfig</a></li><li><a   href="uConst.html">uConst</a></li><li><a   href="uEmutecaGame.html">uEmutecaGame</a></li><li><a   href="uEmutecaGameManager.html">uEmutecaGameManager</a></li><li><a   href="uEmutecaGroup.html">uEmutecaGroup</a></li><li><a   href="uEmutecaScriptEngine.html">uEmutecaScriptEngine</a></li><li>uRscStr</li></ul><h2 class="overview">Overview</h2>
 <a name="%40Classes"></a><h3 class="cio">Classes, Interfaces, Objects and Records</h3>
 <table class="classestable wide_list">
 <tr class="listheader">
@@ -30,26 +30,7 @@ Unit of Script Manager form.</p>
 <a name="%40Types"></a><h3 class="summary">Types</h3>
 <table class="summary wide_list">
 <tr class="list">
-<td class="itemcode"><code><b><a   href="fScriptManager.html#TSMLoadingListCallBack">TSMLoadingListCallBack</a></b> = function(const Game, Version: String; const Max, Value: Int64): Boolean of object;</code></td>
-</tr>
-</table>
-<a name="%40Constants"></a><h3 class="summary">Constants</h3>
-<table class="summary wide_list">
-<tr class="list">
-<td class="itemcode"><code><b><a   href="fScriptManager.html#kFSMScriptExt">kFSMScriptExt</a></b> = '.pas';</code></td>
-</tr>
-<tr class="list2">
-<td class="itemcode"><code><b><a   href="fScriptManager.html#kFSMScriptFilter">kFSMScriptFilter</a></b> =  ' (*' + <a   href="fScriptManager.html#kFSMScriptExt">kFSMScriptExt</a> + ')|*' +
-    <a   href="fScriptManager.html#kFSMScriptExt">kFSMScriptExt</a> + '|All files|' + AllFilesMask;</code></td>
-</tr>
-<tr class="list">
-<td class="itemcode"><code><b><a   href="fScriptManager.html#kFSMUnitsFolder">kFSMUnitsFolder</a></b> = 'Common' + PathDelim;</code></td>
-</tr>
-<tr class="list2">
-<td class="itemcode"><code><b><a   href="fScriptManager.html#rsFSMEmutecaScript">rsFSMEmutecaScript</a></b> = 'Emuteca Script File';</code></td>
-</tr>
-<tr class="list">
-<td class="itemcode"><code><b><a   href="fScriptManager.html#rsFSMScriptFileSaved">rsFSMScriptFileSaved</a></b> = 'Script file saved: %0:s';</code></td>
+<td class="itemcode"><code><b><a   href="fScriptManager.html#TSMLoadingListCallBack">TSMLoadingListCallBack</a></b> = function(const Game, Version: string; const Max, Value: int64): boolean of object;</code></td>
 </tr>
 </table>
 <a name="%40Variables"></a><h3 class="summary">Variables</h3>
@@ -62,49 +43,12 @@ Unit of Script Manager form.</p>
 <h3 class="detail">Types</h3>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="TSMLoadingListCallBack"></a><code><b>TSMLoadingListCallBack</b> = function(const Game, Version: String; const Max, Value: Int64): Boolean of object;</code></td>
-</tr>
-<tr><td colspan="1">
-&nbsp;</td></tr>
-</table>
-<h3 class="detail">Constants</h3>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="kFSMScriptExt"></a><code><b>kFSMScriptExt</b> = '.pas';</code></td>
+<td class="itemcode"><a name="TSMLoadingListCallBack"></a><code><b>TSMLoadingListCallBack</b> = function(const Game, Version: string; const Max, Value: int64): boolean of object;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
-Script file extension</p>
+Common Emuteca Custom</p>
 </td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="kFSMScriptFilter"></a><code><b>kFSMScriptFilter</b> =  ' (*' + <a   href="fScriptManager.html#kFSMScriptExt">kFSMScriptExt</a> + ')|*' +
-    <a   href="fScriptManager.html#kFSMScriptExt">kFSMScriptExt</a> + '|All files|' + AllFilesMask;</code></td>
-</tr>
-<tr><td colspan="1">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="kFSMUnitsFolder"></a><code><b>kFSMUnitsFolder</b> = 'Common' + PathDelim;</code></td>
-</tr>
-<tr><td colspan="1">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="rsFSMEmutecaScript"></a><code><b>rsFSMEmutecaScript</b> = 'Emuteca Script File';</code></td>
-</tr>
-<tr><td colspan="1">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="rsFSMScriptFileSaved"></a><code><b>rsFSMScriptFileSaved</b> = 'Script file saved: %0:s';</code></td>
-</tr>
-<tr><td colspan="1">
-&nbsp;</td></tr>
 </table>
 <h3 class="detail">Variables</h3>
 <table class="detail wide_list">
@@ -114,6 +58,6 @@ Script file extension</p>
 <tr><td colspan="1">
 &nbsp;</td></tr>
 </table>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.12.1</a> on 2012-07-25 23:30:46</em>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.12.1</a> on 2012-10-14 16:56:28</em>
 </span>
 </body></html>

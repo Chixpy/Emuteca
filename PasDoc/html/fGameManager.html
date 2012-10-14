@@ -10,12 +10,12 @@
 <h1 class="unit">Unit fGameManager</h1>
 <table class="sections wide_list">
 <tr>
-<td><a class="section"  href="#%40Description">Description</a></td><td><a class="section"  href="#%40Uses">Uses</a></td><td><a class="section"  href="#%40Classes">Classes, Interfaces, Objects and Records</a></td><td>Functions and Procedures</td><td><a class="section"  href="#%40Types">Types</a></td><td><a class="section"  href="#%40Constants">Constants</a></td><td><a class="section"  href="#%40Variables">Variables</a></td></tr></table>
+<td><a class="section"  href="#%40Description">Description</a></td><td><a class="section"  href="#%40Uses">Uses</a></td><td><a class="section"  href="#%40Classes">Classes, Interfaces, Objects and Records</a></td><td>Functions and Procedures</td><td><a class="section"  href="#%40Types">Types</a></td><td>Constants</td><td><a class="section"  href="#%40Variables">Variables</a></td></tr></table>
 <a name="%40Description"></a><h2 class="description">Description</h2>
 <p>
 Unit of Game Manager form</p>
 <a name="%40Uses"></a><h2 class="uses">Uses</h2>
-<ul class="useslist"><li>ActnList</li><li>Buttons</li><li>Classes</li><li>Clipbrd</li><li>ComCtrls</li><li>contnrs</li><li>Controls</li><li>dateutils</li><li>Dialogs</li><li>ExtCtrls</li><li><a   href="fAbout.html">fAbout</a></li><li><a   href="fConfigManager.html">fConfigManager</a></li><li><a   href="fEmulatorManager.html">fEmulatorManager</a></li><li>FileUtil</li><li><a   href="fImageViewer.html">fImageViewer</a></li><li><a   href="fMediaManager.html">fMediaManager</a></li><li>Forms</li><li><a   href="fProgress.html">fProgress</a></li><li><a   href="fScriptManager.html">fScriptManager</a></li><li><a   href="fSystemManager.html">fSystemManager</a></li><li>Graphics</li><li>IDEWindowIntf</li><li>IniPropStorage</li><li>LazHelpHTML</li><li>LazUTF8</li><li>lclintf</li><li>LCLType</li><li>LResources</li><li>Menus</li><li>StdCtrls</li><li>strutils</li><li>SysUtils</li><li><a   href="u7zWrapper.html">u7zWrapper</a></li><li><a   href="uConfig.html">uConfig</a></li><li><a   href="uCustomUtils.html">uCustomUtils</a></li><li><a   href="uGame.html">uGame</a></li><li><a   href="uGameGroup.html">uGameGroup</a></li><li><a   href="uGameManager.html">uGameManager</a></li><li><a   href="uGameStats.html">uGameStats</a></li><li><a   href="uImageList.html">uImageList</a></li><li><a   href="uSystemManager.html">uSystemManager</a></li><li><a   href="uVersionSupport.html">uVersionSupport</a></li><li>VirtualTrees</li><li>VTHeaderPopup</li><li>Windows</li></ul><h2 class="overview">Overview</h2>
+<ul class="useslist"><li>ActnList</li><li>Buttons</li><li>Classes</li><li>Clipbrd</li><li>ComCtrls</li><li>contnrs</li><li>Controls</li><li>dateutils</li><li>Dialogs</li><li>ExtCtrls</li><li><a   href="fAbout.html">fAbout</a></li><li><a   href="fConfigManager.html">fConfigManager</a></li><li><a   href="fEmulatorManager.html">fEmulatorManager</a></li><li>FileUtil</li><li><a   href="fImageViewer.html">fImageViewer</a></li><li><a   href="fMediaManager.html">fMediaManager</a></li><li>Forms</li><li><a   href="fProgressBar.html">fProgressBar</a></li><li><a   href="fScriptManager.html">fScriptManager</a></li><li><a   href="fSystemManager.html">fSystemManager</a></li><li>Graphics</li><li>IDEWindowIntf</li><li>IniPropStorage</li><li>LazHelpHTML</li><li>LazUTF8</li><li>lclintf</li><li>LCLType</li><li>LResources</li><li>Menus</li><li>StdCtrls</li><li>strutils</li><li>SysUtils</li><li><a   href="u7zWrapper.html">u7zWrapper</a></li><li><a   href="uCHXFileUtils.html">uCHXFileUtils</a></li><li><a   href="uCHXImageList.html">uCHXImageList</a></li><li><a   href="uCHXImageUtils.html">uCHXImageUtils</a></li><li><a   href="uCHXStrUtils.html">uCHXStrUtils</a></li><li><a   href="uConfig.html">uConfig</a></li><li><a   href="uConst.html">uConst</a></li><li><a   href="uEmutecaConst.html">uEmutecaConst</a></li><li><a   href="uEmutecaGame.html">uEmutecaGame</a></li><li><a   href="uEmutecaGameManager.html">uEmutecaGameManager</a></li><li><a   href="uEmutecaGroup.html">uEmutecaGroup</a></li><li><a   href="uEmutecaStats.html">uEmutecaStats</a></li><li><a   href="uEmutecaSystemManager.html">uEmutecaSystemManager</a></li><li>uRscStr</li><li><a   href="uVersionSupport.html">uVersionSupport</a></li><li>VirtualTrees</li><li>VTHeaderPopup</li><li>Windows</li></ul><h2 class="overview">Overview</h2>
 <a name="%40Classes"></a><h3 class="cio">Classes, Interfaces, Objects and Records</h3>
 <table class="classestable wide_list">
 <tr class="listheader">
@@ -35,108 +35,6 @@ Unit of Game Manager form</p>
 <td class="itemcode"><code><b><a   href="fGameManager.html#TlvGroupMode">TlvGroupMode</a></b> = (...);</code></td>
 </tr>
 </table>
-<a name="%40Constants"></a><h3 class="summary">Constants</h3>
-<table class="summary wide_list">
-<tr class="list">
-<td class="itemcode"><code><b><a   href="fGameManager.html#CDBExt">CDBExt</a></b> = '.edb';</code></td>
-</tr>
-<tr class="list2">
-<td class="itemcode"><code><b><a   href="fGameManager.html#CDBFilter">CDBFilter</a></b> = ' (*' + <a   href="fGameManager.html#CDBExt">CDBExt</a> + ')|*' + <a   href="fGameManager.html#CDBExt">CDBExt</a>;</code></td>
-</tr>
-<tr class="list">
-<td class="itemcode"><code><b><a   href="fGameManager.html#rsFGMAddingFile">rsFGMAddingFile</a></b> = 'Adding file:';</code></td>
-</tr>
-<tr class="list2">
-<td class="itemcode"><code><b><a   href="fGameManager.html#rsFGMAssignToGroup">rsFGMAssignToGroup</a></b> = 'Do you want to assign it to the game''s group?';</code></td>
-</tr>
-<tr class="list">
-<td class="itemcode"><code><b><a   href="fGameManager.html#rsFGMChooseImageFileFormat">rsFGMChooseImageFileFormat</a></b> =
-    'Do you want to save it in a lossless format:' + slinebreak +
-    'YES -&gt; .png (lossless for screenshots)' + slinebreak +
-    'NO -&gt; .jpg (better for photographs)';</code></td>
-</tr>
-<tr class="list2">
-<td class="itemcode"><code><b><a   href="fGameManager.html#rsFGMConfirmOverwriteFile">rsFGMConfirmOverwriteFile</a></b> =
-    '%0:s' + slinebreak + 'The file already exists.' + slinebreak +
-    'Do you want overwrite it?';</code></td>
-</tr>
-<tr class="list">
-<td class="itemcode"><code><b><a   href="fGameManager.html#rsFGMDecompressing">rsFGMDecompressing</a></b> = 'Decompressing:';</code></td>
-</tr>
-<tr class="list2">
-<td class="itemcode"><code><b><a   href="fGameManager.html#rsFGMDeleteFile">rsFGMDeleteFile</a></b> = 'Are you sure that you want to delete this file?' + slinebreak +
-    '%0:s';</code></td>
-</tr>
-<tr class="list">
-<td class="itemcode"><code><b><a   href="fGameManager.html#rsFGMDeveloper">rsFGMDeveloper</a></b> = 'Developer';</code></td>
-</tr>
-<tr class="list2">
-<td class="itemcode"><code><b><a   href="fGameManager.html#rsFGMEmutecaGameDatabase">rsFGMEmutecaGameDatabase</a></b> = 'Emuteca game database';</code></td>
-</tr>
-<tr class="list">
-<td class="itemcode"><code><b><a   href="fGameManager.html#rsFGMErrorEmulator">rsFGMErrorEmulator</a></b> = 'Emulator exited with error code: %0:d';</code></td>
-</tr>
-<tr class="list2">
-<td class="itemcode"><code><b><a   href="fGameManager.html#rsFGMErrorGameNotFound">rsFGMErrorGameNotFound</a></b> = 'Game not found:' + slinebreak + '%0:s%1:s';</code></td>
-</tr>
-<tr class="list">
-<td class="itemcode"><code><b><a   href="fGameManager.html#rsFGMExportingData">rsFGMExportingData</a></b> = 'Exporting data:';</code></td>
-</tr>
-<tr class="list2">
-<td class="itemcode"><code><b><a   href="fGameManager.html#rsFGMFilename">rsFGMFilename</a></b> = 'Filename';</code></td>
-</tr>
-<tr class="list">
-<td class="itemcode"><code><b><a   href="fGameManager.html#rsFGMFolderNotExists">rsFGMFolderNotExists</a></b> = '%0:s' + slinebreak + 'Folder not exists.' + slinebreak +
-    'Do you want create it?';</code></td>
-</tr>
-<tr class="list2">
-<td class="itemcode"><code><b><a   href="fGameManager.html#rsFGMImportingData">rsFGMImportingData</a></b> = 'Importing data:';</code></td>
-</tr>
-<tr class="list">
-<td class="itemcode"><code><b><a   href="fGameManager.html#rsFGMKey">rsFGMKey</a></b> = 'Key';</code></td>
-</tr>
-<tr class="list2">
-<td class="itemcode"><code><b><a   href="fGameManager.html#rsFGMLoadingGameList">rsFGMLoadingGameList</a></b> = 'Loading games:';</code></td>
-</tr>
-<tr class="list">
-<td class="itemcode"><code><b><a   href="fGameManager.html#rsFGMNever">rsFGMNever</a></b> = 'Never';</code></td>
-</tr>
-<tr class="list2">
-<td class="itemcode"><code><b><a   href="fGameManager.html#rsFGMNGames">rsFGMNGames</a></b> = '%0:d games';</code></td>
-</tr>
-<tr class="list">
-<td class="itemcode"><code><b><a   href="fGameManager.html#rsFGMNGroups">rsFGMNGroups</a></b> = '%0:d groups';</code></td>
-</tr>
-<tr class="list2">
-<td class="itemcode"><code><b><a   href="fGameManager.html#rsFGMNTimes">rsFGMNTimes</a></b> = '%0:d times';</code></td>
-</tr>
-<tr class="list">
-<td class="itemcode"><code><b><a   href="fGameManager.html#rsFGMPublisher">rsFGMPublisher</a></b> = 'Publisher';</code></td>
-</tr>
-<tr class="list2">
-<td class="itemcode"><code><b><a   href="fGameManager.html#rsFGMPurgeMessage">rsFGMPurgeMessage</a></b> = 'Warning:' + slinebreak +
-    'This action will erase all the game and group list.' +
-    slinebreak + 'Do you want to continue?';</code></td>
-</tr>
-<tr class="list">
-<td class="itemcode"><code><b><a   href="fGameManager.html#rsFGMSavingGameList">rsFGMSavingGameList</a></b> = 'Saving games:';</code></td>
-</tr>
-<tr class="list2">
-<td class="itemcode"><code><b><a   href="fGameManager.html#rsFGMSystemRequired">rsFGMSystemRequired</a></b> = 'You need select a system before do this action.';</code></td>
-</tr>
-<tr class="list">
-<td class="itemcode"><code><b><a   href="fGameManager.html#rsFGMUnknown">rsFGMUnknown</a></b> = '!Unknown';</code></td>
-</tr>
-<tr class="list2">
-<td class="itemcode"><code><b><a   href="fGameManager.html#rsFGMUpdatingList">rsFGMUpdatingList</a></b> = 'Updating List:';</code></td>
-</tr>
-<tr class="list">
-<td class="itemcode"><code><b><a   href="fGameManager.html#rsFGMVersion">rsFGMVersion</a></b> = 'Version';</code></td>
-</tr>
-<tr class="list2">
-<td class="itemcode"><code><b><a   href="fGameManager.html#rsFGMZones">rsFGMZones</a></b> = 'Zone';</code></td>
-</tr>
-</table>
 <a name="%40Variables"></a><h3 class="summary">Variables</h3>
 <table class="summary wide_list">
 <tr class="list">
@@ -150,7 +48,9 @@ Unit of Game Manager form</p>
 <td class="itemcode"><a name="TlvGroupMode"></a><code><b>TlvGroupMode</b> = (...);</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;<h6 class="description_section">Values</h6>
+<p>
+Common Emuteca Custom</p>
+<h6 class="description_section">Values</h6>
 <ul>
 <li>
 lvGMGameGroup: Group by game.</li>
@@ -169,282 +69,6 @@ lvGMTags: Group by tags.</li>
 </ul>
 </td></tr>
 </table>
-<h3 class="detail">Constants</h3>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="CDBExt"></a><code><b>CDBExt</b> = '.edb';</code></td>
-</tr>
-<tr><td colspan="1">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="CDBFilter"></a><code><b>CDBFilter</b> = ' (*' + <a   href="fGameManager.html#CDBExt">CDBExt</a> + ')|*' + <a   href="fGameManager.html#CDBExt">CDBExt</a>;</code></td>
-</tr>
-<tr><td colspan="1">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="rsFGMAddingFile"></a><code><b>rsFGMAddingFile</b> = 'Adding file:';</code></td>
-</tr>
-<tr><td colspan="1">
-<p>
-Translatable string:</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="rsFGMAssignToGroup"></a><code><b>rsFGMAssignToGroup</b> = 'Do you want to assign it to the game''s group?';</code></td>
-</tr>
-<tr><td colspan="1">
-<p>
-Translatable string:</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="rsFGMChooseImageFileFormat"></a><code><b>rsFGMChooseImageFileFormat</b> =
-    'Do you want to save it in a lossless format:' + slinebreak +
-    'YES -&gt; .png (lossless for screenshots)' + slinebreak +
-    'NO -&gt; .jpg (better for photographs)';</code></td>
-</tr>
-<tr><td colspan="1">
-<p>
-Translatable string:</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="rsFGMConfirmOverwriteFile"></a><code><b>rsFGMConfirmOverwriteFile</b> =
-    '%0:s' + slinebreak + 'The file already exists.' + slinebreak +
-    'Do you want overwrite it?';</code></td>
-</tr>
-<tr><td colspan="1">
-<p>
-Translatable string:</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="rsFGMDecompressing"></a><code><b>rsFGMDecompressing</b> = 'Decompressing:';</code></td>
-</tr>
-<tr><td colspan="1">
-<p>
-Translatable string:</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="rsFGMDeleteFile"></a><code><b>rsFGMDeleteFile</b> = 'Are you sure that you want to delete this file?' + slinebreak +
-    '%0:s';</code></td>
-</tr>
-<tr><td colspan="1">
-<p>
-Translatable string:</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="rsFGMDeveloper"></a><code><b>rsFGMDeveloper</b> = 'Developer';</code></td>
-</tr>
-<tr><td colspan="1">
-<p>
-Translatable string:</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="rsFGMEmutecaGameDatabase"></a><code><b>rsFGMEmutecaGameDatabase</b> = 'Emuteca game database';</code></td>
-</tr>
-<tr><td colspan="1">
-<p>
-Translatable string:</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="rsFGMErrorEmulator"></a><code><b>rsFGMErrorEmulator</b> = 'Emulator exited with error code: %0:d';</code></td>
-</tr>
-<tr><td colspan="1">
-<p>
-Translatable string:</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="rsFGMErrorGameNotFound"></a><code><b>rsFGMErrorGameNotFound</b> = 'Game not found:' + slinebreak + '%0:s%1:s';</code></td>
-</tr>
-<tr><td colspan="1">
-<p>
-Translatable string:</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="rsFGMExportingData"></a><code><b>rsFGMExportingData</b> = 'Exporting data:';</code></td>
-</tr>
-<tr><td colspan="1">
-<p>
-Translatable string:</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="rsFGMFilename"></a><code><b>rsFGMFilename</b> = 'Filename';</code></td>
-</tr>
-<tr><td colspan="1">
-<p>
-Translatable string:</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="rsFGMFolderNotExists"></a><code><b>rsFGMFolderNotExists</b> = '%0:s' + slinebreak + 'Folder not exists.' + slinebreak +
-    'Do you want create it?';</code></td>
-</tr>
-<tr><td colspan="1">
-<p>
-Translatable string:</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="rsFGMImportingData"></a><code><b>rsFGMImportingData</b> = 'Importing data:';</code></td>
-</tr>
-<tr><td colspan="1">
-<p>
-Translatable string:</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="rsFGMKey"></a><code><b>rsFGMKey</b> = 'Key';</code></td>
-</tr>
-<tr><td colspan="1">
-<p>
-Translatable string:</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="rsFGMLoadingGameList"></a><code><b>rsFGMLoadingGameList</b> = 'Loading games:';</code></td>
-</tr>
-<tr><td colspan="1">
-<p>
-Translatable string:</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="rsFGMNever"></a><code><b>rsFGMNever</b> = 'Never';</code></td>
-</tr>
-<tr><td colspan="1">
-<p>
-Translatable string:</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="rsFGMNGames"></a><code><b>rsFGMNGames</b> = '%0:d games';</code></td>
-</tr>
-<tr><td colspan="1">
-<p>
-Translatable string:</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="rsFGMNGroups"></a><code><b>rsFGMNGroups</b> = '%0:d groups';</code></td>
-</tr>
-<tr><td colspan="1">
-<p>
-Translatable string:</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="rsFGMNTimes"></a><code><b>rsFGMNTimes</b> = '%0:d times';</code></td>
-</tr>
-<tr><td colspan="1">
-<p>
-Translatable string:</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="rsFGMPublisher"></a><code><b>rsFGMPublisher</b> = 'Publisher';</code></td>
-</tr>
-<tr><td colspan="1">
-<p>
-Translatable string:</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="rsFGMPurgeMessage"></a><code><b>rsFGMPurgeMessage</b> = 'Warning:' + slinebreak +
-    'This action will erase all the game and group list.' +
-    slinebreak + 'Do you want to continue?';</code></td>
-</tr>
-<tr><td colspan="1">
-<p>
-Translatable string:</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="rsFGMSavingGameList"></a><code><b>rsFGMSavingGameList</b> = 'Saving games:';</code></td>
-</tr>
-<tr><td colspan="1">
-<p>
-Translatable string:</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="rsFGMSystemRequired"></a><code><b>rsFGMSystemRequired</b> = 'You need select a system before do this action.';</code></td>
-</tr>
-<tr><td colspan="1">
-<p>
-Translatable string:</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="rsFGMUnknown"></a><code><b>rsFGMUnknown</b> = '!Unknown';</code></td>
-</tr>
-<tr><td colspan="1">
-<p>
-Translatable string:</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="rsFGMUpdatingList"></a><code><b>rsFGMUpdatingList</b> = 'Updating List:';</code></td>
-</tr>
-<tr><td colspan="1">
-<p>
-Translatable string:</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="rsFGMVersion"></a><code><b>rsFGMVersion</b> = 'Version';</code></td>
-</tr>
-<tr><td colspan="1">
-<p>
-Translatable string:</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="rsFGMZones"></a><code><b>rsFGMZones</b> = 'Zone';</code></td>
-</tr>
-<tr><td colspan="1">
-<p>
-Translatable string:</p>
-</td></tr>
-</table>
 <h3 class="detail">Variables</h3>
 <table class="detail wide_list">
 <tr class="list">
@@ -455,6 +79,6 @@ Translatable string:</p>
 public declarations</p>
 </td></tr>
 </table>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.12.1</a> on 2012-07-25 23:30:46</em>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.12.1</a> on 2012-10-14 16:56:28</em>
 </span>
 </body></html>

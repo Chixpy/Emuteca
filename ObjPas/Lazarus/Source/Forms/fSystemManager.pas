@@ -477,79 +477,79 @@ begin
     Exit;
 
   // Creating folders
-  CreateDirUTF8(System.BaseFolder + rsFSMAutoFolderGames);
-  System.GameFolder := System.BaseFolder + rsFSMAutoFolderGames;
+  CreateDirUTF8(System.BaseFolder + rsAutoFolderGames);
+  System.GameFolder := System.BaseFolder + rsAutoFolderGames;
 
   // Images
-  CreateDirUTF8(System.BaseFolder + rsFSMAutoFolderImg);
-  CreateDirUTF8(System.BaseFolder + rsFSMAutoFolderImg + rsFSMAutoFolderImgTitle);
+  CreateDirUTF8(System.BaseFolder + rsAutoFolderImg);
+  CreateDirUTF8(System.BaseFolder + rsAutoFolderImg + rsAutoFolderImgTitle);
   AddFolderWithCaption(System.ImageFolders, System.ImageCaptions,
-    System.BaseFolder + rsFSMAutoFolderImg + rsFSMAutoFolderImgTitle,
-    rsFSMAutoFolderImgTitle);
-  CreateDirUTF8(System.BaseFolder + rsFSMAutoFolderImg + rsFSMAutoFolderImgInGame);
+    System.BaseFolder + rsAutoFolderImg + rsAutoFolderImgTitle,
+    rsAutoFolderImgTitle);
+  CreateDirUTF8(System.BaseFolder + rsAutoFolderImg + rsAutoFolderImgInGame);
   AddFolderWithCaption(System.ImageFolders, System.ImageCaptions,
-    System.BaseFolder + rsFSMAutoFolderImg + rsFSMAutoFolderImgInGame,
-    rsFSMAutoFolderImgInGame);
-  CreateDirUTF8(System.BaseFolder + rsFSMAutoFolderImg + rsFSMAutoFolderImgFront);
+    System.BaseFolder + rsAutoFolderImg + rsAutoFolderImgInGame,
+    rsAutoFolderImgInGame);
+  CreateDirUTF8(System.BaseFolder + rsAutoFolderImg + rsAutoFolderImgFront);
   AddFolderWithCaption(System.ImageFolders, System.ImageCaptions,
-    System.BaseFolder + rsFSMAutoFolderImg + rsFSMAutoFolderImgFront,
-    rsFSMAutoFolderImgFront);
-  CreateDirUTF8(System.BaseFolder + rsFSMAutoFolderImg + rsFSMAutoFolderImgBack);
+    System.BaseFolder + rsAutoFolderImg + rsAutoFolderImgFront,
+    rsAutoFolderImgFront);
+  CreateDirUTF8(System.BaseFolder + rsAutoFolderImg + rsAutoFolderImgBack);
   AddFolderWithCaption(System.ImageFolders, System.ImageCaptions,
-    System.BaseFolder + rsFSMAutoFolderImg + rsFSMAutoFolderImgBack,
-    rsFSMAutoFolderImgBack);
-  CreateDirUTF8(System.BaseFolder + rsFSMAutoFolderImg + rsFSMAutoFolderImgMedia);
+    System.BaseFolder + rsAutoFolderImg + rsAutoFolderImgBack,
+    rsAutoFolderImgBack);
+  CreateDirUTF8(System.BaseFolder + rsAutoFolderImg + rsAutoFolderImgMedia);
   AddFolderWithCaption(System.ImageFolders, System.ImageCaptions,
-    System.BaseFolder + rsFSMAutoFolderImg + rsFSMAutoFolderImgMedia,
-    rsFSMAutoFolderImgMedia);
-  CreateDirUTF8(System.BaseFolder + rsFSMAutoFolderImg + rsFSMAutoFolderImgMarquee);
-  System.MarqueeFolder := System.BaseFolder + rsFSMAutoFolderImg +
-    rsFSMAutoFolderImgMarquee;
-  CreateDirUTF8(System.BaseFolder + rsFSMAutoFolderImg + rsFSMAutoFolderIcons);
-  System.IconFolder := System.BaseFolder + rsFSMAutoFolderImg + rsFSMAutoFolderIcons;
+    System.BaseFolder + rsAutoFolderImg + rsAutoFolderImgMedia,
+    rsAutoFolderImgMedia);
+  CreateDirUTF8(System.BaseFolder + rsAutoFolderImg + rsAutoFolderImgMarquee);
+  System.MarqueeFolder := System.BaseFolder + rsAutoFolderImg +
+    rsAutoFolderImgMarquee;
+  CreateDirUTF8(System.BaseFolder + rsAutoFolderImg + rsAutoFolderImgIcon);
+  System.IconFolder := System.BaseFolder + rsAutoFolderImg + rsAutoFolderImgIcon;
 
   // Texts
-  CreateDirUTF8(System.BaseFolder + rsFSMAutoFolderTxt);
-  CreateDirUTF8(System.BaseFolder + rsFSMAutoFolderTxt + rsFSMAutoFolderTxtInfo);
+  CreateDirUTF8(System.BaseFolder + rsAutoFolderTxt);
+  CreateDirUTF8(System.BaseFolder + rsAutoFolderTxt + rsAutoFolderTxtInfo);
   AddFolderWithCaption(System.TextFolders, System.TextCaptions,
-    System.BaseFolder + rsFSMAutoFolderTxt + rsFSMAutoFolderTxtInfo,
-    rsFSMAutoFolderTxtInfo);
-  CreateDirUTF8(System.BaseFolder + rsFSMAutoFolderTxt + rsFSMAutoFolderTxtManual);
+    System.BaseFolder + rsAutoFolderTxt + rsAutoFolderTxtInfo,
+    rsAutoFolderTxtInfo);
+  CreateDirUTF8(System.BaseFolder + rsAutoFolderTxt + rsAutoFolderTxtManual);
   AddFolderWithCaption(System.TextFolders, System.TextCaptions,
-    System.BaseFolder + rsFSMAutoFolderTxt + rsFSMAutoFolderTxtManual,
-    rsFSMAutoFolderTxtManual);
-  CreateDirUTF8(System.BaseFolder + rsFSMAutoFolderTxt + rsFSMAutoFolderTxtCheat);
+    System.BaseFolder + rsAutoFolderTxt + rsAutoFolderTxtManual,
+    rsAutoFolderTxtManual);
+  CreateDirUTF8(System.BaseFolder + rsAutoFolderTxt + rsAutoFolderTxtCheat);
   AddFolderWithCaption(System.TextFolders, System.TextCaptions,
-    System.BaseFolder + rsFSMAutoFolderTxt + rsFSMAutoFolderTxtCheat,
-    rsFSMAutoFolderTxtCheat);
-  CreateDirUTF8(System.BaseFolder + rsFSMAutoFolderTxt + rsFSMAutoFolderTxtNotes);
+    System.BaseFolder + rsAutoFolderTxt + rsAutoFolderTxtCheat,
+    rsAutoFolderTxtCheat);
+  CreateDirUTF8(System.BaseFolder + rsAutoFolderTxt + rsAutoFolderTxtNotes);
   AddFolderWithCaption(System.TextFolders, System.TextCaptions,
-    System.BaseFolder + rsFSMAutoFolderTxt + rsFSMAutoFolderTxtNotes,
-    rsFSMAutoFolderTxtNotes);
-  CreateDirUTF8(System.BaseFolder + rsFSMAutoFolderTxt + rsFSMAutoFolderTxtCredit);
+    System.BaseFolder + rsAutoFolderTxt + rsAutoFolderTxtNotes,
+    rsAutoFolderTxtNotes);
+  CreateDirUTF8(System.BaseFolder + rsAutoFolderTxt + rsAutoFolderTxtCredits);
   AddFolderWithCaption(System.TextFolders, System.TextCaptions,
-    System.BaseFolder + rsFSMAutoFolderTxt + rsFSMAutoFolderTxtCredit,
-    rsFSMAutoFolderTxtCredit);
+    System.BaseFolder + rsAutoFolderTxt + rsAutoFolderTxtCredits,
+    rsAutoFolderTxtCredits);
 
   // TODO 1: Música
-  CreateDirUTF8(System.BaseFolder + rsFSMAutoFolderMusic);
-  CreateDirUTF8(System.BaseFolder + rsFSMAutoFolderMusic + rsFSMAutoFolderMusicDemo);
+  CreateDirUTF8(System.BaseFolder + rsAutoFolderMusic);
+  CreateDirUTF8(System.BaseFolder + rsAutoFolderMusic + rsAutoFolderMusicDemo);
   System.DemoMusicFolder :=
-    System.BaseFolder + rsFSMAutoFolderMusic + rsFSMAutoFolderMusicDemo;
+    System.BaseFolder + rsAutoFolderMusic + rsAutoFolderMusicDemo;
 
   // TODO 1: Videos
-  CreateDirUTF8(System.BaseFolder + rsFSMAutoFolderVideo);
-  CreateDirUTF8(System.BaseFolder + rsFSMAutoFolderVideo + rsFSMAutoFolderVideoDemo);
+  CreateDirUTF8(System.BaseFolder + rsAutoFolderVideo);
+  CreateDirUTF8(System.BaseFolder + rsAutoFolderVideo + rsAutoFolderVideoDemo);
   System.DemoVideoFolder :=
-    System.BaseFolder + rsFSMAutoFolderVideo + rsFSMAutoFolderVideoDemo;
+    System.BaseFolder + rsAutoFolderVideo + rsAutoFolderVideoDemo;
 
   // TODO 1: Otros archivos
 
   // Un par de directorios extra
-  CreateDirUTF8(System.BaseFolder + rsFSMAutoFolderBIOS);
-  CreateDirUTF8(System.BaseFolder + rsFSMAutoFolderTemp);
-  CreateDirUTF8(System.BaseFolder + rsFSMAutoFolderSaves);
-  CreateDirUTF8(System.BaseFolder + rsFSMAutoFolderTools);
+  CreateDirUTF8(System.BaseFolder + rsAutoFolderBIOS);
+  CreateDirUTF8(System.BaseFolder + rsAutoFolderTemp);
+  CreateDirUTF8(System.BaseFolder + rsAutoFolderSaves);
+  CreateDirUTF8(System.BaseFolder + rsAutoFolderTools);
 
   // Además configuramos el texto del sistema
   System.InfoText := System.BaseFolder + CleanFileName(Self.System.ID) + '.txt';
@@ -561,8 +561,10 @@ procedure TfrmSystemManager.actExportSystemsExecute(Sender: TObject);
 begin
   if SystemManager = nil then Exit;
 
-  SaveDialog.Filter := kFSMSystemIniFilter + '|*.ini';
-  SaveDialog.DefaultExt := 'ini';
+  SaveDialog.Filter := rsFileMaskSystemDBDescription + '|' + kFileMaskSystemDB
+    + '|' + rsFileMaskAllFilesDescription + '|' + kFileMaskAllFiles;
+  SaveDialog.DefaultExt := kFileExtensionSystemDB;
+
   if not SaveDialog.Execute then Exit;
   SystemManager.ExportSystemsFile(SaveDialog.FileName, True);
 end;
@@ -571,8 +573,10 @@ procedure TfrmSystemManager.actImportSystemsExecute(Sender: TObject);
 begin
   if SystemManager = nil then Exit;
 
-  OpenDialog.Filter := kFSMSystemIniFilter + '|*.ini';
-  OpenDialog.DefaultExt := 'ini';
+  OpenDialog.Filter := rsFileMaskSystemDBDescription + '|' + kFileMaskSystemDB
+    + '|' + rsFileMaskAllFilesDescription + '|' + kFileMaskAllFiles;
+  OpenDialog.DefaultExt := kFileExtensionSystemDB;
+
   if not OpenDialog.Execute then Exit;
   SystemManager.ImportSystemsFile(OpenDialog.FileName);
   LoadSystemList;

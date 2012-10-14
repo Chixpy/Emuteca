@@ -10,12 +10,12 @@
 <h1 class="unit">Unit fMediaManager</h1>
 <table class="sections wide_list">
 <tr>
-<td><a class="section"  href="#%40Description">Description</a></td><td><a class="section"  href="#%40Uses">Uses</a></td><td><a class="section"  href="#%40Classes">Classes, Interfaces, Objects and Records</a></td><td>Functions and Procedures</td><td>Types</td><td><a class="section"  href="#%40Constants">Constants</a></td><td><a class="section"  href="#%40Variables">Variables</a></td></tr></table>
+<td><a class="section"  href="#%40Description">Description</a></td><td><a class="section"  href="#%40Uses">Uses</a></td><td><a class="section"  href="#%40Classes">Classes, Interfaces, Objects and Records</a></td><td>Functions and Procedures</td><td>Types</td><td>Constants</td><td><a class="section"  href="#%40Variables">Variables</a></td></tr></table>
 <a name="%40Description"></a><h2 class="description">Description</h2>
 <p>
 Unit of Media Manager form</p>
 <a name="%40Uses"></a><h2 class="uses">Uses</h2>
-<ul class="useslist"><li>ActnList</li><li>Buttons</li><li>Classes</li><li>ComCtrls</li><li>Controls</li><li>Dialogs</li><li>EditBtn</li><li>ExtCtrls</li><li>FileUtil</li><li><a   href="fImageViewer.html">fImageViewer</a></li><li>Forms</li><li><a   href="fProgress.html">fProgress</a></li><li>Graphics</li><li>LazUTF8</li><li>LCLIntf</li><li>LCLType</li><li>LResources</li><li>Menus</li><li>StdCtrls</li><li>SysUtils</li><li><a   href="uConfig.html">uConfig</a></li><li><a   href="uCustomUtils.html">uCustomUtils</a></li><li><a   href="uGame.html">uGame</a></li><li><a   href="uGameGroup.html">uGameGroup</a></li><li><a   href="uGameManager.html">uGameManager</a></li><li>VirtualTrees</li></ul><h2 class="overview">Overview</h2>
+<ul class="useslist"><li>ActnList</li><li>Buttons</li><li>Classes</li><li>ComCtrls</li><li>Controls</li><li>Dialogs</li><li>EditBtn</li><li>ExtCtrls</li><li>FileUtil</li><li><a   href="fImageViewer.html">fImageViewer</a></li><li>Forms</li><li><a   href="fProgressBar.html">fProgressBar</a></li><li>Graphics</li><li>LazUTF8</li><li>LCLIntf</li><li>LCLType</li><li>LResources</li><li>Menus</li><li>StdCtrls</li><li>SysUtils</li><li><a   href="uCHXFileUtils.html">uCHXFileUtils</a></li><li><a   href="uCHXImageUtils.html">uCHXImageUtils</a></li><li><a   href="uCHXStrUtils.html">uCHXStrUtils</a></li><li><a   href="uConfig.html">uConfig</a></li><li><a   href="uConst.html">uConst</a></li><li><a   href="uEmutecaConst.html">uEmutecaConst</a></li><li><a   href="uEmutecaGame.html">uEmutecaGame</a></li><li><a   href="uEmutecaGameManager.html">uEmutecaGameManager</a></li><li><a   href="uEmutecaGroup.html">uEmutecaGroup</a></li><li>uRscStr</li><li>VirtualTrees</li></ul><h2 class="overview">Overview</h2>
 <a name="%40Classes"></a><h3 class="cio">Classes, Interfaces, Objects and Records</h3>
 <table class="classestable wide_list">
 <tr class="listheader">
@@ -27,60 +27,6 @@ Unit of Media Manager form</p>
 <td class="itemdesc"><code>TfrmMediaManager</code></td>
 </tr>
 </table>
-<a name="%40Constants"></a><h3 class="summary">Constants</h3>
-<table class="summary wide_list">
-<tr class="list">
-<td class="itemcode"><code><b><a   href="fMediaManager.html#kSimilarityThresold">kSimilarityThresold</a></b> = 25;</code></td>
-</tr>
-<tr class="list2">
-<td class="itemcode"><code><b><a   href="fMediaManager.html#rsfmmAddingFiles">rsfmmAddingFiles</a></b> = 'Adding files to the list...';</code></td>
-</tr>
-<tr class="list">
-<td class="itemcode"><code><b><a   href="fMediaManager.html#rsfmmCopyingFileList">rsfmmCopyingFileList</a></b> = 'Copying file list...';</code></td>
-</tr>
-<tr class="list2">
-<td class="itemcode"><code><b><a   href="fMediaManager.html#rsfmmDeleteAll">rsfmmDeleteAll</a></b> = 'Do you want to delete all current listed files?' + sLineBreak +
-    sLineBreak + 'Folder: %0:s' + sLineBreak + 'Number of files: %1:d';</code></td>
-</tr>
-<tr class="list">
-<td class="itemcode"><code><b><a   href="fMediaManager.html#rsfmmDeleteFile">rsfmmDeleteFile</a></b> = 'Do you want to delete the file?' + sLineBreak +
-    sLineBreak + '%0:s';</code></td>
-</tr>
-<tr class="list2">
-<td class="itemcode"><code><b><a   href="fMediaManager.html#rsfmmDeleteFileError">rsfmmDeleteFileError</a></b> = 'Error deleting the file:\n\n%0:s';</code></td>
-</tr>
-<tr class="list">
-<td class="itemcode"><code><b><a   href="fMediaManager.html#rsfmmDemoMusic">rsfmmDemoMusic</a></b> = 'Demo music';</code></td>
-</tr>
-<tr class="list2">
-<td class="itemcode"><code><b><a   href="fMediaManager.html#rsfmmDemoVideo">rsfmmDemoVideo</a></b> = 'Demo vídeo';</code></td>
-</tr>
-<tr class="list">
-<td class="itemcode"><code><b><a   href="fMediaManager.html#rsfmmIcons">rsfmmIcons</a></b> = 'Icons';</code></td>
-</tr>
-<tr class="list2">
-<td class="itemcode"><code><b><a   href="fMediaManager.html#rsfmmMarquees">rsfmmMarquees</a></b> = 'Spines / Marquees';</code></td>
-</tr>
-<tr class="list">
-<td class="itemcode"><code><b><a   href="fMediaManager.html#rsfmmSearchFilesWOGame">rsfmmSearchFilesWOGame</a></b> = 'Searching files without game...';</code></td>
-</tr>
-<tr class="list2">
-<td class="itemcode"><code><b><a   href="fMediaManager.html#rsfmmSearchFilesWOGroup">rsfmmSearchFilesWOGroup</a></b> = 'Searching files without group...';</code></td>
-</tr>
-<tr class="list">
-<td class="itemcode"><code><b><a   href="fMediaManager.html#rsfmmSource">rsfmmSource</a></b> = 'Source: %0:s';</code></td>
-</tr>
-<tr class="list2">
-<td class="itemcode"><code><b><a   href="fMediaManager.html#rsfmmTarget">rsfmmTarget</a></b> = 'Target: %0:s';</code></td>
-</tr>
-<tr class="list">
-<td class="itemcode"><code><b><a   href="fMediaManager.html#rsfmmTargetExists">rsfmmTargetExists</a></b> =
-    'Target file already exists.' + sLineBreak + '%0:s'+ sLineBreak + 'Do you want to overwrite?';</code></td>
-</tr>
-<tr class="list2">
-<td class="itemcode"><code><b><a   href="fMediaManager.html#rsNFiles">rsNFiles</a></b> = '%0:d files found.';</code></td>
-</tr>
-</table>
 <a name="%40Variables"></a><h3 class="summary">Variables</h3>
 <table class="summary wide_list">
 <tr class="list">
@@ -88,152 +34,6 @@ Unit of Media Manager form</p>
 </tr>
 </table>
 <h2 class="description">Description</h2>
-<h3 class="detail">Constants</h3>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="kSimilarityThresold"></a><code><b>kSimilarityThresold</b> = 25;</code></td>
-</tr>
-<tr><td colspan="1">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="rsfmmAddingFiles"></a><code><b>rsfmmAddingFiles</b> = 'Adding files to the list...';</code></td>
-</tr>
-<tr><td colspan="1">
-<p>
-Translatable string:</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="rsfmmCopyingFileList"></a><code><b>rsfmmCopyingFileList</b> = 'Copying file list...';</code></td>
-</tr>
-<tr><td colspan="1">
-<p>
-Translatable string:</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="rsfmmDeleteAll"></a><code><b>rsfmmDeleteAll</b> = 'Do you want to delete all current listed files?' + sLineBreak +
-    sLineBreak + 'Folder: %0:s' + sLineBreak + 'Number of files: %1:d';</code></td>
-</tr>
-<tr><td colspan="1">
-<p>
-Translatable string:</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="rsfmmDeleteFile"></a><code><b>rsfmmDeleteFile</b> = 'Do you want to delete the file?' + sLineBreak +
-    sLineBreak + '%0:s';</code></td>
-</tr>
-<tr><td colspan="1">
-<p>
-Translatable string:</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="rsfmmDeleteFileError"></a><code><b>rsfmmDeleteFileError</b> = 'Error deleting the file:\n\n%0:s';</code></td>
-</tr>
-<tr><td colspan="1">
-<p>
-Translatable string:</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="rsfmmDemoMusic"></a><code><b>rsfmmDemoMusic</b> = 'Demo music';</code></td>
-</tr>
-<tr><td colspan="1">
-<p>
-Translatable string:</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="rsfmmDemoVideo"></a><code><b>rsfmmDemoVideo</b> = 'Demo vídeo';</code></td>
-</tr>
-<tr><td colspan="1">
-<p>
-Translatable string:</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="rsfmmIcons"></a><code><b>rsfmmIcons</b> = 'Icons';</code></td>
-</tr>
-<tr><td colspan="1">
-<p>
-Translatable string:</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="rsfmmMarquees"></a><code><b>rsfmmMarquees</b> = 'Spines / Marquees';</code></td>
-</tr>
-<tr><td colspan="1">
-<p>
-Translatable string:</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="rsfmmSearchFilesWOGame"></a><code><b>rsfmmSearchFilesWOGame</b> = 'Searching files without game...';</code></td>
-</tr>
-<tr><td colspan="1">
-<p>
-Translatable string:</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="rsfmmSearchFilesWOGroup"></a><code><b>rsfmmSearchFilesWOGroup</b> = 'Searching files without group...';</code></td>
-</tr>
-<tr><td colspan="1">
-<p>
-Translatable string:</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="rsfmmSource"></a><code><b>rsfmmSource</b> = 'Source: %0:s';</code></td>
-</tr>
-<tr><td colspan="1">
-<p>
-Translatable string:</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="rsfmmTarget"></a><code><b>rsfmmTarget</b> = 'Target: %0:s';</code></td>
-</tr>
-<tr><td colspan="1">
-<p>
-Translatable string:</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="rsfmmTargetExists"></a><code><b>rsfmmTargetExists</b> =
-    'Target file already exists.' + sLineBreak + '%0:s'+ sLineBreak + 'Do you want to overwrite?';</code></td>
-</tr>
-<tr><td colspan="1">
-<p>
-Translatable string:</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="rsNFiles"></a><code><b>rsNFiles</b> = '%0:d files found.';</code></td>
-</tr>
-<tr><td colspan="1">
-<p>
-Translatable string:</p>
-</td></tr>
-</table>
 <h3 class="detail">Variables</h3>
 <table class="detail wide_list">
 <tr class="list">
@@ -242,6 +42,6 @@ Translatable string:</p>
 <tr><td colspan="1">
 &nbsp;</td></tr>
 </table>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.12.1</a> on 2012-07-25 23:30:46</em>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.12.1</a> on 2012-10-14 16:56:28</em>
 </span>
 </body></html>

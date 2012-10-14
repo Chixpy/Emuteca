@@ -27,10 +27,8 @@ interface
 
 uses
   Classes, SysUtils, IniFiles, uCHXStrUtils, FileUtil, LazUTF8,
-  // Common
-  uEmutecaRscStr, uEmutecaConst,
   // Emuteca
-  uEmutecaStats;
+  uEmutecaRscStr, uEmutecaConst, uEmutecaStats;
 
 type
 

@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<meta name="GENERATOR" content="PasDoc 0.12.1">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<title>Emuteca: uCHXImageUtils</title>
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#800080" alink="#FF0000">
+<h1 class="unit">Unit uCHXImageUtils</h1>
+<table class="sections wide_list">
+<tr>
+<td><a class="section"  href="#%40Description">Description</a></td><td><a class="section"  href="#%40Uses">Uses</a></td><td>Classes, Interfaces, Objects and Records</td><td><a class="section"  href="#%40FuncsProcs">Functions and Procedures</a></td><td>Types</td><td>Constants</td><td>Variables</td></tr></table>
+<a name="%40Description"></a><h2 class="description">Description</h2>
+&nbsp;<a name="%40Uses"></a><h2 class="uses">Uses</h2>
+<ul class="useslist"><li>ActnList</li><li>Buttons</li><li>Classes</li><li>Controls</li><li>FileUtil</li><li>Graphics</li><li>ImgList</li><li>IniFiles</li><li>Menus</li><li>SysUtils</li><li><a   href="uCHXStrUtils.html">uCHXStrUtils</a></li></ul><h2 class="overview">Overview</h2>
+<a name="%40FuncsProcs"></a><h3 class="summary">Functions and Procedures</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="itemcode"><code>function <b><a   href="uCHXImageUtils.html#AddToImageList">AddToImageList</a></b>(aImageList: TImageList; const FileName: String): integer;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code>function <b><a   href="uCHXImageUtils.html#CorrectAspetRatio">CorrectAspetRatio</a></b>(OrigRect: TRect; aImage: TPicture): TRect;</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code>procedure <b><a   href="uCHXImageUtils.html#FixComponentImagesFromActions">FixComponentImagesFromActions</a></b>(aComponent: TComponent);</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code>procedure <b><a   href="uCHXImageUtils.html#ReadActionsIcons">ReadActionsIcons</a></b>(const aFileName, Section: string; BaseDir: string; ImageList: TImageList; ActionList: TCustomActionList);</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code>procedure <b><a   href="uCHXImageUtils.html#ReadMenuIcons">ReadMenuIcons</a></b>(const aFileName, Section: string; BaseDir: string; ImageList: TImageList; Menu: TMenu);</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Functions and Procedures</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="AddToImageList"></a><code>function <b>AddToImageList</b>(aImageList: TImageList; const FileName: String): integer;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Assing images from actions to components (and subcomponents).
+
+<p>Some components (TBitButton, SpeedButton, ...) load their glyphs directly; and when a TAction is assigned, them don't load de corresponding image because they are not TImageList dependant.
+
+<p>This procedure loads their glyphs from the image list assigned to their action.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="CorrectAspetRatio"></a><code>function <b>CorrectAspetRatio</b>(OrigRect: TRect; aImage: TPicture): TRect;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Returns a TRect with the correct aspect ratio for the picture inside the OrigRect.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="FixComponentImagesFromActions"></a><code>procedure <b>FixComponentImagesFromActions</b>(aComponent: TComponent);</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="ReadActionsIcons"></a><code>procedure <b>ReadActionsIcons</b>(const aFileName, Section: string; BaseDir: string; ImageList: TImageList; ActionList: TCustomActionList);</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Reads icons for the diferent actions a ImageList and assigns them.
+
+<p>It reads a .ini file to search which images must be loaded, relative paths are searched from BaseDir.
+
+<p>If ini file don't have the necesary key=value pair, the will be created.
+
+<p>    </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>aFileName</dt>
+<dd>Filename of a ini file where the icons filenames are stored.</dd>
+<dt>Section</dt>
+<dd>Section where nfo will be searched.</dd>
+<dt>BaseDir</dt>
+<dd>Base directory where icons wth rlative path are searched from.</dd>
+<dt>ImageList</dt>
+<dd>An image list where images ade stored</dd>
+<dt>ActionList</dt>
+<dd>An action list which actions will assigned an image.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="ReadMenuIcons"></a><code>procedure <b>ReadMenuIcons</b>(const aFileName, Section: string; BaseDir: string; ImageList: TImageList; Menu: TMenu);</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.12.1</a> on 2012-10-14 16:56:28</em>
+</span>
+</body></html>

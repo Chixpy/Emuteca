@@ -452,7 +452,7 @@ begin
     IconsIniFile := ReadValue('Images', 'IconsIniFile', IconsIniFile);
 
     // Config/Data
-    HelpFolder := ReadValue('Config', 'HelpFolder', SearchFile);
+    HelpFolder := ReadValue('Config', 'HelpFolder', HelpFolder);
     SearchFile := ReadValue('Config', 'SearchFile', SearchFile);
     DataFolder := ReadValue('Config', 'DataFolder', DataFolder);
     EmulatorsIniFile := ReadValue('Config', 'EmulatorsIniFile',

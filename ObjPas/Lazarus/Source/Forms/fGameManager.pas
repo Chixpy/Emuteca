@@ -33,12 +33,13 @@ uses
   // Common
   uRscStr, uConst, uEmutecaConst,
   // Emuteca
-  uEmutecaGameManager,  uCHXImageList, uEmutecaSystemManager,
-  uEmutecaGame, uEmutecaGroup, uEmutecaStats, u7zWrapper, uVersionSupport, fSystemManager,
+  uEmutecaGameManager, uEmutecaSystemManager,
+  uEmutecaGame, uEmutecaGroup, uEmutecaStats, u7zWrapper,
+  uVersionSupport, fSystemManager,
   fEmulatorManager, fImageViewer, fScriptManager, fMediaManager, fProgressBar,
   fAbout, fConfigManager,
-   // Custom
-  uConfig, uCHXStrUtils, uCHXImageUtils, uCHXFileUtils;
+  // Custom
+  uConfig, uCHXImageList, uCHXStrUtils, uCHXImageUtils, uCHXFileUtils;
 
 type
   TlvGroupMode = (
@@ -391,7 +392,8 @@ type
     procedure vstGroupsDblClick(Sender: TObject);
     procedure vstGroupsDrawText(Sender: TBaseVirtualTree;
       TargetCanvas: TCanvas; Node: PVirtualNode; Column: TColumnIndex;
-      const CellText: string; const CellRect: TRect; var DefaultDraw: boolean);
+      const CellText: string; const CellRect: TRect;
+      var DefaultDraw: boolean);
     procedure vstGroupsGetText(Sender: TBaseVirtualTree;
       Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType;
       var CellText: string);
@@ -450,8 +452,8 @@ type
     {< Current seleted GameGroup or the GameGroup of selected game version. }
     property GameImages: TStringList read FGameImages;
     //< Images of the current selected item.
-    property GameImagesIndex: integer read FGameImagesIndex
-      write SetGameImagesIndex;
+    property GameImagesIndex: integer
+      read FGameImagesIndex write SetGameImagesIndex;
     //< Index of the current Image.
     property GameTexts: TStringList read FGameTexts;
     //< Texts of the current selected item.
@@ -817,7 +819,7 @@ procedure TfrmGameManager.FormCreate(Sender: TObject);
     // Icons for "version" column
     // TODO 3: Make this list dinamic?
     aFolder := Config.ImagesFolder + Config.VIIconsSubfolder;
-    AddVersionIcon(FVerInfoIcons, aFolder + 'NoZone.png');   // 0
+    AddVersionIcon(FVerInfoIcons, aFolder + 'NoZone.png');     // 0
     AddVersionIcon(FVerInfoIcons, aFolder + 'GoodDump.png');   // 1
     AddVersionIcon(FVerInfoIcons, aFolder + 'BadDump.png');    // 2
     AddVersionIcon(FVerInfoIcons, aFolder + 'NoAlternate.png');// 3
@@ -1231,7 +1233,8 @@ begin
             end;
           end
           else if Data^ is cGame then
-            GameManager.SearchGameMedia(StrList, GameManager.System.IconFolder,
+            GameManager.SearchGameMedia(StrList,
+              GameManager.System.IconFolder,
               cGame(Data^), Config.ImageExtensions);
 
           if StrList.Count > 0 then
@@ -1256,8 +1259,8 @@ begin
         IconRect.Top + vstGroups.TextMargin;
 
       DrawText(TargetCanvas.Handle, PChar(CellText), -1, IconRect,
-        DT_NOPREFIX or DT_VCENTER or DT_SINGLELINE or DT_WORDBREAK or
-        DT_END_ELLIPSIS or DT_EDITCONTROL);
+        DT_NOPREFIX or DT_VCENTER or DT_SINGLELINE or
+        DT_WORDBREAK or DT_END_ELLIPSIS or DT_EDITCONTROL);
     end;
 
     1:
@@ -1759,7 +1762,7 @@ begin
     begin
       aGame := GameManager.GameAtPos(i);
       aGame.IconIndex := -1;
-      Continue := frmProgress.UpdTextAndBar(rsFGMUpdatingList,
+      Continue := frmProgress.UpdTextAndBar(rsUpdatingList,
         aGame.GameGroup, aGame.Name, i, GameManager.GameCount);
 
       // Adding Publisher to ComboBox
@@ -2018,7 +2021,8 @@ procedure TfrmGameManager.PasteGameImage;
 var
   aFileName: string;
 begin
-  if (CurrGroup = nil)  then  Exit;
+  if (CurrGroup = nil) then
+    Exit;
 
   aFilename := CurrGroup.MediaFileName;
 
@@ -2046,7 +2050,8 @@ begin
   end
   else
   begin
-    if (cbGameImages.ItemIndex = -1) then Exit;
+    if (cbGameImages.ItemIndex = -1) then
+      Exit;
 
     aFilename := ExtractFileNameOnly(aFilename);
 
@@ -2055,7 +2060,7 @@ begin
       aFilename := ExtractFileNameOnly(GameManager.Group(
         CurrGame.GameGroup).MediaFileName);
 
-      if MessageDlg(rsFGMAssignToGroup, mtConfirmation,
+      if MessageDlg(rsAskAssignToGroup, mtConfirmation,
         [mbYes, mbNo], 0) = mrNo then
         { TODO 2: Warn about a game can't have it's own file if
            it has the same filename as used by group. }
@@ -2081,7 +2086,8 @@ var
   aFileName: string;
   aPicture: TPicture;
 begin
-  if CurrGroup = nil then  Exit;
+  if CurrGroup = nil then
+    Exit;
 
   aPicture := TPicture.Create;
   try
@@ -2089,8 +2095,8 @@ begin
 
     LoadImageFromClipboard(aPicture);
 
-    if (CurrGame = nil) and (GroupMode in [lvGMYear, lvGMDeveloper,
-      lvGMPublisher, lvGMTags]) then
+    if (CurrGame = nil) and
+      (GroupMode in [lvGMYear, lvGMDeveloper, lvGMPublisher, lvGMTags]) then
     begin
       // It's a group and special group mode
       case GroupMode of
@@ -2114,11 +2120,12 @@ begin
       begin
         aFilename := GameManager.Group(CurrGame.GameGroup).MediaFileName;
 
-        if MessageDlg(rsFGMAssignToGroup, mtConfirmation,
+        if MessageDlg(rsAskAssignToGroup, mtConfirmation,
           [mbYes, mbNo], 0) = mrNo then
           { TODO 2: Warn about a game can't have it's own file if
              it has the same filename as used by group. }
-          aFilename := RemoveFromBrackets(CurrGame.FileName) + kCUVirtualGameExt;
+          aFilename := RemoveFromBrackets(CurrGame.FileName) +
+            kCUVirtualGameExt;
       end;
 
       aFilename := GameManager.System.MarqueeFolder + aFilename;
@@ -2135,7 +2142,8 @@ var
   aFileName: string;
   aPicture: TPicture;
 begin
-  if (CurrGroup = nil) then Exit;
+  if (CurrGroup = nil) then
+    Exit;
 
   aPicture := TPicture.Create;
   try
@@ -2143,8 +2151,8 @@ begin
 
     LoadImageFromClipboard(aPicture);
 
-    if (CurrGame = nil) and (GroupMode in [lvGMYear, lvGMDeveloper,
-      lvGMPublisher, lvGMTags]) then
+    if (CurrGame = nil) and
+      (GroupMode in [lvGMYear, lvGMDeveloper, lvGMPublisher, lvGMTags]) then
     begin
       // It's a group and special group mode
       case GroupMode of
@@ -2168,11 +2176,12 @@ begin
       begin
         aFilename := GameManager.Group(CurrGame.GameGroup).MediaFileName;
 
-        if MessageDlg(rsFGMAssignToGroup, mtConfirmation,
+        if MessageDlg(rsAskAssignToGroup, mtConfirmation,
           [mbYes, mbNo], 0) = mrNo then
           { TODO 2: Warn about a game can't have it's own file if
              it has the same filename as used by group. }
-          aFilename := RemoveFromBrackets(CurrGame.FileName) + kCUVirtualGameExt;
+          aFilename := RemoveFromBrackets(CurrGame.FileName) +
+            kCUVirtualGameExt;
       end;
 
       aFilename := GameManager.System.IconFolder + aFilename;
@@ -2188,11 +2197,12 @@ end;
 
 procedure TfrmGameManager.DeleteGameImage;
 begin
-  if GameImages.Count <= 0 then Exit;
+  if GameImages.Count <= 0 then
+    Exit;
 
   if MessageDlg(format(rsFGMDeleteFile, [GameImages[GameImagesIndex]]),
-    mtConfirmation, [mbYes, mbNo], 0) =
-    mrNo then Exit;
+    mtConfirmation, [mbYes, mbNo], 0) = mrNo then
+    Exit;
 
   DeleteFileUTF8(GameImages[GameImagesIndex]);
 
@@ -2211,7 +2221,8 @@ procedure TfrmGameManager.SaveGameText;
 var
   aFileName: string;
 begin
-  if CurrGroup = nil then Exit;
+  if CurrGroup = nil then
+    Exit;
 
   aFilename := CurrGroup.MediaFileName;
 
@@ -2231,20 +2242,24 @@ begin
           SetAsFolder('Texts') + aFileName;
       else
         // This case must not happen
-        aFilename := GameManager.System.TextFolders[cbGameTexts.ItemIndex] + aFilename;
+        aFilename := GameManager.System.TextFolders[cbGameTexts.ItemIndex] +
+          aFilename;
     end;
   end
   else
   begin
-    if (cbGameTexts.ItemIndex = -1) then Exit;
+    if (cbGameTexts.ItemIndex = -1) then
+      Exit;
 
     aFilename := ExtractFileNameOnly(aFilename);
 
     if CurrGame <> nil then
     begin
-      aFilename := ExtractFileNameOnly(GameManager.Group(CurrGame.GameGroup).MediaFileName);
+      aFilename := ExtractFileNameOnly(GameManager.Group(
+        CurrGame.GameGroup).MediaFileName);
 
-      if MessageDlg(rsFGMAssignToGroup, mtConfirmation, [mbYes, mbNo], 0) = mrNo then
+      if MessageDlg(rsAskAssignToGroup, mtConfirmation,
+        [mbYes, mbNo], 0) = mrNo then
         { TODO 2: Warn about a game can't have it's own file if
            it has the same filename as used by group. }
         aFilename := RemoveFromBrackets(CurrGame.FileName);
@@ -2264,11 +2279,12 @@ end;
 
 procedure TfrmGameManager.DeleteGameText;
 begin
-  if GameTexts.Count <= 0 then Exit;
+  if GameTexts.Count <= 0 then
+    Exit;
 
   if MessageDlg(format(rsFGMDeleteFile, [GameTexts[GameTextsIndex]]),
-    mtConfirmation, [mbYes, mbNo], 0) =
-    mrNo then Exit;
+    mtConfirmation, [mbYes, mbNo], 0) = mrNo then
+    Exit;
 
   DeleteFileUTF8(GameTexts[GameTextsIndex]);
 
@@ -2287,7 +2303,7 @@ procedure TfrmGameManager.SaveImageToFile(aPicture: TPicture;
   aFilename: string);
 var
   Extension: string;
-  FilePath: String;
+  FilePath: string;
 begin
   if aPicture = nil then
     Exit;
@@ -2296,8 +2312,8 @@ begin
   if ExtractFileExt(aFilename) = '' then
     aFilename := aFilename + ExtensionSeparator + 'ext';
 
-  if MessageDlg(rsFGMChooseImageFileFormat, mtConfirmation, [mbYes, mbNo], 0) =
-    mrYes then
+  if MessageDlg(rsChooseImageFileFormat, mtConfirmation,
+    [mbYes, mbNo], 0) = mrYes then
     Extension := '.png'
   else
     Extension := '.jpg';
@@ -2519,13 +2535,13 @@ begin
   eSortKey.Text := CurrGroup.SortKey;
 
   lPublisher.Enabled := True;
-  lPublisher.Caption := rsFGMDeveloper;
+  lPublisher.Caption := rsDeveloper;
   cbPublisher.Enabled := True;
   cbPublisher.Caption := CurrGroup.Developer;
 
   // Reusing Zone edit to show group key
   lZones.Enabled := False;
-  lZones.Caption := rsFGMKey;
+  lZones.Caption := rsGameKey;
   eZones.Enabled := False;
   eZones.Text := CurrGroup.Key;
 
@@ -2533,7 +2549,7 @@ begin
   cbYear.Caption := CurrGroup.Year;
 
   lVersion.Enabled := True;
-  lVersion.Caption := rsFGMFilename;
+  lVersion.Caption := rsFilename;
   eVersion.Enabled := True;
   eVersion.Caption := ExtractFileNameWithoutExt(CurrGroup.MediaFileName);
 
@@ -2590,8 +2606,8 @@ begin
 
   if GameManager.Emulator = nil then
     Exit;
-  cbEmulators.ItemIndex := AddToStringList(cbEmulators.Items,
-    GameManager.Emulator.ID);
+  cbEmulators.ItemIndex :=
+    AddToStringList(cbEmulators.Items, GameManager.Emulator.ID);
 
   UpdateEmulatorMedia;
 end;
@@ -2717,7 +2733,8 @@ begin
   case GroupMode of
     // Aprovechamos las ventajas del cGameManager :P
     lvGMYear: GameManager.SearchGroupMedia(StrList,
-        Config.CommonMediaFolder + SetAsFolder('Years') + SetAsFolder('Texts'),
+        Config.CommonMediaFolder + SetAsFolder('Years') +
+        SetAsFolder('Texts'),
         aGameGroup, Config.TextExtensions);
     lvGMDeveloper, lvGMPublisher: GameManager.SearchGroupMedia(StrList,
         Config.CommonMediaFolder + SetAsFolder('Companies') +
@@ -2765,7 +2782,8 @@ begin
 
     }
     lvGMTags: GameManager.SearchGroupMedia(StrList,
-        Config.CommonMediaFolder + SetAsFolder('Tags') + SetAsFolder('Images'),
+        Config.CommonMediaFolder + SetAsFolder('Tags') +
+        SetAsFolder('Images'),
         aGameGroup, Config.ImageExtensions);
     else  // By default, standard search
       if cbGameImages.ItemIndex > -1 then
@@ -2877,7 +2895,7 @@ begin
   eSortKey.Text := CurrGame.SortKey;
 
   lPublisher.Enabled := True;
-  lPublisher.Caption := rsFGMPublisher;
+  lPublisher.Caption := rsPublisher;
   cbPublisher.Enabled := True;
   cbPublisher.Text := CurrGame.Publisher;
 
@@ -2886,11 +2904,11 @@ begin
   cbYear.Text := CurrGame.Year;
 
   lZones.Enabled := True;
-  lZones.Caption := rsFGMZones;
+  lZones.Caption := rsZones;
   eZones.Enabled := True;
   eZones.Text := CurrGame.Zones.CommaText;
 
-  lVersion.Caption := rsFGMVersion;
+  lVersion.Caption := rsVersion;
   eVersion.Enabled := True;
   eVersion.Text := CurrGame.Version;
 
@@ -3128,12 +3146,12 @@ begin
     Exit;
 
   case TypeCB of
-    GMCBAddFile: aAction := rsFGMAddingFile;
-    GMCBImportData: aAction := rsFGMImportingData;
-    GMCBExportData: aAction := rsFGMExportingData;
-    GMCBSaveList: aAction := rsFGMSavingGameList;
-    GMCBLoadList: aAction := rsFGMLoadingGameList;
-    GMCBDecompress: aAction := rsFGMDecompressing;
+    GMCBAddFile: aAction := rsAddingFile;
+    GMCBImportData: aAction := rsImportingData;
+    GMCBExportData: aAction := rsExportingData;
+    GMCBSaveList: aAction := rsSavingGameList;
+    GMCBLoadList: aAction := rsLoadingGameList;
+    GMCBDecompress: aAction := rsDecompressing;
   end;
 
   Result := frmProgress.UpdTextAndBar(aAction, Info1, Info2, Value, Max);
@@ -3152,8 +3170,10 @@ begin
     Exit;
   end;
 
-  SaveDialog.Filter := rsFGMEmutecaGameDatabase + CDBFilter;
-  SaveDialog.DefaultExt := CDBExt;
+  SaveDialog.Filter :=  rsFileMaskGameDBDescription + '|' + kFileMaskGameDB +
+    '|' + rsFileMaskAllFilesDescription + '|' + kFileMaskAllFiles;
+  SaveDialog.DefaultExt := kFileExtensionGameDB;
+
   if not SaveDialog.Execute then
     Exit;
   Application.CreateForm(TfrmProgress, frmProgress);
@@ -3211,11 +3231,13 @@ begin
   if GameManager.System = nil then
   begin
     ShowMessage(rsFGMSystemRequired);
-    Exit ;
+    Exit;
   end;
 
-  OpenDialog.Filter := rsFGMEmutecaGameDatabase + CDBFilter;
-  OpenDialog.DefaultExt := CDBExt;
+  OpenDialog.Filter := rsFileMaskGameDBDescription + '|' + kFileMaskGameDB +
+      '|' + rsFileMaskAllFilesDescription + '|' + kFileMaskAllFiles;
+    OpenDialog.DefaultExt := kFileExtensionGameDB;
+
   if not OpenDialog.Execute then
     Exit;
 
@@ -3247,7 +3269,7 @@ begin
   if GameManager.System = nil then
   begin
     ShowMessage(rsFGMSystemRequired);
-    Exit        ;
+    Exit;
   end;
 
   Application.CreateForm(TfrmMediaManager, FormMM);
@@ -3282,7 +3304,7 @@ begin
   if GameManager.System = nil then
   begin
     ShowMessage(rsFGMSystemRequired);
-    Exit     ;
+    Exit;
   end;
 
   SysFolder := SysPath(GameManager.System.BaseFolder);
@@ -3313,7 +3335,7 @@ begin
   if GameManager.System = nil then
   begin
     ShowMessage(rsFGMSystemRequired);
-    Exit      ;
+    Exit;
   end;
 
   if CurrGame = nil then
@@ -3379,8 +3401,8 @@ begin
   try
     FormSM.Config := Self.Config;
     FormSM.GameManager := Self.GameManager;
-    FormSM.CurrGame :=  Self.CurrGame;
-    FormSM.CurrGroup :=  Self.CurrGroup;
+    FormSM.CurrGame := Self.CurrGame;
+    FormSM.CurrGroup := Self.CurrGroup;
 
     // Fix a posible crash while repainting the form, after closing the
     //   Script Manager, because games or groups can have been modified.

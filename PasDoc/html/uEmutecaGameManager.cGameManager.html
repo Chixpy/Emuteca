@@ -3,7 +3,7 @@
 <head>
 <meta name="GENERATOR" content="PasDoc 0.12.1">
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
-<title>Emuteca: uGameManager: Class cGameManager</title>
+<title>Emuteca: uEmutecaGameManager: Class cGameManager</title>
 <link rel="StyleSheet" type="text/css" href="pasdoc.css">
 </head>
 <body bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#800080" alink="#FF0000">
@@ -13,7 +13,7 @@
 <td><a class="section"  href="#%40Description">Description</a></td><td><a class="section"  href="#%40Hierarchy">Hierarchy</a></td><td>Fields</td><td><a class="section"  href="#%40Methods">Methods</a></td><td><a class="section"  href="#%40Properties">Properties</a></td></tr></table>
 <a name="%40Description"></a><h2 class="unit">Unit</h2>
 <p class="unitlink">
-<a   href="uGameManager.html">uGameManager</a></p>
+<a   href="uEmutecaGameManager.html">uEmutecaGameManager</a></p>
 <h2 class="declaration">Declaration</h2>
 <p class="declaration">
 <code>type cGameManager = class(TObject)</code></p>
@@ -21,7 +21,7 @@
 <p>
 Manager of the games and groups (families).
 
-<p>This entity manages the lists of games and <a class="normal"  href="uGameManager.cGameManager.html#Group">group</a> internally regaderless of the Form, GUI o interface used.
+<p>This entity manages the lists of games and <a class="normal"  href="uEmutecaGameManager.cGameManager.html#Group">group</a> internally regaderless of the Form, GUI o interface used.
 
 <p></p>
 
@@ -38,181 +38,181 @@ Manager of the games and groups (families).
 <table class="summary wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>constructor <b><a   href="uGameManager.cGameManager.html#Create">Create</a></b>(const aSystemsFile: string; const aTempFolder: string; const aTempFile: string);</code></td>
+<td class="itemcode"><code>constructor <b><a   href="uEmutecaGameManager.cGameManager.html#Create">Create</a></b>(const aSystemsFile: string; const aTempFolder: string; const aTempFile: string);</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>destructor <b><a   href="uGameManager.cGameManager.html#Destroy">Destroy</a></b>; override;</code></td>
+<td class="itemcode"><code>destructor <b><a   href="uEmutecaGameManager.cGameManager.html#Destroy">Destroy</a></b>; override;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>function <b><a   href="uGameManager.cGameManager.html#AddFile">AddFile</a></b>(aFolder: string; Info: TSearchRec): boolean;</code></td>
+<td class="itemcode"><code>function <b><a   href="uEmutecaGameManager.cGameManager.html#AddFile">AddFile</a></b>(aFolder: string; Info: TSearchRec): boolean;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>function <b><a   href="uGameManager.cGameManager.html#AddGame">AddGame</a></b>(const aFolder: string; const aFileName: string; const aKey: string): <a   href="uGame.cGame.html">cGame</a>;</code></td>
+<td class="itemcode"><code>function <b><a   href="uEmutecaGameManager.cGameManager.html#AddGame">AddGame</a></b>(const aFolder: string; const aFileName: string; const aKey: string): <a   href="uEmutecaGame.cGame.html">cGame</a>;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>function <b><a   href="uGameManager.cGameManager.html#AddGroup">AddGroup</a></b>(aGameGroupID: string): <a   href="uGameGroup.cGameGroup.html">cGameGroup</a>;</code></td>
+<td class="itemcode"><code>function <b><a   href="uEmutecaGameManager.cGameManager.html#AddGroup">AddGroup</a></b>(aGameGroupID: string): <a   href="uEmutecaGroup.cGameGroup.html">cGameGroup</a>;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>function <b><a   href="uGameManager.cGameManager.html#Execute">Execute</a></b>(aGame: <a   href="uGame.cGame.html">cGame</a>): integer;</code></td>
+<td class="itemcode"><code>function <b><a   href="uEmutecaGameManager.cGameManager.html#Execute">Execute</a></b>(aGame: <a   href="uEmutecaGame.cGame.html">cGame</a>): integer;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>function <b><a   href="uGameManager.cGameManager.html#Game">Game</a></b>(aGameKey: string): <a   href="uGame.cGame.html">cGame</a>;</code></td>
+<td class="itemcode"><code>function <b><a   href="uEmutecaGameManager.cGameManager.html#Game">Game</a></b>(aGameKey: string): <a   href="uEmutecaGame.cGame.html">cGame</a>;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>function <b><a   href="uGameManager.cGameManager.html#GameAtPos">GameAtPos</a></b>(const aIndex: integer): <a   href="uGame.cGame.html">cGame</a>;</code></td>
+<td class="itemcode"><code>function <b><a   href="uEmutecaGameManager.cGameManager.html#GameAtPos">GameAtPos</a></b>(const aIndex: integer): <a   href="uEmutecaGame.cGame.html">cGame</a>;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>function <b><a   href="uGameManager.cGameManager.html#GameCount">GameCount</a></b>: longint;</code></td>
+<td class="itemcode"><code>function <b><a   href="uEmutecaGameManager.cGameManager.html#GameCount">GameCount</a></b>: longint;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>function <b><a   href="uGameManager.cGameManager.html#GameMediaExists">GameMediaExists</a></b>(aFolder: string; aGameVersion: <a   href="uGame.cGame.html">cGame</a>; Extensions: TStrings): boolean;</code></td>
+<td class="itemcode"><code>function <b><a   href="uEmutecaGameManager.cGameManager.html#GameMediaExists">GameMediaExists</a></b>(aFolder: string; aGameVersion: <a   href="uEmutecaGame.cGame.html">cGame</a>; Extensions: TStrings): boolean;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>function <b><a   href="uGameManager.cGameManager.html#Group">Group</a></b>(aGroupKey: string): <a   href="uGameGroup.cGameGroup.html">cGameGroup</a>;</code></td>
+<td class="itemcode"><code>function <b><a   href="uEmutecaGameManager.cGameManager.html#Group">Group</a></b>(aGroupKey: string): <a   href="uEmutecaGroup.cGameGroup.html">cGameGroup</a>;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>function <b><a   href="uGameManager.cGameManager.html#GroupAtPos">GroupAtPos</a></b>(const aIndex: integer): <a   href="uGameGroup.cGameGroup.html">cGameGroup</a>;</code></td>
+<td class="itemcode"><code>function <b><a   href="uEmutecaGameManager.cGameManager.html#GroupAtPos">GroupAtPos</a></b>(const aIndex: integer): <a   href="uEmutecaGroup.cGameGroup.html">cGameGroup</a>;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>function <b><a   href="uGameManager.cGameManager.html#GroupCount">GroupCount</a></b>: longint;</code></td>
+<td class="itemcode"><code>function <b><a   href="uEmutecaGameManager.cGameManager.html#GroupCount">GroupCount</a></b>: longint;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>function <b><a   href="uGameManager.cGameManager.html#GroupMediaExists">GroupMediaExists</a></b>(aFolder: string; aGameGroup: <a   href="uGameGroup.cGameGroup.html">cGameGroup</a>; Extensions: TStrings): boolean;</code></td>
+<td class="itemcode"><code>function <b><a   href="uEmutecaGameManager.cGameManager.html#GroupMediaExists">GroupMediaExists</a></b>(aFolder: string; aGameGroup: <a   href="uEmutecaGroup.cGameGroup.html">cGameGroup</a>; Extensions: TStrings): boolean;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a   href="uGameManager.cGameManager.html#ChangeEmulator">ChangeEmulator</a></b>(const EmulatorName: string);</code></td>
+<td class="itemcode"><code>procedure <b><a   href="uEmutecaGameManager.cGameManager.html#ChangeEmulator">ChangeEmulator</a></b>(const EmulatorName: string);</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a   href="uGameManager.cGameManager.html#ChangeSystem">ChangeSystem</a></b>(const SystemName: string);</code></td>
+<td class="itemcode"><code>procedure <b><a   href="uEmutecaGameManager.cGameManager.html#ChangeSystem">ChangeSystem</a></b>(const SystemName: string);</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a   href="uGameManager.cGameManager.html#ExportGameData">ExportGameData</a></b>(const aFileName: string; const ExportMode: boolean);</code></td>
+<td class="itemcode"><code>procedure <b><a   href="uEmutecaGameManager.cGameManager.html#ExportGameData">ExportGameData</a></b>(const aFileName: string; const ExportMode: boolean);</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a   href="uGameManager.cGameManager.html#ExportGameDataIni">ExportGameDataIni</a></b>(const aIniFile: TCustomIniFile; const ExportMode: boolean);</code></td>
+<td class="itemcode"><code>procedure <b><a   href="uEmutecaGameManager.cGameManager.html#ExportGameDataIni">ExportGameDataIni</a></b>(const aIniFile: TCustomIniFile; const ExportMode: boolean);</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a   href="uGameManager.cGameManager.html#ImportGameData">ImportGameData</a></b>(const aFileName: string);</code></td>
+<td class="itemcode"><code>procedure <b><a   href="uEmutecaGameManager.cGameManager.html#ImportGameData">ImportGameData</a></b>(const aFileName: string);</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a   href="uGameManager.cGameManager.html#ImportGameDataIni">ImportGameDataIni</a></b>(const aIniFile: TCustomIniFile);</code></td>
+<td class="itemcode"><code>procedure <b><a   href="uEmutecaGameManager.cGameManager.html#ImportGameDataIni">ImportGameDataIni</a></b>(const aIniFile: TCustomIniFile);</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a   href="uGameManager.cGameManager.html#LoadSystemGameList">LoadSystemGameList</a></b>;</code></td>
+<td class="itemcode"><code>procedure <b><a   href="uEmutecaGameManager.cGameManager.html#LoadSystemGameList">LoadSystemGameList</a></b>;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a   href="uGameManager.cGameManager.html#PurgeGameData">PurgeGameData</a></b>;</code></td>
+<td class="itemcode"><code>procedure <b><a   href="uEmutecaGameManager.cGameManager.html#PurgeGameData">PurgeGameData</a></b>;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a   href="uGameManager.cGameManager.html#SaveSystem">SaveSystem</a></b>;</code></td>
+<td class="itemcode"><code>procedure <b><a   href="uEmutecaGameManager.cGameManager.html#SaveSystem">SaveSystem</a></b>;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a   href="uGameManager.cGameManager.html#SaveSystemGameList">SaveSystemGameList</a></b>;</code></td>
+<td class="itemcode"><code>procedure <b><a   href="uEmutecaGameManager.cGameManager.html#SaveSystemGameList">SaveSystemGameList</a></b>;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a   href="uGameManager.cGameManager.html#SearchGameMedia">SearchGameMedia</a></b>(FileList: TStrings; aFolder: string; aGameVersion: <a   href="uGame.cGame.html">cGame</a>; Extensions: TStrings);</code></td>
+<td class="itemcode"><code>procedure <b><a   href="uEmutecaGameManager.cGameManager.html#SearchGameMedia">SearchGameMedia</a></b>(FileList: TStrings; aFolder: string; aGameVersion: <a   href="uEmutecaGame.cGame.html">cGame</a>; Extensions: TStrings);</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a   href="uGameManager.cGameManager.html#SearchGroupMedia">SearchGroupMedia</a></b>(FileList: TStrings; aFolder: string; aGameGroup: <a   href="uGameGroup.cGameGroup.html">cGameGroup</a>; Extensions: TStrings);</code></td>
+<td class="itemcode"><code>procedure <b><a   href="uEmutecaGameManager.cGameManager.html#SearchGroupMedia">SearchGroupMedia</a></b>(FileList: TStrings; aFolder: string; aGameGroup: <a   href="uEmutecaGroup.cGameGroup.html">cGameGroup</a>; Extensions: TStrings);</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a   href="uGameManager.cGameManager.html#SearchMediaFiles">SearchMediaFiles</a></b>(FileList: TStrings; aFolder: string; aFileName: string; Extensions: TStrings);</code></td>
+<td class="itemcode"><code>procedure <b><a   href="uEmutecaGameManager.cGameManager.html#SearchMediaFiles">SearchMediaFiles</a></b>(FileList: TStrings; aFolder: string; aFileName: string; Extensions: TStrings);</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a   href="uGameManager.cGameManager.html#SoftUpdateGameList">SoftUpdateGameList</a></b>;</code></td>
+<td class="itemcode"><code>procedure <b><a   href="uEmutecaGameManager.cGameManager.html#SoftUpdateGameList">SoftUpdateGameList</a></b>;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a   href="uGameManager.cGameManager.html#UpdateGameList">UpdateGameList</a></b>;</code></td>
+<td class="itemcode"><code>procedure <b><a   href="uEmutecaGameManager.cGameManager.html#UpdateGameList">UpdateGameList</a></b>;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a   href="uGameManager.cGameManager.html#UpdateGroupList">UpdateGroupList</a></b>;</code></td>
+<td class="itemcode"><code>procedure <b><a   href="uEmutecaGameManager.cGameManager.html#UpdateGroupList">UpdateGroupList</a></b>;</code></td>
 </tr>
 </table>
 <a name="%40Properties"></a><h3 class="summary">Properties</h3>
 <table class="summary wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uGameManager.cGameManager.html#CompressedExt">CompressedExt</a></b>: TStringList read FCompressedExt;</code></td>
+<td class="itemcode"><code>property <b><a   href="uEmutecaGameManager.cGameManager.html#CompressedExt">CompressedExt</a></b>: TStringList read FCompressedExt;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uGameManager.cGameManager.html#CRCMaxSize">CRCMaxSize</a></b>: cardinal read FCRCMaxSize write SetCRCMaxSize;</code></td>
+<td class="itemcode"><code>property <b><a   href="uEmutecaGameManager.cGameManager.html#CRCMaxSize">CRCMaxSize</a></b>: cardinal read FCRCMaxSize write SetCRCMaxSize;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uGameManager.cGameManager.html#Emulator">Emulator</a></b>: <a   href="uEmulator.cEmulator.html">cEmulator</a> read FEmulator;</code></td>
+<td class="itemcode"><code>property <b><a   href="uEmutecaGameManager.cGameManager.html#Emulator">Emulator</a></b>: <a   href="uEmutecaEmulator.cEmulator.html">cEmulator</a> read FEmulator;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uGameManager.cGameManager.html#EmulatorsFile">EmulatorsFile</a></b>: string read FEmulatorsFile write SetEmulatorsFile;</code></td>
+<td class="itemcode"><code>property <b><a   href="uEmutecaGameManager.cGameManager.html#EmulatorsFile">EmulatorsFile</a></b>: string read FEmulatorsFile write SetEmulatorsFile;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uGameManager.cGameManager.html#GameDataFileExt">GameDataFileExt</a></b>: string read FGameDataFileExt
+<td class="itemcode"><code>property <b><a   href="uEmutecaGameManager.cGameManager.html#GameDataFileExt">GameDataFileExt</a></b>: string read FGameDataFileExt
       write SetGameDataFileExt;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>property <b><a   href="uGameManager.cGameManager.html#GameList">GameList</a></b>: TFPObjectList read FGameList;</code></td>
+<td class="itemcode"><code>property <b><a   href="uEmutecaGameManager.cGameManager.html#GameList">GameList</a></b>: TFPObjectList read FGameList;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uGameManager.cGameManager.html#GroupDataFileExt">GroupDataFileExt</a></b>: string
+<td class="itemcode"><code>property <b><a   href="uEmutecaGameManager.cGameManager.html#GroupDataFileExt">GroupDataFileExt</a></b>: string
       read FGroupDataFileExt write SetGroupDataFileExt;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>property <b><a   href="uGameManager.cGameManager.html#GroupList">GroupList</a></b>: TFPObjectList read FGroupList;</code></td>
+<td class="itemcode"><code>property <b><a   href="uEmutecaGameManager.cGameManager.html#GroupList">GroupList</a></b>: TFPObjectList read FGroupList;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uGameManager.cGameManager.html#ProgressCallBack">ProgressCallBack</a></b>: <a   href="uGameManager.html#TGMProgressCallBack">TGMProgressCallBack</a>
+<td class="itemcode"><code>property <b><a   href="uEmutecaGameManager.cGameManager.html#ProgressCallBack">ProgressCallBack</a></b>: <a   href="uEmutecaGameManager.html#TGMProgressCallBack">TGMProgressCallBack</a>
       read FProgressCallBack write SetProgressCallBack;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uGameManager.cGameManager.html#System">System</a></b>: <a   href="uSystem.cSystem.html">cSystem</a> read FSystem;</code></td>
+<td class="itemcode"><code>property <b><a   href="uEmutecaGameManager.cGameManager.html#System">System</a></b>: <a   href="uEmutecaSystem.cSystem.html">cSystem</a> read FSystem;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uGameManager.cGameManager.html#SystemsFile">SystemsFile</a></b>: string read FSystemsFile write SetSystemsFile;</code></td>
+<td class="itemcode"><code>property <b><a   href="uEmutecaGameManager.cGameManager.html#SystemsFile">SystemsFile</a></b>: string read FSystemsFile write SetSystemsFile;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uGameManager.cGameManager.html#TempFile">TempFile</a></b>: string read FTempFile write SetTempFile;</code></td>
+<td class="itemcode"><code>property <b><a   href="uEmutecaGameManager.cGameManager.html#TempFile">TempFile</a></b>: string read FTempFile write SetTempFile;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uGameManager.cGameManager.html#TempFolder">TempFolder</a></b>: string read FTempFolder write SetTempFolder;</code></td>
+<td class="itemcode"><code>property <b><a   href="uEmutecaGameManager.cGameManager.html#TempFolder">TempFolder</a></b>: string read FTempFolder write SetTempFolder;</code></td>
 </tr>
 </table>
 <h2 class="description">Description</h2>
@@ -240,13 +240,13 @@ Manager of the games and groups (families).
 </tr>
 <tr><td colspan="2">
 <p>
-Add a file (or all files if it's a compressed archive) to the <a class="normal"  href="uGameManager.cGameManager.html#Game">game</a> list.
+Add a file (or all files if it's a compressed archive) to the <a class="normal"  href="uEmutecaGameManager.cGameManager.html#Game">game</a> list.
 
-<p>Automatically searchs if the file is a <a class="normal"  href="uGameManager.cGameManager.html#Game">game</a> using the current <a class="normal"  href="uGameManager.cGameManager.html#System">system</a> extension filter.
+<p>Automatically searchs if the file is a <a class="normal"  href="uEmutecaGameManager.cGameManager.html#Game">game</a> using the current <a class="normal"  href="uEmutecaGameManager.cGameManager.html#System">system</a> extension filter.
 
-<p>if the file is not in the <a class="normal"  href="uGameManager.cGameManager.html#System">system</a> extesion filter, this function search if the file is a compressed archive and adds every <a class="normal"  href="uGameManager.cGameManager.html#Game">game</a> found in it.
+<p>if the file is not in the <a class="normal"  href="uEmutecaGameManager.cGameManager.html#System">system</a> extesion filter, this function search if the file is a compressed archive and adds every <a class="normal"  href="uEmutecaGameManager.cGameManager.html#Game">game</a> found in it.
 
-<p>This funtion is for <a class="normal"  href="uCustomUtils.html#IterateFolderObj">IterateFolderObj</a> use, if you want to add a <a class="normal"  href="uGameManager.cGameManager.html#Game">game</a> or <a class="normal"  href="uGameManager.cGameManager.html#Group">group</a> straight use <a class="normal"  href="uGameManager.cGameManager.html#AddGame">AddGame</a>/<a class="normal"  href="uGameManager.cGameManager.html#AddGroup">AddGroup</a>.
+<p>This funtion is for <a class="normal"  href="uCHXFileUtils.html#IterateFolderObj">IterateFolderObj</a> use, if you want to add a <a class="normal"  href="uEmutecaGameManager.cGameManager.html#Game">game</a> or <a class="normal"  href="uEmutecaGameManager.cGameManager.html#Group">group</a> straight use <a class="normal"  href="uEmutecaGameManager.cGameManager.html#AddGame">AddGame</a>/<a class="normal"  href="uEmutecaGameManager.cGameManager.html#AddGroup">AddGroup</a>.
 
 <p>  </p>
 <h6 class="description_section">Parameters</h6>
@@ -262,37 +262,37 @@ Add a file (or all files if it's a compressed archive) to the <a class="normal" 
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="AddGame"></a><code>function <b>AddGame</b>(const aFolder: string; const aFileName: string; const aKey: string): <a   href="uGame.cGame.html">cGame</a>;</code></td>
+<td class="itemcode"><a name="AddGame"></a><code>function <b>AddGame</b>(const aFolder: string; const aFileName: string; const aKey: string): <a   href="uEmutecaGame.cGame.html">cGame</a>;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
-Add a <a class="normal"  href="uGameManager.cGameManager.html#Game">game</a>.</p>
+Add a <a class="normal"  href="uEmutecaGameManager.cGameManager.html#Game">game</a>.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="AddGroup"></a><code>function <b>AddGroup</b>(aGameGroupID: string): <a   href="uGameGroup.cGameGroup.html">cGameGroup</a>;</code></td>
+<td class="itemcode"><a name="AddGroup"></a><code>function <b>AddGroup</b>(aGameGroupID: string): <a   href="uEmutecaGroup.cGameGroup.html">cGameGroup</a>;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
-Add a <a class="normal"  href="uGameManager.cGameManager.html#Group">group</a>.</p>
+Add a <a class="normal"  href="uEmutecaGameManager.cGameManager.html#Group">group</a>.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Execute"></a><code>function <b>Execute</b>(aGame: <a   href="uGame.cGame.html">cGame</a>): integer;</code></td>
+<td class="itemcode"><a name="Execute"></a><code>function <b>Execute</b>(aGame: <a   href="uEmutecaGame.cGame.html">cGame</a>): integer;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
-<code>Execute</code> a <a class="normal"  href="uGameManager.cGameManager.html#Game">Game</a>.</p>
+<code>Execute</code> a <a class="normal"  href="uEmutecaGameManager.cGameManager.html#Game">Game</a>.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Game"></a><code>function <b>Game</b>(aGameKey: string): <a   href="uGame.cGame.html">cGame</a>;</code></td>
+<td class="itemcode"><a name="Game"></a><code>function <b>Game</b>(aGameKey: string): <a   href="uEmutecaGame.cGame.html">cGame</a>;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -302,11 +302,11 @@ Return the <code>game</code> with have aGameKey key.</p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="GameAtPos"></a><code>function <b>GameAtPos</b>(const aIndex: integer): <a   href="uGame.cGame.html">cGame</a>;</code></td>
+<td class="itemcode"><a name="GameAtPos"></a><code>function <b>GameAtPos</b>(const aIndex: integer): <a   href="uEmutecaGame.cGame.html">cGame</a>;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
-Return the <a class="normal"  href="uGameManager.cGameManager.html#Game">game</a> at a position.</p>
+Return the <a class="normal"  href="uEmutecaGameManager.cGameManager.html#Game">game</a> at a position.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -322,7 +322,7 @@ Return the number of games.</p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="GameMediaExists"></a><code>function <b>GameMediaExists</b>(aFolder: string; aGameVersion: <a   href="uGame.cGame.html">cGame</a>; Extensions: TStrings): boolean;</code></td>
+<td class="itemcode"><a name="GameMediaExists"></a><code>function <b>GameMediaExists</b>(aFolder: string; aGameVersion: <a   href="uEmutecaGame.cGame.html">cGame</a>; Extensions: TStrings): boolean;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -330,21 +330,21 @@ Return the number of games.</p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Group"></a><code>function <b>Group</b>(aGroupKey: string): <a   href="uGameGroup.cGameGroup.html">cGameGroup</a>;</code></td>
+<td class="itemcode"><a name="Group"></a><code>function <b>Group</b>(aGroupKey: string): <a   href="uEmutecaGroup.cGameGroup.html">cGameGroup</a>;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
-Return the <a class="normal"  href="uGameManager.cGameManager.html#Game">game</a> with have aGroupKey key.</p>
+Return the <a class="normal"  href="uEmutecaGameManager.cGameManager.html#Game">game</a> with have aGroupKey key.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="GroupAtPos"></a><code>function <b>GroupAtPos</b>(const aIndex: integer): <a   href="uGameGroup.cGameGroup.html">cGameGroup</a>;</code></td>
+<td class="itemcode"><a name="GroupAtPos"></a><code>function <b>GroupAtPos</b>(const aIndex: integer): <a   href="uEmutecaGroup.cGameGroup.html">cGameGroup</a>;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
-Return the <a class="normal"  href="uGameManager.cGameManager.html#Group">group</a> at a position.</p>
+Return the <a class="normal"  href="uEmutecaGameManager.cGameManager.html#Group">group</a> at a position.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -360,7 +360,7 @@ Return the number of groups.</p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="GroupMediaExists"></a><code>function <b>GroupMediaExists</b>(aFolder: string; aGameGroup: <a   href="uGameGroup.cGameGroup.html">cGameGroup</a>; Extensions: TStrings): boolean;</code></td>
+<td class="itemcode"><a name="GroupMediaExists"></a><code>function <b>GroupMediaExists</b>(aFolder: string; aGameGroup: <a   href="uEmutecaGroup.cGameGroup.html">cGameGroup</a>; Extensions: TStrings): boolean;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -382,7 +382,7 @@ Change the current emultor.</p>
 </tr>
 <tr><td colspan="2">
 <p>
-Change the current <a class="normal"  href="uGameManager.cGameManager.html#System">system</a>.</p>
+Change the current <a class="normal"  href="uEmutecaGameManager.cGameManager.html#System">system</a>.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -392,7 +392,7 @@ Change the current <a class="normal"  href="uGameManager.cGameManager.html#Syste
 </tr>
 <tr><td colspan="2">
 <p>
-Export current <a class="normal"  href="uGameManager.cGameManager.html#System">system</a> <a class="normal"  href="uGameManager.cGameManager.html#Game">game</a> list to a .ini file.
+Export current <a class="normal"  href="uEmutecaGameManager.cGameManager.html#System">system</a> <a class="normal"  href="uEmutecaGameManager.cGameManager.html#Game">game</a> list to a .ini file.
 
 <p></p>
 <h6 class="description_section">Parameters</h6>
@@ -409,7 +409,7 @@ Export current <a class="normal"  href="uGameManager.cGameManager.html#System">s
 </tr>
 <tr><td colspan="2">
 <p>
-Export current <a class="normal"  href="uGameManager.cGameManager.html#System">system</a> <a class="normal"  href="uGameManager.cGameManager.html#Game">game</a> list to an already opened .ini file.
+Export current <a class="normal"  href="uEmutecaGameManager.cGameManager.html#System">system</a> <a class="normal"  href="uEmutecaGameManager.cGameManager.html#Game">game</a> list to an already opened .ini file.
 
 <p></p>
 <h6 class="description_section">Parameters</h6>
@@ -442,7 +442,7 @@ Export current <a class="normal"  href="uGameManager.cGameManager.html#System">s
 </tr>
 <tr><td colspan="2">
 <p>
-Load the current <a class="normal"  href="uGameManager.cGameManager.html#System">system</a> <a class="normal"  href="uGameManager.cGameManager.html#Game">game</a> list (and groups).</p>
+Load the current <a class="normal"  href="uEmutecaGameManager.cGameManager.html#System">system</a> <a class="normal"  href="uEmutecaGameManager.cGameManager.html#Game">game</a> list (and groups).</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -452,7 +452,7 @@ Load the current <a class="normal"  href="uGameManager.cGameManager.html#System"
 </tr>
 <tr><td colspan="2">
 <p>
-Removes al games and groups from the <a class="normal"  href="uGameManager.cGameManager.html#System">system</a>.</p>
+Removes al games and groups from the <a class="normal"  href="uEmutecaGameManager.cGameManager.html#System">system</a>.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -462,7 +462,7 @@ Removes al games and groups from the <a class="normal"  href="uGameManager.cGame
 </tr>
 <tr><td colspan="2">
 <p>
-Save current <a class="normal"  href="uGameManager.cGameManager.html#System">system</a> configuration.</p>
+Save current <a class="normal"  href="uEmutecaGameManager.cGameManager.html#System">system</a> configuration.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -472,13 +472,13 @@ Save current <a class="normal"  href="uGameManager.cGameManager.html#System">sys
 </tr>
 <tr><td colspan="2">
 <p>
-Save the current <a class="normal"  href="uGameManager.cGameManager.html#System">system</a> <a class="normal"  href="uGameManager.cGameManager.html#Game">game</a> list (and groups).</p>
+Save the current <a class="normal"  href="uEmutecaGameManager.cGameManager.html#System">system</a> <a class="normal"  href="uEmutecaGameManager.cGameManager.html#Game">game</a> list (and groups).</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="SearchGameMedia"></a><code>procedure <b>SearchGameMedia</b>(FileList: TStrings; aFolder: string; aGameVersion: <a   href="uGame.cGame.html">cGame</a>; Extensions: TStrings);</code></td>
+<td class="itemcode"><a name="SearchGameMedia"></a><code>procedure <b>SearchGameMedia</b>(FileList: TStrings; aFolder: string; aGameVersion: <a   href="uEmutecaGame.cGame.html">cGame</a>; Extensions: TStrings);</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -486,7 +486,7 @@ Save the current <a class="normal"  href="uGameManager.cGameManager.html#System"
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="SearchGroupMedia"></a><code>procedure <b>SearchGroupMedia</b>(FileList: TStrings; aFolder: string; aGameGroup: <a   href="uGameGroup.cGameGroup.html">cGameGroup</a>; Extensions: TStrings);</code></td>
+<td class="itemcode"><a name="SearchGroupMedia"></a><code>procedure <b>SearchGroupMedia</b>(FileList: TStrings; aFolder: string; aGameGroup: <a   href="uEmutecaGroup.cGameGroup.html">cGameGroup</a>; Extensions: TStrings);</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -547,7 +547,7 @@ Max file size for calculate the CRC32 of the file.</p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Emulator"></a><code>property <b>Emulator</b>: <a   href="uEmulator.cEmulator.html">cEmulator</a> read FEmulator;</code></td>
+<td class="itemcode"><a name="Emulator"></a><code>property <b>Emulator</b>: <a   href="uEmutecaEmulator.cEmulator.html">cEmulator</a> read FEmulator;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -561,7 +561,7 @@ Current selected <code>emulator</code>.</p>
 </tr>
 <tr><td colspan="2">
 <p>
-Path of the file where <a class="normal"  href="uGameManager.cGameManager.html#Emulator">emulator</a> configurations are stored.</p>
+Path of the file where <a class="normal"  href="uEmutecaGameManager.cGameManager.html#Emulator">emulator</a> configurations are stored.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -572,7 +572,7 @@ Path of the file where <a class="normal"  href="uGameManager.cGameManager.html#E
 </tr>
 <tr><td colspan="2">
 <p>
-Extension used for files with <a class="normal"  href="uGameManager.cGameManager.html#Game">game</a> data.</p>
+Extension used for files with <a class="normal"  href="uEmutecaGameManager.cGameManager.html#Game">game</a> data.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -582,7 +582,7 @@ Extension used for files with <a class="normal"  href="uGameManager.cGameManager
 </tr>
 <tr><td colspan="2">
 <p>
-Actual list where the games of the current <a class="normal"  href="uGameManager.cGameManager.html#System">system</a> are stored.</p>
+Actual list where the games of the current <a class="normal"  href="uEmutecaGameManager.cGameManager.html#System">system</a> are stored.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -593,7 +593,7 @@ Actual list where the games of the current <a class="normal"  href="uGameManager
 </tr>
 <tr><td colspan="2">
 <p>
-Extension used for files with <a class="normal"  href="uGameManager.cGameManager.html#Group">group</a> data.</p>
+Extension used for files with <a class="normal"  href="uEmutecaGameManager.cGameManager.html#Group">group</a> data.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -603,13 +603,13 @@ Extension used for files with <a class="normal"  href="uGameManager.cGameManager
 </tr>
 <tr><td colspan="2">
 <p>
-Actual list where the groups of the current <a class="normal"  href="uGameManager.cGameManager.html#System">system</a> are stored.</p>
+Actual list where the groups of the current <a class="normal"  href="uEmutecaGameManager.cGameManager.html#System">system</a> are stored.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="ProgressCallBack"></a><code>property <b>ProgressCallBack</b>: <a   href="uGameManager.html#TGMProgressCallBack">TGMProgressCallBack</a>
+<td class="itemcode"><a name="ProgressCallBack"></a><code>property <b>ProgressCallBack</b>: <a   href="uEmutecaGameManager.html#TGMProgressCallBack">TGMProgressCallBack</a>
       read FProgressCallBack write SetProgressCallBack;</code></td>
 </tr>
 <tr><td colspan="2">
@@ -620,7 +620,7 @@ CallBack function to show the progress in actions.</p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="System"></a><code>property <b>System</b>: <a   href="uSystem.cSystem.html">cSystem</a> read FSystem;</code></td>
+<td class="itemcode"><a name="System"></a><code>property <b>System</b>: <a   href="uEmutecaSystem.cSystem.html">cSystem</a> read FSystem;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -634,7 +634,7 @@ Current loaded <code>system</code>.</p>
 </tr>
 <tr><td colspan="2">
 <p>
-Path of the file where <a class="normal"  href="uGameManager.cGameManager.html#System">system</a> configurations are stored.</p>
+Path of the file where <a class="normal"  href="uEmutecaGameManager.cGameManager.html#System">system</a> configurations are stored.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -657,6 +657,6 @@ Temp file for... nothing. May be for export/import when updating.</p>
 Temp folder used for decompress and other dirty things.</p>
 </td></tr>
 </table>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.12.1</a> on 2012-07-25 23:30:46</em>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.12.1</a> on 2012-10-14 16:56:28</em>
 </span>
 </body></html>

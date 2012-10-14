@@ -3,7 +3,7 @@
 <head>
 <meta name="GENERATOR" content="PasDoc 0.12.1">
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
-<title>Emuteca: uSystem: Class cSystem</title>
+<title>Emuteca: uEmutecaSystem: Class cSystem</title>
 <link rel="StyleSheet" type="text/css" href="pasdoc.css">
 </head>
 <body bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#800080" alink="#FF0000">
@@ -13,7 +13,7 @@
 <td><a class="section"  href="#%40Description">Description</a></td><td><a class="section"  href="#%40Hierarchy">Hierarchy</a></td><td>Fields</td><td><a class="section"  href="#%40Methods">Methods</a></td><td><a class="section"  href="#%40Properties">Properties</a></td></tr></table>
 <a name="%40Description"></a><h2 class="unit">Unit</h2>
 <p class="unitlink">
-<a   href="uSystem.html">uSystem</a></p>
+<a   href="uEmutecaSystem.html">uEmutecaSystem</a></p>
 <h2 class="declaration">Declaration</h2>
 <p class="declaration">
 <code>type cSystem = class(TObject)</code></p>
@@ -36,191 +36,191 @@
 <table class="summary wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>constructor <b><a   href="uSystem.cSystem.html#Create">Create</a></b>(const AName: String);</code></td>
+<td class="itemcode"><code>constructor <b><a   href="uEmutecaSystem.cSystem.html#Create">Create</a></b>(const AName: String);</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>destructor <b><a   href="uSystem.cSystem.html#Destroy">Destroy</a></b>; override;</code></td>
+<td class="itemcode"><code>destructor <b><a   href="uEmutecaSystem.cSystem.html#Destroy">Destroy</a></b>; override;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a   href="uSystem.cSystem.html#LoadFromFile">LoadFromFile</a></b>(const IniFile: String);</code></td>
+<td class="itemcode"><code>procedure <b><a   href="uEmutecaSystem.cSystem.html#LoadFromFile">LoadFromFile</a></b>(const IniFile: String);</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a   href="uSystem.cSystem.html#LoadFromFileIni">LoadFromFileIni</a></b>(IniFile: TCustomIniFile);</code></td>
+<td class="itemcode"><code>procedure <b><a   href="uEmutecaSystem.cSystem.html#LoadFromFileIni">LoadFromFileIni</a></b>(IniFile: TCustomIniFile);</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a   href="uSystem.cSystem.html#SaveToFile">SaveToFile</a></b>(const IniFile: String; const ExportMode: boolean = False);</code></td>
+<td class="itemcode"><code>procedure <b><a   href="uEmutecaSystem.cSystem.html#SaveToFile">SaveToFile</a></b>(const IniFile: String; const ExportMode: boolean = False);</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a   href="uSystem.cSystem.html#SaveToFileIni">SaveToFileIni</a></b>(IniFile: TCustomIniFile; const ExportMode: boolean = False);</code></td>
+<td class="itemcode"><code>procedure <b><a   href="uEmutecaSystem.cSystem.html#SaveToFileIni">SaveToFileIni</a></b>(IniFile: TCustomIniFile; const ExportMode: boolean = False);</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>procedure <b><a   href="uSystem.cSystem.html#FixFolderListData">FixFolderListData</a></b>(FolderList, CaptionList: TStrings);</code></td>
+<td class="itemcode"><code>procedure <b><a   href="uEmutecaSystem.cSystem.html#FixFolderListData">FixFolderListData</a></b>(FolderList, CaptionList: TStrings);</code></td>
 </tr>
 </table>
 <a name="%40Properties"></a><h3 class="summary">Properties</h3>
 <table class="summary wide_list">
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#BackgroundImage">BackgroundImage</a></b>: String read FBackgroundImage write SetBackgroundImage;</code></td>
+<td class="itemcode"><code>property <b><a   href="uEmutecaSystem.cSystem.html#BackgroundImage">BackgroundImage</a></b>: String read FBackgroundImage write SetBackgroundImage;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#BaseFolder">BaseFolder</a></b>: String read FBaseFolder write SetBaseFolder;</code></td>
+<td class="itemcode"><code>property <b><a   href="uEmutecaSystem.cSystem.html#BaseFolder">BaseFolder</a></b>: String read FBaseFolder write SetBaseFolder;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#Company">Company</a></b>: String read FCompany write SetCompany;</code></td>
+<td class="itemcode"><code>property <b><a   href="uEmutecaSystem.cSystem.html#Company">Company</a></b>: String read FCompany write SetCompany;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#DataFile">DataFile</a></b>: String read FDataFile write SetDataFile;</code></td>
+<td class="itemcode"><code>property <b><a   href="uEmutecaSystem.cSystem.html#DataFile">DataFile</a></b>: String read FDataFile write SetDataFile;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#DemoMusicFolder">DemoMusicFolder</a></b>: String
+<td class="itemcode"><code>property <b><a   href="uEmutecaSystem.cSystem.html#DemoMusicFolder">DemoMusicFolder</a></b>: String
       read FDemoMusicFolder write SetDemoMusicFolder;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#DemoVideoFolder">DemoVideoFolder</a></b>: String
+<td class="itemcode"><code>property <b><a   href="uEmutecaSystem.cSystem.html#DemoVideoFolder">DemoVideoFolder</a></b>: String
       read FDemoVideoFolder write SetDemoVideoFolder;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#Enabled">Enabled</a></b>: boolean read FEnabled write SetEnabled;</code></td>
+<td class="itemcode"><code>property <b><a   href="uEmutecaSystem.cSystem.html#Enabled">Enabled</a></b>: boolean read FEnabled write SetEnabled;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#Extensions">Extensions</a></b>: TStringList read FExtensions;</code></td>
+<td class="itemcode"><code>property <b><a   href="uEmutecaSystem.cSystem.html#Extensions">Extensions</a></b>: TStringList read FExtensions;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#ExtractAll">ExtractAll</a></b>: boolean read FExtractAll write SetExtractAll;</code></td>
+<td class="itemcode"><code>property <b><a   href="uEmutecaSystem.cSystem.html#ExtractAll">ExtractAll</a></b>: boolean read FExtractAll write SetExtractAll;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#FirstYear">FirstYear</a></b>: String read FFirstYear write SetFirstYear;</code></td>
+<td class="itemcode"><code>property <b><a   href="uEmutecaSystem.cSystem.html#FirstYear">FirstYear</a></b>: String read FFirstYear write SetFirstYear;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#GameFolder">GameFolder</a></b>: String read FGameFolder write SetGameFolder;</code></td>
+<td class="itemcode"><code>property <b><a   href="uEmutecaSystem.cSystem.html#GameFolder">GameFolder</a></b>: String read FGameFolder write SetGameFolder;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#Icon">Icon</a></b>: String read FIcon write SetIcon;</code></td>
+<td class="itemcode"><code>property <b><a   href="uEmutecaSystem.cSystem.html#Icon">Icon</a></b>: String read FIcon write SetIcon;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#IconFolder">IconFolder</a></b>: String read FIconFolder write SetIconFolder;</code></td>
+<td class="itemcode"><code>property <b><a   href="uEmutecaSystem.cSystem.html#IconFolder">IconFolder</a></b>: String read FIconFolder write SetIconFolder;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#ID">ID</a></b>: String read FID write SetID;</code></td>
+<td class="itemcode"><code>property <b><a   href="uEmutecaSystem.cSystem.html#ID">ID</a></b>: String read FID write SetID;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#Image">Image</a></b>: String read FImage write SetImage;</code></td>
+<td class="itemcode"><code>property <b><a   href="uEmutecaSystem.cSystem.html#Image">Image</a></b>: String read FImage write SetImage;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#ImageCaptions">ImageCaptions</a></b>: TStringList read FImageCaptions;</code></td>
+<td class="itemcode"><code>property <b><a   href="uEmutecaSystem.cSystem.html#ImageCaptions">ImageCaptions</a></b>: TStringList read FImageCaptions;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#ImageFolders">ImageFolders</a></b>: TStringList read FImageFolders;</code></td>
+<td class="itemcode"><code>property <b><a   href="uEmutecaSystem.cSystem.html#ImageFolders">ImageFolders</a></b>: TStringList read FImageFolders;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#InfoText">InfoText</a></b>: String read FInfoText write SetInfoText;</code></td>
+<td class="itemcode"><code>property <b><a   href="uEmutecaSystem.cSystem.html#InfoText">InfoText</a></b>: String read FInfoText write SetInfoText;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#LastYear">LastYear</a></b>: String read FLastYear write SetLastYear;</code></td>
+<td class="itemcode"><code>property <b><a   href="uEmutecaSystem.cSystem.html#LastYear">LastYear</a></b>: String read FLastYear write SetLastYear;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#MainEmulator">MainEmulator</a></b>: String
+<td class="itemcode"><code>property <b><a   href="uEmutecaSystem.cSystem.html#MainEmulator">MainEmulator</a></b>: String
       read FMainEmulator write SetMainEmulator;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#MarqueeFolder">MarqueeFolder</a></b>: String read FMarqueeFolder
+<td class="itemcode"><code>property <b><a   href="uEmutecaSystem.cSystem.html#MarqueeFolder">MarqueeFolder</a></b>: String read FMarqueeFolder
       write SetMarqueeFolder;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#Model">Model</a></b>: String read FModel write SetModel;</code></td>
+<td class="itemcode"><code>property <b><a   href="uEmutecaSystem.cSystem.html#Model">Model</a></b>: String read FModel write SetModel;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#MusicCaptions">MusicCaptions</a></b>: TStringList read FMusicCaptions;</code></td>
+<td class="itemcode"><code>property <b><a   href="uEmutecaSystem.cSystem.html#MusicCaptions">MusicCaptions</a></b>: TStringList read FMusicCaptions;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#MusicExecutables">MusicExecutables</a></b>: TStringList read FMusicExecutables;</code></td>
+<td class="itemcode"><code>property <b><a   href="uEmutecaSystem.cSystem.html#MusicExecutables">MusicExecutables</a></b>: TStringList read FMusicExecutables;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#MusicExtensions">MusicExtensions</a></b>: TStringList read FMusicExtensions;</code></td>
+<td class="itemcode"><code>property <b><a   href="uEmutecaSystem.cSystem.html#MusicExtensions">MusicExtensions</a></b>: TStringList read FMusicExtensions;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#MusicFolders">MusicFolders</a></b>: TStringList read FMusicFolders;</code></td>
+<td class="itemcode"><code>property <b><a   href="uEmutecaSystem.cSystem.html#MusicFolders">MusicFolders</a></b>: TStringList read FMusicFolders;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#MusicParameters">MusicParameters</a></b>: TStringList read FMusicParameters;</code></td>
+<td class="itemcode"><code>property <b><a   href="uEmutecaSystem.cSystem.html#MusicParameters">MusicParameters</a></b>: TStringList read FMusicParameters;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#OtherEmulators">OtherEmulators</a></b>: TStringList read FOtherEmulators;</code></td>
+<td class="itemcode"><code>property <b><a   href="uEmutecaSystem.cSystem.html#OtherEmulators">OtherEmulators</a></b>: TStringList read FOtherEmulators;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#RecursiveGameFolder">RecursiveGameFolder</a></b>: boolean
+<td class="itemcode"><code>property <b><a   href="uEmutecaSystem.cSystem.html#RecursiveGameFolder">RecursiveGameFolder</a></b>: boolean
       read FRecursiveGameFolder write SetRecursiveGameFolder;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#TempFolder">TempFolder</a></b>: String read FTempFolder write SetTempFolder;</code></td>
+<td class="itemcode"><code>property <b><a   href="uEmutecaSystem.cSystem.html#TempFolder">TempFolder</a></b>: String read FTempFolder write SetTempFolder;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#TextCaptions">TextCaptions</a></b>: TStringList read FTextCaptions;</code></td>
+<td class="itemcode"><code>property <b><a   href="uEmutecaSystem.cSystem.html#TextCaptions">TextCaptions</a></b>: TStringList read FTextCaptions;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#TextFolders">TextFolders</a></b>: TStringList read FTextFolders;</code></td>
+<td class="itemcode"><code>property <b><a   href="uEmutecaSystem.cSystem.html#TextFolders">TextFolders</a></b>: TStringList read FTextFolders;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#UseCRC">UseCRC</a></b>: boolean read FUseCRC write SetUseCRC;</code></td>
+<td class="itemcode"><code>property <b><a   href="uEmutecaSystem.cSystem.html#UseCRC">UseCRC</a></b>: boolean read FUseCRC write SetUseCRC;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#VideoCaptions">VideoCaptions</a></b>: TStringList read FVideoCaptions;</code></td>
+<td class="itemcode"><code>property <b><a   href="uEmutecaSystem.cSystem.html#VideoCaptions">VideoCaptions</a></b>: TStringList read FVideoCaptions;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#VideoExecutables">VideoExecutables</a></b>: TStringList read FVideoExecutables;</code></td>
+<td class="itemcode"><code>property <b><a   href="uEmutecaSystem.cSystem.html#VideoExecutables">VideoExecutables</a></b>: TStringList read FVideoExecutables;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#VideoExtensions">VideoExtensions</a></b>: TStringList read FVideoExtensions;</code></td>
+<td class="itemcode"><code>property <b><a   href="uEmutecaSystem.cSystem.html#VideoExtensions">VideoExtensions</a></b>: TStringList read FVideoExtensions;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#VideoFolders">VideoFolders</a></b>: TStringList read FVideoFolders;</code></td>
+<td class="itemcode"><code>property <b><a   href="uEmutecaSystem.cSystem.html#VideoFolders">VideoFolders</a></b>: TStringList read FVideoFolders;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a   href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a   href="uSystem.cSystem.html#VideoParameters">VideoParameters</a></b>: TStringList read FVideoParameters;</code></td>
+<td class="itemcode"><code>property <b><a   href="uEmutecaSystem.cSystem.html#VideoParameters">VideoParameters</a></b>: TStringList read FVideoParameters;</code></td>
 </tr>
 </table>
 <h2 class="description">Description</h2>
@@ -344,7 +344,7 @@ Try to fix some incosistences in folders, captions and modes data.
 </tr>
 <tr><td colspan="2">
 <p>
-<a class="normal"  href="uSystem.cSystem.html#Image">Image</a> used for list background</p>
+<a class="normal"  href="uEmutecaSystem.cSystem.html#Image">Image</a> used for list background</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -356,7 +356,7 @@ Try to fix some incosistences in folders, captions and modes data.
 <p>
 System base folder
 
-<p>Folder where all data and subfolders reside. Used by default to store some data if the file isn't defined (System <a class="normal"  href="uSystem.cSystem.html#Image">image</a> or text.)</p>
+<p>Folder where all data and subfolders reside. Used by default to store some data if the file isn't defined (System <a class="normal"  href="uEmutecaSystem.cSystem.html#Image">image</a> or text.)</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -378,7 +378,7 @@ System base folder
 <p>
 Name of the files with the game/group data.
 
-<p>This is the name of the files of games and groups data. No full path, no extension; only name. These files are handled by <a class="normal"  href="uGameManager.cGameManager.html">cGameManager</a>, not <a class="normal"  href="uSystem.cSystem.html">cSystem</a>.</p>
+<p>This is the name of the files of games and groups data. No full path, no extension; only name. These files are handled by <a class="normal"  href="uEmutecaGameManager.cGameManager.html">cGameManager</a>, not <a class="normal"  href="uEmutecaSystem.cSystem.html">cSystem</a>.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -486,7 +486,7 @@ Folder for the icons of the games.</p>
 </tr>
 <tr><td colspan="2">
 <p>
-Name or <code>ID</code> of the system (usually, <a class="normal"  href="uSystem.cSystem.html#Company">Company</a> + <a class="normal"  href="uSystem.cSystem.html#Model">Model</a>).</p>
+Name or <code>ID</code> of the system (usually, <a class="normal"  href="uEmutecaSystem.cSystem.html#Company">Company</a> + <a class="normal"  href="uEmutecaSystem.cSystem.html#Model">Model</a>).</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -547,7 +547,7 @@ Year of discontinuation</p>
 </tr>
 <tr><td colspan="2">
 <p>
-Main emulator <a class="normal"  href="uSystem.cSystem.html#ID">ID</a>.</p>
+Main emulator <a class="normal"  href="uEmutecaSystem.cSystem.html#ID">ID</a>.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -598,7 +598,7 @@ Executables for play music files (i.e. call a external program).</p>
 </tr>
 <tr><td colspan="2">
 <p>
-<a class="normal"  href="uSystem.cSystem.html#Extensions">Extensions</a> to search in the folders (separated with comma as usual).</p>
+<a class="normal"  href="uEmutecaSystem.cSystem.html#Extensions">Extensions</a> to search in the folders (separated with comma as usual).</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -709,7 +709,7 @@ Commandline for play video files (i.e. call a external program).</p>
 </tr>
 <tr><td colspan="2">
 <p>
-<a class="normal"  href="uSystem.cSystem.html#Extensions">Extensions</a> to search in the folders (separated with comma as usual).</p>
+<a class="normal"  href="uEmutecaSystem.cSystem.html#Extensions">Extensions</a> to search in the folders (separated with comma as usual).</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -732,6 +732,6 @@ Folders for game videos (Speedruns, TAS, etc.).</p>
 Parameters for executables.</p>
 </td></tr>
 </table>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.12.1</a> on 2012-07-25 23:30:46</em>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  target="_parent" href="http://pasdoc.sourceforge.net/">PasDoc 0.12.1</a> on 2012-10-14 16:56:28</em>
 </span>
 </body></html>

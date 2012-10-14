@@ -192,8 +192,9 @@ begin
   actFileSaveAs.Dialog.InitialDir := ExtractFileDir(CurrentFile);
   actFileSaveAs.Dialog.FileName := ExtractFileName(CurrentFile);
 
-  actFileSaveAs.Dialog.DefaultExt := kFSMScriptExt;
-  actFileSaveAs.Dialog.Filter :=  rsFSMEmutecaScript + kFSMScriptFilter;
+  actFileSaveAs.Dialog.Filter := rsFileMaskScriptDescription + '|' + kFileMaskScript
+  + '|' + rsFileMaskAllFilesDescription + '|' + kFileMaskAllFiles;
+  actFileSaveAs.Dialog.DefaultExt := kFileExtensionScript;
 end;
 
 procedure TfrmScriptManager.FormCreate(Sender: TObject);
