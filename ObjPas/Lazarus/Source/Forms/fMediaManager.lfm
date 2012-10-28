@@ -1,7 +1,7 @@
 object frmMediaManager: TfrmMediaManager
-  Left = 321
+  Left = 370
   Height = 571
-  Top = 117
+  Top = 104
   Width = 800
   Caption = 'Media Manager'
   ClientHeight = 552
@@ -173,9 +173,9 @@ object frmMediaManager: TfrmMediaManager
         Height = 219
         Top = 0
         Width = 440
-        ActivePage = pagAllFiles
+        ActivePage = pagFilesOtherFolder
         Align = alClient
-        TabIndex = 0
+        TabIndex = 4
         TabOrder = 1
         object pagAllFiles: TTabSheet
           Caption = 'All files'
@@ -356,6 +356,7 @@ object frmMediaManager: TfrmMediaManager
               Anchors = [akTop, akLeft, akRight]
               MaxLength = 0
               TabOrder = 0
+              OnEditingDone = eOtherFolderEditingDone
             end
           end
           object vstFilesOtherFolder: TVirtualStringTree
@@ -782,12 +783,12 @@ object frmMediaManager: TfrmMediaManager
     end
     object actRenameGroup: TAction
       Category = 'GroupLists'
-      Caption = 'Rename group'
+      Caption = 'Rename group...'
       OnExecute = actRenameGroupExecute
     end
     object actRenameGroupMediaFile: TAction
       Category = 'GroupLists'
-      Caption = 'Rename group mediafile'
+      Caption = 'Rename group mediafile...'
       OnExecute = actRenameGroupMediaFileExecute
     end
   end
@@ -843,6 +844,15 @@ object frmMediaManager: TfrmMediaManager
       end
       object miOpenMediaFolder: TMenuItem
         Action = actOpenTargetFolder
+      end
+    end
+    object mmiGroup: TMenuItem
+      Caption = 'Group'
+      object mmiRenameGroup: TMenuItem
+        Action = actRenameGroup
+      end
+      object mmiRenameGroupMediaFile: TMenuItem
+        Action = actRenameGroupMediaFile
       end
     end
     object miMMMMFile: TMenuItem

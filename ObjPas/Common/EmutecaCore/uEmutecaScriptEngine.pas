@@ -47,7 +47,7 @@ uses
   //   and move these units to fScriptManager.
   fSMAskFile, fSMAskFolder,
   // Common
-  uRscStr, uConst
+  uRscStr
   // Emuteca
 ;
 

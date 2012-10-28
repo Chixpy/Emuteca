@@ -68,6 +68,9 @@ type
     lbxMusic: TListBox;
     lbxVideos: TListBox;
     lbxOtherFiles: TListBox;
+    mmiRenameGroupMediaFile: TMenuItem;
+    mmiRenameGroup: TMenuItem;
+    mmiGroup: TMenuItem;
     miGLRenameGroupMediaFile: TMenuItem;
     miGLRenameGroup: TMenuItem;
     miMMMMDeleteAllFiles: TMenuItem;
@@ -152,6 +155,7 @@ type
     procedure actRenameGroupMediaFileExecute(Sender: TObject);
     procedure chkOnlySimilarChange(Sender: TObject);
     procedure eOtherFolderAcceptDirectory(Sender: TObject; var Value: string);
+    procedure eOtherFolderEditingDone(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure iImageDblClick(Sender: TObject);
@@ -282,6 +286,8 @@ type
 
       @param(aFolder Folder where search the media.)
     }
+
+    procedure UpdateFileOtherFolder(const afolder: string);
 
     procedure ChangeGroupMedia(aGroup: cGameGroup);
     {< Change the media preview to the group media.
@@ -489,11 +495,12 @@ end;
 procedure TfrmMediaManager.eOtherFolderAcceptDirectory(Sender: TObject;
   var Value: string);
 begin
-  vstFilesOtherFolder.Clear;
-  vstFilesOtherFolder.BeginUpdate;
-  IterateFolderObj(Value, @AddFilesOtherFolder, False);
-  vstFilesOtherFolder.EndUpdate;
-  vstFilesOtherFolder.SortTree(0, sdAscending, True);
+  UpdateFileOtherFolder(Value);
+end;
+
+procedure TfrmMediaManager.eOtherFolderEditingDone(Sender: TObject);
+begin
+  UpdateFileOtherFolder(eOtherFolder.Text);
 end;
 
 procedure TfrmMediaManager.lbxImagesSelectionChange(Sender: TObject;
@@ -1159,6 +1166,16 @@ begin
   end;
 
   StatusBar.SimpleText := '';
+end;
+
+procedure TfrmMediaManager.UpdateFileOtherFolder(const afolder: string);
+begin
+  vstFilesOtherFolder.Clear;
+  if not DirectoryExistsUTF8(afolder) then exit;
+  vstFilesOtherFolder.BeginUpdate;
+  IterateFolderObj(afolder, @AddFilesOtherFolder, False);
+  vstFilesOtherFolder.SortTree(0, sdAscending, True);
+  vstFilesOtherFolder.EndUpdate;
 end;
 
 procedure TfrmMediaManager.ChangeGroupMedia(aGroup: cGameGroup);

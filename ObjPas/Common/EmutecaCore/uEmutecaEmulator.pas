@@ -26,7 +26,7 @@ unit uEmutecaEmulator;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, IniFiles, strutils,
+  Classes, SysUtils, FileUtil, IniFiles, strutils, LCLIntf,
   // Common
   uEmutecaRscStr, uEmutecaConst,
   // Emuteca
@@ -133,12 +133,16 @@ begin
   CurrFolder := GetCurrentDirUTF8;
 
   {$IFDEF MSWindows}
+  // Some emulators don't work with Unix style...
   GameFile := StringReplace(GameFile, '/', '\', [rfReplaceAll, rfIgnoreCase]);
   {$ENDIF}
 
+  // GameFile is relative to emuteca directory.
+  // Absolute path is better right now.
   if not FilenameIsAbsolute(GameFile) then
     GameFile:= CreateAbsolutePath(GameFile, CurrFolder);
 
+  // Changing directory
   TempDir := Self.WorkingFolder;
   TempDir := AnsiReplaceText(TempDir, CEmuDir, ExtractFileDir(ExeFile));
   TempDir := AnsiReplaceText(TempDir, CROMDir, ExtractFileDir(GameFile));
@@ -159,11 +163,11 @@ begin
   TempParam := Trim(TempParam);
 
   try
-
     TempTime := Now;
 
     // Hack to run system executables ;P
     if ExeFile = '' then
+      { TODO -oAuthor : If not an executable try OpenDocument }
       Result := SysUtils.ExecuteProcess(UTF8ToSys(TempParam), '')
     else
       Result := SysUtils.ExecuteProcess(UTF8ToSys(ExeFile),

@@ -1030,10 +1030,7 @@ end;
 procedure TfrmGameManager.vstFilesChange(Sender: TBaseVirtualTree;
   Node: PVirtualNode);
 begin
-  if Node = nil then
-    Exit;
 
-  // TODO 1: Open the file...
 end;
 
 procedure TfrmGameManager.vstFilesFreeNode(Sender: TBaseVirtualTree;
@@ -1411,7 +1408,7 @@ begin
           else
             CellText := Name + ' (' + SortKey + ')';
         1: // Versión
-          // TODO 5: HACK: If empty, the icons in OnDrawText are not drawn
+          // FIXED: HACK: If empty, the icons in OnDrawText are not drawn
           if Version = '' then
             CellText := ' '
           else
@@ -2192,7 +2189,7 @@ begin
     FreeAndNil(aPicture);
   end;
 
-  // TODO 2: Update ions in game list...
+  // TODO 2: Update iCons in game list...
 end;
 
 procedure TfrmGameManager.DeleteGameImage;

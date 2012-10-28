@@ -420,8 +420,6 @@ begin
 end;
 
 procedure TfrmSystemManager.actAddVideoFolderExecute(Sender: TObject);
-var
-  aItem: TListItem;
 begin
   if System = nil then
     Exit;
@@ -447,8 +445,6 @@ begin
 end;
 
 procedure TfrmSystemManager.actAddMusicFolderExecute(Sender: TObject);
-var
-  aItem: TListItem;
 begin
   if System = nil then
     Exit;
@@ -827,7 +823,7 @@ end;
 procedure TfrmSystemManager.clbSystemsItemClick(Sender: TObject;
   Index: integer);
 begin
-  // TODO 3: clbSystemsClick code must be here...
+
 end;
 
 procedure TfrmSystemManager.eBackgroundImageAcceptFileName(Sender: TObject;

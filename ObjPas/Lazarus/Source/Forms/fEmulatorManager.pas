@@ -34,7 +34,7 @@ uses
   // Emuteca
   uEmutecaEmulator, uEmutecaEmulatorManager, uConfig,
   // Custom
-  uCHXStrUtils, uCHXImageUtils;
+  uCHXImageUtils;
 
 type
   { Form used to manage emulators and their configuration.
@@ -191,7 +191,7 @@ end;
 procedure TfrmEmulatorManager.clbEmulatorsItemClick(Sender: TObject;
   Index: integer);
 begin
-  // Lo de arriba coñojoder
+
 end;
 
 procedure TfrmEmulatorManager.eConfigFileAcceptFileName(Sender: TObject;
