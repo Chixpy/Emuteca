@@ -1,6 +1,6 @@
 { This file is part of Emuteca
 
-  Copyright (C) 2006-2012 Chixpy
+  Copyright (C) 2006-2013 Chixpy
 
   This source is free software; you can redistribute it and/or modify it under
   the terms of the GNU General Public License as published by the Free
@@ -18,7 +18,7 @@
   MA 02111-1307, USA.
 }
 
-{ Unit of Emulator Manager form }
+{ Unit of Emulator Manager form. }
 unit fEmulatorManager;
 
 {$mode objfpc}{$H+}
@@ -409,9 +409,9 @@ begin
   eWorkingFolder.Enabled := False;
 
   case rgWorkingFolder.ItemIndex of
-    0: Emulator.WorkingFolder := CEmuDir;
-    1: Emulator.WorkingFolder := CROMDir;
-    2: Emulator.WorkingFolder := CCurrentDir;
+    0: Emulator.WorkingFolder := kEmutecaEmuDirKey;
+    1: Emulator.WorkingFolder := kEmutecaRomDirKey;
+    2: Emulator.WorkingFolder := kEmutecaCurrentDirKey;
     else
     begin
       eWorkingFolder.Enabled := True;

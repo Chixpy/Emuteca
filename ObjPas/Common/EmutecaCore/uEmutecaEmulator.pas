@@ -1,6 +1,6 @@
 { This file is part of Emuteca
 
-  Copyright (C) 2006-2012 Chixpy
+  Copyright (C) 2006-2013 Chixpy
 
   This source is free software; you can redistribute it and/or modify it under
   the terms of the GNU General Public License as published by the Free
@@ -18,7 +18,7 @@
   MA 02111-1307, USA.
 }
 
-{cGame unit}
+{ cGame unit. }
 unit uEmutecaEmulator;
 
 {$mode objfpc}{$H+}
@@ -28,7 +28,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, IniFiles, strutils, LCLIntf,
   // Common
-  uEmutecaRscStr, uEmutecaConst,
+  uEmutecaConst, uEmutecaRscStr,
   // Emuteca
   uEmutecaStats, uCHXStrUtils;
 
@@ -119,8 +119,8 @@ begin
 
   // Por defecto
   self.Name := self.ID;
-  self.WorkingFolder := CEmuDir;
-  self.Parameters := '"' + CROMPath + '"';
+  self.WorkingFolder := kEmutecaEmuDirKey;
+  self.Parameters := '"' + kEmutecaROMPathKey + '"';
 end;
 
 function cEmulator.Execute(GameFile: String): integer;
@@ -144,22 +144,22 @@ begin
 
   // Changing directory
   TempDir := Self.WorkingFolder;
-  TempDir := AnsiReplaceText(TempDir, CEmuDir, ExtractFileDir(ExeFile));
-  TempDir := AnsiReplaceText(TempDir, CROMDir, ExtractFileDir(GameFile));
-  TempDir := AnsiReplaceText(TempDir, CCurrentDir, ExtractFileDir(CurrFolder));
+  TempDir := AnsiReplaceText(TempDir, kEmutecaEmuDirKey, ExtractFileDir(ExeFile));
+  TempDir := AnsiReplaceText(TempDir, kEmutecaRomDirKey, ExtractFileDir(GameFile));
+  TempDir := AnsiReplaceText(TempDir, kEmutecaCurrentDirKey, ExtractFileDir(CurrFolder));
   TempDir := SetAsFolder(TempDir);
   if TempDir <> '' then
     if DirectoryExistsUTF8(TempDir) then
       ChDir(TempDir);
 
   TempParam := Self.Parameters;
-  TempParam := AnsiReplaceText(TempParam, CROMPath, GameFile);
-  TempParam := AnsiReplaceText(TempParam, CROMDir, ExtractFileDir(GameFile));
-  TempParam := AnsiReplaceText(TempParam, CROMName, ExtractFileName(GameFile));
-  TempParam := AnsiReplaceText(TempParam, CROMNameNoExt,
+  TempParam := AnsiReplaceText(TempParam, kEmutecaROMPathKey, GameFile);
+  TempParam := AnsiReplaceText(TempParam, kEmutecaRomDirKey, ExtractFileDir(GameFile));
+  TempParam := AnsiReplaceText(TempParam, kEmutecaROMFileNameKey, ExtractFileName(GameFile));
+  TempParam := AnsiReplaceText(TempParam, kEmutecaROMFileNameNoExtKey,
     ExtractFileNameWithoutExt(GameFile));
-  TempParam := AnsiReplaceText(TempParam, CROMExt, ExtractFileExt(GameFile));
-  TempParam := AnsiReplaceText(TempParam, CROMNull, '');
+  TempParam := AnsiReplaceText(TempParam, kEmutecaROMFileExtKey, ExtractFileExt(GameFile));
+  TempParam := AnsiReplaceText(TempParam, kEmutecaNullKey, '');
   TempParam := Trim(TempParam);
 
   try
@@ -207,9 +207,9 @@ begin
 
   CurrFolder := GetCurrentDirUTF8;
   TempDir := Self.WorkingFolder;
-  TempDir := AnsiReplaceText(TempDir, CEmuDir, ExtractFileDir(ExeFile));
-  TempDir := AnsiReplaceText(TempDir, CROMDir, ExtractFileDir(ExeFile));
-  TempDir := AnsiReplaceText(TempDir, CCurrentDir, ExtractFileDir(CurrFolder));
+  TempDir := AnsiReplaceText(TempDir, kEmutecaEmuDirKey, ExtractFileDir(ExeFile));
+  TempDir := AnsiReplaceText(TempDir, kEmutecaRomDirKey, ExtractFileDir(ExeFile));
+  TempDir := AnsiReplaceText(TempDir, kEmutecaCurrentDirKey, ExtractFileDir(CurrFolder));
   if TempDir <> '' then
     ChDir(TempDir);
   try

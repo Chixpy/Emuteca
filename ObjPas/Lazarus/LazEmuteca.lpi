@@ -36,11 +36,11 @@
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="..\..\!bin\$NameOnly($(ProjFile))-$(TargetOS)-$(TargetCPU)-Release"/>
+            <Filename Value="..\..\!bin\$NameOnly($(ProjFile))-$(TargetCPU)-$(TargetOS)-Release"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="..\Common;source"/>
+            <OtherUnitFiles Value="..\Common;source;..\Common\PSImports;..\Common\EmutecaCore;..\Common\Utils;Source\Forms;Source\Utils;Source\Forms\ScriptManager;D:\Programacion\!Pascal\CHXUtils\;D:\Programacion\!Pascal\CHXUtils\Forms\"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
@@ -183,7 +183,7 @@
         <UnitName Value="uEmutecaGroup"/>
       </Unit12>
       <Unit13>
-        <Filename Value="Source/Forms/fImageViewer.pas"/>
+        <Filename Value="../../../../../../Programacion/!Pascal/CHXUtils/Forms/fImageViewer.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmImageViewer"/>
         <ResourceBaseClass Value="Form"/>
@@ -198,9 +198,10 @@
         <UnitName Value="fScriptManager"/>
       </Unit14>
       <Unit15>
-        <Filename Value="Source/Forms/fProgressBar.pas"/>
+        <Filename Value="../../../../../../Programacion/!Pascal/CHXUtils/Forms/fProgressBar.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmProgress"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="fProgressBar"/>
       </Unit15>
@@ -330,13 +331,18 @@
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="..\..\!bin\$NameOnly($(ProjFile))-$(TargetOS)-$(TargetCPU)-Debug"/>
+      <Filename Value="..\..\!bin\$NameOnly($(ProjFile))-$(TargetCPU)-$(TargetOS)-Debug"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="..\Common;source;..\Common\PSImports;..\Common\EmutecaCore;..\Common\Utils;Source\Forms;Source\Utils;Source\Forms\ScriptManager;D:\Programacion\!Pascal\CHXUtils\"/>
+      <OtherUnitFiles Value="..\Common;source;..\Common\PSImports;..\Common\EmutecaCore;..\Common\Utils;Source\Forms;Source\Utils;Source\Forms\ScriptManager;D:\Programacion\!Pascal\CHXUtils\;D:\Programacion\!Pascal\CHXUtils\Forms\"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
+    <Parsing>
+      <SyntaxOptions>
+        <IncludeAssertionCode Value="True"/>
+      </SyntaxOptions>
+    </Parsing>
     <CodeGeneration>
       <Checks>
         <IOChecks Value="True"/>

@@ -1,6 +1,6 @@
 { This file is part of Emuteca
 
-  Copyright (C) 2006-2012 Chixpy
+  Copyright (C) 2006-2013 Chixpy
 
   This source is free software; you can redistribute it and/or modify it under
   the terms of the GNU General Public License as published by the Free
@@ -18,7 +18,7 @@
   MA 02111-1307, USA.
 }
 
-{cGame unit}
+{ cGame unit. }
 unit uEmutecaGame;
 
 {$mode objfpc}{$H+}
@@ -580,7 +580,7 @@ begin
   FLanguages := TStringList.Create;
   FTags := TStringList.Create;
   FZones := TStringList.Create;
-  GameGroup := Trim(RemoveFromBrackets(Name + kCUVirtualGroupExt));
+  GameGroup := Trim(RemoveFromBrackets(Name + kEmutecaVirtualGroupExt));
 end;
 
 destructor cGame.Destroy;

@@ -1041,7 +1041,6 @@ object frmGameManager: TfrmGameManager
         TextMargin = 2
         TreeOptions.AutoOptions = [toAutoDropExpand, toAutoExpand, toAutoScrollOnExpand, toAutoTristateTracking, toAutoDeleteMovedNodes]
         TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toReportMode, toToggleOnDblClick, toWheelPanning]
-        OnChange = vstFilesChange
         OnFreeNode = vstFilesFreeNode
         OnGetText = vstFilesGetText
       end

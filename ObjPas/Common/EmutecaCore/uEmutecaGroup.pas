@@ -1,6 +1,6 @@
 { This file is part of Emuteca
 
-  Copyright (C) 2006-2012 Chixpy
+  Copyright (C) 2006-2013 Chixpy
 
   This source is free software; you can redistribute it and/or modify it under
   the terms of the GNU General Public License as published by the Free
@@ -18,7 +18,7 @@
   MA 02111-1307, USA.
 }
 
-{cGameGroup unit}
+{ cGameGroup unit. }
 unit uEmutecaGroup;
 
 {$mode objfpc}{$H+}
@@ -28,7 +28,7 @@ interface
 uses
   Classes, SysUtils, IniFiles, uCHXStrUtils, FileUtil, LazUTF8,
   // Emuteca
-  uEmutecaRscStr, uEmutecaConst, uEmutecaStats;
+  uEmutecaConst, uEmutecaRscStr, uEmutecaStats;
 
 type
 
@@ -159,13 +159,13 @@ end;
 
 procedure cGameGroup.SetMediaFileName(const AValue: String);
 begin
-  if RightStr(AValue, Length(kCUVirtualGroupExt)) = kCUVirtualGroupExt then
+  if RightStr(AValue, Length(kEmutecaVirtualGroupExt)) = kEmutecaVirtualGroupExt then
   begin
     FMediaFileName := Trim(ExtractFileNameOnly(AValue));
-    FMediaFileName := CleanFileName(FMediaFileName + kCUVirtualGroupExt);
+    FMediaFileName := CleanFileName(FMediaFileName + kEmutecaVirtualGroupExt);
   end
   else
-    FMediaFileName := CleanFileName(Trim(AValue) + kCUVirtualGroupExt);
+    FMediaFileName := CleanFileName(Trim(AValue) + kEmutecaVirtualGroupExt);
 end;
 
 procedure cGameGroup.SetSortKey(AValue: String);
@@ -200,13 +200,13 @@ procedure cGameGroup.ExportDataIni(aIniFile: TCustomIniFile;
 begin
   if aIniFile = nil then
     Exit;
-  aIniFile.WriteString(CGAMEGROUPKEY + Key, 'Name', Name);
-  aIniFile.WriteString(CGAMEGROUPKEY + Key, 'SortName', SortKey);
-  aIniFile.WriteString(CGAMEGROUPKEY + Key, 'Year', Year);
+  aIniFile.WriteString(kGroupSectionKey + Key, 'Name', Name);
+  aIniFile.WriteString(kGroupSectionKey + Key, 'SortName', SortKey);
+  aIniFile.WriteString(kGroupSectionKey + Key, 'Year', Year);
 
-  aIniFile.WriteString(CGAMEGROUPKEY + Key, 'Developer', Developer);
-  aIniFile.WriteString(CGAMEGROUPKEY + Key, 'Tags', Tags.CommaText);
-  aIniFile.WriteString(CGAMEGROUPKEY + Key, 'MediaFileName', MediaFileName);
+  aIniFile.WriteString(kGroupSectionKey + Key, 'Developer', Developer);
+  aIniFile.WriteString(kGroupSectionKey + Key, 'Tags', Tags.CommaText);
+  aIniFile.WriteString(kGroupSectionKey + Key, 'MediaFileName', MediaFileName);
 end;
 
 procedure cGameGroup.ImportData(aFilename: String);
@@ -228,13 +228,13 @@ begin
   if aIniFile = nil then
     Exit;
 
-  Name := aIniFile.ReadString(CGAMEGROUPKEY + Key, 'Name',  Name);
-  SortKey := aIniFile.ReadString(CGAMEGROUPKEY + Key, 'SortName',  SortKey);
-  Year := aIniFile.ReadString(CGAMEGROUPKEY + Key, 'Year', Year);
+  Name := aIniFile.ReadString(kGroupSectionKey + Key, 'Name',  Name);
+  SortKey := aIniFile.ReadString(kGroupSectionKey + Key, 'SortName',  SortKey);
+  Year := aIniFile.ReadString(kGroupSectionKey + Key, 'Year', Year);
 
-  Developer := aIniFile.ReadString(CGAMEGROUPKEY + Key, 'Developer', Developer);
-  Tags.CommaText := aIniFile.ReadString(CGAMEGROUPKEY + Key, 'Tags',Tags.CommaText);
-  MediaFileName := aIniFile.ReadString(CGAMEGROUPKEY + Key, 'MediaFileName', MediaFileName);
+  Developer := aIniFile.ReadString(kGroupSectionKey + Key, 'Developer', Developer);
+  Tags.CommaText := aIniFile.ReadString(kGroupSectionKey + Key, 'Tags',Tags.CommaText);
+  MediaFileName := aIniFile.ReadString(kGroupSectionKey + Key, 'MediaFileName', MediaFileName);
 end;
 
 constructor cGameGroup.Create(aName: String);
@@ -244,7 +244,7 @@ begin
   Name := aName;
   Key := aName;
   SortKey := aName;
-  MediaFileName := aName + kCUVirtualGroupExt;
+  MediaFileName := aName + kEmutecaVirtualGroupExt;
   FTags := TStringList.Create;
 end;
 

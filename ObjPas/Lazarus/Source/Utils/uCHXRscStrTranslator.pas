@@ -16,6 +16,7 @@
   along with this library; if not, write to the Free Software Foundation,
   Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 }
+
 { This unit is needed for using translated form strings made by Lazarus IDE.
 It searches for translated .po/.mo files in some common places. If you need
 to have .po/.mo files anywhere else, don't use this unit but initialize

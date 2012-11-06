@@ -1,6 +1,6 @@
 { This file is part of Emuteca
 
-  Copyright (C) 2006-2012 Chixpy
+  Copyright (C) 2006-2013 Chixpy
 
   This source is free software; you can redistribute it and/or modify it under
   the terms of the GNU General Public License as published by the Free
@@ -20,7 +20,7 @@
 
 { Unit with TfrmSMAskFile.
 
-  Used by fScriptManager for ask to the user a filename.
+  Used by ScriptManager for ask to the user a filename.
 
   Although forms can be created by a script it provides a simple and easy
     interface.

@@ -1,6 +1,6 @@
-{ This file is part of Emuteca Front End.
+{ This file is part of Emuteca
 
-  Copyright (C) 2006-2012 Chixpy
+  Copyright (C) 2006-2013 Chixpy
 
   This source is free software; you can redistribute it and/or modify it under
   the terms of the GNU General Public License as published by the Free
@@ -18,7 +18,7 @@
   MA 02111-1307, USA.
 }
 
-{ Unit of Game Manager form }
+{ Unit of Game Manager form. }
 unit fGameManager;
 
 {$mode objfpc}{$H+}
@@ -32,12 +32,13 @@ uses
   IniPropStorage, IDEWindowIntf, dateutils, strutils, LazUTF8,
   // Common
   uRscStr, uConst, uEmutecaConst,
-  // Emuteca
+  // Emuteca system
   uEmutecaGameManager, uEmutecaSystemManager,
   uEmutecaGame, uEmutecaGroup, uEmutecaStats, u7zWrapper,
-  uVersionSupport, fSystemManager,
-  fEmulatorManager, fImageViewer, fScriptManager, fMediaManager, fProgressBar,
-  fAbout, fConfigManager,
+  uVersionSupport,
+  // Emuteca forms
+  fSystemManager, fEmulatorManager, fImageViewer, fScriptManager,
+  fMediaManager, fProgressBar, fAbout, fConfigManager,
   // Custom
   uConfig, uCHXImageList, uCHXStrUtils, uCHXImageUtils, uCHXFileUtils;
 
@@ -381,7 +382,6 @@ type
     procedure FormDestroy(Sender: TObject);
     procedure tbLockSystemTextClick(Sender: TObject);
     procedure tbLockGameTextClick(Sender: TObject);
-    procedure vstFilesChange(Sender: TBaseVirtualTree; Node: PVirtualNode);
     procedure vstFilesFreeNode(Sender: TBaseVirtualTree; Node: PVirtualNode);
     procedure vstFilesGetText(Sender: TBaseVirtualTree;
       Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType;
@@ -1025,12 +1025,6 @@ end;
 procedure TfrmGameManager.tbLockGameTextClick(Sender: TObject);
 begin
   memoGame.ReadOnly := bLockGameText.Enabled;
-end;
-
-procedure TfrmGameManager.vstFilesChange(Sender: TBaseVirtualTree;
-  Node: PVirtualNode);
-begin
-
 end;
 
 procedure TfrmGameManager.vstFilesFreeNode(Sender: TBaseVirtualTree;
@@ -2070,7 +2064,7 @@ begin
 
     // We need a unique filename... 'Folder/Filename/yyyymmddhhnnss.ext'
     aFilename := aFilename + FormatDateTime('yyyymmddhhnnss', Now) +
-      kCUVirtualGameExt;
+      kEmutecaVirtualGameExt;
   end;
 
   SaveImageToFile(iGameImage.Picture, aFileName);
@@ -2122,7 +2116,7 @@ begin
           { TODO 2: Warn about a game can't have it's own file if
              it has the same filename as used by group. }
           aFilename := RemoveFromBrackets(CurrGame.FileName) +
-            kCUVirtualGameExt;
+            kEmutecaVirtualGameExt;
       end;
 
       aFilename := GameManager.System.MarqueeFolder + aFilename;
@@ -2178,7 +2172,7 @@ begin
           { TODO 2: Warn about a game can't have it's own file if
              it has the same filename as used by group. }
           aFilename := RemoveFromBrackets(CurrGame.FileName) +
-            kCUVirtualGameExt;
+            kEmutecaVirtualGameExt;
       end;
 
       aFilename := GameManager.System.IconFolder + aFilename;
@@ -2268,7 +2262,7 @@ begin
 
     // We need a unique filename... 'Folder/Filename/yyyymmddhhnnss.ext'
     aFilename := aFilename + FormatDateTime('yyyymmddhhnnss', Now) +
-      kCUVirtualGameExt;
+      kEmutecaVirtualGameExt;
   end;
 
   SaveTextToFile(memoGame.Lines, aFileName);
@@ -3345,7 +3339,7 @@ begin
 
     case ExitCode of
       0: ; // Do nothing. Maybe I must show airbursts
-      CGMExecErrorNoGame: // Emuteca's error code
+      kEmutecaExecErrorNoGame: // Emuteca's error code
         ShowMessage(Format(rsFGMErrorGameNotFound,
           [CurrGame.Folder, CurrGame.FileName]));
       else
@@ -3518,7 +3512,7 @@ begin
 
     case ExitCode of
       0: ; // Do nothing. Maybe I must show airbursts
-      CGMExecErrorNoGame: // Emuteca's error code
+      kEmutecaExecErrorNoGame: // Emuteca's error code
         ShowMessage(Format(rsFGMErrorGameNotFound,
           [CurrGame.Folder, CurrGame.FileName]));
       else
@@ -3548,9 +3542,10 @@ begin
   if not FileExistsUTF8(GameManager.Emulator.InfoFile) then
   begin
     // TODO 1: Make localizable
-    SaveDialog.Filter := 'Text file (*.txt)|*.txt';
-    SaveDialog.DefaultExt := '*.txt';
-    SaveDialog.FileName := GameManager.Emulator.InfoFile;
+    SaveDialog.Filter := rsFileMaskTextDescription + '|' + kFileMaskText + '|'
+       + rsFileMaskAllFilesDescription + '|' + kFileMaskAllFiles;
+    SaveDialog.DefaultExt := '.txt';
+    SaveDialog.FileName := SysPath(GameManager.Emulator.InfoFile);
     if not SaveDialog.Execute then
       Exit;
     GameManager.Emulator.InfoFile := SaveDialog.FileName;
@@ -3611,12 +3606,13 @@ begin
   if not FileExistsUTF8(GameManager.System.InfoText) then
   begin
     // TODO 1: Make localizable
-    SaveDialog.Filter := 'Text file (*.txt)|*.txt';
-    SaveDialog.DefaultExt := '*.txt';
-    SaveDialog.FileName := GameManager.System.InfoText;
+    SaveDialog.Filter := rsFileMaskTextDescription + '|' + kFileMaskText + '|'
+       + rsFileMaskAllFilesDescription + '|' + kFileMaskAllFiles;
+    SaveDialog.DefaultExt := kFileExtensionText;
+    SaveDialog.FileName := SysPath(GameManager.System.InfoText);
     if not SaveDialog.Execute then
       Exit;
-    GameManager.System.InfoText := SaveDialog.FileName;
+    GameManager.System.InfoText := SetAsRelativeFile(SaveDialog.FileName, GetCurrentDirUTF8);
     GameManager.System.SaveToFile(Config.DataFolder +
       Config.SystemsIniFile, False);
   end;

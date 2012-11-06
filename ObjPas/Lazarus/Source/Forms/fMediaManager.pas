@@ -1,6 +1,6 @@
 { This file is part of Emuteca
 
-  Copyright (C) 2006-2012 Chixpy
+  Copyright (C) 2006-2013 Chixpy
 
   This source is free software; you can redistribute it and/or modify it under
   the terms of the GNU General Public License as published by the Free
@@ -18,7 +18,7 @@
   MA 02111-1307, USA.
 }
 
-{ Unit of Media Manager form }
+{ Unit of Media Manager form. }
 unit fMediaManager;
 
 {$mode objfpc}{$H+}
@@ -942,7 +942,7 @@ begin
   if SourceFile <> '' then
     FTargetFile := FTargetFile + UTF8LowerCase(ExtractFileExt(SourceFile))
   else
-    FTargetFile := FTargetFile + kCUVirtualGameExt;
+    FTargetFile := FTargetFile + kEmutecaVirtualGameExt;
   lTarget.Caption := format(rsfmmTarget, [TargetFolder + TargetFile]);
 end;
 
@@ -959,7 +959,7 @@ begin
   begin
     if (Info.Name = '.') or (Info.Name = '..') then
       Exit;
-    Result := AddFile(aFolder, Info.Name + kCUVirtualFolderExt);
+    Result := AddFile(aFolder, Info.Name + kEmutecaVirtualFolderExt);
   end
   else
     Result := AddFile(aFolder, Info.Name);
@@ -973,7 +973,7 @@ begin
   Result := True;
   Extension := UTF8LowerCase(ExtractFileExt(aName));
 
-  if Extension = kCUVirtualFolderExt then
+  if Extension = kEmutecaVirtualFolderExt then
   begin
     // It's a folder
 
@@ -1007,7 +1007,7 @@ begin
   begin
     if (Info.Name = '.') or (Info.Name = '..') then
       Exit;
-    aFileName := Info.Name + kCUVirtualFolderExt;
+    aFileName := Info.Name + kEmutecaVirtualFolderExt;
   end
   else
     aFileName := Info.Name;
@@ -1094,7 +1094,7 @@ begin
       while (Nodo2 <> nil) and (not Found) do
       begin
         PStringData := vstFilesWOGroup.GetNodeData(Nodo2);
-        aFileName := ChangeFileExt(PStringData^, kCUVirtualGroupExt);
+        aFileName := ChangeFileExt(PStringData^, kEmutecaVirtualGroupExt);
         // TODO 1: LINUX
         if UTF8CompareText(aFileName, PGameGroup^.MediaFileName) = 0 then
           Found := True
@@ -1327,7 +1327,7 @@ begin
 
   // TODO 1: LINUX
   IsFolder := UTF8CompareText(ExtractFileExt(SourceFile),
-    kCUVirtualFolderExt) = 0;
+    kEmutecaVirtualFolderExt) = 0;
 
   if IsFolder then
   begin // Removing virtual extension of folders
@@ -1604,7 +1604,7 @@ var
   PGroup: ^cGameGroup;
 begin
   // Meh, I don't like this way, but...
-  aFile := ExtractFileNameOnly(aFile) + kCUVirtualGroupExt;
+  aFile := ExtractFileNameOnly(aFile) + kEmutecaVirtualGroupExt;
   vstGroupsWOFile.BeginUpdate;
   Nodo := vstGroupsWOFile.GetFirstChild(nil);
   while (Nodo <> nil) do
