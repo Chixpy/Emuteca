@@ -824,7 +824,7 @@ object frmGameManager: TfrmGameManager
         object iGameImage: TImage
           Left = 0
           Height = 200
-          Hint = 'Game or group image'
+          Hint = 'Game or group image|Dbl-click for open in Image Viewer'
           Top = 21
           Width = 200
           Align = alClient
@@ -837,6 +837,7 @@ object frmGameManager: TfrmGameManager
         object cbGameImages: TComboBox
           Left = 0
           Height = 21
+          Hint = 'Image type to show|Select which image type must be shown'
           Top = 0
           Width = 200
           Align = alTop
@@ -933,6 +934,7 @@ object frmGameManager: TfrmGameManager
         object memoGame: TMemo
           Left = 0
           Height = 214
+          Hint = 'Info about current game or group|Remember to unlock before editing'
           Top = 21
           Width = 200
           Align = alClient
@@ -1006,6 +1008,7 @@ object frmGameManager: TfrmGameManager
         object cbGameTexts: TComboBox
           Left = 0
           Height = 21
+          Hint = 'Text type to show|Select which text type must be shown'
           Top = 0
           Width = 200
           Align = alTop
@@ -1730,16 +1733,19 @@ object frmGameManager: TfrmGameManager
     object actOpenEmutecaFolder: TAction
       Category = 'File'
       Caption = 'Open Emuteca folder...'
+      Hint = 'Opens Emuteca folder'
       OnExecute = actOpenEmutecaFolderExecute
     end
     object actDeleteGameText: TAction
       Category = 'Game text'
       Caption = 'Delete game text'
+      Hint = 'Deletes current game text'
       OnExecute = actDeleteGameTextExecute
     end
     object actDeleteGameImage: TAction
       Category = 'Game image'
       Caption = 'Delete game image'
+      Hint = 'Deletes current game image'
       OnExecute = actDeleteGameImageExecute
     end
   end

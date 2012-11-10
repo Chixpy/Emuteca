@@ -41,7 +41,7 @@ Scripts
 
 Structure
 ---------
-  * MAME's like audit.
+  * MAME's like audit for systems.
   * Group systems: by company, year, generation *cought*, type [Console/Hadheld]
   * Group emulators: by supported systems, license, some cool features (TAS)
   * Generalise grouping.

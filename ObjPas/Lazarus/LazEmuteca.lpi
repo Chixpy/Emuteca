@@ -82,29 +82,32 @@
         <LaunchingApplication PathPlusParams="/usr/X11R6/bin/xterm -T 'Lazarus Run Output' -e $(LazarusDir)/tools/runwait.sh $(TargetCmdLine)"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="6">
+    <RequiredPackages Count="7">
       <Item1>
-        <PackageName Value="pl_pascalscript"/>
+        <PackageName Value="pl_virtualtreesextra"/>
       </Item1>
       <Item2>
-        <PackageName Value="IDEIntf"/>
+        <PackageName Value="pl_pascalscript"/>
       </Item2>
       <Item3>
-        <PackageName Value="pl_virtualtrees"/>
+        <PackageName Value="IDEIntf"/>
       </Item3>
       <Item4>
-        <PackageName Value="SynEdit"/>
-        <MinVersion Major="1" Valid="True"/>
+        <PackageName Value="pl_virtualtrees"/>
       </Item4>
       <Item5>
-        <PackageName Value="LazControls"/>
-        <MinVersion Valid="True"/>
+        <PackageName Value="SynEdit"/>
+        <MinVersion Major="1" Valid="True"/>
       </Item5>
       <Item6>
-        <PackageName Value="LCL"/>
+        <PackageName Value="LazControls"/>
+        <MinVersion Valid="True"/>
       </Item6>
+      <Item7>
+        <PackageName Value="LCL"/>
+      </Item7>
     </RequiredPackages>
-    <Units Count="40">
+    <Units Count="39">
       <Unit0>
         <Filename Value="LazEmuteca.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -186,6 +189,7 @@
         <Filename Value="../../../../../../Programacion/!Pascal/CHXUtils/Forms/fImageViewer.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmImageViewer"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="fImageViewer"/>
       </Unit13>
@@ -276,63 +280,58 @@
         <UnitName Value="fConfigManager"/>
       </Unit27>
       <Unit28>
-        <Filename Value="Source/Utils/uCHXRscStrTranslator.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="uCHXRscStrTranslator"/>
-      </Unit28>
-      <Unit29>
         <Filename Value="../Common/EmutecaCore/uEmutecaScriptEngine.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uEmutecaScriptEngine"/>
-      </Unit29>
-      <Unit30>
+      </Unit28>
+      <Unit29>
         <Filename Value="Source/uRscStr.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uRscStr"/>
-      </Unit30>
-      <Unit31>
+      </Unit29>
+      <Unit30>
         <Filename Value="Source/uConst.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uConst"/>
-      </Unit31>
-      <Unit32>
+      </Unit30>
+      <Unit31>
         <Filename Value="../Common/EmutecaCore/uEmutecaConst.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uEmutecaConst"/>
-      </Unit32>
-      <Unit33>
+      </Unit31>
+      <Unit32>
         <Filename Value="../Common/EmutecaCore/uEmutecaRscStr.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uEmutecaRscStr"/>
-      </Unit33>
-      <Unit34>
+      </Unit32>
+      <Unit33>
         <Filename Value="../../../../../../Programacion/!Pascal/CHXUtils/uCHXStrUtils.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uCHXStrUtils"/>
-      </Unit34>
-      <Unit35>
+      </Unit33>
+      <Unit34>
         <Filename Value="../../../../../../Programacion/!Pascal/CHXUtils/uCHXFileUtils.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uCHXFileUtils"/>
-      </Unit35>
-      <Unit36>
+      </Unit34>
+      <Unit35>
         <Filename Value="../../../../../../Programacion/!Pascal/CHXUtils/uCHXImageList.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uCHXImageList"/>
-      </Unit36>
-      <Unit37>
+      </Unit35>
+      <Unit36>
         <Filename Value="../../../../../../Programacion/!Pascal/CHXUtils/uCHXImageUtils.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uCHXImageUtils"/>
-      </Unit37>
-      <Unit38>
+      </Unit36>
+      <Unit37>
         <Filename Value="../../DevNotes.txt"/>
         <IsPartOfProject Value="True"/>
-      </Unit38>
-      <Unit39>
+      </Unit37>
+      <Unit38>
         <Filename Value="../../Whislist.txt"/>
         <IsPartOfProject Value="True"/>
-      </Unit39>
+      </Unit38>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -343,7 +342,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="..\Common;source;..\Common\PSImports;..\Common\EmutecaCore;..\Common\Utils;Source\Forms;Source\Utils;Source\Forms\ScriptManager;D:\Programacion\!Pascal\CHXUtils\;D:\Programacion\!Pascal\CHXUtils\Forms\"/>
+      <OtherUnitFiles Value="..\Common;source;..\Common\PSImports;..\Common\EmutecaCore;..\Common\Utils;Source\Forms;Source\Forms\ScriptManager;D:\Programacion\!Pascal\CHXUtils\;D:\Programacion\!Pascal\CHXUtils\Forms\"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>

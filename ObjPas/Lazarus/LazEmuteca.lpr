@@ -41,8 +41,7 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   uPSI_uGame, uPSI_uGameGroup, uPSI_uGameManager, uPSI_u7zWrapper, uPSI_uSystem,
   uPSI_uEmulator, uPSI_uGameStats,
   // Custom
-  uConfig, uCHXStrUtils, uCHXFileUtils, uCHXImageList, uCHXImageUtils,
-  uCHXRscStrTranslator;
+  uConfig, uCHXStrUtils, uCHXFileUtils, uCHXImageList, uCHXImageUtils;
 
 {$R LazEmuteca.res}
 

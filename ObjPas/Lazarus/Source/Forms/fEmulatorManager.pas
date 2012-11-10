@@ -433,8 +433,8 @@ begin
   Translate;
 
   // Iconos de las acciones
-  ReadActionsIcons(Config.IconsIniFile, Self.Name, Config.ImagesFolder +
-    Config.IconsSubfolder, ilActions, ActionList);
+  ReadActionsIcons(Config.ImagesFolder + Config.IconsSubfolder +
+    Config.IconsIniFile, Self.Name, '', ilActions, ActionList);
 
   FreeAndNil(FEmulatorManager);
   FEmulatorManager := cEmulatorManager.Create(Config.DataFolder +

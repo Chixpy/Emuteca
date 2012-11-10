@@ -794,37 +794,32 @@ procedure TfrmGameManager.FormCreate(Sender: TObject);
     end;
 
   var
-    aFolder: string;
+    TmpStr: string;
   begin
-    aFolder := Config.ImagesFolder + Config.IconsSubfolder;
+    TmpStr := Config.ImagesFolder + Config.IconsSubfolder + Config.IconsIniFile;
 
     // Icons for menus (without assigned TAction)
-    ReadMenuIcons(Config.IconsIniFile, Self.Name, aFolder,
-      ilActions, pmMainMenu);
-    ReadMenuIcons(Config.IconsIniFile, Self.Name, aFolder, ilActions,
-      pmSystemImage);
-    ReadMenuIcons(Config.IconsIniFile, Self.Name, aFolder, ilActions,
-      pmGameImage);
-    ReadMenuIcons(Config.IconsIniFile, Self.Name, aFolder, ilActions,
-      pmGameList);
+    ReadMenuIcons(TmpStr, Self.Name, '', ilActions, pmMainMenu);
+    ReadMenuIcons(TmpStr, Self.Name, '', ilActions, pmSystemImage);
+    ReadMenuIcons(TmpStr, Self.Name, '', ilActions, pmGameImage);
+    ReadMenuIcons(TmpStr, Self.Name, '', ilActions, pmGameList);
 
     // Icons for TActions
-    ReadActionsIcons(Config.IconsIniFile, Self.Name, aFolder,
-      ilActions, ActionList);
+    ReadActionsIcons(TmpStr, Self.Name, '', ilActions, ActionList);
 
     // Zone icons
-    aFolder := Config.ImagesFolder + Config.FlagsSubfolder;
-    IterateFolderObj(aFolder, @AddZoneIcon, False);
+    TmpStr := Config.ImagesFolder + Config.FlagsSubfolder;
+    IterateFolderObj(TmpStr, @AddZoneIcon, False);
 
     // Icons for "version" column
     // TODO 3: Make this list dinamic?
-    aFolder := Config.ImagesFolder + Config.VIIconsSubfolder;
-    AddVersionIcon(FVerInfoIcons, aFolder + 'NoZone.png');     // 0
-    AddVersionIcon(FVerInfoIcons, aFolder + 'GoodDump.png');   // 1
-    AddVersionIcon(FVerInfoIcons, aFolder + 'BadDump.png');    // 2
-    AddVersionIcon(FVerInfoIcons, aFolder + 'NoAlternate.png');// 3
-    AddVersionIcon(FVerInfoIcons, aFolder + 'Pirate.png');     // 4
-    AddVersionIcon(FVerInfoIcons, aFolder + 'Traslation.png'); // 5
+    TmpStr := Config.ImagesFolder + Config.VIIconsSubfolder;
+    AddVersionIcon(FVerInfoIcons, TmpStr + 'NoZone.png');     // 0
+    AddVersionIcon(FVerInfoIcons, TmpStr + 'GoodDump.png');   // 1
+    AddVersionIcon(FVerInfoIcons, TmpStr + 'BadDump.png');    // 2
+    AddVersionIcon(FVerInfoIcons, TmpStr + 'NoAlternate.png');// 3
+    AddVersionIcon(FVerInfoIcons, TmpStr + 'Pirate.png');     // 4
+    AddVersionIcon(FVerInfoIcons, TmpStr + 'Traslation.png'); // 5
   end;
 
   procedure LoadSearchEngines;
@@ -3002,7 +2997,7 @@ begin
     Exit;
   Application.CreateForm(TfrmImageViewer, FormIV);
   try
-    FormIV.Config := Self.Config;
+    FormIV.LoadIcons(Config.ImagesFolder + Config.IconsSubfolder + Config.IconsIniFile);
     FormIV.AddImages(GameImages, GameImagesIndex);
     { FormResult :=} FormIV.ShowModal;
   finally
@@ -3019,7 +3014,7 @@ begin
     Exit;
   Application.CreateForm(TfrmImageViewer, FormIV);
   try
-    FormIV.Config := Self.Config;
+    FormIV.LoadIcons(Config.ImagesFolder + Config.IconsSubfolder + Config.IconsIniFile);
     FormIV.AddImage(GameManager.System.Image);
     { FormResult :=} FormIV.ShowModal;
   finally
@@ -3056,7 +3051,7 @@ begin
     Exit;
   Application.CreateForm(TfrmImageViewer, FormIV);
   try
-    FormIV.Config := Self.Config;
+    FormIV.LoadIcons(Config.ImagesFolder + Config.IconsSubfolder + Config.IconsIniFile);
     FormIV.AddImage(GameManager.Emulator.Image);
     FormIV.ShowModal;
   finally
@@ -3541,7 +3536,6 @@ begin
     Exit;
   if not FileExistsUTF8(GameManager.Emulator.InfoFile) then
   begin
-    // TODO 1: Make localizable
     SaveDialog.Filter := rsFileMaskTextDescription + '|' + kFileMaskText + '|'
        + rsFileMaskAllFilesDescription + '|' + kFileMaskAllFiles;
     SaveDialog.DefaultExt := '.txt';
@@ -3605,7 +3599,6 @@ begin
 
   if not FileExistsUTF8(GameManager.System.InfoText) then
   begin
-    // TODO 1: Make localizable
     SaveDialog.Filter := rsFileMaskTextDescription + '|' + kFileMaskText + '|'
        + rsFileMaskAllFilesDescription + '|' + kFileMaskAllFiles;
     SaveDialog.DefaultExt := kFileExtensionText;
@@ -3637,14 +3630,14 @@ begin
 
     if FormResult = mrOk then
     begin
-      // ¿Fix a posible crash while updating the form?
+      // ¿This will fix a posible crash while updating the form?
       vstGroups.Clear;
       cbSystem.Clear;
 
       GameManager.SaveSystemGameList;
       UpdateSystemList;
 
-      { ¿This Fix cbSystem not showing the dropdown after opening
+      { ¿This will fix cbSystem not showing the dropdown after opening
         system Manager?
       }
       cbSystem.DropDownCount := 8;
@@ -3762,7 +3755,7 @@ end;
 
 procedure TfrmGameManager.chkUpdateTreeAfterSavingChange(Sender: TObject);
 begin
-  // TODO 3: We need something to check that a UpdateVTVGameList is needed...
+  // TODO 3: We need something to check that an UpdateVTVGameList is needed...
   if chkUpdateTreeAfterSaving.Checked then
     UpdateVTVGroupList;
 end;

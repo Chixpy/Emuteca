@@ -29,7 +29,7 @@ Making a database from games
 
 Component forms help
 --------------------
-  * Structure of hint properties:
+  * Structure of hint properties of no action controls:
     What is or do.|What can be done.
 
 

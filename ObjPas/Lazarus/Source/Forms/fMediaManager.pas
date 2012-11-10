@@ -834,8 +834,8 @@ procedure TfrmMediaManager.SetConfig(const AValue: cConfig);
 begin
   FConfig := AValue;
   // Actions icons
-  ReadActionsIcons(Config.IconsIniFile, Self.Name, Config.ImagesFolder +
-    Config.IconsSubfolder, ilActions, ActionList);
+  ReadActionsIcons(Config.ImagesFolder + Config.IconsSubfolder +
+    Config.IconsIniFile, Self.Name, '', ilActions, ActionList);
 
   Self.Caption := Application.Title + ': ' + Self.Caption;
 
@@ -1295,7 +1295,7 @@ begin
     Exit;
   Application.CreateForm(TfrmImageViewer, FormIV);
   try
-    FormIV.Config := Self.Config;
+    FormIV.LoadIcons(Config.ImagesFolder + Config.IconsSubfolder + Config.IconsIniFile);
     FormIV.AddImages(MediaFiles, CurrentMediaIndex);
     FormIV.ShowModal;
   finally
