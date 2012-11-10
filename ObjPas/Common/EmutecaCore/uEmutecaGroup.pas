@@ -64,14 +64,23 @@ type
 
   public
     property Key: String read FKey write SetKey;
+    {< Key used as group's ID. }
     property Name: String read FName write SetName;
+    {< Name of the group. }
     property SortKey: String read FSortKey write SetSortKey;
+    {< String used for sorting operations.
+
+    For example: 'The Game' may be want to be sorted as 'Game, The' }
     property Year: String read FYear write SetYear;
+    {< Date of development. }
 
     property Developer: String read FDeveloper write SetDeveloper;
+    {< Developer of the game. }
     property Tags: TStrings read FTags write SetTags;
+    {< Shared tags of games. }
     property MediaFileName: String
       read FMediaFileName write SetMediaFileName;
+    {< Filaname for group media. }
 
     property DataString: String read GetDataString write SetDataString;
 

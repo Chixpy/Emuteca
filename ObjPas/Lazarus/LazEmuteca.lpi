@@ -104,7 +104,7 @@
         <PackageName Value="LCL"/>
       </Item6>
     </RequiredPackages>
-    <Units Count="38">
+    <Units Count="40">
       <Unit0>
         <Filename Value="LazEmuteca.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -325,6 +325,14 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="uCHXImageUtils"/>
       </Unit37>
+      <Unit38>
+        <Filename Value="../../DevNotes.txt"/>
+        <IsPartOfProject Value="True"/>
+      </Unit38>
+      <Unit39>
+        <Filename Value="../../Whislist.txt"/>
+        <IsPartOfProject Value="True"/>
+      </Unit39>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

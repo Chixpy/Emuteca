@@ -1,7 +1,7 @@
 object frmGameManager: TfrmGameManager
-  Left = 412
+  Left = 291
   Height = 571
-  Top = 140
+  Top = 94
   Width = 800
   Caption = 'Game Manager'
   ClientHeight = 571
@@ -348,7 +348,7 @@ object frmGameManager: TfrmGameManager
         object iSystemImage: TImage
           Left = 0
           Height = 200
-          Hint = 'Double click to view in Image Viewer.|System image.'
+          Hint = 'System image|Dbl-Click: Open in Image Viewer'
           Top = 0
           Width = 200
           Align = alClient
@@ -404,6 +404,7 @@ object frmGameManager: TfrmGameManager
         object memoSystem: TMemo
           Left = 0
           Height = 256
+          Hint = 'Info about the system|Remember to unlock before editing'
           Top = 0
           Width = 200
           Align = alClient
