@@ -25,7 +25,7 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="7"/>
-      <BuildNr Value="58"/>
+      <BuildNr Value="59"/>
       <Language Value=""/>
       <StringTable FileDescription="Emuteca Emulator Front-End" LegalCopyright="(C) 2006-2012 Chixpy" OriginalFilename="LazEmuteca.exe" ProductVersion="0.7"/>
     </VersionInfo>
@@ -267,9 +267,9 @@
         <UnitName Value="uPSI_uEmulator"/>
       </Unit25>
       <Unit26>
-        <Filename Value="../Common/PSImports/uPSI_uGameStats.pas"/>
+        <Filename Value="../Common/PSImports/uPSI_uPlayingStats.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="uPSI_uGameStats"/>
+        <UnitName Value="uPSI_uPlayingStats"/>
       </Unit26>
       <Unit27>
         <Filename Value="Source/Forms/fConfigManager.pas"/>

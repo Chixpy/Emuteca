@@ -40,7 +40,9 @@ type
     )
   }
 
-  cGame = class(cGameStats)
+  { cGame }
+
+  cGame = class(cPlayingStats)
   private
     FAlternate: String;
     FBadDump: String;
@@ -55,16 +57,15 @@ type
     FFolder: String;
     FHack: String;
     FLanguages: TStringList;
-    FLastTime: TDateTime;
     FLicense: String;
     FName: String;
     FPirate: String;
     FReleaseType: String;
     FSortKey: String;
     FTags: TStringList;
-    FTimesPlayed: integer;
     FTrainer: String;
     FTranslation: String;
+    FTransliteratedName: string;
     FVerified: boolean;
     FVersion: String;
     FYear: String;
@@ -78,20 +79,18 @@ type
     procedure SetFixed(const AValue: String);
     procedure SetKey(const AValue: String);
     procedure SetModified(const AValue: String);
-    procedure SetPlayingTime(const AValue: TDateTime);
     procedure SetPublisher(const AValue: String);
     procedure SetFileName(const AValue: String);
     procedure SetFolder(const AValue: String);
     procedure SetHack(const AValue: String);
-    procedure SetLastTime(const AValue: TDateTime);
     procedure SetLicense(const AValue: String);
     procedure SetName(const AValue: String);
     procedure SetPirate(const AValue: String);
     procedure SetReleaseType(const AValue: String);
     procedure SetSortKey(const AValue: String);
-    procedure SetTimesPlayed(const AValue: integer);
     procedure SetTrainer(const AValue: String);
     procedure SetTranslation(const AValue: String);
+    procedure SetTransliteratedName(AValue: string);
     procedure SetVerified(const AValue: boolean);
     procedure SetVersion(const AValue: String);
     procedure SetYear(const AValue: String);
@@ -107,6 +106,8 @@ type
       It's system dependant. Some systems will use CRC32 (maybe in the
       future SHA1 or MD5 will be used), other ones have a common key
       as reference (arcade = MAME key).
+
+      Always converted to lowercase.
     }
     property Name: String read FName write SetName;
     {< Original title of the game version.
@@ -115,6 +116,9 @@ type
       someone make a database with original names it will contain
       transliterated names.
     }
+
+    property TransliteratedName: string read FTransliteratedName write SetTransliteratedName;
+
     property SortKey: String read FSortKey write SetSortKey;
     {< Title formated for sorting purposes.
 
@@ -146,7 +150,7 @@ type
     property Year: String read FYear write SetYear;
     {< Date of the release (no development one).
 
-    Format: YYYY-MM-DD}
+    Format: YYYY/MM/DD}
     property Publisher: String read FPublisher write SetPublisher;
     {< Publisher company.
 
@@ -154,7 +158,7 @@ type
     property Zones: TStringList read FZones;
     {< Zones. }
     property Languages: TStringList read FLanguages;
-    {< Languages of the game. }
+    {< Languages used in the game. }
     property License: String read FLicense write SetLicense;
     {< Original license.
 
@@ -199,20 +203,24 @@ type
     property Translation: String read FTranslation write SetTranslation;
     {< The game is fan-traslated.
 
-    Lenguage of traslatration.}
+    Lenguage abreviation of traslatration.}
     property Pirate: String read FPirate write SetPirate;
     {< The game was released physically breaking some IP laws.
 
     This is for not licensed copies of the games, mainly in China, Korea, etc.
     }
     property Cracked: String read FCracked write SetCracked;
-    {< The has been modified for breaking some segurity check. }
+    {< The game was modified for breaking some segurity check. }
     property Modified: String read FModified write SetModified;
-    {< The game is modified by use (hiscores or saves). }
+    {< The game was modified by use (hiscores or saves). }
     property Hack: String read FHack write SetHack;
-    {< The game is modified for changing something (intros, sprites). }
+    {< The game was modified for changing something (intros, sprites).
+
+      If not covered by previous properties.}
 
     property DataString: String read GetDataString write SetDataString;
+    { Converts or load game info from string (CSV formatted).
+    }
     procedure ExportData(aFilename: String; ExportMode: boolean);
     procedure ExportDataIni(aIniFile: TCustomIniFile; ExportMode: boolean);
     procedure ImportData(aFilename: String);
@@ -240,11 +248,6 @@ begin
   FModified := Trim(AValue);
 end;
 
-procedure cGame.SetPlayingTime(const AValue: TDateTime);
-begin
-  FPlayingTime := AValue;
-end;
-
 function cGame.GetDataString: String;
 var
   Tmp: TStringList;
@@ -261,8 +264,8 @@ begin
     Tmp.Add(GameGroup);
     Tmp.Add(Folder);
     Tmp.Add(FileName);
-    Tmp.Add('');
-    Tmp.Add(DateTimeToStr(LastTime)); // These must be done by cGameStats...
+    Tmp.Add(''); // Reserved for future use
+    Tmp.Add(DateTimeToStr(LastTime)); // These must be done by cPlayingStats...
     Tmp.Add(IntToStr(TimesPlayed));
     Tmp.Add(IntToStr(PlayingTime));
     Tmp.Add('');
@@ -328,11 +331,11 @@ begin
         3: GameGroup := Tmp[i];
         4: Folder := Tmp[i];
         5: FileName := Tmp[i];
-        {6:}
-        7: LastTime := StrToDateTimeDef(Tmp[i], 0); // cGameStats...
+        // 6:
+        7: LastTime := StrToDateTimeDef(Tmp[i], 0); // cPlayingStats...
         8: TimesPlayed := StrToInt(Tmp[i]);
         9: PlayingTime := StrToCardinalDef(Tmp[i], 0);
-        {10:}
+        // 10:
         11: Version := Tmp[i];
         12: Year := Tmp[i];
         13: Publisher := Tmp[i];
@@ -340,9 +343,9 @@ begin
         15: Languages.CommaText := Tmp[i];
         16: License := Tmp[i];
         17: ReleaseType := Tmp[i];
-        {18:}
+        // 18:
         19: Tags.CommaText := Tmp[i];
-        {20:}
+        // 20:
         21: Verified := StrToBoolDef(Tmp[i], False);
         22: Alternate := Tmp[i];
         23: BadDump := Tmp[i];
@@ -391,11 +394,6 @@ begin
   FHack := Trim(AValue);
 end;
 
-procedure cGame.SetLastTime(const AValue: TDateTime);
-begin
-  FLastTime := AValue;
-end;
-
 procedure cGame.SetLicense(const AValue: String);
 begin
   FLicense := Trim(AValue);
@@ -403,8 +401,14 @@ end;
 
 procedure cGame.SetName(const AValue: String);
 begin
+  // If sortkey is equal to Name change it too.
   if UTF8CompareText(SortKey, FName) = 0 then
     SortKey := Trim(AValue);
+
+  // Same for transliterated name
+  if UTF8CompareText(TransliteratedName, FName) = 0 then
+    TransliteratedName := Trim(AValue);
+
   FName := Trim(AValue);
 end;
 
@@ -423,11 +427,6 @@ begin
   FSortKey := Trim(AValue);
 end;
 
-procedure cGame.SetTimesPlayed(const AValue: integer);
-begin
-  FTimesPlayed := AValue;
-end;
-
 procedure cGame.SetTrainer(const AValue: String);
 begin
   FTrainer := Trim(AValue);
@@ -436,6 +435,11 @@ end;
 procedure cGame.SetTranslation(const AValue: String);
 begin
   FTranslation := Trim(AValue);
+end;
+
+procedure cGame.SetTransliteratedName(AValue: string);
+begin
+  FTransliteratedName := Trim(AValue);
 end;
 
 procedure cGame.SetVerified(const AValue: boolean);
@@ -493,7 +497,7 @@ begin
   aIniFile.WriteString(Key, 'Cracked', Cracked);
   aIniFile.WriteString(Key, 'Modified', Modified);
 
-  // TODO 2: Esto debería hacerlo cGameStats...
+  // TODO 2: Esto debería hacerlo cPlayingStats...
   if ExportMode then
   begin
     aIniFile.DeleteKey(Key, 'LastTime');

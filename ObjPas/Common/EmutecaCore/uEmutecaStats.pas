@@ -42,7 +42,7 @@ type
       we don't use them right here.)
     )
   }
-  cGameStats = class(TObject)
+  cPlayingStats = class(TObject)
   private
     FIconIndex: Integer;
     FLastTime: TDateTime;
@@ -55,7 +55,7 @@ type
 
   public
     // Used by cGameManager (and by GUI as cache for cGroup ).
-    // --------------------
+    // -------------------------------------------------------
     property LastTime: TDateTime read FLastTime write SetLastTime;
     {< Last time played the game.
 
@@ -68,13 +68,10 @@ type
 
     // Only used by GUI
     // ----------------
+    { TODO -oAuthor : Move these elsewhere... }
     property IconIndex: Integer read FIconIndex write SetIconIndex;
     {< Index of the icon in a image list. }
 
-    procedure IncTimesPlayed;
-    {< Increment the times played by 1.
-
-      Yes, it's a silly method.}
     procedure AddPlayingTime(const Stop: TDateTime; Start: TDateTime = 0);
     {< Add the seconds between two TDateTime to PlayingTime.}
 
@@ -84,44 +81,39 @@ type
 
 implementation
 
-{ cGameStats }
+{ cPlayingStats }
 
-procedure cGameStats.SetIconIndex(const AValue: Integer);
+procedure cPlayingStats.SetIconIndex(const AValue: Integer);
 begin
   FIconIndex := AValue;
 end;
 
-procedure cGameStats.SetLastTime(const AValue: TDateTime);
+procedure cPlayingStats.SetLastTime(const AValue: TDateTime);
 begin
   FLastTime := AValue;
 end;
 
-procedure cGameStats.SetPlayingTime(AValue: LongWord);
+procedure cPlayingStats.SetPlayingTime(AValue: LongWord);
 begin
   FPlayingTime:=AValue;
 end;
 
-procedure cGameStats.SetTimesPlayed(AValue: LongWord);
+procedure cPlayingStats.SetTimesPlayed(AValue: LongWord);
 begin
   FTimesPlayed := AValue;
 end;
 
-procedure cGameStats.IncTimesPlayed;
-begin
-  TimesPlayed := TimesPlayed + 1;
-end;
-
-procedure cGameStats.AddPlayingTime(const Stop: TDateTime; Start: TDateTime);
+procedure cPlayingStats.AddPlayingTime(const Stop: TDateTime; Start: TDateTime);
 begin
   PlayingTime := PlayingTime + SecondsBetween(Stop, Start);
 end;
 
-constructor cGameStats.Create;
+constructor cPlayingStats.Create;
 begin
   IconIndex := -1;
 end;
 
-destructor cGameStats.Destroy;
+destructor cPlayingStats.Destroy;
 begin
   inherited Destroy;
 end;

@@ -27,9 +27,9 @@ interface
 
 const
   // Praying for no emulator use these exit codes.
-  kEmutecaExecErrorNoGame = 300;
+  kEmutecaExecErrorNoGame = -300;
   {< Error code when game is not found.}
-  kEmutecaDecompressError = 301;
+  kEmutecaDecompressError = -301;
   {< Error decompressing archive.}
 
   kEmutecaGameSubFolder = 'Game';

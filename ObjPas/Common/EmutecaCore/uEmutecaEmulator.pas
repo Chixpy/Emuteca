@@ -45,66 +45,67 @@ type
 
   { cEmulator }
 
-  cEmulator = class(cGameStats)
+  cEmulator = class(cPlayingStats)
   private
-    FIcon: String;
-    FImage: String;
-    FExeFile: String;
-    FInfoFile: String;
+    FIcon: string;
+    FImage: string;
+    FExeFile: string;
+    FInfoFile: string;
     FNormalExitCode: integer;
-    FParameters: String;
-    FWebPage: String;
-    FID: String;
-    FConfigFile: String;
-    FName: String;
-    FDeveloper: String;
+    FParameters: string;
+    FWebPage: string;
+    FID: string;
+    FConfigFile: string;
+    FName: string;
+    FDeveloper: string;
     FEnabled: boolean;
-    FWorkingFolder: String;
-    procedure SetDeveloper(const Value: String);
-    procedure SetExeFile(const Value: String);
-    procedure SetConfigFile(const Value: String);
-    procedure SetIcon(const AValue: String);
-    procedure SetID(const Value: String);
-    procedure SetImage(const AValue: String);
-    procedure SetInfoFile(AValue: String);
-    procedure SetName(const Value: String);
+    FWorkingFolder: string;
+    procedure SetDeveloper(const Value: string);
+    procedure SetExeFile(const Value: string);
+    procedure SetConfigFile(const Value: string);
+    procedure SetIcon(const AValue: string);
+    procedure SetID(const Value: string);
+    procedure SetImage(const AValue: string);
+    procedure SetInfoFile(AValue: string);
+    procedure SetName(const Value: string);
     procedure SetNormalExitCode(AValue: integer);
-    procedure SetWebPage(const Value: String);
-    procedure SetParameters(const Value: String);
+    procedure SetWebPage(const Value: string);
+    procedure SetParameters(const Value: string);
     procedure SetEnabled(const Value: boolean);
-    procedure SetWorkingFolder(const Value: String);
+    procedure SetWorkingFolder(const Value: string);
 
   public
     property Enabled: boolean read FEnabled write SetEnabled;
 
-    property ID: String read FID write SetID;
-    property Name: String read FName write SetName;
-    property Developer: String read FDeveloper write SetDeveloper;
-    property WebPage: String read FWebPage write SetWebPage;
+    property ID: string read FID write SetID;
+    property Name: string read FName write SetName;
+    property Developer: string read FDeveloper write SetDeveloper;
+    property WebPage: string read FWebPage write SetWebPage;
 
-    property Image: String read FImage write SetImage;
-    property Icon: String read FIcon write SetIcon;
+    property Image: string read FImage write SetImage;
+    property Icon: string read FIcon write SetIcon;
 
-    property ExeFile: String read FExeFile write SetExeFile;
-    property WorkingFolder: String read FWorkingFolder write SetWorkingFolder;
-    property Parameters: String read FParameters write SetParameters;
-    property InfoFile: String read FInfoFile write SetInfoFile;
-    property ConfigFile: String read FConfigFile write SetConfigFile;
+    property ExeFile: string read FExeFile write SetExeFile;
+    property WorkingFolder: string
+      read FWorkingFolder write SetWorkingFolder;
+    property Parameters: string read FParameters write SetParameters;
+    property InfoFile: string read FInfoFile write SetInfoFile;
+    property ConfigFile: string read FConfigFile write SetConfigFile;
 
     property NormalExitCode: integer
       read FNormalExitCode write SetNormalExitCode;
 
-    function Execute(GameFile: String): integer;
+    function Execute(GameFile: string): integer;
     function ExecuteAlone: integer;
 
-    procedure LoadFromFile(const IniFile: String);
+    procedure LoadFromFile(const IniFile: string);
     procedure LoadFromFileIni(aIniFile: TMemIniFile);
-    procedure SaveToFile(const aIniFile: String;
+    procedure SaveToFile(const aIniFile: string;
       const ExportMode: boolean = False);
     procedure SaveToFileIni(IniFile: TMemIniFile;
       const ExportMode: boolean = False);
 
-    constructor Create(const EmulatorID: String);
+    constructor Create(const EmulatorID: string);
 
   end;
 
@@ -112,60 +113,68 @@ implementation
 
 { cEmulator }
 
-constructor cEmulator.Create(const EmulatorID: String);
+constructor cEmulator.Create(const EmulatorID: string);
 begin
   inherited Create;
   self.ID := EmulatorID;
 
-  // Por defecto
+  // By default
   self.Name := self.ID;
   self.WorkingFolder := kEmutecaEmuDirKey;
   self.Parameters := '"' + kEmutecaROMPathKey + '"';
 end;
 
-function cEmulator.Execute(GameFile: String): integer;
+function cEmulator.Execute(GameFile: string): integer;
 var
-  CurrFolder: String;
-  TempDir: String;
-  TempParam: String;
+  CurrFolder: string;
+  TempDir: string;
+  TempParam: string;
   TempTime: TTime;
 begin
   CurrFolder := GetCurrentDirUTF8;
 
   {$IFDEF MSWindows}
   // Some emulators don't work with Unix style...
-  GameFile := StringReplace(GameFile, '/', '\', [rfReplaceAll, rfIgnoreCase]);
+  GameFile := StringReplace(GameFile, '/', '\',
+    [rfReplaceAll, rfIgnoreCase]);
   {$ENDIF}
 
   // GameFile is relative to emuteca directory.
   // Absolute path is better right now.
   if not FilenameIsAbsolute(GameFile) then
-    GameFile:= CreateAbsolutePath(GameFile, CurrFolder);
+    GameFile := CreateAbsolutePath(GameFile, CurrFolder);
 
-  // Changing directory
+  // Changing current directory
   TempDir := Self.WorkingFolder;
-  TempDir := AnsiReplaceText(TempDir, kEmutecaEmuDirKey, ExtractFileDir(ExeFile));
-  TempDir := AnsiReplaceText(TempDir, kEmutecaRomDirKey, ExtractFileDir(GameFile));
-  TempDir := AnsiReplaceText(TempDir, kEmutecaCurrentDirKey, ExtractFileDir(CurrFolder));
+  TempDir := AnsiReplaceText(TempDir, kEmutecaEmuDirKey,
+    ExtractFileDir(ExeFile));
+  TempDir := AnsiReplaceText(TempDir, kEmutecaRomDirKey,
+    ExtractFileDir(GameFile));
+  TempDir := AnsiReplaceText(TempDir, kEmutecaCurrentDirKey,
+    ExtractFileDir(CurrFolder));
   TempDir := SetAsFolder(TempDir);
   if TempDir <> '' then
     if DirectoryExistsUTF8(TempDir) then
       ChDir(TempDir);
 
+  // Changing parameters
   TempParam := Self.Parameters;
   TempParam := AnsiReplaceText(TempParam, kEmutecaROMPathKey, GameFile);
-  TempParam := AnsiReplaceText(TempParam, kEmutecaRomDirKey, ExtractFileDir(GameFile));
-  TempParam := AnsiReplaceText(TempParam, kEmutecaROMFileNameKey, ExtractFileName(GameFile));
+  TempParam := AnsiReplaceText(TempParam, kEmutecaRomDirKey,
+    ExtractFileDir(GameFile));
+  TempParam := AnsiReplaceText(TempParam, kEmutecaROMFileNameKey,
+    ExtractFileName(GameFile));
   TempParam := AnsiReplaceText(TempParam, kEmutecaROMFileNameNoExtKey,
     ExtractFileNameWithoutExt(GameFile));
-  TempParam := AnsiReplaceText(TempParam, kEmutecaROMFileExtKey, ExtractFileExt(GameFile));
+  TempParam := AnsiReplaceText(TempParam, kEmutecaROMFileExtKey,
+    ExtractFileExt(GameFile));
   TempParam := AnsiReplaceText(TempParam, kEmutecaNullKey, '');
   TempParam := Trim(TempParam);
 
   try
     TempTime := Now;
 
-    // Hack to run system executables ;P
+    // Hack for run system executables ;P
     if ExeFile = '' then
       { TODO -oAuthor : If not an executable try OpenDocument }
       Result := SysUtils.ExecuteProcess(UTF8ToSys(TempParam), '')
@@ -180,7 +189,7 @@ begin
     begin
       Self.AddPlayingTime(Now, TempTime);
       Self.LastTime := TempTime;
-      Self.IncTimesPlayed;
+      Self.TimesPlayed := Self.TimesPlayed + 1;
     end;
 
     // Hack: If normal exit code <> 0, switch 0 and NormalExitCode
@@ -199,19 +208,24 @@ end;
 
 function cEmulator.ExecuteAlone: integer;
 var
-  CurrFolder: String;
-  TempDir: String;
+  CurrFolder: string;
+  TempDir: string;
 begin
   if ExeFile = '' then
     Exit;
 
+  // Changing current file
   CurrFolder := GetCurrentDirUTF8;
   TempDir := Self.WorkingFolder;
-  TempDir := AnsiReplaceText(TempDir, kEmutecaEmuDirKey, ExtractFileDir(ExeFile));
-  TempDir := AnsiReplaceText(TempDir, kEmutecaRomDirKey, ExtractFileDir(ExeFile));
-  TempDir := AnsiReplaceText(TempDir, kEmutecaCurrentDirKey, ExtractFileDir(CurrFolder));
+  TempDir := AnsiReplaceText(TempDir, kEmutecaEmuDirKey,
+    ExtractFileDir(ExeFile));
+  TempDir := AnsiReplaceText(TempDir, kEmutecaRomDirKey,
+    ExtractFileDir(ExeFile));
+  TempDir := AnsiReplaceText(TempDir, kEmutecaCurrentDirKey,
+    ExtractFileDir(CurrFolder));
   if TempDir <> '' then
     ChDir(TempDir);
+
   try
     Result := SysUtils.ExecuteProcess(UTF8ToSys(ExeFile), '');
 
@@ -274,7 +288,7 @@ begin
 
 end;
 
-procedure cEmulator.SaveToFile(const aIniFile: String;
+procedure cEmulator.SaveToFile(const aIniFile: string;
   const ExportMode: boolean = False);
 var
   F: TMemInifile;
@@ -290,7 +304,7 @@ end;
 
 procedure cEmulator.LoadFromFileIni(aIniFile: TMemIniFile);
 var
-  TmpString: String;
+  TmpString: string;
 begin
   if aIniFile = nil then
     Exit;
@@ -325,7 +339,7 @@ begin
   TimesPlayed := StrToCardinalDef(TmpString, TimesPlayed);
 end;
 
-procedure cEmulator.LoadFromFile(const IniFile: String);
+procedure cEmulator.LoadFromFile(const IniFile: string);
 var
   F: TMemInifile;
 begin
@@ -342,47 +356,47 @@ begin
   FEnabled := Value;
 end;
 
-procedure cEmulator.SetDeveloper(const Value: String);
+procedure cEmulator.SetDeveloper(const Value: string);
 begin
   FDeveloper := Value;
 end;
 
-procedure cEmulator.SetWorkingFolder(const Value: String);
+procedure cEmulator.SetWorkingFolder(const Value: string);
 begin
   FWorkingFolder := SetAsFolder(Value);
 end;
 
-procedure cEmulator.SetExeFile(const Value: String);
+procedure cEmulator.SetExeFile(const Value: string);
 begin
   FExeFile := Value;
 end;
 
-procedure cEmulator.SetConfigFile(const Value: String);
+procedure cEmulator.SetConfigFile(const Value: string);
 begin
   FConfigFile := Value;
 end;
 
-procedure cEmulator.SetIcon(const AValue: String);
+procedure cEmulator.SetIcon(const AValue: string);
 begin
   FIcon := AValue;
 end;
 
-procedure cEmulator.SetID(const Value: String);
+procedure cEmulator.SetID(const Value: string);
 begin
   FID := Trim(Value);
 end;
 
-procedure cEmulator.SetImage(const AValue: String);
+procedure cEmulator.SetImage(const AValue: string);
 begin
   FImage := AValue;
 end;
 
-procedure cEmulator.SetInfoFile(AValue: String);
+procedure cEmulator.SetInfoFile(AValue: string);
 begin
   FInfoFile := AValue;
 end;
 
-procedure cEmulator.SetName(const Value: String);
+procedure cEmulator.SetName(const Value: string);
 begin
   FName := Value;
 end;
@@ -392,15 +406,14 @@ begin
   FNormalExitCode := AValue;
 end;
 
-procedure cEmulator.SetWebPage(const Value: String);
+procedure cEmulator.SetWebPage(const Value: string);
 begin
   FWebPage := Value;
 end;
 
-procedure cEmulator.SetParameters(const Value: String);
+procedure cEmulator.SetParameters(const Value: string);
 begin
   FParameters := Value;
 end;
 
 end.
-

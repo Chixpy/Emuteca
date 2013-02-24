@@ -41,7 +41,7 @@ type
     )
   }
 
-  cGameGroup = class (cGameStats)
+  cGameGroup = class (cPlayingStats)
   private
     FDeveloper: String;
     FKey: String;

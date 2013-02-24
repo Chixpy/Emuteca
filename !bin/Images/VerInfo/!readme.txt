@@ -34,4 +34,4 @@ if available) to mjames@gmail.com
 
 Any other questions about this icon set please contact mjames@gmail.com
 
-Emuteca note: Obviously, the whole icon set is not here.
+Emuteca's note: Obviously, the whole icon set is not here.

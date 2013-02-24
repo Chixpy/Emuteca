@@ -3,6 +3,7 @@
 #   aSearch==>aGroup -> Files that begin with aSearch assigned to aGroup
 #   *aSearch==>aGroup -> Files with aSearch (at any position) assigned to aGroup
 # Upper rules have precedence.
+# Spaces are not trimmed.
 
 # Eamon Adventures
 Eamon 0==>Eamon Adventures

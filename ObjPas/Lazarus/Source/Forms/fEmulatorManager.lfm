@@ -91,7 +91,6 @@ object frmEmulatorManager: TfrmEmulatorManager
       Align = alClient
       ItemHeight = 0
       OnClick = clbEmulatorsClick
-      OnItemClick = clbEmulatorsItemClick
       TabOrder = 1
     end
   end
@@ -139,9 +138,9 @@ object frmEmulatorManager: TfrmEmulatorManager
     Height = 415
     Top = 0
     Width = 470
-    ActivePage = pagInfo
+    ActivePage = pagAdvanced
     Align = alClient
-    TabIndex = 0
+    TabIndex = 2
     TabOrder = 1
     object pagInfo: TTabSheet
       Caption = 'Information'
@@ -178,7 +177,7 @@ object frmEmulatorManager: TfrmEmulatorManager
           FilterIndex = 0
           HideDirectories = False
           ButtonWidth = 23
-          NumGlyphs = 0
+          NumGlyphs = 1
           Flat = True
           MaxLength = 0
           TabOrder = 0
@@ -204,7 +203,7 @@ object frmEmulatorManager: TfrmEmulatorManager
           FilterIndex = 0
           HideDirectories = False
           ButtonWidth = 23
-          NumGlyphs = 0
+          NumGlyphs = 1
           Flat = True
           MaxLength = 0
           TabOrder = 1
@@ -244,7 +243,7 @@ object frmEmulatorManager: TfrmEmulatorManager
         TabOrder = 0
         object lEmulatorName: TLabel
           Left = 0
-          Height = 14
+          Height = 13
           Top = 0
           Width = 304
           Align = alTop
@@ -255,7 +254,7 @@ object frmEmulatorManager: TfrmEmulatorManager
         object eEmulatorName: TEdit
           Left = 0
           Height = 21
-          Top = 14
+          Top = 13
           Width = 304
           Align = alTop
           OnEditingDone = eEmulatorNameEditingDone
@@ -263,8 +262,8 @@ object frmEmulatorManager: TfrmEmulatorManager
         end
         object lEmulatorAuthor: TLabel
           Left = 0
-          Height = 14
-          Top = 35
+          Height = 13
+          Top = 34
           Width = 304
           Align = alTop
           Alignment = taCenter
@@ -274,7 +273,7 @@ object frmEmulatorManager: TfrmEmulatorManager
         object eEmulatorAuthor: TEdit
           Left = 0
           Height = 21
-          Top = 49
+          Top = 47
           Width = 304
           Align = alTop
           OnEditingDone = eEmulatorAuthorEditingDone
@@ -282,8 +281,8 @@ object frmEmulatorManager: TfrmEmulatorManager
         end
         object lWebPage: TLabel
           Left = 0
-          Height = 14
-          Top = 70
+          Height = 13
+          Top = 68
           Width = 304
           Align = alTop
           Alignment = taCenter
@@ -293,7 +292,7 @@ object frmEmulatorManager: TfrmEmulatorManager
         object eWebPage: TEdit
           Left = 0
           Height = 21
-          Top = 84
+          Top = 81
           Width = 304
           Align = alTop
           OnEditingDone = eWebPageEditingDone
@@ -301,8 +300,8 @@ object frmEmulatorManager: TfrmEmulatorManager
         end
         object lInfoFile: TLabel
           Left = 0
-          Height = 14
-          Top = 105
+          Height = 13
+          Top = 102
           Width = 304
           Align = alTop
           Alignment = taCenter
@@ -312,7 +311,7 @@ object frmEmulatorManager: TfrmEmulatorManager
         object pInfoFile: TPanel
           Left = 0
           Height = 21
-          Top = 119
+          Top = 115
           Width = 304
           Align = alTop
           BevelOuter = bvNone
@@ -329,7 +328,7 @@ object frmEmulatorManager: TfrmEmulatorManager
             FilterIndex = 0
             HideDirectories = False
             ButtonWidth = 23
-            NumGlyphs = 0
+            NumGlyphs = 1
             Flat = True
             Anchors = [akTop, akLeft, akRight]
             MaxLength = 0
@@ -341,12 +340,12 @@ object frmEmulatorManager: TfrmEmulatorManager
     end
     object pagCommandLine: TTabSheet
       Caption = 'Command line'
-      ClientHeight = 368
+      ClientHeight = 389
       ClientWidth = 462
       object gbOtherFiles: TGroupBox
         Left = 0
         Height = 55
-        Top = 313
+        Top = 334
         Width = 462
         Align = alBottom
         Caption = 'Other files'
@@ -355,7 +354,7 @@ object frmEmulatorManager: TfrmEmulatorManager
         TabOrder = 2
         object lConfigFile: TLabel
           Left = 0
-          Height = 14
+          Height = 13
           Top = 0
           Width = 458
           Align = alTop
@@ -373,7 +372,7 @@ object frmEmulatorManager: TfrmEmulatorManager
           FilterIndex = 0
           HideDirectories = False
           ButtonWidth = 23
-          NumGlyphs = 0
+          NumGlyphs = 1
           Flat = True
           Anchors = [akTop, akLeft, akRight]
           MaxLength = 0
@@ -384,7 +383,7 @@ object frmEmulatorManager: TfrmEmulatorManager
       object gbWorkingFolder: TGroupBox
         Left = 0
         Height = 105
-        Top = 208
+        Top = 229
         Width = 462
         Align = alBottom
         Caption = 'Working folder'
@@ -429,7 +428,7 @@ object frmEmulatorManager: TfrmEmulatorManager
           OnAcceptDirectory = eWorkingFolderAcceptDirectory
           ShowHidden = False
           ButtonWidth = 23
-          NumGlyphs = 0
+          NumGlyphs = 1
           Flat = True
           Anchors = [akTop, akLeft, akRight]
           Enabled = False
@@ -440,17 +439,17 @@ object frmEmulatorManager: TfrmEmulatorManager
       end
       object gbProgram: TGroupBox
         Left = 0
-        Height = 208
+        Height = 229
         Top = 0
         Width = 462
         Align = alClient
         Caption = 'Program'
-        ClientHeight = 190
+        ClientHeight = 211
         ClientWidth = 458
         TabOrder = 0
         object lExecutable: TLabel
           Left = 0
-          Height = 14
+          Height = 13
           Top = 0
           Width = 458
           Align = alTop
@@ -468,7 +467,7 @@ object frmEmulatorManager: TfrmEmulatorManager
           FilterIndex = 0
           HideDirectories = False
           ButtonWidth = 23
-          NumGlyphs = 0
+          NumGlyphs = 1
           Flat = True
           MaxLength = 0
           TabOrder = 0
@@ -476,8 +475,8 @@ object frmEmulatorManager: TfrmEmulatorManager
         end
         object lParameters: TLabel
           Left = 0
-          Height = 14
-          Top = 35
+          Height = 13
+          Top = 57
           Width = 458
           Align = alBottom
           Alignment = taCenter
@@ -487,7 +486,7 @@ object frmEmulatorManager: TfrmEmulatorManager
         object eParameters: TEdit
           Left = 0
           Height = 21
-          Top = 49
+          Top = 70
           Width = 458
           Align = alBottom
           OnEditingDone = eParametersEditingDone
@@ -496,7 +495,7 @@ object frmEmulatorManager: TfrmEmulatorManager
         object mParametersHelp: TMemo
           Left = 0
           Height = 120
-          Top = 70
+          Top = 91
           Width = 458
           Align = alBottom
           Font.CharSet = ANSI_CHARSET
@@ -522,21 +521,21 @@ object frmEmulatorManager: TfrmEmulatorManager
     end
     object pagAdvanced: TTabSheet
       Caption = 'Advanced'
-      ClientHeight = 368
+      ClientHeight = 389
       ClientWidth = 462
       object gbxAdvanced: TGroupBox
         Left = 0
-        Height = 368
+        Height = 389
         Top = 0
         Width = 130
         Align = alLeft
         Caption = 'Advanced config'
-        ClientHeight = 350
+        ClientHeight = 371
         ClientWidth = 126
         TabOrder = 0
         object lExitCode: TLabel
           Left = 0
-          Height = 14
+          Height = 13
           Top = 0
           Width = 126
           Align = alTop
@@ -547,10 +546,11 @@ object frmEmulatorManager: TfrmEmulatorManager
         object eExitCode: TSpinEdit
           Left = 0
           Height = 21
-          Top = 14
+          Top = 13
           Width = 126
           Align = alTop
-          MaxValue = 65000
+          MaxValue = 10000
+          MinValue = -10000
           OnEditingDone = eExitCodeEditingDone
           TabOrder = 0
         end

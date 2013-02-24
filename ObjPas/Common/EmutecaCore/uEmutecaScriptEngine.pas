@@ -41,7 +41,7 @@ uses
   uPSC_graphics, uPSC_menus, uPSC_strutils,
   // Pascal Script Emuteca clases import
   uPSI_uGame, uPSI_uGameGroup,
-  uPSI_uGameManager, uPSI_uGameStats, uPSI_u7zWrapper, uPSI_uEmulator,
+  uPSI_uGameManager, uPSI_uPlayingStats, uPSI_u7zWrapper, uPSI_uEmulator,
   uPSI_uSystem,
   // TODO 2: Generalize input and output as events,
   //   and move these units to fScriptManager.
@@ -296,7 +296,7 @@ begin
   SIRegister_u7zWrapper(x);
   SIRegister_uEmulator(x);
   SIRegister_uSystem(x);
-  SIRegister_uGameStats(x);
+  SIRegister_uPlayingStats(x);
   SIRegister_uGame(x);
   SIRegister_uGameGroup(x);
   SIRegister_uGameManager(x);
@@ -456,7 +456,7 @@ begin
   RIRegister_u7zWrapper_Routines(se);
   RIRegister_uEmulator(x);
   RIRegister_uSystem(x);
-  RIRegister_uGameStats(x);
+  RIRegister_uPlayingStats(x);
   RIRegister_uGame(x);
   RIRegister_uGameGroup(x);
   RIRegister_uGameManager(x);

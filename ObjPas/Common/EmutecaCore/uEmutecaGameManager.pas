@@ -1026,7 +1026,7 @@ begin
   begin
     aGame.AddPlayingTime(Now, TempTime);
     aGame.LastTime := TempTime;
-    aGame.IncTimesPlayed;
+    aGame.TimesPlayed := aGame.TimesPlayed + 1;
   end;
 
   // Kill all them

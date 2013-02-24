@@ -1156,7 +1156,7 @@ procedure TfrmGameManager.vstGroupsDrawText(Sender: TBaseVirtualTree;
   TargetCanvas: TCanvas; Node: PVirtualNode; Column: TColumnIndex;
   const CellText: string; const CellRect: TRect; var DefaultDraw: boolean);
 var
-  Data: ^cGameStats;
+  Data: ^cPlayingStats;
   TmpGame: cGame;
   TmpStr: string;
   IconRect: TRect;

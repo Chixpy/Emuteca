@@ -117,7 +117,6 @@ type
     procedure actRemoveEmulatorExecute(Sender: TObject);
     procedure btnOKClick(Sender: TObject);
     procedure clbEmulatorsClick(Sender: TObject);
-    procedure clbEmulatorsItemClick(Sender: TObject; Index: integer);
     procedure eConfigFileAcceptFileName(Sender: TObject; var Value: string);
     procedure eConfigFileEditingDone(Sender: TObject);
     procedure eEmulatorAuthorEditingDone(Sender: TObject);
@@ -186,12 +185,6 @@ begin
   // TODO 3: Until TCheckListBox.OnItemClick works...
   // http://www.lazarus.freepascal.org/index.php?topic=12319.0
   SelectEmulator;
-end;
-
-procedure TfrmEmulatorManager.clbEmulatorsItemClick(Sender: TObject;
-  Index: integer);
-begin
-
 end;
 
 procedure TfrmEmulatorManager.eConfigFileAcceptFileName(Sender: TObject;

@@ -39,7 +39,7 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   uEmutecaGroup, uEmutecaScriptEngine, uEmutecaStats,
   // Pascal Script
   uPSI_uGame, uPSI_uGameGroup, uPSI_uGameManager, uPSI_u7zWrapper, uPSI_uSystem,
-  uPSI_uEmulator, uPSI_uGameStats,
+  uPSI_uEmulator, uPSI_uPlayingStats,
   // Custom
   uConfig, uCHXStrUtils, uCHXFileUtils, uCHXImageList, uCHXImageUtils;
 
