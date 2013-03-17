@@ -46,11 +46,11 @@ uses
   ,LazUTF8
   ,uEmutecaSystem
   ,uEmutecaGame
-  ,uEmutecaGroup
+  ,uEmutecaGameGroup
   ,uEmutecaEmulator
   ,uCHXStrUtils
   ,u7zWrapper
-  ,uEmutecaGameManager
+  ,uEmutecaMainManager
   ;
  
  
@@ -136,77 +136,77 @@ procedure cGameManagerProgressCallBack_R(Self: cGameManager; var T: TGMProgressC
 begin T := Self.ProgressCallBack; end;
 }
 (*----------------------------------------------------------------------------*)
-procedure cGameManagerCompressedExt_R(Self: cGameManager; var T: TStringList);
+procedure cGameManagerCompressedExt_R(Self: cEmutecaMainManager; var T: TStringList);
 begin T := Self.CompressedExt; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cGameManagerCRCMaxSize_W(Self: cGameManager; const T: cardinal);
+procedure cGameManagerCRCMaxSize_W(Self: cEmutecaMainManager; const T: cardinal);
 begin Self.CRCMaxSize := T; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cGameManagerCRCMaxSize_R(Self: cGameManager; var T: cardinal);
+procedure cGameManagerCRCMaxSize_R(Self: cEmutecaMainManager; var T: cardinal);
 begin T := Self.CRCMaxSize; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cGameManagerTempFile_W(Self: cGameManager; const T: String);
+procedure cGameManagerTempFile_W(Self: cEmutecaMainManager; const T: String);
 begin Self.TempFile := T; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cGameManagerTempFile_R(Self: cGameManager; var T: String);
+procedure cGameManagerTempFile_R(Self: cEmutecaMainManager; var T: String);
 begin T := Self.TempFile; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cGameManagerTempFolder_W(Self: cGameManager; const T: String);
+procedure cGameManagerTempFolder_W(Self: cEmutecaMainManager; const T: String);
 begin Self.TempFolder := T; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cGameManagerTempFolder_R(Self: cGameManager; var T: String);
+procedure cGameManagerTempFolder_R(Self: cEmutecaMainManager; var T: String);
 begin T := Self.TempFolder; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cGameManagerEmulator_R(Self: cGameManager; var T: cEmulator);
+procedure cGameManagerEmulator_R(Self: cEmutecaMainManager; var T: cEmulator);
 begin T := Self.Emulator; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cGameManagerSystem_R(Self: cGameManager; var T: cSystem);
+procedure cGameManagerSystem_R(Self: cEmutecaMainManager; var T: cSystem);
 begin T := Self.System; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cGameManagerGroupDataFileExt_W(Self: cGameManager; const T: String);
+procedure cGameManagerGroupDataFileExt_W(Self: cEmutecaMainManager; const T: String);
 begin Self.GroupDataFileExt := T; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cGameManagerGroupDataFileExt_R(Self: cGameManager; var T: String);
+procedure cGameManagerGroupDataFileExt_R(Self: cEmutecaMainManager; var T: String);
 begin T := Self.GroupDataFileExt; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cGameManagerGameDataFileExt_W(Self: cGameManager; const T: String);
+procedure cGameManagerGameDataFileExt_W(Self: cEmutecaMainManager; const T: String);
 begin Self.GameDataFileExt := T; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cGameManagerGameDataFileExt_R(Self: cGameManager; var T: String);
+procedure cGameManagerGameDataFileExt_R(Self: cEmutecaMainManager; var T: String);
 begin T := Self.GameDataFileExt; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cGameManagerEmulatorsFile_W(Self: cGameManager; const T: String);
+procedure cGameManagerEmulatorsFile_W(Self: cEmutecaMainManager; const T: String);
 begin Self.EmulatorsFile := T; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cGameManagerEmulatorsFile_R(Self: cGameManager; var T: String);
+procedure cGameManagerEmulatorsFile_R(Self: cEmutecaMainManager; var T: String);
 begin T := Self.EmulatorsFile; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cGameManagerSystemsFile_W(Self: cGameManager; const T: String);
+procedure cGameManagerSystemsFile_W(Self: cEmutecaMainManager; const T: String);
 begin Self.SystemsFile := T; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cGameManagerSystemsFile_R(Self: cGameManager; var T: String);
+procedure cGameManagerSystemsFile_R(Self: cEmutecaMainManager; var T: String);
 begin T := Self.SystemsFile; end;
 
 (*----------------------------------------------------------------------------*)
 procedure RIRegister_cGameManager(CL: TPSRuntimeClassImporter);
 begin
-  with CL.Add(cGameManager) do
+  with CL.Add(cEmutecaMainManager) do
   begin
     RegisterPropertyHelper(@cGameManagerSystemsFile_R,@cGameManagerSystemsFile_W,'SystemsFile');
     RegisterPropertyHelper(@cGameManagerEmulatorsFile_R,@cGameManagerEmulatorsFile_W,'EmulatorsFile');
@@ -219,35 +219,35 @@ begin
     RegisterPropertyHelper(@cGameManagerCRCMaxSize_R,@cGameManagerCRCMaxSize_W,'CRCMaxSize');
     RegisterPropertyHelper(@cGameManagerCompressedExt_R,nil,'CompressedExt');
 //    RegisterPropertyHelper(@cGameManagerProgressCallBack_R,@cGameManagerProgressCallBack_W,'ProgressCallBack');
-    RegisterMethod(@cGameManager.GameAtPos, 'GameAtPos');
-    RegisterMethod(@cGameManager.Game, 'Game');
-    RegisterMethod(@cGameManager.GameCount, 'GameCount');
-    RegisterMethod(@cGameManager.GroupAtPos, 'GroupAtPos');
-    RegisterMethod(@cGameManager.Group, 'Group');
-    RegisterMethod(@cGameManager.GroupCount, 'GroupCount');
-    RegisterMethod(@cGameManager.SaveSystem, 'SaveSystem');
-    RegisterMethod(@cGameManager.ChangeSystem, 'ChangeSystem');
-    RegisterMethod(@cGameManager.ChangeEmulator, 'ChangeEmulator');
-    RegisterMethod(@cGameManager.PurgeGameData, 'PurgeGameData');
-    RegisterMethod(@cGameManager.UpdateGameList, 'UpdateGameList');
-    RegisterMethod(@cGameManager.SoftUpdateGameList, 'SoftUpdateGameList');
-    RegisterMethod(@cGameManager.UpdateGroupList, 'UpdateGroupList');
-    RegisterMethod(@cGameManager.AddFile, 'AddFile');
-    RegisterMethod(@cGameManager.AddGame, 'AddGame');
-    RegisterMethod(@cGameManager.AddGroup, 'AddGroup');
-    RegisterMethod(@cGameManager.GameMediaExists, 'GameMediaExists');
-    RegisterMethod(@cGameManager.GroupMediaExists, 'GroupMediaExists');
-    RegisterMethod(@cGameManager.SearchGameMedia, 'SearchGameMedia');
-    RegisterMethod(@cGameManager.SearchGroupMedia, 'SearchGroupMedia');
-    RegisterMethod(@cGameManager.SearchMediaFiles, 'SearchMediaFiles');
-    RegisterMethod(@cGameManager.SaveSystemGameList, 'SaveSystemGameList');
-    RegisterMethod(@cGameManager.LoadSystemGameList, 'LoadSystemGameList');
-    RegisterMethod(@cGameManager.ExportGameData, 'ExportGameData');
-    RegisterMethod(@cGameManager.ExportGameDataIni, 'ExportGameDataIni');
-    RegisterMethod(@cGameManager.ImportGameData, 'ImportGameData');
-    RegisterMethod(@cGameManager.ImportGameDataIni, 'ImportGameDataIni');
-    RegisterMethod(@cGameManager.Execute, 'Execute');
-    RegisterConstructor(@cGameManager.Create, 'Create');
+    RegisterMethod(@cEmutecaMainManager.GameAtPos, 'GameAtPos');
+    RegisterMethod(@cEmutecaMainManager.Game, 'Game');
+    RegisterMethod(@cEmutecaMainManager.GameCount, 'GameCount');
+    RegisterMethod(@cEmutecaMainManager.GroupAtPos, 'GroupAtPos');
+    RegisterMethod(@cEmutecaMainManager.Group, 'Group');
+    RegisterMethod(@cEmutecaMainManager.GroupCount, 'GroupCount');
+    RegisterMethod(@cEmutecaMainManager.SaveSystem, 'SaveSystem');
+    RegisterMethod(@cEmutecaMainManager.ChangeSystem, 'ChangeSystem');
+    RegisterMethod(@cEmutecaMainManager.ChangeEmulator, 'ChangeEmulator');
+    RegisterMethod(@cEmutecaMainManager.PurgeGameData, 'PurgeGameData');
+    RegisterMethod(@cEmutecaMainManager.UpdateGameList, 'UpdateGameList');
+    RegisterMethod(@cEmutecaMainManager.SoftUpdateGameList, 'SoftUpdateGameList');
+    RegisterMethod(@cEmutecaMainManager.UpdateGroupList, 'UpdateGroupList');
+    RegisterMethod(@cEmutecaMainManager.AddFile, 'AddFile');
+    RegisterMethod(@cEmutecaMainManager.AddGame, 'AddGame');
+    RegisterMethod(@cEmutecaMainManager.AddGroup, 'AddGroup');
+    RegisterMethod(@cEmutecaMainManager.GameMediaExists, 'GameMediaExists');
+    RegisterMethod(@cEmutecaMainManager.GroupMediaExists, 'GroupMediaExists');
+    RegisterMethod(@cEmutecaMainManager.SearchGameMedia, 'SearchGameMedia');
+    RegisterMethod(@cEmutecaMainManager.SearchGroupMedia, 'SearchGroupMedia');
+    RegisterMethod(@cEmutecaMainManager.SearchMediaFiles, 'SearchMediaFiles');
+    RegisterMethod(@cEmutecaMainManager.SaveSystemGameList, 'SaveSystemGameList');
+    RegisterMethod(@cEmutecaMainManager.LoadSystemGameList, 'LoadSystemGameList');
+    RegisterMethod(@cEmutecaMainManager.ExportGameData, 'ExportGameData');
+    RegisterMethod(@cEmutecaMainManager.ExportGameDataIni, 'ExportGameDataIni');
+    RegisterMethod(@cEmutecaMainManager.ImportGameData, 'ImportGameData');
+    RegisterMethod(@cEmutecaMainManager.ImportGameDataIni, 'ImportGameDataIni');
+    RegisterMethod(@cEmutecaMainManager.Execute, 'Execute');
+    RegisterConstructor(@cEmutecaMainManager.Create, 'Create');
   end;
 end;
 

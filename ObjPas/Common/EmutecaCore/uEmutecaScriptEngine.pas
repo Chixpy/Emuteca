@@ -29,7 +29,7 @@ uses
   // Common units
   Classes, SysUtils, Controls, StrUtils, LazUTF8, Dialogs, Forms, FileUtil,
   // Emuteca classes
-  uCHXStrUtils, uEmutecaGame, uEmutecaGroup, uEmutecaGameManager,
+  uCHXStrUtils, uEmutecaGame, uEmutecagameGroup, uEmutecaMainManager,
   // Pascal Script main units
   uPSComponent, uPSRuntime, uPSCompiler, uPSUtils,
   // Pascal script common units import
@@ -41,8 +41,8 @@ uses
   uPSC_graphics, uPSC_menus, uPSC_strutils,
   // Pascal Script Emuteca clases import
   uPSI_uGame, uPSI_uGameGroup,
-  uPSI_uGameManager, uPSI_uPlayingStats, uPSI_u7zWrapper, uPSI_uEmulator,
-  uPSI_uSystem,
+  uPSI_uGameManager, uPSI_u7zWrapper, uPSI_uEmulator,
+  uPSI_uSystem, uPSI_uPlayingStats,
   // TODO 2: Generalize input and output as events,
   //   and move these units to fScriptManager.
   fSMAskFile, fSMAskFolder,
@@ -59,9 +59,9 @@ type
 
   private
     FCommonUnitFolder: string;
-    FGame: cGame;
-    FGameGroup: cGameGroup;
-    FGameManager: cGameManager;
+    FGame: cEmutecaGame;
+    FGameGroup: cEmutecaGameGroup;
+    FGameManager: cEmutecaMainManager;
     FOwnsScriptError: boolean;
     FOwnsScriptInfo: boolean;
     FOwnsScriptOutput: boolean;
@@ -72,9 +72,9 @@ type
     function getScriptFile: string;
     function getScriptText: TStrings;
     procedure SetCommonUnitFolder(AValue: string);
-    procedure SetGame(AValue: cGame);
-    procedure SetGameGroup(AValue: cGameGroup);
-    procedure SetGameManager(AValue: cGameManager);
+    procedure SetGame(AValue: cEmutecaGame);
+    procedure SetGameGroup(AValue: cEmutecaGameGroup);
+    procedure SetGameManager(AValue: cEmutecaMainManager);
     procedure SetOwnsScriptError(AValue: boolean);
     procedure SetOwnsScriptInfo(AValue: boolean);
     procedure SetOwnsScriptOutput(AValue: boolean);
@@ -136,9 +136,9 @@ type
     property ScriptInfo: TStrings read FScriptInfo write SetScriptInfo;
     property ScriptError: TStrings read FScriptError write SetScriptError;
 
-    property GameManager: cGameManager read FGameManager write SetGameManager;
-    property Game: cGame read FGame write SetGame;
-    property GameGroup: cGameGroup read FGameGroup write SetGameGroup;
+    property GameManager: cEmutecaMainManager read FGameManager write SetGameManager;
+    property Game: cEmutecaGame read FGame write SetGame;
+    property GameGroup: cEmutecaGameGroup read FGameGroup write SetGameGroup;
 
     function RunScript: boolean;
     function CompileScript: boolean;
@@ -151,7 +151,7 @@ implementation
 
 { cScriptEngEmuteca }
 
-procedure cScriptEngEmuteca.SetGame(AValue: cGame);
+procedure cScriptEngEmuteca.SetGame(AValue: cEmutecaGame);
 begin
   if FGame = AValue then
     Exit;
@@ -173,14 +173,14 @@ begin
   FCommonUnitFolder := SetAsFolder(AValue);
 end;
 
-procedure cScriptEngEmuteca.SetGameGroup(AValue: cGameGroup);
+procedure cScriptEngEmuteca.SetGameGroup(AValue: cEmutecaGameGroup);
 begin
   if FGameGroup = AValue then
     Exit;
   FGameGroup := AValue;
 end;
 
-procedure cScriptEngEmuteca.SetGameManager(AValue: cGameManager);
+procedure cScriptEngEmuteca.SetGameManager(AValue: cEmutecaMainManager);
 begin
   if FGameManager = AValue then
     Exit;

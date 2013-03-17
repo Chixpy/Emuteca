@@ -45,8 +45,8 @@ uses
   ,uCHXStrUtils
   ,FileUtil
   ,LazUTF8
-  ,uEmutecaStats
-  ,uEmutecaGroup
+  ,uEmutecaPlayingStats
+  ,uEmutecaGameGroup
   ;
  
  
@@ -87,73 +87,73 @@ end;
 
 (* === run-time registration functions === *)
 (*----------------------------------------------------------------------------*)
-procedure cGameGroupDataString_W(Self: cGameGroup; const T: String);
+procedure cGameGroupDataString_W(Self: cEmutecaGameGroup; const T: String);
 begin Self.DataString := T; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cGameGroupDataString_R(Self: cGameGroup; var T: String);
+procedure cGameGroupDataString_R(Self: cEmutecaGameGroup; var T: String);
 begin T := Self.DataString; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cGameGroupMediaFileName_W(Self: cGameGroup; const T: String);
+procedure cGameGroupMediaFileName_W(Self: cEmutecaGameGroup; const T: String);
 begin Self.MediaFileName := T; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cGameGroupMediaFileName_R(Self: cGameGroup; var T: String);
+procedure cGameGroupMediaFileName_R(Self: cEmutecaGameGroup; var T: String);
 begin T := Self.MediaFileName; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cGameGroupTags_W(Self: cGameGroup; const T: TStrings);
+procedure cGameGroupTags_W(Self: cEmutecaGameGroup; const T: TStrings);
 begin Self.Tags := T; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cGameGroupTags_R(Self: cGameGroup; var T: TStrings);
+procedure cGameGroupTags_R(Self: cEmutecaGameGroup; var T: TStrings);
 begin T := Self.Tags; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cGameGroupDeveloper_W(Self: cGameGroup; const T: String);
+procedure cGameGroupDeveloper_W(Self: cEmutecaGameGroup; const T: String);
 begin Self.Developer := T; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cGameGroupDeveloper_R(Self: cGameGroup; var T: String);
+procedure cGameGroupDeveloper_R(Self: cEmutecaGameGroup; var T: String);
 begin T := Self.Developer; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cGameGroupYear_W(Self: cGameGroup; const T: String);
+procedure cGameGroupYear_W(Self: cEmutecaGameGroup; const T: String);
 begin Self.Year := T; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cGameGroupYear_R(Self: cGameGroup; var T: String);
+procedure cGameGroupYear_R(Self: cEmutecaGameGroup; var T: String);
 begin T := Self.Year; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cGameGroupSortKey_W(Self: cGameGroup; const T: String);
+procedure cGameGroupSortKey_W(Self: cEmutecaGameGroup; const T: String);
 begin Self.SortKey := T; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cGameGroupSortKey_R(Self: cGameGroup; var T: String);
+procedure cGameGroupSortKey_R(Self: cEmutecaGameGroup; var T: String);
 begin T := Self.SortKey; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cGameGroupName_W(Self: cGameGroup; const T: String);
+procedure cGameGroupName_W(Self: cEmutecaGameGroup; const T: String);
 begin Self.Name := T; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cGameGroupName_R(Self: cGameGroup; var T: String);
+procedure cGameGroupName_R(Self: cEmutecaGameGroup; var T: String);
 begin T := Self.Name; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cGameGroupKey_W(Self: cGameGroup; const T: String);
+procedure cGameGroupKey_W(Self: cEmutecaGameGroup; const T: String);
 begin Self.Key := T; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cGameGroupKey_R(Self: cGameGroup; var T: String);
+procedure cGameGroupKey_R(Self: cEmutecaGameGroup; var T: String);
 begin T := Self.Key; end;
 
 (*----------------------------------------------------------------------------*)
 procedure RIRegister_cGameGroup(CL: TPSRuntimeClassImporter);
 begin
-  with CL.Add(cGameGroup) do
+  with CL.Add(cEmutecaGameGroup) do
   begin
     RegisterPropertyHelper(@cGameGroupKey_R,@cGameGroupKey_W,'Key');
     RegisterPropertyHelper(@cGameGroupName_R,@cGameGroupName_W,'Name');
@@ -163,11 +163,11 @@ begin
     RegisterPropertyHelper(@cGameGroupTags_R,@cGameGroupTags_W,'Tags');
     RegisterPropertyHelper(@cGameGroupMediaFileName_R,@cGameGroupMediaFileName_W,'MediaFileName');
     RegisterPropertyHelper(@cGameGroupDataString_R,@cGameGroupDataString_W,'DataString');
-    RegisterMethod(@cGameGroup.ExportData, 'ExportData');
-    RegisterMethod(@cGameGroup.ExportDataIni, 'ExportDataIni');
-    RegisterMethod(@cGameGroup.ImportData, 'ImportData');
-    RegisterMethod(@cGameGroup.ImportDataIni, 'ImportDataIni');
-    RegisterConstructor(@cGameGroup.Create, 'Create');
+    RegisterMethod(@cEmutecaGameGroup.ExportData, 'ExportData');
+    RegisterMethod(@cEmutecaGameGroup.ExportDataIni, 'ExportDataIni');
+    RegisterMethod(@cEmutecaGameGroup.ImportData, 'ImportData');
+    RegisterMethod(@cEmutecaGameGroup.ImportDataIni, 'ImportDataIni');
+    RegisterConstructor(@cEmutecaGameGroup.Create, 'Create');
   end;
 end;
 

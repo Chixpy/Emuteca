@@ -5,17 +5,9 @@ unit uCHXStrUtils;
 
 interface
 
-uses Classes, Strutils, SysUtils, FileUtil, LazUTF8, LazUTF8Classes;
+uses Classes, Strutils, SysUtils, FileUtil, LazUTF8, LazUTF8Classes,
+  uCHXConst, uCHXRscStr;
 
-const
-  KLinuxDirSeparator = '/';
-  KWinDirSeparator = '\';
-
-  // WordDelimiters except utf8 bit mask (Dirty way ^_^)
-  kCUUTF8Delimiters: set of char = [#0..#127] - ['a'..'z', 'A'..'Z', '1'..'9', '0'];
-
-resourcestring
-  rsCUExcCardRange = '"%0:d" is not in cardinal range.';
 
 // STRING UTILS
 // ------------
@@ -27,6 +19,13 @@ function TextSimilarity(const aString1, aString2: string): byte;
 
   Based in http://www.catalysoft.com/articles/StrikeAMatch.html method tweaked
     a little.
+}
+
+procedure WriteStringToStream(AStream: TStream);
+{< Writes a strint to a stream.
+}
+procedure ReadStringFromStream(AStream: TStream);
+{< Writes a strint to a stream.
 }
 
 // DIRECTORY NAME UTILS
@@ -83,7 +82,7 @@ function StrToCardinal(const aString: String): cardinal;
 function StrToCardinalDef(const aString: String;
   const Default: cardinal): cardinal;
 
-function SecondToFmtStr(aValue: int64): String;
+function SecondsToFmtStr(aValue: int64): String;
 
 
 implementation
@@ -190,6 +189,16 @@ begin
 
   if Union <> 0 then
     Result := Round(Intersection / Union * 100);
+end;
+
+procedure WriteStringToStream(AStream: TStream);
+begin
+
+end;
+
+procedure ReadStringFromStream(AStream: TStream);
+begin
+
 end;
 
 // DIRECTORY NAME UTILS
@@ -354,7 +363,7 @@ begin
   Result := h;
 end;
 
-function SecondToFmtStr(aValue: int64): String;
+function SecondsToFmtStr(aValue: int64): String;
 begin
   Result := RightStr('00' + IntToStr(aValue mod 60), 2);
   aValue := aValue div 60;

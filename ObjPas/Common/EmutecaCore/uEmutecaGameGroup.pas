@@ -19,7 +19,7 @@
 }
 
 { cGameGroup unit. }
-unit uEmutecaGroup;
+unit uEmutecaGameGroup;
 
 {$mode objfpc}{$H+}
 
@@ -28,11 +28,11 @@ interface
 uses
   Classes, SysUtils, IniFiles, uCHXStrUtils, FileUtil, LazUTF8,
   // Emuteca
-  uEmutecaConst, uEmutecaRscStr, uEmutecaStats;
+  uEmutecaConst, uEmutecaRscStr, uEmutecaPlayingStats, uEmutecaGame;
 
 type
 
-  { @name.
+  { cEmutecaGameGroup
 
     @definitionList(
     @itemLabel(NOTE:)
@@ -40,10 +40,10 @@ type
       we don't use them right here.)
     )
   }
-
-  cGameGroup = class (cPlayingStats)
+  cEmutecaGameGroup = class (cEmutecaPlayingStats)
   private
     FDeveloper: String;
+    FGames: cGameList;
     FKey: String;
     FName: String;
     FMediaFileName: String;
@@ -72,7 +72,7 @@ type
 
     For example: 'The Game' may be want to be sorted as 'Game, The' }
     property Year: String read FYear write SetYear;
-    {< Date of development. }
+    {< Date of development. "YYYY/MM/DD"}
 
     property Developer: String read FDeveloper write SetDeveloper;
     {< Developer of the game. }
@@ -82,10 +82,12 @@ type
       read FMediaFileName write SetMediaFileName;
     {< Filaname for group media. }
 
+    property Games: cGameList read FGames;
+
     property DataString: String read GetDataString write SetDataString;
 
-    procedure ExportData(aFilename: String; ExportMode: Boolean);
-    procedure ExportDataIni(aIniFile: TCustomIniFile; ExportMode: Boolean);
+    procedure ExportData(aFilename: String);
+    procedure ExportDataIni(aIniFile: TCustomIniFile);
     procedure ImportData(aFilename: String);
     procedure ImportDataIni(aIniFile: TCustomIniFile);
 
@@ -95,24 +97,24 @@ type
 
 implementation
 
-{ cGameGroup }
+{ cEmutecaGameGroup }
 
-procedure cGameGroup.SetName(const AValue: String);
+procedure cEmutecaGameGroup.SetName(const AValue: String);
 begin
-  FName := Trim(AValue);
+  FName := UTF8Trim(AValue);
 end;
 
-procedure cGameGroup.SetKey(const AValue: String);
+procedure cEmutecaGameGroup.SetKey(const AValue: String);
 begin
-  FKey := Trim(UTF8LowerCase(AValue));
+  FKey := UTF8Trim(UTF8LowerCase(AValue));
 end;
 
-procedure cGameGroup.SetDeveloper(const AValue: String);
+procedure cEmutecaGameGroup.SetDeveloper(const AValue: String);
 begin
-  FDeveloper := Trim(AValue);
+  FDeveloper := UTF8Trim(AValue);
 end;
 
-function cGameGroup.GetDataString: String;
+function cEmutecaGameGroup.GetDataString: String;
 var
   Tmp: TStringList;
 begin
@@ -138,7 +140,7 @@ begin
   end;
 end;
 
-procedure cGameGroup.SetDataString(const AValue: String);
+procedure cEmutecaGameGroup.SetDataString(const AValue: String);
 var
   Tmp: TStringList;
   i: Integer;
@@ -166,46 +168,45 @@ begin
   end;
 end;
 
-procedure cGameGroup.SetMediaFileName(const AValue: String);
+procedure cEmutecaGameGroup.SetMediaFileName(const AValue: String);
 begin
   if RightStr(AValue, Length(kEmutecaVirtualGroupExt)) = kEmutecaVirtualGroupExt then
   begin
-    FMediaFileName := Trim(ExtractFileNameOnly(AValue));
+    FMediaFileName := UTF8Trim(ExtractFileNameOnly(AValue));
     FMediaFileName := CleanFileName(FMediaFileName + kEmutecaVirtualGroupExt);
   end
   else
-    FMediaFileName := CleanFileName(Trim(AValue) + kEmutecaVirtualGroupExt);
+    FMediaFileName := CleanFileName(UTF8Trim(AValue) + kEmutecaVirtualGroupExt);
 end;
 
-procedure cGameGroup.SetSortKey(AValue: String);
+procedure cEmutecaGameGroup.SetSortKey(AValue: String);
 begin
-  FSortKey := Trim(AValue);
+  FSortKey := UTF8Trim(AValue);
 end;
 
-procedure cGameGroup.SetTags(const AValue: TStrings);
+procedure cEmutecaGameGroup.SetTags(const AValue: TStrings);
 begin
   FTags := AValue;
 end;
 
-procedure cGameGroup.SetYear(const AValue: String);
+procedure cEmutecaGameGroup.SetYear(const AValue: String);
 begin
   FYear := AValue;
 end;
 
-procedure cGameGroup.ExportData(aFilename: String; ExportMode: Boolean);
+procedure cEmutecaGameGroup.ExportData(aFilename: String);
 var
   F: TMemInifile;
 begin
   F := TMemIniFile.Create(UTF8ToSys(aFilename));
   try
-    ExportDataIni(F, ExportMode);
+    ExportDataIni(F);
   finally
     FreeAndNil(F);
   end;
 end;
 
-procedure cGameGroup.ExportDataIni(aIniFile: TCustomIniFile;
-  ExportMode: Boolean);
+procedure cEmutecaGameGroup.ExportDataIni(aIniFile: TCustomIniFile);
 begin
   if aIniFile = nil then
     Exit;
@@ -218,7 +219,7 @@ begin
   aIniFile.WriteString(kGroupSectionKey + Key, 'MediaFileName', MediaFileName);
 end;
 
-procedure cGameGroup.ImportData(aFilename: String);
+procedure cEmutecaGameGroup.ImportData(aFilename: String);
 var
   F: TMemInifile;
 begin
@@ -232,7 +233,7 @@ begin
   end;
 end;
 
-procedure cGameGroup.ImportDataIni(aIniFile: TCustomIniFile);
+procedure cEmutecaGameGroup.ImportDataIni(aIniFile: TCustomIniFile);
 begin
   if aIniFile = nil then
     Exit;
@@ -246,7 +247,7 @@ begin
   MediaFileName := aIniFile.ReadString(kGroupSectionKey + Key, 'MediaFileName', MediaFileName);
 end;
 
-constructor cGameGroup.Create(aName: String);
+constructor cEmutecaGameGroup.Create(aName: String);
 begin
   inherited Create;
 
@@ -255,10 +256,12 @@ begin
   SortKey := aName;
   MediaFileName := aName + kEmutecaVirtualGroupExt;
   FTags := TStringList.Create;
+  FGames := cGameList.Create;
 end;
 
-destructor cGameGroup.Destroy;
+destructor cEmutecaGameGroup.Destroy;
 begin
+  FreeAndNil(FGames);
   FreeAndNil(FTags);
   inherited Destroy;
 end;

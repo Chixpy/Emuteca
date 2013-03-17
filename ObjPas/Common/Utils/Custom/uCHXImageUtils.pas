@@ -16,21 +16,34 @@ procedure ReadActionsIcons(const aFileName, Section: string; BaseDir: string; Im
   It reads a .ini file to search which images must be loaded, relative paths
     are searched from BaseDir.
 
-  If ini file don't have the necesary key=value pair, the will be created.
+  If ini file don't have the necesary key=value pair, then it will be created.
 
   @param(aFileName Filename of a ini file where the icons filenames are
     stored.)
   @param(Section Section where nfo will be searched.)
   @param(BaseDir Base directory where icons wth rlative path are searched from.)
   @param(ImageList An image list where images ade stored)
-  @param(ActionList An action list which actions will assigned an image.)
+  @param(ActionList An action list which actions will be assigned an image.)
 }
 
 procedure ReadMenuIcons(const aFileName, Section: string; BaseDir: string; ImageList: TImageList; Menu: TMenu);
+{< Reads icons for menu items with no action assigned and assigns them.
 
+  It reads a .ini file to search which images must be loaded, relative paths
+    are searched from BaseDir (or relative to ini file).
+
+  If ini file don't have the necesary key=value pair, then it will be created.
+
+  @param(aFileName Filename of a ini file where the icons filenames are
+    stored.)
+  @param(Section Section where nfo will be searched.)
+  @param(BaseDir Base directory where icons wth rlative path are searched from.)
+  @param(ImageList An image list where images ade stored)
+  @param(Menu An menu which its items will be assigned an image.)
+}
 
 procedure FixComponentImagesFromActions(aComponent: TComponent);
-{ Assing images from actions to components (and subcomponents).
+{ Assings images from actions to components (and subcomponents).
 
   Some components (TBitButton, SpeedButton, ...) load their glyphs directly;
     and when a TAction is assigned, them don't load de corresponding image

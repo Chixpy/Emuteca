@@ -19,7 +19,7 @@
 }
 
 { cGameManager unit. }
-unit uEmutecaGameManager;
+unit uEmutecaMainManager;
 
 {$mode objfpc}{$H+}
 
@@ -28,29 +28,30 @@ interface
 uses
   Classes, SysUtils, contnrs, FileUtil, IniFiles, LazUTF8, LConvEncoding,
   // Emuteca core
-  uEmutecaConst, uEmutecaSystem, uEmutecaGame, uEmutecaGroup, uEmutecaEmulator,
+  uEmutecaConst, uEmutecaSystem, uEmutecaGame, uEmutecaGameGroup, uEmutecaEmulator,
+  uEmutecaGroupManager,
   // Utils
   uCHXStrUtils, uCHXFileUtils, u7zWrapper;
 
 type
-  TGMCallBackType = (GMCBAddFile, //< Adding a file.
-    GMCBImportData, //< Importing data.
-    GMCBExportData, //< Exporting data.
-    GMCBSaveList, //< Saving game list.
-    GMCBLoadList, //< Loading game list.
-    GMCBDecompress //< Decompressing a file
+  TEMMCallBackKind = (EMMCBAddFile, //< Adding a file.
+    EMMCBImportData, //< Importing data.
+    EMMCBExportData, //< Exporting data.
+    EMMCBSaveList, //< Saving game list.
+    EMMCBLoadList, //< Loading game list.
+    EMMCBDecompress //< Decompressing a file
     );
   //< Type of action doing the callback.
 
-  TGMProgressCallBack = function(const TypeCB: TGMCallBackType;
+  TEMMProgressCallBack = function(const CBKind: TEMMCallBackKind;
     const Info1, Info2: string; const Value, MaxValue: int64): boolean of
     object;
   {< Type for calling back a function a show the progress.
 
-    Used as cGameManager.ProgressCallBack, this function is called in some
-      iterations that can be slow.
+    Used as cEmutecaMainManager.ProgressCallBack, this function is called
+      in some iterations that can be slow.
 
-    @param(TypeCB TGMCallBackType indicating the current action.)
+    @param(CBKind TEMMCallBackKind indicating the current action.)
     @param(Info1 First string of info @(i.e. Folder@).)
     @param(Info2 Second string of info @(i.e. Filename@).)
     @param(Value Current value in the iteration.)
@@ -58,7 +59,7 @@ type
     @return(Abort the iteration? (Although it can be ignored :P))
   }
 
-  { Manager of the games and groups (families).
+  { Main manager of Emuteca.
 
     This entity manages the lists of games and group internally regaderless
       of the Form, GUI o interface used.
@@ -70,7 +71,9 @@ type
     )
   }
 
-  cGameManager = class
+  { cEmutecaMainManager }
+
+  cEmutecaMainManager = class
   private
     FCompressedExt: TStringList;
     FCRCMaxSize: cardinal;
@@ -80,7 +83,8 @@ type
     FGroupDataFileExt: string;
     FGameList: TFPObjectList;
     FGroupList: TFPObjectList;
-    FProgressCallBack: TGMProgressCallBack;
+    FGroupManager: cEmutecaGroupManager;
+    FProgressCallBack: TEMMProgressCallBack;
     FSystem: cSystem;
     FSystemsFile: string;
     FTempFolder: string;
@@ -89,7 +93,7 @@ type
     procedure SetEmulatorsFile(const AValue: string);
     procedure SetGameDataFileExt(const AValue: string);
     procedure SetGroupDataFileExt(const AValue: string);
-    procedure SetProgressCallBack(const AValue: TGMProgressCallBack);
+    procedure SetProgressCallBack(const AValue: TEMMProgressCallBack);
     procedure SetSystemsFile(const AValue: string);
     procedure SetTempFolder(const AValue: string);
     procedure SetTempFile(const AValue: string);
@@ -99,6 +103,9 @@ type
     {< Actual list where the groups of the current system are stored. }
     property GameList: TFPObjectList read FGameList;
     {< Actual list where the games of the current system are stored. }
+
+    property GroupManager: cEmutecaGroupManager read FGroupManager;
+    {< New experimental group manager. }
 
   public
     property SystemsFile: string read FSystemsFile write SetSystemsFile;
@@ -128,20 +135,20 @@ type
     property CompressedExt: TStringList read FCompressedExt;
     //< File extensions of compressed archives suported.
 
-    property ProgressCallBack: TGMProgressCallBack
+    property ProgressCallBack: TEMMProgressCallBack
       read FProgressCallBack write SetProgressCallBack;
     //< CallBack function to show the progress in actions.
 
-    function GameAtPos(const aIndex: integer): cGame;
+    function GameAtPos(const aIndex: integer): cEmutecaGame;
     //< Return the game at a position.
-    function Game(aGameKey: string): cGame;
+    function Game(aGameKey: string): cEmutecaGame;
     //< Return the game with have aGameKey key.
     function GameCount: longint;
     //< Return the number of games.
 
-    function GroupAtPos(const aIndex: integer): cGameGroup;
+    function GroupAtPos(const aIndex: integer): cEmutecaGameGroup;
     //< Return the group at a position.
-    function Group(aGroupKey: string): cGameGroup;
+    function Group(aGroupKey: string): cEmutecaGameGroup;
     //< Return the game with have aGroupKey key.
     function GroupCount: longint;
     //< Return the number of groups.
@@ -177,20 +184,20 @@ type
     }
 
     function AddGame(const aFolder: string; const aFileName: string;
-      const aKey: string): cGame;
+      const aKey: string): cEmutecaGame;
     //< Add a game.
-    function AddGroup(aGameGroupID: string): cGameGroup;
+    function AddGroup(aGameGroupID: string): cEmutecaGameGroup;
     //< Add a group.
 
-    function GameMediaExists(aFolder: string; aGameVersion: cGame;
+    function GameMediaExists(aFolder: string; aGameVersion: cEmutecaGame;
       Extensions: TStrings): boolean;
-    function GroupMediaExists(aFolder: string; aGameGroup: cGameGroup;
+    function GroupMediaExists(aFolder: string; aGameGroup: cEmutecaGameGroup;
       Extensions: TStrings): boolean;
 
     procedure SearchGameMedia(FileList: TStrings; aFolder: string;
-      aGameVersion: cGame; Extensions: TStrings);
+      aGameVersion: cEmutecaGame; Extensions: TStrings);
     procedure SearchGroupMedia(FileList: TStrings; aFolder: string;
-      aGameGroup: cGameGroup; Extensions: TStrings);
+      aGameGroup: cEmutecaGameGroup; Extensions: TStrings);
     procedure SearchMediaFiles(FileList: TStrings; aFolder: string;
       aFileName: string; Extensions: TStrings);
 
@@ -216,7 +223,7 @@ type
     procedure ImportGameData(const aFileName: string);
     procedure ImportGameDataIni(const aIniFile: TCustomIniFile);
 
-    function Execute(aGame: cGame): integer;
+    function Execute(aGame: cEmutecaGame): integer;
     //< Execute a Game.
 
     constructor Create(const aSystemsFile: string;
@@ -226,14 +233,14 @@ type
 
 implementation
 
-{ cGameManager }
+{ cEmutecaMainManager }
 
-procedure cGameManager.SetEmulatorsFile(const AValue: string);
+procedure cEmutecaMainManager.SetEmulatorsFile(const AValue: string);
 begin
   FEmulatorsFile := AValue;
 end;
 
-procedure cGameManager.SetGameDataFileExt(const AValue: string);
+procedure cEmutecaMainManager.SetGameDataFileExt(const AValue: string);
 var
   TrValue: string;
 begin
@@ -245,7 +252,7 @@ begin
     FGameDataFileExt := ExtensionSeparator + TrValue;
 end;
 
-procedure cGameManager.SetGroupDataFileExt(const AValue: string);
+procedure cEmutecaMainManager.SetGroupDataFileExt(const AValue: string);
 var
   TrValue: string;
 begin
@@ -257,43 +264,43 @@ begin
     FGroupDataFileExt := ExtensionSeparator + TrValue;
 end;
 
-procedure cGameManager.SetProgressCallBack(const AValue: TGMProgressCallBack);
+procedure cEmutecaMainManager.SetProgressCallBack(const AValue: TEMMProgressCallBack);
 begin
   FProgressCallBack := AValue;
 end;
 
-procedure cGameManager.SetCRCMaxSize(const AValue: cardinal);
+procedure cEmutecaMainManager.SetCRCMaxSize(const AValue: cardinal);
 begin
   FCRCMaxSize := AValue;
 end;
 
-procedure cGameManager.SetSystemsFile(const AValue: string);
+procedure cEmutecaMainManager.SetSystemsFile(const AValue: string);
 begin
   FSystemsFile := AValue;
 end;
 
-procedure cGameManager.SetTempFolder(const AValue: string);
+procedure cEmutecaMainManager.SetTempFolder(const AValue: string);
 begin
   FTempFolder := SetAsFolder(AValue);
 end;
 
-procedure cGameManager.SetTempFile(const AValue: string);
+procedure cEmutecaMainManager.SetTempFile(const AValue: string);
 begin
   FTempFile := AValue;
 end;
 
-function cGameManager.GameAtPos(const aIndex: integer): cGame;
+function cEmutecaMainManager.GameAtPos(const aIndex: integer): cEmutecaGame;
 begin
   if (aIndex < GameList.Count) and (aIndex >= 0) then
-    Result := cGame(GameList.Items[aIndex])
+    Result := cEmutecaGame(GameList.Items[aIndex])
   else
     Result := nil;
 end;
 
-function cGameManager.Game(aGameKey: string): cGame;
+function cEmutecaMainManager.Game(aGameKey: string): cEmutecaGame;
 var
   i: integer;
-  aGame: cGame;
+  aGame: cEmutecaGame;
 begin
   Result := nil;
   aGameKey := Trim(UTF8LowerCase(aGameKey));
@@ -313,29 +320,29 @@ begin
   end;
 end;
 
-function cGameManager.GameCount: longint;
+function cEmutecaMainManager.GameCount: longint;
 begin
   Result := GameList.Count;
 end;
 
-function cGameManager.GroupAtPos(const aIndex: integer): cGameGroup;
+function cEmutecaMainManager.GroupAtPos(const aIndex: integer): cEmutecaGameGroup;
 begin
   if (aIndex < GroupCount) and (aIndex >= 0) then
-    Result := cGameGroup(GroupList.Items[aIndex])
+    Result := cEmutecaGameGroup(GroupList.Items[aIndex])
   else
     Result := nil;
 end;
 
-function cGameManager.Group(aGroupKey: string): cGameGroup;
+function cEmutecaMainManager.Group(aGroupKey: string): cEmutecaGameGroup;
 var
   i: integer;
-  aGroup: cGameGroup;
+  aGroup: cEmutecaGameGroup;
 begin
   Result := nil;
   aGroupKey := Trim(UTF8LowerCase(aGroupKey));
 
   // Backwards and we don't access GroupCount every iteration...
-  //   Meh, see cGameManager.Game(aGameKey: String): cGame;
+  //   Meh, see cEmutecaMainManager.Game(aGameKey: String): cEmutecaGame;
   i := GroupCount - 1;
   while (i >= 0) do
   begin
@@ -349,26 +356,28 @@ begin
   end;
 end;
 
-function cGameManager.GroupCount: longint;
+function cEmutecaMainManager.GroupCount: longint;
 begin
   Result := GroupList.Count;
 end;
 
-procedure cGameManager.SaveSystem;
+procedure cEmutecaMainManager.SaveSystem;
 begin
   if System = nil then
     Exit;
   System.SaveToFile(SystemsFile);
 end;
 
-procedure cGameManager.ChangeSystem(const SystemName: string);
+procedure cEmutecaMainManager.ChangeSystem(const SystemName: string);
 begin
   if System <> nil then
+    // Changing to same system?
     if UTF8CompareText(System.ID, SystemName) = 0 then
       Exit
     else
       SaveSystemGameList;
 
+  // Clearing temp folder
   DeleteDirectory(TempFolder, True);
 
   FreeAndNil(FSystem);
@@ -388,7 +397,7 @@ begin
   LoadSystemGameList;
 end;
 
-procedure cGameManager.ChangeEmulator(const EmulatorName: string);
+procedure cEmutecaMainManager.ChangeEmulator(const EmulatorName: string);
 begin
   if Emulator <> nil then
     Emulator.SaveToFile(EmulatorsFile);
@@ -400,13 +409,13 @@ begin
     FreeAndNil(FEmulator);
 end;
 
-procedure cGameManager.PurgeGameData;
+procedure cEmutecaMainManager.PurgeGameData;
 begin
   GameList.Clear;
   GroupList.Clear;
 end;
 
-procedure cGameManager.UpdateGameList;
+procedure cEmutecaMainManager.UpdateGameList;
 var
   DataFile: string;
 begin
@@ -424,7 +433,7 @@ begin
     DeleteFileUTF8(DataFile);
 end;
 
-procedure cGameManager.SoftUpdateGameList;
+procedure cEmutecaMainManager.SoftUpdateGameList;
 begin
   // TODO 2: SoftUpdateGameList
   //   1. Remove Games wich file don't exists
@@ -434,7 +443,7 @@ begin
   UpdateGameList;
 end;
 
-procedure cGameManager.UpdateGroupList;
+procedure cEmutecaMainManager.UpdateGroupList;
 var
   i, j: integer;
 begin
@@ -448,7 +457,7 @@ begin
   end;
 end;
 
-function cGameManager.AddFile(aFolder: string; Info: TSearchRec): boolean;
+function cEmutecaMainManager.AddFile(aFolder: string; Info: TSearchRec): boolean;
 var
   Extension: string;
   i, j: integer;
@@ -469,7 +478,7 @@ begin
     else
       AddGame(aFolder, Info.Name, ExtractFileNameOnly(Info.Name));
     if ProgressCallBack <> nil then
-      Result := ProgressCallBack(GMCBAddFile, aFolder, Info.Name, 0, 1);
+      Result := ProgressCallBack(EMMCBAddFile, aFolder, Info.Name, 0, 1);
   end
   else
   if (CompressedExt.IndexOf(Extension) <> -1) then
@@ -502,7 +511,7 @@ begin
                 AddGame(aFolder + Info.Name, aFile[0],
                   ExtractFileNameOnly(aFile[0]));
               if ProgressCallBack <> nil then
-                Result := ProgressCallBack(GMCBAddFile, aFolder +
+                Result := ProgressCallBack(EMMCBAddFile, aFolder +
                   Info.Name, aFile[0], i, j);
             end;
           end;
@@ -517,34 +526,34 @@ begin
   end;
 end;
 
-function cGameManager.AddGame(const aFolder: string;
-  const aFileName: string; const aKey: string): cGame;
+function cEmutecaMainManager.AddGame(const aFolder: string;
+  const aFileName: string; const aKey: string): cEmutecaGame;
 var
-  aGame: cGame;
+  aGame: cEmutecaGame;
 begin
-  aGame := cGame.Create(aFolder, aFileName, aKey);
+  aGame := cEmutecaGame.Create(aFolder, aFileName, aKey);
   GameList.Add(aGame);
   AddGroup(aGame.GameGroup);
   Result := aGame;
 end;
 
-function cGameManager.AddGroup(aGameGroupID: string): cGameGroup;
+function cEmutecaMainManager.AddGroup(aGameGroupID: string): cEmutecaGameGroup;
 begin
   aGameGroupID := Trim(aGameGroupID);
   Result := Group(aGameGroupID);
 
   if Result = nil then
   begin
-    Result := cGameGroup.Create(aGameGroupID);
+    Result := cEmutecaGameGroup.Create(aGameGroupID);
     GroupList.Add(Result);
   end;
 end;
 
-function cGameManager.GameMediaExists(aFolder: string;
-  aGameVersion: cGame; Extensions: TStrings): boolean;
+function cEmutecaMainManager.GameMediaExists(aFolder: string;
+  aGameVersion: cEmutecaGame; Extensions: TStrings): boolean;
 var
   TmpStrList: TStringList;
-  aGameGroup: cGameGroup;
+  aGameGroup: cEmutecaGameGroup;
 begin
   Result := False;
   TmpStrList := TStringList.Create;
@@ -564,8 +573,8 @@ begin
   end;
 end;
 
-function cGameManager.GroupMediaExists(aFolder: string;
-  aGameGroup: cGameGroup; Extensions: TStrings): boolean;
+function cEmutecaMainManager.GroupMediaExists(aFolder: string;
+  aGameGroup: cEmutecaGameGroup; Extensions: TStrings): boolean;
 var
   TmpStrList: TStringList;
 begin
@@ -581,8 +590,8 @@ begin
   end;
 end;
 
-procedure cGameManager.SearchGameMedia(FileList: TStrings;
-  aFolder: string; aGameVersion: cGame; Extensions: TStrings);
+procedure cEmutecaMainManager.SearchGameMedia(FileList: TStrings;
+  aFolder: string; aGameVersion: cEmutecaGame; Extensions: TStrings);
 begin
   SearchMediaFiles(FileList, aFolder,
     RemoveFromBrackets(aGameVersion.FileName) + kEmutecaVirtualGameExt, Extensions);
@@ -591,13 +600,13 @@ begin
       Extensions);
 end;
 
-procedure cGameManager.SearchGroupMedia(FileList: TStrings;
-  aFolder: string; aGameGroup: cGameGroup; Extensions: TStrings);
+procedure cEmutecaMainManager.SearchGroupMedia(FileList: TStrings;
+  aFolder: string; aGameGroup: cEmutecaGameGroup; Extensions: TStrings);
 begin
   SearchMediaFiles(FileList, aFolder, aGameGroup.MediaFileName, Extensions);
 end;
 
-procedure cGameManager.SearchMediaFiles(FileList: TStrings;
+procedure cEmutecaMainManager.SearchMediaFiles(FileList: TStrings;
   aFolder: string; aFileName: string; Extensions: TStrings);
 
   procedure SearchFileByExt(aFileList: TStrings; aBaseFileName: string;
@@ -732,13 +741,13 @@ begin
     end;
 end;
 
-procedure cGameManager.SaveSystemGameList;
+procedure cEmutecaMainManager.SaveSystemGameList;
 var
   i, j: integer;
   aFileName: string;
   aStringList: TStringList;
-  aGame: cGame;
-  aGroup: cGameGroup;
+  aGame: cEmutecaGame;
+  aGroup: cEmutecaGameGroup;
 begin
   if System = nil then
     Exit;
@@ -756,7 +765,7 @@ begin
     begin
       aGroup := GroupAtPos(i);
       if ProgressCallBack <> nil then
-        ProgressCallBack(GMCBSaveList, aGroup.Key, aGroup.Name, i, j);
+        ProgressCallBack(EMMCBSaveList, aGroup.Key, aGroup.Name, i, j);
       aStringList.Add(aGroup.DataString);
       Inc(i);
     end;
@@ -780,7 +789,7 @@ begin
     begin
       aGame := GameAtPos(i);
       if ProgressCallBack <> nil then
-        ProgressCallBack(GMCBSaveList, aGame.Name, aGame.Version, i, j);
+        ProgressCallBack(EMMCBSaveList, aGame.GameName, aGame.Version, i, j);
       aStringList.Add(aGame.DataString);
       Inc(i);
     end;
@@ -791,12 +800,12 @@ begin
   FreeAndNil(aStringList);
 end;
 
-procedure cGameManager.LoadSystemGameList;
+procedure cEmutecaMainManager.LoadSystemGameList;
 var
   i, j: integer;
   aStringList: TStringList;
-  aGame: cGame;
-  aGroup: cGameGroup;
+  aGame: cEmutecaGame;
+  aGroup: cEmutecaGameGroup;
   aFilename: string;
 begin
   if System = nil then
@@ -817,10 +826,10 @@ begin
     j := aStringList.Count;
     while i < j do
     begin
-      aGroup := cGameGroup.Create('');
+      aGroup := cEmutecaGameGroup.Create('');
       aGroup.DataString := aStringList[i];
       if ProgressCallBack <> nil then
-        ProgressCallBack(GMCBLoadList, aGroup.Key, aGroup.Name, i, j);
+        ProgressCallBack(EMMCBLoadList, aGroup.Key, aGroup.Name, i, j);
       FGroupList.Add(aGroup);
       Inc(i);
     end;
@@ -840,10 +849,10 @@ begin
     j := aStringList.Count;
     while i < j do
     begin
-      aGame := cGame.Create('', '', '');
+      aGame := cEmutecaGame.Create('', '', '');
       aGame.DataString := aStringList[i];
       if ProgressCallBack <> nil then
-        ProgressCallBack(GMCBLoadList, aGame.Name, aGame.Version, i, j);
+        ProgressCallBack(EMMCBLoadList, aGame.GameName, aGame.Version, i, j);
       FGameList.Add(aGame);
       AddGroup(aGame.GameGroup);
       Inc(i);
@@ -853,7 +862,7 @@ begin
   end;
 end;
 
-procedure cGameManager.ExportGameData(const aFileName: string;
+procedure cEmutecaMainManager.ExportGameData(const aFileName: string;
   const ExportMode: boolean);
 var
   F: TMemInifile;
@@ -866,12 +875,12 @@ begin
   end;
 end;
 
-procedure cGameManager.ExportGameDataIni(const aIniFile: TCustomIniFile;
+procedure cEmutecaMainManager.ExportGameDataIni(const aIniFile: TCustomIniFile;
   const ExportMode: boolean);
 var
   i, j: integer;
-  aGame: cGame;
-  aGameGroup: cGameGroup;
+  aGame: cEmutecaGame;
+  aGameGroup: cEmutecaGameGroup;
   Continue: boolean;
 begin
   i := 0;
@@ -882,7 +891,7 @@ begin
     aGame := GameAtPos(i);
     aGame.ExportDataIni(aIniFile, ExportMode);
     if ProgressCallBack <> nil then
-      Continue := ProgressCallBack(GMCBExportData, aGame.Name,
+      Continue := ProgressCallBack(EMMCBExportData, aGame.GameName,
         aGame.Version, i, j);
     Inc(i);
   end;
@@ -893,15 +902,15 @@ begin
   while (i < j) and Continue do
   begin
     aGameGroup := GroupAtPos(i);
-    aGameGroup.ExportDataIni(aIniFile, ExportMode);
+    aGameGroup.ExportDataIni(aIniFile);
     if ProgressCallBack <> nil then
-      Continue := ProgressCallBack(GMCBExportData, aGameGroup.Name,
+      Continue := ProgressCallBack(EMMCBExportData, aGameGroup.Name,
         kEmutecaVirtualGroupExt, i, j);
     Inc(i);
   end;
 end;
 
-procedure cGameManager.ImportGameData(const aFileName: string);
+procedure cEmutecaMainManager.ImportGameData(const aFileName: string);
 var
   F: TMemInifile;
 begin
@@ -915,11 +924,11 @@ begin
   end;
 end;
 
-procedure cGameManager.ImportGameDataIni(const aIniFile: TCustomIniFile);
+procedure cEmutecaMainManager.ImportGameDataIni(const aIniFile: TCustomIniFile);
 var
   i, j: integer;
-  aGame: cGame;
-  aGameGroup: cGameGroup;
+  aGame: cEmutecaGame;
+  aGameGroup: cEmutecaGameGroup;
   Continue: boolean;
 begin
   i := 0;
@@ -930,7 +939,7 @@ begin
     aGame := GameAtPos(i);
     aGame.ImportDataIni(aIniFile);
     if ProgressCallBack <> nil then
-      Continue := ProgressCallBack(GMCBImportData, aGame.Name,
+      Continue := ProgressCallBack(EMMCBImportData, aGame.GameName,
         aGame.Version, i, j);
     Inc(i);
   end;
@@ -945,13 +954,13 @@ begin
     aGameGroup := GroupAtPos(i);
     aGameGroup.ImportDataIni(aIniFile);
     if Assigned(ProgressCallBack) then
-      Continue := ProgressCallBack(GMCBImportData, aGameGroup.Name,
+      Continue := ProgressCallBack(EMMCBImportData, aGameGroup.Name,
         kEmutecaVirtualGroupExt, i, j);
     Inc(i);
   end;
 end;
 
-function cGameManager.Execute(aGame: cGame): integer;
+function cEmutecaMainManager.Execute(aGame: cEmutecaGame): integer;
 var
   RomFile, CompressedFile: string;
   Error: integer;
@@ -1046,7 +1055,7 @@ begin
   end;
 end;
 
-constructor cGameManager.Create(const aSystemsFile: string;
+constructor cEmutecaMainManager.Create(const aSystemsFile: string;
   const aTempFolder: string; const aTempFile: string);
 begin
   SystemsFile := aSystemsFile;
@@ -1056,18 +1065,20 @@ begin
 
   FGameList := TFPObjectList.Create(True);
   FGroupList := TFPObjectList.Create(True);
+  FGroupManager := cEmutecaGroupManager.create;
 
   FCompressedExt := TStringList.Create;
   CompressedExt.CommaText := w7zFileExts;
 end;
 
-destructor cGameManager.Destroy;
+destructor cEmutecaMainManager.Destroy;
 begin
   SaveSystemGameList;
   FreeAndNil(FEmulator);
   FreeAndNil(FSystem);
   FreeAndNil(FGroupList);
   FreeAndNil(FGameList);
+  FreeAndNil(FGroupManager);
   FreeAndNil(FCompressedExt);
   inherited Destroy;
 end;

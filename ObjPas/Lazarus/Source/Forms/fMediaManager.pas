@@ -33,7 +33,7 @@ uses
   uRscStr, uConst, uEmutecaConst,
   // Emuteca
   fProgressBar, fImageViewer,
-   uEmutecaGameManager, uEmutecaGame, uEmutecaGroup,
+   uEmutecaMainManager, uEmutecaGame, uEmutecaGameGroup,
    // Custom
   uConfig, uCHXStrUtils, uCHXImageUtils, uCHXFileUtils;
 
@@ -195,10 +195,10 @@ type
       HitInfo: TVTHeaderHitInfo);
   private
     FConfig: cConfig;
-    FCurrentGroup: cGameGroup;
+    FCurrentGroup: cEmutecaGameGroup;
     FCurrentMediaIndex: integer;
     FExtFilter: TStrings;
-    FGameManager: cGameManager;
+    FGameManager: cEmutecaMainManager;
     FMediaFiles: TStringList;
     FMultiFile: boolean;
     FSourceFile: string;
@@ -206,10 +206,10 @@ type
     FTargetFile: string;
     FTargetFolder: string;
     procedure SetConfig(const AValue: cConfig);
-    procedure SetCurrentGroup(AValue: cGameGroup);
+    procedure SetCurrentGroup(AValue: cEmutecaGameGroup);
     procedure SetCurrentMediaIndex(const AValue: integer);
     procedure SetExtFilter(const AValue: TStrings);
-    procedure SetGameManager(const AValue: cGameManager);
+    procedure SetGameManager(const AValue: cEmutecaMainManager);
     procedure SetMediaFiles(const AValue: TStringList);
     procedure SetMultiFile(const AValue: boolean);
     procedure SetSourceFile(const AValue: string);
@@ -246,7 +246,7 @@ type
     property CurrentMediaIndex: integer
       read FCurrentMediaIndex write SetCurrentMediaIndex;
     //< Index of the current media file.
-    property CurrentGroup: cGameGroup read FCurrentGroup write SetCurrentGroup;
+    property CurrentGroup: cEmutecaGameGroup read FCurrentGroup write SetCurrentGroup;
 
     // TODO 3: Maybe this 4 methods can be reduced to 2 without ofuscate them...
     function AddFile(aFolder: string; Info: TSearchRec): boolean; overload;
@@ -289,12 +289,12 @@ type
 
     procedure UpdateFileOtherFolder(const afolder: string);
 
-    procedure ChangeGroupMedia(aGroup: cGameGroup);
+    procedure ChangeGroupMedia(aGroup: cEmutecaGameGroup);
     {< Change the media preview to the group media.
 
       @param(aGroup The game group with it's media will be previewed.)
     }
-    procedure ChangeGameMedia(aGame: cGame);
+    procedure ChangeGameMedia(aGame: cEmutecaGame);
     {< Change the media preview to the game media.
 
       @param(aGame The game with it's media will be previewed.)
@@ -362,7 +362,7 @@ type
     property Config: cConfig read FConfig write SetConfig;
     {< Config object with actual configuration. }
 
-    property GameManager: cGameManager read FGameManager write SetGameManager;
+    property GameManager: cEmutecaMainManager read FGameManager write SetGameManager;
     {< GameManager with current system. }
   end;
 
@@ -654,14 +654,14 @@ end;
 procedure TfrmMediaManager.vstAllGamesCompareNodes(Sender: TBaseVirtualTree;
   Node1, Node2: PVirtualNode; Column: TColumnIndex; var Result: integer);
 var
-  Nodo1, Nodo2: ^cGame;
+  Nodo1, Nodo2: ^cEmutecaGame;
 begin
   Result := 0;
   Nodo1 := Sender.GetNodeData(Node1);
   Nodo2 := Sender.GetNodeData(Node2);
 
   case Column of
-    -1, 0: Result := UTF8CompareText(Nodo1^.Name, Nodo2^.Name);
+    -1, 0: Result := UTF8CompareText(Nodo1^.GameName, Nodo2^.GameName);
     1: Result := UTF8CompareText(Nodo1^.GameGroup, Nodo2^.GameGroup);
     // TODO 2: LINUX
     2: Result := UTF8CompareText(Nodo1^.FileName, Nodo2^.FileName);
@@ -682,7 +682,7 @@ end;
 procedure TfrmMediaManager.vstGroupsCompareNodes(Sender: TBaseVirtualTree;
   Node1, Node2: PVirtualNode; Column: TColumnIndex; var Result: integer);
 var
-  Nodo1, Nodo2: ^cGameGroup;
+  Nodo1, Nodo2: ^cEmutecaGameGroup;
 begin
   Result := 0;
   Nodo1 := Sender.GetNodeData(Node1);
@@ -750,7 +750,7 @@ end;
 procedure TfrmMediaManager.vstGamesChange(Sender: TBaseVirtualTree;
   Node: PVirtualNode);
 var
-  PData: ^cGame;
+  PData: ^cEmutecaGame;
 begin
   TargetFile := '';
   if Node = nil then
@@ -764,14 +764,14 @@ procedure TfrmMediaManager.vstGamesGetText(Sender: TBaseVirtualTree;
   Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType;
   var CellText: string);
 var
-  PData: ^cGame;
+  PData: ^cEmutecaGame;
 begin
   PData := Sender.GetNodeData(Node);
   if PData^ = nil then
     Exit;
   case TextType of
     ttNormal: case Column of
-        -1, 0: CellText := PData^.Name;
+        -1, 0: CellText := PData^.GameName;
         1: CellText := PData^.GameGroup;
         2: CellText := PData^.FileName;
       end;
@@ -781,7 +781,7 @@ end;
 procedure TfrmMediaManager.vstGroupsChange(Sender: TBaseVirtualTree;
   Node: PVirtualNode);
 var
-  PData: ^cGameGroup;
+  PData: ^cEmutecaGameGroup;
 begin
   TargetFile := '';
   if Node = nil then
@@ -799,7 +799,7 @@ procedure TfrmMediaManager.vstGroupsGetText(Sender: TBaseVirtualTree;
   Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType;
   var CellText: string);
 var
-  PData: ^cGameGroup;
+  PData: ^cEmutecaGameGroup;
 begin
   PData := Sender.GetNodeData(Node);
   if PData^ = nil then
@@ -843,7 +843,7 @@ begin
   lTarget.Caption := format(rsfmmTarget, ['']);
 end;
 
-procedure TfrmMediaManager.SetCurrentGroup(AValue: cGameGroup);
+procedure TfrmMediaManager.SetCurrentGroup(AValue: cEmutecaGameGroup);
 begin
   if FCurrentGroup = AValue then Exit;
   FCurrentGroup := AValue;
@@ -863,7 +863,7 @@ begin
   FExtFilter := AValue;
 end;
 
-procedure TfrmMediaManager.SetGameManager(const AValue: cGameManager);
+procedure TfrmMediaManager.SetGameManager(const AValue: cEmutecaMainManager);
 var
   i: integer;
   PData: ^TObject;
@@ -1020,8 +1020,8 @@ end;
 procedure TfrmMediaManager.VSTUpdate(aFolder: string);
 var
   PStringData: ^string;
-  PGameGroup, PGameGroup2: ^cGameGroup;
-  PGame: ^cGame;
+  PGameGroup, PGameGroup2: ^cEmutecaGameGroup;
+  PGame: ^cEmutecaGame;
   aFileName: string;
   Nodo1, Nodo2: PVirtualNode;
   Found, Continue: boolean;
@@ -1178,7 +1178,7 @@ begin
   vstFilesOtherFolder.EndUpdate;
 end;
 
-procedure TfrmMediaManager.ChangeGroupMedia(aGroup: cGameGroup);
+procedure TfrmMediaManager.ChangeGroupMedia(aGroup: cEmutecaGameGroup);
 begin
   ClearMedia;
   MediaFiles.Clear;
@@ -1197,7 +1197,7 @@ begin
   ShowMedia;
 end;
 
-procedure TfrmMediaManager.ChangeGameMedia(aGame: cGame);
+procedure TfrmMediaManager.ChangeGameMedia(aGame: cEmutecaGame);
 begin
   ClearMedia;
   MediaFiles.Clear;
@@ -1601,7 +1601,7 @@ end;
 procedure TfrmMediaManager.RemoveGroupWOFile(aFile: string);
 var
   Nodo: PVirtualNode;
-  PGroup: ^cGameGroup;
+  PGroup: ^cEmutecaGameGroup;
 begin
   // Meh, I don't like this way, but...
   aFile := ExtractFileNameOnly(aFile) + kEmutecaVirtualGroupExt;

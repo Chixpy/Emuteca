@@ -31,7 +31,7 @@ uses
   // Common
   uRscStr, uConst,
   // Emuteca
-  uConfig, uEmutecaGameManager, uVersionSupport;
+  uConfig, uEmutecaMainManager, uVersionSupport;
 
 type
 
@@ -56,15 +56,15 @@ type
 
   private
     FConfig: cConfig;
-    FGameManager: cGameManager;
+    FGameManager: cEmutecaMainManager;
     procedure SetConfig(const AValue: cConfig);
-    procedure SetGameManager(const AValue: cGameManager);
+    procedure SetGameManager(const AValue: cEmutecaMainManager);
 
   public
     property Config: cConfig read FConfig write SetConfig;
     {< cConfig object where some infomation is taken from}
-    property GameManager: cGameManager read FGameManager write SetGameManager;
-    {< cGameManager object where some infomation is taken from}
+    property GameManager: cEmutecaMainManager read FGameManager write SetGameManager;
+    {< cEmutecaMainManager object where some infomation is taken from}
   end;
 
 var
@@ -103,7 +103,7 @@ begin
   lVersion.Caption := GetFileVersion + sLineBreak + '(' + GetCompiledDate + ')';
 end;
 
-procedure TfrmAbout.SetGameManager(const AValue: cGameManager);
+procedure TfrmAbout.SetGameManager(const AValue: cEmutecaMainManager);
 begin
   if FGameManager = AValue then
     exit;

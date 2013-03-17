@@ -41,7 +41,7 @@ implementation
 
 uses
    dateutils
-  ,uEmutecaStats
+  ,uEmutecaPlayingStats
   ;
  
  
@@ -75,48 +75,48 @@ end;
 
 (* === run-time registration functions === *)
 (*----------------------------------------------------------------------------*)
-procedure cPlayingStatsIconIndex_W(Self: cPlayingStats; const T: Integer);
+procedure cPlayingStatsIconIndex_W(Self: cEmutecaPlayingStats; const T: Integer);
 begin Self.IconIndex := T; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cPlayingStatsIconIndex_R(Self: cPlayingStats; var T: Integer);
+procedure cPlayingStatsIconIndex_R(Self: cEmutecaPlayingStats; var T: Integer);
 begin T := Self.IconIndex; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cPlayingStatsPlayingTime_W(Self: cPlayingStats; const T: LongWord);
+procedure cPlayingStatsPlayingTime_W(Self: cEmutecaPlayingStats; const T: LongWord);
 begin Self.PlayingTime := T; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cPlayingStatsPlayingTime_R(Self: cPlayingStats; var T: LongWord);
+procedure cPlayingStatsPlayingTime_R(Self: cEmutecaPlayingStats; var T: LongWord);
 begin T := Self.PlayingTime; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cPlayingStatsTimesPlayed_W(Self: cPlayingStats; const T: LongWord);
+procedure cPlayingStatsTimesPlayed_W(Self: cEmutecaPlayingStats; const T: LongWord);
 begin Self.TimesPlayed := T; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cPlayingStatsTimesPlayed_R(Self: cPlayingStats; var T: LongWord);
+procedure cPlayingStatsTimesPlayed_R(Self: cEmutecaPlayingStats; var T: LongWord);
 begin T := Self.TimesPlayed; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cPlayingStatsLastTime_W(Self: cPlayingStats; const T: TDateTime);
+procedure cPlayingStatsLastTime_W(Self: cEmutecaPlayingStats; const T: TDateTime);
 begin Self.LastTime := T; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cPlayingStatsLastTime_R(Self: cPlayingStats; var T: TDateTime);
+procedure cPlayingStatsLastTime_R(Self: cEmutecaPlayingStats; var T: TDateTime);
 begin T := Self.LastTime; end;
 
 (*----------------------------------------------------------------------------*)
 procedure RIRegister_cPlayingStats(CL: TPSRuntimeClassImporter);
 begin
-  with CL.Add(cPlayingStats) do
+  with CL.Add(cEmutecaPlayingStats) do
   begin
     RegisterPropertyHelper(@cPlayingStatsLastTime_R,@cPlayingStatsLastTime_W,'LastTime');
     RegisterPropertyHelper(@cPlayingStatsTimesPlayed_R,@cPlayingStatsTimesPlayed_W,'TimesPlayed');
     RegisterPropertyHelper(@cPlayingStatsPlayingTime_R,@cPlayingStatsPlayingTime_W,'PlayingTime');
     RegisterPropertyHelper(@cPlayingStatsIconIndex_R,@cPlayingStatsIconIndex_W,'IconIndex');
-    RegisterMethod(@cPlayingStats.AddPlayingTime, 'AddPlayingTime');
-    RegisterConstructor(@cPlayingStats.Create, 'Create');
+    RegisterMethod(@cEmutecaPlayingStats.AddPlayingTime, 'AddPlayingTime');
+    RegisterConstructor(@cEmutecaPlayingStats.Create, 'Create');
   end;
 end;
 

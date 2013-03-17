@@ -5,7 +5,7 @@ unit uCHXIni;
 interface
 
 uses
-  Classes, SysUtils, fgl;
+  Classes, SysUtils, fgl, LazUTF8;
 
 type
 
@@ -53,15 +53,15 @@ type
 
     property Lines: cCHXIniLinesList read FLines write SetLines;
 
-    function Key(aKey: string): cCHXIniLine;
-    function AddLine(const aKey, aValue, aComment: string; MergeKeys: Boolean): cCHXIniLine;
+    function LineByKey(aKey: string): cCHXIniLine;
+    function ValueByKey(aKey: string): string;
+    function AddLine(aKey, aValue, aComment: string; MergeKeys: Boolean): cCHXIniLine;
 
     constructor Create(const aName, aComment: string);
     destructor Destroy; override;
   end;
 
-   { cCHXIniSectionList }
-
+  { cCHXIniSectionList }
   cCHXIniSectionList = specialize TFPGObjectList<cCHXIniSection>;
 
   { cCHXIni }
@@ -79,6 +79,7 @@ type
     FNewLine: string;
     FQuoteBegin: char;
     FQuoteEnd: char;
+    FRemoveQuotes: Boolean;
     FSectionBegin: char;
     FSectionEnd: char;
     FSectionList: cCHXIniSectionList;
@@ -93,6 +94,7 @@ type
     procedure SetNewLine(AValue: string);
     procedure SetQuoteBegin(AValue: char);
     procedure SetQuoteEnd(AValue: char);
+    procedure SetRemoveQuotes(AValue: Boolean);
     procedure SetSectionBegin(AValue: char);
     procedure SetSectionEnd(AValue: char);
 
@@ -111,6 +113,10 @@ type
     property SectionBegin: char read FSectionBegin write SetSectionBegin;
     property SectionEnd: char read FSectionEnd write SetSectionEnd;
     property NewLine: string read FNewLine write SetNewLine;
+    property RemoveQuotes: Boolean read FRemoveQuotes write SetRemoveQuotes;
+    {< Quotes are removed when a Value is readed, internally
+      the value is stored as is.
+    }
     property QuoteBegin: char read FQuoteBegin write SetQuoteBegin;
     property QuoteEnd: char read FQuoteEnd write SetQuoteEnd;
     property AssignChar: char read FAssignChar write SetAssignChar;
@@ -122,7 +128,13 @@ type
     {< Reads a ini file from disk.
     }
     procedure SaveToFile(const aFilename: string);
+    {< Save a ini file to disk (it doesn't merge content).
 
+      For merging, target file must be loaded first.
+    }
+    function SectionNameList: TStringList;
+    {< Creates a TStringlist with the name of setions.
+    }
     function SectionByIndex(aIndex: integer): cCHXIniSection;
     {< Returns the section at aIndex position in the Ini file.
 
@@ -146,11 +158,22 @@ type
       if it's empty.
     }
 
+    // Main reading string functions
     function ReadString(const aSectionName, aKeyName, aDefault: string): string;
+    {< Accesses a value by section and key name. }
+    function ReadString(const aSectionIndex: integer; const aKeyName,
+      aDefault: string): string;
+    {< Accesses a value by section index and key name. }
+    function ReadString(const aSectionIndex, aKeyIndex: integer; const
+      aDefault: string): string;
+    {< Accesses a value by section index and line. }
+
+
     function ReadMultiStrings(const aSectionName, aKeyName, aDefault: string; const Separator: char = ','): TStringList;
     function ReadInteger(const aSectionName, aKeyName: string; const aDefault: integer): integer;
     function ReadTPoint(const aSectionName, aKeyName: string; const aDefault: TPoint): TPoint;
 
+    // Common ini writing functions
     procedure WriteString(const aSectionName, aKeyName, aValue: string);
     procedure WriteInteger(const aSectionName, aKeyName: string; const aValue: integer);
 
@@ -169,7 +192,7 @@ end;
 
 procedure cCHXIniLine.SetKey(AValue: string);
 begin
-  FKey := AValue;
+  FKey := UTF8Trim(AValue);
 end;
 
 procedure cCHXIniLine.SetValue(AValue: string);
@@ -212,7 +235,7 @@ begin
   FName := AValue;
 end;
 
-function cCHXIniSection.Key(aKey: string): cCHXIniLine;
+function cCHXIniSection.LineByKey(aKey: string): cCHXIniLine;
 var
   CurrLine: cCHXIniLine;
   i: integer;
@@ -236,14 +259,25 @@ begin
   end;
 end;
 
-function cCHXIniSection.AddLine(aKey, aValue, aComment: string; MergeKeys: Boolean): cCHXIniLine;
+function cCHXIniSection.ValueByKey(aKey: string): string;
+var
+  aLine: cCHXIniLine;
+begin
+  Result := '';
+  aLine := LineByKey(aKey);
+  if aLine<>nil then Exit;
+  Result := aLine.Value;
+end;
+
+function cCHXIniSection.AddLine(aKey, aValue, aComment: string;
+  MergeKeys: Boolean): cCHXIniLine;
 begin
   Result := nil;
 
   aKey := UTF8Trim(aKey);
 
   if MergeKeys and (aKey <> '') then
-    Result := Key(aKey);
+    Result := LineByKey(aKey);
 
   if Result = nil then
   begin
@@ -326,6 +360,12 @@ end;
 procedure cCHXIni.SetQuoteEnd(AValue: char);
 begin
   FQuoteEnd := AValue;
+end;
+
+procedure cCHXIni.SetRemoveQuotes(AValue: Boolean);
+begin
+  if FRemoveQuotes = AValue then Exit;
+  FRemoveQuotes := AValue;
 end;
 
 procedure cCHXIni.SetSectionBegin(AValue: char);
@@ -441,18 +481,6 @@ begin
           aKey := UTF8Trim(UTF8Copy(aValue, 1, aPos - 1));
           aValue := UTF8Trim(UTF8Copy(aValue, aPos + UTF8Length(AssignChar),
             Maxint));
-
-          // Is it quoted?
-          if UTF8Copy(aValue, 1, length(QuoteBegin)) = QuoteBegin then
-          begin
-            // Seems that yes...
-            // Big trick here....
-            aValue := QuoteEnd + UTF8Copy(aValue, 1 + UTF8Length(QuoteBegin), Maxint);
-            aValue := AnsiDequotedStr(aValue, QuoteEnd);
-            // if "" then empty. "" must be writed """""" LOL
-             if aValue = QuoteEnd + QuoteEnd then
-               aValue:='';
-          end;
         end;
         CurrSection.AddLine(aKey, aValue, aComment, MergeKeys);
       end;
@@ -470,6 +498,7 @@ var
 begin
   StrList := TStringList.Create;
   try
+    FileName := aFilename;
     StrList.LoadFromFile(UTF8ToSys(aFilename));
     { TODO -oChixpy : Join trucated lines, if EscapeLF = true}
     FillSectionList(StrList);
@@ -528,9 +557,28 @@ begin
       Inc(i);
     end;
 
+    FileName := aFilename;
     StrList.SaveToFile(UTF8ToSys(aFilename));
   finally
     FreeAndNil(StrList);
+  end;
+end;
+
+function cCHXIni.SectionNameList: TStringList;
+var
+  i: Integer;
+begin
+  Result := nil;
+
+  if SectionCount = 0 then Exit;
+
+  Result := TStringList.Create;
+
+  i := 0;
+  while i < SectionList.Count do
+  begin
+    Result.Add(SectionByIndex(i).Name);
+    Inc(i);
   end;
 end;
 
@@ -543,7 +591,6 @@ function cCHXIni.SectionByName(aSectionName: string): cCHXIniSection;
 var
   i: integer;
   aSection: cCHXIniSection;
-  CompStr: integer;
 begin
   Result := nil;
   i := 0;
@@ -570,14 +617,50 @@ var
   aSection: cCHXIniSection;
   aKey: cCHXIniLine;
 begin
+
+ashgdjhasgdjhgaskjdg
+
   Result := aDefault;
   aSection := SectionByName(aSectionName);
   if aSection = nil then
-    exit;
-  aKey := aSection.Key(aKeyName);
+    Exit;
+  aKey := aSection.LineByKey(aKeyName);
   if aKey = nil then
-    exit;
+    Exit;
   Result := aKey.Value;
+
+  // Is it quoted?
+  if (RemoveQuotes) and (UTF8Copy(Result, 1, length(QuoteBegin)) = QuoteBegin) then
+  begin
+    // Seems that yes...
+    // Big trick here....
+    Result := QuoteEnd + UTF8Copy(Result, 1 + UTF8Length(QuoteBegin), Maxint);
+    Result := AnsiDequotedStr(Result, QuoteEnd);
+  end;
+end;
+
+function cCHXIni.ReadString(const aSectionIndex: integer; const aKeyName,
+  aDefault: string): string;
+var
+  aSection: cCHXIniSection;
+  aKeyIndex: integer;
+begin
+  Result := aDefault;
+
+  aSection := Self.SectionList[aSectionIndex];
+  aKey := aSection.LineByKey(aKeyName);
+  if aKey = nil then
+    Exit;
+  Result := aKey.Value;
+
+  // Is it quoted?
+  if (RemoveQuotes) and (UTF8Copy(Result, 1, length(QuoteBegin)) = QuoteBegin) then
+  begin
+    // Seems that yes...
+    // Big trick here....
+    Result := QuoteEnd + UTF8Copy(Result, 1 + UTF8Length(QuoteBegin), Maxint);
+    Result := AnsiDequotedStr(Result, QuoteEnd);
+  end;
 end;
 
 function cCHXIni.ReadMultiStrings(const aSectionName, aKeyName, aDefault: string; const Separator: char): TStringList;
@@ -587,7 +670,7 @@ begin
   Result := TStringList.Create;
   Result.StrictDelimiter := true;
   Result.Delimiter := Separator;
-  aStr := ReadString(aSectionName, aKeyName, '');
+  aStr := ReadString(aSectionName, aKeyName, '', False);
   if aStr = '' then
     aStr := aDefault;
   Result.DelimitedText := aStr;
@@ -627,7 +710,7 @@ begin
     aSection:= cCHXIniSection.Create(aSectionName, '');
     SectionList.add(aSection);
   end;
-  aKey := aSection.Key(aKeyName);
+  aKey := aSection.LineByKey(aKeyName);
   if aKey = nil then
     aKey:= aSection.AddLine(aKeyName,aValue,'',MergeKeys)
   else
@@ -644,10 +727,6 @@ end;
 constructor cCHXIni.Create;
 begin
   inherited Create;
-
-  self.EscapeLF := False;
-  self.MergeKeys := False;
-  self.MergeSections := False;
 
   // Some default values:
   self.CommentBegin := ';';

@@ -34,14 +34,15 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   fAbout, fSMAskFile, fSMAskFolder, fConfigManager, fSystemManager,
   fEmulatorManager,
   // Emuteca core
-  uEmutecaConst, uEmutecaRscStr, uEmutecaGameManager, uEmutecaSystem,
+  uEmutecaConst, uEmutecaRscStr, uEmutecaMainManager, uEmutecaSystem,
   uEmutecaSystemManager, uEmutecaEmulatorManager, uEmutecaEmulator,
-  uEmutecaGroup, uEmutecaScriptEngine, uEmutecaStats,
+  uEmutecaGameGroup, uEmutecaScriptEngine, uEmutecaPlayingStats,
   // Pascal Script
   uPSI_uGame, uPSI_uGameGroup, uPSI_uGameManager, uPSI_u7zWrapper, uPSI_uSystem,
   uPSI_uEmulator, uPSI_uPlayingStats,
   // Custom
-  uConfig, uCHXStrUtils, uCHXFileUtils, uCHXImageList, uCHXImageUtils;
+  uConfig, uCHXStrUtils, uCHXFileUtils, uCHXImageList, uCHXImageUtils,
+  uGenericGroupManager, uEmutecaGroupManager;
 
 {$R LazEmuteca.res}
 

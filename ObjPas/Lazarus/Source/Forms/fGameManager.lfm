@@ -177,10 +177,10 @@ object frmGameManager: TfrmGameManager
     end
     object vstGroups: TVirtualStringTree
       Left = 0
-      Height = 458
+      Height = 223
       Top = 73
       Width = 374
-      Align = alClient
+      Align = alTop
       ButtonStyle = bsTriangle
       Color = clWindow
       DefaultText = '¡ERROR!'
@@ -243,6 +243,87 @@ object frmGameManager: TfrmGameManager
       Margin = 2
       PopupMenu = pmGameList
       TabOrder = 3
+      TextMargin = 2
+      TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScroll, toAutoScrollOnExpand, toAutoSort, toAutoTristateTracking, toAutoDeleteMovedNodes]
+      TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toGridExtensions, toInitOnSave, toReportMode, toToggleOnDblClick, toWheelPanning, toFullRowDrag, toNodeHeightResize]
+      TreeOptions.PaintOptions = [toShowBackground, toShowButtons, toShowDropmark, toShowHorzGridLines, toShowTreeLines, toShowVertGridLines, toThemeAware, toUseBlendedImages, toFullVertGridLines, toUseBlendedSelection, toUseExplorerTheme]
+      TreeOptions.SelectionOptions = [toDisableDrawSelection, toFullRowSelect, toMiddleClickSelect, toRightClickSelect]
+      TreeOptions.StringOptions = []
+      OnChange = vstGroupsChange
+      OnCompareNodes = vstCompareNodes
+      OnDblClick = vstGroupsDblClick
+      OnDrawText = vstGroupsDrawText
+      OnGetText = vstGroupsGetText
+      OnHeaderClick = vstHeaderClick
+    end
+    object vstGroupsNew: TVirtualStringTree
+      Left = 0
+      Height = 223
+      Top = 296
+      Width = 374
+      Align = alTop
+      ButtonStyle = bsTriangle
+      Color = clWindow
+      DefaultText = '¡ERROR!'
+      Header.AutoSizeIndex = 0
+      Header.Columns = <      
+        item
+          Position = 0
+          Text = 'Name'
+          Width = 200
+        end      
+        item
+          Alignment = taCenter
+          Position = 1
+          Text = 'Version'
+          Width = 150
+        end      
+        item
+          Alignment = taCenter
+          Position = 2
+          Text = 'Developer / Publisher'
+          Width = 150
+        end      
+        item
+          Alignment = taCenter
+          Position = 3
+          Text = 'Year'
+        end      
+        item
+          Alignment = taRightJustify
+          Position = 4
+          Text = 'Time played'
+          Width = 70
+        end      
+        item
+          Alignment = taRightJustify
+          Position = 5
+          Text = 'Times'
+          Width = 60
+        end      
+        item
+          Alignment = taCenter
+          Position = 6
+          Text = 'Last time'
+          Width = 120
+        end      
+        item
+          Position = 7
+          Text = 'Filename'
+          Width = 200
+        end      
+        item
+          Position = 8
+          Text = 'Folder'
+          Width = 300
+        end>
+      Header.DefaultHeight = 17
+      Header.Options = [hoColumnResize, hoDrag, hoShowSortGlyphs, hoVisible]
+      Header.PopupMenu = VTHGamesPopupMenu
+      Header.Style = hsPlates
+      Margin = 2
+      PopupMenu = pmGameList
+      TabOrder = 4
       TextMargin = 2
       TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScroll, toAutoScrollOnExpand, toAutoSort, toAutoTristateTracking, toAutoDeleteMovedNodes]
       TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toGridExtensions, toInitOnSave, toReportMode, toToggleOnDblClick, toWheelPanning, toFullRowDrag, toNodeHeightResize]

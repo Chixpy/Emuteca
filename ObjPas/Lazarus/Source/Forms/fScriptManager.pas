@@ -32,7 +32,7 @@ uses
   // Common
   uRscStr, uConst,
   // Emuteca
-  uEmutecaScriptEngine, uEmutecaGameManager, uEmutecaGame, uEmutecaGroup,
+  uEmutecaScriptEngine, uEmutecaMainManager, uEmutecaGame, uEmutecaGameGroup,
    // Custom
   uConfig, uCHXStrUtils, uCHXImageUtils;
 
@@ -111,16 +111,16 @@ type
     { private declarations }
     FConfig: cConfig;
     FCurrentFile: string;
-    FCurrGame: cGame;
-    FCurrGroup: cGameGroup;
-    FGameManager: cGameManager;
+    FCurrGame: cEmutecaGame;
+    FCurrGroup: cEmutecaGameGroup;
+    FGameManager: cEmutecaMainManager;
     FScriptEngine: cScriptEngEmuteca;
     FScriptFolder: string;
     procedure SetConfig(const AValue: cConfig);
     procedure SetCurrentFile(AValue: string);
-    procedure SetCurrGame(AValue: cGame);
-    procedure SetCurrGroup(AValue: cGameGroup);
-    procedure SetGameManager(const AValue: cGameManager);
+    procedure SetCurrGame(AValue: cEmutecaGame);
+    procedure SetCurrGroup(AValue: cEmutecaGameGroup);
+    procedure SetGameManager(const AValue: cEmutecaMainManager);
     procedure SetScriptEngine(AValue: cScriptEngEmuteca);
     procedure SetScriptFolder(AValue: string);
 
@@ -139,9 +139,9 @@ type
   public
     { public declarations }
     property Config: cConfig read FConfig write SetConfig;
-    property GameManager: cGameManager read FGameManager write SetGameManager;
-    property CurrGame: cGame read FCurrGame write SetCurrGame;
-    property CurrGroup: cGameGroup read FCurrGroup write SetCurrGroup;
+    property GameManager: cEmutecaMainManager read FGameManager write SetGameManager;
+    property CurrGame: cEmutecaGame read FCurrGame write SetCurrGame;
+    property CurrGroup: cEmutecaGameGroup read FCurrGroup write SetCurrGroup;
   end;
 
 var
@@ -244,19 +244,19 @@ begin
   FCurrentFile := AValue;
 end;
 
-procedure TfrmScriptManager.SetCurrGame(AValue: cGame);
+procedure TfrmScriptManager.SetCurrGame(AValue: cEmutecaGame);
 begin
   FCurrGame := AValue;
   ScriptEngine.Game := AValue;
 
   if AValue <> nil then
     lGame.Caption := format(rsFSMCurrentGame,
-      [AValue.Name, SetAsFolder(AValue.Folder) + AValue.FileName])
+      [AValue.GameName, SetAsFolder(AValue.Folder) + AValue.FileName])
   else
     lGame.Caption := ' ';
 end;
 
-procedure TfrmScriptManager.SetCurrGroup(AValue: cGameGroup);
+procedure TfrmScriptManager.SetCurrGroup(AValue: cEmutecaGameGroup);
 begin
   FCurrGroup := AValue;
   ScriptEngine.GameGroup := AValue;
@@ -267,7 +267,7 @@ begin
     lGroup.Caption := ' ';
 end;
 
-procedure TfrmScriptManager.SetGameManager(const AValue: cGameManager);
+procedure TfrmScriptManager.SetGameManager(const AValue: cEmutecaMainManager);
 begin
   FGameManager := AValue;
   ScriptEngine.GameManager := AValue;

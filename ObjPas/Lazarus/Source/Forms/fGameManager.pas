@@ -33,8 +33,8 @@ uses
   // Common
   uRscStr, uConst, uEmutecaConst,
   // Emuteca system
-  uEmutecaGameManager, uEmutecaSystemManager,
-  uEmutecaGame, uEmutecaGroup, uEmutecaStats, u7zWrapper,
+  uEmutecaMainManager, uEmutecaSystemManager,
+  uEmutecaGame, uEmutecagameGroup, uEmutecaPlayingStats, u7zWrapper,
   uVersionSupport,
   // Emuteca forms
   fSystemManager, fEmulatorManager, fImageViewer, fScriptManager,
@@ -312,6 +312,7 @@ type
     bDeleteGameImage: TToolButton;
     bSepTBGameText2: TToolButton;
     bDeleteGameText: TToolButton;
+    vstGroupsNew: TVirtualStringTree;
     VTHGamesPopupMenu: TVTHeaderPopupMenu;
     vstFiles: TVirtualStringTree;
     vstGroups: TVirtualStringTree;
@@ -401,12 +402,12 @@ type
 
   private
     FConfig: cConfig;
-    FCurrGame: cGame;
-    FCurrGroup: cGameGroup;
+    FCurrGame: cEmutecaGame;
+    FCurrGroup: cEmutecaGameGroup;
     FGameIcons: cImageList;
     FGameImages: TStringList;
     FGameImagesIndex: integer;
-    FGameManager: cGameManager;
+    FGameManager: cEmutecaMainManager;
     FGameTexts: TStringList;
     FGameTextsIndex: integer;
     FGroupIcons: cImageList;
@@ -418,11 +419,11 @@ type
     FZoneIcons: cImageList;
     FZoneList: TStringList;
     procedure SetConfig(const AValue: cConfig);
-    procedure SetCurrGame(const AValue: cGame);
-    procedure SetCurrGroup(const AValue: cGameGroup);
+    procedure SetCurrGame(const AValue: cEmutecaGame);
+    procedure SetCurrGroup(const AValue: cEmutecaGameGroup);
     procedure SetGameIcons(const AValue: cImageList);
     procedure SetGameImagesIndex(const AValue: integer);
-    procedure SetGameManager(const AValue: cGameManager);
+    procedure SetGameManager(const AValue: cEmutecaMainManager);
     procedure SetGameTextsIndex(AValue: integer);
     procedure SetGroupIcons(const AValue: cImageList);
     procedure SetGroupList(const AValue: TFPObjectList);
@@ -446,9 +447,9 @@ type
       )
     }
 
-    property CurrGame: cGame read FCurrGame write SetCurrGame;
+    property CurrGame: cEmutecaGame read FCurrGame write SetCurrGame;
     //< Current selected game version.
-    property CurrGroup: cGameGroup read FCurrGroup write SetCurrGroup;
+    property CurrGroup: cEmutecaGameGroup read FCurrGroup write SetCurrGroup;
     {< Current seleted GameGroup or the GameGroup of selected game version. }
     property GameImages: TStringList read FGameImages;
     //< Images of the current selected item.
@@ -461,7 +462,7 @@ type
       write SetGameTextsIndex;
     //< Index of the current Text.
 
-    property GameManager: cGameManager read FGameManager;
+    property GameManager: cEmutecaMainManager read FGameManager;
     //< Game Manager object.
     property Config: cConfig read FConfig;
     //< Current Config object.
@@ -480,7 +481,7 @@ type
     property TempFolder: string read FTempFolder write SetTempFolder;
     //< Temp folder.
 
-    function Group(const aIndex: integer): cGameGroup;
+    function Group(const aIndex: integer): cEmutecaGameGroup;
     {< Gets a Group by index.
 
       Usually used for iterations. Remember, it begins from 0 to
@@ -493,10 +494,10 @@ type
       )
 
       @param(aIndex The position on the list of groups.)
-      @return(The cGameGroup in this position. @nil if it don't exists,
+      @return(The cEmutecaGameGroup in this position. @nil if it don't exists,
         in other words, aIndex is out of range.)
     }
-    function Group(aGameGroupID: string): cGameGroup;
+    function Group(aGameGroupID: string): cEmutecaGameGroup;
     {< Gets a Group by ID.
 
       @definitionList(
@@ -505,7 +506,7 @@ type
           for listing the games. Don't confuse with cGameManager.Group.)
       )
       @param(aGameGroupID ID of the group.)
-      @return(The cGameGroup with the ID. @nil if it don't exists.)
+      @return(The cEmutecaGameGroup with the ID. @nil if it don't exists.)
     }
     function GroupCount: longint;
     {< Gets the number of te item in the group list.
@@ -625,10 +626,10 @@ type
         item selected in the game list.
     }
 
-    procedure SearchGroupText(StrList: TStrings; aGameGroup: cGameGroup);
-    procedure SearchGroupImage(StrList: TStrings; aGameGroup: cGameGroup);
-    procedure SearchGameText(aGame: cGame);
-    procedure SearchGameImage(aGame: cGame);
+    procedure SearchGroupText(StrList: TStrings; aGameGroup: cEmutecaGameGroup);
+    procedure SearchGroupImage(StrList: TStrings; aGameGroup: cEmutecaGameGroup);
+    procedure SearchGameText(aGame: cEmutecaGame);
+    procedure SearchGameImage(aGame: cEmutecaGame);
 
     procedure SearchGames;
     //< Searches games that contains eSearch.Text string.
@@ -662,7 +663,7 @@ type
 
     function AddZoneIcon(Folder: string; Info: TSearchRec): boolean;
 
-    function GMProgressCall(const TypeCB: TGMCallBackType;
+    function GMProgressCall(const TypeCB: TEMMCallBackKind;
       const Info1, Info2: string; const Value, Max: int64): boolean;
   public
     { public declarations }
@@ -769,7 +770,7 @@ procedure TfrmGameManager.FormCreate(Sender: TObject);
 
   procedure SetupGameManager;
   begin
-    FGameManager := cGameManager.Create(Config.DataFolder +
+    FGameManager := cEmutecaMainManager.Create(Config.DataFolder +
       Config.SystemsIniFile, TempFolder, Config.TempFile);
     GameManager.EmulatorsFile := Config.DataFolder + Config.EmulatorsIniFile;
     GameManager.TempFolder := Self.TempFolder;
@@ -1062,15 +1063,15 @@ begin
   Data := Sender.GetNodeData(Node);
 
 
-  if Data^ is cGameGroup then
+  if Data^ is cEmutecaGameGroup then
   begin
-    CurrGroup := cGameGroup(Data^);
+    CurrGroup := cEmutecaGameGroup(Data^);
     UpdateGroupMedia;
   end
   else
-  if Data^ is cGame then
+  if Data^ is cEmutecaGame then
   begin
-    CurrGame := cGame(Data^);
+    CurrGame := cEmutecaGame(Data^);
     CurrGroup := GameManager.Group(CurrGame.GameGroup);
     UpdateGameMedia;
   end;
@@ -1081,8 +1082,8 @@ procedure TfrmGameManager.vstCompareNodes(Sender: TBaseVirtualTree;
   Node1, Node2: PVirtualNode; Column: TColumnIndex; var Result: integer);
 var
   Nodo1, Nodo2: ^TObject;
-  aGame1, aGame2: cGame;
-  aGroup1, aGroup2: cGameGroup;
+  aGame1, aGame2: cEmutecaGame;
+  aGroup1, aGroup2: cEmutecaGameGroup;
 begin
   Result := 0;
   Nodo1 := Sender.GetNodeData(Node1);
@@ -1091,10 +1092,10 @@ begin
   if (Nodo1^ = nil) or (Nodo2^ = nil) then
     Exit;
 
-  if (Nodo1^ is cGame) and (Nodo2^ is cGame) then
+  if (Nodo1^ is cEmutecaGame) and (Nodo2^ is cEmutecaGame) then
   begin
-    aGame1 := cGame(Nodo1^);
-    aGame2 := cGame(Nodo2^);
+    aGame1 := cEmutecaGame(Nodo1^);
+    aGame2 := cEmutecaGame(Nodo2^);
 
     case Column of
       -1, 0: // Name
@@ -1118,10 +1119,10 @@ begin
     end;
   end
   else
-  if (Nodo1^ is cGameGroup) and (Nodo2^ is cGameGroup) then
+  if (Nodo1^ is cEmutecaGameGroup) and (Nodo2^ is cEmutecaGameGroup) then
   begin
-    aGroup1 := cGameGroup(Nodo1^);
-    aGroup2 := cGameGroup(Nodo2^);
+    aGroup1 := cEmutecaGameGroup(Nodo1^);
+    aGroup2 := cEmutecaGameGroup(Nodo2^);
 
     case Column of
       -1, 0: // Name
@@ -1156,8 +1157,8 @@ procedure TfrmGameManager.vstGroupsDrawText(Sender: TBaseVirtualTree;
   TargetCanvas: TCanvas; Node: PVirtualNode; Column: TColumnIndex;
   const CellText: string; const CellRect: TRect; var DefaultDraw: boolean);
 var
-  Data: ^cPlayingStats;
-  TmpGame: cGame;
+  Data: ^cEmutecaPlayingStats;
+  TmpGame: cEmutecaGame;
   TmpStr: string;
   IconRect: TRect;
   StrList: TStringList;
@@ -1184,44 +1185,44 @@ begin
       begin
         StrList := TStringList.Create;
         try
-          if Data^ is cGameGroup then
+          if Data^ is cEmutecaGameGroup then
           begin
             case GroupMode of
-              // Aprovechamos las ventajas del cGameManager :P
+              // Aprovechamos las ventajas del cEmutecaMainManager :P
               lvGMYear: GameManager.SearchGroupMedia(StrList,
                   Config.CommonMediaFolder + SetAsFolder('Years') +
                   SetAsFolder('Icons'),
-                  cGameGroup(Data^), Config.ImageExtensions);
+                  cEmutecaGameGroup(Data^), Config.ImageExtensions);
               lvGMDeveloper: GameManager.SearchGroupMedia(StrList,
                   Config.CommonMediaFolder + SetAsFolder('Companies') +
-                  SetAsFolder('Icons'), cGameGroup(Data^),
+                  SetAsFolder('Icons'), cEmutecaGameGroup(Data^),
                   Config.ImageExtensions);
               lvGMPublisher: GameManager.SearchGroupMedia(StrList,
                   Config.CommonMediaFolder + SetAsFolder('Companies') +
-                  SetAsFolder('Icons'), cGameGroup(Data^),
+                  SetAsFolder('Icons'), cEmutecaGameGroup(Data^),
                   Config.ImageExtensions);
               { In folder mode... search in default location...
 
                lvGMFolder: GameManager.SearchGroupMedia(StrList,
                   Config.CommonMediaFolder + SetAsFolder('Folders') +
-                  SetAsFolder('Icons'), cGameGroup(Data^), Config.ImageExtensions,
+                  SetAsFolder('Icons'), cEmutecaGameGroup(Data^), Config.ImageExtensions,
                   False, True);
 
               }
               lvGMTags: GameManager.SearchGroupMedia(StrList,
                   Config.CommonMediaFolder + SetAsFolder('Tags') +
                   SetAsFolder('Icons'),
-                  cGameGroup(Data^), Config.ImageExtensions);
+                  cEmutecaGameGroup(Data^), Config.ImageExtensions);
               else  // By default, standard search
                 GameManager.SearchGroupMedia(StrList,
-                  GameManager.System.IconFolder, cGameGroup(Data^),
+                  GameManager.System.IconFolder, cEmutecaGameGroup(Data^),
                   Config.ImageExtensions);
             end;
           end
-          else if Data^ is cGame then
+          else if Data^ is cEmutecaGame then
             GameManager.SearchGameMedia(StrList,
               GameManager.System.IconFolder,
-              cGame(Data^), Config.ImageExtensions);
+              cEmutecaGame(Data^), Config.ImageExtensions);
 
           if StrList.Count > 0 then
           begin
@@ -1251,7 +1252,7 @@ begin
 
     1:
     begin // Version column
-      if Data^ is cGame then
+      if Data^ is cEmutecaGame then
       begin
         DefaultDraw := False;
 
@@ -1259,7 +1260,7 @@ begin
         IconRect := CellRect;
         IconRect.Right := IconRect.Left + IconRect.Bottom - IconRect.Top;
 
-        TmpGame := cGame(Data^);
+        TmpGame := cEmutecaGame(Data^);
 
         // TODO 1: Deal with multizone games
         aPos := -1;
@@ -1351,11 +1352,11 @@ begin
   if Data^ = nil then
     Exit;
 
-  if (Data^ is cGameGroup) and (TextType = ttNormal) then
+  if (Data^ is cEmutecaGameGroup) and (TextType = ttNormal) then
   begin
     UpdateGroupNodeTempData(Node);
 
-    with cGameGroup(Data^) do
+    with cEmutecaGameGroup(Data^) do
     begin
       case Column of
         -1, 0: // Name
@@ -1370,7 +1371,7 @@ begin
         3: // Year
           CellText := Year;
         4: // Time played
-          CellText := SecondToFmtStr(PlayingTime);
+          CellText := SecondsToFmtStr(PlayingTime);
         5: // Times
           CellText := Format(rsFGMNTimes, [TimesPlayed]);
         6: // Last time
@@ -1386,16 +1387,16 @@ begin
     end;
   end
   else
-  if Data^ is cGame then
+  if Data^ is cEmutecaGame then
   begin
-    with cGame(Data^) do
+    with cEmutecaGame(Data^) do
     begin
       case Column of
-        -1, 0: // Name
-          if SameText(Name, SortKey) then
-            CellText := Name
+        -1, 0: // GameName
+          if SameText(GameName, SortKey) then
+            CellText := GameName
           else
-            CellText := Name + ' (' + SortKey + ')';
+            CellText := GameName + ' (' + SortKey + ')';
         1: // Versión
           // FIXED: HACK: If empty, the icons in OnDrawText are not drawn
           if Version = '' then
@@ -1407,7 +1408,7 @@ begin
           CellText := Publisher;
           if Publisher = '' then
           begin
-            TmpStr := cGameGroup(GameManager.Group(GameGroup)).Developer;
+            TmpStr := cEmutecaGameGroup(GameManager.Group(GameGroup)).Developer;
             if TmpStr <> '' then
               CellText := '(' + TmpStr + ')';
           end;
@@ -1417,13 +1418,13 @@ begin
           CellText := Year;
           if Year = '' then
           begin
-            TmpStr := cGameGroup(GameManager.Group(GameGroup)).Year;
+            TmpStr := cEmutecaGameGroup(GameManager.Group(GameGroup)).Year;
             if TmpStr <> '' then
               CellText := '(' + TmpStr + ')';
           end;
         end;
         4: // Time played
-          CellText := SecondToFmtStr(PlayingTime);
+          CellText := SecondsToFmtStr(PlayingTime);
         5: // Times
           CellText := Format(rsFGMNTimes, [TimesPlayed]);
         6: // Last time
@@ -1463,12 +1464,12 @@ begin
   FConfig := AValue;
 end;
 
-procedure TfrmGameManager.SetCurrGame(const AValue: cGame);
+procedure TfrmGameManager.SetCurrGame(const AValue: cEmutecaGame);
 begin
   FCurrGame := AValue;
 end;
 
-procedure TfrmGameManager.SetCurrGroup(const AValue: cGameGroup);
+procedure TfrmGameManager.SetCurrGroup(const AValue: cEmutecaGameGroup);
 begin
   FCurrGroup := AValue;
 end;
@@ -1483,7 +1484,7 @@ begin
   FGameImagesIndex := AValue;
 end;
 
-procedure TfrmGameManager.SetGameManager(const AValue: cGameManager);
+procedure TfrmGameManager.SetGameManager(const AValue: cEmutecaMainManager);
 begin
   FGameManager := AValue;
 end;
@@ -1518,15 +1519,15 @@ begin
   FTempFolder := IncludeTrailingPathDelimiter(AValue);
 end;
 
-function TfrmGameManager.Group(const aIndex: integer): cGameGroup;
+function TfrmGameManager.Group(const aIndex: integer): cEmutecaGameGroup;
 begin
   if (aIndex < GroupCount) and (aIndex >= 0) then
-    Result := cGameGroup(GroupList.Items[aIndex])
+    Result := cEmutecaGameGroup(GroupList.Items[aIndex])
   else
     Result := nil;
 end;
 
-function TfrmGameManager.Group(aGameGroupID: string): cGameGroup;
+function TfrmGameManager.Group(aGameGroupID: string): cEmutecaGameGroup;
 var
   i: integer;
 begin
@@ -1549,7 +1550,7 @@ end;
 
 function TfrmGameManager.AddGroupVTV(aGameGroupID: string): PVirtualNode;
 var
-  aGroup: cGameGroup;
+  aGroup: cEmutecaGameGroup;
   PData: ^TObject;
   Nodo: PVirtualNode;
 begin
@@ -1575,7 +1576,7 @@ begin
       AddToStringList(cbPublisher.Items, aGroup.Developer);
     end
     else // Any other
-      aGroup := cGameGroup.Create(aGameGroupID);
+      aGroup := cEmutecaGameGroup.Create(aGameGroupID);
 
     GroupList.Add(aGroup);
     Result := vstGroups.AddChild(nil);
@@ -1695,8 +1696,8 @@ end;
 procedure TfrmGameManager.UpdateVTVGroupList;
 var
   i, j: integer;
-  aGame: cGame;
-  aGroup: cGameGroup;
+  aGame: cEmutecaGame;
+  aGroup: cEmutecaGameGroup;
   PData: ^TObject;
   Nodo: PVirtualNode;
   Continue: boolean;
@@ -1736,7 +1737,7 @@ begin
   //   updating groups
   GroupList.Clear;
   // if GroupMode = lvGMGameGroup, when don't want to free the groups
-  //   because they are owned by cGameManager
+  //   because they are owned by cEmutecaMainManager
   GroupList.OwnsObjects := GroupMode <> lvGMGameGroup;
 
   vstGroups.BeginUpdate;
@@ -1749,7 +1750,7 @@ begin
       aGame := GameManager.GameAtPos(i);
       aGame.IconIndex := -1;
       Continue := frmProgress.UpdTextAndBar(rsUpdatingList,
-        aGame.GameGroup, aGame.Name, i, GameManager.GameCount);
+        aGame.GameGroup, aGame.GameName, i, GameManager.GameCount);
 
       // Adding Publisher to ComboBox
       AddToStringList(cbPublisher.Items, aGame.Publisher);
@@ -1758,7 +1759,7 @@ begin
       case GroupMode of
         lvGMGameGroup: // AddGroupVTV take care about this
           Nodo := AddGroupVTV(aGame.GameGroup);
-        lvGMName: Nodo := AddGroupVTV(aGame.Name);
+        lvGMName: Nodo := AddGroupVTV(aGame.GameName);
         lvGMYear: Nodo := AddGroupVTV(LeftStr(aGame.Year, 4));
         lvGMDeveloper: Nodo :=
             AddGroupVTV(GameManager.Group(aGame.GameGroup).Developer);
@@ -1830,16 +1831,16 @@ end;
 procedure TfrmGameManager.UpdateGroupNodeTempData(Node: PVirtualNode);
 var
   Data: ^TObject;
-  aGroup: cGameGroup;
+  aGroup: cEmutecaGameGroup;
   aChildren: PVirtualNode;
 begin
   if Node = nil then
     Exit;
   Data := vstGroups.GetNodeData(Node);
-  if not (Data^ is cGameGroup) then
+  if not (Data^ is cEmutecaGameGroup) then
     Exit;
 
-  aGroup := cGameGroup(Data^);
+  aGroup := cEmutecaGameGroup(Data^);
   aGroup.LastTime := 0;
   aGroup.TimesPlayed := 0;
   aGroup.PlayingTime := 0;
@@ -1849,9 +1850,9 @@ begin
   begin
     Data := vstGroups.GetNodeData(aChildren);
 
-    if Data^ is cGame then
+    if Data^ is cEmutecaGame then
     begin
-      with (Data^ as cGame) do
+      with (Data^ as cEmutecaGame) do
       begin
         if aGroup.LastTime < LastTime then
           aGroup.LastTime := LastTime;
@@ -2683,7 +2684,7 @@ begin
       if CurrGroup = nil then
         Exit;
       if CurrGame <> nil then
-        TempStr := CurrGame.Name
+        TempStr := CurrGame.GameName
       else
         TempStr := CurrGroup.Name;
     end;
@@ -2712,12 +2713,12 @@ begin
 end;
 
 procedure TfrmGameManager.SearchGroupText(StrList: TStrings;
-  aGameGroup: cGameGroup);
+  aGameGroup: cEmutecaGameGroup);
 begin
   if aGameGroup = nil then
     Exit;
   case GroupMode of
-    // Aprovechamos las ventajas del cGameManager :P
+    // Aprovechamos las ventajas del cEmutecaMainManager :P
     lvGMYear: GameManager.SearchGroupMedia(StrList,
         Config.CommonMediaFolder + SetAsFolder('Years') +
         SetAsFolder('Texts'),
@@ -2743,13 +2744,13 @@ begin
 end;
 
 procedure TfrmGameManager.SearchGroupImage(StrList: TStrings;
-  aGameGroup: cGameGroup);
+  aGameGroup: cEmutecaGameGroup);
 begin
   if aGameGroup = nil then
     Exit;
 
   case GroupMode of
-    // Aprovechamos las ventajas del cGameManager :P
+    // Aprovechamos las ventajas del cEmutecaMainManager :P
     lvGMYear: GameManager.SearchGroupMedia(StrList,
         Config.CommonMediaFolder + SetAsFolder('Years') +
         SetAsFolder('Images'),
@@ -2779,7 +2780,7 @@ begin
   end;
 end;
 
-procedure TfrmGameManager.SearchGameText(aGame: cGame);
+procedure TfrmGameManager.SearchGameText(aGame: cEmutecaGame);
 begin
   GameTexts.Clear;
   if cbGameTexts.ItemIndex > -1 then
@@ -2788,7 +2789,7 @@ begin
       Config.TextExtensions);
 end;
 
-procedure TfrmGameManager.SearchGameImage(aGame: cGame);
+procedure TfrmGameManager.SearchGameImage(aGame: cEmutecaGame);
 begin
   GameImages.Clear;
   if cbGameImages.ItemIndex > -1 then
@@ -2823,7 +2824,7 @@ procedure TfrmGameManager.HideNodes(Sender: TBaseVirtualTree;
   Node: PVirtualNode; Data: Pointer; var Abort: boolean);
 var
   NodeData: ^TObject;
-  aGame: cGame;
+  aGame: cEmutecaGame;
   Temp: string;
 begin
   Abort := False;
@@ -2833,13 +2834,13 @@ begin
   NodeData := vstGroups.GetNodeData(Node);
 
   // Hidding groups
-  if not (NodeData^ is cGame) then
+  if not (NodeData^ is cEmutecaGame) then
   begin
     Sender.IsVisible[Node] := False;
     Exit;
   end;
 
-  aGame := cGame(NodeData^);
+  aGame := cEmutecaGame(NodeData^);
   // Some cases seems to be redundant with list type...
   //   but with GroupMode can be useful.
   case cbSearch.ItemIndex of
@@ -2851,7 +2852,7 @@ begin
         aGame.GameGroup).Tags.CommaText;
     6: Temp := aGame.Version
     else
-      Temp := aGame.Name;
+      Temp := aGame.GameName;
   end;
 
   Temp := UTF8LowerCase(Temp);
@@ -2874,7 +2875,7 @@ begin
 
   lName.Enabled := True;
   eName.Enabled := True;
-  eName.Text := CurrGame.Name;
+  eName.Text := CurrGame.GameName;
 
   lSortKey.Enabled := True;
   eSortKey.Enabled := True;
@@ -2919,16 +2920,16 @@ end;
 procedure TfrmGameManager.SaveGameData;
 var
   UpdateVTV: boolean;
-  aGameGroup: cGameGroup;
+  aGameGroup: cEmutecaGameGroup;
 begin
   if CurrGame = nil then
     Exit;
 
   UpdateVTV := False;
 
-  if (eName.Text <> '') and (eName.Text <> CurrGame.Name) then
+  if (eName.Text <> '') and (eName.Text <> CurrGame.GameName) then
   begin
-    CurrGame.Name := eName.Text;
+    CurrGame.GameName := eName.Text;
     UpdateVTV := (GroupMode = lvGMName) or UpdateVTV;
   end;
 
@@ -2957,7 +2958,7 @@ begin
   begin
     if cbGameGroup.ItemIndex <> -1 then
     begin
-      aGameGroup := cGameGroup(
+      aGameGroup := cEmutecaGameGroup(
         cbGameGroup.Items.Objects[cbGameGroup.ItemIndex]);
       CurrGame.GameGroup := aGameGroup.Key;
       UpdateVTV := (GroupMode = lvGMGameGroup) or UpdateVTV;
@@ -3121,7 +3122,7 @@ begin
   ZoneIcons.AddImageFile(SetAsFolder(Folder) + Info.Name);
 end;
 
-function TfrmGameManager.GMProgressCall(const TypeCB: TGMCallBackType;
+function TfrmGameManager.GMProgressCall(const TypeCB: TEMMCallBackKind;
   const Info1, Info2: string; const Value, Max: int64): boolean;
 var
   aAction: string;
@@ -3132,12 +3133,12 @@ begin
     Exit;
 
   case TypeCB of
-    GMCBAddFile: aAction := rsAddingFile;
-    GMCBImportData: aAction := rsImportingData;
-    GMCBExportData: aAction := rsExportingData;
-    GMCBSaveList: aAction := rsSavingGameList;
-    GMCBLoadList: aAction := rsLoadingGameList;
-    GMCBDecompress: aAction := rsDecompressing;
+    EMMCBAddFile: aAction := rsAddingFile;
+    EMMCBImportData: aAction := rsImportingData;
+    EMMCBExportData: aAction := rsExportingData;
+    EMMCBSaveList: aAction := rsSavingGameList;
+    EMMCBLoadList: aAction := rsLoadingGameList;
+    EMMCBDecompress: aAction := rsDecompressing;
   end;
 
   Result := frmProgress.UpdTextAndBar(aAction, Info1, Info2, Value, Max);
@@ -3698,7 +3699,7 @@ begin
   mmGroupTags.Enabled := True;
   mmGroupTags.Clear;
   mmGroupTags.Lines.AddStrings(
-    cGameGroup(cbGameGroup.Items.Objects[cbGameGroup.ItemIndex]).Tags);
+    cEmutecaGameGroup(cbGameGroup.Items.Objects[cbGameGroup.ItemIndex]).Tags);
   mmGroupTags.Modified := False;
 end;
 

@@ -33,10 +33,9 @@ const
   {< Error decompressing archive.}
 
   kEmutecaGameSubFolder = 'Game';
-  {< Subfolder in temp directory, where games will be uncrompressed}
+  {< Subfolder in temp directory, where games will be decompressed.}
 
   // Keys in config and command line
-
   kEmutecaEmuDirKey = '%EMUDIR%';
   {< Emulator's directory key.}
   kEmutecaRomDirKey = '%ROMDIR%';

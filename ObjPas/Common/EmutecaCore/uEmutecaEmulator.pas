@@ -30,7 +30,7 @@ uses
   // Common
   uEmutecaConst, uEmutecaRscStr,
   // Emuteca
-  uEmutecaStats, uCHXStrUtils;
+  uEmutecaPlayingStats, uCHXStrUtils;
 
 type
 
@@ -45,7 +45,7 @@ type
 
   { cEmulator }
 
-  cEmulator = class(cPlayingStats)
+  cEmulator = class(cEmutecaPlayingStats)
   private
     FIcon: string;
     FImage: string;

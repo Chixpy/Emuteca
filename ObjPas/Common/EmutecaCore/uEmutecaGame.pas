@@ -27,7 +27,7 @@ interface
 
 uses
   Classes, SysUtils, fileutil, IniFiles, LazUTF8, fgl,
-  uEmutecaConst, uCHXStrUtils, uEmutecaStats;
+  uEmutecaConst, uCHXStrUtils, uEmutecaPlayingStats;
 
 type
 
@@ -40,9 +40,9 @@ type
     )
   }
 
-  { cGame }
+  { cEmutecaGame }
 
-  cGame = class(cPlayingStats)
+  cEmutecaGame = class(cEmutecaPlayingStats)
   private
     FAlternate: String;
     FBadDump: String;
@@ -51,14 +51,13 @@ type
     FFixed: String;
     FKey: String;
     FModified: String;
-    FPlayingTime: TDateTime;
     FPublisher: String;
     FFileName: String;
     FFolder: String;
     FHack: String;
     FLanguages: TStringList;
     FLicense: String;
-    FName: String;
+    FGameName: String;
     FPirate: String;
     FReleaseType: String;
     FSortKey: String;
@@ -84,7 +83,7 @@ type
     procedure SetFolder(const AValue: String);
     procedure SetHack(const AValue: String);
     procedure SetLicense(const AValue: String);
-    procedure SetName(const AValue: String);
+    procedure SetGameName(const AValue: String);
     procedure SetPirate(const AValue: String);
     procedure SetReleaseType(const AValue: String);
     procedure SetSortKey(const AValue: String);
@@ -98,6 +97,19 @@ type
   protected
 
   public
+    property DataString: String read GetDataString write SetDataString;
+    { Converts or load game info from string (CSV formatted).
+    }
+    procedure ExportData(aFilename: String; ExportMode: boolean);
+    procedure ExportDataIni(aIniFile: TCustomIniFile; ExportMode: boolean);
+    procedure ImportData(aFilename: String);
+    procedure ImportDataIni(aIniFile: TCustomIniFile);
+
+    constructor Create(const aFolder: String;
+      const aFileName: String; const aKey: String);
+    destructor Destroy; override;
+
+  published
     // Basic data
     // ----------
     property Key: String read FKey write SetKey;
@@ -109,7 +121,7 @@ type
 
       Always converted to lowercase.
     }
-    property Name: String read FName write SetName;
+    property GameName: String read FGameName write SetGameName;
     {< Original title of the game version.
 
     Ideally it will contain cyrilic, korean and other fancy characters. Until
@@ -218,37 +230,27 @@ type
 
       If not covered by previous properties.}
 
-    property DataString: String read GetDataString write SetDataString;
-    { Converts or load game info from string (CSV formatted).
-    }
-    procedure ExportData(aFilename: String; ExportMode: boolean);
-    procedure ExportDataIni(aIniFile: TCustomIniFile; ExportMode: boolean);
-    procedure ImportData(aFilename: String);
-    procedure ImportDataIni(aIniFile: TCustomIniFile);
-
-    constructor Create(const aFolder: String;
-      const aFileName: String; const aKey: String);
-    destructor Destroy; override;
   end;
 
 
-  cGameList = class (specialize TFPGObjectList<cGame>);
+  cGameOwnedList = class (specialize TFPGObjectList<cEmutecaGame>);
+  cGameList = class (specialize TFPGList<cEmutecaGame>);
 
 implementation
 
-{ cGame }
+{ cEmutecaGame }
 
-procedure cGame.SetKey(const AValue: String);
+procedure cEmutecaGame.SetKey(const AValue: String);
 begin
   FKey := Trim(UTF8LowerCase(AValue));
 end;
 
-procedure cGame.SetModified(const AValue: String);
+procedure cEmutecaGame.SetModified(const AValue: String);
 begin
   FModified := Trim(AValue);
 end;
 
-function cGame.GetDataString: String;
+function cEmutecaGame.GetDataString: String;
 var
   Tmp: TStringList;
 begin
@@ -259,13 +261,13 @@ begin
 
     // ORDER IS IMPORTANT
     Tmp.Add(Key);
-    Tmp.Add(Name);
+    Tmp.Add(GameName);
     Tmp.Add(SortKey);
     Tmp.Add(GameGroup);
     Tmp.Add(Folder);
     Tmp.Add(FileName);
     Tmp.Add(''); // Reserved for future use
-    Tmp.Add(DateTimeToStr(LastTime)); // These must be done by cPlayingStats...
+    Tmp.Add(DateTimeToStr(LastTime)); // These must be done by cEmutecaPlayingStats...
     Tmp.Add(IntToStr(TimesPlayed));
     Tmp.Add(IntToStr(PlayingTime));
     Tmp.Add('');
@@ -297,22 +299,22 @@ begin
   end;
 end;
 
-procedure cGame.SetAlternate(const AValue: String);
+procedure cEmutecaGame.SetAlternate(const AValue: String);
 begin
   FAlternate := Trim(AValue);
 end;
 
-procedure cGame.SetBadDump(const AValue: String);
+procedure cEmutecaGame.SetBadDump(const AValue: String);
 begin
   FBadDump := Trim(AValue);
 end;
 
-procedure cGame.SetCracked(const AValue: String);
+procedure cEmutecaGame.SetCracked(const AValue: String);
 begin
   FCracked := Trim(AValue);
 end;
 
-procedure cGame.SetDataString(const AValue: String);
+procedure cEmutecaGame.SetDataString(const AValue: String);
 var
   Tmp: TStringList;
   i: integer;
@@ -326,13 +328,13 @@ begin
     begin
       case i of
         0: Key := Tmp[i];
-        1: Name := Tmp[i];
+        1: GameName := Tmp[i];
         2: SortKey := Tmp[i];
         3: GameGroup := Tmp[i];
         4: Folder := Tmp[i];
         5: FileName := Tmp[i];
         // 6:
-        7: LastTime := StrToDateTimeDef(Tmp[i], 0); // cPlayingStats...
+        7: LastTime := StrToDateTimeDef(Tmp[i], 0); // cEmutecaPlayingStats...
         8: TimesPlayed := StrToInt(Tmp[i]);
         9: PlayingTime := StrToCardinalDef(Tmp[i], 0);
         // 10:
@@ -364,100 +366,100 @@ begin
   end;
 end;
 
-procedure cGame.SetGameGroup(const AValue: String);
+procedure cEmutecaGame.SetGameGroup(const AValue: String);
 begin
   FGameGroup := Trim(AValue);
 end;
 
-procedure cGame.SetFixed(const AValue: String);
+procedure cEmutecaGame.SetFixed(const AValue: String);
 begin
   FFixed := Trim(AValue);
 end;
 
-procedure cGame.SetPublisher(const AValue: String);
+procedure cEmutecaGame.SetPublisher(const AValue: String);
 begin
   FPublisher := Trim(AValue);
 end;
 
-procedure cGame.SetFileName(const AValue: String);
+procedure cEmutecaGame.SetFileName(const AValue: String);
 begin
   FFileName := AValue;
 end;
 
-procedure cGame.SetFolder(const AValue: String);
+procedure cEmutecaGame.SetFolder(const AValue: String);
 begin
   FFolder := SetAsFolder(AValue);
 end;
 
-procedure cGame.SetHack(const AValue: String);
+procedure cEmutecaGame.SetHack(const AValue: String);
 begin
   FHack := Trim(AValue);
 end;
 
-procedure cGame.SetLicense(const AValue: String);
+procedure cEmutecaGame.SetLicense(const AValue: String);
 begin
   FLicense := Trim(AValue);
 end;
 
-procedure cGame.SetName(const AValue: String);
+procedure cEmutecaGame.SetGameName(const AValue: String);
 begin
-  // If sortkey is equal to Name change it too.
-  if UTF8CompareText(SortKey, FName) = 0 then
+  // If sortkey is equal to GameName change it too.
+  if UTF8CompareText(SortKey, FGameName) = 0 then
     SortKey := Trim(AValue);
 
-  // Same for transliterated name
-  if UTF8CompareText(TransliteratedName, FName) = 0 then
+  // Same for transliterated GameName
+  if UTF8CompareText(TransliteratedName, FGameName) = 0 then
     TransliteratedName := Trim(AValue);
 
-  FName := Trim(AValue);
+  FGameName := Trim(AValue);
 end;
 
-procedure cGame.SetPirate(const AValue: String);
+procedure cEmutecaGame.SetPirate(const AValue: String);
 begin
   FPirate := Trim(AValue);
 end;
 
-procedure cGame.SetReleaseType(const AValue: String);
+procedure cEmutecaGame.SetReleaseType(const AValue: String);
 begin
   FReleaseType := Trim(AValue);
 end;
 
-procedure cGame.SetSortKey(const AValue: String);
+procedure cEmutecaGame.SetSortKey(const AValue: String);
 begin
   FSortKey := Trim(AValue);
 end;
 
-procedure cGame.SetTrainer(const AValue: String);
+procedure cEmutecaGame.SetTrainer(const AValue: String);
 begin
   FTrainer := Trim(AValue);
 end;
 
-procedure cGame.SetTranslation(const AValue: String);
+procedure cEmutecaGame.SetTranslation(const AValue: String);
 begin
   FTranslation := Trim(AValue);
 end;
 
-procedure cGame.SetTransliteratedName(AValue: string);
+procedure cEmutecaGame.SetTransliteratedName(AValue: string);
 begin
   FTransliteratedName := Trim(AValue);
 end;
 
-procedure cGame.SetVerified(const AValue: boolean);
+procedure cEmutecaGame.SetVerified(const AValue: boolean);
 begin
   FVerified := AValue;
 end;
 
-procedure cGame.SetVersion(const AValue: String);
+procedure cEmutecaGame.SetVersion(const AValue: String);
 begin
   FVersion := Trim(AValue);
 end;
 
-procedure cGame.SetYear(const AValue: String);
+procedure cEmutecaGame.SetYear(const AValue: String);
 begin
   FYear := Trim(AValue);
 end;
 
-procedure cGame.ExportData(aFilename: String; ExportMode: boolean);
+procedure cEmutecaGame.ExportData(aFilename: String; ExportMode: boolean);
 var
   F: TMemInifile;
 begin
@@ -469,11 +471,11 @@ begin
   end;
 end;
 
-procedure cGame.ExportDataIni(aIniFile: TCustomIniFile; ExportMode: boolean);
+procedure cEmutecaGame.ExportDataIni(aIniFile: TCustomIniFile; ExportMode: boolean);
 begin
   if aIniFile = nil then
     Exit;
-  aIniFile.WriteString(Key, 'Name', Name);
+  aIniFile.WriteString(Key, 'Name', GameName);
   aIniFile.WriteString(Key, 'SortName', SortKey);
   aIniFile.WriteString(Key, 'Version', Version);
   aIniFile.WriteString(Key, 'GameGroup', GameGroup);
@@ -497,7 +499,7 @@ begin
   aIniFile.WriteString(Key, 'Cracked', Cracked);
   aIniFile.WriteString(Key, 'Modified', Modified);
 
-  // TODO 2: Esto debería hacerlo cPlayingStats...
+  // TODO 2: Esto debería hacerlo cEmutecaPlayingStats...
   if ExportMode then
   begin
     aIniFile.DeleteKey(Key, 'LastTime');
@@ -512,7 +514,7 @@ begin
   end;
 end;
 
-procedure cGame.ImportData(aFilename: String);
+procedure cEmutecaGame.ImportData(aFilename: String);
 var
   F: TMemInifile;
 begin
@@ -526,14 +528,14 @@ begin
   end;
 end;
 
-procedure cGame.ImportDataIni(aIniFile: TCustomIniFile);
+procedure cEmutecaGame.ImportDataIni(aIniFile: TCustomIniFile);
 var
   TempStr: String;
 begin
   if aIniFile = nil then
     Exit;
 
-  Name := aIniFile.ReadString(Key, 'Name', Name);
+  GameName := aIniFile.ReadString(Key, 'Name', GameName);
   SortKey := aIniFile.ReadString(Key, 'SortName', SortKey);
   Version := aIniFile.ReadString(Key, 'Version', Version);
   GameGroup := aIniFile.ReadString(Key, 'GameGroup', GameGroup);
@@ -571,23 +573,23 @@ begin
   TimesPlayed := StrToCardinalDef(TempStr, TimesPlayed);
 end;
 
-constructor cGame.Create(const aFolder: String;
+constructor cEmutecaGame.Create(const aFolder: String;
   const aFileName: String; const aKey: String);
 begin
   inherited Create;
 
-  Name := Trim(ExtractFileNameOnly(aFileName));
-  SortKey := Name;
+  GameName := Trim(ExtractFileNameOnly(aFileName));
+  SortKey := GameName;
   Folder := SetAsFolder(aFolder);
   FileName := aFileName;
   Key := aKey;
   FLanguages := TStringList.Create;
   FTags := TStringList.Create;
   FZones := TStringList.Create;
-  GameGroup := Trim(RemoveFromBrackets(Name + kEmutecaVirtualGroupExt));
+  GameGroup := Trim(RemoveFromBrackets(GameName + kEmutecaVirtualGroupExt));
 end;
 
-destructor cGame.Destroy;
+destructor cEmutecaGame.Destroy;
 begin
   FreeAndNil(FLanguages);
   FreeAndNil(FTags);

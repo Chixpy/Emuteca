@@ -107,7 +107,7 @@
         <PackageName Value="LCL"/>
       </Item7>
     </RequiredPackages>
-    <Units Count="39">
+    <Units Count="41">
       <Unit0>
         <Filename Value="LazEmuteca.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -122,9 +122,9 @@
         <UnitName Value="fGameManager"/>
       </Unit1>
       <Unit2>
-        <Filename Value="../Common/EmutecaCore/uEmutecaGameManager.pas"/>
+        <Filename Value="../Common/EmutecaCore/uEmutecaMainManager.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="uEmutecaGameManager"/>
+        <UnitName Value="uEmutecaMainManager"/>
       </Unit2>
       <Unit3>
         <Filename Value="../Common/Utils/uConfig.pas"/>
@@ -181,9 +181,9 @@
         <UnitName Value="fMediaManager"/>
       </Unit11>
       <Unit12>
-        <Filename Value="../Common/EmutecaCore/uEmutecaGroup.pas"/>
+        <Filename Value="../Common/EmutecaCore/uEmutecaGameGroup.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="uEmutecaGroup"/>
+        <UnitName Value="uEmutecaGameGroup"/>
       </Unit12>
       <Unit13>
         <Filename Value="../../../../../../Programacion/!Pascal/CHXUtils/Forms/fImageViewer.pas"/>
@@ -240,9 +240,9 @@
         <UnitName Value="fSMAskFile"/>
       </Unit20>
       <Unit21>
-        <Filename Value="../Common/EmutecaCore/uEmutecaStats.pas"/>
+        <Filename Value="../Common/EmutecaCore/uEmutecaPlayingStats.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="uEmutecaStats"/>
+        <UnitName Value="uEmutecaPlayingStats"/>
       </Unit21>
       <Unit22>
         <Filename Value="Source/Forms/ScriptManager/fSMAskFolder.pas"/>
@@ -332,6 +332,16 @@
         <Filename Value="../../Whislist.txt"/>
         <IsPartOfProject Value="True"/>
       </Unit38>
+      <Unit39>
+        <Filename Value="../Common/EmutecaCore/uEmutecaGroupManager.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uEmutecaGroupManager"/>
+      </Unit39>
+      <Unit40>
+        <Filename Value="../../../../../../Programacion/!Pascal/CHXUtils/Classes/uGenericGroupManager.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uGenericGroupManager"/>
+      </Unit40>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -342,7 +352,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="..\Common;source;..\Common\PSImports;..\Common\EmutecaCore;..\Common\Utils;Source\Forms;Source\Forms\ScriptManager;D:\Programacion\!Pascal\CHXUtils\;D:\Programacion\!Pascal\CHXUtils\Forms\"/>
+      <OtherUnitFiles Value="..\Common;source;..\Common\PSImports;..\Common\EmutecaCore;..\Common\Utils;Source\Forms;Source\Forms\ScriptManager;D:\Programacion\!Pascal\CHXUtils\;D:\Programacion\!Pascal\CHXUtils\Forms\;D:\Programacion\!Pascal\CHXUtils\Classes\"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>
