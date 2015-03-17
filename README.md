@@ -8,7 +8,7 @@ Sorry, if I write bad "Engrish".
 It's not complete, but it's stable and usable... :-|
 
 Features:
-  * Support for ROMs inside a 7z, zip, rar, and any other format that [7zip](http://sourceforge.net/projects/sevenzip/) can handle; and extract the ROM (or all files) before launching the emulator. Alternatively, you can use the compressed file itself as a ROM; for example, while you are using MAME.
+  * Support for ROMs inside a 7z, zip, rar, and any other format that [7zip](http://www.7-zip.org/) can handle; and extract the ROM (or all files) before launching the emulator. Alternatively, you can use the compressed file itself as a ROM; for example, while you are using MAME.
   * Group games by families or groups. In many system a ''family'' means different versions of a game; while in others it's better use families to handle the different files which belong to the same game (computer games with many discs).
   * It launchs any emulator from command line; althought only some are preconfigured as example, you can add many as you want. Some emulators don't support launch a game from command line but you can use Emuteca to decompress the ROM before lauching the emulator or only for management purposes.
   * You can add, edit, delete or disable any system with the System Manager.
@@ -48,7 +48,7 @@ No es una traducción literal de lo anterior, pero como todas las páginas de la
 Emuteca es un interfaz (front-end) de emuladores de cualquier sistema para Windows, estilo QuickPlay. Ahora por defecto está en inglés, pero incluyo la traducción al español. Para usarlo edita el archivo "Emuteca.ini" y cambia "`File=en.lng`" por "`File=es.lng`".
 
 Entre sus características están:
-  * Soporte de ROM en 7z, zip, rar, en definitiva todos los formatos que soporta [7zip](http://sourceforge.net/projects/sevenzip/) (alternativamente también se puede hacer que los propios archivos comprimidos sean la ROM en sí, por ejemplo con MAME)
+  * Soporte de ROM en 7z, zip, rar, en definitiva todos los formatos que soporta [7zip](http://www.7-zip.org/) (alternativamente también se puede hacer que los propios archivos comprimidos sean la ROM en sí, por ejemplo con MAME)
   * Agrupación de juegos por familias, y agrupar los listados por desarrollador, año y palabras clave
   * Soporta básicamente cualquier emulador que permita ejecutar juegos desde la línea de comandos.
   * Tiene gestor de sistemas para añadir, modificar y eliminar la configuración de sistemas.
