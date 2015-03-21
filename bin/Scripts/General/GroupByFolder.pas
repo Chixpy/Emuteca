@@ -18,34 +18,34 @@ Changes =
 program GroupByFolder;
 
 var
-  Game: cGame;
-  Group: cGameGroup;
+  aGame: cGame;
+  aGroup: cGameGroup;
   i: Integer;
-  GroupName: String;
+  aGroupName: String;
   Compressed: Boolean;
 begin
   WriteLn('Changing game groups:');
   i := 0;
   while i < GameManager.GameCount do
   begin
-    Game := GameManager.GameAtPos(i);
+    aGame := GameManager.GameAtPos(i);
 
-    GroupName := ExcludeTrailingPathDelimiter(Game.Folder);
-    Compressed := FileExistsUTF8(GroupName);
+    aGroupName := ExcludeTrailingPathDelimiter(aGame.Folder);
+    Compressed := FileExistsUTF8(aGroupName);
 
-    GroupName := ExtractFileName(GroupName);
+    aGroupName := ExtractFileName(aGroupName);
 
     if Compressed then
     begin // begin..end needed
-      if Game.GameGroup <> ChangeFileExt(GroupName, '') then
+      if aGame.GameGroup <> ChangeFileExt(aGroupName, '') then
       begin
-        Game.GameGroup := ChangeFileExt(GroupName, '');
+        aGame.GameGroup := ChangeFileExt(aGroupName, '');
       end;
     end
     else
-      if Game.GameGroup <> GroupName then
+      if aGame.GameGroup <> aGroupName then
       begin
-        Game.GameGroup := GroupName;
+        aGame.GameGroup := aGroupName;
       end;
 
     Inc(i);
