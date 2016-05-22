@@ -8,16 +8,15 @@ uses
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
   Forms, bs_controls, lz_rtticontrols, pl_pascalscript, pl_virtualtrees,
-  ucEmuteca, ufCHXScriptManager, ufSMAskFile, ufSMAskFolder, ucEmutecaParent,
+  ucEmuteca, ucEmutecaParent,
   ucEmutecaConfig, ufEmutecaMain, ucEmutecaFile, ucEmutecaEmulatorManager,
   ucEmutecaParentManager, ucEmutecaSystemManager, ucEmutecaEmulator,
   ufEmutecaVersionList, ucEmutecaVersion, ucEmutecaSystem, 
 ufEmutecaEmulatorEditor,
   ufEmutecaEmulatorManager, ufEmutecaSystemManager, ugEmutecaManager,
-  ugEmutecaPersList, ufEmutecaScriptManager, ucEmutecaVersionManager, ufTagTree,
+  ugEmutecaPersList, ufEmutecaScriptManager, ucEmutecaVersionManager,
   ufEmutecaSystemEditor, ufEmutecaActAddVersion, ufEmutecaVersionEditor, 
-uGUIConfig, uCHXvcConfig, uaEmutecaStorable, uaEmutecaManager, uCHXFrmUtils
-  { you can add units after this };
+uGUIConfig, uaEmutecaStorable, uaEmutecaManager;
 
 {$R *.res}
 

@@ -4,7 +4,7 @@
     <PathDelim Value="\"/>
     <Version Value="9"/>
     <BuildModes Active="Debug"/>
-    <Units Count="55">
+    <Units Count="46">
       <Unit0>
         <Filename Value="LazEmuteca.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -196,15 +196,16 @@
         <UsageCount Value="200"/>
       </Unit21>
       <Unit22>
-        <Filename Value="..\..\CHX\Forms\ScriptManager\uCHXScriptEngine.pas"/>
+        <Filename Value="..\EmutecaCore\Units\uEmutecaUserInfo.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="283"/>
-        <CursorPos Y="47"/>
+        <WindowIndex Value="-1"/>
+        <TopLine Value="-1"/>
+        <CursorPos X="-1" Y="-1"/>
         <UsageCount Value="200"/>
       </Unit22>
       <Unit23>
-        <Filename Value="..\EmutecaCore\Units\uEmutecaUserInfo.pas"/>
+        <Filename Value="..\EmutecaCore\Units\uEmutecaVersionFlags.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <WindowIndex Value="-1"/>
@@ -213,15 +214,6 @@
         <UsageCount Value="200"/>
       </Unit23>
       <Unit24>
-        <Filename Value="..\EmutecaCore\Units\uEmutecaVersionFlags.pas"/>
-        <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
-        <WindowIndex Value="-1"/>
-        <TopLine Value="-1"/>
-        <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="200"/>
-      </Unit24>
-      <Unit25>
         <Filename Value="..\EmutecaCore\Frames\ufEmutecaEmulatorManager.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fmEmutecaEmulatorManager"/>
@@ -231,8 +223,8 @@
         <TopLine Value="103"/>
         <CursorPos X="29" Y="25"/>
         <UsageCount Value="201"/>
-      </Unit25>
-      <Unit26>
+      </Unit24>
+      <Unit25>
         <Filename Value="..\EmutecaCore\Frames\ufEmutecaSystemManager.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fmEmutecaSystemManager"/>
@@ -242,141 +234,31 @@
         <TopLine Value="288"/>
         <CursorPos X="33" Y="305"/>
         <UsageCount Value="201"/>
-      </Unit26>
-      <Unit27>
+      </Unit25>
+      <Unit26>
         <Filename Value="..\EmutecaCore\Units\uEmutecaCommon.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="74"/>
         <CursorPos X="3" Y="43"/>
         <UsageCount Value="200"/>
-      </Unit27>
-      <Unit28>
-        <Filename Value="..\..\CHX\u7zWrapper.pas"/>
-        <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="455"/>
-        <CursorPos X="10" Y="455"/>
-        <UsageCount Value="201"/>
-      </Unit28>
-      <Unit29>
-        <Filename Value="..\..\CHX\uCHXConst.pas"/>
-        <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
-        <UsageCount Value="201"/>
-      </Unit29>
-      <Unit30>
-        <Filename Value="..\..\CHX\uCHXFileUtils.pas"/>
-        <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="26"/>
-        <UsageCount Value="201"/>
-      </Unit30>
-      <Unit31>
-        <Filename Value="..\..\CHX\uCHXGroupManager.pas"/>
-        <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
-        <WindowIndex Value="-1"/>
-        <TopLine Value="-1"/>
-        <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="201"/>
-      </Unit31>
-      <Unit32>
-        <Filename Value="..\..\CHX\uCHXRscStr.pas"/>
-        <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
-        <CursorPos X="44" Y="13"/>
-        <UsageCount Value="201"/>
-      </Unit32>
-      <Unit33>
-        <Filename Value="..\..\CHX\uCHXStrUtils.pas"/>
-        <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="26"/>
-        <CursorPos X="28" Y="14"/>
-        <UsageCount Value="201"/>
-      </Unit33>
-      <Unit34>
-        <Filename Value="..\..\CHX\Forms\fuCHXImageViewer.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="frmCHXImageViewer"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="-1"/>
-        <UsageCount Value="201"/>
-      </Unit34>
-      <Unit35>
-        <Filename Value="..\..\CHX\Forms\ufCHXProgressBar.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="frmCHXProgressBar"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="63"/>
-        <CursorPos X="24" Y="78"/>
-        <UsageCount Value="201"/>
-      </Unit35>
-      <Unit36>
-        <Filename Value="..\..\CHX\Forms\ufCHXAbout.pas"/>
-        <IsPartOfProject Value="True"/>
-        <HasResources Value="True"/>
-        <EditorIndex Value="-1"/>
-        <WindowIndex Value="-1"/>
-        <TopLine Value="-1"/>
-        <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="201"/>
-      </Unit36>
-      <Unit37>
-        <Filename Value="..\..\Misc\uVersionSupport.pas"/>
-        <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
-        <WindowIndex Value="-1"/>
-        <TopLine Value="-1"/>
-        <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="201"/>
-      </Unit37>
-      <Unit38>
+      </Unit26>
+      <Unit27>
         <Filename Value="..\EmutecaCore\Generics\ugEmutecaManager.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="22" Y="5"/>
         <UsageCount Value="201"/>
-      </Unit38>
-      <Unit39>
+      </Unit27>
+      <Unit28>
         <Filename Value="..\EmutecaCore\Generics\ugEmutecaPersList.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="4"/>
         <CursorPos X="32" Y="16"/>
         <UsageCount Value="200"/>
-      </Unit39>
-      <Unit40>
-        <Filename Value="..\..\CHX\Forms\ScriptManager\ufCHXScriptManager.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="frmScriptManager"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="-1"/>
-        <CursorPos X="49" Y="21"/>
-        <UsageCount Value="201"/>
-      </Unit40>
-      <Unit41>
-        <Filename Value="..\..\CHX\Forms\ScriptManager\ufSMAskFile.pas"/>
-        <IsPartOfProject Value="True"/>
-        <HasResources Value="True"/>
-        <EditorIndex Value="-1"/>
-        <CursorPos X="17" Y="28"/>
-        <UsageCount Value="200"/>
-      </Unit41>
-      <Unit42>
-        <Filename Value="..\..\CHX\Forms\ScriptManager\ufSMAskFolder.pas"/>
-        <IsPartOfProject Value="True"/>
-        <HasResources Value="True"/>
-        <EditorIndex Value="-1"/>
-        <CursorPos X="19" Y="28"/>
-        <UsageCount Value="200"/>
-      </Unit42>
-      <Unit43>
+      </Unit28>
+      <Unit29>
         <Filename Value="source\forms\ufEmutecaScriptManager.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmScriptManager1"/>
@@ -384,25 +266,14 @@
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
         <UsageCount Value="200"/>
-      </Unit43>
-      <Unit44>
+      </Unit29>
+      <Unit30>
         <Filename Value="..\EmutecaCore\Classes\ucEmutecaVersionManager.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <UsageCount Value="200"/>
-      </Unit44>
-      <Unit45>
-        <Filename Value="..\..\CHX\Frames\ufTagTree.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="fmTagTree"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Frame"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="17"/>
-        <CursorPos X="47" Y="24"/>
-        <UsageCount Value="200"/>
-      </Unit45>
-      <Unit46>
+      </Unit30>
+      <Unit31>
         <Filename Value="..\EmutecaCore\Frames\ufEmutecaSystemEditor.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fmEmutecaSystemEditor"/>
@@ -413,15 +284,8 @@
         <CursorPos X="56" Y="218"/>
         <UsageCount Value="201"/>
         <Loaded Value="True"/>
-      </Unit46>
-      <Unit47>
-        <Filename Value="..\..\CHX\uCHXImageUtils.pas"/>
-        <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
-        <CursorPos X="3"/>
-        <UsageCount Value="163"/>
-      </Unit47>
-      <Unit48>
+      </Unit31>
+      <Unit32>
         <Filename Value="..\EmutecaCore\Frames\ufEmutecaActAddVersion.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fmActAddVersion"/>
@@ -432,8 +296,8 @@
         <UsageCount Value="146"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
-      </Unit48>
-      <Unit49>
+      </Unit32>
+      <Unit33>
         <Filename Value="..\EmutecaCore\Frames\ufEmutecaVersionEditor.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fmEmutecaVersionEditor"/>
@@ -445,45 +309,118 @@
         <UsageCount Value="143"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
-      </Unit49>
-      <Unit50>
+      </Unit33>
+      <Unit34>
         <Filename Value="source\uGUIConfig.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="7"/>
         <CursorPos X="14" Y="6"/>
         <UsageCount Value="117"/>
-      </Unit50>
-      <Unit51>
-        <Filename Value="..\..\CHX\Classes\uCHXvcConfig.pas"/>
-        <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="77"/>
-        <CursorPos X="87" Y="77"/>
-        <UsageCount Value="110"/>
-      </Unit51>
-      <Unit52>
+      </Unit34>
+      <Unit35>
         <Filename Value="..\EmutecaCore\Abstracts\uaEmutecaStorable.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="53" Y="8"/>
         <UsageCount Value="83"/>
-      </Unit52>
-      <Unit53>
+      </Unit35>
+      <Unit36>
         <Filename Value="..\EmutecaCore\Abstracts\uaEmutecaManager.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="3"/>
         <CursorPos X="26" Y="3"/>
         <UsageCount Value="71"/>
         <Loaded Value="True"/>
-      </Unit53>
-      <Unit54>
-        <Filename Value="..\..\CHX\uCHXFrmUtils.pas"/>
+      </Unit36>
+      <Unit37>
+        <Filename Value="..\CHXPas\Forms\fuCHXImageViewer.pas"/>
+        <IsPartOfProject Value="True"/>
+        <HasResources Value="True"/>
+        <EditorIndex Value="-1"/>
+        <WindowIndex Value="-1"/>
+        <TopLine Value="-1"/>
+        <CursorPos X="-1" Y="-1"/>
+        <UsageCount Value="20"/>
+      </Unit37>
+      <Unit38>
+        <Filename Value="..\CHXPas\Forms\ufCHXAbout.pas"/>
+        <IsPartOfProject Value="True"/>
+        <HasResources Value="True"/>
+        <EditorIndex Value="-1"/>
+        <WindowIndex Value="-1"/>
+        <TopLine Value="-1"/>
+        <CursorPos X="-1" Y="-1"/>
+        <UsageCount Value="20"/>
+      </Unit38>
+      <Unit39>
+        <Filename Value="..\CHXPas\Forms\ufCHXProgressBar.pas"/>
+        <IsPartOfProject Value="True"/>
+        <HasResources Value="True"/>
+        <EditorIndex Value="-1"/>
+        <WindowIndex Value="-1"/>
+        <TopLine Value="-1"/>
+        <CursorPos X="-1" Y="-1"/>
+        <UsageCount Value="20"/>
+      </Unit39>
+      <Unit40>
+        <Filename Value="..\CHXPas\Forms\ScriptManager\uCHXScriptEngine.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
-        <CursorPos X="3" Y="18"/>
-        <UsageCount Value="26"/>
-      </Unit54>
+        <WindowIndex Value="-1"/>
+        <TopLine Value="-1"/>
+        <CursorPos X="-1" Y="-1"/>
+        <UsageCount Value="20"/>
+      </Unit40>
+      <Unit41>
+        <Filename Value="..\CHXPas\Forms\ScriptManager\ufCHXScriptManager.pas"/>
+        <IsPartOfProject Value="True"/>
+        <HasResources Value="True"/>
+        <EditorIndex Value="-1"/>
+        <WindowIndex Value="-1"/>
+        <TopLine Value="-1"/>
+        <CursorPos X="-1" Y="-1"/>
+        <UsageCount Value="20"/>
+      </Unit41>
+      <Unit42>
+        <Filename Value="..\CHXPas\Forms\ScriptManager\ufSMAskFile.pas"/>
+        <IsPartOfProject Value="True"/>
+        <HasResources Value="True"/>
+        <EditorIndex Value="-1"/>
+        <WindowIndex Value="-1"/>
+        <TopLine Value="-1"/>
+        <CursorPos X="-1" Y="-1"/>
+        <UsageCount Value="20"/>
+      </Unit42>
+      <Unit43>
+        <Filename Value="..\CHXPas\Forms\ScriptManager\ufSMAskFolder.pas"/>
+        <IsPartOfProject Value="True"/>
+        <HasResources Value="True"/>
+        <EditorIndex Value="-1"/>
+        <WindowIndex Value="-1"/>
+        <TopLine Value="-1"/>
+        <CursorPos X="-1" Y="-1"/>
+        <UsageCount Value="20"/>
+      </Unit43>
+      <Unit44>
+        <Filename Value="..\CHXPas\Frames\ufTagTree.pas"/>
+        <IsPartOfProject Value="True"/>
+        <HasResources Value="True"/>
+        <EditorIndex Value="-1"/>
+        <WindowIndex Value="-1"/>
+        <TopLine Value="-1"/>
+        <CursorPos X="-1" Y="-1"/>
+        <UsageCount Value="20"/>
+      </Unit44>
+      <Unit45>
+        <Filename Value="..\CHXPas\Misc\uVersionSupport.pas"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="-1"/>
+        <WindowIndex Value="-1"/>
+        <TopLine Value="-1"/>
+        <CursorPos X="-1" Y="-1"/>
+        <UsageCount Value="20"/>
+      </Unit45>
     </Units>
   </ProjectSession>
   <Debugging>

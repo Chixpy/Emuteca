@@ -37,7 +37,7 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="source\forms;..\..\CHX\Forms;..\..\Misc;..\EmutecaCore\Units;..\..\CHX;..\EmutecaCore\Frames;..\EmutecaCore;..\EmutecaCore\Classes;..\EmutecaCore\Generics;..\..\CHX\Forms\ScriptManager"/>
+            <OtherUnitFiles Value="..\CHXPas;..\CHXPas\Classes;..\CHXPas\Forms;..\CHXPas\Forms\ScriptManager;..\CHXPas\Frames;..\CHXPas\Misc;..\EmutecaCore;..\EmutecaCore\Abstracts;..\EmutecaCore\Classes;..\EmutecaCore\Frames;..\EmutecaCore\Generics;..\EmutecaCore\Interfaces;..\EmutecaCore\Units;source;source\forms"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
@@ -94,7 +94,7 @@
         <PackageName Value="LCL"/>
       </Item6>
     </RequiredPackages>
-    <Units Count="55">
+    <Units Count="46">
       <Unit0>
         <Filename Value="LazEmuteca.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -199,170 +199,126 @@
         <IsPartOfProject Value="True"/>
       </Unit21>
       <Unit22>
-        <Filename Value="..\..\CHX\Forms\ScriptManager\uCHXScriptEngine.pas"/>
+        <Filename Value="..\EmutecaCore\Units\uEmutecaUserInfo.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit22>
       <Unit23>
-        <Filename Value="..\EmutecaCore\Units\uEmutecaUserInfo.pas"/>
+        <Filename Value="..\EmutecaCore\Units\uEmutecaVersionFlags.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit23>
       <Unit24>
-        <Filename Value="..\EmutecaCore\Units\uEmutecaVersionFlags.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit24>
-      <Unit25>
         <Filename Value="..\EmutecaCore\Frames\ufEmutecaEmulatorManager.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fmEmutecaEmulatorManager"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-      </Unit25>
-      <Unit26>
+      </Unit24>
+      <Unit25>
         <Filename Value="..\EmutecaCore\Frames\ufEmutecaSystemManager.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fmEmutecaSystemManager"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+      </Unit25>
+      <Unit26>
+        <Filename Value="..\EmutecaCore\Units\uEmutecaCommon.pas"/>
+        <IsPartOfProject Value="True"/>
       </Unit26>
       <Unit27>
-        <Filename Value="..\EmutecaCore\Units\uEmutecaCommon.pas"/>
+        <Filename Value="..\EmutecaCore\Generics\ugEmutecaManager.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit27>
       <Unit28>
-        <Filename Value="..\..\CHX\u7zWrapper.pas"/>
+        <Filename Value="..\EmutecaCore\Generics\ugEmutecaPersList.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit28>
       <Unit29>
-        <Filename Value="..\..\CHX\uCHXConst.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit29>
-      <Unit30>
-        <Filename Value="..\..\CHX\uCHXFileUtils.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit30>
-      <Unit31>
-        <Filename Value="..\..\CHX\uCHXGroupManager.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit31>
-      <Unit32>
-        <Filename Value="..\..\CHX\uCHXRscStr.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit32>
-      <Unit33>
-        <Filename Value="..\..\CHX\uCHXStrUtils.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit33>
-      <Unit34>
-        <Filename Value="..\..\CHX\Forms\fuCHXImageViewer.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="frmCHXImageViewer"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Form"/>
-      </Unit34>
-      <Unit35>
-        <Filename Value="..\..\CHX\Forms\ufCHXProgressBar.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="frmCHXProgressBar"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Form"/>
-      </Unit35>
-      <Unit36>
-        <Filename Value="..\..\CHX\Forms\ufCHXAbout.pas"/>
-        <IsPartOfProject Value="True"/>
-        <HasResources Value="True"/>
-      </Unit36>
-      <Unit37>
-        <Filename Value="..\..\Misc\uVersionSupport.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit37>
-      <Unit38>
-        <Filename Value="..\EmutecaCore\Generics\ugEmutecaManager.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit38>
-      <Unit39>
-        <Filename Value="..\EmutecaCore\Generics\ugEmutecaPersList.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit39>
-      <Unit40>
-        <Filename Value="..\..\CHX\Forms\ScriptManager\ufCHXScriptManager.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="frmScriptManager"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Form"/>
-      </Unit40>
-      <Unit41>
-        <Filename Value="..\..\CHX\Forms\ScriptManager\ufSMAskFile.pas"/>
-        <IsPartOfProject Value="True"/>
-        <HasResources Value="True"/>
-      </Unit41>
-      <Unit42>
-        <Filename Value="..\..\CHX\Forms\ScriptManager\ufSMAskFolder.pas"/>
-        <IsPartOfProject Value="True"/>
-        <HasResources Value="True"/>
-      </Unit42>
-      <Unit43>
         <Filename Value="source\forms\ufEmutecaScriptManager.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmScriptManager1"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-      </Unit43>
-      <Unit44>
+      </Unit29>
+      <Unit30>
         <Filename Value="..\EmutecaCore\Classes\ucEmutecaVersionManager.pas"/>
         <IsPartOfProject Value="True"/>
-      </Unit44>
-      <Unit45>
-        <Filename Value="..\..\CHX\Frames\ufTagTree.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="fmTagTree"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Frame"/>
-      </Unit45>
-      <Unit46>
+      </Unit30>
+      <Unit31>
         <Filename Value="..\EmutecaCore\Frames\ufEmutecaSystemEditor.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fmEmutecaSystemEditor"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-      </Unit46>
-      <Unit47>
-        <Filename Value="..\..\CHX\uCHXImageUtils.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit47>
-      <Unit48>
+      </Unit31>
+      <Unit32>
         <Filename Value="..\EmutecaCore\Frames\ufEmutecaActAddVersion.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fmActAddVersion"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-      </Unit48>
-      <Unit49>
+      </Unit32>
+      <Unit33>
         <Filename Value="..\EmutecaCore\Frames\ufEmutecaVersionEditor.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fmEmutecaVersionEditor"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-      </Unit49>
-      <Unit50>
+      </Unit33>
+      <Unit34>
         <Filename Value="source\uGUIConfig.pas"/>
         <IsPartOfProject Value="True"/>
-      </Unit50>
-      <Unit51>
-        <Filename Value="..\..\CHX\Classes\uCHXvcConfig.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit51>
-      <Unit52>
+      </Unit34>
+      <Unit35>
         <Filename Value="..\EmutecaCore\Abstracts\uaEmutecaStorable.pas"/>
         <IsPartOfProject Value="True"/>
-      </Unit52>
-      <Unit53>
+      </Unit35>
+      <Unit36>
         <Filename Value="..\EmutecaCore\Abstracts\uaEmutecaManager.pas"/>
         <IsPartOfProject Value="True"/>
-      </Unit53>
-      <Unit54>
-        <Filename Value="..\..\CHX\uCHXFrmUtils.pas"/>
+      </Unit36>
+      <Unit37>
+        <Filename Value="..\CHXPas\Forms\fuCHXImageViewer.pas"/>
         <IsPartOfProject Value="True"/>
-      </Unit54>
+        <HasResources Value="True"/>
+      </Unit37>
+      <Unit38>
+        <Filename Value="..\CHXPas\Forms\ufCHXAbout.pas"/>
+        <IsPartOfProject Value="True"/>
+        <HasResources Value="True"/>
+      </Unit38>
+      <Unit39>
+        <Filename Value="..\CHXPas\Forms\ufCHXProgressBar.pas"/>
+        <IsPartOfProject Value="True"/>
+        <HasResources Value="True"/>
+      </Unit39>
+      <Unit40>
+        <Filename Value="..\CHXPas\Forms\ScriptManager\uCHXScriptEngine.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit40>
+      <Unit41>
+        <Filename Value="..\CHXPas\Forms\ScriptManager\ufCHXScriptManager.pas"/>
+        <IsPartOfProject Value="True"/>
+        <HasResources Value="True"/>
+      </Unit41>
+      <Unit42>
+        <Filename Value="..\CHXPas\Forms\ScriptManager\ufSMAskFile.pas"/>
+        <IsPartOfProject Value="True"/>
+        <HasResources Value="True"/>
+      </Unit42>
+      <Unit43>
+        <Filename Value="..\CHXPas\Forms\ScriptManager\ufSMAskFolder.pas"/>
+        <IsPartOfProject Value="True"/>
+        <HasResources Value="True"/>
+      </Unit43>
+      <Unit44>
+        <Filename Value="..\CHXPas\Frames\ufTagTree.pas"/>
+        <IsPartOfProject Value="True"/>
+        <HasResources Value="True"/>
+      </Unit44>
+      <Unit45>
+        <Filename Value="..\CHXPas\Misc\uVersionSupport.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit45>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -373,7 +329,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="source\forms;..\..\CHX\Forms;..\..\Misc;..\EmutecaCore\Units;..\..\CHX;..\EmutecaCore\Frames;..\EmutecaCore;..\EmutecaCore\Classes;..\EmutecaCore\Generics;..\..\CHX\Forms\ScriptManager;..\..\CHX\Frames;source;..\..\CHX\Classes;..\EmutecaCore\Interfaces;..\EmutecaCore\Abstracts"/>
+      <OtherUnitFiles Value="..\CHXPas;..\CHXPas\Classes;..\CHXPas\Forms;..\CHXPas\Forms\ScriptManager;..\CHXPas\Frames;..\CHXPas\Misc;..\EmutecaCore;..\EmutecaCore\Abstracts;..\EmutecaCore\Classes;..\EmutecaCore\Frames;..\EmutecaCore\Generics;..\EmutecaCore\Interfaces;..\EmutecaCore\Units;source;source\forms"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>
