@@ -1,0 +1,103 @@
+This is a miscellaneous list for developing and other thing related.
+
+7z = Folder or 7z/zip/rar/etc.
+db = Whatever I store the full list of game/parents
+
+(0.8) Games or Software folder?
+------------------------
+Software. Many systems have not only games.
+
+(0.8) How store things?
+-----------------------
+Think about store all extra info about a game inside the same 7z rather than
+"MultiOmniFolderSpreadedIn7z" as now is...:
+  * Game (+ Clones): In 1 7z (as usual, nothing new)
+    * Win: All game files
+    * MAME: Split
+    * Whatever: No change
+  * Basic info in db (for lists. Less info stored, faster reading).
+  * Tags in MAME style. A file with IDs listed, not every clone/parent
+    has its own tags.
+  * Images, Text, Sound, etc.: ALL in 1 7z (or kind-splited)
+  * TOSEC/User data: Not sure... Maybe external file, or one stored in the
+    previous 7z. This a per Clone info, while Images/Text is for parent...
+
+Pros:
+  * Less waiting while uncompressing media, 7z faster search.
+  * Easy exporting/importing extra data.
+  * If one day I made a grafical UI, most of data really, really will not be
+    loaded until a game is selected. The main problem in Emuteca is the main
+    list categorization (we need all data loaded to categorize by License
+    for example).
+
+Cons:
+  * Nobody has this schema.
+  * Some things may be better in raw form (Icons, TOSEC) for the list usage.
+
+Not sure Pros/Cons:
+  * System configuration about Images/Texts... folder and captions, for example.
+  * And what about media manager?
+
+
+
+(0.8) Sorting and Trasliteration of game names
+----------------------------------------------
+Initially they were properties of GameClone and GameParent (and the same thing),
+but is better to make external dictionaries (less wasted space, faster reading?,
+etc.).
+
+Game Clone data
+---------------
+  * Basic info (Stored straight in db)
+    * ID
+    * Title
+    * Version (and release type: beta, alpha, proto)
+    * Parent
+    * Year of publication
+    * Publisher
+    * Zones
+    * Path/Folder/zip/7z
+    * FileName
+  * Additional (This maybe loaded from an external file, but some seems to be
+    useful in main list...)
+    * TOSEC (hacking info)
+    * Tags (Generic categorization info, remember: Language, License)
+    * User info
+      * Rating
+      * Quick notes
+      * ¿Some other?
+
+(0.7) Making a database from games
+----------------------------
+  1. GoodXXX
+  2. GoodMerge
+  3. Emuteca
+    3.1. Load Game list
+    3.2. Script Manager
+      3.2.1. GoodXXXFilenames
+      3.2.2. GroupByFolder
+      3.2.3. ChangeTitleDelimiter
+      3.2.4. MoveArticles
+      3.2.5. FixZoneLang
+    3.3. Export Games Data
+
+  4. Decompress all.
+  5. ClrMAMEPro the files
+  6. Emuteca
+    6.1. Purge Emuteca Data
+    6.2. Load GameList
+    6.3. Import Games Data
+    6.4. Script Manager
+      6.4.1. TOSECFilenames
+      6.4.2. ChangeTitleDelimiter
+      6.4.3. MoveArticles
+      6.4.4. FixZoneLang
+    6.4. Delete previous exported game data
+    6.5. Export Games Data.
+
+Visual component help
+---------------------
+  * Structure of hint properties of no action controls:
+    What is or do.|What can do.
+
+

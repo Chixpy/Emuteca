@@ -1,0 +1,109 @@
+[Box:  - ::fuCHXProgressBar]
+X=400
+Y=125
+
+[Box:  - ::LazEmuteca]
+X=2129
+Y=40
+
+[Box:  - ::u7zWrapper]
+X=2949
+Y=380
+
+[Box:  - ::ucEmuteca]
+X=3580
+Y=210
+
+[Box:  - ::ucEmutecaConfig]
+X=3309
+Y=295
+
+[Box:  - ::ucEmutecaEmulator]
+X=3162
+Y=380
+
+[Box:  - ::ucEmutecaFile]
+X=20
+Y=125
+
+[Box:  - ::ucEmutecaParent]
+X=854
+Y=380
+
+[Box:  - ::ucEmutecaVersion]
+X=1048
+Y=380
+
+[Box:  - ::uCHXConst]
+X=1975
+Y=550
+
+[Box:  - ::uCHXFileUtils]
+X=2125
+Y=380
+
+[Box:  - ::uCHXRscStr]
+X=2842
+Y=550
+
+[Box:  - ::uCHXStrUtils]
+X=2338
+Y=465
+
+[Box:  - ::uEmutecaCommon]
+X=620
+Y=210
+
+[Box:  - ::uEmutecaEmulatorManager]
+X=3940
+Y=295
+
+[Box:  - ::uEmutecaGameManager]
+X=2638
+Y=295
+
+[Box:  - ::uEmutecaSystem]
+X=2317
+Y=380
+
+[Box:  - ::uEmutecaSystemManager]
+X=3119
+Y=295
+
+[Box:  - ::ufCHXAbout]
+X=810
+Y=210
+
+[Box:  - ::ufEmutecaEmulator]
+X=210
+Y=125
+
+[Box:  - ::ufEmutecaEmulatorManager]
+X=210
+Y=210
+
+[Box:  - ::ufEmutecaMain]
+X=1030
+Y=125
+
+[Box:  - ::ufEmutecaParentList]
+X=1220
+Y=210
+
+[Box:  - ::ufEmutecaSystemManager]
+X=20
+Y=210
+
+[Box:  - ::ufEmutecaVersionList]
+X=1630
+Y=210
+
+[Box:  - ::uVersionSupport]
+X=244
+Y=295
+
+[Diagram: ]
+OffsetX=0
+OffsetY=0
+Visibility=0
+ShowAssoc=1

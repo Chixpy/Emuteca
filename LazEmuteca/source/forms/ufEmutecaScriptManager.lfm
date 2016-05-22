@@ -1,0 +1,8 @@
+inherited frmScriptManager1: TfrmScriptManager1
+  inherited PageControl: TPageControl
+    inherited pagGeneralScriptList: TTabSheet
+      ClientHeight = 326
+      ClientWidth = 711
+    end
+  end
+end

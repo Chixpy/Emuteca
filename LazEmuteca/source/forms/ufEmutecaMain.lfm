@@ -1,0 +1,169 @@
+object frmEmutecaMain: TfrmEmutecaMain
+  Left = 356
+  Height = 600
+  Top = 114
+  Width = 800
+  Caption = 'Main'
+  ClientHeight = 580
+  ClientWidth = 800
+  Menu = MainMenu
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  Position = poDesktopCenter
+  SessionProperties = 'Height;Width;WindowState'
+  LCLVersion = '5.7'
+  object stbHelp: TStatusBar
+    Left = 0
+    Height = 23
+    Top = 557
+    Width = 800
+    Panels = <>
+  end
+  object Splitter1: TSplitter
+    Left = 168
+    Height = 534
+    Top = 0
+    Width = 5
+  end
+  object pRight: TPanel
+    Left = 630
+    Height = 534
+    Top = 0
+    Width = 170
+    Align = alRight
+    TabOrder = 2
+  end
+  object Splitter2: TSplitter
+    Left = 625
+    Height = 534
+    Top = 0
+    Width = 5
+    Align = alRight
+    ResizeAnchor = akRight
+  end
+  object pMiddle: TPanel
+    Left = 173
+    Height = 534
+    Top = 0
+    Width = 452
+    Align = alClient
+    ClientHeight = 534
+    ClientWidth = 452
+    TabOrder = 4
+    object pTop: TPanel
+      Left = 1
+      Height = 180
+      Top = 1
+      Width = 450
+      Align = alTop
+      TabOrder = 0
+    end
+    object Splitter3: TSplitter
+      Cursor = crVSplit
+      Left = 1
+      Height = 5
+      Top = 181
+      Width = 450
+      Align = alTop
+      ResizeAnchor = akTop
+    end
+    object pBottom: TPanel
+      Left = 1
+      Height = 347
+      Top = 186
+      Width = 450
+      Align = alClient
+      TabOrder = 2
+    end
+  end
+  object stbInfo: TStatusBar
+    Left = 0
+    Height = 23
+    Top = 534
+    Width = 800
+    Panels = <>
+    SizeGrip = False
+  end
+  object PageControl1: TPageControl
+    Left = 0
+    Height = 534
+    Top = 0
+    Width = 168
+    Align = alLeft
+    TabOrder = 6
+  end
+  object ActionList1: TActionList
+    left = 184
+    top = 104
+    object HelpOnHelp1: THelpOnHelp
+      Category = 'Help'
+      Caption = 'A&yuda sobre la ayuda'
+      Hint = 'Ayuda sobre la ayuda'
+      OnExecute = HelpOnHelp1Execute
+    end
+    object FileExit1: TFileExit
+      Category = 'File'
+      Caption = 'S&alir'
+      Hint = 'Salir'
+    end
+    object actEmulatorManager: TAction
+      Category = 'Managers'
+      Caption = 'Emulator Manager...'
+      OnExecute = actEmulatorManagerExecute
+    end
+    object actSystemManager: TAction
+      Category = 'Managers'
+      Caption = 'System Manager...'
+      OnExecute = actSystemManagerExecute
+    end
+    object actScriptManager: TAction
+      Category = 'Managers'
+      Caption = 'Script Manager'
+    end
+    object actMediaManager: TAction
+      Category = 'Managers'
+      Caption = 'Media Manager...'
+    end
+  end
+  object MainMenu: TMainMenu
+    left = 184
+    top = 48
+    object mmFile: TMenuItem
+      Caption = 'File'
+      object MenuItem2: TMenuItem
+        Action = FileExit1
+      end
+    end
+    object MenuItem3: TMenuItem
+      Caption = 'Managers'
+      object MenuItem4: TMenuItem
+        Action = actEmulatorManager
+      end
+      object MenuItem5: TMenuItem
+        Action = actSystemManager
+      end
+      object MenuItem7: TMenuItem
+        Action = actMediaManager
+      end
+      object MenuItem6: TMenuItem
+        Action = actScriptManager
+      end
+    end
+    object mmHelp: TMenuItem
+      Caption = 'Help'
+      object MenuItem1: TMenuItem
+        Action = HelpOnHelp1
+      end
+    end
+  end
+  object IniPropStorage1: TIniPropStorage
+    StoredValues = <>
+    IniSection = 'Forms'
+    left = 184
+    top = 232
+  end
+  object ImageList1: TImageList
+    left = 184
+    top = 168
+  end
+end
