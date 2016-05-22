@@ -29,6 +29,10 @@ uses
   Classes, SysUtils, LazFileUtils, LazUTF8, IniFiles,
   ucEmutecaEmulator, uEmutecaCommon, uaEmutecaManager;
 
+resourcestring
+  rsLoadingEmulatorList = 'Loading emulator list...';
+  rsSavingEmulatorList = 'Saving emulator list...';
+
 type
   { TODO : Create a cEmutecaManager generic (for systems and emulators) }
 
@@ -152,9 +156,10 @@ begin
       TempEmu.LoadFromFileIni(IniFile);
       FullList.AddOrSetData(TempEmu.ID, TempEmu);
       Inc(i);
+
       if ProgressCallBack <> nil then
         ProgressCallBack(rsLoadingEmulatorList, TempEmu.ID,
-          TempEmu.EmulatorName, i + 1, TempList.Count);
+          TempEmu.EmulatorName, i, TempList.Count);
     end;
   finally
     FreeAndNil(TempList);
@@ -188,11 +193,11 @@ function cEmutecaEmulatorManager.Add(aId: string): cEmutecaEmulator;
 begin
   Result := ItemById(aId);
 
-  // If allready exists, then return it
+  // If already exists, then return it
   if assigned(result) then
     Exit;
 
-  // Creating new emulator
+  // Creating new item
   Result := cEmutecaEmulator.Create(Self);
   Result.ID := aId;
   Result.EmulatorName := aId;

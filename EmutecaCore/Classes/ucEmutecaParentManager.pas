@@ -26,83 +26,58 @@ unit ucEmutecaParentManager;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, LazFileUtils, IniFiles,
+  Classes, SysUtils, FileUtil, LazFileUtils,
   LazUTF8, LConvEncoding,
   LResources,
   // Emuteca core
-  uEmutecaCommon, ucEmutecaParent,
+  uaEmutecaManager, ucEmutecaParent,
   // Utils
   u7zWrapper;
+
+resourcestring
+  rsLoadingParentList = 'Loading parent list...';
+  rsSavingParentList = 'Saving parent list...';
 
 type
   { cEmutecaParentManager }
 
-  cEmutecaParentManager = class(TComponent)
+  cEmutecaParentManager = class(caEmutecaManagerTxt)
   private
-    FCurrentList: cEmutecaParentList;
     FDataFile: string;
-    FList: cEmutecaParentList;
-    FProgressCallBack: TEmutecaProgressCallBack;
+    FFullList: cEmutecaParentMap;
     procedure SetDataFile(AValue: string);
-    procedure SetProgressCallBack(const AValue: TEmutecaProgressCallBack);
 
   protected
 
 
   public
-    property List: cEmutecaParentList read FList;
+    property FullList: cEmutecaParentMap read FFullList;
     {< Actual list where the parents are stored. }
-    property CurrentList: cEmutecaParentList read FCurrentList;
-    {< Current loaded games list. }
 
-    property ProgressCallBack: TEmutecaProgressCallBack
-      read FProgressCallBack write SetProgressCallBack;
-    //< CallBack function to show the progress in actions.
-
-    procedure LoadDataFile;
-    //< Loads current data file
-    procedure SaveDataFile;
-    //< Saves current data file
-
-    procedure ImportDataFile(const aFileName: string);
-    //< Imports data to the current list
-    procedure ExportDataFile(const aFileName: string);
-    //< Exports data of the current list
+    procedure LoadFromFileTxt(TxtFile: TStrings); override;
+    procedure SaveToFileTxt(TxtFile: TStrings; const ExportMode: boolean);
+      override;
 
 
+    function Add(aId: string): cEmutecaParent;
+    {< Creates a parent with aId key, if already exists returns it.
+
+       @Result cEmutecaParent created or found.
+    }
     function ItemById(aId: string): cEmutecaParent;
-    //< Return the game with have aParentKey key
+    {< Return the parent with have aId key.
 
-    {function GameAtPos(const aIndex: integer): cEmutecaGameVersion;
-    //< Return the game at a position.
-    function Game(aGameKey: string): cEmutecaGameVersion;
-    //< Return the game with have aGameKey key.
-    function GameCount: longint;
-    //< Return the number of games.
-
-    function GroupAtPos(const aIndex: integer): cEmutecaParent;
-    //< Return the group at a position.
-    function Group(aGroupKey: string): cEmutecaParent;
-    //< Return the game with have aGroupKey key.
-    function GroupCount: longint;
-    //< Return the number of groups.
-
-    procedure SaveSystem;
-    //< Save current system configuration.
-    procedure ChangeSystem(const SystemName: string); deprecated;
-    //< Change the current system. (By name)
-    procedure ChangeSystem2(aSystem: cEmutecaSystem);
-    //< Change the current system. (By reference)
-    procedure ChangeEmulator(const aEmulatorName: string);
-    //< Change the current emultor.
+       @Result cEmutecaParent found.
     }
-    procedure ClearGameData;
-    //< Removes al games and groups from the system.
+    function Delete(aId: string): integer;
+    {< Deletes a parent by Id.
 
-    {
-    procedure UpdateGameList;
-    procedure SoftUpdateGameList;
+       @Result Index of deleted item
     }
+
+        procedure AssingAllTo(aList: TStrings);
+    procedure AssingEnabledTo(aList: TStrings);
+
     procedure UpdateGroupList;
 
     function AddFile(aFolder: string; Info: TSearchRec): boolean;
@@ -141,27 +116,6 @@ type
       aFileName: string; Extensions: TStrings);
 
     }
-    procedure SaveSystemGameList;
-    //< Save the current system game list (and groups).
-    procedure LoadParentList(aParentFile: string);
-    //< Load the parent list
-    procedure ExportGameData(const aFileName: string;
-      const ExportMode: boolean);
-    {< Export current system game list to a .ini file.
-
-     @param(ExportMode If false saves some data for internal
-        purpourses: times played, last time, total time,...)
-    }
-    procedure ExportGameDataIni(const aIniFile: TCustomIniFile;
-      const ExportMode: boolean);
-    {< Export current system game list to an already opened .ini file.
-
-     @param(ExportMode Boolean. If false saves some data for internal
-        purpourses: times played, last time, total time,... )
-    }
-    procedure ImportGameData(const aFileName: string);
-    procedure ImportGameDataIni(const aIniFile: TCustomIniFile);
-
     //function Execute(aGame: cEmutecaGameVersion): integer;
     //< Execute a Game.
 
@@ -175,73 +129,46 @@ type
 implementation
 
 { cEmutecaParentManager }
-procedure cEmutecaParentManager.SetProgressCallBack(
-  const AValue: TEmutecaProgressCallBack);
-begin
-  FProgressCallBack := AValue;
-end;
-
-procedure cEmutecaParentManager.LoadDataFile;
-begin
-  List.Clear;
-  ImportDataFile(DataFile); // Dirty trick :-P
-end;
-
-procedure cEmutecaParentManager.SaveDataFile;
-begin
-  List.SaveToFile(DataFile);
-end;
-
-procedure cEmutecaParentManager.ImportDataFile(const aFileName: string);
-var
-  OldCF: string;
-  i: integer;
-begin
-  OldCF := DataFile;
-  DataFile := aFileName;
-  List.LoadFromFile(DataFile);
-  // As List changed, then add all games to visible list
-  CurrentList.Clear;
-  i := 0;
-  while i < List.Count do
-  begin
-    CurrentList.Add(List[i]);
-    Inc(i);
-  end;
-  DataFile := OldCF;
-end;
-
-procedure cEmutecaParentManager.ExportDataFile(const aFileName: string);
-var
-  OldCF: string;
-begin
-  OldCF := DataFile;
-  DataFile := aFilename;
-  { TODO : Don't save user data... (Path to the File and if it's enabled) }
-  SaveDataFile;
-  DataFile := OldCF;
-end;
 
 function cEmutecaParentManager.ItemById(aId: string): cEmutecaParent;
 var
   i: integer;
-  aItem: cEmutecaParent;
 begin
-  Result := nil;
-  aId := Trim(UTF8LowerCase(aId));
+  // FullList.TryGetData(aId, Result); Maybe do this???
 
-  // Maybe backwards is better for batch operations...
-  i := List.Count - 1;
-  while (i >= 0) do
+  Result := nil;
+  i := FullList.IndexOf(aId);
+
+  if i >= 0 then
+    Result := FullList.Data[i];
+end;
+
+function cEmutecaParentManager.Delete(aId: string): integer;
+begin
+    Result := FullList.Remove(aId);
+end;
+
+procedure cEmutecaParentManager.AssingAllTo(aList: TStrings);
+var
+  i: longint;
+begin
+  if not assigned(aList) then
+    aList := TStringList.Create;
+
+  aList.BeginUpdate;
+  i := 0;
+  while i < FullList.Count do
   begin
-    aItem := List.Items[i];
-    if UTF8CompareText(aItem.SortName, aId) = 0 then
-    begin
-      Result := aItem;
-      Break; // ... dirty exit, but we don't need to check: Result <> nil
-    end;
-    Dec(i);
+    aList.AddObject(FullList.Data[i].Title, FullList.Data[i]);
+    Inc(i);
   end;
+  aList.EndUpdate;
+end;
+
+procedure cEmutecaParentManager.AssingEnabledTo(aList: TStrings);
+begin
+  { TODO : Maybe search for enabled systems... }
+  AssingAllTo(aList);
 end;
 
 procedure cEmutecaParentManager.SetDataFile(AValue: string);
@@ -249,6 +176,69 @@ begin
   if FDataFile = AValue then
     Exit;
   FDataFile := AValue;
+end;
+
+procedure cEmutecaParentManager.LoadFromFileTxt(TxtFile: TStrings);
+var
+  i: integer;
+  TempParent: cEmutecaParent;
+begin
+  if not Assigned(TxtFile) then
+    Exit;
+
+  i := 1; // Skipping Header
+  while i < TxtFile.Count do
+  begin
+    TempParent := cEmutecaParent.Create(nil);
+    TempParent.DataString := TxtFile[i];
+    FullList.AddOrSetData(TempParent.SortName, TempParent);
+    Inc(i);
+
+    if ProgressCallBack <> nil then
+      ProgressCallBack(rsLoadingParentList, TempParent.System,
+        TempParent.Title, i , TxtFile.Count);
+  end;
+end;
+
+procedure cEmutecaParentManager.SaveToFileTxt(TxtFile: TStrings;
+  const ExportMode: boolean);
+var
+  i: Integer;
+begin
+  if not Assigned(TxtFile) then
+    Exit;
+
+  if not ExportMode then
+  begin
+    TxtFile.Clear;
+    TxtFile.Add('"ID/Sort Name","System","Title"');
+  end;
+
+  i := 0;
+  while i < FullList.Count do
+  begin
+    FullList.Data[i].SaveToFileTxt(TxtFile, ExportMode);
+
+    if ProgressCallBack <> nil then
+      ProgressCallBack(rsSavingParentList, FullList.Data[i].System,
+        FullList.Data[i].Title, i + 1, FullList.Count);
+    Inc(i);
+  end;
+end;
+
+function cEmutecaParentManager.Add(aId: string): cEmutecaParent;
+begin
+  Result := ItemById(aId);
+
+  // If already exists, then return it
+  if assigned(result) then
+    Exit;
+
+  // Creating new item
+  Result := cEmutecaParent.Create(Self);
+  Result.SortName := aId;
+  Result.Title := aId;
+  FullList.Add(Result.SortName, Result);
 end;
 
 {
@@ -399,11 +389,6 @@ begin
     FreeAndNil(FEmulator);
 end;
 }
-procedure cEmutecaParentManager.ClearGameData;
-begin
-  // GameList.Clear;
-  List.Clear;
-end;
 
 {
 procedure cEmutecaParentManager.UpdateGameList;
@@ -439,7 +424,7 @@ procedure cEmutecaParentManager.UpdateGroupList;
 //i, j: integer;
 begin
 {
-  List.Clear;
+  FullList.Clear;
   i := 0;
   j := Self.GameCount;
   while i < j do
@@ -748,186 +733,6 @@ begin
     end;
 end;
 }
-procedure cEmutecaParentManager.SaveSystemGameList;
-//var
-//i, j: integer;
-//aFileName: string;
-//aFile: TFileStream;
-//aGame: cEmutecaGameVersion;
-//aGroup: cEmutecaParent;
-begin
-  { TODO 1 : DON'T CHANGE FILES WHILE TESTNG BY NOW }
-{
-  // if System = nil then
-    Exit;
-
-  // Saving Families
-  aFileName := ExtractFilePath(SystemsFile) + System.DataFile +
-    GroupDataFileExt;
-  if FileExistsUTF8(aFileName) then
-    DeleteFileUTF8(aFileName);
-
-  aFile := TFileStream.Create(aFileName, fmCreate);
-  try
-    i := 0;
-    j := FList.Count;
-    while i < j do
-    begin
-      aGroup := GroupAtPos(i);
-      if ProgressCallBack <> nil then
-        ProgressCallBack(EMMCBSaveList, aGroup.GameID, aGroup.Title, i, j);
-
-      WriteComponentAsBinaryToStream(aFile, aGroup);
-      Inc(i);
-    end;
-  finally
-    FreeAndNil(aFile);
-  end;
-
-  // Saving Game versions
-
-  aFileName := ExtractFilePath(SystemsFile) + System.DataFile +
-    GameDataFileExt;
-  if FileExistsUTF8(aFileName) then
-    DeleteFileUTF8(aFileName);
-
-  TFileStream.Create(aFileName, fmCreate);
-  try
-    i := 0;
-    j := FGameList.Count;
-    while i < j do
-    begin
-      aGame := GameAtPos(i);
-      if ProgressCallBack <> nil then
-        ProgressCallBack(EMMCBSaveList, aGame.GameName, aGame.Version, i, j);
-      WriteComponentAsBinaryToStream(aFile, aGame);
-      Inc(i);
-    end;
-  finally
-    FreeAndNil(aFile);
-  end;
-  }
-end;
-
-procedure cEmutecaParentManager.LoadParentList(aParentFile: string);
-var
-  i: integer;
-begin
-  List.Clear;
-  List.LoadFromFile(aParentFile);
-
-  // As List changed, then add all games to visible list
-  { TODO : Maybe there is a one line statement }
-  i := 0;
-  while i < List.Count do
-  begin
-    CurrentList.Add(List[i]);
-    Inc(i);
-  end;
-end;
-
-procedure cEmutecaParentManager.ExportGameData(const aFileName: string;
-  const ExportMode: boolean);
-var
-  F: TMemInifile;
-begin
-  F := TMemIniFile.Create(UTF8ToSys(aFilename));
-  try
-    ExportGameDataIni(F, ExportMode);
-  finally
-    FreeAndNil(F);
-  end;
-end;
-
-procedure cEmutecaParentManager.ExportGameDataIni(
-  const aIniFile: TCustomIniFile; const ExportMode: boolean);
-//var
-//i, j: integer;
-//aGame: cEmutecaGameVersion;
-//aGameGroup: cEmutecaParent;
-//Continue: boolean;
-begin
-  {
-  i := 0;
-  j := GameCount;
-  Continue := True;
-  while (i < j) and Continue do
-  begin
-    aGame := GameAtPos(i);
-    aGame.ExportDataIni(aIniFile, ExportMode);
-    if ProgressCallBack <> nil then
-      Continue := ProgressCallBack(EMMCBExportData, aGame.GameName,
-        aGame.Version, i, j);
-    Inc(i);
-  end;
-
-  i := 0;
-  j := GroupCount;
-  Continue := True;
-  while (i < j) and Continue do
-  begin
-    aGameGroup := GroupAtPos(i);
-    aGameGroup.ExportDataIni(aIniFile);
-    if ProgressCallBack <> nil then
-      Continue := ProgressCallBack(EMMCBExportData, aGameGroup.Title,
-        kEmutecaVirtualGroupExt, i, j);
-    Inc(i);
-  end;
-  }
-end;
-
-procedure cEmutecaParentManager.ImportGameData(const aFileName: string);
-var
-  F: TMemInifile;
-begin
-  if not FileExistsUTF8(aFilename) then
-    Exit;
-  F := TMemIniFile.Create(UTF8ToSys(aFilename));
-  try
-    ImportGameDataIni(F);
-  finally
-    FreeAndNil(F);
-  end;
-end;
-
-procedure cEmutecaParentManager.ImportGameDataIni(
-  const aIniFile: TCustomIniFile);
-//var
-//i, j: integer;
-//aGame: cEmutecaGameVersion;
-//aGameGroup: cEmutecaParent;
-//Continue: boolean;
-begin
-  {
-  i := 0;
-  j := GameCount;
-  Continue := True;
-  while (i < j) and Continue do
-  begin
-    aGame := GameAtPos(i);
-    aGame.ImportDataIni(aIniFile);
-    if ProgressCallBack <> nil then
-      Continue := ProgressCallBack(EMMCBImportData, aGame.GameName,
-        aGame.Version, i, j);
-    Inc(i);
-  end;
-
-  UpdateGroupList;
-
-  i := 0;
-  j := GroupCount;
-  Continue := True;
-  while (i < j) and Continue do
-  begin
-    aGameGroup := GroupAtPos(i);
-    aGameGroup.ImportDataIni(aIniFile);
-    if Assigned(ProgressCallBack) then
-      Continue := ProgressCallBack(EMMCBImportData, aGameGroup.Title,
-        kEmutecaVirtualGroupExt, i, j);
-    Inc(i);
-  end;
-  }
-end;
 
 {function cEmutecaParentManager.Execute(aGame: cEmutecaGameVersion): integer;
 var
@@ -1028,15 +833,13 @@ constructor cEmutecaParentManager.Create(aOwner: TComponent);
 begin
   inherited Create(aOwner);
 
-  FList := cEmutecaParentList.Create(True);
-  FCurrentList := cEmutecaParentList.Create(False);
+  FFullList := cEmutecaParentMap.Create(True);
 end;
 
 destructor cEmutecaParentManager.Destroy;
 begin
-  SaveDataFile;
-  FreeAndNil(FCurrentList);
-  FreeAndNil(FList);
+  SaveToFile('', false);
+  FreeAndNil(FFullList);
   inherited Destroy;
 end;
 

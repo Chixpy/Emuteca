@@ -128,7 +128,7 @@ begin
 
   // Setting ParentManager
   ParentManager.DataFile := Config.DataFolder + Config.ParentsFile;
-  ParentManager.LoadDataFile;
+  ParentManager.LoadFromFile('');
 
   // Setting SoftManager
   SoftManager.DataFile := Config.DataFolder + Config.VersionsFile;

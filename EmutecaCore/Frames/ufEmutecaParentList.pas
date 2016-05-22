@@ -30,9 +30,9 @@ type
       Node: PVirtualNode; var InitialStates: TVirtualNodeInitStates);
 
   private
-    FParentList: cEmutecaParentList;
+    FParentList: cEmutecaParentMap;
     FOnItemSelect: TFEPLItemSelected;
-    procedure SetParentList(AValue: cEmutecaParentList);
+    procedure SetParentList(AValue: cEmutecaParentMap);
     procedure SetOnItemSelect(AValue: TFEPLItemSelected);
 
   protected
@@ -40,7 +40,7 @@ type
 
   public
     { public declarations }
-    property ParentList: cEmutecaParentList
+    property ParentList: cEmutecaParentMap
       read FParentList write SetParentList;
 
     property OnItemSelect: TFEPLItemSelected
@@ -137,10 +137,10 @@ var
   pData: ^cEmutecaParent;
 begin
   pData := Sender.GetNodeData(Node);
-  pData^ := ParentList.Items[Node^.Index];
+  pData^ := ParentList.Data[Node^.Index];
 end;
 
-procedure TfmEmutecaParentList.SetParentList(AValue: cEmutecaParentList);
+procedure TfmEmutecaParentList.SetParentList(AValue: cEmutecaParentMap);
 begin
   FParentList := AValue;
   UpdateList;

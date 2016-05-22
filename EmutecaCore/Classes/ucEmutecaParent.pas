@@ -1,3 +1,24 @@
+{ This file is part of Emuteca
+
+  Copyright (C) 2006-2016 Chixpy
+
+  This source is free software; you can redistribute it and/or modify it under
+  the terms of the GNU General Public License as published by the Free
+  Software Foundation; either version 3 of the License, or (at your option)
+  any later version.
+
+  This code is distributed in the hope that it will be useful, but WITHOUT ANY
+  WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+  FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+  details.
+
+  A copy of the GNU General Public License is available on the World Wide Web
+  at <http://www.gnu.org/copyleft/gpl.html>. You can also obtain it by writing
+  to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
+  MA 02111-1307, USA.
+}
+
+{ cEmutecaParent unit. }
 unit ucEmutecaParent;
 
 {$mode objfpc}{$H+}
@@ -6,12 +27,12 @@ interface
 
 uses
   Classes, SysUtils, fgl, LazFileUtils,
-  uEmutecaCommon;
+  uEmutecaCommon, uaEmutecaStorable;
 
 type
   { cEmutecaParent }
 
-  cEmutecaParent = class(TComponent)
+  cEmutecaParent = class(caEmutecaStorableTxt)
   private
     FSortName: string;
     FSystem: string;
@@ -24,9 +45,13 @@ type
 
 
   public
-    property DataString: string read GetDataString write SetDataString;
     constructor Create(aOwner: TComponent); override;
     destructor Destroy; override;
+
+    property DataString: string read GetDataString write SetDataString;
+
+       procedure LoadFromFileTxt(TxtFile: TStrings); override;
+    procedure SaveToFileTxt(TxtFile: TStrings; const ExportMode: boolean  ); override;
 
   published
     property Title: string read FTitle write SetTitle;
@@ -37,96 +62,11 @@ type
     {< ID of the Parent (and Sorting)}
   end;
 
-  { cEmutecaParentList }
+  { cEmutecaParentMap }
 
-  cEmutecaParentList = class (specialize TFPGObjectList<cEmutecaParent>)
-  private
-    FProgressCallBack: TEmutecaProgressCallBack;
-    procedure SetProgressCallBack(AValue: TEmutecaProgressCallBack);
-  public
-    procedure LoadFromFile(aFile: string);
-
-    procedure SaveToFile(aFile: string);
-
-    property ProgressCallBack: TEmutecaProgressCallBack
-      read FProgressCallBack write SetProgressCallBack;
-    //< CallBack function to show the progress in actions.
-  end;
+  cEmutecaParentMap = specialize TFPGMapObject<string, cEmutecaParent>;
 
 implementation
-
-{ cEmutecaParentList }
-
-procedure cEmutecaParentList.SetProgressCallBack(
-  AValue: TEmutecaProgressCallBack);
-begin
-  if FProgressCallBack = AValue then
-    Exit;
-  FProgressCallBack := AValue;
-end;
-
-procedure cEmutecaParentList.LoadFromFile(aFile: string);
-var
-  i: integer;
-  aStringList: TStringList;
-  aParent: cEmutecaParent;
-begin
-  if not FileExistsUTF8(aFile) then
-    Exit;
-
-  aStringList := TStringList.Create;
-  try
-    aStringList.LoadFromFile(aFile);
-     if aStringList.Count > 0 then
-      aStringList.Delete(0); // Removing header
-
-    i := 0;
-    while i < aStringList.Count do
-    begin
-      aParent := cEmutecaParent.Create(nil); // TODO: nil?
-      self.Add(aParent);
-
-      // Load parent data
-      aParent.DataString := aStringList[i];
-
-      if ProgressCallBack <> nil then
-        ProgressCallBack('Loading parent list...', aParent.System,
-          aParent.Title, i, aStringList.Count);
-      Inc(i);
-    end;
-  finally
-    FreeAndNil(aStringList);
-  end;
-end;
-
-procedure cEmutecaParentList.SaveToFile(aFile: string);
-var
-  aParent: cEmutecaParent;
-  aStringList: TStringList;
-  i: integer;
-begin
-  if ExtractFileNameOnly(aFile) = '' then
-    { TODO : Raise an exception }
-    exit;
-  aStringList := TStringList.Create;
-   try
-    i := 0;
-    while i < Self.Count do
-    begin
-      aParent := Self.items[i];
-      aStringList.Add(aParent.DataString);
-      if ProgressCallBack <> nil then
-        ProgressCallBack('Saving parent list...', aParent.SortName,
-          aParent.Title, i, aStringList.Count);
-      Inc(i);
-    end;
-    aStringList.Sort;
-     aStringList.Insert(0,'"ID/Sort Name","System","Title"');
-    aStringList.SaveToFile(aFile);
-  finally
-    FreeAndNil(aStringList);
-  end;
-end;
 
 { cEmutecaParent }
 
@@ -157,10 +97,7 @@ var
 begin
   aStringList := TStringList.Create;
   try
-    aStringList.Add(SortName);
-    aStringList.Add(System);
-    aStringList.Add(Title);
-
+   SaveToFileTxt(aStringList, true);
   finally
     Result := aStringList.CommaText;
     FreeAndNil(aStringList);
@@ -175,14 +112,8 @@ begin
   try
     aStringList.CommaText := AValue;
 
-    if aStringList.Count > 0 then
-      self.SortName := aStringList[0];
-    if aStringList.Count > 1 then
-      self.System := aStringList[1];
-    if aStringList.Count > 2 then
-      self.Title := aStringList[2];
+    LoadFromFileTxt(aStringList);
   finally
-
     FreeAndNil(aStringList);
   end;
 end;
@@ -195,6 +126,29 @@ end;
 destructor cEmutecaParent.Destroy;
 begin
   inherited Destroy;
+end;
+
+procedure cEmutecaParent.LoadFromFileTxt(TxtFile: TStrings);
+begin
+    if not assigned(TxtFile) then
+    Exit;
+
+    if TxtFile.Count > 0 then
+       self.SortName := TxtFile[0];
+     if TxtFile.Count > 1 then
+       self.System := TxtFile[1];
+     if TxtFile.Count > 2 then
+       self.Title := TxtFile[2];
+end;
+
+procedure cEmutecaParent.SaveToFileTxt(TxtFile: TStrings;
+  const ExportMode: boolean);
+begin
+      if not assigned(TxtFile) then
+    Exit;
+          TxtFile.Add(SortName);
+    TxtFile.Add(System);
+    TxtFile.Add(Title);
 end;
 
 end.

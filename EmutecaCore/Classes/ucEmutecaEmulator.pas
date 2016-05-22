@@ -64,10 +64,6 @@ const
   kEmutecaROMFileExtKey = '%ROMEXT%';
   {< ROM file extension. }
 
-resourcestring
-  rsLoadingEmulatorList = 'Loading emulator list...';
-  rsSavingEmulatorList = 'Saving emulator list...';
-
 type
   { cEmutecaEmulator class.
 
@@ -340,7 +336,7 @@ end;
 
 procedure cEmutecaEmulator.LoadFromFileIni(IniFile: TCustomIniFile);
 begin
-  if IniFile = nil then
+  if not assigned(IniFile) then
     Exit;
 
   Enabled := IniFile.ReadBool(self.ID, krsEmulatorEnabledKey, Enabled);
@@ -361,7 +357,7 @@ end;
 procedure cEmutecaEmulator.SaveToFileIni(IniFile: TCustomIniFile;
   const ExportMode: boolean);
 begin
-  if IniFile = nil then
+  if not assigned(IniFile) then
     Exit;
   IniFile.WriteString(self.ID, krsEmulatorNameKey, EmulatorName);
 

@@ -98,9 +98,10 @@ begin
       TempSys.LoadFromFileIni(IniFile);
       FullList.AddOrSetData(TempSys.ID, TempSys);
       Inc(i);
+
       if ProgressCallBack <> nil then
         ProgressCallBack(rsLoadingSystemList, TempSys.ID,
-          TempSys.Model, i + 1, TempList.Count);
+          TempSys.Model, i, TempList.Count);
     end;
   finally
     FreeAndNil(TempList);
@@ -134,11 +135,11 @@ function cEmutecaSystemManager.Add(aId: string): cEmutecaSystem;
 begin
   Result := ItemById(aId);
 
-  // If allready exists, then return it
+  // If already exists, then return it
   if assigned(result) then
     Exit;
 
-  // Creating new system
+  // Creating new item
   Result := cEmutecaSystem.Create(Self);
   Result.ID := aId;
   Result.Model := aId;
@@ -164,8 +165,20 @@ begin
 end;
 
 procedure cEmutecaSystemManager.AssingAll(aList: TStrings);
+var
+  i: longint;
 begin
+  if not assigned(aList) then
+    aList := TStringList.Create;
 
+  aList.BeginUpdate;
+  i := 0;
+  while i < FullList.Count do
+  begin
+    aList.AddObject(FullList.Data[i].Model, FullList.Data[i]);
+    Inc(i);
+  end;
+  aList.EndUpdate;
 end;
 
 procedure cEmutecaSystemManager.AssingEnabledTo(aList: TStrings);
@@ -179,7 +192,8 @@ begin
   i := 0;
   while i < FullList.Count do
   begin
-    aList.AddObject(FullList.Data[i].Model, FullList.Data[i]);
+    if FullList.Data[i].Enabled then
+      aList.AddObject(FullList.Data[i].Model, FullList.Data[i]);
     Inc(i);
   end;
   aList.EndUpdate;

@@ -157,7 +157,11 @@ procedure TfrmEmutecaMain.FormCreate(Sender: TObject);
     // Creating and setting the parent list frame
     fmEmutecaParentList := TfmEmutecaParentList.Create(pTop);
     fmEmutecaParentList.Parent := pTop;
-    fmEmutecaParentList.ParentList := Emuteca.ParentManager.CurrentList;
+
+    { TODO : Use whole parent manager...
+               or create a EnabledParentList
+               or only AssignEnabledTo... }
+    fmEmutecaParentList.ParentList := Emuteca.ParentManager.FullList;
     fmEmutecaParentList.OnItemSelect := @Self.SelectParent;
 
     // Creating and Setting the software list frame
