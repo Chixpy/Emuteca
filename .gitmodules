@@ -1,0 +1,3 @@
+[submodule "Emuteca.wiki"]
+	path = Emuteca.wiki
+	url = ../Emuteca.wiki.git
