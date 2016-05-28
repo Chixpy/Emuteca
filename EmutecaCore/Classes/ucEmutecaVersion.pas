@@ -12,7 +12,7 @@ uses
 type
   { cEmutecaVersion }
 
-  cEmutecaVersion = class(TComponent)
+  cEmutecaVersion = class(caEmutecaStorableTxt)
   private
     FDescription: string;
     FFileName: string;
@@ -37,6 +37,10 @@ type
     constructor Create(aOwner: TComponent); override;
     destructor Destroy; override;
 
+    procedure LoadFromFileTxt(TxtFile: TStrings); override;
+    procedure SaveToFileTxt(TxtFile: TStrings; const ExportMode: boolean);
+      override;
+
   published
     property ID: string read FID write SetID;
     {< ID of the file. Usually SHA1 }
@@ -54,95 +58,11 @@ type
 
   end;
 
-  { cEmutecaVersionList }
+  { cEmutecaVersionMap }
 
-  cEmutecaVersionList = class (specialize TFPGObjectList<cEmutecaVersion>)
-  private
-    FProgressCallBack: TEmutecaProgressCallBack;
-    procedure SetProgressCallBack(AValue: TEmutecaProgressCallBack);
-  public
-    procedure SaveToFile(aFile: string);
-    procedure LoadFromFile(aFile: string);
-
-    property ProgressCallBack: TEmutecaProgressCallBack
-      read FProgressCallBack write SetProgressCallBack;
-    //< CallBack function to show the progress in actions.
-  end;
+  cEmutecaVersionMap = specialize TFPGMapObject<string, cEmutecaVersion>;
 
 implementation
-
-{ cEmutecaVersionList }
-
-procedure cEmutecaVersionList.SetProgressCallBack(
-  AValue: TEmutecaProgressCallBack);
-begin
-  if FProgressCallBack = AValue then
-    Exit;
-  FProgressCallBack := AValue;
-end;
-
-procedure cEmutecaVersionList.SaveToFile(aFile: string);
-var
-  aVersion: cEmutecaVersion;
-  aStringList: TStringList;
-  i: integer;
-begin
-  if ExtractFileNameOnly(aFile) = '' then
-    { TODO : Raise an exception }
-    exit;
-  aStringList := TStringList.Create;
-  try
-    i := 0;
-    while i < Self.Count do
-    begin
-      aVersion := Self.items[i];
-      aStringList.Add(aVersion.DataString);
-      if ProgressCallBack <> nil then
-        ProgressCallBack('Saving version list...', aVersion.Parent,
-          aVersion.Title, i, aStringList.Count);
-      Inc(i);
-    end;
-    aStringList.Sort;
-    aStringList.Insert(0,'"ID","Parent","Title","Version","Folder","FileName"');
-    aStringList.SaveToFile(aFile);
-  finally
-    FreeAndNil(aStringList);
-  end;
-end;
-
-procedure cEmutecaVersionList.LoadFromFile(aFile: string);
-var
-  i: integer;
-  aStringList: TStringList;
-  aVersion: cEmutecaVersion;
-begin
-  if not FileExistsUTF8(aFile) then
-    Exit;
-
-  aStringList := TStringList.Create;
-  try
-    aStringList.LoadFromFile(aFile);
-    if aStringList.Count > 0 then
-      aStringList.Delete(0); // Removing header
-
-    i := 0;
-    while i < aStringList.Count do
-    begin
-      aVersion := cEmutecaVersion.Create(nil); // TODO: nil?
-      self.Add(aVersion);
-
-      // Load parent data
-      aVersion.DataString := aStringList[i];
-
-      if ProgressCallBack <> nil then
-        ProgressCallBack('Loading version list...', aVersion.Parent,
-          aVersion.Title, i, aStringList.Count);
-      Inc(i);
-    end;
-  finally
-    FreeAndNil(aStringList);
-  end;
-end;
 
 { cEmutecaVersion }
 
@@ -152,14 +72,7 @@ var
 begin
   aStringList := TStringList.Create;
   try
-    aStringList.Add(ID);
-    aStringList.Add(System);
-    aStringList.Add(Parent);
-    aStringList.Add(Title);
-    aStringList.Add(Description);
-    aStringList.Add(Folder);
-    aStringList.Add(FileName);
-
+    SaveToFileTxt(aStringList, True);
   finally
     Result := aStringList.CommaText;
     FreeAndNil(aStringList);
@@ -174,22 +87,8 @@ begin
   try
     aStringList.CommaText := AValue;
 
-    if aStringList.Count > 0 then
-      self.ID := aStringList[0];
-    if aStringList.Count > 1 then
-      self.System := aStringList[1];
-    if aStringList.Count > 2 then
-      self.Parent := aStringList[2];
-    if aStringList.Count > 3 then
-      self.Title := aStringList[3];
-    if aStringList.Count > 4 then
-      self.Description := aStringList[4];
-    if aStringList.Count > 5 then
-      self.Folder := aStringList[5];
-    if aStringList.Count > 6 then
-      self.FileName := aStringList[6];
+    LoadFromFileTxt(aStringList);
   finally
-
     FreeAndNil(aStringList);
   end;
 end;
@@ -203,7 +102,8 @@ end;
 
 procedure cEmutecaVersion.SetFileName(AValue: string);
 begin
-  if FFileName = AValue then Exit;
+  if FFileName = AValue then
+    Exit;
   FFileName := AValue;
 end;
 
@@ -228,8 +128,9 @@ end;
 
 procedure cEmutecaVersion.SetSystem(AValue: string);
 begin
-  if FSystem=AValue then Exit;
-  FSystem:=AValue;
+  if FSystem = AValue then
+    Exit;
+  FSystem := AValue;
 end;
 
 procedure cEmutecaVersion.SetTitle(AValue: string);
@@ -247,6 +148,41 @@ end;
 destructor cEmutecaVersion.Destroy;
 begin
   inherited Destroy;
+end;
+
+procedure cEmutecaVersion.LoadFromFileTxt(TxtFile: TStrings);
+begin
+  if not assigned(TxtFile) then
+    Exit;
+  if TxtFile.Count > 0 then
+    self.ID := TxtFile[0];
+  if TxtFile.Count > 1 then
+    self.System := TxtFile[1];
+  if TxtFile.Count > 2 then
+    self.Parent := TxtFile[2];
+  if TxtFile.Count > 3 then
+    self.Title := TxtFile[3];
+  if TxtFile.Count > 4 then
+    self.Description := TxtFile[4];
+  if TxtFile.Count > 5 then
+    self.Folder := TxtFile[5];
+  if TxtFile.Count > 6 then
+    self.FileName := TxtFile[6];
+end;
+
+procedure cEmutecaVersion.SaveToFileTxt(TxtFile: TStrings;
+  const ExportMode: boolean);
+begin
+  if not assigned(TxtFile) then
+    Exit;
+
+  TxtFile.Add(ID);
+  TxtFile.Add(System);
+  TxtFile.Add(Parent);
+  TxtFile.Add(Title);
+  TxtFile.Add(Description);
+  TxtFile.Add(Folder);
+  TxtFile.Add(FileName);
 end;
 
 end.

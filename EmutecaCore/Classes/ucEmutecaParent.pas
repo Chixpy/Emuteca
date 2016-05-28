@@ -50,8 +50,9 @@ type
 
     property DataString: string read GetDataString write SetDataString;
 
-       procedure LoadFromFileTxt(TxtFile: TStrings); override;
-    procedure SaveToFileTxt(TxtFile: TStrings; const ExportMode: boolean  ); override;
+    procedure LoadFromFileTxt(TxtFile: TStrings); override;
+    procedure SaveToFileTxt(TxtFile: TStrings; const ExportMode: boolean);
+      override;
 
   published
     property Title: string read FTitle write SetTitle;
@@ -97,7 +98,7 @@ var
 begin
   aStringList := TStringList.Create;
   try
-   SaveToFileTxt(aStringList, true);
+    SaveToFileTxt(aStringList, True);
   finally
     Result := aStringList.CommaText;
     FreeAndNil(aStringList);
@@ -130,25 +131,26 @@ end;
 
 procedure cEmutecaParent.LoadFromFileTxt(TxtFile: TStrings);
 begin
-    if not assigned(TxtFile) then
+  if not assigned(TxtFile) then
     Exit;
 
-    if TxtFile.Count > 0 then
-       self.SortName := TxtFile[0];
-     if TxtFile.Count > 1 then
-       self.System := TxtFile[1];
-     if TxtFile.Count > 2 then
-       self.Title := TxtFile[2];
+  if TxtFile.Count > 0 then
+    self.SortName := TxtFile[0];
+  if TxtFile.Count > 1 then
+    self.System := TxtFile[1];
+  if TxtFile.Count > 2 then
+    self.Title := TxtFile[2];
 end;
 
 procedure cEmutecaParent.SaveToFileTxt(TxtFile: TStrings;
   const ExportMode: boolean);
 begin
-      if not assigned(TxtFile) then
+  if not assigned(TxtFile) then
     Exit;
-          TxtFile.Add(SortName);
-    TxtFile.Add(System);
-    TxtFile.Add(Title);
+
+  TxtFile.Add(SortName);
+  TxtFile.Add(System);
+  TxtFile.Add(Title);
 end;
 
 end.

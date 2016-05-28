@@ -186,8 +186,8 @@ begin
 
   mPlayerSubfolder := IniFile.ReadString(krsTools,
     krsMPlayerSubfolder, mPlayerSubfolder);
-  mPlayerExecutable := IniFile.ReadString(krsTools,
-    krsmPlayerExecutable, mPlayerExecutable);
+  mPlayerExecutable := IniFile.ReadString(krsTools, krsmPlayerExecutable,
+    mPlayerExecutable);
 end;
 
 procedure cGUIConfig.OnSaveConfig(IniFile: TIniFile);

@@ -182,7 +182,7 @@ var
   pData: ^cEmutecaVersion;
 begin
   pData := VST.GetNodeData(Node);
-  pData^ := Emuteca.SoftManager.List.Items[Node^.Index];
+  pData^ := Emuteca.SoftManager.FullList.Data[Node^.Index];
 end;
 
 procedure TfmEmutecaVersionList.SetOnDblClick(AValue: TFEVLDblClick);
@@ -210,7 +210,7 @@ begin
   if not assigned(Emuteca) then
     Exit;
 
-  vst.RootNodeCount := Emuteca.SoftManager.List.Count;
+  vst.RootNodeCount := Emuteca.SoftManager.FullList.Count;
   StatusBar1.SimpleText := Format(rsFmtNItems, [vst.RootNodeCount]);
 end;
 

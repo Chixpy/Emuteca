@@ -5,7 +5,8 @@ unit ufEmutecaActAddVersion;
 interface
 
 uses
-  Classes, SysUtils, LazFileUtils, Forms, Controls, StdCtrls, EditBtn, ActnList,
+  Classes, SysUtils, LazFileUtils, Forms, Controls, StdCtrls,
+  EditBtn, ActnList,
   ExtCtrls, Buttons,
   uCHXStrUtils,
   ucEmuteca, ucEmutecaVersion,
@@ -33,7 +34,7 @@ type
     pBottom: TPanel;
     procedure bAcceptClick(Sender: TObject);
     procedure bCancelClick(Sender: TObject);
-    procedure eArchiveAcceptFileName(Sender: TObject; var Value: String);
+    procedure eArchiveAcceptFileName(Sender: TObject; var Value: string);
 
   private
     FEmuteca: cEmuteca;
@@ -68,9 +69,9 @@ implementation
 { TfmActAddVersion }
 
 procedure TfmActAddVersion.eArchiveAcceptFileName(Sender: TObject;
-  var Value: String);
+  var Value: string);
 begin
-  UpdateVersionName(ExtractFileDir(Value),ExtractFileNameOnly(Value));
+  UpdateVersionName(ExtractFileDir(Value), ExtractFileNameOnly(Value));
 end;
 
 procedure TfmActAddVersion.bAcceptClick(Sender: TObject);
@@ -93,14 +94,16 @@ end;
 
 procedure TfmActAddVersion.SetEmuteca(AValue: cEmuteca);
 begin
-  if FEmuteca=AValue then Exit;
-  FEmuteca:=AValue;
+  if FEmuteca = AValue then
+    Exit;
+  FEmuteca := AValue;
 end;
 
 procedure TfmActAddVersion.SetVersion(AValue: cEmutecaVersion);
 begin
-  if FVersion=AValue then Exit;
-  FVersion:=AValue;
+  if FVersion = AValue then
+    Exit;
+  FVersion := AValue;
 end;
 
 procedure TfmActAddVersion.UpdateLists;
@@ -120,15 +123,19 @@ begin
   begin
     // Folder = 7z, File = inner filename
     Version.Folder := Folder;
-    VersionEditor.cbxParent.Text := ChangeFileExt(ExtractFileNameOnly(Folder),'');
-    VersionEditor.eTitle.Text:=RemoveFromBrackets(ExtractFileNameOnly(Filename));
-    VersionEditor.eDescription.Text:=(ExtractFileNameOnly(Filename))
+    VersionEditor.cbxParent.Text :=
+      ChangeFileExt(ExtractFileNameOnly(Folder), '');
+    VersionEditor.eTitle.Text :=
+      RemoveFromBrackets(ExtractFileNameOnly(Filename));
+    VersionEditor.eDescription.Text := (ExtractFileNameOnly(Filename));
   end
   else
   begin
     Version.Folder := Folder;
-    VersionEditor.cbxParent.Text := RemoveFromBrackets(ExtractFileNameOnly(Filename));
-    VersionEditor.eTitle.Text:=RemoveFromBrackets(ExtractFileNameOnly(Filename));
+    VersionEditor.cbxParent.Text :=
+      RemoveFromBrackets(ExtractFileNameOnly(Filename));
+    VersionEditor.eTitle.Text :=
+      RemoveFromBrackets(ExtractFileNameOnly(Filename));
   end;
 end;
 

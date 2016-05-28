@@ -11,7 +11,7 @@ uses
 { TODO : Implement Generic manager for emulators, systems, parents and software }
 
 
-   { cEmutecaGenPersList }
+{ cEmutecaGenPersList }
 
  {  generic cEmutecaGenPersList<T> = class (specialize TFPGObjectList<T>)
   private
@@ -29,4 +29,3 @@ uses
 implementation
 
 end.
-

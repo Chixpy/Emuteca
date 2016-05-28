@@ -151,7 +151,7 @@ end;
 procedure TfmEmutecaSystemEditor.UpdateData;
 var
   aEmulator: cEmutecaEmulator;
-  i: Integer;
+  i: integer;
 begin
   ClearData;
 

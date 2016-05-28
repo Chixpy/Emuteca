@@ -187,7 +187,7 @@ begin
   if CheckListBox1.ItemIndex = -1 then
     exit;
   EmuManager.FullList.Remove(cEmutecaEmulator(
-  CheckListBox1.Items.Objects[CheckListBox1.ItemIndex]).ID);
+    CheckListBox1.Items.Objects[CheckListBox1.ItemIndex]).ID);
   LoadList;
 end;
 
@@ -225,7 +225,8 @@ procedure TfmEmutecaEmulatorManager.CheckListBox1ClickCheck(Sender: TObject);
 var
   CurrItem: cEmutecaEmulator;
 begin
-  CurrItem := cEmutecaEmulator(CheckListBox1.Items.Objects[CheckListBox1.ItemIndex]);
+  CurrItem := cEmutecaEmulator(
+    CheckListBox1.Items.Objects[CheckListBox1.ItemIndex]);
 
   CurrItem.Enabled := CheckListBox1.Checked[CheckListBox1.ItemIndex];
 end;
@@ -271,7 +272,7 @@ end;
 
 procedure TfmEmutecaEmulatorManager.SaveToFile;
 begin
-  EmuManager.SaveToFile('',false);
+  EmuManager.SaveToFile('', False);
 end;
 
 procedure TfmEmutecaEmulatorManager.LoadFromFile;

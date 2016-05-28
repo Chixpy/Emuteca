@@ -5,8 +5,8 @@ unit ufEmutecaScriptManager;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, 
-    ufCHXScriptManager;
+  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
+  ufCHXScriptManager;
 
 type
   TfrmScriptManager1 = class(TfrmScriptManager)
@@ -24,4 +24,3 @@ implementation
 {$R *.lfm}
 
 end.
-

@@ -84,12 +84,12 @@ end;
 
 procedure TfmEmutecaEmulatorEditor.actWFEmulatorExecute(Sender: TObject);
 begin
-  eWorkingFolder.Text:=kEmutecaEmuDirKey;
+  eWorkingFolder.Text := kEmutecaEmuDirKey;
 end;
 
 procedure TfmEmutecaEmulatorEditor.actWFROMExecute(Sender: TObject);
 begin
-  eWorkingFolder.Text:=kEmutecaRomDirKey;
+  eWorkingFolder.Text := kEmutecaRomDirKey;
 end;
 
 procedure TfmEmutecaEmulatorEditor.SpeedButton1Click(Sender: TObject);

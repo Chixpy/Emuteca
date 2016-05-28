@@ -137,7 +137,8 @@ procedure cEmutecaPlayingStats.WriteToIni(aIniFile: TCustomIniFile;
   const Section: string);
 begin
   // TODO: Exception...
-  if not assigned(aIniFile) then Exit;
+  if not assigned(aIniFile) then
+    Exit;
 
   aIniFile.WriteString(Section, 'PlayingTime', IntToStr(PlayingTime));
   aIniFile.WriteString(Section, 'TimesPlayed', IntToStr(TimesPlayed));
@@ -147,7 +148,7 @@ end;
 procedure cEmutecaPlayingStats.LoadFromIni(aIniFile: TCustomIniFile;
   const Section: string);
 var
-  TmpString: String;
+  TmpString: string;
 begin
   TmpString := aIniFile.ReadString(Section, 'LastTime', '');
   if TmpString <> '' then

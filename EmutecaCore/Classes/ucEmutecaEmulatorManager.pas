@@ -194,7 +194,7 @@ begin
   Result := ItemById(aId);
 
   // If already exists, then return it
-  if assigned(result) then
+  if assigned(Result) then
     Exit;
 
   // Creating new item

@@ -78,47 +78,6 @@ type
         procedure AssingAllTo(aList: TStrings);
     procedure AssingEnabledTo(aList: TStrings);
 
-    procedure UpdateGroupList;
-
-    function AddFile(aFolder: string; Info: TSearchRec): boolean;
-    {< Add a file (or all files if it's a compressed archive) to the game list.
-
-      Automatically searchs if the file is a game using the current system
-        extension filter.
-
-      if the file is not in the system extesion filter, this function search
-        if the file is a compressed archive and adds every game found in it.
-
-      This funtion is for IterateFolderObj use, if you want to add a game or
-        group straight use AddGame/AddGroup.
-
-      @param(aFolder Folder where the file is in.)
-      @param(Info TSearchRec with the file info.)
-      @return(@false => Abort.)
-    }
-
-    {function AddGame(const aFolder: string; const aFileName: string;
-      const aKey: string): cEmutecaGameVersion;
-    //< Add a game.
-    function AddGroup(aGameGroupID: string): cEmutecaGameFamily;
-    //< Add a group.
-
-    function GameMediaExists(aFolder: string;
-      aGameVersion: cEmutecaGameVersion; Extensions: TStrings): boolean;
-    function GroupMediaExists(aFolder: string; aGameGroup: cEmutecaGameFamily;
-      Extensions: TStrings): boolean;
-
-    procedure SearchGameMedia(FileList: TStrings; aFolder: string;
-      aGameVersion: cEmutecaGameVersion; Extensions: TStrings);
-    procedure SearchGroupMedia(FileList: TStrings; aFolder: string;
-      aGameGroup: cEmutecaGameFamily; Extensions: TStrings);
-    procedure SearchMediaFiles(FileList: TStrings; aFolder: string;
-      aFileName: string; Extensions: TStrings);
-
-    }
-    //function Execute(aGame: cEmutecaGameVersion): integer;
-    //< Execute a Game.
-
     constructor Create(aOwner: TComponent); override;
     destructor Destroy; override;
 

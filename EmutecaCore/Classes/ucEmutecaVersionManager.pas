@@ -6,45 +6,52 @@ interface
 
 uses
   Classes, SysUtils, LazUTF8,
-  uEmutecaCommon, ucEmutecaVersion;
+  uaEmutecaManager, ucEmutecaVersion;
+
+resourcestring
+  rsLoadingVersionList = 'Loading version list...';
+  rsSavingVersionList = 'Saving version list...';
 
 type
 
   { cEmutecaVersionManager }
 
-  cEmutecaVersionManager = class(TComponent)
+  cEmutecaVersionManager = class(caEmutecaManagerTxt)
   private
-    FCurrentList: cEmutecaVersionList;
     FDataFile: string;
-    FProgressCallBack: TEmutecaProgressCallBack;
-    FList: cEmutecaVersionList;
+    FFullList: cEmutecaVersionMap;
     procedure SetDataFile(AValue: string);
-    procedure SetProgressCallBack(AValue: TEmutecaProgressCallBack);
 
   protected
 
 
   public
-    property List: cEmutecaVersionList read FList;
-    {< Actual list where the version are stored. }
-    property CurrentList: cEmutecaVersionList read FCurrentList;
-    {< Current loaded games list. }
+    property FullList: cEmutecaVersionMap read FFullList;
+    {< Actual list where the parents are stored. }
 
-    property ProgressCallBack: TEmutecaProgressCallBack
-      read FProgressCallBack write SetProgressCallBack;
+    procedure LoadFromFileTxt(TxtFile: TStrings); override;
+    procedure SaveToFileTxt(TxtFile: TStrings; const ExportMode: boolean);
+      override;
 
-    procedure LoadDataFile;
-    // Loads current emulators file
-    procedure SaveDataFile;
-    // Saves current emulators file
 
-    procedure ImportDataFile(const aFileName: string);
-    // Imports data to the current list
-    procedure ExportDataFile(const aFileName: string);
-    // Exports data of the current list
+    function Add(aId: string): cEmutecaVersion;
+    {< Creates a parent with aId key, if already exists returns it.
 
+       @Result cEmutecaParent created or found.
+    }
     function ItemById(aId: string): cEmutecaVersion;
-    //< Return the version with have aId key
+    {< Return the parent with have aId key.
+
+       @Result cEmutecaParent found.
+    }
+    function Delete(aId: string): integer;
+    {< Deletes a parent by Id.
+
+       @Result Index of deleted item
+    }
+
+    procedure AssingAllTo(aList: TStrings);
+    procedure AssingEnabledTo(aList: TStrings);
 
     constructor Create(aOwner: TComponent); override;
     destructor Destroy; override;
@@ -57,97 +64,130 @@ implementation
 
 { cEmutecaVersionManager }
 
-procedure cEmutecaVersionManager.SetProgressCallBack(
-  AValue: TEmutecaProgressCallBack);
-begin
-  if FProgressCallBack = AValue then
-    Exit;
-  FProgressCallBack := AValue;
-end;
 
-procedure cEmutecaVersionManager.LoadDataFile;
-begin
-  List.Clear;
-  ImportDataFile(DataFile); // Dirty trick :-P
-end;
-
-procedure cEmutecaVersionManager.SaveDataFile;
-begin
-    List.SaveToFile(DataFile);
-end;
-
-procedure cEmutecaVersionManager.ImportDataFile(const aFileName: string);
-var
-  OldCF: string;
-  i: Integer;
-begin
-  OldCF := DataFile;
-  DataFile := aFileName;
-  List.LoadFromFile(DataFile);
-  // As List changed, then add all games to visible list
-  CurrentList.Clear;
-  i := 0;
-  while i < List.count do
-  begin
-     CurrentList.Add(List[i]);
-     inc(i);
-  end;
-  DataFile := OldCF;
-end;
-
-procedure cEmutecaVersionManager.ExportDataFile(const aFileName: string);
-var
-  OldCF: string;
-begin
-  OldCF := DataFile;
-  DataFile := aFilename;
-  { TODO : Don't save user data... (Path to the File and if it's enabled) }
-  SaveDataFile;
-  DataFile := OldCF;
-end;
 
 function cEmutecaVersionManager.ItemById(aId: string): cEmutecaVersion;
 var
   i: integer;
-  aItem: cEmutecaVersion;
 begin
-  Result := nil;
-  aId := Trim(UTF8LowerCase(aId));
+  // FullList.TryGetData(aId, Result); Maybe do this???
 
-  // Maybe backwards is better for batch operations...
-  i := List.Count - 1;
-  while (i >= 0) do
+  Result := nil;
+  i := FullList.IndexOf(aId);
+
+  if i >= 0 then
+    Result := FullList.Data[i];
+end;
+
+function cEmutecaVersionManager.Delete(aId: string): integer;
+begin
+  Result := FullList.Remove(aId);
+end;
+
+procedure cEmutecaVersionManager.AssingAllTo(aList: TStrings);
+var
+  i: longint;
+begin
+  if not assigned(aList) then
+    aList := TStringList.Create;
+
+  aList.BeginUpdate;
+  i := 0;
+  while i < FullList.Count do
   begin
-    aItem := List.Items[i];
-    if UTF8CompareText(aItem.ID, aId) = 0 then
-    begin
-      Result := aItem;
-      Break; // ... dirty exit, but we don't need to check: Result <> nil
-    end;
-    Dec(i);
+    aList.AddObject(FullList.Data[i].Title, FullList.Data[i]);
+    Inc(i);
   end;
+  aList.EndUpdate;
+end;
+
+procedure cEmutecaVersionManager.AssingEnabledTo(aList: TStrings);
+begin
+  { TODO : Maybe search for enabled systems... }
+  AssingAllTo(aList);
 end;
 
 constructor cEmutecaVersionManager.Create(aOwner: TComponent);
 begin
   inherited Create(aOwner);
 
-  FList := cEmutecaVersionList.Create(True);
-  FCurrentList := cEmutecaVersionList.Create(False);
+  FFullList := cEmutecaVersionMap.Create(True);
 end;
 
 destructor cEmutecaVersionManager.Destroy;
 begin
-  SaveDataFile;
-  FreeAndNil(FCurrentList);
-  FreeAndNil(FList);
+  FreeAndNil(FFullList);
   inherited Destroy;
 end;
 
 procedure cEmutecaVersionManager.SetDataFile(AValue: string);
 begin
-  if FDataFile = AValue then Exit;
+  if FDataFile = AValue then
+    Exit;
   FDataFile := AValue;
+end;
+
+procedure cEmutecaVersionManager.LoadFromFileTxt(TxtFile: TStrings);
+var
+  i: integer;
+  TempVersion: cEmutecaVersion;
+begin
+  if not Assigned(TxtFile) then
+    Exit;
+
+  i := 1; // Skipping Header
+  while i < TxtFile.Count do
+  begin
+    TempVersion := cEmutecaVersion.Create(nil);
+    TempVersion.DataString := TxtFile[i];
+    FullList.AddOrSetData(TempVersion.ID, TempVersion);
+    Inc(i);
+
+    if ProgressCallBack <> nil then
+      ProgressCallBack(rsLoadingVersionList, TempVersion.Title,
+        TempVersion.Description, i, TxtFile.Count);
+  end;
+end;
+
+procedure cEmutecaVersionManager.SaveToFileTxt(TxtFile: TStrings;
+  const ExportMode: boolean);
+var
+  i: integer;
+begin
+  if not Assigned(TxtFile) then
+    Exit;
+
+  if not ExportMode then
+  begin
+    TxtFile.Clear;
+    TxtFile.Add('"ID","System","Parent","Title","Version","Folder","FileName"');
+  end;
+
+  i := 0;
+  while i < FullList.Count do
+  begin
+    FullList.Data[i].SaveToFileTxt(TxtFile, ExportMode);
+
+    if ProgressCallBack <> nil then
+      ProgressCallBack(rsSavingVersionList, FullList.Data[i].System,
+        FullList.Data[i].Title, i + 1, FullList.Count);
+    Inc(i);
+  end;
+end;
+
+function cEmutecaVersionManager.Add(aId: string): cEmutecaVersion;
+begin
+  Result := ItemById(aId);
+
+  // If already exists, then return it
+  if assigned(Result) then
+    Exit;
+
+  // Creating new item
+  Result := cEmutecaVersion.Create(Self);
+  Result.ID := aId;
+  Result.Title := aId;
+  FullList.Add(Result.Title, Result);
 end;
 
 end.

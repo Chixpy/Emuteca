@@ -37,11 +37,11 @@ type
 
   cEmutecaUserInfo = class(TComponent)
   private
-    FFinished: Boolean;
-    FOwned: Boolean;
+    FFinished: boolean;
+    FOwned: boolean;
     FRating: integer;
-    procedure SetFinished(AValue: Boolean);
-    procedure SetOwned(AValue: Boolean);
+    procedure SetFinished(AValue: boolean);
+    procedure SetOwned(AValue: boolean);
     procedure SetRating(AValue: integer);
 
   protected
@@ -52,8 +52,8 @@ type
 
   published
     property Rating: integer read FRating write SetRating;
-    property Finished: Boolean read FFinished write SetFinished;
-    property Owned: Boolean read FOwned write SetOwned;
+    property Finished: boolean read FFinished write SetFinished;
+    property Owned: boolean read FOwned write SetOwned;
 
   end;
 
@@ -61,21 +61,24 @@ implementation
 
 { cEmutecaUserInfo }
 
-procedure cEmutecaUserInfo.SetFinished(AValue: Boolean);
+procedure cEmutecaUserInfo.SetFinished(AValue: boolean);
 begin
-  if FFinished = AValue then Exit;
+  if FFinished = AValue then
+    Exit;
   FFinished := AValue;
 end;
 
-procedure cEmutecaUserInfo.SetOwned(AValue: Boolean);
+procedure cEmutecaUserInfo.SetOwned(AValue: boolean);
 begin
-  if FOwned = AValue then Exit;
+  if FOwned = AValue then
+    Exit;
   FOwned := AValue;
 end;
 
 procedure cEmutecaUserInfo.SetRating(AValue: integer);
 begin
-  if FRating = AValue then Exit;
+  if FRating = AValue then
+    Exit;
   FRating := AValue;
 end;
 
@@ -90,4 +93,3 @@ begin
 end;
 
 end.
-

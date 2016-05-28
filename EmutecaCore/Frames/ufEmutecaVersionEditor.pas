@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, StdCtrls,
-  ucEmutecaVersion, ucEmutecaParent,ucEmuteca;
+  ucEmutecaVersion, ucEmutecaParent, ucEmuteca;
 
 type
 
@@ -54,8 +54,9 @@ end;
 
 procedure TfmEmutecaVersionEditor.SetEmuteca(AValue: cEmuteca);
 begin
-  if FEmuteca=AValue then Exit;
-  FEmuteca:=AValue;
+  if FEmuteca = AValue then
+    Exit;
+  FEmuteca := AValue;
 end;
 
 procedure TfmEmutecaVersionEditor.SaveData;

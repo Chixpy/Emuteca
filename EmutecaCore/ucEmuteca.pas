@@ -132,7 +132,7 @@ begin
 
   // Setting SoftManager
   SoftManager.DataFile := Config.DataFolder + Config.VersionsFile;
-  SoftManager.LoadDataFile;
+  ParentManager.LoadFromFile('');
 end;
 
 function cEmuteca.SearchParent(aSoftware: cEmutecaVersion): cEmutecaParent;
