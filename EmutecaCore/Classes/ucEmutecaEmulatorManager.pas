@@ -27,7 +27,7 @@ interface
 
 uses
   Classes, SysUtils, LazFileUtils, LazUTF8, IniFiles,
-  ucEmutecaEmulator, uEmutecaCommon, uaEmutecaManager;
+  ucEmutecaEmulator, uaEmutecaManager;
 
 resourcestring
   rsLoadingEmulatorList = 'Loading emulator list...';
@@ -194,7 +194,7 @@ begin
   Result := ItemById(aId);
 
   // If already exists, then return it
-  if assigned(Result) then
+  if assigned(result) then
     Exit;
 
   // Creating new item

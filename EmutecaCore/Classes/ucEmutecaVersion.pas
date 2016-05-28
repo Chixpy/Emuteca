@@ -5,8 +5,8 @@ unit ucEmutecaVersion;
 interface
 
 uses
-  Classes, SysUtils, fgl, LazFileUtils, crc, sha1,
-  uEmutecaCommon, uaEmutecaStorable,
+  Classes, SysUtils, fgl, LazFileUtils,
+  uaEmutecaStorable,
   uCHXStrUtils;
 
 type
@@ -72,7 +72,7 @@ var
 begin
   aStringList := TStringList.Create;
   try
-    SaveToFileTxt(aStringList, True);
+    SaveToFileTxt(aStringList, false);
   finally
     Result := aStringList.CommaText;
     FreeAndNil(aStringList);

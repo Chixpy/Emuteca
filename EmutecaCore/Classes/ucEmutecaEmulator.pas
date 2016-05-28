@@ -30,7 +30,8 @@ uses  Classes, fgl, SysUtils, FileUtil, StrUtils, LazUTF8, LazFileUtils,
   // CHX units
   uCHXStrUtils,
   // Emuteca units
-  uEmutecaCommon, uaEmutecaStorable;
+  uaEmutecaStorable
+  ;
 
 const
   // Ini file Keys
@@ -61,7 +62,7 @@ const
   kEmutecaROMFileNameNoExtKey = '%ROMNAMENOEXT%';
   {< ROM filename without extension. }
   kEmutecaROMFileExtKey = '%ROMEXT%';
-{< ROM file extension. }
+  {< ROM file extension. }
 
 type
   { cEmutecaEmulator class.
@@ -94,8 +95,8 @@ type
     function ExecuteAlone: integer;
 
     procedure LoadFromFileIni(IniFile: TCustomIniFile); override;
-    procedure SaveToFileIni(IniFile: TCustomIniFile;
-      const ExportMode: boolean); override;
+    procedure SaveToFileIni(IniFile: TCustomIniFile; const ExportMode: boolean
+      ); override;
 
   published
     property ID: string read FID write SetID;
@@ -348,8 +349,8 @@ begin
     WorkingFolder);
   Parameters := IniFile.ReadString(self.ID, krsEmulatorParameters,
     Parameters);
-  FileExt.CommaText := IniFile.ReadString(self.ID, krsEmulatorFileExtKey,
-    FileExt.CommaText);
+  FileExt.CommaText := IniFile.ReadString(self.ID,
+    krsEmulatorFileExtKey, FileExt.CommaText);
   ExitCode := IniFile.ReadInteger(self.ID, krsEmulatorExitCodeKey, ExitCode);
 end;
 
@@ -375,5 +376,4 @@ begin
     IniFile.WriteBool(self.ID, krsEmulatorEnabledKey, Enabled);
   end;
 end;
-
 end.

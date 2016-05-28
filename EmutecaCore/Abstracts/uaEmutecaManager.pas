@@ -26,7 +26,7 @@ unit uaEmutecaManager;
 interface
 
 uses
-  Classes, SysUtils, IniFiles,
+  Classes, SysUtils,
   uEmutecaCommon, uaEmutecaStorable;
 
 type

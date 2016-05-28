@@ -18,9 +18,7 @@ type
 
   cEmutecaVersionManager = class(caEmutecaManagerTxt)
   private
-    FDataFile: string;
     FFullList: cEmutecaVersionMap;
-    procedure SetDataFile(AValue: string);
 
   protected
 
@@ -55,9 +53,6 @@ type
 
     constructor Create(aOwner: TComponent); override;
     destructor Destroy; override;
-
-  published
-    property DataFile: string read FDataFile write SetDataFile;
   end;
 
 implementation
@@ -120,13 +115,6 @@ begin
   inherited Destroy;
 end;
 
-procedure cEmutecaVersionManager.SetDataFile(AValue: string);
-begin
-  if FDataFile = AValue then
-    Exit;
-  FDataFile := AValue;
-end;
-
 procedure cEmutecaVersionManager.LoadFromFileTxt(TxtFile: TStrings);
 var
   i: integer;
@@ -166,7 +154,7 @@ begin
   i := 0;
   while i < FullList.Count do
   begin
-    FullList.Data[i].SaveToFileTxt(TxtFile, ExportMode);
+    TxtFile.Add(FullList.Data[i].DataString);
 
     if ProgressCallBack <> nil then
       ProgressCallBack(rsSavingVersionList, FullList.Data[i].System,

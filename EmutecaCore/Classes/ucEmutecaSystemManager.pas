@@ -27,7 +27,7 @@ interface
 
 uses
   Classes, SysUtils, LazFileUtils, LazUTF8, IniFiles,
-  uEmutecaCommon, uaEmutecaManager, ucEmutecaSystem;
+  uaEmutecaManager, ucEmutecaSystem;
 
 type
   { cEmutecaSystemManager }
@@ -136,7 +136,7 @@ begin
   Result := ItemById(aId);
 
   // If already exists, then return it
-  if assigned(Result) then
+  if assigned(result) then
     Exit;
 
   // Creating new item

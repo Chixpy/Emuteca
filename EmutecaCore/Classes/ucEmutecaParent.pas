@@ -27,7 +27,7 @@ interface
 
 uses
   Classes, SysUtils, fgl, LazFileUtils,
-  uEmutecaCommon, uaEmutecaStorable;
+  uaEmutecaStorable;
 
 type
   { cEmutecaParent }
@@ -98,7 +98,7 @@ var
 begin
   aStringList := TStringList.Create;
   try
-    SaveToFileTxt(aStringList, True);
+    SaveToFileTxt(aStringList, false);
   finally
     Result := aStringList.CommaText;
     FreeAndNil(aStringList);

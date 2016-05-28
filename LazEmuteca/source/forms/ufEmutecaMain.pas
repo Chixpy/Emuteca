@@ -268,8 +268,13 @@ end;
 
 procedure TfrmEmutecaMain.FormDestroy(Sender: TObject);
 begin
+  { TODO: frmCHXProgressBar is freed automatically before saving. }
+  Emuteca.ProgressCallBack := nil;
+
   GUIConfig.SaveConfig('');
   FreeAndNil(FGUIConfig);
+  Emuteca.ParentManager.SaveToFile('', false);
+  Emuteca.SoftManager.SaveToFile('', false);
   FreeAndNil(FEmuteca);
 end;
 
