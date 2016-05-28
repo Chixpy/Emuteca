@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, fgl, LazFileUtils, crc, sha1,
-  uEmutecaCommon,
+  uEmutecaCommon, uaEmutecaStorable,
   uCHXStrUtils;
 
 type
@@ -19,6 +19,7 @@ type
     FID: string;
     FParent: string;
     FFolder: string;
+    FSystem: string;
     FTitle: string;
     function GetDataString: string;
     procedure SetDataString(AValue: string);
@@ -27,6 +28,7 @@ type
     procedure SetID(AValue: string);
     procedure SetParent(AValue: string);
     procedure SetFolder(AValue: string);
+    procedure SetSystem(AValue: string);
     procedure SetTitle(AValue: string);
 
   public
@@ -37,9 +39,11 @@ type
 
   published
     property ID: string read FID write SetID;
-    {< CRC32 of the file }
+    {< ID of the file. Usually SHA1 }
+    property System: string read FSystem write SetSystem;
+    {< ID of the System. }
     property Parent: string read FParent write SetParent;
-    {< Name of the parent. }
+    {< ID of the parent. }
     property Title: string read FTitle write SetTitle;
     {< Title. }
     property Description: string read FDescription write SetDescription;
@@ -149,6 +153,7 @@ begin
   aStringList := TStringList.Create;
   try
     aStringList.Add(ID);
+    aStringList.Add(System);
     aStringList.Add(Parent);
     aStringList.Add(Title);
     aStringList.Add(Description);
@@ -172,15 +177,17 @@ begin
     if aStringList.Count > 0 then
       self.ID := aStringList[0];
     if aStringList.Count > 1 then
-      self.Parent := aStringList[1];
+      self.System := aStringList[1];
     if aStringList.Count > 2 then
-      self.Title := aStringList[2];
+      self.Parent := aStringList[2];
     if aStringList.Count > 3 then
-      self.Description := aStringList[3];
+      self.Title := aStringList[3];
     if aStringList.Count > 4 then
-      self.Folder := aStringList[4];
+      self.Description := aStringList[4];
     if aStringList.Count > 5 then
-      self.FileName := aStringList[5];
+      self.Folder := aStringList[5];
+    if aStringList.Count > 6 then
+      self.FileName := aStringList[6];
   finally
 
     FreeAndNil(aStringList);
@@ -217,6 +224,12 @@ end;
 procedure cEmutecaVersion.SetFolder(AValue: string);
 begin
   FFolder := SetAsFile(AValue);
+end;
+
+procedure cEmutecaVersion.SetSystem(AValue: string);
+begin
+  if FSystem=AValue then Exit;
+  FSystem:=AValue;
 end;
 
 procedure cEmutecaVersion.SetTitle(AValue: string);
