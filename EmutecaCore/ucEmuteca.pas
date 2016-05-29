@@ -126,6 +126,7 @@ begin
   SystemManager.DataFile := Config.DataFolder + Config.SystemsFile;
   SystemManager.LoadFromFile('');
 
+  { TODO: Optimize loading data... }
   // Setting ParentManager
   ParentManager.DataFile := Config.DataFolder + Config.ParentsFile;
   ParentManager.LoadFromFile('');

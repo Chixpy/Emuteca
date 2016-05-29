@@ -46,6 +46,7 @@ type
     MenuItem5: TMenuItem;
     MenuItem6: TMenuItem;
     MenuItem7: TMenuItem;
+    MenuItem8: TMenuItem;
     mmHelp: TMenuItem;
     mmFile: TMenuItem;
     MenuItem2: TMenuItem;
@@ -61,9 +62,11 @@ type
     stbInfo: TStatusBar;
     procedure actEmulatorManagerExecute(Sender: TObject);
     procedure actSystemManagerExecute(Sender: TObject);
+    procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure HelpOnHelp1Execute(Sender: TObject);
+    procedure MenuItem8Click(Sender: TObject);
   private
     { private declarations }
     FEmuteca: cEmuteca;
@@ -105,6 +108,25 @@ begin
   Application.CreateForm(TfrmCHXAbout, frmCHXAbout);
   frmCHXAbout.ShowModal;
   FreeAndNil(frmCHXAbout);
+end;
+
+procedure TfrmEmutecaMain.MenuItem8Click(Sender: TObject);
+var
+  Temp: TStringList;
+  str:String;
+  i: integer;
+begin
+  Temp := TStringList.Create;
+
+  for i := 1 to 10000 do
+  begin
+    str := IntToStr(i) + ',';
+    str :=  str + str + str + str + str + str + str;
+    Temp.Add(str);
+  end;
+
+  Temp.SaveToFile('temp.csv');
+  FreeAndNil(Temp);
 end;
 
 procedure TfrmEmutecaMain.SetGUIConfig(AValue: cGUIConfig);
@@ -266,15 +288,17 @@ begin
   FreeAndNil(aForm);
 end;
 
+procedure TfrmEmutecaMain.FormCloseQuery(Sender: TObject; var CanClose: boolean
+  );
+begin
+   Emuteca.ParentManager.SaveToFile('', false);
+  Emuteca.SoftManager.SaveToFile('', false);
+    GUIConfig.SaveConfig('');
+end;
+
 procedure TfrmEmutecaMain.FormDestroy(Sender: TObject);
 begin
-  { TODO: frmCHXProgressBar is freed automatically before saving. }
-  Emuteca.ProgressCallBack := nil;
-
-  GUIConfig.SaveConfig('');
   FreeAndNil(FGUIConfig);
-  Emuteca.ParentManager.SaveToFile('', false);
-  Emuteca.SoftManager.SaveToFile('', false);
   FreeAndNil(FEmuteca);
 end;
 
