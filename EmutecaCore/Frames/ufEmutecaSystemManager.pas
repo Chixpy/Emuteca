@@ -159,12 +159,12 @@ begin
   if SystemID = '' then
     Exit;
 
-  // Duplicates are not added :-P
-  aSystem := SysManager.Add(SystemID);
+  aSystem := cEmutecaSystem.Create(nil);
+  aSystem.ID := SystemID;
+  aSystem.Model:=SystemID;
   aSystem.Enabled := True;
+  SysManager.FullList.Add(aSystem);
 
-  // If aSystem.ID <> SystemID then
-  SystemID := aSystem.ID;
   LoadList;
 
   // TODO Autoselecting last item.
@@ -277,7 +277,6 @@ begin
   if CheckListBox1.ItemIndex = -1 then
     SysEditor.System := nil
   else
-
     SysEditor.System := cEmutecaSystem(
       CheckListBox1.Items.Objects[CheckListBox1.ItemIndex]);
 end;

@@ -140,6 +140,9 @@ type
     procedure Setz7GExecutable(const AValue: string);
     procedure Setz7Subfolder(const AValue: string);
 
+  protected
+    procedure Update7zPaths;
+
   published
 
     // Default images
@@ -394,6 +397,7 @@ end;
 procedure cEmutecaConfig.SetToolsFolder(const AValue: string);
 begin
   FToolsFolder := SetAsFolder(AValue);
+  Update7zPaths;
 end;
 
 procedure cEmutecaConfig.SetVersionsFile(AValue: string);
@@ -414,16 +418,26 @@ end;
 procedure cEmutecaConfig.Setz7CMExecutable(const AValue: string);
 begin
   Fz7CMExecutable := SetAsFile(AValue);
+  Update7zPaths;
 end;
 
 procedure cEmutecaConfig.Setz7GExecutable(const AValue: string);
 begin
   Fz7GExecutable := SetAsFile(AValue);
+  Update7zPaths;
 end;
 
 procedure cEmutecaConfig.Setz7Subfolder(const AValue: string);
 begin
   Fz7Subfolder := SetAsFolder(AValue);
+  Update7zPaths;
+end;
+
+procedure cEmutecaConfig.Update7zPaths;
+begin
+  // Updating u7zWrapper globals...;
+  w7zPathTo7zexe  := ToolsFolder + z7Subfolder + z7CMExecutable;
+  w7zPathTo7zGexe :=  ToolsFolder + z7Subfolder + z7GExecutable;
 end;
 
 procedure cEmutecaConfig.LoadConfig(aFileName: string);

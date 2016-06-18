@@ -43,13 +43,16 @@ type
       read FProgressCallBack write SetProgressCallBack;
     //< CallBack function to show the progress in actions.
 
+    procedure AssingAllTo(aList: TStrings); virtual; abstract;
+    procedure AssingEnabledTo(aList: TStrings); virtual; abstract;
+
     constructor Create(aOwner: TComponent); override;
     destructor Destroy; override;
   end;
 
-    { caEmutecaManagerTxt }
+  { caEmutecaManagerTxt }
 
-    caEmutecaManagerTxt = class(caEmutecaStorableTxt)
+  caEmutecaManagerTxt = class(caEmutecaStorableTxt)
   private
     FProgressCallBack: TEmutecaProgressCallBack;
     procedure SetProgressCallBack(AValue: TEmutecaProgressCallBack);
@@ -58,6 +61,9 @@ type
     property ProgressCallBack: TEmutecaProgressCallBack
       read FProgressCallBack write SetProgressCallBack;
     //< CallBack function to show the progress in actions.
+
+    procedure AssingAllTo(aList: TStrings); virtual; abstract;
+    procedure AssingEnabledTo(aList: TStrings); virtual; abstract;
 
     constructor Create(aOwner: TComponent); override;
     destructor Destroy; override;

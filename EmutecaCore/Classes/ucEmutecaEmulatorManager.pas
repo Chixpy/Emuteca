@@ -52,24 +52,14 @@ type
     procedure SaveToFileIni(IniFile: TCustomIniFile;
       const ExportMode: boolean); override;
 
-    function Add(aId: string): cEmutecaEmulator;
-    {< Creates an emulator with aId key, if already exists returns it.
-
-       @Result cEmutecaEmulator created or found.
-    }
     function ItemById(aId: string): cEmutecaEmulator;
-    {< Return the emulator with have aId key.
+    {< Returns the emulator with aId key.
 
-       @Result cEmutecaEmulator found.
-    }
-    function Delete(aId: string): integer;
-    {< Deletes a emulator by Id.
-
-       @Result Index of deleted item
+       @Result cEmutecaEmulator found or nil.
     }
 
-    procedure AssingAllTo(aList: TStrings);
-    procedure AssingEnabledTo(aList: TStrings);
+    procedure AssingAllTo(aList: TStrings); override;
+    procedure AssingEnabledTo(aList: TStrings); override;
 
     function RunEmulator(const EmulatorID, GameFile: string): longword;
     {< Runs software with an emulator (by ID).
@@ -189,37 +179,17 @@ begin
   end;
 end;
 
-function cEmutecaEmulatorManager.Add(aId: string): cEmutecaEmulator;
-begin
-  Result := ItemById(aId);
-
-  // If already exists, then return it
-  if assigned(result) then
-    Exit;
-
-  // Creating new item
-  Result := cEmutecaEmulator.Create(Self);
-  Result.ID := aId;
-  Result.EmulatorName := aId;
-  FullList.Add(Result);
-end;
-
 function cEmutecaEmulatorManager.ItemById(aId: string): cEmutecaEmulator;
 var
   i: integer;
 begin
   //// FullList.TryGetData(aId, Result); Maybe do this???
-  //
+
   //Result := nil;
   //i := FullList.IndexOf(aId);
-  //
+
   //if i >= 0 then
   //  Result := FullList.Data[i];
-end;
-
-function cEmutecaEmulatorManager.Delete(aId: string): integer;
-begin
-  //Result := FullList.Remove(aId);
 end;
 
 procedure cEmutecaEmulatorManager.AssingEnabledTo(aList: TStrings);

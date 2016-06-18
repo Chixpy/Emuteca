@@ -148,12 +148,12 @@ begin
   if EmulatorID = '' then
     Exit;
 
-  // Duplicates are not added :-P
-  aEmulator := EmuManager.Add(EmulatorID);
+  aEmulator := cEmutecaEmulator.Create(nil);
+  aEmulator.ID := EmulatorID;
+  aEmulator.EmulatorName:=EmulatorID;
   aEmulator.Enabled := True;
+  EmuManager.FullList.Add(aEmulator);
 
-  // If aEmulator.ID <> EmulatorID then
-  EmulatorID := aEmulator.ID;
   LoadList;
 
   // TODO: Autoselecting last item.

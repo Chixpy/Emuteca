@@ -56,25 +56,14 @@ type
     procedure SaveToFileTxt(TxtFile: TStrings; const ExportMode: boolean);
       override;
 
-
-    function Add(aId: string): cEmutecaParent;
-    {< Creates a parent with aId key, if already exists returns it.
-
-       @Result cEmutecaParent created or found.
-    }
     function ItemById(aId: string): cEmutecaParent;
-    {< Return the parent with have aId key.
+    {< Returns the parent with aId key.
 
-       @Result cEmutecaParent found.
-    }
-    function Delete(aId: string): integer;
-    {< Deletes a parent by Id.
-
-       @Result Index of deleted item
+       @Result cEmutecaParent found or nil.
     }
 
-        procedure AssingAllTo(aList: TStrings);
-    procedure AssingEnabledTo(aList: TStrings);
+    procedure AssingAllTo(aList: TStrings); override;
+    procedure AssingEnabledTo(aList: TStrings); override;
 
     constructor Create(aOwner: TComponent); override;
     destructor Destroy; override;
@@ -89,17 +78,12 @@ var
   i: integer;
 begin
   //// FullList.TryGetData(aId, Result); Maybe do this???
-  //
+
   //Result := nil;
   //i := FullList.IndexOf(aId);
-  //
+
   //if i >= 0 then
   //  Result := FullList.Data[i];
-end;
-
-function cEmutecaParentManager.Delete(aId: string): integer;
-begin
-    //Result := FullList.Remove(aId);
 end;
 
 procedure cEmutecaParentManager.AssingAllTo(aList: TStrings);
@@ -143,14 +127,14 @@ begin
 
     if ProgressCallBack <> nil then
       ProgressCallBack(rsLoadingParentList, TempParent.System,
-        TempParent.Title, i , TxtFile.Count);
+        TempParent.Title, i, TxtFile.Count);
   end;
 end;
 
 procedure cEmutecaParentManager.SaveToFileTxt(TxtFile: TStrings;
   const ExportMode: boolean);
 var
-  i: Integer;
+  i: integer;
 begin
   if not Assigned(TxtFile) then
     Exit;
@@ -171,21 +155,6 @@ begin
         FullList[i].Title, i + 1, FullList.Count);
     Inc(i);
   end;
-end;
-
-function cEmutecaParentManager.Add(aId: string): cEmutecaParent;
-begin
-  Result := ItemById(aId);
-
-  // If already exists, then return it
-  if assigned(result) then
-    Exit;
-
-  // Creating new item
-  Result := cEmutecaParent.Create(Self);
-  Result.SortName := aId;
-  Result.Title := aId;
-  FullList.Add(Result);
 end;
 
 { TODO : This goes with... cVersion or cEmuteca }

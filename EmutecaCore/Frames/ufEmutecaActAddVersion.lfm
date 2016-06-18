@@ -6,8 +6,8 @@ object fmActAddVersion: TfmActAddVersion
   ClientHeight = 331
   ClientWidth = 441
   TabOrder = 0
-  DesignLeft = 724
-  DesignTop = 171
+  DesignLeft = 741
+  DesignTop = 144
   object gbxFileSelection: TGroupBox
     Left = 0
     Height = 85
@@ -42,6 +42,7 @@ object fmActAddVersion: TfmActAddVersion
       Width = 437
       Align = alTop
       Caption = 'Open as compressed archive'
+      OnChange = chkOpenAsArchiveChange
       TabOrder = 1
     end
     object cbxInnerFile: TComboBox
@@ -155,7 +156,6 @@ object fmActAddVersion: TfmActAddVersion
       DefaultCaption = True
       Kind = bkCancel
       ModalResult = 2
-      OnClick = bCancelClick
       TabOrder = 1
     end
   end

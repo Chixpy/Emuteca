@@ -123,7 +123,7 @@ end;
 
 procedure cEmutecaVersion.SetFolder(AValue: string);
 begin
-  FFolder := SetAsFile(AValue);
+  FFolder := SetAsFolder(AValue);
 end;
 
 procedure cEmutecaVersion.SetSystem(AValue: string);

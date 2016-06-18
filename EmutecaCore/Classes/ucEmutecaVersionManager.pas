@@ -31,25 +31,14 @@ type
     procedure SaveToFileTxt(TxtFile: TStrings; const ExportMode: boolean);
       override;
 
-
-    function Add(aId: string): cEmutecaVersion;
-    {< Creates a parent with aId key, if already exists returns it.
-
-       @Result cEmutecaParent created or found.
-    }
     function ItemById(aId: string): cEmutecaVersion;
-    {< Return the parent with have aId key.
+    {< Returns the version with aId key.
 
-       @Result cEmutecaParent found.
-    }
-    function Delete(aId: string): integer;
-    {< Deletes a parent by Id.
-
-       @Result Index of deleted item
+       @Result cEmutecaParent found or nil.
     }
 
-    procedure AssingAllTo(aList: TStrings);
-    procedure AssingEnabledTo(aList: TStrings);
+    procedure AssingAllTo(aList: TStrings); override;
+    procedure AssingEnabledTo(aList: TStrings); override;
 
     constructor Create(aOwner: TComponent); override;
     destructor Destroy; override;
@@ -66,19 +55,13 @@ var
   i: integer;
 begin
   //// FullList.TryGetData(aId, Result); Maybe do this???
-  //
+
   //Result := nil;
   //i := FullList.IndexOf(aId);
-  //
+
   //if i >= 0 then
   //  Result := FullList.Data[i];
 end;
-
-function cEmutecaVersionManager.Delete(aId: string): integer;
-begin
-  //Result := FullList.Remove(aId);
-end;
-
 procedure cEmutecaVersionManager.AssingAllTo(aList: TStrings);
 var
   i: longint;
@@ -162,21 +145,6 @@ begin
         FullList[i].Title, i + 1, FullList.Count);
     Inc(i);
   end;
-end;
-
-function cEmutecaVersionManager.Add(aId: string): cEmutecaVersion;
-begin
-  Result := ItemById(aId);
-
-  // If already exists, then return it
-  if assigned(Result) then
-    Exit;
-
-  // Creating new item
-  Result := cEmutecaVersion.Create(Self);
-  Result.ID := aId;
-  Result.Title := aId;
-  FullList.Add(Result);
 end;
 
 end.

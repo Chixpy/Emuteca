@@ -45,24 +45,14 @@ type
     procedure SaveToFileIni(IniFile: TCustomIniFile;
       const ExportMode: boolean); override;
 
-    function Add(aId: string): cEmutecaSystem;
-    {< Creates a system with aId key, if already exists returns it.
-
-       @Result cEmutecaSystem created or found.
-    }
     function ItemById(aId: string): cEmutecaSystem;
-    {< Return the system with have aId key.
+    {< Returns the system with aId key.
 
-       @Result cEmutecaSystem found.
-    }
-    function Delete(aId: string): integer;
-    {< Deletes a system by Id.
-
-       @Result Index of deleted item
+       @Result cEmutecaSystem found or nil.
     }
 
-    procedure AssingAll(aList: TStrings);
-    procedure AssingEnabledTo(aList: TStrings);
+    procedure AssingAllTo(aList: TStrings); override;
+    procedure AssingEnabledTo(aList: TStrings); override;
 
     constructor Create(aOwner: TComponent); override;
     destructor Destroy; override;
@@ -131,40 +121,20 @@ begin
   end;
 end;
 
-function cEmutecaSystemManager.Add(aId: string): cEmutecaSystem;
-begin
-  Result := ItemById(aId);
-
-  // If already exists, then return it
-  if assigned(result) then
-    Exit;
-
-  // Creating new item
-  Result := cEmutecaSystem.Create(Self);
-  Result.ID := aId;
-  Result.Model := aId;
-  FullList.Add(Result);
-end;
-
 function cEmutecaSystemManager.ItemById(aId: string): cEmutecaSystem;
 var
   i: integer;
 begin
   //// FullList.TryGetData(aId, Result); Maybe do this???
-  //
+
   //Result := nil;
   //i := FullList.IndexOf(aId);
-  //
+
   //if i >= 0 then
   //  Result := FullList.Data[i];
 end;
 
-function cEmutecaSystemManager.Delete(aId: string): integer;
-begin
-  //Result := FullList.Remove(aId);
-end;
-
-procedure cEmutecaSystemManager.AssingAll(aList: TStrings);
+procedure cEmutecaSystemManager.AssingAllTo(aList: TStrings);
 var
   i: longint;
 begin
