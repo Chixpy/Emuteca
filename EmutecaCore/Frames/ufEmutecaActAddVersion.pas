@@ -5,11 +5,11 @@ unit ufEmutecaActAddVersion;
 interface
 
 uses
-  Classes, SysUtils, LazFileUtils, Forms, Controls, StdCtrls,
+  Classes, SysUtils, LazFileUtils, strutils,Forms, Controls, StdCtrls,
   EditBtn, ActnList,
   ExtCtrls, Buttons,
-  uCHXStrUtils,
-  ucEmuteca, ucEmutecaVersion,
+  uCHXStrUtils, u7zWrapper,
+  ucEmuteca, ucEmutecaVersion, ucEmutecaSystem,
   ufEmutecaVersionEditor;
 
 type
@@ -34,6 +34,7 @@ type
     pBottom: TPanel;
     procedure bAcceptClick(Sender: TObject);
     procedure bCancelClick(Sender: TObject);
+    procedure cbxSystemChange(Sender: TObject);
     procedure eArchiveAcceptFileName(Sender: TObject; var Value: string);
 
   private
@@ -70,8 +71,22 @@ implementation
 
 procedure TfmActAddVersion.eArchiveAcceptFileName(Sender: TObject;
   var Value: string);
+var
+  TempSys: cEmutecaSystem;
+
 begin
   UpdateVersionName(ExtractFileDir(Value), ExtractFileNameOnly(Value));
+
+  if cbxSystem.ItemIndex = -1 then Exit;
+
+  TempSys := cEmutecaSystem(cbxSystem.Items.Objects[cbxSystem.ItemIndex]);
+
+  chkOpenAsArchive.Checked:=False;
+  cbxInnerFile.Clear;
+
+  // Recognized ext of an archive (from cEmutecaConfig)
+  chkOpenAsArchive.Enabled:=Emuteca.Config.CompressedExtensions.IndexOf(Copy(ExtractFileExt(Value), 2, MaxInt)) <> -1;
+  cbxInnerFile.Enabled:= chkOpenAsArchive.Enabled;
 end;
 
 procedure TfmActAddVersion.bAcceptClick(Sender: TObject);
@@ -82,6 +97,23 @@ end;
 procedure TfmActAddVersion.bCancelClick(Sender: TObject);
 begin
   FreeAndNil(FVersion);
+end;
+
+procedure TfmActAddVersion.cbxSystemChange(Sender: TObject);
+var
+  TempSys: cEmutecaSystem;
+  ExtFilter: string;
+begin
+  if cbxSystem.ItemIndex = -1 then Exit;
+
+  TempSys := cEmutecaSystem(cbxSystem.Items.Objects[cbxSystem.ItemIndex]);
+
+  ExtFilter := 'All suported files|';
+  ExtFilter := ExtFilter + '*.' + AnsiReplaceText(TempSys.Extensions.CommaText,',',';*.');
+  ExtFilter := ExtFilter + ';*.' + AnsiReplaceText(w7zFileExts,',',';*.');
+  ExtFilter := ExtFilter + '|All files|' + AllFilesMask;
+  eArchive.Filter:=ExtFilter;
+
 end;
 
 procedure TfmActAddVersion.SetIconsIni(AValue: string);
@@ -97,6 +129,13 @@ begin
   if FEmuteca = AValue then
     Exit;
   FEmuteca := AValue;
+
+  if not assigned(Emuteca) then exit;
+
+  // Updating system list
+  cbxSystem.Clear;
+  Emuteca.SystemManager.AssingEnabledTo(cbxSystem.Items);
+
 end;
 
 procedure TfmActAddVersion.SetVersion(AValue: cEmutecaVersion);
@@ -155,7 +194,6 @@ begin
 
   FVersion := cEmutecaVersion.Create(nil);
   VersionEditor.Version := self.Version;
-
 end;
 
 destructor TfmActAddVersion.Destroy;

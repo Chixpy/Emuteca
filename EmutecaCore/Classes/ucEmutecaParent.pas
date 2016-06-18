@@ -63,9 +63,9 @@ type
     {< ID of the Parent (and Sorting)}
   end;
 
-  { cEmutecaParentMap }
+  { cEmutecaParentList }
 
-  cEmutecaParentMap = specialize TFPGMapObject<string, cEmutecaParent>;
+  cEmutecaParentList = specialize TFPGObjectList<cEmutecaParent>;
 
 implementation
 

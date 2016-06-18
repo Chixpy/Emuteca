@@ -34,12 +34,12 @@ type
 
   cEmutecaSystemManager = class(caEmutecaManagerIni)
   private
-    FFullList: cEmutecaSystemMap;
+    FFullList: cEmutecaSystemList;
 
   protected
 
   public
-    property FullList: cEmutecaSystemMap read FFullList;
+    property FullList: cEmutecaSystemList read FFullList;
 
     procedure LoadFromFileIni(IniFile: TCustomIniFile); override;
     procedure SaveToFileIni(IniFile: TCustomIniFile;
@@ -96,7 +96,7 @@ begin
       TempSys := cEmutecaSystem.Create(nil);
       TempSys.ID := TempList[i];
       TempSys.LoadFromFileIni(IniFile);
-      FullList.AddOrSetData(TempSys.ID, TempSys);
+      FullList.Add(TempSys);
       Inc(i);
 
       if ProgressCallBack <> nil then
@@ -122,11 +122,11 @@ begin
   i := 0;
   while i < FullList.Count do
   begin
-    FullList.Data[i].SaveToFileIni(IniFile, ExportMode);
+    FullList[i].SaveToFileIni(IniFile, ExportMode);
 
     if ProgressCallBack <> nil then
-      ProgressCallBack(rsSavingSystemList, FullList.Data[i].ID,
-        FullList.Data[i].Model, i + 1, FullList.Count);
+      ProgressCallBack(rsSavingSystemList, FullList[i].ID,
+        FullList[i].Model, i + 1, FullList.Count);
     Inc(i);
   end;
 end;
@@ -143,25 +143,25 @@ begin
   Result := cEmutecaSystem.Create(Self);
   Result.ID := aId;
   Result.Model := aId;
-  FullList.Add(Result.ID, Result);
+  FullList.Add(Result);
 end;
 
 function cEmutecaSystemManager.ItemById(aId: string): cEmutecaSystem;
 var
   i: integer;
 begin
-  // FullList.TryGetData(aId, Result); Maybe do this???
-
-  Result := nil;
-  i := FullList.IndexOf(aId);
-
-  if i >= 0 then
-    Result := FullList.Data[i];
+  //// FullList.TryGetData(aId, Result); Maybe do this???
+  //
+  //Result := nil;
+  //i := FullList.IndexOf(aId);
+  //
+  //if i >= 0 then
+  //  Result := FullList.Data[i];
 end;
 
 function cEmutecaSystemManager.Delete(aId: string): integer;
 begin
-  Result := FullList.Remove(aId);
+  //Result := FullList.Remove(aId);
 end;
 
 procedure cEmutecaSystemManager.AssingAll(aList: TStrings);
@@ -175,7 +175,7 @@ begin
   i := 0;
   while i < FullList.Count do
   begin
-    aList.AddObject(FullList.Data[i].Model, FullList.Data[i]);
+    aList.AddObject(FullList[i].Model, FullList[i]);
     Inc(i);
   end;
   aList.EndUpdate;
@@ -192,8 +192,8 @@ begin
   i := 0;
   while i < FullList.Count do
   begin
-    if FullList.Data[i].Enabled then
-      aList.AddObject(FullList.Data[i].Model, FullList.Data[i]);
+    if FullList[i].Enabled then
+      aList.AddObject(FullList[i].Model, FullList[i]);
     Inc(i);
   end;
   aList.EndUpdate;
@@ -202,9 +202,8 @@ end;
 constructor cEmutecaSystemManager.Create(aOwner: TComponent);
 begin
   inherited Create(aOwner);
-  FFullList := cEmutecaSystemMap.Create(True);
-  FullList.OnKeyCompare := @AnsiCompareText;
-  // TODO: When it works...: FullList.OnKeyCompare := @UTF8CompareText;
+  FFullList := cEmutecaSystemList.Create(True);
+  // TODO: OnCompare FullList.OnCompare := ;
 end;
 
 destructor cEmutecaSystemManager.Destroy;

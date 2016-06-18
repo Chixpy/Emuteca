@@ -90,7 +90,6 @@ type
     const Value, MaxValue: int64): boolean of object;
 {< Callback funtion to show progress }
 
-
 implementation
 
 end.

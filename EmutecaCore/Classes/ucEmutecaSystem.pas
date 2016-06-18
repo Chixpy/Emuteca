@@ -134,8 +134,8 @@ type
     //< Ids of other emulators for the system.
   end;
 
-  { cEmutecaSystemMap }
-  cEmutecaSystemMap = specialize TFPGMapObject<string, cEmutecaSystem>;
+  { cEmutecaSystemList }
+  cEmutecaSystemList = specialize TFPGObjectList<cEmutecaSystem>;
 
 function EmutecaFileKey2Str(aEFK: TEmutecaFileKey): string;
 function Str2EmutecaFileKey(aString: string): TEmutecaFileKey;

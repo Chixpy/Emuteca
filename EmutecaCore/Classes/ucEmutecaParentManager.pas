@@ -43,13 +43,13 @@ type
 
   cEmutecaParentManager = class(caEmutecaManagerTxt)
   private
-    FFullList: cEmutecaParentMap;
+    FFullList: cEmutecaParentList;
 
   protected
 
 
   public
-    property FullList: cEmutecaParentMap read FFullList;
+    property FullList: cEmutecaParentList read FFullList;
     {< Actual list where the parents are stored. }
 
     procedure LoadFromFileTxt(TxtFile: TStrings); override;
@@ -88,18 +88,18 @@ function cEmutecaParentManager.ItemById(aId: string): cEmutecaParent;
 var
   i: integer;
 begin
-  // FullList.TryGetData(aId, Result); Maybe do this???
-
-  Result := nil;
-  i := FullList.IndexOf(aId);
-
-  if i >= 0 then
-    Result := FullList.Data[i];
+  //// FullList.TryGetData(aId, Result); Maybe do this???
+  //
+  //Result := nil;
+  //i := FullList.IndexOf(aId);
+  //
+  //if i >= 0 then
+  //  Result := FullList.Data[i];
 end;
 
 function cEmutecaParentManager.Delete(aId: string): integer;
 begin
-    Result := FullList.Remove(aId);
+    //Result := FullList.Remove(aId);
 end;
 
 procedure cEmutecaParentManager.AssingAllTo(aList: TStrings);
@@ -113,7 +113,7 @@ begin
   i := 0;
   while i < FullList.Count do
   begin
-    aList.AddObject(FullList.Data[i].Title, FullList.Data[i]);
+    aList.AddObject(FullList[i].Title, FullList[i]);
     Inc(i);
   end;
   aList.EndUpdate;
@@ -138,7 +138,7 @@ begin
   begin
     TempParent := cEmutecaParent.Create(nil);
     TempParent.DataString := TxtFile[i];
-    FullList.AddOrSetData(TempParent.SortName, TempParent);
+    FullList.Add(TempParent);
     Inc(i);
 
     if ProgressCallBack <> nil then
@@ -164,11 +164,11 @@ begin
   i := 0;
   while i < FullList.Count do
   begin
-    TxtFile.Add(FullList.Data[i].DataString);
+    TxtFile.Add(FullList[i].DataString);
 
     if ProgressCallBack <> nil then
-      ProgressCallBack(rsSavingParentList, FullList.Data[i].System,
-        FullList.Data[i].Title, i + 1, FullList.Count);
+      ProgressCallBack(rsSavingParentList, FullList[i].System,
+        FullList[i].Title, i + 1, FullList.Count);
     Inc(i);
   end;
 end;
@@ -185,7 +185,7 @@ begin
   Result := cEmutecaParent.Create(Self);
   Result.SortName := aId;
   Result.Title := aId;
-  FullList.Add(Result.SortName, Result);
+  FullList.Add(Result);
 end;
 
 { TODO : This goes with... cVersion or cEmuteca }
@@ -288,7 +288,8 @@ constructor cEmutecaParentManager.Create(aOwner: TComponent);
 begin
   inherited Create(aOwner);
 
-  FFullList := cEmutecaParentMap.Create(True);
+  FFullList := cEmutecaParentList.Create(True);
+  // TODO: OnCompare FullList.OnCompare := ;
 end;
 
 destructor cEmutecaParentManager.Destroy;

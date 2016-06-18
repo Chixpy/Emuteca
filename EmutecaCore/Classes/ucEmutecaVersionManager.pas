@@ -18,13 +18,13 @@ type
 
   cEmutecaVersionManager = class(caEmutecaManagerTxt)
   private
-    FFullList: cEmutecaVersionMap;
+    FFullList: cEmutecaVersionList;
 
   protected
 
 
   public
-    property FullList: cEmutecaVersionMap read FFullList;
+    property FullList: cEmutecaVersionList read FFullList;
     {< Actual list where the parents are stored. }
 
     procedure LoadFromFileTxt(TxtFile: TStrings); override;
@@ -65,18 +65,18 @@ function cEmutecaVersionManager.ItemById(aId: string): cEmutecaVersion;
 var
   i: integer;
 begin
-  // FullList.TryGetData(aId, Result); Maybe do this???
-
-  Result := nil;
-  i := FullList.IndexOf(aId);
-
-  if i >= 0 then
-    Result := FullList.Data[i];
+  //// FullList.TryGetData(aId, Result); Maybe do this???
+  //
+  //Result := nil;
+  //i := FullList.IndexOf(aId);
+  //
+  //if i >= 0 then
+  //  Result := FullList.Data[i];
 end;
 
 function cEmutecaVersionManager.Delete(aId: string): integer;
 begin
-  Result := FullList.Remove(aId);
+  //Result := FullList.Remove(aId);
 end;
 
 procedure cEmutecaVersionManager.AssingAllTo(aList: TStrings);
@@ -90,7 +90,7 @@ begin
   i := 0;
   while i < FullList.Count do
   begin
-    aList.AddObject(FullList.Data[i].Title, FullList.Data[i]);
+    aList.AddObject(FullList[i].Title, FullList[i]);
     Inc(i);
   end;
   aList.EndUpdate;
@@ -106,7 +106,8 @@ constructor cEmutecaVersionManager.Create(aOwner: TComponent);
 begin
   inherited Create(aOwner);
 
-  FFullList := cEmutecaVersionMap.Create(True);
+  FFullList := cEmutecaVersionList.Create(True);
+  // TODO: OnCompare FullList.OnCompare := ;
 end;
 
 destructor cEmutecaVersionManager.Destroy;
@@ -128,7 +129,7 @@ begin
   begin
     TempVersion := cEmutecaVersion.Create(nil);
     TempVersion.DataString := TxtFile[i];
-    FullList.AddOrSetData(TempVersion.ID, TempVersion);
+    FullList.Add(TempVersion);
     Inc(i);
 
     if ProgressCallBack <> nil then
@@ -154,11 +155,11 @@ begin
   i := 0;
   while i < FullList.Count do
   begin
-    TxtFile.Add(FullList.Data[i].DataString);
+    TxtFile.Add(FullList[i].DataString);
 
     if ProgressCallBack <> nil then
-      ProgressCallBack(rsSavingVersionList, FullList.Data[i].System,
-        FullList.Data[i].Title, i + 1, FullList.Count);
+      ProgressCallBack(rsSavingVersionList, FullList[i].System,
+        FullList[i].Title, i + 1, FullList.Count);
     Inc(i);
   end;
 end;
@@ -175,7 +176,7 @@ begin
   Result := cEmutecaVersion.Create(Self);
   Result.ID := aId;
   Result.Title := aId;
-  FullList.Add(Result.Title, Result);
+  FullList.Add(Result);
 end;
 
 end.

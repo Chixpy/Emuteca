@@ -188,7 +188,7 @@ begin
   i := 0;
   while i < SysManager.FullList.Count do
   begin
-    SysManager.FullList.Data[i].Enabled := True;
+    SysManager.FullList[i].Enabled := True;
     Inc(i);
   end;
   LoadList;
@@ -201,8 +201,7 @@ begin
 
   SysEditor.System := nil;
   SysManager.FullList.Remove(
-    cEmutecaSystem(CheckListBox1.Items.Objects[CheckListBox1.ItemIndex]).ID
-    );
+    cEmutecaSystem(CheckListBox1.Items.Objects[CheckListBox1.ItemIndex]) );
   LoadList;
 end;
 
@@ -265,9 +264,9 @@ begin
   begin
     // Dragons
     CheckListBox1.Checked[
-      CheckListBox1.Items.AddObject(SysManager.FullList.Data[i].Model,
-      SysManager.FullList.Data[i])
-      ] := SysManager.FullList.Data[i].Enabled;
+      CheckListBox1.Items.AddObject(SysManager.FullList[i].Model,
+      SysManager.FullList[i])
+      ] := SysManager.FullList[i].Enabled;
     Inc(i);
   end;
 end;

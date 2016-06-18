@@ -58,9 +58,9 @@ type
 
   end;
 
-  { cEmutecaVersionMap }
+  { cEmutecaVersionList }
 
-  cEmutecaVersionMap = specialize TFPGMapObject<string, cEmutecaVersion>;
+  cEmutecaVersionList = specialize TFPGObjectList<cEmutecaVersion>;
 
 implementation
 

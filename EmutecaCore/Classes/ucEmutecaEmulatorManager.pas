@@ -40,13 +40,13 @@ type
 
   cEmutecaEmulatorManager = class(caEmutecaManagerIni)
   private
-    FFullList: cEmutecaEmulatorMap;
+    FFullList: cEmutecaEmulatorList;
 
   protected
 
 
   public
-    property FullList: cEmutecaEmulatorMap read FFullList;
+    property FullList: cEmutecaEmulatorList read FFullList;
 
     procedure LoadFromFileIni(IniFile: TCustomIniFile); override;
     procedure SaveToFileIni(IniFile: TCustomIniFile;
@@ -89,9 +89,9 @@ implementation
 constructor cEmutecaEmulatorManager.Create(aOwner: TComponent);
 begin
   inherited Create(aOwner);
-  FFullList := cEmutecaEmulatorMap.Create(True);
-  FullList.OnKeyCompare := @AnsiCompareText;
-  // TODO: When it works...: FullList.OnKeyCompare := @UTF8CompareText;
+  FFullList := cEmutecaEmulatorList.Create(True);
+
+  // TODO: OnCompare FullList.OnCompare := ;
 end;
 
 destructor cEmutecaEmulatorManager.Destroy;
@@ -127,7 +127,7 @@ begin
   i := 0;
   while i < FullList.Count do
   begin
-    aList.AddObject(FullList.Data[i].EmulatorName, FullList.Data[i]);
+    aList.AddObject(FullList[i].EmulatorName, FullList[i]);
     Inc(i);
   end;
   aList.EndUpdate;
@@ -154,7 +154,7 @@ begin
       TempEmu := cEmutecaEmulator.Create(nil);
       TempEmu.ID := TempList[i];
       TempEmu.LoadFromFileIni(IniFile);
-      FullList.AddOrSetData(TempEmu.ID, TempEmu);
+      FullList.Add(TempEmu);
       Inc(i);
 
       if ProgressCallBack <> nil then
@@ -180,11 +180,11 @@ begin
   i := 0;
   while i < FullList.Count do
   begin
-    FullList.Data[i].SaveToFileIni(IniFile, ExportMode);
+    FullList[i].SaveToFileIni(IniFile, ExportMode);
 
     if ProgressCallBack <> nil then
-      ProgressCallBack(rsSavingEmulatorList, FullList.Data[i].ID,
-        FullList.Data[i].EmulatorName, i + 1, FullList.Count);
+      ProgressCallBack(rsSavingEmulatorList, FullList[i].ID,
+        FullList[i].EmulatorName, i + 1, FullList.Count);
     Inc(i);
   end;
 end;
@@ -201,25 +201,25 @@ begin
   Result := cEmutecaEmulator.Create(Self);
   Result.ID := aId;
   Result.EmulatorName := aId;
-  FullList.Add(Result.ID, Result);
+  FullList.Add(Result);
 end;
 
 function cEmutecaEmulatorManager.ItemById(aId: string): cEmutecaEmulator;
 var
   i: integer;
 begin
-  // FullList.TryGetData(aId, Result); Maybe do this???
-
-  Result := nil;
-  i := FullList.IndexOf(aId);
-
-  if i >= 0 then
-    Result := FullList.Data[i];
+  //// FullList.TryGetData(aId, Result); Maybe do this???
+  //
+  //Result := nil;
+  //i := FullList.IndexOf(aId);
+  //
+  //if i >= 0 then
+  //  Result := FullList.Data[i];
 end;
 
 function cEmutecaEmulatorManager.Delete(aId: string): integer;
 begin
-  Result := FullList.Remove(aId);
+  //Result := FullList.Remove(aId);
 end;
 
 procedure cEmutecaEmulatorManager.AssingEnabledTo(aList: TStrings);
@@ -233,8 +233,8 @@ begin
   i := 0;
   while i < FullList.Count do
   begin
-    if FullList.Data[i].Enabled then
-      aList.AddObject(FullList.Data[i].EmulatorName, FullList.Data[i]);
+    if FullList[i].Enabled then
+      aList.AddObject(FullList[i].EmulatorName, FullList[i]);
     Inc(i);
   end;
   aList.EndUpdate;

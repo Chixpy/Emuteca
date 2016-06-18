@@ -1,7 +1,7 @@
 object frmEmutecaMain: TfrmEmutecaMain
-  Left = 356
+  Left = 278
   Height = 600
-  Top = 114
+  Top = 51
   Width = 800
   Caption = 'Main'
   ClientHeight = 580

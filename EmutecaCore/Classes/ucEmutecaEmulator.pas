@@ -150,7 +150,7 @@ type
          an error message if this code is returned. }
   end;
 
-  cEmutecaEmulatorMap = specialize TFPGMapObject<string, cEmutecaEmulator>;
+  cEmutecaEmulatorList = specialize TFPGObjectList<cEmutecaEmulator>;
 
 implementation
 

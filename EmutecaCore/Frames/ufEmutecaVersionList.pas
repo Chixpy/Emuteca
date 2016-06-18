@@ -182,7 +182,7 @@ var
   pData: ^cEmutecaVersion;
 begin
   pData := VST.GetNodeData(Node);
-  pData^ := Emuteca.SoftManager.FullList.Data[Node^.Index];
+  pData^ := Emuteca.SoftManager.FullList[Node^.Index];
 end;
 
 procedure TfmEmutecaVersionList.SetOnDblClick(AValue: TFEVLDblClick);

@@ -176,7 +176,7 @@ begin
   i := 0;
   while i < EmuManager.FullList.Count do
   begin
-    EmuManager.FullList.Data[i].Enabled := True;
+    EmuManager.FullList[i].Enabled := True;
     Inc(i);
   end;
   LoadList;
@@ -187,7 +187,7 @@ begin
   if CheckListBox1.ItemIndex = -1 then
     exit;
   EmuManager.FullList.Remove(cEmutecaEmulator(
-    CheckListBox1.Items.Objects[CheckListBox1.ItemIndex]).ID);
+    CheckListBox1.Items.Objects[CheckListBox1.ItemIndex]));
   LoadList;
 end;
 
@@ -208,7 +208,7 @@ begin
   i := 0;
   while i < EmuManager.FullList.Count do
   begin
-    EmuManager.FullList.Data[i].Enabled := False;
+    EmuManager.FullList[i].Enabled := False;
     Inc(i);
   end;
   LoadList;
@@ -254,9 +254,9 @@ begin
   begin
     // Dragons
     CheckListBox1.Checked[
-      CheckListBox1.Items.AddObject(EmuManager.FullList.Data[i].EmulatorName,
-      EmuManager.FullList.Data[i])
-      ] := EmuManager.FullList.Data[i].Enabled;
+      CheckListBox1.Items.AddObject(EmuManager.FullList[i].EmulatorName,
+      EmuManager.FullList[i])
+      ] := EmuManager.FullList[i].Enabled;
     Inc(i);
   end;
 end;
