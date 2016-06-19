@@ -26,9 +26,6 @@ type
     procedure SetVersion(AValue: cEmutecaVersion);
     { private declarations }
 
-  protected
-    procedure UpdateLists;
-
   public
     { public declarations }
     property Version: cEmutecaVersion read FVersion write SetVersion;
@@ -57,6 +54,12 @@ begin
   if FEmuteca = AValue then
     Exit;
   FEmuteca := AValue;
+
+
+  cbxParent.Clear;
+  if not assigned(Emuteca) then
+    Exit;
+  Emuteca.ParentManager.AssingEnabledTo(cbxParent.Items);
 end;
 
 procedure TfmEmutecaVersionEditor.SaveData;
@@ -66,7 +69,7 @@ begin
   { TODO : Think about how to add a new parent }
   if cbxParent.ItemIndex <> -1 then
     Version.Parent := cEmutecaParent(
-      cbxParent.Items.Objects[cbxParent.ItemIndex]).SortName
+      cbxParent.Items.Objects[cbxParent.ItemIndex]).ID
   else
     Version.Parent := cbxParent.Text;
 
@@ -93,16 +96,6 @@ begin
   cbxParent.ItemIndex := -1;
   eTitle.Clear;
   eDescription.Clear;
-end;
-
-procedure TfmEmutecaVersionEditor.UpdateLists;
-begin
-  cbxParent.Clear;
-
-  if not assigned(Emuteca) then
-    exit;
-
-  Emuteca.ParentManager.AssingEnabledTo(cbxParent.Items);
 end;
 
 end.

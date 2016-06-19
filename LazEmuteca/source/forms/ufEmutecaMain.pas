@@ -113,7 +113,7 @@ end;
 procedure TfrmEmutecaMain.MenuItem8Click(Sender: TObject);
 var
   Temp: TStringList;
-  str:String;
+  str: string;
   i: integer;
 begin
   Temp := TStringList.Create;
@@ -121,7 +121,7 @@ begin
   for i := 1 to 10000 do
   begin
     str := IntToStr(i) + ',';
-    str :=  str + str + str + str + str + str + str;
+    str := str + str + str + str + str + str + str;
     Temp.Add(str);
   end;
 
@@ -288,12 +288,12 @@ begin
   FreeAndNil(aForm);
 end;
 
-procedure TfrmEmutecaMain.FormCloseQuery(Sender: TObject; var CanClose: boolean
-  );
+procedure TfrmEmutecaMain.FormCloseQuery(Sender: TObject;
+  var CanClose: boolean);
 begin
-   Emuteca.ParentManager.SaveToFile('', false);
-  Emuteca.SoftManager.SaveToFile('', false);
-    GUIConfig.SaveConfig('');
+  Emuteca.ParentManager.SaveToFile('', False);
+  Emuteca.SoftManager.SaveToFile('', False);
+  GUIConfig.SaveConfig('');
 end;
 
 procedure TfrmEmutecaMain.FormDestroy(Sender: TObject);

@@ -25,11 +25,14 @@ type
     cbxSystem: TComboBox;
     chkOpenAsArchive: TCheckBox;
     eFile: TFileNameEdit;
+    eVersionKey: TEdit;
     gbxFileSelection: TGroupBox;
     gbxVersionInfo: TGroupBox;
     ilActions: TImageList;
     lSystemInfo: TLabel;
     pBottom: TPanel;
+    pLeft: TPanel;
+    rgbVersionKey: TRadioGroup;
     procedure bAcceptClick(Sender: TObject);
     procedure cbxInnerFileChange(Sender: TObject);
     procedure cbxSystemChange(Sender: TObject);
@@ -47,6 +50,8 @@ type
 
   protected
     property VersionEditor: TfmEmutecaVersionEditor read FVersionEditor;
+
+    procedure UpdateGameKey;
     procedure UpdateLists;
 
 
@@ -69,6 +74,7 @@ implementation
 procedure TfmActAddVersion.eFileAcceptFileName(Sender: TObject;
   var Value: string);
 begin
+  // Updating VersionEditor
   Version.Folder := ExtractFileDir(Value);
   Version.FileName:= ExtractFileName(Value);
   Version.Parent := RemoveFromBrackets(ExtractFileNameOnly(Version.FileName));
@@ -111,17 +117,27 @@ begin
 
   TempSys := cEmutecaSystem(cbxSystem.Items.Objects[cbxSystem.ItemIndex]);
 
-  if TempSys := nil then Exit;
+  if TempSys = nil then Exit;
 
-  lSystemInfo.Caption:=TempSys.Extensions.CommaText;
+  Version.System := TempSys.ID;
 
-  //
+  // Autoselecting Key Type
+  case TempSys.GameKey of
+     TEFKCRC32: rgbVersionKey.ItemIndex:=1;
+     TEFKCustom: rgbVersionKey.ItemIndex:=2;
+     TEFKFileName: rgbVersionKey.ItemIndex:=3;
+    else  // SHA1 by default
+      rgbVersionKey.ItemIndex:=0;
+  end;
+  UpdateGameKey;
+
+  lSystemInfo.Caption := TempSys.Extensions.CommaText;
+
   ExtFilter := 'All suported files|';
   ExtFilter := ExtFilter + '*.' + AnsiReplaceText(lSystemInfo.Caption,',',';*.');
   ExtFilter := ExtFilter + ';*.' + AnsiReplaceText(w7zFileExts,',',';*.');
   ExtFilter := ExtFilter + '|All files|' + AllFilesMask;
   eFile.Filter:=ExtFilter;
-
 end;
 
 procedure TfmActAddVersion.chkOpenAsArchiveChange(Sender: TObject);
@@ -158,6 +174,7 @@ begin
   cbxSystem.Clear;
   Emuteca.SystemManager.AssingEnabledTo(cbxSystem.Items);
 
+  VersionEditor.Emuteca := Emuteca;
 end;
 
 procedure TfmActAddVersion.SetVersion(AValue: cEmutecaVersion);
@@ -165,6 +182,20 @@ begin
   if FVersion = AValue then
     Exit;
   FVersion := AValue;
+end;
+
+procedure TfmActAddVersion.UpdateGameKey;
+begin
+  // We use selected rgbVersionKey, not system default
+   case rgbVersionKey.ItemIndex of
+     1: {TEFKCRC32};
+     2: {TEFKCustom} eVersionKey.Clear;
+     3: {TEFKFileName} eVersionKey.Text := SetAsID(Version.FileName);
+    else  // TEFKSHA1 by default
+      ;
+  end;
+
+   Version.ID := eVersionKey.Text;
 end;
 
 procedure TfmActAddVersion.UpdateLists;

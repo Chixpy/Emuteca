@@ -77,13 +77,15 @@ function cEmutecaParentManager.ItemById(aId: string): cEmutecaParent;
 var
   i: integer;
 begin
-  //// FullList.TryGetData(aId, Result); Maybe do this???
+  Result := nil;
 
-  //Result := nil;
-  //i := FullList.IndexOf(aId);
-
-  //if i >= 0 then
-  //  Result := FullList.Data[i];
+  i := 0;
+  while (Result = nil) and (i < FullList.Count) do
+  begin
+    if UTF8CompareText(FullList[i].ID, aId) = 0 then
+      Result := FullList[i];
+    inc(i);
+  end;
 end;
 
 procedure cEmutecaParentManager.AssingAllTo(aList: TStrings);

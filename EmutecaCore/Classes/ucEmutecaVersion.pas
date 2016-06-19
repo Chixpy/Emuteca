@@ -102,23 +102,17 @@ end;
 
 procedure cEmutecaVersion.SetFileName(AValue: string);
 begin
-  if FFileName = AValue then
-    Exit;
-  FFileName := AValue;
+  FFileName := SetAsFile(AValue);
 end;
 
 procedure cEmutecaVersion.SetID(AValue: string);
 begin
-  if FID = AValue then
-    Exit;
-  FID := AValue;
+  FID := SetAsID(AValue);
 end;
 
 procedure cEmutecaVersion.SetParent(AValue: string);
 begin
-  if FParent = AValue then
-    Exit;
-  FParent := AValue;
+  FParent := SetAsID(AValue);
 end;
 
 procedure cEmutecaVersion.SetFolder(AValue: string);
@@ -128,9 +122,7 @@ end;
 
 procedure cEmutecaVersion.SetSystem(AValue: string);
 begin
-  if FSystem = AValue then
-    Exit;
-  FSystem := AValue;
+  FSystem := SetAsID(AValue);
 end;
 
 procedure cEmutecaVersion.SetTitle(AValue: string);

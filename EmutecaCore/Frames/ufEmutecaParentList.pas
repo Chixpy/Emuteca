@@ -91,7 +91,7 @@ begin
 
     case Column of
       -1, 0: // Name
-        Result := UTF8CompareText(pData1^.SortName, pData2^.SortName);
+        Result := UTF8CompareText(pData1^.ID, pData2^.ID);
       1: // System
         Result := UTF8CompareText(pData1^.System, pData2^.System);
   end;
@@ -109,7 +109,7 @@ begin
 
   case Column of
     -1, 0: // Name
-      HintText := pData^.SortName;
+      HintText := pData^.ID;
   end;
 end;
 

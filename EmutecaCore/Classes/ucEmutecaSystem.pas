@@ -146,8 +146,8 @@ function EmutecaFileKey2Str(aEFK: TEmutecaFileKey): string;
 begin
   case aEFK of
     TEFKCRC32: Result := krsCRC32;
-    TEFKFileName: Result := krsFileName;
-    TEFKCustom: Result := krsCustom;
+   TEFKCustom: Result := krsCustom;
+     TEFKFileName: Result := krsFileName;
     else  // SHA1 by default
       Result := krsSHA1;
   end;
@@ -263,14 +263,12 @@ end;
 
 procedure cEmutecaSystem.SetID(AValue: string);
 begin
-  FID := UTF8LowerString(UTF8Trim(AValue));
+  FID := SetAsID(AValue);
 end;
 
 procedure cEmutecaSystem.SetMainEmulator(AValue: string);
 begin
-  if FMainEmulator = AValue then
-    Exit;
-  FMainEmulator := AValue;
+  FMainEmulator := SetAsID(AValue);;
 end;
 
 procedure cEmutecaSystem.SetModel(AValue: string);

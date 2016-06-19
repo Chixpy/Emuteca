@@ -27,6 +27,7 @@ interface
 
 uses
   Classes, SysUtils, fgl, LazFileUtils,
+  uCHXStrUtils,
   uaEmutecaStorable;
 
 type
@@ -34,12 +35,12 @@ type
 
   cEmutecaParent = class(caEmutecaStorableTxt)
   private
-    FSortName: string;
+    FID: string;
     FSystem: string;
     FTitle: string;
     function GetDataString: string;
     procedure SetDataString(AValue: string);
-    procedure SetSortName(AValue: string);
+    procedure SetID(AValue: string);
     procedure SetSystem(AValue: string);
     procedure SetTitle(AValue: string);
 
@@ -59,7 +60,7 @@ type
     {< Name of the parent. }
     property System: string read FSystem write SetSystem;
     {< ID of the system. }
-    property SortName: string read FSortName write SetSortName;
+    property ID: string read FID write SetID;
     {< ID of the Parent (and Sorting)}
   end;
 
@@ -80,16 +81,12 @@ end;
 
 procedure cEmutecaParent.SetSystem(AValue: string);
 begin
-  if FSystem = AValue then
-    Exit;
-  FSystem := AValue;
+  FSystem := SetAsID(AValue);
 end;
 
-procedure cEmutecaParent.SetSortName(AValue: string);
+procedure cEmutecaParent.SetID(AValue: string);
 begin
-  if FSortName = AValue then
-    Exit;
-  FSortName := AValue;
+  FID := SetAsID(AValue);
 end;
 
 function cEmutecaParent.GetDataString: string;
@@ -135,7 +132,7 @@ begin
     Exit;
 
   if TxtFile.Count > 0 then
-    self.SortName := TxtFile[0];
+    self.ID := TxtFile[0];
   if TxtFile.Count > 1 then
     self.System := TxtFile[1];
   if TxtFile.Count > 2 then
@@ -148,7 +145,7 @@ begin
   if not assigned(TxtFile) then
     Exit;
 
-  TxtFile.Add(SortName);
+  TxtFile.Add(ID);
   TxtFile.Add(System);
   TxtFile.Add(Title);
 end;

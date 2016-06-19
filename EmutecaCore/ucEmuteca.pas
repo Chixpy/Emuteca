@@ -68,9 +68,9 @@ type
 
     procedure LoadConfig(aFile: string);
 
-    function SearchParent(aSoftware: cEmutecaVersion): cEmutecaParent;
-    function SearchSystem(aParent: cEmutecaParent): cEmutecaSystem;
-    function SearchMainEmulator(aSystem: cEmutecaSystem): cEmutecaEmulator;
+    function SearchParent(aID: string): cEmutecaParent;
+    function SearchSystem(aID: string): cEmutecaSystem;
+    function SearchMainEmulator(aID: string): cEmutecaEmulator;
 
     function RunSoftware(const aSoftware: cEmutecaVersion): integer;
 
@@ -136,25 +136,25 @@ begin
   SoftManager.LoadFromFile('');
 end;
 
-function cEmuteca.SearchParent(aSoftware: cEmutecaVersion): cEmutecaParent;
+function cEmuteca.SearchParent(aID: string): cEmutecaParent;
 begin
-  Result := ParentManager.ItemById(aSoftware.Parent);
+  Result := ParentManager.ItemById(aID);
 end;
 
-function cEmuteca.SearchSystem(aParent: cEmutecaParent): cEmutecaSystem;
+function cEmuteca.SearchSystem(aID: string): cEmutecaSystem;
 begin
-  Result := SystemManager.ItemById(aParent.System);
+  Result := SystemManager.ItemById(aID);
 end;
 
-function cEmuteca.SearchMainEmulator(aSystem: cEmutecaSystem): cEmutecaEmulator;
+function cEmuteca.SearchMainEmulator(aID: string): cEmutecaEmulator;
 begin
-  Result := EmulatorManager.ItemById(aSystem.MainEmulator);
+  Result := EmulatorManager.ItemById(aID);
 end;
 
 function cEmuteca.RunSoftware(const aSoftware: cEmutecaVersion): integer;
 var
   aEmulator: cEmutecaEmulator;
-  aParent: cEmutecaParent;
+  // aParent: cEmutecaParent;
   aSystem: cEmutecaSystem;
   CompressedFile, aFolder, RomFile: string;
   Compressed, NewDir: Boolean;
@@ -172,6 +172,10 @@ begin
     { TODO : Exception or return Comperror code? }
     exit;
 
+{ As Version stores the system, parent is not needed by now.
+
+  Maybe can be useful for command line?
+
   // First of all, we will asume than aSoftware <> CurrentSoft or
   //   CurrentXs are not coherent, althougth we will test coherency...;
   // NOTE: Really testing to CurrentX is not needed, maybe testing
@@ -180,7 +184,7 @@ begin
   // 1. Searching for parent to know the system (test CurrentParent first
   //  for speed,  but it can not be true)
   if (not Assigned(CurrentParent)) or
-    (AnsiCompareText(CurrentParent.SortName, aSoftware.Parent) <> 0) then
+    (UTF8CompareText(CurrentParent.ID, aSoftware.Parent) <> 0) then
   begin
     aParent := SearchParent(aSoftware);
   end
@@ -189,13 +193,13 @@ begin
   if not assigned(aParent) then
     { TODO : Exception or return Comperror code? }
     Exit;
-
+}
   // 2. Searching for system to know the emulator(s) (test CurrentSystem first,
   //  for speed,  but it can not be true)
   if (not Assigned(CurrentSystem)) or
-    (AnsiCompareText(CurrentSystem.ID, aParent.System) <> 0) then
+    (UTF8CompareText(CurrentSystem.ID, aSoftware.System) <> 0) then
   begin
-    aSystem := SearchSystem(aParent);
+    aSystem := SearchSystem(aSoftware.System);
   end
   else
     aSystem := CurrentSystem;
@@ -208,9 +212,9 @@ begin
 
   { TODO : Compare with list of emulators }
   if (not Assigned(CurrentEmulator)) or
-    (AnsiCompareText(CurrentEmulator.ID, aSystem.MainEmulator) <> 0) then
+    (UTF8CompareText(CurrentEmulator.ID, aSystem.MainEmulator) <> 0) then
   begin
-    aEmulator := SearchMainEmulator(aSystem);
+    aEmulator := SearchMainEmulator(aSystem.MainEmulator);
   end
   else
     aEmulator := CurrentEmulator;

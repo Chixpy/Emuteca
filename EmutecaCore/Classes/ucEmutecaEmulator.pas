@@ -158,7 +158,7 @@ implementation
 
 procedure cEmutecaEmulator.SetID(AValue: string);
 begin
-  FID := UTF8LowerString(UTF8Trim(AValue));
+  FID := SetAsID(AValue);
 end;
 
 procedure cEmutecaEmulator.SetParameters(AValue: string);
@@ -274,9 +274,9 @@ begin
     // Hack for run system executables ;P
     if ExeFile = '' then
       { TODO : If not an executable try OpenDocument }
-      Result := SysUtils.ExecuteProcess(UTF8ToSys(TempParam), '')
+      Result := ExecuteProcess(UTF8ToSys(TempParam), '')
     else
-      Result := SysUtils.ExecuteProcess(UTF8ToSys(ExeFile),
+      Result := ExecuteProcess(UTF8ToSys(SysPath(ExeFile)),
         UTF8ToSys(TempParam));
 
     // Is there an error? Is less than 1 minute? No, then add statistics.
