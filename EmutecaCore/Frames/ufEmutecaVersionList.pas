@@ -112,6 +112,7 @@ begin
   aFrame.IconsIni := Emuteca.Config.ImagesFolder +
     Emuteca.Config.IconsSubfolder + Emuteca.Config.IconsIniFile;
   }
+  aForm.AutoSize:=True;
   aForm.ShowModal;
   FreeAndNil(aForm);
 end;

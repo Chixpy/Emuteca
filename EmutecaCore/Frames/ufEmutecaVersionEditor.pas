@@ -27,16 +27,16 @@ type
     { private declarations }
 
   protected
-    procedure SaveData;
-    procedure UpdateData;
-    procedure ClearData;
-
     procedure UpdateLists;
 
   public
     { public declarations }
     property Version: cEmutecaVersion read FVersion write SetVersion;
     property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
+
+    procedure SaveData;
+    procedure UpdateData;
+    procedure ClearData;
   end;
 
 implementation

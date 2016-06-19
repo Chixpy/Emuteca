@@ -45,6 +45,7 @@ object fmEmutecaVersionList: TfmEmutecaVersionList
     TabOrder = 0
     TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScrollOnExpand, toAutoSort, toAutoTristateTracking, toAutoDeleteMovedNodes]
     TreeOptions.PaintOptions = [toShowBackground, toShowButtons, toShowDropmark, toShowHorzGridLines, toShowTreeLines, toShowVertGridLines, toThemeAware, toUseBlendedImages, toFullVertGridLines]
+    TreeOptions.SelectionOptions = [toFullRowSelect, toRightClickSelect]
     OnChange = VSTChange
     OnCompareNodes = VSTCompareNodes
     OnDblClick = VSTDblClick

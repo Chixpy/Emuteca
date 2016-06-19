@@ -24,18 +24,17 @@ type
     cbxInnerFile: TComboBox;
     cbxSystem: TComboBox;
     chkOpenAsArchive: TCheckBox;
-    eArchive: TFileNameEdit;
-    eDatabaseFile: TFileNameEdit;
+    eFile: TFileNameEdit;
     gbxFileSelection: TGroupBox;
     gbxVersionInfo: TGroupBox;
     ilActions: TImageList;
-    lSelectDatabase: TLabel;
     lSystemInfo: TLabel;
     pBottom: TPanel;
     procedure bAcceptClick(Sender: TObject);
+    procedure cbxInnerFileChange(Sender: TObject);
     procedure cbxSystemChange(Sender: TObject);
     procedure chkOpenAsArchiveChange(Sender: TObject);
-    procedure eArchiveAcceptFileName(Sender: TObject; var Value: string);
+    procedure eFileAcceptFileName(Sender: TObject; var Value: string);
 
   private
     FEmuteca: cEmuteca;
@@ -67,18 +66,15 @@ implementation
 
 { TfmActAddVersion }
 
-procedure TfmActAddVersion.eArchiveAcceptFileName(Sender: TObject;
+procedure TfmActAddVersion.eFileAcceptFileName(Sender: TObject;
   var Value: string);
 begin
   Version.Folder := ExtractFileDir(Value);
-  Version.FileName:= ExtractFileNameOnly(Value);
-  VersionEditor.cbxParent.Text :=
-    RemoveFromBrackets(ExtractFileNameOnly(Version.FileName));
-  VersionEditor.eTitle.Text := VersionEditor.cbxParent.Text;
-  VersionEditor.eDescription.Text :=
-    CopyFromBrackets(ExtractFileNameOnly(Version.FileName));
-
-  if cbxSystem.ItemIndex = -1 then Exit;
+  Version.FileName:= ExtractFileName(Value);
+  Version.Parent := RemoveFromBrackets(ExtractFileNameOnly(Version.FileName));
+  Version.Title := Version.Parent;
+  Version.Description := CopyFromBrackets(ExtractFileNameOnly(Version.FileName));
+  VersionEditor.UpdateData;
 
   chkOpenAsArchive.Checked:=False;
   cbxInnerFile.Clear;
@@ -90,8 +86,20 @@ end;
 
 procedure TfmActAddVersion.bAcceptClick(Sender: TObject);
 begin
+  VersionEditor.SaveData;
   Emuteca.SoftManager.FullList.Add(Version);
+  // HACK: Created a new version, so we can free it on Destroy.
   FVersion := cEmutecaVersion.Create(nil);
+end;
+
+procedure TfmActAddVersion.cbxInnerFileChange(Sender: TObject);
+begin
+  Version.Folder := eFile.Text;
+  Version.FileName:= cbxInnerFile.Text;
+  Version.Parent := RemoveFromBrackets(ExtractFileNameOnly(eFile.Text));
+  Version.Title := RemoveFromBrackets(ExtractFileNameOnly(cbxInnerFile.Text));
+  Version.Description := CopyFromBrackets(ExtractFileNameOnly(cbxInnerFile.Text));
+  VersionEditor.UpdateData;
 end;
 
 procedure TfmActAddVersion.cbxSystemChange(Sender: TObject);
@@ -103,11 +111,16 @@ begin
 
   TempSys := cEmutecaSystem(cbxSystem.Items.Objects[cbxSystem.ItemIndex]);
 
+  if TempSys := nil then Exit;
+
+  lSystemInfo.Caption:=TempSys.Extensions.CommaText;
+
+  //
   ExtFilter := 'All suported files|';
-  ExtFilter := ExtFilter + '*.' + AnsiReplaceText(TempSys.Extensions.CommaText,',',';*.');
+  ExtFilter := ExtFilter + '*.' + AnsiReplaceText(lSystemInfo.Caption,',',';*.');
   ExtFilter := ExtFilter + ';*.' + AnsiReplaceText(w7zFileExts,',',';*.');
   ExtFilter := ExtFilter + '|All files|' + AllFilesMask;
-  eArchive.Filter:=ExtFilter;
+  eFile.Filter:=ExtFilter;
 
 end;
 
@@ -115,13 +128,14 @@ procedure TfmActAddVersion.chkOpenAsArchiveChange(Sender: TObject);
 begin
   if not chkOpenAsArchive.Enabled then Exit;
 
-  if not SupportedExt(eArchive.Text, Emuteca.Config.CompressedExtensions) then Exit;
+  if not SupportedExt(eFile.Text, Emuteca.Config.CompressedExtensions) then Exit;
 
   cbxInnerFile.Clear;
 
-  if not FileExistsUTF8(eArchive.Text) then Exit;
+  if not FileExistsUTF8(eFile.Text) then Exit;
 
-  w7zListFiles(eArchive.Text, cbxInnerFile.Items, True)
+  w7zListFiles(eFile.Text, cbxInnerFile.Items, True)
+
 end;
 
 procedure TfmActAddVersion.SetIconsIni(AValue: string);
