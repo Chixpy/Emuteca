@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, LazFileUtils, Forms, Controls, StdCtrls, ExtCtrls, EditBtn,
   CheckLst, ActnList, Buttons,
-  ucEmutecaSystem, ucEmutecaEmulator, ucEmutecaEmulatorManager,
+  ucEmutecaConfig, ucEmutecaSystem, ucEmutecaEmulator, ucEmutecaEmulatorManager,
   uCHXStrUtils;
 
 resourcestring
@@ -51,9 +51,11 @@ type
     procedure bCreateSubdirsClick(Sender: TObject);
 
   private
+    FEmuConfig: cEmutecaConfig;
     { private declarations }
     FSystem: cEmutecaSystem;
     FEmuManager: cEmutecaEmulatorManager;
+    procedure SetEmuConfig(AValue: cEmutecaConfig);
     procedure SetSystem(AValue: cEmutecaSystem);
     procedure SetEmuManager(AValue: cEmutecaEmulatorManager);
 
@@ -71,6 +73,7 @@ type
 
     property EmuManager: cEmutecaEmulatorManager
       read FEmuManager write SetEmuManager;
+    property EmuConfig: cEmutecaConfig read FEmuConfig write SetEmuConfig;
   end;
 
 implementation
@@ -85,10 +88,37 @@ begin
 end;
 
 procedure TfmEmutecaSystemEditor.bCreateSubdirsClick(Sender: TObject);
+var
+  FolderList, aLine: TStringList;
+  i: Integer;
 begin
+  if not assigned (EmuConfig) then Exit;
   if (eBaseFolder.Text='') or not DirectoryExistsUTF8(eBaseFolder.Text) then
     { TODO : Exception :-P }
     Exit;
+  if not FileExistsUTF8(EmuConfig.DataFolder + EmuConfig.SysStructFile) then
+     { TODO : Exception :-P }
+    Exit;
+
+  aLine := TStringList.Create;
+  FolderList := TStringList.Create;
+  try
+    FolderList.LoadFromFile(EmuConfig.DataFolder + EmuConfig.SysStructFile);
+    i:=1; //Skip header
+    while i < FolderList.Count do
+    begin
+      aLine.Clear;
+      aLine.CommaText:=FolderList[i];
+      if aLine.Count > 0 then
+        ForceDirectoriesUTF8(SetAsFolder(eBaseFolder.Text) + SetAsFolder(aLine[0]));
+        { TODO : Add folders to their respective system additional directories }
+      inc(i);
+    end;
+
+  finally
+    FreeAndNil(FolderList);
+    FreeAndNil(aLine);
+  end;
 
 
 end;
@@ -104,6 +134,12 @@ begin
     Exit;
   FSystem := AValue;
   UpdateData;
+end;
+
+procedure TfmEmutecaSystemEditor.SetEmuConfig(AValue: cEmutecaConfig);
+begin
+  if FEmuConfig=AValue then Exit;
+  FEmuConfig:=AValue;
 end;
 
 procedure TfmEmutecaSystemEditor.SetEmuManager(AValue:

@@ -86,6 +86,7 @@ type
     FParentFile: string;
     FScriptsFolder: string;
     FSearchFile: string;
+    FSysStructFile: string;
     FSysSubfolder: string;
     FSystemsIniFile: string;
     FTagSubFolder: string;
@@ -129,6 +130,7 @@ type
     procedure SetParentFile(AValue: string);
     procedure SetScriptsFolder(const AValue: string);
     procedure SetSearchFile(const AValue: string);
+    procedure SetSysStructFile(AValue: string);
     procedure SetSysSubfolder(AValue: string);
     procedure SetSystemsIniFile(const AValue: string);
     procedure SetTagSubFolder(const AValue: string);
@@ -200,6 +202,8 @@ type
     property EmulatorsFile: string read FEmulatorsFile write SetEmulatorsFile;
     property SystemsFile: string read FSystemsIniFile write SetSystemsIniFile;
     property SysSubfolder: string read FSysSubfolder write SetSysSubfolder;
+    { TODO : Maybe GUIOnly config }
+    property SysStructFile: string read FSysStructFile write SetSysStructFile;
 
     // File extensions
     property GameDataExt: string read FGameDataExt write SetGameDataExt;
@@ -377,9 +381,14 @@ begin
   FSearchFile := SetAsFile(AValue);
 end;
 
+procedure cEmutecaConfig.SetSysStructFile(AValue: string);
+begin
+  FSysStructFile := SetAsFile(AValue);
+end;
+
 procedure cEmutecaConfig.SetSysSubfolder(AValue: string);
 begin
-  FSysSubfolder:=SetAsFolder(AValue);
+  FSysSubfolder := SetAsFolder(AValue);
 end;
 
 procedure cEmutecaConfig.SetSystemsIniFile(const AValue: string);
@@ -444,8 +453,8 @@ end;
 procedure cEmutecaConfig.Update7zPaths;
 begin
   // Updating u7zWrapper globals...;
-  w7zPathTo7zexe  := ToolsFolder + z7Subfolder + z7CMExecutable;
-  w7zPathTo7zGexe :=  ToolsFolder + z7Subfolder + z7GExecutable;
+  w7zPathTo7zexe := ToolsFolder + z7Subfolder + z7CMExecutable;
+  w7zPathTo7zGexe := ToolsFolder + z7Subfolder + z7GExecutable;
 end;
 
 procedure cEmutecaConfig.LoadConfig(aFileName: string);
@@ -496,7 +505,9 @@ begin
     EmulatorsFile := IniFile.ReadString('Config', 'EmulatorsFile',
       EmulatorsFile);
     SystemsFile := IniFile.ReadString('Config', 'SystemsFile', SystemsFile);
+    SysStructFile:=IniFile.ReadString('Config', 'SysStructFile', SysStructFile);
     SysSubfolder := IniFile.ReadString('Config', 'SysSubfolder', SysSubfolder);
+
 
     // Tools
     ToolsFolder := IniFile.ReadString('Tools', 'ToolsFolder', ToolsFolder);
@@ -583,6 +594,7 @@ begin
     IniFile.WriteString('Config', 'VersionsFile', VersionsFile);
     IniFile.WriteString('Config', 'EmulatorsIniFile', EmulatorsFile);
     IniFile.WriteString('Config', 'SystemsIniFile', SystemsFile);
+    IniFile.WriteString('Config', 'SysStructFile', SysStructFile);
     IniFile.WriteString('Config', 'SysSubfolder', SysSubfolder);
 
     // Tools
@@ -654,7 +666,9 @@ begin
   VersionsFile := 'Versions.csv';
   EmulatorsFile := 'Emulators.ini';
   SystemsFile := 'Systems.ini';
+  SysStructFile := 'SysFolders.csv';
   SysSubfolder := 'Systems';
+
 
   // CommonMedia
   CommonMediaFolder := 'Common';

@@ -6,8 +6,8 @@ object fmEmutecaSystemManager: TfmEmutecaSystemManager
   ClientHeight = 406
   ClientWidth = 652
   TabOrder = 0
-  DesignLeft = 288
-  DesignTop = 155
+  DesignLeft = 426
+  DesignTop = 210
   object StatusBar1: TStatusBar
     Left = 0
     Height = 23

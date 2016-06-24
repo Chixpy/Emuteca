@@ -6,8 +6,8 @@ object fmEmutecaSystemEditor: TfmEmutecaSystemEditor
   ClientHeight = 370
   ClientWidth = 580
   TabOrder = 0
-  DesignLeft = 449
-  DesignTop = 191
+  DesignLeft = 519
+  DesignTop = 206
   object gbxFiles: TGroupBox
     Left = 288
     Height = 315

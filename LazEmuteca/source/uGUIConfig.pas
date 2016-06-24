@@ -20,7 +20,7 @@ const
 
   // [Config]
   krsIniSectionConfig = 'Config';
-  rsSearchFile = 'SearchFile';
+  krsSearchFile = 'SearchFile';
   krsHelpFolder = 'HelpFolder';
 
   // [Tools]
@@ -178,7 +178,7 @@ begin
 
   // Data
   SearchFile := IniFile.ReadString(krsIniSectionConfig,
-    rsSearchFile, SearchFile);
+    krsSearchFile, SearchFile);
   HelpFolder := IniFile.ReadString(krsIniSectionConfig,
     krsHelpFolder, HelpFolder);
 
@@ -205,7 +205,7 @@ begin
     IconsIniFile);
 
   // Data
-  IniFile.WriteString(krsIniSectionConfig, rsSearchFile, SearchFile);
+  IniFile.WriteString(krsIniSectionConfig, krsSearchFile, SearchFile);
   IniFile.WriteString(krsIniSectionConfig, krsHelpFolder, HelpFolder);
 
   // Tools

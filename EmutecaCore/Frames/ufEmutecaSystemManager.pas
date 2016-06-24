@@ -29,11 +29,12 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Menus, ComCtrls, ExtCtrls,
   CheckLst, ActnList, Buttons, Dialogs, StdCtrls,
   uCHXImageUtils,
-  ucEmutecaSystemManager, ucEmutecaSystem, ucEmutecaEmulatorManager,
+  ucEmuteca, ucEmutecaSystem,
   ufEmutecaSystemEditor;
 
 resourcestring
   rsSystemName = 'System name';
+  rsEEmutecaNil = 'cEmuteca not defined.';
 
 type
 
@@ -90,33 +91,30 @@ type
     procedure CheckListBox1ClickCheck(Sender: TObject);
 
   private
-    FEmuManager: cEmutecaEmulatorManager;
+    FEmuteca: cEmuteca;
     FIconsIni: string;
     FSysEditor: TfmEmutecaSystemEditor;
-    FSysManager: cEmutecaSystemManager;
-    procedure SetEmuManager(AValue: cEmutecaEmulatorManager);
+    procedure SetEmuteca(AValue: cEmuteca);
     procedure SetIconsIni(AValue: string);
     procedure SetSysEditor(AValue: TfmEmutecaSystemEditor);
-    procedure SetSysManager(AValue: cEmutecaSystemManager);
 
   protected
     property SysEditor: TfmEmutecaSystemEditor
       read FSysEditor write SetSysEditor;
+    {< System editor.}
 
     procedure LoadList;
     procedure SelectItem;
     procedure SaveToFile;
     procedure LoadFromFile;
 
+    // Exceptions
+    procedure TestEmuteca;
+
   public
     { public declarations }
     property IconsIni: string read FIconsIni write SetIconsIni;
-    property SysManager: cEmutecaSystemManager
-      read FSysManager write SetSysManager;
-    property EmuManager: cEmutecaEmulatorManager
-      read FEmuManager write SetEmuManager;
-    {< Needed to populate OtherEmulators in SysEditor
-    }
+    property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -127,12 +125,6 @@ implementation
 {$R *.lfm}
 
 { TfmEmutecaSystemManager }
-
-procedure TfmEmutecaSystemManager.SetSysManager(AValue: cEmutecaSystemManager);
-begin
-  FSysManager := AValue;
-  LoadList;
-end;
 
 procedure TfmEmutecaSystemManager.CheckListBox1Click(Sender: TObject);
 begin
@@ -148,6 +140,8 @@ begin
   CurrItem := cEmutecaSystem(
     CheckListBox1.Items.Objects[CheckListBox1.ItemIndex]);
 
+  if not assigned(CurrItem) then Exit;
+
   CurrItem.Enabled := CheckListBox1.Checked[CheckListBox1.ItemIndex];
 end;
 
@@ -156,15 +150,17 @@ var
   SystemID: string;
   aSystem: cEmutecaSystem;
 begin
+  TestEmuteca;
+
   SystemID := Trim(InputBox(actAddItem.Caption, rsSystemName, ''));
   if SystemID = '' then
     Exit;
 
   aSystem := cEmutecaSystem.Create(nil);
   aSystem.ID := SystemID;
-  aSystem.Model:=SystemID;
+  aSystem.Model := SystemID;
   aSystem.Enabled := True;
-  SysManager.FullList.Add(aSystem);
+  Emuteca.SystemManager.FullList.Add(aSystem);
 
   LoadList;
 
@@ -186,10 +182,12 @@ procedure TfmEmutecaSystemManager.actCheckAllExecute(Sender: TObject);
 var
   i: integer;
 begin
+  TestEmuteca;
+
   i := 0;
-  while i < SysManager.FullList.Count do
+  while i < Emuteca.SystemManager.FullList.Count do
   begin
-    SysManager.FullList[i].Enabled := True;
+    Emuteca.SystemManager.FullList[i].Enabled := True;
     Inc(i);
   end;
   LoadList;
@@ -200,9 +198,11 @@ begin
   if CheckListBox1.ItemIndex = -1 then
     exit;
 
+  TestEmuteca;
+
   SysEditor.System := nil;
-  SysManager.FullList.Remove(
-    cEmutecaSystem(CheckListBox1.Items.Objects[CheckListBox1.ItemIndex]) );
+  Emuteca.SystemManager.FullList.Remove(
+    cEmutecaSystem(CheckListBox1.Items.Objects[CheckListBox1.ItemIndex]));
   LoadList;
 end;
 
@@ -226,17 +226,23 @@ begin
   if FSysEditor = AValue then
     Exit;
   FSysEditor := AValue;
+
+  if Assigned(Emuteca) then
+    SysEditor.EmuManager := Emuteca.EmulatorManager;
 end;
 
-procedure TfmEmutecaSystemManager.SetEmuManager(AValue:
-  cEmutecaEmulatorManager);
+procedure TfmEmutecaSystemManager.SetEmuteca(AValue: cEmuteca);
 begin
-  if FEmuManager = AValue then
+  if FEmuteca = AValue then
     Exit;
-  FEmuManager := AValue;
+  FEmuteca := AValue;
 
-  if Assigned(SysEditor) then
-    SysEditor.EmuManager := EmuManager;
+  LoadList;
+
+  if not Assigned(Emuteca) then Exit;
+
+    SysEditor.EmuManager := Emuteca.EmulatorManager;
+    SysEditor.EmuConfig:= Emuteca.Config;
 end;
 
 procedure TfmEmutecaSystemManager.SetIconsIni(AValue: string);
@@ -257,17 +263,17 @@ begin
 
   CheckListBox1.Clear;
 
-  if not assigned(SysManager) then
-    exit;
+  if not assigned(Emuteca) then
+    Exit;
 
   i := 0;
-  while i < SysManager.FullList.Count do
+  while i < Emuteca.SystemManager.FullList.Count do
   begin
     // Dragons
     CheckListBox1.Checked[
-      CheckListBox1.Items.AddObject(SysManager.FullList[i].Model,
-      SysManager.FullList[i])
-      ] := SysManager.FullList[i].Enabled;
+      CheckListBox1.Items.AddObject(Emuteca.SystemManager.FullList[i].Model,
+      Emuteca.SystemManager.FullList[i])
+      ] := Emuteca.SystemManager.FullList[i].Enabled;
     Inc(i);
   end;
 end;
@@ -284,12 +290,19 @@ end;
 
 procedure TfmEmutecaSystemManager.SaveToFile;
 begin
-  SysManager.SaveToFile('', False);
+  TestEmuteca;
+  Emuteca.SystemManager.SaveToFile('', False);
 end;
 
 procedure TfmEmutecaSystemManager.LoadFromFile;
 begin
-  SysManager.LoadFromFile('');
+  TestEmuteca;
+  Emuteca.SystemManager.LoadFromFile('');
+end;
+
+procedure TfmEmutecaSystemManager.TestEmuteca;
+begin
+  if not Assigned(Emuteca) then raise Exception.Create(rsEEmutecaNil);
 end;
 
 constructor TfmEmutecaSystemManager.Create(TheOwner: TComponent);

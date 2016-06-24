@@ -281,9 +281,7 @@ begin
 
   aFrame.IconsIni := GUIConfig.ImagesFolder + GUIConfig.IconsSubfolder +
     GUIConfig.IconsIniFile;
-  { TODO : Assign whole Emuteca? }
-  aFrame.EmuManager := Emuteca.EmulatorManager;
-  aFrame.SysManager := Emuteca.SystemManager;
+  aFrame.Emuteca := Emuteca;
 
    aForm.AutoSize := True;
   aForm.ShowModal;
