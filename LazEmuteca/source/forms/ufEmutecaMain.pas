@@ -246,7 +246,7 @@ begin
   Application.CreateForm(TForm, aForm);
 
   aForm.Position := poMainFormCenter;
-  aForm.AutoSize := True;
+
 
   aFrame := TfmEmutecaEmulatorManager.Create(aForm);
   aForm.Caption := Format(rsFmtWindowCaption,
@@ -259,6 +259,7 @@ begin
     GUIConfig.IconsIniFile;
   aFrame.EmuManager := Emuteca.EmulatorManager;
 
+   aForm.AutoSize := True;
   aForm.ShowModal;
   FreeAndNil(aForm);
 end;
@@ -284,6 +285,7 @@ begin
   aFrame.EmuManager := Emuteca.EmulatorManager;
   aFrame.SysManager := Emuteca.SystemManager;
 
+   aForm.AutoSize := True;
   aForm.ShowModal;
   FreeAndNil(aForm);
 end;

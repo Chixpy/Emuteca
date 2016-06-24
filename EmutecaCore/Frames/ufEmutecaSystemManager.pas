@@ -46,6 +46,7 @@ type
     actImportList: TAction;
     actCancelAndExit: TAction;
     actCheckAll: TAction;
+    actCreateSystemStructure: TAction;
     actUncheckAll: TAction;
     actSaveAndExit: TAction;
     actSaveList: TAction;
@@ -71,13 +72,13 @@ type
     Splitter1: TSplitter;
     StatusBar1: TStatusBar;
     ToolBar1: TToolBar;
-    ToolButton1: TToolButton;
-    ToolButton2: TToolButton;
+    bAddItem: TToolButton;
+    bSaveList: TToolButton;
     ToolButton3: TToolButton;
-    ToolButton4: TToolButton;
-    ToolButton5: TToolButton;
+    bExportList: TToolButton;
+    bImportList: TToolButton;
     ToolButton6: TToolButton;
-    ToolButton7: TToolButton;
+    bDeleteItem: TToolButton;
     procedure actAddItemExecute(Sender: TObject);
     procedure actCancelAndExitExecute(Sender: TObject);
     procedure actCheckAllExecute(Sender: TObject);

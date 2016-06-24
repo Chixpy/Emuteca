@@ -32,12 +32,12 @@ object fmEmutecaSystemManager: TfmEmutecaSystemManager
       Caption = 'ToolBar1'
       Images = ilActions
       TabOrder = 0
-      object ToolButton1: TToolButton
+      object bAddItem: TToolButton
         Left = 1
         Top = 2
         Action = actAddItem
       end
-      object ToolButton2: TToolButton
+      object bSaveList: TToolButton
         Left = 24
         Top = 2
         Action = actSaveList
@@ -50,12 +50,12 @@ object fmEmutecaSystemManager: TfmEmutecaSystemManager
         Caption = 'ToolButton3'
         Style = tbsDivider
       end
-      object ToolButton4: TToolButton
+      object bExportList: TToolButton
         Left = 52
         Top = 2
         Action = actExportList
       end
-      object ToolButton5: TToolButton
+      object bImportList: TToolButton
         Left = 75
         Top = 2
         Action = actImportList
@@ -68,7 +68,7 @@ object fmEmutecaSystemManager: TfmEmutecaSystemManager
         Caption = 'ToolButton6'
         Style = tbsDivider
       end
-      object ToolButton7: TToolButton
+      object bDeleteItem: TToolButton
         Left = 103
         Top = 2
         Action = actDeleteItem
@@ -218,6 +218,10 @@ object fmEmutecaSystemManager: TfmEmutecaSystemManager
       Category = 'ItemList'
       Caption = 'Uncheck All'
       OnExecute = actUncheckAllExecute
+    end
+    object actCreateSystemStructure: TAction
+      Category = 'ItemList'
+      Caption = 'actCreateSystemStructure'
     end
   end
   object ilActions: TImageList

@@ -86,6 +86,7 @@ type
     FParentFile: string;
     FScriptsFolder: string;
     FSearchFile: string;
+    FSysSubfolder: string;
     FSystemsIniFile: string;
     FTagSubFolder: string;
     FTempFile: string;
@@ -128,6 +129,7 @@ type
     procedure SetParentFile(AValue: string);
     procedure SetScriptsFolder(const AValue: string);
     procedure SetSearchFile(const AValue: string);
+    procedure SetSysSubfolder(AValue: string);
     procedure SetSystemsIniFile(const AValue: string);
     procedure SetTagSubFolder(const AValue: string);
     procedure SetTempFile(const AValue: string);
@@ -197,6 +199,7 @@ type
     property VersionsFile: string read FVersionsFile write SetVersionsFile;
     property EmulatorsFile: string read FEmulatorsFile write SetEmulatorsFile;
     property SystemsFile: string read FSystemsIniFile write SetSystemsIniFile;
+    property SysSubfolder: string read FSysSubfolder write SetSysSubfolder;
 
     // File extensions
     property GameDataExt: string read FGameDataExt write SetGameDataExt;
@@ -374,6 +377,11 @@ begin
   FSearchFile := SetAsFile(AValue);
 end;
 
+procedure cEmutecaConfig.SetSysSubfolder(AValue: string);
+begin
+  FSysSubfolder:=SetAsFolder(AValue);
+end;
+
 procedure cEmutecaConfig.SetSystemsIniFile(const AValue: string);
 begin
   FSystemsIniFile := SetAsFile(AValue);
@@ -488,6 +496,7 @@ begin
     EmulatorsFile := IniFile.ReadString('Config', 'EmulatorsFile',
       EmulatorsFile);
     SystemsFile := IniFile.ReadString('Config', 'SystemsFile', SystemsFile);
+    SysSubfolder := IniFile.ReadString('Config', 'SysSubfolder', SysSubfolder);
 
     // Tools
     ToolsFolder := IniFile.ReadString('Tools', 'ToolsFolder', ToolsFolder);
@@ -574,6 +583,7 @@ begin
     IniFile.WriteString('Config', 'VersionsFile', VersionsFile);
     IniFile.WriteString('Config', 'EmulatorsIniFile', EmulatorsFile);
     IniFile.WriteString('Config', 'SystemsIniFile', SystemsFile);
+    IniFile.WriteString('Config', 'SysSubfolder', SysSubfolder);
 
     // Tools
     IniFile.WriteString('Tools', 'ToolsFolder', ToolsFolder);
@@ -644,6 +654,7 @@ begin
   VersionsFile := 'Versions.csv';
   EmulatorsFile := 'Emulators.ini';
   SystemsFile := 'Systems.ini';
+  SysSubfolder := 'Systems';
 
   // CommonMedia
   CommonMediaFolder := 'Common';

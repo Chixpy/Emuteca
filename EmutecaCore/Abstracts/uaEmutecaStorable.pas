@@ -130,7 +130,11 @@ begin
   if FileName = '' then
     Exit;
   aTxtFile := TStringList.Create;
-  aTxtFile.LoadFromFile(UTF8ToSys(FileName));
+
+  { TODO : caEmutecaStorableTxt.SaveToFile Export mode }
+  if ExportMode and FileExistsUTF8(FileName) then
+    aTxtFile.LoadFromFile(UTF8ToSys(FileName));
+
   aTxtFile.CaseSensitive := False;
   try
     SaveToFileTxt(aTxtFile, ExportMode);

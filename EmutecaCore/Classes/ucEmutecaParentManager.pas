@@ -84,7 +84,7 @@ begin
   begin
     if UTF8CompareText(FullList[i].ID, aId) = 0 then
       Result := FullList[i];
-    inc(i);
+    Inc(i);
   end;
 end;
 
@@ -141,12 +141,10 @@ begin
   if not Assigned(TxtFile) then
     Exit;
 
-  if not ExportMode then
-  begin
-    TxtFile.Clear;
-    TxtFile.Add('"ID/Sort Name","System","Title"');
-  end;
+  { TODO : cEmutecaParentManager.SaveToFileTxt Export mode }
 
+  TxtFile.Clear;
+  TxtFile.Add('"ID/Sort Name","System","Title"');
   i := 0;
   while i < FullList.Count do
   begin
@@ -158,102 +156,6 @@ begin
     Inc(i);
   end;
 end;
-
-{ TODO : This goes with... cVersion or cEmuteca }
-{function cEmutecaParentManager.Execute(aGame: cEmutecaGameVersion): integer;
-var
-  RomFile, CompressedFile: string;
-  Error: integer;
-  Compressed: boolean;
-  NewDir: boolean;
-  TempTime: TTime;
-  aFolder: string;
-begin
-  // Uhm. If things go bad from the begin, they only can improve :-D
-  Result := kEmutecaExecErrorNoGame;
-
-  // No, they don't :-|
-  if aGame = nil then
-    Exit;
-  if Emulator = nil then
-    Exit;
-  if System = nil then
-    Exit;
-
-  // Testing if it's in a compressed archive.
-  // I don't test extensions... only if the "game's folder" is actually a
-  //   file and not a folder.
-  CompressedFile := ExcludeTrailingPathDelimiter(aGame.Folder);
-  Compressed := FileExistsUTF8(CompressedFile);
-
-  if Trim(ExcludeTrailingPathDelimiter(System.TempFolder)) <> '' then
-    aFolder := SetAsFolder(System.TempFolder)
-  else
-    aFolder := SetAsFolder(TempFolder);
-  aFolder := SetAsFolder(aFolder + krsEmutecaGameSubFolder);
-
-  NewDir := not DirectoryExists(aFolder);
-  if NewDir then
-    ForceDirectoriesUTF8(aFolder);
-
-  if Compressed then
-  begin
-    if System.ExtractAll then
-      Error := w7zExtractFile(CompressedFile, AllFilesMask, aFolder, True, '')
-    else
-      Error := w7zExtractFile(CompressedFile, aGame.FileName,
-        aFolder, True, '');
-    if Error <> 0 then
-      Exit;
-    RomFile := aFolder + aGame.FileName;
-  end
-  else
-  begin
-    RomFile := SetAsFolder(aGame.Folder) + aGame.FileName;
-    if (System.ExtractAll) and
-      (CompressedExt.IndexOf(UTF8Copy(ExtractFileExt(aGame.FileName),
-      2, MaxInt)) <> -1) then
-    begin // The ROM is a compressed file but must be extracted anyways
-      Error := w7zExtractFile(RomFile, '*', aFolder, True, '');
-      if Error <> 0 then
-        Exit;
-      Compressed := True;
-    end;
-  end;
-
-  // Last test if extracting goes wrong...
-  if (RomFile = '') or not FileExistsUTF8(RomFile) then
-    // Error code already set...
-    Exit;
-
-  TempTime := Now;
-
-  Result := Emulator.Execute(RomFile);
-
-  // if Emulator returns no error and passed at least one minute...
-  if (Result = 0) and (Now > (EncodeTime(0, 1, 0, 0) + TempTime)) then
-  begin
-    aGame.Statistics.AddPlayingTime(Now, TempTime);
-    aGame.Statistics.LastTime := TempTime;
-    aGame.Statistics.TimesPlayed := aGame.Statistics.TimesPlayed + 1;
-  end;
-
-  // Kill all them
-  if Compressed then
-  begin
-    if System.ExtractAll then
-    begin
-      DeleteDirectory(aFolder, False);
-      if not NewDir then
-        ForceDirectoriesUTF8(aFolder);
-    end
-    else
-    begin
-      if FileExistsUTF8(RomFile) then
-        DeleteFileUTF8(RomFile);
-    end;
-  end;
-end;}
 
 constructor cEmutecaParentManager.Create(aOwner: TComponent);
 begin

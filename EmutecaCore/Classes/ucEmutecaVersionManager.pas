@@ -61,9 +61,10 @@ begin
   begin
     if UTF8CompareText(FullList[i].ID, aId) = 0 then
       Result := FullList[i];
-    inc(i);
+    Inc(i);
   end;
 end;
+
 procedure cEmutecaVersionManager.AssingAllTo(aList: TStrings);
 var
   i: longint;
@@ -131,11 +132,9 @@ begin
   if not Assigned(TxtFile) then
     Exit;
 
-  if not ExportMode then
-  begin
-    TxtFile.Clear;
-    TxtFile.Add('"ID","System","Parent","Title","Version","Folder","FileName"');
-  end;
+  { TODO : cEmutecaVersionManager.SaveToFileTxt Export mode }
+  TxtFile.Clear;
+  TxtFile.Add('"ID","System","Parent","Title","Version","Folder","FileName"');
 
   i := 0;
   while i < FullList.Count do

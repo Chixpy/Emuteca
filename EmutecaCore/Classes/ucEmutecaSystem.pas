@@ -118,16 +118,26 @@ type
     property ExtractAll: boolean read FExtractAll write SetExtractAll;
     //< Must all files be extracted from compressed archives?
     property GameKey: TEmutecaFileKey read FGameKey write SetGameKey;
-    //< Must CRC/SHA be used as game identifiers (when importing/exporting data)
+    {< Must CRC/SHA be used as game identifiers (when importing/exporting
+         data)}
 
     property BaseFolder: string read FBaseFolder write SetBaseFolder;
     {< System base folder
 
-      Folder where all data and subfolders reside. Used by default to store
-        some data if the file isn't defined (System image or text.)
+       Used by default to store some data if the file isn't defined
+         (System image or text).
     }
     property TempFolder: string read FTempFolder write SetTempFolder;
+    {< Temp folder for decompress Software, it's recommended leave it empty
+         (so Emuteca will use OS Temp folder.
 
+       Some cases of use it:
+       @unorderedList(
+         @item(File must extracted to a specific folder.)
+         @item(You must browse to the folder with the emulator... :-@ )
+         @item(Lazy testing... >_<U )
+       )
+     }
     property MainEmulator: string read FMainEmulator write SetMainEmulator;
     //< Main emulator ID.
     property OtherEmulators: TStringList read FOtherEmulators;

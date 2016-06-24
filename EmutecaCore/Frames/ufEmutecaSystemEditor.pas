@@ -5,7 +5,7 @@ unit ufEmutecaSystemEditor;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, StdCtrls, ExtCtrls, EditBtn,
+  Classes, SysUtils, LazFileUtils, Forms, Controls, StdCtrls, ExtCtrls, EditBtn,
   CheckLst, ActnList, Buttons,
   ucEmutecaSystem, ucEmutecaEmulator, ucEmutecaEmulatorManager,
   uCHXStrUtils;
@@ -22,6 +22,7 @@ type
     actSave: TAction;
     ActionList1: TActionList;
     bCancel: TBitBtn;
+    bCreateSubdirs: TButton;
     bSave: TBitBtn;
     cbxMainEmulator: TComboBox;
     chkExtractAllFiles: TCheckBox;
@@ -47,6 +48,7 @@ type
     rgbGameKey: TRadioGroup;
     procedure actCancelExecute(Sender: TObject);
     procedure actSaveExecute(Sender: TObject);
+    procedure bCreateSubdirsClick(Sender: TObject);
 
   private
     { private declarations }
@@ -80,6 +82,15 @@ implementation
 procedure TfmEmutecaSystemEditor.actSaveExecute(Sender: TObject);
 begin
   SaveData;
+end;
+
+procedure TfmEmutecaSystemEditor.bCreateSubdirsClick(Sender: TObject);
+begin
+  if (eBaseFolder.Text='') or not DirectoryExistsUTF8(eBaseFolder.Text) then
+    { TODO : Exception :-P }
+    Exit;
+
+
 end;
 
 procedure TfmEmutecaSystemEditor.actCancelExecute(Sender: TObject);
