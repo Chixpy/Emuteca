@@ -16,7 +16,7 @@ ufEmutecaEmulatorEditor,
   ufEmutecaEmulatorManager, ufEmutecaSystemManager, ugEmutecaManager,
   ugEmutecaPersList, ufEmutecaScriptManager, ucEmutecaVersionManager,
   ufEmutecaSystemEditor, ufEmutecaActAddVersion, ufEmutecaVersionEditor, 
-uGUIConfig, uaEmutecaStorable, uaEmutecaManager;
+uGUIConfig, uaEmutecaStorable, uaEmutecaManager, ufEmutecaSystemInfoEditor;
 
 {$R *.res}
 

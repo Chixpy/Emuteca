@@ -94,7 +94,7 @@
         <PackageName Value="LCL"/>
       </Item6>
     </RequiredPackages>
-    <Units Count="52">
+    <Units Count="53">
       <Unit0>
         <Filename Value="LazEmuteca.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -345,6 +345,13 @@
         <Filename Value="..\CHXPas\uCHXStrUtils.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit51>
+      <Unit52>
+        <Filename Value="..\EmutecaCore\Frames\ufEmutecaSystemInfoEditor.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fmSystemInfoEditor"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+      </Unit52>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

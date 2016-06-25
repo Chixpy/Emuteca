@@ -30,7 +30,7 @@ uses
   CheckLst, ActnList, Buttons, Dialogs, StdCtrls,
   uCHXImageUtils,
   ucEmuteca, ucEmutecaSystem,
-  ufEmutecaSystemEditor;
+  ufEmutecaSystemEditor, ufEmutecaSystemInfoEditor;
 
 resourcestring
   rsSystemName = 'System name';
@@ -94,14 +94,18 @@ type
     FEmuteca: cEmuteca;
     FIconsIni: string;
     FSysEditor: TfmEmutecaSystemEditor;
+    FSysInfoEditor: TfmSystemInfoEditor;
     procedure SetEmuteca(AValue: cEmuteca);
     procedure SetIconsIni(AValue: string);
     procedure SetSysEditor(AValue: TfmEmutecaSystemEditor);
+    procedure SetSysInfoEditor(AValue: TfmSystemInfoEditor);
 
   protected
     property SysEditor: TfmEmutecaSystemEditor
       read FSysEditor write SetSysEditor;
     {< System editor.}
+    property SysInfoEditor: TfmSystemInfoEditor
+      read FSysInfoEditor write SetSysInfoEditor;
 
     procedure LoadList;
     procedure SelectItem;
@@ -140,7 +144,8 @@ begin
   CurrItem := cEmutecaSystem(
     CheckListBox1.Items.Objects[CheckListBox1.ItemIndex]);
 
-  if not assigned(CurrItem) then Exit;
+  if not assigned(CurrItem) then
+    Exit;
 
   CurrItem.Enabled := CheckListBox1.Checked[CheckListBox1.ItemIndex];
 end;
@@ -231,6 +236,14 @@ begin
     SysEditor.EmuManager := Emuteca.EmulatorManager;
 end;
 
+procedure TfmEmutecaSystemManager.SetSysInfoEditor(AValue:
+  TfmSystemInfoEditor);
+begin
+  if FSysInfoEditor = AValue then
+    Exit;
+  FSysInfoEditor := AValue;
+end;
+
 procedure TfmEmutecaSystemManager.SetEmuteca(AValue: cEmuteca);
 begin
   if FEmuteca = AValue then
@@ -239,10 +252,11 @@ begin
 
   LoadList;
 
-  if not Assigned(Emuteca) then Exit;
+  if not Assigned(Emuteca) then
+    Exit;
 
-    SysEditor.EmuManager := Emuteca.EmulatorManager;
-    SysEditor.EmuConfig:= Emuteca.Config;
+  SysEditor.EmuManager := Emuteca.EmulatorManager;
+  SysEditor.EmuConfig := Emuteca.Config;
 end;
 
 procedure TfmEmutecaSystemManager.SetIconsIni(AValue: string);
@@ -302,7 +316,8 @@ end;
 
 procedure TfmEmutecaSystemManager.TestEmuteca;
 begin
-  if not Assigned(Emuteca) then raise Exception.Create(rsEEmutecaNil);
+  if not Assigned(Emuteca) then
+    raise Exception.Create(rsEEmutecaNil);
 end;
 
 constructor TfmEmutecaSystemManager.Create(TheOwner: TComponent);
@@ -317,6 +332,9 @@ constructor TfmEmutecaSystemManager.Create(TheOwner: TComponent);
     SysEditor.Align := alClient;
 
     aTabSheet := PageControl1.AddTabSheet;
+    FSysInfoEditor := TfmSystemInfoEditor.Create(aTabSheet);
+    SysInfoEditor.Parent := aTabSheet;
+    SysInfoEditor.Align := alClient;
   end;
 
 begin

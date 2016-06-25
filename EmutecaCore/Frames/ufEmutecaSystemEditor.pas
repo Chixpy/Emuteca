@@ -5,9 +5,11 @@ unit ufEmutecaSystemEditor;
 interface
 
 uses
-  Classes, SysUtils, LazFileUtils, Forms, Controls, StdCtrls, ExtCtrls, EditBtn,
+  Classes, SysUtils, LazFileUtils, Forms, Controls, StdCtrls,
+  ExtCtrls, EditBtn,
   CheckLst, ActnList, Buttons,
-  ucEmutecaConfig, ucEmutecaSystem, ucEmutecaEmulator, ucEmutecaEmulatorManager,
+  ucEmutecaConfig, ucEmutecaSystem, ucEmutecaEmulator,
+  ucEmutecaEmulatorManager,
   uCHXStrUtils;
 
 resourcestring
@@ -81,51 +83,50 @@ implementation
 {$R *.lfm}
 
 { TfmEmutecaSystemEditor }
-
-procedure TfmEmutecaSystemEditor.actSaveExecute(Sender: TObject);
-begin
-  SaveData;
-end;
-
 procedure TfmEmutecaSystemEditor.bCreateSubdirsClick(Sender: TObject);
 var
   FolderList, aLine: TStringList;
-  i: Integer;
+  i: integer;
 begin
-  if not assigned (EmuConfig) then Exit;
-  if (eBaseFolder.Text='') or not DirectoryExistsUTF8(eBaseFolder.Text) then
+  if not assigned(EmuConfig) then
+    Exit;
+  if (eBaseFolder.Text = '') or not DirectoryExistsUTF8(eBaseFolder.Text) then
     { TODO : Exception :-P }
     Exit;
   if not FileExistsUTF8(EmuConfig.DataFolder + EmuConfig.SysStructFile) then
-     { TODO : Exception :-P }
+    { TODO : Exception :-P }
     Exit;
 
   aLine := TStringList.Create;
   FolderList := TStringList.Create;
   try
     FolderList.LoadFromFile(EmuConfig.DataFolder + EmuConfig.SysStructFile);
-    i:=1; //Skip header
+    i := 1; //Skip header
     while i < FolderList.Count do
     begin
       aLine.Clear;
-      aLine.CommaText:=FolderList[i];
+      aLine.CommaText := FolderList[i];
       if aLine.Count > 0 then
-        ForceDirectoriesUTF8(SetAsFolder(eBaseFolder.Text) + SetAsFolder(aLine[0]));
-        { TODO : Add folders to their respective system additional directories }
-      inc(i);
+        ForceDirectoriesUTF8(SetAsFolder(eBaseFolder.Text) +
+          SetAsFolder(aLine[0]));
+      { TODO : Add folders to their respective system additional directories }
+      Inc(i);
     end;
 
   finally
     FreeAndNil(FolderList);
     FreeAndNil(aLine);
   end;
-
-
 end;
 
 procedure TfmEmutecaSystemEditor.actCancelExecute(Sender: TObject);
 begin
   UpdateData;
+end;
+
+procedure TfmEmutecaSystemEditor.actSaveExecute(Sender: TObject);
+begin
+  SaveData;
 end;
 
 procedure TfmEmutecaSystemEditor.SetSystem(AValue: cEmutecaSystem);
@@ -138,8 +139,9 @@ end;
 
 procedure TfmEmutecaSystemEditor.SetEmuConfig(AValue: cEmutecaConfig);
 begin
-  if FEmuConfig=AValue then Exit;
-  FEmuConfig:=AValue;
+  if FEmuConfig = AValue then
+    Exit;
+  FEmuConfig := AValue;
 end;
 
 procedure TfmEmutecaSystemEditor.SetEmuManager(AValue:
