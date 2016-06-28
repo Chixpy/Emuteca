@@ -31,6 +31,7 @@ type
 
   TfrmEmutecaMain = class(TForm)
     actEmulatorManager: TAction;
+    actAddFolder: TAction;
     actMediaManager: TAction;
     actScriptManager: TAction;
     actSystemManager: TAction;
@@ -41,12 +42,15 @@ type
     IniPropStorage1: TIniPropStorage;
     MainMenu: TMainMenu;
     MenuItem1: TMenuItem;
+    MenuItem10: TMenuItem;
+    MenuItem11: TMenuItem;
     MenuItem3: TMenuItem;
     MenuItem4: TMenuItem;
     MenuItem5: TMenuItem;
     MenuItem6: TMenuItem;
     MenuItem7: TMenuItem;
     MenuItem8: TMenuItem;
+    MenuItem9: TMenuItem;
     mmHelp: TMenuItem;
     mmFile: TMenuItem;
     MenuItem2: TMenuItem;
@@ -223,16 +227,18 @@ begin
   Self.Caption := Format(rsFmtWindowCaption,
     [Application.Title, Self.Caption]);
 
+  { TODO : Store Emuteca config filename. So, we can change profiles... }
+  FGUIConfig := cGUIConfig.Create(self);
+  GUIConfig.LoadConfig('GUI.ini');
+  IniPropStorage1.IniFileName := GUIConfig.ConfigFile;
+  IniPropStorage1.Restore;
+
   // Creating Emuteca Core :-D
   FEmuteca := cEmuteca.Create(self);
   Emuteca.ProgressCallBack := @self.OnProgressBar;
   Emuteca.LoadConfig(krsEmuteca + '.ini');
 
-  FGUIConfig := cGUIConfig.Create(self);
-  GUIConfig.LoadConfig('GUI.ini');
 
-  IniPropStorage1.IniFileName := GUIConfig.ConfigFile;
-  IniPropStorage1.Restore;
 
   CreateFrames;
 

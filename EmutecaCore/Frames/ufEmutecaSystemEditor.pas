@@ -53,11 +53,10 @@ type
     procedure bCreateSubdirsClick(Sender: TObject);
 
   private
-    FEmuConfig: cEmutecaConfig;
-    { private declarations }
+    FConfig: cEmutecaConfig;
     FSystem: cEmutecaSystem;
     FEmuManager: cEmutecaEmulatorManager;
-    procedure SetEmuConfig(AValue: cEmutecaConfig);
+    procedure SetConfig(AValue: cEmutecaConfig);
     procedure SetSystem(AValue: cEmutecaSystem);
     procedure SetEmuManager(AValue: cEmutecaEmulatorManager);
 
@@ -75,7 +74,7 @@ type
 
     property EmuManager: cEmutecaEmulatorManager
       read FEmuManager write SetEmuManager;
-    property EmuConfig: cEmutecaConfig read FEmuConfig write SetEmuConfig;
+    property Config: cEmutecaConfig read FConfig write SetConfig;
   end;
 
 implementation
@@ -88,19 +87,19 @@ var
   FolderList, aLine: TStringList;
   i: integer;
 begin
-  if not assigned(EmuConfig) then
+  if not assigned(Config) then
     Exit;
   if (eBaseFolder.Text = '') or not DirectoryExistsUTF8(eBaseFolder.Text) then
     { TODO : Exception :-P }
     Exit;
-  if not FileExistsUTF8(EmuConfig.DataFolder + EmuConfig.SysStructFile) then
+  if not FileExistsUTF8(Config.DataFolder + Config.SysStructFile) then
     { TODO : Exception :-P }
     Exit;
 
   aLine := TStringList.Create;
   FolderList := TStringList.Create;
   try
-    FolderList.LoadFromFile(EmuConfig.DataFolder + EmuConfig.SysStructFile);
+    FolderList.LoadFromFile(Config.DataFolder + Config.SysStructFile);
     i := 1; //Skip header
     while i < FolderList.Count do
     begin
@@ -137,11 +136,11 @@ begin
   UpdateData;
 end;
 
-procedure TfmEmutecaSystemEditor.SetEmuConfig(AValue: cEmutecaConfig);
+procedure TfmEmutecaSystemEditor.SetConfig(AValue: cEmutecaConfig);
 begin
-  if FEmuConfig = AValue then
+  if FConfig = AValue then
     Exit;
-  FEmuConfig := AValue;
+  FConfig := AValue;
 end;
 
 procedure TfmEmutecaSystemEditor.SetEmuManager(AValue:
@@ -204,7 +203,7 @@ var
 begin
   ClearData;
 
-  if not assigned(System) then
+  if not (assigned(System) and assigned(EmuManager)) then
     Exit;
 
   lID.Caption := System.ID;

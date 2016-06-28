@@ -93,14 +93,6 @@ object fmEmutecaSystemManager: TfmEmutecaSystemManager
     Top = 0
     Width = 5
   end
-  object PageControl1: TPageControl
-    Left = 175
-    Height = 356
-    Top = 0
-    Width = 477
-    Align = alClient
-    TabOrder = 3
-  end
   object pBottom: TPanel
     Left = 0
     Height = 27
@@ -113,7 +105,7 @@ object fmEmutecaSystemManager: TfmEmutecaSystemManager
     ChildSizing.ControlsPerLine = 2
     ClientHeight = 27
     ClientWidth = 652
-    TabOrder = 4
+    TabOrder = 3
     object bSave: TBitBtn
       Left = 149
       Height = 26
@@ -174,7 +166,7 @@ object fmEmutecaSystemManager: TfmEmutecaSystemManager
     end
   end
   object ActionList1: TActionList
-    left = 120
+    left = 24
     top = 304
     object actAddItem: TAction
       Category = 'ItemList'
@@ -225,7 +217,7 @@ object fmEmutecaSystemManager: TfmEmutecaSystemManager
     end
   end
   object ilActions: TImageList
-    left = 200
+    left = 88
     top = 304
   end
   object pmItemList: TPopupMenu

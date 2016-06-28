@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, StdCtrls, EditBtn, ExtCtrls,
-  ucEmutecaSystem;
+  ucEmutecaConfig, ucEmutecaSystem;
 
 type
 
@@ -23,7 +23,9 @@ type
     procedure eSystemIconAcceptFileName(Sender: TObject; var Value: String);
     procedure eSystemImageAcceptFileName(Sender: TObject; var Value: String);
   private
+    FConfig: cEmutecaConfig;
     FSystem: cEmutecaSystem;
+    procedure SetConfig(AValue: cEmutecaConfig);
     procedure SetSystem(AValue: cEmutecaSystem);
 
   protected
@@ -33,6 +35,8 @@ type
   public
     { public declarations }
     property System: cEmutecaSystem read FSystem write SetSystem;
+
+    property Config: cEmutecaConfig read FConfig write SetConfig;
   end;
 
 implementation
@@ -63,6 +67,13 @@ begin
   UpdateData;
 end;
 
+procedure TfmSystemInfoEditor.SetConfig(AValue: cEmutecaConfig);
+begin
+  if FConfig=AValue then Exit;
+  FConfig:=AValue;
+  UpdateData;
+end;
+
 procedure TfmSystemInfoEditor.SaveData;
 begin
 
@@ -70,12 +81,21 @@ end;
 
 procedure TfmSystemInfoEditor.UpdateData;
 begin
+  ClearData;
+
+  if not assigned(System) then
+    Exit;
+
+
 
 end;
 
 procedure TfmSystemInfoEditor.ClearData;
 begin
-
+  eSystemImage.Clear;
+  iSystemImage.Picture.Clear;
+  eSystemIcon.Clear;
+  iSystemIcon.Picture.Clear;
 end;
 
 end.

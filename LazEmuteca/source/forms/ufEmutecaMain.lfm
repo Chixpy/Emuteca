@@ -125,6 +125,10 @@ object frmEmutecaMain: TfrmEmutecaMain
       Category = 'Managers'
       Caption = 'Media Manager...'
     end
+    object actAddFolder: TAction
+      Category = 'Files'
+      Caption = 'Scan files from folder'
+    end
   end
   object MainMenu: TMainMenu
     left = 184
@@ -152,6 +156,15 @@ object frmEmutecaMain: TfrmEmutecaMain
       end
       object MenuItem6: TMenuItem
         Action = actScriptManager
+      end
+    end
+    object MenuItem9: TMenuItem
+      Caption = 'Files'
+      object MenuItem10: TMenuItem
+        Caption = 'Add...'
+        object MenuItem11: TMenuItem
+          Action = actAddFolder
+        end
       end
     end
     object mmHelp: TMenuItem

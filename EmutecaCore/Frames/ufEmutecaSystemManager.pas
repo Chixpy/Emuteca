@@ -30,7 +30,7 @@ uses
   CheckLst, ActnList, Buttons, Dialogs, StdCtrls,
   uCHXImageUtils,
   ucEmuteca, ucEmutecaSystem,
-  ufEmutecaSystemEditor, ufEmutecaSystemInfoEditor;
+  ufEmutecaSystemEditorExt;
 
 resourcestring
   rsSystemName = 'System name';
@@ -66,7 +66,6 @@ type
     MenuItem7: TMenuItem;
     MenuItem8: TMenuItem;
     MenuItem9: TMenuItem;
-    PageControl1: TPageControl;
     Panel1: TPanel;
     pBottom: TPanel;
     pmItemList: TPopupMenu;
@@ -93,19 +92,14 @@ type
   private
     FEmuteca: cEmuteca;
     FIconsIni: string;
-    FSysEditor: TfmEmutecaSystemEditor;
-    FSysInfoEditor: TfmSystemInfoEditor;
+    FSysEditor: TfmEmutecaSystemEditorExt;
     procedure SetEmuteca(AValue: cEmuteca);
     procedure SetIconsIni(AValue: string);
-    procedure SetSysEditor(AValue: TfmEmutecaSystemEditor);
-    procedure SetSysInfoEditor(AValue: TfmSystemInfoEditor);
+    procedure SetSysEditor(AValue: TfmEmutecaSystemEditorExt);
 
   protected
-    property SysEditor: TfmEmutecaSystemEditor
+    property SysEditor: TfmEmutecaSystemEditorExt
       read FSysEditor write SetSysEditor;
-    {< System editor.}
-    property SysInfoEditor: TfmSystemInfoEditor
-      read FSysInfoEditor write SetSysInfoEditor;
 
     procedure LoadList;
     procedure SelectItem;
@@ -226,22 +220,14 @@ begin
   CheckListBox1.CheckAll(cbUnchecked);
 end;
 
-procedure TfmEmutecaSystemManager.SetSysEditor(AValue: TfmEmutecaSystemEditor);
+procedure TfmEmutecaSystemManager.SetSysEditor(AValue: TfmEmutecaSystemEditorExt);
 begin
   if FSysEditor = AValue then
     Exit;
   FSysEditor := AValue;
 
   if Assigned(Emuteca) then
-    SysEditor.EmuManager := Emuteca.EmulatorManager;
-end;
-
-procedure TfmEmutecaSystemManager.SetSysInfoEditor(AValue:
-  TfmSystemInfoEditor);
-begin
-  if FSysInfoEditor = AValue then
-    Exit;
-  FSysInfoEditor := AValue;
+    SysEditor.Emuteca := Emuteca;
 end;
 
 procedure TfmEmutecaSystemManager.SetEmuteca(AValue: cEmuteca);
@@ -252,11 +238,7 @@ begin
 
   LoadList;
 
-  if not Assigned(Emuteca) then
-    Exit;
-
-  SysEditor.EmuManager := Emuteca.EmulatorManager;
-  SysEditor.EmuConfig := Emuteca.Config;
+  SysEditor.Emuteca := Emuteca;
 end;
 
 procedure TfmEmutecaSystemManager.SetIconsIni(AValue: string);
@@ -321,26 +303,12 @@ begin
 end;
 
 constructor TfmEmutecaSystemManager.Create(TheOwner: TComponent);
-
-  procedure CreatePages;
-  var
-    aTabSheet: TTabSheet;
-  begin
-    aTabSheet := PageControl1.AddTabSheet;
-    FSysEditor := TfmEmutecaSystemEditor.Create(aTabSheet);
-    SysEditor.Parent := aTabSheet;
-    SysEditor.Align := alClient;
-
-    aTabSheet := PageControl1.AddTabSheet;
-    FSysInfoEditor := TfmSystemInfoEditor.Create(aTabSheet);
-    SysInfoEditor.Parent := aTabSheet;
-    SysInfoEditor.Align := alClient;
-  end;
-
 begin
   inherited Create(TheOwner);
 
-  CreatePages;
+  FSysEditor := TfmEmutecaSystemEditorExt.Create(Self);
+  SysEditor.Parent := Self;
+  SysEditor.Align := alClient;
 end;
 
 destructor TfmEmutecaSystemManager.Destroy;
