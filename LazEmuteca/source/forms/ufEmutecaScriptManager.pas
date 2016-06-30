@@ -9,7 +9,7 @@ uses
   ufCHXScriptManager;
 
 type
-  TfrmScriptManager1 = class(TfrmScriptManager)
+  TfrmScriptManager1 = class(TfrmCHXScriptManager)
   private
     { private declarations }
   public

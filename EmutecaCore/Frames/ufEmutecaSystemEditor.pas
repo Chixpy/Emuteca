@@ -54,27 +54,32 @@ type
 
   private
     FConfig: cEmutecaConfig;
+    FSaveButtons: Boolean;
     FSystem: cEmutecaSystem;
     FEmuManager: cEmutecaEmulatorManager;
     procedure SetConfig(AValue: cEmutecaConfig);
+    procedure SetSaveButtons(AValue: Boolean);
     procedure SetSystem(AValue: cEmutecaSystem);
     procedure SetEmuManager(AValue: cEmutecaEmulatorManager);
 
   protected
-    procedure SaveData;
-    procedure UpdateData;
-    procedure ClearData;
-
     procedure UpdateLists;
 
   public
     { public declarations }
+
+    property SaveButtons: Boolean read FSaveButtons write SetSaveButtons;
+    {}
 
     property System: cEmutecaSystem read FSystem write SetSystem;
 
     property EmuManager: cEmutecaEmulatorManager
       read FEmuManager write SetEmuManager;
     property Config: cEmutecaConfig read FConfig write SetConfig;
+
+    procedure SaveData;
+    procedure UpdateData;
+    procedure ClearData;
   end;
 
 implementation
@@ -141,6 +146,15 @@ begin
   if FConfig = AValue then
     Exit;
   FConfig := AValue;
+end;
+
+procedure TfmEmutecaSystemEditor.SetSaveButtons(AValue: Boolean);
+begin
+  if FSaveButtons=AValue then Exit;
+  FSaveButtons:=AValue;
+
+  Panel1.Enabled:=SaveButtons;
+  Panel1.Visible:=SaveButtons;
 end;
 
 procedure TfmEmutecaSystemEditor.SetEmuManager(AValue:
