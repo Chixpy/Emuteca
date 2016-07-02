@@ -5,17 +5,21 @@ unit ufEmutecaSystemEditorExt;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, ComCtrls, ExtCtrls,
-  ucEmuteca, ucEmutecaSystem,
-  ufEmutecaSystemEditor, ufEmutecaSystemInfoEditor;
+  Classes, SysUtils, FileUtil, Forms, Controls, ComCtrls, ExtCtrls, StdCtrls,
+  Buttons, ucEmuteca, ucEmutecaSystem, ufEmutecaSystemEditor,
+  ufEmutecaSystemInfoEditor;
 
 type
 
   { TfmEmutecaSystemEditorExt }
 
   TfmEmutecaSystemEditorExt = class(TFrame)
+    bCancel: TBitBtn;
+    bSave: TBitBtn;
     PageControl1: TPageControl;
     Panel1: TPanel;
+    procedure bCancelClick(Sender: TObject);
+    procedure bSaveClick(Sender: TObject);
   private
     FEmuteca: cEmuteca;
     FIconsIni: string;
@@ -48,6 +52,16 @@ implementation
 {$R *.lfm}
 
 { TfmEmutecaSystemEditorExt }
+
+procedure TfmEmutecaSystemEditorExt.bSaveClick(Sender: TObject);
+begin
+  SysEditor.SaveData;
+end;
+
+procedure TfmEmutecaSystemEditorExt.bCancelClick(Sender: TObject);
+begin
+  SysEditor.UpdateData;
+end;
 
 procedure TfmEmutecaSystemEditorExt.SetEmuteca(AValue: cEmuteca);
 begin
@@ -95,6 +109,7 @@ procedure TfmEmutecaSystemEditorExt.SetSystem(AValue: cEmutecaSystem);
 begin
   if FSystem=AValue then Exit;
   FSystem:=AValue;
+  SysEditor.System := Self.System;
 end;
 
 constructor TfmEmutecaSystemEditorExt.Create(TheOwner: TComponent);
@@ -107,6 +122,7 @@ constructor TfmEmutecaSystemEditorExt.Create(TheOwner: TComponent);
     FSysEditor := TfmEmutecaSystemEditor.Create(aTabSheet);
     SysEditor.Parent := aTabSheet;
     SysEditor.Align := alClient;
+    SysEditor.SaveButtons := False;
 
     aTabSheet := PageControl1.AddTabSheet;
     FSysInfoEditor := TfmSystemInfoEditor.Create(aTabSheet);

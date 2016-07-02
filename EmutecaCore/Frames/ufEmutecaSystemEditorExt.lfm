@@ -10,7 +10,7 @@ object fmEmutecaSystemEditorExt: TfmEmutecaSystemEditorExt
   DesignTop = 279
   object PageControl1: TPageControl
     Left = 0
-    Height = 190
+    Height = 213
     Top = 0
     Width = 320
     Align = alClient
@@ -18,11 +18,38 @@ object fmEmutecaSystemEditorExt: TfmEmutecaSystemEditorExt
   end
   object Panel1: TPanel
     Left = 0
-    Height = 50
-    Top = 190
+    Height = 27
+    Top = 213
     Width = 320
     Align = alBottom
-    Caption = 'Panel1'
+    AutoSize = True
+    ChildSizing.EnlargeHorizontal = crsHomogenousSpaceResize
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    ChildSizing.ControlsPerLine = 2
+    ClientHeight = 27
+    ClientWidth = 320
     TabOrder = 1
+    object bSave: TBitBtn
+      Left = 56
+      Height = 26
+      Top = 0
+      Width = 70
+      Caption = 'Save'
+      Default = True
+      Kind = bkOK
+      OnClick = bSaveClick
+      TabOrder = 0
+    end
+    object bCancel: TBitBtn
+      Left = 182
+      Height = 26
+      Top = 0
+      Width = 82
+      Cancel = True
+      Caption = 'Cancel'
+      Kind = bkCancel
+      OnClick = bCancelClick
+      TabOrder = 1
+    end
   end
 end

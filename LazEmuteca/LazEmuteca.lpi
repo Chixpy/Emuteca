@@ -291,7 +291,9 @@
       <Unit39>
         <Filename Value="..\CHXPas\Forms\ScriptManager\ufCHXScriptManager.pas"/>
         <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmCHXScriptManager"/>
         <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
       </Unit39>
       <Unit40>
         <Filename Value="..\CHXPas\Forms\ScriptManager\ufSMAskFile.pas"/>

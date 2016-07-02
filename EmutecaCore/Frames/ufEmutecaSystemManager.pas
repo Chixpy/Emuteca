@@ -226,7 +226,7 @@ begin
     Exit;
   FSysEditor := AValue;
 
-  if Assigned(Emuteca) then
+  if Assigned(SysEditor) then
     SysEditor.Emuteca := Emuteca;
 end;
 
@@ -238,7 +238,8 @@ begin
 
   LoadList;
 
-  SysEditor.Emuteca := Emuteca;
+  if Assigned(SysEditor) then
+    SysEditor.Emuteca := Emuteca;
 end;
 
 procedure TfmEmutecaSystemManager.SetIconsIni(AValue: string);
@@ -276,6 +277,7 @@ end;
 
 procedure TfmEmutecaSystemManager.SelectItem;
 begin
+  if not assigned(SysEditor) then Exit;
 
   if CheckListBox1.ItemIndex = -1 then
     SysEditor.System := nil

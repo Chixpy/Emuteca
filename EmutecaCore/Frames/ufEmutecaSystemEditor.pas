@@ -54,22 +54,23 @@ type
 
   private
     FConfig: cEmutecaConfig;
-    FSaveButtons: Boolean;
+    FSaveButtons: boolean;
     FSystem: cEmutecaSystem;
     FEmuManager: cEmutecaEmulatorManager;
     procedure SetConfig(AValue: cEmutecaConfig);
-    procedure SetSaveButtons(AValue: Boolean);
+    procedure SetSaveButtons(AValue: boolean);
     procedure SetSystem(AValue: cEmutecaSystem);
     procedure SetEmuManager(AValue: cEmutecaEmulatorManager);
 
   protected
     procedure UpdateLists;
+    procedure ClearData;
 
   public
     { public declarations }
 
-    property SaveButtons: Boolean read FSaveButtons write SetSaveButtons;
-    {}
+    property SaveButtons: boolean read FSaveButtons write SetSaveButtons;
+
 
     property System: cEmutecaSystem read FSystem write SetSystem;
 
@@ -78,8 +79,9 @@ type
     property Config: cEmutecaConfig read FConfig write SetConfig;
 
     procedure SaveData;
+    {< Save current system data. }
     procedure UpdateData;
-    procedure ClearData;
+    {< Update field with system data or reload system. Used for cancel button. }
   end;
 
 implementation
@@ -148,13 +150,11 @@ begin
   FConfig := AValue;
 end;
 
-procedure TfmEmutecaSystemEditor.SetSaveButtons(AValue: Boolean);
+procedure TfmEmutecaSystemEditor.SetSaveButtons(AValue: boolean);
 begin
-  if FSaveButtons=AValue then Exit;
-  FSaveButtons:=AValue;
-
-  Panel1.Enabled:=SaveButtons;
-  Panel1.Visible:=SaveButtons;
+  FSaveButtons := AValue;
+  Panel1.Visible := SaveButtons;
+  Panel1.Enabled := SaveButtons;
 end;
 
 procedure TfmEmutecaSystemEditor.SetEmuManager(AValue:
