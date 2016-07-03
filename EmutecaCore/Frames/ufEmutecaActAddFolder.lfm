@@ -1,9 +1,9 @@
 object fmEmutecaActAddFolder: TfmEmutecaActAddFolder
   Left = 0
-  Height = 240
+  Height = 160
   Top = 0
   Width = 320
-  ClientHeight = 240
+  ClientHeight = 160
   ClientWidth = 320
   TabOrder = 0
   DesignLeft = 457
@@ -61,9 +61,9 @@ object fmEmutecaActAddFolder: TfmEmutecaActAddFolder
     TabOrder = 2
   end
   object bRun: TButton
-    Left = 112
+    Left = 120
     Height = 25
-    Top = 160
+    Top = 120
     Width = 75
     Caption = 'Run'
     OnClick = bRunClick

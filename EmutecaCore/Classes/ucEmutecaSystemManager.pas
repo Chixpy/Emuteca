@@ -147,7 +147,7 @@ begin
   i := 0;
   while i < FullList.Count do
   begin
-    aList.AddObject(FullList[i].Model, FullList[i]);
+    aList.AddObject(FullList[i].Company + ' - ' + FullList[i].Model, FullList[i]);
     Inc(i);
   end;
   aList.EndUpdate;
@@ -165,7 +165,7 @@ begin
   while i < FullList.Count do
   begin
     if FullList[i].Enabled then
-      aList.AddObject(FullList[i].Model, FullList[i]);
+      aList.AddObject(FullList[i].Company + ' - ' + FullList[i].Model, FullList[i]);
     Inc(i);
   end;
   aList.EndUpdate;

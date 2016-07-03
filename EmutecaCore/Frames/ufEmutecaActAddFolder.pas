@@ -5,10 +5,12 @@ unit ufEmutecaActAddFolder;
 interface
 
 uses
-  Classes, SysUtils, LazFileUtils, Forms, Controls, StdCtrls, EditBtn,
+  Classes, SysUtils, FileUtil, LazFileUtils, Forms, Controls,
+  StdCtrls, EditBtn,
   sha1, crc,
   ucEmuteca, ucEmutecaSystem, ucEmutecaVersion,
-  uCHXFileUtils, uCHXStrUtils;
+  uCHXFileUtils, uCHXStrUtils,
+  u7zWrapper;
 
 type
 
@@ -57,7 +59,7 @@ var
   aSystem: cEmutecaSystem;
   FolderList, FileList: TStrings;
   aVersion: cEmutecaVersion;
-  i: Integer;
+  i: integer;
 begin
   if not assigned(Emuteca) then
     Exit;
@@ -84,19 +86,36 @@ begin
     while i < FileList.Count do
     begin
       aVersion := cEmutecaVersion.Create(nil);
-              aVersion.Folder := FolderList[i];
-        aVersion.FileName := FileList[i];
-         aVersion.System := aSystem.ID;
+      aVersion.Folder := FolderList[i];
+      aVersion.FileName := FileList[i];
+      aVersion.System := aSystem.ID;
       if FileExistsUTF8(FolderList[i]) then
       begin // it's a compressed archive
         { TODO 1 : Extract IDs... }
         aversion.ID := '';
         case aSystem.GameKey of
-          TEFKCRC32: ;
+          TEFKCRC32:
+            { TODO : We can know CRC32 without extracting... }
+          begin
+            w7zExtractFile(FolderList[i], FileList[i],
+              Emuteca.Config.TempSubfolder + 'Temp', False, '');
+            aversion.ID :=
+              IntToHex(CRC32File(Emuteca.Config.TempSubfolder +
+              'Temp\' + FileList[i]), 8);
+            DeleteDirectory(Emuteca.Config.TempSubfolder + 'Temp', False);
+          end;
           TEFKCustom: aversion.ID := SetAsID(ExtractFileNameOnly(FileList[i]));
-          TEFKFileName: aversion.ID := SetAsID(ExtractFileNameOnly(FileList[i]));
+          TEFKFileName: aversion.ID :=
+              SetAsID(ExtractFileNameOnly(FileList[i]));
           else  // TEFKSHA1 by default
-            ;
+          begin
+            w7zExtractFile(FolderList[i], FileList[i],
+              Emuteca.Config.TempSubfolder + 'Temp', False, '');
+            aversion.ID :=
+              SHA1Print(SHA1File(Emuteca.Config.TempSubfolder +
+              'Temp\' + FileList[i]));
+            DeleteDirectory(Emuteca.Config.TempSubfolder + 'Temp', False);
+          end;
         end;
 
         aVersion.Parent :=

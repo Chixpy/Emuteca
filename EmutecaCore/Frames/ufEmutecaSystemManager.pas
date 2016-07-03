@@ -263,14 +263,11 @@ begin
   if not assigned(Emuteca) then
     Exit;
 
+  Emuteca.SystemManager.AssingAllTo(CheckListBox1.Items);
   i := 0;
-  while i < Emuteca.SystemManager.FullList.Count do
+  while i < CheckListBox1.Items.Count do
   begin
-    // Dragons
-    CheckListBox1.Checked[
-      CheckListBox1.Items.AddObject(Emuteca.SystemManager.FullList[i].Model,
-      Emuteca.SystemManager.FullList[i])
-      ] := Emuteca.SystemManager.FullList[i].Enabled;
+    CheckListBox1.Checked[i] := cEmutecaSystem(CheckListBox1.Items.Objects[i]).Enabled;
     Inc(i);
   end;
 end;
