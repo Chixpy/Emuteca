@@ -31,7 +31,7 @@ object fmEmutecaActAddFolder: TfmEmutecaActAddFolder
   object lFolder: TLabel
     Left = 0
     Height = 15
-    Top = 53
+    Top = 76
     Width = 320
     Align = alTop
     Caption = 'Folder'
@@ -40,7 +40,7 @@ object fmEmutecaActAddFolder: TfmEmutecaActAddFolder
   object eFolder: TDirectoryEdit
     Left = 0
     Height = 23
-    Top = 68
+    Top = 91
     Width = 320
     ShowHidden = False
     ButtonWidth = 23
@@ -52,7 +52,7 @@ object fmEmutecaActAddFolder: TfmEmutecaActAddFolder
   object chkIncSubfolders: TCheckBox
     Left = 0
     Height = 19
-    Top = 91
+    Top = 114
     Width = 320
     Align = alTop
     Caption = 'Include subfolders'
@@ -60,22 +60,50 @@ object fmEmutecaActAddFolder: TfmEmutecaActAddFolder
     State = cbChecked
     TabOrder = 2
   end
-  object bRun: TButton
-    Left = 120
-    Height = 25
-    Top = 120
-    Width = 75
-    Caption = 'Run'
-    OnClick = bRunClick
-    TabOrder = 3
-  end
   object lExtensions: TLabel
     Left = 0
     Height = 15
     Top = 38
     Width = 320
     Align = alTop
-    Caption = ' '
+    Caption = 'SupprtedExtensions'
     ParentColor = False
+  end
+  object eExtensions: TEdit
+    Left = 0
+    Height = 23
+    Top = 53
+    Width = 320
+    Align = alTop
+    Enabled = False
+    TabOrder = 3
+  end
+  object Panel1: TPanel
+    Left = 0
+    Height = 27
+    Top = 133
+    Width = 320
+    Align = alClient
+    ChildSizing.EnlargeHorizontal = crsHomogenousSpaceResize
+    ChildSizing.EnlargeVertical = crsHomogenousSpaceResize
+    ChildSizing.ShrinkHorizontal = crsHomogenousSpaceResize
+    ChildSizing.ShrinkVertical = crsHomogenousSpaceResize
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    ChildSizing.ControlsPerLine = 1
+    ClientHeight = 27
+    ClientWidth = 320
+    TabOrder = 4
+    object bRun: TBitBtn
+      Left = 117
+      Height = 26
+      Top = 1
+      Width = 87
+      Default = True
+      DefaultCaption = True
+      Kind = bkOK
+      ModalResult = 1
+      OnClick = bRunClick
+      TabOrder = 0
+    end
   end
 end

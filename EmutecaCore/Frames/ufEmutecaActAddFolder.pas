@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, LazFileUtils, Forms, Controls,
-  StdCtrls, EditBtn,
+  StdCtrls, EditBtn, Buttons, ExtCtrls,
   sha1, crc,
   ucEmuteca, ucEmutecaSystem, ucEmutecaVersion,
   uCHXFileUtils, uCHXStrUtils,
@@ -17,13 +17,15 @@ type
   { TfmEmutecaActAddFolder }
 
   TfmEmutecaActAddFolder = class(TFrame)
-    bRun: TButton;
+    bRun: TBitBtn;
     cbxSystem: TComboBox;
     chkIncSubfolders: TCheckBox;
+    eExtensions: TEdit;
     eFolder: TDirectoryEdit;
     lExtensions: TLabel;
     lFolder: TLabel;
     lSystem: TLabel;
+    Panel1: TPanel;
     procedure bRunClick(Sender: TObject);
     procedure cbxSystemChange(Sender: TObject);
   private
@@ -42,16 +44,22 @@ implementation
 { TfmEmutecaActAddFolder }
 
 procedure TfmEmutecaActAddFolder.cbxSystemChange(Sender: TObject);
+var
+  aSystem: cEmutecaSystem;
 begin
-  lExtensions.Caption := '';
+  eExtensions.Text := '';
 
   if not assigned(Emuteca) then
     Exit;
   if cbxSystem.ItemIndex = -1 then
     Exit;
 
-  lExtensions.Caption := cEmutecaSystem(
-    cbxSystem.Items.Objects[cbxSystem.ItemIndex]).Extensions.CommaText;
+  aSystem := cEmutecaSystem(
+    cbxSystem.Items.Objects[cbxSystem.ItemIndex]);
+
+  eExtensions.Text := aSystem.Extensions.CommaText;
+
+  eFolder.Directory := CreateAbsolutePath(aSystem.BaseFolder, ProgramDirectory);
 end;
 
 procedure TfmEmutecaActAddFolder.bRunClick(Sender: TObject);
