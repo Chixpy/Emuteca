@@ -47,6 +47,8 @@ type
       read FOnItemSelect write SetOnItemSelect;
     //< CallBack function when item selected.
 
+    procedure UpdateList;
+
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
 

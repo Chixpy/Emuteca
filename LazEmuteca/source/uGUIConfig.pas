@@ -20,6 +20,7 @@ const
 
   // [Config]
   krsIniSectionConfig = 'Config';
+  krsEmutecaIni = 'EmutecaIni';
   krsSearchFile = 'SearchFile';
   krsHelpFolder = 'HelpFolder';
 
@@ -39,6 +40,7 @@ type
   private
     FConfigFile: string;
     FDefaultImagesSubfolder: string;
+    FEmutecaIni: string;
     FFlagsSubfolder: string;
     FHelpFolder: string;
     FIconsIniFile: string;
@@ -51,6 +53,7 @@ type
     FVIIconsSubfolder: string;
     procedure SetConfigFile(AValue: string);
     procedure SetDefaultImagesSubfolder(AValue: string);
+    procedure SetEmutecaIni(AValue: string);
     procedure SetFlagsSubfolder(AValue: string);
     procedure SetHelpFolder(AValue: string);
     procedure SetIconsIniFile(AValue: string);
@@ -88,6 +91,7 @@ type
       read FmPlayerExecutable write SetmPlayerExecutable;
 
     // Config/Data
+    property EmutecaIni: string read FEmutecaIni write SetEmutecaIni;
     property HelpFolder: string read FHelpFolder write SetHelpFolder;
     property SearchFile: string read FSearchFile write SetSearchFile;
 
@@ -108,6 +112,11 @@ end;
 procedure cGUIConfig.SetDefaultImagesSubfolder(AValue: string);
 begin
   FDefaultImagesSubfolder := SetAsFolder(AValue);
+end;
+
+procedure cGUIConfig.SetEmutecaIni(AValue: string);
+begin
+  FEmutecaIni:=SetAsFile(AValue);
 end;
 
 procedure cGUIConfig.SetFlagsSubfolder(AValue: string);
@@ -177,6 +186,8 @@ begin
   // Config/Data
 
   // Data
+    EmutecaIni := IniFile.ReadString(krsIniSectionConfig,
+    krsEmutecaIni, EmutecaIni);
   SearchFile := IniFile.ReadString(krsIniSectionConfig,
     krsSearchFile, SearchFile);
   HelpFolder := IniFile.ReadString(krsIniSectionConfig,
@@ -205,6 +216,8 @@ begin
     IconsIniFile);
 
   // Data
+  EmutecaIni
+  IniFile.WriteString(krsIniSectionConfig, krsEmutecaIni, EmutecaIni);
   IniFile.WriteString(krsIniSectionConfig, krsSearchFile, SearchFile);
   IniFile.WriteString(krsIniSectionConfig, krsHelpFolder, HelpFolder);
 
@@ -224,6 +237,7 @@ begin
   VIIconsSubfolder := 'VerInfo';
 
   // Config/Data
+  EmutecaIni := 'Emuteca.ini';
   SearchFile := 'Search.ini';
   HelpFolder := 'Help';
 

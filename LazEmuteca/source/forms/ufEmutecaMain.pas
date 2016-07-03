@@ -228,7 +228,6 @@ begin
   Self.Caption := Format(rsFmtWindowCaption,
     [Application.Title, Self.Caption]);
 
-  { TODO : Store Emuteca config filename. So, we can change profiles... }
   FGUIConfig := cGUIConfig.Create(self);
   GUIConfig.LoadConfig('GUI.ini');
   IniPropStorage1.IniFileName := GUIConfig.ConfigFile;
@@ -237,9 +236,7 @@ begin
   // Creating Emuteca Core :-D
   FEmuteca := cEmuteca.Create(self);
   Emuteca.ProgressCallBack := @self.OnProgressBar;
-  Emuteca.LoadConfig(krsEmuteca + '.ini');
-
-
+  Emuteca.LoadConfig(GUIConfig.EmutecaIni);
 
   CreateFrames;
 
@@ -252,8 +249,8 @@ var
 begin
   Application.CreateForm(TForm, aForm);
 
-    aform.Width:=self.Width;
-  aForm.Height:=self.Height;
+  aform.Width := 800;
+  aForm.Height := 600;
   aForm.Position := poMainFormCenter;
 
   aFrame := TfmEmutecaEmulatorManager.Create(aForm);
@@ -288,7 +285,12 @@ begin
 
   aFrame.Emuteca := Emuteca;
 
-  aForm.ShowModal;
+  if aForm.ShowModal = mrOk then
+  begin
+    fmEmutecaVersionList.UpdateList;
+    fmEmutecaParentList.UpdateList;
+  end;
+
   FreeAndNil(aForm);
 end;
 
@@ -299,8 +301,8 @@ var
 begin
   Application.CreateForm(TForm, aForm);
 
-    aform.Width:=self.Width;
-  aForm.Height:=self.Height;
+  aform.Width := 800;
+  aForm.Height := 600;
   aForm.Position := poMainFormCenter;
 
   aFrame := TfmEmutecaSystemManager.Create(aForm);

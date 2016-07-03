@@ -47,7 +47,7 @@ type
 
 
   protected
-    procedure UpdateList;
+
 
   public
     property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
@@ -57,6 +57,8 @@ type
       read FOnItemSelect write SetOnItemSelect;
     //< CallBack function when item selected.
     property OnDblClick: TFEVLDblClick read FOnDblClick write SetOnDblClick;
+
+    procedure UpdateList;
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
