@@ -22,7 +22,7 @@ uses
   ucEmuteca, ucEmutecaParent, ucEmutecaVersion,
   // Emuteca frames
   ufEmutecaParentList, ufEmutecaVersionList, ufEmutecaEmulatorManager,
-  ufEmutecaSystemManager,
+  ufEmutecaSystemManager, ufEmutecaActAddFolder,
   uGUIConfig;
 
 type
@@ -64,6 +64,7 @@ type
     Splitter3: TSplitter;
     stbHelp: TStatusBar;
     stbInfo: TStatusBar;
+    procedure actAddFolderExecute(Sender: TObject);
     procedure actEmulatorManagerExecute(Sender: TObject);
     procedure actSystemManagerExecute(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
@@ -251,8 +252,8 @@ var
 begin
   Application.CreateForm(TForm, aForm);
 
-  aform.Width:=640;
-  aForm.Height:=480;
+    aform.Width:=self.Width;
+  aForm.Height:=self.Height;
   aForm.Position := poMainFormCenter;
 
   aFrame := TfmEmutecaEmulatorManager.Create(aForm);
@@ -270,6 +271,27 @@ begin
   FreeAndNil(aForm);
 end;
 
+procedure TfrmEmutecaMain.actAddFolderExecute(Sender: TObject);
+var
+  aForm: TForm;
+  aFrame: TfmEmutecaActAddFolder;
+begin
+  Application.CreateForm(TForm, aForm);
+
+  aForm.Position := poMainFormCenter;
+
+  aFrame := TfmEmutecaActAddFolder.Create(aForm);
+  aForm.Caption := Format(rsFmtWindowCaption,
+    [Application.Title, aFrame.Caption]);
+  aFrame.Parent := aForm;
+  aFrame.Align := alClient;
+
+  aFrame.Emuteca := Emuteca;
+
+  aForm.ShowModal;
+  FreeAndNil(aForm);
+end;
+
 procedure TfrmEmutecaMain.actSystemManagerExecute(Sender: TObject);
 var
   aForm: TForm;
@@ -277,8 +299,8 @@ var
 begin
   Application.CreateForm(TForm, aForm);
 
-    aform.Width:=640;
-  aForm.Height:=480;
+    aform.Width:=self.Width;
+  aForm.Height:=self.Height;
   aForm.Position := poMainFormCenter;
 
   aFrame := TfmEmutecaSystemManager.Create(aForm);
