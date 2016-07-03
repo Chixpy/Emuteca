@@ -66,7 +66,7 @@ object fmEmutecaActAddFolder: TfmEmutecaActAddFolder
     Top = 38
     Width = 320
     Align = alTop
-    Caption = 'SupprtedExtensions'
+    Caption = 'Supported Extensions'
     ParentColor = False
   end
   object eExtensions: TEdit
