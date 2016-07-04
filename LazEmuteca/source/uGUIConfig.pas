@@ -216,7 +216,6 @@ begin
     IconsIniFile);
 
   // Data
-  EmutecaIni
   IniFile.WriteString(krsIniSectionConfig, krsEmutecaIni, EmutecaIni);
   IniFile.WriteString(krsIniSectionConfig, krsSearchFile, SearchFile);
   IniFile.WriteString(krsIniSectionConfig, krsHelpFolder, HelpFolder);

@@ -36,7 +36,6 @@ type
     procedure SetOnItemSelect(AValue: TFEPLItemSelected);
 
   protected
-    procedure UpdateList;
 
   public
     { public declarations }
