@@ -17,24 +17,28 @@ object fmEmutecaVersionList: TfmEmutecaVersionList
     Align = alClient
     Colors.UnfocusedColor = clMedGray
     DefaultText = 'Node'
-    Header.AutoSizeIndex = 0
+    Header.AutoSizeIndex = 1
     Header.Columns = <    
       item
+        Options = [coAllowClick, coDraggable, coEnabled, coParentBidiMode, coParentColor, coResizable, coShowDropMark, coVisible, coSmartResize, coAllowFocus, coEditable]
         Position = 0
         Text = 'Title'
         Width = 100
       end    
       item
+        Options = [coAllowClick, coDraggable, coEnabled, coParentBidiMode, coParentColor, coResizable, coShowDropMark, coVisible, coSmartResize, coAllowFocus, coEditable]
         Position = 1
         Text = 'Info'
-        Width = 100
+        Width = 16
       end    
       item
+        Options = [coAllowClick, coDraggable, coEnabled, coParentBidiMode, coParentColor, coResizable, coShowDropMark, coVisible, coSmartResize, coAllowFocus, coEditable]
         Position = 2
         Text = 'Folder'
         Width = 100
       end    
       item
+        Options = [coAllowClick, coDraggable, coEnabled, coParentBidiMode, coParentColor, coResizable, coShowDropMark, coVisible, coSmartResize, coAllowFocus, coEditable]
         Position = 3
         Text = 'File'
         Width = 100
@@ -62,21 +66,10 @@ object fmEmutecaVersionList: TfmEmutecaVersionList
   object ActionList1: TActionList
     left = 96
     top = 122
-    object actAddVersion: TAction
-      Category = 'List'
-      Caption = 'Add a version...'
-      OnExecute = actAddVersionExecute
-    end
   end
   object PopupMenu1: TPopupMenu
     left = 16
     top = 122
-    object MenuItem1: TMenuItem
-      Caption = 'Add'
-      object MenuItem2: TMenuItem
-        Action = actAddVersion
-      end
-    end
   end
   object ImageList1: TImageList
     left = 212

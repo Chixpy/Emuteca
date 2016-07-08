@@ -126,9 +126,14 @@ object frmEmutecaMain: TfrmEmutecaMain
       Caption = 'Media Manager...'
     end
     object actAddFolder: TAction
-      Category = 'Files'
+      Category = 'Version'
       Caption = 'Scan files from folder'
       OnExecute = actAddFolderExecute
+    end
+    object actAddSoft: TAction
+      Category = 'Version'
+      Caption = 'Add Software...'
+      OnExecute = actAddSoftExecute
     end
   end
   object MainMenu: TMainMenu
@@ -165,6 +170,9 @@ object frmEmutecaMain: TfrmEmutecaMain
         Caption = 'Add...'
         object MenuItem11: TMenuItem
           Action = actAddFolder
+        end
+        object MenuItem12: TMenuItem
+          Action = actAddSoft
         end
       end
     end

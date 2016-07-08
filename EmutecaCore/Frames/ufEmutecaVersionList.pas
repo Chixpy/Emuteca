@@ -17,15 +17,12 @@ type
   { TfmEmutecaVersionList }
 
   TfmEmutecaVersionList = class(TFrame)
-    actAddVersion: TAction;
     ActionList1: TActionList;
     ImageList1: TImageList;
     MenuItem1: TMenuItem;
-    MenuItem2: TMenuItem;
     PopupMenu1: TPopupMenu;
     StatusBar1: TStatusBar;
     VST: TVirtualStringTree;
-    procedure actAddVersionExecute(Sender: TObject);
     procedure VSTChange(Sender: TBaseVirtualTree; Node: PVirtualNode);
     procedure VSTCompareNodes(Sender: TBaseVirtualTree;
       Node1, Node2: PVirtualNode; Column: TColumnIndex; var Result: integer);
@@ -93,30 +90,6 @@ begin
     else
       OnItemSelect(pData^);
   end;
-end;
-
-procedure TfmEmutecaVersionList.actAddVersionExecute(Sender: TObject);
-var
-  aForm: TForm;
-  aFrame: TfmActAddVersion;
-begin
-  Application.CreateForm(TForm, aForm);
-
-  aForm.Position := poMainFormCenter;
-  aForm.Caption := Format(rsFmtWindowCaption,
-    [Application.Title, actAddVersion.Caption]);
-
-  aFrame := TfmActAddVersion.Create(aForm);
-  aFrame.Parent := aForm;
-  aFrame.Align := alClient;
-  aFrame.Emuteca := Emuteca;
-  {
-  aFrame.IconsIni := Emuteca.Config.ImagesFolder +
-    Emuteca.Config.IconsSubfolder + Emuteca.Config.IconsIniFile;
-  }
-  aForm.AutoSize:=True;
-  aForm.ShowModal;
-  FreeAndNil(aForm);
 end;
 
 procedure TfmEmutecaVersionList.VSTCompareNodes(Sender: TBaseVirtualTree;

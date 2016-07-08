@@ -22,7 +22,9 @@ uses
   ucEmuteca, ucEmutecaParent, ucEmutecaVersion,
   // Emuteca frames
   ufEmutecaParentList, ufEmutecaVersionList, ufEmutecaEmulatorManager,
-  ufEmutecaSystemManager, ufEmutecaActAddFolder,
+  ufEmutecaSystemManager,
+  // Emuteca windows
+  ufEmutecaActAddVersion,  ufEmutecaActAddFolder,
   uGUIConfig;
 
 type
@@ -32,6 +34,7 @@ type
   TfrmEmutecaMain = class(TForm)
     actEmulatorManager: TAction;
     actAddFolder: TAction;
+    actAddSoft: TAction;
     actMediaManager: TAction;
     actScriptManager: TAction;
     actSystemManager: TAction;
@@ -44,6 +47,7 @@ type
     MenuItem1: TMenuItem;
     MenuItem10: TMenuItem;
     MenuItem11: TMenuItem;
+    MenuItem12: TMenuItem;
     MenuItem3: TMenuItem;
     MenuItem4: TMenuItem;
     MenuItem5: TMenuItem;
@@ -64,6 +68,7 @@ type
     Splitter3: TSplitter;
     stbHelp: TStatusBar;
     stbInfo: TStatusBar;
+    procedure actAddSoftExecute(Sender: TObject);
     procedure actAddFolderExecute(Sender: TObject);
     procedure actEmulatorManagerExecute(Sender: TObject);
     procedure actSystemManagerExecute(Sender: TObject);
@@ -285,12 +290,43 @@ begin
 
   aFrame.Emuteca := Emuteca;
 
+  { TODO : Use Observer pattern... }
   if aForm.ShowModal = mrOk then
   begin
     fmEmutecaVersionList.UpdateList;
     fmEmutecaParentList.UpdateList;
   end;
 
+  FreeAndNil(aForm);
+end;
+
+procedure TfrmEmutecaMain.actAddSoftExecute(Sender: TObject);
+var
+  aForm: TForm;
+  aFrame: TfmActAddVersion;
+begin
+  Application.CreateForm(TForm, aForm);
+
+  aForm.Position := poMainFormCenter;
+  aForm.Caption := Format(rsFmtWindowCaption,
+    [Application.Title, actAddSoft.Caption]);
+
+  aFrame := TfmActAddVersion.Create(aForm);
+  aFrame.Parent := aForm;
+  aFrame.Align := alClient;
+  aFrame.Emuteca := Emuteca;
+  {
+  aFrame.IconsIni := Emuteca.Config.ImagesFolder +
+    Emuteca.Config.IconsSubfolder + Emuteca.Config.IconsIniFile;
+  }
+  aForm.AutoSize:=True;
+
+    { TODO : Use Observer pattern... }
+  if aForm.ShowModal = mrOk then
+  begin
+    fmEmutecaVersionList.UpdateList;
+    fmEmutecaParentList.UpdateList;
+  end;
   FreeAndNil(aForm);
 end;
 
