@@ -5,7 +5,7 @@ unit ufEmutecaSystemEditorExt;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, ComCtrls, ExtCtrls, StdCtrls,
+  Classes, SysUtils, FileUtil, Forms, Controls, ComCtrls, ExtCtrls,
   Buttons, ucEmuteca, ucEmutecaSystem, ufEmutecaSystemEditor,
   ufEmutecaSystemInfoEditor;
 

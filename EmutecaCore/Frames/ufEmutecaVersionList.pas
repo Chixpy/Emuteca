@@ -7,8 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, VirtualTrees, Forms, Controls, ComCtrls,
   ActnList, Menus, LazUTF8,
-  uEmutecaCommon, ucEmuteca, ucEmutecaVersion,
-  ufEmutecaActAddVersion;
+  uEmutecaCommon, ucEmuteca, ucEmutecaVersion;
 
 type
   TFEVLItemSelected = procedure(const aVersion: cEmutecaVersion) of object;

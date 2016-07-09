@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, LazFileUtils, Forms, Controls,
   StdCtrls, EditBtn, Buttons, ExtCtrls,
-  sha1, crc,
+  sha1,
   ucEmuteca, ucEmutecaSystem, ucEmutecaVersion,
   uCHXFileUtils, uCHXStrUtils,
   u7zWrapper;
@@ -69,6 +69,7 @@ var
   aVersion: cEmutecaVersion;
   i: integer;
 begin
+  { TODO : Must be in cEmuteca }
   if not assigned(Emuteca) then
     Exit;
   if cbxSystem.ItemIndex = -1 then
@@ -104,13 +105,14 @@ begin
         case aSystem.GameKey of
           TEFKCRC32:
             { TODO : We can know CRC32 without extracting... }
+
           begin
             w7zExtractFile(FolderList[i], FileList[i],
-              Emuteca.Config.TempSubfolder + 'Temp', False, '');
+              Emuteca.TempFolder + 'Temp', False, '');
             aversion.ID :=
-              IntToHex(CRC32File(Emuteca.Config.TempSubfolder +
+              IntToHex(CRC32File(Emuteca.TempFolder +
               'Temp\' + FileList[i]), 8);
-            DeleteDirectory(Emuteca.Config.TempSubfolder + 'Temp', False);
+            DeleteDirectory(Emuteca.TempFolder + 'Temp', False);
           end;
           TEFKCustom: aversion.ID := SetAsID(ExtractFileNameOnly(FileList[i]));
           TEFKFileName: aversion.ID :=
@@ -118,11 +120,11 @@ begin
           else  // TEFKSHA1 by default
           begin
             w7zExtractFile(FolderList[i], FileList[i],
-              Emuteca.Config.TempSubfolder + 'Temp', False, '');
+              Emuteca.TempFolder + 'Temp', False, '');
             aversion.ID :=
-              SHA1Print(SHA1File(Emuteca.Config.TempSubfolder +
+              SHA1Print(SHA1File(Emuteca.TempFolder +
               'Temp\' + FileList[i]));
-            DeleteDirectory(Emuteca.Config.TempSubfolder + 'Temp', False);
+            DeleteDirectory(Emuteca.TempFolder + 'Temp', False);
           end;
         end;
 

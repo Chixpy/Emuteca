@@ -60,11 +60,16 @@ type
     procedure SetTempFolder(AValue: string);
 
   protected
-    property TempFolder: string read FTempFolder write SetTempFolder;
+
 
   public
     property ProgressCallBack: TEmutecaProgressCallBack
       read FProgressCallBack write SetProgressBar;
+
+    { TODO: Must be protected. Remove all references to this
+
+      Y traer los procedimientos que lo usen aquí. }
+    property TempFolder: string read FTempFolder write SetTempFolder;
 
     procedure LoadConfig(aFile: string);
 
@@ -102,9 +107,7 @@ implementation
 
 procedure cEmuteca.SetTempFolder(AValue: string);
 begin
-  if FTempFolder = AValue then
-    Exit;
-  FTempFolder := AValue;
+  FTempFolder := SetAsFolder(AValue);
 end;
 
 procedure cEmuteca.LoadConfig(aFile: string);
@@ -191,7 +194,7 @@ begin
   else
     aParent := CurrentParent;
   if not assigned(aParent) then
-    { TODO : Exception or return Comperror code? }
+    // TODO : Exception or return Comperror code?
     Exit;
 }
   // 2. Searching for system to know the emulator(s) (test CurrentSystem first,
