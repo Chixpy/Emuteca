@@ -17,39 +17,42 @@ object fmEmutecaVersionList: TfmEmutecaVersionList
     Align = alClient
     Colors.UnfocusedColor = clMedGray
     DefaultText = 'Node'
-    Header.AutoSizeIndex = 1
+    Header.AutoSizeIndex = 0
     Header.Columns = <    
       item
-        Options = [coAllowClick, coDraggable, coEnabled, coParentBidiMode, coParentColor, coResizable, coShowDropMark, coVisible, coSmartResize, coAllowFocus, coEditable]
         Position = 0
         Text = 'Title'
-        Width = 100
+        Width = 200
       end    
       item
-        Options = [coAllowClick, coDraggable, coEnabled, coParentBidiMode, coParentColor, coResizable, coShowDropMark, coVisible, coSmartResize, coAllowFocus, coEditable]
         Position = 1
-        Text = 'Info'
-        Width = 16
+        Text = 'System'
+        Width = 100
       end    
       item
-        Options = [coAllowClick, coDraggable, coEnabled, coParentBidiMode, coParentColor, coResizable, coShowDropMark, coVisible, coSmartResize, coAllowFocus, coEditable]
         Position = 2
-        Text = 'Folder'
-        Width = 100
+        Text = 'Info'
+        Width = 200
       end    
       item
-        Options = [coAllowClick, coDraggable, coEnabled, coParentBidiMode, coParentColor, coResizable, coShowDropMark, coVisible, coSmartResize, coAllowFocus, coEditable]
         Position = 3
+        Text = 'Folder'
+        Width = 200
+      end    
+      item
+        Position = 4
         Text = 'File'
-        Width = 100
+        Width = 200
       end>
     Header.DefaultHeight = 17
     Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoShowImages, hoShowSortGlyphs, hoVisible, hoHeaderClickAutoSort, hoAutoColumnPopupMenu]
     PopupMenu = PopupMenu1
     TabOrder = 0
     TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScrollOnExpand, toAutoSort, toAutoTristateTracking, toAutoDeleteMovedNodes]
-    TreeOptions.PaintOptions = [toShowBackground, toShowButtons, toShowDropmark, toShowHorzGridLines, toShowTreeLines, toShowVertGridLines, toThemeAware, toUseBlendedImages, toFullVertGridLines]
+    TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning]
+    TreeOptions.PaintOptions = [toShowBackground, toShowButtons, toShowDropmark, toShowHorzGridLines, toShowTreeLines, toShowVertGridLines, toThemeAware, toUseBlendedImages, toFullVertGridLines, toStaticBackground]
     TreeOptions.SelectionOptions = [toFullRowSelect, toRightClickSelect]
+    TreeOptions.StringOptions = [toSaveCaptions]
     OnChange = VSTChange
     OnCompareNodes = VSTCompareNodes
     OnDblClick = VSTDblClick

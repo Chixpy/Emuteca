@@ -40,8 +40,6 @@ type
     procedure SetOnDblClick(AValue: TFEVLDblClick);
     procedure SetOnItemSelect(AValue: TFEVLItemSelected);
 
-
-
   protected
 
 
@@ -104,13 +102,17 @@ begin
     Exit;
 
   case Column of
-    1: // Description
+    0: // Title
+      Result := UTF8CompareText(pData1^.Title, pData2^.Title);
+    1: // System
+      Result := UTF8CompareText(pData1^.System, pData2^.System);
+    2: // Description
       Result := UTF8CompareText(pData1^.Description, pData2^.Description);
-    2: // Folder
+    3: // Folder
       Result := UTF8CompareText(pData1^.Folder, pData2^.Folder);
-    3: // File;
+    4: // File;
       Result := UTF8CompareText(pData1^.FileName, pData2^.FileName);
-    else // Title
+    else
       Result := UTF8CompareText(pData1^.Title, pData2^.Title);
   end;
 end;
@@ -140,11 +142,15 @@ begin
     Exit;
 
   case Column of
-    1: // Description
+    0: // Title
+      CellText := pData^.Title;
+    1: // System
+      CellText := pData^.System;
+    2: // Description
       CellText := pData^.Description;
-    2: // Folder
+    3: // Folder
       CellText := pData^.Folder;
-    3: // File
+    4: // File
       CellText := pData^.FileName;
     else // Title
       CellText := pData^.Title;
