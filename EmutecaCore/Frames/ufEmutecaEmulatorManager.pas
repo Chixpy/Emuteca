@@ -68,6 +68,7 @@ type
     pBottom: TPanel;
     pLeft: TPanel;
     pmItemList: TPopupMenu;
+    SaveDialog1: TSaveDialog;
     Splitter1: TSplitter;
     StatusBar1: TStatusBar;
     ToolBar1: TToolBar;
@@ -82,6 +83,7 @@ type
     procedure actCancelAndExitExecute(Sender: TObject);
     procedure actCheckAllExecute(Sender: TObject);
     procedure actDeleteItemExecute(Sender: TObject);
+    procedure actExportListExecute(Sender: TObject);
     procedure actSaveAndExitExecute(Sender: TObject);
     procedure actSaveListExecute(Sender: TObject);
     procedure actUncheckAllExecute(Sender: TObject);
@@ -189,6 +191,16 @@ begin
   EmuManager.FullList.Remove(cEmutecaEmulator(
     CheckListBox1.Items.Objects[CheckListBox1.ItemIndex]));
   LoadList;
+end;
+
+procedure TfmEmutecaEmulatorManager.actExportListExecute(Sender: TObject);
+begin
+  if not assigned(EmuManager) then
+    Exit;
+
+  if not SaveDialog1.Execute then Exit;
+
+  EmuManager.SaveToFile(SaveDialog1.FileName, True);
 end;
 
 procedure TfmEmutecaEmulatorManager.actSaveAndExitExecute(Sender: TObject);

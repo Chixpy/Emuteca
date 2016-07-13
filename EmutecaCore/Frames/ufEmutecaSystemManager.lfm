@@ -186,6 +186,7 @@ object fmEmutecaSystemManager: TfmEmutecaSystemManager
     object actExportList: TAction
       Category = 'ItemList'
       Caption = 'Export List'
+      OnExecute = actExportListExecute
     end
     object actImportList: TAction
       Category = 'ItemList'
@@ -254,5 +255,11 @@ object fmEmutecaSystemManager: TfmEmutecaSystemManager
     object MenuItem2: TMenuItem
       Action = actDeleteItem
     end
+  end
+  object SaveDialog1: TSaveDialog
+    Filter = 'Systems ini File|*.ini|All files|*.*'
+    Options = [ofNoChangeDir, ofEnableSizing, ofViewDetail]
+    left = 52
+    top = 276
   end
 end

@@ -213,8 +213,8 @@ object fmEmutecaEmulatorManager: TfmEmutecaEmulatorManager
   end
   object ActionList1: TActionList
     Images = ilActions
-    left = 88
-    top = 240
+    left = 16
+    top = 304
     object actAddItem: TAction
       Category = 'ItemList'
       Caption = 'Add Item'
@@ -243,6 +243,7 @@ object fmEmutecaEmulatorManager: TfmEmutecaEmulatorManager
     object actExportList: TAction
       Category = 'ItemList'
       Caption = 'Export List'
+      OnExecute = actExportListExecute
     end
     object actImportList: TAction
       Category = 'ItemList'
@@ -260,13 +261,13 @@ object fmEmutecaEmulatorManager: TfmEmutecaEmulatorManager
     end
   end
   object ilActions: TImageList
-    left = 144
-    top = 240
+    left = 73
+    top = 304
   end
   object pmItemList: TPopupMenu
     Images = ilActions
-    left = 73
-    top = 176
+    left = 136
+    top = 304
     object MenuItem1: TMenuItem
       Action = actCheckAll
     end
@@ -297,5 +298,11 @@ object fmEmutecaEmulatorManager: TfmEmutecaEmulatorManager
     object MenuItem7: TMenuItem
       Action = actDeleteItem
     end
+  end
+  object SaveDialog1: TSaveDialog
+    Filter = 'Emulators ini File|*.ini|All files|*.*'
+    Options = [ofNoChangeDir, ofEnableSizing, ofViewDetail]
+    left = 24
+    top = 248
   end
 end
