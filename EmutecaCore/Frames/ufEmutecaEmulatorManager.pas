@@ -258,17 +258,15 @@ begin
   EmuEditor.Emulator := nil;
 
   CheckListBox1.Clear;
+
   if not assigned(EmuManager) then
     exit;
 
+  EmuManager.AssingAllTo(CheckListBox1.Items);
   i := 0;
-  while i < EmuManager.FullList.Count do
+  while i < CheckListBox1.Items.Count do
   begin
-    // Dragons
-    CheckListBox1.Checked[
-      CheckListBox1.Items.AddObject(EmuManager.FullList[i].EmulatorName,
-      EmuManager.FullList[i])
-      ] := EmuManager.FullList[i].Enabled;
+    CheckListBox1.Checked[i] := cEmutecaEmulator(CheckListBox1.Items.Objects[i]).Enabled;
     Inc(i);
   end;
 end;
