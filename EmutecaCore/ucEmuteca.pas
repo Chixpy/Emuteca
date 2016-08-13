@@ -343,6 +343,11 @@ begin
   if FCurrentSystem = AValue then
     Exit;
   FCurrentSystem := AValue;
+
+  if CurrentSystem = nil then
+    SoftManager.SelectSystem('')
+  else
+    SoftManager.SelectSystem(CurrentSystem.ID);
 end;
 
 procedure cEmuteca.SetProgressBar(AValue: TEmutecaProgressCallBack);

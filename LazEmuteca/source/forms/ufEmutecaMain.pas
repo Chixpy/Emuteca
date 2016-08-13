@@ -5,9 +5,9 @@ unit ufEmutecaMain;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, LazFileUtils, Forms, Controls,
-  Graphics, Dialogs, ActnList,
-  Menus, StdActns, ComCtrls, ExtCtrls, DefaultTranslator, IniPropStorage,
+  Classes, SysUtils, FileUtil, LazFileUtils, Forms, Controls, Graphics, Dialogs,
+  ActnList, Menus, StdActns, ComCtrls, ExtCtrls, DefaultTranslator,
+  IniPropStorage, StdCtrls,
   // Misc
   uVersionSupport,
   // CHX units
@@ -19,7 +19,9 @@ uses
   // Emuteca common
   uEmutecaCommon,
   // Emuteca clases
-  ucEmuteca, ucEmutecaParent, ucEmutecaVersion,
+  ucEmuteca, ucEmutecaParent, ucEmutecaVersion, ucEmutecaSystem,
+  // Emuteca forms
+  ufEmutecaScriptManager,
   // Emuteca frames
   ufEmutecaParentList, ufEmutecaVersionList, ufEmutecaEmulatorManager,
   ufEmutecaSystemManager,
@@ -39,6 +41,7 @@ type
     actScriptManager: TAction;
     actSystemManager: TAction;
     ActionList1: TActionList;
+    cbSystem: TComboBox;
     FileExit1: TFileExit;
     HelpOnHelp1: THelpOnHelp;
     ImageList1: TImageList;
@@ -62,6 +65,7 @@ type
     pBottom: TPanel;
     pMiddle: TPanel;
     pRight: TPanel;
+    pSystems: TPanel;
     pTop: TPanel;
     Splitter1: TSplitter;
     Splitter2: TSplitter;
@@ -71,7 +75,9 @@ type
     procedure actAddSoftExecute(Sender: TObject);
     procedure actAddFolderExecute(Sender: TObject);
     procedure actEmulatorManagerExecute(Sender: TObject);
+    procedure actScriptManagerExecute(Sender: TObject);
     procedure actSystemManagerExecute(Sender: TObject);
+    procedure cbSystemChange(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -189,19 +195,15 @@ procedure TfrmEmutecaMain.FormCreate(Sender: TObject);
     // Creating and setting the parent list frame
     fmEmutecaParentList := TfmEmutecaParentList.Create(pTop);
     fmEmutecaParentList.Parent := pTop;
-
-    { TODO : Use whole parent manager...
-               or create a EnabledParentList
-               or only AssignEnabledTo... }
-    fmEmutecaParentList.ParentList := Emuteca.ParentManager.FullList;
     fmEmutecaParentList.OnItemSelect := @Self.SelectParent;
+    fmEmutecaParentList.ParentList := Emuteca.ParentManager.FullList;
 
     // Creating and Setting the software list frame
     fmEmutecaVersionList := TfmEmutecaVersionList.Create(pBottom);
     fmEmutecaVersionList.Parent := pBottom;
-    fmEmutecaVersionList.Emuteca := Emuteca;
     fmEmutecaVersionList.OnItemSelect := @Self.SelectSoftware;
     fmEmutecaVersionList.OnDblClick := @Self.RunVersion;
+    fmEmutecaVersionList.SoftList := Emuteca.SoftManager.EnabledList;
 
     // Creating and Setting Tags
     aTabSheet := PageControl1.AddTabSheet;
@@ -210,6 +212,7 @@ procedure TfrmEmutecaMain.FormCreate(Sender: TObject);
     fmCHXTagTree.Parent := aTabSheet;
     fmCHXTagTree.Folder := Emuteca.Config.TagSubFolder;
     fmCHXTagTree.OnCheckChange := @self.CheckTags;
+
   end;
 
 begin
@@ -243,7 +246,14 @@ begin
   Emuteca.ProgressCallBack := @self.OnProgressBar;
   Emuteca.LoadConfig(GUIConfig.EmutecaIni);
 
+  // System Combobox
+  Emuteca.SystemManager.AssingEnabledTo(cbSystem.Items);
+  cbSystem.Items.Insert(0, 'All Systems');
+  cbSystem.ItemIndex:=0; // TODO: Configurable
+
   CreateFrames;
+
+
 
 end;
 
@@ -271,6 +281,19 @@ begin
 
   aForm.ShowModal;
   FreeAndNil(aForm);
+end;
+
+procedure TfrmEmutecaMain.actScriptManagerExecute(Sender: TObject);
+begin
+  Application.CreateForm(TfrmEmutecaScriptManager, frmEmutecaScriptManager);
+
+  { TODO : Use Observer pattern... }
+  if frmEmutecaScriptManager.ShowModal = mrOk then
+  begin
+    fmEmutecaVersionList.UpdateList;
+    fmEmutecaParentList.UpdateList;
+  end;
+  FreeAndNil(frmEmutecaScriptManager);
 end;
 
 procedure TfrmEmutecaMain.actAddFolderExecute(Sender: TObject);
@@ -354,6 +377,18 @@ begin
 
   aForm.ShowModal;
   FreeAndNil(aForm);
+end;
+
+procedure TfrmEmutecaMain.cbSystemChange(Sender: TObject);
+begin
+  if cbSystem.ItemIndex < 0 then
+    Emuteca.CurrentSystem := nil
+  else
+  Emuteca.CurrentSystem := cEmutecaSystem(cbSystem.Items.Objects[cbSystem.ItemIndex]);
+
+    { TODO : Use Observer pattern... }
+    fmEmutecaVersionList.UpdateList;
+    fmEmutecaParentList.UpdateList;
 end;
 
 procedure TfrmEmutecaMain.FormCloseQuery(Sender: TObject;

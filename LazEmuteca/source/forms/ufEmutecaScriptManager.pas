@@ -9,7 +9,7 @@ uses
   ufCHXScriptManager;
 
 type
-  TfrmScriptManager1 = class(TfrmCHXScriptManager)
+  TfrmEmutecaScriptManager = class(TfrmCHXScriptManager)
   private
     { private declarations }
   public
@@ -17,7 +17,7 @@ type
   end;
 
 var
-  frmScriptManager1: TfrmScriptManager1;
+  frmEmutecaScriptManager: TfrmEmutecaScriptManager;
 
 implementation
 

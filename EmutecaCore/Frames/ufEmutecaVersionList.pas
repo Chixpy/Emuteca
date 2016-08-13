@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, VirtualTrees, Forms, Controls, ComCtrls,
   ActnList, Menus, LazUTF8,
-  uEmutecaCommon, ucEmuteca, ucEmutecaVersion;
+  uEmutecaCommon, ucEmutecaVersion;
 
 type
   TFEVLItemSelected = procedure(const aVersion: cEmutecaVersion) of object;
@@ -33,24 +33,24 @@ type
       var InitialStates: TVirtualNodeInitStates);
 
   private
-    FEmuteca: cEmuteca;
     FOnDblClick: TFEVLDblClick;
     FOnItemSelect: TFEVLItemSelected;
-    procedure SetEmuteca(AValue: cEmuteca);
+    FSoftList: cEmutecaVersionList;
     procedure SetOnDblClick(AValue: TFEVLDblClick);
     procedure SetOnItemSelect(AValue: TFEVLItemSelected);
+    procedure SetSoftList(AValue: cEmutecaVersionList);
 
   protected
 
 
   public
-    property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
-    {< Sincerelly, I don't like this. But is needed for many actions...}
+    property SoftList: cEmutecaVersionList read FSoftList write SetSoftList;
 
     property OnItemSelect: TFEVLItemSelected
       read FOnItemSelect write SetOnItemSelect;
     //< CallBack function when item selected.
     property OnDblClick: TFEVLDblClick read FOnDblClick write SetOnDblClick;
+    //< CallBack function when item Double Click.
 
     procedure UpdateList;
 
@@ -69,6 +69,14 @@ begin
   if FOnItemSelect = AValue then
     Exit;
   FOnItemSelect := AValue;
+end;
+
+procedure TfmEmutecaVersionList.SetSoftList(AValue: cEmutecaVersionList);
+begin
+  if FSoftList=AValue then Exit;
+  FSoftList:=AValue;
+
+  UpdateList;
 end;
 
 procedure TfmEmutecaVersionList.VSTChange(Sender: TBaseVirtualTree;
@@ -163,7 +171,7 @@ var
   pData: ^cEmutecaVersion;
 begin
   pData := VST.GetNodeData(Node);
-  pData^ := Emuteca.SoftManager.FullList[Node^.Index];
+  pData^ := SoftList[Node^.Index];
 end;
 
 procedure TfmEmutecaVersionList.SetOnDblClick(AValue: TFEVLDblClick);
@@ -173,25 +181,14 @@ begin
   FOnDblClick := AValue;
 end;
 
-procedure TfmEmutecaVersionList.SetEmuteca(AValue: cEmuteca);
-begin
-  if FEmuteca = AValue then
-    Exit;
-  FEmuteca := AValue;
-
-  //ReadActionsIcons(IconsIni, Self.Name, '', ilActions, ActionList1);
-
-  UpdateList;
-end;
-
 procedure TfmEmutecaVersionList.UpdateList;
 begin
   VST.Clear;
   StatusBar1.SimpleText := '';
-  if not assigned(Emuteca) then
+  if not assigned(SoftList) then
     Exit;
 
-  vst.RootNodeCount := Emuteca.SoftManager.FullList.Count;
+  vst.RootNodeCount := SoftList.Count;
   StatusBar1.SimpleText := Format(rsFmtNItems, [vst.RootNodeCount]);
 end;
 

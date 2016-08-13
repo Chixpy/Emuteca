@@ -235,7 +235,7 @@
       <Unit29>
         <Filename Value="source\forms\ufEmutecaScriptManager.pas"/>
         <IsPartOfProject Value="True"/>
-        <ComponentName Value="frmScriptManager1"/>
+        <ComponentName Value="frmEmutecaScriptManager"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
       </Unit29>
