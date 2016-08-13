@@ -394,6 +394,9 @@ end;
 procedure TfrmEmutecaMain.FormCloseQuery(Sender: TObject;
   var CanClose: boolean);
 begin
+  if not GUIConfig.SaveOnExit then Exit;
+
+  { TODO : Emuteca.Save }
   Emuteca.ParentManager.SaveToFile('', False);
   Emuteca.SoftManager.SaveToFile('', False);
   GUIConfig.SaveConfig('');

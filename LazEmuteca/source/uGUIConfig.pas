@@ -21,6 +21,7 @@ const
   // [Config]
   krsIniSectionConfig = 'Config';
   krsEmutecaIni = 'EmutecaIni';
+  krsSaveOnExit = 'SaveOnExit';
   krsSearchFile = 'SearchFile';
   krsHelpFolder = 'HelpFolder';
 
@@ -48,6 +49,7 @@ type
     FImagesFolder: string;
     FmPlayerExecutable: string;
     FmPlayerSubfolder: string;
+    FSaveOnExit: boolean;
     FSearchFile: string;
     FToolsFolder: string;
     FVIIconsSubfolder: string;
@@ -61,6 +63,7 @@ type
     procedure SetImagesFolder(AValue: string);
     procedure SetmPlayerExecutable(AValue: string);
     procedure SetmPlayerSubfolder(AValue: string);
+    procedure SetSaveOnExit(AValue: boolean);
     procedure SetSearchFile(AValue: string);
     procedure SetToolsFolder(AValue: string);
     procedure SetVIIconsSubfolder(AValue: string);
@@ -92,6 +95,7 @@ type
 
     // Config/Data
     property EmutecaIni: string read FEmutecaIni write SetEmutecaIni;
+    property SaveOnExit: boolean read FSaveOnExit write SetSaveOnExit;
     property HelpFolder: string read FHelpFolder write SetHelpFolder;
     property SearchFile: string read FSearchFile write SetSearchFile;
 
@@ -154,6 +158,12 @@ begin
   FmPlayerSubfolder := SetAsFolder(AValue);
 end;
 
+procedure cGUIConfig.SetSaveOnExit(AValue: boolean);
+begin
+  if FSaveOnExit=AValue then Exit;
+  FSaveOnExit:=AValue;
+end;
+
 procedure cGUIConfig.SetSearchFile(AValue: string);
 begin
   FSearchFile := SetAsFile(AValue);
@@ -188,6 +198,8 @@ begin
   // Data
     EmutecaIni := IniFile.ReadString(krsIniSectionConfig,
     krsEmutecaIni, EmutecaIni);
+    SaveOnExit:=IniFile.ReadBool(krsIniSectionConfig,
+    krsSaveOnExit, SaveOnExit);
   SearchFile := IniFile.ReadString(krsIniSectionConfig,
     krsSearchFile, SearchFile);
   HelpFolder := IniFile.ReadString(krsIniSectionConfig,
@@ -217,6 +229,7 @@ begin
 
   // Data
   IniFile.WriteString(krsIniSectionConfig, krsEmutecaIni, EmutecaIni);
+  IniFile.WriteBool(krsIniSectionConfig, krsSaveOnExit, SaveOnExit);
   IniFile.WriteString(krsIniSectionConfig, krsSearchFile, SearchFile);
   IniFile.WriteString(krsIniSectionConfig, krsHelpFolder, HelpFolder);
 
@@ -237,6 +250,7 @@ begin
 
   // Config/Data
   EmutecaIni := 'Emuteca.ini';
+  SaveOnExit := True;
   SearchFile := 'Search.ini';
   HelpFolder := 'Help';
 

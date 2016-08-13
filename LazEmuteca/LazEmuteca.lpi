@@ -94,7 +94,7 @@
         <PackageName Value="LCL"/>
       </Item6>
     </RequiredPackages>
-    <Units Count="55">
+    <Units Count="56">
       <Unit0>
         <Filename Value="LazEmuteca.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -368,6 +368,10 @@
         <IsPartOfProject Value="True"/>
         <HasResources Value="True"/>
       </Unit54>
+      <Unit55>
+        <Filename Value="..\EmutecaCore\Classes\ucEmutecaScriptEngine.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit55>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

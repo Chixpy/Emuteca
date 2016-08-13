@@ -15,7 +15,8 @@ uses
   ugEmutecaManager, ugEmutecaPersList, ufEmutecaScriptManager,
   ucEmutecaVersionManager, ufEmutecaSystemEditor, ufEmutecaActAddVersion,
   ufEmutecaVersionEditor, uGUIConfig, uaEmutecaStorable, uaEmutecaManager,
-  ufEmutecaSystemInfoEditor, ufEmutecaActAddFolder, ufEmutecaSystemEditorExt;
+  ufEmutecaSystemInfoEditor, ufEmutecaActAddFolder, ufEmutecaSystemEditorExt,
+  ucEmutecaScriptEngine;
 
 {$R *.res}
 
