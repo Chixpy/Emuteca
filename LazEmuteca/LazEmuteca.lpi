@@ -23,7 +23,7 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="8"/>
-      <BuildNr Value="89"/>
+      <BuildNr Value="90"/>
       <StringTable ProductVersion=""/>
     </VersionInfo>
     <BuildModes Count="2">
@@ -94,7 +94,7 @@
         <PackageName Value="LCL"/>
       </Item6>
     </RequiredPackages>
-    <Units Count="57">
+    <Units Count="64">
       <Unit0>
         <Filename Value="LazEmuteca.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -175,7 +175,7 @@
       <Unit17>
         <Filename Value="..\EmutecaCore\Frames\ufEmutecaSoftList.pas"/>
         <IsPartOfProject Value="True"/>
-        <ComponentName Value="fmEmutecaVersionList"/>
+        <ComponentName Value="fmEmutecaSoftList"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
       </Unit17>
@@ -253,14 +253,14 @@
       <Unit32>
         <Filename Value="..\EmutecaCore\Frames\ufEmutecaActAddSoft.pas"/>
         <IsPartOfProject Value="True"/>
-        <ComponentName Value="fmActAddVersion"/>
+        <ComponentName Value="fmActAddSoft"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
       </Unit32>
       <Unit33>
         <Filename Value="..\EmutecaCore\Frames\ufEmutecaSoftEditor.pas"/>
         <IsPartOfProject Value="True"/>
-        <ComponentName Value="fmEmutecaVersionEditor"/>
+        <ComponentName Value="fmEmutecaSoftEditor"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
       </Unit33>
@@ -376,6 +376,34 @@
         <Filename Value="..\EmutecaCore\PasScr\uPSI_ucEmutecaEmulator.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit56>
+      <Unit57>
+        <Filename Value="..\EmutecaCore\PasScr\uPSI_ucEmutecaParent.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit57>
+      <Unit58>
+        <Filename Value="..\EmutecaCore\PasScr\uPSI_ucEmutecaSoftware.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit58>
+      <Unit59>
+        <Filename Value="..\EmutecaCore\PasScr\uPSI_ucEmutecaSystem.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit59>
+      <Unit60>
+        <Filename Value="..\EmutecaCore\PasScr\uPSI_ucEmutecaEmulatorManager.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit60>
+      <Unit61>
+        <Filename Value="..\EmutecaCore\PasScr\uPSI_ucEmutecaParentManager.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit61>
+      <Unit62>
+        <Filename Value="..\EmutecaCore\PasScr\uPSI_ucEmutecaSoftManager.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit62>
+      <Unit63>
+        <Filename Value="..\EmutecaCore\PasScr\uPSI_ucEmutecaSystemManager.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit63>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

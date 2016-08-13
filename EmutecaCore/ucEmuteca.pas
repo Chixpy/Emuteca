@@ -43,18 +43,18 @@ type
     FConfig: cEmutecaConfig;
     FCurrentEmulator: cEmutecaEmulator;
     FCurrentParent: cEmutecaParent;
-    FCurrentSoft: cEmutecaVersion;
+    FCurrentSoft: cEmutecaSoftware;
     FCurrentSystem: cEmutecaSystem;
     FEmulatorManager: cEmutecaEmulatorManager;
     FParentManager: cEmutecaParentManager;
     FProgressCallBack: TEmutecaProgressCallBack;
-    FVersionManager: cEmutecaVersionManager;
+    FVersionManager: cEmutecaSoftManager;
     FSystemManager: cEmutecaSystemManager;
     FTempFolder: string;
     procedure SetConfig(AValue: cEmutecaConfig);
     procedure SetCurrentEmulator(AValue: cEmutecaEmulator);
     procedure SetCurrentParent(AValue: cEmutecaParent);
-    procedure SetCurrentSoft(AValue: cEmutecaVersion);
+    procedure SetCurrentSoft(AValue: cEmutecaSoftware);
     procedure SetCurrentSystem(AValue: cEmutecaSystem);
     procedure SetProgressBar(AValue: TEmutecaProgressCallBack);
     procedure SetTempFolder(AValue: string);
@@ -77,7 +77,7 @@ type
     function SearchSystem(aID: string): cEmutecaSystem;
     function SearchMainEmulator(aID: string): cEmutecaEmulator;
 
-    function RunSoftware(const aSoftware: cEmutecaVersion): integer;
+    function RunSoftware(const aSoftware: cEmutecaSoftware): integer;
 
     constructor Create(aOwner: TComponent); override;
     destructor Destroy; override;
@@ -85,12 +85,12 @@ type
   published
     property Config: cEmutecaConfig read FConfig write SetConfig;
 
-    property SoftManager: cEmutecaVersionManager read FVersionManager;
+    property SoftManager: cEmutecaSoftManager read FVersionManager;
     property ParentManager: cEmutecaParentManager read FParentManager;
     property EmulatorManager: cEmutecaEmulatorManager read FEmulatorManager;
     property SystemManager: cEmutecaSystemManager read FSystemManager;
 
-    property CurrentSoft: cEmutecaVersion
+    property CurrentSoft: cEmutecaSoftware
       read FCurrentSoft write SetCurrentSoft;
     property CurrentParent: cEmutecaParent
       read FCurrentParent write SetCurrentParent;
@@ -154,7 +154,7 @@ begin
   Result := EmulatorManager.ItemById(aID);
 end;
 
-function cEmuteca.RunSoftware(const aSoftware: cEmutecaVersion): integer;
+function cEmuteca.RunSoftware(const aSoftware: cEmutecaSoftware): integer;
 var
   aEmulator: cEmutecaEmulator;
   // aParent: cEmutecaParent;
@@ -331,7 +331,7 @@ begin
   FCurrentParent := AValue;
 end;
 
-procedure cEmuteca.SetCurrentSoft(AValue: cEmutecaVersion);
+procedure cEmuteca.SetCurrentSoft(AValue: cEmutecaSoftware);
 begin
   if FCurrentSoft = AValue then
     Exit;
@@ -369,7 +369,7 @@ begin
   FSystemManager := cEmutecaSystemManager.Create(Self);
   FEmulatorManager := cEmutecaEmulatorManager.Create(Self);
   FParentManager := cEmutecaParentManager.Create(Self);
-  FVersionManager := cEmutecaVersionManager.Create(Self);
+  FVersionManager := cEmutecaSoftManager.Create(Self);
 end;
 
 destructor cEmuteca.Destroy;

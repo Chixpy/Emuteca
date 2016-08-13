@@ -10,12 +10,12 @@ uses
   uEmutecaCommon, ucEmutecaSoftware;
 
 type
-  TFEVLItemSelected = procedure(const aVersion: cEmutecaVersion) of object;
-  TFEVLDblClick = procedure(const aVersion: cEmutecaVersion) of object;
+  TFEVLItemSelected = procedure(const aVersion: cEmutecaSoftware) of object;
+  TFEVLDblClick = procedure(const aVersion: cEmutecaSoftware) of object;
 
-  { TfmEmutecaVersionList }
+  { TfmEmutecaSoftList }
 
-  TfmEmutecaVersionList = class(TFrame)
+  TfmEmutecaSoftList = class(TFrame)
     ActionList1: TActionList;
     ImageList1: TImageList;
     MenuItem1: TMenuItem;
@@ -35,16 +35,16 @@ type
   private
     FOnDblClick: TFEVLDblClick;
     FOnItemSelect: TFEVLItemSelected;
-    FSoftList: cEmutecaVersionList;
+    FSoftList: cEmutecaSoftList;
     procedure SetOnDblClick(AValue: TFEVLDblClick);
     procedure SetOnItemSelect(AValue: TFEVLItemSelected);
-    procedure SetSoftList(AValue: cEmutecaVersionList);
+    procedure SetSoftList(AValue: cEmutecaSoftList);
 
   protected
 
 
   public
-    property SoftList: cEmutecaVersionList read FSoftList write SetSoftList;
+    property SoftList: cEmutecaSoftList read FSoftList write SetSoftList;
 
     property OnItemSelect: TFEVLItemSelected
       read FOnItemSelect write SetOnItemSelect;
@@ -62,16 +62,16 @@ implementation
 
 {$R *.lfm}
 
-{ TfmEmutecaVersionList }
+{ TfmEmutecaSoftList }
 
-procedure TfmEmutecaVersionList.SetOnItemSelect(AValue: TFEVLItemSelected);
+procedure TfmEmutecaSoftList.SetOnItemSelect(AValue: TFEVLItemSelected);
 begin
   if FOnItemSelect = AValue then
     Exit;
   FOnItemSelect := AValue;
 end;
 
-procedure TfmEmutecaVersionList.SetSoftList(AValue: cEmutecaVersionList);
+procedure TfmEmutecaSoftList.SetSoftList(AValue: cEmutecaSoftList);
 begin
   if FSoftList=AValue then Exit;
   FSoftList:=AValue;
@@ -79,10 +79,10 @@ begin
   UpdateList;
 end;
 
-procedure TfmEmutecaVersionList.VSTChange(Sender: TBaseVirtualTree;
+procedure TfmEmutecaSoftList.VSTChange(Sender: TBaseVirtualTree;
   Node: PVirtualNode);
 var
-  pData: ^cEmutecaVersion;
+  pData: ^cEmutecaSoftware;
 begin
   if Assigned(OnItemSelect) then
   begin
@@ -97,10 +97,10 @@ begin
   end;
 end;
 
-procedure TfmEmutecaVersionList.VSTCompareNodes(Sender: TBaseVirtualTree;
+procedure TfmEmutecaSoftList.VSTCompareNodes(Sender: TBaseVirtualTree;
   Node1, Node2: PVirtualNode; Column: TColumnIndex; var Result: integer);
 var
-  pData1, pData2: ^cEmutecaVersion;
+  pData1, pData2: ^cEmutecaSoftware;
 begin
   Result := 0;
   pData1 := Sender.GetNodeData(Node1);
@@ -125,9 +125,9 @@ begin
   end;
 end;
 
-procedure TfmEmutecaVersionList.VSTDblClick(Sender: TObject);
+procedure TfmEmutecaSoftList.VSTDblClick(Sender: TObject);
 var
-  pData: ^cEmutecaVersion;
+  pData: ^cEmutecaSoftware;
 begin
   if Assigned(OnDblClick) then
   begin
@@ -139,11 +139,11 @@ begin
   end;
 end;
 
-procedure TfmEmutecaVersionList.VSTGetText(Sender: TBaseVirtualTree;
+procedure TfmEmutecaSoftList.VSTGetText(Sender: TBaseVirtualTree;
   Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType;
   var CellText: string);
 var
-  pData: ^cEmutecaVersion;
+  pData: ^cEmutecaSoftware;
 begin
   pData := VST.GetNodeData(Node);
   if pData^ = nil then
@@ -165,23 +165,23 @@ begin
   end;
 end;
 
-procedure TfmEmutecaVersionList.VSTInitNode(Sender: TBaseVirtualTree;
+procedure TfmEmutecaSoftList.VSTInitNode(Sender: TBaseVirtualTree;
   ParentNode, Node: PVirtualNode; var InitialStates: TVirtualNodeInitStates);
 var
-  pData: ^cEmutecaVersion;
+  pData: ^cEmutecaSoftware;
 begin
   pData := VST.GetNodeData(Node);
   pData^ := SoftList[Node^.Index];
 end;
 
-procedure TfmEmutecaVersionList.SetOnDblClick(AValue: TFEVLDblClick);
+procedure TfmEmutecaSoftList.SetOnDblClick(AValue: TFEVLDblClick);
 begin
   if FOnDblClick = AValue then
     Exit;
   FOnDblClick := AValue;
 end;
 
-procedure TfmEmutecaVersionList.UpdateList;
+procedure TfmEmutecaSoftList.UpdateList;
 begin
   VST.Clear;
   StatusBar1.SimpleText := '';
@@ -192,14 +192,14 @@ begin
   StatusBar1.SimpleText := Format(rsFmtNItems, [vst.RootNodeCount]);
 end;
 
-constructor TfmEmutecaVersionList.Create(TheOwner: TComponent);
+constructor TfmEmutecaSoftList.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
 
-  VST.NodeDataSize := SizeOf(cEmutecaVersion);
+  VST.NodeDataSize := SizeOf(cEmutecaSoftware);
 end;
 
-destructor TfmEmutecaVersionList.Destroy;
+destructor TfmEmutecaSoftList.Destroy;
 begin
   inherited Destroy;
 end;

@@ -1,4 +1,4 @@
-object fmEmutecaVersionList: TfmEmutecaVersionList
+object fmEmutecaSoftList: TfmEmutecaSoftList
   Left = 0
   Height = 204
   Top = 0

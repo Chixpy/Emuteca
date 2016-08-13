@@ -10,9 +10,9 @@ uses
 
 type
 
-  { TfmEmutecaVersionEditor }
+  { TfmEmutecaSoftEditor }
 
-  TfmEmutecaVersionEditor = class(TFrame)
+  TfmEmutecaSoftEditor = class(TFrame)
     cbxParent: TComboBox;
     eDescription: TEdit;
     eTitle: TEdit;
@@ -21,14 +21,14 @@ type
     lTitle: TLabel;
   private
     FEmuteca: cEmuteca;
-    FVersion: cEmutecaVersion;
+    FVersion: cEmutecaSoftware;
     procedure SetEmuteca(AValue: cEmuteca);
-    procedure SetVersion(AValue: cEmutecaVersion);
+    procedure SetVersion(AValue: cEmutecaSoftware);
     { private declarations }
 
   public
     { public declarations }
-    property Version: cEmutecaVersion read FVersion write SetVersion;
+    property Version: cEmutecaSoftware read FVersion write SetVersion;
     property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
 
     procedure SaveData;
@@ -40,16 +40,16 @@ implementation
 
 {$R *.lfm}
 
-{ TfmEmutecaVersionEditor }
+{ TfmEmutecaSoftEditor }
 
-procedure TfmEmutecaVersionEditor.SetVersion(AValue: cEmutecaVersion);
+procedure TfmEmutecaSoftEditor.SetVersion(AValue: cEmutecaSoftware);
 begin
   if FVersion = AValue then
     Exit;
   FVersion := AValue;
 end;
 
-procedure TfmEmutecaVersionEditor.SetEmuteca(AValue: cEmuteca);
+procedure TfmEmutecaSoftEditor.SetEmuteca(AValue: cEmuteca);
 begin
   if FEmuteca = AValue then
     Exit;
@@ -62,7 +62,7 @@ begin
   Emuteca.ParentManager.AssingEnabledTo(cbxParent.Items);
 end;
 
-procedure TfmEmutecaVersionEditor.SaveData;
+procedure TfmEmutecaSoftEditor.SaveData;
 begin
   if not assigned(Version) then
     Exit;
@@ -77,7 +77,7 @@ begin
   Version.Description := eDescription.Text;
 end;
 
-procedure TfmEmutecaVersionEditor.UpdateData;
+procedure TfmEmutecaSoftEditor.UpdateData;
 begin
   ClearData;
 
@@ -91,7 +91,7 @@ begin
   eDescription.Text := Version.Description;
 end;
 
-procedure TfmEmutecaVersionEditor.ClearData;
+procedure TfmEmutecaSoftEditor.ClearData;
 begin
   cbxParent.ItemIndex := -1;
   eTitle.Clear;

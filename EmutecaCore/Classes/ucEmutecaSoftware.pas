@@ -10,9 +10,9 @@ uses
   uCHXStrUtils;
 
 type
-  { cEmutecaVersion }
+  { cEmutecaSoftware }
 
-  cEmutecaVersion = class(caEmutecaStorableTxt)
+  cEmutecaSoftware = class(caEmutecaStorableTxt)
   private
     FDescription: string;
     FFileName: string;
@@ -58,15 +58,15 @@ type
 
   end;
 
-  { cEmutecaVersionList }
+  { cEmutecaSoftList }
 
-  cEmutecaVersionList = specialize TFPGObjectList<cEmutecaVersion>;
+  cEmutecaSoftList = specialize TFPGObjectList<cEmutecaSoftware>;
 
 implementation
 
-{ cEmutecaVersion }
+{ cEmutecaSoftware }
 
-function cEmutecaVersion.GetDataString: string;
+function cEmutecaSoftware.GetDataString: string;
 var
   aStringList: TStringList;
 begin
@@ -79,7 +79,7 @@ begin
   end;
 end;
 
-procedure cEmutecaVersion.SetDataString(AValue: string);
+procedure cEmutecaSoftware.SetDataString(AValue: string);
 var
   aStringList: TStringList;
 begin
@@ -93,56 +93,56 @@ begin
   end;
 end;
 
-procedure cEmutecaVersion.SetDescription(AValue: string);
+procedure cEmutecaSoftware.SetDescription(AValue: string);
 begin
   if FDescription = AValue then
     Exit;
   FDescription := AValue;
 end;
 
-procedure cEmutecaVersion.SetFileName(AValue: string);
+procedure cEmutecaSoftware.SetFileName(AValue: string);
 begin
   FFileName := SetAsFile(AValue);
 end;
 
-procedure cEmutecaVersion.SetID(AValue: string);
+procedure cEmutecaSoftware.SetID(AValue: string);
 begin
   FID := SetAsID(AValue);
 end;
 
-procedure cEmutecaVersion.SetParent(AValue: string);
+procedure cEmutecaSoftware.SetParent(AValue: string);
 begin
   FParent := SetAsID(AValue);
 end;
 
-procedure cEmutecaVersion.SetFolder(AValue: string);
+procedure cEmutecaSoftware.SetFolder(AValue: string);
 begin
   FFolder := SetAsFolder(AValue);
 end;
 
-procedure cEmutecaVersion.SetSystem(AValue: string);
+procedure cEmutecaSoftware.SetSystem(AValue: string);
 begin
   FSystem := SetAsID(AValue);
 end;
 
-procedure cEmutecaVersion.SetTitle(AValue: string);
+procedure cEmutecaSoftware.SetTitle(AValue: string);
 begin
   if FTitle = AValue then
     Exit;
   FTitle := AValue;
 end;
 
-constructor cEmutecaVersion.Create(aOwner: TComponent);
+constructor cEmutecaSoftware.Create(aOwner: TComponent);
 begin
   inherited Create(aOwner);
 end;
 
-destructor cEmutecaVersion.Destroy;
+destructor cEmutecaSoftware.Destroy;
 begin
   inherited Destroy;
 end;
 
-procedure cEmutecaVersion.LoadFromFileTxt(TxtFile: TStrings);
+procedure cEmutecaSoftware.LoadFromFileTxt(TxtFile: TStrings);
 begin
   if not assigned(TxtFile) then
     Exit;
@@ -162,7 +162,7 @@ begin
     self.FileName := TxtFile[6];
 end;
 
-procedure cEmutecaVersion.SaveToFileTxt(TxtFile: TStrings;
+procedure cEmutecaSoftware.SaveToFileTxt(TxtFile: TStrings;
   const ExportMode: boolean);
 begin
   if not assigned(TxtFile) then

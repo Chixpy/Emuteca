@@ -9,33 +9,33 @@ uses
   uaEmutecaManager, ucEmutecaSoftware;
 
 resourcestring
-  rsLoadingVersionList = 'Loading version list...';
-  rsSavingVersionList = 'Saving version list...';
+  rsLoadingVersionList = 'Loading software list...';
+  rsSavingVersionList = 'Saving software list...';
 
 type
 
-  { cEmutecaVersionManager }
+  { cEmutecaSoftManager }
 
-  cEmutecaVersionManager = class(caEmutecaManagerTxt)
+  cEmutecaSoftManager = class(caEmutecaManagerTxt)
   private
-    FEnabledList: cEmutecaVersionList;
-    FFullList: cEmutecaVersionList;
-    procedure SetEnabledList(AValue: cEmutecaVersionList);
-    procedure SetFullList(AValue: cEmutecaVersionList);
+    FEnabledList: cEmutecaSoftList;
+    FFullList: cEmutecaSoftList;
+    procedure SetEnabledList(AValue: cEmutecaSoftList);
+    procedure SetFullList(AValue: cEmutecaSoftList);
 
   protected
 
 
   public
-    property FullList: cEmutecaVersionList read FFullList write SetFullList;
+    property FullList: cEmutecaSoftList read FFullList write SetFullList;
     {< Actual list where the software is stored. }
-    property EnabledList: cEmutecaVersionList read FEnabledList write SetEnabledList;
+    property EnabledList: cEmutecaSoftList read FEnabledList write SetEnabledList;
     {< Filtered soft list to show. }
 
     procedure LoadFromFileTxt(TxtFile: TStrings); override;
     procedure SaveToFileTxt(TxtFile: TStrings; const ExportMode: boolean);
       override;
-    function ItemById(aId: string): cEmutecaVersion;
+    function ItemById(aId: string): cEmutecaSoftware;
     {< Returns the version with aId key.
 
        @Result cEmutecaParent found or nil.
@@ -52,10 +52,10 @@ type
 
 implementation
 
-{ cEmutecaVersionManager }
+{ cEmutecaSoftManager }
 
 
-function cEmutecaVersionManager.ItemById(aId: string): cEmutecaVersion;
+function cEmutecaSoftManager.ItemById(aId: string): cEmutecaSoftware;
 var
   i: integer;
 begin
@@ -70,7 +70,7 @@ begin
   end;
 end;
 
-procedure cEmutecaVersionManager.SelectSystem(aSystemKey: String);
+procedure cEmutecaSoftManager.SelectSystem(aSystemKey: String);
 var
   i: longint;
 begin
@@ -93,7 +93,7 @@ begin
   end;
 end;
 
-procedure cEmutecaVersionManager.AssingAllTo(aList: TStrings);
+procedure cEmutecaSoftManager.AssingAllTo(aList: TStrings);
 var
   i: longint;
 begin
@@ -110,7 +110,7 @@ begin
   aList.EndUpdate;
 end;
 
-procedure cEmutecaVersionManager.AssingEnabledTo(aList: TStrings);
+procedure cEmutecaSoftManager.AssingEnabledTo(aList: TStrings);
 var
   i: longint;
 begin
@@ -127,38 +127,38 @@ begin
   aList.EndUpdate;
 end;
 
-constructor cEmutecaVersionManager.Create(aOwner: TComponent);
+constructor cEmutecaSoftManager.Create(aOwner: TComponent);
 begin
   inherited Create(aOwner);
 
-  FFullList := cEmutecaVersionList.Create(True);
-  FEnabledList := cEmutecaVersionList.Create(False);
+  FFullList := cEmutecaSoftList.Create(True);
+  FEnabledList := cEmutecaSoftList.Create(False);
   // TODO: OnCompare FullList.OnCompare := ;
 end;
 
-destructor cEmutecaVersionManager.Destroy;
+destructor cEmutecaSoftManager.Destroy;
 begin
   FreeAndNil(FEnabledList);
   FreeAndNil(FFullList);
   inherited Destroy;
 end;
 
-procedure cEmutecaVersionManager.SetEnabledList(AValue: cEmutecaVersionList);
+procedure cEmutecaSoftManager.SetEnabledList(AValue: cEmutecaSoftList);
 begin
   if FEnabledList=AValue then Exit;
   FEnabledList:=AValue;
 end;
 
-procedure cEmutecaVersionManager.SetFullList(AValue: cEmutecaVersionList);
+procedure cEmutecaSoftManager.SetFullList(AValue: cEmutecaSoftList);
 begin
   if FFullList=AValue then Exit;
   FFullList:=AValue;
 end;
 
-procedure cEmutecaVersionManager.LoadFromFileTxt(TxtFile: TStrings);
+procedure cEmutecaSoftManager.LoadFromFileTxt(TxtFile: TStrings);
 var
   i: integer;
-  TempVersion: cEmutecaVersion;
+  TempVersion: cEmutecaSoftware;
 begin
   if not Assigned(TxtFile) then
     Exit;
@@ -166,7 +166,7 @@ begin
   i := 1; // Skipping Header
   while i < TxtFile.Count do
   begin
-    TempVersion := cEmutecaVersion.Create(nil);
+    TempVersion := cEmutecaSoftware.Create(nil);
     TempVersion.DataString := TxtFile[i];
     FullList.Add(TempVersion);
     Inc(i);
@@ -179,7 +179,7 @@ begin
   EnabledList.Assign(FullList);
 end;
 
-procedure cEmutecaVersionManager.SaveToFileTxt(TxtFile: TStrings;
+procedure cEmutecaSoftManager.SaveToFileTxt(TxtFile: TStrings;
   const ExportMode: boolean);
 var
   i: integer;
@@ -187,7 +187,7 @@ begin
   if not Assigned(TxtFile) then
     Exit;
 
-  { TODO : cEmutecaVersionManager.SaveToFileTxt Export mode }
+  { TODO : cEmutecaSoftManager.SaveToFileTxt Export mode }
   TxtFile.Clear;
   TxtFile.Add('"ID","System","Parent","Title","Version","Folder","FileName"');
 

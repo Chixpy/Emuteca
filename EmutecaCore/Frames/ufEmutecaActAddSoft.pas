@@ -14,9 +14,9 @@ uses
 
 type
 
-  { TfmActAddVersion }
+  { TfmActAddSoft }
 
-  TfmActAddVersion = class(TFrame)
+  TfmActAddSoft = class(TFrame)
     ActionList1: TActionList;
     bAccept: TBitBtn;
     bCancel: TBitBtn;
@@ -42,14 +42,14 @@ type
   private
     FEmuteca: cEmuteca;
     FIconsIni: string;
-    FVersion: cEmutecaVersion;
-    FVersionEditor: TfmEmutecaVersionEditor;
+    FVersion: cEmutecaSoftware;
+    FVersionEditor: TfmEmutecaSoftEditor;
     procedure SetEmuteca(AValue: cEmuteca);
     procedure SetIconsIni(AValue: string);
-    procedure SetVersion(AValue: cEmutecaVersion);
+    procedure SetVersion(AValue: cEmutecaSoftware);
 
   protected
-    property VersionEditor: TfmEmutecaVersionEditor read FVersionEditor;
+    property VersionEditor: TfmEmutecaSoftEditor read FVersionEditor;
 
     procedure UpdateGameKey;
     procedure UpdateLists;
@@ -58,7 +58,7 @@ type
   public
     { public declarations }
     property IconsIni: string read FIconsIni write SetIconsIni;
-    property Version: cEmutecaVersion read FVersion write SetVersion;
+    property Version: cEmutecaSoftware read FVersion write SetVersion;
     property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
 
     constructor Create(TheOwner: TComponent); override;
@@ -69,9 +69,9 @@ implementation
 
 {$R *.lfm}
 
-{ TfmActAddVersion }
+{ TfmActAddSoft }
 
-procedure TfmActAddVersion.eFileAcceptFileName(Sender: TObject;
+procedure TfmActAddSoft.eFileAcceptFileName(Sender: TObject;
   var Value: string);
 begin
   // Updating VersionEditor
@@ -90,15 +90,15 @@ begin
   cbxInnerFile.Enabled:= chkOpenAsArchive.Enabled;
 end;
 
-procedure TfmActAddVersion.bAcceptClick(Sender: TObject);
+procedure TfmActAddSoft.bAcceptClick(Sender: TObject);
 begin
   VersionEditor.SaveData;
   Emuteca.SoftManager.FullList.Add(Version);
   // HACK: Created a new version, so we can free it on Destroy.
-  FVersion := cEmutecaVersion.Create(nil);
+  FVersion := cEmutecaSoftware.Create(nil);
 end;
 
-procedure TfmActAddVersion.cbxInnerFileChange(Sender: TObject);
+procedure TfmActAddSoft.cbxInnerFileChange(Sender: TObject);
 begin
   Version.Folder := eFile.Text;
   Version.FileName:= cbxInnerFile.Text;
@@ -108,7 +108,7 @@ begin
   VersionEditor.UpdateData;
 end;
 
-procedure TfmActAddVersion.cbxSystemChange(Sender: TObject);
+procedure TfmActAddSoft.cbxSystemChange(Sender: TObject);
 var
   TempSys: cEmutecaSystem;
   ExtFilter: string;
@@ -140,7 +140,7 @@ begin
   eFile.Filter:=ExtFilter;
 end;
 
-procedure TfmActAddVersion.chkOpenAsArchiveChange(Sender: TObject);
+procedure TfmActAddSoft.chkOpenAsArchiveChange(Sender: TObject);
 begin
   if not chkOpenAsArchive.Enabled then Exit;
 
@@ -154,7 +154,7 @@ begin
 
 end;
 
-procedure TfmActAddVersion.SetIconsIni(AValue: string);
+procedure TfmActAddSoft.SetIconsIni(AValue: string);
 begin
   if FIconsIni = AValue then
     Exit;
@@ -162,7 +162,7 @@ begin
   //ReadActionsIcons(IconsIni, Self.Name, '', ilActions, ActionList1);
 end;
 
-procedure TfmActAddVersion.SetEmuteca(AValue: cEmuteca);
+procedure TfmActAddSoft.SetEmuteca(AValue: cEmuteca);
 begin
   if FEmuteca = AValue then
     Exit;
@@ -177,14 +177,14 @@ begin
   VersionEditor.Emuteca := Emuteca;
 end;
 
-procedure TfmActAddVersion.SetVersion(AValue: cEmutecaVersion);
+procedure TfmActAddSoft.SetVersion(AValue: cEmutecaSoftware);
 begin
   if FVersion = AValue then
     Exit;
   FVersion := AValue;
 end;
 
-procedure TfmActAddVersion.UpdateGameKey;
+procedure TfmActAddSoft.UpdateGameKey;
 begin
   // We use selected rgbVersionKey, not system default
    case rgbVersionKey.ItemIndex of
@@ -198,7 +198,7 @@ begin
    Version.ID := eVersionKey.Text;
 end;
 
-procedure TfmActAddVersion.UpdateLists;
+procedure TfmActAddSoft.UpdateLists;
 begin
   cbxSystem.Clear;
   VersionEditor.Emuteca := Emuteca;
@@ -209,11 +209,11 @@ begin
   Emuteca.SystemManager.AssingEnabledTo(cbxSystem.Items);
 end;
 
-constructor TfmActAddVersion.Create(TheOwner: TComponent);
+constructor TfmActAddSoft.Create(TheOwner: TComponent);
 
   procedure CreateFrames;
   begin
-    FVersionEditor := TfmEmutecaVersionEditor.Create(gbxVersionInfo);
+    FVersionEditor := TfmEmutecaSoftEditor.Create(gbxVersionInfo);
     VersionEditor.Parent := gbxVersionInfo;
     VersionEditor.Align := alClient;
   end;
@@ -223,11 +223,11 @@ begin
 
   CreateFrames;
 
-  FVersion := cEmutecaVersion.Create(nil);
+  FVersion := cEmutecaSoftware.Create(nil);
   VersionEditor.Version := self.Version;
 end;
 
-destructor TfmActAddVersion.Destroy;
+destructor TfmActAddSoft.Destroy;
 begin
   FreeAndNil(FVersion);
   inherited Destroy;

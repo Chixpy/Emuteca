@@ -66,7 +66,7 @@ procedure TfmEmutecaActAddFolder.bRunClick(Sender: TObject);
 var
   aSystem: cEmutecaSystem;
   FolderList, FileList: TStrings;
-  aVersion: cEmutecaVersion;
+  aVersion: cEmutecaSoftware;
   i: integer;
 begin
   { TODO : Must be in cEmuteca }
@@ -94,7 +94,7 @@ begin
     i := 0;
     while i < FileList.Count do
     begin
-      aVersion := cEmutecaVersion.Create(nil);
+      aVersion := cEmutecaSoftware.Create(nil);
       aVersion.Folder := FolderList[i];
       aVersion.FileName := FileList[i];
       aVersion.System := aSystem.ID;

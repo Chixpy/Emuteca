@@ -1,4 +1,4 @@
-object fmEmutecaVersionEditor: TfmEmutecaVersionEditor
+object fmEmutecaSoftEditor: TfmEmutecaSoftEditor
   Left = 0
   Height = 227
   Top = 0

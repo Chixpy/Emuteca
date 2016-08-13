@@ -93,7 +93,7 @@ type
 
     // Frames
     fmEmutecaParentList: TfmEmutecaParentList;
-    fmEmutecaVersionList: TfmEmutecaVersionList;
+    fmEmutecaSoftList: TfmEmutecaSoftList;
     fmCHXTagTree: TfmTagTree;
     procedure SetGUIConfig(AValue: cGUIConfig);
 
@@ -103,9 +103,9 @@ type
 
     procedure CheckTags(aList: TStrings);
     procedure SelectParent(const aParent: cEmutecaParent);
-    procedure SelectSoftware(const aSoftware: cEmutecaVersion);
+    procedure SelectSoftware(const aSoftware: cEmutecaSoftware);
 
-    procedure RunVersion(const aSoftware: cEmutecaVersion);
+    procedure RunVersion(const aSoftware: cEmutecaSoftware);
 
     procedure SaveEmuteca;
 
@@ -170,12 +170,12 @@ begin
   SelectSoftware(nil);
 end;
 
-procedure TfrmEmutecaMain.SelectSoftware(const aSoftware: cEmutecaVersion);
+procedure TfrmEmutecaMain.SelectSoftware(const aSoftware: cEmutecaSoftware);
 begin
   Emuteca.CurrentSoft := aSoftware;
 end;
 
-procedure TfrmEmutecaMain.RunVersion(const aSoftware: cEmutecaVersion);
+procedure TfrmEmutecaMain.RunVersion(const aSoftware: cEmutecaSoftware);
 begin
   Emuteca.RunSoftware(aSoftware);
 end;
@@ -212,11 +212,11 @@ procedure TfrmEmutecaMain.FormCreate(Sender: TObject);
     fmEmutecaParentList.ParentList := Emuteca.ParentManager.FullList;
 
     // Creating and Setting the software list frame
-    fmEmutecaVersionList := TfmEmutecaVersionList.Create(pBottom);
-    fmEmutecaVersionList.Parent := pBottom;
-    fmEmutecaVersionList.OnItemSelect := @Self.SelectSoftware;
-    fmEmutecaVersionList.OnDblClick := @Self.RunVersion;
-    fmEmutecaVersionList.SoftList := Emuteca.SoftManager.EnabledList;
+    fmEmutecaSoftList := TfmEmutecaSoftList.Create(pBottom);
+    fmEmutecaSoftList.Parent := pBottom;
+    fmEmutecaSoftList.OnItemSelect := @Self.SelectSoftware;
+    fmEmutecaSoftList.OnDblClick := @Self.RunVersion;
+    fmEmutecaSoftList.SoftList := Emuteca.SoftManager.EnabledList;
 
     // Creating and Setting Tags
     aTabSheet := PageControl1.AddTabSheet;
@@ -312,7 +312,7 @@ begin
   { TODO : Use Observer pattern... }
   if frmEmutecaScriptManager.ShowModal = mrOk then
   begin
-    fmEmutecaVersionList.UpdateList;
+    fmEmutecaSoftList.UpdateList;
     fmEmutecaParentList.UpdateList;
   end;
   FreeAndNil(frmEmutecaScriptManager);
@@ -338,7 +338,7 @@ begin
   { TODO : Use Observer pattern... }
   if aForm.ShowModal = mrOk then
   begin
-    fmEmutecaVersionList.UpdateList;
+    fmEmutecaSoftList.UpdateList;
     fmEmutecaParentList.UpdateList;
   end;
 
@@ -348,7 +348,7 @@ end;
 procedure TfrmEmutecaMain.actAddSoftExecute(Sender: TObject);
 var
   aForm: TForm;
-  aFrame: TfmActAddVersion;
+  aFrame: TfmActAddSoft;
 begin
   Application.CreateForm(TForm, aForm);
 
@@ -356,7 +356,7 @@ begin
   aForm.Caption := Format(rsFmtWindowCaption,
     [Application.Title, actAddSoft.Caption]);
 
-  aFrame := TfmActAddVersion.Create(aForm);
+  aFrame := TfmActAddSoft.Create(aForm);
   aFrame.Parent := aForm;
   aFrame.Align := alClient;
   aFrame.Emuteca := Emuteca;
@@ -369,7 +369,7 @@ begin
   { TODO : Use Observer pattern... }
   if aForm.ShowModal = mrOk then
   begin
-    fmEmutecaVersionList.UpdateList;
+    fmEmutecaSoftList.UpdateList;
     fmEmutecaParentList.UpdateList;
   end;
   FreeAndNil(aForm);
@@ -410,7 +410,7 @@ begin
       cEmutecaSystem(cbSystem.Items.Objects[cbSystem.ItemIndex]);
 
   { TODO : Use Observer pattern... }
-  fmEmutecaVersionList.UpdateList;
+  fmEmutecaSoftList.UpdateList;
   fmEmutecaParentList.UpdateList;
 end;
 

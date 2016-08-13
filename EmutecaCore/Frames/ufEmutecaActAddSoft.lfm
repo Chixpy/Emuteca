@@ -1,4 +1,4 @@
-object fmActAddVersion: TfmActAddVersion
+object fmActAddSoft: TfmActAddSoft
   Left = 0
   Height = 329
   Top = 0
