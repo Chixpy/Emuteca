@@ -1,12 +1,13 @@
 inherited frmEmutecaScriptManager: TfrmEmutecaScriptManager
+  OnCreate = FormCreate
   inherited PageControl: TPageControl
     inherited pagGeneralScriptList: TTabSheet
       inherited slvGeneral: TShellListView
-        ShellTreeView = nil
+        ShellTreeView = ShellTreeView1
       end
       inherited Panel1: TPanel
         inherited ShellTreeView1: TShellTreeView
-          ShellListView = nil
+          ShellListView = slvGeneral
         end
       end
     end
@@ -18,5 +19,8 @@ inherited frmEmutecaScriptManager: TfrmEmutecaScriptManager
       ClientHeight = 652
       ClientWidth = 1422
     end
+  end
+  inherited ActionList: TActionList
+    left = 72
   end
 end

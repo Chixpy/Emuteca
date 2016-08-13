@@ -1,4 +1,4 @@
-unit ufEmutecaVersionEditor;
+unit ufEmutecaSoftEditor;
 
 {$mode objfpc}{$H+}
 
@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, StdCtrls,
-  ucEmutecaVersion, ucEmutecaParent, ucEmuteca;
+  ucEmutecaSoftware, ucEmutecaParent, ucEmuteca;
 
 type
 

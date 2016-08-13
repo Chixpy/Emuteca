@@ -23,7 +23,7 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="8"/>
-      <BuildNr Value="88"/>
+      <BuildNr Value="89"/>
       <StringTable ProductVersion=""/>
     </VersionInfo>
     <BuildModes Count="2">
@@ -173,14 +173,14 @@
         <IsPartOfProject Value="True"/>
       </Unit16>
       <Unit17>
-        <Filename Value="..\EmutecaCore\Frames\ufEmutecaVersionList.pas"/>
+        <Filename Value="..\EmutecaCore\Frames\ufEmutecaSoftList.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fmEmutecaVersionList"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
       </Unit17>
       <Unit18>
-        <Filename Value="..\EmutecaCore\Classes\ucEmutecaVersion.pas"/>
+        <Filename Value="..\EmutecaCore\Classes\ucEmutecaSoftware.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit18>
       <Unit19>
@@ -240,7 +240,7 @@
         <ResourceBaseClass Value="Form"/>
       </Unit29>
       <Unit30>
-        <Filename Value="..\EmutecaCore\Classes\ucEmutecaVersionManager.pas"/>
+        <Filename Value="..\EmutecaCore\Classes\ucEmutecaSoftManager.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit30>
       <Unit31>
@@ -251,14 +251,14 @@
         <ResourceBaseClass Value="Frame"/>
       </Unit31>
       <Unit32>
-        <Filename Value="..\EmutecaCore\Frames\ufEmutecaActAddVersion.pas"/>
+        <Filename Value="..\EmutecaCore\Frames\ufEmutecaActAddSoft.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fmActAddVersion"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
       </Unit32>
       <Unit33>
-        <Filename Value="..\EmutecaCore\Frames\ufEmutecaVersionEditor.pas"/>
+        <Filename Value="..\EmutecaCore\Frames\ufEmutecaSoftEditor.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fmEmutecaVersionEditor"/>
         <HasResources Value="True"/>

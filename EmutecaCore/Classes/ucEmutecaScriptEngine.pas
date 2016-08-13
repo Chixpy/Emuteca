@@ -5,7 +5,11 @@ unit ucEmutecaScriptEngine;
 interface
 
 uses
-  Classes, SysUtils, ucCHXScriptEngine, uPSI_ucEmutecaEmulator;
+  Classes, SysUtils,
+  ucEmutecaEmulator,
+  ucCHXScriptEngine,
+
+  uPSI_ucEmutecaEmulator;
 
 type
 
@@ -13,6 +17,11 @@ type
 
   cEmutecaScriptEngine = class(cCHXScriptEngine)
   public
+    {
+  property GameManager: cEmutecaGameManager;
+    property Game: cEmutecaGameVersion;
+    property GameGroup: cEmutecaGameFamily;
+        }
     constructor Create;
     destructor Destroy; override;
   end;

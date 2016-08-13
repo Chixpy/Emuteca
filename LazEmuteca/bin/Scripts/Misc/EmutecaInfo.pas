@@ -1,0 +1,3 @@
+program EmutecaInfo;
+begin
+end.

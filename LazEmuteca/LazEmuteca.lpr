@@ -10,11 +10,11 @@ uses
   Forms, bs_controls, lz_rtticontrols, pl_pascalscript, pl_virtualtrees,
   ucEmuteca, ucEmutecaParent, ucEmutecaConfig, ufEmutecaMain, ucEmutecaFile,
   ucEmutecaEmulatorManager, ucEmutecaParentManager, ucEmutecaSystemManager,
-  ucEmutecaEmulator, ufEmutecaVersionList, ucEmutecaVersion, ucEmutecaSystem,
+  ucEmutecaEmulator, ufEmutecaSoftList, ucEmutecaSoftware, ucEmutecaSystem,
   ufEmutecaEmulatorEditor, ufEmutecaEmulatorManager, ufEmutecaSystemManager,
   ugEmutecaManager, ugEmutecaPersList, ufEmutecaScriptManager,
-  ucEmutecaVersionManager, ufEmutecaSystemEditor, ufEmutecaActAddVersion,
-  ufEmutecaVersionEditor, uGUIConfig, uaEmutecaStorable, uaEmutecaManager,
+  ucEmutecaSoftManager, ufEmutecaSystemEditor, ufEmutecaActAddSoft,
+  ufEmutecaSoftEditor, uGUIConfig, uaEmutecaStorable, uaEmutecaManager,
   ufEmutecaSystemInfoEditor, ufEmutecaActAddFolder, ufEmutecaSystemEditorExt,
   ucEmutecaScriptEngine;
 

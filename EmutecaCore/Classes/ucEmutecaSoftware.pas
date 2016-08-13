@@ -1,4 +1,4 @@
-unit ucEmutecaVersion;
+unit ucEmutecaSoftware;
 
 {$mode objfpc}{$H+}
 

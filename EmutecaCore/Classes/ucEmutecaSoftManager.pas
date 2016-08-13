@@ -1,4 +1,4 @@
-unit ucEmutecaVersionManager;
+unit ucEmutecaSoftManager;
 
 {$mode objfpc}{$H+}
 
@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, LazUTF8,
-  uaEmutecaManager, ucEmutecaVersion;
+  uaEmutecaManager, ucEmutecaSoftware;
 
 resourcestring
   rsLoadingVersionList = 'Loading version list...';

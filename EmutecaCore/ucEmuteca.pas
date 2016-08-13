@@ -31,8 +31,8 @@ uses
   uCHXStrUtils,
   uEmutecaCommon,
   ucEmutecaConfig, ucEmutecaEmulatorManager, ucEmutecaSystemManager,
-  ucEmutecaParentManager, ucEmutecaVersionManager,
-  ucEmutecaVersion, ucEmutecaParent, ucEmutecaSystem, ucEmutecaEmulator;
+  ucEmutecaParentManager, ucEmutecaSoftManager,
+  ucEmutecaSoftware, ucEmutecaParent, ucEmutecaSystem, ucEmutecaEmulator;
 
 type
 

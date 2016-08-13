@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, FileUtil, LazFileUtils, Forms, Controls,
   StdCtrls, EditBtn, Buttons, ExtCtrls,
   sha1,
-  ucEmuteca, ucEmutecaSystem, ucEmutecaVersion,
+  ucEmuteca, ucEmutecaSystem, ucEmutecaSoftware,
   uCHXFileUtils, uCHXStrUtils,
   u7zWrapper;
 

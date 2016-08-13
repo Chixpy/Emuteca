@@ -20,14 +20,14 @@ uses
   // Emuteca common
   uEmutecaCommon,
   // Emuteca clases
-  ucEmuteca, ucEmutecaParent, ucEmutecaVersion, ucEmutecaSystem,
+  ucEmuteca, ucEmutecaParent, ucEmutecaSoftware, ucEmutecaSystem,
   // Emuteca forms
   ufEmutecaScriptManager,
   // Emuteca frames
-  ufEmutecaParentList, ufEmutecaVersionList, ufEmutecaEmulatorManager,
+  ufEmutecaParentList, ufEmutecaSoftList, ufEmutecaEmulatorManager,
   ufEmutecaSystemManager,
   // Emuteca windows
-  ufEmutecaActAddVersion, ufEmutecaActAddFolder,
+  ufEmutecaActAddSoft, ufEmutecaActAddFolder,
   uGUIConfig;
 
 type

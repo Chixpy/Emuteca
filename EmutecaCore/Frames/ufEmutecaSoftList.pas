@@ -1,4 +1,4 @@
-unit ufEmutecaVersionList;
+unit ufEmutecaSoftList;
 
 {$mode objfpc}{$H+}
 
@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, VirtualTrees, Forms, Controls, ComCtrls,
   ActnList, Menus, LazUTF8,
-  uEmutecaCommon, ucEmutecaVersion;
+  uEmutecaCommon, ucEmutecaSoftware;
 
 type
   TFEVLItemSelected = procedure(const aVersion: cEmutecaVersion) of object;

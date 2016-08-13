@@ -1,4 +1,4 @@
-unit ufEmutecaActAddVersion;
+unit ufEmutecaActAddSoft;
 
 {$mode objfpc}{$H+}
 
@@ -9,8 +9,8 @@ uses
   EditBtn, ActnList,
   ExtCtrls, Buttons,
   uCHXStrUtils, u7zWrapper,
-  ucEmuteca, ucEmutecaVersion, ucEmutecaSystem,
-  ufEmutecaVersionEditor;
+  ucEmuteca, ucEmutecaSoftware, ucEmutecaSystem,
+  ufEmutecaSoftEditor;
 
 type
 
