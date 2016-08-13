@@ -24,7 +24,7 @@ const
 
   // Virtual extensions for internal use.
   // ------------------------------------
-  // For dirty trick...
+  // For dirty tricks...
   kEmutecaVirtualFolderExt = '.(folder)';
   {< Virtual extension used for folders in some contexts. }
   kEmutecaVirtualGroupExt = '.(group)';

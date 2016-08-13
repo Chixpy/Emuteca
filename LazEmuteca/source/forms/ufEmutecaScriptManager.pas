@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
-  ufCHXScriptManager;
+  ufCHXScriptManager,;
 
 type
   TfrmEmutecaScriptManager = class(TfrmCHXScriptManager)

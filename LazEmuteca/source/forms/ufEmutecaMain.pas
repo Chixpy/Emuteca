@@ -5,7 +5,8 @@ unit ufEmutecaMain;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, LazFileUtils, Forms, Controls, Graphics, Dialogs,
+  Classes, SysUtils, FileUtil, LazFileUtils, Forms, Controls,
+  Graphics, Dialogs,
   ActnList, Menus, StdActns, ComCtrls, ExtCtrls, DefaultTranslator,
   IniPropStorage, StdCtrls,
   // Misc
@@ -26,7 +27,7 @@ uses
   ufEmutecaParentList, ufEmutecaVersionList, ufEmutecaEmulatorManager,
   ufEmutecaSystemManager,
   // Emuteca windows
-  ufEmutecaActAddVersion,  ufEmutecaActAddFolder,
+  ufEmutecaActAddVersion, ufEmutecaActAddFolder,
   uGUIConfig;
 
 type
@@ -37,6 +38,7 @@ type
     actEmulatorManager: TAction;
     actAddFolder: TAction;
     actAddSoft: TAction;
+    actSaveLists: TAction;
     actMediaManager: TAction;
     actScriptManager: TAction;
     actSystemManager: TAction;
@@ -75,6 +77,7 @@ type
     procedure actAddSoftExecute(Sender: TObject);
     procedure actAddFolderExecute(Sender: TObject);
     procedure actEmulatorManagerExecute(Sender: TObject);
+    procedure actSaveListsExecute(Sender: TObject);
     procedure actScriptManagerExecute(Sender: TObject);
     procedure actSystemManagerExecute(Sender: TObject);
     procedure cbSystemChange(Sender: TObject);
@@ -101,7 +104,10 @@ type
     procedure CheckTags(aList: TStrings);
     procedure SelectParent(const aParent: cEmutecaParent);
     procedure SelectSoftware(const aSoftware: cEmutecaVersion);
+
     procedure RunVersion(const aSoftware: cEmutecaVersion);
+
+    procedure SaveEmuteca;
 
     function OnProgressBar(const Title, Info1, Info2: string;
       const Value, MaxValue: int64): boolean;
@@ -172,6 +178,13 @@ end;
 procedure TfrmEmutecaMain.RunVersion(const aSoftware: cEmutecaVersion);
 begin
   Emuteca.RunSoftware(aSoftware);
+end;
+
+procedure TfrmEmutecaMain.SaveEmuteca;
+begin
+  { TODO : Emuteca.Save }
+  Emuteca.ParentManager.SaveToFile('', False);
+  Emuteca.SoftManager.SaveToFile('', False);
 end;
 
 function TfrmEmutecaMain.OnProgressBar(const Title, Info1, Info2: string;
@@ -249,11 +262,9 @@ begin
   // System Combobox
   Emuteca.SystemManager.AssingEnabledTo(cbSystem.Items);
   cbSystem.Items.Insert(0, 'All Systems');
-  cbSystem.ItemIndex:=0; // TODO: Configurable
+  cbSystem.ItemIndex := 0; // TODO: Configurable
 
   CreateFrames;
-
-
 
 end;
 
@@ -283,9 +294,20 @@ begin
   FreeAndNil(aForm);
 end;
 
+procedure TfrmEmutecaMain.actSaveListsExecute(Sender: TObject);
+begin
+  SaveEmuteca;
+end;
+
 procedure TfrmEmutecaMain.actScriptManagerExecute(Sender: TObject);
 begin
   Application.CreateForm(TfrmEmutecaScriptManager, frmEmutecaScriptManager);
+
+  frmEmutecaScriptManager.IconsIni :=
+    GUIConfig.ImagesFolder + GUIConfig.IconsSubfolder +
+    GUIConfig.IconsIniFile;
+
+  frmEmutecaScriptManager.SetBaseFolder(Emuteca.Config.ScriptsFolder);
 
   { TODO : Use Observer pattern... }
   if frmEmutecaScriptManager.ShowModal = mrOk then
@@ -342,9 +364,9 @@ begin
   aFrame.IconsIni := Emuteca.Config.ImagesFolder +
     Emuteca.Config.IconsSubfolder + Emuteca.Config.IconsIniFile;
   }
-  aForm.AutoSize:=True;
+  aForm.AutoSize := True;
 
-    { TODO : Use Observer pattern... }
+  { TODO : Use Observer pattern... }
   if aForm.ShowModal = mrOk then
   begin
     fmEmutecaVersionList.UpdateList;
@@ -384,21 +406,21 @@ begin
   if cbSystem.ItemIndex < 0 then
     Emuteca.CurrentSystem := nil
   else
-  Emuteca.CurrentSystem := cEmutecaSystem(cbSystem.Items.Objects[cbSystem.ItemIndex]);
+    Emuteca.CurrentSystem :=
+      cEmutecaSystem(cbSystem.Items.Objects[cbSystem.ItemIndex]);
 
-    { TODO : Use Observer pattern... }
-    fmEmutecaVersionList.UpdateList;
-    fmEmutecaParentList.UpdateList;
+  { TODO : Use Observer pattern... }
+  fmEmutecaVersionList.UpdateList;
+  fmEmutecaParentList.UpdateList;
 end;
 
 procedure TfrmEmutecaMain.FormCloseQuery(Sender: TObject;
   var CanClose: boolean);
 begin
-  if not GUIConfig.SaveOnExit then Exit;
+  if not GUIConfig.SaveOnExit then
+    Exit;
 
-  { TODO : Emuteca.Save }
-  Emuteca.ParentManager.SaveToFile('', False);
-  Emuteca.SoftManager.SaveToFile('', False);
+  SaveEmuteca;
   GUIConfig.SaveConfig('');
 end;
 

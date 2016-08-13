@@ -1,2 +1,22 @@
 inherited frmEmutecaScriptManager: TfrmEmutecaScriptManager
+  inherited PageControl: TPageControl
+    inherited pagGeneralScriptList: TTabSheet
+      inherited slvGeneral: TShellListView
+        ShellTreeView = nil
+      end
+      inherited Panel1: TPanel
+        inherited ShellTreeView1: TShellTreeView
+          ShellListView = nil
+        end
+      end
+    end
+    inherited pagSourceCode: TTabSheet
+      ClientHeight = 652
+      ClientWidth = 1422
+    end
+    inherited pagOutput: TTabSheet
+      ClientHeight = 652
+      ClientWidth = 1422
+    end
+  end
 end

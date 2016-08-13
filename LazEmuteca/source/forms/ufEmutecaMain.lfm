@@ -158,6 +158,11 @@ object frmEmutecaMain: TfrmEmutecaMain
       Caption = 'Add Software...'
       OnExecute = actAddSoftExecute
     end
+    object actSaveLists: TAction
+      Category = 'File'
+      Caption = 'Save lists'
+      OnExecute = actSaveListsExecute
+    end
   end
   object MainMenu: TMainMenu
     left = 184
