@@ -81,9 +81,9 @@ Entre sus características están:
 
 ## Imágenes para salivar ##
 Previsualización de la futura 0.7.0.XX...
-![![](http://wiki.emuteca.googlecode.com/git/images/0_7/GameManager%200_7_0_53.png)](http://wiki.emuteca.googlecode.com/git/images/0_7/GameManager%200_7_0_53.png)
+[[wiki/img/0_7/GameManager%200_7_0_53.png]]
 
 Versión 0.6.1.36
-![![](http://wiki.emuteca.googlecode.com/git/images/0_6/FormPrincipal2.png)](http://wiki.emuteca.googlecode.com/git/images/0_6/FormPrincipal2.png)
+[[wiki/img/0_6/FormPrincipal2.png]]
 
 [Más imágenes](Screenshots.md)
