@@ -41,6 +41,21 @@ type
     procedure SetSoftware(AValue: cEmutecaSoftware);
     procedure SetSystem(AValue: cEmutecaSystem);
     procedure SetSystemManager(AValue: cEmutecaSystemManager);
+
+  protected
+    procedure PasScriptOnCompImport(Sender: TObject;
+      x: TPSPascalCompiler); override;
+    procedure PasScriptOnCompile(Sender: TPSScript); override;
+    procedure PasScriptOnExecImport(Sender: TObject; se: TPSExec;
+      x: TPSRuntimeClassImporter); override;
+    procedure PasScriptOnExecute(Sender: TPSScript); override;
+    function PasScriptOnFindUnknownFile(Sender: TObject;
+      const OrginFileName: tbtstring;
+      var FileName, Output: tbtstring): boolean; override;
+    function PasScriptOnNeedFile(Sender: TObject;
+      const OriginFileName: tbtstring;
+      var FileName, Output: tbtstring): boolean; override;
+
   public
     property Emulator: cEmutecaEmulator read FEmulator write SetEmulator;
     property EmulatorManager: cEmutecaEmulatorManager
@@ -57,11 +72,6 @@ type
     property SoftManager: cEmutecaSoftManager
       read FSoftManager write SetSoftManager;
 
-    {
-  property GameManager: cEmutecaGameManager;
-    property Game: cEmutecaGameVersion;
-    property GameGroup: cEmutecaGameFamily;
-        }
     constructor Create;
     destructor Destroy; override;
   end;
@@ -127,6 +137,42 @@ begin
   if FSystemManager = AValue then
     Exit;
   FSystemManager := AValue;
+end;
+
+procedure cEmutecaScriptEngine.PasScriptOnCompImport(Sender: TObject;
+  x: TPSPascalCompiler);
+begin
+  inherited PasScriptOnCompImport(Sender, x);
+end;
+
+procedure cEmutecaScriptEngine.PasScriptOnCompile(Sender: TPSScript);
+begin
+  inherited PasScriptOnCompile(Sender);
+end;
+
+procedure cEmutecaScriptEngine.PasScriptOnExecImport(Sender: TObject;
+  se: TPSExec; x: TPSRuntimeClassImporter);
+begin
+  inherited PasScriptOnExecImport(Sender, se, x);
+end;
+
+procedure cEmutecaScriptEngine.PasScriptOnExecute(Sender: TPSScript);
+begin
+  inherited PasScriptOnExecute(Sender);
+end;
+
+function cEmutecaScriptEngine.PasScriptOnFindUnknownFile(Sender: TObject;
+  const OrginFileName: tbtstring; var FileName, Output: tbtstring): boolean;
+begin
+  Result := inherited PasScriptOnFindUnknownFile(Sender,
+    OrginFileName, FileName, Output);
+end;
+
+function cEmutecaScriptEngine.PasScriptOnNeedFile(Sender: TObject;
+  const OriginFileName: tbtstring; var FileName, Output: tbtstring): boolean;
+begin
+  Result := inherited PasScriptOnNeedFile(Sender, OriginFileName,
+    FileName, Output);
 end;
 
 constructor cEmutecaScriptEngine.Create;
