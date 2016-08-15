@@ -94,7 +94,7 @@
         <PackageName Value="LCL"/>
       </Item6>
     </RequiredPackages>
-    <Units Count="65">
+    <Units Count="67">
       <Unit0>
         <Filename Value="LazEmuteca.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -408,6 +408,14 @@
         <Filename Value="..\CHXPas\Forms\ScriptManager\uPSI_u7zWrapper.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit64>
+      <Unit65>
+        <Filename Value="..\EmutecaCore\PasScr\uPSI_ucEmuteca.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit65>
+      <Unit66>
+        <Filename Value="..\EmutecaCore\PasScr\uPSI_ucEmutecaConfig.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit66>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

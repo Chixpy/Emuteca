@@ -6,7 +6,10 @@ interface
 
 uses
   Classes, SysUtils,
+  // Pascal Script main units
+  uPSComponent, uPSRuntime, uPSCompiler, uPSUtils,
   // Emuteca
+  ucEmuteca, ucEmutecaConfig,
   ucEmutecaEmulator, ucEmutecaEmulatorManager,
   ucEmutecaSystem, ucEmutecaSystemManager,
   ucEmutecaParent, ucEmutecaParentManager,
@@ -14,6 +17,7 @@ uses
   // CHX
   ucCHXScriptEngine,
   // Imports
+  uPSI_ucEmuteca, uPSI_ucEmutecaConfig,
   uPSI_ucEmutecaEmulator, uPSI_ucEmutecaEmulatorManager,
   uPSI_ucEmutecaSystem, uPSI_ucEmutecaSystemManager,
   uPSI_ucEmutecaParent, uPSI_ucEmutecaParentManager,
@@ -25,22 +29,8 @@ type
 
   cEmutecaScriptEngine = class(cCHXScriptEngine)
   private
-    FEmulator: cEmutecaEmulator;
-    FEmulatorManager: cEmutecaEmulatorManager;
-    FParent: cEmutecaParent;
-    FParentManager: cEmutecaParentManager;
-    FSoftManager: cEmutecaSoftManager;
-    FSoftware: cEmutecaSoftware;
-    FSystem: cEmutecaSystem;
-    FSystemManager: cEmutecaSystemManager;
-    procedure SetEmulator(AValue: cEmutecaEmulator);
-    procedure SetEmulatorManager(AValue: cEmutecaEmulatorManager);
-    procedure SetParent(AValue: cEmutecaParent);
-    procedure SetParentManager(AValue: cEmutecaParentManager);
-    procedure SetSoftManager(AValue: cEmutecaSoftManager);
-    procedure SetSoftware(AValue: cEmutecaSoftware);
-    procedure SetSystem(AValue: cEmutecaSystem);
-    procedure SetSystemManager(AValue: cEmutecaSystemManager);
+    FEmuteca: cEmuteca;
+    procedure SetEmuteca(AValue: cEmuteca);
 
   protected
     procedure PasScriptOnCompImport(Sender: TObject;
@@ -50,27 +40,15 @@ type
       x: TPSRuntimeClassImporter); override;
     procedure PasScriptOnExecute(Sender: TPSScript); override;
     function PasScriptOnFindUnknownFile(Sender: TObject;
-      const OrginFileName: tbtstring;
+      const OriginFileName: tbtstring;
       var FileName, Output: tbtstring): boolean; override;
     function PasScriptOnNeedFile(Sender: TObject;
       const OriginFileName: tbtstring;
       var FileName, Output: tbtstring): boolean; override;
 
+
   public
-    property Emulator: cEmutecaEmulator read FEmulator write SetEmulator;
-    property EmulatorManager: cEmutecaEmulatorManager
-      read FEmulatorManager write SetEmulatorManager;
-    property System: cEmutecaSystem read FSystem write SetSystem;
-    property SystemManager: cEmutecaSystemManager
-      read FSystemManager write SetSystemManager;
-
-    property Parent: cEmutecaParent read FParent write SetParent;
-    property ParentManager: cEmutecaParentManager
-      read FParentManager write SetParentManager;
-
-    property Software: cEmutecaSoftware read FSoftware write SetSoftware;
-    property SoftManager: cEmutecaSoftManager
-      read FSoftManager write SetSoftManager;
+    property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
 
     constructor Create;
     destructor Destroy; override;
@@ -80,92 +58,62 @@ implementation
 
 { cEmutecaScriptEngine }
 
-procedure cEmutecaScriptEngine.SetEmulator(AValue: cEmutecaEmulator);
+procedure cEmutecaScriptEngine.SetEmuteca(AValue: cEmuteca);
 begin
-  if FEmulator = AValue then
+  if FEmuteca = AValue then
     Exit;
-  FEmulator := AValue;
-end;
-
-procedure cEmutecaScriptEngine.SetEmulatorManager(
-  AValue: cEmutecaEmulatorManager);
-begin
-  if FEmulatorManager = AValue then
-    Exit;
-  FEmulatorManager := AValue;
-end;
-
-procedure cEmutecaScriptEngine.SetParent(AValue: cEmutecaParent);
-begin
-  if FParent = AValue then
-    Exit;
-  FParent := AValue;
-end;
-
-procedure cEmutecaScriptEngine.SetParentManager(AValue:
-  cEmutecaParentManager);
-begin
-  if FParentManager = AValue then
-    Exit;
-  FParentManager := AValue;
-end;
-
-procedure cEmutecaScriptEngine.SetSoftManager(AValue: cEmutecaSoftManager);
-begin
-  if FSoftManager = AValue then
-    Exit;
-  FSoftManager := AValue;
-end;
-
-procedure cEmutecaScriptEngine.SetSoftware(AValue: cEmutecaSoftware);
-begin
-  if FSoftware = AValue then
-    Exit;
-  FSoftware := AValue;
-end;
-
-procedure cEmutecaScriptEngine.SetSystem(AValue: cEmutecaSystem);
-begin
-  if FSystem = AValue then
-    Exit;
-  FSystem := AValue;
-end;
-
-procedure cEmutecaScriptEngine.SetSystemManager(AValue:
-  cEmutecaSystemManager);
-begin
-  if FSystemManager = AValue then
-    Exit;
-  FSystemManager := AValue;
+  FEmuteca := AValue;
 end;
 
 procedure cEmutecaScriptEngine.PasScriptOnCompImport(Sender: TObject;
   x: TPSPascalCompiler);
 begin
   inherited PasScriptOnCompImport(Sender, x);
+
+  { TODO : Check if correct order }
+  SIRegister_cEmutecaConfig(x);
+  SIRegister_ucEmutecaConfig(x);
+  SIRegister_cEmutecaSoftManager(x);
+  SIRegister_ucEmutecaSoftManager(x);
+  SIRegister_cEmutecaVersion(x);
+  SIRegister_ucEmutecaSoftware(x);
+  SIRegister_cEmutecaParentManager(x);
+  SIRegister_ucEmutecaParentManager(x);
+  SIRegister_cEmutecaParent(x);
+  SIRegister_ucEmutecaParent(x);
+  SIRegister_cEmutecaSystemManager(x);
+  SIRegister_ucEmutecaSystemManager(x);
+  SIRegister_cEmutecaSystem(x);
+  SIRegister_ucEmutecaSystem(x);
+  SIRegister_cEmutecaEmulatorManager(x);
+  SIRegister_ucEmutecaEmulatorManager(x);
+  SIRegister_cEmutecaEmulator(x);
+  SIRegister_ucEmutecaEmulator(x);
+  SIRegister_cEmuteca(x);
+  SIRegister_ucEmuteca(x);
 end;
 
 procedure cEmutecaScriptEngine.PasScriptOnCompile(Sender: TPSScript);
 begin
   inherited PasScriptOnCompile(Sender);
-end;
 
-procedure cEmutecaScriptEngine.PasScriptOnExecImport(Sender: TObject;
-  se: TPSExec; x: TPSRuntimeClassImporter);
-begin
-  inherited PasScriptOnExecImport(Sender, se, x);
+  // Variables
+  Sender.AddRegisteredPTRVariable('Emuteca', 'cEmuteca');
 end;
 
 procedure cEmutecaScriptEngine.PasScriptOnExecute(Sender: TPSScript);
 begin
   inherited PasScriptOnExecute(Sender);
+
+  Sender.SetPointerToData('Emuteca', @FEmuteca,
+    Sender.FindNamedType('cEmuteca'));
 end;
 
 function cEmutecaScriptEngine.PasScriptOnFindUnknownFile(Sender: TObject;
-  const OrginFileName: tbtstring; var FileName, Output: tbtstring): boolean;
+  const OriginFileName: tbtstring; var FileName, Output: tbtstring): boolean;
 begin
   Result := inherited PasScriptOnFindUnknownFile(Sender,
-    OrginFileName, FileName, Output);
+    OriginFileName, FileName, Output);
 end;
 
 function cEmutecaScriptEngine.PasScriptOnNeedFile(Sender: TObject;
@@ -177,12 +125,41 @@ end;
 
 constructor cEmutecaScriptEngine.Create;
 begin
-  inherited;
+  inherited Create;
 end;
 
 destructor cEmutecaScriptEngine.Destroy;
 begin
-  inherited;
+  inherited Destroy;
+end;
+
+procedure cEmutecaScriptEngine.PasScriptOnExecImport(Sender: TObject;
+  se: TPSExec; x: TPSRuntimeClassImporter);
+begin
+  inherited PasScriptOnExecImport(Sender, se, x);
+
+  { TODO : Check correct order }
+  RIRegister_cEmutecaConfig(x);
+  RIRegister_ucEmutecaConfig(x);
+  RIRegister_cEmutecaSoftManager(x);
+  RIRegister_ucEmutecaSoftManager(x);
+  RIRegister_cEmutecaVersion(x);
+  RIRegister_ucEmutecaSoftware(x);
+  RIRegister_cEmutecaParentManager(x);
+  RIRegister_ucEmutecaParentManager(x);
+  RIRegister_cEmutecaParent(x);
+  RIRegister_ucEmutecaParent(x);
+  RIRegister_cEmutecaSystemManager(x);
+  RIRegister_ucEmutecaSystemManager(x);
+  RIRegister_ucEmutecaSystem_Routines(se);
+  RIRegister_cEmutecaSystem(x);
+  RIRegister_ucEmutecaSystem(x);
+  RIRegister_cEmutecaEmulatorManager(x);
+  RIRegister_ucEmutecaEmulatorManager(x);
+  RIRegister_cEmutecaEmulator(x);
+  RIRegister_ucEmutecaEmulator(x);
+  RIRegister_cEmuteca(x);
+  RIRegister_ucEmuteca(x);
 end;
 
 end.

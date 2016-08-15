@@ -308,6 +308,7 @@ begin
     GUIConfig.IconsIniFile;
 
   frmEmutecaScriptManager.SetBaseFolder(Emuteca.Config.ScriptsFolder);
+  frmEmutecaScriptManager.Emuteca := Emuteca;
 
   { TODO : Use Observer pattern... }
   if frmEmutecaScriptManager.ShowModal = mrOk then
