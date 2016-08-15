@@ -56,7 +56,7 @@ end;
 (*----------------------------------------------------------------------------*)
 procedure SIRegister_cEmutecaSoftManager(CL: TPSPascalCompiler);
 begin
-  //with RegClassS(CL,'caEmutecaManagerTxt', 'cEmutecaVersionManager') do
+  //with RegClassS(CL,'caEmutecaManagerTxt', 'cEmutecaSoftManager') do
   with CL.AddClassN(CL.FindClass('caEmutecaManagerTxt'),'cEmutecaSoftManager') do
   begin
     RegisterProperty('FullList', 'cEmutecaSoftList', iptrw);

@@ -27,11 +27,11 @@ type
  
  
 { compile-time registration functions }
-procedure SIRegister_cEmutecaVersion(CL: TPSPascalCompiler);
+procedure SIRegister_cEmutecaSoftware(CL: TPSPascalCompiler);
 procedure SIRegister_ucEmutecaSoftware(CL: TPSPascalCompiler);
 
 { run-time registration functions }
-procedure RIRegister_cEmutecaVersion(CL: TPSRuntimeClassImporter);
+procedure RIRegister_cEmutecaSoftware(CL: TPSRuntimeClassImporter);
 procedure RIRegister_ucEmutecaSoftware(CL: TPSRuntimeClassImporter);
 
 procedure Register;
@@ -55,10 +55,10 @@ end;
 
 (* === compile-time registration functions === *)
 (*----------------------------------------------------------------------------*)
-procedure SIRegister_cEmutecaVersion(CL: TPSPascalCompiler);
+procedure SIRegister_cEmutecaSoftware(CL: TPSPascalCompiler);
 begin
-  //with RegClassS(CL,'caEmutecaStorableTxt', 'cEmutecaVersion') do
-  with CL.AddClassN(CL.FindClass('caEmutecaStorableTxt'),'cEmutecaVersion') do
+  //with RegClassS(CL,'caEmutecaStorableTxt', 'cEmutecaSoftware') do
+  with CL.AddClassN(CL.FindClass('caEmutecaStorableTxt'),'cEmutecaSoftware') do
   begin
     RegisterProperty('DataString', 'string', iptrw);
     RegisterProperty('ID', 'string', iptrw);
@@ -74,94 +74,94 @@ end;
 (*----------------------------------------------------------------------------*)
 procedure SIRegister_ucEmutecaSoftware(CL: TPSPascalCompiler);
 begin
-  SIRegister_cEmutecaVersion(CL);
+  SIRegister_cEmutecaSoftware(CL);
 end;
 
 (* === run-time registration functions === *)
 (*----------------------------------------------------------------------------*)
-procedure cEmutecaVersionFileName_W(Self: cEmutecaSoftware; const T: string);
+procedure cEmutecaSoftwareFileName_W(Self: cEmutecaSoftware; const T: string);
 begin Self.FileName := T; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cEmutecaVersionFileName_R(Self: cEmutecaSoftware; var T: string);
+procedure cEmutecaSoftwareFileName_R(Self: cEmutecaSoftware; var T: string);
 begin T := Self.FileName; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cEmutecaVersionFolder_W(Self: cEmutecaSoftware; const T: string);
+procedure cEmutecaSoftwareFolder_W(Self: cEmutecaSoftware; const T: string);
 begin Self.Folder := T; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cEmutecaVersionFolder_R(Self: cEmutecaSoftware; var T: string);
+procedure cEmutecaSoftwareFolder_R(Self: cEmutecaSoftware; var T: string);
 begin T := Self.Folder; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cEmutecaVersionDescription_W(Self: cEmutecaSoftware; const T: string);
+procedure cEmutecaSoftwareDescription_W(Self: cEmutecaSoftware; const T: string);
 begin Self.Description := T; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cEmutecaVersionDescription_R(Self: cEmutecaSoftware; var T: string);
+procedure cEmutecaSoftwareDescription_R(Self: cEmutecaSoftware; var T: string);
 begin T := Self.Description; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cEmutecaVersionTitle_W(Self: cEmutecaSoftware; const T: string);
+procedure cEmutecaSoftwareTitle_W(Self: cEmutecaSoftware; const T: string);
 begin Self.Title := T; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cEmutecaVersionTitle_R(Self: cEmutecaSoftware; var T: string);
+procedure cEmutecaSoftwareTitle_R(Self: cEmutecaSoftware; var T: string);
 begin T := Self.Title; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cEmutecaVersionParent_W(Self: cEmutecaSoftware; const T: string);
+procedure cEmutecaSoftwareParent_W(Self: cEmutecaSoftware; const T: string);
 begin Self.Parent := T; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cEmutecaVersionParent_R(Self: cEmutecaSoftware; var T: string);
+procedure cEmutecaSoftwareParent_R(Self: cEmutecaSoftware; var T: string);
 begin T := Self.Parent; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cEmutecaVersionSystem_W(Self: cEmutecaSoftware; const T: string);
+procedure cEmutecaSoftwareSystem_W(Self: cEmutecaSoftware; const T: string);
 begin Self.System := T; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cEmutecaVersionSystem_R(Self: cEmutecaSoftware; var T: string);
+procedure cEmutecaSoftwareSystem_R(Self: cEmutecaSoftware; var T: string);
 begin T := Self.System; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cEmutecaVersionID_W(Self: cEmutecaSoftware; const T: string);
+procedure cEmutecaSoftwareID_W(Self: cEmutecaSoftware; const T: string);
 begin Self.ID := T; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cEmutecaVersionID_R(Self: cEmutecaSoftware; var T: string);
+procedure cEmutecaSoftwareID_R(Self: cEmutecaSoftware; var T: string);
 begin T := Self.ID; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cEmutecaVersionDataString_W(Self: cEmutecaSoftware; const T: string);
+procedure cEmutecaSoftwareDataString_W(Self: cEmutecaSoftware; const T: string);
 begin Self.DataString := T; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cEmutecaVersionDataString_R(Self: cEmutecaSoftware; var T: string);
+procedure cEmutecaSoftwareDataString_R(Self: cEmutecaSoftware; var T: string);
 begin T := Self.DataString; end;
 
 (*----------------------------------------------------------------------------*)
-procedure RIRegister_cEmutecaVersion(CL: TPSRuntimeClassImporter);
+procedure RIRegister_cEmutecaSoftware(CL: TPSRuntimeClassImporter);
 begin
   with CL.Add(cEmutecaSoftware) do
   begin
-    RegisterPropertyHelper(@cEmutecaVersionDataString_R,@cEmutecaVersionDataString_W,'DataString');
-    RegisterPropertyHelper(@cEmutecaVersionID_R,@cEmutecaVersionID_W,'ID');
-    RegisterPropertyHelper(@cEmutecaVersionSystem_R,@cEmutecaVersionSystem_W,'System');
-    RegisterPropertyHelper(@cEmutecaVersionParent_R,@cEmutecaVersionParent_W,'Parent');
-    RegisterPropertyHelper(@cEmutecaVersionTitle_R,@cEmutecaVersionTitle_W,'Title');
-    RegisterPropertyHelper(@cEmutecaVersionDescription_R,@cEmutecaVersionDescription_W,'Description');
-    RegisterPropertyHelper(@cEmutecaVersionFolder_R,@cEmutecaVersionFolder_W,'Folder');
-    RegisterPropertyHelper(@cEmutecaVersionFileName_R,@cEmutecaVersionFileName_W,'FileName');
+    RegisterPropertyHelper(@cEmutecaSoftwareDataString_R,@cEmutecaSoftwareDataString_W,'DataString');
+    RegisterPropertyHelper(@cEmutecaSoftwareID_R,@cEmutecaSoftwareID_W,'ID');
+    RegisterPropertyHelper(@cEmutecaSoftwareSystem_R,@cEmutecaSoftwareSystem_W,'System');
+    RegisterPropertyHelper(@cEmutecaSoftwareParent_R,@cEmutecaSoftwareParent_W,'Parent');
+    RegisterPropertyHelper(@cEmutecaSoftwareTitle_R,@cEmutecaSoftwareTitle_W,'Title');
+    RegisterPropertyHelper(@cEmutecaSoftwareDescription_R,@cEmutecaSoftwareDescription_W,'Description');
+    RegisterPropertyHelper(@cEmutecaSoftwareFolder_R,@cEmutecaSoftwareFolder_W,'Folder');
+    RegisterPropertyHelper(@cEmutecaSoftwareFileName_R,@cEmutecaSoftwareFileName_W,'FileName');
   end;
 end;
 
 (*----------------------------------------------------------------------------*)
 procedure RIRegister_ucEmutecaSoftware(CL: TPSRuntimeClassImporter);
 begin
-  RIRegister_cEmutecaVersion(CL);
+  RIRegister_cEmutecaSoftware(CL);
 end;
 
  
