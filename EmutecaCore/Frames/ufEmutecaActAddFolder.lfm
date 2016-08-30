@@ -48,6 +48,7 @@ object fmEmutecaActAddFolder: TfmEmutecaActAddFolder
     Align = alTop
     MaxLength = 0
     TabOrder = 1
+    OnButtonClick = eFolderButtonClick
   end
   object chkIncSubfolders: TCheckBox
     Left = 0

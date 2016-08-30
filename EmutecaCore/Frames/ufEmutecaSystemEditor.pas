@@ -5,7 +5,7 @@ unit ufEmutecaSystemEditor;
 interface
 
 uses
-  Classes, SysUtils, LazFileUtils, Forms, Controls, StdCtrls,
+  Classes, SysUtils, FileUtil, LazFileUtils, Forms, Controls, StdCtrls,
   ExtCtrls, EditBtn,
   CheckLst, ActnList, Buttons,
   ucEmutecaConfig, ucEmutecaSystem, ucEmutecaEmulator,
@@ -51,7 +51,7 @@ type
     procedure actCancelExecute(Sender: TObject);
     procedure actSaveExecute(Sender: TObject);
     procedure bCreateSubdirsClick(Sender: TObject);
-
+    procedure eFolderButtonClick(Sender: TObject);
   private
     FConfig: cEmutecaConfig;
     FSaveButtons: boolean;
@@ -123,6 +123,15 @@ begin
     FreeAndNil(FolderList);
     FreeAndNil(aLine);
   end;
+end;
+
+procedure TfmEmutecaSystemEditor.eFolderButtonClick(Sender: TObject);
+var
+  aEFN: TDirectoryEdit;
+begin
+  aEFN := TDirectoryEdit(Sender);
+  if not FilenameIsAbsolute(aEFN.Directory) then
+    aEFN.Directory := TrimFilename(ProgramDirectory + aEFN.Directory);
 end;
 
 procedure TfmEmutecaSystemEditor.actCancelExecute(Sender: TObject);

@@ -123,6 +123,7 @@ object fmActAddSoft: TfmActAddSoft
         Align = alTop
         MaxLength = 0
         TabOrder = 0
+        OnButtonClick = eFileButtonClick
       end
       object chkOpenAsArchive: TCheckBox
         Left = 0

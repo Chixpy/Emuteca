@@ -5,7 +5,8 @@ unit ufEmutecaSystemInfoEditor;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, StdCtrls, EditBtn, ExtCtrls,
+  Classes, SysUtils, LazFileUtils, Forms, Controls, StdCtrls, EditBtn, ExtCtrls,
+  uCHXStrUtils,
   ucEmutecaConfig, ucEmutecaSystem;
 
 type
@@ -20,8 +21,9 @@ type
     iSystemImage: TImage;
     lSystemIcon: TLabel;
     lSystemImage: TLabel;
-    procedure eSystemIconAcceptFileName(Sender: TObject; var Value: String);
-    procedure eSystemImageAcceptFileName(Sender: TObject; var Value: String);
+    procedure eSystemIconAcceptFileName(Sender: TObject; var Value: string);
+    procedure eSystemImageAcceptFileName(Sender: TObject; var Value: string);
+    procedure eFileButtonClick(Sender: TObject);
   private
     FConfig: cEmutecaConfig;
     FSystem: cEmutecaSystem;
@@ -46,16 +48,33 @@ implementation
 { TfmSystemInfoEditor }
 
 procedure TfmSystemInfoEditor.eSystemImageAcceptFileName(Sender: TObject;
-  var Value: String);
+  var Value: string);
 begin
   if FileExistsUTF8(Value) then
     iSystemImage.Picture.LoadFromFile(Value);
 end;
 
-procedure TfmSystemInfoEditor.eSystemIconAcceptFileName(Sender: TObject;
-  var Value: String);
+procedure TfmSystemInfoEditor.eFileButtonClick(Sender: TObject);
+var
+  aEFN: TFileNameEdit;
 begin
-    if FileExistsUTF8(Value) then
+  aEFN := TFileNameEdit(Sender);
+  if FilenameIsAbsolute(aEFN.FileName) then
+  begin
+    aEFN.InitialDir := ExtractFileDir(SysPath(aEFN.FileName));
+  end
+  else
+  begin
+    if Assigned(System) then
+      aEFN.InitialDir := ExtractFileDir(TrimFilename(System.BaseFolder +
+        SysPath(aEFN.FileName)));
+  end;
+end;
+
+procedure TfmSystemInfoEditor.eSystemIconAcceptFileName(Sender: TObject;
+  var Value: string);
+begin
+  if FileExistsUTF8(Value) then
     iSystemIcon.Picture.LoadFromFile(Value);
 end;
 
@@ -69,8 +88,9 @@ end;
 
 procedure TfmSystemInfoEditor.SetConfig(AValue: cEmutecaConfig);
 begin
-  if FConfig=AValue then Exit;
-  FConfig:=AValue;
+  if FConfig = AValue then
+    Exit;
+  FConfig := AValue;
   UpdateData;
 end;
 
@@ -85,9 +105,6 @@ begin
 
   if not assigned(System) then
     Exit;
-
-
-
 end;
 
 procedure TfmSystemInfoEditor.ClearData;

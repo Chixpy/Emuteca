@@ -28,6 +28,7 @@ type
     Panel1: TPanel;
     procedure bRunClick(Sender: TObject);
     procedure cbxSystemChange(Sender: TObject);
+    procedure eFolderButtonClick(Sender: TObject);
   private
     FEmuteca: cEmuteca;
     procedure SetEmuteca(AValue: cEmuteca);
@@ -60,6 +61,21 @@ begin
   eExtensions.Text := aSystem.Extensions.CommaText;
 
   eFolder.Directory := CreateAbsolutePath(aSystem.BaseFolder, ProgramDirectory);
+end;
+
+procedure TfmEmutecaActAddFolder.eFolderButtonClick(Sender: TObject);
+var
+  aEFN: TDirectoryEdit;
+  aSystem: cEmutecaSystem;
+begin
+  if cbxSystem.ItemIndex <> -1 then
+    aSystem := cEmutecaSystem(cbxSystem.Items.Objects[cbxSystem.ItemIndex]);
+
+  aEFN := TDirectoryEdit(Sender);
+  aEFN.RootDir:=aEFN.Directory;
+
+  if (aEFN.RootDir = '') and Assigned(aSystem) then
+    aEFN.RootDir:=aSystem.BaseFolder;
 end;
 
 procedure TfmEmutecaActAddFolder.bRunClick(Sender: TObject);

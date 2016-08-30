@@ -5,7 +5,7 @@ unit ufEmutecaEmulatorEditor;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, StdCtrls, EditBtn, Spin,
+  Classes, SysUtils, FileUtil, LazFileUtils, Forms, Controls, StdCtrls, EditBtn, Spin,
   ExtCtrls, Buttons, ActnList, Menus,
   uCHXStrUtils,
   ucEmutecaEmulator;
@@ -49,6 +49,7 @@ type
     procedure actSaveExecute(Sender: TObject);
     procedure actWFEmulatorExecute(Sender: TObject);
     procedure actWFROMExecute(Sender: TObject);
+    procedure eFileButtonClick(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
 
   private
@@ -90,6 +91,22 @@ end;
 procedure TfmEmutecaEmulatorEditor.actWFROMExecute(Sender: TObject);
 begin
   eWorkingFolder.Text := kEmutecaRomDirKey;
+end;
+
+procedure TfmEmutecaEmulatorEditor.eFileButtonClick(Sender: TObject);
+var
+  aEFN: TFileNameEdit;
+begin
+  aEFN := TFileNameEdit(Sender);
+  if FilenameIsAbsolute(aEFN.FileName) then
+  begin
+    aEFN.InitialDir := ExtractFileDir(SysPath(aEFN.FileName));
+  end
+  else
+  begin
+      aEFN.InitialDir := ExtractFileDir(TrimFilename(ProgramDirectory +
+        aEFN.FileName));
+  end;
 end;
 
 procedure TfmEmutecaEmulatorEditor.SpeedButton1Click(Sender: TObject);

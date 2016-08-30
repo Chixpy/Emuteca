@@ -38,6 +38,7 @@ type
     procedure cbxSystemChange(Sender: TObject);
     procedure chkOpenAsArchiveChange(Sender: TObject);
     procedure eFileAcceptFileName(Sender: TObject; var Value: string);
+    procedure eFileButtonClick(Sender: TObject);
 
   private
     FEmuteca: cEmuteca;
@@ -88,6 +89,28 @@ begin
   // Recognized ext of an archive (from cEmutecaConfig, not u7zWrapper)
   chkOpenAsArchive.Enabled:= SupportedExt(Value, Emuteca.Config.CompressedExtensions);
   cbxInnerFile.Enabled:= chkOpenAsArchive.Enabled;
+end;
+
+procedure TfmActAddSoft.eFileButtonClick(Sender: TObject);
+var
+  aEFN: TFileNameEdit;
+  TempSys: cEmutecaSystem;
+begin
+  TempSys := nil;
+  if cbxSystem.ItemIndex <> -1 then
+    TempSys := cEmutecaSystem(cbxSystem.Items.Objects[cbxSystem.ItemIndex]);
+
+  aEFN := TFileNameEdit(Sender);
+  if FilenameIsAbsolute(aEFN.FileName) then
+  begin
+    aEFN.InitialDir := ExtractFileDir(SysPath(aEFN.FileName));
+  end
+  else
+  begin
+    if Assigned(TempSys) then
+      aEFN.InitialDir := ExtractFileDir(TrimFilename(TempSys.BaseFolder +
+        aEFN.FileName));
+  end;
 end;
 
 procedure TfmActAddSoft.bAcceptClick(Sender: TObject);
