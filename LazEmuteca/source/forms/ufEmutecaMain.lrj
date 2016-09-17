@@ -1,0 +1,20 @@
+{"version":1,"strings":[
+{"hash":342014,"name":"tfrmemutecamain.caption","sourcebytes":[77,97,105,110],"value":"Main"},
+{"hash":105580545,"name":"tfrmemutecamain.helponhelp1.caption","sourcebytes":[65,38,121,117,100,97,32,115,111,98,114,101,32,108,97,32,97,121,117,100,97],"value":"A&yuda sobre la ayuda"},
+{"hash":105598353,"name":"tfrmemutecamain.helponhelp1.hint","sourcebytes":[65,121,117,100,97,32,115,111,98,114,101,32,108,97,32,97,121,117,100,97],"value":"Ayuda sobre la ayuda"},
+{"hash":89948930,"name":"tfrmemutecamain.fileexit1.caption","sourcebytes":[83,38,97,108,105,114],"value":"S&alir"},
+{"hash":5866242,"name":"tfrmemutecamain.fileexit1.hint","sourcebytes":[83,97,108,105,114],"value":"Salir"},
+{"hash":232092094,"name":"tfrmemutecamain.actemulatormanager.caption","sourcebytes":[69,109,117,108,97,116,111,114,32,77,97,110,97,103,101,114,46,46,46],"value":"Emulator Manager..."},
+{"hash":208441326,"name":"tfrmemutecamain.actsystemmanager.caption","sourcebytes":[83,121,115,116,101,109,32,77,97,110,97,103,101,114,46,46,46],"value":"System Manager..."},
+{"hash":166989346,"name":"tfrmemutecamain.actscriptmanager.caption","sourcebytes":[83,99,114,105,112,116,32,77,97,110,97,103,101,114],"value":"Script Manager"},
+{"hash":149839598,"name":"tfrmemutecamain.actmediamanager.caption","sourcebytes":[77,101,100,105,97,32,77,97,110,97,103,101,114,46,46,46],"value":"Media Manager..."},
+{"hash":64038002,"name":"tfrmemutecamain.actaddfolder.caption","sourcebytes":[83,99,97,110,32,102,105,108,101,115,32,102,114,111,109,32,102,111,108,100,101,114],"value":"Scan files from folder"},
+{"hash":198343454,"name":"tfrmemutecamain.actaddsoft.caption","sourcebytes":[65,100,100,32,83,111,102,116,119,97,114,101,46,46,46],"value":"Add Software..."},
+{"hash":125342323,"name":"tfrmemutecamain.actsavelists.caption","sourcebytes":[83,97,118,101,32,108,105,115,116,115],"value":"Save lists"},
+{"hash":315429,"name":"tfrmemutecamain.mmfile.caption","sourcebytes":[70,105,108,101],"value":"File"},
+{"hash":371876,"name":"tfrmemutecamain.menuitem8.caption","sourcebytes":[84,101,115,116],"value":"Test"},
+{"hash":138926499,"name":"tfrmemutecamain.menuitem3.caption","sourcebytes":[77,97,110,97,103,101,114,115],"value":"Managers"},
+{"hash":5046979,"name":"tfrmemutecamain.menuitem9.caption","sourcebytes":[70,105,108,101,115],"value":"Files"},
+{"hash":75133198,"name":"tfrmemutecamain.menuitem10.caption","sourcebytes":[65,100,100,46,46,46],"value":"Add..."},
+{"hash":322608,"name":"tfrmemutecamain.mmhelp.caption","sourcebytes":[72,101,108,112],"value":"Help"}
+]}

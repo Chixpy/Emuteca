@@ -88,7 +88,7 @@ resourcestring
 type
   TEmutecaProgressCallBack = function(const Title, Info1, Info2: string;
     const Value, MaxValue: int64): boolean of object;
-{< Callback funtion to show progress }
+  {< Callback funtion to show progress }
 
 implementation
 

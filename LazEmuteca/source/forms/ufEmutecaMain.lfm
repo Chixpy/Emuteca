@@ -12,7 +12,7 @@ object frmEmutecaMain: TfrmEmutecaMain
   OnDestroy = FormDestroy
   Position = poDesktopCenter
   SessionProperties = 'Height;Width;WindowState'
-  LCLVersion = '5.7'
+  LCLVersion = '6.0'
   object stbHelp: TStatusBar
     Left = 0
     Height = 23
@@ -54,7 +54,7 @@ object frmEmutecaMain: TfrmEmutecaMain
     object pTop: TPanel
       Left = 1
       Height = 180
-      Top = 26
+      Top = 1
       Width = 412
       Align = alTop
       TabOrder = 0
@@ -63,40 +63,27 @@ object frmEmutecaMain: TfrmEmutecaMain
       Cursor = crVSplit
       Left = 1
       Height = 5
-      Top = 206
+      Top = 181
       Width = 412
       Align = alTop
       ResizeAnchor = akTop
     end
     object pBottom: TPanel
       Left = 1
-      Height = 322
-      Top = 211
+      Height = 347
+      Top = 186
       Width = 412
       Align = alClient
       TabOrder = 2
     end
     object pSystems: TPanel
       Left = 1
-      Height = 25
+      Height = 0
       Top = 1
       Width = 412
       Align = alTop
       AutoSize = True
-      ClientHeight = 25
-      ClientWidth = 412
       TabOrder = 3
-      object cbSystem: TComboBox
-        Left = 1
-        Height = 23
-        Top = 1
-        Width = 410
-        Align = alClient
-        ItemHeight = 15
-        OnChange = cbSystemChange
-        Style = csDropDownList
-        TabOrder = 0
-      end
     end
   end
   object stbInfo: TStatusBar

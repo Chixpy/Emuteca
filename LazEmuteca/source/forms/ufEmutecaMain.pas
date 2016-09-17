@@ -25,7 +25,7 @@ uses
   ufEmutecaScriptManager,
   // Emuteca frames
   ufEmutecaParentList, ufEmutecaSoftList, ufEmutecaEmulatorManager,
-  ufEmutecaSystemManager,
+  ufEmutecaSystemManager, ufEmutecaSystemCBX,
   // Emuteca windows
   ufEmutecaActAddSoft, ufEmutecaActAddFolder,
   uGUIConfig;
@@ -43,7 +43,6 @@ type
     actScriptManager: TAction;
     actSystemManager: TAction;
     ActionList1: TActionList;
-    cbSystem: TComboBox;
     FileExit1: TFileExit;
     HelpOnHelp1: THelpOnHelp;
     ImageList1: TImageList;
@@ -80,18 +79,19 @@ type
     procedure actSaveListsExecute(Sender: TObject);
     procedure actScriptManagerExecute(Sender: TObject);
     procedure actSystemManagerExecute(Sender: TObject);
-    procedure cbSystemChange(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure HelpOnHelp1Execute(Sender: TObject);
     procedure MenuItem8Click(Sender: TObject);
+
   private
     { private declarations }
     FEmuteca: cEmuteca;
     FGUIConfig: cGUIConfig;
 
     // Frames
+    fmEmutecaSystemCBX: TfmEmutecaSystemCBX;
     fmEmutecaParentList: TfmEmutecaParentList;
     fmEmutecaSoftList: TfmEmutecaSoftList;
     fmCHXTagTree: TfmTagTree;
@@ -104,6 +104,7 @@ type
     procedure CheckTags(aList: TStrings);
     procedure SelectParent(const aParent: cEmutecaParent);
     procedure SelectSoftware(const aSoftware: cEmutecaSoftware);
+    function SelectSystem(aSystem: cEmutecaSystem): boolean;
 
     procedure RunVersion(const aSoftware: cEmutecaSoftware);
 
@@ -175,6 +176,16 @@ begin
   Emuteca.CurrentSoft := aSoftware;
 end;
 
+function TfrmEmutecaMain.SelectSystem(aSystem: cEmutecaSystem): boolean;
+begin
+  Result := True;
+  Emuteca.CurrentSystem := aSystem;
+
+    { TODO : Use Observer pattern... }
+    fmEmutecaSoftList.UpdateList;
+    fmEmutecaParentList.UpdateList;
+end;
+
 procedure TfrmEmutecaMain.RunVersion(const aSoftware: cEmutecaSoftware);
 begin
   Emuteca.RunSoftware(aSoftware);
@@ -204,6 +215,13 @@ procedure TfrmEmutecaMain.FormCreate(Sender: TObject);
     aTabSheet: TTabSheet;
   begin
     // Better create frames in code while developing...
+
+    // Creating and Setting the System ComboBox
+    fmEmutecaSystemCBX := TfmEmutecaSystemCBX.Create(pMiddle);
+    fmEmutecaSystemCBX.Parent := pMiddle;
+    fmEmutecaSystemCBX.Align := alTop;
+    fmEmutecaSystemCBX.OnSelectSystem := @Self.SelectSystem;
+    fmEmutecaSystemCBX.SystemList := Emuteca.SystemManager.EnabledList;
 
     // Creating and setting the parent list frame
     fmEmutecaParentList := TfmEmutecaParentList.Create(pTop);
@@ -258,11 +276,6 @@ begin
   FEmuteca := cEmuteca.Create(self);
   Emuteca.ProgressCallBack := @self.OnProgressBar;
   Emuteca.LoadConfig(GUIConfig.EmutecaIni);
-
-  // System Combobox
-  Emuteca.SystemManager.AssingEnabledTo(cbSystem.Items);
-  cbSystem.Items.Insert(0, 'All Systems');
-  cbSystem.ItemIndex := 0; // TODO: Configurable
 
   CreateFrames;
 
@@ -400,19 +413,6 @@ begin
 
   aForm.ShowModal;
   FreeAndNil(aForm);
-end;
-
-procedure TfrmEmutecaMain.cbSystemChange(Sender: TObject);
-begin
-  if cbSystem.ItemIndex < 0 then
-    Emuteca.CurrentSystem := nil
-  else
-    Emuteca.CurrentSystem :=
-      cEmutecaSystem(cbSystem.Items.Objects[cbSystem.ItemIndex]);
-
-  { TODO : Use Observer pattern... }
-  fmEmutecaSoftList.UpdateList;
-  fmEmutecaParentList.UpdateList;
 end;
 
 procedure TfrmEmutecaMain.FormCloseQuery(Sender: TObject;

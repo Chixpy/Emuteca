@@ -20,28 +20,27 @@ type
   private
     FEnabledList: cEmutecaSoftList;
     FFullList: cEmutecaSoftList;
-    procedure SetEnabledList(AValue: cEmutecaSoftList);
-    procedure SetFullList(AValue: cEmutecaSoftList);
 
   protected
 
 
   public
-    property FullList: cEmutecaSoftList read FFullList write SetFullList;
+    property FullList: cEmutecaSoftList read FFullList;
     {< Actual list where the software is stored. }
-    property EnabledList: cEmutecaSoftList read FEnabledList write SetEnabledList;
-    {< Filtered soft list to show. }
+    property EnabledList: cEmutecaSoftList read FEnabledList;
+    {< Filtered soft list }
 
     procedure LoadFromFileTxt(TxtFile: TStrings); override;
     procedure SaveToFileTxt(TxtFile: TStrings; const ExportMode: boolean);
       override;
+
     function ItemById(aId: string): cEmutecaSoftware;
     {< Returns the version with aId key.
 
        @Result cEmutecaParent found or nil.
     }
 
-    procedure SelectSystem(aSystemKey: String);
+    procedure FilterBySystem(aSystemKey: string);
 
     procedure AssingAllTo(aList: TStrings); override;
     procedure AssingEnabledTo(aList: TStrings); override;
@@ -70,7 +69,7 @@ begin
   end;
 end;
 
-procedure cEmutecaSoftManager.SelectSystem(aSystemKey: String);
+procedure cEmutecaSoftManager.FilterBySystem(aSystemKey: string);
 var
   i: longint;
 begin
@@ -82,14 +81,13 @@ begin
   end
   else
   begin
-  i := 0;
-  while i < FullList.Count do
-  begin
-
-    if UTF8CompareText(FullList[i].System, aSystemKey) = 0 then
-       EnabledList.Add(FullList[i]);
-    Inc(i);
-  end;
+    i := 0;
+    while i < FullList.Count do
+    begin
+      if UTF8CompareText(FullList[i].System, aSystemKey) = 0 then
+        EnabledList.Add(FullList[i]);
+      Inc(i);
+    end;
   end;
 end;
 
@@ -141,18 +139,6 @@ begin
   FreeAndNil(FEnabledList);
   FreeAndNil(FFullList);
   inherited Destroy;
-end;
-
-procedure cEmutecaSoftManager.SetEnabledList(AValue: cEmutecaSoftList);
-begin
-  if FEnabledList=AValue then Exit;
-  FEnabledList:=AValue;
-end;
-
-procedure cEmutecaSoftManager.SetFullList(AValue: cEmutecaSoftList);
-begin
-  if FFullList=AValue then Exit;
-  FFullList:=AValue;
 end;
 
 procedure cEmutecaSoftManager.LoadFromFileTxt(TxtFile: TStrings);

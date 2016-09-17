@@ -9,7 +9,7 @@ begin
   WriteLn('  TempFolder:' + Emuteca.TempFolder);
 
   Emuteca.SoftManager.AssingAllTo(aSL);
-  WriteLn('  Software: ' + aSL.Count);
+  WriteLn('  Software: ' + IntToStr(aSL.Count));
 
-  aSl.Destroy;
+  aSl.Free;
 end.

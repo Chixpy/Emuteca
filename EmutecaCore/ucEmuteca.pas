@@ -160,8 +160,8 @@ var
   // aParent: cEmutecaParent;
   aSystem: cEmutecaSystem;
   CompressedFile, aFolder, RomFile: string;
-  Compressed, NewDir: Boolean;
-  CompError: Integer;
+  Compressed, NewDir: boolean;
+  CompError: integer;
 begin
 
   // Ough... Here are Dragons
@@ -169,20 +169,21 @@ begin
   // Trying to document step by step with my bad english
 
   // Uhm. If things go bad from the start, they only can improve :-D
+  // TODO: Remove this after Exception/Error codes are implemented :-P
   Result := kEmutecaExecErrorNoGame;
 
   if not assigned(aSoftware) then
-    { TODO : Exception or return Comperror code? }
+    { TODO : Exception, or return CompError code? }
     exit;
 
-{ As Version stores the system, parent is not needed by now.
+  // First of all, we will asume than aSoftware <> CurrentSoft and any
+  //   CurrentXs are not coherent.
+  // For example: All Systems are listed, CurrentSystem is nil.
+
+
+{ As a Version stores the system now, parent is not needed.
 
   Maybe can be useful for command line?
-
-  // First of all, we will asume than aSoftware <> CurrentSoft or
-  //   CurrentXs are not coherent, althougth we will test coherency...;
-  // NOTE: Really testing to CurrentX is not needed, maybe testing
-  //   CurrentParent is somewhat faster...
 
   // 1. Searching for parent to know the system (test CurrentParent first
   //  for speed,  but it can not be true)
@@ -197,84 +198,77 @@ begin
     // TODO : Exception or return Comperror code?
     Exit;
 }
-  // 2. Searching for system to know the emulator(s) (test CurrentSystem first,
-  //  for speed,  but it can not be true)
-  if (not Assigned(CurrentSystem)) or
-    (UTF8CompareText(CurrentSystem.ID, aSoftware.System) <> 0) then
-  begin
-    aSystem := SearchSystem(aSoftware.System);
-  end
-  else
-    aSystem := CurrentSystem;
+
+  // 2. Searching for system to search the emulator(s)
+  aSystem := SearchSystem(aSoftware.System);
   if not assigned(aSystem) then
     { TODO : Exception or return Comperror code? }
     Exit;
 
-  // 3. Test if emulator support aSoftware extension... (test if CurrentEmulator
-  //   belongs to software system first or select main emulator of software)...
+  // 3. Searching for main emulator.
+  aEmulator := SearchMainEmulator(aSystem.MainEmulator);
 
-  { TODO : Compare with list of emulators }
-  if (not Assigned(CurrentEmulator)) or
-    (UTF8CompareText(CurrentEmulator.ID, aSystem.MainEmulator) <> 0) then
-  begin
-    aEmulator := SearchMainEmulator(aSystem.MainEmulator);
-  end
-  else
-    aEmulator := CurrentEmulator;
+  // TODO: 3.1 Test if emulator support aSoftware extension...
 
-  //   3.a ... if not test for other emulators.
+  // TODO: 3.2 If not, search for an emulator that supports it...
+
   if not assigned(aEmulator) then
     { TODO : Exception or return Comperror code? }
     Exit;
 
-  // 4. Decompressing archives if needed...
-
-  //   4.1. Testing if aSoftware.Folder is an archive
-  //     I don't test extensions... only if the "game's folder" is actually a
-  //     file and not a folder.
-  CompressedFile := ExcludeTrailingPathDelimiter(aSoftware.Folder);
-  Compressed := FileExistsUTF8(CompressedFile);
-
-  //   4.2.
+  // 4. Setting temp folder.
+  //    If created new, stored to delete it at the end.
   if Trim(ExcludeTrailingPathDelimiter(aSystem.TempFolder)) <> '' then
     aFolder := SetAsFolder(aSystem.TempFolder)
   else
-    aFolder := SetAsFolder(TempFolder);
-  aFolder := SetAsFolder(aFolder + krsEmutecaGameSubFolder);
+    aFolder := SetAsFolder(SetAsFolder(Self.TempFolder) +
+      krsEmutecaGameSubFolder);
 
   NewDir := not DirectoryExists(aFolder);
   if NewDir then
     ForceDirectoriesUTF8(aFolder);
 
+  // 5. Decompressing archives if needed...
+
+  //   5.1. Testing if aSoftware.Folder is an archive
+  //     I don't test extensions... only if the "game's folder" is actually a
+  //     file and not a folder.
+  CompressedFile := ExcludeTrailingPathDelimiter(aSoftware.Folder);
+  Compressed := FileExistsUTF8(CompressedFile);
+
+  //   5.2 Actual extracting, and setting RomFile
   if Compressed then
   begin
     if aSystem.ExtractAll then
-      CompError := w7zExtractFile(CompressedFile, AllFilesMask, aFolder, True, '')
+      CompError := w7zExtractFile(CompressedFile, AllFilesMask,
+        aFolder, True, '')
     else
       CompError := w7zExtractFile(CompressedFile, aSoftware.FileName,
         aFolder, True, '');
-        if CompError <> 0 then
+    if CompError <> 0 then
       Exit;
     RomFile := aFolder + aSoftware.FileName;
   end
   else
   begin
-     RomFile := SetAsFolder(aSoftware.Folder) + aSoftware.FileName;
+    RomFile := SetAsFolder(aSoftware.Folder) + aSoftware.FileName;
 
-     { TODO : I don't remeber this case }
-     if (aSystem.ExtractAll) and
-      (Config.CompressedExtensions.IndexOf(UTF8Copy(ExtractFileExt(aSoftware.FileName),
-      2, MaxInt)) <> -1) then
+    { TODO : I don't remember why implemened this.
+        When it is a normal "decompressed" ROM, if it is a 7z and
+        ExtractAll is True then decompress it }
+    if (aSystem.ExtractAll) and
+      (Config.CompressedExtensions.IndexOf(
+      UTF8Copy(ExtractFileExt(aSoftware.FileName), 2, MaxInt)) <> -1) then
     begin
       // The ROM is a compressed file but must be extracted anyways
-      CompError := w7zExtractFile(RomFile, '*', aFolder, True, '');
+      CompError := w7zExtractFile(RomFile, AllFilesMask, aFolder, True, '');
       if CompError <> 0 then
         Exit;
       Compressed := True;
     end;
   end;
 
-    // Last test if extracting goes wrong...
+  // Last test if extracting goes wrong...
   if (RomFile = '') or not FileExistsUTF8(RomFile) then
     // CompError code already set...
     Exit;
@@ -283,7 +277,7 @@ begin
 
   Result := aEmulator.Execute(RomFile);
 
-    // if Emulator returns no Comperror and passed at least one minute...
+  // if Emulator returns no Comperror and passed at least one minute...
     {
   if (Result = 0) and (Now > (EncodeTime(0, 1, 0, 0) + TempTime)) then
   begin
@@ -293,14 +287,12 @@ begin
   end;
   }
 
-  // Kill them all
+  // X. Kill them all
   if Compressed then
   begin
     if aSystem.ExtractAll then
     begin
-      DeleteDirectory(aFolder, False);
-      if not NewDir then
-        ForceDirectoriesUTF8(aFolder);
+      DeleteDirectory(aFolder, not NewDir);
     end
     else
     begin
@@ -345,9 +337,9 @@ begin
   FCurrentSystem := AValue;
 
   if CurrentSystem = nil then
-    SoftManager.SelectSystem('')
+    SoftManager.FilterBySystem('')
   else
-    SoftManager.SelectSystem(CurrentSystem.ID);
+    SoftManager.FilterBySystem(CurrentSystem.ID);
 end;
 
 procedure cEmuteca.SetProgressBar(AValue: TEmutecaProgressCallBack);

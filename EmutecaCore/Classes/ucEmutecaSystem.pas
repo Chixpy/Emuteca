@@ -33,7 +33,7 @@ uses
 const
   // Ini file Keys
   // -------------
-  krsIniKeyEnabled = 'Enabled';  // TODO: uEmutecaCommon.pas
+  krsIniKeyEnabled = 'Enabled';  // TODO: uEmutecaCommon.pas?
   krsIniKeyCompany = 'Company';
   krsIniKeyModel = 'Model';
   krsIniKeyExtensions = 'Extensions';
@@ -47,6 +47,7 @@ const
 resourcestring
   rsLoadingSystemList = 'Loading system list...';
   rsSavingSystemList = 'Saving system list...';
+  rsAllSystems = 'All Systems';
 
 type
 
@@ -110,9 +111,11 @@ type
     //< Model of the system.
 
     property Extensions: TStringList read FExtensions;
-    {< Extensions used by the system and its emulators
+    {< Extensions used by the system.
 
     Only one extension in every string, without dot.
+
+    TODO: Only used for importing games, can be stored elsewhere...
     }
 
     property ExtractAll: boolean read FExtractAll write SetExtractAll;
@@ -129,12 +132,14 @@ type
     }
     property TempFolder: string read FTempFolder write SetTempFolder;
     {< Temp folder for decompress Software, it's recommended leave it empty
-         (so Emuteca will use OS Temp folder.
+         so Emuteca will use OS Temp folder.
 
        Some cases of use it:
        @unorderedList(
-         @item(File must extracted to a specific folder.)
-         @item(You must browse to the folder with the emulator... :-@ )
+         @item(File must extracted to a specific folder. So emulator
+           can recognize it.)
+         @item(Emulator can't run from command line and you must browse to the
+           file with the emulator... :-@ )
          @item(Lazy testing... >_<U )
        )
      }
@@ -144,11 +149,34 @@ type
     //< Ids of other emulators for the system.
   end;
 
-  { cEmutecaSystemList }
-  cEmutecaSystemList = specialize TFPGObjectList<cEmutecaSystem>;
+  { TODO : Maybe a simple Tlist, and play with pointers...
+    it is IFPObserved}
+
+  { cEmutecaSystemListGen }
+  cEmutecaSystemListGen = specialize TFPGObjectList<cEmutecaSystem>;
+
+  { cEmutecaSystemList
+
+    Observer Pattern...}
+  cEmutecaSystemList = class (cEmutecaSystemListGen, IFPObserved)
+  private
+    FObservers : TFPList;
+  public
+    procedure FPOAttachObserver(AObserver: TObject);
+    procedure FPODetachObserver(AObserver: TObject);
+    procedure FPONotifyObservers(ASender: TObject;
+      AOperation: TFPObservedOperation; Data: Pointer);
+
+        constructor Create(aFreeObjects: Boolean = True);
+    destructor Destroy; override;
+  end;
+
+  TEmutecaReturnSystemCB = function(aSystem: cEmutecaSystem): boolean of object;
+  {< For CallBack functions }
 
 function EmutecaFileKey2Str(aEFK: TEmutecaFileKey): string;
 function Str2EmutecaFileKey(aString: string): TEmutecaFileKey;
+
 
 implementation
 
@@ -179,6 +207,65 @@ begin
     Result := TEFKSHA1
   else if (aString = UTF8UpperCase(krsCustom)) then
     Result := TEFKCustom;
+end;
+
+{ cEmutecaSystemList }
+
+procedure cEmutecaSystemList.FPOAttachObserver(AObserver: TObject);
+Var
+   I : IFPObserver;
+
+begin
+   If Not AObserver.GetInterface(SGUIDObserver,I) then
+     Raise EObserver.CreateFmt('FPOAttachObserver %s',[AObserver.ClassName]);
+   If not Assigned(FObservers) then
+     FObservers:=TFPList.Create;
+   FObservers.Add(I);
+end;
+
+procedure cEmutecaSystemList.FPODetachObserver(AObserver: TObject);
+Var
+  I : IFPObserver;
+
+begin
+  If Not AObserver.GetInterface(SGUIDObserver,I) then
+    Raise EObserver.CreateFmt('FPODetachObserver %s',[AObserver.ClassName]);
+  If Assigned(FObservers) then
+    begin
+    FObservers.Remove(I);
+    If (FObservers.Count=0) then
+      FreeAndNil(FObservers);
+    end;
+end;
+
+procedure cEmutecaSystemList.FPONotifyObservers(ASender: TObject;
+  AOperation: TFPObservedOperation; Data: Pointer);
+Var
+  I : Integer;
+  Obs : IFPObserver;
+
+begin
+  If Assigned(FObservers) then
+    For I:=FObservers.Count-1 downto 0 do
+      begin
+      Obs:=IFPObserver(FObservers[i]);
+      Obs.FPOObservedChanged(Self,AOperation,Data);
+      end;
+end;
+
+constructor cEmutecaSystemList.Create(aFreeObjects: Boolean);
+begin
+  inherited Create(aFreeObjects);
+end;
+
+destructor cEmutecaSystemList.Destroy;
+begin
+   If Assigned(FObservers) then
+    begin
+    FPONotifyObservers(Self,ooFree,Nil);
+    FreeAndNil(FObservers);
+    end;
+  inherited Destroy;
 end;
 
 { cEmutecaSystem }

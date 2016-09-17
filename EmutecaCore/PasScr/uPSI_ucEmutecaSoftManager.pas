@@ -74,16 +74,8 @@ end;
 
 (* === run-time registration functions === *)
 (*----------------------------------------------------------------------------*)
-procedure cEmutecaSoftManagerEnabledList_W(Self: cEmutecaSoftManager; const T: cEmutecaSoftList);
-begin Self.EnabledList := T; end;
-
-(*----------------------------------------------------------------------------*)
 procedure cEmutecaSoftManagerEnabledList_R(Self: cEmutecaSoftManager; var T: cEmutecaSoftList);
 begin T := Self.EnabledList; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaSoftManagerFullList_W(Self: cEmutecaSoftManager; const T: cEmutecaSoftList);
-begin Self.FullList := T; end;
 
 (*----------------------------------------------------------------------------*)
 procedure cEmutecaSoftManagerFullList_R(Self: cEmutecaSoftManager; var T: cEmutecaSoftList);
@@ -94,10 +86,10 @@ procedure RIRegister_cEmutecaSoftManager(CL: TPSRuntimeClassImporter);
 begin
   with CL.Add(cEmutecaSoftManager) do
   begin
-    RegisterPropertyHelper(@cEmutecaSoftManagerFullList_R,@cEmutecaSoftManagerFullList_W,'FullList');
-    RegisterPropertyHelper(@cEmutecaSoftManagerEnabledList_R,@cEmutecaSoftManagerEnabledList_W,'EnabledList');
+    RegisterPropertyHelper(@cEmutecaSoftManagerFullList_R,nil,'FullList');
+    RegisterPropertyHelper(@cEmutecaSoftManagerEnabledList_R,nil,'EnabledList');
     RegisterMethod(@cEmutecaSoftManager.ItemById, 'ItemById');
-    RegisterMethod(@cEmutecaSoftManager.SelectSystem, 'SelectSystem');
+    RegisterMethod(@cEmutecaSoftManager.FilterBySystem, 'SelectSystem');
   end;
 end;
 

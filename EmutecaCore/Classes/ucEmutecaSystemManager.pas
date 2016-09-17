@@ -34,12 +34,14 @@ type
 
   cEmutecaSystemManager = class(caEmutecaManagerIni)
   private
+    FEnabledList: cEmutecaSystemList;
     FFullList: cEmutecaSystemList;
 
   protected
 
   public
     property FullList: cEmutecaSystemList read FFullList;
+    property EnabledList: cEmutecaSystemList read FEnabledList;
 
     procedure LoadFromFileIni(IniFile: TCustomIniFile); override;
     procedure SaveToFileIni(IniFile: TCustomIniFile;
@@ -87,6 +89,8 @@ begin
       TempSys.ID := TempList[i];
       TempSys.LoadFromFileIni(IniFile);
       FullList.Add(TempSys);
+      if TempSys.Enabled then
+        EnabledList.Add(TempSys);
       Inc(i);
 
       if ProgressCallBack <> nil then
@@ -165,7 +169,10 @@ begin
   while i < FullList.Count do
   begin
     if FullList[i].Enabled then
+      begin
       aList.AddObject(FullList[i].Company + ' - ' + FullList[i].Model, FullList[i]);
+      EnabledList.Add(FullList[i]);
+      end;
     Inc(i);
   end;
   aList.EndUpdate;
@@ -176,10 +183,13 @@ begin
   inherited Create(aOwner);
   FFullList := cEmutecaSystemList.Create(True);
   // TODO: OnCompare FullList.OnCompare := ;
+  FEnabledList := cEmutecaSystemList.Create(False);
+  // TODO: OnCompare EnabledList.OnCompare := ;
 end;
 
 destructor cEmutecaSystemManager.Destroy;
 begin
+  FreeAndNil(FEnabledList);
   FreeAndNil(FFullList);
   inherited Destroy;
 end;
