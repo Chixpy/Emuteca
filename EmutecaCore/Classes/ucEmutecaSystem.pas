@@ -26,7 +26,7 @@ unit ucEmutecaSystem;
 interface
 
 uses
-  Classes, SysUtils, IniFiles, LazFileUtils, LazUTF8, fgl,
+  Classes, SysUtils, IniFiles, LazFileUtils, LazUTF8, contnrs,
   uCHXStrUtils,
   uEmutecaCommon, uaEmutecaStorable;
 
@@ -103,26 +103,15 @@ type
     //< Name or ID of the system (usually, Company + Model).
 
     property Enabled: boolean read FEnabled write SetEnabled;
-    //< Is the system enabled?
+    //< Is the system visible?
 
     property Company: string read FCompany write SetCompany;
     //< Company of the system.
     property Model: string read FModel write SetModel;
     //< Model of the system.
 
-    property Extensions: TStringList read FExtensions;
-    {< Extensions used by the system.
-
-    Only one extension in every string, without dot.
-
-    TODO: Only used for importing games, can be stored elsewhere...
-    }
-
     property ExtractAll: boolean read FExtractAll write SetExtractAll;
     //< Must all files be extracted from compressed archives?
-    property GameKey: TEmutecaFileKey read FGameKey write SetGameKey;
-    {< Must CRC/SHA be used as game identifiers (when importing/exporting
-         data)}
 
     property BaseFolder: string read FBaseFolder write SetBaseFolder;
     {< System base folder
@@ -147,32 +136,28 @@ type
     //< Main emulator ID.
     property OtherEmulators: TStringList read FOtherEmulators;
     //< Ids of other emulators for the system.
+
+    { TODO : Only used for importing data, must be stored elsewhere
+      ------------------------------------------------------------- }
+    property GameKey: TEmutecaFileKey read FGameKey write SetGameKey;
+    {< Must CRC/SHA be used as game identifiers (when importing/exporting
+         data)}
+    property Extensions: TStringList read FExtensions;
+    {< Extensions used by the system.
+
+    Only one extension in every string, without dot.
+
+    TODO: Only used for importing games, can be stored elsewhere...
+    }
   end;
 
-  { TODO : Maybe a simple Tlist, and play with pointers...
-    it is IFPObserved}
+  // After many test with generics implementing Observer...Keep it simple
+  cEmutecaSystemList = TComponentList;
 
-  { cEmutecaSystemListGen }
-  cEmutecaSystemListGen = specialize TFPGObjectList<cEmutecaSystem>;
+  TEmutecaReturnSystemCB = function(aSystem: cEmutecaSystem): boolean of
+    object;
 
-  { cEmutecaSystemList
-
-    Observer Pattern...}
-  cEmutecaSystemList = class (cEmutecaSystemListGen, IFPObserved)
-  private
-    FObservers : TFPList;
-  public
-    procedure FPOAttachObserver(AObserver: TObject);
-    procedure FPODetachObserver(AObserver: TObject);
-    procedure FPONotifyObservers(ASender: TObject;
-      AOperation: TFPObservedOperation; Data: Pointer);
-
-        constructor Create(aFreeObjects: Boolean = True);
-    destructor Destroy; override;
-  end;
-
-  TEmutecaReturnSystemCB = function(aSystem: cEmutecaSystem): boolean of object;
-  {< For CallBack functions }
+{< For CallBack functions }
 
 function EmutecaFileKey2Str(aEFK: TEmutecaFileKey): string;
 function Str2EmutecaFileKey(aString: string): TEmutecaFileKey;
@@ -184,8 +169,8 @@ function EmutecaFileKey2Str(aEFK: TEmutecaFileKey): string;
 begin
   case aEFK of
     TEFKCRC32: Result := krsCRC32;
-   TEFKCustom: Result := krsCustom;
-     TEFKFileName: Result := krsFileName;
+    TEFKCustom: Result := krsCustom;
+    TEFKFileName: Result := krsFileName;
     else  // SHA1 by default
       Result := krsSHA1;
   end;
@@ -198,7 +183,8 @@ begin
   aString := UTF8UpperCase(aString);
 
   // I don't like this "else if" format but it's clearer...
-  if (aString = UTF8UpperCase(krsCRC32)) or (StrToBoolDef(aString, False)) then
+  if (aString = UTF8UpperCase(krsCRC32)) or
+    (StrToBoolDef(aString, False)) then
     Result := TEFKCRC32
   else if (aString = UTF8UpperCase(krsFileName)) or
     (not StrToBoolDef(aString, True)) then
@@ -207,65 +193,6 @@ begin
     Result := TEFKSHA1
   else if (aString = UTF8UpperCase(krsCustom)) then
     Result := TEFKCustom;
-end;
-
-{ cEmutecaSystemList }
-
-procedure cEmutecaSystemList.FPOAttachObserver(AObserver: TObject);
-Var
-   I : IFPObserver;
-
-begin
-   If Not AObserver.GetInterface(SGUIDObserver,I) then
-     Raise EObserver.CreateFmt('FPOAttachObserver %s',[AObserver.ClassName]);
-   If not Assigned(FObservers) then
-     FObservers:=TFPList.Create;
-   FObservers.Add(I);
-end;
-
-procedure cEmutecaSystemList.FPODetachObserver(AObserver: TObject);
-Var
-  I : IFPObserver;
-
-begin
-  If Not AObserver.GetInterface(SGUIDObserver,I) then
-    Raise EObserver.CreateFmt('FPODetachObserver %s',[AObserver.ClassName]);
-  If Assigned(FObservers) then
-    begin
-    FObservers.Remove(I);
-    If (FObservers.Count=0) then
-      FreeAndNil(FObservers);
-    end;
-end;
-
-procedure cEmutecaSystemList.FPONotifyObservers(ASender: TObject;
-  AOperation: TFPObservedOperation; Data: Pointer);
-Var
-  I : Integer;
-  Obs : IFPObserver;
-
-begin
-  If Assigned(FObservers) then
-    For I:=FObservers.Count-1 downto 0 do
-      begin
-      Obs:=IFPObserver(FObservers[i]);
-      Obs.FPOObservedChanged(Self,AOperation,Data);
-      end;
-end;
-
-constructor cEmutecaSystemList.Create(aFreeObjects: Boolean);
-begin
-  inherited Create(aFreeObjects);
-end;
-
-destructor cEmutecaSystemList.Destroy;
-begin
-   If Assigned(FObservers) then
-    begin
-    FPONotifyObservers(Self,ooFree,Nil);
-    FreeAndNil(FObservers);
-    end;
-  inherited Destroy;
 end;
 
 { cEmutecaSystem }
@@ -365,7 +292,8 @@ end;
 
 procedure cEmutecaSystem.SetMainEmulator(AValue: string);
 begin
-  FMainEmulator := SetAsID(AValue);;
+  FMainEmulator := SetAsID(AValue);
+  ;
 end;
 
 procedure cEmutecaSystem.SetModel(AValue: string);

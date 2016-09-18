@@ -26,7 +26,7 @@ unit ucEmutecaSystemManager;
 interface
 
 uses
-  Classes, SysUtils, LazFileUtils, LazUTF8, IniFiles,
+  Classes, SysUtils, LazFileUtils, LazUTF8, IniFiles, contnrs,
   uaEmutecaManager, ucEmutecaSystem;
 
 type
@@ -34,15 +34,12 @@ type
 
   cEmutecaSystemManager = class(caEmutecaManagerIni)
   private
-    FEnabledList: cEmutecaSystemList;
     FFullList: cEmutecaSystemList;
+    FVisibleList: cEmutecaSystemList;
 
   protected
 
   public
-    property FullList: cEmutecaSystemList read FFullList;
-    property EnabledList: cEmutecaSystemList read FEnabledList;
-
     procedure LoadFromFileIni(IniFile: TCustomIniFile); override;
     procedure SaveToFileIni(IniFile: TCustomIniFile;
       const ExportMode: boolean); override;
@@ -60,6 +57,8 @@ type
     destructor Destroy; override;
 
   published
+    property FullList: cEmutecaSystemList read FFullList;
+    property VisibleList: cEmutecaSystemList read FVisibleList;
 
   end;
 
@@ -90,7 +89,7 @@ begin
       TempSys.LoadFromFileIni(IniFile);
       FullList.Add(TempSys);
       if TempSys.Enabled then
-        EnabledList.Add(TempSys);
+        VisibleList.Add(TempSys);
       Inc(i);
 
       if ProgressCallBack <> nil then
@@ -106,6 +105,7 @@ procedure cEmutecaSystemManager.SaveToFileIni(IniFile: TCustomIniFile;
   const ExportMode: boolean);
 var
   i: longint;
+  aSystem: cEmutecaSystem;
 begin
   if not Assigned(IniFile) then
     Exit;
@@ -116,33 +116,37 @@ begin
   i := 0;
   while i < FullList.Count do
   begin
-    FullList[i].SaveToFileIni(IniFile, ExportMode);
+    aSystem := cEmutecaSystem(FullList[i]);
+    aSystem.SaveToFileIni(IniFile, ExportMode);
+    Inc(i);
 
     if ProgressCallBack <> nil then
-      ProgressCallBack(rsSavingSystemList, FullList[i].ID,
-        FullList[i].Model, i + 1, FullList.Count);
-    Inc(i);
+      ProgressCallBack(rsSavingSystemList, aSystem.ID,
+        aSystem.Model, i, FullList.Count);
   end;
 end;
 
 function cEmutecaSystemManager.ItemById(aId: string): cEmutecaSystem;
 var
   i: integer;
+  aSystem: cEmutecaSystem;
 begin
   Result := nil;
 
   i := 0;
   while (Result = nil) and (i < FullList.Count) do
   begin
-    if UTF8CompareText(FullList[i].ID, aId) = 0 then
-      Result := FullList[i];
+    aSystem := cEmutecaSystem(FullList[i]);
+    if UTF8CompareText(aSystem.ID, aId) = 0 then
+      Result := aSystem;
     inc(i);
   end;
 end;
 
 procedure cEmutecaSystemManager.AssingAllTo(aList: TStrings);
 var
-  i: longint;
+  i: integer;
+  aSystem: cEmutecaSystem;
 begin
   if not assigned(aList) then
     aList := TStringList.Create;
@@ -151,7 +155,8 @@ begin
   i := 0;
   while i < FullList.Count do
   begin
-    aList.AddObject(FullList[i].Company + ' - ' + FullList[i].Model, FullList[i]);
+    aSystem := cEmutecaSystem(FullList[i]);
+    aList.AddObject(aSystem.Company + ' - ' + aSystem.Model, FullList[i]);
     Inc(i);
   end;
   aList.EndUpdate;
@@ -160,18 +165,19 @@ end;
 procedure cEmutecaSystemManager.AssingEnabledTo(aList: TStrings);
 var
   i: longint;
+  aSystem: cEmutecaSystem;
 begin
   if not assigned(aList) then
     aList := TStringList.Create;
 
   aList.BeginUpdate;
   i := 0;
-  while i < FullList.Count do
+  while i < VisibleList.Count do
   begin
-    if FullList[i].Enabled then
+    aSystem := cEmutecaSystem(VisibleList[i]);
+    if aSystem.Enabled then
       begin
-      aList.AddObject(FullList[i].Company + ' - ' + FullList[i].Model, FullList[i]);
-      EnabledList.Add(FullList[i]);
+      aList.AddObject(aSystem.Company + ' - ' + aSystem.Model, aSystem);
       end;
     Inc(i);
   end;
@@ -181,15 +187,15 @@ end;
 constructor cEmutecaSystemManager.Create(aOwner: TComponent);
 begin
   inherited Create(aOwner);
-  FFullList := cEmutecaSystemList.Create(True);
+  FFullList := TComponentList.Create(True);
   // TODO: OnCompare FullList.OnCompare := ;
-  FEnabledList := cEmutecaSystemList.Create(False);
-  // TODO: OnCompare EnabledList.OnCompare := ;
+  FVisibleList := TComponentList.Create(False);
+  // TODO: OnCompare VisibleList.OnCompare := ;
 end;
 
 destructor cEmutecaSystemManager.Destroy;
 begin
-  FreeAndNil(FEnabledList);
+  FreeAndNil(FVisibleList);
   FreeAndNil(FFullList);
   inherited Destroy;
 end;

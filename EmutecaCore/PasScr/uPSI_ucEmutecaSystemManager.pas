@@ -74,15 +74,15 @@ end;
 
 (* === run-time registration functions === *)
 (*----------------------------------------------------------------------------*)
-procedure cEmutecaSystemManagerFullList_R(Self: cEmutecaSystemManager; var T: cEmutecaSystemList);
-begin T := Self.FullList; end;
+//procedure cEmutecaSystemManagerFullList_R(Self: cEmutecaSystemManager; var T: cEmutecaSystemList);
+//begin T := Self.FullList; end;
 
 (*----------------------------------------------------------------------------*)
 procedure RIRegister_cEmutecaSystemManager(CL: TPSRuntimeClassImporter);
 begin
   with CL.Add(cEmutecaSystemManager) do
   begin
-    RegisterPropertyHelper(@cEmutecaSystemManagerFullList_R,nil,'FullList');
+ //   RegisterPropertyHelper(@cEmutecaSystemManagerFullList_R,nil,'FullList');
     RegisterMethod(@cEmutecaSystemManager.ItemById, 'ItemById');
   end;
 end;

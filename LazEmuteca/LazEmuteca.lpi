@@ -366,7 +366,9 @@
       <Unit54>
         <Filename Value="..\CHXPas\Forms\ufCHXImageViewer.pas"/>
         <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmCHXImageViewer"/>
         <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
       </Unit54>
       <Unit55>
         <Filename Value="..\EmutecaCore\Classes\ucEmutecaScriptEngine.pas"/>

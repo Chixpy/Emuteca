@@ -215,13 +215,14 @@ procedure TfrmEmutecaMain.FormCreate(Sender: TObject);
     aTabSheet: TTabSheet;
   begin
     // Better create frames in code while developing...
+    //  IDE has many problems updating inherited properties
 
     // Creating and Setting the System ComboBox
     fmEmutecaSystemCBX := TfmEmutecaSystemCBX.Create(pMiddle);
     fmEmutecaSystemCBX.Parent := pMiddle;
     fmEmutecaSystemCBX.Align := alTop;
     fmEmutecaSystemCBX.OnSelectSystem := @Self.SelectSystem;
-    fmEmutecaSystemCBX.SystemList := Emuteca.SystemManager.EnabledList;
+    fmEmutecaSystemCBX.SystemList := Emuteca.SystemManager.VisibleList;
 
     // Creating and setting the parent list frame
     fmEmutecaParentList := TfmEmutecaParentList.Create(pTop);

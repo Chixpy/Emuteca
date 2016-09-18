@@ -182,13 +182,15 @@ end;
 procedure TfmEmutecaSystemManager.actCheckAllExecute(Sender: TObject);
 var
   i: integer;
+  aSystem: cEmutecaSystem;
 begin
   TestEmuteca;
 
   i := 0;
   while i < Emuteca.SystemManager.FullList.Count do
   begin
-    Emuteca.SystemManager.FullList[i].Enabled := True;
+    aSystem := cEmutecaSystem(Emuteca.SystemManager.FullList[i]);
+    aSystem.Enabled := True;
     Inc(i);
   end;
   LoadList;

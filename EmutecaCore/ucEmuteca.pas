@@ -173,7 +173,7 @@ begin
   Result := kEmutecaExecErrorNoGame;
 
   if not assigned(aSoftware) then
-    { TODO : Exception, or return CompError code? }
+    { TODO : Exception or return Comperror code }
     exit;
 
   // First of all, we will asume than aSoftware <> CurrentSoft and any
@@ -210,7 +210,8 @@ begin
 
   // TODO: 3.1 Test if emulator support aSoftware extension...
 
-  // TODO: 3.2 If not, search for an emulator that supports it...
+  // TODO: 3.2 If not, ask if try to open, else ask for an emulator...
+
 
   if not assigned(aEmulator) then
     { TODO : Exception or return Comperror code? }

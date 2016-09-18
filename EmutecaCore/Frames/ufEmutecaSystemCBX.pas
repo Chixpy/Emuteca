@@ -87,6 +87,7 @@ end;
 procedure TfmEmutecaSystemCBX.UpdateSystems;
 var
   i: integer;
+  aSystem: cEmutecaSystem;
 begin
   cbxSystem.Items.BeginUpdate;
   cbxSystem.Clear;
@@ -95,7 +96,8 @@ begin
     i := 0;
     while i < SystemList.Count do
     begin
-      cbxSystem.Items.AddObject(SystemList[i].Model, SystemList[i]);
+      aSystem := cEmutecaSystem(SystemList[i]);
+      cbxSystem.Items.AddObject(aSystem.Company + ' - ' + aSystem.Model, aSystem);
       Inc(i);
     end;
   end;
