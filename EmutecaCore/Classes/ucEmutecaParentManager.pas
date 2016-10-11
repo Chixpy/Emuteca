@@ -76,14 +76,16 @@ implementation
 function cEmutecaParentManager.ItemById(aId: string): cEmutecaParent;
 var
   i: integer;
+  aParent: cEmutecaParent;
 begin
   Result := nil;
 
   i := 0;
   while (Result = nil) and (i < FullList.Count) do
   begin
-    if UTF8CompareText(FullList[i].ID, aId) = 0 then
-      Result := FullList[i];
+    aParent := cEmutecaParent(FullList[i]);
+    if UTF8CompareText(aParent.ID, aId) = 0 then
+      Result := aParent;
     Inc(i);
   end;
 end;
@@ -91,6 +93,7 @@ end;
 procedure cEmutecaParentManager.AssingAllTo(aList: TStrings);
 var
   i: longint;
+  aParent: cEmutecaParent;
 begin
   if not assigned(aList) then
     aList := TStringList.Create;
@@ -99,7 +102,8 @@ begin
   i := 0;
   while i < FullList.Count do
   begin
-    aList.AddObject(FullList[i].Title, FullList[i]);
+    aParent := cEmutecaParent(FullList[i]);
+    aList.AddObject(aParent.Title, aParent);
     Inc(i);
   end;
   aList.EndUpdate;
@@ -137,6 +141,7 @@ procedure cEmutecaParentManager.SaveToFileTxt(TxtFile: TStrings;
   const ExportMode: boolean);
 var
   i: integer;
+  aParent: cEmutecaParent;
 begin
   if not Assigned(TxtFile) then
     Exit;
@@ -148,12 +153,13 @@ begin
   i := 0;
   while i < FullList.Count do
   begin
-    TxtFile.Add(FullList[i].DataString);
+    aParent := cEmutecaParent(FullList[i]);
+    TxtFile.Add(aParent.DataString);
+    Inc(i);
 
     if ProgressCallBack <> nil then
-      ProgressCallBack(rsSavingParentList, FullList[i].System,
-        FullList[i].Title, i + 1, FullList.Count);
-    Inc(i);
+      ProgressCallBack(rsSavingParentList, aParent.System,
+        aParent.Title, i, FullList.Count);
   end;
 end;
 

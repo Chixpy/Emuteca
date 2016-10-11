@@ -57,14 +57,16 @@ implementation
 function cEmutecaSoftManager.ItemById(aId: string): cEmutecaSoftware;
 var
   i: integer;
+  aSoft: cEmutecaSoftware;
 begin
   Result := nil;
 
   i := 0;
   while (Result = nil) and (i < FullList.Count) do
   begin
-    if UTF8CompareText(FullList[i].ID, aId) = 0 then
-      Result := FullList[i];
+    aSoft := cEmutecaSoftware(FullList[i]);
+    if UTF8CompareText(aSoft.ID, aId) = 0 then
+      Result := aSoft;
     Inc(i);
   end;
 end;
@@ -72,6 +74,7 @@ end;
 procedure cEmutecaSoftManager.FilterBySystem(aSystemKey: string);
 var
   i: longint;
+  aSoft: cEmutecaSoftware;
 begin
   EnabledList.Clear;
 
@@ -84,8 +87,9 @@ begin
     i := 0;
     while i < FullList.Count do
     begin
-      if UTF8CompareText(FullList[i].System, aSystemKey) = 0 then
-        EnabledList.Add(FullList[i]);
+      aSoft := cEmutecaSoftware(FullList[i]);
+      if UTF8CompareText(aSoft.System, aSystemKey) = 0 then
+        EnabledList.Add(aSoft);
       Inc(i);
     end;
   end;
@@ -94,6 +98,7 @@ end;
 procedure cEmutecaSoftManager.AssingAllTo(aList: TStrings);
 var
   i: longint;
+  aSoft: cEmutecaSoftware;
 begin
   if not assigned(aList) then
     aList := TStringList.Create;
@@ -102,7 +107,8 @@ begin
   i := 0;
   while i < FullList.Count do
   begin
-    aList.AddObject(FullList[i].Title, FullList[i]);
+    aSoft := cEmutecaSoftware(FullList[i]);
+    aList.AddObject(aSoft.Title, aSoft);
     Inc(i);
   end;
   aList.EndUpdate;
@@ -111,6 +117,7 @@ end;
 procedure cEmutecaSoftManager.AssingEnabledTo(aList: TStrings);
 var
   i: longint;
+  aSoft: cEmutecaSoftware;
 begin
   if not assigned(aList) then
     aList := TStringList.Create;
@@ -119,7 +126,8 @@ begin
   i := 0;
   while i < EnabledList.Count do
   begin
-    aList.AddObject(EnabledList[i].Title, EnabledList[i]);
+    aSoft := cEmutecaSoftware(EnabledList[i]);
+    aList.AddObject(aSoft.Title, aSoft);
     Inc(i);
   end;
   aList.EndUpdate;
@@ -169,6 +177,7 @@ procedure cEmutecaSoftManager.SaveToFileTxt(TxtFile: TStrings;
   const ExportMode: boolean);
 var
   i: integer;
+  aSoft: cEmutecaSoftware;
 begin
   if not Assigned(TxtFile) then
     Exit;
@@ -180,12 +189,13 @@ begin
   i := 0;
   while i < FullList.Count do
   begin
-    TxtFile.Add(FullList[i].DataString);
+    aSoft := cEmutecaSoftware(EnabledList[i]);
+    TxtFile.Add(aSoft.DataString);
+    Inc(i);
 
     if ProgressCallBack <> nil then
-      ProgressCallBack(rsSavingVersionList, FullList[i].System,
-        FullList[i].Title, i + 1, FullList.Count);
-    Inc(i);
+      ProgressCallBack(rsSavingVersionList, aSoft.System,
+        aSoft.Title, i, FullList.Count);
   end;
 end;
 

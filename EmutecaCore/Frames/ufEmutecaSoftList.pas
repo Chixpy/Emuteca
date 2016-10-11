@@ -33,18 +33,24 @@ type
       var InitialStates: TVirtualNodeInitStates);
 
   private
+    FFilterStr: string;
     FOnDblClick: TFEVLDblClick;
     FOnItemSelect: TFEVLItemSelected;
     FSoftList: cEmutecaSoftList;
+    procedure SetFilterStr(AValue: string);
     procedure SetOnDblClick(AValue: TFEVLDblClick);
     procedure SetOnItemSelect(AValue: TFEVLItemSelected);
     procedure SetSoftList(AValue: cEmutecaSoftList);
 
   protected
+    procedure HideNodes(Sender: TBaseVirtualTree;  Node: PVirtualNode; Data: Pointer; var Abort: boolean);
 
-
+    procedure UpdateStatusBar;
   public
     property SoftList: cEmutecaSoftList read FSoftList write SetSoftList;
+
+    property FilterStr: string read FFilterStr write SetFilterStr;
+    {< String to show/hide nodes }
 
     property OnItemSelect: TFEVLItemSelected
       read FOnItemSelect write SetOnItemSelect;
@@ -77,6 +83,25 @@ begin
   FSoftList:=AValue;
 
   UpdateList;
+end;
+
+procedure TfmEmutecaSoftList.HideNodes(Sender: TBaseVirtualTree;
+  Node: PVirtualNode; Data: Pointer; var Abort: boolean);
+var
+  pData: ^cEmutecaSoftware;
+begin
+  Abort := False;
+
+  pData := Sender.GetNodeData(Node);
+  if FilterStr <> '' then
+  Sender.IsVisible[Node] := UTF8Pos(FilterStr, UTF8LowerString(pData^.Title)) >= 1
+  else
+    Sender.IsVisible[Node] := True;
+end;
+
+procedure TfmEmutecaSoftList.UpdateStatusBar;
+begin
+  StatusBar1.SimpleText := Format(rsFmtNItems, [vst.RootNodeCount, vst.VisibleCount]);
 end;
 
 procedure TfmEmutecaSoftList.VSTChange(Sender: TBaseVirtualTree;
@@ -171,7 +196,7 @@ var
   pData: ^cEmutecaSoftware;
 begin
   pData := VST.GetNodeData(Node);
-  pData^ := SoftList[Node^.Index];
+  pData^ := cEmutecaSoftware(SoftList[Node^.Index]);
 end;
 
 procedure TfmEmutecaSoftList.SetOnDblClick(AValue: TFEVLDblClick);
@@ -181,7 +206,26 @@ begin
   FOnDblClick := AValue;
 end;
 
+procedure TfmEmutecaSoftList.SetFilterStr(AValue: string);
+var
+  aTemp: string;
+begin
+  aTemp := UTF8LowerString(AValue);
+  if aTemp = FFilterStr then Exit;
+  FFilterStr := aTemp;
+
+  VST.BeginUpdate;
+  try
+    VST.IterateSubtree(nil, @HideNodes, nil) // ,[],True);
+  finally
+    VST.EndUpdate;
+  end;
+  UpdateStatusBar;
+end;
+
 procedure TfmEmutecaSoftList.UpdateList;
+var
+  aTemp: String;
 begin
   VST.Clear;
   StatusBar1.SimpleText := '';
@@ -189,7 +233,16 @@ begin
     Exit;
 
   vst.RootNodeCount := SoftList.Count;
-  StatusBar1.SimpleText := Format(rsFmtNItems, [vst.RootNodeCount]);
+
+  if FilterStr <> '' then
+  begin
+    // HACK: SetFilterStr(FilterStr)
+    aTemp := FilterStr;
+    FFilterStr := '';
+    FilterStr := aTemp;
+  end;
+  UpdateStatusBar;
+
 end;
 
 constructor TfmEmutecaSoftList.Create(TheOwner: TComponent);

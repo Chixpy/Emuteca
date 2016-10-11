@@ -174,11 +174,13 @@ end;
 procedure TfmEmutecaEmulatorManager.actCheckAllExecute(Sender: TObject);
 var
   i: integer;
+  aEmulator: cEmutecaEmulator;
 begin
   i := 0;
   while i < EmuManager.FullList.Count do
   begin
-    EmuManager.FullList[i].Enabled := True;
+    aEmulator := cEmutecaEmulator(EmuManager.FullList[i]);
+    aEmulator.Enabled := True;
     Inc(i);
   end;
   LoadList;
@@ -216,11 +218,13 @@ end;
 procedure TfmEmutecaEmulatorManager.actUncheckAllExecute(Sender: TObject);
 var
   i: integer;
+  aEmulator: cEmutecaEmulator;
 begin
   i := 0;
   while i < EmuManager.FullList.Count do
   begin
-    EmuManager.FullList[i].Enabled := False;
+    aEmulator := cEmutecaEmulator(EmuManager.FullList[i]);
+    aEmulator.Enabled := False;
     Inc(i);
   end;
   LoadList;

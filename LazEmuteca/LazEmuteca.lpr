@@ -17,7 +17,7 @@ uses
   ufEmutecaSystemEditor, ufEmutecaActAddSoft, ufEmutecaSoftEditor, uGUIConfig,
   uaEmutecaStorable, uaEmutecaManager, ufEmutecaSystemInfoEditor,
   ufEmutecaActAddFolder, ufEmutecaSystemEditorExt, ucEmutecaScriptEngine,
-  ufESMSoftList, ufEmutecaSystemCBX;
+  ufESMSoftList, ufEmutecaSystemCBX, ufESMParentList, ufEmutecaChkSoftList;
 
 {$R *.res}
 

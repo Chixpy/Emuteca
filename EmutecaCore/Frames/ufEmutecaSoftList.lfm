@@ -46,6 +46,8 @@ object fmEmutecaSoftList: TfmEmutecaSoftList
       end>
     Header.DefaultHeight = 17
     Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoShowImages, hoShowSortGlyphs, hoVisible, hoHeaderClickAutoSort, hoAutoColumnPopupMenu]
+    IncrementalSearch = isAll
+    IncrementalSearchStart = ssAlwaysStartOver
     PopupMenu = PopupMenu1
     TabOrder = 0
     TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScrollOnExpand, toAutoSort, toAutoTristateTracking, toAutoDeleteMovedNodes]

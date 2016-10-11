@@ -109,6 +109,7 @@ end;
 procedure cEmutecaEmulatorManager.AssingAllTo(aList: TStrings);
 var
   i: longint;
+  aEmulator: cEmutecaEmulator;
 begin
   if not assigned(aList) then
     aList := TStringList.Create;
@@ -117,7 +118,8 @@ begin
   i := 0;
   while i < FullList.Count do
   begin
-    aList.AddObject(FullList[i].EmulatorName, FullList[i]);
+    aEmulator := cEmutecaEmulator(FullList[i]);
+    aList.AddObject(aEmulator.EmulatorName, aEmulator);
     Inc(i);
   end;
   aList.EndUpdate;
@@ -160,6 +162,7 @@ procedure cEmutecaEmulatorManager.SaveToFileIni(IniFile: TCustomIniFile;
   const ExportMode: boolean);
 var
   i: longint;
+  aEmulator: cEmutecaEmulator;
 begin
   if not Assigned(IniFile) then
     Exit;
@@ -170,26 +173,29 @@ begin
   i := 0;
   while i < FullList.Count do
   begin
-    FullList[i].SaveToFileIni(IniFile, ExportMode);
+    aEmulator := cEmutecaEmulator(FullList[i]);
+    aEmulator.SaveToFileIni(IniFile, ExportMode);
+    Inc(i);
 
     if ProgressCallBack <> nil then
-      ProgressCallBack(rsSavingEmulatorList, FullList[i].ID,
-        FullList[i].EmulatorName, i + 1, FullList.Count);
-    Inc(i);
+      ProgressCallBack(rsSavingEmulatorList, aEmulator.ID,
+        aEmulator.EmulatorName, i, FullList.Count);
   end;
 end;
 
 function cEmutecaEmulatorManager.ItemById(aId: string): cEmutecaEmulator;
 var
   i: integer;
+  aEmulator: cEmutecaEmulator;
 begin
   Result := nil;
 
   i := 0;
   while (Result = nil) and (i < FullList.Count) do
   begin
-    if UTF8CompareText(FullList[i].ID, aId) = 0 then
-      Result := FullList[i];
+    aEmulator := cEmutecaEmulator(FullList[i]);
+    if UTF8CompareText(aEmulator.ID, aId) = 0 then
+      Result := aEmulator;
     inc(i);
   end;
 end;
@@ -197,7 +203,9 @@ end;
 procedure cEmutecaEmulatorManager.AssingEnabledTo(aList: TStrings);
 var
   i: longint;
+  aEmulator: cEmutecaEmulator;
 begin
+  { TODO : Change to visible list... and remove procedure }
   if not assigned(aList) then
     aList := TStringList.Create;
 
@@ -205,8 +213,9 @@ begin
   i := 0;
   while i < FullList.Count do
   begin
-    if FullList[i].Enabled then
-      aList.AddObject(FullList[i].EmulatorName, FullList[i]);
+    aEmulator := cEmutecaEmulator(FullList[i]);
+    if aEmulator.Enabled then
+      aList.AddObject(aEmulator.EmulatorName, aEmulator);
     Inc(i);
   end;
   aList.EndUpdate;

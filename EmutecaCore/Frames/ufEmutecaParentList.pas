@@ -37,6 +37,8 @@ type
 
   protected
 
+
+
   public
     { public declarations }
     property ParentList: cEmutecaParentList
@@ -138,7 +140,7 @@ var
   pData: ^cEmutecaParent;
 begin
   pData := Sender.GetNodeData(Node);
-  pData^ := ParentList[Node^.Index];
+  pData^ := cEmutecaParent(ParentList[Node^.Index]);
 end;
 
 procedure TfmEmutecaParentList.SetParentList(AValue: cEmutecaParentList);
@@ -158,7 +160,7 @@ procedure TfmEmutecaParentList.UpdateList;
 begin
   VST.Clear;
   vst.RootNodeCount := ParentList.Count;
-  StatusBar1.SimpleText:=Format(rsFmtNItems, [ParentList.Count]);
+  StatusBar1.SimpleText:=Format(rsFmtNItems, [vst.RootNodeCount, vst.VisibleCount]);
 end;
 
 constructor TfmEmutecaParentList.Create(TheOwner: TComponent);

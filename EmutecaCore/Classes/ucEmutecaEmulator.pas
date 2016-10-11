@@ -25,7 +25,7 @@ unit ucEmutecaEmulator;
 
 interface
 
-uses  Classes, fgl, SysUtils, FileUtil, StrUtils, LazUTF8, LazFileUtils,
+uses  Classes, SysUtils, FileUtil, StrUtils, LazUTF8, LazFileUtils, contnrs,
   IniFiles,
   // CHX units
   uCHXStrUtils,
@@ -150,7 +150,7 @@ type
          an error message if this code is returned. }
   end;
 
-  cEmutecaEmulatorList = specialize TFPGObjectList<cEmutecaEmulator>;
+  cEmutecaEmulatorList = TComponentList;
 
 implementation
 

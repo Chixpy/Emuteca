@@ -43,6 +43,7 @@ type
     actScriptManager: TAction;
     actSystemManager: TAction;
     ActionList1: TActionList;
+    eSearch: TEdit;
     FileExit1: TFileExit;
     HelpOnHelp1: THelpOnHelp;
     ImageList1: TImageList;
@@ -79,6 +80,7 @@ type
     procedure actSaveListsExecute(Sender: TObject);
     procedure actScriptManagerExecute(Sender: TObject);
     procedure actSystemManagerExecute(Sender: TObject);
+    procedure eSearchEditingDone(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -95,6 +97,7 @@ type
     fmEmutecaParentList: TfmEmutecaParentList;
     fmEmutecaSoftList: TfmEmutecaSoftList;
     fmCHXTagTree: TfmTagTree;
+
     procedure SetGUIConfig(AValue: cGUIConfig);
 
   protected
@@ -181,9 +184,9 @@ begin
   Result := True;
   Emuteca.CurrentSystem := aSystem;
 
-    { TODO : Use Observer pattern... }
-    fmEmutecaSoftList.UpdateList;
-    fmEmutecaParentList.UpdateList;
+  { TODO : Use Observer pattern... }
+  fmEmutecaSoftList.UpdateList;
+  fmEmutecaParentList.UpdateList;
 end;
 
 procedure TfrmEmutecaMain.RunVersion(const aSoftware: cEmutecaSoftware);
@@ -201,7 +204,7 @@ end;
 function TfrmEmutecaMain.OnProgressBar(const Title, Info1, Info2: string;
   const Value, MaxValue: int64): boolean;
 begin
-  // Really we can asume that frmCHXProgressBar is allways created...;
+  // Really, we can asume that frmCHXProgressBar is allways created...;
   if not Assigned(frmCHXProgressBar) then
     Application.CreateForm(TfrmCHXProgressBar, frmCHXProgressBar);
   Result := frmCHXProgressBar.UpdTextAndBar(Title, Info1, Info2,
@@ -215,7 +218,7 @@ procedure TfrmEmutecaMain.FormCreate(Sender: TObject);
     aTabSheet: TTabSheet;
   begin
     // Better create frames in code while developing...
-    //  IDE has many problems updating inherited properties
+    //   IDE has many problems updating inherited properties
 
     // Creating and Setting the System ComboBox
     fmEmutecaSystemCBX := TfmEmutecaSystemCBX.Create(pMiddle);
@@ -414,6 +417,14 @@ begin
 
   aForm.ShowModal;
   FreeAndNil(aForm);
+end;
+
+procedure TfrmEmutecaMain.eSearchEditingDone(Sender: TObject);
+begin
+  //if assigned(fmEmutecaParentList) then
+   // fmEmutecaParentList.FilterStr := eSearch.Text;
+  if assigned(fmEmutecaSoftList) then
+    fmEmutecaSoftList.FilterStr := eSearch.Text;
 end;
 
 procedure TfrmEmutecaMain.FormCloseQuery(Sender: TObject;

@@ -53,8 +53,8 @@ object frmEmutecaMain: TfrmEmutecaMain
     TabOrder = 4
     object pTop: TPanel
       Left = 1
-      Height = 180
-      Top = 1
+      Height = 228
+      Top = 24
       Width = 412
       Align = alTop
       TabOrder = 0
@@ -63,15 +63,15 @@ object frmEmutecaMain: TfrmEmutecaMain
       Cursor = crVSplit
       Left = 1
       Height = 5
-      Top = 181
+      Top = 252
       Width = 412
       Align = alTop
       ResizeAnchor = akTop
     end
     object pBottom: TPanel
       Left = 1
-      Height = 347
-      Top = 186
+      Height = 276
+      Top = 257
       Width = 412
       Align = alClient
       TabOrder = 2
@@ -79,11 +79,20 @@ object frmEmutecaMain: TfrmEmutecaMain
     object pSystems: TPanel
       Left = 1
       Height = 0
-      Top = 1
+      Top = 24
       Width = 412
       Align = alTop
       AutoSize = True
       TabOrder = 3
+    end
+    object eSearch: TEdit
+      Left = 1
+      Height = 23
+      Top = 1
+      Width = 412
+      Align = alTop
+      OnEditingDone = eSearchEditingDone
+      TabOrder = 4
     end
   end
   object stbInfo: TStatusBar

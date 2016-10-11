@@ -5,7 +5,7 @@ unit ucEmutecaSoftware;
 interface
 
 uses
-  Classes, SysUtils, fgl, LazFileUtils,
+  Classes, SysUtils, fgl, LazFileUtils, contnrs,
   uaEmutecaStorable,
   uCHXStrUtils;
 
@@ -51,7 +51,7 @@ type
     property Title: string read FTitle write SetTitle;
     {< Title. }
     property Description: string read FDescription write SetDescription;
-    {< ID of the Parent (and Sorting)}
+    {< Version info, hack, good dump}
     property Folder: string read FFolder write SetFolder;
     {< Folder or archive where the file is in. }
     property FileName: string read FFileName write SetFileName;
@@ -60,7 +60,7 @@ type
 
   { cEmutecaSoftList }
 
-  cEmutecaSoftList = specialize TFPGObjectList<cEmutecaSoftware>;
+  cEmutecaSoftList = TComponentList;
 
 implementation
 

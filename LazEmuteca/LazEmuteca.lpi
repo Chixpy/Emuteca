@@ -94,7 +94,7 @@
         <PackageName Value="LCL"/>
       </Item6>
     </RequiredPackages>
-    <Units Count="71">
+    <Units Count="74">
       <Unit0>
         <Filename Value="LazEmuteca.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -429,7 +429,8 @@
       <Unit69>
         <Filename Value="source\forms\ScriptMng\ufESMSoftList.pas"/>
         <IsPartOfProject Value="True"/>
-        <ComponentName Value="frmESMVersionList"/>
+        <ComponentName Value="frmESMSoftList"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
       </Unit69>
       <Unit70>
@@ -439,6 +440,23 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
       </Unit70>
+      <Unit71>
+        <Filename Value="..\EmutecaCore\PasScr\uPSI_uEmutecaCommon.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit71>
+      <Unit72>
+        <Filename Value="source\forms\ScriptMng\ufESMParentList.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="Form1"/>
+        <ResourceBaseClass Value="Form"/>
+      </Unit72>
+      <Unit73>
+        <Filename Value="source\frames\ufEmutecaChkSoftList.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fmEmutecaChkSoftList"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+      </Unit73>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -449,7 +467,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="..\CHXPas;..\CHXPas\Classes;..\CHXPas\Forms;..\CHXPas\Forms\ScriptManager;..\CHXPas\Frames;..\CHXPas\Misc;..\EmutecaCore;..\EmutecaCore\Abstracts;..\EmutecaCore\Classes;..\EmutecaCore\Frames;..\EmutecaCore\Generics;..\EmutecaCore\Interfaces;..\EmutecaCore\Units;source;source\forms;..\EmutecaCore\PasScr;source\forms\ScriptMng"/>
+      <OtherUnitFiles Value="..\CHXPas;..\CHXPas\Classes;..\CHXPas\Forms;..\CHXPas\Forms\ScriptManager;..\CHXPas\Frames;..\CHXPas\Misc;..\EmutecaCore;..\EmutecaCore\Abstracts;..\EmutecaCore\Classes;..\EmutecaCore\Frames;..\EmutecaCore\Generics;..\EmutecaCore\Interfaces;..\EmutecaCore\Units;source;source\forms;..\EmutecaCore\PasScr;source\forms\ScriptMng;source\frames"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>

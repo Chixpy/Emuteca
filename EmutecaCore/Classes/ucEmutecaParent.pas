@@ -26,7 +26,7 @@ unit ucEmutecaParent;
 interface
 
 uses
-  Classes, SysUtils, fgl, LazFileUtils,
+  Classes, SysUtils, fgl, LazFileUtils,contnrs,
   uCHXStrUtils,
   uaEmutecaStorable;
 
@@ -66,7 +66,7 @@ type
 
   { cEmutecaParentList }
 
-  cEmutecaParentList = specialize TFPGObjectList<cEmutecaParent>;
+  cEmutecaParentList = TComponentList;
 
 implementation
 

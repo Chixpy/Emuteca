@@ -64,7 +64,7 @@ resourcestring
 
   // Formated statistics
   // -------------------
-  rsFmtNItems = '%0:d items.';
+  rsFmtNItems = '%0:d items. (%1:d visible)';
   {< %0:d = Number of items. }
 
   rsFmtNTimes = '%0:d times.';
