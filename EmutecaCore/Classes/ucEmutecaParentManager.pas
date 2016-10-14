@@ -30,9 +30,7 @@ uses
   LazUTF8, LConvEncoding,
   LResources,
   // Emuteca core
-  uaEmutecaManager, ucEmutecaParent,
-  // Utils
-  u7zWrapper;
+  uaEmutecaManager, ucEmutecaParent;
 
 resourcestring
   rsLoadingParentList = 'Loading parent list...';
@@ -43,6 +41,7 @@ type
 
   cEmutecaParentManager = class(caEmutecaManagerTxt)
   private
+    FEnabledList: cEmutecaParentList;
     FFullList: cEmutecaParentList;
 
   protected
@@ -51,6 +50,8 @@ type
   public
     property FullList: cEmutecaParentList read FFullList;
     {< Actual list where the parents are stored. }
+    property EnabledList: cEmutecaParentList read FEnabledList;
+    {< Filtered parent list. }
 
     procedure LoadFromFileTxt(TxtFile: TStrings); override;
     procedure SaveToFileTxt(TxtFile: TStrings; const ExportMode: boolean);
@@ -61,6 +62,8 @@ type
 
        @Result cEmutecaParent found or nil.
     }
+
+    procedure FilterBySystem(aSystemKey: string);
 
     procedure AssingAllTo(aList: TStrings); override;
     procedure AssingEnabledTo(aList: TStrings); override;
@@ -90,6 +93,30 @@ begin
   end;
 end;
 
+procedure cEmutecaParentManager.FilterBySystem(aSystemKey: string);
+var
+  i: longint;
+  aParent: cEmutecaParent;
+begin
+  EnabledList.Clear;
+
+  if aSystemKey = '' then
+  begin
+    EnabledList.Assign(FullList);
+  end
+  else
+  begin
+    i := 0;
+    while i < FullList.Count do
+    begin
+      aParent := cEmutecaParent(FullList[i]);
+      if UTF8CompareText(aParent.System, aSystemKey) = 0 then
+        EnabledList.Add(aParent);
+      Inc(i);
+    end;
+  end;
+end;
+
 procedure cEmutecaParentManager.AssingAllTo(aList: TStrings);
 var
   i: longint;
@@ -110,9 +137,22 @@ begin
 end;
 
 procedure cEmutecaParentManager.AssingEnabledTo(aList: TStrings);
+var
+  i: longint;
+  aParent: cEmutecaParent;
 begin
-  { TODO : Maybe search for enabled systems... }
-  AssingAllTo(aList);
+  if not assigned(aList) then
+    aList := TStringList.Create;
+
+  aList.BeginUpdate;
+  i := 0;
+  while i < EnabledList.Count do
+  begin
+    aParent := cEmutecaParent(EnabledList[i]);
+    aList.AddObject(aParent.Title + ' (' + aParent.System + ')', aParent);
+    Inc(i);
+  end;
+  aList.EndUpdate;
 end;
 
 procedure cEmutecaParentManager.LoadFromFileTxt(TxtFile: TStrings);
@@ -135,6 +175,8 @@ begin
       ProgressCallBack(rsLoadingParentList, TempParent.System,
         TempParent.Title, i, TxtFile.Count);
   end;
+
+  EnabledList.Assign(FullList);
 end;
 
 procedure cEmutecaParentManager.SaveToFileTxt(TxtFile: TStrings;
@@ -147,9 +189,9 @@ begin
     Exit;
 
   { TODO : cEmutecaParentManager.SaveToFileTxt Export mode }
-
   TxtFile.Clear;
   TxtFile.Add('"ID/Sort Name","System","Title"');
+
   i := 0;
   while i < FullList.Count do
   begin
@@ -168,11 +210,13 @@ begin
   inherited Create(aOwner);
 
   FFullList := cEmutecaParentList.Create(True);
+  FEnabledList := cEmutecaParentList.Create(False);
   // TODO: OnCompare FullList.OnCompare := ;
 end;
 
 destructor cEmutecaParentManager.Destroy;
 begin
+  FreeAndNil(FEnabledList);
   FreeAndNil(FFullList);
   inherited Destroy;
 end;

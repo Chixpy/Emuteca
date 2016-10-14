@@ -32,10 +32,10 @@ object fmActAddSoft: TfmActAddSoft
     ClientWidth = 654
     TabOrder = 1
     object bAccept: TBitBtn
-      Left = 159
+      Left = 170
       Height = 27
       Top = 0
-      Width = 87
+      Width = 62
       Default = True
       DefaultCaption = True
       Kind = bkOK
@@ -44,10 +44,10 @@ object fmActAddSoft: TfmActAddSoft
       TabOrder = 0
     end
     object bCancel: TBitBtn
-      Left = 405
+      Left = 402
       Height = 27
       Top = 0
-      Width = 92
+      Width = 82
       Cancel = True
       DefaultCaption = True
       Kind = bkCancel
@@ -173,6 +173,7 @@ object fmActAddSoft: TfmActAddSoft
         'Custom'
         'Filename'
       )
+      OnClick = rgbVersionKeyClick
       TabOrder = 2
     end
     object eVersionKey: TEdit

@@ -5,10 +5,9 @@ unit ufEmutecaActAddSoft;
 interface
 
 uses
-  Classes, SysUtils, LazFileUtils, strutils,Forms, Controls, StdCtrls,
-  EditBtn, ActnList,
-  ExtCtrls, Buttons,
-  uCHXStrUtils, u7zWrapper,
+  Classes, SysUtils, LazFileUtils, FileUtil, strutils, Forms, Controls,
+  StdCtrls, EditBtn, ActnList, ExtCtrls, Buttons,
+  u7zWrapper, uCHXStrUtils, uCHXFileUtils,
   ucEmuteca, ucEmutecaSoftware, ucEmutecaSystem,
   ufEmutecaSoftEditor;
 
@@ -39,27 +38,28 @@ type
     procedure chkOpenAsArchiveChange(Sender: TObject);
     procedure eFileAcceptFileName(Sender: TObject; var Value: string);
     procedure eFileButtonClick(Sender: TObject);
+    procedure rgbVersionKeyClick(Sender: TObject);
 
   private
     FEmuteca: cEmuteca;
     FIconsIni: string;
-    FVersion: cEmutecaSoftware;
-    FVersionEditor: TfmEmutecaSoftEditor;
+    FSoftware: cEmutecaSoftware;
+    FSoftEditor: TfmEmutecaSoftEditor;
     procedure SetEmuteca(AValue: cEmuteca);
     procedure SetIconsIni(AValue: string);
-    procedure SetVersion(AValue: cEmutecaSoftware);
+    procedure SetSoftware(AValue: cEmutecaSoftware);
 
   protected
-    property VersionEditor: TfmEmutecaSoftEditor read FVersionEditor;
+    property SoftEditor: TfmEmutecaSoftEditor read FSoftEditor;
 
-    procedure UpdateGameKey;
+    procedure UpdateVersionKey;
     procedure UpdateLists;
 
 
   public
     { public declarations }
     property IconsIni: string read FIconsIni write SetIconsIni;
-    property Version: cEmutecaSoftware read FVersion write SetVersion;
+    property Software: cEmutecaSoftware read FSoftware write SetSoftware;
     property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
 
     constructor Create(TheOwner: TComponent); override;
@@ -75,20 +75,27 @@ implementation
 procedure TfmActAddSoft.eFileAcceptFileName(Sender: TObject;
   var Value: string);
 begin
-  // Updating VersionEditor
-  Version.Folder := ExtractFileDir(Value);
-  Version.FileName:= ExtractFileName(Value);
-  Version.Parent := RemoveFromBrackets(ExtractFileNameOnly(Version.FileName));
-  Version.Title := Version.Parent;
-  Version.Description := CopyFromBrackets(ExtractFileNameOnly(Version.FileName));
-  VersionEditor.UpdateData;
+  // Updating SoftEditor
+  Software.Folder := ExtractFileDir(Value);
+  Software.FileName := ExtractFileName(Value);
+  Software.Parent := RemoveFromBrackets(ExtractFileNameOnly(
+    Software.FileName));
+  Software.Title := Software.Parent;
+  Software.Description :=
+    CopyFromBrackets(ExtractFileNameOnly(Software.FileName));
+  SoftEditor.UpdateData;
 
-  chkOpenAsArchive.Checked:=False;
+  chkOpenAsArchive.Checked := False;
   cbxInnerFile.Clear;
+  UpdateVersionKey;
 
   // Recognized ext of an archive (from cEmutecaConfig, not u7zWrapper)
-  chkOpenAsArchive.Enabled:= SupportedExt(Value, Emuteca.Config.CompressedExtensions);
-  cbxInnerFile.Enabled:= chkOpenAsArchive.Enabled;
+  if not assigned(Emuteca) then
+    chkOpenAsArchive.Enabled := False
+  else
+    chkOpenAsArchive.Enabled :=
+      SupportedExt(Value, Emuteca.Config.CompressedExtensions);
+  cbxInnerFile.Enabled := chkOpenAsArchive.Enabled;
 end;
 
 procedure TfmActAddSoft.eFileButtonClick(Sender: TObject);
@@ -108,72 +115,86 @@ begin
   else
   begin
     if Assigned(TempSys) then
-      aEFN.InitialDir := ExtractFileDir(TrimFilename(TempSys.BaseFolder +
-        aEFN.FileName));
+      aEFN.InitialDir := ExtractFileDir(
+        TrimFilename(TempSys.BaseFolder + aEFN.FileName));
   end;
+end;
+
+procedure TfmActAddSoft.rgbVersionKeyClick(Sender: TObject);
+begin
+  UpdateVersionKey;
 end;
 
 procedure TfmActAddSoft.bAcceptClick(Sender: TObject);
 begin
-  VersionEditor.SaveData;
-  Emuteca.SoftManager.FullList.Add(Version);
-  // HACK: Created a new version, so we can free it on Destroy.
-  FVersion := cEmutecaSoftware.Create(nil);
+  SoftEditor.SaveData;
+  Emuteca.SoftManager.FullList.Add(Software);
+  // HACK: Created a new Software, so we can free it on Destroy.
+  FSoftware := cEmutecaSoftware.Create(nil);
 end;
 
 procedure TfmActAddSoft.cbxInnerFileChange(Sender: TObject);
 begin
-  Version.Folder := eFile.Text;
-  Version.FileName:= cbxInnerFile.Text;
-  Version.Parent := RemoveFromBrackets(ExtractFileNameOnly(eFile.Text));
-  Version.Title := RemoveFromBrackets(ExtractFileNameOnly(cbxInnerFile.Text));
-  Version.Description := CopyFromBrackets(ExtractFileNameOnly(cbxInnerFile.Text));
-  VersionEditor.UpdateData;
+  Software.Folder := eFile.Text;
+  Software.FileName := cbxInnerFile.Text;
+  Software.Parent := RemoveFromBrackets(ExtractFileNameOnly(eFile.Text));
+  Software.Title := RemoveFromBrackets(ExtractFileNameOnly(
+    cbxInnerFile.Text));
+  Software.Description :=
+    CopyFromBrackets(ExtractFileNameOnly(cbxInnerFile.Text));
+  SoftEditor.UpdateData;
+  UpdateVersionKey;
 end;
 
 procedure TfmActAddSoft.cbxSystemChange(Sender: TObject);
 var
-  TempSys: cEmutecaSystem;
   ExtFilter: string;
 begin
-  if cbxSystem.ItemIndex = -1 then Exit;
+  if cbxSystem.ItemIndex = -1 then
+    Exit;
 
-  TempSys := cEmutecaSystem(cbxSystem.Items.Objects[cbxSystem.ItemIndex]);
+  Emuteca.CurrentSystem :=
+    cEmutecaSystem(cbxSystem.Items.Objects[cbxSystem.ItemIndex]);
 
-  if TempSys = nil then Exit;
+  if Emuteca.CurrentSystem = nil then
+    Exit;
 
-  Version.System := TempSys.ID;
+  Software.System := Emuteca.CurrentSystem.ID;
 
   // Autoselecting Key Type
-  case TempSys.GameKey of
-     TEFKCRC32: rgbVersionKey.ItemIndex:=1;
-     TEFKCustom: rgbVersionKey.ItemIndex:=2;
-     TEFKFileName: rgbVersionKey.ItemIndex:=3;
+  case Emuteca.CurrentSystem.GameKey of
+    TEFKCRC32: rgbVersionKey.ItemIndex := 1;
+    TEFKCustom: rgbVersionKey.ItemIndex := 2;
+    TEFKFileName: rgbVersionKey.ItemIndex := 3;
     else  // SHA1 by default
-      rgbVersionKey.ItemIndex:=0;
+      rgbVersionKey.ItemIndex := 0;
   end;
-  UpdateGameKey;
+  UpdateVersionKey;
 
-  lSystemInfo.Caption := TempSys.Extensions.CommaText;
+  lSystemInfo.Caption := Emuteca.CurrentSystem.Extensions.CommaText;
 
   ExtFilter := 'All suported files|';
-  ExtFilter := ExtFilter + '*.' + AnsiReplaceText(lSystemInfo.Caption,',',';*.');
-  ExtFilter := ExtFilter + ';*.' + AnsiReplaceText(w7zFileExts,',',';*.');
+  ExtFilter := ExtFilter + '*.' +
+    AnsiReplaceText(lSystemInfo.Caption, ',', ';*.');
+  ExtFilter := ExtFilter + ';*.' + AnsiReplaceText(w7zFileExts, ',', ';*.');
   ExtFilter := ExtFilter + '|All files|' + AllFilesMask;
-  eFile.Filter:=ExtFilter;
+  eFile.Filter := ExtFilter;
 end;
 
 procedure TfmActAddSoft.chkOpenAsArchiveChange(Sender: TObject);
 begin
-  if not chkOpenAsArchive.Enabled then Exit;
+  if not chkOpenAsArchive.Enabled then
+    Exit;
 
-  if not SupportedExt(eFile.Text, Emuteca.Config.CompressedExtensions) then Exit;
+  if not SupportedExt(eFile.Text, Emuteca.Config.CompressedExtensions) then
+    Exit;
 
   cbxInnerFile.Clear;
 
-  if not FileExistsUTF8(eFile.Text) then Exit;
+  if not FileExistsUTF8(eFile.Text) then
+    Exit;
 
-  w7zListFiles(eFile.Text, cbxInnerFile.Items, True)
+  w7zListFiles(eFile.Text, cbxInnerFile.Items, True);
 
 end;
 
@@ -191,40 +212,82 @@ begin
     Exit;
   FEmuteca := AValue;
 
-  if not assigned(Emuteca) then exit;
-
-  // Updating system list
-  cbxSystem.Clear;
-  Emuteca.SystemManager.AssingEnabledTo(cbxSystem.Items);
-
-  VersionEditor.Emuteca := Emuteca;
+  UpdateLists;
 end;
 
-procedure TfmActAddSoft.SetVersion(AValue: cEmutecaSoftware);
+procedure TfmActAddSoft.SetSoftware(AValue: cEmutecaSoftware);
 begin
-  if FVersion = AValue then
+  if FSoftware = AValue then
     Exit;
-  FVersion := AValue;
+  FSoftware := AValue;
 end;
 
-procedure TfmActAddSoft.UpdateGameKey;
+procedure TfmActAddSoft.UpdateVersionKey;
+var
+  aFile: string;
 begin
   // We use selected rgbVersionKey, not system default
-   case rgbVersionKey.ItemIndex of
-     1: {TEFKCRC32};
-     2: {TEFKCustom} eVersionKey.Clear;
-     3: {TEFKFileName} eVersionKey.Text := SetAsID(Version.FileName);
-    else  // TEFKSHA1 by default
-      ;
-  end;
+  if not chkOpenAsArchive.Checked then
+  begin // Non compressed file
+    aFile := Software.Folder + Software.FileName;
+    if not FileExistsUTF8(aFile) then Exit;
 
-   Version.ID := eVersionKey.Text;
+    case rgbVersionKey.ItemIndex of
+      1: {TEFKCRC32}
+      eVersionKey.Text := CRC32FileStr(aFile);
+
+      2: {TEFKCustom};
+
+      3: {TEFKFileName}
+        eVersionKey.Text := SetAsID(Software.FileName);
+
+      else // TEFKSHA1 by default
+        eVersionKey.Text := SHA1FileStr(aFile);
+    end;
+  end
+  else  // Compressed file
+  begin
+    aFile := ExcludeTrailingPathDelimiter(Software.Folder);
+    if not FileExistsUTF8(aFile) then Exit;
+
+    case rgbVersionKey.ItemIndex of
+      1: {TEFKCRC32}
+      begin
+        w7zExtractFile(aFile, Software.FileName, Emuteca.TempFolder + 'Temp', False, '');
+
+        aFile := Emuteca.TempFolder + 'Temp\' + Software.FileName;
+        if not FileExistsUTF8(aFile) then Exit;
+
+        eVersionKey.Text := CRC32FileStr(aFile);
+        { TODO : Delete extracted file only... }
+        DeleteDirectory(Emuteca.TempFolder + 'Temp', False);
+      end;
+
+      2: {TEFKCustom};
+
+      3: {TEFKFileName}
+        eVersionKey.Text := SetAsID(Software.FileName);
+
+      else // TEFKSHA1 by default
+      begin
+        w7zExtractFile(aFile, Software.FileName, Emuteca.TempFolder + 'Temp', False, '');
+
+        aFile := Emuteca.TempFolder + 'Temp\' + Software.FileName;
+        if not FileExistsUTF8(aFile) then Exit;
+
+        eVersionKey.Text := SHA1FileStr(aFile);
+        { TODO : Delete extracted file only... }
+        DeleteDirectory(Emuteca.TempFolder + 'Temp', False);
+      end;
+    end;
+  end;
+  Software.ID := eVersionKey.Text;
 end;
 
 procedure TfmActAddSoft.UpdateLists;
 begin
   cbxSystem.Clear;
-  VersionEditor.Emuteca := Emuteca;
+  SoftEditor.Emuteca := Emuteca;
 
   if not assigned(Emuteca) then
     Exit;
@@ -236,9 +299,9 @@ constructor TfmActAddSoft.Create(TheOwner: TComponent);
 
   procedure CreateFrames;
   begin
-    FVersionEditor := TfmEmutecaSoftEditor.Create(gbxVersionInfo);
-    VersionEditor.Parent := gbxVersionInfo;
-    VersionEditor.Align := alClient;
+    FSoftEditor := TfmEmutecaSoftEditor.Create(gbxVersionInfo);
+    SoftEditor.Parent := gbxVersionInfo;
+    SoftEditor.Align := alClient;
   end;
 
 begin
@@ -246,13 +309,13 @@ begin
 
   CreateFrames;
 
-  FVersion := cEmutecaSoftware.Create(nil);
-  VersionEditor.Version := self.Version;
+  FSoftware := cEmutecaSoftware.Create(nil);
+  SoftEditor.Software := self.Software;
 end;
 
 destructor TfmActAddSoft.Destroy;
 begin
-  FreeAndNil(FVersion);
+  FreeAndNil(FSoftware);
   inherited Destroy;
 end;
 

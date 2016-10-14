@@ -21,14 +21,14 @@ type
     lTitle: TLabel;
   private
     FEmuteca: cEmuteca;
-    FVersion: cEmutecaSoftware;
+    FSoftware: cEmutecaSoftware;
     procedure SetEmuteca(AValue: cEmuteca);
-    procedure SetVersion(AValue: cEmutecaSoftware);
+    procedure SetSoftware(AValue: cEmutecaSoftware);
     { private declarations }
 
   public
     { public declarations }
-    property Version: cEmutecaSoftware read FVersion write SetVersion;
+    property Software: cEmutecaSoftware read FSoftware write SetSoftware;
     property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
 
     procedure SaveData;
@@ -42,11 +42,11 @@ implementation
 
 { TfmEmutecaSoftEditor }
 
-procedure TfmEmutecaSoftEditor.SetVersion(AValue: cEmutecaSoftware);
+procedure TfmEmutecaSoftEditor.SetSoftware(AValue: cEmutecaSoftware);
 begin
-  if FVersion = AValue then
+  if FSoftware = AValue then
     Exit;
-  FVersion := AValue;
+  FSoftware := AValue;
 end;
 
 procedure TfmEmutecaSoftEditor.SetEmuteca(AValue: cEmuteca);
@@ -64,31 +64,31 @@ end;
 
 procedure TfmEmutecaSoftEditor.SaveData;
 begin
-  if not assigned(Version) then
+  if not assigned(Software) then
     Exit;
   { TODO : Think about how to add a new parent }
   if cbxParent.ItemIndex <> -1 then
-    Version.Parent := cEmutecaParent(
+    Software.Parent := cEmutecaParent(
       cbxParent.Items.Objects[cbxParent.ItemIndex]).ID
   else
-    Version.Parent := cbxParent.Text;
+    Software.Parent := cbxParent.Text;
 
-  Version.Title := eTitle.Text;
-  Version.Description := eDescription.Text;
+  Software.Title := eTitle.Text;
+  Software.Description := eDescription.Text;
 end;
 
 procedure TfmEmutecaSoftEditor.UpdateData;
 begin
   ClearData;
 
-  if not assigned(Version) then
+  if not assigned(Software) then
     Exit;
 
   { TODO : Search parent from the list and show full title }
-  cbxParent.Text := Version.Parent;
+  cbxParent.Text := Software.Parent;
 
-  eTitle.Text := Version.Title;
-  eDescription.Text := Version.Description;
+  eTitle.Text := Software.Title;
+  eDescription.Text := Software.Description;
 end;
 
 procedure TfmEmutecaSoftEditor.ClearData;

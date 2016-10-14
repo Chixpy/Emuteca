@@ -7,7 +7,6 @@ interface
 uses
   Classes, SysUtils, FileUtil, LazFileUtils, Forms, Controls,
   StdCtrls, EditBtn, Buttons, ExtCtrls,
-  sha1,
   ucEmuteca, ucEmutecaSystem, ucEmutecaSoftware,
   uCHXFileUtils, uCHXStrUtils,
   u7zWrapper;
@@ -55,12 +54,12 @@ begin
   if cbxSystem.ItemIndex = -1 then
     Exit;
 
-  aSystem := cEmutecaSystem(
-    cbxSystem.Items.Objects[cbxSystem.ItemIndex]);
+  aSystem := cEmutecaSystem(cbxSystem.Items.Objects[cbxSystem.ItemIndex]);
 
   eExtensions.Text := aSystem.Extensions.CommaText;
 
-  eFolder.Directory := CreateAbsolutePath(aSystem.BaseFolder, ProgramDirectory);
+  eFolder.Directory := CreateAbsolutePath(aSystem.BaseFolder,
+    ProgramDirectory);
 end;
 
 procedure TfmEmutecaActAddFolder.eFolderButtonClick(Sender: TObject);
@@ -72,10 +71,10 @@ begin
     aSystem := cEmutecaSystem(cbxSystem.Items.Objects[cbxSystem.ItemIndex]);
 
   aEFN := TDirectoryEdit(Sender);
-  aEFN.RootDir:=aEFN.Directory;
+  aEFN.RootDir := aEFN.Directory;
 
   if (aEFN.RootDir = '') and Assigned(aSystem) then
-    aEFN.RootDir:=aSystem.BaseFolder;
+    aEFN.RootDir := aSystem.BaseFolder;
 end;
 
 procedure TfmEmutecaActAddFolder.bRunClick(Sender: TObject);
@@ -105,7 +104,8 @@ begin
       Emuteca.ProgressCallBack('Adding files', 'Searching for: ' +
         aSystem.Extensions.CommaText, 'This can take a while', 1, 1000);
 
-    Search7ZFilesByExt(FolderList, FileList, eFolder.Text, aSystem.Extensions);
+    Search7ZFilesByExt(FolderList, FileList, eFolder.Text,
+      aSystem.Extensions);
 
     i := 0;
     while i < FileList.Count do
@@ -121,32 +121,34 @@ begin
         case aSystem.GameKey of
           TEFKCRC32:
             { TODO : We can know CRC32 without extracting... }
-
           begin
             w7zExtractFile(FolderList[i], FileList[i],
               Emuteca.TempFolder + 'Temp', False, '');
             aversion.ID :=
-              IntToHex(CRC32File(Emuteca.TempFolder +
-              'Temp\' + FileList[i]), 8);
+              CRC32FileStr(Emuteca.TempFolder + 'Temp\' + FileList[i]);
             DeleteDirectory(Emuteca.TempFolder + 'Temp', False);
           end;
-          TEFKCustom: aversion.ID := SetAsID(ExtractFileNameOnly(FileList[i]));
+
+          TEFKCustom: aversion.ID :=
+              SetAsID(ExtractFileNameOnly(FileList[i]));
+
           TEFKFileName: aversion.ID :=
               SetAsID(ExtractFileNameOnly(FileList[i]));
+
           else  // TEFKSHA1 by default
           begin
             w7zExtractFile(FolderList[i], FileList[i],
               Emuteca.TempFolder + 'Temp', False, '');
             aversion.ID :=
-              SHA1Print(SHA1File(Emuteca.TempFolder +
-              'Temp\' + FileList[i]));
+              SHA1FileStr(Emuteca.TempFolder + 'Temp\' + FileList[i]);
             DeleteDirectory(Emuteca.TempFolder + 'Temp', False);
           end;
         end;
 
         aVersion.Parent :=
           RemoveFromBrackets(ExtractFileNameOnly(FolderList[i]));
-        aVersion.Title := RemoveFromBrackets(ExtractFileNameOnly(FileList[i]));
+        aVersion.Title :=
+          RemoveFromBrackets(ExtractFileNameOnly(FileList[i]));
         aVersion.Description :=
           CopyFromBrackets(ExtractFileNameOnly(FileList[i]));
       end
@@ -156,12 +158,11 @@ begin
         aversion.ID := '';
         case aSystem.GameKey of
           TEFKCRC32: aversion.ID :=
-              IntToHex(CRC32File(aVersion.Folder + aVersion.FileName), 8);
+              CRC32FileStr(aVersion.Folder + aVersion.FileName);
           TEFKCustom: aversion.ID := SetAsID(aVersion.FileName);
           TEFKFileName: aversion.ID := SetAsID(aVersion.FileName);
           else  // TEFKSHA1 by default
-            aversion.ID :=
-              SHA1Print(SHA1File(aVersion.Folder + aVersion.FileName, 4096));
+            aversion.ID := SHA1FileStr(aVersion.Folder + aVersion.FileName);
         end;
 
         aVersion.Parent :=

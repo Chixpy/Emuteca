@@ -37,7 +37,7 @@ type
     function ItemById(aId: string): cEmutecaSoftware;
     {< Returns the version with aId key.
 
-       @Result cEmutecaParent found or nil.
+       @Result cEmutecaSoftware found or nil.
     }
 
     procedure FilterBySystem(aSystemKey: string);

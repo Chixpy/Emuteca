@@ -83,9 +83,7 @@ procedure TfrmESMSoftList.FormCreate(Sender: TObject);
     fmEmutecaSoftList.Parent := pBottom;
    // fmEmutecaSoftList.OnItemSelect := @Self.SelectSoftware;
 
-
-
-        // Creating and Setting Tags
+    // Creating and Setting Tags
     aTabSheet := PageControl1.AddTabSheet;
     fmCHXTagTree := TfmTagTree.Create(aTabSheet);
     aTabSheet.Caption := fmCHXTagTree.Caption;  {TODO: Add Caption}
