@@ -2,17 +2,17 @@ object fmActAddSoft: TfmActAddSoft
   Left = 0
   Height = 329
   Top = 0
-  Width = 654
+  Width = 836
   ClientHeight = 329
-  ClientWidth = 654
+  ClientWidth = 836
   TabOrder = 0
-  DesignLeft = 356
-  DesignTop = 146
+  DesignLeft = 229
+  DesignTop = 186
   object gbxVersionInfo: TGroupBox
     Left = 360
     Height = 302
     Top = 0
-    Width = 294
+    Width = 476
     Align = alClient
     Caption = 'Version info'
     TabOrder = 0
@@ -21,7 +21,7 @@ object fmActAddSoft: TfmActAddSoft
     Left = 0
     Height = 27
     Top = 302
-    Width = 654
+    Width = 836
     Align = alBottom
     AutoSize = True
     ChildSizing.EnlargeHorizontal = crsHomogenousSpaceResize
@@ -29,10 +29,10 @@ object fmActAddSoft: TfmActAddSoft
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 2
     ClientHeight = 27
-    ClientWidth = 654
+    ClientWidth = 836
     TabOrder = 1
     object bAccept: TBitBtn
-      Left = 170
+      Left = 231
       Height = 27
       Top = 0
       Width = 62
@@ -44,7 +44,7 @@ object fmActAddSoft: TfmActAddSoft
       TabOrder = 0
     end
     object bCancel: TBitBtn
-      Left = 402
+      Left = 524
       Height = 27
       Top = 0
       Width = 82
@@ -64,32 +64,21 @@ object fmActAddSoft: TfmActAddSoft
     ClientHeight = 302
     ClientWidth = 360
     TabOrder = 2
-    object bgxSystem: TGroupBox
+    object gbxSystem: TGroupBox
       Left = 1
-      Height = 58
+      Height = 35
       Top = 1
       Width = 358
       Align = alTop
       AutoSize = True
       Caption = 'Select System'
-      ClientHeight = 38
+      ClientHeight = 15
       ClientWidth = 354
       TabOrder = 0
-      object cbxSystem: TComboBox
-        Left = 0
-        Height = 23
-        Top = 0
-        Width = 354
-        Align = alTop
-        ItemHeight = 15
-        OnChange = cbxSystemChange
-        Style = csDropDownList
-        TabOrder = 0
-      end
       object lSystemInfo: TLabel
         Left = 0
         Height = 15
-        Top = 23
+        Top = 0
         Width = 354
         Align = alTop
         Caption = '*.*'
@@ -100,7 +89,7 @@ object fmActAddSoft: TfmActAddSoft
     object gbxFileSelection: TGroupBox
       Left = 1
       Height = 85
-      Top = 59
+      Top = 36
       Width = 358
       Align = alTop
       AutoSize = True
@@ -151,7 +140,7 @@ object fmActAddSoft: TfmActAddSoft
     object rgbVersionKey: TRadioGroup
       Left = 1
       Height = 58
-      Top = 144
+      Top = 121
       Width = 358
       Align = alTop
       AutoFill = True
@@ -179,7 +168,7 @@ object fmActAddSoft: TfmActAddSoft
     object eVersionKey: TEdit
       Left = 1
       Height = 23
-      Top = 202
+      Top = 179
       Width = 358
       Align = alTop
       TabOrder = 3

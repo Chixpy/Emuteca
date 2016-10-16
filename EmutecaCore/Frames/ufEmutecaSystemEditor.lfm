@@ -127,14 +127,14 @@ object fmEmutecaSystemEditor: TfmEmutecaSystemEditor
       TabOrder = 5
     end
   end
-  object lID: TLabel
+  object ITitleMain: TLabel
     Left = 0
     Height = 28
     Top = 0
     Width = 400
     Align = alTop
     Alignment = taCenter
-    Caption = 'lID'
+    Caption = 'System Title'
     Font.Height = -20
     Font.Style = [fsBold]
     ParentColor = False
@@ -268,16 +268,16 @@ object fmEmutecaSystemEditor: TfmEmutecaSystemEditor
       ClientHeight = 76
       ClientWidth = 196
       TabOrder = 0
-      object lCompany: TLabel
+      object lTitle: TLabel
         Left = 0
         Height = 15
         Top = 0
         Width = 196
         Align = alTop
-        Caption = 'Company'
+        Caption = 'Title'
         ParentColor = False
       end
-      object eCompany: TEdit
+      object eTitle: TEdit
         Left = 0
         Height = 23
         Top = 15
@@ -285,16 +285,16 @@ object fmEmutecaSystemEditor: TfmEmutecaSystemEditor
         Align = alTop
         TabOrder = 0
       end
-      object lModel: TLabel
+      object lExtraFilename: TLabel
         Left = 0
         Height = 15
         Top = 38
         Width = 196
         Align = alTop
-        Caption = 'Model'
+        Caption = 'Extra Info Filename'
         ParentColor = False
       end
-      object eModel: TEdit
+      object eExtraInfoFilename: TEdit
         Left = 0
         Height = 23
         Top = 53

@@ -53,6 +53,10 @@ type
     MenuItem10: TMenuItem;
     MenuItem11: TMenuItem;
     MenuItem12: TMenuItem;
+    MenuItem13: TMenuItem;
+    MenuItem14: TMenuItem;
+    MenuItem15: TMenuItem;
+    MenuItem2: TMenuItem;
     MenuItem3: TMenuItem;
     MenuItem4: TMenuItem;
     MenuItem5: TMenuItem;
@@ -62,7 +66,6 @@ type
     MenuItem9: TMenuItem;
     mmHelp: TMenuItem;
     mmFile: TMenuItem;
-    MenuItem2: TMenuItem;
     PageControl1: TPageControl;
     pBottom: TPanel;
     pMiddle: TPanel;

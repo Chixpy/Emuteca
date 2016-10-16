@@ -94,7 +94,7 @@
         <PackageName Value="LCL"/>
       </Item6>
     </RequiredPackages>
-    <Units Count="74">
+    <Units Count="76">
       <Unit0>
         <Filename Value="LazEmuteca.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -457,6 +457,17 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
       </Unit73>
+      <Unit74>
+        <Filename Value="..\EmutecaCore\Classes\ucEmutecaSystemExtra.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit74>
+      <Unit75>
+        <Filename Value="..\EmutecaCore\Frames\ufEmutecaParentCBX.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fmEmutecaParentCBX"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+      </Unit75>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

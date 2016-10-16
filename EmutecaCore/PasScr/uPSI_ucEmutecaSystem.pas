@@ -148,20 +148,12 @@ procedure cEmutecaSystemExtensions_R(Self: cEmutecaSystem; var T: TStringList);
 begin T := Self.Extensions; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cEmutecaSystemModel_W(Self: cEmutecaSystem; const T: string);
-begin Self.Model := T; end;
+procedure cEmutecaSystemTitle_W(Self: cEmutecaSystem; const T: string);
+begin Self.Title := T; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cEmutecaSystemModel_R(Self: cEmutecaSystem; var T: string);
-begin T := Self.Model; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaSystemCompany_W(Self: cEmutecaSystem; const T: string);
-begin Self.Company := T; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaSystemCompany_R(Self: cEmutecaSystem; var T: string);
-begin T := Self.Company; end;
+procedure cEmutecaSystemTitle_R(Self: cEmutecaSystem; var T: string);
+begin T := Self.Title; end;
 
 (*----------------------------------------------------------------------------*)
 procedure cEmutecaSystemEnabled_W(Self: cEmutecaSystem; const T: boolean);
@@ -193,8 +185,7 @@ begin
   begin
     RegisterPropertyHelper(@cEmutecaSystemID_R,@cEmutecaSystemID_W,'ID');
     RegisterPropertyHelper(@cEmutecaSystemEnabled_R,@cEmutecaSystemEnabled_W,'Enabled');
-    RegisterPropertyHelper(@cEmutecaSystemCompany_R,@cEmutecaSystemCompany_W,'Company');
-    RegisterPropertyHelper(@cEmutecaSystemModel_R,@cEmutecaSystemModel_W,'Model');
+    RegisterPropertyHelper(@cEmutecaSystemTitle_R,@cEmutecaSystemTitle_W,'Title');
     RegisterPropertyHelper(@cEmutecaSystemExtensions_R,nil,'Extensions');
     RegisterPropertyHelper(@cEmutecaSystemExtractAll_R,@cEmutecaSystemExtractAll_W,'ExtractAll');
     RegisterPropertyHelper(@cEmutecaSystemGameKey_R,@cEmutecaSystemGameKey_W,'GameKey');

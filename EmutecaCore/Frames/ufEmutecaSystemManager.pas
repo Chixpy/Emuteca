@@ -33,7 +33,7 @@ uses
   ufEmutecaSystemEditorExt;
 
 resourcestring
-  rsSystemName = 'System name';
+  rsSystemName = 'System name [Company: Model (extra)]';
   rsEEmutecaNil = 'cEmuteca not defined.';
 
 type
@@ -159,7 +159,7 @@ begin
 
   aSystem := cEmutecaSystem.Create(nil);
   aSystem.ID := SystemID;
-  aSystem.Model := SystemID;
+  aSystem.Title := SystemID;
   aSystem.Enabled := True;
   Emuteca.SystemManager.FullList.Add(aSystem);
 

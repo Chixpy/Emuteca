@@ -169,6 +169,15 @@ object frmEmutecaMain: TfrmEmutecaMain
         Caption = 'Test'
         OnClick = MenuItem8Click
       end
+      object MenuItem13: TMenuItem
+        Caption = '-'
+      end
+      object MenuItem14: TMenuItem
+        Action = actSaveLists
+      end
+      object MenuItem15: TMenuItem
+        Caption = '-'
+      end
       object MenuItem2: TMenuItem
         Action = FileExit1
       end

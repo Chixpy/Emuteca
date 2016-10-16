@@ -48,16 +48,19 @@ etc.).
 
 Game Clone data
 ---------------
-  * Basic info (Stored straight in db)
+  * Basic info (Stored straight in db) for listings:
     * ID
     * Title
-    * Version (and release type: beta, alpha, proto)
+    * Version/Description (and release type: beta, alpha, proto)
     * Parent
-    * Year of publication
-    * Publisher
-    * Zones
     * Path/Folder/zip/7z
     * FileName
+
+  * Stored as tags:
+    * Year of publication
+    * Publisher/developer
+    * Zones
+
   * Additional (This maybe loaded from an external file, but some seems to be
     useful in main list...)
     * TOSEC (hacking info)

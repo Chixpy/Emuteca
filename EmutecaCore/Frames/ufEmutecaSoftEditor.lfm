@@ -11,36 +11,36 @@ object fmEmutecaSoftEditor: TfmEmutecaSoftEditor
   object lTitle: TLabel
     Left = 0
     Height = 15
-    Top = 38
+    Top = 30
     Width = 312
     Align = alTop
-    Caption = 'lTitle'
+    Caption = 'Title'
     ParentColor = False
   end
   object eTitle: TEdit
     Left = 0
     Height = 23
-    Top = 53
+    Top = 45
     Width = 312
     Align = alTop
-    TabOrder = 1
+    TabOrder = 0
   end
   object lDescription: TLabel
     Left = 0
     Height = 15
-    Top = 76
+    Top = 68
     Width = 312
     Align = alTop
-    Caption = 'lDescription'
+    Caption = 'Description'
     ParentColor = False
   end
   object eDescription: TEdit
     Left = 0
     Height = 23
-    Top = 91
+    Top = 83
     Width = 312
     Align = alTop
-    TabOrder = 2
+    TabOrder = 1
   end
   object lParent: TLabel
     Left = 0
@@ -48,16 +48,16 @@ object fmEmutecaSoftEditor: TfmEmutecaSoftEditor
     Top = 0
     Width = 312
     Align = alTop
-    Caption = 'lParent'
+    Caption = 'Parent'
     ParentColor = False
   end
-  object cbxParent: TComboBox
+  object lSystem: TLabel
     Left = 0
-    Height = 23
+    Height = 15
     Top = 15
     Width = 312
     Align = alTop
-    ItemHeight = 15
-    TabOrder = 0
+    Caption = 'lSystem'
+    ParentColor = False
   end
 end

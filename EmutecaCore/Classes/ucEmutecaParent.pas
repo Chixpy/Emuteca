@@ -26,7 +26,7 @@ unit ucEmutecaParent;
 interface
 
 uses
-  Classes, SysUtils, fgl, LazFileUtils,contnrs,
+  Classes, SysUtils, fgl, LazFileUtils, contnrs,
   uCHXStrUtils,
   uaEmutecaStorable;
 
@@ -68,6 +68,9 @@ type
 
   cEmutecaParentList = TComponentList;
 
+  TEmutecaReturnParentCB = function(aSystem: cEmutecaParent): boolean of
+    object;
+
 implementation
 
 { cEmutecaParent }
@@ -95,7 +98,7 @@ var
 begin
   aStringList := TStringList.Create;
   try
-    SaveToFileTxt(aStringList, false);
+    SaveToFileTxt(aStringList, False);
   finally
     Result := aStringList.CommaText;
     FreeAndNil(aStringList);

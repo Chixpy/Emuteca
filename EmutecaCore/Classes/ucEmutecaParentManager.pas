@@ -41,7 +41,7 @@ type
 
   cEmutecaParentManager = class(caEmutecaManagerTxt)
   private
-    FEnabledList: cEmutecaParentList;
+    FVisibleList: cEmutecaParentList;
     FFullList: cEmutecaParentList;
 
   protected
@@ -50,7 +50,7 @@ type
   public
     property FullList: cEmutecaParentList read FFullList;
     {< Actual list where the parents are stored. }
-    property EnabledList: cEmutecaParentList read FEnabledList;
+    property VisibleList: cEmutecaParentList read FVisibleList;
     {< Filtered parent list. }
 
     procedure LoadFromFileTxt(TxtFile: TStrings); override;
@@ -98,11 +98,11 @@ var
   i: longint;
   aParent: cEmutecaParent;
 begin
-  EnabledList.Clear;
+  VisibleList.Clear;
 
   if aSystemKey = '' then
   begin
-    EnabledList.Assign(FullList);
+    VisibleList.Assign(FullList);
   end
   else
   begin
@@ -111,7 +111,7 @@ begin
     begin
       aParent := cEmutecaParent(FullList[i]);
       if UTF8CompareText(aParent.System, aSystemKey) = 0 then
-        EnabledList.Add(aParent);
+        VisibleList.Add(aParent);
       Inc(i);
     end;
   end;
@@ -146,9 +146,9 @@ begin
 
   aList.BeginUpdate;
   i := 0;
-  while i < EnabledList.Count do
+  while i < VisibleList.Count do
   begin
-    aParent := cEmutecaParent(EnabledList[i]);
+    aParent := cEmutecaParent(VisibleList[i]);
     aList.AddObject(aParent.Title + ' (' + aParent.System + ')', aParent);
     Inc(i);
   end;
@@ -176,7 +176,7 @@ begin
         TempParent.Title, i, TxtFile.Count);
   end;
 
-  EnabledList.Assign(FullList);
+  VisibleList.Assign(FullList);
 end;
 
 procedure cEmutecaParentManager.SaveToFileTxt(TxtFile: TStrings;
@@ -210,13 +210,13 @@ begin
   inherited Create(aOwner);
 
   FFullList := cEmutecaParentList.Create(True);
-  FEnabledList := cEmutecaParentList.Create(False);
+  FVisibleList := cEmutecaParentList.Create(False);
   // TODO: OnCompare FullList.OnCompare := ;
 end;
 
 destructor cEmutecaParentManager.Destroy;
 begin
-  FreeAndNil(FEnabledList);
+  FreeAndNil(FVisibleList);
   FreeAndNil(FFullList);
   inherited Destroy;
 end;

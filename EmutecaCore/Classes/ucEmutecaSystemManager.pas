@@ -50,8 +50,8 @@ type
        @Result cEmutecaSystem found or nil.
     }
 
-    procedure AssingAllTo(aList: TStrings); override;
-    procedure AssingEnabledTo(aList: TStrings); override;
+    procedure AssingAllTo(aList: TStrings); override; deprecated;
+    procedure AssingEnabledTo(aList: TStrings); override; deprecated;
 
     constructor Create(aOwner: TComponent); override;
     destructor Destroy; override;
@@ -94,7 +94,7 @@ begin
 
       if ProgressCallBack <> nil then
         ProgressCallBack(rsLoadingSystemList, TempSys.ID,
-          TempSys.Model, i, TempList.Count);
+          TempSys.Title, i, TempList.Count);
     end;
   finally
     FreeAndNil(TempList);
@@ -122,7 +122,7 @@ begin
 
     if ProgressCallBack <> nil then
       ProgressCallBack(rsSavingSystemList, aSystem.ID,
-        aSystem.Model, i, FullList.Count);
+        aSystem.Title, i, FullList.Count);
   end;
 end;
 
@@ -156,7 +156,7 @@ begin
   while i < FullList.Count do
   begin
     aSystem := cEmutecaSystem(FullList[i]);
-    aList.AddObject(aSystem.Company + ' - ' + aSystem.Model, FullList[i]);
+    aList.AddObject(aSystem.Title, FullList[i]);
     Inc(i);
   end;
   aList.EndUpdate;
@@ -177,7 +177,7 @@ begin
     aSystem := cEmutecaSystem(VisibleList[i]);
     if aSystem.Enabled then
       begin
-      aList.AddObject(aSystem.Company + ' - ' + aSystem.Model, aSystem);
+      aList.AddObject(aSystem.Title, aSystem);
       end;
     Inc(i);
   end;

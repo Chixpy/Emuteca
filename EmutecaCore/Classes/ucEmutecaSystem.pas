@@ -34,8 +34,8 @@ const
   // Ini file Keys
   // -------------
   krsIniKeyEnabled = 'Enabled';  // TODO: uEmutecaCommon.pas?
-  krsIniKeyCompany = 'Company';
-  krsIniKeyModel = 'Model';
+  krsIniKeyTitle = 'Title';
+  krsIniKeyExtraFile = 'ExtraFile';
   krsIniKeyExtensions = 'Extensions';
   krsIniKeyBaseFolder = 'BaseFolder';
   krsIniKeyTempFolder = 'TempFolder';
@@ -71,21 +71,25 @@ type
     FEnabled: boolean;
     FExtensions: TStringList;
     FExtractAll: boolean;
+    FExtraFile: string;
     FGameKey: TEmutecaFileKey;
     FID: string;
     FMainEmulator: string;
     FModel: string;
     FOtherEmulators: TStringList;
     FTempFolder: string;
+    FTitle: string;
     procedure SetBaseFolder(AValue: string);
     procedure SetCompany(AValue: string);
     procedure SetEnabled(AValue: boolean);
     procedure SetExtractAll(AValue: boolean);
+    procedure SetExtraFile(AValue: string);
     procedure SetGameKey(AValue: TEmutecaFileKey);
     procedure SetID(AValue: string);
     procedure SetMainEmulator(AValue: string);
     procedure SetModel(AValue: string);
     procedure SetTempFolder(AValue: string);
+    procedure SetTitle(AValue: string);
 
   protected
 
@@ -100,15 +104,16 @@ type
   published
 
     property ID: string read FID write SetID;
-    //< Name or ID of the system (usually, Company + Model).
+    //< ID of the system.
+
+    property Title: string read FTitle write SetTitle;
+    {< Visible name (Usually "%Company%: %Model% %(info)%"}
+
+    property ExtraFile: string read FExtraFile write SetExtraFile;
+    {< File with extra info of the system, without extension }
 
     property Enabled: boolean read FEnabled write SetEnabled;
     //< Is the system visible?
-
-    property Company: string read FCompany write SetCompany;
-    //< Company of the system.
-    property Model: string read FModel write SetModel;
-    //< Model of the system.
 
     property ExtractAll: boolean read FExtractAll write SetExtractAll;
     //< Must all files be extracted from compressed archives?
@@ -137,8 +142,6 @@ type
     property OtherEmulators: TStringList read FOtherEmulators;
     //< Ids of other emulators for the system.
 
-    { TODO : Only used for importing data, must be stored elsewhere
-      ------------------------------------------------------------- }
     property GameKey: TEmutecaFileKey read FGameKey write SetGameKey;
     {< Must CRC/SHA be used as game identifiers (when importing/exporting
          data)}
@@ -146,8 +149,6 @@ type
     {< Extensions used by the system.
 
     Only one extension in every string, without dot.
-
-    TODO: Only used for importing games, can be stored elsewhere...
     }
   end;
 
@@ -204,8 +205,10 @@ begin
 
   Enabled := IniFile.ReadBool(ID, krsIniKeyEnabled, Enabled);
 
-  Company := IniFile.ReadString(ID, krsIniKeyCompany, Company);
-  Model := IniFile.ReadString(ID, krsIniKeyModel, Model);
+  Title := IniFile.ReadString(ID, krsIniKeyTitle, Title);
+
+  ExtraFile := IniFile.ReadString(ID, krsIniKeyExtraFile, ExtraFile);
+  if ExtraFile = '' then ExtraFile := CleanFileName(Title);
 
   Extensions.CommaText := IniFile.ReadString(ID, krsIniKeyExtensions,
     Extensions.CommaText);
@@ -228,11 +231,12 @@ begin
   if IniFile = nil then
     Exit;
 
-  IniFile.WriteString(ID, krsIniKeyCompany, Company);
-  IniFile.WriteString(ID, krsIniKeyModel, Model);
-  IniFile.WriteString(ID, krsIniKeyExtensions, Extensions.CommaText);
+  IniFile.WriteString(ID, krsIniKeyTitle, Title);
+  IniFile.WriteString(ID, krsIniKeyExtraFile, ExtraFile);
 
+  IniFile.WriteString(ID, krsIniKeyExtensions, Extensions.CommaText);
   IniFile.WriteString(ID, krsIniKeyGamesKey, EmutecaFileKey2Str(GameKey));
+
   IniFile.WriteBool(ID, krsIniKeyExtractAll, ExtractAll);
 
   IniFile.WriteString(ID, krsIniKeyMainEmulator, MainEmulator);
@@ -278,6 +282,11 @@ begin
   FExtractAll := AValue;
 end;
 
+procedure cEmutecaSystem.SetExtraFile(AValue: string);
+begin
+  FExtraFile := CleanFileName(AValue);
+end;
+
 procedure cEmutecaSystem.SetGameKey(AValue: TEmutecaFileKey);
 begin
   if FGameKey = AValue then
@@ -293,7 +302,6 @@ end;
 procedure cEmutecaSystem.SetMainEmulator(AValue: string);
 begin
   FMainEmulator := SetAsID(AValue);
-  ;
 end;
 
 procedure cEmutecaSystem.SetModel(AValue: string);
@@ -308,6 +316,12 @@ begin
   FTempFolder := SetAsFolder(AValue);
 end;
 
+procedure cEmutecaSystem.SetTitle(AValue: string);
+begin
+  if FTitle = AValue then Exit;
+  FTitle := AValue;
+end;
+
 constructor cEmutecaSystem.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
@@ -317,9 +331,11 @@ begin
 
   Self.FExtensions := TStringList.Create;
   Self.FExtensions.CaseSensitive := False;
+  self.Extensions.Sorted := True;
 
   Self.FOtherEmulators := TStringList.Create;
   Self.FOtherEmulators.CaseSensitive := False;
+  Self.FOtherEmulators.Sorted := True;
 end;
 
 destructor cEmutecaSystem.Destroy;

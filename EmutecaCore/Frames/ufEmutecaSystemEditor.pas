@@ -30,18 +30,18 @@ type
     chkExtractAllFiles: TCheckBox;
     clbOtherEmulators: TCheckListBox;
     eBaseFolder: TDirectoryEdit;
-    eCompany: TEdit;
-    eModel: TEdit;
+    eTitle: TEdit;
+    eExtraInfoFilename: TEdit;
     eTempFolder: TDirectoryEdit;
     gbxBasicInfo: TGroupBox;
     gbxEmulators: TGroupBox;
     gbxFiles: TGroupBox;
-    lID: TLabel;
+    ITitleMain: TLabel;
     lBaseFolder: TLabel;
-    lCompany: TLabel;
+    lTitle: TLabel;
     lFileExtensions: TLabel;
     lMainEmulator: TLabel;
-    lModel: TLabel;
+    lExtraFilename: TLabel;
     lOtherEmulators: TLabel;
     lTempFolder: TLabel;
     mExtensions: TMemo;
@@ -179,8 +179,8 @@ procedure TfmEmutecaSystemEditor.SaveData;
 var
   i, j: integer;
 begin
-  System.Model := eModel.Text;
-  System.Company := eCompany.Text;
+  System.ExtraFile := eExtraInfoFilename.Text;
+  System.Title := eTitle.Text;
 
   if cbxMainEmulator.ItemIndex <> -1 then
     System.MainEmulator := cEmutecaEmulator(
@@ -229,10 +229,10 @@ begin
   if not (assigned(System) and assigned(EmuManager)) then
     Exit;
 
-  lID.Caption := System.ID;
+  ITitleMain.Caption := System.Title;
 
-  eCompany.Text := System.Company;
-  eModel.Text := System.Model;
+  eTitle.Text := System.Title;
+  eExtraInfoFilename.Text := System.ExtraFile;
 
   aEmulator := EmuManager.ItemById(System.MainEmulator);
   cbxMainEmulator.ItemIndex := cbxMainEmulator.Items.IndexOfObject(aEmulator);
@@ -267,8 +267,8 @@ end;
 
 procedure TfmEmutecaSystemEditor.ClearData;
 begin
-  eModel.Clear;
-  eCompany.Clear;
+  eExtraInfoFilename.Clear;
+  eTitle.Clear;
   cbxMainEmulator.ItemIndex := -1;
   clbOtherEmulators.CheckAll(cbUnchecked);
   eBaseFolder.Clear;
