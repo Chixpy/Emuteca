@@ -13,7 +13,7 @@ _**¡This is a mess after Google Code closed!**_
 
 _v0.8 is started from scratch in_ test _branch, but I will no merge to_ master _until it isn't more mature_
 
-**Emuteca** is an emulator front-end for any system, like [QuickPlay](http://www.quickplayfrontend.com/). Now, it's in English; and it can be translated to any language (I think so...).
+**Emuteca** is an emulator front-end for any system, like [QuickPlay](http://www.quickplayfrontend.com/) (or [here in GitHub](https://github.com/tonywoode/quickPlay)). Now, it's in English; and it can be translated to any language (I think so...).
 
 It's not complete, but it's stable and usable... :-|
 
