@@ -167,7 +167,7 @@ begin
 
     if ProgressCallBack <> nil then
       ProgressCallBack(rsLoadingVersionList, TempVersion.Title,
-        TempVersion.Description, i, TxtFile.Count);
+        TempVersion.Version, i, TxtFile.Count);
   end;
 
   EnabledList.Assign(FullList);
@@ -184,12 +184,17 @@ begin
 
   { TODO : cEmutecaSoftManager.SaveToFileTxt Export mode }
   TxtFile.Clear;
-  TxtFile.Add('"ID","System","Parent","Title","Version","Folder","FileName"');
+  TxtFile.Add('"ID","Folder","FileName","Title","Parent","System",' +
+    '"Reserved 1","TransliteratedName","SortTitle","Reserved 2",' +
+    '"Version","Year","Publisher","Zone","Reserved 3",' +
+    '"DumpStatus","DumpInfo","Fixed","Trainer","Translation",' +
+    '"Pirate","Cracked","Modified","Hack","Reserved 4",' +
+    '"Last Time","Times Played","Playing Time"');
 
   i := 0;
   while i < FullList.Count do
   begin
-    aSoft := cEmutecaSoftware(EnabledList[i]);
+    aSoft := cEmutecaSoftware(FullList[i]);
     TxtFile.Add(aSoft.DataString);
     Inc(i);
 

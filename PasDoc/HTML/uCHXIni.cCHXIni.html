@@ -1,0 +1,537 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<title>Emuteca: uCHXIni: Class cCHXIni</title>
+<meta name="generator" content="PasDoc 0.14.0">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<script type="text/javascript" src="tipuesearch/jquery.min.js"></script>
+<script type="text/javascript" src="tipuesearch/tipuesearch_data.js"></script>
+<link rel="stylesheet" type="text/css" href="tipuesearch/tipuesearch.css">
+<script type="text/javascript" src="tipuesearch/tipuesearch_set.js"></script>
+<script type="text/javascript" src="tipuesearch/tipuesearch.js"></script>
+
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body>
+<table class="container"><tr><td class="navigation">
+<h2>Emuteca</h2><p><a href="AllUnits.html" class="navigation">Units</a></p><p><a href="ClassHierarchy.html" class="navigation">Class Hierarchy</a></p><p><a href="AllClasses.html" class="navigation">Classes, Interfaces, Objects and Records</a></p><p><a href="AllTypes.html" class="navigation">Types</a></p><p><a href="AllVariables.html" class="navigation">Variables</a></p><p><a href="AllConstants.html" class="navigation">Constants</a></p><p><a href="AllFunctions.html" class="navigation">Functions and Procedures</a></p><p><a href="AllIdentifiers.html" class="navigation">Identifiers</a></p><p><form class="search-form" action="_tipue_results.html"><div class="search-input"><input type="text" name="q" id="tipue_search_input"></div><div class="search-button"><input type="button" id="tipue_search_button" onclick="this.form.submit();"></div></form>
+<div style="clear: both"></div>
+
+<script>
+$(document).ready(function() {
+    $('#tipue_search_input').tipuesearch({
+        /* 10 items to display seems standard */
+        'show': 10,
+        /* For PasDoc docs, showing urls is not very useful,
+           since the page title already shows the unit and identifier. */
+        'showURL': false
+    });
+});
+</script>
+</p></td><td class="content">
+<a name="cCHXIni"></a><h1 class="cio">Class cCHXIni</h1>
+<table class="sections wide_list">
+<tr>
+<td><a class="section" href="#PasDoc-Description">Description</a></td><td><a class="section" href="#PasDoc-Hierarchy">Hierarchy</a></td><td>Fields</td><td><a class="section" href="#PasDoc-Methods">Methods</a></td><td><a class="section" href="#PasDoc-Properties">Properties</a></td></tr></table>
+<a name="PasDoc-Description"></a><h2 class="unit">Unit</h2>
+<p class="unitlink">
+<a  href="uCHXIni.html">uCHXIni</a></p>
+<h2 class="declaration">Declaration</h2>
+<p class="declaration">
+<code>type cCHXIni = class(TObject)</code></p>
+<h2 class="description">Description</h2>
+<p>
+<code>cCHXIni</code></p>
+<a name="PasDoc-Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
+<ul class="hierarchy"><li class="ancestor">TObject</li>
+<li class="thisitem">cCHXIni</li></ul><h2 class="overview">Overview</h2>
+<a name="PasDoc-Methods"></a><h3 class="summary">Methods</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="uCHXIni.cCHXIni.html#FillSectionList">FillSectionList</a></b>(aStringList: TStrings);</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="uCHXIni.cCHXIni.html#LoadFromFile">LoadFromFile</a></b>(aFilename: string = '');</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="uCHXIni.cCHXIni.html#SaveToFile">SaveToFile</a></b>(aFilename: string = '');</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>function <b><a  href="uCHXIni.cCHXIni.html#SectionNameList">SectionNameList</a></b>: TStringList;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>function <b><a  href="uCHXIni.cCHXIni.html#SectionByIndex">SectionByIndex</a></b>(aIndex: integer): <a  href="uCHXIni.cCHXIniSection.html">cCHXIniSection</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>function <b><a  href="uCHXIni.cCHXIni.html#SectionByName">SectionByName</a></b>(aSectionName: string): <a  href="uCHXIni.cCHXIniSection.html">cCHXIniSection</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>function <b><a  href="uCHXIni.cCHXIni.html#SectionCount">SectionCount</a></b>: integer;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>function <b><a  href="uCHXIni.cCHXIni.html#ReadString">ReadString</a></b>(const aSectionName, aKeyName, aDefault: string): string;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>function <b><a  href="uCHXIni.cCHXIni.html#ReadString">ReadString</a></b>(const aSectionIndex: integer; const aKeyName, aDefault: string): string;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>function <b><a  href="uCHXIni.cCHXIni.html#ReadString">ReadString</a></b>(const aSectionIndex, aKeyIndex: integer; const aDefault: string): string;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>function <b><a  href="uCHXIni.cCHXIni.html#ReadBoolean">ReadBoolean</a></b>(const aSectionName, aKeyName: string; const aDefault: boolean): boolean;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>function <b><a  href="uCHXIni.cCHXIni.html#ReadMultiStrings">ReadMultiStrings</a></b>(const aSectionName, aKeyName, aDefault: string; const Separator: char = ','): TStringList;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>function <b><a  href="uCHXIni.cCHXIni.html#ReadInteger">ReadInteger</a></b>(const aSectionName, aKeyName: string; const aDefault: integer): integer;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>function <b><a  href="uCHXIni.cCHXIni.html#ReadTPoint">ReadTPoint</a></b>(const aSectionName, aKeyName: string; const aDefault: TPoint): TPoint;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="uCHXIni.cCHXIni.html#WriteString">WriteString</a></b>(const aSectionName, aKeyName: string; aValue: string);</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="uCHXIni.cCHXIni.html#WriteBoolean">WriteBoolean</a></b>(const aSectionName, aKeyName: string; const aValue: boolean);</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="uCHXIni.cCHXIni.html#WriteInteger">WriteInteger</a></b>(const aSectionName, aKeyName: string; const aValue: integer);</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="uCHXIni.cCHXIni.html#StrRemoveQuotes">StrRemoveQuotes</a></b>(var aString: string);</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>constructor <b><a  href="uCHXIni.cCHXIni.html#Create">Create</a></b>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>destructor <b><a  href="uCHXIni.cCHXIni.html#Destroy">Destroy</a></b>; override;</code></td>
+</tr>
+</table>
+<a name="PasDoc-Properties"></a><h3 class="summary">Properties</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>property <b><a  href="uCHXIni.cCHXIni.html#SectionList">SectionList</a></b>: <a  href="uCHXIni.html#cCHXIniSectionList">cCHXIniSectionList</a> read FSectionList;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a  href="uCHXIni.cCHXIni.html#FileName">FileName</a></b>: string read FFileName write SetFileName;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a  href="uCHXIni.cCHXIni.html#EscapeLF">EscapeLF</a></b>: boolean read FEscapeLF write SetEscapeLF;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a  href="uCHXIni.cCHXIni.html#MergeSections">MergeSections</a></b>: boolean
+      read FMergeSections write SetMergeSections;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a  href="uCHXIni.cCHXIni.html#MergeKeys">MergeKeys</a></b>: boolean read FMergeKeys write SetMergeKeys;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a  href="uCHXIni.cCHXIni.html#CommentBegin">CommentBegin</a></b>: string read FCommentBegin write SetCommentBegin;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a  href="uCHXIni.cCHXIni.html#SectionBegin">SectionBegin</a></b>: string read FSectionBegin write SetSectionBegin;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a  href="uCHXIni.cCHXIni.html#SectionEnd">SectionEnd</a></b>: string read FSectionEnd write SetSectionEnd;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a  href="uCHXIni.cCHXIni.html#NewLine">NewLine</a></b>: string read FNewLine write SetNewLine;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a  href="uCHXIni.cCHXIni.html#RemoveQuotes">RemoveQuotes</a></b>: boolean read FRemoveQuotes write SetRemoveQuotes;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a  href="uCHXIni.cCHXIni.html#QuoteBegin">QuoteBegin</a></b>: string read FQuoteBegin write SetQuoteBegin;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a  href="uCHXIni.cCHXIni.html#QuoteEnd">QuoteEnd</a></b>: string read FQuoteEnd write SetQuoteEnd;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a  href="uCHXIni.cCHXIni.html#AssignChar">AssignChar</a></b>: string read FAssignChar write SetAssignChar;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a  href="uCHXIni.cCHXIni.html#EscapeLFChar">EscapeLFChar</a></b>: string read FEscapeLFChar write SetEscapeLFChar;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a  href="uCHXIni.cCHXIni.html#EscapeLFMaxWidth">EscapeLFMaxWidth</a></b>: word read FEscapeLFMaxWidth
+      write SetEscapeLFMaxWidth;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a  href="uCHXIni.cCHXIni.html#WriteQuotes">WriteQuotes</a></b>: <a  href="uCHXIni.html#TCHXIniValueOption">TCHXIniValueOption</a>
+      read FWriteQuotes write SetWriteQuotes;</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Methods</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="FillSectionList"></a><code>procedure <b>FillSectionList</b>(aStringList: TStrings);</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="LoadFromFile"></a><code>procedure <b>LoadFromFile</b>(aFilename: string = '');</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Reads a ini file from disk.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="SaveToFile"></a><code>procedure <b>SaveToFile</b>(aFilename: string = '');</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Save a ini file to disk (it doesn't merge content).
+
+<p>For merging, target file must be loaded first.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="SectionNameList"></a><code>function <b>SectionNameList</b>: TStringList;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Creates a TStringlist with the name of setions.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="SectionByIndex"></a><code>function <b>SectionByIndex</b>(aIndex: integer): <a  href="uCHXIni.cCHXIniSection.html">cCHXIniSection</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Returns the section at aIndex position in the Ini file.
+
+<p>Section 0 is the text encountered before any [Section] heading.
+
+<p>This way you actually can access to any section in the file.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="SectionByName"></a><code>function <b>SectionByName</b>(aSectionName: string): <a  href="uCHXIni.cCHXIniSection.html">cCHXIniSection</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Returns the section with aSectionName name.
+
+<p>If many sections have the same name, the first one is returned. So you can't access to all sections this way.
+
+<p>The text encountered before any section is in the first &quot;virtual&quot; section, under the name '' (empty string).</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="SectionCount"></a><code>function <b>SectionCount</b>: integer;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Returns the number of sections in the file.
+
+<p>It includes the text before any section (&quot;virtual&quot; Section 0 or ''), even if it's empty.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="ReadString"></a><code>function <b>ReadString</b>(const aSectionName, aKeyName, aDefault: string): string;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Accesses a value by section and key name.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="ReadString"></a><code>function <b>ReadString</b>(const aSectionIndex: integer; const aKeyName, aDefault: string): string;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Accesses a value by section index and key name.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="ReadString"></a><code>function <b>ReadString</b>(const aSectionIndex, aKeyIndex: integer; const aDefault: string): string;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Accesses a value by section index and line.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="ReadBoolean"></a><code>function <b>ReadBoolean</b>(const aSectionName, aKeyName: string; const aDefault: boolean): boolean;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Common ini read functions</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="ReadMultiStrings"></a><code>function <b>ReadMultiStrings</b>(const aSectionName, aKeyName, aDefault: string; const Separator: char = ','): TStringList;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="ReadInteger"></a><code>function <b>ReadInteger</b>(const aSectionName, aKeyName: string; const aDefault: integer): integer;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="ReadTPoint"></a><code>function <b>ReadTPoint</b>(const aSectionName, aKeyName: string; const aDefault: TPoint): TPoint;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="WriteString"></a><code>procedure <b>WriteString</b>(const aSectionName, aKeyName: string; aValue: string);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Common ini writing functions</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="WriteBoolean"></a><code>procedure <b>WriteBoolean</b>(const aSectionName, aKeyName: string; const aValue: boolean);</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="WriteInteger"></a><code>procedure <b>WriteInteger</b>(const aSectionName, aKeyName: string; const aValue: integer);</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="StrRemoveQuotes"></a><code>procedure <b>StrRemoveQuotes</b>(var aString: string);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Other methods (may be they must be protected...)</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Create"></a><code>constructor <b>Create</b>;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Destroy"></a><code>destructor <b>Destroy</b>; override;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<h3 class="detail">Properties</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="SectionList"></a><code>property <b>SectionList</b>: <a  href="uCHXIni.html#cCHXIniSectionList">cCHXIniSectionList</a> read FSectionList;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="FileName"></a><code>property <b>FileName</b>: string read FFileName write SetFileName;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+<code>Filename</code> of Ini file.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="EscapeLF"></a><code>property <b>EscapeLF</b>: boolean read FEscapeLF write SetEscapeLF;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="MergeSections"></a><code>property <b>MergeSections</b>: boolean
+      read FMergeSections write SetMergeSections;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="MergeKeys"></a><code>property <b>MergeKeys</b>: boolean read FMergeKeys write SetMergeKeys;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="CommentBegin"></a><code>property <b>CommentBegin</b>: string read FCommentBegin write SetCommentBegin;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="SectionBegin"></a><code>property <b>SectionBegin</b>: string read FSectionBegin write SetSectionBegin;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="SectionEnd"></a><code>property <b>SectionEnd</b>: string read FSectionEnd write SetSectionEnd;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="NewLine"></a><code>property <b>NewLine</b>: string read FNewLine write SetNewLine;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="RemoveQuotes"></a><code>property <b>RemoveQuotes</b>: boolean read FRemoveQuotes write SetRemoveQuotes;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Quotes are removed when a Value is readed, internally the value is stored as is.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="QuoteBegin"></a><code>property <b>QuoteBegin</b>: string read FQuoteBegin write SetQuoteBegin;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="QuoteEnd"></a><code>property <b>QuoteEnd</b>: string read FQuoteEnd write SetQuoteEnd;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="AssignChar"></a><code>property <b>AssignChar</b>: string read FAssignChar write SetAssignChar;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="EscapeLFChar"></a><code>property <b>EscapeLFChar</b>: string read FEscapeLFChar write SetEscapeLFChar;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="EscapeLFMaxWidth"></a><code>property <b>EscapeLFMaxWidth</b>: word read FEscapeLFMaxWidth
+      write SetEscapeLFMaxWidth;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="WriteQuotes"></a><code>property <b>WriteQuotes</b>: <a  href="uCHXIni.html#TCHXIniValueOption">TCHXIniValueOption</a>
+      read FWriteQuotes write SetWriteQuotes;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/">PasDoc 0.14.0</a>. </em>
+</span>
+</td></tr></table></body></html>

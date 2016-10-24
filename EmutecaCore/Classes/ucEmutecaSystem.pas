@@ -143,8 +143,8 @@ type
     //< Ids of other emulators for the system.
 
     property GameKey: TEmutecaFileKey read FGameKey write SetGameKey;
-    {< Must CRC/SHA be used as game identifiers (when importing/exporting
-         data)}
+    {< Default key (CRC/SHA) to be used as game identifiers
+       (when importing/exporting data). }
     property Extensions: TStringList read FExtensions;
     {< Extensions used by the system.
 
@@ -157,8 +157,7 @@ type
 
   TEmutecaReturnSystemCB = function(aSystem: cEmutecaSystem): boolean of
     object;
-
-{< For CallBack functions }
+  {< For CallBack functions }
 
 function EmutecaFileKey2Str(aEFK: TEmutecaFileKey): string;
 function Str2EmutecaFileKey(aString: string): TEmutecaFileKey;
@@ -170,6 +169,7 @@ function EmutecaFileKey2Str(aEFK: TEmutecaFileKey): string;
 begin
   case aEFK of
     TEFKCRC32: Result := krsCRC32;
+    TEFKSHA1: Result := krsSHA1;
     TEFKCustom: Result := krsCustom;
     TEFKFileName: Result := krsFileName;
     else  // SHA1 by default
@@ -193,7 +193,9 @@ begin
   else if (aString = UTF8UpperCase(krsSHA1)) then
     Result := TEFKSHA1
   else if (aString = UTF8UpperCase(krsCustom)) then
-    Result := TEFKCustom;
+    Result := TEFKCustom
+  else // Default
+    Result := TEFKSHA1;
 end;
 
 { cEmutecaSystem }

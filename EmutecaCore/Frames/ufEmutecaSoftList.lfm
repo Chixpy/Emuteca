@@ -2,18 +2,18 @@ object fmEmutecaSoftList: TfmEmutecaSoftList
   Left = 0
   Height = 204
   Top = 0
-  Width = 320
+  Width = 701
   Align = alClient
   ClientHeight = 204
-  ClientWidth = 320
+  ClientWidth = 701
   TabOrder = 0
-  DesignLeft = 455
-  DesignTop = 230
+  DesignLeft = 286
+  DesignTop = 232
   object VST: TVirtualStringTree
     Left = 0
     Height = 181
     Top = 0
-    Width = 320
+    Width = 701
     Align = alClient
     Colors.UnfocusedColor = clMedGray
     DefaultText = 'Node'
@@ -21,26 +21,54 @@ object fmEmutecaSoftList: TfmEmutecaSoftList
     Header.Columns = <    
       item
         Position = 0
-        Text = 'Title'
-        Width = 200
-      end    
-      item
-        Position = 1
         Text = 'System'
         Width = 100
       end    
       item
-        Position = 2
-        Text = 'Info'
+        Position = 1
+        Text = 'Title'
         Width = 200
       end    
       item
+        Position = 2
+        Text = 'Version'
+        Width = 200
+      end    
+      item
+        Hint = 'Publisher'
         Position = 3
+        Text = 'Publisher'
+      end    
+      item
+        Hint = 'Year published'
+        Position = 4
+        Text = 'Year'
+      end    
+      item
+        Position = 5
+        Text = 'Flags'
+      end    
+      item
+        Hint = 'Times Played'
+        Position = 6
+        Text = 'Times Played'
+      end    
+      item
+        Position = 7
+        Text = 'Playing Time'
+      end    
+      item
+        Hint = 'Last time played'
+        Position = 8
+        Text = 'Last Time'
+      end    
+      item
+        Position = 9
         Text = 'Folder'
         Width = 200
       end    
       item
-        Position = 4
+        Position = 10
         Text = 'File'
         Width = 200
       end>
@@ -65,7 +93,7 @@ object fmEmutecaSoftList: TfmEmutecaSoftList
     Left = 0
     Height = 23
     Top = 181
-    Width = 320
+    Width = 701
     Panels = <>
   end
   object ActionList1: TActionList

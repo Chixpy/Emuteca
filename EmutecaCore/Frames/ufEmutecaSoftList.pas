@@ -43,7 +43,8 @@ type
     procedure SetSoftList(AValue: cEmutecaSoftList);
 
   protected
-    procedure HideNodes(Sender: TBaseVirtualTree;  Node: PVirtualNode; Data: Pointer; var Abort: boolean);
+    procedure HideNodes(Sender: TBaseVirtualTree; Node: PVirtualNode;
+      Data: Pointer; var Abort: boolean);
 
     procedure UpdateStatusBar;
   public
@@ -79,8 +80,9 @@ end;
 
 procedure TfmEmutecaSoftList.SetSoftList(AValue: cEmutecaSoftList);
 begin
-  if FSoftList=AValue then Exit;
-  FSoftList:=AValue;
+  if FSoftList = AValue then
+    Exit;
+  FSoftList := AValue;
 
   UpdateList;
 end;
@@ -94,14 +96,16 @@ begin
 
   pData := Sender.GetNodeData(Node);
   if FilterStr <> '' then
-  Sender.IsVisible[Node] := UTF8Pos(FilterStr, UTF8LowerString(pData^.Title)) >= 1
+    Sender.IsVisible[Node] :=
+      UTF8Pos(FilterStr, UTF8LowerString(pData^.Title)) >= 1
   else
     Sender.IsVisible[Node] := True;
 end;
 
 procedure TfmEmutecaSoftList.UpdateStatusBar;
 begin
-  StatusBar1.SimpleText := Format(rsFmtNItems, [vst.RootNodeCount, vst.VisibleCount]);
+  StatusBar1.SimpleText :=
+    Format(rsFmtNItems, [vst.RootNodeCount, vst.VisibleCount]);
 end;
 
 procedure TfmEmutecaSoftList.VSTChange(Sender: TBaseVirtualTree;
@@ -109,17 +113,17 @@ procedure TfmEmutecaSoftList.VSTChange(Sender: TBaseVirtualTree;
 var
   pData: ^cEmutecaSoftware;
 begin
-  if Assigned(OnItemSelect) then
-  begin
-    if Sender.SelectedCount <> 1 then
-      Exit;
+  if Sender.SelectedCount <> 1 then
+    Exit;
 
-    pData := Sender.GetNodeData(Node);
-    if not Assigned(pData) then
-      OnItemSelect(nil)
-    else
-      OnItemSelect(pData^);
-  end;
+  if not Assigned(OnItemSelect) then
+    exit;
+
+  pData := Sender.GetNodeData(Node);
+  if not Assigned(pData) then
+    OnItemSelect(nil)
+  else
+    OnItemSelect(pData^);
 end;
 
 procedure TfmEmutecaSoftList.VSTCompareNodes(Sender: TBaseVirtualTree;
@@ -135,15 +139,27 @@ begin
     Exit;
 
   case Column of
-    0: // Title
-      Result := UTF8CompareText(pData1^.Title, pData2^.Title);
-    1: // System
+    0: // System
       Result := UTF8CompareText(pData1^.System, pData2^.System);
-    2: // Description
-      Result := UTF8CompareText(pData1^.Description, pData2^.Description);
-    3: // Folder
+    1: // Title
+      Result := UTF8CompareText(pData1^.SortTitle, pData2^.SortTitle);
+    2: // Version
+      Result := UTF8CompareText(pData1^.Version, pData2^.Version);
+    3: // Publisher
+      Result := UTF8CompareText(pData1^.Publisher, pData2^.Publisher);
+    4: // Year
+      Result := UTF8CompareText(pData1^.Year, pData2^.Year);
+    5: // Flags
+      ; //Result := UTF8CompareText(pData1^.Year, pData2^.Year);
+    6: // Times Played
+      Result := pData1^.Stats.TimesPlayed - pData2^.Stats.TimesPlayed;
+    7: // Playing Time
+      Result := pData1^.Stats.PlayingTime - pData2^.Stats.PlayingTime;
+    8: // Last Time
+      Result := Trunc(pData1^.Stats.LastTime - pData2^.Stats.LastTime);
+    9: // Folder
       Result := UTF8CompareText(pData1^.Folder, pData2^.Folder);
-    4: // File;
+    10: // File;
       Result := UTF8CompareText(pData1^.FileName, pData2^.FileName);
     else
       Result := UTF8CompareText(pData1^.Title, pData2^.Title);
@@ -175,15 +191,35 @@ begin
     Exit;
 
   case Column of
-    0: // Title
-      CellText := pData^.Title;
-    1: // System
+    0: // System
       CellText := pData^.System;
-    2: // Description
-      CellText := pData^.Description;
-    3: // Folder
+    1: // Title
+    begin
+      case TextType of
+        ttNormal: CellText := pData^.Title;
+        ttStatic:
+          if (pData^.TranslitTitle <> '') and
+            (pData^.TranslitTitle <> pData^.Title) then
+            CellText := ' (' + pData^.TranslitTitle + ')';
+      end;
+    end;
+    2: // Version
+      CellText := pData^.Version;
+    3: // Publisher
+      CellText := pData^.Publisher;
+    4: // Year
+      CellText := pData^.Year;
+    5: // Flags
+      ;
+    6: // Times Played
+      CellText := IntToStr(pData^.Stats.TimesPlayed);
+    7: // Playing Time
+      CellText := IntToStr(pData^.Stats.PlayingTime);
+    8: // Last Time
+      CellText := DateTimeToStr(pData^.Stats.LastTime);
+    9: // Folder
       CellText := pData^.Folder;
-    4: // File
+    10: // File
       CellText := pData^.FileName;
     else // Title
       CellText := pData^.Title;
@@ -211,7 +247,8 @@ var
   aTemp: string;
 begin
   aTemp := UTF8LowerString(AValue);
-  if aTemp = FFilterStr then Exit;
+  if aTemp = FFilterStr then
+    Exit;
   FFilterStr := aTemp;
 
   VST.BeginUpdate;
@@ -225,7 +262,7 @@ end;
 
 procedure TfmEmutecaSoftList.UpdateList;
 var
-  aTemp: String;
+  aTemp: string;
 begin
   VST.Clear;
   StatusBar1.SimpleText := '';

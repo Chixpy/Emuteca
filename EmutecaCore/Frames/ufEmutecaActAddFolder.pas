@@ -149,7 +149,7 @@ begin
           RemoveFromBrackets(ExtractFileNameOnly(FolderList[i]));
         aVersion.Title :=
           RemoveFromBrackets(ExtractFileNameOnly(FileList[i]));
-        aVersion.Description :=
+        aVersion.Version :=
           CopyFromBrackets(ExtractFileNameOnly(FileList[i]));
       end
       else
@@ -168,7 +168,7 @@ begin
         aVersion.Parent :=
           RemoveFromBrackets(ExtractFileNameOnly(aVersion.FileName));
         aVersion.Title := aVersion.Parent;
-        aVersion.Description :=
+        aVersion.Version :=
           CopyFromBrackets(ExtractFileNameOnly(aVersion.FileName));
       end;
 

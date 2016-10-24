@@ -96,11 +96,11 @@ begin T := Self.Folder; end;
 
 (*----------------------------------------------------------------------------*)
 procedure cEmutecaSoftwareDescription_W(Self: cEmutecaSoftware; const T: string);
-begin Self.Description := T; end;
+begin Self.Version := T; end;
 
 (*----------------------------------------------------------------------------*)
 procedure cEmutecaSoftwareDescription_R(Self: cEmutecaSoftware; var T: string);
-begin T := Self.Description; end;
+begin T := Self.Version; end;
 
 (*----------------------------------------------------------------------------*)
 procedure cEmutecaSoftwareTitle_W(Self: cEmutecaSoftware; const T: string);

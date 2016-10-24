@@ -5,7 +5,7 @@ unit ufEmutecaSoftEditor;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, StdCtrls,
+  Classes, SysUtils, FileUtil, Forms, Controls, StdCtrls, ExtCtrls,
   ucEmuteca, ucEmutecaSystem, ucEmutecaSoftware, ucEmutecaParent,
   ufEmutecaSystemCBX, ufEmutecaParentCBX;
 
@@ -14,12 +14,41 @@ type
   { TfmEmutecaSoftEditor }
 
   TfmEmutecaSoftEditor = class(TFrame, IFPObserver)
-    eDescription: TEdit;
+    eModified: TEdit;
+    ePirate: TEdit;
+    eTrainer: TEdit;
+    cbxDumpType: TComboBox;
+    eCracked: TEdit;
+    eDumpInfo: TEdit;
+    eFixed: TEdit;
+    eHack: TEdit;
+    ePublisher: TEdit;
+    eSortKey: TEdit;
+    eTranslated: TEdit;
+    eTransTitle: TEdit;
+    eVersion: TEdit;
+    eYear: TEdit;
+    eZone: TEdit;
+    gbxParent: TGroupBox;
     eTitle: TEdit;
-    lDescription: TLabel;
-    lParent: TLabel;
-    lSystem: TLabel;
+    gbxSystem: TGroupBox;
+    gbxDumpTags: TGroupBox;
+    gbxTitle: TGroupBox;
+    lCracked: TLabel;
+    lDumpInfo: TLabel;
+    lDumpType: TLabel;
+    lFixed: TLabel;
+    lHack: TLabel;
+    lModified: TLabel;
+    lPirate: TLabel;
+    lPublisher: TLabel;
+    lTrainer: TLabel;
+    lTranslated: TLabel;
     lTitle: TLabel;
+    lVersion: TLabel;
+    lYear: TLabel;
+    lZone: TLabel;
+    gbxVersion: TGroupBox;
 
   private
     FcbxParent: TfmEmutecaParentCBX;
@@ -85,13 +114,13 @@ begin
 
   if not assigned(Emuteca) then
   begin
-  cbxSystem.SystemList := Emuteca.SystemManager.VisibleList;
-  cbxParent.ParentList := Emuteca.ParentManager.VisibleList;
+    cbxSystem.SystemList := Emuteca.SystemManager.VisibleList;
+    cbxParent.ParentList := Emuteca.ParentManager.VisibleList;
   end
   else
   begin
-      cbxSystem.SystemList := nil;
-  cbxParent.ParentList := nil;
+    cbxSystem.SystemList := nil;
+    cbxParent.ParentList := nil;
   end;
 end;
 
@@ -111,7 +140,33 @@ begin
     Software.Parent := cbxParent.cbxParent.Text; //LOLWUT^2
 
   Software.Title := eTitle.Text;
-  Software.Description := eDescription.Text;
+  Software.SortTitle := eSortKey.Text;
+  Software.TranslitTitle := eTransTitle.Text;
+
+  Software.Version := eVersion.Text;
+  Software.Year := eYear.Text;
+  Software.Publisher := ePublisher.Text;
+  Software.Zone := eZone.Text;
+
+  case cbxDumpType.ItemIndex of
+    0: Software.DumpStatus := edsVerified;
+    1: Software.DumpStatus := edsGood;
+    2: Software.DumpStatus := edsAlternate;
+    3: Software.DumpStatus := edsOverDump;
+    4: Software.DumpStatus := edsBadDump;
+    5: Software.DumpStatus := edsUnderDump;
+    else
+      Software.DumpStatus := edsGood;
+  end;
+  Software.DumpInfo := eDumpInfo.Text;
+
+  Software.Fixed := eFixed.Text;
+  Software.Trainer := eTrainer.Text;
+  Software.Translation := eTranslated.Text;
+  Software.Pirate := ePirate.Text;
+  Software.Cracked := eCracked.Text;
+  Software.Modified := eModified.Text;
+  Software.Hack := eHack.Text;
 end;
 
 procedure TfmEmutecaSoftEditor.UpdateData;
@@ -130,22 +185,68 @@ begin
 
   if assigned(Emuteca) then
   begin
-    aSystem :=  Emuteca.SystemManager.ItemById(Software.System);
+    aSystem := Emuteca.SystemManager.ItemById(Software.System);
     aParent := Emuteca.ParentManager.ItemById(Software.Parent);
   end;
 
   cbxSystem.CurrentSystem := aSystem;
-  cbxParent.CurrentParent  := aParent;
+  cbxParent.CurrentParent := aParent;
+
   eTitle.Text := Software.Title;
-  eDescription.Text := Software.Description;
+  eSortKey.Text := Software.SortTitle;
+  eTransTitle.Text := Software.TranslitTitle;
+
+  eVersion.Text := Software.Version;
+  eYear.Text := Software.Year;
+  ePublisher.Text := Software.Year;
+  eZone.Text := Software.Zone;
+
+  case Software.DumpStatus of
+    edsVerified: cbxDumpType.ItemIndex := 0;
+    edsGood: cbxDumpType.ItemIndex := 1;
+    edsAlternate: cbxDumpType.ItemIndex := 2;
+    edsOverDump: cbxDumpType.ItemIndex := 3;
+    edsBadDump: cbxDumpType.ItemIndex := 4;
+    edsUnderDump: cbxDumpType.ItemIndex := 5;
+    else
+      cbxDumpType.ItemIndex := 1;
+  end;
+  eDumpInfo.Text := Software.DumpInfo;
+
+  eFixed.Text := Software.Fixed;
+  eTrainer.Text := Software.Trainer;
+  eTranslated.Text := Software.Translation;
+  ePirate.Text := Software.Pirate;
+  eCracked.Text := Software.Cracked;
+  eModified.Text := Software.Modified;
+  eHack.Text := Software.Hack;
 end;
 
 procedure TfmEmutecaSoftEditor.ClearData;
 begin
   cbxSystem.CurrentSystem := nil;
-  cbxParent.CurrentParent  := nil;
+  cbxParent.CurrentParent := nil;
+
   eTitle.Clear;
-  eDescription.Clear;
+  eSortKey.Clear;
+  eTransTitle.Clear;
+
+  eVersion.Clear;
+  eYear.Clear;
+  ePublisher.Clear;
+  eZone.Clear;
+
+  cbxDumpType.ItemIndex := -1;
+  cbxDumpType.Text := '';
+  eDumpInfo.Clear;
+
+  eFixed.Clear;
+  eTrainer.Clear;
+  eTranslated.Clear;
+  ePirate.Clear;
+  eCracked.Clear;
+  eModified.Clear;
+  eHack.Clear;
 end;
 
 procedure TfmEmutecaSoftEditor.FPOObservedChanged(ASender: TObject;
@@ -176,23 +277,31 @@ constructor TfmEmutecaSoftEditor.Create(TheOwner: TComponent);
 
   procedure CreateFrames;
   begin
-    FcbxSystem := TfmEmutecaSystemCBX.Create(Self);
-    cbxSystem.Parent := Self;
-    cbxSystem.Align := alTop;
-    cbxSystem.Top := 15;
-    cbxSystem.OnSelectSystem := @SelectSystem;
-
-    FcbxParent := TfmEmutecaParentCBX.Create(Self);
-    cbxParent.Parent := Self;
+    FcbxParent := TfmEmutecaParentCBX.Create(gbxParent);
+    cbxParent.Parent := gbxParent;
     cbxParent.Align := alTop;
-     cbxSystem.Top := 0;
     cbxParent.OnSelectParent := @SelectParent;
+
+    FcbxSystem := TfmEmutecaSystemCBX.Create(gbxSystem);
+    cbxSystem.Parent := gbxSystem;
+    cbxSystem.Align := alTop;
+    cbxSystem.OnSelectSystem := @SelectSystem;
   end;
 
 begin
   inherited Create(TheOwner);
 
   CreateFrames;
+
+  // Adding DumpTypes
+  { TODO: Do it in a better way... and change too when loading and saving }
+  cbxDumpType.AddItem(rsedsVerified, nil);
+  cbxDumpType.AddItem(rsedsGood, nil);
+  cbxDumpType.AddItem(rsedsAlternate, nil);
+  cbxDumpType.AddItem(rsedsOverDump, nil);
+  cbxDumpType.AddItem(rsedsBadDump, nil);
+  cbxDumpType.AddItem(rsedsUnderDump, nil);
+  cbxDumpType.ItemIndex := 1;
 end;
 
 destructor TfmEmutecaSoftEditor.Destroy;

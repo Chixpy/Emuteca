@@ -15,6 +15,7 @@ type
   private
     FDataFile: string;
     procedure SetDataFile(AValue: string);
+
   public
     constructor Create(aOwner: TComponent); override;
     destructor Destroy; override;

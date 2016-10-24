@@ -31,6 +31,7 @@ type
     pBottom: TPanel;
     pLeft: TPanel;
     rgbVersionKey: TRadioGroup;
+    Splitter1: TSplitter;
     procedure bAcceptClick(Sender: TObject);
     procedure cbxInnerFileChange(Sender: TObject);
     procedure chkOpenAsArchiveChange(Sender: TObject);
@@ -82,7 +83,7 @@ begin
   Software.Parent := RemoveFromBrackets(ExtractFileNameOnly(
     Software.FileName));
   Software.Title := Software.Parent;
-  Software.Description :=
+  Software.Version :=
     CopyFromBrackets(ExtractFileNameOnly(Software.FileName));
   SoftEditor.UpdateData;
 
@@ -136,7 +137,7 @@ begin
   Software.Parent := RemoveFromBrackets(ExtractFileNameOnly(eFile.Text));
   Software.Title := RemoveFromBrackets(ExtractFileNameOnly(
     cbxInnerFile.Text));
-  Software.Description :=
+  Software.Version :=
     CopyFromBrackets(ExtractFileNameOnly(cbxInnerFile.Text));
   SoftEditor.UpdateData;
   UpdateVersionKey;
