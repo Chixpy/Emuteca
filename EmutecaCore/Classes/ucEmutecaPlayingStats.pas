@@ -74,6 +74,9 @@ type
     {< Total times played. }
     property PlayingTime: longword read FPlayingTime write SetPlayingTime;
     {< Total seconds played. }
+
+    { TODO : Todo: Cached data, store elsewhre? }
+    property IconIndex: Integer read FIconIndex write SetIconIndex;
   end;
 
 implementation

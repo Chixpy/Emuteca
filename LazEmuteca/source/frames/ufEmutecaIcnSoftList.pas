@@ -79,7 +79,7 @@ begin
 
       if (Data^.Stats.IconIndex > -1) and
         (Data^.Stats.IconIndex < SoftIconList.Count) then
-        TargetCanvas.StretchDraw(CorrectAspetRatio(IconRect,
+        TargetCanvas.StretchDraw(CorrectAspectRatio(IconRect,
           SoftIconList[Data^.Stats.IconIndex]),
           SoftIconList[Data^.Stats.IconIndex].Graphic);
 
@@ -110,7 +110,7 @@ begin
       IconRect := CellRect;
       IconRect.Right := IconRect.Left + IconRect.Bottom - IconRect.Top;
 
-      TargetCanvas.StretchDraw(CorrectAspetRatio(IconRect,
+      TargetCanvas.StretchDraw(CorrectAspectRatio(IconRect,
         DumpIconList[Ord(Data^.DumpStatus)]),
         DumpIconList[Ord(Data^.DumpStatus)].Graphic);
 
