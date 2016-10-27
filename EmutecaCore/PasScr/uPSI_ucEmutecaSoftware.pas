@@ -112,19 +112,19 @@ begin T := Self.Title; end;
 
 (*----------------------------------------------------------------------------*)
 procedure cEmutecaSoftwareParent_W(Self: cEmutecaSoftware; const T: string);
-begin Self.Parent := T; end;
+begin Self.ParentKey := T; end;
 
 (*----------------------------------------------------------------------------*)
 procedure cEmutecaSoftwareParent_R(Self: cEmutecaSoftware; var T: string);
-begin T := Self.Parent; end;
+begin T := Self.ParentKey; end;
 
 (*----------------------------------------------------------------------------*)
 procedure cEmutecaSoftwareSystem_W(Self: cEmutecaSoftware; const T: string);
-begin Self.System := T; end;
+begin Self.SystemKey := T; end;
 
 (*----------------------------------------------------------------------------*)
 procedure cEmutecaSoftwareSystem_R(Self: cEmutecaSoftware; var T: string);
-begin T := Self.System; end;
+begin T := Self.SystemKey; end;
 
 (*----------------------------------------------------------------------------*)
 procedure cEmutecaSoftwareID_W(Self: cEmutecaSoftware; const T: string);

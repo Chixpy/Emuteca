@@ -130,14 +130,14 @@ begin
     Exit;
 
   if assigned(cbxSystem.CurrentSystem) then
-    Software.System := cbxSystem.CurrentSystem.ID
+    Software.SystemKey := cbxSystem.CurrentSystem.ID
   else
-    Software.System := cbxSystem.cbxSystem.Text; //LOLWUT
+    Software.SystemKey := cbxSystem.cbxSystem.Text; //LOLWUT
 
   if assigned(cbxParent.CurrentParent) then
-    Software.Parent := cbxParent.CurrentParent.ID
+    Software.ParentKey := cbxParent.CurrentParent.ID
   else
-    Software.Parent := cbxParent.cbxParent.Text; //LOLWUT^2
+    Software.ParentKey := cbxParent.cbxParent.Text; //LOLWUT^2
 
   Software.Title := eTitle.Text;
   Software.SortTitle := eSortKey.Text;
@@ -185,8 +185,8 @@ begin
 
   if assigned(Emuteca) then
   begin
-    aSystem := Emuteca.SystemManager.ItemById(Software.System);
-    aParent := Emuteca.ParentManager.ItemById(Software.Parent);
+    aSystem := Emuteca.SystemManager.ItemById(Software.SystemKey);
+    aParent := Emuteca.ParentManager.ItemById(Software.ParentKey);
   end;
 
   cbxSystem.CurrentSystem := aSystem;

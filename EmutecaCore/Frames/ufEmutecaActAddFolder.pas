@@ -113,7 +113,7 @@ begin
       aVersion := cEmutecaSoftware.Create(nil);
       aVersion.Folder := FolderList[i];
       aVersion.FileName := FileList[i];
-      aVersion.System := aSystem.ID;
+      aVersion.SystemKey := aSystem.ID;
       if FileExistsUTF8(FolderList[i]) then
       begin // it's a compressed archive
         { TODO 1 : Extract IDs... }
@@ -145,7 +145,7 @@ begin
           end;
         end;
 
-        aVersion.Parent :=
+        aVersion.ParentKey :=
           RemoveFromBrackets(ExtractFileNameOnly(FolderList[i]));
         aVersion.Title :=
           RemoveFromBrackets(ExtractFileNameOnly(FileList[i]));
@@ -165,9 +165,9 @@ begin
             aversion.ID := SHA1FileStr(aVersion.Folder + aVersion.FileName);
         end;
 
-        aVersion.Parent :=
+        aVersion.ParentKey :=
           RemoveFromBrackets(ExtractFileNameOnly(aVersion.FileName));
-        aVersion.Title := aVersion.Parent;
+        aVersion.Title := aVersion.ParentKey;
         aVersion.Version :=
           CopyFromBrackets(ExtractFileNameOnly(aVersion.FileName));
       end;

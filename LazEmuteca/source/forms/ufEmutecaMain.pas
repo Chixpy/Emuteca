@@ -94,6 +94,7 @@ type
     procedure MenuItem8Click(Sender: TObject);
 
   private
+    FVerIcons: cCHXImageList;
     { private declarations }
     FEmuteca: cEmuteca;
     FGUIConfig: cGUIConfig;
@@ -119,6 +120,7 @@ type
     procedure SaveEmuteca;
 
     property IconList: cCHXImageList read FIconList;
+    property VerIcons: cCHXImageList read FVerIcons;
 
     function OnProgressBar(const Title, Info1, Info2: string;
       const Value, MaxValue: int64): boolean;
@@ -147,18 +149,20 @@ procedure TfrmEmutecaMain.MenuItem8Click(Sender: TObject);
 var
   Temp: TStringList;
   str: string;
-  i: LongInt;
+  i: longint;
 begin
   Temp := TStringList.Create;
 
   for i := 1 to 500000 do
   begin
     str := IntToStr(i) + ',';
-    str := str + str + str + str + str + str + str+ str + str + str + str + str + str+ str + str + str + str + str + str+ str + str + str + str + str + str;
+    str := str + str + str + str + str + str + str + str + str +
+      str + str + str + str + str + str + str + str + str + str +
+      str + str + str + str + str + str;
     Temp.Add(str);
   end;
 
-  Temp.SaveToFile('temp.csv');
+  Temp.SaveToFile('Version.csv');
   FreeAndNil(Temp);
 end;
 
@@ -213,6 +217,45 @@ end;
 
 procedure TfrmEmutecaMain.FormCreate(Sender: TObject);
 
+  procedure LoadIcons;
+
+    procedure AddVersionIcon(aImageList: cCHXImageList; aIconFile: string);
+    begin
+      if FileExistsUTF8(aIconFile) then
+        aImageList.AddImageFile(aIconFile)
+      else
+        aImageList.AddEmptyImage;
+    end;
+
+  var
+    TmpStr: string;
+    iEDS: TEmutecaDumpStatus;
+  begin
+   {   TmpStr := Config.ImagesFolder + Config.IconsSubfolder + Config.IconsIniFile;
+
+      // Icons for menus (without assigned TAction)
+      ReadMenuIcons(TmpStr, Self.Name, '', ilActions, pmMainMenu);
+      ReadMenuIcons(TmpStr, Self.Name, '', ilActions, pmSystemImage);
+      ReadMenuIcons(TmpStr, Self.Name, '', ilActions, pmGameImage);
+      ReadMenuIcons(TmpStr, Self.Name, '', ilActions, pmGameList);
+
+      // Icons for TActions
+      ReadActionsIcons(TmpStr, Self.Name, '', ilActions, ActionList);
+
+      // Zone icons
+      TmpStr := Config.ImagesFolder + Config.FlagsSubfolder;
+      IterateFolderObj(TmpStr, @AddZoneIcon, False);
+      }
+
+    // Icons for "flags" column
+    // TODO 3: Make this list dinamic?
+    TmpStr := GUIConfig.ImagesFolder + GUIConfig.VIIconsSubfolder;
+
+    for iEDS in TEmutecaDumpStatus do
+      AddVersionIcon(FVerIcons, TmpStr +
+        EmutecaDumpStatusStrsK[iEDS] + '.png');
+  end;
+
   procedure CreateFrames;
   var
     aTabSheet: TTabSheet;
@@ -236,7 +279,8 @@ procedure TfrmEmutecaMain.FormCreate(Sender: TObject);
     // Creating and Setting the software list frame
     fmEmutecaSoftList := TfmEmutecaIcnSoftList.Create(pBottom);
     fmEmutecaSoftList.Parent := pBottom;
-    fmEmutecaSoftList.IconList := IconList;
+    fmEmutecaSoftList.SoftIconList := IconList;
+    fmEmutecaSoftList.DumpIconList := VerIcons;
     fmEmutecaSoftList.OnItemSelect := @Self.SelectSoftware;
     fmEmutecaSoftList.OnDblClick := @Self.RunVersion;
     fmEmutecaSoftList.SoftList := Emuteca.SoftManager.EnabledList;
@@ -248,7 +292,6 @@ procedure TfrmEmutecaMain.FormCreate(Sender: TObject);
     fmCHXTagTree.Parent := aTabSheet;
     fmCHXTagTree.Folder := Emuteca.Config.TagSubFolder;
     fmCHXTagTree.OnCheckChange := @self.CheckTags;
-
   end;
 
 begin
@@ -276,16 +319,23 @@ begin
   GUIConfig.LoadConfig('GUI.ini');
   IniPropStorage1.IniFileName := GUIConfig.ConfigFile;
   IniPropStorage1.Restore;
-  actAutoSave.Checked := GUIConfig.SaveOnExit;
 
+  // Image lists
   FIconList := cCHXImageList.Create(True);
+  FVerIcons := cCHXImageList.Create(True);
 
   // Creating Emuteca Core :-D
   FEmuteca := cEmuteca.Create(self);
   Emuteca.ProgressCallBack := @self.OnProgressBar;
   Emuteca.LoadConfig(GUIConfig.EmutecaIni);
 
+  LoadIcons;
   CreateFrames;
+
+
+  // Misc
+  { TODO : Select last system }
+  actAutoSave.Checked := GUIConfig.SaveOnExit; // TODO: Use IniPropStorage1?
 
 end;
 
@@ -431,7 +481,7 @@ end;
 procedure TfrmEmutecaMain.eSearchEditingDone(Sender: TObject);
 begin
   //if assigned(fmEmutecaParentList) then
-   // fmEmutecaParentList.FilterStr := eSearch.Text;
+  // fmEmutecaParentList.FilterStr := eSearch.Text;
   if assigned(fmEmutecaSoftList) then
     fmEmutecaSoftList.FilterStr := eSearch.Text;
 end;
@@ -448,6 +498,7 @@ end;
 
 procedure TfrmEmutecaMain.FormDestroy(Sender: TObject);
 begin
+  FreeAndNil(FVerIcons);
   FreeAndNil(FIconList);
   FreeAndNil(FGUIConfig);
   FreeAndNil(FEmuteca);

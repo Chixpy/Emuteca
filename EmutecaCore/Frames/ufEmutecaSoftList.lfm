@@ -6,6 +6,7 @@ object fmEmutecaSoftList: TfmEmutecaSoftList
   Align = alClient
   ClientHeight = 204
   ClientWidth = 701
+  LCLVersion = '6.0'
   TabOrder = 0
   DesignLeft = 286
   DesignTop = 232

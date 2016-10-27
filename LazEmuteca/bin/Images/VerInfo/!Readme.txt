@@ -1,23 +1,33 @@
 ICONS FOR VERSION INFO
 ----------------------
-* BadDump.png -> CC-BY - Silk icon set 1.3 (Read license below)
-* GoodDump.png -> CC-BY - Silk icon set 1.3 (Read license below)
-* NoAlternate.png -> CC-BY - Silk icon set 1.3 (Read license below)
-* Traslation.png -> CC-BY - Silk icon set 1.3 (Read license below)
-
-* Pirate.png
-  CC-BY-SA / GNU-FDL by WarX and Manuel Strehl Wikipedia users
-  http://en.wikipedia.org/wiki/File:Flag_of_Edward_England.svg
-  Resized to 32px width
+Alternate.png
+  CC-BY - Silk icon set 1.3 (Read license below)
+  Edited
   
-* NoZone.png
+BadDump.png
+  CC-BY - Silk icon set 1.3 (Read license below)
+  
+GoodDump.png
+  C-BY - Silk icon set 1.3 (Read license below)
+
+NoZone.png
   GNU LGPL by Orzetto and ThePCKid Wikipedia Commons users
   http://commons.wikimedia.org/wiki/File:Nuvola_unknown_flag.svg
   Autocropped and resized to 32px width
   
+Pirate.png
+  CC-BY-SA / GNU-FDL by WarX and Manuel Strehl Wikipedia users
+  http://en.wikipedia.org/wiki/File:Flag_of_Edward_England.svg
+  Resized to 32px width
   
+Traslation.png
+  CC-BY - Silk icon set 1.3 (Read license below)
+  
+Verified.png
+  CC-BY - Silk icon set 1.3 (Read license below)
 
 
+  
 Silk icon set 1.3 LICENSE
 -------------------------
 Mark James

@@ -88,7 +88,7 @@ begin
     while i < FullList.Count do
     begin
       aSoft := cEmutecaSoftware(FullList[i]);
-      if UTF8CompareText(aSoft.System, aSystemKey) = 0 then
+      if UTF8CompareText(aSoft.SystemKey, aSystemKey) = 0 then
         EnabledList.Add(aSoft);
       Inc(i);
     end;
@@ -199,7 +199,7 @@ begin
     Inc(i);
 
     if ProgressCallBack <> nil then
-      ProgressCallBack(rsSavingVersionList, aSoft.System,
+      ProgressCallBack(rsSavingVersionList, aSoft.SystemKey,
         aSoft.Title, i, FullList.Count);
   end;
 end;

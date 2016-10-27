@@ -74,8 +74,6 @@ type
     {< Total times played. }
     property PlayingTime: longword read FPlayingTime write SetPlayingTime;
     {< Total seconds played. }
-
-    property IconIndex: Integer read FIconIndex write SetIconIndex;
   end;
 
 implementation

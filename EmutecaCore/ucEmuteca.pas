@@ -188,7 +188,7 @@ begin
   // 1. Searching for parent to know the system (test CurrentParent first
   //  for speed,  but it can not be true)
   if (not Assigned(CurrentParent)) or
-    (UTF8CompareText(CurrentParent.ID, aSoftware.Parent) <> 0) then
+    (UTF8CompareText(CurrentParent.ID, aSoftware.ParentKey) <> 0) then
   begin
     aParent := SearchParent(aSoftware);
   end
@@ -200,7 +200,7 @@ begin
 }
 
   // 2. Searching for system to search the emulator(s)
-  aSystem := SearchSystem(aSoftware.System);
+  aSystem := SearchSystem(aSoftware.SystemKey);
   if not assigned(aSystem) then
     { TODO : Exception or return Comperror code? }
     Exit;

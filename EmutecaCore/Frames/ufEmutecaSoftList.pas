@@ -143,7 +143,7 @@ begin
 
   case Column of
     0: // System
-      Result := UTF8CompareText(pData1^.System, pData2^.System);
+      Result := UTF8CompareText(pData1^.SystemKey, pData2^.SystemKey);
     1: // Title
       Result := UTF8CompareText(pData1^.SortTitle, pData2^.SortTitle);
     2: // Version
@@ -195,7 +195,7 @@ begin
 
   case Column of
     0: // System
-      CellText := pData^.System;
+      CellText := pData^.SystemKey;
     1: // Title
     begin
       case TextType of
@@ -216,9 +216,9 @@ begin
     5: // Flags
     begin
       { TODO: Make better output... }
-      CellText := '';
+      CellText := ' ';
       if pData^.DumpStatus <> edsGood then
-        CellText += '[' + EmutecaDumpSt2Str(pData^.DumpStatus) +
+        CellText += '[' + EmutecaDumpSt2Key(pData^.DumpStatus) +
           pData^.DumpInfo + '] ';
 
       if pData^.Fixed <> '' then

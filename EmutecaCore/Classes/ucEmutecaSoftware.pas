@@ -11,27 +11,38 @@ uses
   ucEmutecaPlayingStats;
 
 const
-  // Constants for DumpStatus
-  krsedsVerifiedKey = '!';
-  krsedsGoodKey = '';
-  krsedsAlternateKey = 'a';
-  krsedsOverDumpKey = 'o';
-  krsedsBadDumpKey = 'b';
-  krsedsUnderDumpKey = 'u';
+  // Constant for DumpStatus, fixed (for filenames)
+  krsedsVerified = 'Verified';
+  krsedsGood = 'GoodDump';
+  krsedsAlternate = 'Alternate';
+  krsedsOverDump = 'OverDump';
+  krsedsBadDump = 'BadDump';
+  krsedsUnderDump = 'UnderDump';
 
 resourcestring
-  // Strings for DumpStatus
-  rsedsVerified = 'Verified';
-  rsedsGood = 'Good';
-  rsedsAlternate = 'Alternate';
-  rsedsOverDump = 'OverDump';
-  rsedsBadDump = 'BadDump';
-  rsedsUnderDump = 'UnderDump';
+  // Strings for DumpStatus, translatable
+  rsedsVerified = krsedsVerified;
+  rsedsGood = krsedsGood;
+  rsedsAlternate = krsedsAlternate;
+  rsedsOverDump = krsedsOverDump;
+  rsedsBadDump = krsedsBadDump;
+  rsedsUnderDump = krsedsUnderDump;
 
 type
   TEmutecaDumpStatus = (edsVerified, edsGood, edsAlternate, edsOverDump,
     edsBadDump, edsUnderDump);
 
+const
+  EmutecaDumpStatusKeys: array [TEmutecaDumpStatus] of string =
+    ('!', '', 'a', 'o', 'b', 'u');
+  EmutecaDumpStatusStrs: array [TEmutecaDumpStatus] of string =
+    (rsedsVerified, rsedsGood, rsedsAlternate, rsedsOverDump,
+    rsedsBadDump, rsedsUnderDump);
+  EmutecaDumpStatusStrsK: array [TEmutecaDumpStatus] of string =
+    (krsedsVerified, krsedsGood, krsedsAlternate, krsedsOverDump,
+    krsedsBadDump, krsedsUnderDump);
+
+type
   { cEmutecaSoftware. }
 
   cEmutecaSoftware = class(caEmutecaStorableTxt)
@@ -45,12 +56,12 @@ type
     FHack: string;
     FID: string;
     FModified: string;
-    FParent: string;
+    FParentKey: string;
     FPirate: string;
     FPublisher: string;
     FSortTitle: string;
     FStats: cEmutecaPlayingStats;
-    FSystem: string;
+    FSystemKey: string;
     FTitle: string;
     FTrainer: string;
     FTranslation: string;
@@ -69,12 +80,12 @@ type
     procedure SetHack(AValue: string);
     procedure SetID(AValue: string);
     procedure SetModified(AValue: string);
-    procedure SetParent(AValue: string);
+    procedure SetParentKey(AValue: string);
     procedure SetPirate(AValue: string);
     procedure SetPublisher(AValue: string);
     procedure SetSortTitle(AValue: string);
     procedure SetStats(AValue: cEmutecaPlayingStats);
-    procedure SetSystem(AValue: string);
+    procedure SetSystemKey(AValue: string);
     procedure SetTitle(AValue: string);
     procedure SetTrainer(AValue: string);
     procedure SetTranslation(AValue: string);
@@ -104,9 +115,9 @@ type
     {< Filename (or file inside and archive).}
     property Title: string read FTitle write SetTitle;
     {< Title. }
-    property Parent: string read FParent write SetParent;
+    property ParentKey: string read FParentKey write SetParentKey;
     {< ID of the parent. }
-    property System: string read FSystem write SetSystem;
+    property SystemKey: string read FSystemKey write SetSystemKey;
     {< ID of the System. }
 
     // Additional title info
@@ -183,14 +194,34 @@ type
 
   cEmutecaSoftList = TComponentList;
 
-function EmutecaDumpSt2Str(aEDS: TEmutecaDumpStatus): string;
-function Str2EmutecaDumpSt(aString: string): TEmutecaDumpStatus;
+function EmutecaDumpSt2Str(aEDS: TEmutecaDumpStatus): string; deprecated;
+function EmutecaDumpSt2Key(aEDS: TEmutecaDumpStatus): string; deprecated;
+function Key2EmutecaDumpSt(aString: string): TEmutecaDumpStatus;
 
 implementation
 
 function EmutecaDumpSt2Str(aEDS: TEmutecaDumpStatus): string;
 begin
-    case aEDS of
+  Result := EmutecaDumpStatusStrs[aEDS];
+  {
+  case aEDS of
+    edsVerified: Result := rsedsVerified;
+    edsGood: Result := rsedsGood;
+    edsAlternate: Result := rsedsAlternate;
+    edsOverDump: Result := rsedsOverDump;
+    edsBadDump: Result := rsedsBadDump;
+    edsUnderDump: Result := rsedsUnderDump;
+    else
+      Result := krsedsGoodKey;
+  end;
+  }
+end;
+
+function EmutecaDumpSt2Key(aEDS: TEmutecaDumpStatus): string;
+begin
+  Result := EmutecaDumpStatusKeys[aEDS];
+  {
+  case aEDS of
     edsVerified: Result := krsedsVerifiedKey;
     edsGood: Result := krsedsGoodKey;
     edsAlternate: Result := krsedsAlternateKey;
@@ -200,38 +231,27 @@ begin
     else
       Result := krsedsGoodKey;
   end;
+  }
 end;
 
-function Str2EmutecaDumpSt(aString: string): TEmutecaDumpStatus;
+function Key2EmutecaDumpSt(aString: string): TEmutecaDumpStatus;
 begin
-    if (aString = krsedsGoodKey) then // krsedsGoodKey = ''
+  aString := UTF8Trim(UTF8LowerString(aString));
+
+  if (aString = EmutecaDumpStatusKeys[edsGood]) then // krsedsGoodKey = ''
     Result := edsGood
-  else
-    case aString[1] of
-      krsedsVerifiedKey: Result := edsVerified;
-      krsedsAlternateKey: Result := edsAlternate;
-      krsedsOverDumpKey: Result := edsOverDump;
-      krsedsBadDumpKey: Result := edsBadDump;
-      krsedsUnderDumpKey: Result := edsUnderDump;
-      else
-        Result := edsGood;
-    end;
-{
-  if (aString = krsedsGoodKey) then // krsedsGoodKey = ''
-    Result := edsGood
-  else if (aString[1] = krsedsVerifiedKey) then
+  else if (aString[1] = EmutecaDumpStatusKeys[edsVerified]) then
     Result := edsVerified
-  else if (aString[1] = krsedsAlternateKey) then
+  else if (aString[1] = EmutecaDumpStatusKeys[edsAlternate]) then
     Result := edsAlternate
-  else if (aString[1] = krsedsOverDumpKey) then
+  else if (aString[1] = EmutecaDumpStatusKeys[edsOverDump]) then
     Result := edsOverDump
-  else if (aString[1] = krsedsBadDumpKey) then
+  else if (aString[1] = EmutecaDumpStatusKeys[edsBadDump]) then
     Result := edsBadDump
-  else if (aString[1] = krsedsUnderDumpKey) then
+  else if (aString[1] = EmutecaDumpStatusKeys[edsUnderDump]) then
     Result := edsUnderDump
   else
     Result := edsGood;
-    }
 end;
 
 { cEmutecaSoftware }
@@ -348,9 +368,9 @@ begin
   FModified := AValue;
 end;
 
-procedure cEmutecaSoftware.SetParent(AValue: string);
+procedure cEmutecaSoftware.SetParentKey(AValue: string);
 begin
-  FParent := SetAsID(AValue);
+  FParentKey := SetAsID(AValue);
 end;
 
 procedure cEmutecaSoftware.SetPirate(AValue: string);
@@ -379,9 +399,9 @@ begin
   FHack := AValue;
 end;
 
-procedure cEmutecaSoftware.SetSystem(AValue: string);
+procedure cEmutecaSoftware.SetSystemKey(AValue: string);
 begin
-  FSystem := AValue;
+  FSystemKey := AValue;
 end;
 
 procedure cEmutecaSoftware.SetTitle(AValue: string);
@@ -434,8 +454,8 @@ begin
       1: Folder := TxtFile[i];
       2: FileName := TxtFile[i];
       3: Title := TxtFile[i];
-      4: Parent := TxtFile[i];
-      5: System := TxtFile[i];
+      4: ParentKey := TxtFile[i];
+      5: SystemKey := TxtFile[i];
       // 6: ;
       7: TranslitTitle := TxtFile[i];
       8: SortTitle := TxtFile[i];
@@ -445,7 +465,7 @@ begin
       12: Publisher := TxtFile[i];
       13: Zone := TxtFile[i];
       // 14: ;
-      15: DumpStatus := Str2EmutecaDumpSt(TxtFile[i]);
+      15: DumpStatus := Key2EmutecaDumpSt(TxtFile[i]);
       16: DumpInfo := TxtFile[i];
       17: Fixed := TxtFile[i];
       18: Trainer := TxtFile[i];
@@ -458,6 +478,8 @@ begin
       25: Stats.LastTime := StrToFloatDef(TxtFile[i], 0);
       26: Stats.TimesPlayed := StrToIntDef(TxtFile[i], 0);
       27: Stats.PlayingTime := StrToCardinalDef(TxtFile[i], 0);
+      else
+        ;
     end;
     Inc(i);
   end;
@@ -475,8 +497,8 @@ begin
   TxtFile.Add(Folder);
   TxtFile.Add(FileName);
   TxtFile.Add(Title);
-  TxtFile.Add(Parent);
-  TxtFile.Add(System);
+  TxtFile.Add(ParentKey);
+  TxtFile.Add(SystemKey);
   TxtFile.Add(''); // Reserved
 
   // Additional title info
@@ -495,7 +517,7 @@ begin
 
   // Version Flags
   // ---------------
-  TxtFile.Add(EmutecaDumpSt2Str(DumpStatus));
+  TxtFile.Add(EmutecaDumpSt2Key(DumpStatus));
   TxtFile.Add(DumpInfo);
   TxtFile.Add(Fixed);
   TxtFile.Add(Trainer);

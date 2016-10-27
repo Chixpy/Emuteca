@@ -80,9 +80,9 @@ begin
   // Updating SoftEditor
   Software.Folder := ExtractFileDir(Value);
   Software.FileName := ExtractFileName(Value);
-  Software.Parent := RemoveFromBrackets(ExtractFileNameOnly(
+  Software.ParentKey := RemoveFromBrackets(ExtractFileNameOnly(
     Software.FileName));
-  Software.Title := Software.Parent;
+  Software.Title := Software.ParentKey;
   Software.Version :=
     CopyFromBrackets(ExtractFileNameOnly(Software.FileName));
   SoftEditor.UpdateData;
@@ -134,7 +134,7 @@ procedure TfmActAddSoft.cbxInnerFileChange(Sender: TObject);
 begin
   Software.Folder := eFile.Text;
   Software.FileName := cbxInnerFile.Text;
-  Software.Parent := RemoveFromBrackets(ExtractFileNameOnly(eFile.Text));
+  Software.ParentKey := RemoveFromBrackets(ExtractFileNameOnly(eFile.Text));
   Software.Title := RemoveFromBrackets(ExtractFileNameOnly(
     cbxInnerFile.Text));
   Software.Version :=
@@ -272,7 +272,7 @@ begin
   if Emuteca.CurrentSystem = nil then
     Exit;
 
-  Software.System := Emuteca.CurrentSystem.ID;
+  Software.SystemKey := Emuteca.CurrentSystem.ID;
 
   // Autoselecting Key Type
   case Emuteca.CurrentSystem.GameKey of
