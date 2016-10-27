@@ -1,0 +1,5 @@
+inherited fmEmutecaIcnSoftList: TfmEmutecaIcnSoftList
+  inherited VST: TVirtualStringTree
+    OnDrawText = VSTDrawText
+  end
+end

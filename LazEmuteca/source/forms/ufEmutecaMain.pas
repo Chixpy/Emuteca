@@ -12,7 +12,7 @@ uses
   // Misc
   uVersionSupport,
   // CHX units
-  uCHXStrUtils,
+  uCHXStrUtils, ucCHXImageList,
   // CHX forms
   ufCHXAbout, ufCHXProgressBar,
   // CHX frames
@@ -24,7 +24,7 @@ uses
   // Emuteca forms
   ufEmutecaScriptManager,
   // Emuteca frames
-  ufEmutecaParentList, ufEmutecaSoftList, ufEmutecaEmulatorManager,
+  ufEmutecaParentList, ufEmutecaIcnSoftList, ufEmutecaEmulatorManager,
   ufEmutecaSystemManager, ufEmutecaSystemCBX,
   // Emuteca windows
   ufEmutecaActAddSoft, ufEmutecaActAddFolder,
@@ -38,6 +38,7 @@ type
     actEmulatorManager: TAction;
     actAddFolder: TAction;
     actAddSoft: TAction;
+    actAutoSave: TAction;
     actSaveLists: TAction;
     actMediaManager: TAction;
     actScriptManager: TAction;
@@ -56,6 +57,7 @@ type
     MenuItem13: TMenuItem;
     MenuItem14: TMenuItem;
     MenuItem15: TMenuItem;
+    MenuItem16: TMenuItem;
     MenuItem2: TMenuItem;
     MenuItem3: TMenuItem;
     MenuItem4: TMenuItem;
@@ -79,6 +81,7 @@ type
     stbInfo: TStatusBar;
     procedure actAddSoftExecute(Sender: TObject);
     procedure actAddFolderExecute(Sender: TObject);
+    procedure actAutoSaveExecute(Sender: TObject);
     procedure actEmulatorManagerExecute(Sender: TObject);
     procedure actSaveListsExecute(Sender: TObject);
     procedure actScriptManagerExecute(Sender: TObject);
@@ -94,18 +97,17 @@ type
     { private declarations }
     FEmuteca: cEmuteca;
     FGUIConfig: cGUIConfig;
+    FIconList: cCHXImageList;
 
     // Frames
     fmEmutecaSystemCBX: TfmEmutecaSystemCBX;
     fmEmutecaParentList: TfmEmutecaParentList;
-    fmEmutecaSoftList: TfmEmutecaSoftList;
+    fmEmutecaSoftList: TfmEmutecaIcnSoftList;
     fmCHXTagTree: TfmTagTree;
-
-    procedure SetGUIConfig(AValue: cGUIConfig);
 
   protected
     property Emuteca: cEmuteca read FEmuteca;
-    property GUIConfig: cGUIConfig read FGUIConfig write SetGUIConfig;
+    property GUIConfig: cGUIConfig read FGUIConfig;
 
     procedure CheckTags(aList: TStrings);
     procedure SelectParent(const aParent: cEmutecaParent);
@@ -115,6 +117,8 @@ type
     procedure RunVersion(const aSoftware: cEmutecaSoftware);
 
     procedure SaveEmuteca;
+
+    property IconList: cCHXImageList read FIconList;
 
     function OnProgressBar(const Title, Info1, Info2: string;
       const Value, MaxValue: int64): boolean;
@@ -143,26 +147,19 @@ procedure TfrmEmutecaMain.MenuItem8Click(Sender: TObject);
 var
   Temp: TStringList;
   str: string;
-  i: integer;
+  i: LongInt;
 begin
   Temp := TStringList.Create;
 
-  for i := 1 to 10000 do
+  for i := 1 to 500000 do
   begin
     str := IntToStr(i) + ',';
-    str := str + str + str + str + str + str + str;
+    str := str + str + str + str + str + str + str+ str + str + str + str + str + str+ str + str + str + str + str + str+ str + str + str + str + str + str;
     Temp.Add(str);
   end;
 
   Temp.SaveToFile('temp.csv');
   FreeAndNil(Temp);
-end;
-
-procedure TfrmEmutecaMain.SetGUIConfig(AValue: cGUIConfig);
-begin
-  if FGUIConfig = AValue then
-    Exit;
-  FGUIConfig := AValue;
 end;
 
 procedure TfrmEmutecaMain.CheckTags(aList: TStrings);
@@ -237,8 +234,9 @@ procedure TfrmEmutecaMain.FormCreate(Sender: TObject);
     fmEmutecaParentList.ParentList := Emuteca.ParentManager.FullList;
 
     // Creating and Setting the software list frame
-    fmEmutecaSoftList := TfmEmutecaSoftList.Create(pBottom);
+    fmEmutecaSoftList := TfmEmutecaIcnSoftList.Create(pBottom);
     fmEmutecaSoftList.Parent := pBottom;
+    fmEmutecaSoftList.IconList := IconList;
     fmEmutecaSoftList.OnItemSelect := @Self.SelectSoftware;
     fmEmutecaSoftList.OnDblClick := @Self.RunVersion;
     fmEmutecaSoftList.SoftList := Emuteca.SoftManager.EnabledList;
@@ -278,6 +276,9 @@ begin
   GUIConfig.LoadConfig('GUI.ini');
   IniPropStorage1.IniFileName := GUIConfig.ConfigFile;
   IniPropStorage1.Restore;
+  actAutoSave.Checked := GUIConfig.SaveOnExit;
+
+  FIconList := cCHXImageList.Create(True);
 
   // Creating Emuteca Core :-D
   FEmuteca := cEmuteca.Create(self);
@@ -366,6 +367,11 @@ begin
   FreeAndNil(aForm);
 end;
 
+procedure TfrmEmutecaMain.actAutoSaveExecute(Sender: TObject);
+begin
+  GUIConfig.SaveOnExit := actAutoSave.Checked;
+end;
+
 procedure TfrmEmutecaMain.actAddSoftExecute(Sender: TObject);
 var
   aForm: TForm;
@@ -433,15 +439,16 @@ end;
 procedure TfrmEmutecaMain.FormCloseQuery(Sender: TObject;
   var CanClose: boolean);
 begin
+  GUIConfig.SaveConfig('');
   if not GUIConfig.SaveOnExit then
     Exit;
 
   SaveEmuteca;
-  GUIConfig.SaveConfig('');
 end;
 
 procedure TfrmEmutecaMain.FormDestroy(Sender: TObject);
 begin
+  FreeAndNil(FIconList);
   FreeAndNil(FGUIConfig);
   FreeAndNil(FEmuteca);
 end;

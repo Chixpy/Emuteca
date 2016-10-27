@@ -118,6 +118,7 @@ object fmEmutecaSoftEditor: TfmEmutecaSoftEditor
       Top = 92
       Width = 160
       TabOrder = 8
+      TextHint = 'ISO 639-1'
     end
     object lPirate: TLabel
       Left = 0
@@ -239,6 +240,7 @@ object fmEmutecaSoftEditor: TfmEmutecaSoftEditor
       Top = 15
       Width = 148
       TabOrder = 1
+      TextHint = 'YYYY/MM/DD'
     end
     object lZone: TLabel
       Left = 148
@@ -254,6 +256,7 @@ object fmEmutecaSoftEditor: TfmEmutecaSoftEditor
       Top = 53
       Width = 148
       TabOrder = 3
+      TextHint = 'ISO3166-1 alpha-2'
     end
   end
   object gbxTitle: TGroupBox

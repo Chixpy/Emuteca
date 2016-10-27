@@ -11,6 +11,8 @@
 {"hash":64038002,"name":"tfrmemutecamain.actaddfolder.caption","sourcebytes":[83,99,97,110,32,102,105,108,101,115,32,102,114,111,109,32,102,111,108,100,101,114],"value":"Scan files from folder"},
 {"hash":198343454,"name":"tfrmemutecamain.actaddsoft.caption","sourcebytes":[65,100,100,32,83,111,102,116,119,97,114,101,46,46,46],"value":"Add Software..."},
 {"hash":125342323,"name":"tfrmemutecamain.actsavelists.caption","sourcebytes":[83,97,118,101,32,108,105,115,116,115],"value":"Save lists"},
+{"hash":110889572,"name":"tfrmemutecamain.actautosave.caption","sourcebytes":[43,83,97,118,101,32,111,110,32,69,120,105,116],"value":"+Save on Exit"},
+{"hash":185440356,"name":"tfrmemutecamain.actautosave.hint","sourcebytes":[65,117,116,111,115,97,118,101,32,103,97,109,101,32,108,105,115,116,32,111,110,32,101,120,105,116],"value":"Autosave game list on exit"},
 {"hash":315429,"name":"tfrmemutecamain.mmfile.caption","sourcebytes":[70,105,108,101],"value":"File"},
 {"hash":371876,"name":"tfrmemutecamain.menuitem8.caption","sourcebytes":[84,101,115,116],"value":"Test"},
 {"hash":138926499,"name":"tfrmemutecamain.menuitem3.caption","sourcebytes":[77,97,110,97,103,101,114,115],"value":"Managers"},

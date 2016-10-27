@@ -663,7 +663,7 @@ begin
   DataFolder := 'Data';
   TagSubFolder := 'Tags';
   ParentsFile := 'Parents.csv';
-  VersionsFile := 'Versions.csv';
+  VersionsFile := 'Soft.csv';
   EmulatorsFile := 'Emulators.ini';
   SystemsFile := 'Systems.ini';
   SysStructFile := 'SysFolders.csv';

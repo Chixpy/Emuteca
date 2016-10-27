@@ -179,7 +179,7 @@ procedure TfmEmutecaSystemEditor.SaveData;
 var
   i, j: integer;
 begin
-  System.ExtraFile := eExtraInfoFilename.Text;
+  System.FileName := eExtraInfoFilename.Text;
   System.Title := eTitle.Text;
 
   if cbxMainEmulator.ItemIndex <> -1 then
@@ -232,7 +232,7 @@ begin
   ITitleMain.Caption := System.Title;
 
   eTitle.Text := System.Title;
-  eExtraInfoFilename.Text := System.ExtraFile;
+  eExtraInfoFilename.Text := System.FileName;
 
   aEmulator := EmuManager.ItemById(System.MainEmulator);
   cbxMainEmulator.ItemIndex := cbxMainEmulator.Items.IndexOfObject(aEmulator);

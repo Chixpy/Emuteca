@@ -5,7 +5,7 @@ unit ucEmutecaSoftware;
 interface
 
 uses
-  Classes, SysUtils, fgl, LazFileUtils, LazUTF8, contnrs,
+  Classes, SysUtils, LazFileUtils, LazUTF8, contnrs,
   uCHXStrUtils,
   uaEmutecaStorable,
   ucEmutecaPlayingStats;
@@ -139,7 +139,7 @@ type
     // Version flags. (Based on Cowering + TOSEC)
     // ------------------------------------------
     property DumpStatus: TEmutecaDumpStatus
-      read FDumpStatus write SetDumpStatus;
+      read FDumpStatus write SetDumpStatus default edsGood;
     {< Merged Verified, good, bad dump, etc.}
 
     property DumpInfo: string read FDumpInfo write SetDumpInfo;
@@ -381,7 +381,7 @@ end;
 
 procedure cEmutecaSoftware.SetSystem(AValue: string);
 begin
-  FSystem := SetAsID(AValue);
+  FSystem := AValue;
 end;
 
 procedure cEmutecaSoftware.SetTitle(AValue: string);

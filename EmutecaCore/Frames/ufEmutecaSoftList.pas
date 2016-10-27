@@ -132,6 +132,9 @@ var
   pData1, pData2: ^cEmutecaSoftware;
 begin
   Result := 0;
+  if Column = -1 then
+    Exit;
+
   pData1 := Sender.GetNodeData(Node1);
   pData2 := Sender.GetNodeData(Node2);
 
@@ -162,7 +165,7 @@ begin
     10: // File;
       Result := UTF8CompareText(pData1^.FileName, pData2^.FileName);
     else
-      Result := UTF8CompareText(pData1^.Title, pData2^.Title);
+      ;
   end;
 end;
 
@@ -196,11 +199,12 @@ begin
     1: // Title
     begin
       case TextType of
-        ttNormal: CellText := pData^.Title;
         ttStatic:
           if (pData^.TranslitTitle <> '') and
             (pData^.TranslitTitle <> pData^.Title) then
             CellText := ' (' + pData^.TranslitTitle + ')';
+        else
+          CellText := pData^.Title;
       end;
     end;
     2: // Version
@@ -210,7 +214,34 @@ begin
     4: // Year
       CellText := pData^.Year;
     5: // Flags
-      ;
+    begin
+      { TODO: Make better output... }
+      CellText := '';
+      if pData^.DumpStatus <> edsGood then
+        CellText += '[' + EmutecaDumpSt2Str(pData^.DumpStatus) +
+          pData^.DumpInfo + '] ';
+
+      if pData^.Fixed <> '' then
+        CellText += '[f ' + pData^.Fixed + '] ';
+
+      if pData^.Trainer <> '' then
+        CellText += '[t ' + pData^.Trainer + '] ';
+
+      if pData^.Translation <> '' then
+        CellText += '[tr ' + pData^.Translation + '] ';
+
+      if pData^.Pirate <> '' then
+        CellText += '[p ' + pData^.Pirate + '] ';
+
+      if pData^.Cracked <> '' then
+        CellText += '[cr ' + pData^.Cracked + '] ';
+
+      if pData^.Modified <> '' then
+        CellText += '[m ' + pData^.Modified + '] ';
+
+      if pData^.Hack <> '' then
+        CellText += '[t ' + pData^.Hack + '] ';
+    end;
     6: // Times Played
       CellText := IntToStr(pData^.Stats.TimesPlayed);
     7: // Playing Time

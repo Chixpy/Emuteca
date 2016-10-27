@@ -159,6 +159,13 @@ object frmEmutecaMain: TfrmEmutecaMain
       Caption = 'Save lists'
       OnExecute = actSaveListsExecute
     end
+    object actAutoSave: TAction
+      Category = 'File'
+      AutoCheck = True
+      Caption = '+Save on Exit'
+      Hint = 'Autosave game list on exit'
+      OnExecute = actAutoSaveExecute
+    end
   end
   object MainMenu: TMainMenu
     left = 184
@@ -174,6 +181,10 @@ object frmEmutecaMain: TfrmEmutecaMain
       end
       object MenuItem14: TMenuItem
         Action = actSaveLists
+      end
+      object MenuItem16: TMenuItem
+        Action = actAutoSave
+        AutoCheck = True
       end
       object MenuItem15: TMenuItem
         Caption = '-'

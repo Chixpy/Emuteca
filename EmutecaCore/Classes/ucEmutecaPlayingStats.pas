@@ -28,6 +28,11 @@ interface
 uses
   Classes, SysUtils, dateutils, IniFiles, uCHXStrUtils;
 
+const
+  krsIniKeyPlayingTime = 'PlayingTime';
+  krsIniKeyTimesPlayed = 'TimesPlayed';
+  krsIniKeyLastTime = 'LastTime';
+
 type
 
   { cEmutecaPlayingStats class.
@@ -37,9 +42,11 @@ type
 
   cEmutecaPlayingStats = class(TComponent)
   private
+    FIconIndex: Integer;
     FLastTime: TDateTime;
     FPlayingTime: longword;
     FTimesPlayed: longword;
+    procedure SetIconIndex(AValue: Integer);
     procedure SetLastTime(AValue: TDateTime);
     procedure SetPlayingTime(AValue: longword);
     procedure SetTimesPlayed(AValue: longword);
@@ -58,17 +65,17 @@ type
     destructor Destroy; override;
 
   published
-    // Used by cGameManager (and by GUI as cache for cGroup ).
-    // -------------------------------------------------------
     property LastTime: TDateTime read FLastTime write SetLastTime;
-      {< Last time played the game.
+    {< Last time played.
 
         In cGroup maybe used to store the last time that a game
         has played from the group. }
     property TimesPlayed: longword read FTimesPlayed write SetTimesPlayed;
-    {< Total times played the game. }
+    {< Total times played. }
     property PlayingTime: longword read FPlayingTime write SetPlayingTime;
     {< Total seconds played. }
+
+    property IconIndex: Integer read FIconIndex write SetIconIndex;
   end;
 
 implementation
@@ -80,6 +87,12 @@ begin
   if FLastTime = AValue then
     Exit;
   FLastTime := AValue;
+end;
+
+procedure cEmutecaPlayingStats.SetIconIndex(AValue: Integer);
+begin
+  if FIconIndex = AValue then Exit;
+  FIconIndex := AValue;
 end;
 
 procedure cEmutecaPlayingStats.SetPlayingTime(AValue: longword);
@@ -111,9 +124,9 @@ begin
   if not assigned(aIniFile) then
     Exit;
 
-  aIniFile.WriteString(Section, 'PlayingTime', IntToStr(PlayingTime));
-  aIniFile.WriteString(Section, 'TimesPlayed', IntToStr(TimesPlayed));
-  aIniFile.WriteDateTime(Section, 'LastTime', LastTime);
+  aIniFile.WriteString(Section, krsIniKeyPlayingTime, IntToStr(PlayingTime));
+  aIniFile.WriteString(Section, krsIniKeyTimesPlayed, IntToStr(TimesPlayed));
+  aIniFile.WriteDateTime(Section, krsIniKeyLastTime, LastTime);
 end;
 
 procedure cEmutecaPlayingStats.LoadFromIni(aIniFile: TCustomIniFile;
@@ -121,18 +134,20 @@ procedure cEmutecaPlayingStats.LoadFromIni(aIniFile: TCustomIniFile;
 var
   TmpString: string;
 begin
-  TmpString := aIniFile.ReadString(Section, 'LastTime', '');
+  TmpString := aIniFile.ReadString(Section, krsIniKeyLastTime, '');
   if TmpString <> '' then
     LastTime := StrToDateTimeDef(TmpString, LastTime);
-  TmpString := aIniFile.ReadString(Section, 'PlayingTime', '');
+  TmpString := aIniFile.ReadString(Section, krsIniKeyPlayingTime, '');
   PlayingTime := StrToCardinalDef(TmpString, PlayingTime);
-  TmpString := aIniFile.ReadString(Section, 'TimesPlayed', '');
+  TmpString := aIniFile.ReadString(Section, krsIniKeyTimesPlayed, '');
   TimesPlayed := StrToCardinalDef(TmpString, TimesPlayed);
 end;
 
 constructor cEmutecaPlayingStats.Create(aOwner: TComponent);
 begin
   inherited Create(aOwner);
+
+  IconIndex := -1;
 end;
 
 destructor cEmutecaPlayingStats.Destroy;
