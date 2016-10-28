@@ -33,7 +33,7 @@
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="bin/$NameOnly($(ProjFile))-$(BuildMode)-$(TargetCPU)-$(TargetOS)"/>
+            <Filename Value="bin\$NameOnly($(ProjFile))-$(BuildMode)-$(TargetCPU)-$(TargetOS)"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
@@ -486,7 +486,7 @@
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="bin/$NameOnly($(ProjFile))-$(BuildMode)-$(TargetCPU)-$(TargetOS)"/>
+      <Filename Value="bin\$NameOnly($(ProjFile))-$(BuildMode)-$(TargetCPU)-$(TargetOS)"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
