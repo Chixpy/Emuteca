@@ -228,8 +228,7 @@ procedure TfrmEmutecaMain.FormCreate(Sender: TObject);
     end;
 
   var
-    TmpStr: string;
-    iEDS: TEmutecaDumpStatus;
+    aFolder, aFile: string;
   begin
    {   TmpStr := Config.ImagesFolder + Config.IconsSubfolder + Config.IconsIniFile;
 
@@ -247,13 +246,24 @@ procedure TfrmEmutecaMain.FormCreate(Sender: TObject);
       IterateFolderObj(TmpStr, @AddZoneIcon, False);
       }
 
-    // Icons for "flags" column
-    // TODO 3: Make this list dinamic?
-    TmpStr := GUIConfig.ImagesFolder + GUIConfig.VIIconsSubfolder;
-
-    for iEDS in TEmutecaDumpStatus do
-      AddVersionIcon(FVerIcons, TmpStr +
-        EmutecaDumpStatusStrsK[iEDS] + '.png');
+    { Icons for "flags" column, see ufEmutecaIcnSoftList.LazEmuTKIconFiles
+      0: Verified.png
+      1: GoodDump.png
+      2: Alternate.png
+      3: OverDump.png
+      4: BadDump.png
+      5: UnderDump.png
+      6  Fixed.png
+      7: Trainer.png
+      8: Translation.png
+      9: Pirate.png
+      10: Cracked.png
+      11: Modified.png
+      12: Hack.png
+      }
+    aFolder := GUIConfig.ImagesFolder + GUIConfig.VIIconsSubfolder;
+    for aFile in LazEmuTKIconFiles do
+     AddVersionIcon(FVerIcons, aFolder + aFile + '.png');
   end;
 
   procedure CreateFrames;

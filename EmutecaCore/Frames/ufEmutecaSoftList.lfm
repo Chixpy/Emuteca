@@ -6,7 +6,6 @@ object fmEmutecaSoftList: TfmEmutecaSoftList
   Align = alClient
   ClientHeight = 204
   ClientWidth = 701
-  LCLVersion = '6.0'
   TabOrder = 0
   DesignLeft = 286
   DesignTop = 232
@@ -75,9 +74,12 @@ object fmEmutecaSoftList: TfmEmutecaSoftList
       end>
     Header.DefaultHeight = 17
     Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoShowImages, hoShowSortGlyphs, hoVisible, hoHeaderClickAutoSort, hoAutoColumnPopupMenu]
+    HintMode = hmHintAndDefault
     IncrementalSearch = isAll
     IncrementalSearchStart = ssAlwaysStartOver
+    ParentShowHint = False
     PopupMenu = PopupMenu1
+    ShowHint = True
     TabOrder = 0
     TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScrollOnExpand, toAutoSort, toAutoTristateTracking, toAutoDeleteMovedNodes]
     TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning]
@@ -88,6 +90,7 @@ object fmEmutecaSoftList: TfmEmutecaSoftList
     OnCompareNodes = VSTCompareNodes
     OnDblClick = VSTDblClick
     OnGetText = VSTGetText
+    OnGetHint = VSTGetHint
     OnInitNode = VSTInitNode
   end
   object StatusBar1: TStatusBar

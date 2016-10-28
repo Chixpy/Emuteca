@@ -10,7 +10,7 @@
 {"hash":20522625,"name":"tfmemutecasofteditor.etranslated.texthint","sourcebytes":[73,83,79,32,54,51,57,45,49],"value":"ISO 639-1"},
 {"hash":91261093,"name":"tfmemutecasofteditor.lpirate.caption","sourcebytes":[80,105,114,97,116,101],"value":"Pirate"},
 {"hash":176660980,"name":"tfmemutecasofteditor.lcracked.caption","sourcebytes":[67,114,97,99,107,101,100],"value":"Cracked"},
-{"hash":97503988,"name":"tfmemutecasofteditor.lmodified.caption","sourcebytes":[77,111,102,105,102,105,101,100],"value":"Mofified"},
+{"hash":95406836,"name":"tfmemutecasofteditor.lmodified.caption","sourcebytes":[77,111,100,105,102,105,101,100],"value":"Modified"},
 {"hash":321435,"name":"tfmemutecasofteditor.lhack.caption","sourcebytes":[72,97,99,107],"value":"Hack"},
 {"hash":30047951,"name":"tfmemutecasofteditor.gbxversion.caption","sourcebytes":[86,101,114,115,105,111,110,32,105,110,102,111],"value":"Version info"},
 {"hash":214540302,"name":"tfmemutecasofteditor.lversion.caption","sourcebytes":[86,101,114,115,105,111,110],"value":"Version"},

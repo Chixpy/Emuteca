@@ -26,6 +26,9 @@ type
     procedure VSTCompareNodes(Sender: TBaseVirtualTree;
       Node1, Node2: PVirtualNode; Column: TColumnIndex; var Result: integer);
     procedure VSTDblClick(Sender: TObject);
+    procedure VSTGetHint(Sender: TBaseVirtualTree; Node: PVirtualNode;
+      Column: TColumnIndex; var LineBreakStyle: TVTTooltipLineBreakStyle;
+      var HintText: String);
     procedure VSTGetText(Sender: TBaseVirtualTree; Node: PVirtualNode;
       Column: TColumnIndex; TextType: TVSTTextType; var CellText: string);
     procedure VSTInitNode(Sender: TBaseVirtualTree;
@@ -183,6 +186,47 @@ begin
   end;
 end;
 
+procedure TfmEmutecaSoftList.VSTGetHint(Sender: TBaseVirtualTree;
+  Node: PVirtualNode; Column: TColumnIndex;
+  var LineBreakStyle: TVTTooltipLineBreakStyle; var HintText: String);
+var
+  pData: ^cEmutecaSoftware;
+begin
+  pData := VST.GetNodeData(Node);
+  if pData^ = nil then
+    Exit;
+
+  case Column of
+    1: // Title
+          HintText := pData^.TranslitTitle + sLineBreak + pData^.SortTitle;
+    5: // Flags
+    begin
+        HintText := EmutecaDumpStatusStrs[pData^.DumpStatus] + sLineBreak;
+
+      if pData^.Fixed <> '' then
+        HintText += 'Fixed: ' + pData^.Fixed  + sLineBreak;
+
+      if pData^.Trainer <> '' then
+        HintText += 'Trainer: ' + pData^.Trainer  + sLineBreak;
+
+      if pData^.Translation <> '' then
+        HintText += 'Translation: ' + pData^.Translation  + sLineBreak;
+
+      if pData^.Pirate <> '' then
+        HintText += 'Pirate: ' + pData^.Pirate   + sLineBreak;
+
+      if pData^.Cracked <> '' then
+        HintText += 'Cracked: ' + pData^.Cracked   + sLineBreak;
+
+      if pData^.Modified <> '' then
+        HintText += 'Modified: ' + pData^.Modified   + sLineBreak;
+
+      if pData^.Hack <> '' then
+        HintText += 'Hack: ' + pData^.Hack;
+    end;
+  end;
+end;
+
 procedure TfmEmutecaSoftList.VSTGetText(Sender: TBaseVirtualTree;
   Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType;
   var CellText: string);
@@ -197,16 +241,7 @@ begin
     0: // System
       CellText := pData^.SystemKey;
     1: // Title
-    begin
-      case TextType of
-        ttStatic:
-          if (pData^.TranslitTitle <> '') and
-            (pData^.TranslitTitle <> pData^.Title) then
-            CellText := ' (' + pData^.TranslitTitle + ')';
-        else
           CellText := pData^.Title;
-      end;
-    end;
     2: // Version
       CellText := pData^.Version;
     3: // Publisher
@@ -218,7 +253,7 @@ begin
       { TODO: Make better output... }
       CellText := ' ';
       if pData^.DumpStatus <> edsGood then
-        CellText += '[' + EmutecaDumpSt2Key(pData^.DumpStatus) +
+        CellText := '[' + EmutecaDumpStatusKeys[pData^.DumpStatus] +
           pData^.DumpInfo + '] ';
 
       if pData^.Fixed <> '' then

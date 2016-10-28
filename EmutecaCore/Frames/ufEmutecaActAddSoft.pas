@@ -306,6 +306,9 @@ constructor TfmActAddSoft.Create(TheOwner: TComponent);
     cbxSystem.Parent := gbxSystem;
     cbxSystem.Align := alTop;
     cbxSystem.OnSelectSystem := @SelectSystem;
+    // HACK: Removing "all systems" option
+    if cbxSystem.cbxSystem.Items.Count > 0 then
+      cbxSystem.cbxSystem.Items.Delete(0);
 
     FSoftEditor := TfmEmutecaSoftEditor.Create(gbxVersionInfo);
     SoftEditor.Parent := gbxVersionInfo;

@@ -288,19 +288,16 @@ constructor TfmEmutecaSoftEditor.Create(TheOwner: TComponent);
     cbxSystem.OnSelectSystem := @SelectSystem;
   end;
 
+var
+  i: String;
 begin
   inherited Create(TheOwner);
 
   CreateFrames;
 
   // Adding DumpTypes
-  { TODO: Do it in a better way... and change too when loading and saving }
-  cbxDumpType.AddItem(rsedsVerified, nil);
-  cbxDumpType.AddItem(rsedsGood, nil);
-  cbxDumpType.AddItem(rsedsAlternate, nil);
-  cbxDumpType.AddItem(rsedsOverDump, nil);
-  cbxDumpType.AddItem(rsedsBadDump, nil);
-  cbxDumpType.AddItem(rsedsUnderDump, nil);
+  for i in EmutecaDumpStatusStrs do
+    cbxDumpType.AddItem(i, nil);
   cbxDumpType.ItemIndex := 1;
 end;
 

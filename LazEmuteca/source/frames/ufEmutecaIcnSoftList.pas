@@ -6,10 +6,16 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
-  VirtualTrees, LCLIntf, LCLType,
+  VirtualTrees, LCLIntf, LCLType, LazUTF8,
   ucCHXImageList, uCHXImageUtils,
   ucEmutecaSoftware,
   ufEmutecaSoftList;
+
+const
+  LazEmuTKIconFiles: array [0..12] of string =
+    (krsedsVerified, krsedsGood, krsedsAlternate, krsedsOverDump,
+    krsedsBadDump, krsedsUnderDump, 'Fixed', 'Trainer', 'Translation', 'Pirate',
+    'Cracked', 'Modified', 'Hack');
 
 type
 
@@ -49,10 +55,10 @@ procedure TfmEmutecaIcnSoftList.VSTDrawText(Sender: TBaseVirtualTree;
 var
   Data: ^cEmutecaSoftware;
   IconRect: TRect;
+  i: integer;
+  TmpStr: string;
 begin
   DefaultDraw := True;
-
-
 
   case Column of
     1: // Title
@@ -74,7 +80,7 @@ begin
 
       if Data^.Stats.IconIndex = -1 then
       begin
-
+        // TODO: Search Icon, add to list, add to caché
       end;
 
       if (Data^.Stats.IconIndex > -1) and
@@ -83,6 +89,7 @@ begin
           SoftIconList[Data^.Stats.IconIndex]),
           SoftIconList[Data^.Stats.IconIndex].Graphic);
 
+      // Text space
       IconRect := CellRect;
       IconRect.Left := IconRect.Left + IconRect.Bottom -
         IconRect.Top + VST.TextMargin;
@@ -106,17 +113,64 @@ begin
 
       DefaultDraw := False;
 
-      // Icon space
       IconRect := CellRect;
       IconRect.Right := IconRect.Left + IconRect.Bottom - IconRect.Top;
 
+      // DumpStatus (0-5)
       TargetCanvas.StretchDraw(CorrectAspectRatio(IconRect,
         DumpIconList[Ord(Data^.DumpStatus)]),
         DumpIconList[Ord(Data^.DumpStatus)].Graphic);
 
-      // Next position
-      IconRect.Left := IconRect.Left + IconRect.Bottom - IconRect.Top;
-      IconRect.Right := IconRect.Right + IconRect.Bottom - IconRect.Top;
+      // Others
+      for i := 6 to High(LazEmuTKIconFiles) do
+      begin
+        IconRect.Left := IconRect.Left + IconRect.Bottom - IconRect.Top;
+        IconRect.Right := IconRect.Right + IconRect.Bottom - IconRect.Top;
+
+        case i of
+          6: // Fixed
+            TmpStr := Data^.Fixed;
+          7: // Trainer
+            TmpStr := Data^.Trainer;
+          8: // Translation;
+            TmpStr := Data^.Translation;
+          9: // Pirate
+            TmpStr := Data^.Pirate;
+          10: // Cracked
+            TmpStr := Data^.Cracked;
+          11: // Modified
+            TmpStr := Data^.Modified;
+          12: // Hack
+            TmpStr := Data^.Hack;
+          else
+            TmpStr := '';
+        end;
+
+        // Draw icon
+        if (TmpStr <> '') then
+        begin
+          TargetCanvas.StretchDraw(CorrectAspectRatio(IconRect,
+            DumpIconList[i]), DumpIconList[i].Graphic);
+
+          // Some magic
+          case i of
+            8: // Translation;
+            begin
+              if (TmpStr[1] = '+') then
+                TmpStr := Trim(UTF8Copy(TmpStr, 2, 3))
+              else  // GoodXXX or "-" TOSEC
+                TmpStr := Trim(UTF8Copy(TmpStr, 1, 3));
+
+              //Drawing text over icon
+              DrawText(TargetCanvas.Handle, PChar(TmpStr), -1, IconRect,
+                DT_NOPREFIX or DT_VCENTER or DT_SINGLELINE or
+                DT_EDITCONTROL or DT_CENTER);
+            end;
+            else
+              ;
+          end;
+        end;
+      end;
     end;
     else
       DefaultDraw := True;

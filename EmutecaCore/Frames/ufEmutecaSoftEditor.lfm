@@ -155,7 +155,7 @@ object fmEmutecaSoftEditor: TfmEmutecaSoftEditor
       Height = 23
       Top = 161
       Width = 136
-      Caption = 'Mofified'
+      Caption = 'Modified'
       ParentColor = False
     end
     object eModified: TEdit
