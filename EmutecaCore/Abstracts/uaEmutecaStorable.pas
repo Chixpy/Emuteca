@@ -186,7 +186,7 @@ begin
     Exit;
 
   aIniFile := TMemIniFile.Create(UTF8ToSys(FileName));
-  aIniFile.Options := aIniFile.Options - [ifoCaseSensitive];
+  aIniFile.CaseSensitive := False;
   try
     LoadFromFileIni(aIniFile);
   finally
@@ -204,7 +204,7 @@ begin
   if FileName = '' then
     exit;
   aIniFile := TMemIniFile.Create(UTF8ToSys(FileName));
-  aIniFile.Options := aIniFile.Options - [ifoCaseSensitive];
+  aIniFile.CaseSensitive := False;
   try
     SaveToFileIni(aIniFile, ExportMode);
     aIniFile.UpdateFile;
