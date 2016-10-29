@@ -219,7 +219,7 @@ procedure TfrmEmutecaMain.FormCreate(Sender: TObject);
 
   procedure LoadIcons;
 
-    procedure AddVersionIcon(aImageList: cCHXImageList; aIconFile: string);
+    procedure AddIcon(aImageList: cCHXImageList; aIconFile: string);
     begin
       if FileExistsUTF8(aIconFile) then
         aImageList.AddImageFile(aIconFile)
@@ -246,6 +246,10 @@ procedure TfrmEmutecaMain.FormCreate(Sender: TObject);
       IterateFolderObj(TmpStr, @AddZoneIcon, False);
       }
 
+    { Icons for games parents and software, first default one }
+   // aFile := GUIConfig.ImagesFolder + GUIConfig.DefImgFolder +
+   // GUIConfig.i;
+
     { Icons for "flags" column, see ufEmutecaIcnSoftList.LazEmuTKIconFiles
       0: Verified.png
       1: GoodDump.png
@@ -261,9 +265,9 @@ procedure TfrmEmutecaMain.FormCreate(Sender: TObject);
       11: Modified.png
       12: Hack.png
       }
-    aFolder := GUIConfig.ImagesFolder + GUIConfig.VIIconsSubfolder;
+    aFolder := GUIConfig.DumpIcnFolder;
     for aFile in LazEmuTKIconFiles do
-     AddVersionIcon(FVerIcons, aFolder + aFile + '.png');
+     AddIcon(FVerIcons, aFolder + aFile + '.png');
   end;
 
   procedure CreateFrames;
@@ -367,8 +371,7 @@ begin
   aFrame.Align := alClient;
 
 
-  aFrame.IconsIni := GUIConfig.ImagesFolder + GUIConfig.IconsSubfolder +
-    GUIConfig.IconsIniFile;
+  aFrame.IconsIni := GUIConfig.GUIIcnFile;
   aFrame.EmuManager := Emuteca.EmulatorManager;
 
   aForm.ShowModal;
@@ -384,9 +387,7 @@ procedure TfrmEmutecaMain.actScriptManagerExecute(Sender: TObject);
 begin
   Application.CreateForm(TfrmEmutecaScriptManager, frmEmutecaScriptManager);
 
-  frmEmutecaScriptManager.IconsIni :=
-    GUIConfig.ImagesFolder + GUIConfig.IconsSubfolder +
-    GUIConfig.IconsIniFile;
+  frmEmutecaScriptManager.IconsIni := GUIConfig.GUIIcnFile;
 
   frmEmutecaScriptManager.SetBaseFolder(Emuteca.Config.ScriptsFolder);
   frmEmutecaScriptManager.Emuteca := Emuteca;
@@ -479,8 +480,7 @@ begin
   aFrame.Parent := aForm;
   aFrame.Align := alClient;
 
-  aFrame.IconsIni := GUIConfig.ImagesFolder + GUIConfig.IconsSubfolder +
-    GUIConfig.IconsIniFile;
+  aFrame.IconsIni := GUIConfig.GUIIcnFile;
   aFrame.Emuteca := Emuteca;
 
 

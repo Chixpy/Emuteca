@@ -8,13 +8,13 @@ object fmActAddSoft: TfmActAddSoft
   TabOrder = 0
   DesignLeft = 327
   DesignTop = 190
-  object gbxVersionInfo: TGroupBox
+  object gbxSoftInfo: TGroupBox
     Left = 305
     Height = 302
     Top = 0
     Width = 305
     Align = alClient
-    Caption = 'Version info'
+    Caption = 'Software Info'
     Constraints.MinWidth = 300
     TabOrder = 0
   end

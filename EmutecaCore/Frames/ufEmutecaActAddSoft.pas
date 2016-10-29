@@ -25,7 +25,7 @@ type
     eFile: TFileNameEdit;
     eVersionKey: TEdit;
     gbxFileSelection: TGroupBox;
-    gbxVersionInfo: TGroupBox;
+    gbxSoftInfo: TGroupBox;
     ilActions: TImageList;
     lSystemInfo: TLabel;
     pBottom: TPanel;
@@ -126,8 +126,7 @@ procedure TfmActAddSoft.bAcceptClick(Sender: TObject);
 begin
   SoftEditor.SaveData;
   Emuteca.SoftManager.FullList.Add(Software);
-  // HACK: Created a new Software, so we can free it on Destroy.
-  FSoftware := cEmutecaSoftware.Create(nil);
+  Software := nil;
 end;
 
 procedure TfmActAddSoft.cbxInnerFileChange(Sender: TObject);
@@ -175,6 +174,7 @@ begin
   FEmuteca := AValue;
 
   UpdateLists;
+
 end;
 
 procedure TfmActAddSoft.SetSoftware(AValue: cEmutecaSoftware);
@@ -259,7 +259,12 @@ begin
   if not assigned(Emuteca) then
     cbxSystem.SystemList := nil
   else
+    begin
     cbxSystem.SystemList := Emuteca.SystemManager.VisibleList;
+    // TODO: HACK: Removing "all systems" option...
+    if cbxSystem.cbxSystem.Items.Count > 0 then
+      cbxSystem.cbxSystem.Items[0] := 'Select a System';
+    end;
 end;
 
 function TfmActAddSoft.SelectSystem(aSystem: cEmutecaSystem): boolean;
@@ -306,12 +311,10 @@ constructor TfmActAddSoft.Create(TheOwner: TComponent);
     cbxSystem.Parent := gbxSystem;
     cbxSystem.Align := alTop;
     cbxSystem.OnSelectSystem := @SelectSystem;
-    // HACK: Removing "all systems" option
-    if cbxSystem.cbxSystem.Items.Count > 0 then
-      cbxSystem.cbxSystem.Items.Delete(0);
 
-    FSoftEditor := TfmEmutecaSoftEditor.Create(gbxVersionInfo);
-    SoftEditor.Parent := gbxVersionInfo;
+
+    FSoftEditor := TfmEmutecaSoftEditor.Create(gbxSoftInfo);
+    SoftEditor.Parent := gbxSoftInfo;
     SoftEditor.Align := alClient;
   end;
 

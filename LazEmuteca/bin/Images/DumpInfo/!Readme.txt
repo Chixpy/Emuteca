@@ -1,26 +1,27 @@
-ICONS FOR VERSION INFO
-----------------------
-Alternate.png
-  CC-BY - Silk icon set 1.3 (Read license below)
-  Edited
-  
+ICONS FOR DUMP INFO
+-------------------
+
+TODO: Modify or change Temporary ones
+
 BadDump.png
+OverDump.png (Temporary)
+UnderDump.png (Temporary)
   CC-BY - Silk icon set 1.3 (Read license below)
   
+Alternate.png (Temporary)   
 GoodDump.png
   C-BY - Silk icon set 1.3 (Read license below)
-
-NoZone.png
-  GNU LGPL by Orzetto and ThePCKid Wikipedia Commons users
-  http://commons.wikimedia.org/wiki/File:Nuvola_unknown_flag.svg
-  Autocropped and resized to 32px width
   
+Cracked.png (Temporary) 
+Fixed.png (Temporary)
+Hack.png (Temporary)
 Pirate.png
   CC-BY-SA / GNU-FDL by WarX and Manuel Strehl Wikipedia users
   http://en.wikipedia.org/wiki/File:Flag_of_Edward_England.svg
   Resized to 32px width
   
-Traslation.png
+Modified.png
+Translation.png
   CC-BY - Silk icon set 1.3 (Read license below)
   
 Verified.png

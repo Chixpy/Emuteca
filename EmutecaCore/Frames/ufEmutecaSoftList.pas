@@ -28,7 +28,7 @@ type
     procedure VSTDblClick(Sender: TObject);
     procedure VSTGetHint(Sender: TBaseVirtualTree; Node: PVirtualNode;
       Column: TColumnIndex; var LineBreakStyle: TVTTooltipLineBreakStyle;
-      var HintText: String);
+      var HintText: string);
     procedure VSTGetText(Sender: TBaseVirtualTree; Node: PVirtualNode;
       Column: TColumnIndex; TextType: TVSTTextType; var CellText: string);
     procedure VSTInitNode(Sender: TBaseVirtualTree;
@@ -188,7 +188,7 @@ end;
 
 procedure TfmEmutecaSoftList.VSTGetHint(Sender: TBaseVirtualTree;
   Node: PVirtualNode; Column: TColumnIndex;
-  var LineBreakStyle: TVTTooltipLineBreakStyle; var HintText: String);
+  var LineBreakStyle: TVTTooltipLineBreakStyle; var HintText: string);
 var
   pData: ^cEmutecaSoftware;
 begin
@@ -198,31 +198,31 @@ begin
 
   case Column of
     1: // Title
-          HintText := pData^.TranslitTitle + sLineBreak + pData^.SortTitle;
+      HintText := pData^.TranslitTitle + sLineBreak + pData^.SortTitle;
     5: // Flags
     begin
-        HintText := EmutecaDumpStatusStrs[pData^.DumpStatus] + sLineBreak;
+      HintText := EmutecaDumpStatusStrs[pData^.DumpStatus] + sLineBreak;
 
       if pData^.Fixed <> '' then
-        HintText += 'Fixed: ' + pData^.Fixed  + sLineBreak;
+        HintText += sLineBreak + 'Fixed: ' + pData^.Fixed;
 
       if pData^.Trainer <> '' then
-        HintText += 'Trainer: ' + pData^.Trainer  + sLineBreak;
+        HintText += sLineBreak + 'Trainer: ' + pData^.Trainer;
 
       if pData^.Translation <> '' then
-        HintText += 'Translation: ' + pData^.Translation  + sLineBreak;
+        HintText += sLineBreak + 'Translation: ' + pData^.Translation;
 
       if pData^.Pirate <> '' then
-        HintText += 'Pirate: ' + pData^.Pirate   + sLineBreak;
+        HintText += sLineBreak + 'Pirate: ' + pData^.Pirate;
 
       if pData^.Cracked <> '' then
-        HintText += 'Cracked: ' + pData^.Cracked   + sLineBreak;
+        HintText += sLineBreak + 'Cracked: ' + pData^.Cracked;
 
       if pData^.Modified <> '' then
-        HintText += 'Modified: ' + pData^.Modified   + sLineBreak;
+        HintText += sLineBreak + 'Modified: ' + pData^.Modified;
 
       if pData^.Hack <> '' then
-        HintText += 'Hack: ' + pData^.Hack;
+        HintText += sLineBreak + 'Hack: ' + pData^.Hack;
     end;
   end;
 end;
@@ -241,7 +241,7 @@ begin
     0: // System
       CellText := pData^.SystemKey;
     1: // Title
-          CellText := pData^.Title;
+      CellText := pData^.Title;
     2: // Version
       CellText := pData^.Version;
     3: // Publisher
@@ -254,28 +254,28 @@ begin
       CellText := ' ';
       if pData^.DumpStatus <> edsGood then
         CellText := '[' + EmutecaDumpStatusKeys[pData^.DumpStatus] +
-          pData^.DumpInfo + '] ';
+          pData^.DumpInfo + ']';
 
       if pData^.Fixed <> '' then
-        CellText += '[f ' + pData^.Fixed + '] ';
+        CellText += ' [f ' + pData^.Fixed + ']';
 
       if pData^.Trainer <> '' then
-        CellText += '[t ' + pData^.Trainer + '] ';
+        CellText += ' [t ' + pData^.Trainer + ']';
 
       if pData^.Translation <> '' then
-        CellText += '[tr ' + pData^.Translation + '] ';
+        CellText += ' [tr ' + pData^.Translation + ']';
 
       if pData^.Pirate <> '' then
-        CellText += '[p ' + pData^.Pirate + '] ';
+        CellText += ' [p ' + pData^.Pirate + ']';
 
       if pData^.Cracked <> '' then
-        CellText += '[cr ' + pData^.Cracked + '] ';
+        CellText += ' [cr ' + pData^.Cracked + ']';
 
       if pData^.Modified <> '' then
-        CellText += '[m ' + pData^.Modified + '] ';
+        CellText += ' [m ' + pData^.Modified + ']';
 
       if pData^.Hack <> '' then
-        CellText += '[t ' + pData^.Hack + '] ';
+        CellText += ' [t ' + pData^.Hack + ']';
     end;
     6: // Times Played
       CellText := IntToStr(pData^.Stats.TimesPlayed);

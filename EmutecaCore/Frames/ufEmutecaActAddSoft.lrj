@@ -1,5 +1,5 @@
 {"version":1,"strings":[
-{"hash":30047951,"name":"tfmactaddsoft.gbxversioninfo.caption","sourcebytes":[86,101,114,115,105,111,110,32,105,110,102,111],"value":"Version info"},
+{"hash":36264223,"name":"tfmactaddsoft.gbxsoftinfo.caption","sourcebytes":[83,111,102,116,119,97,114,101,32,73,110,102,111],"value":"Software Info"},
 {"hash":208801933,"name":"tfmactaddsoft.gbxsystem.caption","sourcebytes":[83,101,108,101,99,116,32,83,121,115,116,101,109],"value":"Select System"},
 {"hash":11530,"name":"tfmactaddsoft.lsysteminfo.caption","sourcebytes":[42,46,42],"value":"*.*"},
 {"hash":267679253,"name":"tfmactaddsoft.gbxfileselection.caption","sourcebytes":[83,101,108,101,99,116,32,97,32,102,105,108,101],"value":"Select a file"},
