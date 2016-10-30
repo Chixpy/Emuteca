@@ -9,16 +9,18 @@ uses
   Interfaces, // this includes the LCL widgetset
   Forms, bs_controls, lz_rtticontrols, pl_pascalscript, pl_virtualtrees,
   ucEmuteca, uPSI_ucEmuteca, ucEmutecaParent, ucEmutecaConfig, ufEmutecaMain,
-  ucEmutecaFile, ucEmutecaEmulatorManager, ucEmutecaParentManager,
+  ucEmutecaEmulatorManager, ucEmutecaParentManager,
   ucEmutecaSystemManager, ucEmutecaEmulator, ufEmutecaSoftList,
   ucEmutecaSoftware, ucEmutecaSystem, ufEmutecaEmulatorEditor,
-  ufEmutecaEmulatorManager, ufEmutecaSystemManager, ugEmutecaManager,
+  ufEmutecaEmulatorManager, ugEmutecaManager,
   ugEmutecaPersList, ufEmutecaScriptManager, ucEmutecaSoftManager,
-  ufEmutecaSystemEditor, ufEmutecaActAddSoft, ufEmutecaSoftEditor, uGUIConfig,
-  uaEmutecaStorable, uaEmutecaManager, ufEmutecaSystemInfoEditor,
-  ufEmutecaActAddFolder, ufEmutecaSystemEditorExt, ucEmutecaScriptEngine,
+ufEmutecaActAddSoft, ufEmutecaSoftEditor, uGUIConfig,
+  uaEmutecaStorable, uaEmutecaManager, ufEmutecaSystemImgEditor,
+  ufEmutecaActAddFolder, ucEmutecaScriptEngine,
   ufESMSoftList, ufEmutecaSystemCBX, ufESMParentList, ufEmutecaChkSoftList,
-  ucEmutecaSystemExtra, ufEmutecaParentCBX, ufEmutecaIcnSoftList;
+  ufEmutecaParentCBX, ufEmutecaIcnSoftList, ufCHXPropEditor, 
+ufEmutecaSystemEditor, ufLEmuTKFullSystemEditor, ufCHXChkLstPropEditor, 
+ufLEmuTKSysManager;
 
 {$R *.res}
 

@@ -1,0 +1,15 @@
+{"version":1,"strings":[
+{"hash":60409492,"name":"tfmlemutkchklistpropeditor.tbpropchklist.caption","sourcebytes":[116,98,80,114,111,112,67,104,107,76,105,115,116],"value":"tbPropChkList"},
+{"hash":160486419,"name":"tfmlemutkchklistpropeditor.toolbutton3.caption","sourcebytes":[84,111,111,108,66,117,116,116,111,110,51],"value":"ToolButton3"},
+{"hash":160486422,"name":"tfmlemutkchklistpropeditor.toolbutton6.caption","sourcebytes":[84,111,111,108,66,117,116,116,111,110,54],"value":"ToolButton6"},
+{"hash":174395085,"name":"tfmlemutkchklistpropeditor.actadditem.caption","sourcebytes":[65,100,100,32,73,116,101,109],"value":"Add Item"},
+{"hash":209029412,"name":"tfmlemutkchklistpropeditor.actsavelist.caption","sourcebytes":[83,97,118,101,32,76,105,115,116],"value":"Save List"},
+{"hash":171952253,"name":"tfmlemutkchklistpropeditor.actdeleteitem.caption","sourcebytes":[68,101,108,101,116,101,32,73,116,101,109],"value":"Delete Item"},
+{"hash":153741252,"name":"tfmlemutkchklistpropeditor.actexportlist.caption","sourcebytes":[69,120,112,111,114,116,32,76,105,115,116],"value":"Export List"},
+{"hash":154499012,"name":"tfmlemutkchklistpropeditor.actimportlist.caption","sourcebytes":[73,109,112,111,114,116,32,76,105,115,116],"value":"Import List"},
+{"hash":233355572,"name":"tfmlemutkchklistpropeditor.actsaveandexit.caption","sourcebytes":[83,97,118,101,32,97,110,100,32,69,120,105,116],"value":"Save and Exit"},
+{"hash":264908164,"name":"tfmlemutkchklistpropeditor.actcancelandexit.caption","sourcebytes":[97,99,116,67,97,110,99,101,108,65,110,100,69,120,105,116],"value":"actCancelAndExit"},
+{"hash":194842572,"name":"tfmlemutkchklistpropeditor.actcheckall.caption","sourcebytes":[67,104,101,99,107,32,65,108,108],"value":"Check All"},
+{"hash":197201868,"name":"tfmlemutkchklistpropeditor.actuncheckall.caption","sourcebytes":[85,110,99,104,101,99,107,32,65,108,108],"value":"Uncheck All"},
+{"hash":250001333,"name":"tfmlemutkchklistpropeditor.actcreatesystemstructure.caption","sourcebytes":[97,99,116,67,114,101,97,116,101,83,121,115,116,101,109,83,116,114,117,99,116,117,114,101],"value":"actCreateSystemStructure"}
+]}

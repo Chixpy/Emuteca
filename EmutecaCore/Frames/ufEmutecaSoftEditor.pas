@@ -98,7 +98,13 @@ begin
   FSoftware := AValue;
 
   if Assigned(Software) then
+  begin
     Software.FPOAttachObserver(Self);
+    if assigned(Emuteca) then
+      self.Enabled := True;
+  end
+  else
+    self.Enabled := False;
 
   UpdateData;
 end;
@@ -109,18 +115,20 @@ begin
     Exit;
   FEmuteca := AValue;
 
-  cbxSystem.SystemList := nil;
-  cbxParent.ParentList := nil;
-
-  if not assigned(Emuteca) then
+  if assigned(Emuteca) then
   begin
     cbxSystem.SystemList := Emuteca.SystemManager.VisibleList;
     cbxParent.ParentList := Emuteca.ParentManager.VisibleList;
+    if Assigned(Software) then
+      self.Enabled := True
+    else
+      self.Enabled := False;
   end
   else
   begin
     cbxSystem.SystemList := nil;
     cbxParent.ParentList := nil;
+    self.Enabled := False;
   end;
 end;
 
@@ -289,7 +297,7 @@ constructor TfmEmutecaSoftEditor.Create(TheOwner: TComponent);
   end;
 
 var
-  i: String;
+  i: string;
 begin
   inherited Create(TheOwner);
 

@@ -41,6 +41,9 @@ type
     property DumpIconList: cCHXImageList
       read FDumpIconList write SetDumpIconList;
     {< Icons of dump info. }
+
+        constructor Create(TheOwner: TComponent); override;
+    destructor Destroy; override;
   end;
 
 implementation
@@ -182,6 +185,19 @@ begin
   if FSoftIconList = AValue then
     Exit;
   FSoftIconList := AValue;
+end;
+
+constructor TfmEmutecaIcnSoftList.Create(TheOwner: TComponent);
+begin
+  inherited Create(TheOwner);
+
+  // Set Width of tags column
+  vst.Header.Columns[5].Width := vst.Header.DefaultHeight * 13;
+end;
+
+destructor TfmEmutecaIcnSoftList.Destroy;
+begin
+  inherited Destroy;
 end;
 
 procedure TfmEmutecaIcnSoftList.SetDumpIconList(AValue: cCHXImageList);

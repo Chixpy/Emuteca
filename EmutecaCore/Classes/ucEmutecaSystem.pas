@@ -35,7 +35,7 @@ const
   // -------------
   krsIniKeyEnabled = 'Enabled';  // TODO: uEmutecaCommon.pas?
   krsIniKeyTitle = 'Title';
-  krsIniKeyExtraFile = 'ExtraFile';
+  krsIniKeyFileName = 'FileName';
   krsIniKeyExtensions = 'Extensions';
   krsIniKeyBaseFolder = 'BaseFolder';
   krsIniKeyTempFolder = 'TempFolder';
@@ -43,7 +43,7 @@ const
   krsIniKeyOtherEmulators = 'OtherEmulators';
   krsIniKeyIcon = 'Icon';
   krsIniKeyImage = 'Image';
-  krsIniKeyBackgroundImage = 'BackgroundImage';
+  krsIniKeyBackImage = 'BackImage';
   krsIniKeyIconFolder = 'IconFolder';
   krsIniKeyImageFolders = 'ImageFolders';
   krsIniKeyImageCaptions = 'ImageCaptions';
@@ -63,50 +63,41 @@ type
 
   TEmutecaFileKey = (TEFKSHA1, TEFKCRC32, TEFKFileName, TEFKCustom);
 
-  { @name.
-
-    @definitionList(
-    @itemLabel(NOTE:)
-    @item(Because PascalScript don't suport overloaded methods,
-      we don't use them right here.)
-    )
-  }
-
   { cEmutecaSystem }
 
   cEmutecaSystem = class(caEmutecaStorableIni)
   private
-    FBackgroundImage: String;
+    FBackImage: string;
     FBaseFolder: string;
     FEnabled: boolean;
     FExtensions: TStringList;
     FExtractAll: boolean;
     FFileName: string;
     FGameKey: TEmutecaFileKey;
-    FIcon: String;
-    FIconFolder: String;
+    FIcon: string;
+    FIconFolder: string;
     FID: string;
-    FImage: String;
+    FImage: string;
     FImageCaptions: TStringList;
     FImageFolders: TStringList;
-    FInfoText: String;
+    FInfoText: string;
     FMainEmulator: string;
     FOtherEmulators: TStringList;
     FTempFolder: string;
     FTextCaptions: TStringList;
     FTextFolders: TStringList;
     FTitle: string;
-    procedure SetBackgroundImage(AValue: String);
+    procedure SetBackImage(AValue: string);
     procedure SetBaseFolder(AValue: string);
     procedure SetEnabled(AValue: boolean);
     procedure SetExtractAll(AValue: boolean);
     procedure SetFileName(AValue: string);
     procedure SetGameKey(AValue: TEmutecaFileKey);
-    procedure SetIcon(AValue: String);
-    procedure SetIconFolder(AValue: String);
+    procedure SetIcon(AValue: string);
+    procedure SetIconFolder(AValue: string);
     procedure SetID(AValue: string);
-    procedure SetImage(AValue: String);
-    procedure SetInfoText(AValue: String);
+    procedure SetImage(AValue: string);
+    procedure SetInfoText(AValue: string);
     procedure SetMainEmulator(AValue: string);
     procedure SetTempFolder(AValue: string);
     procedure SetTitle(AValue: string);
@@ -137,7 +128,7 @@ type
     {< Visible name (Usually "%Company%: %Model% %(info)%"}
 
     property FileName: string read FFileName write SetFileName;
-    {< File with extra info of the system, without extension }
+    {< Name used for files }
 
     property Enabled: boolean read FEnabled write SetEnabled;
     {< Is the system visible }
@@ -175,14 +166,14 @@ type
 
     // Images
     // ------
-    property Icon: String read FIcon write SetIcon;
+    property Icon: string read FIcon write SetIcon;
     {< Path to the icon of the system. }
-    property Image: String read FImage write SetImage;
+    property Image: string read FImage write SetImage;
     {< Path to image of the system. }
-    property BackgroundImage: String read FBackgroundImage write SetBackgroundImage;
-    {< Image used for list background. }
+    property BackImage: string read FBackImage write SetBackImage;
+    {< Image used for as background. }
 
-    property IconFolder: String read FIconFolder write SetIconFolder;
+    property IconFolder: string read FIconFolder write SetIconFolder;
     {< Folder for the icons of the games. }
     property ImageFolders: TStringList read FImageFolders;
     {< Folders for the game images. }
@@ -191,7 +182,7 @@ type
 
     // Texts
     // -----
-    property InfoText: String read FInfoText write SetInfoText;
+    property InfoText: string read FInfoText write SetInfoText;
     {< Path to text file of the system. }
 
     property TextFolders: TStringList read FTextFolders;
@@ -216,7 +207,8 @@ type
 
   TEmutecaReturnSystemCB = function(aSystem: cEmutecaSystem): boolean of
     object;
-  {< For CallBack functions }
+
+{< For CallBack functions }
 
 function EmutecaFileKey2Str(aEFK: TEmutecaFileKey): string;
 function Str2EmutecaFileKey(aString: string): TEmutecaFileKey;
@@ -264,11 +256,12 @@ begin
   if IniFile = nil then
     Exit;
 
-  // Basic data loading
+  // Basic data
   Title := IniFile.ReadString(ID, krsIniKeyTitle, Title);
 
-  FileName := IniFile.ReadString(ID, krsIniKeyExtraFile, FileName);
-  if FileName = '' then FileName := CleanFileName(Title);
+  FileName := IniFile.ReadString(ID, krsIniKeyFileName, FileName);
+  if FileName = '' then
+    FileName := Title;
 
   Enabled := IniFile.ReadBool(ID, krsIniKeyEnabled, Enabled);
 
@@ -279,27 +272,27 @@ begin
 
   // Emulators
   MainEmulator := IniFile.ReadString(ID, krsIniKeyMainEmulator, MainEmulator);
-  OtherEmulators.CommaText := IniFile.ReadString(ID, krsIniKeyOtherEmulators, OtherEmulators.CommaText);
+  OtherEmulators.CommaText :=
+    IniFile.ReadString(ID, krsIniKeyOtherEmulators, OtherEmulators.CommaText);
 
   // Images
   Icon := IniFile.ReadString(ID, krsIniKeyIcon, Icon);
   Image := IniFile.ReadString(ID, krsIniKeyImage, Image);
-  BackgroundImage := IniFile.ReadString(ID, krsIniKeyBackgroundImage,
-    BackgroundImage);
+  BackImage := IniFile.ReadString(ID, krsIniKeyBackImage, BackImage);
 
   IconFolder := IniFile.ReadString(ID, krsIniKeyIconFolder, IconFolder);
-  ImageFolders.CommaText := IniFile.ReadString(ID, krsIniKeyImageFolders,
-    ImageFolders.CommaText);
-  ImageCaptions.CommaText := IniFile.ReadString(ID, krsIniKeyImageCaptions,
-    ImageCaptions.CommaText);
+  ImageFolders.CommaText :=
+    IniFile.ReadString(ID, krsIniKeyImageFolders, ImageFolders.CommaText);
+  ImageCaptions.CommaText :=
+    IniFile.ReadString(ID, krsIniKeyImageCaptions, ImageCaptions.CommaText);
 
   // Texts
   InfoText := IniFile.ReadString(ID, krsIniKeyText, InfoText);
 
-  TextFolders.CommaText := IniFile.ReadString(ID, krsIniKeyTextFolders,
-    TextFolders.CommaText);
-  TextCaptions.CommaText := IniFile.ReadString(ID, krsIniKeyTextCaptions,
-    TextCaptions.CommaText);
+  TextFolders.CommaText :=
+    IniFile.ReadString(ID, krsIniKeyTextFolders, TextFolders.CommaText);
+  TextCaptions.CommaText :=
+    IniFile.ReadString(ID, krsIniKeyTextCaptions, TextCaptions.CommaText);
 
   // Import
   GameKey := Str2EmutecaFileKey(IniFile.ReadString(ID,
@@ -318,28 +311,62 @@ begin
   if IniFile = nil then
     Exit;
 
+  // Basic data
   IniFile.WriteString(ID, krsIniKeyTitle, Title);
-  IniFile.WriteString(ID, krsIniKeyExtraFile, FileName);
-
-  IniFile.WriteString(ID, krsIniKeyExtensions, Extensions.CommaText);
-  IniFile.WriteString(ID, krsIniKeyGamesKey, EmutecaFileKey2Str(GameKey));
-
+  IniFile.WriteString(ID, krsIniKeyFileName, FileName);
   IniFile.WriteBool(ID, krsIniKeyExtractAll, ExtractAll);
 
+  // Emulators
   IniFile.WriteString(ID, krsIniKeyMainEmulator, MainEmulator);
   IniFile.WriteString(ID, krsIniKeyOtherEmulators, OtherEmulators.CommaText);
 
+  // Import
+  IniFile.WriteString(ID, krsIniKeyGamesKey, EmutecaFileKey2Str(GameKey));
+  IniFile.WriteString(ID, krsIniKeyExtensions, Extensions.CommaText);
+
   if ExportMode then
   begin // Las borramos por si acaso existen
+    // Basic data
     IniFile.DeleteKey(ID, krsIniKeyEnabled);
     IniFile.DeleteKey(ID, krsIniKeyBaseFolder);
     IniFile.DeleteKey(ID, krsIniKeyTempFolder);
+
+    // Images
+    IniFile.DeleteKey(ID, krsIniKeyIcon);
+    IniFile.DeleteKey(ID, krsIniKeyImage);
+    IniFile.DeleteKey(ID, krsIniKeyBackImage);
+
+    IniFile.DeleteKey(ID, krsIniKeyIconFolder);
+    IniFile.DeleteKey(ID, krsIniKeyImageFolders);
+    IniFile.DeleteKey(ID, krsIniKeyImageCaptions);
+
+    // Texts
+    IniFile.DeleteKey(ID, krsIniKeyText);
+
+    IniFile.DeleteKey(ID, krsIniKeyTextFolders);
+    IniFile.DeleteKey(ID, krsIniKeyTextCaptions);
   end
   else
   begin
+    // Basic data
     IniFile.WriteBool(ID, krsIniKeyEnabled, Enabled);
     IniFile.WriteString(ID, krsIniKeyBaseFolder, BaseFolder);
     IniFile.WriteString(ID, krsIniKeyTempFolder, TempFolder);
+
+    // Images
+    IniFile.WriteString(ID, krsIniKeyIcon, Icon);
+    IniFile.WriteString(ID, krsIniKeyImage, Image);
+    IniFile.WriteString(ID, krsIniKeyBackImage, BackImage);
+
+    IniFile.WriteString(ID, krsIniKeyIconFolder, IconFolder);
+    IniFile.WriteString(ID, krsIniKeyImageFolders, ImageFolders.CommaText);
+    IniFile.WriteString(ID, krsIniKeyImageCaptions, ImageCaptions.CommaText);
+
+    // Texts
+    IniFile.WriteString(ID, krsIniKeyText, InfoText);
+
+    IniFile.WriteString(ID, krsIniKeyTextFolders, TextFolders.CommaText);
+    IniFile.WriteString(ID, krsIniKeyTextCaptions, TextCaptions.CommaText);
   end;
 end;
 
@@ -348,9 +375,9 @@ begin
   FBaseFolder := SetAsFolder(AValue);
 end;
 
-procedure cEmutecaSystem.SetBackgroundImage(AValue: String);
+procedure cEmutecaSystem.SetBackImage(AValue: string);
 begin
-  FBackgroundImage := SetAsFile(AValue);
+  FBackImage := SetAsFile(AValue);
 end;
 
 procedure cEmutecaSystem.SetEnabled(AValue: boolean);
@@ -379,12 +406,12 @@ begin
   FGameKey := AValue;
 end;
 
-procedure cEmutecaSystem.SetIcon(AValue: String);
+procedure cEmutecaSystem.SetIcon(AValue: string);
 begin
   FIcon := SetAsFile(AValue);
 end;
 
-procedure cEmutecaSystem.SetIconFolder(AValue: String);
+procedure cEmutecaSystem.SetIconFolder(AValue: string);
 begin
   FIconFolder := SetAsFolder(AValue);
 end;
@@ -394,14 +421,14 @@ begin
   FID := SetAsID(AValue);
 end;
 
-procedure cEmutecaSystem.SetImage(AValue: String);
+procedure cEmutecaSystem.SetImage(AValue: string);
 begin
   FImage := SetAsFile(AValue);
 end;
 
-procedure cEmutecaSystem.SetInfoText(AValue: String);
+procedure cEmutecaSystem.SetInfoText(AValue: string);
 begin
-  FInfoText := SetAsFile(AValue); ;
+  FInfoText := SetAsFile(AValue);
 end;
 
 procedure cEmutecaSystem.SetMainEmulator(AValue: string);
@@ -416,7 +443,8 @@ end;
 
 procedure cEmutecaSystem.SetTitle(AValue: string);
 begin
-  if FTitle = AValue then Exit;
+  if FTitle = AValue then
+    Exit;
   FTitle := AValue;
 end;
 

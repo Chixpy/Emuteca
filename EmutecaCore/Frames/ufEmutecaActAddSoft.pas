@@ -312,10 +312,8 @@ constructor TfmActAddSoft.Create(TheOwner: TComponent);
     cbxSystem.Align := alTop;
     cbxSystem.OnSelectSystem := @SelectSystem;
 
-
     FSoftEditor := TfmEmutecaSoftEditor.Create(gbxSoftInfo);
     SoftEditor.Parent := gbxSoftInfo;
-    SoftEditor.Align := alClient;
   end;
 
 begin

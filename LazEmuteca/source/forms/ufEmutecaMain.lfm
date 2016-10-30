@@ -26,16 +26,8 @@ object frmEmutecaMain: TfrmEmutecaMain
     Top = 0
     Width = 5
   end
-  object pRight: TPanel
-    Left = 592
-    Height = 534
-    Top = 0
-    Width = 208
-    Align = alRight
-    TabOrder = 2
-  end
   object Splitter2: TSplitter
-    Left = 587
+    Left = 595
     Height = 534
     Top = 0
     Width = 5
@@ -46,16 +38,16 @@ object frmEmutecaMain: TfrmEmutecaMain
     Left = 173
     Height = 534
     Top = 0
-    Width = 414
+    Width = 422
     Align = alClient
     ClientHeight = 534
-    ClientWidth = 414
-    TabOrder = 4
+    ClientWidth = 422
+    TabOrder = 3
     object pTop: TPanel
       Left = 1
       Height = 228
       Top = 24
-      Width = 412
+      Width = 420
       Align = alTop
       TabOrder = 0
     end
@@ -64,7 +56,7 @@ object frmEmutecaMain: TfrmEmutecaMain
       Left = 1
       Height = 5
       Top = 252
-      Width = 412
+      Width = 420
       Align = alTop
       ResizeAnchor = akTop
     end
@@ -72,7 +64,7 @@ object frmEmutecaMain: TfrmEmutecaMain
       Left = 1
       Height = 276
       Top = 257
-      Width = 412
+      Width = 420
       Align = alClient
       TabOrder = 2
     end
@@ -80,7 +72,7 @@ object frmEmutecaMain: TfrmEmutecaMain
       Left = 1
       Height = 0
       Top = 24
-      Width = 412
+      Width = 420
       Align = alTop
       AutoSize = True
       TabOrder = 3
@@ -89,7 +81,7 @@ object frmEmutecaMain: TfrmEmutecaMain
       Left = 1
       Height = 23
       Top = 1
-      Width = 412
+      Width = 420
       Align = alTop
       OnEditingDone = eSearchEditingDone
       TabOrder = 4
@@ -103,12 +95,20 @@ object frmEmutecaMain: TfrmEmutecaMain
     Panels = <>
     SizeGrip = False
   end
-  object PageControl1: TPageControl
+  object pcLeft: TPageControl
     Left = 0
     Height = 534
     Top = 0
     Width = 168
     Align = alLeft
+    TabOrder = 5
+  end
+  object pcSoftware: TPageControl
+    Left = 600
+    Height = 534
+    Top = 0
+    Width = 200
+    Align = alRight
     TabOrder = 6
   end
   object ActionList1: TActionList

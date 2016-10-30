@@ -25,9 +25,11 @@ uses
   ufEmutecaScriptManager,
   // Emuteca frames
   ufEmutecaParentList, ufEmutecaIcnSoftList, ufEmutecaEmulatorManager,
-  ufEmutecaSystemManager, ufEmutecaSystemCBX,
+  ufEmutecaSystemCBX, ufEmutecaSoftEditor,
   // Emuteca windows
   ufEmutecaActAddSoft, ufEmutecaActAddFolder,
+  // LazEmuteca frames
+  ufLEmuTKSysManager,
   uGUIConfig;
 
 type
@@ -68,10 +70,10 @@ type
     MenuItem9: TMenuItem;
     mmHelp: TMenuItem;
     mmFile: TMenuItem;
-    PageControl1: TPageControl;
+    pcLeft: TPageControl;
     pBottom: TPanel;
+    pcSoftware: TPageControl;
     pMiddle: TPanel;
-    pRight: TPanel;
     pSystems: TPanel;
     pTop: TPanel;
     Splitter1: TSplitter;
@@ -104,7 +106,10 @@ type
     fmEmutecaSystemCBX: TfmEmutecaSystemCBX;
     fmEmutecaParentList: TfmEmutecaParentList;
     fmEmutecaSoftList: TfmEmutecaIcnSoftList;
+
     fmCHXTagTree: TfmTagTree;
+
+    fmEmutecaSoftEditor: TfmEmutecaSoftEditor;
 
   protected
     property Emuteca: cEmuteca read FEmuteca;
@@ -181,6 +186,7 @@ end;
 procedure TfrmEmutecaMain.SelectSoftware(const aSoftware: cEmutecaSoftware);
 begin
   Emuteca.CurrentSoft := aSoftware;
+  fmEmutecaSoftEditor.Software := aSoftware;
 end;
 
 function TfrmEmutecaMain.SelectSystem(aSystem: cEmutecaSystem): boolean;
@@ -299,13 +305,21 @@ procedure TfrmEmutecaMain.FormCreate(Sender: TObject);
     fmEmutecaSoftList.OnDblClick := @Self.RunVersion;
     fmEmutecaSoftList.SoftList := Emuteca.SoftManager.EnabledList;
 
-    // Creating and Setting Tags
-    aTabSheet := PageControl1.AddTabSheet;
+    // Creating and Setting Tags frame
+    aTabSheet := pcLeft.AddTabSheet;
     fmCHXTagTree := TfmTagTree.Create(aTabSheet);
     aTabSheet.Caption := fmCHXTagTree.Caption;  {TODO: Add Caption}
     fmCHXTagTree.Parent := aTabSheet;
     fmCHXTagTree.Folder := Emuteca.Config.TagSubFolder;
     fmCHXTagTree.OnCheckChange := @self.CheckTags;
+
+    // Creating SoftEditor frame
+    aTabSheet := pcSoftware.AddTabSheet;
+    fmEmutecaSoftEditor := TfmEmutecaSoftEditor.Create(aTabSheet);
+    aTabSheet.Caption := fmEmutecaSoftEditor.Caption;  {TODO: Add Caption}
+    fmEmutecaSoftEditor.Parent := aTabSheet;
+    fmEmutecaSoftEditor.Emuteca := Emuteca;
+
   end;
 
 begin
@@ -466,23 +480,21 @@ end;
 procedure TfrmEmutecaMain.actSystemManagerExecute(Sender: TObject);
 var
   aForm: TForm;
-  aFrame: TfmEmutecaSystemManager;
+  aFrame: TfmLEmuTKSysManager;
 begin
   Application.CreateForm(TForm, aForm);
 
-  aform.Width := 800;
-  aForm.Height := 600;
+  aform.Width := 640;
+  aForm.Height := 480;
   aForm.Position := poMainFormCenter;
 
-  aFrame := TfmEmutecaSystemManager.Create(aForm);
-  aForm.Caption := Format(rsFmtWindowCaption,
-    [Application.Title, aFrame.Caption]);
+  aFrame := TfmLEmuTKSysManager.Create(aForm);
+  aForm.Caption := Format(rsFmtWindowCaption, [Application.Title, aFrame.Caption]);
   aFrame.Parent := aForm;
   aFrame.Align := alClient;
 
   aFrame.IconsIni := GUIConfig.GUIIcnFile;
   aFrame.Emuteca := Emuteca;
-
 
   aForm.ShowModal;
   FreeAndNil(aForm);

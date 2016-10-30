@@ -23,7 +23,7 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="8"/>
-      <BuildNr Value="91"/>
+      <BuildNr Value="92"/>
       <StringTable ProductVersion=""/>
     </VersionInfo>
     <BuildModes Count="2">
@@ -119,362 +119,368 @@
         <IsPartOfProject Value="True"/>
       </Unit4>
       <Unit5>
-        <Filename Value="..\EmutecaCore\Classes\ucEmutecaFile.pas"/>
+        <Filename Value="..\EmutecaCore\Classes\ucEmutecaGameTag.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit5>
       <Unit6>
-        <Filename Value="..\EmutecaCore\Classes\ucEmutecaGameTag.pas"/>
+        <Filename Value="..\EmutecaCore\Classes\ucEmutecaTagsManager.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit6>
       <Unit7>
-        <Filename Value="..\EmutecaCore\Classes\ucEmutecaTagsManager.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit7>
-      <Unit8>
         <Filename Value="..\EmutecaCore\Frames\ufEmutecaParentList.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fmEmutecaParentList"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-      </Unit8>
-      <Unit9>
+      </Unit7>
+      <Unit8>
         <Filename Value="..\EmutecaCore\Frames\ufEmutecaSystemPanel.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fmEmutecaSystemPanel"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="resources\Dev Docs\DevNotes.txt"/>
+        <IsPartOfProject Value="True"/>
       </Unit9>
       <Unit10>
-        <Filename Value="resources\Dev Docs\DevNotes.txt"/>
+        <Filename Value="resources\Dev Docs\Tags.txt"/>
         <IsPartOfProject Value="True"/>
       </Unit10>
       <Unit11>
-        <Filename Value="resources\Dev Docs\Tags.txt"/>
+        <Filename Value="resources\Dev Docs\Whislist.txt"/>
         <IsPartOfProject Value="True"/>
       </Unit11>
       <Unit12>
-        <Filename Value="resources\Dev Docs\Whislist.txt"/>
+        <Filename Value="..\EmutecaCore\Classes\ucEmutecaEmulatorManager.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit12>
       <Unit13>
-        <Filename Value="..\EmutecaCore\Classes\ucEmutecaEmulatorManager.pas"/>
+        <Filename Value="..\EmutecaCore\Classes\ucEmutecaParentManager.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit13>
       <Unit14>
-        <Filename Value="..\EmutecaCore\Classes\ucEmutecaParentManager.pas"/>
+        <Filename Value="..\EmutecaCore\Classes\ucEmutecaSystemManager.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit14>
       <Unit15>
-        <Filename Value="..\EmutecaCore\Classes\ucEmutecaSystemManager.pas"/>
+        <Filename Value="..\EmutecaCore\Classes\ucEmutecaEmulator.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit15>
       <Unit16>
-        <Filename Value="..\EmutecaCore\Classes\ucEmutecaEmulator.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit16>
-      <Unit17>
         <Filename Value="..\EmutecaCore\Frames\ufEmutecaSoftList.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fmEmutecaSoftList"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+      </Unit16>
+      <Unit17>
+        <Filename Value="..\EmutecaCore\Classes\ucEmutecaSoftware.pas"/>
+        <IsPartOfProject Value="True"/>
       </Unit17>
       <Unit18>
-        <Filename Value="..\EmutecaCore\Classes\ucEmutecaSoftware.pas"/>
+        <Filename Value="..\EmutecaCore\Classes\ucEmutecaSystem.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit18>
       <Unit19>
-        <Filename Value="..\EmutecaCore\Classes\ucEmutecaSystem.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit19>
-      <Unit20>
         <Filename Value="..\EmutecaCore\Frames\ufEmutecaEmulatorEditor.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fmEmutecaEmulatorEditor"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+      </Unit19>
+      <Unit20>
+        <Filename Value="..\EmutecaCore\Classes\ucEmutecaPlayingStats.pas"/>
+        <IsPartOfProject Value="True"/>
       </Unit20>
       <Unit21>
-        <Filename Value="..\EmutecaCore\Classes\ucEmutecaPlayingStats.pas"/>
+        <Filename Value="..\EmutecaCore\Units\uEmutecaUserInfo.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit21>
       <Unit22>
-        <Filename Value="..\EmutecaCore\Units\uEmutecaUserInfo.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit22>
-      <Unit23>
         <Filename Value="..\EmutecaCore\Frames\ufEmutecaEmulatorManager.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fmEmutecaEmulatorManager"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+      </Unit22>
+      <Unit23>
+        <Filename Value="..\EmutecaCore\Units\uEmutecaCommon.pas"/>
+        <IsPartOfProject Value="True"/>
       </Unit23>
       <Unit24>
-        <Filename Value="..\EmutecaCore\Frames\ufEmutecaSystemManager.pas"/>
+        <Filename Value="..\EmutecaCore\Generics\ugEmutecaManager.pas"/>
         <IsPartOfProject Value="True"/>
-        <ComponentName Value="fmEmutecaSystemManager"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Frame"/>
       </Unit24>
       <Unit25>
-        <Filename Value="..\EmutecaCore\Units\uEmutecaCommon.pas"/>
+        <Filename Value="..\EmutecaCore\Generics\ugEmutecaPersList.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit25>
       <Unit26>
-        <Filename Value="..\EmutecaCore\Generics\ugEmutecaManager.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit26>
-      <Unit27>
-        <Filename Value="..\EmutecaCore\Generics\ugEmutecaPersList.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit27>
-      <Unit28>
         <Filename Value="source\forms\ufEmutecaScriptManager.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmEmutecaScriptManager"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-      </Unit28>
-      <Unit29>
+      </Unit26>
+      <Unit27>
         <Filename Value="..\EmutecaCore\Classes\ucEmutecaSoftManager.pas"/>
         <IsPartOfProject Value="True"/>
-      </Unit29>
-      <Unit30>
-        <Filename Value="..\EmutecaCore\Frames\ufEmutecaSystemEditor.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="fmEmutecaSystemEditor"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Frame"/>
-      </Unit30>
-      <Unit31>
+      </Unit27>
+      <Unit28>
         <Filename Value="..\EmutecaCore\Frames\ufEmutecaActAddSoft.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fmActAddSoft"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-      </Unit31>
-      <Unit32>
+      </Unit28>
+      <Unit29>
         <Filename Value="..\EmutecaCore\Frames\ufEmutecaSoftEditor.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fmEmutecaSoftEditor"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-      </Unit32>
-      <Unit33>
+      </Unit29>
+      <Unit30>
         <Filename Value="source\uGUIConfig.pas"/>
         <IsPartOfProject Value="True"/>
-      </Unit33>
-      <Unit34>
+      </Unit30>
+      <Unit31>
         <Filename Value="..\EmutecaCore\Abstracts\uaEmutecaStorable.pas"/>
         <IsPartOfProject Value="True"/>
-      </Unit34>
-      <Unit35>
+      </Unit31>
+      <Unit32>
         <Filename Value="..\EmutecaCore\Abstracts\uaEmutecaManager.pas"/>
         <IsPartOfProject Value="True"/>
-      </Unit35>
-      <Unit36>
+      </Unit32>
+      <Unit33>
         <Filename Value="..\CHXPas\Forms\ufCHXAbout.pas"/>
         <IsPartOfProject Value="True"/>
         <HasResources Value="True"/>
-      </Unit36>
-      <Unit37>
+      </Unit33>
+      <Unit34>
         <Filename Value="..\CHXPas\Forms\ufCHXProgressBar.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmCHXProgressBar"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-      </Unit37>
-      <Unit38>
+      </Unit34>
+      <Unit35>
         <Filename Value="..\CHXPas\Forms\ScriptManager\ufCHXScriptManager.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmCHXScriptManager"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-      </Unit38>
-      <Unit39>
+      </Unit35>
+      <Unit36>
         <Filename Value="..\CHXPas\Forms\ScriptManager\ufSMAskFile.pas"/>
         <IsPartOfProject Value="True"/>
         <HasResources Value="True"/>
-      </Unit39>
-      <Unit40>
+      </Unit36>
+      <Unit37>
         <Filename Value="..\CHXPas\Forms\ScriptManager\ufSMAskFolder.pas"/>
         <IsPartOfProject Value="True"/>
         <HasResources Value="True"/>
-      </Unit40>
-      <Unit41>
+      </Unit37>
+      <Unit38>
         <Filename Value="..\CHXPas\Frames\ufTagTree.pas"/>
         <IsPartOfProject Value="True"/>
         <HasResources Value="True"/>
+      </Unit38>
+      <Unit39>
+        <Filename Value="..\CHXPas\Misc\uVersionSupport.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit39>
+      <Unit40>
+        <Filename Value="..\CHXPas\u7zWrapper.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit40>
+      <Unit41>
+        <Filename Value="..\CHXPas\uCHXConst.pas"/>
+        <IsPartOfProject Value="True"/>
       </Unit41>
       <Unit42>
-        <Filename Value="..\CHXPas\Misc\uVersionSupport.pas"/>
+        <Filename Value="..\CHXPas\uCHXFileUtils.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit42>
       <Unit43>
-        <Filename Value="..\CHXPas\u7zWrapper.pas"/>
+        <Filename Value="..\CHXPas\uCHXImageUtils.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit43>
       <Unit44>
-        <Filename Value="..\CHXPas\uCHXConst.pas"/>
+        <Filename Value="..\CHXPas\uCHXRscStr.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit44>
       <Unit45>
-        <Filename Value="..\CHXPas\uCHXFileUtils.pas"/>
+        <Filename Value="..\CHXPas\uCHXStrUtils.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit45>
       <Unit46>
-        <Filename Value="..\CHXPas\uCHXImageUtils.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit46>
-      <Unit47>
-        <Filename Value="..\CHXPas\uCHXRscStr.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit47>
-      <Unit48>
-        <Filename Value="..\CHXPas\uCHXStrUtils.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit48>
-      <Unit49>
-        <Filename Value="..\EmutecaCore\Frames\ufEmutecaSystemInfoEditor.pas"/>
+        <Filename Value="..\EmutecaCore\Frames\ufEmutecaSystemImgEditor.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fmSystemInfoEditor"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-      </Unit49>
-      <Unit50>
+      </Unit46>
+      <Unit47>
         <Filename Value="..\EmutecaCore\Frames\ufEmutecaActAddFolder.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fmEmutecaActAddFolder"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-      </Unit50>
-      <Unit51>
-        <Filename Value="..\EmutecaCore\Frames\ufEmutecaSystemEditorExt.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="fmEmutecaSystemEditorExt"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Frame"/>
-      </Unit51>
-      <Unit52>
+      </Unit47>
+      <Unit48>
         <Filename Value="..\CHXPas\Forms\ScriptManager\ucCHXScriptEngine.pas"/>
         <IsPartOfProject Value="True"/>
-      </Unit52>
-      <Unit53>
+      </Unit48>
+      <Unit49>
         <Filename Value="..\CHXPas\Forms\ufCHXImageViewer.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmCHXImageViewer"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+      </Unit49>
+      <Unit50>
+        <Filename Value="..\EmutecaCore\Classes\ucEmutecaScriptEngine.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit50>
+      <Unit51>
+        <Filename Value="..\EmutecaCore\PasScr\uPSI_ucEmutecaEmulator.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit51>
+      <Unit52>
+        <Filename Value="..\EmutecaCore\PasScr\uPSI_ucEmutecaParent.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit52>
+      <Unit53>
+        <Filename Value="..\EmutecaCore\PasScr\uPSI_ucEmutecaSoftware.pas"/>
+        <IsPartOfProject Value="True"/>
       </Unit53>
       <Unit54>
-        <Filename Value="..\EmutecaCore\Classes\ucEmutecaScriptEngine.pas"/>
+        <Filename Value="..\EmutecaCore\PasScr\uPSI_ucEmutecaSystem.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit54>
       <Unit55>
-        <Filename Value="..\EmutecaCore\PasScr\uPSI_ucEmutecaEmulator.pas"/>
+        <Filename Value="..\EmutecaCore\PasScr\uPSI_ucEmutecaEmulatorManager.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit55>
       <Unit56>
-        <Filename Value="..\EmutecaCore\PasScr\uPSI_ucEmutecaParent.pas"/>
+        <Filename Value="..\EmutecaCore\PasScr\uPSI_ucEmutecaParentManager.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit56>
       <Unit57>
-        <Filename Value="..\EmutecaCore\PasScr\uPSI_ucEmutecaSoftware.pas"/>
+        <Filename Value="..\EmutecaCore\PasScr\uPSI_ucEmutecaSoftManager.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit57>
       <Unit58>
-        <Filename Value="..\EmutecaCore\PasScr\uPSI_ucEmutecaSystem.pas"/>
+        <Filename Value="..\EmutecaCore\PasScr\uPSI_ucEmutecaSystemManager.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit58>
       <Unit59>
-        <Filename Value="..\EmutecaCore\PasScr\uPSI_ucEmutecaEmulatorManager.pas"/>
+        <Filename Value="..\CHXPas\Forms\ScriptManager\uPSI_u7zWrapper.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit59>
       <Unit60>
-        <Filename Value="..\EmutecaCore\PasScr\uPSI_ucEmutecaParentManager.pas"/>
+        <Filename Value="..\EmutecaCore\PasScr\uPSI_ucEmuteca.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit60>
       <Unit61>
-        <Filename Value="..\EmutecaCore\PasScr\uPSI_ucEmutecaSoftManager.pas"/>
+        <Filename Value="..\EmutecaCore\PasScr\uPSI_ucEmutecaConfig.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit61>
       <Unit62>
-        <Filename Value="..\EmutecaCore\PasScr\uPSI_ucEmutecaSystemManager.pas"/>
+        <Filename Value="..\EmutecaCore\PasScr\uPSI_uaEmutecaManager.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit62>
       <Unit63>
-        <Filename Value="..\CHXPas\Forms\ScriptManager\uPSI_u7zWrapper.pas"/>
+        <Filename Value="..\EmutecaCore\PasScr\uPSI_uaEmutecaStorable.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit63>
       <Unit64>
-        <Filename Value="..\EmutecaCore\PasScr\uPSI_ucEmuteca.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit64>
-      <Unit65>
-        <Filename Value="..\EmutecaCore\PasScr\uPSI_ucEmutecaConfig.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit65>
-      <Unit66>
-        <Filename Value="..\EmutecaCore\PasScr\uPSI_uaEmutecaManager.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit66>
-      <Unit67>
-        <Filename Value="..\EmutecaCore\PasScr\uPSI_uaEmutecaStorable.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit67>
-      <Unit68>
         <Filename Value="source\forms\ScriptMng\ufESMSoftList.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmESMSoftList"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-      </Unit68>
-      <Unit69>
+      </Unit64>
+      <Unit65>
         <Filename Value="..\EmutecaCore\Frames\ufEmutecaSystemCBX.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fmEmutecaSystemCBX"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-      </Unit69>
-      <Unit70>
+      </Unit65>
+      <Unit66>
         <Filename Value="..\EmutecaCore\PasScr\uPSI_uEmutecaCommon.pas"/>
         <IsPartOfProject Value="True"/>
-      </Unit70>
-      <Unit71>
+      </Unit66>
+      <Unit67>
         <Filename Value="source\forms\ScriptMng\ufESMParentList.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="Form1"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-      </Unit71>
-      <Unit72>
+      </Unit67>
+      <Unit68>
         <Filename Value="source\frames\ufEmutecaChkSoftList.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fmEmutecaChkSoftList"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-      </Unit72>
-      <Unit73>
-        <Filename Value="..\EmutecaCore\Classes\ucEmutecaSystemExtra.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit73>
-      <Unit74>
+      </Unit68>
+      <Unit69>
         <Filename Value="..\EmutecaCore\Frames\ufEmutecaParentCBX.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fmEmutecaParentCBX"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-      </Unit74>
-      <Unit75>
+      </Unit69>
+      <Unit70>
         <Filename Value="source\frames\ufEmutecaIcnSoftList.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fmEmutecaIcnSoftList"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-      </Unit75>
-      <Unit76>
+      </Unit70>
+      <Unit71>
         <Filename Value="..\CHXPas\Classes\ucCHXImageList.pas"/>
         <IsPartOfProject Value="True"/>
+      </Unit71>
+      <Unit72>
+        <Filename Value="..\CHXPas\Frames\ufCHXPropEditor.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fmCHXPropEditor"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+      </Unit72>
+      <Unit73>
+        <Filename Value="..\EmutecaCore\Frames\ufEmutecaSystemEditor.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fmEmutecaSystemEditor"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+      </Unit73>
+      <Unit74>
+        <Filename Value="source\frames\ufLEmuTKFullSystemEditor.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fmLEmuTKFullSystemEditor"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+      </Unit74>
+      <Unit75>
+        <Filename Value="..\CHXPas\Frames\ufCHXChkLstPropEditor.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fmCHXChkLstPropEditor"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+      </Unit75>
+      <Unit76>
+        <Filename Value="source\frames\ufLEmuTKSysManager.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fmLEmuTKSysManager"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
       </Unit76>
     </Units>
   </ProjectOptions>

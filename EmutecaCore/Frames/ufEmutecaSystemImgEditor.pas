@@ -1,4 +1,4 @@
-unit ufEmutecaSystemInfoEditor;
+unit ufEmutecaSystemImgEditor;
 
 {$mode objfpc}{$H+}
 

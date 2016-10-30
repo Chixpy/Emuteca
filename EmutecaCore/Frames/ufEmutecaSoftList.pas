@@ -198,10 +198,10 @@ begin
 
   case Column of
     1: // Title
-      HintText := pData^.TranslitTitle + sLineBreak + pData^.SortTitle;
+      HintText := pData^.Title + sLineBreak + pData^.TranslitTitle + sLineBreak + pData^.SortTitle;
     5: // Flags
     begin
-      HintText := EmutecaDumpStatusStrs[pData^.DumpStatus] + sLineBreak;
+      HintText := EmutecaDumpStatusStrs[pData^.DumpStatus];
 
       if pData^.Fixed <> '' then
         HintText += sLineBreak + 'Fixed: ' + pData^.Fixed;

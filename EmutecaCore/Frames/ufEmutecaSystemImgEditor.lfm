@@ -3,6 +3,8 @@ object fmSystemInfoEditor: TfmSystemInfoEditor
   Height = 400
   Top = 0
   Width = 600
+  Align = alTop
+  AutoSize = True
   ClientHeight = 400
   ClientWidth = 600
   TabOrder = 0

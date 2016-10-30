@@ -3,6 +3,8 @@ object fmEmutecaSoftEditor: TfmEmutecaSoftEditor
   Height = 588
   Top = 0
   Width = 300
+  Align = alTop
+  AutoSize = True
   ClientHeight = 588
   ClientWidth = 300
   TabOrder = 0

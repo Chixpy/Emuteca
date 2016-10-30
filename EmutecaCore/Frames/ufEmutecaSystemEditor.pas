@@ -5,12 +5,12 @@ unit ufEmutecaSystemEditor;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, LazFileUtils, Forms, Controls, StdCtrls,
-  ExtCtrls, EditBtn,
-  CheckLst, ActnList, Buttons,
+  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
+  Buttons, StdCtrls, CheckLst, EditBtn, LazFileUtils,
+  uCHXStrUtils,
+  ufCHXPropEditor,
   ucEmutecaConfig, ucEmutecaSystem, ucEmutecaEmulator,
-  ucEmutecaEmulatorManager,
-  uCHXStrUtils;
+  ucEmutecaEmulatorManager;
 
 resourcestring
   rsSelectEmulator = 'Select a System';
@@ -19,69 +19,51 @@ type
 
   { TfmEmutecaSystemEditor }
 
-  TfmEmutecaSystemEditor = class(TFrame)
-    actCancel: TAction;
-    actSave: TAction;
-    ActionList1: TActionList;
-    bCancel: TBitBtn;
+  TfmEmutecaSystemEditor = class(TfmCHXPropEditor)
     bCreateSubdirs: TButton;
-    bSave: TBitBtn;
     cbxMainEmulator: TComboBox;
     chkExtractAllFiles: TCheckBox;
     clbOtherEmulators: TCheckListBox;
     eBaseFolder: TDirectoryEdit;
-    eTitle: TEdit;
     eExtraInfoFilename: TEdit;
     eTempFolder: TDirectoryEdit;
+    eTitle: TEdit;
     gbxBasicInfo: TGroupBox;
     gbxEmulators: TGroupBox;
     gbxFiles: TGroupBox;
-    ITitleMain: TLabel;
     lBaseFolder: TLabel;
-    lTitle: TLabel;
     lFileExtensions: TLabel;
+    lFileName: TLabel;
     lMainEmulator: TLabel;
-    lExtraFilename: TLabel;
     lOtherEmulators: TLabel;
     lTempFolder: TLabel;
+    lTitle: TLabel;
     mExtensions: TMemo;
-    Panel1: TPanel;
     Panel2: TPanel;
     rgbGameKey: TRadioGroup;
-    procedure actCancelExecute(Sender: TObject);
-    procedure actSaveExecute(Sender: TObject);
+    Splitter1: TSplitter;
     procedure bCreateSubdirsClick(Sender: TObject);
     procedure eFolderButtonClick(Sender: TObject);
   private
     FConfig: cEmutecaConfig;
-    FSaveButtons: boolean;
-    FSystem: cEmutecaSystem;
     FEmuManager: cEmutecaEmulatorManager;
+    FSystem: cEmutecaSystem;
     procedure SetConfig(AValue: cEmutecaConfig);
-    procedure SetSaveButtons(AValue: boolean);
-    procedure SetSystem(AValue: cEmutecaSystem);
     procedure SetEmuManager(AValue: cEmutecaEmulatorManager);
+    procedure SetSystem(AValue: cEmutecaSystem);
 
-  protected
     procedure UpdateLists;
     procedure ClearData;
 
   public
-    { public declarations }
-
-    property SaveButtons: boolean read FSaveButtons write SetSaveButtons;
-
-
     property System: cEmutecaSystem read FSystem write SetSystem;
 
     property EmuManager: cEmutecaEmulatorManager
       read FEmuManager write SetEmuManager;
     property Config: cEmutecaConfig read FConfig write SetConfig;
 
-    procedure SaveData;
-    {< Save current system data. }
-    procedure UpdateData;
-    {< Update field with system data or reload system. Used for cancel button. }
+    procedure SaveData; override;
+    procedure LoadData; override;
   end;
 
 implementation
@@ -89,6 +71,7 @@ implementation
 {$R *.lfm}
 
 { TfmEmutecaSystemEditor }
+
 procedure TfmEmutecaSystemEditor.bCreateSubdirsClick(Sender: TObject);
 var
   FolderList, aLine: TStringList;
@@ -134,36 +117,11 @@ begin
     aEFN.Directory := TrimFilename(ProgramDirectory + aEFN.Directory);
 end;
 
-procedure TfmEmutecaSystemEditor.actCancelExecute(Sender: TObject);
-begin
-  UpdateData;
-end;
-
-procedure TfmEmutecaSystemEditor.actSaveExecute(Sender: TObject);
-begin
-  SaveData;
-end;
-
-procedure TfmEmutecaSystemEditor.SetSystem(AValue: cEmutecaSystem);
-begin
-  if FSystem = AValue then
-    Exit;
-  FSystem := AValue;
-  UpdateData;
-end;
-
 procedure TfmEmutecaSystemEditor.SetConfig(AValue: cEmutecaConfig);
 begin
   if FConfig = AValue then
     Exit;
   FConfig := AValue;
-end;
-
-procedure TfmEmutecaSystemEditor.SetSaveButtons(AValue: boolean);
-begin
-  FSaveButtons := AValue;
-  Panel1.Visible := SaveButtons;
-  Panel1.Enabled := SaveButtons;
 end;
 
 procedure TfmEmutecaSystemEditor.SetEmuManager(AValue:
@@ -175,6 +133,39 @@ begin
   UpdateLists;
 end;
 
+procedure TfmEmutecaSystemEditor.SetSystem(AValue: cEmutecaSystem);
+begin
+  if FSystem = AValue then
+    Exit;
+  FSystem := AValue;
+  LoadData;
+end;
+
+procedure TfmEmutecaSystemEditor.UpdateLists;
+begin
+  clbOtherEmulators.Clear;
+  cbxMainEmulator.Clear;
+
+  if not assigned(EmuManager) then
+    exit;
+
+  EmuManager.AssingEnabledTo(clbOtherEmulators.Items);
+  cbxMainEmulator.Items.Assign(clbOtherEmulators.Items);
+end;
+
+procedure TfmEmutecaSystemEditor.ClearData;
+begin
+  eExtraInfoFilename.Clear;
+  eTitle.Clear;
+  cbxMainEmulator.ItemIndex := -1;
+  clbOtherEmulators.CheckAll(cbUnchecked);
+  eBaseFolder.Clear;
+  eTempFolder.Clear;
+  rgbGameKey.ItemIndex := 0;
+  chkExtractAllFiles.Checked := False;
+  mExtensions.Clear;
+end;
+
 procedure TfmEmutecaSystemEditor.SaveData;
 var
   i, j: integer;
@@ -183,8 +174,9 @@ begin
   System.Title := eTitle.Text;
 
   if cbxMainEmulator.ItemIndex <> -1 then
-    System.MainEmulator := cEmutecaEmulator(
-      cbxMainEmulator.Items.Objects[cbxMainEmulator.ItemIndex]).ID;
+    System.MainEmulator :=
+      cEmutecaEmulator(cbxMainEmulator.Items.Objects[
+      cbxMainEmulator.ItemIndex]).ID;
 
   // Adding/Removing other emulators,
   // but keeping not listed ones...
@@ -219,7 +211,7 @@ begin
   System.Extensions.Assign(mExtensions.Lines);
 end;
 
-procedure TfmEmutecaSystemEditor.UpdateData;
+procedure TfmEmutecaSystemEditor.LoadData;
 var
   aEmulator: cEmutecaEmulator;
   i: integer;
@@ -228,8 +220,6 @@ begin
 
   if not (assigned(System) and assigned(EmuManager)) then
     Exit;
-
-  ITitleMain.Caption := System.Title;
 
   eTitle.Text := System.Title;
   eExtraInfoFilename.Text := System.FileName;
@@ -262,32 +252,6 @@ begin
   chkExtractAllFiles.Checked := System.ExtractAll;
 
   mExtensions.Lines.Assign(System.Extensions);
-
-end;
-
-procedure TfmEmutecaSystemEditor.ClearData;
-begin
-  eExtraInfoFilename.Clear;
-  eTitle.Clear;
-  cbxMainEmulator.ItemIndex := -1;
-  clbOtherEmulators.CheckAll(cbUnchecked);
-  eBaseFolder.Clear;
-  eTempFolder.Clear;
-  rgbGameKey.ItemIndex := 0;
-  chkExtractAllFiles.Checked := False;
-  mExtensions.Clear;
-end;
-
-procedure TfmEmutecaSystemEditor.UpdateLists;
-begin
-  clbOtherEmulators.Clear;
-  cbxMainEmulator.Clear;
-
-  if not assigned(EmuManager) then
-    exit;
-
-  EmuManager.AssingEnabledTo(clbOtherEmulators.Items);
-  cbxMainEmulator.Items.Assign(clbOtherEmulators.Items);
 end;
 
 end.

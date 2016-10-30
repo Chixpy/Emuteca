@@ -1,0 +1,27 @@
+inherited fmLEmuTKFullSystemEditor: TfmLEmuTKFullSystemEditor
+  Height = 411
+  Width = 481
+  ClientHeight = 411
+  ClientWidth = 481
+  DesignLeft = 393
+  DesignTop = 148
+  inherited pButtons: TPanel
+    Top = 384
+    Width = 481
+    ClientWidth = 481
+    inherited bSave: TBitBtn
+      Left = 110
+    end
+    inherited bCancel: TBitBtn
+      Left = 290
+    end
+  end
+  object pcProperties: TPageControl[1]
+    Left = 0
+    Height = 384
+    Top = 0
+    Width = 481
+    Align = alClient
+    TabOrder = 1
+  end
+end

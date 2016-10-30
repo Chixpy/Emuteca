@@ -1,18 +1,16 @@
 {"version":1,"strings":[
+{"hash":256937055,"name":"tfmemutecasystemeditor.gbxbasicinfo.caption","sourcebytes":[66,97,115,105,99,32,73,110,102,111],"value":"Basic Info"},
+{"hash":5966629,"name":"tfmemutecasystemeditor.ltitle.caption","sourcebytes":[84,105,116,108,101],"value":"Title"},
+{"hash":20460204,"name":"tfmemutecasystemeditor.etitle.texthint","sourcebytes":[67,111,109,112,97,110,121,32,77,111,100,101,108],"value":"Company Model"},
+{"hash":149785397,"name":"tfmemutecasystemeditor.lfilename.caption","sourcebytes":[68,101,102,97,117,108,116,32,102,105,108,101,110,97,109,101],"value":"Default filename"},
+{"hash":204012243,"name":"tfmemutecasystemeditor.gbxemulators.caption","sourcebytes":[69,109,117,108,97,116,111,114,115],"value":"Emulators"},
+{"hash":121802642,"name":"tfmemutecasystemeditor.lmainemulator.caption","sourcebytes":[77,97,105,110,32,69,109,117,108,97,116,111,114],"value":"Main Emulator"},
+{"hash":116181107,"name":"tfmemutecasystemeditor.lotheremulators.caption","sourcebytes":[79,116,104,101,114,32,69,109,117,108,97,116,111,114,115],"value":"Other Emulators"},
 {"hash":5046979,"name":"tfmemutecasystemeditor.gbxfiles.caption","sourcebytes":[70,105,108,101,115],"value":"Files"},
 {"hash":204343554,"name":"tfmemutecasystemeditor.lbasefolder.caption","sourcebytes":[83,121,115,116,101,109,32,98,97,115,101,32,102,111,108,100,101,114],"value":"System base folder"},
 {"hash":170756339,"name":"tfmemutecasystemeditor.lfileextensions.caption","sourcebytes":[70,105,108,101,32,69,120,116,101,110,115,105,111,110,115],"value":"File Extensions"},
 {"hash":92679923,"name":"tfmemutecasystemeditor.rgbgamekey.caption","sourcebytes":[75,101,121,32,102,111,114,32,71,97,109,101,115],"value":"Key for Games"},
 {"hash":71577321,"name":"tfmemutecasystemeditor.chkextractallfiles.caption","sourcebytes":[69,120,116,114,97,99,116,32,65,108,108,32,70,105,108,101,115,32,40,73,102,32,105,116,39,115,32,105,110,32,99,111,109,112,114,101,115,115,101,100,41],"value":"Extract All Files (If it's in compressed)"},
 {"hash":78704354,"name":"tfmemutecasystemeditor.ltempfolder.caption","sourcebytes":[84,101,109,112,32,70,111,108,100,101,114],"value":"Temp Folder"},
-{"hash":205020805,"name":"tfmemutecasystemeditor.bcreatesubdirs.caption","sourcebytes":[67,114,101,97,116,101,32,100,101,102,97,117,108,116,32,102,111,108,100,101,114,32,115,116,114,117,99,116,117,114,101],"value":"Create default folder structure"},
-{"hash":183214485,"name":"tfmemutecasystemeditor.ititlemain.caption","sourcebytes":[83,121,115,116,101,109,32,84,105,116,108,101],"value":"System Title"},
-{"hash":256937055,"name":"tfmemutecasystemeditor.gbxbasicinfo.caption","sourcebytes":[66,97,115,105,99,32,73,110,102,111],"value":"Basic Info"},
-{"hash":5966629,"name":"tfmemutecasystemeditor.ltitle.caption","sourcebytes":[84,105,116,108,101],"value":"Title"},
-{"hash":211079669,"name":"tfmemutecasystemeditor.lextrafilename.caption","sourcebytes":[69,120,116,114,97,32,73,110,102,111,32,70,105,108,101,110,97,109,101],"value":"Extra Info Filename"},
-{"hash":204012243,"name":"tfmemutecasystemeditor.gbxemulators.caption","sourcebytes":[69,109,117,108,97,116,111,114,115],"value":"Emulators"},
-{"hash":121802642,"name":"tfmemutecasystemeditor.lmainemulator.caption","sourcebytes":[77,97,105,110,32,69,109,117,108,97,116,111,114],"value":"Main Emulator"},
-{"hash":116181107,"name":"tfmemutecasystemeditor.lotheremulators.caption","sourcebytes":[79,116,104,101,114,32,69,109,117,108,97,116,111,114,115],"value":"Other Emulators"},
-{"hash":77089212,"name":"tfmemutecasystemeditor.actcancel.caption","sourcebytes":[67,97,110,99,101,108],"value":"Cancel"},
-{"hash":101263053,"name":"tfmemutecasystemeditor.actsave.caption","sourcebytes":[83,97,118,101,32,83,121,115,116,101,109],"value":"Save System"}
+{"hash":205020805,"name":"tfmemutecasystemeditor.bcreatesubdirs.caption","sourcebytes":[67,114,101,97,116,101,32,100,101,102,97,117,108,116,32,102,111,108,100,101,114,32,115,116,114,117,99,116,117,114,101],"value":"Create default folder structure"}
 ]}

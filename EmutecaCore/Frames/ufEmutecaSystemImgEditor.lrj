@@ -1,0 +1,5 @@
+{"version":1,"strings":[
+{"hash":218304595,"name":"tfmsysteminfoeditor.gbximages.caption","sourcebytes":[103,98,120,73,109,97,103,101,115],"value":"gbxImages"},
+{"hash":184589669,"name":"tfmsysteminfoeditor.lsystemimage.caption","sourcebytes":[83,121,115,116,101,109,32,73,109,97,103,101],"value":"System Image"},
+{"hash":196080894,"name":"tfmsysteminfoeditor.lsystemicon.caption","sourcebytes":[83,121,115,116,101,109,32,73,99,111,110],"value":"System Icon"}
+]}
