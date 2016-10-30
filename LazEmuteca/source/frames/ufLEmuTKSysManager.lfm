@@ -6,6 +6,7 @@ inherited fmLEmuTKSysManager: TfmLEmuTKSysManager
     top = 256
   end
   object OpenDialog1: TOpenDialog[7]
+    Options = [ofNoChangeDir, ofEnableSizing, ofViewDetail]
     left = 96
     top = 256
   end
