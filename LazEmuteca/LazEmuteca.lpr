@@ -12,7 +12,7 @@ uses
   ucEmutecaEmulatorManager, ucEmutecaParentManager,
   ucEmutecaSystemManager, ucEmutecaEmulator, ufEmutecaSoftList,
   ucEmutecaSoftware, ucEmutecaSystem, ufEmutecaEmulatorEditor,
-  ufEmutecaEmulatorManager, ugEmutecaManager,
+  ugEmutecaManager,
   ugEmutecaPersList, ufEmutecaScriptManager, ucEmutecaSoftManager,
 ufEmutecaActAddSoft, ufEmutecaSoftEditor, uGUIConfig,
   uaEmutecaStorable, uaEmutecaManager, ufEmutecaSystemImgEditor,
@@ -20,7 +20,7 @@ ufEmutecaActAddSoft, ufEmutecaSoftEditor, uGUIConfig,
   ufESMSoftList, ufEmutecaSystemCBX, ufESMParentList, ufEmutecaChkSoftList,
   ufEmutecaParentCBX, ufEmutecaIcnSoftList, ufCHXPropEditor, 
 ufEmutecaSystemEditor, ufLEmuTKFullSystemEditor, ufCHXChkLstPropEditor, 
-ufLEmuTKSysManager;
+ufLEmuTKSysManager, ufLEmuTKEmuManager;
 
 {$R *.res}
 

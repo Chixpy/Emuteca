@@ -1,0 +1,14 @@
+inherited fmLEmuTKEmuManager: TfmLEmuTKEmuManager
+  object OpenDialog1: TOpenDialog[6]
+    Filter = 'Emulators ini file|*.ini|All files|*.*'
+    Options = [ofNoChangeDir, ofEnableSizing, ofViewDetail]
+    left = 96
+    top = 256
+  end
+  object SaveDialog1: TSaveDialog[7]
+    Filter = 'Emulators ini file|*.ini|All files|*.*'
+    Options = [ofNoChangeDir, ofEnableSizing, ofViewDetail]
+    left = 24
+    top = 256
+  end
+end

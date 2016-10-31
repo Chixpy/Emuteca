@@ -24,12 +24,12 @@ uses
   // Emuteca forms
   ufEmutecaScriptManager,
   // Emuteca frames
-  ufEmutecaParentList, ufEmutecaIcnSoftList, ufEmutecaEmulatorManager,
+  ufEmutecaParentList, ufEmutecaIcnSoftList,
   ufEmutecaSystemCBX, ufEmutecaSoftEditor,
   // Emuteca windows
   ufEmutecaActAddSoft, ufEmutecaActAddFolder,
   // LazEmuteca frames
-  ufLEmuTKSysManager,
+  ufLEmuTKSysManager, ufLEmuTKEmuManager,
   uGUIConfig;
 
 type
@@ -319,7 +319,6 @@ procedure TfrmEmutecaMain.FormCreate(Sender: TObject);
     aTabSheet.Caption := fmEmutecaSoftEditor.Caption;  {TODO: Add Caption}
     fmEmutecaSoftEditor.Parent := aTabSheet;
     fmEmutecaSoftEditor.Emuteca := Emuteca;
-
   end;
 
 begin
@@ -370,17 +369,17 @@ end;
 procedure TfrmEmutecaMain.actEmulatorManagerExecute(Sender: TObject);
 var
   aForm: TForm;
-  aFrame: TfmEmutecaEmulatorManager;
+  aFrame: TfmLEmuTKEmuManager;
 begin
   Application.CreateForm(TForm, aForm);
 
-  aform.Width := 800;
-  aForm.Height := 600;
+  // TODO: Save in GUI.ini
+  aform.Width := 640;
+  aForm.Height := 480;
   aForm.Position := poMainFormCenter;
 
-  aFrame := TfmEmutecaEmulatorManager.Create(aForm);
-  aForm.Caption := Format(rsFmtWindowCaption,
-    [Application.Title, aFrame.Caption]);
+  aFrame := TfmLEmuTKEmuManager.Create(aForm);
+  aForm.Caption := Format(rsFmtWindowCaption, [Application.Title, aFrame.Caption]);
   aFrame.Parent := aForm;
   aFrame.Align := alClient;
 
@@ -484,6 +483,7 @@ var
 begin
   Application.CreateForm(TForm, aForm);
 
+  // TODO: Save in GUI.ini
   aform.Width := 640;
   aForm.Height := 480;
   aForm.Position := poMainFormCenter;

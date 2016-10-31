@@ -32,19 +32,19 @@ type
     property SysEditor: TfmLEmuTKFullSystemEditor
       read FSysEditor write SetSysEditor;
 
-  public
-    property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
-
     procedure AddItemToList; override;
     procedure DeleteItemFromList; override;
     procedure ExportList; override;
     procedure ImportList; override;
-    procedure LoadList; override;
-    procedure SaveList; override;
-    procedure OnListCheckAll; override;
-    procedure OnListUncheckAll; override;
-    procedure OnListClick; override;
-    procedure OnListClickCheck; override;
+    procedure OnListClick(aObject: TObject); override;
+    procedure OnListClickCheck(aObject: TObject; aBool: Boolean); override;
+    procedure SetCheckedAll(aBool: Boolean); override;
+
+  public
+    property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
+
+    procedure LoadData; override;
+    procedure SaveData; override;
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -66,44 +66,49 @@ begin
     SysEditor.Emuteca := Emuteca;
 end;
 
+procedure TfmLEmuTKSysManager.SetCheckedAll(aBool: Boolean);
+var
+  i: integer;
+  aSystem: cEmutecaSystem;
+begin
+  if not assigned(Emuteca) then
+    Exit;
+
+  i := 0;
+  while i < Emuteca.SystemManager.FullList.Count do
+  begin
+    aSystem := cEmutecaSystem(Emuteca.SystemManager.FullList[i]);
+    aSystem.Enabled := aBool;
+    Inc(i);
+  end;
+end;
+
 procedure TfmLEmuTKSysManager.SetEmuteca(AValue: cEmuteca);
 begin
   if FEmuteca = AValue then
     Exit;
   FEmuteca := AValue;
 
-  LoadList;
+  LoadData;
 
   if Assigned(SysEditor) then
     SysEditor.Emuteca := Emuteca;
 end;
 
-procedure TfmLEmuTKSysManager.OnListClick;
+procedure TfmLEmuTKSysManager.OnListClick(aObject: TObject);
 begin
-  if not assigned(SysEditor) then
-    Exit;
-
-  if clbPropItems.ItemIndex = -1 then
-    SysEditor.System := nil
-  else
-    SysEditor.System := cEmutecaSystem(
-      clbPropItems.Items.Objects[clbPropItems.ItemIndex]);
+  SysEditor.System := cEmutecaSystem(aObject);
 end;
 
-procedure TfmLEmuTKSysManager.OnListClickCheck;
+procedure TfmLEmuTKSysManager.OnListClickCheck(aObject: TObject; aBool: Boolean);
 var
   CurrItem: cEmutecaSystem;
 begin
-  CurrItem := nil;
-
-  if clbPropItems.ItemIndex > -1 then
-    CurrItem := cEmutecaSystem(
-      clbPropItems.Items.Objects[clbPropItems.ItemIndex]);
-
-  if not assigned(CurrItem) then
+  if not assigned(aObject) then
     Exit;
 
-  CurrItem.Enabled := clbPropItems.Checked[clbPropItems.ItemIndex];
+  CurrItem := cEmutecaSystem(aObject);
+  CurrItem.Enabled := aBool;
 end;
 
 procedure TfmLEmuTKSysManager.AddItemToList;
@@ -124,14 +129,9 @@ begin
   aSystem.Enabled := True;
   Emuteca.SystemManager.FullList.Add(aSystem);
 
-  LoadList;
+  LoadData;
 
-  // TODO Autoselecting last item.
-  {ñññ
-  CheckListBox1.ItemIndex := CheckListBox1.Items.IndexOf(SystemID);
-  CheckListBox1.Checked[CheckListBox1.ItemIndex] := aSystem.Enabled;
-  SelectItem;
-  }
+  SysEditor.System := aSystem;
 end;
 
 procedure TfmLEmuTKSysManager.DeleteItemFromList;
@@ -142,9 +142,13 @@ begin
     exit;
 
   SysEditor.System := nil;
+  try
   Emuteca.SystemManager.FullList.Remove(
     cEmutecaSystem(clbPropItems.Items.Objects[clbPropItems.ItemIndex]));
-  LoadList;
+
+  finally
+  LoadData;
+  end;
 end;
 
 procedure TfmLEmuTKSysManager.ExportList;
@@ -169,7 +173,7 @@ begin
   Emuteca.SystemManager.LoadFromFile(OpenDialog1.FileName);
 end;
 
-procedure TfmLEmuTKSysManager.LoadList;
+procedure TfmLEmuTKSysManager.LoadData;
 var
   i: integer;
 begin
@@ -190,43 +194,7 @@ begin
   end;
 end;
 
-procedure TfmLEmuTKSysManager.OnListCheckAll;
-var
-  i: integer;
-  aSystem: cEmutecaSystem;
-begin
-  if not assigned(Emuteca) then
-    Exit;
-
-  i := 0;
-  while i < Emuteca.SystemManager.FullList.Count do
-  begin
-    aSystem := cEmutecaSystem(Emuteca.SystemManager.FullList[i]);
-    aSystem.Enabled := True;
-    Inc(i);
-  end;
-  LoadList;
-end;
-
-procedure TfmLEmuTKSysManager.OnListUncheckAll;
-var
-  i: integer;
-  aSystem: cEmutecaSystem;
-begin
-  if not assigned(Emuteca) then
-    Exit;
-
-  i := 0;
-  while i < Emuteca.SystemManager.FullList.Count do
-  begin
-    aSystem := cEmutecaSystem(Emuteca.SystemManager.FullList[i]);
-    aSystem.Enabled := False;
-    Inc(i);
-  end;
-  LoadList;
-end;
-
-procedure TfmLEmuTKSysManager.SaveList;
+procedure TfmLEmuTKSysManager.SaveData;
 begin
   if not assigned(Emuteca) then
     Exit;
