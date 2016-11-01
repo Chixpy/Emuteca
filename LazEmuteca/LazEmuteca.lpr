@@ -14,13 +14,13 @@ uses
   ucEmutecaSoftware, ucEmutecaSystem, ufEmutecaEmulatorEditor,
   ugEmutecaManager,
   ugEmutecaPersList, ufEmutecaScriptManager, ucEmutecaSoftManager,
-ufEmutecaActAddSoft, ufEmutecaSoftEditor, uGUIConfig,
+ufEmutecaActAddSoft, uGUIConfig,
   uaCHXStorable, uaEmutecaManager, ufEmutecaSystemImgEditor,
   ufEmutecaActAddFolder, ucEmutecaScriptEngine,
   ufESMSoftList, ufEmutecaSystemCBX, ufESMParentList, ufEmutecaChkSoftList,
   ufEmutecaParentCBX, ufEmutecaIcnSoftList, ufCHXPropEditor, 
 ufEmutecaSystemEditor, ufLEmuTKFullSystemEditor, ufCHXChkLstPropEditor, 
-ufLEmuTKSysManager, ufLEmuTKEmuManager;
+ufLEmuTKSysManager, ufLEmuTKEmuManager, ufEmutecaSoftEditor;
 
 {$R *.res}
 

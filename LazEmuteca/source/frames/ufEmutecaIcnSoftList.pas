@@ -192,7 +192,8 @@ begin
   inherited Create(TheOwner);
 
   // Set Width of tags column
-  vst.Header.Columns[5].Width := vst.Header.DefaultHeight * 13;
+  vst.Header.Columns[5].Width := vst.DefaultNodeHeight * 8 +
+    vst.Header.Columns[5].Spacing * 2;
 end;
 
 destructor TfmEmutecaIcnSoftList.Destroy;

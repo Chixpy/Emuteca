@@ -43,7 +43,6 @@ implementation
 
 uses
    uEmutecaCommon
-  ,uaEmutecaStorable
   ,uaEmutecaManager
   ;
  

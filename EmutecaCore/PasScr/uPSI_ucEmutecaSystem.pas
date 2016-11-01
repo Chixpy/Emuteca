@@ -47,7 +47,6 @@ uses
   ,fgl
   ,uCHXStrUtils
   ,uEmutecaCommon
-  ,uaEmutecaStorable
   ,ucEmutecaSystem
   ;
  

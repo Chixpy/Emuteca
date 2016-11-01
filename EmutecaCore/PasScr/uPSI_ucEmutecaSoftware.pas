@@ -42,7 +42,6 @@ implementation
 uses
    fgl
   ,LazFileUtils
-  ,uaEmutecaStorable
   ,uCHXStrUtils
   ,ucEmutecaSoftware
   ;

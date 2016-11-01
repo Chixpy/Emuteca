@@ -16,6 +16,7 @@ Cracked.png (Temporary)
 Fixed.png (Temporary)
 Hack.png (Temporary)
 Pirate.png
+Trained.png (Temporary)
   CC-BY-SA / GNU-FDL by WarX and Manuel Strehl Wikipedia users
   http://en.wikipedia.org/wiki/File:Flag_of_Edward_England.svg
   Resized to 32px width

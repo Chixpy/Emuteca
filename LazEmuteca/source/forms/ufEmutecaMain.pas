@@ -317,8 +317,10 @@ procedure TfrmEmutecaMain.FormCreate(Sender: TObject);
     aTabSheet := pcSoftware.AddTabSheet;
     fmEmutecaSoftEditor := TfmEmutecaSoftEditor.Create(aTabSheet);
     aTabSheet.Caption := fmEmutecaSoftEditor.Caption;  {TODO: Add Caption}
+    fmEmutecaSoftEditor.Align := alClient;
     fmEmutecaSoftEditor.Parent := aTabSheet;
     fmEmutecaSoftEditor.Emuteca := Emuteca;
+    fmEmutecaSoftEditor.SaveButtons := True;
   end;
 
 begin

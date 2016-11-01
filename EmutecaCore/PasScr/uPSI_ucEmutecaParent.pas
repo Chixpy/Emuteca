@@ -43,7 +43,6 @@ uses
    fgl
   ,LazFileUtils
   ,uCHXStrUtils
-  ,uaEmutecaStorable
   ,ucEmutecaParent
   ;
  

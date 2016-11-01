@@ -85,7 +85,7 @@ begin
   Software.Title := Software.ParentKey;
   Software.Version :=
     CopyFromBrackets(ExtractFileNameOnly(Software.FileName));
-  SoftEditor.UpdateData;
+  SoftEditor.LoadData;
 
   chkOpenAsArchive.Checked := False;
   cbxInnerFile.Clear;
@@ -138,7 +138,7 @@ begin
     cbxInnerFile.Text));
   Software.Version :=
     CopyFromBrackets(ExtractFileNameOnly(cbxInnerFile.Text));
-  SoftEditor.UpdateData;
+  SoftEditor.LoadData;
   UpdateVersionKey;
 end;
 
@@ -298,7 +298,7 @@ begin
   ExtFilter := ExtFilter + '|All files|' + AllFilesMask;
   eFile.Filter := ExtFilter;
 
-  SoftEditor.UpdateData;
+  SoftEditor.LoadData;
 
   Result := True;
 end;

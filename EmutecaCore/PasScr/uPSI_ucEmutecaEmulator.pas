@@ -47,7 +47,6 @@ uses
   ,LazFileUtils
   ,IniFiles
   ,uCHXStrUtils
-  ,uaEmutecaStorable
   ,ucEmutecaEmulator
   ;
  
