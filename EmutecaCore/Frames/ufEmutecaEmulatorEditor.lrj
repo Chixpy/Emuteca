@@ -1,0 +1,10 @@
+{"version":1,"strings":[
+{"hash":346165,"name":"tfmemutecaemulatoreditor.lname.caption","sourcebytes":[78,97,109,101],"value":"Name"},
+{"hash":242707560,"name":"tfmemutecaemulatoreditor.lexepath.caption","sourcebytes":[69,120,101,32,112,97,116,104],"value":"Exe path"},
+{"hash":6826930,"name":"tfmemutecaemulatoreditor.lworkingfolder.caption","sourcebytes":[87,111,114,107,105,110,103,32,102,111,108,100,101,114],"value":"Working folder"},
+{"hash":138003475,"name":"tfmemutecaemulatoreditor.lparameters.caption","sourcebytes":[80,97,114,97,109,101,116,101,114,115],"value":"Parameters"},
+{"hash":207440883,"name":"tfmemutecaemulatoreditor.lextensions.caption","sourcebytes":[69,120,116,101,110,115,105,111,110,115],"value":"Extensions"},
+{"hash":6744405,"name":"tfmemutecaemulatoreditor.lexitcode.caption","sourcebytes":[69,120,105,116,32,99,111,100,101],"value":"Exit code"},
+{"hash":184471746,"name":"tfmemutecaemulatoreditor.actwfemulator.caption","sourcebytes":[69,109,117,108,97,116,111,114,32,102,111,108,100,101,114],"value":"Emulator folder"},
+{"hash":114383154,"name":"tfmemutecaemulatoreditor.actwfrom.caption","sourcebytes":[82,79,77,32,102,111,108,100,101,114],"value":"ROM folder"}
+]}

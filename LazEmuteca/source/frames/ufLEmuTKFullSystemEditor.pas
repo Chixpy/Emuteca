@@ -27,15 +27,17 @@ type
     { private declarations }
 
   protected
+    procedure ClearData; override;
     property SysEditor: TfmEmutecaSystemEditor read FSysEditor;
     property SysInfoEditor: TfmSystemInfoEditor read FSysInfoEditor;
 
   public
+    { public declarations }
+    property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
+    property System: cEmutecaSystem read FSystem write SetSystem;
+
     procedure SaveData; override;
     procedure LoadData; override;
-    { public declarations }
-        property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
-    property System: cEmutecaSystem read FSystem write SetSystem;
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -68,18 +70,26 @@ end;
 
 procedure TfmLEmuTKFullSystemEditor.SetSystem(AValue: cEmutecaSystem);
 begin
-  if FSystem = AValue then Exit;
+  if FSystem = AValue then
+    Exit;
   FSystem := AValue;
   SysEditor.System := Self.System;
 end;
 
+procedure TfmLEmuTKFullSystemEditor.ClearData;
+begin
+
+end;
+
 procedure TfmLEmuTKFullSystemEditor.SaveData;
 begin
-    SysEditor.SaveData;
+  SysEditor.SaveData;
 end;
 
 procedure TfmLEmuTKFullSystemEditor.LoadData;
 begin
+  ClearData;
+
   SysEditor.LoadData;
 end;
 
@@ -114,4 +124,3 @@ begin
 end;
 
 end.
-

@@ -53,7 +53,7 @@ type
     procedure SetSystem(AValue: cEmutecaSystem);
 
     procedure UpdateLists;
-    procedure ClearData;
+    procedure ClearData; override;
 
   public
     property System: cEmutecaSystem read FSystem write SetSystem;
@@ -64,6 +64,9 @@ type
 
     procedure SaveData; override;
     procedure LoadData; override;
+
+    constructor Create(TheOwner: TComponent); override;
+    destructor Destroy; override;
   end;
 
 implementation
@@ -218,7 +221,7 @@ var
 begin
   ClearData;
 
-  if not (assigned(System) and assigned(EmuManager)) then
+  if (not assigned(System)) or (not assigned(EmuManager)) then
     Exit;
 
   eTitle.Text := System.Title;
@@ -252,6 +255,16 @@ begin
   chkExtractAllFiles.Checked := System.ExtractAll;
 
   mExtensions.Lines.Assign(System.Extensions);
+end;
+
+constructor TfmEmutecaSystemEditor.Create(TheOwner: TComponent);
+begin
+  inherited Create(TheOwner);
+end;
+
+destructor TfmEmutecaSystemEditor.Destroy;
+begin
+  inherited Destroy;
 end;
 
 end.

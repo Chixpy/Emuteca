@@ -12,7 +12,7 @@ uses
   // Misc
   uVersionSupport,
   // CHX units
-  uCHXStrUtils, ucCHXImageList,
+  uCHXStrUtils, uCHXFileUtils, ucCHXImageList,
   // CHX forms
   ufCHXAbout, ufCHXProgressBar,
   // CHX frames
@@ -116,16 +116,17 @@ type
     property GUIConfig: cGUIConfig read FGUIConfig;
 
     procedure CheckTags(aList: TStrings);
-    procedure SelectParent(const aParent: cEmutecaParent);
-    procedure SelectSoftware(const aSoftware: cEmutecaSoftware);
-    function SelectSystem(aSystem: cEmutecaSystem): boolean;
 
-    procedure RunVersion(const aSoftware: cEmutecaSoftware);
+    function SelectSystem(aSystem: cEmutecaSystem): boolean;
+    function SelectParent(aParent: cEmutecaParent): boolean;
+    function SelectSoftware(aSoftware: cEmutecaSoftware): boolean;
+    function RunVersion(aSoftware: cEmutecaSoftware): boolean;
 
     procedure SaveEmuteca;
 
     property IconList: cCHXImageList read FIconList;
     property VerIcons: cCHXImageList read FVerIcons;
+    //property ZoneIcons: tob
 
     function OnProgressBar(const Title, Info1, Info2: string;
       const Value, MaxValue: int64): boolean;
@@ -176,31 +177,40 @@ begin
   { TODO : Pasar la lista para filtrar los padres y los juegos }
 end;
 
-procedure TfrmEmutecaMain.SelectParent(const aParent: cEmutecaParent);
+function TfrmEmutecaMain.SelectSystem(aSystem: cEmutecaSystem): boolean;
 begin
+  Result := True;
+
+  Emuteca.CurrentSystem := aSystem;
+
+  { TODO : Use Observer pattern... }
+  fmEmutecaParentList.UpdateList;
+  SelectParent(nil);
+end;
+function TfrmEmutecaMain.SelectParent(aParent: cEmutecaParent): boolean;
+begin
+  Result := True;
+
   Emuteca.CurrentParent := aParent;
-  // Unselecting current software
+
+  { TODO : Use Observer pattern... }
+  fmEmutecaSoftList.UpdateList;
   SelectSoftware(nil);
 end;
 
-procedure TfrmEmutecaMain.SelectSoftware(const aSoftware: cEmutecaSoftware);
+function TfrmEmutecaMain.SelectSoftware(aSoftware: cEmutecaSoftware): boolean;
 begin
+  Result := True;
+
+  { TODO : Use Observer pattern... }
   Emuteca.CurrentSoft := aSoftware;
   fmEmutecaSoftEditor.Software := aSoftware;
 end;
 
-function TfrmEmutecaMain.SelectSystem(aSystem: cEmutecaSystem): boolean;
+function TfrmEmutecaMain.RunVersion(aSoftware: cEmutecaSoftware): boolean;
 begin
   Result := True;
-  Emuteca.CurrentSystem := aSystem;
 
-  { TODO : Use Observer pattern... }
-  fmEmutecaSoftList.UpdateList;
-  fmEmutecaParentList.UpdateList;
-end;
-
-procedure TfrmEmutecaMain.RunVersion(const aSoftware: cEmutecaSoftware);
-begin
   Emuteca.RunSoftware(aSoftware);
 end;
 
@@ -224,6 +234,11 @@ end;
 procedure TfrmEmutecaMain.FormCreate(Sender: TObject);
 
   procedure LoadIcons;
+
+    function AddZoneIcon(aFolder: string; FileInfo: TSearchRec): boolean;
+    begin
+      Result := True;
+    end;
 
     procedure AddIcon(aImageList: cCHXImageList; aIconFile: string);
     begin
@@ -252,9 +267,9 @@ procedure TfrmEmutecaMain.FormCreate(Sender: TObject);
       IterateFolderObj(TmpStr, @AddZoneIcon, False);
       }
 
-    { Icons for games parents and software, first default one }
-   // aFile := GUIConfig.ImagesFolder + GUIConfig.DefImgFolder +
-   // GUIConfig.i;
+   // Icons for games parents and software, first default one
+    aFile := GUIConfig.DefImgFolder + 'DefSoftIcon.png';
+    AddIcon(IconList, aFile);
 
     { Icons for "flags" column, see ufEmutecaIcnSoftList.LazEmuTKIconFiles
       0: Verified.png

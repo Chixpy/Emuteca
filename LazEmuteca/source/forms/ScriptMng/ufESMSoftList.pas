@@ -38,9 +38,9 @@ type
 
   protected
     procedure CheckTags(aList: TStrings);
-    procedure SelectParent(const aParent: cEmutecaParent);
-    procedure SelectSoftware(const aSoftware: cEmutecaSoftware);
     function SelectSystem(aSystem: cEmutecaSystem): boolean;
+    function SelectParent(aParent: cEmutecaParent): boolean;
+    function SelectSoftware(aSoftware: cEmutecaSoftware): boolean;
 
   public
     { public declarations }
@@ -119,12 +119,12 @@ begin
 
 end;
 
-procedure TfrmESMSoftList.SelectParent(const aParent: cEmutecaParent);
+function TfrmESMSoftList.SelectParent(aParent: cEmutecaParent): boolean;
 begin
 
 end;
 
-procedure TfrmESMSoftList.SelectSoftware(const aSoftware: cEmutecaSoftware);
+function TfrmESMSoftList.SelectSoftware(aSoftware: cEmutecaSoftware): boolean;
 begin
 
 end;

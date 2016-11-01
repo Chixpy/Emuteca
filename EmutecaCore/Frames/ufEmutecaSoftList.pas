@@ -10,9 +10,6 @@ uses
   uEmutecaCommon, ucEmutecaSoftware;
 
 type
-  TFEVLItemSelected = procedure(const aVersion: cEmutecaSoftware) of object;
-  TFEVLDblClick = procedure(const aVersion: cEmutecaSoftware) of object;
-
   { TfmEmutecaSoftList }
 
   TfmEmutecaSoftList = class(TFrame)
@@ -37,12 +34,12 @@ type
 
   private
     FFilterStr: string;
-    FOnDblClick: TFEVLDblClick;
-    FOnItemSelect: TFEVLItemSelected;
+    FOnDblClick: TEmutecaReturnSoftCB;
+    FOnItemSelect: TEmutecaReturnSoftCB;
     FSoftList: cEmutecaSoftList;
     procedure SetFilterStr(AValue: string);
-    procedure SetOnDblClick(AValue: TFEVLDblClick);
-    procedure SetOnItemSelect(AValue: TFEVLItemSelected);
+    procedure SetOnDblClick(AValue: TEmutecaReturnSoftCB);
+    procedure SetOnItemSelect(AValue: TEmutecaReturnSoftCB);
     procedure SetSoftList(AValue: cEmutecaSoftList);
 
   protected
@@ -56,10 +53,10 @@ type
     property FilterStr: string read FFilterStr write SetFilterStr;
     {< String to show/hide nodes }
 
-    property OnItemSelect: TFEVLItemSelected
+    property OnItemSelect: TEmutecaReturnSoftCB
       read FOnItemSelect write SetOnItemSelect;
     //< CallBack function when item selected.
-    property OnDblClick: TFEVLDblClick read FOnDblClick write SetOnDblClick;
+    property OnDblClick: TEmutecaReturnSoftCB read FOnDblClick write SetOnDblClick;
     //< CallBack function when item Double Click.
 
     procedure UpdateList;
@@ -74,7 +71,7 @@ implementation
 
 { TfmEmutecaSoftList }
 
-procedure TfmEmutecaSoftList.SetOnItemSelect(AValue: TFEVLItemSelected);
+procedure TfmEmutecaSoftList.SetOnItemSelect(AValue: TEmutecaReturnSoftCB);
 begin
   if FOnItemSelect = AValue then
     Exit;
@@ -301,7 +298,7 @@ begin
   pData^ := cEmutecaSoftware(SoftList[Node^.Index]);
 end;
 
-procedure TfmEmutecaSoftList.SetOnDblClick(AValue: TFEVLDblClick);
+procedure TfmEmutecaSoftList.SetOnDblClick(AValue: TEmutecaReturnSoftCB);
 begin
   if FOnDblClick = AValue then
     Exit;

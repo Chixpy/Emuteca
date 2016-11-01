@@ -11,7 +11,7 @@ uses
   ucEmuteca, uPSI_ucEmuteca, ucEmutecaParent, ucEmutecaConfig, ufEmutecaMain,
   ucEmutecaEmulatorManager, ucEmutecaParentManager,
   ucEmutecaSystemManager, ucEmutecaEmulator, ufEmutecaSoftList,
-  ucEmutecaSoftware, ucEmutecaSystem, ufEmutecaEmulatorEditor,
+  ucEmutecaSoftware, ucEmutecaSystem,
   ugEmutecaManager,
   ugEmutecaPersList, ufEmutecaScriptManager, ucEmutecaSoftManager,
 ufEmutecaActAddSoft, uGUIConfig,
@@ -20,7 +20,8 @@ ufEmutecaActAddSoft, uGUIConfig,
   ufESMSoftList, ufEmutecaSystemCBX, ufESMParentList, ufEmutecaChkSoftList,
   ufEmutecaParentCBX, ufEmutecaIcnSoftList, ufCHXPropEditor, 
 ufEmutecaSystemEditor, ufLEmuTKFullSystemEditor, ufCHXChkLstPropEditor, 
-ufLEmuTKSysManager, ufLEmuTKEmuManager, ufEmutecaSoftEditor;
+ufLEmuTKSysManager, ufLEmuTKEmuManager, ufEmutecaSoftEditor, 
+ufLEmuTKFullEmuEditor, ufEmutecaEmulatorEditor;
 
 {$R *.res}
 

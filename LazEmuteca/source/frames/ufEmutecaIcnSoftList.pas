@@ -84,6 +84,7 @@ begin
       if Data^.Stats.IconIndex = -1 then
       begin
         // TODO: Search Icon, add to list, add to caché
+        Data^.Stats.IconIndex := 0;
       end;
 
       if (Data^.Stats.IconIndex > -1) and

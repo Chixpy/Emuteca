@@ -11,8 +11,6 @@ uses
   uEmutecaCommon, ucEmutecaParent;
 
 type
-  TFEPLItemSelected = procedure(const aParent: cEmutecaParent) of object;
-
   { TfmEmutecaParentList }
 
   TfmEmutecaParentList = class(TFrame)
@@ -31,9 +29,9 @@ type
 
   private
     FParentList: cEmutecaParentList;
-    FOnItemSelect: TFEPLItemSelected;
+    FOnItemSelect: TEmutecaReturnParentCB;
     procedure SetParentList(AValue: cEmutecaParentList);
-    procedure SetOnItemSelect(AValue: TFEPLItemSelected);
+    procedure SetOnItemSelect(AValue: TEmutecaReturnParentCB);
 
   protected
 
@@ -44,7 +42,7 @@ type
     property ParentList: cEmutecaParentList
       read FParentList write SetParentList;
 
-    property OnItemSelect: TFEPLItemSelected
+    property OnItemSelect: TEmutecaReturnParentCB
       read FOnItemSelect write SetOnItemSelect;
     //< CallBack function when item selected.
 
@@ -149,7 +147,7 @@ begin
   UpdateList;
 end;
 
-procedure TfmEmutecaParentList.SetOnItemSelect(AValue: TFEPLItemSelected);
+procedure TfmEmutecaParentList.SetOnItemSelect(AValue: TEmutecaReturnParentCB);
 begin
   if FOnItemSelect = AValue then
     Exit;

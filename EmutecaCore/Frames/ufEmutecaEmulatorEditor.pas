@@ -5,26 +5,20 @@ unit ufEmutecaEmulatorEditor;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, LazFileUtils, Forms, Controls, StdCtrls, EditBtn, Spin,
-  ExtCtrls, Buttons, ActnList, Menus,
+  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
+  Buttons, ActnList, StdCtrls, EditBtn, Spin, Menus, LazFileUtils,
   uCHXStrUtils,
+  ufCHXPropEditor,
   ucEmutecaEmulator;
-
-resourcestring
-  rsSelectEmulator = 'Select an Emulator';
 
 type
 
   { TfmEmutecaEmulatorEditor }
 
-  TfmEmutecaEmulatorEditor = class(TFrame)
-    actCancel: TAction;
+  TfmEmutecaEmulatorEditor = class(TfmCHXPropEditor)
     actWFEmulator: TAction;
     actWFROM: TAction;
-    actSave: TAction;
-    ActionList: TActionList;
-    bCancel: TBitBtn;
-    bOk: TBitBtn;
+    bParameters: TSpeedButton;
     eExePath: TFileNameEdit;
     eExitCode: TSpinEdit;
     eName: TEdit;
@@ -33,38 +27,40 @@ type
     lExePath: TLabel;
     lExitCode: TLabel;
     lExtensions: TLabel;
-    lID: TLabel;
     lName: TLabel;
     lParameters: TLabel;
     lWorkingFolder: TLabel;
-    MenuItem1: TMenuItem;
-    MenuItem2: TMenuItem;
+    pmiWFEmu: TMenuItem;
+    pmiWFROM: TMenuItem;
     mExtensions: TMemo;
-    Panel1: TPanel;
-    pBottom: TPanel;
-    pmWorkingFolder: TPopupMenu;
+    pmParameters: TPopupMenu;
+    pmWFolder: TPopupMenu;
+    pParameters: TPanel;
     pWFolder: TPanel;
-    SpeedButton1: TSpeedButton;
-    procedure actCancelExecute(Sender: TObject);
-    procedure actSaveExecute(Sender: TObject);
+    bWorkingFolder: TSpeedButton;
     procedure actWFEmulatorExecute(Sender: TObject);
     procedure actWFROMExecute(Sender: TObject);
+    procedure bParametersClick(Sender: TObject);
+    procedure bWorkingFolderClick(Sender: TObject);
     procedure eFileButtonClick(Sender: TObject);
-    procedure SpeedButton1Click(Sender: TObject);
-
   private
-    { private declarations }
     FEmulator: cEmutecaEmulator;
     procedure SetEmulator(AValue: cEmutecaEmulator);
+    { private declarations }
 
   protected
-    procedure UpdateData;
-    procedure ClearData;
+    procedure ClearData; override;
 
   public
     { public declarations }
-    property Emulator: cEmutecaEmulator read FEmulator write SetEmulator;
+    procedure LoadData; override;
+    procedure SaveData; override;
 
+    constructor Create(TheOwner: TComponent); override;
+    destructor Destroy; override;
+
+  published
+    property Emulator: cEmutecaEmulator read FEmulator write SetEmulator;
   end;
 
 implementation
@@ -73,14 +69,14 @@ implementation
 
 { TfmEmutecaEmulatorEditor }
 
-procedure TfmEmutecaEmulatorEditor.actSaveExecute(Sender: TObject);
+constructor TfmEmutecaEmulatorEditor.Create(TheOwner: TComponent);
 begin
-  Emulator.EmulatorName := eName.Text;
-  Emulator.ExeFile := eExePath.Text;
-  Emulator.WorkingFolder := eWorkingFolder.Text;
-  Emulator.Parameters := eParameters.Text;
-  Emulator.FileExt.Assign(mExtensions.Lines);
-  Emulator.ExitCode := eExitCode.Value;
+  inherited Create(TheOwner);
+end;
+
+destructor TfmEmutecaEmulatorEditor.Destroy;
+begin
+  inherited Destroy;
 end;
 
 procedure TfmEmutecaEmulatorEditor.actWFEmulatorExecute(Sender: TObject);
@@ -91,6 +87,16 @@ end;
 procedure TfmEmutecaEmulatorEditor.actWFROMExecute(Sender: TObject);
 begin
   eWorkingFolder.Text := kEmutecaRomDirKey;
+end;
+
+procedure TfmEmutecaEmulatorEditor.bParametersClick(Sender: TObject);
+begin
+  pmParameters.PopUp;
+end;
+
+procedure TfmEmutecaEmulatorEditor.bWorkingFolderClick(Sender: TObject);
+begin
+  pmWFolder.PopUp;
 end;
 
 procedure TfmEmutecaEmulatorEditor.eFileButtonClick(Sender: TObject);
@@ -109,31 +115,30 @@ begin
   end;
 end;
 
-procedure TfmEmutecaEmulatorEditor.SpeedButton1Click(Sender: TObject);
-begin
-  pmWorkingFolder.PopUp;
-end;
-
-procedure TfmEmutecaEmulatorEditor.actCancelExecute(Sender: TObject);
-begin
-  UpdateData;
-end;
-
 procedure TfmEmutecaEmulatorEditor.SetEmulator(AValue: cEmutecaEmulator);
 begin
-  if FEmulator = AValue then
-    Exit;
+  if FEmulator = AValue then Exit;
   FEmulator := AValue;
-  UpdateData;
+  LoadData;
 end;
 
-procedure TfmEmutecaEmulatorEditor.UpdateData;
+procedure TfmEmutecaEmulatorEditor.ClearData;
+begin
+   eName.Clear;
+  eExePath.Clear;
+  eWorkingFolder.Clear;
+  eParameters.Clear;
+  mExtensions.Clear;
+  eExitCode.Value := 0;
+end;
+
+procedure TfmEmutecaEmulatorEditor.LoadData;
 begin
   ClearData;
+
   if not assigned(Emulator) then
     Exit;
 
-  lID.Caption := Emulator.ID;
   eName.Text := Emulator.EmulatorName;
   eExePath.Text := SysPath(Emulator.ExeFile);
   eWorkingFolder.Text := SysPath(Emulator.WorkingFolder);
@@ -142,15 +147,15 @@ begin
   eExitCode.Value := Emulator.ExitCode;
 end;
 
-procedure TfmEmutecaEmulatorEditor.ClearData;
+procedure TfmEmutecaEmulatorEditor.SaveData;
 begin
-  lID.Caption := rsSelectEmulator;
-  eName.Clear;
-  eExePath.Clear;
-  eWorkingFolder.Clear;
-  eParameters.Clear;
-  mExtensions.Clear;
-  eExitCode.Value := 0;
+  Emulator.EmulatorName := eName.Text;
+  Emulator.ExeFile := eExePath.Text;
+  Emulator.WorkingFolder := eWorkingFolder.Text;
+  Emulator.Parameters := eParameters.Text;
+  Emulator.FileExt.Assign(mExtensions.Lines);
+  Emulator.ExitCode := eExitCode.Value;
 end;
 
 end.
+

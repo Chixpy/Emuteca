@@ -194,6 +194,8 @@ type
 
   cEmutecaSoftList = TComponentList;
 
+  TEmutecaReturnSoftCB = function(aSoft: cEmutecaSoftware): boolean of object;
+
 function EmutecaDumpSt2Str(aEDS: TEmutecaDumpStatus): string; deprecated;
 function EmutecaDumpSt2Key(aEDS: TEmutecaDumpStatus): string; deprecated;
 function Key2EmutecaDumpSt(aString: string): TEmutecaDumpStatus;

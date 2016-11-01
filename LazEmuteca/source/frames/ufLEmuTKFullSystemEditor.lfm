@@ -24,4 +24,8 @@ inherited fmLEmuTKFullSystemEditor: TfmLEmuTKFullSystemEditor
     Align = alClient
     TabOrder = 1
   end
+  inherited alPropEditor: TActionList[2]
+  end
+  inherited ilPropEditor: TImageList[3]
+  end
 end

@@ -66,7 +66,7 @@ type
     property ProgressCallBack: TEmutecaProgressCallBack
       read FProgressCallBack write SetProgressBar;
 
-    { TODO: Must be protected. Remove all references to this
+    { TODO: Maybe be protected. Remove all references to this
 
       Y traer los procedimientos que lo usen aquí. }
     property TempFolder: string read FTempFolder write SetTempFolder;
