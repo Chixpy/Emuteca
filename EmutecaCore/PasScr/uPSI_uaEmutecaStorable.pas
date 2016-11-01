@@ -47,7 +47,7 @@ uses
    IniFiles
   ,LazUTF8
   ,LazFileUtils
-  ,uaEmutecaStorable
+  ,uaCHXStorable
   ;
  
  
@@ -101,40 +101,40 @@ end;
 
 (* === run-time registration functions === *)
 (*----------------------------------------------------------------------------*)
-procedure caEmutecaStorableDataFile_W(Self: caEmutecaStorable; const T: string);
+procedure caEmutecaStorableDataFile_W(Self: caCHXStorable; const T: string);
 begin Self.DataFile := T; end;
 
 (*----------------------------------------------------------------------------*)
-procedure caEmutecaStorableDataFile_R(Self: caEmutecaStorable; var T: string);
+procedure caEmutecaStorableDataFile_R(Self: caCHXStorable; var T: string);
 begin T := Self.DataFile; end;
 
 (*----------------------------------------------------------------------------*)
 procedure RIRegister_caEmutecaStorableTxt(CL: TPSRuntimeClassImporter);
 begin
-  with CL.Add(caEmutecaStorableTxt) do
+  with CL.Add(caCHXStorableTxt) do
   begin
-   {TODO: PS}// RegisterVirtualAbstractMethod(@caEmutecaStorableTxt, @!.LoadFromFileTxt, 'LoadFromFileTxt');
-   {TODO: PS}//RegisterVirtualAbstractMethod(@caEmutecaStorableTxt, @!.SaveToFileTxt, 'SaveToFileTxt');
+   {TODO: PS}// RegisterVirtualAbstractMethod(@caCHXStorableTxt, @!.LoadFromFileTxt, 'LoadFromFileTxt');
+   {TODO: PS}//RegisterVirtualAbstractMethod(@caCHXStorableTxt, @!.SaveToFileTxt, 'SaveToFileTxt');
   end;
 end;
 
 (*----------------------------------------------------------------------------*)
 procedure RIRegister_caEmutecaStorableIni(CL: TPSRuntimeClassImporter);
 begin
-  with CL.Add(caEmutecaStorableIni) do
+  with CL.Add(caCHXStorableIni) do
   begin
-   {TODO: PS}//RegisterVirtualAbstractMethod(@caEmutecaStorableIni, @!.LoadFromFileIni, 'LoadFromFileIni');
-   {TODO: PS}// RegisterVirtualAbstractMethod(@caEmutecaStorableIni, @!.SaveToFileIni, 'SaveToFileIni');
+   {TODO: PS}//RegisterVirtualAbstractMethod(@caCHXStorableIni, @!.LoadFromFileIni, 'LoadFromFileIni');
+   {TODO: PS}// RegisterVirtualAbstractMethod(@caCHXStorableIni, @!.SaveToFileIni, 'SaveToFileIni');
   end;
 end;
 
 (*----------------------------------------------------------------------------*)
 procedure RIRegister_caEmutecaStorable(CL: TPSRuntimeClassImporter);
 begin
-  with CL.Add(caEmutecaStorable) do
+  with CL.Add(caCHXStorable) do
   begin
-    {TODO: PS}//RegisterVirtualAbstractMethod(@caEmutecaStorable, @!.LoadFromFile, 'LoadFromFile');
-    {TODO: PS}//RegisterVirtualAbstractMethod(@caEmutecaStorable, @!.SaveToFile, 'SaveToFile');
+    {TODO: PS}//RegisterVirtualAbstractMethod(@caCHXStorable, @!.LoadFromFile, 'LoadFromFile');
+    {TODO: PS}//RegisterVirtualAbstractMethod(@caCHXStorable, @!.SaveToFile, 'SaveToFile');
     RegisterPropertyHelper(@caEmutecaStorableDataFile_R,@caEmutecaStorableDataFile_W,'DataFile');
   end;
 end;

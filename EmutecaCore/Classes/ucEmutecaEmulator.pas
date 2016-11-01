@@ -30,7 +30,7 @@ uses  Classes, SysUtils, FileUtil, StrUtils, LazUTF8, LazFileUtils, contnrs,
   // CHX units
   uCHXStrUtils,
   // Emuteca units
-  uaEmutecaStorable
+  uaCHXStorable
   ;
 
 const
@@ -68,7 +68,7 @@ type
   { cEmutecaEmulator class.
 
     Stores all basic info of an emulator. }
-  cEmutecaEmulator = class(caEmutecaStorableIni)
+  cEmutecaEmulator = class(caCHXStorableIni)
   private
     FEmulatorName: string;
     FEnabled: boolean;

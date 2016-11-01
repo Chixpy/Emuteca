@@ -27,13 +27,13 @@ interface
 
 uses
   Classes, SysUtils,
-  uEmutecaCommon, uaEmutecaStorable;
+  uEmutecaCommon, uaCHXStorable;
 
 type
 
   { caEmutecaManagerIni }
 
-  caEmutecaManagerIni = class(caEmutecaStorableIni)
+  caEmutecaManagerIni = class(caCHXStorableIni)
   private
     FProgressCallBack: TEmutecaProgressCallBack;
     procedure SetProgressCallBack(AValue: TEmutecaProgressCallBack);
@@ -52,7 +52,7 @@ type
 
   { caEmutecaManagerTxt }
 
-  caEmutecaManagerTxt = class(caEmutecaStorableTxt)
+  caEmutecaManagerTxt = class(caCHXStorableTxt)
   private
     FProgressCallBack: TEmutecaProgressCallBack;
     procedure SetProgressCallBack(AValue: TEmutecaProgressCallBack);

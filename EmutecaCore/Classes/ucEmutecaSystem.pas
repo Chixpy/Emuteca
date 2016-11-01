@@ -28,7 +28,7 @@ interface
 uses
   Classes, SysUtils, IniFiles, LazFileUtils, LazUTF8, contnrs,
   uCHXStrUtils,
-  uEmutecaCommon, uaEmutecaStorable;
+  uEmutecaCommon, uaCHXStorable;
 
 const
   // Ini file Keys
@@ -65,7 +65,7 @@ type
 
   { cEmutecaSystem }
 
-  cEmutecaSystem = class(caEmutecaStorableIni)
+  cEmutecaSystem = class(caCHXStorableIni)
   private
     FBackImage: string;
     FBaseFolder: string;

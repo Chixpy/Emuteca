@@ -15,7 +15,7 @@ uses
   ugEmutecaManager,
   ugEmutecaPersList, ufEmutecaScriptManager, ucEmutecaSoftManager,
 ufEmutecaActAddSoft, ufEmutecaSoftEditor, uGUIConfig,
-  uaEmutecaStorable, uaEmutecaManager, ufEmutecaSystemImgEditor,
+  uaCHXStorable, uaEmutecaManager, ufEmutecaSystemImgEditor,
   ufEmutecaActAddFolder, ucEmutecaScriptEngine,
   ufESMSoftList, ufEmutecaSystemCBX, ufESMParentList, ufEmutecaChkSoftList,
   ufEmutecaParentCBX, ufEmutecaIcnSoftList, ufCHXPropEditor, 

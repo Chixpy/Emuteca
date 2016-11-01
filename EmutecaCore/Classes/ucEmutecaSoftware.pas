@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, LazFileUtils, LazUTF8, contnrs,
   uCHXStrUtils,
-  uaEmutecaStorable,
+  uaCHXStorable,
   ucEmutecaPlayingStats;
 
 const
@@ -45,7 +45,7 @@ const
 type
   { cEmutecaSoftware. }
 
-  cEmutecaSoftware = class(caEmutecaStorableTxt)
+  cEmutecaSoftware = class(caCHXStorableTxt)
   private
     FCracked: string;
     FDumpInfo: string;

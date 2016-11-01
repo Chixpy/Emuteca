@@ -28,12 +28,12 @@ interface
 uses
   Classes, SysUtils, fgl, LazFileUtils, contnrs,
   uCHXStrUtils,
-  uaEmutecaStorable;
+  uaCHXStorable;
 
 type
   { cEmutecaParent }
 
-  cEmutecaParent = class(caEmutecaStorableTxt)
+  cEmutecaParent = class(caCHXStorableTxt)
   private
     FID: string;
     FSystem: string;
