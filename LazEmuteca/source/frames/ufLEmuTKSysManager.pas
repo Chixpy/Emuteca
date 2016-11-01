@@ -29,6 +29,7 @@ type
     procedure SetSysEditor(AValue: TfmLEmuTKFullSystemEditor);
 
   protected
+    procedure ClearData; override;
     property SysEditor: TfmLEmuTKFullSystemEditor
       read FSysEditor write SetSysEditor;
 
@@ -64,6 +65,13 @@ begin
 
   if Assigned(SysEditor) then
     SysEditor.Emuteca := Emuteca;
+end;
+
+procedure TfmLEmuTKSysManager.ClearData;
+begin
+  inherited ClearData;
+
+  SysEditor.System := nil;
 end;
 
 procedure TfmLEmuTKSysManager.SetCheckedAll(aBool: Boolean);
@@ -177,10 +185,6 @@ procedure TfmLEmuTKSysManager.LoadData;
 var
   i: integer;
 begin
-  SysEditor.System := nil;
-
-  clbPropItems.Clear;
-
   if not assigned(Emuteca) then
     Exit;
 

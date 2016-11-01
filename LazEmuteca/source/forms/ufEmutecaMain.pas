@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, LazFileUtils, Forms, Controls,
-  Graphics, Dialogs,
+  Graphics, Dialogs, LazUTF8,
   ActnList, Menus, StdActns, ComCtrls, ExtCtrls, DefaultTranslator,
   IniPropStorage, StdCtrls,
   // Misc
@@ -110,6 +110,7 @@ type
     fmCHXTagTree: TfmTagTree;
 
     fmEmutecaSoftEditor: TfmEmutecaSoftEditor;
+    FZoneIcons: cCHXImageMap;
 
   protected
     property Emuteca: cEmuteca read FEmuteca;
@@ -126,8 +127,9 @@ type
 
     property IconList: cCHXImageList read FIconList;
     property VerIcons: cCHXImageList read FVerIcons;
-    //property ZoneIcons: tob
+    property ZoneIcons: cCHXImageMap read FZoneIcons;
 
+    function AddZoneIcon(aFolder: string; FileInfo: TSearchRec): boolean;
     function OnProgressBar(const Title, Info1, Info2: string;
       const Value, MaxValue: int64): boolean;
 
@@ -158,17 +160,18 @@ var
   i: longint;
 begin
   Temp := TStringList.Create;
+  temp.Capacity := 500000;
 
   for i := 1 to 500000 do
   begin
     str := IntToStr(i) + ',';
-    str := str + str + str + str + str + str + str + str + str +
-      str + str + str + str + str + str + str + str + str + str +
-      str + str + str + str + str + str;
+    str := str + str + str + str + str + str + str + str +
+      str + str + str + str + str + str + str + str + str +
+      str + str + str + str + str + str + str + str;
     Temp.Add(str);
   end;
 
-  Temp.SaveToFile('Version.csv');
+  Temp.SaveToFile('Soft.csv');
   FreeAndNil(Temp);
 end;
 
@@ -187,6 +190,7 @@ begin
   fmEmutecaParentList.UpdateList;
   SelectParent(nil);
 end;
+
 function TfrmEmutecaMain.SelectParent(aParent: cEmutecaParent): boolean;
 begin
   Result := True;
@@ -224,21 +228,24 @@ end;
 function TfrmEmutecaMain.OnProgressBar(const Title, Info1, Info2: string;
   const Value, MaxValue: int64): boolean;
 begin
-  // Really, we can asume that frmCHXProgressBar is allways created...;
+  // Really, we can asume that frmCHXProgressBar is always created...;
   if not Assigned(frmCHXProgressBar) then
     Application.CreateForm(TfrmCHXProgressBar, frmCHXProgressBar);
   Result := frmCHXProgressBar.UpdTextAndBar(Title, Info1, Info2,
     Value, MaxValue);
 end;
 
+function TfrmEmutecaMain.AddZoneIcon(aFolder: string;
+  FileInfo: TSearchRec): boolean;
+begin
+  ZoneIcons.AddImageFile(UTF8LowerCase(ExtractFileNameOnly(FileInfo.Name)),
+    aFolder + FileInfo.Name);
+  Result := True;
+end;
+
 procedure TfrmEmutecaMain.FormCreate(Sender: TObject);
 
   procedure LoadIcons;
-
-    function AddZoneIcon(aFolder: string; FileInfo: TSearchRec): boolean;
-    begin
-      Result := True;
-    end;
 
     procedure AddIcon(aImageList: cCHXImageList; aIconFile: string);
     begin
@@ -261,13 +268,15 @@ procedure TfrmEmutecaMain.FormCreate(Sender: TObject);
 
       // Icons for TActions
       ReadActionsIcons(TmpStr, Self.Name, '', ilActions, ActionList);
-
-      // Zone icons
-      TmpStr := Config.ImagesFolder + Config.FlagsSubfolder;
-      IterateFolderObj(TmpStr, @AddZoneIcon, False);
       }
+    // Zone icons
+    aFolder := GUIConfig.ZoneIcnFolder;
+    IterateFolderObj(aFolder, @AddZoneIcon, False);
 
-   // Icons for games parents and software, first default one
+
+   { Icons for games parents and software, first default one
+      0: Default for software
+    }
     aFile := GUIConfig.DefImgFolder + 'DefSoftIcon.png';
     AddIcon(IconList, aFile);
 
@@ -288,7 +297,7 @@ procedure TfrmEmutecaMain.FormCreate(Sender: TObject);
       }
     aFolder := GUIConfig.DumpIcnFolder;
     for aFile in LazEmuTKIconFiles do
-     AddIcon(FVerIcons, aFolder + aFile + '.png');
+      AddIcon(FVerIcons, aFolder + aFile + '.png');
   end;
 
   procedure CreateFrames;
@@ -316,9 +325,10 @@ procedure TfrmEmutecaMain.FormCreate(Sender: TObject);
     fmEmutecaSoftList.Parent := pBottom;
     fmEmutecaSoftList.SoftIconList := IconList;
     fmEmutecaSoftList.DumpIconList := VerIcons;
+    fmEmutecaSoftList.ZoneIconMap := ZoneIcons;
     fmEmutecaSoftList.OnItemSelect := @Self.SelectSoftware;
     fmEmutecaSoftList.OnDblClick := @Self.RunVersion;
-    fmEmutecaSoftList.SoftList := Emuteca.SoftManager.EnabledList;
+    fmEmutecaSoftList.SoftList := Emuteca.SoftManager.VisibleList;
 
     // Creating and Setting Tags frame
     aTabSheet := pcLeft.AddTabSheet;
@@ -367,6 +377,7 @@ begin
   // Image lists
   FIconList := cCHXImageList.Create(True);
   FVerIcons := cCHXImageList.Create(True);
+  FZoneIcons := cCHXImageMap.Create(True);
 
   // Creating Emuteca Core :-D
   FEmuteca := cEmuteca.Create(self);
@@ -396,7 +407,8 @@ begin
   aForm.Position := poMainFormCenter;
 
   aFrame := TfmLEmuTKEmuManager.Create(aForm);
-  aForm.Caption := Format(rsFmtWindowCaption, [Application.Title, aFrame.Caption]);
+  aForm.Caption := Format(rsFmtWindowCaption,
+    [Application.Title, aFrame.Caption]);
   aFrame.Parent := aForm;
   aFrame.Align := alClient;
 
@@ -506,7 +518,8 @@ begin
   aForm.Position := poMainFormCenter;
 
   aFrame := TfmLEmuTKSysManager.Create(aForm);
-  aForm.Caption := Format(rsFmtWindowCaption, [Application.Title, aFrame.Caption]);
+  aForm.Caption := Format(rsFmtWindowCaption,
+    [Application.Title, aFrame.Caption]);
   aFrame.Parent := aForm;
   aFrame.Align := alClient;
 
@@ -537,6 +550,7 @@ end;
 
 procedure TfrmEmutecaMain.FormDestroy(Sender: TObject);
 begin
+  FreeAndNil(FZoneIcons);
   FreeAndNil(FVerIcons);
   FreeAndNil(FIconList);
   FreeAndNil(FGUIConfig);

@@ -18,7 +18,7 @@ type
 
   cEmutecaSoftManager = class(caEmutecaManagerTxt)
   private
-    FEnabledList: cEmutecaSoftList;
+    FVisibleList: cEmutecaSoftList;
     FFullList: cEmutecaSoftList;
 
   protected
@@ -27,7 +27,7 @@ type
   public
     property FullList: cEmutecaSoftList read FFullList;
     {< Actual list where the software is stored. }
-    property EnabledList: cEmutecaSoftList read FEnabledList;
+    property VisibleList: cEmutecaSoftList read FVisibleList;
     {< Filtered soft list }
 
     procedure LoadFromFileTxt(TxtFile: TStrings); override;
@@ -76,11 +76,11 @@ var
   i: longint;
   aSoft: cEmutecaSoftware;
 begin
-  EnabledList.Clear;
+  VisibleList.Clear;
 
   if aSystemKey = '' then
   begin
-    EnabledList.Assign(FullList);
+    VisibleList.Assign(FullList);
   end
   else
   begin
@@ -89,7 +89,11 @@ begin
     begin
       aSoft := cEmutecaSoftware(FullList[i]);
       if UTF8CompareText(aSoft.SystemKey, aSystemKey) = 0 then
-        EnabledList.Add(aSoft);
+      begin
+        if VisibleList.Capacity = VisibleList.Count then
+          VisibleList.Capacity := VisibleList.Capacity * 2; // Speed up?
+        VisibleList.Add(aSoft);
+      end;
       Inc(i);
     end;
   end;
@@ -104,6 +108,7 @@ begin
     aList := TStringList.Create;
 
   aList.BeginUpdate;
+  aList.Capacity := aList.Count + FullList.Count; // Speed up?
   i := 0;
   while i < FullList.Count do
   begin
@@ -123,10 +128,11 @@ begin
     aList := TStringList.Create;
 
   aList.BeginUpdate;
+  aList.Capacity := aList.Count + VisibleList.Count; // Speed up?
   i := 0;
-  while i < EnabledList.Count do
+  while i < VisibleList.Count do
   begin
-    aSoft := cEmutecaSoftware(EnabledList[i]);
+    aSoft := cEmutecaSoftware(VisibleList[i]);
     aList.AddObject(aSoft.Title, aSoft);
     Inc(i);
   end;
@@ -138,13 +144,13 @@ begin
   inherited Create(aOwner);
 
   FFullList := cEmutecaSoftList.Create(True);
-  FEnabledList := cEmutecaSoftList.Create(False);
+  FVisibleList := cEmutecaSoftList.Create(False);
   // TODO: OnCompare FullList.OnCompare := ;
 end;
 
 destructor cEmutecaSoftManager.Destroy;
 begin
-  FreeAndNil(FEnabledList);
+  FreeAndNil(FVisibleList);
   FreeAndNil(FFullList);
   inherited Destroy;
 end;
@@ -157,6 +163,8 @@ begin
   if not Assigned(TxtFile) then
     Exit;
 
+  FullList.Capacity := FullList.Count + TxtFile.Count; // Speed Up?
+  TxtFile.BeginUpdate;
   i := 1; // Skipping Header
   while i < TxtFile.Count do
   begin
@@ -169,8 +177,8 @@ begin
       ProgressCallBack(rsLoadingVersionList, TempVersion.Title,
         TempVersion.Version, i, TxtFile.Count);
   end;
-
-  EnabledList.Assign(FullList);
+  TxtFile.EndUpdate;
+  VisibleList.Assign(FullList);
 end;
 
 procedure cEmutecaSoftManager.SaveToFileTxt(TxtFile: TStrings;
@@ -184,6 +192,8 @@ begin
 
   { TODO : cEmutecaSoftManager.SaveToFileTxt Export mode }
   TxtFile.Clear;
+  TxtFile.BeginUpdate;
+  TxtFile.Capacity := FullList.Count + 1; // Speed up?
   TxtFile.Add('"ID","Folder","FileName","Title","Parent","System",' +
     '"Reserved 1","TransliteratedName","SortTitle","Reserved 2",' +
     '"Version","Year","Publisher","Zone","Reserved 3",' +
@@ -202,6 +212,7 @@ begin
       ProgressCallBack(rsSavingVersionList, aSoft.SystemKey,
         aSoft.Title, i, FullList.Count);
   end;
+  TxtFile.EndUpdate;
 end;
 
 end.

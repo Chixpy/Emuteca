@@ -14,7 +14,8 @@ uses
 const
   LazEmuTKIconFiles: array [0..12] of string =
     (krsedsVerified, krsedsGood, krsedsAlternate, krsedsOverDump,
-    krsedsBadDump, krsedsUnderDump, 'Fixed', 'Trainer', 'Translation', 'Pirate',
+    krsedsBadDump, krsedsUnderDump, 'Fixed', 'Trainer',
+    'Translation', 'Pirate',
     'Cracked', 'Modified', 'Hack');
 
 type
@@ -29,8 +30,10 @@ type
   private
     FDumpIconList: cCHXImageList;
     FSoftIconList: cCHXImageList;
+    FZoneIconMap: cCHXImageMap;
     procedure SetDumpIconList(AValue: cCHXImageList);
     procedure SetSoftIconList(AValue: cCHXImageList);
+    procedure SetZoneIconMap(AValue: cCHXImageMap);
     { private declarations }
   public
     { public declarations }
@@ -41,8 +44,9 @@ type
     property DumpIconList: cCHXImageList
       read FDumpIconList write SetDumpIconList;
     {< Icons of dump info. }
+    property ZoneIconMap: cCHXImageMap read FZoneIconMap write SetZoneIconMap;
 
-        constructor Create(TheOwner: TComponent); override;
+    constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
   end;
 
@@ -58,6 +62,7 @@ procedure TfmEmutecaIcnSoftList.VSTDrawText(Sender: TBaseVirtualTree;
 var
   Data: ^cEmutecaSoftware;
   IconRect: TRect;
+  aIcon: TPicture;
   i: integer;
   TmpStr: string;
 begin
@@ -89,9 +94,11 @@ begin
 
       if (Data^.Stats.IconIndex > -1) and
         (Data^.Stats.IconIndex < SoftIconList.Count) then
-        TargetCanvas.StretchDraw(CorrectAspectRatio(IconRect,
-          SoftIconList[Data^.Stats.IconIndex]),
-          SoftIconList[Data^.Stats.IconIndex].Graphic);
+      begin
+        aIcon := SoftIconList[Data^.Stats.IconIndex];
+        TargetCanvas.StretchDraw(CorrectAspectRatio(IconRect, aIcon),
+          aIcon.Graphic);
+      end;
 
       // Text space
       IconRect := CellRect;
@@ -102,6 +109,37 @@ begin
         DT_NOPREFIX or DT_VCENTER or DT_SINGLELINE or
         DT_WORDBREAK or DT_END_ELLIPSIS or DT_EDITCONTROL);
 
+    end;
+
+    2: // Version
+    begin
+      if not assigned(ZoneIconMap) then
+        Exit;
+
+      if (Node = nil) then
+        Exit;
+      Data := VST.GetNodeData(Node);
+      if (Data^ = nil) then
+        Exit;
+
+      DefaultDraw := False;
+
+      // Icon space
+      IconRect := CellRect;
+      IconRect.Right := IconRect.Left + IconRect.Bottom - IconRect.Top;
+
+      if ZoneIconMap.TryGetData(Data^.Zone, aIcon) then
+        TargetCanvas.StretchDraw(CorrectAspectRatio(IconRect, aIcon),
+          aIcon.Graphic);
+
+      // Text space
+      IconRect := CellRect;
+      IconRect.Left := IconRect.Left + IconRect.Bottom -
+        IconRect.Top + VST.TextMargin;
+
+      DrawText(TargetCanvas.Handle, PChar(CellText), -1, IconRect,
+        DT_NOPREFIX or DT_VCENTER or DT_SINGLELINE or
+        DT_WORDBREAK or DT_END_ELLIPSIS or DT_EDITCONTROL);
     end;
 
     5: // Flags
@@ -188,13 +226,20 @@ begin
   FSoftIconList := AValue;
 end;
 
+procedure TfmEmutecaIcnSoftList.SetZoneIconMap(AValue: cCHXImageMap);
+begin
+  if FZoneIconMap = AValue then
+    Exit;
+  FZoneIconMap := AValue;
+end;
+
 constructor TfmEmutecaIcnSoftList.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
 
   // Set Width of tags column
-  vst.Header.Columns[5].Width := vst.DefaultNodeHeight * 8 +
-    vst.Header.Columns[5].Spacing * 2;
+  vst.Header.Columns[5].Width :=
+    vst.DefaultNodeHeight * 8 + vst.Header.Columns[5].Spacing * 2;
 end;
 
 destructor TfmEmutecaIcnSoftList.Destroy;

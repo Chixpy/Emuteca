@@ -75,7 +75,7 @@ end;
 (* === run-time registration functions === *)
 (*----------------------------------------------------------------------------*)
 procedure cEmutecaSoftManagerEnabledList_R(Self: cEmutecaSoftManager; var T: cEmutecaSoftList);
-begin T := Self.EnabledList; end;
+begin T := Self.VisibleList; end;
 
 (*----------------------------------------------------------------------------*)
 procedure cEmutecaSoftManagerFullList_R(Self: cEmutecaSoftManager; var T: cEmutecaSoftList);

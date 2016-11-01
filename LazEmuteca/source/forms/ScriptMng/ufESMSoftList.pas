@@ -104,7 +104,7 @@ begin
   begin
     fmEmutecaSystemCBX.SystemList := Emuteca.SystemManager.VisibleList;
     fmEmutecaParentList.ParentList := Emuteca.ParentManager.FullList;
-    fmEmutecaSoftList.SoftList := Emuteca.SoftManager.EnabledList;
+    fmEmutecaSoftList.SoftList := Emuteca.SoftManager.VisibleList;
   end
   else
   begin

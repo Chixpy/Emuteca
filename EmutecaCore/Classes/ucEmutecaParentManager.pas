@@ -111,7 +111,11 @@ begin
     begin
       aParent := cEmutecaParent(FullList[i]);
       if UTF8CompareText(aParent.System, aSystemKey) = 0 then
+      begin
+        if VisibleList.Capacity = VisibleList.Count then
+          VisibleList.Capacity := VisibleList.Capacity * 2; // Speed up?
         VisibleList.Add(aParent);
+      end;
       Inc(i);
     end;
   end;
@@ -126,6 +130,7 @@ begin
     aList := TStringList.Create;
 
   aList.BeginUpdate;
+  aList.Capacity := aList.Count + FullList.Count; // Speed up?
   i := 0;
   while i < FullList.Count do
   begin
@@ -145,6 +150,7 @@ begin
     aList := TStringList.Create;
 
   aList.BeginUpdate;
+  aList.Capacity := aList.Count + VisibleList.Count; // Speed up?
   i := 0;
   while i < VisibleList.Count do
   begin
@@ -163,6 +169,8 @@ begin
   if not Assigned(TxtFile) then
     Exit;
 
+  FullList.Capacity := FullList.Count + TxtFile.Count; // Speed Up?
+  TxtFile.BeginUpdate;
   i := 1; // Skipping Header
   while i < TxtFile.Count do
   begin
@@ -175,7 +183,7 @@ begin
       ProgressCallBack(rsLoadingParentList, TempParent.System,
         TempParent.Title, i, TxtFile.Count);
   end;
-
+  TxtFile.EndUpdate;
   VisibleList.Assign(FullList);
 end;
 
@@ -190,6 +198,8 @@ begin
 
   { TODO : cEmutecaParentManager.SaveToFileTxt Export mode }
   TxtFile.Clear;
+  TxtFile.BeginUpdate;
+  TxtFile.Capacity := FullList.Count + 1; // Speed up?
   TxtFile.Add('"ID/Sort Name","System","Title"');
 
   i := 0;
@@ -203,6 +213,7 @@ begin
       ProgressCallBack(rsSavingParentList, aParent.System,
         aParent.Title, i, FullList.Count);
   end;
+  TxtFile.EndUpdate;
 end;
 
 constructor cEmutecaParentManager.Create(aOwner: TComponent);

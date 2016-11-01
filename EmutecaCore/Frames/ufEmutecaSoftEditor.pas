@@ -214,7 +214,7 @@ begin
 
   eVersion.Text := Software.Version;
   eYear.Text := Software.Year;
-  ePublisher.Text := Software.Year;
+  ePublisher.Text := Software.Publisher;
   eZone.Text := Software.Zone;
 
   case Software.DumpStatus of

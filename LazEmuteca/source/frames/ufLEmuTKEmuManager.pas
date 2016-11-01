@@ -29,6 +29,7 @@ type
     procedure SetEmuManager(AValue: cEmutecaEmulatorManager);
 
   protected
+    procedure ClearData; override;
     property EmuEditor: TfmEmutecaEmulatorEditor read FEmuEditor write SetEmuEditor;
 
     procedure AddItemToList; override;
@@ -68,6 +69,12 @@ begin
    FEmuManager := AValue;
 
    LoadData;
+end;
+
+procedure TfmLEmuTKEmuManager.ClearData;
+begin
+  inherited ClearData;
+  EmuEditor.Emulator := nil;
 end;
 
 procedure TfmLEmuTKEmuManager.SetCheckedAll(aBool: Boolean);
@@ -149,9 +156,7 @@ procedure TfmLEmuTKEmuManager.LoadData;
 var
   i: integer;
 begin
-  EmuEditor.Emulator := nil;
-
-  clbPropItems.Clear;
+  ClearData;
 
   if not assigned(EmuManager) then
     Exit;
