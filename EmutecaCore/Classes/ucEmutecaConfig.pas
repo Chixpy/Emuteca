@@ -26,7 +26,7 @@ unit ucEmutecaConfig;
 interface
 
 uses
-  Classes, SysUtils, LazFileUtils, LazUTF8,
+  Classes, SysUtils, LazFileUtils, LazUTF8, Graphics,
   uCHXStrUtils, uCHXRscStr, u7zWrapper;
 
 const
@@ -161,8 +161,8 @@ type
       read FDefaultEmulatorImage write SetDefaultEmulatorImage;
     property DefaultEmulatorIcon: string
       read FDefaultEmulatorIcon write SetDefaultEmulatorIcon;
-    property DefaultGameImage: string read FDefaultGameImage
-      write SetDefaultGameImage;
+    property DefaultGameImage: string
+      read FDefaultGameImage write SetDefaultGameImage;
     property DefaultGameIcon: string read FDefaultGameIcon
       write SetDefaultGameIcon;
 
@@ -179,8 +179,8 @@ type
     { TODO : Only GUI? }
     property CommonMediaFolder: string
       read FCommonMediaFolder write SetCommonMediaFolder;
-    property CompanySubFolder: string read FCompanySubFolder
-      write SetCompanySubFolder;
+    property CompanySubFolder: string
+      read FCompanySubFolder write SetCompanySubFolder;
     property YearSubFolder: string read FYearSubFolder write SetYearSubFolder;
     property TagSubFolder: string read FTagSubFolder write SetTagSubFolder;
     property EmulatorSubFolder: string
@@ -501,12 +501,15 @@ begin
     // Config/Data
     DataFolder := IniFile.ReadString('Config', 'DataFolder', DataFolder);
     ParentsFile := IniFile.ReadString('Config', 'ParentsFile', ParentsFile);
-    VersionsFile := IniFile.ReadString('Config', 'VersionsFile', VersionsFile);
+    VersionsFile := IniFile.ReadString('Config', 'VersionsFile',
+      VersionsFile);
     EmulatorsFile := IniFile.ReadString('Config', 'EmulatorsFile',
       EmulatorsFile);
     SystemsFile := IniFile.ReadString('Config', 'SystemsFile', SystemsFile);
-    SysStructFile:=IniFile.ReadString('Config', 'SysStructFile', SysStructFile);
-    SysSubfolder := IniFile.ReadString('Config', 'SysSubfolder', SysSubfolder);
+    SysStructFile := IniFile.ReadString('Config', 'SysStructFile',
+      SysStructFile);
+    SysSubfolder := IniFile.ReadString('Config', 'SysSubfolder',
+      SysSubfolder);
 
 
     // Tools
@@ -524,8 +527,8 @@ begin
       'CompanySubFolder', CompanySubFolder);
     YearSubFolder := IniFile.ReadString('CommonMedia',
       'YearSubFolder', YearSubFolder);
-    TagSubFolder := IniFile.ReadString('CommonMedia', 'TagSubFolder',
-      TagSubFolder);
+    TagSubFolder := IniFile.ReadString('CommonMedia',
+      'TagSubFolder', TagSubFolder);
     EmulatorSubFolder := IniFile.ReadString('CommonMedia',
       'EmulatorSubFolder', EmulatorSubFolder);
 
@@ -605,11 +608,13 @@ begin
 
 
     // CommonMedia folders
-    IniFile.WriteString('CommonMedia', 'CommonMediaFolder', CommonMediaFolder);
+    IniFile.WriteString('CommonMedia', 'CommonMediaFolder',
+      CommonMediaFolder);
     IniFile.WriteString('CommonMedia', 'CompanySubFolder', CompanySubFolder);
     IniFile.WriteString('CommonMedia', 'YearSubFolder', YearSubFolder);
     IniFile.WriteString('CommonMedia', 'TagSubFolder', TagSubFolder);
-    IniFile.WriteString('CommonMedia', 'EmulatorSubFolder', EmulatorSubFolder);
+    IniFile.WriteString('CommonMedia', 'EmulatorSubFolder',
+      EmulatorSubFolder);
 
     // Scripts folders
     IniFile.WriteString('Scripts', 'ScriptsFolder', ScriptsFolder);
@@ -646,6 +651,8 @@ begin
 end;
 
 procedure cEmutecaConfig.SetDefaultConfig;
+var
+  TempStr: String;
 begin
   // Images
   ImagesFolder := 'Images';
@@ -693,8 +700,11 @@ begin
   GameGroupExt := 'fam';
 
   TextExtensions.CommaText := 'txt,nfo';
-  ImageExtensions.CommaText :=
-    'png,gif,jpg,jpe,jpeg,jfif,bmp,' + 'xpm,pbm,pgm,ppm,ico,icns,cur,tif,tiff';
+
+  TempStr := '"' + UTF8LowerCase(GraphicFileMask(TGraphic)) + '"';
+  TempStr := UTF8TextReplace(TempStr, '*.', '');
+  TempStr := UTF8TextReplace(TempStr, ';', '","');
+  ImageExtensions.CommaText := TempStr;
   MusicExtensions.CommaText := 'ogg,mp3,mid,midi';
   VideoExtensions.CommaText := 'mp4,avi,mpg';
   CompressedExtensions.CommaText := w7zFileExts;
@@ -710,10 +720,20 @@ begin
   inherited Create(aOwner);
 
   FTextExtensions := TStringList.Create;
+  TextExtensions.Sorted := True;
+  TextExtensions.CaseSensitive := False;
   FImageExtensions := TStringList.Create;
+  ImageExtensions.Sorted := True;
+  ImageExtensions.CaseSensitive := False;
   FMusicExtensions := TStringList.Create;
+  MusicExtensions.Sorted := True;
+  MusicExtensions.CaseSensitive := False;
   FVideoExtensions := TStringList.Create;
+  VideoExtensions.Sorted := True;
+  VideoExtensions.CaseSensitive := False;
   FCompressedExtensions := TStringList.Create;
+  CompressedExtensions.Sorted := True;
+  CompressedExtensions.CaseSensitive := False;
 
   SetDefaultConfig;
 end;

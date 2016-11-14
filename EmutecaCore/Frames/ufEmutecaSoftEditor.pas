@@ -67,7 +67,7 @@ type
     function SelectSystem(aSystem: cEmutecaSystem): boolean;
     function SelectParent(aParent: cEmutecaParent): boolean;
 
-    procedure ClearData;
+    procedure ClearData; override;
 
   public
     procedure FPOObservedChanged(ASender: TObject;

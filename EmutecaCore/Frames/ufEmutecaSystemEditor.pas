@@ -53,6 +53,8 @@ type
     procedure SetSystem(AValue: cEmutecaSystem);
 
     procedure UpdateLists;
+
+  protected
     procedure ClearData; override;
 
   public

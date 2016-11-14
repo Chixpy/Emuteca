@@ -238,9 +238,16 @@ end;
 function TfrmEmutecaMain.AddZoneIcon(aFolder: string;
   FileInfo: TSearchRec): boolean;
 begin
+   Result := True; // Don't Stop
+
+  // Testing extension
+  if Emuteca.Config.ImageExtensions.IndexOf(UTF8LowerCase(UTF8Copy(
+    ExtractFileExt(FileInfo.Name), 2, MaxInt))) = -1 then Exit;
+
+
   ZoneIcons.AddImageFile(UTF8LowerCase(ExtractFileNameOnly(FileInfo.Name)),
     aFolder + FileInfo.Name);
-  Result := True;
+
 end;
 
 procedure TfrmEmutecaMain.FormCreate(Sender: TObject);
