@@ -114,24 +114,36 @@ type
 
   protected
     property Emuteca: cEmuteca read FEmuteca;
+    //< Main Emuteca Core
     property GUIConfig: cGUIConfig read FGUIConfig;
-
-    procedure CheckTags(aList: TStrings);
-
-    function SelectSystem(aSystem: cEmutecaSystem): boolean;
-    function SelectParent(aParent: cEmutecaParent): boolean;
-    function SelectSoftware(aSoftware: cEmutecaSoftware): boolean;
-    function RunVersion(aSoftware: cEmutecaSoftware): boolean;
-
-    procedure SaveEmuteca;
+    //< GUI config
 
     property IconList: cCHXImageList read FIconList;
+    // Icons for parents, soft, systems and emulators
     property VerIcons: cCHXImageList read FVerIcons;
+    // Icons for dump info
     property ZoneIcons: cCHXImageMap read FZoneIcons;
+    // Icons of zones
+
+    procedure CheckTags(aList: TStrings);
+    // On check tag
+    function SelectSystem(aSystem: cEmutecaSystem): boolean;
+    //< On select a system
+    function SelectParent(aParent: cEmutecaParent): boolean;
+    //< On select a parent
+    function SelectSoftware(aSoftware: cEmutecaSoftware): boolean;
+    //< On select a software
+    function RunSoftware(aSoftware: cEmutecaSoftware): boolean;
+    //< On run a software
+
+    procedure SaveEmuteca;
+    //< Save parent and soft lists
 
     function AddZoneIcon(aFolder: string; FileInfo: TSearchRec): boolean;
+    //< Add Zone icon to list
     function OnProgressBar(const Title, Info1, Info2: string;
       const Value, MaxValue: int64): boolean;
+    //< Progress bar call back
 
   public
     { public declarations }
@@ -159,6 +171,7 @@ var
   str: string;
   i: longint;
 begin
+  {
   Temp := TStringList.Create;
   temp.Capacity := 500000;
 
@@ -173,6 +186,13 @@ begin
 
   Temp.SaveToFile('Soft.csv');
   FreeAndNil(Temp);
+  }
+  str := '';
+  for i := 0 to ZoneIcons.count - 1 do
+  begin
+    str := str + ', ' + ZoneIcons.Keys[i];
+  end;
+  ShowMessage(str);
 end;
 
 procedure TfrmEmutecaMain.CheckTags(aList: TStrings);
@@ -211,7 +231,7 @@ begin
   fmEmutecaSoftEditor.Software := aSoftware;
 end;
 
-function TfrmEmutecaMain.RunVersion(aSoftware: cEmutecaSoftware): boolean;
+function TfrmEmutecaMain.RunSoftware(aSoftware: cEmutecaSoftware): boolean;
 begin
   Result := True;
 
@@ -280,11 +300,23 @@ procedure TfrmEmutecaMain.FormCreate(Sender: TObject);
     aFolder := GUIConfig.ZoneIcnFolder;
     IterateFolderObj(aFolder, @AddZoneIcon, False);
 
+    // Adding No Zone Icon
+    { TODO : Why don't work? Even using 'xx' for example }
+    ZoneIcons.AddImageFile('', GUIConfig.DefImgFolder + 'NoZone.png');
 
    { Icons for games parents and software, first default one
       0: Default for software
+      1: Default for parent
+      2: Default for system
+      3: Default for emulator
     }
-    aFile := GUIConfig.DefImgFolder + 'DefSoftIcon.png';
+    aFile := GUIConfig.DefImgFolder + 'SoftIcon.png';
+    AddIcon(IconList, aFile);
+        aFile := GUIConfig.DefImgFolder + 'ParentIcon.png';
+    AddIcon(IconList, aFile);
+        aFile := GUIConfig.DefImgFolder + 'SysIcon.png';
+    AddIcon(IconList, aFile);
+        aFile := GUIConfig.DefImgFolder + 'EmuIcon.png';
     AddIcon(IconList, aFile);
 
     { Icons for "flags" column, see ufEmutecaIcnSoftList.LazEmuTKIconFiles
@@ -334,7 +366,7 @@ procedure TfrmEmutecaMain.FormCreate(Sender: TObject);
     fmEmutecaSoftList.DumpIconList := VerIcons;
     fmEmutecaSoftList.ZoneIconMap := ZoneIcons;
     fmEmutecaSoftList.OnItemSelect := @Self.SelectSoftware;
-    fmEmutecaSoftList.OnDblClick := @Self.RunVersion;
+    fmEmutecaSoftList.OnDblClick := @Self.RunSoftware;
     fmEmutecaSoftList.SoftList := Emuteca.SoftManager.VisibleList;
 
     // Creating and Setting Tags frame

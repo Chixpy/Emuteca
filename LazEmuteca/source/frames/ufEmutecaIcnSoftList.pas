@@ -128,7 +128,9 @@ begin
       IconRect := CellRect;
       IconRect.Right := IconRect.Left + IconRect.Bottom - IconRect.Top;
 
-      if ZoneIconMap.TryGetData(Data^.Zone, aIcon) then
+      if not ZoneIconMap.TryGetData(Data^.Zone, aIcon) then
+        ZoneIconMap.TryGetData('', aIcon);
+      if assigned(aIcon) then
         TargetCanvas.StretchDraw(CorrectAspectRatio(IconRect, aIcon),
           aIcon.Graphic);
 
