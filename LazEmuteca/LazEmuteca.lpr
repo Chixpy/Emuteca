@@ -21,7 +21,7 @@ ufEmutecaActAddSoft, uGUIConfig,
   ufEmutecaParentCBX, ufEmutecaIcnSoftList, ufCHXPropEditor, 
 ufEmutecaSystemEditor, ufLEmuTKFullSystemEditor, ufCHXChkLstPropEditor, 
 ufLEmuTKSysManager, ufLEmuTKEmuManager, ufEmutecaSoftEditor, 
-ufLEmuTKFullEmuEditor, ufEmutecaEmulatorEditor;
+ufLEmuTKFullEmuEditor, ufEmutecaEmulatorEditor, ufLEmuTKSoftMedia;
 
 {$R *.res}
 

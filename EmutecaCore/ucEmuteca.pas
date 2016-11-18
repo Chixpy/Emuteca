@@ -322,6 +322,15 @@ begin
   if FCurrentParent = AValue then
     Exit;
   FCurrentParent := AValue;
+
+    if assigned(CurrentParent) then
+  begin
+    CurrentSystem := SearchSystem(CurrentParent.SystemKey);
+  end
+  else
+  begin
+    CurrentSystem := nil;
+  end;
 end;
 
 procedure cEmuteca.SetCurrentSoft(AValue: cEmutecaSoftware);
@@ -329,6 +338,17 @@ begin
   if FCurrentSoft = AValue then
     Exit;
   FCurrentSoft := AValue;
+
+  if assigned(CurrentSoft) then
+  begin
+    CurrentParent := SearchParent(CurrentSoft.ParentKey);
+    CurrentSystem := SearchSystem(CurrentSoft.SystemKey);
+  end
+  else
+  begin
+    CurrentParent := nil;
+    CurrentSystem := nil;
+  end;
 end;
 
 procedure cEmuteca.SetCurrentSystem(AValue: cEmutecaSystem);

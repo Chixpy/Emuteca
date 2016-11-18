@@ -94,7 +94,7 @@
         <PackageName Value="LCL"/>
       </Item6>
     </RequiredPackages>
-    <Units Count="78">
+    <Units Count="79">
       <Unit0>
         <Filename Value="LazEmuteca.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -489,6 +489,12 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
       </Unit77>
+      <Unit78>
+        <Filename Value="source\frames\ufLEmuTKSoftMedia.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fmLEmuTKSoftMedia"/>
+        <ResourceBaseClass Value="Frame"/>
+      </Unit78>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

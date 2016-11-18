@@ -29,7 +29,7 @@ uses
   // Emuteca windows
   ufEmutecaActAddSoft, ufEmutecaActAddFolder,
   // LazEmuteca frames
-  ufLEmuTKSysManager, ufLEmuTKEmuManager,
+  ufLEmuTKSysManager, ufLEmuTKEmuManager, ufLEmuTKSoftMedia,
   uGUIConfig;
 
 type
@@ -97,7 +97,6 @@ type
 
   private
     FVerIcons: cCHXImageList;
-    { private declarations }
     FEmuteca: cEmuteca;
     FGUIConfig: cGUIConfig;
     FIconList: cCHXImageList;
@@ -110,6 +109,7 @@ type
     fmCHXTagTree: TfmTagTree;
 
     fmEmutecaSoftEditor: TfmEmutecaSoftEditor;
+    fmSoftMedia: TfmLEmuTKSoftMedia;
     FZoneIcons: cCHXImageMap;
 
   protected
@@ -301,7 +301,6 @@ procedure TfrmEmutecaMain.FormCreate(Sender: TObject);
     IterateFolderObj(aFolder, @AddZoneIcon, False);
 
     // Adding No Zone Icon
-    { TODO : Why don't work? Even using 'xx' for example }
     ZoneIcons.AddImageFile('', GUIConfig.DefImgFolder + 'NoZone.png');
 
    { Icons for games parents and software, first default one
@@ -357,7 +356,7 @@ procedure TfrmEmutecaMain.FormCreate(Sender: TObject);
     fmEmutecaParentList := TfmEmutecaParentList.Create(pTop);
     fmEmutecaParentList.Parent := pTop;
     fmEmutecaParentList.OnItemSelect := @Self.SelectParent;
-    fmEmutecaParentList.ParentList := Emuteca.ParentManager.FullList;
+    fmEmutecaParentList.ParentList := Emuteca.ParentManager.VisibleList;
 
     // Creating and Setting the software list frame
     fmEmutecaSoftList := TfmEmutecaIcnSoftList.Create(pBottom);
@@ -368,6 +367,7 @@ procedure TfrmEmutecaMain.FormCreate(Sender: TObject);
     fmEmutecaSoftList.OnItemSelect := @Self.SelectSoftware;
     fmEmutecaSoftList.OnDblClick := @Self.RunSoftware;
     fmEmutecaSoftList.SoftList := Emuteca.SoftManager.VisibleList;
+    //fmEmutecaSoftList.ParentList := Emuteca.ParentManager.FullList;
 
     // Creating and Setting Tags frame
     aTabSheet := pcLeft.AddTabSheet;
@@ -376,6 +376,13 @@ procedure TfrmEmutecaMain.FormCreate(Sender: TObject);
     fmCHXTagTree.Parent := aTabSheet;
     fmCHXTagTree.Folder := Emuteca.Config.TagSubFolder;
     fmCHXTagTree.OnCheckChange := @self.CheckTags;
+
+    // Creating SoftMedia frame
+    aTabSheet := pcSoftware.AddTabSheet;
+    fmSoftMedia := TfmLEmuTKSoftMedia.Create(aTabSheet);
+    aTabSheet.Caption := fmSoftMedia.Caption;  {TODO: Add Caption}
+    fmSoftMedia.Align := alClient;
+    fmSoftMedia.Parent := aTabSheet;
 
     // Creating SoftEditor frame
     aTabSheet := pcSoftware.AddTabSheet;

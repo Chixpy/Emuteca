@@ -28,7 +28,8 @@ interface
 uses
   Classes, SysUtils, IniFiles, LazFileUtils, LazUTF8, contnrs,
   uCHXStrUtils,
-  uEmutecaCommon, uaCHXStorable;
+  uEmutecaCommon, uaCHXStorable,
+  ucEmutecaPlayingStats;
 
 const
   // Ini file Keys
@@ -83,6 +84,7 @@ type
     FInfoText: string;
     FMainEmulator: string;
     FOtherEmulators: TStringList;
+    FStats: cEmutecaPlayingStats;
     FTempFolder: string;
     FTextCaptions: TStringList;
     FTextFolders: TStringList;
@@ -99,6 +101,7 @@ type
     procedure SetImage(AValue: string);
     procedure SetInfoText(AValue: string);
     procedure SetMainEmulator(AValue: string);
+    procedure SetStats(AValue: cEmutecaPlayingStats);
     procedure SetTempFolder(AValue: string);
     procedure SetTitle(AValue: string);
 
@@ -200,6 +203,10 @@ type
 
     Only one extension in every string, without dot.
     }
+
+    // Usage statitics
+    // ---------------
+    property Stats: cEmutecaPlayingStats read FStats write SetStats;
   end;
 
   // After many test with generics implementing Observer...Keep it simple
@@ -436,6 +443,12 @@ begin
   FMainEmulator := SetAsID(AValue);
 end;
 
+procedure cEmutecaSystem.SetStats(AValue: cEmutecaPlayingStats);
+begin
+  if FStats = AValue then Exit;
+  FStats := AValue;
+end;
+
 procedure cEmutecaSystem.SetTempFolder(AValue: string);
 begin
   FTempFolder := SetAsFolder(AValue);
@@ -488,6 +501,8 @@ constructor cEmutecaSystem.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
 
+  FStats := cEmutecaPlayingStats.Create(Self);
+
   Self.Enabled := False;
   Self.GameKey := TEFKSHA1;
 
@@ -516,6 +531,8 @@ begin
 
   FreeAndNil(Self.FTextCaptions);
   FreeAndNil(Self.FTextFolders);
+
+  FreeAndNil(FStats);
 
   inherited Destroy;
 end;

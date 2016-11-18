@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
   VirtualTrees, LCLIntf, LCLType, LazUTF8,
   ucCHXImageList, uCHXImageUtils,
-  ucEmutecaSoftware,
+  ucEmutecaSoftware, ucEmutecaParent,
   ufEmutecaSoftList;
 
 const
@@ -88,8 +88,21 @@ begin
 
       if Data^.Stats.IconIndex = -1 then
       begin
-        // TODO: Search Icon, add to list, add to caché
-        Data^.Stats.IconIndex := 0;
+        // TODO: Search Icon, extract it, add to list, add to caché
+
+
+        // Icon not found, search parent one
+        if not assigned(Data^.Parent) then
+        begin
+          // Search parent add to cache
+         // if Data^.Parent = -1 then
+          //  Data^.Parent.Stats.IconIndex := 0; // Assign default icon to parent        end;
+        end;
+
+        if assigned(Data^.Parent) then
+            Data^.Stats.IconIndex := Data^.Parent.Stats.IconIndex
+        else
+         Data^.Stats.IconIndex := 0;
       end;
 
       if (Data^.Stats.IconIndex > -1) and

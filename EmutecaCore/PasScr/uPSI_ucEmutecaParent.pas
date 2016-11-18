@@ -83,11 +83,11 @@ begin T := Self.ID; end;
 
 (*----------------------------------------------------------------------------*)
 procedure cEmutecaParentSystem_W(Self: cEmutecaParent; const T: string);
-begin Self.System := T; end;
+begin Self.SystemKey := T; end;
 
 (*----------------------------------------------------------------------------*)
 procedure cEmutecaParentSystem_R(Self: cEmutecaParent; var T: string);
-begin T := Self.System; end;
+begin T := Self.SystemKey; end;
 
 (*----------------------------------------------------------------------------*)
 procedure cEmutecaParentTitle_W(Self: cEmutecaParent; const T: string);

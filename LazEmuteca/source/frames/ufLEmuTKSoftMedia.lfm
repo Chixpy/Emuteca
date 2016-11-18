@@ -1,0 +1,9 @@
+object fmLEmuTKSoftMedia: TfmLEmuTKSoftMedia
+  Left = 0
+  Height = 240
+  Top = 0
+  Width = 320
+  TabOrder = 0
+  DesignLeft = 544
+  DesignTop = 298
+end

@@ -110,7 +110,7 @@ begin
     while i < FullList.Count do
     begin
       aParent := cEmutecaParent(FullList[i]);
-      if UTF8CompareText(aParent.System, aSystemKey) = 0 then
+      if UTF8CompareText(aParent.SystemKey, aSystemKey) = 0 then
       begin
         if VisibleList.Capacity = VisibleList.Count then
           VisibleList.Capacity := VisibleList.Capacity * 2; // Speed up?
@@ -155,7 +155,7 @@ begin
   while i < VisibleList.Count do
   begin
     aParent := cEmutecaParent(VisibleList[i]);
-    aList.AddObject(aParent.Title + ' (' + aParent.System + ')', aParent);
+    aList.AddObject(aParent.Title + ' (' + aParent.SystemKey + ')', aParent);
     Inc(i);
   end;
   aList.EndUpdate;
@@ -180,7 +180,7 @@ begin
     Inc(i);
 
     if ProgressCallBack <> nil then
-      ProgressCallBack(rsLoadingParentList, TempParent.System,
+      ProgressCallBack(rsLoadingParentList, TempParent.SystemKey,
         TempParent.Title, i, TxtFile.Count);
   end;
   TxtFile.EndUpdate;
@@ -210,7 +210,7 @@ begin
     Inc(i);
 
     if ProgressCallBack <> nil then
-      ProgressCallBack(rsSavingParentList, aParent.System,
+      ProgressCallBack(rsSavingParentList, aParent.SystemKey,
         aParent.Title, i, FullList.Count);
   end;
   TxtFile.EndUpdate;

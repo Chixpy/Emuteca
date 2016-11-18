@@ -94,7 +94,7 @@ begin
       -1, 0: // Name
         Result := UTF8CompareText(pData1^.ID, pData2^.ID);
       1: // System
-        Result := UTF8CompareText(pData1^.System, pData2^.System);
+        Result := UTF8CompareText(pData1^.SystemKey, pData2^.SystemKey);
   end;
 end;
 
@@ -128,7 +128,7 @@ begin
     -1, 0: // Name
       CellText := pData^.Title;
     1: // System
-      CellText := pData^.System;
+      CellText := pData^.SystemKey;
   end;
 end;
 

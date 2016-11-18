@@ -8,7 +8,8 @@ uses
   Classes, SysUtils, LazFileUtils, LazUTF8, contnrs,
   uCHXStrUtils,
   uaCHXStorable,
-  ucEmutecaPlayingStats;
+  ucEmutecaPlayingStats,
+  ucEmutecaSystem, ucEmutecaParent;
 
 const
   // Constant for DumpStatus, fixed (for filenames)
@@ -45,7 +46,7 @@ const
 type
   { cEmutecaSoftware. }
 
-  cEmutecaSoftware = class(caCHXStorableTxt)
+  cEmutecaSoftware = class(caCHXStorableTxt, IFPObserver)
   private
     FCracked: string;
     FDumpInfo: string;
@@ -56,11 +57,13 @@ type
     FHack: string;
     FID: string;
     FModified: string;
+    FParent: cEmutecaParent;
     FParentKey: string;
     FPirate: string;
     FPublisher: string;
     FSortTitle: string;
     FStats: cEmutecaPlayingStats;
+    FSystem: cEmutecaSystem;
     FSystemKey: string;
     FTitle: string;
     FTrainer: string;
@@ -80,11 +83,13 @@ type
     procedure SetHack(AValue: string);
     procedure SetID(AValue: string);
     procedure SetModified(AValue: string);
+    procedure SetParent(AValue: cEmutecaParent);
     procedure SetParentKey(AValue: string);
     procedure SetPirate(AValue: string);
     procedure SetPublisher(AValue: string);
     procedure SetSortTitle(AValue: string);
     procedure SetStats(AValue: cEmutecaPlayingStats);
+    procedure SetSystem(AValue: cEmutecaSystem);
     procedure SetSystemKey(AValue: string);
     procedure SetTitle(AValue: string);
     procedure SetTrainer(AValue: string);
@@ -97,13 +102,21 @@ type
   public
     property DataString: string read GetDataString write SetDataString;
 
-    constructor Create(aOwner: TComponent); override;
-    destructor Destroy; override;
+    // Cached Data
+    // -----------
+    property System: cEmutecaSystem read FSystem write SetSystem;
+    property Parent: cEmutecaParent read FParent write SetParent;
+
+    procedure FPOObservedChanged(ASender: TObject;
+      Operation: TFPObservedOperation; Data: Pointer);
+    {< Subject has changed. }
 
     procedure LoadFromFileTxt(TxtFile: TStrings); override;
     procedure SaveToFileTxt(TxtFile: TStrings; const ExportMode: boolean);
       override;
 
+    constructor Create(aOwner: TComponent); override;
+    destructor Destroy; override;
   published
     // Basic data
     // ----------
@@ -327,6 +340,29 @@ begin
   FZone := AValue;
 end;
 
+procedure cEmutecaSoftware.FPOObservedChanged(ASender: TObject;
+  Operation: TFPObservedOperation; Data: Pointer);
+begin
+  if not assigned(ASender) then
+    Exit;
+  if ASender = System then
+  begin
+    case Operation of
+      ooFree: System := nil;
+      else
+        SystemKey := cEmutecaSystem(ASender).ID;
+    end;
+  end
+  else if ASender = Parent then
+  begin
+    case Operation of
+      ooFree: Parent := nil;
+      else
+        SystemKey := cEmutecaParent(ASender).ID;
+    end;
+  end;
+end;
+
 procedure cEmutecaSoftware.SetSortTitle(AValue: string);
 begin
   FSortTitle := UTF8LowerString(AValue);
@@ -337,6 +373,20 @@ begin
   if FStats = AValue then
     Exit;
   FStats := AValue;
+end;
+
+procedure cEmutecaSoftware.SetSystem(AValue: cEmutecaSystem);
+begin
+  if FSystem = AValue then
+    Exit;
+
+  if Assigned(FSystem) then
+    FSystem.FPODetachObserver(Self);
+
+  FSystem := AValue;
+
+  if Assigned(System) then
+    System.FPOAttachObserver(Self);
 end;
 
 procedure cEmutecaSoftware.SetTranslitTitle(AValue: string);
@@ -368,6 +418,20 @@ begin
   if FModified = AValue then
     Exit;
   FModified := AValue;
+end;
+
+procedure cEmutecaSoftware.SetParent(AValue: cEmutecaParent);
+begin
+  if FParent = AValue then
+    Exit;
+
+  if Assigned(FParent) then
+    FParent.FPODetachObserver(Self);
+
+  FParent := AValue;
+
+  if Assigned(Parent) then
+    Parent.FPOAttachObserver(Self);
 end;
 
 procedure cEmutecaSoftware.SetParentKey(AValue: string);
@@ -436,6 +500,10 @@ end;
 
 destructor cEmutecaSoftware.Destroy;
 begin
+  if Assigned(Parent) then
+    Parent.FPODetachObserver(Self);
+  if Assigned(System) then
+    System.FPODetachObserver(Self);
   FreeAndNil(FStats);
 
   inherited Destroy;
