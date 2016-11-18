@@ -36,18 +36,22 @@ type
 
   cEmutecaGroup = class(caCHXStorableTxt, IFPObserver)
   private
+    FDeveloper: string;
     FID: string;
     FStats: cEmutecaPlayingStats;
     FSystem: cEmutecaSystem;
     FSystemKey: string;
     FTitle: string;
+    FYear: string;
     function GetDataString: string;
     procedure SetDataString(AValue: string);
+    procedure SetDeveloper(AValue: string);
     procedure SetID(AValue: string);
     procedure SetStats(AValue: cEmutecaPlayingStats);
     procedure SetSystem(AValue: cEmutecaSystem);
     procedure SetSystemKey(AValue: string);
     procedure SetTitle(AValue: string);
+    procedure SetYear(AValue: string);
 
 
   public
@@ -70,12 +74,14 @@ type
     constructor Create(aOwner: TComponent); override;
     destructor Destroy; override;
   published
+    property ID: string read FID write SetID;
+    {< ID of the Parent (and Sorting)}
     property Title: string read FTitle write SetTitle;
     {< Name of the parent. }
     property SystemKey: string read FSystemKey write SetSystemKey;
     {< ID of the system. }
-    property ID: string read FID write SetID;
-    {< ID of the Parent (and Sorting)}
+    property Year: string read FYear write SetYear;
+    property Developer: string read FDeveloper write SetDeveloper;
 
     // Usage statitics
     // ---------------
@@ -98,6 +104,12 @@ begin
   if FTitle = AValue then
     Exit;
   FTitle := AValue;
+end;
+
+procedure cEmutecaGroup.SetYear(AValue: string);
+begin
+  if FYear = AValue then Exit;
+  FYear := AValue;
 end;
 
 procedure cEmutecaGroup.SetSystemKey(AValue: string);
@@ -157,6 +169,12 @@ begin
   end;
 end;
 
+procedure cEmutecaGroup.SetDeveloper(AValue: string);
+begin
+  if FDeveloper = AValue then Exit;
+  FDeveloper := AValue;
+end;
+
 constructor cEmutecaGroup.Create(aOwner: TComponent);
 begin
   inherited Create(aOwner);
@@ -174,16 +192,30 @@ begin
 end;
 
 procedure cEmutecaGroup.LoadFromFileTxt(TxtFile: TStrings);
+var
+  i: integer;
 begin
   if not assigned(TxtFile) then
     Exit;
 
-  if TxtFile.Count > 0 then
-    self.ID := TxtFile[0];
-  if TxtFile.Count > 1 then
-    self.SystemKey := TxtFile[1];
-  if TxtFile.Count > 2 then
-    self.Title := TxtFile[2];
+  i := 0;
+  while i < TxtFile.Count do
+  begin
+    case i of
+      0: ID := TxtFile[i];
+      1: SystemKey := TxtFile[i];
+      2: Title := TxtFile[i];
+      3: Year := TxtFile[i];
+      4: Developer := TxtFile[i];
+      // 5: ;
+      6: Stats.LastTime := StrToFloatDef(TxtFile[i], 0);
+      7: Stats.TimesPlayed := StrToIntDef(TxtFile[i], 0);
+      8: Stats.PlayingTime := StrToCardinalDef(TxtFile[i], 0);
+      else
+        ;
+    end;
+    inc(i);
+  end;
 end;
 
 procedure cEmutecaGroup.SaveToFileTxt(TxtFile: TStrings;
@@ -195,6 +227,15 @@ begin
   TxtFile.Add(ID);
   TxtFile.Add(SystemKey);
   TxtFile.Add(Title);
+  TxtFile.Add(Year);
+  TxtFile.Add(Developer);
+  TxtFile.Add('');
+
+    // Usage statitics
+  // ---------------
+  TxtFile.Add(FloatToStr(Stats.LastTime));
+  TxtFile.Add(IntToStr(Stats.TimesPlayed));
+  TxtFile.Add(IntToStr(Stats.PlayingTime));
 end;
 
 procedure cEmutecaGroup.FPOObservedChanged(ASender: TObject;

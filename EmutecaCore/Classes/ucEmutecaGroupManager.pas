@@ -200,7 +200,8 @@ begin
   TxtFile.Clear;
   TxtFile.BeginUpdate;
   TxtFile.Capacity := FullList.Count + 1; // Speed up?
-  TxtFile.Add('"ID/Sort Name","System","Title"');
+  TxtFile.Add('"ID/Sort Name","System","Title","Year","Developer",'
+  + '"Reverved","Last Time","Times Played","Playing Time"');
 
   i := 0;
   while i < FullList.Count do

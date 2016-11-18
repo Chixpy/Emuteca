@@ -7,7 +7,8 @@ interface
 uses
   Classes, SysUtils, FileUtil, VirtualTrees, Forms, Controls, ComCtrls,
   ActnList, Menus, LazUTF8,
-  uEmutecaCommon, ucEmutecaSoftware;
+  uCHXStrUtils,
+  uEmutecaCommon, ucEmuteca, ucEmutecaSoftware;
 
 type
   { TfmEmutecaSoftList }
@@ -47,8 +48,10 @@ type
       Data: Pointer; var Abort: boolean);
 
     procedure UpdateStatusBar;
+
   public
     property SoftList: cEmutecaSoftList read FSoftList write SetSoftList;
+    //< Actual list to show
 
     property FilterStr: string read FFilterStr write SetFilterStr;
     {< String to show/hide nodes }
@@ -97,7 +100,8 @@ begin
   pData := Sender.GetNodeData(Node);
   if FilterStr <> '' then
     Sender.IsVisible[Node] :=
-      UTF8Pos(FilterStr, UTF8LowerString(pData^.Title)) >= 1
+      (UTF8Pos(FilterStr, UTF8LowerString(pData^.Title)) >= 1) or
+      (UTF8Pos(FilterStr, UTF8LowerString(pData^.TranslitTitle)) >= 1)
   else
     Sender.IsVisible[Node] := True;
 end;
@@ -153,7 +157,12 @@ begin
     4: // Year
       Result := UTF8CompareText(pData1^.Year, pData2^.Year);
     5: // Flags
-      ; //Result := UTF8CompareText(pData1^.Year, pData2^.Year);
+    begin
+      if pData1^.DumpStatus <> pData2^.DumpStatus then
+       Result := ord(pData1^.DumpStatus) - ord(pData2^.DumpStatus)
+      else
+        Result := UTF8CompareText(pData1^.Translation, pData2^.Translation);
+    end;
     6: // Times Played
       Result := pData1^.Stats.TimesPlayed - pData2^.Stats.TimesPlayed;
     7: // Playing Time
@@ -200,6 +209,9 @@ begin
     begin
       HintText := EmutecaDumpStatusStrs[pData^.DumpStatus];
 
+      if pData^.DumpInfo <> '' then
+        HintText += ' (' + pData^.DumpInfo + ')';
+
       if pData^.Fixed <> '' then
         HintText += sLineBreak + 'Fixed: ' + pData^.Fixed;
 
@@ -236,22 +248,49 @@ begin
 
   case Column of
     0: // System
-      CellText := pData^.SystemKey;
+    begin
+      if assigned(pData^.System) then
+        CellText := pData^.System.Title
+      else
+        CellText := rsNotCached;
+    end;
     1: // Title
       CellText := pData^.Title;
     2: // Version
       CellText := pData^.Version;
     3: // Publisher
-      CellText := pData^.Publisher;
+    begin
+      if pData^.Publisher = '' then
+      begin
+        if assigned(pData^.Group) then
+          CellText := '(' +pData^.Group.Developer + ')'
+        else
+          CellText :=  rsNotCached;
+      end
+      else
+        CellText := pData^.Publisher;
+    end;
     4: // Year
-      CellText := pData^.Year;
+    begin
+      if pData^.Year = '' then
+      begin
+        if assigned(pData^.Group) then
+        begin
+          CellText := '(' +pData^.Group.Year + ')'
+        end
+        else
+         CellText :=  rsNotCached;
+      end
+      else
+        CellText := pData^.Year;
+    end;
     5: // Flags
     begin
-      { TODO: Make better output... }
-      CellText := ' ';
-      if pData^.DumpStatus <> edsGood then
-        CellText := '[' + EmutecaDumpStatusKeys[pData^.DumpStatus] +
-          pData^.DumpInfo + ']';
+      // A simple formated output, to be overriden
+      CellText := EmutecaDumpStatusStrs[pData^.DumpStatus];
+
+      if pData^.DumpInfo <> '' then
+        CellText += ' [' + pData^.DumpInfo + ']';
 
       if pData^.Fixed <> '' then
         CellText += ' [f ' + pData^.Fixed + ']';
@@ -277,8 +316,11 @@ begin
     6: // Times Played
       CellText := IntToStr(pData^.Stats.TimesPlayed);
     7: // Playing Time
-      CellText := IntToStr(pData^.Stats.PlayingTime);
+      CellText := SecondsToFmtStr(pData^.Stats.PlayingTime);
     8: // Last Time
+    if pData^.Stats.LastTime = 0 then
+      CellText := rsNever
+      else
       CellText := DateTimeToStr(pData^.Stats.LastTime);
     9: // Folder
       CellText := pData^.Folder;
