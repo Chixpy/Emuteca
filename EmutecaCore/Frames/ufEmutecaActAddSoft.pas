@@ -80,9 +80,9 @@ begin
   // Updating SoftEditor
   Software.Folder := ExtractFileDir(Value);
   Software.FileName := ExtractFileName(Value);
-  Software.ParentKey := RemoveFromBrackets(ExtractFileNameOnly(
+  Software.GroupKey := RemoveFromBrackets(ExtractFileNameOnly(
     Software.FileName));
-  Software.Title := Software.ParentKey;
+  Software.Title := Software.GroupKey;
   Software.Version :=
     CopyFromBrackets(ExtractFileNameOnly(Software.FileName));
   SoftEditor.LoadData;
@@ -133,7 +133,7 @@ procedure TfmActAddSoft.cbxInnerFileChange(Sender: TObject);
 begin
   Software.Folder := eFile.Text;
   Software.FileName := cbxInnerFile.Text;
-  Software.ParentKey := RemoveFromBrackets(ExtractFileNameOnly(eFile.Text));
+  Software.GroupKey := RemoveFromBrackets(ExtractFileNameOnly(eFile.Text));
   Software.Title := RemoveFromBrackets(ExtractFileNameOnly(
     cbxInnerFile.Text));
   Software.Version :=
@@ -308,9 +308,9 @@ constructor TfmActAddSoft.Create(TheOwner: TComponent);
   procedure CreateFrames;
   begin
     FcbxSystem := TfmEmutecaSystemCBX.Create(gbxSystem);
-    cbxSystem.Parent := gbxSystem;
     cbxSystem.Align := alTop;
     cbxSystem.OnSelectSystem := @SelectSystem;
+    cbxSystem.Parent := gbxSystem;
 
     FSoftEditor := TfmEmutecaSoftEditor.Create(gbxSoftInfo);
     SoftEditor.Parent := gbxSoftInfo;

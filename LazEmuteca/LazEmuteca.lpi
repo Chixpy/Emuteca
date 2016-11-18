@@ -111,7 +111,7 @@
         <IsPartOfProject Value="True"/>
       </Unit2>
       <Unit3>
-        <Filename Value="..\EmutecaCore\Classes\ucEmutecaParent.pas"/>
+        <Filename Value="..\EmutecaCore\Classes\ucEmutecaGroup.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit3>
       <Unit4>
@@ -127,9 +127,9 @@
         <IsPartOfProject Value="True"/>
       </Unit6>
       <Unit7>
-        <Filename Value="..\EmutecaCore\Frames\ufEmutecaParentList.pas"/>
+        <Filename Value="..\EmutecaCore\Frames\ufEmutecaGroupList.pas"/>
         <IsPartOfProject Value="True"/>
-        <ComponentName Value="fmEmutecaParentList"/>
+        <ComponentName Value="fmEmutecaGroupList"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
       </Unit7>
@@ -157,7 +157,7 @@
         <IsPartOfProject Value="True"/>
       </Unit12>
       <Unit13>
-        <Filename Value="..\EmutecaCore\Classes\ucEmutecaParentManager.pas"/>
+        <Filename Value="..\EmutecaCore\Classes\ucEmutecaGroupManager.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit13>
       <Unit14>
@@ -345,7 +345,7 @@
         <IsPartOfProject Value="True"/>
       </Unit52>
       <Unit53>
-        <Filename Value="..\EmutecaCore\PasScr\uPSI_ucEmutecaParentManager.pas"/>
+        <Filename Value="..\EmutecaCore\PasScr\uPSI_ucEmutecaGroupManager.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit53>
       <Unit54>
@@ -409,9 +409,9 @@
         <ResourceBaseClass Value="Frame"/>
       </Unit65>
       <Unit66>
-        <Filename Value="..\EmutecaCore\Frames\ufEmutecaParentCBX.pas"/>
+        <Filename Value="..\EmutecaCore\Frames\ufEmutecaGroupCBX.pas"/>
         <IsPartOfProject Value="True"/>
-        <ComponentName Value="fmEmutecaParentCBX"/>
+        <ComponentName Value="fmEmutecaGroupCBX"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
       </Unit66>
@@ -493,6 +493,7 @@
         <Filename Value="source\frames\ufLEmuTKSoftMedia.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fmLEmuTKSoftMedia"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
       </Unit78>
     </Units>

@@ -8,8 +8,8 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
   Buttons, ActnList, StdCtrls,
   ufCHXPropEditor,
-  ucEmuteca, ucEmutecaSystem, ucEmutecaSoftware, ucEmutecaParent,
-  ufEmutecaSystemCBX, ufEmutecaParentCBX;
+  ucEmuteca, ucEmutecaSystem, ucEmutecaSoftware, ucEmutecaGroup,
+  ufEmutecaSystemCBX, ufEmutecaGroupCBX;
 
 type
 
@@ -33,7 +33,7 @@ type
     eYear: TEdit;
     eZone: TEdit;
     gbxDumpTags: TGroupBox;
-    gbxParent: TGroupBox;
+    gbxGroup: TGroupBox;
     gbxSystem: TGroupBox;
     gbxTitle: TGroupBox;
     gbxVersion: TGroupBox;
@@ -51,8 +51,9 @@ type
     lVersion: TLabel;
     lYear: TLabel;
     lZone: TLabel;
+
   private
-    FcbxParent: TfmEmutecaParentCBX;
+    FcbxGroup: TfmEmutecaGroupCBX;
     FcbxSystem: TfmEmutecaSystemCBX;
     FEmuteca: cEmuteca;
     FSoftware: cEmutecaSoftware;
@@ -62,10 +63,10 @@ type
 
   protected
     property cbxSystem: TfmEmutecaSystemCBX read FcbxSystem;
-    property cbxParent: TfmEmutecaParentCBX read FcbxParent;
+    property cbxGroup: TfmEmutecaGroupCBX read FcbxGroup;
 
     function SelectSystem(aSystem: cEmutecaSystem): boolean;
-    function SelectParent(aParent: cEmutecaParent): boolean;
+    function SelectGroup(aGroup: cEmutecaGroup): boolean;
 
     procedure ClearData; override;
 
@@ -99,7 +100,7 @@ begin
   if assigned(Emuteca) then
   begin
     cbxSystem.SystemList := Emuteca.SystemManager.VisibleList;
-    cbxParent.ParentList := Emuteca.ParentManager.VisibleList;
+    cbxGroup.GroupList := Emuteca.GroupManager.VisibleList;
     if Assigned(Software) then
       self.Enabled := True
     else
@@ -108,7 +109,7 @@ begin
   else
   begin
     cbxSystem.SystemList := nil;
-    cbxParent.ParentList := nil;
+    cbxGroup.GroupList := nil;
     self.Enabled := False;
   end;
 end;
@@ -141,7 +142,7 @@ begin
   Result := False;
 end;
 
-function TfmEmutecaSoftEditor.SelectParent(aParent: cEmutecaParent): boolean;
+function TfmEmutecaSoftEditor.SelectGroup(aGroup: cEmutecaGroup): boolean;
 begin
   Result := False;
 end;
@@ -149,7 +150,7 @@ end;
 procedure TfmEmutecaSoftEditor.ClearData;
 begin
   cbxSystem.CurrentSystem := nil;
-  cbxParent.CurrentParent := nil;
+  cbxGroup.CurrentGroup := nil;
 
   eTitle.Clear;
   eSortKey.Clear;
@@ -187,7 +188,7 @@ end;
 
 procedure TfmEmutecaSoftEditor.LoadData;
 var
-  aParent: cEmutecaParent;
+  aGroup: cEmutecaGroup;
   aSystem: cEmutecaSystem;
 begin
   if not assigned(Software) then
@@ -197,16 +198,16 @@ begin
   end;
 
   aSystem := nil;
-  aParent := nil;
+  aGroup := nil;
 
   if assigned(Emuteca) then
   begin
     aSystem := Emuteca.SystemManager.ItemById(Software.SystemKey);
-    aParent := Emuteca.ParentManager.ItemById(Software.ParentKey);
+    aGroup := Emuteca.GroupManager.ItemById(Software.GroupKey);
   end;
 
   cbxSystem.CurrentSystem := aSystem;
-  cbxParent.CurrentParent := aParent;
+  cbxGroup.CurrentGroup := aGroup;
 
   eTitle.Text := Software.Title;
   eSortKey.Text := Software.SortTitle;
@@ -248,10 +249,10 @@ begin
   else
     Software.SystemKey := cbxSystem.cbxSystem.Text; //LOLWUT
 
-  if assigned(cbxParent.CurrentParent) then
-    Software.ParentKey := cbxParent.CurrentParent.ID
+  if assigned(cbxGroup.CurrentGroup) then
+    Software.GroupKey := cbxGroup.CurrentGroup.ID
   else
-    Software.ParentKey := cbxParent.cbxParent.Text; //LOLWUT^2
+    Software.GroupKey := cbxGroup.cbxGroup.Text; //LOLWUT^2
 
   Software.Title := eTitle.Text;
   Software.SortTitle := eSortKey.Text;
@@ -287,15 +288,15 @@ constructor TfmEmutecaSoftEditor.Create(TheOwner: TComponent);
 
   procedure CreateFrames;
   begin
-    FcbxParent := TfmEmutecaParentCBX.Create(gbxParent);
-    cbxParent.Parent := gbxParent;
-    cbxParent.Align := alTop;
-    cbxParent.OnSelectParent := @SelectParent;
+    FcbxGroup := TfmEmutecaGroupCBX.Create(gbxGroup);
+    cbxGroup.Align := alTop;
+    cbxGroup.OnSelectGroup := @SelectGroup;
+    cbxGroup.Parent := gbxGroup;
 
     FcbxSystem := TfmEmutecaSystemCBX.Create(gbxSystem);
-    cbxSystem.Parent := gbxSystem;
     cbxSystem.Align := alTop;
     cbxSystem.OnSelectSystem := @SelectSystem;
+    cbxSystem.Parent := gbxSystem;
   end;
 
 var

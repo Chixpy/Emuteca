@@ -61,8 +61,8 @@ begin
   begin
     RegisterProperty('DataString', 'string', iptrw);
     RegisterProperty('ID', 'string', iptrw);
-    RegisterProperty('System', 'string', iptrw);
-    RegisterProperty('Parent', 'string', iptrw);
+    RegisterProperty('SystemKey', 'string', iptrw);
+    RegisterProperty('GroupKey', 'string', iptrw);
     RegisterProperty('Title', 'string', iptrw);
     RegisterProperty('Description', 'string', iptrw);
     RegisterProperty('Folder', 'string', iptrw);
@@ -111,11 +111,11 @@ begin T := Self.Title; end;
 
 (*----------------------------------------------------------------------------*)
 procedure cEmutecaSoftwareParent_W(Self: cEmutecaSoftware; const T: string);
-begin Self.ParentKey := T; end;
+begin Self.GroupKey := T; end;
 
 (*----------------------------------------------------------------------------*)
 procedure cEmutecaSoftwareParent_R(Self: cEmutecaSoftware; var T: string);
-begin T := Self.ParentKey; end;
+begin T := Self.GroupKey; end;
 
 (*----------------------------------------------------------------------------*)
 procedure cEmutecaSoftwareSystem_W(Self: cEmutecaSoftware; const T: string);
@@ -148,8 +148,8 @@ begin
   begin
     RegisterPropertyHelper(@cEmutecaSoftwareDataString_R,@cEmutecaSoftwareDataString_W,'DataString');
     RegisterPropertyHelper(@cEmutecaSoftwareID_R,@cEmutecaSoftwareID_W,'ID');
-    RegisterPropertyHelper(@cEmutecaSoftwareSystem_R,@cEmutecaSoftwareSystem_W,'System');
-    RegisterPropertyHelper(@cEmutecaSoftwareParent_R,@cEmutecaSoftwareParent_W,'Parent');
+    RegisterPropertyHelper(@cEmutecaSoftwareSystem_R,@cEmutecaSoftwareSystem_W,'SystemKey');
+    RegisterPropertyHelper(@cEmutecaSoftwareParent_R,@cEmutecaSoftwareParent_W,'GroupKey');
     RegisterPropertyHelper(@cEmutecaSoftwareTitle_R,@cEmutecaSoftwareTitle_W,'Title');
     RegisterPropertyHelper(@cEmutecaSoftwareDescription_R,@cEmutecaSoftwareDescription_W,'Description');
     RegisterPropertyHelper(@cEmutecaSoftwareFolder_R,@cEmutecaSoftwareFolder_W,'Folder');

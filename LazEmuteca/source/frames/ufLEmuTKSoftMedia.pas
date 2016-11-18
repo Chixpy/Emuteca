@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls,
-  ucEmutecaParent, ucEmutecaSoftware;
+  ucEmutecaGroup, ucEmutecaSoftware;
 
 type
 
@@ -14,15 +14,15 @@ type
 
   TfmLEmuTKSoftMedia = class(TFrame)
   private
-    FGameGroup: cEmutecaParent;
+    FGameGroup: cEmutecaGroup;
     FSoftware: cEmutecaSoftware;
-    procedure SetGameGroup(AValue: cEmutecaParent);
+    procedure SetGameGroup(AValue: cEmutecaGroup);
     procedure SetSoftware(AValue: cEmutecaSoftware);
     { private declarations }
   public
     { public declarations }
 
-    property GameGroup: cEmutecaParent read FGameGroup write SetGameGroup;
+    property GameGroup: cEmutecaGroup read FGameGroup write SetGameGroup;
     property Software: cEmutecaSoftware read FSoftware write SetSoftware;
 
                   constructor Create(TheOwner: TComponent); override;
@@ -35,7 +35,7 @@ implementation
 
 { TfmLEmuTKSoftMedia }
 
-procedure TfmLEmuTKSoftMedia.SetGameGroup(AValue: cEmutecaParent);
+procedure TfmLEmuTKSoftMedia.SetGameGroup(AValue: cEmutecaGroup);
 begin
   if FGameGroup = AValue then Exit;
   FGameGroup := AValue;

@@ -8,8 +8,8 @@ uses
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
   Forms, bs_controls, lz_rtticontrols, pl_pascalscript, pl_virtualtrees,
-  ucEmuteca, uPSI_ucEmuteca, ucEmutecaParent, ucEmutecaConfig, ufEmutecaMain,
-  ucEmutecaEmulatorManager, ucEmutecaParentManager,
+  ucEmuteca, uPSI_ucEmuteca, ucEmutecaGroup, ucEmutecaConfig, ufEmutecaMain,
+  ucEmutecaEmulatorManager, ucEmutecaGroupManager,
   ucEmutecaSystemManager, ucEmutecaEmulator, ufEmutecaSoftList,
   ucEmutecaSoftware, ucEmutecaSystem,
   ugEmutecaManager,
@@ -18,7 +18,7 @@ ufEmutecaActAddSoft, uGUIConfig,
   uaCHXStorable, uaEmutecaManager, ufEmutecaSystemImgEditor,
   ufEmutecaActAddFolder, ucEmutecaScriptEngine,
   ufESMSoftList, ufEmutecaSystemCBX, ufESMParentList, ufEmutecaChkSoftList,
-  ufEmutecaParentCBX, ufEmutecaIcnSoftList, ufCHXPropEditor, 
+  ufEmutecaGroupCBX, ufEmutecaIcnSoftList, ufCHXPropEditor, 
 ufEmutecaSystemEditor, ufLEmuTKFullSystemEditor, ufCHXChkLstPropEditor, 
 ufLEmuTKSysManager, ufLEmuTKEmuManager, ufEmutecaSoftEditor, 
 ufLEmuTKFullEmuEditor, ufEmutecaEmulatorEditor, ufLEmuTKSoftMedia;

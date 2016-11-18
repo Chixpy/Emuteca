@@ -16,7 +16,7 @@ inherited fmEmutecaSoftEditor: TfmEmutecaSoftEditor
       Left = 124
     end
   end
-  object gbxParent: TGroupBox[1]
+  object gbxGroup: TGroupBox[1]
     Left = 0
     Height = 19
     Top = 19

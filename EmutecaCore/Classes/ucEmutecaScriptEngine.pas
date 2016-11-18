@@ -18,7 +18,7 @@ uses
   uPSI_ucEmutecaEmulator, uPSI_ucEmutecaSystem,
   uPSI_ucEmutecaParent, uPSI_ucEmutecaSoftware,
   uPSI_ucEmutecaEmulatorManager, uPSI_ucEmutecaSystemManager,
-  uPSI_ucEmutecaParentManager, uPSI_ucEmutecaSoftManager,
+  uPSI_ucEmutecaGroupManager, uPSI_ucEmutecaSoftManager,
   uPSI_ucEmutecaConfig, uPSI_ucEmuteca;
 
 type
@@ -77,7 +77,7 @@ begin
   SIRegister_ucEmutecaSoftware(x);
   SIRegister_ucEmutecaEmulatorManager(x);
   SIRegister_ucEmutecaSystemManager(x);
-  SIRegister_ucEmutecaParentManager(x);
+  SIRegister_ucEmutecaGroupManager(x);
   SIRegister_ucEmutecaSoftManager(x);
   SIRegister_ucEmutecaConfig(x);
   SIRegister_ucEmuteca(x);
@@ -97,7 +97,7 @@ begin
   RIRegister_ucEmutecaSoftware(x);
   RIRegister_ucEmutecaEmulatorManager(x);
   RIRegister_ucEmutecaSystemManager(x);
-  RIRegister_ucEmutecaParentManager(x);
+  RIRegister_ucEmutecaGroupManager(x);
   RIRegister_ucEmutecaSoftManager(x);
   RIRegister_ucEmutecaConfig(x);
   RIRegister_ucEmuteca(x);

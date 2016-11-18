@@ -1,4 +1,4 @@
-unit ufEmutecaParentList;
+unit ufEmutecaGroupList;
 
 {$mode objfpc}{$H+}
 
@@ -8,12 +8,12 @@ uses
   Classes, SysUtils, FileUtil, VirtualTrees, Forms,
   Controls, ComCtrls,
   LazUTF8,
-  uEmutecaCommon, ucEmutecaParent;
+  uEmutecaCommon, ucEmutecaGroup;
 
 type
-  { TfmEmutecaParentList }
+  { TfmEmutecaGroupList }
 
-  TfmEmutecaParentList = class(TFrame)
+  TfmEmutecaGroupList = class(TFrame)
     StatusBar1: TStatusBar;
     VST: TVirtualStringTree;
     procedure VSTChange(Sender: TBaseVirtualTree; Node: PVirtualNode);
@@ -28,10 +28,10 @@ type
       Node: PVirtualNode; var InitialStates: TVirtualNodeInitStates);
 
   private
-    FParentList: cEmutecaParentList;
-    FOnItemSelect: TEmutecaReturnParentCB;
-    procedure SetParentList(AValue: cEmutecaParentList);
-    procedure SetOnItemSelect(AValue: TEmutecaReturnParentCB);
+    FGroupList: cEmutecaGroupList;
+    FOnItemSelect: TEmutecaReturnGroupCB;
+    procedure SetGroupList(AValue: cEmutecaGroupList);
+    procedure SetOnItemSelect(AValue: TEmutecaReturnGroupCB);
 
   protected
 
@@ -39,10 +39,10 @@ type
 
   public
     { public declarations }
-    property ParentList: cEmutecaParentList
-      read FParentList write SetParentList;
+    property GroupList: cEmutecaGroupList
+      read FGroupList write SetGroupList;
 
-    property OnItemSelect: TEmutecaReturnParentCB
+    property OnItemSelect: TEmutecaReturnGroupCB
       read FOnItemSelect write SetOnItemSelect;
     //< CallBack function when item selected.
 
@@ -58,12 +58,12 @@ implementation
 
 {$R *.lfm}
 
-{ TfmEmutecaParentList }
+{ TfmEmutecaGroupList }
 
-procedure TfmEmutecaParentList.VSTChange(Sender: TBaseVirtualTree;
+procedure TfmEmutecaGroupList.VSTChange(Sender: TBaseVirtualTree;
   Node: PVirtualNode);
 var
-  pData: ^cEmutecaParent;
+  pData: ^cEmutecaGroup;
 begin
   if Assigned(OnItemSelect) then
   begin
@@ -78,10 +78,10 @@ begin
   end;
 end;
 
-procedure TfmEmutecaParentList.VSTCompareNodes(Sender: TBaseVirtualTree; Node1,
+procedure TfmEmutecaGroupList.VSTCompareNodes(Sender: TBaseVirtualTree; Node1,
   Node2: PVirtualNode; Column: TColumnIndex; var Result: Integer);
 var
-  pData1, pData2: ^cEmutecaParent;
+  pData1, pData2: ^cEmutecaGroup;
 begin
   Result := 0;
   pData1 := Sender.GetNodeData(Node1);
@@ -98,11 +98,11 @@ begin
   end;
 end;
 
-procedure TfmEmutecaParentList.VSTGetHint(Sender: TBaseVirtualTree;
+procedure TfmEmutecaGroupList.VSTGetHint(Sender: TBaseVirtualTree;
   Node: PVirtualNode; Column: TColumnIndex;
   var LineBreakStyle: TVTTooltipLineBreakStyle; var HintText: String);
 var
-  pData: ^cEmutecaParent;
+  pData: ^cEmutecaGroup;
 begin
   pData := Sender.GetNodeData(Node);
   if pData^ = nil then
@@ -114,11 +114,11 @@ begin
   end;
 end;
 
-procedure TfmEmutecaParentList.VSTGetText(Sender: TBaseVirtualTree;
+procedure TfmEmutecaGroupList.VSTGetText(Sender: TBaseVirtualTree;
   Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType;
   var CellText: string);
 var
-  pData: ^cEmutecaParent;
+  pData: ^cEmutecaGroup;
 begin
   pData := Sender.GetNodeData(Node);
   if pData^ = nil then
@@ -132,43 +132,43 @@ begin
   end;
 end;
 
-procedure TfmEmutecaParentList.VSTInitNode(Sender: TBaseVirtualTree;
+procedure TfmEmutecaGroupList.VSTInitNode(Sender: TBaseVirtualTree;
   ParentNode, Node: PVirtualNode; var InitialStates: TVirtualNodeInitStates);
 var
-  pData: ^cEmutecaParent;
+  pData: ^cEmutecaGroup;
 begin
   pData := Sender.GetNodeData(Node);
-  pData^ := cEmutecaParent(ParentList[Node^.Index]);
+  pData^ := cEmutecaGroup(GroupList[Node^.Index]);
 end;
 
-procedure TfmEmutecaParentList.SetParentList(AValue: cEmutecaParentList);
+procedure TfmEmutecaGroupList.SetGroupList(AValue: cEmutecaGroupList);
 begin
-  FParentList := AValue;
+  FGroupList := AValue;
   UpdateList;
 end;
 
-procedure TfmEmutecaParentList.SetOnItemSelect(AValue: TEmutecaReturnParentCB);
+procedure TfmEmutecaGroupList.SetOnItemSelect(AValue: TEmutecaReturnGroupCB);
 begin
   if FOnItemSelect = AValue then
     Exit;
   FOnItemSelect := AValue;
 end;
 
-procedure TfmEmutecaParentList.UpdateList;
+procedure TfmEmutecaGroupList.UpdateList;
 begin
   VST.Clear;
-  vst.RootNodeCount := ParentList.Count;
+  vst.RootNodeCount := GroupList.Count;
   StatusBar1.SimpleText:=Format(rsFmtNItems, [vst.RootNodeCount, vst.VisibleCount]);
 end;
 
-constructor TfmEmutecaParentList.Create(TheOwner: TComponent);
+constructor TfmEmutecaGroupList.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
 
-  VST.NodeDataSize := SizeOf(cEmutecaParent);
+  VST.NodeDataSize := SizeOf(cEmutecaGroup);
 end;
 
-destructor TfmEmutecaParentList.Destroy;
+destructor TfmEmutecaGroupList.Destroy;
 begin
   inherited Destroy;
 end;

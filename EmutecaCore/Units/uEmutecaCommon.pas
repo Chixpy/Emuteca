@@ -14,8 +14,10 @@ const
   krsEmuteca = 'Emuteca';
   {< Main 'Emuteca' String!!! }
 
-  krsEmutecaGameSubFolder = 'Game';
-  {< Subfolder in temp directory, where games will be decompressed. }
+  krsEmutecaGameSubFolder = 'Game/';
+  {< Subfolder in temp directory, where games will be decompressed.
+
+    Please attach directory separator}
 
   { TODO : Next must be unused }
 

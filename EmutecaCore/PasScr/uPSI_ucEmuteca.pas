@@ -46,10 +46,10 @@ uses
   , ucEmutecaConfig
   , ucEmutecaEmulatorManager
   , ucEmutecaSystemManager
-  , ucEmutecaParentManager
+  , ucEmutecaGroupManager
   , ucEmutecaSoftManager
   , ucEmutecaSoftware
-  , ucEmutecaParent
+  , ucEmutecaGroup
   , ucEmutecaSystem
   , ucEmutecaEmulator
   , ucEmuteca;
@@ -68,13 +68,13 @@ begin
     { TODO : Add progress callback }
     // RegisterProperty('ProgressCallBack', 'TEmutecaProgressCallBack', iptrw);
     RegisterProperty('TempFolder', 'string', iptrw);
-    RegisterMethod('Function SearchParent(aID : string) : cEmutecaParent');
+    RegisterMethod('Function SearchGroup(aID : string) : cEmutecaGroup');
     RegisterMethod('Function SearchSystem(aID : string) : cEmutecaSystem');
     RegisterMethod('Function SearchMainEmulator(aID : string) : cEmutecaEmulator');
     RegisterMethod('Function RunSoftware(const aSoftware : cEmutecaSoftware) : integer');
     RegisterProperty('Config', 'cEmutecaConfig', iptrw);
     RegisterProperty('SoftManager', 'cEmutecaSoftManager', iptr);
-    RegisterProperty('ParentManager', 'cEmutecaParentManager', iptr);
+    RegisterProperty('GroupManager', 'cEmutecaGroupManager', iptr);
     RegisterProperty('EmulatorManager', 'cEmutecaEmulatorManager', iptr);
     RegisterProperty('SystemManager', 'cEmutecaSystemManager', iptr);
   end;
@@ -107,14 +107,14 @@ begin
   T := Self.CurrentEmulator;
 end;
 
-procedure cEmutecaCurrentParent_W(Self: cEmuteca; const T: cEmutecaParent);
+procedure cEmutecaCurrentParent_W(Self: cEmuteca; const T: cEmutecaGroup);
 begin
-  Self.CurrentParent := T;
+  Self.CurrentGroup := T;
 end;
 
-procedure cEmutecaCurrentParent_R(Self: cEmuteca; var T: cEmutecaParent);
+procedure cEmutecaCurrentParent_R(Self: cEmuteca; var T: cEmutecaGroup);
 begin
-  T := Self.CurrentParent;
+  T := Self.CurrentGroup;
 end;
 
 procedure cEmutecaCurrentSoft_W(Self: cEmuteca; const T: cEmutecaSoftware);
@@ -140,9 +140,9 @@ begin
 end;
 
 procedure cEmutecaParentManager_R(Self: cEmuteca;
-  var T: cEmutecaParentManager);
+  var T: cEmutecaGroupManager);
 begin
-  T := Self.ParentManager;
+  T := Self.GroupManager;
 end;
 
 procedure cEmutecaSoftManager_R(Self: cEmuteca; var T: cEmutecaSoftManager);
@@ -191,13 +191,13 @@ begin
     RegisterPropertyHelper(@cEmutecaTempFolder_R, @cEmutecaTempFolder_W,
       'TempFolder');
     RegisterMethod(@cEmuteca.LoadConfig, 'LoadConfig');
-    RegisterMethod(@cEmuteca.SearchParent, 'SearchParent');
+    RegisterMethod(@cEmuteca.SearchGroup, 'SearchGroup');
     RegisterMethod(@cEmuteca.SearchSystem, 'SearchSystem');
     RegisterMethod(@cEmuteca.SearchMainEmulator, 'SearchMainEmulator');
     RegisterMethod(@cEmuteca.RunSoftware, 'RunSoftware');
     RegisterPropertyHelper(@cEmutecaConfig_R, @cEmutecaConfig_W, 'Config');
     RegisterPropertyHelper(@cEmutecaSoftManager_R, nil, 'SoftManager');
-    RegisterPropertyHelper(@cEmutecaParentManager_R, nil, 'ParentManager');
+    RegisterPropertyHelper(@cEmutecaParentManager_R, nil, 'GroupManager');
     RegisterPropertyHelper(@cEmutecaEmulatorManager_R, nil,
       'EmulatorManager');
     RegisterPropertyHelper(@cEmutecaSystemManager_R, nil, 'SystemManager');

@@ -9,7 +9,7 @@ uses
   uCHXStrUtils,
   uaCHXStorable,
   ucEmutecaPlayingStats,
-  ucEmutecaSystem, ucEmutecaParent;
+  ucEmutecaSystem, ucEmutecaGroup;
 
 const
   // Constant for DumpStatus, fixed (for filenames)
@@ -36,12 +36,15 @@ type
 const
   EmutecaDumpStatusKeys: array [TEmutecaDumpStatus] of string =
     ('!', '', 'a', 'o', 'b', 'u');
+  //< Keys for DumpStatus
   EmutecaDumpStatusStrs: array [TEmutecaDumpStatus] of string =
     (rsedsVerified, rsedsGood, rsedsAlternate, rsedsOverDump,
     rsedsBadDump, rsedsUnderDump);
+  //< Strings for DumpStatus (localizable)
   EmutecaDumpStatusStrsK: array [TEmutecaDumpStatus] of string =
     (krsedsVerified, krsedsGood, krsedsAlternate, krsedsOverDump,
     krsedsBadDump, krsedsUnderDump);
+  //< Strings for DumpStatus (fixed, used for icon filenames, etc. )
 
 type
   { cEmutecaSoftware. }
@@ -57,8 +60,8 @@ type
     FHack: string;
     FID: string;
     FModified: string;
-    FParent: cEmutecaParent;
-    FParentKey: string;
+    FParent: cEmutecaGroup;
+    FGroupKey: string;
     FPirate: string;
     FPublisher: string;
     FSortTitle: string;
@@ -83,8 +86,8 @@ type
     procedure SetHack(AValue: string);
     procedure SetID(AValue: string);
     procedure SetModified(AValue: string);
-    procedure SetParent(AValue: cEmutecaParent);
-    procedure SetParentKey(AValue: string);
+    procedure SetGroup(AValue: cEmutecaGroup);
+    procedure SetGroupKey(AValue: string);
     procedure SetPirate(AValue: string);
     procedure SetPublisher(AValue: string);
     procedure SetSortTitle(AValue: string);
@@ -105,7 +108,7 @@ type
     // Cached Data
     // -----------
     property System: cEmutecaSystem read FSystem write SetSystem;
-    property Parent: cEmutecaParent read FParent write SetParent;
+    property Group: cEmutecaGroup read FParent write SetGroup;
 
     procedure FPOObservedChanged(ASender: TObject;
       Operation: TFPObservedOperation; Data: Pointer);
@@ -128,8 +131,8 @@ type
     {< Filename (or file inside and archive).}
     property Title: string read FTitle write SetTitle;
     {< Title. }
-    property ParentKey: string read FParentKey write SetParentKey;
-    {< ID of the parent. }
+    property GroupKey: string read FGroupKey write SetGroupKey;
+    {< ID of the Group. }
     property SystemKey: string read FSystemKey write SetSystemKey;
     {< ID of the System. }
 
@@ -209,45 +212,11 @@ type
 
   TEmutecaReturnSoftCB = function(aSoft: cEmutecaSoftware): boolean of object;
 
-function EmutecaDumpSt2Str(aEDS: TEmutecaDumpStatus): string; deprecated;
-function EmutecaDumpSt2Key(aEDS: TEmutecaDumpStatus): string; deprecated;
 function Key2EmutecaDumpSt(aString: string): TEmutecaDumpStatus;
+// Result := EmutecaDumpStatusStrs[DumpStatus];
+// Result := EmutecaDumpStatusKeys[DumpStatus];
 
 implementation
-
-function EmutecaDumpSt2Str(aEDS: TEmutecaDumpStatus): string;
-begin
-  Result := EmutecaDumpStatusStrs[aEDS];
-  {
-  case aEDS of
-    edsVerified: Result := rsedsVerified;
-    edsGood: Result := rsedsGood;
-    edsAlternate: Result := rsedsAlternate;
-    edsOverDump: Result := rsedsOverDump;
-    edsBadDump: Result := rsedsBadDump;
-    edsUnderDump: Result := rsedsUnderDump;
-    else
-      Result := krsedsGoodKey;
-  end;
-  }
-end;
-
-function EmutecaDumpSt2Key(aEDS: TEmutecaDumpStatus): string;
-begin
-  Result := EmutecaDumpStatusKeys[aEDS];
-  {
-  case aEDS of
-    edsVerified: Result := krsedsVerifiedKey;
-    edsGood: Result := krsedsGoodKey;
-    edsAlternate: Result := krsedsAlternateKey;
-    edsOverDump: Result := krsedsOverDumpKey;
-    edsBadDump: Result := krsedsBadDumpKey;
-    edsUnderDump: Result := krsedsUnderDumpKey;
-    else
-      Result := krsedsGoodKey;
-  end;
-  }
-end;
 
 function Key2EmutecaDumpSt(aString: string): TEmutecaDumpStatus;
 begin
@@ -353,12 +322,12 @@ begin
         SystemKey := cEmutecaSystem(ASender).ID;
     end;
   end
-  else if ASender = Parent then
+  else if ASender = Group then
   begin
     case Operation of
-      ooFree: Parent := nil;
+      ooFree: Group := nil;
       else
-        SystemKey := cEmutecaParent(ASender).ID;
+        SystemKey := cEmutecaGroup(ASender).ID;
     end;
   end;
 end;
@@ -420,7 +389,7 @@ begin
   FModified := AValue;
 end;
 
-procedure cEmutecaSoftware.SetParent(AValue: cEmutecaParent);
+procedure cEmutecaSoftware.SetGroup(AValue: cEmutecaGroup);
 begin
   if FParent = AValue then
     Exit;
@@ -430,13 +399,13 @@ begin
 
   FParent := AValue;
 
-  if Assigned(Parent) then
-    Parent.FPOAttachObserver(Self);
+  if Assigned(Group) then
+    Group.FPOAttachObserver(Self);
 end;
 
-procedure cEmutecaSoftware.SetParentKey(AValue: string);
+procedure cEmutecaSoftware.SetGroupKey(AValue: string);
 begin
-  FParentKey := SetAsID(AValue);
+  FGroupKey := SetAsID(AValue);
 end;
 
 procedure cEmutecaSoftware.SetPirate(AValue: string);
@@ -500,8 +469,8 @@ end;
 
 destructor cEmutecaSoftware.Destroy;
 begin
-  if Assigned(Parent) then
-    Parent.FPODetachObserver(Self);
+  if Assigned(Group) then
+    Group.FPODetachObserver(Self);
   if Assigned(System) then
     System.FPODetachObserver(Self);
   FreeAndNil(FStats);
@@ -524,7 +493,7 @@ begin
       1: Folder := TxtFile[i];
       2: FileName := TxtFile[i];
       3: Title := TxtFile[i];
-      4: ParentKey := TxtFile[i];
+      4: GroupKey := TxtFile[i];
       5: SystemKey := TxtFile[i];
       // 6: ;
       7: TranslitTitle := TxtFile[i];
@@ -567,7 +536,7 @@ begin
   TxtFile.Add(Folder);
   TxtFile.Add(FileName);
   TxtFile.Add(Title);
-  TxtFile.Add(ParentKey);
+  TxtFile.Add(GroupKey);
   TxtFile.Add(SystemKey);
   TxtFile.Add(''); // Reserved
 
@@ -587,7 +556,7 @@ begin
 
   // Version Flags
   // ---------------
-  TxtFile.Add(EmutecaDumpSt2Key(DumpStatus));
+  TxtFile.Add(EmutecaDumpStatusKeys[DumpStatus]);
   TxtFile.Add(DumpInfo);
   TxtFile.Add(Fixed);
   TxtFile.Add(Trainer);

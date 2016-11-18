@@ -43,7 +43,7 @@ uses
    fgl
   ,LazFileUtils
   ,uCHXStrUtils
-  ,ucEmutecaParent
+  ,ucEmutecaGroup
   ;
  
  
@@ -74,41 +74,41 @@ end;
 
 (* === run-time registration functions === *)
 (*----------------------------------------------------------------------------*)
-procedure cEmutecaParentID_W(Self: cEmutecaParent; const T: string);
+procedure cEmutecaParentID_W(Self: cEmutecaGroup; const T: string);
 begin Self.ID := T; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cEmutecaParentID_R(Self: cEmutecaParent; var T: string);
+procedure cEmutecaParentID_R(Self: cEmutecaGroup; var T: string);
 begin T := Self.ID; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cEmutecaParentSystem_W(Self: cEmutecaParent; const T: string);
+procedure cEmutecaParentSystem_W(Self: cEmutecaGroup; const T: string);
 begin Self.SystemKey := T; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cEmutecaParentSystem_R(Self: cEmutecaParent; var T: string);
+procedure cEmutecaParentSystem_R(Self: cEmutecaGroup; var T: string);
 begin T := Self.SystemKey; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cEmutecaParentTitle_W(Self: cEmutecaParent; const T: string);
+procedure cEmutecaParentTitle_W(Self: cEmutecaGroup; const T: string);
 begin Self.Title := T; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cEmutecaParentTitle_R(Self: cEmutecaParent; var T: string);
+procedure cEmutecaParentTitle_R(Self: cEmutecaGroup; var T: string);
 begin T := Self.Title; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cEmutecaParentDataString_W(Self: cEmutecaParent; const T: string);
+procedure cEmutecaParentDataString_W(Self: cEmutecaGroup; const T: string);
 begin Self.DataString := T; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cEmutecaParentDataString_R(Self: cEmutecaParent; var T: string);
+procedure cEmutecaParentDataString_R(Self: cEmutecaGroup; var T: string);
 begin T := Self.DataString; end;
 
 (*----------------------------------------------------------------------------*)
 procedure RIRegister_cEmutecaParent(CL: TPSRuntimeClassImporter);
 begin
-  with CL.Add(cEmutecaParent) do
+  with CL.Add(cEmutecaGroup) do
   begin
     RegisterPropertyHelper(@cEmutecaParentDataString_R,@cEmutecaParentDataString_W,'DataString');
     RegisterPropertyHelper(@cEmutecaParentTitle_R,@cEmutecaParentTitle_W,'Title');

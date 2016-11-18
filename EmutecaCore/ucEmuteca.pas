@@ -1,6 +1,6 @@
 { This file is part of Emuteca
 
-  Copyright (C) 2006-2016 Chixpy
+  Copyright (C) 2006-2017 Chixpy
 
   This source is free software; you can redistribute it and/or modify it under
   the terms of the GNU General Public License as published by the Free
@@ -31,8 +31,8 @@ uses
   uCHXStrUtils,
   uEmutecaCommon,
   ucEmutecaConfig, ucEmutecaEmulatorManager, ucEmutecaSystemManager,
-  ucEmutecaParentManager, ucEmutecaSoftManager,
-  ucEmutecaSoftware, ucEmutecaParent, ucEmutecaSystem, ucEmutecaEmulator;
+  ucEmutecaGroupManager, ucEmutecaSoftManager,
+  ucEmutecaSoftware, ucEmutecaGroup, ucEmutecaSystem, ucEmutecaEmulator;
 
 type
 
@@ -42,18 +42,18 @@ type
   private
     FConfig: cEmutecaConfig;
     FCurrentEmulator: cEmutecaEmulator;
-    FCurrentParent: cEmutecaParent;
+    FCurrentGroup: cEmutecaGroup;
     FCurrentSoft: cEmutecaSoftware;
     FCurrentSystem: cEmutecaSystem;
     FEmulatorManager: cEmutecaEmulatorManager;
-    FParentManager: cEmutecaParentManager;
+    FGroupManager: cEmutecaGroupManager;
     FProgressCallBack: TEmutecaProgressCallBack;
     FVersionManager: cEmutecaSoftManager;
     FSystemManager: cEmutecaSystemManager;
     FTempFolder: string;
     procedure SetConfig(AValue: cEmutecaConfig);
     procedure SetCurrentEmulator(AValue: cEmutecaEmulator);
-    procedure SetCurrentParent(AValue: cEmutecaParent);
+    procedure SetCurrentGroup(AValue: cEmutecaGroup);
     procedure SetCurrentSoft(AValue: cEmutecaSoftware);
     procedure SetCurrentSystem(AValue: cEmutecaSystem);
     procedure SetProgressBar(AValue: TEmutecaProgressCallBack);
@@ -73,7 +73,7 @@ type
 
     procedure LoadConfig(aFile: string);
 
-    function SearchParent(aID: string): cEmutecaParent;
+    function SearchGroup(aID: string): cEmutecaGroup;
     function SearchSystem(aID: string): cEmutecaSystem;
     function SearchMainEmulator(aID: string): cEmutecaEmulator;
 
@@ -86,14 +86,14 @@ type
     property Config: cEmutecaConfig read FConfig write SetConfig;
 
     property SoftManager: cEmutecaSoftManager read FVersionManager;
-    property ParentManager: cEmutecaParentManager read FParentManager;
+    property GroupManager: cEmutecaGroupManager read FGroupManager;
     property EmulatorManager: cEmutecaEmulatorManager read FEmulatorManager;
     property SystemManager: cEmutecaSystemManager read FSystemManager;
 
     property CurrentSoft: cEmutecaSoftware
       read FCurrentSoft write SetCurrentSoft;
-    property CurrentParent: cEmutecaParent
-      read FCurrentParent write SetCurrentParent;
+    property CurrentGroup: cEmutecaGroup
+      read FCurrentGroup write SetCurrentGroup;
     property CurrentEmulator: cEmutecaEmulator
       read FCurrentEmulator write SetCurrentEmulator;
     property CurrentSystem: cEmutecaSystem
@@ -130,18 +130,18 @@ begin
   SystemManager.LoadFromFile('');
 
   { TODO: Optimize loading data... }
-  // Setting ParentManager
-  ParentManager.DataFile := Config.DataFolder + Config.ParentsFile;
-  ParentManager.LoadFromFile('');
+  // Setting GroupManager
+  GroupManager.DataFile := Config.DataFolder + Config.ParentsFile;
+  GroupManager.LoadFromFile('');
 
   // Setting SoftManager
   SoftManager.DataFile := Config.DataFolder + Config.VersionsFile;
   SoftManager.LoadFromFile('');
 end;
 
-function cEmuteca.SearchParent(aID: string): cEmutecaParent;
+function cEmuteca.SearchGroup(aID: string): cEmutecaGroup;
 begin
-  Result := ParentManager.ItemById(aID);
+  Result := GroupManager.ItemById(aID);
 end;
 
 function cEmuteca.SearchSystem(aID: string): cEmutecaSystem;
@@ -157,7 +157,7 @@ end;
 function cEmuteca.RunSoftware(const aSoftware: cEmutecaSoftware): integer;
 var
   aEmulator: cEmutecaEmulator;
-  // aParent: cEmutecaParent;
+  // aGroup: cEmutecaGroup;
   aSystem: cEmutecaSystem;
   CompressedFile, aFolder, RomFile: string;
   Compressed, NewDir: boolean;
@@ -185,15 +185,15 @@ begin
 
   Maybe can be useful for command line?
 
-  // 1. Searching for parent to know the system (test CurrentParent first
+  // 1. Searching for parent to know the system (test CurrentGroup first
   //  for speed,  but it can not be true)
-  if (not Assigned(CurrentParent)) or
-    (UTF8CompareText(CurrentParent.ID, aSoftware.ParentKey) <> 0) then
+  if (not Assigned(CurrentGroup)) or
+    (UTF8CompareText(CurrentGroup.ID, aSoftware.GroupKey) <> 0) then
   begin
-    aParent := SearchParent(aSoftware);
+    aParent := SearchGroup(aSoftware);
   end
   else
-    aParent := CurrentParent;
+    aParent := CurrentGroup;
   if not assigned(aParent) then
     // TODO : Exception or return Comperror code?
     Exit;
@@ -218,12 +218,11 @@ begin
     Exit;
 
   // 4. Setting temp folder.
-  //    If created new, stored to delete it at the end.
+  //    If created new, store to delete it at the end.
   if Trim(ExcludeTrailingPathDelimiter(aSystem.TempFolder)) <> '' then
-    aFolder := SetAsFolder(aSystem.TempFolder)
+    aFolder := aSystem.TempFolder
   else
-    aFolder := SetAsFolder(SetAsFolder(Self.TempFolder) +
-      krsEmutecaGameSubFolder);
+    aFolder := Self.TempFolder + krsEmutecaGameSubFolder;
 
   NewDir := not DirectoryExists(aFolder);
   if NewDir then
@@ -252,7 +251,7 @@ begin
   end
   else
   begin
-    RomFile := SetAsFolder(aSoftware.Folder) + aSoftware.FileName;
+    RomFile := aSoftware.Folder + aSoftware.FileName;
 
     { TODO : I don't remember why implemened this.
         When it is a normal "decompressed" ROM, if it is a 7z and
@@ -317,15 +316,15 @@ begin
   FCurrentEmulator := AValue;
 end;
 
-procedure cEmuteca.SetCurrentParent(AValue: cEmutecaParent);
+procedure cEmuteca.SetCurrentGroup(AValue: cEmutecaGroup);
 begin
-  if FCurrentParent = AValue then
+  if FCurrentGroup = AValue then
     Exit;
-  FCurrentParent := AValue;
+  FCurrentGroup := AValue;
 
-    if assigned(CurrentParent) then
+    if assigned(CurrentGroup) then
   begin
-    CurrentSystem := SearchSystem(CurrentParent.SystemKey);
+    CurrentSystem := SearchSystem(CurrentGroup.SystemKey);
   end
   else
   begin
@@ -341,12 +340,12 @@ begin
 
   if assigned(CurrentSoft) then
   begin
-    CurrentParent := SearchParent(CurrentSoft.ParentKey);
+    CurrentGroup := SearchGroup(CurrentSoft.GroupKey);
     CurrentSystem := SearchSystem(CurrentSoft.SystemKey);
   end
   else
   begin
-    CurrentParent := nil;
+    CurrentGroup := nil;
     CurrentSystem := nil;
   end;
 end;
@@ -368,7 +367,7 @@ begin
   FProgressCallBack := AValue;
   EmulatorManager.ProgressCallBack := self.ProgressCallBack;
   SystemManager.ProgressCallBack := self.ProgressCallBack;
-  ParentManager.ProgressCallBack := self.ProgressCallBack;
+  GroupManager.ProgressCallBack := self.ProgressCallBack;
   SoftManager.ProgressCallBack := Self.ProgressCallBack;
 end;
 
@@ -381,7 +380,7 @@ begin
 
   FSystemManager := cEmutecaSystemManager.Create(Self);
   FEmulatorManager := cEmutecaEmulatorManager.Create(Self);
-  FParentManager := cEmutecaParentManager.Create(Self);
+  FGroupManager := cEmutecaGroupManager.Create(Self);
   FVersionManager := cEmutecaSoftManager.Create(Self);
 end;
 
@@ -396,7 +395,7 @@ begin
   Config.SaveConfig('');
 
   FreeAndNil(FVersionManager);
-  FreeAndNil(FParentManager);
+  FreeAndNil(FGroupManager);
   FreeAndNil(FEmulatorManager);
   FreeAndNil(FSystemManager);
   FreeAndNil(FConfig);

@@ -1,5 +1,5 @@
 {"version":1,"strings":[
-{"hash":90737748,"name":"tfmemutecasofteditor.gbxparent.caption","sourcebytes":[80,97,114,101,110,116],"value":"Parent"},
+{"hash":90737748,"name":"tfmemutecasofteditor.gbxgroup.caption","sourcebytes":[80,97,114,101,110,116],"value":"Parent"},
 {"hash":95464125,"name":"tfmemutecasofteditor.gbxsystem.caption","sourcebytes":[83,121,115,116,101,109],"value":"System"},
 {"hash":69594147,"name":"tfmemutecasofteditor.gbxdumptags.caption","sourcebytes":[68,117,109,112,32,84,97,103,115],"value":"Dump Tags"},
 {"hash":69733285,"name":"tfmemutecasofteditor.ldumptype.caption","sourcebytes":[68,117,109,112,32,116,121,112,101],"value":"Dump type"},

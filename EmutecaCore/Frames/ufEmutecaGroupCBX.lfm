@@ -1,4 +1,4 @@
-object fmEmutecaParentCBX: TfmEmutecaParentCBX
+object fmEmutecaGroupCBX: TfmEmutecaGroupCBX
   Left = 0
   Height = 240
   Top = 0
@@ -9,14 +9,14 @@ object fmEmutecaParentCBX: TfmEmutecaParentCBX
   TabOrder = 0
   DesignLeft = 451
   DesignTop = 279
-  object cbxParent: TComboBox
+  object cbxGroup: TComboBox
     Left = 0
     Height = 23
     Top = 0
     Width = 320
     Align = alTop
     ItemHeight = 15
-    OnChange = cbxParentChange
+    OnChange = cbxGroupChange
     TabOrder = 0
   end
 end

@@ -1,4 +1,4 @@
-object fmEmutecaParentList: TfmEmutecaParentList
+object fmEmutecaGroupList: TfmEmutecaGroupList
   Left = 0
   Height = 209
   Top = 0

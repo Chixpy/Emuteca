@@ -145,7 +145,7 @@ begin
           end;
         end;
 
-        aVersion.ParentKey :=
+        aVersion.GroupKey :=
           RemoveFromBrackets(ExtractFileNameOnly(FolderList[i]));
         aVersion.Title :=
           RemoveFromBrackets(ExtractFileNameOnly(FileList[i]));
@@ -165,9 +165,9 @@ begin
             aversion.ID := SHA1FileStr(aVersion.Folder + aVersion.FileName);
         end;
 
-        aVersion.ParentKey :=
+        aVersion.GroupKey :=
           RemoveFromBrackets(ExtractFileNameOnly(aVersion.FileName));
-        aVersion.Title := aVersion.ParentKey;
+        aVersion.Title := aVersion.GroupKey;
         aVersion.Version :=
           CopyFromBrackets(ExtractFileNameOnly(aVersion.FileName));
       end;

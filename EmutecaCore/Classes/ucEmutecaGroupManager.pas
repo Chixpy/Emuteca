@@ -19,7 +19,7 @@
 }
 
 { cGameManager unit. }
-unit ucEmutecaParentManager;
+unit ucEmutecaGroupManager;
 
 {$mode objfpc}{$H+}
 
@@ -30,37 +30,37 @@ uses
   LazUTF8, LConvEncoding,
   LResources,
   // Emuteca core
-  uaEmutecaManager, ucEmutecaParent;
+  uaEmutecaManager, ucEmutecaGroup;
 
 resourcestring
-  rsLoadingParentList = 'Loading parent list...';
-  rsSavingParentList = 'Saving parent list...';
+  rsLoadingGroupList = 'Loading parent list...';
+  rsSavingGroupList = 'Saving parent list...';
 
 type
-  { cEmutecaParentManager }
+  { cEmutecaGroupManager }
 
-  cEmutecaParentManager = class(caEmutecaManagerTxt)
+  cEmutecaGroupManager = class(caEmutecaManagerTxt)
   private
-    FVisibleList: cEmutecaParentList;
-    FFullList: cEmutecaParentList;
+    FVisibleList: cEmutecaGroupList;
+    FFullList: cEmutecaGroupList;
 
   protected
 
 
   public
-    property FullList: cEmutecaParentList read FFullList;
+    property FullList: cEmutecaGroupList read FFullList;
     {< Actual list where the parents are stored. }
-    property VisibleList: cEmutecaParentList read FVisibleList;
+    property VisibleList: cEmutecaGroupList read FVisibleList;
     {< Filtered parent list. }
 
     procedure LoadFromFileTxt(TxtFile: TStrings); override;
     procedure SaveToFileTxt(TxtFile: TStrings; const ExportMode: boolean);
       override;
 
-    function ItemById(aId: string): cEmutecaParent;
+    function ItemById(aId: string): cEmutecaGroup;
     {< Returns the parent with aId key.
 
-       @Result cEmutecaParent found or nil.
+       @Result cEmutecaGroup found or nil.
     }
 
     procedure FilterBySystem(aSystemKey: string);
@@ -74,29 +74,29 @@ type
 
 implementation
 
-{ cEmutecaParentManager }
+{ cEmutecaGroupManager }
 
-function cEmutecaParentManager.ItemById(aId: string): cEmutecaParent;
+function cEmutecaGroupManager.ItemById(aId: string): cEmutecaGroup;
 var
   i: integer;
-  aParent: cEmutecaParent;
+  aGroup: cEmutecaGroup;
 begin
   Result := nil;
 
   i := 0;
   while (Result = nil) and (i < FullList.Count) do
   begin
-    aParent := cEmutecaParent(FullList[i]);
-    if UTF8CompareText(aParent.ID, aId) = 0 then
-      Result := aParent;
+    aGroup := cEmutecaGroup(FullList[i]);
+    if UTF8CompareText(aGroup.ID, aId) = 0 then
+      Result := aGroup;
     Inc(i);
   end;
 end;
 
-procedure cEmutecaParentManager.FilterBySystem(aSystemKey: string);
+procedure cEmutecaGroupManager.FilterBySystem(aSystemKey: string);
 var
   i: longint;
-  aParent: cEmutecaParent;
+  aGroup: cEmutecaGroup;
 begin
   VisibleList.Clear;
 
@@ -109,22 +109,22 @@ begin
     i := 0;
     while i < FullList.Count do
     begin
-      aParent := cEmutecaParent(FullList[i]);
-      if UTF8CompareText(aParent.SystemKey, aSystemKey) = 0 then
+      aGroup := cEmutecaGroup(FullList[i]);
+      if UTF8CompareText(aGroup.SystemKey, aSystemKey) = 0 then
       begin
         if VisibleList.Capacity = VisibleList.Count then
           VisibleList.Capacity := VisibleList.Capacity * 2; // Speed up?
-        VisibleList.Add(aParent);
+        VisibleList.Add(aGroup);
       end;
       Inc(i);
     end;
   end;
 end;
 
-procedure cEmutecaParentManager.AssingAllTo(aList: TStrings);
+procedure cEmutecaGroupManager.AssingAllTo(aList: TStrings);
 var
   i: longint;
-  aParent: cEmutecaParent;
+  aGroup: cEmutecaGroup;
 begin
   if not assigned(aList) then
     aList := TStringList.Create;
@@ -134,17 +134,17 @@ begin
   i := 0;
   while i < FullList.Count do
   begin
-    aParent := cEmutecaParent(FullList[i]);
-    aList.AddObject(aParent.Title, aParent);
+    aGroup := cEmutecaGroup(FullList[i]);
+    aList.AddObject(aGroup.Title, aGroup);
     Inc(i);
   end;
   aList.EndUpdate;
 end;
 
-procedure cEmutecaParentManager.AssingEnabledTo(aList: TStrings);
+procedure cEmutecaGroupManager.AssingEnabledTo(aList: TStrings);
 var
   i: longint;
-  aParent: cEmutecaParent;
+  aGroup: cEmutecaGroup;
 begin
   if not assigned(aList) then
     aList := TStringList.Create;
@@ -154,17 +154,17 @@ begin
   i := 0;
   while i < VisibleList.Count do
   begin
-    aParent := cEmutecaParent(VisibleList[i]);
-    aList.AddObject(aParent.Title + ' (' + aParent.SystemKey + ')', aParent);
+    aGroup := cEmutecaGroup(VisibleList[i]);
+    aList.AddObject(aGroup.Title + ' (' + aGroup.SystemKey + ')', aGroup);
     Inc(i);
   end;
   aList.EndUpdate;
 end;
 
-procedure cEmutecaParentManager.LoadFromFileTxt(TxtFile: TStrings);
+procedure cEmutecaGroupManager.LoadFromFileTxt(TxtFile: TStrings);
 var
   i: integer;
-  TempParent: cEmutecaParent;
+  TempGroup: cEmutecaGroup;
 begin
   if not Assigned(TxtFile) then
     Exit;
@@ -174,29 +174,29 @@ begin
   i := 1; // Skipping Header
   while i < TxtFile.Count do
   begin
-    TempParent := cEmutecaParent.Create(nil);
-    TempParent.DataString := TxtFile[i];
-    FullList.Add(TempParent);
+    TempGroup := cEmutecaGroup.Create(nil);
+    TempGroup.DataString := TxtFile[i];
+    FullList.Add(TempGroup);
     Inc(i);
 
     if ProgressCallBack <> nil then
-      ProgressCallBack(rsLoadingParentList, TempParent.SystemKey,
-        TempParent.Title, i, TxtFile.Count);
+      ProgressCallBack(rsLoadingGroupList, TempGroup.SystemKey,
+        TempGroup.Title, i, TxtFile.Count);
   end;
   TxtFile.EndUpdate;
   VisibleList.Assign(FullList);
 end;
 
-procedure cEmutecaParentManager.SaveToFileTxt(TxtFile: TStrings;
+procedure cEmutecaGroupManager.SaveToFileTxt(TxtFile: TStrings;
   const ExportMode: boolean);
 var
   i: integer;
-  aParent: cEmutecaParent;
+  aGroup: cEmutecaGroup;
 begin
   if not Assigned(TxtFile) then
     Exit;
 
-  { TODO : cEmutecaParentManager.SaveToFileTxt Export mode }
+  { TODO : cEmutecaGroupManager.SaveToFileTxt Export mode }
   TxtFile.Clear;
   TxtFile.BeginUpdate;
   TxtFile.Capacity := FullList.Count + 1; // Speed up?
@@ -205,27 +205,27 @@ begin
   i := 0;
   while i < FullList.Count do
   begin
-    aParent := cEmutecaParent(FullList[i]);
-    TxtFile.Add(aParent.DataString);
+    aGroup := cEmutecaGroup(FullList[i]);
+    TxtFile.Add(aGroup.DataString);
     Inc(i);
 
     if ProgressCallBack <> nil then
-      ProgressCallBack(rsSavingParentList, aParent.SystemKey,
-        aParent.Title, i, FullList.Count);
+      ProgressCallBack(rsSavingGroupList, aGroup.SystemKey,
+        aGroup.Title, i, FullList.Count);
   end;
   TxtFile.EndUpdate;
 end;
 
-constructor cEmutecaParentManager.Create(aOwner: TComponent);
+constructor cEmutecaGroupManager.Create(aOwner: TComponent);
 begin
   inherited Create(aOwner);
 
-  FFullList := cEmutecaParentList.Create(True);
-  FVisibleList := cEmutecaParentList.Create(False);
+  FFullList := cEmutecaGroupList.Create(True);
+  FVisibleList := cEmutecaGroupList.Create(False);
   // TODO: OnCompare FullList.OnCompare := ;
 end;
 
-destructor cEmutecaParentManager.Destroy;
+destructor cEmutecaGroupManager.Destroy;
 begin
   FreeAndNil(FVisibleList);
   FreeAndNil(FFullList);

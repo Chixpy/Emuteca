@@ -18,8 +18,8 @@
   MA 02111-1307, USA.
 }
 
-{ cEmutecaParent unit. }
-unit ucEmutecaParent;
+{ cEmutecaGroup unit. }
+unit ucEmutecaGroup;
 
 {$mode objfpc}{$H+}
 
@@ -32,9 +32,9 @@ uses
   ucEmutecaPlayingStats, ucEmutecaSystem;
 
 type
-  { cEmutecaParent }
+  { cEmutecaGroup }
 
-  cEmutecaParent = class(caCHXStorableTxt, IFPObserver)
+  cEmutecaGroup = class(caCHXStorableTxt, IFPObserver)
   private
     FID: string;
     FStats: cEmutecaPlayingStats;
@@ -82,41 +82,41 @@ type
     property Stats: cEmutecaPlayingStats read FStats write SetStats;
   end;
 
-  { cEmutecaParentList }
+  { cEmutecaGroupList }
 
-  cEmutecaParentList = TComponentList;
+  cEmutecaGroupList = TComponentList;
 
-  TEmutecaReturnParentCB = function(aSystem: cEmutecaParent): boolean of
+  TEmutecaReturnGroupCB = function(aSystem: cEmutecaGroup): boolean of
     object;
 
 implementation
 
-{ cEmutecaParent }
+{ cEmutecaGroup }
 
-procedure cEmutecaParent.SetTitle(AValue: string);
+procedure cEmutecaGroup.SetTitle(AValue: string);
 begin
   if FTitle = AValue then
     Exit;
   FTitle := AValue;
 end;
 
-procedure cEmutecaParent.SetSystemKey(AValue: string);
+procedure cEmutecaGroup.SetSystemKey(AValue: string);
 begin
   FSystemKey := SetAsID(AValue);
 end;
 
-procedure cEmutecaParent.SetID(AValue: string);
+procedure cEmutecaGroup.SetID(AValue: string);
 begin
   FID := SetAsID(AValue);
 end;
 
-procedure cEmutecaParent.SetStats(AValue: cEmutecaPlayingStats);
+procedure cEmutecaGroup.SetStats(AValue: cEmutecaPlayingStats);
 begin
   if FStats = AValue then Exit;
   FStats := AValue;
 end;
 
-procedure cEmutecaParent.SetSystem(AValue: cEmutecaSystem);
+procedure cEmutecaGroup.SetSystem(AValue: cEmutecaSystem);
 begin
   if FSystem = AValue then
     Exit;
@@ -130,7 +130,7 @@ begin
     System.FPOAttachObserver(Self);
 end;
 
-function cEmutecaParent.GetDataString: string;
+function cEmutecaGroup.GetDataString: string;
 var
   aStringList: TStringList;
 begin
@@ -143,7 +143,7 @@ begin
   end;
 end;
 
-procedure cEmutecaParent.SetDataString(AValue: string);
+procedure cEmutecaGroup.SetDataString(AValue: string);
 var
   aStringList: TStringList;
 begin
@@ -157,14 +157,14 @@ begin
   end;
 end;
 
-constructor cEmutecaParent.Create(aOwner: TComponent);
+constructor cEmutecaGroup.Create(aOwner: TComponent);
 begin
   inherited Create(aOwner);
 
   FStats := cEmutecaPlayingStats.Create(Self);
 end;
 
-destructor cEmutecaParent.Destroy;
+destructor cEmutecaGroup.Destroy;
 begin
   if Assigned(System) then
     System.FPODetachObserver(Self);
@@ -173,7 +173,7 @@ begin
   inherited Destroy;
 end;
 
-procedure cEmutecaParent.LoadFromFileTxt(TxtFile: TStrings);
+procedure cEmutecaGroup.LoadFromFileTxt(TxtFile: TStrings);
 begin
   if not assigned(TxtFile) then
     Exit;
@@ -186,7 +186,7 @@ begin
     self.Title := TxtFile[2];
 end;
 
-procedure cEmutecaParent.SaveToFileTxt(TxtFile: TStrings;
+procedure cEmutecaGroup.SaveToFileTxt(TxtFile: TStrings;
   const ExportMode: boolean);
 begin
   if not assigned(TxtFile) then
@@ -197,7 +197,7 @@ begin
   TxtFile.Add(Title);
 end;
 
-procedure cEmutecaParent.FPOObservedChanged(ASender: TObject;
+procedure cEmutecaGroup.FPOObservedChanged(ASender: TObject;
   Operation: TFPObservedOperation; Data: Pointer);
 begin
   case Operation of
@@ -208,9 +208,9 @@ begin
 end;
 
 initialization
-  RegisterClass(cEmutecaParent);
+  RegisterClass(cEmutecaGroup);
 
 finalization
-  UnRegisterClass(cEmutecaParent);
+  UnRegisterClass(cEmutecaGroup);
 
 end.
