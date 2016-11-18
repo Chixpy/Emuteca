@@ -10,8 +10,8 @@ NoZone.png
   
 EmuIcon.png
 EmuImage.png
-ParentIcon.png
-ParentImage.png
+GroupIcon.png
+GroupImage.png
 SoftIcon.png
 SoftImage.png
 SysIcon.png

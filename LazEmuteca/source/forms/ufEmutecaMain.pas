@@ -24,7 +24,7 @@ uses
   // Emuteca forms
   ufEmutecaScriptManager,
   // Emuteca frames
-  ufEmutecaGroupList, ufEmutecaIcnSoftList,
+  ufEmutecaGroupList, ufLEmuTKIcnSoftList,
   ufEmutecaSystemCBX, ufEmutecaSoftEditor,
   // Emuteca windows
   ufEmutecaActAddSoft, ufEmutecaActAddFolder,

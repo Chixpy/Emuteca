@@ -17,8 +17,8 @@ uses
 ufEmutecaActAddSoft, uGUIConfig,
   uaCHXStorable, uaEmutecaManager, ufEmutecaSystemImgEditor,
   ufEmutecaActAddFolder, ucEmutecaScriptEngine,
-  ufESMSoftList, ufEmutecaSystemCBX, ufESMParentList, ufEmutecaChkSoftList,
-  ufEmutecaGroupCBX, ufEmutecaIcnSoftList, ufCHXPropEditor, 
+  ufESMSoftList, ufEmutecaSystemCBX, ufESMGroupList, ufLEmuTKChkSoftList,
+  ufEmutecaGroupCBX, ufLEmuTKIcnSoftList, ufCHXPropEditor, 
 ufEmutecaSystemEditor, ufLEmuTKFullSystemEditor, ufCHXChkLstPropEditor, 
 ufLEmuTKSysManager, ufLEmuTKEmuManager, ufEmutecaSoftEditor, 
 ufLEmuTKFullEmuEditor, ufEmutecaEmulatorEditor, ufLEmuTKSoftMedia;

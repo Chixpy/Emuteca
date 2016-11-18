@@ -9,7 +9,7 @@ uses
   Dialogs, ExtCtrls, ComCtrls,
   ufTagTree,
   ucEmuteca, ucEmutecaGroup, ucEmutecaSoftware, ucEmutecaSystem,
-  ufEmutecaSystemCBX, ufEmutecaChkSoftList, ufEmutecaGroupList;
+  ufEmutecaSystemCBX, ufLEmuTKChkSoftList, ufEmutecaGroupList;
 
 type
 
