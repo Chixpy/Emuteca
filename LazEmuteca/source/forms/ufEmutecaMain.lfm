@@ -166,6 +166,11 @@ object frmEmutecaMain: TfrmEmutecaMain
       Hint = 'Autosave game list on exit'
       OnExecute = actAutoSaveExecute
     end
+    object actOpenTempFolder: TAction
+      Category = 'File'
+      Caption = 'Open Temp Folder'
+      OnExecute = actOpenTempFolderExecute
+    end
   end
   object MainMenu: TMainMenu
     left = 184
@@ -175,6 +180,9 @@ object frmEmutecaMain: TfrmEmutecaMain
       object MenuItem8: TMenuItem
         Caption = 'Test'
         OnClick = MenuItem8Click
+      end
+      object MenuItem17: TMenuItem
+        Action = actOpenTempFolder
       end
       object MenuItem13: TMenuItem
         Caption = '-'

@@ -44,7 +44,7 @@ const
   EmutecaDumpStatusStrsK: array [TEmutecaDumpStatus] of string =
     (krsedsVerified, krsedsGood, krsedsAlternate, krsedsOverDump,
     krsedsBadDump, krsedsUnderDump);
-  //< Strings for DumpStatus (fixed, used for icon filenames, etc. )
+//< Strings for DumpStatus (fixed, used for icon filenames, etc. )
 
 type
   { cEmutecaSoftware. }
@@ -102,7 +102,11 @@ type
     procedure SetYear(AValue: string);
     procedure SetZone(AValue: string);
 
+  protected
+
+
   public
+
     property DataString: string read GetDataString write SetDataString;
 
     // Cached Data
@@ -120,6 +124,7 @@ type
 
     constructor Create(aOwner: TComponent); override;
     destructor Destroy; override;
+
   published
     // Basic data
     // ----------
@@ -166,7 +171,7 @@ type
     // Version flags. (Based on Cowering + TOSEC)
     // ------------------------------------------
     property DumpStatus: TEmutecaDumpStatus
-      read FDumpStatus write SetDumpStatus default edsGood;
+      read FDumpStatus write SetDumpStatus;
     {< Merged Verified, good, bad dump, etc.}
 
     property DumpInfo: string read FDumpInfo write SetDumpInfo;
@@ -436,7 +441,7 @@ end;
 
 procedure cEmutecaSoftware.SetSystemKey(AValue: string);
 begin
-  FSystemKey := AValue;
+  FSystemKey := SetAsID(AValue);
 end;
 
 procedure cEmutecaSoftware.SetTitle(AValue: string);
@@ -463,6 +468,8 @@ end;
 constructor cEmutecaSoftware.Create(aOwner: TComponent);
 begin
   inherited Create(aOwner);
+
+  DumpStatus := edsGood;
 
   FStats := cEmutecaPlayingStats.Create(Self);
 end;
@@ -536,8 +543,17 @@ begin
   TxtFile.Add(Folder);
   TxtFile.Add(FileName);
   TxtFile.Add(Title);
-  TxtFile.Add(GroupKey);
-  TxtFile.Add(SystemKey);
+
+  if assigned(Group) then
+    TxtFile.Add(Group.ID)
+  else
+    TxtFile.Add(GroupKey);
+
+  if assigned(System) then
+    TxtFile.Add(System.ID)
+  else
+    TxtFile.Add(SystemKey);
+
   TxtFile.Add(''); // Reserved
 
   // Additional title info

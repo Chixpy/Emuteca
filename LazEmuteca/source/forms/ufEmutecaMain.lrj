@@ -13,6 +13,7 @@
 {"hash":125342323,"name":"tfrmemutecamain.actsavelists.caption","sourcebytes":[83,97,118,101,32,108,105,115,116,115],"value":"Save lists"},
 {"hash":110889572,"name":"tfrmemutecamain.actautosave.caption","sourcebytes":[43,83,97,118,101,32,111,110,32,69,120,105,116],"value":"+Save on Exit"},
 {"hash":185440356,"name":"tfrmemutecamain.actautosave.hint","sourcebytes":[65,117,116,111,115,97,118,101,32,103,97,109,101,32,108,105,115,116,32,111,110,32,101,120,105,116],"value":"Autosave game list on exit"},
+{"hash":78366754,"name":"tfrmemutecamain.actopentempfolder.caption","sourcebytes":[79,112,101,110,32,84,101,109,112,32,70,111,108,100,101,114],"value":"Open Temp Folder"},
 {"hash":315429,"name":"tfrmemutecamain.mmfile.caption","sourcebytes":[70,105,108,101],"value":"File"},
 {"hash":371876,"name":"tfrmemutecamain.menuitem8.caption","sourcebytes":[84,101,115,116],"value":"Test"},
 {"hash":138926499,"name":"tfrmemutecamain.menuitem3.caption","sourcebytes":[77,97,110,97,103,101,114,115],"value":"Managers"},

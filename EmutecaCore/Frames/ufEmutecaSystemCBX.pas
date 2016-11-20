@@ -17,10 +17,10 @@ type
     procedure cbxSystemChange(Sender: TObject);
 
   private
-    FCurrentSystem: cEmutecaSystem;
+    FSelectedSystem: cEmutecaSystem;
     FOnSelectSystem: TEmutecaReturnSystemCB;
     FSystemList: cEmutecaSystemList;
-    procedure SetCurrentSystem(AValue: cEmutecaSystem);
+    procedure SetSelectedSystem(AValue: cEmutecaSystem);
     procedure SetOnSelectSystem(AValue: TEmutecaReturnSystemCB);
     procedure SetSystemList(AValue: cEmutecaSystemList);
 
@@ -32,7 +32,7 @@ type
       read FSystemList write SetSystemList;
     {< List of systems observed. }
 
-    property CurrentSystem: cEmutecaSystem read FCurrentSystem write SetCurrentSystem;
+    property SelectedSystem: cEmutecaSystem read FSelectedSystem write SetSelectedSystem;
     {< Returns current selected system or select it in cbx. }
 
     property OnSelectSystem: TEmutecaReturnSystemCB
@@ -111,25 +111,25 @@ begin
   FOnSelectSystem := AValue;
 end;
 
-procedure TfmEmutecaSystemCBX.SetCurrentSystem(AValue: cEmutecaSystem);
+procedure TfmEmutecaSystemCBX.SetSelectedSystem(AValue: cEmutecaSystem);
 var
   aPos: Integer;
 begin
-  if FCurrentSystem = AValue then Exit;
-  FCurrentSystem := AValue;
+  if FSelectedSystem = AValue then Exit;
+  FSelectedSystem := AValue;
 
-    if not assigned(CurrentSystem) then
+    if not assigned(SelectedSystem) then
   begin
     cbxSystem.ItemIndex := -1;
     Exit;
   end;
 
-  aPos := cbxSystem.Items.IndexOfObject(CurrentSystem);
+  aPos := cbxSystem.Items.IndexOfObject(SelectedSystem);
   if aPos = -1 then
   begin
     // Uhm....
     cbxSystem.ItemIndex :=
-      cbxSystem.Items.AddObject(CurrentSystem.Title, CurrentSystem);
+      cbxSystem.Items.AddObject(SelectedSystem.Title, SelectedSystem);
   end
   else
     cbxSystem.ItemIndex := aPos;

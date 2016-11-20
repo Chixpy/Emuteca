@@ -19,12 +19,12 @@ type
     bRun: TBitBtn;
     cbxSystem: TComboBox;
     chkIncSubfolders: TCheckBox;
-    eExtensions: TEdit;
     eFolder: TDirectoryEdit;
     lExtensions: TLabel;
     lFolder: TLabel;
     lSystem: TLabel;
     Panel1: TPanel;
+    rgbGroup: TRadioGroup;
     procedure bRunClick(Sender: TObject);
     procedure cbxSystemChange(Sender: TObject);
     procedure eFolderButtonClick(Sender: TObject);
@@ -47,7 +47,7 @@ procedure TfmEmutecaActAddFolder.cbxSystemChange(Sender: TObject);
 var
   aSystem: cEmutecaSystem;
 begin
-  eExtensions.Text := '';
+  lExtensions.Caption := '';
 
   if not assigned(Emuteca) then
     Exit;
@@ -56,7 +56,7 @@ begin
 
   aSystem := cEmutecaSystem(cbxSystem.Items.Objects[cbxSystem.ItemIndex]);
 
-  eExtensions.Text := aSystem.Extensions.CommaText;
+  lExtensions.Caption := aSystem.Extensions.CommaText;
 
   eFolder.Directory := CreateAbsolutePath(aSystem.BaseFolder,
     ProgramDirectory);
@@ -84,7 +84,6 @@ var
   aVersion: cEmutecaSoftware;
   i: integer;
 begin
-  { TODO : Must be in cEmuteca }
   if not assigned(Emuteca) then
     Exit;
   if cbxSystem.ItemIndex = -1 then
@@ -113,6 +112,7 @@ begin
       aVersion := cEmutecaSoftware.Create(nil);
       aVersion.Folder := FolderList[i];
       aVersion.FileName := FileList[i];
+      aVersion.System := aSystem;
       aVersion.SystemKey := aSystem.ID;
       if FileExistsUTF8(FolderList[i]) then
       begin // it's a compressed archive
@@ -126,7 +126,7 @@ begin
               Emuteca.TempFolder + 'Temp', False, '');
             aversion.ID :=
               CRC32FileStr(Emuteca.TempFolder + 'Temp\' + FileList[i]);
-            DeleteDirectory(Emuteca.TempFolder + 'Temp', False);
+            DeleteDirectory(Emuteca.TempFolder + 'Temp', True);
           end;
 
           TEFKCustom: aversion.ID :=
@@ -141,12 +141,18 @@ begin
               Emuteca.TempFolder + 'Temp', False, '');
             aversion.ID :=
               SHA1FileStr(Emuteca.TempFolder + 'Temp\' + FileList[i]);
-            DeleteDirectory(Emuteca.TempFolder + 'Temp', False);
+            DeleteDirectory(Emuteca.TempFolder + 'Temp', True);
           end;
         end;
 
-        aVersion.GroupKey :=
-          RemoveFromBrackets(ExtractFileNameOnly(FolderList[i]));
+        case rgbGroup.ItemIndex of
+          0:
+            aVersion.GroupKey :=
+              RemoveFromBrackets(ExtractFileNameOnly(FileList[i]));
+          else
+            aVersion.GroupKey := RemoveFromBrackets(ExtractFileNameOnly(ExcludeTrailingPathDelimiter(FolderList[i])));
+        end;
+
         aVersion.Title :=
           RemoveFromBrackets(ExtractFileNameOnly(FileList[i]));
         aVersion.Version :=
@@ -165,9 +171,17 @@ begin
             aversion.ID := SHA1FileStr(aVersion.Folder + aVersion.FileName);
         end;
 
-        aVersion.GroupKey :=
+        case rgbGroup.ItemIndex of
+          0: aVersion.GroupKey :=
+              RemoveFromBrackets(ExtractFileNameOnly(aVersion.FileName));
+          else
+            aVersion.GroupKey :=
+              RemoveFromBrackets(ExtractFileNameOnly(
+              ExcludeTrailingPathDelimiter(aVersion.Folder)));
+        end;
+
+        aVersion.Title :=
           RemoveFromBrackets(ExtractFileNameOnly(aVersion.FileName));
-        aVersion.Title := aVersion.GroupKey;
         aVersion.Version :=
           CopyFromBrackets(ExtractFileNameOnly(aVersion.FileName));
       end;

@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, LazFileUtils, Forms, Controls,
-  Graphics, Dialogs, LazUTF8,
+  Graphics, Dialogs, LazUTF8, LCLIntf,
   ActnList, Menus, StdActns, ComCtrls, ExtCtrls, DefaultTranslator,
   IniPropStorage, StdCtrls,
   // Misc
@@ -41,6 +41,7 @@ type
     actAddFolder: TAction;
     actAddSoft: TAction;
     actAutoSave: TAction;
+    actOpenTempFolder: TAction;
     actSaveLists: TAction;
     actMediaManager: TAction;
     actScriptManager: TAction;
@@ -60,6 +61,7 @@ type
     MenuItem14: TMenuItem;
     MenuItem15: TMenuItem;
     MenuItem16: TMenuItem;
+    MenuItem17: TMenuItem;
     MenuItem2: TMenuItem;
     MenuItem3: TMenuItem;
     MenuItem4: TMenuItem;
@@ -85,6 +87,7 @@ type
     procedure actAddFolderExecute(Sender: TObject);
     procedure actAutoSaveExecute(Sender: TObject);
     procedure actEmulatorManagerExecute(Sender: TObject);
+    procedure actOpenTempFolderExecute(Sender: TObject);
     procedure actSaveListsExecute(Sender: TObject);
     procedure actScriptManagerExecute(Sender: TObject);
     procedure actSystemManagerExecute(Sender: TObject);
@@ -463,6 +466,11 @@ begin
 
   aForm.ShowModal;
   FreeAndNil(aForm);
+end;
+
+procedure TfrmEmutecaMain.actOpenTempFolderExecute(Sender: TObject);
+begin
+  OpenDocument(Emuteca.TempFolder);
 end;
 
 procedure TfrmEmutecaMain.actSaveListsExecute(Sender: TObject);

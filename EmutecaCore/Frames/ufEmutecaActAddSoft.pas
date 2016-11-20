@@ -30,6 +30,7 @@ type
     lSystemInfo: TLabel;
     pBottom: TPanel;
     pLeft: TPanel;
+    rgbGroup: TRadioGroup;
     rgbVersionKey: TRadioGroup;
     Splitter1: TSplitter;
     procedure bAcceptClick(Sender: TObject);
@@ -37,7 +38,8 @@ type
     procedure chkOpenAsArchiveChange(Sender: TObject);
     procedure eFileAcceptFileName(Sender: TObject; var Value: string);
     procedure eFileButtonClick(Sender: TObject);
-    procedure rgbVersionKeyClick(Sender: TObject);
+    procedure rgbGroupSelectionChanged(Sender: TObject);
+    procedure rgbVersionKeySelectionChanged(Sender: TObject);
 
   private
     FcbxSystem: TfmEmutecaSystemCBX;
@@ -54,6 +56,7 @@ type
     property cbxSystem: TfmEmutecaSystemCBX read FcbxSystem;
 
     procedure UpdateVersionKey;
+    procedure UpdateGroup;
     procedure UpdateLists;
 
     function SelectSystem(aSystem: cEmutecaSystem): boolean;
@@ -80,11 +83,10 @@ begin
   // Updating SoftEditor
   Software.Folder := ExtractFileDir(Value);
   Software.FileName := ExtractFileName(Value);
-  Software.GroupKey := RemoveFromBrackets(ExtractFileNameOnly(
-    Software.FileName));
   Software.Title := Software.GroupKey;
   Software.Version :=
     CopyFromBrackets(ExtractFileNameOnly(Software.FileName));
+  UpdateGroup;
   SoftEditor.LoadData;
 
   chkOpenAsArchive.Checked := False;
@@ -117,7 +119,12 @@ begin
   end;
 end;
 
-procedure TfmActAddSoft.rgbVersionKeyClick(Sender: TObject);
+procedure TfmActAddSoft.rgbGroupSelectionChanged(Sender: TObject);
+begin
+  UpdateGroup;
+end;
+
+procedure TfmActAddSoft.rgbVersionKeySelectionChanged(Sender: TObject);
 begin
   UpdateVersionKey;
 end;
@@ -133,11 +140,11 @@ procedure TfmActAddSoft.cbxInnerFileChange(Sender: TObject);
 begin
   Software.Folder := eFile.Text;
   Software.FileName := cbxInnerFile.Text;
-  Software.GroupKey := RemoveFromBrackets(ExtractFileNameOnly(eFile.Text));
   Software.Title := RemoveFromBrackets(ExtractFileNameOnly(
     cbxInnerFile.Text));
   Software.Version :=
     CopyFromBrackets(ExtractFileNameOnly(cbxInnerFile.Text));
+  UpdateGroup;
   SoftEditor.LoadData;
   UpdateVersionKey;
 end;
@@ -252,6 +259,20 @@ begin
   Software.ID := eVersionKey.Text;
 end;
 
+procedure TfmActAddSoft.UpdateGroup;
+begin
+  case rgbGroup.ItemIndex of
+    1: // Filename;
+      Software.GroupKey := ExtractFileNameOnly(Software.FileName);
+    else
+    begin // Folder
+        Software.GroupKey := ExtractFileNameOnly(
+          ExcludeTrailingPathDelimiter(Software.Folder))
+    end;
+  end;
+  SoftEditor.LoadData;
+end;
+
 procedure TfmActAddSoft.UpdateLists;
 begin
   SoftEditor.Emuteca := Emuteca;
@@ -259,12 +280,12 @@ begin
   if not assigned(Emuteca) then
     cbxSystem.SystemList := nil
   else
-    begin
+  begin
     cbxSystem.SystemList := Emuteca.SystemManager.VisibleList;
     // TODO: HACK: Removing "all systems" option...
     if cbxSystem.cbxSystem.Items.Count > 0 then
       cbxSystem.cbxSystem.Items[0] := 'Select a System';
-    end;
+  end;
 end;
 
 function TfmActAddSoft.SelectSystem(aSystem: cEmutecaSystem): boolean;

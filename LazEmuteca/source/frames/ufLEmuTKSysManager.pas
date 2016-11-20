@@ -212,8 +212,8 @@ begin
   inherited Create(TheOwner);
 
   FSysEditor := TfmLEmuTKFullSystemEditor.Create(Self);
-  SysEditor.Parent := Self;
   SysEditor.Align := alClient;
+  SysEditor.Parent := Self;
 end;
 
 destructor TfmLEmuTKSysManager.Destroy;

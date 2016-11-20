@@ -1,9 +1,10 @@
 object fmEmutecaActAddFolder: TfmEmutecaActAddFolder
   Left = 0
-  Height = 160
+  Height = 217
   Top = 0
   Width = 320
-  ClientHeight = 160
+  Align = alTop
+  ClientHeight = 217
   ClientWidth = 320
   TabOrder = 0
   DesignLeft = 457
@@ -31,7 +32,7 @@ object fmEmutecaActAddFolder: TfmEmutecaActAddFolder
   object lFolder: TLabel
     Left = 0
     Height = 15
-    Top = 76
+    Top = 53
     Width = 320
     Align = alTop
     Caption = 'Folder'
@@ -40,8 +41,9 @@ object fmEmutecaActAddFolder: TfmEmutecaActAddFolder
   object eFolder: TDirectoryEdit
     Left = 0
     Height = 23
-    Top = 91
+    Top = 68
     Width = 320
+    DialogOptions = [ofNoChangeDir, ofEnableSizing, ofViewDetail]
     ShowHidden = False
     ButtonWidth = 23
     NumGlyphs = 1
@@ -53,7 +55,7 @@ object fmEmutecaActAddFolder: TfmEmutecaActAddFolder
   object chkIncSubfolders: TCheckBox
     Left = 0
     Height = 19
-    Top = 114
+    Top = 91
     Width = 320
     Align = alTop
     Caption = 'Include subfolders'
@@ -69,22 +71,15 @@ object fmEmutecaActAddFolder: TfmEmutecaActAddFolder
     Align = alTop
     Caption = 'Supported Extensions'
     ParentColor = False
-  end
-  object eExtensions: TEdit
-    Left = 0
-    Height = 23
-    Top = 53
-    Width = 320
-    Align = alTop
-    Enabled = False
-    TabOrder = 3
+    WordWrap = True
   end
   object Panel1: TPanel
     Left = 0
     Height = 27
-    Top = 133
+    Top = 149
     Width = 320
-    Align = alClient
+    Align = alTop
+    AutoSize = True
     ChildSizing.EnlargeHorizontal = crsHomogenousSpaceResize
     ChildSizing.EnlargeVertical = crsHomogenousSpaceResize
     ChildSizing.ShrinkHorizontal = crsHomogenousSpaceResize
@@ -93,7 +88,7 @@ object fmEmutecaActAddFolder: TfmEmutecaActAddFolder
     ChildSizing.ControlsPerLine = 1
     ClientHeight = 27
     ClientWidth = 320
-    TabOrder = 4
+    TabOrder = 3
     object bRun: TBitBtn
       Left = 129
       Height = 26
@@ -106,5 +101,31 @@ object fmEmutecaActAddFolder: TfmEmutecaActAddFolder
       OnClick = bRunClick
       TabOrder = 0
     end
+  end
+  object rgbGroup: TRadioGroup
+    Left = 0
+    Height = 39
+    Top = 110
+    Width = 320
+    Align = alTop
+    AutoFill = True
+    AutoSize = True
+    Caption = 'Group by'
+    ChildSizing.LeftRightSpacing = 6
+    ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+    ChildSizing.EnlargeVertical = crsHomogenousChildResize
+    ChildSizing.ShrinkHorizontal = crsScaleChilds
+    ChildSizing.ShrinkVertical = crsScaleChilds
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    ChildSizing.ControlsPerLine = 2
+    ClientHeight = 19
+    ClientWidth = 316
+    Columns = 2
+    ItemIndex = 0
+    Items.Strings = (
+      'Folder'
+      'Filename'
+    )
+    TabOrder = 4
   end
 end

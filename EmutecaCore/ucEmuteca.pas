@@ -77,6 +77,9 @@ type
     function SearchSystem(aID: string): cEmutecaSystem;
     function SearchMainEmulator(aID: string): cEmutecaEmulator;
 
+    procedure CacheSoft(aSoft: cEmutecaSoftware);
+    procedure CacheGroup(aGroup: cEmutecaGroup);
+
     function RunSoftware(const aSoftware: cEmutecaSoftware): integer;
 
     constructor Create(aOwner: TComponent); override;
@@ -152,6 +155,76 @@ end;
 function cEmuteca.SearchMainEmulator(aID: string): cEmutecaEmulator;
 begin
   Result := EmulatorManager.ItemById(aID);
+end;
+
+procedure cEmuteca.CacheSoft(aSoft: cEmutecaSoftware);
+var
+  aSystem: cEmutecaSystem;
+  aGroup: cEmutecaGroup;
+begin
+
+  if not assigned(aSoft.System) then
+  begin
+    if aSoft.SystemKey <> '' then
+    begin
+      aSoft.System := SearchSystem(aSoft.SystemKey);
+      // Autocreate
+      if not assigned(aSoft.System) then
+      begin
+        aSystem := cEmutecaSystem.Create(nil);
+        aSystem.ID := aSoft.SystemKey;
+        aSystem.Title := aSoft.SystemKey;
+        aSystem.FileName := aSoft.SystemKey;
+        aSystem.Enabled := True;
+        aSoft.System := aSystem;
+        SystemManager.FullList.Add(aSystem);
+      end;
+    end;
+  end;
+
+  if not assigned(aSoft.Group) then
+  begin
+    if aSoft.GroupKey <> '' then
+    begin
+      aSoft.Group := SearchGroup(aSoft.GroupKey);
+      // Autocreate...
+      if not assigned(aSoft.Group) then
+      begin
+        aGroup := cEmutecaGroup.Create(nil);
+        aGroup.ID := aSoft.GroupKey;
+        aGroup.Title := aSoft.GroupKey;
+        aGroup.SystemKey := aSoft.SystemKey;
+        CacheGroup(aGroup);
+        aSoft.Group := aGroup;
+        GroupManager.FullList.Add(aGroup);
+      end;
+
+    end;
+  end;
+end;
+
+procedure cEmuteca.CacheGroup(aGroup: cEmutecaGroup);
+var
+  aSystem: cEmutecaSystem;
+begin
+  if not assigned(aGroup.System) then
+  begin
+    if aGroup.SystemKey <> '' then
+    begin
+      aGroup.System := SearchSystem(aGroup.SystemKey);
+      // Autocreate
+      if not assigned(aGroup.System) then
+      begin
+        aSystem := cEmutecaSystem.Create(nil);
+        aSystem.ID := aGroup.SystemKey;
+        aSystem.Title := aGroup.SystemKey;
+        aSystem.FileName := aGroup.SystemKey;
+        aSystem.Enabled := True;
+        aGroup.System := aSystem;
+        SystemManager.FullList.Add(aSystem);
+      end;
+    end;
+  end;
 end;
 
 function cEmuteca.RunSoftware(const aSoftware: cEmutecaSoftware): integer;
@@ -322,9 +395,10 @@ begin
     Exit;
   FCurrentGroup := AValue;
 
-    if assigned(CurrentGroup) then
+  if assigned(CurrentGroup) then
   begin
-    CurrentSystem := SearchSystem(CurrentGroup.SystemKey);
+    CacheGroup(CurrentGroup);
+    CurrentSystem := CurrentGroup.System;
   end
   else
   begin
@@ -340,8 +414,9 @@ begin
 
   if assigned(CurrentSoft) then
   begin
-    CurrentGroup := SearchGroup(CurrentSoft.GroupKey);
-    CurrentSystem := SearchSystem(CurrentSoft.SystemKey);
+    CacheSoft(CurrentSoft);
+    CurrentGroup := CurrentSoft.Group;
+    CurrentSystem := CurrentSoft.System;
   end
   else
   begin

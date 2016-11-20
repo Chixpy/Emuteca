@@ -17,10 +17,10 @@ type
     procedure cbxGroupChange(Sender: TObject);
 
   private
-    FCurrentGroup: cEmutecaGroup;
+    FSelectedGroup: cEmutecaGroup;
     FOnSelectGroup: TEmutecaReturnGroupCB;
     FGroupList: cEmutecaGroupList;
-    procedure SetCurrentGroup(AValue: cEmutecaGroup);
+    procedure SetSelectedGroup(AValue: cEmutecaGroup);
     procedure SetOnSelectGroup(AValue: TEmutecaReturnGroupCB);
     procedure SetGroupList(AValue: cEmutecaGroupList);
 
@@ -33,8 +33,8 @@ type
       read FGroupList write SetGroupList;
     {< List of parents observed. }
 
-    property CurrentGroup: cEmutecaGroup
-      read FCurrentGroup write SetCurrentGroup;
+    property SelectedGroup: cEmutecaGroup
+      read FSelectedGroup write SetSelectedGroup;
     {< Returns current selected parent or select it in cbx. }
 
     property OnSelectGroup: TEmutecaReturnGroupCB
@@ -58,13 +58,13 @@ implementation
 procedure TfmEmutecaGroupCBX.cbxGroupChange(Sender: TObject);
 begin
   if cbxGroup.ItemIndex <> -1 then
-    CurrentGroup := cEmutecaGroup(
+    SelectedGroup := cEmutecaGroup(
       cbxGroup.Items.Objects[cbxGroup.ItemIndex])
   else
-    CurrentGroup := nil;
+    SelectedGroup := nil;
 
   if Assigned(OnSelectGroup) then
-    {Var := } OnSelectGroup(CurrentGroup);
+    {Var := } OnSelectGroup(SelectedGroup);
 
   // TODO: True, change Emuteca.CurrentSystem?
 end;
@@ -77,26 +77,26 @@ begin
   FOnSelectGroup := AValue;
 end;
 
-procedure TfmEmutecaGroupCBX.SetCurrentGroup(AValue: cEmutecaGroup);
+procedure TfmEmutecaGroupCBX.SetSelectedGroup(AValue: cEmutecaGroup);
 var
   aPos: integer;
 begin
-  if FCurrentGroup = AValue then
+  if FSelectedGroup = AValue then
     Exit;
-  FCurrentGroup := AValue;
+  FSelectedGroup := AValue;
 
-  if not assigned(CurrentGroup) then
+  if not assigned(SelectedGroup) then
   begin
     cbxGroup.ItemIndex := -1;
     Exit;
   end;
 
-  aPos := cbxGroup.Items.IndexOfObject(CurrentGroup);
+  aPos := cbxGroup.Items.IndexOfObject(SelectedGroup);
   if aPos = -1 then
   begin
     // Uhm....
     cbxGroup.ItemIndex :=
-      cbxGroup.Items.AddObject(CurrentGroup.Title, CurrentGroup);
+      cbxGroup.Items.AddObject(SelectedGroup.Title, SelectedGroup);
   end
   else
     cbxGroup.ItemIndex := aPos;

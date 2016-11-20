@@ -79,7 +79,6 @@ object fmEmutecaSoftList: TfmEmutecaSoftList
     IncrementalSearch = isAll
     IncrementalSearchStart = ssAlwaysStartOver
     ParentShowHint = False
-    PopupMenu = PopupMenu1
     ShowHint = True
     TabOrder = 0
     TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScrollOnExpand, toAutoSort, toAutoSpanColumns, toAutoTristateTracking, toAutoHideButtons, toAutoDeleteMovedNodes]
@@ -100,17 +99,5 @@ object fmEmutecaSoftList: TfmEmutecaSoftList
     Top = 181
     Width = 701
     Panels = <>
-  end
-  object ActionList1: TActionList
-    left = 96
-    top = 122
-  end
-  object PopupMenu1: TPopupMenu
-    left = 16
-    top = 122
-  end
-  object ImageList1: TImageList
-    left = 212
-    top = 117
   end
 end

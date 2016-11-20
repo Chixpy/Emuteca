@@ -8,16 +8,12 @@ uses
   Classes, SysUtils, FileUtil, VirtualTrees, Forms, Controls, ComCtrls,
   ActnList, Menus, LazUTF8,
   uCHXStrUtils,
-  uEmutecaCommon, ucEmuteca, ucEmutecaSoftware;
+  uEmutecaCommon, ucEmutecaSoftware;
 
 type
   { TfmEmutecaSoftList }
 
   TfmEmutecaSoftList = class(TFrame)
-    ActionList1: TActionList;
-    ImageList1: TImageList;
-    MenuItem1: TMenuItem;
-    PopupMenu1: TPopupMenu;
     StatusBar1: TStatusBar;
     VST: TVirtualStringTree;
     procedure VSTChange(Sender: TBaseVirtualTree; Node: PVirtualNode);
@@ -257,13 +253,18 @@ begin
     1: // Title
       CellText := pData^.Title;
     2: // Version
-      CellText := pData^.Version;
+      CellText := pData^.Zone + ' ' + pData^.Version;
     3: // Publisher
     begin
       if pData^.Publisher = '' then
       begin
         if assigned(pData^.Group) then
-          CellText := '(' +pData^.Group.Developer + ')'
+        begin
+          if pData^.Group.Year <> '' then
+            CellText := '(' +pData^.Group.Developer + ')'
+          else
+            CellText := '';
+        end
         else
           CellText :=  rsNotCached;
       end
@@ -276,7 +277,10 @@ begin
       begin
         if assigned(pData^.Group) then
         begin
-          CellText := '(' +pData^.Group.Year + ')'
+          if pData^.Group.Year <> '' then
+            CellText := '(' +pData^.Group.Year + ')'
+            else
+              CellText := '';
         end
         else
          CellText :=  rsNotCached;

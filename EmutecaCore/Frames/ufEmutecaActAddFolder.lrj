@@ -2,5 +2,6 @@
 {"hash":95464125,"name":"tfmemutecaactaddfolder.lsystem.caption","sourcebytes":[83,121,115,116,101,109],"value":"System"},
 {"hash":81144514,"name":"tfmemutecaactaddfolder.lfolder.caption","sourcebytes":[70,111,108,100,101,114],"value":"Folder"},
 {"hash":70362275,"name":"tfmemutecaactaddfolder.chkincsubfolders.caption","sourcebytes":[73,110,99,108,117,100,101,32,115,117,98,102,111,108,100,101,114,115],"value":"Include subfolders"},
-{"hash":222980083,"name":"tfmemutecaactaddfolder.lextensions.caption","sourcebytes":[83,117,112,112,111,114,116,101,100,32,69,120,116,101,110,115,105,111,110,115],"value":"Supported Extensions"}
+{"hash":222980083,"name":"tfmemutecaactaddfolder.lextensions.caption","sourcebytes":[83,117,112,112,111,114,116,101,100,32,69,120,116,101,110,115,105,111,110,115],"value":"Supported Extensions"},
+{"hash":158081657,"name":"tfmemutecaactaddfolder.rgbgroup.caption","sourcebytes":[71,114,111,117,112,32,98,121],"value":"Group by"}
 ]}

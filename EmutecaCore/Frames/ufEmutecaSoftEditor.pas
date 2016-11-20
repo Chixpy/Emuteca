@@ -149,8 +149,8 @@ end;
 
 procedure TfmEmutecaSoftEditor.ClearData;
 begin
-  cbxSystem.CurrentSystem := nil;
-  cbxGroup.CurrentGroup := nil;
+  cbxSystem.SelectedSystem := nil;
+  cbxGroup.SelectedGroup := nil;
 
   eTitle.Clear;
   eSortKey.Clear;
@@ -187,9 +187,6 @@ begin
 end;
 
 procedure TfmEmutecaSoftEditor.LoadData;
-var
-  aGroup: cEmutecaGroup;
-  aSystem: cEmutecaSystem;
 begin
   if not assigned(Software) then
   begin
@@ -197,17 +194,36 @@ begin
     Exit;
   end;
 
-  aSystem := nil;
-  aGroup := nil;
+  // Don't use Emuteca.CacheSoft(Software);
+  // We don't want autocreate a Group now until Soft is saved,
+  //   so we want find it by hand;
 
-  if assigned(Emuteca) then
+  if assigned(Software.System) then
+    cbxSystem.SelectedSystem := Software.System
+  else
   begin
-    aSystem := Emuteca.SystemManager.ItemById(Software.SystemKey);
-    aGroup := Emuteca.GroupManager.ItemById(Software.GroupKey);
+  if assigned(Emuteca) then
+    cbxSystem.SelectedSystem := Emuteca.SearchSystem(Software.SystemKey)
+  else
+    cbxSystem.SelectedSystem := nil;
+
   end;
 
-  cbxSystem.CurrentSystem := aSystem;
-  cbxGroup.CurrentGroup := aGroup;
+  if assigned(Software.Group) then
+    cbxGroup.SelectedGroup := Software.Group
+  else
+  begin
+    if assigned(Emuteca) then
+      cbxGroup.SelectedGroup := Emuteca.SearchGroup(Software.GroupKey)
+    else
+       cbxGroup.SelectedGroup := nil;
+
+    if cbxGroup.SelectedGroup = nil then
+      // Forcing Software.GroupKey text
+      cbxGroup.cbxGroup.Text := Software.GroupKey;
+  end;
+
+
 
   eTitle.Text := Software.Title;
   eSortKey.Text := Software.SortTitle;
@@ -244,15 +260,25 @@ begin
   if not assigned(Software) then
     Exit;
 
-  if assigned(cbxSystem.CurrentSystem) then
-    Software.SystemKey := cbxSystem.CurrentSystem.ID
+  if assigned(cbxSystem.SelectedSystem) then
+  begin
+    Software.System := cbxSystem.SelectedSystem;
+    Software.SystemKey := cbxSystem.SelectedSystem.ID;
+  end
   else
+    // I hope never enter this branch ...
     Software.SystemKey := cbxSystem.cbxSystem.Text; //LOLWUT
 
-  if assigned(cbxGroup.CurrentGroup) then
-    Software.GroupKey := cbxGroup.CurrentGroup.ID
+  if assigned(cbxGroup.SelectedGroup) then
+  begin
+    Software.Group := cbxGroup.SelectedGroup;
+    Software.GroupKey := cbxGroup.SelectedGroup.ID;
+  end
   else
+  begin
     Software.GroupKey := cbxGroup.cbxGroup.Text; //LOLWUT^2
+    Emuteca.CacheSoft(Software); // Auto creating Group
+  end;
 
   Software.Title := eTitle.Text;
   Software.SortTitle := eSortKey.Text;

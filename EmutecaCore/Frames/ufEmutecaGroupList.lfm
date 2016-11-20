@@ -1,19 +1,19 @@
 object fmEmutecaGroupList: TfmEmutecaGroupList
   Left = 0
-  Height = 209
+  Height = 202
   Top = 0
-  Width = 348
+  Width = 636
   Align = alClient
-  ClientHeight = 209
-  ClientWidth = 348
+  ClientHeight = 202
+  ClientWidth = 636
   TabOrder = 0
-  DesignLeft = 478
-  DesignTop = 193
+  DesignLeft = 596
+  DesignTop = 144
   object VST: TVirtualStringTree
     Left = 0
-    Height = 186
+    Height = 179
     Top = 0
-    Width = 348
+    Width = 636
     Align = alClient
     Colors.UnfocusedColor = clMedGray
     DefaultText = 'Node'
@@ -21,19 +21,39 @@ object fmEmutecaGroupList: TfmEmutecaGroupList
     Header.Columns = <    
       item
         Position = 0
+        Text = 'System'
+      end    
+      item
+        Position = 1
         Text = 'Name'
         Width = 294
       end    
       item
-        Position = 1
-        Text = 'System'
+        Position = 2
+        Text = 'Developer'
+      end    
+      item
+        Position = 3
+        Text = 'Year'
+      end    
+      item
+        Position = 4
+        Text = 'Times Played'
+      end    
+      item
+        Position = 5
+        Text = 'Total Time'
+      end    
+      item
+        Position = 6
+        Text = 'Last Time'
       end>
     Header.DefaultHeight = 17
     Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoRestrictDrag, hoShowImages, hoShowSortGlyphs, hoVisible, hoHeaderClickAutoSort, hoAutoColumnPopupMenu]
     TabOrder = 0
     TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScrollOnExpand, toAutoSort, toAutoTristateTracking, toAutoDeleteMovedNodes]
     TreeOptions.MiscOptions = [toAcceptOLEDrop, toCheckSupport, toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning, toFullRowDrag]
-    TreeOptions.PaintOptions = [toShowButtons, toShowDropmark, toShowTreeLines, toThemeAware, toUseBlendedImages, toFullVertGridLines]
+    TreeOptions.PaintOptions = [toShowButtons, toShowDropmark, toShowHorzGridLines, toShowTreeLines, toShowVertGridLines, toThemeAware, toUseBlendedImages, toFullVertGridLines]
     TreeOptions.SelectionOptions = [toFullRowSelect]
     TreeOptions.StringOptions = [toSaveCaptions]
     OnChange = VSTChange
@@ -45,8 +65,8 @@ object fmEmutecaGroupList: TfmEmutecaGroupList
   object StatusBar1: TStatusBar
     Left = 0
     Height = 23
-    Top = 186
-    Width = 348
+    Top = 179
+    Width = 636
     Panels = <>
   end
 end
