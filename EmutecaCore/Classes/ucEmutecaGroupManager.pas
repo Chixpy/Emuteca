@@ -30,7 +30,7 @@ uses
   LazUTF8, LConvEncoding,
   LResources,
   // Emuteca core
-  uaEmutecaManager, ucEmutecaGroup;
+  uaEmutecaManager, ucEmutecaGroup, ucEmutecaSystemManager, ucEmutecaSystem;
 
 resourcestring
   rsLoadingGroupList = 'Loading parent list...';
@@ -41,13 +41,17 @@ type
 
   cEmutecaGroupManager = class(caEmutecaManagerTxt)
   private
+    FSystemManager: cEmutecaSystemManager;
     FVisibleList: cEmutecaGroupList;
     FFullList: cEmutecaGroupList;
+    procedure SetSystemManager(AValue: cEmutecaSystemManager);
 
   protected
-
+     procedure SearchSystem(aGroup: cEmutecaGroup);
 
   public
+    property SystemManager: cEmutecaSystemManager read FSystemManager write SetSystemManager;
+
     property FullList: cEmutecaGroupList read FFullList;
     {< Actual list where the parents are stored. }
     property VisibleList: cEmutecaGroupList read FVisibleList;
@@ -159,6 +163,30 @@ begin
     Inc(i);
   end;
   aList.EndUpdate;
+end;
+
+procedure cEmutecaGroupManager.SetSystemManager(AValue: cEmutecaSystemManager);
+begin
+  if FSystemManager = AValue then Exit;
+  FSystemManager := AValue;
+end;
+
+procedure cEmutecaGroupManager.SearchSystem(aGroup: cEmutecaGroup);
+var
+  aSystem: cEmutecaSystem;
+begin
+  if not assigned(SystemManager) then Exit;
+
+  aGroup.System := SystemManager.ItemById(aGroup.SystemKey);
+
+  if not assigned(aGroup.System) then
+  begin
+    aSystem := cEmutecaSystem.Create(nil);
+    aSystem.ID := aGroup.SystemKey;
+    aSystem.Title := aGroup.SystemKey;
+    SystemManager.FullList.Add(aSystem);
+
+  end;
 end;
 
 procedure cEmutecaGroupManager.LoadFromFileTxt(TxtFile: TStrings);

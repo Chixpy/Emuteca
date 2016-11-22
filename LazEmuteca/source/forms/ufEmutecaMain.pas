@@ -207,8 +207,6 @@ function TfrmEmutecaMain.SelectSystem(aSystem: cEmutecaSystem): boolean;
 begin
   Result := True;
 
-  Emuteca.CurrentSystem := aSystem;
-
   { TODO : Use Observer pattern... }
   fmEmutecaGroupList.UpdateList;
   SelectGroup(nil);
@@ -217,8 +215,6 @@ end;
 function TfrmEmutecaMain.SelectGroup(aGroup: cEmutecaGroup): boolean;
 begin
   Result := True;
-
-  Emuteca.CurrentGroup := aGroup;
 
   { TODO : Use Observer pattern... }
   fmEmutecaSoftList.UpdateList;
@@ -230,7 +226,6 @@ begin
   Result := True;
 
   { TODO : Use Observer pattern... }
-  Emuteca.CurrentSoft := aSoftware;
   fmEmutecaSoftEditor.Software := aSoftware;
 end;
 

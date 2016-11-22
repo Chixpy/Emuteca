@@ -109,21 +109,21 @@ begin Self.Title := T; end;
 procedure cEmutecaSoftwareTitle_R(Self: cEmutecaSoftware; var T: string);
 begin T := Self.Title; end;
 
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaSoftwareParent_W(Self: cEmutecaSoftware; const T: string);
-begin Self.GroupKey := T; end;
+//(*----------------------------------------------------------------------------*)
+//procedure cEmutecaSoftwareParent_W(Self: cEmutecaSoftware; const T: string);
+//begin Self.GroupKey := T; end;
+//
+//(*----------------------------------------------------------------------------*)
+//procedure cEmutecaSoftwareParent_R(Self: cEmutecaSoftware; var T: string);
+//begin T := Self.GroupKey; end;
 
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaSoftwareParent_R(Self: cEmutecaSoftware; var T: string);
-begin T := Self.GroupKey; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaSoftwareSystem_W(Self: cEmutecaSoftware; const T: string);
-begin Self.SystemKey := T; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaSoftwareSystem_R(Self: cEmutecaSoftware; var T: string);
-begin T := Self.SystemKey; end;
+//(*----------------------------------------------------------------------------*)
+//procedure cEmutecaSoftwareSystem_W(Self: cEmutecaSoftware; const T: string);
+//begin Self.SystemKey := T; end;
+//
+//(*----------------------------------------------------------------------------*)
+//procedure cEmutecaSoftwareSystem_R(Self: cEmutecaSoftware; var T: string);
+//begin T := Self.SystemKey; end;
 
 (*----------------------------------------------------------------------------*)
 procedure cEmutecaSoftwareID_W(Self: cEmutecaSoftware; const T: string);
@@ -148,8 +148,8 @@ begin
   begin
     RegisterPropertyHelper(@cEmutecaSoftwareDataString_R,@cEmutecaSoftwareDataString_W,'DataString');
     RegisterPropertyHelper(@cEmutecaSoftwareID_R,@cEmutecaSoftwareID_W,'ID');
-    RegisterPropertyHelper(@cEmutecaSoftwareSystem_R,@cEmutecaSoftwareSystem_W,'SystemKey');
-    RegisterPropertyHelper(@cEmutecaSoftwareParent_R,@cEmutecaSoftwareParent_W,'GroupKey');
+    //RegisterPropertyHelper(@cEmutecaSoftwareSystem_R,@cEmutecaSoftwareSystem_W,'SystemKey');
+    //RegisterPropertyHelper(@cEmutecaSoftwareParent_R,@cEmutecaSoftwareParent_W,'GroupKey');
     RegisterPropertyHelper(@cEmutecaSoftwareTitle_R,@cEmutecaSoftwareTitle_W,'Title');
     RegisterPropertyHelper(@cEmutecaSoftwareDescription_R,@cEmutecaSoftwareDescription_W,'Description');
     RegisterPropertyHelper(@cEmutecaSoftwareFolder_R,@cEmutecaSoftwareFolder_W,'Folder');

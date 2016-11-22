@@ -83,7 +83,7 @@ begin
   // Updating SoftEditor
   Software.Folder := ExtractFileDir(Value);
   Software.FileName := ExtractFileName(Value);
-  Software.Title := Software.GroupKey;
+  Software.Title := RemoveFromBrackets(ExtractFileNameOnly(Software.FileName));
   Software.Version :=
     CopyFromBrackets(ExtractFileNameOnly(Software.FileName));
   UpdateGroup;
@@ -113,9 +113,10 @@ begin
   end
   else
   begin
-    if Assigned(Emuteca.CurrentSystem) then
+    // Open from system base folder
+    if Assigned(cbxSystem.SelectedSystem) then
       aEFN.InitialDir := ExtractFileDir(
-        TrimFilename(Emuteca.CurrentSystem.BaseFolder + aEFN.FileName));
+        TrimFilename(cbxSystem.SelectedSystem.BaseFolder + aEFN.FileName));
   end;
 end;
 
@@ -263,12 +264,9 @@ procedure TfmActAddSoft.UpdateGroup;
 begin
   case rgbGroup.ItemIndex of
     1: // Filename;
-      Software.GroupKey := ExtractFileNameOnly(Software.FileName);
-    else
-    begin // Folder
-        Software.GroupKey := ExtractFileNameOnly(
-          ExcludeTrailingPathDelimiter(Software.Folder))
-    end;
+      SoftEditor.SelectGroupByID(Software.Title);
+    else // Folder
+        SoftEditor.SelectGroupByID(Software.Folder);
   end;
   SoftEditor.LoadData;
 end;
@@ -293,15 +291,13 @@ var
   ExtFilter: string;
 begin
   Result := False;
-  Emuteca.CurrentSystem := aSystem;
 
-  if Emuteca.CurrentSystem = nil then
-    Exit;
+  Software.System := aSystem;
 
-  Software.SystemKey := Emuteca.CurrentSystem.ID;
+  if not assigned(aSystem) then Exit;
 
   // Autoselecting Key Type
-  case Emuteca.CurrentSystem.GameKey of
+  case Software.System.GameKey of
     TEFKCRC32: rgbVersionKey.ItemIndex := 1;
     TEFKCustom: rgbVersionKey.ItemIndex := 2;
     TEFKFileName: rgbVersionKey.ItemIndex := 3;
@@ -310,7 +306,7 @@ begin
   end;
   UpdateVersionKey;
 
-  lSystemInfo.Caption := Emuteca.CurrentSystem.Extensions.CommaText;
+  lSystemInfo.Caption := Software.System.Extensions.CommaText;
 
   ExtFilter := 'All suported files|';
   ExtFilter := ExtFilter + '*.' +

@@ -77,6 +77,8 @@ type
     procedure LoadData; override;
     procedure SaveData; override;
 
+        procedure SelectGroupByID(aGroupKey: string);
+
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
 
@@ -194,36 +196,8 @@ begin
     Exit;
   end;
 
-  // Don't use Emuteca.CacheSoft(Software);
-  // We don't want autocreate a Group now until Soft is saved,
-  //   so we want find it by hand;
-
-  if assigned(Software.System) then
-    cbxSystem.SelectedSystem := Software.System
-  else
-  begin
-  if assigned(Emuteca) then
-    cbxSystem.SelectedSystem := Emuteca.SearchSystem(Software.SystemKey)
-  else
-    cbxSystem.SelectedSystem := nil;
-
-  end;
-
-  if assigned(Software.Group) then
-    cbxGroup.SelectedGroup := Software.Group
-  else
-  begin
-    if assigned(Emuteca) then
-      cbxGroup.SelectedGroup := Emuteca.SearchGroup(Software.GroupKey)
-    else
-       cbxGroup.SelectedGroup := nil;
-
-    if cbxGroup.SelectedGroup = nil then
-      // Forcing Software.GroupKey text
-      cbxGroup.cbxGroup.Text := Software.GroupKey;
-  end;
-
-
+    cbxSystem.SelectedSystem := Software.System;
+   cbxGroup.SelectedGroup := Software.Group;
 
   eTitle.Text := Software.Title;
   eSortKey.Text := Software.SortTitle;
@@ -260,24 +234,15 @@ begin
   if not assigned(Software) then
     Exit;
 
-  if assigned(cbxSystem.SelectedSystem) then
-  begin
-    Software.System := cbxSystem.SelectedSystem;
-    Software.SystemKey := cbxSystem.SelectedSystem.ID;
-  end
-  else
-    // I hope never enter this branch ...
-    Software.SystemKey := cbxSystem.cbxSystem.Text; //LOLWUT
+  Software.System := cbxSystem.SelectedSystem;
 
   if assigned(cbxGroup.SelectedGroup) then
   begin
     Software.Group := cbxGroup.SelectedGroup;
-    Software.GroupKey := cbxGroup.SelectedGroup.ID;
   end
   else
   begin
-    Software.GroupKey := cbxGroup.cbxGroup.Text; //LOLWUT^2
-    Emuteca.CacheSoft(Software); // Auto creating Group
+    { TODO : Create the new group }
   end;
 
   Software.Title := eTitle.Text;
@@ -308,6 +273,11 @@ begin
   Software.Cracked := eCracked.Text;
   Software.Modified := eModified.Text;
   Software.Hack := eHack.Text;
+end;
+
+procedure TfmEmutecaSoftEditor.SelectGroupByID(aGroupKey: string);
+begin
+
 end;
 
 constructor TfmEmutecaSoftEditor.Create(TheOwner: TComponent);

@@ -86,46 +86,46 @@ begin
 end;
 
 (* === run-time registration functions === *)
-procedure cEmutecaCurrentSystem_W(Self: cEmuteca; const T: cEmutecaSystem);
-begin
-  Self.CurrentSystem := T;
-end;
-
-procedure cEmutecaCurrentSystem_R(Self: cEmuteca; var T: cEmutecaSystem);
-begin
-  T := Self.CurrentSystem;
-end;
-
-procedure cEmutecaCurrentEmulator_W(Self: cEmuteca;
-  const T: cEmutecaEmulator);
-begin
-  Self.CurrentEmulator := T;
-end;
-
-procedure cEmutecaCurrentEmulator_R(Self: cEmuteca; var T: cEmutecaEmulator);
-begin
-  T := Self.CurrentEmulator;
-end;
-
-procedure cEmutecaCurrentParent_W(Self: cEmuteca; const T: cEmutecaGroup);
-begin
-  Self.CurrentGroup := T;
-end;
-
-procedure cEmutecaCurrentParent_R(Self: cEmuteca; var T: cEmutecaGroup);
-begin
-  T := Self.CurrentGroup;
-end;
-
-procedure cEmutecaCurrentSoft_W(Self: cEmuteca; const T: cEmutecaSoftware);
-begin
-  Self.CurrentSoft := T;
-end;
-
-procedure cEmutecaCurrentSoft_R(Self: cEmuteca; var T: cEmutecaSoftware);
-begin
-  T := Self.CurrentSoft;
-end;
+//procedure cEmutecaCurrentSystem_W(Self: cEmuteca; const T: cEmutecaSystem);
+//begin
+//  Self.CurrentSystem := T;
+//end;
+//
+//procedure cEmutecaCurrentSystem_R(Self: cEmuteca; var T: cEmutecaSystem);
+//begin
+//  T := Self.CurrentSystem;
+//end;
+//
+//procedure cEmutecaCurrentEmulator_W(Self: cEmuteca;
+//  const T: cEmutecaEmulator);
+//begin
+//  Self.CurrentEmulator := T;
+//end;
+//
+//procedure cEmutecaCurrentEmulator_R(Self: cEmuteca; var T: cEmutecaEmulator);
+//begin
+//  T := Self.CurrentEmulator;
+//end;
+//
+//procedure cEmutecaCurrentParent_W(Self: cEmuteca; const T: cEmutecaGroup);
+//begin
+//  Self.CurrentGroup := T;
+//end;
+//
+//procedure cEmutecaCurrentParent_R(Self: cEmuteca; var T: cEmutecaGroup);
+//begin
+//  T := Self.CurrentGroup;
+//end;
+//
+//procedure cEmutecaCurrentSoft_W(Self: cEmuteca; const T: cEmutecaSoftware);
+//begin
+//  Self.CurrentSoft := T;
+//end;
+//
+//procedure cEmutecaCurrentSoft_R(Self: cEmuteca; var T: cEmutecaSoftware);
+//begin
+//  T := Self.CurrentSoft;
+//end;
 
 procedure cEmutecaSystemManager_R(Self: cEmuteca;
   var T: cEmutecaSystemManager);

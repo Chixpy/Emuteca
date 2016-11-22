@@ -143,7 +143,7 @@ begin
 
   case Column of
     0: // System
-      Result := UTF8CompareText(pData1^.SystemKey, pData2^.SystemKey);
+      Result := UTF8CompareText(pData1^.System.Title, pData2^.System.Title);
     1: // Title
       Result := UTF8CompareText(pData1^.SortTitle, pData2^.SortTitle);
     2: // Version

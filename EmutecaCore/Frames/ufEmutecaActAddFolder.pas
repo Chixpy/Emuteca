@@ -113,7 +113,6 @@ begin
       aVersion.Folder := FolderList[i];
       aVersion.FileName := FileList[i];
       aVersion.System := aSystem;
-      aVersion.SystemKey := aSystem.ID;
       if FileExistsUTF8(FolderList[i]) then
       begin // it's a compressed archive
         { TODO 1 : Extract IDs... }
@@ -145,14 +144,6 @@ begin
           end;
         end;
 
-        case rgbGroup.ItemIndex of
-          0:
-            aVersion.GroupKey :=
-              RemoveFromBrackets(ExtractFileNameOnly(FileList[i]));
-          else
-            aVersion.GroupKey := RemoveFromBrackets(ExtractFileNameOnly(ExcludeTrailingPathDelimiter(FolderList[i])));
-        end;
-
         aVersion.Title :=
           RemoveFromBrackets(ExtractFileNameOnly(FileList[i]));
         aVersion.Version :=
@@ -171,7 +162,15 @@ begin
             aversion.ID := SHA1FileStr(aVersion.Folder + aVersion.FileName);
         end;
 
-        case rgbGroup.ItemIndex of
+        aVersion.Title :=
+          RemoveFromBrackets(ExtractFileNameOnly(aVersion.FileName));
+        aVersion.Version :=
+          CopyFromBrackets(ExtractFileNameOnly(aVersion.FileName));
+      end;
+
+      { TODO : Search group
+
+              case rgbGroup.ItemIndex of
           0: aVersion.GroupKey :=
               RemoveFromBrackets(ExtractFileNameOnly(aVersion.FileName));
           else
@@ -179,12 +178,7 @@ begin
               RemoveFromBrackets(ExtractFileNameOnly(
               ExcludeTrailingPathDelimiter(aVersion.Folder)));
         end;
-
-        aVersion.Title :=
-          RemoveFromBrackets(ExtractFileNameOnly(aVersion.FileName));
-        aVersion.Version :=
-          CopyFromBrackets(ExtractFileNameOnly(aVersion.FileName));
-      end;
+      }
 
       Emuteca.SoftManager.FullList.Add(aVersion);
 

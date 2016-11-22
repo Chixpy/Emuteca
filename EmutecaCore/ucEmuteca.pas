@@ -41,10 +41,6 @@ type
   cEmuteca = class(TComponent)
   private
     FConfig: cEmutecaConfig;
-    FCurrentEmulator: cEmutecaEmulator;
-    FCurrentGroup: cEmutecaGroup;
-    FCurrentSoft: cEmutecaSoftware;
-    FCurrentSystem: cEmutecaSystem;
     FEmulatorManager: cEmutecaEmulatorManager;
     FGroupManager: cEmutecaGroupManager;
     FProgressCallBack: TEmutecaProgressCallBack;
@@ -52,10 +48,6 @@ type
     FSystemManager: cEmutecaSystemManager;
     FTempFolder: string;
     procedure SetConfig(AValue: cEmutecaConfig);
-    procedure SetCurrentEmulator(AValue: cEmutecaEmulator);
-    procedure SetCurrentGroup(AValue: cEmutecaGroup);
-    procedure SetCurrentSoft(AValue: cEmutecaSoftware);
-    procedure SetCurrentSystem(AValue: cEmutecaSystem);
     procedure SetProgressBar(AValue: TEmutecaProgressCallBack);
     procedure SetTempFolder(AValue: string);
 
@@ -77,9 +69,6 @@ type
     function SearchSystem(aID: string): cEmutecaSystem;
     function SearchMainEmulator(aID: string): cEmutecaEmulator;
 
-    procedure CacheSoft(aSoft: cEmutecaSoftware);
-    procedure CacheGroup(aGroup: cEmutecaGroup);
-
     function RunSoftware(const aSoftware: cEmutecaSoftware): integer;
 
     constructor Create(aOwner: TComponent); override;
@@ -93,14 +82,7 @@ type
     property EmulatorManager: cEmutecaEmulatorManager read FEmulatorManager;
     property SystemManager: cEmutecaSystemManager read FSystemManager;
 
-    property CurrentSoft: cEmutecaSoftware
-      read FCurrentSoft write SetCurrentSoft;
-    property CurrentGroup: cEmutecaGroup
-      read FCurrentGroup write SetCurrentGroup;
-    property CurrentEmulator: cEmutecaEmulator
-      read FCurrentEmulator write SetCurrentEmulator;
-    property CurrentSystem: cEmutecaSystem
-      read FCurrentSystem write SetCurrentSystem;
+
   end;
 
 implementation
@@ -132,12 +114,14 @@ begin
   SystemManager.DataFile := Config.DataFolder + Config.SystemsFile;
   SystemManager.LoadFromFile('');
 
-  { TODO: Optimize loading data... }
   // Setting GroupManager
+  SoftManager.SystemManager := SystemManager;
   GroupManager.DataFile := Config.DataFolder + Config.ParentsFile;
   GroupManager.LoadFromFile('');
 
   // Setting SoftManager
+  SoftManager.SystemManager := SystemManager;
+  SoftManager.GroupManager := GroupManager;
   SoftManager.DataFile := Config.DataFolder + Config.VersionsFile;
   SoftManager.LoadFromFile('');
 end;
@@ -155,76 +139,6 @@ end;
 function cEmuteca.SearchMainEmulator(aID: string): cEmutecaEmulator;
 begin
   Result := EmulatorManager.ItemById(aID);
-end;
-
-procedure cEmuteca.CacheSoft(aSoft: cEmutecaSoftware);
-var
-  aSystem: cEmutecaSystem;
-  aGroup: cEmutecaGroup;
-begin
-
-  if not assigned(aSoft.System) then
-  begin
-    if aSoft.SystemKey <> '' then
-    begin
-      aSoft.System := SearchSystem(aSoft.SystemKey);
-      // Autocreate
-      if not assigned(aSoft.System) then
-      begin
-        aSystem := cEmutecaSystem.Create(nil);
-        aSystem.ID := aSoft.SystemKey;
-        aSystem.Title := aSoft.SystemKey;
-        aSystem.FileName := aSoft.SystemKey;
-        aSystem.Enabled := True;
-        aSoft.System := aSystem;
-        SystemManager.FullList.Add(aSystem);
-      end;
-    end;
-  end;
-
-  if not assigned(aSoft.Group) then
-  begin
-    if aSoft.GroupKey <> '' then
-    begin
-      aSoft.Group := SearchGroup(aSoft.GroupKey);
-      // Autocreate...
-      if not assigned(aSoft.Group) then
-      begin
-        aGroup := cEmutecaGroup.Create(nil);
-        aGroup.ID := aSoft.GroupKey;
-        aGroup.Title := aSoft.GroupKey;
-        aGroup.SystemKey := aSoft.SystemKey;
-        CacheGroup(aGroup);
-        aSoft.Group := aGroup;
-        GroupManager.FullList.Add(aGroup);
-      end;
-
-    end;
-  end;
-end;
-
-procedure cEmuteca.CacheGroup(aGroup: cEmutecaGroup);
-var
-  aSystem: cEmutecaSystem;
-begin
-  if not assigned(aGroup.System) then
-  begin
-    if aGroup.SystemKey <> '' then
-    begin
-      aGroup.System := SearchSystem(aGroup.SystemKey);
-      // Autocreate
-      if not assigned(aGroup.System) then
-      begin
-        aSystem := cEmutecaSystem.Create(nil);
-        aSystem.ID := aGroup.SystemKey;
-        aSystem.Title := aGroup.SystemKey;
-        aSystem.FileName := aGroup.SystemKey;
-        aSystem.Enabled := True;
-        aGroup.System := aSystem;
-        SystemManager.FullList.Add(aSystem);
-      end;
-    end;
-  end;
 end;
 
 function cEmuteca.RunSoftware(const aSoftware: cEmutecaSoftware): integer;
@@ -271,12 +185,12 @@ begin
     // TODO : Exception or return Comperror code?
     Exit;
 }
-
-  // 2. Searching for system to search the emulator(s)
-  aSystem := SearchSystem(aSoftware.SystemKey);
-  if not assigned(aSystem) then
-    { TODO : Exception or return Comperror code? }
-    Exit;
+//
+//  // 2. Searching for system to search the emulator(s)
+//  aSystem := SearchSystem(aSoftware.SystemKey);
+//  if not assigned(aSystem) then
+//    { TODO : Exception or return Comperror code? }
+//    Exit;
 
   // 3. Searching for main emulator.
   aEmulator := SearchMainEmulator(aSystem.MainEmulator);
@@ -380,61 +294,6 @@ begin
   if FConfig = AValue then
     Exit;
   FConfig := AValue;
-end;
-
-procedure cEmuteca.SetCurrentEmulator(AValue: cEmutecaEmulator);
-begin
-  if FCurrentEmulator = AValue then
-    Exit;
-  FCurrentEmulator := AValue;
-end;
-
-procedure cEmuteca.SetCurrentGroup(AValue: cEmutecaGroup);
-begin
-  if FCurrentGroup = AValue then
-    Exit;
-  FCurrentGroup := AValue;
-
-  if assigned(CurrentGroup) then
-  begin
-    CacheGroup(CurrentGroup);
-    CurrentSystem := CurrentGroup.System;
-  end
-  else
-  begin
-    CurrentSystem := nil;
-  end;
-end;
-
-procedure cEmuteca.SetCurrentSoft(AValue: cEmutecaSoftware);
-begin
-  if FCurrentSoft = AValue then
-    Exit;
-  FCurrentSoft := AValue;
-
-  if assigned(CurrentSoft) then
-  begin
-    CacheSoft(CurrentSoft);
-    CurrentGroup := CurrentSoft.Group;
-    CurrentSystem := CurrentSoft.System;
-  end
-  else
-  begin
-    CurrentGroup := nil;
-    CurrentSystem := nil;
-  end;
-end;
-
-procedure cEmuteca.SetCurrentSystem(AValue: cEmutecaSystem);
-begin
-  if FCurrentSystem = AValue then
-    Exit;
-  FCurrentSystem := AValue;
-
-  if CurrentSystem = nil then
-    SoftManager.FilterBySystem('')
-  else
-    SoftManager.FilterBySystem(CurrentSystem.ID);
 end;
 
 procedure cEmuteca.SetProgressBar(AValue: TEmutecaProgressCallBack);

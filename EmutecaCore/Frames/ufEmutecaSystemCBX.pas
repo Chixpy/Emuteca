@@ -27,6 +27,7 @@ type
   protected
     procedure UpdateSystems;
     {< Update drop down list. }
+
   public
     property SystemList: cEmutecaSystemList
       read FSystemList write SetSystemList;
@@ -96,11 +97,13 @@ end;
 
 procedure TfmEmutecaSystemCBX.cbxSystemChange(Sender: TObject);
 begin
-  if Assigned(OnSelectSystem) then
-    {Var := } OnSelectSystem(cEmutecaSystem(
-      cbxSystem.Items.Objects[cbxSystem.ItemIndex]));
+  if cbxSystem.ItemIndex <> -1 then
+    SelectedSystem := cEmutecaSystem(cbxSystem.Items.Objects[cbxSystem.ItemIndex])
+  else
+    SelectedSystem := nil;
 
-  // TODO: True, change Emuteca.CurrentSystem?
+  if Assigned(OnSelectSystem) then
+    {Var := } OnSelectSystem(SelectedSystem);
 end;
 
 procedure TfmEmutecaSystemCBX.SetOnSelectSystem(AValue:

@@ -44,7 +44,7 @@ const
   EmutecaDumpStatusStrsK: array [TEmutecaDumpStatus] of string =
     (krsedsVerified, krsedsGood, krsedsAlternate, krsedsOverDump,
     krsedsBadDump, krsedsUnderDump);
-//< Strings for DumpStatus (fixed, used for icon filenames, etc. )
+//< Strings for DumpStatus (fixed constants, used for icon filenames, etc. )
 
 type
   { cEmutecaSoftware. }
@@ -87,13 +87,11 @@ type
     procedure SetID(AValue: string);
     procedure SetModified(AValue: string);
     procedure SetGroup(AValue: cEmutecaGroup);
-    procedure SetGroupKey(AValue: string);
     procedure SetPirate(AValue: string);
     procedure SetPublisher(AValue: string);
     procedure SetSortTitle(AValue: string);
     procedure SetStats(AValue: cEmutecaPlayingStats);
     procedure SetSystem(AValue: cEmutecaSystem);
-    procedure SetSystemKey(AValue: string);
     procedure SetTitle(AValue: string);
     procedure SetTrainer(AValue: string);
     procedure SetTranslation(AValue: string);
@@ -136,9 +134,10 @@ type
     {< Filename (or file inside and archive).}
     property Title: string read FTitle write SetTitle;
     {< Title. }
-    property GroupKey: string read FGroupKey write SetGroupKey;
+
+    property GroupKey: string read FGroupKey;
     {< ID of the Group. }
-    property SystemKey: string read FSystemKey write SetSystemKey;
+    property SystemKey: string read FSystemKey;
     {< ID of the System. }
 
     // Additional title info
@@ -319,12 +318,13 @@ procedure cEmutecaSoftware.FPOObservedChanged(ASender: TObject;
 begin
   if not assigned(ASender) then
     Exit;
+
   if ASender = System then
   begin
     case Operation of
       ooFree: System := nil;
       else
-        SystemKey := cEmutecaSystem(ASender).ID;
+        FSystemKey := cEmutecaSystem(ASender).ID;
     end;
   end
   else if ASender = Group then
@@ -332,7 +332,7 @@ begin
     case Operation of
       ooFree: Group := nil;
       else
-        SystemKey := cEmutecaGroup(ASender).ID;
+        FSystemKey := cEmutecaGroup(ASender).ID;
     end;
   end;
 end;
@@ -360,7 +360,12 @@ begin
   FSystem := AValue;
 
   if Assigned(System) then
+  begin
     System.FPOAttachObserver(Self);
+    FSystemKey := System.ID;
+  end
+
+  //else FSystemKey := ''; We don't want to delete the old SystemKey
 end;
 
 procedure cEmutecaSoftware.SetTranslitTitle(AValue: string);
@@ -405,12 +410,11 @@ begin
   FParent := AValue;
 
   if Assigned(Group) then
+  begin
     Group.FPOAttachObserver(Self);
-end;
-
-procedure cEmutecaSoftware.SetGroupKey(AValue: string);
-begin
-  FGroupKey := SetAsID(AValue);
+    FGroupKey := Group.ID;
+  end
+  // else FGroupKey := ''; We don't want to delete old GroupKey
 end;
 
 procedure cEmutecaSoftware.SetPirate(AValue: string);
@@ -437,11 +441,6 @@ begin
   if FHack = AValue then
     Exit;
   FHack := AValue;
-end;
-
-procedure cEmutecaSoftware.SetSystemKey(AValue: string);
-begin
-  FSystemKey := SetAsID(AValue);
 end;
 
 procedure cEmutecaSoftware.SetTitle(AValue: string);
@@ -500,8 +499,8 @@ begin
       1: Folder := TxtFile[i];
       2: FileName := TxtFile[i];
       3: Title := TxtFile[i];
-      4: GroupKey := TxtFile[i];
-      5: SystemKey := TxtFile[i];
+      4: FGroupKey := TxtFile[i];
+      5: FSystemKey := TxtFile[i];
       // 6: ;
       7: TranslitTitle := TxtFile[i];
       8: SortTitle := TxtFile[i];
