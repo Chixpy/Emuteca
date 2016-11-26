@@ -70,6 +70,8 @@ end;
 (*----------------------------------------------------------------------------*)
 procedure SIRegister_ucEmutecaEmulatorManager(CL: TPSPascalCompiler);
 begin
+ CL.AddConstantN('rsLoadingEmulatorList','String').SetString( 'Loading emulator list...');
+ CL.AddConstantN('rsSavingEmulatorList','String').SetString( 'Saving emulator list...');
   SIRegister_cEmutecaEmulatorManager(CL);
 end;
 

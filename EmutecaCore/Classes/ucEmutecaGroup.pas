@@ -26,21 +26,19 @@ unit ucEmutecaGroup;
 interface
 
 uses
-  Classes, SysUtils, fgl, LazFileUtils, contnrs,
+  Classes, SysUtils, LazFileUtils, contnrs,
   uCHXStrUtils,
   uaCHXStorable,
-  ucEmutecaPlayingStats, ucEmutecaSystem;
+  ucEmutecaPlayingStats;
 
 type
   { cEmutecaGroup }
 
-  cEmutecaGroup = class(caCHXStorableTxt, IFPObserver)
+  cEmutecaGroup = class(caCHXStorableTxt)
   private
     FDeveloper: string;
     FID: string;
     FStats: cEmutecaPlayingStats;
-    FSystem: cEmutecaSystem;
-    FSystemKey: string;
     FTitle: string;
     FYear: string;
     function GetDataString: string;
@@ -48,8 +46,6 @@ type
     procedure SetDeveloper(AValue: string);
     procedure SetID(AValue: string);
     procedure SetStats(AValue: cEmutecaPlayingStats);
-    procedure SetSystem(AValue: cEmutecaSystem);
-    procedure SetSystemKey(AValue: string);
     procedure SetTitle(AValue: string);
     procedure SetYear(AValue: string);
 
@@ -61,26 +57,17 @@ type
     procedure SaveToFileTxt(TxtFile: TStrings; const ExportMode: boolean);
       override;
 
-    // Cached Data
-    // -----------
-    property System: cEmutecaSystem read FSystem write SetSystem;
-    {< Cache link for system. }
-
-    procedure FPOObservedChanged(ASender: TObject;
-      Operation: TFPObservedOperation; Data: Pointer);
-    {< Subject has changed. }
-
-
     constructor Create(aOwner: TComponent); override;
     destructor Destroy; override;
+
   published
     property ID: string read FID write SetID;
-    {< ID of the Parent (and Sorting)}
+    {< ID and Sort Title of the Parent. }
     property Title: string read FTitle write SetTitle;
     {< Name of the parent. }
-    property SystemKey: string read FSystemKey write SetSystemKey;
-    {< ID of the system. }
+
     property Year: string read FYear write SetYear;
+
     property Developer: string read FDeveloper write SetDeveloper;
 
     // Usage statitics
@@ -92,7 +79,7 @@ type
 
   cEmutecaGroupList = TComponentList;
 
-  TEmutecaReturnGroupCB = function(aSystem: cEmutecaGroup): boolean of
+  TEmutecaReturnGroupCB = function(aGroup: cEmutecaGroup): boolean of
     object;
 
 implementation
@@ -103,7 +90,14 @@ procedure cEmutecaGroup.SetTitle(AValue: string);
 begin
   if FTitle = AValue then
     Exit;
+
+  if Title = ID then
+    FID := '';
+
   FTitle := AValue;
+
+  if ID = '' then
+    ID := Title;
 end;
 
 procedure cEmutecaGroup.SetYear(AValue: string);
@@ -112,34 +106,17 @@ begin
   FYear := AValue;
 end;
 
-procedure cEmutecaGroup.SetSystemKey(AValue: string);
-begin
-  FSystemKey := SetAsID(AValue);
-end;
-
 procedure cEmutecaGroup.SetID(AValue: string);
 begin
   FID := SetAsID(AValue);
+
+  FPONotifyObservers(Self,ooChange,nil);
 end;
 
 procedure cEmutecaGroup.SetStats(AValue: cEmutecaPlayingStats);
 begin
   if FStats = AValue then Exit;
   FStats := AValue;
-end;
-
-procedure cEmutecaGroup.SetSystem(AValue: cEmutecaSystem);
-begin
-  if FSystem = AValue then
-    Exit;
-
-  if Assigned(FSystem) then
-    FSystem.FPODetachObserver(Self);
-
-  FSystem := AValue;
-
-  if Assigned(System) then
-    System.FPOAttachObserver(Self);
 end;
 
 function cEmutecaGroup.GetDataString: string;
@@ -184,8 +161,6 @@ end;
 
 destructor cEmutecaGroup.Destroy;
 begin
-  if Assigned(System) then
-    System.FPODetachObserver(Self);
   FreeAndNil(FStats);
 
   inherited Destroy;
@@ -203,8 +178,8 @@ begin
   begin
     case i of
       0: ID := TxtFile[i];
-      1: SystemKey := TxtFile[i];
-      2: Title := TxtFile[i];
+      1: Title := TxtFile[i];
+      // 2: SystemKey := TxtFile[i];
       3: Year := TxtFile[i];
       4: Developer := TxtFile[i];
       // 5: ;
@@ -225,8 +200,8 @@ begin
     Exit;
 
   TxtFile.Add(ID);
-  TxtFile.Add(SystemKey);
   TxtFile.Add(Title);
+  TxtFile.Add('');  //TxtFile.Add(SystemKey);
   TxtFile.Add(Year);
   TxtFile.Add(Developer);
   TxtFile.Add('');
@@ -238,15 +213,6 @@ begin
   TxtFile.Add(IntToStr(Stats.PlayingTime));
 end;
 
-procedure cEmutecaGroup.FPOObservedChanged(ASender: TObject;
-  Operation: TFPObservedOperation; Data: Pointer);
-begin
-  case Operation of
-    ooFree: System := nil;
-    else
-      SystemKey := cEmutecaSystem(ASender).ID;
-  end;
-end;
 
 initialization
   RegisterClass(cEmutecaGroup);

@@ -14,9 +14,9 @@ uses
   ucCHXScriptEngine,
   // PS Imports
   uPSI_uEmutecaCommon,
-  uPSI_uaEmutecaStorable, uPSI_uaEmutecaManager,
+  uPSI_uaCHXStorable, uPSI_uaEmutecaManager,
   uPSI_ucEmutecaEmulator, uPSI_ucEmutecaSystem,
-  uPSI_ucEmutecaParent, uPSI_ucEmutecaSoftware,
+  uPSI_ucEmutecaGroup, uPSI_ucEmutecaSoftware,
   uPSI_ucEmutecaEmulatorManager, uPSI_ucEmutecaSystemManager,
   uPSI_ucEmutecaGroupManager, uPSI_ucEmutecaSoftManager,
   uPSI_ucEmutecaConfig, uPSI_ucEmuteca;
@@ -69,11 +69,11 @@ begin
   inherited PasScriptOnCompImport(Sender, x);
 
   SIRegister_uEmutecaCommon(x);
-  SIRegister_uaEmutecaStorable(x);
+  SIRegister_uaCHXStorable(x);
   SIRegister_uaEmutecaManager(x);
   SIRegister_ucEmutecaEmulator(x);
   SIRegister_ucEmutecaSystem(x);
-  SIRegister_ucEmutecaParent(x);
+  SIRegister_ucEmutecaGroup(x);
   SIRegister_ucEmutecaSoftware(x);
   SIRegister_ucEmutecaEmulatorManager(x);
   SIRegister_ucEmutecaSystemManager(x);
@@ -88,12 +88,12 @@ procedure cEmutecaScriptEngine.PasScriptOnExecImport(Sender: TObject;
 begin
   inherited PasScriptOnExecImport(Sender, se, x);
 
-  RIRegister_uaEmutecaStorable(x);
+  RIRegister_uaCHXStorable(x);
   RIRegister_uaEmutecaManager(x);
   RIRegister_ucEmutecaEmulator(x);
   RIRegister_ucEmutecaSystem_Routines(se);
   RIRegister_ucEmutecaSystem(x);
-  RIRegister_ucEmutecaParent(x);
+  RIRegister_ucEmutecaGroup(x);
   RIRegister_ucEmutecaSoftware(x);
   RIRegister_ucEmutecaEmulatorManager(x);
   RIRegister_ucEmutecaSystemManager(x);

@@ -116,13 +116,13 @@ begin
 
   // Setting GroupManager
   SoftManager.SystemManager := SystemManager;
-  GroupManager.DataFile := Config.DataFolder + Config.ParentsFile;
+  GroupManager.DataFile := Config.DataFolder + Config.GroupsFile;
   GroupManager.LoadFromFile('');
 
   // Setting SoftManager
   SoftManager.SystemManager := SystemManager;
   SoftManager.GroupManager := GroupManager;
-  SoftManager.DataFile := Config.DataFolder + Config.VersionsFile;
+  SoftManager.DataFile := Config.DataFolder + Config.SoftFile;
   SoftManager.LoadFromFile('');
 end;
 

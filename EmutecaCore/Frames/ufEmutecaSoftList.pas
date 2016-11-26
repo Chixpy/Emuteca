@@ -244,12 +244,7 @@ begin
 
   case Column of
     0: // System
-    begin
-      if assigned(pData^.System) then
-        CellText := pData^.System.Title
-      else
-        CellText := rsNotCached;
-    end;
+      CellText := pData^.System.Title;
     1: // Title
       CellText := pData^.Title;
     2: // Version
@@ -258,15 +253,10 @@ begin
     begin
       if pData^.Publisher = '' then
       begin
-        if assigned(pData^.Group) then
-        begin
-          if pData^.Group.Year <> '' then
-            CellText := '(' +pData^.Group.Developer + ')'
+          if pData^.Group.Developer <> '' then
+            CellText := '(' + pData^.Group.Developer + ')'
           else
             CellText := '';
-        end
-        else
-          CellText :=  rsNotCached;
       end
       else
         CellText := pData^.Publisher;
@@ -275,15 +265,10 @@ begin
     begin
       if pData^.Year = '' then
       begin
-        if assigned(pData^.Group) then
-        begin
           if pData^.Group.Year <> '' then
             CellText := '(' +pData^.Group.Year + ')'
             else
               CellText := '';
-        end
-        else
-         CellText :=  rsNotCached;
       end
       else
         CellText := pData^.Year;

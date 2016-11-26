@@ -42,6 +42,7 @@ implementation
 uses
    LazFileUtils
   ,LazUTF8
+  ,Graphics
   ,uCHXStrUtils
   ,uCHXRscStr
   ,u7zWrapper
@@ -61,41 +62,15 @@ begin
   //with RegClassS(CL,'TComponent', 'cEmutecaConfig') do
   with CL.AddClassN(CL.FindClass('TComponent'),'cEmutecaConfig') do
   begin
-    RegisterProperty('ImagesFolder', 'string', iptrw);
-    RegisterProperty('DefaultImagesSubfolder', 'string', iptrw);
-    RegisterProperty('DefaultSystemImage', 'string', iptrw);
-    RegisterProperty('DefaultSystemIcon', 'string', iptrw);
-    RegisterProperty('DefaultEmulatorImage', 'string', iptrw);
-    RegisterProperty('DefaultEmulatorIcon', 'string', iptrw);
-    RegisterProperty('DefaultGameImage', 'string', iptrw);
-    RegisterProperty('DefaultGameIcon', 'string', iptrw);
-    RegisterProperty('ToolsFolder', 'string', iptrw);
-    RegisterProperty('z7Subfolder', 'string', iptrw);
+    RegisterProperty('z7Folder', 'string', iptrw);
     RegisterProperty('z7CMExecutable', 'string', iptrw);
     RegisterProperty('z7GExecutable', 'string', iptrw);
-    RegisterProperty('CommonMediaFolder', 'string', iptrw);
-    RegisterProperty('CompanySubFolder', 'string', iptrw);
-    RegisterProperty('YearSubFolder', 'string', iptrw);
-    RegisterProperty('TagSubFolder', 'string', iptrw);
-    RegisterProperty('EmulatorSubFolder', 'string', iptrw);
-    RegisterProperty('ScriptsFolder', 'string', iptrw);
-    RegisterProperty('GeneralScriptsSubFolder', 'string', iptrw);
-    RegisterProperty('GameScriptsSubFolder', 'string', iptrw);
-    RegisterProperty('GroupScriptsSubFolder', 'string', iptrw);
     RegisterProperty('DataFolder', 'string', iptrw);
-    RegisterProperty('ParentsFile', 'string', iptrw);
-    RegisterProperty('VersionsFile', 'string', iptrw);
+    RegisterProperty('GroupsFile', 'string', iptrw);
+    RegisterProperty('SoftFile', 'string', iptrw);
     RegisterProperty('EmulatorsFile', 'string', iptrw);
     RegisterProperty('SystemsFile', 'string', iptrw);
-    RegisterProperty('SysSubfolder', 'string', iptrw);
-    RegisterProperty('SysStructFile', 'string', iptrw);
-    RegisterProperty('GameDataExt', 'string', iptrw);
-    RegisterProperty('GameGroupExt', 'string', iptrw);
     RegisterProperty('CompressedExtensions', 'TStringList', iptr);
-    RegisterProperty('TextExtensions', 'TStringList', iptr);
-    RegisterProperty('ImageExtensions', 'TStringList', iptr);
-    RegisterProperty('MusicExtensions', 'TStringList', iptr);
-    RegisterProperty('VideoExtensions', 'TStringList', iptr);
     RegisterProperty('TempSubfolder', 'string', iptrw);
     RegisterProperty('TempFile', 'string', iptrw);
     RegisterProperty('ConfigFile', 'string', iptrw);
@@ -108,15 +83,6 @@ end;
 (*----------------------------------------------------------------------------*)
 procedure SIRegister_ucEmutecaConfig(CL: TPSPascalCompiler);
 begin
- CL.AddConstantN('krsIniSectionImages','String').SetString( 'Images');
- CL.AddConstantN('krsIniKeyImagesFolder','String').SetString( 'ImagesFolder');
- CL.AddConstantN('krsIniKeyDefaultImagesSubfolder','String').SetString( 'DefaultImagesSubfolder');
- CL.AddConstantN('krsIniKeyDefaultSystemImage','String').SetString( 'DefaultSystemImage');
- CL.AddConstantN('krsIniKeyDefaultSystemIcon','String').SetString( 'DefaultSystemIcon');
- CL.AddConstantN('krsIniKeyDefaultEmulatorImage','String').SetString( 'DefaultEmulatorImage');
- CL.AddConstantN('krsIniKeyDefaultEmulatorIcon','String').SetString( 'DefaultEmulatorIcon');
- CL.AddConstantN('krsIniKeyDefaultGameImage','String').SetString( 'DefaultGameImage');
- CL.AddConstantN('krsIniKeyDefaultGameIcon','String').SetString( 'DefaultGameIcon');
  CL.AddConstantN('krsIniSectionConfig','String').SetString( 'Config');
   SIRegister_cEmutecaConfig(CL);
 end;
@@ -147,56 +113,8 @@ procedure cEmutecaConfigTempSubfolder_R(Self: cEmutecaConfig; var T: string);
 begin T := Self.TempSubfolder; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cEmutecaConfigVideoExtensions_R(Self: cEmutecaConfig; var T: TStringList);
-begin T := Self.VideoExtensions; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaConfigMusicExtensions_R(Self: cEmutecaConfig; var T: TStringList);
-begin T := Self.MusicExtensions; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaConfigImageExtensions_R(Self: cEmutecaConfig; var T: TStringList);
-begin T := Self.ImageExtensions; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaConfigTextExtensions_R(Self: cEmutecaConfig; var T: TStringList);
-begin T := Self.TextExtensions; end;
-
-(*----------------------------------------------------------------------------*)
 procedure cEmutecaConfigCompressedExtensions_R(Self: cEmutecaConfig; var T: TStringList);
 begin T := Self.CompressedExtensions; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaConfigGameGroupExt_W(Self: cEmutecaConfig; const T: string);
-begin Self.GameGroupExt := T; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaConfigGameGroupExt_R(Self: cEmutecaConfig; var T: string);
-begin T := Self.GameGroupExt; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaConfigGameDataExt_W(Self: cEmutecaConfig; const T: string);
-begin Self.GameDataExt := T; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaConfigGameDataExt_R(Self: cEmutecaConfig; var T: string);
-begin T := Self.GameDataExt; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaConfigSysStructFile_W(Self: cEmutecaConfig; const T: string);
-begin Self.SysStructFile := T; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaConfigSysStructFile_R(Self: cEmutecaConfig; var T: string);
-begin T := Self.SysStructFile; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaConfigSysSubfolder_W(Self: cEmutecaConfig; const T: string);
-begin Self.SysSubfolder := T; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaConfigSysSubfolder_R(Self: cEmutecaConfig; var T: string);
-begin T := Self.SysSubfolder; end;
 
 (*----------------------------------------------------------------------------*)
 procedure cEmutecaConfigSystemsFile_W(Self: cEmutecaConfig; const T: string);
@@ -215,20 +133,20 @@ procedure cEmutecaConfigEmulatorsFile_R(Self: cEmutecaConfig; var T: string);
 begin T := Self.EmulatorsFile; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cEmutecaConfigVersionsFile_W(Self: cEmutecaConfig; const T: string);
-begin Self.VersionsFile := T; end;
+procedure cEmutecaConfigSoftFile_W(Self: cEmutecaConfig; const T: string);
+begin Self.SoftFile := T; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cEmutecaConfigVersionsFile_R(Self: cEmutecaConfig; var T: string);
-begin T := Self.VersionsFile; end;
+procedure cEmutecaConfigSoftFile_R(Self: cEmutecaConfig; var T: string);
+begin T := Self.SoftFile; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cEmutecaConfigParentsFile_W(Self: cEmutecaConfig; const T: string);
-begin Self.ParentsFile := T; end;
+procedure cEmutecaConfigGroupsFile_W(Self: cEmutecaConfig; const T: string);
+begin Self.GroupsFile := T; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cEmutecaConfigParentsFile_R(Self: cEmutecaConfig; var T: string);
-begin T := Self.ParentsFile; end;
+procedure cEmutecaConfigGroupsFile_R(Self: cEmutecaConfig; var T: string);
+begin T := Self.GroupsFile; end;
 
 (*----------------------------------------------------------------------------*)
 procedure cEmutecaConfigDataFolder_W(Self: cEmutecaConfig; const T: string);
@@ -237,78 +155,6 @@ begin Self.DataFolder := T; end;
 (*----------------------------------------------------------------------------*)
 procedure cEmutecaConfigDataFolder_R(Self: cEmutecaConfig; var T: string);
 begin T := Self.DataFolder; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaConfigGroupScriptsSubFolder_W(Self: cEmutecaConfig; const T: string);
-begin Self.GroupScriptsSubFolder := T; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaConfigGroupScriptsSubFolder_R(Self: cEmutecaConfig; var T: string);
-begin T := Self.GroupScriptsSubFolder; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaConfigGameScriptsSubFolder_W(Self: cEmutecaConfig; const T: string);
-begin Self.GameScriptsSubFolder := T; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaConfigGameScriptsSubFolder_R(Self: cEmutecaConfig; var T: string);
-begin T := Self.GameScriptsSubFolder; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaConfigGeneralScriptsSubFolder_W(Self: cEmutecaConfig; const T: string);
-begin Self.GeneralScriptsSubFolder := T; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaConfigGeneralScriptsSubFolder_R(Self: cEmutecaConfig; var T: string);
-begin T := Self.GeneralScriptsSubFolder; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaConfigScriptsFolder_W(Self: cEmutecaConfig; const T: string);
-begin Self.ScriptsFolder := T; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaConfigScriptsFolder_R(Self: cEmutecaConfig; var T: string);
-begin T := Self.ScriptsFolder; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaConfigEmulatorSubFolder_W(Self: cEmutecaConfig; const T: string);
-begin Self.EmulatorSubFolder := T; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaConfigEmulatorSubFolder_R(Self: cEmutecaConfig; var T: string);
-begin T := Self.EmulatorSubFolder; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaConfigTagSubFolder_W(Self: cEmutecaConfig; const T: string);
-begin Self.TagSubFolder := T; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaConfigTagSubFolder_R(Self: cEmutecaConfig; var T: string);
-begin T := Self.TagSubFolder; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaConfigYearSubFolder_W(Self: cEmutecaConfig; const T: string);
-begin Self.YearSubFolder := T; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaConfigYearSubFolder_R(Self: cEmutecaConfig; var T: string);
-begin T := Self.YearSubFolder; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaConfigCompanySubFolder_W(Self: cEmutecaConfig; const T: string);
-begin Self.CompanySubFolder := T; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaConfigCompanySubFolder_R(Self: cEmutecaConfig; var T: string);
-begin T := Self.CompanySubFolder; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaConfigCommonMediaFolder_W(Self: cEmutecaConfig; const T: string);
-begin Self.CommonMediaFolder := T; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaConfigCommonMediaFolder_R(Self: cEmutecaConfig; var T: string);
-begin T := Self.CommonMediaFolder; end;
 
 (*----------------------------------------------------------------------------*)
 procedure cEmutecaConfigz7GExecutable_W(Self: cEmutecaConfig; const T: string);
@@ -327,125 +173,27 @@ procedure cEmutecaConfigz7CMExecutable_R(Self: cEmutecaConfig; var T: string);
 begin T := Self.z7CMExecutable; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cEmutecaConfigz7Subfolder_W(Self: cEmutecaConfig; const T: string);
-begin Self.z7Subfolder := T; end;
+procedure cEmutecaConfigz7Folder_W(Self: cEmutecaConfig; const T: string);
+begin Self.z7Folder := T; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cEmutecaConfigz7Subfolder_R(Self: cEmutecaConfig; var T: string);
-begin T := Self.z7Subfolder; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaConfigToolsFolder_W(Self: cEmutecaConfig; const T: string);
-begin Self.ToolsFolder := T; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaConfigToolsFolder_R(Self: cEmutecaConfig; var T: string);
-begin T := Self.ToolsFolder; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaConfigDefaultGameIcon_W(Self: cEmutecaConfig; const T: string);
-begin Self.DefaultGameIcon := T; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaConfigDefaultGameIcon_R(Self: cEmutecaConfig; var T: string);
-begin T := Self.DefaultGameIcon; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaConfigDefaultGameImage_W(Self: cEmutecaConfig; const T: string);
-begin Self.DefaultGameImage := T; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaConfigDefaultGameImage_R(Self: cEmutecaConfig; var T: string);
-begin T := Self.DefaultGameImage; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaConfigDefaultEmulatorIcon_W(Self: cEmutecaConfig; const T: string);
-begin Self.DefaultEmulatorIcon := T; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaConfigDefaultEmulatorIcon_R(Self: cEmutecaConfig; var T: string);
-begin T := Self.DefaultEmulatorIcon; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaConfigDefaultEmulatorImage_W(Self: cEmutecaConfig; const T: string);
-begin Self.DefaultEmulatorImage := T; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaConfigDefaultEmulatorImage_R(Self: cEmutecaConfig; var T: string);
-begin T := Self.DefaultEmulatorImage; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaConfigDefaultSystemIcon_W(Self: cEmutecaConfig; const T: string);
-begin Self.DefaultSystemIcon := T; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaConfigDefaultSystemIcon_R(Self: cEmutecaConfig; var T: string);
-begin T := Self.DefaultSystemIcon; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaConfigDefaultSystemImage_W(Self: cEmutecaConfig; const T: string);
-begin Self.DefaultSystemImage := T; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaConfigDefaultSystemImage_R(Self: cEmutecaConfig; var T: string);
-begin T := Self.DefaultSystemImage; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaConfigDefaultImagesSubfolder_W(Self: cEmutecaConfig; const T: string);
-begin Self.DefaultImagesSubfolder := T; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaConfigDefaultImagesSubfolder_R(Self: cEmutecaConfig; var T: string);
-begin T := Self.DefaultImagesSubfolder; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaConfigImagesFolder_W(Self: cEmutecaConfig; const T: string);
-begin Self.ImagesFolder := T; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaConfigImagesFolder_R(Self: cEmutecaConfig; var T: string);
-begin T := Self.ImagesFolder; end;
+procedure cEmutecaConfigz7Folder_R(Self: cEmutecaConfig; var T: string);
+begin T := Self.z7Folder; end;
 
 (*----------------------------------------------------------------------------*)
 procedure RIRegister_cEmutecaConfig(CL: TPSRuntimeClassImporter);
 begin
   with CL.Add(cEmutecaConfig) do
   begin
-    RegisterPropertyHelper(@cEmutecaConfigImagesFolder_R,@cEmutecaConfigImagesFolder_W,'ImagesFolder');
-    RegisterPropertyHelper(@cEmutecaConfigDefaultImagesSubfolder_R,@cEmutecaConfigDefaultImagesSubfolder_W,'DefaultImagesSubfolder');
-    RegisterPropertyHelper(@cEmutecaConfigDefaultSystemImage_R,@cEmutecaConfigDefaultSystemImage_W,'DefaultSystemImage');
-    RegisterPropertyHelper(@cEmutecaConfigDefaultSystemIcon_R,@cEmutecaConfigDefaultSystemIcon_W,'DefaultSystemIcon');
-    RegisterPropertyHelper(@cEmutecaConfigDefaultEmulatorImage_R,@cEmutecaConfigDefaultEmulatorImage_W,'DefaultEmulatorImage');
-    RegisterPropertyHelper(@cEmutecaConfigDefaultEmulatorIcon_R,@cEmutecaConfigDefaultEmulatorIcon_W,'DefaultEmulatorIcon');
-    RegisterPropertyHelper(@cEmutecaConfigDefaultGameImage_R,@cEmutecaConfigDefaultGameImage_W,'DefaultGameImage');
-    RegisterPropertyHelper(@cEmutecaConfigDefaultGameIcon_R,@cEmutecaConfigDefaultGameIcon_W,'DefaultGameIcon');
-    RegisterPropertyHelper(@cEmutecaConfigToolsFolder_R,@cEmutecaConfigToolsFolder_W,'ToolsFolder');
-    RegisterPropertyHelper(@cEmutecaConfigz7Subfolder_R,@cEmutecaConfigz7Subfolder_W,'z7Subfolder');
+    RegisterPropertyHelper(@cEmutecaConfigz7Folder_R,@cEmutecaConfigz7Folder_W,'z7Folder');
     RegisterPropertyHelper(@cEmutecaConfigz7CMExecutable_R,@cEmutecaConfigz7CMExecutable_W,'z7CMExecutable');
     RegisterPropertyHelper(@cEmutecaConfigz7GExecutable_R,@cEmutecaConfigz7GExecutable_W,'z7GExecutable');
-    RegisterPropertyHelper(@cEmutecaConfigCommonMediaFolder_R,@cEmutecaConfigCommonMediaFolder_W,'CommonMediaFolder');
-    RegisterPropertyHelper(@cEmutecaConfigCompanySubFolder_R,@cEmutecaConfigCompanySubFolder_W,'CompanySubFolder');
-    RegisterPropertyHelper(@cEmutecaConfigYearSubFolder_R,@cEmutecaConfigYearSubFolder_W,'YearSubFolder');
-    RegisterPropertyHelper(@cEmutecaConfigTagSubFolder_R,@cEmutecaConfigTagSubFolder_W,'TagSubFolder');
-    RegisterPropertyHelper(@cEmutecaConfigEmulatorSubFolder_R,@cEmutecaConfigEmulatorSubFolder_W,'EmulatorSubFolder');
-    RegisterPropertyHelper(@cEmutecaConfigScriptsFolder_R,@cEmutecaConfigScriptsFolder_W,'ScriptsFolder');
-    RegisterPropertyHelper(@cEmutecaConfigGeneralScriptsSubFolder_R,@cEmutecaConfigGeneralScriptsSubFolder_W,'GeneralScriptsSubFolder');
-    RegisterPropertyHelper(@cEmutecaConfigGameScriptsSubFolder_R,@cEmutecaConfigGameScriptsSubFolder_W,'GameScriptsSubFolder');
-    RegisterPropertyHelper(@cEmutecaConfigGroupScriptsSubFolder_R,@cEmutecaConfigGroupScriptsSubFolder_W,'GroupScriptsSubFolder');
     RegisterPropertyHelper(@cEmutecaConfigDataFolder_R,@cEmutecaConfigDataFolder_W,'DataFolder');
-    RegisterPropertyHelper(@cEmutecaConfigParentsFile_R,@cEmutecaConfigParentsFile_W,'ParentsFile');
-    RegisterPropertyHelper(@cEmutecaConfigVersionsFile_R,@cEmutecaConfigVersionsFile_W,'VersionsFile');
+    RegisterPropertyHelper(@cEmutecaConfigGroupsFile_R,@cEmutecaConfigGroupsFile_W,'GroupsFile');
+    RegisterPropertyHelper(@cEmutecaConfigSoftFile_R,@cEmutecaConfigSoftFile_W,'SoftFile');
     RegisterPropertyHelper(@cEmutecaConfigEmulatorsFile_R,@cEmutecaConfigEmulatorsFile_W,'EmulatorsFile');
     RegisterPropertyHelper(@cEmutecaConfigSystemsFile_R,@cEmutecaConfigSystemsFile_W,'SystemsFile');
-    RegisterPropertyHelper(@cEmutecaConfigSysSubfolder_R,@cEmutecaConfigSysSubfolder_W,'SysSubfolder');
-    RegisterPropertyHelper(@cEmutecaConfigSysStructFile_R,@cEmutecaConfigSysStructFile_W,'SysStructFile');
-    RegisterPropertyHelper(@cEmutecaConfigGameDataExt_R,@cEmutecaConfigGameDataExt_W,'GameDataExt');
-    RegisterPropertyHelper(@cEmutecaConfigGameGroupExt_R,@cEmutecaConfigGameGroupExt_W,'GameGroupExt');
     RegisterPropertyHelper(@cEmutecaConfigCompressedExtensions_R,nil,'CompressedExtensions');
-    RegisterPropertyHelper(@cEmutecaConfigTextExtensions_R,nil,'TextExtensions');
-    RegisterPropertyHelper(@cEmutecaConfigImageExtensions_R,nil,'ImageExtensions');
-    RegisterPropertyHelper(@cEmutecaConfigMusicExtensions_R,nil,'MusicExtensions');
-    RegisterPropertyHelper(@cEmutecaConfigVideoExtensions_R,nil,'VideoExtensions');
     RegisterPropertyHelper(@cEmutecaConfigTempSubfolder_R,@cEmutecaConfigTempSubfolder_W,'TempSubfolder');
     RegisterPropertyHelper(@cEmutecaConfigTempFile_R,@cEmutecaConfigTempFile_W,'TempFile');
     RegisterPropertyHelper(@cEmutecaConfigConfigFile_R,@cEmutecaConfigConfigFile_W,'ConfigFile');

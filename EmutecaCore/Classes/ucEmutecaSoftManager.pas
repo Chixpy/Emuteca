@@ -192,7 +192,7 @@ begin
     aGroup := cEmutecaGroup.Create(nil);
     aGroup.ID := aSoft.GroupKey;
     aGroup.Title := aSoft.GroupKey;
-    aGroup.System := aSoft.System;
+    aSoft.Group := aGroup;
     GroupManager.FullList.Add(aGroup);
   end;
 end;
@@ -210,6 +210,7 @@ begin
     aSystem := cEmutecaSystem.Create(nil);
     aSystem.ID := aSoft.SystemKey;
     aSystem.Title := aSoft.SystemKey;
+    aSoft.System := aSystem;
     SystemManager.FullList.Add(aSystem);
   end;
 end;

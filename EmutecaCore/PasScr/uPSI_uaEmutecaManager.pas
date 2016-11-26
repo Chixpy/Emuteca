@@ -43,6 +43,7 @@ implementation
 
 uses
    uEmutecaCommon
+  ,uaCHXStorable
   ,uaEmutecaManager
   ;
  
@@ -56,8 +57,8 @@ end;
 (*----------------------------------------------------------------------------*)
 procedure SIRegister_caEmutecaManagerTxt(CL: TPSPascalCompiler);
 begin
-  //with RegClassS(CL,'caEmutecaStorableTxt', 'caEmutecaManagerTxt') do
-  with CL.AddClassN(CL.FindClass('caEmutecaStorableTxt'),'caEmutecaManagerTxt') do
+  //with RegClassS(CL,'caCHXStorableTxt', 'caEmutecaManagerTxt') do
+  with CL.AddClassN(CL.FindClass('caCHXStorableTxt'),'caEmutecaManagerTxt') do
   begin
     RegisterProperty('ProgressCallBack', 'TEmutecaProgressCallBack', iptrw);
     RegisterMethod('Procedure AssingAllTo( aList : TStrings)');
@@ -68,8 +69,8 @@ end;
 (*----------------------------------------------------------------------------*)
 procedure SIRegister_caEmutecaManagerIni(CL: TPSPascalCompiler);
 begin
-  //with RegClassS(CL,'caEmutecaStorableIni', 'caEmutecaManagerIni') do
-  with CL.AddClassN(CL.FindClass('caEmutecaStorableIni'),'caEmutecaManagerIni') do
+  //with RegClassS(CL,'caCHXStorableIni', 'caEmutecaManagerIni') do
+  with CL.AddClassN(CL.FindClass('caCHXStorableIni'),'caEmutecaManagerIni') do
   begin
     RegisterProperty('ProgressCallBack', 'TEmutecaProgressCallBack', iptrw);
     RegisterMethod('Procedure AssingAllTo( aList : TStrings)');
@@ -107,8 +108,8 @@ begin
   with CL.Add(caEmutecaManagerTxt) do
   begin
     RegisterPropertyHelper(@caEmutecaManagerTxtProgressCallBack_R,@caEmutecaManagerTxtProgressCallBack_W,'ProgressCallBack');
-    {TODO: PS}//RegisterVirtualAbstractMethod(@caEmutecaManagerTxt, @!.AssingAllTo, 'AssingAllTo');
-    {TODO: PS}//RegisterVirtualAbstractMethod(@caEmutecaManagerTxt, @!.AssingEnabledTo, 'AssingEnabledTo');
+   // RegisterVirtualAbstractMethod(@caEmutecaManagerTxt, @!.AssingAllTo, 'AssingAllTo');
+   // RegisterVirtualAbstractMethod(@caEmutecaManagerTxt, @!.AssingEnabledTo, 'AssingEnabledTo');
   end;
 end;
 
@@ -118,8 +119,8 @@ begin
   with CL.Add(caEmutecaManagerIni) do
   begin
     RegisterPropertyHelper(@caEmutecaManagerIniProgressCallBack_R,@caEmutecaManagerIniProgressCallBack_W,'ProgressCallBack');
-    {TODO: PS}//RegisterVirtualAbstractMethod(@caEmutecaManagerIni, @!.AssingAllTo, 'AssingAllTo');
-    {TODO: PS}//RegisterVirtualAbstractMethod(@caEmutecaManagerIni, @!.AssingEnabledTo, 'AssingEnabledTo');
+    //RegisterVirtualAbstractMethod(@caEmutecaManagerIni, @!.AssingAllTo, 'AssingAllTo');
+    //RegisterVirtualAbstractMethod(@caEmutecaManagerIni, @!.AssingEnabledTo, 'AssingEnabledTo');
   end;
 end;
 

@@ -40,13 +40,14 @@ implementation
 
 
 uses
-   fgl
-  ,FileUtil
+   FileUtil
   ,StrUtils
   ,LazUTF8
   ,LazFileUtils
+  ,contnrs
   ,IniFiles
   ,uCHXStrUtils
+  ,uaCHXStorable
   ,ucEmutecaEmulator
   ;
  
@@ -60,8 +61,8 @@ end;
 (*----------------------------------------------------------------------------*)
 procedure SIRegister_cEmutecaEmulator(CL: TPSPascalCompiler);
 begin
-  //with RegClassS(CL,'caEmutecaStorableIni', 'cEmutecaEmulator') do
-  with CL.AddClassN(CL.FindClass('caEmutecaStorableIni'),'cEmutecaEmulator') do
+  //with RegClassS(CL,'caCHXStorableIni', 'cEmutecaEmulator') do
+  with CL.AddClassN(CL.FindClass('caCHXStorableIni'),'cEmutecaEmulator') do
   begin
     RegisterMethod('Function Execute( GameFile : string) : integer');
     RegisterMethod('Function ExecuteAlone : integer');
@@ -94,6 +95,9 @@ begin
  CL.AddConstantN('kEmutecaROMFileNameNoExtKey','String').SetString( '%ROMNAMENOEXT%');
  CL.AddConstantN('kEmutecaROMFileExtKey','String').SetString( '%ROMEXT%');
   SIRegister_cEmutecaEmulator(CL);
+  CL.AddTypeS('cEmutecaEmulatorList', 'TComponentList');
+  CL.AddTypeS('TEmutecaReturnEmulatorCB', 'Function ( aEmulator : cEmutecaEmula'
+   +'tor) : boolean');
 end;
 
 (* === run-time registration functions === *)

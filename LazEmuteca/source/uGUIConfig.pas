@@ -5,7 +5,7 @@ unit uGUIConfig;
 interface
 
 uses
-  Classes, SysUtils, IniFiles, LazUTF8,
+  Classes, SysUtils, IniFiles, LazUTF8, Graphics,
   uCHXStrUtils, uCHXvcConfig;
 
 const
@@ -16,6 +16,7 @@ const
   krsKeyGUIIcnFile = 'GUIIcnFile';
   krsKeyDumpIcnFolder = 'DumpIcnFolder';
   krsKeyZoneIcnFolder = 'ZoneIcnFolder';
+  krsKeyImgExt = 'ImageExt';
 
   // [Config]
   krsSectionConfig = 'Config';
@@ -26,6 +27,7 @@ const
 
   // [Tools]
   krsSectionTools = 'Tools';
+  krsKeyScriptsFolder = 'ScriptsFolder';
   krsKeyMPlayerExe = 'mPlayerExe';
 
 type
@@ -40,6 +42,8 @@ type
     FConfigFile: string;
     FDefImgFolder: string;
     FEmutecaIni: string;
+    FImageExtensions: TStringList;
+    FScriptsFolder: string;
     FZoneIcnFolder: string;
     FHelpFolder: string;
     FGUIIcnFile: string;
@@ -50,6 +54,7 @@ type
     procedure SetConfigFile(AValue: string);
     procedure SetDefImgFolder(AValue: string);
     procedure SetEmutecaIni(AValue: string);
+    procedure SetScriptsFolder(AValue: string);
     procedure SetZoneIcnFolder(AValue: string);
     procedure SetHelpFolder(AValue: string);
     procedure SetGUIIcnFile(AValue: string);
@@ -61,7 +66,6 @@ type
   protected
     procedure OnLoadConfig(IniFile: TIniFile); override;
     procedure OnSaveConfig(IniFile: TIniFile); override;
-    procedure OnSetDefaults; override;
 
   published
     // Images
@@ -75,9 +79,11 @@ type
     //< Folder with flags of zones
     property DumpIcnFolder: string read FDumpIcnFolder write SetDumpIcnFolder;
     //< Folder with icons for Dump Status
+    property ImageExtensions: TStringList read FImageExtensions;
 
     // Tools
     // -----
+    property ScriptsFolder: string read FScriptsFolder write SetScriptsFolder;
     property mPlayerExe: string read FmPlayerExe write SetmPlayerExe;
     //< Path to mPlayer[2].exe
 
@@ -93,6 +99,8 @@ type
     //< File with search configuration
 
   public
+    procedure ResetDefaultConfig; override;
+
     constructor Create(aOwner: TComponent); override;
     destructor Destroy; override;
   end;
@@ -114,6 +122,11 @@ end;
 procedure cGUIConfig.SetEmutecaIni(AValue: string);
 begin
   FEmutecaIni := SetAsFile(AValue);
+end;
+
+procedure cGUIConfig.SetScriptsFolder(AValue: string);
+begin
+  FScriptsFolder := SetAsFolder(AValue);
 end;
 
 procedure cGUIConfig.SetZoneIcnFolder(AValue: string);
@@ -164,6 +177,9 @@ begin
     krsKeyDumpIcnFolder, DumpIcnFolder);
   GUIIcnFile := IniFile.ReadString(krsSectionImages,
     krsKeyGUIIcnFile, GUIIcnFile);
+  ImageExtensions.CommaText :=
+    IniFile.ReadString(krsSectionImages, krsKeyImgExt,
+    ImageExtensions.CommaText);
 
 
   // Config/Data
@@ -177,6 +193,8 @@ begin
     krsKeyHelpFolder, HelpFolder);
 
   // Tools
+    ScriptsFolder := IniFile.ReadString(krsSectionTools,
+    krsKeyScriptsFolder, ScriptsFolder);
   mPlayerExe := IniFile.ReadString(krsSectionTools,
     krsKeyMPlayerExe, mPlayerExe);
 end;
@@ -188,7 +206,8 @@ begin
   IniFile.WriteString(krsSectionImages, krsKeyZoneIcnFolder, ZoneIcnFolder);
   IniFile.WriteString(krsSectionImages, krsKeyDumpIcnFolder, DumpIcnFolder);
   IniFile.WriteString(krsSectionImages, krsKeyGUIIcnFile, GUIIcnFile);
-
+  IniFile.WriteString(krsSectionImages, krsKeyImgExt,
+    ImageExtensions.CommaText);
 
   // Data
   IniFile.WriteString(krsSectionConfig, krsKeyEmutecaIni, EmutecaIni);
@@ -197,16 +216,24 @@ begin
   IniFile.WriteString(krsSectionConfig, krsKeyHelpFolder, HelpFolder);
 
   // Tools
+  IniFile.WriteString(krsSectionTools, krsKeyScriptsFolder, ScriptsFolder);
   IniFile.WriteString(krsSectionTools, krsKeyMPlayerExe, mPlayerExe);
 end;
 
-procedure cGUIConfig.OnSetDefaults;
+procedure cGUIConfig.ResetDefaultConfig;
+var
+  TempStr: string;
 begin
   // Images
   DefImgFolder := 'Images/Default';
   GUIIcnFile := 'Images/GUI/Icons.ini';
   ZoneIcnFolder := 'Images/Zone';
   DumpIcnFolder := 'Images/DumpInfo';
+
+  TempStr := '"' + UTF8LowerCase(GraphicFileMask(TGraphic)) + '"';
+  TempStr := UTF8TextReplace(TempStr, '*.', '');
+  TempStr := UTF8TextReplace(TempStr, ';', '","');
+  ImageExtensions.CommaText := TempStr;
 
   // Config/Data
   EmutecaIni := 'Emuteca.ini';
@@ -215,16 +242,23 @@ begin
   HelpFolder := 'Help';
 
   // Tools
+  ScriptsFolder := 'Scripts';
   mPlayerExe := 'Tools/mplayer/mplayer2.exe';
 end;
 
 constructor cGUIConfig.Create(aOwner: TComponent);
 begin
+  // We must create objects before calling inherited
+  FImageExtensions := TStringList.Create;
+  ImageExtensions.Sorted := True;
+  ImageExtensions.CaseSensitive := False;
+
   inherited Create(aOwner);
 end;
 
 destructor cGUIConfig.Destroy;
 begin
+  FreeAndNil(FImageExtensions);
   inherited Destroy;
 end;
 

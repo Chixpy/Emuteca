@@ -7,7 +7,8 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
   VirtualTrees, LCLIntf, LCLType, LazUTF8,
-  ucCHXImageList, uCHXImageUtils,
+  ucCHXImageList, uCHXImageUtils, uCHXFileUtils,
+  ucEmutecaConfig,
   ucEmutecaSoftware, ucEmutecaGroup,
   ufEmutecaSoftList;
 
@@ -15,18 +16,19 @@ const
   LazEmuTKIconFiles: array [0..12] of string =
     (krsedsVerified, krsedsGood, krsedsAlternate, krsedsOverDump,
     krsedsBadDump, krsedsUnderDump, 'Fixed', 'Trainer',
-    'Translation', 'Pirate',
-    'Cracked', 'Modified', 'Hack');
+    'Translation', 'Pirate', 'Cracked', 'Modified', 'Hack');
 
 type
 
   { TfmEmutecaIcnSoftList }
 
   TfmEmutecaIcnSoftList = class(TfmEmutecaSoftList)
+
     procedure VSTDrawText(Sender: TBaseVirtualTree;
       TargetCanvas: TCanvas; Node: PVirtualNode; Column: TColumnIndex;
       const CellText: string; const CellRect: TRect;
       var DefaultDraw: boolean);
+
   private
     FDumpIconList: cCHXImageList;
     FSoftIconList: cCHXImageList;
@@ -34,7 +36,7 @@ type
     procedure SetDumpIconList(AValue: cCHXImageList);
     procedure SetSoftIconList(AValue: cCHXImageList);
     procedure SetZoneIconMap(AValue: cCHXImageMap);
-    { private declarations }
+
   public
     { public declarations }
 
@@ -88,21 +90,31 @@ begin
 
       if Data^.Stats.IconIndex = -1 then
       begin
-        // TODO: Search Icon, extract it, add to list, add to caché
+      {
+        // Searching soft icon
+        TmpStr := SearchFirstMediaFile(Data^.System.IconFolder, Data^.FileName,
+          );
 
-
-        // Icon not found, search parent one
-        if not assigned(Data^.Group) then
+        if TmpStr = '' then
         begin
-          // Search parent add to cache
-         // if Data^.Group = -1 then
-          //  Data^.Group.Stats.IconIndex := 0; // Assign default icon to parent        end;
-        end;
+          // Try to use Group icon
+          if Data^.Group.IconIndex = -1 then
+          begin
+          TmpStr := SearchFirstMediaFile(Data^.System.IconFolder, Data^.Group.ID,
+          );
 
-        if assigned(Data^.Group) then
-            Data^.Stats.IconIndex := Data^.Group.Stats.IconIndex
-        else
-         Data^.Stats.IconIndex := 0;
+          if TmpStr <> '' then
+        begin
+        end
+          else
+            Data^.Stats.IconIndex = 0;
+          end
+          else  // Group has assigned icon
+            Data^.Stats.IconIndex := Data^.Group.Stats.IconIndex;
+        end
+        else // Soft icon file found
+          Data^.Stats.IconIndex = SoftIconList.AddImageFile(TmpStr);
+          }
       end;
 
       if (Data^.Stats.IconIndex > -1) and

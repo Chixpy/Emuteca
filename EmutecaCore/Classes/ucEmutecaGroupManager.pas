@@ -30,7 +30,7 @@ uses
   LazUTF8, LConvEncoding,
   LResources,
   // Emuteca core
-  uaEmutecaManager, ucEmutecaGroup, ucEmutecaSystemManager, ucEmutecaSystem;
+  uaEmutecaManager, ucEmutecaGroup;
 
 resourcestring
   rsLoadingGroupList = 'Loading parent list...';
@@ -41,17 +41,13 @@ type
 
   cEmutecaGroupManager = class(caEmutecaManagerTxt)
   private
-    FSystemManager: cEmutecaSystemManager;
     FVisibleList: cEmutecaGroupList;
     FFullList: cEmutecaGroupList;
-    procedure SetSystemManager(AValue: cEmutecaSystemManager);
 
   protected
-     procedure SearchSystem(aGroup: cEmutecaGroup);
+     //procedure SearchSystem(aGroup: cEmutecaGroup);
 
   public
-    property SystemManager: cEmutecaSystemManager read FSystemManager write SetSystemManager;
-
     property FullList: cEmutecaGroupList read FFullList;
     {< Actual list where the parents are stored. }
     property VisibleList: cEmutecaGroupList read FVisibleList;
@@ -66,9 +62,9 @@ type
 
        @Result cEmutecaGroup found or nil.
     }
-
+    {
     procedure FilterBySystem(aSystemKey: string);
-
+    }
     procedure AssingAllTo(aList: TStrings); override;
     procedure AssingEnabledTo(aList: TStrings); override;
 
@@ -97,11 +93,13 @@ begin
   end;
 end;
 
+{
 procedure cEmutecaGroupManager.FilterBySystem(aSystemKey: string);
 var
   i: longint;
   aGroup: cEmutecaGroup;
 begin
+
   VisibleList.Clear;
 
   if aSystemKey = '' then
@@ -124,6 +122,7 @@ begin
     end;
   end;
 end;
+}
 
 procedure cEmutecaGroupManager.AssingAllTo(aList: TStrings);
 var
@@ -159,18 +158,13 @@ begin
   while i < VisibleList.Count do
   begin
     aGroup := cEmutecaGroup(VisibleList[i]);
-    aList.AddObject(aGroup.Title + ' (' + aGroup.SystemKey + ')', aGroup);
+    aList.AddObject(aGroup.Title, aGroup);
     Inc(i);
   end;
   aList.EndUpdate;
 end;
 
-procedure cEmutecaGroupManager.SetSystemManager(AValue: cEmutecaSystemManager);
-begin
-  if FSystemManager = AValue then Exit;
-  FSystemManager := AValue;
-end;
-
+{
 procedure cEmutecaGroupManager.SearchSystem(aGroup: cEmutecaGroup);
 var
   aSystem: cEmutecaSystem;
@@ -188,6 +182,7 @@ begin
 
   end;
 end;
+}
 
 procedure cEmutecaGroupManager.LoadFromFileTxt(TxtFile: TStrings);
 var
@@ -208,8 +203,8 @@ begin
     Inc(i);
 
     if ProgressCallBack <> nil then
-      ProgressCallBack(rsLoadingGroupList, TempGroup.SystemKey,
-        TempGroup.Title, i, TxtFile.Count);
+      ProgressCallBack(rsLoadingGroupList, TempGroup.Title,
+        TempGroup.Developer, i, TxtFile.Count);
   end;
   TxtFile.EndUpdate;
   VisibleList.Assign(FullList);
@@ -228,8 +223,8 @@ begin
   TxtFile.Clear;
   TxtFile.BeginUpdate;
   TxtFile.Capacity := FullList.Count + 1; // Speed up?
-  TxtFile.Add('"ID/Sort Name","System","Title","Year","Developer",'
-  + '"Reverved","Last Time","Times Played","Playing Time"');
+  TxtFile.Add('"ID","Title","Reserved 1","Year","Developer",'
+  + '"Reserved 2","Last Time","Times Played","Playing Time"');
 
   i := 0;
   while i < FullList.Count do
@@ -239,8 +234,8 @@ begin
     Inc(i);
 
     if ProgressCallBack <> nil then
-      ProgressCallBack(rsSavingGroupList, aGroup.SystemKey,
-        aGroup.Title, i, FullList.Count);
+      ProgressCallBack(rsSavingGroupList, aGroup.Title,
+        aGroup.Developer, i, FullList.Count);
   end;
   TxtFile.EndUpdate;
 end;

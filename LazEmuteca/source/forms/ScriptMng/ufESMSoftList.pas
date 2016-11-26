@@ -84,12 +84,14 @@ procedure TfrmESMSoftList.FormCreate(Sender: TObject);
    // fmEmutecaSoftList.OnItemSelect := @Self.SelectSoftware;
 
     // Creating and Setting Tags
+    {
     aTabSheet := PageControl1.AddTabSheet;
     fmCHXTagTree := TfmTagTree.Create(aTabSheet);
-    aTabSheet.Caption := fmCHXTagTree.Caption;  {TODO: Add Caption}
+    aTabSheet.Caption := fmCHXTagTree.Caption;  // TODO: Add Caption
     fmCHXTagTree.Folder := Emuteca.Config.TagSubFolder;
     fmCHXTagTree.OnCheckChange := @self.CheckTags;
     fmCHXTagTree.Parent := aTabSheet;
+    }
   end;
 begin
   CreateFrames;

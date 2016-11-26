@@ -44,9 +44,11 @@ uses
    IniFiles
   ,LazFileUtils
   ,LazUTF8
-  ,fgl
+  ,contnrs
   ,uCHXStrUtils
   ,uEmutecaCommon
+  ,uaCHXStorable
+  ,ucEmutecaPlayingStats
   ,ucEmutecaSystem
   ;
  
@@ -60,20 +62,30 @@ end;
 (*----------------------------------------------------------------------------*)
 procedure SIRegister_cEmutecaSystem(CL: TPSPascalCompiler);
 begin
-  //with RegClassS(CL,'caEmutecaStorableIni', 'cEmutecaSystem') do
-  with CL.AddClassN(CL.FindClass('caEmutecaStorableIni'),'cEmutecaSystem') do
+  //with RegClassS(CL,'caCHXStorableIni', 'cEmutecaSystem') do
+  with CL.AddClassN(CL.FindClass('caCHXStorableIni'),'cEmutecaSystem') do
   begin
     RegisterProperty('ID', 'string', iptrw);
+    RegisterProperty('Title', 'string', iptrw);
+    RegisterProperty('FileName', 'string', iptrw);
     RegisterProperty('Enabled', 'boolean', iptrw);
-    RegisterProperty('Company', 'string', iptrw);
-    RegisterProperty('Model', 'string', iptrw);
-    RegisterProperty('Extensions', 'TStringList', iptr);
     RegisterProperty('ExtractAll', 'boolean', iptrw);
-    RegisterProperty('GameKey', 'TEmutecaFileKey', iptrw);
     RegisterProperty('BaseFolder', 'string', iptrw);
     RegisterProperty('TempFolder', 'string', iptrw);
     RegisterProperty('MainEmulator', 'string', iptrw);
     RegisterProperty('OtherEmulators', 'TStringList', iptr);
+    RegisterProperty('Icon', 'string', iptrw);
+    RegisterProperty('Image', 'string', iptrw);
+    RegisterProperty('BackImage', 'string', iptrw);
+    RegisterProperty('IconFolder', 'string', iptrw);
+    RegisterProperty('ImageFolders', 'TStringList', iptr);
+    RegisterProperty('ImageCaptions', 'TStringList', iptr);
+    RegisterProperty('InfoText', 'string', iptrw);
+    RegisterProperty('TextFolders', 'TStringList', iptr);
+    RegisterProperty('TextCaptions', 'TStringList', iptr);
+    RegisterProperty('GameKey', 'TEmutecaFileKey', iptrw);
+    RegisterProperty('Extensions', 'TStringList', iptr);
+    RegisterProperty('Stats', 'cEmutecaPlayingStats', iptrw);
   end;
 end;
 
@@ -81,23 +93,113 @@ end;
 procedure SIRegister_ucEmutecaSystem(CL: TPSPascalCompiler);
 begin
  CL.AddConstantN('krsIniKeyEnabled','String').SetString( 'Enabled');
- CL.AddConstantN('krsIniKeyCompany','String').SetString( 'Company');
- CL.AddConstantN('krsIniKeyModel','String').SetString( 'Model');
+ CL.AddConstantN('krsIniKeyTitle','String').SetString( 'Title');
+ CL.AddConstantN('krsIniKeyFileName','String').SetString( 'FileName');
  CL.AddConstantN('krsIniKeyExtensions','String').SetString( 'Extensions');
  CL.AddConstantN('krsIniKeyBaseFolder','String').SetString( 'BaseFolder');
  CL.AddConstantN('krsIniKeyTempFolder','String').SetString( 'TempFolder');
- CL.AddConstantN('krsIniKeyGamesKey','String').SetString( 'GamesKey');
- CL.AddConstantN('krsIniKeyExtractAll','String').SetString( 'ExtractAll');
  CL.AddConstantN('krsIniKeyMainEmulator','String').SetString( 'MainEmulator');
  CL.AddConstantN('krsIniKeyOtherEmulators','String').SetString( 'OtherEmulators');
+ CL.AddConstantN('krsIniKeyIcon','String').SetString( 'Icon');
+ CL.AddConstantN('krsIniKeyImage','String').SetString( 'Image');
+ CL.AddConstantN('krsIniKeyBackImage','String').SetString( 'BackImage');
+ CL.AddConstantN('krsIniKeyIconFolder','String').SetString( 'IconFolder');
+ CL.AddConstantN('krsIniKeyImageFolders','String').SetString( 'ImageFolders');
+ CL.AddConstantN('krsIniKeyImageCaptions','String').SetString( 'ImageCaptions');
+ CL.AddConstantN('krsIniKeyText','String').SetString( 'Text');
+ CL.AddConstantN('krsIniKeyTextFolders','String').SetString( 'TextFolders');
+ CL.AddConstantN('krsIniKeyTextCaptions','String').SetString( 'TextCaptions');
+ CL.AddConstantN('krsIniKeyGamesKey','String').SetString( 'GamesKey');
+ CL.AddConstantN('krsIniKeyExtractAll','String').SetString( 'ExtractAll');
+ CL.AddConstantN('rsSavingSystemList','String').SetString( 'Saving system list...');
+ CL.AddConstantN('rsAllSystems','String').SetString( 'All Systems');
   CL.AddTypeS('TEmutecaFileKey', '( TEFKSHA1, TEFKCRC32, TEFKFileName, TEFKCust'
    +'om )');
   SIRegister_cEmutecaSystem(CL);
+  CL.AddTypeS('cEmutecaSystemList', 'TComponentList');
+  CL.AddTypeS('TEmutecaReturnSystemCB', 'Function ( aSystem : cEmutecaSystem) :'
+   +' boolean');
  CL.AddDelphiFunction('Function EmutecaFileKey2Str( aEFK : TEmutecaFileKey) : string');
  CL.AddDelphiFunction('Function Str2EmutecaFileKey( aString : string) : TEmutecaFileKey');
 end;
 
 (* === run-time registration functions === *)
+(*----------------------------------------------------------------------------*)
+procedure cEmutecaSystemStats_W(Self: cEmutecaSystem; const T: cEmutecaPlayingStats);
+begin Self.Stats := T; end;
+
+(*----------------------------------------------------------------------------*)
+procedure cEmutecaSystemStats_R(Self: cEmutecaSystem; var T: cEmutecaPlayingStats);
+begin T := Self.Stats; end;
+
+(*----------------------------------------------------------------------------*)
+procedure cEmutecaSystemExtensions_R(Self: cEmutecaSystem; var T: TStringList);
+begin T := Self.Extensions; end;
+
+(*----------------------------------------------------------------------------*)
+procedure cEmutecaSystemGameKey_W(Self: cEmutecaSystem; const T: TEmutecaFileKey);
+begin Self.GameKey := T; end;
+
+(*----------------------------------------------------------------------------*)
+procedure cEmutecaSystemGameKey_R(Self: cEmutecaSystem; var T: TEmutecaFileKey);
+begin T := Self.GameKey; end;
+
+(*----------------------------------------------------------------------------*)
+procedure cEmutecaSystemTextCaptions_R(Self: cEmutecaSystem; var T: TStringList);
+begin T := Self.TextCaptions; end;
+
+(*----------------------------------------------------------------------------*)
+procedure cEmutecaSystemTextFolders_R(Self: cEmutecaSystem; var T: TStringList);
+begin T := Self.TextFolders; end;
+
+(*----------------------------------------------------------------------------*)
+procedure cEmutecaSystemInfoText_W(Self: cEmutecaSystem; const T: string);
+begin Self.InfoText := T; end;
+
+(*----------------------------------------------------------------------------*)
+procedure cEmutecaSystemInfoText_R(Self: cEmutecaSystem; var T: string);
+begin T := Self.InfoText; end;
+
+(*----------------------------------------------------------------------------*)
+procedure cEmutecaSystemImageCaptions_R(Self: cEmutecaSystem; var T: TStringList);
+begin T := Self.ImageCaptions; end;
+
+(*----------------------------------------------------------------------------*)
+procedure cEmutecaSystemImageFolders_R(Self: cEmutecaSystem; var T: TStringList);
+begin T := Self.ImageFolders; end;
+
+(*----------------------------------------------------------------------------*)
+procedure cEmutecaSystemIconFolder_W(Self: cEmutecaSystem; const T: string);
+begin Self.IconFolder := T; end;
+
+(*----------------------------------------------------------------------------*)
+procedure cEmutecaSystemIconFolder_R(Self: cEmutecaSystem; var T: string);
+begin T := Self.IconFolder; end;
+
+(*----------------------------------------------------------------------------*)
+procedure cEmutecaSystemBackImage_W(Self: cEmutecaSystem; const T: string);
+begin Self.BackImage := T; end;
+
+(*----------------------------------------------------------------------------*)
+procedure cEmutecaSystemBackImage_R(Self: cEmutecaSystem; var T: string);
+begin T := Self.BackImage; end;
+
+(*----------------------------------------------------------------------------*)
+procedure cEmutecaSystemImage_W(Self: cEmutecaSystem; const T: string);
+begin Self.Image := T; end;
+
+(*----------------------------------------------------------------------------*)
+procedure cEmutecaSystemImage_R(Self: cEmutecaSystem; var T: string);
+begin T := Self.Image; end;
+
+(*----------------------------------------------------------------------------*)
+procedure cEmutecaSystemIcon_W(Self: cEmutecaSystem; const T: string);
+begin Self.Icon := T; end;
+
+(*----------------------------------------------------------------------------*)
+procedure cEmutecaSystemIcon_R(Self: cEmutecaSystem; var T: string);
+begin T := Self.Icon; end;
+
 (*----------------------------------------------------------------------------*)
 procedure cEmutecaSystemOtherEmulators_R(Self: cEmutecaSystem; var T: TStringList);
 begin T := Self.OtherEmulators; end;
@@ -127,14 +229,6 @@ procedure cEmutecaSystemBaseFolder_R(Self: cEmutecaSystem; var T: string);
 begin T := Self.BaseFolder; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cEmutecaSystemGameKey_W(Self: cEmutecaSystem; const T: TEmutecaFileKey);
-begin Self.GameKey := T; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaSystemGameKey_R(Self: cEmutecaSystem; var T: TEmutecaFileKey);
-begin T := Self.GameKey; end;
-
-(*----------------------------------------------------------------------------*)
 procedure cEmutecaSystemExtractAll_W(Self: cEmutecaSystem; const T: boolean);
 begin Self.ExtractAll := T; end;
 
@@ -143,8 +237,20 @@ procedure cEmutecaSystemExtractAll_R(Self: cEmutecaSystem; var T: boolean);
 begin T := Self.ExtractAll; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cEmutecaSystemExtensions_R(Self: cEmutecaSystem; var T: TStringList);
-begin T := Self.Extensions; end;
+procedure cEmutecaSystemEnabled_W(Self: cEmutecaSystem; const T: boolean);
+begin Self.Enabled := T; end;
+
+(*----------------------------------------------------------------------------*)
+procedure cEmutecaSystemEnabled_R(Self: cEmutecaSystem; var T: boolean);
+begin T := Self.Enabled; end;
+
+(*----------------------------------------------------------------------------*)
+procedure cEmutecaSystemFileName_W(Self: cEmutecaSystem; const T: string);
+begin Self.FileName := T; end;
+
+(*----------------------------------------------------------------------------*)
+procedure cEmutecaSystemFileName_R(Self: cEmutecaSystem; var T: string);
+begin T := Self.FileName; end;
 
 (*----------------------------------------------------------------------------*)
 procedure cEmutecaSystemTitle_W(Self: cEmutecaSystem; const T: string);
@@ -153,14 +259,6 @@ begin Self.Title := T; end;
 (*----------------------------------------------------------------------------*)
 procedure cEmutecaSystemTitle_R(Self: cEmutecaSystem; var T: string);
 begin T := Self.Title; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaSystemEnabled_W(Self: cEmutecaSystem; const T: boolean);
-begin Self.Enabled := T; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaSystemEnabled_R(Self: cEmutecaSystem; var T: boolean);
-begin T := Self.Enabled; end;
 
 (*----------------------------------------------------------------------------*)
 procedure cEmutecaSystemID_W(Self: cEmutecaSystem; const T: string);
@@ -183,15 +281,26 @@ begin
   with CL.Add(cEmutecaSystem) do
   begin
     RegisterPropertyHelper(@cEmutecaSystemID_R,@cEmutecaSystemID_W,'ID');
-    RegisterPropertyHelper(@cEmutecaSystemEnabled_R,@cEmutecaSystemEnabled_W,'Enabled');
     RegisterPropertyHelper(@cEmutecaSystemTitle_R,@cEmutecaSystemTitle_W,'Title');
-    RegisterPropertyHelper(@cEmutecaSystemExtensions_R,nil,'Extensions');
+    RegisterPropertyHelper(@cEmutecaSystemFileName_R,@cEmutecaSystemFileName_W,'FileName');
+    RegisterPropertyHelper(@cEmutecaSystemEnabled_R,@cEmutecaSystemEnabled_W,'Enabled');
     RegisterPropertyHelper(@cEmutecaSystemExtractAll_R,@cEmutecaSystemExtractAll_W,'ExtractAll');
-    RegisterPropertyHelper(@cEmutecaSystemGameKey_R,@cEmutecaSystemGameKey_W,'GameKey');
     RegisterPropertyHelper(@cEmutecaSystemBaseFolder_R,@cEmutecaSystemBaseFolder_W,'BaseFolder');
     RegisterPropertyHelper(@cEmutecaSystemTempFolder_R,@cEmutecaSystemTempFolder_W,'TempFolder');
     RegisterPropertyHelper(@cEmutecaSystemMainEmulator_R,@cEmutecaSystemMainEmulator_W,'MainEmulator');
     RegisterPropertyHelper(@cEmutecaSystemOtherEmulators_R,nil,'OtherEmulators');
+    RegisterPropertyHelper(@cEmutecaSystemIcon_R,@cEmutecaSystemIcon_W,'Icon');
+    RegisterPropertyHelper(@cEmutecaSystemImage_R,@cEmutecaSystemImage_W,'Image');
+    RegisterPropertyHelper(@cEmutecaSystemBackImage_R,@cEmutecaSystemBackImage_W,'BackImage');
+    RegisterPropertyHelper(@cEmutecaSystemIconFolder_R,@cEmutecaSystemIconFolder_W,'IconFolder');
+    RegisterPropertyHelper(@cEmutecaSystemImageFolders_R,nil,'ImageFolders');
+    RegisterPropertyHelper(@cEmutecaSystemImageCaptions_R,nil,'ImageCaptions');
+    RegisterPropertyHelper(@cEmutecaSystemInfoText_R,@cEmutecaSystemInfoText_W,'InfoText');
+    RegisterPropertyHelper(@cEmutecaSystemTextFolders_R,nil,'TextFolders');
+    RegisterPropertyHelper(@cEmutecaSystemTextCaptions_R,nil,'TextCaptions');
+    RegisterPropertyHelper(@cEmutecaSystemGameKey_R,@cEmutecaSystemGameKey_W,'GameKey');
+    RegisterPropertyHelper(@cEmutecaSystemExtensions_R,nil,'Extensions');
+    RegisterPropertyHelper(@cEmutecaSystemStats_R,@cEmutecaSystemStats_W,'Stats');
   end;
 end;
 

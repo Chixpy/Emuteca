@@ -259,7 +259,7 @@ begin
    Result := True; // Don't Stop
 
   // Testing extension
-  if Emuteca.Config.ImageExtensions.IndexOf(UTF8LowerCase(UTF8Copy(
+  if GUIConfig.ImageExtensions.IndexOf(UTF8LowerCase(UTF8Copy(
     ExtractFileExt(FileInfo.Name), 2, MaxInt))) = -1 then Exit;
 
 
@@ -368,13 +368,13 @@ procedure TfrmEmutecaMain.FormCreate(Sender: TObject);
     fmEmutecaSoftList.Parent := pBottom;
 
     // Creating and Setting Tags frame
-    aTabSheet := pcLeft.AddTabSheet;
+{    aTabSheet := pcLeft.AddTabSheet;
     fmCHXTagTree := TfmTagTree.Create(aTabSheet);
-    aTabSheet.Caption := fmCHXTagTree.Caption;  {TODO: Add Caption}
+    aTabSheet.Caption := fmCHXTagTree.Caption;  // TODO: Add Caption
     fmCHXTagTree.Folder := Emuteca.Config.TagSubFolder;
     fmCHXTagTree.OnCheckChange := @self.CheckTags;
     fmCHXTagTree.Parent := aTabSheet;
-
+ }
     // Creating SoftMedia frame
     aTabSheet := pcSoftware.AddTabSheet;
     fmSoftMedia := TfmLEmuTKSoftMedia.Create(aTabSheet);
@@ -479,7 +479,7 @@ begin
 
   frmEmutecaScriptManager.IconsIni := GUIConfig.GUIIcnFile;
 
-  frmEmutecaScriptManager.SetBaseFolder(Emuteca.Config.ScriptsFolder);
+  frmEmutecaScriptManager.SetBaseFolder(GUIConfig.ScriptsFolder);
   frmEmutecaScriptManager.Emuteca := Emuteca;
 
   { TODO : Use Observer pattern... }

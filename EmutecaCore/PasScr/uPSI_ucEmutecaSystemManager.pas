@@ -43,6 +43,7 @@ uses
    LazFileUtils
   ,LazUTF8
   ,IniFiles
+  ,contnrs
   ,uaEmutecaManager
   ,ucEmutecaSystem
   ,ucEmutecaSystemManager
@@ -61,8 +62,9 @@ begin
   //with RegClassS(CL,'caEmutecaManagerIni', 'cEmutecaSystemManager') do
   with CL.AddClassN(CL.FindClass('caEmutecaManagerIni'),'cEmutecaSystemManager') do
   begin
-    RegisterProperty('FullList', 'cEmutecaSystemList', iptr);
     RegisterMethod('Function ItemById( aId : string) : cEmutecaSystem');
+    RegisterProperty('FullList', 'cEmutecaSystemList', iptr);
+    RegisterProperty('VisibleList', 'cEmutecaSystemList', iptr);
   end;
 end;
 
@@ -74,16 +76,21 @@ end;
 
 (* === run-time registration functions === *)
 (*----------------------------------------------------------------------------*)
-//procedure cEmutecaSystemManagerFullList_R(Self: cEmutecaSystemManager; var T: cEmutecaSystemList);
-//begin T := Self.FullList; end;
+procedure cEmutecaSystemManagerVisibleList_R(Self: cEmutecaSystemManager; var T: cEmutecaSystemList);
+begin T := Self.VisibleList; end;
+
+(*----------------------------------------------------------------------------*)
+procedure cEmutecaSystemManagerFullList_R(Self: cEmutecaSystemManager; var T: cEmutecaSystemList);
+begin T := Self.FullList; end;
 
 (*----------------------------------------------------------------------------*)
 procedure RIRegister_cEmutecaSystemManager(CL: TPSRuntimeClassImporter);
 begin
   with CL.Add(cEmutecaSystemManager) do
   begin
- //   RegisterPropertyHelper(@cEmutecaSystemManagerFullList_R,nil,'FullList');
     RegisterMethod(@cEmutecaSystemManager.ItemById, 'ItemById');
+    RegisterPropertyHelper(@cEmutecaSystemManagerFullList_R,nil,'FullList');
+    RegisterPropertyHelper(@cEmutecaSystemManagerVisibleList_R,nil,'VisibleList');
   end;
 end;
 

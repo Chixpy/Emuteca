@@ -47,7 +47,6 @@ uses
   ,LResources
   ,uaEmutecaManager
   ,ucEmutecaGroup
-  ,u7zWrapper
   ,ucEmutecaGroupManager
   ;
  
@@ -61,10 +60,11 @@ end;
 (*----------------------------------------------------------------------------*)
 procedure SIRegister_cEmutecaGroupManager(CL: TPSPascalCompiler);
 begin
-  //with RegClassS(CL,'caEmutecaManagerTxt', 'cEmutecaParentManager') do
+  //with RegClassS(CL,'caEmutecaManagerTxt', 'cEmutecaGroupManager') do
   with CL.AddClassN(CL.FindClass('caEmutecaManagerTxt'),'cEmutecaGroupManager') do
   begin
     RegisterProperty('FullList', 'cEmutecaGroupList', iptr);
+    RegisterProperty('VisibleList', 'cEmutecaGroupList', iptr);
     RegisterMethod('Function ItemById( aId : string) : cEmutecaGroup');
   end;
 end;
@@ -72,12 +72,18 @@ end;
 (*----------------------------------------------------------------------------*)
 procedure SIRegister_ucEmutecaGroupManager(CL: TPSPascalCompiler);
 begin
+ CL.AddConstantN('rsLoadingGroupList','String').SetString( 'Loading parent list...');
+ CL.AddConstantN('rsSavingGroupList','String').SetString( 'Saving parent list...');
   SIRegister_cEmutecaGroupManager(CL);
 end;
 
 (* === run-time registration functions === *)
 (*----------------------------------------------------------------------------*)
-procedure cEmutecaParentManagerFullList_R(Self: cEmutecaGroupManager; var T: cEmutecaGroupList);
+procedure cEmutecaGroupManagerVisibleList_R(Self: cEmutecaGroupManager; var T: cEmutecaGroupList);
+begin T := Self.VisibleList; end;
+
+(*----------------------------------------------------------------------------*)
+procedure cEmutecaGroupManagerFullList_R(Self: cEmutecaGroupManager; var T: cEmutecaGroupList);
 begin T := Self.FullList; end;
 
 (*----------------------------------------------------------------------------*)
@@ -85,7 +91,8 @@ procedure RIRegister_cEmutecaGroupManager(CL: TPSRuntimeClassImporter);
 begin
   with CL.Add(cEmutecaGroupManager) do
   begin
-    RegisterPropertyHelper(@cEmutecaParentManagerFullList_R,nil,'FullList');
+    RegisterPropertyHelper(@cEmutecaGroupManagerFullList_R,nil,'FullList');
+    RegisterPropertyHelper(@cEmutecaGroupManagerVisibleList_R,nil,'VisibleList');
     RegisterMethod(@cEmutecaGroupManager.ItemById, 'ItemById');
   end;
 end;

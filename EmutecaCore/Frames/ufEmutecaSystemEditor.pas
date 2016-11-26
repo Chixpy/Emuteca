@@ -82,6 +82,7 @@ var
   FolderList, aLine: TStringList;
   i: integer;
 begin
+  (*
   if not assigned(Config) then
     Exit;
   if (eBaseFolder.Text = '') or not DirectoryExistsUTF8(eBaseFolder.Text) then
@@ -111,6 +112,7 @@ begin
     FreeAndNil(FolderList);
     FreeAndNil(aLine);
   end;
+*)
 end;
 
 procedure TfmEmutecaSystemEditor.eFolderButtonClick(Sender: TObject);

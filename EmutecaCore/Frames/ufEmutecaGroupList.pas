@@ -92,8 +92,8 @@ begin
     Exit;
 
   case Column of
-    0: // System
-      Result := UTF8CompareText(pData1^.SystemKey, pData2^.SystemKey);
+   // 0: // System
+   //   Result := UTF8CompareText(pData1^.System.tKey, pData2^.SystemKey);
     1: // Name
       Result := UTF8CompareText(pData1^.ID, pData2^.ID);
     2: // Develepor
@@ -145,8 +145,8 @@ begin
     Exit;
 
   case Column of
-    0: // System
-      CellText := pData^.SystemKey;
+   // 0: // System
+    //  CellText := pData^.SystemKey;
     1: // Name
       CellText := pData^.Title;
     2: // Develepor

@@ -74,7 +74,6 @@ resourcestring
 
   // Default data strings
   // --------------------
-  rsNotCached = 'Error: Not Cached Data'; // Opps...
   rsNever = 'Never';
   rsUnknown = ' Unknown';
   rsFmtApplicationTitle = '%0:s %1:s';
