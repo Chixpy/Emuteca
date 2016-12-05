@@ -26,7 +26,7 @@ unit ucEmuteca;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, LazUTF8, LazFileUtils,
+  Classes, SysUtils, FileUtil, LazUTF8, LazFileUtils, dateutils,
   u7zWrapper,
   uCHXStrUtils,
   uEmutecaCommon,
@@ -144,15 +144,12 @@ end;
 function cEmuteca.RunSoftware(const aSoftware: cEmutecaSoftware): integer;
 var
   aEmulator: cEmutecaEmulator;
-  // aGroup: cEmutecaGroup;
-  aSystem: cEmutecaSystem;
   CompressedFile, aFolder, RomFile: string;
   Compressed, NewDir: boolean;
   CompError: integer;
+  StartTime: TDateTime;
+  TimePlaying: Int64;
 begin
-
-  // Ough... Here are Dragons
-  // ------------------------
   // Trying to document step by step with my bad english
 
   // Uhm. If things go bad from the start, they only can improve :-D
@@ -160,79 +157,54 @@ begin
   Result := kEmutecaExecErrorNoGame;
 
   if not assigned(aSoftware) then
-    { TODO : Exception or return Comperror code }
+    { TODO : Exception or return Comperror code? }
     exit;
 
-  // First of all, we will asume than aSoftware <> CurrentSoft and any
-  //   CurrentXs are not coherent.
-  // For example: All Systems are listed, CurrentSystem is nil.
+  // 1. Searching for current emulator.
+  aEmulator := SearchMainEmulator(aSoftware.System.MainEmulator);
 
+  if not assigned(aEmulator) then
+    { TODO : Exception or return Comperror code? }
+    exit;
 
-{ As a Version stores the system now, parent is not needed.
+  // TODO: 1.1 Test if emulator support aSoftware extension...
 
-  Maybe can be useful for command line?
-
-  // 1. Searching for parent to know the system (test CurrentGroup first
-  //  for speed,  but it can not be true)
-  if (not Assigned(CurrentGroup)) or
-    (UTF8CompareText(CurrentGroup.ID, aSoftware.GroupKey) <> 0) then
-  begin
-    aParent := SearchGroup(aSoftware);
-  end
-  else
-    aParent := CurrentGroup;
-  if not assigned(aParent) then
-    // TODO : Exception or return Comperror code?
-    Exit;
-}
-//
-//  // 2. Searching for system to search the emulator(s)
-//  aSystem := SearchSystem(aSoftware.SystemKey);
-//  if not assigned(aSystem) then
-//    { TODO : Exception or return Comperror code? }
-//    Exit;
-
-  // 3. Searching for main emulator.
-  aEmulator := SearchMainEmulator(aSystem.MainEmulator);
-
-  // TODO: 3.1 Test if emulator support aSoftware extension...
-
-  // TODO: 3.2 If not, ask if try to open, else ask for an emulator...
-
+  // TODO: 1.2 If not, ask if try to open, else ask for an emulator...
 
   if not assigned(aEmulator) then
     { TODO : Exception or return Comperror code? }
     Exit;
 
-  // 4. Setting temp folder.
-  //    If created new, store to delete it at the end.
-  if Trim(ExcludeTrailingPathDelimiter(aSystem.TempFolder)) <> '' then
-    aFolder := aSystem.TempFolder
+  // 2. Setting temp folder.
+  if Trim(ExcludeTrailingPathDelimiter(aSoftware.System.TempFolder)) <> '' then
+    aFolder := aSoftware.System.TempFolder
   else
     aFolder := Self.TempFolder + krsEmutecaGameSubFolder;
 
+  //   2.1. If don't exists create new, and mark it to delete at the end.
   NewDir := not DirectoryExists(aFolder);
   if NewDir then
     ForceDirectoriesUTF8(aFolder);
 
-  // 5. Decompressing archives if needed...
+  // 3. Decompressing archives if needed...
 
-  //   5.1. Testing if aSoftware.Folder is an archive
+  //   3.1. Testing if aSoftware.Folder is an archive
   //     I don't test extensions... only if the "game's folder" is actually a
   //     file and not a folder.
   CompressedFile := ExcludeTrailingPathDelimiter(aSoftware.Folder);
   Compressed := FileExistsUTF8(CompressedFile);
 
-  //   5.2 Actual extracting, and setting RomFile
+  //   3.2 Actual extracting, and setting RomFile
   if Compressed then
   begin
-    if aSystem.ExtractAll then
+    if aSoftware.System.ExtractAll then
       CompError := w7zExtractFile(CompressedFile, AllFilesMask,
         aFolder, True, '')
     else
       CompError := w7zExtractFile(CompressedFile, aSoftware.FileName,
         aFolder, True, '');
     if CompError <> 0 then
+      { TODO : Exception or return Comperror code? }
       Exit;
     RomFile := aFolder + aSoftware.FileName;
   end
@@ -240,16 +212,18 @@ begin
   begin
     RomFile := aSoftware.Folder + aSoftware.FileName;
 
-    { TODO : I don't remember why implemened this.
+    { TODO : I don't remember why I implemened this.
         When it is a normal "decompressed" ROM, if it is a 7z and
-        ExtractAll is True then decompress it }
-    if (aSystem.ExtractAll) and
-      (Config.CompressedExtensions.IndexOf(
-      UTF8Copy(ExtractFileExt(aSoftware.FileName), 2, MaxInt)) <> -1) then
+        ExtractAll is True then decompress it.
+
+        RomFile := ZipFileName anyways. }
+    if aSoftware.System.ExtractAll and
+      SupportedExt(aSoftware.FileName, Config.CompressedExtensions) then
     begin
       // The ROM is a compressed file but must be extracted anyways
       CompError := w7zExtractFile(RomFile, AllFilesMask, aFolder, True, '');
       if CompError <> 0 then
+       { TODO : Exception or return Comperror code? }
         Exit;
       Compressed := True;
     end;
@@ -260,24 +234,29 @@ begin
     // CompError code already set...
     Exit;
 
-  // TempTime := Now;
+  StartTime := Now; // Stats
 
   Result := aEmulator.Execute(RomFile);
 
-  // if Emulator returns no Comperror and passed at least one minute...
-    {
-  if (Result = 0) and (Now > (EncodeTime(0, 1, 0, 0) + TempTime)) then
+  TimePlaying := SecondsBetween(Now, StartTime);
+
+  // if Emulator returns no error and passed at least MinTime...
+  if (Result = 0) and (TimePlaying >=  Config.MinPlayTime) then
   begin
-    aGame.AddPlayingTime(Now, TempTime);
-    aGame.LastTime := TempTime;
-    aGame.TimesPlayed := aGame.TimesPlayed + 1;
+    { TODO : This are not saved if lists are not saved on exit }
+    aSoftware.Stats.AddPlayingTime(StartTime, TimePlaying);
+    aSoftware.Group.Stats.AddPlayingTime(StartTime, TimePlaying);
+
+    { TODO : System and Emulator are not saved unless you save it
+      in their managers }
+    aSoftware.System.Stats.AddPlayingTime(StartTime, TimePlaying);
+    aEmulator.Stats.AddPlayingTime(StartTime, TimePlaying);
   end;
-  }
 
   // X. Kill them all
   if Compressed then
   begin
-    if aSystem.ExtractAll then
+    if aSoftware.System.ExtractAll then
     begin
       DeleteDirectory(aFolder, not NewDir);
     end

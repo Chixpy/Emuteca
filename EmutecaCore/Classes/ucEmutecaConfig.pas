@@ -31,7 +31,30 @@ uses
 
 const
   // [Config]
-  krsIniSectionConfig = 'Config';
+  krsIniSecConfig = 'Config';
+  krsIniKeyDataFolder = 'DataFolder';
+  krsIniKeyGroupsFile = 'GroupsFile';
+  krsIniKeySoftFile = 'SoftFile';
+  krsIniKeyEmulatorsFile = 'EmulatorsFile';
+  krsIniKeySystemsFile = 'SystemsFile';
+
+  // [Tools]
+  krsIniSecTools = 'Tools';
+  krsIniKey7zCMExecutable = '7zCMExecutable';
+  krsIniKey7zGExecutable = '7zGExecutable';
+
+  // [Extensions]
+  krsIniSecExtensions = 'Extensions';
+  krsIniKeyCompressedExtensions = 'CompressedExtensions';
+
+  // [Temp]
+  krsIniSecTemp = 'Temp';
+  krsIniKeyTempSubfolder = 'TempSubfolder';
+  krsIniKeyTempFile = 'TempFile';
+
+  // [Misc]
+  krsIniSecMisc = 'Misc';
+  krsIniKeyMinPlayTime = 'MinPlayTime';
 
 type
 
@@ -47,33 +70,31 @@ type
     FDataFolder: string;
     FEmulatorsFile: string;
     FGroupsFile: string;
+    FMinPlayTime: integer;
     FSystemsFile: string;
     FTempFile: string;
     FTempFolder: string;
     FSoftFile: string;
     Fz7CMExecutable: string;
     Fz7GExecutable: string;
-    Fz7Folder: string;
     procedure SetConfigFile(AValue: string);
     procedure SetDataFolder(const AValue: string);
     procedure SetEmulatorsFile(const AValue: string);
     procedure SetGroupsFile(AValue: string);
+    procedure SetMinPlayTime(AValue: integer);
     procedure SetSystemsFile(const AValue: string);
     procedure SetTempFile(const AValue: string);
     procedure SetTempFolder(const AValue: string);
     procedure SetSoftFile(AValue: string);
     procedure Setz7CMExecutable(const AValue: string);
     procedure Setz7GExecutable(const AValue: string);
-    procedure Setz7Folder(const AValue: string);
 
   protected
-    procedure Update7zPaths;
 
   published
     // Tools
-    property z7Folder: string read Fz7Folder write Setz7Folder;
-    property z7CMExecutable: string read Fz7CMExecutable
-      write Setz7CMExecutable;
+    property z7CMExecutable: string
+      read Fz7CMExecutable write Setz7CMExecutable;
     property z7GExecutable: string read Fz7GExecutable write Setz7GExecutable;
 
     // Config/Data
@@ -86,9 +107,12 @@ type
     // File extensions
     property CompressedExtensions: TStringList read FCompressedExtensions;
 
-    // Temp
+    // Temp folder/file
     property TempSubfolder: string read FTempFolder write SetTempFolder;
     property TempFile: string read FTempFile write SetTempFile;
+
+    // Misc
+    property MinPlayTime: integer read FMinPlayTime write SetMinPlayTime;
 
 
   public
@@ -128,6 +152,16 @@ begin
   FGroupsFile := SetAsFile(AValue);
 end;
 
+procedure cEmutecaConfig.SetMinPlayTime(AValue: integer);
+begin
+  if FMinPlayTime = AValue then
+    Exit;
+  FMinPlayTime := AValue;
+
+  if MinPlayTime < 1 then
+    FMinPlayTime := 60;
+end;
+
 procedure cEmutecaConfig.SetSystemsFile(const AValue: string);
 begin
   FSystemsFile := SetAsFile(AValue);
@@ -151,26 +185,13 @@ end;
 procedure cEmutecaConfig.Setz7CMExecutable(const AValue: string);
 begin
   Fz7CMExecutable := SetAsFile(AValue);
-  Update7zPaths;
+  w7zPathTo7zexe := z7CMExecutable;
 end;
 
 procedure cEmutecaConfig.Setz7GExecutable(const AValue: string);
 begin
   Fz7GExecutable := SetAsFile(AValue);
-  Update7zPaths;
-end;
-
-procedure cEmutecaConfig.Setz7Folder(const AValue: string);
-begin
-  Fz7Folder := SetAsFolder(AValue);
-  Update7zPaths;
-end;
-
-procedure cEmutecaConfig.Update7zPaths;
-begin
-  // Updating u7zWrapper globals...;
-  w7zPathTo7zexe := z7Folder + z7CMExecutable;
-  w7zPathTo7zGexe := z7Folder + z7GExecutable;
+  w7zPathTo7zGexe := z7GExecutable;
 end;
 
 procedure cEmutecaConfig.LoadConfig(aFileName: string);
@@ -193,30 +214,37 @@ begin
   IniFile := TMemIniFile.Create(UTF8ToSys(ConfigFile));
   try
     // Config/Data
-    DataFolder := IniFile.ReadString(krsIniSectionConfig, 'DataFolder', DataFolder);
-    GroupsFile := IniFile.ReadString(krsIniSectionConfig, 'GroupsFile', GroupsFile);
-    SoftFile := IniFile.ReadString(krsIniSectionConfig, 'SoftFile',
-      SoftFile);
-    EmulatorsFile := IniFile.ReadString(krsIniSectionConfig, 'EmulatorsFile',
-      EmulatorsFile);
-    SystemsFile := IniFile.ReadString(krsIniSectionConfig, 'SystemsFile', SystemsFile);
+    DataFolder := IniFile.ReadString(krsIniSecConfig,
+      krsIniKeyDataFolder, DataFolder);
+    GroupsFile := IniFile.ReadString(krsIniSecConfig,
+      krsIniKeyGroupsFile, GroupsFile);
+    SoftFile := IniFile.ReadString(krsIniSecConfig,
+      krsIniKeySoftFile, SoftFile);
+    EmulatorsFile := IniFile.ReadString(krsIniSecConfig,
+      krsIniKeyEmulatorsFile, EmulatorsFile);
+    SystemsFile := IniFile.ReadString(krsIniSecConfig,
+      krsIniKeySystemsFile, SystemsFile);
 
     // Tools
-    z7Folder := IniFile.ReadString('Tools', '7zSubfolder', z7Folder);
-    z7CMExecutable := IniFile.ReadString('Tools', '7zCMExecutable',
-      z7CMExecutable);
-    z7GExecutable := IniFile.ReadString('Tools', '7zGExecutable',
-      z7GExecutable);
+    z7CMExecutable := IniFile.ReadString(krsIniSecTools,
+      krsIniKey7zCMExecutable, z7CMExecutable);
+    z7GExecutable := IniFile.ReadString(krsIniSecTools,
+      krsIniKey7zGExecutable, z7GExecutable);
 
     // File extensions
     CompressedExtensions.CommaText :=
-      Trim(UTF8LowerCase(IniFile.ReadString('Extensions',
-      'CompressedExtensions', CompressedExtensions.CommaText)));
+      Trim(UTF8LowerCase(IniFile.ReadString(krsIniSecExtensions,
+      krsIniKeyCompressedExtensions, CompressedExtensions.CommaText)));
 
     // Temp
-    TempSubfolder := IniFile.ReadString('Temp', 'TempSubfolder',
-      TempSubfolder);
-    TempFile := IniFile.ReadString('Temp', 'TempFile', TempFile);
+    TempSubfolder := IniFile.ReadString(krsIniSecTemp,
+      krsIniKeyTempSubfolder, TempSubfolder);
+    TempFile := IniFile.ReadString(krsIniSecTemp,
+      krsIniKeyTempFile, TempFile);
+
+    // Misc
+    MinPlayTime := IniFile.ReadInteger(krsIniSecMisc,
+      krsIniKeyMinPlayTime, MinPlayTime);
 
   finally
     FreeAndNil(IniFile);
@@ -239,24 +267,29 @@ begin
 
     // Config/Data
 
-    IniFile.WriteString('Config', 'DataFolder', DataFolder);
-    IniFile.WriteString('Config', 'GroupsFile', GroupsFile);
-    IniFile.WriteString('Config', 'SoftFile', SoftFile);
-    IniFile.WriteString('Config', 'EmulatorsFile', EmulatorsFile);
-    IniFile.WriteString('Config', 'SystemsFile', SystemsFile);
+    IniFile.WriteString(krsIniSecConfig, krsIniKeyDataFolder, DataFolder);
+    IniFile.WriteString(krsIniSecConfig, krsIniKeyGroupsFile, GroupsFile);
+    IniFile.WriteString(krsIniSecConfig, krsIniKeySoftFile, SoftFile);
+    IniFile.WriteString(krsIniSecConfig, krsIniKeyEmulatorsFile,
+      EmulatorsFile);
+    IniFile.WriteString(krsIniSecConfig, krsIniKeySystemsFile, SystemsFile);
 
     // Tools
-    IniFile.WriteString('Tools', '7zSubfolder', z7Folder);
-    IniFile.WriteString('Tools', '7zCMExecutable', z7CMExecutable);
-    IniFile.WriteString('Tools', '7zGExecutable', z7GExecutable);
+    IniFile.WriteString(krsIniSecTools, krsIniKey7zCMExecutable,
+      z7CMExecutable);
+    IniFile.WriteString(krsIniSecTools, krsIniKey7zGExecutable,
+      z7GExecutable);
 
     // File extensions
-    IniFile.WriteString('Extensions', 'CompressedExtensions',
+    IniFile.WriteString(krsIniSecExtensions, krsIniKeyCompressedExtensions,
       Trim(UTF8LowerCase(CompressedExtensions.CommaText)));
 
     // Temp
-    IniFile.WriteString('Temp', 'TempSubfolder', TempSubfolder);
-    IniFile.WriteString('Temp', 'TempFile', TempFile);
+    IniFile.WriteString(krsIniSecTemp, krsIniKeyTempSubfolder, TempSubfolder);
+    IniFile.WriteString(krsIniSecTemp, krsIniKeyTempFile, TempFile);
+
+    // Misc
+    IniFile.WriteInteger(krsIniSecMisc, krsIniKeyMinPlayTime, MinPlayTime);
 
   finally
     FreeAndNil(IniFile);
@@ -267,20 +300,22 @@ procedure cEmutecaConfig.SetDefaultConfig;
 begin
   // Config/Data
   DataFolder := 'Data';
-  GroupsFile := 'Parents.csv';
+  GroupsFile := 'Groups.csv';
   SoftFile := 'Soft.csv';
   EmulatorsFile := 'Emulators.ini';
   SystemsFile := 'Systems.ini';
 
   // Tools
-  z7Folder := 'Tools/7zip';
-  z7CMExecutable := '7z.exe';
-  z7GExecutable := '7zG.exe';
+  z7CMExecutable := 'Tools/7zip/7z.exe';
+  z7GExecutable := 'Tools/7zip/7zG.exe';
   CompressedExtensions.CommaText := w7zFileExts;
 
   // Temp
   TempSubfolder := 'tEMpUTECA';
   TempFile := 'Emuteca.tmp';
+
+  // Misc
+  MinPlayTime := 60;
 
 end;
 

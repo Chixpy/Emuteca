@@ -1,9 +1,9 @@
 {"version":1,"strings":[
-{"hash":36264223,"name":"tfmactaddsoft.gbxsoftinfo.caption","sourcebytes":[83,111,102,116,119,97,114,101,32,73,110,102,111],"value":"Software Info"},
-{"hash":208801933,"name":"tfmactaddsoft.gbxsystem.caption","sourcebytes":[83,101,108,101,99,116,32,83,121,115,116,101,109],"value":"Select System"},
-{"hash":11530,"name":"tfmactaddsoft.lsysteminfo.caption","sourcebytes":[42,46,42],"value":"*.*"},
-{"hash":267679253,"name":"tfmactaddsoft.gbxfileselection.caption","sourcebytes":[83,101,108,101,99,116,32,97,32,102,105,108,101],"value":"Select a file"},
-{"hash":71732245,"name":"tfmactaddsoft.chkopenasarchive.caption","sourcebytes":[79,112,101,110,32,97,115,32,99,111,109,112,114,101,115,115,101,100,32,97,114,99,104,105,118,101],"value":"Open as compressed archive"},
-{"hash":1874025,"name":"tfmactaddsoft.rgbversionkey.caption","sourcebytes":[86,101,114,115,105,111,110,32,75,101,121],"value":"Version Key"},
-{"hash":5150400,"name":"tfmactaddsoft.rgbgroup.caption","sourcebytes":[71,114,111,117,112],"value":"Group"}
+{"hash":120231245,"name":"tfmemutecaactaddsoft.gbxselectsystem.caption","sourcebytes":[83,101,108,101,99,116,32,97,32,83,121,115,116,101,109],"value":"Select a System"},
+{"hash":11530,"name":"tfmemutecaactaddsoft.lsysteminfo.caption","sourcebytes":[42,46,42],"value":"*.*"},
+{"hash":267679253,"name":"tfmemutecaactaddsoft.gbxfileselection.caption","sourcebytes":[83,101,108,101,99,116,32,97,32,102,105,108,101],"value":"Select a file"},
+{"hash":71732245,"name":"tfmemutecaactaddsoft.chkopenasarchive.caption","sourcebytes":[79,112,101,110,32,97,115,32,99,111,109,112,114,101,115,115,101,100,32,97,114,99,104,105,118,101],"value":"Open as compressed archive"},
+{"hash":1874025,"name":"tfmemutecaactaddsoft.rgbversionkey.caption","sourcebytes":[86,101,114,115,105,111,110,32,75,101,121],"value":"Version Key"},
+{"hash":5150400,"name":"tfmemutecaactaddsoft.rgbgroup.caption","sourcebytes":[71,114,111,117,112],"value":"Group"},
+{"hash":36264223,"name":"tfmemutecaactaddsoft.gbxsoftinfo.caption","sourcebytes":[83,111,102,116,119,97,114,101,32,73,110,102,111],"value":"Software Info"}
 ]}

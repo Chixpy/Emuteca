@@ -103,17 +103,14 @@ begin
   begin
     cbxSystem.SystemList := Emuteca.SystemManager.VisibleList;
     cbxGroup.GroupList := Emuteca.GroupManager.VisibleList;
-    if Assigned(Software) then
-      self.Enabled := True
-    else
-      self.Enabled := False;
   end
   else
   begin
     cbxSystem.SystemList := nil;
     cbxGroup.GroupList := nil;
-    self.Enabled := False;
   end;
+
+  self.Enabled := Assigned(Software) and assigned(Emuteca);
 end;
 
 procedure TfmEmutecaSoftEditor.SetSoftware(AValue: cEmutecaSoftware);
@@ -127,15 +124,11 @@ begin
   FSoftware := AValue;
 
   if Assigned(Software) then
-  begin
     Software.FPOAttachObserver(Self);
-    if assigned(Emuteca) then
-      self.Enabled := True;
-  end
-  else
-    self.Enabled := False;
 
   LoadData;
+
+  self.Enabled := Assigned(Software) and assigned(Emuteca);
 end;
 
 function TfmEmutecaSoftEditor.SelectSystem(aSystem: cEmutecaSystem): boolean;

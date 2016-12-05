@@ -187,6 +187,7 @@ begin
 
   aSoft.Group := GroupManager.ItemById(aSoft.GroupKey);
 
+  // Opps, creating it
   if not assigned(aSoft.Group) then
   begin
     aGroup := cEmutecaGroup.Create(nil);
@@ -205,6 +206,7 @@ begin
 
   aSoft.System := SystemManager.ItemById(aSoft.SystemKey);
 
+  // Opps, creating it
   if not assigned(aSoft.System) then
   begin
     aSystem := cEmutecaSystem.Create(nil);
@@ -238,8 +240,8 @@ begin
     Inc(i);
 
     if ProgressCallBack <> nil then
-      ProgressCallBack(rsLoadingVersionList, TempSoft.Title,
-        TempSoft.Version, i, TxtFile.Count);
+      ProgressCallBack(rsLoadingVersionList, TempSoft.System.Title,
+        TempSoft.Title, i, TxtFile.Count);
   end;
   TxtFile.EndUpdate;
   VisibleList.Assign(FullList);

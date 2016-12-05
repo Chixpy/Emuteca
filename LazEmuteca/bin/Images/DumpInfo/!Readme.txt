@@ -26,7 +26,8 @@ Translation.png
   CC-BY - Silk icon set 1.3 (Read license below)
   
 Verified.png
-  CC-BY - Silk icon set 1.3 (Read license below)
+  CC-BY - Silk icon set 1.3 (Read license below). Edited to add an !, from
+    DejaVu Serif Bold font
 
 
   

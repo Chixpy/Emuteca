@@ -30,7 +30,8 @@ uses  Classes, SysUtils, FileUtil, StrUtils, LazUTF8, LazFileUtils, contnrs,
   // CHX units
   uCHXStrUtils,
   // Emuteca units
-  uaCHXStorable;
+  uaCHXStorable,
+  ucEmutecaPlayingStats;
 
 const
   // Ini file Keys
@@ -76,6 +77,7 @@ type
     FFileExt: TStringList;
     FID: string;
     FParameters: string;
+    FStats: cEmutecaPlayingStats;
     FWorkingFolder: string;
     procedure SetEmulatorName(AValue: string);
     procedure SetEnabled(AValue: boolean);
@@ -147,6 +149,10 @@ type
     property ExitCode: integer read FExitCode write SetExitCode;
     {< Code returned by emulator in usual conditions. Emuteca will not show
          an error message if this code is returned. }
+
+             // Usage statitics
+    // ---------------
+    property Stats: cEmutecaPlayingStats read FStats;
   end;
 
   cEmutecaEmulatorList = TComponentList;
@@ -159,7 +165,11 @@ implementation
 
 procedure cEmutecaEmulator.SetID(AValue: string);
 begin
-  FID := SetAsID(AValue);
+  if FID = AValue then
+    Exit;
+  FID := AValue;
+
+  FPONotifyObservers(Self, ooChange, nil);
 end;
 
 procedure cEmutecaEmulator.SetParameters(AValue: string);
@@ -213,6 +223,8 @@ constructor cEmutecaEmulator.Create(aOwner: TComponent);
 begin
   inherited Create(aOwner);
 
+   FStats := cEmutecaPlayingStats.Create(Self);
+
   self.WorkingFolder := kEmutecaEmuDirKey;
   self.Parameters := '"' + kEmutecaROMPathKey + '"';
 
@@ -223,6 +235,7 @@ end;
 destructor cEmutecaEmulator.Destroy;
 begin
   FreeAndNil(FFileExt);
+  FreeAndNil(FStats);
 
   inherited Destroy;
 end;

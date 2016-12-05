@@ -45,7 +45,6 @@ type
     procedure SetDataString(AValue: string);
     procedure SetDeveloper(AValue: string);
     procedure SetID(AValue: string);
-    procedure SetStats(AValue: cEmutecaPlayingStats);
     procedure SetTitle(AValue: string);
     procedure SetYear(AValue: string);
 
@@ -72,7 +71,7 @@ type
 
     // Usage statitics
     // ---------------
-    property Stats: cEmutecaPlayingStats read FStats write SetStats;
+    property Stats: cEmutecaPlayingStats read FStats;
   end;
 
   { cEmutecaGroupList }
@@ -90,33 +89,23 @@ procedure cEmutecaGroup.SetTitle(AValue: string);
 begin
   if FTitle = AValue then
     Exit;
-
-  if Title = ID then
-    FID := '';
-
   FTitle := AValue;
-
-  if ID = '' then
-    ID := Title;
 end;
 
 procedure cEmutecaGroup.SetYear(AValue: string);
 begin
-  if FYear = AValue then Exit;
+  if FYear = AValue then
+    Exit;
   FYear := AValue;
 end;
 
 procedure cEmutecaGroup.SetID(AValue: string);
 begin
-  FID := SetAsID(AValue);
+  if FID = AValue then
+    Exit;
+  FID := AValue;
 
-  FPONotifyObservers(Self,ooChange,nil);
-end;
-
-procedure cEmutecaGroup.SetStats(AValue: cEmutecaPlayingStats);
-begin
-  if FStats = AValue then Exit;
-  FStats := AValue;
+  FPONotifyObservers(Self, ooChange, nil);
 end;
 
 function cEmutecaGroup.GetDataString: string;
@@ -148,7 +137,8 @@ end;
 
 procedure cEmutecaGroup.SetDeveloper(AValue: string);
 begin
-  if FDeveloper = AValue then Exit;
+  if FDeveloper = AValue then
+    Exit;
   FDeveloper := AValue;
 end;
 
@@ -189,7 +179,7 @@ begin
       else
         ;
     end;
-    inc(i);
+    Inc(i);
   end;
 end;
 
@@ -206,7 +196,7 @@ begin
   TxtFile.Add(Developer);
   TxtFile.Add('');
 
-    // Usage statitics
+  // Usage statitics
   // ---------------
   TxtFile.Add(FloatToStr(Stats.LastTime));
   TxtFile.Add(IntToStr(Stats.TimesPlayed));

@@ -128,11 +128,9 @@ begin
             DeleteDirectory(Emuteca.TempFolder + 'Temp', True);
           end;
 
-          TEFKCustom: aversion.ID :=
-              SetAsID(ExtractFileNameOnly(FileList[i]));
+          TEFKCustom: aversion.ID := ExtractFileNameOnly(FileList[i]);
 
-          TEFKFileName: aversion.ID :=
-              SetAsID(ExtractFileNameOnly(FileList[i]));
+          TEFKFileName: aversion.ID := ExtractFileNameOnly(FileList[i]);
 
           else  // TEFKSHA1 by default
           begin
@@ -156,8 +154,8 @@ begin
         case aSystem.GameKey of
           TEFKCRC32: aversion.ID :=
               CRC32FileStr(aVersion.Folder + aVersion.FileName);
-          TEFKCustom: aversion.ID := SetAsID(aVersion.FileName);
-          TEFKFileName: aversion.ID := SetAsID(aVersion.FileName);
+          TEFKCustom: aversion.ID := aVersion.FileName;
+          TEFKFileName: aversion.ID := aVersion.FileName;
           else  // TEFKSHA1 by default
             aversion.ID := SHA1FileStr(aVersion.Folder + aVersion.FileName);
         end;

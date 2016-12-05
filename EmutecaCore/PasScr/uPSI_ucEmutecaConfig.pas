@@ -174,11 +174,13 @@ begin T := Self.z7CMExecutable; end;
 
 (*----------------------------------------------------------------------------*)
 procedure cEmutecaConfigz7Folder_W(Self: cEmutecaConfig; const T: string);
-begin Self.z7Folder := T; end;
+begin //Self.z7Folder := T;
+end;
 
 (*----------------------------------------------------------------------------*)
 procedure cEmutecaConfigz7Folder_R(Self: cEmutecaConfig; var T: string);
-begin T := Self.z7Folder; end;
+begin //T := Self.z7Folder;
+end;
 
 (*----------------------------------------------------------------------------*)
 procedure RIRegister_cEmutecaConfig(CL: TPSRuntimeClassImporter);

@@ -60,7 +60,7 @@ type
     FHack: string;
     FID: string;
     FModified: string;
-    FParent: cEmutecaGroup;
+    FGroup: cEmutecaGroup;
     FGroupKey: string;
     FPirate: string;
     FPublisher: string;
@@ -76,6 +76,7 @@ type
     FYear: string;
     FZone: string;
     function GetDataString: string;
+    function GetSortTitle: string;
     procedure SetCracked(AValue: string);
     procedure SetDataString(AValue: string);
     procedure SetDumpInfo(AValue: string);
@@ -90,7 +91,6 @@ type
     procedure SetPirate(AValue: string);
     procedure SetPublisher(AValue: string);
     procedure SetSortTitle(AValue: string);
-    procedure SetStats(AValue: cEmutecaPlayingStats);
     procedure SetSystem(AValue: cEmutecaSystem);
     procedure SetTitle(AValue: string);
     procedure SetTrainer(AValue: string);
@@ -110,11 +110,11 @@ type
     // Cached Data
     // -----------
     property System: cEmutecaSystem read FSystem write SetSystem;
-    property Group: cEmutecaGroup read FParent write SetGroup;
+    property Group: cEmutecaGroup read FGroup write SetGroup;
 
     procedure FPOObservedChanged(ASender: TObject;
       Operation: TFPObservedOperation; Data: Pointer);
-    {< Subject has changed. }
+    {< Group or system has changed. }
 
     procedure LoadFromFileTxt(TxtFile: TStrings); override;
     procedure SaveToFileTxt(TxtFile: TStrings; const ExportMode: boolean);
@@ -145,7 +145,7 @@ type
     property TranslitTitle: string
       read FTranslitTitle write SetTranslitTitle;
     {< Trasliterated name in english (ASCII7) characters. }
-    property SortTitle: string read FSortTitle write SetSortTitle;
+    property SortTitle: string read GetSortTitle write SetSortTitle;
     {< Title formated for sorting purposes. }
 
     // Release data
@@ -206,7 +206,7 @@ type
 
     // Usage statitics
     // ---------------
-    property Stats: cEmutecaPlayingStats read FStats write SetStats;
+    property Stats: cEmutecaPlayingStats read FStats;
 
   end;
 
@@ -254,6 +254,24 @@ begin
   finally
     Result := aStringList.CommaText;
     FreeAndNil(aStringList);
+  end;
+end;
+
+function cEmutecaSoftware.GetSortTitle: string;
+begin
+  Result := FSortTitle;
+  if Result <> '' then
+    exit;
+
+  if UTF8CompareText(Title, Group.Title) = 0 then
+  begin
+    Result := UTF8LowerString(Group.ID);
+  end
+  else
+  begin
+    Result := UTF8LowerString(TranslitTitle);
+    if Result = '' then
+      Result := UTF8LowerString(Title);
   end;
 end;
 
@@ -342,13 +360,6 @@ begin
   FSortTitle := UTF8LowerString(AValue);
 end;
 
-procedure cEmutecaSoftware.SetStats(AValue: cEmutecaPlayingStats);
-begin
-  if FStats = AValue then
-    Exit;
-  FStats := AValue;
-end;
-
 procedure cEmutecaSoftware.SetSystem(AValue: cEmutecaSystem);
 begin
   if FSystem = AValue then
@@ -363,7 +374,7 @@ begin
   begin
     System.FPOAttachObserver(Self);
     FSystemKey := System.ID;
-  end
+  end;
 
   //else FSystemKey := ''; We don't want to delete the old SystemKey
 end;
@@ -389,7 +400,11 @@ end;
 
 procedure cEmutecaSoftware.SetID(AValue: string);
 begin
-  FID := SetAsID(AValue);
+  if FID = AValue then
+    Exit;
+  FID := AValue;
+
+  FPONotifyObservers(Self, ooChange, nil);
 end;
 
 procedure cEmutecaSoftware.SetModified(AValue: string);
@@ -401,19 +416,19 @@ end;
 
 procedure cEmutecaSoftware.SetGroup(AValue: cEmutecaGroup);
 begin
-  if FParent = AValue then
+  if FGroup = AValue then
     Exit;
 
-  if Assigned(FParent) then
-    FParent.FPODetachObserver(Self);
+  if Assigned(FGroup) then
+    FGroup.FPODetachObserver(Self);
 
-  FParent := AValue;
+  FGroup := AValue;
 
   if Assigned(Group) then
   begin
     Group.FPOAttachObserver(Self);
     FGroupKey := Group.ID;
-  end
+  end;
   // else FGroupKey := ''; We don't want to delete old GroupKey
 end;
 
@@ -468,9 +483,9 @@ constructor cEmutecaSoftware.Create(aOwner: TComponent);
 begin
   inherited Create(aOwner);
 
-  DumpStatus := edsGood;
-
   FStats := cEmutecaPlayingStats.Create(Self);
+
+  DumpStatus := edsGood;
 end;
 
 destructor cEmutecaSoftware.Destroy;

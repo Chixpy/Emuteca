@@ -121,7 +121,8 @@ end;
 (* === run-time registration functions === *)
 (*----------------------------------------------------------------------------*)
 procedure cEmutecaSoftwareStats_W(Self: cEmutecaSoftware; const T: cEmutecaPlayingStats);
-begin Self.Stats := T; end;
+begin //Self.Stats := T;
+end;
 
 (*----------------------------------------------------------------------------*)
 procedure cEmutecaSoftwareStats_R(Self: cEmutecaSoftware; var T: cEmutecaPlayingStats);

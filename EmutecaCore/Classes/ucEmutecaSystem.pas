@@ -58,6 +58,7 @@ resourcestring
   rsLoadingSystemList = 'Loading system list...';
   rsSavingSystemList = 'Saving system list...';
   rsAllSystems = 'All Systems';
+  reSelectSystem = 'Select a System';
 
 
 type
@@ -101,7 +102,6 @@ type
     procedure SetImage(AValue: string);
     procedure SetInfoText(AValue: string);
     procedure SetMainEmulator(AValue: string);
-    procedure SetStats(AValue: cEmutecaPlayingStats);
     procedure SetTempFolder(AValue: string);
     procedure SetTitle(AValue: string);
 
@@ -206,7 +206,7 @@ type
 
     // Usage statitics
     // ---------------
-    property Stats: cEmutecaPlayingStats read FStats write SetStats;
+    property Stats: cEmutecaPlayingStats read FStats;
   end;
 
   // After many test with generics implementing Observer...Keep it simple
@@ -425,7 +425,11 @@ end;
 
 procedure cEmutecaSystem.SetID(AValue: string);
 begin
-  FID := SetAsID(AValue);
+  if FID = AValue then
+    Exit;
+  FID := AValue;
+
+  FPONotifyObservers(Self, ooChange, nil);
 end;
 
 procedure cEmutecaSystem.SetImage(AValue: string);
@@ -440,13 +444,12 @@ end;
 
 procedure cEmutecaSystem.SetMainEmulator(AValue: string);
 begin
-  FMainEmulator := SetAsID(AValue);
-end;
+  if FMainEmulator = AValue then
+    Exit;
+  FMainEmulator := AValue;
 
-procedure cEmutecaSystem.SetStats(AValue: cEmutecaPlayingStats);
-begin
-  if FStats = AValue then Exit;
-  FStats := AValue;
+  if OtherEmulators.IndexOf(MainEmulator) = -1 then
+    OtherEmulators.Add(MainEmulator);
 end;
 
 procedure cEmutecaSystem.SetTempFolder(AValue: string);

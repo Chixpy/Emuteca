@@ -526,7 +526,7 @@ end;
 procedure TfrmEmutecaMain.actAddSoftExecute(Sender: TObject);
 var
   aForm: TForm;
-  aFrame: TfmActAddSoft;
+  aFrame: TfmEmutecaActAddSoft;
 begin
   Application.CreateForm(TForm, aForm);
 
@@ -534,7 +534,7 @@ begin
   aForm.Caption := Format(rsFmtWindowCaption,
     [Application.Title, actAddSoft.Caption]);
 
-  aFrame := TfmActAddSoft.Create(aForm);
+  aFrame := TfmEmutecaActAddSoft.Create(aForm);
   aFrame.Align := alClient;
   aFrame.Emuteca := Emuteca;
   {
