@@ -238,6 +238,7 @@ begin
 
   Result := aEmulator.Execute(RomFile);
 
+  { TODO : Windows shorcuts don't work }
   TimePlaying := SecondsBetween(Now, StartTime);
 
   // if Emulator returns no error and passed at least MinTime...

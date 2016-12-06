@@ -293,6 +293,8 @@ var
 begin
   inherited Create(TheOwner);
 
+  Self.Enabled := False;
+
   CreateFrames;
 
   // Adding DumpTypes

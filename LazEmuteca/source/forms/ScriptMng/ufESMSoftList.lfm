@@ -7,7 +7,7 @@ object frmESMSoftList: TfrmESMSoftList
   ClientHeight = 419
   ClientWidth = 761
   OnCreate = FormCreate
-  LCLVersion = '6.0'
+  LCLVersion = '5.9'
   object Splitter1: TSplitter
     Left = 200
     Height = 369

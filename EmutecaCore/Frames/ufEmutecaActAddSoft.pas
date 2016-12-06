@@ -276,6 +276,8 @@ begin
     Exit;
   FEmuteca := AValue;
 
+  SoftEditor.Emuteca := Emuteca;
+
   if not assigned(Emuteca) then
     cbxSystem.SystemList := nil
   else
@@ -327,6 +329,8 @@ constructor TfmEmutecaActAddSoft.Create(TheOwner: TComponent);
 
 begin
   inherited Create(TheOwner);
+
+  Self.Enabled := False;
 
   CreateFrames;
 

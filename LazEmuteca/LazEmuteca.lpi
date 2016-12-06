@@ -93,7 +93,7 @@
         <PackageName Value="LCL"/>
       </Item6>
     </RequiredPackages>
-    <Units Count="77">
+    <Units Count="78">
       <Unit0>
         <Filename Value="LazEmuteca.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -255,9 +255,11 @@
         <HasResources Value="True"/>
       </Unit33>
       <Unit34>
-        <Filename Value="..\CHXPas\Frames\ufTagTree.pas"/>
+        <Filename Value="..\CHXPas\Frames\ufCHXTagTree.pas"/>
         <IsPartOfProject Value="True"/>
+        <ComponentName Value="fmCHXTagTree"/>
         <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
       </Unit34>
       <Unit35>
         <Filename Value="..\CHXPas\Misc\uVersionSupport.pas"/>
@@ -487,6 +489,12 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
       </Unit76>
+      <Unit77>
+        <Filename Value="source\frames\ufLEmuTKMain.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fmLEmuTKMain"/>
+        <ResourceBaseClass Value="Frame"/>
+      </Unit77>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

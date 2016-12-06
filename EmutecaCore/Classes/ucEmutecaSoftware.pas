@@ -77,6 +77,7 @@ type
     FZone: string;
     function GetDataString: string;
     function GetSortTitle: string;
+    function GetTranslitTitle: string;
     procedure SetCracked(AValue: string);
     procedure SetDataString(AValue: string);
     procedure SetDumpInfo(AValue: string);
@@ -143,7 +144,7 @@ type
     // Additional title info
     // ---------------------
     property TranslitTitle: string
-      read FTranslitTitle write SetTranslitTitle;
+      read GetTranslitTitle write SetTranslitTitle;
     {< Trasliterated name in english (ASCII7) characters. }
     property SortTitle: string read GetSortTitle write SetSortTitle;
     {< Title formated for sorting purposes. }
@@ -263,7 +264,7 @@ begin
   if Result <> '' then
     exit;
 
-  if UTF8CompareText(Title, Group.Title) = 0 then
+  if Assigned(Group) and (UTF8CompareText(Title, Group.Title) = 0) then
   begin
     Result := UTF8LowerString(Group.ID);
   end
@@ -272,6 +273,22 @@ begin
     Result := UTF8LowerString(TranslitTitle);
     if Result = '' then
       Result := UTF8LowerString(Title);
+  end;
+end;
+
+function cEmutecaSoftware.GetTranslitTitle: string;
+begin
+  Result := FTranslitTitle;
+  if Result <> '' then
+    exit;
+
+  if Assigned(Group) and (UTF8CompareText(Title, Group.Title) = 0) then
+  begin
+    Result := Group.ID;
+  end
+  else
+  begin
+      Result := Title;
   end;
 end;
 

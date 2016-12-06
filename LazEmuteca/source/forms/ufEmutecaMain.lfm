@@ -12,104 +12,13 @@ object frmEmutecaMain: TfrmEmutecaMain
   OnDestroy = FormDestroy
   Position = poDesktopCenter
   SessionProperties = 'Height;Width;WindowState'
-  LCLVersion = '6.0'
+  LCLVersion = '5.9'
   object stbHelp: TStatusBar
     Left = 0
     Height = 23
     Top = 557
     Width = 800
     Panels = <>
-  end
-  object Splitter1: TSplitter
-    Left = 168
-    Height = 534
-    Top = 0
-    Width = 5
-  end
-  object Splitter2: TSplitter
-    Left = 595
-    Height = 534
-    Top = 0
-    Width = 5
-    Align = alRight
-    ResizeAnchor = akRight
-  end
-  object pMiddle: TPanel
-    Left = 173
-    Height = 534
-    Top = 0
-    Width = 422
-    Align = alClient
-    ClientHeight = 534
-    ClientWidth = 422
-    TabOrder = 3
-    object pTop: TPanel
-      Left = 1
-      Height = 228
-      Top = 24
-      Width = 420
-      Align = alTop
-      TabOrder = 0
-    end
-    object Splitter3: TSplitter
-      Cursor = crVSplit
-      Left = 1
-      Height = 5
-      Top = 252
-      Width = 420
-      Align = alTop
-      ResizeAnchor = akTop
-    end
-    object pBottom: TPanel
-      Left = 1
-      Height = 276
-      Top = 257
-      Width = 420
-      Align = alClient
-      TabOrder = 2
-    end
-    object pSystems: TPanel
-      Left = 1
-      Height = 0
-      Top = 24
-      Width = 420
-      Align = alTop
-      AutoSize = True
-      TabOrder = 3
-    end
-    object eSearch: TEdit
-      Left = 1
-      Height = 23
-      Top = 1
-      Width = 420
-      Align = alTop
-      OnEditingDone = eSearchEditingDone
-      TabOrder = 4
-    end
-  end
-  object stbInfo: TStatusBar
-    Left = 0
-    Height = 23
-    Top = 534
-    Width = 800
-    Panels = <>
-    SizeGrip = False
-  end
-  object pcLeft: TPageControl
-    Left = 0
-    Height = 534
-    Top = 0
-    Width = 168
-    Align = alLeft
-    TabOrder = 5
-  end
-  object pcSoftware: TPageControl
-    Left = 600
-    Height = 534
-    Top = 0
-    Width = 200
-    Align = alRight
-    TabOrder = 6
   end
   object ActionList1: TActionList
     left = 184

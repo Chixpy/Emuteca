@@ -16,20 +16,18 @@ uses
   // CHX forms
   ufCHXAbout, ufCHXProgressBar,
   // CHX frames
-  ufTagTree,
+  ufCHXTagTree,
   // Emuteca common
   uEmutecaCommon,
   // Emuteca clases
   ucEmuteca, ucEmutecaGroup, ucEmutecaSoftware, ucEmutecaSystem,
   // Emuteca forms
   ufEmutecaScriptManager,
-  // Emuteca frames
-  ufEmutecaGroupList, ufLEmuTKIcnSoftList,
-  ufEmutecaSystemCBX, ufEmutecaSoftEditor,
   // Emuteca windows
   ufEmutecaActAddSoft, ufEmutecaActAddFolder,
   // LazEmuteca frames
-  ufLEmuTKSysManager, ufLEmuTKEmuManager, ufLEmuTKSoftMedia,
+  ufLEmuTKMain, ufLEmuTKSysManager, ufLEmuTKEmuManager, ufLEmuTKSoftMedia,
+  ufLEmuTKIcnSoftList,
   uGUIConfig;
 
 type
@@ -47,7 +45,6 @@ type
     actScriptManager: TAction;
     actSystemManager: TAction;
     ActionList1: TActionList;
-    eSearch: TEdit;
     FileExit1: TFileExit;
     HelpOnHelp1: THelpOnHelp;
     ImageList1: TImageList;
@@ -72,17 +69,7 @@ type
     MenuItem9: TMenuItem;
     mmHelp: TMenuItem;
     mmFile: TMenuItem;
-    pcLeft: TPageControl;
-    pBottom: TPanel;
-    pcSoftware: TPageControl;
-    pMiddle: TPanel;
-    pSystems: TPanel;
-    pTop: TPanel;
-    Splitter1: TSplitter;
-    Splitter2: TSplitter;
-    Splitter3: TSplitter;
     stbHelp: TStatusBar;
-    stbInfo: TStatusBar;
     procedure actAddSoftExecute(Sender: TObject);
     procedure actAddFolderExecute(Sender: TObject);
     procedure actAutoSaveExecute(Sender: TObject);
@@ -91,7 +78,6 @@ type
     procedure actSaveListsExecute(Sender: TObject);
     procedure actScriptManagerExecute(Sender: TObject);
     procedure actSystemManagerExecute(Sender: TObject);
-    procedure eSearchEditingDone(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -99,23 +85,16 @@ type
     procedure MenuItem8Click(Sender: TObject);
 
   private
+    FfmEmutecaMainFrame: TfmLEmuTKMain;
     FVerIcons: cCHXImageList;
     FEmuteca: cEmuteca;
     FGUIConfig: cGUIConfig;
     FIconList: cCHXImageList;
-
-    // Frames
-    fmEmutecaSystemCBX: TfmEmutecaSystemCBX;
-    fmEmutecaGroupList: TfmEmutecaGroupList;
-    fmEmutecaSoftList: TfmEmutecaIcnSoftList;
-
-    fmCHXTagTree: TfmTagTree;
-
-    fmEmutecaSoftEditor: TfmEmutecaSoftEditor;
-    fmSoftMedia: TfmLEmuTKSoftMedia;
     FZoneIcons: cCHXImageMap;
 
   protected
+    property fmEmutecaMainFrame: TfmLEmuTKMain read FfmEmutecaMainFrame;
+    //< Main Frame
     property Emuteca: cEmuteca read FEmuteca;
     //< Main Emuteca Core
     property GUIConfig: cGUIConfig read FGUIConfig;
@@ -127,17 +106,6 @@ type
     // Icons for dump info
     property ZoneIcons: cCHXImageMap read FZoneIcons;
     // Icons of zones
-
-    procedure CheckTags(aList: TStrings);
-    // On check tag
-    function SelectSystem(aSystem: cEmutecaSystem): boolean;
-    //< On select a system
-    function SelectGroup(aGroup: cEmutecaGroup): boolean;
-    //< On select a parent
-    function SelectSoftware(aSoftware: cEmutecaSoftware): boolean;
-    //< On select a software
-    function RunSoftware(aSoftware: cEmutecaSoftware): boolean;
-    //< On run a software
 
     procedure SaveEmuteca;
     //< Save parent and soft lists
@@ -169,12 +137,13 @@ begin
 end;
 
 procedure TfrmEmutecaMain.MenuItem8Click(Sender: TObject);
+{
 var
   Temp: TStringList;
   str: string;
   i: longint;
 begin
-  {
+
   Temp := TStringList.Create;
   temp.Capacity := 500000;
 
@@ -190,50 +159,29 @@ begin
   Temp.SaveToFile('Soft.csv');
   FreeAndNil(Temp);
   }
-  str := '';
-  for i := 0 to ZoneIcons.count - 1 do
-  begin
-    str := str + ', ' + ZoneIcons.Keys[i];
-  end;
-  ShowMessage(str);
-end;
 
-procedure TfrmEmutecaMain.CheckTags(aList: TStrings);
+var
+  aForm: TForm;
+  aFrame: TfmLEmuTKMain;
 begin
-  { TODO : Pasar la lista para filtrar los padres y los juegos }
-end;
+  Application.CreateForm(TForm, aForm);
 
-function TfrmEmutecaMain.SelectSystem(aSystem: cEmutecaSystem): boolean;
-begin
-  Result := True;
+  // TODO: Save in GUI.ini
+  aform.Width := 640;
+  aForm.Height := 480;
+  aForm.Position := poMainFormCenter;
 
-  { TODO : Use Observer pattern... }
-  fmEmutecaGroupList.UpdateList;
-  SelectGroup(nil);
-end;
+  aFrame := TfmLEmuTKMain.Create(aForm);
+  aForm.Caption := Format(rsFmtWindowCaption,
+    [Application.Title, aFrame.Caption]);
+  aFrame.Align := alClient;
 
-function TfrmEmutecaMain.SelectGroup(aGroup: cEmutecaGroup): boolean;
-begin
-  Result := True;
+  aFrame.GUIIconsIni := GUIConfig.GUIIcnFile;
+  aFrame.Emuteca := Emuteca;
+  aFrame.Parent := aForm;
 
-  { TODO : Use Observer pattern... }
-  fmEmutecaSoftList.UpdateList;
-  SelectSoftware(nil);
-end;
-
-function TfrmEmutecaMain.SelectSoftware(aSoftware: cEmutecaSoftware): boolean;
-begin
-  Result := True;
-
-  { TODO : Use Observer pattern... }
-  fmEmutecaSoftEditor.Software := aSoftware;
-end;
-
-function TfrmEmutecaMain.RunSoftware(aSoftware: cEmutecaSoftware): boolean;
-begin
-  Result := True;
-
-  Emuteca.RunSoftware(aSoftware);
+  aForm.ShowModal;
+  FreeAndNil(aForm);
 end;
 
 procedure TfrmEmutecaMain.SaveEmuteca;
@@ -336,62 +284,6 @@ procedure TfrmEmutecaMain.FormCreate(Sender: TObject);
       AddIcon(FVerIcons, aFolder + aFile + '.png');
   end;
 
-  procedure CreateFrames;
-  var
-    aTabSheet: TTabSheet;
-  begin
-    // Better create frames in code while developing...
-    //   IDE has many problems updating inherited properties
-
-    // Creating and Setting the System ComboBox
-    fmEmutecaSystemCBX := TfmEmutecaSystemCBX.Create(pMiddle);
-    fmEmutecaSystemCBX.Align := alTop;
-    fmEmutecaSystemCBX.OnSelectSystem := @Self.SelectSystem;
-    fmEmutecaSystemCBX.SystemList := Emuteca.SystemManager.VisibleList;
-    fmEmutecaSystemCBX.Parent := pMiddle;
-
-    // Creating and setting the parent list frame
-    fmEmutecaGroupList := TfmEmutecaGroupList.Create(pTop);
-    fmEmutecaGroupList.OnItemSelect := @Self.SelectGroup;
-    fmEmutecaGroupList.GroupList := Emuteca.GroupManager.VisibleList;
-    fmEmutecaGroupList.Parent := pTop;
-
-    // Creating and Setting the software list frame
-    fmEmutecaSoftList := TfmEmutecaIcnSoftList.Create(pBottom);
-    fmEmutecaSoftList.SoftIconList := IconList;
-    fmEmutecaSoftList.DumpIconList := VerIcons;
-    fmEmutecaSoftList.ZoneIconMap := ZoneIcons;
-    fmEmutecaSoftList.OnItemSelect := @Self.SelectSoftware;
-    fmEmutecaSoftList.OnDblClick := @Self.RunSoftware;
-    fmEmutecaSoftList.SoftList := Emuteca.SoftManager.VisibleList;
-    //fmEmutecaSoftList.ParentList := Emuteca.GroupManager.FullList;
-    fmEmutecaSoftList.Parent := pBottom;
-
-    // Creating and Setting Tags frame
-{    aTabSheet := pcLeft.AddTabSheet;
-    fmCHXTagTree := TfmTagTree.Create(aTabSheet);
-    aTabSheet.Caption := fmCHXTagTree.Caption;  // TODO: Add Caption
-    fmCHXTagTree.Folder := Emuteca.Config.TagSubFolder;
-    fmCHXTagTree.OnCheckChange := @self.CheckTags;
-    fmCHXTagTree.Parent := aTabSheet;
- }
-    // Creating SoftMedia frame
-    aTabSheet := pcSoftware.AddTabSheet;
-    fmSoftMedia := TfmLEmuTKSoftMedia.Create(aTabSheet);
-    aTabSheet.Caption := fmSoftMedia.Caption;  {TODO: Add Caption}
-    fmSoftMedia.Align := alClient;
-    fmSoftMedia.Parent := aTabSheet;
-
-    // Creating SoftEditor frame
-    aTabSheet := pcSoftware.AddTabSheet;
-    fmEmutecaSoftEditor := TfmEmutecaSoftEditor.Create(aTabSheet);
-    aTabSheet.Caption := fmEmutecaSoftEditor.Caption;  {TODO: Add Caption}
-    fmEmutecaSoftEditor.Align := alClient;
-    fmEmutecaSoftEditor.Emuteca := Emuteca;
-    fmEmutecaSoftEditor.SaveButtons := True;
-    fmEmutecaSoftEditor.Parent := aTabSheet;
-  end;
-
 begin
   Application.Title := Format(rsFmtApplicationTitle,
     [krsEmuteca, GetFileVersion]); // Usually is deleted in .lpr file...
@@ -429,7 +321,17 @@ begin
   Emuteca.LoadConfig(GUIConfig.EmutecaIni);
 
   LoadIcons;
-  CreateFrames;
+
+
+      // Creating main frame
+    FfmEmutecaMainFrame := TfmLEmuTKMain.Create(Self);
+    fmEmutecaMainFrame.IconList := Self.IconList;
+    fmEmutecaMainFrame.DumpIcons := Self.VerIcons;
+    fmEmutecaMainFrame.ZoneIcons := Self.ZoneIcons;
+    fmEmutecaMainFrame.Emuteca :=  Self.Emuteca;
+    fmEmutecaMainFrame.GUIIconsIni := GUIConfig.GUIIcnFile;
+    fmEmutecaMainFrame.Align := alClient;
+    fmEmutecaMainFrame.Parent := Self;
 
 
   // Misc
@@ -478,16 +380,10 @@ begin
   Application.CreateForm(TfrmEmutecaScriptManager, frmEmutecaScriptManager);
 
   frmEmutecaScriptManager.IconsIni := GUIConfig.GUIIcnFile;
-
   frmEmutecaScriptManager.SetBaseFolder(GUIConfig.ScriptsFolder);
   frmEmutecaScriptManager.Emuteca := Emuteca;
 
-  { TODO : Use Observer pattern... }
-  if frmEmutecaScriptManager.ShowModal = mrOk then
-  begin
-    fmEmutecaSoftList.UpdateList;
-    fmEmutecaGroupList.UpdateList;
-  end;
+  frmEmutecaScriptManager.ShowModal;
   FreeAndNil(frmEmutecaScriptManager);
 end;
 
@@ -501,20 +397,14 @@ begin
   aForm.Position := poMainFormCenter;
 
   aFrame := TfmEmutecaActAddFolder.Create(aForm);
+  aFrame.Emuteca := Emuteca;
+
   aForm.Caption := Format(rsFmtWindowCaption,
     [Application.Title, aFrame.Caption]);
   aFrame.Align := alClient;
-
-  aFrame.Emuteca := Emuteca;
   aFrame.Parent := aForm;
 
-  { TODO : Use Observer pattern... }
-  if aForm.ShowModal = mrOk then
-  begin
-    fmEmutecaSoftList.UpdateList;
-    fmEmutecaGroupList.UpdateList;
-  end;
-
+  aForm.ShowModal;
   FreeAndNil(aForm);
 end;
 
@@ -535,21 +425,14 @@ begin
     [Application.Title, actAddSoft.Caption]);
 
   aFrame := TfmEmutecaActAddSoft.Create(aForm);
+  aFrame.IconsIni := GUIConfig.GUIIcnFile;
   aFrame.Align := alClient;
+  aFrame.ButtonClose := True;
   aFrame.Emuteca := Emuteca;
-  {
-  aFrame.IconsIni := Emuteca.Config.ImagesFolder +
-    Emuteca.Config.IconsSubfolder + Emuteca.Config.IconsIniFile;
-  }
   aForm.AutoSize := True;
   aFrame.Parent := aForm;
 
-  { TODO : Use Observer pattern... }
-  if aForm.ShowModal = mrOk then
-  begin
-    fmEmutecaSoftList.UpdateList;
-    fmEmutecaGroupList.UpdateList;
-  end;
+  aForm.ShowModal;
   FreeAndNil(aForm);
 end;
 
@@ -577,14 +460,6 @@ begin
 
   aForm.ShowModal;
   FreeAndNil(aForm);
-end;
-
-procedure TfrmEmutecaMain.eSearchEditingDone(Sender: TObject);
-begin
-  //if assigned(fmEmutecaGroupList) then
-  // fmEmutecaGroupList.FilterStr := eSearch.Text;
-  if assigned(fmEmutecaSoftList) then
-    fmEmutecaSoftList.FilterStr := eSearch.Text;
 end;
 
 procedure TfrmEmutecaMain.FormCloseQuery(Sender: TObject;

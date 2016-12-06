@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, VirtualTrees, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, ComCtrls,
-  ufTagTree,
+  ufCHXTagTree,
   ucEmuteca, ucEmutecaGroup, ucEmutecaSoftware, ucEmutecaSystem,
   ufEmutecaSystemCBX, ufLEmuTKChkSoftList, ufEmutecaGroupList;
 
@@ -32,7 +32,7 @@ type
     fmEmutecaSystemCBX: TfmEmutecaSystemCBX;
     fmEmutecaGroupList: TfmEmutecaGroupList;
     fmEmutecaSoftList: TfmEmutecaChkSoftList;
-    fmCHXTagTree: TfmTagTree;
+    fmCHXTagTree: TfmCHXTagTree;
 
     procedure SetEmuteca(AValue: cEmuteca);
 
