@@ -29,8 +29,7 @@ type
     {< Update drop down list. }
 
   public
-    property GroupList: cEmutecaGroupList
-      read FGroupList write SetGroupList;
+    property GroupList: cEmutecaGroupList read FGroupList write SetGroupList;
     {< List of parents observed. }
 
     property SelectedGroup: cEmutecaGroup
@@ -40,6 +39,9 @@ type
     property OnSelectGroup: TEmutecaReturnGroupCB
       read FOnSelectGroup write SetOnSelectGroup;
     {< Callback when selecting a parent. }
+
+    procedure SelectGroupByID(aGroupKey: string);
+    //< Select a group by ID, or only set the text in the CBX
 
     procedure FPOObservedChanged(ASender: TObject;
       Operation: TFPObservedOperation; Data: Pointer);
@@ -69,8 +71,7 @@ begin
   // TODO: True, change Emuteca.CurrentSystem?
 end;
 
-procedure TfmEmutecaGroupCBX.SetOnSelectGroup(AValue:
-  TEmutecaReturnGroupCB);
+procedure TfmEmutecaGroupCBX.SetOnSelectGroup(AValue: TEmutecaReturnGroupCB);
 begin
   if FOnSelectGroup = AValue then
     Exit;
@@ -95,11 +96,9 @@ begin
   if aPos = -1 then
   begin
     // Uhm....
-    cbxGroup.ItemIndex :=
-      cbxGroup.Items.AddObject(SelectedGroup.Title, SelectedGroup);
-  end
-  else
-    cbxGroup.ItemIndex := aPos;
+    aPos := cbxGroup.Items.AddObject(SelectedGroup.Title, SelectedGroup);
+  end;
+  cbxGroup.ItemIndex := aPos;
 end;
 
 procedure TfmEmutecaGroupCBX.SetGroupList(AValue: cEmutecaGroupList);
@@ -138,15 +137,43 @@ begin
   cbxGroup.Items.EndUpdate;
 end;
 
+procedure TfmEmutecaGroupCBX.SelectGroupByID(aGroupKey: string);
+var
+  i: integer;
+  aGroup: cEmutecaGroup;
+begin
+  if aGroupKey = '' then
+  begin
+    cbxGroup.ItemIndex := -1;
+    Exit;
+  end;
+
+  i := 0;
+  while i < cbxGroup.Items.Count do
+  begin
+    aGroup := cEmutecaGroup(cbxGroup.Items.Objects[i]);
+    if aGroup.ID = aGroupKey then
+    begin
+      cbxGroup.ItemIndex := i;
+      Break; // Dirty exit
+    end;
+    Inc(i);
+  end;
+
+  if i = cbxGroup.Items.Count then
+  begin
+    cbxGroup.ItemIndex := -1;
+    cbxGroup.Text := aGroupKey;
+  end;
+end;
+
 procedure TfmEmutecaGroupCBX.FPOObservedChanged(ASender: TObject;
   Operation: TFPObservedOperation; Data: Pointer);
 begin
   case Operation of
-    ooChange: UpdateGroups;
     ooFree: GroupList := nil;
-    ooAddItem: UpdateGroups; // TODO: Quick add Item
-    ooDeleteItem: UpdateGroups; // TODO: Quick delete Item
-    ooCustom: UpdateGroups;
+    else
+      UpdateGroups; // TODO: Quick add and delete Item
   end;
 end;
 

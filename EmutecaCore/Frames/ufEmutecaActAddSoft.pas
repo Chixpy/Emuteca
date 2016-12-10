@@ -27,14 +27,15 @@ type
     lSystemInfo: TLabel;
     pSelectFile: TPanel;
     rgbGroup: TRadioGroup;
-    rgbVersionKey: TRadioGroup;
+    rgbSoftKey: TRadioGroup;
     Splitter1: TSplitter;
     procedure cbxInnerFileChange(Sender: TObject);
     procedure chkOpenAsArchiveChange(Sender: TObject);
     procedure eFileAcceptFileName(Sender: TObject; var Value: string);
     procedure eFileButtonClick(Sender: TObject);
+    procedure eVersionKeyEditingDone(Sender: TObject);
     procedure rgbGroupSelectionChanged(Sender: TObject);
-    procedure rgbVersionKeySelectionChanged(Sender: TObject);
+    procedure rgbSoftKeySelectionChanged(Sender: TObject);
 
   private
     FcbxSystem: TfmEmutecaSystemCBX;
@@ -77,7 +78,7 @@ implementation
 
 procedure TfmEmutecaActAddSoft.ClearData;
 begin
-
+  // Nothing to clear...
 end;
 
 procedure TfmEmutecaActAddSoft.UpdateGroup;
@@ -86,7 +87,8 @@ begin
     1: // Filename;
       SoftEditor.SelectGroupByID(Software.Title);
     else // Folder
-      SoftEditor.SelectGroupByID(Software.Folder);
+      SoftEditor.SelectGroupByID(ExtractFileNameOnly(
+        ExcludeTrailingPathDelimiter(Software.Folder)));
   end;
 end;
 
@@ -94,19 +96,20 @@ procedure TfmEmutecaActAddSoft.UpdateSoftKey;
 var
   aFile: string;
 begin
-  // We use selected rgbVersionKey, not system default
+  // We use selected rgbSoftKey, not system default
   if not chkOpenAsArchive.Checked then
   begin // Non compressed file
     aFile := Software.Folder + Software.FileName;
     if not FileExistsUTF8(aFile) then
       Exit;
 
-    case rgbVersionKey.ItemIndex of
-      1: {TEFKCRC32}
+    case rgbSoftKey.ItemIndex of
+      1: // TEFKCRC32
         eVersionKey.Text := CRC32FileStr(aFile);
-      2: {TEFKCustom};
-      3: {TEFKFileName}
-        eVersionKey.Text := Software.FileName;
+      2: // TEFKCustom
+        ;
+      3: // TEFKFileName
+        eVersionKey.Text := ExtractFileNameOnly(Software.FileName);
       else // TEFKSHA1 by default
         eVersionKey.Text := SHA1FileStr(aFile);
     end;
@@ -117,9 +120,10 @@ begin
     if not FileExistsUTF8(aFile) then
       Exit;
 
-    case rgbVersionKey.ItemIndex of
-      1: {TEFKCRC32}
+    case rgbSoftKey.ItemIndex of
+      1: // TEFKCRC32
       begin
+        { TODO : There is faster way for CRC32 in compressed files. }
         w7zExtractFile(aFile, Software.FileName, Emuteca.TempFolder +
           'Temp', False, '');
 
@@ -128,12 +132,12 @@ begin
           Exit;
 
         eVersionKey.Text := CRC32FileStr(aFile);
-        { TODO : Delete extracted file only... }
-        DeleteDirectory(Emuteca.TempFolder + 'Temp', False);
+        DeleteFileUTF8(aFile);
       end;
 
-      2: {TEFKCustom};
-      3: {TEFKFileName}
+      2: // TEFKCustom
+        ;
+      3: // TEFKFileName
         eVersionKey.Text := Software.FileName;
       else // TEFKSHA1 by default
       begin
@@ -145,17 +149,18 @@ begin
           Exit;
 
         eVersionKey.Text := SHA1FileStr(aFile);
-        { TODO : Delete extracted file only... }
-        DeleteDirectory(Emuteca.TempFolder + 'Temp', False);
+        DeleteFileUTF8(aFile);
       end;
     end;
   end;
+
+  eVersionKey.Enabled := rgbSoftKey.ItemIndex = 2;
   Software.ID := eVersionKey.Text;
 end;
 
 function TfmEmutecaActAddSoft.SelectSystem(aSystem: cEmutecaSystem): boolean;
 var
-  ExtFilter: String;
+  ExtFilter: string;
 begin
   Result := False;
 
@@ -163,19 +168,19 @@ begin
 
   gbxFileSelection.Enabled := assigned(Software.System);
   rgbGroup.Enabled := gbxFileSelection.Enabled;
-  rgbVersionKey.Enabled := gbxFileSelection.Enabled;
+  rgbSoftKey.Enabled := gbxFileSelection.Enabled;
 
   if not assigned(Software.System) then
     Exit;
 
   // Autoselecting Key Type
   case Software.System.GameKey of
-    TEFKSHA1: rgbVersionKey.ItemIndex := 0;
-    TEFKCRC32: rgbVersionKey.ItemIndex := 1;
-    TEFKCustom: rgbVersionKey.ItemIndex := 2;
-    TEFKFileName: rgbVersionKey.ItemIndex := 3;
+    TEFKSHA1: rgbSoftKey.ItemIndex := 0;
+    TEFKCRC32: rgbSoftKey.ItemIndex := 1;
+    TEFKCustom: rgbSoftKey.ItemIndex := 2;
+    TEFKFileName: rgbSoftKey.ItemIndex := 3;
     else  // SHA1 by default
-      rgbVersionKey.ItemIndex := 0;
+      rgbSoftKey.ItemIndex := 0;
   end;
   UpdateSoftKey;
 
@@ -197,7 +202,7 @@ end;
 procedure TfmEmutecaActAddSoft.eFileAcceptFileName(Sender: TObject;
   var Value: string);
 begin
-    chkOpenAsArchive.Checked := False;
+  chkOpenAsArchive.Checked := False;
   cbxInnerFile.Clear;
 
   // Updating SoftEditor
@@ -205,9 +210,9 @@ begin
   Software.FileName := ExtractFileName(Value);
   Software.Title := RemoveFromBrackets(ExtractFileNameOnly(Software.FileName));
   Software.Version := CopyFromBrackets(ExtractFileNameOnly(Software.FileName));
-  UpdateGroup;
   UpdateSoftKey;
   SoftEditor.LoadData;
+  UpdateGroup; // Updating Group after loading software one
 
   // Recognized ext of an archive (from cEmutecaConfig, not u7zWrapper)
   chkOpenAsArchive.Enabled :=
@@ -217,18 +222,19 @@ end;
 
 procedure TfmEmutecaActAddSoft.cbxInnerFileChange(Sender: TObject);
 begin
-    Software.Folder := eFile.Text;
+  Software.Folder := eFile.Text;
   Software.FileName := cbxInnerFile.Text;
   Software.Title := RemoveFromBrackets(ExtractFileNameOnly(cbxInnerFile.Text));
   Software.Version := CopyFromBrackets(ExtractFileNameOnly(cbxInnerFile.Text));
-  UpdateGroup;
+
   UpdateSoftKey;
   SoftEditor.LoadData;
+  UpdateGroup; // Updating Group after loading software one
 end;
 
 procedure TfmEmutecaActAddSoft.chkOpenAsArchiveChange(Sender: TObject);
 begin
-    if not chkOpenAsArchive.Enabled then
+  if not chkOpenAsArchive.Enabled then
     Exit;
 
   if not SupportedExt(eFile.Text, Emuteca.Config.CompressedExtensions) then
@@ -260,12 +266,17 @@ begin
   end;
 end;
 
+procedure TfmEmutecaActAddSoft.eVersionKeyEditingDone(Sender: TObject);
+begin
+  Software.ID := eVersionKey.Text;
+end;
+
 procedure TfmEmutecaActAddSoft.rgbGroupSelectionChanged(Sender: TObject);
 begin
   UpdateGroup;
 end;
 
-procedure TfmEmutecaActAddSoft.rgbVersionKeySelectionChanged(Sender: TObject);
+procedure TfmEmutecaActAddSoft.rgbSoftKeySelectionChanged(Sender: TObject);
 begin
   UpdateSoftKey;
 end;
@@ -308,8 +319,14 @@ procedure TfmEmutecaActAddSoft.SaveData;
 begin
   SoftEditor.SaveData;
   Emuteca.SoftManager.FullList.Add(Software);
-  Software := nil;
-  SoftEditor.Software := nil;
+
+
+  // If we don't close then prepare to add a new software
+  if ButtonClose then
+    Software := nil
+  else
+    FSoftware := cEmutecaSoftware.Create(nil);
+  SoftEditor.Software := Software;
 end;
 
 constructor TfmEmutecaActAddSoft.Create(TheOwner: TComponent);

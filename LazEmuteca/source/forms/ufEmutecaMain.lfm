@@ -1,5 +1,5 @@
 object frmEmutecaMain: TfrmEmutecaMain
-  Left = 278
+  Left = 371
   Height = 600
   Top = 51
   Width = 800

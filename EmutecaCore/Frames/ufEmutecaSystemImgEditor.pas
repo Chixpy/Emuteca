@@ -6,14 +6,14 @@ interface
 
 uses
   Classes, SysUtils, LazFileUtils, Forms, Controls, StdCtrls, EditBtn, ExtCtrls,
-  uCHXStrUtils,
+  uCHXStrUtils, ufCHXPropEditor,
   ucEmutecaConfig, ucEmutecaSystem;
 
 type
 
-  { TfmSystemInfoEditor }
+  { TfmSystemImgEditor }
 
-  TfmSystemInfoEditor = class(TFrame)
+  TfmSystemImgEditor = class(TfmCHXPropEditor)
     eSystemIcon: TFileNameEdit;
     eSystemImage: TFileNameEdit;
     gbxImages: TGroupBox;
@@ -24,37 +24,39 @@ type
     procedure eSystemIconAcceptFileName(Sender: TObject; var Value: string);
     procedure eSystemImageAcceptFileName(Sender: TObject; var Value: string);
     procedure eFileButtonClick(Sender: TObject);
+
   private
-    FConfig: cEmutecaConfig;
     FSystem: cEmutecaSystem;
-    procedure SetConfig(AValue: cEmutecaConfig);
     procedure SetSystem(AValue: cEmutecaSystem);
 
   protected
-    procedure SaveData;
-    procedure UpdateData;
-    procedure ClearData;
+    procedure ClearData; override;
+
   public
     { public declarations }
     property System: cEmutecaSystem read FSystem write SetSystem;
 
-    property Config: cEmutecaConfig read FConfig write SetConfig;
+    procedure SaveData; override;
+    procedure LoadData; override;
+
+    constructor Create(TheOwner: TComponent); override;
+    destructor Destroy; override;
   end;
 
 implementation
 
 {$R *.lfm}
 
-{ TfmSystemInfoEditor }
+{ TfmSystemImgEditor }
 
-procedure TfmSystemInfoEditor.eSystemImageAcceptFileName(Sender: TObject;
+procedure TfmSystemImgEditor.eSystemImageAcceptFileName(Sender: TObject;
   var Value: string);
 begin
   if FileExistsUTF8(Value) then
     iSystemImage.Picture.LoadFromFile(Value);
 end;
 
-procedure TfmSystemInfoEditor.eFileButtonClick(Sender: TObject);
+procedure TfmSystemImgEditor.eFileButtonClick(Sender: TObject);
 var
   aEFN: TFileNameEdit;
 begin
@@ -71,43 +73,64 @@ begin
   end;
 end;
 
-procedure TfmSystemInfoEditor.eSystemIconAcceptFileName(Sender: TObject;
+procedure TfmSystemImgEditor.eSystemIconAcceptFileName(Sender: TObject;
   var Value: string);
 begin
   if FileExistsUTF8(Value) then
     iSystemIcon.Picture.LoadFromFile(Value);
 end;
 
-procedure TfmSystemInfoEditor.SetSystem(AValue: cEmutecaSystem);
+procedure TfmSystemImgEditor.SetSystem(AValue: cEmutecaSystem);
 begin
   if FSystem = AValue then
     Exit;
   FSystem := AValue;
-  UpdateData;
+
+  LoadData;
+
+  self.Enabled := Assigned(System)
 end;
 
-procedure TfmSystemInfoEditor.SetConfig(AValue: cEmutecaConfig);
+procedure TfmSystemImgEditor.SaveData;
 begin
-  if FConfig = AValue then
+  if not Assigned(System) then
     Exit;
-  FConfig := AValue;
-  UpdateData;
+
+  System.Icon := eSystemIcon.Text;
+  System.Image := eSystemImage.Text;
 end;
 
-procedure TfmSystemInfoEditor.SaveData;
+procedure TfmSystemImgEditor.LoadData;
 begin
-
-end;
-
-procedure TfmSystemInfoEditor.UpdateData;
-begin
-  ClearData;
-
-  if not assigned(System) then
+  if not Assigned(System) then
+  begin
+    ClearData;
     Exit;
+  end;
+
+  eSystemIcon.Text := System.Icon;
+  if FileExistsUTF8(System.Icon) then
+    iSystemIcon.Picture.LoadFromFile(System.Icon)
+  else
+    iSystemIcon.Picture.Clear;
+  eSystemImage.Text := System.Image;
+  if FileExistsUTF8(System.Image) then
+    iSystemImage.Picture.LoadFromFile(System.Image)
+  else
+    iSystemImage.Picture.Clear;
 end;
 
-procedure TfmSystemInfoEditor.ClearData;
+constructor TfmSystemImgEditor.Create(TheOwner: TComponent);
+begin
+  inherited Create(TheOwner);
+end;
+
+destructor TfmSystemImgEditor.Destroy;
+begin
+  inherited Destroy;
+end;
+
+procedure TfmSystemImgEditor.ClearData;
 begin
   eSystemImage.Clear;
   iSystemImage.Picture.Clear;

@@ -77,6 +77,7 @@ type
     FZone: string;
     function GetDataString: string;
     function GetSortTitle: string;
+    function GetTitle: string;
     function GetTranslitTitle: string;
     procedure SetCracked(AValue: string);
     procedure SetDataString(AValue: string);
@@ -117,6 +118,13 @@ type
       Operation: TFPObservedOperation; Data: Pointer);
     {< Group or system has changed. }
 
+    function GetActualTitle: string;
+    //< Gets actual SortTitle string, not inherited from group or automade
+    function GetActualSortTitle: string;
+    //< Gets actual SortTitle string, not inherited from group or automade
+    function GetActualTranslitTitle: string;
+     //< Gets actual TranslitTitle string, not inherited from group or automade
+
     procedure LoadFromFileTxt(TxtFile: TStrings); override;
     procedure SaveToFileTxt(TxtFile: TStrings; const ExportMode: boolean);
       override;
@@ -133,7 +141,7 @@ type
     {< Folder or archive where the file is in. }
     property FileName: string read FFileName write SetFileName;
     {< Filename (or file inside and archive).}
-    property Title: string read FTitle write SetTitle;
+    property Title: string read GetTitle write SetTitle;
     {< Title. }
 
     property GroupKey: string read FGroupKey;
@@ -262,18 +270,26 @@ function cEmutecaSoftware.GetSortTitle: string;
 begin
   Result := FSortTitle;
   if Result <> '' then
+    Exit;
+
+  Result := UTF8LowerString(TranslitTitle);
+  if Result <> '' then
+    Exit;
+
+  // Surely never execute this...
+  Result := UTF8LowerString(Title);
+end;
+
+function cEmutecaSoftware.GetTitle: string;
+begin
+  Result := FTitle;
+  if Result <> '' then
     exit;
 
-  if Assigned(Group) and (UTF8CompareText(Title, Group.Title) = 0) then
-  begin
-    Result := UTF8LowerString(Group.ID);
-  end
+  if Assigned(Group) then
+    Result := Group.Title
   else
-  begin
-    Result := UTF8LowerString(TranslitTitle);
-    if Result = '' then
-      Result := UTF8LowerString(Title);
-  end;
+    Result := GroupKey;
 end;
 
 function cEmutecaSoftware.GetTranslitTitle: string;
@@ -282,14 +298,7 @@ begin
   if Result <> '' then
     exit;
 
-  if Assigned(Group) and (UTF8CompareText(Title, Group.Title) = 0) then
-  begin
-    Result := Group.ID;
-  end
-  else
-  begin
-      Result := Title;
-  end;
+  Result := Title;
 end;
 
 procedure cEmutecaSoftware.SetCracked(AValue: string);
@@ -372,9 +381,27 @@ begin
   end;
 end;
 
+function cEmutecaSoftware.GetActualTitle: string;
+begin
+  Result:=FTitle;
+end;
+
+function cEmutecaSoftware.GetActualSortTitle: string;
+begin
+  Result:=FSortTitle;
+end;
+
+function cEmutecaSoftware.GetActualTranslitTitle: string;
+begin
+ Result:=FTranslitTitle;
+end;
+
 procedure cEmutecaSoftware.SetSortTitle(AValue: string);
 begin
-  FSortTitle := UTF8LowerString(AValue);
+  if UTF8CompareText(AValue, TranslitTitle) = 0 then
+    FSortTitle := ''
+  else
+    FSortTitle := UTF8LowerString(AValue);
 end;
 
 procedure cEmutecaSoftware.SetSystem(AValue: cEmutecaSystem);
@@ -398,9 +425,10 @@ end;
 
 procedure cEmutecaSoftware.SetTranslitTitle(AValue: string);
 begin
-  if FTranslitTitle = AValue then
-    Exit;
-  FTranslitTitle := AValue;
+  if AValue = Title then
+    FTranslitTitle := ''
+  else
+    FTranslitTitle := AValue;
 end;
 
 procedure cEmutecaSoftware.SetFileName(AValue: string);
@@ -479,7 +507,11 @@ procedure cEmutecaSoftware.SetTitle(AValue: string);
 begin
   if FTitle = AValue then
     Exit;
-  FTitle := AValue;
+
+  if Assigned(Group) and (UTF8CompareText(AValue, Group.Title) = 0) then
+    FTitle := ''
+  else
+    FTitle := AValue;
 end;
 
 procedure cEmutecaSoftware.SetTrainer(AValue: string);
@@ -573,7 +605,7 @@ begin
   TxtFile.Add(ID);
   TxtFile.Add(Folder);
   TxtFile.Add(FileName);
-  TxtFile.Add(Title);
+  TxtFile.Add(GetActualTitle);
 
   if assigned(Group) then
     TxtFile.Add(Group.ID)
@@ -589,8 +621,8 @@ begin
 
   // Additional title info
   // ---------------------
-  TxtFile.Add(TranslitTitle);
-  TxtFile.Add(SortTitle);
+  TxtFile.Add(GetActualTranslitTitle);
+  TxtFile.Add(GetActualSortTitle);
   TxtFile.Add(''); // Reserved
 
   // Release data

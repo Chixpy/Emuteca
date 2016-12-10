@@ -20,7 +20,7 @@ type
   private
     FEmuteca: cEmuteca;
     FSysEditor: TfmEmutecaSystemEditor;
-    FSysInfoEditor: TfmSystemInfoEditor;
+    FSysImgEditor: TfmSystemImgEditor;
     FSystem: cEmutecaSystem;
     procedure SetEmuteca(AValue: cEmuteca);
     procedure SetSystem(AValue: cEmutecaSystem);
@@ -29,7 +29,7 @@ type
   protected
     procedure ClearData; override;
     property SysEditor: TfmEmutecaSystemEditor read FSysEditor;
-    property SysInfoEditor: TfmSystemInfoEditor read FSysInfoEditor;
+    property SysImgEditor: TfmSystemImgEditor read FSysImgEditor;
 
   public
     { public declarations }
@@ -66,6 +66,8 @@ begin
     SysEditor.EmuManager := Emuteca.EmulatorManager;
     SysEditor.Config := Emuteca.Config;
   end;
+
+  Self.Enabled := Assigned(Emuteca) and Assigned(System);
 end;
 
 procedure TfmLEmuTKFullSystemEditor.SetSystem(AValue: cEmutecaSystem);
@@ -74,16 +76,20 @@ begin
     Exit;
   FSystem := AValue;
   SysEditor.System := Self.System;
+  SysImgEditor.System := Self.System;
+
+  Self.Enabled := Assigned(Emuteca) and Assigned(System);
 end;
 
 procedure TfmLEmuTKFullSystemEditor.ClearData;
 begin
-
+  // Do nothing, frames do this.
 end;
 
 procedure TfmLEmuTKFullSystemEditor.SaveData;
 begin
   SysEditor.SaveData;
+  SysImgEditor.SaveData;
 end;
 
 procedure TfmLEmuTKFullSystemEditor.LoadData;
@@ -91,6 +97,7 @@ begin
   ClearData;
 
   SysEditor.LoadData;
+  SysImgEditor.LoadData;
 end;
 
 constructor TfmLEmuTKFullSystemEditor.Create(TheOwner: TComponent);
@@ -101,15 +108,17 @@ constructor TfmLEmuTKFullSystemEditor.Create(TheOwner: TComponent);
   begin
     aTabSheet := pcProperties.AddTabSheet;
     FSysEditor := TfmEmutecaSystemEditor.Create(aTabSheet);
-    SysEditor.Parent := aTabSheet;
     SysEditor.SaveButtons := False;
+    SysEditor.ButtonClose := False;
     SysEditor.Align := alClient;
+    SysEditor.Parent := aTabSheet;
 
     aTabSheet := pcProperties.AddTabSheet;
-    FSysInfoEditor := TfmSystemInfoEditor.Create(aTabSheet);
-    SysInfoEditor.Parent := aTabSheet;
-    //    SysInfoEditor.SaveButtons := False;
-    SysInfoEditor.Align := alClient;
+    FSysImgEditor := TfmSystemImgEditor.Create(aTabSheet);
+    SysImgEditor.SaveButtons := False;
+    SysImgEditor.ButtonClose := False;
+    SysImgEditor.Align := alClient;
+    SysImgEditor.Parent := aTabSheet;
   end;
 
 begin

@@ -33,7 +33,8 @@ type
       read FSystemList write SetSystemList;
     {< List of systems observed. }
 
-    property SelectedSystem: cEmutecaSystem read FSelectedSystem write SetSelectedSystem;
+    property SelectedSystem: cEmutecaSystem
+      read FSelectedSystem write SetSelectedSystem;
     {< Returns current selected system or select it in cbx. }
 
     property OnSelectSystem: TEmutecaReturnSystemCB
@@ -74,11 +75,9 @@ procedure TfmEmutecaSystemCBX.FPOObservedChanged(ASender: TObject;
   Operation: TFPObservedOperation; Data: Pointer);
 begin
   case Operation of
-    ooChange: UpdateSystems;
     ooFree: SystemList := nil;
-    ooAddItem: UpdateSystems; // TODO: Quick add Item
-    ooDeleteItem: UpdateSystems; // TODO: Quick delete Item
-    ooCustom: UpdateSystems;
+    else
+      UpdateSystems; // TODO: Quick add or delete Item
   end;
 end;
 
@@ -98,7 +97,8 @@ end;
 procedure TfmEmutecaSystemCBX.cbxSystemChange(Sender: TObject);
 begin
   if cbxSystem.ItemIndex <> -1 then
-    SelectedSystem := cEmutecaSystem(cbxSystem.Items.Objects[cbxSystem.ItemIndex])
+    SelectedSystem := cEmutecaSystem(
+      cbxSystem.Items.Objects[cbxSystem.ItemIndex])
   else
     SelectedSystem := nil;
 
@@ -116,12 +116,13 @@ end;
 
 procedure TfmEmutecaSystemCBX.SetSelectedSystem(AValue: cEmutecaSystem);
 var
-  aPos: Integer;
+  aPos: integer;
 begin
-  if FSelectedSystem = AValue then Exit;
+  if FSelectedSystem = AValue then
+    Exit;
   FSelectedSystem := AValue;
 
-    if not assigned(SelectedSystem) then
+  if not assigned(SelectedSystem) then
   begin
     cbxSystem.ItemIndex := -1;
     Exit;
@@ -131,10 +132,8 @@ begin
   if aPos = -1 then
   begin
     // Uhm....
-    cbxSystem.ItemIndex :=
-      cbxSystem.Items.AddObject(SelectedSystem.Title, SelectedSystem);
-  end
-  else
+    aPos := cbxSystem.Items.AddObject(SelectedSystem.Title, SelectedSystem);
+  end ;
     cbxSystem.ItemIndex := aPos;
 end;
 

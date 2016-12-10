@@ -451,11 +451,14 @@ begin
   aFrame := TfmLEmuTKSysManager.Create(aForm);
   aForm.Caption := Format(rsFmtWindowCaption,
     [Application.Title, aFrame.Caption]);
-  aFrame.Align := alClient;
+
 
   aFrame.IconsIni := GUIConfig.GUIIcnFile;
   aFrame.Emuteca := Emuteca;
+  aFrame.SaveButtons := True;
+  aFrame.ButtonClose := True;
 
+  aFrame.Align := alClient;
   aFrame.Parent := aForm;
 
   aForm.ShowModal;

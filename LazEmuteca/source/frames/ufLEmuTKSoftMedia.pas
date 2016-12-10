@@ -18,7 +18,7 @@ type
     FSoftware: cEmutecaSoftware;
     procedure SetGameGroup(AValue: cEmutecaGroup);
     procedure SetSoftware(AValue: cEmutecaSoftware);
-    { private declarations }
+
   public
     { public declarations }
 

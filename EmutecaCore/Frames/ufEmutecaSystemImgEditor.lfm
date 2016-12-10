@@ -1,23 +1,30 @@
-object fmSystemInfoEditor: TfmSystemInfoEditor
-  Left = 0
+inherited fmSystemImgEditor: TfmSystemImgEditor
   Height = 400
-  Top = 0
   Width = 600
-  Align = alTop
-  AutoSize = True
   ClientHeight = 400
   ClientWidth = 600
-  TabOrder = 0
   DesignLeft = 466
   DesignTop = 188
-  object gbxImages: TGroupBox
+  inherited pButtons: TPanel
+    Top = 373
+    Width = 600
+    ClientWidth = 600
+    TabOrder = 1
+    inherited bSave: TBitBtn
+      Left = 150
+    end
+    inherited bCancel: TBitBtn
+      Left = 370
+    end
+  end
+  object gbxImages: TGroupBox[1]
     Left = 0
-    Height = 400
+    Height = 373
     Top = 0
     Width = 154
     Align = alLeft
     Caption = 'gbxImages'
-    ClientHeight = 380
+    ClientHeight = 353
     ClientWidth = 150
     TabOrder = 0
     object lSystemImage: TLabel
@@ -92,7 +99,12 @@ object fmSystemInfoEditor: TfmSystemInfoEditor
       Center = True
       Proportional = True
       Stretch = True
+      StretchOutEnabled = False
       Transparent = True
     end
+  end
+  inherited alPropEditor: TActionList[2]
+  end
+  inherited ilPropEditor: TImageList[3]
   end
 end

@@ -26,12 +26,11 @@ type
     FEmuteca: cEmuteca;
     FSysEditor: TfmLEmuTKFullSystemEditor;
     procedure SetEmuteca(AValue: cEmuteca);
-    procedure SetSysEditor(AValue: TfmLEmuTKFullSystemEditor);
 
   protected
     procedure ClearData; override;
     property SysEditor: TfmLEmuTKFullSystemEditor
-      read FSysEditor write SetSysEditor;
+      read FSysEditor;
 
     procedure AddItemToList; override;
     procedure DeleteItemFromList; override;
@@ -57,21 +56,12 @@ implementation
 
 { TfmLEmuTKSysManager }
 
-procedure TfmLEmuTKSysManager.SetSysEditor(AValue: TfmLEmuTKFullSystemEditor);
-begin
-  if FSysEditor = AValue then
-    Exit;
-  FSysEditor := AValue;
-
-  if Assigned(SysEditor) then
-    SysEditor.Emuteca := Emuteca;
-end;
-
 procedure TfmLEmuTKSysManager.ClearData;
 begin
   inherited ClearData;
 
   SysEditor.System := nil;
+  clbPropItems.Clear;
 end;
 
 procedure TfmLEmuTKSysManager.SetCheckedAll(aBool: Boolean);
@@ -99,8 +89,8 @@ begin
 
   LoadData;
 
-  if Assigned(SysEditor) then
-    SysEditor.Emuteca := Emuteca;
+  self.Enabled := Assigned(Emuteca);
+  SysEditor.Emuteca := Emuteca;
 end;
 
 procedure TfmLEmuTKSysManager.OnListClick(aObject: TObject);
@@ -185,6 +175,8 @@ procedure TfmLEmuTKSysManager.LoadData;
 var
   i: integer;
 begin
+  ClearData;
+
   if not assigned(Emuteca) then
     Exit;
 
@@ -212,6 +204,8 @@ begin
   inherited Create(TheOwner);
 
   FSysEditor := TfmLEmuTKFullSystemEditor.Create(Self);
+  SysEditor.SaveButtons := True;
+  SysEditor.ButtonClose := False;
   SysEditor.Align := alClient;
   SysEditor.Parent := Self;
 end;

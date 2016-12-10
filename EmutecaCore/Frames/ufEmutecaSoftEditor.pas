@@ -77,7 +77,7 @@ type
     procedure LoadData; override;
     procedure SaveData; override;
 
-        procedure SelectGroupByID(aGroupKey: string);
+    procedure SelectGroupByID(aGroupKey: string);
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -133,13 +133,12 @@ end;
 
 function TfmEmutecaSoftEditor.SelectSystem(aSystem: cEmutecaSystem): boolean;
 begin
-  // TODO: We need to update Parent list
-  Result := False;
+  Result := True;
 end;
 
 function TfmEmutecaSoftEditor.SelectGroup(aGroup: cEmutecaGroup): boolean;
 begin
-  Result := False;
+  Result := True;
 end;
 
 procedure TfmEmutecaSoftEditor.ClearData;
@@ -173,11 +172,9 @@ procedure TfmEmutecaSoftEditor.FPOObservedChanged(ASender: TObject;
   Operation: TFPObservedOperation; Data: Pointer);
 begin
   case Operation of
-    ooChange: LoadData;
-    ooFree: Software := nil;
-    ooAddItem: LoadData;
-    ooDeleteItem: LoadData;
-    ooCustom: LoadData;
+    ooFree: Software := nil
+    else
+      LoadData;
   end;
 end;
 
@@ -189,12 +186,15 @@ begin
     Exit;
   end;
 
-    cbxSystem.SelectedSystem := Software.System;
-   cbxGroup.SelectedGroup := Software.Group;
+  cbxSystem.SelectedSystem := Software.System;
+  if assigned(Software.Group) then
+    cbxGroup.SelectedGroup := Software.Group
+  else
+    cbxGroup.SelectGroupByID(Software.GroupKey);
 
   eTitle.Text := Software.Title;
-  eSortKey.Text := Software.SortTitle;
-  eTransTitle.Text := Software.TranslitTitle;
+  eSortKey.Text := Software.GetActualSortTitle;
+  eTransTitle.Text := Software.GetActualTranslitTitle;
 
   eVersion.Text := Software.Version;
   eYear.Text := Software.Year;
@@ -223,19 +223,27 @@ begin
 end;
 
 procedure TfmEmutecaSoftEditor.SaveData;
+var
+  aGroup: cEmutecaGroup;
 begin
   if not assigned(Software) then
     Exit;
 
   Software.System := cbxSystem.SelectedSystem;
 
-  if assigned(cbxGroup.SelectedGroup) then
+  if Assigned(cbxGroup.SelectedGroup) then
   begin
     Software.Group := cbxGroup.SelectedGroup;
   end
   else
   begin
-    { TODO : Create the new group }
+    { TODO : I don't like this way,
+      must be done in ufEmutecaGroupCBX }
+    aGroup := cEmutecaGroup.Create(nil);
+    aGroup.ID := cbxGroup.cbxGroup.Text;
+    aGroup.Title := aGroup.ID;
+    Software.Group := aGroup;
+    Emuteca.GroupManager.FullList.Add(aGroup);
   end;
 
   Software.Title := eTitle.Text;
@@ -270,7 +278,7 @@ end;
 
 procedure TfmEmutecaSoftEditor.SelectGroupByID(aGroupKey: string);
 begin
-
+  cbxGroup.SelectGroupByID(aGroupKey);
 end;
 
 constructor TfmEmutecaSoftEditor.Create(TheOwner: TComponent);
