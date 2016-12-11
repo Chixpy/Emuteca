@@ -1,0 +1,43 @@
+object fmLEmuTKPreviewList: TfmLEmuTKPreviewList
+  Left = 0
+  Height = 287
+  Top = 0
+  Width = 288
+  ClientHeight = 287
+  ClientWidth = 288
+  TabOrder = 0
+  DesignLeft = 551
+  DesignTop = 246
+  object tbPreviewList: TToolBar
+    Left = 0
+    Height = 26
+    Top = 261
+    Width = 288
+    Align = alBottom
+    Caption = 'tbPreviewList'
+    Images = ilPreviewList
+    TabOrder = 0
+    object tbOpen: TToolButton
+      Left = 1
+      Top = 2
+      Caption = 'tbOpen'
+    end
+    object ToolButton2: TToolButton
+      Left = 24
+      Height = 22
+      Top = 2
+      Width = 8
+      Caption = 'ToolButton2'
+      Style = tbsSeparator
+    end
+  end
+  object ilPreviewList: TImageList
+    left = 232
+    top = 160
+  end
+  object alPreviewList: TActionList
+    Images = ilPreviewList
+    left = 232
+    top = 216
+  end
+end

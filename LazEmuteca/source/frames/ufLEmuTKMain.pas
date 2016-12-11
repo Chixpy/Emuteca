@@ -102,6 +102,7 @@ begin
   FGUIIconsIni := AValue;
 
   ReadActionsIcons(GUIIconsIni, Self.Name, ilActImages, ActionList1);
+
 end;
 
 procedure TfmLEmuTKMain.SetIconList(AValue: cCHXImageList);

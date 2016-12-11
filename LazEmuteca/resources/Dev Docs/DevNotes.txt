@@ -42,28 +42,28 @@ Not sure Pros/Cons:
 
 (0.8) Sorting and Trasliteration of game names
 ----------------------------------------------
-Initially they were properties of GameClone and GameParent (and the same thing),
-but is better to make external dictionaries (less wasted space, faster reading?,
-etc.).
 
 Game Clone data
 ---------------
   * Basic info (Stored straight in db) for listings:
     * ID
     * Title
-    * Version/Description (and release type: beta, alpha, proto)
+    * Version (and release type: beta, alpha, proto)
+    * DumpStatus (TOSEC)
+    * Year
+    * Zone
+    * Publisher
     * Parent
     * Path/Folder/zip/7z
     * FileName
 
   * Stored as tags:
-    * Year of publication
-    * Publisher/developer
-    * Zones
+    * Year of developing
+    * Developer
 
   * Additional (This maybe loaded from an external file, but some seems to be
     useful in main list...)
-    * TOSEC (hacking info)
+    * TOSEC (Languages)
     * Tags (Generic categorization info, remember: Language, License)
     * User info
       * Rating

@@ -5,7 +5,7 @@ unit ufLEmuTKSoftMedia;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls,
+  Classes, SysUtils, FileUtil, Forms, Controls, StdCtrls,
   ucEmutecaGroup, ucEmutecaSoftware;
 
 type
@@ -25,7 +25,7 @@ type
     property GameGroup: cEmutecaGroup read FGameGroup write SetGameGroup;
     property Software: cEmutecaSoftware read FSoftware write SetSoftware;
 
-                  constructor Create(TheOwner: TComponent); override;
+    constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
   end;
 
@@ -37,19 +37,30 @@ implementation
 
 procedure TfmLEmuTKSoftMedia.SetGameGroup(AValue: cEmutecaGroup);
 begin
-  if FGameGroup = AValue then Exit;
+  if FGameGroup = AValue then
+    Exit;
   FGameGroup := AValue;
 end;
 
 procedure TfmLEmuTKSoftMedia.SetSoftware(AValue: cEmutecaSoftware);
 begin
-  if FSoftware = AValue then Exit;
+  if FSoftware = AValue then
+    Exit;
   FSoftware := AValue;
 end;
 
 constructor TfmLEmuTKSoftMedia.Create(TheOwner: TComponent);
+  procedure CreateFrames;
+  begin
+
+  end;
+
 begin
   inherited Create(TheOwner);
+
+  Self.Enabled := False;
+
+  CreateFrames;
 end;
 
 destructor TfmLEmuTKSoftMedia.Destroy;
@@ -58,4 +69,3 @@ begin
 end;
 
 end.
-

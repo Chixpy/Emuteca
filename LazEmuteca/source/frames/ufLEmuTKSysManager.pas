@@ -28,10 +28,12 @@ type
     procedure SetEmuteca(AValue: cEmuteca);
 
   protected
-    procedure ClearData; override;
+
     property SysEditor: TfmLEmuTKFullSystemEditor
       read FSysEditor;
 
+    procedure ClearData; override;
+    procedure SetIconsIni(AValue: string); override;
     procedure AddItemToList; override;
     procedure DeleteItemFromList; override;
     procedure ExportList; override;
@@ -62,6 +64,12 @@ begin
 
   SysEditor.System := nil;
   clbPropItems.Clear;
+end;
+
+procedure TfmLEmuTKSysManager.SetIconsIni(AValue: string);
+begin
+  inherited SetIconsIni(AValue);
+  SysEditor.IconsIni := self.IconsIni;
 end;
 
 procedure TfmLEmuTKSysManager.SetCheckedAll(aBool: Boolean);

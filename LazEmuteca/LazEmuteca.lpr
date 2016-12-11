@@ -22,7 +22,7 @@ uGUIConfig,
 ufEmutecaSystemEditor, ufLEmuTKFullSystemEditor, ufCHXChkLstPropEditor, 
 ufLEmuTKSysManager, ufLEmuTKEmuManager, ufEmutecaSoftEditor, 
 ufLEmuTKFullEmuEditor, ufEmutecaEmulatorEditor, ufLEmuTKSoftMedia, 
-ufEmutecaActAddSoft, ufLEmuTKMain;
+ufEmutecaActAddSoft, ufLEmuTKMain, ufLEmuTKPreviewList, ufCHXImgViewer;
 
 {$R *.res}
 

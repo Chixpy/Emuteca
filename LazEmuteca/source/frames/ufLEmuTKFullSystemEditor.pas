@@ -27,9 +27,11 @@ type
     { private declarations }
 
   protected
-    procedure ClearData; override;
     property SysEditor: TfmEmutecaSystemEditor read FSysEditor;
     property SysImgEditor: TfmSystemImgEditor read FSysImgEditor;
+
+    procedure ClearData; override;
+    procedure SetIconsIni(AValue: string); override;
 
   public
     { public declarations }
@@ -84,6 +86,14 @@ end;
 procedure TfmLEmuTKFullSystemEditor.ClearData;
 begin
   // Do nothing, frames do this.
+end;
+
+procedure TfmLEmuTKFullSystemEditor.SetIconsIni(AValue: string);
+begin
+  inherited SetIconsIni(AValue);
+
+  SysEditor.IconsIni := self.IconsIni;
+  SysImgEditor.IconsIni := self.IconsIni;
 end;
 
 procedure TfmLEmuTKFullSystemEditor.SaveData;

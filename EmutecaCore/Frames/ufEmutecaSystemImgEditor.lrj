@@ -1,5 +1,6 @@
 {"version":1,"strings":[
 {"hash":218304595,"name":"tfmsystemimgeditor.gbximages.caption","sourcebytes":[103,98,120,73,109,97,103,101,115],"value":"gbxImages"},
 {"hash":184589669,"name":"tfmsystemimgeditor.lsystemimage.caption","sourcebytes":[83,121,115,116,101,109,32,73,109,97,103,101],"value":"System Image"},
-{"hash":196080894,"name":"tfmsystemimgeditor.lsystemicon.caption","sourcebytes":[83,121,115,116,101,109,32,73,99,111,110],"value":"System Icon"}
+{"hash":196080894,"name":"tfmsystemimgeditor.lsystemicon.caption","sourcebytes":[83,121,115,116,101,109,32,73,99,111,110],"value":"System Icon"},
+{"hash":231445278,"name":"tfmsystemimgeditor.isystemimage.hint","sourcebytes":[83,121,115,116,101,109,32,105,109,97,103,101,124,68,98,108,67,108,107,58,32,79,112,101,110,32,105,110,32,73,109,97,103,101,32,118,105,101,119,101,114,46],"value":"System image|DblClk: Open in Image viewer."}
 ]}

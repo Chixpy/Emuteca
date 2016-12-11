@@ -82,10 +82,12 @@ inherited fmSystemImgEditor: TfmSystemImgEditor
     object iSystemImage: TImage
       Left = 0
       Height = 150
+      Hint = 'System image|DblClk: Open in Image viewer.'
       Top = 38
       Width = 150
       Align = alTop
       Center = True
+      OnDblClick = iSystemImageDblClick
       Proportional = True
       Stretch = True
       Transparent = True

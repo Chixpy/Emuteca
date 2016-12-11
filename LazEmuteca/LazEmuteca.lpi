@@ -93,7 +93,7 @@
         <PackageName Value="LCL"/>
       </Item6>
     </RequiredPackages>
-    <Units Count="78">
+    <Units Count="80">
       <Unit0>
         <Filename Value="LazEmuteca.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -493,8 +493,23 @@
         <Filename Value="source\frames\ufLEmuTKMain.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fmLEmuTKMain"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
       </Unit77>
+      <Unit78>
+        <Filename Value="source\frames\ufLEmuTKPreviewList.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fmLEmuTKPreviewList"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+      </Unit78>
+      <Unit79>
+        <Filename Value="..\CHXPas\Frames\ufCHXImgViewer.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fmCHXImgViewer"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+      </Unit79>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

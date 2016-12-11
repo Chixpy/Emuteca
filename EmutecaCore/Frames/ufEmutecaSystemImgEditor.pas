@@ -5,8 +5,10 @@ unit ufEmutecaSystemImgEditor;
 interface
 
 uses
-  Classes, SysUtils, LazFileUtils, Forms, Controls, StdCtrls, EditBtn, ExtCtrls,
-  uCHXStrUtils, ufCHXPropEditor,
+  Classes, SysUtils, LazFileUtils, Forms, Controls, StdCtrls,
+  EditBtn, ExtCtrls,
+  uCHXStrUtils,
+  ufCHXPropEditor, ufCHXImageViewer,
   ucEmutecaConfig, ucEmutecaSystem;
 
 type
@@ -24,6 +26,7 @@ type
     procedure eSystemIconAcceptFileName(Sender: TObject; var Value: string);
     procedure eSystemImageAcceptFileName(Sender: TObject; var Value: string);
     procedure eFileButtonClick(Sender: TObject);
+    procedure iSystemImageDblClick(Sender: TObject);
 
   private
     FSystem: cEmutecaSystem;
@@ -68,9 +71,24 @@ begin
   else
   begin
     if Assigned(System) then
-      aEFN.InitialDir := ExtractFileDir(TrimFilename(System.BaseFolder +
-        SysPath(aEFN.FileName)));
+      aEFN.InitialDir := ExtractFileDir(
+        TrimFilename(System.BaseFolder + SysPath(aEFN.FileName)));
   end;
+end;
+
+procedure TfmSystemImgEditor.iSystemImageDblClick(Sender: TObject);
+begin
+  if not FileExistsUTF8(System.Image) then
+    Exit;
+
+  if not assigned(frmCHXImageViewer) then
+    Application.CreateForm(TfrmCHXImageViewer, frmCHXImageViewer);
+
+  frmCHXImageViewer.IconsIniFile := Self.IconsIni;
+  frmCHXImageViewer.AddImage(System.Image);
+  frmCHXImageViewer.ShowModal;
+
+  FreeAndNil(frmCHXImageViewer);
 end;
 
 procedure TfmSystemImgEditor.eSystemIconAcceptFileName(Sender: TObject;
@@ -88,7 +106,7 @@ begin
 
   LoadData;
 
-  self.Enabled := Assigned(System)
+  self.Enabled := Assigned(System);
 end;
 
 procedure TfmSystemImgEditor.SaveData;
