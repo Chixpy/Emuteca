@@ -23,7 +23,8 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="8"/>
-      <BuildNr Value="95"/>
+      <BuildNr Value="96"/>
+      <StringTable ProductVersion="0.8.0.95"/>
     </VersionInfo>
     <BuildModes Count="2">
       <Item1 Name="Debug" Default="True"/>
@@ -93,7 +94,7 @@
         <PackageName Value="LCL"/>
       </Item6>
     </RequiredPackages>
-    <Units Count="80">
+    <Units Count="82">
       <Unit0>
         <Filename Value="LazEmuteca.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -510,6 +511,20 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
       </Unit79>
+      <Unit80>
+        <Filename Value="source\frames\ufLEmuTKSoftImgPreview.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fmLEmuTKSoftImgPreview"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+      </Unit80>
+      <Unit81>
+        <Filename Value="source\frames\ufLEmuTKSoftTxtPreview.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fmLEmuTKSoftTxtPreview"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+      </Unit81>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

@@ -1,5 +1,11 @@
 {"version":1,"strings":[
 {"hash":96320532,"name":"tfmlemutkpreviewlist.tbpreviewlist.caption","sourcebytes":[116,98,80,114,101,118,105,101,119,76,105,115,116],"value":"tbPreviewList"},
-{"hash":128411326,"name":"tfmlemutkpreviewlist.tbopen.caption","sourcebytes":[116,98,79,112,101,110],"value":"tbOpen"},
-{"hash":160486418,"name":"tfmlemutkpreviewlist.toolbutton2.caption","sourcebytes":[84,111,111,108,66,117,116,116,111,110,50],"value":"ToolButton2"}
+{"hash":12592,"name":"tfmlemutkpreviewlist.lmaxitems.caption","sourcebytes":[47,32,48],"value":"/ 0"},
+{"hash":160486417,"name":"tfmlemutkpreviewlist.toolbutton1.caption","sourcebytes":[84,111,111,108,66,117,116,116,111,110,49],"value":"ToolButton1"},
+{"hash":160486422,"name":"tfmlemutkpreviewlist.toolbutton6.caption","sourcebytes":[84,111,111,108,66,117,116,116,111,110,54],"value":"ToolButton6"},
+{"hash":174316077,"name":"tfmlemutkpreviewlist.actfirstitem.caption","sourcebytes":[70,105,114,115,116,32,105,116,101,109],"value":"First item"},
+{"hash":198957709,"name":"tfmlemutkpreviewlist.actpreviousitem.caption","sourcebytes":[80,114,101,118,105,111,117,115,32,105,116,101,109],"value":"Previous item"},
+{"hash":258432637,"name":"tfmlemutkpreviewlist.actnextitem.caption","sourcebytes":[78,101,120,116,32,105,116,101,109],"value":"Next item"},
+{"hash":174544957,"name":"tfmlemutkpreviewlist.actlastitem.caption","sourcebytes":[76,97,115,116,32,105,116,101,109],"value":"Last item"},
+{"hash":201809117,"name":"tfmlemutkpreviewlist.actopenitem.caption","sourcebytes":[79,112,101,110,32,105,116,101,109],"value":"Open item"}
 ]}

@@ -12,3 +12,13 @@ mjames@gmail.com (or click the donate button available at
 http://www.famfamfam.com/lab/icons/silk)
 
 Contact: mjames@gmail.com
+
+---------------------
+
+xw.png
+  Wikipedia's John McConnell's Earth Day flag, based on this photograph
+  https://commons.wikimedia.org/wiki/File:Earth_Day_Flag.png
+  320x213px thumb
+  Used for world wide publications.
+  'XW' used as ISO3166-1 alpha-2 User-assigned code (I prefer 'WW'...)
+  I prefer https://commons.wikimedia.org/wiki/File:Flag_of_Earth.svg , too 

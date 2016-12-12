@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, ExtCtrls, StdCtrls, ComCtrls,
   ActnList,
   // CHX
-  uCHXImageUtils, ucCHXImageList,
+  uCHXStrUtils, uCHXImageUtils, ucCHXImageList,
     // CHX frames
   ufCHXTagTree,
   // Emuteca clases
@@ -43,14 +43,14 @@ type
     FfmEmutecaSoftList: TfmEmutecaIcnSoftList;
     FfmEmutecaSystemCBX: TfmEmutecaSystemCBX;
     FfmSoftMedia: TfmLEmuTKSoftMedia;
-    FGUIIconsIni: string;
+    FGUIIconsIni: TFilename;
     FIconList: cCHXImageList;
     FDumpIcons: cCHXImageList;
     FZoneIcons: cCHXImageMap;
     procedure SetEmuteca(AValue: cEmuteca);
     procedure SetfmEmutecaSoftEditor(AValue: TfmEmutecaSoftEditor);
     procedure SetfmSoftMedia(AValue: TfmLEmuTKSoftMedia);
-    procedure SetGUIIconsIni(AValue: string);
+    procedure SetGUIIconsIni(AValue: TFilename);
     procedure SetIconList(AValue: cCHXImageList);
     procedure SetDumpIcons(AValue: cCHXImageList);
     procedure SetZoneIcons(AValue: cCHXImageMap);
@@ -76,7 +76,7 @@ type
     //< Run a software
 
   public
-    property GUIIconsIni: string read FGUIIconsIni write SetGUIIconsIni;
+    property GUIIconsIni: TFilename read FGUIIconsIni write SetGUIIconsIni;
     property IconList: cCHXImageList read FIconList write SetIconList;
     // Icons for parents, soft, systems and emulators
     property DumpIcons: cCHXImageList read FDumpIcons write SetDumpIcons;
@@ -95,14 +95,13 @@ implementation
 
 { TfmLEmuTKMain }
 
-procedure TfmLEmuTKMain.SetGUIIconsIni(AValue: string);
+procedure TfmLEmuTKMain.SetGUIIconsIni(AValue: TFilename);
 begin
-  if FGUIIconsIni = AValue then
-    Exit;
-  FGUIIconsIni := AValue;
+  FGUIIconsIni := SetAsFile(AValue);
 
   ReadActionsIcons(GUIIconsIni, Self.Name, ilActImages, ActionList1);
 
+  fmSoftMedia.IconsIni := GUIIconsIni;
 end;
 
 procedure TfmLEmuTKMain.SetIconList(AValue: cCHXImageList);
@@ -148,6 +147,7 @@ function TfmLEmuTKMain.SelectSoftware(aSoftware: cEmutecaSoftware): boolean;
 begin
   Result := True;
   fmEmutecaSoftEditor.Software := aSoftware;
+  fmSoftMedia.Software := aSoftware;
 end;
 
 function TfmLEmuTKMain.RunSoftware(aSoftware: cEmutecaSoftware): boolean;

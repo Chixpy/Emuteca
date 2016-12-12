@@ -6,24 +6,38 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, StdCtrls, ComCtrls, ActnList,
-  uCHXImageUtils;
+  Spin, Buttons, ExtCtrls,
+  uCHXStrUtils, uCHXImageUtils;
 
 type
 
   { TfmLEmuTKPreviewList }
 
   TfmLEmuTKPreviewList = class(TFrame)
+    actFirstItem: TAction;
+    actOpenItem: TAction;
+    actLastItem: TAction;
+    actNextItem: TAction;
+    actPreviousItem: TAction;
     alPreviewList: TActionList;
+    esCurrItem: TSpinEdit;
     ilPreviewList: TImageList;
+    lMaxItems: TLabel;
     tbPreviewList: TToolBar;
-    tbOpen: TToolButton;
-    ToolButton2: TToolButton;
+    ToolButton1: TToolButton;
+    tbFirstItem: TToolButton;
+    ToolButton3: TToolButton;
+    tbNextItem: TToolButton;
+    tbLastItem: TToolButton;
+    ToolButton6: TToolButton;
+    tbOpenItem: TToolButton;
+
   private
-    FIconsIni: string;
-    procedure SetIconsIni(AValue: string);
+    FIconsIni: TFilename;
+    procedure SetIconsIni(AValue: TFilename);
 
   public
-    property IconsIni: string read FIconsIni write SetIconsIni;
+    property IconsIni: TFilename read FIconsIni write SetIconsIni;
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -35,12 +49,9 @@ implementation
 
 { TfmLEmuTKPreviewList }
 
-procedure TfmLEmuTKPreviewList.SetIconsIni(AValue: string);
+procedure TfmLEmuTKPreviewList.SetIconsIni(AValue: TFilename);
 begin
-  if FIconsIni = AValue then
-    Exit;
-  FIconsIni := AValue;
-
+  FIconsIni := SetAsFile(AValue);
   ReadActionsIcons(IconsIni, Self.Name, ilPreviewList, alPreviewList);
 end;
 

@@ -124,7 +124,7 @@ begin
 
   if not assigned(SelectedSystem) then
   begin
-    cbxSystem.ItemIndex := -1;
+    cbxSystem.ItemIndex := 0;
     Exit;
   end;
 
@@ -133,8 +133,8 @@ begin
   begin
     // Uhm....
     aPos := cbxSystem.Items.AddObject(SelectedSystem.Title, SelectedSystem);
-  end ;
-    cbxSystem.ItemIndex := aPos;
+  end;
+  cbxSystem.ItemIndex := aPos;
 end;
 
 procedure TfmEmutecaSystemCBX.UpdateSystems;
@@ -154,6 +154,8 @@ begin
       Inc(i);
     end;
   end;
+  // Inserting 'All systems option'
+  { TODO: Make this optional... }
   cbxSystem.Items.Insert(0, rsAllSystems);
   cbxSystem.ItemIndex := 0;
   cbxSystem.Items.EndUpdate;

@@ -1,0 +1,20 @@
+inherited fmLEmuTKSoftTxtPreview: TfmLEmuTKSoftTxtPreview
+  object cbxTextType: TComboBox[1]
+    Left = 0
+    Height = 23
+    Top = 0
+    Width = 288
+    Align = alTop
+    ItemHeight = 15
+    Style = csDropDownList
+    TabOrder = 1
+  end
+  object mSoftText: TMemo[2]
+    Left = 0
+    Height = 238
+    Top = 23
+    Width = 288
+    Align = alClient
+    TabOrder = 2
+  end
+end

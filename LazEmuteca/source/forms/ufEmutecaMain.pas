@@ -26,7 +26,7 @@ uses
   // Emuteca windows
   ufEmutecaActAddSoft, ufEmutecaActAddFolder,
   // LazEmuteca frames
-  ufLEmuTKMain, ufLEmuTKSysManager, ufLEmuTKEmuManager, ufLEmuTKSoftMedia,
+  ufLEmuTKMain, ufLEmuTKSysManager, ufLEmuTKEmuManager,
   ufLEmuTKIcnSoftList,
   uGUIConfig;
 
