@@ -31,10 +31,24 @@ type
     tbLastItem: TToolButton;
     ToolButton6: TToolButton;
     tbOpenItem: TToolButton;
+    procedure actFirstItemExecute(Sender: TObject);
+    procedure actLastItemExecute(Sender: TObject);
+    procedure actNextItemExecute(Sender: TObject);
+    procedure actPreviousItemExecute(Sender: TObject);
 
   private
+    FCurrItem: integer;
     FIconsIni: TFilename;
-    procedure SetIconsIni(AValue: TFilename);
+    FItemCount: integer;
+    procedure SetCurrItem(AValue: integer);
+    procedure SetItemCount(AValue: integer);
+
+  protected
+    property ItemCount: integer read FItemCount write SetItemCount default 0;
+    property CurrItem: integer read FCurrItem write SetCurrItem default 0;
+
+    procedure SetIconsIni(AValue: TFilename); virtual;
+    procedure OnCurrItemChange; virtual; abstract;
 
   public
     property IconsIni: TFilename read FIconsIni write SetIconsIni;
@@ -48,6 +62,65 @@ implementation
 {$R *.lfm}
 
 { TfmLEmuTKPreviewList }
+
+procedure TfmLEmuTKPreviewList.SetItemCount(AValue: integer);
+begin
+  if FItemCount = AValue then Exit;
+  FItemCount := AValue;
+
+  lMaxItems.Caption := ' / ' + IntToStr(ItemCount);
+  esCurrItem.MaxValue := ItemCount;
+  esCurrItem.Enabled := ItemCount > 1;
+  actFirstItem.Enabled := ItemCount > 1;
+  actLastItem.Enabled := ItemCount > 1;
+  actNextItem.Enabled := ItemCount > 1;
+  actPreviousItem.Enabled := ItemCount > 1;
+  actOpenItem.Enabled := ItemCount > 0;
+end;
+
+procedure TfmLEmuTKPreviewList.actFirstItemExecute(Sender: TObject);
+begin
+  if ItemCount < 1  then
+     Exit;
+  CurrItem := 1;
+end;
+
+procedure TfmLEmuTKPreviewList.actLastItemExecute(Sender: TObject);
+begin
+  if ItemCount < 1  then
+     Exit;
+  CurrItem := ItemCount;
+end;
+
+procedure TfmLEmuTKPreviewList.actNextItemExecute(Sender: TObject);
+begin
+  if ItemCount < 1 then
+   Exit;
+  if CurrItem = ItemCount then
+   CurrItem := 1
+  else
+    CurrItem := CurrItem + 1;
+end;
+
+procedure TfmLEmuTKPreviewList.actPreviousItemExecute(Sender: TObject);
+begin
+  if ItemCount < 1 then
+   Exit;
+  if CurrItem = 1 then
+   CurrItem := ItemCount
+  else
+    CurrItem := CurrItem - 1;
+end;
+
+procedure TfmLEmuTKPreviewList.SetCurrItem(AValue: integer);
+begin
+  if FCurrItem = AValue then Exit;
+  FCurrItem := AValue;
+
+  esCurrItem.Value := FCurrItem;
+
+  OnCurrItemChange;
+end;
 
 procedure TfmLEmuTKPreviewList.SetIconsIni(AValue: TFilename);
 begin

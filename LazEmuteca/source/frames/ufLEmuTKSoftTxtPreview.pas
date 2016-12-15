@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
   StdCtrls, ActnList,
-  ucEmutecaSoftware,
+  ucEmuteca, ucEmutecaGroup, ucEmutecaSoftware,
   ufLEmuTKPreviewList;
 
 type
@@ -19,11 +19,14 @@ type
     mSoftText: TMemo;
 
   private
+    FEmuteca: cEmuteca;
     FSoftware: cEmutecaSoftware;
+    procedure SetEmuteca(AValue: cEmuteca);
     procedure SetSoftware(AValue: cEmutecaSoftware);
 
   public
     property Software: cEmutecaSoftware read FSoftware write SetSoftware;
+    property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -42,6 +45,12 @@ begin
   FSoftware := AValue;
 
   Self.Enabled := Assigned(Software);
+end;
+
+procedure TfmLEmuTKSoftTxtPreview.SetEmuteca(AValue: cEmuteca);
+begin
+  if FEmuteca = AValue then Exit;
+  FEmuteca := AValue;
 end;
 
 constructor TfmLEmuTKSoftTxtPreview.Create(TheOwner: TComponent);

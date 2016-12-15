@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
   StdCtrls, ActnList, ExtCtrls,
-  ucEmutecaSoftware, ucEmutecaSystem,
+  ucEmuteca, ucEmutecaSoftware, ucEmutecaSystem,
   ufLEmuTKPreviewList;
 
 type
@@ -22,19 +22,28 @@ type
   private
     FCurrCaption: string;
     FCurrSystem: cEmutecaSystem;
+    FEmuteca: cEmuteca;
+    FImageExt: TStringList;
+    FImageList: TStringList;
     FSoftware: cEmutecaSoftware;
     procedure SetCurrCaption(AValue: string);
     procedure SetCurrSystem(AValue: cEmutecaSystem);
+    procedure SetEmuteca(AValue: cEmuteca);
+    procedure SetImageExt(AValue: TStringList);
     procedure SetSoftware(AValue: cEmutecaSoftware);
 
   protected
     property CurrSystem: cEmutecaSystem read FCurrSystem write SetCurrSystem;
     property CurrCaption: string read FCurrCaption write SetCurrCaption;
+    property ImageList: TStringList read FImageList;
 
+    procedure OnCurrItemChange; override;
     procedure UpdateImageList;
 
   public
     property Software: cEmutecaSoftware read FSoftware write SetSoftware;
+    property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
+    property ImageExt: TStringList read FImageExt write SetImageExt;
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -62,9 +71,39 @@ begin
   Self.Enabled := Assigned(Software);
 end;
 
+procedure TfmLEmuTKSoftImgPreview.OnCurrItemChange;
+begin
+  if (cbxImageType.ItemIndex = -1) or (CurrItem < 1) or
+    (ImageList.Count = 0) then
+  begin
+    iSoftImage.Picture.Clear;
+    exit;
+  end;
+
+  iSoftImage.Picture.LoadFromFile(ImageList[CurrItem - 1]);
+end;
+
 procedure TfmLEmuTKSoftImgPreview.UpdateImageList;
 begin
+  ImageList.Clear;
 
+  if not assigned(CurrSystem) then
+    Exit;
+
+  if not Assigned(Emuteca) then
+    Exit;
+
+  if cbxImageType.ItemIndex > -1 then
+    Emuteca.SearchSoftFiles(ImageList,
+      Software.System.ImageFolders[cbxImageType.ItemIndex],
+      Software, ImageExt);
+
+  ItemCount := ImageList.Count;
+
+  if ItemCount > 0 then
+    CurrItem := 1
+  else
+    CurrItem := 0;
 end;
 
 procedure TfmLEmuTKSoftImgPreview.SetCurrSystem(AValue: cEmutecaSystem);
@@ -102,6 +141,20 @@ begin
   end;
 end;
 
+procedure TfmLEmuTKSoftImgPreview.SetEmuteca(AValue: cEmuteca);
+begin
+  if FEmuteca = AValue then
+    Exit;
+  FEmuteca := AValue;
+end;
+
+procedure TfmLEmuTKSoftImgPreview.SetImageExt(AValue: TStringList);
+begin
+  if FImageExt = AValue then
+    Exit;
+  FImageExt := AValue;
+end;
+
 procedure TfmLEmuTKSoftImgPreview.cbxImageTypeSelect(Sender: TObject);
 var
   aIndex: integer;
@@ -111,6 +164,8 @@ begin
     CurrCaption := ''
   else
     CurrCaption := cbxImageType.Items[cbxImageType.ItemIndex];
+
+  UpdateImageList;
 end;
 
 procedure TfmLEmuTKSoftImgPreview.SetCurrCaption(AValue: string);
@@ -123,10 +178,13 @@ end;
 constructor TfmLEmuTKSoftImgPreview.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
+
+  FImageList := TStringList.Create;
 end;
 
 destructor TfmLEmuTKSoftImgPreview.Destroy;
 begin
+  FreeAndNil(FImageList);
   inherited Destroy;
 end;
 

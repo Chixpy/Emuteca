@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, VirtualTrees, Forms, Controls, ComCtrls,
-  ActnList, Menus, LazUTF8,
+  ActnList, Menus, LazUTF8, LCLIntf,
   uCHXStrUtils,
   uEmutecaCommon, ucEmutecaSoftware;
 
@@ -14,8 +14,14 @@ type
   { TfmEmutecaSoftList }
 
   TfmEmutecaSoftList = class(TFrame)
+    actOpenSystemFolder: TAction;
+    alSoftList: TActionList;
+    ilSoftList: TImageList;
+    miOpenSystemFolder: TMenuItem;
+    ppmSoftList: TPopupMenu;
     StatusBar1: TStatusBar;
     VST: TVirtualStringTree;
+    procedure actOpenSystemFolderExecute(Sender: TObject);
     procedure VSTChange(Sender: TBaseVirtualTree; Node: PVirtualNode);
     procedure VSTCompareNodes(Sender: TBaseVirtualTree;
       Node1, Node2: PVirtualNode; Column: TColumnIndex; var Result: integer);
@@ -55,7 +61,8 @@ type
     property OnItemSelect: TEmutecaReturnSoftCB
       read FOnItemSelect write SetOnItemSelect;
     //< CallBack function when item selected.
-    property OnDblClick: TEmutecaReturnSoftCB read FOnDblClick write SetOnDblClick;
+    property OnDblClick: TEmutecaReturnSoftCB
+      read FOnDblClick write SetOnDblClick;
     //< CallBack function when item Double Click.
 
     procedure UpdateList;
@@ -126,6 +133,18 @@ begin
     OnItemSelect(pData^);
 end;
 
+procedure TfmEmutecaSoftList.actOpenSystemFolderExecute(Sender: TObject);
+var
+  pData: ^cEmutecaSoftware;
+begin
+  pData := VST.GetNodeData(vst.FocusedNode);
+  if not Assigned(pData) then
+    Exit;
+  if not Assigned(pData^) then
+    Exit;
+  OpenDocument(pData^.System.BaseFolder);
+end;
+
 procedure TfmEmutecaSoftList.VSTCompareNodes(Sender: TBaseVirtualTree;
   Node1, Node2: PVirtualNode; Column: TColumnIndex; var Result: integer);
 var
@@ -155,7 +174,7 @@ begin
     5: // Flags
     begin
       if pData1^.DumpStatus <> pData2^.DumpStatus then
-       Result := ord(pData1^.DumpStatus) - ord(pData2^.DumpStatus)
+        Result := Ord(pData1^.DumpStatus) - Ord(pData2^.DumpStatus)
       else
         Result := UTF8CompareText(pData1^.Translation, pData2^.Translation);
     end;
@@ -200,7 +219,8 @@ begin
 
   case Column of
     1: // Title
-      HintText := pData^.Title + sLineBreak + pData^.TranslitTitle + sLineBreak + pData^.SortTitle;
+      HintText := pData^.Title + sLineBreak + pData^.TranslitTitle +
+        sLineBreak + pData^.SortTitle;
     5: // Flags
     begin
       HintText := EmutecaDumpStatusStrs[pData^.DumpStatus];
@@ -253,10 +273,10 @@ begin
     begin
       if pData^.Publisher = '' then
       begin
-          if pData^.Group.Developer <> '' then
-            CellText := '(' + pData^.Group.Developer + ')'
-          else
-            CellText := '';
+        if pData^.Group.Developer <> '' then
+          CellText := '(' + pData^.Group.Developer + ')'
+        else
+          CellText := '';
       end
       else
         CellText := pData^.Publisher;
@@ -265,10 +285,10 @@ begin
     begin
       if pData^.Year = '' then
       begin
-          if pData^.Group.Year <> '' then
-            CellText := '(' +pData^.Group.Year + ')'
-            else
-              CellText := '';
+        if pData^.Group.Year <> '' then
+          CellText := '(' + pData^.Group.Year + ')'
+        else
+          CellText := '';
       end
       else
         CellText := pData^.Year;
@@ -307,10 +327,10 @@ begin
     7: // Playing Time
       CellText := SecondsToFmtStr(pData^.Stats.PlayingTime);
     8: // Last Time
-    if pData^.Stats.LastTime = 0 then
-      CellText := rsNever
+      if pData^.Stats.LastTime = 0 then
+        CellText := rsNever
       else
-      CellText := DateTimeToStr(pData^.Stats.LastTime);
+        CellText := DateTimeToStr(pData^.Stats.LastTime);
     9: // Folder
       CellText := pData^.Folder;
     10: // File

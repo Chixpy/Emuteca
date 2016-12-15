@@ -79,6 +79,7 @@ object fmEmutecaSoftList: TfmEmutecaSoftList
     IncrementalSearch = isAll
     IncrementalSearchStart = ssAlwaysStartOver
     ParentShowHint = False
+    PopupMenu = ppmSoftList
     ShowHint = True
     TabOrder = 0
     TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScrollOnExpand, toAutoSort, toAutoSpanColumns, toAutoTristateTracking, toAutoHideButtons, toAutoDeleteMovedNodes]
@@ -99,5 +100,26 @@ object fmEmutecaSoftList: TfmEmutecaSoftList
     Top = 181
     Width = 701
     Panels = <>
+  end
+  object ppmSoftList: TPopupMenu
+    Images = ilSoftList
+    left = 58
+    top = 71
+    object miOpenSystemFolder: TMenuItem
+      Action = actOpenSystemFolder
+    end
+  end
+  object alSoftList: TActionList
+    Images = ilSoftList
+    left = 232
+    top = 93
+    object actOpenSystemFolder: TAction
+      Caption = 'Open system folder'
+      OnExecute = actOpenSystemFolderExecute
+    end
+  end
+  object ilSoftList: TImageList
+    left = 58
+    top = 128
   end
 end

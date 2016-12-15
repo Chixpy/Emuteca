@@ -7,8 +7,9 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, StdCtrls, ExtCtrls,
   uCHXStrUtils,
-  ucEmutecaGroup, ucEmutecaSoftware,
-  ufLEmuTKSoftImgPreview, ufLEmuTKSoftTxtPreview;
+  ucEmuteca, ucEmutecaGroup, ucEmutecaSoftware,
+  ufLEmuTKSoftImgPreview, ufLEmuTKSoftTxtPreview,
+  uGUIConfig;
 
 type
 
@@ -20,10 +21,14 @@ type
     Splitter1: TSplitter;
 
   private
+    FEmuteca: cEmuteca;
+    FGUIConfig: cGUIConfig;
     FIconsIni: TFilename;
     FSoftImgPreview: TfmLEmuTKSoftImgPreview;
     FSoftTxtPreview: TfmLEmuTKSoftTxtPreview;
     FSoftware: cEmutecaSoftware;
+    procedure SetEmuteca(AValue: cEmuteca);
+    procedure SetGUIConfig(AValue: cGUIConfig);
     procedure SetIconsIni(AValue: TFilename);
     procedure SetSoftware(AValue: cEmutecaSoftware);
 
@@ -34,8 +39,10 @@ type
   public
     { public declarations }
     property IconsIni: TFilename read FIconsIni write SetIconsIni;
+    property GUIConfig: cGUIConfig read FGUIConfig write SetGUIConfig;
 
     property Software: cEmutecaSoftware read FSoftware write SetSoftware;
+    property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -54,6 +61,30 @@ begin
  SoftTxtPreview.IconsIni := IconsIni;
 end;
 
+procedure TfmLEmuTKSoftMedia.SetEmuteca(AValue: cEmuteca);
+begin
+  if FEmuteca = AValue then Exit;
+  FEmuteca := AValue;
+
+    SoftImgPreview.Emuteca := Emuteca;
+  SoftTxtPreview.Emuteca := Emuteca;
+end;
+
+procedure TfmLEmuTKSoftMedia.SetGUIConfig(AValue: cGUIConfig);
+begin
+  if FGUIConfig = AValue then Exit;
+  FGUIConfig := AValue;
+
+  if Assigned(GUIConfig) then
+  begin
+    SoftImgPreview.ImageExt := GUIConfig.ImageExtensions;
+  end
+  else
+  begin
+    SoftImgPreview.ImageExt := nil;
+  end;
+end;
+
 procedure TfmLEmuTKSoftMedia.SetSoftware(AValue: cEmutecaSoftware);
 begin
   if FSoftware = AValue then
@@ -61,6 +92,7 @@ begin
   FSoftware := AValue;
 
   SoftImgPreview.Software := Software;
+  SoftTxtPreview.Software := Software;
 
   self.Enabled := assigned(Software);
 end;

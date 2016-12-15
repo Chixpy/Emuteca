@@ -5,12 +5,13 @@ unit ufLEmuTKIcnSoftList;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
+  Classes, SysUtils, FileUtil, LazFileUtils, Forms, Controls, Graphics, Dialogs,
   VirtualTrees, LCLIntf, LCLType, LazUTF8,
-  ucCHXImageList, uCHXImageUtils, uCHXFileUtils,
-  ucEmutecaConfig,
+  ucCHXImageList, uCHXImageUtils, uCHXFileUtils, uCHXStrUtils,
+  ucEmuteca,
   ucEmutecaSoftware, ucEmutecaGroup,
-  ufEmutecaSoftList;
+  ufEmutecaSoftList,
+  uGUIConfig;
 
 const
   LazEmuTKIconFiles: array [0..12] of string =
@@ -31,14 +32,20 @@ type
 
   private
     FDumpIconList: cCHXImageList;
+    FEmuteca: cEmuteca;
+    FGUIConfig: cGUIConfig;
     FSoftIconList: cCHXImageList;
     FZoneIconMap: cCHXImageMap;
     procedure SetDumpIconList(AValue: cCHXImageList);
+    procedure SetEmuteca(AValue: cEmuteca);
+    procedure SetGUIConfig(AValue: cGUIConfig);
     procedure SetSoftIconList(AValue: cCHXImageList);
     procedure SetZoneIconMap(AValue: cCHXImageMap);
 
   public
     { public declarations }
+    property GUIConfig: cGUIConfig read FGUIConfig write SetGUIConfig;
+    property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
 
     property SoftIconList: cCHXImageList
       read FSoftIconList write SetSoftIconList;
@@ -90,35 +97,34 @@ begin
 
       if Data^.Stats.IconIndex = -1 then
       begin
-      {
-        // Searching soft icon
-        TmpStr := SearchFirstMediaFile(Data^.System.IconFolder, Data^.FileName,
-          );
-
-        if TmpStr = '' then
-        begin
-          // Try to use Group icon
-          if Data^.Group.IconIndex = -1 then
-          begin
-          TmpStr := SearchFirstMediaFile(Data^.System.IconFolder, Data^.Group.ID,
-          );
-
-          if TmpStr <> '' then
-        begin
-        end
+        if Data^.Group.Stats.IconIndex = -1 then
+        begin // Searching group icon
+          TmpStr := Emuteca.SearchFirstGroupFile(Data^.System.IconFolder,
+            Data^.Group, GUIConfig.ImageExtensions);
+          if TmpStr = '' then
+            Data^.Group.Stats.IconIndex := 0
           else
-            Data^.Stats.IconIndex = 0;
-          end
-          else  // Group has assigned icon
-            Data^.Stats.IconIndex := Data^.Group.Stats.IconIndex;
+            Data^.Group.Stats.IconIndex := SoftIconList.AddImageFile(TmpStr);
+        end;
+
+        // Dirty same file test
+        if RemoveFromBrackets(ExtractFileNameOnly(Data^.Group.ID)) =
+        RemoveFromBrackets(ExtractFileNameOnly(Data^.FileName)) then
+        begin
+          Data^.Stats.IconIndex := Data^.Group.Stats.IconIndex;
         end
-        else // Soft icon file found
-          Data^.Stats.IconIndex = SoftIconList.AddImageFile(TmpStr);
-          }
+        else
+        begin
+          TmpStr := Emuteca.SearchFirstSoftFile(Data^.System.IconFolder, Data^,
+            GUIConfig.ImageExtensions, False);
+          if TmpStr = '' then
+            Data^.Stats.IconIndex := Data^.Group.Stats.IconIndex
+          else
+            Data^.Stats.IconIndex := SoftIconList.AddImageFile(TmpStr);
+        end
       end;
 
-      if (Data^.Stats.IconIndex > -1) and
-        (Data^.Stats.IconIndex < SoftIconList.Count) then
+      if (Data^.Stats.IconIndex < SoftIconList.Count) then
       begin
         aIcon := SoftIconList[Data^.Stats.IconIndex];
         TargetCanvas.StretchDraw(CorrectAspectRatio(IconRect, aIcon),
@@ -279,6 +285,20 @@ begin
   if FDumpIconList = AValue then
     Exit;
   FDumpIconList := AValue;
+end;
+
+procedure TfmEmutecaIcnSoftList.SetEmuteca(AValue: cEmuteca);
+begin
+  if FEmuteca = AValue then Exit;
+  FEmuteca := AValue;
+end;
+
+procedure TfmEmutecaIcnSoftList.SetGUIConfig(AValue: cGUIConfig);
+begin
+  if FGUIConfig = AValue then Exit;
+  FGUIConfig := AValue;
+
+  ReadActionsIcons(GUIConfig.GUIIcnFile, Self.Name, ilSoftList, alSoftList);
 end;
 
 end.

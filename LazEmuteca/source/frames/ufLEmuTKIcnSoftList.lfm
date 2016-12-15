@@ -2,4 +2,9 @@ inherited fmEmutecaIcnSoftList: TfmEmutecaIcnSoftList
   inherited VST: TVirtualStringTree
     OnDrawText = VSTDrawText
   end
+  inherited alSoftList: TActionList
+    inherited actOpenSystemFolder: TAction
+      OnExecute = nil
+    end
+  end
 end

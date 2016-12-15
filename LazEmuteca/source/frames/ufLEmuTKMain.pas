@@ -15,7 +15,8 @@ uses
   ucEmuteca, ucEmutecaSystem, ucEmutecaGroup, ucEmutecaSoftware,
   // Emuteca frames
   ufEmutecaGroupList, ufLEmuTKIcnSoftList,
-  ufEmutecaSystemCBX, ufEmutecaSoftEditor, ufLEmuTKSoftMedia;
+  ufEmutecaSystemCBX, ufEmutecaSoftEditor, ufLEmuTKSoftMedia,
+  uGUIConfig;
 
 type
 
@@ -43,6 +44,7 @@ type
     FfmEmutecaSoftList: TfmEmutecaIcnSoftList;
     FfmEmutecaSystemCBX: TfmEmutecaSystemCBX;
     FfmSoftMedia: TfmLEmuTKSoftMedia;
+    FGUIConfig: cGUIConfig;
     FGUIIconsIni: TFilename;
     FIconList: cCHXImageList;
     FDumpIcons: cCHXImageList;
@@ -50,6 +52,7 @@ type
     procedure SetEmuteca(AValue: cEmuteca);
     procedure SetfmEmutecaSoftEditor(AValue: TfmEmutecaSoftEditor);
     procedure SetfmSoftMedia(AValue: TfmLEmuTKSoftMedia);
+    procedure SetGUIConfig(AValue: cGUIConfig);
     procedure SetGUIIconsIni(AValue: TFilename);
     procedure SetIconList(AValue: cCHXImageList);
     procedure SetDumpIcons(AValue: cCHXImageList);
@@ -77,6 +80,7 @@ type
 
   public
     property GUIIconsIni: TFilename read FGUIIconsIni write SetGUIIconsIni;
+    property GUIConfig: cGUIConfig read FGUIConfig write SetGUIConfig;
     property IconList: cCHXImageList read FIconList write SetIconList;
     // Icons for parents, soft, systems and emulators
     property DumpIcons: cCHXImageList read FDumpIcons write SetDumpIcons;
@@ -161,6 +165,10 @@ begin
     Exit;
   FEmuteca := AValue;
 
+  fmEmutecaSoftList.Emuteca := Emuteca;
+  fmSoftMedia.Emuteca := Emuteca;
+  fmEmutecaSoftEditor.Emuteca := Emuteca;
+
   if Assigned(Emuteca) then
   begin
     fmEmutecaSystemCBX.SystemList := Emuteca.SystemManager.VisibleList;
@@ -174,9 +182,9 @@ begin
     fmEmutecaGroupList.GroupList := nil;
     fmEmutecaSoftList.SoftList := nil;
     // fmEmutecaSoftList.ParentList := nil;
+    fmSoftMedia.Emuteca := nil
   end;
-  fmEmutecaSoftEditor.Emuteca := Emuteca;
-  Self.Enabled := Assigned(Emuteca);
+ Self.Enabled := Assigned(Emuteca);
 end;
 
 procedure TfmLEmuTKMain.SetfmEmutecaSoftEditor(AValue: TfmEmutecaSoftEditor);
@@ -191,6 +199,15 @@ begin
   if FfmSoftMedia = AValue then
     Exit;
   FfmSoftMedia := AValue;
+end;
+
+procedure TfmLEmuTKMain.SetGUIConfig(AValue: cGUIConfig);
+begin
+  if FGUIConfig = AValue then Exit;
+  FGUIConfig := AValue;
+
+  fmSoftMedia.GUIConfig := GUIConfig;
+  fmEmutecaSoftList.GUIConfig := GUIConfig;
 end;
 
 constructor TfmLEmuTKMain.Create(TheOwner: TComponent);

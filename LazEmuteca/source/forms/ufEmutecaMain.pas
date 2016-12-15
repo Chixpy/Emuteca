@@ -85,12 +85,14 @@ type
     procedure MenuItem8Click(Sender: TObject);
 
   private
+    FCurrSost: cEmutecaSoftware;
     FfmEmutecaMainFrame: TfmLEmuTKMain;
     FVerIcons: cCHXImageList;
     FEmuteca: cEmuteca;
     FGUIConfig: cGUIConfig;
     FIconList: cCHXImageList;
     FZoneIcons: cCHXImageMap;
+    procedure SetCurrSost(AValue: cEmutecaSoftware);
 
   protected
     property fmEmutecaMainFrame: TfmLEmuTKMain read FfmEmutecaMainFrame;
@@ -106,6 +108,8 @@ type
     // Icons for dump info
     property ZoneIcons: cCHXImageMap read FZoneIcons;
     // Icons of zones
+
+    property CurrSost: cEmutecaSoftware read FCurrSost write SetCurrSost;
 
     procedure SaveEmuteca;
     //< Save parent and soft lists
@@ -182,6 +186,12 @@ begin
 
   aForm.ShowModal;
   FreeAndNil(aForm);
+end;
+
+procedure TfrmEmutecaMain.SetCurrSost(AValue: cEmutecaSoftware);
+begin
+  if FCurrSost = AValue then Exit;
+  FCurrSost := AValue;
 end;
 
 procedure TfrmEmutecaMain.SaveEmuteca;
@@ -329,6 +339,7 @@ begin
     fmEmutecaMainFrame.DumpIcons := Self.VerIcons;
     fmEmutecaMainFrame.ZoneIcons := Self.ZoneIcons;
     fmEmutecaMainFrame.Emuteca :=  Self.Emuteca;
+    fmEmutecaMainFrame.GUIConfig := GUIConfig;
     fmEmutecaMainFrame.GUIIconsIni := GUIConfig.GUIIcnFile;
     fmEmutecaMainFrame.Align := alClient;
     fmEmutecaMainFrame.Parent := Self;
