@@ -64,10 +64,6 @@ type
 
     procedure LoadConfig(aFile: string);
 
-    function SearchGroup(aID: string;
-      Autocreate: boolean = False): cEmutecaGroup;
-    function SearchSystem(aID: string;
-      Autocreate: boolean = False): cEmutecaSystem;
     function SearchMainEmulator(aID: string): cEmutecaEmulator;
 
     procedure SearchMediaFiles(OutFileList: TStrings;
@@ -96,7 +92,6 @@ type
     property GroupManager: cEmutecaGroupManager read FGroupManager;
     property EmulatorManager: cEmutecaEmulatorManager read FEmulatorManager;
     property SystemManager: cEmutecaSystemManager read FSystemManager;
-
 
   end;
 
@@ -365,17 +360,6 @@ begin
   SoftManager.GroupManager := GroupManager;
   SoftManager.DataFile := Config.DataFolder + Config.SoftFile;
   SoftManager.LoadFromFile('');
-end;
-
-function cEmuteca.SearchGroup(aID: string; Autocreate: boolean): cEmutecaGroup;
-begin
-  Result := GroupManager.ItemById(aID, Autocreate);
-end;
-
-function cEmuteca.SearchSystem(aID: string;
-  Autocreate: boolean): cEmutecaSystem;
-begin
-  Result := SystemManager.ItemById(aID, Autocreate);
 end;
 
 function cEmuteca.SearchMainEmulator(aID: string): cEmutecaEmulator;

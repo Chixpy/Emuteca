@@ -89,7 +89,8 @@ end;
 
 procedure TfmLEmuTKPreviewList.SetCurrItem(AValue: integer);
 begin
-  if FCurrItem = AValue then Exit;
+  // Update anyway
+  // if FCurrItem = AValue then Exit;
   FCurrItem := AValue;
 
   esCurrItem.Value := FCurrItem;

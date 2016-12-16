@@ -20,7 +20,7 @@ uses
   // Emuteca common
   uEmutecaCommon,
   // Emuteca clases
-  ucEmuteca, ucEmutecaGroup, ucEmutecaSoftware, ucEmutecaSystem,
+  ucEmuteca, ucEmutecaGroup, ucEmutecaSoftware,
   // Emuteca forms
   ufEmutecaScriptManager,
   // Emuteca windows
@@ -190,7 +190,8 @@ end;
 
 procedure TfrmEmutecaMain.SetCurrSost(AValue: cEmutecaSoftware);
 begin
-  if FCurrSost = AValue then Exit;
+  if FCurrSost = AValue then
+    Exit;
   FCurrSost := AValue;
 end;
 
@@ -214,11 +215,12 @@ end;
 function TfrmEmutecaMain.AddZoneIcon(aFolder: string;
   FileInfo: TSearchRec): boolean;
 begin
-   Result := True; // Don't Stop
+  Result := True; // Don't Stop
 
   // Testing extension
   if GUIConfig.ImageExtensions.IndexOf(UTF8LowerCase(UTF8Copy(
-    ExtractFileExt(FileInfo.Name), 2, MaxInt))) = -1 then Exit;
+    ExtractFileExt(FileInfo.Name), 2, MaxInt))) = -1 then
+    Exit;
 
 
   ZoneIcons.AddImageFile(UTF8LowerCase(ExtractFileNameOnly(FileInfo.Name)),
@@ -267,11 +269,11 @@ procedure TfrmEmutecaMain.FormCreate(Sender: TObject);
     }
     aFile := GUIConfig.DefImgFolder + 'SoftIcon.png';
     AddIcon(IconList, aFile);
-        aFile := GUIConfig.DefImgFolder + 'GroupIcon.png';
+    aFile := GUIConfig.DefImgFolder + 'GroupIcon.png';
     AddIcon(IconList, aFile);
-        aFile := GUIConfig.DefImgFolder + 'SysIcon.png';
+    aFile := GUIConfig.DefImgFolder + 'SysIcon.png';
     AddIcon(IconList, aFile);
-        aFile := GUIConfig.DefImgFolder + 'EmuIcon.png';
+    aFile := GUIConfig.DefImgFolder + 'EmuIcon.png';
     AddIcon(IconList, aFile);
 
     { Icons for "flags" column, see ufEmutecaIcnSoftList.LazEmuTKIconFiles
@@ -333,16 +335,16 @@ begin
   LoadIcons;
 
 
-      // Creating main frame
-    FfmEmutecaMainFrame := TfmLEmuTKMain.Create(Self);
-    fmEmutecaMainFrame.IconList := Self.IconList;
-    fmEmutecaMainFrame.DumpIcons := Self.VerIcons;
-    fmEmutecaMainFrame.ZoneIcons := Self.ZoneIcons;
-    fmEmutecaMainFrame.Emuteca :=  Self.Emuteca;
-    fmEmutecaMainFrame.GUIConfig := GUIConfig;
-    fmEmutecaMainFrame.GUIIconsIni := GUIConfig.GUIIcnFile;
-    fmEmutecaMainFrame.Align := alClient;
-    fmEmutecaMainFrame.Parent := Self;
+  // Creating main frame
+  FfmEmutecaMainFrame := TfmLEmuTKMain.Create(Self);
+  fmEmutecaMainFrame.IconList := Self.IconList;
+  fmEmutecaMainFrame.DumpIcons := Self.VerIcons;
+  fmEmutecaMainFrame.ZoneIcons := Self.ZoneIcons;
+  fmEmutecaMainFrame.Emuteca := Self.Emuteca;
+  fmEmutecaMainFrame.GUIConfig := GUIConfig;
+  fmEmutecaMainFrame.GUIIconsIni := GUIConfig.GUIIcnFile;
+  fmEmutecaMainFrame.Align := alClient;
+  fmEmutecaMainFrame.Parent := Self;
 
 
   // Misc

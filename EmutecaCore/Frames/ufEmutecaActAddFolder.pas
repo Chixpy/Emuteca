@@ -168,12 +168,10 @@ begin
 
       case rgbGroup.ItemIndex of
         0: aVersion.Group :=
-            Emuteca.SearchGroup(RemoveFromBrackets(ExtractFileNameOnly(
-            aVersion.FileName)), True);
+            Emuteca.GroupManager.ItemById(RemoveFromBrackets(ExtractFileNameOnly(aVersion.FileName)), True);
         else
           aVersion.Group :=
-            Emuteca.SearchGroup(RemoveFromBrackets(ExtractFileNameOnly(
-            ExcludeTrailingPathDelimiter(aVersion.Folder))), True);
+            Emuteca.GroupManager.ItemById(RemoveFromBrackets(ExtractFileNameOnly(ExcludeTrailingPathDelimiter(aVersion.Folder))), True);
       end;
 
       Emuteca.SoftManager.FullList.Add(aVersion);

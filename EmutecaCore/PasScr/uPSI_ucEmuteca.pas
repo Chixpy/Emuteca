@@ -141,8 +141,6 @@ begin
     RegisterPropertyHelper(@cEmutecaProgressCallBack_R,@cEmutecaProgressCallBack_W,'ProgressCallBack');
     RegisterPropertyHelper(@cEmutecaTempFolder_R,@cEmutecaTempFolder_W,'TempFolder');
     RegisterMethod(@cEmuteca.LoadConfig, 'LoadConfig');
-    RegisterMethod(@cEmuteca.SearchGroup, 'SearchGroup');
-    RegisterMethod(@cEmuteca.SearchSystem, 'SearchSystem');
     RegisterMethod(@cEmuteca.SearchMainEmulator, 'SearchMainEmulator');
     RegisterMethod(@cEmuteca.RunSoftware, 'RunSoftware');
     RegisterPropertyHelper(@cEmutecaConfig_R,@cEmutecaConfig_W,'Config');

@@ -237,7 +237,7 @@ begin
   end
   else
   begin
-    Software.Group := Emuteca.SearchGroup(cbxGroup.cbxGroup.Text, True);
+    Software.Group := Emuteca.GroupManager.ItemById(cbxGroup.cbxGroup.Text, True);
   end;
 
   Software.Title := eTitle.Text;
