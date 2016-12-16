@@ -44,7 +44,7 @@ type
     procedure SaveToFileIni(IniFile: TCustomIniFile;
       const ExportMode: boolean); override;
 
-    function ItemById(aId: string): cEmutecaSystem;
+    function ItemById(aId: string; Autocreate: Boolean = False): cEmutecaSystem;
     {< Returns the system with aId key.
 
        @Result cEmutecaSystem found or nil.
@@ -126,7 +126,8 @@ begin
   end;
 end;
 
-function cEmutecaSystemManager.ItemById(aId: string): cEmutecaSystem;
+function cEmutecaSystemManager.ItemById(aId: string; Autocreate: Boolean
+  ): cEmutecaSystem;
 var
   i: integer;
   aSystem: cEmutecaSystem;
@@ -140,6 +141,15 @@ begin
     if UTF8CompareText(aSystem.ID, aId) = 0 then
       Result := aSystem;
     inc(i);
+  end;
+
+    // Opps, creating it
+  if Autocreate and (not assigned(Result)) then
+  begin
+    Result := cEmutecaSystem.Create(nil);
+    Result.ID := aId;
+    Result.Title := aId;
+    Self.FullList.Add(Result);
   end;
 end;
 

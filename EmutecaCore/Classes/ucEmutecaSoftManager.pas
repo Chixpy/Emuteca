@@ -7,8 +7,7 @@ interface
 uses
   Classes, SysUtils, LazUTF8,
   uaEmutecaManager,
-  ucEmutecaSoftware, ucEmutecaSystemManager, ucEmutecaSystem,
-  ucEmutecaGroupManager, ucEmutecaGroup;
+  ucEmutecaSoftware, ucEmutecaSystemManager, ucEmutecaSystem, ucEmutecaGroupManager;
 
 resourcestring
   rsLoadingVersionList = 'Loading software list...';
@@ -28,12 +27,12 @@ type
     procedure SetSystemManager(AValue: cEmutecaSystemManager);
 
   protected
-    procedure SearchGroup(aSoft: cEmutecaSoftware);
-    procedure SearchSystem(aSoft: cEmutecaSoftware);
 
   public
-    property GroupManager: cEmutecaGroupManager read FGroupManager write SetGroupManager;
-    property SystemManager: cEmutecaSystemManager read FSystemManager write SetSystemManager;
+    property GroupManager: cEmutecaGroupManager
+      read FGroupManager write SetGroupManager;
+    property SystemManager: cEmutecaSystemManager
+      read FSystemManager write SetSystemManager;
 
     property VisibleList: cEmutecaSoftList read FVisibleList;
     {< Filtered soft list }
@@ -42,8 +41,8 @@ type
     procedure SaveToFileTxt(TxtFile: TStrings; const ExportMode: boolean);
       override;
 
-    function ItemById(aId: string): cEmutecaSoftware;
-    {< Returns the version with aId key.
+    function ItemById(aId: string; Autocreate: Boolean = False): cEmutecaSoftware;
+    {< Returns the software with aId key.
 
        @Result cEmutecaSoftware found or nil.
     }
@@ -57,7 +56,7 @@ type
     destructor Destroy; override;
 
   published
-         property FullList: cEmutecaSoftList read FFullList;
+    property FullList: cEmutecaSoftList read FFullList;
     {< Actual list where the software is stored. }
   end;
 
@@ -66,7 +65,8 @@ implementation
 { cEmutecaSoftManager }
 
 
-function cEmutecaSoftManager.ItemById(aId: string): cEmutecaSoftware;
+function cEmutecaSoftManager.ItemById(aId: string; Autocreate: Boolean
+  ): cEmutecaSoftware;
 var
   i: integer;
   aSoft: cEmutecaSoftware;
@@ -169,53 +169,18 @@ end;
 
 procedure cEmutecaSoftManager.SetGroupManager(AValue: cEmutecaGroupManager);
 begin
-  if FGroupManager = AValue then Exit;
+  if FGroupManager = AValue then
+    Exit;
   FGroupManager := AValue;
 end;
 
 procedure cEmutecaSoftManager.SetSystemManager(AValue: cEmutecaSystemManager);
 begin
-  if FSystemManager = AValue then Exit;
+  if FSystemManager = AValue then
+    Exit;
   FSystemManager := AValue;
 end;
 
-procedure cEmutecaSoftManager.SearchGroup(aSoft: cEmutecaSoftware);
-var
-  aGroup: cEmutecaGroup;
-begin
-  if not assigned(GroupManager) then Exit;
-
-  aSoft.Group := GroupManager.ItemById(aSoft.GroupKey);
-
-  // Opps, creating it
-  if not assigned(aSoft.Group) then
-  begin
-    aGroup := cEmutecaGroup.Create(nil);
-    aGroup.ID := aSoft.GroupKey;
-    aGroup.Title := aSoft.GroupKey;
-    aSoft.Group := aGroup;
-    GroupManager.FullList.Add(aGroup);
-  end;
-end;
-
-procedure cEmutecaSoftManager.SearchSystem(aSoft: cEmutecaSoftware);
-var
-  aSystem: cEmutecaSystem;
-begin
-  if not assigned(SystemManager) then Exit;
-
-  aSoft.System := SystemManager.ItemById(aSoft.SystemKey);
-
-  // Opps, creating it
-  if not assigned(aSoft.System) then
-  begin
-    aSystem := cEmutecaSystem.Create(nil);
-    aSystem.ID := aSoft.SystemKey;
-    aSystem.Title := aSoft.SystemKey;
-    aSoft.System := aSystem;
-    SystemManager.FullList.Add(aSystem);
-  end;
-end;
 
 procedure cEmutecaSoftManager.LoadFromFileTxt(TxtFile: TStrings);
 var
@@ -233,8 +198,8 @@ begin
     TempSoft := cEmutecaSoftware.Create(nil);
     TempSoft.DataString := TxtFile[i];
 
-    SearchSystem(TempSoft);
-    SearchGroup(TempSoft);
+    TempSoft.System := SystemManager.ItemById(TempSoft.SystemKey, True);
+    TempSoft.Group := GroupManager.ItemById(TempSoft.GroupKey, True);
 
     FullList.Add(TempSoft);
     Inc(i);

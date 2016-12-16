@@ -5,7 +5,6 @@ object fmLEmuTKPreviewList: TfmLEmuTKPreviewList
   Width = 288
   ClientHeight = 287
   ClientWidth = 288
-  LCLVersion = '5.9'
   TabOrder = 0
   DesignLeft = 551
   DesignTop = 246
@@ -41,45 +40,30 @@ object fmLEmuTKPreviewList: TfmLEmuTKPreviewList
       ParentColor = False
     end
     object ToolButton1: TToolButton
-      Left = 108
+      Left = 85
       Height = 22
       Top = 2
       Width = 5
       Caption = 'ToolButton1'
       Style = tbsDivider
     end
-    object tbFirstItem: TToolButton
-      Left = 113
-      Top = 2
-      Action = actFirstItem
-    end
     object ToolButton3: TToolButton
-      Left = 136
+      Left = 90
       Top = 2
       Action = actPreviousItem
     end
     object tbNextItem: TToolButton
-      Left = 159
+      Left = 113
       Top = 2
       Action = actNextItem
     end
-    object tbLastItem: TToolButton
-      Left = 182
-      Top = 2
-      Action = actLastItem
-    end
     object ToolButton6: TToolButton
-      Left = 205
+      Left = 136
       Height = 22
       Top = 2
       Width = 8
       Caption = 'ToolButton6'
       Style = tbsSeparator
-    end
-    object tbOpenItem: TToolButton
-      Left = 85
-      Top = 2
-      Action = actOpenItem
     end
   end
   object ilPreviewList: TImageList
@@ -90,11 +74,6 @@ object fmLEmuTKPreviewList: TfmLEmuTKPreviewList
     Images = ilPreviewList
     left = 232
     top = 216
-    object actFirstItem: TAction
-      Category = 'List'
-      Caption = 'First item'
-      OnExecute = actFirstItemExecute
-    end
     object actPreviousItem: TAction
       Category = 'List'
       Caption = 'Previous item'
@@ -104,15 +83,6 @@ object fmLEmuTKPreviewList: TfmLEmuTKPreviewList
       Category = 'List'
       Caption = 'Next item'
       OnExecute = actNextItemExecute
-    end
-    object actLastItem: TAction
-      Category = 'List'
-      Caption = 'Last item'
-      OnExecute = actLastItemExecute
-    end
-    object actOpenItem: TAction
-      Category = 'List'
-      Caption = 'Open item'
     end
   end
 end

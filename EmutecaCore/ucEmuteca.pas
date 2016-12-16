@@ -28,7 +28,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, LazUTF8, LazFileUtils, dateutils,
   u7zWrapper,
-  uCHXStrUtils, uCHXFileUtils,
+  uCHXStrUtils,
   uEmutecaCommon,
   ucEmutecaConfig, ucEmutecaEmulatorManager, ucEmutecaSystemManager,
   ucEmutecaGroupManager, ucEmutecaSoftManager,
@@ -64,8 +64,10 @@ type
 
     procedure LoadConfig(aFile: string);
 
-    function SearchGroup(aID: string): cEmutecaGroup;
-    function SearchSystem(aID: string): cEmutecaSystem;
+    function SearchGroup(aID: string;
+      Autocreate: boolean = False): cEmutecaGroup;
+    function SearchSystem(aID: string;
+      Autocreate: boolean = False): cEmutecaSystem;
     function SearchMainEmulator(aID: string): cEmutecaEmulator;
 
     procedure SearchMediaFiles(OutFileList: TStrings;
@@ -77,7 +79,8 @@ type
     function SearchFirstMediaFile(aFolder: TFilename;
       aFileName: TFilename; Extensions: TStrings): TFilename;
     function SearchFirstSoftFile(aFolder: TFilename;
-      aSoft: cEmutecaSoftware; Extensions: TStrings; UseGroup: Boolean = True): TFilename;
+      aSoft: cEmutecaSoftware; Extensions: TStrings;
+      UseGroup: boolean = True): TFilename;
     function SearchFirstGroupFile(aFolder: TFilename;
       aGroup: cEmutecaGroup; Extensions: TStrings): TFilename;
 
@@ -110,7 +113,7 @@ end;
 procedure cEmuteca.SearchMediaFiles(OutFileList: TStrings;
   aFolder: TFilename; aFileName: TFilename; Extensions: TStrings);
 
-  procedure SearchFileByExt(aFileList: TStrings; aBaseFileName: string;
+  procedure SearchFilesByExt(aFileList: TStrings; aBaseFileName: string;
     aExtList: TStrings);
   var
     i: integer;
@@ -127,7 +130,10 @@ procedure cEmuteca.SearchMediaFiles(OutFileList: TStrings;
   end;
 
 var
-  TempTypeSubFolder: string;
+  CacheFolder: string;
+  CompressedArchives: TStringList;
+  i, j: integer;
+  Info: TSearchRec;
 begin
   if not assigned(OutFileList) then
     Exit;
@@ -141,90 +147,72 @@ begin
 
   // 1. Basic search
   // Folder/aFileName.mext
-  SearchFileByExt(OutFileList, aFolder + aFileName, Extensions);
+  SearchFilesByExt(OutFileList, aFolder + aFileName, Extensions);
 
   // 2. Search in folder
   // Folder/aFileName/[*]/*.mext
+  { TODO: What is faster? FindAllFiles or modified
+    cEmuteca.SearchFirstMediaFile.SearchFileInFolder ?}
   FindAllFiles(OutFileList, aFolder + aFileName,
     FileMaskFromStringList(Extensions), True);
 
-  // 3.a Search in cache folder
-  // TempFolder/Type/aFileName/[*]/*.mext
-  TempTypeSubFolder := TempFolder +
+  // 3. Search in zip files
+  //   Folder/aFileName.zip/*.mext (extract to CacheFolder/*.mext
+  { TODO : Diferenciate systems }
+  CacheFolder := TempFolder +
     SetAsFolder(ExtractFileName(ExcludeTrailingPathDelimiter(aFolder))) +
     SetAsFolder(aFileName);
 
-  if DirectoryExistsUTF8(TempTypeSubFolder) then
-    FindAllFiles(OutFileList, TempTypeSubFolder,
-      FileMaskFromStringList(Extensions), True);
-  ; //else
 
-
-  {
-
-
-    procedure cEmutecaMainManager.SearchMediaFiles(OutFileList: TStrings;
-  aFolder: string; aFileName: string; Extensions: TStrings);
-
-  CompressedArchives: TStringList;
-  i, j: integer;
-
-  Info: TSearchRec;
-begin
-  // 3.a Search in cache folder
-  // TempFolder/Type/aFileName/*.mext
-  TempTypeSubFolder := TempFolder +
-    SetAsFolder(ExtractFileName(ExcludeTrailingPathDelimiter(aFolder))) +
-    SetAsFolder(aFileName);
-
-  if DirectoryExistsUTF8(TempTypeSubFolder) then
-    AddFilesFromFolder(OutFileList, TempTypeSubFolder, Extensions)
-  else
+  // 3.a. If not CacheFolder exists, then search Folder/aFileName.zip/*.mext
+  //   and extract to CacheFolder
+  if not DirectoryExistsUTF8(CacheFolder) then
   begin
-    // 3.b Search in compressed archive
-    // Folder/aFileName.zip/*.mext (extract to TempFolder/Type/aFileName/*.mext)
-
     CompressedArchives := TStringList.Create;
     try
-      SearchFileByExt(CompressedArchives, aFolder + aFileName, CompressedExt);
+      SearchFilesByExt(CompressedArchives, aFolder + aFileName,
+        Config.CompressedExtensions);
 
       i := 0;
       j := CompressedArchives.Count;
       while i < j do
       begin
-        w7zExtractFile(CompressedArchives[i], AllFilesMask, TempTypeSubFolder,
+        w7zExtractFile(CompressedArchives[i], AllFilesMask, CacheFolder,
           False, '');
         Inc(i);
       end;
-
-      AddFilesFromFolder(OutFileList, TempTypeSubFolder, Extensions);
     finally
       FreeAndNil(CompressedArchives);
     end;
   end;
 
+  // 3.b. Actually searching in CacheFolder
+  FindAllFiles(OutFileList, CacheFolder,
+    FileMaskFromStringList(Extensions), True);
+
+  // Found something then Exit
   if OutFileList.Count > 0 then
     Exit;
 
-  // 4. If none found, search ONLY ONE from every compressed archive.
+  // 4. If nothing found, search ONLY ONE from every compressed archive.
   // Folder/*.zip/aFileName.mext
   if FindFirstUTF8(aFolder + AllFilesMask, 0, Info) = 0 then
+    // TODO: change to 3.X way :-P
     try
       repeat
-        // Ough, we really need a easy way to check extensions
-        if CompressedExt.IndexOf(UTF8LowerCase(UTF8Copy(
-          ExtractFileExt(Info.Name), 2, MaxInt))) <> -1 then
+        if SupportedExt(Info.Name, Config.CompressedExtensions) then
         begin
           // AllFilesMask... Maybe is a good idea...
           w7zExtractFile(aFolder + Info.Name, aFileName + '.*',
-            TempTypeSubFolder, False, '');
-          AddFilesFromFolder(OutFileList, TempTypeSubFolder, Extensions);
+            CacheFolder + Info.Name, False, '');
         end;
       until (OutFileList.Count > 0) or (FindNextUTF8(Info) <> 0);
     finally
       FindCloseUTF8(Info);
     end;
-end;  }
+  FindAllFiles(OutFileList, CacheFolder,
+    FileMaskFromStringList(Extensions), True);
+
 end;
 
 function cEmuteca.SearchFirstMediaFile(aFolder: TFilename;
@@ -246,7 +234,8 @@ function cEmuteca.SearchFirstMediaFile(aFolder: TFilename;
     end;
   end;
 
-  function SearchFileInFolder(aFolder: string; Extensions: TStrings): TFilename;
+  function SearchFileInFolder(aFolder: string;
+    Extensions: TStrings): TFilename;
   var
     Info: TSearchRec;
   begin
@@ -284,7 +273,9 @@ function cEmuteca.SearchFirstMediaFile(aFolder: TFilename;
   //function cEmuteca.SearchFirstMediaFile(aFolder: TFilename;
   //  aFileName: TFilename; Extensions: TStrings): TFilename;
 var
-  TempTypeSubFolder: string;
+  CacheFolder: string;
+  CompressedArchives: TStringList;
+  i, j: integer;
 begin
   Result := '';
 
@@ -307,16 +298,42 @@ begin
   if Result <> '' then
     Exit;
 
-    // 3.a Search in cache folder
-  // TempFolder/Type/aFileName/[*]/*.mext
-  TempTypeSubFolder := TempFolder +
+  // 3. Search in zip files
+  //   Folder/aFileName.zip/*.mext (extract to CacheFolder/*.mext
+  { TODO : Diferenciate systems }
+  CacheFolder := TempFolder +
     SetAsFolder(ExtractFileName(ExcludeTrailingPathDelimiter(aFolder))) +
     SetAsFolder(aFileName);
 
-  if DirectoryExistsUTF8(TempTypeSubFolder) then
-    Result := SearchFileInFolder(TempTypeSubFolder, Extensions);
+
+  // 3.a. If not CacheFolder exists, then search Folder/aFileName.zip/*.mext
+  //   and extract to CacheFolder (WE EXTRACT ALL FILES)
+  if not DirectoryExistsUTF8(CacheFolder) then
+  begin
+    CompressedArchives := TStringList.Create;
+    try
+        FindAllFiles(CompressedArchives, aFolder + aFileName,
+    FileMaskFromStringList(Config.CompressedExtensions), True);
+
+      i := 0;
+      j := CompressedArchives.Count;
+      while i < j do
+      begin
+        w7zExtractFile(CompressedArchives[i], AllFilesMask, CacheFolder,
+          False, '');
+        Inc(i);
+      end;
+    finally
+      FreeAndNil(CompressedArchives);
+    end;
+  end;
+
+  // 3.b. Actually searching the file in CacheFolder
+  Result := SearchFileInFolder(CacheFolder, Extensions);
   if Result <> '' then
     Exit;
+
+  { TODO : 4. in SearchMediaFiles}
 end;
 
 procedure cEmuteca.LoadConfig(aFile: string);
@@ -350,14 +367,15 @@ begin
   SoftManager.LoadFromFile('');
 end;
 
-function cEmuteca.SearchGroup(aID: string): cEmutecaGroup;
+function cEmuteca.SearchGroup(aID: string; Autocreate: boolean): cEmutecaGroup;
 begin
-  Result := GroupManager.ItemById(aID);
+  Result := GroupManager.ItemById(aID, Autocreate);
 end;
 
-function cEmuteca.SearchSystem(aID: string): cEmutecaSystem;
+function cEmuteca.SearchSystem(aID: string;
+  Autocreate: boolean): cEmutecaSystem;
 begin
-  Result := SystemManager.ItemById(aID);
+  Result := SystemManager.ItemById(aID, Autocreate);
 end;
 
 function cEmuteca.SearchMainEmulator(aID: string): cEmutecaEmulator;
@@ -377,8 +395,8 @@ begin
 end;
 
 function cEmuteca.SearchFirstSoftFile(aFolder: TFilename;
-  aSoft: cEmutecaSoftware; Extensions: TStrings; UseGroup: Boolean
-  ): TFilename;
+  aSoft: cEmutecaSoftware; Extensions: TStrings;
+  UseGroup: boolean): TFilename;
 begin
   Result := SearchFirstMediaFile(aFolder, aSoft.FileName, Extensions);
   if (Result = '') and UseGroup then

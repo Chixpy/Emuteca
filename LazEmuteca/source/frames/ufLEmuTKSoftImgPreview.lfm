@@ -19,7 +19,6 @@ inherited fmLEmuTKSoftImgPreview: TfmLEmuTKSoftImgPreview
     Center = True
     Proportional = True
     Stretch = True
-    Transparent = True
   end
   inherited ilPreviewList: TImageList[3]
   end

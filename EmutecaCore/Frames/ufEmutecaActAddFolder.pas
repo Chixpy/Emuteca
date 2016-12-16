@@ -166,17 +166,15 @@ begin
           CopyFromBrackets(ExtractFileNameOnly(aVersion.FileName));
       end;
 
-      { TODO : Search group
-
-              case rgbGroup.ItemIndex of
-          0: aVersion.GroupKey :=
-              RemoveFromBrackets(ExtractFileNameOnly(aVersion.FileName));
-          else
-            aVersion.GroupKey :=
-              RemoveFromBrackets(ExtractFileNameOnly(
-              ExcludeTrailingPathDelimiter(aVersion.Folder)));
-        end;
-      }
+      case rgbGroup.ItemIndex of
+        0: aVersion.Group :=
+            Emuteca.SearchGroup(RemoveFromBrackets(ExtractFileNameOnly(
+            aVersion.FileName)), True);
+        else
+          aVersion.Group :=
+            Emuteca.SearchGroup(RemoveFromBrackets(ExtractFileNameOnly(
+            ExcludeTrailingPathDelimiter(aVersion.Folder))), True);
+      end;
 
       Emuteca.SoftManager.FullList.Add(aVersion);
 

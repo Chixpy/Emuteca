@@ -237,13 +237,7 @@ begin
   end
   else
   begin
-    { TODO : I don't like this way,
-      must be done in ufEmutecaGroupCBX }
-    aGroup := cEmutecaGroup.Create(nil);
-    aGroup.ID := cbxGroup.cbxGroup.Text;
-    aGroup.Title := aGroup.ID;
-    Software.Group := aGroup;
-    Emuteca.GroupManager.FullList.Add(aGroup);
+    Software.Group := Emuteca.SearchGroup(cbxGroup.cbxGroup.Text, True);
   end;
 
   Software.Title := eTitle.Text;

@@ -14,9 +14,6 @@ type
   { TfmLEmuTKPreviewList }
 
   TfmLEmuTKPreviewList = class(TFrame)
-    actFirstItem: TAction;
-    actOpenItem: TAction;
-    actLastItem: TAction;
     actNextItem: TAction;
     actPreviousItem: TAction;
     alPreviewList: TActionList;
@@ -25,14 +22,9 @@ type
     lMaxItems: TLabel;
     tbPreviewList: TToolBar;
     ToolButton1: TToolButton;
-    tbFirstItem: TToolButton;
     ToolButton3: TToolButton;
     tbNextItem: TToolButton;
-    tbLastItem: TToolButton;
     ToolButton6: TToolButton;
-    tbOpenItem: TToolButton;
-    procedure actFirstItemExecute(Sender: TObject);
-    procedure actLastItemExecute(Sender: TObject);
     procedure actNextItemExecute(Sender: TObject);
     procedure actPreviousItemExecute(Sender: TObject);
 
@@ -71,25 +63,8 @@ begin
   lMaxItems.Caption := ' / ' + IntToStr(ItemCount);
   esCurrItem.MaxValue := ItemCount;
   esCurrItem.Enabled := ItemCount > 1;
-  actFirstItem.Enabled := ItemCount > 1;
-  actLastItem.Enabled := ItemCount > 1;
   actNextItem.Enabled := ItemCount > 1;
   actPreviousItem.Enabled := ItemCount > 1;
-  actOpenItem.Enabled := ItemCount > 0;
-end;
-
-procedure TfmLEmuTKPreviewList.actFirstItemExecute(Sender: TObject);
-begin
-  if ItemCount < 1  then
-     Exit;
-  CurrItem := 1;
-end;
-
-procedure TfmLEmuTKPreviewList.actLastItemExecute(Sender: TObject);
-begin
-  if ItemCount < 1  then
-     Exit;
-  CurrItem := ItemCount;
 end;
 
 procedure TfmLEmuTKPreviewList.actNextItemExecute(Sender: TObject);

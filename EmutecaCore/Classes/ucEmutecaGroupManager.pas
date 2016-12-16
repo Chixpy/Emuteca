@@ -57,7 +57,7 @@ type
     procedure SaveToFileTxt(TxtFile: TStrings; const ExportMode: boolean);
       override;
 
-    function ItemById(aId: string): cEmutecaGroup;
+    function ItemById(aId: string; Autocreate: Boolean = False): cEmutecaGroup;
     {< Returns the parent with aId key.
 
        @Result cEmutecaGroup found or nil.
@@ -76,7 +76,7 @@ implementation
 
 { cEmutecaGroupManager }
 
-function cEmutecaGroupManager.ItemById(aId: string): cEmutecaGroup;
+function cEmutecaGroupManager.ItemById(aId: string; Autocreate: Boolean): cEmutecaGroup;
 var
   i: integer;
   aGroup: cEmutecaGroup;
@@ -90,6 +90,15 @@ begin
     if UTF8CompareText(aGroup.ID, aId) = 0 then
       Result := aGroup;
     Inc(i);
+  end;
+
+    // Opps, creating it
+  if Autocreate and (not assigned(Result)) then
+  begin
+    Result := cEmutecaGroup.Create(nil);
+    Result.ID := aId;
+    Result.Title := aId;
+    Self.FullList.Add(Result);
   end;
 end;
 

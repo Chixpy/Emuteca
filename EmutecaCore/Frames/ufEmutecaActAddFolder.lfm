@@ -90,10 +90,10 @@ object fmEmutecaActAddFolder: TfmEmutecaActAddFolder
     ClientWidth = 320
     TabOrder = 3
     object bRun: TBitBtn
-      Left = 129
+      Left = 117
       Height = 26
       Top = 1
-      Width = 62
+      Width = 87
       Default = True
       DefaultCaption = True
       Kind = bkOK
