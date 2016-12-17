@@ -1,20 +1,33 @@
 inherited fmLEmuTKSoftTxtPreview: TfmLEmuTKSoftTxtPreview
-  object cbxTextType: TComboBox[1]
+  inherited pPreview: TPanel
+    Height = 238
+    Top = 23
+    ClientHeight = 238
+    TabOrder = 2
+    object mSoftText: TMemo[0]
+      Left = 1
+      Height = 236
+      Top = 1
+      Width = 286
+      Align = alClient
+      ReadOnly = True
+      ScrollBars = ssAutoVertical
+      TabOrder = 0
+    end
+  end
+  object cbxTextType: TComboBox[2]
     Left = 0
     Height = 23
     Top = 0
     Width = 288
     Align = alTop
     ItemHeight = 15
+    OnSelect = cbxTextTypeSelect
     Style = csDropDownList
     TabOrder = 1
   end
-  object mSoftText: TMemo[2]
-    Left = 0
-    Height = 238
-    Top = 23
-    Width = 288
-    Align = alClient
-    TabOrder = 2
+  inherited ilPreviewList: TImageList[3]
+  end
+  inherited alPreviewList: TActionList[4]
   end
 end

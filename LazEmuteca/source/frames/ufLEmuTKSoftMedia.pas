@@ -66,7 +66,7 @@ begin
   if FEmuteca = AValue then Exit;
   FEmuteca := AValue;
 
-    SoftImgPreview.Emuteca := Emuteca;
+  SoftImgPreview.Emuteca := Emuteca;
   SoftTxtPreview.Emuteca := Emuteca;
 end;
 
@@ -78,9 +78,11 @@ begin
   if Assigned(GUIConfig) then
   begin
     SoftImgPreview.ImageExt := GUIConfig.ImageExtensions;
+    SoftTxtPreview.TxtExt :=  GUIConfig.TextExtensions;
   end
   else
   begin
+    SoftImgPreview.ImageExt := nil;
     SoftImgPreview.ImageExt := nil;
   end;
 end;

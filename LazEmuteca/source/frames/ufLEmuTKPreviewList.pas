@@ -20,6 +20,7 @@ type
     esCurrItem: TSpinEdit;
     ilPreviewList: TImageList;
     lMaxItems: TLabel;
+    pPreview: TPanel;
     tbPreviewList: TToolBar;
     ToolButton1: TToolButton;
     ToolButton3: TToolButton;

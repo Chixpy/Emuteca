@@ -18,6 +18,10 @@ const
   krsKeyZoneIcnFolder = 'ZoneIcnFolder';
   krsKeyImgExt = 'ImageExt';
 
+  // [Texts]
+  krsSectionTexts = 'Texts';
+  krsKeyTxtExt = 'TxtExt';
+
   // [Config]
   krsSectionConfig = 'Config';
   krsKeyEmutecaIni = 'EmutecaIni';
@@ -44,6 +48,7 @@ type
     FEmutecaIni: string;
     FImageExtensions: TStringList;
     FScriptsFolder: string;
+    FTextExtensions: TStringList;
     FZoneIcnFolder: string;
     FHelpFolder: string;
     FGUIIcnFile: string;
@@ -80,6 +85,9 @@ type
     property DumpIcnFolder: string read FDumpIcnFolder write SetDumpIcnFolder;
     //< Folder with icons for Dump Status
     property ImageExtensions: TStringList read FImageExtensions;
+
+    // Texts
+    property TextExtensions: TStringList read FTextExtensions;
 
     // Tools
     // -----
@@ -181,6 +189,10 @@ begin
     IniFile.ReadString(krsSectionImages, krsKeyImgExt,
     ImageExtensions.CommaText);
 
+  // Texts
+  TextExtensions.CommaText :=
+    IniFile.ReadString(krsSectionTexts, krsKeyTxtExt,
+    TextExtensions.CommaText);
 
   // Config/Data
   EmutecaIni := IniFile.ReadString(krsSectionConfig,
@@ -209,6 +221,10 @@ begin
   IniFile.WriteString(krsSectionImages, krsKeyImgExt,
     ImageExtensions.CommaText);
 
+  // Texts
+  IniFile.WriteString(krsSectionTexts, krsKeyTxtExt,
+    TextExtensions.CommaText);
+
   // Data
   IniFile.WriteString(krsSectionConfig, krsKeyEmutecaIni, EmutecaIni);
   IniFile.WriteBool(krsSectionConfig, krsKeySaveOnExit, SaveOnExit);
@@ -235,6 +251,9 @@ begin
   TempStr := UTF8TextReplace(TempStr, ';', '","');
   ImageExtensions.CommaText := TempStr;
 
+  // Texts
+  TextExtensions.CommaText := 'txt,nfo';
+
   // Config/Data
   EmutecaIni := 'Emuteca.ini';
   SaveOnExit := True;
@@ -248,10 +267,15 @@ end;
 
 constructor cGUIConfig.Create(aOwner: TComponent);
 begin
-  // We must create objects before calling inherited
+  // We must create objects before calling inherited, because
+  //   ResetDefaultConfig is called
   FImageExtensions := TStringList.Create;
   ImageExtensions.Sorted := True;
   ImageExtensions.CaseSensitive := False;
+
+  FTextExtensions :=TStringList.Create;
+  TextExtensions.Sorted := True;
+  TextExtensions.CaseSensitive := False;
 
   inherited Create(aOwner);
 end;
@@ -259,6 +283,7 @@ end;
 destructor cGUIConfig.Destroy;
 begin
   FreeAndNil(FImageExtensions);
+  FreeAndNil(FTextExtensions);
   inherited Destroy;
 end;
 

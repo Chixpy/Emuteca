@@ -1,5 +1,21 @@
 inherited fmLEmuTKSoftImgPreview: TfmLEmuTKSoftImgPreview
-  object cbxImageType: TComboBox[1]
+  inherited pPreview: TPanel
+    Height = 238
+    Top = 23
+    ClientHeight = 238
+    TabOrder = 2
+    object iSoftImage: TImage[0]
+      Left = 1
+      Height = 236
+      Top = 1
+      Width = 286
+      Align = alClient
+      Center = True
+      Proportional = True
+      Stretch = True
+    end
+  end
+  object cbxImageType: TComboBox[2]
     Left = 0
     Height = 23
     Top = 0
@@ -9,16 +25,6 @@ inherited fmLEmuTKSoftImgPreview: TfmLEmuTKSoftImgPreview
     OnSelect = cbxImageTypeSelect
     Style = csDropDownList
     TabOrder = 1
-  end
-  object iSoftImage: TImage[2]
-    Left = 0
-    Height = 238
-    Top = 23
-    Width = 288
-    Align = alClient
-    Center = True
-    Proportional = True
-    Stretch = True
   end
   inherited ilPreviewList: TImageList[3]
   end
