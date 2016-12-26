@@ -201,7 +201,7 @@ begin
           w7zExtractFile(aFolder + Info.Name, aFileName + '.*',
             CacheFolder + Info.Name, False, '');
         end;
-      until (OutFileList.Count > 0) or (FindNextUTF8(Info) <> 0);
+      until (FindNextUTF8(Info) <> 0);
     finally
       FindCloseUTF8(Info);
     end;
@@ -271,6 +271,7 @@ var
   CacheFolder: string;
   CompressedArchives: TStringList;
   i, j: integer;
+  Info: TSearchRec;
 begin
   Result := '';
 
@@ -300,7 +301,6 @@ begin
     SetAsFolder(ExtractFileName(ExcludeTrailingPathDelimiter(aFolder))) +
     SetAsFolder(aFileName);
 
-
   // 3.a. If not CacheFolder exists, then search Folder/aFileName.zip/*.mext
   //   and extract to CacheFolder (WE EXTRACT ALL FILES)
   if not DirectoryExistsUTF8(CacheFolder) then
@@ -328,7 +328,23 @@ begin
   if Result <> '' then
     Exit;
 
-  { TODO : 4. in SearchMediaFiles}
+  // 4. If nothing found, search ONLY ONE from every compressed archive.
+  // Folder/*.zip/aFileName.mext
+  if FindFirstUTF8(aFolder + AllFilesMask, 0, Info) = 0 then
+    // TODO: change to 3.X way :-P
+    try
+      repeat
+        if SupportedExt(Info.Name, Config.CompressedExtensions) then
+        begin
+          // AllFilesMask... Maybe is a good idea...
+          w7zExtractFile(aFolder + Info.Name, aFileName + '.*',
+            CacheFolder + Info.Name, False, '');
+        end;
+      until (FindNextUTF8(Info) <> 0);
+    finally
+      FindCloseUTF8(Info);
+    end;
+  Result := SearchFileInFolder(CacheFolder, Extensions);
 end;
 
 procedure cEmuteca.LoadConfig(aFile: string);
