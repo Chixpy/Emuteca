@@ -370,7 +370,7 @@ begin
     [Application.Title, aFrame.Caption]);
   aFrame.Align := alClient;
 
-  aFrame.IconsIni := GUIConfig.GUIIcnFile;
+  aFrame.GUIIconsIni := GUIConfig.GUIIcnFile;
   aFrame.EmuManager := Emuteca.EmulatorManager;
   aFrame.Parent := aForm;
 
@@ -438,7 +438,7 @@ begin
     [Application.Title, actAddSoft.Caption]);
 
   aFrame := TfmEmutecaActAddSoft.Create(aForm);
-  aFrame.IconsIni := GUIConfig.GUIIcnFile;
+  aFrame.GUIIconsIni := GUIConfig.GUIIcnFile;
   aFrame.Align := alClient;
   aFrame.ButtonClose := True;
   aFrame.Emuteca := Emuteca;
@@ -466,7 +466,7 @@ begin
     [Application.Title, aFrame.Caption]);
 
 
-  aFrame.IconsIni := GUIConfig.GUIIcnFile;
+  aFrame.GUIIconsIni := GUIConfig.GUIIcnFile;
   aFrame.Emuteca := Emuteca;
   aFrame.SaveButtons := True;
   aFrame.ButtonClose := True;

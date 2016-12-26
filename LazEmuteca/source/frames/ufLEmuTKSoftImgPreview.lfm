@@ -11,6 +11,7 @@ inherited fmLEmuTKSoftImgPreview: TfmLEmuTKSoftImgPreview
       Width = 286
       Align = alClient
       Center = True
+      OnDblClick = iSoftImageDblClick
       Proportional = True
       Stretch = True
     end

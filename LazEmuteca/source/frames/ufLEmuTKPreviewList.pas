@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, StdCtrls, ComCtrls, ActnList,
-  Spin, Buttons, ExtCtrls,
+  Buttons, ExtCtrls,
   uCHXStrUtils, uCHXImageUtils;
 
 type
@@ -17,7 +17,7 @@ type
     actNextItem: TAction;
     actPreviousItem: TAction;
     alPreviewList: TActionList;
-    esCurrItem: TSpinEdit;
+    cbxCurrItem: TComboBox;
     ilPreviewList: TImageList;
     lMaxItems: TLabel;
     pPreview: TPanel;
@@ -28,6 +28,7 @@ type
     ToolButton6: TToolButton;
     procedure actNextItemExecute(Sender: TObject);
     procedure actPreviousItemExecute(Sender: TObject);
+    procedure cbxCurrItemSelect(Sender: TObject);
 
   private
     FCurrItem: integer;
@@ -57,13 +58,24 @@ implementation
 { TfmLEmuTKPreviewList }
 
 procedure TfmLEmuTKPreviewList.SetItemCount(AValue: integer);
+var
+  i: Integer;
 begin
   if FItemCount = AValue then Exit;
   FItemCount := AValue;
 
   lMaxItems.Caption := ' / ' + IntToStr(ItemCount);
-  esCurrItem.MaxValue := ItemCount;
-  esCurrItem.Enabled := ItemCount > 1;
+
+  cbxCurrItem.Items.BeginUpdate;
+  try
+  cbxCurrItem.Items.Clear;
+  for i := 1 to ItemCount do
+    cbxCurrItem.Items.Add(IntToStr(i));
+    cbxCurrItem.Enabled := ItemCount > 1;
+  finally
+    cbxCurrItem.Items.EndUpdate;
+  end;
+
   actNextItem.Enabled := ItemCount > 1;
   actPreviousItem.Enabled := ItemCount > 1;
 end;
@@ -88,13 +100,18 @@ begin
     CurrItem := CurrItem - 1;
 end;
 
+procedure TfmLEmuTKPreviewList.cbxCurrItemSelect(Sender: TObject);
+begin
+  CurrItem := cbxCurrItem.ItemIndex + 1;
+end;
+
 procedure TfmLEmuTKPreviewList.SetCurrItem(AValue: integer);
 begin
   // Update anyway
   // if FCurrItem = AValue then Exit;
   FCurrItem := AValue;
 
-  esCurrItem.Value := FCurrItem;
+  cbxCurrItem.ItemIndex := FCurrItem - 1;
 
   OnCurrItemChange;
 end;

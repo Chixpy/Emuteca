@@ -7,6 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
   StdCtrls, ActnList, ExtCtrls,
+  ufCHXForm, ufCHXImgViewer,
   ucEmuteca, ucEmutecaSoftware, ucEmutecaSystem,
   ufLEmuTKPreviewList;
 
@@ -18,6 +19,7 @@ type
     cbxImageType: TComboBox;
     iSoftImage: TImage;
     procedure cbxImageTypeSelect(Sender: TObject);
+    procedure iSoftImageDblClick(Sender: TObject);
 
   private
     FCurrCaption: string;
@@ -166,6 +168,28 @@ begin
     CurrCaption := cbxImageType.Items[cbxImageType.ItemIndex];
 
   UpdateImageList;
+end;
+
+procedure TfmLEmuTKSoftImgPreview.iSoftImageDblClick(Sender: TObject);
+var
+  aForm: TfrmCHXForm;
+  fmCHXImageViewer: TfmCHXImgViewer;
+begin
+  Application.CreateForm(TfrmCHXForm, aForm);
+  { TODO : Uncomment this }
+  // aForm.GUIConfigIni := ;
+  aform.WindowState := wsMaximized; // We want view full image
+  aForm.GUIIconsIni := Self.IconsIni;
+
+  fmCHXImageViewer := TfmCHXImgViewer.Create(aForm);
+  fmCHXImageViewer.IconsIniFile := Self.IconsIni;
+  fmCHXImageViewer.AddImages(ImageList, CurrItem);
+  fmCHXImageViewer.Align := alClient;
+  fmCHXImageViewer.Parent := aForm;
+
+  aForm.ShowModal;
+
+  FreeAndNil(aForm);
 end;
 
 procedure TfmLEmuTKSoftImgPreview.SetCurrCaption(AValue: string);

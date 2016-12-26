@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, LazFileUtils, Forms, Controls, Graphics, Dialogs,
   VirtualTrees, LCLIntf, LCLType, LazUTF8,
-  ucCHXImageList, uCHXImageUtils, uCHXFileUtils, uCHXStrUtils,
+  ucCHXImageList, uCHXImageUtils, uCHXStrUtils,
   ucEmuteca,
   ucEmutecaSoftware, ucEmutecaGroup,
   ufEmutecaSoftList,

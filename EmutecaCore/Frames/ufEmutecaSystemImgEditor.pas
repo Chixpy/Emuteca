@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, LazFileUtils, Forms, Controls, StdCtrls,
   EditBtn, ExtCtrls,
   uCHXStrUtils,
-  ufCHXPropEditor, ufCHXImageViewer,
+  ufCHXPropEditor, ufCHXForm, ufCHXImgViewer,
   ucEmutecaConfig, ucEmutecaSystem;
 
 type
@@ -77,18 +77,26 @@ begin
 end;
 
 procedure TfmSystemImgEditor.iSystemImageDblClick(Sender: TObject);
+var
+  aForm: TfrmCHXForm;
+  fmCHXImageViewer: TfmCHXImgViewer;
 begin
-  if not FileExistsUTF8(System.Image) then
+    if not FileExistsUTF8(System.Image) then
     Exit;
 
-  if not assigned(frmCHXImageViewer) then
-    Application.CreateForm(TfrmCHXImageViewer, frmCHXImageViewer);
+  Application.CreateForm(TfrmCHXForm, aForm);
+  { TODO : Uncomment this }
+  // aForm.GUIConfigIni := ;
+  aForm.GUIIconsIni := Self.GUIIconsIni;
 
-  frmCHXImageViewer.IconsIniFile := Self.IconsIni;
-  frmCHXImageViewer.AddImage(System.Image);
-  frmCHXImageViewer.ShowModal;
+  fmCHXImageViewer := TfmCHXImgViewer.Create(aForm);
+  fmCHXImageViewer.IconsIniFile := Self.GUIIconsIni;
+  fmCHXImageViewer.AddImage(System.Image);
+  fmCHXImageViewer.Parent := aForm;
 
-  FreeAndNil(frmCHXImageViewer);
+  aForm.ShowModal;
+
+  FreeAndNil(aForm);
 end;
 
 procedure TfmSystemImgEditor.eSystemIconAcceptFileName(Sender: TObject;

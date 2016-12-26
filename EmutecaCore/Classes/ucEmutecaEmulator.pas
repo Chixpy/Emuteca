@@ -245,7 +245,6 @@ var
   CurrFolder: string;
   TempDir: string;
   TempParam: string;
-  TempTime: TTime;
 begin
   CurrFolder := GetCurrentDirUTF8;
 
@@ -283,8 +282,6 @@ begin
   TempParam := Trim(TempParam);
 
   try
-    TempTime := Now;
-
     // Hack for run system executables ;P
     if ExeFile = '' then
       { TODO : If not an executable try OpenDocument }
@@ -293,13 +290,6 @@ begin
       Result := ExecuteProcess(UTF8ToSys(SysPath(ExeFile)),
         UTF8ToSys(TempParam));
 
-    // Is there an error? Is less than 1 minute? No, then add statistics.
-
-    // TODO 2: Emulator statistics are not saved in the file...
-    { if (Result = Self.ExitCode) and
-      (Now > (EncodeTime(0, 1, 0, 0) + TempTime)) then
-      Self.Statistics.AddPlayingTime(Now, TempTime);
-    }
     // Hack: If normal exit code <> 0, switch 0 and ExitCode
     //   So, this way 0 always is the correct exit of the program,
     //     and Managers don't care about wich is the actual code

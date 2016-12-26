@@ -23,7 +23,7 @@ ufEmutecaSystemEditor, ufLEmuTKFullSystemEditor, ufCHXChkLstPropEditor,
 ufLEmuTKSysManager, ufLEmuTKEmuManager, ufEmutecaSoftEditor, 
 ufLEmuTKFullEmuEditor, ufEmutecaEmulatorEditor, ufLEmuTKSoftMedia, 
 ufEmutecaActAddSoft, ufLEmuTKMain, ufLEmuTKPreviewList, ufCHXImgViewer, 
-ufLEmuTKSoftImgPreview, ufLEmuTKSoftTxtPreview;
+ufLEmuTKSoftImgPreview, ufLEmuTKSoftTxtPreview, ufCHXForm;
 
 {$R *.res}
 

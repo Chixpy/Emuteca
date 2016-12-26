@@ -223,8 +223,6 @@ begin
 end;
 
 procedure TfmEmutecaSoftEditor.SaveData;
-var
-  aGroup: cEmutecaGroup;
 begin
   if not assigned(Software) then
     Exit;

@@ -33,7 +33,7 @@ type
       read FSysEditor;
 
     procedure ClearData; override;
-    procedure SetIconsIni(AValue: string); override;
+    procedure SetGUIIconsIni(AValue: TFilename); override;
     procedure AddItemToList; override;
     procedure DeleteItemFromList; override;
     procedure ExportList; override;
@@ -66,10 +66,10 @@ begin
   clbPropItems.Clear;
 end;
 
-procedure TfmLEmuTKSysManager.SetIconsIni(AValue: string);
+procedure TfmLEmuTKSysManager.SetGUIIconsIni(AValue: TFilename);
 begin
-  inherited SetIconsIni(AValue);
-  SysEditor.IconsIni := self.IconsIni;
+  inherited SetGUIIconsIni(AValue);
+  SysEditor.GUIIconsIni := self.GUIIconsIni;
 end;
 
 procedure TfmLEmuTKSysManager.SetCheckedAll(aBool: Boolean);

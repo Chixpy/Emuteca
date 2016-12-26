@@ -31,7 +31,7 @@ type
     property SysImgEditor: TfmSystemImgEditor read FSysImgEditor;
 
     procedure ClearData; override;
-    procedure SetIconsIni(AValue: string); override;
+    procedure SetGUIIconsIni(AValue: TFilename); override;
 
   public
     { public declarations }
@@ -88,12 +88,12 @@ begin
   // Do nothing, frames do this.
 end;
 
-procedure TfmLEmuTKFullSystemEditor.SetIconsIni(AValue: string);
+procedure TfmLEmuTKFullSystemEditor.SetGUIIconsIni(AValue: TFilename);
 begin
-  inherited SetIconsIni(AValue);
+  inherited SetGUIIconsIni(AValue);
 
-  SysEditor.IconsIni := self.IconsIni;
-  SysImgEditor.IconsIni := self.IconsIni;
+  SysEditor.GUIIconsIni := self.GUIIconsIni;
+  SysImgEditor.GUIIconsIni := self.GUIIconsIni;
 end;
 
 procedure TfmLEmuTKFullSystemEditor.SaveData;
