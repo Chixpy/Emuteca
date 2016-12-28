@@ -92,17 +92,19 @@ begin
     Exit;
 
   case Column of
-    0: // Name
+    0: // System
+       Result := UTF8CompareText(pData1^.SystemKey, pData2^.SystemKey);
+    1: // Name
       Result := UTF8CompareText(pData1^.ID, pData2^.ID);
-    1: // Develepor
+    2: // Develepor
       Result := UTF8CompareText(pData1^.Developer, pData2^.Developer);
-    2: // Year
+    3: // Year
       Result := UTF8CompareText(pData1^.Year, pData2^.Year);
-    3: // Times
+    4: // Times
       Result := pData1^.Stats.TimesPlayed - pData2^.Stats.TimesPlayed;
-    4: // Total time
+    5: // Total time
       Result := pData1^.Stats.PlayingTime - pData2^.Stats.PlayingTime;
-    5: // Last time
+    6: // Last time
       Result := Trunc(pData1^.Stats.LastTime - pData2^.Stats.LastTime);
     else
       ;
@@ -120,13 +122,13 @@ begin
     Exit;
 
   case Column of
-    0: // Name
+    1: // Name
       HintText := pData^.ID;
-    1: ; // Develepor
-    2: ; // Year
-    3: ; // Times
-    4: ; // Total time
-    5: ; // Last time
+    2: ; // Develepor
+    3: ; // Year
+    4: ; // Times
+    5: ; // Total time
+    6: ; // Last time
     else
       ;
   end;
@@ -143,17 +145,19 @@ begin
     Exit;
 
   case Column of
-    0: // Name
+    0: // System
+      CellText := pData^.System.Title;
+    1: // Name
       CellText := pData^.Title;
-    1: // Develepor
+    2: // Develepor
       CellText := pData^.Developer;
-    2: // Year
+    3: // Year
       CellText := pData^.Year;
-    3: // Times
+    4: // Times
       CellText := IntToStr(pData^.Stats.TimesPlayed);
-    4: // Total time
+    5: // Total time
       CellText := SecondsToFmtStr(pData^.Stats.PlayingTime);
-    5: // Last time
+    6: // Last time
       if pData^.Stats.LastTime = 0 then
         CellText := rsNever
       else

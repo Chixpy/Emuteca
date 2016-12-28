@@ -5,7 +5,8 @@ unit ufLEmuTKIcnSoftList;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, LazFileUtils, Forms, Controls, Graphics, Dialogs,
+  Classes, SysUtils, FileUtil, LazFileUtils, Forms, Controls,
+  Graphics, Dialogs,
   VirtualTrees, LCLIntf, LCLType, LazUTF8,
   ucCHXImageList, uCHXImageUtils, uCHXStrUtils,
   ucEmuteca,
@@ -21,9 +22,9 @@ const
 
 type
 
-  { TfmEmutecaIcnSoftList }
+  { TfmLEmuTKIcnSoftList }
 
-  TfmEmutecaIcnSoftList = class(TfmEmutecaSoftList)
+  TfmLEmuTKIcnSoftList = class(TfmEmutecaSoftList)
 
     procedure VSTDrawText(Sender: TBaseVirtualTree;
       TargetCanvas: TCanvas; Node: PVirtualNode; Column: TColumnIndex;
@@ -35,25 +36,28 @@ type
     FEmuteca: cEmuteca;
     FGUIConfig: cGUIConfig;
     FSoftIconList: cCHXImageList;
+    FSystemIcons: cCHXImageList;
     FZoneIconMap: cCHXImageMap;
     procedure SetDumpIconList(AValue: cCHXImageList);
     procedure SetEmuteca(AValue: cEmuteca);
     procedure SetGUIConfig(AValue: cGUIConfig);
     procedure SetSoftIconList(AValue: cCHXImageList);
+    procedure SetSystemIcons(AValue: cCHXImageList);
     procedure SetZoneIconMap(AValue: cCHXImageMap);
 
   public
-    { public declarations }
     property GUIConfig: cGUIConfig read FGUIConfig write SetGUIConfig;
     property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
 
     property SoftIconList: cCHXImageList
       read FSoftIconList write SetSoftIconList;
-    //< Game icons (exclusive ones).
+    //< Game icons
     property DumpIconList: cCHXImageList
       read FDumpIconList write SetDumpIconList;
-    {< Icons of dump info. }
+    //< Icons of dump info.
     property ZoneIconMap: cCHXImageMap read FZoneIconMap write SetZoneIconMap;
+    //< Icons for zones
+    property SystemIcons: cCHXImageList read FSystemIcons write SetSystemIcons;
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -63,9 +67,9 @@ implementation
 
 {$R *.lfm}
 
-{ TfmEmutecaIcnSoftList }
+{ TfmLEmuTKIcnSoftList }
 
-procedure TfmEmutecaIcnSoftList.VSTDrawText(Sender: TBaseVirtualTree;
+procedure TfmLEmuTKIcnSoftList.VSTDrawText(Sender: TBaseVirtualTree;
   TargetCanvas: TCanvas; Node: PVirtualNode; Column: TColumnIndex;
   const CellText: string; const CellRect: TRect; var DefaultDraw: boolean);
 var
@@ -97,6 +101,24 @@ begin
 
       if Data^.Stats.IconIndex = -1 then
       begin
+
+        // Usual logic:
+        // If GroupIcon = SoftIcon then
+        //   Use/Search icon of group
+        // else
+        //   Search soft icon
+        //   if not found then
+        //      Use/Search icon of group
+        //
+        // Used logic:
+        // Search icon of group
+        // If GroupIcon = SoftIcon then
+        //   Use icon of group
+        // else
+        //   Search soft icon
+        //   if not found then
+        //      Use icon of group
+
         if Data^.Group.Stats.IconIndex = -1 then
         begin // Searching group icon
           TmpStr := Emuteca.SearchFirstGroupFile(Data^.System.IconFolder,
@@ -109,19 +131,19 @@ begin
 
         // Dirty same file test
         if RemoveFromBrackets(ExtractFileNameOnly(Data^.Group.ID)) =
-        RemoveFromBrackets(ExtractFileNameOnly(Data^.FileName)) then
+          RemoveFromBrackets(ExtractFileNameOnly(Data^.FileName)) then
         begin
           Data^.Stats.IconIndex := Data^.Group.Stats.IconIndex;
         end
         else
         begin
-          TmpStr := Emuteca.SearchFirstSoftFile(Data^.System.IconFolder, Data^,
-            GUIConfig.ImageExtensions, False);
+          TmpStr := Emuteca.SearchFirstSoftFile(Data^.System.IconFolder,
+            Data^, GUIConfig.ImageExtensions, False);
           if TmpStr = '' then
             Data^.Stats.IconIndex := Data^.Group.Stats.IconIndex
           else
             Data^.Stats.IconIndex := SoftIconList.AddImageFile(TmpStr);
-        end
+        end;
       end;
 
       if (Data^.Stats.IconIndex < SoftIconList.Count) then
@@ -252,21 +274,28 @@ begin
   end;
 end;
 
-procedure TfmEmutecaIcnSoftList.SetSoftIconList(AValue: cCHXImageList);
+procedure TfmLEmuTKIcnSoftList.SetSoftIconList(AValue: cCHXImageList);
 begin
   if FSoftIconList = AValue then
     Exit;
   FSoftIconList := AValue;
 end;
 
-procedure TfmEmutecaIcnSoftList.SetZoneIconMap(AValue: cCHXImageMap);
+procedure TfmLEmuTKIcnSoftList.SetSystemIcons(AValue: cCHXImageList);
+begin
+  if FSystemIcons = AValue then
+    Exit;
+  FSystemIcons := AValue;
+end;
+
+procedure TfmLEmuTKIcnSoftList.SetZoneIconMap(AValue: cCHXImageMap);
 begin
   if FZoneIconMap = AValue then
     Exit;
   FZoneIconMap := AValue;
 end;
 
-constructor TfmEmutecaIcnSoftList.Create(TheOwner: TComponent);
+constructor TfmLEmuTKIcnSoftList.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
 
@@ -275,27 +304,29 @@ begin
     vst.DefaultNodeHeight * 8 + vst.Header.Columns[5].Spacing * 2;
 end;
 
-destructor TfmEmutecaIcnSoftList.Destroy;
+destructor TfmLEmuTKIcnSoftList.Destroy;
 begin
   inherited Destroy;
 end;
 
-procedure TfmEmutecaIcnSoftList.SetDumpIconList(AValue: cCHXImageList);
+procedure TfmLEmuTKIcnSoftList.SetDumpIconList(AValue: cCHXImageList);
 begin
   if FDumpIconList = AValue then
     Exit;
   FDumpIconList := AValue;
 end;
 
-procedure TfmEmutecaIcnSoftList.SetEmuteca(AValue: cEmuteca);
+procedure TfmLEmuTKIcnSoftList.SetEmuteca(AValue: cEmuteca);
 begin
-  if FEmuteca = AValue then Exit;
+  if FEmuteca = AValue then
+    Exit;
   FEmuteca := AValue;
 end;
 
-procedure TfmEmutecaIcnSoftList.SetGUIConfig(AValue: cGUIConfig);
+procedure TfmLEmuTKIcnSoftList.SetGUIConfig(AValue: cGUIConfig);
 begin
-  if FGUIConfig = AValue then Exit;
+  if FGUIConfig = AValue then
+    Exit;
   FGUIConfig := AValue;
 
   ReadActionsIcons(GUIConfig.GUIIcnFile, Self.Name, ilSoftList, alSoftList);

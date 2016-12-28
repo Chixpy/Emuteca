@@ -3,6 +3,13 @@ This is a miscellaneous list for developing and other thing related.
 7z = Folder or 7z/zip/rar/etc.
 db = Whatever I store the full list of game/parents
 
+uXXX = Unit.
+ucXXX = Class unit.
+uaXXX = Abstract class unit.
+ufXXX = Frame unit.
+ufrXXX = Form unit.
+xLEmuTKXXX = GUI unit.
+
 (0.8) Games or Software folder?
 ------------------------
 Software. Many systems have not only games.

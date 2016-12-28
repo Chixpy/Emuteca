@@ -149,7 +149,9 @@ begin
     Result := cEmutecaSystem.Create(nil);
     Result.ID := aId;
     Result.Title := aId;
+    Result.Enabled := True;
     Self.FullList.Add(Result);
+    Self.VisibleList.Add(Result);
   end;
 end;
 

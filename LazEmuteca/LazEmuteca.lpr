@@ -8,14 +8,14 @@ uses
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
   Forms, bs_controls, lz_rtticontrols, pl_pascalscript, pl_virtualtrees,
-  ucEmuteca, uPSI_ucEmuteca, ucEmutecaGroup, ucEmutecaConfig, ufEmutecaMain,
+  ucEmuteca, uPSI_ucEmuteca, ucEmutecaGroup, ucEmutecaConfig, ufrLEmuTKMain,
   ucEmutecaEmulatorManager, ucEmutecaGroupManager,
   ucEmutecaSystemManager, ucEmutecaEmulator, ufEmutecaSoftList,
   ucEmutecaSoftware, ucEmutecaSystem,
   ugEmutecaManager,
   ugEmutecaPersList, ufEmutecaScriptManager, ucEmutecaSoftManager,
 uGUIConfig,
-  uaCHXStorable, uaEmutecaManager, ufEmutecaSystemImgEditor,
+  uaCHXStorable, uaCHXConfig, uaEmutecaManager, ufEmutecaSystemImgEditor,
   ufEmutecaActAddFolder, ucEmutecaScriptEngine,
   ufESMSoftList, ufEmutecaSystemCBX, ufESMGroupList, ufLEmuTKChkSoftList,
   ufEmutecaGroupCBX, ufLEmuTKIcnSoftList, ufCHXPropEditor, 
@@ -23,14 +23,14 @@ ufEmutecaSystemEditor, ufLEmuTKFullSystemEditor, ufCHXChkLstPropEditor,
 ufLEmuTKSysManager, ufLEmuTKEmuManager, ufEmutecaSoftEditor, 
 ufLEmuTKFullEmuEditor, ufEmutecaEmulatorEditor, ufLEmuTKSoftMedia, 
 ufEmutecaActAddSoft, ufLEmuTKMain, ufLEmuTKPreviewList, ufCHXImgViewer, 
-ufLEmuTKSoftImgPreview, ufLEmuTKSoftTxtPreview, ufCHXForm;
+ufLEmuTKSoftImgPreview, ufLEmuTKSoftTxtPreview, ufCHXForm, ufLEmuTKIcnGrpList;
 
 {$R *.res}
 
 begin
   RequireDerivedFormResource := True;
   Application.Initialize;
-  Application.CreateForm(TfrmEmutecaMain, frmEmutecaMain);
+  Application.CreateForm(TfrmLEmuTKMain, frmLEmuTKMain);
   Application.Run;
 end.
 

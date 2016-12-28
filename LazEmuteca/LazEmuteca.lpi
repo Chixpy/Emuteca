@@ -23,7 +23,7 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="8"/>
-      <BuildNr Value="96"/>
+      <BuildNr Value="97"/>
       <StringTable ProductVersion="0.8.0.95"/>
     </VersionInfo>
     <BuildModes Count="2">
@@ -94,15 +94,15 @@
         <PackageName Value="LCL"/>
       </Item6>
     </RequiredPackages>
-    <Units Count="82">
+    <Units Count="84">
       <Unit0>
         <Filename Value="LazEmuteca.lpr"/>
         <IsPartOfProject Value="True"/>
       </Unit0>
       <Unit1>
-        <Filename Value="source\forms\ufEmutecaMain.pas"/>
+        <Filename Value="source\forms\ufrLEmuTKMain.pas"/>
         <IsPartOfProject Value="True"/>
-        <ComponentName Value="frmEmutecaMain"/>
+        <ComponentName Value="frmLEmuTKMain"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
       </Unit1>
@@ -398,7 +398,7 @@
       <Unit63>
         <Filename Value="source\frames\ufLEmuTKIcnSoftList.pas"/>
         <IsPartOfProject Value="True"/>
-        <ComponentName Value="fmEmutecaIcnSoftList"/>
+        <ComponentName Value="fmLEmuTKIcnSoftList"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
       </Unit63>
@@ -525,6 +525,17 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
       </Unit81>
+      <Unit82>
+        <Filename Value="source\frames\ufLEmuTKIcnGrpList.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fmLEmuTKIcnGrpList"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+      </Unit82>
+      <Unit83>
+        <Filename Value="..\CHXPas\Abstract\uaCHXConfig.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit83>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

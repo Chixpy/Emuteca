@@ -63,6 +63,7 @@ type
 
     All folder paths (absolute and relative) have the trailing path separator.
   }
+  // TODO: Use caCHXConfig
   cEmutecaConfig = class(TComponent)
   private
     FCompressedExtensions: TStringList;

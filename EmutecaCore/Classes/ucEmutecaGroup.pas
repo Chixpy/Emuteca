@@ -27,30 +27,40 @@ interface
 
 uses
   Classes, SysUtils, LazFileUtils, contnrs,
-  uCHXStrUtils,
-  uaCHXStorable,
-  ucEmutecaPlayingStats;
+  uCHXStrUtils, uaCHXStorable,
+  ucEmutecaPlayingStats, ucEmutecaSystem;
 
 type
   { cEmutecaGroup }
 
-  cEmutecaGroup = class(caCHXStorableTxt)
+  cEmutecaGroup = class(caCHXStorableTxt, IFPObserver)
   private
     FDeveloper: string;
     FID: string;
     FStats: cEmutecaPlayingStats;
+    FSystem: cEmutecaSystem;
+    FSystemKey: string;
     FTitle: string;
     FYear: string;
     function GetDataString: string;
     procedure SetDataString(AValue: string);
     procedure SetDeveloper(AValue: string);
     procedure SetID(AValue: string);
+    procedure SetSystem(AValue: cEmutecaSystem);
     procedure SetTitle(AValue: string);
     procedure SetYear(AValue: string);
 
 
   public
     property DataString: string read GetDataString write SetDataString;
+
+    // Cached Data
+    // -----------
+    property System: cEmutecaSystem read FSystem write SetSystem;
+
+    procedure FPOObservedChanged(ASender: TObject;
+      Operation: TFPObservedOperation; Data: Pointer);
+    {< System has changed. }
 
     procedure LoadFromFileTxt(TxtFile: TStrings); override;
     procedure SaveToFileTxt(TxtFile: TStrings; const ExportMode: boolean);
@@ -64,10 +74,12 @@ type
     {< ID and Sort Title of the Parent. }
     property Title: string read FTitle write SetTitle;
     {< Name of the parent. }
-
+    property SystemKey: string read FSystemKey;
+    {< ID of the System. }
     property Year: string read FYear write SetYear;
-
+    {< Development year. }
     property Developer: string read FDeveloper write SetDeveloper;
+    {< Developer. }
 
     // Usage statitics
     // ---------------
@@ -99,6 +111,19 @@ begin
   FYear := AValue;
 end;
 
+procedure cEmutecaGroup.FPOObservedChanged(ASender: TObject;
+  Operation: TFPObservedOperation; Data: Pointer);
+begin
+  if not assigned(ASender) then
+    Exit;
+
+  case Operation of
+    ooFree: System := nil;
+    else
+      FSystemKey := cEmutecaSystem(ASender).ID;
+  end;
+end;
+
 procedure cEmutecaGroup.SetID(AValue: string);
 begin
   if FID = AValue then
@@ -106,6 +131,25 @@ begin
   FID := AValue;
 
   FPONotifyObservers(Self, ooChange, nil);
+end;
+
+procedure cEmutecaGroup.SetSystem(AValue: cEmutecaSystem);
+begin
+  if FSystem = AValue then
+    Exit;
+
+  if Assigned(FSystem) then
+    FSystem.FPODetachObserver(Self);
+
+  FSystem := AValue;
+
+  if Assigned(System) then
+  begin
+    System.FPOAttachObserver(Self);
+    FSystemKey := System.ID;
+  end;
+
+  //else FSystemKey := ''; We don't want to delete the old SystemKey
 end;
 
 function cEmutecaGroup.GetDataString: string;
@@ -151,6 +195,8 @@ end;
 
 destructor cEmutecaGroup.Destroy;
 begin
+  if Assigned(System) then
+    System.FPODetachObserver(Self);
   FreeAndNil(FStats);
 
   inherited Destroy;
@@ -169,7 +215,7 @@ begin
     case i of
       0: ID := TxtFile[i];
       1: Title := TxtFile[i];
-      // 2: SystemKey := TxtFile[i];
+      2: FSystemKey := TxtFile[i];
       3: Year := TxtFile[i];
       4: Developer := TxtFile[i];
       // 5: ;
@@ -191,7 +237,10 @@ begin
 
   TxtFile.Add(ID);
   TxtFile.Add(Title);
-  TxtFile.Add('');  //TxtFile.Add(SystemKey);
+  if assigned(System) then
+    TxtFile.Add(System.ID)
+  else
+    TxtFile.Add(SystemKey);
   TxtFile.Add(Year);
   TxtFile.Add(Developer);
   TxtFile.Add('');

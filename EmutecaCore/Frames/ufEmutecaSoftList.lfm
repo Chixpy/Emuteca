@@ -108,14 +108,24 @@ object fmEmutecaSoftList: TfmEmutecaSoftList
     object miOpenSystemFolder: TMenuItem
       Action = actOpenSystemFolder
     end
+    object miOpenSoftFolder: TMenuItem
+      Action = actOpenSoftFolder
+      Caption = 'Open software folder'
+    end
   end
   object alSoftList: TActionList
     Images = ilSoftList
     left = 232
     top = 93
     object actOpenSystemFolder: TAction
+      Category = 'Open Folder'
       Caption = 'Open system folder'
       OnExecute = actOpenSystemFolderExecute
+    end
+    object actOpenSoftFolder: TAction
+      Category = 'Open Folder'
+      Caption = 'actOpenSoftFolder'
+      OnExecute = actOpenSoftFolderExecute
     end
   end
   object ilSoftList: TImageList

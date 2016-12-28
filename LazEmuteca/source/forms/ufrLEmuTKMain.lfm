@@ -1,4 +1,4 @@
-object frmEmutecaMain: TfrmEmutecaMain
+object frmLEmuTKMain: TfrmLEmuTKMain
   Left = 371
   Height = 600
   Top = 51

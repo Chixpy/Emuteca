@@ -21,31 +21,34 @@ object fmEmutecaGroupList: TfmEmutecaGroupList
     Header.Columns = <    
       item
         Position = 0
+        Text = 'System'
+      end    
+      item
+        Position = 1
         Text = 'Name'
         Width = 294
       end    
       item
-        Position = 1
+        Position = 2
         Text = 'Developer'
       end    
       item
-        Position = 2
-        Text = 'Year'
-      end    
-      item
         Position = 3
-        Text = 'Times Played'
+        Text = 'Dev. Year'
       end    
       item
         Position = 4
-        Text = 'Total Time'
+        Text = 'Times Played'
       end    
       item
         Position = 5
+        Text = 'Total Time'
+      end    
+      item
+        Position = 6
         Text = 'Last Time'
       end>
     Header.DefaultHeight = 17
-    Header.MainColumn = 1
     Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoRestrictDrag, hoShowImages, hoShowSortGlyphs, hoVisible, hoHeaderClickAutoSort, hoAutoColumnPopupMenu]
     TabOrder = 0
     TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScrollOnExpand, toAutoSort, toAutoTristateTracking, toAutoDeleteMovedNodes]

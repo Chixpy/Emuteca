@@ -72,6 +72,7 @@ type
       aFolder: TFilename; aSoft: cEmutecaSoftware; Extensions: TStrings);
     procedure SearchGroupFiles(OutFileList: TStrings;
       aFolder: TFilename; aGroup: cEmutecaGroup; Extensions: TStrings);
+
     function SearchFirstMediaFile(aFolder: TFilename;
       aFileName: TFilename; Extensions: TStrings): TFilename;
     function SearchFirstSoftFile(aFolder: TFilename;
@@ -79,6 +80,8 @@ type
       UseGroup: boolean = True): TFilename;
     function SearchFirstGroupFile(aFolder: TFilename;
       aGroup: cEmutecaGroup; Extensions: TStrings): TFilename;
+
+    procedure FilterBySystem(aSystem: cEmutecaSystem);
 
     function RunSoftware(const aSoftware: cEmutecaSoftware): integer;
 
@@ -98,7 +101,6 @@ type
 implementation
 
 { cEmuteca }
-
 
 procedure cEmuteca.SetTempFolder(AValue: string);
 begin
@@ -367,7 +369,7 @@ begin
   SystemManager.LoadFromFile('');
 
   // Setting GroupManager
-  SoftManager.SystemManager := SystemManager;
+  GroupManager.SystemManager := SystemManager;
   GroupManager.DataFile := Config.DataFolder + Config.GroupsFile;
   GroupManager.LoadFromFile('');
 
@@ -413,6 +415,11 @@ function cEmuteca.SearchFirstGroupFile(aFolder: TFilename;
   aGroup: cEmutecaGroup; Extensions: TStrings): TFilename;
 begin
   Result := SearchFirstMediaFile(aFolder, aGroup.ID, Extensions);
+end;
+
+procedure cEmuteca.FilterBySystem(aSystem: cEmutecaSystem);
+begin
+  SoftManager.FilterBySystem(aSystem);
 end;
 
 function cEmuteca.RunSoftware(const aSoftware: cEmutecaSoftware): integer;
@@ -584,8 +591,8 @@ begin
 
   FreeAndNil(FVersionManager);
   FreeAndNil(FGroupManager);
-  FreeAndNil(FEmulatorManager);
   FreeAndNil(FSystemManager);
+  FreeAndNil(FEmulatorManager);
   FreeAndNil(FConfig);
   inherited Destroy;
 end;

@@ -7,7 +7,8 @@ interface
 uses
   Classes, SysUtils, LazUTF8,
   uaEmutecaManager,
-  ucEmutecaSoftware, ucEmutecaSystemManager, ucEmutecaSystem, ucEmutecaGroupManager;
+  ucEmutecaSoftware, ucEmutecaSystemManager, ucEmutecaSystem,
+  ucEmutecaGroupManager;
 
 resourcestring
   rsLoadingVersionList = 'Loading software list...';
@@ -41,7 +42,8 @@ type
     procedure SaveToFileTxt(TxtFile: TStrings; const ExportMode: boolean);
       override;
 
-    function ItemById(aId: string; Autocreate: Boolean = False): cEmutecaSoftware;
+    function ItemById(aId: string;
+      Autocreate: boolean = False): cEmutecaSoftware;
     {< Returns the software with aId key.
 
        @Result cEmutecaSoftware found or nil.
@@ -65,8 +67,8 @@ implementation
 { cEmutecaSoftManager }
 
 
-function cEmutecaSoftManager.ItemById(aId: string; Autocreate: Boolean
-  ): cEmutecaSoftware;
+function cEmutecaSoftManager.ItemById(aId: string;
+  Autocreate: boolean): cEmutecaSoftware;
 var
   i: integer;
   aSoft: cEmutecaSoftware;
@@ -190,13 +192,15 @@ begin
   if not Assigned(TxtFile) then
     Exit;
 
+  // FullList.BeginUpdate;
   FullList.Capacity := FullList.Count + TxtFile.Count; // Speed Up?
-  TxtFile.BeginUpdate;
   i := 1; // Skipping Header
   while i < TxtFile.Count do
   begin
     TempSoft := cEmutecaSoftware.Create(nil);
     TempSoft.DataString := TxtFile[i];
+
+    { TODO : Optimice this: Group now have system link }
 
     TempSoft.System := SystemManager.ItemById(TempSoft.SystemKey, True);
     TempSoft.Group := GroupManager.ItemById(TempSoft.GroupKey, True);
@@ -208,8 +212,8 @@ begin
       ProgressCallBack(rsLoadingVersionList, TempSoft.System.Title,
         TempSoft.Title, i, TxtFile.Count);
   end;
-  TxtFile.EndUpdate;
-  VisibleList.Assign(FullList);
+  // FullList.EndUpdate;
+
 end;
 
 procedure cEmutecaSoftManager.SaveToFileTxt(TxtFile: TStrings;
@@ -224,26 +228,30 @@ begin
   { TODO : cEmutecaSoftManager.SaveToFileTxt Export mode }
   TxtFile.Clear;
   TxtFile.BeginUpdate;
-  TxtFile.Capacity := FullList.Count + 1; // Speed up?
-  TxtFile.Add('"ID","Folder","FileName","Title","Parent","System",' +
-    '"Reserved 1","TransliteratedName","SortTitle","Reserved 2",' +
-    '"Version","Year","Publisher","Zone","Reserved 3",' +
-    '"DumpStatus","DumpInfo","Fixed","Trainer","Translation",' +
-    '"Pirate","Cracked","Modified","Hack","Reserved 4",' +
-    '"Last Time","Times Played","Playing Time"');
+  try
+    TxtFile.Capacity := FullList.Count + 1; // Speed up?
+    TxtFile.Add('"ID","Folder","FileName","Title","Parent","System",' +
+      '"Reserved 1","TransliteratedName","SortTitle","Reserved 2",' +
+      '"Version","Year","Publisher","Zone","Reserved 3",' +
+      '"DumpStatus","DumpInfo","Fixed","Trainer","Translation",' +
+      '"Pirate","Cracked","Modified","Hack","Reserved 4",' +
+      '"Last Time","Times Played","Playing Time"');
 
-  i := 0;
-  while i < FullList.Count do
-  begin
-    aSoft := cEmutecaSoftware(FullList[i]);
-    TxtFile.Add(aSoft.DataString);
-    Inc(i);
+    i := 0;
+    while i < FullList.Count do
+    begin
+      aSoft := cEmutecaSoftware(FullList[i]);
+      TxtFile.Add(aSoft.DataString);
+      Inc(i);
 
-    if ProgressCallBack <> nil then
-      ProgressCallBack(rsSavingVersionList, aSoft.System.ID,
-        aSoft.Title, i, FullList.Count);
+      if ProgressCallBack <> nil then
+        ProgressCallBack(rsSavingVersionList, aSoft.System.ID,
+          aSoft.Title, i, FullList.Count);
+    end;
+
+  finally
+    TxtFile.EndUpdate;
   end;
-  TxtFile.EndUpdate;
 end;
 
 end.

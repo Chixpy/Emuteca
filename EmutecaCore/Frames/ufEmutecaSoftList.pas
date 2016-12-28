@@ -13,14 +13,17 @@ uses
 type
   { TfmEmutecaSoftList }
 
-  TfmEmutecaSoftList = class(TFrame)
+  TfmEmutecaSoftList = class(TFrame, IFPObserver)
+    actOpenSoftFolder: TAction;
     actOpenSystemFolder: TAction;
     alSoftList: TActionList;
     ilSoftList: TImageList;
+    miOpenSoftFolder: TMenuItem;
     miOpenSystemFolder: TMenuItem;
     ppmSoftList: TPopupMenu;
     StatusBar1: TStatusBar;
     VST: TVirtualStringTree;
+    procedure actOpenSoftFolderExecute(Sender: TObject);
     procedure actOpenSystemFolderExecute(Sender: TObject);
     procedure VSTChange(Sender: TBaseVirtualTree; Node: PVirtualNode);
     procedure VSTCompareNodes(Sender: TBaseVirtualTree;
@@ -53,10 +56,10 @@ type
 
   public
     property SoftList: cEmutecaSoftList read FSoftList write SetSoftList;
-    //< Actual list to show
+    //< Actual list to show.
 
     property FilterStr: string read FFilterStr write SetFilterStr;
-    {< String to show/hide nodes }
+    //< String to show/hide nodes.
 
     property OnItemSelect: TEmutecaReturnSoftCB
       read FOnItemSelect write SetOnItemSelect;
@@ -64,6 +67,9 @@ type
     property OnDblClick: TEmutecaReturnSoftCB
       read FOnDblClick write SetOnDblClick;
     //< CallBack function when item Double Click.
+
+    procedure FPOObservedChanged(ASender: TObject;
+      Operation: TFPObservedOperation; Data: Pointer);
 
     procedure UpdateList;
 
@@ -88,7 +94,14 @@ procedure TfmEmutecaSoftList.SetSoftList(AValue: cEmutecaSoftList);
 begin
   if FSoftList = AValue then
     Exit;
+
+  if Assigned(FSoftList) then
+    FSoftList.FPODetachObserver(Self);
+
   FSoftList := AValue;
+
+  if Assigned(SoftList) then
+    SoftList.FPOAttachObserver(Self);
 
   UpdateList;
 end;
@@ -113,6 +126,38 @@ procedure TfmEmutecaSoftList.UpdateStatusBar;
 begin
   StatusBar1.SimpleText :=
     Format(rsFmtNItems, [vst.RootNodeCount, vst.VisibleCount]);
+end;
+
+procedure TfmEmutecaSoftList.FPOObservedChanged(ASender: TObject;
+  Operation: TFPObservedOperation; Data: Pointer);
+var
+  Node, NextNode : PVirtualNode;
+  pData: ^cEmutecaSoftware;
+begin
+  case Operation of
+    ooChange: UpdateList;
+    ooFree: SoftList := nil;
+
+    ooAddItem:
+    begin
+      pData := VST.GetNodeData(VST.AddChild(VST.RootNode));
+      pData^ := cEmutecaSoftware(Data);
+    end;
+
+    ooDeleteItem:
+    begin
+      NextNode := VST.GetFirst;
+      while assigned(NextNode) do
+      begin
+        Node := NextNode;
+        NextNode := VST.GetNext(NextNode);
+        pData := VST.GetNodeData(Node);
+        if pData^ = cEmutecaSoftware(Data) then
+          vst.DeleteNode(Node,False);
+      end;
+    end;
+    ooCustom: ;
+  end;
 end;
 
 procedure TfmEmutecaSoftList.VSTChange(Sender: TBaseVirtualTree;
@@ -143,6 +188,18 @@ begin
   if not Assigned(pData^) then
     Exit;
   OpenDocument(pData^.System.BaseFolder);
+end;
+
+procedure TfmEmutecaSoftList.actOpenSoftFolderExecute(Sender: TObject);
+var
+  pData: ^cEmutecaSoftware;
+begin
+  pData := VST.GetNodeData(vst.FocusedNode);
+  if not Assigned(pData) then
+    Exit;
+  if not Assigned(pData^) then
+    Exit;
+  OpenDocument(pData^.Folder);
 end;
 
 procedure TfmEmutecaSoftList.VSTCompareNodes(Sender: TBaseVirtualTree;
@@ -393,7 +450,6 @@ begin
     FilterStr := aTemp;
   end;
   UpdateStatusBar;
-
 end;
 
 constructor TfmEmutecaSoftList.Create(TheOwner: TComponent);
@@ -405,6 +461,9 @@ end;
 
 destructor TfmEmutecaSoftList.Destroy;
 begin
+  if Assigned(SoftList) then
+    SoftList.FPODetachObserver(Self);
+
   inherited Destroy;
 end;
 

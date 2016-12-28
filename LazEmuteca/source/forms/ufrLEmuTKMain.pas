@@ -1,4 +1,4 @@
-unit ufEmutecaMain;
+unit ufrLEmuTKMain;
 
 {$mode objfpc}{$H+}
 
@@ -15,8 +15,6 @@ uses
   uCHXStrUtils, uCHXFileUtils, ucCHXImageList,
   // CHX forms
   ufCHXAbout, ufCHXProgressBar,
-  // CHX frames
-  ufCHXTagTree,
   // Emuteca common
   uEmutecaCommon,
   // Emuteca clases
@@ -32,9 +30,9 @@ uses
 
 type
 
-  { TfrmEmutecaMain }
+  { TfrmLEmuTKMain }
 
-  TfrmEmutecaMain = class(TForm)
+  TfrmLEmuTKMain = class(TForm)
     actEmulatorManager: TAction;
     actAddFolder: TAction;
     actAddSoft: TAction;
@@ -85,14 +83,12 @@ type
     procedure MenuItem8Click(Sender: TObject);
 
   private
-    FCurrSost: cEmutecaSoftware;
     FfmEmutecaMainFrame: TfmLEmuTKMain;
     FVerIcons: cCHXImageList;
     FEmuteca: cEmuteca;
     FGUIConfig: cGUIConfig;
     FIconList: cCHXImageList;
     FZoneIcons: cCHXImageMap;
-    procedure SetCurrSost(AValue: cEmutecaSoftware);
 
   protected
     property fmEmutecaMainFrame: TfmLEmuTKMain read FfmEmutecaMainFrame;
@@ -109,8 +105,6 @@ type
     property ZoneIcons: cCHXImageMap read FZoneIcons;
     // Icons of zones
 
-    property CurrSost: cEmutecaSoftware read FCurrSost write SetCurrSost;
-
     procedure SaveEmuteca;
     //< Save parent and soft lists
 
@@ -125,22 +119,22 @@ type
   end;
 
 var
-  frmEmutecaMain: TfrmEmutecaMain;
+  frmLEmuTKMain: TfrmLEmuTKMain;
 
 implementation
 
 {$R *.lfm}
 
-{ TfrmEmutecaMain }
+{ TfrmLEmuTKMain }
 
-procedure TfrmEmutecaMain.HelpOnHelp1Execute(Sender: TObject);
+procedure TfrmLEmuTKMain.HelpOnHelp1Execute(Sender: TObject);
 begin
   Application.CreateForm(TfrmCHXAbout, frmCHXAbout);
   frmCHXAbout.ShowModal;
   FreeAndNil(frmCHXAbout);
 end;
 
-procedure TfrmEmutecaMain.MenuItem8Click(Sender: TObject);
+procedure TfrmLEmuTKMain.MenuItem8Click(Sender: TObject);
 {
 var
   Temp: TStringList;
@@ -188,21 +182,16 @@ begin
   FreeAndNil(aForm);
 end;
 
-procedure TfrmEmutecaMain.SetCurrSost(AValue: cEmutecaSoftware);
-begin
-  if FCurrSost = AValue then
-    Exit;
-  FCurrSost := AValue;
-end;
-
-procedure TfrmEmutecaMain.SaveEmuteca;
+procedure TfrmLEmuTKMain.SaveEmuteca;
 begin
   { TODO : Emuteca.Save }
-  Emuteca.GroupManager.SaveToFile('', False);
   Emuteca.SoftManager.SaveToFile('', False);
+  Emuteca.GroupManager.SaveToFile('', False);
+  Emuteca.SystemManager.SaveToFile('', False);
+  Emuteca.EmulatorManager.SaveToFile('', False);
 end;
 
-function TfrmEmutecaMain.OnProgressBar(const Title, Info1, Info2: string;
+function TfrmLEmuTKMain.OnProgressBar(const Title, Info1, Info2: string;
   const Value, MaxValue: int64): boolean;
 begin
   // Really, we can asume that frmCHXProgressBar is always created...;
@@ -212,7 +201,7 @@ begin
     Value, MaxValue);
 end;
 
-function TfrmEmutecaMain.AddZoneIcon(aFolder: string;
+function TfrmLEmuTKMain.AddZoneIcon(aFolder: string;
   FileInfo: TSearchRec): boolean;
 begin
   Result := True; // Don't Stop
@@ -228,7 +217,7 @@ begin
 
 end;
 
-procedure TfrmEmutecaMain.FormCreate(Sender: TObject);
+procedure TfrmLEmuTKMain.FormCreate(Sender: TObject);
 
   procedure LoadIcons;
 
@@ -333,8 +322,6 @@ begin
   Emuteca.LoadConfig(GUIConfig.EmutecaIni);
 
   LoadIcons;
-
-
   // Creating main frame
   FfmEmutecaMainFrame := TfmLEmuTKMain.Create(Self);
   fmEmutecaMainFrame.IconList := Self.IconList;
@@ -346,14 +333,13 @@ begin
   fmEmutecaMainFrame.Align := alClient;
   fmEmutecaMainFrame.Parent := Self;
 
-
   // Misc
   { TODO : Select last system }
   actAutoSave.Checked := GUIConfig.SaveOnExit; // TODO: Use IniPropStorage1?
 
 end;
 
-procedure TfrmEmutecaMain.actEmulatorManagerExecute(Sender: TObject);
+procedure TfrmLEmuTKMain.actEmulatorManagerExecute(Sender: TObject);
 var
   aForm: TForm;
   aFrame: TfmLEmuTKEmuManager;
@@ -378,17 +364,17 @@ begin
   FreeAndNil(aForm);
 end;
 
-procedure TfrmEmutecaMain.actOpenTempFolderExecute(Sender: TObject);
+procedure TfrmLEmuTKMain.actOpenTempFolderExecute(Sender: TObject);
 begin
   OpenDocument(Emuteca.TempFolder);
 end;
 
-procedure TfrmEmutecaMain.actSaveListsExecute(Sender: TObject);
+procedure TfrmLEmuTKMain.actSaveListsExecute(Sender: TObject);
 begin
   SaveEmuteca;
 end;
 
-procedure TfrmEmutecaMain.actScriptManagerExecute(Sender: TObject);
+procedure TfrmLEmuTKMain.actScriptManagerExecute(Sender: TObject);
 begin
   Application.CreateForm(TfrmEmutecaScriptManager, frmEmutecaScriptManager);
 
@@ -400,7 +386,7 @@ begin
   FreeAndNil(frmEmutecaScriptManager);
 end;
 
-procedure TfrmEmutecaMain.actAddFolderExecute(Sender: TObject);
+procedure TfrmLEmuTKMain.actAddFolderExecute(Sender: TObject);
 var
   aForm: TForm;
   aFrame: TfmEmutecaActAddFolder;
@@ -421,12 +407,12 @@ begin
   FreeAndNil(aForm);
 end;
 
-procedure TfrmEmutecaMain.actAutoSaveExecute(Sender: TObject);
+procedure TfrmLEmuTKMain.actAutoSaveExecute(Sender: TObject);
 begin
   GUIConfig.SaveOnExit := actAutoSave.Checked;
 end;
 
-procedure TfrmEmutecaMain.actAddSoftExecute(Sender: TObject);
+procedure TfrmLEmuTKMain.actAddSoftExecute(Sender: TObject);
 var
   aForm: TForm;
   aFrame: TfmEmutecaActAddSoft;
@@ -449,7 +435,7 @@ begin
   FreeAndNil(aForm);
 end;
 
-procedure TfrmEmutecaMain.actSystemManagerExecute(Sender: TObject);
+procedure TfrmLEmuTKMain.actSystemManagerExecute(Sender: TObject);
 var
   aForm: TForm;
   aFrame: TfmLEmuTKSysManager;
@@ -478,17 +464,16 @@ begin
   FreeAndNil(aForm);
 end;
 
-procedure TfrmEmutecaMain.FormCloseQuery(Sender: TObject;
+procedure TfrmLEmuTKMain.FormCloseQuery(Sender: TObject;
   var CanClose: boolean);
 begin
   GUIConfig.SaveConfig('');
   if not GUIConfig.SaveOnExit then
     Exit;
-
   SaveEmuteca;
 end;
 
-procedure TfrmEmutecaMain.FormDestroy(Sender: TObject);
+procedure TfrmLEmuTKMain.FormDestroy(Sender: TObject);
 begin
   FreeAndNil(FZoneIcons);
   FreeAndNil(FVerIcons);

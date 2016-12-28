@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, IniFiles, LazUTF8, Graphics,
-  uCHXStrUtils, uCHXvcConfig;
+  uCHXStrUtils, uaCHXConfig;
 
 const
   // Sections and keys for ini file
@@ -25,6 +25,7 @@ const
   // [Config]
   krsSectionConfig = 'Config';
   krsKeyEmutecaIni = 'EmutecaIni';
+  krsKeyCurrSystem = 'CurrSystem';
   krsKeySaveOnExit = 'SaveOnExit';
   krsKeySearchFile = 'SearchFile';
   krsKeyHelpFolder = 'HelpFolder';
@@ -41,9 +42,9 @@ type
 
     All folder paths (absolute and relative) have the trailing path separator.
   }
-  cGUIConfig = class(vcConfig)
+  cGUIConfig = class(caCHXConfig)
   private
-    FConfigFile: string;
+    FCurrSystem: string;
     FDefImgFolder: string;
     FEmutecaIni: string;
     FImageExtensions: TStringList;
@@ -56,7 +57,7 @@ type
     FSaveOnExit: boolean;
     FSearchFile: string;
     FDumpIcnFolder: string;
-    procedure SetConfigFile(AValue: string);
+    procedure SetCurrSystem(AValue: string);
     procedure SetDefImgFolder(AValue: string);
     procedure SetEmutecaIni(AValue: string);
     procedure SetScriptsFolder(AValue: string);
@@ -75,7 +76,6 @@ type
   published
     // Images
     // ------
-
     property DefImgFolder: string read FDefImgFolder write SetDefImgFolder;
     //< Folder with default images and icons for soft, parents and systems.
     property GUIIcnFile: string read FGUIIcnFile write SetGUIIcnFile;
@@ -99,6 +99,8 @@ type
     // -----------
     property EmutecaIni: string read FEmutecaIni write SetEmutecaIni;
     //< Emuteca config file
+    property CurrSystem: string read FCurrSystem write SetCurrSystem;
+    //< Last system used
     property SaveOnExit: boolean read FSaveOnExit write SetSaveOnExit;
     //< Save software and parent lists on exit?
     property HelpFolder: string read FHelpFolder write SetHelpFolder;
@@ -117,14 +119,15 @@ implementation
 
 { cGUIConfig }
 
-procedure cGUIConfig.SetConfigFile(AValue: string);
-begin
-  FConfigFile := SetAsFile(AValue);
-end;
-
 procedure cGUIConfig.SetDefImgFolder(AValue: string);
 begin
   FDefImgFolder := SetAsFolder(AValue);
+end;
+
+procedure cGUIConfig.SetCurrSystem(AValue: string);
+begin
+  if FCurrSystem = AValue then Exit;
+  FCurrSystem := AValue;
 end;
 
 procedure cGUIConfig.SetEmutecaIni(AValue: string);
@@ -197,6 +200,8 @@ begin
   // Config/Data
   EmutecaIni := IniFile.ReadString(krsSectionConfig,
     krsKeyEmutecaIni, EmutecaIni);
+    CurrSystem := IniFile.ReadString(krsSectionConfig,
+    krsKeyCurrSystem, CurrSystem);
   SaveOnExit := IniFile.ReadBool(krsSectionConfig, krsKeySaveOnExit,
     SaveOnExit);
   SearchFile := IniFile.ReadString(krsSectionConfig,
@@ -227,6 +232,7 @@ begin
 
   // Data
   IniFile.WriteString(krsSectionConfig, krsKeyEmutecaIni, EmutecaIni);
+    IniFile.WriteString(krsSectionConfig, krsKeyCurrSystem, CurrSystem);
   IniFile.WriteBool(krsSectionConfig, krsKeySaveOnExit, SaveOnExit);
   IniFile.WriteString(krsSectionConfig, krsKeySearchFile, SearchFile);
   IniFile.WriteString(krsSectionConfig, krsKeyHelpFolder, HelpFolder);
@@ -256,6 +262,7 @@ begin
 
   // Config/Data
   EmutecaIni := 'Emuteca.ini';
+  CurrSystem := '';
   SaveOnExit := True;
   SearchFile := 'Search.ini';
   HelpFolder := 'Help';

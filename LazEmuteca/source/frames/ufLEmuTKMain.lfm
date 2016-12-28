@@ -72,6 +72,7 @@ object fmLEmuTKMain: TfmLEmuTKMain
       Width = 421
       Align = alTop
       TabOrder = 4
+      TextHint = 'Filter by name...'
     end
   end
   object pcLeft: TPageControl
