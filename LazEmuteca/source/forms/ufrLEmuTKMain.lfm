@@ -65,7 +65,7 @@ object frmLEmuTKMain: TfrmLEmuTKMain
     end
     object actSaveLists: TAction
       Category = 'File'
-      Caption = 'Save lists'
+      Caption = 'Save Lists'
       OnExecute = actSaveListsExecute
     end
     object actAutoSave: TAction
@@ -80,66 +80,78 @@ object frmLEmuTKMain: TfrmLEmuTKMain
       Caption = 'Open Temp Folder'
       OnExecute = actOpenTempFolderExecute
     end
+    object actExportData: TAction
+      Category = 'File'
+      Caption = 'Export Data...'
+      OnExecute = actExportDataExecute
+    end
   end
   object MainMenu: TMainMenu
     left = 184
     top = 48
-    object mmFile: TMenuItem
+    object mmiFile: TMenuItem
       Caption = 'File'
-      object MenuItem8: TMenuItem
+      object mmiTest: TMenuItem
         Caption = 'Test'
-        OnClick = MenuItem8Click
+        OnClick = mmiTestClick
       end
-      object MenuItem17: TMenuItem
+      object mmiOpenTempFolder: TMenuItem
         Action = actOpenTempFolder
       end
       object MenuItem13: TMenuItem
         Caption = '-'
       end
-      object MenuItem14: TMenuItem
+      object mmiSaveLists: TMenuItem
         Action = actSaveLists
       end
-      object MenuItem16: TMenuItem
+      object mmiSaveOnExit: TMenuItem
         Action = actAutoSave
         AutoCheck = True
       end
       object MenuItem15: TMenuItem
         Caption = '-'
       end
-      object MenuItem2: TMenuItem
+      object mmiExit: TMenuItem
         Action = FileExit1
+        Caption = 'Exit'
       end
     end
-    object MenuItem3: TMenuItem
+    object mmiManagers: TMenuItem
       Caption = 'Managers'
-      object MenuItem4: TMenuItem
+      object mmiEmulatorManager: TMenuItem
         Action = actEmulatorManager
       end
-      object MenuItem5: TMenuItem
+      object mmiSystemManager: TMenuItem
         Action = actSystemManager
       end
-      object MenuItem7: TMenuItem
+      object mmiMediaManager: TMenuItem
         Action = actMediaManager
       end
-      object MenuItem6: TMenuItem
+      object mmiScriptManager: TMenuItem
         Action = actScriptManager
       end
     end
-    object MenuItem9: TMenuItem
+    object mmiFiles: TMenuItem
       Caption = 'Files'
-      object MenuItem10: TMenuItem
+      object mmiAddFiles: TMenuItem
         Caption = 'Add...'
-        object MenuItem11: TMenuItem
+        object mmiScanFolder: TMenuItem
           Action = actAddFolder
         end
-        object MenuItem12: TMenuItem
+        object mmiAddSoft: TMenuItem
           Action = actAddSoft
         end
       end
+      object MenuItem2: TMenuItem
+        Caption = '-'
+      end
+      object mmiExportData: TMenuItem
+        Action = actExportData
+      end
     end
-    object mmHelp: TMenuItem
+    object mmiHelp: TMenuItem
       Caption = 'Help'
-      object MenuItem1: TMenuItem
+      object mmiAbout: TMenuItem
         Action = HelpOnHelp1
       end
     end

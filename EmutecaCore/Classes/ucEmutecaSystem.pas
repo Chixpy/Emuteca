@@ -67,7 +67,7 @@ type
 
   { cEmutecaSystem }
 
-  cEmutecaSystem = class(caCHXStorableIni)
+  cEmutecaSystem = class(caCHXStorable)
   private
     FBackImage: string;
     FBaseFolder: string;
@@ -116,8 +116,8 @@ type
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
 
-    procedure LoadFromFileIni(IniFile: TCustomIniFile); override;
-    procedure SaveToFileIni(IniFile: TCustomIniFile;
+    procedure LoadFromIni(IniFile: TCustomIniFile); override;
+    procedure SaveToIni(IniFile: TCustomIniFile;
       const ExportMode: boolean); override;
 
   published
@@ -258,7 +258,7 @@ end;
 
 { cEmutecaSystem }
 
-procedure cEmutecaSystem.LoadFromFileIni(IniFile: TCustomIniFile);
+procedure cEmutecaSystem.LoadFromIni(IniFile: TCustomIniFile);
 begin
   if IniFile = nil then
     Exit;
@@ -312,7 +312,7 @@ begin
   FixFolderListData(TextFolders, TextCaptions);
 end;
 
-procedure cEmutecaSystem.SaveToFileIni(IniFile: TCustomIniFile;
+procedure cEmutecaSystem.SaveToIni(IniFile: TCustomIniFile;
   const ExportMode: boolean);
 begin
   if IniFile = nil then

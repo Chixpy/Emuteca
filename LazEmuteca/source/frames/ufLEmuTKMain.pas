@@ -52,8 +52,6 @@ type
     FSystemIcons: cCHXImageList;
     FZoneIcons: cCHXImageMap;
     procedure SetEmuteca(AValue: cEmuteca);
-    procedure SetfmEmutecaSoftEditor(AValue: TfmEmutecaSoftEditor);
-    procedure SetfmSoftMedia(AValue: TfmLEmuTKSoftMedia);
     procedure SetGUIConfig(AValue: cGUIConfig);
     procedure SetGUIIconsIni(AValue: TFilename);
     procedure SetIconList(AValue: cCHXImageList);
@@ -69,10 +67,8 @@ type
 
     property fmCHXTagTree: TfmCHXTagTree read FfmCHXTagTree;
 
-    property fmEmutecaSoftEditor: TfmEmutecaSoftEditor
-      read FfmEmutecaSoftEditor write SetfmEmutecaSoftEditor;
-    property fmSoftMedia: TfmLEmuTKSoftMedia
-      read FfmSoftMedia write SetfmSoftMedia;
+    property fmEmutecaSoftEditor: TfmEmutecaSoftEditor read FfmEmutecaSoftEditor;
+    property fmSoftMedia: TfmLEmuTKSoftMedia read FfmSoftMedia;
 
     function SelectSystem(aSystem: cEmutecaSystem): boolean;
     //< Select a system
@@ -100,6 +96,7 @@ type
     property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
 
     constructor Create(TheOwner: TComponent); override;
+    destructor Destroy; override;
   end;
 
 implementation
@@ -159,7 +156,10 @@ function TfmLEmuTKMain.SelectSystem(aSystem: cEmutecaSystem): boolean;
 begin
   // TODO: Update Emuteca lists
   Emuteca.FilterBySystem(aSystem);
-  GUIConfig.CurrSystem := aSystem.ID;
+  if Assigned(aSystem) then
+    GUIConfig.CurrSystem := aSystem.ID
+  else
+    GUIConfig.CurrSystem := '';
   Result := SelectGroup(nil);
 end;
 
@@ -213,19 +213,6 @@ begin
   SelectSystem(Emuteca.SystemManager.ItemById(GUIConfig.CurrSystem, False));
 end;
 
-procedure TfmLEmuTKMain.SetfmEmutecaSoftEditor(AValue: TfmEmutecaSoftEditor);
-begin
-  if FfmEmutecaSoftEditor = AValue then
-    Exit;
-  FfmEmutecaSoftEditor := AValue;
-end;
-
-procedure TfmLEmuTKMain.SetfmSoftMedia(AValue: TfmLEmuTKSoftMedia);
-begin
-  if FfmSoftMedia = AValue then
-    Exit;
-  FfmSoftMedia := AValue;
-end;
 
 procedure TfmLEmuTKMain.SetGUIConfig(AValue: cGUIConfig);
 begin
@@ -277,14 +264,14 @@ constructor TfmLEmuTKMain.Create(TheOwner: TComponent);
 
     // Creating SoftMedia frame
     aTabSheet := pcSoftware.AddTabSheet;
-    fmSoftMedia := TfmLEmuTKSoftMedia.Create(aTabSheet);
+    FfmSoftMedia := TfmLEmuTKSoftMedia.Create(aTabSheet);
     aTabSheet.Caption := fmSoftMedia.Name;  // TODO: Add Caption
     fmSoftMedia.Align := alClient;
     fmSoftMedia.Parent := aTabSheet;
 
     // Creating SoftEditor frame
     aTabSheet := pcSoftware.AddTabSheet;
-    fmEmutecaSoftEditor := TfmEmutecaSoftEditor.Create(aTabSheet);
+    FfmEmutecaSoftEditor := TfmEmutecaSoftEditor.Create(aTabSheet);
     aTabSheet.Caption := fmEmutecaSoftEditor.Name;  // TODO: Add Caption
     fmEmutecaSoftEditor.Align := alClient;
     fmEmutecaSoftEditor.SaveButtons := True;
@@ -298,6 +285,11 @@ begin
   Self.Enabled := False;
 
   CreateFrames;
+end;
+
+destructor TfmLEmuTKMain.Destroy;
+begin
+  inherited Destroy;
 end;
 
 end.

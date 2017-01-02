@@ -48,6 +48,7 @@ uses
   ,IniFiles
   ,uCHXStrUtils
   ,uaCHXStorable
+  ,ucEmutecaPlayingStats
   ,ucEmutecaEmulator
   ;
  
@@ -61,8 +62,8 @@ end;
 (*----------------------------------------------------------------------------*)
 procedure SIRegister_cEmutecaEmulator(CL: TPSPascalCompiler);
 begin
-  //with RegClassS(CL,'caCHXStorableIni', 'cEmutecaEmulator') do
-  with CL.AddClassN(CL.FindClass('caCHXStorableIni'),'cEmutecaEmulator') do
+  //with RegClassS(CL,'caCHXStorable', 'cEmutecaEmulator') do
+  with CL.AddClassN(CL.FindClass('caCHXStorable'),'cEmutecaEmulator') do
   begin
     RegisterMethod('Function Execute( GameFile : string) : integer');
     RegisterMethod('Function ExecuteAlone : integer');
@@ -74,6 +75,7 @@ begin
     RegisterProperty('Parameters', 'string', iptrw);
     RegisterProperty('FileExt', 'TStringList', iptrw);
     RegisterProperty('ExitCode', 'integer', iptrw);
+    RegisterProperty('Stats', 'cEmutecaPlayingStats', iptr);
   end;
 end;
 
@@ -101,6 +103,10 @@ begin
 end;
 
 (* === run-time registration functions === *)
+(*----------------------------------------------------------------------------*)
+procedure cEmutecaEmulatorStats_R(Self: cEmutecaEmulator; var T: cEmutecaPlayingStats);
+begin T := Self.Stats; end;
+
 (*----------------------------------------------------------------------------*)
 procedure cEmutecaEmulatorExitCode_W(Self: cEmutecaEmulator; const T: integer);
 begin Self.ExitCode := T; end;
@@ -180,6 +186,7 @@ begin
     RegisterPropertyHelper(@cEmutecaEmulatorParameters_R,@cEmutecaEmulatorParameters_W,'Parameters');
     RegisterPropertyHelper(@cEmutecaEmulatorFileExt_R,@cEmutecaEmulatorFileExt_W,'FileExt');
     RegisterPropertyHelper(@cEmutecaEmulatorExitCode_R,@cEmutecaEmulatorExitCode_W,'ExitCode');
+    RegisterPropertyHelper(@cEmutecaEmulatorStats_R,nil,'Stats');
   end;
 end;
 

@@ -43,6 +43,7 @@ uses
    FileUtil
   ,LazUTF8
   ,LazFileUtils
+  ,dateutils
   ,u7zWrapper
   ,uCHXStrUtils
   ,uEmutecaCommon
@@ -74,9 +75,14 @@ begin
     RegisterProperty('ProgressCallBack', 'TEmutecaProgressCallBack', iptrw);
     RegisterProperty('TempFolder', 'string', iptrw);
     RegisterMethod('Procedure LoadConfig( aFile : string)');
-    RegisterMethod('Function SearchGroup( aID : string) : cEmutecaGroup');
-    RegisterMethod('Function SearchSystem( aID : string) : cEmutecaSystem');
     RegisterMethod('Function SearchMainEmulator( aID : string) : cEmutecaEmulator');
+    RegisterMethod('Procedure SearchMediaFiles( OutFileList : TStrings; aFolder : TFilename; aFileName : TFilename; Extensions : TStrings)');
+    RegisterMethod('Procedure SearchSoftFiles( OutFileList : TStrings; aFolder : TFilename; aSoft : cEmutecaSoftware; Extensions : TStrings)');
+    RegisterMethod('Procedure SearchGroupFiles( OutFileList : TStrings; aFolder : TFilename; aGroup : cEmutecaGroup; Extensions : TStrings)');
+    RegisterMethod('Function SearchFirstMediaFile( aFolder : TFilename; aFileName : TFilename; Extensions : TStrings) : TFilename');
+    RegisterMethod('Function SearchFirstSoftFile( aFolder : TFilename; aSoft : cEmutecaSoftware; Extensions : TStrings; UseGroup : boolean) : TFilename');
+    RegisterMethod('Function SearchFirstGroupFile( aFolder : TFilename; aGroup : cEmutecaGroup; Extensions : TStrings) : TFilename');
+    RegisterMethod('Procedure FilterBySystem( aSystem : cEmutecaSystem)');
     RegisterMethod('Function RunSoftware( const aSoftware : cEmutecaSoftware) : integer');
     RegisterProperty('Config', 'cEmutecaConfig', iptrw);
     RegisterProperty('SoftManager', 'cEmutecaSoftManager', iptr);
@@ -142,6 +148,13 @@ begin
     RegisterPropertyHelper(@cEmutecaTempFolder_R,@cEmutecaTempFolder_W,'TempFolder');
     RegisterMethod(@cEmuteca.LoadConfig, 'LoadConfig');
     RegisterMethod(@cEmuteca.SearchMainEmulator, 'SearchMainEmulator');
+    RegisterMethod(@cEmuteca.SearchMediaFiles, 'SearchMediaFiles');
+    RegisterMethod(@cEmuteca.SearchSoftFiles, 'SearchSoftFiles');
+    RegisterMethod(@cEmuteca.SearchGroupFiles, 'SearchGroupFiles');
+    RegisterMethod(@cEmuteca.SearchFirstMediaFile, 'SearchFirstMediaFile');
+    RegisterMethod(@cEmuteca.SearchFirstSoftFile, 'SearchFirstSoftFile');
+    RegisterMethod(@cEmuteca.SearchFirstGroupFile, 'SearchFirstGroupFile');
+    RegisterMethod(@cEmuteca.FilterBySystem, 'FilterBySystem');
     RegisterMethod(@cEmuteca.RunSoftware, 'RunSoftware');
     RegisterPropertyHelper(@cEmutecaConfig_R,@cEmutecaConfig_W,'Config');
     RegisterPropertyHelper(@cEmutecaSoftManager_R,nil,'SoftManager');

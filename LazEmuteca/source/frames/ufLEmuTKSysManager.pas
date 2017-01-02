@@ -165,7 +165,7 @@ begin
   if not SaveDialog1.Execute then
     Exit;
 
-  Emuteca.SystemManager.SaveToFile(SaveDialog1.FileName, True);
+  Emuteca.SystemManager.SaveToFileIni(SaveDialog1.FileName, True);
 end;
 
 procedure TfmLEmuTKSysManager.ImportList;
@@ -176,7 +176,7 @@ begin
   if not OpenDialog1.Execute then
     Exit;
 
-  Emuteca.SystemManager.LoadFromFile(OpenDialog1.FileName);
+  Emuteca.SystemManager.LoadFromFileIni(OpenDialog1.FileName);
 end;
 
 procedure TfmLEmuTKSysManager.LoadData;
@@ -204,7 +204,7 @@ begin
     Exit;
 
   // Automatilly save to file
-  Emuteca.SystemManager.SaveToFile('', False);
+  Emuteca.SystemManager.SaveToFileIni('', False);
 end;
 
 constructor TfmLEmuTKSysManager.Create(TheOwner: TComponent);

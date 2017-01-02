@@ -357,27 +357,24 @@ begin
   TempFolder := SetAsFolder(GetTempDir) + Config.TempSubfolder;
   ForceDirectories(TempFolder);
 
-  // Creating Data Folder...
-  ForceDirectories(Config.DataFolder);
-
   // Setting EmulatorManager
-  EmulatorManager.DataFile := Config.DataFolder + Config.EmulatorsFile;
-  EmulatorManager.LoadFromFile('');
+  EmulatorManager.DataFile := Config.EmulatorsFile;
+  EmulatorManager.LoadFromFileIni('');
 
   // Setting SystemManager
-  SystemManager.DataFile := Config.DataFolder + Config.SystemsFile;
-  SystemManager.LoadFromFile('');
+  SystemManager.DataFile := Config.SystemsFile;
+  SystemManager.LoadFromFileIni('');
 
   // Setting GroupManager
   GroupManager.SystemManager := SystemManager;
-  GroupManager.DataFile := Config.DataFolder + Config.GroupsFile;
-  GroupManager.LoadFromFile('');
+  GroupManager.DataFile := Config.GroupsFile;
+  GroupManager.LoadFromFileTxt('');
 
   // Setting SoftManager
   SoftManager.SystemManager := SystemManager;
   SoftManager.GroupManager := GroupManager;
-  SoftManager.DataFile := Config.DataFolder + Config.SoftFile;
-  SoftManager.LoadFromFile('');
+  SoftManager.DataFile := Config.SoftFile;
+  SoftManager.LoadFromFileTxt('');
 end;
 
 function cEmuteca.SearchMainEmulator(aID: string): cEmutecaEmulator;

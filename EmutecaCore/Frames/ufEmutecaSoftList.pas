@@ -131,11 +131,10 @@ end;
 procedure TfmEmutecaSoftList.FPOObservedChanged(ASender: TObject;
   Operation: TFPObservedOperation; Data: Pointer);
 var
-  Node, NextNode : PVirtualNode;
+  Node, NextNode: PVirtualNode;
   pData: ^cEmutecaSoftware;
 begin
   case Operation of
-    ooChange: UpdateList;
     ooFree: SoftList := nil;
 
     ooAddItem:
@@ -153,10 +152,11 @@ begin
         NextNode := VST.GetNext(NextNode);
         pData := VST.GetNodeData(Node);
         if pData^ = cEmutecaSoftware(Data) then
-          vst.DeleteNode(Node,False);
+          vst.DeleteNode(Node, False);
       end;
     end;
-    ooCustom: ;
+    else
+      UpdateList;
   end;
 end;
 
@@ -306,6 +306,8 @@ begin
       if pData^.Hack <> '' then
         HintText += sLineBreak + 'Hack: ' + pData^.Hack;
     end;
+    else
+      ;
   end;
 end;
 

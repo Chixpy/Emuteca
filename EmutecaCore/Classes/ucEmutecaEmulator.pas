@@ -68,7 +68,7 @@ type
   { cEmutecaEmulator class.
 
     Stores all basic info of an emulator. }
-  cEmutecaEmulator = class(caCHXStorableIni)
+  cEmutecaEmulator = class(caCHXStorable)
   private
     FEmulatorName: string;
     FEnabled: boolean;
@@ -95,8 +95,8 @@ type
     function Execute(GameFile: string): integer;
     function ExecuteAlone: integer;
 
-    procedure LoadFromFileIni(IniFile: TCustomIniFile); override;
-    procedure SaveToFileIni(IniFile: TCustomIniFile;
+    procedure LoadFromIni(IniFile: TCustomIniFile); override;
+    procedure SaveToIni(IniFile: TCustomIniFile;
       const ExportMode: boolean); override;
 
   published
@@ -338,7 +338,7 @@ begin
   end;
 end;
 
-procedure cEmutecaEmulator.LoadFromFileIni(IniFile: TCustomIniFile);
+procedure cEmutecaEmulator.LoadFromIni(IniFile: TCustomIniFile);
 begin
   if not assigned(IniFile) then
     Exit;
@@ -358,7 +358,7 @@ begin
   ExitCode := IniFile.ReadInteger(self.ID, krsEmulatorExitCodeKey, ExitCode);
 end;
 
-procedure cEmutecaEmulator.SaveToFileIni(IniFile: TCustomIniFile;
+procedure cEmutecaEmulator.SaveToIni(IniFile: TCustomIniFile;
   const ExportMode: boolean);
 begin
   if not assigned(IniFile) then

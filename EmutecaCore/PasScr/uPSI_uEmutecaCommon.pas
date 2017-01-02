@@ -62,6 +62,7 @@ begin
  CL.AddConstantN('krsSHA1','String').SetString( 'SHA1');
  CL.AddConstantN('krsFileName','String').SetString( 'FileName');
  CL.AddConstantN('krsCustom','String').SetString( 'Custom');
+ CL.AddConstantN('rsGameKey','String').SetString( 'Key');
  CL.AddConstantN('rsZones','String').SetString( 'Zones');
  CL.AddConstantN('rsDeveloper','String').SetString( 'Developer');
  CL.AddConstantN('rsPublisher','String').SetString( 'Publisher');

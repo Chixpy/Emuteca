@@ -78,33 +78,77 @@ implementation
 { TfmEmutecaSystemEditor }
 
 procedure TfmEmutecaSystemEditor.bCreateSubdirsClick(Sender: TObject);
+
+  procedure CreateFolder(aLine: TStringList);
+  var
+    aFolder: TFilename;
+    aTitle: string;
+  begin
+    if aLine.Count = 0 then
+      Exit;
+
+    if aLine[0] = '' then
+      Exit;
+
+    aFolder := SetAsFolder(eBaseFolder.Text) + SetAsFolder(aLine[0]);
+    ForceDirectoriesUTF8(aFolder);
+
+    if aLine.Count = 1 then
+      Exit;
+
+    if aLine[1] = '' then
+      Exit;
+
+    if (aLine.Count = 2) or (aLine[2] = '') then
+      aTitle := ExtractFileNameOnly(ExcludeTrailingPathDelimiter(aLine[0]))
+    else
+      aTitle := aLine[2];
+
+    if aLine[1] = 'i' then
+    begin
+      System.ImageFolders.Add(aFolder);
+      System.ImageCaptions.Add(aTitle);
+    end
+    else if aLine[1] = 't' then
+    begin
+      System.TextFolders.Add(aFolder);
+      System.TextCaptions.Add(aTitle);
+    end
+    else if aLine[1] = 'c' then
+    begin
+      System.IconFolder := aFolder;
+    end;
+
+    { TODO : Add folders of music and video }
+  end;
+
 var
   FolderList, aLine: TStringList;
   i: integer;
 begin
-  (*
   if not assigned(Config) then
     Exit;
+  if not Assigned(System) then
+    Exit;
+
   if (eBaseFolder.Text = '') or not DirectoryExistsUTF8(eBaseFolder.Text) then
     { TODO : Exception :-P }
     Exit;
-  if not FileExistsUTF8(Config.DataFolder + Config.SysStructFile) then
+  if not FileExistsUTF8(Config.AutoSysFolder) then
     { TODO : Exception :-P }
     Exit;
 
   aLine := TStringList.Create;
   FolderList := TStringList.Create;
   try
-    FolderList.LoadFromFile(Config.DataFolder + Config.SysStructFile);
+    FolderList.LoadFromFile(Config.AutoSysFolder);
     i := 1; //Skip header
     while i < FolderList.Count do
     begin
       aLine.Clear;
       aLine.CommaText := FolderList[i];
-      if aLine.Count > 0 then
-        ForceDirectoriesUTF8(SetAsFolder(eBaseFolder.Text) +
-          SetAsFolder(aLine[0]));
-      { TODO : Add folders to their respective system additional directories }
+      CreateFolder(aLine);
+
       Inc(i);
     end;
 
@@ -112,7 +156,6 @@ begin
     FreeAndNil(FolderList);
     FreeAndNil(aLine);
   end;
-*)
 end;
 
 procedure TfmEmutecaSystemEditor.eFolderButtonClick(Sender: TObject);
@@ -129,6 +172,7 @@ begin
   if FConfig = AValue then
     Exit;
   FConfig := AValue;
+  self.Enabled := Assigned(System) and Assigned(EmuManager) and Assigned(Config);
 end;
 
 procedure TfmEmutecaSystemEditor.SetEmuManager(AValue:
@@ -138,6 +182,7 @@ begin
     Exit;
   FEmuManager := AValue;
   UpdateLists;
+  self.Enabled := Assigned(System) and Assigned(EmuManager) and Assigned(Config);
 end;
 
 procedure TfmEmutecaSystemEditor.SetSystem(AValue: cEmutecaSystem);
@@ -146,6 +191,7 @@ begin
     Exit;
   FSystem := AValue;
   LoadData;
+  self.Enabled := Assigned(System) and Assigned(EmuManager) and Assigned(Config);
 end;
 
 procedure TfmEmutecaSystemEditor.UpdateLists;

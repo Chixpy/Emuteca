@@ -5,7 +5,7 @@ unit ucEmutecaSoftManager;
 interface
 
 uses
-  Classes, SysUtils, LazUTF8,
+  Classes, SysUtils, LazUTF8, IniFiles,
   uaEmutecaManager,
   ucEmutecaSoftware, ucEmutecaSystemManager, ucEmutecaSystem,
   ucEmutecaGroupManager;
@@ -18,7 +18,7 @@ type
 
   { cEmutecaSoftManager }
 
-  cEmutecaSoftManager = class(caEmutecaManagerTxt)
+  cEmutecaSoftManager = class(caEmutecaManager)
   private
     FGroupManager: cEmutecaGroupManager;
     FSystemManager: cEmutecaSystemManager;
@@ -38,8 +38,11 @@ type
     property VisibleList: cEmutecaSoftList read FVisibleList;
     {< Filtered soft list }
 
-    procedure LoadFromFileTxt(TxtFile: TStrings); override;
-    procedure SaveToFileTxt(TxtFile: TStrings; const ExportMode: boolean);
+    procedure LoadFromStrLst(TxtFile: TStrings); override;
+    procedure SaveToStrLst(TxtFile: TStrings; const ExportMode: boolean);
+      override;
+    procedure LoadFromIni(aIniFile: TCustomIniFile); override;
+    procedure SaveToIni(IniFile: TCustomIniFile; const ExportMode: boolean);
       override;
 
     function ItemById(aId: string;
@@ -183,8 +186,39 @@ begin
   FSystemManager := AValue;
 end;
 
+procedure cEmutecaSoftManager.LoadFromIni(aIniFile: TCustomIniFile);
+begin
 
-procedure cEmutecaSoftManager.LoadFromFileTxt(TxtFile: TStrings);
+end;
+
+procedure cEmutecaSoftManager.SaveToIni(IniFile: TCustomIniFile;
+  const ExportMode: boolean);
+var
+  aSoft: cEmutecaSoftware;
+  i: integer;
+begin
+  if not Assigned(IniFile) then
+    Exit;
+
+  try
+    i := 0;
+    while i < FullList.Count do
+    begin
+      aSoft := cEmutecaSoftware(FullList[i]);
+      aSoft.SaveToIni(IniFile, ExportMode);
+      Inc(i);
+
+      if ProgressCallBack <> nil then
+        ProgressCallBack(rsSavingVersionList, aSoft.System.ID,
+          aSoft.Title, i, FullList.Count);
+    end;
+  finally
+    IniFile.UpdateFile;
+  end;
+end;
+
+
+procedure cEmutecaSoftManager.LoadFromStrLst(TxtFile: TStrings);
 var
   i: integer;
   TempSoft: cEmutecaSoftware;
@@ -216,7 +250,7 @@ begin
 
 end;
 
-procedure cEmutecaSoftManager.SaveToFileTxt(TxtFile: TStrings;
+procedure cEmutecaSoftManager.SaveToStrLst(TxtFile: TStrings;
   const ExportMode: boolean);
 var
   i: integer;
@@ -225,7 +259,7 @@ begin
   if not Assigned(TxtFile) then
     Exit;
 
-  { TODO : cEmutecaSoftManager.SaveToFileTxt Export mode }
+  { TODO : cEmutecaSoftManager.SaveToStrLst Export mode }
   TxtFile.Clear;
   TxtFile.BeginUpdate;
   try

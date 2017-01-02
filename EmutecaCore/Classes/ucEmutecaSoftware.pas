@@ -5,7 +5,7 @@ unit ucEmutecaSoftware;
 interface
 
 uses
-  Classes, SysUtils, LazFileUtils, LazUTF8, contnrs,
+  Classes, SysUtils, LazFileUtils, LazUTF8, contnrs, IniFiles,
   uCHXStrUtils,
   uaCHXStorable,
   ucEmutecaPlayingStats,
@@ -22,12 +22,12 @@ const
 
 resourcestring
   // Strings for DumpStatus, translatable
-  rsedsVerified = krsedsVerified;
-  rsedsGood = krsedsGood;
-  rsedsAlternate = krsedsAlternate;
-  rsedsOverDump = krsedsOverDump;
-  rsedsBadDump = krsedsBadDump;
-  rsedsUnderDump = krsedsUnderDump;
+  rsedsVerified = 'Verified';
+  rsedsGood = 'GoodDump';
+  rsedsAlternate = 'Alternate';
+  rsedsOverDump = 'OverDump';
+  rsedsBadDump = 'BadDump';
+  rsedsUnderDump = 'UnderDump';
 
 type
   TEmutecaDumpStatus = (edsVerified, edsGood, edsAlternate, edsOverDump,
@@ -49,7 +49,7 @@ const
 type
   { cEmutecaSoftware. }
 
-  cEmutecaSoftware = class(caCHXStorableTxt, IFPObserver)
+  cEmutecaSoftware = class(caCHXStorable, IFPObserver)
   private
     FCracked: string;
     FDumpInfo: string;
@@ -106,7 +106,6 @@ type
 
 
   public
-
     property DataString: string read GetDataString write SetDataString;
 
     // Cached Data
@@ -123,10 +122,13 @@ type
     function GetActualSortTitle: string;
     //< Gets actual SortTitle string, not inherited from group or automade
     function GetActualTranslitTitle: string;
-     //< Gets actual TranslitTitle string, not inherited from group or automade
+    //< Gets actual TranslitTitle string, not inherited from group or automade
 
-    procedure LoadFromFileTxt(TxtFile: TStrings); override;
-    procedure SaveToFileTxt(TxtFile: TStrings; const ExportMode: boolean);
+    procedure LoadFromStrLst(TxtFile: TStrings); override;
+    procedure SaveToStrLst(TxtFile: TStrings; const ExportMode: boolean);
+      override;
+    procedure LoadFromIni(aIniFile: TCustomIniFile); override;
+    procedure SaveToIni(IniFile: TCustomIniFile; const ExportMode: boolean);
       override;
 
     constructor Create(aOwner: TComponent); override;
@@ -151,8 +153,8 @@ type
 
     // Additional title info
     // ---------------------
-    property TranslitTitle: string
-      read GetTranslitTitle write SetTranslitTitle;
+    property TranslitTitle: string read GetTranslitTitle
+      write SetTranslitTitle;
     {< Trasliterated name in english (ASCII7) characters. }
     property SortTitle: string read GetSortTitle write SetSortTitle;
     {< Title formated for sorting purposes. }
@@ -259,7 +261,7 @@ var
 begin
   aStringList := TStringList.Create;
   try
-    SaveToFileTxt(aStringList, False);
+    SaveToStrLst(aStringList, False);
   finally
     Result := aStringList.CommaText;
     FreeAndNil(aStringList);
@@ -316,7 +318,7 @@ begin
   try
     aStringList.CommaText := AValue;
 
-    LoadFromFileTxt(aStringList);
+    LoadFromStrLst(aStringList);
   finally
     FreeAndNil(aStringList);
   end;
@@ -357,6 +359,72 @@ begin
   FZone := AValue;
 end;
 
+procedure cEmutecaSoftware.LoadFromIni(aIniFile: TCustomIniFile);
+begin
+
+end;
+
+procedure cEmutecaSoftware.SaveToIni(IniFile: TCustomIniFile;
+  const ExportMode: boolean);
+begin
+  if not assigned(IniFile) then
+    Exit;
+  if ID = '' then Exit;
+
+  // Basic data
+  // ----------
+  if not ExportMode then
+  begin
+    IniFile.WriteString(ID, 'Folder', Folder);
+    IniFile.WriteString(ID, 'FileName', FileName);
+  end;
+
+  IniFile.WriteString(ID, 'Title', GetActualTitle);
+
+  if assigned(Group) then
+    IniFile.WriteString(ID, 'Group',Group.ID)
+  else
+    IniFile.WriteString(ID, 'Group',GroupKey);
+
+  if assigned(System) then
+    IniFile.WriteString(ID, 'System',System.ID)
+  else
+   IniFile.WriteString(ID, 'System',SystemKey);
+
+  // Additional title info
+  // ---------------------
+  IniFile.WriteString(ID, 'TranslitTitle',GetActualTranslitTitle);
+  IniFile.WriteString(ID, 'SortTitle',GetActualSortTitle);
+
+  // Release data
+  // ------------
+  IniFile.WriteString(ID, 'Version',Version);
+  IniFile.WriteString(ID, 'Year',Year);
+  IniFile.WriteString(ID, 'Publisher',Publisher);
+  IniFile.WriteString(ID, 'Zone',Zone);
+
+  // Version Flags
+  // ---------------
+  IniFile.WriteString(ID, 'DumpStatus',EmutecaDumpStatusKeys[DumpStatus]);
+  IniFile.WriteString(ID, 'DumpInfo',DumpInfo);
+  IniFile.WriteString(ID, 'Fixed',Fixed);
+  IniFile.WriteString(ID, 'Trainer',Trainer);
+  IniFile.WriteString(ID, 'Translation',Translation);
+  IniFile.WriteString(ID, 'Pirate',Pirate);
+  IniFile.WriteString(ID, 'Cracked',Cracked);
+  IniFile.WriteString(ID, 'Modified',Modified);
+  IniFile.WriteString(ID, 'Hack',Hack);
+
+  // Usage statitics
+  // ---------------
+  if not ExportMode then
+  begin
+    IniFile.WriteDateTime(ID, 'LastTime',Stats.LastTime);
+    IniFile.WriteInteger(ID, 'TimesPlayed',Stats.TimesPlayed);
+    IniFile.WriteInteger(ID, 'PlayingTime',Stats.PlayingTime);
+  end;
+end;
+
 procedure cEmutecaSoftware.FPOObservedChanged(ASender: TObject;
   Operation: TFPObservedOperation; Data: Pointer);
 begin
@@ -383,17 +451,17 @@ end;
 
 function cEmutecaSoftware.GetActualTitle: string;
 begin
-  Result:=FTitle;
+  Result := FTitle;
 end;
 
 function cEmutecaSoftware.GetActualSortTitle: string;
 begin
-  Result:=FSortTitle;
+  Result := FSortTitle;
 end;
 
 function cEmutecaSoftware.GetActualTranslitTitle: string;
 begin
- Result:=FTranslitTitle;
+  Result := FTranslitTitle;
 end;
 
 procedure cEmutecaSoftware.SetSortTitle(AValue: string);
@@ -548,7 +616,7 @@ begin
   inherited Destroy;
 end;
 
-procedure cEmutecaSoftware.LoadFromFileTxt(TxtFile: TStrings);
+procedure cEmutecaSoftware.LoadFromStrLst(TxtFile: TStrings);
 var
   i: integer;
 begin
@@ -594,7 +662,7 @@ begin
   end;
 end;
 
-procedure cEmutecaSoftware.SaveToFileTxt(TxtFile: TStrings;
+procedure cEmutecaSoftware.SaveToStrLst(TxtFile: TStrings;
   const ExportMode: boolean);
 begin
   if not assigned(TxtFile) then
@@ -603,8 +671,18 @@ begin
   // Basic data
   // ----------
   TxtFile.Add(ID);
-  TxtFile.Add(Folder);
-  TxtFile.Add(FileName);
+
+  if not ExportMode then
+  begin
+    TxtFile.Add(Folder);
+    TxtFile.Add(FileName);
+  end
+  else
+  begin
+    TxtFile.Add('');
+    TxtFile.Add('');
+  end;
+
   TxtFile.Add(GetActualTitle);
 
   if assigned(Group) then
@@ -648,9 +726,12 @@ begin
 
   // Usage statitics
   // ---------------
-  TxtFile.Add(FloatToStr(Stats.LastTime));
-  TxtFile.Add(IntToStr(Stats.TimesPlayed));
-  TxtFile.Add(IntToStr(Stats.PlayingTime));
+  if not ExportMode then
+  begin
+    TxtFile.Add(FloatToStr(Stats.LastTime));
+    TxtFile.Add(IntToStr(Stats.TimesPlayed));
+    TxtFile.Add(IntToStr(Stats.PlayingTime));
+  end;
 end;
 
 initialization

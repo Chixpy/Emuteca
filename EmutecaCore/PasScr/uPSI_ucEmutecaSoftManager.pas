@@ -46,7 +46,6 @@ uses
   ,ucEmutecaSystemManager
   ,ucEmutecaSystem
   ,ucEmutecaGroupManager
-  ,ucEmutecaGroup
   ,ucEmutecaSoftManager
   ;
  
@@ -60,13 +59,13 @@ end;
 (*----------------------------------------------------------------------------*)
 procedure SIRegister_cEmutecaSoftManager(CL: TPSPascalCompiler);
 begin
-  //with RegClassS(CL,'caEmutecaManagerTxt', 'cEmutecaSoftManager') do
-  with CL.AddClassN(CL.FindClass('caEmutecaManagerTxt'),'cEmutecaSoftManager') do
+  //with RegClassS(CL,'caEmutecaManager', 'cEmutecaSoftManager') do
+  with CL.AddClassN(CL.FindClass('caEmutecaManager'),'cEmutecaSoftManager') do
   begin
     RegisterProperty('GroupManager', 'cEmutecaGroupManager', iptrw);
     RegisterProperty('SystemManager', 'cEmutecaSystemManager', iptrw);
     RegisterProperty('VisibleList', 'cEmutecaSoftList', iptr);
-    RegisterMethod('Function ItemById( aId : string) : cEmutecaSoftware');
+    RegisterMethod('Function ItemById( aId : string; Autocreate : boolean) : cEmutecaSoftware');
     RegisterMethod('Procedure FilterBySystem( aSystem : cEmutecaSystem)');
     RegisterProperty('FullList', 'cEmutecaSoftList', iptr);
   end;

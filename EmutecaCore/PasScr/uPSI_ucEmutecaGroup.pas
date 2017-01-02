@@ -45,6 +45,7 @@ uses
   ,uCHXStrUtils
   ,uaCHXStorable
   ,ucEmutecaPlayingStats
+  ,ucEmutecaSystem
   ,ucEmutecaGroup
   ;
  
@@ -58,15 +59,18 @@ end;
 (*----------------------------------------------------------------------------*)
 procedure SIRegister_cEmutecaGroup(CL: TPSPascalCompiler);
 begin
-  //with RegClassS(CL,'caCHXStorableTxt', 'cEmutecaGroup') do
-  with CL.AddClassN(CL.FindClass('caCHXStorableTxt'),'cEmutecaGroup') do
+  //with RegClassS(CL,'caCHXStorable', 'cEmutecaGroup') do
+  with CL.AddClassN(CL.FindClass('caCHXStorable'),'cEmutecaGroup') do
   begin
     RegisterProperty('DataString', 'string', iptrw);
+    RegisterProperty('System', 'cEmutecaSystem', iptrw);
+    RegisterMethod('Procedure FPOObservedChanged( ASender : TObject; Operation : TFPObservedOperation; Data : Pointer)');
     RegisterProperty('ID', 'string', iptrw);
     RegisterProperty('Title', 'string', iptrw);
+    RegisterProperty('SystemKey', 'string', iptr);
     RegisterProperty('Year', 'string', iptrw);
     RegisterProperty('Developer', 'string', iptrw);
-    RegisterProperty('Stats', 'cEmutecaPlayingStats', iptrw);
+    RegisterProperty('Stats', 'cEmutecaPlayingStats', iptr);
   end;
 end;
 
@@ -80,11 +84,6 @@ begin
 end;
 
 (* === run-time registration functions === *)
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaGroupStats_W(Self: cEmutecaGroup; const T: cEmutecaPlayingStats);
-begin //Self.Stats := T;
-end;
-
 (*----------------------------------------------------------------------------*)
 procedure cEmutecaGroupStats_R(Self: cEmutecaGroup; var T: cEmutecaPlayingStats);
 begin T := Self.Stats; end;
@@ -106,6 +105,10 @@ procedure cEmutecaGroupYear_R(Self: cEmutecaGroup; var T: string);
 begin T := Self.Year; end;
 
 (*----------------------------------------------------------------------------*)
+procedure cEmutecaGroupSystemKey_R(Self: cEmutecaGroup; var T: string);
+begin T := Self.SystemKey; end;
+
+(*----------------------------------------------------------------------------*)
 procedure cEmutecaGroupTitle_W(Self: cEmutecaGroup; const T: string);
 begin Self.Title := T; end;
 
@@ -122,6 +125,14 @@ procedure cEmutecaGroupID_R(Self: cEmutecaGroup; var T: string);
 begin T := Self.ID; end;
 
 (*----------------------------------------------------------------------------*)
+procedure cEmutecaGroupSystem_W(Self: cEmutecaGroup; const T: cEmutecaSystem);
+begin Self.System := T; end;
+
+(*----------------------------------------------------------------------------*)
+procedure cEmutecaGroupSystem_R(Self: cEmutecaGroup; var T: cEmutecaSystem);
+begin T := Self.System; end;
+
+(*----------------------------------------------------------------------------*)
 procedure cEmutecaGroupDataString_W(Self: cEmutecaGroup; const T: string);
 begin Self.DataString := T; end;
 
@@ -135,11 +146,14 @@ begin
   with CL.Add(cEmutecaGroup) do
   begin
     RegisterPropertyHelper(@cEmutecaGroupDataString_R,@cEmutecaGroupDataString_W,'DataString');
+    RegisterPropertyHelper(@cEmutecaGroupSystem_R,@cEmutecaGroupSystem_W,'System');
+    RegisterMethod(@cEmutecaGroup.FPOObservedChanged, 'FPOObservedChanged');
     RegisterPropertyHelper(@cEmutecaGroupID_R,@cEmutecaGroupID_W,'ID');
     RegisterPropertyHelper(@cEmutecaGroupTitle_R,@cEmutecaGroupTitle_W,'Title');
+    RegisterPropertyHelper(@cEmutecaGroupSystemKey_R,nil,'SystemKey');
     RegisterPropertyHelper(@cEmutecaGroupYear_R,@cEmutecaGroupYear_W,'Year');
     RegisterPropertyHelper(@cEmutecaGroupDeveloper_R,@cEmutecaGroupDeveloper_W,'Developer');
-    RegisterPropertyHelper(@cEmutecaGroupStats_R,@cEmutecaGroupStats_W,'Stats');
+    RegisterPropertyHelper(@cEmutecaGroupStats_R,nil,'Stats');
   end;
 end;
 

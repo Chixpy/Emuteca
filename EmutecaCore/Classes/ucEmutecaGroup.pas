@@ -33,7 +33,7 @@ uses
 type
   { cEmutecaGroup }
 
-  cEmutecaGroup = class(caCHXStorableTxt, IFPObserver)
+  cEmutecaGroup = class(caCHXStorable, IFPObserver)
   private
     FDeveloper: string;
     FID: string;
@@ -62,8 +62,8 @@ type
       Operation: TFPObservedOperation; Data: Pointer);
     {< System has changed. }
 
-    procedure LoadFromFileTxt(TxtFile: TStrings); override;
-    procedure SaveToFileTxt(TxtFile: TStrings; const ExportMode: boolean);
+    procedure LoadFromStrLst(TxtFile: TStrings); override;
+    procedure SaveToStrLst(TxtFile: TStrings; const ExportMode: boolean);
       override;
 
     constructor Create(aOwner: TComponent); override;
@@ -158,7 +158,7 @@ var
 begin
   aStringList := TStringList.Create;
   try
-    SaveToFileTxt(aStringList, False);
+    SaveToStrLst(aStringList, False);
   finally
     Result := aStringList.CommaText;
     FreeAndNil(aStringList);
@@ -173,7 +173,7 @@ begin
   try
     aStringList.CommaText := AValue;
 
-    LoadFromFileTxt(aStringList);
+    LoadFromStrLst(aStringList);
   finally
     FreeAndNil(aStringList);
   end;
@@ -202,7 +202,7 @@ begin
   inherited Destroy;
 end;
 
-procedure cEmutecaGroup.LoadFromFileTxt(TxtFile: TStrings);
+procedure cEmutecaGroup.LoadFromStrLst(TxtFile: TStrings);
 var
   i: integer;
 begin
@@ -229,7 +229,7 @@ begin
   end;
 end;
 
-procedure cEmutecaGroup.SaveToFileTxt(TxtFile: TStrings;
+procedure cEmutecaGroup.SaveToStrLst(TxtFile: TStrings;
   const ExportMode: boolean);
 begin
   if not assigned(TxtFile) then

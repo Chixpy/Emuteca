@@ -94,7 +94,7 @@
         <PackageName Value="LCL"/>
       </Item6>
     </RequiredPackages>
-    <Units Count="84">
+    <Units Count="86">
       <Unit0>
         <Filename Value="LazEmuteca.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -536,6 +536,20 @@
         <Filename Value="..\CHXPas\Abstract\uaCHXConfig.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit83>
+      <Unit84>
+        <Filename Value="source\forms\ufrLEmuTKExportData.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmLEmuTKExportData"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+      </Unit84>
+      <Unit85>
+        <Filename Value="source\frames\ufLEmuTKExportData.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fmLEmuTKExportData"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+      </Unit85>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

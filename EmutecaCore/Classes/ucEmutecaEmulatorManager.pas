@@ -38,7 +38,7 @@ type
 
   { cEmutecaEmulatorManager }
 
-  cEmutecaEmulatorManager = class(caEmutecaManagerIni)
+  cEmutecaEmulatorManager = class(caEmutecaManager)
   private
     FFullList: cEmutecaEmulatorList;
 
@@ -48,8 +48,8 @@ type
   public
     property FullList: cEmutecaEmulatorList read FFullList;
 
-    procedure LoadFromFileIni(IniFile: TCustomIniFile); override;
-    procedure SaveToFileIni(IniFile: TCustomIniFile;
+    procedure LoadFromIni(IniFile: TCustomIniFile); override;
+    procedure SaveToIni(IniFile: TCustomIniFile;
       const ExportMode: boolean); override;
 
     function ItemById(aId: string): cEmutecaEmulator;
@@ -126,7 +126,7 @@ begin
 end;
 
 
-procedure cEmutecaEmulatorManager.LoadFromFileIni(IniFile: TCustomIniFile);
+procedure cEmutecaEmulatorManager.LoadFromIni(IniFile: TCustomIniFile);
 var
   TempList: TStringList;
   TempEmu: cEmutecaEmulator;
@@ -145,7 +145,7 @@ begin
     begin
       TempEmu := cEmutecaEmulator.Create(nil);
       TempEmu.ID := TempList[i];
-      TempEmu.LoadFromFileIni(IniFile);
+      TempEmu.LoadFromIni(IniFile);
       FullList.Add(TempEmu);
       Inc(i);
 
@@ -158,7 +158,7 @@ begin
   end;
 end;
 
-procedure cEmutecaEmulatorManager.SaveToFileIni(IniFile: TCustomIniFile;
+procedure cEmutecaEmulatorManager.SaveToIni(IniFile: TCustomIniFile;
   const ExportMode: boolean);
 var
   i: longint;
@@ -174,7 +174,7 @@ begin
   while i < FullList.Count do
   begin
     aEmulator := cEmutecaEmulator(FullList[i]);
-    aEmulator.SaveToFileIni(IniFile, ExportMode);
+    aEmulator.SaveToIni(IniFile, ExportMode);
     Inc(i);
 
     if ProgressCallBack <> nil then

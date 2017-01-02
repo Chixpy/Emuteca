@@ -39,7 +39,7 @@ resourcestring
 type
   { cEmutecaGroupManager }
 
-  cEmutecaGroupManager = class(caEmutecaManagerTxt)
+  cEmutecaGroupManager = class(caEmutecaManager)
   private
     FSystemManager: cEmutecaSystemManager;
     FVisibleList: cEmutecaGroupList;
@@ -57,8 +57,8 @@ type
     property VisibleList: cEmutecaGroupList read FVisibleList;
     {< Filtered parent list. }
 
-    procedure LoadFromFileTxt(TxtFile: TStrings); override;
-    procedure SaveToFileTxt(TxtFile: TStrings; const ExportMode: boolean);
+    procedure LoadFromStrLst(TxtFile: TStrings); override;
+    procedure SaveToStrLst(TxtFile: TStrings; const ExportMode: boolean);
       override;
 
     function ItemById(aId: string; Autocreate: boolean = False): cEmutecaGroup;
@@ -212,7 +212,7 @@ begin
   FSystemManager := AValue;
 end;
 
-procedure cEmutecaGroupManager.LoadFromFileTxt(TxtFile: TStrings);
+procedure cEmutecaGroupManager.LoadFromStrLst(TxtFile: TStrings);
 var
   i: integer;
   TempGroup: cEmutecaGroup;
@@ -239,7 +239,7 @@ begin
   //FullList.EndUpdate;
 end;
 
-procedure cEmutecaGroupManager.SaveToFileTxt(TxtFile: TStrings;
+procedure cEmutecaGroupManager.SaveToStrLst(TxtFile: TStrings;
   const ExportMode: boolean);
 var
   i: integer;
@@ -248,7 +248,7 @@ begin
   if not Assigned(TxtFile) then
     Exit;
 
-  { TODO : cEmutecaGroupManager.SaveToFileTxt Export mode }
+  { TODO : cEmutecaGroupManager.SaveToStrLst Export mode }
   TxtFile.Clear;
   TxtFile.BeginUpdate;
   try

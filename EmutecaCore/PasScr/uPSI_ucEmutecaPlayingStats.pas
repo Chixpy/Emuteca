@@ -42,7 +42,6 @@ implementation
 uses
    dateutils
   ,IniFiles
-  ,uCHXStrUtils
   ,ucEmutecaPlayingStats
   ;
  
@@ -59,12 +58,12 @@ begin
   //with RegClassS(CL,'TComponent', 'cEmutecaPlayingStats') do
   with CL.AddClassN(CL.FindClass('TComponent'),'cEmutecaPlayingStats') do
   begin
-    RegisterMethod('Procedure AddPlayingTime( const Stop : TDateTime; Start : TDateTime)');
+    RegisterMethod('Procedure AddPlayingTime( const Start : TDateTime; NumberOfSeconds : Int64)');
     RegisterMethod('Procedure WriteToIni( aIniFile : TCustomIniFile; const Section : string)');
     RegisterMethod('Procedure LoadFromIni( aIniFile : TCustomIniFile; const Section : string)');
     RegisterProperty('LastTime', 'TDateTime', iptrw);
-    RegisterProperty('TimesPlayed', 'longword', iptrw);
-    RegisterProperty('PlayingTime', 'longword', iptrw);
+    RegisterProperty('TimesPlayed', 'Int64', iptrw);
+    RegisterProperty('PlayingTime', 'Int64', iptrw);
     RegisterProperty('IconIndex', 'Integer', iptrw);
   end;
 end;
@@ -88,19 +87,19 @@ procedure cEmutecaPlayingStatsIconIndex_R(Self: cEmutecaPlayingStats; var T: Int
 begin T := Self.IconIndex; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cEmutecaPlayingStatsPlayingTime_W(Self: cEmutecaPlayingStats; const T: longword);
+procedure cEmutecaPlayingStatsPlayingTime_W(Self: cEmutecaPlayingStats; const T: Int64);
 begin Self.PlayingTime := T; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cEmutecaPlayingStatsPlayingTime_R(Self: cEmutecaPlayingStats; var T: longword);
+procedure cEmutecaPlayingStatsPlayingTime_R(Self: cEmutecaPlayingStats; var T: Int64);
 begin T := Self.PlayingTime; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cEmutecaPlayingStatsTimesPlayed_W(Self: cEmutecaPlayingStats; const T: longword);
+procedure cEmutecaPlayingStatsTimesPlayed_W(Self: cEmutecaPlayingStats; const T: Int64);
 begin Self.TimesPlayed := T; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cEmutecaPlayingStatsTimesPlayed_R(Self: cEmutecaPlayingStats; var T: longword);
+procedure cEmutecaPlayingStatsTimesPlayed_R(Self: cEmutecaPlayingStats; var T: Int64);
 begin T := Self.TimesPlayed; end;
 
 (*----------------------------------------------------------------------------*)

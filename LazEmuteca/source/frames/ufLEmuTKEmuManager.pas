@@ -138,7 +138,7 @@ begin
   if not SaveDialog1.Execute then
     Exit;
 
-  EmuManager.SaveToFile(SaveDialog1.FileName, True);
+  EmuManager.SaveToFileIni(SaveDialog1.FileName, True);
 end;
 
 procedure TfmLEmuTKEmuManager.ImportList;
@@ -149,7 +149,7 @@ begin
  if not OpenDialog1.Execute then
    Exit;
 
- EmuManager.LoadFromFile(OpenDialog1.FileName);
+ EmuManager.LoadFromFileIni(OpenDialog1.FileName);
 end;
 
 procedure TfmLEmuTKEmuManager.LoadData;
@@ -177,7 +177,7 @@ begin
     Exit;
 
   // Automatilly save to file
-  EmuManager.SaveToFile('', False);
+  EmuManager.SaveToFileIni('', False);
 end;
 
 procedure TfmLEmuTKEmuManager.OnListClick(aObject: TObject);

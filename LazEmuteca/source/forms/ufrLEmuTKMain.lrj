@@ -10,14 +10,16 @@
 {"hash":149839598,"name":"tfrmlemutkmain.actmediamanager.caption","sourcebytes":[77,101,100,105,97,32,77,97,110,97,103,101,114,46,46,46],"value":"Media Manager..."},
 {"hash":64038002,"name":"tfrmlemutkmain.actaddfolder.caption","sourcebytes":[83,99,97,110,32,102,105,108,101,115,32,102,114,111,109,32,102,111,108,100,101,114],"value":"Scan files from folder"},
 {"hash":198343454,"name":"tfrmlemutkmain.actaddsoft.caption","sourcebytes":[65,100,100,32,83,111,102,116,119,97,114,101,46,46,46],"value":"Add Software..."},
-{"hash":125342323,"name":"tfrmlemutkmain.actsavelists.caption","sourcebytes":[83,97,118,101,32,108,105,115,116,115],"value":"Save lists"},
+{"hash":123245171,"name":"tfrmlemutkmain.actsavelists.caption","sourcebytes":[83,97,118,101,32,76,105,115,116,115],"value":"Save Lists"},
 {"hash":110889572,"name":"tfrmlemutkmain.actautosave.caption","sourcebytes":[43,83,97,118,101,32,111,110,32,69,120,105,116],"value":"+Save on Exit"},
 {"hash":185440356,"name":"tfrmlemutkmain.actautosave.hint","sourcebytes":[65,117,116,111,115,97,118,101,32,103,97,109,101,32,108,105,115,116,32,111,110,32,101,120,105,116],"value":"Autosave game list on exit"},
 {"hash":78366754,"name":"tfrmlemutkmain.actopentempfolder.caption","sourcebytes":[79,112,101,110,32,84,101,109,112,32,70,111,108,100,101,114],"value":"Open Temp Folder"},
-{"hash":315429,"name":"tfrmlemutkmain.mmfile.caption","sourcebytes":[70,105,108,101],"value":"File"},
-{"hash":371876,"name":"tfrmlemutkmain.menuitem8.caption","sourcebytes":[84,101,115,116],"value":"Test"},
-{"hash":138926499,"name":"tfrmlemutkmain.menuitem3.caption","sourcebytes":[77,97,110,97,103,101,114,115],"value":"Managers"},
-{"hash":5046979,"name":"tfrmlemutkmain.menuitem9.caption","sourcebytes":[70,105,108,101,115],"value":"Files"},
-{"hash":75133198,"name":"tfrmlemutkmain.menuitem10.caption","sourcebytes":[65,100,100,46,46,46],"value":"Add..."},
-{"hash":322608,"name":"tfrmlemutkmain.mmhelp.caption","sourcebytes":[72,101,108,112],"value":"Help"}
+{"hash":100447118,"name":"tfrmlemutkmain.actexportdata.caption","sourcebytes":[69,120,112,111,114,116,32,68,97,116,97,46,46,46],"value":"Export Data..."},
+{"hash":315429,"name":"tfrmlemutkmain.mmifile.caption","sourcebytes":[70,105,108,101],"value":"File"},
+{"hash":371876,"name":"tfrmlemutkmain.mmitest.caption","sourcebytes":[84,101,115,116],"value":"Test"},
+{"hash":315140,"name":"tfrmlemutkmain.mmiexit.caption","sourcebytes":[69,120,105,116],"value":"Exit"},
+{"hash":138926499,"name":"tfrmlemutkmain.mmimanagers.caption","sourcebytes":[77,97,110,97,103,101,114,115],"value":"Managers"},
+{"hash":5046979,"name":"tfrmlemutkmain.mmifiles.caption","sourcebytes":[70,105,108,101,115],"value":"Files"},
+{"hash":75133198,"name":"tfrmlemutkmain.mmiaddfiles.caption","sourcebytes":[65,100,100,46,46,46],"value":"Add..."},
+{"hash":322608,"name":"tfrmlemutkmain.mmihelp.caption","sourcebytes":[72,101,108,112],"value":"Help"}
 ]}

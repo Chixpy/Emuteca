@@ -59,10 +59,10 @@ end;
 (*----------------------------------------------------------------------------*)
 procedure SIRegister_cEmutecaSystemManager(CL: TPSPascalCompiler);
 begin
-  //with RegClassS(CL,'caEmutecaManagerIni', 'cEmutecaSystemManager') do
-  with CL.AddClassN(CL.FindClass('caEmutecaManagerIni'),'cEmutecaSystemManager') do
+  //with RegClassS(CL,'caEmutecaManager', 'cEmutecaSystemManager') do
+  with CL.AddClassN(CL.FindClass('caEmutecaManager'),'cEmutecaSystemManager') do
   begin
-    RegisterMethod('Function ItemById( aId : string) : cEmutecaSystem');
+    RegisterMethod('Function ItemById( aId : string; Autocreate : Boolean) : cEmutecaSystem');
     RegisterProperty('FullList', 'cEmutecaSystemList', iptr);
     RegisterProperty('VisibleList', 'cEmutecaSystemList', iptr);
   end;

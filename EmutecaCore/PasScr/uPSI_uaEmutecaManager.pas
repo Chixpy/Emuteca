@@ -27,13 +27,11 @@ type
  
  
 { compile-time registration functions }
-procedure SIRegister_caEmutecaManagerTxt(CL: TPSPascalCompiler);
-procedure SIRegister_caEmutecaManagerIni(CL: TPSPascalCompiler);
+procedure SIRegister_caEmutecaManager(CL: TPSPascalCompiler);
 procedure SIRegister_uaEmutecaManager(CL: TPSPascalCompiler);
 
 { run-time registration functions }
-procedure RIRegister_caEmutecaManagerTxt(CL: TPSRuntimeClassImporter);
-procedure RIRegister_caEmutecaManagerIni(CL: TPSRuntimeClassImporter);
+procedure RIRegister_caEmutecaManager(CL: TPSRuntimeClassImporter);
 procedure RIRegister_uaEmutecaManager(CL: TPSRuntimeClassImporter);
 
 procedure Register;
@@ -55,22 +53,10 @@ end;
 
 (* === compile-time registration functions === *)
 (*----------------------------------------------------------------------------*)
-procedure SIRegister_caEmutecaManagerTxt(CL: TPSPascalCompiler);
+procedure SIRegister_caEmutecaManager(CL: TPSPascalCompiler);
 begin
-  //with RegClassS(CL,'caCHXStorableTxt', 'caEmutecaManagerTxt') do
-  with CL.AddClassN(CL.FindClass('caCHXStorableTxt'),'caEmutecaManagerTxt') do
-  begin
-    RegisterProperty('ProgressCallBack', 'TEmutecaProgressCallBack', iptrw);
-    RegisterMethod('Procedure AssingAllTo( aList : TStrings)');
-    RegisterMethod('Procedure AssingEnabledTo( aList : TStrings)');
-  end;
-end;
-
-(*----------------------------------------------------------------------------*)
-procedure SIRegister_caEmutecaManagerIni(CL: TPSPascalCompiler);
-begin
-  //with RegClassS(CL,'caCHXStorableIni', 'caEmutecaManagerIni') do
-  with CL.AddClassN(CL.FindClass('caCHXStorableIni'),'caEmutecaManagerIni') do
+  //with RegClassS(CL,'caCHXStorable', 'caEmutecaManager') do
+  with CL.AddClassN(CL.FindClass('caCHXStorable'),'caEmutecaManager') do
   begin
     RegisterProperty('ProgressCallBack', 'TEmutecaProgressCallBack', iptrw);
     RegisterMethod('Procedure AssingAllTo( aList : TStrings)');
@@ -81,54 +67,33 @@ end;
 (*----------------------------------------------------------------------------*)
 procedure SIRegister_uaEmutecaManager(CL: TPSPascalCompiler);
 begin
-  SIRegister_caEmutecaManagerIni(CL);
-  SIRegister_caEmutecaManagerTxt(CL);
+  SIRegister_caEmutecaManager(CL);
 end;
 
 (* === run-time registration functions === *)
 (*----------------------------------------------------------------------------*)
-procedure caEmutecaManagerTxtProgressCallBack_W(Self: caEmutecaManagerTxt; const T: TEmutecaProgressCallBack);
+procedure caEmutecaManagerProgressCallBack_W(Self: caEmutecaManager; const T: TEmutecaProgressCallBack);
 begin Self.ProgressCallBack := T; end;
 
 (*----------------------------------------------------------------------------*)
-procedure caEmutecaManagerTxtProgressCallBack_R(Self: caEmutecaManagerTxt; var T: TEmutecaProgressCallBack);
+procedure caEmutecaManagerProgressCallBack_R(Self: caEmutecaManager; var T: TEmutecaProgressCallBack);
 begin T := Self.ProgressCallBack; end;
 
 (*----------------------------------------------------------------------------*)
-procedure caEmutecaManagerIniProgressCallBack_W(Self: caEmutecaManagerIni; const T: TEmutecaProgressCallBack);
-begin Self.ProgressCallBack := T; end;
-
-(*----------------------------------------------------------------------------*)
-procedure caEmutecaManagerIniProgressCallBack_R(Self: caEmutecaManagerIni; var T: TEmutecaProgressCallBack);
-begin T := Self.ProgressCallBack; end;
-
-(*----------------------------------------------------------------------------*)
-procedure RIRegister_caEmutecaManagerTxt(CL: TPSRuntimeClassImporter);
+procedure RIRegister_caEmutecaManager(CL: TPSRuntimeClassImporter);
 begin
-  with CL.Add(caEmutecaManagerTxt) do
+  with CL.Add(caEmutecaManager) do
   begin
-    RegisterPropertyHelper(@caEmutecaManagerTxtProgressCallBack_R,@caEmutecaManagerTxtProgressCallBack_W,'ProgressCallBack');
-   // RegisterVirtualAbstractMethod(@caEmutecaManagerTxt, @!.AssingAllTo, 'AssingAllTo');
-   // RegisterVirtualAbstractMethod(@caEmutecaManagerTxt, @!.AssingEnabledTo, 'AssingEnabledTo');
-  end;
-end;
-
-(*----------------------------------------------------------------------------*)
-procedure RIRegister_caEmutecaManagerIni(CL: TPSRuntimeClassImporter);
-begin
-  with CL.Add(caEmutecaManagerIni) do
-  begin
-    RegisterPropertyHelper(@caEmutecaManagerIniProgressCallBack_R,@caEmutecaManagerIniProgressCallBack_W,'ProgressCallBack');
-    //RegisterVirtualAbstractMethod(@caEmutecaManagerIni, @!.AssingAllTo, 'AssingAllTo');
-    //RegisterVirtualAbstractMethod(@caEmutecaManagerIni, @!.AssingEnabledTo, 'AssingEnabledTo');
+    RegisterPropertyHelper(@caEmutecaManagerProgressCallBack_R,@caEmutecaManagerProgressCallBack_W,'ProgressCallBack');
+    RegisterVirtualAbstractMethod(caEmutecaManager, nil, 'AssingAllTo');
+    RegisterVirtualAbstractMethod(caEmutecaManager, nil, 'AssingEnabledTo');
   end;
 end;
 
 (*----------------------------------------------------------------------------*)
 procedure RIRegister_uaEmutecaManager(CL: TPSRuntimeClassImporter);
 begin
-  RIRegister_caEmutecaManagerIni(CL);
-  RIRegister_caEmutecaManagerTxt(CL);
+  RIRegister_caEmutecaManager(CL);
 end;
 
  

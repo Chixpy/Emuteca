@@ -153,6 +153,7 @@ inherited fmEmutecaSystemEditor: TfmEmutecaSystemEditor
       Height = 23
       Top = 15
       Width = 206
+      DialogOptions = [ofNoChangeDir, ofEnableSizing, ofViewDetail]
       ShowHidden = False
       ButtonWidth = 23
       NumGlyphs = 1
@@ -230,6 +231,7 @@ inherited fmEmutecaSystemEditor: TfmEmutecaSystemEditor
       Height = 23
       Top = 78
       Width = 206
+      DialogOptions = [ofNoChangeDir, ofEnableSizing, ofViewDetail]
       ShowHidden = False
       ButtonWidth = 23
       NumGlyphs = 1
@@ -247,5 +249,9 @@ inherited fmEmutecaSystemEditor: TfmEmutecaSystemEditor
       OnClick = bCreateSubdirsClick
       TabOrder = 5
     end
+  end
+  inherited alPropEditor: TActionList[4]
+  end
+  inherited ilPropEditor: TImageList[5]
   end
 end

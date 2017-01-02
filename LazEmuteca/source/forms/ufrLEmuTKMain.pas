@@ -20,7 +20,7 @@ uses
   // Emuteca clases
   ucEmuteca, ucEmutecaGroup, ucEmutecaSoftware,
   // Emuteca forms
-  ufEmutecaScriptManager,
+  ufEmutecaScriptManager, ufrLEmuTKExportData,
   // Emuteca windows
   ufEmutecaActAddSoft, ufEmutecaActAddFolder,
   // LazEmuteca frames
@@ -37,6 +37,7 @@ type
     actAddFolder: TAction;
     actAddSoft: TAction;
     actAutoSave: TAction;
+    actExportData: TAction;
     actOpenTempFolder: TAction;
     actSaveLists: TAction;
     actMediaManager: TAction;
@@ -48,30 +49,33 @@ type
     ImageList1: TImageList;
     IniPropStorage1: TIniPropStorage;
     MainMenu: TMainMenu;
-    MenuItem1: TMenuItem;
-    MenuItem10: TMenuItem;
-    MenuItem11: TMenuItem;
-    MenuItem12: TMenuItem;
-    MenuItem13: TMenuItem;
-    MenuItem14: TMenuItem;
-    MenuItem15: TMenuItem;
-    MenuItem16: TMenuItem;
-    MenuItem17: TMenuItem;
+    mmiExportData: TMenuItem;
     MenuItem2: TMenuItem;
-    MenuItem3: TMenuItem;
-    MenuItem4: TMenuItem;
-    MenuItem5: TMenuItem;
-    MenuItem6: TMenuItem;
-    MenuItem7: TMenuItem;
-    MenuItem8: TMenuItem;
-    MenuItem9: TMenuItem;
-    mmHelp: TMenuItem;
-    mmFile: TMenuItem;
+    mmiAbout: TMenuItem;
+    mmiAddFiles: TMenuItem;
+    mmiScanFolder: TMenuItem;
+    mmiAddSoft: TMenuItem;
+    MenuItem13: TMenuItem;
+    mmiSaveLists: TMenuItem;
+    MenuItem15: TMenuItem;
+    mmiSaveOnExit: TMenuItem;
+    mmiOpenTempFolder: TMenuItem;
+    mmiExit: TMenuItem;
+    mmiManagers: TMenuItem;
+    mmiEmulatorManager: TMenuItem;
+    mmiSystemManager: TMenuItem;
+    mmiScriptManager: TMenuItem;
+    mmiMediaManager: TMenuItem;
+    mmiTest: TMenuItem;
+    mmiFiles: TMenuItem;
+    mmiHelp: TMenuItem;
+    mmiFile: TMenuItem;
     stbHelp: TStatusBar;
     procedure actAddSoftExecute(Sender: TObject);
     procedure actAddFolderExecute(Sender: TObject);
     procedure actAutoSaveExecute(Sender: TObject);
     procedure actEmulatorManagerExecute(Sender: TObject);
+    procedure actExportDataExecute(Sender: TObject);
     procedure actOpenTempFolderExecute(Sender: TObject);
     procedure actSaveListsExecute(Sender: TObject);
     procedure actScriptManagerExecute(Sender: TObject);
@@ -80,7 +84,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure HelpOnHelp1Execute(Sender: TObject);
-    procedure MenuItem8Click(Sender: TObject);
+    procedure mmiTestClick(Sender: TObject);
 
   private
     FfmEmutecaMainFrame: TfmLEmuTKMain;
@@ -134,7 +138,7 @@ begin
   FreeAndNil(frmCHXAbout);
 end;
 
-procedure TfrmLEmuTKMain.MenuItem8Click(Sender: TObject);
+procedure TfrmLEmuTKMain.mmiTestClick(Sender: TObject);
 {
 var
   Temp: TStringList;
@@ -185,10 +189,10 @@ end;
 procedure TfrmLEmuTKMain.SaveEmuteca;
 begin
   { TODO : Emuteca.Save }
-  Emuteca.SoftManager.SaveToFile('', False);
-  Emuteca.GroupManager.SaveToFile('', False);
-  Emuteca.SystemManager.SaveToFile('', False);
-  Emuteca.EmulatorManager.SaveToFile('', False);
+  Emuteca.SoftManager.SaveToFileTxt('', False);
+  Emuteca.GroupManager.SaveToFileTxt('', False);
+  Emuteca.SystemManager.SaveToFileIni('', False);
+  Emuteca.EmulatorManager.SaveToFileIni('', False);
 end;
 
 function TfrmLEmuTKMain.OnProgressBar(const Title, Info1, Info2: string;
@@ -362,6 +366,19 @@ begin
 
   aForm.ShowModal;
   FreeAndNil(aForm);
+end;
+
+procedure TfrmLEmuTKMain.actExportDataExecute(Sender: TObject);
+begin
+ if not Assigned(frmLEmuTKExportData) then
+   Application.CreateForm(TfrmLEmuTKExportData, frmLEmuTKExportData);
+
+   frmLEmuTKExportData.GUIConfigIni := GUIConfig.ConfigFile;
+   frmLEmuTKExportData.GUIIconsIni := GUIConfig.GUIIcnFile;
+   frmLEmuTKExportData.Emuteca := Emuteca;
+
+   frmLEmuTKExportData.ShowModal;
+   FreeAndNil(frmLEmuTKExportData);
 end;
 
 procedure TfrmLEmuTKMain.actOpenTempFolderExecute(Sender: TObject);

@@ -1,22 +1,21 @@
 "Subfolder","Type","Title"
 "BIOS",,
-"Image/Front","i","Front covers"
-"Image/Back","i","Back covers"
 "Image/Title","i","Title"
 "Image/In game","i","In game"
+"Image/Front","i","Front covers"
+"Image/Back","i","Back covers"
 "Image/Media","i","Media"
 "Image/Icon","i","Icons"
 "Image/Spine","i","Spines"
 "Music/Demo","m","Demos"
 "Music/OST","m","OST"
-"Soft",s,
 "Soft/Game",,
 "Soft/Demo",,
 "Soft/App",,
 "Save",,
 "Temp",,
-"Text/Cheat","t","Cheats"
 "Text/Info","t","Information"
+"Text/Cheat","t","Cheats"
 "Text/Credit","t","Credits"
 "Text/Manual","t","Manual"
 "Text/Note","t","Notas"

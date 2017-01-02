@@ -62,13 +62,16 @@ end;
 (*----------------------------------------------------------------------------*)
 procedure SIRegister_cEmutecaSoftware(CL: TPSPascalCompiler);
 begin
-  //with RegClassS(CL,'caCHXStorableTxt', 'cEmutecaSoftware') do
-  with CL.AddClassN(CL.FindClass('caCHXStorableTxt'),'cEmutecaSoftware') do
+  //with RegClassS(CL,'caCHXStorable', 'cEmutecaSoftware') do
+  with CL.AddClassN(CL.FindClass('caCHXStorable'),'cEmutecaSoftware') do
   begin
     RegisterProperty('DataString', 'string', iptrw);
     RegisterProperty('System', 'cEmutecaSystem', iptrw);
     RegisterProperty('Group', 'cEmutecaGroup', iptrw);
     RegisterMethod('Procedure FPOObservedChanged( ASender : TObject; Operation : TFPObservedOperation; Data : Pointer)');
+    RegisterMethod('Function GetActualTitle : string');
+    RegisterMethod('Function GetActualSortTitle : string');
+    RegisterMethod('Function GetActualTranslitTitle : string');
     RegisterProperty('ID', 'string', iptrw);
     RegisterProperty('Folder', 'string', iptrw);
     RegisterProperty('FileName', 'string', iptrw);
@@ -90,7 +93,7 @@ begin
     RegisterProperty('Cracked', 'string', iptrw);
     RegisterProperty('Modified', 'string', iptrw);
     RegisterProperty('Hack', 'string', iptrw);
-    RegisterProperty('Stats', 'cEmutecaPlayingStats', iptrw);
+    RegisterProperty('Stats', 'cEmutecaPlayingStats', iptr);
   end;
 end;
 
@@ -103,12 +106,12 @@ begin
  CL.AddConstantN('krsedsOverDump','String').SetString( 'OverDump');
  CL.AddConstantN('krsedsBadDump','String').SetString( 'BadDump');
  CL.AddConstantN('krsedsUnderDump','String').SetString( 'UnderDump');
- CL.AddConstantN('rsedsVerified','Verified').SetString( krsedsVerified);
- CL.AddConstantN('rsedsGood','Good').SetString( krsedsGood);
- CL.AddConstantN('rsedsAlternate','Alternate').SetString( krsedsAlternate);
- CL.AddConstantN('rsedsOverDump','OverDump').SetString( krsedsOverDump);
- CL.AddConstantN('rsedsBadDump','BadDump').SetString( krsedsBadDump);
- CL.AddConstantN('rsedsUnderDump','UnderDump').SetString( krsedsUnderDump);
+ CL.AddConstantN('rsedsVerified','').SetString( krsedsVerified);
+ CL.AddConstantN('rsedsGood','').SetString( krsedsGood);
+ CL.AddConstantN('rsedsAlternate','').SetString( krsedsAlternate);
+ CL.AddConstantN('rsedsOverDump','').SetString( krsedsOverDump);
+ CL.AddConstantN('rsedsBadDump','').SetString( krsedsBadDump);
+ CL.AddConstantN('rsedsUnderDump','').SetString( krsedsUnderDump);
   CL.AddTypeS('TEmutecaDumpStatus', '( edsVerified, edsGood, edsAlternate, edsO'
    +'verDump, edsBadDump, edsUnderDump )');
   SIRegister_cEmutecaSoftware(CL);
@@ -119,11 +122,6 @@ begin
 end;
 
 (* === run-time registration functions === *)
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaSoftwareStats_W(Self: cEmutecaSoftware; const T: cEmutecaPlayingStats);
-begin //Self.Stats := T;
-end;
-
 (*----------------------------------------------------------------------------*)
 procedure cEmutecaSoftwareStats_R(Self: cEmutecaSoftware; var T: cEmutecaPlayingStats);
 begin T := Self.Stats; end;
@@ -327,6 +325,9 @@ begin
     RegisterPropertyHelper(@cEmutecaSoftwareSystem_R,@cEmutecaSoftwareSystem_W,'System');
     RegisterPropertyHelper(@cEmutecaSoftwareGroup_R,@cEmutecaSoftwareGroup_W,'Group');
     RegisterMethod(@cEmutecaSoftware.FPOObservedChanged, 'FPOObservedChanged');
+    RegisterMethod(@cEmutecaSoftware.GetActualTitle, 'GetActualTitle');
+    RegisterMethod(@cEmutecaSoftware.GetActualSortTitle, 'GetActualSortTitle');
+    RegisterMethod(@cEmutecaSoftware.GetActualTranslitTitle, 'GetActualTranslitTitle');
     RegisterPropertyHelper(@cEmutecaSoftwareID_R,@cEmutecaSoftwareID_W,'ID');
     RegisterPropertyHelper(@cEmutecaSoftwareFolder_R,@cEmutecaSoftwareFolder_W,'Folder');
     RegisterPropertyHelper(@cEmutecaSoftwareFileName_R,@cEmutecaSoftwareFileName_W,'FileName');
@@ -348,7 +349,7 @@ begin
     RegisterPropertyHelper(@cEmutecaSoftwareCracked_R,@cEmutecaSoftwareCracked_W,'Cracked');
     RegisterPropertyHelper(@cEmutecaSoftwareModified_R,@cEmutecaSoftwareModified_W,'Modified');
     RegisterPropertyHelper(@cEmutecaSoftwareHack_R,@cEmutecaSoftwareHack_W,'Hack');
-    RegisterPropertyHelper(@cEmutecaSoftwareStats_R,@cEmutecaSoftwareStats_W,'Stats');
+    RegisterPropertyHelper(@cEmutecaSoftwareStats_R,nil,'Stats');
   end;
 end;
 

@@ -32,7 +32,7 @@ uses
 type
   { cEmutecaSystemManager }
 
-  cEmutecaSystemManager = class(caEmutecaManagerIni)
+  cEmutecaSystemManager = class(caEmutecaManager)
   private
     FFullList: cEmutecaSystemList;
     FVisibleList: cEmutecaSystemList;
@@ -40,8 +40,8 @@ type
   protected
 
   public
-    procedure LoadFromFileIni(IniFile: TCustomIniFile); override;
-    procedure SaveToFileIni(IniFile: TCustomIniFile;
+    procedure LoadFromIni(IniFile: TCustomIniFile); override;
+    procedure SaveToIni(IniFile: TCustomIniFile;
       const ExportMode: boolean); override;
 
     function ItemById(aId: string; Autocreate: Boolean = False): cEmutecaSystem;
@@ -67,7 +67,7 @@ implementation
 { cEmutecaSystemManager }
 
 
-procedure cEmutecaSystemManager.LoadFromFileIni(IniFile: TCustomIniFile);
+procedure cEmutecaSystemManager.LoadFromIni(IniFile: TCustomIniFile);
 var
   TempList: TStringList;
   TempSys: cEmutecaSystem;
@@ -86,7 +86,7 @@ begin
     begin
       TempSys := cEmutecaSystem.Create(nil);
       TempSys.ID := TempList[i];
-      TempSys.LoadFromFileIni(IniFile);
+      TempSys.LoadFromIni(IniFile);
       FullList.Add(TempSys);
       if TempSys.Enabled then
         VisibleList.Add(TempSys);
@@ -101,7 +101,7 @@ begin
   end;
 end;
 
-procedure cEmutecaSystemManager.SaveToFileIni(IniFile: TCustomIniFile;
+procedure cEmutecaSystemManager.SaveToIni(IniFile: TCustomIniFile;
   const ExportMode: boolean);
 var
   i: longint;
@@ -117,7 +117,7 @@ begin
   while i < FullList.Count do
   begin
     aSystem := cEmutecaSystem(FullList[i]);
-    aSystem.SaveToFileIni(IniFile, ExportMode);
+    aSystem.SaveToIni(IniFile, ExportMode);
     Inc(i);
 
     if ProgressCallBack <> nil then

@@ -31,28 +31,9 @@ uses
 
 type
 
-  { caEmutecaManagerIni }
+  { caEmutecaManager }
 
-  caEmutecaManagerIni = class(caCHXStorableIni)
-  private
-    FProgressCallBack: TEmutecaProgressCallBack;
-    procedure SetProgressCallBack(AValue: TEmutecaProgressCallBack);
-
-  public
-    property ProgressCallBack: TEmutecaProgressCallBack
-      read FProgressCallBack write SetProgressCallBack;
-    //< CallBack function to show the progress in actions.
-
-    procedure AssingAllTo(aList: TStrings); virtual; abstract;
-    procedure AssingEnabledTo(aList: TStrings); virtual; abstract;
-
-    constructor Create(aOwner: TComponent); override;
-    destructor Destroy; override;
-  end;
-
-  { caEmutecaManagerTxt }
-
-  caEmutecaManagerTxt = class(caCHXStorableTxt)
+  caEmutecaManager = class(caCHXStorable)
   private
     FProgressCallBack: TEmutecaProgressCallBack;
     procedure SetProgressCallBack(AValue: TEmutecaProgressCallBack);
@@ -70,10 +51,9 @@ type
   end;
 
 implementation
+{ caEmutecaManager }
 
-{ caEmutecaManagerTxt }
-
-procedure caEmutecaManagerTxt.SetProgressCallBack(
+procedure caEmutecaManager.SetProgressCallBack(
   AValue: TEmutecaProgressCallBack);
 begin
   if FProgressCallBack = AValue then
@@ -81,32 +61,12 @@ begin
   FProgressCallBack := AValue;
 end;
 
-constructor caEmutecaManagerTxt.Create(aOwner: TComponent);
+constructor caEmutecaManager.Create(aOwner: TComponent);
 begin
   inherited Create(aOwner);
 end;
 
-destructor caEmutecaManagerTxt.Destroy;
-begin
-  inherited Destroy;
-end;
-
-{ caEmutecaManagerIni }
-
-procedure caEmutecaManagerIni.SetProgressCallBack(
-  AValue: TEmutecaProgressCallBack);
-begin
-  if FProgressCallBack = AValue then
-    Exit;
-  FProgressCallBack := AValue;
-end;
-
-constructor caEmutecaManagerIni.Create(aOwner: TComponent);
-begin
-  inherited Create(aOwner);
-end;
-
-destructor caEmutecaManagerIni.Destroy;
+destructor caEmutecaManager.Destroy;
 begin
   inherited Destroy;
 end;

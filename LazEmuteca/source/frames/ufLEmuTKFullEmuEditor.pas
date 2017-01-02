@@ -76,8 +76,8 @@ constructor TfmLEmuTKFullEmuEditor.Create(TheOwner: TComponent);
   begin
     aTabSheet := pcProperties.AddTabSheet;
     FEmuEditor := TfmEmutecaEmulatorEditor.Create(aTabSheet);
-    EmuEditor.Parent := aTabSheet;
     EmuEditor.SaveButtons := False;
+    EmuEditor.Parent := aTabSheet;
 
     aTabSheet := pcProperties.AddTabSheet;
   end;

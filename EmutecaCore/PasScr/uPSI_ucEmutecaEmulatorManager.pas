@@ -58,8 +58,8 @@ end;
 (*----------------------------------------------------------------------------*)
 procedure SIRegister_cEmutecaEmulatorManager(CL: TPSPascalCompiler);
 begin
-  //with RegClassS(CL,'caEmutecaManagerIni', 'cEmutecaEmulatorManager') do
-  with CL.AddClassN(CL.FindClass('caEmutecaManagerIni'),'cEmutecaEmulatorManager') do
+  //with RegClassS(CL,'caEmutecaManager', 'cEmutecaEmulatorManager') do
+  with CL.AddClassN(CL.FindClass('caEmutecaManager'),'cEmutecaEmulatorManager') do
   begin
     RegisterProperty('FullList', 'cEmutecaEmulatorList', iptr);
     RegisterMethod('Function ItemById( aId : string) : cEmutecaEmulator');

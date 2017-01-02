@@ -1,0 +1,6 @@
+inherited frmLEmuTKExportData: TfrmLEmuTKExportData
+  Left = 404
+  Top = 136
+  Caption = 'Export Data'
+  OnCreate = FormCreate
+end

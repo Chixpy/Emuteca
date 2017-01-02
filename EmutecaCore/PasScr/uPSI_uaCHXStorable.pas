@@ -27,14 +27,10 @@ type
  
  
 { compile-time registration functions }
-procedure SIRegister_caCHXStorableTxt(CL: TPSPascalCompiler);
-procedure SIRegister_caCHXStorableIni(CL: TPSPascalCompiler);
 procedure SIRegister_caCHXStorable(CL: TPSPascalCompiler);
 procedure SIRegister_uaCHXStorable(CL: TPSPascalCompiler);
 
 { run-time registration functions }
-procedure RIRegister_caCHXStorableTxt(CL: TPSRuntimeClassImporter);
-procedure RIRegister_caCHXStorableIni(CL: TPSRuntimeClassImporter);
 procedure RIRegister_caCHXStorable(CL: TPSRuntimeClassImporter);
 procedure RIRegister_uaCHXStorable(CL: TPSRuntimeClassImporter);
 
@@ -58,36 +54,20 @@ end;
 
 (* === compile-time registration functions === *)
 (*----------------------------------------------------------------------------*)
-procedure SIRegister_caCHXStorableTxt(CL: TPSPascalCompiler);
-begin
-  //with RegClassS(CL,'caCHXStorable', 'caCHXStorableTxt') do
-  with CL.AddClassN(CL.FindClass('caCHXStorable'),'caCHXStorableTxt') do
-  begin
-    RegisterMethod('Procedure LoadFromFileTxt( TxtFile : TStrings)');
-    RegisterMethod('Procedure SaveToFileTxt( TxtFile : TStrings; const ExportMode : boolean)');
-  end;
-end;
-
-(*----------------------------------------------------------------------------*)
-procedure SIRegister_caCHXStorableIni(CL: TPSPascalCompiler);
-begin
-  //with RegClassS(CL,'caCHXStorable', 'caCHXStorableIni') do
-  with CL.AddClassN(CL.FindClass('caCHXStorable'),'caCHXStorableIni') do
-  begin
-    RegisterMethod('Procedure LoadFromFileIni( IniFile : TCustomIniFile)');
-    RegisterMethod('Procedure SaveToFileIni( IniFile : TCustomIniFile; const ExportMode : boolean)');
-  end;
-end;
-
-(*----------------------------------------------------------------------------*)
 procedure SIRegister_caCHXStorable(CL: TPSPascalCompiler);
 begin
   //with RegClassS(CL,'TComponent', 'caCHXStorable') do
   with CL.AddClassN(CL.FindClass('TComponent'),'caCHXStorable') do
   begin
-    RegisterMethod('Procedure LoadFromFile( FileName : string)');
-    RegisterMethod('Procedure SaveToFile( FileName : string; const ExportMode : boolean)');
-    RegisterProperty('DataFile', 'string', iptrw);
+    RegisterMethod('Procedure LoadFromFileIni( Filename : TFilename)');
+    RegisterMethod('Procedure LoadFromIni( aIniFile : TCustomIniFile)');
+    RegisterMethod('Procedure LoadFromFileTxt( Filename : TFilename)');
+    RegisterMethod('Procedure LoadFromStrLst( aTxtFile : TStrings)');
+    RegisterMethod('Procedure SaveToFileIni( Filename : TFilename; const ExportMode : boolean)');
+    RegisterMethod('Procedure SaveToIni( IniFile : TCustomIniFile; const ExportMode : boolean)');
+    RegisterMethod('Procedure SaveToFileTxt( Filename : TFilename; const ExportMode : boolean)');
+    RegisterMethod('Procedure SaveToStrLst( TxtFile : TStrings; const ExportMode : boolean)');
+    RegisterProperty('DataFile', 'TFilename', iptrw);
   end;
 end;
 
@@ -95,46 +75,30 @@ end;
 procedure SIRegister_uaCHXStorable(CL: TPSPascalCompiler);
 begin
   SIRegister_caCHXStorable(CL);
-  SIRegister_caCHXStorableIni(CL);
-  SIRegister_caCHXStorableTxt(CL);
 end;
 
 (* === run-time registration functions === *)
 (*----------------------------------------------------------------------------*)
-procedure caCHXStorableDataFile_W(Self: caCHXStorable; const T: string);
+procedure caCHXStorableDataFile_W(Self: caCHXStorable; const T: TFilename);
 begin Self.DataFile := T; end;
 
 (*----------------------------------------------------------------------------*)
-procedure caCHXStorableDataFile_R(Self: caCHXStorable; var T: string);
+procedure caCHXStorableDataFile_R(Self: caCHXStorable; var T: TFilename);
 begin T := Self.DataFile; end;
-
-(*----------------------------------------------------------------------------*)
-procedure RIRegister_caCHXStorableTxt(CL: TPSRuntimeClassImporter);
-begin
-  with CL.Add(caCHXStorableTxt) do
-  begin
-   // RegisterVirtualAbstractMethod(@caCHXStorableTxt, @!.LoadFromFileTxt, 'LoadFromFileTxt');
-   // RegisterVirtualAbstractMethod(@caCHXStorableTxt, @!.SaveToFileTxt, 'SaveToFileTxt');
-  end;
-end;
-
-(*----------------------------------------------------------------------------*)
-procedure RIRegister_caCHXStorableIni(CL: TPSRuntimeClassImporter);
-begin
-  with CL.Add(caCHXStorableIni) do
-  begin
-  //  RegisterVirtualAbstractMethod(@caCHXStorableIni, @!.LoadFromFileIni, 'LoadFromFileIni');
-  //  RegisterVirtualAbstractMethod(@caCHXStorableIni, @!.SaveToFileIni, 'SaveToFileIni');
-  end;
-end;
 
 (*----------------------------------------------------------------------------*)
 procedure RIRegister_caCHXStorable(CL: TPSRuntimeClassImporter);
 begin
   with CL.Add(caCHXStorable) do
   begin
-   // RegisterVirtualAbstractMethod(@caCHXStorable, @!.LoadFromFile, 'LoadFromFile');
-   // RegisterVirtualAbstractMethod(@caCHXStorable, @!.SaveToFile, 'SaveToFile');
+    RegisterVirtualMethod(@caCHXStorable.LoadFromFileIni, 'LoadFromFileIni');
+    RegisterVirtualAbstractMethod(caCHXStorable, nil, 'LoadFromIni');
+    RegisterVirtualMethod(@caCHXStorable.LoadFromFileTxt, 'LoadFromFileTxt');
+    RegisterVirtualAbstractMethod(caCHXStorable, nil, 'LoadFromStrLst');
+    RegisterVirtualMethod(@caCHXStorable.SaveToFileIni, 'SaveToFileIni');
+    RegisterVirtualAbstractMethod(caCHXStorable, nil, 'SaveToIni');
+    RegisterVirtualMethod(@caCHXStorable.SaveToFileTxt, 'SaveToFileTxt');
+    RegisterVirtualAbstractMethod(caCHXStorable, nil, 'SaveToStrLst');
     RegisterPropertyHelper(@caCHXStorableDataFile_R,@caCHXStorableDataFile_W,'DataFile');
   end;
 end;
@@ -143,8 +107,6 @@ end;
 procedure RIRegister_uaCHXStorable(CL: TPSRuntimeClassImporter);
 begin
   RIRegister_caCHXStorable(CL);
-  RIRegister_caCHXStorableIni(CL);
-  RIRegister_caCHXStorableTxt(CL);
 end;
 
  
