@@ -12,7 +12,7 @@ type
 
   { TfmEmutecaGroupCBX }
 
-  TfmEmutecaGroupCBX = class(TFrame, IFPObserver)
+  TfmEmutecaGroupCBX = class(TFrame)
     cbxGroup: TComboBox;
     procedure cbxGroupChange(Sender: TObject);
 
@@ -42,10 +42,6 @@ type
 
     procedure SelectGroupByID(aGroupKey: string);
     //< Select a group by ID, or only set the text in the CBX
-
-    procedure FPOObservedChanged(ASender: TObject;
-      Operation: TFPObservedOperation; Data: Pointer);
-    {< Subject has changed. }
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -105,16 +101,9 @@ procedure TfmEmutecaGroupCBX.SetGroupList(AValue: cEmutecaGroupList);
 begin
   if FGroupList = AValue then
     Exit;
-
-  if Assigned(FGroupList) then
-    FGroupList.FPODetachObserver(Self);
-
   FGroupList := AValue;
-
-  if Assigned(GroupList) then
-    GroupList.FPOAttachObserver(Self);
-
   UpdateGroups;
+  self.Enabled := Assigned(GroupList);
 end;
 
 procedure TfmEmutecaGroupCBX.UpdateGroups;
@@ -167,16 +156,6 @@ begin
   end;
 end;
 
-procedure TfmEmutecaGroupCBX.FPOObservedChanged(ASender: TObject;
-  Operation: TFPObservedOperation; Data: Pointer);
-begin
-  case Operation of
-    ooFree: GroupList := nil;
-    else
-      UpdateGroups; // TODO: Quick add and delete Item
-  end;
-end;
-
 constructor TfmEmutecaGroupCBX.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
@@ -184,9 +163,6 @@ end;
 
 destructor TfmEmutecaGroupCBX.Destroy;
 begin
-  if Assigned(GroupList) then
-    GroupList.FPODetachObserver(Self);
-
   inherited Destroy;
 end;
 

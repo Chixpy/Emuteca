@@ -30,7 +30,7 @@ uses
   LazUTF8, LConvEncoding,
   LResources,
   // Emuteca core
-  uaEmutecaManager, ucEmutecaGroup, ucEmutecaSystemManager, ucEmutecaSystem;
+  uaEmutecaManager, ucEmutecaGroup;
 
 resourcestring
   rsLoadingGroupList = 'Loading parent list...';
@@ -41,17 +41,12 @@ type
 
   cEmutecaGroupManager = class(caEmutecaManager)
   private
-    FSystemManager: cEmutecaSystemManager;
     FVisibleList: cEmutecaGroupList;
     FFullList: cEmutecaGroupList;
-    procedure SetSystemManager(AValue: cEmutecaSystemManager);
 
   protected
-    //procedure SearchSystem(aGroup: cEmutecaGroup);
 
   public
-    property SystemManager: cEmutecaSystemManager read FSystemManager write SetSystemManager;
-
     property FullList: cEmutecaGroupList read FFullList;
     {< Actual list where the parents are stored. }
     property VisibleList: cEmutecaGroupList read FVisibleList;
@@ -61,7 +56,7 @@ type
     procedure SaveToStrLst(TxtFile: TStrings; const ExportMode: boolean);
       override;
 
-    function ItemById(aId: string; Autocreate: boolean = False): cEmutecaGroup;
+    function ItemById(aId: string; Autocreate: boolean): cEmutecaGroup;
     {< Returns the parent with aId key.
 
        @Result cEmutecaGroup found or nil.
@@ -70,7 +65,7 @@ type
     procedure FilterBySystem(aSystemKey: string);
     }
 
-    procedure FilterBySystem(aSystem: cEmutecaSystem);
+    procedure Clear;
 
     procedure AssingAllTo(aList: TStrings); override;
     procedure AssingEnabledTo(aList: TStrings); override;
@@ -91,13 +86,14 @@ var
 begin
   Result := nil;
 
-  i := 0;
-  while (Result = nil) and (i < FullList.Count) do
+  // Inverse search can be faster
+  i := FullList.Count;
+  while (Result = nil) and (i > 0) do
   begin
+    Dec(i);
     aGroup := cEmutecaGroup(FullList[i]);
     if UTF8CompareText(aGroup.ID, aId) = 0 then
       Result := aGroup;
-    Inc(i);
   end;
 
   // Opps, creating it
@@ -110,41 +106,11 @@ begin
   end;
 end;
 
-procedure cEmutecaGroupManager.FilterBySystem(aSystem: cEmutecaSystem);
+procedure cEmutecaGroupManager.Clear;
 begin
-  { TODO : TODO: Filter groups by system... }
-end;
-
-{
-procedure cEmutecaGroupManager.FilterBySystem(aSystemKey: string);
-var
-  i: longint;
-  aGroup: cEmutecaGroup;
-begin
-
   VisibleList.Clear;
-
-  if aSystemKey = '' then
-  begin
-    VisibleList.Assign(FullList);
-  end
-  else
-  begin
-    i := 0;
-    while i < FullList.Count do
-    begin
-      aGroup := cEmutecaGroup(FullList[i]);
-      if UTF8CompareText(aGroup.SystemKey, aSystemKey) = 0 then
-      begin
-        if VisibleList.Capacity = VisibleList.Count then
-          VisibleList.Capacity := VisibleList.Capacity * 2; // Speed up?
-        VisibleList.Add(aGroup);
-      end;
-      Inc(i);
-    end;
-  end;
+  FullList.Clear;
 end;
-}
 
 procedure cEmutecaGroupManager.AssingAllTo(aList: TStrings);
 var
@@ -186,32 +152,6 @@ begin
   aList.EndUpdate;
 end;
 
-{
-procedure cEmutecaGroupManager.SearchSystem(aGroup: cEmutecaGroup);
-var
-  aSystem: cEmutecaSystem;
-begin
-  if not assigned(SystemManager) then Exit;
-
-  aGroup.System := SystemManager.ItemById(aGroup.SystemKey);
-
-  if not assigned(aGroup.System) then
-  begin
-    aSystem := cEmutecaSystem.Create(nil);
-    aSystem.ID := aGroup.SystemKey;
-    aSystem.Title := aGroup.SystemKey;
-    SystemManager.FullList.Add(aSystem);
-
-  end;
-end;
-}
-
-procedure cEmutecaGroupManager.SetSystemManager(AValue: cEmutecaSystemManager);
-begin
-  if FSystemManager = AValue then Exit;
-  FSystemManager := AValue;
-end;
-
 procedure cEmutecaGroupManager.LoadFromStrLst(TxtFile: TStrings);
 var
   i: integer;
@@ -227,7 +167,6 @@ begin
   begin
     TempGroup := cEmutecaGroup.Create(nil);
     TempGroup.DataString := TxtFile[i];
-    TempGroup.System := SystemManager.ItemById(TempGroup.SystemKey, True);
 
     FullList.Add(TempGroup);
     Inc(i);
@@ -253,8 +192,7 @@ begin
   TxtFile.BeginUpdate;
   try
     TxtFile.Capacity := FullList.Count + 1; // Speed up?
-    TxtFile.Add('"ID","Title","System","Year","Developer",' +
-      '"Reserved 2","Last Time","Times Played","Playing Time"');
+    TxtFile.Add('"ID","Title","System","Year","Developer"');
 
     i := 0;
     while i < FullList.Count do

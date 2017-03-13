@@ -10,13 +10,13 @@ uses
   ActnList, Menus, StdActns, ComCtrls, ExtCtrls, DefaultTranslator,
   IniPropStorage, StdCtrls,
   // Misc
-  uVersionSupport,
+  uVersionSupport, u7zWrapper,
   // CHX units
-  uCHXStrUtils, uCHXFileUtils, ucCHXImageList,
+  uCHXStrUtils, uCHXFileUtils, uCHXImageUtils, ucCHXImageList,
   // CHX forms
   ufCHXAbout, ufCHXProgressBar,
   // Emuteca common
-  uEmutecaCommon,
+  uEmutecaCommon, uEmutecaRscStr,
   // Emuteca clases
   ucEmuteca, ucEmutecaGroup, ucEmutecaSoftware,
   // Emuteca forms
@@ -190,7 +190,6 @@ procedure TfrmLEmuTKMain.SaveEmuteca;
 begin
   { TODO : Emuteca.Save }
   Emuteca.SoftManager.SaveToFileTxt('', False);
-  Emuteca.GroupManager.SaveToFileTxt('', False);
   Emuteca.SystemManager.SaveToFileIni('', False);
   Emuteca.EmulatorManager.SaveToFileIni('', False);
 end;
@@ -230,23 +229,24 @@ procedure TfrmLEmuTKMain.FormCreate(Sender: TObject);
       if FileExistsUTF8(aIconFile) then
         aImageList.AddImageFile(aIconFile)
       else
-        aImageList.AddEmptyImage;
+        aImageList.AddImageFile('');
     end;
 
   var
     aFolder, aFile: string;
   begin
-   {   TmpStr := Config.ImagesFolder + Config.IconsSubfolder + Config.IconsIniFile;
+    aFile := GUIConfig.GUIIcnFile;
 
-      // Icons for menus (without assigned TAction)
-      ReadMenuIcons(TmpStr, Self.Name, '', ilActions, pmMainMenu);
-      ReadMenuIcons(TmpStr, Self.Name, '', ilActions, pmSystemImage);
-      ReadMenuIcons(TmpStr, Self.Name, '', ilActions, pmGameImage);
-      ReadMenuIcons(TmpStr, Self.Name, '', ilActions, pmGameList);
+    // Icons for TActions
+    ReadActionsIcons(aFile, Self.Name,  ImageList1, ActionList1);
 
-      // Icons for TActions
-      ReadActionsIcons(TmpStr, Self.Name, '', ilActions, ActionList);
+   {  // Icons for menus (without assigned TAction)
+      ReadMenuIcons(aFile, Self.Name, ImageList1, pmMainMenu);
+      ReadMenuIcons(aFile, Self.Name, ImageList1, pmSystemImage);
+      ReadMenuIcons(aFile, Self.Name, ImageList1, pmGameImage);
+      ReadMenuIcons(aFile, Self.Name, ImageList1, pmGameList);
       }
+
     // Zone icons
     aFolder := GUIConfig.ZoneIcnFolder;
     IterateFolderObj(aFolder, @AddZoneIcon, False);
@@ -303,7 +303,7 @@ begin
     mkdir('locale');
 
   // Standard format setting (for .ini and other conversions)
-  // This overrides user local settings that can cause errors
+  // This overrides user local settings which can cause errors
   StandardFormatSettings;
 
   // Windows Caption
@@ -314,6 +314,9 @@ begin
   GUIConfig.LoadConfig('GUI.ini');
   IniPropStorage1.IniFileName := GUIConfig.ConfigFile;
   IniPropStorage1.Restore;
+
+  // Experimental
+  w7zSetGlobalCache(GUIConfig.GlobalCache);
 
   // Image lists
   FIconList := cCHXImageList.Create(True);
@@ -414,6 +417,8 @@ begin
 
   aFrame := TfmEmutecaActAddFolder.Create(aForm);
   aFrame.Emuteca := Emuteca;
+  aFrame.SaveButtons := True;
+  aFrame.ButtonClose := True;
 
   aForm.Caption := Format(rsFmtWindowCaption,
     [Application.Title, aFrame.Caption]);

@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, IniFiles, LazUTF8, Graphics,
-  uCHXStrUtils, uaCHXConfig;
+  uCHXStrUtils, uaCHXConfig, u7zWrapper;
 
 const
   // Sections and keys for ini file
@@ -35,6 +35,10 @@ const
   krsKeyScriptsFolder = 'ScriptsFolder';
   krsKeyMPlayerExe = 'mPlayerExe';
 
+  // [Experimental]
+  krsSectionExperimental = 'Experimental';
+  krsKeyGlobalCache = 'GlobalCache';
+
 type
 
   { cGUIConfig: Class wich has all general options and configurations
@@ -47,6 +51,7 @@ type
     FCurrSystem: string;
     FDefImgFolder: string;
     FEmutecaIni: string;
+    FGlobalCache: string;
     FImageExtensions: TStringList;
     FScriptsFolder: string;
     FTextExtensions: TStringList;
@@ -60,6 +65,7 @@ type
     procedure SetCurrSystem(AValue: string);
     procedure SetDefImgFolder(AValue: string);
     procedure SetEmutecaIni(AValue: string);
+    procedure SetGlobalCache(AValue: string);
     procedure SetScriptsFolder(AValue: string);
     procedure SetZoneIcnFolder(AValue: string);
     procedure SetHelpFolder(AValue: string);
@@ -108,6 +114,9 @@ type
     property SearchFile: string read FSearchFile write SetSearchFile;
     //< File with search configuration
 
+    // Experimental
+    property GlobalCache: string read FGlobalCache write SetGlobalCache;
+
   public
     procedure ResetDefaultConfig; override;
 
@@ -133,6 +142,12 @@ end;
 procedure cGUIConfig.SetEmutecaIni(AValue: string);
 begin
   FEmutecaIni := SetAsFile(AValue);
+end;
+
+procedure cGUIConfig.SetGlobalCache(AValue: string);
+begin
+  FGlobalCache := SetAsFolder(AValue);
+  w7zSetGlobalCache(GlobalCache);
 end;
 
 procedure cGUIConfig.SetScriptsFolder(AValue: string);
@@ -214,6 +229,10 @@ begin
     krsKeyScriptsFolder, ScriptsFolder);
   mPlayerExe := IniFile.ReadString(krsSectionTools,
     krsKeyMPlayerExe, mPlayerExe);
+
+  // Experimental
+  GlobalCache := IniFile.ReadString(krsSectionExperimental,
+    krsKeyGlobalCache, GlobalCache);
 end;
 
 procedure cGUIConfig.OnSaveConfig(IniFile: TIniFile);
@@ -240,6 +259,10 @@ begin
   // Tools
   IniFile.WriteString(krsSectionTools, krsKeyScriptsFolder, ScriptsFolder);
   IniFile.WriteString(krsSectionTools, krsKeyMPlayerExe, mPlayerExe);
+
+  // Experimental
+ // if GlobalCache <> '' then
+ // IniFile.WriteString(krsSectionExperimental, krsKeyGlobalCache, GlobalCache);
 end;
 
 procedure cGUIConfig.ResetDefaultConfig;
@@ -270,6 +293,9 @@ begin
   // Tools
   ScriptsFolder := 'Scripts';
   mPlayerExe := 'Tools/mplayer/mplayer2.exe';
+
+  // Experimental
+  GlobalCache := '';
 end;
 
 constructor cGUIConfig.Create(aOwner: TComponent);

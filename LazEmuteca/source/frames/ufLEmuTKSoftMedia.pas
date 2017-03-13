@@ -23,13 +23,13 @@ type
   private
     FEmuteca: cEmuteca;
     FGUIConfig: cGUIConfig;
-    FIconsIni: TFilename;
+    FIconsIni: string;
     FSoftImgPreview: TfmLEmuTKSoftImgPreview;
     FSoftTxtPreview: TfmLEmuTKSoftTxtPreview;
     FSoftware: cEmutecaSoftware;
     procedure SetEmuteca(AValue: cEmuteca);
     procedure SetGUIConfig(AValue: cGUIConfig);
-    procedure SetIconsIni(AValue: TFilename);
+    procedure SetIconsIni(AValue: string);
     procedure SetSoftware(AValue: cEmutecaSoftware);
 
   protected
@@ -38,7 +38,7 @@ type
 
   public
     { public declarations }
-    property IconsIni: TFilename read FIconsIni write SetIconsIni;
+    property IconsIni: string read FIconsIni write SetIconsIni;
     property GUIConfig: cGUIConfig read FGUIConfig write SetGUIConfig;
 
     property Software: cEmutecaSoftware read FSoftware write SetSoftware;
@@ -54,7 +54,7 @@ implementation
 
 { TfmLEmuTKSoftMedia }
 
-procedure TfmLEmuTKSoftMedia.SetIconsIni(AValue: TFilename);
+procedure TfmLEmuTKSoftMedia.SetIconsIni(AValue: string);
 begin
  FIconsIni := SetAsFile(AValue);
  SoftImgPreview.IconsIni := IconsIni;

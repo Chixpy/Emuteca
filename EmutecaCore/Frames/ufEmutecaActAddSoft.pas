@@ -5,34 +5,35 @@ unit ufEmutecaActAddSoft;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  Buttons, ActnList, StdCtrls, EditBtn, LazFileUtils,
-  u7zWrapper, uCHXStrUtils, uCHXFileUtils,
-  ufCHXPropEditor,
-  ucEmuteca, ucEmutecaSystem, ucEmutecaSoftware,
-  ufEmutecaSoftEditor, ufEmutecaSystemCBX;
+  Classes, SysUtils, fgl, FileUtil, Forms, Controls, Graphics, Dialogs,
+  ExtCtrls, Buttons, ActnList, StdCtrls, EditBtn, LazFileUtils, sha1,
+  u7zWrapper, uCHXStrUtils, uCHXFileUtils, ufCHXPropEditor, ucEmuteca,
+  ucEmutecaSystem, ucEmutecaSoftware, ufEmutecaSoftEditor, ufEmutecaSystemCBX;
 
 type
 
   { TfmEmutecaActAddSoft }
 
   TfmEmutecaActAddSoft = class(TfmCHXPropEditor)
+    bTest: TButton;
     cbxInnerFile: TComboBox;
     chkOpenAsArchive: TCheckBox;
     eFile: TFileNameEdit;
     eVersionKey: TEdit;
     gbxFileSelection: TGroupBox;
+    gbxDuplicates: TGroupBox;
     gbxSelectSystem: TGroupBox;
     gbxSoftInfo: TGroupBox;
+    lDupFile: TLabel;
+    lDupSHA1: TLabel;
     lSystemInfo: TLabel;
     pSelectFile: TPanel;
-    rgbGroup: TRadioGroup;
     rgbSoftKey: TRadioGroup;
     Splitter1: TSplitter;
+    procedure bTestClick(Sender: TObject);
     procedure cbxInnerFileChange(Sender: TObject);
     procedure chkOpenAsArchiveChange(Sender: TObject);
     procedure eFileAcceptFileName(Sender: TObject; var Value: string);
-    procedure eFileButtonClick(Sender: TObject);
     procedure eVersionKeyEditingDone(Sender: TObject);
     procedure rgbGroupSelectionChanged(Sender: TObject);
     procedure rgbSoftKeySelectionChanged(Sender: TObject);
@@ -57,6 +58,7 @@ type
 
     procedure UpdateGroup;
     procedure UpdateSoftKey;
+    procedure UpdateInfo;
 
     function SelectSystem(aSystem: cEmutecaSystem): boolean;
 
@@ -78,18 +80,24 @@ implementation
 
 procedure TfmEmutecaActAddSoft.ClearData;
 begin
-  // Nothing to clear...
+  // Not used...
+  cbxSystem.SelectedSystem := nil;
+  rgbSoftKey.ItemIndex := 0;
+  eFile.Clear;
+  chkOpenAsArchive.Checked := False;
+  cbxInnerFile.ItemIndex := -1;
+  eVersionKey.Clear;
 end;
 
 procedure TfmEmutecaActAddSoft.UpdateGroup;
 begin
-  case rgbGroup.ItemIndex of
-    1: // Filename;
-      SoftEditor.SelectGroupByID(Software.Title);
-    else // Folder
-      SoftEditor.SelectGroupByID(ExtractFileNameOnly(
-        ExcludeTrailingPathDelimiter(Software.Folder)));
-  end;
+  //case rgbGroup.ItemIndex of
+  //  1: // Filename;
+  //    SoftEditor.SelectGroupByID(Software.Info.Title);
+  //  else // Folder
+  //    SoftEditor.SelectGroupByID(ExtractFileNameOnly(
+  //      ExcludeTrailingPathDelimiter(Software.Folder)));
+  //end;
 end;
 
 procedure TfmEmutecaActAddSoft.UpdateSoftKey;
@@ -104,14 +112,20 @@ begin
       Exit;
 
     case rgbSoftKey.ItemIndex of
+      0: // TEFKSHA1
+      begin
+        Software.ID := SHA1Print(Software.SHA1);
+      end;
       1: // TEFKCRC32
-        eVersionKey.Text := CRC32FileStr(aFile);
+        Software.ID := CRC32FileStr(aFile);
       2: // TEFKCustom
         ;
       3: // TEFKFileName
-        eVersionKey.Text := ExtractFileNameOnly(Software.FileName);
+        Software.ID := ExtractFileNameOnly(Software.FileName);
       else // TEFKSHA1 by default
-        eVersionKey.Text := SHA1FileStr(aFile);
+      begin
+        Software.ID := SHA1Print(Software.SHA1);
+      end;
     end;
   end
   else  // Compressed file
@@ -121,41 +135,72 @@ begin
       Exit;
 
     case rgbSoftKey.ItemIndex of
+      0: // TEFKSHA1
+        Software.ID := SHA1Print(Software.SHA1);
       1: // TEFKCRC32
       begin
-        { TODO : There is faster way for CRC32 in compressed files. }
+        { TODO : There is faster way for CRC32 in compressed files
+            with w7zWrapper. }
         w7zExtractFile(aFile, Software.FileName, Emuteca.TempFolder +
           'Temp', False, '');
 
         aFile := Emuteca.TempFolder + 'Temp\' + Software.FileName;
+
         if not FileExistsUTF8(aFile) then
           Exit;
 
-        eVersionKey.Text := CRC32FileStr(aFile);
+        Software.ID := CRC32FileStr(aFile);
         DeleteFileUTF8(aFile);
       end;
 
       2: // TEFKCustom
         ;
       3: // TEFKFileName
-        eVersionKey.Text := Software.FileName;
+        Software.ID := Software.FileName;
       else // TEFKSHA1 by default
       begin
-        w7zExtractFile(aFile, Software.FileName, Emuteca.TempFolder +
-          'Temp', False, '');
-
-        aFile := Emuteca.TempFolder + 'Temp\' + Software.FileName;
-        if not FileExistsUTF8(aFile) then
-          Exit;
-
-        eVersionKey.Text := SHA1FileStr(aFile);
-        DeleteFileUTF8(aFile);
+        Software.ID := SHA1Print(Software.SHA1);
       end;
     end;
   end;
 
+  eVersionKey.Text := Software.ID;
   eVersionKey.Enabled := rgbSoftKey.ItemIndex = 2;
-  Software.ID := eVersionKey.Text;
+end;
+
+procedure TfmEmutecaActAddSoft.UpdateInfo;
+var
+  i, FoundSHA1, FoundFile: integer;
+  aSoft: cEmutecaSoftware;
+begin
+  FoundSHA1 := -1;
+  FoundFile := -1;
+  i := Emuteca.SoftManager.FullList.Count - 1;
+  while ((FoundSHA1 = -1) or (FoundFile = -1)) and (i >= 0) do
+  begin
+    aSoft := Emuteca.SoftManager.FullList[i];
+
+    if FoundSHA1 = -1 then
+      if SHA1Match(Software.SHA1, aSoft.SHA1) then
+        FoundSHA1 := i;
+
+    if FoundFile = -1 then
+      if (CompareFilenames(Software.FileName, aSoft.FileName) = 0) and
+        (CompareFilenames(Software.Folder, aSoft.Folder) = 0) then
+        FoundFile := i;
+
+    Dec(i);
+  end;
+
+  if FoundSHA1 <> -1 then
+  lDupSHA1.Caption := 'A file with this SHA1 already added'
+  else
+  lDupSHA1.Caption := ' ';
+
+   if FoundFile <> -1 then
+  lDupFile.Caption := 'This file is already added'
+  else
+  lDupFile.Caption := ' ';
 end;
 
 function TfmEmutecaActAddSoft.SelectSystem(aSystem: cEmutecaSystem): boolean;
@@ -167,7 +212,6 @@ begin
   Software.System := aSystem;
 
   gbxFileSelection.Enabled := assigned(Software.System);
-  rgbGroup.Enabled := gbxFileSelection.Enabled;
   rgbSoftKey.Enabled := gbxFileSelection.Enabled;
 
   if not assigned(Software.System) then
@@ -182,21 +226,22 @@ begin
     else  // SHA1 by default
       rgbSoftKey.ItemIndex := 0;
   end;
-  UpdateSoftKey;
 
   lSystemInfo.Caption := Software.System.Extensions.CommaText;
 
-  ExtFilter := 'All suported files|';
+  ExtFilter := 'All suported files' + '|';
   ExtFilter := ExtFilter + '*.' +
     UTF8TextReplace(lSystemInfo.Caption, ',', ';*.');
-  ExtFilter := ExtFilter + ';*.' + UTF8TextReplace(w7zFileExts, ',', ';*.');
-  ExtFilter := ExtFilter + '|All files|' + AllFilesMask;
+  ExtFilter := ExtFilter + ';*.' + UTF8TextReplace(w7zGetFileExts, ',', ';*.');
+  ExtFilter := ExtFilter + '|' + 'All files' + '|' + AllFilesMask;
   eFile.Filter := ExtFilter;
+  eFile.InitialDir := CreateAbsolutePath(Software.System.BaseFolder,
+    ProgramDirectory);
 
+  UpdateSoftKey;
   SoftEditor.LoadData;
 
   Result := True;
-
 end;
 
 procedure TfmEmutecaActAddSoft.eFileAcceptFileName(Sender: TObject;
@@ -205,14 +250,12 @@ begin
   chkOpenAsArchive.Checked := False;
   cbxInnerFile.Clear;
 
-  // Updating SoftEditor
   Software.Folder := ExtractFileDir(Value);
   Software.FileName := ExtractFileName(Value);
-  Software.Title := RemoveFromBrackets(ExtractFileNameOnly(Software.FileName));
-  Software.Version := CopyFromBrackets(ExtractFileNameOnly(Software.FileName));
+  Software.SHA1 := SHA1File(Value);
+
   UpdateSoftKey;
   SoftEditor.LoadData;
-  UpdateGroup; // Updating Group after loading software one
 
   // Recognized ext of an archive (from cEmutecaConfig, not u7zWrapper)
   chkOpenAsArchive.Enabled :=
@@ -221,48 +264,56 @@ begin
 end;
 
 procedure TfmEmutecaActAddSoft.cbxInnerFileChange(Sender: TObject);
+var
+  aFile: string;
 begin
   Software.Folder := eFile.Text;
   Software.FileName := cbxInnerFile.Text;
-  Software.Title := RemoveFromBrackets(ExtractFileNameOnly(cbxInnerFile.Text));
-  Software.Version := CopyFromBrackets(ExtractFileNameOnly(cbxInnerFile.Text));
+
+  // Decompressing file to search SHA1...
+  aFile := Emuteca.TempFolder + 'Temp';
+  w7zExtractFile(ExcludeTrailingPathDelimiter(Software.Folder),
+    Software.FileName, aFile, False, '');
+
+  aFile := SetAsFolder(aFile) + Software.FileName;
+
+  if not FileExistsUTF8(aFile) then
+    Exit;
+
+  Software.SHA1 := SHA1File(aFile);
+  DeleteFileUTF8(aFile);
 
   UpdateSoftKey;
   SoftEditor.LoadData;
-  UpdateGroup; // Updating Group after loading software one
+end;
+
+procedure TfmEmutecaActAddSoft.bTestClick(Sender: TObject);
+begin
+  UpdateInfo;
 end;
 
 procedure TfmEmutecaActAddSoft.chkOpenAsArchiveChange(Sender: TObject);
 begin
-  if not chkOpenAsArchive.Enabled then
-    Exit;
 
-  if not SupportedExt(eFile.Text, Emuteca.Config.CompressedExtensions) then
-    Exit;
-
-  cbxInnerFile.Clear;
-
-  if not FileExistsUTF8(eFile.Text) then
-    Exit;
-
-  w7zListFiles(eFile.Text, cbxInnerFile.Items, True);
-end;
-
-procedure TfmEmutecaActAddSoft.eFileButtonClick(Sender: TObject);
-var
-  aEFN: TFileNameEdit;
-begin
-  aEFN := TFileNameEdit(Sender);
-  if FilenameIsAbsolute(aEFN.FileName) then
+  if chkOpenAsArchive.Checked then
   begin
-    aEFN.InitialDir := ExtractFileDir(SysPath(aEFN.FileName));
+    if not SupportedExt(eFile.Text, Emuteca.Config.CompressedExtensions) then
+      Exit;
+    cbxInnerFile.Clear;
+    if not FileExistsUTF8(eFile.Text) then
+      Exit;
+    w7zListFiles(eFile.Text, cbxInnerFile.Items, True);
   end
   else
   begin
-    // Open from system base folder
-    if Assigned(cbxSystem.SelectedSystem) then
-      aEFN.InitialDir := ExtractFileDir(
-        TrimFilename(cbxSystem.SelectedSystem.BaseFolder + aEFN.FileName));
+    // Reverting to normal file data
+    cbxInnerFile.ItemIndex := -1;
+    Software.FileName := ExtractFileName(
+      ExcludeTrailingPathDelimiter(Software.Folder));
+    Software.Folder := ExtractFileDir(ExcludeTrailingPathDelimiter(
+      Software.Folder));
+    Software.SHA1 := SHA1File(Software.Folder + Software.FileName);
+    UpdateSoftKey;
   end;
 end;
 
@@ -287,16 +338,14 @@ begin
     Exit;
   FEmuteca := AValue;
 
-  SoftEditor.Emuteca := Emuteca;
-
   if not assigned(Emuteca) then
     cbxSystem.SystemList := nil
   else
   begin
-    cbxSystem.SystemList := Emuteca.SystemManager.VisibleList;
+    cbxSystem.SystemList := Emuteca.SystemManager.EnabledList;
     // TODO: HACK: Changing "all systems" option...
     if cbxSystem.cbxSystem.Items.Count > 0 then
-      cbxSystem.cbxSystem.Items[0] := reSelectSystem;
+      cbxSystem.cbxSystem.Items[0] := rsSelectSystem;
   end;
 
   Self.Enabled := Assigned(Emuteca) and Assigned(Software);
@@ -320,13 +369,13 @@ begin
   SoftEditor.SaveData;
   Emuteca.SoftManager.FullList.Add(Software);
 
-
   // If we don't close then prepare to add a new software
   if ButtonClose then
     Software := nil
   else
     FSoftware := cEmutecaSoftware.Create(nil);
-  SoftEditor.Software := Software;
+
+  SoftEditor.Software := nil;
 end;
 
 constructor TfmEmutecaActAddSoft.Create(TheOwner: TComponent);
@@ -352,7 +401,7 @@ begin
   CreateFrames;
 
   FSoftware := cEmutecaSoftware.Create(nil);
-  SoftEditor.Software := self.Software;
+  SoftEditor.Software := nil;
 end;
 
 destructor TfmEmutecaActAddSoft.Destroy;

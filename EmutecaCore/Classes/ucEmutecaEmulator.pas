@@ -26,7 +26,7 @@ unit ucEmutecaEmulator;
 interface
 
 uses  Classes, SysUtils, FileUtil, StrUtils, LazUTF8, LazFileUtils, contnrs,
-  IniFiles,
+  IniFiles, fgl,
   // CHX units
   uCHXStrUtils,
   // Emuteca units
@@ -155,7 +155,9 @@ type
     property Stats: cEmutecaPlayingStats read FStats;
   end;
 
-  cEmutecaEmulatorList = TComponentList;
+  cEmutecaGenEmulatorList = specialize TFPGObjectList<cEmutecaEmulator>;
+  cEmutecaEmulatorList = class (cEmutecaGenEmulatorList);
+
   TEmutecaReturnEmulatorCB = function(aEmulator: cEmutecaEmulator): boolean of
     object;
 

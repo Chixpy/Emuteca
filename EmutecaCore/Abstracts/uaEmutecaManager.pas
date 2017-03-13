@@ -27,7 +27,7 @@ interface
 
 uses
   Classes, SysUtils,
-  uEmutecaCommon, uaCHXStorable;
+  uEmutecaCommon, uaCHXStorable, ucEmutecaConfig;
 
 type
 
@@ -35,13 +35,19 @@ type
 
   caEmutecaManager = class(caCHXStorable)
   private
+    FConfig: cEmutecaConfig;
     FProgressCallBack: TEmutecaProgressCallBack;
-    procedure SetProgressCallBack(AValue: TEmutecaProgressCallBack);
+
+  protected
+    procedure SetConfig(AValue: cEmutecaConfig); virtual;
+    procedure SetProgressCallBack(AValue: TEmutecaProgressCallBack); virtual;
 
   public
     property ProgressCallBack: TEmutecaProgressCallBack
       read FProgressCallBack write SetProgressCallBack;
     //< CallBack function to show the progress in actions.
+
+    property Config: cEmutecaConfig read FConfig write SetConfig;
 
     procedure AssingAllTo(aList: TStrings); virtual; abstract;
     procedure AssingEnabledTo(aList: TStrings); virtual; abstract;
@@ -53,8 +59,13 @@ type
 implementation
 { caEmutecaManager }
 
-procedure caEmutecaManager.SetProgressCallBack(
-  AValue: TEmutecaProgressCallBack);
+procedure caEmutecaManager.SetConfig(AValue: cEmutecaConfig);
+begin
+  if FConfig = AValue then Exit;
+  FConfig := AValue;
+end;
+
+procedure caEmutecaManager.SetProgressCallBack(AValue: TEmutecaProgressCallBack);
 begin
   if FProgressCallBack = AValue then
     Exit;

@@ -42,7 +42,7 @@ inherited fmEmutecaActAddSoft: TfmEmutecaActAddSoft
         Top = 0
         Width = 279
         Align = alTop
-        Caption = '*.*'
+        Caption = 'Supported Extensions'
         ParentColor = False
         WordWrap = True
       end
@@ -73,7 +73,6 @@ inherited fmEmutecaActAddSoft: TfmEmutecaActAddSoft
         Align = alTop
         MaxLength = 0
         TabOrder = 0
-        OnButtonClick = eFileButtonClick
       end
       object chkOpenAsArchive: TCheckBox
         Left = 0
@@ -126,33 +125,6 @@ inherited fmEmutecaActAddSoft: TfmEmutecaActAddSoft
       OnSelectionChanged = rgbSoftKeySelectionChanged
       TabOrder = 2
     end
-    object rgbGroup: TRadioGroup
-      Left = 1
-      Height = 39
-      Top = 202
-      Width = 283
-      Align = alTop
-      AutoFill = True
-      AutoSize = True
-      Caption = 'Group'
-      ChildSizing.LeftRightSpacing = 6
-      ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
-      ChildSizing.EnlargeVertical = crsHomogenousChildResize
-      ChildSizing.ShrinkHorizontal = crsScaleChilds
-      ChildSizing.ShrinkVertical = crsScaleChilds
-      ChildSizing.Layout = cclLeftToRightThenTopToBottom
-      ChildSizing.ControlsPerLine = 2
-      ClientHeight = 19
-      ClientWidth = 279
-      Columns = 2
-      ItemIndex = 0
-      Items.Strings = (
-        'Folder'
-        'Filename'
-      )
-      OnSelectionChanged = rgbGroupSelectionChanged
-      TabOrder = 3
-    end
     object eVersionKey: TEdit
       Left = 1
       Height = 23
@@ -160,7 +132,51 @@ inherited fmEmutecaActAddSoft: TfmEmutecaActAddSoft
       Width = 283
       Align = alTop
       OnEditingDone = eVersionKeyEditingDone
+      TabOrder = 3
+    end
+    object gbxDuplicates: TGroupBox
+      Left = 1
+      Height = 75
+      Top = 202
+      Width = 283
+      Align = alTop
+      AutoSize = True
+      Caption = 'Duplicates'
+      ClientHeight = 55
+      ClientWidth = 279
       TabOrder = 4
+      object bTest: TButton
+        Left = 0
+        Height = 25
+        Top = 0
+        Width = 279
+        Align = alTop
+        Caption = 'Test duplicates'
+        OnClick = bTestClick
+        TabOrder = 0
+      end
+      object lDupSHA1: TLabel
+        Left = 0
+        Height = 15
+        Top = 25
+        Width = 279
+        Align = alTop
+        Caption = ' '
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+      end
+      object lDupFile: TLabel
+        Left = 0
+        Height = 15
+        Top = 40
+        Width = 279
+        Align = alTop
+        Caption = ' '
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+      end
     end
   end
   object Splitter1: TSplitter[2]

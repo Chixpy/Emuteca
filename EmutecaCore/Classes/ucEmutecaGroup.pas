@@ -26,41 +26,31 @@ unit ucEmutecaGroup;
 interface
 
 uses
-  Classes, SysUtils, LazFileUtils, contnrs,
-  uCHXStrUtils, uaCHXStorable,
-  ucEmutecaPlayingStats, ucEmutecaSystem;
+  Classes, SysUtils, LazFileUtils, contnrs, IniFiles, fgl,
+  uCHXStrUtils, uaCHXStorable;
 
 type
   { cEmutecaGroup }
 
-  cEmutecaGroup = class(caCHXStorable, IFPObserver)
+  cEmutecaGroup = class(caCHXStorable)
   private
     FDeveloper: string;
     FID: string;
-    FStats: cEmutecaPlayingStats;
-    FSystem: cEmutecaSystem;
-    FSystemKey: string;
     FTitle: string;
     FYear: string;
     function GetDataString: string;
     procedure SetDataString(AValue: string);
     procedure SetDeveloper(AValue: string);
     procedure SetID(AValue: string);
-    procedure SetSystem(AValue: cEmutecaSystem);
     procedure SetTitle(AValue: string);
     procedure SetYear(AValue: string);
 
 
   public
+    procedure LoadFromIni(aIniFile: TCustomIniFile); override;
+    procedure SaveToIni(aIniFile: TCustomIniFile; const ExportMode: boolean);
+      override;
     property DataString: string read GetDataString write SetDataString;
-
-    // Cached Data
-    // -----------
-    property System: cEmutecaSystem read FSystem write SetSystem;
-
-    procedure FPOObservedChanged(ASender: TObject;
-      Operation: TFPObservedOperation; Data: Pointer);
-    {< System has changed. }
 
     procedure LoadFromStrLst(TxtFile: TStrings); override;
     procedure SaveToStrLst(TxtFile: TStrings; const ExportMode: boolean);
@@ -74,21 +64,17 @@ type
     {< ID and Sort Title of the Parent. }
     property Title: string read FTitle write SetTitle;
     {< Name of the parent. }
-    property SystemKey: string read FSystemKey;
-    {< ID of the System. }
     property Year: string read FYear write SetYear;
     {< Development year. }
     property Developer: string read FDeveloper write SetDeveloper;
     {< Developer. }
 
-    // Usage statitics
-    // ---------------
-    property Stats: cEmutecaPlayingStats read FStats;
   end;
 
   { cEmutecaGroupList }
 
-  cEmutecaGroupList = TComponentList;
+  cEmutecaGenGroupList = specialize TFPGObjectList<cEmutecaGroup>;
+  cEmutecaGroupList = class (cEmutecaGenGroupList);
 
   TEmutecaReturnGroupCB = function(aGroup: cEmutecaGroup): boolean of
     object;
@@ -111,17 +97,15 @@ begin
   FYear := AValue;
 end;
 
-procedure cEmutecaGroup.FPOObservedChanged(ASender: TObject;
-  Operation: TFPObservedOperation; Data: Pointer);
+procedure cEmutecaGroup.LoadFromIni(aIniFile: TCustomIniFile);
 begin
-  if not assigned(ASender) then
-    Exit;
 
-  case Operation of
-    ooFree: System := nil;
-    else
-      FSystemKey := cEmutecaSystem(ASender).ID;
-  end;
+end;
+
+procedure cEmutecaGroup.SaveToIni(aIniFile: TCustomIniFile;
+  const ExportMode: boolean);
+begin
+
 end;
 
 procedure cEmutecaGroup.SetID(AValue: string);
@@ -131,25 +115,6 @@ begin
   FID := AValue;
 
   FPONotifyObservers(Self, ooChange, nil);
-end;
-
-procedure cEmutecaGroup.SetSystem(AValue: cEmutecaSystem);
-begin
-  if FSystem = AValue then
-    Exit;
-
-  if Assigned(FSystem) then
-    FSystem.FPODetachObserver(Self);
-
-  FSystem := AValue;
-
-  if Assigned(System) then
-  begin
-    System.FPOAttachObserver(Self);
-    FSystemKey := System.ID;
-  end;
-
-  //else FSystemKey := ''; We don't want to delete the old SystemKey
 end;
 
 function cEmutecaGroup.GetDataString: string;
@@ -189,16 +154,10 @@ end;
 constructor cEmutecaGroup.Create(aOwner: TComponent);
 begin
   inherited Create(aOwner);
-
-  FStats := cEmutecaPlayingStats.Create(Self);
 end;
 
 destructor cEmutecaGroup.Destroy;
 begin
-  if Assigned(System) then
-    System.FPODetachObserver(Self);
-  FreeAndNil(FStats);
-
   inherited Destroy;
 end;
 
@@ -209,24 +168,13 @@ begin
   if not assigned(TxtFile) then
     Exit;
 
-  i := 0;
-  while i < TxtFile.Count do
-  begin
-    case i of
-      0: ID := TxtFile[i];
-      1: Title := TxtFile[i];
-      2: FSystemKey := TxtFile[i];
-      3: Year := TxtFile[i];
-      4: Developer := TxtFile[i];
-      // 5: ;
-      6: Stats.LastTime := StrToFloatDef(TxtFile[i], 0);
-      7: Stats.TimesPlayed := StrToIntDef(TxtFile[i], 0);
-      8: Stats.PlayingTime := StrToCardinalDef(TxtFile[i], 0);
-      else
-        ;
-    end;
-    Inc(i);
-  end;
+  while TxtFile.Count < 4 do
+    TxtFile.Add('');
+
+      ID := TxtFile[0];
+      Title := TxtFile[1];
+      Year := TxtFile[2];
+      Developer := TxtFile[3];
 end;
 
 procedure cEmutecaGroup.SaveToStrLst(TxtFile: TStrings;
@@ -237,19 +185,8 @@ begin
 
   TxtFile.Add(ID);
   TxtFile.Add(Title);
-  if assigned(System) then
-    TxtFile.Add(System.ID)
-  else
-    TxtFile.Add(SystemKey);
   TxtFile.Add(Year);
   TxtFile.Add(Developer);
-  TxtFile.Add('');
-
-  // Usage statitics
-  // ---------------
-  TxtFile.Add(FloatToStr(Stats.LastTime));
-  TxtFile.Add(IntToStr(Stats.TimesPlayed));
-  TxtFile.Add(IntToStr(Stats.PlayingTime));
 end;
 
 

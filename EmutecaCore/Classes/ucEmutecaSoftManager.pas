@@ -6,9 +6,7 @@ interface
 
 uses
   Classes, SysUtils, LazUTF8, IniFiles,
-  uaEmutecaManager,
-  ucEmutecaSoftware, ucEmutecaSystemManager, ucEmutecaSystem,
-  ucEmutecaGroupManager;
+  uaEmutecaManager, ucEmutecaSoftware, ucEmutecaSystem;
 
 resourcestring
   rsLoadingVersionList = 'Loading software list...';
@@ -20,21 +18,14 @@ type
 
   cEmutecaSoftManager = class(caEmutecaManager)
   private
-    FGroupManager: cEmutecaGroupManager;
-    FSystemManager: cEmutecaSystemManager;
     FVisibleList: cEmutecaSoftList;
     FFullList: cEmutecaSoftList;
-    procedure SetGroupManager(AValue: cEmutecaGroupManager);
-    procedure SetSystemManager(AValue: cEmutecaSystemManager);
 
   protected
 
   public
-    property GroupManager: cEmutecaGroupManager
-      read FGroupManager write SetGroupManager;
-    property SystemManager: cEmutecaSystemManager
-      read FSystemManager write SetSystemManager;
-
+    procedure AssingAllTo(aList: TStrings); override;
+    procedure AssingEnabledTo(aList: TStrings); override;
     property VisibleList: cEmutecaSoftList read FVisibleList;
     {< Filtered soft list }
 
@@ -52,10 +43,7 @@ type
        @Result cEmutecaSoftware found or nil.
     }
 
-    procedure FilterBySystem(aSystem: cEmutecaSystem);
-
-    procedure AssingAllTo(aList: TStrings); override;
-    procedure AssingEnabledTo(aList: TStrings); override;
+    procedure SelectSystem(aSystem: cEmutecaSystem);
 
     constructor Create(aOwner: TComponent); override;
     destructor Destroy; override;
@@ -81,79 +69,47 @@ begin
   i := 0;
   while (Result = nil) and (i < FullList.Count) do
   begin
-    aSoft := cEmutecaSoftware(FullList[i]);
+    aSoft := FullList[i];
     if UTF8CompareText(aSoft.ID, aId) = 0 then
       Result := aSoft;
     Inc(i);
   end;
 end;
 
-procedure cEmutecaSoftManager.FilterBySystem(aSystem: cEmutecaSystem);
+procedure cEmutecaSoftManager.SelectSystem(aSystem: cEmutecaSystem);
 var
-  i: longint;
+  i: integer;
   aSoft: cEmutecaSoftware;
 begin
   VisibleList.Clear;
 
-  if not assigned(aSystem) then
+  if not Assigned(aSystem) then
   begin
     VisibleList.Assign(FullList);
   end
   else
   begin
     i := 0;
-    while i < FullList.Count do
+    while (i < FullList.Count) do
     begin
-      aSoft := cEmutecaSoftware(FullList[i]);
-      if aSoft.System = aSystem then
+      aSoft := FullList[i];
+      if Assigned(aSoft.System) then
       begin
-        if VisibleList.Capacity = VisibleList.Count then
-          VisibleList.Capacity := VisibleList.Capacity * 2; // Speed up?
-        VisibleList.Add(aSoft);
+        if aSoft.System = aSystem then
+          VisibleList.Add(aSoft);
+      end
+      else
+      begin
+        if UTF8CompareText(aSoft.SystemKey, aSystem.ID) = 0 then
+        begin
+          // Caching aSoft.System
+          aSoft.System := aSystem;
+          VisibleList.Add(aSoft);
+        end;
       end;
       Inc(i);
     end;
   end;
-end;
-
-procedure cEmutecaSoftManager.AssingAllTo(aList: TStrings);
-var
-  i: longint;
-  aSoft: cEmutecaSoftware;
-begin
-  if not assigned(aList) then
-    aList := TStringList.Create;
-
-  aList.BeginUpdate;
-  aList.Capacity := aList.Count + FullList.Count; // Speed up?
-  i := 0;
-  while i < FullList.Count do
-  begin
-    aSoft := cEmutecaSoftware(FullList[i]);
-    aList.AddObject(aSoft.Title, aSoft);
-    Inc(i);
-  end;
-  aList.EndUpdate;
-end;
-
-procedure cEmutecaSoftManager.AssingEnabledTo(aList: TStrings);
-var
-  i: longint;
-  aSoft: cEmutecaSoftware;
-begin
-  if not assigned(aList) then
-    aList := TStringList.Create;
-
-  aList.BeginUpdate;
-  aList.Capacity := aList.Count + VisibleList.Count; // Speed up?
-  i := 0;
-  while i < VisibleList.Count do
-  begin
-    aSoft := cEmutecaSoftware(VisibleList[i]);
-    aList.AddObject(aSoft.Title, aSoft);
-    Inc(i);
-  end;
-  aList.EndUpdate;
 end;
 
 constructor cEmutecaSoftManager.Create(aOwner: TComponent);
@@ -170,20 +126,6 @@ begin
   FreeAndNil(FVisibleList);
   FreeAndNil(FFullList);
   inherited Destroy;
-end;
-
-procedure cEmutecaSoftManager.SetGroupManager(AValue: cEmutecaGroupManager);
-begin
-  if FGroupManager = AValue then
-    Exit;
-  FGroupManager := AValue;
-end;
-
-procedure cEmutecaSoftManager.SetSystemManager(AValue: cEmutecaSystemManager);
-begin
-  if FSystemManager = AValue then
-    Exit;
-  FSystemManager := AValue;
 end;
 
 procedure cEmutecaSoftManager.LoadFromIni(aIniFile: TCustomIniFile);
@@ -204,19 +146,28 @@ begin
     i := 0;
     while i < FullList.Count do
     begin
-      aSoft := cEmutecaSoftware(FullList[i]);
+      aSoft := FullList[i];
       aSoft.SaveToIni(IniFile, ExportMode);
       Inc(i);
 
-      if ProgressCallBack <> nil then
-        ProgressCallBack(rsSavingVersionList, aSoft.System.ID,
-          aSoft.Title, i, FullList.Count);
+      if Assigned(ProgressCallBack) then
+        ProgressCallBack(rsSavingVersionList, aSoft.Folder,
+          aSoft.FileName, i, FullList.Count);
     end;
   finally
     IniFile.UpdateFile;
   end;
 end;
 
+procedure cEmutecaSoftManager.AssingAllTo(aList: TStrings);
+begin
+
+end;
+
+procedure cEmutecaSoftManager.AssingEnabledTo(aList: TStrings);
+begin
+
+end;
 
 procedure cEmutecaSoftManager.LoadFromStrLst(TxtFile: TStrings);
 var
@@ -234,17 +185,12 @@ begin
     TempSoft := cEmutecaSoftware.Create(nil);
     TempSoft.DataString := TxtFile[i];
 
-    { TODO : Optimice this: Group now have system link }
-
-    TempSoft.System := SystemManager.ItemById(TempSoft.SystemKey, True);
-    TempSoft.Group := GroupManager.ItemById(TempSoft.GroupKey, True);
-
     FullList.Add(TempSoft);
     Inc(i);
 
     if ProgressCallBack <> nil then
-      ProgressCallBack(rsLoadingVersionList, TempSoft.System.Title,
-        TempSoft.Title, i, TxtFile.Count);
+      ProgressCallBack(rsLoadingVersionList, TempSoft.Folder,
+        TempSoft.FileName, i, TxtFile.Count);
   end;
   // FullList.EndUpdate;
 
@@ -264,23 +210,24 @@ begin
   TxtFile.BeginUpdate;
   try
     TxtFile.Capacity := FullList.Count + 1; // Speed up?
-    TxtFile.Add('"ID","Folder","FileName","Title","Parent","System",' +
-      '"Reserved 1","TransliteratedName","SortTitle","Reserved 2",' +
-      '"Version","Year","Publisher","Zone","Reserved 3",' +
-      '"DumpStatus","DumpInfo","Fixed","Trainer","Translation",' +
-      '"Pirate","Cracked","Modified","Hack","Reserved 4",' +
-      '"Last Time","Times Played","Playing Time"');
+        TxtFile.Add('"System","Group","SHA1","ID","Folder","FileName",' +
+        '"Title","TransliteratedName","SortTitle",' +
+          '"Version","Year","Publisher","Zone",' +
+          '"DumpStatus","DumpInfo","Fixed","Trainer","Translation",' +
+          '"Pirate","Cracked","Modified","Hack",' +
+          '"Last Time","Times Played","Playing Time"');
+
 
     i := 0;
     while i < FullList.Count do
     begin
-      aSoft := cEmutecaSoftware(FullList[i]);
+      aSoft := FullList[i];
       TxtFile.Add(aSoft.DataString);
       Inc(i);
 
       if ProgressCallBack <> nil then
-        ProgressCallBack(rsSavingVersionList, aSoft.System.ID,
-          aSoft.Title, i, FullList.Count);
+        ProgressCallBack(rsSavingVersionList, aSoft.Folder,
+          aSoft.FileName, i, FullList.Count);
     end;
 
   finally

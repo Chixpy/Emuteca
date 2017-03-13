@@ -81,7 +81,7 @@ procedure TfmEmutecaSystemEditor.bCreateSubdirsClick(Sender: TObject);
 
   procedure CreateFolder(aLine: TStringList);
   var
-    aFolder: TFilename;
+    aFolder: string;
     aTitle: string;
   begin
     if aLine.Count = 0 then

@@ -76,8 +76,6 @@ end;
 
 (* === run-time registration functions === *)
 (*----------------------------------------------------------------------------*)
-procedure cEmutecaSystemManagerVisibleList_R(Self: cEmutecaSystemManager; var T: cEmutecaSystemList);
-begin T := Self.VisibleList; end;
 
 (*----------------------------------------------------------------------------*)
 procedure cEmutecaSystemManagerFullList_R(Self: cEmutecaSystemManager; var T: cEmutecaSystemList);
@@ -90,7 +88,6 @@ begin
   begin
     RegisterMethod(@cEmutecaSystemManager.ItemById, 'ItemById');
     RegisterPropertyHelper(@cEmutecaSystemManagerFullList_R,nil,'FullList');
-    RegisterPropertyHelper(@cEmutecaSystemManagerVisibleList_R,nil,'VisibleList');
   end;
 end;
 

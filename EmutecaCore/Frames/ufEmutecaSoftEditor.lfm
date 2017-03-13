@@ -19,7 +19,7 @@ inherited fmEmutecaSoftEditor: TfmEmutecaSoftEditor
   object gbxGroup: TGroupBox[1]
     Left = 0
     Height = 19
-    Top = 19
+    Top = 21
     Width = 232
     Align = alTop
     AutoSize = True
@@ -28,18 +28,28 @@ inherited fmEmutecaSoftEditor: TfmEmutecaSoftEditor
   end
   object gbxSystem: TGroupBox[2]
     Left = 0
-    Height = 19
+    Height = 21
     Top = 0
     Width = 232
     Align = alTop
     AutoSize = True
     Caption = 'System'
+    ClientHeight = 1
+    ClientWidth = 228
     TabOrder = 2
+    object lSystem: TLabel
+      Left = 0
+      Height = 1
+      Top = 0
+      Width = 228
+      Align = alTop
+      ParentColor = False
+    end
   end
   object gbxDumpTags: TGroupBox[3]
     Left = 0
     Height = 227
-    Top = 238
+    Top = 240
     Width = 232
     Align = alTop
     AutoSize = True
@@ -192,7 +202,7 @@ inherited fmEmutecaSoftEditor: TfmEmutecaSoftEditor
   object gbxVersion: TGroupBox[4]
     Left = 0
     Height = 96
-    Top = 142
+    Top = 144
     Width = 232
     Align = alTop
     AutoSize = True
@@ -270,7 +280,7 @@ inherited fmEmutecaSoftEditor: TfmEmutecaSoftEditor
   object gbxTitle: TGroupBox[5]
     Left = 0
     Height = 104
-    Top = 38
+    Top = 40
     Width = 232
     Align = alTop
     AutoSize = True

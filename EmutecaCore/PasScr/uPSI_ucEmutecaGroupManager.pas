@@ -91,23 +91,13 @@ procedure cEmutecaGroupManagerFullList_R(Self: cEmutecaGroupManager; var T: cEmu
 begin T := Self.FullList; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cEmutecaGroupManagerSystemManager_W(Self: cEmutecaGroupManager; const T: cEmutecaSystemManager);
-begin Self.SystemManager := T; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaGroupManagerSystemManager_R(Self: cEmutecaGroupManager; var T: cEmutecaSystemManager);
-begin T := Self.SystemManager; end;
-
-(*----------------------------------------------------------------------------*)
 procedure RIRegister_cEmutecaGroupManager(CL: TPSRuntimeClassImporter);
 begin
   with CL.Add(cEmutecaGroupManager) do
   begin
-    RegisterPropertyHelper(@cEmutecaGroupManagerSystemManager_R,@cEmutecaGroupManagerSystemManager_W,'SystemManager');
     RegisterPropertyHelper(@cEmutecaGroupManagerFullList_R,nil,'FullList');
     RegisterPropertyHelper(@cEmutecaGroupManagerVisibleList_R,nil,'VisibleList');
     RegisterMethod(@cEmutecaGroupManager.ItemById, 'ItemById');
-    RegisterMethod(@cEmutecaGroupManager.FilterBySystem, 'FilterBySystem');
   end;
 end;
 

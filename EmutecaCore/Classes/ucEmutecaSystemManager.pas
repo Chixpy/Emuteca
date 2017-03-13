@@ -27,7 +27,9 @@ interface
 
 uses
   Classes, SysUtils, LazFileUtils, LazUTF8, IniFiles, contnrs,
-  uaEmutecaManager, ucEmutecaSystem;
+  uCHXStrUtils,
+  uEmutecaCommon, uaEmutecaManager,
+  ucEmutecaConfig, ucEmutecaSystem;
 
 type
   { cEmutecaSystemManager }
@@ -35,17 +37,22 @@ type
   cEmutecaSystemManager = class(caEmutecaManager)
   private
     FFullList: cEmutecaSystemList;
-    FVisibleList: cEmutecaSystemList;
+    FEnabledList: cEmutecaSystemList;
 
   protected
+     procedure SetConfig(AValue: cEmutecaConfig); override;
+     procedure SetProgressCallBack(AValue: TEmutecaProgressCallBack); override;
 
   public
     procedure LoadFromIni(IniFile: TCustomIniFile); override;
+    procedure LoadFromStrLst(aTxtFile: TStrings); override;
     procedure SaveToIni(IniFile: TCustomIniFile;
       const ExportMode: boolean); override;
 
-    function ItemById(aId: string; Autocreate: Boolean = False): cEmutecaSystem;
+    function ItemById(aId: string; Autocreate: Boolean): cEmutecaSystem;
     {< Returns the system with aId key.
+
+       Autocreate: Automatically create one, if none found.
 
        @Result cEmutecaSystem found or nil.
     }
@@ -55,10 +62,12 @@ type
 
     constructor Create(aOwner: TComponent); override;
     destructor Destroy; override;
+    procedure SaveToStrLst(aTxtFile: TStrings; const ExportMode: boolean);
+      override;
 
   published
     property FullList: cEmutecaSystemList read FFullList;
-    property VisibleList: cEmutecaSystemList read FVisibleList;
+    property EnabledList: cEmutecaSystemList read FEnabledList;
 
   end;
 
@@ -66,6 +75,28 @@ implementation
 
 { cEmutecaSystemManager }
 
+procedure cEmutecaSystemManager.SetConfig(AValue: cEmutecaConfig);
+var
+  i: Integer;
+begin
+  inherited SetConfig(AValue);
+
+  i := FullList.count - 1;
+  while i >= 0 do
+    cEmutecaSystem(FullList[i]).GroupManager.Config := AValue;
+end;
+
+procedure cEmutecaSystemManager.SetProgressCallBack(
+  AValue: TEmutecaProgressCallBack);
+var
+  i: Integer;
+begin
+  inherited SetProgressCallBack(AValue);
+
+  i := FullList.count - 1;
+  while i >= 0 do
+    cEmutecaSystem(FullList[i]).GroupManager.ProgressCallBack := AValue;
+end;
 
 procedure cEmutecaSystemManager.LoadFromIni(IniFile: TCustomIniFile);
 var
@@ -89,16 +120,23 @@ begin
       TempSys.LoadFromIni(IniFile);
       FullList.Add(TempSys);
       if TempSys.Enabled then
-        VisibleList.Add(TempSys);
+        EnabledList.Add(TempSys);
       Inc(i);
 
       if ProgressCallBack <> nil then
         ProgressCallBack(rsLoadingSystemList, TempSys.ID,
           TempSys.Title, i, TempList.Count);
+
+      TempSys.LoadGroups(Config.SysDataFolder + TempSys.FileName + kEmutecaGroupFileExt);
     end;
   finally
     FreeAndNil(TempList);
   end;
+end;
+
+procedure cEmutecaSystemManager.LoadFromStrLst(aTxtFile: TStrings);
+begin
+
 end;
 
 procedure cEmutecaSystemManager.SaveToIni(IniFile: TCustomIniFile;
@@ -123,6 +161,8 @@ begin
     if ProgressCallBack <> nil then
       ProgressCallBack(rsSavingSystemList, aSystem.ID,
         aSystem.Title, i, FullList.Count);
+
+    aSystem.SaveGroups(Config.SysDataFolder + aSystem.FileName + kEmutecaGroupFileExt, False);
   end;
 end;
 
@@ -151,7 +191,7 @@ begin
     Result.Title := aId;
     Result.Enabled := True;
     Self.FullList.Add(Result);
-    Self.VisibleList.Add(Result);
+    Self.EnabledList.Add(Result);
   end;
 end;
 
@@ -184,9 +224,9 @@ begin
 
   aList.BeginUpdate;
   i := 0;
-  while i < VisibleList.Count do
+  while i < EnabledList.Count do
   begin
-    aSystem := cEmutecaSystem(VisibleList[i]);
+    aSystem := cEmutecaSystem(EnabledList[i]);
     if aSystem.Enabled then
       begin
       aList.AddObject(aSystem.Title, aSystem);
@@ -199,17 +239,21 @@ end;
 constructor cEmutecaSystemManager.Create(aOwner: TComponent);
 begin
   inherited Create(aOwner);
-  FFullList := TComponentList.Create(True);
-  // TODO: OnCompare FullList.OnCompare := ;
-  FVisibleList := TComponentList.Create(False);
-  // TODO: OnCompare VisibleList.OnCompare := ;
+  FFullList := cEmutecaSystemList.Create(True);
+  FEnabledList := cEmutecaSystemList.Create(False);
 end;
 
 destructor cEmutecaSystemManager.Destroy;
 begin
-  FreeAndNil(FVisibleList);
+  FreeAndNil(FEnabledList);
   FreeAndNil(FFullList);
   inherited Destroy;
+end;
+
+procedure cEmutecaSystemManager.SaveToStrLst(aTxtFile: TStrings;
+  const ExportMode: boolean);
+begin
+
 end;
 
 end.

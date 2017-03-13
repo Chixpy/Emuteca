@@ -1,6 +1,6 @@
 { This file is part of Emuteca
 
-  Copyright (C) 2006-2016 Chixpy
+  Copyright (C) 2006-2017 Chixpy
 
   This source is free software; you can redistribute it and/or modify it under
   the terms of the GNU General Public License as published by the Free
@@ -26,10 +26,10 @@ unit ucEmutecaSystem;
 interface
 
 uses
-  Classes, SysUtils, IniFiles, LazFileUtils, LazUTF8, contnrs,
+  Classes, SysUtils, IniFiles, LazFileUtils, LazUTF8, contnrs, fgl,
   uCHXStrUtils,
   uEmutecaCommon, uaCHXStorable,
-  ucEmutecaPlayingStats;
+  ucEmutecaGroupManager, ucEmutecaPlayingStats;
 
 const
   // Ini file Keys
@@ -54,17 +54,28 @@ const
   krsIniKeyGamesKey = 'GamesKey';
   krsIniKeyExtractAll = 'ExtractAll';
 
+  // Constants for file keys
+  krsCRC32 = 'CRC32';
+  krsSHA1 = 'SHA1';
+  krsFileName = 'FileName';
+  krsCustom = 'Custom';
+
 resourcestring
   rsLoadingSystemList = 'Loading system list...';
   rsSavingSystemList = 'Saving system list...';
   rsAllSystems = 'All Systems';
-  reSelectSystem = 'Select a System';
+  rsSelectSystem = 'Select a System';
 
 
 type
-
   TEmutecaFileKey = (TEFKSHA1, TEFKCRC32, TEFKFileName, TEFKCustom);
 
+const
+  EmutecaFileKeyStrsK: array [TEmutecaFileKey] of string =
+    (krsSHA1, krsCRC32, krsFileName, krsCustom);
+//< Strings for FileKeys (fixed constants, used for ini files, etc. )
+
+type
   { cEmutecaSystem }
 
   cEmutecaSystem = class(caCHXStorable)
@@ -85,6 +96,7 @@ type
     FInfoText: string;
     FMainEmulator: string;
     FOtherEmulators: TStringList;
+    FGroupManager: cEmutecaGroupManager;
     FStats: cEmutecaPlayingStats;
     FTempFolder: string;
     FTextCaptions: TStringList;
@@ -116,11 +128,15 @@ type
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
 
-    procedure LoadFromIni(IniFile: TCustomIniFile); override;
-    procedure SaveToIni(IniFile: TCustomIniFile;
+    procedure LoadFromIni(aIniFile: TCustomIniFile); override;
+    procedure SaveToIni(aIniFile: TCustomIniFile;
       const ExportMode: boolean); override;
 
+    procedure LoadGroups(aFile: string);
+    procedure SaveGroups(aFile: string; ExportMode: Boolean);
+
   published
+    property GroupManager: cEmutecaGroupManager read FGroupManager;
 
     // Basic Info
     // ----------
@@ -131,7 +147,7 @@ type
     {< Visible name (Usually "%Company%: %Model% %(info)%"}
 
     property FileName: string read FFileName write SetFileName;
-    {< Name used for files }
+    {< Name used for files or folders }
 
     property Enabled: boolean read FEnabled write SetEnabled;
     {< Is the system visible }
@@ -209,35 +225,21 @@ type
     property Stats: cEmutecaPlayingStats read FStats;
   end;
 
-  // After many test with generics implementing Observer...Keep it simple
-  cEmutecaSystemList = TComponentList;
+  cEmutecaGenSystemList = specialize TFPGObjectList<cEmutecaSystem>;
+  cEmutecaSystemList = class(cEmutecaGenSystemList);
 
   TEmutecaReturnSystemCB = function(aSystem: cEmutecaSystem): boolean of
     object;
 
 {< For CallBack functions }
 
-function EmutecaFileKey2Str(aEFK: TEmutecaFileKey): string;
 function Str2EmutecaFileKey(aString: string): TEmutecaFileKey;
-
+// Result := EmutecaFileKeyStrsK[TEmutecaFileKey];
 
 implementation
 
-function EmutecaFileKey2Str(aEFK: TEmutecaFileKey): string;
-begin
-  case aEFK of
-    TEFKCRC32: Result := krsCRC32;
-    TEFKSHA1: Result := krsSHA1;
-    TEFKCustom: Result := krsCustom;
-    TEFKFileName: Result := krsFileName;
-    else  // SHA1 by default
-      Result := krsSHA1;
-  end;
-end;
-
 function Str2EmutecaFileKey(aString: string): TEmutecaFileKey;
 begin
-
   // In Emuteca <= 0.7, True => CRC32 / False => FileName
   aString := UTF8UpperCase(aString);
 
@@ -258,123 +260,143 @@ end;
 
 { cEmutecaSystem }
 
-procedure cEmutecaSystem.LoadFromIni(IniFile: TCustomIniFile);
+procedure cEmutecaSystem.LoadFromIni(aIniFile: TCustomIniFile);
 begin
-  if IniFile = nil then
+  if aIniFile = nil then
     Exit;
 
   // Basic data
-  Title := IniFile.ReadString(ID, krsIniKeyTitle, Title);
+  Title := aIniFile.ReadString(ID, krsIniKeyTitle, Title);
 
-  FileName := IniFile.ReadString(ID, krsIniKeyFileName, FileName);
+  FileName := aIniFile.ReadString(ID, krsIniKeyFileName, FileName);
   if FileName = '' then
     FileName := Title;
 
-  Enabled := IniFile.ReadBool(ID, krsIniKeyEnabled, Enabled);
+  Enabled := aIniFile.ReadBool(ID, krsIniKeyEnabled, Enabled);
 
-  ExtractAll := IniFile.ReadBool(ID, krsIniKeyExtractAll, ExtractAll);
+  ExtractAll := aIniFile.ReadBool(ID, krsIniKeyExtractAll, ExtractAll);
 
-  BaseFolder := IniFile.ReadString(ID, krsIniKeyBaseFolder, BaseFolder);
-  TempFolder := IniFile.ReadString(ID, krsIniKeyTempFolder, TempFolder);
+  BaseFolder := aIniFile.ReadString(ID, krsIniKeyBaseFolder, BaseFolder);
+  TempFolder := aIniFile.ReadString(ID, krsIniKeyTempFolder, TempFolder);
 
   // Emulators
-  MainEmulator := IniFile.ReadString(ID, krsIniKeyMainEmulator, MainEmulator);
+  MainEmulator := aIniFile.ReadString(ID, krsIniKeyMainEmulator, MainEmulator);
   OtherEmulators.CommaText :=
-    IniFile.ReadString(ID, krsIniKeyOtherEmulators, OtherEmulators.CommaText);
+    aIniFile.ReadString(ID, krsIniKeyOtherEmulators, OtherEmulators.CommaText);
 
   // Images
-  Icon := IniFile.ReadString(ID, krsIniKeyIcon, Icon);
-  Image := IniFile.ReadString(ID, krsIniKeyImage, Image);
-  BackImage := IniFile.ReadString(ID, krsIniKeyBackImage, BackImage);
+  Icon := aIniFile.ReadString(ID, krsIniKeyIcon, Icon);
+  Image := aIniFile.ReadString(ID, krsIniKeyImage, Image);
+  BackImage := aIniFile.ReadString(ID, krsIniKeyBackImage, BackImage);
 
-  IconFolder := IniFile.ReadString(ID, krsIniKeyIconFolder, IconFolder);
+  IconFolder := aIniFile.ReadString(ID, krsIniKeyIconFolder, IconFolder);
   ImageFolders.CommaText :=
-    IniFile.ReadString(ID, krsIniKeyImageFolders, ImageFolders.CommaText);
+    aIniFile.ReadString(ID, krsIniKeyImageFolders, ImageFolders.CommaText);
   ImageCaptions.CommaText :=
-    IniFile.ReadString(ID, krsIniKeyImageCaptions, ImageCaptions.CommaText);
+    aIniFile.ReadString(ID, krsIniKeyImageCaptions, ImageCaptions.CommaText);
 
   // Texts
-  InfoText := IniFile.ReadString(ID, krsIniKeyText, InfoText);
+  InfoText := aIniFile.ReadString(ID, krsIniKeyText, InfoText);
 
   TextFolders.CommaText :=
-    IniFile.ReadString(ID, krsIniKeyTextFolders, TextFolders.CommaText);
+    aIniFile.ReadString(ID, krsIniKeyTextFolders, TextFolders.CommaText);
   TextCaptions.CommaText :=
-    IniFile.ReadString(ID, krsIniKeyTextCaptions, TextCaptions.CommaText);
+    aIniFile.ReadString(ID, krsIniKeyTextCaptions, TextCaptions.CommaText);
 
   // Import
-  GameKey := Str2EmutecaFileKey(IniFile.ReadString(ID,
-    krsIniKeyGamesKey, EmutecaFileKey2Str(GameKey)));
-  Extensions.CommaText := IniFile.ReadString(ID, krsIniKeyExtensions,
+  GameKey := Str2EmutecaFileKey(aIniFile.ReadString(ID,
+    krsIniKeyGamesKey, EmutecaFileKeyStrsK[GameKey]));
+  Extensions.CommaText := aIniFile.ReadString(ID, krsIniKeyExtensions,
     Extensions.CommaText);
+
+  Stats.LoadFromIni(aIniFile, ID);
 
   // Fixing lists...
   FixFolderListData(ImageFolders, ImageCaptions);
   FixFolderListData(TextFolders, TextCaptions);
 end;
 
-procedure cEmutecaSystem.SaveToIni(IniFile: TCustomIniFile;
+procedure cEmutecaSystem.SaveToIni(aIniFile: TCustomIniFile;
   const ExportMode: boolean);
 begin
-  if IniFile = nil then
+  if aIniFile = nil then
     Exit;
 
   // Basic data
-  IniFile.WriteString(ID, krsIniKeyTitle, Title);
-  IniFile.WriteString(ID, krsIniKeyFileName, FileName);
-  IniFile.WriteBool(ID, krsIniKeyExtractAll, ExtractAll);
+  aIniFile.WriteString(ID, krsIniKeyTitle, Title);
+  aIniFile.WriteString(ID, krsIniKeyFileName, FileName);
+  aIniFile.WriteBool(ID, krsIniKeyExtractAll, ExtractAll);
 
   // Emulators
-  IniFile.WriteString(ID, krsIniKeyMainEmulator, MainEmulator);
-  IniFile.WriteString(ID, krsIniKeyOtherEmulators, OtherEmulators.CommaText);
+  aIniFile.WriteString(ID, krsIniKeyMainEmulator, MainEmulator);
+  aIniFile.WriteString(ID, krsIniKeyOtherEmulators, OtherEmulators.CommaText);
 
   // Import
-  IniFile.WriteString(ID, krsIniKeyGamesKey, EmutecaFileKey2Str(GameKey));
-  IniFile.WriteString(ID, krsIniKeyExtensions, Extensions.CommaText);
+  aIniFile.WriteString(ID, krsIniKeyGamesKey, EmutecaFileKeyStrsK[GameKey]);
+  aIniFile.WriteString(ID, krsIniKeyExtensions, Extensions.CommaText);
 
   if ExportMode then
   begin // Las borramos por si acaso existen
     // Basic data
-    IniFile.DeleteKey(ID, krsIniKeyEnabled);
-    IniFile.DeleteKey(ID, krsIniKeyBaseFolder);
-    IniFile.DeleteKey(ID, krsIniKeyTempFolder);
+    aIniFile.DeleteKey(ID, krsIniKeyEnabled);
+    aIniFile.DeleteKey(ID, krsIniKeyBaseFolder);
+    aIniFile.DeleteKey(ID, krsIniKeyTempFolder);
 
     // Images
-    IniFile.DeleteKey(ID, krsIniKeyIcon);
-    IniFile.DeleteKey(ID, krsIniKeyImage);
-    IniFile.DeleteKey(ID, krsIniKeyBackImage);
+    aIniFile.DeleteKey(ID, krsIniKeyIcon);
+    aIniFile.DeleteKey(ID, krsIniKeyImage);
+    aIniFile.DeleteKey(ID, krsIniKeyBackImage);
 
-    IniFile.DeleteKey(ID, krsIniKeyIconFolder);
-    IniFile.DeleteKey(ID, krsIniKeyImageFolders);
-    IniFile.DeleteKey(ID, krsIniKeyImageCaptions);
+    aIniFile.DeleteKey(ID, krsIniKeyIconFolder);
+    aIniFile.DeleteKey(ID, krsIniKeyImageFolders);
+    aIniFile.DeleteKey(ID, krsIniKeyImageCaptions);
 
     // Texts
-    IniFile.DeleteKey(ID, krsIniKeyText);
+    aIniFile.DeleteKey(ID, krsIniKeyText);
 
-    IniFile.DeleteKey(ID, krsIniKeyTextFolders);
-    IniFile.DeleteKey(ID, krsIniKeyTextCaptions);
+    aIniFile.DeleteKey(ID, krsIniKeyTextFolders);
+    aIniFile.DeleteKey(ID, krsIniKeyTextCaptions);
   end
   else
   begin
     // Basic data
-    IniFile.WriteBool(ID, krsIniKeyEnabled, Enabled);
-    IniFile.WriteString(ID, krsIniKeyBaseFolder, BaseFolder);
-    IniFile.WriteString(ID, krsIniKeyTempFolder, TempFolder);
+    aIniFile.WriteBool(ID, krsIniKeyEnabled, Enabled);
+    aIniFile.WriteString(ID, krsIniKeyBaseFolder, BaseFolder);
+    aIniFile.WriteString(ID, krsIniKeyTempFolder, TempFolder);
 
     // Images
-    IniFile.WriteString(ID, krsIniKeyIcon, Icon);
-    IniFile.WriteString(ID, krsIniKeyImage, Image);
-    IniFile.WriteString(ID, krsIniKeyBackImage, BackImage);
+    aIniFile.WriteString(ID, krsIniKeyIcon, Icon);
+    aIniFile.WriteString(ID, krsIniKeyImage, Image);
+    aIniFile.WriteString(ID, krsIniKeyBackImage, BackImage);
 
-    IniFile.WriteString(ID, krsIniKeyIconFolder, IconFolder);
-    IniFile.WriteString(ID, krsIniKeyImageFolders, ImageFolders.CommaText);
-    IniFile.WriteString(ID, krsIniKeyImageCaptions, ImageCaptions.CommaText);
+    aIniFile.WriteString(ID, krsIniKeyIconFolder, IconFolder);
+    aIniFile.WriteString(ID, krsIniKeyImageFolders, ImageFolders.CommaText);
+    aIniFile.WriteString(ID, krsIniKeyImageCaptions, ImageCaptions.CommaText);
 
     // Texts
-    IniFile.WriteString(ID, krsIniKeyText, InfoText);
+    aIniFile.WriteString(ID, krsIniKeyText, InfoText);
 
-    IniFile.WriteString(ID, krsIniKeyTextFolders, TextFolders.CommaText);
-    IniFile.WriteString(ID, krsIniKeyTextCaptions, TextCaptions.CommaText);
+    aIniFile.WriteString(ID, krsIniKeyTextFolders, TextFolders.CommaText);
+    aIniFile.WriteString(ID, krsIniKeyTextCaptions, TextCaptions.CommaText);
   end;
+
+  Stats.WriteToIni(aIniFile, ID, ExportMode);
+end;
+
+procedure cEmutecaSystem.LoadGroups(aFile: string);
+begin
+  GroupManager.Clear;
+  if not FileExistsUTF8(aFile) then Exit;
+
+  GroupManager.LoadFromFileTxt(aFile);
+end;
+
+procedure cEmutecaSystem.SaveGroups(aFile: string; ExportMode: Boolean);
+begin
+  if aFile = '' then Exit;
+  if not DirectoryExistsUTF8(ExtractFileDir(aFile)) then
+    ForceDirectoriesUTF8(ExtractFileDir(aFile));
+  GroupManager.SaveToFileTxt(aFile, ExportMode);
 end;
 
 procedure cEmutecaSystem.SetBaseFolder(AValue: string);
@@ -505,6 +527,7 @@ begin
   inherited Create(AOwner);
 
   FStats := cEmutecaPlayingStats.Create(Self);
+  FGroupManager := cEmutecaGroupManager.Create(Self);
 
   Self.Enabled := False;
   Self.GameKey := TEFKSHA1;
@@ -536,6 +559,7 @@ begin
   FreeAndNil(Self.FTextFolders);
 
   FreeAndNil(FStats);
+  FreeAndNil(FGroupManager);
 
   inherited Destroy;
 end;

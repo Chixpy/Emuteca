@@ -42,24 +42,27 @@ type
 
   cEmutecaPlayingStats = class(TComponent)
   private
-    FIconIndex: Integer;
+    FIconIndex: integer;
     FLastTime: TDateTime;
-    FPlayingTime: Int64;
-    FTimesPlayed: Int64;
-    procedure SetIconIndex(AValue: Integer);
+    FPlayingTime: int64;
+    FTimesPlayed: int64;
+    procedure SetIconIndex(AValue: integer);
     procedure SetLastTime(AValue: TDateTime);
-    procedure SetPlayingTime(AValue: Int64);
-    procedure SetTimesPlayed(AValue: Int64);
+    procedure SetPlayingTime(AValue: int64);
+    procedure SetTimesPlayed(AValue: int64);
 
   public
-    procedure AddPlayingTime(const Start: TDateTime; NumberOfSeconds: Int64);
+    procedure AddPlayingTime(const Start: TDateTime; NumberOfSeconds: int64);
     {< Adds the seconds between two TDateTime to PlayingTime.
 
        Aditionally adds 1 to TimesPlayed counter and updates LastTime
     }
 
-    procedure WriteToIni(aIniFile: TCustomIniFile; const Section: string);
+    procedure WriteToIni(aIniFile: TCustomIniFile; const Section: string;
+      ExportMode: boolean);
     procedure LoadFromIni(aIniFile: TCustomIniFile; const Section: string);
+    procedure WriteToStrLst(aTxtFile: TStrings; ExportMode: boolean);
+    procedure LoadFromStrLst(aTxtFile: TStrings; const NLine: integer);
 
     constructor Create(aOwner: TComponent); override;
     destructor Destroy; override;
@@ -70,13 +73,13 @@ type
 
         In cGroup maybe used to store the last time that a game
         has played from the group. }
-    property TimesPlayed: Int64 read FTimesPlayed write SetTimesPlayed;
+    property TimesPlayed: int64 read FTimesPlayed write SetTimesPlayed;
     {< Total times played. }
-    property PlayingTime: Int64 read FPlayingTime write SetPlayingTime;
+    property PlayingTime: int64 read FPlayingTime write SetPlayingTime;
     {< Total seconds played. }
 
     { TODO : Cached data for GUI, store elsewhere? }
-    property IconIndex: Integer read FIconIndex write SetIconIndex;
+    property IconIndex: integer read FIconIndex write SetIconIndex;
   end;
 
 implementation
@@ -90,20 +93,21 @@ begin
   FLastTime := AValue;
 end;
 
-procedure cEmutecaPlayingStats.SetIconIndex(AValue: Integer);
+procedure cEmutecaPlayingStats.SetIconIndex(AValue: integer);
 begin
-  if FIconIndex = AValue then Exit;
+  if FIconIndex = AValue then
+    Exit;
   FIconIndex := AValue;
 end;
 
-procedure cEmutecaPlayingStats.SetPlayingTime(AValue: Int64);
+procedure cEmutecaPlayingStats.SetPlayingTime(AValue: int64);
 begin
   if FPlayingTime = AValue then
     Exit;
   FPlayingTime := AValue;
 end;
 
-procedure cEmutecaPlayingStats.SetTimesPlayed(AValue: Int64);
+procedure cEmutecaPlayingStats.SetTimesPlayed(AValue: int64);
 begin
   if FTimesPlayed = AValue then
     Exit;
@@ -111,7 +115,7 @@ begin
 end;
 
 procedure cEmutecaPlayingStats.AddPlayingTime(const Start: TDateTime;
-  NumberOfSeconds: Int64);
+  NumberOfSeconds: int64);
 begin
   PlayingTime := PlayingTime + NumberOfSeconds;
   LastTime := Start;
@@ -119,15 +123,24 @@ begin
 end;
 
 procedure cEmutecaPlayingStats.WriteToIni(aIniFile: TCustomIniFile;
-  const Section: string);
+  const Section: string; ExportMode: boolean);
 begin
   // TODO: Exception...
   if not assigned(aIniFile) then
     Exit;
 
-  aIniFile.WriteInt64(Section, krsIniKeyPlayingTime, PlayingTime);
-  aIniFile.WriteInt64(Section, krsIniKeyTimesPlayed, TimesPlayed);
-  aIniFile.WriteDateTime(Section, krsIniKeyLastTime, LastTime);
+  if ExportMode then
+  begin
+    aIniFile.WriteInt64(Section, krsIniKeyPlayingTime, PlayingTime);
+    aIniFile.WriteInt64(Section, krsIniKeyTimesPlayed, TimesPlayed);
+    aIniFile.WriteDateTime(Section, krsIniKeyLastTime, LastTime);
+  end
+  else
+  begin
+    aIniFile.DeleteKey(Section, krsIniKeyPlayingTime);
+    aIniFile.DeleteKey(Section, krsIniKeyPlayingTime);
+    aIniFile.DeleteKey(Section, krsIniKeyPlayingTime);
+  end;
 end;
 
 procedure cEmutecaPlayingStats.LoadFromIni(aIniFile: TCustomIniFile;
@@ -135,6 +148,10 @@ procedure cEmutecaPlayingStats.LoadFromIni(aIniFile: TCustomIniFile;
 var
   TmpString: string;
 begin
+  // TODO: Exception...
+  if not assigned(aIniFile) then
+    Exit;
+
   TmpString := aIniFile.ReadString(Section, krsIniKeyLastTime, '');
   if TmpString <> '' then
     LastTime := StrToDateTimeDef(TmpString, LastTime);
@@ -142,6 +159,42 @@ begin
   PlayingTime := StrToInt64Def(TmpString, PlayingTime);
   TmpString := aIniFile.ReadString(Section, krsIniKeyTimesPlayed, '');
   TimesPlayed := StrToInt64Def(TmpString, TimesPlayed);
+end;
+
+procedure cEmutecaPlayingStats.WriteToStrLst(aTxtFile: TStrings;
+  ExportMode: boolean);
+begin
+  // TODO: Exception...
+  if not assigned(aTxtFile) then
+    Exit;
+
+  if ExportMode then
+  begin
+    aTxtFile.Add(DateTimeToStr(LastTime));
+    aTxtFile.Add(IntToStr(TimesPlayed));
+    aTxtFile.Add(IntToStr(PlayingTime));
+  end
+  else
+  begin
+    aTxtFile.Add('');
+    aTxtFile.Add('');
+    aTxtFile.Add('');
+  end;
+end;
+
+procedure cEmutecaPlayingStats.LoadFromStrLst(aTxtFile: TStrings;
+  const NLine: integer);
+begin
+  // TODO: Exception...
+  if not Assigned(aTxtFile) then
+    Exit;
+
+  if NLine + 3 > aTxtFile.Count then
+    Exit;
+
+  LastTime := StrToDateTimeDef(aTxtFile[Nline], LastTime);
+  TimesPlayed := StrToInt64Def(aTxtFile[Nline + 1], TimesPlayed);
+  PlayingTime := StrToInt64Def(aTxtFile[Nline + 2], PlayingTime);
 end;
 
 constructor cEmutecaPlayingStats.Create(aOwner: TComponent);

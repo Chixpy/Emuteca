@@ -8,8 +8,9 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
   Buttons, ActnList, StdCtrls,
   ufCHXPropEditor,
-  ucEmuteca, ucEmutecaSystem, ucEmutecaSoftware, ucEmutecaGroup,
-  ufEmutecaSystemCBX, ufEmutecaGroupCBX;
+  uEmutecaRscStr,
+  ucEmutecaSystem,  ucEmutecaGroup, ucEmutecaSoftware,
+  ufEmutecaGroupCBX;
 
 type
 
@@ -45,6 +46,7 @@ type
     lModified: TLabel;
     lPirate: TLabel;
     lPublisher: TLabel;
+    lSystem: TLabel;
     lTitle: TLabel;
     lTrainer: TLabel;
     lTranslated: TLabel;
@@ -54,18 +56,12 @@ type
 
   private
     FcbxGroup: TfmEmutecaGroupCBX;
-    FcbxSystem: TfmEmutecaSystemCBX;
-    FEmuteca: cEmuteca;
     FSoftware: cEmutecaSoftware;
-    procedure SetEmuteca(AValue: cEmuteca);
     procedure SetSoftware(AValue: cEmutecaSoftware);
-    { private declarations }
 
   protected
-    property cbxSystem: TfmEmutecaSystemCBX read FcbxSystem;
     property cbxGroup: TfmEmutecaGroupCBX read FcbxGroup;
 
-    function SelectSystem(aSystem: cEmutecaSystem): boolean;
     function SelectGroup(aGroup: cEmutecaGroup): boolean;
 
     procedure ClearData; override;
@@ -84,7 +80,6 @@ type
 
   published
     property Software: cEmutecaSoftware read FSoftware write SetSoftware;
-    property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
   end;
 
 implementation
@@ -92,26 +87,6 @@ implementation
 {$R *.lfm}
 
 { TfmEmutecaSoftEditor }
-
-procedure TfmEmutecaSoftEditor.SetEmuteca(AValue: cEmuteca);
-begin
-  if FEmuteca = AValue then
-    Exit;
-  FEmuteca := AValue;
-
-  if assigned(Emuteca) then
-  begin
-    cbxSystem.SystemList := Emuteca.SystemManager.VisibleList;
-    cbxGroup.GroupList := Emuteca.GroupManager.VisibleList;
-  end
-  else
-  begin
-    cbxSystem.SystemList := nil;
-    cbxGroup.GroupList := nil;
-  end;
-
-  self.Enabled := Assigned(Software) and assigned(Emuteca);
-end;
 
 procedure TfmEmutecaSoftEditor.SetSoftware(AValue: cEmutecaSoftware);
 begin
@@ -128,12 +103,7 @@ begin
 
   LoadData;
 
-  self.Enabled := Assigned(Software) and assigned(Emuteca);
-end;
-
-function TfmEmutecaSoftEditor.SelectSystem(aSystem: cEmutecaSystem): boolean;
-begin
-  Result := True;
+  self.Enabled := Assigned(Software) and Assigned(Software.System);
 end;
 
 function TfmEmutecaSoftEditor.SelectGroup(aGroup: cEmutecaGroup): boolean;
@@ -143,7 +113,7 @@ end;
 
 procedure TfmEmutecaSoftEditor.ClearData;
 begin
-  cbxSystem.SelectedSystem := nil;
+  lSystem.Caption := rsUnknown;
   cbxGroup.SelectedGroup := nil;
 
   eTitle.Clear;
@@ -171,22 +141,28 @@ end;
 procedure TfmEmutecaSoftEditor.FPOObservedChanged(ASender: TObject;
   Operation: TFPObservedOperation; Data: Pointer);
 begin
-  case Operation of
-    ooFree: Software := nil
-    else
-      LoadData;
-  end;
+    case Operation of
+      ooFree: Software := nil
+      else
+        ;
+    end;
+
+  LoadData;
 end;
 
 procedure TfmEmutecaSoftEditor.LoadData;
 begin
-  if not assigned(Software) then
+  if not assigned(Software) or not Assigned(Software.System) then
   begin
     ClearData;
     Exit;
   end;
 
-  cbxSystem.SelectedSystem := Software.System;
+  lSystem.Caption := Software.System.Title;
+
+  cbxGroup.GroupList := Software.System.GroupManager.FullList;
+
+
   if assigned(Software.Group) then
     cbxGroup.SelectedGroup := Software.Group
   else
@@ -224,10 +200,8 @@ end;
 
 procedure TfmEmutecaSoftEditor.SaveData;
 begin
-  if not assigned(Software) then
+  if not assigned(Software) or not assigned(Software.System) then
     Exit;
-
-  Software.System := cbxSystem.SelectedSystem;
 
   if Assigned(cbxGroup.SelectedGroup) then
   begin
@@ -235,7 +209,8 @@ begin
   end
   else
   begin
-    Software.Group := Emuteca.GroupManager.ItemById(cbxGroup.cbxGroup.Text, True);
+    Software.Group := Software.System.GroupManager.ItemById(
+      cbxGroup.cbxGroup.Text, True);
   end;
 
   Software.Title := eTitle.Text;
@@ -281,11 +256,6 @@ constructor TfmEmutecaSoftEditor.Create(TheOwner: TComponent);
     cbxGroup.Align := alTop;
     cbxGroup.OnSelectGroup := @SelectGroup;
     cbxGroup.Parent := gbxGroup;
-
-    FcbxSystem := TfmEmutecaSystemCBX.Create(gbxSystem);
-    cbxSystem.Align := alTop;
-    cbxSystem.OnSelectSystem := @SelectSystem;
-    cbxSystem.Parent := gbxSystem;
   end;
 
 var
@@ -296,6 +266,7 @@ begin
   Self.Enabled := False;
 
   CreateFrames;
+  lSystem.Caption := rsUnknown;
 
   // Adding DumpTypes
   for i in EmutecaDumpStatusStrs do

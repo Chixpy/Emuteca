@@ -10,7 +10,7 @@ uses
   VirtualTrees, LCLIntf, LCLType, LazUTF8,
   ucCHXImageList, uCHXImageUtils, uCHXStrUtils,
   ucEmuteca,
-  ucEmutecaSoftware, ucEmutecaGroup,
+  ucEmutecaGroup, ucEmutecaSoftware,
   ufEmutecaSoftList,
   uGUIConfig;
 
@@ -36,13 +36,11 @@ type
     FEmuteca: cEmuteca;
     FGUIConfig: cGUIConfig;
     FSoftIconList: cCHXImageList;
-    FSystemIcons: cCHXImageList;
     FZoneIconMap: cCHXImageMap;
     procedure SetDumpIconList(AValue: cCHXImageList);
     procedure SetEmuteca(AValue: cEmuteca);
     procedure SetGUIConfig(AValue: cGUIConfig);
     procedure SetSoftIconList(AValue: cCHXImageList);
-    procedure SetSystemIcons(AValue: cCHXImageList);
     procedure SetZoneIconMap(AValue: cCHXImageMap);
 
   public
@@ -51,13 +49,12 @@ type
 
     property SoftIconList: cCHXImageList
       read FSoftIconList write SetSoftIconList;
-    //< Game icons
+    //< Game, group, systems and emulatros icons
     property DumpIconList: cCHXImageList
       read FDumpIconList write SetDumpIconList;
     //< Icons of dump info.
     property ZoneIconMap: cCHXImageMap read FZoneIconMap write SetZoneIconMap;
     //< Icons for zones
-    property SystemIcons: cCHXImageList read FSystemIcons write SetSystemIcons;
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -73,7 +70,7 @@ procedure TfmLEmuTKIcnSoftList.VSTDrawText(Sender: TBaseVirtualTree;
   TargetCanvas: TCanvas; Node: PVirtualNode; Column: TColumnIndex;
   const CellText: string; const CellRect: TRect; var DefaultDraw: boolean);
 var
-  Data: ^cEmutecaSoftware;
+  pData: ^cEmutecaSoftware;
   IconRect: TRect;
   aIcon: TPicture;
   i: integer;
@@ -82,15 +79,63 @@ begin
   DefaultDraw := True;
 
   case Column of
+    0: // System
+    begin
+      if (Node = nil) then
+        Exit;
+      if not assigned(SoftIconList) then
+        Exit;
+      pData := VST.GetNodeData(Node);
+      if (pData^ = nil) then
+        Exit;
+      if not assigned(pData^.System) then
+      Exit;
+
+      DefaultDraw := False;
+
+      // Icon space
+      IconRect := CellRect;
+      IconRect.Right := IconRect.Left + IconRect.Bottom - IconRect.Top;
+
+
+        if pData^.System.Stats.IconIndex = -1 then
+        begin
+          if FileExistsUTF8(pData^.System.Icon) then
+            pData^.System.Stats.IconIndex :=
+              SoftIconList.AddImageFile(pData^.System.Icon)
+          else
+            pData^.System.Stats.IconIndex := 0;
+        end;
+
+        if (pData^.System.Stats.IconIndex < SoftIconList.Count) then
+        begin
+          aIcon := SoftIconList[pData^.System.Stats.IconIndex];
+          TargetCanvas.StretchDraw(CorrectAspectRatio(IconRect, aIcon),
+            aIcon.Graphic);
+        end;
+
+      // Don't draw text
+
+      // Text space
+      //IconRect := CellRect;
+      //IconRect.Left := IconRect.Left + IconRect.Bottom -
+      //  IconRect.Top + VST.TextMargin;
+
+      //DrawText(TargetCanvas.Handle, PChar(CellText), -1, IconRect,
+      //  DT_NOPREFIX or DT_VCENTER or DT_SINGLELINE or
+      //  DT_WORDBREAK or DT_END_ELLIPSIS or DT_EDITCONTROL);
+    end;
+
     1: // Title
     begin
+      if (Node = nil) then
+        Exit;
       if not assigned(SoftIconList) then
         Exit;
 
-      if (Node = nil) then
-        Exit;
-      Data := VST.GetNodeData(Node);
-      if (Data^ = nil) then
+
+      pData := VST.GetNodeData(Node);
+      if (pData^ = nil) then
         Exit;
 
       DefaultDraw := False;
@@ -99,59 +144,59 @@ begin
       IconRect := CellRect;
       IconRect.Right := IconRect.Left + IconRect.Bottom - IconRect.Top;
 
-      if Data^.Stats.IconIndex = -1 then
-      begin
+      //  if pData^.Stats.IconIndex = -1 then
+      //  begin
 
-        // Usual logic:
-        // If GroupIcon = SoftIcon then
-        //   Use/Search icon of group
-        // else
-        //   Search soft icon
-        //   if not found then
-        //      Use/Search icon of group
-        //
-        // Used logic:
-        // Search icon of group
-        // If GroupIcon = SoftIcon then
-        //   Use icon of group
-        // else
-        //   Search soft icon
-        //   if not found then
-        //      Use icon of group
+      // Usual logic:
+      // If GroupIcon = SoftIcon then
+      //   Use/Search icon of group
+      // else
+      //   Search soft icon
+      //   if not found then
+      //      Use/Search icon of group
 
-        if Data^.Group.Stats.IconIndex = -1 then
-        begin // Searching group icon
-          TmpStr := Emuteca.SearchFirstGroupFile(Data^.System.IconFolder,
-            Data^.Group, GUIConfig.ImageExtensions);
-          if TmpStr = '' then
-            Data^.Group.Stats.IconIndex := 0
-          else
-            Data^.Group.Stats.IconIndex := SoftIconList.AddImageFile(TmpStr);
-        end;
+      // Used logic:
+      // Search icon of group
+      // If GroupIcon = SoftIcon then
+      //   Use icon of group
+      // else
+      //   Search soft icon
+      //   if not found then
+      //      Use icon of group
 
-        // Dirty same file test
-        if RemoveFromBrackets(ExtractFileNameOnly(Data^.Group.ID)) =
-          RemoveFromBrackets(ExtractFileNameOnly(Data^.FileName)) then
-        begin
-          Data^.Stats.IconIndex := Data^.Group.Stats.IconIndex;
-        end
-        else
-        begin
-          TmpStr := Emuteca.SearchFirstSoftFile(Data^.System.IconFolder,
-            Data^, GUIConfig.ImageExtensions, False);
-          if TmpStr = '' then
-            Data^.Stats.IconIndex := Data^.Group.Stats.IconIndex
-          else
-            Data^.Stats.IconIndex := SoftIconList.AddImageFile(TmpStr);
-        end;
-      end;
+      //  if pData^.Info.Group.Stats.IconIndex = -1 then
+      //  begin // Searching group icon
+      //    TmpStr := Emuteca.SearchFirstGroupFile(pData^.Info.System.IconFolder,
+      //      pData^.Info.Group, GUIConfig.ImageExtensions);
+      //    if TmpStr = '' then
+      //      pData^.Info.Group.Stats.IconIndex := 0
+      //    else
+      //      pData^.Info.Group.Stats.IconIndex := SoftIconList.AddImageFile(TmpStr);
+      //  end;
 
-      if (Data^.Stats.IconIndex < SoftIconList.Count) then
-      begin
-        aIcon := SoftIconList[Data^.Stats.IconIndex];
-        TargetCanvas.StretchDraw(CorrectAspectRatio(IconRect, aIcon),
-          aIcon.Graphic);
-      end;
+      //  // Dirty same file test
+      //  if RemoveFromBrackets(ExtractFileNameOnly(pData^.Info.Group.ID)) =
+      //    RemoveFromBrackets(ExtractFileNameOnly(pData^.FileName)) then
+      //  begin
+      //    pData^.Stats.IconIndex := pData^.Info.Group.Stats.IconIndex;
+      //  end
+      //  else
+      //  begin
+      //    TmpStr := Emuteca.SearchFirstSoftFile(pData^.Info.System.IconFolder,
+      //      pData^, GUIConfig.ImageExtensions, False);
+      //    if TmpStr = '' then
+      //      pData^.Stats.IconIndex := pData^.Info.Group.Stats.IconIndex
+      //    else
+      //      pData^.Stats.IconIndex := SoftIconList.AddImageFile(TmpStr);
+      //  end;
+      //end;
+
+      //if (pData^.Stats.IconIndex < SoftIconList.Count) then
+      //begin
+      //  aIcon := SoftIconList[pData^.Stats.IconIndex];
+      //  TargetCanvas.StretchDraw(CorrectAspectRatio(IconRect, aIcon),
+      //    aIcon.Graphic);
+      //end;
 
       // Text space
       IconRect := CellRect;
@@ -161,7 +206,6 @@ begin
       DrawText(TargetCanvas.Handle, PChar(CellText), -1, IconRect,
         DT_NOPREFIX or DT_VCENTER or DT_SINGLELINE or
         DT_WORDBREAK or DT_END_ELLIPSIS or DT_EDITCONTROL);
-
     end;
 
     2: // Version
@@ -171,8 +215,8 @@ begin
 
       if (Node = nil) then
         Exit;
-      Data := VST.GetNodeData(Node);
-      if (Data^ = nil) then
+      pData := VST.GetNodeData(Node);
+      if (pData^ = nil) then
         Exit;
 
       DefaultDraw := False;
@@ -181,7 +225,7 @@ begin
       IconRect := CellRect;
       IconRect.Right := IconRect.Left + IconRect.Bottom - IconRect.Top;
 
-      if not ZoneIconMap.TryGetData(Data^.Zone, aIcon) then
+      if not ZoneIconMap.TryGetData(pData^.Zone, aIcon) then
         ZoneIconMap.TryGetData('', aIcon);
       if assigned(aIcon) then
         TargetCanvas.StretchDraw(CorrectAspectRatio(IconRect, aIcon),
@@ -192,7 +236,7 @@ begin
       IconRect.Left := IconRect.Left + IconRect.Bottom -
         IconRect.Top + VST.TextMargin;
 
-      DrawText(TargetCanvas.Handle, PChar(Data^.Version), -1, IconRect,
+      DrawText(TargetCanvas.Handle, PChar(pData^.Version), -1, IconRect,
         DT_NOPREFIX or DT_VCENTER or DT_SINGLELINE or
         DT_WORDBREAK or DT_END_ELLIPSIS or DT_EDITCONTROL);
     end;
@@ -204,8 +248,8 @@ begin
 
       if (Node = nil) then
         Exit;
-      Data := VST.GetNodeData(Node);
-      if (Data^ = nil) then
+      pData := VST.GetNodeData(Node);
+      if (pData^ = nil) then
         Exit;
 
       DefaultDraw := False;
@@ -215,8 +259,8 @@ begin
 
       // DumpStatus (0-5)
       TargetCanvas.StretchDraw(CorrectAspectRatio(IconRect,
-        DumpIconList[Ord(Data^.DumpStatus)]),
-        DumpIconList[Ord(Data^.DumpStatus)].Graphic);
+        DumpIconList[Ord(pData^.DumpStatus)]),
+        DumpIconList[Ord(pData^.DumpStatus)].Graphic);
 
       // Others
       for i := 6 to High(LazEmuTKIconFiles) do
@@ -226,19 +270,19 @@ begin
 
         case i of
           6: // Fixed
-            TmpStr := Data^.Fixed;
+            TmpStr := pData^.Fixed;
           7: // Trainer
-            TmpStr := Data^.Trainer;
+            TmpStr := pData^.Trainer;
           8: // Translation;
-            TmpStr := Data^.Translation;
+            TmpStr := pData^.Translation;
           9: // Pirate
-            TmpStr := Data^.Pirate;
+            TmpStr := pData^.Pirate;
           10: // Cracked
-            TmpStr := Data^.Cracked;
+            TmpStr := pData^.Cracked;
           11: // Modified
-            TmpStr := Data^.Modified;
+            TmpStr := pData^.Modified;
           12: // Hack
-            TmpStr := Data^.Hack;
+            TmpStr := pData^.Hack;
           else
             TmpStr := '';
         end;
@@ -281,13 +325,6 @@ begin
   FSoftIconList := AValue;
 end;
 
-procedure TfmLEmuTKIcnSoftList.SetSystemIcons(AValue: cCHXImageList);
-begin
-  if FSystemIcons = AValue then
-    Exit;
-  FSystemIcons := AValue;
-end;
-
 procedure TfmLEmuTKIcnSoftList.SetZoneIconMap(AValue: cCHXImageMap);
 begin
   if FZoneIconMap = AValue then
@@ -299,7 +336,11 @@ constructor TfmLEmuTKIcnSoftList.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
 
-  // Set Width of tags column
+  // Set Width of icon columns
+  // System
+  vst.Header.Columns[0].Width :=
+    vst.DefaultNodeHeight + vst.Header.Columns[0].Spacing * 2;
+  // DumpStatus
   vst.Header.Columns[5].Width :=
     vst.DefaultNodeHeight * 8 + vst.Header.Columns[5].Spacing * 2;
 end;

@@ -269,7 +269,6 @@ begin T := Self.ID; end;
 (*----------------------------------------------------------------------------*)
 procedure RIRegister_ucEmutecaSystem_Routines(S: TPSExec);
 begin
- S.RegisterDelphiFunction(@EmutecaFileKey2Str, 'EmutecaFileKey2Str', cdRegister);
  S.RegisterDelphiFunction(@Str2EmutecaFileKey, 'Str2EmutecaFileKey', cdRegister);
 end;
 

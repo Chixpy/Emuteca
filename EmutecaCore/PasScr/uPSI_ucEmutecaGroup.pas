@@ -85,9 +85,6 @@ end;
 
 (* === run-time registration functions === *)
 (*----------------------------------------------------------------------------*)
-procedure cEmutecaGroupStats_R(Self: cEmutecaGroup; var T: cEmutecaPlayingStats);
-begin T := Self.Stats; end;
-
 (*----------------------------------------------------------------------------*)
 procedure cEmutecaGroupDeveloper_W(Self: cEmutecaGroup; const T: string);
 begin Self.Developer := T; end;
@@ -103,10 +100,6 @@ begin Self.Year := T; end;
 (*----------------------------------------------------------------------------*)
 procedure cEmutecaGroupYear_R(Self: cEmutecaGroup; var T: string);
 begin T := Self.Year; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaGroupSystemKey_R(Self: cEmutecaGroup; var T: string);
-begin T := Self.SystemKey; end;
 
 (*----------------------------------------------------------------------------*)
 procedure cEmutecaGroupTitle_W(Self: cEmutecaGroup; const T: string);
@@ -125,14 +118,6 @@ procedure cEmutecaGroupID_R(Self: cEmutecaGroup; var T: string);
 begin T := Self.ID; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cEmutecaGroupSystem_W(Self: cEmutecaGroup; const T: cEmutecaSystem);
-begin Self.System := T; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaGroupSystem_R(Self: cEmutecaGroup; var T: cEmutecaSystem);
-begin T := Self.System; end;
-
-(*----------------------------------------------------------------------------*)
 procedure cEmutecaGroupDataString_W(Self: cEmutecaGroup; const T: string);
 begin Self.DataString := T; end;
 
@@ -146,14 +131,10 @@ begin
   with CL.Add(cEmutecaGroup) do
   begin
     RegisterPropertyHelper(@cEmutecaGroupDataString_R,@cEmutecaGroupDataString_W,'DataString');
-    RegisterPropertyHelper(@cEmutecaGroupSystem_R,@cEmutecaGroupSystem_W,'System');
-    RegisterMethod(@cEmutecaGroup.FPOObservedChanged, 'FPOObservedChanged');
     RegisterPropertyHelper(@cEmutecaGroupID_R,@cEmutecaGroupID_W,'ID');
     RegisterPropertyHelper(@cEmutecaGroupTitle_R,@cEmutecaGroupTitle_W,'Title');
-    RegisterPropertyHelper(@cEmutecaGroupSystemKey_R,nil,'SystemKey');
     RegisterPropertyHelper(@cEmutecaGroupYear_R,@cEmutecaGroupYear_W,'Year');
     RegisterPropertyHelper(@cEmutecaGroupDeveloper_R,@cEmutecaGroupDeveloper_W,'Developer');
-    RegisterPropertyHelper(@cEmutecaGroupStats_R,nil,'Stats');
   end;
 end;
 

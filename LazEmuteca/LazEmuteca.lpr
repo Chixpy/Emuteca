@@ -11,9 +11,9 @@ uses
   ucEmuteca, uPSI_ucEmuteca, ucEmutecaGroup, ucEmutecaConfig, ufrLEmuTKMain,
   ucEmutecaEmulatorManager, ucEmutecaGroupManager, ucEmutecaSystemManager,
   ucEmutecaEmulator, ufEmutecaSoftList, ucEmutecaSoftware, ucEmutecaSystem,
-  ugEmutecaManager, ugEmutecaPersList, ufEmutecaScriptManager,
+  ufEmutecaScriptManager,
   ucEmutecaSoftManager, uGUIConfig, uaCHXStorable, uaCHXConfig,
-  uaEmutecaManager, ufEmutecaSystemImgEditor, ufEmutecaActAddFolder,
+  uaEmutecaManager, ufEmutecaSystemImgEditor,
   ucEmutecaScriptEngine, ufESMSoftList, ufEmutecaSystemCBX, ufESMGroupList,
   ufLEmuTKChkSoftList, ufEmutecaGroupCBX, ufLEmuTKIcnSoftList, ufCHXPropEditor,
   ufEmutecaSystemEditor, ufLEmuTKFullSystemEditor, ufCHXChkLstPropEditor,
@@ -21,7 +21,8 @@ uses
   ufLEmuTKFullEmuEditor, ufEmutecaEmulatorEditor, ufLEmuTKSoftMedia,
   ufEmutecaActAddSoft, ufLEmuTKMain, ufLEmuTKPreviewList, ufCHXImgViewer,
   ufLEmuTKSoftImgPreview, ufLEmuTKSoftTxtPreview, ufCHXForm, ufLEmuTKIcnGrpList,
-  ufrLEmuTKExportData, ufLEmuTKExportData;
+  ufrLEmuTKExportData, ufLEmuTKExportData, 
+ufEmutecaActAddFolder;
 
 {$R *.res}
 

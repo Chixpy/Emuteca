@@ -101,8 +101,8 @@ begin
 
   if assigned(Emuteca) then
   begin
-    fmEmutecaSystemCBX.SystemList := Emuteca.SystemManager.VisibleList;
-    fmEmutecaGroupList.GroupList := Emuteca.GroupManager.FullList;
+    fmEmutecaSystemCBX.SystemList := Emuteca.SystemManager.EnabledList;
+ //   fmEmutecaGroupList.GroupList := Emuteca.GroupManager.FullList;
     fmEmutecaSoftList.SoftList := Emuteca.SoftManager.VisibleList;
   end
   else

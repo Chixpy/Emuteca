@@ -16,7 +16,7 @@
 {"hash":214540302,"name":"tfmemutecasofteditor.lversion.caption","sourcebytes":[86,101,114,115,105,111,110],"value":"Version"},
 {"hash":154192242,"name":"tfmemutecasofteditor.lpublisher.caption","sourcebytes":[80,117,98,108,105,115,104,101,114],"value":"Publisher"},
 {"hash":392066,"name":"tfmemutecasofteditor.lyear.caption","sourcebytes":[89,101,97,114],"value":"Year"},
-{"hash":205794660,"name":"tfmemutecasofteditor.eyear.texthint","sourcebytes":[89,89,89,89,47,77,77,47,68,68],"value":"YYYY\/MM\/DD"},
+{"hash":205794660,"name":"tfmemutecasofteditor.eyear.texthint","sourcebytes":[89,89,89,89,47,77,77,47,68,68],"value":"YYYY/MM/DD"},
 {"hash":7476805,"name":"tfmemutecasofteditor.lzone.caption","sourcebytes":[108,90,111,110,101],"value":"lZone"},
 {"hash":81879810,"name":"tfmemutecasofteditor.ezone.texthint","sourcebytes":[73,83,79,51,49,54,54,45,49,32,97,108,112,104,97,45,50],"value":"ISO3166-1 alpha-2"},
 {"hash":41112703,"name":"tfmemutecasofteditor.gbxtitle.caption","sourcebytes":[84,105,116,108,101,32,105,110,102,111],"value":"Title info"},

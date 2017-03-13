@@ -76,12 +76,12 @@ begin
     RegisterProperty('TempFolder', 'string', iptrw);
     RegisterMethod('Procedure LoadConfig( aFile : string)');
     RegisterMethod('Function SearchMainEmulator( aID : string) : cEmutecaEmulator');
-    RegisterMethod('Procedure SearchMediaFiles( OutFileList : TStrings; aFolder : TFilename; aFileName : TFilename; Extensions : TStrings)');
-    RegisterMethod('Procedure SearchSoftFiles( OutFileList : TStrings; aFolder : TFilename; aSoft : cEmutecaSoftware; Extensions : TStrings)');
-    RegisterMethod('Procedure SearchGroupFiles( OutFileList : TStrings; aFolder : TFilename; aGroup : cEmutecaGroup; Extensions : TStrings)');
-    RegisterMethod('Function SearchFirstMediaFile( aFolder : TFilename; aFileName : TFilename; Extensions : TStrings) : TFilename');
-    RegisterMethod('Function SearchFirstSoftFile( aFolder : TFilename; aSoft : cEmutecaSoftware; Extensions : TStrings; UseGroup : boolean) : TFilename');
-    RegisterMethod('Function SearchFirstGroupFile( aFolder : TFilename; aGroup : cEmutecaGroup; Extensions : TStrings) : TFilename');
+    RegisterMethod('Procedure SearchMediaFiles( OutFileList : TStrings; aFolder : string; aFileName : string; Extensions : TStrings)');
+    RegisterMethod('Procedure SearchSoftFiles( OutFileList : TStrings; aFolder : string; aSoft : cEmutecaSoftware; Extensions : TStrings)');
+    RegisterMethod('Procedure SearchGroupFiles( OutFileList : TStrings; aFolder : string; aGroup : cEmutecaGroup; Extensions : TStrings)');
+    RegisterMethod('Function SearchFirstMediaFile( aFolder : string; aFileName : string; Extensions : TStrings) : string');
+    RegisterMethod('Function SearchFirstSoftFile( aFolder : string; aSoft : cEmutecaSoftware; Extensions : TStrings; UseGroup : boolean) : string');
+    RegisterMethod('Function SearchFirstGroupFile( aFolder : string; aGroup : cEmutecaGroup; Extensions : TStrings) : string');
     RegisterMethod('Procedure FilterBySystem( aSystem : cEmutecaSystem)');
     RegisterMethod('Function RunSoftware( const aSoftware : cEmutecaSoftware) : integer');
     RegisterProperty('Config', 'cEmutecaConfig', iptrw);
@@ -108,16 +108,8 @@ procedure cEmutecaEmulatorManager_R(Self: cEmuteca; var T: cEmutecaEmulatorManag
 begin T := Self.EmulatorManager; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cEmutecaGroupManager_R(Self: cEmuteca; var T: cEmutecaGroupManager);
-begin T := Self.GroupManager; end;
-
-(*----------------------------------------------------------------------------*)
 procedure cEmutecaSoftManager_R(Self: cEmuteca; var T: cEmutecaSoftManager);
 begin T := Self.SoftManager; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaConfig_W(Self: cEmuteca; const T: cEmutecaConfig);
-begin Self.Config := T; end;
 
 (*----------------------------------------------------------------------------*)
 procedure cEmutecaConfig_R(Self: cEmuteca; var T: cEmutecaConfig);
@@ -154,11 +146,8 @@ begin
     RegisterMethod(@cEmuteca.SearchFirstMediaFile, 'SearchFirstMediaFile');
     RegisterMethod(@cEmuteca.SearchFirstSoftFile, 'SearchFirstSoftFile');
     RegisterMethod(@cEmuteca.SearchFirstGroupFile, 'SearchFirstGroupFile');
-    RegisterMethod(@cEmuteca.FilterBySystem, 'FilterBySystem');
     RegisterMethod(@cEmuteca.RunSoftware, 'RunSoftware');
-    RegisterPropertyHelper(@cEmutecaConfig_R,@cEmutecaConfig_W,'Config');
     RegisterPropertyHelper(@cEmutecaSoftManager_R,nil,'SoftManager');
-    RegisterPropertyHelper(@cEmutecaGroupManager_R,nil,'GroupManager');
     RegisterPropertyHelper(@cEmutecaEmulatorManager_R,nil,'EmulatorManager');
     RegisterPropertyHelper(@cEmutecaSystemManager_R,nil,'SystemManager');
   end;

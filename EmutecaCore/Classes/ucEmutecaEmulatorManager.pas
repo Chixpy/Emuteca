@@ -46,6 +46,9 @@ type
 
 
   public
+    procedure LoadFromStrLst(aTxtFile: TStrings); override;
+    procedure SaveToStrLst(aTxtFile: TStrings; const ExportMode: boolean);
+      override;
     property FullList: cEmutecaEmulatorList read FFullList;
 
     procedure LoadFromIni(IniFile: TCustomIniFile); override;
@@ -125,6 +128,16 @@ begin
   aList.EndUpdate;
 end;
 
+procedure cEmutecaEmulatorManager.LoadFromStrLst(aTxtFile: TStrings);
+begin
+
+end;
+
+procedure cEmutecaEmulatorManager.SaveToStrLst(aTxtFile: TStrings;
+  const ExportMode: boolean);
+begin
+
+end;
 
 procedure cEmutecaEmulatorManager.LoadFromIni(IniFile: TCustomIniFile);
 var

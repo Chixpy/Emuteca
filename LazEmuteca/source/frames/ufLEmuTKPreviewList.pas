@@ -32,7 +32,7 @@ type
 
   private
     FCurrItem: integer;
-    FIconsIni: TFilename;
+    FIconsIni: string;
     FItemCount: integer;
     procedure SetCurrItem(AValue: integer);
     procedure SetItemCount(AValue: integer);
@@ -41,11 +41,11 @@ type
     property ItemCount: integer read FItemCount write SetItemCount default 0;
     property CurrItem: integer read FCurrItem write SetCurrItem default 0;
 
-    procedure SetIconsIni(AValue: TFilename); virtual;
+    procedure SetIconsIni(AValue: string); virtual;
     procedure OnCurrItemChange; virtual; abstract;
 
   public
-    property IconsIni: TFilename read FIconsIni write SetIconsIni;
+    property IconsIni: string read FIconsIni write SetIconsIni;
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -116,7 +116,7 @@ begin
   OnCurrItemChange;
 end;
 
-procedure TfmLEmuTKPreviewList.SetIconsIni(AValue: TFilename);
+procedure TfmLEmuTKPreviewList.SetIconsIni(AValue: string);
 begin
   FIconsIni := SetAsFile(AValue);
   ReadActionsIcons(IconsIni, Self.Name, ilPreviewList, alPreviewList);

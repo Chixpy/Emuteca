@@ -5,7 +5,7 @@ unit uEmutecaCommon;
 interface
 
 uses
-  Classes, SysUtils;
+  Classes, SysUtils, sha1;
 
 const
   { TODO : Change prefix to krs }
@@ -24,15 +24,10 @@ const
   kGroupSectionKey = 'Group: ';
   {< Key for group sections in database files. }
 
-  // Virtual extensions for internal use.
-  // ------------------------------------
-  // For dirty tricks...
-  kEmutecaVirtualFolderExt = '.(folder)';
-  {< Virtual extension used for folders in some contexts. }
-  kEmutecaVirtualGroupExt = '.(group)';
-  {< Virtual extension used for groups filenames. }
-  kEmutecaVirtualGameExt = '.(game)';
-  {< Virtual extension used for game filenames. }
+  // Extensions
+  // ----------
+  kEmutecaGroupFileExt = '.egl';
+  {< Extension for group lists. }
 
   // EXIT CODES for handling some errors
   // Praying for no emulator use these exit codes.
@@ -41,11 +36,9 @@ const
   kEmutecaDecompressError = -301;
   {< Error decompressing archive. }
 
-  // Constants for file keys
-  krsCRC32 = 'CRC32';
-  krsSHA1 = 'SHA1';
-  krsFileName = 'FileName';
-  krsCustom = 'Custom';
+  kEmuTKSHA1Empty:TSHA1Digest = (0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
+
+
 
 resourcestring
 
@@ -71,21 +64,6 @@ resourcestring
 
   rsFmtNTimes = '%0:d times.';
   {< %0:d = Number of times. }
-
-  // Default data strings
-  // --------------------
-  rsNever = 'Never';
-  rsUnknown = ' Unknown';
-  rsFmtApplicationTitle = '%0:s %1:s';
-  {<
-    %0:s = 'Emuteca' (Application name).
-    %1:s = Version.
-  }
-  rsFmtWindowCaption = '%0:s : %1:s';
-  {<
-    %0:s = Application.Title (rsFmtApplicationTitle).
-    %1:s = Window caption.
-  }
 
 type
   TEmutecaProgressCallBack = function(const Title, Info1, Info2: string;

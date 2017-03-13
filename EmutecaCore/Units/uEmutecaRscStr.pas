@@ -22,10 +22,23 @@
 unit uEmutecaRscStr;
 
 {$mode objfpc}{$H+}
-
 interface
 
-
+resourcestring
+  // Default data strings
+  // --------------------
+  rsNever = 'Never';
+  rsUnknown = ' Unknown';
+  rsFmtApplicationTitle = '%0:s %1:s';
+{<
+  %0:s = 'Emuteca' (Application name).
+  %1:s = Version.
+}
+  rsFmtWindowCaption = '%0:s : %1:s';
+{<
+  %0:s = Application.Title (rsFmtApplicationTitle).
+  %1:s = Window caption.
+}
 
 implementation
 

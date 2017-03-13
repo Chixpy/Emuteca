@@ -12,7 +12,7 @@ type
 
   { TfmEmutecaSystemCBX }
 
-  TfmEmutecaSystemCBX = class(TFrame, IFPObserver)
+  TfmEmutecaSystemCBX = class(TFrame)
     cbxSystem: TComboBox;
     procedure cbxSystemChange(Sender: TObject);
 
@@ -41,10 +41,6 @@ type
       read FOnSelectSystem write SetOnSelectSystem;
     {< Callback when selecting a system. }
 
-    procedure FPOObservedChanged(ASender: TObject;
-      Operation: TFPObservedOperation; Data: Pointer);
-    {< Subject has changed. }
-
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
   end;
@@ -60,25 +56,9 @@ begin
   if FSystemList = AValue then
     Exit;
 
-  if Assigned(FSystemList) then
-    FSystemList.FPODetachObserver(Self);
-
   FSystemList := AValue;
 
-  if Assigned(SystemList) then
-    SystemList.FPOAttachObserver(Self);
-
   UpdateSystems;
-end;
-
-procedure TfmEmutecaSystemCBX.FPOObservedChanged(ASender: TObject;
-  Operation: TFPObservedOperation; Data: Pointer);
-begin
-  case Operation of
-    ooFree: SystemList := nil;
-    else
-      UpdateSystems; // TODO: Quick add or delete Item
-  end;
 end;
 
 constructor TfmEmutecaSystemCBX.Create(TheOwner: TComponent);
@@ -88,9 +68,6 @@ end;
 
 destructor TfmEmutecaSystemCBX.Destroy;
 begin
-  if Assigned(SystemList) then
-    SystemList.FPODetachObserver(Self);
-
   inherited Destroy;
 end;
 

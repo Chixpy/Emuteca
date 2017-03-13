@@ -201,13 +201,13 @@ end;
 (*----------------------------------------------------------------------------*)
 procedure cEmutecaConfigGroupsFile_W(Self: cEmutecaConfig; const T: string);
 begin
-  Self.GroupsFile := T;
+  Self.SysDataFolder := T;
 end;
 
 (*----------------------------------------------------------------------------*)
 procedure cEmutecaConfigGroupsFile_R(Self: cEmutecaConfig; var T: string);
 begin
-  T := Self.GroupsFile;
+  T := Self.SysDataFolder;
 end;
 
 (*----------------------------------------------------------------------------*)

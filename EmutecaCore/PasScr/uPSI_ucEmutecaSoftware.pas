@@ -31,7 +31,7 @@ procedure SIRegister_cEmutecaSoftware(CL: TPSPascalCompiler);
 procedure SIRegister_ucEmutecaSoftware(CL: TPSPascalCompiler);
 
 { run-time registration functions }
-procedure RIRegister_ucEmutecaSoftware_Routines(S: TPSExec);
+//procedure RIRegister_ucEmutecaSoftware_Routines(S: TPSExec);
 procedure RIRegister_cEmutecaSoftware(CL: TPSRuntimeClassImporter);
 procedure RIRegister_ucEmutecaSoftware(CL: TPSRuntimeClassImporter);
 
@@ -100,167 +100,165 @@ end;
 (*----------------------------------------------------------------------------*)
 procedure SIRegister_ucEmutecaSoftware(CL: TPSPascalCompiler);
 begin
- CL.AddConstantN('krsedsVerified','String').SetString( 'Verified');
- CL.AddConstantN('krsedsGood','String').SetString( 'GoodDump');
- CL.AddConstantN('krsedsAlternate','String').SetString( 'Alternate');
- CL.AddConstantN('krsedsOverDump','String').SetString( 'OverDump');
- CL.AddConstantN('krsedsBadDump','String').SetString( 'BadDump');
- CL.AddConstantN('krsedsUnderDump','String').SetString( 'UnderDump');
- CL.AddConstantN('rsedsVerified','').SetString( krsedsVerified);
- CL.AddConstantN('rsedsGood','').SetString( krsedsGood);
- CL.AddConstantN('rsedsAlternate','').SetString( krsedsAlternate);
- CL.AddConstantN('rsedsOverDump','').SetString( krsedsOverDump);
- CL.AddConstantN('rsedsBadDump','').SetString( krsedsBadDump);
- CL.AddConstantN('rsedsUnderDump','').SetString( krsedsUnderDump);
-  CL.AddTypeS('TEmutecaDumpStatus', '( edsVerified, edsGood, edsAlternate, edsO'
-   +'verDump, edsBadDump, edsUnderDump )');
-  SIRegister_cEmutecaSoftware(CL);
-  CL.AddTypeS('cEmutecaSoftList', 'TComponentList');
-  CL.AddTypeS('TEmutecaReturnSoftCB', 'Function ( aSoft : cEmutecaSoftware) : b'
-   +'oolean');
- CL.AddDelphiFunction('Function Key2EmutecaDumpSt( aString : string) : TEmutecaDumpStatus');
+ //CL.AddConstantN('krsedsVerified','String').SetString( 'Verified');
+ //CL.AddConstantN('krsedsGood','String').SetString( 'GoodDump');
+ //CL.AddConstantN('krsedsAlternate','String').SetString( 'Alternate');
+ //CL.AddConstantN('krsedsOverDump','String').SetString( 'OverDump');
+ //CL.AddConstantN('krsedsBadDump','String').SetString( 'BadDump');
+ //CL.AddConstantN('krsedsUnderDump','String').SetString( 'UnderDump');
+ //CL.AddConstantN('rsedsVerified','').SetString( krsedsVerified);
+ //CL.AddConstantN('rsedsGood','').SetString( krsedsGood);
+ //CL.AddConstantN('rsedsAlternate','').SetString( krsedsAlternate);
+ //CL.AddConstantN('rsedsOverDump','').SetString( krsedsOverDump);
+ //CL.AddConstantN('rsedsBadDump','').SetString( krsedsBadDump);
+ //CL.AddConstantN('rsedsUnderDump','').SetString( krsedsUnderDump);
+ // CL.AddTypeS('TEmutecaDumpStatus', '( edsVerified, edsGood, edsAlternate, edsO'
+ //  +'verDump, edsBadDump, edsUnderDump )');
+ // SIRegister_cEmutecaSoftware(CL);
+ // CL.AddTypeS('cEmutecaSoftList', 'TComponentList');
+ // CL.AddTypeS('TEmutecaReturnSoftCB', 'Function ( aSoft : cEmutecaSoftware) : b'
+ //  +'oolean');
+ //CL.AddDelphiFunction('Function Key2EmutecaDumpSt( aString : string) : TEmutecaDumpStatus');
 end;
 
 (* === run-time registration functions === *)
 (*----------------------------------------------------------------------------*)
-procedure cEmutecaSoftwareStats_R(Self: cEmutecaSoftware; var T: cEmutecaPlayingStats);
-begin T := Self.Stats; end;
 
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaSoftwareHack_W(Self: cEmutecaSoftware; const T: string);
-begin Self.Hack := T; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaSoftwareHack_R(Self: cEmutecaSoftware; var T: string);
-begin T := Self.Hack; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaSoftwareModified_W(Self: cEmutecaSoftware; const T: string);
-begin Self.Modified := T; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaSoftwareModified_R(Self: cEmutecaSoftware; var T: string);
-begin T := Self.Modified; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaSoftwareCracked_W(Self: cEmutecaSoftware; const T: string);
-begin Self.Cracked := T; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaSoftwareCracked_R(Self: cEmutecaSoftware; var T: string);
-begin T := Self.Cracked; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaSoftwarePirate_W(Self: cEmutecaSoftware; const T: string);
-begin Self.Pirate := T; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaSoftwarePirate_R(Self: cEmutecaSoftware; var T: string);
-begin T := Self.Pirate; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaSoftwareTranslation_W(Self: cEmutecaSoftware; const T: string);
-begin Self.Translation := T; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaSoftwareTranslation_R(Self: cEmutecaSoftware; var T: string);
-begin T := Self.Translation; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaSoftwareTrainer_W(Self: cEmutecaSoftware; const T: string);
-begin Self.Trainer := T; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaSoftwareTrainer_R(Self: cEmutecaSoftware; var T: string);
-begin T := Self.Trainer; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaSoftwareFixed_W(Self: cEmutecaSoftware; const T: string);
-begin Self.Fixed := T; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaSoftwareFixed_R(Self: cEmutecaSoftware; var T: string);
-begin T := Self.Fixed; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaSoftwareDumpInfo_W(Self: cEmutecaSoftware; const T: string);
-begin Self.DumpInfo := T; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaSoftwareDumpInfo_R(Self: cEmutecaSoftware; var T: string);
-begin T := Self.DumpInfo; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaSoftwareDumpStatus_W(Self: cEmutecaSoftware; const T: TEmutecaDumpStatus);
-begin Self.DumpStatus := T; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaSoftwareDumpStatus_R(Self: cEmutecaSoftware; var T: TEmutecaDumpStatus);
-begin T := Self.DumpStatus; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaSoftwareZone_W(Self: cEmutecaSoftware; const T: string);
-begin Self.Zone := T; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaSoftwareZone_R(Self: cEmutecaSoftware; var T: string);
-begin T := Self.Zone; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaSoftwarePublisher_W(Self: cEmutecaSoftware; const T: string);
-begin Self.Publisher := T; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaSoftwarePublisher_R(Self: cEmutecaSoftware; var T: string);
-begin T := Self.Publisher; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaSoftwareYear_W(Self: cEmutecaSoftware; const T: string);
-begin Self.Year := T; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaSoftwareYear_R(Self: cEmutecaSoftware; var T: string);
-begin T := Self.Year; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaSoftwareVersion_W(Self: cEmutecaSoftware; const T: string);
-begin Self.Version := T; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaSoftwareVersion_R(Self: cEmutecaSoftware; var T: string);
-begin T := Self.Version; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaSoftwareSortTitle_W(Self: cEmutecaSoftware; const T: string);
-begin Self.SortTitle := T; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaSoftwareSortTitle_R(Self: cEmutecaSoftware; var T: string);
-begin T := Self.SortTitle; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaSoftwareTranslitTitle_W(Self: cEmutecaSoftware; const T: string);
-begin Self.TranslitTitle := T; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaSoftwareTranslitTitle_R(Self: cEmutecaSoftware; var T: string);
-begin T := Self.TranslitTitle; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaSoftwareSystemKey_R(Self: cEmutecaSoftware; var T: string);
-begin T := Self.SystemKey; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaSoftwareGroupKey_R(Self: cEmutecaSoftware; var T: string);
-begin T := Self.GroupKey; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaSoftwareTitle_W(Self: cEmutecaSoftware; const T: string);
-begin Self.Title := T; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaSoftwareTitle_R(Self: cEmutecaSoftware; var T: string);
-begin T := Self.Title; end;
+//(*----------------------------------------------------------------------------*)
+//procedure cEmutecaSoftwareHack_W(Self: cEmutecaSoftware; const T: string);
+//begin Self.Hack := T; end;
+//
+//(*----------------------------------------------------------------------------*)
+//procedure cEmutecaSoftwareHack_R(Self: cEmutecaSoftware; var T: string);
+//begin T := Self.Hack; end;
+//
+//(*----------------------------------------------------------------------------*)
+//procedure cEmutecaSoftwareModified_W(Self: cEmutecaSoftware; const T: string);
+//begin Self.Modified := T; end;
+//
+//(*----------------------------------------------------------------------------*)
+//procedure cEmutecaSoftwareModified_R(Self: cEmutecaSoftware; var T: string);
+//begin T := Self.Modified; end;
+//
+//(*----------------------------------------------------------------------------*)
+//procedure cEmutecaSoftwareCracked_W(Self: cEmutecaSoftware; const T: string);
+//begin Self.Cracked := T; end;
+//
+//(*----------------------------------------------------------------------------*)
+//procedure cEmutecaSoftwareCracked_R(Self: cEmutecaSoftware; var T: string);
+//begin T := Self.Cracked; end;
+//
+//(*----------------------------------------------------------------------------*)
+//procedure cEmutecaSoftwarePirate_W(Self: cEmutecaSoftware; const T: string);
+//begin Self.Pirate := T; end;
+//
+//(*----------------------------------------------------------------------------*)
+//procedure cEmutecaSoftwarePirate_R(Self: cEmutecaSoftware; var T: string);
+//begin T := Self.Pirate; end;
+//
+//(*----------------------------------------------------------------------------*)
+//procedure cEmutecaSoftwareTranslation_W(Self: cEmutecaSoftware; const T: string);
+//begin Self.Translation := T; end;
+//
+//(*----------------------------------------------------------------------------*)
+//procedure cEmutecaSoftwareTranslation_R(Self: cEmutecaSoftware; var T: string);
+//begin T := Self.Translation; end;
+//
+//(*----------------------------------------------------------------------------*)
+//procedure cEmutecaSoftwareTrainer_W(Self: cEmutecaSoftware; const T: string);
+//begin Self.Trainer := T; end;
+//
+//(*----------------------------------------------------------------------------*)
+//procedure cEmutecaSoftwareTrainer_R(Self: cEmutecaSoftware; var T: string);
+//begin T := Self.Trainer; end;
+//
+//(*----------------------------------------------------------------------------*)
+//procedure cEmutecaSoftwareFixed_W(Self: cEmutecaSoftware; const T: string);
+//begin Self.Fixed := T; end;
+//
+//(*----------------------------------------------------------------------------*)
+//procedure cEmutecaSoftwareFixed_R(Self: cEmutecaSoftware; var T: string);
+//begin T := Self.Fixed; end;
+//
+//(*----------------------------------------------------------------------------*)
+//procedure cEmutecaSoftwareDumpInfo_W(Self: cEmutecaSoftware; const T: string);
+//begin Self.DumpInfo := T; end;
+//
+//(*----------------------------------------------------------------------------*)
+//procedure cEmutecaSoftwareDumpInfo_R(Self: cEmutecaSoftware; var T: string);
+//begin T := Self.DumpInfo; end;
+//
+//(*----------------------------------------------------------------------------*)
+//procedure cEmutecaSoftwareDumpStatus_W(Self: cEmutecaSoftware; const T: TEmutecaDumpStatus);
+//begin Self.DumpStatus := T; end;
+//
+//(*----------------------------------------------------------------------------*)
+//procedure cEmutecaSoftwareDumpStatus_R(Self: cEmutecaSoftware; var T: TEmutecaDumpStatus);
+//begin T := Self.DumpStatus; end;
+//
+//(*----------------------------------------------------------------------------*)
+//procedure cEmutecaSoftwareZone_W(Self: cEmutecaSoftware; const T: string);
+//begin Self.Zone := T; end;
+//
+//(*----------------------------------------------------------------------------*)
+//procedure cEmutecaSoftwareZone_R(Self: cEmutecaSoftware; var T: string);
+//begin T := Self.Zone; end;
+//
+//(*----------------------------------------------------------------------------*)
+//procedure cEmutecaSoftwarePublisher_W(Self: cEmutecaSoftware; const T: string);
+//begin Self.Publisher := T; end;
+//
+//(*----------------------------------------------------------------------------*)
+//procedure cEmutecaSoftwarePublisher_R(Self: cEmutecaSoftware; var T: string);
+//begin T := Self.Publisher; end;
+//
+//(*----------------------------------------------------------------------------*)
+//procedure cEmutecaSoftwareYear_W(Self: cEmutecaSoftware; const T: string);
+//begin Self.Year := T; end;
+//
+//(*----------------------------------------------------------------------------*)
+//procedure cEmutecaSoftwareYear_R(Self: cEmutecaSoftware; var T: string);
+//begin T := Self.Year; end;
+//
+//(*----------------------------------------------------------------------------*)
+//procedure cEmutecaSoftwareVersion_W(Self: cEmutecaSoftware; const T: string);
+//begin Self.Version := T; end;
+//
+//(*----------------------------------------------------------------------------*)
+//procedure cEmutecaSoftwareVersion_R(Self: cEmutecaSoftware; var T: string);
+//begin T := Self.Version; end;
+//
+//(*----------------------------------------------------------------------------*)
+//procedure cEmutecaSoftwareSortTitle_W(Self: cEmutecaSoftware; const T: string);
+//begin Self.SortTitle := T; end;
+//
+//(*----------------------------------------------------------------------------*)
+//procedure cEmutecaSoftwareSortTitle_R(Self: cEmutecaSoftware; var T: string);
+//begin T := Self.SortTitle; end;
+//
+//(*----------------------------------------------------------------------------*)
+//procedure cEmutecaSoftwareTranslitTitle_W(Self: cEmutecaSoftware; const T: string);
+//begin Self.TranslitTitle := T; end;
+//
+//(*----------------------------------------------------------------------------*)
+//procedure cEmutecaSoftwareTranslitTitle_R(Self: cEmutecaSoftware; var T: string);
+//begin T := Self.TranslitTitle; end;
+//
+//(*----------------------------------------------------------------------------*)
+//procedure cEmutecaSoftwareSystemKey_R(Self: cEmutecaSoftware; var T: string);
+//begin T := Self.SystemKey; end;
+//
+//(*----------------------------------------------------------------------------*)
+//procedure cEmutecaSoftwareGroupKey_R(Self: cEmutecaSoftware; var T: string);
+//begin T := Self.GroupKey; end;
+//
+//(*----------------------------------------------------------------------------*)
+//procedure cEmutecaSoftwareTitle_W(Self: cEmutecaSoftware; const T: string);
+//begin Self.Title := T; end;
+//
+//(*----------------------------------------------------------------------------*)
+//procedure cEmutecaSoftwareTitle_R(Self: cEmutecaSoftware; var T: string);
+//begin T := Self.Title; end;
 
 (*----------------------------------------------------------------------------*)
 procedure cEmutecaSoftwareFileName_W(Self: cEmutecaSoftware; const T: string);
@@ -286,71 +284,71 @@ begin Self.ID := T; end;
 procedure cEmutecaSoftwareID_R(Self: cEmutecaSoftware; var T: string);
 begin T := Self.ID; end;
 
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaSoftwareGroup_W(Self: cEmutecaSoftware; const T: cEmutecaGroup);
-begin Self.Group := T; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaSoftwareGroup_R(Self: cEmutecaSoftware; var T: cEmutecaGroup);
-begin T := Self.Group; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaSoftwareSystem_W(Self: cEmutecaSoftware; const T: cEmutecaSystem);
-begin Self.System := T; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaSoftwareSystem_R(Self: cEmutecaSoftware; var T: cEmutecaSystem);
-begin T := Self.System; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaSoftwareDataString_W(Self: cEmutecaSoftware; const T: string);
-begin Self.DataString := T; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaSoftwareDataString_R(Self: cEmutecaSoftware; var T: string);
-begin T := Self.DataString; end;
-
-(*----------------------------------------------------------------------------*)
-procedure RIRegister_ucEmutecaSoftware_Routines(S: TPSExec);
-begin
- S.RegisterDelphiFunction(@Key2EmutecaDumpSt, 'Key2EmutecaDumpSt', cdRegister);
-end;
-
+//(*----------------------------------------------------------------------------*)
+//procedure cEmutecaSoftwareGroup_W(Self: cEmutecaSoftware; const T: cEmutecaGroup);
+//begin Self.Group := T; end;
+//
+//(*----------------------------------------------------------------------------*)
+//procedure cEmutecaSoftwareGroup_R(Self: cEmutecaSoftware; var T: cEmutecaGroup);
+//begin T := Self.Group; end;
+//
+//(*----------------------------------------------------------------------------*)
+//procedure cEmutecaSoftwareSystem_W(Self: cEmutecaSoftware; const T: cEmutecaSystem);
+//begin Self.System := T; end;
+//
+//(*----------------------------------------------------------------------------*)
+//procedure cEmutecaSoftwareSystem_R(Self: cEmutecaSoftware; var T: cEmutecaSystem);
+//begin T := Self.System; end;
+//
+//(*----------------------------------------------------------------------------*)
+//procedure cEmutecaSoftwareDataString_W(Self: cEmutecaSoftware; const T: string);
+//begin Self.DataString := T; end;
+//
+//(*----------------------------------------------------------------------------*)
+//procedure cEmutecaSoftwareDataString_R(Self: cEmutecaSoftware; var T: string);
+//begin T := Self.DataString; end;
+//
+//(*----------------------------------------------------------------------------*)
+//procedure RIRegister_ucEmutecaSoftware_Routines(S: TPSExec);
+//begin
+// S.RegisterDelphiFunction(@Key2EmutecaDumpSt, 'Key2EmutecaDumpSt', cdRegister);
+//end;
+//
 (*----------------------------------------------------------------------------*)
 procedure RIRegister_cEmutecaSoftware(CL: TPSRuntimeClassImporter);
 begin
-  with CL.Add(cEmutecaSoftware) do
-  begin
-    RegisterPropertyHelper(@cEmutecaSoftwareDataString_R,@cEmutecaSoftwareDataString_W,'DataString');
-    RegisterPropertyHelper(@cEmutecaSoftwareSystem_R,@cEmutecaSoftwareSystem_W,'System');
-    RegisterPropertyHelper(@cEmutecaSoftwareGroup_R,@cEmutecaSoftwareGroup_W,'Group');
-    RegisterMethod(@cEmutecaSoftware.FPOObservedChanged, 'FPOObservedChanged');
-    RegisterMethod(@cEmutecaSoftware.GetActualTitle, 'GetActualTitle');
-    RegisterMethod(@cEmutecaSoftware.GetActualSortTitle, 'GetActualSortTitle');
-    RegisterMethod(@cEmutecaSoftware.GetActualTranslitTitle, 'GetActualTranslitTitle');
-    RegisterPropertyHelper(@cEmutecaSoftwareID_R,@cEmutecaSoftwareID_W,'ID');
-    RegisterPropertyHelper(@cEmutecaSoftwareFolder_R,@cEmutecaSoftwareFolder_W,'Folder');
-    RegisterPropertyHelper(@cEmutecaSoftwareFileName_R,@cEmutecaSoftwareFileName_W,'FileName');
-    RegisterPropertyHelper(@cEmutecaSoftwareTitle_R,@cEmutecaSoftwareTitle_W,'Title');
-    RegisterPropertyHelper(@cEmutecaSoftwareGroupKey_R,nil,'GroupKey');
-    RegisterPropertyHelper(@cEmutecaSoftwareSystemKey_R,nil,'SystemKey');
-    RegisterPropertyHelper(@cEmutecaSoftwareTranslitTitle_R,@cEmutecaSoftwareTranslitTitle_W,'TranslitTitle');
-    RegisterPropertyHelper(@cEmutecaSoftwareSortTitle_R,@cEmutecaSoftwareSortTitle_W,'SortTitle');
-    RegisterPropertyHelper(@cEmutecaSoftwareVersion_R,@cEmutecaSoftwareVersion_W,'Version');
-    RegisterPropertyHelper(@cEmutecaSoftwareYear_R,@cEmutecaSoftwareYear_W,'Year');
-    RegisterPropertyHelper(@cEmutecaSoftwarePublisher_R,@cEmutecaSoftwarePublisher_W,'Publisher');
-    RegisterPropertyHelper(@cEmutecaSoftwareZone_R,@cEmutecaSoftwareZone_W,'Zone');
-    RegisterPropertyHelper(@cEmutecaSoftwareDumpStatus_R,@cEmutecaSoftwareDumpStatus_W,'DumpStatus');
-    RegisterPropertyHelper(@cEmutecaSoftwareDumpInfo_R,@cEmutecaSoftwareDumpInfo_W,'DumpInfo');
-    RegisterPropertyHelper(@cEmutecaSoftwareFixed_R,@cEmutecaSoftwareFixed_W,'Fixed');
-    RegisterPropertyHelper(@cEmutecaSoftwareTrainer_R,@cEmutecaSoftwareTrainer_W,'Trainer');
-    RegisterPropertyHelper(@cEmutecaSoftwareTranslation_R,@cEmutecaSoftwareTranslation_W,'Translation');
-    RegisterPropertyHelper(@cEmutecaSoftwarePirate_R,@cEmutecaSoftwarePirate_W,'Pirate');
-    RegisterPropertyHelper(@cEmutecaSoftwareCracked_R,@cEmutecaSoftwareCracked_W,'Cracked');
-    RegisterPropertyHelper(@cEmutecaSoftwareModified_R,@cEmutecaSoftwareModified_W,'Modified');
-    RegisterPropertyHelper(@cEmutecaSoftwareHack_R,@cEmutecaSoftwareHack_W,'Hack');
-    RegisterPropertyHelper(@cEmutecaSoftwareStats_R,nil,'Stats');
-  end;
+  //with CL.Add(cEmutecaSoftware) do
+  //begin
+  //  RegisterPropertyHelper(@cEmutecaSoftwareDataString_R,@cEmutecaSoftwareDataString_W,'DataString');
+  //  RegisterPropertyHelper(@cEmutecaSoftwareSystem_R,@cEmutecaSoftwareSystem_W,'System');
+  //  RegisterPropertyHelper(@cEmutecaSoftwareGroup_R,@cEmutecaSoftwareGroup_W,'Group');
+  //  RegisterMethod(@cEmutecaSoftware.FPOObservedChanged, 'FPOObservedChanged');
+  //  RegisterMethod(@cEmutecaSoftware.GetActualTitle, 'GetActualTitle');
+  //  RegisterMethod(@cEmutecaSoftware.GetActualSortTitle, 'GetActualSortTitle');
+  //  RegisterMethod(@cEmutecaSoftware.GetActualTranslitTitle, 'GetActualTranslitTitle');
+  //  RegisterPropertyHelper(@cEmutecaSoftwareID_R,@cEmutecaSoftwareID_W,'ID');
+  //  RegisterPropertyHelper(@cEmutecaSoftwareFolder_R,@cEmutecaSoftwareFolder_W,'Folder');
+  //  RegisterPropertyHelper(@cEmutecaSoftwareFileName_R,@cEmutecaSoftwareFileName_W,'FileName');
+  //  RegisterPropertyHelper(@cEmutecaSoftwareTitle_R,@cEmutecaSoftwareTitle_W,'Title');
+  //  RegisterPropertyHelper(@cEmutecaSoftwareGroupKey_R,nil,'GroupKey');
+  //  RegisterPropertyHelper(@cEmutecaSoftwareSystemKey_R,nil,'SystemKey');
+  //  RegisterPropertyHelper(@cEmutecaSoftwareTranslitTitle_R,@cEmutecaSoftwareTranslitTitle_W,'TranslitTitle');
+  //  RegisterPropertyHelper(@cEmutecaSoftwareSortTitle_R,@cEmutecaSoftwareSortTitle_W,'SortTitle');
+  //  RegisterPropertyHelper(@cEmutecaSoftwareVersion_R,@cEmutecaSoftwareVersion_W,'Version');
+  //  RegisterPropertyHelper(@cEmutecaSoftwareYear_R,@cEmutecaSoftwareYear_W,'Year');
+  //  RegisterPropertyHelper(@cEmutecaSoftwarePublisher_R,@cEmutecaSoftwarePublisher_W,'Publisher');
+  //  RegisterPropertyHelper(@cEmutecaSoftwareZone_R,@cEmutecaSoftwareZone_W,'Zone');
+  //  RegisterPropertyHelper(@cEmutecaSoftwareDumpStatus_R,@cEmutecaSoftwareDumpStatus_W,'DumpStatus');
+  //  RegisterPropertyHelper(@cEmutecaSoftwareDumpInfo_R,@cEmutecaSoftwareDumpInfo_W,'DumpInfo');
+  //  RegisterPropertyHelper(@cEmutecaSoftwareFixed_R,@cEmutecaSoftwareFixed_W,'Fixed');
+  //  RegisterPropertyHelper(@cEmutecaSoftwareTrainer_R,@cEmutecaSoftwareTrainer_W,'Trainer');
+  //  RegisterPropertyHelper(@cEmutecaSoftwareTranslation_R,@cEmutecaSoftwareTranslation_W,'Translation');
+  //  RegisterPropertyHelper(@cEmutecaSoftwarePirate_R,@cEmutecaSoftwarePirate_W,'Pirate');
+  //  RegisterPropertyHelper(@cEmutecaSoftwareCracked_R,@cEmutecaSoftwareCracked_W,'Cracked');
+  //  RegisterPropertyHelper(@cEmutecaSoftwareModified_R,@cEmutecaSoftwareModified_W,'Modified');
+  //  RegisterPropertyHelper(@cEmutecaSoftwareHack_R,@cEmutecaSoftwareHack_W,'Hack');
+  //  RegisterPropertyHelper(@cEmutecaSoftwareStats_R,nil,'Stats');
+  //end;
 end;
 
 (*----------------------------------------------------------------------------*)
@@ -371,7 +369,7 @@ end;
 procedure TPSImport_ucEmutecaSoftware.ExecImport1(CompExec: TPSScript; const ri: TPSRuntimeClassImporter);
 begin
   RIRegister_ucEmutecaSoftware(ri);
-  RIRegister_ucEmutecaSoftware_Routines(CompExec.Exec); // comment it if no routines
+  //RIRegister_ucEmutecaSoftware_Routines(CompExec.Exec); // comment it if no routines
 end;
 (*----------------------------------------------------------------------------*)
  

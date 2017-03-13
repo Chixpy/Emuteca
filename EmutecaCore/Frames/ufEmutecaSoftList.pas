@@ -8,7 +8,8 @@ uses
   Classes, SysUtils, FileUtil, VirtualTrees, Forms, Controls, ComCtrls,
   ActnList, Menus, LazUTF8, LCLIntf,
   uCHXStrUtils,
-  uEmutecaCommon, ucEmutecaSoftware;
+  uEmutecaCommon, uEmutecaRscStr,
+  ucEmutecaSoftware;
 
 type
   { TfmEmutecaSoftList }
@@ -95,13 +96,7 @@ begin
   if FSoftList = AValue then
     Exit;
 
-  if Assigned(FSoftList) then
-    FSoftList.FPODetachObserver(Self);
-
   FSoftList := AValue;
-
-  if Assigned(SoftList) then
-    SoftList.FPOAttachObserver(Self);
 
   UpdateList;
 end;
@@ -275,9 +270,21 @@ begin
     Exit;
 
   case Column of
+    0: // System
+      if assigned(pData^.System) then
+        HintText := pData^.System.Title + sLineBreak + pData^.System.ID
+      else
+        HintText := pData^.SystemKey;
     1: // Title
       HintText := pData^.Title + sLineBreak + pData^.TranslitTitle +
         sLineBreak + pData^.SortTitle;
+    2: // Zone / Version
+    begin
+      if pData^.Zone <> '' then
+        HintText := 'Zone: ' + pData^.Zone
+      else
+        HintText := 'Zone: ' + rsUnknown;
+    end;
     5: // Flags
     begin
       HintText := EmutecaDumpStatusStrs[pData^.DumpStatus];
@@ -323,7 +330,10 @@ begin
 
   case Column of
     0: // System
-      CellText := pData^.System.Title;
+      if assigned(pData^.System) then
+        CellText := pData^.System.Title
+      else
+        CellText := pData^.SystemKey;
     1: // Title
       CellText := pData^.Title;
     2: // Version
@@ -332,7 +342,7 @@ begin
     begin
       if pData^.Publisher = '' then
       begin
-        if pData^.Group.Developer <> '' then
+        if assigned(pData^.Group) and (pData^.Group.Developer <> '') then
           CellText := '(' + pData^.Group.Developer + ')'
         else
           CellText := '';
@@ -344,7 +354,7 @@ begin
     begin
       if pData^.Year = '' then
       begin
-        if pData^.Group.Year <> '' then
+        if assigned(pData^.Group) and (pData^.Group.Year <> '') then
           CellText := '(' + pData^.Group.Year + ')'
         else
           CellText := '';
@@ -405,7 +415,8 @@ var
   pData: ^cEmutecaSoftware;
 begin
   pData := VST.GetNodeData(Node);
-  pData^ := cEmutecaSoftware(SoftList[Node^.Index]);
+  pData^ := SoftList[Node^.Index];
+
 end;
 
 procedure TfmEmutecaSoftList.SetOnDblClick(AValue: TEmutecaReturnSoftCB);
@@ -463,9 +474,6 @@ end;
 
 destructor TfmEmutecaSoftList.Destroy;
 begin
-  if Assigned(SoftList) then
-    SoftList.FPODetachObserver(Self);
-
   inherited Destroy;
 end;
 

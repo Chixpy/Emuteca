@@ -1,3 +1,22 @@
+{ This file is part of Emuteca
+
+  Copyright (C) 2006-2017 Chixpy
+
+  This source is free software; you can redistribute it and/or modify it under
+  the terms of the GNU General Public License as published by the Free
+  Software Foundation; either version 3 of the License, or (at your option)
+  any later version.
+
+  This code is distributed in the hope that it will be useful, but WITHOUT ANY
+  WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+  FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+  details.
+
+  A copy of the GNU General Public License is available on the World Wide Web
+  at <http://www.gnu.org/copyleft/gpl.html>. You can also obtain it by writing
+  to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
+  MA 02111-1307, USA.
+}
 unit ucEmutecaSoftware;
 
 {$mode objfpc}{$H+}
@@ -5,11 +24,11 @@ unit ucEmutecaSoftware;
 interface
 
 uses
-  Classes, SysUtils, LazFileUtils, LazUTF8, contnrs, IniFiles,
-  uCHXStrUtils,
+  Classes, SysUtils, LazFileUtils, LazUTF8, contnrs, IniFiles, sha1, fgl,
+  uCHXStrUtils, strutils,
   uaCHXStorable,
-  ucEmutecaPlayingStats,
-  ucEmutecaSystem, ucEmutecaGroup;
+  uEmutecaCommon,
+  ucEmutecaSystem, ucEmutecaGroup, ucEmutecaPlayingStats;
 
 const
   // Constant for DumpStatus, fixed (for filenames)
@@ -29,6 +48,7 @@ resourcestring
   rsedsBadDump = 'BadDump';
   rsedsUnderDump = 'UnderDump';
 
+
 type
   TEmutecaDumpStatus = (edsVerified, edsGood, edsAlternate, edsOverDump,
     edsBadDump, edsUnderDump);
@@ -46,6 +66,12 @@ const
     krsedsBadDump, krsedsUnderDump);
 //< Strings for DumpStatus (fixed constants, used for icon filenames, etc. )
 
+
+function Key2EmutecaDumpSt(aString: string): TEmutecaDumpStatus;
+// Result := EmutecaDumpStatusKeys[DumpStatus];
+// Result := EmutecaDumpStatusStrs[DumpStatus];
+// Result := EmutecaDumpStatusStrsK[DumpStatus];
+
 type
   { cEmutecaSoftware. }
 
@@ -57,13 +83,14 @@ type
     FFileName: string;
     FFixed: string;
     FFolder: string;
+    FGroup: cEmutecaGroup;
+    FGroupKey: string;
     FHack: string;
     FID: string;
     FModified: string;
-    FGroup: cEmutecaGroup;
-    FGroupKey: string;
     FPirate: string;
     FPublisher: string;
+    FSHA1: TSHA1Digest;
     FSortTitle: string;
     FStats: cEmutecaPlayingStats;
     FSystem: cEmutecaSystem;
@@ -75,25 +102,27 @@ type
     FVersion: string;
     FYear: string;
     FZone: string;
-    function GetDataString: string;
+    function GetID: string;
     function GetSortTitle: string;
     function GetTitle: string;
     function GetTranslitTitle: string;
     procedure SetCracked(AValue: string);
-    procedure SetDataString(AValue: string);
     procedure SetDumpInfo(AValue: string);
     procedure SetDumpStatus(AValue: TEmutecaDumpStatus);
     procedure SetFileName(AValue: string);
     procedure SetFixed(AValue: string);
     procedure SetFolder(AValue: string);
+    procedure SetGroup(AValue: cEmutecaGroup);
+    procedure SetGroupKey(AValue: string);
     procedure SetHack(AValue: string);
     procedure SetID(AValue: string);
     procedure SetModified(AValue: string);
-    procedure SetGroup(AValue: cEmutecaGroup);
     procedure SetPirate(AValue: string);
     procedure SetPublisher(AValue: string);
+    procedure SetSHA1(AValue: TSHA1Digest);
     procedure SetSortTitle(AValue: string);
     procedure SetSystem(AValue: cEmutecaSystem);
+    procedure SetSystemKey(AValue: string);
     procedure SetTitle(AValue: string);
     procedure SetTrainer(AValue: string);
     procedure SetTranslation(AValue: string);
@@ -106,17 +135,20 @@ type
 
 
   public
-    property DataString: string read GetDataString write SetDataString;
+    property SHA1: TSHA1Digest read FSHA1 write SetSHA1;
+    {< SHA1 of the file. For searching in SHA1 DB. }
 
-    // Cached Data
-    // -----------
     property System: cEmutecaSystem read FSystem write SetSystem;
+    {< Link to System. }
     property Group: cEmutecaGroup read FGroup write SetGroup;
+    {< Link to Group. }
 
-    procedure FPOObservedChanged(ASender: TObject;
-      Operation: TFPObservedOperation; Data: Pointer);
-    {< Group or system has changed. }
+    function SHA1IsEmpty: boolean;
+    function MatchSHA1(aSHA1: TSHA1Digest): boolean;
+    function MatchSystem(aSystem: cEmutecaSystem): boolean;
+    function MatchGroup(aGroup: cEmutecaGroup): boolean;
 
+    function GetActualID: string;
     function GetActualTitle: string;
     //< Gets actual SortTitle string, not inherited from group or automade
     function GetActualSortTitle: string;
@@ -124,12 +156,16 @@ type
     function GetActualTranslitTitle: string;
     //< Gets actual TranslitTitle string, not inherited from group or automade
 
-    procedure LoadFromStrLst(TxtFile: TStrings); override;
+    procedure FPOObservedChanged(ASender: TObject;
+      Operation: TFPObservedOperation; Data: Pointer);
+
+    procedure LoadFromStrLst(aTxtFile: TStrings); override;
     procedure SaveToStrLst(TxtFile: TStrings; const ExportMode: boolean);
       override;
     procedure LoadFromIni(aIniFile: TCustomIniFile); override;
-    procedure SaveToIni(IniFile: TCustomIniFile; const ExportMode: boolean);
+    procedure SaveToIni(aIniFile: TCustomIniFile; const ExportMode: boolean);
       override;
+
 
     constructor Create(aOwner: TComponent); override;
     destructor Destroy; override;
@@ -137,27 +173,42 @@ type
   published
     // Basic data
     // ----------
-    property ID: string read FID write SetID;
-    {< ID of the file. Usually SHA1, some system filename }
+    property ID: string read GetID write SetID;
+    {< ID of the file. Usually SHA1, some systems is filename (MAME) or
+      a custom one (PSX)}
     property Folder: string read FFolder write SetFolder;
     {< Folder or archive where the file is in. }
     property FileName: string read FFileName write SetFileName;
-    {< Filename (or file inside and archive).}
-    property Title: string read GetTitle write SetTitle;
-    {< Title. }
+    {< Filename (or file inside and archive). }
 
-    property GroupKey: string read FGroupKey;
-    {< ID of the Group. }
-    property SystemKey: string read FSystemKey;
+    property SystemKey: string read FSystemKey write SetSystemKey;
     {< ID of the System. }
+    property GroupKey: string read FGroupKey write SetGroupKey;
+    {< ID of the Group. }
 
-    // Additional title info
-    // ---------------------
+    property Title: string read GetTitle write SetTitle;
+    {< Title.
+
+      If empty, then it's same as group. }
     property TranslitTitle: string read GetTranslitTitle
       write SetTranslitTitle;
-    {< Trasliterated name in english (ASCII7) characters. }
+    {< Trasliterated name in english (ASCII7) characters.
+
+    If TranslitTitle = '' then
+      If GetActualTitle <> '' then
+        TranslitTitle = GetActualTitle
+      else
+        TranslitTitle = Group.ID
+
+    }
     property SortTitle: string read GetSortTitle write SetSortTitle;
-    {< Title formated for sorting purposes. }
+    {< Title formated for sorting purposes.
+     If SortTitle = '' then
+      If GetActualTranslitTitle <> '' then
+        SortTitle = GetActualTranslitTitle
+      else
+        SortTitle = Group.ID
+    }
 
     // Release data
     // ------------
@@ -215,21 +266,16 @@ type
 
           Only if not covered by previous properties.}
 
-    // Usage statitics
-    // ---------------
     property Stats: cEmutecaPlayingStats read FStats;
 
   end;
 
   { cEmutecaSoftList }
 
-  cEmutecaSoftList = TComponentList;
+  cEmutecaGenSoftList = specialize TFPGObjectList<cEmutecaSoftware>;
+  cEmutecaSoftList = class(cEmutecaGenSoftList);
 
   TEmutecaReturnSoftCB = function(aSoft: cEmutecaSoftware): boolean of object;
-
-function Key2EmutecaDumpSt(aString: string): TEmutecaDumpStatus;
-// Result := EmutecaDumpStatusStrs[DumpStatus];
-// Result := EmutecaDumpStatusKeys[DumpStatus];
 
 implementation
 
@@ -255,221 +301,110 @@ end;
 
 { cEmutecaSoftware }
 
-function cEmutecaSoftware.GetDataString: string;
-var
-  aStringList: TStringList;
+function cEmutecaSoftware.GetID: string;
 begin
-  aStringList := TStringList.Create;
-  try
-    SaveToStrLst(aStringList, False);
-  finally
-    Result := aStringList.CommaText;
-    FreeAndNil(aStringList);
-  end;
-end;
-
-function cEmutecaSoftware.GetSortTitle: string;
-begin
-  Result := FSortTitle;
-  if Result <> '' then
-    Exit;
-
-  Result := UTF8LowerString(TranslitTitle);
-  if Result <> '' then
-    Exit;
-
-  // Surely never execute this...
-  Result := UTF8LowerString(Title);
-end;
-
-function cEmutecaSoftware.GetTitle: string;
-begin
-  Result := FTitle;
-  if Result <> '' then
-    exit;
-
-  if Assigned(Group) then
-    Result := Group.Title
+  if (FID = '') then
+    Result := SHA1Print(SHA1)
   else
-    Result := GroupKey;
-end;
-
-function cEmutecaSoftware.GetTranslitTitle: string;
-begin
-  Result := FTranslitTitle;
-  if Result <> '' then
-    exit;
-
-  Result := Title;
-end;
-
-procedure cEmutecaSoftware.SetCracked(AValue: string);
-begin
-  if FCracked = AValue then
-    Exit;
-  FCracked := AValue;
-end;
-
-procedure cEmutecaSoftware.SetDataString(AValue: string);
-var
-  aStringList: TStringList;
-begin
-  aStringList := TStringList.Create;
-  try
-    aStringList.CommaText := AValue;
-
-    LoadFromStrLst(aStringList);
-  finally
-    FreeAndNil(aStringList);
-  end;
-end;
-
-procedure cEmutecaSoftware.SetDumpInfo(AValue: string);
-begin
-  if FDumpInfo = AValue then
-    Exit;
-  FDumpInfo := AValue;
-end;
-
-procedure cEmutecaSoftware.SetDumpStatus(AValue: TEmutecaDumpStatus);
-begin
-  if FDumpStatus = AValue then
-    Exit;
-  FDumpStatus := AValue;
-end;
-
-procedure cEmutecaSoftware.SetVersion(AValue: string);
-begin
-  if FVersion = AValue then
-    Exit;
-  FVersion := AValue;
-end;
-
-procedure cEmutecaSoftware.SetYear(AValue: string);
-begin
-  if FYear = AValue then
-    Exit;
-  FYear := AValue;
-end;
-
-procedure cEmutecaSoftware.SetZone(AValue: string);
-begin
-  if FZone = AValue then
-    Exit;
-  FZone := AValue;
+    Result := FID;
 end;
 
 procedure cEmutecaSoftware.LoadFromIni(aIniFile: TCustomIniFile);
+var
+  SHA1Str: string;
 begin
+  if not assigned(aIniFile) then
+    Exit;
 
+  SHA1Str := SHA1Print(SHA1);
+
+  // TODO: Load from ini file
+
+
+  Stats.LoadFromIni(aIniFile,SHA1Str);
 end;
 
-procedure cEmutecaSoftware.SaveToIni(IniFile: TCustomIniFile;
+procedure cEmutecaSoftware.SaveToIni(aIniFile: TCustomIniFile;
   const ExportMode: boolean);
+var
+  SHA1Str: string;
 begin
-  if not assigned(IniFile) then
+  if not assigned(aIniFile) then
     Exit;
-  if ID = '' then Exit;
+
+  SHA1Str := SHA1Print(SHA1);
 
   // Basic data
   // ----------
-  if not ExportMode then
-  begin
-    IniFile.WriteString(ID, 'Folder', Folder);
-    IniFile.WriteString(ID, 'FileName', FileName);
-  end;
+  aIniFile.WriteString(SHA1Str, 'ID', GetActualID);
+  aIniFile.WriteString(SHA1Str, 'Title', GetActualTitle);
+  aIniFile.WriteString(SHA1Str, 'TranslitTitle', GetActualTranslitTitle);
+  aIniFile.WriteString(SHA1Str, 'SortTitle', GetActualSortTitle);
 
-  IniFile.WriteString(ID, 'Title', GetActualTitle);
+  // System and Group
+  // ----------------
+  if assigned(System) then
+    aIniFile.WriteString(SHA1Str, 'System', System.ID)
+  else
+    aIniFile.WriteString(SHA1Str, 'System', SystemKey);
 
   if assigned(Group) then
-    IniFile.WriteString(ID, 'Group',Group.ID)
+    aIniFile.WriteString(SHA1Str, 'Group', Group.ID)
   else
-    IniFile.WriteString(ID, 'Group',GroupKey);
-
-  if assigned(System) then
-    IniFile.WriteString(ID, 'System',System.ID)
-  else
-   IniFile.WriteString(ID, 'System',SystemKey);
-
-  // Additional title info
-  // ---------------------
-  IniFile.WriteString(ID, 'TranslitTitle',GetActualTranslitTitle);
-  IniFile.WriteString(ID, 'SortTitle',GetActualSortTitle);
+    aIniFile.WriteString(SHA1Str, 'Group', GroupKey);
 
   // Release data
   // ------------
-  IniFile.WriteString(ID, 'Version',Version);
-  IniFile.WriteString(ID, 'Year',Year);
-  IniFile.WriteString(ID, 'Publisher',Publisher);
-  IniFile.WriteString(ID, 'Zone',Zone);
+  aIniFile.WriteString(SHA1Str, 'Version', Version);
+  aIniFile.WriteString(SHA1Str, 'Year', Year);
+  aIniFile.WriteString(SHA1Str, 'Publisher', Publisher);
+  aIniFile.WriteString(SHA1Str, 'Zone', Zone);
 
   // Version Flags
   // ---------------
-  IniFile.WriteString(ID, 'DumpStatus',EmutecaDumpStatusKeys[DumpStatus]);
-  IniFile.WriteString(ID, 'DumpInfo',DumpInfo);
-  IniFile.WriteString(ID, 'Fixed',Fixed);
-  IniFile.WriteString(ID, 'Trainer',Trainer);
-  IniFile.WriteString(ID, 'Translation',Translation);
-  IniFile.WriteString(ID, 'Pirate',Pirate);
-  IniFile.WriteString(ID, 'Cracked',Cracked);
-  IniFile.WriteString(ID, 'Modified',Modified);
-  IniFile.WriteString(ID, 'Hack',Hack);
+  aIniFile.WriteString(SHA1Str,
+    'DumpStatus', EmutecaDumpStatusKeys[DumpStatus]);
+  aIniFile.WriteString(SHA1Str, 'DumpInfo', DumpInfo);
+  aIniFile.WriteString(SHA1Str, 'Fixed', Fixed);
+  aIniFile.WriteString(SHA1Str, 'Trainer', Trainer);
+  aIniFile.WriteString(SHA1Str, 'Translation', Translation);
+  aIniFile.WriteString(SHA1Str, 'Pirate', Pirate);
+  aIniFile.WriteString(SHA1Str, 'Cracked', Cracked);
+  aIniFile.WriteString(SHA1Str, 'Modified', Modified);
+  aIniFile.WriteString(SHA1Str, 'Hack', Hack);
 
-  // Usage statitics
-  // ---------------
   if not ExportMode then
   begin
-    IniFile.WriteDateTime(ID, 'LastTime',Stats.LastTime);
-    IniFile.WriteInteger(ID, 'TimesPlayed',Stats.TimesPlayed);
-    IniFile.WriteInteger(ID, 'PlayingTime',Stats.PlayingTime);
+    aIniFile.WriteString(SHA1Str, 'Folder', Folder);
+    aIniFile.WriteString(SHA1Str, 'FileName', FileName);
   end;
+
+  Stats.WriteToIni(aIniFile,SHA1Str, ExportMode);
 end;
 
-procedure cEmutecaSoftware.FPOObservedChanged(ASender: TObject;
-  Operation: TFPObservedOperation; Data: Pointer);
+procedure cEmutecaSoftware.SetFileName(AValue: string);
 begin
-  if not assigned(ASender) then
+  FFileName := SetAsFile(AValue);
+end;
+
+procedure cEmutecaSoftware.SetID(AValue: string);
+begin
+  if FID = AValue then
     Exit;
 
-  if ASender = System then
-  begin
-    case Operation of
-      ooFree: System := nil;
-      else
-        FSystemKey := cEmutecaSystem(ASender).ID;
-    end;
-  end
-  else if ASender = Group then
-  begin
-    case Operation of
-      ooFree: Group := nil;
-      else
-        FSystemKey := cEmutecaGroup(ASender).ID;
-    end;
-  end;
-end;
-
-function cEmutecaSoftware.GetActualTitle: string;
-begin
-  Result := FTitle;
-end;
-
-function cEmutecaSoftware.GetActualSortTitle: string;
-begin
-  Result := FSortTitle;
-end;
-
-function cEmutecaSoftware.GetActualTranslitTitle: string;
-begin
-  Result := FTranslitTitle;
-end;
-
-procedure cEmutecaSoftware.SetSortTitle(AValue: string);
-begin
-  if UTF8CompareText(AValue, TranslitTitle) = 0 then
-    FSortTitle := ''
+  if UTF8CompareText(AValue, SHA1Print(SHA1)) = 0 then
+    FID := ''
   else
-    FSortTitle := UTF8LowerString(AValue);
+    FID := AValue;
+
+  FPONotifyObservers(Self, ooChange, nil);
+end;
+
+procedure cEmutecaSoftware.SetSHA1(AValue: TSHA1Digest);
+begin
+  if SHA1Match(FSHA1, AValue) then
+    Exit;
+  FSHA1 := AValue;
 end;
 
 procedure cEmutecaSoftware.SetSystem(AValue: cEmutecaSystem);
@@ -491,17 +426,74 @@ begin
   //else FSystemKey := ''; We don't want to delete the old SystemKey
 end;
 
-procedure cEmutecaSoftware.SetTranslitTitle(AValue: string);
+procedure cEmutecaSoftware.SetSystemKey(AValue: string);
 begin
-  if AValue = Title then
-    FTranslitTitle := ''
-  else
-    FTranslitTitle := AValue;
+  if FSystemKey = AValue then Exit;
+  FSystemKey := AValue;
 end;
 
-procedure cEmutecaSoftware.SetFileName(AValue: string);
+procedure cEmutecaSoftware.SetCracked(AValue: string);
 begin
-  FFileName := SetAsFile(AValue);
+  if FCracked = AValue then
+    Exit;
+  FCracked := AValue;
+end;
+
+function cEmutecaSoftware.GetSortTitle: string;
+begin
+  Result := FSortTitle;
+  if Result <> '' then
+    Exit;
+
+  Result := UTF8LowerString(TranslitTitle);
+  if Result <> '' then
+    Exit;
+
+  // Surely we never execute this...
+  Result := UTF8LowerString(Title);
+end;
+
+function cEmutecaSoftware.GetTitle: string;
+begin
+  Result := FTitle;
+  if Result <> '' then
+    exit;
+
+  if Assigned(Group) then
+    Result := Group.Title
+  else
+    Result := GroupKey;
+end;
+
+function cEmutecaSoftware.GetTranslitTitle: string;
+begin
+  Result := FTranslitTitle;
+  if Result <> '' then
+    exit;
+
+  Result := GetActualTitle;
+  if Result <> '' then
+    exit;
+
+  // Not needed Group.ID = GroupKey
+  // if Assigned(Group) then
+  //   Result := Group.ID
+  // else
+  Result := GroupKey;
+end;
+
+procedure cEmutecaSoftware.SetDumpInfo(AValue: string);
+begin
+  if FDumpInfo = AValue then
+    Exit;
+  FDumpInfo := AValue;
+end;
+
+procedure cEmutecaSoftware.SetDumpStatus(AValue: TEmutecaDumpStatus);
+begin
+  if FDumpStatus = AValue then
+    Exit;
+  FDumpStatus := AValue;
 end;
 
 procedure cEmutecaSoftware.SetFixed(AValue: string);
@@ -509,22 +501,6 @@ begin
   if FFixed = AValue then
     Exit;
   FFixed := AValue;
-end;
-
-procedure cEmutecaSoftware.SetID(AValue: string);
-begin
-  if FID = AValue then
-    Exit;
-  FID := AValue;
-
-  FPONotifyObservers(Self, ooChange, nil);
-end;
-
-procedure cEmutecaSoftware.SetModified(AValue: string);
-begin
-  if FModified = AValue then
-    Exit;
-  FModified := AValue;
 end;
 
 procedure cEmutecaSoftware.SetGroup(AValue: cEmutecaGroup);
@@ -545,6 +521,26 @@ begin
   // else FGroupKey := ''; We don't want to delete old GroupKey
 end;
 
+procedure cEmutecaSoftware.SetGroupKey(AValue: string);
+begin
+  if FGroupKey = AValue then Exit;
+  FGroupKey := AValue;
+end;
+
+procedure cEmutecaSoftware.SetHack(AValue: string);
+begin
+  if FHack = AValue then
+    Exit;
+  FHack := AValue;
+end;
+
+procedure cEmutecaSoftware.SetModified(AValue: string);
+begin
+  if FModified = AValue then
+    Exit;
+  FModified := AValue;
+end;
+
 procedure cEmutecaSoftware.SetPirate(AValue: string);
 begin
   if FPirate = AValue then
@@ -559,16 +555,12 @@ begin
   FPublisher := AValue;
 end;
 
-procedure cEmutecaSoftware.SetFolder(AValue: string);
+procedure cEmutecaSoftware.SetSortTitle(AValue: string);
 begin
-  FFolder := SetAsFolder(AValue);
-end;
-
-procedure cEmutecaSoftware.SetHack(AValue: string);
-begin
-  if FHack = AValue then
-    Exit;
-  FHack := AValue;
+  if (UTF8CompareText(AValue, TranslitTitle) = 0) or (TranslitTitle = '') then
+    FSortTitle := ''
+  else
+    FSortTitle := UTF8LowerString(AValue);
 end;
 
 procedure cEmutecaSoftware.SetTitle(AValue: string);
@@ -596,6 +588,110 @@ begin
   FTranslation := AValue;
 end;
 
+procedure cEmutecaSoftware.SetTranslitTitle(AValue: string);
+begin
+  if (AValue = Title) or (Title = '') then
+    FTranslitTitle := ''
+  else
+    FTranslitTitle := AValue;
+end;
+
+procedure cEmutecaSoftware.SetVersion(AValue: string);
+begin
+  if FVersion = AValue then
+    Exit;
+  FVersion := AValue;
+end;
+
+procedure cEmutecaSoftware.SetYear(AValue: string);
+begin
+  if FYear = AValue then
+    Exit;
+  FYear := AValue;
+end;
+
+procedure cEmutecaSoftware.SetZone(AValue: string);
+begin
+  if FZone = AValue then
+    Exit;
+  FZone := AValue;
+end;
+
+function cEmutecaSoftware.SHA1IsEmpty: boolean;
+begin
+  Result := SHA1Match(SHA1, kEmuTKSHA1Empty);
+end;
+
+function cEmutecaSoftware.MatchSHA1(aSHA1: TSHA1Digest): boolean;
+begin
+  Result := SHA1Match(Self.SHA1, aSHA1);
+end;
+
+function cEmutecaSoftware.MatchSystem(aSystem: cEmutecaSystem): boolean;
+begin
+  if Assigned(aSystem) then
+    Result := UTF8CompareText(Self.SystemKey, aSystem.ID) = 0
+    else
+      Result := False;
+end;
+
+function cEmutecaSoftware.MatchGroup(aGroup: cEmutecaGroup): boolean;
+begin
+  if Assigned(aGroup) then
+  Result := UTF8CompareText(Self.GroupKey, aGroup.ID) = 0
+  else
+     Result := False;
+end;
+
+function cEmutecaSoftware.GetActualID: string;
+begin
+  Result := FID;
+end;
+
+function cEmutecaSoftware.GetActualTitle: string;
+begin
+  Result := FTitle;
+end;
+
+function cEmutecaSoftware.GetActualSortTitle: string;
+begin
+  Result := FSortTitle;
+end;
+
+function cEmutecaSoftware.GetActualTranslitTitle: string;
+begin
+  Result := FTranslitTitle;
+end;
+
+procedure cEmutecaSoftware.FPOObservedChanged(ASender: TObject;
+  Operation: TFPObservedOperation; Data: Pointer);
+begin
+  if not assigned(ASender) then
+    Exit;
+
+  if ASender = System then
+  begin
+    case Operation of
+      ooFree: System := nil;
+      else
+        FSystemKey := cEmutecaSystem(ASender).ID;
+    end;
+  end
+  else if ASender = Group then
+  begin
+    case Operation of
+      ooFree: Group := nil;
+      else
+        FGroupKey := cEmutecaGroup(ASender).ID;
+    end;
+  end;
+end;
+
+procedure cEmutecaSoftware.SetFolder(AValue: string);
+begin
+  FFolder := SetAsFolder(AValue);
+end;
+
 constructor cEmutecaSoftware.Create(aOwner: TComponent);
 begin
   inherited Create(aOwner);
@@ -607,59 +703,58 @@ end;
 
 destructor cEmutecaSoftware.Destroy;
 begin
-  if Assigned(Group) then
-    Group.FPODetachObserver(Self);
   if Assigned(System) then
     System.FPODetachObserver(Self);
+  if Assigned(Group) then
+    Group.FPODetachObserver(Self);
+
   FreeAndNil(FStats);
 
   inherited Destroy;
 end;
 
-procedure cEmutecaSoftware.LoadFromStrLst(TxtFile: TStrings);
+procedure cEmutecaSoftware.LoadFromStrLst(aTxtFile: TStrings);
 var
   i: integer;
 begin
-  if not assigned(TxtFile) then
+  if not assigned(aTxtFile) then
     Exit;
 
-  i := 0;
-  while i < TxtFile.Count do
-  begin
-    case i of
-      0: ID := TxtFile[i];
-      1: Folder := TxtFile[i];
-      2: FileName := TxtFile[i];
-      3: Title := TxtFile[i];
-      4: FGroupKey := TxtFile[i];
-      5: FSystemKey := TxtFile[i];
-      // 6: ;
-      7: TranslitTitle := TxtFile[i];
-      8: SortTitle := TxtFile[i];
-      // 9: ;
-      10: Version := TxtFile[i];
-      11: Year := TxtFile[i];
-      12: Publisher := TxtFile[i];
-      13: Zone := TxtFile[i];
-      // 14: ;
-      15: DumpStatus := Key2EmutecaDumpSt(TxtFile[i]);
-      16: DumpInfo := TxtFile[i];
-      17: Fixed := TxtFile[i];
-      18: Trainer := TxtFile[i];
-      19: Translation := TxtFile[i];
-      20: Pirate := TxtFile[i];
-      21: Cracked := TxtFile[i];
-      22: Modified := TxtFile[i];
-      23: Hack := TxtFile[i];
-      // 24: ;
-      25: Stats.LastTime := StrToFloatDef(TxtFile[i], 0);
-      26: Stats.TimesPlayed := StrToIntDef(TxtFile[i], 0);
-      27: Stats.PlayingTime := StrToCardinalDef(TxtFile[i], 0);
-      else
-        ;
-    end;
-    Inc(i);
-  end;
+  while aTxtFile.Count < 25 do
+    aTxtFile.Add('');
+
+  FSystemKey := aTxtFile[0];
+  FGroupKey := aTxtFile[1];
+  HexToBin(PChar(aTxtFile[2]), @SHA1, 20);
+  ID := aTxtFile[3];
+
+  if aTxtFile[4] <> '' then
+    Folder := aTxtFile[4];
+  if aTxtFile[5] <> '' then
+    FileName := aTxtFile[5];
+
+  Title := aTxtFile[6];
+  TranslitTitle := aTxtFile[7];
+  SortTitle := aTxtFile[8];
+
+  Version := aTxtFile[9];
+  Year := aTxtFile[10];
+  Publisher := aTxtFile[11];
+  Zone := aTxtFile[12];
+
+  DumpStatus := Key2EmutecaDumpSt(aTxtFile[13]);
+  DumpInfo := aTxtFile[14];
+  Fixed := aTxtFile[15];
+  Trainer := aTxtFile[16];
+  Translation := aTxtFile[17];
+  Pirate := aTxtFile[18];
+  Cracked := aTxtFile[19];
+  Modified := aTxtFile[20];
+  Hack := aTxtFile[21];
+
+  Stats.LoadFromStrLst(aTxtFile, 22);
+
+  // Next := aTxtFile[25]
 end;
 
 procedure cEmutecaSoftware.SaveToStrLst(TxtFile: TStrings;
@@ -668,51 +763,37 @@ begin
   if not assigned(TxtFile) then
     Exit;
 
-  // Basic data
-  // ----------
-  TxtFile.Add(ID);
-
-  if not ExportMode then
-  begin
-    TxtFile.Add(Folder);
-    TxtFile.Add(FileName);
-  end
-  else
-  begin
-    TxtFile.Add('');
-    TxtFile.Add('');
-  end;
-
-  TxtFile.Add(GetActualTitle);
-
-  if assigned(Group) then
-    TxtFile.Add(Group.ID)
-  else
-    TxtFile.Add(GroupKey);
-
   if assigned(System) then
     TxtFile.Add(System.ID)
   else
     TxtFile.Add(SystemKey);
+  if assigned(Group) then
+    TxtFile.Add(Group.ID)
+  else
+    TxtFile.Add(GroupKey);
+  TxtFile.Add(SHA1Print(SHA1));
+  TxtFile.Add(GetActualID); // If SHA1 = ID then FID = ''
 
-  TxtFile.Add(''); // Reserved
+  if ExportMode then
+  begin
+    TxtFile.Add('');
+    TxtFile.Add('');
+  end
+  else
+  begin
+    TxtFile.Add(Folder);
+    TxtFile.Add(FileName);
+  end;
 
-  // Additional title info
-  // ---------------------
+  TxtFile.Add(GetActualTitle);
   TxtFile.Add(GetActualTranslitTitle);
   TxtFile.Add(GetActualSortTitle);
-  TxtFile.Add(''); // Reserved
 
-  // Release data
-  // ------------
   TxtFile.Add(Version);
   TxtFile.Add(Year);
   TxtFile.Add(Publisher);
   TxtFile.Add(Zone);
-  TxtFile.Add(''); // Reserved
 
-  // Version Flags
-  // ---------------
   TxtFile.Add(EmutecaDumpStatusKeys[DumpStatus]);
   TxtFile.Add(DumpInfo);
   TxtFile.Add(Fixed);
@@ -722,16 +803,8 @@ begin
   TxtFile.Add(Cracked);
   TxtFile.Add(Modified);
   TxtFile.Add(Hack);
-  TxtFile.Add(''); // Reserved
 
-  // Usage statitics
-  // ---------------
-  if not ExportMode then
-  begin
-    TxtFile.Add(FloatToStr(Stats.LastTime));
-    TxtFile.Add(IntToStr(Stats.TimesPlayed));
-    TxtFile.Add(IntToStr(Stats.PlayingTime));
-  end;
+  Stats.WriteToStrLst(TxtFile, ExportMode);
 end;
 
 initialization

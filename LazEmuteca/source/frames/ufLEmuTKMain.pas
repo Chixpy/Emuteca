@@ -46,17 +46,15 @@ type
     FfmEmutecaSystemCBX: TfmEmutecaSystemCBX;
     FfmSoftMedia: TfmLEmuTKSoftMedia;
     FGUIConfig: cGUIConfig;
-    FGUIIconsIni: TFilename;
+    FGUIIconsIni: string;
     FIconList: cCHXImageList;
     FDumpIcons: cCHXImageList;
-    FSystemIcons: cCHXImageList;
     FZoneIcons: cCHXImageMap;
     procedure SetEmuteca(AValue: cEmuteca);
     procedure SetGUIConfig(AValue: cGUIConfig);
-    procedure SetGUIIconsIni(AValue: TFilename);
+    procedure SetGUIIconsIni(AValue: string);
     procedure SetIconList(AValue: cCHXImageList);
     procedure SetDumpIcons(AValue: cCHXImageList);
-    procedure SetSystemIcons(AValue: cCHXImageList);
     procedure SetZoneIcons(AValue: cCHXImageMap);
 
   protected
@@ -82,7 +80,7 @@ type
     //< Run a software
 
   public
-    property GUIIconsIni: TFilename read FGUIIconsIni write SetGUIIconsIni;
+    property GUIIconsIni: string read FGUIIconsIni write SetGUIIconsIni;
     property GUIConfig: cGUIConfig read FGUIConfig write SetGUIConfig;
     property IconList: cCHXImageList read FIconList write SetIconList;
     //< Icons for parents, soft, systems and emulators
@@ -90,8 +88,6 @@ type
     //< Icons for dump info
     property ZoneIcons: cCHXImageMap read FZoneIcons write SetZoneIcons;
     //< Icons of zones
-    property SystemIcons: cCHXImageList read FSystemIcons write SetSystemIcons;
-    //< icons for systems
 
     property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
 
@@ -105,7 +101,7 @@ implementation
 
 { TfmLEmuTKMain }
 
-procedure TfmLEmuTKMain.SetGUIIconsIni(AValue: TFilename);
+procedure TfmLEmuTKMain.SetGUIIconsIni(AValue: string);
 begin
   FGUIIconsIni := SetAsFile(AValue);
 
@@ -133,16 +129,6 @@ begin
   fmEmutecaSoftList.DumpIconList := DumpIcons;
 end;
 
-procedure TfmLEmuTKMain.SetSystemIcons(AValue: cCHXImageList);
-begin
-  if FSystemIcons = AValue then
-    Exit;
-  FSystemIcons := AValue;
-
-  fmEmutecaSoftList.SystemIcons := SystemIcons;
-  fmEmutecaGroupList.SystemIcons := SystemIcons;
-end;
-
 procedure TfmLEmuTKMain.SetZoneIcons(AValue: cCHXImageMap);
 begin
   if FZoneIcons = AValue then
@@ -154,13 +140,14 @@ end;
 
 function TfmLEmuTKMain.SelectSystem(aSystem: cEmutecaSystem): boolean;
 begin
-  // TODO: Update Emuteca lists
-  Emuteca.FilterBySystem(aSystem);
-  if Assigned(aSystem) then
+  Emuteca.SelectSystem(aSystem);
+
+ if Assigned(aSystem) then
     GUIConfig.CurrSystem := aSystem.ID
   else
     GUIConfig.CurrSystem := '';
-  Result := SelectGroup(nil);
+ // Result := SelectGroup(nil);
+ fmEmutecaSoftList.UpdateList;
 end;
 
 function TfmLEmuTKMain.SelectGroup(aGroup: cEmutecaGroup): boolean;
@@ -193,18 +180,15 @@ begin
 
   fmEmutecaSoftList.Emuteca := Emuteca;
   fmSoftMedia.Emuteca := Emuteca;
-  fmEmutecaSoftEditor.Emuteca := Emuteca;
 
   if Assigned(Emuteca) then
   begin
-    fmEmutecaSystemCBX.SystemList := Emuteca.SystemManager.VisibleList;
-    fmEmutecaGroupList.GroupList := Emuteca.GroupManager.VisibleList;
+    fmEmutecaSystemCBX.SystemList := Emuteca.SystemManager.EnabledList;
     fmEmutecaSoftList.SoftList := Emuteca.SoftManager.VisibleList;
   end
   else
   begin
     fmEmutecaSystemCBX.SystemList := nil;
-    fmEmutecaGroupList.GroupList := nil;
     fmEmutecaSoftList.SoftList := nil;
     fmSoftMedia.Emuteca := nil;
   end;
