@@ -102,8 +102,6 @@ begin
     Software.FPOAttachObserver(Self);
 
   LoadData;
-
-  self.Enabled := Assigned(Software) and Assigned(Software.System);
 end;
 
 function TfmEmutecaSoftEditor.SelectGroup(aGroup: cEmutecaGroup): boolean;
@@ -155,8 +153,11 @@ begin
   if not assigned(Software) or not Assigned(Software.System) then
   begin
     ClearData;
+    Self.Enabled := False;
     Exit;
-  end;
+  end
+  else
+    Self.Enabled := True;
 
   lSystem.Caption := Software.System.Title;
 

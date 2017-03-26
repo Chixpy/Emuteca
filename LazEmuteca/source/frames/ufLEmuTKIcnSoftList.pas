@@ -117,11 +117,11 @@ begin
       // Don't draw text
 
       // Text space
-      //IconRect := CellRect;
-      //IconRect.Left := IconRect.Left + IconRect.Bottom -
+      //  IconRect := CellRect;
+      //  IconRect.Left := IconRect.Left + IconRect.Bottom -
       //  IconRect.Top + VST.TextMargin;
 
-      //DrawText(TargetCanvas.Handle, PChar(CellText), -1, IconRect,
+      // DrawText(TargetCanvas.Handle, PChar(CellText), -1, IconRect,
       //  DT_NOPREFIX or DT_VCENTER or DT_SINGLELINE or
       //  DT_WORDBREAK or DT_END_ELLIPSIS or DT_EDITCONTROL);
     end;

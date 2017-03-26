@@ -9,7 +9,7 @@ uses
   Controls, ComCtrls,
   LazUTF8,
   uCHXStrUtils,
-  uEmutecaCommon, ucEmutecaGroup;
+  uEmutecaCommon, uEmutecaRscStr, ucEmutecaGroup;
 
 type
   { TfmEmutecaGroupList }
@@ -30,22 +30,32 @@ type
       var InitialStates: TVirtualNodeInitStates);
 
   private
+    FFilterStr: string;
     FGroupList: cEmutecaGroupList;
     FOnItemSelect: TEmutecaReturnGroupCB;
+    procedure SetFilterStr(AValue: string);
     procedure SetGroupList(AValue: cEmutecaGroupList);
     procedure SetOnItemSelect(AValue: TEmutecaReturnGroupCB);
 
   protected
+    procedure HideNodes(Sender: TBaseVirtualTree;
+      Node: PVirtualNode; Data: Pointer; var Abort: boolean);
 
-
+    procedure UpdateStatusBar;
 
   public
     { public declarations }
     property GroupList: cEmutecaGroupList read FGroupList write SetGroupList;
 
+    property FilterStr: string read FFilterStr write SetFilterStr;
+    //< String to show/hide nodes.
+
     property OnItemSelect: TEmutecaReturnGroupCB
       read FOnItemSelect write SetOnItemSelect;
     //< CallBack function when item selected.
+
+    procedure FPOObservedChanged(ASender: TObject;
+      Operation: TFPObservedOperation; Data: Pointer);
 
     procedure UpdateList;
 
@@ -92,20 +102,20 @@ begin
     Exit;
 
   case Column of
-  //  0: // System
- //      Result := UTF8CompareText(pData1^.SystemKey, pData2^.SystemKey);
+    //  0: // System
+    //      Result := UTF8CompareText(pData1^.SystemKey, pData2^.SystemKey);
     1: // Name
       Result := UTF8CompareText(pData1^.ID, pData2^.ID);
     2: // Develepor
       Result := UTF8CompareText(pData1^.Developer, pData2^.Developer);
     3: // Year
       Result := UTF8CompareText(pData1^.Year, pData2^.Year);
- //   4: // Times
- //     Result := pData1^.Stats.TimesPlayed - pData2^.Stats.TimesPlayed;
- //   5: // Total time
- //     Result := pData1^.Stats.PlayingTime - pData2^.Stats.PlayingTime;
- //   6: // Last time
- //     Result := Trunc(pData1^.Stats.LastTime - pData2^.Stats.LastTime);
+      //   4: // Times
+      //     Result := pData1^.Stats.TimesPlayed - pData2^.Stats.TimesPlayed;
+      //   5: // Total time
+      //     Result := pData1^.Stats.PlayingTime - pData2^.Stats.PlayingTime;
+      //   6: // Last time
+      //     Result := Trunc(pData1^.Stats.LastTime - pData2^.Stats.LastTime);
     else
       ;
   end;
@@ -145,23 +155,23 @@ begin
     Exit;
 
   case Column of
-   // 0: // System
-  //    CellText := pData^.System.Title;
+    //0: // System
+    //  CellText := pData^.System.Title;
     1: // Name
       CellText := pData^.Title;
     2: // Develepor
       CellText := pData^.Developer;
     3: // Year
       CellText := pData^.Year;
-  //  4: // Times
-  //    CellText := IntToStr(pData^.Stats.TimesPlayed);
-  //  5: // Total time
-  //    CellText := SecondsToFmtStr(pData^.Stats.PlayingTime);
-  //  6: // Last time
-  //    if pData^.Stats.LastTime = 0 then
-  //      CellText := rsNever
-  //    else
-  //      CellText := DateTimeToStr(pData^.Stats.LastTime);
+    4: // Times
+      CellText := IntToStr(pData^.Stats.TimesPlayed);
+    5: // Total time
+      CellText := SecondsToFmtStr(pData^.Stats.PlayingTime);
+    6: // Last time
+      if pData^.Stats.LastTime = 0 then
+        CellText := rsNever
+      else
+        CellText := DateTimeToStr(pData^.Stats.LastTime);
     else
       ;
   end;
@@ -182,6 +192,24 @@ begin
   UpdateList;
 end;
 
+procedure TfmEmutecaGroupList.SetFilterStr(AValue: string);
+var
+  aTemp: string;
+begin
+  aTemp := UTF8LowerString(AValue);
+  if aTemp = FFilterStr then
+    Exit;
+  FFilterStr := aTemp;
+
+  VST.BeginUpdate;
+  try
+    VST.IterateSubtree(nil, @HideNodes, nil) // ,[],True);
+  finally
+    VST.EndUpdate;
+  end;
+  UpdateStatusBar;
+end;
+
 procedure TfmEmutecaGroupList.SetOnItemSelect(AValue: TEmutecaReturnGroupCB);
 begin
   if FOnItemSelect = AValue then
@@ -189,12 +217,47 @@ begin
   FOnItemSelect := AValue;
 end;
 
+procedure TfmEmutecaGroupList.HideNodes(Sender: TBaseVirtualTree;
+  Node: PVirtualNode; Data: Pointer; var Abort: boolean);
+var
+  pData: ^cEmutecaGroup;
+begin
+  Abort := False;
+
+  pData := Sender.GetNodeData(Node);
+  if FilterStr <> '' then
+    Sender.IsVisible[Node] :=
+      (UTF8Pos(FilterStr, UTF8LowerString(pData^.Title)) >= 1) or
+      (UTF8Pos(FilterStr, UTF8LowerString(pData^.ID)) >= 1)
+  else
+    Sender.IsVisible[Node] := True;
+end;
+
+procedure TfmEmutecaGroupList.UpdateStatusBar;
+begin
+  StatusBar1.SimpleText :=
+    Format(rsFmtNItems, [vst.RootNodeCount, vst.VisibleCount]);
+end;
+
+procedure TfmEmutecaGroupList.FPOObservedChanged(ASender: TObject;
+  Operation: TFPObservedOperation; Data: Pointer);
+var
+  pData: ^cEmutecaGroup;
+begin
+
+end;
+
 procedure TfmEmutecaGroupList.UpdateList;
 begin
   VST.Clear;
+
+  StatusBar1.SimpleText := '';
+  if not assigned(GroupList) then
+    Exit;
+
   vst.RootNodeCount := GroupList.Count;
-  StatusBar1.SimpleText :=
-    Format(rsFmtNItems, [vst.RootNodeCount, vst.VisibleCount]);
+
+  UpdateStatusBar;
 end;
 
 constructor TfmEmutecaGroupList.Create(TheOwner: TComponent);

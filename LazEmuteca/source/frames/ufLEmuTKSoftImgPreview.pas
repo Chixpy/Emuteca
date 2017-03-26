@@ -88,6 +88,7 @@ end;
 procedure TfmLEmuTKSoftImgPreview.UpdateImageList;
 begin
   ImageList.Clear;
+  iSoftImage.Picture.Clear;
 
   if not assigned(CurrSystem) then
     Exit;
@@ -208,7 +209,7 @@ end;
 
 destructor TfmLEmuTKSoftImgPreview.Destroy;
 begin
-  FreeAndNil(FImageList);
+  ImageList.Destroy;
   inherited Destroy;
 end;
 

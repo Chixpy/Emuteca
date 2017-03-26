@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
   Buttons, StdCtrls, CheckLst, EditBtn, LazFileUtils,
-  uCHXStrUtils,
+  uCHXStrUtils, uCHXDlgUtils,
   ufCHXPropEditor,
   ucEmutecaConfig, ucEmutecaSystem, ucEmutecaEmulator,
   ucEmutecaEmulatorManager;
@@ -43,7 +43,8 @@ type
     rgbGameKey: TRadioGroup;
     Splitter1: TSplitter;
     procedure bCreateSubdirsClick(Sender: TObject);
-    procedure eFolderButtonClick(Sender: TObject);
+    procedure eBaseFolderButtonClick(Sender: TObject);
+    procedure eTempFolderButtonClick(Sender: TObject);
   private
     FConfig: cEmutecaConfig;
     FEmuManager: cEmutecaEmulatorManager;
@@ -158,13 +159,14 @@ begin
   end;
 end;
 
-procedure TfmEmutecaSystemEditor.eFolderButtonClick(Sender: TObject);
-var
-  aEFN: TDirectoryEdit;
+procedure TfmEmutecaSystemEditor.eBaseFolderButtonClick(Sender: TObject);
 begin
-  aEFN := TDirectoryEdit(Sender);
-  if not FilenameIsAbsolute(aEFN.Directory) then
-    aEFN.Directory := TrimFilename(ProgramDirectory + aEFN.Directory);
+  SetDirEditInitialDir(eBaseFolder, ProgramDirectory);
+end;
+
+procedure TfmEmutecaSystemEditor.eTempFolderButtonClick(Sender: TObject);
+begin
+  SetDirEditInitialDir(eTempFolder, ProgramDirectory);
 end;
 
 procedure TfmEmutecaSystemEditor.SetConfig(AValue: cEmutecaConfig);

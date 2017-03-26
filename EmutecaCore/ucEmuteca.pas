@@ -91,6 +91,7 @@ type
     property TempFolder: string read FTempFolder write SetTempFolder;
 
     procedure LoadConfig(aFile: string);
+    procedure SaveConfig;
 
     procedure SelectSystem(aSystem: cEmutecaSystem);
 
@@ -231,7 +232,7 @@ begin
           aSha1 := SHA1File(TempFolder + 'SHA1Cache/' + aFile);
           if not terminated then
             aSoft.SHA1 := aSha1;
-          DeleteFileUTF8(TempFolder + 'SHA1Cache/' + aSoft.FileName);
+          DeleteFileUTF8(TempFolder + 'SHA1Cache/' + aFile);
         end;
       end;
       Inc(FCurrSoftPos);
@@ -536,6 +537,13 @@ begin
   CacheData;
 end;
 
+procedure cEmuteca.SaveConfig;
+begin
+  SoftManager.SaveToFileTxt('', False);
+  SystemManager.SaveToFileIni('', False);
+  EmulatorManager.SaveToFileIni('', False);
+end;
+
 procedure cEmuteca.SelectSystem(aSystem: cEmutecaSystem);
 begin
   SoftManager.SelectSystem(aSystem);
@@ -643,10 +651,6 @@ begin
       { TODO : Exception or return Comperror code? }
       Exit;
     RomFile := aFolder + aSoftware.FileName;
-
-    // HACK/FIX: Calculate SHA1, if SHA is not already calculated...
-    if aSoftware.SHA1IsEmpty then
-      aSoftware.SHA1 := SHA1File(RomFile);
   end
   else
   begin

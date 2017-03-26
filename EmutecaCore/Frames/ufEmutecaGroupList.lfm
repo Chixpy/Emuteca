@@ -34,7 +34,7 @@ object fmEmutecaGroupList: TfmEmutecaGroupList
       end    
       item
         Position = 3
-        Text = 'Dev. Year'
+        Text = 'Year'
       end    
       item
         Position = 4

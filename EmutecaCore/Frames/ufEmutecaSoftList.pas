@@ -14,7 +14,7 @@ uses
 type
   { TfmEmutecaSoftList }
 
-  TfmEmutecaSoftList = class(TFrame, IFPObserver)
+  TfmEmutecaSoftList = class(TFrame)
     actOpenSoftFolder: TAction;
     actOpenSystemFolder: TAction;
     alSoftList: TActionList;
@@ -69,9 +69,6 @@ type
       read FOnDblClick write SetOnDblClick;
     //< CallBack function when item Double Click.
 
-    procedure FPOObservedChanged(ASender: TObject;
-      Operation: TFPObservedOperation; Data: Pointer);
-
     procedure UpdateList;
 
     constructor Create(TheOwner: TComponent); override;
@@ -121,38 +118,6 @@ procedure TfmEmutecaSoftList.UpdateStatusBar;
 begin
   StatusBar1.SimpleText :=
     Format(rsFmtNItems, [vst.RootNodeCount, vst.VisibleCount]);
-end;
-
-procedure TfmEmutecaSoftList.FPOObservedChanged(ASender: TObject;
-  Operation: TFPObservedOperation; Data: Pointer);
-var
-  Node, NextNode: PVirtualNode;
-  pData: ^cEmutecaSoftware;
-begin
-  case Operation of
-    ooFree: SoftList := nil;
-
-    ooAddItem:
-    begin
-      pData := VST.GetNodeData(VST.AddChild(VST.RootNode));
-      pData^ := cEmutecaSoftware(Data);
-    end;
-
-    ooDeleteItem:
-    begin
-      NextNode := VST.GetFirst;
-      while assigned(NextNode) do
-      begin
-        Node := NextNode;
-        NextNode := VST.GetNext(NextNode);
-        pData := VST.GetNodeData(Node);
-        if pData^ = cEmutecaSoftware(Data) then
-          vst.DeleteNode(Node, False);
-      end;
-    end;
-    else
-      UpdateList;
-  end;
 end;
 
 procedure TfmEmutecaSoftList.VSTChange(Sender: TBaseVirtualTree;
@@ -313,6 +278,10 @@ begin
       if pData^.Hack <> '' then
         HintText += sLineBreak + 'Hack: ' + pData^.Hack;
     end;
+        9: // Folder
+      HintText := pData^.Folder;
+    10: // File
+      HintText := pData^.FileName;
     else
       ;
   end;
@@ -404,8 +373,8 @@ begin
       CellText := pData^.Folder;
     10: // File
       CellText := pData^.FileName;
-    else // Title
-      CellText := pData^.Title;
+    else
+      ;
   end;
 end;
 
@@ -455,13 +424,6 @@ begin
 
   vst.RootNodeCount := SoftList.Count;
 
-  if FilterStr <> '' then
-  begin
-    // HACK: SetFilterStr(FilterStr)
-    aTemp := FilterStr;
-    FFilterStr := '';
-    FilterStr := aTemp;
-  end;
   UpdateStatusBar;
 end;
 

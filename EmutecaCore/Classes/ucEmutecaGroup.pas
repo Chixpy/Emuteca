@@ -27,7 +27,8 @@ interface
 
 uses
   Classes, SysUtils, LazFileUtils, contnrs, IniFiles, fgl,
-  uCHXStrUtils, uaCHXStorable;
+  uCHXStrUtils, uaCHXStorable,
+  ucEmutecaPlayingStats;
 
 type
   { cEmutecaGroup }
@@ -36,6 +37,7 @@ type
   private
     FDeveloper: string;
     FID: string;
+    FStats: cEmutecaPlayingStats;
     FTitle: string;
     FYear: string;
     function GetDataString: string;
@@ -47,13 +49,14 @@ type
 
 
   public
+
     procedure LoadFromIni(aIniFile: TCustomIniFile); override;
     procedure SaveToIni(aIniFile: TCustomIniFile; const ExportMode: boolean);
       override;
     property DataString: string read GetDataString write SetDataString;
 
-    procedure LoadFromStrLst(TxtFile: TStrings); override;
-    procedure SaveToStrLst(TxtFile: TStrings; const ExportMode: boolean);
+    procedure LoadFromStrLst(aTxtFile: TStrings); override;
+    procedure SaveToStrLst(aTxtFile: TStrings; const ExportMode: boolean);
       override;
 
     constructor Create(aOwner: TComponent); override;
@@ -69,6 +72,7 @@ type
     property Developer: string read FDeveloper write SetDeveloper;
     {< Developer. }
 
+    property Stats: cEmutecaPlayingStats read FStats;
   end;
 
   { cEmutecaGroupList }
@@ -154,39 +158,45 @@ end;
 constructor cEmutecaGroup.Create(aOwner: TComponent);
 begin
   inherited Create(aOwner);
+  FStats := cEmutecaPlayingStats.Create(Self);
 end;
 
 destructor cEmutecaGroup.Destroy;
 begin
+  Stats.Destroy;
   inherited Destroy;
 end;
 
-procedure cEmutecaGroup.LoadFromStrLst(TxtFile: TStrings);
+procedure cEmutecaGroup.LoadFromStrLst(aTxtFile: TStrings);
 var
   i: integer;
 begin
-  if not assigned(TxtFile) then
+  if not assigned(aTxtFile) then
     Exit;
 
-  while TxtFile.Count < 4 do
-    TxtFile.Add('');
+  while aTxtFile.Count < 4 do
+    aTxtFile.Add('');
 
-      ID := TxtFile[0];
-      Title := TxtFile[1];
-      Year := TxtFile[2];
-      Developer := TxtFile[3];
+      ID := aTxtFile[0];
+      Title := aTxtFile[1];
+      Year := aTxtFile[2];
+      Developer := aTxtFile[3];
+      Stats.LoadFromStrLst(aTxtFile, 4);
+      // Next := aTxtFile[7]
 end;
 
-procedure cEmutecaGroup.SaveToStrLst(TxtFile: TStrings;
+procedure cEmutecaGroup.SaveToStrLst(aTxtFile: TStrings;
   const ExportMode: boolean);
 begin
-  if not assigned(TxtFile) then
+  if not assigned(aTxtFile) then
     Exit;
 
-  TxtFile.Add(ID);
-  TxtFile.Add(Title);
-  TxtFile.Add(Year);
-  TxtFile.Add(Developer);
+  aTxtFile.Add(ID);
+  aTxtFile.Add(Title);
+  aTxtFile.Add(Year);
+  aTxtFile.Add(Developer);
+
+  Stats.WriteToStrLst(aTxtFile, ExportMode);
 end;
 
 

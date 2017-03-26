@@ -5,8 +5,6 @@
 {"hash":71732245,"name":"tfmemutecaactaddsoft.chkopenasarchive.caption","sourcebytes":[79,112,101,110,32,97,115,32,99,111,109,112,114,101,115,115,101,100,32,97,114,99,104,105,118,101],"value":"Open as compressed archive"},
 {"hash":97932393,"name":"tfmemutecaactaddsoft.rgbsoftkey.caption","sourcebytes":[83,111,102,116,32,75,101,121],"value":"Soft Key"},
 {"hash":50149043,"name":"tfmemutecaactaddsoft.gbxduplicates.caption","sourcebytes":[68,117,112,108,105,99,97,116,101,115],"value":"Duplicates"},
-{"hash":144665715,"name":"tfmemutecaactaddsoft.btest.caption","sourcebytes":[84,101,115,116,32,100,117,112,108,105,99,97,116,101,115],"value":"Test duplicates"},
-{"hash":32,"name":"tfmemutecaactaddsoft.ldupsha1.caption","sourcebytes":[32],"value":" "},
 {"hash":32,"name":"tfmemutecaactaddsoft.ldupfile.caption","sourcebytes":[32],"value":" "},
 {"hash":36264223,"name":"tfmemutecaactaddsoft.gbxsoftinfo.caption","sourcebytes":[83,111,102,116,119,97,114,101,32,73,110,102,111],"value":"Software Info"}
 ]}

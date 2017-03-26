@@ -147,6 +147,7 @@ type
     function MatchSHA1(aSHA1: TSHA1Digest): boolean;
     function MatchSystem(aSystem: cEmutecaSystem): boolean;
     function MatchGroup(aGroup: cEmutecaGroup): boolean;
+    function MatchMFile(aSoft: cEmutecaSoftware): Boolean;
 
     function GetActualID: string;
     function GetActualTitle: string;
@@ -160,7 +161,7 @@ type
       Operation: TFPObservedOperation; Data: Pointer);
 
     procedure LoadFromStrLst(aTxtFile: TStrings); override;
-    procedure SaveToStrLst(TxtFile: TStrings; const ExportMode: boolean);
+    procedure SaveToStrLst(aTxtFile: TStrings; const ExportMode: boolean);
       override;
     procedure LoadFromIni(aIniFile: TCustomIniFile); override;
     procedure SaveToIni(aIniFile: TCustomIniFile; const ExportMode: boolean);
@@ -643,6 +644,12 @@ begin
      Result := False;
 end;
 
+function cEmutecaSoftware.MatchMFile(aSoft: cEmutecaSoftware): Boolean;
+begin
+  Result := (CompareFilenames(Self.FileName, aSoft.FileName) = 0) and
+        (CompareFilenames(Self.Folder, aSoft.Folder) = 0);
+end;
+
 function cEmutecaSoftware.GetActualID: string;
 begin
   Result := FID;
@@ -708,7 +715,7 @@ begin
   if Assigned(Group) then
     Group.FPODetachObserver(Self);
 
-  FreeAndNil(FStats);
+  Stats.Destroy;
 
   inherited Destroy;
 end;
@@ -757,54 +764,54 @@ begin
   // Next := aTxtFile[25]
 end;
 
-procedure cEmutecaSoftware.SaveToStrLst(TxtFile: TStrings;
+procedure cEmutecaSoftware.SaveToStrLst(aTxtFile: TStrings;
   const ExportMode: boolean);
 begin
-  if not assigned(TxtFile) then
+  if not assigned(aTxtFile) then
     Exit;
 
   if assigned(System) then
-    TxtFile.Add(System.ID)
+    aTxtFile.Add(System.ID)
   else
-    TxtFile.Add(SystemKey);
+    aTxtFile.Add(SystemKey);
   if assigned(Group) then
-    TxtFile.Add(Group.ID)
+    aTxtFile.Add(Group.ID)
   else
-    TxtFile.Add(GroupKey);
-  TxtFile.Add(SHA1Print(SHA1));
-  TxtFile.Add(GetActualID); // If SHA1 = ID then FID = ''
+    aTxtFile.Add(GroupKey);
+  aTxtFile.Add(SHA1Print(SHA1));
+  aTxtFile.Add(GetActualID); // If SHA1 = ID then FID = ''
 
   if ExportMode then
   begin
-    TxtFile.Add('');
-    TxtFile.Add('');
+    aTxtFile.Add('');
+    aTxtFile.Add('');
   end
   else
   begin
-    TxtFile.Add(Folder);
-    TxtFile.Add(FileName);
+    aTxtFile.Add(Folder);
+    aTxtFile.Add(FileName);
   end;
 
-  TxtFile.Add(GetActualTitle);
-  TxtFile.Add(GetActualTranslitTitle);
-  TxtFile.Add(GetActualSortTitle);
+  aTxtFile.Add(GetActualTitle);
+  aTxtFile.Add(GetActualTranslitTitle);
+  aTxtFile.Add(GetActualSortTitle);
 
-  TxtFile.Add(Version);
-  TxtFile.Add(Year);
-  TxtFile.Add(Publisher);
-  TxtFile.Add(Zone);
+  aTxtFile.Add(Version);
+  aTxtFile.Add(Year);
+  aTxtFile.Add(Publisher);
+  aTxtFile.Add(Zone);
 
-  TxtFile.Add(EmutecaDumpStatusKeys[DumpStatus]);
-  TxtFile.Add(DumpInfo);
-  TxtFile.Add(Fixed);
-  TxtFile.Add(Trainer);
-  TxtFile.Add(Translation);
-  TxtFile.Add(Pirate);
-  TxtFile.Add(Cracked);
-  TxtFile.Add(Modified);
-  TxtFile.Add(Hack);
+  aTxtFile.Add(EmutecaDumpStatusKeys[DumpStatus]);
+  aTxtFile.Add(DumpInfo);
+  aTxtFile.Add(Fixed);
+  aTxtFile.Add(Trainer);
+  aTxtFile.Add(Translation);
+  aTxtFile.Add(Pirate);
+  aTxtFile.Add(Cracked);
+  aTxtFile.Add(Modified);
+  aTxtFile.Add(Hack);
 
-  Stats.WriteToStrLst(TxtFile, ExportMode);
+  Stats.WriteToStrLst(aTxtFile, ExportMode);
 end;
 
 initialization

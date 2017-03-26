@@ -1,12 +1,12 @@
 inherited fmSystemImgEditor: TfmSystemImgEditor
-  Height = 400
+  Height = 398
   Width = 600
-  ClientHeight = 400
+  ClientHeight = 398
   ClientWidth = 600
-  DesignLeft = 466
-  DesignTop = 188
+  DesignLeft = 321
+  DesignTop = 161
   inherited pButtons: TPanel
-    Top = 373
+    Top = 371
     Width = 600
     ClientWidth = 600
     TabOrder = 1
@@ -19,12 +19,12 @@ inherited fmSystemImgEditor: TfmSystemImgEditor
   end
   object gbxImages: TGroupBox[1]
     Left = 0
-    Height = 373
+    Height = 371
     Top = 0
     Width = 154
     Align = alLeft
-    Caption = 'gbxImages'
-    ClientHeight = 353
+    Caption = 'System images'
+    ClientHeight = 351
     ClientWidth = 150
     TabOrder = 0
     object lSystemImage: TLabel
@@ -51,7 +51,7 @@ inherited fmSystemImgEditor: TfmSystemImgEditor
       Align = alTop
       MaxLength = 0
       TabOrder = 0
-      OnButtonClick = eFileButtonClick
+      OnButtonClick = eSystemImageButtonClick
     end
     object lSystemIcon: TLabel
       Left = 0
@@ -77,7 +77,7 @@ inherited fmSystemImgEditor: TfmSystemImgEditor
       Align = alTop
       MaxLength = 0
       TabOrder = 1
-      OnButtonClick = eFileButtonClick
+      OnButtonClick = eSystemIconButtonClick
     end
     object iSystemImage: TImage
       Left = 0
@@ -105,8 +105,142 @@ inherited fmSystemImgEditor: TfmSystemImgEditor
       Transparent = True
     end
   end
-  inherited alPropEditor: TActionList[2]
+  object Splitter1: TSplitter[2]
+    Left = 154
+    Height = 371
+    Top = 0
+    Width = 5
   end
-  inherited ilPropEditor: TImageList[3]
+  object gbxImageFolders: TGroupBox[3]
+    Left = 159
+    Height = 371
+    Top = 0
+    Width = 441
+    Align = alClient
+    Caption = 'Image folders'
+    ClientHeight = 351
+    ClientWidth = 437
+    TabOrder = 3
+    object pEditFolder: TPanel
+      Left = 0
+      Height = 31
+      Top = 0
+      Width = 437
+      Align = alTop
+      AutoSize = True
+      BevelOuter = bvNone
+      ChildSizing.LeftRightSpacing = 4
+      ChildSizing.TopBottomSpacing = 4
+      ChildSizing.HorizontalSpacing = 4
+      ChildSizing.VerticalSpacing = 4
+      ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+      ChildSizing.EnlargeVertical = crsHomogenousChildResize
+      ChildSizing.ShrinkHorizontal = crsHomogenousChildResize
+      ChildSizing.ShrinkVertical = crsHomogenousChildResize
+      ChildSizing.Layout = cclLeftToRightThenTopToBottom
+      ChildSizing.ControlsPerLine = 2
+      ClientHeight = 31
+      ClientWidth = 437
+      TabOrder = 0
+      object eImageFolder: TDirectoryEdit
+        Left = 4
+        Height = 23
+        Top = 4
+        Width = 224
+        OnAcceptDirectory = eImageFolderAcceptDirectory
+        DialogOptions = [ofNoChangeDir, ofEnableSizing, ofViewDetail]
+        ShowHidden = False
+        ButtonWidth = 23
+        NumGlyphs = 1
+        MaxLength = 0
+        TabOrder = 1
+        OnButtonClick = eImageFolderButtonClick
+      end
+      object eImageCaption: TEdit
+        Left = 232
+        Height = 23
+        Top = 4
+        Width = 201
+        TabOrder = 0
+      end
+    end
+    object pImageFolderLists: TPanel
+      Left = 0
+      Height = 320
+      Top = 31
+      Width = 413
+      Align = alClient
+      BevelOuter = bvNone
+      ChildSizing.LeftRightSpacing = 4
+      ChildSizing.TopBottomSpacing = 4
+      ChildSizing.HorizontalSpacing = 4
+      ChildSizing.VerticalSpacing = 4
+      ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+      ChildSizing.EnlargeVertical = crsHomogenousChildResize
+      ChildSizing.Layout = cclLeftToRightThenTopToBottom
+      ChildSizing.ControlsPerLine = 2
+      ClientHeight = 320
+      ClientWidth = 413
+      TabOrder = 1
+      object lbxImageFolders: TListBox
+        Left = 4
+        Height = 312
+        Top = 4
+        Width = 201
+        ItemHeight = 0
+        OnSelectionChange = lbxImageFoldersSelectionChange
+        TabOrder = 0
+      end
+      object lbxImageCaptions: TListBox
+        Left = 209
+        Height = 312
+        Top = 4
+        Width = 200
+        ItemHeight = 0
+        OnSelectionChange = lbxImageCaptionsSelectionChange
+        TabOrder = 1
+      end
+    end
+    object tbImageFolderButtons: TToolBar
+      Left = 413
+      Height = 320
+      Top = 31
+      Width = 24
+      Align = alRight
+      AutoSize = True
+      Caption = 'tbImageFolderButtons'
+      TabOrder = 2
+      object ToolButton1: TToolButton
+        Left = 1
+        Top = 2
+        Caption = 'ToolButton1'
+      end
+      object ToolButton2: TToolButton
+        Left = 1
+        Top = 24
+        Caption = 'ToolButton2'
+      end
+      object ToolButton3: TToolButton
+        Left = 1
+        Top = 46
+        Caption = 'ToolButton3'
+      end
+    end
+  end
+  inherited alPropEditor: TActionList[4]
+    object actAddImgFolder: TAction[2]
+      Category = 'ImageList'
+      Caption = 'Add Image Folder'
+    end
+    object actDeleteImageFolder: TAction[3]
+      Category = 'ImageList'
+      Caption = 'Delete Image Folder'
+    end
+    object actUpdateImageFolder: TAction[4]
+      Category = 'ImageList'
+      Caption = 'Update Image Folder'
+    end
+  end
+  inherited ilPropEditor: TImageList[5]
   end
 end

@@ -160,7 +160,7 @@ inherited fmEmutecaSystemEditor: TfmEmutecaSystemEditor
       Align = alTop
       MaxLength = 0
       TabOrder = 0
-      OnButtonClick = eFolderButtonClick
+      OnButtonClick = eBaseFolderButtonClick
     end
     object lFileExtensions: TLabel
       Left = 0
@@ -238,6 +238,7 @@ inherited fmEmutecaSystemEditor: TfmEmutecaSystemEditor
       Align = alTop
       MaxLength = 0
       TabOrder = 4
+      OnButtonClick = eTempFolderButtonClick
     end
     object bCreateSubdirs: TButton
       Left = 0

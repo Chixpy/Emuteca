@@ -22,7 +22,7 @@ uses
   ufEmutecaActAddSoft, ufLEmuTKMain, ufLEmuTKPreviewList, ufCHXImgViewer,
   ufLEmuTKSoftImgPreview, ufLEmuTKSoftTxtPreview, ufCHXForm, ufLEmuTKIcnGrpList,
   ufrLEmuTKExportData, ufLEmuTKExportData, 
-ufEmutecaActAddFolder;
+ufEmutecaActAddFolder, uCHXDlgUtils;
 
 {$R *.res}
 

@@ -86,6 +86,7 @@ end;
 procedure TfmLEmuTKSoftTxtPreview.UpdateTxtList;
 begin
   TxtList.Clear;
+  mSoftText.Clear;
 
   if not assigned(CurrSystem) then
     Exit;

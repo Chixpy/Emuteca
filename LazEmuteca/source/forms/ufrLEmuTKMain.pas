@@ -139,59 +139,15 @@ begin
 end;
 
 procedure TfrmLEmuTKMain.mmiTestClick(Sender: TObject);
-{
-var
-  Temp: TStringList;
-  str: string;
-  i: longint;
 begin
 
-  Temp := TStringList.Create;
-  temp.Capacity := 500000;
+  ;
 
-  for i := 1 to 500000 do
-  begin
-    str := IntToStr(i) + ',';
-    str := str + str + str + str + str + str + str + str +
-      str + str + str + str + str + str + str + str + str +
-      str + str + str + str + str + str + str + str;
-    Temp.Add(str);
-  end;
-
-  Temp.SaveToFile('Soft.csv');
-  FreeAndNil(Temp);
-  }
-
-var
-  aForm: TForm;
-  aFrame: TfmLEmuTKMain;
-begin
-  Application.CreateForm(TForm, aForm);
-
-  // TODO: Save in GUI.ini
-  aform.Width := 640;
-  aForm.Height := 480;
-  aForm.Position := poMainFormCenter;
-
-  aFrame := TfmLEmuTKMain.Create(aForm);
-  aForm.Caption := Format(rsFmtWindowCaption,
-    [Application.Title, aFrame.Caption]);
-  aFrame.Align := alClient;
-
-  aFrame.GUIIconsIni := GUIConfig.GUIIcnFile;
-  aFrame.Emuteca := Emuteca;
-  aFrame.Parent := aForm;
-
-  aForm.ShowModal;
-  FreeAndNil(aForm);
 end;
 
 procedure TfrmLEmuTKMain.SaveEmuteca;
 begin
-  { TODO : Emuteca.Save }
-  Emuteca.SoftManager.SaveToFileTxt('', False);
-  Emuteca.SystemManager.SaveToFileIni('', False);
-  Emuteca.EmulatorManager.SaveToFileIni('', False);
+  Emuteca.SaveConfig;
 end;
 
 function TfrmLEmuTKMain.OnProgressBar(const Title, Info1, Info2: string;
@@ -238,7 +194,7 @@ procedure TfrmLEmuTKMain.FormCreate(Sender: TObject);
     aFile := GUIConfig.GUIIcnFile;
 
     // Icons for TActions
-    ReadActionsIcons(aFile, Self.Name,  ImageList1, ActionList1);
+    ReadActionsIcons(aFile, Self.Name, ImageList1, ActionList1);
 
    {  // Icons for menus (without assigned TAction)
       ReadMenuIcons(aFile, Self.Name, ImageList1, pmMainMenu);
@@ -373,15 +329,17 @@ end;
 
 procedure TfrmLEmuTKMain.actExportDataExecute(Sender: TObject);
 begin
- if not Assigned(frmLEmuTKExportData) then
-   Application.CreateForm(TfrmLEmuTKExportData, frmLEmuTKExportData);
+  if not Assigned(frmLEmuTKExportData) then
+    Application.CreateForm(TfrmLEmuTKExportData, frmLEmuTKExportData);
 
-   frmLEmuTKExportData.GUIConfigIni := GUIConfig.ConfigFile;
-   frmLEmuTKExportData.GUIIconsIni := GUIConfig.GUIIcnFile;
-   frmLEmuTKExportData.Emuteca := Emuteca;
+  frmLEmuTKExportData.GUIConfigIni := GUIConfig.ConfigFile;
+  frmLEmuTKExportData.GUIIconsIni := GUIConfig.GUIIcnFile;
+  frmLEmuTKExportData.Emuteca := Emuteca;
 
-   frmLEmuTKExportData.ShowModal;
-   FreeAndNil(frmLEmuTKExportData);
+  frmLEmuTKExportData.ShowModal;
+  FreeAndNil(frmLEmuTKExportData);
+
+
 end;
 
 procedure TfrmLEmuTKMain.actOpenTempFolderExecute(Sender: TObject);

@@ -143,16 +143,26 @@ begin
   Emuteca.SelectSystem(aSystem);
 
  if Assigned(aSystem) then
-    GUIConfig.CurrSystem := aSystem.ID
+   begin
+    GUIConfig.CurrSystem := aSystem.ID;
+    fmEmutecaGroupList.GroupList := aSystem.GroupManager.VisibleList;
+   end
   else
+  begin
     GUIConfig.CurrSystem := '';
- // Result := SelectGroup(nil);
- fmEmutecaSoftList.UpdateList;
+    fmEmutecaGroupList.GroupList := nil;
+  end;
+
+ Result := SelectGroup(nil);
+
+ fmEmutecaGroupList.UpdateList;
 end;
 
 function TfmLEmuTKMain.SelectGroup(aGroup: cEmutecaGroup): boolean;
 begin
   Result := SelectSoftware(nil);
+
+  fmEmutecaSoftList.UpdateList;
 end;
 
 function TfmLEmuTKMain.SelectSoftware(aSoftware: cEmutecaSoftware): boolean;

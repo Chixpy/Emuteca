@@ -176,6 +176,8 @@ begin
         TempGroup.Developer, i, TxtFile.Count);
   end;
   //FullList.EndUpdate;
+
+  VisibleList.Assign(FullList);
 end;
 
 procedure cEmutecaGroupManager.SaveToStrLst(TxtFile: TStrings;
