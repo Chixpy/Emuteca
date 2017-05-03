@@ -9,8 +9,7 @@ uses
   Graphics, Dialogs,
   VirtualTrees, LCLIntf, LCLType, LazUTF8,
   ucCHXImageList, uCHXImageUtils, uCHXStrUtils,
-  ucEmuteca,
-  ucEmutecaGroup, ucEmutecaSoftware,
+  ucEmuteca, ucEmutecaGroup, ucEmutecaSoftware,
   ufEmutecaSoftList,
   uGUIConfig;
 
@@ -89,7 +88,7 @@ begin
       if (pData^ = nil) then
         Exit;
       if not assigned(pData^.System) then
-      Exit;
+        Exit;
 
       DefaultDraw := False;
 
@@ -98,21 +97,21 @@ begin
       IconRect.Right := IconRect.Left + IconRect.Bottom - IconRect.Top;
 
 
-        if pData^.System.Stats.IconIndex = -1 then
-        begin
-          if FileExistsUTF8(pData^.System.Icon) then
-            pData^.System.Stats.IconIndex :=
-              SoftIconList.AddImageFile(pData^.System.Icon)
-          else
-            pData^.System.Stats.IconIndex := 0;
-        end;
+      if pData^.System.Stats.IconIndex = -1 then
+      begin
+        if FileExistsUTF8(pData^.System.Icon) then
+          pData^.System.Stats.IconIndex :=
+            SoftIconList.AddImageFile(pData^.System.Icon)
+        else
+          pData^.System.Stats.IconIndex := 0;
+      end;
 
-        if (pData^.System.Stats.IconIndex < SoftIconList.Count) then
-        begin
-          aIcon := SoftIconList[pData^.System.Stats.IconIndex];
-          TargetCanvas.StretchDraw(CorrectAspectRatio(IconRect, aIcon),
-            aIcon.Graphic);
-        end;
+      if (pData^.System.Stats.IconIndex < SoftIconList.Count) then
+      begin
+        aIcon := SoftIconList[pData^.System.Stats.IconIndex];
+        TargetCanvas.StretchDraw(CorrectAspectRatio(IconRect, aIcon),
+          aIcon.Graphic);
+      end;
 
       // Don't draw text
 
@@ -132,6 +131,7 @@ begin
         Exit;
       if not assigned(SoftIconList) then
         Exit;
+      if not Assigned(Emuteca) then Exit;
 
 
       pData := VST.GetNodeData(Node);
@@ -144,16 +144,20 @@ begin
       IconRect := CellRect;
       IconRect.Right := IconRect.Left + IconRect.Bottom - IconRect.Top;
 
-      //  if pData^.Stats.IconIndex = -1 then
-      //  begin
+      if pData^.Stats.IconIndex = -1 then
+      begin
 
       // Usual logic:
       // If GroupIcon = SoftIcon then
-      //   Use/Search icon of group
+      //   Search icon of group
+      //   Use icon of group
       // else
       //   Search soft icon
-      //   if not found then
-      //      Use/Search icon of group
+      //   if found then
+      //     Use soft icon
+      //   else
+      //     Search icon of group
+      //     Use icon of group
 
       // Used logic:
       // Search icon of group
@@ -161,42 +165,44 @@ begin
       //   Use icon of group
       // else
       //   Search soft icon
-      //   if not found then
-      //      Use icon of group
+      //   if found then
+      //     Use soft icon
+      //   else
+      //     Use icon of group
 
-      //  if pData^.Info.Group.Stats.IconIndex = -1 then
-      //  begin // Searching group icon
-      //    TmpStr := Emuteca.SearchFirstGroupFile(pData^.Info.System.IconFolder,
-      //      pData^.Info.Group, GUIConfig.ImageExtensions);
-      //    if TmpStr = '' then
-      //      pData^.Info.Group.Stats.IconIndex := 0
-      //    else
-      //      pData^.Info.Group.Stats.IconIndex := SoftIconList.AddImageFile(TmpStr);
-      //  end;
+        if pData^.Group.Stats.IconIndex = -1 then
+        begin // Searching group icon
+          TmpStr := Emuteca.SearchFirstGroupFile(pData^.System.IconFolder,
+            pData^.Group, GUIConfig.ImageExtensions);
+          if TmpStr = '' then
+            pData^.Group.Stats.IconIndex := 0
+          else
+            pData^.Group.Stats.IconIndex := SoftIconList.AddImageFile(TmpStr);
+        end;
 
-      //  // Dirty same file test
-      //  if RemoveFromBrackets(ExtractFileNameOnly(pData^.Info.Group.ID)) =
-      //    RemoveFromBrackets(ExtractFileNameOnly(pData^.FileName)) then
-      //  begin
-      //    pData^.Stats.IconIndex := pData^.Info.Group.Stats.IconIndex;
-      //  end
-      //  else
-      //  begin
-      //    TmpStr := Emuteca.SearchFirstSoftFile(pData^.Info.System.IconFolder,
-      //      pData^, GUIConfig.ImageExtensions, False);
-      //    if TmpStr = '' then
-      //      pData^.Stats.IconIndex := pData^.Info.Group.Stats.IconIndex
-      //    else
-      //      pData^.Stats.IconIndex := SoftIconList.AddImageFile(TmpStr);
-      //  end;
-      //end;
+        // Dirty same file test
+        if RemoveFromBrackets(ExtractFileNameOnly(pData^.Group.ID)) =
+          RemoveFromBrackets(ExtractFileNameOnly(pData^.FileName)) then
+        begin
+          pData^.Stats.IconIndex := pData^.Group.Stats.IconIndex;
+        end
+        else
+        begin
+          TmpStr := Emuteca.SearchFirstSoftFile(pData^.System.IconFolder,
+            pData^, GUIConfig.ImageExtensions, False);
+          if TmpStr = '' then
+            pData^.Stats.IconIndex := pData^.Group.Stats.IconIndex
+          else
+            pData^.Stats.IconIndex := SoftIconList.AddImageFile(TmpStr);
+        end;
+      end;
 
-      //if (pData^.Stats.IconIndex < SoftIconList.Count) then
-      //begin
-      //  aIcon := SoftIconList[pData^.Stats.IconIndex];
-      //  TargetCanvas.StretchDraw(CorrectAspectRatio(IconRect, aIcon),
-      //    aIcon.Graphic);
-      //end;
+      if (pData^.Stats.IconIndex < SoftIconList.Count) then
+      begin
+        aIcon := SoftIconList[pData^.Stats.IconIndex];
+        TargetCanvas.StretchDraw(CorrectAspectRatio(IconRect, aIcon),
+          aIcon.Graphic);
+      end;
 
       // Text space
       IconRect := CellRect;
@@ -339,10 +345,12 @@ begin
   // Set Width of icon columns
   // System
   vst.Header.Columns[0].Width :=
-    vst.DefaultNodeHeight + vst.Header.Columns[0].Spacing * 2;
+    vst.DefaultNodeHeight + vst.Header.Columns[0].Spacing * 2 +
+    vst.Header.Columns[0].Margin * 2;
   // DumpStatus
   vst.Header.Columns[5].Width :=
-    vst.DefaultNodeHeight * 8 + vst.Header.Columns[5].Spacing * 2;
+    vst.DefaultNodeHeight * 8 + vst.Header.Columns[5].Spacing *
+    2 + vst.Header.Columns[5].Margin * 2;
 end;
 
 destructor TfmLEmuTKIcnSoftList.Destroy;
@@ -359,8 +367,7 @@ end;
 
 procedure TfmLEmuTKIcnSoftList.SetEmuteca(AValue: cEmuteca);
 begin
-  if FEmuteca = AValue then
-    Exit;
+  if FEmuteca = AValue then Exit;
   FEmuteca := AValue;
 end;
 

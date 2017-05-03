@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
   VirtualTrees, LCLIntf, LCLType,
   ucCHXImageList, uCHXImageUtils, //uCHXStrUtils,
-  ucEmuteca, ucEmutecaGroup,
+  ucEmuteca, ucEmutecaSystem, ucEmutecaGroup,
   ufEmutecaGroupList,
   uGUIConfig;
 
@@ -32,7 +32,8 @@ type
     property GUIConfig: cGUIConfig read FGUIConfig write SetGUIConfig;
     property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
 
-    property GroupIconList: cCHXImageList read FGroupIconList write SetGroupIconList;
+    property GroupIconList: cCHXImageList
+      read FGroupIconList write SetGroupIconList;
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -56,10 +57,12 @@ begin
   DefaultDraw := True;
 
   case Column of
-    0: // Title
+    1: // Title
     begin
       if not assigned(GroupIconList) then
         Exit;
+      if not Assigned(Emuteca) then
+      Exit;
 
       if (Node = nil) then
         Exit;
@@ -73,23 +76,28 @@ begin
       IconRect := CellRect;
       IconRect.Right := IconRect.Left + IconRect.Bottom - IconRect.Top;
 
-  //    if Data^.Stats.IconIndex = -1 then
-  //    begin
-  //      TmpStr :=
-  //        Emuteca.SearchFirstGroupFile(Data^.System.IconFolder,
-  //        Data^, GUIConfig.ImageExtensions);
-  //      if TmpStr = '' then
-  //        Data^.Stats.IconIndex := 0
-  //      else
-  //        Data^.Stats.IconIndex := GroupIconList.AddImageFile(TmpStr);
-  //    end;
+      if Data^.Stats.IconIndex = -1 then
+      begin
 
-  //    if (Data^.Stats.IconIndex < GroupIconList.Count) then
-   //   begin
-   //     aIcon := GroupIconList[Data^.Stats.IconIndex];
-    //    TargetCanvas.StretchDraw(CorrectAspectRatio(IconRect, aIcon),
-   //       aIcon.Graphic);
-    //  end;
+        if assigned(Data^.System) then
+        TmpStr :=
+          Emuteca.SearchFirstGroupFile(cEmutecaSystem(Data^.System).IconFolder,
+          Data^, GUIConfig.ImageExtensions)
+          else
+            TmpStr := '';
+
+        if TmpStr = '' then
+          Data^.Stats.IconIndex := 0
+        else
+          Data^.Stats.IconIndex := GroupIconList.AddImageFile(TmpStr);
+      end;
+
+      if (Data^.Stats.IconIndex < GroupIconList.Count) then
+      begin
+        aIcon := GroupIconList[Data^.Stats.IconIndex];
+        TargetCanvas.StretchDraw(CorrectAspectRatio(IconRect, aIcon),
+          aIcon.Graphic);
+      end;
 
       // Text space
       IconRect := CellRect;
@@ -124,12 +132,18 @@ begin
     Exit;
   FGUIConfig := AValue;
 
-   //ReadActionsIcons(GUIConfig.GUIIcnFile, Self.Name, ilSoftList, alSoftList);
+  //ReadActionsIcons(GUIConfig.GUIIcnFile, Self.Name, ilSoftList, alSoftList);
 end;
 
 constructor TfmLEmuTKIcnGrpList.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
+
+    // Set Width of icon columns
+  // System
+  vst.Header.Columns[0].Width :=
+    vst.DefaultNodeHeight + vst.Header.Columns[0].Spacing * 2 +
+    vst.Header.Columns[0].Margin * 2;
 end;
 
 destructor TfmLEmuTKIcnGrpList.Destroy;

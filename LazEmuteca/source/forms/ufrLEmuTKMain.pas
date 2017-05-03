@@ -281,6 +281,7 @@ begin
 
   // Creating Emuteca Core :-D
   FEmuteca := cEmuteca.Create(self);
+  Emuteca.BaseFolder := ProgramDirectory;
   Emuteca.ProgressCallBack := @self.OnProgressBar;
   Emuteca.LoadConfig(GUIConfig.EmutecaIni);
 
@@ -440,7 +441,9 @@ begin
   aFrame.Align := alClient;
   aFrame.Parent := aForm;
 
-  aForm.ShowModal;
+  if aForm.ShowModal = mrOK then
+    // TODO: Releer sistemas y demás...
+    ;
   FreeAndNil(aForm);
 end;
 

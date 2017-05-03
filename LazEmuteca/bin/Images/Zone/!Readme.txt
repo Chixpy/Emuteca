@@ -15,6 +15,9 @@ Contact: mjames@gmail.com
 
 ---------------------
 
+xa.png
+  Search a icon for asia...
+  
 xw.png
   Wikipedia's John McConnell's Earth Day flag, based on this photograph
   https://commons.wikimedia.org/wiki/File:Earth_Day_Flag.png

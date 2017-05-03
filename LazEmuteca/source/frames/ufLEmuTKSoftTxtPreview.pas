@@ -23,16 +23,18 @@ type
     FCurrCaption: string;
     FCurrSystem: cEmutecaSystem;
     FEmuteca: cEmuteca;
+    FGroup: cEmutecaGroup;
     FTxtExt: TStringList;
     FTxtList: TStringList;
     FSoftware: cEmutecaSoftware;
     procedure SetCurrCaption(AValue: string);
     procedure SetCurrSystem(AValue: cEmutecaSystem);
     procedure SetEmuteca(AValue: cEmuteca);
+    procedure SetGroup(AValue: cEmutecaGroup);
     procedure SetTxtExt(AValue: TStringList);
     procedure SetSoftware(AValue: cEmutecaSoftware);
 
-    protected
+  protected
     property CurrSystem: cEmutecaSystem read FCurrSystem write SetCurrSystem;
     property CurrCaption: string read FCurrCaption write SetCurrCaption;
     property TxtList: TStringList read FTxtList;
@@ -42,6 +44,7 @@ type
 
   public
     property Software: cEmutecaSoftware read FSoftware write SetSoftware;
+    property Group: cEmutecaGroup read FGroup write SetGroup;
     property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
     property TxtExt: TStringList read FTxtExt write SetTxtExt;
 
@@ -109,12 +112,29 @@ end;
 
 procedure TfmLEmuTKSoftTxtPreview.SetEmuteca(AValue: cEmuteca);
 begin
-  if FEmuteca = AValue then Exit;
+  if FEmuteca = AValue then
+    Exit;
   FEmuteca := AValue;
 end;
 
+procedure TfmLEmuTKSoftTxtPreview.SetGroup(AValue: cEmutecaGroup);
+begin
+  if FGroup = AValue then
+    Exit;
+  FGroup := AValue;
+
+  //if not Assigned(Group) then
+  //  CurrSystem := nil
+  //else
+  //  CurrSystem := Group.System;
+
+  UpdateTxtList;
+
+  Self.Enabled := Assigned(Group);
+end;
+
 procedure TfmLEmuTKSoftTxtPreview.cbxTextTypeSelect(Sender: TObject);
-  var
+var
   aIndex: integer;
 begin
   aIndex := cbxTextType.ItemIndex;
@@ -128,49 +148,50 @@ end;
 
 procedure TfmLEmuTKSoftTxtPreview.SetCurrCaption(AValue: string);
 begin
-  if FCurrCaption = AValue then Exit;
+  if FCurrCaption = AValue then
+    Exit;
   FCurrCaption := AValue;
 end;
 
 procedure TfmLEmuTKSoftTxtPreview.SetCurrSystem(AValue: cEmutecaSystem);
+var
+  aIndex: integer;
+begin
+  if FCurrSystem = AValue then
+    Exit;
+  FCurrSystem := AValue;
 
-  var
-    aIndex: integer;
+  if Assigned(CurrSystem) then
   begin
-    if FCurrSystem = AValue then
-      Exit;
-    FCurrSystem := AValue;
+    // Updating captions
+    cbxTextType.Items.Assign(CurrSystem.TextCaptions);
 
-    if Assigned(CurrSystem) then
+    // Selecting previous one if exists
+    aIndex := cbxTextType.Items.IndexOf(CurrCaption);
+    if aIndex <> -1 then
     begin
-      // Updating captions
-      cbxTextType.Items.Assign(CurrSystem.TextCaptions);
-
-      // Selecting previous one if exists
-      aIndex := cbxTextType.Items.IndexOf(CurrCaption);
-      if aIndex <> -1 then
-      begin
-        cbxTextType.ItemIndex := aIndex;
-      end
-      else
-      begin
-        if cbxTextType.Items.Count > 0 then
-        begin
-          cbxTextType.ItemIndex := 0;
-          // CurrCaption := ''; Not clearing this maybe is interenting...
-        end;
-      end;
+      cbxTextType.ItemIndex := aIndex;
     end
     else
     begin
-      cbxTextType.Clear;
-      // CurrCaption := ''; Keep this...
+      if cbxTextType.Items.Count > 0 then
+      begin
+        cbxTextType.ItemIndex := 0;
+        // CurrCaption := ''; Not clearing this maybe is interenting...
+      end;
     end;
+  end
+  else
+  begin
+    cbxTextType.Clear;
+    // CurrCaption := ''; Keep this...
+  end;
 end;
 
 procedure TfmLEmuTKSoftTxtPreview.SetTxtExt(AValue: TStringList);
 begin
-  if FTxtExt = AValue then Exit;
+  if FTxtExt = AValue then
+    Exit;
   FTxtExt := AValue;
 end;
 
@@ -178,12 +199,12 @@ constructor TfmLEmuTKSoftTxtPreview.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
 
-    FTxtList := TStringList.Create;
+  FTxtList := TStringList.Create;
 end;
 
 destructor TfmLEmuTKSoftTxtPreview.Destroy;
 begin
-    FreeAndNil(FTxtList);
+  FreeAndNil(FTxtList);
   inherited Destroy;
 end;
 

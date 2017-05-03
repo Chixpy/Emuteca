@@ -103,7 +103,7 @@ begin
   begin
     fmEmutecaSystemCBX.SystemList := Emuteca.SystemManager.EnabledList;
  //   fmEmutecaGroupList.GroupList := Emuteca.GroupManager.FullList;
-    fmEmutecaSoftList.SoftList := Emuteca.SoftManager.VisibleList;
+    //fmEmutecaSoftList.SoftList := Emuteca.SoftManager.VisibleList;
   end
   else
   begin

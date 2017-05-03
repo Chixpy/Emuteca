@@ -22,12 +22,14 @@ type
 
   private
     FEmuteca: cEmuteca;
+    FGroup: cEmutecaGroup;
     FGUIConfig: cGUIConfig;
     FIconsIni: string;
     FSoftImgPreview: TfmLEmuTKSoftImgPreview;
     FSoftTxtPreview: TfmLEmuTKSoftTxtPreview;
     FSoftware: cEmutecaSoftware;
     procedure SetEmuteca(AValue: cEmuteca);
+    procedure SetGroup(AValue: cEmutecaGroup);
     procedure SetGUIConfig(AValue: cGUIConfig);
     procedure SetIconsIni(AValue: string);
     procedure SetSoftware(AValue: cEmutecaSoftware);
@@ -42,6 +44,7 @@ type
     property GUIConfig: cGUIConfig read FGUIConfig write SetGUIConfig;
 
     property Software: cEmutecaSoftware read FSoftware write SetSoftware;
+    property Group: cEmutecaGroup read FGroup write SetGroup;
     property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
 
     constructor Create(TheOwner: TComponent); override;
@@ -70,6 +73,17 @@ begin
   SoftTxtPreview.Emuteca := Emuteca;
 end;
 
+procedure TfmLEmuTKSoftMedia.SetGroup(AValue: cEmutecaGroup);
+begin
+  if FGroup = AValue then Exit;
+  FGroup := AValue;
+
+  SoftImgPreview.Group := Group;
+  SoftTxtPreview.Group := Group;
+
+  self.Enabled := Assigned(Group);
+end;
+
 procedure TfmLEmuTKSoftMedia.SetGUIConfig(AValue: cGUIConfig);
 begin
   if FGUIConfig = AValue then Exit;
@@ -96,7 +110,7 @@ begin
   SoftImgPreview.Software := Software;
   SoftTxtPreview.Software := Software;
 
-  self.Enabled := assigned(Software);
+  self.Enabled := Assigned(Software);
 end;
 
 constructor TfmLEmuTKSoftMedia.Create(TheOwner: TComponent);

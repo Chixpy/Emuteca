@@ -102,7 +102,7 @@ procedure TfmLEmuTKExportData.SaveData;
 begin
   if Assigned(fmSystemCBX.SelectedSystem) then
   begin
-    Emuteca.SoftManager.SaveToFileIni(eExportFile.FileName, True);
+  //  Emuteca.SoftManager.SaveToFileIni(eExportFile.FileName, True);
   end
   else
   begin

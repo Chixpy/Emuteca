@@ -1,35 +1,49 @@
 ICONS FOR DUMP INFO
 -------------------
 
-TODO: Modify or change Temporary ones
-
+Alternate.png 
+  CC-BY - Silk icon set 1.3 (Read license below).
+  Modified adding "a" from DejaVu Serif Bold font.
+  
 BadDump.png
-OverDump.png (Temporary)
-UnderDump.png (Temporary)
-  CC-BY - Silk icon set 1.3 (Read license below)
+  CC-BY - Silk icon set 1.3 (Read license below).
   
-Alternate.png (Temporary)   
+Cracked.png
+  CC-BY - Silk icon set 1.3 (Read license below).
+ 
+Fixed.png
+  CC-BY - Silk icon set 1.3 (Read license below).
+ 
 GoodDump.png
-  C-BY - Silk icon set 1.3 (Read license below)
+  CC-BY - Silk icon set 1.3 (Read license below).
+
+Hack.png 
+  CC-BY - Silk icon set 1.3 (Read license below).
   
-Cracked.png (Temporary) 
-Fixed.png (Temporary)
-Hack.png (Temporary)
+Modified.png 
+  CC-BY - Silk icon set 1.3 (Read license below).
+  
+OverDump.png 
+  CC-BY - Silk icon set 1.3 (Read license below).
+  Modified adding "+" from DejaVu Serif Bold font.
+  
 Pirate.png
-Trained.png (Temporary)
   CC-BY-SA / GNU-FDL by WarX and Manuel Strehl Wikipedia users
   http://en.wikipedia.org/wiki/File:Flag_of_Edward_England.svg
-  Resized to 32px width
+  Resized to 32px width.  
   
-Modified.png
+Trainer.png
+  CC-BY - Silk icon set 1.3 (Read license below).
+
 Translation.png
-  CC-BY - Silk icon set 1.3 (Read license below)
+  CC-BY - Silk icon set 1.3 (Read license below).
+
+UnderDump.png 
+  CC-BY - Silk icon set 1.3 (Read license below).
   
 Verified.png
-  CC-BY - Silk icon set 1.3 (Read license below). Edited to add an !, from
-    DejaVu Serif Bold font
-
-
+  CC-BY - Silk icon set 1.3 (Read license below).
+  
   
 Silk icon set 1.3 LICENSE
 -------------------------

@@ -65,7 +65,8 @@ type
 
     property fmCHXTagTree: TfmCHXTagTree read FfmCHXTagTree;
 
-    property fmEmutecaSoftEditor: TfmEmutecaSoftEditor read FfmEmutecaSoftEditor;
+    property fmEmutecaSoftEditor: TfmEmutecaSoftEditor
+      read FfmEmutecaSoftEditor;
     property fmSoftMedia: TfmLEmuTKSoftMedia read FfmSoftMedia;
 
     function SelectSystem(aSystem: cEmutecaSystem): boolean;
@@ -78,6 +79,8 @@ type
     //< Check Tags
     function RunSoftware(aSoftware: cEmutecaSoftware): boolean;
     //< Run a software
+
+    procedure LoadData;
 
   public
     property GUIIconsIni: string read FGUIIconsIni write SetGUIIconsIni;
@@ -140,29 +143,48 @@ end;
 
 function TfmLEmuTKMain.SelectSystem(aSystem: cEmutecaSystem): boolean;
 begin
-  Emuteca.SelectSystem(aSystem);
+  Result := SelectGroup(nil);
 
- if Assigned(aSystem) then
-   begin
+  Emuteca.FilterBySystem(aSystem);
+
+  if Assigned(aSystem) then
+  begin
     GUIConfig.CurrSystem := aSystem.ID;
-    fmEmutecaGroupList.GroupList := aSystem.GroupManager.VisibleList;
-   end
+    if fmEmutecaGroupList.GroupList =
+      aSystem.GroupManager.VisibleList then
+      fmEmutecaGroupList.UpdateList
+    else
+      fmEmutecaGroupList.GroupList := aSystem.GroupManager.VisibleList;
+  end
   else
   begin
     GUIConfig.CurrSystem := '';
+
+    // TODO: List all groups
     fmEmutecaGroupList.GroupList := nil;
   end;
 
- Result := SelectGroup(nil);
-
- fmEmutecaGroupList.UpdateList;
+  fmEmutecaGroupList.UpdateList;
 end;
 
 function TfmLEmuTKMain.SelectGroup(aGroup: cEmutecaGroup): boolean;
 begin
   Result := SelectSoftware(nil);
+  Emuteca.FilterByGroup(aGroup);
+  fmEmutecaSoftEditor.Group := aGroup;
+  fmSoftMedia.Group := aGroup;
 
-  fmEmutecaSoftList.UpdateList;
+  if Assigned(aGroup) then
+  begin
+
+  end;
+
+  if fmEmutecaSoftList.SoftList = Emuteca.SoftManager.VisibleList then
+
+    fmEmutecaSoftList.UpdateList
+  else
+    fmEmutecaSoftList.SoftList := Emuteca.SoftManager.VisibleList;
+
 end;
 
 function TfmLEmuTKMain.SelectSoftware(aSoftware: cEmutecaSoftware): boolean;
@@ -182,29 +204,35 @@ begin
   Result := Emuteca.RunSoftware(aSoftware) = 0;
 end;
 
+procedure TfmLEmuTKMain.LoadData;
+begin
+  Self.Enabled := Assigned(Emuteca) and assigned(GUIConfig);
+
+    if not Self.Enabled then
+    Exit;
+
+  fmEmutecaSystemCBX.SystemList := Emuteca.SystemManager.EnabledList;
+  fmEmutecaSystemCBX.SelectedSystem :=
+    Emuteca.SystemManager.ItemById(GUIConfig.CurrSystem, False);
+
+  //   fmCHXTagTree.Folder := GUIConfig.TagSubFolder;
+
+
+  SelectSystem(fmEmutecaSystemCBX.SelectedSystem);
+end;
+
 procedure TfmLEmuTKMain.SetEmuteca(AValue: cEmuteca);
 begin
   if FEmuteca = AValue then
     Exit;
   FEmuteca := AValue;
 
+
+  fmEmutecaGroupList.Emuteca := Emuteca;
   fmEmutecaSoftList.Emuteca := Emuteca;
   fmSoftMedia.Emuteca := Emuteca;
 
-  if Assigned(Emuteca) then
-  begin
-    fmEmutecaSystemCBX.SystemList := Emuteca.SystemManager.EnabledList;
-    fmEmutecaSoftList.SoftList := Emuteca.SoftManager.VisibleList;
-  end
-  else
-  begin
-    fmEmutecaSystemCBX.SystemList := nil;
-    fmEmutecaSoftList.SoftList := nil;
-    fmSoftMedia.Emuteca := nil;
-  end;
-  Self.Enabled := Assigned(Emuteca);
-    if assigned(Emuteca) and assigned(GUIConfig) then
-  SelectSystem(Emuteca.SystemManager.ItemById(GUIConfig.CurrSystem, False));
+  LoadData;
 end;
 
 
@@ -214,12 +242,11 @@ begin
     Exit;
   FGUIConfig := AValue;
 
-  fmSoftMedia.GUIConfig := GUIConfig;
+    fmEmutecaGroupList.GUIConfig := GUIConfig;
   fmEmutecaSoftList.GUIConfig := GUIConfig;
-  fmEmutecaGroupList.GUIConfig := GUIConfig;
+  fmSoftMedia.GUIConfig := GUIConfig;
 
-  if assigned(Emuteca) and assigned(GUIConfig) then
-  SelectSystem(Emuteca.SystemManager.ItemById(GUIConfig.CurrSystem, False));
+  LoadData;
 end;
 
 constructor TfmLEmuTKMain.Create(TheOwner: TComponent);
@@ -251,7 +278,6 @@ constructor TfmLEmuTKMain.Create(TheOwner: TComponent);
     aTabSheet := pcLeft.AddTabSheet;
     FfmCHXTagTree := TfmCHXTagTree.Create(aTabSheet);
     aTabSheet.Caption := fmCHXTagTree.Name;  // TODO: Add Caption
-    //fmCHXTagTree.Folder := Emuteca.Config.TagSubFolder;
     fmCHXTagTree.OnCheckChange := @self.CheckTags;
     fmCHXTagTree.Parent := aTabSheet;
 

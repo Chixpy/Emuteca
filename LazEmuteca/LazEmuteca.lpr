@@ -8,7 +8,7 @@ uses
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
   Forms, bs_controls, lz_rtticontrols, pl_pascalscript, pl_virtualtrees,
-  ucEmuteca, uPSI_ucEmuteca, ucEmutecaGroup, ucEmutecaConfig, ufrLEmuTKMain,
+  ucEmuteca, ucEmutecaGroup, ucEmutecaConfig, ufrLEmuTKMain,
   ucEmutecaEmulatorManager, ucEmutecaGroupManager, ucEmutecaSystemManager,
   ucEmutecaEmulator, ufEmutecaSoftList, ucEmutecaSoftware, ucEmutecaSystem,
   ufEmutecaScriptManager,

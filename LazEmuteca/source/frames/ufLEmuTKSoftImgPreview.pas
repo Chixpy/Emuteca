@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
   StdCtrls, ActnList, ExtCtrls,
   ufCHXForm, ufCHXImgViewer,
-  ucEmuteca, ucEmutecaSoftware, ucEmutecaSystem,
+  ucEmuteca, ucEmutecaSoftware, ucEmutecaGroup, ucEmutecaSystem,
   ufLEmuTKPreviewList;
 
 type
@@ -25,12 +25,14 @@ type
     FCurrCaption: string;
     FCurrSystem: cEmutecaSystem;
     FEmuteca: cEmuteca;
+    FGroup: cEmutecaGroup;
     FImageExt: TStringList;
     FImageList: TStringList;
     FSoftware: cEmutecaSoftware;
     procedure SetCurrCaption(AValue: string);
     procedure SetCurrSystem(AValue: cEmutecaSystem);
     procedure SetEmuteca(AValue: cEmuteca);
+    procedure SetGroup(AValue: cEmutecaGroup);
     procedure SetImageExt(AValue: TStringList);
     procedure SetSoftware(AValue: cEmutecaSoftware);
 
@@ -44,6 +46,7 @@ type
 
   public
     property Software: cEmutecaSoftware read FSoftware write SetSoftware;
+    property Group: cEmutecaGroup read FGroup write SetGroup;
     property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
     property ImageExt: TStringList read FImageExt write SetImageExt;
 
@@ -133,7 +136,7 @@ begin
       if cbxImageType.Items.Count > 0 then
       begin
         cbxImageType.ItemIndex := 0;
-        // CurrCaption := ''; Not clearing this maybe is interenting...
+        // CurrCaption := ''; Keep this...
       end;
     end;
   end
@@ -149,6 +152,22 @@ begin
   if FEmuteca = AValue then
     Exit;
   FEmuteca := AValue;
+end;
+
+procedure TfmLEmuTKSoftImgPreview.SetGroup(AValue: cEmutecaGroup);
+begin
+  if FGroup = AValue then
+    Exit;
+  FGroup := AValue;
+
+//  if not Assigned(Group) then
+ //   CurrSystem := nil
+//  else
+//    CurrSystem := Group.System;
+
+  UpdateImageList;
+
+  Self.Enabled := Assigned(Group);
 end;
 
 procedure TfmLEmuTKSoftImgPreview.SetImageExt(AValue: TStringList);

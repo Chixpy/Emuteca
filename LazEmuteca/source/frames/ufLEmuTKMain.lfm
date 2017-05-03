@@ -100,11 +100,11 @@ object fmLEmuTKMain: TfmLEmuTKMain
     SizeGrip = False
   end
   object ilActImages: TImageList
-    left = 192
-    top = 344
+    Left = 192
+    Top = 344
   end
   object ActionList1: TActionList
-    left = 192
-    top = 400
+    Left = 192
+    Top = 400
   end
 end
