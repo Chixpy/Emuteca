@@ -1,6 +1,6 @@
 { This file is part of Emuteca
 
-  Copyright (C) 2006-2016 Chixpy
+  Copyright (C) 2006-2017 Chixpy
 
   This source is free software; you can redistribute it and/or modify it under
   the terms of the GNU General Public License as published by the Free
@@ -26,34 +26,47 @@ unit ucEmutecaGroup;
 interface
 
 uses
-  Classes, SysUtils, LazFileUtils, contnrs, IniFiles, fgl,
-  uCHXStrUtils, uaCHXStorable,
+  Classes, SysUtils, LazFileUtils, IniFiles, fgl, LazUTF8,
+  uaCHXStorable,
   ucEmutecaPlayingStats;
+
+const
+  krsCSVGroupHeader = '"ID","Title","System","Year","Developer"';
+  krsCSVGroupStatsHeader = krsCSVGroupHeader + ',' + krsCSVStatsHeader;
 
 type
   { cEmutecaGroup }
 
-  cEmutecaGroup = class(caCHXStorable)
+  cEmutecaGroup = class(caCHXStorableTxt)
   private
     FDeveloper: string;
     FID: string;
     FStats: cEmutecaPlayingStats;
+    FSystem: TObject;
     FTitle: string;
     FYear: string;
     function GetDataString: string;
+    function GetTitle: string;
     procedure SetDataString(AValue: string);
     procedure SetDeveloper(AValue: string);
     procedure SetID(AValue: string);
+    procedure SetSystem(AValue: TObject);
     procedure SetTitle(AValue: string);
     procedure SetYear(AValue: string);
 
 
   public
+    property System: TObject read FSystem write SetSystem;
+    //< Dirty hack...
+
+    property DataString: string read GetDataString write SetDataString;
 
     procedure LoadFromIni(aIniFile: TCustomIniFile); override;
     procedure SaveToIni(aIniFile: TCustomIniFile; const ExportMode: boolean);
       override;
-    property DataString: string read GetDataString write SetDataString;
+
+    function GetActualTitle: string;
+    //< Gets actual Title string, not automade
 
     procedure LoadFromStrLst(aTxtFile: TStrings); override;
     procedure SaveToStrLst(aTxtFile: TStrings; const ExportMode: boolean);
@@ -65,7 +78,7 @@ type
   published
     property ID: string read FID write SetID;
     {< ID and Sort Title of the Parent. }
-    property Title: string read FTitle write SetTitle;
+    property Title: string read GetTitle write SetTitle;
     {< Name of the parent. }
     property Year: string read FYear write SetYear;
     {< Development year. }
@@ -78,7 +91,7 @@ type
   { cEmutecaGroupList }
 
   cEmutecaGenGroupList = specialize TFPGObjectList<cEmutecaGroup>;
-  cEmutecaGroupList = class (cEmutecaGenGroupList);
+  cEmutecaGroupList = class(cEmutecaGenGroupList);
 
   TEmutecaReturnGroupCB = function(aGroup: cEmutecaGroup): boolean of
     object;
@@ -91,7 +104,11 @@ procedure cEmutecaGroup.SetTitle(AValue: string);
 begin
   if FTitle = AValue then
     Exit;
-  FTitle := AValue;
+
+  if UTF8CompareText(AValue, ID) = 0 then
+    FTitle := ''
+  else
+    FTitle := AValue;
 end;
 
 procedure cEmutecaGroup.SetYear(AValue: string);
@@ -112,6 +129,11 @@ begin
 
 end;
 
+function cEmutecaGroup.GetActualTitle: string;
+begin
+  Result := FTitle;
+end;
+
 procedure cEmutecaGroup.SetID(AValue: string);
 begin
   if FID = AValue then
@@ -119,6 +141,12 @@ begin
   FID := AValue;
 
   FPONotifyObservers(Self, ooChange, nil);
+end;
+
+procedure cEmutecaGroup.SetSystem(AValue: TObject);
+begin
+  if FSystem = AValue then Exit;
+  FSystem := AValue;
 end;
 
 function cEmutecaGroup.GetDataString: string;
@@ -132,6 +160,15 @@ begin
     Result := aStringList.CommaText;
     FreeAndNil(aStringList);
   end;
+end;
+
+function cEmutecaGroup.GetTitle: string;
+begin
+  Result := FTitle;
+  if FTitle <> '' then
+    Result := FTitle
+  else
+    Result := ID;
 end;
 
 procedure cEmutecaGroup.SetDataString(AValue: string);
@@ -168,8 +205,6 @@ begin
 end;
 
 procedure cEmutecaGroup.LoadFromStrLst(aTxtFile: TStrings);
-var
-  i: integer;
 begin
   if not assigned(aTxtFile) then
     Exit;
@@ -177,12 +212,12 @@ begin
   while aTxtFile.Count < 4 do
     aTxtFile.Add('');
 
-      ID := aTxtFile[0];
-      Title := aTxtFile[1];
-      Year := aTxtFile[2];
-      Developer := aTxtFile[3];
-      Stats.LoadFromStrLst(aTxtFile, 4);
-      // Next := aTxtFile[7]
+  ID := aTxtFile[0];
+  Title := aTxtFile[1];
+  Year := aTxtFile[2];
+  Developer := aTxtFile[3];
+  Stats.LoadFromStrLst(aTxtFile, 4);
+  // Next := aTxtFile[7]
 end;
 
 procedure cEmutecaGroup.SaveToStrLst(aTxtFile: TStrings;
@@ -192,7 +227,7 @@ begin
     Exit;
 
   aTxtFile.Add(ID);
-  aTxtFile.Add(Title);
+  aTxtFile.Add(GetActualTitle);
   aTxtFile.Add(Year);
   aTxtFile.Add(Developer);
 

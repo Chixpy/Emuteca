@@ -14,7 +14,7 @@ uses
   // CHX units
   uCHXStrUtils, uCHXFileUtils, uCHXImageUtils, ucCHXImageList,
   // CHX forms
-  ufCHXAbout, ufCHXProgressBar,
+  ufCHXForm, ufCHXAbout, ufCHXProgressBar,
   // Emuteca common
   uEmutecaCommon, uEmutecaRscStr,
   // Emuteca clases
@@ -43,11 +43,11 @@ type
     actMediaManager: TAction;
     actScriptManager: TAction;
     actSystemManager: TAction;
-    ActionList1: TActionList;
+    ActionList: TActionList;
     FileExit1: TFileExit;
     HelpOnHelp1: THelpOnHelp;
-    ImageList1: TImageList;
-    IniPropStorage1: TIniPropStorage;
+    ActImages: TImageList;
+    IniPropStorage: TIniPropStorage;
     MainMenu: TMainMenu;
     mmiExportData: TMenuItem;
     MenuItem2: TMenuItem;
@@ -109,8 +109,12 @@ type
     property ZoneIcons: cCHXImageMap read FZoneIcons;
     // Icons of zones
 
+    procedure LoadIcons;
+
+    procedure LoadEmuteca;
+    //< Load Emuteca, remove not saved data.
     procedure SaveEmuteca;
-    //< Save parent and soft lists
+    //< Save Emuteca.
 
     function AddZoneIcon(aFolder: string; FileInfo: TSearchRec): boolean;
     //< Add Zone icon to list
@@ -140,9 +144,86 @@ end;
 
 procedure TfrmLEmuTKMain.mmiTestClick(Sender: TObject);
 begin
+  ShowMessage('Only used for fast tests');
+end;
 
-  ;
+procedure TfrmLEmuTKMain.LoadIcons;
 
+  procedure AddIcon(aImageList: cCHXImageList; aIconFile: string);
+  begin
+    if FileExistsUTF8(aIconFile) then
+      aImageList.AddImageFile(aIconFile)
+    else
+      aImageList.AddImageFile('');
+  end;
+
+var
+  aFolder, aFile: string;
+begin
+  ActImages.Clear;
+  aFile := GUIConfig.GUIIcnFile;
+
+  // Icons for TActions
+  ReadActionsIcons(aFile, Self.Name, ActImages, ActionList);
+  ReadMenuIcons(aFile, Self.Name, ActImages, MainMenu);
+ {  // Icons for menus (without assigned TAction)
+
+    ReadMenuIcons(aFile, Self.Name, ActImages, pmSystemImage);
+    ReadMenuIcons(aFile, Self.Name, ActImages, pmGameImage);
+    ReadMenuIcons(aFile, Self.Name, ActImages, pmGameList);
+    }
+
+  // Zone icons
+  ZoneIcons.Clear;
+  aFolder := GUIConfig.ZoneIcnFolder;
+  IterateFolderObj(aFolder, @AddZoneIcon, False);
+
+  // Adding No Zone Icon
+  ZoneIcons.AddImageFile('', GUIConfig.DefImgFolder + 'NoZone.png');
+
+ IconList.Clear;
+ { Icons for games parents and software, first default one
+    0: Default for software
+    1: Default for parent
+    2: Default for system
+    3: Default for emulator
+  }
+  aFile := GUIConfig.DefImgFolder + 'SoftIcon.png';
+  AddIcon(IconList, aFile);
+  aFile := GUIConfig.DefImgFolder + 'GroupIcon.png';
+  AddIcon(IconList, aFile);
+  aFile := GUIConfig.DefImgFolder + 'SysIcon.png';
+  AddIcon(IconList, aFile);
+  aFile := GUIConfig.DefImgFolder + 'EmuIcon.png';
+  AddIcon(IconList, aFile);
+
+  { Icons for "flags" column, see ufEmutecaIcnSoftList.LazEmuTKIconFiles
+    0: Verified.png
+    1: GoodDump.png
+    2: Alternate.png
+    3: OverDump.png
+    4: BadDump.png
+    5: UnderDump.png
+    6  Fixed.png
+    7: Trainer.png
+    8: Translation.png
+    9: Pirate.png
+    10: Cracked.png
+    11: Modified.png
+    12: Hack.png
+    }
+  VerIcons.Clear;
+  aFolder := GUIConfig.DumpIcnFolder;
+  for aFile in LazEmuTKIconFiles do
+    AddIcon(FVerIcons, aFolder + aFile + '.png');
+end;
+
+
+procedure TfrmLEmuTKMain.LoadEmuteca;
+begin
+  fmEmutecaMainFrame.ClearData;
+  Emuteca.ReloadData;
+  fmEmutecaMainFrame.LoadData;
 end;
 
 procedure TfrmLEmuTKMain.SaveEmuteca;
@@ -170,90 +251,19 @@ begin
     ExtractFileExt(FileInfo.Name), 2, MaxInt))) = -1 then
     Exit;
 
-
   ZoneIcons.AddImageFile(UTF8LowerCase(ExtractFileNameOnly(FileInfo.Name)),
     aFolder + FileInfo.Name);
-
 end;
 
 procedure TfrmLEmuTKMain.FormCreate(Sender: TObject);
-
-  procedure LoadIcons;
-
-    procedure AddIcon(aImageList: cCHXImageList; aIconFile: string);
-    begin
-      if FileExistsUTF8(aIconFile) then
-        aImageList.AddImageFile(aIconFile)
-      else
-        aImageList.AddImageFile('');
-    end;
-
-  var
-    aFolder, aFile: string;
-  begin
-    aFile := GUIConfig.GUIIcnFile;
-
-    // Icons for TActions
-    ReadActionsIcons(aFile, Self.Name, ImageList1, ActionList1);
-
-   {  // Icons for menus (without assigned TAction)
-      ReadMenuIcons(aFile, Self.Name, ImageList1, pmMainMenu);
-      ReadMenuIcons(aFile, Self.Name, ImageList1, pmSystemImage);
-      ReadMenuIcons(aFile, Self.Name, ImageList1, pmGameImage);
-      ReadMenuIcons(aFile, Self.Name, ImageList1, pmGameList);
-      }
-
-    // Zone icons
-    aFolder := GUIConfig.ZoneIcnFolder;
-    IterateFolderObj(aFolder, @AddZoneIcon, False);
-
-    // Adding No Zone Icon
-    ZoneIcons.AddImageFile('', GUIConfig.DefImgFolder + 'NoZone.png');
-
-   { Icons for games parents and software, first default one
-      0: Default for software
-      1: Default for parent
-      2: Default for system
-      3: Default for emulator
-    }
-    aFile := GUIConfig.DefImgFolder + 'SoftIcon.png';
-    AddIcon(IconList, aFile);
-    aFile := GUIConfig.DefImgFolder + 'GroupIcon.png';
-    AddIcon(IconList, aFile);
-    aFile := GUIConfig.DefImgFolder + 'SysIcon.png';
-    AddIcon(IconList, aFile);
-    aFile := GUIConfig.DefImgFolder + 'EmuIcon.png';
-    AddIcon(IconList, aFile);
-
-    { Icons for "flags" column, see ufEmutecaIcnSoftList.LazEmuTKIconFiles
-      0: Verified.png
-      1: GoodDump.png
-      2: Alternate.png
-      3: OverDump.png
-      4: BadDump.png
-      5: UnderDump.png
-      6  Fixed.png
-      7: Trainer.png
-      8: Translation.png
-      9: Pirate.png
-      10: Cracked.png
-      11: Modified.png
-      12: Hack.png
-      }
-    aFolder := GUIConfig.DumpIcnFolder;
-    for aFile in LazEmuTKIconFiles do
-      AddIcon(FVerIcons, aFolder + aFile + '.png');
-  end;
-
 begin
   Application.Title := Format(rsFmtApplicationTitle,
     [krsEmuteca, GetFileVersion]); // Usually is deleted in .lpr file...
 
-  Randomize; // Who knows if it will be used...
-
   // Always work from program folder :P
   // TODO 3: Change for Linux... ¬_¬U
   ChDir(ProgramDirectory);
+
   // Used to store translations...
   if not DirectoryExistsUTF8('locale') then
     mkdir('locale');
@@ -268,8 +278,8 @@ begin
 
   FGUIConfig := cGUIConfig.Create(self);
   GUIConfig.LoadConfig('GUI.ini');
-  IniPropStorage1.IniFileName := GUIConfig.ConfigFile;
-  IniPropStorage1.Restore;
+  IniPropStorage.IniFileName := GUIConfig.ConfigFile;
+  IniPropStorage.Restore;
 
   // Experimental
   w7zSetGlobalCache(GUIConfig.GlobalCache);
@@ -286,46 +296,45 @@ begin
   Emuteca.LoadConfig(GUIConfig.EmutecaIni);
 
   LoadIcons;
+
   // Creating main frame
   FfmEmutecaMainFrame := TfmLEmuTKMain.Create(Self);
-  fmEmutecaMainFrame.IconList := Self.IconList;
-  fmEmutecaMainFrame.DumpIcons := Self.VerIcons;
-  fmEmutecaMainFrame.ZoneIcons := Self.ZoneIcons;
-  fmEmutecaMainFrame.Emuteca := Self.Emuteca;
+  fmEmutecaMainFrame.IconList := IconList;
+  fmEmutecaMainFrame.DumpIcons := VerIcons;
+  fmEmutecaMainFrame.ZoneIcons := ZoneIcons;
+  fmEmutecaMainFrame.Emuteca := Emuteca;
   fmEmutecaMainFrame.GUIConfig := GUIConfig;
   fmEmutecaMainFrame.GUIIconsIni := GUIConfig.GUIIcnFile;
   fmEmutecaMainFrame.Align := alClient;
   fmEmutecaMainFrame.Parent := Self;
 
   // Misc
-  { TODO : Select last system }
-  actAutoSave.Checked := GUIConfig.SaveOnExit; // TODO: Use IniPropStorage1?
-
+  actAutoSave.Checked := GUIConfig.SaveOnExit; // TODO: Use IniPropStorage?
 end;
 
 procedure TfrmLEmuTKMain.actEmulatorManagerExecute(Sender: TObject);
 var
-  aForm: TForm;
+  aForm: TfrmCHXForm;
   aFrame: TfmLEmuTKEmuManager;
 begin
-  Application.CreateForm(TForm, aForm);
+  Application.CreateForm(TfrmCHXForm, aForm);
+  try
+    aForm.Name := 'frmLEmuTKEmuManager';
+    aForm.GUIConfigIni := GUIConfig.ConfigFile;
+    aForm.Caption := Format(rsFmtWindowCaption,
+      [Application.Title, actEmulatorManager.Caption]);
 
-  // TODO: Save in GUI.ini
-  aform.Width := 640;
-  aForm.Height := 480;
-  aForm.Position := poMainFormCenter;
+    aFrame := TfmLEmuTKEmuManager.Create(aForm);
+    aFrame.Align := alClient;
+    aFrame.GUIIconsIni := GUIConfig.GUIIcnFile;
+    aFrame.EmuManager := Emuteca.EmulatorManager;
+    aFrame.Parent := aForm;
 
-  aFrame := TfmLEmuTKEmuManager.Create(aForm);
-  aForm.Caption := Format(rsFmtWindowCaption,
-    [Application.Title, aFrame.Caption]);
-  aFrame.Align := alClient;
+    aForm.ShowModal;
 
-  aFrame.GUIIconsIni := GUIConfig.GUIIcnFile;
-  aFrame.EmuManager := Emuteca.EmulatorManager;
-  aFrame.Parent := aForm;
-
-  aForm.ShowModal;
-  FreeAndNil(aForm);
+  finally
+    FreeAndNil(aForm);
+  end;
 end;
 
 procedure TfrmLEmuTKMain.actExportDataExecute(Sender: TObject);
@@ -339,7 +348,6 @@ begin
 
   frmLEmuTKExportData.ShowModal;
   FreeAndNil(frmLEmuTKExportData);
-
 
 end;
 
@@ -367,25 +375,29 @@ end;
 
 procedure TfrmLEmuTKMain.actAddFolderExecute(Sender: TObject);
 var
-  aForm: TForm;
+  aForm: TfrmCHXForm;
   aFrame: TfmEmutecaActAddFolder;
 begin
-  Application.CreateForm(TForm, aForm);
+  Application.CreateForm(TfrmCHXForm, aForm);
+  try
+    aForm.Name := 'frmEmutecaActAddFolder';
+    aForm.GUIConfigIni := GUIConfig.ConfigFile;
+    aForm.Caption := Format(rsFmtWindowCaption,
+      [Application.Title, actAddFolder.Caption]);
 
-  aForm.Position := poMainFormCenter;
+    aFrame := TfmEmutecaActAddFolder.Create(aForm);
+    aFrame.Emuteca := Emuteca;
+    aFrame.SaveButtons := True;
+    aFrame.ButtonClose := True;
+    aFrame.Align := alClient;
+    aFrame.Parent := aForm;
 
-  aFrame := TfmEmutecaActAddFolder.Create(aForm);
-  aFrame.Emuteca := Emuteca;
-  aFrame.SaveButtons := True;
-  aFrame.ButtonClose := True;
+    if aForm.ShowModal = mrOk then
+      LoadEmuteca;
 
-  aForm.Caption := Format(rsFmtWindowCaption,
-    [Application.Title, aFrame.Caption]);
-  aFrame.Align := alClient;
-  aFrame.Parent := aForm;
-
-  aForm.ShowModal;
-  FreeAndNil(aForm);
+  finally
+    FreeAndNil(aForm);
+  end;
 end;
 
 procedure TfrmLEmuTKMain.actAutoSaveExecute(Sender: TObject);
@@ -395,65 +407,67 @@ end;
 
 procedure TfrmLEmuTKMain.actAddSoftExecute(Sender: TObject);
 var
-  aForm: TForm;
+  aForm: TfrmCHXForm;
   aFrame: TfmEmutecaActAddSoft;
 begin
-  Application.CreateForm(TForm, aForm);
+  Application.CreateForm(TfrmCHXForm, aForm);
+  try
+    aForm.Name := 'frmEmutecaActAddSoft';
+    aForm.GUIConfigIni := GUIConfig.ConfigFile;
+    aForm.Caption := Format(rsFmtWindowCaption,
+      [Application.Title, actAddSoft.Caption]);
 
-  aForm.Position := poMainFormCenter;
-  aForm.Caption := Format(rsFmtWindowCaption,
-    [Application.Title, actAddSoft.Caption]);
+    aFrame := TfmEmutecaActAddSoft.Create(aForm);
+    aFrame.GUIIconsIni := GUIConfig.GUIIcnFile;
+    aFrame.Align := alClient;
+    aFrame.ButtonClose := True;
+    aFrame.Emuteca := Emuteca;
+    aForm.AutoSize := True;
+    aFrame.Parent := aForm;
 
-  aFrame := TfmEmutecaActAddSoft.Create(aForm);
-  aFrame.GUIIconsIni := GUIConfig.GUIIcnFile;
-  aFrame.Align := alClient;
-  aFrame.ButtonClose := True;
-  aFrame.Emuteca := Emuteca;
-  aForm.AutoSize := True;
-  aFrame.Parent := aForm;
+    if aForm.ShowModal = mrOk then
+      LoadEmuteca;
 
-  aForm.ShowModal;
-  FreeAndNil(aForm);
+  finally
+    FreeAndNil(aForm);
+  end;
 end;
 
 procedure TfrmLEmuTKMain.actSystemManagerExecute(Sender: TObject);
 var
-  aForm: TForm;
+  aForm: TfrmCHXForm;
   aFrame: TfmLEmuTKSysManager;
 begin
-  Application.CreateForm(TForm, aForm);
+  Application.CreateForm(TfrmCHXForm, aForm);
+  try
+    aForm.Name := 'frmLEmuTKSysManager';
+    aForm.GUIConfigIni := GUIConfig.ConfigFile;
+    aForm.Caption := Format(rsFmtWindowCaption,
+      [Application.Title, actSystemManager.Caption]);
 
-  // TODO: Save in GUI.ini
-  aform.Width := 640;
-  aForm.Height := 480;
-  aForm.Position := poMainFormCenter;
+    aFrame := TfmLEmuTKSysManager.Create(aForm);
+    aFrame.GUIIconsIni := GUIConfig.GUIIcnFile;
+    aFrame.Emuteca := Emuteca;
+    aFrame.SaveButtons := True;
+    aFrame.ButtonClose := True;
 
-  aFrame := TfmLEmuTKSysManager.Create(aForm);
-  aForm.Caption := Format(rsFmtWindowCaption,
-    [Application.Title, aFrame.Caption]);
+    aFrame.Align := alClient;
+    aFrame.Parent := aForm;
 
+    if aForm.ShowModal = mrOk then
+      LoadEmuteca;
 
-  aFrame.GUIIconsIni := GUIConfig.GUIIcnFile;
-  aFrame.Emuteca := Emuteca;
-  aFrame.SaveButtons := True;
-  aFrame.ButtonClose := True;
-
-  aFrame.Align := alClient;
-  aFrame.Parent := aForm;
-
-  if aForm.ShowModal = mrOK then
-    // TODO: Releer sistemas y demás...
-    ;
-  FreeAndNil(aForm);
+  finally
+    FreeAndNil(aForm);
+  end;
 end;
 
 procedure TfrmLEmuTKMain.FormCloseQuery(Sender: TObject;
   var CanClose: boolean);
 begin
   GUIConfig.SaveConfig('');
-  if not GUIConfig.SaveOnExit then
-    Exit;
-  SaveEmuteca;
+  if GUIConfig.SaveOnExit then
+    SaveEmuteca;
 end;
 
 procedure TfrmLEmuTKMain.FormDestroy(Sender: TObject);

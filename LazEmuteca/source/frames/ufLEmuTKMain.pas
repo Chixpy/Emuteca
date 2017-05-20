@@ -80,8 +80,6 @@ type
     function RunSoftware(aSoftware: cEmutecaSoftware): boolean;
     //< Run a software
 
-    procedure LoadData;
-
   public
     property GUIIconsIni: string read FGUIIconsIni write SetGUIIconsIni;
     property GUIConfig: cGUIConfig read FGUIConfig write SetGUIConfig;
@@ -93,6 +91,9 @@ type
     //< Icons of zones
 
     property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
+
+    procedure ClearData;
+    procedure LoadData;
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -143,9 +144,9 @@ end;
 
 function TfmLEmuTKMain.SelectSystem(aSystem: cEmutecaSystem): boolean;
 begin
-  Result := SelectGroup(nil);
+  Emuteca.SoftManager.VisibleSystem := aSystem;
 
-  Emuteca.FilterBySystem(aSystem);
+  Result := SelectGroup(nil);
 
   if Assigned(aSystem) then
   begin
@@ -169,21 +170,13 @@ end;
 
 function TfmLEmuTKMain.SelectGroup(aGroup: cEmutecaGroup): boolean;
 begin
+  Emuteca.SoftManager.VisibleGroup := aGroup;
+  fmEmutecaSoftList.UpdateList;
+
   Result := SelectSoftware(nil);
-  Emuteca.FilterByGroup(aGroup);
+
   fmEmutecaSoftEditor.Group := aGroup;
   fmSoftMedia.Group := aGroup;
-
-  if Assigned(aGroup) then
-  begin
-
-  end;
-
-  if fmEmutecaSoftList.SoftList = Emuteca.SoftManager.VisibleList then
-
-    fmEmutecaSoftList.UpdateList
-  else
-    fmEmutecaSoftList.SoftList := Emuteca.SoftManager.VisibleList;
 
 end;
 
@@ -204,19 +197,31 @@ begin
   Result := Emuteca.RunSoftware(aSoftware) = 0;
 end;
 
+procedure TfmLEmuTKMain.ClearData;
+begin
+  fmEmutecaSoftList.SoftList := nil;
+  fmEmutecaGroupList.GroupList := nil;
+  fmEmutecaSystemCBX.SystemList := nil;
+  fmEmutecaSystemCBX.SelectedSystem := nil;
+end;
+
 procedure TfmLEmuTKMain.LoadData;
 begin
   Self.Enabled := Assigned(Emuteca) and assigned(GUIConfig);
 
-    if not Self.Enabled then
+  if not Self.Enabled then
+  begin
+    ClearData;
     Exit;
+  end;
+
+  fmEmutecaSoftList.SoftList := Emuteca.SoftManager.VisibleList;
 
   fmEmutecaSystemCBX.SystemList := Emuteca.SystemManager.EnabledList;
   fmEmutecaSystemCBX.SelectedSystem :=
     Emuteca.SystemManager.ItemById(GUIConfig.CurrSystem, False);
 
-  //   fmCHXTagTree.Folder := GUIConfig.TagSubFolder;
-
+  //fmCHXTagTree.Folder := GUIConfig.TagSubFolder;
 
   SelectSystem(fmEmutecaSystemCBX.SelectedSystem);
 end;
@@ -226,7 +231,6 @@ begin
   if FEmuteca = AValue then
     Exit;
   FEmuteca := AValue;
-
 
   fmEmutecaGroupList.Emuteca := Emuteca;
   fmEmutecaSoftList.Emuteca := Emuteca;
@@ -242,7 +246,7 @@ begin
     Exit;
   FGUIConfig := AValue;
 
-    fmEmutecaGroupList.GUIConfig := GUIConfig;
+  fmEmutecaGroupList.GUIConfig := GUIConfig;
   fmEmutecaSoftList.GUIConfig := GUIConfig;
   fmSoftMedia.GUIConfig := GUIConfig;
 

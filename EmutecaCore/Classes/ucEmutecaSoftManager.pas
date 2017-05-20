@@ -5,8 +5,10 @@ unit ucEmutecaSoftManager;
 interface
 
 uses
-  Classes, SysUtils, LazUTF8, IniFiles,
-  uaEmutecaManager, ucEmutecaSoftware, ucEmutecaSystem;
+  Classes, SysUtils, fgl, LazUTF8, LazFileUtils, IniFiles,
+  uCHXStrUtils, uaCHXStorable,
+  uEmutecaCommon, ucEmutecaSystemManager,
+  ucEmutecaConfig, ucEmutecaSystem, ucEmutecaGroup, ucEmutecaSoftware;
 
 resourcestring
   rsLoadingVersionList = 'Loading software list...';
@@ -16,18 +18,56 @@ type
 
   { cEmutecaSoftManager }
 
-  cEmutecaSoftManager = class(caEmutecaManager)
+  cEmutecaSoftManager = class(caCHXStorableTxt)
   private
+    FConfig: cEmutecaConfig;
+    FProgressCallBack: TEmutecaProgressCallBack;
+    FVisibleGroup: cEmutecaGroup;
+    FSysDataFolder: string;
+    FSysManager: cEmutecaSystemManager;
+    FVisibleSystem: cEmutecaSystem;
     FVisibleList: cEmutecaSoftList;
     FFullList: cEmutecaSoftList;
+    procedure SetConfig(AValue: cEmutecaConfig);
+    procedure SetProgressCallBack(AValue: TEmutecaProgressCallBack);
+    procedure SetVisibleGroup(AValue: cEmutecaGroup);
+    procedure SetSysDataFolder(AValue: string);
+    procedure SetSysManager(AValue: cEmutecaSystemManager);
+    procedure SetVisibleSystem(AValue: cEmutecaSystem);
 
   protected
+    procedure UpdateVisibleListByVisibleSystem;
 
   public
-    procedure AssingAllTo(aList: TStrings); override;
-    procedure AssingEnabledTo(aList: TStrings); override;
+        property Config: cEmutecaConfig read FConfig write SetConfig;
+
+            procedure ClearData;
+    //< Clears all data WITHOUT saving.
+    procedure ReloadData;
+    //< Reload last data file WITHOUT saving changes.
+
+      property ProgressCallBack: TEmutecaProgressCallBack read FProgressCallBack write SetProgressCallBack;
+    //< CallBack function to show the progress in actions.
+
+    property VisibleSystem: cEmutecaSystem
+      read FVisibleSystem write SetVisibleSystem;
+    property VisibleGroup: cEmutecaGroup read FVisibleGroup
+      write SetVisibleGroup;
+
     property VisibleList: cEmutecaSoftList read FVisibleList;
     {< Filtered soft list }
+
+    property SysDataFolder: string read FSysDataFolder write SetSysDataFolder;
+    property SysManager: cEmutecaSystemManager
+      read FSysManager write SetSysManager;
+
+    procedure AssingAllTo(aList: TStrings);
+    procedure AssingEnabledTo(aList: TStrings);
+
+    procedure LoadSoftFromSystems;
+    procedure SaveSoftOfSystems(ExportMode: boolean);
+    procedure LoadSoftFromSystem(aSystem: cEmutecaSystem);
+    procedure SaveSoftOfSystem(aSystem: cEmutecaSystem; ExportMode: boolean);
 
     procedure LoadFromStrLst(TxtFile: TStrings); override;
     procedure SaveToStrLst(TxtFile: TStrings; const ExportMode: boolean);
@@ -43,8 +83,6 @@ type
        @Result cEmutecaSoftware found or nil.
     }
 
-    procedure SelectSystem(aSystem: cEmutecaSystem);
-
     constructor Create(aOwner: TComponent); override;
     destructor Destroy; override;
 
@@ -56,7 +94,6 @@ type
 implementation
 
 { cEmutecaSoftManager }
-
 
 function cEmutecaSoftManager.ItemById(aId: string;
   Autocreate: boolean): cEmutecaSoftware;
@@ -73,42 +110,6 @@ begin
     if UTF8CompareText(aSoft.ID, aId) = 0 then
       Result := aSoft;
     Inc(i);
-  end;
-end;
-
-procedure cEmutecaSoftManager.SelectSystem(aSystem: cEmutecaSystem);
-var
-  i: integer;
-  aSoft: cEmutecaSoftware;
-begin
-  VisibleList.Clear;
-
-  if not Assigned(aSystem) then
-  begin
-    VisibleList.Assign(FullList);
-  end
-  else
-  begin
-    i := 0;
-    while (i < FullList.Count) do
-    begin
-      aSoft := FullList[i];
-      if Assigned(aSoft.System) then
-      begin
-        if aSoft.System = aSystem then
-          VisibleList.Add(aSoft);
-      end
-      else
-      begin
-        if UTF8CompareText(aSoft.SystemKey, aSystem.ID) = 0 then
-        begin
-          // Caching aSoft.System
-          aSoft.System := aSystem;
-          VisibleList.Add(aSoft);
-        end;
-      end;
-      Inc(i);
-    end;
   end;
 end;
 
@@ -159,6 +160,117 @@ begin
   end;
 end;
 
+procedure cEmutecaSoftManager.SetSysManager(AValue: cEmutecaSystemManager);
+begin
+  if FSysManager = AValue then
+    Exit;
+  FSysManager := AValue;
+end;
+
+procedure cEmutecaSoftManager.SetVisibleSystem(AValue: cEmutecaSystem);
+var
+  i: integer;
+  aSoft: cEmutecaSoftware;
+begin
+  if FVisibleSystem = AValue then
+    Exit;
+  FVisibleSystem := AValue;
+
+  FVisibleGroup := nil; // We don't want trigger SetVisibleGroup
+
+  UpdateVisibleListByVisibleSystem;
+end;
+
+procedure cEmutecaSoftManager.UpdateVisibleListByVisibleSystem;
+var
+  i: integer;
+  aSoft: cEmutecaSoftware;
+begin
+  // Common and repeated code...
+
+  VisibleList.Clear;
+  if Assigned(VisibleSystem) then
+  begin
+    // Filter by VisibleSystem
+    i := 0;
+    while (i < FullList.Count) do
+    begin
+      aSoft := FullList[i];
+      if aSoft.System = VisibleSystem then
+        VisibleList.Add(aSoft);
+      Inc(i);
+    end;
+  end
+  else
+  begin
+    VisibleList.Assign(FullList);
+  end;
+end;
+
+procedure cEmutecaSoftManager.ClearData;
+begin
+  VisibleList.Clear;
+  FullList.Clear;
+end;
+
+procedure cEmutecaSoftManager.ReloadData;
+begin
+  ClearData;
+
+  LoadSoftFromSystems;
+end;
+
+procedure cEmutecaSoftManager.SetSysDataFolder(AValue: string);
+begin
+  FSysDataFolder := SetAsFolder(AValue);
+end;
+
+procedure cEmutecaSoftManager.SetVisibleGroup(AValue: cEmutecaGroup);
+var
+  i: integer;
+  aSoft: cEmutecaSoftware;
+begin
+  if FVisibleGroup = AValue then
+    Exit;
+  FVisibleGroup := AValue;
+
+  // Filter by VisibleGroup
+  if Assigned(VisibleGroup) then
+  begin
+    VisibleList.Clear;
+    // We don't want trigger SetVisibleGroup
+    FVisibleSystem := cEmutecaSystem(VisibleGroup.System);
+    i := 0;
+    while (i < FullList.Count) do
+    begin
+      aSoft := FullList[i];
+      if aSoft.Group = VisibleGroup then
+        VisibleList.Add(aSoft);
+      Inc(i);
+    end;
+  end
+  else
+  begin
+    // Keep current VisibleSystem
+    //   FVisibleSystem := nil;
+
+    UpdateVisibleListByVisibleSystem;
+  end;
+end;
+
+procedure cEmutecaSoftManager.SetConfig(AValue: cEmutecaConfig);
+begin
+  if FConfig = AValue then Exit;
+  FConfig := AValue;
+end;
+
+procedure cEmutecaSoftManager.SetProgressCallBack(
+  AValue: TEmutecaProgressCallBack);
+begin
+  if FProgressCallBack = AValue then Exit;
+  FProgressCallBack := AValue;
+end;
+
 procedure cEmutecaSoftManager.AssingAllTo(aList: TStrings);
 begin
 
@@ -167,6 +279,137 @@ end;
 procedure cEmutecaSoftManager.AssingEnabledTo(aList: TStrings);
 begin
 
+end;
+
+procedure cEmutecaSoftManager.LoadSoftFromSystems;
+var
+  i: integer;
+  aSys: cEmutecaSystem;
+begin
+  if not assigned(SysManager) then
+    Exit;
+
+  i := 0;
+  while i < SysManager.EnabledList.Count do
+  begin
+    aSys := SysManager.EnabledList[i];
+
+    if ProgressCallBack <> nil then
+      ProgressCallBack(rsLoadingVersionList, aSys.Title,
+        '', i, SysManager.EnabledList.Count);
+
+    LoadSoftFromSystem(aSys);
+
+    Inc(i);
+  end;
+
+  if ProgressCallBack <> nil then
+    ProgressCallBack(rsLoadingVersionList, '',
+      '', 0, 0);
+end;
+
+procedure cEmutecaSoftManager.SaveSoftOfSystems(ExportMode: boolean);
+var
+  i: integer;
+  aSys: cEmutecaSystem;
+begin
+  if not assigned(SysManager) then
+    Exit;
+
+  i := 0;
+  while i < SysManager.EnabledList.Count do
+  begin
+    aSys := SysManager.EnabledList[i];
+
+    if ProgressCallBack <> nil then
+      ProgressCallBack(rsSavingVersionList, aSys.Title,
+        '', i, SysManager.EnabledList.Count);
+
+    SaveSoftOfSystem(aSys, ExportMode);
+
+    Inc(i);
+  end;
+
+  if ProgressCallBack <> nil then
+    ProgressCallBack(rsSavingVersionList, '',
+      '', 0, 0);
+end;
+
+procedure cEmutecaSoftManager.LoadSoftFromSystem(aSystem: cEmutecaSystem);
+var
+  i: integer;
+  aFile: string;
+  aSoft: cEmutecaSoftware;
+  TxtFile: TStringList;
+begin
+  if not assigned(aSystem) then
+    Exit;
+  aFile := SysDataFolder + aSystem.FileName + kEmutecaSoftFileExt;
+  if not FileExistsUTF8(aFile) then
+    Exit;
+
+  TxtFile := TStringList.Create;
+  try
+    TxtFile.LoadFromFile(aFile);
+
+    // FullList.BeginUpdate;
+    FullList.Capacity := FullList.Count + TxtFile.Count; // Speed Up?
+    i := 1; // Skipping Header
+    while i < TxtFile.Count do
+    begin
+      aSoft := cEmutecaSoftware.Create(nil);
+      aSoft.TXTString := TxtFile[i];
+      aSoft.System := aSystem;
+
+      FullList.Add(aSoft);
+      Inc(i);
+    end;
+    // FullList.EndUpdate;
+  finally
+    TxtFile.Free;
+  end;
+end;
+
+procedure cEmutecaSoftManager.SaveSoftOfSystem(aSystem: cEmutecaSystem;
+  ExportMode: boolean);
+var
+  i: integer;
+  aFile: string;
+  aSoft: cEmutecaSoftware;
+  TxtFile: TStringList;
+begin
+  if not assigned(aSystem) then
+    Exit;
+  aFile := SysDataFolder + aSystem.FileName + kEmutecaSoftFileExt;
+
+  TxtFile := TStringList.Create;
+  TxtFile.BeginUpdate;
+  try
+    TxtFile.Capacity := FullList.Count + 1; // Speed up?
+    if ExportMode then
+      TxtFile.Add(krsCSVSoftHeader)
+    else
+      TxtFile.Add(krsCSVSoftStatsHeader);
+
+    // TODO: Necesito que el sistema tenga una lista de juegos para hacerlo
+    //   más rápido ¿TObjectList?
+    i := 0;
+    while i < FullList.Count do
+    begin
+      aSoft := FullList[i];
+      if aSoft.System = aSystem then
+      begin
+        if not ExportMode then
+          TxtFile.Add(aSoft.TXTString);
+      end;
+      Inc(i);
+    end;
+
+  finally
+    TxtFile.EndUpdate;
+    TxtFile.SaveToFile(aFile);
+    TxtFile.Free;
+  end;
 end;
 
 procedure cEmutecaSoftManager.LoadFromStrLst(TxtFile: TStrings);
@@ -183,7 +426,7 @@ begin
   while i < TxtFile.Count do
   begin
     TempSoft := cEmutecaSoftware.Create(nil);
-    TempSoft.DataString := TxtFile[i];
+    TempSoft.TXTString := TxtFile[i];
 
     FullList.Add(TempSoft);
     Inc(i);
@@ -210,19 +453,17 @@ begin
   TxtFile.BeginUpdate;
   try
     TxtFile.Capacity := FullList.Count + 1; // Speed up?
-        TxtFile.Add('"System","Group","SHA1","ID","Folder","FileName",' +
-        '"Title","TransliteratedName","SortTitle",' +
-          '"Version","Year","Publisher","Zone",' +
-          '"DumpStatus","DumpInfo","Fixed","Trainer","Translation",' +
-          '"Pirate","Cracked","Modified","Hack",' +
-          '"Last Time","Times Played","Playing Time"');
 
+    if ExportMode then
+      TxtFile.Add(krsCSVSoftHeader)
+    else
+      TxtFile.Add(krsCSVSoftStatsHeader);
 
     i := 0;
     while i < FullList.Count do
     begin
       aSoft := FullList[i];
-      TxtFile.Add(aSoft.DataString);
+      TxtFile.Add(aSoft.TXTString);
       Inc(i);
 
       if ProgressCallBack <> nil then

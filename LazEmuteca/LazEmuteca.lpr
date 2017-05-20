@@ -13,7 +13,7 @@ uses
   ucEmutecaEmulator, ufEmutecaSoftList, ucEmutecaSoftware, ucEmutecaSystem,
   ufEmutecaScriptManager,
   ucEmutecaSoftManager, uGUIConfig, uaCHXStorable, uaCHXConfig,
-  uaEmutecaManager, ufEmutecaSystemImgEditor,
+  ufEmutecaSystemImgEditor,
   ucEmutecaScriptEngine, ufESMSoftList, ufEmutecaSystemCBX, ufESMGroupList,
   ufLEmuTKChkSoftList, ufEmutecaGroupCBX, ufLEmuTKIcnSoftList, ufCHXPropEditor,
   ufEmutecaSystemEditor, ufLEmuTKFullSystemEditor, ufCHXChkLstPropEditor,

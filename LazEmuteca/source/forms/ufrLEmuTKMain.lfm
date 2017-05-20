@@ -12,7 +12,7 @@ object frmLEmuTKMain: TfrmLEmuTKMain
   OnDestroy = FormDestroy
   Position = poDesktopCenter
   SessionProperties = 'Height;Width;WindowState'
-  LCLVersion = '5.9'
+  LCLVersion = '6.0'
   object stbHelp: TStatusBar
     Left = 0
     Height = 23
@@ -20,9 +20,10 @@ object frmLEmuTKMain: TfrmLEmuTKMain
     Width = 800
     Panels = <>
   end
-  object ActionList1: TActionList
-    left = 184
-    top = 104
+  object ActionList: TActionList
+    Images = ActImages
+    Left = 184
+    Top = 104
     object HelpOnHelp1: THelpOnHelp
       Category = 'Help'
       Caption = 'A&yuda sobre la ayuda'
@@ -87,8 +88,9 @@ object frmLEmuTKMain: TfrmLEmuTKMain
     end
   end
   object MainMenu: TMainMenu
-    left = 184
-    top = 48
+    Images = ActImages
+    Left = 184
+    Top = 48
     object mmiFile: TMenuItem
       Caption = 'File'
       object mmiTest: TMenuItem
@@ -156,14 +158,14 @@ object frmLEmuTKMain: TfrmLEmuTKMain
       end
     end
   end
-  object IniPropStorage1: TIniPropStorage
+  object IniPropStorage: TIniPropStorage
     StoredValues = <>
     IniSection = 'Forms'
-    left = 184
-    top = 232
+    Left = 184
+    Top = 232
   end
-  object ImageList1: TImageList
-    left = 184
-    top = 168
+  object ActImages: TImageList
+    Left = 184
+    Top = 168
   end
 end

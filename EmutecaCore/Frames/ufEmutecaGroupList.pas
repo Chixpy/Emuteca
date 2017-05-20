@@ -9,7 +9,7 @@ uses
   Controls, ComCtrls,
   LazUTF8,
   uCHXStrUtils,
-  uEmutecaCommon, uEmutecaRscStr, ucEmutecaGroup;
+  uEmutecaCommon, uEmutecaRscStr, ucEmutecaSystem, ucEmutecaGroup;
 
 type
   { TfmEmutecaGroupList }
@@ -102,20 +102,21 @@ begin
     Exit;
 
   case Column of
-    //  0: // System
-    //      Result := UTF8CompareText(pData1^.SystemKey, pData2^.SystemKey);
+    0: // System
+      Result := UTF8CompareText(cEmutecaSystem(pData1^.System).Title,
+        cEmutecaSystem(pData2^.System).Title);
     1: // Name
       Result := UTF8CompareText(pData1^.ID, pData2^.ID);
-    2: // Develepor
+    2: // Developer
       Result := UTF8CompareText(pData1^.Developer, pData2^.Developer);
     3: // Year
       Result := UTF8CompareText(pData1^.Year, pData2^.Year);
-      //   4: // Times
-      //     Result := pData1^.Stats.TimesPlayed - pData2^.Stats.TimesPlayed;
-      //   5: // Total time
-      //     Result := pData1^.Stats.PlayingTime - pData2^.Stats.PlayingTime;
-      //   6: // Last time
-      //     Result := Trunc(pData1^.Stats.LastTime - pData2^.Stats.LastTime);
+    4: // Times
+      Result := pData1^.Stats.TimesPlayed - pData2^.Stats.TimesPlayed;
+    5: // Total time
+      Result := pData1^.Stats.PlayingTime - pData2^.Stats.PlayingTime;
+    6: // Last time
+      Result := Trunc(pData1^.Stats.LastTime - pData2^.Stats.LastTime);
     else
       ;
   end;
@@ -132,6 +133,8 @@ begin
     Exit;
 
   case Column of
+        0: // System
+      HintText := cEmutecaSystem(pData^.System).Title;
     1: // Name
       HintText := pData^.ID;
     2: ; // Develepor
@@ -155,8 +158,8 @@ begin
     Exit;
 
   case Column of
-    //0: // System
-    //  CellText := pData^.System.Title;
+    0: // System
+      CellText := cEmutecaSystem(pData^.System).Title;
     1: // Name
       CellText := pData^.Title;
     2: // Develepor
@@ -182,8 +185,12 @@ procedure TfmEmutecaGroupList.VSTInitNode(Sender: TBaseVirtualTree;
 var
   pData: ^cEmutecaGroup;
 begin
+
   pData := Sender.GetNodeData(Node);
-  pData^ := cEmutecaGroup(GroupList[Node^.Index]);
+  if Node^.Index < GroupList.Count then
+    pData^ := cEmutecaGroup(GroupList[Node^.Index])
+  else
+    pData^ := nil;
 end;
 
 procedure TfmEmutecaGroupList.SetGroupList(AValue: cEmutecaGroupList);
@@ -255,7 +262,7 @@ begin
   if not assigned(GroupList) then
     Exit;
 
-  vst.RootNodeCount := GroupList.Count;
+  vst.RootNodeCount := GroupList.Count + 1;
 
   UpdateStatusBar;
 end;

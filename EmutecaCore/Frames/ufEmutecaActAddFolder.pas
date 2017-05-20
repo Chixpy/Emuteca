@@ -109,34 +109,34 @@ var
   i, j: integer;
   Found, IsCompressed: boolean;
 begin
-  // TODO: Maybe this must be an Emuteca procedure?
-  // TODO: Make it faaaster!!!
+  // TODO: Make it faaaster!!
   if not assigned(Emuteca) then
     Exit;
 
   if not DirectoryExistsUTF8(eFolder.Text) then
     Exit;
-
   aSystem := cbxSystem.SelectedSystem;
   if not assigned(aSystem) then
     Exit;
 
   SoftSysList := cEmutecaSoftList.Create(False);
+
   FolderList := TStringList.Create;
   FolderList.BeginUpdate;
   FileList := TStringList.Create;
   FileList.BeginUpdate;
+
   try
     if assigned(Emuteca.ProgressCallBack) then
       Emuteca.ProgressCallBack('Adding files', 'Searching for: ' +
-        aSystem.Extensions.CommaText, 'This can take a while', 2, 100);
+        aSystem.Extensions.CommaText, 'This can take a while', 1, 20);
 
     // Caching system software
     i := 0;
     while i < Emuteca.SoftManager.FullList.Count do
     begin
       aSoft := Emuteca.SoftManager.FullList[i];
-      if aSoft.MatchSystem(aSystem) then
+      if aSoft.System = aSystem then
         SoftSysList.Add(aSoft);
       Inc(i);
     end;
@@ -169,7 +169,7 @@ begin
 
       if assigned(Emuteca.ProgressCallBack) then
         Emuteca.ProgressCallBack('Adding files', FolderList[i],
-          FileList[i], i + 1, FileList.Count);
+          FileList[i], i, FileList.Count);
 
       aSoft := nil;
       Found := False;
@@ -215,18 +215,15 @@ begin
 
         // ID
         case aSystem.GameKey of
+          TEFKSHA1:
+            aSoft.ID := '';
+
           TEFKCRC32:
           begin
             // Is a compressed file
             if IsCompressed then
             begin
-          { TODO : We can know CRC32 without extracting... with
-            w7zListFiles }
-              w7zExtractFile(FolderList[i], FileList[i],
-                Emuteca.TempFolder + 'Temp', False, '');
-              aSoft.ID :=
-                CRC32FileStr(Emuteca.TempFolder + 'Temp\' + FileList[i]);
-              DeleteDirectory(Emuteca.TempFolder + 'Temp', True);
+              aSoft.ID := w7zCRC32InnerFileStr(FolderList[i], FileList[i], '');
             end
             else
             begin
@@ -234,13 +231,11 @@ begin
             end;
           end;
 
-          TEFKCustom: aSoft.ID := ExtractFileNameOnly(FileList[i]);
-
-          TEFKFileName: aSoft.ID := ExtractFileNameOnly(FileList[i]);
+          TEFKCustom, TEFKFileName:
+            aSoft.ID := ExtractFileNameOnly(FileList[i]);
 
           else  // TEFKSHA1 by default
-            //aSoft.ID := SHA1Print(aSoft.SHA1);
-            ;
+            aSoft.ID := '';
         end;
 
         aSoft.Title := RemoveFromBrackets(ExtractFileNameOnly(aSoft.FileName));
@@ -248,9 +243,11 @@ begin
 
         case rgbGroup.ItemIndex of
           1: // Group by filename
-            aSoft.GroupKey := RemoveFromBrackets(ExtractFileNameOnly(aSoft.FileName))
-             else
-            aSoft.GroupKey := RemoveFromBrackets(ExtractFileNameOnly(
+            aSoft.GroupKey :=
+              RemoveFromBrackets(ExtractFileNameOnly(aSoft.FileName))
+          else
+            aSoft.GroupKey :=
+              RemoveFromBrackets(ExtractFileNameOnly(
               ExcludeTrailingPathDelimiter(aSoft.Folder)));
         end;
       end;
@@ -269,7 +266,10 @@ begin
     FreeAndNil(FolderList);
     FreeAndNil(FileList);
     FreeAndNil(SoftSysList);
-    Emuteca.CacheData;
+
+    Emuteca.SystemManager.SaveToFileIni('', False);
+    Emuteca.SoftManager.SaveSoftOfSystem(aSystem, False);
+    // Emuteca.SoftManager.SaveSoftOfSystems(False);
   end;
 end;
 

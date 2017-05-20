@@ -19,15 +19,13 @@ const
 
     Please attach directory separator}
 
-  { TODO : Next must be unused }
-
-  kGroupSectionKey = 'Group: ';
-  {< Key for group sections in database files. }
 
   // Extensions
   // ----------
   kEmutecaGroupFileExt = '.egl';
   {< Extension for group lists. }
+   kEmutecaSoftFileExt = '.csv';
+  {< Extension for soft lists. }
 
   // EXIT CODES for handling some errors
   // Praying for no emulator use these exit codes.

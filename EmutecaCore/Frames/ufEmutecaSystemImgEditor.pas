@@ -38,6 +38,9 @@ type
     ToolButton1: TToolButton;
     ToolButton2: TToolButton;
     ToolButton3: TToolButton;
+    procedure actAddImgFolderExecute(Sender: TObject);
+    procedure actDeleteImageFolderExecute(Sender: TObject);
+    procedure actUpdateImageFolderExecute(Sender: TObject);
     procedure eImageFolderAcceptDirectory(Sender: TObject; var Value: string);
     procedure eImageFolderButtonClick(Sender: TObject);
     procedure eSystemIconAcceptFileName(Sender: TObject; var Value: string);
@@ -156,6 +159,74 @@ begin
     eImageCaption.Text := ExtractFileName(ExcludeTrailingPathDelimiter(Value))
   else
     eImageCaption.Clear;
+end;
+
+procedure TfmSystemImgEditor.actAddImgFolderExecute(Sender: TObject);
+var
+  aStr: string;
+begin
+  if not Assigned(System) then
+    Exit;
+
+  if eImageFolder.Directory = '' then
+    Exit;
+
+  lbxImageFolders.Items.Add(SetAsFolder(eImageFolder.Directory));
+
+
+  if eImageCaption.Text = '' then
+  begin
+    lbxImageCaptions.Items.Add(
+      ExtractFileName(ExcludeTrailingPathDelimiter(eImageFolder.Directory)));
+  end
+  else
+  begin
+    lbxImageCaptions.Items.Add(eImageCaption.Text);
+  end;
+end;
+
+procedure TfmSystemImgEditor.actDeleteImageFolderExecute(Sender: TObject);
+begin
+  if not Assigned(System) then
+    Exit;
+  if lbxImageFolders.ItemIndex = -1 then
+    exit;
+
+  lbxImageCaptions.Items.Delete(lbxImageFolders.ItemIndex);
+  lbxImageFolders.Items.Delete(lbxImageFolders.ItemIndex);
+end;
+
+procedure TfmSystemImgEditor.actUpdateImageFolderExecute(Sender: TObject);
+var
+  aPos: integer;
+begin
+  if not Assigned(System) then
+    Exit;
+
+  if eImageFolder.Directory = '' then
+    Exit;
+
+  aPos := lbxImageFolders.ItemIndex;
+  if aPos = -1 then
+    exit;
+
+  lbxImageFolders.Items.BeginUpdate;
+  lbxImageFolders.Items.Insert(aPos, eImageFolder.Directory);
+  lbxImageFolders.Items.Delete(aPos + 1);
+  lbxImageFolders.Items.EndUpdate;
+
+  lbxImageCaptions.Items.BeginUpdate;
+  if eImageCaption.Text = '' then
+  begin
+    lbxImageCaptions.Items.Insert(aPos,
+      ExtractFileName(ExcludeTrailingPathDelimiter(eImageFolder.Directory)));
+  end
+  else
+  begin
+    lbxImageCaptions.Items.Insert(aPos, eImageCaption.Text);
+  end;
+  lbxImageCaptions.Items.Delete(aPos + 1);
+  lbxImageCaptions.Items.EndUpdate;
 end;
 
 procedure TfmSystemImgEditor.eImageFolderButtonClick(Sender: TObject);

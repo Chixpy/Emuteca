@@ -26,10 +26,11 @@ unit ucEmutecaSystem;
 interface
 
 uses
-  Classes, SysUtils, IniFiles, LazFileUtils, LazUTF8, contnrs, fgl,
+  Classes, SysUtils, IniFiles, LazFileUtils, LazUTF8, fgl,
   uCHXStrUtils,
   uEmutecaCommon, uaCHXStorable,
-  ucEmutecaGroupManager, ucEmutecaPlayingStats;
+  ucEmutecaGroupManager,
+  ucEmutecaPlayingStats;
 
 const
   // Ini file Keys
@@ -78,7 +79,7 @@ const
 type
   { cEmutecaSystem }
 
-  cEmutecaSystem = class(caCHXStorable)
+  cEmutecaSystem = class(caCHXStorableIni)
   private
     FBackImage: string;
     FBaseFolder: string;
@@ -132,8 +133,8 @@ type
     procedure SaveToIni(aIniFile: TCustomIniFile;
       const ExportMode: boolean); override;
 
-    procedure LoadGroups(aFile: string);
-    procedure SaveGroups(aFile: string; ExportMode: Boolean);
+    procedure LoadLists(aFile: string);
+    procedure SaveLists(aFile: string; ExportMode: Boolean);
 
   published
     property GroupManager: cEmutecaGroupManager read FGroupManager;
@@ -383,20 +384,19 @@ begin
   Stats.WriteToIni(aIniFile, ID, ExportMode);
 end;
 
-procedure cEmutecaSystem.LoadGroups(aFile: string);
+procedure cEmutecaSystem.LoadLists(aFile: string);
 begin
   GroupManager.Clear;
-  if not FileExistsUTF8(aFile) then Exit;
-
-  GroupManager.LoadFromFileTxt(aFile);
+  if FileExistsUTF8(aFile + kEmutecaGroupFileExt) then
+  GroupManager.LoadFromFileTxt(aFile  + kEmutecaGroupFileExt);
 end;
 
-procedure cEmutecaSystem.SaveGroups(aFile: string; ExportMode: Boolean);
+procedure cEmutecaSystem.SaveLists(aFile: string; ExportMode: Boolean);
 begin
   if aFile = '' then Exit;
   if not DirectoryExistsUTF8(ExtractFileDir(aFile)) then
     ForceDirectoriesUTF8(ExtractFileDir(aFile));
-  GroupManager.SaveToFileTxt(aFile, ExportMode);
+  GroupManager.SaveToFileTxt(aFile  + kEmutecaGroupFileExt , ExportMode);
 end;
 
 procedure cEmutecaSystem.SetBaseFolder(AValue: string);
@@ -528,6 +528,7 @@ begin
 
   FStats := cEmutecaPlayingStats.Create(Self);
   FGroupManager := cEmutecaGroupManager.Create(Self);
+  FGroupManager.System := Self;
 
   Self.Enabled := False;
   Self.GameKey := TEFKSHA1;

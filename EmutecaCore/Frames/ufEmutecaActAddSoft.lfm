@@ -64,7 +64,6 @@ inherited fmEmutecaActAddSoft: TfmEmutecaActAddSoft
         Height = 23
         Top = 0
         Width = 279
-        OnAcceptFileName = eFileAcceptFileName
         DialogOptions = [ofNoChangeDir, ofFileMustExist, ofEnableSizing, ofViewDetail]
         FilterIndex = 0
         HideDirectories = False
@@ -73,6 +72,7 @@ inherited fmEmutecaActAddSoft: TfmEmutecaActAddSoft
         Align = alTop
         MaxLength = 0
         TabOrder = 0
+        OnEditingDone = eFileEditingDone
       end
       object chkOpenAsArchive: TCheckBox
         Left = 0

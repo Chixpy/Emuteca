@@ -1,6 +1,6 @@
 { This file is part of Emuteca
 
-  Copyright (C) 2006-2016 Chixpy
+  Copyright (C) 2006-2017 Chixpy
 
   This source is free software; you can redistribute it and/or modify it under
   the terms of the GNU General Public License as published by the Free
@@ -25,7 +25,7 @@ unit ucEmutecaEmulator;
 
 interface
 
-uses  Classes, SysUtils, FileUtil, StrUtils, LazUTF8, LazFileUtils, contnrs,
+uses  Classes, SysUtils, FileUtil, StrUtils, LazUTF8, LazFileUtils,
   IniFiles, fgl,
   // CHX units
   uCHXStrUtils,
@@ -68,7 +68,7 @@ type
   { cEmutecaEmulator class.
 
     Stores all basic info of an emulator. }
-  cEmutecaEmulator = class(caCHXStorable)
+  cEmutecaEmulator = class(TComponent)
   private
     FEmulatorName: string;
     FEnabled: boolean;
@@ -95,9 +95,8 @@ type
     function Execute(GameFile: string): integer;
     function ExecuteAlone: integer;
 
-    procedure LoadFromIni(IniFile: TCustomIniFile); override;
-    procedure SaveToIni(IniFile: TCustomIniFile;
-      const ExportMode: boolean); override;
+    procedure LoadFromIni(IniFile: TCustomIniFile);
+    procedure SaveToIni(IniFile: TCustomIniFile; const ExportMode: boolean);
 
   published
     property ID: string read FID write SetID;

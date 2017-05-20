@@ -1,6 +1,6 @@
 { This file is part of Emuteca
 
-  Copyright (C) 2006-2016 Chixpy
+  Copyright (C) 2006-2017 Chixpy
 
   This source is free software; you can redistribute it and/or modify it under
   the terms of the GNU General Public License as published by the Free
@@ -27,7 +27,9 @@ interface
 
 uses
   Classes, SysUtils, LazFileUtils, LazUTF8, IniFiles,
-  ucEmutecaEmulator, uaEmutecaManager;
+  uaCHXStorable,
+  uEmutecaCommon,
+  ucEmutecaConfig, ucEmutecaEmulator;
 
 resourcestring
   rsLoadingEmulatorList = 'Loading emulator list...';
@@ -38,21 +40,30 @@ type
 
   { cEmutecaEmulatorManager }
 
-  cEmutecaEmulatorManager = class(caEmutecaManager)
+  cEmutecaEmulatorManager = class(caCHXStorableIni)
   private
+    FConfig: cEmutecaConfig;
     FFullList: cEmutecaEmulatorList;
+    FProgressCallBack: TEmutecaProgressCallBack;
+    procedure SetConfig(AValue: cEmutecaConfig);
+    procedure SetProgressCallBack(AValue: TEmutecaProgressCallBack);
 
   protected
 
 
   public
-    procedure LoadFromStrLst(aTxtFile: TStrings); override;
-    procedure SaveToStrLst(aTxtFile: TStrings; const ExportMode: boolean);
-      override;
-    property FullList: cEmutecaEmulatorList read FFullList;
+    property ProgressCallBack: TEmutecaProgressCallBack read FProgressCallBack write SetProgressCallBack;
+    //< CallBack function to show the progress in actions.
 
-    procedure LoadFromIni(IniFile: TCustomIniFile); override;
-    procedure SaveToIni(IniFile: TCustomIniFile;
+    property Config: cEmutecaConfig read FConfig write SetConfig;
+
+    procedure ClearData;
+    //< Clears all data WITHOUT saving.
+    procedure ReloadData;
+    //< Reload last data file WITHOUT saving changes.
+
+    procedure LoadFromIni(aIniFile: TCustomIniFile); override;
+    procedure SaveToIni(aIniFile: TCustomIniFile;
       const ExportMode: boolean); override;
 
     function ItemById(aId: string): cEmutecaEmulator;
@@ -61,8 +72,8 @@ type
        @Result cEmutecaEmulator found or nil.
     }
 
-    procedure AssingAllTo(aList: TStrings); override;
-    procedure AssingEnabledTo(aList: TStrings); override;
+    procedure AssingAllTo(aList: TStrings);
+    procedure AssingEnabledTo(aList: TStrings);
 
     function RunEmulator(const EmulatorID, GameFile: string): longword;
     {< Runs software with an emulator (by ID).
@@ -72,6 +83,10 @@ type
 
     constructor Create(aOwner: TComponent); override;
     destructor Destroy; override;
+
+  published
+    property FullList: cEmutecaEmulatorList read FFullList;
+
   end;
 
 
@@ -95,8 +110,8 @@ end;
 
 function cEmutecaEmulatorManager.RunEmulator(
   const EmulatorID, GameFile: string): longword;
-var
-  Emu: cEmutecaEmulator;
+//var
+ // Emu: cEmutecaEmulator;
 begin
   Result := 256;
   //Emu := Emulator(EmulatorID);
@@ -128,29 +143,43 @@ begin
   aList.EndUpdate;
 end;
 
-procedure cEmutecaEmulatorManager.LoadFromStrLst(aTxtFile: TStrings);
+procedure cEmutecaEmulatorManager.SetConfig(AValue: cEmutecaConfig);
 begin
-
+  if FConfig = AValue then Exit;
+  FConfig := AValue;
 end;
 
-procedure cEmutecaEmulatorManager.SaveToStrLst(aTxtFile: TStrings;
-  const ExportMode: boolean);
+procedure cEmutecaEmulatorManager.SetProgressCallBack(
+  AValue: TEmutecaProgressCallBack);
 begin
-
+  if FProgressCallBack = AValue then Exit;
+  FProgressCallBack := AValue;
 end;
 
-procedure cEmutecaEmulatorManager.LoadFromIni(IniFile: TCustomIniFile);
+procedure cEmutecaEmulatorManager.ClearData;
+begin
+  FullList.Clear;
+end;
+
+procedure cEmutecaEmulatorManager.ReloadData;
+begin
+  ClearData;
+
+  LoadFromFileIni('');
+end;
+
+procedure cEmutecaEmulatorManager.LoadFromIni(aIniFile: TCustomIniFile);
 var
   TempList: TStringList;
   TempEmu: cEmutecaEmulator;
   i: longint;
 begin
-  if not Assigned(IniFile) then
+  if not Assigned(aIniFile) then
     Exit;
 
   TempList := TStringList.Create;
   try
-    IniFile.ReadSections(TempList);
+    aIniFile.ReadSections(TempList);
     TempList.Sort;
 
     i := 0;
@@ -158,7 +187,7 @@ begin
     begin
       TempEmu := cEmutecaEmulator.Create(nil);
       TempEmu.ID := TempList[i];
-      TempEmu.LoadFromIni(IniFile);
+      TempEmu.LoadFromIni(aIniFile);
       FullList.Add(TempEmu);
       Inc(i);
 
@@ -171,23 +200,23 @@ begin
   end;
 end;
 
-procedure cEmutecaEmulatorManager.SaveToIni(IniFile: TCustomIniFile;
+procedure cEmutecaEmulatorManager.SaveToIni(aIniFile: TCustomIniFile;
   const ExportMode: boolean);
 var
   i: longint;
   aEmulator: cEmutecaEmulator;
 begin
-  if not Assigned(IniFile) then
+  if not Assigned(aIniFile) then
     Exit;
 
   // if not ExportMode then
-  //   IniFile.Clear;  <-- TMemIniFile
+  //   aIniFile.Clear;  <-- TMemIniFile
 
   i := 0;
   while i < FullList.Count do
   begin
     aEmulator := cEmutecaEmulator(FullList[i]);
-    aEmulator.SaveToIni(IniFile, ExportMode);
+    aEmulator.SaveToIni(aIniFile, ExportMode);
     Inc(i);
 
     if ProgressCallBack <> nil then

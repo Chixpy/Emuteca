@@ -11,7 +11,7 @@ uses
   // Emuteca
   ucEmuteca,
   // CHX
-  ucCHXScriptEngine,
+  ucCHXScriptEngine{,
   // PS Imports
   uPSI_uEmutecaCommon,
   uPSI_uaCHXStorable, uPSI_uaEmutecaManager,
@@ -19,7 +19,7 @@ uses
   uPSI_ucEmutecaGroup, uPSI_ucEmutecaSoftware,
   uPSI_ucEmutecaEmulatorManager, uPSI_ucEmutecaSystemManager,
   uPSI_ucEmutecaGroupManager, uPSI_ucEmutecaSoftManager,
-  uPSI_ucEmutecaConfig, uPSI_ucEmuteca;
+  uPSI_ucEmutecaConfig, uPSI_ucEmuteca};
 
 type
 
@@ -68,19 +68,19 @@ procedure cEmutecaScriptEngine.PasScriptOnCompImport(Sender: TObject;
 begin
   inherited PasScriptOnCompImport(Sender, x);
 
-  SIRegister_uEmutecaCommon(x);
-  SIRegister_uaCHXStorable(x);
-  SIRegister_uaEmutecaManager(x);
-  SIRegister_ucEmutecaEmulator(x);
-  SIRegister_ucEmutecaSystem(x);
-  SIRegister_ucEmutecaGroup(x);
-  SIRegister_ucEmutecaSoftware(x);
-  SIRegister_ucEmutecaEmulatorManager(x);
-  SIRegister_ucEmutecaSystemManager(x);
-  SIRegister_ucEmutecaGroupManager(x);
-  SIRegister_ucEmutecaSoftManager(x);
-  SIRegister_ucEmutecaConfig(x);
-  SIRegister_ucEmuteca(x);
+  //SIRegister_uEmutecaCommon(x);
+  //SIRegister_uaCHXStorable(x);
+  //SIRegister_uaEmutecaManager(x);
+  //SIRegister_ucEmutecaEmulator(x);
+  //SIRegister_ucEmutecaSystem(x);
+  //SIRegister_ucEmutecaGroup(x);
+  //SIRegister_ucEmutecaSoftware(x);
+  //SIRegister_ucEmutecaEmulatorManager(x);
+  //SIRegister_ucEmutecaSystemManager(x);
+  //SIRegister_ucEmutecaGroupManager(x);
+  //SIRegister_ucEmutecaSoftManager(x);
+  //SIRegister_ucEmutecaConfig(x);
+  //SIRegister_ucEmuteca(x);
 end;
 
 procedure cEmutecaScriptEngine.PasScriptOnExecImport(Sender: TObject;
@@ -88,19 +88,19 @@ procedure cEmutecaScriptEngine.PasScriptOnExecImport(Sender: TObject;
 begin
   inherited PasScriptOnExecImport(Sender, se, x);
 
-  RIRegister_uaCHXStorable(x);
-  RIRegister_uaEmutecaManager(x);
-  RIRegister_ucEmutecaEmulator(x);
-  RIRegister_ucEmutecaSystem_Routines(se);
-  RIRegister_ucEmutecaSystem(x);
-  RIRegister_ucEmutecaGroup(x);
-  RIRegister_ucEmutecaSoftware(x);
-  RIRegister_ucEmutecaEmulatorManager(x);
-  RIRegister_ucEmutecaSystemManager(x);
-  RIRegister_ucEmutecaGroupManager(x);
-  RIRegister_ucEmutecaSoftManager(x);
-  RIRegister_ucEmutecaConfig(x);
-  RIRegister_ucEmuteca(x);
+  //RIRegister_uaCHXStorable(x);
+  //RIRegister_uaEmutecaManager(x);
+  //RIRegister_ucEmutecaEmulator(x);
+  //RIRegister_ucEmutecaSystem_Routines(se);
+  //RIRegister_ucEmutecaSystem(x);
+  //RIRegister_ucEmutecaGroup(x);
+  //RIRegister_ucEmutecaSoftware(x);
+  //RIRegister_ucEmutecaEmulatorManager(x);
+  //RIRegister_ucEmutecaSystemManager(x);
+  //RIRegister_ucEmutecaGroupManager(x);
+  //RIRegister_ucEmutecaSoftManager(x);
+  //RIRegister_ucEmutecaConfig(x);
+  //RIRegister_ucEmuteca(x);
 end;
 
 procedure cEmutecaScriptEngine.PasScriptOnCompile(Sender: TPSScript);

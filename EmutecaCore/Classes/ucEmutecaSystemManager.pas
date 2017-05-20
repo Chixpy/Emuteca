@@ -1,6 +1,6 @@
 { This file is part of Emuteca
 
-  Copyright (C) 2006-2016 Chixpy
+  Copyright (C) 2006-2017 Chixpy
 
   This source is free software; you can redistribute it and/or modify it under
   the terms of the GNU General Public License as published by the Free
@@ -26,30 +26,42 @@ unit ucEmutecaSystemManager;
 interface
 
 uses
-  Classes, SysUtils, LazFileUtils, LazUTF8, IniFiles, contnrs,
-  uCHXStrUtils,
-  uEmutecaCommon, uaEmutecaManager,
+  Classes, SysUtils, LazFileUtils, LazUTF8, IniFiles,
+  uaCHXStorable,
+  uEmutecaCommon,
   ucEmutecaConfig, ucEmutecaSystem;
 
 type
   { cEmutecaSystemManager }
 
-  cEmutecaSystemManager = class(caEmutecaManager)
+  cEmutecaSystemManager = class(caCHXStorableIni)
   private
+    FConfig: cEmutecaConfig;
     FFullList: cEmutecaSystemList;
     FEnabledList: cEmutecaSystemList;
+    FProgressCallBack: TEmutecaProgressCallBack;
 
   protected
-     procedure SetConfig(AValue: cEmutecaConfig); override;
-     procedure SetProgressCallBack(AValue: TEmutecaProgressCallBack); override;
+    procedure SetConfig(AValue: cEmutecaConfig);
+    procedure SetProgressCallBack(AValue: TEmutecaProgressCallBack);
 
   public
+    property Config: cEmutecaConfig read FConfig write SetConfig;
+
+    procedure ClearData;
+    //< Clears all data WITHOUT saving.
+    procedure ReloadData;
+    //< Reload last data file WITHOUT saving changes.
+
+    property ProgressCallBack: TEmutecaProgressCallBack
+      read FProgressCallBack write SetProgressCallBack;
+    //< CallBack function to show the progress in actions.
+
     procedure LoadFromIni(IniFile: TCustomIniFile); override;
-    procedure LoadFromStrLst(aTxtFile: TStrings); override;
     procedure SaveToIni(IniFile: TCustomIniFile;
       const ExportMode: boolean); override;
 
-    function ItemById(aId: string; Autocreate: Boolean): cEmutecaSystem;
+    function ItemById(aId: string; Autocreate: boolean): cEmutecaSystem;
     {< Returns the system with aId key.
 
        Autocreate: Automatically create one, if none found.
@@ -57,13 +69,12 @@ type
        @Result cEmutecaSystem found or nil.
     }
 
-    procedure AssingAllTo(aList: TStrings); override; deprecated;
-    procedure AssingEnabledTo(aList: TStrings); override; deprecated;
+    procedure AssingAllTo(aList: TStrings); deprecated;
+    procedure AssingEnabledTo(aList: TStrings); deprecated;
 
     constructor Create(aOwner: TComponent); override;
     destructor Destroy; override;
-    procedure SaveToStrLst(aTxtFile: TStrings; const ExportMode: boolean);
-      override;
+
 
   published
     property FullList: cEmutecaSystemList read FFullList;
@@ -77,25 +88,36 @@ implementation
 
 procedure cEmutecaSystemManager.SetConfig(AValue: cEmutecaConfig);
 var
-  i: Integer;
+  i: integer;
 begin
-  inherited SetConfig(AValue);
+  FConfig := AValue;
 
-  i := FullList.count - 1;
+  i := FullList.Count - 1;
   while i >= 0 do
+  begin
     cEmutecaSystem(FullList[i]).GroupManager.Config := AValue;
+    Dec(i);
+  end;
 end;
 
 procedure cEmutecaSystemManager.SetProgressCallBack(
   AValue: TEmutecaProgressCallBack);
-var
-  i: Integer;
 begin
-  inherited SetProgressCallBack(AValue);
+  if FProgressCallBack = AValue then Exit;
+  FProgressCallBack := AValue;
+end;
 
-  i := FullList.count - 1;
-  while i >= 0 do
-    cEmutecaSystem(FullList[i]).GroupManager.ProgressCallBack := AValue;
+procedure cEmutecaSystemManager.ClearData;
+begin
+  EnabledList.Clear;
+  FullList.Clear;
+end;
+
+procedure cEmutecaSystemManager.ReloadData;
+begin
+  ClearData;
+
+  LoadFromFileIni('');
 end;
 
 procedure cEmutecaSystemManager.LoadFromIni(IniFile: TCustomIniFile);
@@ -127,16 +149,13 @@ begin
         ProgressCallBack(rsLoadingSystemList, TempSys.ID,
           TempSys.Title, i, TempList.Count);
 
-      TempSys.LoadGroups(Config.SysDataFolder + TempSys.FileName + kEmutecaGroupFileExt);
+      if TempSys.Enabled then
+        TempSys.LoadLists(Config.SysDataFolder + TempSys.FileName);
+
     end;
   finally
     FreeAndNil(TempList);
   end;
-end;
-
-procedure cEmutecaSystemManager.LoadFromStrLst(aTxtFile: TStrings);
-begin
-
 end;
 
 procedure cEmutecaSystemManager.SaveToIni(IniFile: TCustomIniFile;
@@ -155,19 +174,23 @@ begin
   while i < FullList.Count do
   begin
     aSystem := cEmutecaSystem(FullList[i]);
-    aSystem.SaveToIni(IniFile, ExportMode);
-    Inc(i);
 
     if ProgressCallBack <> nil then
       ProgressCallBack(rsSavingSystemList, aSystem.ID,
         aSystem.Title, i, FullList.Count);
 
-    aSystem.SaveGroups(Config.SysDataFolder + aSystem.FileName + kEmutecaGroupFileExt, False);
+    aSystem.SaveToIni(IniFile, ExportMode);
+    Inc(i);
+
+    if aSystem.Enabled then
+      aSystem.SaveLists(Config.SysDataFolder + aSystem.FileName, False);
   end;
+  if ProgressCallBack <> nil then
+    ProgressCallBack(rsSavingSystemList, '', '', 0, 0);
 end;
 
-function cEmutecaSystemManager.ItemById(aId: string; Autocreate: Boolean
-  ): cEmutecaSystem;
+function cEmutecaSystemManager.ItemById(aId: string;
+  Autocreate: boolean): cEmutecaSystem;
 var
   i: integer;
   aSystem: cEmutecaSystem;
@@ -180,10 +203,10 @@ begin
     aSystem := cEmutecaSystem(FullList[i]);
     if UTF8CompareText(aSystem.ID, aId) = 0 then
       Result := aSystem;
-    inc(i);
+    Inc(i);
   end;
 
-    // Opps, creating it
+  // Opps, creating it
   if Autocreate and (not assigned(Result)) then
   begin
     Result := cEmutecaSystem.Create(nil);
@@ -228,9 +251,9 @@ begin
   begin
     aSystem := cEmutecaSystem(EnabledList[i]);
     if aSystem.Enabled then
-      begin
+    begin
       aList.AddObject(aSystem.Title, aSystem);
-      end;
+    end;
     Inc(i);
   end;
   aList.EndUpdate;
@@ -248,12 +271,6 @@ begin
   FreeAndNil(FEnabledList);
   FreeAndNil(FFullList);
   inherited Destroy;
-end;
-
-procedure cEmutecaSystemManager.SaveToStrLst(aTxtFile: TStrings;
-  const ExportMode: boolean);
-begin
-
 end;
 
 end.

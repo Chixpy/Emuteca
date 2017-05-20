@@ -209,21 +209,22 @@ inherited fmSystemImgEditor: TfmSystemImgEditor
       Align = alRight
       AutoSize = True
       Caption = 'tbImageFolderButtons'
+      Images = ilPropEditor
       TabOrder = 2
       object ToolButton1: TToolButton
         Left = 1
         Top = 2
-        Caption = 'ToolButton1'
+        Action = actAddImgFolder
       end
       object ToolButton2: TToolButton
         Left = 1
         Top = 24
-        Caption = 'ToolButton2'
+        Action = actUpdateImageFolder
       end
       object ToolButton3: TToolButton
         Left = 1
         Top = 46
-        Caption = 'ToolButton3'
+        Action = actDeleteImageFolder
       end
     end
   end
@@ -231,14 +232,17 @@ inherited fmSystemImgEditor: TfmSystemImgEditor
     object actAddImgFolder: TAction[2]
       Category = 'ImageList'
       Caption = 'Add Image Folder'
+      OnExecute = actAddImgFolderExecute
     end
     object actDeleteImageFolder: TAction[3]
       Category = 'ImageList'
       Caption = 'Delete Image Folder'
+      OnExecute = actDeleteImageFolderExecute
     end
     object actUpdateImageFolder: TAction[4]
       Category = 'ImageList'
       Caption = 'Update Image Folder'
+      OnExecute = actUpdateImageFolderExecute
     end
   end
   inherited ilPropEditor: TImageList[5]

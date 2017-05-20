@@ -1,6 +1,6 @@
 { This file is part of Emuteca
 
-  Copyright (C) 2006-2016 Chixpy
+  Copyright (C) 2006-2017 Chixpy
 
   This source is free software; you can redistribute it and/or modify it under
   the terms of the GNU General Public License as published by the Free
@@ -26,11 +26,12 @@ unit ucEmutecaGroupManager;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, LazFileUtils,
-  LazUTF8, LConvEncoding,
-  LResources,
+  Classes, SysUtils, FileUtil, LazFileUtils, IniFiles,
+  LazUTF8, LConvEncoding, LResources,
+  uaCHXStorable,
   // Emuteca core
-  uaEmutecaManager, ucEmutecaGroup;
+  uEmutecaCommon,
+  ucEmutecaConfig, ucEmutecaGroup;
 
 resourcestring
   rsLoadingGroupList = 'Loading parent list...';
@@ -39,22 +40,31 @@ resourcestring
 type
   { cEmutecaGroupManager }
 
-  cEmutecaGroupManager = class(caEmutecaManager)
+  cEmutecaGroupManager = class(caCHXStorableTxt)
   private
+    FConfig: cEmutecaConfig;
+    FSystem: TObject;
     FVisibleList: cEmutecaGroupList;
     FFullList: cEmutecaGroupList;
+    procedure SetConfig(AValue: cEmutecaConfig);
+    procedure SetSystem(AValue: TObject);
 
   protected
 
   public
+    property Config: cEmutecaConfig read FConfig write SetConfig;
+
+    property System: TObject read FSystem write SetSystem;
+
     property FullList: cEmutecaGroupList read FFullList;
     {< Actual list where the parents are stored. }
     property VisibleList: cEmutecaGroupList read FVisibleList;
     {< Filtered parent list. }
 
     procedure LoadFromStrLst(TxtFile: TStrings); override;
-    procedure SaveToStrLst(TxtFile: TStrings; const ExportMode: boolean);
-      override;
+    procedure SaveToStrLst(TxtFile: TStrings; const ExportMode: boolean); override;
+    procedure LoadFromIni(aIniFile: TCustomIniFile); override;
+    procedure SaveToIni(aIniFile: TCustomIniFile; const ExportMode: boolean); override;
 
     function ItemById(aId: string; Autocreate: boolean): cEmutecaGroup;
     {< Returns the parent with aId key.
@@ -67,8 +77,8 @@ type
 
     procedure Clear;
 
-    procedure AssingAllTo(aList: TStrings); override;
-    procedure AssingEnabledTo(aList: TStrings); override;
+    procedure AssingAllTo(aList: TStrings);
+    procedure AssingEnabledTo(aList: TStrings);
 
     constructor Create(aOwner: TComponent); override;
     destructor Destroy; override;
@@ -88,7 +98,7 @@ begin
 
   // Inverse search can be faster
   i := FullList.Count;
-  while (Result = nil) and (i > 0) do
+  while (not assigned(Result)) and (i > 0) do
   begin
     Dec(i);
     aGroup := cEmutecaGroup(FullList[i]);
@@ -102,6 +112,7 @@ begin
     Result := cEmutecaGroup.Create(nil);
     Result.ID := aId;
     Result.Title := aId;
+    Result.System := System;
     Self.FullList.Add(Result);
   end;
 end;
@@ -152,6 +163,39 @@ begin
   aList.EndUpdate;
 end;
 
+procedure cEmutecaGroupManager.SetSystem(AValue: TObject);
+var
+  i: Integer;
+  aGroup: cEmutecaGroup;
+begin
+  if FSystem = AValue then Exit;
+  FSystem := AValue;
+
+      i := 0;
+    while i < FullList.Count do
+    begin
+      aGroup := cEmutecaGroup(FullList[i]);
+      aGroup.System := System;
+    end;
+end;
+
+procedure cEmutecaGroupManager.LoadFromIni(aIniFile: TCustomIniFile);
+begin
+
+end;
+
+procedure cEmutecaGroupManager.SaveToIni(aIniFile: TCustomIniFile;
+  const ExportMode: boolean);
+begin
+
+end;
+
+procedure cEmutecaGroupManager.SetConfig(AValue: cEmutecaConfig);
+begin
+  if FConfig = AValue then Exit;
+  FConfig := AValue;
+end;
+
 procedure cEmutecaGroupManager.LoadFromStrLst(TxtFile: TStrings);
 var
   i: integer;
@@ -167,13 +211,10 @@ begin
   begin
     TempGroup := cEmutecaGroup.Create(nil);
     TempGroup.DataString := TxtFile[i];
+    TempGroup.System := System;
 
     FullList.Add(TempGroup);
     Inc(i);
-
-    if ProgressCallBack <> nil then
-      ProgressCallBack(rsLoadingGroupList, TempGroup.Title,
-        TempGroup.Developer, i, TxtFile.Count);
   end;
   //FullList.EndUpdate;
 
@@ -194,7 +235,10 @@ begin
   TxtFile.BeginUpdate;
   try
     TxtFile.Capacity := FullList.Count + 1; // Speed up?
-    TxtFile.Add('"ID","Title","System","Year","Developer"');
+    if ExportMode then
+      TxtFile.Add(krsCSVGroupHeader)
+    else
+      TxtFile.Add(krsCSVGroupStatsHeader);
 
     i := 0;
     while i < FullList.Count do
@@ -202,10 +246,6 @@ begin
       aGroup := cEmutecaGroup(FullList[i]);
       TxtFile.Add(aGroup.DataString);
       Inc(i);
-
-      if ProgressCallBack <> nil then
-        ProgressCallBack(rsSavingGroupList, aGroup.Title,
-          aGroup.Developer, i, FullList.Count);
     end;
 
   finally

@@ -30,7 +30,8 @@ uses
   u7zWrapper, sha1,
   uCHXStrUtils,
   uEmutecaCommon,
-  ucEmutecaConfig, ucEmutecaEmulatorManager, ucEmutecaSystemManager,
+  ucEmutecaConfig,
+  ucEmutecaEmulatorManager, ucEmutecaSystemManager,
   ucEmutecaGroupManager, ucEmutecaSoftManager,
   ucEmutecaSoftware, ucEmutecaGroup, ucEmutecaSystem, ucEmutecaEmulator;
 
@@ -66,6 +67,7 @@ type
 
   cEmuteca = class(TComponent)
   private
+    FBaseFolder: string;
     FCacheDataThread: cEmutecaCacheDataThread;
     FConfig: cEmutecaConfig;
     FEmulatorManager: cEmutecaEmulatorManager;
@@ -73,6 +75,7 @@ type
     FSoftManager: cEmutecaSoftManager;
     FSystemManager: cEmutecaSystemManager;
     FTempFolder: string;
+    procedure SetBaseFolder(AValue: string);
     procedure SetCacheDataThread(AValue: cEmutecaCacheDataThread);
     procedure SetProgressBar(AValue: TEmutecaProgressCallBack);
     procedure SetTempFolder(AValue: string);
@@ -85,15 +88,13 @@ type
     property ProgressCallBack: TEmutecaProgressCallBack
       read FProgressCallBack write SetProgressBar;
 
-    { TODO: Maybe be protected. Remove all references to this
-
-      Y traer los procedimientos que lo usen aquí. }
-    property TempFolder: string read FTempFolder write SetTempFolder;
+    property TempFolder: string read FTempFolder;
 
     procedure LoadConfig(aFile: string);
     procedure SaveConfig;
 
-    procedure SelectSystem(aSystem: cEmutecaSystem);
+    procedure ClearAllData;
+    procedure ReloadData;
 
     function SearchMainEmulator(aID: string): cEmutecaEmulator;
 
@@ -120,13 +121,16 @@ type
     destructor Destroy; override;
 
   published
+    property BaseFolder: string read FBaseFolder write SetBaseFolder;
+    {< Base folder for relative config paths. }
+
     property Config: cEmutecaConfig read FConfig;
 
     property SoftManager: cEmutecaSoftManager read FSoftManager;
 
-    property EmulatorManager: cEmutecaEmulatorManager read FEmulatorManager;
-
     property SystemManager: cEmutecaSystemManager read FSystemManager;
+
+    property EmulatorManager: cEmutecaEmulatorManager read FEmulatorManager;
   end;
 
 implementation
@@ -164,7 +168,6 @@ end;
 procedure cEmutecaCacheDataThread.Execute;
 var
   aSoft: cEmutecaSoftware;
-  aSystem: cEmutecaSystem;
   aGroup: cEmutecaGroup;
   aFolder, aFile: string;
   aSha1: TSHA1Digest;
@@ -172,23 +175,12 @@ begin
   if (not Assigned(SystemManager)) or (not Assigned(SoftList)) then
     Exit;
 
-  // Caching Systems and groups
+  // Caching groups
   CurrSoftPos := 0;
-  aSystem := nil;
+  aGroup := nil;
   while (not Terminated) and (CurrSoftPos < SoftList.Count) do
   begin
     aSoft := SoftList[CurrSoftPos];
-
-    if not Assigned(aSoft.System) then
-    begin
-      if not aSoft.MatchSystem(aSystem) then
-      begin
-        aSystem := SystemManager.ItemById(aSoft.SystemKey, True);
-        aGroup := nil;
-      end;
-      if not terminated then
-        aSoft.System := aSystem;
-    end;
 
     if not Assigned(aSoft.Group) then
     begin
@@ -374,7 +366,6 @@ begin
     end;
   FindAllFiles(OutFileList, CacheFolder,
     FileMaskFromStringList(Extensions), True);
-
 end;
 
 function cEmuteca.SearchFirstMediaFile(aFolder: string;
@@ -516,37 +507,63 @@ end;
 
 procedure cEmuteca.LoadConfig(aFile: string);
 begin
-  Config.LoadConfig(aFile);
+  Config.LoadConfig(aFile); // if empty, then last config file.
 
   // Temp folder
-  TempFolder := SetAsFolder(GetTempDir) + Config.TempSubfolder;
+  SetTempFolder(SetAsFolder(GetTempDir) + Config.TempSubfolder);
   ForceDirectories(TempFolder);
 
   // Setting EmulatorManager
-  EmulatorManager.DataFile := Config.EmulatorsFile;
-  EmulatorManager.LoadFromFileIni('');
+  if FilenameIsAbsolute(Config.EmulatorsFile) then
+    EmulatorManager.IniFileName := Config.EmulatorsFile
+  else
+    EmulatorManager.IniFileName :=
+      SetAsFolder(BaseFolder) + Config.EmulatorsFile;
 
   // Setting SystemManager
-  SystemManager.DataFile := Config.SystemsFile;
-  SystemManager.LoadFromFileIni('');
+  if FilenameIsAbsolute(Config.SystemsFile) then
+    SystemManager.IniFileName := Config.SystemsFile
+  else
+    SystemManager.IniFileName := SetAsFolder(BaseFolder) + Config.SystemsFile;
 
   // Setting SoftManager
-  SoftManager.DataFile := Config.SoftFile;
-  SoftManager.LoadFromFileTxt('');
+  if FilenameIsAbsolute(Config.SysDataFolder) then
+    SoftManager.SysDataFolder := Config.SysDataFolder
+  else
+    SoftManager.SysDataFolder :=
+      SetAsFolder(BaseFolder) + Config.SysDataFolder;
+  SoftManager.SysManager := SystemManager;
 
-  CacheData;
+  ReloadData;
 end;
 
 procedure cEmuteca.SaveConfig;
 begin
-  SoftManager.SaveToFileTxt('', False);
+  SoftManager.SaveSoftOfSystems(False);
   SystemManager.SaveToFileIni('', False);
   EmulatorManager.SaveToFileIni('', False);
 end;
 
-procedure cEmuteca.SelectSystem(aSystem: cEmutecaSystem);
+procedure cEmuteca.ClearAllData;
 begin
-  SoftManager.SelectSystem(aSystem);
+  // If we are still caching...
+  if Assigned(CacheDataThread) and not CacheDataThread.Finished then
+    CacheDataThread.Terminate;
+
+  EmulatorManager.ClearData;
+  SystemManager.ClearData;
+  SoftManager.ClearData;
+end;
+
+procedure cEmuteca.ReloadData;
+begin
+  ClearAllData;
+
+  EmulatorManager.ReloadData;
+  SystemManager.ReloadData;
+  SoftManager.ReloadData;
+
+  CacheData;
 end;
 
 function cEmuteca.SearchMainEmulator(aID: string): cEmutecaEmulator;
@@ -689,14 +706,10 @@ begin
   if (Result = 0) and (TimePlaying >= Config.MinPlayTime) then
   begin
     { TODO : This are not saved if lists are not saved on exit }
-    //   aSoftware.Stats.AddPlayingTime(StartTime, TimePlaying);
-    //    aSoftware.Info.Group.Stats.AddPlayingTime(StartTime, TimePlaying);
-
-    { TODO : System and Emulator are not saved unless you save it
-      in their managers }
-    //    aSoftware.Info.System.Stats.AddPlayingTime(StartTime, TimePlaying);
-    //    aEmulator.Stats.AddPlayingTime(StartTime, TimePlaying);
-
+    aSoftware.Stats.AddPlayingTime(StartTime, TimePlaying);
+    aSoftware.Group.Stats.AddPlayingTime(StartTime, TimePlaying);
+    aSoftware.System.Stats.AddPlayingTime(StartTime, TimePlaying);
+    aEmulator.Stats.AddPlayingTime(StartTime, TimePlaying);
   end;
 
   // X. Kill them all
@@ -729,6 +742,11 @@ begin
   FCacheDataThread := AValue;
 end;
 
+procedure cEmuteca.SetBaseFolder(AValue: string);
+begin
+  FBaseFolder := SetAsFolder(AValue);
+end;
+
 constructor cEmuteca.Create(aOwner: TComponent);
 begin
   inherited Create(aOwner);
@@ -744,15 +762,15 @@ end;
 
 destructor cEmuteca.Destroy;
 begin
+  // If we are still caching...
+  if Assigned(CacheDataThread) and not CacheDataThread.Finished then
+    CacheDataThread.Terminate;
+
   // Deleting temp folder
   // TODO: Crappy segurity check... :-(
   if (Length(TempFolder) > Length(Config.TempSubfolder) + 5) and
     DirectoryExistsUTF8(TempFolder) then
     DeleteDirectory(TempFolder, False);
-
-  // If we are still caching...
-  if Assigned(CacheDataThread) and not CacheDataThread.Finished then
-    CacheDataThread.Terminate;
 
   Config.SaveConfig('');
 

@@ -24,7 +24,7 @@ unit ucEmutecaSoftware;
 interface
 
 uses
-  Classes, SysUtils, LazFileUtils, LazUTF8, contnrs, IniFiles, sha1, fgl,
+  Classes, SysUtils, LazFileUtils, LazUTF8, IniFiles, sha1, fgl,
   uCHXStrUtils, strutils,
   uaCHXStorable,
   uEmutecaCommon,
@@ -38,6 +38,12 @@ const
   krsedsOverDump = 'OverDump';
   krsedsBadDump = 'BadDump';
   krsedsUnderDump = 'UnderDump';
+
+  krsCSVSoftHeader = '"Group","SHA1","ID","Folder","FileName",' +
+    '"Title","TransliteratedName","SortTitle","Version","Year","Publisher",' +
+    '"Zone","DumpStatus","DumpInfo","Fixed","Trainer","Translation",' +
+    '"Pirate","Cracked","Modified","Hack"';
+  krsCSVSoftStatsHeader = krsCSVSoftHeader + ',' + krsCSVStatsHeader;
 
 resourcestring
   // Strings for DumpStatus, translatable
@@ -75,7 +81,7 @@ function Key2EmutecaDumpSt(aString: string): TEmutecaDumpStatus;
 type
   { cEmutecaSoftware. }
 
-  cEmutecaSoftware = class(caCHXStorable, IFPObserver)
+  cEmutecaSoftware = class(caCHXStorableTxt, IFPObserver)
   private
     FCracked: string;
     FDumpInfo: string;
@@ -94,7 +100,6 @@ type
     FSortTitle: string;
     FStats: cEmutecaPlayingStats;
     FSystem: cEmutecaSystem;
-    FSystemKey: string;
     FTitle: string;
     FTrainer: string;
     FTranslation: string;
@@ -122,7 +127,6 @@ type
     procedure SetSHA1(AValue: TSHA1Digest);
     procedure SetSortTitle(AValue: string);
     procedure SetSystem(AValue: cEmutecaSystem);
-    procedure SetSystemKey(AValue: string);
     procedure SetTitle(AValue: string);
     procedure SetTrainer(AValue: string);
     procedure SetTranslation(AValue: string);
@@ -145,9 +149,8 @@ type
 
     function SHA1IsEmpty: boolean;
     function MatchSHA1(aSHA1: TSHA1Digest): boolean;
-    function MatchSystem(aSystem: cEmutecaSystem): boolean;
     function MatchGroup(aGroup: cEmutecaGroup): boolean;
-    function MatchMFile(aSoft: cEmutecaSoftware): Boolean;
+    function MatchMFile(aSoft: cEmutecaSoftware): boolean;
 
     function GetActualID: string;
     function GetActualTitle: string;
@@ -182,8 +185,6 @@ type
     property FileName: string read FFileName write SetFileName;
     {< Filename (or file inside and archive). }
 
-    property SystemKey: string read FSystemKey write SetSystemKey;
-    {< ID of the System. }
     property GroupKey: string read FGroupKey write SetGroupKey;
     {< ID of the Group. }
 
@@ -322,7 +323,7 @@ begin
   // TODO: Load from ini file
 
 
-  Stats.LoadFromIni(aIniFile,SHA1Str);
+  Stats.LoadFromIni(aIniFile, SHA1Str);
 end;
 
 procedure cEmutecaSoftware.SaveToIni(aIniFile: TCustomIniFile;
@@ -342,12 +343,6 @@ begin
   aIniFile.WriteString(SHA1Str, 'TranslitTitle', GetActualTranslitTitle);
   aIniFile.WriteString(SHA1Str, 'SortTitle', GetActualSortTitle);
 
-  // System and Group
-  // ----------------
-  if assigned(System) then
-    aIniFile.WriteString(SHA1Str, 'System', System.ID)
-  else
-    aIniFile.WriteString(SHA1Str, 'System', SystemKey);
 
   if assigned(Group) then
     aIniFile.WriteString(SHA1Str, 'Group', Group.ID)
@@ -380,7 +375,7 @@ begin
     aIniFile.WriteString(SHA1Str, 'FileName', FileName);
   end;
 
-  Stats.WriteToIni(aIniFile,SHA1Str, ExportMode);
+  Stats.WriteToIni(aIniFile, SHA1Str, ExportMode);
 end;
 
 procedure cEmutecaSoftware.SetFileName(AValue: string);
@@ -421,16 +416,7 @@ begin
   if Assigned(System) then
   begin
     System.FPOAttachObserver(Self);
-    FSystemKey := System.ID;
   end;
-
-  //else FSystemKey := ''; We don't want to delete the old SystemKey
-end;
-
-procedure cEmutecaSoftware.SetSystemKey(AValue: string);
-begin
-  if FSystemKey = AValue then Exit;
-  FSystemKey := AValue;
 end;
 
 procedure cEmutecaSoftware.SetCracked(AValue: string);
@@ -524,7 +510,8 @@ end;
 
 procedure cEmutecaSoftware.SetGroupKey(AValue: string);
 begin
-  if FGroupKey = AValue then Exit;
+  if FGroupKey = AValue then
+    Exit;
   FGroupKey := AValue;
 end;
 
@@ -628,26 +615,18 @@ begin
   Result := SHA1Match(Self.SHA1, aSHA1);
 end;
 
-function cEmutecaSoftware.MatchSystem(aSystem: cEmutecaSystem): boolean;
-begin
-  if Assigned(aSystem) then
-    Result := UTF8CompareText(Self.SystemKey, aSystem.ID) = 0
-    else
-      Result := False;
-end;
-
 function cEmutecaSoftware.MatchGroup(aGroup: cEmutecaGroup): boolean;
 begin
   if Assigned(aGroup) then
-  Result := UTF8CompareText(Self.GroupKey, aGroup.ID) = 0
+    Result := UTF8CompareText(Self.GroupKey, aGroup.ID) = 0
   else
-     Result := False;
+    Result := False;
 end;
 
-function cEmutecaSoftware.MatchMFile(aSoft: cEmutecaSoftware): Boolean;
+function cEmutecaSoftware.MatchMFile(aSoft: cEmutecaSoftware): boolean;
 begin
   Result := (CompareFilenames(Self.FileName, aSoft.FileName) = 0) and
-        (CompareFilenames(Self.Folder, aSoft.Folder) = 0);
+    (CompareFilenames(Self.Folder, aSoft.Folder) = 0);
 end;
 
 function cEmutecaSoftware.GetActualID: string;
@@ -681,7 +660,7 @@ begin
     case Operation of
       ooFree: System := nil;
       else
-        FSystemKey := cEmutecaSystem(ASender).ID;
+        ;
     end;
   end
   else if ASender = Group then
@@ -721,47 +700,44 @@ begin
 end;
 
 procedure cEmutecaSoftware.LoadFromStrLst(aTxtFile: TStrings);
-var
-  i: integer;
 begin
   if not assigned(aTxtFile) then
     Exit;
 
-  while aTxtFile.Count < 25 do
+  while aTxtFile.Count < 24 do
     aTxtFile.Add('');
 
-  FSystemKey := aTxtFile[0];
-  FGroupKey := aTxtFile[1];
-  HexToBin(PChar(aTxtFile[2]), @SHA1, 20);
-  ID := aTxtFile[3];
+  FGroupKey := aTxtFile[0];
+  HexToBin(PChar(aTxtFile[1]), @SHA1, 20);
+  ID := aTxtFile[2];
 
+  if aTxtFile[3] <> '' then
+    Folder := aTxtFile[3];
   if aTxtFile[4] <> '' then
-    Folder := aTxtFile[4];
-  if aTxtFile[5] <> '' then
-    FileName := aTxtFile[5];
+    FileName := aTxtFile[4];
 
-  Title := aTxtFile[6];
-  TranslitTitle := aTxtFile[7];
-  SortTitle := aTxtFile[8];
+  Title := aTxtFile[5];
+  TranslitTitle := aTxtFile[6];
+  SortTitle := aTxtFile[7];
 
-  Version := aTxtFile[9];
-  Year := aTxtFile[10];
-  Publisher := aTxtFile[11];
-  Zone := aTxtFile[12];
+  Version := aTxtFile[8];
+  Year := aTxtFile[9];
+  Publisher := aTxtFile[10];
+  Zone := aTxtFile[11];
 
-  DumpStatus := Key2EmutecaDumpSt(aTxtFile[13]);
-  DumpInfo := aTxtFile[14];
-  Fixed := aTxtFile[15];
-  Trainer := aTxtFile[16];
-  Translation := aTxtFile[17];
-  Pirate := aTxtFile[18];
-  Cracked := aTxtFile[19];
-  Modified := aTxtFile[20];
-  Hack := aTxtFile[21];
+  DumpStatus := Key2EmutecaDumpSt(aTxtFile[12]);
+  DumpInfo := aTxtFile[13];
+  Fixed := aTxtFile[14];
+  Trainer := aTxtFile[15];
+  Translation := aTxtFile[16];
+  Pirate := aTxtFile[17];
+  Cracked := aTxtFile[18];
+  Modified := aTxtFile[19];
+  Hack := aTxtFile[20];
 
-  Stats.LoadFromStrLst(aTxtFile, 22);
+  Stats.LoadFromStrLst(aTxtFile, 21);
 
-  // Next := aTxtFile[25]
+  // Next := aTxtFile[24]
 end;
 
 procedure cEmutecaSoftware.SaveToStrLst(aTxtFile: TStrings;
@@ -770,10 +746,6 @@ begin
   if not assigned(aTxtFile) then
     Exit;
 
-  if assigned(System) then
-    aTxtFile.Add(System.ID)
-  else
-    aTxtFile.Add(SystemKey);
   if assigned(Group) then
     aTxtFile.Add(Group.ID)
   else

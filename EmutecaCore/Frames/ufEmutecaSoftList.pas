@@ -142,10 +142,9 @@ procedure TfmEmutecaSoftList.actOpenSystemFolderExecute(Sender: TObject);
 var
   pData: ^cEmutecaSoftware;
 begin
+
   pData := VST.GetNodeData(vst.FocusedNode);
-  if not Assigned(pData) then
-    Exit;
-  if not Assigned(pData^) then
+  if (not Assigned(pData)) or (not Assigned(pData^)) or (not Assigned(pData^.System)) then
     Exit;
   OpenDocument(pData^.System.BaseFolder);
 end;
@@ -179,7 +178,7 @@ begin
 
   case Column of
     0: // System
-      Result := UTF8CompareText(pData1^.System.Title, pData2^.System.Title);
+     Result := UTF8CompareText(pData1^.System.Title, pData2^.System.Title);
     1: // Title
       Result := UTF8CompareText(pData1^.SortTitle, pData2^.SortTitle);
     2: // Version
@@ -236,10 +235,7 @@ begin
 
   case Column of
     0: // System
-      if assigned(pData^.System) then
-        HintText := pData^.System.Title + sLineBreak + pData^.System.ID
-      else
-        HintText := pData^.SystemKey;
+        HintText := pData^.System.Title + sLineBreak + pData^.System.ID;
     1: // Title
       HintText := pData^.Title + sLineBreak + pData^.TranslitTitle +
         sLineBreak + pData^.SortTitle;
@@ -299,10 +295,7 @@ begin
 
   case Column of
     0: // System
-      if assigned(pData^.System) then
-        CellText := pData^.System.Title
-      else
-        CellText := pData^.SystemKey;
+        CellText := pData^.System.Title;
     1: // Title
       CellText := pData^.Title;
     2: // Version

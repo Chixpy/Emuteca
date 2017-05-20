@@ -56,7 +56,9 @@ type
 
   private
     FcbxGroup: TfmEmutecaGroupCBX;
+    FGroup: cEmutecaGroup;
     FSoftware: cEmutecaSoftware;
+    procedure SetGroup(AValue: cEmutecaGroup);
     procedure SetSoftware(AValue: cEmutecaSoftware);
 
   protected
@@ -80,6 +82,7 @@ type
 
   published
     property Software: cEmutecaSoftware read FSoftware write SetSoftware;
+    property Group: cEmutecaGroup read FGroup write SetGroup;
   end;
 
 implementation
@@ -100,6 +103,22 @@ begin
 
   if Assigned(Software) then
     Software.FPOAttachObserver(Self);
+
+  LoadData;
+end;
+
+procedure TfmEmutecaSoftEditor.SetGroup(AValue: cEmutecaGroup);
+begin
+  if FGroup = AValue then
+    Exit;
+
+  if Assigned(FGroup) then
+    FGroup.FPODetachObserver(Self);
+
+  FGroup := AValue;
+
+  if Assigned(Group) then
+    Group.FPOAttachObserver(Self);
 
   LoadData;
 end;
