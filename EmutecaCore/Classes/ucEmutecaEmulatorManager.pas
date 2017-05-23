@@ -52,7 +52,8 @@ type
 
 
   public
-    property ProgressCallBack: TEmutecaProgressCallBack read FProgressCallBack write SetProgressCallBack;
+    property ProgressCallBack: TEmutecaProgressCallBack
+      read FProgressCallBack write SetProgressCallBack;
     //< CallBack function to show the progress in actions.
 
     property Config: cEmutecaConfig read FConfig write SetConfig;
@@ -62,9 +63,9 @@ type
     procedure ReloadData;
     //< Reload last data file WITHOUT saving changes.
 
-    procedure LoadFromIni(aIniFile: TCustomIniFile); override;
-    procedure SaveToIni(aIniFile: TCustomIniFile;
-      const ExportMode: boolean); override;
+    procedure LoadFromIni(aIniFile: TMemIniFile); override;
+    procedure SaveToIni(aIniFile: TMemIniFile; const ExportMode: boolean);
+      override;
 
     function ItemById(aId: string): cEmutecaEmulator;
     {< Returns the emulator with aId key.
@@ -110,8 +111,8 @@ end;
 
 function cEmutecaEmulatorManager.RunEmulator(
   const EmulatorID, GameFile: string): longword;
-//var
- // Emu: cEmutecaEmulator;
+  //var
+  // Emu: cEmutecaEmulator;
 begin
   Result := 256;
   //Emu := Emulator(EmulatorID);
@@ -145,14 +146,16 @@ end;
 
 procedure cEmutecaEmulatorManager.SetConfig(AValue: cEmutecaConfig);
 begin
-  if FConfig = AValue then Exit;
+  if FConfig = AValue then
+    Exit;
   FConfig := AValue;
 end;
 
 procedure cEmutecaEmulatorManager.SetProgressCallBack(
   AValue: TEmutecaProgressCallBack);
 begin
-  if FProgressCallBack = AValue then Exit;
+  if FProgressCallBack = AValue then
+    Exit;
   FProgressCallBack := AValue;
 end;
 
@@ -168,7 +171,7 @@ begin
   LoadFromFileIni('');
 end;
 
-procedure cEmutecaEmulatorManager.LoadFromIni(aIniFile: TCustomIniFile);
+procedure cEmutecaEmulatorManager.LoadFromIni(aIniFile: TMemIniFile);
 var
   TempList: TStringList;
   TempEmu: cEmutecaEmulator;
@@ -200,7 +203,7 @@ begin
   end;
 end;
 
-procedure cEmutecaEmulatorManager.SaveToIni(aIniFile: TCustomIniFile;
+procedure cEmutecaEmulatorManager.SaveToIni(aIniFile: TMemIniFile;
   const ExportMode: boolean);
 var
   i: longint;
@@ -209,8 +212,9 @@ begin
   if not Assigned(aIniFile) then
     Exit;
 
-  // if not ExportMode then
-  //   aIniFile.Clear;  <-- TMemIniFile
+  // If not export mode remove file data
+  if not ExportMode then
+    aIniFile.Clear;
 
   i := 0;
   while i < FullList.Count do
@@ -238,7 +242,7 @@ begin
     aEmulator := cEmutecaEmulator(FullList[i]);
     if UTF8CompareText(aEmulator.ID, aId) = 0 then
       Result := aEmulator;
-    inc(i);
+    Inc(i);
   end;
 end;
 

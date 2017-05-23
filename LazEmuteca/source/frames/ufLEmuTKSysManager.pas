@@ -29,8 +29,7 @@ type
 
   protected
 
-    property SysEditor: TfmLEmuTKFullSystemEditor
-      read FSysEditor;
+    property SysEditor: TfmLEmuTKFullSystemEditor read FSysEditor;
 
     procedure ClearData; override;
     procedure SetGUIIconsIni(AValue: string); override;
@@ -83,7 +82,7 @@ begin
   i := 0;
   while i < Emuteca.SystemManager.FullList.Count do
   begin
-    aSystem := cEmutecaSystem(Emuteca.SystemManager.FullList[i]);
+    aSystem := Emuteca.SystemManager.FullList[i];
     aSystem.Enabled := aBool;
     Inc(i);
   end;

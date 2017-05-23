@@ -17,7 +17,7 @@ inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
   object lName: TLabel[1]
     Left = 0
     Height = 15
-    Top = 0
+    Top = 15
     Width = 359
     Align = alTop
     Caption = 'Name'
@@ -26,7 +26,7 @@ inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
   object eName: TEdit[2]
     Left = 0
     Height = 23
-    Top = 15
+    Top = 30
     Width = 359
     Align = alTop
     TabOrder = 1
@@ -34,7 +34,7 @@ inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
   object lExePath: TLabel[3]
     Left = 0
     Height = 15
-    Top = 38
+    Top = 53
     Width = 359
     Align = alTop
     Caption = 'Exe path'
@@ -43,7 +43,7 @@ inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
   object eExePath: TFileNameEdit[4]
     Left = 0
     Height = 23
-    Top = 53
+    Top = 68
     Width = 359
     FilterIndex = 0
     HideDirectories = False
@@ -57,7 +57,7 @@ inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
   object lWorkingFolder: TLabel[5]
     Left = 0
     Height = 15
-    Top = 76
+    Top = 91
     Width = 359
     Align = alTop
     Caption = 'Working folder'
@@ -66,7 +66,7 @@ inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
   object pWFolder: TPanel[6]
     Left = 0
     Height = 23
-    Top = 91
+    Top = 106
     Width = 359
     Align = alTop
     BevelOuter = bvNone
@@ -134,7 +134,7 @@ inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
   object lParameters: TLabel[7]
     Left = 0
     Height = 15
-    Top = 114
+    Top = 129
     Width = 359
     Align = alTop
     Caption = 'Parameters'
@@ -143,7 +143,7 @@ inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
   object lExtensions: TLabel[8]
     Left = 0
     Height = 15
-    Top = 152
+    Top = 167
     Width = 359
     Align = alTop
     Caption = 'Extensions'
@@ -152,7 +152,7 @@ inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
   object mExtensions: TMemo[9]
     Left = 0
     Height = 50
-    Top = 167
+    Top = 182
     Width = 359
     Align = alTop
     Constraints.MinHeight = 50
@@ -161,7 +161,7 @@ inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
   object lExitCode: TLabel[10]
     Left = 0
     Height = 15
-    Top = 217
+    Top = 232
     Width = 359
     Align = alTop
     Caption = 'Exit code'
@@ -170,7 +170,7 @@ inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
   object eExitCode: TSpinEdit[11]
     Left = 0
     Height = 23
-    Top = 232
+    Top = 247
     Width = 359
     Align = alTop
     TabOrder = 5
@@ -178,7 +178,7 @@ inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
   object pParameters: TPanel[12]
     Left = 0
     Height = 23
-    Top = 129
+    Top = 144
     Width = 359
     Align = alTop
     AutoSize = True
@@ -240,9 +240,19 @@ inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
       PopupMenu = pmParameters
     end
   end
-  inherited alPropEditor: TActionList[13]
-    left = 16
-    top = 304
+  object lID: TLabel[13]
+    Left = 0
+    Height = 15
+    Top = 0
+    Width = 359
+    Align = alTop
+    Alignment = taCenter
+    Caption = 'ID'
+    ParentColor = False
+  end
+  inherited alPropEditor: TActionList[14]
+    Left = 16
+    Top = 304
     object actWFEmulator: TAction[2]
       Category = 'PUWFolder'
       Caption = 'Emulator folder'
@@ -254,13 +264,13 @@ inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
       OnExecute = actWFROMExecute
     end
   end
-  inherited ilPropEditor: TImageList[14]
-    left = 312
-    top = 304
+  inherited ilPropEditor: TImageList[15]
+    Left = 312
+    Top = 304
   end
-  object pmWFolder: TPopupMenu[15]
-    left = 45
-    top = 268
+  object pmWFolder: TPopupMenu[16]
+    Left = 45
+    Top = 268
     object pmiWFEmu: TMenuItem
       Action = actWFEmulator
     end
@@ -268,8 +278,8 @@ inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
       Action = actWFROM
     end
   end
-  object pmParameters: TPopupMenu[16]
-    left = 148
-    top = 274
+  object pmParameters: TPopupMenu[17]
+    Left = 148
+    Top = 274
   end
 end

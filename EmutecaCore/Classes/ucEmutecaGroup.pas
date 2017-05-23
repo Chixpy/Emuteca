@@ -61,8 +61,8 @@ type
 
     property DataString: string read GetDataString write SetDataString;
 
-    procedure LoadFromIni(aIniFile: TCustomIniFile); override;
-    procedure SaveToIni(aIniFile: TCustomIniFile; const ExportMode: boolean);
+    procedure LoadFromIni(aIniFile: TMemIniFile); override;
+    procedure SaveToIni(aIniFile: TMemIniFile; const ExportMode: boolean);
       override;
 
     function GetActualTitle: string;
@@ -118,12 +118,12 @@ begin
   FYear := AValue;
 end;
 
-procedure cEmutecaGroup.LoadFromIni(aIniFile: TCustomIniFile);
+procedure cEmutecaGroup.LoadFromIni(aIniFile: TMemIniFile);
 begin
 
 end;
 
-procedure cEmutecaGroup.SaveToIni(aIniFile: TCustomIniFile;
+procedure cEmutecaGroup.SaveToIni(aIniFile: TMemIniFile;
   const ExportMode: boolean);
 begin
 

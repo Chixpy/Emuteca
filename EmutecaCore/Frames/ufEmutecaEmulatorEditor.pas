@@ -27,6 +27,7 @@ type
     lExePath: TLabel;
     lExitCode: TLabel;
     lExtensions: TLabel;
+    lID: TLabel;
     lName: TLabel;
     lParameters: TLabel;
     lWorkingFolder: TLabel;
@@ -110,21 +111,23 @@ begin
   end
   else
   begin
-      aEFN.InitialDir := ExtractFileDir(TrimFilename(ProgramDirectory +
-        aEFN.FileName));
+    aEFN.InitialDir := ExtractFileDir(TrimFilename(ProgramDirectory +
+      aEFN.FileName));
   end;
 end;
 
 procedure TfmEmutecaEmulatorEditor.SetEmulator(AValue: cEmutecaEmulator);
 begin
-  if FEmulator = AValue then Exit;
+  if FEmulator = AValue then
+    Exit;
   FEmulator := AValue;
   LoadData;
 end;
 
 procedure TfmEmutecaEmulatorEditor.ClearData;
 begin
-   eName.Clear;
+  lID.Caption := ' ';
+  eName.Clear;
   eExePath.Clear;
   eWorkingFolder.Clear;
   eParameters.Clear;
@@ -136,9 +139,12 @@ procedure TfmEmutecaEmulatorEditor.LoadData;
 begin
   ClearData;
 
-  if not assigned(Emulator) then
+  self.Enabled := assigned(Emulator);
+
+  if not self.Enabled then
     Exit;
 
+  lID.Caption := Emulator.ID;
   eName.Text := Emulator.EmulatorName;
   eExePath.Text := SysPath(Emulator.ExeFile);
   eWorkingFolder.Text := SysPath(Emulator.WorkingFolder);
@@ -158,4 +164,3 @@ begin
 end;
 
 end.
-

@@ -63,8 +63,8 @@ type
 
     procedure LoadFromStrLst(TxtFile: TStrings); override;
     procedure SaveToStrLst(TxtFile: TStrings; const ExportMode: boolean); override;
-    procedure LoadFromIni(aIniFile: TCustomIniFile); override;
-    procedure SaveToIni(aIniFile: TCustomIniFile; const ExportMode: boolean); override;
+    procedure LoadFromIni(aIniFile: TMemIniFile); override;
+    procedure SaveToIni(aIniFile: TMemIniFile; const ExportMode: boolean); override;
 
     function ItemById(aId: string; Autocreate: boolean): cEmutecaGroup;
     {< Returns the parent with aId key.
@@ -179,12 +179,12 @@ begin
     end;
 end;
 
-procedure cEmutecaGroupManager.LoadFromIni(aIniFile: TCustomIniFile);
+procedure cEmutecaGroupManager.LoadFromIni(aIniFile: TMemIniFile);
 begin
 
 end;
 
-procedure cEmutecaGroupManager.SaveToIni(aIniFile: TCustomIniFile;
+procedure cEmutecaGroupManager.SaveToIni(aIniFile: TMemIniFile;
   const ExportMode: boolean);
 begin
 

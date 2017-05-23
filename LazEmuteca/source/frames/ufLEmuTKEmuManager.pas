@@ -30,18 +30,20 @@ type
 
   protected
     procedure ClearData; override;
-    property EmuEditor: TfmEmutecaEmulatorEditor read FEmuEditor write SetEmuEditor;
+    property EmuEditor: TfmEmutecaEmulatorEditor
+      read FEmuEditor write SetEmuEditor;
 
     procedure AddItemToList; override;
     procedure DeleteItemFromList; override;
     procedure ExportList; override;
     procedure ImportList; override;
     procedure OnListClick(aObject: TObject); override;
-    procedure OnListClickCheck(aObject: TObject; aBool: Boolean); override;
-    procedure SetCheckedAll(aBool: Boolean); override;
+    procedure OnListClickCheck(aObject: TObject; aBool: boolean); override;
+    procedure SetCheckedAll(aBool: boolean); override;
 
   public
-    property EmuManager: cEmutecaEmulatorManager read FEmuManager write SetEmuManager;
+    property EmuManager: cEmutecaEmulatorManager
+      read FEmuManager write SetEmuManager;
 
     procedure LoadData; override;
     procedure SaveData; override;
@@ -58,17 +60,18 @@ implementation
 
 procedure TfmLEmuTKEmuManager.SetEmuEditor(AValue: TfmEmutecaEmulatorEditor);
 begin
-  if FEmuEditor = AValue then Exit;
+  if FEmuEditor = AValue then
+    Exit;
   FEmuEditor := AValue;
 end;
 
 procedure TfmLEmuTKEmuManager.SetEmuManager(AValue: cEmutecaEmulatorManager);
 begin
   if FEmuManager = AValue then
-     Exit;
-   FEmuManager := AValue;
+    Exit;
+  FEmuManager := AValue;
 
-   LoadData;
+  LoadData;
 end;
 
 procedure TfmLEmuTKEmuManager.ClearData;
@@ -77,7 +80,7 @@ begin
   EmuEditor.Emulator := nil;
 end;
 
-procedure TfmLEmuTKEmuManager.SetCheckedAll(aBool: Boolean);
+procedure TfmLEmuTKEmuManager.SetCheckedAll(aBool: boolean);
 var
   i: integer;
   aEmulator: cEmutecaEmulator;
@@ -99,7 +102,7 @@ var
   EmulatorID: string;
   aEmulator: cEmutecaEmulator;
 begin
-    if not assigned(EmuManager) then
+  if not assigned(EmuManager) then
     Exit;
   EmulatorID := Trim(InputBox(actAddItem.Caption, rsEmulatorName, ''));
   if EmulatorID = '' then
@@ -107,7 +110,7 @@ begin
 
   aEmulator := cEmutecaEmulator.Create(nil);
   aEmulator.ID := EmulatorID;
-  aEmulator.EmulatorName:=EmulatorID;
+  aEmulator.EmulatorName := EmulatorID;
   aEmulator.Enabled := True;
   EmuManager.FullList.Add(aEmulator);
 
@@ -118,21 +121,23 @@ end;
 
 procedure TfmLEmuTKEmuManager.DeleteItemFromList;
 begin
-  if not assigned(EmuManager) then Exit;
+  if not assigned(EmuManager) then
+    Exit;
   if clbPropItems.ItemIndex = -1 then
     exit;
 
   EmuEditor.Emulator := nil;
   try
-  EmuManager.FullList.Remove(cEmutecaEmulator(clbPropItems.Items.Objects[clbPropItems.ItemIndex]));
+    EmuManager.FullList.Remove(cEmutecaEmulator(
+      clbPropItems.Items.Objects[clbPropItems.ItemIndex]));
   finally
-  LoadData;
+    LoadData;
   end;
 end;
 
 procedure TfmLEmuTKEmuManager.ExportList;
 begin
-   if not assigned(EmuManager) then
+  if not assigned(EmuManager) then
     Exit;
 
   if not SaveDialog1.Execute then
@@ -144,12 +149,12 @@ end;
 procedure TfmLEmuTKEmuManager.ImportList;
 begin
   if not assigned(EmuManager) then
-   Exit;
+    Exit;
 
- if not OpenDialog1.Execute then
-   Exit;
+  if not OpenDialog1.Execute then
+    Exit;
 
- EmuManager.LoadFromFileIni(OpenDialog1.FileName);
+  EmuManager.LoadFromFileIni(OpenDialog1.FileName);
 end;
 
 procedure TfmLEmuTKEmuManager.LoadData;
@@ -158,7 +163,9 @@ var
 begin
   ClearData;
 
-  if not assigned(EmuManager) then
+  self.Enabled := Assigned(EmuManager);
+
+  if not self.Enabled then
     Exit;
 
   EmuManager.AssingAllTo(clbPropItems.Items);
@@ -185,8 +192,8 @@ begin
   EmuEditor.Emulator := cEmutecaEmulator(aObject);
 end;
 
-procedure TfmLEmuTKEmuManager.OnListClickCheck(aObject: TObject; aBool: Boolean
-  );
+procedure TfmLEmuTKEmuManager.OnListClickCheck(aObject: TObject;
+  aBool: boolean);
 var
   CurrItem: cEmutecaEmulator;
 begin
@@ -212,4 +219,3 @@ begin
 end;
 
 end.
-

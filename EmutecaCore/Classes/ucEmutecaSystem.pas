@@ -129,8 +129,8 @@ type
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
 
-    procedure LoadFromIni(aIniFile: TCustomIniFile); override;
-    procedure SaveToIni(aIniFile: TCustomIniFile;
+    procedure LoadFromIni(aIniFile: TMemIniFile); override;
+    procedure SaveToIni(aIniFile: TMemIniFile;
       const ExportMode: boolean); override;
 
     procedure LoadLists(aFile: string);
@@ -261,7 +261,7 @@ end;
 
 { cEmutecaSystem }
 
-procedure cEmutecaSystem.LoadFromIni(aIniFile: TCustomIniFile);
+procedure cEmutecaSystem.LoadFromIni(aIniFile: TMemIniFile);
 begin
   if aIniFile = nil then
     Exit;
@@ -317,7 +317,7 @@ begin
   FixFolderListData(TextFolders, TextCaptions);
 end;
 
-procedure cEmutecaSystem.SaveToIni(aIniFile: TCustomIniFile;
+procedure cEmutecaSystem.SaveToIni(aIniFile: TMemIniFile;
   const ExportMode: boolean);
 begin
   if aIniFile = nil then

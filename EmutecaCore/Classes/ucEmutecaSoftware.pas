@@ -166,8 +166,8 @@ type
     procedure LoadFromStrLst(aTxtFile: TStrings); override;
     procedure SaveToStrLst(aTxtFile: TStrings; const ExportMode: boolean);
       override;
-    procedure LoadFromIni(aIniFile: TCustomIniFile); override;
-    procedure SaveToIni(aIniFile: TCustomIniFile; const ExportMode: boolean);
+    procedure LoadFromIni(aIniFile: TMemIniFile); override;
+    procedure SaveToIni(aIniFile: TMemIniFile; const ExportMode: boolean);
       override;
 
 
@@ -311,7 +311,7 @@ begin
     Result := FID;
 end;
 
-procedure cEmutecaSoftware.LoadFromIni(aIniFile: TCustomIniFile);
+procedure cEmutecaSoftware.LoadFromIni(aIniFile: TMemIniFile);
 var
   SHA1Str: string;
 begin
@@ -326,7 +326,7 @@ begin
   Stats.LoadFromIni(aIniFile, SHA1Str);
 end;
 
-procedure cEmutecaSoftware.SaveToIni(aIniFile: TCustomIniFile;
+procedure cEmutecaSoftware.SaveToIni(aIniFile: TMemIniFile;
   const ExportMode: boolean);
 var
   SHA1Str: string;

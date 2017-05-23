@@ -57,8 +57,8 @@ type
       read FProgressCallBack write SetProgressCallBack;
     //< CallBack function to show the progress in actions.
 
-    procedure LoadFromIni(IniFile: TCustomIniFile); override;
-    procedure SaveToIni(IniFile: TCustomIniFile;
+    procedure LoadFromIni(aIniFile: TMemIniFile); override;
+    procedure SaveToIni(aIniFile: TMemIniFile;
       const ExportMode: boolean); override;
 
     function ItemById(aId: string; Autocreate: boolean): cEmutecaSystem;
@@ -120,18 +120,18 @@ begin
   LoadFromFileIni('');
 end;
 
-procedure cEmutecaSystemManager.LoadFromIni(IniFile: TCustomIniFile);
+procedure cEmutecaSystemManager.LoadFromIni(aIniFile: TMemIniFile);
 var
   TempList: TStringList;
   TempSys: cEmutecaSystem;
   i: longint;
 begin
-  if not Assigned(IniFile) then
+  if not Assigned(aIniFile) then
     Exit;
 
   TempList := TStringList.Create;
   try
-    IniFile.ReadSections(TempList);
+    aIniFile.ReadSections(TempList);
     TempList.Sort;
 
     i := 0;
@@ -139,7 +139,7 @@ begin
     begin
       TempSys := cEmutecaSystem.Create(nil);
       TempSys.ID := TempList[i];
-      TempSys.LoadFromIni(IniFile);
+      TempSys.LoadFromIni(aIniFile);
       FullList.Add(TempSys);
       if TempSys.Enabled then
         EnabledList.Add(TempSys);
@@ -158,17 +158,18 @@ begin
   end;
 end;
 
-procedure cEmutecaSystemManager.SaveToIni(IniFile: TCustomIniFile;
+procedure cEmutecaSystemManager.SaveToIni(aIniFile: TMemIniFile;
   const ExportMode: boolean);
 var
   i: longint;
   aSystem: cEmutecaSystem;
 begin
-  if not Assigned(IniFile) then
+  if not Assigned(aIniFile) then
     Exit;
 
-  // if not ExportMode then
-  //   IniFile.Clear;  <-- TMemIniFile
+  // If not export mode remove file data
+  if not ExportMode then
+    aIniFile.Clear;
 
   i := 0;
   while i < FullList.Count do
@@ -179,7 +180,7 @@ begin
       ProgressCallBack(rsSavingSystemList, aSystem.ID,
         aSystem.Title, i, FullList.Count);
 
-    aSystem.SaveToIni(IniFile, ExportMode);
+    aSystem.SaveToIni(aIniFile, ExportMode);
     Inc(i);
 
     if aSystem.Enabled then

@@ -72,8 +72,8 @@ type
     procedure LoadFromStrLst(TxtFile: TStrings); override;
     procedure SaveToStrLst(TxtFile: TStrings; const ExportMode: boolean);
       override;
-    procedure LoadFromIni(aIniFile: TCustomIniFile); override;
-    procedure SaveToIni(IniFile: TCustomIniFile; const ExportMode: boolean);
+    procedure LoadFromIni(aIniFile: TMemIniFile); override;
+    procedure SaveToIni(aIniFile: TMemIniFile; const ExportMode: boolean);
       override;
 
     function ItemById(aId: string;
@@ -129,26 +129,30 @@ begin
   inherited Destroy;
 end;
 
-procedure cEmutecaSoftManager.LoadFromIni(aIniFile: TCustomIniFile);
+procedure cEmutecaSoftManager.LoadFromIni(aIniFile: TMemIniFile);
 begin
 
 end;
 
-procedure cEmutecaSoftManager.SaveToIni(IniFile: TCustomIniFile;
+procedure cEmutecaSoftManager.SaveToIni(aIniFile: TMemIniFile;
   const ExportMode: boolean);
 var
   aSoft: cEmutecaSoftware;
   i: integer;
 begin
-  if not Assigned(IniFile) then
+  if not Assigned(aIniFile) then
     Exit;
+
+    // If not export mode remove file data
+  if not ExportMode then
+    aIniFile.Clear;
 
   try
     i := 0;
     while i < FullList.Count do
     begin
       aSoft := FullList[i];
-      aSoft.SaveToIni(IniFile, ExportMode);
+      aSoft.SaveToIni(aIniFile, ExportMode);
       Inc(i);
 
       if Assigned(ProgressCallBack) then
@@ -156,7 +160,7 @@ begin
           aSoft.FileName, i, FullList.Count);
     end;
   finally
-    IniFile.UpdateFile;
+    aIniFile.UpdateFile;
   end;
 end;
 

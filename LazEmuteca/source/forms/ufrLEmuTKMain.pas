@@ -181,7 +181,7 @@ begin
   // Adding No Zone Icon
   ZoneIcons.AddImageFile('', GUIConfig.DefImgFolder + 'NoZone.png');
 
- IconList.Clear;
+  IconList.Clear;
  { Icons for games parents and software, first default one
     0: Default for software
     1: Default for parent
@@ -223,6 +223,7 @@ procedure TfrmLEmuTKMain.LoadEmuteca;
 begin
   fmEmutecaMainFrame.ClearData;
   Emuteca.ReloadData;
+  LoadIcons;
   fmEmutecaMainFrame.LoadData;
 end;
 
@@ -325,13 +326,14 @@ begin
       [Application.Title, actEmulatorManager.Caption]);
 
     aFrame := TfmLEmuTKEmuManager.Create(aForm);
-    aFrame.Align := alClient;
+    aFrame.SaveButtons := True;
+    aFrame.ButtonClose := True;
     aFrame.GUIIconsIni := GUIConfig.GUIIcnFile;
+    aFrame.Align := alClient;
     aFrame.EmuManager := Emuteca.EmulatorManager;
     aFrame.Parent := aForm;
 
     aForm.ShowModal;
-
   finally
     FreeAndNil(aForm);
   end;
@@ -348,7 +350,6 @@ begin
 
   frmLEmuTKExportData.ShowModal;
   FreeAndNil(frmLEmuTKExportData);
-
 end;
 
 procedure TfrmLEmuTKMain.actOpenTempFolderExecute(Sender: TObject);
@@ -386,10 +387,11 @@ begin
       [Application.Title, actAddFolder.Caption]);
 
     aFrame := TfmEmutecaActAddFolder.Create(aForm);
-    aFrame.Emuteca := Emuteca;
     aFrame.SaveButtons := True;
     aFrame.ButtonClose := True;
+    aFrame.GUIIconsIni := GUIConfig.GUIIcnFile;
     aFrame.Align := alClient;
+    aFrame.Emuteca := Emuteca;
     aFrame.Parent := aForm;
 
     if aForm.ShowModal = mrOk then
@@ -418,13 +420,14 @@ begin
       [Application.Title, actAddSoft.Caption]);
 
     aFrame := TfmEmutecaActAddSoft.Create(aForm);
+    aFrame.SaveButtons := True;
+    aFrame.ButtonClose := True;
     aFrame.GUIIconsIni := GUIConfig.GUIIcnFile;
     aFrame.Align := alClient;
-    aFrame.ButtonClose := True;
     aFrame.Emuteca := Emuteca;
-    aForm.AutoSize := True;
     aFrame.Parent := aForm;
 
+    aForm.AutoSize := True;
     if aForm.ShowModal = mrOk then
       LoadEmuteca;
 
@@ -446,12 +449,11 @@ begin
       [Application.Title, actSystemManager.Caption]);
 
     aFrame := TfmLEmuTKSysManager.Create(aForm);
-    aFrame.GUIIconsIni := GUIConfig.GUIIcnFile;
-    aFrame.Emuteca := Emuteca;
     aFrame.SaveButtons := True;
     aFrame.ButtonClose := True;
-
+    aFrame.GUIIconsIni := GUIConfig.GUIIcnFile;
     aFrame.Align := alClient;
+    aFrame.Emuteca := Emuteca;
     aFrame.Parent := aForm;
 
     if aForm.ShowModal = mrOk then
