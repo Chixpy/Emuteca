@@ -1,0 +1,92 @@
+inherited fmEmutecaSoftTree: TfmEmutecaSoftTree
+  Height = 366
+  Width = 811
+  ClientHeight = 366
+  ClientWidth = 811
+  DesignLeft = 257
+  DesignTop = 164
+  object StatusBar: TStatusBar[0]
+    Left = 0
+    Height = 23
+    Top = 343
+    Width = 811
+    Panels = <    
+      item
+        Alignment = taCenter
+        Width = 120
+      end    
+      item
+        Width = 50
+      end>
+    SimplePanel = False
+  end
+  object VDT: TVirtualStringTree[1]
+    Left = 0
+    Height = 343
+    Top = 0
+    Width = 811
+    Align = alClient
+    Colors.UnfocusedColor = clMedGray
+    DefaultText = 'Node'
+    Header.AutoSizeIndex = 0
+    Header.Columns = <    
+      item
+        Position = 0
+        Text = 'System'
+      end    
+      item
+        Position = 1
+        Text = 'Title'
+      end    
+      item
+        Position = 2
+        Text = 'Version'
+      end    
+      item
+        Position = 3
+        Text = 'Dev. / Publ.'
+      end    
+      item
+        Position = 4
+        Text = 'Year'
+      end    
+      item
+        Position = 5
+        Text = 'Flags'
+      end    
+      item
+        Position = 6
+        Text = 'Times Played'
+      end    
+      item
+        Position = 7
+        Text = 'Playing Time'
+      end    
+      item
+        Position = 8
+        Text = 'Last Time'
+      end    
+      item
+        Position = 9
+        Text = 'Folder'
+      end    
+      item
+        Position = 10
+        Text = 'File'
+      end>
+    Header.DefaultHeight = 17
+    Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoRestrictDrag, hoShowSortGlyphs, hoVisible, hoDisableAnimatedResize, hoHeaderClickAutoSort, hoAutoColumnPopupMenu]
+    TabOrder = 1
+    TreeOptions.AutoOptions = [toAutoDropExpand, toAutoExpand, toAutoScroll, toAutoScrollOnExpand, toAutoSpanColumns, toAutoTristateTracking, toAutoHideButtons, toAutoDeleteMovedNodes]
+    TreeOptions.MiscOptions = [toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning, toFullRowDrag]
+    TreeOptions.PaintOptions = [toShowBackground, toShowButtons, toShowDropmark, toShowHorzGridLines, toShowTreeLines, toShowVertGridLines, toThemeAware, toUseBlendedImages, toFullVertGridLines]
+    TreeOptions.SelectionOptions = [toExtendedFocus, toFullRowSelect, toMiddleClickSelect, toRightClickSelect]
+    TreeOptions.StringOptions = [toSaveCaptions]
+    OnChange = VDTChange
+    OnDblClick = VDTDblClick
+    OnGetText = VDTGetText
+    OnGetHint = VDTGetHint
+    OnInitChildren = VDTInitChildren
+    OnInitNode = VDTInitNode
+  end
+end

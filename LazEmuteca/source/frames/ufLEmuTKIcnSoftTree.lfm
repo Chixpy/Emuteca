@@ -1,0 +1,7 @@
+inherited fmLEmuTKIcnSoftTree: TfmLEmuTKIcnSoftTree
+  DesignLeft = 369
+  DesignTop = 256
+  inherited VDT: TVirtualStringTree
+    OnDrawText = VDTDrawText
+  end
+end

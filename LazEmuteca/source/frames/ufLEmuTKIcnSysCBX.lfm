@@ -1,0 +1,7 @@
+inherited fmLEmuTKIcnSysCBX: TfmLEmuTKIcnSysCBX
+  inherited cbxSystem: TComboBox
+    Height = 21
+    OnDrawItem = cbxSystemDrawItem
+    Style = csOwnerDrawFixed
+  end
+end

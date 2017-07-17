@@ -9,7 +9,7 @@ uses
   Dialogs, ExtCtrls, ComCtrls,
   ufCHXTagTree,
   ucEmuteca, ucEmutecaGroup, ucEmutecaSoftware, ucEmutecaSystem,
-  ufEmutecaSystemCBX, ufLEmuTKChkSoftList, ufEmutecaGroupList;
+  ufEmutecaSystemCBXOld, ufLEmuTKChkSoftList, ufEmutecaGroupListOld;
 
 type
 
@@ -67,27 +67,27 @@ procedure TfrmESMSoftList.FormCreate(Sender: TObject);
     // Creating and Setting the System ComboBox
     fmEmutecaSystemCBX := TfmEmutecaSystemCBX.Create(pMiddle);
     fmEmutecaSystemCBX.Align := alTop;
-    fmEmutecaSystemCBX.OnSelectSystem := @Self.SelectSystem;
+    fmEmutecaSystemCBX.OnSelectSystem := @SelectSystem;
     fmEmutecaSystemCBX.Parent := pMiddle;
 
 
     // Creating and setting the parent list frame
     fmEmutecaGroupList := TfmEmutecaGroupList.Create(pTop);
     fmEmutecaSystemCBX.Align := alClient;
-    fmEmutecaGroupList.OnItemSelect := @Self.SelectGroup;
+    fmEmutecaGroupList.OnItemSelect := @SelectGroup;
     fmEmutecaGroupList.Parent := pTop;
 
 
     // Creating and Setting the software list frame
     fmEmutecaSoftList := TfmEmutecaChkSoftList.Create(pBottom);
     fmEmutecaSoftList.Parent := pBottom;
-   // fmEmutecaSoftList.OnItemSelect := @Self.SelectSoftware;
+   // fmEmutecaSoftList.OnItemSelect := @SelectSoftware;
 
     // Creating and Setting Tags
     aTabSheet := PageControl1.AddTabSheet;
     fmCHXTagTree := TfmCHXTagTree.Create(aTabSheet);
     aTabSheet.Caption := fmCHXTagTree.Caption;  // TODO: Add Caption
-    fmCHXTagTree.OnCheckChange := @self.CheckTags;
+    fmCHXTagTree.OnCheckChange := @CheckTags;
     fmCHXTagTree.Parent := aTabSheet;
   end;
 begin
@@ -120,17 +120,17 @@ end;
 
 function TfrmESMSoftList.SelectGroup(aGroup: cEmutecaGroup): boolean;
 begin
-
+  Result := False;
 end;
 
 function TfrmESMSoftList.SelectSoftware(aSoftware: cEmutecaSoftware): boolean;
 begin
-
+  Result := False;
 end;
 
 function TfrmESMSoftList.SelectSystem(aSystem: cEmutecaSystem): boolean;
 begin
-
+  Result := False;
 end;
 
 end.

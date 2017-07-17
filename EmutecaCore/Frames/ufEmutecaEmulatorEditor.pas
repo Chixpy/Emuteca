@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  Buttons, ActnList, StdCtrls, EditBtn, Spin, Menus, LazFileUtils,
+  Buttons, ActnList, StdCtrls, EditBtn, Spin, Menus, LazFileUtils, LCLIntf,
   uCHXStrUtils,
   ufCHXPropEditor,
   ucEmutecaEmulator;
@@ -16,20 +16,26 @@ type
   { TfmEmutecaEmulatorEditor }
 
   TfmEmutecaEmulatorEditor = class(TfmCHXPropEditor)
+    actOpenWebPage: TAction;
     actWFEmulator: TAction;
     actWFROM: TAction;
+    bGoWebPage: TSpeedButton;
     bParameters: TSpeedButton;
+    eDeveloper: TEdit;
     eExePath: TFileNameEdit;
     eExitCode: TSpinEdit;
     eName: TEdit;
     eParameters: TEdit;
+    eWebPage: TEdit;
     eWorkingFolder: TDirectoryEdit;
+    lDeveloper: TLabel;
     lExePath: TLabel;
     lExitCode: TLabel;
     lExtensions: TLabel;
     lID: TLabel;
     lName: TLabel;
     lParameters: TLabel;
+    lWebPage: TLabel;
     lWorkingFolder: TLabel;
     pmiWFEmu: TMenuItem;
     pmiWFROM: TMenuItem;
@@ -37,8 +43,10 @@ type
     pmParameters: TPopupMenu;
     pmWFolder: TPopupMenu;
     pParameters: TPanel;
+    pWebPage: TPanel;
     pWFolder: TPanel;
     bWorkingFolder: TSpeedButton;
+    procedure actOpenWebPageExecute(Sender: TObject);
     procedure actWFEmulatorExecute(Sender: TObject);
     procedure actWFROMExecute(Sender: TObject);
     procedure bParametersClick(Sender: TObject);
@@ -50,10 +58,10 @@ type
     { private declarations }
 
   protected
-    procedure ClearData; override;
 
   public
     { public declarations }
+    procedure ClearData; override;
     procedure LoadData; override;
     procedure SaveData; override;
 
@@ -83,6 +91,12 @@ end;
 procedure TfmEmutecaEmulatorEditor.actWFEmulatorExecute(Sender: TObject);
 begin
   eWorkingFolder.Text := kEmutecaEmuDirKey;
+end;
+
+procedure TfmEmutecaEmulatorEditor.actOpenWebPageExecute(Sender: TObject);
+begin
+  if eWebPage.Text = '' then Exit;
+  OpenURL(eWebPage.Text);
 end;
 
 procedure TfmEmutecaEmulatorEditor.actWFROMExecute(Sender: TObject);
@@ -128,6 +142,8 @@ procedure TfmEmutecaEmulatorEditor.ClearData;
 begin
   lID.Caption := ' ';
   eName.Clear;
+  eDeveloper.Clear;
+  eWebPage.Clear;
   eExePath.Clear;
   eWorkingFolder.Clear;
   eParameters.Clear;
@@ -139,13 +155,16 @@ procedure TfmEmutecaEmulatorEditor.LoadData;
 begin
   ClearData;
 
-  self.Enabled := assigned(Emulator);
+  Enabled := assigned(Emulator);
 
-  if not self.Enabled then
+  if not Enabled then
     Exit;
 
   lID.Caption := Emulator.ID;
   eName.Text := Emulator.EmulatorName;
+  eDeveloper.Text := Emulator.Developer;
+  eWebPage.Text := Emulator.WebPage;
+
   eExePath.Text := SysPath(Emulator.ExeFile);
   eWorkingFolder.Text := SysPath(Emulator.WorkingFolder);
   eParameters.Text := Emulator.Parameters;
@@ -156,6 +175,8 @@ end;
 procedure TfmEmutecaEmulatorEditor.SaveData;
 begin
   Emulator.EmulatorName := eName.Text;
+  Emulator.EmulatorName := eName.Text;
+  Emulator.Developer := eDeveloper.Text;
   Emulator.ExeFile := eExePath.Text;
   Emulator.WorkingFolder := eWorkingFolder.Text;
   Emulator.Parameters := eParameters.Text;

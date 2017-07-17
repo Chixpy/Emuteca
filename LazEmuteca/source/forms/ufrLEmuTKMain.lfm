@@ -95,7 +95,6 @@ object frmLEmuTKMain: TfrmLEmuTKMain
       Caption = 'File'
       object mmiTest: TMenuItem
         Caption = 'Test'
-        OnClick = mmiTestClick
       end
       object mmiOpenTempFolder: TMenuItem
         Action = actOpenTempFolder

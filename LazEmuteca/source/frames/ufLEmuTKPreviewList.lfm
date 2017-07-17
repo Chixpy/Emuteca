@@ -1,18 +1,11 @@
-object fmLEmuTKPreviewList: TfmLEmuTKPreviewList
-  Left = 0
-  Height = 287
-  Top = 0
-  Width = 288
-  ClientHeight = 287
-  ClientWidth = 288
-  TabOrder = 0
-  DesignLeft = 551
-  DesignTop = 246
-  object tbPreviewList: TToolBar
+inherited fmLEmuTKPreviewList: TfmLEmuTKPreviewList
+  DesignLeft = 554
+  DesignTop = 333
+  object tbPreviewList: TToolBar[0]
     Left = 0
     Height = 26
-    Top = 261
-    Width = 288
+    Top = 214
+    Width = 320
     Align = alBottom
     Caption = 'tbPreviewList'
     Images = ilPreviewList
@@ -67,22 +60,22 @@ object fmLEmuTKPreviewList: TfmLEmuTKPreviewList
       TabOrder = 0
     end
   end
-  object pPreview: TPanel
+  object pPreview: TPanel[1]
     Left = 0
-    Height = 261
+    Height = 214
     Top = 0
-    Width = 288
+    Width = 320
     Align = alClient
     TabOrder = 1
   end
-  object ilPreviewList: TImageList
-    left = 232
-    top = 160
+  object ilPreviewList: TImageList[2]
+    Left = 260
+    Top = 188
   end
-  object alPreviewList: TActionList
+  object alPreviewList: TActionList[3]
     Images = ilPreviewList
-    left = 232
-    top = 216
+    Left = 260
+    Top = 212
     object actPreviousItem: TAction
       Category = 'List'
       Caption = 'Previous item'

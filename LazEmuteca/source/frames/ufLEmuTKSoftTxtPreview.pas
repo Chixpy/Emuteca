@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
   StdCtrls, ActnList,
   ucEmuteca, ucEmutecaSystem, ucEmutecaGroup, ucEmutecaSoftware,
-  ufLEmuTKPreviewList;
+  ufLEmuTKPreviewList, uGUIConfig;
 
 type
 
@@ -24,6 +24,7 @@ type
     FCurrSystem: cEmutecaSystem;
     FEmuteca: cEmuteca;
     FGroup: cEmutecaGroup;
+    FGUIConfig: cGUIConfig;
     FTxtExt: TStringList;
     FTxtList: TStringList;
     FSoftware: cEmutecaSoftware;
@@ -31,6 +32,7 @@ type
     procedure SetCurrSystem(AValue: cEmutecaSystem);
     procedure SetEmuteca(AValue: cEmuteca);
     procedure SetGroup(AValue: cEmutecaGroup);
+    procedure SetGUIConfig(AValue: cGUIConfig);
     procedure SetTxtExt(AValue: TStringList);
     procedure SetSoftware(AValue: cEmutecaSoftware);
 
@@ -46,6 +48,8 @@ type
     property Software: cEmutecaSoftware read FSoftware write SetSoftware;
     property Group: cEmutecaGroup read FGroup write SetGroup;
     property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
+        property GUIConfig: cGUIConfig read FGUIConfig write SetGUIConfig;
+
     property TxtExt: TStringList read FTxtExt write SetTxtExt;
 
     constructor Create(TheOwner: TComponent); override;
@@ -64,14 +68,14 @@ begin
     Exit;
   FSoftware := AValue;
 
-  if not Assigned(Software) then
-    CurrSystem := nil
-  else
-    CurrSystem := Software.System;
+  //if not Assigned(Software) then
+  //  CurrSystem := nil
+  //else
+  //  CurrSystem := Software.CachedSystem;
 
   UpdateTxtList;
 
-  Self.Enabled := Assigned(Software);
+  Enabled := Assigned(Software);
 end;
 
 procedure TfmLEmuTKSoftTxtPreview.OnCurrItemChange;
@@ -97,10 +101,10 @@ begin
   if not Assigned(Emuteca) then
     Exit;
 
-  if cbxTextType.ItemIndex > -1 then
-    Emuteca.SearchSoftFiles(TxtList,
-      Software.System.TextFolders[cbxTextType.ItemIndex],
-      Software, TxtExt);
+  //if cbxTextType.ItemIndex > -1 then
+  //  Emuteca.SearchSoftFiles(TxtList,
+  //    Software.CachedSystem.TextFolders[cbxTextType.ItemIndex],
+  //    Software, TxtExt);
 
   ItemCount := TxtList.Count;
 
@@ -130,7 +134,13 @@ begin
 
   UpdateTxtList;
 
-  Self.Enabled := Assigned(Group);
+  Enabled := Assigned(Group);
+end;
+
+procedure TfmLEmuTKSoftTxtPreview.SetGUIConfig(AValue: cGUIConfig);
+begin
+  if FGUIConfig = AValue then Exit;
+  FGUIConfig := AValue;
 end;
 
 procedure TfmLEmuTKSoftTxtPreview.cbxTextTypeSelect(Sender: TObject);

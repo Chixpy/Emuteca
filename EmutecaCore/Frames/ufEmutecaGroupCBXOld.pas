@@ -1,4 +1,4 @@
-unit ufEmutecaGroupCBX;
+unit ufEmutecaGroupCBXOld;
 
 {$mode objfpc}{$H+}
 
@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, StdCtrls,
-  ucEmutecaGroup;
+  ucEmutecaGroupManager, ucEmutecaGroup;
 
 type
 
@@ -19,17 +19,15 @@ type
   private
     FSelectedGroup: cEmutecaGroup;
     FOnSelectGroup: TEmutecaReturnGroupCB;
-    FGroupList: cEmutecaGroupList;
+    FGroupManager: cEmutecaGroupManager;
     procedure SetSelectedGroup(AValue: cEmutecaGroup);
     procedure SetOnSelectGroup(AValue: TEmutecaReturnGroupCB);
-    procedure SetGroupList(AValue: cEmutecaGroupList);
+    procedure SetGroupManager(AValue: cEmutecaGroupManager);
 
   protected
-    procedure UpdateGroups;
-    {< Update drop down list. }
 
   public
-    property GroupList: cEmutecaGroupList read FGroupList write SetGroupList;
+    property GroupManager: cEmutecaGroupManager read FGroupManager write SetGroupManager;
     {< List of parents observed. }
 
     property SelectedGroup: cEmutecaGroup
@@ -39,6 +37,10 @@ type
     property OnSelectGroup: TEmutecaReturnGroupCB
       read FOnSelectGroup write SetOnSelectGroup;
     {< Callback when selecting a parent. }
+
+    procedure ClearData;
+    procedure LoadData;
+    procedure SaveData;
 
     procedure SelectGroupByID(aGroupKey: string);
     //< Select a group by ID, or only set the text in the CBX
@@ -56,15 +58,12 @@ implementation
 procedure TfmEmutecaGroupCBX.cbxGroupChange(Sender: TObject);
 begin
   if cbxGroup.ItemIndex <> -1 then
-    SelectedGroup := cEmutecaGroup(
-      cbxGroup.Items.Objects[cbxGroup.ItemIndex])
+    SelectedGroup := cEmutecaGroup(cbxGroup.Items.Objects[cbxGroup.ItemIndex])
   else
     SelectedGroup := nil;
 
   if Assigned(OnSelectGroup) then
     {Var := } OnSelectGroup(SelectedGroup);
-
-  // TODO: True, change Emuteca.CurrentSystem?
 end;
 
 procedure TfmEmutecaGroupCBX.SetOnSelectGroup(AValue: TEmutecaReturnGroupCB);
@@ -97,63 +96,56 @@ begin
   cbxGroup.ItemIndex := aPos;
 end;
 
-procedure TfmEmutecaGroupCBX.SetGroupList(AValue: cEmutecaGroupList);
+procedure TfmEmutecaGroupCBX.SetGroupManager(AValue: cEmutecaGroupManager);
 begin
-  if FGroupList = AValue then
+  if FGroupManager = AValue then
     Exit;
-  FGroupList := AValue;
-  UpdateGroups;
-  self.Enabled := Assigned(GroupList);
+  FGroupManager := AValue;
+
+  LoadData;
 end;
 
-procedure TfmEmutecaGroupCBX.UpdateGroups;
-var
-  i: integer;
-  aGroup: cEmutecaGroup;
+procedure TfmEmutecaGroupCBX.ClearData;
 begin
-  cbxGroup.Items.BeginUpdate;
   cbxGroup.Clear;
-  if assigned(GroupList) then
-  begin
-    i := 0;
-    while i < GroupList.Count do
-    begin
-      aGroup := cEmutecaGroup(GroupList[i]);
-      cbxGroup.Items.AddObject(aGroup.Title, aGroup);
-      Inc(i);
-    end;
-  end;
-  cbxGroup.Items.EndUpdate;
+end;
+
+procedure TfmEmutecaGroupCBX.LoadData;
+begin
+  Enabled := Assigned(GroupManager);
+
+  ClearData;
+
+   if not Enabled then
+    Exit;
+
+   GroupManager.FullList.AssignToStrLst(cbxGroup.Items);
+end;
+
+procedure TfmEmutecaGroupCBX.SaveData;
+begin
+
 end;
 
 procedure TfmEmutecaGroupCBX.SelectGroupByID(aGroupKey: string);
 var
   i: integer;
-  aGroup: cEmutecaGroup;
 begin
+  cbxGroup.ItemIndex := -1;
+
   if aGroupKey = '' then
-  begin
-    cbxGroup.ItemIndex := -1;
     Exit;
-  end;
 
   i := 0;
-  while i < cbxGroup.Items.Count do
+  while (i < cbxGroup.Items.Count) and (cbxGroup.ItemIndex = -1) do
   begin
-    aGroup := cEmutecaGroup(cbxGroup.Items.Objects[i]);
-    if aGroup.ID = aGroupKey then
-    begin
+    if cEmutecaGroup(cbxGroup.Items.Objects[i]).MatchID(aGroupKey) then
       cbxGroup.ItemIndex := i;
-      Break; // Dirty exit
-    end;
     Inc(i);
   end;
 
-  if i = cbxGroup.Items.Count then
-  begin
-    cbxGroup.ItemIndex := -1;
+  if cbxGroup.ItemIndex = -1 then
     cbxGroup.Text := aGroupKey;
-  end;
 end;
 
 constructor TfmEmutecaGroupCBX.Create(TheOwner: TComponent);

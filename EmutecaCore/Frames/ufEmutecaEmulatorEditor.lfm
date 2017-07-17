@@ -1,10 +1,11 @@
 inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
-  Height = 338
+  Height = 455
   Width = 359
-  ClientHeight = 338
+  ClientHeight = 455
   ClientWidth = 359
+  DesignTop = 159
   inherited pButtons: TPanel
-    Top = 311
+    Top = 428
     Width = 359
     ClientWidth = 359
     inherited bSave: TBitBtn
@@ -34,7 +35,7 @@ inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
   object lExePath: TLabel[3]
     Left = 0
     Height = 15
-    Top = 53
+    Top = 129
     Width = 359
     Align = alTop
     Caption = 'Exe path'
@@ -43,7 +44,7 @@ inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
   object eExePath: TFileNameEdit[4]
     Left = 0
     Height = 23
-    Top = 68
+    Top = 144
     Width = 359
     FilterIndex = 0
     HideDirectories = False
@@ -57,7 +58,7 @@ inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
   object lWorkingFolder: TLabel[5]
     Left = 0
     Height = 15
-    Top = 91
+    Top = 167
     Width = 359
     Align = alTop
     Caption = 'Working folder'
@@ -66,7 +67,7 @@ inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
   object pWFolder: TPanel[6]
     Left = 0
     Height = 23
-    Top = 106
+    Top = 182
     Width = 359
     Align = alTop
     BevelOuter = bvNone
@@ -134,7 +135,7 @@ inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
   object lParameters: TLabel[7]
     Left = 0
     Height = 15
-    Top = 129
+    Top = 205
     Width = 359
     Align = alTop
     Caption = 'Parameters'
@@ -143,7 +144,7 @@ inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
   object lExtensions: TLabel[8]
     Left = 0
     Height = 15
-    Top = 167
+    Top = 243
     Width = 359
     Align = alTop
     Caption = 'Extensions'
@@ -152,7 +153,7 @@ inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
   object mExtensions: TMemo[9]
     Left = 0
     Height = 50
-    Top = 182
+    Top = 258
     Width = 359
     Align = alTop
     Constraints.MinHeight = 50
@@ -161,7 +162,7 @@ inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
   object lExitCode: TLabel[10]
     Left = 0
     Height = 15
-    Top = 232
+    Top = 308
     Width = 359
     Align = alTop
     Caption = 'Exit code'
@@ -170,7 +171,7 @@ inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
   object eExitCode: TSpinEdit[11]
     Left = 0
     Height = 23
-    Top = 247
+    Top = 323
     Width = 359
     Align = alTop
     TabOrder = 5
@@ -178,7 +179,7 @@ inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
   object pParameters: TPanel[12]
     Left = 0
     Height = 23
-    Top = 144
+    Top = 220
     Width = 359
     Align = alTop
     AutoSize = True
@@ -250,7 +251,97 @@ inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
     Caption = 'ID'
     ParentColor = False
   end
-  inherited alPropEditor: TActionList[14]
+  object lDeveloper: TLabel[14]
+    Left = 0
+    Height = 15
+    Top = 53
+    Width = 359
+    Align = alTop
+    Caption = 'Developer'
+    ParentColor = False
+  end
+  object eDeveloper: TEdit[15]
+    Left = 0
+    Height = 23
+    Top = 68
+    Width = 359
+    Align = alTop
+    TabOrder = 7
+  end
+  object lWebPage: TLabel[16]
+    Left = 0
+    Height = 15
+    Top = 91
+    Width = 359
+    Align = alTop
+    Caption = 'WebPage'
+    ParentColor = False
+  end
+  object pWebPage: TPanel[17]
+    Left = 0
+    Height = 23
+    Top = 106
+    Width = 359
+    Align = alTop
+    AutoSize = True
+    BevelOuter = bvNone
+    ClientHeight = 23
+    ClientWidth = 359
+    TabOrder = 8
+    object bGoWebPage: TSpeedButton
+      Left = 336
+      Height = 23
+      Top = 0
+      Width = 23
+      Action = actOpenWebPage
+      Align = alRight
+      Glyph.Data = {
+        36040000424D3604000000000000360000002800000010000000100000000100
+        2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
+        FF00FFFFFF00262626033F3F3F304A4A4ADF646464F46B6B6BF76B6B6BF95757
+        575E575757436B6B6BF26B6B6BF7646464F44A4A4ADF3F3F3F30FFFFFF00FFFF
+        FF00FFFFFF00292929294D4D4DD78D8D8DEFAAAAAAEDAEAEAEFF979797FF7171
+        71FF787878FF979797FFAEAEAEFFAAAAAAED8D8D8DEF4D4D4DD74DA156BF4191
+        49E235803BC7355437F7656765FED3D3CEFF616161FF424242FF464646FF5151
+        51FF515151FF464646FF414241FF4C5C4DF0C4C4C4FF646764FB58B162E466B4
+        70FF72BF7DFF486E4DFF818281FFD3D3CEFF808080FF444444FFBDBDBDFFCECE
+        CEFFC2C2C2FFADADADFF424643FF73BD7EFFC4C4C4FF7F817FFF61BE6D2E58B1
+        625B4DA156BC46704BFD767876FFD3D3CEFF636363FF4C4C4CFF656565FF9292
+        92FF797979FF656565FF4B4C4BFF556A57F3C4C4C4FF727372F5FFFFFF00FFFF
+        FF00FFFFFF00838383F3979797FF919191FFE8E8E8FFDDDDDDFFC1C1C1FF8181
+        81FF979797FFDADADAFFDDDDDDFFC4C4C4FF919191FF4C4C4C8AFFFFFF00FFFF
+        FF00FFFFFF008B8B8BF3E9E9E9FFB2B2B2FF848484FF9E9E9EFF808080FF7979
+        79FFE3E3E3FF8C8C8CFF9E9E9EFF848484F16A6A6A753E3E3E0BFFFFFF00397F
+        B548387EB0C38D8F91FEF6F6F6FFEFEFEFFF747474FF767676FF777777FF7878
+        78FFEFEFEFFFF4F4F4FF8A8B8DFF2A4177D4253E7948FFFFFF003884BB483984
+        BAFD5796C2FF3E80B3FEDCDEE0FFEDEDEDFFEFEFEFFFEFEFEFFFEFEFEFFFEFEF
+        EFFFEFEFEFFFDFE1E3FF2D4B81FF3A5F90FF253E79FD253E7948367FBBC75395
+        C6FF7AAFD3FF5797C4FF4387BAFFCDCFD0FFEEEEEEFFEFEFEFFFEFEFEFFFEFEF
+        EFFFD9DADBFF386497FF44709FFF5C8CB1FF3C6494FF26417AC7327ABA06347E
+        BAF15293C6FF79AED3FF5597C4FF4287BAFFCACBCCFFEDEDEDFFEFEFEFFFD9DB
+        DCFF3D76A6FF4D80AEFF6B9ABDFF4775A2FF2D548BF12A4C8406FFFFFF003177
+        B806337ABAF15091C6FF76ADD3FF5495C6FF4189BCFFD2D4D5FFD2D4D5FF4183
+        B4FF558DBBFF77A5C7FF5084B2FF33689EF131609606FFFFFF00FFFFFF00FFFF
+        FF002F74B5063179B8F14D90C4FF73ABD3FF5294C6FF3B83BAFF3C85B9FF5695
+        C2FF7DACCFFF5591BCFF3879ACF13673A706FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF002E71B5063076B7F04B8DC3FF70AAD2FF71AAD2FF74ACD2FF7AAF
+        D3FF5697C4FF3982B7F0397FB506FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF002C6EB3062E73B5F0488BC2FF6AA6D0FF6EA9D1FF5193
+        C6FF3782BBF03884BB06FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF002B6DB2062D70B3E52E73B5F73077B7F7327A
+        BAE5347EBA06FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
+      }
+    end
+    object eWebPage: TEdit
+      Left = 0
+      Height = 23
+      Top = 0
+      Width = 336
+      Align = alClient
+      TabOrder = 0
+    end
+  end
+  inherited alPropEditor: TActionList[18]
     Left = 16
     Top = 304
     object actWFEmulator: TAction[2]
@@ -263,12 +354,17 @@ inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
       Caption = 'ROM folder'
       OnExecute = actWFROMExecute
     end
+    object actOpenWebPage: TAction[4]
+      Category = 'Webpage'
+      Caption = 'Open Webpage'
+      OnExecute = actOpenWebPageExecute
+    end
   end
-  inherited ilPropEditor: TImageList[15]
+  inherited ilPropEditor: TImageList[19]
     Left = 312
     Top = 304
   end
-  object pmWFolder: TPopupMenu[16]
+  object pmWFolder: TPopupMenu[20]
     Left = 45
     Top = 268
     object pmiWFEmu: TMenuItem
@@ -278,7 +374,7 @@ inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
       Action = actWFROM
     end
   end
-  object pmParameters: TPopupMenu[17]
+  object pmParameters: TPopupMenu[21]
     Left = 148
     Top = 274
   end

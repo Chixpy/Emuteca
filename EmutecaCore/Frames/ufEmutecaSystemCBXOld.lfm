@@ -6,6 +6,7 @@ object fmEmutecaSystemCBX: TfmEmutecaSystemCBX
   AutoSize = True
   ClientHeight = 240
   ClientWidth = 320
+  LCLVersion = '6.0'
   TabOrder = 0
   DesignLeft = 450
   DesignTop = 241

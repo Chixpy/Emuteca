@@ -6,10 +6,10 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
-  VirtualTrees, LCLIntf, LCLType,
+  VirtualTrees, LCLIntf, LCLType, LazUTF8, LazFileUtils,
   ucCHXImageList, uCHXImageUtils, //uCHXStrUtils,
   ucEmuteca, ucEmutecaSystem, ucEmutecaGroup,
-  ufEmutecaGroupList,
+  ufEmutecaGroupListOld,
   uGUIConfig;
 
 type
@@ -49,25 +49,23 @@ procedure TfmLEmuTKIcnGrpList.VSTDrawText(Sender: TBaseVirtualTree;
   TargetCanvas: TCanvas; Node: PVirtualNode; Column: TColumnIndex;
   const CellText: string; const CellRect: TRect; var DefaultDraw: boolean);
 var
-  Data: ^cEmutecaGroup;
+  pData: ^cEmutecaGroup;
   IconRect: TRect;
   aIcon: TPicture;
   TmpStr: string;
 begin
   DefaultDraw := True;
 
-  case Column of
-    1: // Title
-    begin
-      if not assigned(GroupIconList) then
-        Exit;
-      if not Assigned(Emuteca) then
-      Exit;
+  if not Assigned(GroupIconList) then
+    Exit;
+  if not Assigned(Emuteca) then
+    Exit;
 
-      if (Node = nil) then
-        Exit;
-      Data := VST.GetNodeData(Node);
-      if (Data^ = nil) then
+  case Column of
+    0: // System
+    begin
+      pData := VST.GetNodeData(Node);
+      if (pData^ = nil) then
         Exit;
 
       DefaultDraw := False;
@@ -76,25 +74,63 @@ begin
       IconRect := CellRect;
       IconRect.Right := IconRect.Left + IconRect.Bottom - IconRect.Top;
 
-      if Data^.Stats.IconIndex = -1 then
+
+      // TODO: Make it simple, Emuteca or System will search the icon
+      if pData^.CachedSystem.Stats.IconIndex = -1 then
       begin
-
-        if assigned(Data^.System) then
-        TmpStr :=
-          Emuteca.SearchFirstGroupFile(cEmutecaSystem(Data^.System).IconFolder,
-          Data^, GUIConfig.ImageExtensions)
-          else
-            TmpStr := '';
-
-        if TmpStr = '' then
-          Data^.Stats.IconIndex := 0
+        if FileExistsUTF8(pData^.CachedSystem.Icon) then
+          pData^.CachedSystem.Stats.IconIndex :=
+            GroupIconList.AddImageFile(pData^.CachedSystem.Icon)
         else
-          Data^.Stats.IconIndex := GroupIconList.AddImageFile(TmpStr);
+          pData^.CachedSystem.Stats.IconIndex := 0;
       end;
 
-      if (Data^.Stats.IconIndex < GroupIconList.Count) then
+      if (pData^.CachedSystem.Stats.IconIndex < GroupIconList.Count) then
       begin
-        aIcon := GroupIconList[Data^.Stats.IconIndex];
+        aIcon := GroupIconList[pData^.CachedSystem.Stats.IconIndex];
+        TargetCanvas.StretchDraw(CorrectAspectRatio(IconRect, aIcon),
+          aIcon.Graphic);
+      end;
+
+      // Don't draw text
+
+      // Text space
+      //  IconRect := CellRect;
+      //  IconRect.Left := IconRect.Left + IconRect.Bottom -
+      //  IconRect.Top + VST.TextMargin;
+
+      // DrawText(TargetCanvas.Handle, PChar(CellText), -1, IconRect,
+      //  DT_NOPREFIX or DT_VCENTER or DT_SINGLELINE or
+      //  DT_WORDBREAK or DT_END_ELLIPSIS or DT_EDITCONTROL);
+    end;
+
+    1: // Title
+    begin
+      pData := VST.GetNodeData(Node);
+      if (pData^ = nil) then
+        Exit;
+
+      DefaultDraw := False;
+
+      // Icon space
+      IconRect := CellRect;
+      IconRect.Right := IconRect.Left + IconRect.Bottom - IconRect.Top;
+
+      // TODO: Make it simple, Emuteca or System will search the icon
+      if pData^.Stats.IconIndex = -1 then
+      begin
+        TmpStr := Emuteca.SearchFirstGroupFile(pData^.CachedSystem.IconFolder,
+          pData^, GUIConfig.ImageExtensions);
+
+        if TmpStr = '' then
+          pData^.Stats.IconIndex := 0
+        else
+          pData^.Stats.IconIndex := GroupIconList.AddImageFile(TmpStr);
+      end;
+
+      if (pData^.Stats.IconIndex < GroupIconList.Count) then
+      begin
+        aIcon := GroupIconList[pData^.Stats.IconIndex];
         TargetCanvas.StretchDraw(CorrectAspectRatio(IconRect, aIcon),
           aIcon.Graphic);
       end;
@@ -132,14 +168,14 @@ begin
     Exit;
   FGUIConfig := AValue;
 
-  //ReadActionsIcons(GUIConfig.GUIIcnFile, Self.Name, ilSoftList, alSoftList);
+  //ReadActionsIcons(GUIConfig.GUIIcnFile, Name, ilSoftList, alSoftList);
 end;
 
 constructor TfmLEmuTKIcnGrpList.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
 
-    // Set Width of icon columns
+  // Set Width of icon columns
   // System
   vst.Header.Columns[0].Width :=
     vst.DefaultNodeHeight + vst.Header.Columns[0].Spacing * 2 +

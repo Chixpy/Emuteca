@@ -2,12 +2,12 @@ object fmLEmuTKMain: TfmLEmuTKMain
   Left = 0
   Height = 477
   Top = 0
-  Width = 801
+  Width = 776
   ClientHeight = 477
-  ClientWidth = 801
+  ClientWidth = 776
   TabOrder = 0
-  DesignLeft = 221
-  DesignTop = 189
+  DesignLeft = 309
+  DesignTop = 149
   object Splitter1: TSplitter
     Left = 168
     Height = 454
@@ -15,7 +15,7 @@ object fmLEmuTKMain: TfmLEmuTKMain
     Width = 5
   end
   object Splitter2: TSplitter
-    Left = 596
+    Left = 571
     Height = 454
     Top = 0
     Width = 5
@@ -26,52 +26,36 @@ object fmLEmuTKMain: TfmLEmuTKMain
     Left = 173
     Height = 454
     Top = 0
-    Width = 423
+    Width = 398
     Align = alClient
     ClientHeight = 454
-    ClientWidth = 423
+    ClientWidth = 398
     TabOrder = 2
-    object pTop: TPanel
+    object pMain: TPanel
       Left = 1
-      Height = 228
+      Height = 429
       Top = 24
-      Width = 421
-      Align = alTop
-      TabOrder = 0
-    end
-    object Splitter3: TSplitter
-      Cursor = crVSplit
-      Left = 1
-      Height = 5
-      Top = 252
-      Width = 421
-      Align = alTop
-      ResizeAnchor = akTop
-    end
-    object pBottom: TPanel
-      Left = 1
-      Height = 196
-      Top = 257
-      Width = 421
+      Width = 396
       Align = alClient
-      TabOrder = 2
+      BevelOuter = bvNone
+      TabOrder = 0
     end
     object pSystems: TPanel
       Left = 1
       Height = 0
       Top = 24
-      Width = 421
+      Width = 396
       Align = alTop
       AutoSize = True
-      TabOrder = 3
+      TabOrder = 1
     end
     object eSearch: TEdit
       Left = 1
       Height = 23
       Top = 1
-      Width = 421
+      Width = 396
       Align = alTop
-      TabOrder = 4
+      TabOrder = 2
       TextHint = 'Filter by name...'
     end
   end
@@ -84,7 +68,7 @@ object fmLEmuTKMain: TfmLEmuTKMain
     TabOrder = 3
   end
   object pcSoftware: TPageControl
-    Left = 601
+    Left = 576
     Height = 454
     Top = 0
     Width = 200
@@ -95,7 +79,7 @@ object fmLEmuTKMain: TfmLEmuTKMain
     Left = 0
     Height = 23
     Top = 454
-    Width = 801
+    Width = 776
     Panels = <>
     SizeGrip = False
   end

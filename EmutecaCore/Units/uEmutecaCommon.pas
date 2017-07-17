@@ -19,12 +19,11 @@ const
 
     Please attach directory separator}
 
-
   // Extensions
   // ----------
-  kEmutecaGroupFileExt = '.egl';
+  krsEmutecaGroupFileExt = '.egl';
   {< Extension for group lists. }
-   kEmutecaSoftFileExt = '.csv';
+  krsEmutecaSoftFileExt = '.csv';
   {< Extension for soft lists. }
 
   // EXIT CODES for handling some errors
@@ -35,6 +34,54 @@ const
   {< Error decompressing archive. }
 
   kEmuTKSHA1Empty:TSHA1Digest = (0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
+
+  // IniKeys
+  // -------
+  // Shared
+  krsIniKeyID = 'ID';
+  krsIniKeyTitle = 'Title';
+   krsIniKeyFileName = 'FileName';
+  krsIniKeyYear = 'Year';
+
+   // System
+   krsIniKeyEnabled = 'Enabled';
+   krsIniKeyExtensions = 'Extensions';
+   krsIniKeyBaseFolder = 'BaseFolder';
+   krsIniKeyTempFolder = 'TempFolder';
+   krsIniKeyMainEmulator = 'MainEmulator';
+   krsIniKeyOtherEmulators = 'OtherEmulators';
+   krsIniKeyIcon = 'Icon';
+   krsIniKeyImage = 'Image';
+   krsIniKeyBackImage = 'BackImage';
+   krsIniKeyIconFolder = 'IconFolder';
+   krsIniKeyImageFolders = 'ImageFolders';
+   krsIniKeyImageCaptions = 'ImageCaptions';
+   krsIniKeyText = 'Text';
+   krsIniKeyTextFolders = 'TextFolders';
+   krsIniKeyTextCaptions = 'TextCaptions';
+   krsIniKeyGamesKey = 'GamesKey';
+   krsIniKeyExtractAll = 'ExtractAll';
+
+  // Group
+  krsIniKeyDeveloper = 'Developer';
+
+  // Soft
+  krsIniKeyGroup = 'Group';
+  krsIniKeyTranslitTitl = 'TranslitTitle';
+  krsIniKeySortTitle = 'SortTitle';
+  krsIniKeyVersion = 'Version';
+  krsIniKeyPublisher = 'Publisher';
+  krsIniKeyZone = 'Zone';
+  krsIniKeyDumpInfo = 'DumpInfo';
+  krsIniKeyDumpStatus = 'DumpStatus';
+  krsIniKeyFixed = 'Fixed';
+  krsIniKeyTrainer = 'Trainer';
+  krsIniKeyTranslation = 'Translation';
+  krsIniKeyPirate = 'Pirate';
+  krsIniKeyCracked = 'Cracked';
+  krsIniKeyModified = 'Modified';
+  krsIniKeyHack = 'Hack';
+  krsIniKeyFolder = 'Folder';
 
 
 
@@ -57,7 +104,8 @@ resourcestring
 
   // Formated statistics
   // -------------------
-  rsFmtNItems = '%0:d items. (%1:d visible)';
+  rsFmtNVersions = '%0:d versions.';
+  rsFmtNItems = '%1:d visible of %0:d items.';
   {< %0:d = Number of items. }
 
   rsFmtNTimes = '%0:d times.';

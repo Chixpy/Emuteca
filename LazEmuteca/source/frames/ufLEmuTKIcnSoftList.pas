@@ -8,10 +8,11 @@ uses
   Classes, SysUtils, FileUtil, LazFileUtils, Forms, Controls,
   Graphics, Dialogs,
   VirtualTrees, LCLIntf, LCLType, LazUTF8,
-  ucCHXImageList, uCHXImageUtils, uCHXStrUtils,
+  uGUIConfig,
+  ucCHXImageList, uCHXImageUtils,
+  uaEmutecaCustomSoft,
   ucEmuteca, ucEmutecaGroup, ucEmutecaSoftware,
-  ufEmutecaSoftList,
-  uGUIConfig;
+  ufEmutecaSoftListOld;
 
 const
   LazEmuTKIconFiles: array [0..12] of string =
@@ -77,17 +78,21 @@ var
 begin
   DefaultDraw := True;
 
+
   case Column of
     0: // System
     begin
-      if (Node = nil) then
-        Exit;
       if not assigned(SoftIconList) then
         Exit;
+
+      if not Assigned(Emuteca) then
+      Exit;
+
       pData := VST.GetNodeData(Node);
       if (pData^ = nil) then
         Exit;
-      if not assigned(pData^.System) then
+
+      if not assigned(pData^.CachedSystem) then
         Exit;
 
       DefaultDraw := False;
@@ -97,18 +102,18 @@ begin
       IconRect.Right := IconRect.Left + IconRect.Bottom - IconRect.Top;
 
 
-      if pData^.System.Stats.IconIndex = -1 then
+      if pData^.CachedSystem.Stats.IconIndex = -1 then
       begin
-        if FileExistsUTF8(pData^.System.Icon) then
-          pData^.System.Stats.IconIndex :=
-            SoftIconList.AddImageFile(pData^.System.Icon)
+        if FileExistsUTF8(pData^.CachedSystem.Icon) then
+          pData^.CachedSystem.Stats.IconIndex :=
+            SoftIconList.AddImageFile(pData^.CachedSystem.Icon)
         else
-          pData^.System.Stats.IconIndex := 0;
+          pData^.CachedSystem.Stats.IconIndex := 0;
       end;
 
-      if (pData^.System.Stats.IconIndex < SoftIconList.Count) then
+      if (pData^.CachedSystem.Stats.IconIndex < SoftIconList.Count) then
       begin
-        aIcon := SoftIconList[pData^.System.Stats.IconIndex];
+        aIcon := SoftIconList[pData^.CachedSystem.Stats.IconIndex];
         TargetCanvas.StretchDraw(CorrectAspectRatio(IconRect, aIcon),
           aIcon.Graphic);
       end;
@@ -127,12 +132,11 @@ begin
 
     1: // Title
     begin
-      if (Node = nil) then
-        Exit;
       if not assigned(SoftIconList) then
         Exit;
-      if not Assigned(Emuteca) then Exit;
 
+      if not Assigned(Emuteca) then
+      Exit;
 
       pData := VST.GetNodeData(Node);
       if (pData^ = nil) then
@@ -170,28 +174,26 @@ begin
       //   else
       //     Use icon of group
 
-        if pData^.Group.Stats.IconIndex = -1 then
+        if pData^.CachedGroup.Stats.IconIndex = -1 then
         begin // Searching group icon
-          TmpStr := Emuteca.SearchFirstGroupFile(pData^.System.IconFolder,
-            pData^.Group, GUIConfig.ImageExtensions);
+          TmpStr := Emuteca.SearchFirstGroupFile(pData^.CachedSystem.IconFolder,
+            pData^.CachedGroup, GUIConfig.ImageExtensions);
           if TmpStr = '' then
-            pData^.Group.Stats.IconIndex := 0
+            pData^.CachedGroup.Stats.IconIndex := 0
           else
-            pData^.Group.Stats.IconIndex := SoftIconList.AddImageFile(TmpStr);
+            pData^.CachedGroup.Stats.IconIndex := SoftIconList.AddImageFile(TmpStr);
         end;
 
-        // Dirty same file test
-        if RemoveFromBrackets(ExtractFileNameOnly(pData^.Group.ID)) =
-          RemoveFromBrackets(ExtractFileNameOnly(pData^.FileName)) then
+        if pData^.MatchGroupFile then
         begin
-          pData^.Stats.IconIndex := pData^.Group.Stats.IconIndex;
+          pData^.Stats.IconIndex := pData^.CachedGroup.Stats.IconIndex;
         end
         else
         begin
-          TmpStr := Emuteca.SearchFirstSoftFile(pData^.System.IconFolder,
+          TmpStr := Emuteca.SearchFirstSoftFile(pData^.CachedSystem.IconFolder,
             pData^, GUIConfig.ImageExtensions, False);
           if TmpStr = '' then
-            pData^.Stats.IconIndex := pData^.Group.Stats.IconIndex
+            pData^.Stats.IconIndex := pData^.CachedGroup.Stats.IconIndex
           else
             pData^.Stats.IconIndex := SoftIconList.AddImageFile(TmpStr);
         end;
@@ -219,8 +221,6 @@ begin
       if not assigned(ZoneIconMap) then
         Exit;
 
-      if (Node = nil) then
-        Exit;
       pData := VST.GetNodeData(Node);
       if (pData^ = nil) then
         Exit;
@@ -252,8 +252,6 @@ begin
       if not assigned(DumpIconList) then
         Exit;
 
-      if (Node = nil) then
-        Exit;
       pData := VST.GetNodeData(Node);
       if (pData^ = nil) then
         Exit;
@@ -377,7 +375,7 @@ begin
     Exit;
   FGUIConfig := AValue;
 
-  ReadActionsIcons(GUIConfig.GUIIcnFile, Self.Name, ilSoftList, alSoftList);
+  ReadActionsIcons(GUIConfig.GUIIcnFile, Name, ilSoftList, alSoftList);
 end;
 
 end.

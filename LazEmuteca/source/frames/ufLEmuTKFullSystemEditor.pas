@@ -24,13 +24,11 @@ type
     FSystem: cEmutecaSystem;
     procedure SetEmuteca(AValue: cEmuteca);
     procedure SetSystem(AValue: cEmutecaSystem);
-    { private declarations }
 
   protected
     property SysEditor: TfmEmutecaSystemEditor read FSysEditor;
     property SysImgEditor: TfmSystemImgEditor read FSysImgEditor;
 
-    procedure ClearData; override;
     procedure SetGUIIconsIni(AValue: string); override;
 
   public
@@ -38,6 +36,7 @@ type
     property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
     property System: cEmutecaSystem read FSystem write SetSystem;
 
+    procedure ClearData; override;
     procedure SaveData; override;
     procedure LoadData; override;
 
@@ -69,7 +68,8 @@ begin
     SysEditor.Config := Emuteca.Config;
   end;
 
-  Self.Enabled := Assigned(Emuteca) and Assigned(System);
+  LoadData;
+
 end;
 
 procedure TfmLEmuTKFullSystemEditor.SetSystem(AValue: cEmutecaSystem);
@@ -77,10 +77,10 @@ begin
   if FSystem = AValue then
     Exit;
   FSystem := AValue;
-  SysEditor.System := Self.System;
-  SysImgEditor.System := Self.System;
+  SysEditor.System := System;
+  SysImgEditor.System := System;
 
-  Self.Enabled := Assigned(Emuteca) and Assigned(System);
+  LoadData;
 end;
 
 procedure TfmLEmuTKFullSystemEditor.ClearData;
@@ -92,8 +92,8 @@ procedure TfmLEmuTKFullSystemEditor.SetGUIIconsIni(AValue: string);
 begin
   inherited SetGUIIconsIni(AValue);
 
-  SysEditor.GUIIconsIni := self.GUIIconsIni;
-  SysImgEditor.GUIIconsIni := self.GUIIconsIni;
+  SysEditor.GUIIconsIni := GUIIconsIni;
+  SysImgEditor.GUIIconsIni := GUIIconsIni;
 end;
 
 procedure TfmLEmuTKFullSystemEditor.SaveData;
@@ -104,7 +104,13 @@ end;
 
 procedure TfmLEmuTKFullSystemEditor.LoadData;
 begin
-  ClearData;
+  Enabled := Assigned(Emuteca) and Assigned(System);
+
+  if not enabled then
+  begin
+    ClearData;
+    Exit;
+  end;
 
   SysEditor.LoadData;
   SysImgEditor.LoadData;

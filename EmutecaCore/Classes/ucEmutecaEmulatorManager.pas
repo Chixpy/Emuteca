@@ -29,7 +29,7 @@ uses
   Classes, SysUtils, LazFileUtils, LazUTF8, IniFiles,
   uaCHXStorable,
   uEmutecaCommon,
-  ucEmutecaConfig, ucEmutecaEmulator;
+  ucEmutecaEmulatorList;
 
 resourcestring
   rsLoadingEmulatorList = 'Loading emulator list...';
@@ -42,10 +42,9 @@ type
 
   cEmutecaEmulatorManager = class(caCHXStorableIni)
   private
-    FConfig: cEmutecaConfig;
+    FEnabledList: cEmutecaEmulatorList;
     FFullList: cEmutecaEmulatorList;
     FProgressCallBack: TEmutecaProgressCallBack;
-    procedure SetConfig(AValue: cEmutecaConfig);
     procedure SetProgressCallBack(AValue: TEmutecaProgressCallBack);
 
   protected
@@ -56,22 +55,16 @@ type
       read FProgressCallBack write SetProgressCallBack;
     //< CallBack function to show the progress in actions.
 
-    property Config: cEmutecaConfig read FConfig write SetConfig;
-
     procedure ClearData;
     //< Clears all data WITHOUT saving.
-    procedure ReloadData;
+    procedure LoadData;
     //< Reload last data file WITHOUT saving changes.
+        procedure SaveData;
+    //< Save data to last data file.
 
     procedure LoadFromIni(aIniFile: TMemIniFile); override;
     procedure SaveToIni(aIniFile: TMemIniFile; const ExportMode: boolean);
       override;
-
-    function ItemById(aId: string): cEmutecaEmulator;
-    {< Returns the emulator with aId key.
-
-       @Result cEmutecaEmulator found or nil.
-    }
 
     procedure AssingAllTo(aList: TStrings);
     procedure AssingEnabledTo(aList: TStrings);
@@ -87,11 +80,13 @@ type
 
   published
     property FullList: cEmutecaEmulatorList read FFullList;
+    property EnabledList: cEmutecaEmulatorList read FEnabledList;
 
   end;
 
 
 implementation
+uses ucEmutecaEmulator;
 
 { cEmutecaEmulatorManager }
 
@@ -99,13 +94,14 @@ constructor cEmutecaEmulatorManager.Create(aOwner: TComponent);
 begin
   inherited Create(aOwner);
   FFullList := cEmutecaEmulatorList.Create(True);
-
+  FEnabledList := cEmutecaEmulatorList.Create(False);
   // TODO: OnCompare FullList.OnCompare := ;
 end;
 
 destructor cEmutecaEmulatorManager.Destroy;
 begin
-  FreeAndNil(FFullList);
+  EnabledList.Free;
+  FullList.Free;
   inherited Destroy;
 end;
 
@@ -144,13 +140,6 @@ begin
   aList.EndUpdate;
 end;
 
-procedure cEmutecaEmulatorManager.SetConfig(AValue: cEmutecaConfig);
-begin
-  if FConfig = AValue then
-    Exit;
-  FConfig := AValue;
-end;
-
 procedure cEmutecaEmulatorManager.SetProgressCallBack(
   AValue: TEmutecaProgressCallBack);
 begin
@@ -161,14 +150,19 @@ end;
 
 procedure cEmutecaEmulatorManager.ClearData;
 begin
+  EnabledList.Clear;
   FullList.Clear;
 end;
 
-procedure cEmutecaEmulatorManager.ReloadData;
+procedure cEmutecaEmulatorManager.LoadData;
 begin
   ClearData;
-
   LoadFromFileIni('');
+end;
+
+procedure cEmutecaEmulatorManager.SaveData;
+begin
+  SaveToFileIni('', False);
 end;
 
 procedure cEmutecaEmulatorManager.LoadFromIni(aIniFile: TMemIniFile);
@@ -226,23 +220,6 @@ begin
     if ProgressCallBack <> nil then
       ProgressCallBack(rsSavingEmulatorList, aEmulator.ID,
         aEmulator.EmulatorName, i, FullList.Count);
-  end;
-end;
-
-function cEmutecaEmulatorManager.ItemById(aId: string): cEmutecaEmulator;
-var
-  i: integer;
-  aEmulator: cEmutecaEmulator;
-begin
-  Result := nil;
-
-  i := 0;
-  while (Result = nil) and (i < FullList.Count) do
-  begin
-    aEmulator := cEmutecaEmulator(FullList[i]);
-    if UTF8CompareText(aEmulator.ID, aId) = 0 then
-      Result := aEmulator;
-    Inc(i);
   end;
 end;
 

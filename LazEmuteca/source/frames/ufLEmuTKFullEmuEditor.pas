@@ -26,12 +26,11 @@ type
   protected
     property EmuEditor: TfmEmutecaEmulatorEditor read FEmuEditor;
 
-    procedure ClearData; override;
-
   public
     { public declarations }
     property Emulator: cEmutecaEmulator read FEmulator write SetEmulator;
 
+    procedure ClearData; override;
     procedure LoadData; override;
     procedure SaveData; override;
 
@@ -49,7 +48,7 @@ procedure TfmLEmuTKFullEmuEditor.SetEmulator(AValue: cEmutecaEmulator);
 begin
   if FEmulator = AValue then Exit;
   FEmulator := AValue;
-  EmuEditor.Emulator := Self.Emulator;
+  EmuEditor.Emulator := Emulator;
 end;
 
 procedure TfmLEmuTKFullEmuEditor.ClearData;

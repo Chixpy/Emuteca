@@ -1,4 +1,4 @@
-unit ufEmutecaSoftList;
+unit ufEmutecaSoftListOld;
 
 {$mode objfpc}{$H+}
 
@@ -9,7 +9,8 @@ uses
   ActnList, Menus, LazUTF8, LCLIntf,
   uCHXStrUtils,
   uEmutecaCommon, uEmutecaRscStr,
-  ucEmutecaSoftware;
+  uaEmutecaCustomSoft,
+  ucEmutecaSoftList, ucEmutecaSoftware;
 
 type
   { TfmEmutecaSoftList }
@@ -142,11 +143,10 @@ procedure TfmEmutecaSoftList.actOpenSystemFolderExecute(Sender: TObject);
 var
   pData: ^cEmutecaSoftware;
 begin
-
   pData := VST.GetNodeData(vst.FocusedNode);
-  if (not Assigned(pData)) or (not Assigned(pData^)) or (not Assigned(pData^.System)) then
+  if (not Assigned(pData)) or (not Assigned(pData^)) then
     Exit;
-  OpenDocument(pData^.System.BaseFolder);
+  OpenDocument(pData^.CachedSystem.BaseFolder);
 end;
 
 procedure TfmEmutecaSoftList.actOpenSoftFolderExecute(Sender: TObject);
@@ -177,8 +177,8 @@ begin
     Exit;
 
   case Column of
-    0: // System
-     Result := UTF8CompareText(pData1^.System.Title, pData2^.System.Title);
+   // 0: // System
+   //  Result := UTF8CompareText(pData1^.CachedSystem.Title, pData2^.CachedSystem.Title);
     1: // Title
       Result := UTF8CompareText(pData1^.SortTitle, pData2^.SortTitle);
     2: // Version
@@ -234,8 +234,8 @@ begin
     Exit;
 
   case Column of
-    0: // System
-        HintText := pData^.System.Title + sLineBreak + pData^.System.ID;
+    //0: // System
+    //    HintText := pData^.CachedSystem.Title + sLineBreak + pData^.CachedSystem.ID;
     1: // Title
       HintText := pData^.Title + sLineBreak + pData^.TranslitTitle +
         sLineBreak + pData^.SortTitle;
@@ -294,8 +294,8 @@ begin
     Exit;
 
   case Column of
-    0: // System
-        CellText := pData^.System.Title;
+   // 0: // System
+       // CellText := pData^.CachedSystem.Title;
     1: // Title
       CellText := pData^.Title;
     2: // Version
@@ -304,8 +304,8 @@ begin
     begin
       if pData^.Publisher = '' then
       begin
-        if assigned(pData^.Group) and (pData^.Group.Developer <> '') then
-          CellText := '(' + pData^.Group.Developer + ')'
+        if assigned(pData^.CachedGroup) and (pData^.CachedGroup.Developer <> '') then
+          CellText := '(' + pData^.CachedGroup.Developer + ')'
         else
           CellText := '';
       end
@@ -316,8 +316,8 @@ begin
     begin
       if pData^.Year = '' then
       begin
-        if assigned(pData^.Group) and (pData^.Group.Year <> '') then
-          CellText := '(' + pData^.Group.Year + ')'
+        if assigned(pData^.CachedGroup) and (pData^.CachedGroup.Year <> '') then
+          CellText := '(' + pData^.CachedGroup.Year + ')'
         else
           CellText := '';
       end
@@ -378,7 +378,6 @@ var
 begin
   pData := VST.GetNodeData(Node);
   pData^ := SoftList[Node^.Index];
-
 end;
 
 procedure TfmEmutecaSoftList.SetOnDblClick(AValue: TEmutecaReturnSoftCB);
@@ -407,11 +406,9 @@ begin
 end;
 
 procedure TfmEmutecaSoftList.UpdateList;
-var
-  aTemp: string;
 begin
   VST.Clear;
-  StatusBar1.SimpleText := '';
+
   if not assigned(SoftList) then
     Exit;
 

@@ -8,7 +8,9 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
   StdCtrls, ActnList, ExtCtrls,
   ufCHXForm, ufCHXImgViewer,
-  ucEmuteca, ucEmutecaSoftware, ucEmutecaGroup, ucEmutecaSystem,
+  uGUIConfig,
+  uEmutecaRscStr,
+  ucEmuteca, uaEmutecaCustomSystem, ucEmutecaSoftware, ucEmutecaGroup,
   ufLEmuTKPreviewList;
 
 type
@@ -22,33 +24,39 @@ type
     procedure iSoftImageDblClick(Sender: TObject);
 
   private
-    FCurrCaption: string;
-    FCurrSystem: cEmutecaSystem;
     FEmuteca: cEmuteca;
     FGroup: cEmutecaGroup;
-    FImageExt: TStringList;
+    FGUIConfig: cGUIConfig;
     FImageList: TStringList;
+    FLastCaption: string;
+    FLastSystem: caEmutecaCustomSystem;
     FSoftware: cEmutecaSoftware;
-    procedure SetCurrCaption(AValue: string);
-    procedure SetCurrSystem(AValue: cEmutecaSystem);
     procedure SetEmuteca(AValue: cEmuteca);
     procedure SetGroup(AValue: cEmutecaGroup);
-    procedure SetImageExt(AValue: TStringList);
+    procedure SetGUIConfig(AValue: cGUIConfig);
+    procedure SetLastCaption(AValue: string);
+    procedure SetLastSystem(AValue: caEmutecaCustomSystem);
     procedure SetSoftware(AValue: cEmutecaSoftware);
 
   protected
-    property CurrSystem: cEmutecaSystem read FCurrSystem write SetCurrSystem;
-    property CurrCaption: string read FCurrCaption write SetCurrCaption;
     property ImageList: TStringList read FImageList;
+    property LastSystem: caEmutecaCustomSystem read FLastSystem write SetLastSystem;
+    property LastCaption: string read FLastCaption write SetLastCaption;
 
     procedure OnCurrItemChange; override;
     procedure UpdateImageList;
 
+    procedure SetGUIIconsIni(AValue: string); override;
+    procedure SetGUIConfigIni(AValue: string); override;
+
+
   public
     property Software: cEmutecaSoftware read FSoftware write SetSoftware;
     property Group: cEmutecaGroup read FGroup write SetGroup;
+    property GUIConfig: cGUIConfig read FGUIConfig write SetGUIConfig;
+
+
     property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
-    property ImageExt: TStringList read FImageExt write SetImageExt;
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -66,14 +74,12 @@ begin
     Exit;
   FSoftware := AValue;
 
-  if not Assigned(Software) then
-    CurrSystem := nil
+  if assigned(Software) then
+    LastSystem := Software.CachedSystem
   else
-    CurrSystem := Software.System;
+    LastSystem := nil;
 
   UpdateImageList;
-
-  Self.Enabled := Assigned(Software);
 end;
 
 procedure TfmLEmuTKSoftImgPreview.OnCurrItemChange;
@@ -93,16 +99,12 @@ begin
   ImageList.Clear;
   iSoftImage.Picture.Clear;
 
-  if not assigned(CurrSystem) then
-    Exit;
-
-  if not Assigned(Emuteca) then
-    Exit;
+  Enabled := (Assigned(Software) or Assigned(Group)) and (Assigned(Emuteca));
 
   if cbxImageType.ItemIndex > -1 then
     Emuteca.SearchSoftFiles(ImageList,
-      Software.System.ImageFolders[cbxImageType.ItemIndex],
-      Software, ImageExt);
+      Software.CachedSystem.ImageFolders[cbxImageType.ItemIndex],
+      Software, GUIConfig.ImageExtensions);
 
   ItemCount := ImageList.Count;
 
@@ -112,21 +114,68 @@ begin
     CurrItem := 0;
 end;
 
-procedure TfmLEmuTKSoftImgPreview.SetCurrSystem(AValue: cEmutecaSystem);
+procedure TfmLEmuTKSoftImgPreview.SetGUIIconsIni(AValue: string);
+begin
+  inherited SetGUIIconsIni(AValue);
+end;
+
+procedure TfmLEmuTKSoftImgPreview.SetGUIConfigIni(AValue: string);
+begin
+  inherited SetGUIConfigIni(AValue);
+end;
+
+procedure TfmLEmuTKSoftImgPreview.SetEmuteca(AValue: cEmuteca);
+begin
+  if FEmuteca = AValue then
+    Exit;
+  FEmuteca := AValue;
+end;
+
+procedure TfmLEmuTKSoftImgPreview.SetGroup(AValue: cEmutecaGroup);
+begin
+  if FGroup = AValue then
+    Exit;
+  FGroup := AValue;
+
+  FSoftware := nil;
+
+  // UpdateImageList;
+end;
+
+procedure TfmLEmuTKSoftImgPreview.SetGUIConfig(AValue: cGUIConfig);
+begin
+  if FGUIConfig = AValue then
+    Exit;
+  FGUIConfig := AValue;
+
+  if assigned(GUIConfig) then
+    GUIConfigIni := GUIConfig.ConfigFile
+  else
+    GUIConfigIni := '';
+end;
+
+procedure TfmLEmuTKSoftImgPreview.SetLastCaption(AValue: string);
+begin
+  if FLastCaption = AValue then
+    Exit;
+  FLastCaption := AValue;
+end;
+
+procedure TfmLEmuTKSoftImgPreview.SetLastSystem(AValue: caEmutecaCustomSystem);
 var
   aIndex: integer;
 begin
-  if FCurrSystem = AValue then
+  if FLastSystem = AValue then
     Exit;
-  FCurrSystem := AValue;
+  FLastSystem := AValue;
 
-  if Assigned(CurrSystem) then
+  if Assigned(LastSystem) then
   begin
     // Updating captions
-    cbxImageType.Items.Assign(CurrSystem.ImageCaptions);
+    cbxImageType.Items.Assign(LastSystem.ImageCaptions);
 
     // Selecting previous one if exists
-    aIndex := cbxImageType.Items.IndexOf(CurrCaption);
+    aIndex := cbxImageType.Items.IndexOf(LastCaption);
     if aIndex <> -1 then
     begin
       cbxImageType.ItemIndex := aIndex;
@@ -147,46 +196,8 @@ begin
   end;
 end;
 
-procedure TfmLEmuTKSoftImgPreview.SetEmuteca(AValue: cEmuteca);
-begin
-  if FEmuteca = AValue then
-    Exit;
-  FEmuteca := AValue;
-end;
-
-procedure TfmLEmuTKSoftImgPreview.SetGroup(AValue: cEmutecaGroup);
-begin
-  if FGroup = AValue then
-    Exit;
-  FGroup := AValue;
-
-//  if not Assigned(Group) then
- //   CurrSystem := nil
-//  else
-//    CurrSystem := Group.System;
-
-  UpdateImageList;
-
-  Self.Enabled := Assigned(Group);
-end;
-
-procedure TfmLEmuTKSoftImgPreview.SetImageExt(AValue: TStringList);
-begin
-  if FImageExt = AValue then
-    Exit;
-  FImageExt := AValue;
-end;
-
 procedure TfmLEmuTKSoftImgPreview.cbxImageTypeSelect(Sender: TObject);
-var
-  aIndex: integer;
 begin
-  aIndex := cbxImageType.ItemIndex;
-  if aIndex = -1 then
-    CurrCaption := ''
-  else
-    CurrCaption := cbxImageType.Items[cbxImageType.ItemIndex];
-
   UpdateImageList;
 end;
 
@@ -196,27 +207,25 @@ var
   fmCHXImageViewer: TfmCHXImgViewer;
 begin
   Application.CreateForm(TfrmCHXForm, aForm);
-  { TODO : Uncomment this }
-  // aForm.GUIConfigIni := ;
-  aform.WindowState := wsMaximized; // We want view full image
-  aForm.GUIIconsIni := Self.IconsIni;
+  try
+    aForm.Name := 'frmCHXImgViewer';
+    aForm.GUIConfigIni := GUIConfigIni;
+    aForm.Caption := Format(rsFmtWindowCaption,
+      [Application.Title, 'Image Viewer']); // TODO: Add more info
 
-  fmCHXImageViewer := TfmCHXImgViewer.Create(aForm);
-  fmCHXImageViewer.IconsIniFile := Self.IconsIni;
-  fmCHXImageViewer.AddImages(ImageList, CurrItem);
-  fmCHXImageViewer.Align := alClient;
-  fmCHXImageViewer.Parent := aForm;
+    aForm.WindowState := wsMaximized; // We want view full image
+    aForm.GUIIconsIni := GUIIconsIni;
 
-  aForm.ShowModal;
+    fmCHXImageViewer := TfmCHXImgViewer.Create(aForm);
+    fmCHXImageViewer.IconsIniFile := GUIIconsIni;
+    fmCHXImageViewer.AddImages(ImageList, CurrItem);
+    fmCHXImageViewer.Align := alClient;
+    fmCHXImageViewer.Parent := aForm;
 
-  FreeAndNil(aForm);
-end;
-
-procedure TfmLEmuTKSoftImgPreview.SetCurrCaption(AValue: string);
-begin
-  if FCurrCaption = AValue then
-    Exit;
-  FCurrCaption := AValue;
+    aForm.ShowModal;
+  finally
+    aForm.Free;
+  end;
 end;
 
 constructor TfmLEmuTKSoftImgPreview.Create(TheOwner: TComponent);

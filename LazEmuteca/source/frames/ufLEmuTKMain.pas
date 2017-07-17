@@ -12,10 +12,12 @@ uses
   // CHX frames
   ufCHXTagTree,
   // Emuteca clases
-  ucEmuteca, ucEmutecaSystem, ucEmutecaGroup, ucEmutecaSoftware,
+  ucEmuteca, ucEmutecaSystem, ucEmutecaGroupList, ucEmutecaGroup,
+  ucEmutecaSoftList, ucEmutecaSoftware,
   // Emuteca frames
-  ufLEmuTKIcnGrpList, ufLEmuTKIcnSoftList,
-  ufEmutecaSystemCBX, ufEmutecaSoftEditor, ufLEmuTKSoftMedia,
+  ufEmutecaSoftEditor, ufLEmuTKIcnSysCBX, ufLEmuTKSoftMediaOld, ufLEmuTKIcnSoftTree,
+  ufEmutecaSystemPanel,
+  // GUI
   uGUIConfig;
 
 type
@@ -26,25 +28,25 @@ type
     ActionList1: TActionList;
     eSearch: TEdit;
     ilActImages: TImageList;
-    pBottom: TPanel;
+    pMain: TPanel;
     pcLeft: TPageControl;
     pcSoftware: TPageControl;
     pMiddle: TPanel;
     pSystems: TPanel;
-    pTop: TPanel;
     Splitter1: TSplitter;
     Splitter2: TSplitter;
-    Splitter3: TSplitter;
     stbInfo: TStatusBar;
 
   private
     FEmuteca: cEmuteca;
     FfmCHXTagTree: TfmCHXTagTree;
-    FfmEmutecaGroupList: TfmLEmuTKIcnGrpList;
     FfmEmutecaSoftEditor: TfmEmutecaSoftEditor;
-    FfmEmutecaSoftList: TfmLEmuTKIcnSoftList;
-    FfmEmutecaSystemCBX: TfmEmutecaSystemCBX;
+    FfmEmutecaSystemCBX: TfmLEmuTKIcnSysCBX;
     FfmSoftMedia: TfmLEmuTKSoftMedia;
+    FfmSoftTree: TfmLEmuTKIcnSoftTree;
+    FfmSystemPanel: TfmEmutecaSystemPanel;
+    FFullGroupList: cEmutecaGroupList;
+    FFullSoftlist: cEmutecaSoftList;
     FGUIConfig: cGUIConfig;
     FGUIIconsIni: string;
     FIconList: cCHXImageList;
@@ -58,16 +60,21 @@ type
     procedure SetZoneIcons(AValue: cCHXImageMap);
 
   protected
+    property FullGroupList: cEmutecaGroupList read FFullGroupList;
+    property FullSoftlist: cEmutecaSoftList read FFullSoftlist;
+
     // Frames
-    property fmEmutecaSystemCBX: TfmEmutecaSystemCBX read FfmEmutecaSystemCBX;
-    property fmEmutecaGroupList: TfmLEmuTKIcnGrpList read FfmEmutecaGroupList;
-    property fmEmutecaSoftList: TfmLEmuTKIcnSoftList read FfmEmutecaSoftList;
+    property fmEmutecaSystemCBX: TfmLEmuTKIcnSysCBX read FfmEmutecaSystemCBX;
 
     property fmCHXTagTree: TfmCHXTagTree read FfmCHXTagTree;
 
-    property fmEmutecaSoftEditor: TfmEmutecaSoftEditor
+    property fmSystemPanel: TfmEmutecaSystemPanel read FfmSystemPanel;
+    property fmSoftEditor: TfmEmutecaSoftEditor
       read FfmEmutecaSoftEditor;
     property fmSoftMedia: TfmLEmuTKSoftMedia read FfmSoftMedia;
+    property fmSoftTree: TfmLEmuTKIcnSoftTree read FfmSoftTree;
+
+    procedure LoadFullLists;
 
     function SelectSystem(aSystem: cEmutecaSystem): boolean;
     //< Select a system
@@ -94,6 +101,7 @@ type
 
     procedure ClearData;
     procedure LoadData;
+    procedure SaveData;
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -109,7 +117,7 @@ procedure TfmLEmuTKMain.SetGUIIconsIni(AValue: string);
 begin
   FGUIIconsIni := SetAsFile(AValue);
 
-  ReadActionsIcons(GUIIconsIni, Self.Name, ilActImages, ActionList1);
+  ReadActionsIcons(GUIIconsIni, Name, ilActImages, ActionList1);
 
   fmSoftMedia.IconsIni := GUIIconsIni;
 end;
@@ -120,8 +128,8 @@ begin
     Exit;
   FIconList := AValue;
 
-  fmEmutecaSoftList.SoftIconList := IconList;
-  fmEmutecaGroupList.GroupIconList := IconList;
+  fmEmutecaSystemCBX.SysIcons := IconList;
+  fmSoftTree.SoftIconList := IconList;
 end;
 
 procedure TfmLEmuTKMain.SetDumpIcons(AValue: cCHXImageList);
@@ -130,7 +138,7 @@ begin
     Exit;
   FDumpIcons := AValue;
 
-  fmEmutecaSoftList.DumpIconList := DumpIcons;
+  fmSoftTree.DumpIconList := DumpIcons;
 end;
 
 procedure TfmLEmuTKMain.SetZoneIcons(AValue: cCHXImageMap);
@@ -139,51 +147,74 @@ begin
     Exit;
   FZoneIcons := AValue;
 
-  fmEmutecaSoftList.ZoneIconMap := ZoneIcons;
+  fmSoftTree.ZoneIconMap := ZoneIcons;
+end;
+
+procedure TfmLEmuTKMain.LoadFullLists;
+var
+  i, j, k: integer;
+  aSystem: cEmutecaSystem;
+begin
+  FullGroupList.Clear;
+  FullSoftlist.Clear;
+
+  if not Assigned(Emuteca) then
+    Exit;
+
+  i := 0;
+  while i < Emuteca.SystemManager.EnabledList.Count do
+  begin
+    aSystem := Emuteca.SystemManager.EnabledList[i];
+
+    j := 0;
+    while j < aSystem.GroupManager.FullList.Count do
+    begin
+      FullGroupList.Add(aSystem.GroupManager.FullList[j]);
+
+      k := 0;
+      while k < aSystem.GroupManager.FullList.Count do
+      begin
+        FullSoftlist.Add(aSystem.SoftManager.FullList[k]);
+        Inc(k);
+      end;
+      Inc(j);
+    end;
+    Inc(i);
+  end;
+
 end;
 
 function TfmLEmuTKMain.SelectSystem(aSystem: cEmutecaSystem): boolean;
 begin
-  Emuteca.SoftManager.VisibleSystem := aSystem;
-
   Result := SelectGroup(nil);
 
   if Assigned(aSystem) then
   begin
     GUIConfig.CurrSystem := aSystem.ID;
-    if fmEmutecaGroupList.GroupList =
-      aSystem.GroupManager.VisibleList then
-      fmEmutecaGroupList.UpdateList
-    else
-      fmEmutecaGroupList.GroupList := aSystem.GroupManager.VisibleList;
+    fmSoftTree.GroupList := aSystem.GroupManager.FullList;
   end
   else
   begin
     GUIConfig.CurrSystem := '';
-
-    // TODO: List all groups
-    fmEmutecaGroupList.GroupList := nil;
+    fmSoftTree.GroupList := FullGroupList;
   end;
 
-  fmEmutecaGroupList.UpdateList;
+  fmSystemPanel.System := aSystem;
 end;
 
 function TfmLEmuTKMain.SelectGroup(aGroup: cEmutecaGroup): boolean;
 begin
-  Emuteca.SoftManager.VisibleGroup := aGroup;
-  fmEmutecaSoftList.UpdateList;
 
   Result := SelectSoftware(nil);
 
-  fmEmutecaSoftEditor.Group := aGroup;
+  // fmSoftEditor.Group := aGroup;
   fmSoftMedia.Group := aGroup;
-
 end;
 
 function TfmLEmuTKMain.SelectSoftware(aSoftware: cEmutecaSoftware): boolean;
 begin
   Result := True;
-  fmEmutecaSoftEditor.Software := aSoftware;
+  fmSoftEditor.Software := aSoftware;
   fmSoftMedia.Software := aSoftware;
 end;
 
@@ -199,31 +230,41 @@ end;
 
 procedure TfmLEmuTKMain.ClearData;
 begin
-  fmEmutecaSoftList.SoftList := nil;
-  fmEmutecaGroupList.GroupList := nil;
+  fmSoftTree.ClearData;
   fmEmutecaSystemCBX.SystemList := nil;
-  fmEmutecaSystemCBX.SelectedSystem := nil;
+  fmEmutecaSystemCBX.ClearData;
+  fmSoftMedia.ClearData;
+
+  FullGroupList.Clear;
 end;
 
 procedure TfmLEmuTKMain.LoadData;
 begin
-  Self.Enabled := Assigned(Emuteca) and assigned(GUIConfig);
+  Enabled := Assigned(Emuteca) and assigned(GUIConfig);
 
-  if not Self.Enabled then
+  if not Enabled then
   begin
     ClearData;
     Exit;
   end;
 
-  fmEmutecaSoftList.SoftList := Emuteca.SoftManager.VisibleList;
+  LoadFullLists;
+
+  fmSoftMedia.Emuteca := Emuteca;
 
   fmEmutecaSystemCBX.SystemList := Emuteca.SystemManager.EnabledList;
   fmEmutecaSystemCBX.SelectedSystem :=
-    Emuteca.SystemManager.ItemById(GUIConfig.CurrSystem, False);
+    fmEmutecaSystemCBX.SystemList.ItemById(GUIConfig.CurrSystem);
 
-  //fmCHXTagTree.Folder := GUIConfig.TagSubFolder;
+  fmCHXTagTree.Folder := SetAsAbsoluteFile(Emuteca.Config.TagsFolder,
+    Emuteca.BaseFolder);
 
   SelectSystem(fmEmutecaSystemCBX.SelectedSystem);
+end;
+
+procedure TfmLEmuTKMain.SaveData;
+begin
+
 end;
 
 procedure TfmLEmuTKMain.SetEmuteca(AValue: cEmuteca);
@@ -232,13 +273,10 @@ begin
     Exit;
   FEmuteca := AValue;
 
-  fmEmutecaGroupList.Emuteca := Emuteca;
-  fmEmutecaSoftList.Emuteca := Emuteca;
-  fmSoftMedia.Emuteca := Emuteca;
+  fmSoftTree.Emuteca := Emuteca;
 
   LoadData;
 end;
-
 
 procedure TfmLEmuTKMain.SetGUIConfig(AValue: cGUIConfig);
 begin
@@ -246,9 +284,8 @@ begin
     Exit;
   FGUIConfig := AValue;
 
-  fmEmutecaGroupList.GUIConfig := GUIConfig;
-  fmEmutecaSoftList.GUIConfig := GUIConfig;
   fmSoftMedia.GUIConfig := GUIConfig;
+  fmSoftTree.GUIConfig := GUIConfig;
 
   LoadData;
 end;
@@ -262,29 +299,25 @@ constructor TfmLEmuTKMain.Create(TheOwner: TComponent);
     // Better create frames in code while developing...
 
     // Creating and Setting the System ComboBox
-    FfmEmutecaSystemCBX := TfmEmutecaSystemCBX.Create(pMiddle);
+    FfmEmutecaSystemCBX := TfmLEmuTKIcnSysCBX.Create(pMiddle);
     fmEmutecaSystemCBX.Align := alTop;
-    fmEmutecaSystemCBX.OnSelectSystem := @Self.SelectSystem;
+    fmEmutecaSystemCBX.OnSelectSystem := @SelectSystem;
     fmEmutecaSystemCBX.Parent := pMiddle;
 
-    // Creating and setting the parent list frame
-    FfmEmutecaGroupList := TfmLEmuTKIcnGrpList.Create(pTop);
-    fmEmutecaGroupList.OnItemSelect := @Self.SelectGroup;
-    fmEmutecaGroupList.Parent := pTop;
-
-    // Creating and Setting the software list frame
-    FfmEmutecaSoftList := TfmLEmuTKIcnSoftList.Create(pBottom);
-    fmEmutecaSoftList.OnItemSelect := @Self.SelectSoftware;
-    fmEmutecaSoftList.OnDblClick := @Self.RunSoftware;
-    fmEmutecaSoftList.Parent := pBottom;
+    // Creating System Panel
+    aTabSheet := pcLeft.AddTabSheet;
+    FfmSystemPanel := TfmEmutecaSystemPanel.Create(aTabSheet);
+    aTabSheet.Caption := fmSystemPanel.Name;  // TODO: Add Caption
+    fmSystemPanel.Align := alClient;
+    fmSystemPanel.Parent := aTabSheet;
 
     // Creating and Setting Tags frame
     aTabSheet := pcLeft.AddTabSheet;
     FfmCHXTagTree := TfmCHXTagTree.Create(aTabSheet);
     aTabSheet.Caption := fmCHXTagTree.Name;  // TODO: Add Caption
-    fmCHXTagTree.OnCheckChange := @self.CheckTags;
+    fmCHXTagTree.OnCheckChange := @CheckTags;
+    fmCHXTagTree.Align := alClient;
     fmCHXTagTree.Parent := aTabSheet;
-
 
     // Creating SoftMedia frame
     aTabSheet := pcSoftware.AddTabSheet;
@@ -296,23 +329,38 @@ constructor TfmLEmuTKMain.Create(TheOwner: TComponent);
     // Creating SoftEditor frame
     aTabSheet := pcSoftware.AddTabSheet;
     FfmEmutecaSoftEditor := TfmEmutecaSoftEditor.Create(aTabSheet);
-    aTabSheet.Caption := fmEmutecaSoftEditor.Name;  // TODO: Add Caption
-    fmEmutecaSoftEditor.Align := alClient;
-    fmEmutecaSoftEditor.SaveButtons := True;
-    fmEmutecaSoftEditor.ButtonClose := False;
-    fmEmutecaSoftEditor.Parent := aTabSheet;
+    aTabSheet.Caption := fmSoftEditor.Name;  // TODO: Add Caption
+    fmSoftEditor.Align := alClient;
+    fmSoftEditor.SaveButtons := True;
+    fmSoftEditor.ButtonClose := False;
+    fmSoftEditor.Parent := aTabSheet;
+
+    // Creating SoftTree frame
+    FfmSoftTree := TfmLEmuTKIcnSoftTree.Create(pMain);
+    fmSoftTree.OnSelectGroup := @SelectGroup;
+    fmSoftTree.OnSelectSoft := @SelectSoftware;
+    fmSoftTree.OnDblClkSoft := @RunSoftware;
+    fmSoftTree.Align := alClient;
+    fmSoftTree.Parent := pMain;
+
   end;
 
 begin
   inherited Create(TheOwner);
 
-  Self.Enabled := False;
+  Enabled := False;
+
+  FFullGroupList := cEmutecaGroupList.Create(False);
+  FFullSoftlist := cEmutecaSoftList.Create(False);
 
   CreateFrames;
 end;
 
 destructor TfmLEmuTKMain.Destroy;
 begin
+  FFullGroupList.Free;
+  FFullSoftlist.Free;
+
   inherited Destroy;
 end;
 

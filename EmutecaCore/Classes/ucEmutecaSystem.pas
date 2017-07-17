@@ -26,208 +26,66 @@ unit ucEmutecaSystem;
 interface
 
 uses
-  Classes, SysUtils, IniFiles, LazFileUtils, LazUTF8, fgl,
-  uCHXStrUtils,
-  uEmutecaCommon, uaCHXStorable,
-  ucEmutecaGroupManager,
-  ucEmutecaPlayingStats;
-
-const
-  // Ini file Keys
-  // -------------
-  krsIniKeyEnabled = 'Enabled';  // TODO: uEmutecaCommon.pas?
-  krsIniKeyTitle = 'Title';
-  krsIniKeyFileName = 'FileName';
-  krsIniKeyExtensions = 'Extensions';
-  krsIniKeyBaseFolder = 'BaseFolder';
-  krsIniKeyTempFolder = 'TempFolder';
-  krsIniKeyMainEmulator = 'MainEmulator';
-  krsIniKeyOtherEmulators = 'OtherEmulators';
-  krsIniKeyIcon = 'Icon';
-  krsIniKeyImage = 'Image';
-  krsIniKeyBackImage = 'BackImage';
-  krsIniKeyIconFolder = 'IconFolder';
-  krsIniKeyImageFolders = 'ImageFolders';
-  krsIniKeyImageCaptions = 'ImageCaptions';
-  krsIniKeyText = 'Text';
-  krsIniKeyTextFolders = 'TextFolders';
-  krsIniKeyTextCaptions = 'TextCaptions';
-  krsIniKeyGamesKey = 'GamesKey';
-  krsIniKeyExtractAll = 'ExtractAll';
-
-  // Constants for file keys
-  krsCRC32 = 'CRC32';
-  krsSHA1 = 'SHA1';
-  krsFileName = 'FileName';
-  krsCustom = 'Custom';
-
-resourcestring
-  rsLoadingSystemList = 'Loading system list...';
-  rsSavingSystemList = 'Saving system list...';
-  rsAllSystems = 'All Systems';
-  rsSelectSystem = 'Select a System';
-
+  Classes, SysUtils, IniFiles, LazFileUtils, LazUTF8,
+  uEmutecaCommon,
+  uaEmutecaCustomSystem,
+  ucEmutecaGroupManager, ucEmutecaSoftManager;
 
 type
-  TEmutecaFileKey = (TEFKSHA1, TEFKCRC32, TEFKFileName, TEFKCustom);
 
-const
-  EmutecaFileKeyStrsK: array [TEmutecaFileKey] of string =
-    (krsSHA1, krsCRC32, krsFileName, krsCustom);
-//< Strings for FileKeys (fixed constants, used for ini files, etc. )
+  { cEmutecaCacheSystemThread }
 
-type
-  { cEmutecaSystem }
-
-  cEmutecaSystem = class(caCHXStorableIni)
+  cEmutecaCacheSystemThread = class(TThread)
   private
-    FBackImage: string;
-    FBaseFolder: string;
-    FEnabled: boolean;
-    FExtensions: TStringList;
-    FExtractAll: boolean;
-    FFileName: string;
-    FGameKey: TEmutecaFileKey;
-    FIcon: string;
-    FIconFolder: string;
-    FID: string;
-    FImage: string;
-    FImageCaptions: TStringList;
-    FImageFolders: TStringList;
-    FInfoText: string;
-    FMainEmulator: string;
-    FOtherEmulators: TStringList;
     FGroupManager: cEmutecaGroupManager;
-    FStats: cEmutecaPlayingStats;
-    FTempFolder: string;
-    FTextCaptions: TStringList;
-    FTextFolders: TStringList;
-    FTitle: string;
-    procedure SetBackImage(AValue: string);
-    procedure SetBaseFolder(AValue: string);
-    procedure SetEnabled(AValue: boolean);
-    procedure SetExtractAll(AValue: boolean);
-    procedure SetFileName(AValue: string);
-    procedure SetGameKey(AValue: TEmutecaFileKey);
-    procedure SetIcon(AValue: string);
-    procedure SetIconFolder(AValue: string);
-    procedure SetID(AValue: string);
-    procedure SetImage(AValue: string);
-    procedure SetInfoText(AValue: string);
-    procedure SetMainEmulator(AValue: string);
-    procedure SetTempFolder(AValue: string);
-    procedure SetTitle(AValue: string);
+    FSoftManager: cEmutecaSoftManager;
+    procedure SetGroupManager(AValue: cEmutecaGroupManager);
+    procedure SetSoftManager(AValue: cEmutecaSoftManager);
 
   protected
-    procedure FixFolderListData(FolderList, CaptionList: TStrings);
-    {< Try to fix some incosistences in folders and its captions.
-
-    Who knows if somebody edited the .ini file by hand...
-    }
+    procedure Execute; override;
 
   public
+    property GroupManager: cEmutecaGroupManager
+      read FGroupManager write SetGroupManager;
+    property SoftManager: cEmutecaSoftManager
+      read FSoftManager write SetSoftManager;
+
+    constructor Create;
+  end;
+
+  { cEmutecaSystem }
+
+  cEmutecaSystem = class(caEmutecaCustomSystem)
+  private
+    FCacheDataThread: cEmutecaCacheSystemThread;
+    FGroupManager: cEmutecaGroupManager;
+    FSoftManager: cEmutecaSoftManager;
+    procedure SetCacheDataThread(AValue: cEmutecaCacheSystemThread);
+
+  protected
+    property CacheDataThread: cEmutecaCacheSystemThread
+      read FCacheDataThread write SetCacheDataThread;
+
+  public
+
+    procedure LoadFromIni(aIniFile: TMemIniFile); override;
+    procedure SaveToIni(aIniFile: TMemIniFile; const ExportMode: boolean);
+      override;
+
+    procedure LoadLists(aFile: string);
+    procedure SaveLists(aFile: string; ExportMode: boolean);
+
+    procedure CacheData;
+
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
 
-    procedure LoadFromIni(aIniFile: TMemIniFile); override;
-    procedure SaveToIni(aIniFile: TMemIniFile;
-      const ExportMode: boolean); override;
-
-    procedure LoadLists(aFile: string);
-    procedure SaveLists(aFile: string; ExportMode: Boolean);
-
   published
     property GroupManager: cEmutecaGroupManager read FGroupManager;
+    property SoftManager: cEmutecaSoftManager read FSoftManager;
 
-    // Basic Info
-    // ----------
-    property ID: string read FID write SetID;
-    {< ID of the system. }
-
-    property Title: string read FTitle write SetTitle;
-    {< Visible name (Usually "%Company%: %Model% %(info)%"}
-
-    property FileName: string read FFileName write SetFileName;
-    {< Name used for files or folders }
-
-    property Enabled: boolean read FEnabled write SetEnabled;
-    {< Is the system visible }
-
-    property ExtractAll: boolean read FExtractAll write SetExtractAll;
-    {< Must all files be extracted from compressed archives? }
-
-    property BaseFolder: string read FBaseFolder write SetBaseFolder;
-    {< System base folder
-
-       Used by default to store some data if the file isn't defined
-         (System image or text).
-    }
-
-    property TempFolder: string read FTempFolder write SetTempFolder;
-    {< Temp folder for decompress Software, it's recommended leave it empty
-         so Emuteca will use OS Temp folder.
-
-       Some cases of use it:
-       @unorderedList(
-         @item(File must extracted to a specific folder. So emulator
-           can recognize it.)
-         @item(Emulator can't run from command line and you must browse to the
-           file with the emulator... :-@ )
-         @item(Lazy testing... >_<U )
-       )
-     }
-
-    // Emulator related
-    // ----------------
-    property MainEmulator: string read FMainEmulator write SetMainEmulator;
-    {< Main emulator ID. }
-    property OtherEmulators: TStringList read FOtherEmulators;
-    {< Ids of other emulators for the system. }
-
-    // Images
-    // ------
-    property Icon: string read FIcon write SetIcon;
-    {< Path to the icon of the system. }
-    property Image: string read FImage write SetImage;
-    {< Path to image of the system. }
-    property BackImage: string read FBackImage write SetBackImage;
-    {< Image used for as background. }
-
-    property IconFolder: string read FIconFolder write SetIconFolder;
-    {< Folder for the icons of the games. }
-    property ImageFolders: TStringList read FImageFolders;
-    {< Folders for the game images. }
-    property ImageCaptions: TStringList read FImageCaptions;
-    {< Captions for the folders of game's images. }
-
-    // Texts
-    // -----
-    property InfoText: string read FInfoText write SetInfoText;
-    {< Path to text file of the system. }
-
-    property TextFolders: TStringList read FTextFolders;
-    {< Folders for game texts. }
-    property TextCaptions: TStringList read FTextCaptions;
-    {< Captions for the folders of game's texts. }
-
-    // Import
-    // ------
-    property GameKey: TEmutecaFileKey read FGameKey write SetGameKey;
-    {< Default key (CRC/SHA) to be used as game identifiers
-       (when importing/exporting data). }
-    property Extensions: TStringList read FExtensions;
-    {< Extensions used by the system.
-
-    Only one extension in every string, without dot.
-    }
-
-    // Usage statitics
-    // ---------------
-    property Stats: cEmutecaPlayingStats read FStats;
   end;
-
-  cEmutecaGenSystemList = specialize TFPGObjectList<cEmutecaSystem>;
-  cEmutecaSystemList = class(cEmutecaGenSystemList);
 
   TEmutecaReturnSystemCB = function(aSystem: cEmutecaSystem): boolean of
     object;
@@ -238,6 +96,8 @@ function Str2EmutecaFileKey(aString: string): TEmutecaFileKey;
 // Result := EmutecaFileKeyStrsK[TEmutecaFileKey];
 
 implementation
+
+uses ucEmutecaGroup, ucEmutecaSoftware;
 
 function Str2EmutecaFileKey(aString: string): TEmutecaFileKey;
 begin
@@ -259,7 +119,103 @@ begin
     Result := TEFKSHA1;
 end;
 
+{ cEmutecaCacheSystemThread }
+
+procedure cEmutecaCacheSystemThread.SetGroupManager(AValue:
+  cEmutecaGroupManager);
+begin
+  if FGroupManager = AValue then
+    Exit;
+  FGroupManager := AValue;
+end;
+
+procedure cEmutecaCacheSystemThread.SetSoftManager(AValue:
+  cEmutecaSoftManager);
+begin
+  if FSoftManager = AValue then
+    Exit;
+  FSoftManager := AValue;
+end;
+
+procedure cEmutecaCacheSystemThread.Execute;
+var
+  aSoft: cEmutecaSoftware;
+  aGroup: cEmutecaGroup;
+  SoftPos, GroupPos: integer;
+  Found: boolean;
+begin
+  if (not assigned(SoftManager)) or (not assigned(GroupManager)) then
+    Exit;
+
+  aGroup := nil;
+  SoftPos := 0;
+  while (not Terminated) and (SoftPos < SoftManager.FullList.Count) do
+  begin
+    aSoft := SoftManager.FullList[SoftPos];
+
+    // Try last used group.
+    if not aSoft.MatchGroup(aGroup) then
+    begin
+      // Search Group
+      // Don't use GroupManager.FullList.ItemById(), because when want to
+      //   test Terminated;
+      GroupPos := 0;
+      Found := False;
+      while (not Terminated) and (not Found) and (GroupPos < GroupManager.FullList.Count)
+        do
+      begin
+        aGroup := GroupManager.FullList[GroupPos];
+        Found := aSoft.MatchGroup(aGroup);
+        Inc(GroupPos);
+      end;
+    end
+    else
+      Found := True;
+
+    if (not Terminated) and (not Found) then
+    begin
+      // OOpps, not found; creating it.
+      aGroup := GroupManager.FullList[GroupManager.AddGroup(aSoft.GroupKey)];
+    end;
+
+    if (not Terminated) then
+    begin
+      // Finally caching
+      aSoft.CachedGroup := aGroup;
+      aGroup.SoftList.Add(aSoft);
+    end;
+
+    Inc(SoftPos);
+  end;
+
+  //// Adding to visible list groups with soft
+  //// Search Group
+  //// Don't use GroupManager.FullList.ItemById(), because when want to
+  ////   test Terminated;
+  //GroupPos := 0;
+  //while (GroupPos < GroupManager.FullList.Count) and (not Terminated) do
+  //begin
+  //  aGroup := GroupManager.FullList[GroupPos];
+  //  if aGroup.SoftList.Count > 0 then
+  //    GroupManager.VisibleList.Add(aGroup);
+  //  Inc(GroupPos);
+  //end;
+end;
+
+constructor cEmutecaCacheSystemThread.Create;
+begin
+  inherited Create(True);
+  FreeOnTerminate := True;
+end;
+
 { cEmutecaSystem }
+
+procedure cEmutecaSystem.SetCacheDataThread(AValue: cEmutecaCacheSystemThread);
+begin
+  if FCacheDataThread = AValue then
+    Exit;
+  FCacheDataThread := AValue;
+end;
 
 procedure cEmutecaSystem.LoadFromIni(aIniFile: TMemIniFile);
 begin
@@ -386,183 +342,67 @@ end;
 
 procedure cEmutecaSystem.LoadLists(aFile: string);
 begin
-  GroupManager.Clear;
-  if FileExistsUTF8(aFile + kEmutecaGroupFileExt) then
-  GroupManager.LoadFromFileTxt(aFile  + kEmutecaGroupFileExt);
+  GroupManager.ClearData;
+  if FileExistsUTF8(aFile + krsEmutecaGroupFileExt) then
+    GroupManager.LoadFromFileTxt(aFile + krsEmutecaGroupFileExt);
+
+  SoftManager.ClearData;
+  if FileExistsUTF8(aFile + krsEmutecaSoftFileExt) then
+    SoftManager.LoadFromFileTxt(aFile + krsEmutecaSoftFileExt);
+
+  CacheData;
 end;
 
-procedure cEmutecaSystem.SaveLists(aFile: string; ExportMode: Boolean);
+procedure cEmutecaSystem.SaveLists(aFile: string; ExportMode: boolean);
 begin
-  if aFile = '' then Exit;
+  if aFile = '' then
+    Exit;
   if not DirectoryExistsUTF8(ExtractFileDir(aFile)) then
     ForceDirectoriesUTF8(ExtractFileDir(aFile));
-  GroupManager.SaveToFileTxt(aFile  + kEmutecaGroupFileExt , ExportMode);
+  GroupManager.SaveToFileTxt(aFile + krsEmutecaGroupFileExt, ExportMode);
+  SoftManager.SaveToFileTxt(aFile + krsEmutecaSoftFileExt, ExportMode);
 end;
 
-procedure cEmutecaSystem.SetBaseFolder(AValue: string);
+procedure cEmutecaSystem.CacheData;
 begin
-  FBaseFolder := SetAsFolder(AValue);
-end;
+  if Assigned(CacheDataThread) then
+    CacheDataThread.Terminate;
+  // FreeOnTerminate = true, so we don't need to destroy it.
 
-procedure cEmutecaSystem.SetBackImage(AValue: string);
-begin
-  FBackImage := SetAsFile(AValue);
-end;
-
-procedure cEmutecaSystem.SetEnabled(AValue: boolean);
-begin
-  if FEnabled = AValue then
-    Exit;
-  FEnabled := AValue;
-end;
-
-procedure cEmutecaSystem.SetExtractAll(AValue: boolean);
-begin
-  if FExtractAll = AValue then
-    Exit;
-  FExtractAll := AValue;
-end;
-
-procedure cEmutecaSystem.SetFileName(AValue: string);
-begin
-  FFileName := CleanFileName(AValue);
-end;
-
-procedure cEmutecaSystem.SetGameKey(AValue: TEmutecaFileKey);
-begin
-  if FGameKey = AValue then
-    Exit;
-  FGameKey := AValue;
-end;
-
-procedure cEmutecaSystem.SetIcon(AValue: string);
-begin
-  FIcon := SetAsFile(AValue);
-end;
-
-procedure cEmutecaSystem.SetIconFolder(AValue: string);
-begin
-  FIconFolder := SetAsFolder(AValue);
-end;
-
-procedure cEmutecaSystem.SetID(AValue: string);
-begin
-  if FID = AValue then
-    Exit;
-  FID := AValue;
-
-  FPONotifyObservers(Self, ooChange, nil);
-end;
-
-procedure cEmutecaSystem.SetImage(AValue: string);
-begin
-  FImage := SetAsFile(AValue);
-end;
-
-procedure cEmutecaSystem.SetInfoText(AValue: string);
-begin
-  FInfoText := SetAsFile(AValue);
-end;
-
-procedure cEmutecaSystem.SetMainEmulator(AValue: string);
-begin
-  if FMainEmulator = AValue then
-    Exit;
-  FMainEmulator := AValue;
-
-  if OtherEmulators.IndexOf(MainEmulator) = -1 then
-    OtherEmulators.Add(MainEmulator);
-end;
-
-procedure cEmutecaSystem.SetTempFolder(AValue: string);
-begin
-  FTempFolder := SetAsFolder(AValue);
-end;
-
-procedure cEmutecaSystem.SetTitle(AValue: string);
-begin
-  if FTitle = AValue then
-    Exit;
-  FTitle := AValue;
-end;
-
-procedure cEmutecaSystem.FixFolderListData(FolderList, CaptionList: TStrings);
-var
-  i: integer;
-begin
-  // Removing empty Folders and asociated captions.
-  i := 0;
-  while i < FolderList.Count do
-  begin
-    FolderList[i] := SetAsFolder(FolderList[i]);
-    if FolderList[i] = '' then
-    begin
-      FolderList.Delete(i);
-      if i < CaptionList.Count then
-        CaptionList.Delete(i);
-    end
-    else
-      Inc(i);
-  end;
-
-  // Adding text (folder name) to empty Captions
-  if FolderList.Count > CaptionList.Count then
-  begin
-    i := CaptionList.Count;
-    while i < FolderList.Count do
-    begin
-      CaptionList.Add(ExtractFileName(ExcludeTrailingPathDelimiter(
-        FolderList[i])));
-      Inc(i);
-    end;
-  end;
-
-  // Removing exceed of captions
-  while FolderList.Count < CaptionList.Count do
-    CaptionList.Delete(CaptionList.Count - 1);
+  // Caching data in background
+  FCacheDataThread := cEmutecaCacheSystemThread.Create;
+  if Assigned(CacheDataThread.FatalException) then
+    raise CacheDataThread.FatalException;
+  CacheDataThread.SoftManager := SoftManager;
+  CacheDataThread.GroupManager := GroupManager;
+  CacheDataThread.Start;
 end;
 
 constructor cEmutecaSystem.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
 
-  FStats := cEmutecaPlayingStats.Create(Self);
   FGroupManager := cEmutecaGroupManager.Create(Self);
-  FGroupManager.System := Self;
-
-  Self.Enabled := False;
-  Self.GameKey := TEFKSHA1;
-
-  Self.FExtensions := TStringList.Create;
-  Self.Extensions.CaseSensitive := False;
-  self.Extensions.Sorted := True;
-
-  Self.FOtherEmulators := TStringList.Create;
-  Self.OtherEmulators.CaseSensitive := False;
-  Self.OtherEmulators.Sorted := True;
-
-  Self.FImageCaptions := TStringList.Create;
-  Self.FImageFolders := TStringList.Create;
-
-  Self.FTextCaptions := TStringList.Create;
-  Self.FTextFolders := TStringList.Create;
+  GroupManager.System := Self;
+  FSoftManager := cEmutecaSoftManager.Create(Self);
+  SoftManager.System := Self;
 end;
 
 destructor cEmutecaSystem.Destroy;
 begin
-  FreeAndNil(Self.FExtensions);
-  FreeAndNil(Self.FOtherEmulators);
+  if Assigned(CacheDataThread) then
+    CacheDataThread.Terminate;
+  // FreeOnTerminate = true, so we don't need to destroy it.
 
-  FreeAndNil(Self.FImageCaptions);
-  FreeAndNil(Self.FImageFolders);
-
-  FreeAndNil(Self.FTextCaptions);
-  FreeAndNil(Self.FTextFolders);
-
-  FreeAndNil(FStats);
-  FreeAndNil(FGroupManager);
+  SoftManager.Free;
+  GroupManager.Free;
 
   inherited Destroy;
 end;
 
+initialization
+  RegisterClass(cEmutecaSystem);
+
+finalization
+  UnRegisterClass(cEmutecaSystem);
 end.

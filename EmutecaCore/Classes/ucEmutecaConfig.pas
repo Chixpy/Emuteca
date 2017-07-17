@@ -38,6 +38,7 @@ const
   krsIniKeyAutoSysFolders = 'AutoSysFolders';
   krsIniKeySystemsFile = 'SystemsFile';
   krsIniKeySysDataFolder = 'SysDataFolder';
+  krsIniKeyTagsFolder = 'TagsFolder';
 
   // [Tools]
   krsIniSecTools = 'Tools';
@@ -74,6 +75,7 @@ type
     FSysDataFolder: string;
     FMinPlayTime: integer;
     FSystemsFile: string;
+    FTagsFolder: string;
     FTempFile: string;
     FTempFolder: string;
     FSoftFile: string;
@@ -85,6 +87,7 @@ type
     procedure SetSysDataFolder(AValue: string);
     procedure SetMinPlayTime(AValue: integer);
     procedure SetSystemsFile(const AValue: string);
+    procedure SetTagsFolder(AValue: string);
     procedure SetTempFile(const AValue: string);
     procedure SetTempFolder(const AValue: string);
     procedure SetSoftFile(AValue: string);
@@ -105,6 +108,7 @@ type
     property SystemsFile: string read FSystemsFile write SetSystemsFile;
     property SysDataFolder: string read FSysDataFolder write SetSysDataFolder;
     property AutoSysFolder: string read FAutoSysFolder write SetAutoSysFolder;
+    property TagsFolder: string read FTagsFolder write SetTagsFolder;
 
     // File extensions
     property CompressedExtensions: TStringList read FCompressedExtensions;
@@ -170,6 +174,11 @@ begin
   FSystemsFile := SetAsFile(AValue);
 end;
 
+procedure cEmutecaConfig.SetTagsFolder(AValue: string);
+begin
+  FTagsFolder :=  SetAsFolder(AValue);
+end;
+
 procedure cEmutecaConfig.SetTempFile(const AValue: string);
 begin
   FTempFile := SetAsFile(AValue);
@@ -205,7 +214,7 @@ begin
   if aFilename = '' then
     aFilename := ConfigFile;
   if aFilename = '' then
-    raise EInOutError.Create(self.ClassName + '.ReadConfig: ' +
+    raise EInOutError.Create(ClassName + '.ReadConfig: ' +
       rsENotFilename);
   { TODO : Raise exception? Warning? create file always? Exit?}
   //if not FileExistsUTF8(aFilename) then
@@ -226,6 +235,8 @@ begin
       krsIniKeyAutoSysFolders, AutoSysFolder);
     SysDataFolder := IniFile.ReadString(krsIniSecConfig,
       krsIniKeySysDataFolder, SysDataFolder);
+    TagsFolder := IniFile.ReadString(krsIniSecConfig,
+      krsIniKeyTagsFolder, TagsFolder);
 
     // Tools
     z7CMExecutable := IniFile.ReadString(krsIniSecTools,
@@ -260,7 +271,7 @@ begin
   if aFilename = '' then
     aFilename := ConfigFile;
   if aFilename = '' then
-    raise EInOutError.Create(self.ClassName + '.SaveConfig: ' +
+    raise EInOutError.Create(ClassName + '.SaveConfig: ' +
       rsENotFilename);
   ConfigFile := aFilename;
 
@@ -276,6 +287,7 @@ begin
     IniFile.WriteString(krsIniSecConfig, krsIniKeySystemsFile, SystemsFile);
     IniFile.WriteString(krsIniSecConfig, krsIniKeySysDataFolder,
       SysDataFolder);
+    IniFile.WriteString(krsIniSecConfig, krsIniKeyTagsFolder, TagsFolder);
 
     // Tools
     IniFile.WriteString(krsIniSecTools, krsIniKey7zCMExecutable,
@@ -307,6 +319,7 @@ begin
   AutoSysFolder := 'Data/SysFolders.csv';
   SystemsFile := 'Data/Systems.ini';
   SysDataFolder := 'Systems/';
+  TagsFolder := 'Tags/';
 
   // Tools
   z7CMExecutable := 'Tools/7zip/7z.exe';

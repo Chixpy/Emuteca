@@ -31,19 +31,19 @@ type
 
     property SysEditor: TfmLEmuTKFullSystemEditor read FSysEditor;
 
-    procedure ClearData; override;
     procedure SetGUIIconsIni(AValue: string); override;
     procedure AddItemToList; override;
     procedure DeleteItemFromList; override;
     procedure ExportList; override;
     procedure ImportList; override;
     procedure OnListClick(aObject: TObject); override;
-    procedure OnListClickCheck(aObject: TObject; aBool: Boolean); override;
-    procedure SetCheckedAll(aBool: Boolean); override;
+    procedure OnListClickCheck(aObject: TObject; aBool: boolean); override;
+    procedure SetCheckedAll(aBool: boolean); override;
 
   public
     property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
 
+    procedure ClearData; override;
     procedure LoadData; override;
     procedure SaveData; override;
 
@@ -68,10 +68,10 @@ end;
 procedure TfmLEmuTKSysManager.SetGUIIconsIni(AValue: string);
 begin
   inherited SetGUIIconsIni(AValue);
-  SysEditor.GUIIconsIni := self.GUIIconsIni;
+  SysEditor.GUIIconsIni := GUIIconsIni;
 end;
 
-procedure TfmLEmuTKSysManager.SetCheckedAll(aBool: Boolean);
+procedure TfmLEmuTKSysManager.SetCheckedAll(aBool: boolean);
 var
   i: integer;
   aSystem: cEmutecaSystem;
@@ -96,7 +96,7 @@ begin
 
   LoadData;
 
-  self.Enabled := Assigned(Emuteca);
+  Enabled := Assigned(Emuteca);
   SysEditor.Emuteca := Emuteca;
 end;
 
@@ -105,15 +105,10 @@ begin
   SysEditor.System := cEmutecaSystem(aObject);
 end;
 
-procedure TfmLEmuTKSysManager.OnListClickCheck(aObject: TObject; aBool: Boolean);
-var
-  CurrItem: cEmutecaSystem;
+procedure TfmLEmuTKSysManager.OnListClickCheck(aObject: TObject;
+  aBool: boolean);
 begin
-  if not assigned(aObject) then
-    Exit;
 
-  CurrItem := cEmutecaSystem(aObject);
-  CurrItem.Enabled := aBool;
 end;
 
 procedure TfmLEmuTKSysManager.AddItemToList;
@@ -132,6 +127,8 @@ begin
   aSystem.ID := SystemID;
   aSystem.Title := SystemID;
   aSystem.Enabled := True;
+
+  // TODO: Don't Add systems on the fly, only when saved
   Emuteca.SystemManager.FullList.Add(aSystem);
 
   LoadData;
@@ -148,11 +145,12 @@ begin
 
   SysEditor.System := nil;
   try
-  Emuteca.SystemManager.FullList.Remove(
-    cEmutecaSystem(clbPropItems.Items.Objects[clbPropItems.ItemIndex]));
+    // TODO: Don't delete systems on the fly, only when saved
+    Emuteca.SystemManager.FullList.Remove(
+      cEmutecaSystem(clbPropItems.Items.Objects[clbPropItems.ItemIndex]));
 
   finally
-  LoadData;
+    LoadData;
   end;
 end;
 
@@ -169,7 +167,7 @@ end;
 
 procedure TfmLEmuTKSysManager.ImportList;
 begin
-   if not assigned(Emuteca) then
+  if not assigned(Emuteca) then
     Exit;
 
   if not OpenDialog1.Execute then
@@ -187,7 +185,7 @@ begin
   if not assigned(Emuteca) then
     Exit;
 
-  Emuteca.SystemManager.AssingAllTo(clbPropItems.Items);
+  Emuteca.SystemManager.FullList.AssignToStrLst(clbPropItems.Items);
   i := 0;
   while i < clbPropItems.Items.Count do
   begin
@@ -198,12 +196,42 @@ begin
 end;
 
 procedure TfmLEmuTKSysManager.SaveData;
+var
+  i: integer;
+  aSystem: cEmutecaSystem;
 begin
   if not assigned(Emuteca) then
     Exit;
 
-  // Automatilly save to file
-  Emuteca.SystemManager.SaveToFileIni('', False);
+  // HACK: Preventing lost data from changed systems,
+  //   saving current data or reloading from disk.
+  i := 0;
+  while i < clbPropItems.Items.Count do
+  begin
+    aSystem := cEmutecaSystem(clbPropItems.Items.Objects[i]);
+
+    if aSystem.Enabled <> clbPropItems.Checked[i] then
+    begin
+      if aSystem.FileName = '' then
+        aSystem.FileName := aSystem.Title;
+
+      if aSystem.Enabled then
+      begin
+        // Saving soft of previously enabled systems ...
+        aSystem.SaveLists(Emuteca.SystemManager.SysDataFolder + aSystem.FileName, False);
+      end
+      else
+      begin
+        // ... loading soft of previously disabled systems
+        aSystem.LoadLists(Emuteca.SystemManager.SysDataFolder + aSystem.FileName);
+      end;
+      aSystem.Enabled := clbPropItems.Checked[i];
+     end;
+
+    Inc(i);
+  end;
+
+  Emuteca.SaveData;
 end;
 
 constructor TfmLEmuTKSysManager.Create(TheOwner: TComponent);

@@ -8,9 +8,9 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
   Buttons, ActnList, StdCtrls,
   ufCHXPropEditor,
-  uEmutecaRscStr,
-  ucEmutecaSystem,  ucEmutecaGroup, ucEmutecaSoftware,
-  ufEmutecaGroupCBX;
+  uEmutecaRscStr, uaEmutecaCustomSoft,
+  ucEmutecaSystem, ucEmutecaGroup, ucEmutecaSoftware,
+  ufEmutecaGroupCBXOld;
 
 type
 
@@ -56,9 +56,7 @@ type
 
   private
     FcbxGroup: TfmEmutecaGroupCBX;
-    FGroup: cEmutecaGroup;
     FSoftware: cEmutecaSoftware;
-    procedure SetGroup(AValue: cEmutecaGroup);
     procedure SetSoftware(AValue: cEmutecaSoftware);
 
   protected
@@ -66,12 +64,11 @@ type
 
     function SelectGroup(aGroup: cEmutecaGroup): boolean;
 
-    procedure ClearData; override;
-
   public
     procedure FPOObservedChanged(ASender: TObject;
       Operation: TFPObservedOperation; Data: Pointer);
 
+    procedure ClearData; override;
     procedure LoadData; override;
     procedure SaveData; override;
 
@@ -82,7 +79,6 @@ type
 
   published
     property Software: cEmutecaSoftware read FSoftware write SetSoftware;
-    property Group: cEmutecaGroup read FGroup write SetGroup;
   end;
 
 implementation
@@ -107,22 +103,6 @@ begin
   LoadData;
 end;
 
-procedure TfmEmutecaSoftEditor.SetGroup(AValue: cEmutecaGroup);
-begin
-  if FGroup = AValue then
-    Exit;
-
-  if Assigned(FGroup) then
-    FGroup.FPODetachObserver(Self);
-
-  FGroup := AValue;
-
-  if Assigned(Group) then
-    Group.FPOAttachObserver(Self);
-
-  LoadData;
-end;
-
 function TfmEmutecaSoftEditor.SelectGroup(aGroup: cEmutecaGroup): boolean;
 begin
   Result := True;
@@ -132,6 +112,7 @@ procedure TfmEmutecaSoftEditor.ClearData;
 begin
   lSystem.Caption := rsUnknown;
   cbxGroup.SelectedGroup := nil;
+  cbxGroup.GroupManager := nil;
 
   eTitle.Clear;
   eSortKey.Clear;
@@ -158,33 +139,41 @@ end;
 procedure TfmEmutecaSoftEditor.FPOObservedChanged(ASender: TObject;
   Operation: TFPObservedOperation; Data: Pointer);
 begin
-    case Operation of
-      ooFree: Software := nil
-      else
-        ;
-    end;
+  case Operation of
+    ooFree: Software := nil
+    else
+      ;
+  end;
 
   LoadData;
 end;
 
 procedure TfmEmutecaSoftEditor.LoadData;
 begin
-  if not assigned(Software) or not Assigned(Software.System) then
+  Enabled := assigned(Software);
+
+  if not Enabled then
   begin
     ClearData;
-    Self.Enabled := False;
     Exit;
+  end;
+
+  //
+  if assigned(Software.CachedSystem) then
+  begin
+  lSystem.Caption := Software.CachedSystem.Title;
+
+  cbxGroup.GroupManager := cEmutecaSystem(
+    Software.CachedSystem).GroupManager;
   end
   else
-    Self.Enabled := True;
+  begin
+    lSystem.Caption := '- NO SYSTEM -';
+    cbxGroup.GroupManager := nil;
+  end;
 
-  lSystem.Caption := Software.System.Title;
-
-  cbxGroup.GroupList := Software.System.GroupManager.FullList;
-
-
-  if assigned(Software.Group) then
-    cbxGroup.SelectedGroup := Software.Group
+  if assigned(Software.CachedGroup) then
+    cbxGroup.SelectedGroup := cEmutecaGroup(Software.CachedGroup)
   else
     cbxGroup.SelectGroupByID(Software.GroupKey);
 
@@ -219,18 +208,27 @@ begin
 end;
 
 procedure TfmEmutecaSoftEditor.SaveData;
+var
+  aSystem: cEmutecaSystem;
 begin
-  if not assigned(Software) or not assigned(Software.System) then
+  aSystem := cEmutecaSystem(Software.CachedSystem);
+
+  if (not assigned(Software)) or (not assigned(aSystem)) then
     Exit;
 
   if Assigned(cbxGroup.SelectedGroup) then
   begin
-    Software.Group := cbxGroup.SelectedGroup;
+    Software.CachedGroup := cbxGroup.SelectedGroup;
   end
   else
   begin
-    Software.Group := Software.System.GroupManager.ItemById(
-      cbxGroup.cbxGroup.Text, True);
+    // Search group
+    Software.CachedGroup :=
+      aSystem.GroupManager.FullList.ItemById(cbxGroup.cbxGroup.Text);
+
+    if not assigned(Software.CachedGroup) then
+      // Create group
+      aSystem.GroupManager.AddGroup(cbxGroup.cbxGroup.Text);
   end;
 
   Software.Title := eTitle.Text;
@@ -283,7 +281,7 @@ var
 begin
   inherited Create(TheOwner);
 
-  Self.Enabled := False;
+  Enabled := False;
 
   CreateFrames;
   lSystem.Caption := rsUnknown;

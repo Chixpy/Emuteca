@@ -10,7 +10,7 @@ uses
   uCHXStrUtils, uCHXDlgUtils,
   ufCHXPropEditor,
   ucEmutecaConfig, ucEmutecaSystem, ucEmutecaEmulator,
-  ucEmutecaEmulatorManager;
+  ucEmutecaEmulatorManager, uaEmutecaCustomSystem;
 
 resourcestring
   rsSelectEmulator = 'Select a System';
@@ -56,7 +56,6 @@ type
     procedure UpdateLists;
 
   protected
-    procedure ClearData; override;
 
   public
     property System: cEmutecaSystem read FSystem write SetSystem;
@@ -65,6 +64,7 @@ type
       read FEmuManager write SetEmuManager;
     property Config: cEmutecaConfig read FConfig write SetConfig;
 
+    procedure ClearData; override;
     procedure SaveData; override;
     procedure LoadData; override;
 
@@ -174,7 +174,7 @@ begin
   if FConfig = AValue then
     Exit;
   FConfig := AValue;
-  self.Enabled := Assigned(System) and Assigned(EmuManager) and Assigned(Config);
+  Enabled := Assigned(System) and Assigned(EmuManager) and Assigned(Config);
 end;
 
 procedure TfmEmutecaSystemEditor.SetEmuManager(AValue:
@@ -184,7 +184,7 @@ begin
     Exit;
   FEmuManager := AValue;
   UpdateLists;
-  self.Enabled := Assigned(System) and Assigned(EmuManager) and Assigned(Config);
+  Enabled := Assigned(System) and Assigned(EmuManager) and Assigned(Config);
 end;
 
 procedure TfmEmutecaSystemEditor.SetSystem(AValue: cEmutecaSystem);
@@ -193,7 +193,7 @@ begin
     Exit;
   FSystem := AValue;
   LoadData;
-  self.Enabled := Assigned(System) and Assigned(EmuManager) and Assigned(Config);
+  Enabled := Assigned(System) and Assigned(EmuManager) and Assigned(Config);
 end;
 
 procedure TfmEmutecaSystemEditor.UpdateLists;
@@ -279,7 +279,7 @@ begin
   eTitle.Text := System.Title;
   eExtraInfoFilename.Text := System.FileName;
 
-  aEmulator := EmuManager.ItemById(System.MainEmulator);
+  aEmulator := EmuManager.FullList.ItemById(System.MainEmulator);
   cbxMainEmulator.ItemIndex := cbxMainEmulator.Items.IndexOfObject(aEmulator);
 
   i := 0;

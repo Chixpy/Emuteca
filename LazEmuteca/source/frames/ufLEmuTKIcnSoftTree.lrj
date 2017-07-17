@@ -1,0 +1,5 @@
+{"version":1,"strings":[
+{"hash":231333762,"name":"tfmlemutkicnsofttree.miopensoftfolder.caption","sourcebytes":[79,112,101,110,32,115,111,102,116,119,97,114,101,32,102,111,108,100,101,114],"value":"Open software folder"},
+{"hash":112869810,"name":"tfmlemutkicnsofttree.actopensystemfolder.caption","sourcebytes":[79,112,101,110,32,115,121,115,116,101,109,32,102,111,108,100,101,114],"value":"Open system folder"},
+{"hash":238184050,"name":"tfmlemutkicnsofttree.actopensoftfolder.caption","sourcebytes":[97,99,116,79,112,101,110,83,111,102,116,70,111,108,100,101,114],"value":"actOpenSoftFolder"}
+]}

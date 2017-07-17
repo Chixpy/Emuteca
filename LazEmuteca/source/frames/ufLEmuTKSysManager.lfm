@@ -2,13 +2,13 @@ inherited fmLEmuTKSysManager: TfmLEmuTKSysManager
   object SaveDialog1: TSaveDialog[6]
     Filter = 'Systems ini file|*.ini|All files|*.*'
     Options = [ofNoChangeDir, ofEnableSizing, ofViewDetail]
-    left = 24
-    top = 256
+    Left = 24
+    Top = 256
   end
   object OpenDialog1: TOpenDialog[7]
     Filter = 'Systems ini file|*.ini|All files|*.*'
     Options = [ofNoChangeDir, ofEnableSizing, ofViewDetail]
-    left = 96
-    top = 256
+    Left = 96
+    Top = 256
   end
 end

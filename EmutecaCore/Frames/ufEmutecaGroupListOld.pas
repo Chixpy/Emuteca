@@ -1,4 +1,4 @@
-unit ufEmutecaGroupList;
+unit ufEmutecaGroupListOld;
 
 {$mode objfpc}{$H+}
 
@@ -9,7 +9,8 @@ uses
   Controls, ComCtrls,
   LazUTF8,
   uCHXStrUtils,
-  uEmutecaCommon, uEmutecaRscStr, ucEmutecaSystem, ucEmutecaGroup;
+  uEmutecaCommon, uEmutecaRscStr,
+  ucEmutecaSystem, ucEmutecaGroupList, ucEmutecaGroup;
 
 type
   { TfmEmutecaGroupList }
@@ -96,15 +97,16 @@ var
 begin
   Result := 0;
   pData1 := Sender.GetNodeData(Node1);
+  if (pData1^ = nil) then
+    Exit;
   pData2 := Sender.GetNodeData(Node2);
-
-  if (pData1^ = nil) or (pData2^ = nil) then
+  if (pData2^ = nil) then
     Exit;
 
   case Column of
     0: // System
-      Result := UTF8CompareText(cEmutecaSystem(pData1^.System).Title,
-        cEmutecaSystem(pData2^.System).Title);
+      Result := UTF8CompareText(pData1^.CachedSystem.Title,
+        pData2^.CachedSystem.Title);
     1: // Name
       Result := UTF8CompareText(pData1^.ID, pData2^.ID);
     2: // Developer
@@ -133,11 +135,11 @@ begin
     Exit;
 
   case Column of
-        0: // System
-      HintText := cEmutecaSystem(pData^.System).Title;
+    0: // System
+      HintText := pData^.CachedSystem.Title;
     1: // Name
       HintText := pData^.ID;
-    2: ; // Develepor
+    2: ; // Developer
     3: ; // Year
     4: ; // Times
     5: ; // Total time
@@ -159,7 +161,7 @@ begin
 
   case Column of
     0: // System
-      CellText := cEmutecaSystem(pData^.System).Title;
+      CellText := pData^.CachedSystem.Title;
     1: // Name
       CellText := pData^.Title;
     2: // Develepor
@@ -185,12 +187,8 @@ procedure TfmEmutecaGroupList.VSTInitNode(Sender: TBaseVirtualTree;
 var
   pData: ^cEmutecaGroup;
 begin
-
   pData := Sender.GetNodeData(Node);
-  if Node^.Index < GroupList.Count then
-    pData^ := cEmutecaGroup(GroupList[Node^.Index])
-  else
-    pData^ := nil;
+  pData^ := GroupList[Node^.Index];
 end;
 
 procedure TfmEmutecaGroupList.SetGroupList(AValue: cEmutecaGroupList);
@@ -248,8 +246,6 @@ end;
 
 procedure TfmEmutecaGroupList.FPOObservedChanged(ASender: TObject;
   Operation: TFPObservedOperation; Data: Pointer);
-var
-  pData: ^cEmutecaGroup;
 begin
 
 end;
@@ -257,12 +253,11 @@ end;
 procedure TfmEmutecaGroupList.UpdateList;
 begin
   VST.Clear;
-
   StatusBar1.SimpleText := '';
   if not assigned(GroupList) then
     Exit;
 
-  vst.RootNodeCount := GroupList.Count + 1;
+  vst.RootNodeCount := GroupList.Count;
 
   UpdateStatusBar;
 end;

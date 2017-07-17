@@ -1,0 +1,6 @@
+inherited frmLEmuTKAbout: TfrmLEmuTKAbout
+  inherited mAditional: TMemo
+    ReadOnly = True
+    ScrollBars = ssAutoVertical
+  end
+end

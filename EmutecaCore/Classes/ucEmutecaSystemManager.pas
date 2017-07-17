@@ -27,31 +27,34 @@ interface
 
 uses
   Classes, SysUtils, LazFileUtils, LazUTF8, IniFiles,
+  uCHXStrUtils,
   uaCHXStorable,
   uEmutecaCommon,
-  ucEmutecaConfig, ucEmutecaSystem;
+  ucEmutecaSystemList;
 
 type
   { cEmutecaSystemManager }
 
   cEmutecaSystemManager = class(caCHXStorableIni)
   private
-    FConfig: cEmutecaConfig;
     FFullList: cEmutecaSystemList;
     FEnabledList: cEmutecaSystemList;
     FProgressCallBack: TEmutecaProgressCallBack;
+    FSysDataFolder: string;
+    procedure SetSysDataFolder(AValue: string);
 
   protected
-    procedure SetConfig(AValue: cEmutecaConfig);
     procedure SetProgressCallBack(AValue: TEmutecaProgressCallBack);
 
   public
-    property Config: cEmutecaConfig read FConfig write SetConfig;
+    property SysDataFolder: string read FSysDataFolder write SetSysDataFolder;
 
     procedure ClearData;
     //< Clears all data WITHOUT saving.
-    procedure ReloadData;
+    procedure LoadData;
     //< Reload last data file WITHOUT saving changes.
+    procedure SaveData;
+    //< Save data to last data file.
 
     property ProgressCallBack: TEmutecaProgressCallBack
       read FProgressCallBack write SetProgressCallBack;
@@ -60,14 +63,6 @@ type
     procedure LoadFromIni(aIniFile: TMemIniFile); override;
     procedure SaveToIni(aIniFile: TMemIniFile;
       const ExportMode: boolean); override;
-
-    function ItemById(aId: string; Autocreate: boolean): cEmutecaSystem;
-    {< Returns the system with aId key.
-
-       Autocreate: Automatically create one, if none found.
-
-       @Result cEmutecaSystem found or nil.
-    }
 
     procedure AssingAllTo(aList: TStrings); deprecated;
     procedure AssingEnabledTo(aList: TStrings); deprecated;
@@ -83,21 +78,13 @@ type
   end;
 
 implementation
+uses uaEmutecaCustomSystem, ucEmutecaSystem;
 
 { cEmutecaSystemManager }
 
-procedure cEmutecaSystemManager.SetConfig(AValue: cEmutecaConfig);
-var
-  i: integer;
+procedure cEmutecaSystemManager.SetSysDataFolder(AValue: string);
 begin
-  FConfig := AValue;
-
-  i := FullList.Count - 1;
-  while i >= 0 do
-  begin
-    cEmutecaSystem(FullList[i]).GroupManager.Config := AValue;
-    Dec(i);
-  end;
+  FSysDataFolder := SetAsFolder(AValue);
 end;
 
 procedure cEmutecaSystemManager.SetProgressCallBack(
@@ -113,11 +100,15 @@ begin
   FullList.Clear;
 end;
 
-procedure cEmutecaSystemManager.ReloadData;
+procedure cEmutecaSystemManager.LoadData;
 begin
   ClearData;
-
   LoadFromFileIni('');
+end;
+
+procedure cEmutecaSystemManager.SaveData;
+begin
+  SaveToFileIni('', False);
 end;
 
 procedure cEmutecaSystemManager.LoadFromIni(aIniFile: TMemIniFile);
@@ -139,6 +130,7 @@ begin
     begin
       TempSys := cEmutecaSystem.Create(nil);
       TempSys.ID := TempList[i];
+      TempSys.IniFileName := IniFileName;
       TempSys.LoadFromIni(aIniFile);
       FullList.Add(TempSys);
       if TempSys.Enabled then
@@ -150,7 +142,7 @@ begin
           TempSys.Title, i, TempList.Count);
 
       if TempSys.Enabled then
-        TempSys.LoadLists(Config.SysDataFolder + TempSys.FileName);
+        TempSys.LoadLists(SysDataFolder + TempSys.FileName);
 
     end;
   finally
@@ -184,40 +176,12 @@ begin
     Inc(i);
 
     if aSystem.Enabled then
-      aSystem.SaveLists(Config.SysDataFolder + aSystem.FileName, False);
+      aSystem.SaveLists(SysDataFolder + aSystem.FileName, False);
   end;
   if ProgressCallBack <> nil then
     ProgressCallBack(rsSavingSystemList, '', '', 0, 0);
 end;
 
-function cEmutecaSystemManager.ItemById(aId: string;
-  Autocreate: boolean): cEmutecaSystem;
-var
-  i: integer;
-  aSystem: cEmutecaSystem;
-begin
-  Result := nil;
-
-  i := 0;
-  while (Result = nil) and (i < FullList.Count) do
-  begin
-    aSystem := cEmutecaSystem(FullList[i]);
-    if UTF8CompareText(aSystem.ID, aId) = 0 then
-      Result := aSystem;
-    Inc(i);
-  end;
-
-  // Opps, creating it
-  if Autocreate and (not assigned(Result)) then
-  begin
-    Result := cEmutecaSystem.Create(nil);
-    Result.ID := aId;
-    Result.Title := aId;
-    Result.Enabled := True;
-    Self.FullList.Add(Result);
-    Self.EnabledList.Add(Result);
-  end;
-end;
 
 procedure cEmutecaSystemManager.AssingAllTo(aList: TStrings);
 var

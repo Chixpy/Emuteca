@@ -26,14 +26,15 @@ unit ucEmuteca;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, LazUTF8, LazFileUtils, dateutils,
-  u7zWrapper, sha1,
+  Classes, SysUtils, fgl, FileUtil, LazUTF8, LazFileUtils, dateutils, sha1,
+  u7zWrapper,
   uCHXStrUtils,
   uEmutecaCommon,
+  uaEmutecaCustomGroup,
   ucEmutecaConfig,
   ucEmutecaEmulatorManager, ucEmutecaSystemManager,
-  ucEmutecaGroupManager, ucEmutecaSoftManager,
-  ucEmutecaSoftware, ucEmutecaGroup, ucEmutecaSystem, ucEmutecaEmulator;
+  ucEmutecaSoftList,
+  ucEmutecaSoftware, ucEmutecaSystem, ucEmutecaEmulator;
 
 type
   { Cache data Thread. }
@@ -42,21 +43,15 @@ type
 
   cEmutecaCacheDataThread = class(TThread)
   private
-    FCurrSoftPos: integer;
-    FSoftList: cEmutecaSoftList;
     FSystemManager: cEmutecaSystemManager;
     FTempFolder: string;
-    procedure SetCurrSoftPos(AValue: integer);
-    procedure SetSoftList(AValue: cEmutecaSoftList);
     procedure SetSystemManager(AValue: cEmutecaSystemManager);
     procedure SetTempFolder(AValue: string);
 
   protected
-    property CurrSoftPos: integer read FCurrSoftPos write SetCurrSoftPos;
     procedure Execute; override;
 
   public
-    property SoftList: cEmutecaSoftList read FSoftList write SetSoftList;
     property SystemManager: cEmutecaSystemManager
       read FSystemManager write SetSystemManager;
     property TempFolder: string read FTempFolder write SetTempFolder;
@@ -72,7 +67,6 @@ type
     FConfig: cEmutecaConfig;
     FEmulatorManager: cEmutecaEmulatorManager;
     FProgressCallBack: TEmutecaProgressCallBack;
-    FSoftManager: cEmutecaSoftManager;
     FSystemManager: cEmutecaSystemManager;
     FTempFolder: string;
     procedure SetBaseFolder(AValue: string);
@@ -91,10 +85,10 @@ type
     property TempFolder: string read FTempFolder;
 
     procedure LoadConfig(aFile: string);
-    procedure SaveConfig;
 
     procedure ClearAllData;
-    procedure ReloadData;
+    procedure LoadData;
+    procedure SaveData;
 
     function SearchMainEmulator(aID: string): cEmutecaEmulator;
 
@@ -103,7 +97,7 @@ type
     procedure SearchSoftFiles(OutFileList: TStrings;
       aFolder: string; aSoft: cEmutecaSoftware; Extensions: TStrings);
     procedure SearchGroupFiles(OutFileList: TStrings;
-      aFolder: string; aGroup: cEmutecaGroup; Extensions: TStrings);
+      aFolder: string; aGroup: caEmutecaCustomGroup; Extensions: TStrings);
 
     function SearchFirstMediaFile(aFolder: string;
       aFileName: string; Extensions: TStrings): string;
@@ -111,7 +105,7 @@ type
       aSoft: cEmutecaSoftware; Extensions: TStrings;
       UseGroup: boolean = True): string;
     function SearchFirstGroupFile(aFolder: string;
-      aGroup: cEmutecaGroup; Extensions: TStrings): string;
+      aGroup: caEmutecaCustomGroup; Extensions: TStrings): string;
 
     procedure CacheData;
 
@@ -126,8 +120,6 @@ type
 
     property Config: cEmutecaConfig read FConfig;
 
-    property SoftManager: cEmutecaSoftManager read FSoftManager;
-
     property SystemManager: cEmutecaSystemManager read FSystemManager;
 
     property EmulatorManager: cEmutecaEmulatorManager read FEmulatorManager;
@@ -136,12 +128,6 @@ type
 implementation
 
 { cEmutecaCacheDataThread }
-procedure cEmutecaCacheDataThread.SetSoftList(AValue: cEmutecaSoftList);
-begin
-  if FSoftList = AValue then
-    Exit;
-  FSoftList := AValue;
-end;
 
 procedure cEmutecaCacheDataThread.SetSystemManager(AValue:
   cEmutecaSystemManager);
@@ -153,81 +139,82 @@ end;
 
 procedure cEmutecaCacheDataThread.SetTempFolder(AValue: string);
 begin
-  if FTempFolder = AValue then
-    Exit;
-  FTempFolder := AValue;
-end;
-
-procedure cEmutecaCacheDataThread.SetCurrSoftPos(AValue: integer);
-begin
-  if FCurrSoftPos = AValue then
-    Exit;
-  FCurrSoftPos := AValue;
+  FTempFolder := SetAsFolder(AValue);
 end;
 
 procedure cEmutecaCacheDataThread.Execute;
 var
   aSoft: cEmutecaSoftware;
-  aGroup: cEmutecaGroup;
+  // aGroup: cEmutecaGroup;
   aFolder, aFile: string;
   aSha1: TSHA1Digest;
+  CurrSysPos, CurrSoftPos: integer;
+  SoftList: cEmutecaSoftList;
 begin
-  if (not Assigned(SystemManager)) or (not Assigned(SoftList)) then
+  if not Assigned(SystemManager) then
     Exit;
 
-  // Caching groups
-  CurrSoftPos := 0;
-  aGroup := nil;
-  while (not Terminated) and (CurrSoftPos < SoftList.Count) do
-  begin
-    aSoft := SoftList[CurrSoftPos];
+  // Already done by system itself.
+  //  // Caching groups
+  //  CurrSoftPos := 0;
+  //  aGroup := nil;
+  //  while (not Terminated) and (CurrSoftPos < SoftList.Count) do
+  //  begin
+  //    aSoft := SoftList[CurrSoftPos];
 
-    if not Assigned(aSoft.Group) then
-    begin
-      if not aSoft.MatchGroup(aGroup) then
-      begin
-        aGroup := aSoft.System.GroupManager.ItemById(aSoft.GroupKey, True);
-      end;
-      if not terminated then
-        aSoft.Group := aGroup;
-    end;
+  //    if not Assigned(aSoft.Group) then
+  //    begin
+  //      if not aSoft.MatchGroup(aGroup) then
+  //      begin
+  //        aGroup := aSoft.System.GroupManager.ItemById(aSoft.GroupKey, True);
+  //      end;
+  //      if not terminated then
+  //        aSoft.Group := aGroup;
+  //    end;
 
-    Inc(FCurrSoftPos);
-  end;
+  //    Inc(FCurrSoftPos);
+  //  end;
 
-  if Terminated then
-    Exit;
+  //  if Terminated then
+  //    Exit;
 
   if TempFolder = '' then
     Exit;
 
   // Caching SHA1
   try
-    CurrSoftPos := 0;
-    while (not Terminated) and (CurrSoftPos < SoftList.Count) do
+    CurrSysPos := 0;
+    while (not Terminated) and (CurrSysPos < SystemManager.FullList.Count) do
     begin
-      aSoft := SoftList[CurrSoftPos];
-      aFolder := aSoft.Folder;
-      aFile := aSoft.FileName;
+      SoftList := SystemManager.FullList[CurrSysPos].SoftManager.FullList;
 
-      if aSoft.SHA1IsEmpty then
+      CurrSoftPos := 0;
+      while (not Terminated) and (CurrSoftPos < SoftList.Count) do
       begin
-        if DirectoryExistsUTF8(aFolder) then
+        aSoft := SoftList[CurrSoftPos];
+        aFolder := aSoft.Folder;
+        aFile := aSoft.FileName;
+
+        if aSoft.SHA1IsEmpty then
         begin
-          aSha1 := SHA1File(aFolder + aFile);
-          if not terminated then
-            aSoft.SHA1 := aSha1;
-        end
-        else
-        begin
-          w7zExtractFile(aFolder, aFile, TempFolder + 'SHA1Cache/', False, '');
-          aSha1 := SHA1File(TempFolder + 'SHA1Cache/' + aFile);
-          if not terminated then
-            aSoft.SHA1 := aSha1;
-          DeleteFileUTF8(TempFolder + 'SHA1Cache/' + aFile);
+          if DirectoryExistsUTF8(aFolder) then
+          begin
+            aSha1 := SHA1File(aFolder + aFile);
+            if not terminated then
+              aSoft.SHA1 := aSha1;
+          end
+          else
+          begin
+            w7zExtractFile(aFolder, aFile, TempFolder + 'SHA1Cache/', False, '');
+            aSha1 := SHA1File(TempFolder + 'SHA1Cache/' + aFile);
+            if not terminated then
+              aSoft.SHA1 := aSha1;
+            DeleteFileUTF8(TempFolder + 'SHA1Cache/' + aFile);
+          end;
         end;
+        Inc(CurrSoftPos);
       end;
-      Inc(FCurrSoftPos);
+      Inc(CurrSysPos);
     end;
   finally
     // Catch exception if aSoft/SoftList is deleted while catching...
@@ -258,9 +245,8 @@ begin
   FCacheDataThread := cEmutecaCacheDataThread.Create;
   if Assigned(CacheDataThread.FatalException) then
     raise CacheDataThread.FatalException;
-  CacheDataThread.TempFolder := Self.TempFolder;
-  CacheDataThread.SystemManager := Self.SystemManager;
-  CacheDataThread.SoftList := Self.SoftManager.FullList;
+  CacheDataThread.TempFolder := TempFolder;
+  CacheDataThread.SystemManager := SystemManager;
   CacheDataThread.Start;
 end;
 
@@ -514,32 +500,20 @@ begin
   ForceDirectories(TempFolder);
 
   // Setting EmulatorManager
-  if FilenameIsAbsolute(Config.EmulatorsFile) then
-    EmulatorManager.IniFileName := Config.EmulatorsFile
-  else
-    EmulatorManager.IniFileName :=
-      SetAsFolder(BaseFolder) + Config.EmulatorsFile;
+  EmulatorManager.IniFileName :=
+    SetAsAbsoluteFile(Config.EmulatorsFile, BaseFolder);
 
   // Setting SystemManager
-  if FilenameIsAbsolute(Config.SystemsFile) then
-    SystemManager.IniFileName := Config.SystemsFile
-  else
-    SystemManager.IniFileName := SetAsFolder(BaseFolder) + Config.SystemsFile;
+  SystemManager.IniFileName :=
+    SetAsAbsoluteFile(Config.SystemsFile, BaseFolder);
+  SystemManager.SysDataFolder :=
+    SetAsAbsoluteFile(Config.SysDataFolder, BaseFolder);
 
-  // Setting SoftManager
-  if FilenameIsAbsolute(Config.SysDataFolder) then
-    SoftManager.SysDataFolder := Config.SysDataFolder
-  else
-    SoftManager.SysDataFolder :=
-      SetAsFolder(BaseFolder) + Config.SysDataFolder;
-  SoftManager.SysManager := SystemManager;
-
-  ReloadData;
+  LoadData;
 end;
 
-procedure cEmuteca.SaveConfig;
+procedure cEmuteca.SaveData;
 begin
-  SoftManager.SaveSoftOfSystems(False);
   SystemManager.SaveToFileIni('', False);
   EmulatorManager.SaveToFileIni('', False);
 end;
@@ -547,28 +521,26 @@ end;
 procedure cEmuteca.ClearAllData;
 begin
   // If we are still caching...
-  if Assigned(CacheDataThread) and not CacheDataThread.Finished then
+  if Assigned(CacheDataThread) then
     CacheDataThread.Terminate;
 
   EmulatorManager.ClearData;
   SystemManager.ClearData;
-  SoftManager.ClearData;
 end;
 
-procedure cEmuteca.ReloadData;
+procedure cEmuteca.LoadData;
 begin
   ClearAllData;
 
-  EmulatorManager.ReloadData;
-  SystemManager.ReloadData;
-  SoftManager.ReloadData;
+  EmulatorManager.LoadData;
+  SystemManager.LoadData;
 
   CacheData;
 end;
 
 function cEmuteca.SearchMainEmulator(aID: string): cEmutecaEmulator;
 begin
-  Result := EmulatorManager.ItemById(aID);
+  Result := EmulatorManager.FullList.ItemById(aID);
 end;
 
 procedure cEmuteca.SearchSoftFiles(OutFileList: TStrings;
@@ -576,28 +548,42 @@ procedure cEmuteca.SearchSoftFiles(OutFileList: TStrings;
 var
   i: integer;
 begin
-  i := OutFileList.Count;
-  SearchMediaFiles(OutFileList, aFolder, aSoft.FileName, Extensions);
-  if OutFileList.Count = i then
-    SearchGroupFiles(OutFileList, aFolder, aSoft.Group, Extensions);
+  if aSoft.MatchGroupFile then
+  begin
+    SearchGroupFiles(OutFileList, aFolder, aSoft.CachedGroup, Extensions);
+  end
+  else
+  begin
+    i := OutFileList.Count;
+    SearchMediaFiles(OutFileList, aFolder, aSoft.FileName, Extensions);
+    if OutFileList.Count = i then
+      SearchGroupFiles(OutFileList, aFolder, aSoft.CachedGroup, Extensions);
+  end;
 end;
 
 function cEmuteca.SearchFirstSoftFile(aFolder: string;
   aSoft: cEmutecaSoftware; Extensions: TStrings; UseGroup: boolean): string;
 begin
-  Result := SearchFirstMediaFile(aFolder, aSoft.FileName, Extensions);
-  if (Result = '') and UseGroup then
-    Result := SearchFirstGroupFile(aFolder, aSoft.Group, Extensions);
+  if aSoft.MatchGroupFile then
+  begin
+    Result := SearchFirstGroupFile(aFolder, aSoft.CachedGroup, Extensions);
+  end
+  else
+  begin
+    Result := SearchFirstMediaFile(aFolder, aSoft.FileName, Extensions);
+    if (Result = '') and UseGroup then
+      Result := SearchFirstGroupFile(aFolder, aSoft.CachedGroup, Extensions);
+  end;
 end;
 
 procedure cEmuteca.SearchGroupFiles(OutFileList: TStrings;
-  aFolder: string; aGroup: cEmutecaGroup; Extensions: TStrings);
+  aFolder: string; aGroup: caEmutecaCustomGroup; Extensions: TStrings);
 begin
   SearchMediaFiles(OutFileList, aFolder, aGroup.ID, Extensions);
 end;
 
 function cEmuteca.SearchFirstGroupFile(aFolder: string;
-  aGroup: cEmutecaGroup; Extensions: TStrings): string;
+  aGroup: caEmutecaCustomGroup; Extensions: TStrings): string;
 begin
   Result := SearchFirstMediaFile(aFolder, aGroup.ID, Extensions);
 end;
@@ -622,7 +608,7 @@ begin
     exit;
 
   // 1. Searching for current emulator.
-  aEmulator := SearchMainEmulator(aSoftware.System.MainEmulator);
+  aEmulator := SearchMainEmulator(aSoftware.CachedSystem.MainEmulator);
 
   if not assigned(aEmulator) then
     { TODO : Exception or return Comperror code? }
@@ -637,10 +623,11 @@ begin
     Exit;
 
   // 2. Setting temp folder.
-  if Trim(ExcludeTrailingPathDelimiter(aSoftware.System.TempFolder)) <> '' then
-    aFolder := aSoftware.System.TempFolder
+  if Trim(ExcludeTrailingPathDelimiter(aSoftware.CachedSystem.TempFolder)) <>
+    '' then
+    aFolder := aSoftware.CachedSystem.TempFolder
   else
-    aFolder := Self.TempFolder + krsEmutecaGameSubFolder;
+    aFolder := TempFolder + krsEmutecaGameSubFolder;
 
   //   2.1. If don't exists create new, and mark it to delete at the end.
   NewDir := not DirectoryExists(aFolder);
@@ -658,7 +645,7 @@ begin
   //   3.2 Actual extracting, and setting RomFile
   if Compressed then
   begin
-    if aSoftware.System.ExtractAll then
+    if aSoftware.CachedSystem.ExtractAll then
       CompError := w7zExtractFile(CompressedFile, AllFilesMask,
         aFolder, True, '')
     else
@@ -678,16 +665,16 @@ begin
         ExtractAll is True then decompress it.
 
         RomFile := ZipFileName anyways. }
-    if aSoftware.System.ExtractAll and
-      SupportedExt(aSoftware.FileName, Config.CompressedExtensions) then
-    begin
-      // The ROM is a compressed file but must be extracted anyways
-      CompError := w7zExtractFile(RomFile, AllFilesMask, aFolder, True, '');
-      if CompError <> 0 then
-        { TODO : Exception or return Comperror code? }
-        Exit;
-      Compressed := True;
-    end;
+    //if aSoftware.CachedSystem.ExtractAll and
+    //  SupportedExt(aSoftware.FileName, Config.CompressedExtensions) then
+    //begin
+    //  // The ROM is a compressed file but must be extracted anyways
+    //  CompError := w7zExtractFile(RomFile, AllFilesMask, aFolder, True, '');
+    //  if CompError <> 0 then
+    //    { TODO : Exception or return Comperror code? }
+    //    Exit;
+    //  Compressed := True;
+    //end;
   end;
 
   // Last test if extracting goes wrong...
@@ -707,15 +694,15 @@ begin
   begin
     { TODO : This are not saved if lists are not saved on exit }
     aSoftware.Stats.AddPlayingTime(StartTime, TimePlaying);
-    aSoftware.Group.Stats.AddPlayingTime(StartTime, TimePlaying);
-    aSoftware.System.Stats.AddPlayingTime(StartTime, TimePlaying);
+    aSoftware.CachedGroup.Stats.AddPlayingTime(StartTime, TimePlaying);
+    aSoftware.CachedSystem.Stats.AddPlayingTime(StartTime, TimePlaying);
     aEmulator.Stats.AddPlayingTime(StartTime, TimePlaying);
   end;
 
   // X. Kill them all
   if Compressed then
   begin
-    if aSoftware.System.ExtractAll then
+    if aSoftware.CachedSystem.ExtractAll then
     begin
       DeleteDirectory(aFolder, not NewDir);
     end
@@ -730,9 +717,8 @@ end;
 procedure cEmuteca.SetProgressBar(AValue: TEmutecaProgressCallBack);
 begin
   FProgressCallBack := AValue;
-  EmulatorManager.ProgressCallBack := Self.ProgressCallBack;
-  SystemManager.ProgressCallBack := Self.ProgressCallBack;
-  SoftManager.ProgressCallBack := Self.ProgressCallBack;
+  EmulatorManager.ProgressCallBack := ProgressCallBack;
+  SystemManager.ProgressCallBack := ProgressCallBack;
 end;
 
 procedure cEmuteca.SetCacheDataThread(AValue: cEmutecaCacheDataThread);
@@ -755,15 +741,13 @@ begin
   FConfig := cEmutecaConfig.Create(Self);
 
   FSystemManager := cEmutecaSystemManager.Create(Self);
-  SystemManager.Config := Self.Config;
   FEmulatorManager := cEmutecaEmulatorManager.Create(Self);
-  FSoftManager := cEmutecaSoftManager.Create(Self);
 end;
 
 destructor cEmuteca.Destroy;
 begin
   // If we are still caching...
-  if Assigned(CacheDataThread) and not CacheDataThread.Finished then
+  if Assigned(CacheDataThread) then
     CacheDataThread.Terminate;
 
   // Deleting temp folder
@@ -774,7 +758,6 @@ begin
 
   Config.SaveConfig('');
 
-  FreeAndNil(FSoftManager);
   FreeAndNil(FSystemManager);
   FreeAndNil(FEmulatorManager);
   FreeAndNil(FConfig);

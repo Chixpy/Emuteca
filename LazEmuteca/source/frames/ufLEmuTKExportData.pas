@@ -9,7 +9,7 @@ uses
   Buttons, ActnList, StdCtrls, EditBtn,
   ufCHXPropEditor,
   ucEmuteca, ucEmutecaSystem,
-  ufEmutecaSystemCBX;
+  ufEmutecaSystemCBXOld;
 
 type
 
@@ -25,8 +25,6 @@ type
     procedure SetEmuteca(AValue: cEmuteca);
 
   protected
-    procedure ClearData; override;
-
     property fmSystemCBX: TfmEmutecaSystemCBX read FfmSystemCBX;
 
   public
@@ -35,6 +33,7 @@ type
     function SelectSystem(aSystem: cEmutecaSystem): boolean;
     //< Select a system
 
+    procedure ClearData; override;
     procedure LoadData; override;
     procedure SaveData; override;
 
@@ -60,7 +59,7 @@ begin
   begin
     fmSystemCBX.SystemList := nil;
   end;
-  self.Enabled := Assigned(Emuteca);
+  Enabled := Assigned(Emuteca);
 end;
 
 procedure TfmLEmuTKExportData.ClearData;
@@ -84,7 +83,7 @@ begin
 
     FfmSystemCBX := TfmEmutecaSystemCBX.Create(gbxSelectSystem);
     fmSystemCBX.Align := alTop;
-    fmSystemCBX.OnSelectSystem := @Self.SelectSystem;
+    fmSystemCBX.OnSelectSystem := @SelectSystem;
     fmSystemCBX.Parent := gbxSelectSystem;
 end;
 

@@ -26,7 +26,7 @@ unit ucEmutecaPlayingStats;
 interface
 
 uses
-  Classes, SysUtils, dateutils, IniFiles;
+  Classes, SysUtils, dateutils, IniFiles, Graphics;
 
 const
   krsIniKeyPlayingTime = 'PlayingTime';
@@ -43,10 +43,12 @@ type
 
   cEmutecaPlayingStats = class(TComponent)
   private
+    FIcon: TPicture;
     FIconIndex: integer;
     FLastTime: TDateTime;
     FPlayingTime: int64;
     FTimesPlayed: int64;
+    procedure SetIcon(AValue: TPicture);
     procedure SetIconIndex(AValue: integer);
     procedure SetLastTime(AValue: TDateTime);
     procedure SetPlayingTime(AValue: int64);
@@ -81,6 +83,7 @@ type
 
     { TODO : Cached data for GUI, store elsewhere? }
     property IconIndex: integer read FIconIndex write SetIconIndex;
+    property Icon: TPicture read FIcon write SetIcon;
   end;
 
 implementation
@@ -99,6 +102,12 @@ begin
   if FIconIndex = AValue then
     Exit;
   FIconIndex := AValue;
+end;
+
+procedure cEmutecaPlayingStats.SetIcon(AValue: TPicture);
+begin
+  if FIcon = AValue then Exit;
+  FIcon := AValue;
 end;
 
 procedure cEmutecaPlayingStats.SetPlayingTime(AValue: int64);
@@ -132,15 +141,15 @@ begin
 
   if ExportMode then
   begin
-    aIniFile.WriteInt64(Section, krsIniKeyPlayingTime, PlayingTime);
-    aIniFile.WriteInt64(Section, krsIniKeyTimesPlayed, TimesPlayed);
-    aIniFile.WriteDateTime(Section, krsIniKeyLastTime, LastTime);
+    aIniFile.DeleteKey(Section, krsIniKeyPlayingTime);
+    aIniFile.DeleteKey(Section, krsIniKeyPlayingTime);
+    aIniFile.DeleteKey(Section, krsIniKeyPlayingTime);
   end
   else
   begin
-    aIniFile.DeleteKey(Section, krsIniKeyPlayingTime);
-    aIniFile.DeleteKey(Section, krsIniKeyPlayingTime);
-    aIniFile.DeleteKey(Section, krsIniKeyPlayingTime);
+    aIniFile.WriteInt64(Section, krsIniKeyPlayingTime, PlayingTime);
+    aIniFile.WriteInt64(Section, krsIniKeyTimesPlayed, TimesPlayed);
+    aIniFile.WriteDateTime(Section, krsIniKeyLastTime, LastTime);
   end;
 end;
 
@@ -171,15 +180,15 @@ begin
 
   if ExportMode then
   begin
-    aTxtFile.Add(DateTimeToStr(LastTime));
-    aTxtFile.Add(IntToStr(TimesPlayed));
-    aTxtFile.Add(IntToStr(PlayingTime));
+    aTxtFile.Add('');
+    aTxtFile.Add('');
+    aTxtFile.Add('');
   end
   else
   begin
-    aTxtFile.Add('');
-    aTxtFile.Add('');
-    aTxtFile.Add('');
+    aTxtFile.Add(DateTimeToStr(LastTime));
+    aTxtFile.Add(IntToStr(TimesPlayed));
+    aTxtFile.Add(IntToStr(PlayingTime));
   end;
 end;
 

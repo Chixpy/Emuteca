@@ -1,4 +1,4 @@
-unit ufLEmuTKSoftMedia;
+unit ufLEmuTKSoftMediaOld;
 
 {$mode objfpc}{$H+}
 
@@ -47,6 +47,10 @@ type
     property Group: cEmutecaGroup read FGroup write SetGroup;
     property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
 
+    procedure ClearData;
+    procedure LoadData;
+    procedure SaveData;
+
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
   end;
@@ -60,8 +64,8 @@ implementation
 procedure TfmLEmuTKSoftMedia.SetIconsIni(AValue: string);
 begin
  FIconsIni := SetAsFile(AValue);
- SoftImgPreview.IconsIni := IconsIni;
- SoftTxtPreview.IconsIni := IconsIni;
+ SoftImgPreview.GUIIconsIni := IconsIni;
+ SoftTxtPreview.GUIIconsIni := IconsIni;
 end;
 
 procedure TfmLEmuTKSoftMedia.SetEmuteca(AValue: cEmuteca);
@@ -81,7 +85,7 @@ begin
   SoftImgPreview.Group := Group;
   SoftTxtPreview.Group := Group;
 
-  self.Enabled := Assigned(Group);
+  Enabled := Assigned(Group);
 end;
 
 procedure TfmLEmuTKSoftMedia.SetGUIConfig(AValue: cGUIConfig);
@@ -89,16 +93,8 @@ begin
   if FGUIConfig = AValue then Exit;
   FGUIConfig := AValue;
 
-  if Assigned(GUIConfig) then
-  begin
-    SoftImgPreview.ImageExt := GUIConfig.ImageExtensions;
-    SoftTxtPreview.TxtExt :=  GUIConfig.TextExtensions;
-  end
-  else
-  begin
-    SoftImgPreview.ImageExt := nil;
-    SoftImgPreview.ImageExt := nil;
-  end;
+    SoftImgPreview.GUIConfig := GUIConfig;
+    SoftTxtPreview.GUIConfig := GUIConfig;
 end;
 
 procedure TfmLEmuTKSoftMedia.SetSoftware(AValue: cEmutecaSoftware);
@@ -110,7 +106,22 @@ begin
   SoftImgPreview.Software := Software;
   SoftTxtPreview.Software := Software;
 
-  self.Enabled := Assigned(Software);
+  Enabled := Assigned(Software);
+end;
+
+procedure TfmLEmuTKSoftMedia.ClearData;
+begin
+
+end;
+
+procedure TfmLEmuTKSoftMedia.LoadData;
+begin
+
+end;
+
+procedure TfmLEmuTKSoftMedia.SaveData;
+begin
+
 end;
 
 constructor TfmLEmuTKSoftMedia.Create(TheOwner: TComponent);
@@ -128,7 +139,7 @@ constructor TfmLEmuTKSoftMedia.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
 
-  Self.Enabled := False;
+  Enabled := False;
 
   CreateFrames;
 end;

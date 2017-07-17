@@ -5,15 +5,19 @@ unit ufLEmuTKPreviewList;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, StdCtrls, ComCtrls, ActnList,
-  Buttons, ExtCtrls,
-  uCHXStrUtils, uCHXImageUtils;
+  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls,
+  StdCtrls, ExtCtrls, ActnList,
+  uCHXImageUtils,
+  ufCHXFrame;
+
+resourcestring
+  rsTotalItemsCount = ' / %0:d';
 
 type
 
   { TfmLEmuTKPreviewList }
 
-  TfmLEmuTKPreviewList = class(TFrame)
+  TfmLEmuTKPreviewList = class(TfmCHXFrame)
     actNextItem: TAction;
     actPreviousItem: TAction;
     alPreviewList: TActionList;
@@ -21,10 +25,10 @@ type
     ilPreviewList: TImageList;
     lMaxItems: TLabel;
     pPreview: TPanel;
+    tbNextItem: TToolButton;
     tbPreviewList: TToolBar;
     ToolButton1: TToolButton;
     ToolButton3: TToolButton;
-    tbNextItem: TToolButton;
     ToolButton6: TToolButton;
     procedure actNextItemExecute(Sender: TObject);
     procedure actPreviousItemExecute(Sender: TObject);
@@ -32,23 +36,25 @@ type
 
   private
     FCurrItem: integer;
-    FIconsIni: string;
     FItemCount: integer;
     procedure SetCurrItem(AValue: integer);
     procedure SetItemCount(AValue: integer);
 
   protected
-    property ItemCount: integer read FItemCount write SetItemCount default 0;
-    property CurrItem: integer read FCurrItem write SetCurrItem default 0;
-
-    procedure SetIconsIni(AValue: string); virtual;
+    procedure SetGUIIconsIni(AValue: string); override;
     procedure OnCurrItemChange; virtual; abstract;
 
   public
-    property IconsIni: string read FIconsIni write SetIconsIni;
+    property ItemCount: integer read FItemCount write SetItemCount;
+    property CurrItem: integer read FCurrItem write SetCurrItem;
+
+    procedure ClearData; override;
+    procedure LoadData; override;
+    procedure SaveData; override;
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
+
   end;
 
 implementation
@@ -58,34 +64,26 @@ implementation
 { TfmLEmuTKPreviewList }
 
 procedure TfmLEmuTKPreviewList.SetItemCount(AValue: integer);
-var
-  i: Integer;
 begin
-  if FItemCount = AValue then Exit;
+  if FItemCount = AValue then
+    Exit;
   FItemCount := AValue;
 
-  lMaxItems.Caption := ' / ' + IntToStr(ItemCount);
+  LoadData;
+end;
 
-  cbxCurrItem.Items.BeginUpdate;
-  try
-  cbxCurrItem.Items.Clear;
-  for i := 1 to ItemCount do
-    cbxCurrItem.Items.Add(IntToStr(i));
-    cbxCurrItem.Enabled := ItemCount > 1;
-  finally
-    cbxCurrItem.Items.EndUpdate;
-  end;
-
-  actNextItem.Enabled := ItemCount > 1;
-  actPreviousItem.Enabled := ItemCount > 1;
+procedure TfmLEmuTKPreviewList.SetGUIIconsIni(AValue: string);
+begin
+  inherited SetGUIIconsIni(AValue);
+  ReadActionsIcons(GUIIconsIni, Name, ilPreviewList, alPreviewList);
 end;
 
 procedure TfmLEmuTKPreviewList.actNextItemExecute(Sender: TObject);
 begin
   if ItemCount < 1 then
-   Exit;
+    Exit;
   if CurrItem = ItemCount then
-   CurrItem := 1
+    CurrItem := 1
   else
     CurrItem := CurrItem + 1;
 end;
@@ -93,9 +91,9 @@ end;
 procedure TfmLEmuTKPreviewList.actPreviousItemExecute(Sender: TObject);
 begin
   if ItemCount < 1 then
-   Exit;
+    Exit;
   if CurrItem = 1 then
-   CurrItem := ItemCount
+    CurrItem := ItemCount
   else
     CurrItem := CurrItem - 1;
 end;
@@ -107,19 +105,63 @@ end;
 
 procedure TfmLEmuTKPreviewList.SetCurrItem(AValue: integer);
 begin
-  // Update anyway
-  // if FCurrItem = AValue then Exit;
   FCurrItem := AValue;
+
+  if ItemCount > 0 then
+  begin
+    // Keep in range [1..ItemCount]
+    if CurrItem > ItemCount then
+    begin
+      CurrItem := ItemCount;
+    end
+    else if CurrItem < 1 then
+    begin
+      CurrItem := 1;
+    end;
+  end
+  else
+  begin
+    FCurrItem := 0;
+  end;
 
   cbxCurrItem.ItemIndex := FCurrItem - 1;
 
   OnCurrItemChange;
 end;
 
-procedure TfmLEmuTKPreviewList.SetIconsIni(AValue: string);
+procedure TfmLEmuTKPreviewList.ClearData;
 begin
-  FIconsIni := SetAsFile(AValue);
-  ReadActionsIcons(IconsIni, Self.Name, ilPreviewList, alPreviewList);
+  lMaxItems.Caption := format(rsTotalItemsCount, [ItemCount]);
+  cbxCurrItem.Clear;
+  CurrItem := 0;
+end;
+
+procedure TfmLEmuTKPreviewList.LoadData;
+var
+  i: integer;
+begin
+  ClearData;
+
+  cbxCurrItem.Items.BeginUpdate;
+  try
+    cbxCurrItem.Items.Clear;
+    for i := 1 to ItemCount do
+      cbxCurrItem.Items.Add(IntToStr(i));
+    cbxCurrItem.Enabled := ItemCount > 1;
+  finally
+    cbxCurrItem.Items.EndUpdate;
+  end;
+
+  actNextItem.Enabled := ItemCount > 1;
+  actPreviousItem.Enabled := ItemCount > 1;
+  cbxCurrItem.Enabled := ItemCount > 1;
+
+  CurrItem := 1;
+end;
+
+procedure TfmLEmuTKPreviewList.SaveData;
+begin
+
 end;
 
 constructor TfmLEmuTKPreviewList.Create(TheOwner: TComponent);

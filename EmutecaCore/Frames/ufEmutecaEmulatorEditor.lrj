@@ -6,6 +6,9 @@
 {"hash":207440883,"name":"tfmemutecaemulatoreditor.lextensions.caption","sourcebytes":[69,120,116,101,110,115,105,111,110,115],"value":"Extensions"},
 {"hash":6744405,"name":"tfmemutecaemulatoreditor.lexitcode.caption","sourcebytes":[69,120,105,116,32,99,111,100,101],"value":"Exit code"},
 {"hash":1236,"name":"tfmemutecaemulatoreditor.lid.caption","sourcebytes":[73,68],"value":"ID"},
+{"hash":214117378,"name":"tfmemutecaemulatoreditor.ldeveloper.caption","sourcebytes":[68,101,118,101,108,111,112,101,114],"value":"Developer"},
+{"hash":230123397,"name":"tfmemutecaemulatoreditor.lwebpage.caption","sourcebytes":[87,101,98,80,97,103,101],"value":"WebPage"},
 {"hash":184471746,"name":"tfmemutecaemulatoreditor.actwfemulator.caption","sourcebytes":[69,109,117,108,97,116,111,114,32,102,111,108,100,101,114],"value":"Emulator folder"},
-{"hash":114383154,"name":"tfmemutecaemulatoreditor.actwfrom.caption","sourcebytes":[82,79,77,32,102,111,108,100,101,114],"value":"ROM folder"}
+{"hash":114383154,"name":"tfmemutecaemulatoreditor.actwfrom.caption","sourcebytes":[82,79,77,32,102,111,108,100,101,114],"value":"ROM folder"},
+{"hash":148875141,"name":"tfmemutecaemulatoreditor.actopenwebpage.caption","sourcebytes":[79,112,101,110,32,87,101,98,112,97,103,101],"value":"Open Webpage"}
 ]}

@@ -11,8 +11,9 @@ uses
   uCHXFileUtils, uCHXStrUtils,
   ufCHXPropEditor,
   uEmutecaCommon,
-  ucEmuteca, ucEmutecaSystem, ucEmutecaSoftware,
-  ufEmutecaSystemCBX;
+  ucEmuteca, uaEmutecaCustomSystem, ucEmutecaSystem,
+  ucEmutecaSoftList, ucEmutecaSoftware,
+  ufEmutecaSystemCBXOld;
 
 type
 
@@ -35,13 +36,12 @@ type
   protected
     property cbxSystem: TfmEmutecaSystemCBX read FcbxSystem;
 
-    procedure ClearData; override;
-
     function SelectSystem(aSystem: cEmutecaSystem): boolean;
 
   public
     property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
 
+    procedure ClearData; override;
     procedure LoadData; override;
     procedure SaveData; override;
 
@@ -72,7 +72,7 @@ begin
       cbxSystem.cbxSystem.Items[0] := rsSelectSystem;
   end;
 
-  Self.Enabled := Assigned(Emuteca);
+  LoadData;
 end;
 
 procedure TfmEmutecaActAddFolder.ClearData;
@@ -97,17 +97,23 @@ end;
 
 procedure TfmEmutecaActAddFolder.LoadData;
 begin
-  // Nada
+   Enabled := Assigned(Emuteca);
+
+   if not enabled then
+     begin
+       ClearData;
+       Exit;
+     end;
 end;
 
 procedure TfmEmutecaActAddFolder.SaveData;
 var
   aSystem: cEmutecaSystem;
-  SoftSysList: cEmutecaSoftList;
   FolderList, FileList: TStrings;
   aSoft: cEmutecaSoftware;
   i, j: integer;
   Found, IsCompressed: boolean;
+  SoftSysList: cEmutecaSoftList;
 begin
   // TODO: Make it faaaster!!
   if not assigned(Emuteca) then
@@ -120,6 +126,7 @@ begin
     Exit;
 
   SoftSysList := cEmutecaSoftList.Create(False);
+  SoftSysList.Assign(aSystem.SoftManager.FullList);
 
   FolderList := TStringList.Create;
   FolderList.BeginUpdate;
@@ -131,20 +138,9 @@ begin
       Emuteca.ProgressCallBack('Adding files', 'Searching for: ' +
         aSystem.Extensions.CommaText, 'This can take a while', 1, 20);
 
-    // Caching system software
-    i := 0;
-    while i < Emuteca.SoftManager.FullList.Count do
-    begin
-      aSoft := Emuteca.SoftManager.FullList[i];
-      if aSoft.System = aSystem then
-        SoftSysList.Add(aSoft);
-      Inc(i);
-    end;
-
     // Searching files
     if chkNoZip.Checked then
     begin
-      // Speed up for MAME or Windows (Searching for exe...)
       // 1.- Straight search
       FindAllFiles(FileList, eFolder.Text,
         FileMaskFromStringList(aSystem.Extensions), True);
@@ -189,6 +185,7 @@ begin
             else // Ignore
               aSoft := nil;
           end;
+          SoftSysList.Delete(j); // Speeds up following searchs
           Found := True;
         end;
         Inc(j);
@@ -199,9 +196,9 @@ begin
         aSoft := cEmutecaSoftware.Create(nil);
         aSoft.Folder := FolderList[i];
         aSoft.FileName := FileList[i];
-        aSoft.System := aSystem;
+        aSoft.CachedSystem := aSystem;
 
-        Emuteca.SoftManager.FullList.Add(aSoft);
+        aSystem.SoftManager.FullList.Add(aSoft);
       end;
 
       if assigned(aSoft) then
@@ -259,6 +256,7 @@ begin
     FileList.EndUpdate;
 
   finally
+    aSystem.CacheData;
 
     if assigned(Emuteca.ProgressCallBack) then
       Emuteca.ProgressCallBack('', '', '', 0, 0);
@@ -266,10 +264,6 @@ begin
     FreeAndNil(FolderList);
     FreeAndNil(FileList);
     FreeAndNil(SoftSysList);
-
-    Emuteca.SystemManager.SaveToFileIni('', False);
-    Emuteca.SoftManager.SaveSoftOfSystem(aSystem, False);
-    // Emuteca.SoftManager.SaveSoftOfSystems(False);
   end;
 end;
 
@@ -286,10 +280,10 @@ constructor TfmEmutecaActAddFolder.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
 
-  Self.Enabled := False;
+  Enabled := False;
 
   CreateFrames;
-  Self.Invalidate;
+  Invalidate;
 end;
 
 destructor TfmEmutecaActAddFolder.Destroy;

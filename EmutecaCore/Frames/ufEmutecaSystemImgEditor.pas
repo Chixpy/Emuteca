@@ -9,7 +9,7 @@ uses
   EditBtn, ExtCtrls, Buttons, ActnList, ComCtrls,
   uCHXStrUtils, uCHXDlgUtils,
   ufCHXPropEditor, ufCHXForm, ufCHXImgViewer,
-  ucEmutecaConfig, ucEmutecaSystem;
+  ucEmutecaSystem;
 
 type
 
@@ -55,7 +55,6 @@ type
     procedure SetSystem(AValue: cEmutecaSystem);
 
   protected
-    procedure ClearData; override;
 
     procedure UpdateFolderData;
 
@@ -63,6 +62,7 @@ type
     { public declarations }
     property System: cEmutecaSystem read FSystem write SetSystem;
 
+    procedure ClearData; override;
     procedure SaveData; override;
     procedure LoadData; override;
 
@@ -104,10 +104,10 @@ begin
   Application.CreateForm(TfrmCHXForm, aForm);
   { TODO : Uncomment this }
   // aForm.GUIConfigIni := ;
-  aForm.GUIIconsIni := Self.GUIIconsIni;
+  aForm.GUIIconsIni := GUIIconsIni;
 
   fmCHXImageViewer := TfmCHXImgViewer.Create(aForm);
-  fmCHXImageViewer.IconsIniFile := Self.GUIIconsIni;
+  fmCHXImageViewer.IconsIniFile := GUIIconsIni;
   fmCHXImageViewer.AddImage(System.Image);
   fmCHXImageViewer.Parent := aForm;
 
@@ -162,8 +162,6 @@ begin
 end;
 
 procedure TfmSystemImgEditor.actAddImgFolderExecute(Sender: TObject);
-var
-  aStr: string;
 begin
   if not Assigned(System) then
     Exit;
@@ -245,7 +243,7 @@ begin
 
   LoadData;
 
-  self.Enabled := Assigned(System);
+  Enabled := Assigned(System);
 end;
 
 procedure TfmSystemImgEditor.SaveData;

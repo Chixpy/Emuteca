@@ -1,4 +1,4 @@
-unit ufEmutecaSystemCBX;
+unit ufEmutecaSystemCBXOld;
 
 {$mode objfpc}{$H+}
 
@@ -6,7 +6,11 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, StdCtrls,
-  ucEmutecaSystem;
+  ucEmutecaSystemList, ucEmutecaSystem;
+
+resourcestring
+  rsAllSystems = 'All Systems';
+  rsSelectSystem = 'Select a System';
 
 type
 
@@ -40,6 +44,10 @@ type
     property OnSelectSystem: TEmutecaReturnSystemCB
       read FOnSelectSystem write SetOnSelectSystem;
     {< Callback when selecting a system. }
+
+    procedure ClearData;
+    procedure LoadData;
+    procedure SaveData;
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -136,6 +144,29 @@ begin
   cbxSystem.Items.Insert(0, rsAllSystems);
   cbxSystem.ItemIndex := 0;
   cbxSystem.Items.EndUpdate;
+end;
+
+procedure TfmEmutecaSystemCBX.ClearData;
+begin
+  cbxSystem.Clear;
+end;
+
+procedure TfmEmutecaSystemCBX.LoadData;
+begin
+  Enabled := Assigned(SystemList);
+
+  ClearData;
+
+  if not Enabled then
+    Exit;
+
+  SystemList.AssignToStrLst(cbxSystem.Items);
+  cbxSystem.Items.Insert(0, rsAllSystems);
+end;
+
+procedure TfmEmutecaSystemCBX.SaveData;
+begin
+
 end;
 
 end.

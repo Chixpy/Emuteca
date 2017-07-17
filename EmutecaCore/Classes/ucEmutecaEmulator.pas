@@ -26,23 +26,26 @@ unit ucEmutecaEmulator;
 interface
 
 uses  Classes, SysUtils, FileUtil, StrUtils, LazUTF8, LazFileUtils,
-  IniFiles, fgl,
+  IniFiles,
   // CHX units
   uCHXStrUtils,
-  // Emuteca units
-  uaCHXStorable,
   ucEmutecaPlayingStats;
 
 const
   // Ini file Keys
   // -------------
-  krsEmulatorEnabledKey = 'Enabled';  // TODO: uEmutecaCommon.pas
+  krsEmulatorEnabledKey = 'Enabled';
   krsEmulatorNameKey = 'Name';
   krsEmulatorWorkingFoldeKey = 'WorkingFolder';
-  krsEmulatorParameters = 'Parameters';
+  krsEmulatorParametersKey = 'Parameters';
   krsEmulatorExitCodeKey = 'ExitCode';
   krsEmulatorExeFileKey = 'ExeFile';
   krsEmulatorFileExtKey = 'Extensions';
+  krsEmulatorDeveloperKey = 'Developer';
+  krsEmulatorWebPageKey = 'WebPage';
+  krsEmulatorIconKey = 'Icon';
+  krsEmulatorImageKey = 'Image';
+  krsEmulatorInfoFileKey = 'InfoFile';
 
   // Keys for command line parameters for emulators
   // ----------------------------------------------
@@ -70,22 +73,32 @@ type
     Stores all basic info of an emulator. }
   cEmutecaEmulator = class(TComponent)
   private
+    FDeveloper: string;
     FEmulatorName: string;
     FEnabled: boolean;
     FExeFile: string;
     FExitCode: integer;
     FFileExt: TStringList;
+    FIcon: string;
     FID: string;
+    FImage: string;
+    FInfoFile: string;
     FParameters: string;
     FStats: cEmutecaPlayingStats;
+    FWebPage: string;
     FWorkingFolder: string;
+    procedure SetDeveloper(AValue: string);
     procedure SetEmulatorName(AValue: string);
     procedure SetEnabled(AValue: boolean);
     procedure SetExeFile(AValue: string);
     procedure SetExitCode(AValue: integer);
     procedure SetFileExt(AValue: TStringList);
+    procedure SetIcon(AValue: string);
     procedure SetID(AValue: string);
+    procedure SetImage(AValue: string);
+    procedure SetInfoFile(AValue: string);
     procedure SetParameters(AValue: string);
+    procedure SetWebPage(AValue: string);
     procedure SetWorkingFolder(AValue: string);
 
   public
@@ -95,8 +108,8 @@ type
     function Execute(GameFile: string): integer;
     function ExecuteAlone: integer;
 
-    procedure LoadFromIni(IniFile: TCustomIniFile);
-    procedure SaveToIni(IniFile: TCustomIniFile; const ExportMode: boolean);
+    procedure LoadFromIni(aIniFile: TCustomIniFile);
+    procedure SaveToIni(aIniFile: TCustomIniFile; const ExportMode: boolean);
 
   published
     property ID: string read FID write SetID;
@@ -149,13 +162,18 @@ type
     {< Code returned by emulator in usual conditions. Emuteca will not show
          an error message if this code is returned. }
 
-             // Usage statitics
+    // Additional info data
+    // --------------------
+    property Developer: string read FDeveloper write SetDeveloper;
+    property WebPage: string read FWebPage write SetWebPage;
+    property Icon: string read FIcon write SetIcon;
+    property Image: string read FImage write SetImage;
+    property InfoFile: string read FInfoFile write SetInfoFile;
+
+    // Usage statitics
     // ---------------
     property Stats: cEmutecaPlayingStats read FStats;
   end;
-
-  cEmutecaGenEmulatorList = specialize TFPGObjectList<cEmutecaEmulator>;
-  cEmutecaEmulatorList = class (cEmutecaGenEmulatorList);
 
   TEmutecaReturnEmulatorCB = function(aEmulator: cEmutecaEmulator): boolean of
     object;
@@ -173,11 +191,32 @@ begin
   FPONotifyObservers(Self, ooChange, nil);
 end;
 
+procedure cEmutecaEmulator.SetImage(AValue: string);
+begin
+  if FImage = AValue then
+    Exit;
+  FImage := AValue;
+end;
+
+procedure cEmutecaEmulator.SetInfoFile(AValue: string);
+begin
+  if FInfoFile = AValue then
+    Exit;
+  FInfoFile := AValue;
+end;
+
 procedure cEmutecaEmulator.SetParameters(AValue: string);
 begin
   if FParameters = AValue then
     Exit;
   FParameters := AValue;
+end;
+
+procedure cEmutecaEmulator.SetWebPage(AValue: string);
+begin
+  if FWebPage = AValue then
+    Exit;
+  FWebPage := AValue;
 end;
 
 procedure cEmutecaEmulator.SetWorkingFolder(AValue: string);
@@ -201,6 +240,13 @@ begin
   FEmulatorName := AValue;
 end;
 
+procedure cEmutecaEmulator.SetDeveloper(AValue: string);
+begin
+  if FDeveloper = AValue then
+    Exit;
+  FDeveloper := AValue;
+end;
+
 procedure cEmutecaEmulator.SetExeFile(AValue: string);
 begin
   FExeFile := SetAsFile(AValue);
@@ -220,14 +266,21 @@ begin
   FFileExt := AValue;
 end;
 
+procedure cEmutecaEmulator.SetIcon(AValue: string);
+begin
+  if FIcon = AValue then
+    Exit;
+  FIcon := AValue;
+end;
+
 constructor cEmutecaEmulator.Create(aOwner: TComponent);
 begin
   inherited Create(aOwner);
 
-   FStats := cEmutecaPlayingStats.Create(Self);
+  FStats := cEmutecaPlayingStats.Create(Self);
 
-  self.WorkingFolder := kEmutecaEmuDirKey;
-  self.Parameters := '"' + kEmutecaROMPathKey + '"';
+  WorkingFolder := kEmutecaEmuDirKey;
+  Parameters := '"' + kEmutecaROMPathKey + '"';
 
   FFileExt := TStringList.Create;
 end;
@@ -257,7 +310,7 @@ begin
     GameFile := CreateAbsoluteSearchPath(GameFile, CurrFolder);
 
   // Changing current directory
-  TempDir := SysPath(Self.WorkingFolder);
+  TempDir := SysPath(WorkingFolder);
   TempDir := AnsiReplaceText(TempDir, kEmutecaEmuDirKey,
     ExtractFileDir(ExeFile));
   TempDir := AnsiReplaceText(TempDir, kEmutecaRomDirKey,
@@ -270,7 +323,7 @@ begin
       ChDir(TempDir);
 
   // Changing parameters
-  TempParam := Self.Parameters;
+  TempParam := Parameters;
   TempParam := AnsiReplaceText(TempParam, kEmutecaROMPathKey, GameFile);
   TempParam := AnsiReplaceText(TempParam, kEmutecaRomDirKey,
     ExtractFileDir(GameFile));
@@ -294,9 +347,9 @@ begin
     // Hack: If normal exit code <> 0, switch 0 and ExitCode
     //   So, this way 0 always is the correct exit of the program,
     //     and Managers don't care about wich is the actual code
-    if (Self.ExitCode <> 0) then
+    if (ExitCode <> 0) then
       if Result = 0 then
-        Result := Self.ExitCode
+        Result := ExitCode
       else
         Result := 0;
 
@@ -315,7 +368,7 @@ begin
 
   // Changing current file
   CurrFolder := GetCurrentDirUTF8;
-  TempDir := Self.WorkingFolder;
+  TempDir := WorkingFolder;
   TempDir := AnsiReplaceText(TempDir, kEmutecaEmuDirKey,
     ExtractFileDir(ExeFile));
   TempDir := AnsiReplaceText(TempDir, kEmutecaRomDirKey,
@@ -328,9 +381,9 @@ begin
   try
     Result := SysUtils.ExecuteProcess(UTF8ToSys(ExeFile), '');
 
-    if (Self.ExitCode <> 0) then
+    if (ExitCode <> 0) then
       if Result = 0 then
-        Result := Self.ExitCode
+        Result := ExitCode
       else
         Result := 0;
 
@@ -339,47 +392,66 @@ begin
   end;
 end;
 
-procedure cEmutecaEmulator.LoadFromIni(IniFile: TCustomIniFile);
+procedure cEmutecaEmulator.LoadFromIni(aIniFile: TCustomIniFile);
 begin
-  if not assigned(IniFile) then
+  if not assigned(aIniFile) then
     Exit;
 
-  Enabled := IniFile.ReadBool(self.ID, krsEmulatorEnabledKey, Enabled);
+  Enabled := aIniFile.ReadBool(ID, krsEmulatorEnabledKey, Enabled);
 
-  EmulatorName := IniFile.ReadString(self.ID, krsEmulatorNameKey,
-    EmulatorName);
+  EmulatorName := aIniFile.ReadString(ID, krsEmulatorNameKey, EmulatorName);
 
-  ExeFile := IniFile.ReadString(self.ID, krsEmulatorExeFileKey, ExeFile);
-  WorkingFolder := IniFile.ReadString(self.ID, krsEmulatorWorkingFoldeKey,
+  ExeFile := aIniFile.ReadString(ID, krsEmulatorExeFileKey, ExeFile);
+  WorkingFolder := aIniFile.ReadString(ID, krsEmulatorWorkingFoldeKey,
     WorkingFolder);
-  Parameters := IniFile.ReadString(self.ID, krsEmulatorParameters,
+  Parameters := aIniFile.ReadString(ID, krsEmulatorParametersKey,
     Parameters);
-  FileExt.CommaText := IniFile.ReadString(self.ID,
-    krsEmulatorFileExtKey, FileExt.CommaText);
-  ExitCode := IniFile.ReadInteger(self.ID, krsEmulatorExitCodeKey, ExitCode);
+  FileExt.CommaText := aIniFile.ReadString(ID, krsEmulatorFileExtKey,
+    FileExt.CommaText);
+  ExitCode := aIniFile.ReadInteger(ID, krsEmulatorExitCodeKey, ExitCode);
+
+  Developer := aIniFile.ReadString(ID, krsEmulatorDeveloperKey,
+    Developer);
+  WebPage := aIniFile.ReadString(ID, krsEmulatorWebPageKey, WebPage);
+  Icon := aIniFile.ReadString(ID, krsEmulatorIconKey, Icon);
+  Image := aIniFile.ReadString(ID, krsEmulatorImageKey, Image);
+  InfoFile := aIniFile.ReadString(ID, krsEmulatorInfoFileKey, InfoFile);
+
+  Stats.LoadFromIni(aIniFile, ID);
 end;
 
-procedure cEmutecaEmulator.SaveToIni(IniFile: TCustomIniFile;
+procedure cEmutecaEmulator.SaveToIni(aIniFile: TCustomIniFile;
   const ExportMode: boolean);
 begin
-  if not assigned(IniFile) then
+  if not assigned(aIniFile) then
     Exit;
-  IniFile.WriteString(self.ID, krsEmulatorNameKey, EmulatorName);
+  aIniFile.WriteString(ID, krsEmulatorNameKey, EmulatorName);
 
-  IniFile.WriteString(self.ID, krsEmulatorWorkingFoldeKey, WorkingFolder);
-  IniFile.WriteString(self.ID, krsEmulatorParameters, Parameters);
-  IniFile.WriteInteger(self.ID, krsEmulatorExitCodeKey, ExitCode);
+  aIniFile.WriteString(ID, krsEmulatorWorkingFoldeKey, WorkingFolder);
+  aIniFile.WriteString(ID, krsEmulatorParametersKey, Parameters);
+  aIniFile.WriteInteger(ID, krsEmulatorExitCodeKey, ExitCode);
+
+  aIniFile.WriteString(ID, krsEmulatorDeveloperKey, Developer);
+  aIniFile.WriteString(ID, krsEmulatorWebPageKey, WebPage);
 
   if ExportMode then
   begin
-    IniFile.DeleteKey(self.ID, krsEmulatorExeFileKey);
-    IniFile.DeleteKey(self.ID, krsEmulatorEnabledKey);
+    aIniFile.DeleteKey(ID, krsEmulatorExeFileKey);
+    aIniFile.DeleteKey(ID, krsEmulatorEnabledKey);
+    aIniFile.DeleteKey(ID, krsEmulatorIconKey);
+    aIniFile.DeleteKey(ID, krsEmulatorImageKey);
+    aIniFile.DeleteKey(ID, krsEmulatorInfoFileKey);
   end
   else
   begin
-    IniFile.WriteString(self.ID, krsEmulatorExeFileKey, ExeFile);
-    IniFile.WriteBool(self.ID, krsEmulatorEnabledKey, Enabled);
+    aIniFile.WriteString(ID, krsEmulatorExeFileKey, ExeFile);
+    aIniFile.WriteBool(ID, krsEmulatorEnabledKey, Enabled);
+    aIniFile.WriteString(ID, krsEmulatorIconKey, Icon);
+    aIniFile.WriteString(ID, krsEmulatorImageKey, Image);
+    aIniFile.WriteString(ID, krsEmulatorInfoFileKey, InfoFile);
   end;
+
+  Stats.WriteToIni(aIniFile, ID, ExportMode);
 end;
 
 end.

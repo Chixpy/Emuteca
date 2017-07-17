@@ -29,56 +29,38 @@ uses
   Classes, SysUtils, FileUtil, LazFileUtils, IniFiles,
   LazUTF8, LConvEncoding, LResources,
   uaCHXStorable,
-  // Emuteca core
-  uEmutecaCommon,
-  ucEmutecaConfig, ucEmutecaGroup;
-
-resourcestring
-  rsLoadingGroupList = 'Loading parent list...';
-  rsSavingGroupList = 'Saving parent list...';
+  uaEmutecaCustomSystem, ucEmutecaGroupList;
 
 type
   { cEmutecaGroupManager }
 
   cEmutecaGroupManager = class(caCHXStorableTxt)
   private
-    FConfig: cEmutecaConfig;
-    FSystem: TObject;
+    FSystem: caEmutecaCustomSystem;
     FVisibleList: cEmutecaGroupList;
     FFullList: cEmutecaGroupList;
-    procedure SetConfig(AValue: cEmutecaConfig);
-    procedure SetSystem(AValue: TObject);
+    procedure SetSystem(AValue: caEmutecaCustomSystem);
 
   protected
 
   public
-    property Config: cEmutecaConfig read FConfig write SetConfig;
-
-    property System: TObject read FSystem write SetSystem;
+    property System: caEmutecaCustomSystem read FSystem write SetSystem;
 
     property FullList: cEmutecaGroupList read FFullList;
     {< Actual list where the parents are stored. }
     property VisibleList: cEmutecaGroupList read FVisibleList;
     {< Filtered parent list. }
 
+    function AddGroup(aID: string): integer;
+
     procedure LoadFromStrLst(TxtFile: TStrings); override;
-    procedure SaveToStrLst(TxtFile: TStrings; const ExportMode: boolean); override;
+    procedure SaveToStrLst(TxtFile: TStrings; const ExportMode: boolean);
+      override;
     procedure LoadFromIni(aIniFile: TMemIniFile); override;
-    procedure SaveToIni(aIniFile: TMemIniFile; const ExportMode: boolean); override;
+    procedure SaveToIni(aIniFile: TMemIniFile; const ExportMode: boolean);
+      override;
 
-    function ItemById(aId: string; Autocreate: boolean): cEmutecaGroup;
-    {< Returns the parent with aId key.
-
-       @Result cEmutecaGroup found or nil.
-    }
-    {
-    procedure FilterBySystem(aSystemKey: string);
-    }
-
-    procedure Clear;
-
-    procedure AssingAllTo(aList: TStrings);
-    procedure AssingEnabledTo(aList: TStrings);
+    procedure ClearData;
 
     constructor Create(aOwner: TComponent); override;
     destructor Destroy; override;
@@ -86,97 +68,42 @@ type
 
 implementation
 
+uses uaEmutecaCustomGroup,
+  ucEmutecaSystem, ucEmutecaGroup;
+
 { cEmutecaGroupManager }
 
-function cEmutecaGroupManager.ItemById(aId: string;
-  Autocreate: boolean): cEmutecaGroup;
-var
-  i: integer;
-  aGroup: cEmutecaGroup;
-begin
-  Result := nil;
-
-  // Inverse search can be faster
-  i := FullList.Count;
-  while (not assigned(Result)) and (i > 0) do
-  begin
-    Dec(i);
-    aGroup := cEmutecaGroup(FullList[i]);
-    if UTF8CompareText(aGroup.ID, aId) = 0 then
-      Result := aGroup;
-  end;
-
-  // Opps, creating it
-  if Autocreate and (not assigned(Result)) then
-  begin
-    Result := cEmutecaGroup.Create(nil);
-    Result.ID := aId;
-    Result.Title := aId;
-    Result.System := System;
-    Self.FullList.Add(Result);
-  end;
-end;
-
-procedure cEmutecaGroupManager.Clear;
+procedure cEmutecaGroupManager.ClearData;
 begin
   VisibleList.Clear;
   FullList.Clear;
 end;
 
-procedure cEmutecaGroupManager.AssingAllTo(aList: TStrings);
+procedure cEmutecaGroupManager.SetSystem(AValue: caEmutecaCustomSystem);
 var
-  i: longint;
+  i: integer;
   aGroup: cEmutecaGroup;
 begin
-  if not assigned(aList) then
-    aList := TStringList.Create;
+  if FSystem = AValue then
+    Exit;
+  FSystem := AValue;
 
-  aList.BeginUpdate;
-  aList.Capacity := aList.Count + FullList.Count; // Speed up?
   i := 0;
   while i < FullList.Count do
   begin
     aGroup := cEmutecaGroup(FullList[i]);
-    aList.AddObject(aGroup.Title, aGroup);
-    Inc(i);
+    aGroup.CachedSystem := System;
   end;
-  aList.EndUpdate;
 end;
 
-procedure cEmutecaGroupManager.AssingEnabledTo(aList: TStrings);
+function cEmutecaGroupManager.AddGroup(aID: string): integer;
 var
-  i: longint;
-  aGroup: cEmutecaGroup;
+  TempGroup: cEmutecaGroup;
 begin
-  if not assigned(aList) then
-    aList := TStringList.Create;
-
-  aList.BeginUpdate;
-  aList.Capacity := aList.Count + VisibleList.Count; // Speed up?
-  i := 0;
-  while i < VisibleList.Count do
-  begin
-    aGroup := cEmutecaGroup(VisibleList[i]);
-    aList.AddObject(aGroup.Title, aGroup);
-    Inc(i);
-  end;
-  aList.EndUpdate;
-end;
-
-procedure cEmutecaGroupManager.SetSystem(AValue: TObject);
-var
-  i: Integer;
-  aGroup: cEmutecaGroup;
-begin
-  if FSystem = AValue then Exit;
-  FSystem := AValue;
-
-      i := 0;
-    while i < FullList.Count do
-    begin
-      aGroup := cEmutecaGroup(FullList[i]);
-      aGroup.System := System;
-    end;
+  TempGroup := cEmutecaGroup.Create(nil);
+  TempGroup.ID := aID;
+  TempGroup.CachedSystem := System;
+  Result := FullList.Add(TempGroup);
 end;
 
 procedure cEmutecaGroupManager.LoadFromIni(aIniFile: TMemIniFile);
@@ -188,12 +115,6 @@ procedure cEmutecaGroupManager.SaveToIni(aIniFile: TMemIniFile;
   const ExportMode: boolean);
 begin
 
-end;
-
-procedure cEmutecaGroupManager.SetConfig(AValue: cEmutecaConfig);
-begin
-  if FConfig = AValue then Exit;
-  FConfig := AValue;
 end;
 
 procedure cEmutecaGroupManager.LoadFromStrLst(TxtFile: TStrings);
@@ -210,8 +131,8 @@ begin
   while i < TxtFile.Count do
   begin
     TempGroup := cEmutecaGroup.Create(nil);
-    TempGroup.DataString := TxtFile[i];
-    TempGroup.System := System;
+    TempGroup.TXTString := TxtFile[i];
+    TempGroup.CachedSystem := System;
 
     FullList.Add(TempGroup);
     Inc(i);
@@ -244,7 +165,7 @@ begin
     while i < FullList.Count do
     begin
       aGroup := cEmutecaGroup(FullList[i]);
-      TxtFile.Add(aGroup.DataString);
+      TxtFile.Add(aGroup.TXTString);
       Inc(i);
     end;
 
@@ -256,10 +177,8 @@ end;
 constructor cEmutecaGroupManager.Create(aOwner: TComponent);
 begin
   inherited Create(aOwner);
-
   FFullList := cEmutecaGroupList.Create(True);
   FVisibleList := cEmutecaGroupList.Create(False);
-  // TODO: OnCompare FullList.OnCompare := ;
 end;
 
 destructor cEmutecaGroupManager.Destroy;

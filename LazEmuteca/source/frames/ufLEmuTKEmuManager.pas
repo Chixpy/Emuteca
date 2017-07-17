@@ -29,7 +29,6 @@ type
     procedure SetEmuManager(AValue: cEmutecaEmulatorManager);
 
   protected
-    procedure ClearData; override;
     property EmuEditor: TfmEmutecaEmulatorEditor
       read FEmuEditor write SetEmuEditor;
 
@@ -45,6 +44,7 @@ type
     property EmuManager: cEmutecaEmulatorManager
       read FEmuManager write SetEmuManager;
 
+    procedure ClearData; override;
     procedure LoadData; override;
     procedure SaveData; override;
 
@@ -163,9 +163,9 @@ var
 begin
   ClearData;
 
-  self.Enabled := Assigned(EmuManager);
+  Enabled := Assigned(EmuManager);
 
-  if not self.Enabled then
+  if not Enabled then
     Exit;
 
   EmuManager.AssingAllTo(clbPropItems.Items);

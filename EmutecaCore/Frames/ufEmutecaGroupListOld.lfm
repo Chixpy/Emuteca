@@ -6,6 +6,7 @@ object fmEmutecaGroupList: TfmEmutecaGroupList
   Align = alClient
   ClientHeight = 202
   ClientWidth = 636
+  LCLVersion = '6.0'
   TabOrder = 0
   DesignLeft = 596
   DesignTop = 144

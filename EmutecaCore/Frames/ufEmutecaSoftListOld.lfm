@@ -7,8 +7,8 @@ object fmEmutecaSoftList: TfmEmutecaSoftList
   ClientHeight = 204
   ClientWidth = 701
   TabOrder = 0
-  DesignLeft = 286
-  DesignTop = 232
+  DesignLeft = 601
+  DesignTop = 201
   object VST: TVirtualStringTree
     Left = 0
     Height = 181
@@ -103,8 +103,8 @@ object fmEmutecaSoftList: TfmEmutecaSoftList
   end
   object ppmSoftList: TPopupMenu
     Images = ilSoftList
-    left = 58
-    top = 71
+    Left = 58
+    Top = 71
     object miOpenSystemFolder: TMenuItem
       Action = actOpenSystemFolder
     end
@@ -115,8 +115,8 @@ object fmEmutecaSoftList: TfmEmutecaSoftList
   end
   object alSoftList: TActionList
     Images = ilSoftList
-    left = 232
-    top = 93
+    Left = 232
+    Top = 93
     object actOpenSystemFolder: TAction
       Category = 'Open Folder'
       Caption = 'Open system folder'
@@ -129,7 +129,7 @@ object fmEmutecaSoftList: TfmEmutecaSoftList
     end
   end
   object ilSoftList: TImageList
-    left = 58
-    top = 128
+    Left = 58
+    Top = 128
   end
 end
