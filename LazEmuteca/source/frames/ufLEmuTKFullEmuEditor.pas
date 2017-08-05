@@ -26,13 +26,13 @@ type
   protected
     property EmuEditor: TfmEmutecaEmulatorEditor read FEmuEditor;
 
+    procedure ClearFrameData; override;
+    procedure LoadFrameData; override;
   public
     { public declarations }
     property Emulator: cEmutecaEmulator read FEmulator write SetEmulator;
 
-    procedure ClearData; override;
-    procedure LoadData; override;
-    procedure SaveData; override;
+    procedure SaveFrameData; override;
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -51,21 +51,19 @@ begin
   EmuEditor.Emulator := Emulator;
 end;
 
-procedure TfmLEmuTKFullEmuEditor.ClearData;
+procedure TfmLEmuTKFullEmuEditor.ClearFrameData;
 begin
 
 end;
 
-procedure TfmLEmuTKFullEmuEditor.LoadData;
+procedure TfmLEmuTKFullEmuEditor.LoadFrameData;
 begin
-  ClearData;
 
-  EmuEditor.LoadData;
 end;
 
-procedure TfmLEmuTKFullEmuEditor.SaveData;
+procedure TfmLEmuTKFullEmuEditor.SaveFrameData;
 begin
-  EmuEditor.SaveData;
+  EmuEditor.SaveFrameData;
 end;
 
 constructor TfmLEmuTKFullEmuEditor.Create(TheOwner: TComponent);

@@ -8,10 +8,11 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
   ExtCtrls, Buttons, ActnList, StdCtrls, EditBtn, LazFileUtils,
   u7zWrapper,
-  uCHXStrUtils, uCHXFileUtils,
+  uCHXStrUtils, uCHXFileUtils, ufCHXForm,
   ufCHXPropEditor,
   uEmutecaCommon, ucEmuteca, uaEmutecaCustomSystem,
-  ucEmutecaSystem, ucEmutecaSoftList, ucEmutecaSoftware, ufEmutecaSoftEditor, ufEmutecaSystemCBXOld;
+  ucEmutecaSystem, ucEmutecaSoftList, ucEmutecaSoftware,
+  ufEmutecaSoftEditor, ufEmutecaSystemCBX;
 
 type
 
@@ -34,14 +35,14 @@ type
     Splitter1: TSplitter;
     procedure cbxInnerFileChange(Sender: TObject);
     procedure chkOpenAsArchiveChange(Sender: TObject);
-    procedure eFileAcceptFileName(Sender: TObject; var Value: String);
+    procedure eFileAcceptFileName(Sender: TObject; var Value: string);
     procedure eFileEditingDone(Sender: TObject);
     procedure eVersionKeyEditingDone(Sender: TObject);
     procedure rgbSoftKeySelectionChanged(Sender: TObject);
 
   private
-    FcbxSystem: TfmEmutecaSystemCBX;
-    FSoftEditor: TfmEmutecaSoftEditor;
+    FfmSystemCBX: TfmEmutecaSystemCBX;
+    FfmSoftEditor: TfmEmutecaSoftEditor;
 
   private
     FEmuteca: cEmuteca;
@@ -50,8 +51,8 @@ type
     procedure SetSoftware(AValue: cEmutecaSoftware);
 
   protected
-    property SoftEditor: TfmEmutecaSoftEditor read FSoftEditor;
-    property cbxSystem: TfmEmutecaSystemCBX read FcbxSystem;
+    property fmSoftEditor: TfmEmutecaSoftEditor read FfmSoftEditor;
+    property fmSystemCBX: TfmEmutecaSystemCBX read FfmSystemCBX;
 
     property Software: cEmutecaSoftware read FSoftware write SetSoftware;
 
@@ -63,12 +64,17 @@ type
 
     function SelectSystem(aSystem: cEmutecaSystem): boolean;
 
+    procedure ClearFrameData; override;
+    procedure LoadFrameData; override;
+
   public
     property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
 
-    procedure ClearData; override;
-    procedure LoadData; override;
-    procedure SaveData; override;
+    procedure SaveFrameData; override;
+
+    // Creates a form with AddSoft frame.
+    class function SimpleForm(aEmuteca: cEmuteca; aGUIIconsIni: string;
+      aGUIConfigIni: string): integer;
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -80,9 +86,11 @@ implementation
 
 { TfmEmutecaActAddSoft }
 
-procedure TfmEmutecaActAddSoft.ClearData;
+procedure TfmEmutecaActAddSoft.ClearFrameData;
 begin
-  cbxSystem.SelectedSystem := nil;
+  fmSystemCBX.SelectedSystem := nil;
+  fmSoftEditor.Software := nil;
+
   rgbSoftKey.ItemIndex := 0;
   eFile.Clear;
   chkOpenAsArchive.Checked := False;
@@ -94,8 +102,11 @@ end;
 
 procedure TfmEmutecaActAddSoft.UpdateFileData;
 begin
+  fmSoftEditor.Software := nil;
+
   if not Assigned(Software) then
     Exit;
+
   Software.Folder := ExtractFileDir(eFile.FileName);
   Software.FileName := ExtractFileName(eFile.FileName);
   Software.SHA1 := kEmuTKSHA1Empty;
@@ -106,13 +117,17 @@ begin
 
   UpdateSoftKey;
   UpdateDupInfo;
-  SoftEditor.LoadData;
+
+  fmSoftEditor.Software := Software;
 end;
 
 procedure TfmEmutecaActAddSoft.UpdateInnerFileData;
 begin
+  fmSoftEditor.Software := nil;
+
   if not Assigned(Software) then
     Exit;
+
   Software.Folder := eFile.FileName;
   Software.FileName := cbxInnerFile.Text;
   Software.SHA1 := kEmuTKSHA1Empty;
@@ -123,7 +138,8 @@ begin
 
   UpdateSoftKey;
   UpdateDupInfo;
-  SoftEditor.LoadData;
+
+  fmSoftEditor.Software := Software;
 end;
 
 procedure TfmEmutecaActAddSoft.UpdateSoftKey;
@@ -187,10 +203,10 @@ var
 begin
   lDupFile.Caption := '';
 
-  if not assigned (cbxSystem.SelectedSystem) then
+  if not assigned(fmSystemCBX.SelectedSystem) then
     Exit;
 
-  aSoftList := cbxSystem.SelectedSystem.SoftManager.FullList;
+  aSoftList := fmSystemCBX.SelectedSystem.SoftManager.FullList;
 
   i := 0;
   FoundFile := False;
@@ -212,12 +228,14 @@ var
 begin
   Result := False;
 
+  fmSoftEditor.Software := nil;
+
   Software.CachedSystem := aSystem;
 
   gbxFileSelection.Enabled := assigned(Software.CachedSystem);
   rgbSoftKey.Enabled := gbxFileSelection.Enabled;
 
-  SoftEditor.LoadData;
+  fmSoftEditor.Software := Software;
 
   if not assigned(Software.CachedSystem) then
     Exit;
@@ -253,6 +271,7 @@ begin
 end;
 
 procedure TfmEmutecaActAddSoft.chkOpenAsArchiveChange(Sender: TObject);
+
   procedure AnError(aText: string);
   begin
     lCompressedError.Caption := aText;
@@ -266,7 +285,7 @@ begin
 
   if chkOpenAsArchive.Checked then
   begin
-    if not SupportedExt(eFile.FileName,
+    if not SupportedExtSL(eFile.FileName,
       Emuteca.Config.CompressedExtensions) then
     begin
       AnError('Not a compressed file.');
@@ -282,12 +301,13 @@ begin
     w7zListFiles(eFile.FileName, cbxInnerFile.Items, True, True, '');
 
     if cbxInnerFile.Items.Count = 0 then
-        begin
+    begin
       AnError('No files not found.');
       Exit;
     end;
 
-    lCompressedError.Caption := format('%0:d files found.', [cbxInnerFile.Items.Count]);
+    lCompressedError.Caption :=
+      format('%0:d files found.', [cbxInnerFile.Items.Count]);
     cbxInnerFile.Enabled := True;
   end
   else
@@ -301,7 +321,7 @@ begin
 end;
 
 procedure TfmEmutecaActAddSoft.eFileAcceptFileName(Sender: TObject;
-  var Value: String);
+  var Value: string);
 begin
   // It's called before Text is updated
   eFile.Text := Value;
@@ -330,7 +350,14 @@ begin
     Exit;
   FEmuteca := AValue;
 
-  LoadData;
+  if assigned(Emuteca) then
+    fmSystemCBX.SystemList := Emuteca.SystemManager.EnabledList
+  else
+    fmSystemCBX.SystemList := nil;
+
+  fmSoftEditor.Software := Software;
+
+  LoadFrameData;
 end;
 
 procedure TfmEmutecaActAddSoft.SetSoftware(AValue: cEmutecaSoftware);
@@ -338,7 +365,8 @@ begin
   if FSoftware = AValue then
     Exit;
   FSoftware := AValue;
-  LoadData;
+
+  LoadFrameData;
 end;
 
 procedure TfmEmutecaActAddSoft.SelectFile;
@@ -351,43 +379,29 @@ begin
 
   // Recognized ext of an archive (from cEmutecaConfig, not u7zWrapper)
   chkOpenAsArchive.Enabled :=
-    SupportedExt(eFile.FileName, Emuteca.Config.CompressedExtensions);
+    SupportedExtSL(eFile.FileName, Emuteca.Config.CompressedExtensions);
 end;
 
-procedure TfmEmutecaActAddSoft.LoadData;
+procedure TfmEmutecaActAddSoft.LoadFrameData;
 begin
-  if not assigned(Software) or not Assigned(Emuteca) then
+  Enabled := Assigned(Software) and Assigned(Emuteca);
+  if not Enabled then
   begin
-    ClearData;
-    Enabled := False;
+    ClearFrameData;
     Exit;
   end;
-
-  Enabled := True;
-
-  if not assigned(Emuteca) then
-    cbxSystem.SystemList := nil
-  else
-  begin
-    cbxSystem.SystemList := Emuteca.SystemManager.EnabledList;
-    // TODO: HACK: Changing "all systems" option...
-    if cbxSystem.cbxSystem.Items.Count > 0 then
-      cbxSystem.cbxSystem.Items[0] := rsSelectSystem;
-  end;
-
-  SoftEditor.Software := Software;
-  SoftEditor.LoadData;
 end;
 
-procedure TfmEmutecaActAddSoft.SaveData;
+procedure TfmEmutecaActAddSoft.SaveFrameData;
 var
   aSystem: cEmutecaSystem;
 begin
-  SoftEditor.SaveData;
+  fmSoftEditor.SaveFrameData;
 
   aSystem := cEmutecaSystem(Software.CachedSystem);
 
-  if not assigned(aSystem) then Exit;
+  if not assigned(aSystem) then
+    Exit;
 
   aSystem.SoftManager.FullList.Add(Software);
   aSystem.CacheData;
@@ -395,24 +409,57 @@ begin
   // If we don't close then prepare to add a new software
   //   if we close, it will be freed on destroy
   FSoftware := cEmutecaSoftware.Create(nil);
-  ClearData;
+  ClearFrameData;
 
-  SoftEditor.Software := Software;
+  fmSoftEditor.Software := Software;
+end;
+
+class function TfmEmutecaActAddSoft.SimpleForm(aEmuteca: cEmuteca;
+  aGUIIconsIni: string; aGUIConfigIni: string): integer;
+var
+  aForm: TfrmCHXForm;
+  aFrame: TfmEmutecaActAddSoft;
+begin
+  Result := mrNone;
+
+  Application.CreateForm(TfrmCHXForm, aForm);
+  try
+    aForm.Name := 'frmEmutecaActAddSoft';
+    aForm.Caption := Format(rsFmtWindowCaption,
+      [Application.Title, 'Add Software...']);
+    aForm.AutoSize := True;
+
+    aFrame := TfmEmutecaActAddSoft.Create(aForm);
+    aFrame.SaveButtons := True;
+    aFrame.ButtonClose := True;
+    aFrame.Align := alClient;
+
+    aFrame.Emuteca := aEmuteca;
+
+    aForm.GUIConfigIni := aGUIConfigIni;
+    aForm.GUIIconsIni := aGUIIconsIni;
+    aFrame.Parent := aForm;
+
+    Result := aForm.ShowModal;
+  finally
+    aForm.Free;
+  end;
 end;
 
 constructor TfmEmutecaActAddSoft.Create(TheOwner: TComponent);
 
   procedure CreateFrames;
   begin
-    FcbxSystem := TfmEmutecaSystemCBX.Create(gbxSelectSystem);
-    cbxSystem.Align := alTop;
-    cbxSystem.OnSelectSystem := @SelectSystem;
-    cbxSystem.Parent := gbxSelectSystem;
+    FfmSystemCBX := TfmEmutecaSystemCBX.Create(gbxSelectSystem);
+    fmSystemCBX.Align := alTop;
+    fmSystemCBX.OnSelectSystem := @SelectSystem;
+    fmSystemCBX.FirstItem := ETKSysCBXFISelect;
+    fmSystemCBX.Parent := gbxSelectSystem;
 
-    FSoftEditor := TfmEmutecaSoftEditor.Create(gbxSoftInfo);
-    SoftEditor.SaveButtons := False;
-    SoftEditor.ButtonClose := False;
-    SoftEditor.Parent := gbxSoftInfo;
+    FfmSoftEditor := TfmEmutecaSoftEditor.Create(gbxSoftInfo);
+    fmSoftEditor.SaveButtons := False;
+    fmSoftEditor.ButtonClose := False;
+    fmSoftEditor.Parent := gbxSoftInfo;
   end;
 
 begin

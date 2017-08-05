@@ -1,0 +1,35 @@
+inherited fmLEmuTKSoftMedia: TfmLEmuTKSoftMedia
+  Height = 506
+  Width = 243
+  ClientHeight = 506
+  ClientWidth = 243
+  DesignLeft = 427
+  DesignTop = 110
+  object pSoftImagPreview: TPanel[0]
+    Left = 0
+    Height = 250
+    Top = 0
+    Width = 243
+    Align = alTop
+    BevelOuter = bvNone
+    TabOrder = 0
+  end
+  object Splitter1: TSplitter[1]
+    Cursor = crVSplit
+    Left = 0
+    Height = 5
+    Top = 250
+    Width = 243
+    Align = alTop
+    ResizeAnchor = akTop
+  end
+  object pSoftTxtPreview: TPanel[2]
+    Left = 0
+    Height = 251
+    Top = 255
+    Width = 243
+    Align = alClient
+    BevelOuter = bvNone
+    TabOrder = 2
+  end
+end

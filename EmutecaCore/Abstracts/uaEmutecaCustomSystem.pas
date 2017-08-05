@@ -75,12 +75,17 @@ type
     FImageFolders: TStringList;
     FInfoText: string;
     FMainEmulator: string;
+    FMusicCaptions: TStringList;
+    FMusicFolders: TStringList;
     FOtherEmulators: TStringList;
     FStats: cEmutecaPlayingStats;
     FTempFolder: string;
+    FWorkingFolder: string;
     FTextCaptions: TStringList;
     FTextFolders: TStringList;
     FTitle: string;
+    FVideoCaptions: TStringList;
+    FVideoFolders: TStringList;
     procedure SetBackImage(AValue: string);
     procedure SetBaseFolder(AValue: string);
     procedure SetEnabled(AValue: boolean);
@@ -94,6 +99,7 @@ type
     procedure SetInfoText(AValue: string);
     procedure SetMainEmulator(AValue: string);
     procedure SetTempFolder(AValue: string);
+    procedure SetWorkingFolder(AValue: string);
     procedure SetTitle(AValue: string);
 
   protected
@@ -104,14 +110,18 @@ type
     }
 
   public
-    constructor Create(AOwner: TComponent); override;
-    destructor Destroy; override;
+    property TempFolder: string read FTempFolder write SetTempFolder;
+    {< System temp folder for decompressing media
+    }
 
     procedure LoadFromIni(aIniFile: TMemIniFile); override;
     procedure SaveToIni(aIniFile: TMemIniFile; const ExportMode: boolean);
       override;
 
     procedure CacheIcon(aImagList: cCHXImageList);
+
+    constructor Create(AOwner: TComponent); override;
+    destructor Destroy; override;
 
   published
 
@@ -139,7 +149,7 @@ type
          (System image or text).
     }
 
-    property TempFolder: string read FTempFolder write SetTempFolder;
+    property WorkingFolder: string read FWorkingFolder write SetWorkingFolder;
     {< Temp folder for decompress Software, it's recommended leave it empty
          so Emuteca will use OS Temp folder.
 
@@ -187,6 +197,20 @@ type
     {< Folders for game texts. }
     property TextCaptions: TStringList read FTextCaptions;
     {< Captions for the folders of game's texts. }
+
+    // Music
+    // -----
+    property MusicFolders: TStringList read FMusicFolders;
+    {< Folders for game music. }
+    property MusicCaptions: TStringList read FMusicCaptions;
+    {< Captions for the folders of game's music. }
+
+    // Video
+    // -----
+    property VideoFolders: TStringList read FVideoFolders;
+    {< Folders for game videos. }
+    property VideoCaptions: TStringList read FVideoCaptions;
+    {< Captions for the folders of game's video. }
 
     // Import
     // ------
@@ -244,7 +268,7 @@ begin
   ExtractAll := aIniFile.ReadBool(ID, krsIniKeyExtractAll, ExtractAll);
 
   BaseFolder := aIniFile.ReadString(ID, krsIniKeyBaseFolder, BaseFolder);
-  TempFolder := aIniFile.ReadString(ID, krsIniKeyTempFolder, TempFolder);
+  WorkingFolder := aIniFile.ReadString(ID, krsIniKeyWorkingFolder, WorkingFolder);
 
   // Emulators
   MainEmulator := aIniFile.ReadString(ID, krsIniKeyMainEmulator, MainEmulator);
@@ -270,15 +294,31 @@ begin
   TextCaptions.CommaText :=
     aIniFile.ReadString(ID, krsIniKeyTextCaptions, TextCaptions.CommaText);
 
+  // Music
+  MusicFolders.CommaText :=
+    aIniFile.ReadString(ID, krsIniKeyMusicFolders, MusicFolders.CommaText);
+  MusicCaptions.CommaText :=
+    aIniFile.ReadString(ID, krsIniKeyMusicCaptions, MusicCaptions.CommaText);
+
+  // Video
+  VideoFolders.CommaText :=
+    aIniFile.ReadString(ID, krsIniKeyVideoFolders, VideoFolders.CommaText);
+  VideoCaptions.CommaText :=
+    aIniFile.ReadString(ID, krsIniKeyVideoCaptions, VideoCaptions.CommaText);
+
   // Import
   GameKey := Str2EmutecaFileKey(aIniFile.ReadString(ID,
     krsIniKeyGamesKey, EmutecaFileKeyStrsK[GameKey]));
   Extensions.CommaText := aIniFile.ReadString(ID, krsIniKeyExtensions,
     Extensions.CommaText);
 
+  Stats.LoadFromIni(aIniFile, ID);
+
   // Fixing lists...
   FixFolderListData(ImageFolders, ImageCaptions);
   FixFolderListData(TextFolders, TextCaptions);
+  FixFolderListData(MusicFolders, MusicCaptions);
+  FixFolderListData(VideoFolders, VideoCaptions);
 end;
 
 procedure caEmutecaCustomSystem.SaveToIni(aIniFile: TMemIniFile;
@@ -305,7 +345,7 @@ begin
     // Basic data
     aIniFile.DeleteKey(ID, krsIniKeyEnabled);
     aIniFile.DeleteKey(ID, krsIniKeyBaseFolder);
-    aIniFile.DeleteKey(ID, krsIniKeyTempFolder);
+    aIniFile.DeleteKey(ID, krsIniKeyWorkingFolder);
 
     // Images
     aIniFile.DeleteKey(ID, krsIniKeyIcon);
@@ -321,13 +361,21 @@ begin
 
     aIniFile.DeleteKey(ID, krsIniKeyTextFolders);
     aIniFile.DeleteKey(ID, krsIniKeyTextCaptions);
+
+    // Music
+    aIniFile.DeleteKey(ID, krsIniKeyMusicFolders);
+    aIniFile.DeleteKey(ID, krsIniKeyMusicCaptions);
+
+    // Video
+    aIniFile.DeleteKey(ID, krsIniKeyVideoFolders);
+    aIniFile.DeleteKey(ID, krsIniKeyVideoCaptions);
   end
   else
   begin
     // Basic data
     aIniFile.WriteBool(ID, krsIniKeyEnabled, Enabled);
     aIniFile.WriteString(ID, krsIniKeyBaseFolder, BaseFolder);
-    aIniFile.WriteString(ID, krsIniKeyTempFolder, TempFolder);
+    aIniFile.WriteString(ID, krsIniKeyWorkingFolder, WorkingFolder);
 
     // Images
     aIniFile.WriteString(ID, krsIniKeyIcon, Icon);
@@ -343,8 +391,17 @@ begin
 
     aIniFile.WriteString(ID, krsIniKeyTextFolders, TextFolders.CommaText);
     aIniFile.WriteString(ID, krsIniKeyTextCaptions, TextCaptions.CommaText);
+
+    // Music
+    aIniFile.WriteString(ID, krsIniKeyMusicFolders, MusicFolders.CommaText);
+    aIniFile.WriteString(ID, krsIniKeyMusicCaptions, MusicCaptions.CommaText);
+
+    // Video
+    aIniFile.WriteString(ID, krsIniKeyVideoFolders, VideoFolders.CommaText);
+    aIniFile.WriteString(ID, krsIniKeyVideoCaptions, VideoCaptions.CommaText);
   end;
 
+  Stats.WriteToIni(aIniFile, ID, ExportMode);
 end;
 
 procedure caEmutecaCustomSystem.CacheIcon(aImagList: cCHXImageList);
@@ -456,7 +513,12 @@ end;
 
 procedure caEmutecaCustomSystem.SetTempFolder(AValue: string);
 begin
-  FTempFolder := SetAsFolder(AValue);
+  FTempFolder := SetAsFolder(AValue) + SetAsFolder(ID);
+end;
+
+procedure caEmutecaCustomSystem.SetWorkingFolder(AValue: string);
+begin
+  FWorkingFolder := SetAsFolder(AValue);
 end;
 
 procedure caEmutecaCustomSystem.SetTitle(AValue: string);
@@ -524,6 +586,12 @@ begin
   FTextCaptions := TStringList.Create;
   FTextFolders := TStringList.Create;
 
+  FMusicCaptions := TStringList.Create;
+  FMusicFolders := TStringList.Create;
+
+  FVideoCaptions := TStringList.Create;
+  FVideoFolders := TStringList.Create;
+
   FStats := cEmutecaPlayingStats.Create(Self);
 end;
 
@@ -537,6 +605,12 @@ begin
 
   TextCaptions.Free;
   TextFolders.Free;
+
+  MusicCaptions.Free;
+  MusicFolders.Free;
+
+  VideoCaptions.Free;
+  VideoFolders.Free;
 
   Stats.Free;
 

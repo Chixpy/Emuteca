@@ -9,7 +9,7 @@ uses
   Buttons, ActnList, StdCtrls, EditBtn,
   ufCHXPropEditor,
   ucEmuteca, ucEmutecaSystem,
-  ufEmutecaSystemCBXOld;
+  ufEmutecaSystemCBX;
 
 type
 
@@ -27,15 +27,16 @@ type
   protected
     property fmSystemCBX: TfmEmutecaSystemCBX read FfmSystemCBX;
 
+    procedure ClearFrameData; override;
+    procedure LoadFrameData; override;
+
   public
     property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
 
     function SelectSystem(aSystem: cEmutecaSystem): boolean;
     //< Select a system
 
-    procedure ClearData; override;
-    procedure LoadData; override;
-    procedure SaveData; override;
+    procedure SaveFrameData; override;
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -62,7 +63,7 @@ begin
   Enabled := Assigned(Emuteca);
 end;
 
-procedure TfmLEmuTKExportData.ClearData;
+procedure TfmLEmuTKExportData.ClearFrameData;
 begin
 
 end;
@@ -92,12 +93,12 @@ begin
   inherited Destroy;
 end;
 
-procedure TfmLEmuTKExportData.LoadData;
+procedure TfmLEmuTKExportData.LoadFrameData;
 begin
 
 end;
 
-procedure TfmLEmuTKExportData.SaveData;
+procedure TfmLEmuTKExportData.SaveFrameData;
 begin
   if Assigned(fmSystemCBX.SelectedSystem) then
   begin

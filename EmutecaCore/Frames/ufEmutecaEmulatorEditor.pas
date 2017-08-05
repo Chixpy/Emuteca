@@ -59,11 +59,12 @@ type
 
   protected
 
+    procedure ClearFrameData; override;
+    procedure LoadFrameData; override;
+
   public
     { public declarations }
-    procedure ClearData; override;
-    procedure LoadData; override;
-    procedure SaveData; override;
+    procedure SaveFrameData; override;
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -135,10 +136,10 @@ begin
   if FEmulator = AValue then
     Exit;
   FEmulator := AValue;
-  LoadData;
+  LoadFrameData;
 end;
 
-procedure TfmEmutecaEmulatorEditor.ClearData;
+procedure TfmEmutecaEmulatorEditor.ClearFrameData;
 begin
   lID.Caption := ' ';
   eName.Clear;
@@ -151,9 +152,9 @@ begin
   eExitCode.Value := 0;
 end;
 
-procedure TfmEmutecaEmulatorEditor.LoadData;
+procedure TfmEmutecaEmulatorEditor.LoadFrameData;
 begin
-  ClearData;
+  ClearFrameData;
 
   Enabled := assigned(Emulator);
 
@@ -172,7 +173,7 @@ begin
   eExitCode.Value := Emulator.ExitCode;
 end;
 
-procedure TfmEmutecaEmulatorEditor.SaveData;
+procedure TfmEmutecaEmulatorEditor.SaveFrameData;
 begin
   Emulator.EmulatorName := eName.Text;
   Emulator.EmulatorName := eName.Text;

@@ -8,63 +8,56 @@ uses
   Classes, SysUtils, LazFileUtils, Forms, Controls, StdCtrls,
   EditBtn, ExtCtrls, Buttons, ActnList, ComCtrls,
   uCHXStrUtils, uCHXDlgUtils,
-  ufCHXPropEditor, ufCHXForm, ufCHXImgViewer,
+  ufCHXPropEditor, ufCHXImgViewer,
   ucEmutecaSystem;
 
 type
 
-  { TfmSystemImgEditor }
+  { TfmEmuTKSystemImgEditor }
 
-  TfmSystemImgEditor = class(TfmCHXPropEditor)
-    actAddImgFolder: TAction;
-    actDeleteImageFolder: TAction;
-    actUpdateImageFolder: TAction;
-    eImageCaption: TEdit;
-    eImageFolder: TDirectoryEdit;
+  TfmEmuTKSystemImgEditor = class(TfmCHXPropEditor)
     eSystemIcon: TFileNameEdit;
+    eSystemBG: TFileNameEdit;
     eSystemImage: TFileNameEdit;
-    gbxImageFolders: TGroupBox;
     gbxImages: TGroupBox;
+    gbxSystemIcon: TGroupBox;
+    gbxSystemBG: TGroupBox;
+    gbxSystemImage: TGroupBox;
     iSystemIcon: TImage;
+    iSystemBG: TImage;
     iSystemImage: TImage;
-    lbxImageCaptions: TListBox;
-    lbxImageFolders: TListBox;
-    lSystemIcon: TLabel;
-    lSystemImage: TLabel;
-    pEditFolder: TPanel;
-    pImageFolderLists: TPanel;
-    Splitter1: TSplitter;
-    tbImageFolderButtons: TToolBar;
-    ToolButton1: TToolButton;
-    ToolButton2: TToolButton;
-    ToolButton3: TToolButton;
-    procedure actAddImgFolderExecute(Sender: TObject);
-    procedure actDeleteImageFolderExecute(Sender: TObject);
-    procedure actUpdateImageFolderExecute(Sender: TObject);
-    procedure eImageFolderAcceptDirectory(Sender: TObject; var Value: string);
-    procedure eImageFolderButtonClick(Sender: TObject);
+    procedure eSystemBGAcceptFileName(Sender: TObject; var Value: string);
+    procedure eSystemBGButtonClick(Sender: TObject);
     procedure eSystemIconAcceptFileName(Sender: TObject; var Value: string);
     procedure eSystemIconButtonClick(Sender: TObject);
     procedure eSystemImageAcceptFileName(Sender: TObject; var Value: string);
     procedure eSystemImageButtonClick(Sender: TObject);
+    procedure iSystemBGDblClick(Sender: TObject);
+    procedure iSystemIconDblClick(Sender: TObject);
     procedure iSystemImageDblClick(Sender: TObject);
-    procedure lbxImageCaptionsSelectionChange(Sender: TObject; User: boolean);
-    procedure lbxImageFoldersSelectionChange(Sender: TObject; User: boolean);
+
   private
+    FSHA1Folder: string;
     FSystem: cEmutecaSystem;
+
+    procedure SetSHA1Folder(AValue: string);
     procedure SetSystem(AValue: cEmutecaSystem);
 
   protected
+    procedure SetGUIIconsIni(AValue: string); override;
+    procedure SetGUIConfigIni(AValue: string); override;
 
-    procedure UpdateFolderData;
+    procedure UpdateImage(aTImage: TImage; aFile: string);
+
+    procedure ClearFrameData; override;
+    procedure LoadFrameData; override;
 
   public
     { public declarations }
     property System: cEmutecaSystem read FSystem write SetSystem;
+    property SHA1Folder: string read FSHA1Folder write SetSHA1Folder;
 
-    procedure ClearData; override;
-    procedure SaveData; override;
-    procedure LoadData; override;
+    procedure SaveFrameData; override;
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -74,18 +67,15 @@ implementation
 
 {$R *.lfm}
 
-{ TfmSystemImgEditor }
+{ TfmEmuTKSystemImgEditor }
 
-procedure TfmSystemImgEditor.eSystemImageAcceptFileName(Sender: TObject;
+procedure TfmEmuTKSystemImgEditor.eSystemImageAcceptFileName(Sender: TObject;
   var Value: string);
 begin
-  if FileExistsUTF8(Value) then
-    iSystemImage.Picture.LoadFromFile(Value)
-  else
-    iSystemImage.Picture.Clear;
+  UpdateImage(iSystemImage, Value);
 end;
 
-procedure TfmSystemImgEditor.eSystemImageButtonClick(Sender: TObject);
+procedure TfmEmuTKSystemImgEditor.eSystemImageButtonClick(Sender: TObject);
 begin
   if Assigned(System) then
     SetFileEditInitialDir(eSystemImage, System.BaseFolder)
@@ -93,58 +83,28 @@ begin
     SetFileEditInitialDir(eSystemImage, '');
 end;
 
-procedure TfmSystemImgEditor.iSystemImageDblClick(Sender: TObject);
-var
-  aForm: TfrmCHXForm;
-  fmCHXImageViewer: TfmCHXImgViewer;
+procedure TfmEmuTKSystemImgEditor.iSystemBGDblClick(Sender: TObject);
 begin
-  if not FileExistsUTF8(System.Image) then
-    Exit;
-
-  Application.CreateForm(TfrmCHXForm, aForm);
-  { TODO : Uncomment this }
-  // aForm.GUIConfigIni := ;
-  aForm.GUIIconsIni := GUIIconsIni;
-
-  fmCHXImageViewer := TfmCHXImgViewer.Create(aForm);
-  fmCHXImageViewer.IconsIniFile := GUIIconsIni;
-  fmCHXImageViewer.AddImage(System.Image);
-  fmCHXImageViewer.Parent := aForm;
-
-  aForm.ShowModal;
-
-  FreeAndNil(aForm);
+  TfmCHXImgViewer.SimpleFormI(eSystemBG.Text, SHA1Folder,GUIIconsIni, GUIConfigIni);
 end;
 
-procedure TfmSystemImgEditor.lbxImageCaptionsSelectionChange(Sender: TObject;
-  User: boolean);
+procedure TfmEmuTKSystemImgEditor.iSystemIconDblClick(Sender: TObject);
 begin
-  if not user then
-    exit;
-  lbxImageFolders.ItemIndex := lbxImageCaptions.ItemIndex;
-  UpdateFolderData;
-
+  TfmCHXImgViewer.SimpleFormI(eSystemIcon.Text, SHA1Folder,GUIIconsIni, GUIConfigIni);
 end;
 
-procedure TfmSystemImgEditor.lbxImageFoldersSelectionChange(Sender: TObject;
-  User: boolean);
+procedure TfmEmuTKSystemImgEditor.iSystemImageDblClick(Sender: TObject);
 begin
-  if not user then
-    exit;
-  lbxImageCaptions.ItemIndex := lbxImageFolders.ItemIndex;
-  UpdateFolderData;
+  TfmCHXImgViewer.SimpleFormI(eSystemImage.Text, SHA1Folder,GUIIconsIni, GUIConfigIni);
 end;
 
-procedure TfmSystemImgEditor.eSystemIconAcceptFileName(Sender: TObject;
+procedure TfmEmuTKSystemImgEditor.eSystemIconAcceptFileName(Sender: TObject;
   var Value: string);
 begin
-  if FileExistsUTF8(Value) then
-    iSystemIcon.Picture.LoadFromFile(Value)
-  else
-    iSystemIcon.Picture.Clear;
+  UpdateImage(iSystemIcon, Value);
 end;
 
-procedure TfmSystemImgEditor.eSystemIconButtonClick(Sender: TObject);
+procedure TfmEmuTKSystemImgEditor.eSystemIconButtonClick(Sender: TObject);
 begin
   if Assigned(System) then
     SetFileEditInitialDir(eSystemIcon, System.BaseFolder)
@@ -152,167 +112,101 @@ begin
     SetFileEditInitialDir(eSystemIcon, '');
 end;
 
-procedure TfmSystemImgEditor.eImageFolderAcceptDirectory(Sender: TObject;
+procedure TfmEmuTKSystemImgEditor.eSystemBGAcceptFileName(Sender: TObject;
   var Value: string);
 begin
-  if DirectoryExistsUTF8(Value) then
-    eImageCaption.Text := ExtractFileName(ExcludeTrailingPathDelimiter(Value))
-  else
-    eImageCaption.Clear;
+  UpdateImage(iSystemBG, Value);
 end;
 
-procedure TfmSystemImgEditor.actAddImgFolderExecute(Sender: TObject);
-begin
-  if not Assigned(System) then
-    Exit;
-
-  if eImageFolder.Directory = '' then
-    Exit;
-
-  lbxImageFolders.Items.Add(SetAsFolder(eImageFolder.Directory));
-
-
-  if eImageCaption.Text = '' then
-  begin
-    lbxImageCaptions.Items.Add(
-      ExtractFileName(ExcludeTrailingPathDelimiter(eImageFolder.Directory)));
-  end
-  else
-  begin
-    lbxImageCaptions.Items.Add(eImageCaption.Text);
-  end;
-end;
-
-procedure TfmSystemImgEditor.actDeleteImageFolderExecute(Sender: TObject);
-begin
-  if not Assigned(System) then
-    Exit;
-  if lbxImageFolders.ItemIndex = -1 then
-    exit;
-
-  lbxImageCaptions.Items.Delete(lbxImageFolders.ItemIndex);
-  lbxImageFolders.Items.Delete(lbxImageFolders.ItemIndex);
-end;
-
-procedure TfmSystemImgEditor.actUpdateImageFolderExecute(Sender: TObject);
-var
-  aPos: integer;
-begin
-  if not Assigned(System) then
-    Exit;
-
-  if eImageFolder.Directory = '' then
-    Exit;
-
-  aPos := lbxImageFolders.ItemIndex;
-  if aPos = -1 then
-    exit;
-
-  lbxImageFolders.Items.BeginUpdate;
-  lbxImageFolders.Items.Insert(aPos, eImageFolder.Directory);
-  lbxImageFolders.Items.Delete(aPos + 1);
-  lbxImageFolders.Items.EndUpdate;
-
-  lbxImageCaptions.Items.BeginUpdate;
-  if eImageCaption.Text = '' then
-  begin
-    lbxImageCaptions.Items.Insert(aPos,
-      ExtractFileName(ExcludeTrailingPathDelimiter(eImageFolder.Directory)));
-  end
-  else
-  begin
-    lbxImageCaptions.Items.Insert(aPos, eImageCaption.Text);
-  end;
-  lbxImageCaptions.Items.Delete(aPos + 1);
-  lbxImageCaptions.Items.EndUpdate;
-end;
-
-procedure TfmSystemImgEditor.eImageFolderButtonClick(Sender: TObject);
+procedure TfmEmuTKSystemImgEditor.eSystemBGButtonClick(Sender: TObject);
 begin
   if Assigned(System) then
-    SetDirEditInitialDir(eImageFolder, System.BaseFolder)
+    SetFileEditInitialDir(eSystemBG, System.BaseFolder)
   else
-    SetDirEditInitialDir(eImageFolder, '');
+    SetFileEditInitialDir(eSystemBG, '');
 end;
 
-procedure TfmSystemImgEditor.SetSystem(AValue: cEmutecaSystem);
+procedure TfmEmuTKSystemImgEditor.SetSystem(AValue: cEmutecaSystem);
 begin
   if FSystem = AValue then
     Exit;
   FSystem := AValue;
 
-  LoadData;
-
-  Enabled := Assigned(System);
+  LoadFrameData;
 end;
 
-procedure TfmSystemImgEditor.SaveData;
+procedure TfmEmuTKSystemImgEditor.SetSHA1Folder(AValue: string);
 begin
-  if not Assigned(System) then
+  FSHA1Folder := SetAsFolder(AValue);
+end;
+
+procedure TfmEmuTKSystemImgEditor.SetGUIIconsIni(AValue: string);
+begin
+  inherited SetGUIIconsIni(AValue);
+end;
+
+procedure TfmEmuTKSystemImgEditor.SetGUIConfigIni(AValue: string);
+begin
+  inherited SetGUIConfigIni(AValue);
+end;
+
+procedure TfmEmuTKSystemImgEditor.SaveFrameData;
+begin
+  if not Enabled then
     Exit;
 
   System.Icon := eSystemIcon.Text;
   System.Image := eSystemImage.Text;
-  System.ImageFolders.AddStrings(lbxImageFolders.Items, True);
-  System.ImageCaptions.AddStrings(lbxImageCaptions.Items, True);
+  System.BackImage := eSystemBG.Text;
 end;
 
-procedure TfmSystemImgEditor.LoadData;
+procedure TfmEmuTKSystemImgEditor.LoadFrameData;
 begin
-  if not Assigned(System) then
+  Enabled := Assigned(System);
+
+  if not Enabled then
   begin
-    ClearData;
+    ClearFrameData;
     Exit;
   end;
 
-  eSystemIcon.Text := System.Icon;
-  if FileExistsUTF8(System.Icon) then
-    iSystemIcon.Picture.LoadFromFile(System.Icon)
-  else
-    iSystemIcon.Picture.Clear;
   eSystemImage.Text := System.Image;
-  if FileExistsUTF8(System.Image) then
-    iSystemImage.Picture.LoadFromFile(System.Image)
-  else
-    iSystemImage.Picture.Clear;
-
-  lbxImageFolders.Items.AddStrings(System.ImageFolders, True);
-  lbxImageCaptions.Items.AddStrings(System.ImageCaptions, True);
+  UpdateImage(iSystemImage, eSystemImage.Text);
+  eSystemIcon.Text := System.Icon;
+  UpdateImage(iSystemIcon, eSystemIcon.Text);
+  eSystemBG.Text := System.BackImage;
+  UpdateImage(iSystemBG, eSystemBG.Text);
 end;
 
-constructor TfmSystemImgEditor.Create(TheOwner: TComponent);
+constructor TfmEmuTKSystemImgEditor.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
 end;
 
-destructor TfmSystemImgEditor.Destroy;
+destructor TfmEmuTKSystemImgEditor.Destroy;
 begin
   inherited Destroy;
 end;
 
-procedure TfmSystemImgEditor.ClearData;
+procedure TfmEmuTKSystemImgEditor.ClearFrameData;
 begin
   eSystemImage.Clear;
   iSystemImage.Picture.Clear;
   eSystemIcon.Clear;
   iSystemIcon.Picture.Clear;
-  lbxImageFolders.Clear;
-  lbxImageCaptions.Clear;
-  eImageFolder.Clear;
-  eImageCaption.Clear;
+  eSystemBG.Clear;
+  iSystemBG.Picture.Clear;
 end;
 
-procedure TfmSystemImgEditor.UpdateFolderData;
+procedure TfmEmuTKSystemImgEditor.UpdateImage(aTImage: TImage; aFile: string);
 begin
-  if lbxImageFolders.ItemIndex <> -1 then
-    eImageFolder.Directory := lbxImageFolders.Items[lbxImageFolders.ItemIndex]
-  else
-    eImageFolder.Clear;
+  if not Assigned(aTImage) then
+    Exit;
 
-  if lbxImageCaptions.ItemIndex <> -1 then
-    eImageCaption.Text := lbxImageCaptions.Items[lbxImageCaptions.ItemIndex]
+  if FileExistsUTF8(aFile) then
+    aTImage.Picture.LoadFromFile(aFile)
   else
-    eImageCaption.Clear;
+    aTImage.Picture.Clear;
 end;
 
 end.

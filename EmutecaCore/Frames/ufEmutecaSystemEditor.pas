@@ -9,7 +9,7 @@ uses
   Buttons, StdCtrls, CheckLst, EditBtn, LazFileUtils,
   uCHXStrUtils, uCHXDlgUtils,
   ufCHXPropEditor,
-  ucEmutecaConfig, ucEmutecaSystem, ucEmutecaEmulator,
+  ucEmutecaSystem, ucEmutecaEmulator,
   ucEmutecaEmulatorManager, uaEmutecaCustomSystem;
 
 resourcestring
@@ -20,13 +20,12 @@ type
   { TfmEmutecaSystemEditor }
 
   TfmEmutecaSystemEditor = class(TfmCHXPropEditor)
-    bCreateSubdirs: TButton;
     cbxMainEmulator: TComboBox;
     chkExtractAllFiles: TCheckBox;
     clbOtherEmulators: TCheckListBox;
     eBaseFolder: TDirectoryEdit;
     eExtraInfoFilename: TEdit;
-    eTempFolder: TDirectoryEdit;
+    eWorkingFolder: TDirectoryEdit;
     eTitle: TEdit;
     gbxBasicInfo: TGroupBox;
     gbxEmulators: TGroupBox;
@@ -36,20 +35,18 @@ type
     lFileName: TLabel;
     lMainEmulator: TLabel;
     lOtherEmulators: TLabel;
-    lTempFolder: TLabel;
+    lWorkingFolder: TLabel;
     lTitle: TLabel;
     mExtensions: TMemo;
     Panel2: TPanel;
     rgbGameKey: TRadioGroup;
     Splitter1: TSplitter;
-    procedure bCreateSubdirsClick(Sender: TObject);
     procedure eBaseFolderButtonClick(Sender: TObject);
-    procedure eTempFolderButtonClick(Sender: TObject);
+    procedure eWorkingFolderButtonClick(Sender: TObject);
+
   private
-    FConfig: cEmutecaConfig;
     FEmuManager: cEmutecaEmulatorManager;
     FSystem: cEmutecaSystem;
-    procedure SetConfig(AValue: cEmutecaConfig);
     procedure SetEmuManager(AValue: cEmutecaEmulatorManager);
     procedure SetSystem(AValue: cEmutecaSystem);
 
@@ -57,19 +54,16 @@ type
 
   protected
 
+    procedure ClearFrameData; override;
+    procedure LoadFrameData; override;
+
   public
     property System: cEmutecaSystem read FSystem write SetSystem;
 
     property EmuManager: cEmutecaEmulatorManager
       read FEmuManager write SetEmuManager;
-    property Config: cEmutecaConfig read FConfig write SetConfig;
 
-    procedure ClearData; override;
-    procedure SaveData; override;
-    procedure LoadData; override;
-
-    constructor Create(TheOwner: TComponent); override;
-    destructor Destroy; override;
+    procedure SaveFrameData; override;
   end;
 
 implementation
@@ -78,103 +72,14 @@ implementation
 
 { TfmEmutecaSystemEditor }
 
-procedure TfmEmutecaSystemEditor.bCreateSubdirsClick(Sender: TObject);
-
-  procedure CreateFolder(aLine: TStringList);
-  var
-    aFolder: string;
-    aTitle: string;
-  begin
-    if aLine.Count = 0 then
-      Exit;
-
-    if aLine[0] = '' then
-      Exit;
-
-    aFolder := SetAsFolder(eBaseFolder.Text) + SetAsFolder(aLine[0]);
-    ForceDirectoriesUTF8(aFolder);
-
-    if aLine.Count = 1 then
-      Exit;
-
-    if aLine[1] = '' then
-      Exit;
-
-    if (aLine.Count = 2) or (aLine[2] = '') then
-      aTitle := ExtractFileNameOnly(ExcludeTrailingPathDelimiter(aLine[0]))
-    else
-      aTitle := aLine[2];
-
-    if aLine[1] = 'i' then
-    begin
-      System.ImageFolders.Add(aFolder);
-      System.ImageCaptions.Add(aTitle);
-    end
-    else if aLine[1] = 't' then
-    begin
-      System.TextFolders.Add(aFolder);
-      System.TextCaptions.Add(aTitle);
-    end
-    else if aLine[1] = 'c' then
-    begin
-      System.IconFolder := aFolder;
-    end;
-
-    { TODO : Add folders of music and video }
-  end;
-
-var
-  FolderList, aLine: TStringList;
-  i: integer;
-begin
-  if not assigned(Config) then
-    Exit;
-  if not Assigned(System) then
-    Exit;
-
-  if (eBaseFolder.Text = '') or not DirectoryExistsUTF8(eBaseFolder.Text) then
-    { TODO : Exception :-P }
-    Exit;
-  if not FileExistsUTF8(Config.AutoSysFolder) then
-    { TODO : Exception :-P }
-    Exit;
-
-  aLine := TStringList.Create;
-  FolderList := TStringList.Create;
-  try
-    FolderList.LoadFromFile(Config.AutoSysFolder);
-    i := 1; //Skip header
-    while i < FolderList.Count do
-    begin
-      aLine.Clear;
-      aLine.CommaText := FolderList[i];
-      CreateFolder(aLine);
-
-      Inc(i);
-    end;
-
-  finally
-    FreeAndNil(FolderList);
-    FreeAndNil(aLine);
-  end;
-end;
-
 procedure TfmEmutecaSystemEditor.eBaseFolderButtonClick(Sender: TObject);
 begin
   SetDirEditInitialDir(eBaseFolder, ProgramDirectory);
 end;
 
-procedure TfmEmutecaSystemEditor.eTempFolderButtonClick(Sender: TObject);
+procedure TfmEmutecaSystemEditor.eWorkingFolderButtonClick(Sender: TObject);
 begin
-  SetDirEditInitialDir(eTempFolder, ProgramDirectory);
-end;
-
-procedure TfmEmutecaSystemEditor.SetConfig(AValue: cEmutecaConfig);
-begin
-  if FConfig = AValue then
-    Exit;
-  FConfig := AValue;
-  Enabled := Assigned(System) and Assigned(EmuManager) and Assigned(Config);
+  SetDirEditInitialDir(eWorkingFolder, ProgramDirectory);
 end;
 
 procedure TfmEmutecaSystemEditor.SetEmuManager(AValue:
@@ -184,7 +89,7 @@ begin
     Exit;
   FEmuManager := AValue;
   UpdateLists;
-  Enabled := Assigned(System) and Assigned(EmuManager) and Assigned(Config);
+  Enabled := Assigned(System) and Assigned(EmuManager);
 end;
 
 procedure TfmEmutecaSystemEditor.SetSystem(AValue: cEmutecaSystem);
@@ -192,8 +97,8 @@ begin
   if FSystem = AValue then
     Exit;
   FSystem := AValue;
-  LoadData;
-  Enabled := Assigned(System) and Assigned(EmuManager) and Assigned(Config);
+  LoadFrameData;
+  Enabled := Assigned(System) and Assigned(EmuManager);
 end;
 
 procedure TfmEmutecaSystemEditor.UpdateLists;
@@ -208,20 +113,20 @@ begin
   cbxMainEmulator.Items.Assign(clbOtherEmulators.Items);
 end;
 
-procedure TfmEmutecaSystemEditor.ClearData;
+procedure TfmEmutecaSystemEditor.ClearFrameData;
 begin
   eExtraInfoFilename.Clear;
   eTitle.Clear;
   cbxMainEmulator.ItemIndex := -1;
   clbOtherEmulators.CheckAll(cbUnchecked);
   eBaseFolder.Clear;
-  eTempFolder.Clear;
+  eWorkingFolder.Clear;
   rgbGameKey.ItemIndex := 0;
   chkExtractAllFiles.Checked := False;
   mExtensions.Clear;
 end;
 
-procedure TfmEmutecaSystemEditor.SaveData;
+procedure TfmEmutecaSystemEditor.SaveFrameData;
 var
   i, j: integer;
 begin
@@ -252,7 +157,7 @@ begin
   end;
 
   System.BaseFolder := eBaseFolder.Text;
-  System.TempFolder := eTempFolder.Text;
+  System.WorkingFolder := eWorkingFolder.Text;
   system.ExtractAll := chkExtractAllFiles.Checked;
 
   case rgbGameKey.ItemIndex of
@@ -266,12 +171,12 @@ begin
   System.Extensions.Assign(mExtensions.Lines);
 end;
 
-procedure TfmEmutecaSystemEditor.LoadData;
+procedure TfmEmutecaSystemEditor.LoadFrameData;
 var
   aEmulator: cEmutecaEmulator;
   i: integer;
 begin
-  ClearData;
+  ClearFrameData;
 
   if (not assigned(System)) or (not assigned(EmuManager)) then
     Exit;
@@ -294,7 +199,7 @@ begin
   end;
 
   eBaseFolder.Text := SysPath(System.BaseFolder);
-  eTempFolder.Text := SysPath(System.TempFolder);
+  eWorkingFolder.Text := SysPath(System.WorkingFolder);
 
   case System.GameKey of
     TEFKCRC32: rgbGameKey.ItemIndex := 1;
@@ -307,16 +212,6 @@ begin
   chkExtractAllFiles.Checked := System.ExtractAll;
 
   mExtensions.Lines.Assign(System.Extensions);
-end;
-
-constructor TfmEmutecaSystemEditor.Create(TheOwner: TComponent);
-begin
-  inherited Create(TheOwner);
-end;
-
-destructor TfmEmutecaSystemEditor.Destroy;
-begin
-  inherited Destroy;
 end;
 
 end.

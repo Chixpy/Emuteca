@@ -1,5 +1,0 @@
-inherited fmLEmuTKIcnSoftList: TfmLEmuTKIcnSoftList
-  inherited VST: TVirtualStringTree
-    OnDrawText = VSTDrawText
-  end
-end

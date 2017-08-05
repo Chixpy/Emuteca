@@ -25,7 +25,13 @@ interface
 
 uses
   Classes, SysUtils, LazFileUtils, LazUTF8, uaEmutecaCustomSystem,
-  uaEmutecaCustomGroup, uaEmutecaCustomSoft, uCHXStrUtils;
+  uaEmutecaCustomGroup, uaEmutecaCustomSoft, uEmutecaCommon, uCHXStrUtils;
+
+const
+    LazEmuTKIconFiles: array [0..12] of string =
+    (krsedsVerified, krsedsGood, krsedsAlternate, krsedsOverDump,
+    krsedsBadDump, krsedsUnderDump, 'Fixed', 'Trainer',
+    'Translation', 'Pirate', 'Cracked', 'Modified', 'Hack');
 
 type
   { cEmutecaSoftware. }
@@ -51,6 +57,11 @@ type
 
     function MatchGroup(aGroup: caEmutecaCustomGroup): boolean;
     function MatchGroupFile: boolean;
+
+    procedure SearchAllRelatedFiles(OutFileList: TStrings;
+      aFolder: string; Extensions: TStrings; AutoExtract: boolean); override;
+    function SearchFirstRelatedFile(aFolder: string;
+      Extensions: TStrings; AutoExtract: boolean): string; override;
 
     procedure FPOObservedChanged(ASender: TObject;
       Operation: TFPObservedOperation; Data: Pointer);
@@ -142,6 +153,42 @@ begin
 
   Result := CompareFilenames(RemoveFromBrackets(CachedGroup.ID),
     RemoveFromBrackets(ExtractFileNameOnly(FileName))) = 0;
+end;
+
+procedure cEmutecaSoftware.SearchAllRelatedFiles(OutFileList: TStrings;
+  aFolder: string; Extensions: TStrings; AutoExtract: boolean);
+begin
+  if Assigned(CachedSystem) then
+  begin
+    if not MatchGroupFile then
+      EmuTKSearchAllRelatedFiles(OutFileList, aFolder, FileName, Extensions,
+        AutoExtract, CachedSystem.TempFolder);
+    if (OutFileList.Count > 0) or (not assigned(CachedGroup)) then
+      Exit;
+
+    CachedGroup.SearchAllRelatedFiles(OutFileList, aFolder,
+      Extensions, AutoExtract);
+  end
+  else
+    inherited;
+end;
+
+function cEmutecaSoftware.SearchFirstRelatedFile(aFolder: string;
+  Extensions: TStrings; AutoExtract: boolean): string;
+begin
+  if Assigned(CachedSystem) then
+  begin
+    if not MatchGroupFile then
+      Result := EmuTKSearchFirstRelatedFile(aFolder, FileName,
+        Extensions, True, AutoExtract, CachedSystem.TempFolder);
+    if (Result <> '') or (not assigned(CachedGroup)) then
+      Exit;
+
+    Result := CachedGroup.SearchFirstRelatedFile(aFolder,
+      Extensions, AutoExtract);
+  end
+  else
+    Result := inherited;
 end;
 
 procedure cEmutecaSoftware.FPOObservedChanged(ASender: TObject;

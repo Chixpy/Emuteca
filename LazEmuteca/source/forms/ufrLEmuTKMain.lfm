@@ -1,7 +1,7 @@
 object frmLEmuTKMain: TfrmLEmuTKMain
-  Left = 371
+  Left = 425
   Height = 600
-  Top = 51
+  Top = 29
   Width = 800
   Caption = 'Main'
   ClientHeight = 580
@@ -10,30 +10,33 @@ object frmLEmuTKMain: TfrmLEmuTKMain
   OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
   OnDestroy = FormDestroy
+  PopupMode = pmExplicit
   Position = poDesktopCenter
   SessionProperties = 'Height;Width;WindowState'
+  ShowHint = True
   LCLVersion = '6.0'
   object stbHelp: TStatusBar
     Left = 0
     Height = 23
     Top = 557
     Width = 800
+    AutoHint = True
     Panels = <>
   end
   object ActionList: TActionList
     Images = ActImages
-    Left = 184
-    Top = 104
+    Left = 40
+    Top = 72
     object HelpOnHelp1: THelpOnHelp
       Category = 'Help'
-      Caption = 'A&yuda sobre la ayuda'
-      Hint = 'Ayuda sobre la ayuda'
+      Caption = 'Sobre Emuteca...'
+      Hint = 'Información de Emuteca|Muestra un cuadro con información sobre Emuteca.'
       OnExecute = HelpOnHelp1Execute
     end
     object FileExit1: TFileExit
       Category = 'File'
       Caption = 'S&alir'
-      Hint = 'Salir'
+      Hint = 'Salir|Sale de Emuteca.'
     end
     object actEmulatorManager: TAction
       Category = 'Managers'
@@ -89,8 +92,8 @@ object frmLEmuTKMain: TfrmLEmuTKMain
   end
   object MainMenu: TMainMenu
     Images = ActImages
-    Left = 184
-    Top = 48
+    Left = 40
+    Top = 16
     object mmiFile: TMenuItem
       Caption = 'File'
       object mmiTest: TMenuItem
@@ -160,11 +163,11 @@ object frmLEmuTKMain: TfrmLEmuTKMain
   object IniPropStorage: TIniPropStorage
     StoredValues = <>
     IniSection = 'Forms'
-    Left = 184
-    Top = 232
+    Left = 40
+    Top = 184
   end
   object ActImages: TImageList
-    Left = 184
-    Top = 168
+    Left = 40
+    Top = 128
   end
 end

@@ -41,12 +41,15 @@ type
     FEnabledList: cEmutecaSystemList;
     FProgressCallBack: TEmutecaProgressCallBack;
     FSysDataFolder: string;
+    FTempFolder: string;
     procedure SetSysDataFolder(AValue: string);
+    procedure SetTempFolder(AValue: string);
 
   protected
     procedure SetProgressCallBack(AValue: TEmutecaProgressCallBack);
 
   public
+    property TempFolder: string read FTempFolder write SetTempFolder;
     property SysDataFolder: string read FSysDataFolder write SetSysDataFolder;
 
     procedure ClearData;
@@ -85,6 +88,20 @@ uses uaEmutecaCustomSystem, ucEmutecaSystem;
 procedure cEmutecaSystemManager.SetSysDataFolder(AValue: string);
 begin
   FSysDataFolder := SetAsFolder(AValue);
+end;
+
+procedure cEmutecaSystemManager.SetTempFolder(AValue: string);
+var
+  i: Integer;
+begin
+  FTempFolder := SetAsFolder(AValue);
+
+  i := 0;
+  while i < FullList.Count do
+  begin
+    FullList[i].TempFolder := TempFolder;
+    inc(i);
+  end;
 end;
 
 procedure cEmutecaSystemManager.SetProgressCallBack(
@@ -130,6 +147,7 @@ begin
     begin
       TempSys := cEmutecaSystem.Create(nil);
       TempSys.ID := TempList[i];
+      TempSys.TempFolder := TempFolder;
       TempSys.IniFileName := IniFileName;
       TempSys.LoadFromIni(aIniFile);
       FullList.Add(TempSys);

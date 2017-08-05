@@ -72,11 +72,12 @@ type
     procedure SetBaseFolder(AValue: string);
     procedure SetCacheDataThread(AValue: cEmutecaCacheDataThread);
     procedure SetProgressBar(AValue: TEmutecaProgressCallBack);
-    procedure SetTempFolder(AValue: string);
 
   protected
     property CacheDataThread: cEmutecaCacheDataThread
       read FCacheDataThread write SetCacheDataThread;
+
+    procedure SetTempFolder(AValue: string);
 
   public
     property ProgressCallBack: TEmutecaProgressCallBack
@@ -91,21 +92,6 @@ type
     procedure SaveData;
 
     function SearchMainEmulator(aID: string): cEmutecaEmulator;
-
-    procedure SearchMediaFiles(OutFileList: TStrings;
-      aFolder: string; aFileName: string; Extensions: TStrings);
-    procedure SearchSoftFiles(OutFileList: TStrings;
-      aFolder: string; aSoft: cEmutecaSoftware; Extensions: TStrings);
-    procedure SearchGroupFiles(OutFileList: TStrings;
-      aFolder: string; aGroup: caEmutecaCustomGroup; Extensions: TStrings);
-
-    function SearchFirstMediaFile(aFolder: string;
-      aFileName: string; Extensions: TStrings): string;
-    function SearchFirstSoftFile(aFolder: string;
-      aSoft: cEmutecaSoftware; Extensions: TStrings;
-      UseGroup: boolean = True): string;
-    function SearchFirstGroupFile(aFolder: string;
-      aGroup: caEmutecaCustomGroup; Extensions: TStrings): string;
 
     procedure CacheData;
 
@@ -230,12 +216,6 @@ begin
 end;
 
 { cEmuteca }
-
-procedure cEmuteca.SetTempFolder(AValue: string);
-begin
-  FTempFolder := SetAsFolder(AValue);
-end;
-
 procedure cEmuteca.CacheData;
 begin
   if Assigned(CacheDataThread) then
@@ -250,253 +230,15 @@ begin
   CacheDataThread.Start;
 end;
 
-procedure cEmuteca.SearchMediaFiles(OutFileList: TStrings;
-  aFolder: string; aFileName: string; Extensions: TStrings);
-
-  procedure SearchFilesByExt(aFileList: TStrings; aBaseFileName: string;
-    aExtList: TStrings);
-  var
-    i: integer;
-    aFile: string;
-  begin
-    i := 0;
-    while i < aExtList.Count do
-    begin
-      aFile := aBaseFileName + ExtensionSeparator + aExtList[i];
-      if FileExistsUTF8(aFile) then
-        aFileList.Add(aFile);
-      Inc(i);
-    end;
-  end;
-
-var
-  CacheFolder: string;
-  CompressedArchives: TStringList;
-  i, j: integer;
-  Info: TSearchRec;
-begin
-  if not assigned(OutFileList) then
-    Exit;
-
-  aFolder := SetAsFolder(aFolder);
-  aFileName := RemoveFromBrackets(ExtractFileNameOnly(aFileName));
-  if (aFileName = '') or (aFolder = '') or
-    (not DirectoryExistsUTF8(aFolder)) or (Extensions = nil) or
-    (Extensions.Count = 0) then
-    Exit;
-
-  // 1. Basic search
-  // Folder/aFileName.mext
-  SearchFilesByExt(OutFileList, aFolder + aFileName, Extensions);
-
-  // 2. Search in folder
-  // Folder/aFileName/[*]/*.mext
-  { TODO: What is faster? FindAllFiles or modified
-    cEmuteca.SearchFirstMediaFile.SearchFileInFolder ?}
-  FindAllFiles(OutFileList, aFolder + aFileName,
-    FileMaskFromStringList(Extensions), True);
-
-  // 3. Search in zip files
-  //   Folder/aFileName.zip/*.mext (extract to CacheFolder/*.mext
-  { TODO : Diferenciate systems }
-  CacheFolder := TempFolder +
-    SetAsFolder(ExtractFileName(ExcludeTrailingPathDelimiter(aFolder))) +
-    SetAsFolder(aFileName);
-
-
-  // 3.a. If not CacheFolder exists, then search Folder/aFileName.zip/*.mext
-  //   and extract to CacheFolder
-  if not DirectoryExistsUTF8(CacheFolder) then
-  begin
-    CompressedArchives := TStringList.Create;
-    try
-      SearchFilesByExt(CompressedArchives, aFolder + aFileName,
-        Config.CompressedExtensions);
-
-      i := 0;
-      j := CompressedArchives.Count;
-      while i < j do
-      begin
-        w7zExtractFile(CompressedArchives[i], AllFilesMask, CacheFolder,
-          False, '');
-        Inc(i);
-      end;
-    finally
-      FreeAndNil(CompressedArchives);
-    end;
-  end;
-
-  // 3.b. Actually searching in CacheFolder
-  FindAllFiles(OutFileList, CacheFolder,
-    FileMaskFromStringList(Extensions), True);
-
-  // Found something then Exit
-  if OutFileList.Count > 0 then
-    Exit;
-
-  // 4. If nothing found, search ONLY ONE from every compressed archive.
-  // Folder/*.zip/aFileName.mext
-  if FindFirstUTF8(aFolder + AllFilesMask, 0, Info) = 0 then
-    // TODO: change to 3.X way :-P
-    try
-      repeat
-        if SupportedExt(Info.Name, Config.CompressedExtensions) then
-        begin
-          // AllFilesMask... Maybe is a good idea...
-          w7zExtractFile(aFolder + Info.Name, aFileName + '.*',
-            CacheFolder + Info.Name, False, '');
-        end;
-      until (FindNextUTF8(Info) <> 0);
-    finally
-      FindCloseUTF8(Info);
-    end;
-  FindAllFiles(OutFileList, CacheFolder,
-    FileMaskFromStringList(Extensions), True);
-end;
-
-function cEmuteca.SearchFirstMediaFile(aFolder: string;
-  aFileName: string; Extensions: TStrings): string;
-
-  function SearchFileByExt(aBaseFileName: string;
-    aExtList: TStrings): string;
-  var
-    i: integer;
-  begin
-    Result := '';
-    i := 0;
-    while (Result = '') and (i < aExtList.Count) do
-    begin
-      if FileExistsUTF8(aBaseFileName + ExtensionSeparator +
-        aExtList[i]) then
-        Result := aBaseFileName + ExtensionSeparator + aExtList[i];
-      Inc(i);
-    end;
-  end;
-
-  function SearchFileInFolder(aFolder: string;
-    Extensions: TStrings): string;
-  var
-    Info: TSearchRec;
-  begin
-    Result := '';
-    aFolder := SetAsFolder(aFolder);
-    if (aFolder = '') or (not DirectoryExistsUTF8(aFolder)) then
-      Exit;
-
-    if FindFirstUTF8(aFolder + AllFilesMask, faAnyFile, Info) = 0 then
-      try
-        repeat
-          if SupportedExt(Info.Name, Extensions) then
-            Result := aFolder + Info.Name;
-        until (Result <> '') or (FindNextUTF8(Info) <> 0);
-      finally
-        FindCloseUTF8(Info);
-      end;
-
-    if Result <> '' then
-      Exit;
-
-    if FindFirstUTF8(aFolder + AllFilesMask, faDirectory, Info) = 0 then
-      try
-        repeat
-          if (Info.Name <> '.') and (Info.Name <> '') and
-            (Info.Name <> '..') and
-            ((Info.Attr and faDirectory) <> 0) then
-            Result := SearchFileInFolder(aFolder + Info.Name, Extensions);
-        until (Result <> '') or (FindNextUTF8(Info) <> 0);
-      finally
-        FindCloseUTF8(Info);
-      end;
-  end;
-
-  //function cEmuteca.SearchFirstMediaFile(aFolder: string;
-  //  aFileName: string; Extensions: TStrings): string;
-var
-  CacheFolder: string;
-  CompressedArchives: TStringList;
-  i, j: integer;
-  Info: TSearchRec;
-begin
-  Result := '';
-
-  aFolder := SetAsFolder(aFolder);
-  aFileName := RemoveFromBrackets(ExtractFileNameOnly(aFileName));
-  if (aFileName = '') or (aFolder = '') or
-    (not DirectoryExistsUTF8(aFolder)) or (Extensions = nil) or
-    (Extensions.Count = 0) then
-    Exit;
-
-  // 1. Basic search
-  // Folder/aFileName.mext
-  Result := SearchFileByExt(aFolder + aFileName, Extensions);
-  if Result <> '' then
-    Exit;
-
-  // 2. Search in folder
-  // Folder/aFileName/[*]/*.mext
-  Result := SearchFileInFolder(aFolder + aFileName, Extensions);
-  if Result <> '' then
-    Exit;
-
-  // 3. Search in zip files
-  //   Folder/aFileName.zip/*.mext (extract to CacheFolder/*.mext
-  { TODO : Diferenciate systems }
-  CacheFolder := TempFolder +
-    SetAsFolder(ExtractFileName(ExcludeTrailingPathDelimiter(aFolder))) +
-    SetAsFolder(aFileName);
-
-  // 3.a. If not CacheFolder exists, then search Folder/aFileName.zip/*.mext
-  //   and extract to CacheFolder (WE EXTRACT ALL FILES)
-  if not DirectoryExistsUTF8(CacheFolder) then
-  begin
-    CompressedArchives := TStringList.Create;
-    try
-      FindAllFiles(CompressedArchives, aFolder + aFileName,
-        FileMaskFromStringList(Config.CompressedExtensions), True);
-
-      i := 0;
-      j := CompressedArchives.Count;
-      while i < j do
-      begin
-        w7zExtractFile(CompressedArchives[i], AllFilesMask, CacheFolder,
-          False, '');
-        Inc(i);
-      end;
-    finally
-      FreeAndNil(CompressedArchives);
-    end;
-  end;
-
-  // 3.b. Actually searching the file in CacheFolder
-  Result := SearchFileInFolder(CacheFolder, Extensions);
-  if Result <> '' then
-    Exit;
-
-  // 4. If nothing found, search ONLY ONE from every compressed archive.
-  // Folder/*.zip/aFileName.mext
-  if FindFirstUTF8(aFolder + AllFilesMask, 0, Info) = 0 then
-    // TODO: change to 3.X way :-P
-    try
-      repeat
-        if SupportedExt(Info.Name, Config.CompressedExtensions) then
-        begin
-          // AllFilesMask... Maybe is a good idea...
-          w7zExtractFile(aFolder + Info.Name, aFileName + '.*',
-            CacheFolder + Info.Name, False, '');
-        end;
-      until (FindNextUTF8(Info) <> 0);
-    finally
-      FindCloseUTF8(Info);
-    end;
-  Result := SearchFileInFolder(CacheFolder, Extensions);
-end;
-
 procedure cEmuteca.LoadConfig(aFile: string);
 begin
   Config.LoadConfig(aFile); // if empty, then last config file.
 
   // Temp folder
-  SetTempFolder(SetAsFolder(GetTempDir) + Config.TempSubfolder);
+  if FilenameIsAbsolute(Config.TempSubfolder) then
+    SetTempFolder(Config.TempSubfolder)
+  else
+    SetTempFolder(SetAsFolder(GetTempDir) + Config.TempSubfolder);
   ForceDirectories(TempFolder);
 
   // Setting EmulatorManager
@@ -504,6 +246,7 @@ begin
     SetAsAbsoluteFile(Config.EmulatorsFile, BaseFolder);
 
   // Setting SystemManager
+  SystemManager.TempFolder := TempFolder;
   SystemManager.IniFileName :=
     SetAsAbsoluteFile(Config.SystemsFile, BaseFolder);
   SystemManager.SysDataFolder :=
@@ -543,51 +286,6 @@ begin
   Result := EmulatorManager.FullList.ItemById(aID);
 end;
 
-procedure cEmuteca.SearchSoftFiles(OutFileList: TStrings;
-  aFolder: string; aSoft: cEmutecaSoftware; Extensions: TStrings);
-var
-  i: integer;
-begin
-  if aSoft.MatchGroupFile then
-  begin
-    SearchGroupFiles(OutFileList, aFolder, aSoft.CachedGroup, Extensions);
-  end
-  else
-  begin
-    i := OutFileList.Count;
-    SearchMediaFiles(OutFileList, aFolder, aSoft.FileName, Extensions);
-    if OutFileList.Count = i then
-      SearchGroupFiles(OutFileList, aFolder, aSoft.CachedGroup, Extensions);
-  end;
-end;
-
-function cEmuteca.SearchFirstSoftFile(aFolder: string;
-  aSoft: cEmutecaSoftware; Extensions: TStrings; UseGroup: boolean): string;
-begin
-  if aSoft.MatchGroupFile then
-  begin
-    Result := SearchFirstGroupFile(aFolder, aSoft.CachedGroup, Extensions);
-  end
-  else
-  begin
-    Result := SearchFirstMediaFile(aFolder, aSoft.FileName, Extensions);
-    if (Result = '') and UseGroup then
-      Result := SearchFirstGroupFile(aFolder, aSoft.CachedGroup, Extensions);
-  end;
-end;
-
-procedure cEmuteca.SearchGroupFiles(OutFileList: TStrings;
-  aFolder: string; aGroup: caEmutecaCustomGroup; Extensions: TStrings);
-begin
-  SearchMediaFiles(OutFileList, aFolder, aGroup.ID, Extensions);
-end;
-
-function cEmuteca.SearchFirstGroupFile(aFolder: string;
-  aGroup: caEmutecaCustomGroup; Extensions: TStrings): string;
-begin
-  Result := SearchFirstMediaFile(aFolder, aGroup.ID, Extensions);
-end;
-
 function cEmuteca.RunSoftware(const aSoftware: cEmutecaSoftware): integer;
 var
   aEmulator: cEmutecaEmulator;
@@ -623,11 +321,11 @@ begin
     Exit;
 
   // 2. Setting temp folder.
-  if Trim(ExcludeTrailingPathDelimiter(aSoftware.CachedSystem.TempFolder)) <>
+  if Trim(ExcludeTrailingPathDelimiter(aSoftware.CachedSystem.WorkingFolder)) <>
     '' then
-    aFolder := aSoftware.CachedSystem.TempFolder
+    aFolder := aSoftware.CachedSystem.WorkingFolder
   else
-    aFolder := TempFolder + krsEmutecaGameSubFolder;
+    aFolder := TempFolder + krsEmutecaTempGameSubFolder;
 
   //   2.1. If don't exists create new, and mark it to delete at the end.
   NewDir := not DirectoryExists(aFolder);
@@ -719,6 +417,11 @@ begin
   FProgressCallBack := AValue;
   EmulatorManager.ProgressCallBack := ProgressCallBack;
   SystemManager.ProgressCallBack := ProgressCallBack;
+end;
+
+procedure cEmuteca.SetTempFolder(AValue: string);
+begin
+  FTempFolder := SetAsFolder(AValue);
 end;
 
 procedure cEmuteca.SetCacheDataThread(AValue: cEmutecaCacheDataThread);

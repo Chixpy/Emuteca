@@ -9,7 +9,7 @@ uses
   Types, StdCtrls, LCLType,
   ucCHXImageList,
   ucEmutecaSystem,
-  ufEmutecaSystemCBXOld;
+  ufEmutecaSystemCBX;
 
 type
 
@@ -72,6 +72,7 @@ begin
       aCBX.Canvas.StretchDraw(RectIcon, SysIcons[2].Graphic);
     end;
   end;
+
   // Text
   aCBX.Canvas.TextOut(RectIcon.Right + 4, ARect.Top, aCBX.Items[Index]);
 end;

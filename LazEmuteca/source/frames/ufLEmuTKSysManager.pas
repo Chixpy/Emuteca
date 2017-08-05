@@ -7,9 +7,10 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
   Buttons, CheckLst, ActnList, Menus,
-  ufCHXChkLstPropEditor,
-  ucEmuteca, ucEmutecaSystem,
-  ufLEmuTKFullSystemEditor;
+  uCHXStrUtils,
+  ufCHXChkLstPropEditor, ufCHXForm,
+  ucEmuteca, uEmutecaCommon, ucEmutecaSystem,
+  ufLEmuTKFullSystemEditor, uLEmuTKCommon;
 
 resourcestring
   rsSystemName = 'System name [Company: Model (extra)]';
@@ -22,10 +23,13 @@ type
   TfmLEmuTKSysManager = class(TfmCHXChkLstPropEditor)
     OpenDialog1: TOpenDialog;
     SaveDialog1: TSaveDialog;
+
   private
     FEmuteca: cEmuteca;
+    FSHA1Folder: string;
     FSysEditor: TfmLEmuTKFullSystemEditor;
     procedure SetEmuteca(AValue: cEmuteca);
+    procedure SetSHA1Folder(AValue: string);
 
   protected
 
@@ -40,12 +44,18 @@ type
     procedure OnListClickCheck(aObject: TObject; aBool: boolean); override;
     procedure SetCheckedAll(aBool: boolean); override;
 
+    procedure ClearFrameData; override;
+    procedure LoadFrameData; override;
+
   public
     property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
+    property SHA1Folder: string read FSHA1Folder write SetSHA1Folder;
 
-    procedure ClearData; override;
-    procedure LoadData; override;
-    procedure SaveData; override;
+    procedure SaveFrameData; override;
+
+    // Creates a form with System Manager.
+    class function SimpleForm(aEmuteca: cEmuteca; aSHA1Folder: string; aGUIIconsIni: string;
+      aGUIConfigIni: string): integer;
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -57,18 +67,14 @@ implementation
 
 { TfmLEmuTKSysManager }
 
-procedure TfmLEmuTKSysManager.ClearData;
+procedure TfmLEmuTKSysManager.ClearFrameData;
 begin
-  inherited ClearData;
-
-  SysEditor.System := nil;
-  clbPropItems.Clear;
+  inherited ClearFrameData;
 end;
 
 procedure TfmLEmuTKSysManager.SetGUIIconsIni(AValue: string);
 begin
   inherited SetGUIIconsIni(AValue);
-  SysEditor.GUIIconsIni := GUIIconsIni;
 end;
 
 procedure TfmLEmuTKSysManager.SetCheckedAll(aBool: boolean);
@@ -94,10 +100,15 @@ begin
     Exit;
   FEmuteca := AValue;
 
-  LoadData;
-
-  Enabled := Assigned(Emuteca);
   SysEditor.Emuteca := Emuteca;
+
+  LoadFrameData;
+end;
+
+procedure TfmLEmuTKSysManager.SetSHA1Folder(AValue: string);
+begin
+  FSHA1Folder := SetAsFolder(AValue);
+  SysEditor.SHA1Folder := SHA1Folder;
 end;
 
 procedure TfmLEmuTKSysManager.OnListClick(aObject: TObject);
@@ -131,7 +142,7 @@ begin
   // TODO: Don't Add systems on the fly, only when saved
   Emuteca.SystemManager.FullList.Add(aSystem);
 
-  LoadData;
+  LoadFrameData;
 
   SysEditor.System := aSystem;
 end;
@@ -150,7 +161,7 @@ begin
       cEmutecaSystem(clbPropItems.Items.Objects[clbPropItems.ItemIndex]));
 
   finally
-    LoadData;
+    LoadFrameData;
   end;
 end;
 
@@ -176,14 +187,16 @@ begin
   Emuteca.SystemManager.LoadFromFileIni(OpenDialog1.FileName);
 end;
 
-procedure TfmLEmuTKSysManager.LoadData;
+procedure TfmLEmuTKSysManager.LoadFrameData;
 var
   i: integer;
 begin
-  ClearData;
+  Enabled := assigned(Emuteca);
 
-  if not assigned(Emuteca) then
+  if not assigned(Emuteca) then begin
+    ClearFrameData;
     Exit;
+  end;
 
   Emuteca.SystemManager.FullList.AssignToStrLst(clbPropItems.Items);
   i := 0;
@@ -195,7 +208,7 @@ begin
   end;
 end;
 
-procedure TfmLEmuTKSysManager.SaveData;
+procedure TfmLEmuTKSysManager.SaveFrameData;
 var
   i: integer;
   aSystem: cEmutecaSystem;
@@ -218,20 +231,54 @@ begin
       if aSystem.Enabled then
       begin
         // Saving soft of previously enabled systems ...
-        aSystem.SaveLists(Emuteca.SystemManager.SysDataFolder + aSystem.FileName, False);
+        aSystem.SaveLists(Emuteca.SystemManager.SysDataFolder +
+          aSystem.FileName, False);
       end
       else
       begin
         // ... loading soft of previously disabled systems
-        aSystem.LoadLists(Emuteca.SystemManager.SysDataFolder + aSystem.FileName);
+        aSystem.LoadLists(Emuteca.SystemManager.SysDataFolder +
+          aSystem.FileName);
       end;
       aSystem.Enabled := clbPropItems.Checked[i];
-     end;
+    end;
 
     Inc(i);
   end;
 
   Emuteca.SaveData;
+end;
+
+class function TfmLEmuTKSysManager.SimpleForm(aEmuteca: cEmuteca;
+  aSHA1Folder: string; aGUIIconsIni: string; aGUIConfigIni: string): integer;
+var
+  aForm: TfrmCHXForm;
+  aFrame: TfmLEmuTKSysManager;
+begin
+  Result := mrNone;
+
+  Application.CreateForm(TfrmCHXForm, aForm);
+  try
+    aForm.Name := 'frmLEmuTKSysManager';
+    aForm.Caption := Format(rsFmtWindowCaption,
+      [Application.Title, 'System Manager']);
+
+    aFrame := TfmLEmuTKSysManager.Create(aForm);
+    aFrame.SaveButtons := True;
+    aFrame.ButtonClose := True;
+    aFrame.Align := alClient;
+
+    aFrame.SHA1Folder := aSHA1Folder;
+    aFrame.Emuteca := aEmuteca;
+
+    aForm.GUIConfigIni := aGUIConfigIni;
+    aForm.GUIIconsIni := aGUIIconsIni;
+    aFrame.Parent := aForm;
+
+    Result := aForm.ShowModal;
+  finally
+    aForm.Free;
+  end;
 end;
 
 constructor TfmLEmuTKSysManager.Create(TheOwner: TComponent);

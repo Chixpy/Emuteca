@@ -5,8 +5,8 @@
 "Image/Front","i","Front covers"
 "Image/Back","i","Back covers"
 "Image/Media","i","Media"
-"Image/Icon","i","Icons"
 "Image/Spine","i","Spines"
+"Image/Icon","c","Icons"
 "Music/Demo","m","Demos"
 "Music/OST","m","OST"
 "Soft/Game",,
@@ -18,7 +18,7 @@
 "Text/Cheat","t","Cheats"
 "Text/Credit","t","Credits"
 "Text/Manual","t","Manual"
-"Text/Note","t","Notas"
+"Text/Note","t","Notes"
 "Tool",,
 "Video/Demo","v","Demos"
 "Video/TAS","v","TAS"

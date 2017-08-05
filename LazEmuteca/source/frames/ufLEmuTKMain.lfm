@@ -1,94 +1,75 @@
-object fmLEmuTKMain: TfmLEmuTKMain
-  Left = 0
-  Height = 477
-  Top = 0
-  Width = 776
-  ClientHeight = 477
-  ClientWidth = 776
-  TabOrder = 0
-  DesignLeft = 309
-  DesignTop = 149
-  object Splitter1: TSplitter
-    Left = 168
-    Height = 454
+inherited fmLEmuTKMain: TfmLEmuTKMain
+  Height = 399
+  Width = 602
+  ClientHeight = 399
+  ClientWidth = 602
+  DesignLeft = 447
+  DesignTop = 192
+  object stbInfo: TStatusBar[0]
+    Left = 0
+    Height = 23
+    Top = 376
+    Width = 602
+    Panels = <>
+    SizeGrip = False
+  end
+  object Splitter1: TSplitter[1]
+    Left = 200
+    Height = 376
     Top = 0
     Width = 5
   end
-  object Splitter2: TSplitter
-    Left = 571
-    Height = 454
+  object Splitter2: TSplitter[2]
+    Left = 397
+    Height = 376
     Top = 0
     Width = 5
     Align = alRight
     ResizeAnchor = akRight
   end
-  object pMiddle: TPanel
-    Left = 173
-    Height = 454
+  object pMiddle: TPanel[3]
+    Left = 205
+    Height = 376
     Top = 0
-    Width = 398
+    Width = 192
     Align = alClient
-    ClientHeight = 454
-    ClientWidth = 398
-    TabOrder = 2
+    BevelOuter = bvNone
+    ClientHeight = 376
+    ClientWidth = 192
+    TabOrder = 3
     object pMain: TPanel
-      Left = 1
-      Height = 429
-      Top = 24
-      Width = 396
+      Left = 0
+      Height = 353
+      Top = 23
+      Width = 192
       Align = alClient
       BevelOuter = bvNone
       TabOrder = 0
     end
-    object pSystems: TPanel
-      Left = 1
-      Height = 0
-      Top = 24
-      Width = 396
-      Align = alTop
-      AutoSize = True
-      TabOrder = 1
-    end
     object eSearch: TEdit
-      Left = 1
+      Left = 0
       Height = 23
-      Top = 1
-      Width = 396
+      Top = 0
+      Width = 192
       Align = alTop
-      TabOrder = 2
+      TabOrder = 1
       TextHint = 'Filter by name...'
     end
   end
-  object pcLeft: TPageControl
+  object pcLeft: TPageControl[4]
     Left = 0
-    Height = 454
+    Height = 376
     Top = 0
-    Width = 168
+    Width = 200
     Align = alLeft
-    TabOrder = 3
+    TabOrder = 4
   end
-  object pcSoftware: TPageControl
-    Left = 576
-    Height = 454
+  object pcSoftware: TPageControl[5]
+    Left = 402
+    Height = 376
     Top = 0
     Width = 200
     Align = alRight
-    TabOrder = 4
-  end
-  object stbInfo: TStatusBar
-    Left = 0
-    Height = 23
-    Top = 454
-    Width = 776
-    Panels = <>
-    SizeGrip = False
-  end
-  object ilActImages: TImageList
-    Left = 192
-    Top = 344
-  end
-  object ActionList1: TActionList
-    Left = 192
-    Top = 400
+    TabOrder = 5
   end
 end

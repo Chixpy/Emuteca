@@ -26,12 +26,11 @@ unit ucEmutecaPlayingStats;
 interface
 
 uses
-  Classes, SysUtils, dateutils, IniFiles, Graphics;
+  Classes, SysUtils, dateutils, IniFiles, Graphics,
+  uCHXStrUtils,
+  uEmutecaCommon;
 
 const
-  krsIniKeyPlayingTime = 'PlayingTime';
-  krsIniKeyTimesPlayed = 'TimesPlayed';
-  krsIniKeyLastTime = 'LastTime';
   krsCSVStatsHeader = '"Last Time","Times Played","Playing Time"';
 
 type
@@ -81,6 +80,9 @@ type
     property PlayingTime: int64 read FPlayingTime write SetPlayingTime;
     {< Total seconds played. }
 
+    function LastTimeStr: string;
+       function      TimesPlayedStr: string;
+       function         PlayingTimeStr: string;
     { TODO : Cached data for GUI, store elsewhere? }
     property IconIndex: integer read FIconIndex write SetIconIndex;
     property Icon: TPicture read FIcon write SetIcon;
@@ -217,6 +219,24 @@ end;
 destructor cEmutecaPlayingStats.Destroy;
 begin
   inherited Destroy;
+end;
+
+function cEmutecaPlayingStats.LastTimeStr: string;
+begin
+  if LastTime = 0 then
+          Result := rsNever
+        else
+          Result := DateTimeToStr(LastTime);
+end;
+
+function cEmutecaPlayingStats.TimesPlayedStr: string;
+begin
+  Result := IntToStr(TimesPlayed)
+end;
+
+function cEmutecaPlayingStats.PlayingTimeStr: string;
+begin
+  Result := SecondsToFmtStr(PlayingTime);
 end;
 
 initialization

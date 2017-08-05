@@ -5,19 +5,20 @@ unit ufLEmuTKIcnSoftTree;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, LazFileUtils, Forms, Controls, Graphics, Dialogs,
+  Classes, SysUtils, FileUtil, LazFileUtils, Forms, Controls,
+  Graphics, Dialogs,
   VirtualTrees, LCLIntf, LCLType, ComCtrls, Menus, ActnList, LazUTF8,
-  uGUIConfig,
   ucCHXImageList, uCHXImageUtils,
   uaEmutecaCustomSoft,
-  ucEmuteca, ucEmutecaGroup, ucEmutecaSoftware,
+  ucEmutecaGroup, ucEmutecaSoftware,
   ufEmutecaSoftTree;
 
 const
-LazEmuTKIconFiles: array [0..12] of string =
-  (krsedsVerified, krsedsGood, krsedsAlternate, krsedsOverDump,
-  krsedsBadDump, krsedsUnderDump, 'Fixed', 'Trainer',
-  'Translation', 'Pirate', 'Cracked', 'Modified', 'Hack');
+  LazEmuTKIconFiles: array [0..12] of string =
+    (krsedsVerified, krsedsGood, krsedsAlternate, krsedsOverDump,
+    krsedsBadDump, krsedsUnderDump, 'Fixed', 'Trainer',
+    'Translation', 'Pirate', 'Cracked', 'Modified', 'Hack');
+
 type
 
   { TfmLEmuTKIcnSoftTree }
@@ -30,19 +31,15 @@ type
 
   private
     FDumpIconList: cCHXImageList;
-    FEmuteca: cEmuteca;
-    FGUIConfig: cGUIConfig;
+    FImageExt: TStrings;
     FSoftIconList: cCHXImageList;
     FZoneIconMap: cCHXImageMap;
     procedure SetDumpIconList(AValue: cCHXImageList);
-    procedure SetEmuteca(AValue: cEmuteca);
-    procedure SetGUIConfig(AValue: cGUIConfig);
+    procedure SetImageExt(AValue: TStrings);
     procedure SetSoftIconList(AValue: cCHXImageList);
     procedure SetZoneIconMap(AValue: cCHXImageMap);
 
   public
-    property GUIConfig: cGUIConfig read FGUIConfig write SetGUIConfig;
-    property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
 
     property SoftIconList: cCHXImageList read FSoftIconList
       write SetSoftIconList;
@@ -52,10 +49,7 @@ type
     //< Icons of dump info.
     property ZoneIconMap: cCHXImageMap read FZoneIconMap write SetZoneIconMap;
     //< Icons for zones
-
-    procedure ClearData; override;
-    procedure LoadData; override;
-    procedure SaveData; override;
+    property ImageExt: TStrings read FImageExt write SetImageExt;
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -75,91 +69,89 @@ procedure TfmLEmuTKIcnSoftTree.VDTDrawText(Sender: TBaseVirtualTree;
     Node: PVirtualNode; Column: TColumnIndex; const CellText: string;
   const CellRect: TRect; var DefaultDraw: boolean);
   var
-  IconRect: TRect;
-  aIcon: TPicture;
-  TmpStr: string;
+    IconRect: TRect;
+    aIcon: TPicture;
+    TmpStr: string;
   begin
-      if not Assigned(SoftIconList) then
-    Exit;
-  if not Assigned(Emuteca) then
-    Exit;
+    if not Assigned(SoftIconList) then
+      Exit;
 
-      case Column of
-    0: // System
-    begin
-      DefaultDraw := False;
-
-      // Icon space
-      IconRect := CellRect;
-      IconRect.Right := IconRect.Left + IconRect.Bottom - IconRect.Top;
-
-      // TODO: Make it simple, Emuteca or System will search the icon
-      if aGroup.CachedSystem.Stats.IconIndex = -1 then
+    case Column of
+      0: // System
       begin
-        if FileExistsUTF8(aGroup.CachedSystem.Icon) then
-          aGroup.CachedSystem.Stats.IconIndex :=
-            SoftIconList.AddImageFile(aGroup.CachedSystem.Icon)
-        else
-          aGroup.CachedSystem.Stats.IconIndex := 0;
+        DefaultDraw := False;
+
+        // Icon space
+        IconRect := CellRect;
+        IconRect.Right := IconRect.Left + IconRect.Bottom - IconRect.Top;
+
+        // TODO: Make it more simple
+        if aGroup.CachedSystem.Stats.IconIndex = -1 then
+        begin
+          if FileExistsUTF8(aGroup.CachedSystem.Icon) then
+            aGroup.CachedSystem.Stats.IconIndex :=
+              SoftIconList.AddImageFile(aGroup.CachedSystem.Icon)
+          else
+            aGroup.CachedSystem.Stats.IconIndex := 0;
+        end;
+
+        if (aGroup.CachedSystem.Stats.IconIndex < SoftIconList.Count) then
+        begin
+          aIcon := SoftIconList[aGroup.CachedSystem.Stats.IconIndex];
+          TargetCanvas.StretchDraw(CorrectAspectRatio(IconRect, aIcon),
+            aIcon.Graphic);
+        end;
+
+        // Don't draw text
+
+        // Text space
+        //  IconRect := CellRect;
+        //  IconRect.Left := IconRect.Left + IconRect.Bottom -
+        //  IconRect.Top + VST.TextMargin;
+
+        // DrawText(TargetCanvas.Handle, PChar(CellText), -1, IconRect,
+        //  DT_NOPREFIX or DT_VCENTER or DT_SINGLELINE or
+        //  DT_WORDBREAK or DT_END_ELLIPSIS or DT_EDITCONTROL);
       end;
 
-      if (aGroup.CachedSystem.Stats.IconIndex < SoftIconList.Count) then
+      1: // Title
       begin
-        aIcon := SoftIconList[aGroup.CachedSystem.Stats.IconIndex];
-        TargetCanvas.StretchDraw(CorrectAspectRatio(IconRect, aIcon),
-          aIcon.Graphic);
+        DefaultDraw := False;
+
+        // Icon space
+        IconRect := CellRect;
+        IconRect.Right := IconRect.Left + IconRect.Bottom - IconRect.Top;
+
+        // TODO: Make it simple, Emuteca or System will search the icon
+        if aGroup.Stats.IconIndex = -1 then
+        begin
+          TmpStr := aGroup.SearchFirstRelatedFile(
+            aGroup.CachedSystem.IconFolder, ImageExt, True);
+
+          if TmpStr = '' then
+            aGroup.Stats.IconIndex := 0
+          else
+            aGroup.Stats.IconIndex := SoftIconList.AddImageFile(TmpStr);
+        end;
+
+        if (aGroup.Stats.IconIndex < SoftIconList.Count) then
+        begin
+          aIcon := SoftIconList[aGroup.Stats.IconIndex];
+          TargetCanvas.StretchDraw(CorrectAspectRatio(IconRect, aIcon),
+            aIcon.Graphic);
+        end;
+
+        // Text space
+        IconRect := CellRect;
+        IconRect.Left := IconRect.Left + IconRect.Bottom -
+          IconRect.Top + VDT.TextMargin;
+
+        DrawText(TargetCanvas.Handle, PChar(CellText), -1, IconRect,
+          DT_NOPREFIX or DT_VCENTER or DT_SINGLELINE or
+          DT_WORDBREAK or DT_END_ELLIPSIS or DT_EDITCONTROL);
       end;
 
-      // Don't draw text
-
-      // Text space
-      //  IconRect := CellRect;
-      //  IconRect.Left := IconRect.Left + IconRect.Bottom -
-      //  IconRect.Top + VST.TextMargin;
-
-      // DrawText(TargetCanvas.Handle, PChar(CellText), -1, IconRect,
-      //  DT_NOPREFIX or DT_VCENTER or DT_SINGLELINE or
-      //  DT_WORDBREAK or DT_END_ELLIPSIS or DT_EDITCONTROL);
     end;
-
-    1: // Title
-    begin
-      DefaultDraw := False;
-
-      // Icon space
-      IconRect := CellRect;
-      IconRect.Right := IconRect.Left + IconRect.Bottom - IconRect.Top;
-
-      // TODO: Make it simple, Emuteca or System will search the icon
-      if aGroup.Stats.IconIndex = -1 then
-      begin
-        TmpStr := Emuteca.SearchFirstGroupFile(aGroup.CachedSystem.IconFolder,
-          aGroup, GUIConfig.ImageExtensions);
-
-        if TmpStr = '' then
-          aGroup.Stats.IconIndex := 0
-        else
-          aGroup.Stats.IconIndex := SoftIconList.AddImageFile(TmpStr);
-      end;
-
-      if (aGroup.Stats.IconIndex < SoftIconList.Count) then
-      begin
-        aIcon := SoftIconList[aGroup.Stats.IconIndex];
-        TargetCanvas.StretchDraw(CorrectAspectRatio(IconRect, aIcon),
-          aIcon.Graphic);
-      end;
-
-      // Text space
-      IconRect := CellRect;
-      IconRect.Left := IconRect.Left + IconRect.Bottom -
-        IconRect.Top + VDT.TextMargin;
-
-      DrawText(TargetCanvas.Handle, PChar(CellText), -1, IconRect,
-        DT_NOPREFIX or DT_VCENTER or DT_SINGLELINE or
-        DT_WORDBREAK or DT_END_ELLIPSIS or DT_EDITCONTROL);
-    end;
-
-  end;
   end;
 
   procedure DrawSoftText(aSoft: cEmutecaSoftware; TargetCanvas: TCanvas;
@@ -222,45 +214,23 @@ procedure TfmLEmuTKIcnSoftTree.VDTDrawText(Sender: TBaseVirtualTree;
         if not assigned(SoftIconList) then
           Exit;
 
-        if not Assigned(Emuteca) then
-          Exit;
-
         DefaultDraw := False;
 
         // Icon space
         IconRect := CellRect;
         IconRect.Right := IconRect.Left + IconRect.Bottom - IconRect.Top;
 
+
+        // TODO: Do this easier....
         if aSoft.Stats.IconIndex = -1 then
         begin
 
-          // Usual logic:
-          // If GroupIcon = SoftIcon then
-          //   Search icon of group
-          //   Use icon of group
-          // else
-          //   Search soft icon
-          //   if found then
-          //     Use soft icon
-          //   else
-          //     Search icon of group
-          //     Use icon of group
-
-          // Used logic:
-          // Search icon of group
-          // If GroupIcon = SoftIcon then
-          //   Use icon of group
-          // else
-          //   Search soft icon
-          //   if found then
-          //     Use soft icon
-          //   else
-          //     Use icon of group
-
+          // Primero añadimos el padre, por si acaso.
           if aSoft.CachedGroup.Stats.IconIndex = -1 then
-          begin // Searching group icon
-            TmpStr := Emuteca.SearchFirstGroupFile(aSoft.CachedSystem.IconFolder,
-              aSoft.CachedGroup, GUIConfig.ImageExtensions);
+          begin
+            TmpStr := aSoft.CachedGroup.SearchFirstRelatedFile(
+              aSoft.CachedSystem.IconFolder, ImageExt, True);
+
             if TmpStr = '' then
               aSoft.CachedGroup.Stats.IconIndex := 0
             else
@@ -268,20 +238,18 @@ procedure TfmLEmuTKIcnSoftTree.VDTDrawText(Sender: TBaseVirtualTree;
                 SoftIconList.AddImageFile(TmpStr);
           end;
 
-          if aSoft.MatchGroupFile then
+          // If not same file, search soft icon.
+          if not aSoft.MatchGroupFile then
           begin
-            aSoft.Stats.IconIndex := aSoft.CachedGroup.Stats.IconIndex;
-          end
-          else
-          begin
-            TmpStr := Emuteca.SearchFirstSoftFile(aSoft.CachedSystem.IconFolder,
-              aSoft, GUIConfig.ImageExtensions, False);
-            if TmpStr = '' then
-              aSoft.Stats.IconIndex := aSoft.CachedGroup.Stats.IconIndex
-            else
+            TmpStr := aSoft.SearchFirstRelatedFile(
+              aSoft.CachedSystem.IconFolder, ImageExt, True);
+            if TmpStr <> '' then
               aSoft.Stats.IconIndex := SoftIconList.AddImageFile(TmpStr);
           end;
         end;
+
+        if aSoft.Stats.IconIndex = -1 then
+          aSoft.Stats.IconIndex := aSoft.CachedGroup.Stats.IconIndex;
 
         if (aSoft.Stats.IconIndex < SoftIconList.Count) then
         begin
@@ -425,17 +393,11 @@ begin
   FDumpIconList := AValue;
 end;
 
-procedure TfmLEmuTKIcnSoftTree.SetEmuteca(AValue: cEmuteca);
+procedure TfmLEmuTKIcnSoftTree.SetImageExt(AValue: TStrings);
 begin
-  if FEmuteca = AValue then
+  if FImageExt = AValue then
     Exit;
-  FEmuteca := AValue;
-end;
-
-procedure TfmLEmuTKIcnSoftTree.SetGUIConfig(AValue: cGUIConfig);
-begin
-  if FGUIConfig = AValue then Exit;
-  FGUIConfig := AValue;
+  FImageExt := AValue;
 end;
 
 procedure TfmLEmuTKIcnSoftTree.SetSoftIconList(AValue: cCHXImageList);
@@ -450,21 +412,6 @@ begin
   if FZoneIconMap = AValue then
     Exit;
   FZoneIconMap := AValue;
-end;
-
-procedure TfmLEmuTKIcnSoftTree.ClearData;
-begin
-  inherited ClearData;
-end;
-
-procedure TfmLEmuTKIcnSoftTree.LoadData;
-begin
-  inherited LoadData;
-end;
-
-procedure TfmLEmuTKIcnSoftTree.SaveData;
-begin
-  inherited SaveData;
 end;
 
 constructor TfmLEmuTKIcnSoftTree.Create(TheOwner: TComponent);

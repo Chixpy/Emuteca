@@ -1,58 +1,54 @@
-unit ufLEmuTKSoftMediaOld;
+unit ufLEmuTKSoftMedia;
 
 {$mode objfpc}{$H+}
 
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, StdCtrls, ExtCtrls,
-  uCHXStrUtils,
-  ucEmuteca, ucEmutecaGroup, ucEmutecaSoftware,
-  ufLEmuTKSoftImgPreview, ufLEmuTKSoftTxtPreview,
-  uGUIConfig;
+  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
+  ufCHXFrame,
+  ucEmutecaGroup, ucEmutecaSoftware,
+  ufLEmuTKSoftImgPreview, ufLEmuTKSoftTxtPreview;
 
 type
 
   { TfmLEmuTKSoftMedia }
 
-  TfmLEmuTKSoftMedia = class(TFrame)
+  TfmLEmuTKSoftMedia = class(TfmCHXFrame)
     pSoftImagPreview: TPanel;
     pSoftTxtPreview: TPanel;
     Splitter1: TSplitter;
 
   private
-    FEmuteca: cEmuteca;
     FGroup: cEmutecaGroup;
-    FGUIConfig: cGUIConfig;
-    FIconsIni: string;
+    FImageExt: TStrings;
     FSoftImgPreview: TfmLEmuTKSoftImgPreview;
     FSoftTxtPreview: TfmLEmuTKSoftTxtPreview;
     FSoftware: cEmutecaSoftware;
-    procedure SetEmuteca(AValue: cEmuteca);
+    FTextExt: TStrings;
     procedure SetGroup(AValue: cEmutecaGroup);
-    procedure SetGUIConfig(AValue: cGUIConfig);
-    procedure SetIconsIni(AValue: string);
+    procedure SetImageExt(AValue: TStrings);
     procedure SetSoftware(AValue: cEmutecaSoftware);
+    procedure SetTextExt(AValue: TStrings);
 
   protected
-    property SoftTxtPreview: TfmLEmuTKSoftTxtPreview read FSoftTxtPreview;
     property SoftImgPreview: TfmLEmuTKSoftImgPreview read FSoftImgPreview;
+    property SoftTxtPreview: TfmLEmuTKSoftTxtPreview read FSoftTxtPreview;
+
+    procedure ClearFrameData; override;
+    procedure LoadFrameData; override;
 
   public
-    { public declarations }
-    property IconsIni: string read FIconsIni write SetIconsIni;
-    property GUIConfig: cGUIConfig read FGUIConfig write SetGUIConfig;
-
     property Software: cEmutecaSoftware read FSoftware write SetSoftware;
     property Group: cEmutecaGroup read FGroup write SetGroup;
-    property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
 
-    procedure ClearData;
-    procedure LoadData;
-    procedure SaveData;
+    property ImageExt: TStrings read FImageExt write SetImageExt;
+    property TextExt: TStrings read FTextExt write SetTextExt;
+
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
+
   end;
 
 implementation
@@ -61,40 +57,24 @@ implementation
 
 { TfmLEmuTKSoftMedia }
 
-procedure TfmLEmuTKSoftMedia.SetIconsIni(AValue: string);
-begin
- FIconsIni := SetAsFile(AValue);
- SoftImgPreview.GUIIconsIni := IconsIni;
- SoftTxtPreview.GUIIconsIni := IconsIni;
-end;
-
-procedure TfmLEmuTKSoftMedia.SetEmuteca(AValue: cEmuteca);
-begin
-  if FEmuteca = AValue then Exit;
-  FEmuteca := AValue;
-
-  SoftImgPreview.Emuteca := Emuteca;
-  SoftTxtPreview.Emuteca := Emuteca;
-end;
-
 procedure TfmLEmuTKSoftMedia.SetGroup(AValue: cEmutecaGroup);
 begin
-  if FGroup = AValue then Exit;
+  if FGroup = AValue then
+    Exit;
   FGroup := AValue;
 
   SoftImgPreview.Group := Group;
   SoftTxtPreview.Group := Group;
 
-  Enabled := Assigned(Group);
+  LoadFrameData;
 end;
 
-procedure TfmLEmuTKSoftMedia.SetGUIConfig(AValue: cGUIConfig);
+procedure TfmLEmuTKSoftMedia.SetImageExt(AValue: TStrings);
 begin
-  if FGUIConfig = AValue then Exit;
-  FGUIConfig := AValue;
+  if FImageExt = AValue then Exit;
+  FImageExt := AValue;
 
-    SoftImgPreview.GUIConfig := GUIConfig;
-    SoftTxtPreview.GUIConfig := GUIConfig;
+  SoftImgPreview.FileExt := ImageExt;
 end;
 
 procedure TfmLEmuTKSoftMedia.SetSoftware(AValue: cEmutecaSoftware);
@@ -106,25 +86,27 @@ begin
   SoftImgPreview.Software := Software;
   SoftTxtPreview.Software := Software;
 
-  Enabled := Assigned(Software);
+  LoadFrameData;
 end;
 
-procedure TfmLEmuTKSoftMedia.ClearData;
+procedure TfmLEmuTKSoftMedia.SetTextExt(AValue: TStrings);
 begin
+  if FTextExt = AValue then Exit;
+  FTextExt := AValue;
 
+  SoftTxtPreview.FileExt := TextExt;
 end;
 
-procedure TfmLEmuTKSoftMedia.LoadData;
+procedure TfmLEmuTKSoftMedia.ClearFrameData;
 begin
-
 end;
 
-procedure TfmLEmuTKSoftMedia.SaveData;
+procedure TfmLEmuTKSoftMedia.LoadFrameData;
 begin
-
 end;
 
 constructor TfmLEmuTKSoftMedia.Create(TheOwner: TComponent);
+
   procedure CreateFrames;
   begin
     FSoftImgPreview := TfmLEmuTKSoftImgPreview.Create(pSoftImagPreview);
@@ -139,7 +121,7 @@ constructor TfmLEmuTKSoftMedia.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
 
-  Enabled := False;
+  Enabled := True; // This frame can be enabled while empty to move splitter
 
   CreateFrames;
 end;

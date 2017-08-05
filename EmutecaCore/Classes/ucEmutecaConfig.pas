@@ -77,7 +77,7 @@ type
     FSystemsFile: string;
     FTagsFolder: string;
     FTempFile: string;
-    FTempFolder: string;
+    FTempSubFolder: string;
     FSoftFile: string;
     Fz7CMExecutable: string;
     Fz7GExecutable: string;
@@ -89,7 +89,7 @@ type
     procedure SetSystemsFile(const AValue: string);
     procedure SetTagsFolder(AValue: string);
     procedure SetTempFile(const AValue: string);
-    procedure SetTempFolder(const AValue: string);
+    procedure SetTempSubFolder(const AValue: string);
     procedure SetSoftFile(AValue: string);
     procedure Setz7CMExecutable(const AValue: string);
     procedure Setz7GExecutable(const AValue: string);
@@ -114,7 +114,7 @@ type
     property CompressedExtensions: TStringList read FCompressedExtensions;
 
     // Temp folder/file
-    property TempSubfolder: string read FTempFolder write SetTempFolder;
+    property TempSubfolder: string read FTempSubFolder write SetTempSubFolder;
     property TempFile: string read FTempFile write SetTempFile;
 
     // Misc
@@ -184,9 +184,9 @@ begin
   FTempFile := SetAsFile(AValue);
 end;
 
-procedure cEmutecaConfig.SetTempFolder(const AValue: string);
+procedure cEmutecaConfig.SetTempSubFolder(const AValue: string);
 begin
-  FTempFolder := SetAsFolder(AValue);
+  FTempSubFolder := SetAsFolder(AValue);
 end;
 
 procedure cEmutecaConfig.SetSoftFile(AValue: string);

@@ -1,8 +1,8 @@
-object Form1: TForm1
+object frmESMGroupList: TfrmESMGroupList
   Left = 389
   Height = 240
   Top = 284
   Width = 320
-  Caption = 'Form1'
+  Caption = 'frmESMGroupList'
   LCLVersion = '6.0'
 end

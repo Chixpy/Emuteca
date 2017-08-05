@@ -1,0 +1,70 @@
+inherited fmEmutecaSystemPanel: TfmEmutecaSystemPanel
+  Height = 392
+  Width = 200
+  ClientHeight = 392
+  ClientWidth = 200
+  DesignLeft = 419
+  DesignTop = 228
+  object SysImage: TImage[0]
+    Left = 0
+    Height = 200
+    Top = 0
+    Width = 200
+    Align = alTop
+    Center = True
+    Proportional = True
+    Stretch = True
+    Transparent = True
+  end
+  object Splitter1: TSplitter[1]
+    Cursor = crVSplit
+    Left = 0
+    Height = 5
+    Top = 200
+    Width = 200
+    Align = alTop
+    ResizeAnchor = akTop
+  end
+  object gbxStats: TGroupBox[2]
+    Left = 0
+    Height = 89
+    Top = 205
+    Width = 200
+    Align = alTop
+    AutoSize = True
+    Caption = 'Stats'
+    ClientHeight = 69
+    ClientWidth = 196
+    TabOrder = 1
+    object ePlayedTime: TEdit
+      Left = 0
+      Height = 23
+      Top = 0
+      Width = 196
+      Align = alTop
+      Enabled = False
+      TabOrder = 0
+      TextHint = 'Played Time'
+    end
+    object eNTimes: TEdit
+      Left = 0
+      Height = 23
+      Top = 23
+      Width = 196
+      Align = alTop
+      Enabled = False
+      TabOrder = 1
+      TextHint = '# Times'
+    end
+    object eLastTime: TEdit
+      Left = 0
+      Height = 23
+      Top = 46
+      Width = 196
+      Align = alTop
+      Enabled = False
+      TabOrder = 2
+      Text = 'eLastTime'
+    end
+  end
+end

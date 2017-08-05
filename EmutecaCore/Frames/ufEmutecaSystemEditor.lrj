@@ -11,6 +11,5 @@
 {"hash":170756339,"name":"tfmemutecasystemeditor.lfileextensions.caption","sourcebytes":[70,105,108,101,32,69,120,116,101,110,115,105,111,110,115],"value":"File Extensions"},
 {"hash":92679923,"name":"tfmemutecasystemeditor.rgbgamekey.caption","sourcebytes":[75,101,121,32,102,111,114,32,71,97,109,101,115],"value":"Key for Games"},
 {"hash":71577321,"name":"tfmemutecasystemeditor.chkextractallfiles.caption","sourcebytes":[69,120,116,114,97,99,116,32,65,108,108,32,70,105,108,101,115,32,40,73,102,32,105,116,39,115,32,105,110,32,99,111,109,112,114,101,115,115,101,100,41],"value":"Extract All Files (If it's in compressed)"},
-{"hash":78704354,"name":"tfmemutecasystemeditor.ltempfolder.caption","sourcebytes":[84,101,109,112,32,70,111,108,100,101,114],"value":"Temp Folder"},
-{"hash":205020805,"name":"tfmemutecasystemeditor.bcreatesubdirs.caption","sourcebytes":[67,114,101,97,116,101,32,100,101,102,97,117,108,116,32,102,111,108,100,101,114,32,115,116,114,117,99,116,117,114,101],"value":"Create default folder structure"}
+{"hash":40381362,"name":"tfmemutecasystemeditor.lworkingfolder.caption","sourcebytes":[87,111,114,107,105,110,103,32,70,111,108,100,101,114],"value":"Working Folder"}
 ]}

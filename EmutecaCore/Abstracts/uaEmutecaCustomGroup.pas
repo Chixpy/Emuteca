@@ -63,6 +63,11 @@ type
     procedure SaveToStrLst(aTxtFile: TStrings; const ExportMode: boolean);
       override;
 
+    procedure SearchAllRelatedFiles(OutFileList: TStrings;
+      aFolder: string; Extensions: TStrings; AutoExtract: boolean); virtual;
+    function SearchFirstRelatedFile(aFolder: string;
+      Extensions: TStrings; AutoExtract: boolean): string; virtual;
+
     constructor Create(aOwner: TComponent); override;
     destructor Destroy; override;
 
@@ -189,6 +194,22 @@ begin
   aTxtFile.Add(Developer);
 
   Stats.WriteToStrLst(aTxtFile, ExportMode);
+end;
+
+procedure caEmutecaCustomGroup.SearchAllRelatedFiles(OutFileList: TStrings;
+  aFolder: string; Extensions: TStrings; AutoExtract: boolean);
+begin
+  // HACK: Dot added to ID, to preserve dots in ids like "Super Mario Bros."
+     EmuTKSearchAllRelatedFiles(OutFileList, aFolder, ID + '.', Extensions,
+      False,  '');
+end;
+
+function caEmutecaCustomGroup.SearchFirstRelatedFile(aFolder: string;
+  Extensions: TStrings; AutoExtract: boolean): string;
+begin
+  // HACK: Dot added to ID, to preserve dots in ids like "Super Mario Bros."
+      Result := EmuTKSearchFirstRelatedFile(aFolder, ID + '.', Extensions,
+      False, False,'');
 end;
 
 constructor caEmutecaCustomGroup.Create(aOwner: TComponent);

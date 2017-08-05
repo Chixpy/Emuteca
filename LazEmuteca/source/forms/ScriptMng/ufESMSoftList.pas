@@ -9,7 +9,7 @@ uses
   Dialogs, ExtCtrls, ComCtrls,
   ufCHXTagTree,
   ucEmuteca, ucEmutecaGroup, ucEmutecaSoftware, ucEmutecaSystem,
-  ufEmutecaSystemCBXOld, ufLEmuTKChkSoftList, ufEmutecaGroupListOld;
+  ufEmutecaSystemCBX;
 
 type
 
@@ -30,8 +30,6 @@ type
 
     // Frames
     fmEmutecaSystemCBX: TfmEmutecaSystemCBX;
-    fmEmutecaGroupList: TfmEmutecaGroupList;
-    fmEmutecaSoftList: TfmEmutecaChkSoftList;
     fmCHXTagTree: TfmCHXTagTree;
 
     procedure SetEmuteca(AValue: cEmuteca);
@@ -71,18 +69,6 @@ procedure TfrmESMSoftList.FormCreate(Sender: TObject);
     fmEmutecaSystemCBX.Parent := pMiddle;
 
 
-    // Creating and setting the parent list frame
-    fmEmutecaGroupList := TfmEmutecaGroupList.Create(pTop);
-    fmEmutecaSystemCBX.Align := alClient;
-    fmEmutecaGroupList.OnItemSelect := @SelectGroup;
-    fmEmutecaGroupList.Parent := pTop;
-
-
-    // Creating and Setting the software list frame
-    fmEmutecaSoftList := TfmEmutecaChkSoftList.Create(pBottom);
-    fmEmutecaSoftList.Parent := pBottom;
-   // fmEmutecaSoftList.OnItemSelect := @SelectSoftware;
-
     // Creating and Setting Tags
     aTabSheet := PageControl1.AddTabSheet;
     fmCHXTagTree := TfmCHXTagTree.Create(aTabSheet);
@@ -102,14 +88,10 @@ begin
   if assigned(Emuteca) then
   begin
     fmEmutecaSystemCBX.SystemList := Emuteca.SystemManager.EnabledList;
- //   fmEmutecaGroupList.GroupList := Emuteca.GroupManager.FullList;
-    //fmEmutecaSoftList.SoftList := Emuteca.SoftManager.VisibleList;
   end
   else
   begin
     fmEmutecaSystemCBX.SystemList := nil;
-    fmEmutecaGroupList.GroupList := nil;
-    fmEmutecaSoftList.SoftList := nil;
   end;
 end;
 

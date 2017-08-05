@@ -27,6 +27,7 @@ interface
 
 uses
   Classes, SysUtils, LazFileUtils, LazUTF8,
+  uEmutecaCommon,
   uaEmutecaCustomSystem, uaEmutecaCustomGroup,
   ucEmutecaSoftList;
 
@@ -44,6 +45,12 @@ type
 
     property CachedSystem: caEmutecaCustomSystem
       read FCachedSystem write SetCachedSystem;
+
+
+    procedure SearchAllRelatedFiles(OutFileList: TStrings;
+      aFolder: string; Extensions: TStrings; AutoExtract: boolean); override;
+    function SearchFirstRelatedFile(aFolder: string;
+      Extensions: TStrings; AutoExtract: boolean): string; override;
 
     constructor Create(aOwner: TComponent); override;
     destructor Destroy; override;
@@ -63,6 +70,28 @@ begin
   if FCachedSystem = AValue then
     Exit;
   FCachedSystem := AValue;
+end;
+
+procedure cEmutecaGroup.SearchAllRelatedFiles(OutFileList: TStrings;
+  aFolder: string; Extensions: TStrings; AutoExtract: boolean);
+begin
+  // HACK: Dot added to ID, to preserve dots in ids like "Super Mario Bros."
+  if Assigned(CachedSystem) then
+    EmuTKSearchAllRelatedFiles(OutFileList, aFolder, ID + '.', Extensions,
+      AutoExtract, CachedSystem.TempFolder)
+  else
+    inherited;
+end;
+
+function cEmutecaGroup.SearchFirstRelatedFile(aFolder: string;
+  Extensions: TStrings; AutoExtract: boolean): string;
+begin
+   // HACK: Dot added to ID, to preserve dots in ids like "Super Mario Bros."
+   if Assigned(CachedSystem) then
+    Result := EmuTKSearchFirstRelatedFile(aFolder, ID + '.', Extensions,
+      True, AutoExtract, CachedSystem.TempFolder)
+  else
+    Result := inherited;
 end;
 
 

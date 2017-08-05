@@ -1,0 +1,35 @@
+inherited fmEmutecaSystemMVFEditor: TfmEmutecaSystemMVFEditor
+  DesignLeft = 540
+  DesignTop = 191
+  object gbxMusicFolders: TGroupBox[1]
+    Left = 0
+    Height = 54
+    Top = 0
+    Width = 320
+    Align = alClient
+    Caption = 'Music folders'
+    TabOrder = 1
+  end
+  object gbxVideoFolders: TGroupBox[2]
+    Left = 0
+    Height = 154
+    Top = 59
+    Width = 320
+    Align = alBottom
+    Caption = 'Video folders'
+    TabOrder = 2
+  end
+  object Splitter1: TSplitter[3]
+    Cursor = crVSplit
+    Left = 0
+    Height = 5
+    Top = 54
+    Width = 320
+    Align = alBottom
+    ResizeAnchor = akBottom
+  end
+  inherited alPropEditor: TActionList[4]
+  end
+  inherited ilPropEditor: TImageList[5]
+  end
+end

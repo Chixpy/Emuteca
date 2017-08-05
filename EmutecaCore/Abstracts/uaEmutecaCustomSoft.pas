@@ -160,6 +160,11 @@ type
     procedure SaveToIni(aIniFile: TMemIniFile; const ExportMode: boolean);
       override;
 
+    procedure SearchAllRelatedFiles(OutFileList: TStrings;
+      aFolder: string; Extensions: TStrings; AutoExtract: boolean); virtual;
+    function SearchFirstRelatedFile(aFolder: string;
+      Extensions: TStrings; AutoExtract: boolean): string; virtual;
+
 
     constructor Create(aOwner: TComponent); override;
     destructor Destroy; override;
@@ -661,6 +666,20 @@ begin
   end;
 
   Stats.WriteToIni(aIniFile, SHA1Str, ExportMode);
+end;
+
+procedure caEmutecaCustomSoft.SearchAllRelatedFiles(OutFileList: TStrings;
+  aFolder: string; Extensions: TStrings; AutoExtract: boolean);
+begin
+       EmuTKSearchAllRelatedFiles(OutFileList, aFolder, FileName, Extensions,
+      False,  '');
+end;
+
+function caEmutecaCustomSoft.SearchFirstRelatedFile(aFolder: string;
+  Extensions: TStrings; AutoExtract: boolean): string;
+begin
+  result := EmuTKSearchFirstRelatedFile(aFolder, FileName, Extensions, False,
+        False, '');
 end;
 
 constructor caEmutecaCustomSoft.Create(aOwner: TComponent);

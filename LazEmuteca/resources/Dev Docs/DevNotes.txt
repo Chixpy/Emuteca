@@ -7,75 +7,11 @@ uXXX = Unit.
 ucXXX = Class unit.
 uaXXX = Abstract class unit.
 ufXXX = Frame unit.
-ufrXXX = Form unit.
+uafXXX = Abstract Frame unit.
+uafrXXX = Abstract Form unit.
+
+xEmuTKXXX = Emuteca core unit
 xLEmuTKXXX = GUI unit.
-
-(0.8) Games or Software folder?
-------------------------
-Software. Many systems have not only games.
-
-(0.8) How store things?
------------------------
-Think about store all extra info about a game inside the same 7z rather than
-"MultiOmniFolderSpreadedIn7z" as now is...:
-  * Game (+ Clones): In 1 7z (as usual, nothing new)
-    * Win: All game files
-    * MAME: Split
-    * Whatever: No change
-  * Basic info in db (for lists. Less info stored, faster reading).
-  * Tags in MAME style. A file with IDs listed, not every clone/parent
-    has its own tags.
-  * Images, Text, Sound, etc.: ALL in 1 7z (or kind-splited)
-  * TOSEC/User data: Not sure... Maybe external file, or one stored in the
-    previous 7z. This a per Clone info, while Images/Text is for parent...
-
-Pros:
-  * Less waiting while uncompressing media, 7z faster search.
-  * Easy exporting/importing extra data.
-  * If one day I made a grafical UI, most of data really, really will not be
-    loaded until a game is selected. The main problem in Emuteca is the main
-    list categorization (we need all data loaded to categorize by License
-    for example).
-
-Cons:
-  * Nobody has this schema.
-  * Some things may be better in raw form (Icons, TOSEC) for the list usage.
-
-Not sure Pros/Cons:
-  * System configuration about Images/Texts... folder and captions, for example.
-  * And what about media manager?
-
-
-
-(0.8) Sorting and Trasliteration of game names
-----------------------------------------------
-
-Game Clone data
----------------
-  * Basic info (Stored straight in db) for listings:
-    * ID
-    * Title
-    * Version (and release type: beta, alpha, proto)
-    * DumpStatus (TOSEC)
-    * Year
-    * Zone
-    * Publisher
-    * Parent
-    * Path/Folder/zip/7z
-    * FileName
-
-  * Stored as tags:
-    * Year of developing
-    * Developer
-
-  * Additional (This maybe loaded from an external file, but some seems to be
-    useful in main list...)
-    * TOSEC (Languages)
-    * Tags (Generic categorization info, remember: Language, License)
-    * User info
-      * Rating
-      * Quick notes
-      * ¿Some other?
 
 (0.7) Making a database from games
 ----------------------------

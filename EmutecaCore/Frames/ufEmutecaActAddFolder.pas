@@ -8,12 +8,12 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
   Buttons, ActnList, StdCtrls, EditBtn, LazFileUtils, LazUTF8,
   u7zWrapper,
-  uCHXFileUtils, uCHXStrUtils,
+  uCHXFileUtils, uCHXStrUtils, ufCHXForm,
   ufCHXPropEditor,
   uEmutecaCommon,
   ucEmuteca, uaEmutecaCustomSystem, ucEmutecaSystem,
   ucEmutecaSoftList, ucEmutecaSoftware,
-  ufEmutecaSystemCBXOld;
+  ufEmutecaSystemCBX;
 
 type
 
@@ -29,21 +29,27 @@ type
     rgbFilename: TRadioGroup;
     rgbGroup: TRadioGroup;
   private
-    FcbxSystem: TfmEmutecaSystemCBX;
+    FfmSystemCBX: TfmEmutecaSystemCBX;
     FEmuteca: cEmuteca;
     procedure SetEmuteca(AValue: cEmuteca);
 
   protected
-    property cbxSystem: TfmEmutecaSystemCBX read FcbxSystem;
+    property fmSystemCBX: TfmEmutecaSystemCBX read FfmSystemCBX;
 
     function SelectSystem(aSystem: cEmutecaSystem): boolean;
+
+    procedure ClearFrameData; override;
+    procedure LoadFrameData; override;
+
 
   public
     property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
 
-    procedure ClearData; override;
-    procedure LoadData; override;
-    procedure SaveData; override;
+    procedure SaveFrameData; override;
+
+    // Creates a form with AddFolder frame.
+    class function SimpleForm(aEmuteca: cEmuteca; aGUIIconsIni: string;
+      aGUIConfigIni: string): integer;
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -62,20 +68,15 @@ begin
     Exit;
   FEmuteca := AValue;
 
-  if not assigned(Emuteca) then
-    cbxSystem.SystemList := nil
+  if assigned(Emuteca) then
+    fmSystemCBX.SystemList := Emuteca.SystemManager.EnabledList
   else
-  begin
-    cbxSystem.SystemList := Emuteca.SystemManager.EnabledList;
-    // TODO: HACK: Changing "all systems" option...
-    if cbxSystem.cbxSystem.Items.Count > 0 then
-      cbxSystem.cbxSystem.Items[0] := rsSelectSystem;
-  end;
+    fmSystemCBX.SystemList := nil;
 
-  LoadData;
+  LoadFrameData;
 end;
 
-procedure TfmEmutecaActAddFolder.ClearData;
+procedure TfmEmutecaActAddFolder.ClearFrameData;
 begin
 
 end;
@@ -95,18 +96,18 @@ begin
     ProgramDirectory);
 end;
 
-procedure TfmEmutecaActAddFolder.LoadData;
+procedure TfmEmutecaActAddFolder.LoadFrameData;
 begin
    Enabled := Assigned(Emuteca);
 
-   if not enabled then
+   if not Enabled then
      begin
-       ClearData;
+       ClearFrameData;
        Exit;
      end;
 end;
 
-procedure TfmEmutecaActAddFolder.SaveData;
+procedure TfmEmutecaActAddFolder.SaveFrameData;
 var
   aSystem: cEmutecaSystem;
   FolderList, FileList: TStrings;
@@ -121,7 +122,7 @@ begin
 
   if not DirectoryExistsUTF8(eFolder.Text) then
     Exit;
-  aSystem := cbxSystem.SelectedSystem;
+  aSystem := fmSystemCBX.SelectedSystem;
   if not assigned(aSystem) then
     Exit;
 
@@ -149,8 +150,8 @@ begin
       i := 0;
       while i < FileList.Count do
       begin
-        FolderList.Add(ExtractFilePath(FileList[i]));
-        FileList[i] := ExtractFileName(FileList[i]);
+        FolderList.Add(SetAsFolder(ExtractFilePath(FileList[i])));
+        FileList[i] := SetAsFile(ExtractFileName(FileList[i]));
         Inc(i);
       end;
     end
@@ -267,14 +268,47 @@ begin
   end;
 end;
 
+class function TfmEmutecaActAddFolder.SimpleForm(aEmuteca: cEmuteca;
+  aGUIIconsIni: string; aGUIConfigIni: string): integer;
+var
+  aForm: TfrmCHXForm;
+  aFrame: TfmEmutecaActAddFolder;
+begin
+  Result := mrNone;
+
+  Application.CreateForm(TfrmCHXForm, aForm);
+  try
+    aForm.Name := 'frmEmutecaActAddSoft';
+    aForm.Caption := Format(rsFmtWindowCaption,
+      [Application.Title, 'Add Software...']);
+    aForm.AutoSize := True;
+
+    aFrame := TfmEmutecaActAddFolder.Create(aForm);
+    aFrame.SaveButtons := True;
+    aFrame.ButtonClose := True;
+    aFrame.Align := alClient;
+
+    aFrame.Emuteca := aEmuteca;
+
+    aForm.GUIConfigIni := aGUIConfigIni;
+    aForm.GUIIconsIni := aGUIIconsIni;
+    aFrame.Parent := aForm;
+
+    Result := aForm.ShowModal;
+  finally
+    aForm.Free;
+  end;
+end;
+
 constructor TfmEmutecaActAddFolder.Create(TheOwner: TComponent);
 
   procedure CreateFrames;
   begin
-    FcbxSystem := TfmEmutecaSystemCBX.Create(gbxSelectSystem);
-    cbxSystem.Align := alTop;
-    cbxSystem.OnSelectSystem := @SelectSystem;
-    cbxSystem.Parent := gbxSelectSystem;
+    FfmSystemCBX := TfmEmutecaSystemCBX.Create(gbxSelectSystem);
+    fmSystemCBX.Align := alTop;
+    fmSystemCBX.FirstItem := ETKSysCBXFISelect;
+    fmSystemCBX.OnSelectSystem := @SelectSystem;
+    fmSystemCBX.Parent := gbxSelectSystem;
   end;
 
 begin

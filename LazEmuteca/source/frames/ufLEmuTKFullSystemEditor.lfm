@@ -18,14 +18,51 @@ inherited fmLEmuTKFullSystemEditor: TfmLEmuTKFullSystemEditor
   end
   object pcProperties: TPageControl[1]
     Left = 0
-    Height = 384
-    Top = 0
+    Height = 358
+    Top = 26
     Width = 481
     Align = alClient
     TabOrder = 1
   end
-  inherited alPropEditor: TActionList[2]
+  object ToolBar1: TToolBar[2]
+    Left = 0
+    Height = 26
+    Top = 0
+    Width = 481
+    Caption = 'ToolBar1'
+    Images = ilPropEditor
+    TabOrder = 2
+    object bCreateFolders: TToolButton
+      Left = 32
+      Top = 2
+      Action = actCreateFolders
+    end
+    object bOpenSystemFolder: TToolButton
+      Left = 1
+      Top = 2
+      Action = actOpenSystemFolder
+    end
+    object ToolButton2: TToolButton
+      Left = 24
+      Height = 22
+      Top = 2
+      Width = 8
+      Caption = 'ToolButton2'
+      Style = tbsSeparator
+    end
   end
-  inherited ilPropEditor: TImageList[3]
+  inherited alPropEditor: TActionList[3]
+    object actCreateFolders: TAction[2]
+      Category = 'System'
+      Caption = 'Create Folders'
+      OnExecute = actCreateFoldersExecute
+    end
+    object actOpenSystemFolder: TAction[3]
+      Category = 'System'
+      Caption = 'Open system folder'
+      OnExecute = actOpenSystemFolderExecute
+    end
+  end
+  inherited ilPropEditor: TImageList[4]
   end
 end

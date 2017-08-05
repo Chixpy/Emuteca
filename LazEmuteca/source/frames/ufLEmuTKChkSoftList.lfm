@@ -1,5 +1,0 @@
-inherited fmEmutecaChkSoftList: TfmEmutecaChkSoftList
-  inherited VST: TVirtualStringTree
-    TreeOptions.MiscOptions = [toAcceptOLEDrop, toCheckSupport, toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning]
-  end
-end

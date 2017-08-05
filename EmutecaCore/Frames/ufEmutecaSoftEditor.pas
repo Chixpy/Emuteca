@@ -8,7 +8,8 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
   Buttons, ActnList, StdCtrls,
   ufCHXPropEditor,
-  uEmutecaRscStr, uaEmutecaCustomSoft,
+  uLEmuTKCommon,
+  uaEmutecaCustomSoft,
   ucEmutecaSystem, ucEmutecaGroup, ucEmutecaSoftware,
   ufEmutecaGroupCBXOld;
 
@@ -55,22 +56,23 @@ type
     lZone: TLabel;
 
   private
-    FcbxGroup: TfmEmutecaGroupCBX;
+    FfmGroupCBX: TfmEmutecaGroupCBX;
     FSoftware: cEmutecaSoftware;
     procedure SetSoftware(AValue: cEmutecaSoftware);
 
   protected
-    property cbxGroup: TfmEmutecaGroupCBX read FcbxGroup;
+    property fmGroupCBX: TfmEmutecaGroupCBX read FfmGroupCBX;
 
     function SelectGroup(aGroup: cEmutecaGroup): boolean;
 
+    procedure ClearFrameData; override;
+    procedure LoadFrameData; override;
+
   public
+    procedure SaveFrameData; override;
+
     procedure FPOObservedChanged(ASender: TObject;
       Operation: TFPObservedOperation; Data: Pointer);
-
-    procedure ClearData; override;
-    procedure LoadData; override;
-    procedure SaveData; override;
 
     procedure SelectGroupByID(aGroupKey: string);
 
@@ -92,6 +94,7 @@ begin
   if FSoftware = AValue then
     Exit;
 
+  // Observed
   if Assigned(FSoftware) then
     FSoftware.FPODetachObserver(Self);
 
@@ -100,7 +103,23 @@ begin
   if Assigned(Software) then
     Software.FPOAttachObserver(Self);
 
-  LoadData;
+  // Subframes
+  if Assigned(Software) then
+  begin
+    if assigned(Software.CachedSystem) then
+    begin
+      fmGroupCBX.GroupManager :=
+        cEmutecaSystem(Software.CachedSystem).GroupManager;
+    end
+    else
+      fmGroupCBX.GroupManager := nil;
+  end
+  else
+  begin
+    fmGroupCBX.GroupManager := nil;
+  end;
+
+  LoadFrameData;
 end;
 
 function TfmEmutecaSoftEditor.SelectGroup(aGroup: cEmutecaGroup): boolean;
@@ -108,12 +127,9 @@ begin
   Result := True;
 end;
 
-procedure TfmEmutecaSoftEditor.ClearData;
+procedure TfmEmutecaSoftEditor.ClearFrameData;
 begin
   lSystem.Caption := rsUnknown;
-  cbxGroup.SelectedGroup := nil;
-  cbxGroup.GroupManager := nil;
-
   eTitle.Clear;
   eSortKey.Clear;
   eTransTitle.Clear;
@@ -123,6 +139,7 @@ begin
   ePublisher.Clear;
   eZone.Clear;
 
+  // We want keep DumpType list, so don't cbxDumpType.Clear;
   cbxDumpType.ItemIndex := -1;
   cbxDumpType.Text := '';
   eDumpInfo.Clear;
@@ -136,46 +153,26 @@ begin
   eHack.Clear;
 end;
 
-procedure TfmEmutecaSoftEditor.FPOObservedChanged(ASender: TObject;
-  Operation: TFPObservedOperation; Data: Pointer);
-begin
-  case Operation of
-    ooFree: Software := nil
-    else
-      ;
-  end;
-
-  LoadData;
-end;
-
-procedure TfmEmutecaSoftEditor.LoadData;
+procedure TfmEmutecaSoftEditor.LoadFrameData;
 begin
   Enabled := assigned(Software);
 
   if not Enabled then
   begin
-    ClearData;
+    ClearFrameData;
     Exit;
   end;
 
-  //
   if assigned(Software.CachedSystem) then
-  begin
-  lSystem.Caption := Software.CachedSystem.Title;
-
-  cbxGroup.GroupManager := cEmutecaSystem(
-    Software.CachedSystem).GroupManager;
-  end
+    lSystem.Caption := Software.CachedSystem.Title
   else
-  begin
     lSystem.Caption := '- NO SYSTEM -';
-    cbxGroup.GroupManager := nil;
-  end;
 
   if assigned(Software.CachedGroup) then
-    cbxGroup.SelectedGroup := cEmutecaGroup(Software.CachedGroup)
+    fmGroupCBX.SelectedGroup := cEmutecaGroup(Software.CachedGroup)
   else
-    cbxGroup.SelectGroupByID(Software.GroupKey);
+    fmGroupCBX.SelectGroupByID(Software.GroupKey);
+
 
   eTitle.Text := Software.Title;
   eSortKey.Text := Software.GetActualSortTitle;
@@ -188,7 +185,7 @@ begin
 
   case Software.DumpStatus of
     edsVerified: cbxDumpType.ItemIndex := 0;
-    edsGood: cbxDumpType.ItemIndex := 1;
+    // Default: edsGood: cbxDumpType.ItemIndex := 1;
     edsAlternate: cbxDumpType.ItemIndex := 2;
     edsOverDump: cbxDumpType.ItemIndex := 3;
     edsBadDump: cbxDumpType.ItemIndex := 4;
@@ -207,28 +204,32 @@ begin
   eHack.Text := Software.Hack;
 end;
 
-procedure TfmEmutecaSoftEditor.SaveData;
+procedure TfmEmutecaSoftEditor.SaveFrameData;
 var
   aSystem: cEmutecaSystem;
 begin
   aSystem := cEmutecaSystem(Software.CachedSystem);
 
   if (not assigned(Software)) or (not assigned(aSystem)) then
-    Exit;
-
-  if Assigned(cbxGroup.SelectedGroup) then
   begin
-    Software.CachedGroup := cbxGroup.SelectedGroup;
+    // TODO: Exception
+    ShowMessage('TfmEmutecaSoftEditor: Can''t save Software data.');
+    Exit;
+  end;
+
+  if Assigned(fmGroupCBX.SelectedGroup) then
+  begin
+    Software.CachedGroup := fmGroupCBX.SelectedGroup;
   end
   else
   begin
     // Search group
     Software.CachedGroup :=
-      aSystem.GroupManager.FullList.ItemById(cbxGroup.cbxGroup.Text);
+      aSystem.GroupManager.FullList.ItemById(fmGroupCBX.cbxGroup.Text);
 
     if not assigned(Software.CachedGroup) then
       // Create group
-      aSystem.GroupManager.AddGroup(cbxGroup.cbxGroup.Text);
+      aSystem.GroupManager.AddGroup(fmGroupCBX.cbxGroup.Text);
   end;
 
   Software.Title := eTitle.Text;
@@ -261,19 +262,29 @@ begin
   Software.Hack := eHack.Text;
 end;
 
+procedure TfmEmutecaSoftEditor.FPOObservedChanged(ASender: TObject;
+  Operation: TFPObservedOperation; Data: Pointer);
+begin
+  case Operation of
+    ooFree: Software := nil
+    else
+      ;
+  end;
+end;
+
 procedure TfmEmutecaSoftEditor.SelectGroupByID(aGroupKey: string);
 begin
-  cbxGroup.SelectGroupByID(aGroupKey);
+  fmGroupCBX.SelectGroupByID(aGroupKey);
 end;
 
 constructor TfmEmutecaSoftEditor.Create(TheOwner: TComponent);
 
   procedure CreateFrames;
   begin
-    FcbxGroup := TfmEmutecaGroupCBX.Create(gbxGroup);
-    cbxGroup.Align := alTop;
-    cbxGroup.OnSelectGroup := @SelectGroup;
-    cbxGroup.Parent := gbxGroup;
+    FfmGroupCBX := TfmEmutecaGroupCBX.Create(gbxGroup);
+    fmGroupCBX.Align := alTop;
+    fmGroupCBX.OnSelectGroup := @SelectGroup;
+    fmGroupCBX.Parent := gbxGroup;
   end;
 
 var

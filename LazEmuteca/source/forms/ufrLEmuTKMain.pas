@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, LazFileUtils, Forms, Controls,
   Graphics, Dialogs, LazUTF8, LCLIntf,
-  ActnList, Menus, StdActns, ComCtrls, ExtCtrls, DefaultTranslator,
+  ActnList, Menus, StdActns, ComCtrls, ExtCtrls, LCLTranslator,
   IniPropStorage, StdCtrls,
   // Misc
   uVersionSupport, u7zWrapper,
@@ -15,18 +15,15 @@ uses
   uCHXStrUtils, uCHXFileUtils, uCHXImageUtils, ucCHXImageList,
   // CHX forms
   ufCHXForm, ufCHXProgressBar,
-  // Emuteca common
-  uEmutecaCommon, uEmutecaRscStr,
   // Emuteca clases
-  ucEmuteca, ucEmutecaGroup, ucEmutecaSoftware,
+  ucEmuteca, uEmutecaCommon, ucEmutecaGroup, ucEmutecaSoftware,
   // Emuteca forms
-  ufEmutecaScriptManager, ufrLEmuTKExportData, ufrLEmuTKAbout,
+  ufEmutecaScriptManager, ufrLEmuTKAbout,
   // Emuteca windows
   ufEmutecaActAddSoft, ufEmutecaActAddFolder,
   // LazEmuteca frames
   ufLEmuTKMain, ufLEmuTKSysManager, ufLEmuTKEmuManager,
-  ufLEmuTKIcnSoftList,
-  uGUIConfig;
+  uGUIConfig, uLEmuTKCommon;
 
 type
 
@@ -234,7 +231,7 @@ procedure TfrmLEmuTKMain.LoadEmuteca;
 begin
   // Fix runtime errors, while trying to update
   fmEmutecaMainFrame.Emuteca := nil;
-  LoadIcons; // Resets memory icons
+  LoadIcons; // Resets cached icons
 
   Emuteca.LoadData;
 
@@ -359,15 +356,15 @@ end;
 
 procedure TfrmLEmuTKMain.actExportDataExecute(Sender: TObject);
 begin
-  if not Assigned(frmLEmuTKExportData) then
-    Application.CreateForm(TfrmLEmuTKExportData, frmLEmuTKExportData);
-
-  frmLEmuTKExportData.GUIConfigIni := GUIConfig.ConfigFile;
-  frmLEmuTKExportData.GUIIconsIni := GUIConfig.GUIIcnFile;
-  frmLEmuTKExportData.Emuteca := Emuteca;
-
-  frmLEmuTKExportData.ShowModal;
-  FreeAndNil(frmLEmuTKExportData);
+  //if not Assigned(frmLEmuTKExportData) then
+  //  Application.CreateForm(TfrmLEmuTKExportData, frmLEmuTKExportData);
+  //
+  //frmLEmuTKExportData.GUIConfigIni := GUIConfig.ConfigFile;
+  //frmLEmuTKExportData.GUIIconsIni := GUIConfig.GUIIcnFile;
+  //frmLEmuTKExportData.Emuteca := Emuteca;
+  //
+  //frmLEmuTKExportData.ShowModal;
+  //FreeAndNil(frmLEmuTKExportData);
 end;
 
 procedure TfrmLEmuTKMain.actOpenTempFolderExecute(Sender: TObject);
@@ -429,66 +426,26 @@ begin
 end;
 
 procedure TfrmLEmuTKMain.actAddSoftExecute(Sender: TObject);
-var
-  aForm: TfrmCHXForm;
-  aFrame: TfmEmutecaActAddSoft;
 begin
-  Application.CreateForm(TfrmCHXForm, aForm);
-  try
-    aForm.Name := 'frmEmutecaActAddSoft';
-    aForm.GUIConfigIni := GUIConfig.ConfigFile;
-    aForm.Caption := Format(rsFmtWindowCaption,
-      [Application.Title, actAddSoft.Caption]);
-
-    aFrame := TfmEmutecaActAddSoft.Create(aForm);
-    aFrame.Emuteca := Emuteca;
-    aFrame.SaveButtons := True;
-    aFrame.ButtonClose := True;
-    aFrame.GUIIconsIni := GUIConfig.GUIIcnFile;
-    aFrame.Align := alClient;
-    aFrame.Parent := aForm;
-
-    aForm.AutoSize := True;
-
-    if aForm.ShowModal = mrOk then
+    if TfmEmutecaActAddSoft.SimpleForm(Emuteca, GUIIconsFile, GUIConfig.ConfigFile) = mrOk then
     begin
       if GUIConfig.SaveOnExit then
         Emuteca.SaveData;
     end;
-
-  finally
-    FreeAndNil(aForm);
-  end;
 end;
 
 procedure TfrmLEmuTKMain.actSystemManagerExecute(Sender: TObject);
-var
-  aForm: TfrmCHXForm;
-  aFrame: TfmLEmuTKSysManager;
 begin
-  Application.CreateForm(TfrmCHXForm, aForm);
-  try
-    aForm.Name := 'frmLEmuTKSysManager';
-    aForm.GUIConfigIni := GUIConfig.ConfigFile;
-    aForm.Caption := Format(rsFmtWindowCaption,
-      [Application.Title, actSystemManager.Caption]);
+  // Fix runtime errors, while trying to update
+  fmEmutecaMainFrame.Emuteca := nil;
 
-    aFrame := TfmLEmuTKSysManager.Create(aForm);
-    aFrame.Emuteca := Emuteca;
-    aFrame.SaveButtons := True;
-    aFrame.ButtonClose := True;
-    aFrame.GUIIconsIni := GUIConfig.GUIIcnFile;
-    aFrame.Align := alClient;
-    aFrame.Parent := aForm;
+  SaveEmuteca;
 
-    // ALWAYS reload Emuteca (while SysManager create and delete systems
-    //   on the fly)
-    aForm.ShowModal;
-    LoadEmuteca;
+  TfmLEmuTKSysManager.SimpleForm(Emuteca,
+  SetAsAbsoluteFile(GUIConfig.GlobalCache, ProgramDirectory),
+  GUIIconsFile, GUIConfig.ConfigFile);
 
-  finally
-    aForm.Free;
-  end;
+  LoadEmuteca;
 end;
 
 procedure TfrmLEmuTKMain.FormCloseQuery(Sender: TObject;

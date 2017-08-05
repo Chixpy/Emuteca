@@ -11,6 +11,7 @@ uses
 type
 
   { TfmEmutecaGroupCBX }
+  // TCHXFrame
 
   TfmEmutecaGroupCBX = class(TFrame)
     cbxGroup: TComboBox;

@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs;
 
 type
-  TForm1 = class(TForm)
+  TfrmESMGroupList = class(TForm)
   private
     { private declarations }
   public
@@ -16,7 +16,7 @@ type
   end;
 
 var
-  Form1: TForm1;
+  frmESMGroupList: TfrmESMGroupList;
 
 implementation
 
