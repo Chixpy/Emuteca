@@ -155,7 +155,7 @@ begin
         EnabledList.Add(TempSys);
       Inc(i);
 
-      if ProgressCallBack <> nil then
+      if assigned(ProgressCallBack) then
         ProgressCallBack(rsLoadingSystemList, TempSys.ID,
           TempSys.Title, i, TempList.Count);
 
@@ -166,6 +166,9 @@ begin
   finally
     FreeAndNil(TempList);
   end;
+
+          if assigned(ProgressCallBack) then
+        ProgressCallBack('', '', '', 0, 0);
 end;
 
 procedure cEmutecaSystemManager.SaveToIni(aIniFile: TMemIniFile;
@@ -186,7 +189,7 @@ begin
   begin
     aSystem := cEmutecaSystem(FullList[i]);
 
-    if ProgressCallBack <> nil then
+    if assigned(ProgressCallBack) then
       ProgressCallBack(rsSavingSystemList, aSystem.ID,
         aSystem.Title, i, FullList.Count);
 
@@ -196,7 +199,7 @@ begin
     if aSystem.Enabled then
       aSystem.SaveLists(SysDataFolder + aSystem.FileName, False);
   end;
-  if ProgressCallBack <> nil then
+  if assigned(ProgressCallBack) then
     ProgressCallBack(rsSavingSystemList, '', '', 0, 0);
 end;
 

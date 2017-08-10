@@ -188,13 +188,15 @@ begin
       FullList.Add(TempEmu);
       Inc(i);
 
-      if ProgressCallBack <> nil then
+      if assigned(ProgressCallBack) then
         ProgressCallBack(rsLoadingEmulatorList, TempEmu.ID,
           TempEmu.EmulatorName, i, TempList.Count);
     end;
   finally
     FreeAndNil(TempList);
   end;
+        if assigned(ProgressCallBack) then
+        ProgressCallBack('', '', '', 0, 0);
 end;
 
 procedure cEmutecaEmulatorManager.SaveToIni(aIniFile: TMemIniFile;

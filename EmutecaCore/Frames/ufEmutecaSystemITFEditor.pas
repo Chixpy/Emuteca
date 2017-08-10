@@ -55,11 +55,6 @@ begin
   if FSystem = AValue then Exit;
   FSystem := AValue;
 
-    if FSystem = AValue then
-    Exit;
-  FSystem := AValue;
-
-
   if Assigned(System) then
   begin
     fmImageFolders.FolderList := System.ImageFolders;
@@ -74,6 +69,7 @@ begin
     fmTextFolders.FolderList := nil;
     fmTextFolders.CaptionList := nil;
   end;
+
   LoadFrameData;
 end;
 

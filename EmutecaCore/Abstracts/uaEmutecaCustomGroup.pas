@@ -73,9 +73,9 @@ type
 
   published
     property ID: string read FID write SetID;
-    {< ID and Sort Title of the Parent. }
+    {< ID, Sort and Media filename. }
     property Title: string read GetTitle write SetTitle;
-    {< Name of the parent. }
+    {< Name of the group. }
     property Year: string read FYear write SetYear;
     {< Development year. }
     property Developer: string read FDeveloper write SetDeveloper;

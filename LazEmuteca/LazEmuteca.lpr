@@ -26,7 +26,7 @@ uses
   ufEmutecaSystemMVFEditor, ufLEmuTKSoftMedia, ufLEmuTKMain, uLEmuTKCommon,
   uafLEmuTKSoftFoldersPreview, ufLEmuTKSoftTxtPreview, ufCHXStrLstPreview,
   ufCHXImgListPreview, ufCHXTxtListPreview, ufLEmuTKSoftImgPreview, 
-ufEmutecaSystemCBX, ufEmutecaSystemITFEditor;
+ufEmutecaSystemCBX, ufEmutecaSystemITFEditor, ufLEmuTKMediaManager;
 
 {$R *.res}
 

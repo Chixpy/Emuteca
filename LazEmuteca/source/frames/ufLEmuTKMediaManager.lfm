@@ -1,0 +1,638 @@
+inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
+  Height = 510
+  Width = 863
+  ClientHeight = 510
+  ClientWidth = 863
+  DesignLeft = 257
+  DesignTop = 120
+  object sbTarget: TStatusBar[0]
+    Left = 0
+    Height = 23
+    Top = 487
+    Width = 863
+    Panels = <>
+  end
+  object sbSource: TStatusBar[1]
+    Left = 0
+    Height = 23
+    Top = 464
+    Width = 863
+    Panels = <>
+  end
+  object Splitter1: TSplitter[2]
+    Left = 170
+    Height = 464
+    Top = 0
+    Width = 5
+  end
+  object pRight: TPanel[3]
+    Left = 693
+    Height = 464
+    Top = 0
+    Width = 170
+    Align = alRight
+    BevelOuter = bvNone
+    ClientHeight = 464
+    ClientWidth = 170
+    TabOrder = 3
+    object gbxRename: TGroupBox
+      Left = 0
+      Height = 69
+      Top = 395
+      Width = 170
+      Align = alBottom
+      AutoSize = True
+      Caption = 'Change filename'
+      ClientHeight = 49
+      ClientWidth = 166
+      TabOrder = 0
+      object chkCopyFile: TCheckBox
+        Left = 0
+        Height = 19
+        Top = 0
+        Width = 166
+        Align = alTop
+        Caption = 'Copy file'
+        TabOrder = 0
+      end
+      object bRename: TBitBtn
+        Left = 0
+        Height = 30
+        Top = 19
+        Width = 166
+        Action = actChangeFileName
+        Align = alTop
+        TabOrder = 1
+      end
+    end
+  end
+  object Splitter2: TSplitter[4]
+    Left = 688
+    Height = 464
+    Top = 0
+    Width = 5
+    Align = alRight
+    ResizeAnchor = akRight
+  end
+  object pCenter: TPanel[5]
+    Left = 175
+    Height = 464
+    Top = 0
+    Width = 513
+    Align = alClient
+    BevelOuter = bvNone
+    ClientHeight = 464
+    ClientWidth = 513
+    TabOrder = 5
+    object gbxSource: TGroupBox
+      Left = 0
+      Height = 300
+      Top = 0
+      Width = 513
+      Align = alTop
+      Caption = 'Source'
+      ClientHeight = 280
+      ClientWidth = 509
+      TabOrder = 0
+      object pcSource: TPageControl
+        Left = 0
+        Height = 255
+        Top = 0
+        Width = 509
+        ActivePage = pagOtherFiles
+        Align = alClient
+        TabIndex = 1
+        TabOrder = 0
+        object pagAllFiles: TTabSheet
+          Caption = 'All files'
+          ClientHeight = 233
+          ClientWidth = 501
+          object vstAllFiles: TVirtualStringTree
+            Left = 0
+            Height = 233
+            Top = 0
+            Width = 501
+            Align = alClient
+            Colors.UnfocusedColor = clMedGray
+            DefaultText = 'Node'
+            Header.AutoSizeIndex = 0
+            Header.Columns = <            
+              item
+                Position = 0
+                Text = 'Files'
+                Width = 497
+              end>
+            Header.DefaultHeight = 17
+            Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoShowSortGlyphs, hoVisible]
+            TabOrder = 0
+            TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning]
+            TreeOptions.PaintOptions = [toPopupMode, toShowButtons, toShowDropmark, toShowHorzGridLines, toShowTreeLines, toShowVertGridLines, toThemeAware, toUseBlendedImages, toFullVertGridLines]
+            TreeOptions.SelectionOptions = [toFullRowSelect]
+            OnChange = vstFileChange
+            OnCompareNodes = vstFileCompareNodes
+            OnFreeNode = vstFileFreeNode
+            OnGetText = vstFileGetText
+            OnKeyDown = vstFileKeyDown
+            OnKeyPress = vstKeyPress
+          end
+        end
+        object pagOtherFiles: TTabSheet
+          Caption = 'Other files'
+          ClientHeight = 227
+          ClientWidth = 501
+          object vstOtherFiles: TVirtualStringTree
+            Left = 0
+            Height = 227
+            Top = 0
+            Width = 501
+            Align = alClient
+            Colors.UnfocusedColor = clMedGray
+            DefaultText = 'Node'
+            Header.AutoSizeIndex = 0
+            Header.Columns = <            
+              item
+                Position = 0
+                Text = 'Files'
+                Width = 497
+              end>
+            Header.DefaultHeight = 17
+            Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoShowSortGlyphs, hoVisible]
+            TabOrder = 0
+            TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning]
+            TreeOptions.PaintOptions = [toPopupMode, toShowButtons, toShowDropmark, toShowHorzGridLines, toShowTreeLines, toShowVertGridLines, toThemeAware, toUseBlendedImages, toFullVertGridLines]
+            TreeOptions.SelectionOptions = [toFullRowSelect]
+            OnChange = vstFileChange
+            OnCompareNodes = vstFileCompareNodes
+            OnFreeNode = vstFileFreeNode
+            OnGetText = vstFileGetText
+            OnKeyDown = vstFileKeyDown
+            OnKeyPress = vstKeyPress
+          end
+        end
+        object pagFilesWOGroup: TTabSheet
+          Caption = 'Files without group'
+          ClientHeight = 233
+          ClientWidth = 501
+          object vstFilesWOGroup: TVirtualStringTree
+            Left = 0
+            Height = 111
+            Top = 0
+            Width = 501
+            Align = alClient
+            Colors.UnfocusedColor = clMedGray
+            DefaultText = 'Node'
+            Header.AutoSizeIndex = 0
+            Header.Columns = <            
+              item
+                Position = 0
+                Text = 'Files'
+                Width = 497
+              end>
+            Header.DefaultHeight = 17
+            Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoShowSortGlyphs, hoVisible]
+            TabOrder = 0
+            TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning]
+            TreeOptions.PaintOptions = [toPopupMode, toShowButtons, toShowDropmark, toShowHorzGridLines, toShowTreeLines, toShowVertGridLines, toThemeAware, toUseBlendedImages, toFullVertGridLines]
+            TreeOptions.SelectionOptions = [toFullRowSelect]
+            OnChange = vstFileChange
+            OnCompareNodes = vstFileCompareNodes
+            OnFreeNode = vstFileFreeNode
+            OnGetText = vstFileGetText
+            OnKeyDown = vstFileKeyDown
+            OnKeyPress = vstKeyPress
+          end
+        end
+        object pagFilesWOSoft: TTabSheet
+          Caption = 'Files without soft'
+          ClientHeight = 233
+          ClientWidth = 501
+          object vstFilesWOSoft: TVirtualStringTree
+            Left = 0
+            Height = 111
+            Top = 0
+            Width = 501
+            Align = alClient
+            Colors.UnfocusedColor = clMedGray
+            DefaultText = 'Node'
+            Header.AutoSizeIndex = 0
+            Header.Columns = <            
+              item
+                Position = 0
+                Text = 'Files'
+                Width = 501
+              end>
+            Header.DefaultHeight = 17
+            Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoShowSortGlyphs, hoVisible]
+            TabOrder = 0
+            TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning]
+            TreeOptions.PaintOptions = [toPopupMode, toShowButtons, toShowDropmark, toShowHorzGridLines, toShowTreeLines, toShowVertGridLines, toThemeAware, toUseBlendedImages, toFullVertGridLines]
+            TreeOptions.SelectionOptions = [toFullRowSelect]
+            OnChange = vstFileChange
+            OnCompareNodes = vstFileCompareNodes
+            OnFreeNode = vstFileFreeNode
+            OnGetText = vstFileGetText
+            OnKeyDown = vstFileKeyDown
+            OnKeyPress = vstKeyPress
+          end
+        end
+        object pagFilesOtherFolder: TTabSheet
+          Caption = 'Files from other folder'
+          ClientHeight = 233
+          ClientWidth = 501
+          object vstFilesOtherFolder: TVirtualStringTree
+            Left = 0
+            Height = 111
+            Top = 0
+            Width = 501
+            Align = alClient
+            Colors.UnfocusedColor = clMedGray
+            DefaultText = 'Node'
+            Header.AutoSizeIndex = 0
+            Header.Columns = <            
+              item
+                Position = 0
+                Text = 'Files'
+                Width = 497
+              end>
+            Header.DefaultHeight = 17
+            Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoShowSortGlyphs, hoVisible]
+            TabOrder = 0
+            TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning]
+            TreeOptions.PaintOptions = [toPopupMode, toShowButtons, toShowDropmark, toShowHorzGridLines, toShowTreeLines, toShowVertGridLines, toThemeAware, toUseBlendedImages, toFullVertGridLines]
+            TreeOptions.SelectionOptions = [toFullRowSelect]
+            OnChange = vstFileChange
+            OnCompareNodes = vstFileCompareNodes
+            OnFreeNode = vstFileFreeNode
+            OnGetText = vstFileGetText
+            OnKeyDown = vstFileKeyDown
+            OnKeyPress = vstKeyPress
+          end
+        end
+      end
+      object pSimilar: TPanel
+        Left = 0
+        Height = 25
+        Top = 255
+        Width = 509
+        Align = alBottom
+        AutoSize = True
+        BevelOuter = bvNone
+        ClientHeight = 25
+        ClientWidth = 509
+        TabOrder = 1
+        object chkSimilarFiles: TCheckBox
+          Left = 0
+          Height = 25
+          Top = 0
+          Width = 309
+          Align = alClient
+          Caption = 'Only show similar filenames'
+          OnChange = chkSimilarFilesChange
+          TabOrder = 0
+        end
+        object tbSimilarThresold: TTrackBar
+          Left = 309
+          Height = 25
+          Top = 0
+          Width = 200
+          Frequency = 5
+          Max = 100
+          OnChange = tbSimilarThresoldChange
+          PageSize = 5
+          Position = 50
+          Align = alRight
+          TabOrder = 1
+        end
+      end
+    end
+    object Splitter3: TSplitter
+      Cursor = crVSplit
+      Left = 0
+      Height = 5
+      Top = 300
+      Width = 513
+      Align = alTop
+      ResizeAnchor = akTop
+    end
+    object gbxTarget: TGroupBox
+      Left = 0
+      Height = 159
+      Top = 305
+      Width = 513
+      Align = alClient
+      Caption = 'Target'
+      ClientHeight = 139
+      ClientWidth = 509
+      TabOrder = 2
+      object pcTarget: TPageControl
+        Left = 0
+        Height = 139
+        Top = 0
+        Width = 509
+        ActivePage = pagGroupsWOFile
+        Align = alClient
+        TabIndex = 2
+        TabOrder = 0
+        object pagAllGroups: TTabSheet
+          Caption = 'All groups'
+          ClientHeight = 111
+          ClientWidth = 501
+          object vstAllGroups: TVirtualStringTree
+            Left = 0
+            Height = 111
+            Top = 0
+            Width = 501
+            Align = alClient
+            Colors.UnfocusedColor = clMedGray
+            DefaultText = 'Node'
+            Header.AutoSizeIndex = 0
+            Header.Columns = <            
+              item
+                Position = 0
+                Text = 'Group'
+                Width = 200
+              end            
+              item
+                Position = 1
+                Text = 'File'
+                Width = 200
+              end>
+            Header.DefaultHeight = 17
+            Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoShowSortGlyphs, hoVisible]
+            TabOrder = 0
+            TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning]
+            TreeOptions.PaintOptions = [toPopupMode, toShowButtons, toShowDropmark, toShowHorzGridLines, toShowTreeLines, toShowVertGridLines, toThemeAware, toUseBlendedImages, toFullVertGridLines]
+            TreeOptions.SelectionOptions = [toFullRowSelect]
+            OnChange = vstGroupChange
+            OnCompareNodes = vstGroupCompareNodes
+            OnGetText = vstGroupGetText
+            OnInitNode = vstAllGroupsInitNode
+            OnKeyDown = vstGroupKeyDown
+            OnKeyPress = vstKeyPress
+          end
+        end
+        object pagAllSoft: TTabSheet
+          Caption = 'All software'
+          ClientHeight = 111
+          ClientWidth = 501
+          object vstAllSoft: TVirtualStringTree
+            Left = 0
+            Height = 111
+            Top = 0
+            Width = 501
+            Align = alClient
+            Colors.UnfocusedColor = clMedGray
+            DefaultText = 'Node'
+            Header.AutoSizeIndex = 0
+            Header.Columns = <            
+              item
+                Position = 0
+                Text = 'Game'
+                Width = 150
+              end            
+              item
+                Position = 1
+                Text = 'Group'
+                Width = 150
+              end            
+              item
+                Position = 2
+                Text = 'File'
+                Width = 150
+              end>
+            Header.DefaultHeight = 17
+            Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoShowSortGlyphs, hoVisible]
+            TabOrder = 0
+            TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning]
+            TreeOptions.PaintOptions = [toPopupMode, toShowButtons, toShowDropmark, toShowHorzGridLines, toShowTreeLines, toShowVertGridLines, toThemeAware, toUseBlendedImages, toFullVertGridLines]
+            TreeOptions.SelectionOptions = [toFullRowSelect]
+            OnChange = vstSoftChange
+            OnCompareNodes = vstSoftCompareNodes
+            OnGetText = vstSoftGetText
+          end
+        end
+        object pagGroupsWOFile: TTabSheet
+          Caption = 'Groups without file'
+          ClientHeight = 111
+          ClientWidth = 501
+          object vstGroupsWOFile: TVirtualStringTree
+            Left = 0
+            Height = 111
+            Top = 0
+            Width = 501
+            Align = alClient
+            Colors.UnfocusedColor = clMedGray
+            DefaultText = 'Node'
+            Header.AutoSizeIndex = 0
+            Header.Columns = <            
+              item
+                Position = 0
+                Text = 'Group'
+                Width = 200
+              end            
+              item
+                Position = 1
+                Text = 'File'
+                Width = 200
+              end>
+            Header.DefaultHeight = 17
+            Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoShowSortGlyphs, hoVisible]
+            TabOrder = 0
+            TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning]
+            TreeOptions.PaintOptions = [toPopupMode, toShowButtons, toShowDropmark, toShowHorzGridLines, toShowTreeLines, toShowVertGridLines, toThemeAware, toUseBlendedImages, toFullVertGridLines]
+            TreeOptions.SelectionOptions = [toFullRowSelect]
+            OnChange = vstGroupChange
+            OnCompareNodes = vstGroupCompareNodes
+            OnGetText = vstGroupGetText
+            OnKeyDown = vstGroupKeyDown
+            OnKeyPress = vstKeyPress
+          end
+        end
+        object pagSoftWOFile: TTabSheet
+          Caption = 'Software without file'
+          ClientHeight = 111
+          ClientWidth = 501
+          object vstSoftWOFile: TVirtualStringTree
+            Left = 0
+            Height = 111
+            Top = 0
+            Width = 501
+            Align = alClient
+            Colors.UnfocusedColor = clMedGray
+            DefaultText = 'Node'
+            Header.AutoSizeIndex = 0
+            Header.Columns = <            
+              item
+                Position = 0
+                Text = 'Game'
+                Width = 150
+              end            
+              item
+                Position = 1
+                Text = 'Group'
+                Width = 150
+              end            
+              item
+                Position = 2
+                Text = 'File'
+                Width = 150
+              end>
+            Header.DefaultHeight = 17
+            Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoShowSortGlyphs, hoVisible]
+            TabOrder = 0
+            TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning]
+            TreeOptions.PaintOptions = [toPopupMode, toShowButtons, toShowDropmark, toShowHorzGridLines, toShowTreeLines, toShowVertGridLines, toThemeAware, toUseBlendedImages, toFullVertGridLines]
+            TreeOptions.SelectionOptions = [toFullRowSelect]
+            OnChange = vstSoftChange
+            OnCompareNodes = vstSoftCompareNodes
+            OnGetText = vstSoftGetText
+          end
+        end
+      end
+    end
+  end
+  object pLeft: TScrollBox[6]
+    Left = 0
+    Height = 464
+    Top = 0
+    Width = 170
+    HorzScrollBar.Page = 104
+    VertScrollBar.Page = 460
+    Align = alLeft
+    ClientHeight = 460
+    ClientWidth = 149
+    TabOrder = 6
+    object gbxSystem: TGroupBox
+      Left = 0
+      Height = 19
+      Top = 0
+      Width = 149
+      Align = alTop
+      AutoSize = True
+      Caption = 'System'
+      TabOrder = 0
+    end
+    object gbxImages: TGroupBox
+      Left = 0
+      Height = 120
+      Top = 19
+      Width = 149
+      Align = alTop
+      Caption = 'Images'
+      ClientHeight = 100
+      ClientWidth = 145
+      TabOrder = 1
+      object lbxImages: TListBox
+        Left = 0
+        Height = 100
+        Top = 0
+        Width = 145
+        Align = alClient
+        ItemHeight = 0
+        OnSelectionChange = lbxFolderSelectionChange
+        TabOrder = 0
+      end
+    end
+    object gbxTexts: TGroupBox
+      Left = 0
+      Height = 120
+      Top = 139
+      Width = 149
+      Align = alTop
+      Caption = 'Texts'
+      ClientHeight = 100
+      ClientWidth = 145
+      TabOrder = 2
+      object lbxTexts: TListBox
+        Left = 0
+        Height = 100
+        Top = 0
+        Width = 145
+        Align = alClient
+        ItemHeight = 0
+        OnSelectionChange = lbxFolderSelectionChange
+        TabOrder = 0
+      end
+    end
+    object gbxVideos: TGroupBox
+      Left = 0
+      Height = 120
+      Top = 379
+      Width = 149
+      Align = alTop
+      Caption = 'Videos'
+      ClientHeight = 100
+      ClientWidth = 145
+      TabOrder = 3
+      object lbxVideos: TListBox
+        Left = 0
+        Height = 100
+        Top = 0
+        Width = 145
+        Align = alClient
+        ItemHeight = 0
+        OnSelectionChange = lbxFolderSelectionChange
+        TabOrder = 0
+      end
+    end
+    object gbxMusic: TGroupBox
+      Left = 0
+      Height = 120
+      Top = 259
+      Width = 149
+      Align = alTop
+      Caption = 'Music'
+      ClientHeight = 100
+      ClientWidth = 145
+      TabOrder = 4
+      object lbxMusic: TListBox
+        Left = 0
+        Height = 100
+        Top = 0
+        Width = 145
+        Align = alClient
+        ItemHeight = 0
+        OnSelectionChange = lbxFolderSelectionChange
+        TabOrder = 0
+      end
+    end
+    object gbxOtherFiles: TGroupBox
+      Left = 0
+      Height = 120
+      Top = 499
+      Width = 149
+      Align = alTop
+      Caption = 'gbxOtherFiles'
+      ClientHeight = 100
+      ClientWidth = 145
+      TabOrder = 5
+      object lbxOtherFiles: TListBox
+        Left = 0
+        Height = 100
+        Top = 0
+        Width = 145
+        Align = alClient
+        ItemHeight = 0
+        OnSelectionChange = lbxFolderSelectionChange
+        TabOrder = 0
+      end
+    end
+  end
+  object ActionList: TActionList[7]
+    Left = 704
+    Top = 16
+    object actChangeFileName: TAction
+      Category = 'Files'
+      Caption = 'Change filename'
+      OnExecute = actChangeFileNameExecute
+    end
+    object actDeleteFile: TAction
+      Category = 'Files'
+      Caption = 'Delete file'
+    end
+  end
+  object ilActions: TImageList[8]
+    Left = 704
+    Top = 88
+  end
+end

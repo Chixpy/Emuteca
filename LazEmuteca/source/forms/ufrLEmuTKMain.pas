@@ -22,7 +22,7 @@ uses
   // Emuteca windows
   ufEmutecaActAddSoft, ufEmutecaActAddFolder,
   // LazEmuteca frames
-  ufLEmuTKMain, ufLEmuTKSysManager, ufLEmuTKEmuManager,
+  ufLEmuTKMain, ufLEmuTKSysManager, ufLEmuTKEmuManager, ufLEmuTKMediaManager,
   uGUIConfig, uLEmuTKCommon;
 
 type
@@ -73,6 +73,7 @@ type
     procedure actAutoSaveExecute(Sender: TObject);
     procedure actEmulatorManagerExecute(Sender: TObject);
     procedure actExportDataExecute(Sender: TObject);
+    procedure actMediaManagerExecute(Sender: TObject);
     procedure actOpenTempFolderExecute(Sender: TObject);
     procedure actSaveListsExecute(Sender: TObject);
     procedure actScriptManagerExecute(Sender: TObject);
@@ -85,12 +86,14 @@ type
   private
     FfmEmutecaMainFrame: TfmLEmuTKMain;
     FGUIIconsFile: string;
+    FSHA1Folder: string;
     FVerIcons: cCHXImageList;
     FEmuteca: cEmuteca;
     FGUIConfig: cGUIConfig;
     FIconList: cCHXImageList;
     FZoneIcons: cCHXImageMap;
     procedure SetGUIIconsFile(AValue: string);
+    procedure SetSHA1Folder(AValue: string);
 
   protected
     property fmEmutecaMainFrame: TfmLEmuTKMain read FfmEmutecaMainFrame;
@@ -108,6 +111,8 @@ type
     // Icons for dump info
     property ZoneIcons: cCHXImageMap read FZoneIcons;
     // Icons of zones
+
+    property SHA1Folder: string read FSHA1Folder write SetSHA1Folder;
 
     procedure LoadIcons;
 
@@ -157,6 +162,11 @@ begin
   if FGUIIconsFile = AValue then
     Exit;
   FGUIIconsFile := AValue;
+end;
+
+procedure TfrmLEmuTKMain.SetSHA1Folder(AValue: string);
+begin
+  FSHA1Folder := SetAsFolder(AValue);
 end;
 
 procedure TfrmLEmuTKMain.LoadIcons;
@@ -240,15 +250,13 @@ end;
 
 procedure TfrmLEmuTKMain.SaveEmuteca;
 begin
-  Emuteca.SaveData;
+
 end;
 
 function TfrmLEmuTKMain.OnProgressBar(const Title, Info1, Info2: string;
   const Value, MaxValue: int64): boolean;
 begin
-  // Really, we can asume that frmCHXProgressBar is always created...;
-  if not Assigned(frmCHXProgressBar) then
-    Application.CreateForm(TfrmCHXProgressBar, frmCHXProgressBar);
+  // We asume that frmCHXProgressBar is always created...
   Result := frmCHXProgressBar.UpdTextAndBar(Title, Info1, Info2,
     Value, MaxValue);
 end;
@@ -284,18 +292,23 @@ begin
   // This overrides user local settings which can cause errors
   StandardFormatSettings;
 
+  // Creating ProgressBar
+  if not Assigned(frmCHXProgressBar) then
+    Application.CreateForm(TfrmCHXProgressBar, frmCHXProgressBar);
+
   // Windows Caption
   Caption := Format(rsFmtWindowCaption, [Application.Title, Caption]);
 
   FGUIConfig := cGUIConfig.Create(self);
-  GUIConfig.LoadConfig('GUI.ini');
+  GUIConfig.LoadConfig(SetAsAbsoluteFile('GUI.ini', ProgramDirectory));
   IniPropStorage.IniFileName := GUIConfig.ConfigFile;
   IniPropStorage.Restore;
 
   GUIIconsFile := SetAsAbsoluteFile(GUIConfig.GUIIcnFile, ProgramDirectory);
 
   // Experimental
-  w7zSetGlobalCache(GUIConfig.GlobalCache);
+  SHA1Folder := SetAsAbsoluteFile(GUIConfig.GlobalCache, ProgramDirectory);
+  w7zSetGlobalCache(SHA1Folder);
 
   // Image lists
   FIconList := cCHXImageList.Create(True);
@@ -358,13 +371,18 @@ procedure TfrmLEmuTKMain.actExportDataExecute(Sender: TObject);
 begin
   //if not Assigned(frmLEmuTKExportData) then
   //  Application.CreateForm(TfrmLEmuTKExportData, frmLEmuTKExportData);
-  //
+
   //frmLEmuTKExportData.GUIConfigIni := GUIConfig.ConfigFile;
   //frmLEmuTKExportData.GUIIconsIni := GUIConfig.GUIIcnFile;
   //frmLEmuTKExportData.Emuteca := Emuteca;
-  //
+
   //frmLEmuTKExportData.ShowModal;
   //FreeAndNil(frmLEmuTKExportData);
+end;
+
+procedure TfrmLEmuTKMain.actMediaManagerExecute(Sender: TObject);
+begin
+  TfmLEmuTKMediaManager.SimpleForm(Emuteca, GUIIconsFile, GUIConfig);
 end;
 
 procedure TfrmLEmuTKMain.actOpenTempFolderExecute(Sender: TObject);
@@ -390,33 +408,12 @@ begin
 end;
 
 procedure TfrmLEmuTKMain.actAddFolderExecute(Sender: TObject);
-var
-  aForm: TfrmCHXForm;
-  aFrame: TfmEmutecaActAddFolder;
 begin
-  Application.CreateForm(TfrmCHXForm, aForm);
-  try
-    aForm.Name := 'frmEmutecaActAddFolder';
-    aForm.GUIConfigIni := GUIConfig.ConfigFile;
-    aForm.Caption := Format(rsFmtWindowCaption,
-      [Application.Title, actAddFolder.Caption]);
-
-    aFrame := TfmEmutecaActAddFolder.Create(aForm);
-    aFrame.Emuteca := Emuteca;
-    aFrame.SaveButtons := True;
-    aFrame.ButtonClose := True;
-    aFrame.GUIIconsIni := GUIConfig.GUIIcnFile;
-    aFrame.Align := alClient;
-    aFrame.Parent := aForm;
-
-    if aForm.ShowModal = mrOk then
-    begin
-      if GUIConfig.SaveOnExit then
-        Emuteca.SaveData;
-    end;
-
-  finally
-    FreeAndNil(aForm);
+  if TfmEmutecaActAddFolder.SimpleForm(Emuteca, GUIIconsFile,
+    GUIConfig.ConfigFile) = mrOk then
+  begin
+    Emuteca.SaveData;
+    LoadEmuteca;
   end;
 end;
 
@@ -427,11 +424,12 @@ end;
 
 procedure TfrmLEmuTKMain.actAddSoftExecute(Sender: TObject);
 begin
-    if TfmEmutecaActAddSoft.SimpleForm(Emuteca, GUIIconsFile, GUIConfig.ConfigFile) = mrOk then
-    begin
-      if GUIConfig.SaveOnExit then
-        Emuteca.SaveData;
-    end;
+  if TfmEmutecaActAddSoft.SimpleForm(Emuteca, GUIIconsFile,
+    GUIConfig.ConfigFile) = mrOk then
+  begin
+    Emuteca.SaveData;
+    LoadEmuteca;
+  end;
 end;
 
 procedure TfrmLEmuTKMain.actSystemManagerExecute(Sender: TObject);
@@ -439,12 +437,12 @@ begin
   // Fix runtime errors, while trying to update
   fmEmutecaMainFrame.Emuteca := nil;
 
-  SaveEmuteca;
+  Emuteca.SaveData;
 
-  TfmLEmuTKSysManager.SimpleForm(Emuteca,
-  SetAsAbsoluteFile(GUIConfig.GlobalCache, ProgramDirectory),
-  GUIIconsFile, GUIConfig.ConfigFile);
+  TfmLEmuTKSysManager.SimpleForm(Emuteca, SHA1Folder, GUIIconsFile,
+    GUIConfig.ConfigFile);
 
+  // Load anyway until SysManager creates/destroy systems on the fly.
   LoadEmuteca;
 end;
 
@@ -453,7 +451,8 @@ procedure TfrmLEmuTKMain.FormCloseQuery(Sender: TObject;
 begin
   GUIConfig.SaveConfig('');
   if GUIConfig.SaveOnExit then
-    SaveEmuteca;
+    Emuteca.SaveData;
+  ;
 end;
 
 procedure TfrmLEmuTKMain.FormDestroy(Sender: TObject);

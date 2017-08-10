@@ -127,11 +127,13 @@ begin
     fmEmutecaSystemCBX.SystemList := Emuteca.SystemManager.EnabledList;
     fmCHXTagTree.Folder := SetAsAbsoluteFile(Emuteca.Config.TagsFolder,
       Emuteca.BaseFolder);
- end
+    // fmSoftTree.GroupList set by SelectSystem;
+  end
   else
   begin
      fmEmutecaSystemCBX.SystemList := nil;
     fmCHXTagTree.Folder := '';
+    fmSoftTree.GroupList := nil;
   end;
 
   LoadFrameData;
@@ -179,7 +181,7 @@ begin
   if Assigned(aSystem) then
   begin
     GUIConfig.CurrSystem := aSystem.ID;
-    fmSoftTree.GroupList := aSystem.GroupManager.FullList;
+    fmSoftTree.GroupList := aSystem.GroupManager.VisibleList;
   end
   else
   begin
@@ -225,19 +227,16 @@ var
   i, j: integer;
   aSystem: cEmutecaSystem;
 begin
-  Enabled := Assigned(Emuteca) and assigned(GUIConfig);
+  FullGroupList.Clear;
+  FullSoftlist.Clear;
+
+  Enabled := Assigned(Emuteca) and Assigned(GUIConfig);
 
   if not Enabled then
   begin
     ClearFrameData;
     Exit;
   end;
-
-  FullGroupList.Clear;
-  FullSoftlist.Clear;
-
-  if not Assigned(Emuteca) then
-    Exit;
 
   i := 0;
   while i < Emuteca.SystemManager.EnabledList.Count do

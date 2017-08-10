@@ -143,6 +143,7 @@ begin
   if (not assigned(SoftManager)) or (not assigned(GroupManager)) then
     Exit;
 
+  // Caching groups for soft
   aGroup := nil;
   SoftPos := 0;
   while (not Terminated) and (SoftPos < SoftManager.FullList.Count) do
@@ -184,18 +185,18 @@ begin
     Inc(SoftPos);
   end;
 
-  //// Adding to visible list groups with soft
-  //// Search Group
-  //// Don't use GroupManager.FullList.ItemById(), because when want to
-  ////   test Terminated;
-  //GroupPos := 0;
-  //while (GroupPos < GroupManager.FullList.Count) and (not Terminated) do
-  //begin
-  //  aGroup := GroupManager.FullList[GroupPos];
-  //  if aGroup.SoftList.Count > 0 then
-  //    GroupManager.VisibleList.Add(aGroup);
-  //  Inc(GroupPos);
-  //end;
+  if (not Terminated) then
+    GroupManager.VisibleList.Clear;
+
+// Adding to visible list groups with soft
+GroupPos := 0;
+while (not Terminated) and (GroupPos < GroupManager.FullList.Count)  do
+begin
+  aGroup := GroupManager.FullList[GroupPos];
+  if (not Terminated) and (aGroup.SoftList.Count > 0) then
+    GroupManager.VisibleList.Add(aGroup);
+  Inc(GroupPos);
+end;
 end;
 
 constructor cEmutecaCacheSystemThread.Create;

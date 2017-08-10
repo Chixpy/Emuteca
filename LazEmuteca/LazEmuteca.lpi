@@ -94,7 +94,7 @@
         <PackageName Value="LCL"/>
       </Item6>
     </RequiredPackages>
-    <Units Count="86">
+    <Units Count="87">
       <Unit0>
         <Filename Value="LazEmuteca.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -570,6 +570,13 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
       </Unit85>
+      <Unit86>
+        <Filename Value="source\frames\ufLEmuTKMediaManager.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fmLEmuTKMediaManager"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+      </Unit86>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

@@ -580,6 +580,7 @@ end;
 procedure TfmEmutecaSoftTree.ClearFrameData;
 begin
   VDT.Clear;
+  VDT.RootNodeCount := 0;
   UpdateSBNodeCount;
 end;
 

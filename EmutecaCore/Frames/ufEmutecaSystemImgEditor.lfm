@@ -19,7 +19,7 @@ inherited fmEmuTKSystemImgEditor: TfmEmuTKSystemImgEditor
   end
   object gbxImages: TGroupBox[1]
     Left = 0
-    Height = 371
+    Height = 328
     Top = 0
     Width = 600
     Align = alClient
@@ -30,16 +30,16 @@ inherited fmEmuTKSystemImgEditor: TfmEmuTKSystemImgEditor
     ChildSizing.ShrinkVertical = crsHomogenousChildResize
     ChildSizing.Layout = cclTopToBottomThenLeftToRight
     ChildSizing.ControlsPerLine = 1
-    ClientHeight = 351
+    ClientHeight = 308
     ClientWidth = 596
     TabOrder = 0
     object gbxSystemImage: TGroupBox
       Left = 0
-      Height = 351
+      Height = 308
       Top = 0
       Width = 193
       Caption = 'System image'
-      ClientHeight = 331
+      ClientHeight = 288
       ClientWidth = 189
       TabOrder = 0
       object eSystemImage: TFileNameEdit
@@ -61,7 +61,7 @@ inherited fmEmuTKSystemImgEditor: TfmEmuTKSystemImgEditor
       end
       object iSystemImage: TImage
         Left = 0
-        Height = 308
+        Height = 265
         Hint = 'System image|DblClk: Open in Image viewer.'
         Top = 23
         Width = 189
@@ -75,11 +75,11 @@ inherited fmEmuTKSystemImgEditor: TfmEmuTKSystemImgEditor
     end
     object gbxSystemIcon: TGroupBox
       Left = 193
-      Height = 351
+      Height = 308
       Top = 0
       Width = 193
       Caption = 'System icon'
-      ClientHeight = 331
+      ClientHeight = 288
       ClientWidth = 189
       TabOrder = 1
       object eSystemIcon: TFileNameEdit
@@ -101,7 +101,7 @@ inherited fmEmuTKSystemImgEditor: TfmEmuTKSystemImgEditor
       end
       object iSystemIcon: TImage
         Left = 0
-        Height = 308
+        Height = 265
         Top = 23
         Width = 189
         Align = alClient
@@ -115,11 +115,11 @@ inherited fmEmuTKSystemImgEditor: TfmEmuTKSystemImgEditor
     end
     object gbxSystemBG: TGroupBox
       Left = 386
-      Height = 351
+      Height = 308
       Top = 0
       Width = 210
       Caption = 'System background'
-      ClientHeight = 331
+      ClientHeight = 288
       ClientWidth = 206
       TabOrder = 2
       object eSystemBG: TFileNameEdit
@@ -141,7 +141,7 @@ inherited fmEmuTKSystemImgEditor: TfmEmuTKSystemImgEditor
       end
       object iSystemBG: TImage
         Left = 0
-        Height = 308
+        Height = 265
         Top = 23
         Width = 206
         Align = alClient
@@ -153,8 +153,33 @@ inherited fmEmuTKSystemImgEditor: TfmEmuTKSystemImgEditor
       end
     end
   end
-  inherited alPropEditor: TActionList[2]
+  object gbxIconFolder: TGroupBox[2]
+    Left = 0
+    Height = 43
+    Top = 328
+    Width = 600
+    Align = alBottom
+    AutoSize = True
+    Caption = 'Software icons folder'
+    ClientHeight = 23
+    ClientWidth = 596
+    TabOrder = 2
+    object eSoftIconFolder: TDirectoryEdit
+      Left = 0
+      Height = 23
+      Top = 0
+      Width = 596
+      ShowHidden = False
+      ButtonWidth = 23
+      NumGlyphs = 1
+      Align = alTop
+      MaxLength = 0
+      TabOrder = 0
+      OnButtonClick = eSoftIconFolderButtonClick
+    end
   end
-  inherited ilPropEditor: TImageList[3]
+  inherited alPropEditor: TActionList[3]
+  end
+  inherited ilPropEditor: TImageList[4]
   end
 end

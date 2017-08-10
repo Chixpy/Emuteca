@@ -49,7 +49,7 @@ type
     property FullList: cEmutecaGroupList read FFullList;
     {< Actual list where the parents are stored. }
     property VisibleList: cEmutecaGroupList read FVisibleList;
-    {< Filtered parent list. }
+    {< Parents with soft. Updated by System thread on loading. }
 
     function AddGroup(aID: string): integer;
 
@@ -138,8 +138,6 @@ begin
     Inc(i);
   end;
   //FullList.EndUpdate;
-
-  VisibleList.Assign(FullList);
 end;
 
 procedure cEmutecaGroupManager.SaveToStrLst(TxtFile: TStrings;

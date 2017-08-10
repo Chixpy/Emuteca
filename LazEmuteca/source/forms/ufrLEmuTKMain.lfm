@@ -56,6 +56,7 @@ object frmLEmuTKMain: TfrmLEmuTKMain
     object actMediaManager: TAction
       Category = 'Managers'
       Caption = 'Media Manager...'
+      OnExecute = actMediaManagerExecute
     end
     object actAddFolder: TAction
       Category = 'Version'

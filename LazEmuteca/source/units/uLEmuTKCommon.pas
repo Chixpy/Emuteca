@@ -14,6 +14,9 @@ const
   krsEmuteca = 'Emuteca';
 {< Main 'Emuteca' String!!! }
 
+  krsVirtualFolderExt = '.(folder)';
+  krsVirtualExt = '.(ext)';
+
 resourcestring
   rsFmtApplicationTitle = '%0:s %1:s';
   {<

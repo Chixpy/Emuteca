@@ -900,6 +900,10 @@ msgstr ""
 msgid "Add"
 msgstr ""
 
+#: tfmemutksystemimgeditor.gbxiconfolder.caption
+msgid "Software icons folder"
+msgstr ""
+
 #: tfmemutksystemimgeditor.gbximages.caption
 msgctxt "tfmemutksystemimgeditor.gbximages.caption"
 msgid "System images"
@@ -1034,6 +1038,100 @@ msgstr ""
 
 #: tfmlemutkmain.esearch.texthint
 msgid "Filter by name..."
+msgstr ""
+
+#: tfmlemutkmediamanager.actchangefilename.caption
+msgctxt "tfmlemutkmediamanager.actchangefilename.caption"
+msgid "Change filename"
+msgstr ""
+
+#: tfmlemutkmediamanager.actdeletefile.caption
+msgid "Delete file"
+msgstr ""
+
+#: tfmlemutkmediamanager.chkcopyfile.caption
+msgctxt "tfmlemutkmediamanager.chkcopyfile.caption"
+msgid "Copy file"
+msgstr ""
+
+#: tfmlemutkmediamanager.chksimilarfiles.caption
+msgctxt "tfmlemutkmediamanager.chksimilarfiles.caption"
+msgid "Only show similar filenames"
+msgstr ""
+
+#: tfmlemutkmediamanager.gbximages.caption
+msgid "Images"
+msgstr ""
+
+#: tfmlemutkmediamanager.gbxmusic.caption
+msgid "Music"
+msgstr ""
+
+#: tfmlemutkmediamanager.gbxotherfiles.caption
+msgid "gbxOtherFiles"
+msgstr ""
+
+#: tfmlemutkmediamanager.gbxrename.caption
+msgctxt "tfmlemutkmediamanager.gbxrename.caption"
+msgid "Change filename"
+msgstr ""
+
+#: tfmlemutkmediamanager.gbxsource.caption
+msgid "Source"
+msgstr ""
+
+#: tfmlemutkmediamanager.gbxsystem.caption
+msgctxt "tfmlemutkmediamanager.gbxsystem.caption"
+msgid "System"
+msgstr ""
+
+#: tfmlemutkmediamanager.gbxtarget.caption
+msgid "Target"
+msgstr ""
+
+#: tfmlemutkmediamanager.gbxtexts.caption
+msgid "Texts"
+msgstr ""
+
+#: tfmlemutkmediamanager.gbxvideos.caption
+msgid "Videos"
+msgstr ""
+
+#: tfmlemutkmediamanager.pagallfiles.caption
+msgctxt "tfmlemutkmediamanager.pagallfiles.caption"
+msgid "All files"
+msgstr ""
+
+#: tfmlemutkmediamanager.pagallgroups.caption
+msgid "All groups"
+msgstr ""
+
+#: tfmlemutkmediamanager.pagallsoft.caption
+msgid "All software"
+msgstr ""
+
+#: tfmlemutkmediamanager.pagfilesotherfolder.caption
+msgid "Files from other folder"
+msgstr ""
+
+#: tfmlemutkmediamanager.pagfileswogroup.caption
+msgid "Files without group"
+msgstr ""
+
+#: tfmlemutkmediamanager.pagfileswosoft.caption
+msgid "Files without soft"
+msgstr ""
+
+#: tfmlemutkmediamanager.paggroupswofile.caption
+msgid "Groups without file"
+msgstr ""
+
+#: tfmlemutkmediamanager.pagotherfiles.caption
+msgid "Other files"
+msgstr ""
+
+#: tfmlemutkmediamanager.pagsoftwofile.caption
+msgid "Software without file"
 msgstr ""
 
 #: tfmlemutkpreviewlist.actnextitem.caption
@@ -2139,6 +2237,7 @@ msgid " / %0:d"
 msgstr ""
 
 #: ufchxscriptmanager.rsfilemaskallfilesdescription
+msgctxt "ufchxscriptmanager.rsfilemaskallfilesdescription"
 msgid "All files"
 msgstr ""
 
