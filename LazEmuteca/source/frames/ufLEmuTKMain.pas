@@ -244,9 +244,9 @@ begin
     aSystem := Emuteca.SystemManager.EnabledList[i];
 
     j := 0;
-    while j < aSystem.GroupManager.FullList.Count do
+    while j < aSystem.GroupManager.VisibleList.Count do
     begin
-      FullGroupList.Add(aSystem.GroupManager.FullList[j]);
+      FullGroupList.Add(aSystem.GroupManager.VisibleList[j]);
       Inc(j);
     end;
 

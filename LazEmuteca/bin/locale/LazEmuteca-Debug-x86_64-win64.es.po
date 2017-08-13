@@ -75,10 +75,12 @@ msgid "Export file"
 msgstr ""
 
 #: tfmactexportsoftdata.gbxsysteminfo.caption
+msgctxt "tfmactexportsoftdata.gbxsysteminfo.caption"
 msgid "System info"
 msgstr ""
 
 #: tfmactexportsoftdata.lsoftidtype.caption
+msgctxt "tfmactexportsoftdata.lsoftidtype.caption"
 msgid "Soft ID Type"
 msgstr ""
 
@@ -432,6 +434,20 @@ msgstr ""
 
 #: tfmemutecaactaddsoft.rgbsoftkey.caption
 msgid "Soft Key"
+msgstr ""
+
+#: tfmemutecaactimportsoftdata.gbximportfile.caption
+msgid "Import file"
+msgstr ""
+
+#: tfmemutecaactimportsoftdata.gbxsysteminfo.caption
+msgctxt "tfmemutecaactimportsoftdata.gbxsysteminfo.caption"
+msgid "System info"
+msgstr ""
+
+#: tfmemutecaactimportsoftdata.lsoftidtype.caption
+msgctxt "tfmemutecaactimportsoftdata.lsoftidtype.caption"
+msgid "Soft ID Type"
 msgstr ""
 
 #: tfmemutecaemulatoreditor.actopenwebpage.caption
@@ -1733,7 +1749,7 @@ msgstr ""
 
 #: tfrmlemutkmain.actaddfolder.caption
 msgctxt "tfrmlemutkmain.actaddfolder.caption"
-msgid "Scan files from folder"
+msgid "Scan files from folder..."
 msgstr ""
 
 #: tfrmlemutkmain.actaddsoft.caption
@@ -1756,8 +1772,12 @@ msgctxt "tfrmlemutkmain.actemulatormanager.caption"
 msgid "Emulator Manager..."
 msgstr ""
 
-#: tfrmlemutkmain.actexportdata.caption
-msgid "Export Data..."
+#: tfrmlemutkmain.actexportsoftdata.caption
+msgid "Export soft data..."
+msgstr ""
+
+#: tfrmlemutkmain.actimportsoftdata.caption
+msgid "Import soft data..."
 msgstr ""
 
 #: tfrmlemutkmain.actmediamanager.caption
@@ -1776,7 +1796,7 @@ msgstr ""
 
 #: tfrmlemutkmain.actscriptmanager.caption
 msgctxt "tfrmlemutkmain.actscriptmanager.caption"
-msgid "Script Manager"
+msgid "Script Manager..."
 msgstr ""
 
 #: tfrmlemutkmain.actsystemmanager.caption
@@ -1791,7 +1811,7 @@ msgstr ""
 
 #: tfrmlemutkmain.fileexit1.caption
 msgctxt "tfrmlemutkmain.fileexit1.caption"
-msgid "S&alir"
+msgid "Exit"
 msgstr ""
 
 #: tfrmlemutkmain.fileexit1.hint
@@ -1799,7 +1819,7 @@ msgid "Salir|Sale de Emuteca."
 msgstr ""
 
 #: tfrmlemutkmain.helponhelp1.caption
-msgid "Sobre Emuteca..."
+msgid "About Emuteca..."
 msgstr ""
 
 #: tfrmlemutkmain.helponhelp1.hint
@@ -1809,11 +1829,6 @@ msgstr ""
 #: tfrmlemutkmain.mimmaddfiles.caption
 msgctxt "tfrmlemutkmain.mimmaddfiles.caption"
 msgid "Add..."
-msgstr ""
-
-#: tfrmlemutkmain.mimmexit.caption
-msgctxt "tfrmlemutkmain.mimmexit.caption"
-msgid "Exit"
 msgstr ""
 
 #: tfrmlemutkmain.mimmfile.caption
@@ -2346,6 +2361,10 @@ msgstr ""
 
 #: uemutecacommon.rsemutecatxtfilemaskdesc
 msgid "Soft file list (*.txt)"
+msgstr ""
+
+#: uemutecacommon.rsimportingsystemlist
+msgid "Importing system list..."
 msgstr ""
 
 #: uemutecacommon.rsloadingsystemlist

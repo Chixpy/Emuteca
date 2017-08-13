@@ -386,7 +386,7 @@ end;
 
 procedure TfrmLEmuTKMain.actImportSoftDataExecute(Sender: TObject);
 begin
-  TfmActImportSoftData.SimpleForm(Emuteca, GUIIconsFile,
+  TfmEmutecaActImportSoftData.SimpleForm(Emuteca, GUIIconsFile,
     GUIConfig.ConfigFile);
 end;
 

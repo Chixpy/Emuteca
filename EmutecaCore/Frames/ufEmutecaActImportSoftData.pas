@@ -6,7 +6,9 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  StdCtrls, Buttons, ActnList, EditBtn, ufCHXPropEditor;
+  StdCtrls, Buttons, ActnList, EditBtn, ufCHXPropEditor, ufCHXForm,
+  ufCHXProgressBar, uCHXStrUtils, ucEmuteca, uCHXDlgUtils, uEmutecaCommon,
+  ucEmutecaSystem, ufEmutecaSystemCBX;
 
 type
 
@@ -19,7 +21,7 @@ type
     gbxSystemInfo: TGroupBox;
     lSoftIDType: TLabel;
     pSelectSystem: TPanel;
-    rgbFileType: TRadioGroup;
+    procedure eImportFileButtonClick(Sender: TObject);
   private
     FEmuteca: cEmuteca;
     FfmSystemCBX: TfmEmutecaSystemCBX;
@@ -63,6 +65,11 @@ begin
   FSystem := AValue;
 end;
 
+procedure TfmEmutecaActImportSoftData.eImportFileButtonClick(Sender: TObject);
+begin
+    SetFileEditInitialDir(eImportFile, ProgramDirectory);
+end;
+
 procedure TfmEmutecaActImportSoftData.SetEmuteca(AValue: cEmuteca);
 begin
   if FEmuteca = AValue then Exit;
@@ -96,12 +103,36 @@ end;
 function TfmEmutecaActImportSoftData.SelectSystem(aSystem: cEmutecaSystem
   ): boolean;
 begin
+  Result := True;
 
+  System := aSystem;
+
+  if Assigned(System) then
+  begin
+    eSoftIDType.Text := EmutecaSoftExportKey2StrK(System.SoftExportKey);
+  end
+  else
+  begin
+    eSoftIDType.Clear;
+  end;
 end;
 
 procedure TfmEmutecaActImportSoftData.SaveFrameData;
+var
+  PrevCallBack: TEmutecaProgressCallBack;
 begin
+    if (eImportFile.FileName = '') or (not assigned(System)) then
+    Exit;
 
+  PrevCallBack := System.SoftManager.ProgressCallBack;
+  System.SoftManager.ProgressCallBack := @(frmCHXProgressBar.UpdTextAndBar);
+  if SupportedExtCT(eImportFile.FileName, krsEmutecaINIFileExt) then
+    System.SoftManager.ImportFromFileIni(eImportFile.FileName)
+  else if SupportedExtCT(eImportFile.FileName, krsEmutecaSoftFileExt) then
+    System.SoftManager.ImportFromFileStrLst(eImportFile.FileName);
+  System.SoftManager.ProgressCallBack := PrevCallBack;
+
+  // TODO: Import groups data
 end;
 
 class function TfmEmutecaActImportSoftData.SimpleForm(aEmuteca: cEmuteca;
@@ -150,11 +181,13 @@ begin
 
   CreateFrames;
 
+  // Add
+  eImportFile.Filter := rsEmutecaINIFileMaskDesc + '|' +
+        krsEmutecaINIFileMask + ';' + krsEmutecaSoftFileMask;
+
   // If frmCHXProgressBar is not created...
   if not Assigned(frmCHXProgressBar) then
     Application.CreateForm(TfrmCHXProgressBar, frmCHXProgressBar);
-
-   rgbFileTypeSelectionChanged(rgbFileType);
 end;
 
 destructor TfmEmutecaActImportSoftData.Destroy;

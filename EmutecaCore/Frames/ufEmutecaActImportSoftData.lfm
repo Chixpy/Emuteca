@@ -11,12 +11,12 @@ inherited fmEmutecaActImportSoftData: TfmEmutecaActImportSoftData
   end
   object gbxSystemInfo: TGroupBox[2]
     Left = 0
-    Height = 131
+    Height = 170
     Top = 0
     Width = 320
     Align = alClient
     Caption = 'System info'
-    ClientHeight = 111
+    ClientHeight = 150
     ClientWidth = 316
     TabOrder = 2
     object lSoftIDType: TLabel
@@ -41,22 +41,21 @@ inherited fmEmutecaActImportSoftData: TfmEmutecaActImportSoftData
   end
   object gbxImportFile: TGroupBox[3]
     Left = 0
-    Height = 82
-    Top = 131
+    Height = 43
+    Top = 170
     Width = 320
     Align = alBottom
     AutoSize = True
     Caption = 'Import file'
-    ClientHeight = 62
+    ClientHeight = 23
     ClientWidth = 316
     TabOrder = 3
     object eImportFile: TFileNameEdit
       Left = 0
       Height = 23
-      Top = 39
+      Top = 0
       Width = 316
-      DialogKind = dkSave
-      DialogOptions = [ofOverwritePrompt, ofNoChangeDir, ofEnableSizing, ofDontAddToRecent, ofViewDetail]
+      DialogOptions = [ofNoChangeDir, ofFileMustExist, ofEnableSizing, ofDontAddToRecent, ofViewDetail]
       FilterIndex = 0
       HideDirectories = False
       ButtonWidth = 23
@@ -65,32 +64,7 @@ inherited fmEmutecaActImportSoftData: TfmEmutecaActImportSoftData
       Align = alTop
       MaxLength = 0
       TabOrder = 0
-    end
-    object rgbFileType: TRadioGroup
-      Left = 0
-      Height = 39
-      Top = 0
-      Width = 316
-      Align = alTop
-      AutoFill = True
-      AutoSize = True
-      Caption = 'File type'
-      ChildSizing.LeftRightSpacing = 6
-      ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
-      ChildSizing.EnlargeVertical = crsHomogenousChildResize
-      ChildSizing.ShrinkHorizontal = crsScaleChilds
-      ChildSizing.ShrinkVertical = crsScaleChilds
-      ChildSizing.Layout = cclLeftToRightThenTopToBottom
-      ChildSizing.ControlsPerLine = 2
-      ClientHeight = 19
-      ClientWidth = 312
-      Columns = 2
-      ItemIndex = 0
-      Items.Strings = (
-        'INI'
-        'CSV/EGL'
-      )
-      TabOrder = 1
+      OnButtonClick = eImportFileButtonClick
     end
   end
   inherited alPropEditor: TActionList[4]

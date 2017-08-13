@@ -36,27 +36,27 @@ type
     procedure SetEmuteca(AValue: cEmuteca);
     procedure SetSystem(AValue: cEmutecaSystem);
 
-    protected
-      property fmSystemCBX: TfmEmutecaSystemCBX read FfmSystemCBX;
+  protected
+    property fmSystemCBX: TfmEmutecaSystemCBX read FfmSystemCBX;
 
-      property System: cEmutecaSystem read FSystem write SetSystem;
+    property System: cEmutecaSystem read FSystem write SetSystem;
 
-      function SelectSystem(aSystem: cEmutecaSystem): boolean;
+    function SelectSystem(aSystem: cEmutecaSystem): boolean;
 
 
-          procedure ClearFrameData; override;
+    procedure ClearFrameData; override;
     procedure LoadFrameData; override;
 
   public
     property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
 
-       procedure SaveFrameData; override;
+    procedure SaveFrameData; override;
 
-        // Creates a form with AddFolder frame.
+    // Creates a form with AddFolder frame.
     class function SimpleForm(aEmuteca: cEmuteca; aGUIIconsIni: string;
       aGUIConfigIni: string): integer;
 
-        constructor Create(TheOwner: TComponent); override;
+    constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
   end;
 
@@ -69,11 +69,13 @@ implementation
 procedure TfmActExportSoftData.rgbFileTypeSelectionChanged(Sender: TObject);
 begin
   case rgbFileType.ItemIndex of
-  1: eExportFile.Filter := rsEmutecaSoftFileMaskDesc + '|' + krsEmutecaSoftFileMask;
-  else
-  begin
-    eExportFile.Filter := rsEmutecaINIFileMaskDesc + '|' + krsEmutecaINIFileMask;
-  end;
+    1: eExportFile.Filter := rsEmutecaSoftFileMaskDesc + '|' +
+        krsEmutecaSoftFileMask;
+    else
+    begin
+      eExportFile.Filter := rsEmutecaINIFileMaskDesc + '|' +
+        krsEmutecaINIFileMask;
+    end;
   end;
 end;
 
@@ -84,10 +86,11 @@ end;
 
 procedure TfmActExportSoftData.SetEmuteca(AValue: cEmuteca);
 begin
-  if FEmuteca = AValue then Exit;
+  if FEmuteca = AValue then
+    Exit;
   FEmuteca := AValue;
 
-    if assigned(Emuteca) then
+  if assigned(Emuteca) then
     fmSystemCBX.SystemList := Emuteca.SystemManager.EnabledList
   else
     fmSystemCBX.SystemList := nil;
@@ -98,7 +101,8 @@ end;
 
 procedure TfmActExportSoftData.SetSystem(AValue: cEmutecaSystem);
 begin
-  if FSystem = AValue then Exit;
+  if FSystem = AValue then
+    Exit;
   FSystem := AValue;
 end;
 
@@ -125,13 +129,13 @@ end;
 
 procedure TfmActExportSoftData.LoadFrameData;
 begin
-   Enabled := Assigned(Emuteca);
+  Enabled := Assigned(Emuteca);
 
-   if not Enabled then
-     begin
-       ClearFrameData;
-       Exit;
-     end;
+  if not Enabled then
+  begin
+    ClearFrameData;
+    Exit;
+  end;
 end;
 
 procedure TfmActExportSoftData.SaveFrameData;
@@ -141,14 +145,14 @@ begin
   if (eExportFile.FileName = '') or (not assigned(System)) then
     Exit;
 
-  PrevCallBack :=  System.SoftManager.ProgressCallBack;
+  PrevCallBack := System.SoftManager.ProgressCallBack;
   System.SoftManager.ProgressCallBack := @(frmCHXProgressBar.UpdTextAndBar);
   case rgbFileType.ItemIndex of
-  1: System.SaveLists(eExportFile.FileName, true);
-  else
-  begin
-    System.SoftManager.SaveToFileIni(eExportFile.FileName, true);
-  end;
+    1: System.SaveLists(eExportFile.FileName, True);
+    else
+    begin
+      System.SoftManager.SaveToFileIni(eExportFile.FileName, True);
+    end;
   end;
   System.SoftManager.ProgressCallBack := PrevCallBack;
 end;
@@ -185,6 +189,7 @@ begin
 end;
 
 constructor TfmActExportSoftData.Create(TheOwner: TComponent);
+
   procedure CreateFrames;
   begin
     FfmSystemCBX := TfmEmutecaSystemCBX.Create(pSelectSystem);
@@ -212,4 +217,3 @@ begin
 end;
 
 end.
-

@@ -91,7 +91,7 @@ inherited fmActExportSoftData: TfmActExportSoftData
       ItemIndex = 0
       Items.Strings = (
         'INI'
-        'CSV/EGL'
+        'CSV'
       )
       OnSelectionChanged = rgbFileTypeSelectionChanged
       TabOrder = 1

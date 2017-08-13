@@ -5,17 +5,18 @@ unit uaEmutecaCustomManager;
 interface
 
 uses
-  Classes, SysUtils,
-  uaCHXStorable;
+  Classes, SysUtils, IniFiles,
+  uaCHXStorable, LazFileUtils, LazUTF8;
 
 type
 
   { caEmutecaCustomManager }
 
   caEmutecaCustomManager = class(caCHXStorableTxt)
-    procedure ImportFromFileIni(aIniFile: TMemIniFile); virtual;
+  public
+    procedure ImportFromFileIni(aFilename: string); virtual;
     procedure ImportFromIni(aIniFile: TMemIniFile); virtual; abstract;
-    procedure ImportFromFileStrLst(aTxtFile: TStrings); virtual;
+    procedure ImportFromFileStrLst(aFilename: string); virtual;
     procedure ImportFromStrLst(aTxtFile: TStrings); virtual; abstract;
   end;
 
@@ -23,7 +24,7 @@ implementation
 
 { caEmutecaCustomManager }
 
-procedure caEmutecaCustomManager.ImportFromFileIni(aIniFile: TMemIniFile);
+procedure caEmutecaCustomManager.ImportFromFileIni(aFilename: string);
 var
   aIniFile: TMemIniFile;
   IniFileOps: TIniFileOptions;
@@ -39,13 +40,13 @@ begin
     Exclude(IniFileOps, ifoCaseSensitive);
     aIniFile.Options := IniFileOps;
 
-    ImportFromFileIni(aIniFile);
+    ImportFromIni(aIniFile);
   finally
     FreeAndNil(aIniFile);
   end;
 end;
 
-procedure caEmutecaCustomManager.ImportFromFileStrLst(aTxtFile: TStrings);
+procedure caEmutecaCustomManager.ImportFromFileStrLst(aFilename: string);
 var
   aTxtFile: TStringList;
 begin

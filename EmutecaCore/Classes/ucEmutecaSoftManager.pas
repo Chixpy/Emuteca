@@ -201,6 +201,8 @@ begin
       aSoft.LoadFromIni(aIniFile);
       Inc(i);
 
+    end;
+
   if assigned(ProgressCallBack) then
     ProgressCallBack('', '', '', 0, 0);
 end;
