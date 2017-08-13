@@ -10,33 +10,64 @@ uses
   uCHXStrUtils, uCHXFileUtils;
 
 const
-  rsFmtWindowCaption = '%0:s : %1:s';
-{<
-  %0:s = Application.Title (derived from rsFmtApplicationTitle).
-  %1:s = Window caption.
-}
+  rsFmtWindowCaption = '%0:s: %1:s';
+  {<
+    %0:s = Application.Title (derived from rsFmtApplicationTitle).
+    %1:s = Window caption.
+  }
 
-  krsEmutecaTempGameSubFolder = 'Game/';
+  krsEmutecaTempGameSubFolder = 'Soft/';
   {< Subfolder in temp directory, where games will be decompressed.
 
-    Please attach directory separator}
+    With directory separator.
+  }
 
-  // Extensions
-  // ----------
+
+  // File extensions
+  // ---------------
   krsEmutecaGroupFileExt = '.egl';
   {< Extension for group lists. }
   krsEmutecaSoftFileExt = '.csv';
   {< Extension for soft lists. }
+  krsEmutecaINIFileExt = '.ini';
+  {< Extension for ini databases (Systems, Emulators, Export/Import, ...). }
+  krsEmutecaScriptFileExt = '.pas';
+  {< Extension for script files. }
+  krsEmutecaTXTFileExt = '.txt';
+  {< Extension for generic text files. }
+
+  // File masks for filters
+  // ----------------------
+  krsEmutecaGroupFileMask = '*' + krsEmutecaGroupFileExt;
+  {< File mask for group lists. }
+  krsEmutecaSoftFileMask = '*' + krsEmutecaSoftFileExt;
+  {< File mask for soft lists. }
+  krsEmutecaINIFileMask = '*' + krsEmutecaINIFileExt;
+  {< File mask for ini databases (Systems, Emulators, Export/Import, ...). }
+  krsEmutecaScriptFileMask = '*' + krsEmutecaScriptFileExt;
+  {< File mask for script files. }
+  krsEmutecaTXTFileMask = '*' + krsEmutecaTXTFileExt;
+  {< File mask for generic text files. }
+
+
 
   // EXIT CODES for handling some errors
+  // -----------------------------------
   // Praying for no emulator use these exit codes.
   kEmutecaExecErrorNoGame = -300;
   {< Error code when game is not found. }
   kEmutecaDecompressError = -301;
   {< Error decompressing archive. }
 
-  kEmuTKSHA1Empty: TSHA1Digest =
-    (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+  // List headers
+  // ------------
+  krsCSVStatsHeader = '"Last Time","Times Played","Playing Time"';
+
+  krsCSVSoftHeader = '"Group","SHA1","ID","Folder","FileName",' +
+    '"Title","TransliteratedName","SortTitle","Version","Year","Publisher",' +
+    '"Zone","DumpStatus","DumpInfo","Fixed","Trainer","Translation",' +
+    '"Pirate","Cracked","Modified","Hack"';
+  krsCSVSoftStatsHeader = krsCSVSoftHeader + ',' + krsCSVStatsHeader;
 
   // IniKeys
   // -------
@@ -45,9 +76,9 @@ const
   krsIniKeyTitle = 'Title';
   krsIniKeyFileName = 'FileName';
   krsIniKeyYear = 'Year';
+  krsIniKeyEnabled = 'Enabled';
 
   // System
-  krsIniKeyEnabled = 'Enabled';
   krsIniKeyExtensions = 'Extensions';
   krsIniKeyBaseFolder = 'BaseFolder';
   krsIniKeyWorkingFolder = 'WorkingFolder';
@@ -66,13 +97,19 @@ const
   krsIniKeyMusicCaptions = 'MusicCaptions';
   krsIniKeyVideoFolders = 'VideoFolders';
   krsIniKeyVideoCaptions = 'VideoCaptions';
-  krsIniKeyGamesKey = 'GamesKey';
+  krsIniKeySoftExportKey = 'SoftExportKey';
   krsIniKeyExtractAll = 'ExtractAll';
+  // Constants for SoftExportKey
+  krsCRC32 = 'CRC32';
+  krsSHA1 = 'SHA1';
+  krsFileName = 'FileName';
+  krsCustom = 'Custom';
 
   // Group
   krsIniKeyDeveloper = 'Developer';
 
   // Soft
+  krsIniKeySHA1 = 'SHA1';
   krsIniKeyGroup = 'Group';
   krsIniKeyTranslitTitl = 'TranslitTitle';
   krsIniKeySortTitle = 'SortTitle';
@@ -89,6 +126,13 @@ const
   krsIniKeyModified = 'Modified';
   krsIniKeyHack = 'Hack';
   krsIniKeyFolder = 'Folder';
+  // Constant for DumpStatus, fixed (for filenames)
+  krsedsVerified = 'Verified';
+  krsedsGood = 'GoodDump';
+  krsedsAlternate = 'Alternate';
+  krsedsOverDump = 'OverDump';
+  krsedsBadDump = 'BadDump';
+  krsedsUnderDump = 'UnderDump';
 
   // Playing Stats
   krsIniKeyPlayingTime = 'PlayingTime';
@@ -97,20 +141,83 @@ const
 
 resourcestring
   rsNever = 'Never';
+  rsLoadingSystemList = 'Loading system list...';
+  rsImportingSystemList = 'Importing system list...';
+  rsSavingSystemList = 'Saving system list...';
+
+  // File masks for filters
+  // ----------------------
+  rsEmutecaGroupFileMaskDesc =
+    'Group file list (' + krsEmutecaGroupFileMask + ')';
+  {< Description of file mask for group lists. }
+  rsEmutecaSoftFileMaskDesc =
+    'Soft file list (' + krsEmutecaSoftFileMask + ')';
+  {< Description of file mask  for soft lists. }
+  rsEmutecaINIFileMaskDesc = 'Soft file list (' + krsEmutecaINIFileMask + ')';
+  {< Description of file mask  for ini databases (Systems, Emulators, Export/Import, ...). }
+  rsEmutecaScriptFileMaskDesc =
+    'Soft file list (' + krsEmutecaScriptFileMask + ')';
+  {< Description of file mask  for script files. }
+  rsEmutecaTXTFileMaskDesc = 'Soft file list (' + krsEmutecaTXTFileMask + ')';
+  {< Description of file mask  for generic text files. }
+
+  // Strings for DumpStatus, translatable
+  // ------------------------------------
+  rsedsVerified = 'Verified';
+  rsedsGood = 'GoodDump';
+  rsedsAlternate = 'Alternate';
+  rsedsOverDump = 'OverDump';
+  rsedsBadDump = 'BadDump';
+  rsedsUnderDump = 'UnderDump';
+
 
 type
+  TEmutecaSoftExportKey = (TEFKSHA1, TEFKCRC32, TEFKFileName, TEFKCustom);
+  TEmutecaDumpStatus = (edsVerified, edsGood, edsAlternate, edsOverDump,
+    edsBadDump, edsUnderDump);
+
   TEmutecaProgressCallBack = function(const Title, Info1, Info2: string;
     const Value, MaxValue: int64): boolean of object;
 {< Callback funtion to show progress }
+
+const
+  EmutecaSoftExportKeyStrK: array [TEmutecaSoftExportKey] of string =
+    (krsSHA1, krsCRC32, krsFileName, krsCustom);
+  //< Strings for FileKeys (fixed constants, used for ini files, etc. )
+
+  EmutecaDumpStatusKey: array [TEmutecaDumpStatus] of string =
+    ('!', '', 'a', 'o', 'b', 'u');
+  //< Keys for DumpStatus, used in IniFiles
+  EmutecaDumpStatusStr: array [TEmutecaDumpStatus] of string =
+    (rsedsVerified, rsedsGood, rsedsAlternate, rsedsOverDump,
+    rsedsBadDump, rsedsUnderDump);
+  //< Strings for DumpStatus (localizable)
+  EmutecaDumpStatusStrK: array [TEmutecaDumpStatus] of string =
+    (krsedsVerified, krsedsGood, krsedsAlternate, krsedsOverDump,
+    krsedsBadDump, krsedsUnderDump);
+  //< Strings for DumpStatus (fixed constants, used for icon filenames, etc. )
+
+
+function Str2EmutecaSoftExportKey(aString: string): TEmutecaSoftExportKey;
+function EmutecaSoftExportKey2StrK(aSOK: TEmutecaSoftExportKey): string;
+//< Same as Result := EmutecaSoftExportKeyStrK[aSOK];
+
+function Key2EmutecaDumpSt(aString: string): TEmutecaDumpStatus;
+function EmutecaDumpSt2Key(aEDS: TEmutecaDumpStatus): string;
+//< Same as Result := EmutecaDumpStatusKey[aEDS];
+function EmutecaDumpSt2Str(aEDS: TEmutecaDumpStatus): string;
+//< Same as Result := EmutecaDumpStatusStr[aEDS];
+function EmutecaDumpSt2StrK(aEDS: TEmutecaDumpStatus): string;
+//< Same as Result := EmutecaDumpStatusStrK[aEDS];
 
 
 procedure EmuTKSearchAllRelatedFiles(OutFileList: TStrings;
   aFolder: string; aFileName: string; Extensions: TStrings;
   SearchInComp: boolean; DecompressFolder: string);
 
-function EmuTKSearchFirstRelatedFile(aFolder: string; aFileName: string;
-  Extensions: TStrings; SearchInComp: boolean; AutoDecompress: boolean;
-  DecompressFolder: string): string;
+function EmuTKSearchFirstRelatedFile(aFolder: string;
+  aFileName: string; Extensions: TStrings; SearchInComp: boolean;
+  AutoDecompress: boolean; DecompressFolder: string): string;
 
 procedure EmuTKSearchAllFilesByNameExtCT(aFileList: TStrings;
   aBaseFileName: string; aExtList: string);
@@ -175,7 +282,7 @@ function EmuTKSearchFirstFileByNameExtSL(aBaseFileName: string;
   aExtList: TStrings): string;
 var
   i: integer;
-  aFile: String;
+  aFile: string;
 begin
   Result := '';
   i := 0;
@@ -191,9 +298,69 @@ begin
   end;
 end;
 
-procedure EmuTKSearchAllRelatedFiles(OutFileList: TStrings; aFolder: string;
-  aFileName: string; Extensions: TStrings; SearchInComp: boolean;
-  DecompressFolder: string);
+function Str2EmutecaSoftExportKey(aString: string): TEmutecaSoftExportKey;
+begin
+  // In Emuteca <= 0.7, True => CRC32 / False => FileName
+  aString := UTF8UpperCase(aString);
+
+  // I don't like this "else if" format but it's clearer...
+  if (aString = UTF8UpperCase(krsCRC32)) or
+    (StrToBoolDef(aString, False)) then
+    Result := TEFKCRC32
+  else if (aString = UTF8UpperCase(krsFileName)) or
+    (not StrToBoolDef(aString, True)) then
+    Result := TEFKFileName
+  else if (aString = UTF8UpperCase(krsSHA1)) then
+    Result := TEFKSHA1
+  else if (aString = UTF8UpperCase(krsCustom)) then
+    Result := TEFKCustom
+  else // Default
+    Result := TEFKSHA1;
+end;
+
+function EmutecaSoftExportKey2StrK(aSOK: TEmutecaSoftExportKey): string;
+begin
+  Result := EmutecaSoftExportKeyStrK[aSOK];
+end;
+
+function Key2EmutecaDumpSt(aString: string): TEmutecaDumpStatus;
+begin
+  aString := UTF8Trim(UTF8LowerString(aString));
+
+  if (aString = EmutecaDumpSt2Key(edsGood)) then // krsedsGoodKey = ''
+    Result := edsGood
+  else if (aString[1] = EmutecaDumpSt2Key(edsVerified)) then
+    Result := edsVerified
+  else if (aString[1] = EmutecaDumpSt2Key(edsAlternate)) then
+    Result := edsAlternate
+  else if (aString[1] = EmutecaDumpSt2Key(edsOverDump)) then
+    Result := edsOverDump
+  else if (aString[1] = EmutecaDumpSt2Key(edsBadDump)) then
+    Result := edsBadDump
+  else if (aString[1] = EmutecaDumpSt2Key(edsUnderDump)) then
+    Result := edsUnderDump
+  else
+    Result := edsGood;
+end;
+
+function EmutecaDumpSt2Key(aEDS: TEmutecaDumpStatus): string;
+begin
+  Result := EmutecaDumpStatusKey[aEDS];
+end;
+
+function EmutecaDumpSt2Str(aEDS: TEmutecaDumpStatus): string;
+begin
+  Result := EmutecaDumpStatusStr[aEDS];
+end;
+
+function EmutecaDumpSt2StrK(aEDS: TEmutecaDumpStatus): string;
+begin
+   Result := EmutecaDumpStatusStrK[aEDS];
+end;
+
+procedure EmuTKSearchAllRelatedFiles(OutFileList: TStrings;
+  aFolder: string; aFileName: string; Extensions: TStrings;
+  SearchInComp: boolean; DecompressFolder: string);
 var
   CompressedArchives: TStringList;
   i: integer;
@@ -265,7 +432,8 @@ begin
 
   CompressedArchives := TStringList.Create;
   try
-  FindAllFiles(CompressedArchives, aFolder, FileMaskFromCommaText(w7zGetFileExts), True);
+    FindAllFiles(CompressedArchives, aFolder,
+      FileMaskFromCommaText(w7zGetFileExts), True);
 
     i := 0;
     while i < CompressedArchives.Count do
@@ -283,9 +451,9 @@ begin
     FileMaskFromStringList(Extensions), True);
 end;
 
-function EmuTKSearchFirstRelatedFile(aFolder: string; aFileName: string;
-  Extensions: TStrings; SearchInComp: boolean; AutoDecompress: boolean;
-  DecompressFolder: string): string;
+function EmuTKSearchFirstRelatedFile(aFolder: string;
+  aFileName: string; Extensions: TStrings; SearchInComp: boolean;
+  AutoDecompress: boolean; DecompressFolder: string): string;
 
   function SearchComprFile(aCompFileList: TStrings; aFileName: string;
     Extensions: TStrings): string;
@@ -392,7 +560,8 @@ begin
     // Folder/*.zip/aFileName.mext
     CompressedArchives := TStringList.Create;
     try
-    FindAllFiles(CompressedArchives, aFolder, FileMaskFromCommaText(w7zGetFileExts), True);
+      FindAllFiles(CompressedArchives, aFolder,
+        FileMaskFromCommaText(w7zGetFileExts), True);
 
       i := 0;
       while i < CompressedArchives.Count do
@@ -441,7 +610,8 @@ begin
     CompressedArchives := TStringList.Create;
     TempStrLst := TStringList.Create;
     try
-      EmuTKSearchAllFilesByNameExtCT(CompressedArchives, aFolder, w7zGetFileExts);
+      EmuTKSearchAllFilesByNameExtCT(CompressedArchives, aFolder,
+        w7zGetFileExts);
 
       i := 0;
       while i < CompressedArchives.Count do

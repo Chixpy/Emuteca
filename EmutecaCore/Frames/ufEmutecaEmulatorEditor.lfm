@@ -8,11 +8,14 @@ inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
     Top = 428
     Width = 359
     ClientWidth = 359
+    inherited chkCloseOnSave: TCheckBox
+      Left = 40
+    end
     inherited bSave: TBitBtn
-      Left = 69
+      Left = 129
     end
     inherited bCancel: TBitBtn
-      Left = 208
+      Left = 239
     end
   end
   object lName: TLabel[1]
@@ -46,10 +49,12 @@ inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
     Height = 23
     Top = 144
     Width = 359
+    DialogOptions = [ofNoChangeDir, ofEnableSizing, ofViewDetail]
     FilterIndex = 0
     HideDirectories = False
     ButtonWidth = 23
     NumGlyphs = 1
+    Flat = True
     Align = alTop
     MaxLength = 0
     TabOrder = 2
@@ -124,9 +129,11 @@ inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
       Height = 23
       Top = 0
       Width = 336
+      DialogOptions = [ofNoChangeDir, ofEnableSizing, ofViewDetail]
       ShowHidden = False
       ButtonWidth = 23
       NumGlyphs = 1
+      Flat = True
       Align = alClient
       MaxLength = 0
       TabOrder = 0

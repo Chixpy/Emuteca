@@ -9,11 +9,14 @@ inherited fmEmutecaActAddSoft: TfmEmutecaActAddSoft
     Top = 483
     Width = 594
     ClientWidth = 594
+    inherited chkCloseOnSave: TCheckBox
+      Left = 99
+    end
     inherited bSave: TBitBtn
-      Left = 148
+      Left = 247
     end
     inherited bCancel: TBitBtn
-      Left = 366
+      Left = 416
     end
   end
   object pSelectFile: TPanel[1]
@@ -70,6 +73,7 @@ inherited fmEmutecaActAddSoft: TfmEmutecaActAddSoft
         HideDirectories = False
         ButtonWidth = 23
         NumGlyphs = 1
+        Flat = True
         Align = alTop
         MaxLength = 0
         TabOrder = 0

@@ -1,0 +1,104 @@
+inherited fmActExportSoftData: TfmActExportSoftData
+  DesignLeft = 520
+  DesignTop = 236
+  object pSelectSystem: TPanel[1]
+    Left = 0
+    Height = 0
+    Top = 0
+    Width = 320
+    Align = alTop
+    AutoSize = True
+    BevelOuter = bvNone
+    TabOrder = 1
+  end
+  object gbxSystemInfo: TGroupBox[2]
+    Left = 0
+    Height = 131
+    Top = 0
+    Width = 320
+    Align = alClient
+    Caption = 'System info'
+    ClientHeight = 111
+    ClientWidth = 316
+    TabOrder = 2
+    object lSoftIDType: TLabel
+      Left = 0
+      Height = 15
+      Top = 0
+      Width = 316
+      Align = alTop
+      Caption = 'Soft ID Type'
+      ParentColor = False
+    end
+    object eSoftIDType: TEdit
+      Left = 0
+      Height = 23
+      Top = 15
+      Width = 316
+      Align = alTop
+      Enabled = False
+      ReadOnly = True
+      TabOrder = 0
+    end
+  end
+  object gbxExportFile: TGroupBox[3]
+    Left = 0
+    Height = 82
+    Top = 131
+    Width = 320
+    Align = alBottom
+    AutoSize = True
+    Caption = 'Export file'
+    ClientHeight = 62
+    ClientWidth = 316
+    TabOrder = 3
+    object eExportFile: TFileNameEdit
+      Left = 0
+      Height = 23
+      Top = 39
+      Width = 316
+      DialogKind = dkSave
+      DialogOptions = [ofOverwritePrompt, ofNoChangeDir, ofEnableSizing, ofDontAddToRecent, ofViewDetail]
+      FilterIndex = 0
+      HideDirectories = False
+      ButtonWidth = 23
+      NumGlyphs = 1
+      Flat = True
+      Align = alTop
+      MaxLength = 0
+      TabOrder = 0
+      OnButtonClick = eExportFileButtonClick
+    end
+    object rgbFileType: TRadioGroup
+      Left = 0
+      Height = 39
+      Top = 0
+      Width = 316
+      Align = alTop
+      AutoFill = True
+      AutoSize = True
+      Caption = 'File type'
+      ChildSizing.LeftRightSpacing = 6
+      ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+      ChildSizing.EnlargeVertical = crsHomogenousChildResize
+      ChildSizing.ShrinkHorizontal = crsScaleChilds
+      ChildSizing.ShrinkVertical = crsScaleChilds
+      ChildSizing.Layout = cclLeftToRightThenTopToBottom
+      ChildSizing.ControlsPerLine = 2
+      ClientHeight = 19
+      ClientWidth = 312
+      Columns = 2
+      ItemIndex = 0
+      Items.Strings = (
+        'INI'
+        'CSV/EGL'
+      )
+      OnSelectionChanged = rgbFileTypeSelectionChanged
+      TabOrder = 1
+    end
+  end
+  inherited alPropEditor: TActionList[4]
+  end
+  inherited ilPropEditor: TImageList[5]
+  end
+end

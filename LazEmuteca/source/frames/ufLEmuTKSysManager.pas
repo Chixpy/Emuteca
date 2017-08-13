@@ -10,7 +10,7 @@ uses
   uCHXStrUtils,
   ufCHXChkLstPropEditor, ufCHXForm,
   ucEmuteca, uEmutecaCommon, ucEmutecaSystem,
-  ufLEmuTKFullSystemEditor, uLEmuTKCommon;
+  ufLEmuTKFullSystemEditor;
 
 resourcestring
   rsSystemName = 'System name [Company: Model (extra)]';

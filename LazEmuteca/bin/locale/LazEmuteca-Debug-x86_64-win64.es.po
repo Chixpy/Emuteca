@@ -31,6 +31,7 @@ msgid "*.*"
 msgstr ""
 
 #: tfmactaddsoft.rgbgroup.caption
+msgctxt "tfmactaddsoft.rgbgroup.caption"
 msgid "Group"
 msgstr ""
 
@@ -67,6 +68,22 @@ msgstr ""
 #: tfmactaddversion.rgbversionkey.caption
 msgctxt "tfmactaddversion.rgbversionkey.caption"
 msgid "Version Key"
+msgstr ""
+
+#: tfmactexportsoftdata.gbxexportfile.caption
+msgid "Export file"
+msgstr ""
+
+#: tfmactexportsoftdata.gbxsysteminfo.caption
+msgid "System info"
+msgstr ""
+
+#: tfmactexportsoftdata.lsoftidtype.caption
+msgid "Soft ID Type"
+msgstr ""
+
+#: tfmactexportsoftdata.rgbfiletype.caption
+msgid "File type"
 msgstr ""
 
 #: tfmaddfolder.brun.caption
@@ -311,6 +328,11 @@ msgctxt "tfmchxpropeditor.actsavedata.caption"
 msgid "Save"
 msgstr ""
 
+#: tfmchxpropeditor.chkcloseonsave.caption
+msgctxt "tfmchxpropeditor.chkcloseonsave.caption"
+msgid "Close"
+msgstr ""
+
 #: tfmemutecaactaddfolder.chknozip.caption
 msgid "Don't search inside compressed archives"
 msgstr ""
@@ -324,6 +346,7 @@ msgid "Search in subfolders"
 msgstr ""
 
 #: tfmemutecaactaddfolder.gbxfolder.caption
+msgctxt "tfmemutecaactaddfolder.gbxfolder.caption"
 msgid "Select folder"
 msgstr ""
 
@@ -332,9 +355,12 @@ msgctxt "tfmemutecaactaddfolder.gbxselectsystem.caption"
 msgid "Select a System"
 msgstr ""
 
-#: tfmemutecaactaddfolder.lsysteminfo.caption
-msgctxt "tfmemutecaactaddfolder.lsysteminfo.caption"
-msgid "Supported Extensions"
+#: tfmemutecaactaddfolder.gbxsysinfo.caption
+msgid "gbxSysInfo"
+msgstr ""
+
+#: tfmemutecaactaddfolder.lsystemextensions.caption
+msgid "System extensions"
 msgstr ""
 
 #: tfmemutecaactaddfolder.rgbfilename.caption
@@ -1040,13 +1066,21 @@ msgstr ""
 msgid "Filter by name..."
 msgstr ""
 
-#: tfmlemutkmediamanager.actchangefilename.caption
-msgctxt "tfmlemutkmediamanager.actchangefilename.caption"
-msgid "Change filename"
+#: tfmlemutkmediamanager.actassignfile.caption
+msgid "Assign file"
 msgstr ""
 
 #: tfmlemutkmediamanager.actdeletefile.caption
 msgid "Delete file"
+msgstr ""
+
+#: tfmlemutkmediamanager.actrenamegroupfile.caption
+msgctxt "tfmlemutkmediamanager.actrenamegroupfile.caption"
+msgid "Rename group file"
+msgstr ""
+
+#: tfmlemutkmediamanager.actsearchmediainzip.caption
+msgid "Search media in zip"
 msgstr ""
 
 #: tfmlemutkmediamanager.chkcopyfile.caption
@@ -1095,6 +1129,21 @@ msgstr ""
 
 #: tfmlemutkmediamanager.gbxvideos.caption
 msgid "Videos"
+msgstr ""
+
+#: tfmlemutkmediamanager.migprenamegroupfile.caption
+msgctxt "tfmlemutkmediamanager.migprenamegroupfile.caption"
+msgid "Rename group file"
+msgstr ""
+
+#: tfmlemutkmediamanager.mimmfilelist.caption
+msgctxt "tfmlemutkmediamanager.mimmfilelist.caption"
+msgid "File list"
+msgstr ""
+
+#: tfmlemutkmediamanager.mmimgroup.caption
+msgctxt "tfmlemutkmediamanager.mmimgroup.caption"
+msgid "Group"
 msgstr ""
 
 #: tfmlemutkmediamanager.pagallfiles.caption
@@ -1757,38 +1806,38 @@ msgstr ""
 msgid "Información de Emuteca|Muestra un cuadro con información sobre Emuteca."
 msgstr ""
 
-#: tfrmlemutkmain.mmiaddfiles.caption
-msgctxt "tfrmlemutkmain.mmiaddfiles.caption"
+#: tfrmlemutkmain.mimmaddfiles.caption
+msgctxt "tfrmlemutkmain.mimmaddfiles.caption"
 msgid "Add..."
 msgstr ""
 
-#: tfrmlemutkmain.mmiexit.caption
+#: tfrmlemutkmain.mimmexit.caption
+msgctxt "tfrmlemutkmain.mimmexit.caption"
 msgid "Exit"
 msgstr ""
 
-#: tfrmlemutkmain.mmifile.caption
-msgctxt "tfrmlemutkmain.mmifile.caption"
+#: tfrmlemutkmain.mimmfile.caption
+msgctxt "tfrmlemutkmain.mimmfile.caption"
 msgid "File"
 msgstr ""
 
-#: tfrmlemutkmain.mmifiles.caption
-msgctxt "tfrmlemutkmain.mmifiles.caption"
-msgid "Files"
+#: tfrmlemutkmain.mimmmanagers.caption
+msgctxt "tfrmlemutkmain.mimmmanagers.caption"
+msgid "Managers"
+msgstr ""
+
+#: tfrmlemutkmain.mimmsoft.caption
+msgid "Software"
+msgstr ""
+
+#: tfrmlemutkmain.mimmtest.caption
+msgctxt "tfrmlemutkmain.mimmtest.caption"
+msgid "Test"
 msgstr ""
 
 #: tfrmlemutkmain.mmihelp.caption
 msgctxt "tfrmlemutkmain.mmihelp.caption"
 msgid "Help"
-msgstr ""
-
-#: tfrmlemutkmain.mmimanagers.caption
-msgctxt "tfrmlemutkmain.mmimanagers.caption"
-msgid "Managers"
-msgstr ""
-
-#: tfrmlemutkmain.mmitest.caption
-msgctxt "tfrmlemutkmain.mmitest.caption"
-msgid "Test"
 msgstr ""
 
 #: tfrmscriptmanager.actcompile.caption
@@ -1939,6 +1988,33 @@ msgstr ""
 #: tfrmscriptmanager.tbeditor.caption
 msgctxt "tfrmscriptmanager.tbeditor.caption"
 msgid "tbEditor"
+msgstr ""
+
+#: tfrmsmaskfile.baccept.caption
+msgid "Aceptar"
+msgstr ""
+
+#: tfrmsmaskfile.bcancel.caption
+msgid "Cancelar"
+msgstr ""
+
+#: tfrmsmaskfile.caption
+msgctxt "tfrmsmaskfile.caption"
+msgid "Select a file"
+msgstr ""
+
+#: tfrmsmaskfile.gbxselectfilename.caption
+msgctxt "tfrmsmaskfile.gbxselectfilename.caption"
+msgid "Select a file"
+msgstr ""
+
+#: tfrmsmaskfolder.caption
+msgctxt "tfrmsmaskfolder.caption"
+msgid "Select folder"
+msgstr ""
+
+#: tfrmsmaskfolder.gbxselectfolder.caption
+msgid "Select a folder"
 msgstr ""
 
 #: u7zwrapper.w7zexeerror
@@ -2222,8 +2298,68 @@ msgstr ""
 msgid "Sucess!"
 msgstr ""
 
+#: uemutecacommon.rsedsalternate
+msgctxt "uemutecacommon.rsedsalternate"
+msgid "Alternate"
+msgstr ""
+
+#: uemutecacommon.rsedsbaddump
+msgctxt "uemutecacommon.rsedsbaddump"
+msgid "BadDump"
+msgstr ""
+
+#: uemutecacommon.rsedsgood
+msgctxt "uemutecacommon.rsedsgood"
+msgid "GoodDump"
+msgstr ""
+
+#: uemutecacommon.rsedsoverdump
+msgctxt "uemutecacommon.rsedsoverdump"
+msgid "OverDump"
+msgstr ""
+
+#: uemutecacommon.rsedsunderdump
+msgctxt "uemutecacommon.rsedsunderdump"
+msgid "UnderDump"
+msgstr ""
+
+#: uemutecacommon.rsedsverified
+msgctxt "uemutecacommon.rsedsverified"
+msgid "Verified"
+msgstr ""
+
+#: uemutecacommon.rsemutecagroupfilemaskdesc
+msgid "Group file list (*.egl)"
+msgstr ""
+
+#: uemutecacommon.rsemutecainifilemaskdesc
+msgid "Soft file list (*.ini)"
+msgstr ""
+
+#: uemutecacommon.rsemutecascriptfilemaskdesc
+msgid "Soft file list (*.pas)"
+msgstr ""
+
+#: uemutecacommon.rsemutecasoftfilemaskdesc
+msgid "Soft file list (*.csv)"
+msgstr ""
+
+#: uemutecacommon.rsemutecatxtfilemaskdesc
+msgid "Soft file list (*.txt)"
+msgstr ""
+
+#: uemutecacommon.rsloadingsystemlist
+msgctxt "uemutecacommon.rsloadingsystemlist"
+msgid "Loading system list..."
+msgstr ""
+
 #: uemutecacommon.rsnever
 msgid "Never"
+msgstr ""
+
+#: uemutecacommon.rssavingsystemlist
+msgctxt "uemutecacommon.rssavingsystemlist"
+msgid "Saving system list..."
 msgstr ""
 
 #: ufchxchklstpropeditor.rsleclpesavelist

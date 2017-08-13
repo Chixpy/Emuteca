@@ -26,31 +26,31 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
     Width = 5
   end
   object pRight: TPanel[3]
-    Left = 693
+    Left = 663
     Height = 464
     Top = 0
-    Width = 170
+    Width = 200
     Align = alRight
     BevelOuter = bvNone
     ClientHeight = 464
-    ClientWidth = 170
+    ClientWidth = 200
     TabOrder = 3
     object gbxRename: TGroupBox
       Left = 0
       Height = 69
       Top = 395
-      Width = 170
+      Width = 200
       Align = alBottom
       AutoSize = True
       Caption = 'Change filename'
       ClientHeight = 49
-      ClientWidth = 166
+      ClientWidth = 196
       TabOrder = 0
       object chkCopyFile: TCheckBox
         Left = 0
         Height = 19
         Top = 0
-        Width = 166
+        Width = 196
         Align = alTop
         Caption = 'Copy file'
         TabOrder = 0
@@ -59,15 +59,42 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
         Left = 0
         Height = 30
         Top = 19
-        Width = 166
-        Action = actChangeFileName
+        Width = 196
+        Action = actAssignFile
         Align = alTop
         TabOrder = 1
       end
     end
+    object pImagePreview: TPanel
+      Left = 0
+      Height = 170
+      Top = 0
+      Width = 200
+      Align = alTop
+      BevelOuter = bvNone
+      TabOrder = 1
+    end
+    object Splitter4: TSplitter
+      Cursor = crVSplit
+      Left = 0
+      Height = 5
+      Top = 170
+      Width = 200
+      Align = alTop
+      ResizeAnchor = akTop
+    end
+    object pTextPreview: TPanel
+      Left = 0
+      Height = 220
+      Top = 175
+      Width = 200
+      Align = alClient
+      BevelOuter = bvNone
+      TabOrder = 3
+    end
   end
   object Splitter2: TSplitter[4]
-    Left = 688
+    Left = 658
     Height = 464
     Top = 0
     Width = 5
@@ -78,40 +105,40 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
     Left = 175
     Height = 464
     Top = 0
-    Width = 513
+    Width = 483
     Align = alClient
     BevelOuter = bvNone
     ClientHeight = 464
-    ClientWidth = 513
+    ClientWidth = 483
     TabOrder = 5
     object gbxSource: TGroupBox
       Left = 0
       Height = 300
       Top = 0
-      Width = 513
+      Width = 483
       Align = alTop
       Caption = 'Source'
       ClientHeight = 280
-      ClientWidth = 509
+      ClientWidth = 479
       TabOrder = 0
       object pcSource: TPageControl
         Left = 0
         Height = 255
         Top = 0
-        Width = 509
-        ActivePage = pagOtherFiles
+        Width = 479
+        ActivePage = pagAllFiles
         Align = alClient
-        TabIndex = 1
+        TabIndex = 0
         TabOrder = 0
         object pagAllFiles: TTabSheet
           Caption = 'All files'
-          ClientHeight = 233
-          ClientWidth = 501
+          ClientHeight = 227
+          ClientWidth = 471
           object vstAllFiles: TVirtualStringTree
             Left = 0
-            Height = 233
+            Height = 227
             Top = 0
-            Width = 501
+            Width = 471
             Align = alClient
             Colors.UnfocusedColor = clMedGray
             DefaultText = 'Node'
@@ -139,12 +166,12 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
         object pagOtherFiles: TTabSheet
           Caption = 'Other files'
           ClientHeight = 227
-          ClientWidth = 501
+          ClientWidth = 471
           object vstOtherFiles: TVirtualStringTree
             Left = 0
             Height = 227
             Top = 0
-            Width = 501
+            Width = 471
             Align = alClient
             Colors.UnfocusedColor = clMedGray
             DefaultText = 'Node'
@@ -171,13 +198,13 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
         end
         object pagFilesWOGroup: TTabSheet
           Caption = 'Files without group'
-          ClientHeight = 233
-          ClientWidth = 501
+          ClientHeight = 227
+          ClientWidth = 471
           object vstFilesWOGroup: TVirtualStringTree
             Left = 0
-            Height = 111
+            Height = 227
             Top = 0
-            Width = 501
+            Width = 471
             Align = alClient
             Colors.UnfocusedColor = clMedGray
             DefaultText = 'Node'
@@ -204,13 +231,13 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
         end
         object pagFilesWOSoft: TTabSheet
           Caption = 'Files without soft'
-          ClientHeight = 233
-          ClientWidth = 501
+          ClientHeight = 227
+          ClientWidth = 471
           object vstFilesWOSoft: TVirtualStringTree
             Left = 0
-            Height = 111
+            Height = 227
             Top = 0
-            Width = 501
+            Width = 471
             Align = alClient
             Colors.UnfocusedColor = clMedGray
             DefaultText = 'Node'
@@ -237,13 +264,13 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
         end
         object pagFilesOtherFolder: TTabSheet
           Caption = 'Files from other folder'
-          ClientHeight = 233
-          ClientWidth = 501
+          ClientHeight = 227
+          ClientWidth = 471
           object vstFilesOtherFolder: TVirtualStringTree
             Left = 0
-            Height = 111
-            Top = 0
-            Width = 501
+            Height = 204
+            Top = 23
+            Width = 471
             Align = alClient
             Colors.UnfocusedColor = clMedGray
             DefaultText = 'Node'
@@ -260,12 +287,23 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
             TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning]
             TreeOptions.PaintOptions = [toPopupMode, toShowButtons, toShowDropmark, toShowHorzGridLines, toShowTreeLines, toShowVertGridLines, toThemeAware, toUseBlendedImages, toFullVertGridLines]
             TreeOptions.SelectionOptions = [toFullRowSelect]
-            OnChange = vstFileChange
             OnCompareNodes = vstFileCompareNodes
             OnFreeNode = vstFileFreeNode
             OnGetText = vstFileGetText
             OnKeyDown = vstFileKeyDown
             OnKeyPress = vstKeyPress
+          end
+          object eOtherFolder: TDirectoryEdit
+            Left = 0
+            Height = 23
+            Top = 0
+            Width = 471
+            ShowHidden = False
+            ButtonWidth = 23
+            NumGlyphs = 1
+            Align = alTop
+            MaxLength = 0
+            TabOrder = 1
           end
         end
       end
@@ -273,25 +311,25 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
         Left = 0
         Height = 25
         Top = 255
-        Width = 509
+        Width = 479
         Align = alBottom
         AutoSize = True
         BevelOuter = bvNone
         ClientHeight = 25
-        ClientWidth = 509
+        ClientWidth = 479
         TabOrder = 1
         object chkSimilarFiles: TCheckBox
           Left = 0
           Height = 25
           Top = 0
-          Width = 309
+          Width = 279
           Align = alClient
           Caption = 'Only show similar filenames'
           OnChange = chkSimilarFilesChange
           TabOrder = 0
         end
         object tbSimilarThresold: TTrackBar
-          Left = 309
+          Left = 279
           Height = 25
           Top = 0
           Width = 200
@@ -310,7 +348,7 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
       Left = 0
       Height = 5
       Top = 300
-      Width = 513
+      Width = 483
       Align = alTop
       ResizeAnchor = akTop
     end
@@ -318,30 +356,31 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
       Left = 0
       Height = 159
       Top = 305
-      Width = 513
+      Width = 483
       Align = alClient
       Caption = 'Target'
       ClientHeight = 139
-      ClientWidth = 509
+      ClientWidth = 479
       TabOrder = 2
       object pcTarget: TPageControl
         Left = 0
-        Height = 139
+        Height = 114
         Top = 0
-        Width = 509
-        ActivePage = pagGroupsWOFile
+        Width = 479
+        ActivePage = pagSoftWOFile
         Align = alClient
-        TabIndex = 2
+        PopupMenu = pumVSTGroup
+        TabIndex = 3
         TabOrder = 0
         object pagAllGroups: TTabSheet
           Caption = 'All groups'
           ClientHeight = 111
-          ClientWidth = 501
+          ClientWidth = 471
           object vstAllGroups: TVirtualStringTree
             Left = 0
             Height = 111
             Top = 0
-            Width = 501
+            Width = 471
             Align = alClient
             Colors.UnfocusedColor = clMedGray
             DefaultText = 'Node'
@@ -374,12 +413,12 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
         object pagAllSoft: TTabSheet
           Caption = 'All software'
           ClientHeight = 111
-          ClientWidth = 501
+          ClientWidth = 471
           object vstAllSoft: TVirtualStringTree
             Left = 0
             Height = 111
             Top = 0
-            Width = 501
+            Width = 471
             Align = alClient
             Colors.UnfocusedColor = clMedGray
             DefaultText = 'Node'
@@ -414,12 +453,12 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
         object pagGroupsWOFile: TTabSheet
           Caption = 'Groups without file'
           ClientHeight = 111
-          ClientWidth = 501
+          ClientWidth = 471
           object vstGroupsWOFile: TVirtualStringTree
             Left = 0
             Height = 111
             Top = 0
-            Width = 501
+            Width = 471
             Align = alClient
             Colors.UnfocusedColor = clMedGray
             DefaultText = 'Node'
@@ -437,6 +476,7 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
               end>
             Header.DefaultHeight = 17
             Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoShowSortGlyphs, hoVisible]
+            PopupMenu = pumVSTGroup
             TabOrder = 0
             TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning]
             TreeOptions.PaintOptions = [toPopupMode, toShowButtons, toShowDropmark, toShowHorzGridLines, toShowTreeLines, toShowVertGridLines, toThemeAware, toUseBlendedImages, toFullVertGridLines]
@@ -450,13 +490,13 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
         end
         object pagSoftWOFile: TTabSheet
           Caption = 'Software without file'
-          ClientHeight = 111
-          ClientWidth = 501
+          ClientHeight = 86
+          ClientWidth = 471
           object vstSoftWOFile: TVirtualStringTree
             Left = 0
-            Height = 111
+            Height = 86
             Top = 0
-            Width = 501
+            Width = 471
             Align = alClient
             Colors.UnfocusedColor = clMedGray
             DefaultText = 'Node'
@@ -487,6 +527,30 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
             OnCompareNodes = vstSoftCompareNodes
             OnGetText = vstSoftGetText
           end
+        end
+      end
+      object pTargetButtons: TPanel
+        Left = 0
+        Height = 25
+        Top = 114
+        Width = 479
+        Align = alBottom
+        AutoSize = True
+        BevelOuter = bvNone
+        ChildSizing.EnlargeHorizontal = crsHomogenousSpaceResize
+        ChildSizing.EnlargeVertical = crsHomogenousSpaceResize
+        ChildSizing.Layout = cclTopToBottomThenLeftToRight
+        ChildSizing.ControlsPerLine = 1
+        ClientHeight = 25
+        ClientWidth = 479
+        TabOrder = 1
+        object bSearchMediaInZip: TButton
+          Left = 176
+          Height = 25
+          Top = 0
+          Width = 128
+          Action = actSearchMediaInZip
+          TabOrder = 0
         end
       end
     end
@@ -621,18 +685,58 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
   object ActionList: TActionList[7]
     Left = 704
     Top = 16
-    object actChangeFileName: TAction
+    object actAssignFile: TAction
       Category = 'Files'
-      Caption = 'Change filename'
-      OnExecute = actChangeFileNameExecute
+      Caption = 'Assign file'
+      OnExecute = actAssignFileExecute
     end
     object actDeleteFile: TAction
       Category = 'Files'
       Caption = 'Delete file'
+      OnExecute = actDeleteFileExecute
+    end
+    object actRenameGroupFile: TAction
+      Category = 'Groups'
+      Caption = 'Rename group file'
+    end
+    object actSearchMediaInZip: TAction
+      Caption = 'Search media in zip'
+      OnExecute = actSearchMediaInZipExecute
     end
   end
   object ilActions: TImageList[8]
     Left = 704
     Top = 88
+  end
+  object MainMenu1: TMainMenu[9]
+    Images = ilActions
+    Left = 705
+    Top = 189
+    object mimmFileList: TMenuItem
+      Caption = 'File list'
+      object mimmAssignFile: TMenuItem
+        Action = actAssignFile
+      end
+      object mimmDeleteFile: TMenuItem
+        Action = actDeleteFile
+      end
+    end
+    object mmimGroup: TMenuItem
+      Caption = 'Group'
+      object mimmRenameGroupFile: TMenuItem
+        Action = actRenameGroupFile
+      end
+    end
+  end
+  object pumVSTGroup: TPopupMenu[10]
+    Images = ilActions
+    Left = 192
+    Top = 368
+    object migpAssignFile: TMenuItem
+      Action = actAssignFile
+    end
+    object migpRenameGroupFile: TMenuItem
+      Caption = 'Rename group file'
+    end
   end
 end

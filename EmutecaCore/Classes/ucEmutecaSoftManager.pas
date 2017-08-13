@@ -6,7 +6,8 @@ interface
 
 uses
   Classes, SysUtils, fgl, LazUTF8, LazFileUtils, IniFiles,
-  uaCHXStorable,
+  uaEmutecaCustomManager,
+  uEmutecaCommon,
   uaEmutecaCustomSystem, uaEmutecaCustomGroup,
   ucEmutecaSoftList;
 
@@ -14,14 +15,16 @@ type
 
   { cEmutecaSoftManager }
 
-  cEmutecaSoftManager = class(caCHXStorableTxt)
+  cEmutecaSoftManager = class(caEmutecaCustomManager)
   private
+    FProgressCallBack: TEmutecaProgressCallBack;
     FSystem: caEmutecaCustomSystem;
-    FVisibleGroup: caEmutecaCustomGroup;
+    FFilterGroup: caEmutecaCustomGroup;
     FVisibleList: cEmutecaSoftList;
     FFullList: cEmutecaSoftList;
+    procedure SetProgressCallBack(AValue: TEmutecaProgressCallBack);
     procedure SetSystem(AValue: caEmutecaCustomSystem);
-    procedure SetVisibleGroup(AValue: caEmutecaCustomGroup);
+    procedure SetFilterGroup(AValue: caEmutecaCustomGroup);
 
   protected
 
@@ -32,16 +35,21 @@ type
     //< Reload last data file WITHOUT saving changes.
 
     property System: caEmutecaCustomSystem read FSystem write SetSystem;
-    property VisibleGroup: caEmutecaCustomGroup read FVisibleGroup
-      write SetVisibleGroup;
+    property FilterGroup: caEmutecaCustomGroup
+      read FFilterGroup write SetFilterGroup;
 
     property VisibleList: cEmutecaSoftList read FVisibleList;
     {< Filtered soft list }
 
+    property ProgressCallBack: TEmutecaProgressCallBack
+      read FProgressCallBack write SetProgressCallBack;
+
     procedure LoadFromStrLst(TxtFile: TStrings); override;
+    procedure ImportFromStrLst(aTxtFile: TStrings); override;
     procedure SaveToStrLst(TxtFile: TStrings; const ExportMode: boolean);
       override;
     procedure LoadFromIni(aIniFile: TMemIniFile); override;
+    procedure ImportFromIni(aIniFile: TMemIniFile); override;
     procedure SaveToIni(aIniFile: TMemIniFile; const ExportMode: boolean);
       override;
 
@@ -98,12 +106,20 @@ begin
     while i < FullList.Count do
     begin
       aSoft := FullList[i];
+
+      if Assigned(ProgressCallBack) then
+      ProgressCallBack(rsSavingSystemList, aSoft.Title, aSoft.Version,
+        i, FullList.Count);
+
       aSoft.SaveToIni(aIniFile, ExportMode);
       Inc(i);
     end;
   finally
     aIniFile.UpdateFile;
   end;
+
+  if assigned(ProgressCallBack) then
+    ProgressCallBack('', '', '', 0, 0);
 end;
 
 procedure cEmutecaSoftManager.ClearData;
@@ -118,25 +134,25 @@ begin
   LoadFromFileTxt('');
 end;
 
-procedure cEmutecaSoftManager.SetVisibleGroup(AValue: caEmutecaCustomGroup);
+procedure cEmutecaSoftManager.SetFilterGroup(AValue: caEmutecaCustomGroup);
 var
   i: integer;
   aSoft: cEmutecaSoftware;
 begin
-  if FVisibleGroup = AValue then
+  if FFilterGroup = AValue then
     Exit;
-  FVisibleGroup := AValue;
+  FFilterGroup := AValue;
 
   VisibleList.Clear;
 
-  // Filter by VisibleGroup
-  if Assigned(VisibleGroup) then
+  // Filter by FilterGroup
+  if Assigned(FilterGroup) then
   begin
     i := 0;
     while (i < FullList.Count) do
     begin
       aSoft := FullList[i];
-      if aSoft.CachedGroup = VisibleGroup then
+      if aSoft.CachedGroup = FilterGroup then
         VisibleList.Add(aSoft);
       Inc(i);
     end;
@@ -150,18 +166,56 @@ end;
 procedure cEmutecaSoftManager.SetSystem(AValue: caEmutecaCustomSystem);
 var
   aSoft: cEmutecaSoftware;
-  i: Integer;
+  i: integer;
 
 begin
-  if FSystem = AValue then Exit;
+  if FSystem = AValue then
+    Exit;
   FSystem := AValue;
 
-    i := 0;
+  i := 0;
   while i < FullList.Count do
   begin
     aSoft := cEmutecaSoftware(FullList[i]);
     aSoft.CachedSystem := System;
   end;
+end;
+
+procedure cEmutecaSoftManager.ImportFromIni(aIniFile: TMemIniFile);
+var
+  aSoft: cEmutecaSoftware;
+  i: integer;
+begin
+  if not Assigned(aIniFile) then
+    Exit;
+
+    i := 0;
+    while i < FullList.Count do
+    begin
+      aSoft := FullList[i];
+
+      if Assigned(ProgressCallBack) then
+      ProgressCallBack(rsImportingSystemList, aSoft.Title, aSoft.Version,
+        i, FullList.Count);
+
+      aSoft.LoadFromIni(aIniFile);
+      Inc(i);
+
+  if assigned(ProgressCallBack) then
+    ProgressCallBack('', '', '', 0, 0);
+end;
+
+procedure cEmutecaSoftManager.ImportFromStrLst(aTxtFile: TStrings);
+begin
+
+end;
+
+procedure cEmutecaSoftManager.SetProgressCallBack(
+  AValue: TEmutecaProgressCallBack);
+begin
+  if FProgressCallBack = AValue then
+    Exit;
+  FProgressCallBack := AValue;
 end;
 
 procedure cEmutecaSoftManager.LoadFromStrLst(TxtFile: TStrings);
@@ -181,11 +235,19 @@ begin
     TempSoft.TXTString := TxtFile[i];
     TempSoft.CachedSystem := System;
     FullList.Add(TempSoft);
+
+    if Assigned(ProgressCallBack) then
+      ProgressCallBack(rsLoadingSystemList, TempSoft.Title, TempSoft.Version,
+        i, TxtFile.Count);
+
     Inc(i);
   end;
   // FullList.EndUpdate;
 
   VisibleList.Assign(FullList);
+  if assigned(ProgressCallBack) then
+    ProgressCallBack('', '', '', 0, 0);
+
 end;
 
 procedure cEmutecaSoftManager.SaveToStrLst(TxtFile: TStrings;
@@ -212,6 +274,9 @@ begin
     while i < FullList.Count do
     begin
       aSoft := FullList[i];
+      if Assigned(ProgressCallBack) then
+        ProgressCallBack(rsLoadingSystemList, aSoft.Title, aSoft.Version,
+          i, FullList.Count);
       TxtFile.Add(aSoft.TXTString);
       Inc(i);
     end;
@@ -219,6 +284,8 @@ begin
   finally
     TxtFile.EndUpdate;
   end;
+  if assigned(ProgressCallBack) then
+    ProgressCallBack('', '', '', 0, 0);
 end;
 
 end.

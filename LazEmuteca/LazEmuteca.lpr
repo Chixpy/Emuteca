@@ -17,7 +17,7 @@ uses
   ufEmutecaSystemEditor, ufLEmuTKFullSystemEditor, ufCHXChkLstPropEditor,
   ufLEmuTKSysManager, ufLEmuTKEmuManager, ufEmutecaSoftEditor,
   ufLEmuTKFullEmuEditor, ufEmutecaEmulatorEditor, ufEmutecaActAddSoft,
-  ufCHXForm, ufLEmuTKExportData, ufEmutecaActAddFolder,
+  ufCHXForm, ufEmutecaActAddFolder,
   uCHXDlgUtils, ucEmutecaSoftList, ucEmutecaSystemList, ucEmutecaGroupList,
   ucEmutecaEmulatorList, uaEmutecaCustomGroup, uaEmutecaCustomSoft,
   uaEmutecaCustomSystem, ufrLEmuTKAbout, ufLEmuTKIcnSysCBX, ufCHXFrame,
@@ -26,7 +26,8 @@ uses
   ufEmutecaSystemMVFEditor, ufLEmuTKSoftMedia, ufLEmuTKMain, uLEmuTKCommon,
   uafLEmuTKSoftFoldersPreview, ufLEmuTKSoftTxtPreview, ufCHXStrLstPreview,
   ufCHXImgListPreview, ufCHXTxtListPreview, ufLEmuTKSoftImgPreview, 
-ufEmutecaSystemCBX, ufEmutecaSystemITFEditor, ufLEmuTKMediaManager;
+ufEmutecaSystemCBX, ufEmutecaSystemITFEditor, ufLEmuTKMediaManager, 
+ufEmutecaActExportSoftData, uaEmutecaCustomManager, ufEmutecaActImportSoftData;
 
 {$R *.res}
 

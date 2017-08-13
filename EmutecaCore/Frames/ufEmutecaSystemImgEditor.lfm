@@ -10,11 +10,14 @@ inherited fmEmuTKSystemImgEditor: TfmEmuTKSystemImgEditor
     Width = 600
     ClientWidth = 600
     TabOrder = 1
+    inherited chkCloseOnSave: TCheckBox
+      Left = 100
+    end
     inherited bSave: TBitBtn
-      Left = 150
+      Left = 249
     end
     inherited bCancel: TBitBtn
-      Left = 370
+      Left = 419
     end
   end
   object gbxImages: TGroupBox[1]
@@ -54,6 +57,7 @@ inherited fmEmuTKSystemImgEditor: TfmEmuTKSystemImgEditor
         HideDirectories = False
         ButtonWidth = 23
         NumGlyphs = 1
+        Flat = True
         Align = alTop
         MaxLength = 0
         TabOrder = 0
@@ -94,6 +98,7 @@ inherited fmEmuTKSystemImgEditor: TfmEmuTKSystemImgEditor
         HideDirectories = False
         ButtonWidth = 23
         NumGlyphs = 1
+        Flat = True
         Align = alTop
         MaxLength = 0
         TabOrder = 0
@@ -134,6 +139,7 @@ inherited fmEmuTKSystemImgEditor: TfmEmuTKSystemImgEditor
         HideDirectories = False
         ButtonWidth = 23
         NumGlyphs = 1
+        Flat = True
         Align = alTop
         MaxLength = 0
         TabOrder = 0
@@ -169,9 +175,11 @@ inherited fmEmuTKSystemImgEditor: TfmEmuTKSystemImgEditor
       Height = 23
       Top = 0
       Width = 596
+      DialogOptions = [ofNoChangeDir, ofEnableSizing, ofViewDetail]
       ShowHidden = False
       ButtonWidth = 23
       NumGlyphs = 1
+      Flat = True
       Align = alTop
       MaxLength = 0
       TabOrder = 0

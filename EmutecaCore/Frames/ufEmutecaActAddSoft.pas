@@ -109,7 +109,7 @@ begin
 
   Software.Folder := ExtractFileDir(eFile.FileName);
   Software.FileName := ExtractFileName(eFile.FileName);
-  Software.SHA1 := kEmuTKSHA1Empty;
+  Software.SHA1 := kCHXSHA1Empty;
 
   Software.GroupKey := ExtractFileNameOnly(
     ExcludeTrailingPathDelimiter(Software.Folder));
@@ -130,7 +130,7 @@ begin
 
   Software.Folder := eFile.FileName;
   Software.FileName := cbxInnerFile.Text;
-  Software.SHA1 := kEmuTKSHA1Empty;
+  Software.SHA1 := kCHXSHA1Empty;
 
   Software.GroupKey := ExtractFileNameOnly(
     ExcludeTrailingPathDelimiter(Software.Folder));
@@ -241,7 +241,7 @@ begin
     Exit;
 
   // Autoselecting Key Type
-  case Software.CachedSystem.GameKey of
+  case Software.CachedSystem.SoftExportKey of
     TEFKSHA1: rgbSoftKey.ItemIndex := 0;
     TEFKCRC32: rgbSoftKey.ItemIndex := 1;
     TEFKCustom: rgbSoftKey.ItemIndex := 2;
@@ -354,6 +354,7 @@ begin
     fmSystemCBX.SystemList := Emuteca.SystemManager.EnabledList
   else
     fmSystemCBX.SystemList := nil;
+  fmSystemCBX.SelectedSystem := nil;
 
   fmSoftEditor.Software := Software;
 

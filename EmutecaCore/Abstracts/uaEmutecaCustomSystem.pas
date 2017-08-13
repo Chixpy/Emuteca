@@ -33,28 +33,6 @@ uses
   uEmutecaCommon,
   ucEmutecaPlayingStats;
 
-const
-  // Constants for file keys
-  krsCRC32 = 'CRC32';
-  krsSHA1 = 'SHA1';
-  krsFileName = 'FileName';
-  krsCustom = 'Custom';
-
-resourcestring
-  rsLoadingSystemList = 'Loading system list...';
-  rsSavingSystemList = 'Saving system list...';
-
-type
-  TEmutecaFileKey = (TEFKSHA1, TEFKCRC32, TEFKFileName, TEFKCustom);
-
-const
-  EmutecaFileKeyStrsK: array [TEmutecaFileKey] of string =
-    (krsSHA1, krsCRC32, krsFileName, krsCustom);
-//< Strings for FileKeys (fixed constants, used for ini files, etc. )
-
-function Str2EmutecaFileKey(aString: string): TEmutecaFileKey;
-// Result := EmutecaFileKeyStrsK[TEmutecaFileKey];
-
 type
   { caEmutecaCustomSystem }
 
@@ -66,7 +44,7 @@ type
     FExtensions: TStringList;
     FExtractAll: boolean;
     FFileName: string;
-    FGameKey: TEmutecaFileKey;
+    FSoftExportKey: TEmutecaSoftExportKey;
     FIcon: string;
     FIconFolder: string;
     FID: string;
@@ -91,7 +69,7 @@ type
     procedure SetEnabled(AValue: boolean);
     procedure SetExtractAll(AValue: boolean);
     procedure SetFileName(AValue: string);
-    procedure SetGameKey(AValue: TEmutecaFileKey);
+    procedure SetSoftExportKey(AValue: TEmutecaSoftExportKey);
     procedure SetIcon(AValue: string);
     procedure SetIconFolder(AValue: string);
     procedure SetID(AValue: string);
@@ -214,7 +192,8 @@ type
 
     // Import
     // ------
-    property GameKey: TEmutecaFileKey read FGameKey write SetGameKey;
+    property SoftExportKey: TEmutecaSoftExportKey
+      read FSoftExportKey write SetSoftExportKey;
     {< Default key (CRC/SHA) to be used as game identifiers
        (when importing/exporting data). }
     property Extensions: TStringList read FExtensions;
@@ -228,26 +207,6 @@ type
   end;
 
 implementation
-
-function Str2EmutecaFileKey(aString: string): TEmutecaFileKey;
-begin
-  // In Emuteca <= 0.7, True => CRC32 / False => FileName
-  aString := UTF8UpperCase(aString);
-
-  // I don't like this "else if" format but it's clearer...
-  if (aString = UTF8UpperCase(krsCRC32)) or
-    (StrToBoolDef(aString, False)) then
-    Result := TEFKCRC32
-  else if (aString = UTF8UpperCase(krsFileName)) or
-    (not StrToBoolDef(aString, True)) then
-    Result := TEFKFileName
-  else if (aString = UTF8UpperCase(krsSHA1)) then
-    Result := TEFKSHA1
-  else if (aString = UTF8UpperCase(krsCustom)) then
-    Result := TEFKCustom
-  else // Default
-    Result := TEFKSHA1;
-end;
 
 { caEmutecaCustomSystem }
 
@@ -268,7 +227,8 @@ begin
   ExtractAll := aIniFile.ReadBool(ID, krsIniKeyExtractAll, ExtractAll);
 
   BaseFolder := aIniFile.ReadString(ID, krsIniKeyBaseFolder, BaseFolder);
-  WorkingFolder := aIniFile.ReadString(ID, krsIniKeyWorkingFolder, WorkingFolder);
+  WorkingFolder := aIniFile.ReadString(ID, krsIniKeyWorkingFolder,
+    WorkingFolder);
 
   // Emulators
   MainEmulator := aIniFile.ReadString(ID, krsIniKeyMainEmulator, MainEmulator);
@@ -307,8 +267,9 @@ begin
     aIniFile.ReadString(ID, krsIniKeyVideoCaptions, VideoCaptions.CommaText);
 
   // Import
-  GameKey := Str2EmutecaFileKey(aIniFile.ReadString(ID,
-    krsIniKeyGamesKey, EmutecaFileKeyStrsK[GameKey]));
+  SoftExportKey := Str2EmutecaSoftExportKey(
+    aIniFile.ReadString(ID, krsIniKeySoftExportKey,
+    EmutecaSoftExportKey2StrK(SoftExportKey)));
   Extensions.CommaText := aIniFile.ReadString(ID, krsIniKeyExtensions,
     Extensions.CommaText);
 
@@ -337,7 +298,8 @@ begin
   aIniFile.WriteString(ID, krsIniKeyOtherEmulators, OtherEmulators.CommaText);
 
   // Import
-  aIniFile.WriteString(ID, krsIniKeyGamesKey, EmutecaFileKeyStrsK[GameKey]);
+  aIniFile.WriteString(ID, krsIniKeySoftExportKey,
+    EmutecaSoftExportKey2StrK(SoftExportKey));
   aIniFile.WriteString(ID, krsIniKeyExtensions, Extensions.CommaText);
 
   if ExportMode then
@@ -465,11 +427,12 @@ begin
   FFileName := CleanFileName(AValue);
 end;
 
-procedure caEmutecaCustomSystem.SetGameKey(AValue: TEmutecaFileKey);
+procedure caEmutecaCustomSystem.SetSoftExportKey(
+  AValue: TEmutecaSoftExportKey);
 begin
-  if FGameKey = AValue then
+  if FSoftExportKey = AValue then
     Exit;
-  FGameKey := AValue;
+  FSoftExportKey := AValue;
 end;
 
 procedure caEmutecaCustomSystem.SetIcon(AValue: string);
@@ -570,7 +533,7 @@ begin
   inherited Create(AOwner);
 
   Enabled := False;
-  GameKey := TEFKSHA1;
+  SoftExportKey := TEFKSHA1;
 
   FExtensions := TStringList.Create;
   Extensions.CaseSensitive := False;

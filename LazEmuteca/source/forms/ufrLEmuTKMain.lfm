@@ -29,13 +29,13 @@ object frmLEmuTKMain: TfrmLEmuTKMain
     Top = 72
     object HelpOnHelp1: THelpOnHelp
       Category = 'Help'
-      Caption = 'Sobre Emuteca...'
+      Caption = 'About Emuteca...'
       Hint = 'Información de Emuteca|Muestra un cuadro con información sobre Emuteca.'
       OnExecute = HelpOnHelp1Execute
     end
     object FileExit1: TFileExit
       Category = 'File'
-      Caption = 'S&alir'
+      Caption = 'Exit'
       Hint = 'Salir|Sale de Emuteca.'
     end
     object actEmulatorManager: TAction
@@ -50,7 +50,7 @@ object frmLEmuTKMain: TfrmLEmuTKMain
     end
     object actScriptManager: TAction
       Category = 'Managers'
-      Caption = 'Script Manager'
+      Caption = 'Script Manager...'
       OnExecute = actScriptManagerExecute
     end
     object actMediaManager: TAction
@@ -60,7 +60,7 @@ object frmLEmuTKMain: TfrmLEmuTKMain
     end
     object actAddFolder: TAction
       Category = 'Version'
-      Caption = 'Scan files from folder'
+      Caption = 'Scan files from folder...'
       OnExecute = actAddFolderExecute
     end
     object actAddSoft: TAction
@@ -85,73 +85,81 @@ object frmLEmuTKMain: TfrmLEmuTKMain
       Caption = 'Open Temp Folder'
       OnExecute = actOpenTempFolderExecute
     end
-    object actExportData: TAction
+    object actExportSoftData: TAction
       Category = 'File'
-      Caption = 'Export Data...'
-      OnExecute = actExportDataExecute
+      Caption = 'Export soft data...'
+      OnExecute = actExportSoftDataExecute
+    end
+    object actImportSoftData: TAction
+      Category = 'File'
+      Caption = 'Import soft data...'
+      OnExecute = actImportSoftDataExecute
     end
   end
   object MainMenu: TMainMenu
     Images = ActImages
     Left = 40
     Top = 16
-    object mmiFile: TMenuItem
+    object mimmFile: TMenuItem
       Caption = 'File'
-      object mmiTest: TMenuItem
+      object mimmTest: TMenuItem
         Caption = 'Test'
+        OnClick = mimmTestClick
       end
-      object mmiOpenTempFolder: TMenuItem
+      object mimmOpenTempFolder: TMenuItem
         Action = actOpenTempFolder
       end
       object MenuItem13: TMenuItem
         Caption = '-'
       end
-      object mmiSaveLists: TMenuItem
+      object mimmSaveLists: TMenuItem
         Action = actSaveLists
       end
-      object mmiSaveOnExit: TMenuItem
+      object mimmSaveOnExit: TMenuItem
         Action = actAutoSave
         AutoCheck = True
       end
       object MenuItem15: TMenuItem
         Caption = '-'
       end
-      object mmiExit: TMenuItem
+      object mimmExit: TMenuItem
         Action = FileExit1
-        Caption = 'Exit'
       end
     end
-    object mmiManagers: TMenuItem
+    object mimmManagers: TMenuItem
       Caption = 'Managers'
-      object mmiEmulatorManager: TMenuItem
+      object mimmEmulatorManager: TMenuItem
         Action = actEmulatorManager
       end
-      object mmiSystemManager: TMenuItem
+      object mimmSystemManager: TMenuItem
         Action = actSystemManager
       end
-      object mmiMediaManager: TMenuItem
+      object mimmMediaManager: TMenuItem
         Action = actMediaManager
       end
-      object mmiScriptManager: TMenuItem
+      object mimmScriptManager: TMenuItem
         Action = actScriptManager
       end
     end
-    object mmiFiles: TMenuItem
-      Caption = 'Files'
-      object mmiAddFiles: TMenuItem
+    object mimmSoft: TMenuItem
+      Caption = 'Software'
+      object mimmAddFiles: TMenuItem
         Caption = 'Add...'
-        object mmiScanFolder: TMenuItem
+        object mimmScanFolder: TMenuItem
           Action = actAddFolder
         end
-        object mmiAddSoft: TMenuItem
+        object mimmAddSoft: TMenuItem
           Action = actAddSoft
         end
       end
       object MenuItem2: TMenuItem
         Caption = '-'
       end
-      object mmiExportData: TMenuItem
-        Action = actExportData
+      object mimmExportSoftData: TMenuItem
+        Action = actExportSoftData
+      end
+      object mimmImportSoftData: TMenuItem
+        Action = actImportSoftData
       end
     end
     object mmiHelp: TMenuItem

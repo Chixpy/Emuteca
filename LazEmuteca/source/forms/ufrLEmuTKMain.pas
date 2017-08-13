@@ -20,10 +20,12 @@ uses
   // Emuteca forms
   ufEmutecaScriptManager, ufrLEmuTKAbout,
   // Emuteca windows
-  ufEmutecaActAddSoft, ufEmutecaActAddFolder,
+  ufEmutecaActAddSoft, ufEmutecaActAddFolder, ufEmutecaActExportSoftData,
+  ufEmutecaActImportSoftData,
   // LazEmuteca frames
   ufLEmuTKMain, ufLEmuTKSysManager, ufLEmuTKEmuManager, ufLEmuTKMediaManager,
-  uGUIConfig, uLEmuTKCommon;
+  uGUIConfig, uLEmuTKCommon,
+  sha1;
 
 type
 
@@ -34,7 +36,8 @@ type
     actAddFolder: TAction;
     actAddSoft: TAction;
     actAutoSave: TAction;
-    actExportData: TAction;
+    actExportSoftData: TAction;
+    actImportSoftData: TAction;
     actOpenTempFolder: TAction;
     actSaveLists: TAction;
     actMediaManager: TAction;
@@ -46,33 +49,35 @@ type
     ActImages: TImageList;
     IniPropStorage: TIniPropStorage;
     MainMenu: TMainMenu;
-    mmiExportData: TMenuItem;
+    mimmImportSoftData: TMenuItem;
+    mimmExportSoftData: TMenuItem;
     MenuItem2: TMenuItem;
     mmiAbout: TMenuItem;
-    mmiAddFiles: TMenuItem;
-    mmiScanFolder: TMenuItem;
-    mmiAddSoft: TMenuItem;
+    mimmAddFiles: TMenuItem;
+    mimmScanFolder: TMenuItem;
+    mimmAddSoft: TMenuItem;
     MenuItem13: TMenuItem;
-    mmiSaveLists: TMenuItem;
+    mimmSaveLists: TMenuItem;
     MenuItem15: TMenuItem;
-    mmiSaveOnExit: TMenuItem;
-    mmiOpenTempFolder: TMenuItem;
-    mmiExit: TMenuItem;
-    mmiManagers: TMenuItem;
-    mmiEmulatorManager: TMenuItem;
-    mmiSystemManager: TMenuItem;
-    mmiScriptManager: TMenuItem;
-    mmiMediaManager: TMenuItem;
-    mmiTest: TMenuItem;
-    mmiFiles: TMenuItem;
+    mimmSaveOnExit: TMenuItem;
+    mimmOpenTempFolder: TMenuItem;
+    mimmExit: TMenuItem;
+    mimmManagers: TMenuItem;
+    mimmEmulatorManager: TMenuItem;
+    mimmSystemManager: TMenuItem;
+    mimmScriptManager: TMenuItem;
+    mimmMediaManager: TMenuItem;
+    mimmTest: TMenuItem;
+    mimmSoft: TMenuItem;
     mmiHelp: TMenuItem;
-    mmiFile: TMenuItem;
+    mimmFile: TMenuItem;
     stbHelp: TStatusBar;
     procedure actAddSoftExecute(Sender: TObject);
     procedure actAddFolderExecute(Sender: TObject);
     procedure actAutoSaveExecute(Sender: TObject);
     procedure actEmulatorManagerExecute(Sender: TObject);
-    procedure actExportDataExecute(Sender: TObject);
+    procedure actExportSoftDataExecute(Sender: TObject);
+    procedure actImportSoftDataExecute(Sender: TObject);
     procedure actMediaManagerExecute(Sender: TObject);
     procedure actOpenTempFolderExecute(Sender: TObject);
     procedure actSaveListsExecute(Sender: TObject);
@@ -82,6 +87,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure HelpOnHelp1Execute(Sender: TObject);
+    procedure mimmTestClick(Sender: TObject);
 
   private
     FfmEmutecaMainFrame: TfmLEmuTKMain;
@@ -155,6 +161,12 @@ begin
   finally
     FreeAndNil(frmLEmuTKAbout);
   end;
+end;
+
+procedure TfrmLEmuTKMain.mimmTestClick(Sender: TObject);
+begin
+  ShowMessage(SHA1Print(SHA1String('prueba')) + sLineBreak +
+    SHA1Print(StringToSHA1Digest(SHA1Print(SHA1String('prueba')))));
 end;
 
 procedure TfrmLEmuTKMain.SetGUIIconsFile(AValue: string);
@@ -367,17 +379,15 @@ begin
   end;
 end;
 
-procedure TfrmLEmuTKMain.actExportDataExecute(Sender: TObject);
+procedure TfrmLEmuTKMain.actExportSoftDataExecute(Sender: TObject);
 begin
-  //if not Assigned(frmLEmuTKExportData) then
-  //  Application.CreateForm(TfrmLEmuTKExportData, frmLEmuTKExportData);
+  TfmActExportSoftData.SimpleForm(Emuteca, GUIIconsFile, GUIConfig.ConfigFile);
+end;
 
-  //frmLEmuTKExportData.GUIConfigIni := GUIConfig.ConfigFile;
-  //frmLEmuTKExportData.GUIIconsIni := GUIConfig.GUIIcnFile;
-  //frmLEmuTKExportData.Emuteca := Emuteca;
-
-  //frmLEmuTKExportData.ShowModal;
-  //FreeAndNil(frmLEmuTKExportData);
+procedure TfrmLEmuTKMain.actImportSoftDataExecute(Sender: TObject);
+begin
+  TfmActImportSoftData.SimpleForm(Emuteca, GUIIconsFile,
+    GUIConfig.ConfigFile);
 end;
 
 procedure TfrmLEmuTKMain.actMediaManagerExecute(Sender: TObject);
@@ -443,6 +453,7 @@ begin
     GUIConfig.ConfigFile);
 
   // Load anyway until SysManager creates/destroy systems on the fly.
+  // SysMng saves Emuteca when mrOK
   LoadEmuteca;
 end;
 

@@ -9,6 +9,7 @@ uses
   Graphics, Dialogs,
   VirtualTrees, LCLIntf, LCLType, ComCtrls, Menus, ActnList, LazUTF8,
   ucCHXImageList, uCHXImageUtils,
+  uEmutecaCommon,
   uaEmutecaCustomSoft,
   ucEmutecaGroup, ucEmutecaSoftware,
   ufEmutecaSoftTree;

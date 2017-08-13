@@ -30,9 +30,6 @@ uses
   uCHXStrUtils,
   uEmutecaCommon;
 
-const
-  krsCSVStatsHeader = '"Last Time","Times Played","Playing Time"';
-
 type
 
   { cEmutecaPlayingStats class.

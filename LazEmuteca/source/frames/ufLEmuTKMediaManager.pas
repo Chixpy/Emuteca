@@ -7,8 +7,10 @@ interface
 uses
   Classes, SysUtils, FileUtil, VirtualTrees, Forms, Controls,
   Graphics, Dialogs,
-  ExtCtrls, ComCtrls, StdCtrls, ActnList, LCLType, Buttons, LazFileUtils,
-  LazUTF8, uCHXStrUtils, uCHXImageUtils, uCHXFileUtils, ufCHXFrame, ufCHXForm,
+  ExtCtrls, ComCtrls, StdCtrls, ActnList, LCLType, Buttons, EditBtn, Menus,
+  LazFileUtils, LazUTF8, uCHXStrUtils, uCHXImageUtils,
+  uCHXFileUtils, ufCHXForm,
+  ufCHXFrame, ufCHXStrLstPreview, ufCHXImgListPreview, ufCHXTxtListPreview,
   ufCHXProgressBar, uEmutecaCommon, ucEmuteca, ucEmutecaSystem, ucEmutecaGroup,
   ucEmutecaSoftware, ufEmutecaSystemCBX, uGUIConfig, uLEmuTKCommon;
 
@@ -17,12 +19,16 @@ type
   { TfmLEmuTKMediaManager }
 
   TfmLEmuTKMediaManager = class(TfmCHXFrame)
-    actChangeFileName: TAction;
+    actAssignFile: TAction;
     actDeleteFile: TAction;
+    actSearchMediaInZip: TAction;
+    actRenameGroupFile: TAction;
     ActionList: TActionList;
     bRename: TBitBtn;
+    bSearchMediaInZip: TButton;
     chkCopyFile: TCheckBox;
     chkSimilarFiles: TCheckBox;
+    eOtherFolder: TDirectoryEdit;
     gbxImages: TGroupBox;
     gbxMusic: TGroupBox;
     gbxOtherFiles: TGroupBox;
@@ -38,12 +44,25 @@ type
     lbxOtherFiles: TListBox;
     lbxTexts: TListBox;
     lbxVideos: TListBox;
+    MainMenu1: TMainMenu;
+    mimmRenameGroupFile: TMenuItem;
+    mmimGroup: TMenuItem;
+    mimmGroup: TMenuItem;
+    mimmDeleteFile: TMenuItem;
+    mimmAssignFile: TMenuItem;
+    migpAssignFile: TMenuItem;
+    migpRenameGroupFile: TMenuItem;
+    mimmFileList: TMenuItem;
     pCenter: TPanel;
     pcSource: TPageControl;
     pcTarget: TPageControl;
+    pImagePreview: TPanel;
     pLeft: TScrollBox;
     pRight: TPanel;
     pSimilar: TPanel;
+    pTargetButtons: TPanel;
+    pTextPreview: TPanel;
+    pumVSTGroup: TPopupMenu;
     sbSource: TStatusBar;
     sbTarget: TStatusBar;
     Splitter1: TSplitter;
@@ -58,6 +77,7 @@ type
     pagAllSoft: TTabSheet;
     pagSoftWOFile: TTabSheet;
     pagOtherFiles: TTabSheet;
+    Splitter4: TSplitter;
     tbSimilarThresold: TTrackBar;
     vstAllFiles: TVirtualStringTree;
     vstFilesWOGroup: TVirtualStringTree;
@@ -68,7 +88,9 @@ type
     vstGroupsWOFile: TVirtualStringTree;
     vstAllSoft: TVirtualStringTree;
     vstSoftWOFile: TVirtualStringTree;
-    procedure actChangeFileNameExecute(Sender: TObject);
+    procedure actAssignFileExecute(Sender: TObject);
+    procedure actDeleteFileExecute(Sender: TObject);
+    procedure actSearchMediaInZipExecute(Sender: TObject);
     procedure chkSimilarFilesChange(Sender: TObject);
     procedure lbxFolderSelectionChange(Sender: TObject; User: boolean);
     procedure tbSimilarThresoldChange(Sender: TObject);
@@ -101,18 +123,23 @@ type
       var CellText: string);
 
   private
-    FCurrentGroup: cEmutecaGroup;
+    FCurrGroup: cEmutecaGroup;
+    FCurrPreview: TfmCHXStrLstPreview;
     FCurrSystem: cEmutecaSystem;
     FEmuteca: cEmuteca;
     FExtFilter: TStrings;
+    FfmImagePreview: TfmCHXImgListPreview;
     FfmSystemCBX: TfmEmutecaSystemCBX;
+    FfmTextPreview: TfmCHXTxtListPreview;
     FGUIConfig: cGUIConfig;
+    FMediaFiles: TStringList;
     FSHA1Folder: string;
     FSourceFile: string;
     FSourceFolder: string;
     FTargetFile: string;
     FTargetFolder: string;
-    procedure SetCurrentGroup(AValue: cEmutecaGroup);
+    procedure SetCurrGroup(AValue: cEmutecaGroup);
+    procedure SetCurrPreview(AValue: TfmCHXStrLstPreview);
     procedure SetCurrSystem(AValue: cEmutecaSystem);
     procedure SetEmuteca(AValue: cEmuteca);
     procedure SetExtFilter(AValue: TStrings);
@@ -124,9 +151,23 @@ type
     procedure SetTargetFolder(AValue: string);
 
   protected
+    // Frames
+    // ------
     property fmSystemCBX: TfmEmutecaSystemCBX read FfmSystemCBX;
+    property fmImagePreview: TfmCHXImgListPreview read FfmImagePreview;
+    property fmTextPreview: TfmCHXTxtListPreview read FfmTextPreview;
 
+    // Properties
+    // ----------
     property CurrSystem: cEmutecaSystem read FCurrSystem write SetCurrSystem;
+    property CurrGroup: cEmutecaGroup read FCurrGroup write SetCurrGroup;
+
+    property ExtFilter: TStrings read FExtFilter write SetExtFilter;
+    {< Extensions of the current selected Media. }
+    property CurrPreview: TfmCHXStrLstPreview
+      read FCurrPreview write SetCurrPreview;
+    property MediaFiles: TStringList read FMediaFiles;
+    {< Mediafiles assigned to the current game or group. }
 
     property SourceFile: string read FSourceFile write SetSourceFile;
     {< Name of the source file. }
@@ -137,20 +178,11 @@ type
     property TargetFolder: string read FTargetFolder write SetTargetFolder;
     {< Folder of the target file. }
 
-    property CurrentGroup: cEmutecaGroup read FCurrentGroup
-      write SetCurrentGroup;
-
-
-    property ExtFilter: TStrings read FExtFilter write SetExtFilter;
-    {< Extensions of the current selected Media. }
-
     procedure UpdateStatusBars;
     procedure UpdateVST(aFolder: string);
- {< Update the Virtual String Trees.
-   @param(aFolder Folder where search the media.)
- }
-
-
+    {< Update the Virtual String Trees.
+      @param(aFolder Folder where search the files and media.)
+    }
 
     function SelectSystem(aSystem: cEmutecaSystem): boolean;
     {< Selects a system.
@@ -161,7 +193,7 @@ type
     // File lists
     // ----------
 
-    function CurrentFileList: TCustomVirtualStringTree;
+    function GetCurrentFilesVST: TCustomVirtualStringTree;
     {< Returns the current file list shown.
     }
 
@@ -170,98 +202,84 @@ type
     }
 
     function AddFile(aFolder: string; Info: TSearchRec): boolean; overload;
- {< Adds a file to the lists.
-   For use with IterateFolder.
-   @param(aFolder Folder where the file is in.)
-   @param(Info TSearchRec with file data.)
-   @return(Always @true; needed for IterateFolder.)
- }
+    {< Adds a file to the lists.
+      For use with IterateFolder.
+      @param(aFolder Folder where the file is in.)
+      @param(Info TSearchRec with file data.)
+      @return(Always @true; needed for IterateFolder.)
+    }
     function AddFile(aFolder, aName: string): boolean; overload;
- {< Adds a file to the lists.
-   For manual use @(and hacky updates@).
-   @param(aFolder Folder where the file is in.)
-   @param(aName Name of the file.)
-   @return(Always @true @(useless until a reason to stop batch operations
-     will be found.@).)
- }
-
-   {
-
- property MediaFiles: TStringList read FMediaFiles write SetMediaFiles;
- //< Mediafiles assigned to the current game or group.
- property CurrentMediaIndex: integer
-   read FCurrentMediaIndex write SetCurrentMediaIndex;
- //< Index of the current media file.
-
- // TODO 3: Maybe this 4 methods can be reduced to 2 without ofuscate them...
+    {< Adds a file to the lists.
+      For manual use @(and hacky updates@).
+      @param(aFolder Folder where the file is in.)
+      @param(aName Name of the file.)
+      @return(Always @true @(useless until a reason to stop batch operations
+        will be found.@).)
+    }
+    procedure RemoveFileVSTFiles(aFile: string);
+    {< Remove a file from lists (not physically).
+      If TargetFolder <> SourceFolder then removed from vstFilesOtherFolder.
+      Used for hacky updates.
+      @param(aFile Name of the file.)
+    }
 
 
- function AddFilesOtherFolder(aFolder: string;
-   Info: TSearchRec): boolean; overload;
- {< Add files or folders to vstFilesOtherFolder.
-   @param(aFolder Folder where the file is in.)
-   @param(Info TSearchRec with folder or file data.)
-   @return(Always @true; needed for IterateFolder.)
- }
+    // Group / Soft list
+    procedure RemoveGroupSoftWOFile(aFile: string);
+    {< Remove groups from vstGroupsWOFile and  vstSoftWOFile lists that have
+         aFile.
+      Used for hacky updates.
+      @param(aFile Name of file that maybe is used by groups or soft.)
+    }
 
 
- procedure UpdateFileOtherFolder(const afolder: string);
+    // Media
+    procedure ChangeGroupMedia(aGroup: cEmutecaGroup);
+    {< Change the media preview to the group media.
+      @param(aGroup The game group with it's media will be previewed.)
+    }
+    procedure ChangeSoftMedia(aSoft: cEmutecaSoftware);
+    {< Change the media preview to the soft media.
+      @param(aGame The game with it's media will be previewed.)
+    }
+    procedure ChangeFileMedia(aFolder, aFileName: string);
+    {< Change the media preview to the file.
+      @param(aFolder Folder were the file is.)
+      @param(aName Name of the file.)
+    }
 
- procedure ChangeGroupMedia(aGroup: cEmutecaGameGroup);
- {< Change the media preview to the group media.
-   @param(aGroup The game group with it's media will be previewed.)
- }
- procedure ChangeGameMedia(aGame: cEmutecaGame);
- {< Change the media preview to the game media.
-   @param(aGame The game with it's media will be previewed.)
- }
- procedure ChangeFileMedia(aFolder, aName: string);
- {< Change the media preview to the file.
-   @param(aFolder Folder were the file is.)
-   @param(aName Name of the file.)
- }
- procedure ClearMedia;
- {< Clear media preview fields.
- }
- procedure NextMedia;
- {< Change to next media file found.
- }
- procedure PreviousMedia;
- {< Change to previous media file found.
- }
- procedure ShowMedia;
- {< Update current media preview. }
- procedure OpenImagesInViewer;
- {< Open the current previewed image in Image Viewer. }
 
- procedure ChangeFileName;
- {< Change the name of the current selected file, to one used by the
-   selected game o group.
- }
- procedure DeleteFile;
- {< Delete the current selected (source) file FROM DISC PHYSICALLY. }
- procedure DeleteAllFiles;
- {< Delete all VISIBLE (i.e. no hidden) files from the current list
-      FROM DISC PHYSICALLY. }
- procedure MoveFile;
- {< Move current selected (source) file to another folder. }
- procedure MoveAllFiles;
- {< Move all VISIBLE (i.e. no hidden) files from the current list to
-     another folder. }
 
- procedure RemoveFileVSTFiles(aFolder, aFile: string);
- {< Remove a file from lists (not physically).
-   Used for hacky updates.
-   @param(aFolder Folder were the file is.)
-   @param(aFile Name of the file.)
- }
- procedure RemoveGroupWOFile(aFile: string);
- {< Remove groups from vstGroupsWOFile list that uses aFile.
-   Used for hacky updates.
-   @param(aFile Name of file that maybe is used by groups.)
- }
 
-}
+
+ //property MediaFiles: TStringList read FMediaFiles write SetMediaFiles;
+ ////< Mediafiles assigned to the current game or group.
+ //property CurrentMediaIndex: integer
+ //  read FCurrentMediaIndex write SetCurrentMediaIndex;
+ ////< Index of the current media file.
+ //
+ //// TODO 3: Maybe this 4 methods can be reduced to 2 without ofuscate them...
+ //
+ //
+ //function AddFilesOtherFolder(aFolder: string;
+ //  Info: TSearchRec): boolean; overload;
+ //{< Add files or folders to vstFilesOtherFolder.
+ //  @param(aFolder Folder where the file is in.)
+ //  @param(Info TSearchRec with folder or file data.)
+ //  @return(Always @true; needed for IterateFolder.)
+ //}
+ //
+ //
+ //procedure UpdateFileOtherFolder(const afolder: string);
+ //
+ //procedure DeleteAllFiles;
+ //{< Delete all VISIBLE (i.e. no hidden) files from the current list
+ //     FROM DISC PHYSICALLY. }
+ //procedure MoveFile;
+ //{< Move current selected (source) file to another folder. }
+ //procedure MoveAllFiles;
+ //{< Move all VISIBLE (i.e. no hidden) files from the current list to
+ //    another folder. }
 
 
 
@@ -302,7 +320,7 @@ begin
   // We want to update the TargetFile extension.
   TargetFile := FTargetFile;
 
-  // UpdateStatusBars; Updateted by SetTargetFile
+  // UpdateStatusBars; Updated by SetTargetFile
 end;
 
 procedure TfmLEmuTKMediaManager.SetSourceFolder(AValue: string);
@@ -342,7 +360,7 @@ var
   aGroup: cEmutecaGroup;
   aSoft: cEmutecaSoftware;
   SoftNode, GroupNode, FileNode: PVirtualNode;
-  FileComp: Integer;
+  FileComp: integer;
 begin
   SourceFile := '';
   SourceFolder := '';
@@ -372,6 +390,7 @@ begin
 
   // vstAllFiles -> vstFilesWOGroup and
   //   vstAllGroups -> vstGroupsWOFile.
+  // ----------------------------------
   frmCHXProgressBar.UpdTextAndBar('Searching...',
     'Files without group and groups without file', '', 2, 4);
 
@@ -383,7 +402,7 @@ begin
   vstGroupsWOFile.BeginUpdate;
   GroupNode := vstAllGroups.GetFirstChild(nil);
   FileNode := vstAllFiles.GetFirstChild(nil);
-  while (assigned(GroupNode)) and (assigned(FileNode)) do
+  while (assigned(GroupNode)) or (assigned(FileNode)) do
   begin
     if not assigned(GroupNode) then
     begin
@@ -429,107 +448,73 @@ begin
       GroupNode := vstAllGroups.GetNextSibling(GroupNode);
     end;
   end;
-
   vstFilesWOGroup.EndUpdate;
   vstGroupsWOFile.EndUpdate;
 
 
+  // vstFilesWOGroup -> vstFilesWOSoft and
+  //   vstAllSoft -> vstSoftWOFile.
+  // -------------------------------------
+  frmCHXProgressBar.UpdTextAndBar('Searching...',
+    'Files without soft and soft without file', '', 3, 4);
+
+  // Sorting vstFilesWOGroup and vstvstAllGroups to iterate them;
+  vstFilesWOGroup.SortTree(0, VirtualTrees.sdAscending, True); // By filename
+  vstAllSoft.SortTree(2, VirtualTrees.sdAscending, True); // By filename
+
+  vstFilesWOSoft.BeginUpdate;
+  vstSoftWOFile.BeginUpdate;
+  SoftNode := vstAllSoft.GetFirstChild(nil);
+  FileNode := vstFilesWOGroup.GetFirstChild(nil);
+  while (assigned(SoftNode)) or (assigned(FileNode)) do
+  begin
+    if not assigned(SoftNode) then
+    begin
+      aSoft := nil;
+      pFilename := vstFilesWOGroup.GetNodeData(FileNode);
+      aFileName := string(pFilename^);
+      FileComp := -1;
+    end
+    else if not assigned(FileNode) then
+    begin
+      pSoft := vstAllSoft.GetNodeData(SoftNode);
+      aSoft := pSoft^;
+      aFileName := '';
+      FileComp := 1;
+    end
+    else
+    begin
+      pFilename := vstFilesWOGroup.GetNodeData(FileNode);
+      aFileName := string(pFilename^);
+      pSoft := vstAllSoft.GetNodeData(SoftNode);
+      aSoft := pSoft^;
+      FileComp := CompareFilenames(ExtractFileNameOnly(aFileName),
+        ExtractFileNameOnly(aSoft.FileName));
+    end;
 
 
-  //    // Searching for files used by the groups and groups without file
-  //    StatusBar.SimpleText := rsfmmSearchFilesWOGroup;
-  //    Continue := True;
-  //    i := 0;
-  //    j := GameManager.GroupCount;
-  //    Application.ProcessMessages;
-  //    vstFilesWOGroup.BeginUpdate;
-  //    vstGroupsWOFile.BeginUpdate;
+    if FileComp = 0 then
+    begin  // Match!!
+      FileNode := vstFilesWOGroup.GetNextSibling(FileNode);
+      SoftNode := vstAllSoft.GetNextSibling(SoftNode);
+    end
+    else if FileComp < 0 then
+    begin // Not match, File is behind Soft
+      pFilename := vstFilesWOSoft.GetNodeData(
+        vstFilesWOSoft.AddChild(nil));
+      pFilename^ := aFileName;
+      FileNode := vstFilesWOGroup.GetNextSibling(FileNode);
+    end
+    else  // Not match, Soft is behind Group File
+    begin
+      pSoft := vstSoftWOFile.GetNodeData(vstSoftWOFile.AddChild(nil));
+      pSoft^ := aSoft;
+      SoftNode := vstAllSoft.GetNextSibling(SoftNode);
+    end;
+  end;
+  vstFilesWOSoft.EndUpdate;
+  vstSoftWOFile.EndUpdate;
 
-  //    GroupNode := vstAllGroups.GetFirstChild(nil);
-  //    while (GroupNode <> nil) and (Continue) do
-  //    begin
-  //      pGroup := vstAllGroups.GetNodeData(GroupNode);
-  //      if frmProgress <> nil then
-  //        Continue := frmProgress.UpdTextAndBar(rsfmmSearchFilesWOGroup,
-  //          pGroup^.Name, '', i, j);
-
-  //      FileNode := vstFilesWOGroup.GetFirstChild(nil);
-  //      Found := False;
-  //      while (FileNode <> nil) and (not Found) do
-  //      begin
-  //        pFilename := vstFilesWOGroup.GetNodeData(FileNode);
-  //        aFileName := ChangeFileExt(pFilename^, kEmutecaVirtualGroupExt);
-  //        // TODO 1: LINUX
-  //        if UTF8CompareText(aFileName, pGroup^.MediaFileName) = 0 then
-  //          Found := True
-  //        else
-  //          FileNode := vstFilesWOGroup.GetNextSibling(FileNode);
-  //      end;
-
-  //      if Found then
-  //        vstFilesWOGroup.DeleteNode(FileNode)
-  //      else
-  //      begin
-  //        if not GameManager.GroupMediaExists(aFolder, pGroup^, ExtFilter) then
-  //        begin
-  //          PGameGroup2 := vstGroupsWOFile.GetNodeData(
-  //            vstGroupsWOFile.AddChild(nil));
-  //          PGameGroup2^ := pGroup^;
-  //        end;
-  //      end;
-  //      Inc(i);
-  //      GroupNode := vstAllGroups.GetNextSibling(GroupNode);
-  //    end;
-  //    vstGroupsWOFile.EndUpdate;
-  //    vstFilesWOGroup.EndUpdate;
-  //    vstGroupsWOFile.SortTree(0, sdAscending, True);
-  //    vstFilesWOGroup.SortTree(0, sdAscending, True);
-
-  //    // Searching files not used by games
-  //    StatusBar.SimpleText := rsfmmSearchFilesWOGame;
-  //    Application.ProcessMessages;
-  //    Continue := True;
-  //    i := 0;
-  //    j := vstFilesWOGroup.ChildCount[nil];
-  //    if frmProgress <> nil then
-  //      frmProgress.Show;
-  //    vstFilesWOGame.Clear;
-  //    vstFilesWOGame.BeginUpdate;
-  //    GroupNode := vstFilesWOGroup.GetFirstChild(nil);
-  //    while (GroupNode <> nil) and (Continue) do
-  //    begin
-  //      Found := False;
-  //      pFilename := vstFilesWOGroup.GetNodeData(GroupNode);
-  //      aFileName := ExtractFileNameOnly(pFilename^);
-  //      Continue := frmProgress.UpdTextAndBar(rsfmmSearchFilesWOGame,
-  //        aFileName, '', i, j);
-  //      FileNode := vstAllGames.GetFirstChild(nil);
-  //      while not Found and (FileNode <> nil) do
-  //      begin
-  //        pSoft := vstAllGames.GetNodeData(FileNode);
-  //        if SameFileName(aFileName, RemoveFromBrackets(pSoft^.FileName)) then
-  //          Found := True;
-  //        FileNode := vstAllGames.GetNextSibling(FileNode);
-  //      end;
-
-  //      if not Found then
-  //      begin
-  //        pFilename := vstFilesWOGame.GetNodeData(vstFilesWOGame.AddChild(nil));
-  //        pFilename^ := string(vstFilesWOGroup.GetNodeData(GroupNode)^);
-  //      end;
-
-  //      GroupNode := vstFilesWOGroup.GetNextSibling(GroupNode);
-  //      Inc(i);
-  //    end;
-  //    vstFilesWOGame.EndUpdate;
-  //    vstFilesWOGame.SortTree(0, sdAscending, True);
-
-  //  finally
-  //    Self.Enabled:= True;
-  //    FreeAndNil(frmProgress);
-  //  end;
-
-  //  StatusBar.SimpleText := '';
   frmCHXProgressBar.UpdateProgressBar(0, 0);
 
 end;
@@ -547,7 +532,7 @@ var
   pFileName: ^string;
   aVST: TCustomVirtualStringTree;
 begin
-  aVST := CurrentFileList;
+  aVST := GetCurrentFilesVST;
   if aVST = nil then
     Exit;
 
@@ -604,14 +589,122 @@ begin
   end
   else
   begin // Look if it is a compressed archive or current type of mediafiles -
-    if SupportedExtSL(aName, ExtFilter) or
-      SupportedExtSL(aName, Emuteca.Config.CompressedExtensions) then
+    if SupportedExtSL(aName, ExtFilter) then
       pFile := vstAllFiles.GetNodeData(vstAllFiles.AddChild(nil))
     else
       pFile := vstOtherFiles.GetNodeData(vstOtherFiles.AddChild(nil));
     // See: TfrmMediaManager.vstAllFilesFreeNode;
     pFile^ := aName;
   end;
+end;
+
+procedure TfmLEmuTKMediaManager.RemoveFileVSTFiles(aFile: string);
+
+  procedure RemoveFileFromVST(aVST: TBaseVirtualTree; aFile: string);
+  var
+    pFileName: ^string;
+    Nodo: PVirtualNode;
+  begin
+    aVST.BeginUpdate;
+
+    // From LastChild
+    Nodo := aVST.GetLastChild(nil);
+    while (Nodo <> nil) do
+    begin
+      pFileName := aVST.GetNodeData(Nodo);
+      if pFileName^ = aFile then
+      begin
+        aVST.DeleteNode(Nodo);
+        // ...VST is too dynamic...
+        Nodo := aVST.GetLastChild(nil);
+      end
+      else
+        Nodo := aVST.GetPreviousSibling(Nodo);
+    end;
+    aVST.EndUpdate;
+  end;
+
+begin
+  if CompareFilenames(SourceFolder, TargetFolder) = 0 then
+  begin
+    RemoveFileFromVST(vstAllFiles, aFile);
+    RemoveFileFromVST(vstOtherFiles, aFile);
+    RemoveFileFromVST(vstFilesWOGroup, aFile);
+    RemoveFileFromVST(vstFilesWOSoft, aFile);
+  end;
+
+  if CompareFilenames(SourceFolder,
+    SetAsFolder(eOtherFolder.Directory)) = 0 then
+    RemoveFileFromVST(vstFilesOtherFolder, aFile);
+end;
+
+procedure TfmLEmuTKMediaManager.RemoveGroupSoftWOFile(aFile: string);
+var
+  Nodo: PVirtualNode;
+  PGroup: ^cEmutecaGroup;
+  pSoft: ^cEmutecaSoftware;
+begin
+  aFile := ExtractFileNameOnly(aFile);
+
+  // vstGroupsWOFile
+  vstGroupsWOFile.BeginUpdate;
+  Nodo := vstGroupsWOFile.GetFirstChild(nil);
+  while (Nodo <> nil) do
+  begin
+    PGroup := vstGroupsWOFile.GetNodeData(Nodo);
+    if CompareFilenames(PGroup^.ID, aFile) = 0 then
+    begin
+      vstGroupsWOFile.DeleteNode(Nodo);
+      // See RemoveFileFromVSTWO comment
+      Nodo := vstGroupsWOFile.GetFirstChild(nil);
+    end
+    else
+      Nodo := vstGroupsWOFile.GetNextSibling(Nodo);
+  end;
+  vstGroupsWOFile.EndUpdate;
+
+  // vstSoftWOFile
+  vstSoftWOFile.BeginUpdate;
+  Nodo := vstSoftWOFile.GetFirstChild(nil);
+  while (Nodo <> nil) do
+  begin
+    pSoft := vstSoftWOFile.GetNodeData(Nodo);
+    if CompareFilenames(ExtractFileNameOnly(pSoft^.FileName), aFile) = 0 then
+    begin
+      vstSoftWOFile.DeleteNode(Nodo);
+      // See RemoveFileFromVSTWO comment
+      Nodo := vstSoftWOFile.GetFirstChild(nil);
+    end
+    else
+      Nodo := vstSoftWOFile.GetNextSibling(Nodo);
+  end;
+  vstSoftWOFile.EndUpdate;
+
+end;
+
+procedure TfmLEmuTKMediaManager.ChangeGroupMedia(aGroup: cEmutecaGroup);
+begin
+  CurrPreview.StrList := nil;
+  MediaFiles.Clear;
+  aGroup.SearchAllRelatedFiles(MediaFiles, TargetFolder, ExtFilter, True);
+  CurrPreview.StrList := MediaFiles;
+end;
+
+procedure TfmLEmuTKMediaManager.ChangeSoftMedia(aSoft: cEmutecaSoftware);
+begin
+  CurrPreview.StrList := nil;
+  MediaFiles.Clear;
+  aSoft.SearchAllRelatedFiles(MediaFiles, TargetFolder, ExtFilter, True);
+  CurrPreview.StrList := MediaFiles;
+end;
+
+procedure TfmLEmuTKMediaManager.ChangeFileMedia(aFolder, aFileName: string);
+begin
+  CurrPreview.StrList := nil;
+  MediaFiles.Clear;
+  if SupportedExtSL(aFileName, ExtFilter) then
+    MediaFiles.Add(aFolder + aFileName);
+  CurrPreview.StrList := MediaFiles;
 end;
 
 procedure TfmLEmuTKMediaManager.ClearFrameData;
@@ -685,7 +778,7 @@ begin
   vstAllSoft.EndUpdate;
 end;
 
-function TfmLEmuTKMediaManager.CurrentFileList: TCustomVirtualStringTree;
+function TfmLEmuTKMediaManager.GetCurrentFilesVST: TCustomVirtualStringTree;
 begin
   case pcSource.ActivePageIndex of
     0: Result := vstAllFiles;
@@ -726,6 +819,9 @@ begin
     Exit;
 
   ExtFilter := nil;
+  if Assigned(CurrPreview) then
+    CurrPreview.StrList := nil;
+  CurrPreview := nil;
 
   if aLBX = lbxImages then
   begin
@@ -736,12 +832,14 @@ begin
     end;
     if Assigned(GUIConfig) then
       ExtFilter := GUIConfig.ImageExtensions;
+    CurrPreview := fmImagePreview;
   end
   else if aLBX = lbxTexts then
   begin
     UpdateVST(CurrSystem.TextFolders[aLBX.ItemIndex]);
     if Assigned(GUIConfig) then
       ExtFilter := GUIConfig.TextExtensions;
+    CurrPreview := fmTextPreview;
   end
   else if aLBX = lbxMusic then
   begin
@@ -780,6 +878,8 @@ begin
   end;
   SourceFolder := TargetFolder;
   SourceFile := string(Sender.GetNodeData(Node)^);
+
+  ChangeFileMedia(SourceFolder, SourceFile);
 end;
 
 procedure TfmLEmuTKMediaManager.vstFileCompareNodes(Sender: TBaseVirtualTree;
@@ -802,7 +902,7 @@ begin
   if Shift = [] then
   begin
     case Key of
-      VK_RETURN: actChangeFileName.Execute;
+      VK_RETURN: actAssignFile.Execute;
       VK_DELETE: actDeleteFile.Execute;
     end;
   end;
@@ -820,8 +920,10 @@ begin
   end;
 
   PData := Sender.GetNodeData(Node);
-  CurrentGroup := PData^;
-  TargetFile := CurrentGroup.ID + krsVirtualExt;
+  CurrGroup := PData^;
+  TargetFile := CurrGroup.ID + krsVirtualExt;
+
+  ChangeGroupMedia(CurrGroup);
 
   FilterFiles;
 end;
@@ -847,7 +949,7 @@ begin
   if Shift = [] then
   begin
     case Key of
-      VK_RETURN: actChangeFileName.Execute;
+      VK_RETURN: actAssignFile.Execute;
     end;
   end;
 end;
@@ -857,7 +959,7 @@ begin
   FilterFiles;
 end;
 
-procedure TfmLEmuTKMediaManager.actChangeFileNameExecute(Sender: TObject);
+procedure TfmLEmuTKMediaManager.actAssignFileExecute(Sender: TObject);
 var
   TargetPath: string;
   SourcePath: string;
@@ -919,8 +1021,7 @@ begin
   // Copy or rename the file
   if chkCopyFile.Checked then
   begin
-    // TODO 5: HACK: Where is CopyFileUTF8?
-    // TODO 4: How can I copy folders?
+    // TODO 5: HACK: Where is CopyFileUTF8 and CopyDirTreeUTF8?
     if not IsFolder then
       CopyFile(UTF8ToSys(SourcePath), UTF8ToSys(TargetPath),
         [cffOverwriteFile, cffCreateDestDirectory], True)
@@ -934,15 +1035,15 @@ begin
   begin
     RenameFileUTF8(SourcePath, TargetPath);
     // Removing Source file from ALL vstFiles
-    //RemoveFileVSTFiles(SourceFolder, SourceFile);
+    RemoveFileVSTFiles(SourceFile);
   end;
 
 
-  //// Quick update of VST lists
-  //// -------------------------
+  // Quick update of VST lists
+  // -------------------------
 
-  //// Removing Target file from vstGroupWOFile.
-  //RemoveGroupWOFile(TargetFile);
+  // Removing Target file from vstGroupWOFile or vstSoftWOFile.
+  RemoveGroupSoftWOFile(TargetFile);
 
   // Adding TargetFile.
   AddFile(TargetFolder, TargetFile);
@@ -951,13 +1052,89 @@ begin
 
   // Clear TargetFile only if pagGroupsWOFile is active because
   //  the group is deleted from its list.
-  if CurrentFileList = vstGroupsWOFile then
+  if GetCurrentFilesVST = vstGroupsWOFile then
   begin
     TargetFile := '';
-    //  ClearMedia;
   end;
 
   FilterFiles;
+end;
+
+procedure TfmLEmuTKMediaManager.actDeleteFileExecute(Sender: TObject);
+begin
+  if (SourceFile = '') or (SourceFolder = '') then
+    Exit;
+
+  if MessageDlg(Format('Do you want delete? %0:s',
+    [SourceFolder + SourceFile]), mtConfirmation, [mbYes, mbNo],
+    -1) = mrNo then
+    Exit;
+
+  if not DeleteFileUTF8(SourceFolder + SourceFile) then
+  begin
+    ShowMessageFmt('Error deleting: %0:s', [SourceFolder + SourceFile]);
+    Exit;
+  end;
+
+  RemoveFileVSTFiles(SourceFile);
+  SourceFile := '';
+end;
+
+procedure TfmLEmuTKMediaManager.actSearchMediaInZipExecute(Sender: TObject);
+var
+  Nodo: PVirtualNode;
+  pGroup: ^cEmutecaGroup;
+  pSoft: ^cEmutecaSoftware;
+  aFile: string;
+begin
+  frmCHXProgressBar.UpdTextAndBar('Searching...',
+    'Files without group and groups without file', '', 1, 4);
+
+  // vstGroupsWOFile
+  vstGroupsWOFile.BeginUpdate;
+  Nodo := vstGroupsWOFile.GetFirstChild(nil);
+  while (Nodo <> nil) do
+  begin
+    pGroup := vstGroupsWOFile.GetNodeData(Nodo);
+
+    aFile := pGroup^.SearchFirstRelatedFile(TargetFolder, ExtFilter, False);
+
+    if aFile = '' then
+    begin
+      vstGroupsWOFile.DeleteNode(Nodo);
+      // See RemoveFileFromVSTWO comment...
+      //   ... but this time it's tooo slow
+      Nodo := vstGroupsWOFile.GetFirstChild(nil);
+    end
+    else
+      Nodo := vstGroupsWOFile.GetNextSibling(Nodo);
+  end;
+  vstGroupsWOFile.EndUpdate;
+
+  frmCHXProgressBar.UpdTextAndBar('Searching...',
+    'Files without soft and soft without file', '', 2, 4);
+  // vstSoftWOFile
+  vstSoftWOFile.BeginUpdate;
+  Nodo := vstSoftWOFile.GetFirstChild(nil);
+  while (Nodo <> nil) do
+  begin
+    pSoft := vstSoftWOFile.GetNodeData(Nodo);
+
+    aFile := pSoft^.SearchFirstRelatedFile(TargetFolder, ExtFilter, False);
+
+    if aFile = '' then
+    begin
+      vstSoftWOFile.DeleteNode(Nodo);
+      // See RemoveFileFromVSTWO comment...
+      //   ... but this time it's tooo slow
+      Nodo := vstSoftWOFile.GetFirstChild(nil);
+    end
+    else
+      Nodo := vstSoftWOFile.GetNextSibling(Nodo);
+  end;
+  vstSoftWOFile.EndUpdate;
+
+  frmCHXProgressBar.UpdateProgressBar(0, 0);
 end;
 
 procedure TfmLEmuTKMediaManager.vstFileFreeNode(Sender: TBaseVirtualTree;
@@ -1017,7 +1194,10 @@ begin
   end;
   pSoft := Sender.GetNodeData(Node);
   TargetFile := pSoft^.FileName;
-  CurrentGroup := cEmutecaGroup(pSoft^.CachedGroup);
+  CurrGroup := cEmutecaGroup(pSoft^.CachedGroup);
+
+  ChangeSoftMedia(pSoft^);
+
   FilterFiles;
 end;
 
@@ -1083,6 +1263,7 @@ begin
     fmSystemCBX.SystemList := Emuteca.SystemManager.EnabledList
   else
     fmSystemCBX.SystemList := nil;
+  fmSystemCBX.SelectedSystem := nil;
 
   LoadFrameData;
 end;
@@ -1121,11 +1302,18 @@ begin
   LoadSysFolders;
 end;
 
-procedure TfmLEmuTKMediaManager.SetCurrentGroup(AValue: cEmutecaGroup);
+procedure TfmLEmuTKMediaManager.SetCurrGroup(AValue: cEmutecaGroup);
 begin
-  if FCurrentGroup = AValue then
+  if FCurrGroup = AValue then
     Exit;
-  FCurrentGroup := AValue;
+  FCurrGroup := AValue;
+end;
+
+procedure TfmLEmuTKMediaManager.SetCurrPreview(AValue: TfmCHXStrLstPreview);
+begin
+  if FCurrPreview = AValue then
+    Exit;
+  FCurrPreview := AValue;
 end;
 
 class function TfmLEmuTKMediaManager.SimpleForm(aEmuteca: cEmuteca;
@@ -1162,6 +1350,24 @@ begin
 end;
 
 constructor TfmLEmuTKMediaManager.Create(TheOwner: TComponent);
+
+  procedure CreateFrames;
+  begin
+    FfmSystemCBX := TfmEmutecaSystemCBX.Create(gbxSystem);
+    fmSystemCBX.FirstItem := ETKSysCBXFISelect;
+    fmSystemCBX.OnSelectSystem := @SelectSystem;
+    fmSystemCBX.Align := alTop;
+    fmSystemCBX.Parent := gbxSystem;
+
+    FfmImagePreview := TfmCHXImgListPreview.Create(pImagePreview);
+    fmImagePreview.Align := alClient;
+    fmImagePreview.Parent := pImagePreview;
+
+    FfmTextPreview := TfmCHXTxtListPreview.Create(pTextPreview);
+    fmTextPreview.Align := alClient;
+    fmTextPreview.Parent := pTextPreview;
+  end;
+
 begin
   inherited Create(TheOwner);
 
@@ -1178,20 +1384,18 @@ begin
   pcSource.ActivePageIndex := 0;
   pcTarget.ActivePageIndex := 0;
 
-  FfmSystemCBX := TfmEmutecaSystemCBX.Create(gbxSystem);
-  fmSystemCBX.FirstItem := ETKSysCBXFISelect;
-  fmSystemCBX.OnSelectSystem := @SelectSystem;
-  fmSystemCBX.Align := alTop;
-  fmSystemCBX.Parent := gbxSystem;
+  FMediaFiles := TStringList.Create;
 
   // If frmCHXProgressBar is not created...
   if not Assigned(frmCHXProgressBar) then
     Application.CreateForm(TfrmCHXProgressBar, frmCHXProgressBar);
 
+  CreateFrames;
 end;
 
 destructor TfmLEmuTKMediaManager.Destroy;
 begin
+  MediaFiles.Destroy;
   inherited Destroy;
 end;
 

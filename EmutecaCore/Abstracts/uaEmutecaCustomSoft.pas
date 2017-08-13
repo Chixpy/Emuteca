@@ -25,58 +25,10 @@ interface
 
 uses
   Classes, SysUtils, IniFiles, sha1, LazUTF8, LazFileUtils,
-  uCHXStrUtils,
+  uCHXStrUtils, uCHXFileUtils,
   uaCHXStorable,
   uEmutecaCommon,
   ucEmutecaPlayingStats;
-
-const
-  krsCSVSoftHeader = '"Group","SHA1","ID","Folder","FileName",' +
-    '"Title","TransliteratedName","SortTitle","Version","Year","Publisher",' +
-    '"Zone","DumpStatus","DumpInfo","Fixed","Trainer","Translation",' +
-    '"Pirate","Cracked","Modified","Hack"';
-  krsCSVSoftStatsHeader = krsCSVSoftHeader + ',' + krsCSVStatsHeader;
-
-
-  // Constant for DumpStatus, fixed (for filenames)
-  krsedsVerified = 'Verified';
-  krsedsGood = 'GoodDump';
-  krsedsAlternate = 'Alternate';
-  krsedsOverDump = 'OverDump';
-  krsedsBadDump = 'BadDump';
-  krsedsUnderDump = 'UnderDump';
-
-
-resourcestring
-  // Strings for DumpStatus, translatable
-  rsedsVerified = 'Verified';
-  rsedsGood = 'GoodDump';
-  rsedsAlternate = 'Alternate';
-  rsedsOverDump = 'OverDump';
-  rsedsBadDump = 'BadDump';
-  rsedsUnderDump = 'UnderDump';
-
-type
-  TEmutecaDumpStatus = (edsVerified, edsGood, edsAlternate, edsOverDump,
-    edsBadDump, edsUnderDump);
-
-const
-  EmutecaDumpStatusKeys: array [TEmutecaDumpStatus] of string =
-    ('!', '', 'a', 'o', 'b', 'u');
-  //< Keys for DumpStatus, used in IniFiles
-  EmutecaDumpStatusStrs: array [TEmutecaDumpStatus] of string =
-    (rsedsVerified, rsedsGood, rsedsAlternate, rsedsOverDump,
-    rsedsBadDump, rsedsUnderDump);
-  //< Strings for DumpStatus (localizable)
-  EmutecaDumpStatusStrsK: array [TEmutecaDumpStatus] of string =
-    (krsedsVerified, krsedsGood, krsedsAlternate, krsedsOverDump,
-    krsedsBadDump, krsedsUnderDump);
-//< Strings for DumpStatus (fixed constants, used for icon filenames, etc. )
-
-function Key2EmutecaDumpSt(aString: string): TEmutecaDumpStatus;
-// Result := EmutecaDumpStatusKeys[DumpStatus];
-// Result := EmutecaDumpStatusStrs[DumpStatus];
-// Result := EmutecaDumpStatusStrsK[DumpStatus];
 
 type
 
@@ -264,31 +216,11 @@ type
 
           Only if not covered by previous properties.}
 
-             property Stats: cEmutecaPlayingStats read FStats;
+    property Stats: cEmutecaPlayingStats read FStats;
 
   end;
 
 implementation
-
-function Key2EmutecaDumpSt(aString: string): TEmutecaDumpStatus;
-begin
-  aString := UTF8Trim(UTF8LowerString(aString));
-
-  if (aString = EmutecaDumpStatusKeys[edsGood]) then // krsedsGoodKey = ''
-    Result := edsGood
-  else if (aString[1] = EmutecaDumpStatusKeys[edsVerified]) then
-    Result := edsVerified
-  else if (aString[1] = EmutecaDumpStatusKeys[edsAlternate]) then
-    Result := edsAlternate
-  else if (aString[1] = EmutecaDumpStatusKeys[edsOverDump]) then
-    Result := edsOverDump
-  else if (aString[1] = EmutecaDumpStatusKeys[edsBadDump]) then
-    Result := edsBadDump
-  else if (aString[1] = EmutecaDumpStatusKeys[edsUnderDump]) then
-    Result := edsUnderDump
-  else
-    Result := edsGood;
-end;
 
 { caEmutecaCustomSoft }
 
@@ -505,7 +437,7 @@ end;
 
 function caEmutecaCustomSoft.SHA1IsEmpty: boolean;
 begin
-  Result := SHA1Match(SHA1, kEmuTKSHA1Empty);
+  Result := SHA1Match(SHA1, kCHXSHA1Empty);
 end;
 
 function caEmutecaCustomSoft.MatchSHA1(aSHA1: TSHA1Digest): boolean;
@@ -591,7 +523,7 @@ begin
   aTxtFile.Add(Publisher);
   aTxtFile.Add(Zone);
 
-  aTxtFile.Add(EmutecaDumpStatusKeys[DumpStatus]);
+  aTxtFile.Add(EmutecaDumpSt2Key(DumpStatus));
   aTxtFile.Add(DumpInfo);
   aTxtFile.Add(Fixed);
   aTxtFile.Add(Trainer);
@@ -606,80 +538,123 @@ end;
 
 procedure caEmutecaCustomSoft.LoadFromIni(aIniFile: TMemIniFile);
 var
-  SHA1Str: string;
+  Section: string;
 begin
   if not assigned(aIniFile) then
     Exit;
 
-  SHA1Str := SHA1Print(SHA1);
+  Section := ID;
 
-  Stats.LoadFromIni(aIniFile, SHA1Str);
+  // Basic data
+  // ----------
+
+  // Don't overwrite SHA1.
+  // If SHA1 = ID -> whe don't need it
+  //   else -> SHA1 is from actual file anyways.
+  // It's saved for custom porpouses.
+  // SHA1 := StringToSHA1Digest(aIniFile.ReadString(Section, krsIniKeySHA1, SHA1Print(SHA1)));
+
+  // We can export by SHA1 systems with custom ID...
+  if GetActualID = '' then
+    ID := aIniFile.ReadString(Section, krsIniKeyID, GetActualID);
+
+  GroupKey := aIniFile.ReadString(Section, krsIniKeyGroup, GroupKey);
+  Title := aIniFile.ReadString(Section, krsIniKeyTitle, GetActualTitle);
+  TranslitTitle := aIniFile.ReadString(Section, krsIniKeyTranslitTitl, GetActualTranslitTitle);
+  SortTitle := aIniFile.ReadString(Section, krsIniKeySortTitle, GetActualSortTitle);
+
+  // Release data
+  // ------------
+  Version := aIniFile.ReadString(Section, krsIniKeyVersion, Version);
+  Year := aIniFile.ReadString(Section, krsIniKeyYear, Year);
+  Publisher := aIniFile.ReadString(Section, krsIniKeyPublisher, Publisher);
+  Zone := aIniFile.ReadString(Section, krsIniKeyZone, Zone);
+
+  // Version Flags
+  // ---------------
+  DumpStatus := Key2EmutecaDumpSt(aIniFile.ReadString(Section, krsIniKeyDumpStatus,
+    EmutecaDumpSt2Key(DumpStatus)));
+  DumpInfo := aIniFile.ReadString(Section, krsIniKeyDumpInfo, DumpInfo);
+  Fixed := aIniFile.ReadString(Section, krsIniKeyFixed, Fixed);
+  Trainer := aIniFile.ReadString(Section, krsIniKeyTrainer, Trainer);
+  Translation := aIniFile.ReadString(Section, krsIniKeyTranslation,
+    Translation);
+  Pirate := aIniFile.ReadString(Section, krsIniKeyPirate, Pirate);
+  Cracked := aIniFile.ReadString(Section, krsIniKeyCracked, Cracked);
+  Modified := aIniFile.ReadString(Section, krsIniKeyModified, Modified);
+  Hack := aIniFile.ReadString(Section, krsIniKeyHack, Hack);
+
+  Folder := aIniFile.ReadString(Section, krsIniKeyFolder, Folder);
+  FileName := aIniFile.ReadString(Section, krsIniKeyFileName, FileName);
+
+  Stats.LoadFromIni(aIniFile, Section);
 end;
 
 procedure caEmutecaCustomSoft.SaveToIni(aIniFile: TMemIniFile;
   const ExportMode: boolean);
 var
-  SHA1Str: string;
+  Section: string;
 begin
   if not assigned(aIniFile) then
     Exit;
 
-  SHA1Str := SHA1Print(SHA1);
+  Section := ID;
 
   // Basic data
   // ----------
-  aIniFile.WriteString(SHA1Str, krsIniKeyID, GetActualID);
-  aIniFile.WriteString(SHA1Str, krsIniKeyGroup, GroupKey);
-  aIniFile.WriteString(SHA1Str, krsIniKeyTitle, GetActualTitle);
-  aIniFile.WriteString(SHA1Str, krsIniKeyTranslitTitl, GetActualTranslitTitle);
-  aIniFile.WriteString(SHA1Str, krsIniKeySortTitle, GetActualSortTitle);
+  aIniFile.WriteString(Section, krsIniKeySHA1, SHA1Print(SHA1));
+  aIniFile.WriteString(Section, krsIniKeyID, GetActualID);
+  aIniFile.WriteString(Section, krsIniKeyGroup, GroupKey);
+  aIniFile.WriteString(Section, krsIniKeyTitle, GetActualTitle);
+  aIniFile.WriteString(Section, krsIniKeyTranslitTitl, GetActualTranslitTitle);
+  aIniFile.WriteString(Section, krsIniKeySortTitle, GetActualSortTitle);
 
   // Release data
   // ------------
-  aIniFile.WriteString(SHA1Str, krsIniKeyVersion, Version);
-  aIniFile.WriteString(SHA1Str, krsIniKeyYear, Year);
-  aIniFile.WriteString(SHA1Str, krsIniKeyPublisher, Publisher);
-  aIniFile.WriteString(SHA1Str, krsIniKeyZone, Zone);
+  aIniFile.WriteString(Section, krsIniKeyVersion, Version);
+  aIniFile.WriteString(Section, krsIniKeyYear, Year);
+  aIniFile.WriteString(Section, krsIniKeyPublisher, Publisher);
+  aIniFile.WriteString(Section, krsIniKeyZone, Zone);
 
   // Version Flags
   // ---------------
-  aIniFile.WriteString(SHA1Str,
-    krsIniKeyDumpStatus, EmutecaDumpStatusKeys[DumpStatus]);
-  aIniFile.WriteString(SHA1Str, krsIniKeyDumpInfo, DumpInfo);
-  aIniFile.WriteString(SHA1Str, krsIniKeyFixed, Fixed);
-  aIniFile.WriteString(SHA1Str, krsIniKeyTrainer, Trainer);
-  aIniFile.WriteString(SHA1Str, krsIniKeyTranslation, Translation);
-  aIniFile.WriteString(SHA1Str, krsIniKeyPirate, Pirate);
-  aIniFile.WriteString(SHA1Str, krsIniKeyCracked, Cracked);
-  aIniFile.WriteString(SHA1Str, krsIniKeyModified, Modified);
-  aIniFile.WriteString(SHA1Str, krsIniKeyHack, Hack);
+  aIniFile.WriteString(Section,
+    krsIniKeyDumpStatus, EmutecaDumpSt2Key(DumpStatus));
+  aIniFile.WriteString(Section, krsIniKeyDumpInfo, DumpInfo);
+  aIniFile.WriteString(Section, krsIniKeyFixed, Fixed);
+  aIniFile.WriteString(Section, krsIniKeyTrainer, Trainer);
+  aIniFile.WriteString(Section, krsIniKeyTranslation, Translation);
+  aIniFile.WriteString(Section, krsIniKeyPirate, Pirate);
+  aIniFile.WriteString(Section, krsIniKeyCracked, Cracked);
+  aIniFile.WriteString(Section, krsIniKeyModified, Modified);
+  aIniFile.WriteString(Section, krsIniKeyHack, Hack);
 
   if ExportMode then
   begin
-    aIniFile.DeleteKey(SHA1Str, krsIniKeyFolder);
-    aIniFile.DeleteKey(SHA1Str, krsIniKeyFileName);
+    aIniFile.DeleteKey(Section, krsIniKeyFolder);
+    aIniFile.DeleteKey(Section, krsIniKeyFileName);
   end
   else
   begin
-    aIniFile.WriteString(SHA1Str, krsIniKeyFolder, Folder);
-    aIniFile.WriteString(SHA1Str, krsIniKeyFileName, FileName);
+    aIniFile.WriteString(Section, krsIniKeyFolder, Folder);
+    aIniFile.WriteString(Section, krsIniKeyFileName, FileName);
   end;
 
-  Stats.WriteToIni(aIniFile, SHA1Str, ExportMode);
+  Stats.WriteToIni(aIniFile, Section, ExportMode);
 end;
 
 procedure caEmutecaCustomSoft.SearchAllRelatedFiles(OutFileList: TStrings;
   aFolder: string; Extensions: TStrings; AutoExtract: boolean);
 begin
-       EmuTKSearchAllRelatedFiles(OutFileList, aFolder, FileName, Extensions,
-      False,  '');
+  EmuTKSearchAllRelatedFiles(OutFileList, aFolder, FileName, Extensions,
+    False, '');
 end;
 
 function caEmutecaCustomSoft.SearchFirstRelatedFile(aFolder: string;
   Extensions: TStrings; AutoExtract: boolean): string;
 begin
-  result := EmuTKSearchFirstRelatedFile(aFolder, FileName, Extensions, False,
-        False, '');
+  Result := EmuTKSearchFirstRelatedFile(aFolder, FileName,
+    Extensions, False, False, '');
 end;
 
 constructor caEmutecaCustomSoft.Create(aOwner: TComponent);

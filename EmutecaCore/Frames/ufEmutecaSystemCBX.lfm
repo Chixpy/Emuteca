@@ -6,6 +6,7 @@ inherited fmEmutecaSystemCBX: TfmEmutecaSystemCBX
     Top = 0
     Width = 320
     Align = alTop
+    AutoDropDown = True
     ItemHeight = 15
     OnChange = cbxSystemChange
     Style = csDropDownList

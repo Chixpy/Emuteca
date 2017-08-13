@@ -8,8 +8,8 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
   Buttons, ActnList, StdCtrls, EditBtn, LazFileUtils, LazUTF8,
   u7zWrapper,
-  uCHXFileUtils, uCHXStrUtils, ufCHXForm,
-  ufCHXPropEditor,
+  uCHXFileUtils, uCHXStrUtils,
+  ufCHXForm, ufCHXPropEditor,
   uEmutecaCommon,
   ucEmuteca, uaEmutecaCustomSystem, ucEmutecaSystem,
   ucEmutecaSoftList, ucEmutecaSoftware,
@@ -23,9 +23,11 @@ type
     chkNoZip: TCheckBox;
     chkSubfolders: TCheckBox;
     eFolder: TDirectoryEdit;
+    eSystemExtensions: TEdit;
     gbxFolder: TGroupBox;
     gbxSelectSystem: TGroupBox;
-    lSystemInfo: TLabel;
+    gbxSysInfo: TGroupBox;
+    lSystemExtensions: TLabel;
     rgbFilename: TRadioGroup;
     rgbGroup: TRadioGroup;
   private
@@ -72,6 +74,7 @@ begin
     fmSystemCBX.SystemList := Emuteca.SystemManager.EnabledList
   else
     fmSystemCBX.SystemList := nil;
+  fmSystemCBX.SelectedSystem := nil;
 
   LoadFrameData;
 end;
@@ -85,13 +88,13 @@ function TfmEmutecaActAddFolder.SelectSystem(aSystem: cEmutecaSystem): boolean;
 begin
   Result := False;
 
-  lSystemInfo.Caption := ' ';
+  eSystemExtensions.Text := '';
   gbxFolder.Enabled := Assigned(aSystem);
 
   if not Assigned(aSystem) then
     Exit;
 
-  lSystemInfo.Caption := aSystem.Extensions.CommaText;
+  eSystemExtensions.Text := aSystem.Extensions.CommaText;
   eFolder.RootDir := CreateAbsolutePath(aSystem.BaseFolder,
     ProgramDirectory);
 end;
@@ -209,10 +212,10 @@ begin
 
         // SHA1 = 0
         // It's updated in background when caching
-        aSoft.SHA1 := kEmuTKSHA1Empty;
+        aSoft.SHA1 := kCHXSHA1Empty;
 
         // ID
-        case aSystem.GameKey of
+        case aSystem.SoftExportKey of
           TEFKSHA1:
             aSoft.ID := '';
 
@@ -278,10 +281,9 @@ begin
 
   Application.CreateForm(TfrmCHXForm, aForm);
   try
-    aForm.Name := 'frmEmutecaActAddSoft';
+    aForm.Name := 'frmEmutecaActAddFolder';
     aForm.Caption := Format(rsFmtWindowCaption,
-      [Application.Title, 'Add Software...']);
-    aForm.AutoSize := True;
+      [Application.Title, 'Add Folder']);
 
     aFrame := TfmEmutecaActAddFolder.Create(aForm);
     aFrame.SaveButtons := True;
@@ -314,10 +316,7 @@ constructor TfmEmutecaActAddFolder.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
 
-  Enabled := False;
-
   CreateFrames;
-  Invalidate;
 end;
 
 destructor TfmEmutecaActAddFolder.Destroy;

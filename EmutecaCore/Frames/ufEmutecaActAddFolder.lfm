@@ -1,36 +1,25 @@
 inherited fmEmutecaActAddFolder: TfmEmutecaActAddFolder
   Height = 415
   ClientHeight = 415
-  DesignTop = 136
+  DesignLeft = 591
+  DesignTop = 146
   inherited pButtons: TPanel
     Top = 388
   end
   object gbxSelectSystem: TGroupBox[1]
     Left = 0
-    Height = 35
+    Height = 19
     Top = 0
     Width = 320
     Align = alTop
     AutoSize = True
     Caption = 'Select a System'
-    ClientHeight = 15
-    ClientWidth = 316
     TabOrder = 1
-    object lSystemInfo: TLabel
-      Left = 0
-      Height = 15
-      Top = 0
-      Width = 316
-      Align = alTop
-      Caption = 'Supported Extensions'
-      ParentColor = False
-      WordWrap = True
-    end
   end
   object gbxFolder: TGroupBox[2]
     Left = 0
     Height = 81
-    Top = 35
+    Top = 19
     Width = 320
     Align = alTop
     AutoSize = True
@@ -47,6 +36,7 @@ inherited fmEmutecaActAddFolder: TfmEmutecaActAddFolder
       ShowHidden = False
       ButtonWidth = 23
       NumGlyphs = 1
+      Flat = True
       Align = alTop
       MaxLength = 0
       TabOrder = 0
@@ -76,7 +66,7 @@ inherited fmEmutecaActAddFolder: TfmEmutecaActAddFolder
   object rgbGroup: TRadioGroup[3]
     Left = 0
     Height = 58
-    Top = 116
+    Top = 100
     Width = 320
     Align = alTop
     AutoFill = True
@@ -101,7 +91,7 @@ inherited fmEmutecaActAddFolder: TfmEmutecaActAddFolder
   object rgbFilename: TRadioGroup[4]
     Left = 0
     Height = 58
-    Top = 174
+    Top = 158
     Width = 320
     Align = alTop
     AutoFill = True
@@ -123,8 +113,37 @@ inherited fmEmutecaActAddFolder: TfmEmutecaActAddFolder
     )
     TabOrder = 4
   end
-  inherited alPropEditor: TActionList[5]
+  object gbxSysInfo: TGroupBox[5]
+    Left = 0
+    Height = 172
+    Top = 216
+    Width = 320
+    Align = alClient
+    Caption = 'gbxSysInfo'
+    ClientHeight = 152
+    ClientWidth = 316
+    TabOrder = 5
+    object lSystemExtensions: TLabel
+      Left = 0
+      Height = 15
+      Top = 0
+      Width = 316
+      Align = alTop
+      Caption = 'System extensions'
+      ParentColor = False
+    end
+    object eSystemExtensions: TEdit
+      Left = 0
+      Height = 23
+      Top = 15
+      Width = 316
+      Align = alTop
+      ReadOnly = True
+      TabOrder = 0
+    end
   end
-  inherited ilPropEditor: TImageList[6]
+  inherited alPropEditor: TActionList[6]
+  end
+  inherited ilPropEditor: TImageList[7]
   end
 end

@@ -8,10 +8,10 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
   Buttons, ActnList, StdCtrls,
   ufCHXPropEditor,
-  uLEmuTKCommon,
-  uaEmutecaCustomSoft,
+  uEmutecaCommon,
   ucEmutecaSystem, ucEmutecaGroup, ucEmutecaSoftware,
-  ufEmutecaGroupCBXOld;
+  ufEmutecaGroupCBXOld,
+  uLEmuTKCommon;
 
 type
 
@@ -298,7 +298,7 @@ begin
   lSystem.Caption := rsUnknown;
 
   // Adding DumpTypes
-  for i in EmutecaDumpStatusStrs do
+  for i in EmutecaDumpStatusStr do
     cbxDumpType.AddItem(i, nil);
   cbxDumpType.ItemIndex := 1;
 end;

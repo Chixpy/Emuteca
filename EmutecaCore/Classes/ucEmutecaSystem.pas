@@ -88,14 +88,14 @@ type
 
 {< For CallBack functions }
 
-function Str2EmutecaFileKey(aString: string): TEmutecaFileKey;
+function Str2EmutecaFileKey(aString: string): TEmutecaSoftExportKey;
 // Result := EmutecaFileKeyStrsK[TEmutecaFileKey];
 
 implementation
 
 uses ucEmutecaGroup, ucEmutecaSoftware;
 
-function Str2EmutecaFileKey(aString: string): TEmutecaFileKey;
+function Str2EmutecaFileKey(aString: string): TEmutecaSoftExportKey;
 begin
   // In Emuteca <= 0.7, True => CRC32 / False => FileName
   aString := UTF8UpperCase(aString);

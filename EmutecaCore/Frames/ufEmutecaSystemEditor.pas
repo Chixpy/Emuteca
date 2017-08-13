@@ -9,8 +9,9 @@ uses
   Buttons, StdCtrls, CheckLst, EditBtn, LazFileUtils,
   uCHXStrUtils, uCHXDlgUtils,
   ufCHXPropEditor,
+  uEmutecaCommon,
   ucEmutecaSystem, ucEmutecaEmulator,
-  ucEmutecaEmulatorManager, uaEmutecaCustomSystem;
+  ucEmutecaEmulatorManager;
 
 resourcestring
   rsSelectEmulator = 'Select a System';
@@ -161,11 +162,11 @@ begin
   system.ExtractAll := chkExtractAllFiles.Checked;
 
   case rgbGameKey.ItemIndex of
-    1: System.GameKey := TEFKCRC32;
-    2: System.GameKey := TEFKFileName;
-    3: System.GameKey := TEFKCustom;
+    1: System.SoftExportKey := TEFKCRC32;
+    2: System.SoftExportKey := TEFKFileName;
+    3: System.SoftExportKey := TEFKCustom;
     else  // SHA1 by default
-      System.GameKey := TEFKSHA1;
+      System.SoftExportKey := TEFKSHA1;
   end;
 
   System.Extensions.Assign(mExtensions.Lines);
@@ -201,7 +202,7 @@ begin
   eBaseFolder.Text := SysPath(System.BaseFolder);
   eWorkingFolder.Text := SysPath(System.WorkingFolder);
 
-  case System.GameKey of
+  case System.SoftExportKey of
     TEFKCRC32: rgbGameKey.ItemIndex := 1;
     TEFKFileName: rgbGameKey.ItemIndex := 2;
     TEFKCustom: rgbGameKey.ItemIndex := 3;

@@ -19,6 +19,11 @@
 {"hash":97496163,"name":"tfmlemutkmediamanager.gbxvideos.caption","sourcebytes":[86,105,100,101,111,115],"value":"Videos"},
 {"hash":5556723,"name":"tfmlemutkmediamanager.gbxmusic.caption","sourcebytes":[77,117,115,105,99],"value":"Music"},
 {"hash":32614467,"name":"tfmlemutkmediamanager.gbxotherfiles.caption","sourcebytes":[103,98,120,79,116,104,101,114,70,105,108,101,115],"value":"gbxOtherFiles"},
-{"hash":140998933,"name":"tfmlemutkmediamanager.actchangefilename.caption","sourcebytes":[67,104,97,110,103,101,32,102,105,108,101,110,97,109,101],"value":"Change filename"},
-{"hash":171708133,"name":"tfmlemutkmediamanager.actdeletefile.caption","sourcebytes":[68,101,108,101,116,101,32,102,105,108,101],"value":"Delete file"}
+{"hash":240019413,"name":"tfmlemutkmediamanager.actassignfile.caption","sourcebytes":[65,115,115,105,103,110,32,102,105,108,101],"value":"Assign file"},
+{"hash":171708133,"name":"tfmlemutkmediamanager.actdeletefile.caption","sourcebytes":[68,101,108,101,116,101,32,102,105,108,101],"value":"Delete file"},
+{"hash":252240837,"name":"tfmlemutkmediamanager.actrenamegroupfile.caption","sourcebytes":[82,101,110,97,109,101,32,103,114,111,117,112,32,102,105,108,101],"value":"Rename group file"},
+{"hash":109274672,"name":"tfmlemutkmediamanager.actsearchmediainzip.caption","sourcebytes":[83,101,97,114,99,104,32,109,101,100,105,97,32,105,110,32,122,105,112],"value":"Search media in zip"},
+{"hash":41385380,"name":"tfmlemutkmediamanager.mimmfilelist.caption","sourcebytes":[70,105,108,101,32,108,105,115,116],"value":"File list"},
+{"hash":5150400,"name":"tfmlemutkmediamanager.mmimgroup.caption","sourcebytes":[71,114,111,117,112],"value":"Group"},
+{"hash":252240837,"name":"tfmlemutkmediamanager.migprenamegroupfile.caption","sourcebytes":[82,101,110,97,109,101,32,103,114,111,117,112,32,102,105,108,101],"value":"Rename group file"}
 ]}
