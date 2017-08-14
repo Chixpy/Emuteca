@@ -28,13 +28,14 @@ interface
 uses
   Classes, SysUtils, FileUtil, LazFileUtils, IniFiles,
   LazUTF8, LConvEncoding, LResources,
-  uaCHXStorable,
+  uEmutecaCommon,
+  uaCHXStorable, uaEmutecaCustomManager,
   uaEmutecaCustomSystem, ucEmutecaGroupList;
 
 type
   { cEmutecaGroupManager }
 
-  cEmutecaGroupManager = class(caCHXStorableTxt)
+  cEmutecaGroupManager = class(caEmutecaCustomManager)
   private
     FSystem: caEmutecaCustomSystem;
     FVisibleList: cEmutecaGroupList;
@@ -54,9 +55,11 @@ type
     function AddGroup(aID: string): integer;
 
     procedure LoadFromStrLst(TxtFile: TStrings); override;
+    procedure ImportFromIni(aIniFile: TMemIniFile); override;
     procedure SaveToStrLst(TxtFile: TStrings; const ExportMode: boolean);
       override;
     procedure LoadFromIni(aIniFile: TMemIniFile); override;
+    procedure ImportFromStrLst(aTxtFile: TStrings); override;
     procedure SaveToIni(aIniFile: TMemIniFile; const ExportMode: boolean);
       override;
 
@@ -94,6 +97,17 @@ begin
     aGroup := cEmutecaGroup(FullList[i]);
     aGroup.CachedSystem := System;
   end;
+end;
+
+procedure cEmutecaGroupManager.ImportFromIni(aIniFile: TMemIniFile);
+begin
+
+end;
+
+procedure cEmutecaGroupManager.ImportFromStrLst(aTxtFile: TStrings);
+begin
+
+
 end;
 
 function cEmutecaGroupManager.AddGroup(aID: string): integer;
@@ -134,10 +148,16 @@ begin
     TempGroup.TXTString := TxtFile[i];
     TempGroup.CachedSystem := System;
 
+    if Assigned(ProgressCallBack) then
+      ProgressCallBack(rsLoadingGroupList, TempGroup.Title, TempGroup.ID,
+        i, TxtFile.Count);
+
     FullList.Add(TempGroup);
     Inc(i);
   end;
   //FullList.EndUpdate;
+  if assigned(ProgressCallBack) then
+    ProgressCallBack('', '', '', 0, 0);
 end;
 
 procedure cEmutecaGroupManager.SaveToStrLst(TxtFile: TStrings;
@@ -154,6 +174,7 @@ begin
   TxtFile.BeginUpdate;
   try
     TxtFile.Capacity := FullList.Count + 1; // Speed up?
+
     if ExportMode then
       TxtFile.Add(krsCSVGroupHeader)
     else
@@ -163,6 +184,11 @@ begin
     while i < FullList.Count do
     begin
       aGroup := cEmutecaGroup(FullList[i]);
+
+      if Assigned(ProgressCallBack) then
+        ProgressCallBack(rsSavingGroupList, aGroup.Title, aGroup.ID,
+          i, FullList.Count);
+
       TxtFile.Add(aGroup.TXTString);
       Inc(i);
     end;
@@ -170,6 +196,9 @@ begin
   finally
     TxtFile.EndUpdate;
   end;
+
+  if assigned(ProgressCallBack) then
+    ProgressCallBack('', '', '', 0, 0);
 end;
 
 constructor cEmutecaGroupManager.Create(aOwner: TComponent);

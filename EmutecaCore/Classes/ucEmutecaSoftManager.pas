@@ -6,8 +6,8 @@ interface
 
 uses
   Classes, SysUtils, fgl, LazUTF8, LazFileUtils, IniFiles,
-  uaEmutecaCustomManager,
   uEmutecaCommon,
+  uaEmutecaCustomManager,
   uaEmutecaCustomSystem, uaEmutecaCustomGroup,
   ucEmutecaSoftList;
 
@@ -17,12 +17,10 @@ type
 
   cEmutecaSoftManager = class(caEmutecaCustomManager)
   private
-    FProgressCallBack: TEmutecaProgressCallBack;
     FSystem: caEmutecaCustomSystem;
     FFilterGroup: caEmutecaCustomGroup;
     FVisibleList: cEmutecaSoftList;
     FFullList: cEmutecaSoftList;
-    procedure SetProgressCallBack(AValue: TEmutecaProgressCallBack);
     procedure SetSystem(AValue: caEmutecaCustomSystem);
     procedure SetFilterGroup(AValue: caEmutecaCustomGroup);
 
@@ -40,9 +38,6 @@ type
 
     property VisibleList: cEmutecaSoftList read FVisibleList;
     {< Filtered soft list }
-
-    property ProgressCallBack: TEmutecaProgressCallBack
-      read FProgressCallBack write SetProgressCallBack;
 
     procedure LoadFromStrLst(TxtFile: TStrings); override;
     procedure ImportFromStrLst(aTxtFile: TStrings); override;
@@ -108,7 +103,7 @@ begin
       aSoft := FullList[i];
 
       if Assigned(ProgressCallBack) then
-      ProgressCallBack(rsSavingSystemList, aSoft.Title, aSoft.Version,
+      ProgressCallBack(rsSavingSoftList, aSoft.Title, aSoft.Version,
         i, FullList.Count);
 
       aSoft.SaveToIni(aIniFile, ExportMode);
@@ -195,12 +190,11 @@ begin
       aSoft := FullList[i];
 
       if Assigned(ProgressCallBack) then
-      ProgressCallBack(rsImportingSystemList, aSoft.Title, aSoft.Version,
+      ProgressCallBack(rsImportingSoftList, aSoft.Title, aSoft.Version,
         i, FullList.Count);
 
       aSoft.LoadFromIni(aIniFile);
       Inc(i);
-
     end;
 
   if assigned(ProgressCallBack) then
@@ -210,14 +204,6 @@ end;
 procedure cEmutecaSoftManager.ImportFromStrLst(aTxtFile: TStrings);
 begin
 
-end;
-
-procedure cEmutecaSoftManager.SetProgressCallBack(
-  AValue: TEmutecaProgressCallBack);
-begin
-  if FProgressCallBack = AValue then
-    Exit;
-  FProgressCallBack := AValue;
 end;
 
 procedure cEmutecaSoftManager.LoadFromStrLst(TxtFile: TStrings);
@@ -239,7 +225,7 @@ begin
     FullList.Add(TempSoft);
 
     if Assigned(ProgressCallBack) then
-      ProgressCallBack(rsLoadingSystemList, TempSoft.Title, TempSoft.Version,
+      ProgressCallBack(rsLoadingSoftList, TempSoft.Title, TempSoft.Version,
         i, TxtFile.Count);
 
     Inc(i);

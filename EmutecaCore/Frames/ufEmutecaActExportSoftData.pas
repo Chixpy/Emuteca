@@ -25,9 +25,7 @@ type
     gbxSystemInfo: TGroupBox;
     lSoftIDType: TLabel;
     pSelectSystem: TPanel;
-    rgbFileType: TRadioGroup;
     procedure eExportFileButtonClick(Sender: TObject);
-    procedure rgbFileTypeSelectionChanged(Sender: TObject);
 
   private
     FEmuteca: cEmuteca;
@@ -65,19 +63,6 @@ implementation
 {$R *.lfm}
 
 { TfmActExportSoftData }
-
-procedure TfmActExportSoftData.rgbFileTypeSelectionChanged(Sender: TObject);
-begin
-  case rgbFileType.ItemIndex of
-    1: eExportFile.Filter := rsEmutecaSoftFileMaskDesc + '|' +
-        krsEmutecaSoftFileMask;
-    else
-    begin
-      eExportFile.Filter := rsEmutecaINIFileMaskDesc + '|' +
-        krsEmutecaINIFileMask;
-    end;
-  end;
-end;
 
 procedure TfmActExportSoftData.eExportFileButtonClick(Sender: TObject);
 begin
@@ -140,21 +125,20 @@ end;
 
 procedure TfmActExportSoftData.SaveFrameData;
 var
-  PrevCallBack: TEmutecaProgressCallBack;
+  PCBSoft, PCBGroup: TEmutecaProgressCallBack;
 begin
   if (eExportFile.FileName = '') or (not assigned(System)) then
     Exit;
 
-  PrevCallBack := System.SoftManager.ProgressCallBack;
+  PCBSoft := System.SoftManager.ProgressCallBack;
+  PCBGroup := System.GroupManager.ProgressCallBack;
   System.SoftManager.ProgressCallBack := @(frmCHXProgressBar.UpdTextAndBar);
-  case rgbFileType.ItemIndex of
-    1: System.SaveLists(eExportFile.FileName, True);
-    else
-    begin
-      System.SoftManager.SaveToFileIni(eExportFile.FileName, True);
-    end;
-  end;
-  System.SoftManager.ProgressCallBack := PrevCallBack;
+  System.GroupManager.ProgressCallBack := @(frmCHXProgressBar.UpdTextAndBar);
+
+  System.SaveLists(ChangeFileExt(eExportFile.FileName, ''), True);
+
+  System.SoftManager.ProgressCallBack := PCBSoft;
+  System.GroupManager.ProgressCallBack := PCBGroup;
 end;
 
 class function TfmActExportSoftData.SimpleForm(aEmuteca: cEmuteca;
@@ -208,7 +192,7 @@ begin
   if not Assigned(frmCHXProgressBar) then
     Application.CreateForm(TfrmCHXProgressBar, frmCHXProgressBar);
 
-  rgbFileTypeSelectionChanged(rgbFileType);
+  eExportFile.Filter := rsEmutecaSoftFileMaskDesc + '|' + krsEmutecaSoftFileMask;
 end;
 
 destructor TfmActExportSoftData.Destroy;

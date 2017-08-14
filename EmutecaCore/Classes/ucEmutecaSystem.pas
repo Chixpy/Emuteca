@@ -70,6 +70,7 @@ type
   public
 
     procedure LoadLists(aFile: string);
+    procedure ImportLists(aFile: string);
     procedure SaveLists(aFile: string; ExportMode: boolean);
 
     procedure CacheData;
@@ -225,6 +226,11 @@ begin
     SoftManager.LoadFromFileTxt(aFile + krsEmutecaSoftFileExt);
 
   CacheData;
+end;
+
+procedure cEmutecaSystem.ImportLists(aFile: string);
+begin
+
 end;
 
 procedure cEmutecaSystem.SaveLists(aFile: string; ExportMode: boolean);

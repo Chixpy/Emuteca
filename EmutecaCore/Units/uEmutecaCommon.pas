@@ -144,6 +144,12 @@ resourcestring
   rsLoadingSystemList = 'Loading system list...';
   rsImportingSystemList = 'Importing system list...';
   rsSavingSystemList = 'Saving system list...';
+    rsLoadingSoftList = 'Loading soft list...';
+  rsImportingSoftList = 'Importing soft list...';
+  rsSavingSoftList = 'Saving soft list...';
+    rsLoadingGroupList = 'Loading group list...';
+  rsImportingGroupList = 'Importing group list...';
+  rsSavingGroupList = 'Saving group list...';
 
   // File masks for filters
   // ----------------------

@@ -5,15 +5,21 @@ unit uaEmutecaCustomManager;
 interface
 
 uses
-  Classes, SysUtils, IniFiles,
-  uaCHXStorable, LazFileUtils, LazUTF8;
+  Classes, SysUtils, IniFiles, LazFileUtils, LazUTF8,
+  uaCHXStorable,
+  uEmutecaCommon;
 
 type
 
   { caEmutecaCustomManager }
 
   caEmutecaCustomManager = class(caCHXStorableTxt)
+  private
+    FProgressCallBack: TEmutecaProgressCallBack;
+    procedure SetProgressCallBack(AValue: TEmutecaProgressCallBack);
   public
+    property ProgressCallBack: TEmutecaProgressCallBack read FProgressCallBack write SetProgressCallBack;
+
     procedure ImportFromFileIni(aFilename: string); virtual;
     procedure ImportFromIni(aIniFile: TMemIniFile); virtual; abstract;
     procedure ImportFromFileStrLst(aFilename: string); virtual;
@@ -23,6 +29,13 @@ type
 implementation
 
 { caEmutecaCustomManager }
+
+procedure caEmutecaCustomManager.SetProgressCallBack(
+  AValue: TEmutecaProgressCallBack);
+begin
+  if FProgressCallBack = AValue then Exit;
+  FProgressCallBack := AValue;
+end;
 
 procedure caEmutecaCustomManager.ImportFromFileIni(aFilename: string);
 var

@@ -84,10 +84,6 @@ msgctxt "tfmactexportsoftdata.lsoftidtype.caption"
 msgid "Soft ID Type"
 msgstr ""
 
-#: tfmactexportsoftdata.rgbfiletype.caption
-msgid "File type"
-msgstr ""
-
 #: tfmaddfolder.brun.caption
 msgid "Run"
 msgstr ""
@@ -2363,8 +2359,24 @@ msgstr ""
 msgid "Soft file list (*.txt)"
 msgstr ""
 
+#: uemutecacommon.rsimportinggrouplist
+msgid "Importing group list..."
+msgstr ""
+
+#: uemutecacommon.rsimportingsoftlist
+msgid "Importing soft list..."
+msgstr ""
+
 #: uemutecacommon.rsimportingsystemlist
 msgid "Importing system list..."
+msgstr ""
+
+#: uemutecacommon.rsloadinggrouplist
+msgid "Loading group list..."
+msgstr ""
+
+#: uemutecacommon.rsloadingsoftlist
+msgid "Loading soft list..."
 msgstr ""
 
 #: uemutecacommon.rsloadingsystemlist
@@ -2374,6 +2386,14 @@ msgstr ""
 
 #: uemutecacommon.rsnever
 msgid "Never"
+msgstr ""
+
+#: uemutecacommon.rssavinggrouplist
+msgid "Saving group list..."
+msgstr ""
+
+#: uemutecacommon.rssavingsoftlist
+msgid "Saving soft list..."
 msgstr ""
 
 #: uemutecacommon.rssavingsystemlist

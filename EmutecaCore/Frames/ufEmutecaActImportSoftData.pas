@@ -119,20 +119,20 @@ end;
 
 procedure TfmEmutecaActImportSoftData.SaveFrameData;
 var
-  PrevCallBack: TEmutecaProgressCallBack;
+  PCBSoft, PCBGroup: TEmutecaProgressCallBack;
 begin
-    if (eImportFile.FileName = '') or (not assigned(System)) then
+  if (eImportFile.FileName = '') or (not assigned(System)) then
     Exit;
 
-  PrevCallBack := System.SoftManager.ProgressCallBack;
+  PCBSoft := System.SoftManager.ProgressCallBack;
+  PCBGroup := System.GroupManager.ProgressCallBack;
   System.SoftManager.ProgressCallBack := @(frmCHXProgressBar.UpdTextAndBar);
-  if SupportedExtCT(eImportFile.FileName, krsEmutecaINIFileExt) then
-    System.SoftManager.ImportFromFileIni(eImportFile.FileName)
-  else if SupportedExtCT(eImportFile.FileName, krsEmutecaSoftFileExt) then
-    System.SoftManager.ImportFromFileStrLst(eImportFile.FileName);
-  System.SoftManager.ProgressCallBack := PrevCallBack;
+  System.GroupManager.ProgressCallBack := @(frmCHXProgressBar.UpdTextAndBar);
 
-  // TODO: Import groups data
+  system.ImportLists(ChangeFileExt(eImportFile.FileName, ''));
+
+  System.SoftManager.ProgressCallBack := PCBSoft;
+  System.GroupManager.ProgressCallBack := PCBGroup;
 end;
 
 class function TfmEmutecaActImportSoftData.SimpleForm(aEmuteca: cEmuteca;
@@ -147,7 +147,7 @@ begin
   try
     aForm.Name := 'frmEmutecaActImportSoftData';
     aForm.Caption := Format(rsFmtWindowCaption,
-      [Application.Title, 'Export soft data']);
+      [Application.Title, 'Import soft data']);
 
     aFrame := TfmEmutecaActImportSoftData.Create(aForm);
     aFrame.SaveButtons := True;
@@ -182,8 +182,7 @@ begin
   CreateFrames;
 
   // Add
-  eImportFile.Filter := rsEmutecaINIFileMaskDesc + '|' +
-        krsEmutecaINIFileMask + ';' + krsEmutecaSoftFileMask;
+  eImportFile.Filter := rsEmutecaSoftFileMaskDesc + '|' + krsEmutecaSoftFileMask;
 
   // If frmCHXProgressBar is not created...
   if not Assigned(frmCHXProgressBar) then
