@@ -29,10 +29,6 @@ uses
   uEmutecaCommon,
   ucEmutecaPlayingStats;
 
-const
-  krsCSVGroupHeader = '"ID","Title","System","Year","Developer"';
-  krsCSVGroupStatsHeader = krsCSVGroupHeader + ',' + krsCSVStatsHeader;
-
 type
 
   { caEmutecaCustomGroup }
@@ -50,8 +46,6 @@ type
     procedure SetTitle(AValue: string);
     procedure SetYear(AValue: string);
 
-  protected
-    procedure AssignTo(Dest: TPersistent); override;
 
   public
     function GetActualTitle: string;
@@ -66,6 +60,8 @@ type
       override;
     procedure SaveToStrLst(aTxtFile: TStrings; const ExportMode: boolean);
       override;
+
+    procedure ImportFrom(aGroup: caEmutecaCustomGroup);
 
     procedure SearchAllRelatedFiles(OutFileList: TStrings;
       aFolder: string; Extensions: TStrings; AutoExtract: boolean); virtual;
@@ -134,18 +130,15 @@ begin
   FYear := AValue;
 end;
 
-procedure caEmutecaCustomGroup.AssignTo(Dest: TPersistent);
+procedure caEmutecaCustomGroup.ImportFrom(aGroup: caEmutecaCustomGroup);
 begin
-  if Dest is caEmutecaCustomGroup then
-    with Dest as caEmutecaCustomGroup do
-    begin
-      ID := Self.ID;
-      Title := Self.Title;
-      Year := Self.Year;
-      Developer := Self.Developer;
-    end
-  else
-    inherited AssignTo(Dest); // Launch an Exception.
+  if not assigned(aGroup) then
+    Exit;
+
+  ID := aGroup.ID;
+  Title := aGroup.Title;
+  Year := aGroup.Year;
+  Developer := aGroup.Developer;
 end;
 
 function caEmutecaCustomGroup.GetActualTitle: string;

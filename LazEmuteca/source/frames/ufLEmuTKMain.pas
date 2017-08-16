@@ -131,9 +131,11 @@ begin
   end
   else
   begin
-     fmEmutecaSystemCBX.SystemList := nil;
+    fmEmutecaSystemCBX.SystemList := nil;
     fmCHXTagTree.Folder := '';
     fmSoftTree.GroupList := nil;
+    fmSoftEditor.Software:= nil;
+    fmSoftMedia.Software := nil;
   end;
 
   LoadFrameData;

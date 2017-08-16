@@ -186,7 +186,7 @@ begin
       // aGroup1 > aGroup2 -> Not found.
       // aGroup1 = aGroup2 -> Match.
       if aComp = 0 then
-        aGroup1.Assign(aGroup2);
+        aGroup1.ImportFrom(aGroup2);
     end;
 
   finally
@@ -303,7 +303,7 @@ begin
   if ExportMode then
     ExportList(aTxtFile)
   else
-    SaveList(aTxtFile);   -
+    SaveList(aTxtFile);
 end;
 
 constructor cEmutecaGroupManager.Create(aOwner: TComponent);

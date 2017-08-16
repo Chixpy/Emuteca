@@ -92,7 +92,7 @@ begin
   begin
     eSoftIDType.Text := EmutecaSoftExportKey2StrK(System.SoftExportKey);
     eExportFile.Enabled := True;
-    eExportFile.FileName := System.FileName + krsEmutecaSoftFileExt;
+    eExportFile.FileName := ExtractFilePath(eExportFile.FileName) + System.FileName + krsEmutecaSoftFileExt;
   end
   else
   begin

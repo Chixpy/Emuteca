@@ -169,7 +169,7 @@ begin
   j := SoftManager.FullList.Count;
   while j >= 1 do
   begin
-    dec(j);
+    Dec(j);
     aSoft := SoftManager.FullList[j];
 
     if assigned(aGroup) then
@@ -187,9 +187,9 @@ begin
         aGroup := nil;
 
       if assigned(aGroup) then
-            aComp := aSoft.CompareGroupKey(aGroup.ID)
-          else
-            aComp := 1; // aSoft.CompareGroupKey('');
+        aComp := aSoft.CompareGroupKey(aGroup.ID)
+      else
+        aComp := 1; // aSoft.CompareGroupKey('');
     end;
 
     // (Group < Soft) -> Ops, group doesn't exist
@@ -198,8 +198,6 @@ begin
 
     aGroup.SoftList.Add(aSoft);
     aSoft.CachedGroup := aGroup;
-
-    Dec(j);
   end;
 
   // Adding to visible list groups with soft

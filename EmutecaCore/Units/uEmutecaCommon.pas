@@ -68,6 +68,9 @@ const
     '"Zone","DumpStatus","DumpInfo","Fixed","Trainer","Translation",' +
     '"Pirate","Cracked","Modified","Hack"';
   krsCSVSoftStatsHeader = krsCSVSoftHeader + ',' + krsCSVStatsHeader;
+    krsCSVGroupHeader = '"ID","Title","Year","Developer"';
+  krsCSVGroupStatsHeader = krsCSVGroupHeader + ',' + krsCSVStatsHeader;
+
 
   // IniKeys
   // -------

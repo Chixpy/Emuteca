@@ -26,7 +26,7 @@ unit ucEmutecaSystemManager;
 interface
 
 uses
-  Classes, SysUtils, LazFileUtils, LazUTF8, IniFiles,
+  Classes, SysUtils, fgl, LazFileUtils, LazUTF8, IniFiles,
   uCHXStrUtils,
   uaCHXStorable,
   uEmutecaCommon,
@@ -58,6 +58,8 @@ type
     //< Reload last data file WITHOUT saving changes.
     procedure SaveData;
     //< Save data to last data file.
+
+    procedure UpdateEnabledList;
 
     property ProgressCallBack: TEmutecaProgressCallBack
       read FProgressCallBack write SetProgressCallBack;
@@ -130,6 +132,22 @@ begin
   SaveToFileIni('', False);
 end;
 
+procedure cEmutecaSystemManager.UpdateEnabledList;
+var
+  i: Integer;
+  aSys: cEmutecaSystem;
+begin
+  EnabledList.Clear;
+  i := 0;
+  while i < FullList.Count do
+  begin
+    aSys := FullList[i];
+    if aSys.Enabled then
+        EnabledList.Add(aSys);
+  inc(i);
+  end;
+end;
+
 procedure cEmutecaSystemManager.LoadFromIni(aIniFile: TIniFile);
 var
   TempList: TStringList;
@@ -152,22 +170,23 @@ begin
       TempSys.TempFolder := TempFolder;
       TempSys.IniFileName := IniFileName;
       TempSys.LoadFromIni(aIniFile);
-      FullList.Add(TempSys);
-      if TempSys.Enabled then
-        EnabledList.Add(TempSys);
-      Inc(i);
 
       if assigned(ProgressCallBack) then
         ProgressCallBack(rsLoadingSystemList, TempSys.ID,
           TempSys.Title, i, TempList.Count);
 
+      FullList.Add(TempSys);
+      Inc(i);
+
+
       if TempSys.Enabled then
         TempSys.LoadSoftGroupLists(SysDataFolder + TempSys.FileName);
-
     end;
   finally
     FreeAndNil(TempList);
   end;
+
+  UpdateEnabledList;
 
   if assigned(ProgressCallBack) then
     ProgressCallBack('', '', '', 0, 0);

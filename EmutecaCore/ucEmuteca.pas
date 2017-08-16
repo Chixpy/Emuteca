@@ -131,7 +131,6 @@ end;
 procedure cEmutecaCacheDataThread.Execute;
 var
   aSoft: cEmutecaSoftware;
-  // aGroup: cEmutecaGroup;
   aFolder, aFile: string;
   aSha1: TSHA1Digest;
   CurrSysPos, CurrSoftPos: integer;
@@ -139,30 +138,6 @@ var
 begin
   if not Assigned(SystemManager) then
     Exit;
-
-  // Already done by system itself.
-  //  // Caching groups
-  //  CurrSoftPos := 0;
-  //  aGroup := nil;
-  //  while (not Terminated) and (CurrSoftPos < SoftList.Count) do
-  //  begin
-  //    aSoft := SoftList[CurrSoftPos];
-
-  //    if not Assigned(aSoft.Group) then
-  //    begin
-  //      if not aSoft.MatchGroupKey(aGroup) then
-  //      begin
-  //        aGroup := aSoft.System.GroupManager.ItemById(aSoft.GroupKey, True);
-  //      end;
-  //      if not terminated then
-  //        aSoft.Group := aGroup;
-  //    end;
-
-  //    Inc(FCurrSoftPos);
-  //  end;
-
-  //  if Terminated then
-  //    Exit;
 
   if TempFolder = '' then
     Exit;

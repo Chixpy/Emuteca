@@ -147,7 +147,7 @@ begin
   try
     aForm.Name := 'frmEmutecaActImportSoftData';
     aForm.Caption := Format(rsFmtWindowCaption,
-      [Application.Title, 'Import soft data']);
+      [Application.Title, 'Import soft data...']);
 
     aFrame := TfmEmutecaActImportSoftData.Create(aForm);
     aFrame.SaveButtons := True;

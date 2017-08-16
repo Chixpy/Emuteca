@@ -386,8 +386,13 @@ end;
 
 procedure TfrmLEmuTKMain.actImportSoftDataExecute(Sender: TObject);
 begin
+  // Fix runtime errors, while trying to update if something is changed
+  fmEmutecaMainFrame.Emuteca := nil;
+
   TfmEmutecaActImportSoftData.SimpleForm(Emuteca, GUIIconsFile,
     GUIConfig.ConfigFile);
+
+  fmEmutecaMainFrame.Emuteca := Emuteca;
 end;
 
 procedure TfrmLEmuTKMain.actMediaManagerExecute(Sender: TObject);
@@ -444,17 +449,13 @@ end;
 
 procedure TfrmLEmuTKMain.actSystemManagerExecute(Sender: TObject);
 begin
-  // Fix runtime errors, while trying to update
+  // Fix runtime errors, while trying to update if something is changed
   fmEmutecaMainFrame.Emuteca := nil;
-
-  Emuteca.SaveData;
 
   TfmLEmuTKSysManager.SimpleForm(Emuteca, SHA1Folder, GUIIconsFile,
     GUIConfig.ConfigFile);
 
-  // Load anyway until SysManager creates/destroy systems on the fly.
-  // SysMng saves Emuteca when mrOK
-  LoadEmuteca;
+  fmEmutecaMainFrame.Emuteca := Emuteca;
 end;
 
 procedure TfrmLEmuTKMain.FormCloseQuery(Sender: TObject;

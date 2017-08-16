@@ -118,6 +118,8 @@ type
     procedure SaveToIni(aIniFile: TMemIniFile; const ExportMode: boolean);
       override;
 
+    procedure ImportFrom(aSoft: caEmutecaCustomSoft);
+
     procedure SearchAllRelatedFiles(OutFileList: TStrings;
       aFolder: string; Extensions: TStrings; AutoExtract: boolean); virtual;
     function SearchFirstRelatedFile(aFolder: string;
@@ -463,18 +465,18 @@ end;
 
 function caEmutecaCustomSoft.MatchGroupKey(aGroupID: string): boolean;
 begin
-   Result := CompareGroupKey(aGroupID) = 0;
+  Result := CompareGroupKey(aGroupID) = 0;
 end;
 
 function caEmutecaCustomSoft.CompareGroupKey(aGroupID: string): integer;
 begin
-   Result := UTF8CompareText(Self.GroupKey, aGroupID);
+  Result := UTF8CompareText(Self.GroupKey, aGroupID);
 end;
 
 function caEmutecaCustomSoft.MatchGroupFile: boolean;
 begin
-  Result := CompareFilenames(GroupKey,
-    RemoveFromBrackets(ExtractFileNameOnly(FileName))) = 0;
+  Result := CompareFilenames(GroupKey, RemoveFromBrackets(
+    ExtractFileNameOnly(FileName))) = 0;
 end;
 
 procedure caEmutecaCustomSoft.LoadFromStrLst(aTxtFile: TStrings);
@@ -486,7 +488,7 @@ begin
     aTxtFile.Add('');
 
   GroupKey := aTxtFile[0];
-  HexToBin(PChar(aTxtFile[1]), @SHA1, 20);
+  SHA1 := StringToSHA1Digest(aTxtFile[1]);
   ID := aTxtFile[2];
 
   if aTxtFile[3] <> '' then
@@ -526,16 +528,18 @@ begin
     Exit;
 
   aTxtFile.Add(GroupKey);
-  aTxtFile.Add(SHA1Print(SHA1));
-  aTxtFile.Add(GetActualID); // If SHA1 = ID then FID = ''
 
   if ExportMode then
   begin
+    aTxtFile.Add('');
+    aTxtFile.Add(ID); // Exporting only ID
     aTxtFile.Add('');
     aTxtFile.Add('');
   end
   else
   begin
+    aTxtFile.Add(SHA1Print(SHA1));
+    aTxtFile.Add(GetActualID); // If SHA1 = ID then FID = ''
     aTxtFile.Add(Folder);
     aTxtFile.Add(FileName);
   end;
@@ -586,8 +590,10 @@ begin
 
   GroupKey := aIniFile.ReadString(Section, krsIniKeyGroup, GroupKey);
   Title := aIniFile.ReadString(Section, krsIniKeyTitle, GetActualTitle);
-  TranslitTitle := aIniFile.ReadString(Section, krsIniKeyTranslitTitl, GetActualTranslitTitle);
-  SortTitle := aIniFile.ReadString(Section, krsIniKeySortTitle, GetActualSortTitle);
+  TranslitTitle := aIniFile.ReadString(Section, krsIniKeyTranslitTitl,
+    GetActualTranslitTitle);
+  SortTitle := aIniFile.ReadString(Section, krsIniKeySortTitle,
+    GetActualSortTitle);
 
   // Release data
   // ------------
@@ -598,8 +604,8 @@ begin
 
   // Version Flags
   // ---------------
-  DumpStatus := Key2EmutecaDumpSt(aIniFile.ReadString(Section, krsIniKeyDumpStatus,
-    EmutecaDumpSt2Key(DumpStatus)));
+  DumpStatus := Key2EmutecaDumpSt(aIniFile.ReadString(Section,
+    krsIniKeyDumpStatus, EmutecaDumpSt2Key(DumpStatus)));
   DumpInfo := aIniFile.ReadString(Section, krsIniKeyDumpInfo, DumpInfo);
   Fixed := aIniFile.ReadString(Section, krsIniKeyFixed, Fixed);
   Trainer := aIniFile.ReadString(Section, krsIniKeyTrainer, Trainer);
@@ -667,6 +673,34 @@ begin
   end;
 
   Stats.WriteToIni(aIniFile, Section, ExportMode);
+end;
+
+procedure caEmutecaCustomSoft.ImportFrom(aSoft: caEmutecaCustomSoft);
+begin
+  if not Assigned(aSoft) then
+    Exit;
+
+  GroupKey := aSoft.GroupKey;
+
+  Title := aSoft.Title;
+  TranslitTitle := aSoft.TranslitTitle;
+  SortTitle := aSoft.SortTitle;
+
+  Version := aSoft.Version;
+  Year := aSoft.Year;
+  Publisher := aSoft.Publisher;
+  Zone := aSoft.Zone;
+
+  DumpStatus := aSoft.DumpStatus;
+  DumpInfo := aSoft.DumpInfo;
+  Fixed := aSoft.Fixed;
+  Trainer := aSoft.Trainer;
+  Translation := aSoft.Translation;
+  Pirate := aSoft.Pirate;
+  Cracked := aSoft.Cracked;
+  Modified := aSoft.Modified;
+  Hack := aSoft.Hack;
+
 end;
 
 procedure caEmutecaCustomSoft.SearchAllRelatedFiles(OutFileList: TStrings;

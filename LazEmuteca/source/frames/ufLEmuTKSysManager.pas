@@ -27,13 +27,13 @@ type
   private
     FEmuteca: cEmuteca;
     FSHA1Folder: string;
-    FSysEditor: TfmLEmuTKFullSystemEditor;
+    FfmSysEditor: TfmLEmuTKFullSystemEditor;
     procedure SetEmuteca(AValue: cEmuteca);
     procedure SetSHA1Folder(AValue: string);
 
   protected
 
-    property SysEditor: TfmLEmuTKFullSystemEditor read FSysEditor;
+    property fmSysEditor: TfmLEmuTKFullSystemEditor read FfmSysEditor;
 
     procedure SetGUIIconsIni(AValue: string); override;
     procedure AddItemToList; override;
@@ -49,6 +49,7 @@ type
 
   public
     property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
+    //< Needed by fmSysEditor
     property SHA1Folder: string read FSHA1Folder write SetSHA1Folder;
 
     procedure SaveFrameData; override;
@@ -100,7 +101,7 @@ begin
     Exit;
   FEmuteca := AValue;
 
-  SysEditor.Emuteca := Emuteca;
+  fmSysEditor.Emuteca := Emuteca;
 
   LoadFrameData;
 end;
@@ -108,12 +109,12 @@ end;
 procedure TfmLEmuTKSysManager.SetSHA1Folder(AValue: string);
 begin
   FSHA1Folder := SetAsFolder(AValue);
-  SysEditor.SHA1Folder := SHA1Folder;
+  fmSysEditor.SHA1Folder := SHA1Folder;
 end;
 
 procedure TfmLEmuTKSysManager.OnListClick(aObject: TObject);
 begin
-  SysEditor.System := cEmutecaSystem(aObject);
+  fmSysEditor.System := cEmutecaSystem(aObject);
 end;
 
 procedure TfmLEmuTKSysManager.OnListClickCheck(aObject: TObject;
@@ -144,7 +145,7 @@ begin
 
   LoadFrameData;
 
-  SysEditor.System := aSystem;
+  fmSysEditor.System := aSystem;
 end;
 
 procedure TfmLEmuTKSysManager.DeleteItemFromList;
@@ -154,7 +155,7 @@ begin
   if clbPropItems.ItemIndex = -1 then
     exit;
 
-  SysEditor.System := nil;
+  fmSysEditor.System := nil;
   try
     // TODO: Don't delete systems on the fly, only when saved
     Emuteca.SystemManager.FullList.Remove(
@@ -246,7 +247,7 @@ begin
     Inc(i);
   end;
 
-  Emuteca.SaveData;
+  Emuteca.SystemManager.UpdateEnabledList;
 end;
 
 class function TfmLEmuTKSysManager.SimpleForm(aEmuteca: cEmuteca;
@@ -285,11 +286,11 @@ constructor TfmLEmuTKSysManager.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
 
-  FSysEditor := TfmLEmuTKFullSystemEditor.Create(Self);
-  SysEditor.SaveButtons := True;
-  SysEditor.ButtonClose := False;
-  SysEditor.Align := alClient;
-  SysEditor.Parent := Self;
+  FfmSysEditor := TfmLEmuTKFullSystemEditor.Create(Self);
+  fmSysEditor.SaveButtons := True;
+  fmSysEditor.ButtonClose := False;
+  fmSysEditor.Align := alClient;
+  fmSysEditor.Parent := Self;
 end;
 
 destructor TfmLEmuTKSysManager.Destroy;

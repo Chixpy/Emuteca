@@ -260,7 +260,7 @@ begin
           j, FullList.Count);
 
       if assigned(aSoft2) then
-        aComp := aSoft1.CompareGroupKey(aSoft2.ID)
+        aComp := aSoft1.CompareID(aSoft2.ID)
       else
         aComp := 1; // aSoft1.CompareGroupKey('');
 
@@ -274,14 +274,14 @@ begin
           aSoft2 := nil;
 
         if assigned(aSoft2) then
-          aComp := aSoft1.CompareGroupKey(aSoft2.ID)
+          aComp := aSoft1.CompareID(aSoft2.ID)
         else
           aComp := 1; // aSoft1.CompareGroupKey('');
       end;
       // aSoft1 > aSoft2 -> Not found.
       // aSoft1 = aSoft2 -> Match.
       if aComp = 0 then
-        aSoft1.Assign(aSoft2);
+        aSoft1.ImportFrom(aSoft2);
     end;
 
   finally
@@ -292,9 +292,6 @@ begin
 end;
 
 procedure cEmutecaSoftManager.LoadFromStrLst(aTxtFile: TStrings);
-var
-  i: integer;
-  TempSoft: cEmutecaSoftware;
 begin
   if not Assigned(aTxtFile) then
     Exit;
