@@ -38,9 +38,7 @@ type
     property fmSystemCBX: TfmEmutecaSystemCBX read FfmSystemCBX;
 
     property System: cEmutecaSystem read FSystem write SetSystem;
-
     function SelectSystem(aSystem: cEmutecaSystem): boolean;
-
 
     procedure ClearFrameData; override;
     procedure LoadFrameData; override;
@@ -89,6 +87,18 @@ begin
   if FSystem = AValue then
     Exit;
   FSystem := AValue;
+
+  if Assigned(System) then
+  begin
+    eSoftIDType.Text := EmutecaSoftExportKey2StrK(System.SoftExportKey);
+    eExportFile.Enabled := True;
+    eExportFile.FileName := System.FileName + krsEmutecaSoftFileExt;
+  end
+  else
+  begin
+    eSoftIDType.Clear;
+    eExportFile.Enabled := False;
+  end;
 end;
 
 function TfmActExportSoftData.SelectSystem(aSystem: cEmutecaSystem): boolean;
@@ -96,15 +106,6 @@ begin
   Result := True;
 
   System := aSystem;
-
-  if Assigned(System) then
-  begin
-    eSoftIDType.Text := EmutecaSoftExportKey2StrK(System.SoftExportKey);
-  end
-  else
-  begin
-    eSoftIDType.Clear;
-  end;
 end;
 
 procedure TfmActExportSoftData.ClearFrameData;
@@ -125,20 +126,17 @@ end;
 
 procedure TfmActExportSoftData.SaveFrameData;
 var
-  PCBSoft, PCBGroup: TEmutecaProgressCallBack;
+  PCB: TEmutecaProgressCallBack;
 begin
   if (eExportFile.FileName = '') or (not assigned(System)) then
     Exit;
 
-  PCBSoft := System.SoftManager.ProgressCallBack;
-  PCBGroup := System.GroupManager.ProgressCallBack;
-  System.SoftManager.ProgressCallBack := @(frmCHXProgressBar.UpdTextAndBar);
-  System.GroupManager.ProgressCallBack := @(frmCHXProgressBar.UpdTextAndBar);
+  PCB := System.ProgressCallBack;
+  System.ProgressCallBack := @(frmCHXProgressBar.UpdTextAndBar);
 
-  System.SaveLists(ChangeFileExt(eExportFile.FileName, ''), True);
+  System.SaveSoftGroupLists(ChangeFileExt(eExportFile.FileName, ''), True);
 
-  System.SoftManager.ProgressCallBack := PCBSoft;
-  System.GroupManager.ProgressCallBack := PCBGroup;
+  System.ProgressCallBack := PCB;
 end;
 
 class function TfmActExportSoftData.SimpleForm(aEmuteca: cEmuteca;

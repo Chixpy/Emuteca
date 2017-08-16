@@ -91,7 +91,6 @@ type
     property SHA1: TSHA1Digest read FSHA1 write SetSHA1;
     {< SHA1 of the file. For searching in SHA1 DB. }
 
-
     function GetActualID: string;
     //< Gets actual ID string, not automade.
     function GetActualTitle: string;
@@ -103,12 +102,19 @@ type
 
     function SHA1IsEmpty: boolean;
     function MatchSHA1(aSHA1: TSHA1Digest): boolean;
-    function MatchMFile(aSoft: caEmutecaCustomSoft): boolean;
+    function MatchFile(aFolder, aFile: string): boolean;
+    function MatchID(aID: string): boolean;
+    function CompareID(aID: string): integer;
+    function MatchGroupKey(aGroupID: string): boolean;
+    function CompareGroupKey(aGroupID: string): integer;
+    function MatchGroupFile: boolean; virtual;
+
+
 
     procedure LoadFromStrLst(aTxtFile: TStrings); override;
     procedure SaveToStrLst(aTxtFile: TStrings; const ExportMode: boolean);
       override;
-    procedure LoadFromIni(aIniFile: TMemIniFile); override;
+    procedure LoadFromIni(aIniFile: TIniFile); override;
     procedure SaveToIni(aIniFile: TMemIniFile; const ExportMode: boolean);
       override;
 
@@ -239,11 +245,6 @@ begin
     Exit;
 
   Result := UTF8LowerString(TranslitTitle);
-  if Result <> '' then
-    Exit;
-
-  // Surely we never execute this...
-  Result := UTF8LowerString(Title);
 end;
 
 function caEmutecaCustomSoft.GetTitle: string;
@@ -260,11 +261,7 @@ begin
   if Result <> '' then
     Exit;
 
-  Result := GetActualTitle;
-  if Result <> '' then
-    Exit;
-
-  Result := GroupKey;
+  Result := Title;
 end;
 
 procedure caEmutecaCustomSoft.SetCracked(AValue: string);
@@ -362,10 +359,10 @@ end;
 
 procedure caEmutecaCustomSoft.SetSortTitle(AValue: string);
 begin
-  if (UTF8CompareText(AValue, TranslitTitle) = 0) or (TranslitTitle = '') then
+  if (UTF8CompareText(AValue, TranslitTitle) = 0) then
     FSortTitle := ''
   else
-    FSortTitle := UTF8LowerString(AValue);
+    FSortTitle := AValue;
 end;
 
 procedure caEmutecaCustomSoft.SetTitle(AValue: string);
@@ -391,7 +388,10 @@ end;
 
 procedure caEmutecaCustomSoft.SetTranslitTitle(AValue: string);
 begin
-
+  if (UTF8CompareText(AValue, Title) = 0) then
+    FTranslitTitle := ''
+  else
+    FTranslitTitle := AValue;
 end;
 
 procedure caEmutecaCustomSoft.SetVersion(AValue: string);
@@ -445,10 +445,36 @@ begin
   Result := SHA1Match(SHA1, aSHA1);
 end;
 
-function caEmutecaCustomSoft.MatchMFile(aSoft: caEmutecaCustomSoft): boolean;
+function caEmutecaCustomSoft.MatchFile(aFolder, aFile: string): boolean;
 begin
-  Result := (CompareFilenames(FileName, aSoft.FileName) = 0) and
-    (CompareFilenames(Folder, aSoft.Folder) = 0);
+  Result := (CompareFilenames(FileName, aFile) = 0) and
+    (CompareFilenames(Folder, aFolder) = 0);
+end;
+
+function caEmutecaCustomSoft.MatchID(aID: string): boolean;
+begin
+  Result := CompareID(aID) = 0;
+end;
+
+function caEmutecaCustomSoft.CompareID(aID: string): integer;
+begin
+  Result := UTF8CompareText(Self.ID, aID);
+end;
+
+function caEmutecaCustomSoft.MatchGroupKey(aGroupID: string): boolean;
+begin
+   Result := CompareGroupKey(aGroupID) = 0;
+end;
+
+function caEmutecaCustomSoft.CompareGroupKey(aGroupID: string): integer;
+begin
+   Result := UTF8CompareText(Self.GroupKey, aGroupID);
+end;
+
+function caEmutecaCustomSoft.MatchGroupFile: boolean;
+begin
+  Result := CompareFilenames(GroupKey,
+    RemoveFromBrackets(ExtractFileNameOnly(FileName))) = 0;
 end;
 
 procedure caEmutecaCustomSoft.LoadFromStrLst(aTxtFile: TStrings);
@@ -536,7 +562,7 @@ begin
   Stats.WriteToStrLst(aTxtFile, ExportMode);
 end;
 
-procedure caEmutecaCustomSoft.LoadFromIni(aIniFile: TMemIniFile);
+procedure caEmutecaCustomSoft.LoadFromIni(aIniFile: TIniFile);
 var
   Section: string;
 begin

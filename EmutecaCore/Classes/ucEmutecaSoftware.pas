@@ -55,8 +55,7 @@ type
     property CachedGroup: caEmutecaCustomGroup
       read FCachedGroup write SetCachedGroup;
 
-    function MatchGroup(aGroup: caEmutecaCustomGroup): boolean;
-    function MatchGroupFile: boolean;
+    function MatchGroupFile: boolean; override;
 
     procedure SearchAllRelatedFiles(OutFileList: TStrings;
       aFolder: string; Extensions: TStrings; AutoExtract: boolean); override;
@@ -135,24 +134,15 @@ begin
     FTitle := AValue;
 end;
 
-function cEmutecaSoftware.MatchGroup(aGroup: caEmutecaCustomGroup): boolean;
-begin
-  if Assigned(aGroup) then
-    Result := UTF8CompareText(Self.GroupKey, aGroup.ID) = 0
-  else
-    Result := False;
-end;
-
 function cEmutecaSoftware.MatchGroupFile: boolean;
 begin
-  if not Assigned(CachedGroup) then
+  if Assigned(CachedGroup) then
   begin
-    Result := False;
-    Exit;
-  end;
-
-  Result := CompareFilenames(RemoveFromBrackets(CachedGroup.ID),
-    RemoveFromBrackets(ExtractFileNameOnly(FileName))) = 0;
+    Result := CompareFilenames(CachedGroup.ID,
+      RemoveFromBrackets(ExtractFileNameOnly(FileName))) = 0;
+  end
+  else
+  inherited MatchGroupFile;
 end;
 
 procedure cEmutecaSoftware.SearchAllRelatedFiles(OutFileList: TStrings;

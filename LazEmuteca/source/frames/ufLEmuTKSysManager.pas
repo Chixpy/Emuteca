@@ -231,13 +231,13 @@ begin
       if aSystem.Enabled then
       begin
         // Saving soft of previously enabled systems ...
-        aSystem.SaveLists(Emuteca.SystemManager.SysDataFolder +
+        aSystem.SaveSoftGroupLists(Emuteca.SystemManager.SysDataFolder +
           aSystem.FileName, False);
       end
       else
       begin
         // ... loading soft of previously disabled systems
-        aSystem.LoadLists(Emuteca.SystemManager.SysDataFolder +
+        aSystem.LoadSoftGroupLists(Emuteca.SystemManager.SysDataFolder +
           aSystem.FileName);
       end;
       aSystem.Enabled := clbPropItems.Checked[i];

@@ -92,7 +92,7 @@ type
     {< System temp folder for decompressing media
     }
 
-    procedure LoadFromIni(aIniFile: TMemIniFile); override;
+    procedure LoadFromIni(aIniFile: TIniFile); override;
     procedure SaveToIni(aIniFile: TMemIniFile; const ExportMode: boolean);
       override;
 
@@ -210,7 +210,7 @@ implementation
 
 { caEmutecaCustomSystem }
 
-procedure caEmutecaCustomSystem.LoadFromIni(aIniFile: TMemIniFile);
+procedure caEmutecaCustomSystem.LoadFromIni(aIniFile: TIniFile);
 begin
   if aIniFile = nil then
     Exit;

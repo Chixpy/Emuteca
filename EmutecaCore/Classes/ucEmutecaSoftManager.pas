@@ -25,6 +25,7 @@ type
     procedure SetFilterGroup(AValue: caEmutecaCustomGroup);
 
   protected
+    procedure ActLoadStrLst(aSoftLst: cEmutecaSoftList; aTxtFile: TStrings);
 
   public
     procedure ClearData;
@@ -39,12 +40,12 @@ type
     property VisibleList: cEmutecaSoftList read FVisibleList;
     {< Filtered soft list }
 
-    procedure LoadFromStrLst(TxtFile: TStrings); override;
+    procedure LoadFromStrLst(aTxtFile: TStrings); override;
     procedure ImportFromStrLst(aTxtFile: TStrings); override;
-    procedure SaveToStrLst(TxtFile: TStrings; const ExportMode: boolean);
+    procedure SaveToStrLst(aTxtFile: TStrings; const ExportMode: boolean);
       override;
-    procedure LoadFromIni(aIniFile: TMemIniFile); override;
-    procedure ImportFromIni(aIniFile: TMemIniFile); override;
+    procedure LoadFromIni(aIniFile: TIniFile); override;
+    procedure ImportFromIni(aIniFile: TIniFile); override;
     procedure SaveToIni(aIniFile: TMemIniFile; const ExportMode: boolean);
       override;
 
@@ -78,7 +79,7 @@ begin
   inherited Destroy;
 end;
 
-procedure cEmutecaSoftManager.LoadFromIni(aIniFile: TMemIniFile);
+procedure cEmutecaSoftManager.LoadFromIni(aIniFile: TIniFile);
 begin
 
 end;
@@ -103,8 +104,8 @@ begin
       aSoft := FullList[i];
 
       if Assigned(ProgressCallBack) then
-      ProgressCallBack(rsSavingSoftList, aSoft.Title, aSoft.Version,
-        i, FullList.Count);
+        ProgressCallBack(rsSavingSoftList, aSoft.Title, aSoft.Version,
+          i, FullList.Count);
 
       aSoft.SaveToIni(aIniFile, ExportMode);
       Inc(i);
@@ -158,6 +159,31 @@ begin
   end;
 end;
 
+procedure cEmutecaSoftManager.ActLoadStrLst(aSoftLst: cEmutecaSoftList;
+  aTxtFile: TStrings);
+var
+  aSoft: cEmutecaSoftware;
+  i: integer;
+begin
+  // aSoftLst.BeginUpdate;
+  aSoftLst.Capacity := aSoftLst.Count + aTxtFile.Count; // Speed Up?
+  i := 1; // Skipping Header
+  while i < aTxtFile.Count do
+  begin
+    aSoft := cEmutecaSoftware.Create(nil);
+    aSoft.TXTString := aTxtFile[i];
+    aSoft.CachedSystem := System;
+    aSoftLst.Add(aSoft);
+
+    if Assigned(ProgressCallBack) then
+      ProgressCallBack(rsLoadingSoftList, aSoft.Title, aSoft.Version,
+        i, aTxtFile.Count);
+
+    Inc(i);
+  end;
+  // aSoftLst.EndUpdate;
+end;
+
 procedure cEmutecaSoftManager.SetSystem(AValue: caEmutecaCustomSystem);
 var
   aSoft: cEmutecaSoftware;
@@ -176,7 +202,7 @@ begin
   end;
 end;
 
-procedure cEmutecaSoftManager.ImportFromIni(aIniFile: TMemIniFile);
+procedure cEmutecaSoftManager.ImportFromIni(aIniFile: TIniFile);
 var
   aSoft: cEmutecaSoftware;
   i: integer;
@@ -184,96 +210,174 @@ begin
   if not Assigned(aIniFile) then
     Exit;
 
-    i := 0;
-    while i < FullList.Count do
-    begin
-      aSoft := FullList[i];
+  i := 0;
+  while i < FullList.Count do
+  begin
+    aSoft := FullList[i];
 
-      if Assigned(ProgressCallBack) then
+    if Assigned(ProgressCallBack) then
       ProgressCallBack(rsImportingSoftList, aSoft.Title, aSoft.Version,
         i, FullList.Count);
 
-      aSoft.LoadFromIni(aIniFile);
-      Inc(i);
-    end;
+    aSoft.LoadFromIni(aIniFile);
+    Inc(i);
+  end;
 
   if assigned(ProgressCallBack) then
     ProgressCallBack('', '', '', 0, 0);
 end;
 
 procedure cEmutecaSoftManager.ImportFromStrLst(aTxtFile: TStrings);
+var
+  aSoftLst: cEmutecaSoftList;
+  i, j, aComp: integer;
+  aSoft1, aSoft2: cEmutecaSoftware;
 begin
+  if not Assigned(aTxtFile) then
+    Exit;
 
+  aSoftLst := cEmutecaSoftList.Create(True);
+  try
+    // Loading import group list
+    ActLoadStrLst(aSoftLst, aTxtFile);
+
+    aSoftLst.Sort(@EmutecaCompareSoftByID);
+    FullList.Sort(@EmutecaCompareSoftByID);
+
+    i := aSoftLst.Count - 1;
+    if i >= 0 then
+      aSoft2 := aSoftLst[i]
+    else
+      aSoft2 := nil;
+    j := FullList.Count;
+    while j > 0 do
+    begin
+      Dec(j);
+      aSoft1 := FullList[j];
+
+      if assigned(ProgressCallBack) then
+        ProgressCallBack(rsImportingGroupList, aSoft1.Title, aSoft1.ID,
+          j, FullList.Count);
+
+      if assigned(aSoft2) then
+        aComp := aSoft1.CompareGroupKey(aSoft2.ID)
+      else
+        aComp := 1; // aSoft1.CompareGroupKey('');
+
+      // aSoft1 < aSoft2 -> Try Previous group2
+      while aComp < 0 do
+      begin
+        Dec(i);
+        if i >= 0 then
+          aSoft2 := aSoftLst[i]
+        else
+          aSoft2 := nil;
+
+        if assigned(aSoft2) then
+          aComp := aSoft1.CompareGroupKey(aSoft2.ID)
+        else
+          aComp := 1; // aSoft1.CompareGroupKey('');
+      end;
+      // aSoft1 > aSoft2 -> Not found.
+      // aSoft1 = aSoft2 -> Match.
+      if aComp = 0 then
+        aSoft1.Assign(aSoft2);
+    end;
+
+  finally
+    aSoftLst.Free;
+  end;
+  if assigned(ProgressCallBack) then
+    ProgressCallBack('', '', '', 0, 0);
 end;
 
-procedure cEmutecaSoftManager.LoadFromStrLst(TxtFile: TStrings);
+procedure cEmutecaSoftManager.LoadFromStrLst(aTxtFile: TStrings);
 var
   i: integer;
   TempSoft: cEmutecaSoftware;
 begin
-  if not Assigned(TxtFile) then
+  if not Assigned(aTxtFile) then
     Exit;
 
-  // FullList.BeginUpdate;
-  FullList.Capacity := FullList.Count + TxtFile.Count; // Speed Up?
-  i := 1; // Skipping Header
-  while i < TxtFile.Count do
-  begin
-    TempSoft := cEmutecaSoftware.Create(nil);
-    TempSoft.TXTString := TxtFile[i];
-    TempSoft.CachedSystem := System;
-    FullList.Add(TempSoft);
-
-    if Assigned(ProgressCallBack) then
-      ProgressCallBack(rsLoadingSoftList, TempSoft.Title, TempSoft.Version,
-        i, TxtFile.Count);
-
-    Inc(i);
-  end;
-  // FullList.EndUpdate;
+  ActLoadStrLst(FullList, aTxtFile);
 
   VisibleList.Assign(FullList);
-  if assigned(ProgressCallBack) then
-    ProgressCallBack('', '', '', 0, 0);
-
 end;
 
-procedure cEmutecaSoftManager.SaveToStrLst(TxtFile: TStrings;
+procedure cEmutecaSoftManager.SaveToStrLst(aTxtFile: TStrings;
   const ExportMode: boolean);
-var
-  i: integer;
-  aSoft: cEmutecaSoftware;
+
+  procedure SaveList(aTxtFile: TStrings);
+  var
+    i: integer;
+    aSoft: cEmutecaSoftware;
+  begin
+
+    aTxtFile.Clear;
+    aTxtFile.BeginUpdate;
+    try
+      aTxtFile.Capacity := FullList.Count + 1; // Speed up?
+      aTxtFile.Add(krsCSVSoftStatsHeader);
+
+      i := 0;
+      while i < FullList.Count do
+      begin
+        aSoft := FullList[i];
+        if Assigned(ProgressCallBack) then
+          ProgressCallBack(rsSavingSystemList, aSoft.Title, aSoft.Version,
+            i, FullList.Count);
+        aTxtFile.Add(aSoft.TXTString);
+        Inc(i);
+      end;
+    finally
+      aTxtFile.EndUpdate;
+    end;
+    if assigned(ProgressCallBack) then
+      ProgressCallBack('', '', '', 0, 0);
+
+  end;
+
+  procedure ExportList(aTxtFile: TStrings);
+  var
+    i: integer;
+    aSoft: cEmutecaSoftware;
+  begin
+
+    { TODO: Read items in file, merge and save. }
+
+    aTxtFile.Clear;
+    aTxtFile.BeginUpdate;
+    try
+      aTxtFile.Capacity := FullList.Count + 1; // Speed up?
+      aTxtFile.Add(krsCSVSoftHeader);
+
+      i := 0;
+      while i < FullList.Count do
+      begin
+        aSoft := FullList[i];
+        if Assigned(ProgressCallBack) then
+          ProgressCallBack(rsSavingSystemList, aSoft.Title, aSoft.Version,
+            i, FullList.Count);
+
+        aTxtFile.Add(aSoft.TXTExportString);
+
+        Inc(i);
+      end;
+    finally
+      aTxtFile.EndUpdate;
+    end;
+    if assigned(ProgressCallBack) then
+      ProgressCallBack('', '', '', 0, 0);
+  end;
+
 begin
-  if not Assigned(TxtFile) then
+  if not Assigned(aTxtFile) then
     Exit;
 
-  { TODO : cEmutecaSoftManager.SaveToStrLst Export mode }
-  TxtFile.Clear;
-  TxtFile.BeginUpdate;
-  try
-    TxtFile.Capacity := FullList.Count + 1; // Speed up?
-
-    if ExportMode then
-      TxtFile.Add(krsCSVSoftHeader)
-    else
-      TxtFile.Add(krsCSVSoftStatsHeader);
-
-    i := 0;
-    while i < FullList.Count do
-    begin
-      aSoft := FullList[i];
-      if Assigned(ProgressCallBack) then
-        ProgressCallBack(rsLoadingSystemList, aSoft.Title, aSoft.Version,
-          i, FullList.Count);
-      TxtFile.Add(aSoft.TXTString);
-      Inc(i);
-    end;
-
-  finally
-    TxtFile.EndUpdate;
-  end;
-  if assigned(ProgressCallBack) then
-    ProgressCallBack('', '', '', 0, 0);
+  if ExportMode then
+    ExportList(aTxtFile)
+  else
+    SaveList(aTxtFile);
 end;
 
 end.

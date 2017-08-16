@@ -50,13 +50,17 @@ type
     procedure SetTitle(AValue: string);
     procedure SetYear(AValue: string);
 
+  protected
+    procedure AssignTo(Dest: TPersistent); override;
+
   public
     function GetActualTitle: string;
     //< Gets actual Title string, not automade
 
+    function CompareID(aID: string): integer;
     function MatchID(aID: string): boolean;
 
-    procedure LoadFromIni(aIniFile: TMemIniFile); override;
+    procedure LoadFromIni(aIniFile: TIniFile); override;
     procedure LoadFromStrLst(aTxtFile: TStrings); override;
     procedure SaveToIni(aIniFile: TMemIniFile; const ExportMode: boolean);
       override;
@@ -130,17 +134,36 @@ begin
   FYear := AValue;
 end;
 
+procedure caEmutecaCustomGroup.AssignTo(Dest: TPersistent);
+begin
+  if Dest is caEmutecaCustomGroup then
+    with Dest as caEmutecaCustomGroup do
+    begin
+      ID := Self.ID;
+      Title := Self.Title;
+      Year := Self.Year;
+      Developer := Self.Developer;
+    end
+  else
+    inherited AssignTo(Dest); // Launch an Exception.
+end;
+
 function caEmutecaCustomGroup.GetActualTitle: string;
 begin
   Result := FTitle;
 end;
 
-function caEmutecaCustomGroup.MatchID(aID: string): boolean;
+function caEmutecaCustomGroup.CompareID(aID: string): integer;
 begin
-  Result := UTF8CompareText(ID, aID) = 0;
+  Result := UTF8CompareText(ID, aID);
 end;
 
-procedure caEmutecaCustomGroup.LoadFromIni(aIniFile: TMemIniFile);
+function caEmutecaCustomGroup.MatchID(aID: string): boolean;
+begin
+  Result := CompareID(aID) = 0;
+end;
+
+procedure caEmutecaCustomGroup.LoadFromIni(aIniFile: TIniFile);
 begin
   if aIniFile = nil then
     Exit;
@@ -200,16 +223,16 @@ procedure caEmutecaCustomGroup.SearchAllRelatedFiles(OutFileList: TStrings;
   aFolder: string; Extensions: TStrings; AutoExtract: boolean);
 begin
   // HACK: Dot added to ID, to preserve dots in ids like "Super Mario Bros."
-     EmuTKSearchAllRelatedFiles(OutFileList, aFolder, ID + '.', Extensions,
-      False,  '');
+  EmuTKSearchAllRelatedFiles(OutFileList, aFolder, ID + '.', Extensions,
+    False, '');
 end;
 
 function caEmutecaCustomGroup.SearchFirstRelatedFile(aFolder: string;
   Extensions: TStrings; AutoExtract: boolean): string;
 begin
   // HACK: Dot added to ID, to preserve dots in ids like "Super Mario Bros."
-      Result := EmuTKSearchFirstRelatedFile(aFolder, ID + '.', Extensions,
-      False, False,'');
+  Result := EmuTKSearchFirstRelatedFile(aFolder, ID + '.',
+    Extensions, False, False, '');
 end;
 
 constructor caEmutecaCustomGroup.Create(aOwner: TComponent);

@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
   StdCtrls, Buttons, ActnList, EditBtn, ufCHXPropEditor, ufCHXForm,
-  ufCHXProgressBar, uCHXStrUtils, ucEmuteca, uCHXDlgUtils, uEmutecaCommon,
+  ufCHXProgressBar, ucEmuteca, uCHXDlgUtils, uEmutecaCommon,
   ucEmutecaSystem, ufEmutecaSystemCBX;
 
 type
@@ -34,7 +34,7 @@ type
 
       property System: cEmutecaSystem read FSystem write SetSystem;
 
-      function SelectSystem(aSystem: cEmutecaSystem): boolean;
+          function SelectSystem(aSystem: cEmutecaSystem): boolean;
 
     procedure ClearFrameData; override;
     procedure LoadFrameData; override;
@@ -63,6 +63,18 @@ procedure TfmEmutecaActImportSoftData.SetSystem(AValue: cEmutecaSystem);
 begin
   if FSystem = AValue then Exit;
   FSystem := AValue;
+
+  if Assigned(System) then
+  begin
+    eSoftIDType.Text := EmutecaSoftExportKey2StrK(System.SoftExportKey);
+      eImportFile.Enabled := True;
+  end
+  else
+  begin
+    eSoftIDType.Clear;
+    eImportFile.Enabled := False;
+  end;
+
 end;
 
 procedure TfmEmutecaActImportSoftData.eImportFileButtonClick(Sender: TObject);
@@ -106,33 +118,21 @@ begin
   Result := True;
 
   System := aSystem;
-
-  if Assigned(System) then
-  begin
-    eSoftIDType.Text := EmutecaSoftExportKey2StrK(System.SoftExportKey);
-  end
-  else
-  begin
-    eSoftIDType.Clear;
-  end;
 end;
 
 procedure TfmEmutecaActImportSoftData.SaveFrameData;
 var
-  PCBSoft, PCBGroup: TEmutecaProgressCallBack;
+  PCB: TEmutecaProgressCallBack;
 begin
   if (eImportFile.FileName = '') or (not assigned(System)) then
     Exit;
 
-  PCBSoft := System.SoftManager.ProgressCallBack;
-  PCBGroup := System.GroupManager.ProgressCallBack;
-  System.SoftManager.ProgressCallBack := @(frmCHXProgressBar.UpdTextAndBar);
-  System.GroupManager.ProgressCallBack := @(frmCHXProgressBar.UpdTextAndBar);
+  PCB := System.ProgressCallBack;
+  System.ProgressCallBack := @(frmCHXProgressBar.UpdTextAndBar);
 
-  system.ImportLists(ChangeFileExt(eImportFile.FileName, ''));
+  System.ImportSoftGroupLists(ChangeFileExt(eImportFile.FileName, ''));
 
-  System.SoftManager.ProgressCallBack := PCBSoft;
-  System.GroupManager.ProgressCallBack := PCBGroup;
+  System.ProgressCallBack := PCB;
 end;
 
 class function TfmEmutecaActImportSoftData.SimpleForm(aEmuteca: cEmuteca;

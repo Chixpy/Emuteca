@@ -26,54 +26,35 @@ unit ucEmutecaSystem;
 interface
 
 uses
-  Classes, SysUtils, IniFiles, LazFileUtils, LazUTF8,
+  Classes, SysUtils, LazFileUtils, LazUTF8,
   uEmutecaCommon,
   uaEmutecaCustomSystem,
-  ucEmutecaGroupManager, ucEmutecaSoftManager;
+  ucEmutecaGroupManager, ucEmutecaGroupList, ucEmutecaGroup,
+  ucEmutecaSoftManager, ucEmutecaSoftList, ucEmutecaSoftware;
 
 type
-
-  { cEmutecaCacheSystemThread }
-
-  cEmutecaCacheSystemThread = class(TThread)
-  private
-    FGroupManager: cEmutecaGroupManager;
-    FSoftManager: cEmutecaSoftManager;
-    procedure SetGroupManager(AValue: cEmutecaGroupManager);
-    procedure SetSoftManager(AValue: cEmutecaSoftManager);
-
-  protected
-    procedure Execute; override;
-
-  public
-    property GroupManager: cEmutecaGroupManager
-      read FGroupManager write SetGroupManager;
-    property SoftManager: cEmutecaSoftManager
-      read FSoftManager write SetSoftManager;
-
-    constructor Create;
-  end;
 
   { cEmutecaSystem }
 
   cEmutecaSystem = class(caEmutecaCustomSystem)
   private
-    FCacheDataThread: cEmutecaCacheSystemThread;
     FGroupManager: cEmutecaGroupManager;
+    FProgressCallBack: TEmutecaProgressCallBack;
     FSoftManager: cEmutecaSoftManager;
-    procedure SetCacheDataThread(AValue: cEmutecaCacheSystemThread);
+    procedure SetProgressCallBack(AValue: TEmutecaProgressCallBack);
 
   protected
-    property CacheDataThread: cEmutecaCacheSystemThread
-      read FCacheDataThread write SetCacheDataThread;
+    procedure CacheGroups;
 
   public
+    property ProgressCallBack: TEmutecaProgressCallBack
+      read FProgressCallBack write SetProgressCallBack;
 
-    procedure LoadLists(aFile: string);
-    procedure ImportLists(aFile: string);
-    procedure SaveLists(aFile: string; ExportMode: boolean);
-
-    procedure CacheData;
+    procedure AddSoft(aSoft: cEmutecaSoftware);
+    //< Safe way to add software (add group if needed and link them)
+    procedure LoadSoftGroupLists(aFile: string);
+    procedure ImportSoftGroupLists(aFile: string);
+    procedure SaveSoftGroupLists(aFile: string; ExportMode: boolean);
 
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
@@ -86,176 +67,48 @@ type
 
   TEmutecaReturnSystemCB = function(aSystem: cEmutecaSystem): boolean of
     object;
-
 {< For CallBack functions }
-
-function Str2EmutecaFileKey(aString: string): TEmutecaSoftExportKey;
-// Result := EmutecaFileKeyStrsK[TEmutecaFileKey];
 
 implementation
 
-uses ucEmutecaGroup, ucEmutecaSoftware;
-
-function Str2EmutecaFileKey(aString: string): TEmutecaSoftExportKey;
-begin
-  // In Emuteca <= 0.7, True => CRC32 / False => FileName
-  aString := UTF8UpperCase(aString);
-
-  // I don't like this "else if" format but it's clearer...
-  if (aString = UTF8UpperCase(krsCRC32)) or
-    (StrToBoolDef(aString, False)) then
-    Result := TEFKCRC32
-  else if (aString = UTF8UpperCase(krsFileName)) or
-    (not StrToBoolDef(aString, True)) then
-    Result := TEFKFileName
-  else if (aString = UTF8UpperCase(krsSHA1)) then
-    Result := TEFKSHA1
-  else if (aString = UTF8UpperCase(krsCustom)) then
-    Result := TEFKCustom
-  else // Default
-    Result := TEFKSHA1;
-end;
-
-{ cEmutecaCacheSystemThread }
-
-procedure cEmutecaCacheSystemThread.SetGroupManager(AValue:
-  cEmutecaGroupManager);
-begin
-  if FGroupManager = AValue then
-    Exit;
-  FGroupManager := AValue;
-end;
-
-procedure cEmutecaCacheSystemThread.SetSoftManager(AValue:
-  cEmutecaSoftManager);
-begin
-  if FSoftManager = AValue then
-    Exit;
-  FSoftManager := AValue;
-end;
-
-procedure cEmutecaCacheSystemThread.Execute;
-var
-  aSoft: cEmutecaSoftware;
-  aGroup: cEmutecaGroup;
-  SoftPos, GroupPos: integer;
-  Found: boolean;
-begin
-  if (not assigned(SoftManager)) or (not assigned(GroupManager)) then
-    Exit;
-
-  // Caching groups for soft
-  aGroup := nil;
-  SoftPos := 0;
-  while (not Terminated) and (SoftPos < SoftManager.FullList.Count) do
-  begin
-    aSoft := SoftManager.FullList[SoftPos];
-
-    // Try last used group.
-    if not aSoft.MatchGroup(aGroup) then
-    begin
-      // Search Group
-      // Don't use GroupManager.FullList.ItemById(), because when want to
-      //   test Terminated;
-      GroupPos := 0;
-      Found := False;
-      while (not Terminated) and (not Found) and (GroupPos < GroupManager.FullList.Count)
-        do
-      begin
-        aGroup := GroupManager.FullList[GroupPos];
-        Found := aSoft.MatchGroup(aGroup);
-        Inc(GroupPos);
-      end;
-    end
-    else
-      Found := True;
-
-    if (not Terminated) and (not Found) then
-    begin
-      // OOpps, not found; creating it.
-      aGroup := GroupManager.FullList[GroupManager.AddGroup(aSoft.GroupKey)];
-    end;
-
-    if (not Terminated) then
-    begin
-      // Finally caching
-      aSoft.CachedGroup := aGroup;
-      aGroup.SoftList.Add(aSoft);
-    end;
-
-    Inc(SoftPos);
-  end;
-
-  if (not Terminated) then
-    GroupManager.VisibleList.Clear;
-
-// Adding to visible list groups with soft
-GroupPos := 0;
-while (not Terminated) and (GroupPos < GroupManager.FullList.Count)  do
-begin
-  aGroup := GroupManager.FullList[GroupPos];
-  if (not Terminated) and (aGroup.SoftList.Count > 0) then
-    GroupManager.VisibleList.Add(aGroup);
-  Inc(GroupPos);
-end;
-end;
-
-constructor cEmutecaCacheSystemThread.Create;
-begin
-  inherited Create(True);
-  FreeOnTerminate := True;
-end;
-
 { cEmutecaSystem }
 
-procedure cEmutecaSystem.SetCacheDataThread(AValue: cEmutecaCacheSystemThread);
+procedure cEmutecaSystem.LoadSoftGroupLists(aFile: string);
 begin
-  if FCacheDataThread = AValue then
-    Exit;
-  FCacheDataThread := AValue;
-end;
-
-procedure cEmutecaSystem.LoadLists(aFile: string);
-begin
-  GroupManager.ClearData;
-  if FileExistsUTF8(aFile + krsEmutecaGroupFileExt) then
-    GroupManager.LoadFromFileTxt(aFile + krsEmutecaGroupFileExt);
-
   SoftManager.ClearData;
   if FileExistsUTF8(aFile + krsEmutecaSoftFileExt) then
     SoftManager.LoadFromFileTxt(aFile + krsEmutecaSoftFileExt);
 
-  CacheData;
+  GroupManager.ClearData;
+  if FileExistsUTF8(aFile + krsEmutecaGroupFileExt) then
+    GroupManager.LoadFromFileTxt(aFile + krsEmutecaGroupFileExt);
+
+  CacheGroups;
 end;
 
-procedure cEmutecaSystem.ImportLists(aFile: string);
+procedure cEmutecaSystem.ImportSoftGroupLists(aFile: string);
 begin
+  if FileExistsUTF8(aFile + krsEmutecaSoftFileExt) then
+    SoftManager.ImportFromFileCSV(aFile + krsEmutecaSoftFileExt);
 
+  // Updating groups and lists
+  CacheGroups;
+
+  if FileExistsUTF8(aFile + krsEmutecaGroupFileExt) then
+    GroupManager.ImportFromFileCSV(aFile + krsEmutecaGroupFileExt);
 end;
 
-procedure cEmutecaSystem.SaveLists(aFile: string; ExportMode: boolean);
+procedure cEmutecaSystem.SaveSoftGroupLists(aFile: string;
+  ExportMode: boolean);
 begin
   if aFile = '' then
     Exit;
+
   if not DirectoryExistsUTF8(ExtractFileDir(aFile)) then
     ForceDirectoriesUTF8(ExtractFileDir(aFile));
+
   GroupManager.SaveToFileTxt(aFile + krsEmutecaGroupFileExt, ExportMode);
   SoftManager.SaveToFileTxt(aFile + krsEmutecaSoftFileExt, ExportMode);
-end;
-
-procedure cEmutecaSystem.CacheData;
-begin
-  if Assigned(CacheDataThread) then
-    CacheDataThread.Terminate;
-  // FreeOnTerminate = true, so we don't need to destroy it.
-
-  // Caching data in background
-  FCacheDataThread := cEmutecaCacheSystemThread.Create;
-  if Assigned(CacheDataThread.FatalException) then
-    raise CacheDataThread.FatalException;
-  CacheDataThread.SoftManager := SoftManager;
-  CacheDataThread.GroupManager := GroupManager;
-  CacheDataThread.Start;
 end;
 
 constructor cEmutecaSystem.Create(AOwner: TComponent);
@@ -270,14 +123,124 @@ end;
 
 destructor cEmutecaSystem.Destroy;
 begin
-  if Assigned(CacheDataThread) then
-    CacheDataThread.Terminate;
-  // FreeOnTerminate = true, so we don't need to destroy it.
-
   SoftManager.Free;
   GroupManager.Free;
 
   inherited Destroy;
+end;
+
+procedure cEmutecaSystem.SetProgressCallBack(AValue: TEmutecaProgressCallBack);
+begin
+  if FProgressCallBack = AValue then
+    Exit;
+  FProgressCallBack := AValue;
+
+  GroupManager.ProgressCallBack := ProgressCallBack;
+  SoftManager.ProgressCallBack := ProgressCallBack;
+end;
+
+procedure cEmutecaSystem.CacheGroups;
+var
+  i, j, aComp: integer;
+  aGroup: cEmutecaGroup;
+  aSoft: cEmutecaSoftware;
+begin
+  // Cleaning aGroup.SoftList
+  i := 0;
+  while i < GroupManager.FullList.Count do
+  begin
+    aGroup := GroupManager.FullList[i];
+    aGroup.SoftList.Clear;
+    Inc(i);
+  end;
+
+  // Updating soft groups and groups softlists.
+  // ------------------------------------------
+  // Here are dragons
+  GroupManager.FullList.Sort(@EmutecaCompareGroupsByID);
+  SoftManager.FullList.Sort(@EmutecaCompareSoftByGroupKey);
+
+  // Uhm? Backwards? B-P
+  i := GroupManager.FullList.Count - 1;
+  if i >= 0 then
+    aGroup := GroupManager.FullList[i]
+  else
+    aGroup := nil;
+  j := SoftManager.FullList.Count;
+  while j >= 1 do
+  begin
+    dec(j);
+    aSoft := SoftManager.FullList[j];
+
+    if assigned(aGroup) then
+      aComp := aSoft.CompareGroupKey(aGroup.ID)
+    else
+      aComp := 1; // aSoft.CompareGroupKey('');
+
+    // Group > Soft -> Try Previous group
+    while aComp < 0 do
+    begin
+      Dec(i);
+      if i >= 0 then
+        aGroup := GroupManager.FullList[i]
+      else
+        aGroup := nil;
+
+      if assigned(aGroup) then
+            aComp := aSoft.CompareGroupKey(aGroup.ID)
+          else
+            aComp := 1; // aSoft.CompareGroupKey('');
+    end;
+
+    // (Group < Soft) -> Ops, group doesn't exist
+    if (aComp > 0) then
+      aGroup := GroupManager.FullList[GroupManager.AddGroup(aSoft.GroupKey)];
+
+    aGroup.SoftList.Add(aSoft);
+    aSoft.CachedGroup := aGroup;
+
+    Dec(j);
+  end;
+
+  // Adding to visible list groups with soft
+  GroupManager.VisibleList.Clear;
+  i := 0;
+  while i < GroupManager.FullList.Count do
+  begin
+    aGroup := GroupManager.FullList[i];
+    if aGroup.SoftList.Count > 0 then
+      GroupManager.VisibleList.Add(aGroup);
+    Inc(i);
+  end;
+end;
+
+procedure cEmutecaSystem.AddSoft(aSoft: cEmutecaSoftware);
+var
+  aGroup: cEmutecaGroup;
+begin
+  SoftManager.FullList.Add(aSoft);
+
+  aSoft.CachedSystem := Self;
+
+  if assigned(aSoft.CachedGroup) then
+  begin
+    aGroup := cEmutecaGroup(aSoft.CachedGroup);
+    aGroup.SoftList.Add(aSoft);
+  end
+  else
+  begin
+    aGroup := GroupManager.FullList.ItemById(aSoft.GroupKey);
+
+    if not Assigned(aGroup) then
+      aGroup := GroupManager.FullList[GroupManager.AddGroup(aSoft.GroupKey)];
+
+    aSoft.CachedGroup := aGroup;
+    aGroup.SoftList.Add(aSoft);
+  end;
+
+  // Add to visible count
+  if aGroup.SoftList.Count = 1 then
+    GroupManager.VisibleList.Add(aGroup);
 end;
 
 initialization

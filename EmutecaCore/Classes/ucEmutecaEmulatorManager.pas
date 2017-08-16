@@ -62,7 +62,7 @@ type
         procedure SaveData;
     //< Save data to last data file.
 
-    procedure LoadFromIni(aIniFile: TMemIniFile); override;
+    procedure LoadFromIni(aIniFile: TIniFile); override;
     procedure SaveToIni(aIniFile: TMemIniFile; const ExportMode: boolean);
       override;
 
@@ -165,7 +165,7 @@ begin
   SaveToFileIni('', False);
 end;
 
-procedure cEmutecaEmulatorManager.LoadFromIni(aIniFile: TMemIniFile);
+procedure cEmutecaEmulatorManager.LoadFromIni(aIniFile: TIniFile);
 var
   TempList: TStringList;
   TempEmu: cEmutecaEmulator;

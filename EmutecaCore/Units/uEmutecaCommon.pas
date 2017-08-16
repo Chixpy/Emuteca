@@ -5,7 +5,7 @@ unit uEmutecaCommon;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, LazFileUtils, LazUTF8, sha1,
+  Classes, SysUtils, FileUtil, LazFileUtils, LazUTF8,
   u7zWrapper,
   uCHXStrUtils, uCHXFileUtils;
 
@@ -141,6 +141,7 @@ const
 
 resourcestring
   rsNever = 'Never';
+
   rsLoadingSystemList = 'Loading system list...';
   rsImportingSystemList = 'Importing system list...';
   rsSavingSystemList = 'Saving system list...';
@@ -158,14 +159,14 @@ resourcestring
   {< Description of file mask for group lists. }
   rsEmutecaSoftFileMaskDesc =
     'Soft file list (' + krsEmutecaSoftFileMask + ')';
-  {< Description of file mask  for soft lists. }
+  {< Description of file mask for soft lists. }
   rsEmutecaINIFileMaskDesc = 'Soft file list (' + krsEmutecaINIFileMask + ')';
-  {< Description of file mask  for ini databases (Systems, Emulators, Export/Import, ...). }
+  {< Description of file mask for ini databases (Systems, Emulators, Export/Import, ...). }
   rsEmutecaScriptFileMaskDesc =
     'Soft file list (' + krsEmutecaScriptFileMask + ')';
-  {< Description of file mask  for script files. }
+  {< Description of file mask for script files. }
   rsEmutecaTXTFileMaskDesc = 'Soft file list (' + krsEmutecaTXTFileMask + ')';
-  {< Description of file mask  for generic text files. }
+  {< Description of file mask for generic text files. }
 
   // Strings for DumpStatus, translatable
   // ------------------------------------
@@ -175,6 +176,7 @@ resourcestring
   rsedsOverDump = 'OverDump';
   rsedsBadDump = 'BadDump';
   rsedsUnderDump = 'UnderDump';
+  rsFileAlreadyAdded = 'This file is already added.';
 
 
 type

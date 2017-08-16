@@ -602,7 +602,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="..\CHXPas;..\CHXPas\Classes;..\CHXPas\Forms;..\CHXPas\Forms\ScriptManager;..\CHXPas\Frames;..\CHXPas\Misc;..\EmutecaCore;..\EmutecaCore\Classes;..\EmutecaCore\Frames;..\EmutecaCore\Interfaces;..\EmutecaCore\Units;source;source\forms;source\forms\ScriptMng;source\frames;..\CHXPas\Abstract;..\..\CHX\Units;..\EmutecaCore\Abstracts;..\Abstracts;..\Frames;..\..\LazEmuteca\source\frames;frames;..\..\LazEmuteca\source\forms;..\LazEmuteca\source\frames;..\..\Emuteca\CHXPas\Frames;..\Classes;source\units;..\forms;source\abstracts;..\..\LazEmuteca\source\abstracts;..\..\EmutecaCore\Frames;..\..\..\EmutecaCore\Frames;..\..\Emuteca\EmutecaCore\Frames;..\Abstracts"/>
+      <OtherUnitFiles Value="..\CHXPas;..\CHXPas\Classes;..\CHXPas\Forms;..\CHXPas\Forms\ScriptManager;..\CHXPas\Frames;..\CHXPas\Misc;..\EmutecaCore;..\EmutecaCore\Classes;..\EmutecaCore\Frames;..\EmutecaCore\Interfaces;..\EmutecaCore\Units;source;source\forms;source\forms\ScriptMng;source\frames;..\CHXPas\Abstract;..\..\CHX\Units;..\EmutecaCore\Abstracts;..\Abstracts;..\Frames;..\..\LazEmuteca\source\frames;frames;..\..\LazEmuteca\source\forms;..\LazEmuteca\source\frames;..\..\Emuteca\CHXPas\Frames;..\Classes;source\units;..\forms;source\abstracts;..\..\LazEmuteca\source\abstracts;..\..\EmutecaCore\Frames;..\..\..\EmutecaCore\Frames;..\..\Emuteca\EmutecaCore\Frames"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>

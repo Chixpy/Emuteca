@@ -44,7 +44,15 @@ type
     }
   end;
 
+  function EmutecaCompareGroupsByID(const aGroup1, aGroup2: cEmutecaGroup): integer;
+
+
 implementation
+
+function EmutecaCompareGroupsByID(const aGroup1, aGroup2: cEmutecaGroup): integer;
+begin
+  Result := UTF8CompareText(aGroup1.ID, aGroup2.ID);
+end;
 
 { cEmutecaGroupList }
 

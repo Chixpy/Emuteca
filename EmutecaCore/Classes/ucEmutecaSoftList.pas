@@ -42,7 +42,23 @@ type
     }
   end;
 
+function EmutecaCompareSoftByID(const aSoft1, aSoft2: cEmutecaSoftware): integer;
+function EmutecaCompareSoftByGroupKey(const aSoft1, aSoft2: cEmutecaSoftware): integer;
+
+
 implementation
+
+function EmutecaCompareSoftByID(const aSoft1, aSoft2: cEmutecaSoftware
+  ): integer;
+begin
+  Result := UTF8CompareText(aSoft1.ID, aSoft2.ID);
+end;
+
+function EmutecaCompareSoftByGroupKey(const aSoft1, aSoft2: cEmutecaSoftware
+  ): integer;
+begin
+  Result := UTF8CompareText(aSoft1.GroupKey, aSoft2.GroupKey);
+end;
 
 { cEmutecaSoftList }
 

@@ -16,13 +16,16 @@ type
   caEmutecaCustomManager = class(caCHXStorableTxt)
   private
     FProgressCallBack: TEmutecaProgressCallBack;
+
+  protected
     procedure SetProgressCallBack(AValue: TEmutecaProgressCallBack);
+
   public
     property ProgressCallBack: TEmutecaProgressCallBack read FProgressCallBack write SetProgressCallBack;
 
     procedure ImportFromFileIni(aFilename: string); virtual;
-    procedure ImportFromIni(aIniFile: TMemIniFile); virtual; abstract;
-    procedure ImportFromFileStrLst(aFilename: string); virtual;
+    procedure ImportFromIni(aIniFile: TIniFile); virtual; abstract;
+    procedure ImportFromFileCSV(aFilename: string); virtual;
     procedure ImportFromStrLst(aTxtFile: TStrings); virtual; abstract;
   end;
 
@@ -59,7 +62,7 @@ begin
   end;
 end;
 
-procedure caEmutecaCustomManager.ImportFromFileStrLst(aFilename: string);
+procedure caEmutecaCustomManager.ImportFromFileCSV(aFilename: string);
 var
   aTxtFile: TStringList;
 begin

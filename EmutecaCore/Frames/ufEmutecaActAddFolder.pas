@@ -101,13 +101,13 @@ end;
 
 procedure TfmEmutecaActAddFolder.LoadFrameData;
 begin
-   Enabled := Assigned(Emuteca);
+  Enabled := Assigned(Emuteca);
 
-   if not Enabled then
-     begin
-       ClearFrameData;
-       Exit;
-     end;
+  if not Enabled then
+  begin
+    ClearFrameData;
+    Exit;
+  end;
 end;
 
 procedure TfmEmutecaActAddFolder.SaveFrameData;
@@ -160,7 +160,7 @@ begin
     end
     else
       Search7ZFilesByExt(FolderList, FileList, eFolder.Text,
-        aSystem.Extensions);
+        aSystem.Extensions, True);
 
     // For every file found
     i := 0;
@@ -173,24 +173,23 @@ begin
 
       aSoft := nil;
       Found := False;
-
       j := 0;
       while (j < SoftSysList.Count) and (not Found) do
       begin
+        aSoft := SoftSysList[j];
         // Same file
-        if (CompareFilenames(SoftSysList[j].Filename, FileList[i]) = 0) and
-          (CompareFilenames(SoftSysList[j].Folder, FolderList[i]) = 0) then
+        if aSoft.MatchFile(FolderList[i], FileList[i]) then
         begin
-          case rgbFilename.ItemIndex of
-            0: // Update
-            begin
-              aSoft := SoftSysList[j];
-            end
-            else // Ignore
-              aSoft := nil;
-          end;
-          SoftSysList.Delete(j); // Speeds up following searchs
           Found := True;
+
+          case rgbFilename.ItemIndex of
+            1: // Ignore
+              aSoft := nil;
+            else
+              ;
+          end;
+
+          SoftSysList.Delete(j); // Speeds up following searchs
         end;
         Inc(j);
       end;
@@ -200,15 +199,12 @@ begin
         aSoft := cEmutecaSoftware.Create(nil);
         aSoft.Folder := FolderList[i];
         aSoft.FileName := FileList[i];
-        aSoft.CachedSystem := aSystem;
-
-        aSystem.SoftManager.FullList.Add(aSoft);
       end;
 
       if assigned(aSoft) then
       begin
         IsCompressed := FileExistsUTF8(
-          ExcludeTrailingPathDelimiter(FolderList[i]));
+          ExcludeTrailingPathDelimiter(aSoft.Folder));
 
         // SHA1 = 0
         // It's updated in background when caching
@@ -224,7 +220,8 @@ begin
             // Is a compressed file
             if IsCompressed then
             begin
-              aSoft.ID := w7zCRC32InnerFileStr(FolderList[i], FileList[i], '');
+              aSoft.ID := w7zCRC32InnerFileStr(aSoft.Folder,
+                aSoft.FileName, '');
             end
             else
             begin
@@ -233,7 +230,7 @@ begin
           end;
 
           TEFKCustom, TEFKFileName:
-            aSoft.ID := ExtractFileNameOnly(FileList[i]);
+            aSoft.ID := ExtractFileNameOnly(aSoft.FileName);
 
           else  // TEFKSHA1 by default
             aSoft.ID := '';
@@ -251,6 +248,9 @@ begin
               RemoveFromBrackets(ExtractFileNameOnly(
               ExcludeTrailingPathDelimiter(aSoft.Folder)));
         end;
+
+        if not Found then
+          aSystem.AddSoft(aSoft);
       end;
 
       Inc(i);
@@ -260,7 +260,6 @@ begin
     FileList.EndUpdate;
 
   finally
-    aSystem.CacheData;
 
     if assigned(Emuteca.ProgressCallBack) then
       Emuteca.ProgressCallBack('', '', '', 0, 0);

@@ -10,7 +10,9 @@ uses
   u7zWrapper,
   uCHXStrUtils, uCHXFileUtils, ufCHXForm,
   ufCHXPropEditor,
-  uEmutecaCommon, ucEmuteca, uaEmutecaCustomSystem,
+  uEmutecaCommon,
+  uaEmutecaCustomSystem,
+  ucEmuteca,
   ucEmutecaSystem, ucEmutecaSoftList, ucEmutecaSoftware,
   ufEmutecaSoftEditor, ufEmutecaSystemCBX;
 
@@ -212,14 +214,14 @@ begin
   FoundFile := False;
   while (not FoundFile) and (i < aSoftList.Count) do
   begin
-    if Software.MatchMFile(aSoftList[i]) then
+    if Software.MatchFile(aSoftList[i].Folder, aSoftList[i].FileName) then
       FoundFile := True;
 
     Inc(i);
   end;
 
   if FoundFile then
-    lDupFile.Caption := 'This file is already added.';
+    lDupFile.Caption := rsFileAlreadyAdded;
 end;
 
 function TfmEmutecaActAddSoft.SelectSystem(aSystem: cEmutecaSystem): boolean;
@@ -404,8 +406,7 @@ begin
   if not assigned(aSystem) then
     Exit;
 
-  aSystem.SoftManager.FullList.Add(Software);
-  aSystem.CacheData;
+  aSystem.AddSoft(Software);
 
   // If we don't close then prepare to add a new software
   //   if we close, it will be freed on destroy

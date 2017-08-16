@@ -150,7 +150,7 @@ begin
 
   //    if not Assigned(aSoft.Group) then
   //    begin
-  //      if not aSoft.MatchGroup(aGroup) then
+  //      if not aSoft.MatchGroupKey(aGroup) then
   //      begin
   //        aGroup := aSoft.System.GroupManager.ItemById(aSoft.GroupKey, True);
   //      end;

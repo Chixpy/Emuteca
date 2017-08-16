@@ -63,9 +63,9 @@ type
       read FProgressCallBack write SetProgressCallBack;
     //< CallBack function to show the progress in actions.
 
-    procedure LoadFromIni(aIniFile: TMemIniFile); override;
-    procedure SaveToIni(aIniFile: TMemIniFile;
-      const ExportMode: boolean); override;
+    procedure LoadFromIni(aIniFile: TIniFile); override;
+    procedure SaveToIni(aIniFile: TMemIniFile; const ExportMode: boolean);
+      override;
 
     procedure AssingAllTo(aList: TStrings); deprecated;
     procedure AssingEnabledTo(aList: TStrings); deprecated;
@@ -81,6 +81,7 @@ type
   end;
 
 implementation
+
 uses uaEmutecaCustomSystem, ucEmutecaSystem;
 
 { cEmutecaSystemManager }
@@ -92,7 +93,7 @@ end;
 
 procedure cEmutecaSystemManager.SetTempFolder(AValue: string);
 var
-  i: Integer;
+  i: integer;
 begin
   FTempFolder := SetAsFolder(AValue);
 
@@ -100,14 +101,15 @@ begin
   while i < FullList.Count do
   begin
     FullList[i].TempFolder := TempFolder;
-    inc(i);
+    Inc(i);
   end;
 end;
 
 procedure cEmutecaSystemManager.SetProgressCallBack(
   AValue: TEmutecaProgressCallBack);
 begin
-  if FProgressCallBack = AValue then Exit;
+  if FProgressCallBack = AValue then
+    Exit;
   FProgressCallBack := AValue;
 end;
 
@@ -128,7 +130,7 @@ begin
   SaveToFileIni('', False);
 end;
 
-procedure cEmutecaSystemManager.LoadFromIni(aIniFile: TMemIniFile);
+procedure cEmutecaSystemManager.LoadFromIni(aIniFile: TIniFile);
 var
   TempList: TStringList;
   TempSys: cEmutecaSystem;
@@ -160,15 +162,15 @@ begin
           TempSys.Title, i, TempList.Count);
 
       if TempSys.Enabled then
-        TempSys.LoadLists(SysDataFolder + TempSys.FileName);
+        TempSys.LoadSoftGroupLists(SysDataFolder + TempSys.FileName);
 
     end;
   finally
     FreeAndNil(TempList);
   end;
 
-          if assigned(ProgressCallBack) then
-        ProgressCallBack('', '', '', 0, 0);
+  if assigned(ProgressCallBack) then
+    ProgressCallBack('', '', '', 0, 0);
 end;
 
 procedure cEmutecaSystemManager.SaveToIni(aIniFile: TMemIniFile;
@@ -197,7 +199,7 @@ begin
     Inc(i);
 
     if aSystem.Enabled then
-      aSystem.SaveLists(SysDataFolder + aSystem.FileName, False);
+      aSystem.SaveSoftGroupLists(SysDataFolder + aSystem.FileName, False);
   end;
   if assigned(ProgressCallBack) then
     ProgressCallBack(rsSavingSystemList, '', '', 0, 0);
