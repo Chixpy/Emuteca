@@ -11,9 +11,9 @@ uses
   // Emuteca
   ucEmuteca,
   // CHX
-  ucCHXScriptEngine{,
+  ucCHXScriptEngine,
   // PS Imports
-  uPSI_uEmutecaCommon,
+  uPSI_uEmutecaCommon{,
   uPSI_uaCHXStorable, uPSI_uaEmutecaManager,
   uPSI_ucEmutecaEmulator, uPSI_ucEmutecaSystem,
   uPSI_ucEmutecaGroup, uPSI_ucEmutecaSoftware,
@@ -108,15 +108,15 @@ begin
   inherited PasScriptOnCompile(Sender);
 
   // Variables
-  Sender.AddRegisteredPTRVariable('Emuteca', 'cEmuteca');
+  //Sender.AddRegisteredPTRVariable('Emuteca', 'cEmuteca');
 end;
 
 procedure cEmutecaScriptEngine.PasScriptOnExecute(Sender: TPSScript);
 begin
   inherited PasScriptOnExecute(Sender);
 
-  Sender.SetPointerToData('Emuteca', @FEmuteca,
-    Sender.FindNamedType('cEmuteca'));
+ // Sender.SetPointerToData('Emuteca', @FEmuteca,
+ //   Sender.FindNamedType('cEmuteca'));
 end;
 
 function cEmutecaScriptEngine.PasScriptOnFindUnknownFile(Sender: TObject;

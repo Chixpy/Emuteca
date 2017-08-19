@@ -18,14 +18,13 @@ uses
   // Emuteca clases
   ucEmuteca, uEmutecaCommon, ucEmutecaGroup, ucEmutecaSoftware,
   // Emuteca forms
-  ufEmutecaScriptManager, ufrLEmuTKAbout,
+  ufrEmutecaScriptManager, ufrLEmuTKAbout,
   // Emuteca windows
   ufEmutecaActAddSoft, ufEmutecaActAddFolder, ufEmutecaActExportSoftData,
   ufEmutecaActImportSoftData,
   // LazEmuteca frames
   ufLEmuTKMain, ufLEmuTKSysManager, ufLEmuTKEmuManager, ufLEmuTKMediaManager,
-  uGUIConfig, uLEmuTKCommon,
-  sha1;
+  ufLEmuTKScriptManager, uGUIConfig, uLEmuTKCommon, sha1;
 
 type
 
@@ -412,14 +411,14 @@ end;
 
 procedure TfrmLEmuTKMain.actScriptManagerExecute(Sender: TObject);
 begin
-  Application.CreateForm(TfrmEmutecaScriptManager, frmEmutecaScriptManager);
+    // Fix runtime errors, while trying to update if something is changed
+  fmEmutecaMainFrame.Emuteca := nil;
 
-  frmEmutecaScriptManager.IconsIni := GUIConfig.GUIIcnFile;
-  frmEmutecaScriptManager.SetBaseFolder(GUIConfig.ScriptsFolder);
-  frmEmutecaScriptManager.Emuteca := Emuteca;
+  TfmLEmuTKScriptManager.SimpleForm(Emuteca,
+    SetAsAbsoluteFile(GUIConfig.ScriptsFolder, ProgramDirectory),
+    GUIIconsFile, GUIConfig.ConfigFile);
 
-  frmEmutecaScriptManager.ShowModal;
-  FreeAndNil(frmEmutecaScriptManager);
+  fmEmutecaMainFrame.Emuteca := Emuteca;
 end;
 
 procedure TfrmLEmuTKMain.actAddFolderExecute(Sender: TObject);

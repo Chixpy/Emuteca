@@ -37,7 +37,7 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="..\CHXPas;..\CHXPas\Classes;..\CHXPas\Forms;..\CHXPas\Forms\ScriptManager;..\CHXPas\Frames;..\CHXPas\Misc;..\EmutecaCore;..\EmutecaCore\Classes;..\EmutecaCore\Frames;..\EmutecaCore\Interfaces;..\EmutecaCore\Units;source;source\forms;source\forms\ScriptMng;source\frames;..\CHXPas\Abstract;..\..\CHX\Units;..\EmutecaCore\Abstracts;..\Abstracts;..\Frames;..\..\LazEmuteca\source\frames;frames;..\..\LazEmuteca\source\forms;..\LazEmuteca\source\frames;..\..\Emuteca\CHXPas\Frames;..\Classes;source\units;..\forms;source\abstracts;..\..\LazEmuteca\source\abstracts"/>
+            <OtherUnitFiles Value="..\CHXPas;..\CHXPas\Classes;..\CHXPas\Forms;..\CHXPas\Forms\ScriptManager;..\CHXPas\Frames;..\CHXPas\Misc;..\EmutecaCore;..\EmutecaCore\Classes;..\EmutecaCore\Frames;..\EmutecaCore\Interfaces;..\EmutecaCore\Units;source;source\forms;source\forms\ScriptMng;source\frames;..\CHXPas\Abstract;..\..\CHX\Units;..\EmutecaCore\Abstracts;..\Abstracts;..\Frames;..\..\LazEmuteca\source\frames;frames;..\..\LazEmuteca\source\forms;..\LazEmuteca\source\frames;..\..\Emuteca\CHXPas\Frames;..\Classes;source\units;..\forms;source\abstracts;..\..\LazEmuteca\source\abstracts;source\ScriptManager"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
@@ -94,7 +94,7 @@
         <PackageName Value="LCL"/>
       </Item6>
     </RequiredPackages>
-    <Units Count="89">
+    <Units Count="92">
       <Unit0>
         <Filename Value="LazEmuteca.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -171,7 +171,7 @@
         <IsPartOfProject Value="True"/>
       </Unit17>
       <Unit18>
-        <Filename Value="source\forms\ufEmutecaScriptManager.pas"/>
+        <Filename Value="source\forms\ufrEmutecaScriptManager.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmEmutecaScriptManager"/>
         <HasResources Value="True"/>
@@ -204,7 +204,7 @@
         <ResourceBaseClass Value="Form"/>
       </Unit23>
       <Unit24>
-        <Filename Value="..\CHXPas\Forms\ScriptManager\ufCHXScriptManager.pas"/>
+        <Filename Value="..\CHXPas\Forms\ScriptManager\ufrCHXScriptManager.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmCHXScriptManager"/>
         <HasResources Value="True"/>
@@ -592,6 +592,24 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
       </Unit88>
+      <Unit89>
+        <Filename Value="..\CHXPas\Frames\ScriptManager\ufCHXScriptManager.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fmCHXScriptManager"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+      </Unit89>
+      <Unit90>
+        <Filename Value="source\frames\ufLEmuTKScriptManager.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fmLEmuTKScriptManager"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+      </Unit90>
+      <Unit91>
+        <Filename Value="source\ScriptManager\uPSI_uEmutecaCommon.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit91>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -602,7 +620,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="..\CHXPas;..\CHXPas\Classes;..\CHXPas\Forms;..\CHXPas\Forms\ScriptManager;..\CHXPas\Frames;..\CHXPas\Misc;..\EmutecaCore;..\EmutecaCore\Classes;..\EmutecaCore\Frames;..\EmutecaCore\Interfaces;..\EmutecaCore\Units;source;source\forms;source\forms\ScriptMng;source\frames;..\CHXPas\Abstract;..\..\CHX\Units;..\EmutecaCore\Abstracts;..\Abstracts;..\Frames;..\..\LazEmuteca\source\frames;frames;..\..\LazEmuteca\source\forms;..\LazEmuteca\source\frames;..\..\Emuteca\CHXPas\Frames;..\Classes;source\units;..\forms;source\abstracts;..\..\LazEmuteca\source\abstracts;..\..\EmutecaCore\Frames;..\..\..\EmutecaCore\Frames;..\..\Emuteca\EmutecaCore\Frames"/>
+      <OtherUnitFiles Value="..\CHXPas;..\CHXPas\Classes;..\CHXPas\Forms;..\CHXPas\Forms\ScriptManager;..\CHXPas\Frames;..\CHXPas\Misc;..\EmutecaCore;..\EmutecaCore\Classes;..\EmutecaCore\Frames;..\EmutecaCore\Interfaces;..\EmutecaCore\Units;source;source\forms;source\forms\ScriptMng;source\frames;..\CHXPas\Abstract;..\..\CHX\Units;..\EmutecaCore\Abstracts;..\Abstracts;..\Frames;..\..\LazEmuteca\source\frames;frames;..\..\LazEmuteca\source\forms;..\LazEmuteca\source\frames;..\..\Emuteca\CHXPas\Frames;..\Classes;source\units;..\forms;source\abstracts;..\..\LazEmuteca\source\abstracts;..\..\EmutecaCore\Frames;..\..\..\EmutecaCore\Frames;..\..\Emuteca\EmutecaCore\Frames;..\CHXPas\Frames\ScriptManager;..\..\Frames\ScriptManager;Frames\ScriptManager;Frames\ScriptManager;..\..\LazEmuteca\source\frames;..\..\LazEmuteca\source\frames;..\..\LazEmuteca\source\frames;source\ScriptManager"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>

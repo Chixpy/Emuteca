@@ -1,4 +1,4 @@
-unit ufEmutecaScriptManager;
+unit ufrEmutecaScriptManager;
 
 {$mode objfpc}{$H+}
 
@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
-  ufCHXScriptManager, ucEmutecaScriptEngine,
+  ufrCHXScriptManager, ucEmutecaScriptEngine,
   ucEmuteca;
 
 type
@@ -18,10 +18,12 @@ type
   private
     FEmuteca: cEmuteca;
     procedure SetEmuteca(AValue: cEmuteca);
-    { private declarations }
+
   public
     { public declarations }
     property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
+
+
   end;
 
 var

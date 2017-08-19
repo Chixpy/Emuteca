@@ -316,19 +316,162 @@ msgctxt "tfmchxmultifoldereditor.tbimagefolderbuttons.caption"
 msgid "tbImageFolderButtons"
 msgstr ""
 
-#: tfmchxpropeditor.actcanceldata.caption
-msgctxt "tfmchxpropeditor.actcanceldata.caption"
+#: tfmchxpropeditor.actframecancel.caption
+msgctxt "tfmchxpropeditor.actframecancel.caption"
 msgid "Cancel"
 msgstr ""
 
-#: tfmchxpropeditor.actsavedata.caption
-msgctxt "tfmchxpropeditor.actsavedata.caption"
-msgid "Save"
+#: tfmchxpropeditor.actframeok.caption
+msgid "OK"
 msgstr ""
 
 #: tfmchxpropeditor.chkcloseonsave.caption
 msgctxt "tfmchxpropeditor.chkcloseonsave.caption"
 msgid "Close"
+msgstr ""
+
+#: tfmchxscriptmanager.actcompile.caption
+msgctxt "tfmchxscriptmanager.actcompile.caption"
+msgid "Syntax check"
+msgstr ""
+
+#: tfmchxscriptmanager.actcompile.hint
+msgctxt "tfmchxscriptmanager.actcompile.hint"
+msgid "Checks the script syntax (actually tries to compile)"
+msgstr ""
+
+#: tfmchxscriptmanager.acteditcopy.caption
+msgctxt "tfmchxscriptmanager.acteditcopy.caption"
+msgid "&Copiar"
+msgstr ""
+
+#: tfmchxscriptmanager.acteditcopy.hint
+msgctxt "tfmchxscriptmanager.acteditcopy.hint"
+msgid "Copiar"
+msgstr ""
+
+#: tfmchxscriptmanager.acteditcut.caption
+msgctxt "tfmchxscriptmanager.acteditcut.caption"
+msgid "Cor&tar"
+msgstr ""
+
+#: tfmchxscriptmanager.acteditcut.hint
+msgctxt "tfmchxscriptmanager.acteditcut.hint"
+msgid "Cortar"
+msgstr ""
+
+#: tfmchxscriptmanager.acteditdelete.caption
+msgctxt "tfmchxscriptmanager.acteditdelete.caption"
+msgid "&Suprimir"
+msgstr ""
+
+#: tfmchxscriptmanager.acteditdelete.hint
+msgctxt "tfmchxscriptmanager.acteditdelete.hint"
+msgid "Suprimir"
+msgstr ""
+
+#: tfmchxscriptmanager.acteditpaste.caption
+msgctxt "tfmchxscriptmanager.acteditpaste.caption"
+msgid "&Pegar"
+msgstr ""
+
+#: tfmchxscriptmanager.acteditpaste.hint
+msgctxt "tfmchxscriptmanager.acteditpaste.hint"
+msgid "Pegar"
+msgstr ""
+
+#: tfmchxscriptmanager.acteditselectall.caption
+msgctxt "tfmchxscriptmanager.acteditselectall.caption"
+msgid "Seleccion&ar todo"
+msgstr ""
+
+#: tfmchxscriptmanager.acteditselectall.hint
+msgctxt "tfmchxscriptmanager.acteditselectall.hint"
+msgid "Seleccionar Todo"
+msgstr ""
+
+#: tfmchxscriptmanager.acteditundo.caption
+msgctxt "tfmchxscriptmanager.acteditundo.caption"
+msgid "&Deshacer"
+msgstr ""
+
+#: tfmchxscriptmanager.acteditundo.hint
+msgctxt "tfmchxscriptmanager.acteditundo.hint"
+msgid "Deshacer"
+msgstr ""
+
+#: tfmchxscriptmanager.actexecute.caption
+msgctxt "tfmchxscriptmanager.actexecute.caption"
+msgid "Execute"
+msgstr ""
+
+#: tfmchxscriptmanager.actfilesaveas.caption
+msgctxt "tfmchxscriptmanager.actfilesaveas.caption"
+msgid "Gu&ardar Como..."
+msgstr ""
+
+#: tfmchxscriptmanager.actfilesaveas.hint
+msgctxt "tfmchxscriptmanager.actfilesaveas.hint"
+msgid "Guardar Como"
+msgstr ""
+
+#: tfmchxscriptmanager.actsearchfind.caption
+msgctxt "tfmchxscriptmanager.actsearchfind.caption"
+msgid "&Buscar..."
+msgstr ""
+
+#: tfmchxscriptmanager.actsearchreplace.caption
+msgctxt "tfmchxscriptmanager.actsearchreplace.caption"
+msgid "&Reemplazar"
+msgstr ""
+
+#: tfmchxscriptmanager.bseparator1.caption
+msgctxt "tfmchxscriptmanager.bseparator1.caption"
+msgid "-"
+msgstr ""
+
+#: tfmchxscriptmanager.bseparator2.caption
+msgctxt "tfmchxscriptmanager.bseparator2.caption"
+msgid "-"
+msgstr ""
+
+#: tfmchxscriptmanager.bseparator3.caption
+msgctxt "tfmchxscriptmanager.bseparator3.caption"
+msgid "-"
+msgstr ""
+
+#: tfmchxscriptmanager.bseparator4.caption
+msgctxt "tfmchxscriptmanager.bseparator4.caption"
+msgid "bSeparator4"
+msgstr ""
+
+#: tfmchxscriptmanager.bseparator5.caption
+msgctxt "tfmchxscriptmanager.bseparator5.caption"
+msgid "bSeparator5"
+msgstr ""
+
+#: tfmchxscriptmanager.gbxscript.caption
+msgctxt "tfmchxscriptmanager.gbxscript.caption"
+msgid "Script"
+msgstr ""
+
+#: tfmchxscriptmanager.pagoutput.caption
+msgctxt "tfmchxscriptmanager.pagoutput.caption"
+msgid "Output"
+msgstr ""
+
+#: tfmchxscriptmanager.pagscriptlist.caption
+msgid "Scripts"
+msgstr ""
+
+#: tfmchxscriptmanager.pagsourcecode.caption
+msgctxt "tfmchxscriptmanager.pagsourcecode.caption"
+msgid "Source Code"
+msgstr ""
+
+#: tfmchxscriptmanager.tbeditor.caption
+msgctxt "tfmchxscriptmanager.tbeditor.caption"
+msgid "tbEditor"
 msgstr ""
 
 #: tfmemutecaactaddfolder.chknozip.caption
@@ -2421,14 +2564,17 @@ msgid "All files"
 msgstr ""
 
 #: ufchxscriptmanager.rsfilemaskscriptdescription
+msgctxt "ufchxscriptmanager.rsfilemaskscriptdescription"
 msgid "Pascal script file"
 msgstr ""
 
 #: ufchxscriptmanager.rsfsmsavechanges
+msgctxt "ufchxscriptmanager.rsfsmsavechanges"
 msgid "%s has changed. Save"
 msgstr ""
 
 #: ufchxscriptmanager.rsfsmscriptfilesaved
+msgctxt "ufchxscriptmanager.rsfsmscriptfilesaved"
 msgid "File saved: %s"
 msgstr ""
 
@@ -2499,6 +2645,26 @@ msgstr ""
 #: uflemutksysmanager.rssystemname
 msgctxt "uflemutksysmanager.rssystemname"
 msgid "System name [Company: Model (extra)]"
+msgstr ""
+
+#: ufrchxscriptmanager.rsfilemaskallfilesdescription
+msgctxt "ufrchxscriptmanager.rsfilemaskallfilesdescription"
+msgid "All files"
+msgstr ""
+
+#: ufrchxscriptmanager.rsfilemaskscriptdescription
+msgctxt "ufrchxscriptmanager.rsfilemaskscriptdescription"
+msgid "Pascal script file"
+msgstr ""
+
+#: ufrchxscriptmanager.rsfsmsavechanges
+msgctxt "ufrchxscriptmanager.rsfsmsavechanges"
+msgid "%s has changed. Save"
+msgstr ""
+
+#: ufrchxscriptmanager.rsfsmscriptfilesaved
+msgctxt "ufrchxscriptmanager.rsfsmscriptfilesaved"
+msgid "File saved: %s"
 msgstr ""
 
 #: uguiconfig.krsinikeydefsofticon
