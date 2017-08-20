@@ -13,13 +13,13 @@ uses
   // CHX
   ucCHXScriptEngine,
   // PS Imports
-  uPSI_uEmutecaCommon{,
-  uPSI_uaCHXStorable, uPSI_uaEmutecaManager,
+  uPSI_uEmutecaCommon,
+  //uPSI_uaCHXStorable, uPSI_uaEmutecaManager,
   uPSI_ucEmutecaEmulator, uPSI_ucEmutecaSystem,
   uPSI_ucEmutecaGroup, uPSI_ucEmutecaSoftware,
   uPSI_ucEmutecaEmulatorManager, uPSI_ucEmutecaSystemManager,
   uPSI_ucEmutecaGroupManager, uPSI_ucEmutecaSoftManager,
-  uPSI_ucEmutecaConfig, uPSI_ucEmuteca};
+  uPSI_ucEmutecaConfig, uPSI_ucEmuteca;
 
 type
 
@@ -68,7 +68,8 @@ procedure cEmutecaScriptEngine.PasScriptOnCompImport(Sender: TObject;
 begin
   inherited PasScriptOnCompImport(Sender, x);
 
-  //SIRegister_uEmutecaCommon(x);
+  SIRegister_uEmutecaCommon(x);
+
   //SIRegister_uaCHXStorable(x);
   //SIRegister_uaEmutecaManager(x);
   //SIRegister_ucEmutecaEmulator(x);
@@ -87,6 +88,8 @@ procedure cEmutecaScriptEngine.PasScriptOnExecImport(Sender: TObject;
   se: TPSExec; x: TPSRuntimeClassImporter);
 begin
   inherited PasScriptOnExecImport(Sender, se, x);
+
+  RIRegister_uEmutecaCommon_Routines(se);
 
   //RIRegister_uaCHXStorable(x);
   //RIRegister_uaEmutecaManager(x);
@@ -115,8 +118,8 @@ procedure cEmutecaScriptEngine.PasScriptOnExecute(Sender: TPSScript);
 begin
   inherited PasScriptOnExecute(Sender);
 
- // Sender.SetPointerToData('Emuteca', @FEmuteca,
- //   Sender.FindNamedType('cEmuteca'));
+  //Sender.SetPointerToData('Emuteca', @FEmuteca,
+  //  Sender.FindNamedType('cEmuteca'));
 end;
 
 function cEmutecaScriptEngine.PasScriptOnFindUnknownFile(Sender: TObject;

@@ -18,7 +18,7 @@ uses
   // Emuteca clases
   ucEmuteca, uEmutecaCommon, ucEmutecaGroup, ucEmutecaSoftware,
   // Emuteca forms
-  ufrEmutecaScriptManager, ufrLEmuTKAbout,
+  ufrLEmuTKAbout,
   // Emuteca windows
   ufEmutecaActAddSoft, ufEmutecaActAddFolder, ufEmutecaActExportSoftData,
   ufEmutecaActImportSoftData,

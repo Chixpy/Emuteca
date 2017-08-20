@@ -79,20 +79,23 @@ begin
 end;
 
 procedure TfmLEmuTKSysManager.SetCheckedAll(aBool: boolean);
-var
-  i: integer;
-  aSystem: cEmutecaSystem;
+//var
+//  i: integer;
+//  aSystem: cEmutecaSystem;
 begin
-  if not assigned(Emuteca) then
-    Exit;
 
-  i := 0;
-  while i < Emuteca.SystemManager.FullList.Count do
-  begin
-    aSystem := Emuteca.SystemManager.FullList[i];
-    aSystem.Enabled := aBool;
-    Inc(i);
-  end;
+  // DO NOTHING, ENABLING SYSTEMS IS DONE ON SAVING LIST
+
+  //if not assigned(Emuteca) then
+  //  Exit;
+
+  // i := 0;
+  // while i < Emuteca.SystemManager.FullList.Count do
+  // begin
+  //   aSystem := Emuteca.SystemManager.FullList[i];
+  //   aSystem.Enabled := aBool;
+  //   Inc(i);
+  // end;
 end;
 
 procedure TfmLEmuTKSysManager.SetEmuteca(AValue: cEmuteca);

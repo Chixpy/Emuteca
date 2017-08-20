@@ -11,7 +11,6 @@ uses
   ucEmuteca, ucEmutecaGroup, ucEmutecaConfig, ufrLEmuTKMain,
   ucEmutecaEmulatorManager, ucEmutecaGroupManager, ucEmutecaSystemManager,
   ucEmutecaEmulator, ucEmutecaSoftware, ucEmutecaSystem, 
-ufrEmutecaScriptManager,
   ucEmutecaSoftManager, uGUIConfig, uaCHXStorable, uaCHXConfig,
   ufEmutecaSystemImgEditor, ucEmutecaScriptEngine, ufESMSoftList,
   ufESMGroupList, ufEmutecaGroupCBXOld, ufEmutecaSystemEditor,

@@ -484,7 +484,7 @@ begin
   if not assigned(aTxtFile) then
     Exit;
 
-  while aTxtFile.Count < 20 do
+  while aTxtFile.Count < 21 do
     aTxtFile.Add('');
 
   GroupKey := aTxtFile[0];

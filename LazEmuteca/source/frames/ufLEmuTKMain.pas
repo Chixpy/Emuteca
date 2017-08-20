@@ -278,6 +278,10 @@ constructor TfmLEmuTKMain.Create(TheOwner: TComponent);
     // Creating and Setting the System ComboBox
     FfmEmutecaSystemCBX := TfmLEmuTKIcnSysCBX.Create(pMiddle);
     fmEmutecaSystemCBX.Align := alTop;
+    // TODO: Configurable
+    fmEmutecaSystemCBX.cbxSystem.Font.Height := 32;
+    fmEmutecaSystemCBX.cbxSystem.Height := 32;
+    fmEmutecaSystemCBX.cbxSystem.ItemHeight := 32;
     fmEmutecaSystemCBX.FirstItem := ETKSysCBXFIAll;
     fmEmutecaSystemCBX.OnSelectSystem := @SelectSystem;
     fmEmutecaSystemCBX.Parent := pMiddle;
@@ -315,6 +319,8 @@ constructor TfmLEmuTKMain.Create(TheOwner: TComponent);
 
     // Creating SoftTree frame
     FfmSoftTree := TfmLEmuTKIcnSoftTree.Create(pMain);
+    // TODO: Configurable
+    fmSoftTree.VDT.Font.Height := 24;
     fmSoftTree.OnSelectGroup := @SelectGroup;
     fmSoftTree.OnSelectSoft := @SelectSoftware;
     fmSoftTree.OnDblClkSoft := @RunSoftware;

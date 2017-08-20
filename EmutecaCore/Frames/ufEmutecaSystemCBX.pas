@@ -110,6 +110,9 @@ procedure TfmEmutecaSystemCBX.SetSelectedSystem(AValue: cEmutecaSystem);
 var
   aPos: integer;
 begin
+  if FSelectedSystem = AValue then
+    Exit;
+  FSelectedSystem := AValue;
 
   if not assigned(AValue) then
   begin
@@ -118,15 +121,10 @@ begin
     cbxSystem.ItemIndex := 0;
     if FirstItem = ETKSysCBXFINone then
     begin
-      SelectedSystem := cEmutecaSystem(cbxSystem.Items.Objects[0]);
+      FSelectedSystem := cEmutecaSystem(cbxSystem.Items.Objects[0]);
     end;
     Exit;
   end;
-
-  if FSelectedSystem = AValue then
-    Exit;
-  FSelectedSystem := AValue;
-
 
   aPos := cbxSystem.Items.IndexOfObject(SelectedSystem);
 

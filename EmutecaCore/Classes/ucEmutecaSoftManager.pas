@@ -238,7 +238,7 @@ begin
 
   aSoftLst := cEmutecaSoftList.Create(True);
   try
-    // Loading import group list
+    // Loading import soft list
     ActLoadStrLst(aSoftLst, aTxtFile);
 
     aSoftLst.Sort(@EmutecaCompareSoftByID);

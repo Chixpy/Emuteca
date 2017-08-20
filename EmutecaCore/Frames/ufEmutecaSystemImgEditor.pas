@@ -24,6 +24,7 @@ type
     gbxImages: TGroupBox;
     gbxSystemIcon: TGroupBox;
     gbxSystemBG: TGroupBox;
+    gbxSystemIcons: TGroupBox;
     gbxSystemImage: TGroupBox;
     iSystemIcon: TImage;
     iSystemBG: TImage;

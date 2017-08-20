@@ -37,6 +37,7 @@ inherited fmEmutecaSoftTree: TfmEmutecaSoftTree
       item
         Position = 1
         Text = 'Title'
+        Width = 300
       end    
       item
         Position = 2

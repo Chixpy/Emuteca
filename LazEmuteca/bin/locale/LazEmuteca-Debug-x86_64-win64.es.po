@@ -415,6 +415,10 @@ msgctxt "tfmchxscriptmanager.actfilesaveas.hint"
 msgid "Guardar Como"
 msgstr ""
 
+#: tfmchxscriptmanager.actoutputclear.caption
+msgid "actOutputClear"
+msgstr ""
+
 #: tfmchxscriptmanager.actsearchfind.caption
 msgctxt "tfmchxscriptmanager.actsearchfind.caption"
 msgid "&Buscar..."
@@ -450,6 +454,14 @@ msgctxt "tfmchxscriptmanager.bseparator5.caption"
 msgid "bSeparator5"
 msgstr ""
 
+#: tfmchxscriptmanager.fontedit1.caption
+msgid "Seleccionar &Fuente..."
+msgstr ""
+
+#: tfmchxscriptmanager.fontedit1.hint
+msgid "Selector de fuente"
+msgstr ""
+
 #: tfmchxscriptmanager.gbxscript.caption
 msgctxt "tfmchxscriptmanager.gbxscript.caption"
 msgid "Script"
@@ -472,6 +484,15 @@ msgstr ""
 #: tfmchxscriptmanager.tbeditor.caption
 msgctxt "tfmchxscriptmanager.tbeditor.caption"
 msgid "tbEditor"
+msgstr ""
+
+#: tfmchxscriptmanager.tboutput.caption
+msgid "tbOutput"
+msgstr ""
+
+#: tfmchxscriptmanager.toolbutton2.caption
+msgctxt "tfmchxscriptmanager.toolbutton2.caption"
+msgid "ToolButton2"
 msgstr ""
 
 #: tfmemutecaactaddfolder.chknozip.caption
@@ -1100,6 +1121,10 @@ msgctxt "tfmemutksystemimgeditor.gbxsystemicon.caption"
 msgid "System icon"
 msgstr ""
 
+#: tfmemutksystemimgeditor.gbxsystemicons.caption
+msgid "gbxSystemIcons"
+msgstr ""
+
 #: tfmemutksystemimgeditor.gbxsystemimage.caption
 msgctxt "tfmemutksystemimgeditor.gbxsystemimage.caption"
 msgid "System image"
@@ -1199,6 +1224,7 @@ msgid "ToolBar1"
 msgstr ""
 
 #: tfmlemutkfullsystemeditor.toolbutton2.caption
+msgctxt "tfmlemutkfullsystemeditor.toolbutton2.caption"
 msgid "ToolButton2"
 msgstr ""
 
