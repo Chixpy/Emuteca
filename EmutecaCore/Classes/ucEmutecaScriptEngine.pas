@@ -72,16 +72,16 @@ begin
 
   //SIRegister_uaCHXStorable(x);
   //SIRegister_uaEmutecaManager(x);
-  //SIRegister_ucEmutecaEmulator(x);
-  //SIRegister_ucEmutecaSystem(x);
-  //SIRegister_ucEmutecaGroup(x);
-  //SIRegister_ucEmutecaSoftware(x);
-  //SIRegister_ucEmutecaEmulatorManager(x);
-  //SIRegister_ucEmutecaSystemManager(x);
-  //SIRegister_ucEmutecaGroupManager(x);
-  //SIRegister_ucEmutecaSoftManager(x);
-  //SIRegister_ucEmutecaConfig(x);
-  //SIRegister_ucEmuteca(x);
+  SIRegister_ucEmutecaEmulator(x);
+  SIRegister_ucEmutecaSystem(x);
+  SIRegister_ucEmutecaGroup(x);
+  SIRegister_ucEmutecaSoftware(x);
+  SIRegister_ucEmutecaEmulatorManager(x);
+  SIRegister_ucEmutecaSystemManager(x);
+  SIRegister_ucEmutecaGroupManager(x);
+  SIRegister_ucEmutecaSoftManager(x);
+  SIRegister_ucEmutecaConfig(x);
+  SIRegister_ucEmuteca(x);
 end;
 
 procedure cEmutecaScriptEngine.PasScriptOnExecImport(Sender: TObject;
@@ -93,17 +93,17 @@ begin
 
   //RIRegister_uaCHXStorable(x);
   //RIRegister_uaEmutecaManager(x);
-  //RIRegister_ucEmutecaEmulator(x);
+  RIRegister_ucEmutecaEmulator(x);
   //RIRegister_ucEmutecaSystem_Routines(se);
-  //RIRegister_ucEmutecaSystem(x);
-  //RIRegister_ucEmutecaGroup(x);
-  //RIRegister_ucEmutecaSoftware(x);
-  //RIRegister_ucEmutecaEmulatorManager(x);
-  //RIRegister_ucEmutecaSystemManager(x);
-  //RIRegister_ucEmutecaGroupManager(x);
-  //RIRegister_ucEmutecaSoftManager(x);
-  //RIRegister_ucEmutecaConfig(x);
-  //RIRegister_ucEmuteca(x);
+  RIRegister_ucEmutecaSystem(x);
+  RIRegister_ucEmutecaGroup(x);
+  RIRegister_ucEmutecaSoftware(x);
+  RIRegister_ucEmutecaEmulatorManager(x);
+  RIRegister_ucEmutecaSystemManager(x);
+  RIRegister_ucEmutecaGroupManager(x);
+  RIRegister_ucEmutecaSoftManager(x);
+  RIRegister_ucEmutecaConfig(x);
+  RIRegister_ucEmuteca(x);
 end;
 
 procedure cEmutecaScriptEngine.PasScriptOnCompile(Sender: TPSScript);
@@ -111,15 +111,15 @@ begin
   inherited PasScriptOnCompile(Sender);
 
   // Variables
-  //Sender.AddRegisteredPTRVariable('Emuteca', 'cEmuteca');
+  Sender.AddRegisteredPTRVariable('Emuteca', 'cEmuteca');
 end;
 
 procedure cEmutecaScriptEngine.PasScriptOnExecute(Sender: TPSScript);
 begin
   inherited PasScriptOnExecute(Sender);
 
-  //Sender.SetPointerToData('Emuteca', @FEmuteca,
-  //  Sender.FindNamedType('cEmuteca'));
+  Sender.SetPointerToData('Emuteca', @FEmuteca,
+    Sender.FindNamedType('cEmuteca'));
 end;
 
 function cEmutecaScriptEngine.PasScriptOnFindUnknownFile(Sender: TObject;

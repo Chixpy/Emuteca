@@ -17,7 +17,7 @@ uses
   ufLEmuTKFullSystemEditor, ufCHXChkLstPropEditor, ufLEmuTKSysManager,
   ufLEmuTKEmuManager, ufEmutecaSoftEditor, ufLEmuTKFullEmuEditor,
   ufEmutecaEmulatorEditor, ufEmutecaActAddSoft, ufCHXForm,
-  ufEmutecaActAddFolder, uCHXDlgUtils, ucEmutecaSoftList, ucEmutecaSystemList,
+  ufEmutecaActAddFolder, ucEmutecaSoftList, ucEmutecaSystemList,
   ucEmutecaGroupList, ucEmutecaEmulatorList, uaEmutecaCustomGroup,
   uaEmutecaCustomSoft, uaEmutecaCustomSystem, ufrLEmuTKAbout, ufLEmuTKIcnSysCBX,
   ufCHXFrame, ufCHXPropEditor, ufEmutecaSoftTree, ufLEmuTKIcnSoftTree,
@@ -25,7 +25,7 @@ uses
   ufCHXMultiFolderEditor, ufEmutecaSystemMVFEditor, ufLEmuTKSoftMedia,
   ufLEmuTKMain, uLEmuTKCommon, uafLEmuTKSoftFoldersPreview,
   ufLEmuTKSoftTxtPreview, ufCHXStrLstPreview, ufCHXImgListPreview,
-  ufCHXTxtListPreview, ufLEmuTKSoftImgPreview, ufEmutecaSystemCBX,
+  ufCHXTxtListPreview, uCHXDlgUtils, ufLEmuTKSoftImgPreview, ufEmutecaSystemCBX,
   ufEmutecaSystemITFEditor, ufLEmuTKMediaManager, ufEmutecaActExportSoftData,
   uaEmutecaCustomManager, ufEmutecaActImportSoftData, ufCHXScriptManager, 
 ufLEmuTKScriptManager;
