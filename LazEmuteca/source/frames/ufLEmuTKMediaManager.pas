@@ -1339,7 +1339,7 @@ begin
   Application.CreateForm(TfrmCHXForm, aForm);
   try
     aForm.Name := 'frmLEmuTKMediaManager';
-    aForm.Caption := Format(rsFmtWindowCaption,
+    aForm.Caption := Format(krsFmtWindowCaption,
       [Application.Title, 'Media Manager']);
 
     // Set aForm.GUIConfigIni before creation of aFrame because

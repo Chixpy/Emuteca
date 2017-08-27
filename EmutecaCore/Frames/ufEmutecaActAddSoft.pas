@@ -427,7 +427,7 @@ begin
   Application.CreateForm(TfrmCHXForm, aForm);
   try
     aForm.Name := 'frmEmutecaActAddSoft';
-    aForm.Caption := Format(rsFmtWindowCaption,
+    aForm.Caption := Format(krsFmtWindowCaption,
       [Application.Title, 'Add Software...']);
     aForm.AutoSize := True;
 

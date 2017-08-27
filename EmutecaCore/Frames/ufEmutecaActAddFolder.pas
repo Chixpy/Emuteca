@@ -281,7 +281,7 @@ begin
   Application.CreateForm(TfrmCHXForm, aForm);
   try
     aForm.Name := 'frmEmutecaActAddFolder';
-    aForm.Caption := Format(rsFmtWindowCaption,
+    aForm.Caption := Format(krsFmtWindowCaption,
       [Application.Title, 'Add Folder']);
 
     aFrame := TfmEmutecaActAddFolder.Create(aForm);

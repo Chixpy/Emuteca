@@ -505,7 +505,7 @@ begin
   Publisher := aTxtFile[10];
   Zone := aTxtFile[11];
 
-  DumpStatus := Key2EmutecaDumpSt(aTxtFile[12]);
+  DumpStatus := Key2DumpSt(aTxtFile[12]);
   DumpInfo := aTxtFile[13];
   Fixed := aTxtFile[14];
   Trainer := aTxtFile[15];
@@ -553,7 +553,7 @@ begin
   aTxtFile.Add(Publisher);
   aTxtFile.Add(Zone);
 
-  aTxtFile.Add(EmutecaDumpSt2Key(DumpStatus));
+  aTxtFile.Add(DumpSt2Key(DumpStatus));
   aTxtFile.Add(DumpInfo);
   aTxtFile.Add(Fixed);
   aTxtFile.Add(Trainer);
@@ -604,8 +604,8 @@ begin
 
   // Version Flags
   // ---------------
-  DumpStatus := Key2EmutecaDumpSt(aIniFile.ReadString(Section,
-    krsIniKeyDumpStatus, EmutecaDumpSt2Key(DumpStatus)));
+  DumpStatus := Key2DumpSt(aIniFile.ReadString(Section,
+    krsIniKeyDumpStatus, DumpSt2Key(DumpStatus)));
   DumpInfo := aIniFile.ReadString(Section, krsIniKeyDumpInfo, DumpInfo);
   Fixed := aIniFile.ReadString(Section, krsIniKeyFixed, Fixed);
   Trainer := aIniFile.ReadString(Section, krsIniKeyTrainer, Trainer);
@@ -651,7 +651,7 @@ begin
   // Version Flags
   // ---------------
   aIniFile.WriteString(Section,
-    krsIniKeyDumpStatus, EmutecaDumpSt2Key(DumpStatus));
+    krsIniKeyDumpStatus, DumpSt2Key(DumpStatus));
   aIniFile.WriteString(Section, krsIniKeyDumpInfo, DumpInfo);
   aIniFile.WriteString(Section, krsIniKeyFixed, Fixed);
   aIniFile.WriteString(Section, krsIniKeyTrainer, Trainer);

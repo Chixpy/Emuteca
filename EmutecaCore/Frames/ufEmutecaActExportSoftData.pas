@@ -90,9 +90,9 @@ begin
 
   if Assigned(System) then
   begin
-    eSoftIDType.Text := EmutecaSoftExportKey2StrK(System.SoftExportKey);
+    eSoftIDType.Text := SoftExportKey2StrK(System.SoftExportKey);
     eExportFile.Enabled := True;
-    eExportFile.FileName := ExtractFilePath(eExportFile.FileName) + System.FileName + krsEmutecaSoftFileExt;
+    eExportFile.FileName := ExtractFilePath(eExportFile.FileName) + System.FileName + krsFileExtSoft;
   end
   else
   begin
@@ -150,7 +150,7 @@ begin
   Application.CreateForm(TfrmCHXForm, aForm);
   try
     aForm.Name := 'frmEmutecaActExportSoftData';
-    aForm.Caption := Format(rsFmtWindowCaption,
+    aForm.Caption := Format(krsFmtWindowCaption,
       [Application.Title, 'Export soft data']);
 
     aFrame := TfmActExportSoftData.Create(aForm);
@@ -190,7 +190,7 @@ begin
   if not Assigned(frmCHXProgressBar) then
     Application.CreateForm(TfrmCHXProgressBar, frmCHXProgressBar);
 
-  eExportFile.Filter := rsEmutecaSoftFileMaskDesc + '|' + krsEmutecaSoftFileMask;
+  eExportFile.Filter := rsFileMaskDescSoft + '|' + krsFileMaskSoft;
 end;
 
 destructor TfmActExportSoftData.Destroy;

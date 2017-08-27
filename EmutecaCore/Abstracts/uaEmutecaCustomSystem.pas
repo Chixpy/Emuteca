@@ -267,9 +267,9 @@ begin
     aIniFile.ReadString(ID, krsIniKeyVideoCaptions, VideoCaptions.CommaText);
 
   // Import
-  SoftExportKey := Str2EmutecaSoftExportKey(
+  SoftExportKey := Str2SoftExportKey(
     aIniFile.ReadString(ID, krsIniKeySoftExportKey,
-    EmutecaSoftExportKey2StrK(SoftExportKey)));
+    SoftExportKey2StrK(SoftExportKey)));
   Extensions.CommaText := aIniFile.ReadString(ID, krsIniKeyExtensions,
     Extensions.CommaText);
 
@@ -299,7 +299,7 @@ begin
 
   // Import
   aIniFile.WriteString(ID, krsIniKeySoftExportKey,
-    EmutecaSoftExportKey2StrK(SoftExportKey));
+    SoftExportKey2StrK(SoftExportKey));
   aIniFile.WriteString(ID, krsIniKeyExtensions, Extensions.CommaText);
 
   if ExportMode then

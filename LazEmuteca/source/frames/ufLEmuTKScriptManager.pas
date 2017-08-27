@@ -78,7 +78,7 @@ begin
   Application.CreateForm(TfrmCHXForm, aForm);
   try
     aForm.Name := 'frmLEmuTKScriptManager';
-    aForm.Caption := Format(rsFmtWindowCaption,
+    aForm.Caption := Format(krsFmtWindowCaption,
       [Application.Title, 'Script Manager']);
 
     aFrame := TfmLEmuTKScriptManager.Create(aForm);
@@ -103,7 +103,7 @@ var
 begin
   inherited Create(TheOwner);
 
-  slvGeneral.Mask := krsEmutecaScriptFileMask;
+  slvGeneral.Mask := krsFileMaskScript;
 
   // Creating custom script engine
   // freed automatically

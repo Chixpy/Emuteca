@@ -274,7 +274,7 @@ begin
 
   // Uhm. If things go bad from the start, they only can improve :-D
   // TODO: Remove this after Exception/Error codes are implemented :-P
-  Result := kEmutecaExecErrorNoGame;
+  Result := kErrorExecNoGame;
 
   if not assigned(aSoftware) then
     { TODO : Exception or return Comperror code? }
@@ -300,7 +300,7 @@ begin
     '' then
     aFolder := aSoftware.CachedSystem.WorkingFolder
   else
-    aFolder := TempFolder + krsEmutecaTempGameSubFolder;
+    aFolder := TempFolder + krsTempGameSubFolder;
 
   //   2.1. If don't exists create new, and mark it to delete at the end.
   NewDir := not DirectoryExists(aFolder);

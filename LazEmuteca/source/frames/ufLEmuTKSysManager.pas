@@ -264,7 +264,7 @@ begin
   Application.CreateForm(TfrmCHXForm, aForm);
   try
     aForm.Name := 'frmLEmuTKSysManager';
-    aForm.Caption := Format(rsFmtWindowCaption,
+    aForm.Caption := Format(krsFmtWindowCaption,
       [Application.Title, 'System Manager']);
 
     aFrame := TfmLEmuTKSysManager.Create(aForm);

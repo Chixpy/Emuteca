@@ -66,7 +66,7 @@ begin
 
   if Assigned(System) then
   begin
-    eSoftIDType.Text := EmutecaSoftExportKey2StrK(System.SoftExportKey);
+    eSoftIDType.Text := SoftExportKey2StrK(System.SoftExportKey);
       eImportFile.Enabled := True;
   end
   else
@@ -146,7 +146,7 @@ begin
   Application.CreateForm(TfrmCHXForm, aForm);
   try
     aForm.Name := 'frmEmutecaActImportSoftData';
-    aForm.Caption := Format(rsFmtWindowCaption,
+    aForm.Caption := Format(krsFmtWindowCaption,
       [Application.Title, 'Import soft data...']);
 
     aFrame := TfmEmutecaActImportSoftData.Create(aForm);
@@ -182,7 +182,7 @@ begin
   CreateFrames;
 
   // Add
-  eImportFile.Filter := rsEmutecaSoftFileMaskDesc + '|' + krsEmutecaSoftFileMask;
+  eImportFile.Filter := rsFileMaskDescSoft + '|' + krsFileMaskSoft;
 
   // If frmCHXProgressBar is not created...
   if not Assigned(frmCHXProgressBar) then

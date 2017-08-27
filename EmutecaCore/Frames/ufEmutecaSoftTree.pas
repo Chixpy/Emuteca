@@ -152,7 +152,7 @@ procedure TfmEmutecaSoftTree.VDTGetText(Sender: TBaseVirtualTree;
       5: // Flags
       begin
         // A simple formated output, to be overriden
-        CellText := EmutecaDumpSt2Str(aSoft.DumpStatus);
+        CellText := DumpSt2Str(aSoft.DumpStatus);
 
         if aSoft.DumpInfo <> '' then
           CellText += ' [' + aSoft.DumpInfo + ']';
@@ -463,7 +463,7 @@ procedure TfmEmutecaSoftTree.VDTGetHint(Sender: TBaseVirtualTree;
       end;
       5: // Flags
       begin
-        HintText := EmutecaDumpSt2Str(aSoft.DumpStatus);
+        HintText := DumpSt2Str(aSoft.DumpStatus);
 
         if aSoft.DumpInfo <> '' then
           HintText += ' (' + aSoft.DumpInfo + ')';

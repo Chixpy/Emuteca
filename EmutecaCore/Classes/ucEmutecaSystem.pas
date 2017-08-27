@@ -76,26 +76,26 @@ implementation
 procedure cEmutecaSystem.LoadSoftGroupLists(aFile: string);
 begin
   SoftManager.ClearData;
-  if FileExistsUTF8(aFile + krsEmutecaSoftFileExt) then
-    SoftManager.LoadFromFileTxt(aFile + krsEmutecaSoftFileExt);
+  if FileExistsUTF8(aFile + krsFileExtSoft) then
+    SoftManager.LoadFromFileTxt(aFile + krsFileExtSoft);
 
   GroupManager.ClearData;
-  if FileExistsUTF8(aFile + krsEmutecaGroupFileExt) then
-    GroupManager.LoadFromFileTxt(aFile + krsEmutecaGroupFileExt);
+  if FileExistsUTF8(aFile + krsFileExtGroup) then
+    GroupManager.LoadFromFileTxt(aFile + krsFileExtGroup);
 
   CacheGroups;
 end;
 
 procedure cEmutecaSystem.ImportSoftGroupLists(aFile: string);
 begin
-  if FileExistsUTF8(aFile + krsEmutecaSoftFileExt) then
-    SoftManager.ImportFromFileCSV(aFile + krsEmutecaSoftFileExt);
+  if FileExistsUTF8(aFile + krsFileExtSoft) then
+    SoftManager.ImportFromFileCSV(aFile + krsFileExtSoft);
 
   // Updating groups and lists
   CacheGroups;
 
-  if FileExistsUTF8(aFile + krsEmutecaGroupFileExt) then
-    GroupManager.ImportFromFileCSV(aFile + krsEmutecaGroupFileExt);
+  if FileExistsUTF8(aFile + krsFileExtGroup) then
+    GroupManager.ImportFromFileCSV(aFile + krsFileExtGroup);
 end;
 
 procedure cEmutecaSystem.SaveSoftGroupLists(aFile: string;
@@ -107,8 +107,8 @@ begin
   if not DirectoryExistsUTF8(ExtractFileDir(aFile)) then
     ForceDirectoriesUTF8(ExtractFileDir(aFile));
 
-  GroupManager.SaveToFileTxt(aFile + krsEmutecaGroupFileExt, ExportMode);
-  SoftManager.SaveToFileTxt(aFile + krsEmutecaSoftFileExt, ExportMode);
+  GroupManager.SaveToFileTxt(aFile + krsFileExtGroup, ExportMode);
+  SoftManager.SaveToFileTxt(aFile + krsFileExtSoft, ExportMode);
 end;
 
 constructor cEmutecaSystem.Create(AOwner: TComponent);

@@ -150,7 +150,7 @@ begin
   Application.CreateForm(TfrmLEmuTKAbout, frmLEmuTKAbout);
   try
     frmLEmuTKAbout.Caption :=
-      Format(rsFmtWindowCaption, [Application.Title, HelpOnHelp1.Caption]);
+      Format(krsFmtWindowCaption, [Application.Title, HelpOnHelp1.Caption]);
     frmLEmuTKAbout.Emuteca := Emuteca;
     frmLEmuTKAbout.CachedIcons := IconList;
     frmLEmuTKAbout.ZoneIcons := ZoneIcons;
@@ -308,7 +308,7 @@ begin
     Application.CreateForm(TfrmCHXProgressBar, frmCHXProgressBar);
 
   // Windows Caption
-  Caption := Format(rsFmtWindowCaption, [Application.Title, Caption]);
+  Caption := Format(krsFmtWindowCaption, [Application.Title, Caption]);
 
   FGUIConfig := cGUIConfig.Create(self);
   GUIConfig.LoadConfig(SetAsAbsoluteFile('GUI.ini', ProgramDirectory));
@@ -361,7 +361,7 @@ begin
   try
     aForm.Name := 'frmLEmuTKEmuManager';
     aForm.GUIConfigIni := GUIConfig.ConfigFile;
-    aForm.Caption := Format(rsFmtWindowCaption,
+    aForm.Caption := Format(krsFmtWindowCaption,
       [Application.Title, actEmulatorManager.Caption]);
 
     aFrame := TfmLEmuTKEmuManager.Create(aForm);

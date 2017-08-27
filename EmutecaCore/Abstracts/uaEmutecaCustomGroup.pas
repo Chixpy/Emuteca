@@ -211,7 +211,7 @@ begin
   SortTitle := aIniFile.ReadString(ID, krsIniKeySortTitle, GetActualSortTitle);
   Year := aIniFile.ReadString(ID, krsIniKeyYear, Year);
   Developer := aIniFile.ReadString(ID, krsIniKeyDeveloper, Developer);
-  MediaFileName := aIniFile.ReadString(ID, krsIniKeyMediaFileName,
+  MediaFileName := aIniFile.ReadString(ID, krsIniKeyFileName,
     MediaFileName);
 
   Stats.LoadFromIni(aIniFile, ID);
@@ -246,7 +246,7 @@ begin
   aIniFile.WriteString(ID, krsIniKeySortTitle, GetActualSortTitle);
   aIniFile.WriteString(ID, krsIniKeyYear, Year);
   aIniFile.WriteString(ID, krsIniKeyDeveloper, Developer);
-  aIniFile.WriteString(ID, krsIniKeyMediaFileName, MediaFileName);
+  aIniFile.WriteString(ID, krsIniKeyFileName, MediaFileName);
 
   Stats.WriteToIni(aIniFile, ID, ExportMode);
 end;

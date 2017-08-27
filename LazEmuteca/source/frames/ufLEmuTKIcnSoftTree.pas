@@ -16,8 +16,8 @@ uses
 
 const
   LazEmuTKIconFiles: array [0..12] of string =
-    (krsedsVerified, krsedsGood, krsedsAlternate, krsedsOverDump,
-    krsedsBadDump, krsedsUnderDump, 'Fixed', 'Trainer',
+    (krsEDSVerified, krsEDSGood, krsEDSAlternate, krsEDSOverDump,
+    krsEDSBadDump, krsEDSUnderDump, 'Fixed', 'Trainer',
     'Translation', 'Pirate', 'Cracked', 'Modified', 'Hack');
 
 type
