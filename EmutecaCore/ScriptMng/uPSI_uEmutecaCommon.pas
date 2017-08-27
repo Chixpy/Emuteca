@@ -110,6 +110,7 @@ begin
   CL.AddConstantN('krsIniKeyDeveloper', 'String').SetString(
     krsIniKeyDeveloper);
 
+  // Soft
   // Shared Keys: krsIniKeyID, krsIniKeyTitle, krsIniKeySortTitle,
   //   krsIniKeyYear, krsIniKeyFileName
   CL.AddConstantN('krsIniKeySHA1', 'String').SetString(krsIniKeySHA1);

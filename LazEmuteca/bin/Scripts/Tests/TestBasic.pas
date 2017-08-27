@@ -31,8 +31,8 @@ begin
   WriteLn('');
   WriteLn('function CompareText(const S1, S2: String): Integer;');
   WriteLn('  This is case insensitive comparison:');
-  WriteLn('    CompareText(''emuteca'', ''Emuteca'') -> ' +
-    IntToStr(CompareText('emuteca', 'Emuteca')));
+  WriteLn('    CompareText(''emuteca'', ''emuteca'') -> ' +
+    IntToStr(CompareText('emuteca', 'emuteca')));
   WriteLn('');
   WriteLn('function CompareStr(const S1, S2: String): Integer;');
   WriteLn('  This is case sensitive comparison:');
