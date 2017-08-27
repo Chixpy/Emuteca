@@ -90,6 +90,7 @@ type
     vstSoftWOFile: TVirtualStringTree;
     procedure actAssignFileExecute(Sender: TObject);
     procedure actDeleteFileExecute(Sender: TObject);
+    procedure actRenameGroupFileExecute(Sender: TObject);
     procedure actSearchMediaInZipExecute(Sender: TObject);
     procedure chkSimilarFilesChange(Sender: TObject);
     procedure lbxFolderSelectionChange(Sender: TObject; User: boolean);
@@ -1078,6 +1079,17 @@ begin
 
   RemoveFileVSTFiles(SourceFile);
   SourceFile := '';
+end;
+
+procedure TfmLEmuTKMediaManager.actRenameGroupFileExecute(Sender: TObject);
+var
+  NewName: string;
+begin
+  NewName := CleanFileName(CurrGroup.SortTitle);
+
+  if not InputQuery(self.Caption, 'Rename group media filename', NewName) then Exit;
+
+  CurrGroup.MediaFileName := NewName;
 end;
 
 procedure TfmLEmuTKMediaManager.actSearchMediaInZipExecute(Sender: TObject);

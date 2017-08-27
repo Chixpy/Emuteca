@@ -25,7 +25,7 @@ interface
 
 uses
   Classes, SysUtils, IniFiles, LazUTF8,
-  uaCHXStorable,
+  uaCHXStorable, uCHXStrUtils,
   uEmutecaCommon,
   ucEmutecaPlayingStats;
 
@@ -37,12 +37,17 @@ type
   private
     FDeveloper: string;
     FID: string;
+    FMediaFileName: string;
+    FSortTitle: string;
     FStats: cEmutecaPlayingStats;
     FTitle: string;
     FYear: string;
+    function GetSortTitle: string;
     function GetTitle: string;
     procedure SetDeveloper(AValue: string);
     procedure SetID(AValue: string);
+    procedure SetMediaFileName(AValue: string);
+    procedure SetSortTitle(AValue: string);
     procedure SetTitle(AValue: string);
     procedure SetYear(AValue: string);
 
@@ -50,6 +55,8 @@ type
   public
     function GetActualTitle: string;
     //< Gets actual Title string, not automade
+    function GetActualSortTitle: string;
+    //< Gets actual SortTitle string, not automade
 
     function CompareID(aID: string): integer;
     function MatchID(aID: string): boolean;
@@ -73,13 +80,18 @@ type
 
   published
     property ID: string read FID write SetID;
-    {< ID, Sort and Media filename. }
+    {< ID. }
     property Title: string read GetTitle write SetTitle;
     {< Name of the group. }
+    property SortTitle: string read GetSortTitle write SetSortTitle;
+    {< Sort title. }
     property Year: string read FYear write SetYear;
     {< Development year. }
     property Developer: string read FDeveloper write SetDeveloper;
     {< Developer. }
+    property MediaFileName: string read FMediaFileName write SetMediaFileName;
+    {< Name of media files. }
+
 
     property Stats: cEmutecaPlayingStats read FStats;
   end;
@@ -103,6 +115,14 @@ begin
     Result := FTitle;
 end;
 
+function caEmutecaCustomGroup.GetSortTitle: string;
+begin
+  if FSortTitle = '' then
+    Result := Title
+  else
+    Result := FSortTitle;
+end;
+
 procedure caEmutecaCustomGroup.SetID(AValue: string);
 begin
   if FID = AValue then
@@ -112,12 +132,31 @@ begin
   FPONotifyObservers(Self, ooChange, nil);
 end;
 
+procedure caEmutecaCustomGroup.SetMediaFileName(AValue: string);
+begin
+  if AValue = '' then
+    FMediaFileName := CleanFileName(Title, True, False)
+  else
+    FMediaFileName := CleanFileName(AValue, True, False);
+end;
+
+procedure caEmutecaCustomGroup.SetSortTitle(AValue: string);
+begin
+  if FSortTitle = AValue then
+    Exit;
+
+  if UTF8CompareStr(AValue, Title) = 0 then
+    FSortTitle := ''
+  else
+    FSortTitle := AValue;
+end;
+
 procedure caEmutecaCustomGroup.SetTitle(AValue: string);
 begin
   if FTitle = AValue then
     Exit;
 
-  if UTF8CompareText(AValue, ID) = 0 then
+  if UTF8CompareStr(AValue, ID) = 0 then
     FTitle := ''
   else
     FTitle := AValue;
@@ -137,13 +176,20 @@ begin
 
   ID := aGroup.ID;
   Title := aGroup.Title;
+  SortTitle := aGroup.SortTitle;
   Year := aGroup.Year;
   Developer := aGroup.Developer;
+  MediaFileName := aGroup.MediaFileName;
 end;
 
 function caEmutecaCustomGroup.GetActualTitle: string;
 begin
   Result := FTitle;
+end;
+
+function caEmutecaCustomGroup.GetActualSortTitle: string;
+begin
+  Result := FSortTitle;
 end;
 
 function caEmutecaCustomGroup.CompareID(aID: string): integer;
@@ -162,8 +208,11 @@ begin
     Exit;
 
   Title := aIniFile.ReadString(ID, krsIniKeyTitle, GetActualTitle);
+  SortTitle := aIniFile.ReadString(ID, krsIniKeySortTitle, GetActualSortTitle);
   Year := aIniFile.ReadString(ID, krsIniKeyYear, Year);
   Developer := aIniFile.ReadString(ID, krsIniKeyDeveloper, Developer);
+  MediaFileName := aIniFile.ReadString(ID, krsIniKeyMediaFileName,
+    MediaFileName);
 
   Stats.LoadFromIni(aIniFile, ID);
 end;
@@ -173,16 +222,18 @@ begin
   if not assigned(aTxtFile) then
     Exit;
 
-  while aTxtFile.Count < 4 do
+  while aTxtFile.Count < 6 do
     aTxtFile.Add('');
 
   ID := aTxtFile[0];
   Title := aTxtFile[1];
-  Year := aTxtFile[2];
-  Developer := aTxtFile[3];
+  SortTitle := aTxtFile[2];
+  Year := aTxtFile[3];
+  Developer := aTxtFile[4];
+  MediaFileName := aTxtFile[5];
 
-  Stats.LoadFromStrLst(aTxtFile, 4);
-  // Next := aTxtFile[7]
+  Stats.LoadFromStrLst(aTxtFile, 6);
+  // Next := aTxtFile[9]
 end;
 
 procedure caEmutecaCustomGroup.SaveToIni(aIniFile: TMemIniFile;
@@ -192,8 +243,10 @@ begin
     Exit;
 
   aIniFile.WriteString(ID, krsIniKeyTitle, GetActualTitle);
+  aIniFile.WriteString(ID, krsIniKeySortTitle, GetActualSortTitle);
   aIniFile.WriteString(ID, krsIniKeyYear, Year);
   aIniFile.WriteString(ID, krsIniKeyDeveloper, Developer);
+  aIniFile.WriteString(ID, krsIniKeyMediaFileName, MediaFileName);
 
   Stats.WriteToIni(aIniFile, ID, ExportMode);
 end;
@@ -206,8 +259,10 @@ begin
 
   aTxtFile.Add(ID);
   aTxtFile.Add(GetActualTitle);
+  aTxtFile.Add(GetActualSortTitle);
   aTxtFile.Add(Year);
   aTxtFile.Add(Developer);
+  aTxtFile.Add(MediaFileName);
 
   Stats.WriteToStrLst(aTxtFile, ExportMode);
 end;
@@ -215,16 +270,16 @@ end;
 procedure caEmutecaCustomGroup.SearchAllRelatedFiles(OutFileList: TStrings;
   aFolder: string; Extensions: TStrings; AutoExtract: boolean);
 begin
-  // HACK: Dot added to ID, to preserve dots in ids like "Super Mario Bros."
-  EmuTKSearchAllRelatedFiles(OutFileList, aFolder, ID + '.', Extensions,
+  // HACK: Dot added to MediaFileName, to preserve dots in ids like "Super Mario Bros."
+  EmuTKSearchAllRelatedFiles(OutFileList, aFolder, MediaFileName + '.', Extensions,
     False, '');
 end;
 
 function caEmutecaCustomGroup.SearchFirstRelatedFile(aFolder: string;
   Extensions: TStrings; AutoExtract: boolean): string;
 begin
-  // HACK: Dot added to ID, to preserve dots in ids like "Super Mario Bros."
-  Result := EmuTKSearchFirstRelatedFile(aFolder, ID + '.',
+  // HACK: Dot added to MediaFileName, to preserve dots in ids like "Super Mario Bros."
+  Result := EmuTKSearchFirstRelatedFile(aFolder, MediaFileName + '.',
     Extensions, False, False, '');
 end;
 

@@ -147,7 +147,7 @@ type
     property Title: string read GetTitle write SetTitle;
     {< Title.
 
-      If empty, then it's same as group. }
+      If empty, then it's same as group ID. }
     property TranslitTitle: string read GetTranslitTitle
       write SetTranslitTitle;
     {< Trasliterated name in english (ASCII7) characters.

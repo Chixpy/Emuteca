@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <MultiProject FileVersion="1">
+    <Elements Count="1">
+      <Element0 FileName="LazEmuteca\LazEmuteca.lpi">
+        <BuildModes Count="2"/>
+        <Mode1 Name="Debug"/>
+        <Mode2 Name="Release"/>
+      </Element0>
+    </Elements>
+  </MultiProject>
+</CONFIG>

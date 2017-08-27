@@ -114,7 +114,7 @@ begin
     Exit;
   FSelectedSystem := AValue;
 
-  if not assigned(AValue) then
+  if not assigned(SelectedSystem) then
   begin
     if cbxSystem.Items.Count = 0 then Exit;
 
@@ -165,7 +165,10 @@ begin
   SystemList.AssignToStrLst(cbxSystem.Items);
 
   if cbxSystem.Items.Count = 0 then
+  begin
+    cbxSystem.ItemIndex := -1;
     Exit;
+    end;
 
   case FirstItem of
     ETKSysCBXFISelect: cbxSystem.Items.Insert(0, rsSelectSystem);
@@ -174,6 +177,7 @@ begin
       ;
   end;
 
+  cbxSystem.ItemIndex := cbxSystem.Items.IndexOfObject(SelectedSystem);
 end;
 
 constructor TfmEmutecaSystemCBX.Create(TheOwner: TComponent);

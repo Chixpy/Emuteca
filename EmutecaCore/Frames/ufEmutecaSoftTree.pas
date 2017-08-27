@@ -20,8 +20,8 @@ type
     StatusBar: TStatusBar;
     VDT: TVirtualStringTree;
     procedure VDTChange(Sender: TBaseVirtualTree; Node: PVirtualNode);
-    procedure VDTCompareNodes(Sender: TBaseVirtualTree; Node1,
-      Node2: PVirtualNode; Column: TColumnIndex; var Result: Integer);
+    procedure VDTCompareNodes(Sender: TBaseVirtualTree;
+      Node1, Node2: PVirtualNode; Column: TColumnIndex; var Result: integer);
     procedure VDTDblClick(Sender: TObject);
     procedure VDTGetHint(Sender: TBaseVirtualTree; Node: PVirtualNode;
       Column: TColumnIndex; var LineBreakStyle: TVTTooltipLineBreakStyle;
@@ -102,11 +102,11 @@ procedure TfmEmutecaSoftTree.VDTGetText(Sender: TBaseVirtualTree;
       7: // Total time
         CellText := aGroup.Stats.PlayingTimeStr;
       8: // Last time
-          CellText := aGroup.Stats.LastTimeStr;
+        CellText := aGroup.Stats.LastTimeStr;
       9: // Folder
         CellText := '';
       10: // File
-        CellText := aGroup.ID;
+        CellText := aGroup.MediaFileName;
       else
         ;
     end;
@@ -183,7 +183,7 @@ procedure TfmEmutecaSoftTree.VDTGetText(Sender: TBaseVirtualTree;
       7: // Playing Time
         CellText := aSoft.Stats.PlayingTimeStr;
       8: // Last Time
-          CellText := aSoft.Stats.LastTimeStr;
+        CellText := aSoft.Stats.LastTimeStr;
       9: // Folder
         CellText := aSoft.Folder;
       10: // File
@@ -258,128 +258,115 @@ begin
 
   if pData^ is cEmutecaSoftware then
   begin
-   aSoft := cEmutecaSoftware(pData^);
+    aSoft := cEmutecaSoftware(pData^);
     StatusBar.Panels[1].Text := aSoft.Folder + aSoft.FileName;
     if Assigned(OnSelectSoft) then
       OnSelectSoft(aSoft);
   end
   else
-  begin if pData^ is cEmutecaGroup then
-     aGroup := cEmutecaGroup(pData^);
-     StatusBar.Panels[1].Text := aGroup.ID;
+  begin
+    if pData^ is cEmutecaGroup then
+      aGroup := cEmutecaGroup(pData^);
+    StatusBar.Panels[1].Text := aGroup.ID;
     if Assigned(OnSelectGroup) then
       OnSelectGroup(aGroup);
   end;
 end;
 
-procedure TfmEmutecaSoftTree.VDTCompareNodes(Sender: TBaseVirtualTree; Node1,
-  Node2: PVirtualNode; Column: TColumnIndex; var Result: Integer);
+procedure TfmEmutecaSoftTree.VDTCompareNodes(Sender: TBaseVirtualTree;
+  Node1, Node2: PVirtualNode; Column: TColumnIndex; var Result: integer);
 
-  function CompareGroups(aGroup1, aGroup2: cEmutecaGroup; Column: TColumnIndex) : Integer;
+  function CompareGroups(aGroup1, aGroup2: cEmutecaGroup;
+    Column: TColumnIndex): integer;
   begin
-     Result := 0;
+    Result := 0;
 
-         case Column of
+    case Column of
       0: // System
-        Result := UTF8CompareText(aGroup1.CachedSystem.Title, aGroup2.CachedSystem.Title);
+        Result := UTF8CompareText(aGroup1.CachedSystem.Title,
+          aGroup2.CachedSystem.Title);
       1: // Name
-        Result := UTF8CompareText(aGroup1.Title,aGroup2.Title);
+        Result := UTF8CompareText(aGroup1.SortTitle, aGroup2.SortTitle);
       2: // N. Versions
         Result := aGroup1.SoftList.Count - aGroup2.SoftList.Count;
       3: // Developer
         Result := UTF8CompareText(aGroup1.Developer, aGroup2.Developer);
       4: // Year
         Result := UTF8CompareText(aGroup1.Year, aGroup2.Year);
-//      5: // Flags
-//        Result := '';
+      //      5: // Flags
+      //        Result := '';
       6: // Times
         Result := aGroup1.Stats.TimesPlayed - aGroup2.Stats.TimesPlayed;
       7: // Total time
         Result := aGroup1.Stats.PlayingTime - aGroup2.Stats.PlayingTime;
       8: // Last time
-          Result := Trunc(aGroup1.Stats.LastTime - aGroup2.Stats.LastTime);
-//      9: // Folder
-//        Result := '';
+        Result := Trunc(aGroup1.Stats.LastTime - aGroup2.Stats.LastTime);
+      //      9: // Folder
+      //        Result := '';
       10: // File
-        Result := UTF8CompareText(aGroup1.ID, aGroup2.ID);
+        Result := UTF8CompareText(aGroup1.MediaFileName,
+          aGroup2.MediaFileName);
       else
         ;
     end;
 
   end;
 
-  function CompareSoftware(aSoft1, aSoft2: cEmutecaSoftware; Column: TColumnIndex) : Integer;
+  function CompareSoftware(aSoft1, aSoft2: cEmutecaSoftware;
+    Column: TColumnIndex): integer;
   begin
-     Result := 0;
+    Result := 0;
 
-     case Column of
+    case Column of
       0: // System
-        Result := UTF8CompareText(aSoft1.CachedSystem.Title, aSoft2.CachedSystem.Title);
+        Result := UTF8CompareText(aSoft1.CachedSystem.Title,
+          aSoft2.CachedSystem.Title);
       1: // Title
-        Result := UTF8CompareText(aSoft1.Title, aSoft2.Title);
-      //2: // Version
-      //  Result := aSoft.Zone + ' ' + aSoft.Version;
-      //3: // Publisher
-      //begin
-      //  if aSoft.Publisher = '' then
-      //  begin
-      //    if assigned(aSoft.CachedGroup) and
-      //      (aSoft.CachedGroup.Developer <> '') then
-      //      CellText := '(' + aSoft.CachedGroup.Developer + ')'
-      //    else
-      //      CellText := '';
-      //  end
-      //  else
-      //    CellText := aSoft.Publisher;
-      //end;
-      //4: // Year
-      //begin
-      //  if aSoft.Year = '' then
-      //  begin
-      //    if assigned(aSoft.CachedGroup) and
-      //      (aSoft.CachedGroup.Year <> '') then
-      //      CellText := '(' + aSoft.CachedGroup.Year + ')'
-      //    else
-      //      CellText := '';
-      //  end
-      //  else
-      //    CellText := aSoft.Year;
-      //end;
-      //5: // Flags
-      //begin
-      //  // A simple formated output, to be overriden
-      //  CellText := EmutecaDumpStatusStrs[aSoft.DumpStatus];
-      //
-      //  if aSoft.DumpInfo <> '' then
-      //    CellText += ' [' + aSoft.DumpInfo + ']';
-      //
-      //  if aSoft.Fixed <> '' then
-      //    CellText += ' [f ' + aSoft.Fixed + ']';
-      //
-      //  if aSoft.Trainer <> '' then
-      //    CellText += ' [t ' + aSoft.Trainer + ']';
-      //
-      //  if aSoft.Translation <> '' then
-      //    CellText += ' [tr ' + aSoft.Translation + ']';
-      //
-      //  if aSoft.Pirate <> '' then
-      //    CellText += ' [p ' + aSoft.Pirate + ']';
-      //
-      //  if aSoft.Cracked <> '' then
-      //    CellText += ' [cr ' + aSoft.Cracked + ']';
-      //
-      //  if aSoft.Modified <> '' then
-      //    CellText += ' [m ' + aSoft.Modified + ']';
-      //
-      //  if aSoft.Hack <> '' then
-      //    CellText += ' [t ' + aSoft.Hack + ']';
-      //end;
+        Result := UTF8CompareText(aSoft1.SortTitle, aSoft2.SortTitle);
+      2: // Version
+      begin
+        Result := UTF8CompareText(aSoft1.Zone, aSoft2.Zone);
+
+        if Result = 0 then
+          Result := UTF8CompareText(aSoft1.Version, aSoft2.Version);
+      end;
+      3: // Publisher
+        Result := UTF8CompareText(aSoft1.Publisher, aSoft2.Publisher);
+      4: // Year
+        Result := UTF8CompareText(aSoft1.Year, aSoft2.Year);
+      5: // Flags
+      begin
+        Result := ord(aSoft1.DumpStatus) - ord(aSoft2.DumpStatus);
+
+        if Result = 0 then
+          Result := UTF8CompareText(aSoft1.DumpInfo, aSoft2.DumpInfo);
+        //  if aSoft.Fixed <> '' then
+        //    CellText += ' [f ' + aSoft.Fixed + ']';
+
+        //  if aSoft.Trainer <> '' then
+        //    CellText += ' [t ' + aSoft.Trainer + ']';
+
+        //  if aSoft.Translation <> '' then
+        //    CellText += ' [tr ' + aSoft.Translation + ']';
+
+        //  if aSoft.Pirate <> '' then
+        //    CellText += ' [p ' + aSoft.Pirate + ']';
+
+        //  if aSoft.Cracked <> '' then
+        //    CellText += ' [cr ' + aSoft.Cracked + ']';
+
+        //  if aSoft.Modified <> '' then
+        //    CellText += ' [m ' + aSoft.Modified + ']';
+
+        //  if aSoft.Hack <> '' then
+        //    CellText += ' [t ' + aSoft.Hack + ']';
+      end;
       6: // Times Played
-        Result := aSoft1.Stats.TimesPlayed -aSoft2.Stats.TimesPlayed ;
+        Result := aSoft1.Stats.TimesPlayed - aSoft2.Stats.TimesPlayed;
       7: // Playing Time
         Result := aSoft1.Stats.PlayingTime - aSoft2.Stats.PlayingTime;
       8: // Last Time
-          Result := Trunc(aSoft1.Stats.LastTime - aSoft2.Stats.LastTime);
+        Result := Trunc(aSoft1.Stats.LastTime - aSoft2.Stats.LastTime);
       9: // Folder
         Result := UTF8CompareText(aSoft1.Folder, aSoft2.Folder);
       10: // File
@@ -397,18 +384,22 @@ begin
   pData1 := VDT.GetNodeData(Node1);
   pData2 := VDT.GetNodeData(Node2);
 
-    if (not assigned(pData1^)) or (not assigned(pData2^)) then
-      Exit;
+  if (not assigned(pData1^)) or (not assigned(pData2^)) then
+    Exit;
 
   if pData1^ is cEmutecaGroup then
   begin
-    if not (pData2^ is cEmutecaGroup) then Exit;
-    Result := CompareGroups(cEmutecaGroup(pData1^),cEmutecaGroup(pData2^),Column)
+    if not (pData2^ is cEmutecaGroup) then
+      Exit;
+    Result := CompareGroups(cEmutecaGroup(pData1^), cEmutecaGroup(
+      pData2^), Column);
   end
   else if pData1^ is cEmutecaSoftware then
   begin
-    if not (pData2^ is cEmutecaSoftware) then Exit;
-    Result := CompareSoftware(cEmutecaSoftware(pData1^),cEmutecaSoftware(pData2^),Column)
+    if not (pData2^ is cEmutecaSoftware) then
+      Exit;
+    Result := CompareSoftware(cEmutecaSoftware(pData1^),
+      cEmutecaSoftware(pData2^), Column);
   end;
 
 end;

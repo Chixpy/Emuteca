@@ -698,6 +698,7 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
     object actRenameGroupFile: TAction
       Category = 'Groups'
       Caption = 'Rename group file'
+      OnExecute = actRenameGroupFileExecute
     end
     object actSearchMediaInZip: TAction
       Caption = 'Search media in zip'

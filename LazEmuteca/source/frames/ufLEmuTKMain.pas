@@ -15,7 +15,7 @@ uses
   ucEmuteca, ucEmutecaSystem, ucEmutecaGroupList, ucEmutecaGroup,
   ucEmutecaSoftList, ucEmutecaSoftware,
   // Emuteca frames
-  ufEmutecaSoftEditor, ufEmutecaSystemCBX, ufLEmuTKIcnSysCBX, ufLEmuTKSoftMedia,
+  ufLEmuTKFullSoftEditor, ufEmutecaSystemCBX, ufLEmuTKIcnSysCBX, ufLEmuTKSoftMedia,
   ufLEmuTKIcnSoftTree,
   ufLEmuTKSysPreview,
   // GUI
@@ -40,7 +40,7 @@ type
     FEmuteca: cEmuteca;
     FfmCHXTagTree: TfmCHXTagTree;
     FfmEmutecaSystemCBX: TfmLEmuTKIcnSysCBX;
-    FfmSoftEditor: TfmEmutecaSoftEditor;
+    FfmSoftEditor: TfmLEmuTKFullSoftEditor;
     FfmSoftMedia: TfmLEmuTKSoftMedia;
     FfmSoftTree: TfmLEmuTKIcnSoftTree;
     FfmSystemPanel: TfmEmutecaSystemPanel;
@@ -65,7 +65,7 @@ type
     property fmCHXTagTree: TfmCHXTagTree read FfmCHXTagTree;
 
     property fmSystemPanel: TfmEmutecaSystemPanel read FfmSystemPanel;
-    property fmSoftEditor: TfmEmutecaSoftEditor read FfmSoftEditor;
+    property fmSoftEditor: TfmLEmuTKFullSoftEditor read FfmSoftEditor;
     property fmSoftMedia: TfmLEmuTKSoftMedia read FfmSoftMedia;
     property fmSoftTree: TfmLEmuTKIcnSoftTree read FfmSoftTree;
 
@@ -198,15 +198,22 @@ function TfmLEmuTKMain.SelectGroup(aGroup: cEmutecaGroup): boolean;
 begin
   Result := SelectSoftware(nil);
 
-  //fmSoftEditor.Group := aGroup;
+  fmSoftEditor.Group := aGroup;
   fmSoftMedia.Group := aGroup;
+
+  if Assigned(aGroup) then
+    fmSystemPanel.System := cEmutecaSystem(aGroup.CachedSystem);
 end;
 
 function TfmLEmuTKMain.SelectSoftware(aSoftware: cEmutecaSoftware): boolean;
 begin
   Result := True;
+
   fmSoftEditor.Software := aSoftware;
   fmSoftMedia.Software := aSoftware;
+
+    if Assigned(aSoftware) then
+    fmSystemPanel.System := cEmutecaSystem(aSoftware.CachedSystem);
 end;
 
 procedure TfmLEmuTKMain.CheckTags(aList: TStrings);
@@ -310,7 +317,7 @@ constructor TfmLEmuTKMain.Create(TheOwner: TComponent);
 
     // Creating SoftEditor frame
     aTabSheet := pcSoftware.AddTabSheet;
-    FfmSoftEditor := TfmEmutecaSoftEditor.Create(aTabSheet);
+    FfmSoftEditor := TfmLEmuTKFullSoftEditor.Create(aTabSheet);
     aTabSheet.Caption := fmSoftEditor.Name;  // TODO: Add Caption
     fmSoftEditor.Align := alClient;
     fmSoftEditor.SaveButtons := True;

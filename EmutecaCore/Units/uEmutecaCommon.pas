@@ -68,7 +68,8 @@ const
     '"Zone","DumpStatus","DumpInfo","Fixed","Trainer","Translation",' +
     '"Pirate","Cracked","Modified","Hack"';
   krsCSVSoftStatsHeader = krsCSVSoftHeader + ',' + krsCSVStatsHeader;
-    krsCSVGroupHeader = '"ID","Title","Year","Developer"';
+    krsCSVGroupHeader = '"ID","Title","Sort title","Year","Developer",'+
+      '"Media file"';
   krsCSVGroupStatsHeader = krsCSVGroupHeader + ',' + krsCSVStatsHeader;
 
 
@@ -110,6 +111,7 @@ const
 
   // Group
   krsIniKeyDeveloper = 'Developer';
+  krsIniKeyMediaFileName = 'MediaFileName';
 
   // Soft
   krsIniKeySHA1 = 'SHA1';

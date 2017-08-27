@@ -10,7 +10,7 @@ uses
   ufCHXPropEditor,
   uEmutecaCommon,
   ucEmutecaSystem, ucEmutecaGroup, ucEmutecaSoftware,
-  ufEmutecaGroupCBXOld,
+  ufEmutecaGroupEditor,
   uLEmuTKCommon;
 
 type
@@ -35,8 +35,6 @@ type
     eYear: TEdit;
     eZone: TEdit;
     gbxDumpTags: TGroupBox;
-    gbxGroup: TGroupBox;
-    gbxSystem: TGroupBox;
     gbxTitle: TGroupBox;
     gbxVersion: TGroupBox;
     lCracked: TLabel;
@@ -47,8 +45,6 @@ type
     lModified: TLabel;
     lPirate: TLabel;
     lPublisher: TLabel;
-    lSystem: TLabel;
-    lTitle: TLabel;
     lTrainer: TLabel;
     lTranslated: TLabel;
     lVersion: TLabel;
@@ -56,12 +52,14 @@ type
     lZone: TLabel;
 
   private
-    FfmGroupCBX: TfmEmutecaGroupCBX;
+    FfmGroupEditor: TfmEmutecaGroupEditor;
+    FGroup: cEmutecaGroup;
     FSoftware: cEmutecaSoftware;
+    procedure SetGroup(AValue: cEmutecaGroup);
     procedure SetSoftware(AValue: cEmutecaSoftware);
 
   protected
-    property fmGroupCBX: TfmEmutecaGroupCBX read FfmGroupCBX;
+    property fmGroupEditor: TfmEmutecaGroupEditor read FfmGroupEditor;
 
     function SelectGroup(aGroup: cEmutecaGroup): boolean;
 
@@ -74,13 +72,12 @@ type
     procedure FPOObservedChanged(ASender: TObject;
       Operation: TFPObservedOperation; Data: Pointer);
 
-    procedure SelectGroupByID(aGroupKey: string);
-
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
 
   published
     property Software: cEmutecaSoftware read FSoftware write SetSoftware;
+    property Group: cEmutecaGroup read FGroup write SetGroup;
   end;
 
 implementation
@@ -103,33 +100,24 @@ begin
   if Assigned(Software) then
     Software.FPOAttachObserver(Self);
 
-  // Subframes
-  if Assigned(Software) then
-  begin
-    if assigned(Software.CachedSystem) then
-    begin
-      fmGroupCBX.GroupManager :=
-        cEmutecaSystem(Software.CachedSystem).GroupManager;
-    end
-    else
-      fmGroupCBX.GroupManager := nil;
-  end
-  else
-  begin
-    fmGroupCBX.GroupManager := nil;
-  end;
-
   LoadFrameData;
+end;
+
+procedure TfmEmutecaSoftEditor.SetGroup(AValue: cEmutecaGroup);
+begin
+  if FGroup = AValue then
+    Exit;
+  FGroup := AValue;
 end;
 
 function TfmEmutecaSoftEditor.SelectGroup(aGroup: cEmutecaGroup): boolean;
 begin
+
   Result := True;
 end;
 
 procedure TfmEmutecaSoftEditor.ClearFrameData;
 begin
-  lSystem.Caption := rsUnknown;
   eTitle.Clear;
   eSortKey.Clear;
   eTransTitle.Clear;
@@ -162,17 +150,6 @@ begin
     ClearFrameData;
     Exit;
   end;
-
-  if assigned(Software.CachedSystem) then
-    lSystem.Caption := Software.CachedSystem.Title
-  else
-    lSystem.Caption := '- NO SYSTEM -';
-
-  if assigned(Software.CachedGroup) then
-    fmGroupCBX.SelectedGroup := cEmutecaGroup(Software.CachedGroup)
-  else
-    fmGroupCBX.SelectGroupByID(Software.GroupKey);
-
 
   eTitle.Text := Software.Title;
   eSortKey.Text := Software.GetActualSortTitle;
@@ -217,21 +194,6 @@ begin
     Exit;
   end;
 
-  if Assigned(fmGroupCBX.SelectedGroup) then
-  begin
-    Software.CachedGroup := fmGroupCBX.SelectedGroup;
-  end
-  else
-  begin
-    // Search group
-    Software.CachedGroup :=
-      aSystem.GroupManager.FullList.ItemById(fmGroupCBX.cbxGroup.Text);
-
-    if not assigned(Software.CachedGroup) then
-      // Create group
-      aSystem.GroupManager.AddGroup(fmGroupCBX.cbxGroup.Text);
-  end;
-
   Software.Title := eTitle.Text;
   Software.SortTitle := eSortKey.Text;
   Software.TranslitTitle := eTransTitle.Text;
@@ -272,30 +234,11 @@ begin
   end;
 end;
 
-procedure TfmEmutecaSoftEditor.SelectGroupByID(aGroupKey: string);
-begin
-  fmGroupCBX.SelectGroupByID(aGroupKey);
-end;
-
 constructor TfmEmutecaSoftEditor.Create(TheOwner: TComponent);
-
-  procedure CreateFrames;
-  begin
-    FfmGroupCBX := TfmEmutecaGroupCBX.Create(gbxGroup);
-    fmGroupCBX.Align := alTop;
-    fmGroupCBX.OnSelectGroup := @SelectGroup;
-    fmGroupCBX.Parent := gbxGroup;
-  end;
-
 var
   i: string;
 begin
   inherited Create(TheOwner);
-
-  Enabled := False;
-
-  CreateFrames;
-  lSystem.Caption := rsUnknown;
 
   // Adding DumpTypes
   for i in EmutecaDumpStatusStr do

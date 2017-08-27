@@ -1,6 +1,4 @@
 {"version":1,"strings":[
-{"hash":90737748,"name":"tfmemutecasofteditor.gbxgroup.caption","sourcebytes":[80,97,114,101,110,116],"value":"Parent"},
-{"hash":95464125,"name":"tfmemutecasofteditor.gbxsystem.caption","sourcebytes":[83,121,115,116,101,109],"value":"System"},
 {"hash":69594147,"name":"tfmemutecasofteditor.gbxdumptags.caption","sourcebytes":[68,117,109,112,32,84,97,103,115],"value":"Dump Tags"},
 {"hash":69733285,"name":"tfmemutecasofteditor.ldumptype.caption","sourcebytes":[68,117,109,112,32,116,121,112,101],"value":"Dump type"},
 {"hash":69652239,"name":"tfmemutecasofteditor.ldumpinfo.caption","sourcebytes":[68,117,109,112,32,105,110,102,111],"value":"Dump info"},
@@ -20,7 +18,6 @@
 {"hash":7476805,"name":"tfmemutecasofteditor.lzone.caption","sourcebytes":[108,90,111,110,101],"value":"lZone"},
 {"hash":81879810,"name":"tfmemutecasofteditor.ezone.texthint","sourcebytes":[73,83,79,51,49,54,54,45,49,32,97,108,112,104,97,45,50],"value":"ISO3166-1 alpha-2"},
 {"hash":41112703,"name":"tfmemutecasofteditor.gbxtitle.caption","sourcebytes":[84,105,116,108,101,32,105,110,102,111],"value":"Title info"},
-{"hash":5966629,"name":"tfmemutecasofteditor.ltitle.caption","sourcebytes":[84,105,116,108,101],"value":"Title"},
 {"hash":5966629,"name":"tfmemutecasofteditor.etitle.texthint","sourcebytes":[84,105,116,108,101],"value":"Title"},
 {"hash":68692261,"name":"tfmemutecasofteditor.etranstitle.texthint","sourcebytes":[84,114,97,110,115,108,105,116,101,114,97,116,101,100,32,84,105,116,108,101],"value":"Transliterated Title"},
 {"hash":110515305,"name":"tfmemutecasofteditor.esortkey.texthint","sourcebytes":[83,111,114,116,32,75,101,121],"value":"Sort Key"}

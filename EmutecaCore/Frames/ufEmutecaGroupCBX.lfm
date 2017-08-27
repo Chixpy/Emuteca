@@ -1,0 +1,15 @@
+inherited fmEmutecaGroupCBX: TfmEmutecaGroupCBX
+  AutoSize = True
+  object cbxGroup: TComboBox[0]
+    Left = 0
+    Height = 23
+    Top = 0
+    Width = 320
+    Align = alTop
+    AutoDropDown = True
+    ItemHeight = 15
+    OnChange = cbxGroupChange
+    Style = csDropDownList
+    TabOrder = 0
+  end
+end

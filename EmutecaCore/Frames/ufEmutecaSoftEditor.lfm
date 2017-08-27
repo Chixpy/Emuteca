@@ -9,47 +9,20 @@ inherited fmEmutecaSoftEditor: TfmEmutecaSoftEditor
     Top = 484
     Width = 232
     ClientWidth = 232
+    inherited chkCloseOnSave: TCheckBox
+      Left = 10
+    end
     inherited bSave: TBitBtn
-      Left = 27
+      Left = 69
     end
     inherited bCancel: TBitBtn
-      Left = 124
+      Left = 141
     end
   end
-  object gbxGroup: TGroupBox[1]
-    Left = 0
-    Height = 19
-    Top = 21
-    Width = 232
-    Align = alTop
-    AutoSize = True
-    Caption = 'Parent'
-    TabOrder = 1
-  end
-  object gbxSystem: TGroupBox[2]
-    Left = 0
-    Height = 21
-    Top = 0
-    Width = 232
-    Align = alTop
-    AutoSize = True
-    Caption = 'System'
-    ClientHeight = 1
-    ClientWidth = 228
-    TabOrder = 2
-    object lSystem: TLabel
-      Left = 0
-      Height = 1
-      Top = 0
-      Width = 228
-      Align = alTop
-      ParentColor = False
-    end
-  end
-  object gbxDumpTags: TGroupBox[3]
+  object gbxDumpTags: TGroupBox[1]
     Left = 0
     Height = 227
-    Top = 240
+    Top = 185
     Width = 232
     Align = alTop
     AutoSize = True
@@ -59,7 +32,7 @@ inherited fmEmutecaSoftEditor: TfmEmutecaSoftEditor
     ChildSizing.ControlsPerLine = 2
     ClientHeight = 207
     ClientWidth = 228
-    TabOrder = 3
+    TabOrder = 1
     object lDumpType: TLabel
       Left = 0
       Height = 23
@@ -199,10 +172,10 @@ inherited fmEmutecaSoftEditor: TfmEmutecaSoftEditor
       TabOrder = 4
     end
   end
-  object gbxVersion: TGroupBox[4]
+  object gbxVersion: TGroupBox[2]
     Left = 0
     Height = 96
-    Top = 144
+    Top = 89
     Width = 232
     Align = alTop
     AutoSize = True
@@ -213,7 +186,7 @@ inherited fmEmutecaSoftEditor: TfmEmutecaSoftEditor
     ChildSizing.ControlsPerLine = 4
     ClientHeight = 76
     ClientWidth = 228
-    TabOrder = 4
+    TabOrder = 2
     object lVersion: TLabel
       Left = 0
       Height = 15
@@ -277,10 +250,10 @@ inherited fmEmutecaSoftEditor: TfmEmutecaSoftEditor
       TextHint = 'ISO3166-1 alpha-2'
     end
   end
-  object gbxTitle: TGroupBox[5]
+  object gbxTitle: TGroupBox[3]
     Left = 0
-    Height = 104
-    Top = 40
+    Height = 89
+    Top = 0
     Width = 232
     Align = alTop
     AutoSize = True
@@ -288,21 +261,13 @@ inherited fmEmutecaSoftEditor: TfmEmutecaSoftEditor
     ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 1
-    ClientHeight = 84
+    ClientHeight = 69
     ClientWidth = 228
-    TabOrder = 5
-    object lTitle: TLabel
-      Left = 0
-      Height = 15
-      Top = 0
-      Width = 228
-      Caption = 'Title'
-      ParentColor = False
-    end
+    TabOrder = 3
     object eTitle: TEdit
       Left = 0
       Height = 23
-      Top = 15
+      Top = 0
       Width = 228
       TabOrder = 0
       TextHint = 'Title'
@@ -310,7 +275,7 @@ inherited fmEmutecaSoftEditor: TfmEmutecaSoftEditor
     object eTransTitle: TEdit
       Left = 0
       Height = 23
-      Top = 38
+      Top = 23
       Width = 228
       TabOrder = 1
       TextHint = 'Transliterated Title'
@@ -318,14 +283,14 @@ inherited fmEmutecaSoftEditor: TfmEmutecaSoftEditor
     object eSortKey: TEdit
       Left = 0
       Height = 23
-      Top = 61
+      Top = 46
       Width = 228
       TabOrder = 2
       TextHint = 'Sort Key'
     end
   end
-  inherited alPropEditor: TActionList[6]
+  inherited alPropEditor: TActionList[4]
   end
-  inherited ilPropEditor: TImageList[7]
+  inherited ilPropEditor: TImageList[5]
   end
 end

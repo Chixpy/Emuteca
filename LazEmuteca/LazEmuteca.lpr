@@ -13,7 +13,7 @@ uses
   ucEmutecaEmulator, ucEmutecaSoftware, ucEmutecaSystem, 
   ucEmutecaSoftManager, uGUIConfig, uaCHXStorable, uaCHXConfig,
   ufEmutecaSystemImgEditor, ucEmutecaScriptEngine, ufESMSoftList,
-  ufESMGroupList, ufEmutecaGroupCBXOld, ufEmutecaSystemEditor,
+  ufESMGroupList, ufEmutecaSystemEditor,
   ufLEmuTKFullSystemEditor, ufCHXChkLstPropEditor, ufLEmuTKSysManager,
   ufLEmuTKEmuManager, ufEmutecaSoftEditor, ufLEmuTKFullEmuEditor,
   ufEmutecaEmulatorEditor, ufEmutecaActAddSoft, ufCHXForm,
@@ -28,7 +28,8 @@ uses
   ufCHXTxtListPreview, uCHXDlgUtils, ufLEmuTKSoftImgPreview, ufEmutecaSystemCBX,
   ufEmutecaSystemITFEditor, ufLEmuTKMediaManager, ufEmutecaActExportSoftData,
   uaEmutecaCustomManager, ufEmutecaActImportSoftData, ufCHXScriptManager, 
-ufLEmuTKScriptManager;
+ufLEmuTKScriptManager, ufEmutecaGroupEditor, ufLEmuTKFullSoftEditor, 
+ufEmutecaGroupCBX;
 
 {$R *.res}
 

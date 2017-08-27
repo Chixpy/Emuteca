@@ -110,7 +110,7 @@ begin
       else
       begin
         aParent := aID; // it's a parent itself
-        ParentList.Add('"' + aParent + '","' + aName + '"');
+        ParentList.Add('"' + aParent + '","' + aName + '",,,,"' + aParent + '"');
         // Adding to parent list
       end;
 

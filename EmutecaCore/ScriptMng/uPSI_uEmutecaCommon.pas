@@ -18,15 +18,6 @@ uses
   , uPSCompiler;
 
 type
-  (*----------------------------------------------------------------------------*)
-  TPSImport_uEmutecaCommon = class(TPSPlugin)
-  protected
-    procedure CompileImport1(CompExec: TPSScript); override;
-    procedure ExecImport1(CompExec: TPSScript;
-      const ri: TPSRuntimeClassImporter); override;
-  end;
-
-
 { compile-time registration functions }
 procedure SIRegister_uEmutecaCommon(CL: TPSPascalCompiler);
 
@@ -47,13 +38,6 @@ uses
   , uCHXFileUtils
   , uEmutecaCommon;
 
-procedure Register;
-begin
-  RegisterComponents('Pascal Script', [TPSImport_uEmutecaCommon]);
-end;
-
-(* === compile-time registration functions === *)
-(*----------------------------------------------------------------------------*)
 procedure SIRegister_uEmutecaCommon(CL: TPSPascalCompiler);
 begin
   CL.AddConstantN('rsFmtWindowCaption', 'String').SetString('%0:s: %1:s');
