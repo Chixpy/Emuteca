@@ -91,8 +91,6 @@ type
     procedure LoadData;
     procedure SaveData;
 
-    function SearchMainEmulator(aID: string): cEmutecaEmulator;
-
     procedure CacheData;
 
     function RunSoftware(const aSoftware: cEmutecaSoftware): integer;
@@ -256,11 +254,6 @@ begin
   CacheData;
 end;
 
-function cEmuteca.SearchMainEmulator(aID: string): cEmutecaEmulator;
-begin
-  Result := EmulatorManager.FullList.ItemById(aID);
-end;
-
 function cEmuteca.RunSoftware(const aSoftware: cEmutecaSoftware): integer;
 var
   aEmulator: cEmutecaEmulator;
@@ -273,27 +266,26 @@ begin
   // Trying to document step by step with my bad english
 
   // Uhm. If things go bad from the start, they only can improve :-D
-  // TODO: Remove this after Exception/Error codes are implemented :-P
-  Result := kErrorExecNoGame;
+  Result := kErrorRunSoftUnknown;
 
   if not assigned(aSoftware) then
-    { TODO : Exception or return Comperror code? }
+  begin
+     Result := kErrorRunSoftNoSoft;
     exit;
+    end;
 
   // 1. Searching for current emulator.
-  aEmulator := SearchMainEmulator(aSoftware.CachedSystem.MainEmulator);
-
-  if not assigned(aEmulator) then
-    { TODO : Exception or return Comperror code? }
-    exit;
+  aEmulator := EmulatorManager.EnabledList.ItemById(aSoftware.CachedSystem.MainEmulator);
 
   // TODO: 1.1 Test if emulator support aSoftware extension...
 
   // TODO: 1.2 If not, ask if try to open, else ask for an emulator...
 
   if not assigned(aEmulator) then
-    { TODO : Exception or return Comperror code? }
-    Exit;
+  begin
+  Result := kErrorRunSoftNoEmu;
+    exit;
+  end;
 
   // 2. Setting temp folder.
   if Trim(ExcludeTrailingPathDelimiter(aSoftware.CachedSystem.WorkingFolder)) <>
@@ -303,7 +295,7 @@ begin
     aFolder := TempFolder + krsTempGameSubFolder;
 
   //   2.1. If don't exists create new, and mark it to delete at the end.
-  NewDir := not DirectoryExists(aFolder);
+  NewDir := not DirectoryExistsUTF8(aFolder);
   if NewDir then
     ForceDirectoriesUTF8(aFolder);
 
@@ -324,9 +316,12 @@ begin
     else
       CompError := w7zExtractFile(CompressedFile, aSoftware.FileName,
         aFolder, True, '');
+
     if CompError <> 0 then
-      { TODO : Exception or return Comperror code? }
+    begin
+      Result := kError7zDecompress - CompError;
       Exit;
+    end;
     RomFile := aFolder + aSoftware.FileName;
   end
   else
@@ -344,16 +339,20 @@ begin
     //  // The ROM is a compressed file but must be extracted anyways
     //  CompError := w7zExtractFile(RomFile, AllFilesMask, aFolder, True, '');
     //  if CompError <> 0 then
-    //    { TODO : Exception or return Comperror code? }
-    //    Exit;
+   //  begin
+     // Result := kError7zDecompress - CompError;
+    //  Exit;
+   // end;
     //  Compressed := True;
     //end;
   end;
 
   // Last test if extracting goes wrong...
   if (RomFile = '') or not FileExistsUTF8(RomFile) then
-    // CompError code already set...
+  begin
+    Result := kErrorRunSoftNoSoftFile;
     Exit;
+  end;
 
   StartTime := Now; // Stats
 
@@ -365,7 +364,6 @@ begin
   // if Emulator returns no error and passed at least MinTime...
   if (Result = 0) and (TimePlaying >= Config.MinPlayTime) then
   begin
-    { TODO : This are not saved if lists are not saved on exit }
     aSoftware.Stats.AddPlayingTime(StartTime, TimePlaying);
     aSoftware.CachedGroup.Stats.AddPlayingTime(StartTime, TimePlaying);
     aSoftware.CachedSystem.Stats.AddPlayingTime(StartTime, TimePlaying);

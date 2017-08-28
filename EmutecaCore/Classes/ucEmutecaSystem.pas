@@ -51,7 +51,8 @@ type
       read FProgressCallBack write SetProgressCallBack;
 
     procedure AddSoft(aSoft: cEmutecaSoftware);
-    //< Safe way to add software (add group if needed and link them)
+    //< Safe way to add software (adds group if needed, and link them)
+
     procedure LoadSoftGroupLists(aFile: string);
     procedure ImportSoftGroupLists(aFile: string);
     procedure SaveSoftGroupLists(aFile: string; ExportMode: boolean);

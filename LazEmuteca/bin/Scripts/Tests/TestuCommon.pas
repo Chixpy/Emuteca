@@ -5,7 +5,7 @@ This script test Emuteca common constants and functions.
 Name=Chixpy
 [Script]
 }
-program TestBasic;
+program TestuCommon;
 
 var
   i: integer;

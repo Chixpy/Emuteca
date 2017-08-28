@@ -34,6 +34,7 @@ type
 
   cEmutecaEmulatorList = class(cEmutecaGenEmulatorList)
   public
+    procedure AssignToStrLst(aStrList: TStrings);
     function ItemById(aId: string): cEmutecaEmulator;
     {< Returns the emulator with aId key.
 
@@ -44,6 +45,26 @@ type
 implementation
 
 { cEmutecaEmulatorList }
+
+procedure cEmutecaEmulatorList.AssignToStrLst(aStrList: TStrings);
+var
+  i: Integer;
+  aEmulator: cEmutecaEmulator;
+begin
+   if not assigned(aStrList) then
+    aStrList := TStringList.Create;
+
+  aStrList.BeginUpdate;
+  aStrList.Capacity := aStrList.Count + Count; // Speed up?
+  i := 0;
+  while i < Count do
+  begin
+    aEmulator := Items[i];
+    aStrList.AddObject(aEmulator.EmulatorName, aEmulator);
+    Inc(i);
+  end;
+  aStrList.EndUpdate;
+end;
 
 function cEmutecaEmulatorList.ItemById(aId: string): cEmutecaEmulator;
 var
@@ -58,7 +79,7 @@ begin
   begin
     Dec(i);
     aEmulator := Items[i];
-    if UTF8CompareText(aEmulator.ID, aId) = 0 then
+    if aEmulator.MatchID(aId) then
       Result := aEmulator;
   end;
 end;

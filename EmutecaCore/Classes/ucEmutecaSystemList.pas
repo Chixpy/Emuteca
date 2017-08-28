@@ -60,7 +60,7 @@ begin
   begin
     Dec(i);
     aSystem := Items[i];
-    if UTF8CompareText(aSystem.ID, aId) = 0 then
+    if aSystem.MatchID(aId) then
       Result := aSystem;
   end;
 end;

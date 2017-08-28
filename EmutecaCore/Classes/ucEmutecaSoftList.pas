@@ -42,6 +42,7 @@ type
     }
   end;
 
+// Functions for sorting lists
 function EmutecaCompareSoftByID(const aSoft1, aSoft2: cEmutecaSoftware): integer;
 function EmutecaCompareSoftByGroupKey(const aSoft1, aSoft2: cEmutecaSoftware): integer;
 
@@ -51,13 +52,13 @@ implementation
 function EmutecaCompareSoftByID(const aSoft1, aSoft2: cEmutecaSoftware
   ): integer;
 begin
-  Result := UTF8CompareText(aSoft1.ID, aSoft2.ID);
+  Result := aSoft1.CompareID(aSoft2.ID);
 end;
 
 function EmutecaCompareSoftByGroupKey(const aSoft1, aSoft2: cEmutecaSoftware
   ): integer;
 begin
-  Result := UTF8CompareText(aSoft1.GroupKey, aSoft2.GroupKey);
+  Result := aSoft1.CompareGroupKey(aSoft2.GroupKey);
 end;
 
 { cEmutecaSoftList }
@@ -75,7 +76,7 @@ begin
   begin
     Dec(i);
     aSoft := Items[i];
-    if UTF8CompareText(aSoft.ID, aId) = 0 then
+    if aSoft.MatchID(aId) then
       Result := aSoft;
   end;
 end;

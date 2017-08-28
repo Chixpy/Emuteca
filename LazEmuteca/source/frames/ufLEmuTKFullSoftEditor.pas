@@ -19,8 +19,6 @@ type
   TfmLEmuTKFullSoftEditor = class(TfmCHXPropEditor)
     gbxGroup: TGroupBox;
     gbxSoft: TGroupBox;
-    gbxSystem: TGroupBox;
-    lSystem: TLabel;
     pGroupCBX: TPanel;
     sbxSoft: TScrollBox;
 
@@ -127,7 +125,8 @@ end;
 
 procedure TfmLEmuTKFullSoftEditor.ClearFrameData;
 begin
-  lSystem.Caption := rsUnknown;
+
+
 end;
 
 procedure TfmLEmuTKFullSoftEditor.LoadFrameData;
@@ -141,11 +140,7 @@ begin
   end;
 
   pGroupCBX.Enabled := Assigned(Software);
-
-  if Assigned(Software) then
-    lSystem.Caption := Software.CachedSystem.Title
-  else
-    lSystem.Caption := Group.CachedSystem.Title;
+  gbxSoft.Enabled := Assigned(Software);
 end;
 
 procedure TfmLEmuTKFullSoftEditor.SaveFrameData;
@@ -179,13 +174,13 @@ constructor TfmLEmuTKFullSoftEditor.Create(TheOwner: TComponent);
     fmGroupCBX.Parent := pGroupCBX;
 
     FfmGroupEditor := TfmEmutecaGroupEditor.Create(gbxGroup);
+    fmGroupEditor.Align := alClient;
     FfmGroupEditor.SaveButtons := False;
     FfmGroupEditor.ButtonClose := False;
-    fmGroupEditor.Align := alClient;
     fmGroupEditor.Parent := gbxGroup;
 
     FfmSoftEditor := TfmEmutecaSoftEditor.Create(sbxSoft);
-    fmSoftEditor.Align := alClient;
+    //fmSoftEditor.Align := alTop;
     fmSoftEditor.SaveButtons := False;
     fmSoftEditor.ButtonClose := False;
     fmSoftEditor.Parent := sbxSoft;
@@ -195,8 +190,6 @@ var
   i: string;
 begin
   inherited Create(TheOwner);
-
-  lSystem.Caption := rsUnknown;
 
   CreateFrames;
 end;

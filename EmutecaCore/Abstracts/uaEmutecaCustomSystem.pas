@@ -92,6 +92,9 @@ type
     {< System temp folder for decompressing media
     }
 
+    function MatchID(aID: string): boolean;
+    function CompareID(aID: string): integer;
+
     procedure LoadFromIni(aIniFile: TIniFile); override;
     procedure SaveToIni(aIniFile: TMemIniFile; const ExportMode: boolean);
       override;
@@ -526,6 +529,16 @@ begin
   // Removing exceed of captions
   while FolderList.Count < CaptionList.Count do
     CaptionList.Delete(CaptionList.Count - 1);
+end;
+
+function caEmutecaCustomSystem.MatchID(aID: string): boolean;
+begin
+  Result := CompareID(aID) = 0;
+end;
+
+function caEmutecaCustomSystem.CompareID(aID: string): integer;
+begin
+  Result := UTF8CompareText(Self.ID, aID);
 end;
 
 constructor caEmutecaCustomSystem.Create(AOwner: TComponent);

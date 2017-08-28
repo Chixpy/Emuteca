@@ -52,10 +52,18 @@ const
   // EXIT CODES for handling some errors
   // -----------------------------------
   // Praying for no emulator use these exit codes.
-  kErrorExecNoGame = -300;
-  {< Error code when game is not found. }
-  kError7zDecompress = -301;
-  {< Error decompressing archive. }
+  kErrorRunSoftUnknown = -300;
+  {< Run Software: Unknown error. }
+  kErrorRunSoftNoSoft = -301;
+  {< Run Software: Error code when soft = nil. }
+  kErrorRunSoftNoEmu = -302;
+  {< Run Software: Error code when Emulator = nil. }
+  kErrorRunSoftNoSoftFile = -303;
+  {< Run Software: Error code when soft file is not found. }
+  kErrorRunSoftNoEmuFile = -304;
+  {< Run Software: Error code when emulator exe is not found. }
+  kError7zDecompress = -400;
+  {< Base error const decompressing archive. }
 
   // CSV list headers
   // ----------------

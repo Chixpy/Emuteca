@@ -129,8 +129,6 @@ begin
     RegisterMethod(@cEmutecaSystemManager.SaveData, 'SaveData');
     RegisterMethod(@cEmutecaSystemManager.UpdateEnabledList, 'UpdateEnabledList');
     RegisterPropertyHelper(@cEmutecaSystemManagerProgressCallBack_R,@cEmutecaSystemManagerProgressCallBack_W,'ProgressCallBack');
-    RegisterMethod(@cEmutecaSystemManager.AssingAllTo, 'AssingAllTo');
-    RegisterMethod(@cEmutecaSystemManager.AssingEnabledTo, 'AssingEnabledTo');
     RegisterPropertyHelper(@cEmutecaSystemManagerFullList_R,nil,'FullList');
     RegisterPropertyHelper(@cEmutecaSystemManagerEnabledList_R,nil,'EnabledList');
   end;

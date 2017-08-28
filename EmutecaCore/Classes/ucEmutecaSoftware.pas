@@ -139,11 +139,11 @@ function cEmutecaSoftware.MatchGroupFile: boolean;
 begin
   if Assigned(CachedGroup) then
   begin
-    Result := CompareFilenames(CachedGroup.ID,
+    Result := CompareFilenames(CachedGroup.MediaFileName,
       RemoveFromBrackets(ExtractFileNameOnly(FileName))) = 0;
   end
   else
-  inherited MatchGroupFile;
+    inherited MatchGroupFile;
 end;
 
 procedure cEmutecaSoftware.SearchAllRelatedFiles(OutFileList: TStrings;
@@ -154,6 +154,7 @@ begin
     if not MatchGroupFile then
       EmuTKSearchAllRelatedFiles(OutFileList, aFolder, FileName, Extensions,
         AutoExtract, CachedSystem.TempFolder);
+
     if (OutFileList.Count > 0) or (not assigned(CachedGroup)) then
       Exit;
 
@@ -172,6 +173,7 @@ begin
     if not MatchGroupFile then
       Result := EmuTKSearchFirstRelatedFile(aFolder, FileName,
         Extensions, True, AutoExtract, CachedSystem.TempFolder);
+
     if (Result <> '') or (not assigned(CachedGroup)) then
       Exit;
 

@@ -40,7 +40,11 @@ begin
 
   // EXIT CODES for handling some errors
   // -----------------------------------
-  CL.AddConstantN('kErrorExecNoGame', 'LongInt').SetInt(kErrorExecNoGame);
+  CL.AddConstantN('kErrorRunSoftUnknown', 'LongInt').SetInt(kErrorRunSoftUnknown);
+  CL.AddConstantN('kErrorRunSoftNoSoft', 'LongInt').SetInt(kErrorRunSoftNoSoft);
+  CL.AddConstantN('kErrorRunSoftNoEmu', 'LongInt').SetInt(kErrorRunSoftNoEmu);
+  CL.AddConstantN('kErrorRunSoftNoSoftFile', 'LongInt').SetInt(kErrorRunSoftNoSoftFile);
+  CL.AddConstantN('kErrorRunSoftNoEmuFile', 'LongInt').SetInt(kErrorRunSoftNoEmuFile);
   CL.AddConstantN('kError7zDecompress', 'LongInt').SetInt(kError7zDecompress);
 
   // CSV list headers

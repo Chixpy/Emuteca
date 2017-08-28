@@ -109,8 +109,6 @@ type
     function CompareGroupKey(aGroupID: string): integer;
     function MatchGroupFile: boolean; virtual;
 
-
-
     procedure LoadFromStrLst(aTxtFile: TStrings); override;
     procedure SaveToStrLst(aTxtFile: TStrings; const ExportMode: boolean);
       override;

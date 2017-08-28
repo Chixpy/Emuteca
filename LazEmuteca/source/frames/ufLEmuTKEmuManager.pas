@@ -169,7 +169,8 @@ begin
   if not Enabled then
     Exit;
 
-  EmuManager.AssingAllTo(clbPropItems.Items);
+  EmuManager.FullList.AssignToStrLst(clbPropItems.Items);
+
   i := 0;
   while i < clbPropItems.Items.Count do
   begin

@@ -108,9 +108,6 @@ begin
     RegisterMethod(@cEmutecaEmulatorManager.ClearData, 'ClearData');
     RegisterMethod(@cEmutecaEmulatorManager.LoadData, 'LoadData');
     RegisterMethod(@cEmutecaEmulatorManager.SaveData, 'SaveData');
-    RegisterMethod(@cEmutecaEmulatorManager.AssingAllTo, 'AssingAllTo');
-    RegisterMethod(@cEmutecaEmulatorManager.AssingEnabledTo, 'AssingEnabledTo');
-    RegisterMethod(@cEmutecaEmulatorManager.RunEmulator, 'RunEmulator');
     RegisterPropertyHelper(@cEmutecaEmulatorManagerFullList_R,nil,'FullList');
     RegisterPropertyHelper(@cEmutecaEmulatorManagerEnabledList_R,nil,'EnabledList');
   end;

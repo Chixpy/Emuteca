@@ -59,21 +59,12 @@ type
     //< Clears all data WITHOUT saving.
     procedure LoadData;
     //< Reload last data file WITHOUT saving changes.
-        procedure SaveData;
+    procedure SaveData;
     //< Save data to last data file.
 
     procedure LoadFromIni(aIniFile: TIniFile); override;
     procedure SaveToIni(aIniFile: TMemIniFile; const ExportMode: boolean);
       override;
-
-    procedure AssingAllTo(aList: TStrings);
-    procedure AssingEnabledTo(aList: TStrings);
-
-    function RunEmulator(const EmulatorID, GameFile: string): longword;
-    {< Runs software with an emulator (by ID).
-
-       @Result Exit code.
-    }
 
     constructor Create(aOwner: TComponent); override;
     destructor Destroy; override;
@@ -86,6 +77,7 @@ type
 
 
 implementation
+
 uses ucEmutecaEmulator;
 
 { cEmutecaEmulatorManager }
@@ -93,6 +85,7 @@ uses ucEmutecaEmulator;
 constructor cEmutecaEmulatorManager.Create(aOwner: TComponent);
 begin
   inherited Create(aOwner);
+
   FFullList := cEmutecaEmulatorList.Create(True);
   FEnabledList := cEmutecaEmulatorList.Create(False);
   // TODO: OnCompare FullList.OnCompare := ;
@@ -102,42 +95,8 @@ destructor cEmutecaEmulatorManager.Destroy;
 begin
   EnabledList.Free;
   FullList.Free;
+
   inherited Destroy;
-end;
-
-function cEmutecaEmulatorManager.RunEmulator(
-  const EmulatorID, GameFile: string): longword;
-  //var
-  // Emu: cEmutecaEmulator;
-begin
-  Result := 256;
-  //Emu := Emulator(EmulatorID);
-  //if Emu = nil then
-  //  Exit;
-  //Result := Emu.Execute(GameFile);
-
-  //// Saving emulator data...
-  //if Result = 0 then
-  //  Emu.SaveToFile(DataFile, False);
-end;
-
-procedure cEmutecaEmulatorManager.AssingAllTo(aList: TStrings);
-var
-  i: longint;
-  aEmulator: cEmutecaEmulator;
-begin
-  if not assigned(aList) then
-    aList := TStringList.Create;
-
-  aList.BeginUpdate;
-  i := 0;
-  while i < FullList.Count do
-  begin
-    aEmulator := cEmutecaEmulator(FullList[i]);
-    aList.AddObject(aEmulator.EmulatorName, aEmulator);
-    Inc(i);
-  end;
-  aList.EndUpdate;
 end;
 
 procedure cEmutecaEmulatorManager.SetProgressCallBack(
@@ -177,7 +136,6 @@ begin
   TempList := TStringList.Create;
   try
     aIniFile.ReadSections(TempList);
-    TempList.Sort;
 
     i := 0;
     while i < TempList.Count do
@@ -186,6 +144,8 @@ begin
       TempEmu.ID := TempList[i];
       TempEmu.LoadFromIni(aIniFile);
       FullList.Add(TempEmu);
+      if TempEmu.Enabled then
+        EnabledList.Add(TempEmu);
       Inc(i);
 
       if assigned(ProgressCallBack) then
@@ -195,8 +155,9 @@ begin
   finally
     FreeAndNil(TempList);
   end;
-        if assigned(ProgressCallBack) then
-        ProgressCallBack('', '', '', 0, 0);
+
+  if assigned(ProgressCallBack) then
+    ProgressCallBack('', '', '', 0, 0);
 end;
 
 procedure cEmutecaEmulatorManager.SaveToIni(aIniFile: TMemIniFile;
@@ -224,27 +185,5 @@ begin
         aEmulator.EmulatorName, i, FullList.Count);
   end;
 end;
-
-procedure cEmutecaEmulatorManager.AssingEnabledTo(aList: TStrings);
-var
-  i: longint;
-  aEmulator: cEmutecaEmulator;
-begin
-  { TODO : Change to visible list... and remove procedure }
-  if not assigned(aList) then
-    aList := TStringList.Create;
-
-  aList.BeginUpdate;
-  i := 0;
-  while i < FullList.Count do
-  begin
-    aEmulator := cEmutecaEmulator(FullList[i]);
-    if aEmulator.Enabled then
-      aList.AddObject(aEmulator.EmulatorName, aEmulator);
-    Inc(i);
-  end;
-  aList.EndUpdate;
-end;
-
 
 end.

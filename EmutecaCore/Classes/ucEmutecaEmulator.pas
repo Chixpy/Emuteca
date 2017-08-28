@@ -105,6 +105,9 @@ type
     constructor Create(aOwner: TComponent); override;
     destructor Destroy; override;
 
+    function CompareID(aID: string): integer;
+    function MatchID(aID: string): boolean;
+
     function Execute(GameFile: string): integer;
     function ExecuteAlone: integer;
 
@@ -294,6 +297,16 @@ begin
   inherited Destroy;
 end;
 
+function cEmutecaEmulator.CompareID(aID: string): integer;
+begin
+  Result := UTF8CompareText(ID, aID);
+end;
+
+function cEmutecaEmulator.MatchID(aID: string): boolean;
+begin
+  Result := CompareID(aID) = 0;
+end;
+
 function cEmutecaEmulator.Execute(GameFile: string): integer;
 var
   CurrFolder: string;
@@ -344,14 +357,11 @@ begin
       Result := ExecuteProcess(UTF8ToSys(SysPath(ExeFile)),
         UTF8ToSys(TempParam));
 
-    // Hack: If normal exit code <> 0, switch 0 and ExitCode
+    // Hack: If normal exit code <> 0, compare and set to 0
     //   So, this way 0 always is the correct exit of the program,
     //     and Managers don't care about wich is the actual code
-    if (ExitCode <> 0) then
-      if Result = 0 then
-        Result := ExitCode
-      else
-        Result := 0;
+    if Result = ExitCode then
+       Result := 0;
 
   finally
     ChDir(CurrFolder);

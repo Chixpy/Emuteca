@@ -110,8 +110,8 @@ begin
   if not assigned(EmuManager) then
     exit;
 
-  EmuManager.AssingEnabledTo(clbOtherEmulators.Items);
-  cbxMainEmulator.Items.Assign(clbOtherEmulators.Items);
+  EmuManager.EnabledList.AssignToStrLst(clbOtherEmulators.Items);
+  EmuManager.EnabledList.AssignToStrLst(cbxMainEmulator.Items);
 end;
 
 procedure TfmEmutecaSystemEditor.ClearFrameData;

@@ -69,12 +69,8 @@ type
     procedure SaveToIni(aIniFile: TMemIniFile; const ExportMode: boolean);
       override;
 
-    procedure AssingAllTo(aList: TStrings); deprecated;
-    procedure AssingEnabledTo(aList: TStrings); deprecated;
-
     constructor Create(aOwner: TComponent); override;
     destructor Destroy; override;
-
 
   published
     property FullList: cEmutecaSystemList read FFullList;
@@ -222,48 +218,6 @@ begin
   end;
   if assigned(ProgressCallBack) then
     ProgressCallBack(rsSavingSystemList, '', '', 0, 0);
-end;
-
-
-procedure cEmutecaSystemManager.AssingAllTo(aList: TStrings);
-var
-  i: integer;
-  aSystem: cEmutecaSystem;
-begin
-  if not assigned(aList) then
-    aList := TStringList.Create;
-
-  aList.BeginUpdate;
-  i := 0;
-  while i < FullList.Count do
-  begin
-    aSystem := cEmutecaSystem(FullList[i]);
-    aList.AddObject(aSystem.Title, FullList[i]);
-    Inc(i);
-  end;
-  aList.EndUpdate;
-end;
-
-procedure cEmutecaSystemManager.AssingEnabledTo(aList: TStrings);
-var
-  i: longint;
-  aSystem: cEmutecaSystem;
-begin
-  if not assigned(aList) then
-    aList := TStringList.Create;
-
-  aList.BeginUpdate;
-  i := 0;
-  while i < EnabledList.Count do
-  begin
-    aSystem := cEmutecaSystem(EnabledList[i]);
-    if aSystem.Enabled then
-    begin
-      aList.AddObject(aSystem.Title, aSystem);
-    end;
-    Inc(i);
-  end;
-  aList.EndUpdate;
 end;
 
 constructor cEmutecaSystemManager.Create(aOwner: TComponent);
