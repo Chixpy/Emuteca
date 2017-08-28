@@ -186,8 +186,6 @@ constructor TfmLEmuTKFullSoftEditor.Create(TheOwner: TComponent);
     fmSoftEditor.Parent := sbxSoft;
   end;
 
-var
-  i: string;
 begin
   inherited Create(TheOwner);
 

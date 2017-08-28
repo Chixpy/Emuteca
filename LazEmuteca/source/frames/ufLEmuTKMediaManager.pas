@@ -21,6 +21,7 @@ type
   TfmLEmuTKMediaManager = class(TfmCHXFrame)
     actAssignFile: TAction;
     actDeleteFile: TAction;
+    actRenameGroupTitle: TAction;
     actSearchMediaInZip: TAction;
     actRenameGroupFile: TAction;
     ActionList: TActionList;
@@ -44,15 +45,11 @@ type
     lbxOtherFiles: TListBox;
     lbxTexts: TListBox;
     lbxVideos: TListBox;
-    MainMenu1: TMainMenu;
-    mimmRenameGroupFile: TMenuItem;
-    mmimGroup: TMenuItem;
-    mimmGroup: TMenuItem;
-    mimmDeleteFile: TMenuItem;
-    mimmAssignFile: TMenuItem;
+    MenuItem1: TMenuItem;
+    migpRenameGroupTitle: TMenuItem;
+    MenuItem2: TMenuItem;
     migpAssignFile: TMenuItem;
     migpRenameGroupFile: TMenuItem;
-    mimmFileList: TMenuItem;
     pCenter: TPanel;
     pcSource: TPageControl;
     pcTarget: TPageControl;
@@ -348,8 +345,8 @@ end;
 
 procedure TfmLEmuTKMediaManager.UpdateStatusBars;
 begin
-  sbSource.SimpleText := 'Source: ' + SourceFolder + SourceFile;
-  sbTarget.SimpleText := 'Target: ' + TargetFolder + TargetFile;
+  sbSource.Panels[1].Text := SourceFolder + SourceFile;
+  sbTarget.Panels[1].Text := TargetFolder + TargetFile;
 end;
 
 procedure TfmLEmuTKMediaManager.UpdateVST(aFolder: string);
@@ -940,7 +937,7 @@ begin
 
   case Column of
     -1, 0: Result := UTF8CompareText(pGroup1^.Title, pGroup2^.Title);
-    1: Result := CompareFilenames(pGroup1^.ID, pGroup2^.ID);
+    1: Result := CompareFilenames(pGroup1^.MediaFileName, pGroup2^.MediaFileName);
   end;
 end;
 
@@ -1154,6 +1151,7 @@ procedure TfmLEmuTKMediaManager.vstFileFreeNode(Sender: TBaseVirtualTree;
 var
   pFile: ^string;
 begin
+  // TODO: Why it don't work?
   pFile := Sender.GetNodeData(Node);
   Finalize(pFile^);
 end;
@@ -1260,7 +1258,7 @@ begin
   case TextType of
     ttNormal: case Column of
         -1, 0: CellText := pGroup^.Title;
-        1: CellText := pGroup^.ID;
+        1: CellText := pGroup^.MediaFileName;
       end;
   end;
 end;
@@ -1384,13 +1382,13 @@ begin
   inherited Create(TheOwner);
 
   vstAllGroups.NodeDataSize := SizeOf(TObject);
-  vstGroupsWOFile.NodeDataSize := SizeOf(TObject);
   vstAllSoft.NodeDataSize := SizeOf(TObject);
+  vstGroupsWOFile.NodeDataSize := SizeOf(TObject);
   vstSoftWOFile.NodeDataSize := SizeOf(TObject);
   vstAllFiles.NodeDataSize := SizeOf(string);
+  vstOtherFiles.NodeDataSize := SizeOf(string);
   vstFilesWOGroup.NodeDataSize := SizeOf(string);
   vstFilesWOSoft.NodeDataSize := SizeOf(string);
-  vstOtherFiles.NodeDataSize := SizeOf(string);
   vstFilesOtherFolder.NodeDataSize := SizeOf(string);
 
   pcSource.ActivePageIndex := 0;
@@ -1407,7 +1405,8 @@ end;
 
 destructor TfmLEmuTKMediaManager.Destroy;
 begin
-  MediaFiles.Destroy;
+  MediaFiles.Free;
+
   inherited Destroy;
 end;
 

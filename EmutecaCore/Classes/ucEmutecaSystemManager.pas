@@ -130,7 +130,7 @@ end;
 
 procedure cEmutecaSystemManager.UpdateEnabledList;
 var
-  i: Integer;
+  i: integer;
   aSys: cEmutecaSystem;
 begin
   EnabledList.Clear;
@@ -139,8 +139,8 @@ begin
   begin
     aSys := FullList[i];
     if aSys.Enabled then
-        EnabledList.Add(aSys);
-  inc(i);
+      EnabledList.Add(aSys);
+    Inc(i);
   end;
 end;
 

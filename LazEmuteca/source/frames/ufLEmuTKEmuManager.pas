@@ -15,6 +15,7 @@ resourcestring
   rsEmulatorName = 'Emulator name';
 
 type
+    { Frame for Emulator Manager. }
 
   { TfmLEmuTKEmuManager }
 
@@ -40,6 +41,7 @@ type
     procedure OnListClickCheck(aObject: TObject; aBool: boolean); override;
     procedure SetCheckedAll(aBool: boolean); override;
 
+    procedure SetGUIIconsIni(AValue: string); override;
   protected
     procedure ClearFrameData; override;
     procedure LoadFrameData; override;
@@ -96,6 +98,11 @@ begin
     aEmulator.Enabled := aBool;
     Inc(i);
   end;
+end;
+
+procedure TfmLEmuTKEmuManager.SetGUIIconsIni(AValue: string);
+begin
+  inherited SetGUIIconsIni(AValue);
 end;
 
 procedure TfmLEmuTKEmuManager.AddItemToList;
@@ -185,8 +192,7 @@ begin
   if not assigned(EmuManager) then
     Exit;
 
-  // Automatilly save to file
-  EmuManager.SaveToFileIni('', False);
+  EmuManager.UpdateEnabledList;
 end;
 
 procedure TfmLEmuTKEmuManager.OnListClick(aObject: TObject);

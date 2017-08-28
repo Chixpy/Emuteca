@@ -10,14 +10,34 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
     Height = 23
     Top = 487
     Width = 863
-    Panels = <>
+    Panels = <    
+      item
+        Alignment = taCenter
+        Bevel = pbNone
+        Text = 'Target'
+        Width = 64
+      end    
+      item
+        Width = 50
+      end>
+    SimplePanel = False
   end
   object sbSource: TStatusBar[1]
     Left = 0
     Height = 23
     Top = 464
     Width = 863
-    Panels = <>
+    Panels = <    
+      item
+        Alignment = taCenter
+        Bevel = pbNone
+        Text = 'Source'
+        Width = 64
+      end    
+      item
+        Width = 50
+      end>
+    SimplePanel = False
   end
   object Splitter1: TSplitter[2]
     Left = 170
@@ -152,7 +172,7 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
             Header.DefaultHeight = 17
             Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoShowSortGlyphs, hoVisible]
             TabOrder = 0
-            TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning]
+            TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning, toFullRowDrag]
             TreeOptions.PaintOptions = [toPopupMode, toShowButtons, toShowDropmark, toShowHorzGridLines, toShowTreeLines, toShowVertGridLines, toThemeAware, toUseBlendedImages, toFullVertGridLines]
             TreeOptions.SelectionOptions = [toFullRowSelect]
             OnChange = vstFileChange
@@ -185,7 +205,7 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
             Header.DefaultHeight = 17
             Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoShowSortGlyphs, hoVisible]
             TabOrder = 0
-            TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning]
+            TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning, toFullRowDrag]
             TreeOptions.PaintOptions = [toPopupMode, toShowButtons, toShowDropmark, toShowHorzGridLines, toShowTreeLines, toShowVertGridLines, toThemeAware, toUseBlendedImages, toFullVertGridLines]
             TreeOptions.SelectionOptions = [toFullRowSelect]
             OnChange = vstFileChange
@@ -218,7 +238,7 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
             Header.DefaultHeight = 17
             Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoShowSortGlyphs, hoVisible]
             TabOrder = 0
-            TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning]
+            TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning, toFullRowDrag]
             TreeOptions.PaintOptions = [toPopupMode, toShowButtons, toShowDropmark, toShowHorzGridLines, toShowTreeLines, toShowVertGridLines, toThemeAware, toUseBlendedImages, toFullVertGridLines]
             TreeOptions.SelectionOptions = [toFullRowSelect]
             OnChange = vstFileChange
@@ -251,7 +271,7 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
             Header.DefaultHeight = 17
             Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoShowSortGlyphs, hoVisible]
             TabOrder = 0
-            TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning]
+            TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning, toFullRowDrag]
             TreeOptions.PaintOptions = [toPopupMode, toShowButtons, toShowDropmark, toShowHorzGridLines, toShowTreeLines, toShowVertGridLines, toThemeAware, toUseBlendedImages, toFullVertGridLines]
             TreeOptions.SelectionOptions = [toFullRowSelect]
             OnChange = vstFileChange
@@ -284,7 +304,7 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
             Header.DefaultHeight = 17
             Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoShowSortGlyphs, hoVisible]
             TabOrder = 0
-            TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning]
+            TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning, toFullRowDrag]
             TreeOptions.PaintOptions = [toPopupMode, toShowButtons, toShowDropmark, toShowHorzGridLines, toShowTreeLines, toShowVertGridLines, toThemeAware, toUseBlendedImages, toFullVertGridLines]
             TreeOptions.SelectionOptions = [toFullRowSelect]
             OnCompareNodes = vstFileCompareNodes
@@ -367,18 +387,18 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
         Height = 114
         Top = 0
         Width = 479
-        ActivePage = pagSoftWOFile
+        ActivePage = pagAllGroups
         Align = alClient
         PopupMenu = pumVSTGroup
-        TabIndex = 3
+        TabIndex = 0
         TabOrder = 0
         object pagAllGroups: TTabSheet
           Caption = 'All groups'
-          ClientHeight = 111
+          ClientHeight = 86
           ClientWidth = 471
           object vstAllGroups: TVirtualStringTree
             Left = 0
-            Height = 111
+            Height = 86
             Top = 0
             Width = 471
             Align = alClient
@@ -412,11 +432,11 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
         end
         object pagAllSoft: TTabSheet
           Caption = 'All software'
-          ClientHeight = 111
+          ClientHeight = 86
           ClientWidth = 471
           object vstAllSoft: TVirtualStringTree
             Left = 0
-            Height = 111
+            Height = 86
             Top = 0
             Width = 471
             Align = alClient
@@ -452,11 +472,11 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
         end
         object pagGroupsWOFile: TTabSheet
           Caption = 'Groups without file'
-          ClientHeight = 111
+          ClientHeight = 86
           ClientWidth = 471
           object vstGroupsWOFile: TVirtualStringTree
             Left = 0
-            Height = 111
+            Height = 86
             Top = 0
             Width = 471
             Align = alClient
@@ -683,6 +703,7 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
     end
   end
   object ActionList: TActionList[7]
+    Images = ilActions
     Left = 704
     Top = 16
     object actAssignFile: TAction
@@ -697,47 +718,34 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
     end
     object actRenameGroupFile: TAction
       Category = 'Groups'
-      Caption = 'Rename group file'
+      Caption = 'Rename group file...'
       OnExecute = actRenameGroupFileExecute
     end
     object actSearchMediaInZip: TAction
       Caption = 'Search media in zip'
       OnExecute = actSearchMediaInZipExecute
     end
+    object actRenameGroupTitle: TAction
+      Category = 'Groups'
+      Caption = 'Rename group title...'
+    end
   end
   object ilActions: TImageList[8]
     Left = 704
     Top = 88
   end
-  object MainMenu1: TMainMenu[9]
-    Images = ilActions
-    Left = 705
-    Top = 189
-    object mimmFileList: TMenuItem
-      Caption = 'File list'
-      object mimmAssignFile: TMenuItem
-        Action = actAssignFile
-      end
-      object mimmDeleteFile: TMenuItem
-        Action = actDeleteFile
-      end
-    end
-    object mmimGroup: TMenuItem
-      Caption = 'Group'
-      object mimmRenameGroupFile: TMenuItem
-        Action = actRenameGroupFile
-      end
-    end
-  end
-  object pumVSTGroup: TPopupMenu[10]
+  object pumVSTGroup: TPopupMenu[9]
     Images = ilActions
     Left = 192
     Top = 368
     object migpAssignFile: TMenuItem
       Action = actAssignFile
     end
-    object migpRenameGroupFile: TMenuItem
-      Caption = 'Rename group file'
+    object MenuItem2: TMenuItem
+      Caption = '-'
+    end
+    object migpRenameGroupTitle: TMenuItem
+      Action = actRenameGroupTitle
     end
   end
 end

@@ -1,4 +1,6 @@
 {"version":1,"strings":[
+{"hash":94932420,"name":"tfmlemutkmediamanager.sbtarget.panels[0].text","sourcebytes":[84,97,114,103,101,116],"value":"Target"},
+{"hash":94816405,"name":"tfmlemutkmediamanager.sbsource.panels[0].text","sourcebytes":[83,111,117,114,99,101],"value":"Source"},
 {"hash":140998933,"name":"tfmlemutkmediamanager.gbxrename.caption","sourcebytes":[67,104,97,110,103,101,32,102,105,108,101,110,97,109,101],"value":"Change filename"},
 {"hash":129402437,"name":"tfmlemutkmediamanager.chkcopyfile.caption","sourcebytes":[67,111,112,121,32,102,105,108,101],"value":"Copy file"},
 {"hash":94816405,"name":"tfmlemutkmediamanager.gbxsource.caption","sourcebytes":[83,111,117,114,99,101],"value":"Source"},
@@ -21,9 +23,7 @@
 {"hash":32614467,"name":"tfmlemutkmediamanager.gbxotherfiles.caption","sourcebytes":[103,98,120,79,116,104,101,114,70,105,108,101,115],"value":"gbxOtherFiles"},
 {"hash":240019413,"name":"tfmlemutkmediamanager.actassignfile.caption","sourcebytes":[65,115,115,105,103,110,32,102,105,108,101],"value":"Assign file"},
 {"hash":171708133,"name":"tfmlemutkmediamanager.actdeletefile.caption","sourcebytes":[68,101,108,101,116,101,32,102,105,108,101],"value":"Delete file"},
-{"hash":252240837,"name":"tfmlemutkmediamanager.actrenamegroupfile.caption","sourcebytes":[82,101,110,97,109,101,32,103,114,111,117,112,32,102,105,108,101],"value":"Rename group file"},
+{"hash":238850446,"name":"tfmlemutkmediamanager.actrenamegroupfile.caption","sourcebytes":[82,101,110,97,109,101,32,103,114,111,117,112,32,102,105,108,101,46,46,46],"value":"Rename group file..."},
 {"hash":109274672,"name":"tfmlemutkmediamanager.actsearchmediainzip.caption","sourcebytes":[83,101,97,114,99,104,32,109,101,100,105,97,32,105,110,32,122,105,112],"value":"Search media in zip"},
-{"hash":41385380,"name":"tfmlemutkmediamanager.mimmfilelist.caption","sourcebytes":[70,105,108,101,32,108,105,115,116],"value":"File list"},
-{"hash":5150400,"name":"tfmlemutkmediamanager.mmimgroup.caption","sourcebytes":[71,114,111,117,112],"value":"Group"},
-{"hash":252240837,"name":"tfmlemutkmediamanager.migprenamegroupfile.caption","sourcebytes":[82,101,110,97,109,101,32,103,114,111,117,112,32,102,105,108,101],"value":"Rename group file"}
+{"hash":224234142,"name":"tfmlemutkmediamanager.actrenamegrouptitle.caption","sourcebytes":[82,101,110,97,109,101,32,103,114,111,117,112,32,116,105,116,108,101,46,46,46],"value":"Rename group title..."}
 ]}

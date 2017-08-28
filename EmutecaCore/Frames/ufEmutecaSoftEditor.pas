@@ -10,8 +10,7 @@ uses
   ufCHXPropEditor,
   uEmutecaCommon,
   ucEmutecaSystem, ucEmutecaGroup, ucEmutecaSoftware,
-  ufEmutecaGroupEditor,
-  uLEmuTKCommon;
+  ufEmutecaGroupEditor;
 
 type
 

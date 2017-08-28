@@ -37,7 +37,7 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="..\CHXPas;..\CHXPas\Abstract;..\CHXPas\Classes;..\CHXPas\Forms;..\CHXPas\Forms\ScriptManager;..\CHXPas\Frames;..\CHXPas\Frames\ScriptManager;..\CHXPas\Misc;..\EmutecaCore;..\EmutecaCore\Abstracts;..\EmutecaCore\Classes;..\EmutecaCore\Frames;..\EmutecaCore\ScriptMng;..\EmutecaCore\Units;source;source\abstracts;source\forms;source\forms\ScriptMng;source\frames;source\units;..\CHXPas\Units"/>
+            <OtherUnitFiles Value="..\CHXPas;..\CHXPas\Abstract;..\CHXPas\Classes;..\CHXPas\Forms;..\CHXPas\Forms\ScriptManager;..\CHXPas\Frames;..\CHXPas\Frames\ScriptManager;..\CHXPas\Misc;..\CHXPas\Units;..\EmutecaCore;..\EmutecaCore\Abstracts;..\EmutecaCore\Classes;..\EmutecaCore\Frames;..\EmutecaCore\ScriptMng;..\EmutecaCore\Units;source;source\abstracts;source\forms;source\forms\ScriptMng;source\frames;source\units"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
@@ -197,14 +197,14 @@
         <ResourceBaseClass Value="Form"/>
       </Unit22>
       <Unit23>
-        <Filename Value="..\CHXPas\Forms\ScriptManager\ufSMAskFile.pas"/>
+        <Filename Value="..\CHXPas\ScriptManager\forms\ufSMAskFile.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmSMAskFile"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
       </Unit23>
       <Unit24>
-        <Filename Value="..\CHXPas\Forms\ScriptManager\ufSMAskFolder.pas"/>
+        <Filename Value="..\CHXPas\ScriptManager\forms\ufSMAskFolder.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmSMAskFolder"/>
         <HasResources Value="True"/>
@@ -246,7 +246,7 @@
         <ResourceBaseClass Value="Frame"/>
       </Unit32>
       <Unit33>
-        <Filename Value="..\CHXPas\Forms\ScriptManager\ucCHXScriptEngine.pas"/>
+        <Filename Value="..\CHXPas\ScriptManager\ucCHXScriptEngine.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit33>
       <Unit34>
@@ -254,7 +254,7 @@
         <IsPartOfProject Value="True"/>
       </Unit34>
       <Unit35>
-        <Filename Value="..\CHXPas\Forms\ScriptManager\uPSI_u7zWrapper.pas"/>
+        <Filename Value="..\CHXPas\ScriptManager\imports\uPSI_u7zWrapper.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit35>
       <Unit36>
@@ -572,7 +572,7 @@
         <ResourceBaseClass Value="Frame"/>
       </Unit85>
       <Unit86>
-        <Filename Value="..\CHXPas\Frames\ScriptManager\ufCHXScriptManager.pas"/>
+        <Filename Value="..\CHXPas\ScriptManager\ufCHXScriptManager.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fmCHXScriptManager"/>
         <HasResources Value="True"/>
@@ -680,7 +680,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="..\CHXPas;..\CHXPas\Abstract;..\CHXPas\Classes;..\CHXPas\Forms;..\CHXPas\Forms\ScriptManager;..\CHXPas\Frames;..\CHXPas\Frames\ScriptManager;..\CHXPas\Misc;..\EmutecaCore;..\EmutecaCore\Abstracts;..\EmutecaCore\Classes;..\EmutecaCore\Frames;..\EmutecaCore\ScriptMng;..\EmutecaCore\Units;source;source\abstracts;source\forms;source\forms\ScriptMng;source\frames;source\units;..\CHXPas\Units;ScriptMng;..\ScriptMng;..\ScriptMng;..\ScriptMng;..\ScriptMng"/>
+      <OtherUnitFiles Value="..\CHXPas;..\CHXPas\Abstract;..\CHXPas\Classes;..\CHXPas\Forms;..\CHXPas\Forms\ScriptManager;..\CHXPas\Frames;..\CHXPas\Frames\ScriptManager;..\CHXPas\Misc;..\CHXPas\Units;..\EmutecaCore;..\EmutecaCore\Abstracts;..\EmutecaCore\Classes;..\EmutecaCore\Frames;..\EmutecaCore\ScriptMng;..\EmutecaCore\Units;source;source\abstracts;source\forms;source\forms\ScriptMng;source\frames;source\units;..\CHXPas\ScriptManager;..\CHXPas\ScriptManager\forms;..\CHXPas\ScriptManager\imports"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>

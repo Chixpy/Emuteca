@@ -62,6 +62,8 @@ type
     procedure SaveData;
     //< Save data to last data file.
 
+    procedure UpdateEnabledList;
+
     procedure LoadFromIni(aIniFile: TIniFile); override;
     procedure SaveToIni(aIniFile: TMemIniFile; const ExportMode: boolean);
       override;
@@ -124,6 +126,22 @@ begin
   SaveToFileIni('', False);
 end;
 
+procedure cEmutecaEmulatorManager.UpdateEnabledList;
+var
+  i: integer;
+  aEmu: cEmutecaEmulator;
+begin
+  EnabledList.Clear;
+  i := 0;
+  while i < FullList.Count do
+  begin
+    aEmu := FullList[i];
+    if aEmu.Enabled then
+      EnabledList.Add(aEmu);
+    Inc(i);
+  end;
+end;
+
 procedure cEmutecaEmulatorManager.LoadFromIni(aIniFile: TIniFile);
 var
   TempList: TStringList;
@@ -143,18 +161,19 @@ begin
       TempEmu := cEmutecaEmulator.Create(nil);
       TempEmu.ID := TempList[i];
       TempEmu.LoadFromIni(aIniFile);
-      FullList.Add(TempEmu);
-      if TempEmu.Enabled then
-        EnabledList.Add(TempEmu);
-      Inc(i);
 
       if assigned(ProgressCallBack) then
         ProgressCallBack(rsLoadingEmulatorList, TempEmu.ID,
           TempEmu.EmulatorName, i, TempList.Count);
+
+      FullList.Add(TempEmu);
+      Inc(i);
     end;
   finally
     FreeAndNil(TempList);
   end;
+
+  UpdateEnabledList;
 
   if assigned(ProgressCallBack) then
     ProgressCallBack('', '', '', 0, 0);
@@ -177,13 +196,18 @@ begin
   while i < FullList.Count do
   begin
     aEmulator := cEmutecaEmulator(FullList[i]);
-    aEmulator.SaveToIni(aIniFile, ExportMode);
-    Inc(i);
 
-    if ProgressCallBack <> nil then
+    if assigned(ProgressCallBack) then
       ProgressCallBack(rsSavingEmulatorList, aEmulator.ID,
         aEmulator.EmulatorName, i, FullList.Count);
+
+    aEmulator.SaveToIni(aIniFile, ExportMode);
+    Inc(i);
   end;
+
+  if assigned(ProgressCallBack) then
+    ProgressCallBack('', '', '', 0, 0);
+
 end;
 
 end.
