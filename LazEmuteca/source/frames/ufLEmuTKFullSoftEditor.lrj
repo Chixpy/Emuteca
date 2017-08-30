@@ -1,4 +1,5 @@
 {"version":1,"strings":[
 {"hash":370132,"name":"tfmlemutkfullsofteditor.gbxsoft.caption","sourcebytes":[83,111,102,116],"value":"Soft"},
-{"hash":5150400,"name":"tfmlemutkfullsofteditor.gbxgroup.caption","sourcebytes":[71,114,111,117,112],"value":"Group"}
+{"hash":5150400,"name":"tfmlemutkfullsofteditor.gbxgroup.caption","sourcebytes":[71,114,111,117,112],"value":"Group"},
+{"hash":104413680,"name":"tfmlemutkfullsofteditor.actaddnewgroup.caption","sourcebytes":[97,99,116,65,100,100,78,101,119,71,114,111,117,112],"value":"actAddNewGroup"}
 ]}

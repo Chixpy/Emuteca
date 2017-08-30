@@ -728,6 +728,7 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
     object actRenameGroupTitle: TAction
       Category = 'Groups'
       Caption = 'Rename group title...'
+      OnExecute = actRenameGroupTitleExecute
     end
   end
   object ilActions: TImageList[8]
@@ -746,6 +747,9 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
     end
     object migpRenameGroupTitle: TMenuItem
       Action = actRenameGroupTitle
+    end
+    object migpRenameGroupFile: TMenuItem
+      Action = actRenameGroupFile
     end
   end
 end

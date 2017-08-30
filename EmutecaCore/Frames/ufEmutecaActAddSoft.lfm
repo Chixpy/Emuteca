@@ -10,13 +10,13 @@ inherited fmEmutecaActAddSoft: TfmEmutecaActAddSoft
     Width = 594
     ClientWidth = 594
     inherited chkCloseOnSave: TCheckBox
-      Left = 99
+      Left = 101
     end
     inherited bSave: TBitBtn
-      Left = 247
+      Left = 251
     end
     inherited bCancel: TBitBtn
-      Left = 416
+      Left = 414
     end
   end
   object pSelectFile: TPanel[1]
@@ -184,17 +184,54 @@ inherited fmEmutecaActAddSoft: TfmEmutecaActAddSoft
     Top = 0
     Width = 5
   end
-  object gbxSoftInfo: TGroupBox[3]
+  object pInfo: TPanel[3]
     Left = 290
     Height = 483
     Top = 0
     Width = 304
     Align = alClient
-    Caption = 'Software Info'
-    Constraints.MinWidth = 300
+    BevelOuter = bvNone
+    ClientHeight = 483
+    ClientWidth = 304
     TabOrder = 3
+    object gbxGroup: TGroupBox
+      Left = 0
+      Height = 39
+      Top = 0
+      Width = 304
+      Align = alTop
+      AutoSize = True
+      Caption = 'Group info'
+      ClientHeight = 19
+      ClientWidth = 300
+      TabOrder = 0
+      object bAddNewGroup: TSpeedButton
+        Left = 277
+        Height = 19
+        Top = 0
+        Width = 23
+        Action = actAddNewGroup
+        Align = alRight
+        Flat = True
+      end
+    end
+    object gbxSoftInfo: TGroupBox
+      Left = 0
+      Height = 444
+      Top = 39
+      Width = 304
+      Align = alClient
+      Caption = 'Software Info'
+      Constraints.MinWidth = 300
+      TabOrder = 1
+    end
   end
   inherited alPropEditor: TActionList[4]
+    object actAddNewGroup: TAction[2]
+      Category = 'Groups'
+      Caption = 'Add new group...'
+      OnExecute = actAddNewGroupExecute
+    end
   end
   inherited ilPropEditor: TImageList[5]
   end

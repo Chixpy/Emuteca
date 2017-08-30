@@ -42,6 +42,7 @@ type
     FStats: cEmutecaPlayingStats;
     FTitle: string;
     FYear: string;
+    function GetMediaFileName: string;
     function GetSortTitle: string;
     function GetTitle: string;
     procedure SetDeveloper(AValue: string);
@@ -89,7 +90,7 @@ type
     {< Development year. }
     property Developer: string read FDeveloper write SetDeveloper;
     {< Developer. }
-    property MediaFileName: string read FMediaFileName write SetMediaFileName;
+    property MediaFileName: string read GetMediaFileName write SetMediaFileName;
     {< Name of media files. }
 
 
@@ -121,6 +122,13 @@ begin
     Result := Title
   else
     Result := FSortTitle;
+end;
+
+function caEmutecaCustomGroup.GetMediaFileName: string;
+begin
+  if FMediaFileName = '' then
+    MediaFileName := Title;
+  Result := FMediaFileName;
 end;
 
 procedure caEmutecaCustomGroup.SetID(AValue: string);

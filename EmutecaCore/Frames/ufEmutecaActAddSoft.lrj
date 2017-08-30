@@ -7,5 +7,7 @@
 {"hash":97932393,"name":"tfmemutecaactaddsoft.rgbsoftkey.caption","sourcebytes":[83,111,102,116,32,75,101,121],"value":"Soft Key"},
 {"hash":50149043,"name":"tfmemutecaactaddsoft.gbxduplicates.caption","sourcebytes":[68,117,112,108,105,99,97,116,101,115],"value":"Duplicates"},
 {"hash":32,"name":"tfmemutecaactaddsoft.ldupfile.caption","sourcebytes":[32],"value":" "},
-{"hash":36264223,"name":"tfmemutecaactaddsoft.gbxsoftinfo.caption","sourcebytes":[83,111,102,116,119,97,114,101,32,73,110,102,111],"value":"Software Info"}
+{"hash":203566511,"name":"tfmemutecaactaddsoft.gbxgroup.caption","sourcebytes":[71,114,111,117,112,32,105,110,102,111],"value":"Group info"},
+{"hash":36264223,"name":"tfmemutecaactaddsoft.gbxsoftinfo.caption","sourcebytes":[83,111,102,116,119,97,114,101,32,73,110,102,111],"value":"Software Info"},
+{"hash":2416030,"name":"tfmemutecaactaddsoft.actaddnewgroup.caption","sourcebytes":[65,100,100,32,110,101,119,32,103,114,111,117,112,46,46,46],"value":"Add new group..."}
 ]}

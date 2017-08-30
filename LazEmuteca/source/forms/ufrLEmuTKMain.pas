@@ -423,12 +423,13 @@ end;
 
 procedure TfrmLEmuTKMain.actAddFolderExecute(Sender: TObject);
 begin
-  if TfmEmutecaActAddFolder.SimpleForm(Emuteca, GUIIconsFile,
-    GUIConfig.ConfigFile) = mrOk then
-  begin
-    Emuteca.SaveData;
-    LoadEmuteca;
-  end;
+    // Fix runtime errors, while trying to update if something is changed
+  fmEmutecaMainFrame.Emuteca := nil;
+
+  TfmEmutecaActAddFolder.SimpleForm(Emuteca, GUIIconsFile,
+    GUIConfig.ConfigFile);
+
+  fmEmutecaMainFrame.Emuteca := Emuteca;
 end;
 
 procedure TfrmLEmuTKMain.actAutoSaveExecute(Sender: TObject);
@@ -438,12 +439,13 @@ end;
 
 procedure TfrmLEmuTKMain.actAddSoftExecute(Sender: TObject);
 begin
-  if TfmEmutecaActAddSoft.SimpleForm(Emuteca, GUIIconsFile,
-    GUIConfig.ConfigFile) = mrOk then
-  begin
-    Emuteca.SaveData;
-    LoadEmuteca;
-  end;
+   // Fix runtime errors, while trying to update if something is changed
+  fmEmutecaMainFrame.Emuteca := nil;
+
+  TfmEmutecaActAddSoft.SimpleForm(Emuteca, GUIIconsFile,
+    GUIConfig.ConfigFile);
+
+  fmEmutecaMainFrame.Emuteca := Emuteca;
 end;
 
 procedure TfrmLEmuTKMain.actSystemManagerExecute(Sender: TObject);

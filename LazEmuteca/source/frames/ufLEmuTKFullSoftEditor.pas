@@ -17,10 +17,13 @@ type
   { TfmLEmuTKFullSoftEditor }
 
   TfmLEmuTKFullSoftEditor = class(TfmCHXPropEditor)
+    actAddNewGroup: TAction;
+    bAddNewGroup: TSpeedButton;
     gbxGroup: TGroupBox;
     gbxSoft: TGroupBox;
     pGroupCBX: TPanel;
     sbxSoft: TScrollBox;
+    procedure actAddNewGroupExecute(Sender: TObject);
 
   private
     FfmGroupCBX: TfmEmutecaGroupCBX;
@@ -60,6 +63,36 @@ implementation
 {$R *.lfm}
 
 { TfmLEmuTKFullSoftEditor }
+
+procedure TfmLEmuTKFullSoftEditor.actAddNewGroupExecute(Sender: TObject);
+var
+  GroupTitle: string;
+  aGroup: cEmutecaGroup;
+  aSystem: cEmutecaSystem;
+begin
+  if not Assigned(Software) then Exit;
+  if not Assigned(Software.CachedSystem) then Exit;
+
+  fmGroupCBX.GroupList := nil;
+
+  GroupTitle := Software.Title;
+
+  if InputQuery('New group', 'Name of the new group.', GroupTitle) = false then Exit;
+
+  aGroup := cEmutecaGroup.Create(nil);
+  aGroup.ID := GroupTitle;
+  aGroup.Title := GroupTitle;
+
+  aSystem := cEmutecaSystem(Software.CachedSystem);
+
+  aSystem.AddGroup(aGroup);
+
+  fmGroupCBX.GroupList := aSystem.GroupManager.FullList;
+  fmGroupCBX.SelectedGroup := aGroup;
+
+  Software.CachedGroup := aGroup;
+  fmGroupEditor.Group := aGroup;
+end;
 
 procedure TfmLEmuTKFullSoftEditor.SetGroup(AValue: cEmutecaGroup);
 begin
@@ -169,7 +202,7 @@ constructor TfmLEmuTKFullSoftEditor.Create(TheOwner: TComponent);
   procedure CreateFrames;
   begin
     FfmGroupCBX := TfmEmutecaGroupCBX.Create(pGroupCBX);
-    fmGroupCBX.Align := alTop;
+    fmGroupCBX.Align := alClient;
     fmGroupCBX.OnSelectGroup := @SelectGroup;
     fmGroupCBX.Parent := pGroupCBX;
 

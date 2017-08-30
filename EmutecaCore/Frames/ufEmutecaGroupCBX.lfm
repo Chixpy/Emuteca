@@ -1,5 +1,7 @@
 inherited fmEmutecaGroupCBX: TfmEmutecaGroupCBX
+  Height = 36
   AutoSize = True
+  ClientHeight = 36
   object cbxGroup: TComboBox[0]
     Left = 0
     Height = 23

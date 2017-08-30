@@ -49,6 +49,7 @@ type
     lVersion: TLabel;
     lYear: TLabel;
     lZone: TLabel;
+    pEmpty: TPanel;
 
   private
     FfmGroupEditor: TfmEmutecaGroupEditor;

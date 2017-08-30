@@ -289,8 +289,16 @@ inherited fmEmutecaSoftEditor: TfmEmutecaSoftEditor
       TextHint = 'Sort Key'
     end
   end
-  inherited alPropEditor: TActionList[4]
+  object pEmpty: TPanel[4]
+    Left = 0
+    Height = 72
+    Top = 412
+    Width = 232
+    Align = alClient
+    TabOrder = 4
   end
-  inherited ilPropEditor: TImageList[5]
+  inherited alPropEditor: TActionList[5]
+  end
+  inherited ilPropEditor: TImageList[6]
   end
 end

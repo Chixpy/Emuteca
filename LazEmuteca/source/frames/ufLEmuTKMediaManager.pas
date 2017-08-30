@@ -45,11 +45,10 @@ type
     lbxOtherFiles: TListBox;
     lbxTexts: TListBox;
     lbxVideos: TListBox;
-    MenuItem1: TMenuItem;
+    migpRenameGroupFile: TMenuItem;
     migpRenameGroupTitle: TMenuItem;
     MenuItem2: TMenuItem;
     migpAssignFile: TMenuItem;
-    migpRenameGroupFile: TMenuItem;
     pCenter: TPanel;
     pcSource: TPageControl;
     pcTarget: TPageControl;
@@ -88,6 +87,7 @@ type
     procedure actAssignFileExecute(Sender: TObject);
     procedure actDeleteFileExecute(Sender: TObject);
     procedure actRenameGroupFileExecute(Sender: TObject);
+    procedure actRenameGroupTitleExecute(Sender: TObject);
     procedure actSearchMediaInZipExecute(Sender: TObject);
     procedure chkSimilarFilesChange(Sender: TObject);
     procedure lbxFolderSelectionChange(Sender: TObject; User: boolean);
@@ -919,10 +919,9 @@ begin
 
   PData := Sender.GetNodeData(Node);
   CurrGroup := PData^;
-  TargetFile := CurrGroup.ID + krsVirtualExt;
 
+  TargetFile := CurrGroup.MediaFileName + krsVirtualExt;
   ChangeGroupMedia(CurrGroup);
-
   FilterFiles;
 end;
 
@@ -1082,11 +1081,38 @@ procedure TfmLEmuTKMediaManager.actRenameGroupFileExecute(Sender: TObject);
 var
   NewName: string;
 begin
+  if not Assigned(CurrGroup) then Exit;
   NewName := CleanFileName(CurrGroup.SortTitle);
 
-  if not InputQuery(self.Caption, 'Rename group media filename', NewName) then Exit;
+  if not InputQuery(self.Caption, 'Rename group media filename:', NewName) then Exit;
 
   CurrGroup.MediaFileName := NewName;
+
+    TargetFile := CurrGroup.MediaFileName + krsVirtualExt;
+  ChangeGroupMedia(CurrGroup);
+  FilterFiles;
+end;
+
+procedure TfmLEmuTKMediaManager.actRenameGroupTitleExecute(Sender: TObject);
+var
+  NewName: String;
+begin
+  if not Assigned(CurrGroup) then Exit;
+
+   NewName := CurrGroup.Title;
+
+  if not InputQuery(self.Caption, 'Rename group title:', NewName) then Exit;
+
+  CurrGroup.Title := NewName;
+
+  if MessageDlg(self.Caption, 'Rename group media filename?', mtConfirmation, mbYesNo,
+   '') = mrNo then Exit;
+
+  CurrGroup.MediaFileName := CleanFileName(NewName);
+
+  TargetFile := CurrGroup.MediaFileName + krsVirtualExt;
+  ChangeGroupMedia(CurrGroup);
+  FilterFiles;
 end;
 
 procedure TfmLEmuTKMediaManager.actSearchMediaInZipExecute(Sender: TObject);
@@ -1151,7 +1177,6 @@ procedure TfmLEmuTKMediaManager.vstFileFreeNode(Sender: TBaseVirtualTree;
 var
   pFile: ^string;
 begin
-  // TODO: Why it don't work?
   pFile := Sender.GetNodeData(Node);
   Finalize(pFile^);
 end;

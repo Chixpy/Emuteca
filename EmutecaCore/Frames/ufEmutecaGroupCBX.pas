@@ -6,8 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  ucEmutecaGroupList, ucEmutecaGroup,
-  ufCHXFrame;
+  ExtCtrls, Buttons, ucEmutecaGroupList, ucEmutecaGroup, ufCHXFrame;
 
 type
 
@@ -31,13 +30,13 @@ type
   public
 
   property GroupList: cEmutecaGroupList read FGroupList write SetGroupList;
-    {< List of parents observed. }
+    {< List of groups. }
 
     property SelectedGroup: cEmutecaGroup read FSelectedGroup write SetSelectedGroup;
-    {< Returns current selected parent or select it in cbx. }
+    {< Returns current selected group or select it in cbx. }
 
     property OnSelectGroup: TEmutecaReturnGroupCB read FOnSelectGroup write SetOnSelectGroup;
-    {< Callback when selecting a parent. }
+    {< Callback when selecting a group. }
 
         constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;

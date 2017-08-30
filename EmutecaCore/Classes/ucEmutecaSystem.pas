@@ -51,7 +51,9 @@ type
       read FProgressCallBack write SetProgressCallBack;
 
     procedure AddSoft(aSoft: cEmutecaSoftware);
-    //< Safe way to add software (adds group if needed, and link them)
+    //< Safe way to add software (adds group if needed, and link them).
+    procedure AddGroup(aGroup: cEmutecaGroup);
+    //< Safe way to add groups (adds group in full list and visile list).
 
     procedure LoadSoftGroupLists(aFile: string);
     procedure ImportSoftGroupLists(aFile: string);
@@ -217,13 +219,17 @@ procedure cEmutecaSystem.AddSoft(aSoft: cEmutecaSoftware);
 var
   aGroup: cEmutecaGroup;
 begin
-  SoftManager.FullList.Add(aSoft);
+  // Is it already added?
+  if SoftManager.FullList.IndexOf(aSoft) <> -1 then
+    Exit;
 
   aSoft.CachedSystem := Self;
+  SoftManager.FullList.Add(aSoft);
 
   if assigned(aSoft.CachedGroup) then
   begin
     aGroup := cEmutecaGroup(aSoft.CachedGroup);
+    AddGroup(aGroup);
     aGroup.SoftList.Add(aSoft);
   end
   else
@@ -237,9 +243,22 @@ begin
     aGroup.SoftList.Add(aSoft);
   end;
 
-  // Add to visible count
-  if aGroup.SoftList.Count = 1 then
-    GroupManager.VisibleList.Add(aGroup);
+  if aGroup.SoftList.Count > 0 then
+    if GroupManager.VisibleList.IndexOf(aGroup) = -1 then
+      GroupManager.VisibleList.Add(aGroup);
+end;
+
+procedure cEmutecaSystem.AddGroup(aGroup: cEmutecaGroup);
+begin
+  // Is it already added?
+  if GroupManager.FullList.IndexOf(aGroup) <> -1 then
+    Exit;
+  aGroup.CachedSystem := Self;
+  GroupManager.FullList.Add(aGroup);
+
+  if aGroup.SoftList.Count > 0 then
+    if GroupManager.VisibleList.IndexOf(aGroup) = -1 then
+      GroupManager.VisibleList.Add(aGroup);
 end;
 
 initialization

@@ -13,28 +13,33 @@ uses
   uEmutecaCommon,
   uaEmutecaCustomSystem,
   ucEmuteca,
-  ucEmutecaSystem, ucEmutecaSoftList, ucEmutecaSoftware,
-  ufEmutecaSoftEditor, ufEmutecaSystemCBX;
+  ucEmutecaSystem, ucEmutecaSoftList, ucEmutecaGroup, ucEmutecaSoftware,
+  ufEmutecaSoftEditor, ufEmutecaSystemCBX, ufEmutecaGroupCBX;
 
 type
 
   { TfmEmutecaActAddSoft }
 
   TfmEmutecaActAddSoft = class(TfmCHXPropEditor)
+    actAddNewGroup: TAction;
+    bAddNewGroup: TSpeedButton;
     cbxInnerFile: TComboBox;
     chkOpenAsArchive: TCheckBox;
     eFile: TFileNameEdit;
     eVersionKey: TEdit;
     gbxFileSelection: TGroupBox;
     gbxDuplicates: TGroupBox;
+    gbxGroup: TGroupBox;
     gbxSelectSystem: TGroupBox;
     gbxSoftInfo: TGroupBox;
     lCompressedError: TLabel;
     lDupFile: TLabel;
     lSystemInfo: TLabel;
+    pInfo: TPanel;
     pSelectFile: TPanel;
     rgbSoftKey: TRadioGroup;
     Splitter1: TSplitter;
+    procedure actAddNewGroupExecute(Sender: TObject);
     procedure cbxInnerFileChange(Sender: TObject);
     procedure chkOpenAsArchiveChange(Sender: TObject);
     procedure eFileAcceptFileName(Sender: TObject; var Value: string);
@@ -48,6 +53,7 @@ type
 
   private
     FEmuteca: cEmuteca;
+    FfmGroupCBX: TfmEmutecaGroupCBX;
     FSoftware: cEmutecaSoftware;
     procedure SetEmuteca(AValue: cEmuteca);
     procedure SetSoftware(AValue: cEmutecaSoftware);
@@ -55,6 +61,7 @@ type
   protected
     property fmSoftEditor: TfmEmutecaSoftEditor read FfmSoftEditor;
     property fmSystemCBX: TfmEmutecaSystemCBX read FfmSystemCBX;
+    property fmGroupCBX: TfmEmutecaGroupCBX read FfmGroupCBX;
 
     property Software: cEmutecaSoftware read FSoftware write SetSoftware;
 
@@ -65,6 +72,7 @@ type
     procedure UpdateDupInfo;
 
     function SelectSystem(aSystem: cEmutecaSystem): boolean;
+    function SelectGroup(aGroup: cEmutecaGroup): boolean;
 
     procedure ClearFrameData; override;
     procedure LoadFrameData; override;
@@ -91,6 +99,7 @@ implementation
 procedure TfmEmutecaActAddSoft.ClearFrameData;
 begin
   fmSystemCBX.SelectedSystem := nil;
+  fmGroupCBX.SelectedGroup := nil;
   fmSoftEditor.Software := nil;
 
   rgbSoftKey.ItemIndex := 0;
@@ -113,8 +122,10 @@ begin
   Software.FileName := ExtractFileName(eFile.FileName);
   Software.SHA1 := kCHXSHA1Empty;
 
-  Software.GroupKey := ExtractFileNameOnly(
-    ExcludeTrailingPathDelimiter(Software.Folder));
+  Software.CachedGroup := fmGroupCBX.SelectedGroup;
+  if not Assigned(Software.CachedGroup) then
+    Software.GroupKey := ExtractFileNameOnly(ExcludeTrailingPathDelimiter(Software.Folder));
+
   Software.Title := ExtractFileNameOnly(Software.FileName);
 
   UpdateSoftKey;
@@ -134,6 +145,8 @@ begin
   Software.FileName := cbxInnerFile.Text;
   Software.SHA1 := kCHXSHA1Empty;
 
+  Software.CachedGroup := fmGroupCBX.SelectedGroup;
+  if not Assigned(Software.CachedGroup) then
   Software.GroupKey := ExtractFileNameOnly(
     ExcludeTrailingPathDelimiter(Software.Folder));
   Software.Title := ExtractFileNameOnly(Software.FileName);
@@ -234,6 +247,11 @@ begin
 
   Software.CachedSystem := aSystem;
 
+  if Assigned(aSystem) then
+    fmGroupCBX.GroupList := aSystem.GroupManager.FullList
+  else
+    fmGroupCBX.GroupList := nil;
+
   gbxFileSelection.Enabled := assigned(Software.CachedSystem);
   rgbSoftKey.Enabled := gbxFileSelection.Enabled;
 
@@ -254,8 +272,10 @@ begin
 
   lSystemInfo.Caption := Software.CachedSystem.Extensions.CommaText;
 
-  ExtFilter := 'All suported files' + '|' +
-    FileMaskFromCommaText(w7zGetFileExts);
+  ExtFilter := 'All suported files' + '|';
+  if Software.CachedSystem.Extensions.Count > 0 then
+    ExtFilter := ExtFilter + FileMaskFromStringList(Software.CachedSystem.Extensions) + ';';
+  ExtFilter := ExtFilter + FileMaskFromCommaText(w7zGetFileExts);
   ExtFilter := ExtFilter + '|' + 'All files' + '|' + AllFilesMask;
   eFile.Filter := ExtFilter;
 
@@ -267,9 +287,44 @@ begin
   Result := True;
 end;
 
+function TfmEmutecaActAddSoft.SelectGroup(aGroup: cEmutecaGroup): boolean;
+begin
+  Result := True;
+  Software.CachedGroup := aGroup;
+end;
+
 procedure TfmEmutecaActAddSoft.cbxInnerFileChange(Sender: TObject);
 begin
   UpdateInnerFileData;
+end;
+
+procedure TfmEmutecaActAddSoft.actAddNewGroupExecute(Sender: TObject);
+var
+  GroupTitle: string;
+  aGroup: cEmutecaGroup;
+  aSystem: cEmutecaSystem;
+begin
+  if not Assigned(Software) then Exit;
+  if not Assigned(Software.CachedSystem) then Exit;
+
+  fmGroupCBX.GroupList := nil;
+
+  GroupTitle := Software.Title;
+
+  if InputQuery('New group', 'Name of the new group.', GroupTitle) = false then Exit;
+
+  aGroup := cEmutecaGroup.Create(nil);
+  aGroup.ID := GroupTitle;
+  aGroup.Title := GroupTitle;
+
+  aSystem := cEmutecaSystem(Software.CachedSystem);
+
+  aSystem.AddGroup(aGroup);
+
+  fmGroupCBX.GroupList := aSystem.GroupManager.FullList;
+  fmGroupCBX.SelectedGroup := aGroup;
+
+  Software.CachedGroup := aGroup;
 end;
 
 procedure TfmEmutecaActAddSoft.chkOpenAsArchiveChange(Sender: TObject);
@@ -290,7 +345,7 @@ begin
     if not SupportedExtSL(eFile.FileName,
       Emuteca.Config.CompressedExtensions) then
     begin
-      AnError('Not a compressed file.');
+      AnError('It''s not a compressed file.');
       Exit;
     end;
 
@@ -304,7 +359,7 @@ begin
 
     if cbxInnerFile.Items.Count = 0 then
     begin
-      AnError('No files not found.');
+      AnError('No files found.');
       Exit;
     end;
 
@@ -458,7 +513,13 @@ constructor TfmEmutecaActAddSoft.Create(TheOwner: TComponent);
     fmSystemCBX.FirstItem := ETKSysCBXFISelect;
     fmSystemCBX.Parent := gbxSelectSystem;
 
+    FfmGroupCBX := TfmEmutecaGroupCBX.Create(gbxGroup);
+    fmGroupCBX.Align := alClient;
+    fmGroupCBX.OnSelectGroup := @SelectGroup;
+    fmGroupCBX.Parent := gbxGroup;
+
     FfmSoftEditor := TfmEmutecaSoftEditor.Create(gbxSoftInfo);
+    fmSoftEditor.Align := alClient;
     fmSoftEditor.SaveButtons := False;
     fmSoftEditor.ButtonClose := False;
     fmSoftEditor.Parent := gbxSoftInfo;
