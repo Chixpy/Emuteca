@@ -447,7 +447,7 @@
       <Unit67>
         <Filename Value="source\frames\ufLEmuTKSysPreview.pas"/>
         <IsPartOfProject Value="True"/>
-        <ComponentName Value="fmEmutecaSystemPanel"/>
+        <ComponentName Value="fmLEmuTKSysPreview"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
       </Unit67>
@@ -688,7 +688,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="..\CHXPas;..\CHXPas\Abstract;..\CHXPas\Classes;..\CHXPas\Forms;..\CHXPas\Forms\ScriptManager;..\CHXPas\Frames;..\CHXPas\Frames\ScriptManager;..\CHXPas\Misc;..\CHXPas\Units;..\EmutecaCore;..\EmutecaCore\Abstracts;..\EmutecaCore\Classes;..\EmutecaCore\Frames;..\EmutecaCore\ScriptMng;..\EmutecaCore\Units;source;source\abstracts;source\forms;source\forms\ScriptMng;source\frames;source\units;..\CHXPas\ScriptManager;..\CHXPas\ScriptManager\forms;..\CHXPas\ScriptManager\imports;ScriptManager\imports"/>
+      <OtherUnitFiles Value="..\CHXPas;..\CHXPas\Abstract;..\CHXPas\Classes;..\CHXPas\Forms;..\CHXPas\Forms\ScriptManager;..\CHXPas\Frames;..\CHXPas\Frames\ScriptManager;..\CHXPas\Misc;..\CHXPas\Units;..\EmutecaCore;..\EmutecaCore\Abstracts;..\EmutecaCore\Classes;..\EmutecaCore\Frames;..\EmutecaCore\ScriptMng;..\EmutecaCore\Units;source;source\abstracts;source\forms;source\forms\ScriptMng;source\frames;source\units;..\CHXPas\ScriptManager;..\CHXPas\ScriptManager\forms;..\CHXPas\ScriptManager\imports;ScriptManager\imports;..\LazEmuteca\source\frames"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>

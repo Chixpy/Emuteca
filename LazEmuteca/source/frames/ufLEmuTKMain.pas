@@ -15,6 +15,7 @@ uses
   ucEmuteca, ucEmutecaSystem, ucEmutecaGroupList, ucEmutecaGroup,
   ucEmutecaSoftList, ucEmutecaSoftware,
   // Emuteca frames
+  uLEmuTKCommon,
   ufLEmuTKFullSoftEditor, ufEmutecaSystemCBX, ufLEmuTKIcnSysCBX, ufLEmuTKSoftMedia,
   ufLEmuTKIcnSoftTree,
   ufLEmuTKSysPreview,
@@ -43,7 +44,7 @@ type
     FfmSoftEditor: TfmLEmuTKFullSoftEditor;
     FfmSoftMedia: TfmLEmuTKSoftMedia;
     FfmSoftTree: TfmLEmuTKIcnSoftTree;
-    FfmSystemPanel: TfmEmutecaSystemPanel;
+    FfmSystemPanel: TfmLEmuTKSysPreview;
     FFullGroupList: cEmutecaGroupList;
     FFullSoftlist: cEmutecaSoftList;
     FGUIConfig: cGUIConfig;
@@ -64,7 +65,7 @@ type
 
     property fmCHXTagTree: TfmCHXTagTree read FfmCHXTagTree;
 
-    property fmSystemPanel: TfmEmutecaSystemPanel read FfmSystemPanel;
+    property fmSystemPanel: TfmLEmuTKSysPreview read FfmSystemPanel;
     property fmSoftEditor: TfmLEmuTKFullSoftEditor read FfmSoftEditor;
     property fmSoftMedia: TfmLEmuTKSoftMedia read FfmSoftMedia;
     property fmSoftTree: TfmLEmuTKIcnSoftTree read FfmSoftTree;
@@ -136,6 +137,7 @@ begin
     fmSoftTree.GroupList := nil;
     fmSoftEditor.Software:= nil;
     fmSoftMedia.Software := nil;
+    fmSystemPanel.System := nil;
   end;
 
   LoadFrameData;
@@ -295,15 +297,15 @@ constructor TfmLEmuTKMain.Create(TheOwner: TComponent);
 
     // Creating System Panel
     aTabSheet := pcLeft.AddTabSheet;
-    FfmSystemPanel := TfmEmutecaSystemPanel.Create(aTabSheet);
-    aTabSheet.Caption := fmSystemPanel.Name;  // TODO: Add Caption
+    FfmSystemPanel := TfmLEmuTKSysPreview.Create(aTabSheet);
+    aTabSheet.Caption := rsSystemCaption;
     fmSystemPanel.Align := alClient;
     fmSystemPanel.Parent := aTabSheet;
 
     // Creating and Setting Tags frame
     aTabSheet := pcLeft.AddTabSheet;
     FfmCHXTagTree := TfmCHXTagTree.Create(aTabSheet);
-    aTabSheet.Caption := fmCHXTagTree.Name;  // TODO: Add Caption
+    aTabSheet.Caption := rsTagsCaption;
     fmCHXTagTree.OnCheckChange := @CheckTags;
     fmCHXTagTree.Align := alClient;
     fmCHXTagTree.Parent := aTabSheet;
@@ -311,14 +313,14 @@ constructor TfmLEmuTKMain.Create(TheOwner: TComponent);
     // Creating SoftMedia frame
     aTabSheet := pcSoftware.AddTabSheet;
     FfmSoftMedia := TfmLEmuTKSoftMedia.Create(aTabSheet);
-    aTabSheet.Caption := fmSoftMedia.Name;  // TODO: Add Caption
+    aTabSheet.Caption := rsSoftMediaCaption;
     fmSoftMedia.Align := alClient;
     fmSoftMedia.Parent := aTabSheet;
 
     // Creating SoftEditor frame
     aTabSheet := pcSoftware.AddTabSheet;
     FfmSoftEditor := TfmLEmuTKFullSoftEditor.Create(aTabSheet);
-    aTabSheet.Caption := fmSoftEditor.Name;  // TODO: Add Caption
+    aTabSheet.Caption := rsSoftEditorCaption;
     fmSoftEditor.Align := alClient;
     fmSoftEditor.SaveButtons := True;
     fmSoftEditor.ButtonClose := False;

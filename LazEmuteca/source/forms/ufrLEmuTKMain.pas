@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, FileUtil, LazFileUtils, Forms, Controls,
   Graphics, Dialogs, LazUTF8, LCLIntf,
   ActnList, Menus, StdActns, ComCtrls, ExtCtrls, LCLTranslator,
-  IniPropStorage, StdCtrls,
+  IniPropStorage, StdCtrls, sha1,
   // Misc
   uVersionSupport, u7zWrapper,
   // CHX units
@@ -16,15 +16,17 @@ uses
   // CHX forms
   ufCHXForm, ufCHXProgressBar,
   // Emuteca clases
-  ucEmuteca, uEmutecaCommon, ucEmutecaGroup, ucEmutecaSoftware,
+  ucEmuteca, uEmutecaCommon,
   // Emuteca forms
   ufrLEmuTKAbout,
   // Emuteca windows
   ufEmutecaActAddSoft, ufEmutecaActAddFolder, ufEmutecaActExportSoftData,
   ufEmutecaActImportSoftData,
+  // LazEmuteca units
+  uLEmuTKCommon, uGUIConfig,
   // LazEmuteca frames
-  ufLEmuTKMain, ufLEmuTKSysManager, ufLEmuTKEmuManager, ufLEmuTKMediaManager,
-  ufLEmuTKScriptManager, uGUIConfig, uLEmuTKCommon, sha1;
+   ufLEmuTKMain, ufLEmuTKSysManager, ufLEmuTKEmuManager,
+  ufLEmuTKMediaManager, ufLEmuTKScriptManager;
 
 type
 
@@ -37,6 +39,8 @@ type
     actAutoSave: TAction;
     actExportSoftData: TAction;
     actImportSoftData: TAction;
+    actCleanAllSystems: TAction;
+    actCleanSystemData: TAction;
     actOpenTempFolder: TAction;
     actSaveLists: TAction;
     actMediaManager: TAction;
@@ -48,6 +52,10 @@ type
     ActImages: TImageList;
     IniPropStorage: TIniPropStorage;
     MainMenu: TMainMenu;
+    mimmCleanSystem: TMenuItem;
+    MenuItem3: TMenuItem;
+    mimmCleanAllSystems: TMenuItem;
+    mimmSystem: TMenuItem;
     mimmImportSoftData: TMenuItem;
     mimmExportSoftData: TMenuItem;
     MenuItem2: TMenuItem;
@@ -74,6 +82,8 @@ type
     procedure actAddSoftExecute(Sender: TObject);
     procedure actAddFolderExecute(Sender: TObject);
     procedure actAutoSaveExecute(Sender: TObject);
+    procedure actCleanAllSystemsExecute(Sender: TObject);
+    procedure actCleanSystemDataExecute(Sender: TObject);
     procedure actEmulatorManagerExecute(Sender: TObject);
     procedure actExportSoftDataExecute(Sender: TObject);
     procedure actImportSoftDataExecute(Sender: TObject);
@@ -177,7 +187,8 @@ end;
 
 procedure TfrmLEmuTKMain.SetSHA1Folder(AValue: string);
 begin
-  FSHA1Folder := SetAsFolder(AValue);
+  FSHA1Folder := SetAsFolder(SetAsAbsoluteFile(AValue, ProgramDirectory));
+  w7zSetGlobalCache(SHA1Folder);
 end;
 
 procedure TfrmLEmuTKMain.LoadIcons;
@@ -318,8 +329,7 @@ begin
   GUIIconsFile := SetAsAbsoluteFile(GUIConfig.GUIIcnFile, ProgramDirectory);
 
   // Experimental
-  SHA1Folder := SetAsAbsoluteFile(GUIConfig.GlobalCache, ProgramDirectory);
-  w7zSetGlobalCache(SHA1Folder);
+  SHA1Folder := GUIConfig.GlobalCache;
 
   // Image lists
   FIconList := cCHXImageList.Create(True);
@@ -435,6 +445,28 @@ end;
 procedure TfrmLEmuTKMain.actAutoSaveExecute(Sender: TObject);
 begin
   GUIConfig.SaveOnExit := actAutoSave.Checked;
+end;
+
+procedure TfrmLEmuTKMain.actCleanAllSystemsExecute(Sender: TObject);
+begin
+     // Fix runtime errors, while trying to update if something is changed
+  fmEmutecaMainFrame.Emuteca := nil;
+
+  Emuteca.CleanSystems;
+
+  fmEmutecaMainFrame.Emuteca := Emuteca;
+end;
+
+procedure TfrmLEmuTKMain.actCleanSystemDataExecute(Sender: TObject);
+begin
+  // Fix runtime errors, while trying to update if something is changed
+fmEmutecaMainFrame.Emuteca := nil;
+
+
+// TODO: We need a callback setting current system/group/soft
+// Emuteca.CleanSystems;
+
+fmEmutecaMainFrame.Emuteca := Emuteca;
 end;
 
 procedure TfrmLEmuTKMain.actAddSoftExecute(Sender: TObject);

@@ -91,6 +91,9 @@ type
     procedure LoadData;
     procedure SaveData;
 
+    procedure CleanSystems;
+    // Removes parents without soft and Soft not found of all systems.
+
     procedure CacheData;
 
     function RunSoftware(const aSoftware: cEmutecaSoftware): integer;
@@ -158,17 +161,28 @@ begin
         begin
           if DirectoryExistsUTF8(aFolder) then
           begin
-            aSha1 := SHA1File(aFolder + aFile);
-            if not terminated then
-              aSoft.SHA1 := aSha1;
+            if FileExistsUTF8(aFolder + aFile) then
+            begin
+              aSha1 := SHA1File(aFolder + aFile);
+              if not terminated then
+                aSoft.SHA1 := aSha1;
+            end;
           end
           else
           begin
-            w7zExtractFile(aFolder, aFile, TempFolder + 'SHA1Cache/', False, '');
-            aSha1 := SHA1File(TempFolder + 'SHA1Cache/' + aFile);
-            if not terminated then
-              aSoft.SHA1 := aSha1;
-            DeleteFileUTF8(TempFolder + 'SHA1Cache/' + aFile);
+            aFolder := ExcludeTrailingPathDelimiter(aFolder);
+            if FileExistsUTF8(aFolder) then
+            begin
+              w7zExtractFile(aFolder, aFile, TempFolder +
+                krsSHA1CacheFolder, False, '');
+              if FileExistsUTF8(TempFolder + krsSHA1CacheFolder + aFile) then
+              begin
+                aSha1 := SHA1File(TempFolder + krsSHA1CacheFolder + aFile);
+                if not terminated then
+                  aSoft.SHA1 := aSha1;
+                DeleteFileUTF8(TempFolder + krsSHA1CacheFolder + aFile);
+              end;
+            end;
           end;
         end;
         Inc(CurrSoftPos);
@@ -234,6 +248,34 @@ begin
   EmulatorManager.SaveToFileIni('', False);
 end;
 
+procedure cEmuteca.CleanSystems;
+var
+  i: Integer;
+  aSystem: cEmutecaSystem;
+  SysPCB: TEmutecaProgressCallBack;
+begin
+  i := 0;
+  while i < SystemManager.EnabledList.Count do
+  begin
+    aSystem := SystemManager.EnabledList[i];
+    SysPCB := aSystem.ProgressCallBack;
+    aSystem.ProgressCallBack := nil;
+
+    if assigned(ProgressCallBack) then
+      ProgressCallBack(rsCleaningSystemData, aSystem.ID,
+        aSystem.Title, i, SystemManager.EnabledList.Count);
+
+    aSystem.CleanSystemData;
+
+    aSystem.ProgressCallBack := SysPCB;
+
+    Inc(i);
+  end;
+
+  if assigned(ProgressCallBack) then
+    ProgressCallBack('', '', '', 0, 0);
+end;
+
 procedure cEmuteca.ClearAllData;
 begin
   // If we are still caching...
@@ -270,12 +312,13 @@ begin
 
   if not assigned(aSoftware) then
   begin
-     Result := kErrorRunSoftNoSoft;
+    Result := kErrorRunSoftNoSoft;
     exit;
-    end;
+  end;
 
   // 1. Searching for current emulator.
-  aEmulator := EmulatorManager.EnabledList.ItemById(aSoftware.CachedSystem.MainEmulator);
+  aEmulator := EmulatorManager.EnabledList.ItemById(
+    aSoftware.CachedSystem.MainEmulator);
 
   // TODO: 1.1 Test if emulator support aSoftware extension...
 
@@ -283,13 +326,14 @@ begin
 
   if not assigned(aEmulator) then
   begin
-  Result := kErrorRunSoftNoEmu;
+    Result := kErrorRunSoftNoEmu;
     exit;
   end;
 
   // 2. Setting temp folder.
-  if Trim(ExcludeTrailingPathDelimiter(aSoftware.CachedSystem.WorkingFolder)) <>
-    '' then
+  if Trim(ExcludeTrailingPathDelimiter(
+    aSoftware.CachedSystem.WorkingFolder)) <> '' then
+
     aFolder := aSoftware.CachedSystem.WorkingFolder
   else
     aFolder := TempFolder + krsTempGameSubFolder;
@@ -339,10 +383,10 @@ begin
     //  // The ROM is a compressed file but must be extracted anyways
     //  CompError := w7zExtractFile(RomFile, AllFilesMask, aFolder, True, '');
     //  if CompError <> 0 then
-   //  begin
-     // Result := kError7zDecompress - CompError;
+    //  begin
+    // Result := kError7zDecompress - CompError;
     //  Exit;
-   // end;
+    // end;
     //  Compressed := True;
     //end;
   end;

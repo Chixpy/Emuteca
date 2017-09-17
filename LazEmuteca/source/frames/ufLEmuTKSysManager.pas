@@ -143,7 +143,6 @@ begin
   aSystem.Title := SystemID;
   aSystem.Enabled := True;
 
-  // TODO: Don't Add systems on the fly, only when saved
   Emuteca.SystemManager.FullList.Add(aSystem);
 
   LoadFrameData;
@@ -160,7 +159,6 @@ begin
 
   fmSysEditor.System := nil;
   try
-    // TODO: Don't delete systems on the fly, only when saved
     Emuteca.SystemManager.FullList.Remove(
       cEmutecaSystem(clbPropItems.Items.Objects[clbPropItems.ItemIndex]));
 

@@ -27,6 +27,7 @@ interface
 
 uses
   Classes, SysUtils, LazFileUtils, LazUTF8,
+  u7zWrapper,
   uEmutecaCommon,
   uaEmutecaCustomSystem,
   ucEmutecaGroupManager, ucEmutecaGroupList, ucEmutecaGroup,
@@ -54,6 +55,9 @@ type
     //< Safe way to add software (adds group if needed, and link them).
     procedure AddGroup(aGroup: cEmutecaGroup);
     //< Safe way to add groups (adds group in full list and visile list).
+
+    procedure CleanSystemData;
+    //< Removes parents without soft and Soft not found
 
     procedure LoadSoftGroupLists(aFile: string);
     procedure ImportSoftGroupLists(aFile: string);
@@ -259,6 +263,54 @@ begin
   if aGroup.SoftList.Count > 0 then
     if GroupManager.VisibleList.IndexOf(aGroup) = -1 then
       GroupManager.VisibleList.Add(aGroup);
+end;
+
+procedure cEmutecaSystem.CleanSystemData;
+var
+  i: integer;
+  aGroup: cEmutecaGroup;
+  aSoft: cEmutecaSoftware;
+  Found: Boolean;
+begin
+  i := 0;
+  while i < SoftManager.FullList.Count do
+  begin
+    aSoft := SoftManager.FullList[i];
+
+    if assigned(ProgressCallBack) then
+      ProgressCallBack(rsCleaningSystemData, Self.Title,
+        aSoft.Title, i, SoftManager.FullList.Count);
+
+    if DirectoryExistsUTF8(aSoft.Folder) then
+      // Uncompressed
+      Found := FileExistsUTF8(aSoft.Folder + aSoft.FileName)
+    else // Compressed
+      Found := w7zFileExists(aSoft.Folder, aSoft.FileName, '') = 0;
+
+    if not Found then
+      SoftManager.FullList.Delete(i)
+    else
+      Inc(i);
+  end;
+
+  // Group can lose all soft...
+  CacheGroups;
+
+  i := 0;
+  while i < GroupManager.FullList.Count do
+  begin
+    aGroup := GroupManager.FullList[i];
+
+    // This is fast so no ProgressCallBack here
+
+    if aGroup.SoftList.Count <= 0 then
+      GroupManager.FullList.Delete(i)
+    else
+      Inc(i);
+  end;
+
+  if assigned(ProgressCallBack) then
+    ProgressCallBack('', '', '', 0, 0);
 end;
 
 initialization

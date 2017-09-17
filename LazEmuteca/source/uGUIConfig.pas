@@ -147,7 +147,6 @@ end;
 procedure cGUIConfig.SetGlobalCache(AValue: string);
 begin
   FGlobalCache := SetAsFolder(AValue);
-  w7zSetGlobalCache(GlobalCache);
 end;
 
 procedure cGUIConfig.SetScriptsFolder(AValue: string);
@@ -295,7 +294,7 @@ begin
   mPlayerExe := 'Tools/mplayer/mplayer2.exe';
 
   // Experimental
-  GlobalCache := '';
+  GlobalCache := 'SHA1Cache/';
 end;
 
 constructor cGUIConfig.Create(aOwner: TComponent);

@@ -88,7 +88,7 @@ begin
       // Getting parent ID
       aParent := '';
       if j < ClonesList.Count then
-        aPos := UTF8CompareText(aID, Trim(Copy(ClonesList[j], 1,
+        aPos := CompareText(aID, Trim(Copy(ClonesList[j], 1,
           LengthClonID)))
       else
         aPos := -1;
@@ -98,7 +98,7 @@ begin
         if j < ClonesList.Count then
         begin
           Inc(j);
-          aPos := UTF8CompareText(aID, Trim(Copy(ClonesList[j], 1,
+          aPos := CompareText(aID, Trim(Copy(ClonesList[j], 1,
             LengthClonID)))
         end
         else

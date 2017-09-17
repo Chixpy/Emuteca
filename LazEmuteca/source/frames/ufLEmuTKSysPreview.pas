@@ -6,48 +6,77 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  StdCtrls, LazFileUtils, ufCHXFrame, ucEmutecaSystem;
+  StdCtrls, Buttons, ActnList, LCLIntf, LazFileUtils,
+  ufCHXFrame, uCHXImageUtils,
+  ucEmutecaSystem;
 
 type
 
-  { TfmEmutecaSystemPanel }
+  { TfmLEmuTKSysPreview }
 
-  TfmEmutecaSystemPanel = class(TfmCHXFrame)
+  TfmLEmuTKSysPreview = class(TfmCHXFrame)
+    actOpenSystemFolder: TAction;
+    ActionList: TActionList;
+    ilActions: TImageList;
+    bOpenSystemFolder: TSpeedButton;
     eLastTime: TEdit;
     eNTimes: TEdit;
     ePlayedTime: TEdit;
     gbxStats: TGroupBox;
     Splitter1: TSplitter;
     SysImage: TImage;
+    procedure actOpenSystemFolderExecute(Sender: TObject);
   private
     FSystem: cEmutecaSystem;
     procedure SetSystem(AValue: cEmutecaSystem);
 
   protected
-        procedure ClearFrameData; override;
+    procedure SetGUIIconsIni(AValue: string); override;
+    procedure SetGUIConfigIni(AValue: string); override;
+    procedure ClearFrameData; override;
     procedure LoadFrameData; override;
 
   public
     property System: cEmutecaSystem read FSystem write SetSystem;
-
-
   end;
 
 implementation
 
 {$R *.lfm}
 
-{ TfmEmutecaSystemPanel }
+{ TfmLEmuTKSysPreview }
 
-procedure TfmEmutecaSystemPanel.SetSystem(AValue: cEmutecaSystem);
+procedure TfmLEmuTKSysPreview.actOpenSystemFolderExecute(Sender: TObject);
 begin
-  if FSystem = AValue then Exit;
+  if not Assigned(System) then
+    Exit;
+
+  OpenDocument(System.BaseFolder);
+end;
+
+procedure TfmLEmuTKSysPreview.SetSystem(AValue: cEmutecaSystem);
+begin
+  if FSystem = AValue then
+    Exit;
   FSystem := AValue;
 
   LoadFrameData;
 end;
 
-procedure TfmEmutecaSystemPanel.ClearFrameData;
+procedure TfmLEmuTKSysPreview.SetGUIIconsIni(AValue: string);
+begin
+  inherited SetGUIIconsIni(AValue);
+
+   ReadActionsIcons(GUIIconsIni, Self.Name, ilActions, ActionList);
+   FixComponentImagesFromActions(Self);
+end;
+
+procedure TfmLEmuTKSysPreview.SetGUIConfigIni(AValue: string);
+begin
+  inherited SetGUIConfigIni(AValue);
+end;
+
+procedure TfmLEmuTKSysPreview.ClearFrameData;
 begin
   SysImage.Picture.Clear;
   ePlayedTime.Clear;
@@ -55,7 +84,7 @@ begin
   eLastTime.Clear;
 end;
 
-procedure TfmEmutecaSystemPanel.LoadFrameData;
+procedure TfmLEmuTKSysPreview.LoadFrameData;
 begin
   Enabled := Assigned(System);
 
@@ -68,7 +97,7 @@ begin
   if FileExistsUTF8(System.Image) then
     SysImage.Picture.LoadFromFile(System.Image)
   else
-   SysImage.Picture.Clear;
+    SysImage.Picture.Clear;
 
   ePlayedTime.Text := System.Stats.PlayingTimeStr;
   eNTimes.Text := System.Stats.TimesPlayedStr;
@@ -76,4 +105,3 @@ begin
 end;
 
 end.
-

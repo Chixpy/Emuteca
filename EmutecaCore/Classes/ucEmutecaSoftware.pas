@@ -27,13 +27,6 @@ uses
   Classes, SysUtils, LazFileUtils, LazUTF8, uaEmutecaCustomSystem,
   uaEmutecaCustomGroup, uaEmutecaCustomSoft, uEmutecaCommon, uCHXStrUtils;
 
-const
-    // TODO: This goes in uLEmuTKCommon
-    LazEmuTKIconFiles: array [0..12] of string =
-    (krsEDSVerified, krsEDSGood, krsEDSAlternate, krsEDSOverDump,
-    krsEDSBadDump, krsEDSUnderDump, 'Fixed', 'Trainer',
-    'Translation', 'Pirate', 'Cracked', 'Modified', 'Hack');
-
 type
   { cEmutecaSoftware. }
 

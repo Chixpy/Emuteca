@@ -31,10 +31,6 @@ uses
   uEmutecaCommon,
   ucEmutecaEmulatorList;
 
-resourcestring
-  rsLoadingEmulatorList = 'Loading emulator list...';
-  rsSavingEmulatorList = 'Saving emulator list...';
-
 type
   { TODO : Create a cEmutecaManager generic (for systems and emulators) }
 
@@ -90,7 +86,6 @@ begin
 
   FFullList := cEmutecaEmulatorList.Create(True);
   FEnabledList := cEmutecaEmulatorList.Create(False);
-  // TODO: OnCompare FullList.OnCompare := ;
 end;
 
 destructor cEmutecaEmulatorManager.Destroy;

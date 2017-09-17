@@ -5,14 +5,17 @@ unit uLEmuTKCommon;
 interface
 
 uses
-  Classes, SysUtils;
+  Classes, SysUtils,
+  uEmutecaCommon;
 
 const
-  { TODO : Change prefix to krs }
-  { TODO : Not all must be global constants... }
+  LazEmuTKIconFiles: array [0..12] of string =
+    (krsEDSVerified, krsEDSGood, krsEDSAlternate, krsEDSOverDump,
+    krsEDSBadDump, krsEDSUnderDump, 'Fixed', 'Trainer',
+    'Translation', 'Pirate', 'Cracked', 'Modified', 'Hack');
 
   krsEmuteca = 'Emuteca';
-{< Main 'Emuteca' String!!! }
+  {< Main 'Emuteca' String!!! }
 
   krsVirtualFolderExt = '.(folder)';
   krsVirtualExt = '.(ext)';
@@ -54,8 +57,8 @@ resourcestring
   rsFmtNTimes = '%0:d times.';
   {< %0:d = Number of times. }
 
-  // ERRORS
-  // ------
+  // ERRORS & WARNINGS
+  // -----------------
   rsFmtNotFound = 'Not Found.' + LineEnding + LineEnding +
     'Current folder: %0:s' + LineEnding + 'Searched file: %1:s';
   {<
@@ -68,6 +71,10 @@ resourcestring
     '* Create many folders in "%0:s".' + LineEnding +
     '* Change all defined image, music, video folders with created ones.' +
     LineEnding + LineEnding + '¿Are you sure?';
+  rsSoftEditorCaption = 'Soft Editor';
+  rsSoftMediaCaption = 'Soft Media';
+  rsTagsCaption = 'Tags';
+  rsSystemCaption = 'System';
 
 implementation
 

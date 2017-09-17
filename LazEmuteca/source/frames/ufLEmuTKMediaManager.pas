@@ -1018,7 +1018,7 @@ begin
   // Copy or rename the file
   if chkCopyFile.Checked then
   begin
-    // TODO 5: HACK: Where is CopyFileUTF8 and CopyDirTreeUTF8?
+    // HACK: Where is CopyFileUTF8 and CopyDirTreeUTF8?
     if not IsFolder then
       CopyFile(UTF8ToSys(SourcePath), UTF8ToSys(TargetPath),
         [cffOverwriteFile, cffCreateDestDirectory], True)

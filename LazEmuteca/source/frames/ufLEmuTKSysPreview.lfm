@@ -1,4 +1,4 @@
-inherited fmEmutecaSystemPanel: TfmEmutecaSystemPanel
+inherited fmLEmuTKSysPreview: TfmLEmuTKSysPreview
   Height = 392
   Width = 200
   ClientHeight = 392
@@ -66,5 +66,26 @@ inherited fmEmutecaSystemPanel: TfmEmutecaSystemPanel
       TabOrder = 2
       Text = 'eLastTime'
     end
+  end
+  object bOpenSystemFolder: TSpeedButton[3]
+    Left = 8
+    Height = 22
+    Top = 296
+    Width = 23
+    Action = actOpenSystemFolder
+  end
+  object ActionList: TActionList[4]
+    Images = ilActions
+    Left = 120
+    Top = 305
+    object actOpenSystemFolder: TAction
+      Category = 'System'
+      Caption = 'Open system folder'
+      OnExecute = actOpenSystemFolderExecute
+    end
+  end
+  object ilActions: TImageList[5]
+    Left = 133
+    Top = 276
   end
 end

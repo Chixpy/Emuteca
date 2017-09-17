@@ -158,13 +158,17 @@ const
   krsEDSBadDump = 'BadDump';
   krsEDSUnderDump = 'UnderDump';
 
+  // Dirs
+  krsSHA1CacheFolder = 'SHA1Cache/';
+
 resourcestring
 
   // Misc
   rsNever = 'Never';
   rsFileAlreadyAdded = 'This file is already added.';
+  rsCleaningSystemData = 'Cleaning systems data...';
 
-  // Lists
+  // List action
   rsLoadingSystemList = 'Loading system list...';
   rsImportingSystemList = 'Importing system list...';
   rsSavingSystemList = 'Saving system list...';
@@ -174,6 +178,9 @@ resourcestring
   rsLoadingSoftList = 'Loading soft list...';
   rsImportingSoftList = 'Importing soft list...';
   rsSavingSoftList = 'Saving soft list...';
+  rsLoadingEmulatorList = 'Loading emulator list...';
+  rsImportingEmulatorList = 'Importing emulator list...';
+  rsSavingEmulatorList = 'Saving emulator list...';
 
   // File mask descriptions
   // ----------------------

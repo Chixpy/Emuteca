@@ -197,13 +197,19 @@ end;
 procedure cEmutecaConfig.Setz7CMExecutable(const AValue: string);
 begin
   Fz7CMExecutable := SetAsFile(AValue);
-  w7zSetPathTo7zexe(z7CMExecutable);
+
+   // TODO: This must be done by cEmuteca and use cEmuteca.BaseDir as base
+  if not FilenameIsAbsolute(z7CMExecutable) then
+    w7zSetPathTo7zexe(CreateAbsoluteSearchPath(z7CMExecutable, GetCurrentDirUTF8));
 end;
 
 procedure cEmutecaConfig.Setz7GExecutable(const AValue: string);
 begin
   Fz7GExecutable := SetAsFile(AValue);
-  w7zSetPathTo7zGexe(z7GExecutable);
+
+  // TODO: This must be done by cEmuteca and use cEmuteca.BaseDir as base
+  if not FilenameIsAbsolute(z7GExecutable) then
+    w7zSetPathTo7zGexe(CreateAbsoluteSearchPath(z7GExecutable, GetCurrentDirUTF8));
 end;
 
 procedure cEmutecaConfig.LoadConfig(aFileName: string);
@@ -312,6 +318,15 @@ begin
 end;
 
 procedure cEmutecaConfig.SetDefaultConfig;
+  procedure DeleteComprExt(const aExt: string);
+  var
+    aPos: Integer;
+  begin
+    aPos := CompressedExtensions.IndexOf(aExt);
+    if aPos <> -1 then
+      CompressedExtensions.Delete(aPos);
+  end;
+
 begin
   // Config/Data
   SoftFile := 'Data/Soft.csv';
