@@ -162,11 +162,12 @@ begin
 
   case Software.DumpStatus of
     edsVerified: cbxDumpType.ItemIndex := 0;
-    // Default: edsGood: cbxDumpType.ItemIndex := 1;
+    edsGood: cbxDumpType.ItemIndex := 1;
     edsAlternate: cbxDumpType.ItemIndex := 2;
     edsOverDump: cbxDumpType.ItemIndex := 3;
     edsBadDump: cbxDumpType.ItemIndex := 4;
     edsUnderDump: cbxDumpType.ItemIndex := 5;
+    edsKeepValue: cbxDumpType.ItemIndex := 6;
     else
       cbxDumpType.ItemIndex := 1;
   end;
@@ -210,6 +211,7 @@ begin
     3: Software.DumpStatus := edsOverDump;
     4: Software.DumpStatus := edsBadDump;
     5: Software.DumpStatus := edsUnderDump;
+    6: Software.DumpStatus := edsKeepValue;
     else
       Software.DumpStatus := edsGood;
   end;

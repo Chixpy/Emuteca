@@ -90,7 +90,8 @@ type
     {< Development year. }
     property Developer: string read FDeveloper write SetDeveloper;
     {< Developer. }
-    property MediaFileName: string read GetMediaFileName write SetMediaFileName;
+    property MediaFileName: string read GetMediaFileName
+      write SetMediaFileName;
     {< Name of media files. }
 
 
@@ -182,12 +183,18 @@ begin
   if not assigned(aGroup) then
     Exit;
 
-  ID := aGroup.ID;
-  Title := aGroup.Title;
-  SortTitle := aGroup.SortTitle;
-  Year := aGroup.Year;
-  Developer := aGroup.Developer;
-  MediaFileName := aGroup.MediaFileName;
+  if aGroup.ID <> krsImportKeepValue then
+    ID := aGroup.ID;
+  if aGroup.Title <> krsImportKeepValue then
+    Title := aGroup.Title;
+  if aGroup.SortTitle <> krsImportKeepValue then
+    SortTitle := aGroup.SortTitle;
+  if aGroup.Year <> krsImportKeepValue then
+    Year := aGroup.Year;
+  if aGroup.Developer <> krsImportKeepValue then
+    Developer := aGroup.Developer;
+  if aGroup.MediaFileName <> krsImportKeepValue then
+    MediaFileName := aGroup.MediaFileName;
 end;
 
 function caEmutecaCustomGroup.GetActualTitle: string;
@@ -279,7 +286,8 @@ procedure caEmutecaCustomGroup.SearchAllRelatedFiles(OutFileList: TStrings;
   aFolder: string; Extensions: TStrings; AutoExtract: boolean);
 begin
   // HACK: Dot added to MediaFileName, to preserve dots in ids like "Super Mario Bros."
-  EmuTKSearchAllRelatedFiles(OutFileList, aFolder, MediaFileName + '.', Extensions,
+  EmuTKSearchAllRelatedFiles(OutFileList, aFolder, MediaFileName +
+    '.', Extensions,
     False, '');
 end;
 
@@ -287,8 +295,8 @@ function caEmutecaCustomGroup.SearchFirstRelatedFile(aFolder: string;
   Extensions: TStrings; AutoExtract: boolean): string;
 begin
   // HACK: Dot added to MediaFileName, to preserve dots in ids like "Super Mario Bros."
-  Result := EmuTKSearchFirstRelatedFile(aFolder, MediaFileName + '.',
-    Extensions, False, False, '');
+  Result := EmuTKSearchFirstRelatedFile(aFolder, MediaFileName +
+    '.', Extensions, False, False, '');
 end;
 
 constructor caEmutecaCustomGroup.Create(aOwner: TComponent);

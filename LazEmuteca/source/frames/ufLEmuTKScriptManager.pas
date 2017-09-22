@@ -6,7 +6,9 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
-  ufCHXScriptManager, ucEmuteca, uEmutecaCommon, ufCHXForm,
+  uCHXStrUtils,
+  ufCHXForm, ufCHXScriptManager,
+  ucEmuteca, uEmutecaCommon,
   ucEmutecaScriptEngine;
 
 type
@@ -21,8 +23,11 @@ type
   protected
     procedure ClearFrameData; override;
     procedure LoadFrameData; override;
+
   public
     property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
+
+    procedure SetBaseFolder(const aFolder: string); override;
 
     // Creates a form with Script Manager.
     class function SimpleForm(aEmuteca: cEmuteca; aBaseFolder: string;
@@ -64,7 +69,12 @@ begin
 
   if assigned(ScriptEngine) then
     cEmutecaScriptEngine(ScriptEngine).Emuteca := Emuteca;
+end;
 
+procedure TfmLEmuTKScriptManager.SetBaseFolder(const aFolder: string);
+begin
+  inherited SetBaseFolder(aFolder);
+  ScriptEngine.CommonUnitFolder := SetAsFolder(aFolder) + 'Units';
 end;
 
 class function TfmLEmuTKScriptManager.SimpleForm(aEmuteca: cEmuteca;

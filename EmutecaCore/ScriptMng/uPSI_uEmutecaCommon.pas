@@ -15,10 +15,8 @@ procedure SIRegister_uEmutecaCommon(CL: TPSPascalCompiler);
 begin
   // CONSTANTS
   // =========
-
   CL.AddConstantN('krsFmtWindowCaption', 'String').SetString(
     krsFmtWindowCaption);
-
   CL.AddConstantN('krsTempGameSubFolder', 'String').SetString(
     krsTempGameSubFolder);
 
@@ -119,8 +117,8 @@ begin
   //   krsIniKeyYear, krsIniKeyFileName
   CL.AddConstantN('krsIniKeySHA1', 'String').SetString(krsIniKeySHA1);
   CL.AddConstantN('krsIniKeyGroup', 'String').SetString(krsIniKeyGroup);
-  CL.AddConstantN('krsIniKeyTranslitTitl', 'String').SetString(
-    krsIniKeyTranslitTitl);
+  CL.AddConstantN('krsIniKeyTranslitTitle', 'String').SetString(
+    krsIniKeyTranslitTitle);
   CL.AddConstantN('krsIniKeyVersion', 'String').SetString(krsIniKeyVersion);
   CL.AddConstantN('krsIniKeyPublisher', 'String').SetString(
     krsIniKeyPublisher);
@@ -160,6 +158,13 @@ begin
   CL.AddConstantN('krsEDSOverDump', 'String').SetString(krsEDSOverDump);
   CL.AddConstantN('krsEDSBadDump', 'String').SetString(krsEDSBadDump);
   CL.AddConstantN('krsEDSUnderDump', 'String').SetString(krsEDSUnderDump);
+  CL.AddConstantN('krsEDSKeepValue', 'String').SetString(krsEDSKeepValue);
+
+  // Key when importing to keep current value
+  CL.AddConstantN('krsImportKeepValue', 'String').SetString(krsImportKeepValue);
+
+  // Internal folders
+  CL.AddConstantN('krsTemp7zCacheFolder', 'String').SetString(krsTemp7zCacheFolder);
 
   // RESOURCE STRINGS
   // ================
@@ -169,6 +174,8 @@ begin
   CL.AddConstantN('rsNever', 'String').SetString(rsNever);
   CL.AddConstantN('rsFileAlreadyAdded', 'String').SetString(
     rsFileAlreadyAdded);
+  CL.AddConstantN('rsCleaningSystemData', 'String').SetString(
+    rsCleaningSystemData);
 
   // Lists
   // -----
@@ -187,6 +194,9 @@ begin
   CL.AddConstantN('rsImportingSoftList', 'String').SetString(
     rsImportingSoftList);
   CL.AddConstantN('rsSavingSoftList', 'String').SetString(rsSavingSoftList);
+  CL.AddConstantN('rsLoadingEmulatorList', 'String').SetString(rsLoadingEmulatorList);
+  CL.AddConstantN('rsImportingEmulatorList', 'String').SetString(rsImportingEmulatorList);
+  CL.AddConstantN('rsSavingEmulatorList', 'String').SetString(rsSavingEmulatorList);
 
   // File mask descriptions
   // ----------------------
@@ -207,13 +217,14 @@ begin
   CL.AddConstantN('rsEDSOverDump', 'String').SetString(rsEDSOverDump);
   CL.AddConstantN('rsEDSBadDump', 'String').SetString(rsEDSBadDump);
   CL.AddConstantN('rsEDSUnderDump', 'String').SetString(rsEDSUnderDump);
+  CL.AddConstantN('rsEDSKeepValue', 'String').SetString(rsEDSKeepValue);
 
   // TYPES
   // =====
   CL.AddTypeS('TEmutecaSoftExportKey',
     '(TEFKSHA1, TEFKCRC32, TEFKFileName, TEFKCustom)');
   CL.AddTypeS('TEmutecaDumpStatus',
-    '(edsVerified, edsGood, edsAlternate, edsOverDump, edsBadDump, edsUnderDump)');
+    '(edsVerified, edsGood, edsAlternate, edsOverDump, edsBadDump, edsUnderDump, edsKeepValue)');
 
   CL.AddTypeS('TEmutecaProgressCallBack',
     'function(const Title, Info1, Info2: string; const Value, MaxValue: int64) : boolean');

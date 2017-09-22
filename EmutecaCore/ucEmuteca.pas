@@ -174,13 +174,13 @@ begin
             if FileExistsUTF8(aFolder) then
             begin
               w7zExtractFile(aFolder, aFile, TempFolder +
-                krsSHA1CacheFolder, False, '');
-              if FileExistsUTF8(TempFolder + krsSHA1CacheFolder + aFile) then
+                krsTemp7zCacheFolder, False, '');
+              if FileExistsUTF8(TempFolder + krsTemp7zCacheFolder + aFile) then
               begin
-                aSha1 := SHA1File(TempFolder + krsSHA1CacheFolder + aFile);
+                aSha1 := SHA1File(TempFolder + krsTemp7zCacheFolder + aFile);
                 if not terminated then
                   aSoft.SHA1 := aSha1;
-                DeleteFileUTF8(TempFolder + krsSHA1CacheFolder + aFile);
+                DeleteFileUTF8(TempFolder + krsTemp7zCacheFolder + aFile);
               end;
             end;
           end;

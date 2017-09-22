@@ -61,11 +61,23 @@ begin
   WriteLn('EXIT CODES for handling some errors');
   WriteLn('-----------------------------------');
   WriteLn('');
-  WriteLn('kErrorExecNoGame');
-  WriteLn('  ' + IntToStr(kErrorExecNoGame));
+  WriteLn('kErrorRunSoftUnknown');
+  WriteLn('  ' + IntToStr(kErrorRunSoftUnknown));
+  WriteLn('');
+  WriteLn('kErrorRunSoftNoSoft');
+  WriteLn('  ' + IntToStr(kErrorRunSoftNoSoft));
+  WriteLn('');
+  WriteLn('kErrorRunSoftNoEmu');
+  WriteLn('  ' + IntToStr(kErrorRunSoftNoEmu));
+  WriteLn('');
+  WriteLn('kErrorRunSoftNoSoftFile');
+  WriteLn('  ' + IntToStr(kErrorRunSoftNoSoftFile));
+  WriteLn('');
+  WriteLn('kErrorRunSoftNoEmuFile');
+  WriteLn('  ' + IntToStr(kErrorRunSoftNoEmuFile));
   WriteLn('');
   WriteLn('kError7zDecompress');
-  WriteLn('  ' + IntToStr(kError7zDecompress));
+  WriteLn('  ' + IntToStr(kError7zDecompress)); 
   WriteLn('');
   WriteLn('CSV list headers');
   WriteLn('----------------');
@@ -187,8 +199,8 @@ begin
   WriteLn('krsIniKeyGroup');
   WriteLn('  ' + krsIniKeyGroup);
   WriteLn('');
-  WriteLn('krsIniKeyTranslitTitl');
-  WriteLn('  ' + krsIniKeyTranslitTitl);
+  WriteLn('krsIniKeyTranslitTitle');
+  WriteLn('  ' + krsIniKeyTranslitTitle);
   WriteLn('');
   WriteLn('krsIniKeyVersion');
   WriteLn('  ' + krsIniKeyVersion);
@@ -276,6 +288,19 @@ begin
   WriteLn('krsEDSUnderDump');
   WriteLn('  ' + krsEDSUnderDump);
   WriteLn('');
+  WriteLn('krsEDSKeepValue');
+  WriteLn('  ' + krsEDSKeepValue);
+  WriteLn('');
+  WriteLn('Key when importing to keep current value');
+  WriteLn('');
+  WriteLn('krsEDSKeepValue');
+  WriteLn('  ' + krsEDSKeepValue);
+  WriteLn('');
+  WriteLn('Internal folders');
+  WriteLn('');
+  WriteLn('krsTemp7zCacheFolder');
+  WriteLn('  ' + krsTemp7zCacheFolder); 
+  WriteLn('');
   WriteLn('');
   WriteLn('RESOURCE STRINGS');
   WriteLn('================');
@@ -288,6 +313,9 @@ begin
   WriteLn('');
   WriteLn('rsFileAlreadyAdded');
   WriteLn('  ' + rsFileAlreadyAdded);
+  WriteLn('');
+  WriteLn('rsCleaningSystemData');
+  WriteLn('  ' + rsCleaningSystemData);
   WriteLn('');
   WriteLn('Lists');
   WriteLn('-----');
@@ -318,6 +346,15 @@ begin
   WriteLn('');
   WriteLn('rsSavingSoftList');
   WriteLn('  ' + rsSavingSoftList);
+  WriteLn('');
+  WriteLn('rsLoadingEmulatorList');
+  WriteLn('  ' + rsLoadingEmulatorList);
+  WriteLn('');
+  WriteLn('rsImportingEmulatorList');
+  WriteLn('  ' + rsImportingEmulatorList);
+  WriteLn('');
+  WriteLn('rsSavingEmulatorList');
+  WriteLn('  ' + rsSavingEmulatorList);
   WriteLn('');
   WriteLn('File mask descriptions');
   WriteLn('----------------------');
@@ -358,6 +395,9 @@ begin
   WriteLn('rsEDSUnderDump');
   WriteLn('  ' + rsEDSUnderDump);
   WriteLn('');
+  WriteLn('rsEDSKeepValue');
+  WriteLn('  ' + rsEDSKeepValue);
+  WriteLn('');
   WriteLn('');
   WriteLn('TYPES');
   WriteLn('=====');
@@ -367,7 +407,7 @@ begin
   WriteLn('');
   WriteLn('TEmutecaDumpStatus = ' +
     '(edsVerified, edsGood, edsAlternate, edsOverDump, edsBadDump,' + 
-	' edsUnderDump)');
+	' edsUnderDump, edsKeepValue)');
   WriteLn('');
   WriteLn('TEmutecaProgressCallBack = ' +
     'function(const Title, Info1, Info2: string; const Value, ' +
@@ -379,7 +419,7 @@ begin
   WriteLn('');
   WriteLn('function SoftExportKey2StrK(aSOK: TEmutecaSoftExportKey): string');
   WriteLn('function Str2SoftExportKey(aString: string): TEmutecaSoftExportKey');
-  WriteLn('  Some explanation...');
+  WriteLn('  Convert between TEmutecaSoftExportKey and String.');
   WriteLn('    SoftExportKey2StrK(Str2SoftExportKey(krsSEKFileName)) -> ' +
     SoftExportKey2StrK(Str2SoftExportKey(krsSEKFileName)));
   WriteLn('');
@@ -388,7 +428,8 @@ begin
   WriteLn('function DumpSt2Key(aEDS: TEmutecaDumpStatus): string');
   WriteLn('function DumpSt2Str(aEDS: TEmutecaDumpStatus): string');
   WriteLn('function DumpSt2StrK(aEDS: TEmutecaDumpStatus): string');
-  WriteLn('  Some explanation...');
+  WriteLn('  Convert between TEmutecaDumpStatus and String.');
+  WriteLn('  DumpSt2Str returns a translated string.');
   WriteLn('    DumpSt2Key(Key2DumpSt(krsEDSAlternate)) -> ' +
     DumpSt2Key(Key2DumpSt(krsEDSAlternate)));
   WriteLn('    DumpSt2Str(Key2DumpSt(krsEDSAlternate)) -> ' +

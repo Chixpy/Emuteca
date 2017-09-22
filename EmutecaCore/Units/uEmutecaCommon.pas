@@ -122,7 +122,7 @@ const
   //   krsIniKeyYear, krsIniKeyFileName
   krsIniKeySHA1 = 'SHA1';
   krsIniKeyGroup = 'Group';
-  krsIniKeyTranslitTitl = 'TranslitTitle';
+  krsIniKeyTranslitTitle = 'TranslitTitle';
   krsIniKeyVersion = 'Version';
   krsIniKeyPublisher = 'Publisher';
   krsIniKeyZone = 'Zone';
@@ -157,9 +157,13 @@ const
   krsEDSOverDump = 'OverDump';
   krsEDSBadDump = 'BadDump';
   krsEDSUnderDump = 'UnderDump';
+  krsEDSKeepValue = 'KeepValue';
+
+  // Key for import file to keep current value
+  krsImportKeepValue = '@';
 
   // Dirs
-  krsSHA1CacheFolder = 'SHA1Cache/';
+  krsTemp7zCacheFolder = 'SHA1Cache/';
 
 resourcestring
 
@@ -206,12 +210,13 @@ resourcestring
   rsEDSOverDump = 'OverDump';
   rsEDSBadDump = 'BadDump';
   rsEDSUnderDump = 'UnderDump';
+  rsEDSKeepValue = 'KeepValue'; // Only for imports
 
 
 type
   TEmutecaSoftExportKey = (TEFKSHA1, TEFKCRC32, TEFKFileName, TEFKCustom);
   TEmutecaDumpStatus = (edsVerified, edsGood, edsAlternate, edsOverDump,
-    edsBadDump, edsUnderDump);
+    edsBadDump, edsUnderDump, edsKeepValue);
 
   TEmutecaProgressCallBack = function(const Title, Info1, Info2: string;
     const Value, MaxValue: int64): boolean of object;
@@ -223,15 +228,15 @@ const
   //< Strings for FileKeys (fixed constants, used for ini files, etc. )
 
   EmutecaDumpStatusKey: array [TEmutecaDumpStatus] of string =
-    ('!', '', 'a', 'o', 'b', 'u');
+    ('!', '', 'a', 'o', 'b', 'u', krsImportKeepValue);
   //< Keys for DumpStatus, used in IniFiles
   EmutecaDumpStatusStr: array [TEmutecaDumpStatus] of string =
     (rsEDSVerified, rsEDSGood, rsEDSAlternate, rsEDSOverDump,
-    rsEDSBadDump, rsEDSUnderDump);
+    rsEDSBadDump, rsEDSUnderDump, rsEDSKeepValue);
   //< Strings for DumpStatus (localizable)
   EmutecaDumpStatusStrK: array [TEmutecaDumpStatus] of string =
     (krsEDSVerified, krsEDSGood, krsEDSAlternate, krsEDSOverDump,
-    krsEDSBadDump, krsEDSUnderDump);
+    krsEDSBadDump, krsEDSUnderDump, krsEDSKeepValue);
 //< Strings for DumpStatus (fixed constants, used for icon filenames, etc. )
 
 
@@ -372,6 +377,8 @@ begin
     Result := edsBadDump
   else if (aString[1] = DumpSt2Key(edsUnderDump)) then
     Result := edsUnderDump
+  else if (aString[1] = DumpSt2Key(edsKeepValue)) then
+    Result := edsKeepValue
   else
     Result := edsGood;
 end;

@@ -3,10 +3,10 @@
 This script test some basic functions added to Pascal Script.
 [Author]
 Name=Chixpy
-Date=20170821
+Date=20170919
 [Script]
 }
-program TestBasic;
+program TestCHXBasic;
 
 var
   i: integer;
@@ -16,13 +16,13 @@ var
 begin
   WriteLn('Hello!');
   WriteLn('');
-  WriteLn('This Script will test Pascal Script and Emuteca data.');
+  WriteLn('This Script will test some basic functions added to Pascal Script.');
   WriteLn('');
   WriteLn('Some Basic functions');
   WriteLn('--------------------');
 
   // General strings
-  WriteLn('function WriteLn(aStr: string);');
+  WriteLn('procedure WriteLn(aStr: string);');
   WriteLn('  is already working well. :-D');
   WriteLn('');
   WriteLn('function ReadLn(const aQuestion, DefAnswer: String): String;');
@@ -31,8 +31,8 @@ begin
   WriteLn('');
   WriteLn('function CompareText(const S1, S2: String): Integer;');
   WriteLn('  This is case insensitive comparison:');
-  WriteLn('    CompareText(''emuteca'', ''emuteca'') -> ' +
-    IntToStr(CompareText('emuteca', 'emuteca')));
+  WriteLn('    CompareText(''EMUTECA'', ''emuteca'') -> ' +
+    IntToStr(CompareText('EMUTECA', 'emuteca')));
   WriteLn('');
   WriteLn('function CompareStr(const S1, S2: String): Integer;');
   WriteLn('  This is case sensitive comparison:');
@@ -49,11 +49,12 @@ begin
   WriteLn('');
   WriteLn('function RPos(const Substr: String; const Source: String) : Integer;');
   WriteLn('  ... I had to import a function to search a subtring from right.');
-  WriteLn('    RPos(''e'',''Emuteca'') -> ' +
+  WriteLn('    RPos(''e'',''emuteca'') -> ' +
     IntToStr(RPos('e', 'emuteca')));
   WriteLn('');
   WriteLn('function BoolToStr(const aBool: Boolean): String;');
   WriteLn('  Another common function that I had imported.');
+  WriteLn('    BoolToStr(True) -> ' + BoolToStr(True)); 
   WriteLn('');
   WriteLn('function UTF8ToSys(const S: String): String; and');
   WriteLn('function SysToUTF8(const S: String): String;');
@@ -91,8 +92,8 @@ begin
   WriteLn('');
   WriteLn('function ExcludeTrailingPathDelimiter(const aString: String): String;');
   WriteLn('  Removes folder ending ("/" or "\") in a folder name');
-  WriteLn('    ExcludeTrailingPathDelimiter(''A\folder\'') -> ' +
-    ExcludeTrailingPathDelimiter('A\folder\'));
+  WriteLn('    ExcludeTrailingPathDelimiter(''' + aFile + ''') -> ' +
+    ExcludeTrailingPathDelimiter(aFile));
   WriteLn('    ExcludeTrailingPathDelimiter(''' + aFolder +
     ''') -> ' + ExcludeTrailingPathDelimiter(aFolder));
   WriteLn('');
@@ -149,8 +150,8 @@ begin
   // HACK: We can't create Stringlist!!!
   WriteLn('');
   WriteLn('function CreateStringList: TStringList;');
-  WriteLn('  HACK: Pascal Script can''t create TStringList.');
-  WriteLn('  I don''t know if can create other object now...');
+  WriteLn('  HACK: In current Pascal Script version can''t create TStringList.');
+  WriteLn('  I don''t know if can create other objects now...');
 
   WriteLn('');
   WriteLn('DONE');

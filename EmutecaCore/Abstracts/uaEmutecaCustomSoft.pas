@@ -410,9 +410,7 @@ end;
 
 procedure caEmutecaCustomSoft.SetZone(AValue: string);
 begin
-  if FZone = AValue then
-    Exit;
-  FZone := AValue;
+  FZone := UTF8LowerString(AValue);
 end;
 
 function caEmutecaCustomSoft.GetActualID: string;
@@ -588,7 +586,7 @@ begin
 
   GroupKey := aIniFile.ReadString(Section, krsIniKeyGroup, GroupKey);
   Title := aIniFile.ReadString(Section, krsIniKeyTitle, GetActualTitle);
-  TranslitTitle := aIniFile.ReadString(Section, krsIniKeyTranslitTitl,
+  TranslitTitle := aIniFile.ReadString(Section, krsIniKeyTranslitTitle,
     GetActualTranslitTitle);
   SortTitle := aIniFile.ReadString(Section, krsIniKeySortTitle,
     GetActualSortTitle);
@@ -636,7 +634,8 @@ begin
   aIniFile.WriteString(Section, krsIniKeyID, GetActualID);
   aIniFile.WriteString(Section, krsIniKeyGroup, GroupKey);
   aIniFile.WriteString(Section, krsIniKeyTitle, GetActualTitle);
-  aIniFile.WriteString(Section, krsIniKeyTranslitTitl, GetActualTranslitTitle);
+  aIniFile.WriteString(Section, krsIniKeyTranslitTitle,
+    GetActualTranslitTitle);
   aIniFile.WriteString(Section, krsIniKeySortTitle, GetActualSortTitle);
 
   // Release data
@@ -678,26 +677,43 @@ begin
   if not Assigned(aSoft) then
     Exit;
 
-  GroupKey := aSoft.GroupKey;
+  if aSoft.GroupKey <> krsImportKeepValue then
+    GroupKey := aSoft.GroupKey;
 
-  Title := aSoft.Title;
-  TranslitTitle := aSoft.TranslitTitle;
-  SortTitle := aSoft.SortTitle;
+  if aSoft.Title <> krsImportKeepValue then
+    Title := aSoft.Title;
+  if aSoft.TranslitTitle <> krsImportKeepValue then
+    TranslitTitle := aSoft.TranslitTitle;
+  if aSoft.SortTitle <> krsImportKeepValue then
+    SortTitle := aSoft.SortTitle;
 
-  Version := aSoft.Version;
-  Year := aSoft.Year;
-  Publisher := aSoft.Publisher;
-  Zone := aSoft.Zone;
+  if aSoft.Version <> krsImportKeepValue then
+    Version := aSoft.Version;
+  if aSoft.Year <> krsImportKeepValue then
+    Year := aSoft.Year;
+  if aSoft.Publisher <> krsImportKeepValue then
+    Publisher := aSoft.Publisher;
+  if aSoft.Zone <> krsImportKeepValue then
+    Zone := aSoft.Zone;
 
-  DumpStatus := aSoft.DumpStatus;
-  DumpInfo := aSoft.DumpInfo;
-  Fixed := aSoft.Fixed;
-  Trainer := aSoft.Trainer;
-  Translation := aSoft.Translation;
-  Pirate := aSoft.Pirate;
-  Cracked := aSoft.Cracked;
-  Modified := aSoft.Modified;
-  Hack := aSoft.Hack;
+  if aSoft.DumpStatus <> edsKeepValue then
+    DumpStatus := aSoft.DumpStatus;
+  if aSoft.DumpInfo <> krsImportKeepValue then
+    DumpInfo := aSoft.DumpInfo;
+  if aSoft.Fixed <> krsImportKeepValue then
+    Fixed := aSoft.Fixed;
+  if aSoft.Trainer <> krsImportKeepValue then
+    Trainer := aSoft.Trainer;
+  if aSoft.Translation <> krsImportKeepValue then
+    Translation := aSoft.Translation;
+  if aSoft.Pirate <> krsImportKeepValue then
+    Pirate := aSoft.Pirate;
+  if aSoft.Cracked <> krsImportKeepValue then
+    Cracked := aSoft.Cracked;
+  if aSoft.Modified <> krsImportKeepValue then
+    Modified := aSoft.Modified;
+  if aSoft.Hack <> krsImportKeepValue then
+    Hack := aSoft.Hack;
 
 end;
 

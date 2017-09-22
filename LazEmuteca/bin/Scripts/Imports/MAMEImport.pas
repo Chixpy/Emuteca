@@ -6,14 +6,14 @@ It needs two txt files created with:
 * mame -listclones > MAMEclones.txt
 [Author]
 Name=Chixpy
-Date=20170820
+Date=20170919
 [EndInfo]
 }
 program MAMEImport;
 
 const
   MaxInt = 65535; // Only used for copying to the end of line
-  LengthClonID = 17; // Lenght of firts column in clones list
+  LengthClonID = 17; // Lenght of first column in clones list
 
 function TestFilename(aFilename: string): boolean;
 begin
@@ -33,15 +33,16 @@ begin
     'File with full data (mame -listfull > MAMEfull.txt)',
     'All files (*.*)|*.*', '');
 
+  if not TestFilename(FullFilename) then Exit;
+
   ClonesFilename := AskFile(
     'File with clones data (mame -listclones > MAMEclones.txt)',
-    'All files (*.*)|*.*', '');
+    'All files (*.*)|*.*', ExtractFilePath(FullFilename) + 'MAMEclones.txt');
 
-  OutFilename := AskFile('File of output database',
-    'csv files (*.csv)|*.csv', 'MAME.csv');
-
-  if not TestFilename(FullFilename) then Exit;
   if not TestFilename(ClonesFilename) then Exit;
+
+  OutFilename := AskFile('Database file for output',
+    'Emuteca soft DB|' + krsFileMaskSoft, 'MAME' + krsFileExtSoft);
 
   WriteLn('Reading files, this can take a while...');
   WriteLn('');
@@ -110,12 +111,28 @@ begin
       else
       begin
         aParent := aID; // it's a parent itself
-        ParentList.Add('"' + aParent + '","' + aName + '",,,,"' + aParent + '"');
+        
+        // "ID","Title","Sort title","Year","Developer","Media file"
+        ParentList.Add('"' + aParent + '","' + aName + '",' + 
+		  krsImportKeepValue + ',' + krsImportKeepValue + ',' + 
+		  krsImportKeepValue + ',"' + aParent + '"');
         // Adding to parent list
       end;
 
-      OutList.Add('"' + aParent + '",,"' + aID + '",,,"' + aName + '",,,"' +
-        aVer + '"')
+      // "Group","SHA1","ID","Folder","FileName","Title","TransliteratedName",
+      // "SortTitle","Version","Year","Publisher","Zone","DumpStatus",
+      // "DumpInfo","Fixed","Trainer","Translation","Pirate","Cracked",
+      // "Modified","Hack"
+
+      OutList.Add('"' + aParent + '",' + krsImportKeepValue + ',"' + aID +
+        '",' + krsImportKeepValue + ',' + krsImportKeepValue + ',"' + aName +
+        '",' + krsImportKeepValue + ',' + krsImportKeepValue + ',"' + aVer +
+        '",' + krsImportKeepValue + ',' + krsImportKeepValue + ',' + 
+        krsImportKeepValue + ',' + krsImportKeepValue + ',' + 
+        krsImportKeepValue + ',' + krsImportKeepValue + ',' +
+        krsImportKeepValue + ',' + krsImportKeepValue + ',' +
+        krsImportKeepValue + ',' + krsImportKeepValue + ',' +
+        krsImportKeepValue + ',' + krsImportKeepValue);
       Inc(i);
     end;
 
@@ -123,7 +140,7 @@ begin
     WriteLn(OutFilename);
     // Don't work? aParent := ChangeFileExt(OutFilename, krsEmutecaGroupFileExt);
     aParent := Copy(OutFilename, 1, Length(OutFilename) - 4) +
-      krsEmutecaGroupFileExt;
+      krsFileExtGroup;
     WriteLn(aParent);
 
     OutList.SaveToFile(OutFilename);
