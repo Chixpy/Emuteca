@@ -355,7 +355,7 @@ begin
       Exit;
     end;
 
-    w7zListFiles(eFile.FileName, cbxInnerFile.Items, True, True, '');
+    w7zListFiles(eFile.FileName, cbxInnerFile.Items, True, '');
 
     if cbxInnerFile.Items.Count = 0 then
     begin

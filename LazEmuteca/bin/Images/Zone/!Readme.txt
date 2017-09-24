@@ -14,9 +14,12 @@ http://www.famfamfam.com/lab/icons/silk)
 Contact: mjames@gmail.com
 
 ---------------------
+  
+jp,us.png
+  Combination of us.png and jp.png  
 
 xa.png
-  Search a icon for asia...
+  Combination of cn.png and jp.png
   
 xw.png
   Wikipedia's John McConnell's Earth Day flag, based on this photograph

@@ -24,6 +24,8 @@ type
     procedure ClearFrameData; override;
     procedure LoadFrameData; override;
 
+    procedure CreateCustomEngine; override;
+
   public
     property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
 
@@ -71,6 +73,18 @@ begin
     cEmutecaScriptEngine(ScriptEngine).Emuteca := Emuteca;
 end;
 
+procedure TfmLEmuTKScriptManager.CreateCustomEngine;
+var
+  aScriptEngine: cEmutecaScriptEngine;
+begin
+  // Setting before inherited call
+  aScriptEngine := cEmutecaScriptEngine.Create;
+  aScriptEngine.Emuteca := Emuteca;
+  ScriptEngine := aScriptEngine;
+
+  inherited CreateCustomEngine;
+end;
+
 procedure TfmLEmuTKScriptManager.SetBaseFolder(const aFolder: string);
 begin
   inherited SetBaseFolder(aFolder);
@@ -108,18 +122,10 @@ begin
 end;
 
 constructor TfmLEmuTKScriptManager.Create(TheOwner: TComponent);
-var
-  aScriptEngine: cEmutecaScriptEngine;
 begin
   inherited Create(TheOwner);
 
   slvGeneral.Mask := krsFileMaskScript;
-
-  // Creating custom script engine
-  // freed automatically
-  aScriptEngine := cEmutecaScriptEngine.Create;
-  aScriptEngine.Emuteca := Emuteca;
-  ScriptEngine := aScriptEngine;
 end;
 
 destructor TfmLEmuTKScriptManager.Destroy;

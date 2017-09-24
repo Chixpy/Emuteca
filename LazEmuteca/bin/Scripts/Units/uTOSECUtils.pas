@@ -37,6 +37,12 @@ begin
     'Commercial'];    
 end;
 
+procedure TOSECError(const aFile: string; aError: string);
+begin
+  WriteLn('TOSEC ERROR: ' + aFile);
+  WriteLn('  ' + aError);
+end;
+
 procedure TOSECAddStr(var aFlag: string; const aStr: string);
 begin
   if aFlag = '' then 
@@ -103,7 +109,7 @@ begin
   Result := SHA1 + TOSECIDSep + Title;
 end;
 
-function TOSECExtractInfo(aSoftLine: string; IsSHA1: Boolean): string;
+function TOSECExtractInfo(aSoftLine: string): string;
 var
   DBID, DBTitle, DBSortTitle, DBVersion, DBYear, DBPublisher,
   DBZone, DBDumpStatus, DBDumpInfo, DBFixed, DBTrainer, DBTranslation,
@@ -118,7 +124,7 @@ begin
   DBVersion := '';
   DBYear := '';
   DBPublisher := '';
-  DBZone := '';
+  DBZone := '@'; // Keep zone
   DBDumpStatus := '';
   DBDumpInfo := '';
   DBFixed := '';
@@ -131,7 +137,7 @@ begin
   SoftStr := aSoftLine
   
   // XML Entities...
-  SoftStr := AnsiReplaceText(SoftStr, '&amp;', ',');
+  SoftStr := AnsiReplaceText(SoftStr, '&amp;', '&');
   
   if Length(TOSECVideo) = 0 then
     TOSECInit;
@@ -151,11 +157,13 @@ begin
   // Title (and Version)
   // -----------------
   // Anything before a flag
+  // FIX: Searching mandatory space, some game have '(' in Title
+  //   and ' (' too..  
   
-  aPos := Pos('(', SoftStr);
+  aPos := Pos(' (', SoftStr);
   if aPos = 0 then
   begin
-    WriteLn(SoftStr + ': No flags found.');
+    TOSECError(aSoftLine, 'No flags found.');
     Exit;
   end;
   
@@ -173,6 +181,7 @@ begin
   // We don't search ' v' or ' Rev', because 'Foo1 vs. Foo2' or
   //   'Foo 3 - Revenge of Fooing' are false positives.
   // aGame is already trimmed at the beginning of this script.
+
 { TODO: VERSION 
 
   aPos := RPos(' ', DBTitle);
@@ -234,12 +243,13 @@ begin
   // Demo (opt)
   // -----------------
   // ' (demo' + ['-' + KindOfDemo] + ') '
+  // TODO: ExtractTag Demo
   if Pos('(demo', SoftStr) = 1 then // SoftStr is trimmed...
   begin
     aPos := Pos(')', SoftStr);
     if aPos = 0 then
     begin
-      WriteLn(aSoftLine + ': No ")" found at DEMO flag.');
+      TOSECError(aSoftLine, 'No ")" found at DEMO flag.');
       Exit;
     end;
 
@@ -259,14 +269,14 @@ begin
   // '(' + YYYY [+ '-' + MM [+ '-' + DD]] + ')'
   if Pos('(', SoftStr) <> 1 then
   begin
-    WriteLn(aSoftLine + ': No YEAR found.');
+    TOSECError(aSoftLine, 'No YEAR found.');
     Exit;
   end;
 
   aPos := Pos(')', SoftStr);
   if aPos = 0 then
   begin
-    WriteLn(aSoftLine + ': No ")" found at YEAR flag.');
+    TOSECError(aSoftLine, 'No ")" found at YEAR flag.');
     Exit;
   end;
 
@@ -281,14 +291,14 @@ begin
   // '(' + PublisherName + ')'
   if Pos('(', SoftStr) <> 1 then
   begin
-    WriteLn(aSoftLine + ': No PUBLISHER found.');
+    TOSECError(aSoftLine, 'No PUBLISHER found.');
     Exit;
   end;
 
   aPos := Pos(')', SoftStr);
   if aPos = 0 then
   begin
-    WriteLn(aSoftLine + ': No ")" found at PUBLISHER flag.');
+    TOSECError(aSoftLine, 'No ")" found at PUBLISHER flag.');
     Exit;
   end;
 
@@ -307,7 +317,7 @@ begin
     aPos := Pos(')', SoftStr);
     if aPos = 0 then
     begin
-      WriteLn(aSoftLine + ': No ")" found at SYSTEM flag.');
+      TOSECError(aSoftLine, 'No ")" found at SYSTEM flag.');
       Exit;
     end;
 
@@ -334,7 +344,7 @@ begin
     aPos := Pos(')', SoftStr);
     if aPos = 0 then
     begin
-      WriteLn(aSoftLine + ': No ")" found at VIDEO flag.');
+      TOSECError(aSoftLine, 'No ")" found at VIDEO flag.');
       Exit;
     end;
 
@@ -361,7 +371,7 @@ begin
     aPos := Pos(')', SoftStr);
     if aPos = 0 then
     begin
-      WriteLn(aSoftLine + ': No ")" found at COUNTRY flag.');
+      TOSECError(aSoftLine, 'No ")" found at COUNTRY flag.');
       Exit;
     end;
         
@@ -379,8 +389,8 @@ begin
     if ((Length(TempStr) + 1) mod 3 = 0) and (TempStr = AnsiUpperCase(TempStr))
     then
     begin
-      // 'AS' = American Samoa
-      TempStr := AnsiReplaceText(TempStr, 'as', 'asia');
+      // 'AS' = American Samoa -> 'XA' = asia
+      TempStr := AnsiReplaceText(TempStr, 'as', 'xa');
             
       DBZone := LowerCase(AnsiReplaceText(TempStr, '-', ','));
       SoftStr := Trim(Copy(SoftStr, aPos + 1, TOSECMaxCopy));
@@ -396,7 +406,7 @@ begin
     aPos := Pos(')', SoftStr);
     if aPos = 0 then
     begin
-      WriteLn('"' + aSoftLine + '": No ")" found at LANGUAGE flag.');
+      TOSECError(aSoftLine, 'No ")" found at LANGUAGE flag.');
       Exit;
     end;
     
@@ -436,7 +446,7 @@ begin
     aPos := Pos(')', SoftStr);
     if aPos = 0 then
     begin
-      WriteLn(aSoftLine + ': No ")" found at COPYRIGHT flag.');
+      TOSECError(aSoftLine, 'No ")" found at COPYRIGHT flag.');
       Exit;
     end;
     
@@ -495,6 +505,12 @@ begin
   // -----------------
   // [m]
   DBModified := TOSECExtractTag(SoftStr, '[m', ']');
+  // Restoring missidentified NES '[mapper 34]'
+  if Pos('apper', DBModified) = 1 then
+  begin
+    SoftStr := SoftStr + '[m' + DBModified + ']';
+    DBModified := '';
+  end;
 
   // Pirated
   // -----------------
@@ -536,21 +552,21 @@ begin
   TempStr := TOSECExtractTag(SoftStr, '[o', ']');
   if TempStr <> '' then
   begin
-    DBDumpStatus := DumpSt2Key(edsAlternate);
+    DBDumpStatus := DumpSt2Key(edsOverDump);
     TOSECAddStr(DBDumpInfo, 'o ' + TempStr)
   end;  
   
   TempStr := TOSECExtractTag(SoftStr, '[b', ']');
   if TempStr <> '' then
   begin
-    DBDumpStatus := DumpSt2Key(edsAlternate);
+    DBDumpStatus := DumpSt2Key(edsBadDump);
     TOSECAddStr(DBDumpInfo, 'b ' + TempStr)
   end; 
 
   TempStr := TOSECExtractTag(SoftStr, '[u', ']');
   if TempStr <> '' then
   begin
-    DBDumpStatus := DumpSt2Key(edsAlternate);
+    DBDumpStatus := DumpSt2Key(edsUnderDump);
     TOSECAddStr(DBDumpInfo, 'u ' + TempStr)
   end;    
   
@@ -558,27 +574,33 @@ begin
   // -----------------
   // [more info]
   // Unhandled flags...
-  SoftStr := Trim(SoftStr);
+  TempStr := TOSECExtractTag(SoftStr, '(', ')');
+  while TempStr <> '' do
+  begin
+    TOSECAddStr(DBVersion, '(' + TempStr + ')');
+    TempStr := TOSECExtractTag(SoftStr, '(', ')');
+  end;
+
+  TempStr := TOSECExtractTag(SoftStr, '[', ']');
+  while TempStr <> '' do
+  begin
+    TOSECAddStr(DBDumpInfo, '[' + TempStr + ']');
+    TempStr := TOSECExtractTag(SoftStr, '[', ']');
+  end;
+
   if SoftStr <> '' then
-  TOSECAddStr(DBDumpInfo, 'x ' + SoftStr);
+  begin
+    TOSECAddStr(DBDumpInfo, 'x ' + SoftStr);
+  end;
  
   //"Group","SHA1","ID","Folder","FileName","Title","TransliteratedName",
   //"SortTitle","Version","Year","Publisher","Zone","DumpStatus","DumpInfo",
   //"Fixed","Trainer","Translation","Pirate","Cracked","Modified","Hack"
-  if IsSHA1 then
-    Result := krsImportKeepValue + ',' + DBID + ',,'
-      + krsImportKeepValue + ',' + krsImportKeepValue + ',"' + DBTitle + '",'
-      + krsImportKeepValue + ',"' + DBSortTitle + '","' + DBVersion + '","'
-      + DBYear + '","' + DBPublisher + '","' + DBZone + '","'
-      + DBDumpStatus + '","' + DBDumpInfo + '","' + DBFixed + '","'
-      + DBTrainer + '","' + DBTranslation + '","' + DBPirate + '","'
-      + DBCracked + '","' + DBModified + '","' + DBHack + '"'
-  else
-    Result := krsImportKeepValue + ',' + krsImportKeepValue + ',' + DBID + ','
-      + krsImportKeepValue + ',' + krsImportKeepValue + ',"' + DBTitle + '",'
-      + krsImportKeepValue + ',"' + DBSortTitle + '","' + DBVersion + '","'
-      + DBYear + '","' + DBPublisher + '","' + DBZone + '","'
-      + DBDumpStatus + '","' + DBDumpInfo + '","' + DBFixed + '","'
-      + DBTrainer + '","' + DBTranslation + '","' + DBPirate + '","'
-      + DBCracked + '","' + DBModified + '","' + DBHack + '"'
+  Result := krsImportKeepValue + ',,' + DBID + ','
+    + krsImportKeepValue + ',' + krsImportKeepValue + ',"' + DBTitle + '",'
+    + krsImportKeepValue + ',"' + DBSortTitle + '","' + DBVersion + '","'
+    + DBYear + '","' + DBPublisher + '","' + DBZone + '","'
+    + DBDumpStatus + '","' + DBDumpInfo + '","' + DBFixed + '","'
+    + DBTrainer + '","' + DBTranslation + '","' + DBPirate + '","'
+    + DBCracked + '","' + DBModified + '","' + DBHack + '"'
 end;

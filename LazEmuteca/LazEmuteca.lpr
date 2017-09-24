@@ -29,7 +29,7 @@ uses
   ufEmutecaSystemITFEditor, ufLEmuTKMediaManager, ufEmutecaActExportSoftData,
   uaEmutecaCustomManager, ufEmutecaActImportSoftData, ufCHXScriptManager, 
 ufLEmuTKScriptManager, ufEmutecaGroupEditor, ufLEmuTKFullSoftEditor, 
-ufEmutecaGroupCBX;
+ufEmutecaGroupCBX, ufSMAskMultiFile;
 
 {$R *.res}
 

@@ -630,7 +630,7 @@ begin
       while (i < CompressedArchives.Count) and (Result = '') do
       begin
         TempStrLst.Clear;
-        w7zListFiles(CompressedArchives[i], TempStrLst, True, True, '');
+        w7zListFiles(CompressedArchives[i], TempStrLst, True, '');
 
         // Testing if a valid file is found
         Result := SearchComprFile(TempStrLst, '', Extensions);
@@ -657,7 +657,7 @@ begin
       while i < CompressedArchives.Count do
       begin
         TempStrLst.Clear;
-        w7zListFiles(CompressedArchives[i], TempStrLst, True, True, '');
+        w7zListFiles(CompressedArchives[i], TempStrLst, True, '');
 
         Result := SearchComprFile(TempStrLst, aFileName, Extensions);
         if Result <> '' then

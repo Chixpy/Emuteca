@@ -7,7 +7,7 @@ Imports title, versión, year, publisher, dumpinfo, etc. from filenames.
 It doesn't add any parent info, so when importing data groups are keeped.
 [Author]
 Name=Chixpy
-Date=20170918
+Date=20170923
 [EndInfo]
 }
 program TOSECImport;
@@ -17,59 +17,82 @@ program TOSECImport;
 {$I '../Units/uTOSECUtils.pas'}
 
 var
-  TOSECFilename, DBFilename, aStr: string;
-  TOSECFile, SoftList, DBList: TStringList;
-  i: LongInt;
+  DBFilename, aStr: string;
+  TOSECFileNames, TOSECFile, SoftList, DBList: TStringList;
+  i, j: LongInt;
 begin
-  TOSECFilename := AskFile(
-    'TOSEC File',
+  TOSECFileNames := CreateStringList;
+  TOSECFileNames.Duplicates := dupIgnore;
+
+  AskMultiFile(TOSECFileNames,
+    'Select TOSEC File(s)',
     'TOSEC databases (*.dat)|*.dat', '');
-	
-  if not FileExistsUTF8(TOSECFilename) then
+
+  if TOSECFileNames.Count = 0 then
   begin
-    WriteLn('The file "' + TOSECFilename + '" not found.');
+    WriteLn('Error: No TOSEC files selected.');
+    TOSECFileNames.Free;
+    Exit;
   end;
 
   DBFilename := AskFile('Database file for output',
     'Emuteca soft DB|' + krsFileMaskSoft,
-    ExtractFilenameOnly(TOSECFilename) + krsFileExtSoft);
-  
+    '');
+
+  if DBFilename = '' then
+  begin
+    WriteLn('Error: No Database file selected.');
+    TOSECFileNames.Free;
+    Exit;
+  end;
+
   TOSECFile := CreateStringList;
   SoftList := CreateStringList;
+  SoftList.Duplicates := dupIgnore;
+  SoftList.Sorted := True;
   DBList := CreateStringList;
   try
-    DBList.Add(krsCSVSoftHeader) //Adding header
-
-    WriteLn('Reading: "' + TOSECFilename + '"');  
-    TOSECFile.LoadFromFile(TOSECFilename);
-	WriteLn('');
-    WriteLn(IntToStr(TOSECFile.Count) + ' lines readed.');  	
-    WriteLn('');
-    WriteLn('Analizing file...');
-
-    i := 0;
-    while i < TOSECFile.Count do
+    for j := 0 to TOSECFileNames.Count -1 do
     begin
-      aStr := TOSECExtractSoftLine(TOSECFile[i], 'sha1');
-      // aStr = <SHA1>,<SoftName>
+      if not FileExistsUTF8(TOSECFilenames[j]) then
+      begin
+        WriteLn('');
+        WriteLn('ERROR: ' + TOSECFilenames[j] + ' not found.');
+        WriteLn('');
+        Continue;
+      end;
 
-      if aStr <> '' then
-        SoftList.Add(aStr);
+      WriteLn('Reading: "' + TOSECFilenames[j] + '"');
+      TOSECFile.LoadFromFile(UTF8ToSys(TOSECFilenames[j]));
+      WriteLn(IntToStr(TOSECFile.Count) + ' lines readed.');
+      WriteLn('');
+      WriteLn('Analizing file...');
 
-      if (i and 1023) = 1023 then
-        WriteLn(IntToStr(i) + ' lines analized.');
-      Inc(i);
+      i := 0;
+      while i < TOSECFile.Count do
+      begin
+        aStr := TOSECExtractSoftLine(TOSECFile[i], 'sha1');
+        // aStr = <SHA1>,<SoftName>
+
+        if aStr <> '' then
+          SoftList.Add(aStr);
+
+        if (i and 1023) = 1023 then
+          WriteLn(IntToStr(i) + ' lines analized.');
+        Inc(i);        
+      end; 
+      WriteLn('File analized.');
+      WriteLn('');
     end;
 
     WriteLn('');
     WriteLn(IntToStr(SoftList.Count) + ' soft files found.');
     WriteLn('');
 
-    SoftList.Sort;
     i := 0;
     while i < SoftList.Count do
     begin
-      aStr := TOSECExtractInfo(SoftList[i], True);
+      aStr := TOSECExtractInfo(SoftList[i]);
 
       if aStr <> '' then
         DBList.Add(aStr);
@@ -81,11 +104,14 @@ begin
 
     WriteLn('');
     WriteLn('Saving... ' + DBFilename);
-    DBList.SaveToFile(DBFilename);
+    DBList.Sort;
+    DBList.Insert(0, krsCSVSoftHeader) //Adding header
+    DBList.SaveToFile(UTF8ToSys(DBFilename));
   finally
     DBList.Free;
     SoftList.Free;
     TOSECFile.Free;
+    TOSECFileNames.Free;
   end;
 
   WriteLn('');

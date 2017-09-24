@@ -159,7 +159,7 @@ begin
       end;
     end
     else
-      Search7ZFilesByExt(FolderList, FileList, eFolder.Text,
+      w7zFilesByExt(FolderList, FileList, eFolder.Text,
         aSystem.Extensions, True);
 
     // For every file found
