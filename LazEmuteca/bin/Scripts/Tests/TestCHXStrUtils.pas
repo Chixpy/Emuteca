@@ -1,6 +1,6 @@
 {
 [Info]
-This script test some basic functions added to Pascal Script from uCHXStrUtils.
+This script tests some basic functions added to Pascal Script from uCHXStrUtils.
 [Author]
 Name=Chixpy
 Date=20170919

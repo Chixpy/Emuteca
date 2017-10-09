@@ -96,7 +96,7 @@ begin
   aStr := Copy(aStr, aPos + 1, TOSECMaxCopy);
 
   // SHA1 - sha1="<sha1>"
-  // md5, crc32, etc
+  // md5=, crc32=, etc
   aPos := Pos(LowerCase(aIDKey) + '="',aStr);
   if aPos < 1 then
     Exit;
@@ -114,7 +114,7 @@ var
   DBID, DBTitle, DBSortTitle, DBVersion, DBYear, DBPublisher,
   DBZone, DBDumpStatus, DBDumpInfo, DBFixed, DBTrainer, DBTranslation,
   DBPirate, DBCracked, DBModified, DBHack: string;
-  TempStr, SoftStr: string;
+  TempStr, SoftStr, TempDemo: string;
   i, aPos: Integer;
 begin
   Result := '';
@@ -134,136 +134,168 @@ begin
   DBCracked := '';
   DBModified := '';
   DBHack := '';
+  TempDemo := '';
   SoftStr := aSoftLine
   
   // XML Entities...
   SoftStr := AnsiReplaceText(SoftStr, '&amp;', '&');
+  SoftStr := AnsiReplaceText(SoftStr, '&apos;', '''');
   
   if Length(TOSECVideo) = 0 then
     TOSECInit;
     
   // Complete TOSEC info and order:
-  //   Title version, The (demo) (Year)(Publisher)(System)(Video)(Country)
+  //   Title version, The v 1 (demo) (Year)(Publisher)(System)(Video)(Country)
   //  (Language)(Copyright)(Devstatus)(Media Type)(Media Label)[cr][f][h][m]
   //  [p][t][tr][o][u][v][b][a][!][more info].ext  
   
-  // SHA1 / ID
+  // ID
+  // --
   aPos := Pos(TOSECIDSep, SoftStr);
   if aPos < 1 then Exit;
   DBID := Copy(SoftStr, 1, aPos -1);
   
   SoftStr := Copy(SoftStr, aPos + 1, TOSECMaxCopy);
   
-  // Title (and Version)
+  // Title (+ Version) (+ Demo)
   // -----------------
   // Anything before a flag
   // FIX: Searching mandatory space, some game have '(' in Title
-  //   and ' (' too..  
+  //   and ' (' too.. 
+  // FIX2: Searching ' (' from right, then '(demo)' will be in DBTitle.
   
-  aPos := Pos(' (', SoftStr);
-  if aPos = 0 then
+  aPos := RPos(' (', SoftStr);
+  if aPos < 1 then
   begin
     TOSECError(aSoftLine, 'No flags found.');
     Exit;
   end;
   
-  DBTitle := Trim(Copy(SoftStr, 1, aPos - 1)); // Title [+ version]
-  SoftStr := Trim(Copy(SoftStr, aPos, TOSECMaxCopy)); // Flags  
-  
-  // Searching for version...
-  // ------------------------
-  // * Game Name vVersion
-  // * Game Name v Version
-  // * Game Name RevVersion
-  // * Game Name Rev Version
-  // * Game Name set 1
-  // Too many cases...
-  // We don't search ' v' or ' Rev', because 'Foo1 vs. Foo2' or
-  //   'Foo 3 - Revenge of Fooing' are false positives.
-  // aGame is already trimmed at the beginning of this script.
-
-{ TODO: VERSION 
-
-  aPos := RPos(' ', DBTitle);
-  if (aPos > 1) then
-  begin
-    TempStr := Trim(Copy(DBTitle, aPos + 1, TOSECMaxCopy));
-    DBTitle := Trim(Copy(DBTitle, 1, aPos - 1));
-    
-    // ', The' / ', A' / ', El' ? For example:
-    //   'Hunt for Red October Rev 0, The (1991-01)(Hi-Tech Expressions)(US)'
-    //   Changing to: 'The Hunt for Red October Rev 0'
-    // Setting SortTitle then too
-    // TODO: Remove version in SortTitle
-    if DBTitle[Length(DBTitle)] = ',' then
-    begin
-      DBSortTitle := DBTitle + ' ' + TempStr
-      DBTitle := Trim(Copy(DBTitle, 1, Length(DBTitle) - 1));
-      DBTitle := TempStr + ' ' + DBTitle;
-      aPos := RPos(' ', DBTitle);
-      TempStr := Trim(Copy(DBTitle, aPos + 1, TOSECMaxCopy));
-      DBTitle := Trim(Copy(DBTitle, 1, aPos - 1));
-    end;
-    
-    
-    // vVersion
-    //   'v' seems to be lowcase... but in many languages, i.e. Spanish, it can
-    //     fail because titles must be in lowercase...
-    //   Warning: Some TOSEC titles had 'V' too :-(
-    // RevVersion
-    //   'Revenge'...
-    // So we check the next character after de 'v' or 'Rev' is lowcase.
-    // TODO: 'á', 'é', 'í', 'ó', etc.
-    if // vVersion
-      ((Length(TempStr) >= 2) and (TempStr[1] = 'v') and
-      ((TempStr[2] < 'a') or (TempStr[2] > 'z'))) 
-      or // RevVersion
-      ((Length(TempStr) >= 4) and (Pos('Rev', TempStr) = 1) and
-      ((TempStr[4] < 'a') or (TempStr[4] > 'z'))) then
-        DBVersion := TempStr
-    else // Trying with second space from te right
-    begin    
-      aPos := RPos(' ', DBTitle);
-      if (aPos > 1) then
-      begin
-        // v Version and Rev Version
-        TempStr := Trim(Copy(DBTitle, aPos + 1, TOSECMaxCopy)) + ' ' + TempStr;
-        DBTitle := Trim(Copy(DBTitle, 1, aPos - 1));
-        if (Pos('Rev ', TempStr) = 1) or (Pos('v ', TempStr) = 1) then
-          DBVersion := TempStr
-        else // No version found (no 'Rev' nor 'v')
-          DBTitle := DBTitle + ' ' + TempStr;      
-      end
-      else // No version found (at last space)
-        DBTitle := DBTitle + ' ' + TempStr;
-    end;  
-    
-  end;
-} 
+  DBTitle := Trim(Copy(SoftStr, 1, aPos - 1)); // Title [+ version] [+ Demo]
+  SoftStr := Trim(Copy(SoftStr, aPos, TOSECMaxCopy)); // Flags 
+     
   // Demo (opt)
   // -----------------
   // ' (demo' + ['-' + KindOfDemo] + ') '
-  // TODO: ExtractTag Demo
-  if Pos('(demo', SoftStr) = 1 then // SoftStr is trimmed...
+  // Extracting from DBTitle, and keep in TempDemo
+  TempDemo := TOSECExtractTag(DBTitle, '(demo', ')');
+  if TempDemo <> '' then
   begin
-    aPos := Pos(')', SoftStr);
-    if aPos = 0 then
-    begin
-      TOSECError(aSoftLine, 'No ")" found at DEMO flag.');
-      Exit;
-    end;
+    if Pos('-', TempDemo) = 1 then
+      TempDemo := Trim(Copy(TempDemo, 2, TOSECMaxCopy));
+  end;  
 
-    TempStr := AnsiReplaceText(Trim(Copy(SoftStr, 2, aPos - 2)), '-', '/');
+  // Playing with Title [+ version]
+  // Too many problems
+  // * ', The' / ', A' / ', El' / etc. 
+  //   Some games have "Game, The v 1", others "Game v 1, The " (wrong)
+  // * Version
+  //   Game v1
+  //   Game v 1
+  //   Game Rev1
+  //   Game Rev 1
+  //   Game set 1
+  //   Game PRG 1
+  //   Game Whatever
+  //   Too many cases...  
+  aPos := RPos(' ', DBTitle);
+  if (aPos > 1) then
+  begin
+    TempStr := Trim(Copy(DBTitle, aPos + 1, TOSECMaxCopy)); // Last word
+    DBTitle := Trim(Copy(DBTitle, 1, aPos - 1)); 
+           
+    // FIX: Checking wrong article position after version
+    // As security check, article must have less than 5 chars (trimmed)  
+    if (Length(TempStr) < 5) and
+      (CompareText(DBTitle[Length(DBTitle)], ',') = 0) then
+    begin 
+      DBSortTitle := DBTitle + ' ' + TempStr // Keep as sort title
+      DBTitle := Trim(Copy(DBTitle, 1, Length(DBTitle) - 1)); // Removing ','
+      DBTitle := TempStr + ' ' + DBTitle; // Moving 'The' at beginning 
+      
+      aPos := RPos(' ', DBTitle); // Always aPos > 1
+      TempStr := Trim(Copy(DBTitle, aPos + 1, TOSECMaxCopy)); // Last word
+      DBTitle := Trim(Copy(DBTitle, 1, aPos - 1)); 
+    end;    
     
-    // TODO: Save tags
-    //if aGame.Tags.IndexOf(TempStr) = -1 then
-    //  aGame.Tags.Add(TempStr);
+    // Trying to extract version...
+    // Length(TempStr) > 0 always
     
-    TOSECAddStr(DBVersion, 'Demo ' + TempStr);
+    // if Length(TempStr) = 1 then "V" => "5" Roman 
+    if Length(TempStr) > 1 then
+    begin
+      if CompareText(TempStr[1], 'v') = 0 then
+      begin // try vXXXXXX
+        // A testing to diferenciate version with any other word...
+        //   if TempStr[2] = number we can be sure that is a version.
+        if (TempStr[2] <= '9') and (TempStr[2] >= '0') then
+          TOSECAddStr(DBVersion, 'v ' + Trim(Copy(TempStr, 2, TOSECMaxCopy)));
+      end
+      else if (Length(TempStr) > 4) and 
+        (Pos('rev', LowerCase(TempStr)) = 1) then
+      begin // try revXXXXXX
+         if (TempStr[4] <= '9') and (TempStr[4] >= '0') then
+          TOSECAddStr(DBVersion, 'v rev' + Trim(Copy(TempStr, 4, TOSECMaxCopy)));
+      end;
+    end;
     
-    SoftStr := Trim(Copy(SoftStr, aPos + 1, TOSECMaxCopy)); // Next flags
-  end;
- 
+    // if not version found, try with last 2 words
+    if DBVersion = '' then
+    begin
+      aPos := RPos(' ', DBTitle);
+      
+      if aPos > 1 then
+      begin
+        TempStr := Trim(Copy(DBTitle, aPos + 1, TOSECMaxCopy)) + 
+          ' ' + TempStr; // Last 2 words
+        DBTitle := Trim(Copy(DBTitle, 1, aPos - 1));         
+         
+        if Pos('v ', LowerCase(TempStr)) = 1 then
+        begin // try v XXXXXX
+          TOSECAddStr(DBVersion, 'v ' + Trim(Copy(TempStr, 2, TOSECMaxCopy)));
+        end
+        else if Pos('rev ', LowerCase(TempStr)) = 1 then
+        begin // try rev XXXXXX
+          TOSECAddStr(DBVersion, 'v rev' + Trim(Copy(TempStr, 4, TOSECMaxCopy)));
+        end;
+      end;     
+    end;
+    
+
+    if DBVersion = '' then
+      // Restoring Title
+      DBTitle := DBTitle + ' ' + TempStr;     
+    
+    // Checking well placed article before version
+    // If there is no version, it's already checked, so we will do that if
+    //   DBSortTitle = '';
+    // If title has two ',' (one for article), this will mess the title
+    if DBSortTitle = '' then
+    begin
+      aPos := RPos(' ', DBTitle); 
+      if aPos > 1 then
+      begin     
+        // As security artique must have less than 6 chars (5 + space)
+        if ((Length(DBTitle) - aPos) < 6) and 
+          (DBTitle[aPos - 1] = ',') then
+        begin
+          DBSortTitle := DBTitle; // Keep as sort title
+          TempStr := Trim(Copy(DBTitle, aPos + 1, TOSECMaxCopy)); // Last word
+          DBTitle := Trim(Copy(DBTitle, 1, aPos - 2)); // Removing ','          
+          DBTitle := TempStr + ' ' + DBTitle; // Moving 'The' at beginning 
+        end;
+      end; 
+    end;  
+
+    WriteLn(DBTitle);
+    WriteLn(DBVersion);    
+    
+  end;  
+  
+  // Adding Demo in Version
+  if TempDemo <> '' then
+    TOSECAddStr(DBVersion, 'Demo ' + TempDemo);
+    
   // Year (obl)
   // -----------------
   // '(' + YYYY [+ '-' + MM [+ '-' + DD]] + ')'
@@ -396,7 +428,19 @@ begin
       SoftStr := Trim(Copy(SoftStr, aPos + 1, TOSECMaxCopy));
     end;    
   end;
-
+  
+  // Language
+  // --------
+  
+  // Removing (M) flag, it don't actually says wich languages have.
+  // If (M) found then don't try to search language
+  TempStr := TOSECExtractTag(SoftStr, '(M', ')');
+  if TempStr = '' then
+  begin
+    // TODO: Search language(s)
+    // After searching... Emuteca don't store it in Soft Data, but it can be
+    //   used for a "future" Tag tree
+  
 {
   // Language
   // -----------------
@@ -424,7 +468,7 @@ begin
   // if no languages found...
   if (aGame.Languages.Count = 0) and (aGame.Zones.Count <> 0) then
   begin
-    TempStr := ExtractTag(SoftStr, '(M', ')');
+    TempStr := 
     aPos := StrToIntDef(TempStr, 0);
     // We add zones to languajes...
     aGame.Languages.CommaText := aGame.Zones.CommaText;
@@ -437,7 +481,10 @@ begin
         aGame.Languages.Count));
     end;
   end;
+}
+  end;
 
+{
   // Copyright
   // -----------------
   // (Copyright)

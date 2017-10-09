@@ -72,7 +72,7 @@ begin
       while i < TOSECFile.Count do
       begin
         aStr := TOSECExtractSoftLine(TOSECFile[i], 'sha1');
-        // aStr = <SHA1>,<SoftName>
+        // aStr = <SHA1>|<SoftName>
 
         if aStr <> '' then
           SoftList.Add(aStr);
