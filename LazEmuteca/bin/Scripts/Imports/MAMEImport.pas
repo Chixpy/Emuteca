@@ -4,9 +4,12 @@ This script creates a database from MAME.
 It needs two txt files created with:
 * mame -listfull > MAMEfull.txt
 * mame -listclones > MAMEclones.txt
-[Author]
+[Data]
 Name=Chixpy
+Version=0.01
 Date=20170919
+[Changes]
+
 [EndInfo]
 }
 program MAMEImport;

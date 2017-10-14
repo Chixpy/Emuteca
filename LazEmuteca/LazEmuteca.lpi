@@ -209,7 +209,7 @@
         <IsPartOfProject Value="True"/>
       </Unit25>
       <Unit26>
-        <Filename Value="..\CHXPas\uCHXFileUtils.pas"/>
+        <Filename Value="..\CHXPas\Units\uCHXFileUtils.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit26>
       <Unit27>
@@ -221,7 +221,7 @@
         <IsPartOfProject Value="True"/>
       </Unit28>
       <Unit29>
-        <Filename Value="..\CHXPas\uCHXStrUtils.pas"/>
+        <Filename Value="..\CHXPas\Units\uCHXStrUtils.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit29>
       <Unit30>

@@ -1,10 +1,13 @@
 {
 [Info]
 This script test some basic functions added to Pascal Script.
-[Author]
+[Data]
 Name=Chixpy
+Version=0.01
 Date=20170919
-[Script]
+[Changes]
+
+[EndInfo]
 }
 program TestCHXBasic;
 

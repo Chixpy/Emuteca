@@ -1,9 +1,13 @@
 {
 [Info]
 This script test Emuteca common constants and functions.
-[Author]
+[Data]
 Name=Chixpy
-[Script]
+Version=0.01
+Date=20170919
+[Changes]
+
+[EndInfo]
 }
 program TestuCommon;
 

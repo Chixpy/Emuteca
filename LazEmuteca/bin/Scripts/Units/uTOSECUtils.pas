@@ -1,9 +1,13 @@
 {
 [Info]
 Some common functions and data for TOSEC.
-[Author]
+It's far from perfect.
+[Data]
 Name=Chixpy
-Date=20170922
+Version=
+Date=20171010
+[Changes]
+
 [EndInfo]
 }
 const
@@ -151,8 +155,10 @@ begin
   
   // ID
   // --
+  // ID + TOSECIDSep + TOSEC Title
   aPos := Pos(TOSECIDSep, SoftStr);
-  if aPos < 1 then Exit;
+  if aPos < 1 then 
+    Exit;
   DBID := Copy(SoftStr, 1, aPos -1);
   
   SoftStr := Copy(SoftStr, aPos + 1, TOSECMaxCopy);
@@ -177,7 +183,7 @@ begin
   // Demo (opt)
   // -----------------
   // ' (demo' + ['-' + KindOfDemo] + ') '
-  // Extracting from DBTitle, and keep in TempDemo
+  // Extracting from DBTitle, and keep in TempDemo for adding it later
   TempDemo := TOSECExtractTag(DBTitle, '(demo', ')');
   if TempDemo <> '' then
   begin
@@ -188,8 +194,8 @@ begin
   // Playing with Title [+ version]
   // Too many problems
   // * ', The' / ', A' / ', El' / etc. 
-  //   Some games have "Game, The v 1", others "Game v 1, The " (wrong)
-  // * Version
+  // * Some games have "Game, The v 1", others "Game v 1, The " (wrong)
+  // * Version tags:
   //   Game v1
   //   Game v 1
   //   Game Rev1
@@ -231,11 +237,20 @@ begin
         if (TempStr[2] <= '9') and (TempStr[2] >= '0') then
           TOSECAddStr(DBVersion, 'v ' + Trim(Copy(TempStr, 2, TOSECMaxCopy)));
       end
-      else if (Length(TempStr) > 4) and 
-        (Pos('rev', LowerCase(TempStr)) = 1) then
-      begin // try revXXXXXX
-         if (TempStr[4] <= '9') and (TempStr[4] >= '0') then
-          TOSECAddStr(DBVersion, 'v rev' + Trim(Copy(TempStr, 4, TOSECMaxCopy)));
+      else if (Length(TempStr) > 4) then
+      begin
+        if (Pos('rev', LowerCase(TempStr)) = 1) then
+        begin // try revXXXXXX
+          if (TempStr[4] <= '9') and (TempStr[4] >= '0') then
+            TOSECAddStr(DBVersion, 'v rev' + Trim(Copy(TempStr, 4,
+              TOSECMaxCopy)));
+        end
+        else if (Pos('prg', LowerCase(TempStr)) = 1) then
+        begin // try PRGXXXXXX
+          if (TempStr[4] <= '9') and (TempStr[4] >= '0') then
+            TOSECAddStr(DBVersion, 'v PRG' + Trim(Copy(TempStr, 4,
+              TOSECMaxCopy)));
+        end;
       end;
     end;
     
@@ -257,19 +272,21 @@ begin
         else if Pos('rev ', LowerCase(TempStr)) = 1 then
         begin // try rev XXXXXX
           TOSECAddStr(DBVersion, 'v rev' + Trim(Copy(TempStr, 4, TOSECMaxCopy)));
+        end
+        else if Pos('prg ', LowerCase(TempStr)) = 1 then
+        begin // try PRG XXXXXX
+          TOSECAddStr(DBVersion, 'v PRG' + Trim(Copy(TempStr, 4, TOSECMaxCopy)));
         end;
       end;     
-    end;
-    
+    end;    
 
     if DBVersion = '' then
-      // Restoring Title
+      // Version not found: Restoring Title
       DBTitle := DBTitle + ' ' + TempStr;     
     
     // Checking well placed article before version
     // If there is no version, it's already checked, so we will do that if
     //   DBSortTitle = '';
-    // If title has two ',' (one for article), this will mess the title
     if DBSortTitle = '' then
     begin
       aPos := RPos(' ', DBTitle); 
@@ -285,88 +302,66 @@ begin
           DBTitle := TempStr + ' ' + DBTitle; // Moving 'The' at beginning 
         end;
       end; 
-    end;  
-
-    WriteLn(DBTitle);
-    WriteLn(DBVersion);    
-    
+    end;     
   end;  
   
   // Adding Demo in Version
   if TempDemo <> '' then
     TOSECAddStr(DBVersion, 'Demo ' + TempDemo);
     
+  // TAGS
+  // ====
+    
   // Year (obl)
   // -----------------
   // '(' + YYYY [+ '-' + MM [+ '-' + DD]] + ')'
-  if Pos('(', SoftStr) <> 1 then
+  TempStr := TOSECExtractTag(SoftStr, '(', ')');
+  if TempStr = '' then
   begin
     TOSECError(aSoftLine, 'No YEAR found.');
     Exit;
   end;
-
-  aPos := Pos(')', SoftStr);
-  if aPos = 0 then
-  begin
-    TOSECError(aSoftLine, 'No ")" found at YEAR flag.');
-    Exit;
-  end;
-
-  TempStr := Trim(Copy(SoftStr, 2, aPos - 2)); 
-  DBYear := AnsiReplaceText(TempStr, '-', '/');
- 
-  SoftStr := Trim(Copy(SoftStr, aPos + 1, TOSECMaxCopy)); // Next flags
-  
-  
+  if TempStr = '-' then
+    DBYear := krsImportKeepValue
+  else
+    DBYear := AnsiReplaceText(TempStr, '-', '/');
+    
   // Publisher (obl)
   // -----------------
   // '(' + PublisherName + ')'
-  if Pos('(', SoftStr) <> 1 then
+  TempStr := TOSECExtractTag(SoftStr, '(', ')');
+  if TempStr = '' then
   begin
-    TOSECError(aSoftLine, 'No PUBLISHER found.');
+    TOSECError(aSoftLine, 'No YEAR or PUBLISHER found.');
     Exit;
-  end;
-
-  aPos := Pos(')', SoftStr);
-  if aPos = 0 then
-  begin
-    TOSECError(aSoftLine, 'No ")" found at PUBLISHER flag.');
-    Exit;
-  end;
-
-  DBPublisher := Trim(Copy(SoftStr, 2, aPos - 2)); // Publisher
-  if DBPublisher = '-' then
-    DBPublisher := krsImportKeepValue;
-
-  SoftStr := Trim(Copy(SoftStr, aPos + 1, TOSECMaxCopy)); // Next flags
-  
+  end;  
+  if TempStr = '-' then
+    DBPublisher := krsImportKeepValue
+  else
+    DBPublisher := TempStr;  
+   
+   
+  // Next flag ()
+  //TempStr := TOSECExtractTag(SoftStr, '(', ')');
   
   // System (opt)
   // -----------------
   // '(' + System + ')'
-  if Pos('(', SoftStr) = 1 then
+  
+  
+  i := 0;
+  while i <= High(TOSECSystem) do
   begin
-    aPos := Pos(')', SoftStr);
-    if aPos = 0 then
+    if TempStr = TOSECSystem[i] then
     begin
-      TOSECError(aSoftLine, 'No ")" found at SYSTEM flag.');
-      Exit;
+      TOSECAddStr(DBVersion, 'System ' + TempStr);
+      SoftStr := Trim(Copy(SoftStr, aPos + 1, TOSECMaxCopy));
+      i := High(TOSECSystem); // Break;
     end;
-
-    TempStr := Copy(SoftStr, 2, aPos - 2);
-
-    i := Low(TOSECSystem);
-    while i <= High(TOSECSystem) do
-    begin
-      if TempStr = TOSECSystem[i] then
-      begin
-        TOSECAddStr(DBVersion, 'System ' + TempStr);
-        SoftStr := Trim(Copy(SoftStr, aPos + 1, TOSECMaxCopy));
-        i := High(TOSECSystem); // Break;
-      end;
-      Inc(i);
-    end;
+    Inc(i);
   end;
+    
+  
 
   // Video
   // -----------------
@@ -432,7 +427,7 @@ begin
   // Language
   // --------
   
-  // Removing (M) flag, it don't actually says wich languages have.
+  // Removing (M) flag, it don't actually says wich languages has.
   // If (M) found then don't try to search language
   TempStr := TOSECExtractTag(SoftStr, '(M', ')');
   if TempStr = '' then
@@ -484,10 +479,10 @@ begin
 }
   end;
 
-{
   // Copyright
   // -----------------
   // (Copyright)
+  
   if Pos('(', SoftStr) = 1 then
   begin
     aPos := Pos(')', SoftStr);
@@ -499,20 +494,19 @@ begin
     
     TempStr := Copy(SoftStr, 2, aPos - 2);
 
-    i := Low(CopyrightStr);
-    while i <= High(CopyrightStr) do
+    i := Low(TOSECCopyright);
+    while i <= High(TOSECCopyright) do
     begin
-      if TempStr = CopyrightStr[i] then
+      if TempStr = TOSECCopyright[i] then
       begin
-        aGame.License := CopyrightEmu[i];
+        TOSECAddStr(DBVersion, 'Copyright ' + TOSECCopyrightStr[i]);
         SoftStr := Trim(Copy(SoftStr, aPos + 1, TOSECMaxCopy));
-        i := High(CopyrightStr);
+        i := High(TOSECCopyright); // Break;
       end;
       Inc(i);
     end;
   end;
-  if aGame.License = '' then aGame.License := CopyrightEmu[High(CopyrightEmu)];
-}
+  
   // Development status
   // -----------------
   // (Devstatus)
@@ -612,11 +606,11 @@ begin
 
   TempStr := TOSECExtractTag(SoftStr, '[u', ']');
   if TempStr <> '' then
-  begin
+  begin    
     DBDumpStatus := DumpSt2Key(edsUnderDump);
     TOSECAddStr(DBDumpInfo, 'u ' + TempStr)
   end;    
-  
+    
   // Extra data
   // -----------------
   // [more info]

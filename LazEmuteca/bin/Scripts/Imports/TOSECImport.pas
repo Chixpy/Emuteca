@@ -5,9 +5,12 @@ This script creates a Emuteca database from a TOSEC .dat.
 Imports title, versión, year, publisher, dumpinfo, etc. from filenames.
 
 It doesn't add any parent info, so when importing data groups are keeped.
-[Author]
+[Data]
 Name=Chixpy
+Version=0.01
 Date=20170923
+[Changes]
+
 [EndInfo]
 }
 program TOSECImport;
