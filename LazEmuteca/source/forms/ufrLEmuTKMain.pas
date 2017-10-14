@@ -102,7 +102,7 @@ type
     FfmEmutecaMainFrame: TfmLEmuTKMain;
     FGUIIconsFile: string;
     FSHA1Folder: string;
-    FVerIcons: cCHXImageList;
+    FDumpIcons: cCHXImageList;
     FEmuteca: cEmuteca;
     FGUIConfig: cGUIConfig;
     FIconList: cCHXImageList;
@@ -122,7 +122,7 @@ type
 
     property IconList: cCHXImageList read FIconList;
     // Icons for parents, soft, systems and emulators
-    property VerIcons: cCHXImageList read FVerIcons;
+    property DumpIcons: cCHXImageList read FDumpIcons;
     // Icons for dump info
     property ZoneIcons: cCHXImageMap read FZoneIcons;
     // Icons of zones
@@ -164,7 +164,7 @@ begin
     frmLEmuTKAbout.Emuteca := Emuteca;
     frmLEmuTKAbout.CachedIcons := IconList;
     frmLEmuTKAbout.ZoneIcons := ZoneIcons;
-    frmLEmuTKAbout.VersionIcons := VerIcons;
+    frmLEmuTKAbout.VersionIcons := DumpIcons;
     frmLEmuTKAbout.UpdateInfo;
     frmLEmuTKAbout.ShowModal;
   finally
@@ -192,15 +192,6 @@ begin
 end;
 
 procedure TfrmLEmuTKMain.LoadIcons;
-
-  procedure AddIcon(aImageList: cCHXImageList; aIconFile: string);
-  begin
-    if FileExistsUTF8(aIconFile) then
-      aImageList.AddImageFile(aIconFile)
-    else
-      aImageList.AddImageFile('');
-  end;
-
 var
   aFolder, aFile: string;
 begin
@@ -233,10 +224,10 @@ begin
     2: Default for system
     3: Default for emulator
   }
-  AddIcon(IconList, aFolder + 'SoftIcon.png');
-  AddIcon(IconList, aFolder + 'GroupIcon.png');
-  AddIcon(IconList, aFolder + 'SysIcon.png');
-  AddIcon(IconList, aFolder + 'EmuIcon.png');
+  IconList.AddImageFile(aFolder + 'SoftIcon.png');
+  IconList.AddImageFile(aFolder + 'GroupIcon.png');
+  IconList.AddImageFile(aFolder + 'SysIcon.png');
+  IconList.AddImageFile(aFolder + 'EmuIcon.png');
 
   { Icons for "flags" column, see ufEmutecaIcnSoftList.LazEmuTKIconFiles
     0: Verified.png
@@ -253,10 +244,10 @@ begin
     11: Modified.png
     12: Hack.png
     }
-  VerIcons.Clear;
+  DumpIcons.Clear;
   aFolder := SetAsAbsoluteFile(GUIConfig.DumpIcnFolder, ProgramDirectory);
   for aFile in LazEmuTKIconFiles do
-    AddIcon(FVerIcons, aFolder + aFile + '.png');
+    DumpIcons.AddImageFile(aFolder + aFile + '.png');
 end;
 
 procedure TfrmLEmuTKMain.LoadEmuteca;
@@ -333,7 +324,7 @@ begin
 
   // Image lists
   FIconList := cCHXImageList.Create(True);
-  FVerIcons := cCHXImageList.Create(True);
+  FDumpIcons := cCHXImageList.Create(True);
   FZoneIcons := cCHXImageMap.Create(True);
 
   // Creating Emuteca Core :-D
@@ -347,7 +338,7 @@ begin
   // Creating main frame
   FfmEmutecaMainFrame := TfmLEmuTKMain.Create(Self);
   fmEmutecaMainFrame.IconList := IconList;
-  fmEmutecaMainFrame.DumpIcons := VerIcons;
+  fmEmutecaMainFrame.DumpIcons := DumpIcons;
   fmEmutecaMainFrame.ZoneIcons := ZoneIcons;
   fmEmutecaMainFrame.Emuteca := Emuteca;
   fmEmutecaMainFrame.GUIConfig := GUIConfig;
@@ -503,7 +494,7 @@ end;
 procedure TfrmLEmuTKMain.FormDestroy(Sender: TObject);
 begin
   FreeAndNil(FZoneIcons);
-  FreeAndNil(FVerIcons);
+  FreeAndNil(FDumpIcons);
   FreeAndNil(FIconList);
   FreeAndNil(FGUIConfig);
   FreeAndNil(FEmuteca);

@@ -16,7 +16,8 @@ uses
   ucEmutecaSoftList, ucEmutecaSoftware,
   // Emuteca frames
   uLEmuTKCommon,
-  ufLEmuTKFullSoftEditor, ufEmutecaSystemCBX, ufLEmuTKIcnSysCBX, ufLEmuTKSoftMedia,
+  ufLEmuTKFullSoftEditor, ufEmutecaSystemCBX, ufLEmuTKIcnSysCBX,
+  ufLEmuTKSoftMedia,
   ufLEmuTKIcnSoftTree,
   ufLEmuTKSysPreview,
   // GUI
@@ -126,8 +127,8 @@ begin
   if assigned(Emuteca) then
   begin
     fmEmutecaSystemCBX.SystemList := Emuteca.SystemManager.EnabledList;
-    fmCHXTagTree.Folder := SetAsAbsoluteFile(Emuteca.Config.TagsFolder,
-      Emuteca.BaseFolder);
+    fmCHXTagTree.Folder :=
+      SetAsAbsoluteFile(Emuteca.Config.TagsFolder, Emuteca.BaseFolder);
     // fmSoftTree.GroupList set by SelectSystem;
   end
   else
@@ -135,7 +136,7 @@ begin
     fmEmutecaSystemCBX.SystemList := nil;
     fmCHXTagTree.Folder := '';
     fmSoftTree.GroupList := nil;
-    fmSoftEditor.Software:= nil;
+    fmSoftEditor.Software := nil;
     fmSoftMedia.Software := nil;
     fmSystemPanel.System := nil;
   end;
@@ -214,7 +215,7 @@ begin
   fmSoftEditor.Software := aSoftware;
   fmSoftMedia.Software := aSoftware;
 
-    if Assigned(aSoftware) then
+  if Assigned(aSoftware) then
     fmSystemPanel.System := cEmutecaSystem(aSoftware.CachedSystem);
 end;
 
@@ -273,7 +274,7 @@ begin
   fmEmutecaSystemCBX.SelectedSystem :=
     fmEmutecaSystemCBX.SystemList.ItemById(GUIConfig.CurrSystem);
 
-   SelectSystem(fmEmutecaSystemCBX.SelectedSystem);
+  SelectSystem(fmEmutecaSystemCBX.SelectedSystem);
 end;
 
 constructor TfmLEmuTKMain.Create(TheOwner: TComponent);
