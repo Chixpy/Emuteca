@@ -183,14 +183,6 @@ procedure cEmutecaConfigEmulatorsFile_R(Self: cEmutecaConfig; var T: string);
 begin T := Self.EmulatorsFile; end;
 
 (*----------------------------------------------------------------------------*)
-procedure cEmutecaConfigSoftFile_W(Self: cEmutecaConfig; const T: string);
-begin Self.SoftFile := T; end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaConfigSoftFile_R(Self: cEmutecaConfig; var T: string);
-begin T := Self.SoftFile; end;
-
-(*----------------------------------------------------------------------------*)
 procedure cEmutecaConfigz7GExecutable_W(Self: cEmutecaConfig; const T: string);
 begin Self.z7GExecutable := T; end;
 
@@ -213,7 +205,6 @@ begin
   begin
     RegisterPropertyHelper(@cEmutecaConfigz7CMExecutable_R,@cEmutecaConfigz7CMExecutable_W,'z7CMExecutable');
     RegisterPropertyHelper(@cEmutecaConfigz7GExecutable_R,@cEmutecaConfigz7GExecutable_W,'z7GExecutable');
-    RegisterPropertyHelper(@cEmutecaConfigSoftFile_R,@cEmutecaConfigSoftFile_W,'SoftFile');
     RegisterPropertyHelper(@cEmutecaConfigEmulatorsFile_R,@cEmutecaConfigEmulatorsFile_W,'EmulatorsFile');
     RegisterPropertyHelper(@cEmutecaConfigSystemsFile_R,@cEmutecaConfigSystemsFile_W,'SystemsFile');
     RegisterPropertyHelper(@cEmutecaConfigSysDataFolder_R,@cEmutecaConfigSysDataFolder_W,'SysDataFolder');

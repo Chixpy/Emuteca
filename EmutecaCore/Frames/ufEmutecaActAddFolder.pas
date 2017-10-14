@@ -264,6 +264,8 @@ begin
     if assigned(Emuteca.ProgressCallBack) then
       Emuteca.ProgressCallBack('', '', '', 0, 0);
 
+    Emuteca.CacheData;
+
     FreeAndNil(FolderList);
     FreeAndNil(FileList);
     FreeAndNil(SoftSysList);

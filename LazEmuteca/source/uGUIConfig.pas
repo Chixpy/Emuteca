@@ -259,9 +259,8 @@ begin
   IniFile.WriteString(krsSectionTools, krsKeyScriptsFolder, ScriptsFolder);
   IniFile.WriteString(krsSectionTools, krsKeyMPlayerExe, mPlayerExe);
 
-  // Experimental
- // if GlobalCache <> '' then
- // IniFile.WriteString(krsSectionExperimental, krsKeyGlobalCache, GlobalCache);
+
+  IniFile.WriteString(krsSectionExperimental, krsKeyGlobalCache, GlobalCache);
 end;
 
 procedure cGUIConfig.ResetDefaultConfig;

@@ -40,6 +40,15 @@ inherited fmActExportSoftData: TfmActExportSoftData
       ReadOnly = True
       TabOrder = 0
     end
+    object lWarning: TLabel
+      Left = 0
+      Height = 112
+      Top = 38
+      Width = 316
+      Align = alClient
+      ParentColor = False
+      WordWrap = True
+    end
   end
   object gbxExportFile: TGroupBox[3]
     Left = 0

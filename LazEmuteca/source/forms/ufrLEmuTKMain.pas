@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, FileUtil, LazFileUtils, Forms, Controls,
   Graphics, Dialogs, LazUTF8, LCLIntf,
   ActnList, Menus, StdActns, ComCtrls, ExtCtrls, LCLTranslator,
-  IniPropStorage, StdCtrls, sha1,
+  IniPropStorage, StdCtrls,
   // Misc
   uVersionSupport, u7zWrapper,
   // CHX units
@@ -174,8 +174,7 @@ end;
 
 procedure TfrmLEmuTKMain.mimmTestClick(Sender: TObject);
 begin
-  ShowMessage(SHA1Print(SHA1String('prueba')) + sLineBreak +
-    SHA1Print(StringToSHA1Digest(SHA1Print(SHA1String('prueba')))));
+  ShowMessage('Temp button for fast testing.');
 end;
 
 procedure TfrmLEmuTKMain.SetGUIIconsFile(AValue: string);

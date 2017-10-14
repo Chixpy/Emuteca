@@ -24,6 +24,7 @@ type
     gbxExportFile: TGroupBox;
     gbxSystemInfo: TGroupBox;
     lSoftIDType: TLabel;
+    lWarning: TLabel;
     pSelectSystem: TPanel;
     procedure eExportFileButtonClick(Sender: TObject);
 
@@ -83,6 +84,9 @@ begin
 end;
 
 procedure TfmActExportSoftData.SetSystem(AValue: cEmutecaSystem);
+var
+  IsCached: boolean;
+  i: integer;
 begin
   if FSystem = AValue then
     Exit;
@@ -91,12 +95,40 @@ begin
   if Assigned(System) then
   begin
     eSoftIDType.Text := SoftExportKey2StrK(System.SoftExportKey);
-    eExportFile.Enabled := True;
-    eExportFile.FileName := ExtractFilePath(eExportFile.FileName) + System.FileName + krsFileExtSoft;
+
+
+    // Testing if all files have SHA1 cached
+    IsCached := True;
+    if System.SoftExportKey = TEFKSHA1 then
+    begin
+      i := 0;
+      while IsCached and (i < System.SoftManager.FullList.Count) do
+      begin
+        IsCached := not System.SoftManager.FullList[i].SHA1IsEmpty;
+        Inc(i);
+      end;
+    end;
+
+    eExportFile.Enabled := IsCached;
+
+    if not IsCached then
+    begin
+      lWarning.Caption :=
+        'Warning: We can''t export because not all files have SHA1 cached';
+      eExportFile.FileName := '';
+    end
+    else
+    begin
+      lWarning.Caption := '';
+      eExportFile.FileName :=
+        ExtractFilePath(eExportFile.FileName) + System.FileName + krsFileExtSoft;
+
+    end;
   end
   else
   begin
     eSoftIDType.Clear;
+    lWarning.Caption := '';
     eExportFile.Enabled := False;
   end;
 end;
@@ -111,6 +143,7 @@ end;
 procedure TfmActExportSoftData.ClearFrameData;
 begin
   eSoftIDType.Clear;
+  lWarning.Caption := '';
 end;
 
 procedure TfmActExportSoftData.LoadFrameData;

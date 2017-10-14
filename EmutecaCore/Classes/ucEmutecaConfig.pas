@@ -33,7 +33,6 @@ const
   // [Config]
   krsIniSecConfig = 'Config';
   krsIniKeyDataFolder = 'DataFolder';
-  krsIniKeySoftFile = 'SoftFile';
   krsIniKeyEmulatorsFile = 'EmulatorsFile';
   krsIniKeyAutoSysFolders = 'AutoSysFolders';
   krsIniKeySystemsFile = 'SystemsFile';
@@ -103,7 +102,6 @@ type
     property z7GExecutable: string read Fz7GExecutable write Setz7GExecutable;
 
     // Config/Data
-    property SoftFile: string read FSoftFile write SetSoftFile;
     property EmulatorsFile: string read FEmulatorsFile write SetEmulatorsFile;
     property SystemsFile: string read FSystemsFile write SetSystemsFile;
     property SysDataFolder: string read FSysDataFolder write SetSysDataFolder;
@@ -231,8 +229,6 @@ begin
   IniFile := TMemIniFile.Create(UTF8ToSys(ConfigFile));
   try
     // Config/Data
-    SoftFile := IniFile.ReadString(krsIniSecConfig,
-      krsIniKeySoftFile, SoftFile);
     EmulatorsFile := IniFile.ReadString(krsIniSecConfig,
       krsIniKeyEmulatorsFile, EmulatorsFile);
     SystemsFile := IniFile.ReadString(krsIniSecConfig,
@@ -285,7 +281,6 @@ begin
   try
 
     // Config/Data
-    IniFile.WriteString(krsIniSecConfig, krsIniKeySoftFile, SoftFile);
     IniFile.WriteString(krsIniSecConfig, krsIniKeyEmulatorsFile,
       EmulatorsFile);
     IniFile.WriteString(krsIniSecConfig, krsIniKeyAutoSysFolders,
@@ -329,7 +324,6 @@ procedure cEmutecaConfig.SetDefaultConfig;
 
 begin
   // Config/Data
-  SoftFile := 'Data/Soft.csv';
   EmulatorsFile := 'Data/Emulators.ini';
   AutoSysFolder := 'Data/SysFolders.csv';
   SystemsFile := 'Data/Systems.ini';
