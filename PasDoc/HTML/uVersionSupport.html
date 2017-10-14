@@ -1,0 +1,220 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<title>Emuteca: uVersionSupport</title>
+<meta name="generator" content="PasDoc 0.14.0">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<script type="text/javascript" src="tipuesearch/jquery.min.js"></script>
+<script type="text/javascript" src="tipuesearch/tipuesearch_data.js"></script>
+<link rel="stylesheet" type="text/css" href="tipuesearch/tipuesearch.css">
+<script type="text/javascript" src="tipuesearch/tipuesearch_set.js"></script>
+<script type="text/javascript" src="tipuesearch/tipuesearch.js"></script>
+
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body>
+<table class="container"><tr><td class="navigation">
+<h2>Emuteca</h2><p><a href="AllUnits.html" class="navigation">Units</a></p><p><a href="ClassHierarchy.html" class="navigation">Class Hierarchy</a></p><p><a href="AllClasses.html" class="navigation">Classes, Interfaces, Objects and Records</a></p><p><a href="AllTypes.html" class="navigation">Types</a></p><p><a href="AllVariables.html" class="navigation">Variables</a></p><p><a href="AllConstants.html" class="navigation">Constants</a></p><p><a href="AllFunctions.html" class="navigation">Functions and Procedures</a></p><p><a href="AllIdentifiers.html" class="navigation">Identifiers</a></p><p><form class="search-form" action="_tipue_results.html"><div class="search-input"><input type="text" name="q" id="tipue_search_input"></div><div class="search-button"><input type="button" id="tipue_search_button" onclick="this.form.submit();"></div></form>
+<div style="clear: both"></div>
+
+<script>
+$(document).ready(function() {
+    $('#tipue_search_input').tipuesearch({
+        /* 10 items to display seems standard */
+        'show': 10,
+        /* For PasDoc docs, showing urls is not very useful,
+           since the page title already shows the unit and identifier. */
+        'showURL': false
+    });
+});
+</script>
+</p></td><td class="content">
+<h1 class="unit">Unit uVersionSupport</h1>
+<table class="sections wide_list">
+<tr>
+<td><a class="section" href="#PasDoc-Description">Description</a></td><td><a class="section" href="#PasDoc-Uses">Uses</a></td><td>Classes, Interfaces, Objects and Records</td><td><a class="section" href="#PasDoc-FuncsProcs">Functions and Procedures</a></td><td>Types</td><td><a class="section" href="#PasDoc-Constants">Constants</a></td><td>Variables</td></tr></table>
+<a name="PasDoc-Description"></a><h2 class="description">Description</h2>
+&nbsp;<a name="PasDoc-Uses"></a><h2 class="uses">Uses</h2>
+<ul class="useslist"><li>Classes</li><li>SysUtils</li></ul><h2 class="overview">Overview</h2>
+<a name="PasDoc-FuncsProcs"></a><h3 class="summary">Functions and Procedures</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="itemcode"><code>Function <b><a  href="uVersionSupport.html#GetFileVersion">GetFileVersion</a></b>: String;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code>Function <b><a  href="uVersionSupport.html#GetProductVersion">GetProductVersion</a></b>: String;</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code>Function <b><a  href="uVersionSupport.html#GetCompiledDate">GetCompiledDate</a></b>: String;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code>Function <b><a  href="uVersionSupport.html#GetCompilerInfo">GetCompilerInfo</a></b>: String;</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code>Function <b><a  href="uVersionSupport.html#GetTargetInfo">GetTargetInfo</a></b>: String;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code>Function <b><a  href="uVersionSupport.html#GetOS">GetOS</a></b>: String;</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code>Function <b><a  href="uVersionSupport.html#GetResourceStrings">GetResourceStrings</a></b>(oStringList : TStrings) : Boolean;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code>Function <b><a  href="uVersionSupport.html#GetLCLVersion">GetLCLVersion</a></b>: String;</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code>function <b><a  href="uVersionSupport.html#GetWidgetSet">GetWidgetSet</a></b>: string;</code></td>
+</tr>
+</table>
+<a name="PasDoc-Constants"></a><h3 class="summary">Constants</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="itemcode"><code><b><a  href="uVersionSupport.html#WIDGETSET_GTK">WIDGETSET_GTK</a></b>        = 'GTK widget set';</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="uVersionSupport.html#WIDGETSET_GTK2">WIDGETSET_GTK2</a></b>       = 'GTK 2 widget set';</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="uVersionSupport.html#WIDGETSET_WIN">WIDGETSET_WIN</a></b>        = 'Win32/Win64 widget set';</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="uVersionSupport.html#WIDGETSET_WINCE">WIDGETSET_WINCE</a></b>      = 'WinCE widget set';</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="uVersionSupport.html#WIDGETSET_CARBON">WIDGETSET_CARBON</a></b>     = 'Carbon widget set';</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="uVersionSupport.html#WIDGETSET_QT">WIDGETSET_QT</a></b>         = 'QT widget set';</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="uVersionSupport.html#WIDGETSET_fpGUI">WIDGETSET_fpGUI</a></b>      = 'fpGUI widget set';</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="uVersionSupport.html#WIDGETSET_OTHER">WIDGETSET_OTHER</a></b>      = 'Other gui';</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Functions and Procedures</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="GetFileVersion"></a><code>Function <b>GetFileVersion</b>: String;</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="GetProductVersion"></a><code>Function <b>GetProductVersion</b>: String;</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="GetCompiledDate"></a><code>Function <b>GetCompiledDate</b>: String;</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="GetCompilerInfo"></a><code>Function <b>GetCompilerInfo</b>: String;</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="GetTargetInfo"></a><code>Function <b>GetTargetInfo</b>: String;</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="GetOS"></a><code>Function <b>GetOS</b>: String;</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="GetResourceStrings"></a><code>Function <b>GetResourceStrings</b>(oStringList : TStrings) : Boolean;</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="GetLCLVersion"></a><code>Function <b>GetLCLVersion</b>: String;</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="GetWidgetSet"></a><code>function <b>GetWidgetSet</b>: string;</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<h3 class="detail">Constants</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="WIDGETSET_GTK"></a><code><b>WIDGETSET_GTK</b>        = 'GTK widget set';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="WIDGETSET_GTK2"></a><code><b>WIDGETSET_GTK2</b>       = 'GTK 2 widget set';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="WIDGETSET_WIN"></a><code><b>WIDGETSET_WIN</b>        = 'Win32/Win64 widget set';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="WIDGETSET_WINCE"></a><code><b>WIDGETSET_WINCE</b>      = 'WinCE widget set';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="WIDGETSET_CARBON"></a><code><b>WIDGETSET_CARBON</b>     = 'Carbon widget set';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="WIDGETSET_QT"></a><code><b>WIDGETSET_QT</b>         = 'QT widget set';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="WIDGETSET_fpGUI"></a><code><b>WIDGETSET_fpGUI</b>      = 'fpGUI widget set';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="WIDGETSET_OTHER"></a><code><b>WIDGETSET_OTHER</b>      = 'Other gui';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/">PasDoc 0.14.0</a>. </em>
+</span>
+</td></tr></table></body></html>

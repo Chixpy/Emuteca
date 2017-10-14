@@ -1,0 +1,68 @@
+object frmESMSoftList: TfrmESMSoftList
+  Left = 282
+  Height = 419
+  Top = 206
+  Width = 761
+  Caption = 'frmESMSoftList'
+  ClientHeight = 419
+  ClientWidth = 761
+  OnCreate = FormCreate
+  LCLVersion = '5.9'
+  object Splitter1: TSplitter
+    Left = 200
+    Height = 369
+    Top = 0
+    Width = 5
+  end
+  object pMiddle: TPanel
+    Left = 205
+    Height = 369
+    Top = 0
+    Width = 556
+    Align = alClient
+    ClientHeight = 369
+    ClientWidth = 556
+    TabOrder = 1
+    object pTop: TPanel
+      Left = 1
+      Height = 188
+      Top = 1
+      Width = 554
+      Align = alTop
+      TabOrder = 0
+    end
+    object pBottom: TPanel
+      Left = 1
+      Height = 174
+      Top = 194
+      Width = 554
+      Align = alClient
+      TabOrder = 1
+    end
+    object Splitter2: TSplitter
+      Cursor = crVSplit
+      Left = 1
+      Height = 5
+      Top = 189
+      Width = 554
+      Align = alTop
+      ResizeAnchor = akTop
+    end
+  end
+  object pButtons: TPanel
+    Left = 0
+    Height = 50
+    Top = 369
+    Width = 761
+    Align = alBottom
+    TabOrder = 2
+  end
+  object PageControl1: TPageControl
+    Left = 0
+    Height = 369
+    Top = 0
+    Width = 200
+    Align = alLeft
+    TabOrder = 3
+  end
+end

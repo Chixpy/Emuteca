@@ -1,4 +1,4 @@
-
+_**¡Estamos trabajando en ello!**_
 
 _**En español abajo**_.
 
@@ -67,6 +67,8 @@ Entre sus características están:
   * En las versiones 0.6.X que fueron compiladas con Delphi, se puede reproducir un vídeo o música asignada al juego seleccionado (solo lo he probado con MPEGs y MIDIs). Ya veremos como lo soluciono para Lazarus...
 
 ## Noticias ##
+  * 2016XXXX: Retomando un poco esto.
+  * 20160814: Arreglando un poco las imágenes de la wiki
   * 20150316: Movido a GitHub, GoogleCode cierra :-(
   * 20120705: Subo una nueva versión beta: 0.7.0.56. Lo hago antes de acometer uno cambios significativos en la búsqueda de imágenes (complicando más el código pero facilitando su uso al fusionar ambos modos de búsqueda) e intentar mejorar la gestión de los Scripts.
   * 20120704: ¡Nuevo icono!... Bueno la verdad es que es bastante cutre... A ver si dentro de poco compilo una nueva versión esta vez beta, de la versión 0.7.XX...

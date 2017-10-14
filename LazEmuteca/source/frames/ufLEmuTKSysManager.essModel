@@ -1,0 +1,13 @@
+[Box:  - ::ufLEmuTKFullSystemEditor]
+X=20
+Y=125
+
+[Box:  - ::ufLEmuTKSysManager]
+X=20
+Y=40
+
+[Diagram: ]
+OffsetX=0
+OffsetY=0
+Visibility=0
+ShowAssoc=1

@@ -1,0 +1,25 @@
+"Subfolder","Type","Title"
+"BIOS",,
+"Image/Title","i","Title"
+"Image/In game","i","In game"
+"Image/Front","i","Front covers"
+"Image/Back","i","Back covers"
+"Image/Media","i","Media"
+"Image/Spine","i","Spines"
+"Image/Icon","c","Icons"
+"Music/Demo","m","Demos"
+"Music/OST","m","OST"
+"Soft/Game",,
+"Soft/Demo",,
+"Soft/App",,
+"Save",,
+"Temp",,
+"Text/Info","t","Information"
+"Text/Cheat","t","Cheats"
+"Text/Credit","t","Credits"
+"Text/Manual","t","Manual"
+"Text/Note","t","Notes"
+"Tool",,
+"Video/Demo","v","Demos"
+"Video/TAS","v","TAS"
+"Video/Speedrun","v","Speedruns"

@@ -1,0 +1,304 @@
+inherited fmEmutecaSoftEditor: TfmEmutecaSoftEditor
+  Height = 511
+  Width = 232
+  ClientHeight = 511
+  ClientWidth = 232
+  DesignLeft = 632
+  DesignTop = 86
+  inherited pButtons: TPanel
+    Top = 484
+    Width = 232
+    ClientWidth = 232
+    inherited chkCloseOnSave: TCheckBox
+      Left = 10
+    end
+    inherited bSave: TBitBtn
+      Left = 69
+    end
+    inherited bCancel: TBitBtn
+      Left = 141
+    end
+  end
+  object gbxDumpTags: TGroupBox[1]
+    Left = 0
+    Height = 227
+    Top = 185
+    Width = 232
+    Align = alTop
+    AutoSize = True
+    Caption = 'Dump Tags'
+    ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    ChildSizing.ControlsPerLine = 2
+    ClientHeight = 207
+    ClientWidth = 228
+    TabOrder = 1
+    object lDumpType: TLabel
+      Left = 0
+      Height = 23
+      Top = 0
+      Width = 102
+      Caption = 'Dump type'
+      ParentColor = False
+    end
+    object cbxDumpType: TComboBox
+      Left = 102
+      Height = 23
+      Top = 0
+      Width = 126
+      ItemHeight = 15
+      Style = csDropDownList
+      TabOrder = 0
+    end
+    object lDumpInfo: TLabel
+      Left = 0
+      Height = 23
+      Top = 23
+      Width = 102
+      Caption = 'Dump info'
+      ParentColor = False
+    end
+    object eDumpInfo: TEdit
+      Left = 102
+      Height = 23
+      Top = 23
+      Width = 126
+      TabOrder = 1
+    end
+    object lFixed: TLabel
+      Left = 0
+      Height = 23
+      Top = 46
+      Width = 102
+      Caption = 'Fixed'
+      ParentColor = False
+    end
+    object eFixed: TEdit
+      Left = 102
+      Height = 23
+      Top = 46
+      Width = 126
+      TabOrder = 2
+    end
+    object lTrainer: TLabel
+      Left = 0
+      Height = 23
+      Top = 69
+      Width = 102
+      Caption = 'Trainer'
+      ParentColor = False
+    end
+    object eTrainer: TEdit
+      Left = 102
+      Height = 23
+      Top = 69
+      Width = 126
+      TabOrder = 5
+    end
+    object lTranslated: TLabel
+      Left = 0
+      Height = 23
+      Top = 92
+      Width = 102
+      Caption = 'Fan Translated'
+      ParentColor = False
+    end
+    object eTranslated: TEdit
+      Left = 102
+      Height = 23
+      Top = 92
+      Width = 126
+      TabOrder = 8
+      TextHint = 'ISO 639-1'
+    end
+    object lPirate: TLabel
+      Left = 0
+      Height = 23
+      Top = 115
+      Width = 102
+      Caption = 'Pirate'
+      ParentColor = False
+    end
+    object ePirate: TEdit
+      Left = 102
+      Height = 23
+      Top = 115
+      Width = 126
+      TabOrder = 6
+    end
+    object lCracked: TLabel
+      Left = 0
+      Height = 23
+      Top = 138
+      Width = 102
+      Caption = 'Cracked'
+      ParentColor = False
+    end
+    object eCracked: TEdit
+      Left = 102
+      Height = 23
+      Top = 138
+      Width = 126
+      TabOrder = 3
+    end
+    object lModified: TLabel
+      Left = 0
+      Height = 23
+      Top = 161
+      Width = 102
+      Caption = 'Modified'
+      ParentColor = False
+    end
+    object eModified: TEdit
+      Left = 102
+      Height = 23
+      Top = 161
+      Width = 126
+      TabOrder = 7
+    end
+    object lHack: TLabel
+      Left = 0
+      Height = 23
+      Top = 184
+      Width = 102
+      Caption = 'Hack'
+      ParentColor = False
+    end
+    object eHack: TEdit
+      Left = 102
+      Height = 23
+      Top = 184
+      Width = 126
+      TabOrder = 4
+    end
+  end
+  object gbxVersion: TGroupBox[2]
+    Left = 0
+    Height = 96
+    Top = 89
+    Width = 232
+    Align = alTop
+    AutoSize = True
+    Caption = 'Version info'
+    ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+    ChildSizing.ShrinkHorizontal = crsHomogenousChildResize
+    ChildSizing.Layout = cclTopToBottomThenLeftToRight
+    ChildSizing.ControlsPerLine = 4
+    ClientHeight = 76
+    ClientWidth = 228
+    TabOrder = 2
+    object lVersion: TLabel
+      Left = 0
+      Height = 15
+      Top = 0
+      Width = 114
+      Caption = 'Version'
+      ParentColor = False
+    end
+    object eVersion: TEdit
+      Left = 0
+      Height = 23
+      Top = 15
+      Width = 114
+      TabOrder = 0
+    end
+    object lPublisher: TLabel
+      Left = 0
+      Height = 15
+      Top = 38
+      Width = 114
+      Caption = 'Publisher'
+      ParentColor = False
+    end
+    object ePublisher: TEdit
+      Left = 0
+      Height = 23
+      Top = 53
+      Width = 114
+      TabOrder = 2
+    end
+    object lYear: TLabel
+      Left = 114
+      Height = 15
+      Top = 0
+      Width = 114
+      Caption = 'Year'
+      ParentColor = False
+    end
+    object eYear: TEdit
+      Left = 114
+      Height = 23
+      Top = 15
+      Width = 114
+      TabOrder = 1
+      TextHint = 'YYYY/MM/DD'
+    end
+    object lZone: TLabel
+      Left = 114
+      Height = 15
+      Top = 38
+      Width = 114
+      Caption = 'lZone'
+      ParentColor = False
+    end
+    object eZone: TEdit
+      Left = 114
+      Height = 23
+      Top = 53
+      Width = 114
+      TabOrder = 3
+      TextHint = 'ISO3166-1 alpha-2'
+    end
+  end
+  object gbxTitle: TGroupBox[3]
+    Left = 0
+    Height = 89
+    Top = 0
+    Width = 232
+    Align = alTop
+    AutoSize = True
+    Caption = 'Title info'
+    ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    ChildSizing.ControlsPerLine = 1
+    ClientHeight = 69
+    ClientWidth = 228
+    TabOrder = 3
+    object eTitle: TEdit
+      Left = 0
+      Height = 23
+      Top = 0
+      Width = 228
+      TabOrder = 0
+      TextHint = 'Title'
+    end
+    object eTransTitle: TEdit
+      Left = 0
+      Height = 23
+      Top = 23
+      Width = 228
+      TabOrder = 1
+      TextHint = 'Transliterated Title'
+    end
+    object eSortKey: TEdit
+      Left = 0
+      Height = 23
+      Top = 46
+      Width = 228
+      TabOrder = 2
+      TextHint = 'Sort Key'
+    end
+  end
+  object pEmpty: TPanel[4]
+    Left = 0
+    Height = 72
+    Top = 412
+    Width = 232
+    Align = alClient
+    TabOrder = 4
+  end
+  inherited alPropEditor: TActionList[5]
+  end
+  inherited ilPropEditor: TImageList[6]
+  end
+end

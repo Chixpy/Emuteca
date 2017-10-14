@@ -1,0 +1,9 @@
+{"version":1,"strings":[
+{"hash":235525731,"name":"tfmemutksystemimgeditor.gbximages.caption","sourcebytes":[83,121,115,116,101,109,32,105,109,97,103,101,115],"value":"System images"},
+{"hash":182492517,"name":"tfmemutksystemimgeditor.gbxsystemimage.caption","sourcebytes":[83,121,115,116,101,109,32,105,109,97,103,101],"value":"System image"},
+{"hash":231445278,"name":"tfmemutksystemimgeditor.isystemimage.hint","sourcebytes":[83,121,115,116,101,109,32,105,109,97,103,101,124,68,98,108,67,108,107,58,32,79,112,101,110,32,105,110,32,73,109,97,103,101,32,118,105,101,119,101,114,46],"value":"System image|DblClk: Open in Image viewer."},
+{"hash":172418820,"name":"tfmemutksystemimgeditor.gbxsystembg.caption","sourcebytes":[83,121,115,116,101,109,32,98,97,99,107,103,114,111,117,110,100],"value":"System background"},
+{"hash":63220259,"name":"tfmemutksystemimgeditor.gbxsystemicons.caption","sourcebytes":[103,98,120,83,121,115,116,101,109,73,99,111,110,115],"value":"gbxSystemIcons"},
+{"hash":195949822,"name":"tfmemutksystemimgeditor.gbxsystemicon.caption","sourcebytes":[83,121,115,116,101,109,32,105,99,111,110],"value":"System icon"},
+{"hash":227655090,"name":"tfmemutksystemimgeditor.gbxiconfolder.caption","sourcebytes":[83,111,102,116,119,97,114,101,32,105,99,111,110,115,32,102,111,108,100,101,114],"value":"Software icons folder"}
+]}

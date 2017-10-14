@@ -1,0 +1,224 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<title>Emuteca: udepuracion</title>
+<meta name="generator" content="PasDoc 0.14.0">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<script type="text/javascript" src="tipuesearch/jquery.min.js"></script>
+<script type="text/javascript" src="tipuesearch/tipuesearch_data.js"></script>
+<link rel="stylesheet" type="text/css" href="tipuesearch/tipuesearch.css">
+<script type="text/javascript" src="tipuesearch/tipuesearch_set.js"></script>
+<script type="text/javascript" src="tipuesearch/tipuesearch.js"></script>
+
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body>
+<table class="container"><tr><td class="navigation">
+<h2>Emuteca</h2><p><a href="AllUnits.html" class="navigation">Units</a></p><p><a href="ClassHierarchy.html" class="navigation">Class Hierarchy</a></p><p><a href="AllClasses.html" class="navigation">Classes, Interfaces, Objects and Records</a></p><p><a href="AllTypes.html" class="navigation">Types</a></p><p><a href="AllVariables.html" class="navigation">Variables</a></p><p><a href="AllConstants.html" class="navigation">Constants</a></p><p><a href="AllFunctions.html" class="navigation">Functions and Procedures</a></p><p><a href="AllIdentifiers.html" class="navigation">Identifiers</a></p><p><form class="search-form" action="_tipue_results.html"><div class="search-input"><input type="text" name="q" id="tipue_search_input"></div><div class="search-button"><input type="button" id="tipue_search_button" onclick="this.form.submit();"></div></form>
+<div style="clear: both"></div>
+
+<script>
+$(document).ready(function() {
+    $('#tipue_search_input').tipuesearch({
+        /* 10 items to display seems standard */
+        'show': 10,
+        /* For PasDoc docs, showing urls is not very useful,
+           since the page title already shows the unit and identifier. */
+        'showURL': false
+    });
+});
+</script>
+</p></td><td class="content">
+<h1 class="unit">Unit udepuracion</h1>
+<table class="sections wide_list">
+<tr>
+<td><a class="section" href="#PasDoc-Description">Description</a></td><td>Uses</td><td>Classes, Interfaces, Objects and Records</td><td><a class="section" href="#PasDoc-FuncsProcs">Functions and Procedures</a></td><td><a class="section" href="#PasDoc-Types">Types</a></td><td>Constants</td><td><a class="section" href="#PasDoc-Variables">Variables</a></td></tr></table>
+<a name="PasDoc-Description"></a><h2 class="description">Description</h2>
+&nbsp;<a name="PasDoc-Uses"></a><h2 class="overview">Overview</h2>
+<a name="PasDoc-FuncsProcs"></a><h3 class="summary">Functions and Procedures</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="itemcode"><code>Procedure <b><a  href="udepuracion.html#EscribirLOG">EscribirLOG</a></b>(Mensajero: TObject; Mensaje: String; Tipo: <a  href="udepuracion.html#TuDepTipoMensaje">TuDepTipoMensaje</a> = uDDetalle); Overload;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code>Procedure <b><a  href="udepuracion.html#EscribirLOG">EscribirLOG</a></b>(Mensajero: String; Mensaje: String; Tipo: <a  href="udepuracion.html#TuDepTipoMensaje">TuDepTipoMensaje</a> = uDDetalle); Overload;</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code>Procedure <b><a  href="udepuracion.html#EscribirLOGFmt">EscribirLOGFmt</a></b>(Mensajero: TObject; Mensaje: String; Const Args: Array Of Const; Tipo: <a  href="udepuracion.html#TuDepTipoMensaje">TuDepTipoMensaje</a> = uDDetalle); Overload;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code>Procedure <b><a  href="udepuracion.html#EscribirLOGFmt">EscribirLOGFmt</a></b>(Mensajero: String; Mensaje: String; Const Args: Array Of Const; Tipo: <a  href="udepuracion.html#TuDepTipoMensaje">TuDepTipoMensaje</a> = uDDetalle); Overload;</code></td>
+</tr>
+</table>
+<a name="PasDoc-Types"></a><h3 class="summary">Types</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="itemcode"><code><b><a  href="udepuracion.html#TuDepTipoMensaje">TuDepTipoMensaje</a></b> = (...);</code></td>
+</tr>
+</table>
+<a name="PasDoc-Variables"></a><h3 class="summary">Variables</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="itemcode"><code><b><a  href="udepuracion.html#UDEPURACION_ACTUALIZAFICHERO">UDEPURACION_ACTUALIZAFICHERO</a></b>: Boolean = False;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="udepuracion.html#UDEPURACION_NIVELDETALLE">UDEPURACION_NIVELDETALLE</a></b>: <a  href="udepuracion.html#TuDepTipoMensaje">TuDepTipoMensaje</a> = uDDetalle;</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="udepuracion.html#UDEPURACION_ANCHOLINEA">UDEPURACION_ANCHOLINEA</a></b>: Byte = 78;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="udepuracion.html#UDEPURACION_TAMANOTABULADOR">UDEPURACION_TAMANOTABULADOR</a></b>: Byte = 2;</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Functions and Procedures</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="EscribirLOG"></a><code>Procedure <b>EscribirLOG</b>(Mensajero: TObject; Mensaje: String; Tipo: <a  href="udepuracion.html#TuDepTipoMensaje">TuDepTipoMensaje</a> = uDDetalle); Overload;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;- PROCEDIMIENTOS PARA ESCRIBIR EN EL ARCHIVO &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;-</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="EscribirLOG"></a><code>Procedure <b>EscribirLOG</b>(Mensajero: String; Mensaje: String; Tipo: <a  href="udepuracion.html#TuDepTipoMensaje">TuDepTipoMensaje</a> = uDDetalle); Overload;</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="EscribirLOGFmt"></a><code>Procedure <b>EscribirLOGFmt</b>(Mensajero: TObject; Mensaje: String; Const Args: Array Of Const; Tipo: <a  href="udepuracion.html#TuDepTipoMensaje">TuDepTipoMensaje</a> = uDDetalle); Overload;</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="EscribirLOGFmt"></a><code>Procedure <b>EscribirLOGFmt</b>(Mensajero: String; Mensaje: String; Const Args: Array Of Const; Tipo: <a  href="udepuracion.html#TuDepTipoMensaje">TuDepTipoMensaje</a> = uDDetalle); Overload;</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<h3 class="detail">Types</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="TuDepTipoMensaje"></a><code><b>TuDepTipoMensaje</b> = (...);</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+AUTOR: Chixpy
+
+<p>VERSIÓN: 1
+
+<p>USO &mdash; Procedure <a class="normal" href="udepuracion.html#EscribirLOG">EscribirLOG</a>(Mensajero: TObject; Mensaje: String; Tipo: Byte = 5); Procedure <a class="normal" href="udepuracion.html#EscribirLOG">EscribirLOG</a>(Mensajero: String; Mensaje: String; Tipo: Byte = 5); Procedure <a class="normal" href="udepuracion.html#EscribirLOGFmt">EscribirLOGFmt</a>(Mensajero: TObject; Mensaje: String; Const Args: Array Of Const; Tipo: Byte = 5); Procedure <a class="normal" href="udepuracion.html#EscribirLOGFmt">EscribirLOGFmt</a>(Mensajero: String; Mensaje: String; Const Args: Array Of Const; Tipo: Byte = 5);
+
+<p>PARÁMETROS Mensajero: Objeto que quiere enviar el mensaje en caso de que se pase una String seria equivalente a una 'Seccion' Mensaje: Texto que se quiere escribir. En caso de los procedimientos Fmt es equivalente al primer parametro de 'Format' Tipo: Tipo de mensaje: uDError -&gt; Errores uDAtencion -&gt; Atenciones, Errores Ignorables, Evitables uDCrear -&gt; Creacion de Objetos uDDestruir -&gt; Destruccion de Objetos uDAccion -&gt; Acciones Generales uDDetalle -&gt; Acciones Detalladas (Por defecto) uDDepuracion -&gt; Datos para la Depuracion Args: (solo Fmt) Parametro 'Args' de la funcion 'Format'
+
+<p>NOTA: Cuidado con enviar mensajes que contengan los caracteres comillas (&quot;) ya que WrapText no inserta saltos de linea dentro de un par de esos caracteres, aunque por otra parte esta bien si no de quiere que se separen dos palabras...
+
+<p>CONSEJO: Para desactivar la depuración desde el programa basta con poner: <a class="normal" href="udepuracion.html#UDEPURACION_NIVELDETALLE">UDEPURACION_NIVELDETALLE</a> := uDAtencion; // Errores y Warnings o <a class="normal" href="udepuracion.html#UDEPURACION_NIVELDETALLE">UDEPURACION_NIVELDETALLE</a> := uDError; // Solo Errores
+
+<p>CARACTERISTICAS: &mdash;&mdash;&mdash;&mdash;&mdash;- - Funciones para escribir dinamicamente el mensaje que se quiera y de forma jerarquizada respecto a su emisor. - Posibilidad de cambiar dinamicamente: - Nivel de detalle con el que se va a escribir. - El ancho de la linea. - Tamaño de la Sangria - Escribir en tiempo real al fichero. - Escritura multilinea guardando la sangria. - 7 tipos de mensajes. - No estorba al ejecutar paso a paso el programa (usando la directiva del compilador DEBUGINFO) - Posibilidad de desactivar la depuracion (usando la directiva 'DEFINE Depuracion')
+
+<p>POSIBLES MEJORAS: &mdash;&mdash;&mdash;&mdash;&mdash;&ndash; - Detectar si es posible crear el fichero de depuración en caso de que el programa este en un CD-ROM para evitar que de errores al intentar escribir - ¿Convertir a XML? Pero tendría que reconstruir todo... - Hacer que no se cree el fichero si todo esta desactivado. - Pseudo-Monitor de Objetos (Siempre que se envien bien los mensajes correspondiente cuando se crean y se destruyen) (Simplemente dos contadores para cada mensajero) por supuesto con posibilidad de desactivarlo - No estaria mal de en vez de hacer un TAD a pelo, usar un objeto cDepuracion - Añadir la posibilidad de que los mensajes de error muestren una excepcion o un showmessage - Buscar una forma para que evitar que si oPadre tiene un <a class="normal" href="udepuracion.html#EscribirLOG">EscribirLog</a> al Crear/Destruir y un oHijo tambien al realizar esas operaciones se muestran los dos Crear/Destruir...
+
+<p>ACTUALIZACIONES: &mdash;&mdash;&mdash;&mdash;&mdash;- 12/04/07 - 1.002 - Retoquecillo insertando un salto de línea adicional al final
+
+<p>12/04/07 - 1.001 - Desactivo salto de línea automático porque WrapText inserta un salto de línea de más al final de la cadena...
+
+<p>11/04/07 - 1 (Época 2) - Eliminado Gestor de memoria, mejor en una unidad a parte, ya que el de Delphi no es del todo compatible con el de FPC y es mejor que estén separados.
+
+<p>05/04/06 - 3.7u3 m Eliminado algo de Leak a base de mostrar algo menos información al inicio y al final del archivo.
+
+<p>26/03/06 - 3.7u2 m Cambiados los saltos de linea '#13#10' por la variable sLineBreak que esta definida dependiendo del sistema operativo. m Corregida alguna que otra falta de ortografía en el texto de salida
+
+<p>16/03/06 - 3.7u1 m Las cadenas largas '*' se crean dinamicamente respecto al ancho ¿¿¿¡¡¡PERO A AUMENTADO EL LEAK!!!??? d&gt;_&lt;b!
+
+<p>17/12/05 - 3.7 m Convertido el parametro Tipo a un enumerado siendo del tipo <code>TuDepTipoMensaje</code>, pero el leak vueleva a ser -8 dº_ºb?
+
+<p>01/12/05 - 3.6u2 m Cambiada un poco la diferencia de memoria a -5, pero creo que es mejor, ahora inicio el gestor de memoria antes de abrir el fichero, y la comprobacion la hago despues de cerrarlo. Por tanto los programas de consola bien liberados ya no dan que libero mas de la que pido... m Cambiado el mensaje final aclarando que si es una aplicacion Windows es normal que de -5.
+
+<p>18/11/05 - 3.6u1 m No he añadido nada... simplemente actualizado el mensaje final del depurador porque misteriosamente el 'leak' ha bajado a -3 de una forma misteriosa... d&circ;_&circ;b
+
+<p>23/10/05 - 3.6 + Añadidos dos tipo nuevos de mensajes para la creacion y destruccion de objetos. Y por tanto cambiado tambien el orden de Tipo y el valor por defecto (Siguen siendo las Acciones detalladas)
+
+<p>22/10/05 - 3.5 + Añadida de desactivar la depuracion con la directiva 'DEFINE Depuracion' + Añadida la posibilidad de usar solo el Gestor de Memoria (Activando su directiva y Desactivando la de la depuracion) + Añadido lo necesario para que no de Warnings de varibles no usadas (Sin usar la directiva WARNINGS OFF), pasaba si se desactivaba la depuracion. m Reducido a -6 el desfase de no liberaciones porque cuando comenzaba el monitor todavia no habia asignado el fichero y sin embargo cuando hago la comprobacion todavia no lo he cerrado (Curiosamente si comienzo el monitor despues de la cabecera y hago un flush el desfase baja a -2, y no logro comprender que 4 asignaciones hago en esas lineas... ¡¡¡'ni cuales no devuelvo!!!)
+
+<p>21/10/05 - 3.2 + Añadido que el parametro byte(Tipo) en las funciones EscribirLOGXXX sea de Tipo 3 por defecto.
+
+<p>23/09/05 - 3.1 m Modificado el Gestor de Memoria para que se reduzca a 8 el desfase simplemente abriendo un ventana, por tanto si se da un desfase de 8 posiblemente este bien liberado el programa. (La verdad no se porque se produce.. :,-( ) + Añadida una directiva al compilador para que cuando se ejecute paso a paso no entre en esta unidad.
+
+<p>23/09/05 - 3.0 + Añadido el Gestor de Memoria.
+
+<p>21/09/05 - 2.1 + Cada vez que se escribe un error (Tipo = 0) hace un Flush.
+
+<p>15/07/05 - 2.0 + Posibilidad de cambiar dinamicamente: + Tipo de detalle con el que se va a escribir. + El ancho de la linea. + Tamaño de la Sangria + Escribir en tiempo real al fichero. + Escritura Jerarquizada de los mensanjes. + Escritura multilinea guardando la sangria.
+
+<p>10/07/05 - 1.0 + 5 tipos de mensajes: 0 -&gt; Errores 1 -&gt; Atenciones, Errores Ignorables, Evitables 2 -&gt; Acciones Generales 3 -&gt; Acciones Detalladas 4 -&gt; Datos para la Depuracion
+
+<p>LICENCIA &mdash;&mdash;&ndash; No me hago responsable del los daños ocasionados por el uso de estas fuentes de código. Puedes hacer lo que quieras con ello pero solo te pido que si las modificaciones no son demasiado importantes, no estaría mal un &quot;Basado o Usa en las Fuentes de OMMugen por Chixpy&quot;
+
+<p>Este código fuente hace uso de JEDI-SDL pero no se distribuye con él * <a  href="http://sourceforge.net/projects/jedi-sdl">http://sourceforge.net/projects/jedi-sdl</a></p>
+<h6 class="description_section">Values</h6>
+<ul>
+<li>
+uDError: &nbsp;</li>
+<li>
+uDAtencion: &nbsp;</li>
+<li>
+uDAccion: &nbsp;</li>
+<li>
+uDDestruir: &nbsp;</li>
+<li>
+uDCrear: &nbsp;</li>
+<li>
+uDDetalle: &nbsp;</li>
+<li>
+uDDepuracion: &nbsp;</li>
+</ul>
+</td></tr>
+</table>
+<h3 class="detail">Variables</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="UDEPURACION_ACTUALIZAFICHERO"></a><code><b>UDEPURACION_ACTUALIZAFICHERO</b>: Boolean = False;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+¿Actualizar el siempre el fichero instantaneamente? NOTA: uDDError SIEMPRE lo hace</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="UDEPURACION_NIVELDETALLE"></a><code><b>UDEPURACION_NIVELDETALLE</b>: <a  href="udepuracion.html#TuDepTipoMensaje">TuDepTipoMensaje</a> = uDDetalle;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Nivel de Detalle de los mensajes a escribir</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="UDEPURACION_ANCHOLINEA"></a><code><b>UDEPURACION_ANCHOLINEA</b>: Byte = 78;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Ancho que no se quiere que pasen las lineas del archivo</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="UDEPURACION_TAMANOTABULADOR"></a><code><b>UDEPURACION_TAMANOTABULADOR</b>: Byte = 2;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Tamaño del Tabulador para la sangria</p>
+</td></tr>
+</table>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/">PasDoc 0.14.0</a>. </em>
+</span>
+</td></tr></table></body></html>

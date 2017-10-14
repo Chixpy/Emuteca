@@ -1,0 +1,206 @@
+object frmLEmuTKMain: TfrmLEmuTKMain
+  Left = 425
+  Height = 600
+  Top = 29
+  Width = 800
+  Caption = 'Main'
+  ClientHeight = 580
+  ClientWidth = 800
+  Menu = MainMenu
+  OnCloseQuery = FormCloseQuery
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  PopupMode = pmExplicit
+  Position = poDesktopCenter
+  SessionProperties = 'Height;Width;WindowState'
+  ShowHint = True
+  LCLVersion = '6.0'
+  object stbHelp: TStatusBar
+    Left = 0
+    Height = 23
+    Top = 557
+    Width = 800
+    AutoHint = True
+    Panels = <>
+  end
+  object ActionList: TActionList
+    Images = ActImages
+    Left = 40
+    Top = 72
+    object HelpOnHelp1: THelpOnHelp
+      Category = 'Help'
+      Caption = 'About Emuteca...'
+      Hint = 'Información de Emuteca|Muestra un cuadro con información sobre Emuteca.'
+      OnExecute = HelpOnHelp1Execute
+    end
+    object FileExit1: TFileExit
+      Category = 'File'
+      Caption = 'Exit'
+      Hint = 'Salir|Sale de Emuteca.'
+    end
+    object actEmulatorManager: TAction
+      Category = 'Managers'
+      Caption = 'Emulator Manager...'
+      OnExecute = actEmulatorManagerExecute
+    end
+    object actSystemManager: TAction
+      Category = 'Managers'
+      Caption = 'System Manager...'
+      OnExecute = actSystemManagerExecute
+    end
+    object actScriptManager: TAction
+      Category = 'Managers'
+      Caption = 'Script Manager...'
+      OnExecute = actScriptManagerExecute
+    end
+    object actMediaManager: TAction
+      Category = 'Managers'
+      Caption = 'Media Manager...'
+      OnExecute = actMediaManagerExecute
+    end
+    object actAddFolder: TAction
+      Category = 'Version'
+      Caption = 'Scan files from folder...'
+      OnExecute = actAddFolderExecute
+    end
+    object actAddSoft: TAction
+      Category = 'Version'
+      Caption = 'Add Software...'
+      OnExecute = actAddSoftExecute
+    end
+    object actSaveLists: TAction
+      Category = 'File'
+      Caption = 'Save Lists'
+      OnExecute = actSaveListsExecute
+    end
+    object actAutoSave: TAction
+      Category = 'File'
+      AutoCheck = True
+      Caption = '+Save on Exit'
+      Hint = 'Autosave game list on exit'
+      OnExecute = actAutoSaveExecute
+    end
+    object actOpenTempFolder: TAction
+      Category = 'File'
+      Caption = 'Open Temp Folder'
+      OnExecute = actOpenTempFolderExecute
+    end
+    object actExportSoftData: TAction
+      Category = 'File'
+      Caption = 'Export soft data...'
+      OnExecute = actExportSoftDataExecute
+    end
+    object actImportSoftData: TAction
+      Category = 'File'
+      Caption = 'Import soft data...'
+      OnExecute = actImportSoftDataExecute
+    end
+    object actCleanAllSystems: TAction
+      Category = 'System'
+      Caption = 'Clean all systems'
+      Hint = 'Clean all systems data.|Removes soft not found and groups without soft in all enabled systems.'
+      OnExecute = actCleanAllSystemsExecute
+    end
+    object actCleanSystemData: TAction
+      Category = 'System'
+      Caption = 'Clean system data'
+      Hint = 'Clean current system data|Cleans current system soft not found and groups without soft'
+      OnExecute = actCleanSystemDataExecute
+    end
+  end
+  object MainMenu: TMainMenu
+    Images = ActImages
+    Left = 40
+    Top = 16
+    object mimmFile: TMenuItem
+      Caption = 'File'
+      object mimmTest: TMenuItem
+        Caption = 'Test'
+        OnClick = mimmTestClick
+      end
+      object mimmOpenTempFolder: TMenuItem
+        Action = actOpenTempFolder
+      end
+      object MenuItem13: TMenuItem
+        Caption = '-'
+      end
+      object mimmSaveLists: TMenuItem
+        Action = actSaveLists
+      end
+      object mimmSaveOnExit: TMenuItem
+        Action = actAutoSave
+        AutoCheck = True
+      end
+      object MenuItem15: TMenuItem
+        Caption = '-'
+      end
+      object mimmExit: TMenuItem
+        Action = FileExit1
+      end
+    end
+    object mimmManagers: TMenuItem
+      Caption = 'Managers'
+      object mimmEmulatorManager: TMenuItem
+        Action = actEmulatorManager
+      end
+      object mimmSystemManager: TMenuItem
+        Action = actSystemManager
+      end
+      object mimmMediaManager: TMenuItem
+        Action = actMediaManager
+      end
+      object mimmScriptManager: TMenuItem
+        Action = actScriptManager
+      end
+    end
+    object mimmSystem: TMenuItem
+      Caption = 'System'
+      object mimmCleanSystem: TMenuItem
+        Action = actCleanSystemData
+      end
+      object MenuItem3: TMenuItem
+        Caption = '-'
+      end
+      object mimmCleanAllSystems: TMenuItem
+        Action = actCleanAllSystems
+      end
+    end
+    object mimmSoft: TMenuItem
+      Caption = 'Software'
+      object mimmAddFiles: TMenuItem
+        Caption = 'Add...'
+        object mimmScanFolder: TMenuItem
+          Action = actAddFolder
+        end
+        object mimmAddSoft: TMenuItem
+          Action = actAddSoft
+        end
+      end
+      object MenuItem2: TMenuItem
+        Caption = '-'
+      end
+      object mimmExportSoftData: TMenuItem
+        Action = actExportSoftData
+      end
+      object mimmImportSoftData: TMenuItem
+        Action = actImportSoftData
+      end
+    end
+    object mmiHelp: TMenuItem
+      Caption = 'Help'
+      object mmiAbout: TMenuItem
+        Action = HelpOnHelp1
+      end
+    end
+  end
+  object IniPropStorage: TIniPropStorage
+    StoredValues = <>
+    IniSection = 'Forms'
+    Left = 40
+    Top = 184
+  end
+  object ActImages: TImageList
+    Left = 40
+    Top = 128
+  end
+end

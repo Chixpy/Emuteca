@@ -1,0 +1,25 @@
+inherited fmLEmuTKSysManager: TfmLEmuTKSysManager
+  inherited pButtons: TPanel
+    inherited chkCloseOnSave: TCheckBox
+      Left = 153
+    end
+    inherited bSave: TBitBtn
+      Left = 355
+    end
+    inherited bCancel: TBitBtn
+      Left = 570
+    end
+  end
+  object SaveDialog1: TSaveDialog[6]
+    Filter = 'Systems ini file|*.ini|All files|*.*'
+    Options = [ofNoChangeDir, ofEnableSizing, ofViewDetail]
+    Left = 24
+    Top = 256
+  end
+  object OpenDialog1: TOpenDialog[7]
+    Filter = 'Systems ini file|*.ini|All files|*.*'
+    Options = [ofNoChangeDir, ofEnableSizing, ofViewDetail]
+    Left = 96
+    Top = 256
+  end
+end

@@ -1,0 +1,6 @@
+[submodule "Emuteca.wiki"]
+	path = Emuteca.wiki
+	url = ../Emuteca.wiki.git
+[submodule "CHXPas"]
+	path = CHXPas
+	url = ../CHXPas.git

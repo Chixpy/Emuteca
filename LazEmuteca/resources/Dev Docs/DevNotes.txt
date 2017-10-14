@@ -1,0 +1,49 @@
+This is a miscellaneous list for developing and other thing related.
+
+7z = Folder or 7z/zip/rar/etc.
+db = Whatever I store the full list of game/parents
+
+uXXX = Unit.
+ucXXX = Class unit.
+uaXXX = Abstract class unit.
+ufXXX = Frame unit.
+uafXXX = Abstract Frame unit.
+uafrXXX = Abstract Form unit.
+
+xEmuTKXXX = Emuteca core unit
+xLEmuTKXXX = GUI unit.
+
+(0.7) Making a database from games
+----------------------------
+  1. GoodXXX
+  2. GoodMerge
+  3. Emuteca
+    3.1. Load Game list
+    3.2. Script Manager
+      3.2.1. GoodXXXFilenames
+      3.2.2. GroupByFolder
+      3.2.3. ChangeTitleDelimiter
+      3.2.4. MoveArticles
+      3.2.5. FixZoneLang
+    3.3. Export Games Data
+
+  4. Decompress all.
+  5. ClrMAMEPro the files
+  6. Emuteca
+    6.1. Purge Emuteca Data
+    6.2. Load GameList
+    6.3. Import Games Data
+    6.4. Script Manager
+      6.4.1. TOSECFilenames
+      6.4.2. ChangeTitleDelimiter
+      6.4.3. MoveArticles
+      6.4.4. FixZoneLang
+    6.4. Delete previous exported game data
+    6.5. Export Games Data.
+
+Visual component help
+---------------------
+  * Structure of hint properties of no action controls:
+    What is or do.|What can do.
+
+

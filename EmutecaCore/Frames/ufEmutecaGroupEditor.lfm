@@ -1,0 +1,69 @@
+inherited fmEmutecaGroupEditor: TfmEmutecaGroupEditor
+  Height = 275
+  Width = 253
+  ClientHeight = 275
+  ClientWidth = 253
+  inherited pButtons: TPanel
+    Top = 248
+    Width = 253
+    ClientWidth = 253
+    inherited chkCloseOnSave: TCheckBox
+      Left = 15
+    end
+    inherited bSave: TBitBtn
+      Left = 79
+    end
+    inherited bCancel: TBitBtn
+      Left = 156
+    end
+  end
+  object eDeveloper: TEdit[1]
+    Left = 0
+    Height = 23
+    Top = 46
+    Width = 253
+    Align = alTop
+    TabOrder = 1
+    TextHint = 'Developer'
+  end
+  object eTitle: TEdit[2]
+    Left = 0
+    Height = 23
+    Top = 0
+    Width = 253
+    Align = alTop
+    TabOrder = 2
+    TextHint = 'Title'
+  end
+  object eYear: TEdit[3]
+    Left = 0
+    Height = 23
+    Top = 69
+    Width = 253
+    Align = alTop
+    TabOrder = 3
+    TextHint = 'Year'
+  end
+  object eSortTitle: TEdit[4]
+    Left = 0
+    Height = 23
+    Top = 23
+    Width = 253
+    Align = alTop
+    TabOrder = 4
+    TextHint = 'Sort title'
+  end
+  object eMediaFile: TEdit[5]
+    Left = 0
+    Height = 23
+    Top = 92
+    Width = 253
+    Align = alTop
+    TabOrder = 5
+    TextHint = 'Media filename'
+  end
+  inherited alPropEditor: TActionList[6]
+  end
+  inherited ilPropEditor: TImageList[7]
+  end
+end

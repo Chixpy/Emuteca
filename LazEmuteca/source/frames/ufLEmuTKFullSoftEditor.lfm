@@ -1,0 +1,71 @@
+inherited fmLEmuTKFullSoftEditor: TfmLEmuTKFullSoftEditor
+  object gbxSoft: TGroupBox[1]
+    Left = 0
+    Height = 174
+    Top = 39
+    Width = 320
+    Align = alClient
+    Caption = 'Soft'
+    ClientHeight = 154
+    ClientWidth = 316
+    TabOrder = 1
+    object sbxSoft: TScrollBox
+      Left = 0
+      Height = 154
+      Top = 0
+      Width = 316
+      HorzScrollBar.Page = 1
+      VertScrollBar.Page = 1
+      Align = alClient
+      BorderStyle = bsNone
+      ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+      ChildSizing.EnlargeVertical = crsHomogenousChildResize
+      ChildSizing.ShrinkHorizontal = crsHomogenousChildResize
+      ChildSizing.ShrinkVertical = crsHomogenousChildResize
+      ChildSizing.Layout = cclLeftToRightThenTopToBottom
+      ChildSizing.ControlsPerLine = 1
+      TabOrder = 0
+    end
+  end
+  object gbxGroup: TGroupBox[2]
+    Left = 0
+    Height = 39
+    Top = 0
+    Width = 320
+    Align = alTop
+    AutoSize = True
+    Caption = 'Group'
+    ClientHeight = 19
+    ClientWidth = 316
+    TabOrder = 2
+    object pGroupCBX: TPanel
+      Left = 0
+      Height = 19
+      Top = 0
+      Width = 316
+      Align = alTop
+      AutoSize = True
+      BevelOuter = bvNone
+      ClientHeight = 19
+      ClientWidth = 316
+      TabOrder = 0
+      object bAddNewGroup: TSpeedButton
+        Left = 293
+        Height = 19
+        Top = 0
+        Width = 23
+        Action = actAddNewGroup
+        Align = alRight
+      end
+    end
+  end
+  inherited alPropEditor: TActionList[3]
+    object actAddNewGroup: TAction[2]
+      Category = 'Group'
+      Caption = 'actAddNewGroup'
+      OnExecute = actAddNewGroupExecute
+    end
+  end
+  inherited ilPropEditor: TImageList[4]
+  end
+end

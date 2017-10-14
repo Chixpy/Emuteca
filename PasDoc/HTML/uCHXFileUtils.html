@@ -1,0 +1,181 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<title>Emuteca: uCHXFileUtils</title>
+<meta name="generator" content="PasDoc 0.14.0">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<script type="text/javascript" src="tipuesearch/jquery.min.js"></script>
+<script type="text/javascript" src="tipuesearch/tipuesearch_data.js"></script>
+<link rel="stylesheet" type="text/css" href="tipuesearch/tipuesearch.css">
+<script type="text/javascript" src="tipuesearch/tipuesearch_set.js"></script>
+<script type="text/javascript" src="tipuesearch/tipuesearch.js"></script>
+
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body>
+<table class="container"><tr><td class="navigation">
+<h2>Emuteca</h2><p><a href="AllUnits.html" class="navigation">Units</a></p><p><a href="ClassHierarchy.html" class="navigation">Class Hierarchy</a></p><p><a href="AllClasses.html" class="navigation">Classes, Interfaces, Objects and Records</a></p><p><a href="AllTypes.html" class="navigation">Types</a></p><p><a href="AllVariables.html" class="navigation">Variables</a></p><p><a href="AllConstants.html" class="navigation">Constants</a></p><p><a href="AllFunctions.html" class="navigation">Functions and Procedures</a></p><p><a href="AllIdentifiers.html" class="navigation">Identifiers</a></p><p><form class="search-form" action="_tipue_results.html"><div class="search-input"><input type="text" name="q" id="tipue_search_input"></div><div class="search-button"><input type="button" id="tipue_search_button" onclick="this.form.submit();"></div></form>
+<div style="clear: both"></div>
+
+<script>
+$(document).ready(function() {
+    $('#tipue_search_input').tipuesearch({
+        /* 10 items to display seems standard */
+        'show': 10,
+        /* For PasDoc docs, showing urls is not very useful,
+           since the page title already shows the unit and identifier. */
+        'showURL': false
+    });
+});
+</script>
+</p></td><td class="content">
+<h1 class="unit">Unit uCHXFileUtils</h1>
+<table class="sections wide_list">
+<tr>
+<td><a class="section" href="#PasDoc-Description">Description</a></td><td><a class="section" href="#PasDoc-Uses">Uses</a></td><td>Classes, Interfaces, Objects and Records</td><td><a class="section" href="#PasDoc-FuncsProcs">Functions and Procedures</a></td><td><a class="section" href="#PasDoc-Types">Types</a></td><td>Constants</td><td>Variables</td></tr></table>
+<a name="PasDoc-Description"></a><h2 class="description">Description</h2>
+&nbsp;<a name="PasDoc-Uses"></a><h2 class="uses">Uses</h2>
+<ul class="useslist"><li>Classes</li><li>SysUtils</li><li>crc</li><li>sha1</li><li>FileUtil</li><li>LazFileUtils</li><li>LazUTF8</li><li><a  href="uCHXStrUtils.html">uCHXStrUtils</a></li><li><a  href="u7zWrapper.html">u7zWrapper</a></li></ul><h2 class="overview">Overview</h2>
+<a name="PasDoc-FuncsProcs"></a><h3 class="summary">Functions and Procedures</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="itemcode"><code>procedure <b><a  href="uCHXFileUtils.html#Search7ZFilesByExt">Search7ZFilesByExt</a></b>(AOutFolderList, AOutFileList: TStrings; aBaseFolder: string; aExtList: TStrings; Recursive: boolean = True);</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code>procedure <b><a  href="uCHXFileUtils.html#SearchMediaFiles">SearchMediaFiles</a></b>(FileList: TStrings; aFolder: string; aFileName: string; Extensions: TStrings);</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code>function <b><a  href="uCHXFileUtils.html#CRC32FileInt">CRC32FileInt</a></b>(const aFileName: string): cardinal;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code>function <b><a  href="uCHXFileUtils.html#CRC32FileStr">CRC32FileStr</a></b>(const aFileName: string): string;</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code>function <b><a  href="uCHXFileUtils.html#SHA1FileStr">SHA1FileStr</a></b>(const aFileName: string): string;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code>function <b><a  href="uCHXFileUtils.html#IterateFolderObj">IterateFolderObj</a></b>(Folder: string; aFunction: <a  href="uCHXFileUtils.html#TItFolderObj">TItFolderObj</a>; Recursive: boolean = True): boolean;</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code>function <b><a  href="uCHXFileUtils.html#IterateFolderFun">IterateFolderFun</a></b>(Folder: string; aFunction: <a  href="uCHXFileUtils.html#TItFolderFun">TItFolderFun</a>; Recursive: boolean = True): boolean;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code>function <b><a  href="uCHXFileUtils.html#FilesInFolder">FilesInFolder</a></b>(Folder: string): integer;</code></td>
+</tr>
+</table>
+<a name="PasDoc-Types"></a><h3 class="summary">Types</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="itemcode"><code><b><a  href="uCHXFileUtils.html#TItFolderObj">TItFolderObj</a></b> = function(Folder: string; FileInfo: TSearchRec): boolean of object;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="uCHXFileUtils.html#TItFolderFun">TItFolderFun</a></b> = function(Folder: string; FileInfo: TSearchRec): boolean;</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Functions and Procedures</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="Search7ZFilesByExt"></a><code>procedure <b>Search7ZFilesByExt</b>(AOutFolderList, AOutFileList: TStrings; aBaseFolder: string; aExtList: TStrings; Recursive: boolean = True);</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Searches all files with selected extensions, searching in compressed archives too.
+
+<p>    </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>AOutFolderList</dt>
+<dd>StringList with the folder or compressed archive were files in AOutFileList are found. If nil it will be created, so must be freed elsewhere.</dd>
+<dt>AOutFileList</dt>
+<dd>Files found (if they are in a compressed archive, they have the internal folder structure). If nil it will be created, so must be freed elsewhere.</dd>
+<dt>aBaseFolder</dt>
+<dd>Folder were search.</dd>
+<dt>aExtList</dt>
+<dd>Extensions StringList, one extension by line.</dd>
+<dt>Recursive</dt>
+<dd>Search in (actual) subfolders too? If compressed archives have internal folder structure file are found any way</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="SearchMediaFiles"></a><code>procedure <b>SearchMediaFiles</b>(FileList: TStrings; aFolder: string; aFileName: string; Extensions: TStrings);</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="CRC32FileInt"></a><code>function <b>CRC32FileInt</b>(const aFileName: string): cardinal;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Calculates CRC32 checksum of a file.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="CRC32FileStr"></a><code>function <b>CRC32FileStr</b>(const aFileName: string): string;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Calculates CRC32 checksum of a file and return as string.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="SHA1FileStr"></a><code>function <b>SHA1FileStr</b>(const aFileName: string): string;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Calculates SHA1 checksum of a file and return as string.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="IterateFolderObj"></a><code>function <b>IterateFolderObj</b>(Folder: string; aFunction: <a  href="uCHXFileUtils.html#TItFolderObj">TItFolderObj</a>; Recursive: boolean = True): boolean;</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="IterateFolderFun"></a><code>function <b>IterateFolderFun</b>(Folder: string; aFunction: <a  href="uCHXFileUtils.html#TItFolderFun">TItFolderFun</a>; Recursive: boolean = True): boolean;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Recorre el directorio especificado y ejecuta aFuncion(TSearchRec) con cada uno de los archivos encontrados
+
+<p>Parámetros: - Directorio: string -&gt; Directorio a recorrer - Funcion: function(Directorio: string; Info: TSearchRec): Boolean -&gt; Metodo de un objeto al que se le pasa el TSearchRec y el directorio del archivo actual como parámetro para operar con él. Si devuelve True continua con el siguiente fichero. - Recursivo: Boolean -&gt; Indica si también se deben recorrer los subdirectorios - Result: Boolean -&gt; Indica si se ha continuar la operación
+
+<p>Notas: - Si Funcion devuelve True continúa recorriendo el directorio, si devuelve False no pasa al siguiente archivo.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="FilesInFolder"></a><code>function <b>FilesInFolder</b>(Folder: string): integer;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+TODO 2: Is there a better way?</p>
+</td></tr>
+</table>
+<h3 class="detail">Types</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="TItFolderObj"></a><code><b>TItFolderObj</b> = function(Folder: string; FileInfo: TSearchRec): boolean of object;</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="TItFolderFun"></a><code><b>TItFolderFun</b> = function(Folder: string; FileInfo: TSearchRec): boolean;</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/">PasDoc 0.14.0</a>. </em>
+</span>
+</td></tr></table></body></html>

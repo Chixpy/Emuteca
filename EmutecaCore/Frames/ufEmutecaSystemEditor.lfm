@@ -1,0 +1,253 @@
+inherited fmEmutecaSystemEditor: TfmEmutecaSystemEditor
+  Height = 426
+  Width = 468
+  ClientHeight = 426
+  ClientWidth = 468
+  DesignLeft = 459
+  DesignTop = 194
+  inherited pButtons: TPanel
+    Top = 399
+    Width = 468
+    ClientWidth = 468
+    inherited chkCloseOnSave: TCheckBox
+      Left = 67
+    end
+    inherited bSave: TBitBtn
+      Left = 183
+    end
+    inherited bCancel: TBitBtn
+      Left = 320
+    end
+  end
+  object Panel2: TPanel[1]
+    Left = 0
+    Height = 399
+    Top = 0
+    Width = 253
+    Align = alLeft
+    BevelOuter = bvNone
+    ClientHeight = 399
+    ClientWidth = 253
+    TabOrder = 1
+    object gbxBasicInfo: TGroupBox
+      Left = 0
+      Height = 96
+      Top = 0
+      Width = 253
+      Align = alTop
+      AutoSize = True
+      Caption = 'Basic Info'
+      ClientHeight = 76
+      ClientWidth = 249
+      TabOrder = 0
+      object lTitle: TLabel
+        Left = 0
+        Height = 15
+        Top = 0
+        Width = 249
+        Align = alTop
+        Caption = 'Title'
+        ParentColor = False
+      end
+      object eTitle: TEdit
+        Left = 0
+        Height = 23
+        Top = 15
+        Width = 249
+        Align = alTop
+        TabOrder = 0
+        TextHint = 'Company Model'
+      end
+      object lFileName: TLabel
+        Left = 0
+        Height = 15
+        Top = 38
+        Width = 249
+        Align = alTop
+        Caption = 'Default filename'
+        ParentColor = False
+      end
+      object eExtraInfoFilename: TEdit
+        Left = 0
+        Height = 23
+        Top = 53
+        Width = 249
+        Align = alTop
+        TabOrder = 1
+      end
+    end
+    object gbxEmulators: TGroupBox
+      Left = 0
+      Height = 303
+      Top = 96
+      Width = 253
+      Align = alClient
+      Caption = 'Emulators'
+      ClientHeight = 283
+      ClientWidth = 249
+      TabOrder = 1
+      object lMainEmulator: TLabel
+        Left = 0
+        Height = 15
+        Top = 0
+        Width = 249
+        Align = alTop
+        Caption = 'Main Emulator'
+        ParentColor = False
+      end
+      object cbxMainEmulator: TComboBox
+        Left = 0
+        Height = 23
+        Top = 15
+        Width = 249
+        Align = alTop
+        AutoDropDown = True
+        ItemHeight = 15
+        Style = csDropDownList
+        TabOrder = 0
+      end
+      object lOtherEmulators: TLabel
+        Left = 0
+        Height = 15
+        Top = 38
+        Width = 249
+        Align = alTop
+        Caption = 'Other Emulators'
+        ParentColor = False
+      end
+      object clbOtherEmulators: TCheckListBox
+        Left = 0
+        Height = 230
+        Top = 53
+        Width = 249
+        Align = alClient
+        ItemHeight = 0
+        TabOrder = 1
+      end
+    end
+  end
+  object Splitter1: TSplitter[2]
+    Left = 253
+    Height = 399
+    Top = 0
+    Width = 5
+  end
+  object gbxFiles: TGroupBox[3]
+    Left = 258
+    Height = 399
+    Top = 0
+    Width = 210
+    Align = alClient
+    Caption = 'Files'
+    ClientHeight = 379
+    ClientWidth = 206
+    TabOrder = 3
+    object lBaseFolder: TLabel
+      Left = 0
+      Height = 15
+      Top = 0
+      Width = 206
+      Align = alTop
+      Caption = 'System base folder'
+      ParentColor = False
+    end
+    object eBaseFolder: TDirectoryEdit
+      Left = 0
+      Height = 23
+      Top = 15
+      Width = 206
+      DialogOptions = [ofNoChangeDir, ofEnableSizing, ofViewDetail]
+      ShowHidden = False
+      ButtonWidth = 23
+      NumGlyphs = 1
+      Flat = True
+      Align = alTop
+      MaxLength = 0
+      TabOrder = 0
+      OnButtonClick = eBaseFolderButtonClick
+    end
+    object lFileExtensions: TLabel
+      Left = 0
+      Height = 15
+      Top = 153
+      Width = 206
+      Align = alTop
+      Caption = 'File Extensions'
+      ParentColor = False
+    end
+    object mExtensions: TMemo
+      Left = 0
+      Height = 211
+      Top = 168
+      Width = 206
+      Align = alClient
+      TabOrder = 1
+    end
+    object rgbGameKey: TRadioGroup
+      Left = 0
+      Height = 58
+      Top = 76
+      Width = 250
+      Align = alTop
+      AutoFill = True
+      AutoSize = True
+      Caption = 'Key for Games'
+      ChildSizing.LeftRightSpacing = 6
+      ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+      ChildSizing.EnlargeVertical = crsHomogenousChildResize
+      ChildSizing.ShrinkHorizontal = crsScaleChilds
+      ChildSizing.ShrinkVertical = crsScaleChilds
+      ChildSizing.Layout = cclTopToBottomThenLeftToRight
+      ChildSizing.ControlsPerLine = 2
+      ClientHeight = 38
+      ClientWidth = 246
+      ColumnLayout = clVerticalThenHorizontal
+      Columns = 2
+      Constraints.MinWidth = 250
+      Items.Strings = (
+        'SHA1'
+        'CRC32'
+        'FileName'
+        'Custom'
+      )
+      TabOrder = 2
+    end
+    object chkExtractAllFiles: TCheckBox
+      Left = 0
+      Height = 19
+      Top = 134
+      Width = 206
+      Align = alTop
+      Caption = 'Extract All Files (If it''s in compressed)'
+      TabOrder = 3
+    end
+    object lWorkingFolder: TLabel
+      Left = 0
+      Height = 15
+      Top = 38
+      Width = 206
+      Align = alTop
+      Caption = 'Working Folder'
+      ParentColor = False
+    end
+    object eWorkingFolder: TDirectoryEdit
+      Left = 0
+      Height = 23
+      Top = 53
+      Width = 206
+      DialogOptions = [ofNoChangeDir, ofEnableSizing, ofViewDetail]
+      ShowHidden = False
+      ButtonWidth = 23
+      NumGlyphs = 1
+      Flat = True
+      Align = alTop
+      MaxLength = 0
+      TabOrder = 4
+      OnButtonClick = eWorkingFolderButtonClick
+    end
+  end
+  inherited alPropEditor: TActionList[4]
+  end
+  inherited ilPropEditor: TImageList[5]
+  end
+end

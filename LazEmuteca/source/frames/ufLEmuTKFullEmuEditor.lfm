@@ -1,0 +1,14 @@
+inherited fmLEmuTKFullEmuEditor: TfmLEmuTKFullEmuEditor
+  object pcProperties: TPageControl[1]
+    Left = 0
+    Height = 213
+    Top = 0
+    Width = 320
+    Align = alClient
+    TabOrder = 1
+  end
+  inherited alPropEditor: TActionList[2]
+  end
+  inherited ilPropEditor: TImageList[3]
+  end
+end

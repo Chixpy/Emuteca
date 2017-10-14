@@ -1,0 +1,12 @@
+inherited fmLEmuTKScriptManager: TfmLEmuTKScriptManager
+  inherited PageControl: TPageControl
+    inherited pagScriptList: TTabSheet
+      ClientHeight = 522
+      ClientWidth = 1268
+    end
+    inherited pagSourceCode: TTabSheet
+      ClientHeight = 408
+      ClientWidth = 1096
+    end
+  end
+end

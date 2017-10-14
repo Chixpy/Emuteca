@@ -1,0 +1,215 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<title>Emuteca: uFigura: Class cFigura</title>
+<meta name="generator" content="PasDoc 0.14.0">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<script type="text/javascript" src="tipuesearch/jquery.min.js"></script>
+<script type="text/javascript" src="tipuesearch/tipuesearch_data.js"></script>
+<link rel="stylesheet" type="text/css" href="tipuesearch/tipuesearch.css">
+<script type="text/javascript" src="tipuesearch/tipuesearch_set.js"></script>
+<script type="text/javascript" src="tipuesearch/tipuesearch.js"></script>
+
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body>
+<table class="container"><tr><td class="navigation">
+<h2>Emuteca</h2><p><a href="AllUnits.html" class="navigation">Units</a></p><p><a href="ClassHierarchy.html" class="navigation">Class Hierarchy</a></p><p><a href="AllClasses.html" class="navigation">Classes, Interfaces, Objects and Records</a></p><p><a href="AllTypes.html" class="navigation">Types</a></p><p><a href="AllVariables.html" class="navigation">Variables</a></p><p><a href="AllConstants.html" class="navigation">Constants</a></p><p><a href="AllFunctions.html" class="navigation">Functions and Procedures</a></p><p><a href="AllIdentifiers.html" class="navigation">Identifiers</a></p><p><form class="search-form" action="_tipue_results.html"><div class="search-input"><input type="text" name="q" id="tipue_search_input"></div><div class="search-button"><input type="button" id="tipue_search_button" onclick="this.form.submit();"></div></form>
+<div style="clear: both"></div>
+
+<script>
+$(document).ready(function() {
+    $('#tipue_search_input').tipuesearch({
+        /* 10 items to display seems standard */
+        'show': 10,
+        /* For PasDoc docs, showing urls is not very useful,
+           since the page title already shows the unit and identifier. */
+        'showURL': false
+    });
+});
+</script>
+</p></td><td class="content">
+<a name="cFigura"></a><h1 class="cio">Class cFigura</h1>
+<table class="sections wide_list">
+<tr>
+<td><a class="section" href="#PasDoc-Description">Description</a></td><td><a class="section" href="#PasDoc-Hierarchy">Hierarchy</a></td><td><a class="section" href="#PasDoc-Fields">Fields</a></td><td><a class="section" href="#PasDoc-Methods">Methods</a></td><td>Properties</td></tr></table>
+<a name="PasDoc-Description"></a><h2 class="unit">Unit</h2>
+<p class="unitlink">
+<a  href="uFigura.html">uFigura</a></p>
+<h2 class="declaration">Declaration</h2>
+<p class="declaration">
+<code>type cFigura = class(TObject)</code></p>
+<h2 class="description">Description</h2>
+<a name="PasDoc-Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
+<ul class="hierarchy"><li class="ancestor">TObject</li>
+<li class="thisitem">cFigura</li></ul><h2 class="overview">Overview</h2>
+<a name="PasDoc-Fields"></a><h3 class="summary">Fields</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code><b><a  href="uFigura.cFigura.html#Punto">Punto</a></b>: Array of <a  href="uPunto.cPunto.html">cpunto</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code><b><a  href="uFigura.cFigura.html#NPuntos">NPuntos</a></b>: Integer;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code><b><a  href="uFigura.cFigura.html#TipoFigura">TipoFigura</a></b>: String;</code></td>
+</tr>
+</table>
+<a name="PasDoc-Methods"></a><h3 class="summary">Methods</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Constructor <b><a  href="uFigura.cFigura.html#Crear">Crear</a></b>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Constructor <b><a  href="uFigura.cFigura.html#Copiar">Copiar</a></b>(Figura : <a  href="uFigura.cFigura.html">cFigura</a>);</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Constructor <b><a  href="uFigura.cFigura.html#DeCadena">DeCadena</a></b> (Cadena : String);</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Function <b><a  href="uFigura.cFigura.html#ACadena">ACadena</a></b> : String;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Procedure <b><a  href="uFigura.cFigura.html#Rotar">Rotar</a></b> (Angulo: Real);</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Procedure <b><a  href="uFigura.cFigura.html#Escalar">Escalar</a></b> (Factor : Real);</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Procedure <b><a  href="uFigura.cFigura.html#TrasladarHorizontal">TrasladarHorizontal</a></b> (Valor : Real);</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Procedure <b><a  href="uFigura.cFigura.html#Trasladarvertical">Trasladarvertical</a></b> (Valor : Real);</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Fields</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Punto"></a><code><b>Punto</b>: Array of <a  href="uPunto.cPunto.html">cpunto</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="NPuntos"></a><code><b>NPuntos</b>: Integer;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="TipoFigura"></a><code><b>TipoFigura</b>: String;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<h3 class="detail">Methods</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Crear"></a><code>Constructor <b>Crear</b>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+****************************************************************************** constructor <code>crear</code>; PRE: Ninguna POS: Objeto <a class="normal" href="uFigura.cFigura.html">cFigura</a> creado DES: Crea un obj. <a class="normal" href="uFigura.cFigura.html">cFigura</a> sin ningun vertice ******************************************************************************</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Copiar"></a><code>Constructor <b>Copiar</b>(Figura : <a  href="uFigura.cFigura.html">cFigura</a>);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+****************************************************************************** constructor <code>copiar</code>; PRE: objeto <a class="normal" href="uFigura.cFigura.html">cFigura</a> creado POS: Copia del Objeto <a class="normal" href="uFigura.cFigura.html">cFigura</a> pasado por parametro DES: Hace una copia un obj. <a class="normal" href="uFigura.cFigura.html">cFigura</a> en otro nuevo ******************************************************************************</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="DeCadena"></a><code>Constructor <b>DeCadena</b> (Cadena : String);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+****************************************************************************** constructor <code>DeCadena</code>; PRE: Cadena con el tipo figura entre corchetes '[' ']' y una serie de puntos entre parentesis '(' ')'. POS: Un objeto <a class="normal" href="uFigura.cFigura.html">cFigura</a> con los puntos que hay en la Cadena de caracteres DES: Crea un obj. <a class="normal" href="uFigura.cFigura.html">cFigura</a> a Partir de una cadena de caracteres que tiene la siguiente sintaxis: [nombre_figura],(x1, y1), (x2, y2), (x3, y3), .... ******************************************************************************</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="ACadena"></a><code>Function <b>ACadena</b> : String;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+****************************************************************************** FUNCION <code>ACadena</code>; PRE: objeto <a class="normal" href="uFigura.cFigura.html">cFigura</a> creado POS: String con la siguiente sintaxis: [nombre_figura],(x1, y1), (x2, y2), (x3, y3), .... DES: Devuelve una cadena con la anterior sintaxis con los puntos del objeto ******************************************************************************</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Rotar"></a><code>Procedure <b>Rotar</b> (Angulo: Real);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+****************************************************************************** PROCEDIMIENTO <code>Rotar</code>; PRE: objeto <a class="normal" href="uFigura.cFigura.html">cFigura</a> creado y un angulo (radianes) POS: objeto <a class="normal" href="uFigura.cFigura.html">cFigura</a> rotado el angulo anterior DES: Rota la figura el angulo pasado como parametro, el centro de rotacion es el origen de coordenadas (0, 0). Ejemplo:
+
+<p>[TRIANGULO], (2, 5), (-1, 4), (6, 7), .... rotado pi radianes quedaria: [TRIANGULO], (-2, -5), (1, -4), (-6, -7)
+
+<p>******************************************************************************</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Escalar"></a><code>Procedure <b>Escalar</b> (Factor : Real);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+**************************************************************************** PROCEDIMIENTO <code>Escalar</code>; PRE: Objeto <a class="normal" href="uFigura.cFigura.html">cFigura</a> creado y un factor de escala POS: Objeto <a class="normal" href="uFigura.cFigura.html">cFigura</a> escalado DES: Escala la figura el factor pasado como parametro. ATENCION: Si el objeto no est  centrado en el origen habr  un desplazamiento de la figura ya que no se calcula un origen 'local' para comenzar la escala.
+
+<p>[TRIANGULO], (2, 5), (-1, 4), (6, 7), .... escalado por 3: [TRIANGULO], (6, 15), (-3, 12), (18, 21)
+
+<p>Una escala de -1 dar¡a como resultado la simetrica respecto al origen
+
+<p>****************************************************************************</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="TrasladarHorizontal"></a><code>Procedure <b>TrasladarHorizontal</b> (Valor : Real);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+**************************************************************************** PROCEDIMIENTO <code>TrasladarHorizontal</code>; PRE: Objeto <a class="normal" href="uFigura.cFigura.html">cFigura</a> creado y catidad de unidades de traslado POS: Objeto <a class="normal" href="uFigura.cFigura.html">cFigura</a> trasladado el numero de unidades especificado DES: Translada la figura HORIZONTALEMENTE un numero de unidades especificado ****************************************************************************</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Trasladarvertical"></a><code>Procedure <b>Trasladarvertical</b> (Valor : Real);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+**************************************************************************** PROCEDIMIENTO <code>TrasladarVertical</code> PRE: Objeto <a class="normal" href="uFigura.cFigura.html">cFigura</a> creado y catidad de unidades de traslado POS: Objeto <a class="normal" href="uFigura.cFigura.html">cFigura</a> trasladado el numero de unidades especificado DES: Translada la figura VERTICALMENTE un numero de unidades especificado ****************************************************************************</p>
+</td></tr>
+</table>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/">PasDoc 0.14.0</a>. </em>
+</span>
+</td></tr></table></body></html>

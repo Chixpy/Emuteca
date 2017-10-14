@@ -1,0 +1,309 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<title>Emuteca: uCHXStrUtils</title>
+<meta name="generator" content="PasDoc 0.14.0">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<script type="text/javascript" src="tipuesearch/jquery.min.js"></script>
+<script type="text/javascript" src="tipuesearch/tipuesearch_data.js"></script>
+<link rel="stylesheet" type="text/css" href="tipuesearch/tipuesearch.css">
+<script type="text/javascript" src="tipuesearch/tipuesearch_set.js"></script>
+<script type="text/javascript" src="tipuesearch/tipuesearch.js"></script>
+
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body>
+<table class="container"><tr><td class="navigation">
+<h2>Emuteca</h2><p><a href="AllUnits.html" class="navigation">Units</a></p><p><a href="ClassHierarchy.html" class="navigation">Class Hierarchy</a></p><p><a href="AllClasses.html" class="navigation">Classes, Interfaces, Objects and Records</a></p><p><a href="AllTypes.html" class="navigation">Types</a></p><p><a href="AllVariables.html" class="navigation">Variables</a></p><p><a href="AllConstants.html" class="navigation">Constants</a></p><p><a href="AllFunctions.html" class="navigation">Functions and Procedures</a></p><p><a href="AllIdentifiers.html" class="navigation">Identifiers</a></p><p><form class="search-form" action="_tipue_results.html"><div class="search-input"><input type="text" name="q" id="tipue_search_input"></div><div class="search-button"><input type="button" id="tipue_search_button" onclick="this.form.submit();"></div></form>
+<div style="clear: both"></div>
+
+<script>
+$(document).ready(function() {
+    $('#tipue_search_input').tipuesearch({
+        /* 10 items to display seems standard */
+        'show': 10,
+        /* For PasDoc docs, showing urls is not very useful,
+           since the page title already shows the unit and identifier. */
+        'showURL': false
+    });
+});
+</script>
+</p></td><td class="content">
+<h1 class="unit">Unit uCHXStrUtils</h1>
+<table class="sections wide_list">
+<tr>
+<td><a class="section" href="#PasDoc-Description">Description</a></td><td><a class="section" href="#PasDoc-Uses">Uses</a></td><td>Classes, Interfaces, Objects and Records</td><td><a class="section" href="#PasDoc-FuncsProcs">Functions and Procedures</a></td><td>Types</td><td>Constants</td><td>Variables</td></tr></table>
+<a name="PasDoc-Description"></a><h2 class="description">Description</h2>
+<p>
+Unit with some string related functions.</p>
+<a name="PasDoc-Uses"></a><h2 class="uses">Uses</h2>
+<ul class="useslist"><li>Classes</li><li>Strutils</li><li>SysUtils</li><li>LazFileUtils</li><li>LazUTF8</li><li>LazUTF8Classes</li><li>Math</li><li><a  href="uCHXConst.html">uCHXConst</a></li><li>uCHXRscStr</li></ul><h2 class="overview">Overview</h2>
+<a name="PasDoc-FuncsProcs"></a><h3 class="summary">Functions and Procedures</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="itemcode"><code>function <b><a  href="uCHXStrUtils.html#UTF8TextReplace">UTF8TextReplace</a></b>(const S, OldPattern, NewPattern: string; ALanguage: string = ''): string;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code>function <b><a  href="uCHXStrUtils.html#RemoveFromBrackets">RemoveFromBrackets</a></b>(const aString: string): string;</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code>function <b><a  href="uCHXStrUtils.html#CopyFromBrackets">CopyFromBrackets</a></b>(const aString: string): string;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code>function <b><a  href="uCHXStrUtils.html#TextSimilarity">TextSimilarity</a></b>(const aString1, aString2: string): byte;</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code>function <b><a  href="uCHXStrUtils.html#SetAsID">SetAsID</a></b>(const aID: string): string;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code>function <b><a  href="uCHXStrUtils.html#SetAsFolder">SetAsFolder</a></b>(const aValue: string): string;</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code>function <b><a  href="uCHXStrUtils.html#SysPath">SysPath</a></b>(const aPath: string): string;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code>function <b><a  href="uCHXStrUtils.html#WinPath">WinPath</a></b>(const aPath: string): string;</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code>function <b><a  href="uCHXStrUtils.html#UnixPath">UnixPath</a></b>(const aPath: string): string;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code>function <b><a  href="uCHXStrUtils.html#CleanFileName">CleanFileName</a></b>(const AFileName: string; const DoTrim: boolean = True; const PathAware: boolean = False): string;</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code>function <b><a  href="uCHXStrUtils.html#SetAsRelativeFile">SetAsRelativeFile</a></b>(const aFileName: string; BaseDir: string): string;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code>function <b><a  href="uCHXStrUtils.html#SetAsFile">SetAsFile</a></b>(const aFileName: string): string;</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code>function <b><a  href="uCHXStrUtils.html#SupportedExt">SupportedExt</a></b>(aFilename: string; aExt: TStrings): boolean;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code>procedure <b><a  href="uCHXStrUtils.html#CleanStringList">CleanStringList</a></b>(aStringList: TStrings; CommentChar: string = ';');</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code>function <b><a  href="uCHXStrUtils.html#AddToStringList">AddToStringList</a></b>(aList: TStrings; aString: string): integer;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code>function <b><a  href="uCHXStrUtils.html#FileMaskFromStringList">FileMaskFromStringList</a></b>(aList: TStrings): string;</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code>procedure <b><a  href="uCHXStrUtils.html#StandardFormatSettings">StandardFormatSettings</a></b>;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code>function <b><a  href="uCHXStrUtils.html#StrCount">StrCount</a></b>(aString, ToSearch: string; CaseSensitve: boolean = False): cardinal;</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code>function <b><a  href="uCHXStrUtils.html#StrToCardinal">StrToCardinal</a></b>(const aString: string): cardinal;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code>function <b><a  href="uCHXStrUtils.html#StrToCardinalDef">StrToCardinalDef</a></b>(const aString: string; const Default: cardinal): cardinal;</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code>function <b><a  href="uCHXStrUtils.html#SecondsToFmtStr">SecondsToFmtStr</a></b>(aValue: int64): string;</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Functions and Procedures</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="UTF8TextReplace"></a><code>function <b>UTF8TextReplace</b>(const S, OldPattern, NewPattern: string; ALanguage: string = ''): string;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Until it is not in LazUTF8...</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="RemoveFromBrackets"></a><code>function <b>RemoveFromBrackets</b>(const aString: string): string;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Removes text from the first '(' o '[' found in the aString.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="CopyFromBrackets"></a><code>function <b>CopyFromBrackets</b>(const aString: string): string;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Copy text from the first '(' o '[' found in the aString.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="TextSimilarity"></a><code>function <b>TextSimilarity</b>(const aString1, aString2: string): byte;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Returns the similarity between 2 strings.
+
+<p>Based on <a  href="http://www.catalysoft.com/articles/StrikeAMatch.html">http://www.catalysoft.com/articles/StrikeAMatch.html</a> method tweaked a little.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="SetAsID"></a><code>function <b>SetAsID</b>(const aID: string): string;</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="SetAsFolder"></a><code>function <b>SetAsFolder</b>(const aValue: string): string;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Adds PathDelim at the end of string and changes them to '/'
+
+<p>IncludeTrailingPathDelimiter includes the PathDelim even if aValue = ''. This function non't add it in this case, so when testing if it's empty we don't need test <code>((aFolder='') or (aFolder=PathDelim))</code>
+
+<p>In the other hand, paths are converted to Linux one as Windows AND MS-DOS (+2.0) can recognise them without problem.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="SysPath"></a><code>function <b>SysPath</b>(const aPath: string): string;</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="WinPath"></a><code>function <b>WinPath</b>(const aPath: string): string;</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="UnixPath"></a><code>function <b>UnixPath</b>(const aPath: string): string;</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="CleanFileName"></a><code>function <b>CleanFileName</b>(const AFileName: string; const DoTrim: boolean = True; const PathAware: boolean = False): string;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Changes some invalid characters in filenames.
+
+<p> </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>DoTrim</dt>
+<dd>Trim spaces at beggining and end, preventing filenames beggining with space.</dd>
+<dt>PathAware</dt>
+<dd>Keep paths</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="SetAsRelativeFile"></a><code>function <b>SetAsRelativeFile</b>(const aFileName: string; BaseDir: string): string;</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="SetAsFile"></a><code>function <b>SetAsFile</b>(const aFileName: string): string;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Paths are converted to Linux one as Windows AND MS-DOS (+2.0) can recognise them without problem.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="SupportedExt"></a><code>function <b>SupportedExt</b>(aFilename: string; aExt: TStrings): boolean;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Search if a file is in a list of supported extensions.
+
+<p>aExt has a list of extensions (with or without dot).</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="CleanStringList"></a><code>procedure <b>CleanStringList</b>(aStringList: TStrings; CommentChar: string = ';');</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Removes comments and empty lines from a TStringList.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="AddToStringList"></a><code>function <b>AddToStringList</b>(aList: TStrings; aString: string): integer;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Add a String to a StringList.
+
+<p>Don't add repeated or empty strings.
+
+<p>Remember that you can use: aTStrings.Duplicates := dupIgnore aTStrings.AddStrings(aTStrings)</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="FileMaskFromStringList"></a><code>function <b>FileMaskFromStringList</b>(aList: TStrings): string;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Creates a file mask from a TStrings with an extension by line</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="StandardFormatSettings"></a><code>procedure <b>StandardFormatSettings</b>;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Standarizes the format settings.
+
+<p>Using local settings can cause errors reading data from a file generated with a computer with different local settings</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="StrCount"></a><code>function <b>StrCount</b>(aString, ToSearch: string; CaseSensitve: boolean = False): cardinal;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Counts the times that a substring is in a string.
+
+<p>NOTE: <code>StrCount</code>('ooo', 'oo') = 2 .</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="StrToCardinal"></a><code>function <b>StrToCardinal</b>(const aString: string): cardinal;</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="StrToCardinalDef"></a><code>function <b>StrToCardinalDef</b>(const aString: string; const Default: cardinal): cardinal;</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="SecondsToFmtStr"></a><code>function <b>SecondsToFmtStr</b>(aValue: int64): string;</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/">PasDoc 0.14.0</a>. </em>
+</span>
+</td></tr></table></body></html>

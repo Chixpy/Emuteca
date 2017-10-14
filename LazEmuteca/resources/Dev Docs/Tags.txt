@@ -1,0 +1,12 @@
+Players/1
+Players/2 coop.
+Players/3 coop.
+Players/4 coop.
+Players/Multi coop.
+Players/2 versus
+Players/2 vs 2
+Players/2 alt.
+Genre/
+Theme/
+
+
