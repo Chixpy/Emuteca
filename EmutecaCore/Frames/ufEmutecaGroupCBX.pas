@@ -24,8 +24,8 @@ type
     procedure SetSelectedGroup(AValue: cEmutecaGroup);
 
       protected
-    procedure ClearFrameData; override;
-    procedure LoadFrameData; override;
+    procedure DoClearFrameData;
+    procedure DoLoadFrameData;
 
   public
 
@@ -96,12 +96,12 @@ begin
   cbxGroup.ItemIndex := aPos;
 end;
 
-procedure TfmEmutecaGroupCBX.ClearFrameData;
+procedure TfmEmutecaGroupCBX.DoClearFrameData;
 begin
   cbxGroup.Clear;
 end;
 
-procedure TfmEmutecaGroupCBX.LoadFrameData;
+procedure TfmEmutecaGroupCBX.DoLoadFrameData;
 begin
     Enabled := Assigned(GroupList);
 
@@ -126,6 +126,9 @@ end;
 constructor TfmEmutecaGroupCBX.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
+
+  OnClearFrameData := @DoClearFrameData;
+  OnLoadFrameData := @DoLoadFrameData;
 end;
 
 destructor TfmEmutecaGroupCBX.Destroy;

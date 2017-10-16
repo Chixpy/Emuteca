@@ -169,6 +169,11 @@ begin
   // FIX: Searching mandatory space, some game have '(' in Title
   //   and ' (' too.. 
   // FIX2: Searching ' (' from right, then '(demo)' will be in DBTitle.
+
+  // TODO:
+  // Metroid - Wall Jump (2004)(VL-Tone)[h][Metroid (Eu)] No YEAR or PUBLISHER found.
+  // Metroid - AutoMap (2004-06-11)(Parasyte)[h][Metroid (US)] No YEAR or PUBLISHER found.
+
   
   aPos := RPos(' (', SoftStr);
   if aPos < 1 then
@@ -311,7 +316,7 @@ begin
     
   // TAGS
   // ====
-    
+
   // Year (obl)
   // -----------------
   // '(' + YYYY [+ '-' + MM [+ '-' + DD]] + ')'

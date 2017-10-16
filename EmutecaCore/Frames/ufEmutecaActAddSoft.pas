@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
   ExtCtrls, Buttons, ActnList, StdCtrls, EditBtn, LazFileUtils,
   u7zWrapper,
-  uCHXStrUtils, uCHXFileUtils, ufCHXForm,
+  uCHXStrUtils, uCHXFileUtils, ufrCHXForm,
   ufCHXPropEditor,
   uEmutecaCommon,
   uaEmutecaCustomSystem,
@@ -74,13 +74,13 @@ type
     function SelectSystem(aSystem: cEmutecaSystem): boolean;
     function SelectGroup(aGroup: cEmutecaGroup): boolean;
 
-    procedure ClearFrameData; override;
-    procedure LoadFrameData; override;
+    procedure DoClearFrameData;
+    procedure DoLoadFrameData;
+    procedure DoSaveFrameData;
 
   public
     property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
 
-    procedure SaveFrameData; override;
 
     // Creates a form with AddSoft frame.
     class function SimpleForm(aEmuteca: cEmuteca; aGUIIconsIni: string;
@@ -96,7 +96,7 @@ implementation
 
 { TfmEmutecaActAddSoft }
 
-procedure TfmEmutecaActAddSoft.ClearFrameData;
+procedure TfmEmutecaActAddSoft.DoClearFrameData;
 begin
   fmSystemCBX.SelectedSystem := nil;
   fmGroupCBX.SelectedGroup := nil;
@@ -440,7 +440,7 @@ begin
     SupportedExtSL(eFile.FileName, Emuteca.Config.CompressedExtensions);
 end;
 
-procedure TfmEmutecaActAddSoft.LoadFrameData;
+procedure TfmEmutecaActAddSoft.DoLoadFrameData;
 begin
   Enabled := Assigned(Software) and Assigned(Emuteca);
   if not Enabled then
@@ -450,7 +450,7 @@ begin
   end;
 end;
 
-procedure TfmEmutecaActAddSoft.SaveFrameData;
+procedure TfmEmutecaActAddSoft.DoSaveFrameData;
 var
   aSystem: cEmutecaSystem;
 begin
@@ -493,8 +493,8 @@ begin
 
     aFrame.Emuteca := aEmuteca;
 
-    aForm.GUIConfigIni := aGUIConfigIni;
-    aForm.GUIIconsIni := aGUIIconsIni;
+    aForm.LoadGUIConfig(aGUIConfigIni);
+    aForm.LoadGUIIcons(aGUIIconsIni);
     aFrame.Parent := aForm;
 
     Result := aForm.ShowModal;
@@ -529,6 +529,10 @@ begin
   inherited Create(TheOwner);
 
   Enabled := False;
+
+  OnClearFrameData := @DoClearFrameData;
+  OnLoadFrameData := @DoLoadFrameData;
+  OnSaveFrameData := @DoSaveFrameData;
 
   CreateFrames;
 

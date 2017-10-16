@@ -33,8 +33,8 @@ type
     procedure SetSystemList(AValue: cEmutecaSystemList);
 
   protected
-    procedure ClearFrameData; override;
-    procedure LoadFrameData; override;
+    procedure DoClearFrameData;
+    procedure DoLoadFrameData;
 
   public
     property SystemList: cEmutecaSystemList
@@ -146,12 +146,12 @@ begin
   LoadFrameData;
 end;
 
-procedure TfmEmutecaSystemCBX.ClearFrameData;
+procedure TfmEmutecaSystemCBX.DoClearFrameData;
 begin
   cbxSystem.Clear;
 end;
 
-procedure TfmEmutecaSystemCBX.LoadFrameData;
+procedure TfmEmutecaSystemCBX.DoLoadFrameData;
 begin
   Enabled := Assigned(SystemList);
 
@@ -183,6 +183,9 @@ end;
 constructor TfmEmutecaSystemCBX.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
+
+    OnClearFrameData := @DoClearFrameData;
+  OnLoadFrameData := @DoLoadFrameData;
 end;
 
 destructor TfmEmutecaSystemCBX.Destroy;

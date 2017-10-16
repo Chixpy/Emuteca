@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
   Buttons, CheckLst, ActnList, Menus,
   uCHXStrUtils,
-  ufCHXChkLstPropEditor, ufCHXForm,
+  ufCHXChkLstPropEditor, ufrCHXForm,
   ucEmuteca, uEmutecaCommon, ucEmutecaSystem,
   ufLEmuTKFullSystemEditor;
 
@@ -35,7 +35,6 @@ type
 
     property fmSysEditor: TfmLEmuTKFullSystemEditor read FfmSysEditor;
 
-    procedure SetGUIIconsIni(AValue: string); override;
     procedure AddItemToList; override;
     procedure DeleteItemFromList; override;
     procedure ExportList; override;
@@ -44,15 +43,15 @@ type
     procedure OnListClickCheck(aObject: TObject; aBool: boolean); override;
     procedure SetCheckedAll(aBool: boolean); override;
 
-    procedure ClearFrameData; override;
-    procedure LoadFrameData; override;
+    procedure DoClearFrameData; override;
+    procedure DoLoadFrameData;
+    procedure DoSaveFrameData;
 
   public
     property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
     //< Needed by fmSysEditor
     property SHA1Folder: string read FSHA1Folder write SetSHA1Folder;
 
-    procedure SaveFrameData; override;
 
     // Creates a form with System Manager.
     class function SimpleForm(aEmuteca: cEmuteca; aSHA1Folder: string; aGUIIconsIni: string;
@@ -68,14 +67,9 @@ implementation
 
 { TfmLEmuTKSysManager }
 
-procedure TfmLEmuTKSysManager.ClearFrameData;
+procedure TfmLEmuTKSysManager.DoClearFrameData;
 begin
   inherited ClearFrameData;
-end;
-
-procedure TfmLEmuTKSysManager.SetGUIIconsIni(AValue: string);
-begin
-  inherited SetGUIIconsIni(AValue);
 end;
 
 procedure TfmLEmuTKSysManager.SetCheckedAll(aBool: boolean);
@@ -189,7 +183,7 @@ begin
   Emuteca.SystemManager.LoadFromFileIni(OpenDialog1.FileName);
 end;
 
-procedure TfmLEmuTKSysManager.LoadFrameData;
+procedure TfmLEmuTKSysManager.DoLoadFrameData;
 var
   i: integer;
 begin
@@ -210,7 +204,7 @@ begin
   end;
 end;
 
-procedure TfmLEmuTKSysManager.SaveFrameData;
+procedure TfmLEmuTKSysManager.DoSaveFrameData;
 var
   i: integer;
   aSystem: cEmutecaSystem;
@@ -273,8 +267,8 @@ begin
     aFrame.SHA1Folder := aSHA1Folder;
     aFrame.Emuteca := aEmuteca;
 
-    aForm.GUIConfigIni := aGUIConfigIni;
-    aForm.GUIIconsIni := aGUIIconsIni;
+    aForm.LoadGUIConfig(aGUIConfigIni);
+    aForm.LoadGUIIcons(aGUIIconsIni);
     aFrame.Parent := aForm;
 
     Result := aForm.ShowModal;
@@ -292,6 +286,10 @@ begin
   fmSysEditor.ButtonClose := False;
   fmSysEditor.Align := alClient;
   fmSysEditor.Parent := Self;
+
+  OnClearFrameData := @DoClearFrameData;
+  OnLoadFrameData := @DoLoadFrameData;
+  OnSaveFrameData := @DoSaveFrameData;
 end;
 
 destructor TfmLEmuTKSysManager.Destroy;
