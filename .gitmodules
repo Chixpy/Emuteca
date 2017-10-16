@@ -1,6 +1,6 @@
 [submodule "Emuteca.wiki"]
 	path = Emuteca.wiki
-	url = ../Emuteca.wiki.git
+	url = https://github.com/Chixpy/Emuteca.wiki.git
 [submodule "CHXPas"]
 	path = CHXPas
-	url = ../CHXPas.git
+	url = https://github.com/Chixpy/CHXPas.git
