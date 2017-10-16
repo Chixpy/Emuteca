@@ -50,13 +50,11 @@ type
     FFullSoftlist: cEmutecaSoftList;
     FGUIConfig: cGUIConfig;
     FIconList: cCHXImageList;
-    FSHA1Folder: string;
     FZoneIcons: cCHXImageMap;
     procedure SetDumpIcons(AValue: cCHXImageList);
     procedure SetEmuteca(AValue: cEmuteca);
     procedure SetGUIConfig(AValue: cGUIConfig);
     procedure SetIconList(AValue: cCHXImageList);
-    procedure SetSHA1Folder(AValue: string);
     procedure SetZoneIcons(AValue: cCHXImageMap);
 
   protected
@@ -84,9 +82,8 @@ type
     function RunSoftware(aSoftware: cEmutecaSoftware): boolean;
     //< Run a software
 
-    procedure DoClearFrameData;
-    procedure DoLoadFrameData;
-
+    procedure ClearFrameData; override;
+    procedure LoadFrameData; override;
   public
 
     property GUIConfig: cGUIConfig read FGUIConfig write SetGUIConfig;
@@ -100,7 +97,6 @@ type
 
     property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
 
-    property SHA1Folder: string read FSHA1Folder write SetSHA1Folder;
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -154,6 +150,8 @@ begin
     Exit;
   FGUIConfig := AValue;
 
+  GUIConfigIni := GUIConfig.ConfigFile;
+
   fmSoftMedia.ImageExt := GUIConfig.ImageExtensions;
   fmSoftMedia.TextExt := GUIConfig.TextExtensions;
 
@@ -168,37 +166,8 @@ begin
     Exit;
   FIconList := AValue;
 
-
-  if Assigned(IconList) and (IconList.Count > 2) then
-  begin
-    { Icons for games parents and software, first default one
-      0: Default for software
-      1: Default for parent
-      2: Default for system
-      3: Default for emulator
-    }
-    fmEmutecaSystemCBX.DefSysIcon := IconList[2];
-
-    fmSoftTree.DefSoftIcon := IconList[0];
-    fmSoftTree.DefGrpIcon := IconList[1];
-    fmSoftTree.DefSysIcon := IconList[2];
-  end
-  else
-  begin
-    fmEmutecaSystemCBX.DefSysIcon := nil;
-    fmSoftTree.DefSoftIcon := nil;
-    fmSoftTree.DefGrpIcon := nil;
-    fmSoftTree.DefSysIcon := nil;
-  end;
-end;
-
-procedure TfmLEmuTKMain.SetSHA1Folder(AValue: string);
-begin
-  if FSHA1Folder = AValue then Exit;
-  FSHA1Folder := AValue;
-
-  fmSystemPanel.SHA1Folder := SHA1Folder;
-  fmSoftMedia.SHA1Folder := SHA1Folder;
+  fmEmutecaSystemCBX.SysIcons := IconList;
+  fmSoftTree.SoftIconList := IconList;
 end;
 
 procedure TfmLEmuTKMain.SetZoneIcons(AValue: cCHXImageMap);
@@ -260,12 +229,12 @@ begin
   Result := Emuteca.RunSoftware(aSoftware) = 0;
 end;
 
-procedure TfmLEmuTKMain.DoClearFrameData;
+procedure TfmLEmuTKMain.ClearFrameData;
 begin
 
 end;
 
-procedure TfmLEmuTKMain.DoLoadFrameData;
+procedure TfmLEmuTKMain.LoadFrameData;
 var
   i, j: integer;
   aSystem: cEmutecaSystem;
@@ -376,9 +345,6 @@ begin
   FFullSoftlist := cEmutecaSoftList.Create(False);
 
   CreateFrames;
-
-  OnClearFrameData := @DoClearFrameData;
-  OnLoadFrameData := @DoLoadFrameData;
 end;
 
 destructor TfmLEmuTKMain.Destroy;

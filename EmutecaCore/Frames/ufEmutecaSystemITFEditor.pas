@@ -26,18 +26,21 @@ type
     procedure SetSystem(AValue: cEmutecaSystem);
 
   protected
-    property fmImageFolders: TfmCHXMultiFolderEditor read FfmImageFolders;
+     property fmImageFolders: TfmCHXMultiFolderEditor read FfmImageFolders;
     property fmTextFolders: TfmCHXMultiFolderEditor read FfmTextFolders;
 
-    procedure DoClearFrameData;
-    procedure DoLoadFrameData;
-    procedure DoSaveFrameData;
+        procedure SetGUIIconsIni(AValue: string); override;
+    procedure SetGUIConfigIni(AValue: string); override;
+
+    procedure ClearFrameData; override;
+    procedure LoadFrameData; override;
 
   public
-    property System: cEmutecaSystem read FSystem write SetSystem;
+   property System: cEmutecaSystem read FSystem write SetSystem;
 
+     procedure SaveFrameData; override;
 
-    constructor Create(TheOwner: TComponent); override;
+       constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
   end;
 
@@ -49,8 +52,7 @@ implementation
 
 procedure TfmEmutecaSystemITFEditor.SetSystem(AValue: cEmutecaSystem);
 begin
-  if FSystem = AValue then
-    Exit;
+  if FSystem = AValue then Exit;
   FSystem := AValue;
 
   if Assigned(System) then
@@ -71,12 +73,22 @@ begin
   LoadFrameData;
 end;
 
-procedure TfmEmutecaSystemITFEditor.DoClearFrameData;
+procedure TfmEmutecaSystemITFEditor.SetGUIIconsIni(AValue: string);
+begin
+  inherited SetGUIIconsIni(AValue);
+end;
+
+procedure TfmEmutecaSystemITFEditor.SetGUIConfigIni(AValue: string);
+begin
+  inherited SetGUIConfigIni(AValue);
+end;
+
+procedure TfmEmutecaSystemITFEditor.ClearFrameData;
 begin
 
 end;
 
-procedure TfmEmutecaSystemITFEditor.DoLoadFrameData;
+procedure TfmEmutecaSystemITFEditor.LoadFrameData;
 begin
   Enabled := assigned(System);
 
@@ -87,14 +99,13 @@ begin
   end;
 end;
 
-procedure TfmEmutecaSystemITFEditor.DoSaveFrameData;
+procedure TfmEmutecaSystemITFEditor.SaveFrameData;
 begin
-  fmImageFolders.SaveFrameData;
+    fmImageFolders.SaveFrameData;
   fmTextFolders.SaveFrameData;
 end;
 
 constructor TfmEmutecaSystemITFEditor.Create(TheOwner: TComponent);
-
   procedure CreateFrames;
   begin
     FfmImageFolders := TfmCHXMultiFolderEditor.Create(gbxImageFolders);
@@ -114,10 +125,6 @@ begin
   inherited Create(TheOwner);
 
   CreateFrames;
-
-  OnClearFrameData := @DoClearFrameData;
-  OnLoadFrameData := @DoLoadFrameData;
-  OnSaveFrameData := @DoSaveFrameData;
 end;
 
 destructor TfmEmutecaSystemITFEditor.Destroy;
@@ -126,3 +133,4 @@ begin
 end;
 
 end.
+

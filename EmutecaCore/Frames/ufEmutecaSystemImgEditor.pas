@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, LazFileUtils, Forms, Controls, StdCtrls,
-  EditBtn, ExtCtrls, Buttons, ActnList, ComCtrls, inifiles,
+  EditBtn, ExtCtrls, Buttons, ActnList, ComCtrls,
   uCHXStrUtils, uCHXDlgUtils,
   ufCHXPropEditor, ufCHXImgViewer,
   ucEmutecaSystem;
@@ -41,33 +41,27 @@ type
     procedure iSystemImageDblClick(Sender: TObject);
 
   private
-    FGUIConfigIni: string;
-    FGUIIconsIni: string;
     FSHA1Folder: string;
     FSystem: cEmutecaSystem;
 
-    procedure SetGUIConfigIni(AValue: string);
-    procedure SetGUIIconsIni(AValue: string);
     procedure SetSHA1Folder(AValue: string);
     procedure SetSystem(AValue: cEmutecaSystem);
 
   protected
-    property GUIIconsIni: string read FGUIIconsIni write SetGUIIconsIni;
-    property GUIConfigIni: string read FGUIConfigIni write SetGUIConfigIni;
+    procedure SetGUIIconsIni(AValue: string); override;
+    procedure SetGUIConfigIni(AValue: string); override;
 
     procedure UpdateImage(aTImage: TImage; aFile: string);
 
-    procedure DoClearFrameData;
-    procedure DoLoadFrameData;
-    procedure DoSaveFrameData;
-
-    procedure DoLoadGUIIcons(aIconsIni: TIniFile; aBaseFolder: string); override;
-    procedure DoLoadGUIConfig(aIniFile: TIniFile);
+    procedure ClearFrameData; override;
+    procedure LoadFrameData; override;
 
   public
     { public declarations }
     property System: cEmutecaSystem read FSystem write SetSystem;
     property SHA1Folder: string read FSHA1Folder write SetSHA1Folder;
+
+    procedure SaveFrameData; override;
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -158,17 +152,17 @@ begin
   FSHA1Folder := SetAsFolder(AValue);
 end;
 
-procedure TfmEmuTKSystemImgEditor.SetGUIConfigIni(AValue: string);
-begin
-  FGUIConfigIni := SetAsFile(AValue);
-end;
-
 procedure TfmEmuTKSystemImgEditor.SetGUIIconsIni(AValue: string);
 begin
-  FGUIIconsIni := SetAsFile(AValue);
+  inherited SetGUIIconsIni(AValue);
 end;
 
-procedure TfmEmuTKSystemImgEditor.DoSaveFrameData;
+procedure TfmEmuTKSystemImgEditor.SetGUIConfigIni(AValue: string);
+begin
+  inherited SetGUIConfigIni(AValue);
+end;
+
+procedure TfmEmuTKSystemImgEditor.SaveFrameData;
 begin
   if not Enabled then
     Exit;
@@ -179,19 +173,7 @@ begin
   System.IconFolder := eSoftIconFolder.Directory;
 end;
 
-procedure TfmEmuTKSystemImgEditor.DoLoadGUIIcons(aIconsIni: TIniFile;
-  aBaseFolder: string);
-begin
-  inherited DoLoadGUIIcons(aIconsIni, aBaseFolder);
-  GUIIconsIni := aIconsIni.FileName;
-end;
-
-procedure TfmEmuTKSystemImgEditor.DoLoadGUIConfig(aIniFile: TIniFile);
-begin
-  GUIConfigIni := aIniFile.FileName;
-end;
-
-procedure TfmEmuTKSystemImgEditor.DoLoadFrameData;
+procedure TfmEmuTKSystemImgEditor.LoadFrameData;
 begin
   Enabled := Assigned(System);
 
@@ -213,12 +195,6 @@ end;
 constructor TfmEmuTKSystemImgEditor.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
-
-  OnClearFrameData := @DoClearFrameData;
-  OnLoadFrameData := @DoLoadFrameData;
-  OnSaveFrameData := @DoSaveFrameData;
-  OnLoadGUIConfig := @DoLoadGUIConfig;
-  OnLoadGUIIcons := @DoLoadGUIIcons;
 end;
 
 destructor TfmEmuTKSystemImgEditor.Destroy;
@@ -226,7 +202,7 @@ begin
   inherited Destroy;
 end;
 
-procedure TfmEmuTKSystemImgEditor.DoClearFrameData;
+procedure TfmEmuTKSystemImgEditor.ClearFrameData;
 begin
   eSystemImage.Clear;
   iSystemImage.Picture.Clear;

@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
   Buttons, ActnList, StdCtrls, EditBtn,
   uCHXDlgUtils,
-  ufrCHXForm, ufCHXPropEditor, ufCHXProgressBar,
+  ufCHXForm, ufCHXPropEditor, ufCHXProgressBar,
   uEmutecaCommon,
   uaEmutecaCustomSystem,
   ucEmuteca, ucEmutecaSystem,
@@ -41,12 +41,13 @@ type
     property System: cEmutecaSystem read FSystem write SetSystem;
     function SelectSystem(aSystem: cEmutecaSystem): boolean;
 
-    procedure DoClearFrameData;
-    procedure DoLoadFrameData;
-    procedure DoSaveFrameData;
+    procedure ClearFrameData; override;
+    procedure LoadFrameData; override;
 
   public
     property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
+
+    procedure SaveFrameData; override;
 
     // Creates a form with AddFolder frame.
     class function SimpleForm(aEmuteca: cEmuteca; aGUIIconsIni: string;
@@ -120,8 +121,8 @@ begin
     begin
       lWarning.Caption := '';
       eExportFile.FileName :=
-        ExtractFilePath(eExportFile.FileName) + System.FileName +
-        krsFileExtSoft;
+        ExtractFilePath(eExportFile.FileName) + System.FileName + krsFileExtSoft;
+
     end;
   end
   else
@@ -139,13 +140,13 @@ begin
   System := aSystem;
 end;
 
-procedure TfmActExportSoftData.DoClearFrameData;
+procedure TfmActExportSoftData.ClearFrameData;
 begin
   eSoftIDType.Clear;
   lWarning.Caption := '';
 end;
 
-procedure TfmActExportSoftData.DoLoadFrameData;
+procedure TfmActExportSoftData.LoadFrameData;
 begin
   Enabled := Assigned(Emuteca);
 
@@ -156,7 +157,7 @@ begin
   end;
 end;
 
-procedure TfmActExportSoftData.DoSaveFrameData;
+procedure TfmActExportSoftData.SaveFrameData;
 var
   PCB: TEmutecaProgressCallBack;
 begin
@@ -192,8 +193,8 @@ begin
 
     aFrame.Emuteca := aEmuteca;
 
-    aForm.LoadGUIConfig(aGUIConfigIni);
-    aForm.LoadGUIIcons(aGUIIconsIni);
+    aForm.GUIConfigIni := aGUIConfigIni;
+    aForm.GUIIconsIni := aGUIIconsIni;
     aFrame.Parent := aForm;
 
     Result := aForm.ShowModal;
@@ -217,10 +218,6 @@ begin
   inherited Create(TheOwner);
 
   CreateFrames;
-
-  OnClearFrameData := @DoClearFrameData;
-  OnLoadFrameData := @DoLoadFrameData;
-  OnSaveFrameData := @DoSaveFrameData;
 
   // If frmCHXProgressBar is not created...
   if not Assigned(frmCHXProgressBar) then

@@ -6,11 +6,9 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  StdCtrls, Buttons, ActnList, LCLIntf, ComCtrls, LazFileUtils, IniFiles,
-  uCHXImageUtils, uCHXStrUtils,
-  ufCHXFrame, ufCHXImgViewer,
-  ucEmutecaSystem,
-  uLEmuTKCommon;
+  StdCtrls, Buttons, ActnList, LCLIntf, LazFileUtils,
+  ufCHXFrame, uCHXImageUtils,
+  ucEmutecaSystem;
 
 type
 
@@ -19,46 +17,27 @@ type
   TfmLEmuTKSysPreview = class(TfmCHXFrame)
     actOpenSystemFolder: TAction;
     ActionList: TActionList;
-    eNSoft: TEdit;
-    eNGroups: TEdit;
     ilActions: TImageList;
+    bOpenSystemFolder: TSpeedButton;
     eLastTime: TEdit;
     eNTimes: TEdit;
     ePlayedTime: TEdit;
     gbxStats: TGroupBox;
     Splitter1: TSplitter;
     SysImage: TImage;
-    ToolBar1: TToolBar;
-    ToolButton1: TToolButton;
     procedure actOpenSystemFolderExecute(Sender: TObject);
-    procedure SysImageDblClick(Sender: TObject);
   private
-    FGUIConfigIni: string;
-    FGUIIconsIni: string;
-    FSHA1Folder: string;
     FSystem: cEmutecaSystem;
-    procedure SetGUIConfigIni(AValue: string);
-    procedure SetGUIIconsIni(AValue: string);
-    procedure SetSHA1Folder(AValue: string);
     procedure SetSystem(AValue: cEmutecaSystem);
 
   protected
-    property GUIIconsIni: string read FGUIIconsIni write SetGUIIconsIni;
-    property GUIConfigIni: string read FGUIConfigIni write SetGUIConfigIni;
-
-    procedure DoClearFrameData;
-    procedure DoLoadFrameData;
-
-    procedure DoLoadGUIConfig(aIniFile: TIniFile);
-    procedure DoLoadGUIIcons(aIconsIni: TIniFile; aBaseFolder: string);
+    procedure SetGUIIconsIni(AValue: string); override;
+    procedure SetGUIConfigIni(AValue: string); override;
+    procedure ClearFrameData; override;
+    procedure LoadFrameData; override;
 
   public
     property System: cEmutecaSystem read FSystem write SetSystem;
-
-    property SHA1Folder: string read FSHA1Folder write SetSHA1Folder;
-
-        constructor Create(TheOwner: TComponent); override;
-    destructor Destroy; override;
   end;
 
 implementation
@@ -75,12 +54,6 @@ begin
   OpenDocument(System.BaseFolder);
 end;
 
-procedure TfmLEmuTKSysPreview.SysImageDblClick(Sender: TObject);
-begin
-  if FileExistsUTF8(System.Image) then
-    TfmCHXImgViewer.SimpleFormI(System.Image, SHA1Folder, GUIIconsIni, GUIConfigIni);
-end;
-
 procedure TfmLEmuTKSysPreview.SetSystem(AValue: cEmutecaSystem);
 begin
   if FSystem = AValue then
@@ -90,57 +63,28 @@ begin
   LoadFrameData;
 end;
 
-procedure TfmLEmuTKSysPreview.DoLoadGUIIcons(aIconsIni: TIniFile;
-  aBaseFolder: string);
+procedure TfmLEmuTKSysPreview.SetGUIIconsIni(AValue: string);
 begin
-  GUIIconsIni := aIconsIni.FileName;
-  ReadActionsIconsIni(aIconsIni, aBaseFolder, Self.Name, ilActions, ActionList);
-  FixComponentImagesFromActions(Self);
-end;
+  inherited SetGUIIconsIni(AValue);
 
-constructor TfmLEmuTKSysPreview.Create(TheOwner: TComponent);
-begin
-  inherited Create(TheOwner);
-
-  OnClearFrameData := @DoClearFrameData;
-  OnLoadFrameData := @DoLoadFrameData;
-
-  OnLoadGUIIcons := @DoLoadGUIIcons;
-  OnLoadGUIConfig := @DoLoadGUIConfig;
-end;
-
-destructor TfmLEmuTKSysPreview.Destroy;
-begin
-  inherited Destroy;
-end;
-
-procedure TfmLEmuTKSysPreview.SetSHA1Folder(AValue: string);
-begin
-  if FSHA1Folder = AValue then Exit;
-  FSHA1Folder := AValue;
+   ReadActionsIcons(GUIIconsIni, Self.Name, ilActions, ActionList);
+   FixComponentImagesFromActions(Self);
 end;
 
 procedure TfmLEmuTKSysPreview.SetGUIConfigIni(AValue: string);
 begin
-  FGUIConfigIni := SetAsFile(AValue);
+  inherited SetGUIConfigIni(AValue);
 end;
 
-procedure TfmLEmuTKSysPreview.SetGUIIconsIni(AValue: string);
-begin
-  FGUIIconsIni := SetAsFile(AValue);
-end;
-
-procedure TfmLEmuTKSysPreview.DoClearFrameData;
+procedure TfmLEmuTKSysPreview.ClearFrameData;
 begin
   SysImage.Picture.Clear;
-  eNSoft.Clear;
-  eNGroups.Clear;
   ePlayedTime.Clear;
   eNTimes.Clear;
   eLastTime.Clear;
 end;
 
-procedure TfmLEmuTKSysPreview.DoLoadFrameData;
+procedure TfmLEmuTKSysPreview.LoadFrameData;
 begin
   Enabled := Assigned(System);
 
@@ -155,17 +99,9 @@ begin
   else
     SysImage.Picture.Clear;
 
-  eNSoft.Text := Format(rsFmtNVersions,[System.SoftManager.FullList.Count]);
-  eNGroups.Text := Format(rsFmtNGroups,[System.GroupManager.VisibleList.Count]);
   ePlayedTime.Text := System.Stats.PlayingTimeStr;
   eNTimes.Text := System.Stats.TimesPlayedStr;
   eLastTime.Text := System.Stats.LastTimeStr;
-
-end;
-
-procedure TfmLEmuTKSysPreview.DoLoadGUIConfig(aIniFile: TIniFile);
-begin
-  GUIConfigIni := aIniFile.FileName;
 end;
 
 end.

@@ -6,12 +6,9 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  StdCtrls, Buttons, ActnList, EditBtn,
-  uCHXDlgUtils,
-  ufrCHXForm, ufCHXPropEditor, ufCHXProgressBar,
-  uEmutecaCommon,
-  ucEmuteca, ucEmutecaSystem,
-  ufEmutecaSystemCBX;
+  StdCtrls, Buttons, ActnList, EditBtn, ufCHXPropEditor, ufCHXForm,
+  ufCHXProgressBar, ucEmuteca, uCHXDlgUtils, uEmutecaCommon,
+  ucEmutecaSystem, ufEmutecaSystemCBX;
 
 type
 
@@ -40,12 +37,13 @@ type
 
     function SelectSystem(aSystem: cEmutecaSystem): boolean;
 
-    // procedure DoClearFrameData;
-    procedure DoLoadFrameData;
-    procedure DoSaveFrameData;
+    procedure ClearFrameData; override;
+    procedure LoadFrameData; override;
 
   public
     property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
+
+    procedure SaveFrameData; override;
 
     // Creates a form with AddFolder frame.
     class function SimpleForm(aEmuteca: cEmuteca; aGUIIconsIni: string;
@@ -64,8 +62,8 @@ implementation
 
 procedure TfmEmutecaActImportSoftData.SetSystem(AValue: cEmutecaSystem);
 var
-  IsCached: boolean;
-  i: integer;
+  IsCached: Boolean;
+  i: Integer;
 begin
   if FSystem = AValue then
     Exit;
@@ -88,8 +86,7 @@ begin
     end;
 
     if not IsCached then
-      lWarning.Caption :=
-        'Warning: Some info could not be imported because some file haven''t got SHA1 cached.'
+      lWarning.Caption := 'Warning: Some info could not be imported because some file haven''t got SHA1 cached.'
     else
       lWarning.Caption := '';
 
@@ -124,7 +121,12 @@ begin
   LoadFrameData;
 end;
 
-procedure TfmEmutecaActImportSoftData.DoLoadFrameData;
+procedure TfmEmutecaActImportSoftData.ClearFrameData;
+begin
+
+end;
+
+procedure TfmEmutecaActImportSoftData.LoadFrameData;
 begin
   Enabled := Assigned(Emuteca);
 
@@ -143,7 +145,7 @@ begin
   System := aSystem;
 end;
 
-procedure TfmEmutecaActImportSoftData.DoSaveFrameData;
+procedure TfmEmutecaActImportSoftData.SaveFrameData;
 var
   PCB: TEmutecaProgressCallBack;
 begin
@@ -179,8 +181,8 @@ begin
 
     aFrame.Emuteca := aEmuteca;
 
-    aForm.LoadGUIConfig(aGUIConfigIni);
-    aForm.LoadGUIIcons(aGUIIconsIni);
+    aForm.GUIConfigIni := aGUIConfigIni;
+    aForm.GUIIconsIni := aGUIIconsIni;
     aFrame.Parent := aForm;
 
     Result := aForm.ShowModal;
@@ -204,10 +206,6 @@ begin
   inherited Create(TheOwner);
 
   CreateFrames;
-
-  // OnClearFrameData := @DoClearFrameData;
-  OnLoadFrameData := @DoLoadFrameData;
-  OnSaveFrameData := @DoSaveFrameData;
 
   // Add
   eImportFile.Filter := rsFileMaskDescSoft + '|' + krsFileMaskSoft;

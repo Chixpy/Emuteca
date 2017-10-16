@@ -63,11 +63,11 @@ type
 
     function SelectGroup(aGroup: cEmutecaGroup): boolean;
 
-    procedure DoClearFrameData;
-    procedure DoLoadFrameData;
-    procedure DoSaveFrameData;
+    procedure ClearFrameData; override;
+    procedure LoadFrameData; override;
 
   public
+    procedure SaveFrameData; override;
 
     procedure FPOObservedChanged(ASender: TObject;
       Operation: TFPObservedOperation; Data: Pointer);
@@ -116,7 +116,7 @@ begin
   Result := True;
 end;
 
-procedure TfmEmutecaSoftEditor.DoClearFrameData;
+procedure TfmEmutecaSoftEditor.ClearFrameData;
 begin
   eTitle.Clear;
   eSortKey.Clear;
@@ -141,7 +141,7 @@ begin
   eHack.Clear;
 end;
 
-procedure TfmEmutecaSoftEditor.DoLoadFrameData;
+procedure TfmEmutecaSoftEditor.LoadFrameData;
 begin
   Enabled := assigned(Software);
 
@@ -182,7 +182,7 @@ begin
   eHack.Text := Software.Hack;
 end;
 
-procedure TfmEmutecaSoftEditor.DoSaveFrameData;
+procedure TfmEmutecaSoftEditor.SaveFrameData;
 var
   aSystem: cEmutecaSystem;
 begin
@@ -241,10 +241,6 @@ var
   i: string;
 begin
   inherited Create(TheOwner);
-
-  OnClearFrameData := @DoClearFrameData;
-  OnLoadFrameData := @DoLoadFrameData;
-  OnSaveFrameData := @DoSaveFrameData;
 
   // Adding DumpTypes
   for i in EmutecaDumpStatusStr do

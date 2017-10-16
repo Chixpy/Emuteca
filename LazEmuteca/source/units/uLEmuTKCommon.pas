@@ -47,7 +47,6 @@ resourcestring
 
   // Formated statistics
   // -------------------
-  rsFmtNGroups = '%0:d groups';
   rsFmtNVersions = '%0:d versions.';
   rsFmtNItems = '%1:d visible of %0:d items.';
   {<

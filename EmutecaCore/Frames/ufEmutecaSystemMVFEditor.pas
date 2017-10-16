@@ -29,12 +29,16 @@ type
     property fmMusicFolders: TfmCHXMultiFolderEditor read FfmMusicFolders;
     property fmVideoFolders: TfmCHXMultiFolderEditor read FfmVideoFolders;
 
-    procedure DoClearFrameData;
-    procedure DoLoadFrameData;
-    procedure DoSaveFrameData;
+    procedure SetGUIIconsIni(AValue: string); override;
+    procedure SetGUIConfigIni(AValue: string); override;
+
+    procedure ClearFrameData; override;
+    procedure LoadFrameData; override;
 
   public
     property System: cEmutecaSystem read FSystem write SetSystem;
+
+    procedure SaveFrameData; override;
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -70,11 +74,21 @@ begin
   LoadFrameData;
 end;
 
-procedure TfmEmutecaSystemMVFEditor.DoClearFrameData;
+procedure TfmEmutecaSystemMVFEditor.SetGUIIconsIni(AValue: string);
+begin
+  inherited SetGUIIconsIni(AValue);
+end;
+
+procedure TfmEmutecaSystemMVFEditor.SetGUIConfigIni(AValue: string);
+begin
+  inherited SetGUIConfigIni(AValue);
+end;
+
+procedure TfmEmutecaSystemMVFEditor.ClearFrameData;
 begin
 end;
 
-procedure TfmEmutecaSystemMVFEditor.DoLoadFrameData;
+procedure TfmEmutecaSystemMVFEditor.LoadFrameData;
 begin
   Enabled := assigned(System);
 
@@ -85,7 +99,7 @@ begin
   end;
 end;
 
-procedure TfmEmutecaSystemMVFEditor.DoSaveFrameData;
+procedure TfmEmutecaSystemMVFEditor.SaveFrameData;
 begin
   fmMusicFolders.SaveFrameData;
   fmVideoFolders.SaveFrameData;
@@ -112,10 +126,6 @@ begin
   inherited Create(TheOwner);
 
   CreateFrames;
-
-  OnClearFrameData := @DoClearFrameData;
-  OnLoadFrameData := @DoLoadFrameData;
-  OnSaveFrameData := @DoSaveFrameData;
 end;
 
 destructor TfmEmutecaSystemMVFEditor.Destroy;

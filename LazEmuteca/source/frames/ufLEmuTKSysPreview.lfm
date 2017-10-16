@@ -1,10 +1,10 @@
 inherited fmLEmuTKSysPreview: TfmLEmuTKSysPreview
-  Height = 490
+  Height = 392
   Width = 200
-  ClientHeight = 490
+  ClientHeight = 392
   ClientWidth = 200
-  DesignLeft = 472
-  DesignTop = 74
+  DesignLeft = 419
+  DesignTop = 228
   object SysImage: TImage[0]
     Left = 0
     Height = 200
@@ -12,7 +12,6 @@ inherited fmLEmuTKSysPreview: TfmLEmuTKSysPreview
     Width = 200
     Align = alTop
     Center = True
-    OnDblClick = SysImageDblClick
     Proportional = True
     Stretch = True
     Transparent = True
@@ -21,26 +20,26 @@ inherited fmLEmuTKSysPreview: TfmLEmuTKSysPreview
     Cursor = crVSplit
     Left = 0
     Height = 5
-    Top = 226
+    Top = 200
     Width = 200
     Align = alTop
     ResizeAnchor = akTop
   end
   object gbxStats: TGroupBox[2]
     Left = 0
-    Height = 135
-    Top = 231
+    Height = 89
+    Top = 205
     Width = 200
     Align = alTop
     AutoSize = True
     Caption = 'Stats'
-    ClientHeight = 115
+    ClientHeight = 69
     ClientWidth = 196
     TabOrder = 1
     object ePlayedTime: TEdit
       Left = 0
       Height = 23
-      Top = 46
+      Top = 0
       Width = 196
       Align = alTop
       Enabled = False
@@ -50,7 +49,7 @@ inherited fmLEmuTKSysPreview: TfmLEmuTKSysPreview
     object eNTimes: TEdit
       Left = 0
       Height = 23
-      Top = 69
+      Top = 23
       Width = 196
       Align = alTop
       Enabled = False
@@ -60,47 +59,20 @@ inherited fmLEmuTKSysPreview: TfmLEmuTKSysPreview
     object eLastTime: TEdit
       Left = 0
       Height = 23
-      Top = 92
+      Top = 46
       Width = 196
       Align = alTop
       Enabled = False
       TabOrder = 2
-      TextHint = 'Last time played'
-    end
-    object eNSoft: TEdit
-      Left = 0
-      Height = 23
-      Top = 0
-      Width = 196
-      Align = alTop
-      Enabled = False
-      TabOrder = 3
-      TextHint = '# Software'
-    end
-    object eNGroups: TEdit
-      Left = 0
-      Height = 23
-      Top = 23
-      Width = 196
-      Align = alTop
-      Enabled = False
-      TabOrder = 4
-      TextHint = '# Groups'
+      Text = 'eLastTime'
     end
   end
-  object ToolBar1: TToolBar[3]
-    Left = 0
-    Height = 26
-    Top = 200
-    Width = 200
-    Caption = 'ToolBar1'
-    Images = ilActions
-    TabOrder = 2
-    object ToolButton1: TToolButton
-      Left = 1
-      Top = 2
-      Action = actOpenSystemFolder
-    end
+  object bOpenSystemFolder: TSpeedButton[3]
+    Left = 8
+    Height = 22
+    Top = 296
+    Width = 23
+    Action = actOpenSystemFolder
   end
   object ActionList: TActionList[4]
     Images = ilActions

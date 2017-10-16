@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
   Types, StdCtrls, LCLType,
-  ucCHXImageList, uCHXImageUtils,
+  ucCHXImageList,
   ucEmutecaSystem,
   ufEmutecaSystemCBX;
 
@@ -17,10 +17,10 @@ type
 
   TfmLEmuTKIcnSysCBX = class(TfmEmutecaSystemCBX)
   private
-    FDefSysIcon: TPicture;
-    procedure SetDefSysIcon(AValue: TPicture);
+    FSysIcons: cCHXImageList;
+    procedure SetSysIcons(AValue: cCHXImageList);
   published
-    property DefSysIcon: TPicture read FDefSysIcon write SetDefSysIcon;
+    property SysIcons: cCHXImageList read FSysIcons write SetSysIcons;
 
     procedure cbxSystemDrawItem(Control: TWinControl; Index: integer;
       ARect: TRect; State: TOwnerDrawState);
@@ -32,46 +32,56 @@ implementation
 
 { TfmLEmuTKIcnSysCBX }
 
-procedure TfmLEmuTKIcnSysCBX.SetDefSysIcon(AValue: TPicture);
-begin
-  if FDefSysIcon = AValue then
-    Exit;
-  FDefSysIcon := AValue;
-end;
-
 procedure TfmLEmuTKIcnSysCBX.cbxSystemDrawItem(Control: TWinControl;
   Index: integer; ARect: TRect; State: TOwnerDrawState);
 var
-  IconRect: TRect;
-  aIcon: TPicture;
+  RectIcon: TRect;
+  aCBX: TComboBox;
   aSystem: cEmutecaSystem;
 
 begin
   if odInactive in State then
     Exit;
 
-  aSystem := cEmutecaSystem(cbxSystem.Items.Objects[Index]);
+  aCBX := TComboBox(Control);
+  aSystem := cEmutecaSystem(aCBX.Items.Objects[Index]);
+
 
   // Icon
   // aCBX.Canvas.FillRect(ARect);
-  IconRect := ARect;
-  IconRect.Left := IconRect.Left + 1;
-  IconRect.Right := IconRect.Left + ARect.Bottom - ARect.Top;
+  RectIcon := ARect;
+  RectIcon.Left := RectIcon.Left + 1;
+  RectIcon.Right := RectIcon.Left + ARect.Bottom - ARect.Top;
 
-  aIcon := nil;
   if assigned(aSystem) then
-    aIcon := aSystem.Stats.Icon;
+  begin
+    if assigned(SysIcons) then
+    begin
+      if not assigned(aSystem.Stats.Icon) then
+        aSystem.CacheIcon(SysIcons);
 
-  if not assigned(aIcon) then
-    aIcon := DefSysIcon;
-
-  if assigned(aIcon) then
-    cbxSystem.Canvas.StretchDraw(CorrectAspectRatio(IconRect, aIcon),
-      aIcon.Graphic);
+      if assigned(aSystem.Stats.Icon) then
+        aCBX.Canvas.StretchDraw(RectIcon, aSystem.Stats.Icon.Graphic);
+    end;
+  end
+  else
+  begin
+    // SysIcons[2] = Default system icon
+    if SysIcons.Count > 2 then
+    begin
+      aCBX.Canvas.StretchDraw(RectIcon, SysIcons[2].Graphic);
+    end;
+  end;
 
   // Text
-  cbxSystem.Canvas.TextOut(IconRect.Right + 4, ARect.Top,
-    cbxSystem.Items[Index]);
+  aCBX.Canvas.TextOut(RectIcon.Right + 4, ARect.Top, aCBX.Items[Index]);
+end;
+
+procedure TfmLEmuTKIcnSysCBX.SetSysIcons(AValue: cCHXImageList);
+begin
+  if FSysIcons = AValue then
+    Exit;
+  FSysIcons := AValue;
 end;
 
 end.

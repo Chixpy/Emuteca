@@ -41,15 +41,16 @@ type
     procedure OnListClickCheck(aObject: TObject; aBool: boolean); override;
     procedure SetCheckedAll(aBool: boolean); override;
 
+    procedure SetGUIIconsIni(AValue: string); override;
   protected
-    procedure DoClearFrameData;
-    procedure DoLoadFrameData;
-    procedure DOSaveFrameData;
+    procedure ClearFrameData; override;
+    procedure LoadFrameData; override;
 
   public
     property EmuManager: cEmutecaEmulatorManager
       read FEmuManager write SetEmuManager;
 
+    procedure SaveFrameData; override;
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -77,7 +78,7 @@ begin
   LoadFrameData;
 end;
 
-procedure TfmLEmuTKEmuManager.DoClearFrameData;
+procedure TfmLEmuTKEmuManager.ClearFrameData;
 begin
   inherited ClearFrameData;
 end;
@@ -97,6 +98,11 @@ begin
     aEmulator.Enabled := aBool;
     Inc(i);
   end;
+end;
+
+procedure TfmLEmuTKEmuManager.SetGUIIconsIni(AValue: string);
+begin
+  inherited SetGUIIconsIni(AValue);
 end;
 
 procedure TfmLEmuTKEmuManager.AddItemToList;
@@ -159,7 +165,7 @@ begin
   EmuManager.LoadFromFileIni(OpenDialog1.FileName);
 end;
 
-procedure TfmLEmuTKEmuManager.DoLoadFrameData;
+procedure TfmLEmuTKEmuManager.LoadFrameData;
 var
   i: integer;
 begin
@@ -181,7 +187,7 @@ begin
   end;
 end;
 
-procedure TfmLEmuTKEmuManager.DoSaveFrameData;
+procedure TfmLEmuTKEmuManager.SaveFrameData;
 begin
   if not assigned(EmuManager) then
     Exit;
@@ -213,10 +219,6 @@ begin
   FEmuEditor := TfmEmutecaEmulatorEditor.Create(Self);
   EmuEditor.Parent := Self;
   EmuEditor.Align := alClient;
-
-    OnClearFrameData := @DoClearFrameData;
-  OnLoadFrameData := @DoLoadFrameData;
-  OnSaveFrameData := @DoSaveFrameData;
 end;
 
 destructor TfmLEmuTKEmuManager.Destroy;

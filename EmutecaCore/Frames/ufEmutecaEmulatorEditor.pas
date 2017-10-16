@@ -52,22 +52,25 @@ type
     procedure bParametersClick(Sender: TObject);
     procedure bWorkingFolderClick(Sender: TObject);
     procedure eFileButtonClick(Sender: TObject);
-
   private
     FEmulator: cEmutecaEmulator;
     procedure SetEmulator(AValue: cEmutecaEmulator);
+    { private declarations }
 
   protected
-    procedure DoClearFrameData;
-    procedure DoLoadFrameData;
-    procedure DoSaveFrameData;
+
+    procedure ClearFrameData; override;
+    procedure LoadFrameData; override;
 
   public
-    property Emulator: cEmutecaEmulator read FEmulator write SetEmulator;
+    { public declarations }
+    procedure SaveFrameData; override;
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
 
+  published
+    property Emulator: cEmutecaEmulator read FEmulator write SetEmulator;
   end;
 
 implementation
@@ -79,10 +82,6 @@ implementation
 constructor TfmEmutecaEmulatorEditor.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
-
-  OnClearFrameData := @DoClearFrameData;
-  OnLoadFrameData := @DoLoadFrameData;
-  OnSaveFrameData := @DoSaveFrameData;
 end;
 
 destructor TfmEmutecaEmulatorEditor.Destroy;
@@ -140,7 +139,7 @@ begin
   LoadFrameData;
 end;
 
-procedure TfmEmutecaEmulatorEditor.DoClearFrameData;
+procedure TfmEmutecaEmulatorEditor.ClearFrameData;
 begin
   lID.Caption := ' ';
   eName.Clear;
@@ -153,7 +152,7 @@ begin
   eExitCode.Value := 0;
 end;
 
-procedure TfmEmutecaEmulatorEditor.DoLoadFrameData;
+procedure TfmEmutecaEmulatorEditor.LoadFrameData;
 begin
   ClearFrameData;
 
@@ -174,7 +173,7 @@ begin
   eExitCode.Value := Emulator.ExitCode;
 end;
 
-procedure TfmEmutecaEmulatorEditor.DoSaveFrameData;
+procedure TfmEmutecaEmulatorEditor.SaveFrameData;
 begin
   Emulator.EmulatorName := eName.Text;
   Emulator.EmulatorName := eName.Text;

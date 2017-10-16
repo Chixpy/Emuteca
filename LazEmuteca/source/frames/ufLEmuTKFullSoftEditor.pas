@@ -41,11 +41,15 @@ type
 
     function SelectGroup(aGroup: cEmutecaGroup): boolean;
 
-    // procedure DoClearFrameData;
-    procedure DoLoadFrameData;
-    procedure DoSaveFrameData;
+    procedure ClearFrameData; override;
+    procedure LoadFrameData; override;
 
   public
+    procedure SaveFrameData; override;
+
+    procedure FPOObservedChanged(ASender: TObject;
+      Operation: TFPObservedOperation; Data: Pointer);
+
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
 
@@ -152,7 +156,13 @@ begin
   fmGroupEditor.Group := aGroup;
 end;
 
-procedure TfmLEmuTKFullSoftEditor.DoLoadFrameData;
+procedure TfmLEmuTKFullSoftEditor.ClearFrameData;
+begin
+
+
+end;
+
+procedure TfmLEmuTKFullSoftEditor.LoadFrameData;
 begin
   Enabled := Assigned(Software) or Assigned(Group);
 
@@ -166,13 +176,25 @@ begin
   gbxSoft.Enabled := Assigned(Software);
 end;
 
-procedure TfmLEmuTKFullSoftEditor.DoSaveFrameData;
+procedure TfmLEmuTKFullSoftEditor.SaveFrameData;
 begin
-  if Assigned(Group) then
-    fmGroupEditor.SaveFrameData;
+  if (not assigned(Software)) and (not assigned(Group)) then
+  begin
+    // TODO: Exception
+    ShowMessage('TfmLEmuTKFullSoftEditor: Can''t save Soft/Group data.');
+    Exit;
+  end;
+
+  fmGroupEditor.SaveFrameData;
 
   if Assigned(Software) then
     fmSoftEditor.SaveFrameData;
+end;
+
+procedure TfmLEmuTKFullSoftEditor.FPOObservedChanged(ASender: TObject;
+  Operation: TFPObservedOperation; Data: Pointer);
+begin
+
 end;
 
 constructor TfmLEmuTKFullSoftEditor.Create(TheOwner: TComponent);
@@ -201,10 +223,6 @@ begin
   inherited Create(TheOwner);
 
   CreateFrames;
-
-  // OnClearFrameData := @DoClearFrameData;
-  OnLoadFrameData := @DoLoadFrameData;
-  OnSaveFrameData := @DoSaveFrameData;
 end;
 
 destructor TfmLEmuTKFullSoftEditor.Destroy;

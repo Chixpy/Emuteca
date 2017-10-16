@@ -55,17 +55,16 @@ type
 
   protected
 
-    procedure DoClearFrameData;
-    procedure DoLoadFrameData;
-    procedure DoSaveFrameData;
+    procedure ClearFrameData; override;
+    procedure LoadFrameData; override;
 
   public
     property System: cEmutecaSystem read FSystem write SetSystem;
 
     property EmuManager: cEmutecaEmulatorManager
       read FEmuManager write SetEmuManager;
-    constructor Create(TheOwner: TComponent); override;
-destructor Destroy; override;
+
+    procedure SaveFrameData; override;
   end;
 
 implementation
@@ -115,21 +114,7 @@ begin
   EmuManager.EnabledList.AssignToStrLst(cbxMainEmulator.Items);
 end;
 
-constructor TfmEmutecaSystemEditor.Create(TheOwner: TComponent);
-begin
-  inherited Create(TheOwner);
-
-  OnClearFrameData := @DoClearFrameData;
-  OnLoadFrameData := @DoLoadFrameData;
-  OnSaveFrameData := @DoSaveFrameData;
-end;
-
-destructor TfmEmutecaSystemEditor.Destroy;
-begin
-  inherited Destroy;
-end;
-
-procedure TfmEmutecaSystemEditor.DoClearFrameData;
+procedure TfmEmutecaSystemEditor.ClearFrameData;
 begin
   eExtraInfoFilename.Clear;
   eTitle.Clear;
@@ -142,7 +127,7 @@ begin
   mExtensions.Clear;
 end;
 
-procedure TfmEmutecaSystemEditor.DoSaveFrameData;
+procedure TfmEmutecaSystemEditor.SaveFrameData;
 var
   i, j: integer;
 begin
@@ -187,7 +172,7 @@ begin
   System.Extensions.Assign(mExtensions.Lines);
 end;
 
-procedure TfmEmutecaSystemEditor.DoLoadFrameData;
+procedure TfmEmutecaSystemEditor.LoadFrameData;
 var
   aEmulator: cEmutecaEmulator;
   i: integer;

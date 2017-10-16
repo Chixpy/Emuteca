@@ -46,9 +46,11 @@ type
     property fmSysITFEditor: TfmEmutecaSystemITFEditor read FfmSysITFEditor;
     property fmSysMVFEditor: TfmEmutecaSystemMVFEditor read FfmSysMVFEditor;
 
-    procedure DoClearFrameData;
-    procedure DoLoadFrameData;
-    procedure DOSaveFrameData;
+   procedure SetGUIIconsIni(AValue: string); override;
+    procedure SetGUIConfigIni(AValue: string); override;
+
+    procedure ClearFrameData; override;
+    procedure LoadFrameData; override;
 
 
   public
@@ -57,6 +59,8 @@ type
     property System: cEmutecaSystem read FSystem write SetSystem;
 
     property SHA1Folder: string read FSHA1Folder write SetSHA1Folder;
+
+    procedure SaveFrameData; override;
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -231,11 +235,21 @@ begin
   LoadFrameData;
 end;
 
-procedure TfmLEmuTKFullSystemEditor.DoClearFrameData;
+procedure TfmLEmuTKFullSystemEditor.ClearFrameData;
 begin
 end;
 
-procedure TfmLEmuTKFullSystemEditor.DoSaveFrameData;
+procedure TfmLEmuTKFullSystemEditor.SetGUIIconsIni(AValue: string);
+begin
+  inherited SetGUIIconsIni(AValue);
+end;
+
+procedure TfmLEmuTKFullSystemEditor.SetGUIConfigIni(AValue: string);
+begin
+  inherited SetGUIConfigIni(AValue);
+end;
+
+procedure TfmLEmuTKFullSystemEditor.SaveFrameData;
 begin
   fmSysEditor.SaveFrameData;
   fmSysImgEditor.SaveFrameData;
@@ -243,7 +257,7 @@ begin
   fmSysMVFEditor.SaveFrameData;
 end;
 
-procedure TfmLEmuTKFullSystemEditor.DoLoadFrameData;
+procedure TfmLEmuTKFullSystemEditor.LoadFrameData;
 begin
   Enabled := Assigned(Emuteca) and Assigned(System);
 
@@ -293,10 +307,6 @@ begin
   inherited Create(TheOwner);
 
   CreatePages;
-
-  OnClearFrameData := @DoClearFrameData;
-  OnLoadFrameData := @DoLoadFrameData;
-  OnSaveFrameData := @DoSaveFrameData;
 end;
 
 destructor TfmLEmuTKFullSystemEditor.Destroy;

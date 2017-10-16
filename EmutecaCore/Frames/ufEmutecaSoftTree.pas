@@ -6,15 +6,11 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, VirtualTrees, Forms, Controls,
-  Graphics, Dialogs, ComCtrls, LazUTF8, LazFileUtils, IniFiles,
+  Graphics, Dialogs, ComCtrls, LazUTF8,
   ufCHXFrame,
   uLEmuTKCommon,
   uaEmutecaCustomSoft,
   ucEmutecaGroupList, ucEmutecaGroup, ucEmutecaSoftware, uEmutecaCommon;
-
-const
-  krsIniSoftTreeSection = 'SoftTree';
-  krsIniSoftTreeWidthFmt = 'Column%0:d_Width';
 
 type
 
@@ -53,10 +49,11 @@ type
   protected
     procedure UpdateSBNodeCount;
 
-    procedure DoClearFrameData;
-    procedure DoLoadFrameData;
-    procedure DoLoadGUIConfig(aIniFile: TIniFile);
-    procedure DoSaveGUIConfig(aIniFile: TIniFile);
+    procedure SetGUIIconsIni(AValue: string); override;
+    procedure SetGUIConfigIni(AValue: string); override;
+
+    procedure ClearFrameData; override;
+    procedure LoadFrameData; override;
 
   public
     property GroupList: cEmutecaGroupList read FGroupList write SetGroupList;
@@ -339,7 +336,7 @@ procedure TfmEmutecaSoftTree.VDTCompareNodes(Sender: TBaseVirtualTree;
         Result := UTF8CompareText(aSoft1.Year, aSoft2.Year);
       5: // Flags
       begin
-        Result := Ord(aSoft1.DumpStatus) - Ord(aSoft2.DumpStatus);
+        Result := ord(aSoft1.DumpStatus) - ord(aSoft2.DumpStatus);
 
         if Result = 0 then
           Result := UTF8CompareText(aSoft1.DumpInfo, aSoft2.DumpInfo);
@@ -555,47 +552,30 @@ begin
   FOnSelectSoft := AValue;
 end;
 
-procedure TfmEmutecaSoftTree.DoLoadGUIConfig(aIniFile: TIniFile);
-var
-  i: integer;
-begin
-  i := 0;
-  while i < VDT.Header.Columns.Count do
-  begin
-    VDT.Header.Columns.Items[i].Width :=
-      aIniFile.ReadInteger(krsIniSoftTreeSection,
-      Format(krsIniSoftTreeWidthFmt, [i]), VDT.Header.Columns.Items[i].Width);
-    Inc(i);
-  end;
-end;
-
-procedure TfmEmutecaSoftTree.DoSaveGUIConfig(aIniFile: TIniFile);
-var
-  i: integer;
-begin
-  i := 0;
-  while i < VDT.Header.Columns.Count do
-  begin
-    aIniFile.WriteInteger(krsIniSoftTreeSection,
-      Format(krsIniSoftTreeWidthFmt, [i]), VDT.Header.Columns.Items[i].Width);
-    Inc(i);
-  end;
-end;
-
 procedure TfmEmutecaSoftTree.UpdateSBNodeCount;
 begin
   StatusBar.Panels[0].Text :=
     Format(rsFmtNItems, [VDT.RootNodeCount, VDT.VisibleCount]);
 end;
 
-procedure TfmEmutecaSoftTree.DoClearFrameData;
+procedure TfmEmutecaSoftTree.SetGUIIconsIni(AValue: string);
+begin
+  inherited SetGUIIconsIni(AValue);
+end;
+
+procedure TfmEmutecaSoftTree.SetGUIConfigIni(AValue: string);
+begin
+  inherited SetGUIConfigIni(AValue);
+end;
+
+procedure TfmEmutecaSoftTree.ClearFrameData;
 begin
   VDT.Clear;
   VDT.RootNodeCount := 0;
   UpdateSBNodeCount;
 end;
 
-procedure TfmEmutecaSoftTree.DoLoadFrameData;
+procedure TfmEmutecaSoftTree.LoadFrameData;
 begin
   Enabled := assigned(GroupList);
 
@@ -615,12 +595,6 @@ constructor TfmEmutecaSoftTree.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
   VDT.NodeDataSize := SizeOf(TObject);
-
-  OnClearFrameData := @DoClearFrameData;
-  OnLoadFrameData := @DoLoadFrameData;
-
-  OnLoadGUIConfig := @DoLoadGUIConfig;
-  OnSaveGUIConfig := @DoSaveGUIConfig;
 end;
 
 destructor TfmEmutecaSoftTree.Destroy;

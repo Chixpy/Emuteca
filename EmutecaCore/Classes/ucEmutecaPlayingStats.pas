@@ -40,10 +40,12 @@ type
   cEmutecaPlayingStats = class(TComponent)
   private
     FIcon: TPicture;
+    FIconIndex: integer;
     FLastTime: TDateTime;
     FPlayingTime: int64;
     FTimesPlayed: int64;
     procedure SetIcon(AValue: TPicture);
+    procedure SetIconIndex(AValue: integer);
     procedure SetLastTime(AValue: TDateTime);
     procedure SetPlayingTime(AValue: int64);
     procedure SetTimesPlayed(AValue: int64);
@@ -76,9 +78,10 @@ type
     {< Total seconds played. }
 
     function LastTimeStr: string;
-    function TimesPlayedStr: string;
-    function PlayingTimeStr: string;
-
+       function      TimesPlayedStr: string;
+       function         PlayingTimeStr: string;
+    { TODO : Cached data for GUI, store elsewhere? }
+    property IconIndex: integer read FIconIndex write SetIconIndex;
     property Icon: TPicture read FIcon write SetIcon;
   end;
 
@@ -93,10 +96,16 @@ begin
   FLastTime := AValue;
 end;
 
+procedure cEmutecaPlayingStats.SetIconIndex(AValue: integer);
+begin
+  if FIconIndex = AValue then
+    Exit;
+  FIconIndex := AValue;
+end;
+
 procedure cEmutecaPlayingStats.SetIcon(AValue: TPicture);
 begin
-  if FIcon = AValue then
-    Exit;
+  if FIcon = AValue then Exit;
   FIcon := AValue;
 end;
 
@@ -200,6 +209,8 @@ end;
 constructor cEmutecaPlayingStats.Create(aOwner: TComponent);
 begin
   inherited Create(aOwner);
+
+  IconIndex := -1;
 end;
 
 destructor cEmutecaPlayingStats.Destroy;
@@ -210,14 +221,14 @@ end;
 function cEmutecaPlayingStats.LastTimeStr: string;
 begin
   if LastTime = 0 then
-    Result := rsNever
-  else
-    Result := DateTimeToStr(LastTime);
+          Result := rsNever
+        else
+          Result := DateTimeToStr(LastTime);
 end;
 
 function cEmutecaPlayingStats.TimesPlayedStr: string;
 begin
-  Result := IntToStr(TimesPlayed);
+  Result := IntToStr(TimesPlayed)
 end;
 
 function cEmutecaPlayingStats.PlayingTimeStr: string;

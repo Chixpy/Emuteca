@@ -31,26 +31,20 @@ type
       const CellText: string; const CellRect: TRect; var DefaultDraw: boolean);
 
   private
-    FDefGrpIcon: TPicture;
-    FDefSoftIcon: TPicture;
-    FDefSysIcon: TPicture;
     FDumpIconList: cCHXImageList;
     FImageExt: TStrings;
     FSoftIconList: cCHXImageList;
     FZoneIconMap: cCHXImageMap;
-    procedure SetDefGrpIcon(AValue: TPicture);
-    procedure SetDefSoftIcon(AValue: TPicture);
-    procedure SetDefSysIcon(AValue: TPicture);
     procedure SetDumpIconList(AValue: cCHXImageList);
     procedure SetImageExt(AValue: TStrings);
     procedure SetSoftIconList(AValue: cCHXImageList);
     procedure SetZoneIconMap(AValue: cCHXImageMap);
 
   public
-    property DefSysIcon: TPicture read FDefSysIcon write SetDefSysIcon;
-    property DefGrpIcon: TPicture read FDefGrpIcon write SetDefGrpIcon;
-    property DefSoftIcon: TPicture read FDefSoftIcon write SetDefSoftIcon;
 
+    property SoftIconList: cCHXImageList read FSoftIconList
+      write SetSoftIconList;
+    //< Game, group, systems and emulatros icons
     property DumpIconList: cCHXImageList read FDumpIconList
       write SetDumpIconList;
     //< Icons of dump info.
@@ -78,7 +72,11 @@ procedure TfmLEmuTKIcnSoftTree.VDTDrawText(Sender: TBaseVirtualTree;
   var
     IconRect: TRect;
     aIcon: TPicture;
+    TmpStr: string;
   begin
+    if not Assigned(SoftIconList) then
+      Exit;
+
     case Column of
       0: // System
       begin
@@ -88,13 +86,22 @@ procedure TfmLEmuTKIcnSoftTree.VDTDrawText(Sender: TBaseVirtualTree;
         IconRect := CellRect;
         IconRect.Right := IconRect.Left + IconRect.Bottom - IconRect.Top;
 
-        aIcon := aGroup.CachedSystem.Stats.Icon;
-        if not assigned(aIcon) then
-          aIcon := DefSysIcon;
+        // TODO: Make it more simple
+        if aGroup.CachedSystem.Stats.IconIndex = -1 then
+        begin
+          if FileExistsUTF8(aGroup.CachedSystem.Icon) then
+            aGroup.CachedSystem.Stats.IconIndex :=
+              SoftIconList.AddImageFile(aGroup.CachedSystem.Icon)
+          else
+            aGroup.CachedSystem.Stats.IconIndex := 0;
+        end;
 
-        if assigned(aIcon) then
+        if (aGroup.CachedSystem.Stats.IconIndex < SoftIconList.Count) then
+        begin
+          aIcon := SoftIconList[aGroup.CachedSystem.Stats.IconIndex];
           TargetCanvas.StretchDraw(CorrectAspectRatio(IconRect, aIcon),
-              aIcon.Graphic);
+            aIcon.Graphic);
+        end;
 
         // Don't draw text
 
@@ -116,13 +123,24 @@ procedure TfmLEmuTKIcnSoftTree.VDTDrawText(Sender: TBaseVirtualTree;
         IconRect := CellRect;
         IconRect.Right := IconRect.Left + IconRect.Bottom - IconRect.Top;
 
-        aIcon := aGroup.Stats.Icon;
-        if not assigned(aIcon) then
-          aIcon := DefGrpIcon;
+        // TODO: Make it simple, Emuteca or System will search the icon
+        if aGroup.Stats.IconIndex = -1 then
+        begin
+          TmpStr := aGroup.SearchFirstRelatedFile(
+            aGroup.CachedSystem.IconFolder, ImageExt, True);
 
-        if assigned(aIcon) then
+          if TmpStr = '' then
+            aGroup.Stats.IconIndex := 0
+          else
+            aGroup.Stats.IconIndex := SoftIconList.AddImageFile(TmpStr);
+        end;
+
+        if (aGroup.Stats.IconIndex < SoftIconList.Count) then
+        begin
+          aIcon := SoftIconList[aGroup.Stats.IconIndex];
           TargetCanvas.StretchDraw(CorrectAspectRatio(IconRect, aIcon),
-              aIcon.Graphic);
+            aIcon.Graphic);
+        end;
 
         // Text space
         IconRect := CellRect;
@@ -151,23 +169,95 @@ procedure TfmLEmuTKIcnSoftTree.VDTDrawText(Sender: TBaseVirtualTree;
       begin
         // Don't Draw
         DefaultDraw := False;
+        {
+        if not assigned(SoftIconList) then
+          Exit;
+
+        if not assigned(aSoft.CachedSystem) then
+          Exit;
+
+        // Icon space
+        IconRect := CellRect;
+        IconRect.Right := IconRect.Left + IconRect.Bottom - IconRect.Top;
+
+
+        if aSoft.CachedSystem.Stats.IconIndex = -1 then
+        begin
+          if FileExistsUTF8(aSoft.CachedSystem.Icon) then
+            aSoft.CachedSystem.Stats.IconIndex :=
+              SoftIconList.AddImageFile(aSoft.CachedSystem.Icon)
+          else
+            aSoft.CachedSystem.Stats.IconIndex := 0;
+        end;
+
+        if (aSoft.CachedSystem.Stats.IconIndex < SoftIconList.Count) then
+        begin
+          aIcon := SoftIconList[aSoft.CachedSystem.Stats.IconIndex];
+          TargetCanvas.StretchDraw(CorrectAspectRatio(IconRect, aIcon),
+            aIcon.Graphic);
+        end;
+
+        // Don't draw text
+
+        // Text space
+        //  IconRect := CellRect;
+        //  IconRect.Left := IconRect.Left + IconRect.Bottom -
+        //  IconRect.Top + VST.TextMargin;
+
+        // DrawText(TargetCanvas.Handle, PChar(CellText), -1, IconRect,
+        //  DT_NOPREFIX or DT_VCENTER or DT_SINGLELINE or
+        //  DT_WORDBREAK or DT_END_ELLIPSIS or DT_EDITCONTROL);
+        }
       end;
 
       1: // Title
       begin
+        if not assigned(SoftIconList) then
+          Exit;
+
         DefaultDraw := False;
 
         // Icon space
         IconRect := CellRect;
         IconRect.Right := IconRect.Left + IconRect.Bottom - IconRect.Top;
 
-        aIcon := aSoft.Stats.Icon;
-        if not assigned(aIcon) then
-          aIcon := DefSoftIcon;
 
-        if assigned(aIcon) then
+        // TODO: Do this easier....
+        if aSoft.Stats.IconIndex = -1 then
+        begin
+
+          // Primero añadimos el padre, por si acaso.
+          if aSoft.CachedGroup.Stats.IconIndex = -1 then
+          begin
+            TmpStr := aSoft.CachedGroup.SearchFirstRelatedFile(
+              aSoft.CachedSystem.IconFolder, ImageExt, True);
+
+            if TmpStr = '' then
+              aSoft.CachedGroup.Stats.IconIndex := 0
+            else
+              aSoft.CachedGroup.Stats.IconIndex :=
+                SoftIconList.AddImageFile(TmpStr);
+          end;
+
+          // If not same file, search soft icon.
+          if not aSoft.MatchGroupFile then
+          begin
+            TmpStr := aSoft.SearchFirstRelatedFile(
+              aSoft.CachedSystem.IconFolder, ImageExt, True);
+            if TmpStr <> '' then
+              aSoft.Stats.IconIndex := SoftIconList.AddImageFile(TmpStr);
+          end;
+        end;
+
+        if aSoft.Stats.IconIndex = -1 then
+          aSoft.Stats.IconIndex := aSoft.CachedGroup.Stats.IconIndex;
+
+        if (aSoft.Stats.IconIndex < SoftIconList.Count) then
+        begin
+          aIcon := SoftIconList[aSoft.Stats.IconIndex];
           TargetCanvas.StretchDraw(CorrectAspectRatio(IconRect, aIcon),
-              aIcon.Graphic);
+            aIcon.Graphic);
+        end;
 
         // Text space
         IconRect := CellRect;
@@ -302,24 +392,6 @@ begin
   if FDumpIconList = AValue then
     Exit;
   FDumpIconList := AValue;
-end;
-
-procedure TfmLEmuTKIcnSoftTree.SetDefGrpIcon(AValue: TPicture);
-begin
-  if FDefGrpIcon = AValue then Exit;
-  FDefGrpIcon := AValue;
-end;
-
-procedure TfmLEmuTKIcnSoftTree.SetDefSoftIcon(AValue: TPicture);
-begin
-  if FDefSoftIcon = AValue then Exit;
-  FDefSoftIcon := AValue;
-end;
-
-procedure TfmLEmuTKIcnSoftTree.SetDefSysIcon(AValue: TPicture);
-begin
-  if FDefSysIcon = AValue then Exit;
-  FDefSysIcon := AValue;
 end;
 
 procedure TfmLEmuTKIcnSoftTree.SetImageExt(AValue: TStrings);

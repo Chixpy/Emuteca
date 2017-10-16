@@ -43,8 +43,8 @@ type
 
     procedure SetListPreview(AValue: TfmCHXStrLstPreview);
 
-    procedure DoClearFrameData;
-    procedure DoLoadFrameData;
+    procedure ClearFrameData; override;
+    procedure LoadFrameData; override;
 
     procedure CreateListView; virtual; // TODO: abstract; //-> ERROR?
     function GetCaptionList: TStrings; virtual; // TODO: abstract; //-> ERROR?
@@ -176,12 +176,12 @@ begin
   fmListPreview.StrList := FileList;
 end;
 
-procedure TfmLEmuTKSoftFoldersPreview.DoClearFrameData;
+procedure TfmLEmuTKSoftFoldersPreview.ClearFrameData;
 begin
   cbxFolderCaption.Clear;
 end;
 
-procedure TfmLEmuTKSoftFoldersPreview.DoLoadFrameData;
+procedure TfmLEmuTKSoftFoldersPreview.LoadFrameData;
 var
   aIndex: integer;
 begin
@@ -215,9 +215,6 @@ begin
   FFileList := TStringList.Create;
 
   CreateListView;
-
-  OnClearFrameData := @DoClearFrameData;
-  OnLoadFrameData := @DoLoadFrameData;
 end;
 
 destructor TfmLEmuTKSoftFoldersPreview.Destroy;

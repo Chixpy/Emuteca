@@ -16,7 +16,7 @@ uses
   ufESMGroupList, ufEmutecaSystemEditor,
   ufLEmuTKFullSystemEditor, ufCHXChkLstPropEditor, ufLEmuTKSysManager,
   ufLEmuTKEmuManager, ufEmutecaSoftEditor, ufLEmuTKFullEmuEditor,
-  ufEmutecaEmulatorEditor, ufEmutecaActAddSoft,
+  ufEmutecaEmulatorEditor, ufEmutecaActAddSoft, ufCHXForm,
   ufEmutecaActAddFolder, ucEmutecaSoftList, ucEmutecaSystemList,
   ucEmutecaGroupList, ucEmutecaEmulatorList, uaEmutecaCustomGroup,
   uaEmutecaCustomSoft, uaEmutecaCustomSystem, ufrLEmuTKAbout, ufLEmuTKIcnSysCBX,
