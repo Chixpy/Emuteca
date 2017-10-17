@@ -94,7 +94,7 @@
         <PackageName Value="LCL"/>
       </Item6>
     </RequiredPackages>
-    <Units Count="108">
+    <Units Count="109">
       <Unit0>
         <Filename Value="LazEmuteca.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -669,6 +669,10 @@
         <IsPartOfProject Value="True"/>
         <HasResources Value="True"/>
       </Unit107>
+      <Unit108>
+        <Filename Value="source\threads\utLEmuTKCacheSysIcons.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit108>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -679,7 +683,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="..\CHXPas;..\CHXPas\Abstract;..\CHXPas\Classes;..\CHXPas\Forms;..\CHXPas\Frames;..\CHXPas\Misc;..\CHXPas\ScriptManager;..\CHXPas\ScriptManager\imports;..\CHXPas\ScriptManager\frames;..\CHXPas\Units;..\EmutecaCore;..\EmutecaCore\Abstracts;..\EmutecaCore\Classes;..\EmutecaCore\Frames;..\EmutecaCore\ScriptMng;..\EmutecaCore\Units;source;source\abstracts;source\forms;source\forms\ScriptMng;source\frames;source\units;..\..\LazEmuteca\source\frames"/>
+      <OtherUnitFiles Value="..\CHXPas;..\CHXPas\Abstract;..\CHXPas\Classes;..\CHXPas\Forms;..\CHXPas\Frames;..\CHXPas\Misc;..\CHXPas\ScriptManager;..\CHXPas\ScriptManager\imports;..\CHXPas\ScriptManager\frames;..\CHXPas\Units;..\EmutecaCore;..\EmutecaCore\Abstracts;..\EmutecaCore\Classes;..\EmutecaCore\Frames;..\EmutecaCore\ScriptMng;..\EmutecaCore\Units;source;source\abstracts;source\forms;source\forms\ScriptMng;source\frames;source\units;..\..\LazEmuteca\source\frames;source\threads"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>
