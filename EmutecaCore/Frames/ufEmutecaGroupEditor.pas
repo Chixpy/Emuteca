@@ -25,11 +25,11 @@ type
     procedure SetGroup(AValue: cEmutecaGroup);
 
   protected
-    procedure ClearFrameData; override;
-    procedure LoadFrameData; override;
+    procedure DoClearFrameData;
+    procedure DoLoadFrameData;
+    procedure DoSaveFrameData;
 
   public
-    procedure SaveFrameData; override;
 
     procedure FPOObservedChanged(ASender: TObject;
       Operation: TFPObservedOperation; Data: Pointer);
@@ -64,7 +64,7 @@ begin
   LoadFrameData;
 end;
 
-procedure TfmEmutecaGroupEditor.ClearFrameData;
+procedure TfmEmutecaGroupEditor.DoClearFrameData;
 begin
   eTitle.Clear;
   eSortTitle.Clear;
@@ -73,7 +73,7 @@ begin
   eMediaFile.Clear;
 end;
 
-procedure TfmEmutecaGroupEditor.LoadFrameData;
+procedure TfmEmutecaGroupEditor.DoLoadFrameData;
 begin
   Enabled := Assigned(Group);
 
@@ -90,7 +90,7 @@ begin
   eMediaFile.Text := Group.MediaFileName;
 end;
 
-procedure TfmEmutecaGroupEditor.SaveFrameData;
+procedure TfmEmutecaGroupEditor.DoSaveFrameData;
 begin
   if not Assigned(Group) then
     Exit;
@@ -115,6 +115,10 @@ end;
 constructor TfmEmutecaGroupEditor.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
+
+  OnClearFrameData := @DoClearFrameData;
+  OnLoadFrameData := @DoLoadFrameData;
+  OnSaveFrameData := @DoSaveFrameData;
 end;
 
 destructor TfmEmutecaGroupEditor.Destroy;

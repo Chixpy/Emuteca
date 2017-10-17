@@ -22,21 +22,20 @@ type
   private
     FGroup: cEmutecaGroup;
     FImageExt: TStrings;
+    FSHA1Folder: string;
     FSoftImgPreview: TfmLEmuTKSoftImgPreview;
     FSoftTxtPreview: TfmLEmuTKSoftTxtPreview;
     FSoftware: cEmutecaSoftware;
     FTextExt: TStrings;
     procedure SetGroup(AValue: cEmutecaGroup);
     procedure SetImageExt(AValue: TStrings);
+    procedure SetSHA1Folder(AValue: string);
     procedure SetSoftware(AValue: cEmutecaSoftware);
     procedure SetTextExt(AValue: TStrings);
 
   protected
     property SoftImgPreview: TfmLEmuTKSoftImgPreview read FSoftImgPreview;
     property SoftTxtPreview: TfmLEmuTKSoftTxtPreview read FSoftTxtPreview;
-
-    procedure ClearFrameData; override;
-    procedure LoadFrameData; override;
 
   public
     property Software: cEmutecaSoftware read FSoftware write SetSoftware;
@@ -45,6 +44,7 @@ type
     property ImageExt: TStrings read FImageExt write SetImageExt;
     property TextExt: TStrings read FTextExt write SetTextExt;
 
+    property SHA1Folder: string read FSHA1Folder write SetSHA1Folder;
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -77,6 +77,14 @@ begin
   SoftImgPreview.FileExt := ImageExt;
 end;
 
+procedure TfmLEmuTKSoftMedia.SetSHA1Folder(AValue: string);
+begin
+  if FSHA1Folder = AValue then Exit;
+  FSHA1Folder := AValue;
+
+  SoftImgPreview.SHA1Folder := SHA1Folder;
+end;
+
 procedure TfmLEmuTKSoftMedia.SetSoftware(AValue: cEmutecaSoftware);
 begin
   if FSoftware = AValue then
@@ -95,14 +103,6 @@ begin
   FTextExt := AValue;
 
   SoftTxtPreview.FileExt := TextExt;
-end;
-
-procedure TfmLEmuTKSoftMedia.ClearFrameData;
-begin
-end;
-
-procedure TfmLEmuTKSoftMedia.LoadFrameData;
-begin
 end;
 
 constructor TfmLEmuTKSoftMedia.Create(TheOwner: TComponent);

@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, LazFileUtils, Forms, Controls,
-  Graphics, Dialogs, LazUTF8, LCLIntf,
+  Graphics, Dialogs, LazUTF8, LCLIntf, IniFiles,
   ActnList, Menus, StdActns, ComCtrls, ExtCtrls, LCLTranslator,
   IniPropStorage, StdCtrls,
   // Misc
@@ -14,7 +14,7 @@ uses
   // CHX units
   uCHXStrUtils, uCHXFileUtils, uCHXImageUtils, ucCHXImageList,
   // CHX forms
-  ufCHXForm, ufCHXProgressBar,
+  ufrCHXForm, ufCHXProgressBar,
   // Emuteca clases
   ucEmuteca, uEmutecaCommon,
   // Emuteca forms
@@ -25,13 +25,13 @@ uses
   // LazEmuteca units
   uLEmuTKCommon, uGUIConfig,
   // LazEmuteca frames
-   ufLEmuTKMain, ufLEmuTKSysManager, ufLEmuTKEmuManager,
+  ufLEmuTKMain, ufLEmuTKSysManager, ufLEmuTKEmuManager,
   ufLEmuTKMediaManager, ufLEmuTKScriptManager;
 
 type
 
   { TfrmLEmuTKMain }
-
+  // TODO: Make it TCHXForm
   TfrmLEmuTKMain = class(TForm)
     actEmulatorManager: TAction;
     actAddFolder: TAction;
@@ -197,7 +197,7 @@ begin
   ActImages.Clear;
 
   // Icons for TActions
-  ReadActionsIcons(GUIIconsFile, Name, ActImages, ActionList);
+  ReadActionsIconsFile(GUIIconsFile, Name, ActImages, ActionList);
 
   // Icons for menus (without assigned TAction)
   ReadMenuIcons(GUIIconsFile, Name, ActImages, MainMenu);
@@ -229,19 +229,7 @@ begin
   IconList.AddImageFile(aFolder + 'EmuIcon.png');
 
   { Icons for "flags" column, see ufEmutecaIcnSoftList.LazEmuTKIconFiles
-    0: Verified.png
-    1: GoodDump.png
-    2: Alternate.png
-    3: OverDump.png
-    4: BadDump.png
-    5: UnderDump.png
-    6  Fixed.png
-    7: Trainer.png
-    8: Translation.png
-    9: Pirate.png
-    10: Cracked.png
-    11: Modified.png
-    12: Hack.png
+    case ord(LazEmuTKIconFiles)
     }
   DumpIcons.Clear;
   aFolder := SetAsAbsoluteFile(GUIConfig.DumpIcnFolder, ProgramDirectory);
@@ -288,6 +276,8 @@ begin
 end;
 
 procedure TfrmLEmuTKMain.FormCreate(Sender: TObject);
+var
+  aIni: TMemIniFile;
 begin
   Application.Title := Format(rsFmtApplicationTitle,
     [krsEmuteca, GetFileVersion]); // Usually is deleted in .lpr file...
@@ -319,7 +309,7 @@ begin
   GUIIconsFile := SetAsAbsoluteFile(GUIConfig.GUIIcnFile, ProgramDirectory);
 
   // Experimental
-  SHA1Folder := GUIConfig.GlobalCache;
+  SHA1Folder := SetAsAbsoluteFile(GUIConfig.GlobalCache, ProgramDirectory);
 
   // Image lists
   FIconList := cCHXImageList.Create(True);
@@ -340,9 +330,24 @@ begin
   fmEmutecaMainFrame.DumpIcons := DumpIcons;
   fmEmutecaMainFrame.ZoneIcons := ZoneIcons;
   fmEmutecaMainFrame.Emuteca := Emuteca;
+  fmEmutecaMainFrame.SHA1Folder := SHA1Folder;
   fmEmutecaMainFrame.GUIConfig := GUIConfig;
-  fmEmutecaMainFrame.GUIIconsIni := GUIConfig.GUIIcnFile;
+
+  aIni := TMemIniFile.Create(GUIConfig.GUIIcnFile);
+  try
+    fmEmutecaMainFrame.LoadGUIIcons(aIni, ExtractFilePath(aIni.FileName));
+  finally
+    aIni.Free;
+  end;
+
   fmEmutecaMainFrame.Align := alClient;
+
+  aIni := TMemIniFile.Create(GUIConfig.ConfigFile);
+  try
+    fmEmutecaMainFrame.LoadGUIConfig(aIni);
+  finally
+    aIni.Free;
+  end;
   fmEmutecaMainFrame.Parent := Self;
 
   // Misc
@@ -360,7 +365,6 @@ begin
   Application.CreateForm(TfrmCHXForm, aForm);
   try
     aForm.Name := 'frmLEmuTKEmuManager';
-    aForm.GUIConfigIni := GUIConfig.ConfigFile;
     aForm.Caption := Format(krsFmtWindowCaption,
       [Application.Title, actEmulatorManager.Caption]);
 
@@ -368,9 +372,12 @@ begin
     aFrame.EmuManager := Emuteca.EmulatorManager;
     aFrame.SaveButtons := True;
     aFrame.ButtonClose := True;
-    aFrame.GUIIconsIni := GUIConfig.GUIIcnFile;
     aFrame.Align := alClient;
-    aFrame.Parent := aForm;
+
+
+    aForm.LoadGUIConfig(GUIConfig.ConfigFile);
+    aForm.LoadGUIIcons(GUIConfig.GUIIcnFile);
+   aFrame.Parent := aForm;
 
     aForm.ShowModal;
   finally
@@ -411,7 +418,7 @@ end;
 
 procedure TfrmLEmuTKMain.actScriptManagerExecute(Sender: TObject);
 begin
-    // Fix runtime errors, while trying to update if something is changed
+  // Fix runtime errors, while trying to update if something is changed
   fmEmutecaMainFrame.Emuteca := nil;
 
   TfmLEmuTKScriptManager.SimpleForm(Emuteca,
@@ -423,7 +430,7 @@ end;
 
 procedure TfrmLEmuTKMain.actAddFolderExecute(Sender: TObject);
 begin
-    // Fix runtime errors, while trying to update if something is changed
+  // Fix runtime errors, while trying to update if something is changed
   fmEmutecaMainFrame.Emuteca := nil;
 
   TfmEmutecaActAddFolder.SimpleForm(Emuteca, GUIIconsFile,
@@ -439,7 +446,7 @@ end;
 
 procedure TfrmLEmuTKMain.actCleanAllSystemsExecute(Sender: TObject);
 begin
-     // Fix runtime errors, while trying to update if something is changed
+  // Fix runtime errors, while trying to update if something is changed
   fmEmutecaMainFrame.Emuteca := nil;
 
   Emuteca.CleanSystems;
@@ -450,18 +457,18 @@ end;
 procedure TfrmLEmuTKMain.actCleanSystemDataExecute(Sender: TObject);
 begin
   // Fix runtime errors, while trying to update if something is changed
-fmEmutecaMainFrame.Emuteca := nil;
+  fmEmutecaMainFrame.Emuteca := nil;
 
 
-// TODO: We need a callback setting current system/group/soft
-// Emuteca.CleanSystems;
+  // TODO: We need a callback setting current system/group/soft
+  // Emuteca.CleanSystems;
 
-fmEmutecaMainFrame.Emuteca := Emuteca;
+  fmEmutecaMainFrame.Emuteca := Emuteca;
 end;
 
 procedure TfrmLEmuTKMain.actAddSoftExecute(Sender: TObject);
 begin
-   // Fix runtime errors, while trying to update if something is changed
+  // Fix runtime errors, while trying to update if something is changed
   fmEmutecaMainFrame.Emuteca := nil;
 
   TfmEmutecaActAddSoft.SimpleForm(Emuteca, GUIIconsFile,

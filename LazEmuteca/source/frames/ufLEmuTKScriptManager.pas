@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
   uCHXStrUtils,
-  ufCHXForm, ufCHXScriptManager,
+  ufrCHXForm, ufCHXScriptManager,
   ucEmuteca, uEmutecaCommon,
   ucEmutecaScriptEngine;
 
@@ -21,8 +21,8 @@ type
     procedure SetEmuteca(AValue: cEmuteca);
 
   protected
-    procedure ClearFrameData; override;
-    procedure LoadFrameData; override;
+    procedure DoClearFrameData;
+    procedure DoLoadFrameData;
 
     procedure CreateCustomEngine; override;
 
@@ -54,12 +54,12 @@ begin
   LoadFrameData;
 end;
 
-procedure TfmLEmuTKScriptManager.ClearFrameData;
+procedure TfmLEmuTKScriptManager.DoClearFrameData;
 begin
 
 end;
 
-procedure TfmLEmuTKScriptManager.LoadFrameData;
+procedure TfmLEmuTKScriptManager.DoLoadFrameData;
 begin
   Enabled := Assigned(Emuteca);
 
@@ -111,8 +111,8 @@ begin
     aFrame.SetBaseFolder(aBaseFolder);
     aFrame.Emuteca := aEmuteca;
 
-    aForm.GUIConfigIni := aGUIConfigIni;
-    aForm.GUIIconsIni := aGUIIconsIni;
+    aForm.LoadGUIConfig(aGUIConfigIni);
+    aForm.LoadGUIIcons(aGUIIconsIni);
     aFrame.Parent := aForm;
 
     Result := aForm.ShowModal;
@@ -126,6 +126,9 @@ begin
   inherited Create(TheOwner);
 
   slvGeneral.Mask := krsFileMaskScript;
+
+  OnClearFrameData := @DoClearFrameData;
+  OnLoadFrameData := @DoLoadFrameData;
 end;
 
 destructor TfmLEmuTKScriptManager.Destroy;

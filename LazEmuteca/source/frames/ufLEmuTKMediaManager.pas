@@ -6,13 +6,17 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, VirtualTrees, Forms, Controls,
-  Graphics, Dialogs,
-  ExtCtrls, ComCtrls, StdCtrls, ActnList, LCLType, Buttons, EditBtn, Menus,
-  LazFileUtils, LazUTF8, uCHXStrUtils, uCHXImageUtils,
-  uCHXFileUtils, ufCHXForm,
-  ufCHXFrame, ufCHXStrLstPreview, ufCHXImgListPreview, ufCHXTxtListPreview,
-  ufCHXProgressBar, uEmutecaCommon, ucEmuteca, ucEmutecaSystem, ucEmutecaGroup,
-  ucEmutecaSoftware, ufEmutecaSystemCBX, uGUIConfig, uLEmuTKCommon;
+  Graphics, Dialogs, ExtCtrls, ComCtrls, StdCtrls, ActnList,
+  LCLType, Buttons, EditBtn, Menus, LazFileUtils, LazUTF8, IniFiles,
+  uCHXStrUtils, uCHXImageUtils, uCHXFileUtils,
+  ufrCHXForm,
+  ufCHXFrame, ufCHXStrLstPreview, ufCHXImgListPreview,
+  ufCHXTxtListPreview, ufCHXProgressBar,
+  uEmutecaCommon,
+  ucEmuteca, ucEmutecaSystem, ucEmutecaGroup, ucEmutecaSoftware,
+  ufEmutecaSystemCBX,
+  uGUIConfig,
+  uLEmuTKCommon;
 
 type
 
@@ -249,43 +253,41 @@ type
 
 
 
+    //property MediaFiles: TStringList read FMediaFiles write SetMediaFiles;
+    ////< Mediafiles assigned to the current game or group.
+    //property CurrentMediaIndex: integer
+    //  read FCurrentMediaIndex write SetCurrentMediaIndex;
+    ////< Index of the current media file.
 
- //property MediaFiles: TStringList read FMediaFiles write SetMediaFiles;
- ////< Mediafiles assigned to the current game or group.
- //property CurrentMediaIndex: integer
- //  read FCurrentMediaIndex write SetCurrentMediaIndex;
- ////< Index of the current media file.
- //
- //// TODO 3: Maybe this 4 methods can be reduced to 2 without ofuscate them...
- //
- //
- //function AddFilesOtherFolder(aFolder: string;
- //  Info: TSearchRec): boolean; overload;
- //{< Add files or folders to vstFilesOtherFolder.
- //  @param(aFolder Folder where the file is in.)
- //  @param(Info TSearchRec with folder or file data.)
- //  @return(Always @true; needed for IterateFolder.)
- //}
- //
- //
- //procedure UpdateFileOtherFolder(const afolder: string);
- //
- //procedure DeleteAllFiles;
- //{< Delete all VISIBLE (i.e. no hidden) files from the current list
- //     FROM DISC PHYSICALLY. }
- //procedure MoveFile;
- //{< Move current selected (source) file to another folder. }
- //procedure MoveAllFiles;
- //{< Move all VISIBLE (i.e. no hidden) files from the current list to
- //    another folder. }
+    //// TODO 3: Maybe this 4 methods can be reduced to 2 without ofuscate them...
 
+
+    //function AddFilesOtherFolder(aFolder: string;
+    //  Info: TSearchRec): boolean; overload;
+    //{< Add files or folders to vstFilesOtherFolder.
+    //  @param(aFolder Folder where the file is in.)
+    //  @param(Info TSearchRec with folder or file data.)
+    //  @return(Always @true; needed for IterateFolder.)
+    //}
+
+
+    //procedure UpdateFileOtherFolder(const afolder: string);
+
+    //procedure DeleteAllFiles;
+    //{< Delete all VISIBLE (i.e. no hidden) files from the current list
+    //     FROM DISC PHYSICALLY. }
+    //procedure MoveFile;
+    //{< Move current selected (source) file to another folder. }
+    //procedure MoveAllFiles;
+    //{< Move all VISIBLE (i.e. no hidden) files from the current list to
+    //    another folder. }
 
 
 
-    procedure ClearFrameData; override;
-    procedure LoadFrameData; override;
 
-    procedure SetGUIIconsIni(AValue: string); override;
+    procedure DoClearFrameData;
+    procedure DoLoadFrameData;
+    procedure DoLoadGUIIcons(aIconsIni: TIniFile; aBaseFolder: string);
 
   public
     property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
@@ -341,6 +343,12 @@ procedure TfmLEmuTKMediaManager.SetTargetFolder(AValue: string);
 begin
   FTargetFolder := SetAsFolder(AValue);
   UpdateStatusBars;
+end;
+
+procedure TfmLEmuTKMediaManager.DoLoadGUIIcons(aIconsIni: TIniFile;
+  aBaseFolder: string);
+begin
+  ReadActionsIconsIni(aIconsIni, aBaseFolder, Self.Name, ilActions, ActionList);
 end;
 
 procedure TfmLEmuTKMediaManager.UpdateStatusBars;
@@ -705,12 +713,12 @@ begin
   CurrPreview.StrList := MediaFiles;
 end;
 
-procedure TfmLEmuTKMediaManager.ClearFrameData;
+procedure TfmLEmuTKMediaManager.DoClearFrameData;
 begin
 
 end;
 
-procedure TfmLEmuTKMediaManager.LoadFrameData;
+procedure TfmLEmuTKMediaManager.DoLoadFrameData;
 begin
   Enabled := assigned(Emuteca);
 
@@ -720,13 +728,6 @@ begin
     Exit;
   end;
 
-end;
-
-procedure TfmLEmuTKMediaManager.SetGUIIconsIni(AValue: string);
-begin
-  inherited SetGUIIconsIni(AValue);
-
-  ReadActionsIcons(GUIIconsIni, Self.Name, ilActions, ActionList);
 end;
 
 procedure TfmLEmuTKMediaManager.LoadSysFolders;
@@ -936,7 +937,8 @@ begin
 
   case Column of
     -1, 0: Result := UTF8CompareText(pGroup1^.Title, pGroup2^.Title);
-    1: Result := CompareFilenames(pGroup1^.MediaFileName, pGroup2^.MediaFileName);
+    1: Result := CompareFilenames(pGroup1^.MediaFileName,
+        pGroup2^.MediaFileName);
   end;
 end;
 
@@ -1081,32 +1083,37 @@ procedure TfmLEmuTKMediaManager.actRenameGroupFileExecute(Sender: TObject);
 var
   NewName: string;
 begin
-  if not Assigned(CurrGroup) then Exit;
+  if not Assigned(CurrGroup) then
+    Exit;
   NewName := CleanFileName(CurrGroup.SortTitle);
 
-  if not InputQuery(self.Caption, 'Rename group media filename:', NewName) then Exit;
+  if not InputQuery(self.Caption, 'Rename group media filename:', NewName) then
+    Exit;
 
   CurrGroup.MediaFileName := NewName;
 
-    TargetFile := CurrGroup.MediaFileName + krsVirtualExt;
+  TargetFile := CurrGroup.MediaFileName + krsVirtualExt;
   ChangeGroupMedia(CurrGroup);
   FilterFiles;
 end;
 
 procedure TfmLEmuTKMediaManager.actRenameGroupTitleExecute(Sender: TObject);
 var
-  NewName: String;
+  NewName: string;
 begin
-  if not Assigned(CurrGroup) then Exit;
+  if not Assigned(CurrGroup) then
+    Exit;
 
-   NewName := CurrGroup.Title;
+  NewName := CurrGroup.Title;
 
-  if not InputQuery(self.Caption, 'Rename group title:', NewName) then Exit;
+  if not InputQuery(self.Caption, 'Rename group title:', NewName) then
+    Exit;
 
   CurrGroup.Title := NewName;
 
-  if MessageDlg(self.Caption, 'Rename group media filename?', mtConfirmation, mbYesNo,
-   '') = mrNo then Exit;
+  if MessageDlg(self.Caption, 'Rename group media filename?',
+    mtConfirmation, mbYesNo, '') = mrNo then
+    Exit;
 
   CurrGroup.MediaFileName := CleanFileName(NewName);
 
@@ -1318,12 +1325,12 @@ begin
 
   if assigned(GUIConfig) then
   begin
-    GUIConfigIni := GUIConfig.ConfigFile;
+   // GUIConfigIni := GUIConfig.ConfigFile;
     SHA1Folder := SetAsAbsoluteFile(GUIConfig.GlobalCache, ProgramDirectory);
   end
   else
   begin
-    GUIConfigIni := '';
+   // GUIConfigIni := '';
     SHA1Folder := '';
   end;
 end;
@@ -1365,19 +1372,16 @@ begin
     aForm.Caption := Format(krsFmtWindowCaption,
       [Application.Title, 'Media Manager']);
 
-    // Set aForm.GUIConfigIni before creation of aFrame because
-    //  it is set with aFrame.GUIConfig := aGUIConfig; later.
-    aForm.GUIConfigIni := aGUIConfig.ConfigFile;
-
     aFrame := TfmLEmuTKMediaManager.Create(aForm);
     aFrame.Align := alClient;
 
     aFrame.GUIConfig := aGUIConfig;
     aFrame.Emuteca := aEmuteca;
 
-    aForm.GUIIconsIni := aGUIIconsIni;
     aFrame.Parent := aForm;
 
+    aForm.LoadGUIConfig(aGUIConfig.ConfigFile);
+    aForm.LoadGUIIcons(aGUIIconsIni);
     Result := aForm.ShowModal;
   finally
     aForm.Free;
@@ -1406,6 +1410,8 @@ constructor TfmLEmuTKMediaManager.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
 
+  CreateFrames;
+
   vstAllGroups.NodeDataSize := SizeOf(TObject);
   vstAllSoft.NodeDataSize := SizeOf(TObject);
   vstGroupsWOFile.NodeDataSize := SizeOf(TObject);
@@ -1425,7 +1431,9 @@ begin
   if not Assigned(frmCHXProgressBar) then
     Application.CreateForm(TfrmCHXProgressBar, frmCHXProgressBar);
 
-  CreateFrames;
+  OnClearFrameData := @DoClearFrameData;
+  OnLoadFrameData := @DoLoadFrameData;
+  OnLoadGUIIcons := @DoLoadGUIIcons;
 end;
 
 destructor TfmLEmuTKMediaManager.Destroy;

@@ -9,7 +9,7 @@ uses
   Buttons, ActnList, StdCtrls, EditBtn, LazFileUtils, LazUTF8,
   u7zWrapper,
   uCHXFileUtils, uCHXStrUtils,
-  ufCHXForm, ufCHXPropEditor,
+  ufrCHXForm, ufCHXPropEditor,
   uEmutecaCommon,
   ucEmuteca, uaEmutecaCustomSystem, ucEmutecaSystem,
   ucEmutecaSoftList, ucEmutecaSoftware,
@@ -40,14 +40,12 @@ type
 
     function SelectSystem(aSystem: cEmutecaSystem): boolean;
 
-    procedure ClearFrameData; override;
-    procedure LoadFrameData; override;
-
+    procedure DoLoadFrameData;
+    procedure DoSaveFrameData;
 
   public
     property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
 
-    procedure SaveFrameData; override;
 
     // Creates a form with AddFolder frame.
     class function SimpleForm(aEmuteca: cEmuteca; aGUIIconsIni: string;
@@ -79,11 +77,6 @@ begin
   LoadFrameData;
 end;
 
-procedure TfmEmutecaActAddFolder.ClearFrameData;
-begin
-
-end;
-
 function TfmEmutecaActAddFolder.SelectSystem(aSystem: cEmutecaSystem): boolean;
 begin
   Result := False;
@@ -99,18 +92,18 @@ begin
     ProgramDirectory);
 end;
 
-procedure TfmEmutecaActAddFolder.LoadFrameData;
+procedure TfmEmutecaActAddFolder.DoLoadFrameData;
 begin
   Enabled := Assigned(Emuteca);
 
-  if not Enabled then
-  begin
-    ClearFrameData;
-    Exit;
-  end;
+  //if not Enabled then
+  //begin
+  //  ClearFrameData;
+  //  Exit;
+  //end;
 end;
 
-procedure TfmEmutecaActAddFolder.SaveFrameData;
+procedure TfmEmutecaActAddFolder.DoSaveFrameData;
 var
   aSystem: cEmutecaSystem;
   FolderList, FileList: TStrings;
@@ -293,8 +286,8 @@ begin
 
     aFrame.Emuteca := aEmuteca;
 
-    aForm.GUIConfigIni := aGUIConfigIni;
-    aForm.GUIIconsIni := aGUIIconsIni;
+    aForm.LoadGUIConfig(aGUIConfigIni);
+    aForm.LoadGUIIcons(aGUIIconsIni);
     aFrame.Parent := aForm;
 
     Result := aForm.ShowModal;
@@ -318,6 +311,9 @@ begin
   inherited Create(TheOwner);
 
   CreateFrames;
+
+  OnLoadFrameData := @DoLoadFrameData;
+  OnSaveFrameData := @DoSaveFrameData;
 end;
 
 destructor TfmEmutecaActAddFolder.Destroy;

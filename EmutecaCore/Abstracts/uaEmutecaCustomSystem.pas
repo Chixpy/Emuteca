@@ -383,9 +383,9 @@ begin
   else
   begin
     // aImagList[2] is default for systems
-    if aImagList.Count > 2 then
+    if aImagList.Count > 3 then
     begin
-      Stats.Icon := aImagList[2];
+      Stats.Icon := aImagList[3];
     end
     else
     begin

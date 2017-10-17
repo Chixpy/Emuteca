@@ -2,6 +2,9 @@
 {"hash":5941427,"name":"tfmlemutksyspreview.gbxstats.caption","sourcebytes":[83,116,97,116,115],"value":"Stats"},
 {"hash":187861189,"name":"tfmlemutksyspreview.eplayedtime.texthint","sourcebytes":[80,108,97,121,101,100,32,84,105,109,101],"value":"Played Time"},
 {"hash":89850851,"name":"tfmlemutksyspreview.entimes.texthint","sourcebytes":[35,32,84,105,109,101,115],"value":"# Times"},
-{"hash":145344021,"name":"tfmlemutksyspreview.elasttime.text","sourcebytes":[101,76,97,115,116,84,105,109,101],"value":"eLastTime"},
+{"hash":19752036,"name":"tfmlemutksyspreview.elasttime.texthint","sourcebytes":[76,97,115,116,32,116,105,109,101,32,112,108,97,121,101,100],"value":"Last time played"},
+{"hash":98143525,"name":"tfmlemutksyspreview.ensoft.texthint","sourcebytes":[35,32,83,111,102,116,119,97,114,101],"value":"# Software"},
+{"hash":82406947,"name":"tfmlemutksyspreview.engroups.texthint","sourcebytes":[35,32,71,114,111,117,112,115],"value":"# Groups"},
+{"hash":106991073,"name":"tfmlemutksyspreview.toolbar1.caption","sourcebytes":[84,111,111,108,66,97,114,49],"value":"ToolBar1"},
 {"hash":112869810,"name":"tfmlemutksyspreview.actopensystemfolder.caption","sourcebytes":[79,112,101,110,32,115,121,115,116,101,109,32,102,111,108,100,101,114],"value":"Open system folder"}
 ]}
