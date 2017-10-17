@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, LazFileUtils, Forms, Controls,
-  Graphics, Dialogs,
+  Graphics, Dialogs, IniFiles,
   VirtualTrees, LCLIntf, LCLType, ComCtrls, Menus, ActnList, LazUTF8,
   ucCHXImageList, uCHXImageUtils,
   uEmutecaCommon,
@@ -45,6 +45,11 @@ type
     procedure SetImageExt(AValue: TStrings);
     procedure SetSoftIconList(AValue: cCHXImageList);
     procedure SetZoneIconMap(AValue: cCHXImageMap);
+
+    protected
+      procedure SetIconColumnsWidth;
+
+      procedure DoLoadGUIConfig(aIniFile: TIniFile); override;
 
   public
     property DefSysIcon: TPicture read FDefSysIcon write SetDefSysIcon;
@@ -343,19 +348,41 @@ begin
   FZoneIconMap := AValue;
 end;
 
-constructor TfmLEmuTKIcnSoftTree.Create(TheOwner: TComponent);
+procedure TfmLEmuTKIcnSoftTree.SetIconColumnsWidth;
+var
+  TempOptions: TVTColumnOptions;
 begin
-  inherited Create(TheOwner);
-
   // Set Width of icon columns
   // System
   VDT.Header.Columns[0].Width :=
     VDT.DefaultNodeHeight + VDT.Header.Columns[0].Spacing * 2 +
     VDT.Header.Columns[0].Margin * 2;
+  TempOptions := VDT.Header.Columns[0].Options;
+  Exclude(TempOptions, coResizable);
+  VDT.Header.Columns[0].Options := TempOptions;
+
   // DumpStatus
   VDT.Header.Columns[5].Width :=
     VDT.DefaultNodeHeight * 8 + VDT.Header.Columns[5].Spacing *
     2 + VDT.Header.Columns[5].Margin * 2;
+  TempOptions := VDT.Header.Columns[5].Options;
+  Exclude(TempOptions, coResizable);
+  VDT.Header.Columns[5].Options := TempOptions;
+end;
+
+procedure TfmLEmuTKIcnSoftTree.DoLoadGUIConfig(aIniFile: TIniFile);
+begin
+  inherited DoLoadGUIConfig(aIniFile);
+
+  // Restoring icons columns to its fixed size
+  SetIconColumnsWidth;
+end;
+
+constructor TfmLEmuTKIcnSoftTree.Create(TheOwner: TComponent);
+begin
+  inherited Create(TheOwner);
+
+  SetIconColumnsWidth;
 end;
 
 destructor TfmLEmuTKIcnSoftTree.Destroy;

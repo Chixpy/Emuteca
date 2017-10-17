@@ -490,11 +490,21 @@ end;
 
 procedure TfrmLEmuTKMain.FormCloseQuery(Sender: TObject;
   var CanClose: boolean);
+var
+  aIni: TMemIniFile;
 begin
+  aIni := TMemIniFile.Create(GUIConfig.ConfigFile);
+  try
+    fmEmutecaMainFrame.SaveGUIConfig(aIni);
+  finally
+    aIni.Free;
+  end;
+
   GUIConfig.SaveConfig('');
   if GUIConfig.SaveOnExit then
     Emuteca.SaveData;
-  ;
+
+  CanClose := True;
 end;
 
 procedure TfrmLEmuTKMain.FormDestroy(Sender: TObject);

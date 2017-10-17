@@ -55,7 +55,7 @@ type
 
     procedure DoClearFrameData;
     procedure DoLoadFrameData;
-    procedure DoLoadGUIConfig(aIniFile: TIniFile);
+    procedure DoLoadGUIConfig(aIniFile: TIniFile); virtual;
     procedure DoSaveGUIConfig(aIniFile: TIniFile);
 
   public
