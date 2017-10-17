@@ -99,8 +99,6 @@ type
     procedure SaveToIni(aIniFile: TMemIniFile; const ExportMode: boolean);
       override;
 
-    procedure CacheIcon(aImagList: cCHXImageList);
-
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
 
@@ -367,38 +365,6 @@ begin
   end;
 
   Stats.WriteToIni(aIniFile, ID, ExportMode);
-end;
-
-procedure caEmutecaCustomSystem.CacheIcon(aImagList: cCHXImageList);
-begin
-  if not Assigned(aImagList) then
-    Exit;
-  if Assigned(Stats.Icon) then
-    Exit;
-
-  if FileExistsUTF8(Icon) then
-  begin
-    Stats.Icon := aImagList[aImagList.AddImageFile(Icon)];
-  end
-  else
-  begin
-    // aImagList[2] is default for systems
-    if aImagList.Count > 3 then
-    begin
-      Stats.Icon := aImagList[3];
-    end
-    else
-    begin
-      if aImagList.Count > 0 then
-      begin
-        Stats.Icon := aImagList[aImagList.Count - 1];
-      end
-      else
-      begin
-        Stats.Icon := aImagList[aImagList.AddImageFile(Icon)];
-      end;
-    end;
-  end;
 end;
 
 procedure caEmutecaCustomSystem.SetBaseFolder(AValue: string);

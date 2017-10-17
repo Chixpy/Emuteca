@@ -26,7 +26,9 @@ uses
   uLEmuTKCommon, uGUIConfig,
   // LazEmuteca frames
   ufLEmuTKMain, ufLEmuTKSysManager, ufLEmuTKEmuManager,
-  ufLEmuTKMediaManager, ufLEmuTKScriptManager;
+  ufLEmuTKMediaManager, ufLEmuTKScriptManager,
+  // LazEmuteca threads
+  utLEmuTKCacheSysIcons;
 
 type
 
@@ -99,6 +101,7 @@ type
     procedure mimmTestClick(Sender: TObject);
 
   private
+    FCacheSysIconsThread: ctLEmuTKCacheSysIcons;
     FfmEmutecaMainFrame: TfmLEmuTKMain;
     FGUIIconsFile: string;
     FSHA1Folder: string;
@@ -107,6 +110,7 @@ type
     FGUIConfig: cGUIConfig;
     FIconList: cCHXImageList;
     FZoneIcons: cCHXImageMap;
+    procedure SetCacheSysIconsThread(AValue: ctLEmuTKCacheSysIcons);
     procedure SetGUIIconsFile(AValue: string);
     procedure SetSHA1Folder(AValue: string);
 
@@ -129,6 +133,9 @@ type
 
     property SHA1Folder: string read FSHA1Folder write SetSHA1Folder;
 
+    property CacheSysIconsThread: ctLEmuTKCacheSysIcons
+      read FCacheSysIconsThread write SetCacheSysIconsThread;
+
     procedure LoadIcons;
 
     procedure LoadEmuteca;
@@ -138,6 +145,10 @@ type
 
     function AddZoneIcon(aFolder: string; FileInfo: TSearchRec): boolean;
     //< Add Zone icon to list
+
+
+    procedure LoadSystemsIcons;
+
     function OnProgressBar(const Title, Info1, Info2: string;
       const Value, MaxValue: int64): boolean;
     //< Progress bar call back
@@ -182,6 +193,13 @@ begin
   if FGUIIconsFile = AValue then
     Exit;
   FGUIIconsFile := AValue;
+end;
+
+procedure TfrmLEmuTKMain.SetCacheSysIconsThread(AValue: ctLEmuTKCacheSysIcons);
+begin
+  if FCacheSysIconsThread = AValue then
+    Exit;
+  FCacheSysIconsThread := AValue;
 end;
 
 procedure TfrmLEmuTKMain.SetSHA1Folder(AValue: string);
@@ -235,6 +253,8 @@ begin
   aFolder := SetAsAbsoluteFile(GUIConfig.DumpIcnFolder, ProgramDirectory);
   for aFile in LazEmuTKIconFiles do
     DumpIcons.AddImageFile(aFolder + aFile + '.png');
+
+  LoadSystemsIcons;
 end;
 
 procedure TfrmLEmuTKMain.LoadEmuteca;
@@ -273,6 +293,32 @@ begin
 
   ZoneIcons.AddImageFile(UTF8LowerCase(ExtractFileNameOnly(FileInfo.Name)),
     aFolder + FileInfo.Name);
+end;
+
+procedure TfrmLEmuTKMain.LoadSystemsIcons;
+begin
+  if Assigned(CacheSysIconsThread) then
+    CacheSysIconsThread.Terminate; // FreeOnTerminate := true;
+
+  // Caching sysicons in background
+  FCacheSysIconsThread := ctLEmuTKCacheSysIcons.Create;
+  if Assigned(CacheSysIconsThread.FatalException) then
+    raise CacheSysIconsThread.FatalException;
+
+  if assigned(Emuteca) then
+    CacheSysIconsThread.SystemManager := Emuteca.SystemManager;
+
+  if Assigned(IconList) then
+  begin
+    CacheSysIconsThread.IconList := IconList;
+    if IconList.Count > 3 then
+      // 2: Default for system
+      CacheSysIconsThread.DefaultIcon := IconList[2]
+    else if IconList.Count > 0 then
+      CacheSysIconsThread.DefaultIcon := IconList[IconList.Count - 1];
+  end;
+
+  CacheSysIconsThread.Start;
 end;
 
 procedure TfrmLEmuTKMain.FormCreate(Sender: TObject);
@@ -322,6 +368,7 @@ begin
   Emuteca.ProgressCallBack := @OnProgressBar;
   Emuteca.LoadConfig(GUIConfig.EmutecaIni);
 
+  // This must after crating and loading Emuteca
   LoadIcons;
 
   // Creating main frame
@@ -377,7 +424,7 @@ begin
 
     aForm.LoadGUIConfig(GUIConfig.ConfigFile);
     aForm.LoadGUIIcons(GUIConfig.GUIIcnFile);
-   aFrame.Parent := aForm;
+    aFrame.Parent := aForm;
 
     aForm.ShowModal;
   finally

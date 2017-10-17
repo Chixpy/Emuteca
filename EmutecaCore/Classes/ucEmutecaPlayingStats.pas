@@ -79,6 +79,7 @@ type
     function TimesPlayedStr: string;
     function PlayingTimeStr: string;
 
+    // TODO: This must be else where...
     property Icon: TPicture read FIcon write SetIcon;
   end;
 
