@@ -467,28 +467,28 @@ begin
   if OutFileList.Count > 0 then
     Exit;
 
-  // 4. If nothing found, search ONLY ONE from every compressed archive.
-  // Folder/*.zip/aFileName.mext
-
-  CompressedArchives := TStringList.Create;
-  try
-    FindAllFiles(CompressedArchives, aFolder,
-      FileMaskFromCommaText(w7zGetFileExts), True);
-
-    i := 0;
-    while i < CompressedArchives.Count do
-    begin
-      w7zExtractFile(CompressedArchives[i], aFileName + '.*',
-        DecompressFolder + ExtractFileName(CompressedArchives[i]),
-        False, '');
-      Inc(i);
-    end;
-  finally
-    FreeAndNil(CompressedArchives);
-  end;
-
-  FindAllFiles(OutFileList, DecompressFolder,
-    FileMaskFromStringList(Extensions), True);
+  //// 4. If nothing found, search ONLY ONE from every compressed archive.
+  //// Folder/*.zip/aFileName.mext
+  //
+  //CompressedArchives := TStringList.Create;
+  //try
+  //  FindAllFiles(CompressedArchives, aFolder,
+  //    FileMaskFromCommaText(w7zGetFileExts), True);
+  //
+  //  i := 0;
+  //  while i < CompressedArchives.Count do
+  //  begin
+  //    w7zExtractFile(CompressedArchives[i], aFileName + '.*',
+  //      DecompressFolder + ExtractFileName(CompressedArchives[i]),
+  //      False, '');
+  //    Inc(i);
+  //  end;
+  //finally
+  //  FreeAndNil(CompressedArchives);
+  //end;
+  //
+  //FindAllFiles(OutFileList, DecompressFolder,
+  //  FileMaskFromStringList(Extensions), True);
 end;
 
 function EmuTKSearchFirstRelatedFile(aFolder: string;
@@ -596,25 +596,25 @@ begin
       Exit;
 
 
-    // 4. If nothing found, search ONLY ONE from every compressed archive.
-    // Folder/*.zip/aFileName.mext
-    CompressedArchives := TStringList.Create;
-    try
-      FindAllFiles(CompressedArchives, aFolder,
-        FileMaskFromCommaText(w7zGetFileExts), True);
-
-      i := 0;
-      while i < CompressedArchives.Count do
-      begin
-        w7zExtractFile(CompressedArchives[i], aFileName + '.*',
-          DecompressFolder + ExtractFileName(CompressedArchives[i]),
-          False, '');
-        Inc(i);
-      end;
-    finally
-      FreeAndNil(CompressedArchives);
-    end;
-    Result := SearchFirstFileInFolderByExtSL(DecompressFolder, Extensions);
+    //// 4. If nothing found, search ONLY ONE from every compressed archive.
+    //// Folder/*.zip/aFileName.mext
+    //CompressedArchives := TStringList.Create;
+    //try
+    //  FindAllFiles(CompressedArchives, aFolder,
+    //    FileMaskFromCommaText(w7zGetFileExts), True);
+    //
+    //  i := 0;
+    //  while i < CompressedArchives.Count do
+    //  begin
+    //    w7zExtractFile(CompressedArchives[i], aFileName + '.*',
+    //      DecompressFolder + ExtractFileName(CompressedArchives[i]),
+    //      False, '');
+    //    Inc(i);
+    //  end;
+    //finally
+    //  FreeAndNil(CompressedArchives);
+    //end;
+    //Result := SearchFirstFileInFolderByExtSL(DecompressFolder, Extensions);
   end
   else
   begin // We don't want to auto decompress it only if exists.
@@ -646,30 +646,30 @@ begin
     if Result <> '' then
       Exit;
 
-    // 4. Without extracting
-    CompressedArchives := TStringList.Create;
-    TempStrLst := TStringList.Create;
-    try
-      EmuTKSearchAllFilesByNameExtCT(CompressedArchives, aFolder,
-        w7zGetFileExts);
-
-      i := 0;
-      while i < CompressedArchives.Count do
-      begin
-        TempStrLst.Clear;
-        w7zListFiles(CompressedArchives[i], TempStrLst, True, '');
-
-        Result := SearchComprFile(TempStrLst, aFileName, Extensions);
-        if Result <> '' then
-          Result := SetAsFolder(CompressedArchives[i]) + Result;
-
-        Inc(i);
-      end;
-    finally
-      TempStrLst.Free;
-      FreeAndNil(CompressedArchives);
-    end;
-    Result := SearchFirstFileInFolderByExtSL(DecompressFolder, Extensions);
+    //// 4. Without extracting
+    //CompressedArchives := TStringList.Create;
+    //TempStrLst := TStringList.Create;
+    //try
+    //  EmuTKSearchAllFilesByNameExtCT(CompressedArchives, aFolder,
+    //    w7zGetFileExts);
+    //
+    //  i := 0;
+    //  while i < CompressedArchives.Count do
+    //  begin
+    //    TempStrLst.Clear;
+    //    w7zListFiles(CompressedArchives[i], TempStrLst, True, '');
+    //
+    //    Result := SearchComprFile(TempStrLst, aFileName, Extensions);
+    //    if Result <> '' then
+    //      Result := SetAsFolder(CompressedArchives[i]) + Result;
+    //
+    //    Inc(i);
+    //  end;
+    //finally
+    //  TempStrLst.Free;
+    //  FreeAndNil(CompressedArchives);
+    //end;
+    //Result := SearchFirstFileInFolderByExtSL(DecompressFolder, Extensions);
 
   end;
 end;

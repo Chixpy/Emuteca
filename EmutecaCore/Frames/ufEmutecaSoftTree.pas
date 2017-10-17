@@ -343,26 +343,6 @@ procedure TfmEmutecaSoftTree.VDTCompareNodes(Sender: TBaseVirtualTree;
 
         if Result = 0 then
           Result := UTF8CompareText(aSoft1.DumpInfo, aSoft2.DumpInfo);
-        //  if aSoft.Fixed <> '' then
-        //    CellText += ' [f ' + aSoft.Fixed + ']';
-
-        //  if aSoft.Trainer <> '' then
-        //    CellText += ' [t ' + aSoft.Trainer + ']';
-
-        //  if aSoft.Translation <> '' then
-        //    CellText += ' [tr ' + aSoft.Translation + ']';
-
-        //  if aSoft.Pirate <> '' then
-        //    CellText += ' [p ' + aSoft.Pirate + ']';
-
-        //  if aSoft.Cracked <> '' then
-        //    CellText += ' [cr ' + aSoft.Cracked + ']';
-
-        //  if aSoft.Modified <> '' then
-        //    CellText += ' [m ' + aSoft.Modified + ']';
-
-        //  if aSoft.Hack <> '' then
-        //    CellText += ' [t ' + aSoft.Hack + ']';
       end;
       6: // Times Played
         Result := aSoft1.Stats.TimesPlayed - aSoft2.Stats.TimesPlayed;
