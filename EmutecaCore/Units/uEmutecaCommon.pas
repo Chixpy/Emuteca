@@ -434,9 +434,16 @@ begin
   // 3. Search in zip files
   //   Folder/aFileName.zip/*.mext
   //   Extract to DecompressFolder/LastSubFolder(Folder)/aFileName/*.mext)
-  DecompressFolder := DecompressFolder +
+  DecompressFolder := SetAsFolder(DecompressFolder) +
     SetAsFolder(ExtractFileName(ExcludeTrailingPathDelimiter(aFolder))) +
-    SetAsFolder(aFileName);
+    aFileName;
+
+  // FIX: In Win10 there is a problem deleting folders ending with "."
+  //   At least they are not removed by Emuteca and you can't do it
+  //   with explorer; and must be do with command line RMDIR /S <folder>
+  while DecompressFolder[Length(DecompressFolder)] = '.' do
+    DecompressFolder := Copy(DecompressFolder, 1, Length(DecompressFolder) - 1);
+  DecompressFolder := SetAsFolder(DecompressFolder);
 
   // 3.a. If not DecompressFolder exists, then search Folder/aFileName.zip/*.mext
   //   and extract to DecompressFolder
@@ -534,7 +541,6 @@ begin
   Result := '';
 
   aFolder := SetAsFolder(aFolder);
-  DecompressFolder := SetAsFolder(DecompressFolder);
   aFileName := RemoveFromBrackets(ExtractFileNameOnly(aFileName));
 
   if (aFileName = '') or (aFolder = '') or
@@ -564,10 +570,16 @@ begin
     // 3. Search in zip files
     //   Folder/aFileName.zip/*.mext
     //   Extract to DecompressFolder/LastSubFolder(Folder)/aFileName/*.mext)
-    DecompressFolder := DecompressFolder +
+    DecompressFolder := SetAsFolder(DecompressFolder) +
       SetAsFolder(ExtractFileName(ExcludeTrailingPathDelimiter(aFolder))) +
-      SetAsFolder(aFileName);
+      aFileName;
 
+    // FIX: In Win10 there is a problem deleting folders ending with "."
+    //   At least they are not removed by Emuteca and you can't do it
+    //   with explorer; and must be do with command line RMDIR /S <folder>
+    while DecompressFolder[Length(DecompressFolder)] = '.' do
+      DecompressFolder := Copy(DecompressFolder, 1, Length(DecompressFolder) - 1);
+    DecompressFolder := SetAsFolder(DecompressFolder);
 
     // 3.a. If not DecompressFolder exists, then search Folder/aFileName.zip/*.mext
     //   and extract to DecompressFolder (WE EXTRACT ALL FILES)
@@ -617,7 +629,7 @@ begin
     //Result := SearchFirstFileInFolderByExtSL(DecompressFolder, Extensions);
   end
   else
-  begin // We don't want to auto decompress it only if exists.
+  begin // We don't want to auto decompress it only check if it exists.
 
     // 3. Without extracting
     CompressedArchives := TStringList.Create;
