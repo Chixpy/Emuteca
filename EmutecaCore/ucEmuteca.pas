@@ -26,56 +26,37 @@ unit ucEmuteca;
 interface
 
 uses
-  Classes, SysUtils, fgl, FileUtil, LazUTF8, LazFileUtils, dateutils, sha1,
+  Classes, SysUtils, fgl, FileUtil, LazUTF8, LazFileUtils, dateutils,
   u7zWrapper,
   uCHXStrUtils,
   uEmutecaCommon,
   uaEmutecaCustomGroup,
   ucEmutecaConfig,
   ucEmutecaEmulatorManager, ucEmutecaSystemManager,
-  ucEmutecaSoftList,
-  ucEmutecaSoftware, ucEmutecaSystem, ucEmutecaEmulator;
+  ucEmutecaSoftware, ucEmutecaSystem, ucEmutecaEmulator,
+  utEmutecaGetSoftSHA1;
 
 type
-  { Cache data Thread. }
-
-  { cEmutecaCacheDataThread }
-
-  cEmutecaCacheDataThread = class(TThread)
-  private
-    FSystemManager: cEmutecaSystemManager;
-    FTempFolder: string;
-    procedure SetSystemManager(AValue: cEmutecaSystemManager);
-    procedure SetTempFolder(AValue: string);
-
-  protected
-    procedure Execute; override;
-
-  public
-    property SystemManager: cEmutecaSystemManager
-      read FSystemManager write SetSystemManager;
-    property TempFolder: string read FTempFolder write SetTempFolder;
-    constructor Create;
-  end;
 
   { cEmuteca }
 
   cEmuteca = class(TComponent)
   private
     FBaseFolder: string;
-    FCacheDataThread: cEmutecaCacheDataThread;
+    FGetSoftSHA1Thread: ctEmutecaGetSoftSHA1;
     FConfig: cEmutecaConfig;
     FEmulatorManager: cEmutecaEmulatorManager;
     FProgressCallBack: TEmutecaProgressCallBack;
     FSystemManager: cEmutecaSystemManager;
     FTempFolder: string;
     procedure SetBaseFolder(AValue: string);
-    procedure SetCacheDataThread(AValue: cEmutecaCacheDataThread);
+    procedure SetGetSoftSHA1Thread(AValue: ctEmutecaGetSoftSHA1);
     procedure SetProgressBar(AValue: TEmutecaProgressCallBack);
 
   protected
-    property CacheDataThread: cEmutecaCacheDataThread
-      read FCacheDataThread write SetCacheDataThread;
+    property GetSoftSHA1Thread: ctEmutecaGetSoftSHA1
+      read FGetSoftSHA1Thread write SetGetSoftSHA1Thread;
+    procedure GetSoftSHA1ThreadThreadTerminated(Sender: TObject); // For TThread.OnTerminate
 
     procedure SetTempFolder(AValue: string);
 
@@ -114,97 +95,29 @@ type
 
 implementation
 
-{ cEmutecaCacheDataThread }
-
-procedure cEmutecaCacheDataThread.SetSystemManager(AValue:
-  cEmutecaSystemManager);
-begin
-  if FSystemManager = AValue then
-    Exit;
-  FSystemManager := AValue;
-end;
-
-procedure cEmutecaCacheDataThread.SetTempFolder(AValue: string);
-begin
-  FTempFolder := SetAsFolder(AValue);
-end;
-
-procedure cEmutecaCacheDataThread.Execute;
-var
-  aSoft: cEmutecaSoftware;
-  aFolder, aFile: string;
-  aSha1: TSHA1Digest;
-  CurrSysPos, CurrSoftPos: integer;
-  SoftList: cEmutecaSoftList;
-begin
-  if not Assigned(SystemManager) then
-    Exit;
-
-  if TempFolder = '' then
-    Exit;
-
-  // Caching SHA1
-  try
-    CurrSysPos := 0;
-    while (not Terminated) and (CurrSysPos < SystemManager.FullList.Count) do
-    begin
-      SoftList := SystemManager.FullList[CurrSysPos].SoftManager.FullList;
-
-      CurrSoftPos := 0;
-      while (not Terminated) and (CurrSoftPos < SoftList.Count) do
-      begin
-        aSoft := SoftList[CurrSoftPos];
-        aFolder := aSoft.Folder;
-        aFile := aSoft.FileName;
-
-        if aSoft.SHA1IsEmpty then
-        begin
-          if DirectoryExistsUTF8(aFolder) then
-          begin
-            if FileExistsUTF8(aFolder + aFile) then
-            begin
-              aSha1 := SHA1File(aFolder + aFile);
-              if not terminated then
-                aSoft.SHA1 := aSha1;
-            end;
-          end
-          else
-          begin
-            aSha1 := w7zSHA32InnerFile(aFolder, aFile,'');
-            if not terminated then
-              aSoft.SHA1 := aSha1;
-          end;
-        end;
-        Inc(CurrSoftPos);
-      end;
-      Inc(CurrSysPos);
-    end;
-  finally
-    // Catch exception if aSoft/SoftList is deleted while catching...
-    // Dirty, nothing is lossed...
-    ;
-  end;
-end;
-
-constructor cEmutecaCacheDataThread.Create;
-begin
-  inherited Create(True);
-  FreeOnTerminate := True;
-end;
-
 { cEmuteca }
 procedure cEmuteca.CacheData;
 begin
-  if Assigned(CacheDataThread) then
-    CacheDataThread.Terminate; // FreeOnTerminate := true;
+    // Teminate thread if it's running
+  if assigned(GetSoftSHA1Thread) then
+  begin
+    GetSoftSHA1Thread.Terminate;
+    GetSoftSHA1Thread.WaitFor;
+  end;
+
+  if (TempFolder = '') or (not Assigned(SystemManager)) then Exit;
+
+  // CacheSysIconsThread.Free; Auto freed with FreeOnTerminate
 
   // Caching data in background
-  FCacheDataThread := cEmutecaCacheDataThread.Create;
-  if Assigned(CacheDataThread.FatalException) then
-    raise CacheDataThread.FatalException;
-  CacheDataThread.TempFolder := TempFolder;
-  CacheDataThread.SystemManager := SystemManager;
-  CacheDataThread.Start;
+  FGetSoftSHA1Thread := ctEmutecaGetSoftSHA1.Create;
+  if Assigned(GetSoftSHA1Thread.FatalException) then
+    raise GetSoftSHA1Thread.FatalException;
+  GetSoftSHA1Thread.OnTerminate := @GetSoftSHA1ThreadThreadTerminated; //Autonil
+
+  GetSoftSHA1Thread.TempFolder := TempFolder;
+  GetSoftSHA1Thread.SystemManager := SystemManager;
+  GetSoftSHA1Thread.Start;
 end;
 
 procedure cEmuteca.LoadConfig(aFile: string);
@@ -240,7 +153,7 @@ end;
 
 procedure cEmuteca.CleanSystems;
 var
-  i: Integer;
+  i: integer;
   aSystem: cEmutecaSystem;
   SysPCB: TEmutecaProgressCallBack;
 begin
@@ -269,8 +182,8 @@ end;
 procedure cEmuteca.ClearAllData;
 begin
   // If we are still caching...
-  if Assigned(CacheDataThread) then
-    CacheDataThread.Terminate;
+  if Assigned(GetSoftSHA1Thread) then
+    GetSoftSHA1Thread.Terminate;
 
   EmulatorManager.ClearData;
   SystemManager.ClearData;
@@ -426,16 +339,21 @@ begin
   SystemManager.ProgressCallBack := ProgressCallBack;
 end;
 
+procedure cEmuteca.GetSoftSHA1ThreadThreadTerminated(Sender: TObject);
+begin
+  GetSoftSHA1Thread := nil;
+end;
+
 procedure cEmuteca.SetTempFolder(AValue: string);
 begin
   FTempFolder := SetAsFolder(AValue);
 end;
 
-procedure cEmuteca.SetCacheDataThread(AValue: cEmutecaCacheDataThread);
+procedure cEmuteca.SetGetSoftSHA1Thread(AValue: ctEmutecaGetSoftSHA1);
 begin
-  if FCacheDataThread = AValue then
+  if FGetSoftSHA1Thread = AValue then
     Exit;
-  FCacheDataThread := AValue;
+  FGetSoftSHA1Thread := AValue;
 end;
 
 procedure cEmuteca.SetBaseFolder(AValue: string);
@@ -457,8 +375,12 @@ end;
 destructor cEmuteca.Destroy;
 begin
   // If we are still caching...
-  if Assigned(CacheDataThread) then
-    CacheDataThread.Terminate;
+  // Teminate thread if it's running
+  if assigned(GetSoftSHA1Thread) then
+  begin
+    GetSoftSHA1Thread.Terminate;
+    GetSoftSHA1Thread.WaitFor;
+  end;
 
   // Deleting temp folder
   // TODO: Crappy segurity check... :-(

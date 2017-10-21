@@ -102,34 +102,6 @@ begin
 end;
 
 (*----------------------------------------------------------------------------*)
-procedure cEmutecaCacheDataThreadTempFolder_W(Self: cEmutecaCacheDataThread;
-  const T: string);
-begin
-  Self.TempFolder := T;
-end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaCacheDataThreadTempFolder_R(Self: cEmutecaCacheDataThread;
-  var T: string);
-begin
-  T := Self.TempFolder;
-end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaCacheDataThreadSystemManager_W(Self: cEmutecaCacheDataThread;
-  const T: cEmutecaSystemManager);
-begin
-  Self.SystemManager := T;
-end;
-
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaCacheDataThreadSystemManager_R(Self: cEmutecaCacheDataThread;
-  var T: cEmutecaSystemManager);
-begin
-  T := Self.SystemManager;
-end;
-
-(*----------------------------------------------------------------------------*)
 procedure RIRegister_cEmuteca(CL: TPSRuntimeClassImporter);
 begin
   with CL.Add(cEmuteca) do
@@ -152,22 +124,8 @@ begin
 end;
 
 (*----------------------------------------------------------------------------*)
-procedure RIRegister_cEmutecaCacheDataThread(CL: TPSRuntimeClassImporter);
-begin
-  with CL.Add(cEmutecaCacheDataThread) do
-  begin
-    RegisterPropertyHelper(@cEmutecaCacheDataThreadSystemManager_R,
-      @cEmutecaCacheDataThreadSystemManager_W, 'SystemManager');
-    RegisterPropertyHelper(@cEmutecaCacheDataThreadTempFolder_R,
-      @cEmutecaCacheDataThreadTempFolder_W, 'TempFolder');
-    RegisterConstructor(@cEmutecaCacheDataThread.Create, 'Create');
-  end;
-end;
-
-(*----------------------------------------------------------------------------*)
 procedure RIRegister_ucEmuteca(CL: TPSRuntimeClassImporter);
 begin
-  RIRegister_cEmutecaCacheDataThread(CL);
   RIRegister_cEmuteca(CL);
 end;
 

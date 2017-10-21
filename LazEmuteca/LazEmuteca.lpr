@@ -29,7 +29,8 @@ uses
   ufEmutecaSystemITFEditor, ufLEmuTKMediaManager, ufEmutecaActExportSoftData,
   uaEmutecaCustomManager, ufEmutecaActImportSoftData, ufCHXScriptManager, 
 ufLEmuTKScriptManager, ufEmutecaGroupEditor, ufLEmuTKFullSoftEditor, 
-ufEmutecaGroupCBX, ufSMAskMultiFile, utLEmuTKCacheSysIcons;
+ufEmutecaGroupCBX, ufSMAskMultiFile, utLEmuTKCacheSysIcons, 
+utEmutecaGetSoftSHA1;
 
 {$R *.res}
 

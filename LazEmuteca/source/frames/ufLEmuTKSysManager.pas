@@ -52,10 +52,9 @@ type
     //< Needed by fmSysEditor
     property SHA1Folder: string read FSHA1Folder write SetSHA1Folder;
 
-
     // Creates a form with System Manager.
-    class function SimpleForm(aEmuteca: cEmuteca; aSHA1Folder: string; aGUIIconsIni: string;
-      aGUIConfigIni: string): integer;
+    class function SimpleForm(aEmuteca: cEmuteca; aSHA1Folder: string;
+      aGUIIconsIni: string; aGUIConfigIni: string): integer;
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -73,23 +72,8 @@ begin
 end;
 
 procedure TfmLEmuTKSysManager.SetCheckedAll(aBool: boolean);
-//var
-//  i: integer;
-//  aSystem: cEmutecaSystem;
 begin
-
   // DO NOTHING, ENABLING SYSTEMS IS DONE ON SAVING LIST
-
-  //if not assigned(Emuteca) then
-  //  Exit;
-
-  // i := 0;
-  // while i < Emuteca.SystemManager.FullList.Count do
-  // begin
-  //   aSystem := Emuteca.SystemManager.FullList[i];
-  //   aSystem.Enabled := aBool;
-  //   Inc(i);
-  // end;
 end;
 
 procedure TfmLEmuTKSysManager.SetEmuteca(AValue: cEmuteca);
@@ -117,7 +101,7 @@ end;
 procedure TfmLEmuTKSysManager.OnListClickCheck(aObject: TObject;
   aBool: boolean);
 begin
-
+  // DO NOTHING, ENABLING SYSTEMS IS DONE ON SAVING LIST
 end;
 
 procedure TfmLEmuTKSysManager.AddItemToList;
@@ -152,8 +136,13 @@ begin
     exit;
 
   fmSysEditor.System := nil;
+
   try
     Emuteca.SystemManager.FullList.Remove(
+      cEmutecaSystem(clbPropItems.Items.Objects[clbPropItems.ItemIndex]));
+
+    // If already in enabled list remove here too.
+    Emuteca.SystemManager.EnabledList.Remove(
       cEmutecaSystem(clbPropItems.Items.Objects[clbPropItems.ItemIndex]));
 
   finally
@@ -189,11 +178,13 @@ var
 begin
   Enabled := assigned(Emuteca);
 
-  if not assigned(Emuteca) then begin
+  if not assigned(Emuteca) then
+  begin
     ClearFrameData;
     Exit;
   end;
 
+  clbPropItems.Clear;
   Emuteca.SystemManager.FullList.AssignToStrLst(clbPropItems.Items);
   i := 0;
   while i < clbPropItems.Items.Count do
@@ -294,6 +285,7 @@ end;
 
 destructor TfmLEmuTKSysManager.Destroy;
 begin
+
   inherited Destroy;
 end;
 

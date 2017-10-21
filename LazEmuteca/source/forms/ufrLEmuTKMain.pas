@@ -135,8 +135,10 @@ type
 
     property CacheSysIconsThread: ctLEmuTKCacheSysIcons
       read FCacheSysIconsThread write SetCacheSysIconsThread;
+    procedure CacheSysIconsThreadTerminated(Sender: TObject); // For TThread.OnTerminate
 
     procedure LoadIcons;
+    procedure LoadSystemsIcons;
 
     procedure LoadEmuteca;
     //< Load Emuteca, remove not saved data.
@@ -147,7 +149,6 @@ type
     //< Add Zone icon to list
 
 
-    procedure LoadSystemsIcons;
 
     function OnProgressBar(const Title, Info1, Info2: string;
       const Value, MaxValue: int64): boolean;
@@ -206,6 +207,11 @@ procedure TfrmLEmuTKMain.SetSHA1Folder(AValue: string);
 begin
   FSHA1Folder := SetAsFolder(SetAsAbsoluteFile(AValue, ProgramDirectory));
   w7zSetGlobalCache(SHA1Folder);
+end;
+
+procedure TfrmLEmuTKMain.CacheSysIconsThreadTerminated(Sender: TObject);
+begin
+  CacheSysIconsThread := nil;
 end;
 
 procedure TfrmLEmuTKMain.LoadIcons;
@@ -297,26 +303,32 @@ end;
 
 procedure TfrmLEmuTKMain.LoadSystemsIcons;
 begin
-  if Assigned(CacheSysIconsThread) then
-    CacheSysIconsThread.Terminate; // FreeOnTerminate := true;
+  // Teminate if it's running
+  if assigned(CacheSysIconsThread) then
+  begin
+    CacheSysIconsThread.Terminate;
+    CacheSysIconsThread.WaitFor;
+  end;
 
-  // Caching sysicons in background
+  if not (Assigned(Emuteca) and Assigned(IconList)) then
+    Exit;
+
+  // CacheSysIconsThread.Free; Auto freed with FreeOnTerminate
+
+  // Creating background thread for
   FCacheSysIconsThread := ctLEmuTKCacheSysIcons.Create;
   if Assigned(CacheSysIconsThread.FatalException) then
     raise CacheSysIconsThread.FatalException;
+  CacheSysIconsThread.OnTerminate := @CacheSysIconsThreadTerminated; //Autonil
 
-  if assigned(Emuteca) then
-    CacheSysIconsThread.SystemManager := Emuteca.SystemManager;
+  CacheSysIconsThread.SystemManager := Emuteca.SystemManager;
+  CacheSysIconsThread.IconList := IconList;
 
-  if Assigned(IconList) then
-  begin
-    CacheSysIconsThread.IconList := IconList;
-    if IconList.Count > 3 then
-      // 2: Default for system
-      CacheSysIconsThread.DefaultIcon := IconList[2]
-    else if IconList.Count > 0 then
-      CacheSysIconsThread.DefaultIcon := IconList[IconList.Count - 1];
-  end;
+  if IconList.Count > 3 then
+    // 2: Default for system
+    CacheSysIconsThread.DefaultIcon := IconList[2]
+  else if IconList.Count > 0 then
+    CacheSysIconsThread.DefaultIcon := IconList[IconList.Count - 1];
 
   CacheSysIconsThread.Start;
 end;
@@ -368,7 +380,8 @@ begin
   Emuteca.ProgressCallBack := @OnProgressBar;
   Emuteca.LoadConfig(GUIConfig.EmutecaIni);
 
-  // This must after crating and loading Emuteca
+  // This must after creating and loading Emuteca
+  //   runs CacheSysIconsThread too
   LoadIcons;
 
   // Creating main frame
@@ -531,6 +544,7 @@ begin
 
   TfmLEmuTKSysManager.SimpleForm(Emuteca, SHA1Folder, GUIIconsFile,
     GUIConfig.ConfigFile);
+  LoadSystemsIcons; // Reloads system icons
 
   fmEmutecaMainFrame.Emuteca := Emuteca;
 end;
@@ -540,6 +554,14 @@ procedure TfrmLEmuTKMain.FormCloseQuery(Sender: TObject;
 var
   aIni: TMemIniFile;
 begin
+  // Teminate thread if it's running
+  if assigned(CacheSysIconsThread) then
+  begin
+    CacheSysIconsThread.Terminate;
+    CacheSysIconsThread.WaitFor;
+  end;
+  // CacheSysIconsThread.Free; Auto freed with FreeOnTerminate
+
   aIni := TMemIniFile.Create(GUIConfig.ConfigFile);
   try
     fmEmutecaMainFrame.SaveGUIConfig(aIni);
