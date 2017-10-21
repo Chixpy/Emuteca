@@ -24,6 +24,7 @@ uses
   uGUIConfig;
 
 type
+  TEmutecaGrpListChanged = procedure(aGroupList: cEmutecaGroupList) of object;
 
   { TfmLEmuTKMain }
 
@@ -50,12 +51,14 @@ type
     FFullSoftlist: cEmutecaSoftList;
     FGUIConfig: cGUIConfig;
     FIconList: cCHXImageList;
+    FOnGrpListChanged: TEmutecaGrpListChanged;
     FSHA1Folder: string;
     FZoneIcons: cCHXImageMap;
     procedure SetDumpIcons(AValue: cCHXImageList);
     procedure SetEmuteca(AValue: cEmuteca);
     procedure SetGUIConfig(AValue: cGUIConfig);
     procedure SetIconList(AValue: cCHXImageList);
+    procedure SetOnGrpListChanged(AValue: TEmutecaGrpListChanged);
     procedure SetSHA1Folder(AValue: string);
     procedure SetZoneIcons(AValue: cCHXImageMap);
 
@@ -101,6 +104,8 @@ type
     property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
 
     property SHA1Folder: string read FSHA1Folder write SetSHA1Folder;
+
+    property OnGrpListChanged: TEmutecaGrpListChanged read FOnGrpListChanged write SetOnGrpListChanged;
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -192,6 +197,12 @@ begin
   end;
 end;
 
+procedure TfmLEmuTKMain.SetOnGrpListChanged(AValue: TEmutecaGrpListChanged);
+begin
+  if FOnGrpListChanged = AValue then Exit;
+  FOnGrpListChanged := AValue;
+end;
+
 procedure TfmLEmuTKMain.SetSHA1Folder(AValue: string);
 begin
   if FSHA1Folder = AValue then Exit;
@@ -224,6 +235,10 @@ begin
     GUIConfig.CurrSystem := '';
     fmSoftTree.GroupList := FullGroupList;
   end;
+
+  // fmSoftTree.GroupList is dirty,
+  if assigned(OnGrpListChanged) then
+    OnGrpListChanged(fmSoftTree.GroupList);
 
   fmSystemPanel.System := aSystem;
 end;

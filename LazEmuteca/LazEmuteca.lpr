@@ -30,7 +30,7 @@ uses
   uaEmutecaCustomManager, ufEmutecaActImportSoftData, ufCHXScriptManager, 
 ufLEmuTKScriptManager, ufEmutecaGroupEditor, ufLEmuTKFullSoftEditor, 
 ufEmutecaGroupCBX, ufSMAskMultiFile, utLEmuTKCacheSysIcons, 
-utEmutecaGetSoftSHA1;
+utEmutecaGetSoftSHA1, utLEmuTKCacheGrpIcons;
 
 {$R *.res}
 

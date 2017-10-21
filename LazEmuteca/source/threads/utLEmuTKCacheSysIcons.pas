@@ -75,12 +75,12 @@ begin
 
     if FileExistsUTF8(aSystem.Icon) then
     begin
-      if not Terminated then
+      if Terminated then Exit;
         aSystem.Stats.Icon := IconList[IconList.AddImageFile(aSystem.Icon)];
     end
     else
     begin
-      if not Terminated then
+      if Terminated then Exit;
         aSystem.Stats.Icon := DefaultIcon;
     end;
 

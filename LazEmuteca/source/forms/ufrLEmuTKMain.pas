@@ -16,7 +16,7 @@ uses
   // CHX forms
   ufrCHXForm, ufCHXProgressBar,
   // Emuteca clases
-  ucEmuteca, uEmutecaCommon,
+  ucEmuteca, ucEmutecaGroupList, uEmutecaCommon,
   // Emuteca forms
   ufrLEmuTKAbout,
   // Emuteca windows
@@ -28,7 +28,7 @@ uses
   ufLEmuTKMain, ufLEmuTKSysManager, ufLEmuTKEmuManager,
   ufLEmuTKMediaManager, ufLEmuTKScriptManager,
   // LazEmuteca threads
-  utLEmuTKCacheSysIcons;
+  utLEmuTKCacheSysIcons, utLEmuTKCacheGrpIcons;
 
 type
 
@@ -101,6 +101,7 @@ type
     procedure mimmTestClick(Sender: TObject);
 
   private
+    FCacheGrpIconsThread: ctLEmuTKCacheGrpIcons;
     FCacheSysIconsThread: ctLEmuTKCacheSysIcons;
     FfmEmutecaMainFrame: TfmLEmuTKMain;
     FGUIIconsFile: string;
@@ -110,6 +111,7 @@ type
     FGUIConfig: cGUIConfig;
     FIconList: cCHXImageList;
     FZoneIcons: cCHXImageMap;
+    procedure SetCacheGrpIconsThread(AValue: ctLEmuTKCacheGrpIcons);
     procedure SetCacheSysIconsThread(AValue: ctLEmuTKCacheSysIcons);
     procedure SetGUIIconsFile(AValue: string);
     procedure SetSHA1Folder(AValue: string);
@@ -137,8 +139,12 @@ type
       read FCacheSysIconsThread write SetCacheSysIconsThread;
     procedure CacheSysIconsThreadTerminated(Sender: TObject); // For TThread.OnTerminate
 
+    property CacheGrpIconsThread: ctLEmuTKCacheGrpIcons read FCacheGrpIconsThread write SetCacheGrpIconsThread;
+    procedure CacheGrpIconsThreadTerminated(Sender: TObject); // For TThread.OnTerminate
+
     procedure LoadIcons;
     procedure LoadSystemsIcons;
+    procedure LoadGrpIcons(aGroupList: cEmutecaGroupList);
 
     procedure LoadEmuteca;
     //< Load Emuteca, remove not saved data.
@@ -148,11 +154,11 @@ type
     function AddZoneIcon(aFolder: string; FileInfo: TSearchRec): boolean;
     //< Add Zone icon to list
 
-
-
-    function OnProgressBar(const Title, Info1, Info2: string;
+    function DoProgressBar(const Title, Info1, Info2: string;
       const Value, MaxValue: int64): boolean;
     //< Progress bar call back
+
+    procedure DoChangeGrpList(aGroupList: cEmutecaGroupList);
 
   public
     { public declarations }
@@ -203,6 +209,12 @@ begin
   FCacheSysIconsThread := AValue;
 end;
 
+procedure TfrmLEmuTKMain.SetCacheGrpIconsThread(AValue: ctLEmuTKCacheGrpIcons);
+begin
+  if FCacheGrpIconsThread = AValue then Exit;
+  FCacheGrpIconsThread := AValue;
+end;
+
 procedure TfrmLEmuTKMain.SetSHA1Folder(AValue: string);
 begin
   FSHA1Folder := SetAsFolder(SetAsAbsoluteFile(AValue, ProgramDirectory));
@@ -212,6 +224,11 @@ end;
 procedure TfrmLEmuTKMain.CacheSysIconsThreadTerminated(Sender: TObject);
 begin
   CacheSysIconsThread := nil;
+end;
+
+procedure TfrmLEmuTKMain.CacheGrpIconsThreadTerminated(Sender: TObject);
+begin
+  CacheGrpIconsThread := nil;
 end;
 
 procedure TfrmLEmuTKMain.LoadIcons;
@@ -279,12 +296,17 @@ begin
 
 end;
 
-function TfrmLEmuTKMain.OnProgressBar(const Title, Info1, Info2: string;
+function TfrmLEmuTKMain.DoProgressBar(const Title, Info1, Info2: string;
   const Value, MaxValue: int64): boolean;
 begin
   // We asume that frmCHXProgressBar is always created...
   Result := frmCHXProgressBar.UpdTextAndBar(Title, Info1, Info2,
     Value, MaxValue);
+end;
+
+procedure TfrmLEmuTKMain.DoChangeGrpList(aGroupList: cEmutecaGroupList);
+begin
+   LoadGrpIcons(aGroupList);
 end;
 
 function TfrmLEmuTKMain.AddZoneIcon(aFolder: string;
@@ -309,11 +331,10 @@ begin
     CacheSysIconsThread.Terminate;
     CacheSysIconsThread.WaitFor;
   end;
+  // Auto freed with FreeOnTerminate and set to nil
 
   if not (Assigned(Emuteca) and Assigned(IconList)) then
     Exit;
-
-  // CacheSysIconsThread.Free; Auto freed with FreeOnTerminate
 
   // Creating background thread for
   FCacheSysIconsThread := ctLEmuTKCacheSysIcons.Create;
@@ -324,13 +345,44 @@ begin
   CacheSysIconsThread.SystemManager := Emuteca.SystemManager;
   CacheSysIconsThread.IconList := IconList;
 
-  if IconList.Count > 3 then
+  if IconList.Count > 2 then
     // 2: Default for system
     CacheSysIconsThread.DefaultIcon := IconList[2]
   else if IconList.Count > 0 then
     CacheSysIconsThread.DefaultIcon := IconList[IconList.Count - 1];
 
   CacheSysIconsThread.Start;
+end;
+
+procedure TfrmLEmuTKMain.LoadGrpIcons(aGroupList: cEmutecaGroupList);
+begin
+  // Teminate if it's running
+  if assigned(CacheGrpIconsThread) then
+  begin
+    CacheGrpIconsThread.Terminate;
+    CacheGrpIconsThread.WaitFor;
+  end;
+  // Auto freed with FreeOnTerminate and nil
+
+  if not (Assigned(aGroupList) and Assigned(IconList) and Assigned(GUIConfig)) then
+    Exit;
+
+  FCacheGrpIconsThread := ctLEmuTKCacheGrpIcons.Create;
+  if Assigned(CacheGrpIconsThread.FatalException) then
+    raise CacheGrpIconsThread.FatalException;
+  CacheGrpIconsThread.OnTerminate := @CacheGrpIconsThreadTerminated; //Autonil
+
+  CacheGrpIconsThread.GroupList :=aGroupList;
+  CacheGrpIconsThread.IconList := IconList;
+  CacheGrpIconsThread.ImageExt := GUIConfig.ImageExtensions;
+
+  if IconList.Count > 1 then
+    // 1: Default for groups
+    CacheGrpIconsThread.DefaultIcon := IconList[1]
+  else if IconList.Count > 0 then
+    CacheGrpIconsThread.DefaultIcon := IconList[IconList.Count - 1];
+
+  CacheGrpIconsThread.Start;
 end;
 
 procedure TfrmLEmuTKMain.FormCreate(Sender: TObject);
@@ -377,7 +429,7 @@ begin
   // Creating Emuteca Core :-D
   FEmuteca := cEmuteca.Create(self);
   Emuteca.BaseFolder := ProgramDirectory;
-  Emuteca.ProgressCallBack := @OnProgressBar;
+  Emuteca.ProgressCallBack := @DoProgressBar;
   Emuteca.LoadConfig(GUIConfig.EmutecaIni);
 
   // This must after creating and loading Emuteca
@@ -386,6 +438,7 @@ begin
 
   // Creating main frame
   FfmEmutecaMainFrame := TfmLEmuTKMain.Create(Self);
+  fmEmutecaMainFrame.OnGrpListChanged := @DoChangeGrpList;
   fmEmutecaMainFrame.IconList := IconList;
   fmEmutecaMainFrame.DumpIcons := DumpIcons;
   fmEmutecaMainFrame.ZoneIcons := ZoneIcons;
@@ -554,11 +607,18 @@ procedure TfrmLEmuTKMain.FormCloseQuery(Sender: TObject;
 var
   aIni: TMemIniFile;
 begin
-  // Teminate thread if it's running
-  if assigned(CacheSysIconsThread) then
+  // Teminate threads if they are running.
+  if Assigned(CacheSysIconsThread) then
   begin
     CacheSysIconsThread.Terminate;
     CacheSysIconsThread.WaitFor;
+  end;
+  // CacheSysIconsThread.Free; Auto freed with FreeOnTerminate
+
+  if Assigned(CacheGrpIconsThread) then
+  begin
+    CacheGrpIconsThread.Terminate;
+    CacheGrpIconsThread.WaitFor;
   end;
   // CacheSysIconsThread.Free; Auto freed with FreeOnTerminate
 

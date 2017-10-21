@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  Buttons, ComCtrls, ActnList, LazFileUtils, LCLIntf,
+  Buttons, ComCtrls, ActnList, LazFileUtils, LCLIntf, StdCtrls,
   ufCHXPropEditor, uCHXStrUtils,
   ucEmuteca, ucEmutecaSystem,
   ufEmutecaSystemEditor, ufEmutecaSystemImgEditor,
@@ -24,6 +24,8 @@ type
     ToolBar1: TToolBar;
     bCreateFolders: TToolButton;
     bOpenSystemFolder: TToolButton;
+    bSaveSystem: TToolButton;
+    ToolButton1: TToolButton;
     ToolButton2: TToolButton;
     procedure actCreateFoldersExecute(Sender: TObject);
     procedure actOpenSystemFolderExecute(Sender: TObject);
@@ -131,7 +133,12 @@ begin
   if not Assigned(System) then
     Exit;
 
+  // TODO: May be change the logic here:
+  //  1. Test if system have changes
+  //  2. Ask for save them
+
   // System will changes internally, so we unload it first.
+  SaveFrameData; // We must save first
   TmpSys := System;
   System := nil;
 

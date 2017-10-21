@@ -1,17 +1,10 @@
-_**¡Estamos trabajando en ello!**_
+Versión 0.7.0.XX...
+![Emuteca 0.7.X.X](../../wiki/img/0_7/GameManager%200_7_0_53.png)
 
-_**En español abajo**_.
-
-_**¡Esto está hecho un pequeño lío a raíz del traslado de Google Code!**_
-
-Realmente hasta que la versión 0.8 sea algo potable, que está en la rama _test_, no actualizaré la _master_.
+[More screenshots/Más imágenes](../../wiki/Screenshots)
 
 # English #
-Sorry, if I write bad "Engrish".
-
-_**¡This is a mess after Google Code closed!**_
-
-_v0.8 is started from scratch in_ test _branch, but I will no merge to_ master _until it isn't more mature_
+_v0.8 is being developed from scratch_; v0.7 information follows:
 
 **Emuteca** is an emulator front-end for any system, like [QuickPlay](http://www.quickplayfrontend.com/) (or [here in GitHub](https://github.com/tonywoode/quickPlay)). Now, it's in English; and it can be translated to any language (I think so...).
 
@@ -52,6 +45,7 @@ In version 0.7.55 and later Emuteca is translated by .po/.mo files. So, you must
 Sorry, not more documentation in English; if you want, you can help me to translate the documentation to any languaje.
 
 # Spanish #
+_La versión 0.8 está siendo desarrollada desde cero_; a continuación información de la versión 0.7.
 
 No es una traducción literal de lo anterior, pero como todas las páginas de la wiki están en español... [¡recórretelas!](../../wiki)
 
@@ -67,7 +61,7 @@ Entre sus características están:
   * En las versiones 0.6.X que fueron compiladas con Delphi, se puede reproducir un vídeo o música asignada al juego seleccionado (solo lo he probado con MPEGs y MIDIs). Ya veremos como lo soluciono para Lazarus...
 
 ## Noticias ##
-  * 2016XXXX: Retomando un poco esto.
+  * 2016XXXX: Retomando un poco esto. Y continúa en 2017...
   * 20160814: Arreglando un poco las imágenes de la wiki
   * 20150316: Movido a GitHub, GoogleCode cierra :-(
   * 20120705: Subo una nueva versión beta: 0.7.0.56. Lo hago antes de acometer uno cambios significativos en la búsqueda de imágenes (complicando más el código pero facilitando su uso al fusionar ambos modos de búsqueda) e intentar mejorar la gestión de los Scripts.
@@ -80,12 +74,3 @@ Entre sus características están:
   * 20100202: Versión 0.6.1.36. Que arregla algunos fallitos respecto a la anterior versión. ([Lista de cambios](../../wiki/ChangeList))
   * 20100202:Lanzada la versión 0.6.0.35. ([Lista de cambios](../../wiki/ChangeList))
   * 20090814:Lanzada la versión 0.5.0.22. ([Lista de cambios](../../wiki/ChangeList))
-
-## Imágenes para salivar ##
-Previsualización de la versión 0.7.0.XX...
-![Emuteca 0.7.X.X](../../wiki/img/0_7/GameManager%200_7_0_53.png)
-
-Versión 0.6.1.36
-![Emuteca 0.6.1.36](../../wiki/img/0_6/FormPrincipal2.png)
-
-[Más imágenes](../../wiki/Screenshots)

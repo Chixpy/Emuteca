@@ -9,11 +9,14 @@ inherited fmLEmuTKFullSystemEditor: TfmLEmuTKFullSystemEditor
     Top = 384
     Width = 481
     ClientWidth = 481
+    inherited chkCloseOnSave: TCheckBox
+      Left = 72
+    end
     inherited bSave: TBitBtn
-      Left = 110
+      Left = 193
     end
     inherited bCancel: TBitBtn
-      Left = 290
+      Left = 327
     end
   end
   object pcProperties: TPageControl[1]
@@ -33,12 +36,12 @@ inherited fmLEmuTKFullSystemEditor: TfmLEmuTKFullSystemEditor
     Images = ilPropEditor
     TabOrder = 2
     object bCreateFolders: TToolButton
-      Left = 32
+      Left = 63
       Top = 2
       Action = actCreateFolders
     end
     object bOpenSystemFolder: TToolButton
-      Left = 1
+      Left = 32
       Top = 2
       Action = actOpenSystemFolder
     end
@@ -48,6 +51,19 @@ inherited fmLEmuTKFullSystemEditor: TfmLEmuTKFullSystemEditor
       Top = 2
       Width = 8
       Caption = 'ToolButton2'
+      Style = tbsSeparator
+    end
+    object bSaveSystem: TToolButton
+      Left = 1
+      Top = 2
+      Action = actFrameOK
+    end
+    object ToolButton1: TToolButton
+      Left = 55
+      Height = 22
+      Top = 2
+      Width = 8
+      Caption = 'ToolButton1'
       Style = tbsSeparator
     end
   end
