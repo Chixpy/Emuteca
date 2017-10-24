@@ -29,7 +29,6 @@ uses
   Classes, SysUtils, IniFiles, LazFileUtils, LazUTF8,
   uCHXStrUtils,
   uaCHXStorable,
-  ucCHXImageList,
   uEmutecaCommon,
   ucEmutecaPlayingStats;
 

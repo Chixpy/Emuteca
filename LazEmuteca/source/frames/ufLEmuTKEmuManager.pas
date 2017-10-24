@@ -42,7 +42,7 @@ type
     procedure SetCheckedAll(aBool: boolean); override;
 
   protected
-    procedure DoClearFrameData;
+    procedure DoClearFrameData; override;
     procedure DoLoadFrameData;
     procedure DOSaveFrameData;
 
@@ -181,7 +181,7 @@ begin
   end;
 end;
 
-procedure TfmLEmuTKEmuManager.DoSaveFrameData;
+procedure TfmLEmuTKEmuManager.DOSaveFrameData;
 begin
   if not assigned(EmuManager) then
     Exit;

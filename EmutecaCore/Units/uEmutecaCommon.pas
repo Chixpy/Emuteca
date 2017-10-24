@@ -423,7 +423,7 @@ begin
 
   // 2. Search in folder
   // Folder/aFileName/[*]/*.mext
-  FindAllFiles(OutFileList, aFolder + aFileName,
+  FindAllFiles(OutFileList, aFolder + SetAsFolder(aFileName),
     FileMaskFromStringList(Extensions), True);
 
   if not SearchInComp then
@@ -436,14 +436,7 @@ begin
   //   Extract to DecompressFolder/LastSubFolder(Folder)/aFileName/*.mext)
   DecompressFolder := SetAsFolder(DecompressFolder) +
     SetAsFolder(ExtractFileName(ExcludeTrailingPathDelimiter(aFolder))) +
-    aFileName;
-
-  // FIX: In Win10 there is a problem deleting folders ending with "."
-  //   At least they are not removed by Emuteca and you can't do it
-  //   with explorer; and must be do with command line RMDIR /S <folder>
-  while DecompressFolder[Length(DecompressFolder)] = '.' do
-    DecompressFolder := Copy(DecompressFolder, 1, Length(DecompressFolder) - 1);
-  DecompressFolder := SetAsFolder(DecompressFolder);
+    SetAsFolder(aFileName);
 
   // 3.a. If not DecompressFolder exists, then search Folder/aFileName.zip/*.mext
   //   and extract to DecompressFolder
@@ -556,7 +549,7 @@ begin
 
   // 2. Search in folder
   // Folder/aFileName/[*]/*.mext
-  Result := SearchFirstFileInFolderByExtSL(aFolder + aFileName, Extensions);
+  Result := SearchFirstFileInFolderByExtSL(aFolder + SetAsFolder(aFileName), Extensions);
   if Result <> '' then
     Exit;
 
@@ -572,14 +565,7 @@ begin
     //   Extract to DecompressFolder/LastSubFolder(Folder)/aFileName/*.mext)
     DecompressFolder := SetAsFolder(DecompressFolder) +
       SetAsFolder(ExtractFileName(ExcludeTrailingPathDelimiter(aFolder))) +
-      aFileName;
-
-    // FIX: In Win10 there is a problem deleting folders ending with "."
-    //   At least they are not removed by Emuteca and you can't do it
-    //   with explorer; and must be do with command line RMDIR /S <folder>
-    while DecompressFolder[Length(DecompressFolder)] = '.' do
-      DecompressFolder := Copy(DecompressFolder, 1, Length(DecompressFolder) - 1);
-    DecompressFolder := SetAsFolder(DecompressFolder);
+      SetAsFolder(aFileName);
 
     // 3.a. If not DecompressFolder exists, then search Folder/aFileName.zip/*.mext
     //   and extract to DecompressFolder (WE EXTRACT ALL FILES)

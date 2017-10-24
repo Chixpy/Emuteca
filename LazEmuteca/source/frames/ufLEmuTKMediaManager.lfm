@@ -146,76 +146,10 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
         Height = 255
         Top = 0
         Width = 479
-        ActivePage = pagAllFiles
+        ActivePage = pagFilesWOGroup
         Align = alClient
         TabIndex = 0
         TabOrder = 0
-        object pagAllFiles: TTabSheet
-          Caption = 'All files'
-          ClientHeight = 227
-          ClientWidth = 471
-          object vstAllFiles: TVirtualStringTree
-            Left = 0
-            Height = 227
-            Top = 0
-            Width = 471
-            Align = alClient
-            Colors.UnfocusedColor = clMedGray
-            DefaultText = 'Node'
-            Header.AutoSizeIndex = 0
-            Header.Columns = <            
-              item
-                Position = 0
-                Text = 'Files'
-                Width = 497
-              end>
-            Header.DefaultHeight = 17
-            Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoShowSortGlyphs, hoVisible]
-            TabOrder = 0
-            TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning, toFullRowDrag]
-            TreeOptions.PaintOptions = [toPopupMode, toShowButtons, toShowDropmark, toShowHorzGridLines, toShowTreeLines, toShowVertGridLines, toThemeAware, toUseBlendedImages, toFullVertGridLines]
-            TreeOptions.SelectionOptions = [toFullRowSelect]
-            OnChange = vstFileChange
-            OnCompareNodes = vstFileCompareNodes
-            OnFreeNode = vstFileFreeNode
-            OnGetText = vstFileGetText
-            OnKeyDown = vstFileKeyDown
-            OnKeyPress = vstKeyPress
-          end
-        end
-        object pagOtherFiles: TTabSheet
-          Caption = 'Other files'
-          ClientHeight = 227
-          ClientWidth = 471
-          object vstOtherFiles: TVirtualStringTree
-            Left = 0
-            Height = 227
-            Top = 0
-            Width = 471
-            Align = alClient
-            Colors.UnfocusedColor = clMedGray
-            DefaultText = 'Node'
-            Header.AutoSizeIndex = 0
-            Header.Columns = <            
-              item
-                Position = 0
-                Text = 'Files'
-                Width = 497
-              end>
-            Header.DefaultHeight = 17
-            Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoShowSortGlyphs, hoVisible]
-            TabOrder = 0
-            TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning, toFullRowDrag]
-            TreeOptions.PaintOptions = [toPopupMode, toShowButtons, toShowDropmark, toShowHorzGridLines, toShowTreeLines, toShowVertGridLines, toThemeAware, toUseBlendedImages, toFullVertGridLines]
-            TreeOptions.SelectionOptions = [toFullRowSelect]
-            OnChange = vstFileChange
-            OnCompareNodes = vstFileCompareNodes
-            OnFreeNode = vstFileFreeNode
-            OnGetText = vstFileGetText
-            OnKeyDown = vstFileKeyDown
-            OnKeyPress = vstKeyPress
-          end
-        end
         object pagFilesWOGroup: TTabSheet
           Caption = 'Files without group'
           ClientHeight = 227
@@ -227,17 +161,24 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
             Width = 471
             Align = alClient
             Colors.UnfocusedColor = clMedGray
-            DefaultText = 'Node'
+            DefaultText = '-- Empty Row!!'
+            DragOperations = []
             Header.AutoSizeIndex = 0
             Header.Columns = <            
               item
                 Position = 0
-                Text = 'Files'
-                Width = 497
+                Text = 'Filename'
+                Width = 300
+              end            
+              item
+                Position = 1
+                Text = 'Extension'
+                Width = 75
               end>
             Header.DefaultHeight = 17
             Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoShowSortGlyphs, hoVisible]
             TabOrder = 0
+            TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScrollOnExpand, toAutoSort, toAutoTristateTracking, toAutoDeleteMovedNodes]
             TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning, toFullRowDrag]
             TreeOptions.PaintOptions = [toPopupMode, toShowButtons, toShowDropmark, toShowHorzGridLines, toShowTreeLines, toShowVertGridLines, toThemeAware, toUseBlendedImages, toFullVertGridLines]
             TreeOptions.SelectionOptions = [toFullRowSelect]
@@ -245,6 +186,7 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
             OnCompareNodes = vstFileCompareNodes
             OnFreeNode = vstFileFreeNode
             OnGetText = vstFileGetText
+            OnGetNodeDataSize = vstFilesGetNodeDataSize
             OnKeyDown = vstFileKeyDown
             OnKeyPress = vstKeyPress
           end
@@ -260,17 +202,24 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
             Width = 471
             Align = alClient
             Colors.UnfocusedColor = clMedGray
-            DefaultText = 'Node'
+            DefaultText = '-- Empty Row!!'
+            DragOperations = []
             Header.AutoSizeIndex = 0
             Header.Columns = <            
               item
                 Position = 0
-                Text = 'Files'
-                Width = 501
+                Text = 'Filename'
+                Width = 300
+              end            
+              item
+                Position = 1
+                Text = 'Extension'
+                Width = 75
               end>
             Header.DefaultHeight = 17
             Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoShowSortGlyphs, hoVisible]
             TabOrder = 0
+            TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScrollOnExpand, toAutoSort, toAutoTristateTracking, toAutoDeleteMovedNodes]
             TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning, toFullRowDrag]
             TreeOptions.PaintOptions = [toPopupMode, toShowButtons, toShowDropmark, toShowHorzGridLines, toShowTreeLines, toShowVertGridLines, toThemeAware, toUseBlendedImages, toFullVertGridLines]
             TreeOptions.SelectionOptions = [toFullRowSelect]
@@ -278,6 +227,89 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
             OnCompareNodes = vstFileCompareNodes
             OnFreeNode = vstFileFreeNode
             OnGetText = vstFileGetText
+            OnGetNodeDataSize = vstFilesGetNodeDataSize
+            OnKeyDown = vstFileKeyDown
+            OnKeyPress = vstKeyPress
+          end
+        end
+        object pagAllFiles: TTabSheet
+          Caption = 'All files'
+          ClientHeight = 227
+          ClientWidth = 471
+          object vstFilesAll: TVirtualStringTree
+            Left = 0
+            Height = 227
+            Top = 0
+            Width = 471
+            Align = alClient
+            Colors.UnfocusedColor = clMedGray
+            DefaultText = '-- Empty Row!!'
+            DragOperations = []
+            Header.AutoSizeIndex = 0
+            Header.Columns = <            
+              item
+                Position = 0
+                Text = 'Filename'
+                Width = 300
+              end            
+              item
+                Position = 1
+                Text = 'Extension'
+                Width = 75
+              end>
+            Header.DefaultHeight = 17
+            Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoShowSortGlyphs, hoVisible]
+            TabOrder = 0
+            TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScrollOnExpand, toAutoSort, toAutoTristateTracking, toAutoDeleteMovedNodes]
+            TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning, toFullRowDrag]
+            TreeOptions.PaintOptions = [toPopupMode, toShowButtons, toShowDropmark, toShowHorzGridLines, toShowTreeLines, toShowVertGridLines, toThemeAware, toUseBlendedImages, toFullVertGridLines]
+            TreeOptions.SelectionOptions = [toFullRowSelect]
+            OnChange = vstFileChange
+            OnCompareNodes = vstFileCompareNodes
+            OnFreeNode = vstFileFreeNode
+            OnGetText = vstFileGetText
+            OnGetNodeDataSize = vstFilesGetNodeDataSize
+            OnKeyDown = vstFileKeyDown
+            OnKeyPress = vstKeyPress
+          end
+        end
+        object pagOtherFiles: TTabSheet
+          Caption = 'Other files'
+          ClientHeight = 227
+          ClientWidth = 471
+          object vstFilesOtherExt: TVirtualStringTree
+            Left = 0
+            Height = 227
+            Top = 0
+            Width = 471
+            Align = alClient
+            Colors.UnfocusedColor = clMedGray
+            DefaultText = '-- Empty Row!!'
+            DragOperations = []
+            Header.AutoSizeIndex = 0
+            Header.Columns = <            
+              item
+                Position = 0
+                Text = 'Filename'
+                Width = 300
+              end            
+              item
+                Position = 1
+                Text = 'Extension'
+                Width = 75
+              end>
+            Header.DefaultHeight = 17
+            Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoShowSortGlyphs, hoVisible]
+            TabOrder = 0
+            TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScrollOnExpand, toAutoSort, toAutoTristateTracking, toAutoDeleteMovedNodes]
+            TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning, toFullRowDrag]
+            TreeOptions.PaintOptions = [toPopupMode, toShowButtons, toShowDropmark, toShowHorzGridLines, toShowTreeLines, toShowVertGridLines, toThemeAware, toUseBlendedImages, toFullVertGridLines]
+            TreeOptions.SelectionOptions = [toFullRowSelect]
+            OnChange = vstFileChange
+            OnCompareNodes = vstFileCompareNodes
+            OnFreeNode = vstFileFreeNode
+            OnGetText = vstFileGetText
+            OnGetNodeDataSize = vstFilesGetNodeDataSize
             OnKeyDown = vstFileKeyDown
             OnKeyPress = vstKeyPress
           end
@@ -286,33 +318,6 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
           Caption = 'Files from other folder'
           ClientHeight = 227
           ClientWidth = 471
-          object vstFilesOtherFolder: TVirtualStringTree
-            Left = 0
-            Height = 204
-            Top = 23
-            Width = 471
-            Align = alClient
-            Colors.UnfocusedColor = clMedGray
-            DefaultText = 'Node'
-            Header.AutoSizeIndex = 0
-            Header.Columns = <            
-              item
-                Position = 0
-                Text = 'Files'
-                Width = 497
-              end>
-            Header.DefaultHeight = 17
-            Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoShowSortGlyphs, hoVisible]
-            TabOrder = 0
-            TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning, toFullRowDrag]
-            TreeOptions.PaintOptions = [toPopupMode, toShowButtons, toShowDropmark, toShowHorzGridLines, toShowTreeLines, toShowVertGridLines, toThemeAware, toUseBlendedImages, toFullVertGridLines]
-            TreeOptions.SelectionOptions = [toFullRowSelect]
-            OnCompareNodes = vstFileCompareNodes
-            OnFreeNode = vstFileFreeNode
-            OnGetText = vstFileGetText
-            OnKeyDown = vstFileKeyDown
-            OnKeyPress = vstKeyPress
-          end
           object eOtherFolder: TDirectoryEdit
             Left = 0
             Height = 23
@@ -323,7 +328,42 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
             NumGlyphs = 1
             Align = alTop
             MaxLength = 0
+            TabOrder = 0
+          end
+          object vstFilesOtherFolder: TVirtualStringTree
+            Left = 0
+            Height = 204
+            Top = 23
+            Width = 471
+            Align = alClient
+            Colors.UnfocusedColor = clMedGray
+            DefaultText = '-- Empty Row!!'
+            DragOperations = []
+            Header.AutoSizeIndex = 0
+            Header.Columns = <            
+              item
+                Position = 0
+                Text = 'Filename'
+                Width = 300
+              end            
+              item
+                Position = 1
+                Text = 'Extension'
+                Width = 75
+              end>
+            Header.DefaultHeight = 17
+            Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoShowSortGlyphs, hoVisible]
             TabOrder = 1
+            TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScrollOnExpand, toAutoSort, toAutoTristateTracking, toAutoDeleteMovedNodes]
+            TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning, toFullRowDrag]
+            TreeOptions.PaintOptions = [toPopupMode, toShowButtons, toShowDropmark, toShowHorzGridLines, toShowTreeLines, toShowVertGridLines, toThemeAware, toUseBlendedImages, toFullVertGridLines]
+            TreeOptions.SelectionOptions = [toFullRowSelect]
+            OnCompareNodes = vstFileCompareNodes
+            OnFreeNode = vstFileFreeNode
+            OnGetText = vstFileGetText
+            OnGetNodeDataSize = vstFilesGetNodeDataSize
+            OnKeyDown = vstFileKeyDown
+            OnKeyPress = vstKeyPress
           end
         end
       end
@@ -355,10 +395,10 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
           Width = 200
           Frequency = 5
           Max = 100
-          OnChange = tbSimilarThresoldChange
           PageSize = 5
           Position = 50
           Align = alRight
+          OnClick = tbSimilarThresoldClick
           TabOrder = 1
         end
       end
@@ -384,99 +424,21 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
       TabOrder = 2
       object pcTarget: TPageControl
         Left = 0
-        Height = 114
+        Height = 139
         Top = 0
         Width = 479
-        ActivePage = pagAllGroups
+        ActivePage = pagSoftWOFile
         Align = alClient
         PopupMenu = pumVSTGroup
-        TabIndex = 0
+        TabIndex = 1
         TabOrder = 0
-        object pagAllGroups: TTabSheet
-          Caption = 'All groups'
-          ClientHeight = 86
-          ClientWidth = 471
-          object vstAllGroups: TVirtualStringTree
-            Left = 0
-            Height = 86
-            Top = 0
-            Width = 471
-            Align = alClient
-            Colors.UnfocusedColor = clMedGray
-            DefaultText = 'Node'
-            Header.AutoSizeIndex = 0
-            Header.Columns = <            
-              item
-                Position = 0
-                Text = 'Group'
-                Width = 200
-              end            
-              item
-                Position = 1
-                Text = 'File'
-                Width = 200
-              end>
-            Header.DefaultHeight = 17
-            Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoShowSortGlyphs, hoVisible]
-            TabOrder = 0
-            TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning]
-            TreeOptions.PaintOptions = [toPopupMode, toShowButtons, toShowDropmark, toShowHorzGridLines, toShowTreeLines, toShowVertGridLines, toThemeAware, toUseBlendedImages, toFullVertGridLines]
-            TreeOptions.SelectionOptions = [toFullRowSelect]
-            OnChange = vstGroupChange
-            OnCompareNodes = vstGroupCompareNodes
-            OnGetText = vstGroupGetText
-            OnInitNode = vstAllGroupsInitNode
-            OnKeyDown = vstGroupKeyDown
-            OnKeyPress = vstKeyPress
-          end
-        end
-        object pagAllSoft: TTabSheet
-          Caption = 'All software'
-          ClientHeight = 86
-          ClientWidth = 471
-          object vstAllSoft: TVirtualStringTree
-            Left = 0
-            Height = 86
-            Top = 0
-            Width = 471
-            Align = alClient
-            Colors.UnfocusedColor = clMedGray
-            DefaultText = 'Node'
-            Header.AutoSizeIndex = 0
-            Header.Columns = <            
-              item
-                Position = 0
-                Text = 'Game'
-                Width = 150
-              end            
-              item
-                Position = 1
-                Text = 'Group'
-                Width = 150
-              end            
-              item
-                Position = 2
-                Text = 'File'
-                Width = 150
-              end>
-            Header.DefaultHeight = 17
-            Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoShowSortGlyphs, hoVisible]
-            TabOrder = 0
-            TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning]
-            TreeOptions.PaintOptions = [toPopupMode, toShowButtons, toShowDropmark, toShowHorzGridLines, toShowTreeLines, toShowVertGridLines, toThemeAware, toUseBlendedImages, toFullVertGridLines]
-            TreeOptions.SelectionOptions = [toFullRowSelect]
-            OnChange = vstSoftChange
-            OnCompareNodes = vstSoftCompareNodes
-            OnGetText = vstSoftGetText
-          end
-        end
         object pagGroupsWOFile: TTabSheet
           Caption = 'Groups without file'
-          ClientHeight = 86
+          ClientHeight = 111
           ClientWidth = 471
           object vstGroupsWOFile: TVirtualStringTree
             Left = 0
-            Height = 86
+            Height = 111
             Top = 0
             Width = 471
             Align = alClient
@@ -498,6 +460,7 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
             Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoShowSortGlyphs, hoVisible]
             PopupMenu = pumVSTGroup
             TabOrder = 0
+            TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScrollOnExpand, toAutoSort, toAutoTristateTracking, toAutoDeleteMovedNodes]
             TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning]
             TreeOptions.PaintOptions = [toPopupMode, toShowButtons, toShowDropmark, toShowHorzGridLines, toShowTreeLines, toShowVertGridLines, toThemeAware, toUseBlendedImages, toFullVertGridLines]
             TreeOptions.SelectionOptions = [toFullRowSelect]
@@ -510,9 +473,89 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
         end
         object pagSoftWOFile: TTabSheet
           Caption = 'Software without file'
-          ClientHeight = 86
+          ClientHeight = 111
           ClientWidth = 471
           object vstSoftWOFile: TVirtualStringTree
+            Left = 0
+            Height = 111
+            Top = 0
+            Width = 471
+            Align = alClient
+            Colors.UnfocusedColor = clMedGray
+            DefaultText = 'Node'
+            Header.AutoSizeIndex = 0
+            Header.Columns = <            
+              item
+                Position = 0
+                Text = 'Game'
+                Width = 150
+              end            
+              item
+                Position = 1
+                Text = 'Group'
+                Width = 150
+              end            
+              item
+                Position = 2
+                Text = 'File'
+                Width = 150
+              end>
+            Header.DefaultHeight = 17
+            Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoShowSortGlyphs, hoVisible]
+            TabOrder = 0
+            TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScrollOnExpand, toAutoSort, toAutoTristateTracking, toAutoDeleteMovedNodes]
+            TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning]
+            TreeOptions.PaintOptions = [toPopupMode, toShowButtons, toShowDropmark, toShowHorzGridLines, toShowTreeLines, toShowVertGridLines, toThemeAware, toUseBlendedImages, toFullVertGridLines]
+            TreeOptions.SelectionOptions = [toFullRowSelect]
+            OnChange = vstSoftChange
+            OnCompareNodes = vstSoftCompareNodes
+            OnGetText = vstSoftGetText
+          end
+        end
+        object pagAllGroups: TTabSheet
+          Caption = 'All groups'
+          ClientHeight = 111
+          ClientWidth = 471
+          object vstGroupsAll: TVirtualStringTree
+            Left = 0
+            Height = 111
+            Top = 0
+            Width = 471
+            Align = alClient
+            Colors.UnfocusedColor = clMedGray
+            DefaultText = 'Node'
+            Header.AutoSizeIndex = 0
+            Header.Columns = <            
+              item
+                Position = 0
+                Text = 'Group'
+                Width = 200
+              end            
+              item
+                Position = 1
+                Text = 'File'
+                Width = 200
+              end>
+            Header.DefaultHeight = 17
+            Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoShowSortGlyphs, hoVisible]
+            TabOrder = 0
+            TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScrollOnExpand, toAutoSort, toAutoTristateTracking, toAutoDeleteMovedNodes]
+            TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning]
+            TreeOptions.PaintOptions = [toPopupMode, toShowButtons, toShowDropmark, toShowHorzGridLines, toShowTreeLines, toShowVertGridLines, toThemeAware, toUseBlendedImages, toFullVertGridLines]
+            TreeOptions.SelectionOptions = [toFullRowSelect]
+            OnChange = vstGroupChange
+            OnCompareNodes = vstGroupCompareNodes
+            OnGetText = vstGroupGetText
+            OnInitNode = vstGroupsAllInitNode
+            OnKeyDown = vstGroupKeyDown
+            OnKeyPress = vstKeyPress
+          end
+        end
+        object pagAllSoft: TTabSheet
+          Caption = 'All software'
+          ClientHeight = 86
+          ClientWidth = 471
+          object vstSoftAll: TVirtualStringTree
             Left = 0
             Height = 86
             Top = 0
@@ -540,6 +583,7 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
             Header.DefaultHeight = 17
             Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoShowSortGlyphs, hoVisible]
             TabOrder = 0
+            TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScrollOnExpand, toAutoSort, toAutoTristateTracking, toAutoDeleteMovedNodes]
             TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning]
             TreeOptions.PaintOptions = [toPopupMode, toShowButtons, toShowDropmark, toShowHorzGridLines, toShowTreeLines, toShowVertGridLines, toThemeAware, toUseBlendedImages, toFullVertGridLines]
             TreeOptions.SelectionOptions = [toFullRowSelect]
@@ -547,30 +591,6 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
             OnCompareNodes = vstSoftCompareNodes
             OnGetText = vstSoftGetText
           end
-        end
-      end
-      object pTargetButtons: TPanel
-        Left = 0
-        Height = 25
-        Top = 114
-        Width = 479
-        Align = alBottom
-        AutoSize = True
-        BevelOuter = bvNone
-        ChildSizing.EnlargeHorizontal = crsHomogenousSpaceResize
-        ChildSizing.EnlargeVertical = crsHomogenousSpaceResize
-        ChildSizing.Layout = cclTopToBottomThenLeftToRight
-        ChildSizing.ControlsPerLine = 1
-        ClientHeight = 25
-        ClientWidth = 479
-        TabOrder = 1
-        object bSearchMediaInZip: TButton
-          Left = 176
-          Height = 25
-          Top = 0
-          Width = 128
-          Action = actSearchMediaInZip
-          TabOrder = 0
         end
       end
     end
@@ -720,10 +740,6 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
       Category = 'Groups'
       Caption = 'Rename group file...'
       OnExecute = actRenameGroupFileExecute
-    end
-    object actSearchMediaInZip: TAction
-      Caption = 'Search media in zip'
-      OnExecute = actSearchMediaInZipExecute
     end
     object actRenameGroupTitle: TAction
       Category = 'Groups'
