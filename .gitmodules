@@ -7,6 +7,3 @@
 [submodule "PascalScript"]
 	path = PascalScript
 	url = https://github.com/remobjects/pascalscript.git
-[submodule "VirtualTreeView"]
-	path = VirtualTreeView
-	url = https://github.com/blikblum/VirtualTreeView-Lazarus.git
