@@ -7,7 +7,7 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, bs_controls, lz_rtticontrols, pl_pascalscript, pl_virtualtrees,
+  Forms, lazcontrols, runtimetypeinfocontrols,
   ucEmuteca, ucEmutecaGroup, ucEmutecaConfig, ufrLEmuTKMain,
   ucEmutecaEmulatorManager, ucEmutecaGroupManager, ucEmutecaSystemManager,
   ucEmutecaEmulator, ucEmutecaSoftware, ucEmutecaSystem, 
@@ -30,7 +30,7 @@ uses
   uaEmutecaCustomManager, ufEmutecaActImportSoftData, ufCHXScriptManager, 
 ufLEmuTKScriptManager, ufEmutecaGroupEditor, ufLEmuTKFullSoftEditor, 
 ufEmutecaGroupCBX, ufSMAskMultiFile, utLEmuTKCacheSysIcons, 
-utEmutecaGetSoftSHA1, utLEmuTKCacheGrpIcons;
+utEmutecaGetSoftSHA1, utLEmuTKCacheGrpIcons, PascalScriptFCL;
 
 {$R *.res}
 

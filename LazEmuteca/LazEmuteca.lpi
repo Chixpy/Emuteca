@@ -76,19 +76,19 @@
     </RunParams>
     <RequiredPackages Count="6">
       <Item1>
-        <PackageName Value="pl_virtualtrees"/>
+        <PackageName Value="virtualtreeview_package"/>
       </Item1>
       <Item2>
-        <PackageName Value="pl_pascalscript"/>
+        <PackageName Value="PascalScriptFCL"/>
       </Item2>
       <Item3>
-        <PackageName Value="bs_SynEdit"/>
+        <PackageName Value="SynEdit"/>
       </Item3>
       <Item4>
-        <PackageName Value="lz_rtticontrols"/>
+        <PackageName Value="runtimetypeinfocontrols"/>
       </Item4>
       <Item5>
-        <PackageName Value="bs_Controls"/>
+        <PackageName Value="lazcontrols"/>
       </Item5>
       <Item6>
         <PackageName Value="LCL"/>

@@ -1,0 +1,13 @@
+Download the LCL extensions from:
+
+https://github.com/blikblum/luipack/tree/master/lclextensions
+
+Keeping folders...
+
+-----
+
+Well you may be want to download full proyect:
+
+https://github.com/blikblum/luipack/archive/master.zip
+
+and extract only "lclextensions" folder.
