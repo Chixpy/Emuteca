@@ -74,28 +74,31 @@
         <FormatVersion Value="1"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="7">
+    <RequiredPackages Count="8">
       <Item1>
-        <PackageName Value="PascalScriptLCL"/>
+        <PackageName Value="lclextensions_package"/>
       </Item1>
       <Item2>
-        <PackageName Value="virtualtreeview_package"/>
+        <PackageName Value="PascalScriptLCL"/>
       </Item2>
       <Item3>
-        <PackageName Value="PascalScriptFCL"/>
+        <PackageName Value="virtualtreeview_package"/>
       </Item3>
       <Item4>
-        <PackageName Value="SynEdit"/>
+        <PackageName Value="PascalScriptFCL"/>
       </Item4>
       <Item5>
-        <PackageName Value="runtimetypeinfocontrols"/>
+        <PackageName Value="SynEdit"/>
       </Item5>
       <Item6>
-        <PackageName Value="lazcontrols"/>
+        <PackageName Value="runtimetypeinfocontrols"/>
       </Item6>
       <Item7>
-        <PackageName Value="LCL"/>
+        <PackageName Value="lazcontrols"/>
       </Item7>
+      <Item8>
+        <PackageName Value="LCL"/>
+      </Item8>
     </RequiredPackages>
     <Units Count="111">
       <Unit0>
