@@ -2,35 +2,101 @@ program LazEmuteca;
 
 {$mode objfpc}{$H+}
 
-uses
-  {$IFDEF UNIX}{$IFDEF UseCThreads}
-  cthreads,
-  {$ENDIF}{$ENDIF}
+uses {$IFDEF UNIX} {$IFDEF UseCThreads}
+  cthreads, {$ENDIF} {$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, lazcontrols, runtimetypeinfocontrols,
-  ucEmuteca, ucEmutecaGroup, ucEmutecaConfig, ufrLEmuTKMain,
-  ucEmutecaEmulatorManager, ucEmutecaGroupManager, ucEmutecaSystemManager,
-  ucEmutecaEmulator, ucEmutecaSoftware, ucEmutecaSystem, 
-  ucEmutecaSoftManager, uGUIConfig, uaCHXStorable, uaCHXConfig,
-  ufEmutecaSystemImgEditor, ucEmutecaScriptEngine, ufESMSoftList,
-  ufESMGroupList, ufEmutecaSystemEditor,
-  ufLEmuTKFullSystemEditor, ufCHXChkLstPropEditor, ufLEmuTKSysManager,
-  ufLEmuTKEmuManager, ufEmutecaSoftEditor, ufLEmuTKFullEmuEditor,
-  ufEmutecaEmulatorEditor, ufEmutecaActAddSoft,
-  ufEmutecaActAddFolder, ucEmutecaSoftList, ucEmutecaSystemList,
-  ucEmutecaGroupList, ucEmutecaEmulatorList, uaEmutecaCustomGroup,
-  uaEmutecaCustomSoft, uaEmutecaCustomSystem, ufrLEmuTKAbout, ufLEmuTKIcnSysCBX,
-  ufCHXFrame, ufCHXPropEditor, ufEmutecaSoftTree, ufLEmuTKIcnSoftTree,
-  ufCHXImgViewer, ufCHXTagTree, ufLEmuTKSysPreview, ufCHXListPreview,
-  ufCHXMultiFolderEditor, ufEmutecaSystemMVFEditor, ufLEmuTKSoftMedia,
-  ufLEmuTKMain, uLEmuTKCommon, uafLEmuTKSoftFoldersPreview,
-  ufLEmuTKSoftTxtPreview, ufCHXStrLstPreview, ufCHXImgListPreview,
-  ufCHXTxtListPreview, uCHXDlgUtils, ufLEmuTKSoftImgPreview, ufEmutecaSystemCBX,
-  ufEmutecaSystemITFEditor, ufLEmuTKMediaManager, ufEmutecaActExportSoftData,
-  uaEmutecaCustomManager, ufEmutecaActImportSoftData, ufCHXScriptManager, 
-ufLEmuTKScriptManager, ufEmutecaGroupEditor, ufLEmuTKFullSoftEditor, 
-ufEmutecaGroupCBX, ufSMAskMultiFile, utLEmuTKCacheSysIcons, 
-utEmutecaGetSoftSHA1, utLEmuTKCacheGrpIcons, PascalScriptFCL, PascalScriptLCL;
+  Forms,
+  lazcontrols,
+  runtimetypeinfocontrols,
+  PascalScriptFCL,
+  PascalScriptLCL,
+  // CHX units
+  uCHXDlgUtils,
+  // CHX abstract classes
+  uaCHXConfig,
+  uaCHXStorable,
+  // CHX frames
+  ufCHXChkLstPropEditor,
+  ufCHXFrame,
+  ufCHXImgListPreview,
+  ufCHXImgViewer,
+  ufCHXListPreview,
+  ufCHXMultiFolderEditor,
+  ufCHXPropEditor,
+  ufCHXScriptManager,
+  ufCHXStrLstPreview,
+  ufCHXTagTree,
+  ufCHXTxtListPreview,
+  // CHX Script Engine
+  ufSMAskMultiFile,
+  // Emuteca units
+  // Emuteca abstract classes
+  uaEmutecaCustomGroup,
+  uaEmutecaCustomManager,
+  uaEmutecaCustomSoft,
+  uaEmutecaCustomSystem,
+  // Emuteca classes
+  ucEmuteca,
+  ucEmutecaConfig,
+  ucEmutecaEmulator,
+  ucEmutecaEmulatorList,
+  ucEmutecaEmulatorManager,
+  ucEmutecaGroup,
+  ucEmutecaGroupList,
+  ucEmutecaGroupManager,
+  ucEmutecaScriptEngine,
+  ucEmutecaSoftList,
+  ucEmutecaSoftManager,
+  ucEmutecaSoftware,
+  ucEmutecaSystem,
+  ucEmutecaSystemList,
+  ucEmutecaSystemManager,
+  // Emuteca frames
+  ufEmutecaActAddFolder,
+  ufEmutecaActAddSoft,
+  ufEmutecaActExportSoftData,
+  ufEmutecaActImportSoftData,
+  ufEmutecaEmulatorEditor,
+  ufEmutecaGroupCBX,
+  ufEmutecaGroupEditor,
+  ufEmutecaSoftEditor,
+  ufEmutecaSoftTree,
+  ufEmutecaSystemCBX,
+  ufEmutecaSystemEditor,
+  ufEmutecaSystemImgEditor,
+  ufEmutecaSystemITFEditor,
+  ufEmutecaSystemMVFEditor,
+  // Emuteca threads
+  utEmutecaGetSoftSHA1,
+  // LazEmuteca units
+  uGUIConfig,
+  uLEmuTKCommon,
+  // Lazmuteca abstract classes
+  uafLEmuTKSoftFoldersPreview,
+  // Lazmuteca classes
+  // LazEmuteca frames
+  ufESMGroupList,
+  ufESMSoftList,
+  ufLEmuTKEmuManager,
+  ufLEmuTKFullEmuEditor,
+  ufLEmuTKFullSoftEditor,
+  ufLEmuTKFullSystemEditor,
+  ufLEmuTKIcnSoftTree,
+  ufLEmuTKIcnSysCBX,
+  ufLEmuTKMain,
+  ufLEmuTKMediaManager,
+  ufLEmuTKScriptManager,
+  ufLEmuTKSoftImgPreview,
+  ufLEmuTKSoftMedia,
+  ufLEmuTKSoftTxtPreview,
+  ufLEmuTKSysManager,
+  ufLEmuTKSysPreview,
+  // LazEmuteca forms
+  ufrLEmuTKAbout,
+  ufrLEmuTKMain,
+  // LazEmuteca threads
+  utLEmuTKCacheGrpIcons,
+  utLEmuTKCacheSysIcons;
 
 {$R *.res}
 
@@ -40,4 +106,3 @@ begin
   Application.CreateForm(TfrmLEmuTKMain, frmLEmuTKMain);
   Application.Run;
 end.
-
