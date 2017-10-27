@@ -176,7 +176,9 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
                 Width = 75
               end>
             Header.DefaultHeight = 17
+            Header.Height = 17
             Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoShowSortGlyphs, hoVisible]
+            PopupMenu = pumVSTFiles
             TabOrder = 0
             TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScrollOnExpand, toAutoSort, toAutoTristateTracking, toAutoDeleteMovedNodes]
             TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning, toFullRowDrag]
@@ -217,7 +219,9 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
                 Width = 75
               end>
             Header.DefaultHeight = 17
+            Header.Height = 17
             Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoShowSortGlyphs, hoVisible]
+            PopupMenu = pumVSTFiles
             TabOrder = 0
             TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScrollOnExpand, toAutoSort, toAutoTristateTracking, toAutoDeleteMovedNodes]
             TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning, toFullRowDrag]
@@ -258,7 +262,9 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
                 Width = 75
               end>
             Header.DefaultHeight = 17
+            Header.Height = 17
             Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoShowSortGlyphs, hoVisible]
+            PopupMenu = pumVSTFiles
             TabOrder = 0
             TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScrollOnExpand, toAutoSort, toAutoTristateTracking, toAutoDeleteMovedNodes]
             TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning, toFullRowDrag]
@@ -299,7 +305,9 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
                 Width = 75
               end>
             Header.DefaultHeight = 17
+            Header.Height = 17
             Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoShowSortGlyphs, hoVisible]
+            PopupMenu = pumVSTFiles
             TabOrder = 0
             TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScrollOnExpand, toAutoSort, toAutoTristateTracking, toAutoDeleteMovedNodes]
             TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning, toFullRowDrag]
@@ -323,12 +331,14 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
             Height = 23
             Top = 0
             Width = 471
+            OnAcceptDirectory = eOtherFolderAcceptDirectory
             ShowHidden = False
             ButtonWidth = 23
             NumGlyphs = 1
             Align = alTop
             MaxLength = 0
             TabOrder = 0
+            OnEditingDone = eOtherFolderEditingDone
           end
           object vstFilesOtherFolder: TVirtualStringTree
             Left = 0
@@ -352,12 +362,16 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
                 Width = 75
               end>
             Header.DefaultHeight = 17
+            Header.Height = 17
             Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoShowSortGlyphs, hoVisible]
+            PopupMenu = pumVSTFiles
             TabOrder = 1
             TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScrollOnExpand, toAutoSort, toAutoTristateTracking, toAutoDeleteMovedNodes]
             TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning, toFullRowDrag]
             TreeOptions.PaintOptions = [toPopupMode, toShowButtons, toShowDropmark, toShowHorzGridLines, toShowTreeLines, toShowVertGridLines, toThemeAware, toUseBlendedImages, toFullVertGridLines]
             TreeOptions.SelectionOptions = [toFullRowSelect]
+            OnChange = vstFilesOtherFolderChange
+            OnClick = vstFilesOtherFolderClick
             OnCompareNodes = vstFileCompareNodes
             OnFreeNode = vstFileFreeNode
             OnGetText = vstFileGetText
@@ -429,7 +443,7 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
         Width = 479
         ActivePage = pagSoftWOFile
         Align = alClient
-        PopupMenu = pumVSTGroup
+        PopupMenu = pumVSTGroups
         TabIndex = 1
         TabOrder = 0
         object pagGroupsWOFile: TTabSheet
@@ -457,8 +471,9 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
                 Width = 200
               end>
             Header.DefaultHeight = 17
+            Header.Height = 17
             Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoShowSortGlyphs, hoVisible]
-            PopupMenu = pumVSTGroup
+            PopupMenu = pumVSTGroups
             TabOrder = 0
             TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScrollOnExpand, toAutoSort, toAutoTristateTracking, toAutoDeleteMovedNodes]
             TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning]
@@ -501,6 +516,7 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
                 Width = 150
               end>
             Header.DefaultHeight = 17
+            Header.Height = 17
             Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoShowSortGlyphs, hoVisible]
             TabOrder = 0
             TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScrollOnExpand, toAutoSort, toAutoTristateTracking, toAutoDeleteMovedNodes]
@@ -537,6 +553,7 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
                 Width = 200
               end>
             Header.DefaultHeight = 17
+            Header.Height = 17
             Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoShowSortGlyphs, hoVisible]
             TabOrder = 0
             TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScrollOnExpand, toAutoSort, toAutoTristateTracking, toAutoDeleteMovedNodes]
@@ -581,6 +598,7 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
                 Width = 150
               end>
             Header.DefaultHeight = 17
+            Header.Height = 17
             Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoShowSortGlyphs, hoVisible]
             TabOrder = 0
             TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScrollOnExpand, toAutoSort, toAutoTristateTracking, toAutoDeleteMovedNodes]
@@ -724,8 +742,8 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
   end
   object ActionList: TActionList[7]
     Images = ilActions
-    Left = 704
-    Top = 16
+    left = 704
+    top = 16
     object actAssignFile: TAction
       Category = 'Files'
       Caption = 'Assign file'
@@ -746,15 +764,23 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
       Caption = 'Rename group title...'
       OnExecute = actRenameGroupTitleExecute
     end
+    object actMoveFile: TAction
+      Category = 'Files'
+      Caption = 'Move file...'
+    end
+    object actMoveAllFiles: TAction
+      Category = 'Files'
+      Caption = 'Move all files...'
+    end
   end
   object ilActions: TImageList[8]
-    Left = 704
-    Top = 88
+    left = 704
+    top = 88
   end
-  object pumVSTGroup: TPopupMenu[9]
+  object pumVSTGroups: TPopupMenu[9]
     Images = ilActions
-    Left = 192
-    Top = 368
+    left = 192
+    top = 368
     object migpAssignFile: TMenuItem
       Action = actAssignFile
     end
@@ -766,6 +792,28 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
     end
     object migpRenameGroupFile: TMenuItem
       Action = actRenameGroupFile
+    end
+  end
+  object pumVSTFiles: TPopupMenu[10]
+    left = 305
+    top = 181
+    object miflAssignFile: TMenuItem
+      Action = actAssignFile
+    end
+    object MenuItem1: TMenuItem
+      Caption = '-'
+    end
+    object miflMoveFile: TMenuItem
+      Action = actMoveFile
+    end
+    object miflMoveAllFiles: TMenuItem
+      Action = actMoveAllFiles
+    end
+    object MenuItem4: TMenuItem
+      Caption = '-'
+    end
+    object miflDeleteFile: TMenuItem
+      Action = actDeleteFile
     end
   end
 end

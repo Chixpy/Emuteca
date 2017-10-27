@@ -31,6 +31,8 @@ type
   TfmLEmuTKMediaManager = class(TfmCHXFrame)
     actAssignFile: TAction;
     actDeleteFile: TAction;
+    actMoveAllFiles: TAction;
+    actMoveFile: TAction;
     actRenameGroupTitle: TAction;
     actRenameGroupFile: TAction;
     ActionList: TActionList;
@@ -53,6 +55,12 @@ type
     lbxOtherFiles: TListBox;
     lbxTexts: TListBox;
     lbxVideos: TListBox;
+    MenuItem1: TMenuItem;
+    miflMoveAllFiles: TMenuItem;
+    miflMoveFile: TMenuItem;
+    MenuItem4: TMenuItem;
+    miflDeleteFile: TMenuItem;
+    miflAssignFile: TMenuItem;
     migpRenameGroupFile: TMenuItem;
     migpRenameGroupTitle: TMenuItem;
     MenuItem2: TMenuItem;
@@ -62,10 +70,11 @@ type
     pcTarget: TPageControl;
     pImagePreview: TPanel;
     pLeft: TScrollBox;
+    pumVSTFiles: TPopupMenu;
     pRight: TPanel;
     pSimilar: TPanel;
     pTextPreview: TPanel;
-    pumVSTGroup: TPopupMenu;
+    pumVSTGroups: TPopupMenu;
     sbSource: TStatusBar;
     sbTarget: TStatusBar;
     Splitter1: TSplitter;
@@ -97,6 +106,8 @@ type
     procedure actRenameGroupTitleExecute(Sender: TObject);
     procedure actSearchMediaInZipExecute(Sender: TObject);
     procedure chkSimilarFilesChange(Sender: TObject);
+    procedure eOtherFolderAcceptDirectory(Sender: TObject; var Value: string);
+    procedure eOtherFolderEditingDone(Sender: TObject);
     procedure lbxFolderSelectionChange(Sender: TObject; User: boolean);
     procedure tbSimilarThresoldClick(Sender: TObject);
     procedure vstFileChange(Sender: TBaseVirtualTree; Node: PVirtualNode);
@@ -106,6 +117,9 @@ type
       Shift: TShiftState);
     procedure vstFilesGetNodeDataSize(Sender: TBaseVirtualTree;
       var NodeDataSize: integer);
+    procedure vstFilesOtherFolderChange(Sender: TBaseVirtualTree;
+      Node: PVirtualNode);
+    procedure vstFilesOtherFolderClick(Sender: TObject);
     procedure vstGroupChange(Sender: TBaseVirtualTree; Node: PVirtualNode);
     procedure vstGroupCompareNodes(Sender: TBaseVirtualTree;
       Node1, Node2: PVirtualNode; Column: TColumnIndex; var Result: integer);
@@ -210,20 +224,19 @@ type
     {< Show only files with similar name to current selected game or group.
     }
 
-    function AddFileCB(aFolder: string; Info: TSearchRec): boolean; overload;
+    function AddFileCB(aFolder: string; Info: TSearchRec): boolean;
     {< Adds a file to the lists.
       For use with IterateFolder.
-      @param(aFolder Folder where the file is in.)
+      @param(aFolder Folder where the file is in. @(Not usd@))
       @param(Info TSearchRec with file data.)
       @return(Always @true; needed for IterateFolder.)
     }
-    function AddFileVSTFiles(aFolder, aName: string): boolean; overload;
+    function AddFileVSTAllFiles(aName: string): boolean;
     {< Adds a file to the lists.
-      For manual use @(and hacky updates@).
-      @param(aFolder Folder where the file is in.)
+
       @param(aName Name of the file.)
       @return(Always @true @(useless until a reason to stop batch operations
-        will be found.@).)
+        will be found when adding automatically.@).)
     }
     procedure RemoveFileVSTFiles(aFile: string);
     {< Remove a file from lists (not physically).
@@ -257,28 +270,15 @@ type
       @param(aName Name of the file.)
     }
 
-
-
-
-    //property MediaFiles: TStringList read FMediaFiles write SetMediaFiles;
-    ////< Mediafiles assigned to the current game or group.
-    //property CurrentMediaIndex: integer
-    //  read FCurrentMediaIndex write SetCurrentMediaIndex;
-    ////< Index of the current media file.
-
-    //// TODO 3: Maybe this 4 methods can be reduced to 2 without ofuscate them...
-
-
-    //function AddFilesOtherFolder(aFolder: string;
-    //  Info: TSearchRec): boolean; overload;
+    function AddFilesOtherFolderCB(aFolder: string;
+      Info: TSearchRec): boolean;
     //{< Add files or folders to vstFilesOtherFolder.
     //  @param(aFolder Folder where the file is in.)
     //  @param(Info TSearchRec with folder or file data.)
     //  @return(Always @true; needed for IterateFolder.)
     //}
 
-
-    //procedure UpdateFileOtherFolder(const afolder: string);
+    procedure UpdateFileOtherFolder(aFolder: string);
 
     //procedure DeleteAllFiles;
     //{< Delete all VISIBLE (i.e. no hidden) files from the current list
@@ -435,7 +435,7 @@ begin
 
 
     // Adding to vst if they don't match
-    //if FileComp = 0 then // Match!! only skip files
+    // if FileComp = 0 then // Match!! only skip files
     if FileComp < 0 then
     begin // Not match, File is behind Group
       pFileName := vstFilesWOGroup.GetNodeData(
@@ -642,14 +642,13 @@ begin
   begin
     if (Info.Name = '.') or (Info.Name = '..') then
       Exit;
-    Result := AddFileVSTFiles(aFolder, Info.Name + krsVirtualFolderExt);
+    Result := AddFileVSTAllFiles(Info.Name + krsVirtualFolderExt);
   end
   else
-    Result := AddFileVSTFiles(aFolder, Info.Name);
+    Result := AddFileVSTAllFiles(Info.Name);
 end;
 
-function TfmLEmuTKMediaManager.AddFileVSTFiles(aFolder, aName:
-  string): boolean;
+function TfmLEmuTKMediaManager.AddFileVSTAllFiles(aName: string): boolean;
 var
   pFile: PFileRow;
 begin
@@ -791,6 +790,57 @@ begin
   if SupportedExtSL(aFileName, ExtFilter) then
     MediaFiles.Add(aFolder + aFileName);
   CurrPreview.StrList := MediaFiles;
+end;
+
+function TfmLEmuTKMediaManager.AddFilesOtherFolderCB(aFolder: string;
+  Info: TSearchRec): boolean;
+var
+  pFile: PFileRow;
+begin
+  Result := True;
+
+
+  if (Info.Attr and faDirectory) <> 0 then
+  begin
+    if (Info.Name = '.') or (Info.Name = '..') then
+      Exit;
+
+    // It's a folder
+    // TOD0 2: Test if it's empty or not have the current type of mediafiles
+    pFile := vstFilesOtherFolder.GetNodeData(
+      vstFilesOtherFolder.AddChild(nil));
+
+    pFile^.FileName := Info.Name;
+    pFile^.Extension := krsVirtualFolderExt;
+  end
+  else
+  begin
+    if not (SupportedExtSL(Info.Name, ExtFilter) or
+      SupportedExtSL(Info.Name, Emuteca.Config.CompressedExtensions)) then
+      Exit;
+
+    pFile := vstFilesOtherFolder.GetNodeData(
+      vstFilesOtherFolder.AddChild(nil));
+
+    pFile^.FileName := ExtractFileNameOnly(Info.Name);
+    pFile^.Extension := ExtractFileExt(Info.Name);
+  end;
+end;
+
+procedure TfmLEmuTKMediaManager.UpdateFileOtherFolder(aFolder: string);
+begin
+  vstFilesOtherFolder.Clear;
+  aFolder := SetAsFolder(aFolder);
+
+  if not DirectoryExistsUTF8(aFolder) then Exit;
+
+  vstFilesOtherFolder.BeginUpdate;
+  frmCHXProgressBar.UpdTextAndBar('Searching files...',
+    'This can take some time', '', 1, 2);
+  IterateFolderObj(aFolder, @AddFilesOtherFolderCB, False);
+  vstFilesOtherFolder.EndUpdate;
+
+  frmCHXProgressBar.UpdTextAndBar('', '', '', 0, 0);
 end;
 
 procedure TfmLEmuTKMediaManager.DoClearFrameData;
@@ -1024,8 +1074,8 @@ begin
     case Key of
       VK_RETURN: actAssignFile.Execute;
       VK_DELETE: actDeleteFile.Execute;
-    else
-      ;
+      else
+        ;
     end;
   end;
 end;
@@ -1034,6 +1084,29 @@ procedure TfmLEmuTKMediaManager.vstFilesGetNodeDataSize(
   Sender: TBaseVirtualTree; var NodeDataSize: integer);
 begin
   NodeDataSize := SizeOf(TFileRow);
+end;
+
+procedure TfmLEmuTKMediaManager.vstFilesOtherFolderChange(
+  Sender: TBaseVirtualTree; Node: PVirtualNode);
+var
+  aFileRow: PFileRow;
+begin
+  if Node = nil then
+  begin
+    SourceFile := '';
+    Exit;
+  end;
+
+  SourceFolder := eOtherFolder.Text;
+  aFileRow := Sender.GetNodeData(Node);
+  SourceFile := aFileRow^.FileName + aFileRow^.Extension;
+
+  ChangeFileMedia(SourceFolder, SourceFile);
+end;
+
+procedure TfmLEmuTKMediaManager.vstFilesOtherFolderClick(Sender: TObject);
+begin
+
 end;
 
 procedure TfmLEmuTKMediaManager.vstGroupChange(Sender: TBaseVirtualTree;
@@ -1089,6 +1162,17 @@ end;
 procedure TfmLEmuTKMediaManager.chkSimilarFilesChange(Sender: TObject);
 begin
   FilterFiles;
+end;
+
+procedure TfmLEmuTKMediaManager.eOtherFolderAcceptDirectory(Sender: TObject;
+  var Value: string);
+begin
+  UpdateFileOtherFolder(Value);
+end;
+
+procedure TfmLEmuTKMediaManager.eOtherFolderEditingDone(Sender: TObject);
+begin
+
 end;
 
 procedure TfmLEmuTKMediaManager.actAssignFileExecute(Sender: TObject);
@@ -1177,13 +1261,14 @@ begin
   RemoveGroupSoftWOFile(TargetFile);
 
   // Adding TargetFile.
-  AddFileVSTFiles(TargetFolder, TargetFile);
+  AddFileVSTAllFiles(TargetFile);
 
   SourceFile := '';
 
   // Clear TargetFile only if pagGroupsWOFile or vstSoftWOFile is active because
   //  the group is deleted from their list.
-  if (GetCurrentFilesVST = vstGroupsWOFile) or (GetCurrentFilesVST = vstSoftWOFile) then
+  if (GetCurrentFilesVST = vstGroupsWOFile) or
+    (GetCurrentFilesVST = vstSoftWOFile) then
   begin
     TargetFile := '';
   end;
