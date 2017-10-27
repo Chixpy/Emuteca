@@ -772,6 +772,10 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
       Category = 'Files'
       Caption = 'Move all files...'
     end
+    object actDeleteAllFiles: TAction
+      Category = 'Files'
+      Caption = 'Delete all files'
+    end
   end
   object ilActions: TImageList[8]
     left = 704
@@ -814,6 +818,9 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
     end
     object miflDeleteFile: TMenuItem
       Action = actDeleteFile
+    end
+    object miflDeleteAllFiles: TMenuItem
+      Action = actDeleteAllFiles
     end
   end
 end

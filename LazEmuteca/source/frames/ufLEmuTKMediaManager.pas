@@ -31,6 +31,7 @@ type
   TfmLEmuTKMediaManager = class(TfmCHXFrame)
     actAssignFile: TAction;
     actDeleteFile: TAction;
+    actDeleteAllFiles: TAction;
     actMoveAllFiles: TAction;
     actMoveFile: TAction;
     actRenameGroupTitle: TAction;
@@ -56,6 +57,7 @@ type
     lbxTexts: TListBox;
     lbxVideos: TListBox;
     MenuItem1: TMenuItem;
+    miflDeleteAllFiles: TMenuItem;
     miflMoveAllFiles: TMenuItem;
     miflMoveFile: TMenuItem;
     MenuItem4: TMenuItem;
@@ -280,14 +282,16 @@ type
 
     procedure UpdateFileOtherFolder(aFolder: string);
 
-    //procedure DeleteAllFiles;
-    //{< Delete all VISIBLE (i.e. no hidden) files from the current list
-    //     FROM DISC PHYSICALLY. }
-    //procedure MoveFile;
-    //{< Move current selected (source) file to another folder. }
-    //procedure MoveAllFiles;
-    //{< Move all VISIBLE (i.e. no hidden) files from the current list to
-    //    another folder. }
+    procedure DeleteFile;
+    {< Deletes current selected (source) file. }
+    procedure DeleteAllFiles;
+    {< Deletes all VISIBLE (i.e. no hidden) files from the current list
+         FROM DISC PHYSICALLY. }
+    procedure MoveFile;
+    {< Moves current selected (source) file to another folder. }
+    procedure MoveAllFiles;
+    {< Moves all VISIBLE (i.e. no hidden) files from the current list to
+        another folder. }
 
     procedure DoClearFrameData;
     procedure DoLoadFrameData;
@@ -843,6 +847,72 @@ begin
   frmCHXProgressBar.UpdTextAndBar('', '', '', 0, 0);
 end;
 
+procedure TfmLEmuTKMediaManager.DeleteFile;
+begin
+  if (SourceFile = '') or (SourceFolder = '') then
+    Exit;
+
+  if MessageDlg(Format('Do you want delete? %0:s',
+    [SourceFolder + SourceFile]), mtConfirmation, [mbYes, mbNo],
+    -1) = mrNo then
+    Exit;
+
+  if not DeleteFileUTF8(SourceFolder + SourceFile) then
+  begin
+    ShowMessageFmt('Error deleting: %0:s', [SourceFolder + SourceFile]);
+    Exit;
+  end;
+
+  RemoveFileVSTFiles(SourceFile);
+  SourceFile := '';
+end;
+
+procedure TfmLEmuTKMediaManager.DeleteAllFiles;
+var
+  aVSTFiles: TCustomVirtualStringTree;
+begin
+  aVSTFiles := GetCurrentFilesVST;
+
+  if not Assigned(aVSTFiles) then Exit;
+
+  raise ENotImplemented.Create('Not impemented');
+
+end;
+
+procedure TfmLEmuTKMediaManager.MoveFile;
+begin
+
+    if (SourceFile = '') or (SourceFolder = '') then
+    Exit;
+
+    raise ENotImplemented.Create('Not impemented');
+
+  //if MessageDlg(Format('Do you want delete? %0:s',
+  //  [SourceFolder + SourceFile]), mtConfirmation, [mbYes, mbNo],
+  //  -1) = mrNo then
+  //  Exit;
+  //
+  //if not DeleteFileUTF8(SourceFolder + SourceFile) then
+  //begin
+  //  ShowMessageFmt('Error deleting: %0:s', [SourceFolder + SourceFile]);
+  //  Exit;
+  //end;
+  //
+  //RemoveFileVSTFiles(SourceFile);
+  SourceFile := '';
+end;
+
+procedure TfmLEmuTKMediaManager.MoveAllFiles;
+var
+  aVSTFiles: TCustomVirtualStringTree;
+begin
+  aVSTFiles := GetCurrentFilesVST;
+
+  if not Assigned(aVSTFiles) then Exit;
+  raise ENotImplemented.Create('Not impemented');
+
+end;
+
 procedure TfmLEmuTKMediaManager.DoClearFrameData;
 begin
 
@@ -1278,22 +1348,7 @@ end;
 
 procedure TfmLEmuTKMediaManager.actDeleteFileExecute(Sender: TObject);
 begin
-  if (SourceFile = '') or (SourceFolder = '') then
-    Exit;
-
-  if MessageDlg(Format('Do you want delete? %0:s',
-    [SourceFolder + SourceFile]), mtConfirmation, [mbYes, mbNo],
-    -1) = mrNo then
-    Exit;
-
-  if not DeleteFileUTF8(SourceFolder + SourceFile) then
-  begin
-    ShowMessageFmt('Error deleting: %0:s', [SourceFolder + SourceFile]);
-    Exit;
-  end;
-
-  RemoveFileVSTFiles(SourceFile);
-  SourceFile := '';
+  DeleteFile;
 end;
 
 procedure TfmLEmuTKMediaManager.actRenameGroupFileExecute(Sender: TObject);
