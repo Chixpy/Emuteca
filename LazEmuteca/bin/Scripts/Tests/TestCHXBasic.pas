@@ -53,6 +53,11 @@ begin
   WriteLn('function RPos(const Substr: String; const Source: String) : Integer;');
   WriteLn('    ... I had to import a function to search a subtring from right.');
   WriteLn('    RPos(''e'',''emuteca'') -> ' + IntToStr(RPos('e', 'emuteca')));
+  WriteLn('function PosEx(const SubStr, Source: string; Offset: integer): integer;');
+  WriteLn('    ... And another to search a especific position (Offset).');
+  WriteLn('    PosEx(''e'',''emuteca'', 3) -> ' + 
+    IntToStr(PosEx('e', 'emuteca', 3)));
+  WriteLn('    At least until StrUtils is imported.')
   WriteLn('');
   WriteLn('function BoolToStr(const aBool: Boolean): String;');
   WriteLn('    Another common function that I had imported.');

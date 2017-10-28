@@ -823,4 +823,8 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
       Action = actDeleteAllFiles
     end
   end
+  object SelectDirectoryDialog1: TSelectDirectoryDialog[11]
+    left = 417
+    top = 146
+  end
 end

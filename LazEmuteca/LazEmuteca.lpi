@@ -104,7 +104,7 @@
         <PackageName Value="LCL"/>
       </Item8>
     </RequiredPackages>
-    <Units Count="111">
+    <Units Count="112">
       <Unit0>
         <Filename Value="LazEmuteca.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -693,6 +693,10 @@
         <Filename Value="source\threads\utLEmuTKCacheGrpIcons.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit110>
+      <Unit111>
+        <Filename Value="..\CHXPas\ScriptManager\imports\uPSI_StrUtils.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit111>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, FileUtil, VirtualTrees, Forms, Controls,
   Graphics, Dialogs, ExtCtrls, ComCtrls, StdCtrls, ActnList,
   LCLType, Buttons, EditBtn, Menus, LazFileUtils, LazUTF8, IniFiles,
-  uCHXStrUtils, uCHXImageUtils, uCHXFileUtils,
+  uCHXStrUtils, uCHXImageUtils, uCHXFileUtils, uCHXDlgUtils,
   ufrCHXForm,
   ufCHXFrame, ufCHXStrLstPreview, ufCHXImgListPreview,
   ufCHXTxtListPreview, ufCHXProgressBar,
@@ -27,6 +27,8 @@ type
   PFileRow = ^TFileRow;
 
   { TfmLEmuTKMediaManager }
+
+  // TODO: Simplify this. Many copy paste can be a function.
 
   TfmLEmuTKMediaManager = class(TfmCHXFrame)
     actAssignFile: TAction;
@@ -79,6 +81,7 @@ type
     pumVSTGroups: TPopupMenu;
     sbSource: TStatusBar;
     sbTarget: TStatusBar;
+    SelectDirectoryDialog1: TSelectDirectoryDialog;
     Splitter1: TSplitter;
     Splitter2: TSplitter;
     Splitter3: TSplitter;
@@ -282,8 +285,9 @@ type
 
     procedure UpdateFileOtherFolder(aFolder: string);
 
+    procedure AssignFile;
     procedure DeleteFile;
-    {< Deletes current selected (source) file. }
+    {< Deletes current selected (source) file FROM DISC PHYSICALLY. }
     procedure DeleteAllFiles;
     {< Deletes all VISIBLE (i.e. no hidden) files from the current list
          FROM DISC PHYSICALLY. }
@@ -836,7 +840,8 @@ begin
   vstFilesOtherFolder.Clear;
   aFolder := SetAsFolder(aFolder);
 
-  if not DirectoryExistsUTF8(aFolder) then Exit;
+  if not DirectoryExistsUTF8(aFolder) then
+    Exit;
 
   vstFilesOtherFolder.BeginUpdate;
   frmCHXProgressBar.UpdTextAndBar('Searching files...',
@@ -845,6 +850,108 @@ begin
   vstFilesOtherFolder.EndUpdate;
 
   frmCHXProgressBar.UpdTextAndBar('', '', '', 0, 0);
+end;
+
+procedure TfmLEmuTKMediaManager.AssignFile;
+var
+  TargetPath: string;
+  SourcePath: string;
+  IsFolder: boolean;
+  aBool: boolean;
+begin
+  if (SourceFolder = PathDelim) or (SourceFolder = '') then
+    Exit;
+  if (TargetFolder = PathDelim) or (TargetFolder = '') then
+    Exit;
+  if SourceFile = '' then
+    Exit;
+  if TargetFile = '' then
+    Exit;
+
+  TargetPath := TargetFolder + TargetFile;
+  SourcePath := SourceFolder + SourceFile;
+
+  if TargetPath = SourcePath then
+    Exit;
+
+  // Testing if it's a folder
+  IsFolder := CompareFileExt(SourceFile, krsVirtualFolderExt) = 0;
+  if IsFolder then
+  begin // Removing virtual extension of folders
+    TargetPath := ExtractFileNameWithoutExt(TargetPath);
+    SourcePath := ExtractFileNameWithoutExt(SourcePath);
+  end;
+
+  // Checking source existence, may be it's redundant...
+  if IsFolder then
+    aBool := DirectoryExistsUTF8(SourcePath)
+  else
+    aBool := FileExistsUTF8(SourcePath);
+  if not aBool then
+    Exit;
+
+  // Checking target existence for files
+  if IsFolder then
+    aBool := DirectoryExistsUTF8(TargetPath)
+  else
+    aBool := FileExistsUTF8(TargetPath);
+  if aBool then
+  begin
+    if MessageDlg(Format('%0:s already exists. ¿Overwrite?', [TargetPath]),
+      mtConfirmation, [mbYes, mbNo], -1) = mrNo then
+      // TODO 2: Merge folders?
+      Exit
+    else
+    begin
+      if IsFolder then
+        DeleteDirectory(UTF8ToSys(TargetPath), False)
+      else
+        DeleteFileUTF8(TargetPath);
+    end;
+  end;
+
+  // Copy or rename the file
+  if chkCopyFile.Checked then
+  begin
+    // HACK: Where is CopyFileUTF8 and CopyDirTreeUTF8?
+    if not IsFolder then
+      CopyFile(UTF8ToSys(SourcePath), UTF8ToSys(TargetPath),
+        [cffOverwriteFile, cffCreateDestDirectory], True)
+    else
+    begin
+      CopyDirTree(UTF8ToSys(SourcePath), UTF8ToSys(TargetPath),
+        [cffOverwriteFile, cffCreateDestDirectory]);
+    end;
+  end
+  else
+  begin
+    RenameFileUTF8(SourcePath, TargetPath);
+    // Removing Source file from ALL vstFiles
+    RemoveFileVSTFiles(SourceFile);
+  end;
+
+
+  // Quick update of VST lists
+  // -------------------------
+
+  // Removing Target file from vstGroupWOFile or vstSoftWOFile.
+  RemoveGroupSoftWOFile(TargetFile);
+
+  // Adding TargetFile.
+  AddFileVSTAllFiles(TargetFile);
+
+  SourceFile := '';
+
+  // Clear TargetFile only if pagGroupsWOFile or vstSoftWOFile is active because
+  //  the group is deleted from their list.
+  if (GetCurrentFilesVST = vstGroupsWOFile) or
+    (GetCurrentFilesVST = vstSoftWOFile) then
+  begin
+    TargetFile := '';
+  end;
+
+  FilterFiles;
+
 end;
 
 procedure TfmLEmuTKMediaManager.DeleteFile;
@@ -873,32 +980,67 @@ var
 begin
   aVSTFiles := GetCurrentFilesVST;
 
-  if not Assigned(aVSTFiles) then Exit;
+  if not Assigned(aVSTFiles) then
+    Exit;
 
-  raise ENotImplemented.Create('Not impemented');
+  raise ENotImplemented.Create('Not implemented');
 
 end;
 
 procedure TfmLEmuTKMediaManager.MoveFile;
+var
+  SourcePath, TargetPath: string;
+  IsFolder, aBool: boolean;
 begin
-
-    if (SourceFile = '') or (SourceFolder = '') then
+  if (SourceFile = '') or (SourceFolder = '') then
     Exit;
 
-    raise ENotImplemented.Create('Not impemented');
+  // Testing if it's a folder, and removing virtual folder extension.
+  IsFolder := CompareFileExt(SourceFile, krsVirtualFolderExt) = 0;
+  if IsFolder then
+    SourcePath := SourceFolder + ExtractFileNameOnly(SourceFile)
+  else
+    SourcePath := SourceFolder + SourceFile;
 
-  //if MessageDlg(Format('Do you want delete? %0:s',
-  //  [SourceFolder + SourceFile]), mtConfirmation, [mbYes, mbNo],
-  //  -1) = mrNo then
-  //  Exit;
-  //
-  //if not DeleteFileUTF8(SourceFolder + SourceFile) then
-  //begin
-  //  ShowMessageFmt('Error deleting: %0:s', [SourceFolder + SourceFile]);
-  //  Exit;
-  //end;
-  //
-  //RemoveFileVSTFiles(SourceFile);
+  // Checking source existence, may be it's redundant...
+  if IsFolder then
+    aBool := DirectoryExistsUTF8(SourcePath)
+  else
+    aBool := FileExistsUTF8(SourcePath);
+  if not aBool then
+    Exit;
+
+  SetDlgInitialDir(SelectDirectoryDialog1, SourceFolder);
+
+  if not SelectDirectoryDialog1.Execute then
+    Exit;
+
+  TargetPath := SetAsFolder(SelectDirectoryDialog1.FileName) + ExtractFileName(SourcePath);
+
+  // Checking target existence for files
+  if IsFolder then
+    aBool := DirectoryExistsUTF8(TargetPath)
+  else
+    aBool := FileExistsUTF8(TargetPath);
+  if aBool then
+  begin
+    if MessageDlg(Format('%0:s already exists. ¿Overwrite?', [TargetPath]),
+      mtConfirmation, [mbYes, mbNo], -1) = mrNo then
+      // TODO 2: Merge folders?
+      Exit
+    else
+    begin
+      if IsFolder then
+        DeleteDirectory(UTF8ToSys(TargetPath), False)
+      else
+        DeleteFileUTF8(TargetPath);
+    end;
+  end;
+
+  RenameFileUTF8(SourcePath, TargetPath);
+  // Removing Source file from ALL vstFiles
+  RemoveFileVSTFiles(SourceFile);
+
   SourceFile := '';
 end;
 
@@ -908,8 +1050,9 @@ var
 begin
   aVSTFiles := GetCurrentFilesVST;
 
-  if not Assigned(aVSTFiles) then Exit;
-  raise ENotImplemented.Create('Not impemented');
+  if not Assigned(aVSTFiles) then
+    Exit;
+  raise ENotImplemented.Create('Not implemented');
 
 end;
 
@@ -1246,104 +1389,8 @@ begin
 end;
 
 procedure TfmLEmuTKMediaManager.actAssignFileExecute(Sender: TObject);
-var
-  TargetPath: string;
-  SourcePath: string;
-  IsFolder: boolean;
-  aBool: boolean;
 begin
-  if (SourceFolder = PathDelim) or (SourceFolder = '') then
-    Exit;
-  if (TargetFolder = PathDelim) or (TargetFolder = '') then
-    Exit;
-  if SourceFile = '' then
-    Exit;
-  if TargetFile = '' then
-    Exit;
-
-  TargetPath := TargetFolder + TargetFile;
-  SourcePath := SourceFolder + SourceFile;
-
-  if TargetPath = SourcePath then
-    Exit;
-
-  // Testing if it's a folder
-  IsFolder := CompareFileExt(SourceFile, krsVirtualFolderExt) = 0;
-  if IsFolder then
-  begin // Removing virtual extension of folders
-    TargetPath := ExtractFileNameWithoutExt(TargetPath);
-    SourcePath := ExtractFileNameWithoutExt(SourcePath);
-  end;
-
-  // Checking source existence, may be it's redundant...
-  if IsFolder then
-    aBool := DirectoryExistsUTF8(SourcePath)
-  else
-    aBool := FileExistsUTF8(SourcePath);
-  if not aBool then
-    Exit;
-
-  // Checking target existence for files
-  if IsFolder then
-    aBool := DirectoryExistsUTF8(TargetPath)
-  else
-    aBool := FileExistsUTF8(TargetPath);
-  if aBool then
-  begin
-    if MessageDlg(Format('%0:s already exists. ¿Overwrite?', [TargetPath]),
-      mtConfirmation, [mbYes, mbNo], -1) = mrNo then
-      // TODO 2: Merge folders?
-      Exit
-    else
-    begin
-      if IsFolder then
-        DeleteDirectory(UTF8ToSys(TargetPath), False)
-      else
-        DeleteFileUTF8(TargetPath);
-    end;
-  end;
-
-  // Copy or rename the file
-  if chkCopyFile.Checked then
-  begin
-    // HACK: Where is CopyFileUTF8 and CopyDirTreeUTF8?
-    if not IsFolder then
-      CopyFile(UTF8ToSys(SourcePath), UTF8ToSys(TargetPath),
-        [cffOverwriteFile, cffCreateDestDirectory], True)
-    else
-    begin
-      CopyDirTree(UTF8ToSys(SourcePath), UTF8ToSys(TargetPath),
-        [cffOverwriteFile, cffCreateDestDirectory]);
-    end;
-  end
-  else
-  begin
-    RenameFileUTF8(SourcePath, TargetPath);
-    // Removing Source file from ALL vstFiles
-    RemoveFileVSTFiles(SourceFile);
-  end;
-
-
-  // Quick update of VST lists
-  // -------------------------
-
-  // Removing Target file from vstGroupWOFile or vstSoftWOFile.
-  RemoveGroupSoftWOFile(TargetFile);
-
-  // Adding TargetFile.
-  AddFileVSTAllFiles(TargetFile);
-
-  SourceFile := '';
-
-  // Clear TargetFile only if pagGroupsWOFile or vstSoftWOFile is active because
-  //  the group is deleted from their list.
-  if (GetCurrentFilesVST = vstGroupsWOFile) or
-    (GetCurrentFilesVST = vstSoftWOFile) then
-  begin
-    TargetFile := '';
-  end;
-
-  FilterFiles;
+  AssignFile;
 end;
 
 procedure TfmLEmuTKMediaManager.actDeleteFileExecute(Sender: TObject);
