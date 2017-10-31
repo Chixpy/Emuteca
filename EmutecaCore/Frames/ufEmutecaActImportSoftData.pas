@@ -89,7 +89,7 @@ begin
 
     if not IsCached then
       lWarning.Caption :=
-        'Warning: Some info could not be imported because some file haven''t got SHA1 cached.'
+        'Warning: Some info could not be imported because some files haven''t got SHA1 cached.'
     else
       lWarning.Caption := '';
 

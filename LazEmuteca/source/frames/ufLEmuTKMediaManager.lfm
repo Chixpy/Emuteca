@@ -150,6 +150,7 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
         Align = alClient
         TabIndex = 0
         TabOrder = 0
+        OnChange = pcSourceChange
         object pagFilesWOGroup: TTabSheet
           Caption = 'Files without group'
           ClientHeight = 227
@@ -184,7 +185,7 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
             TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning, toFullRowDrag]
             TreeOptions.PaintOptions = [toPopupMode, toShowButtons, toShowDropmark, toShowHorzGridLines, toShowTreeLines, toShowVertGridLines, toThemeAware, toUseBlendedImages, toFullVertGridLines]
             TreeOptions.SelectionOptions = [toFullRowSelect]
-            OnChange = vstFileChange
+            OnClick = vstFilesClick
             OnCompareNodes = vstFileCompareNodes
             OnFreeNode = vstFileFreeNode
             OnGetText = vstFileGetText
@@ -227,7 +228,7 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
             TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning, toFullRowDrag]
             TreeOptions.PaintOptions = [toPopupMode, toShowButtons, toShowDropmark, toShowHorzGridLines, toShowTreeLines, toShowVertGridLines, toThemeAware, toUseBlendedImages, toFullVertGridLines]
             TreeOptions.SelectionOptions = [toFullRowSelect]
-            OnChange = vstFileChange
+            OnClick = vstFilesClick
             OnCompareNodes = vstFileCompareNodes
             OnFreeNode = vstFileFreeNode
             OnGetText = vstFileGetText
@@ -270,7 +271,7 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
             TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning, toFullRowDrag]
             TreeOptions.PaintOptions = [toPopupMode, toShowButtons, toShowDropmark, toShowHorzGridLines, toShowTreeLines, toShowVertGridLines, toThemeAware, toUseBlendedImages, toFullVertGridLines]
             TreeOptions.SelectionOptions = [toFullRowSelect]
-            OnChange = vstFileChange
+            OnClick = vstFilesClick
             OnCompareNodes = vstFileCompareNodes
             OnFreeNode = vstFileFreeNode
             OnGetText = vstFileGetText
@@ -313,7 +314,7 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
             TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning, toFullRowDrag]
             TreeOptions.PaintOptions = [toPopupMode, toShowButtons, toShowDropmark, toShowHorzGridLines, toShowTreeLines, toShowVertGridLines, toThemeAware, toUseBlendedImages, toFullVertGridLines]
             TreeOptions.SelectionOptions = [toFullRowSelect]
-            OnChange = vstFileChange
+            OnClick = vstFilesClick
             OnCompareNodes = vstFileCompareNodes
             OnFreeNode = vstFileFreeNode
             OnGetText = vstFileGetText
@@ -338,7 +339,6 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
             Align = alTop
             MaxLength = 0
             TabOrder = 0
-            OnEditingDone = eOtherFolderEditingDone
           end
           object vstFilesOtherFolder: TVirtualStringTree
             Left = 0
@@ -370,7 +370,6 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
             TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning, toFullRowDrag]
             TreeOptions.PaintOptions = [toPopupMode, toShowButtons, toShowDropmark, toShowHorzGridLines, toShowTreeLines, toShowVertGridLines, toThemeAware, toUseBlendedImages, toFullVertGridLines]
             TreeOptions.SelectionOptions = [toFullRowSelect]
-            OnChange = vstFilesOtherFolderChange
             OnClick = vstFilesOtherFolderClick
             OnCompareNodes = vstFileCompareNodes
             OnFreeNode = vstFileFreeNode
@@ -441,11 +440,12 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
         Height = 139
         Top = 0
         Width = 479
-        ActivePage = pagSoftWOFile
+        ActivePage = pagAllSoft
         Align = alClient
         PopupMenu = pumVSTGroups
-        TabIndex = 1
+        TabIndex = 3
         TabOrder = 0
+        OnChange = pcTargetChange
         object pagGroupsWOFile: TTabSheet
           Caption = 'Groups without file'
           ClientHeight = 111
@@ -479,7 +479,7 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
             TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning]
             TreeOptions.PaintOptions = [toPopupMode, toShowButtons, toShowDropmark, toShowHorzGridLines, toShowTreeLines, toShowVertGridLines, toThemeAware, toUseBlendedImages, toFullVertGridLines]
             TreeOptions.SelectionOptions = [toFullRowSelect]
-            OnChange = vstGroupChange
+            OnClick = vstGroupClick
             OnCompareNodes = vstGroupCompareNodes
             OnGetText = vstGroupGetText
             OnKeyDown = vstGroupKeyDown
@@ -523,7 +523,7 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
             TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning]
             TreeOptions.PaintOptions = [toPopupMode, toShowButtons, toShowDropmark, toShowHorzGridLines, toShowTreeLines, toShowVertGridLines, toThemeAware, toUseBlendedImages, toFullVertGridLines]
             TreeOptions.SelectionOptions = [toFullRowSelect]
-            OnChange = vstSoftChange
+            OnClick = vstSoftClick
             OnCompareNodes = vstSoftCompareNodes
             OnGetText = vstSoftGetText
           end
@@ -560,7 +560,7 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
             TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning]
             TreeOptions.PaintOptions = [toPopupMode, toShowButtons, toShowDropmark, toShowHorzGridLines, toShowTreeLines, toShowVertGridLines, toThemeAware, toUseBlendedImages, toFullVertGridLines]
             TreeOptions.SelectionOptions = [toFullRowSelect]
-            OnChange = vstGroupChange
+            OnClick = vstGroupClick
             OnCompareNodes = vstGroupCompareNodes
             OnGetText = vstGroupGetText
             OnInitNode = vstGroupsAllInitNode
@@ -570,11 +570,11 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
         end
         object pagAllSoft: TTabSheet
           Caption = 'All software'
-          ClientHeight = 86
+          ClientHeight = 111
           ClientWidth = 471
           object vstSoftAll: TVirtualStringTree
             Left = 0
-            Height = 86
+            Height = 111
             Top = 0
             Width = 471
             Align = alClient
@@ -605,7 +605,7 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
             TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning]
             TreeOptions.PaintOptions = [toPopupMode, toShowButtons, toShowDropmark, toShowHorzGridLines, toShowTreeLines, toShowVertGridLines, toThemeAware, toUseBlendedImages, toFullVertGridLines]
             TreeOptions.SelectionOptions = [toFullRowSelect]
-            OnChange = vstSoftChange
+            OnClick = vstSoftClick
             OnCompareNodes = vstSoftCompareNodes
             OnGetText = vstSoftGetText
           end
@@ -767,14 +767,17 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
     object actMoveFile: TAction
       Category = 'Files'
       Caption = 'Move file...'
+      OnExecute = actMoveFileExecute
     end
     object actMoveAllFiles: TAction
       Category = 'Files'
       Caption = 'Move all files...'
+      OnExecute = actMoveAllFilesExecute
     end
     object actDeleteAllFiles: TAction
       Category = 'Files'
       Caption = 'Delete all files'
+      OnExecute = actDeleteAllFilesExecute
     end
   end
   object ilActions: TImageList[8]

@@ -101,8 +101,9 @@ begin
     // Teminate thread if it's running
   if assigned(GetSoftSHA1Thread) then
   begin
+    GetSoftSHA1Thread.OnTerminate := nil;
     GetSoftSHA1Thread.Terminate;
-    GetSoftSHA1Thread.WaitFor;
+    //GetSoftSHA1Thread.WaitFor; Don't wait
   end;
 
   if (TempFolder = '') or (not Assigned(SystemManager)) then Exit;
@@ -378,9 +379,11 @@ begin
   // Teminate thread if it's running
   if assigned(GetSoftSHA1Thread) then
   begin
+    GetSoftSHA1Thread.OnTerminate := nil;
     GetSoftSHA1Thread.Terminate;
     GetSoftSHA1Thread.WaitFor;
   end;
+  // GetSoftSHA1Thread.Free; Auto freed with FreeOnTerminate
 
   // Deleting temp folder
   // TODO: Crappy segurity check... :-(

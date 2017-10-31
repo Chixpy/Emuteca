@@ -32,7 +32,8 @@ type
   public
     property DefaultIcon: TPicture read FDefaultIcon write SetDefaultIcon;
     property IconList: cCHXImageList read FIconList write SetIconList;
-    property SystemManager: cEmutecaSystemManager read FSystemManager write SetSystemManager;
+    property SystemManager: cEmutecaSystemManager
+      read FSystemManager write SetSystemManager;
 
     constructor Create;
   end;
@@ -43,29 +44,35 @@ implementation
 
 procedure ctLEmuTKCacheSysIcons.SetDefaultIcon(AValue: TPicture);
 begin
-  if FDefaultIcon = AValue then Exit;
+  if FDefaultIcon = AValue then
+    Exit;
   FDefaultIcon := AValue;
 end;
 
 procedure ctLEmuTKCacheSysIcons.SetIconList(AValue: cCHXImageList);
 begin
-  if FIconList = AValue then Exit;
+  if FIconList = AValue then
+    Exit;
   FIconList := AValue;
 end;
 
-procedure ctLEmuTKCacheSysIcons.SetSystemManager(AValue: cEmutecaSystemManager);
+procedure ctLEmuTKCacheSysIcons.SetSystemManager(
+  AValue: cEmutecaSystemManager);
 begin
-  if FSystemManager = AValue then Exit;
+  if FSystemManager = AValue then
+    Exit;
   FSystemManager := AValue;
 end;
 
 procedure ctLEmuTKCacheSysIcons.Execute;
 var
-  i: Integer;
+  i: integer;
   aSystem: cEmutecaSystem;
 begin
-  if not assigned(SystemManager) then Exit;
-  if not assigned(IconList) then Exit;
+  if not assigned(SystemManager) then
+    Exit;
+  if not assigned(IconList) then
+    Exit;
   // if not assigned(DefaultIcon) then Exit; // Can be nil
 
   i := 0;
@@ -75,13 +82,15 @@ begin
 
     if FileExistsUTF8(aSystem.Icon) then
     begin
-      if Terminated then Exit;
-        aSystem.Stats.Icon := IconList[IconList.AddImageFile(aSystem.Icon)];
+      if Terminated then
+        Exit;
+      aSystem.Stats.Icon := IconList[IconList.AddImageFile(aSystem.Icon)];
     end
     else
     begin
-      if Terminated then Exit;
-        aSystem.Stats.Icon := DefaultIcon;
+      if Terminated then
+        Exit;
+      aSystem.Stats.Icon := DefaultIcon;
     end;
 
     Inc(i);
@@ -95,4 +104,3 @@ begin
 end;
 
 end.
-

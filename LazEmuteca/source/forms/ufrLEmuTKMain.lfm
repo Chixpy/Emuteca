@@ -14,7 +14,7 @@ object frmLEmuTKMain: TfrmLEmuTKMain
   Position = poDesktopCenter
   SessionProperties = 'Height;Width;WindowState'
   ShowHint = True
-  LCLVersion = '6.0'
+  LCLVersion = '1.8.0.5'
   object stbHelp: TStatusBar
     Left = 0
     Height = 23
@@ -25,8 +25,8 @@ object frmLEmuTKMain: TfrmLEmuTKMain
   end
   object ActionList: TActionList
     Images = ActImages
-    Left = 40
-    Top = 72
+    left = 40
+    top = 72
     object HelpOnHelp1: THelpOnHelp
       Category = 'Help'
       Caption = 'About Emuteca...'
@@ -110,8 +110,8 @@ object frmLEmuTKMain: TfrmLEmuTKMain
   end
   object MainMenu: TMainMenu
     Images = ActImages
-    Left = 40
-    Top = 16
+    left = 40
+    top = 16
     object mimmFile: TMenuItem
       Caption = 'File'
       object mimmTest: TMenuItem
@@ -196,11 +196,11 @@ object frmLEmuTKMain: TfrmLEmuTKMain
   object IniPropStorage: TIniPropStorage
     StoredValues = <>
     IniSection = 'Forms'
-    Left = 40
-    Top = 184
+    left = 40
+    top = 184
   end
   object ActImages: TImageList
-    Left = 40
-    Top = 128
+    left = 40
+    top = 128
   end
 end

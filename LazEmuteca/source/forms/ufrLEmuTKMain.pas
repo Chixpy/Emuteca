@@ -293,7 +293,7 @@ end;
 
 procedure TfrmLEmuTKMain.SaveEmuteca;
 begin
-
+  Emuteca.SaveData;
 end;
 
 function TfrmLEmuTKMain.DoProgressBar(const Title, Info1, Info2: string;
@@ -328,8 +328,9 @@ begin
   // Teminate if it's running
   if assigned(CacheSysIconsThread) then
   begin
+    CacheSysIconsThread.OnTerminate := nil;
     CacheSysIconsThread.Terminate;
-    CacheSysIconsThread.WaitFor;
+    // CacheSysIconsThread.WaitFor; Don't wait
   end;
   // Auto freed with FreeOnTerminate and set to nil
 
@@ -359,8 +360,9 @@ begin
   // Teminate if it's running
   if assigned(CacheGrpIconsThread) then
   begin
+    CacheGrpIconsThread.OnTerminate:= nil;
     CacheGrpIconsThread.Terminate;
-    CacheGrpIconsThread.WaitFor;
+    // CacheGrpIconsThread.WaitFor; Don't wait
   end;
   // Auto freed with FreeOnTerminate and nil
 
@@ -610,6 +612,7 @@ begin
   // Teminate threads if they are running.
   if Assigned(CacheSysIconsThread) then
   begin
+    CacheSysIconsThread.OnTerminate := nil;
     CacheSysIconsThread.Terminate;
     CacheSysIconsThread.WaitFor;
   end;
@@ -617,6 +620,7 @@ begin
 
   if Assigned(CacheGrpIconsThread) then
   begin
+    CacheGrpIconsThread.OnTerminate := nil;
     CacheGrpIconsThread.Terminate;
     CacheGrpIconsThread.WaitFor;
   end;
@@ -631,7 +635,7 @@ begin
 
   GUIConfig.SaveConfig('');
   if GUIConfig.SaveOnExit then
-    Emuteca.SaveData;
+    SaveEmuteca;
 
   CanClose := True;
 end;

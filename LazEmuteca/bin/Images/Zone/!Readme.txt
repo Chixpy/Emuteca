@@ -15,11 +15,17 @@ Contact: mjames@gmail.com
 
 ---------------------
   
-jp,us.png
-  Combination of us.png and jp.png  
+eu,us.png
+  Combination of eu.png and jp.png  
 
+jp,us.png
+  Combination of us.png and jp.png 
+  
 xa.png
   Combination of cn.png and jp.png
+  Used for asian publications.
+  'XA' used as ISO3166-1 alpha-2 User-assigned code  
+  Maybe more flags can be added... Korea, Taiwan (and jp removed...)
   
 xw.png
   Wikipedia's John McConnell's Earth Day flag, based on this photograph

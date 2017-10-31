@@ -106,26 +106,27 @@ type
     vstSoftAll: TVirtualStringTree;
     vstSoftWOFile: TVirtualStringTree;
     procedure actAssignFileExecute(Sender: TObject);
+    procedure actDeleteAllFilesExecute(Sender: TObject);
     procedure actDeleteFileExecute(Sender: TObject);
+    procedure actMoveAllFilesExecute(Sender: TObject);
+    procedure actMoveFileExecute(Sender: TObject);
     procedure actRenameGroupFileExecute(Sender: TObject);
     procedure actRenameGroupTitleExecute(Sender: TObject);
     procedure actSearchMediaInZipExecute(Sender: TObject);
     procedure chkSimilarFilesChange(Sender: TObject);
     procedure eOtherFolderAcceptDirectory(Sender: TObject; var Value: string);
-    procedure eOtherFolderEditingDone(Sender: TObject);
     procedure lbxFolderSelectionChange(Sender: TObject; User: boolean);
+    procedure pcSourceChange(Sender: TObject);
+    procedure pcTargetChange(Sender: TObject);
     procedure tbSimilarThresoldClick(Sender: TObject);
-    procedure vstFileChange(Sender: TBaseVirtualTree; Node: PVirtualNode);
     procedure vstFileCompareNodes(Sender: TBaseVirtualTree;
       Node1, Node2: PVirtualNode; Column: TColumnIndex; var Result: integer);
     procedure vstFileKeyDown(Sender: TObject; var Key: word;
       Shift: TShiftState);
     procedure vstFilesGetNodeDataSize(Sender: TBaseVirtualTree;
       var NodeDataSize: integer);
-    procedure vstFilesOtherFolderChange(Sender: TBaseVirtualTree;
-      Node: PVirtualNode);
+    procedure vstFilesClick(Sender: TObject);
     procedure vstFilesOtherFolderClick(Sender: TObject);
-    procedure vstGroupChange(Sender: TBaseVirtualTree; Node: PVirtualNode);
     procedure vstGroupCompareNodes(Sender: TBaseVirtualTree;
       Node1, Node2: PVirtualNode; Column: TColumnIndex; var Result: integer);
     procedure vstGroupKeyDown(Sender: TObject; var Key: word;
@@ -137,8 +138,9 @@ type
     procedure vstGroupsAllInitNode(Sender: TBaseVirtualTree;
       ParentNode, Node: PVirtualNode;
       var InitialStates: TVirtualNodeInitStates);
+    procedure vstGroupClick(Sender: TObject);
     procedure vstKeyPress(Sender: TObject; var Key: char);
-    procedure vstSoftChange(Sender: TBaseVirtualTree; Node: PVirtualNode);
+    procedure vstSoftClick(Sender: TObject);
     procedure vstSoftCompareNodes(Sender: TBaseVirtualTree;
       Node1, Node2: PVirtualNode; Column: TColumnIndex; var Result: integer);
     procedure vstSoftGetText(Sender: TBaseVirtualTree;
@@ -1015,7 +1017,8 @@ begin
   if not SelectDirectoryDialog1.Execute then
     Exit;
 
-  TargetPath := SetAsFolder(SelectDirectoryDialog1.FileName) + ExtractFileName(SourcePath);
+  TargetPath := SetAsFolder(SelectDirectoryDialog1.FileName) +
+    ExtractFileName(SourcePath);
 
   // Checking target existence for files
   if IsFolder then
@@ -1140,11 +1143,13 @@ end;
 
 function TfmLEmuTKMediaManager.GetCurrentFilesVST: TCustomVirtualStringTree;
 begin
+
+  // TODO: Make this... "dinamic"; search vst in current page...
   case pcSource.ActivePageIndex of
-    0: Result := vstFilesAll;
-    1: Result := vstFilesOtherExt;
-    2: Result := vstFilesWOGroup;
-    3: Result := vstFilesWOSoft;
+    0: Result := vstFilesWOGroup;
+    1: Result := vstFilesWOSoft;
+    2: Result := vstFilesAll;
+    3: Result := vstFilesOtherExt;
     4: Result := vstFilesOtherFolder;
     else
       Result := nil;
@@ -1235,29 +1240,30 @@ begin
     UpdateVST('');
 end;
 
+procedure TfmLEmuTKMediaManager.pcSourceChange(Sender: TObject);
+begin
+  vstFilesAll.ClearSelection;
+  vstFilesOtherExt.ClearSelection;
+  vstFilesOtherFolder.ClearSelection;
+  vstFilesWOGroup.ClearSelection;
+  vstFilesWOSoft.ClearSelection;
+  SourceFile := '';
+end;
+
+procedure TfmLEmuTKMediaManager.pcTargetChange(Sender: TObject);
+begin
+  vstGroupsAll.ClearSelection;
+  vstGroupsWOFile.ClearSelection;
+  vstSoftAll.ClearSelection;
+  vstSoftWOFile.ClearSelection;
+  TargetFile := '';
+end;
+
 procedure TfmLEmuTKMediaManager.tbSimilarThresoldClick(Sender: TObject);
 begin
   // In TrackBar, this method means end of changing it.
   if chkSimilarFiles.Checked then
     FilterFiles;
-end;
-
-procedure TfmLEmuTKMediaManager.vstFileChange(Sender: TBaseVirtualTree;
-  Node: PVirtualNode);
-var
-  aFileRow: PFileRow;
-begin
-  if Node = nil then
-  begin
-    SourceFile := '';
-    Exit;
-  end;
-
-  SourceFolder := TargetFolder;
-  aFileRow := Sender.GetNodeData(Node);
-  SourceFile := aFileRow^.FileName + aFileRow^.Extension;
-
-  ChangeFileMedia(SourceFolder, SourceFile);
 end;
 
 procedure TfmLEmuTKMediaManager.vstFileCompareNodes(Sender: TBaseVirtualTree;
@@ -1299,46 +1305,50 @@ begin
   NodeDataSize := SizeOf(TFileRow);
 end;
 
-procedure TfmLEmuTKMediaManager.vstFilesOtherFolderChange(
-  Sender: TBaseVirtualTree; Node: PVirtualNode);
+procedure TfmLEmuTKMediaManager.vstFilesClick(Sender: TObject);
 var
+  aTree: TBaseVirtualTree;
   aFileRow: PFileRow;
+  Node: PVirtualNode;
 begin
-  if Node = nil then
-  begin
-    SourceFile := '';
-    Exit;
-  end;
+  SourceFile := '';
 
-  SourceFolder := eOtherFolder.Text;
-  aFileRow := Sender.GetNodeData(Node);
+  if not (Sender is TBaseVirtualTree) then
+    Exit;
+  aTree := TBaseVirtualTree(Sender);
+
+  Node := aTree.FocusedNode;
+  if not assigned(Node) then
+    Exit;
+
+  SourceFolder := TargetFolder;
+  aFileRow := aTree.GetNodeData(Node);
   SourceFile := aFileRow^.FileName + aFileRow^.Extension;
 
   ChangeFileMedia(SourceFolder, SourceFile);
 end;
 
 procedure TfmLEmuTKMediaManager.vstFilesOtherFolderClick(Sender: TObject);
-begin
-
-end;
-
-procedure TfmLEmuTKMediaManager.vstGroupChange(Sender: TBaseVirtualTree;
-  Node: PVirtualNode);
 var
-  PData: ^cEmutecaGroup;
+  aTree: TBaseVirtualTree;
+  aFileRow: PFileRow;
+  Node: PVirtualNode;
 begin
-  if Node = nil then
-  begin
-    TargetFile := '';
+  SourceFile := '';
+
+  if not (Sender is TBaseVirtualTree) then
     Exit;
-  end;
+  aTree := TBaseVirtualTree(Sender);
 
-  PData := Sender.GetNodeData(Node);
-  CurrGroup := PData^;
+  Node := aTree.FocusedNode;
+  if not assigned(Node) then
+    Exit;
 
-  TargetFile := CurrGroup.MediaFileName + krsVirtualExt;
-  ChangeGroupMedia(CurrGroup);
-  FilterFiles;
+  SourceFolder := eOtherFolder.Text;
+  aFileRow := aTree.GetNodeData(Node);
+  SourceFile := aFileRow^.FileName + aFileRow^.Extension;
+
+  ChangeFileMedia(SourceFolder, SourceFile);
 end;
 
 procedure TfmLEmuTKMediaManager.vstGroupCompareNodes(Sender: TBaseVirtualTree;
@@ -1383,19 +1393,29 @@ begin
   UpdateFileOtherFolder(Value);
 end;
 
-procedure TfmLEmuTKMediaManager.eOtherFolderEditingDone(Sender: TObject);
-begin
-
-end;
-
 procedure TfmLEmuTKMediaManager.actAssignFileExecute(Sender: TObject);
 begin
   AssignFile;
 end;
 
+procedure TfmLEmuTKMediaManager.actDeleteAllFilesExecute(Sender: TObject);
+begin
+  DeleteAllFiles;
+end;
+
 procedure TfmLEmuTKMediaManager.actDeleteFileExecute(Sender: TObject);
 begin
   DeleteFile;
+end;
+
+procedure TfmLEmuTKMediaManager.actMoveAllFilesExecute(Sender: TObject);
+begin
+  MoveAllFiles;
+end;
+
+procedure TfmLEmuTKMediaManager.actMoveFileExecute(Sender: TObject);
+begin
+  MoveFile;
 end;
 
 procedure TfmLEmuTKMediaManager.actRenameGroupFileExecute(Sender: TObject);
@@ -1543,6 +1563,30 @@ begin
   pGroup^ := CurrSystem.GroupManager.VisibleList[Node^.Index];
 end;
 
+procedure TfmLEmuTKMediaManager.vstGroupClick(Sender: TObject);
+var
+  aTree: TBaseVirtualTree;
+  Node: PVirtualNode;
+  PData: ^cEmutecaGroup;
+begin
+  TargetFile := '';
+
+  if not (Sender is TBaseVirtualTree) then
+    Exit;
+  aTree := TBaseVirtualTree(Sender);
+
+  Node := aTree.FocusedNode;
+  if not assigned(Node) then
+    Exit;
+
+  PData := aTree.GetNodeData(Node);
+  CurrGroup := PData^;
+
+  TargetFile := CurrGroup.MediaFileName + krsVirtualExt;
+  ChangeGroupMedia(CurrGroup);
+  FilterFiles;
+end;
+
 procedure TfmLEmuTKMediaManager.vstKeyPress(Sender: TObject; var Key: char);
 begin
   // Removing "Beep" sound when key Return is pressed
@@ -1553,17 +1597,24 @@ begin
   end;
 end;
 
-procedure TfmLEmuTKMediaManager.vstSoftChange(Sender: TBaseVirtualTree;
-  Node: PVirtualNode);
+procedure TfmLEmuTKMediaManager.vstSoftClick(Sender: TObject);
+
 var
+  aTree: TBaseVirtualTree;
+  Node: PVirtualNode;
   pSoft: ^cEmutecaSoftware;
 begin
-  if Node = nil then
-  begin
-    TargetFile := '';
+  TargetFile := '';
+
+  if not (Sender is TBaseVirtualTree) then
     Exit;
-  end;
-  pSoft := Sender.GetNodeData(Node);
+  aTree := TBaseVirtualTree(Sender);
+
+  Node := aTree.FocusedNode;
+  if not assigned(Node) then
+    Exit;
+
+  pSoft := aTree.GetNodeData(Node);
   TargetFile := pSoft^.FileName;
   CurrGroup := cEmutecaGroup(pSoft^.CachedGroup);
 

@@ -128,8 +128,9 @@ begin
 
     if Assigned(Software.CachedGroup) then
     begin
-      fmGroupEditor.Group := cEmutecaGroup(Software.CachedGroup);
-      fmGroupCBX.SelectedGroup := fmGroupEditor.Group;
+      FGroup := cEmutecaGroup(Software.CachedGroup);
+      fmGroupEditor.Group := Group;
+      fmGroupCBX.SelectedGroup := Group;
     end
     else
     begin
