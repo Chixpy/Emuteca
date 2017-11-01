@@ -125,8 +125,12 @@ type
       Shift: TShiftState);
     procedure vstFilesGetNodeDataSize(Sender: TBaseVirtualTree;
       var NodeDataSize: integer);
-    procedure vstFilesClick(Sender: TObject);
-    procedure vstFilesOtherFolderClick(Sender: TObject);
+    procedure vstFilesOtherFolderChange(Sender: TBaseVirtualTree;
+      Node: PVirtualNode);
+    procedure vstFilesChange(Sender: TBaseVirtualTree;
+      Node: PVirtualNode);
+    procedure vstNodeClick(Sender: TBaseVirtualTree;
+      const HitInfo: THitInfo);
     procedure vstGroupCompareNodes(Sender: TBaseVirtualTree;
       Node1, Node2: PVirtualNode; Column: TColumnIndex; var Result: integer);
     procedure vstGroupKeyDown(Sender: TObject; var Key: word;
@@ -135,12 +139,12 @@ type
     procedure vstFileGetText(Sender: TBaseVirtualTree;
       Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType;
       var CellText: string);
+    procedure vstGroupsChange(Sender: TBaseVirtualTree; Node: PVirtualNode);
     procedure vstGroupsAllInitNode(Sender: TBaseVirtualTree;
       ParentNode, Node: PVirtualNode;
       var InitialStates: TVirtualNodeInitStates);
-    procedure vstGroupClick(Sender: TObject);
     procedure vstKeyPress(Sender: TObject; var Key: char);
-    procedure vstSoftClick(Sender: TObject);
+    procedure vstSoftChange(Sender: TBaseVirtualTree; Node: PVirtualNode);
     procedure vstSoftCompareNodes(Sender: TBaseVirtualTree;
       Node1, Node2: PVirtualNode; Column: TColumnIndex; var Result: integer);
     procedure vstSoftGetText(Sender: TBaseVirtualTree;
@@ -1305,50 +1309,63 @@ begin
   NodeDataSize := SizeOf(TFileRow);
 end;
 
-procedure TfmLEmuTKMediaManager.vstFilesClick(Sender: TObject);
+procedure TfmLEmuTKMediaManager.vstFilesOtherFolderChange(
+  Sender: TBaseVirtualTree; Node: PVirtualNode);
 var
-  aTree: TBaseVirtualTree;
   aFileRow: PFileRow;
-  Node: PVirtualNode;
 begin
   SourceFile := '';
+  SourceFolder := eOtherFolder.Text;
 
-  if not (Sender is TBaseVirtualTree) then
-    Exit;
-  aTree := TBaseVirtualTree(Sender);
-
-  Node := aTree.FocusedNode;
-  if not assigned(Node) then
-    Exit;
-
-  SourceFolder := TargetFolder;
-  aFileRow := aTree.GetNodeData(Node);
+  if  assigned(Sender) and assigned(Node) then
+  begin
+  aFileRow := Sender.GetNodeData(Node);
   SourceFile := aFileRow^.FileName + aFileRow^.Extension;
+  end;
 
   ChangeFileMedia(SourceFolder, SourceFile);
 end;
 
-procedure TfmLEmuTKMediaManager.vstFilesOtherFolderClick(Sender: TObject);
+procedure TfmLEmuTKMediaManager.vstFilesChange(Sender: TBaseVirtualTree;
+  Node: PVirtualNode);
 var
-  aTree: TBaseVirtualTree;
   aFileRow: PFileRow;
-  Node: PVirtualNode;
 begin
   SourceFile := '';
+  SourceFolder := TargetFolder;
 
-  if not (Sender is TBaseVirtualTree) then
-    Exit;
-  aTree := TBaseVirtualTree(Sender);
-
-  Node := aTree.FocusedNode;
-  if not assigned(Node) then
-    Exit;
-
-  SourceFolder := eOtherFolder.Text;
-  aFileRow := aTree.GetNodeData(Node);
+  if  assigned(Sender) and assigned(Node) then
+  begin
+  aFileRow := Sender.GetNodeData(Node);
   SourceFile := aFileRow^.FileName + aFileRow^.Extension;
+  end;
 
   ChangeFileMedia(SourceFolder, SourceFile);
+end;
+
+procedure TfmLEmuTKMediaManager.vstNodeClick(
+  Sender: TBaseVirtualTree; const HitInfo: THitInfo);
+var
+  aNode: PVirtualNode;
+  aTree: TVirtualStringTree;
+begin
+  // FIX: Clicking on already selected node don't trigger OnChange.
+  // Example: Select a File, select a group, when clicked same File again
+  //   (or viceversa) Media preview is not updated.
+  // On(Node)Click is not called when Keyboard is used, so OnChange must be used.
+  // When called On(Node)Click on not selected node OnChange is called too;
+  //   so Media Preview is "updated" 2 times ~_~U
+
+  if not (Sender is TVirtualStringTree) then Exit;
+  aTree :=  TVirtualStringTree(Sender);
+
+  // We want call OnChange only if same selected node is clicked...
+  //   but OnChange is called before... so FocusedNode = HitInfo.HitNode...
+  aNode := aTree.FocusedNode;
+  if HitInfo.HitNode <> aNode then Exit;
+
+  if Assigned(aTree.OnChange) then
+   aTree.OnChange(aTree, HitInfo.HitNode);
 end;
 
 procedure TfmLEmuTKMediaManager.vstGroupCompareNodes(Sender: TBaseVirtualTree;
@@ -1552,6 +1569,24 @@ begin
   end;
 end;
 
+procedure TfmLEmuTKMediaManager.vstGroupsChange(Sender: TBaseVirtualTree;
+  Node: PVirtualNode);
+var
+  PData: ^cEmutecaGroup;
+begin
+  TargetFile := '';
+
+  if (not assigned(Sender)) or (not assigned(Node)) then
+    Exit;
+
+  PData := Sender.GetNodeData(Node);
+  CurrGroup := PData^;
+
+  TargetFile := CurrGroup.MediaFileName + krsVirtualExt;
+  ChangeGroupMedia(CurrGroup);
+  FilterFiles;
+end;
+
 procedure TfmLEmuTKMediaManager.vstGroupsAllInitNode(Sender: TBaseVirtualTree;
   ParentNode, Node: PVirtualNode; var InitialStates: TVirtualNodeInitStates);
 var
@@ -1561,30 +1596,6 @@ begin
     Exit;
   pGroup := Sender.GetNodeData(Node);
   pGroup^ := CurrSystem.GroupManager.VisibleList[Node^.Index];
-end;
-
-procedure TfmLEmuTKMediaManager.vstGroupClick(Sender: TObject);
-var
-  aTree: TBaseVirtualTree;
-  Node: PVirtualNode;
-  PData: ^cEmutecaGroup;
-begin
-  TargetFile := '';
-
-  if not (Sender is TBaseVirtualTree) then
-    Exit;
-  aTree := TBaseVirtualTree(Sender);
-
-  Node := aTree.FocusedNode;
-  if not assigned(Node) then
-    Exit;
-
-  PData := aTree.GetNodeData(Node);
-  CurrGroup := PData^;
-
-  TargetFile := CurrGroup.MediaFileName + krsVirtualExt;
-  ChangeGroupMedia(CurrGroup);
-  FilterFiles;
 end;
 
 procedure TfmLEmuTKMediaManager.vstKeyPress(Sender: TObject; var Key: char);
@@ -1597,24 +1608,17 @@ begin
   end;
 end;
 
-procedure TfmLEmuTKMediaManager.vstSoftClick(Sender: TObject);
-
+procedure TfmLEmuTKMediaManager.vstSoftChange(Sender: TBaseVirtualTree;
+  Node: PVirtualNode);
 var
-  aTree: TBaseVirtualTree;
-  Node: PVirtualNode;
   pSoft: ^cEmutecaSoftware;
 begin
   TargetFile := '';
 
-  if not (Sender is TBaseVirtualTree) then
-    Exit;
-  aTree := TBaseVirtualTree(Sender);
-
-  Node := aTree.FocusedNode;
-  if not assigned(Node) then
+  if (not assigned(Sender)) or (not assigned(Node)) then
     Exit;
 
-  pSoft := aTree.GetNodeData(Node);
+  pSoft := Sender.GetNodeData(Node);
   TargetFile := pSoft^.FileName;
   CurrGroup := cEmutecaGroup(pSoft^.CachedGroup);
 
