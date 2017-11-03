@@ -36,7 +36,7 @@ object frmLEmuTKMain: TfrmLEmuTKMain
     object FileExit1: TFileExit
       Category = 'File'
       Caption = 'Exit'
-      Hint = 'Salir|Sale de Emuteca.'
+      Hint = 'Exit|Exits Emuteca.'
     end
     object actEmulatorManager: TAction
       Category = 'Managers'

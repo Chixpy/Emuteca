@@ -26,6 +26,7 @@ type
     eNTimes: TEdit;
     ePlayedTime: TEdit;
     gbxStats: TGroupBox;
+    lSystemTitle: TLabel;
     Splitter1: TSplitter;
     SysImage: TImage;
     ToolBar1: TToolBar;
@@ -57,7 +58,7 @@ type
 
     property SHA1Folder: string read FSHA1Folder write SetSHA1Folder;
 
-        constructor Create(TheOwner: TComponent); override;
+    constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
   end;
 
@@ -78,7 +79,8 @@ end;
 procedure TfmLEmuTKSysPreview.SysImageDblClick(Sender: TObject);
 begin
   if FileExistsUTF8(System.Image) then
-    TfmCHXImgViewer.SimpleFormI(System.Image, SHA1Folder, GUIIconsIni, GUIConfigIni);
+    TfmCHXImgViewer.SimpleFormI(System.Image, SHA1Folder,
+      GUIIconsIni, GUIConfigIni);
 end;
 
 procedure TfmLEmuTKSysPreview.SetSystem(AValue: cEmutecaSystem);
@@ -94,7 +96,8 @@ procedure TfmLEmuTKSysPreview.DoLoadGUIIcons(aIconsIni: TIniFile;
   aBaseFolder: string);
 begin
   GUIIconsIni := aIconsIni.FileName;
-  ReadActionsIconsIni(aIconsIni, aBaseFolder, Self.Name, ilActions, ActionList);
+  ReadActionsIconsIni(aIconsIni, aBaseFolder, Self.Name,
+    ilActions, ActionList);
   FixComponentImagesFromActions(Self);
 end;
 
@@ -116,7 +119,8 @@ end;
 
 procedure TfmLEmuTKSysPreview.SetSHA1Folder(AValue: string);
 begin
-  if FSHA1Folder = AValue then Exit;
+  if FSHA1Folder = AValue then
+    Exit;
   FSHA1Folder := AValue;
 end;
 
@@ -133,6 +137,7 @@ end;
 procedure TfmLEmuTKSysPreview.DoClearFrameData;
 begin
   SysImage.Picture.Clear;
+  lSystemTitle := 'System';
   eNSoft.Clear;
   eNGroups.Clear;
   ePlayedTime.Clear;
@@ -155,8 +160,10 @@ begin
   else
     SysImage.Picture.Clear;
 
-  eNSoft.Text := Format(rsFmtNVersions,[System.SoftManager.FullList.Count]);
-  eNGroups.Text := Format(rsFmtNGroups,[System.GroupManager.VisibleList.Count]);
+  lSystemTitle.Caption := System.Title;
+  eNSoft.Text := Format(rsFmtNVersions, [System.SoftManager.FullList.Count]);
+  eNGroups.Text := Format(rsFmtNGroups,
+    [System.GroupManager.VisibleList.Count]);
   ePlayedTime.Text := System.Stats.PlayingTimeStr;
   eNTimes.Text := System.Stats.TimesPlayedStr;
   eLastTime.Text := System.Stats.LastTimeStr;

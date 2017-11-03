@@ -1346,7 +1346,6 @@ end;
 procedure TfmLEmuTKMediaManager.vstNodeClick(
   Sender: TBaseVirtualTree; const HitInfo: THitInfo);
 var
-  aNode: PVirtualNode;
   aTree: TVirtualStringTree;
 begin
   // FIX: Clicking on already selected node don't trigger OnChange.
@@ -1361,8 +1360,7 @@ begin
 
   // We want call OnChange only if same selected node is clicked...
   //   but OnChange is called before... so FocusedNode = HitInfo.HitNode...
-  aNode := aTree.FocusedNode;
-  if HitInfo.HitNode <> aNode then Exit;
+  if HitInfo.HitNode <> aTree.FocusedNode then Exit;
 
   if Assigned(aTree.OnChange) then
    aTree.OnChange(aTree, HitInfo.HitNode);

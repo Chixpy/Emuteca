@@ -2,6 +2,6 @@
 {"hash":214117378,"name":"tfmemutecagroupeditor.edeveloper.texthint","sourcebytes":[68,101,118,101,108,111,112,101,114],"value":"Developer"},
 {"hash":5966629,"name":"tfmemutecagroupeditor.etitle.texthint","sourcebytes":[84,105,116,108,101],"value":"Title"},
 {"hash":392066,"name":"tfmemutecagroupeditor.eyear.texthint","sourcebytes":[89,101,97,114],"value":"Year"},
-{"hash":109096373,"name":"tfmemutecagroupeditor.esorttitle.texthint","sourcebytes":[83,111,114,116,32,116,105,116,108,101],"value":"Sort title"},
+{"hash":209374633,"name":"tfmemutecagroupeditor.esorttitle.texthint","sourcebytes":[83,111,114,116,32,116,105,116,108,101,32,40,69,109,112,116,121,32,61,32,84,105,116,108,101,41],"value":"Sort title (Empty = Title)"},
 {"hash":92632517,"name":"tfmemutecagroupeditor.emediafile.texthint","sourcebytes":[77,101,100,105,97,32,102,105,108,101,110,97,109,101],"value":"Media filename"}
 ]}

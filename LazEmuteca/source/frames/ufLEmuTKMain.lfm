@@ -5,41 +5,33 @@ inherited fmLEmuTKMain: TfmLEmuTKMain
   ClientWidth = 640
   DesignLeft = 384
   DesignTop = 110
-  object stbInfo: TStatusBar[0]
-    Left = 0
-    Height = 23
-    Top = 457
-    Width = 640
-    Panels = <>
-    SizeGrip = False
-  end
-  object Splitter1: TSplitter[1]
+  object Splitter1: TSplitter[0]
     Left = 200
-    Height = 457
+    Height = 480
     Top = 0
     Width = 5
   end
-  object Splitter2: TSplitter[2]
+  object Splitter2: TSplitter[1]
     Left = 435
-    Height = 457
+    Height = 480
     Top = 0
     Width = 5
     Align = alRight
     ResizeAnchor = akRight
   end
-  object pMiddle: TPanel[3]
+  object pMiddle: TPanel[2]
     Left = 205
-    Height = 457
+    Height = 480
     Top = 0
     Width = 230
     Align = alClient
     BevelOuter = bvNone
-    ClientHeight = 457
+    ClientHeight = 480
     ClientWidth = 230
-    TabOrder = 3
+    TabOrder = 2
     object pMain: TPanel
       Left = 0
-      Height = 434
+      Height = 457
       Top = 23
       Width = 230
       Align = alClient
@@ -56,20 +48,20 @@ inherited fmLEmuTKMain: TfmLEmuTKMain
       TextHint = 'Filter by name...'
     end
   end
-  object pcLeft: TPageControl[4]
+  object pcLeft: TPageControl[3]
     Left = 0
-    Height = 457
+    Height = 480
     Top = 0
     Width = 200
     Align = alLeft
-    TabOrder = 4
+    TabOrder = 3
   end
-  object pcSoftware: TPageControl[5]
+  object pcSoftware: TPageControl[4]
     Left = 440
-    Height = 457
+    Height = 480
     Top = 0
     Width = 200
     Align = alRight
-    TabOrder = 5
+    TabOrder = 4
   end
 end

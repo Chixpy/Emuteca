@@ -18,7 +18,7 @@
 {"hash":7476805,"name":"tfmemutecasofteditor.lzone.caption","sourcebytes":[108,90,111,110,101],"value":"lZone"},
 {"hash":81879810,"name":"tfmemutecasofteditor.ezone.texthint","sourcebytes":[73,83,79,51,49,54,54,45,49,32,97,108,112,104,97,45,50],"value":"ISO3166-1 alpha-2"},
 {"hash":41112703,"name":"tfmemutecasofteditor.gbxtitle.caption","sourcebytes":[84,105,116,108,101,32,105,110,102,111],"value":"Title info"},
-{"hash":5966629,"name":"tfmemutecasofteditor.etitle.texthint","sourcebytes":[84,105,116,108,101],"value":"Title"},
-{"hash":68692261,"name":"tfmemutecasofteditor.etranstitle.texthint","sourcebytes":[84,114,97,110,115,108,105,116,101,114,97,116,101,100,32,84,105,116,108,101],"value":"Transliterated Title"},
-{"hash":110515305,"name":"tfmemutecasofteditor.esortkey.texthint","sourcebytes":[83,111,114,116,32,75,101,121],"value":"Sort Key"}
+{"hash":123072953,"name":"tfmemutecasofteditor.etitle.texthint","sourcebytes":[84,105,116,108,101,32,32,40,69,109,112,116,121,32,61,32,71,114,111,117,112,32,84,105,116,108,101,41],"value":"Title  (Empty = Group Title)"},
+{"hash":151532841,"name":"tfmemutecasofteditor.etranstitle.texthint","sourcebytes":[84,114,97,110,115,108,105,116,101,114,97,116,101,100,32,84,105,116,108,101,32,40,69,109,112,116,121,32,61,32,84,105,116,108,101,41],"value":"Transliterated Title (Empty = Title)"},
+{"hash":96910201,"name":"tfmemutecasofteditor.esortkey.texthint","sourcebytes":[83,111,114,116,32,75,101,121,32,40,69,109,112,116,121,32,61,32,84,105,116,108,101,41],"value":"Sort Key (Empty = Title)"}
 ]}

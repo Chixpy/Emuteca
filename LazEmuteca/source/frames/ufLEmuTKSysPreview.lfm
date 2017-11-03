@@ -28,19 +28,19 @@ inherited fmLEmuTKSysPreview: TfmLEmuTKSysPreview
   end
   object gbxStats: TGroupBox[2]
     Left = 0
-    Height = 135
+    Height = 150
     Top = 231
     Width = 200
     Align = alTop
     AutoSize = True
     Caption = 'Stats'
-    ClientHeight = 115
+    ClientHeight = 130
     ClientWidth = 196
     TabOrder = 1
     object ePlayedTime: TEdit
       Left = 0
       Height = 23
-      Top = 46
+      Top = 61
       Width = 196
       Align = alTop
       Enabled = False
@@ -50,7 +50,7 @@ inherited fmLEmuTKSysPreview: TfmLEmuTKSysPreview
     object eNTimes: TEdit
       Left = 0
       Height = 23
-      Top = 69
+      Top = 84
       Width = 196
       Align = alTop
       Enabled = False
@@ -60,7 +60,7 @@ inherited fmLEmuTKSysPreview: TfmLEmuTKSysPreview
     object eLastTime: TEdit
       Left = 0
       Height = 23
-      Top = 92
+      Top = 107
       Width = 196
       Align = alTop
       Enabled = False
@@ -70,7 +70,7 @@ inherited fmLEmuTKSysPreview: TfmLEmuTKSysPreview
     object eNSoft: TEdit
       Left = 0
       Height = 23
-      Top = 0
+      Top = 15
       Width = 196
       Align = alTop
       Enabled = False
@@ -80,12 +80,21 @@ inherited fmLEmuTKSysPreview: TfmLEmuTKSysPreview
     object eNGroups: TEdit
       Left = 0
       Height = 23
-      Top = 23
+      Top = 38
       Width = 196
       Align = alTop
       Enabled = False
       TabOrder = 4
       TextHint = '# Groups'
+    end
+    object lSystemTitle: TLabel
+      Left = 0
+      Height = 15
+      Top = 0
+      Width = 196
+      Align = alTop
+      Caption = 'System'
+      ParentColor = False
     end
   end
   object ToolBar1: TToolBar[3]
@@ -104,16 +113,17 @@ inherited fmLEmuTKSysPreview: TfmLEmuTKSysPreview
   end
   object ActionList: TActionList[4]
     Images = ilActions
-    Left = 120
-    Top = 305
+    left = 133
+    top = 336
     object actOpenSystemFolder: TAction
       Category = 'System'
       Caption = 'Open system folder'
+      Hint = 'Open system folder|Opens the system base folder'
       OnExecute = actOpenSystemFolderExecute
     end
   end
   object ilActions: TImageList[5]
-    Left = 133
-    Top = 276
+    left = 133
+    top = 276
   end
 end

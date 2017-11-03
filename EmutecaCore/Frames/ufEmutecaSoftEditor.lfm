@@ -270,7 +270,7 @@ inherited fmEmutecaSoftEditor: TfmEmutecaSoftEditor
       Top = 0
       Width = 228
       TabOrder = 0
-      TextHint = 'Title'
+      TextHint = 'Title  (Empty = Group Title)'
     end
     object eTransTitle: TEdit
       Left = 0
@@ -278,7 +278,7 @@ inherited fmEmutecaSoftEditor: TfmEmutecaSoftEditor
       Top = 23
       Width = 228
       TabOrder = 1
-      TextHint = 'Transliterated Title'
+      TextHint = 'Transliterated Title (Empty = Title)'
     end
     object eSortKey: TEdit
       Left = 0
@@ -286,7 +286,7 @@ inherited fmEmutecaSoftEditor: TfmEmutecaSoftEditor
       Top = 46
       Width = 228
       TabOrder = 2
-      TextHint = 'Sort Key'
+      TextHint = 'Sort Key (Empty = Title)'
     end
   end
   object pEmpty: TPanel[4]

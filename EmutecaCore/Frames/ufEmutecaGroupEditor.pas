@@ -84,7 +84,7 @@ begin
   end;
 
   eTitle.Text := Group.Title;
-  eSortTitle.Text := Group.SortTitle;
+  eSortTitle.Text := Group.GetActualSortTitle;
   eDeveloper.Text := Group.Developer;
   eYear.Text := Group.Year;
   eMediaFile.Text := Group.MediaFileName;

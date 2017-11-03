@@ -51,7 +51,7 @@ inherited fmEmutecaGroupEditor: TfmEmutecaGroupEditor
     Width = 253
     Align = alTop
     TabOrder = 4
-    TextHint = 'Sort title'
+    TextHint = 'Sort title (Empty = Title)'
   end
   object eMediaFile: TEdit[5]
     Left = 0

@@ -151,7 +151,7 @@ begin
     Exit;
   end;
 
-  eTitle.Text := Software.Title;
+  eTitle.Text := Software.GetActualTitle;
   eSortKey.Text := Software.GetActualSortTitle;
   eTransTitle.Text := Software.GetActualTranslitTitle;
 

@@ -36,7 +36,6 @@ type
     pMiddle: TPanel;
     Splitter1: TSplitter;
     Splitter2: TSplitter;
-    stbInfo: TStatusBar;
 
   private
     FDumpIcons: cCHXImageList;
