@@ -1,0 +1,13 @@
+{"version":1,"strings":[
+{"hash":95464125,"name":"tfmemutecasofttree.vdt.header.columns[0].text","sourcebytes":[83,121,115,116,101,109],"value":"System"},
+{"hash":5966629,"name":"tfmemutecasofttree.vdt.header.columns[1].text","sourcebytes":[84,105,116,108,101],"value":"Title"},
+{"hash":214540302,"name":"tfmemutecasofttree.vdt.header.columns[2].text","sourcebytes":[86,101,114,115,105,111,110],"value":"Version"},
+{"hash":100346078,"name":"tfmemutecasofttree.vdt.header.columns[3].text","sourcebytes":[68,101,118,46,32,47,32,80,117,98,108,46],"value":"Dev. / Publ."},
+{"hash":392066,"name":"tfmemutecasofttree.vdt.header.columns[4].text","sourcebytes":[89,101,97,114],"value":"Year"},
+{"hash":5056483,"name":"tfmemutecasofttree.vdt.header.columns[5].text","sourcebytes":[70,108,97,103,115],"value":"Flags"},
+{"hash":14857188,"name":"tfmemutecasofttree.vdt.header.columns[6].text","sourcebytes":[84,105,109,101,115,32,80,108,97,121,101,100],"value":"Times Played"},
+{"hash":31932469,"name":"tfmemutecasofttree.vdt.header.columns[7].text","sourcebytes":[80,108,97,121,105,110,103,32,84,105,109,101],"value":"Playing Time"},
+{"hash":174456501,"name":"tfmemutecasofttree.vdt.header.columns[8].text","sourcebytes":[76,97,115,116,32,84,105,109,101],"value":"Last Time"},
+{"hash":81144514,"name":"tfmemutecasofttree.vdt.header.columns[9].text","sourcebytes":[70,111,108,100,101,114],"value":"Folder"},
+{"hash":315429,"name":"tfmemutecasofttree.vdt.header.columns[10].text","sourcebytes":[70,105,108,101],"value":"File"}
+]}

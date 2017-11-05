@@ -7,6 +7,7 @@ inherited fmEmutecaGroupEditor: TfmEmutecaGroupEditor
     Top = 248
     Width = 253
     ClientWidth = 253
+    TabOrder = 5
     inherited chkCloseOnSave: TCheckBox
       Left = 15
     end
@@ -23,7 +24,7 @@ inherited fmEmutecaGroupEditor: TfmEmutecaGroupEditor
     Top = 46
     Width = 253
     Align = alTop
-    TabOrder = 1
+    TabOrder = 2
     TextHint = 'Developer'
   end
   object eTitle: TEdit[2]
@@ -32,7 +33,7 @@ inherited fmEmutecaGroupEditor: TfmEmutecaGroupEditor
     Top = 0
     Width = 253
     Align = alTop
-    TabOrder = 2
+    TabOrder = 0
     TextHint = 'Title'
   end
   object eYear: TEdit[3]
@@ -50,7 +51,7 @@ inherited fmEmutecaGroupEditor: TfmEmutecaGroupEditor
     Top = 23
     Width = 253
     Align = alTop
-    TabOrder = 4
+    TabOrder = 1
     TextHint = 'Sort title (Empty = Title)'
   end
   object eMediaFile: TEdit[5]
@@ -59,7 +60,7 @@ inherited fmEmutecaGroupEditor: TfmEmutecaGroupEditor
     Top = 92
     Width = 253
     Align = alTop
-    TabOrder = 5
+    TabOrder = 4
     TextHint = 'Media filename'
   end
   inherited alPropEditor: TActionList[6]

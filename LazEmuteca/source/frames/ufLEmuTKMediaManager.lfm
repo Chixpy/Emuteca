@@ -54,7 +54,7 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
     BevelOuter = bvNone
     ClientHeight = 464
     ClientWidth = 200
-    TabOrder = 3
+    TabOrder = 4
     object gbxRename: TGroupBox
       Left = 0
       Height = 69
@@ -65,7 +65,7 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
       Caption = 'Change filename'
       ClientHeight = 49
       ClientWidth = 196
-      TabOrder = 0
+      TabOrder = 3
       object chkCopyFile: TCheckBox
         Left = 0
         Height = 19
@@ -92,7 +92,7 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
       Width = 200
       Align = alTop
       BevelOuter = bvNone
-      TabOrder = 1
+      TabOrder = 0
     end
     object Splitter4: TSplitter
       Cursor = crVSplit
@@ -110,7 +110,7 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
       Width = 200
       Align = alClient
       BevelOuter = bvNone
-      TabOrder = 3
+      TabOrder = 2
     end
   end
   object Splitter2: TSplitter[4]
@@ -130,7 +130,7 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
     BevelOuter = bvNone
     ClientHeight = 464
     ClientWidth = 483
-    TabOrder = 5
+    TabOrder = 2
     object gbxSource: TGroupBox
       Left = 0
       Height = 300
@@ -632,7 +632,7 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
     Align = alLeft
     ClientHeight = 460
     ClientWidth = 149
-    TabOrder = 6
+    TabOrder = 0
     object gbxSystem: TGroupBox
       Left = 0
       Height = 19
@@ -694,7 +694,7 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
       Caption = 'Videos'
       ClientHeight = 100
       ClientWidth = 145
-      TabOrder = 3
+      TabOrder = 4
       object lbxVideos: TListBox
         Left = 0
         Height = 100
@@ -715,7 +715,7 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
       Caption = 'Music'
       ClientHeight = 100
       ClientWidth = 145
-      TabOrder = 4
+      TabOrder = 3
       object lbxMusic: TListBox
         Left = 0
         Height = 100

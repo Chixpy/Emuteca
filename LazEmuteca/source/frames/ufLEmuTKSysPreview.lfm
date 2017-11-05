@@ -36,7 +36,7 @@ inherited fmLEmuTKSysPreview: TfmLEmuTKSysPreview
     Caption = 'Stats'
     ClientHeight = 130
     ClientWidth = 196
-    TabOrder = 1
+    TabOrder = 2
     object ePlayedTime: TEdit
       Left = 0
       Height = 23
@@ -44,7 +44,7 @@ inherited fmLEmuTKSysPreview: TfmLEmuTKSysPreview
       Width = 196
       Align = alTop
       Enabled = False
-      TabOrder = 0
+      TabOrder = 2
       TextHint = 'Played Time'
     end
     object eNTimes: TEdit
@@ -54,7 +54,7 @@ inherited fmLEmuTKSysPreview: TfmLEmuTKSysPreview
       Width = 196
       Align = alTop
       Enabled = False
-      TabOrder = 1
+      TabOrder = 3
       TextHint = '# Times'
     end
     object eLastTime: TEdit
@@ -64,7 +64,7 @@ inherited fmLEmuTKSysPreview: TfmLEmuTKSysPreview
       Width = 196
       Align = alTop
       Enabled = False
-      TabOrder = 2
+      TabOrder = 4
       TextHint = 'Last time played'
     end
     object eNSoft: TEdit
@@ -74,7 +74,7 @@ inherited fmLEmuTKSysPreview: TfmLEmuTKSysPreview
       Width = 196
       Align = alTop
       Enabled = False
-      TabOrder = 3
+      TabOrder = 0
       TextHint = '# Software'
     end
     object eNGroups: TEdit
@@ -84,7 +84,7 @@ inherited fmLEmuTKSysPreview: TfmLEmuTKSysPreview
       Width = 196
       Align = alTop
       Enabled = False
-      TabOrder = 4
+      TabOrder = 1
       TextHint = '# Groups'
     end
     object lSystemTitle: TLabel
@@ -104,7 +104,7 @@ inherited fmLEmuTKSysPreview: TfmLEmuTKSysPreview
     Width = 200
     Caption = 'ToolBar1'
     Images = ilActions
-    TabOrder = 2
+    TabOrder = 0
     object ToolButton1: TToolButton
       Left = 1
       Top = 2

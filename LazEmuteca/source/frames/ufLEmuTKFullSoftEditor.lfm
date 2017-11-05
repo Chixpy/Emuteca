@@ -1,4 +1,7 @@
 inherited fmLEmuTKFullSoftEditor: TfmLEmuTKFullSoftEditor
+  inherited pButtons: TPanel
+    TabOrder = 2
+  end
   object gbxSoft: TGroupBox[1]
     Left = 0
     Height = 174
@@ -37,7 +40,7 @@ inherited fmLEmuTKFullSoftEditor: TfmLEmuTKFullSoftEditor
     Caption = 'Group'
     ClientHeight = 19
     ClientWidth = 316
-    TabOrder = 2
+    TabOrder = 0
     object pGroupCBX: TPanel
       Left = 0
       Height = 19

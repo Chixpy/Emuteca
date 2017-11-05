@@ -7,7 +7,7 @@ object frmESMSoftList: TfrmESMSoftList
   ClientHeight = 419
   ClientWidth = 761
   OnCreate = FormCreate
-  LCLVersion = '5.9'
+  LCLVersion = '1.8.0.5'
   object Splitter1: TSplitter
     Left = 200
     Height = 369
@@ -22,7 +22,7 @@ object frmESMSoftList: TfrmESMSoftList
     Align = alClient
     ClientHeight = 369
     ClientWidth = 556
-    TabOrder = 1
+    TabOrder = 2
     object pTop: TPanel
       Left = 1
       Height = 188
@@ -37,7 +37,7 @@ object frmESMSoftList: TfrmESMSoftList
       Top = 194
       Width = 554
       Align = alClient
-      TabOrder = 1
+      TabOrder = 2
     end
     object Splitter2: TSplitter
       Cursor = crVSplit
@@ -55,7 +55,7 @@ object frmESMSoftList: TfrmESMSoftList
     Top = 369
     Width = 761
     Align = alBottom
-    TabOrder = 2
+    TabOrder = 3
   end
   object PageControl1: TPageControl
     Left = 0
@@ -63,6 +63,6 @@ object frmESMSoftList: TfrmESMSoftList
     Top = 0
     Width = 200
     Align = alLeft
-    TabOrder = 3
+    TabOrder = 0
   end
 end

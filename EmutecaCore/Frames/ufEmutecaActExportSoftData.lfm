@@ -1,6 +1,9 @@
 inherited fmActExportSoftData: TfmActExportSoftData
   DesignLeft = 520
   DesignTop = 236
+  inherited pButtons: TPanel
+    TabOrder = 3
+  end
   object pSelectSystem: TPanel[1]
     Left = 0
     Height = 0
@@ -20,7 +23,7 @@ inherited fmActExportSoftData: TfmActExportSoftData
     Caption = 'System info'
     ClientHeight = 150
     ClientWidth = 316
-    TabOrder = 2
+    TabOrder = 0
     object lSoftIDType: TLabel
       Left = 0
       Height = 15
@@ -60,7 +63,7 @@ inherited fmActExportSoftData: TfmActExportSoftData
     Caption = 'Export file'
     ClientHeight = 23
     ClientWidth = 316
-    TabOrder = 3
+    TabOrder = 2
     object eExportFile: TFileNameEdit
       Left = 0
       Height = 23

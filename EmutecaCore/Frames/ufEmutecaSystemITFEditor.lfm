@@ -1,4 +1,7 @@
 inherited fmEmutecaSystemITFEditor: TfmEmutecaSystemITFEditor
+  inherited pButtons: TPanel
+    TabOrder = 3
+  end
   object gbxImageFolders: TGroupBox[1]
     Left = 0
     Height = 54
@@ -6,7 +9,7 @@ inherited fmEmutecaSystemITFEditor: TfmEmutecaSystemITFEditor
     Width = 320
     Align = alClient
     Caption = 'Image Folders'
-    TabOrder = 1
+    TabOrder = 0
   end
   object Splitter1: TSplitter[2]
     Cursor = crVSplit
@@ -24,7 +27,7 @@ inherited fmEmutecaSystemITFEditor: TfmEmutecaSystemITFEditor
     Width = 320
     Align = alBottom
     Caption = 'Text Folders'
-    TabOrder = 3
+    TabOrder = 2
   end
   inherited alPropEditor: TActionList[4]
   end

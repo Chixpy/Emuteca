@@ -9,7 +9,7 @@ inherited fmEmuTKSystemImgEditor: TfmEmuTKSystemImgEditor
     Top = 371
     Width = 600
     ClientWidth = 600
-    TabOrder = 1
+    TabOrder = 2
     inherited chkCloseOnSave: TCheckBox
       Left = 102
     end
@@ -133,7 +133,7 @@ inherited fmEmuTKSystemImgEditor: TfmEmuTKSystemImgEditor
     ChildSizing.ControlsPerLine = 1
     ClientHeight = 85
     ClientWidth = 596
-    TabOrder = 2
+    TabOrder = 1
     object gbxSystemIcon: TGroupBox
       Left = 0
       Height = 85

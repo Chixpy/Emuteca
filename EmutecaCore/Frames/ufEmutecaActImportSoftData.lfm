@@ -1,4 +1,7 @@
 inherited fmEmutecaActImportSoftData: TfmEmutecaActImportSoftData
+  inherited pButtons: TPanel
+    TabOrder = 3
+  end
   object pSelectSystem: TPanel[1]
     Left = 0
     Height = 0
@@ -18,7 +21,7 @@ inherited fmEmutecaActImportSoftData: TfmEmutecaActImportSoftData
     Caption = 'System info'
     ClientHeight = 150
     ClientWidth = 316
-    TabOrder = 2
+    TabOrder = 0
     object lSoftIDType: TLabel
       Left = 0
       Height = 15
@@ -58,7 +61,7 @@ inherited fmEmutecaActImportSoftData: TfmEmutecaActImportSoftData
     Caption = 'Import file'
     ClientHeight = 23
     ClientWidth = 316
-    TabOrder = 3
+    TabOrder = 2
     object eImportFile: TFileNameEdit
       Left = 0
       Height = 23

@@ -9,6 +9,7 @@ inherited fmLEmuTKFullSystemEditor: TfmLEmuTKFullSystemEditor
     Top = 384
     Width = 481
     ClientWidth = 481
+    TabOrder = 2
     inherited chkCloseOnSave: TCheckBox
       Left = 72
     end
@@ -34,7 +35,7 @@ inherited fmLEmuTKFullSystemEditor: TfmLEmuTKFullSystemEditor
     Width = 481
     Caption = 'ToolBar1'
     Images = ilPropEditor
-    TabOrder = 2
+    TabOrder = 0
     object bCreateFolders: TToolButton
       Left = 63
       Top = 2
@@ -49,7 +50,6 @@ inherited fmLEmuTKFullSystemEditor: TfmLEmuTKFullSystemEditor
       Left = 24
       Height = 22
       Top = 2
-      Width = 8
       Caption = 'ToolButton2'
       Style = tbsSeparator
     end
@@ -62,7 +62,6 @@ inherited fmLEmuTKFullSystemEditor: TfmLEmuTKFullSystemEditor
       Left = 55
       Height = 22
       Top = 2
-      Width = 8
       Caption = 'ToolButton1'
       Style = tbsSeparator
     end

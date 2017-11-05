@@ -5,6 +5,7 @@ inherited fmEmutecaActAddFolder: TfmEmutecaActAddFolder
   DesignTop = 146
   inherited pButtons: TPanel
     Top = 388
+    TabOrder = 5
   end
   object gbxSelectSystem: TGroupBox[1]
     Left = 0
@@ -14,7 +15,7 @@ inherited fmEmutecaActAddFolder: TfmEmutecaActAddFolder
     Align = alTop
     AutoSize = True
     Caption = 'Select a System'
-    TabOrder = 1
+    TabOrder = 0
   end
   object gbxFolder: TGroupBox[2]
     Left = 0
@@ -26,7 +27,7 @@ inherited fmEmutecaActAddFolder: TfmEmutecaActAddFolder
     Caption = 'Select folder'
     ClientHeight = 61
     ClientWidth = 316
-    TabOrder = 2
+    TabOrder = 1
     object eFolder: TDirectoryEdit
       Left = 0
       Height = 23
@@ -86,7 +87,7 @@ inherited fmEmutecaActAddFolder: TfmEmutecaActAddFolder
       'Folder name'
       'Filename'
     )
-    TabOrder = 3
+    TabOrder = 2
   end
   object rgbFilename: TRadioGroup[4]
     Left = 0
@@ -111,7 +112,7 @@ inherited fmEmutecaActAddFolder: TfmEmutecaActAddFolder
       'Reset and Update SHA1'
       'Ignore'
     )
-    TabOrder = 4
+    TabOrder = 3
   end
   object gbxSysInfo: TGroupBox[5]
     Left = 0
@@ -122,7 +123,7 @@ inherited fmEmutecaActAddFolder: TfmEmutecaActAddFolder
     Caption = 'gbxSysInfo'
     ClientHeight = 152
     ClientWidth = 316
-    TabOrder = 5
+    TabOrder = 4
     object lSystemExtensions: TLabel
       Left = 0
       Height = 15

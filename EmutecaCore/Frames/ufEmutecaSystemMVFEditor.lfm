@@ -1,6 +1,9 @@
 inherited fmEmutecaSystemMVFEditor: TfmEmutecaSystemMVFEditor
   DesignLeft = 540
   DesignTop = 191
+  inherited pButtons: TPanel
+    TabOrder = 3
+  end
   object gbxMusicFolders: TGroupBox[1]
     Left = 0
     Height = 54
@@ -8,7 +11,7 @@ inherited fmEmutecaSystemMVFEditor: TfmEmutecaSystemMVFEditor
     Width = 320
     Align = alClient
     Caption = 'Music folders'
-    TabOrder = 1
+    TabOrder = 0
   end
   object gbxVideoFolders: TGroupBox[2]
     Left = 0

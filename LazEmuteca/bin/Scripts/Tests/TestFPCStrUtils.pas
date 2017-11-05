@@ -144,19 +144,47 @@ begin
   WriteLn('-------------');
   WriteLn('');  
 
-  //WriteLn('function LeftStr(const AText: AnsiString; const ACount: SizeInt): AnsiString;');
-  //WriteLn('function RightStr(const AText: AnsiString; const ACount: SizeInt): AnsiString;');
-  //WriteLn('function MidStr(const AText: AnsiString; const AStart, ACount: SizeInt): AnsiString;');
-  //WriteLn('function RightBStr(const AText: AnsiString; const AByteCount: SizeInt): AnsiString;');
-  //WriteLn('function MidBStr(const AText: AnsiString; const AByteStart, AByteCount: SizeInt): AnsiString;');
-  //WriteLn('function AnsiLeftStr(const AText: AnsiString; const ACount: SizeInt): AnsiString;');
-  //WriteLn('function AnsiRightStr(const AText: AnsiString; const ACount: SizeInt): AnsiString;');
-  //WriteLn('function AnsiMidStr(const AText: AnsiString; const AStart, ACount: SizeInt): AnsiString;');
-  //WriteLn('function LeftBStr(const AText: AnsiString; const AByteCount: SizeInt): AnsiString;');
-  //WriteLn('function LeftStr(const AText: WideString; const ACount: SizeInt): WideString;');
-  //WriteLn('function RightStr(const AText: WideString; const ACount: SizeInt): WideString;');
-  //WriteLn('function MidStr(const AText: WideString; const AStart, ACount: SizeInt): WideString;');
-
+  WriteLn('function LeftStr(const AText: string; const ACount: SizeInt): string;');
+  WriteLn('    Some explanation...');
+  WriteLn('    LeftStr(''An example'', 3) -> ' + LeftStr('An example', 3));
+  WriteLn('');
+  WriteLn('function RightStr(const AText: string; const ACount: SizeInt): string;');
+  WriteLn('    Some explanation...');
+  WriteLn('    RightStr(''An example'', 3) -> ' + RightStr('An example', 3));
+  WriteLn('');
+  WriteLn('function MidStr(const AText: string; const AStart, ACount: SizeInt): string;');
+  WriteLn('    Some explanation...');
+  WriteLn('    MidStr(''An example'', 4, 3) -> ' + MidStr('An example', 4, 3));
+  WriteLn('');
+  WriteLn('function RightBStr(const AText: string; const AByteCount: SizeInt): string;');
+  WriteLn('    Some explanation...');
+  WriteLn('    RightBStr(''An example'', 3) -> ' + RightBStr('An example', 3));
+  WriteLn('');
+  WriteLn('function MidBStr(const AText: string; const AByteStart, AByteCount: SizeInt): string;');
+  WriteLn('    Some explanation...');
+  WriteLn('    MidBStr(''An example'', 4, 3) -> ' + 
+    MidBStr('An example', 4, 3));
+  WriteLn('');
+  WriteLn('function AnsiLeftStr(const AText: string; const ACount: SizeInt): string;');
+  WriteLn('    Some explanation...');
+  WriteLn('    AnsiLeftStr(''An example'', 3) -> ' + 
+    AnsiLeftStr('An example', 3));
+  WriteLn('');
+  WriteLn('function AnsiRightStr(const AText: string; const ACount: SizeInt): string;');
+  WriteLn('    Some explanation...');
+  WriteLn('    AnsiRightStr(''An example'', 3) -> ' + 
+    AnsiRightStr('An example', 3));
+  WriteLn('');
+  WriteLn('function AnsiMidStr(const AText: string; const AStart, ACount: SizeInt): string;');
+  WriteLn('    Some explanation...');
+  WriteLn('    AnsiMidStr(''An example'', 4, 3) -> ' + 
+    AnsiMidStr('An example', 4, 3));
+  WriteLn('');
+  WriteLn('function LeftBStr(const AText: string; const AByteCount: SizeInt): string;');
+  WriteLn('    Some explanation...');
+  WriteLn('    LeftBStr(''An example'', 3) -> ' + LeftBStr('An example', 3));
+  WriteLn('');
+ 
   WriteLn('');  
   WriteLn('Extended search and replace');
   WriteLn('---------------------------');

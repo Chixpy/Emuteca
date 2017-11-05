@@ -9,14 +9,15 @@ inherited fmEmutecaSystemEditor: TfmEmutecaSystemEditor
     Top = 399
     Width = 468
     ClientWidth = 468
+    TabOrder = 3
     inherited chkCloseOnSave: TCheckBox
-      Left = 67
+      Left = 69
     end
     inherited bSave: TBitBtn
-      Left = 183
+      Left = 187
     end
     inherited bCancel: TBitBtn
-      Left = 320
+      Left = 318
     end
   end
   object Panel2: TPanel[1]
@@ -28,7 +29,7 @@ inherited fmEmutecaSystemEditor: TfmEmutecaSystemEditor
     BevelOuter = bvNone
     ClientHeight = 399
     ClientWidth = 253
-    TabOrder = 1
+    TabOrder = 0
     object gbxBasicInfo: TGroupBox
       Left = 0
       Height = 96
@@ -141,7 +142,7 @@ inherited fmEmutecaSystemEditor: TfmEmutecaSystemEditor
     Caption = 'Files'
     ClientHeight = 379
     ClientWidth = 206
-    TabOrder = 3
+    TabOrder = 2
     object lBaseFolder: TLabel
       Left = 0
       Height = 15
@@ -181,7 +182,7 @@ inherited fmEmutecaSystemEditor: TfmEmutecaSystemEditor
       Top = 168
       Width = 206
       Align = alClient
-      TabOrder = 1
+      TabOrder = 4
     end
     object rgbGameKey: TRadioGroup
       Left = 0
@@ -242,7 +243,7 @@ inherited fmEmutecaSystemEditor: TfmEmutecaSystemEditor
       Flat = True
       Align = alTop
       MaxLength = 0
-      TabOrder = 4
+      TabOrder = 1
       OnButtonClick = eWorkingFolderButtonClick
     end
   end

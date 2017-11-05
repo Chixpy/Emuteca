@@ -1,14 +1,24 @@
 inherited fmLEmuTKSysManager: TfmLEmuTKSysManager
+  inherited pPropChkList: TPanel
+    inherited tbPropChkList: TToolBar
+      inherited ToolButton3: TToolButton
+        Height = 22
+      end
+      inherited ToolButton6: TToolButton
+        Height = 22
+      end
+    end
+  end
   object SaveDialog1: TSaveDialog[6]
     Filter = 'Systems ini file|*.ini|All files|*.*'
     Options = [ofNoChangeDir, ofEnableSizing, ofViewDetail]
-    Left = 24
-    Top = 256
+    left = 24
+    top = 256
   end
   object OpenDialog1: TOpenDialog[7]
     Filter = 'Systems ini file|*.ini|All files|*.*'
     Options = [ofNoChangeDir, ofEnableSizing, ofViewDetail]
-    Left = 96
-    Top = 256
+    left = 96
+    top = 256
   end
 end
