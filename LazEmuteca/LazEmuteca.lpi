@@ -104,7 +104,7 @@
         <PackageName Value="LCL"/>
       </Item8>
     </RequiredPackages>
-    <Units Count="112">
+    <Units Count="113">
       <Unit0>
         <Filename Value="LazEmuteca.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -694,9 +694,13 @@
         <IsPartOfProject Value="True"/>
       </Unit110>
       <Unit111>
-        <Filename Value="..\CHXPas\ScriptManager\imports\uPSI_StrUtils.pas"/>
+        <Filename Value="..\CHXPas\ScriptManager\imports\uPSI_FPCStrUtils.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit111>
+      <Unit112>
+        <Filename Value="..\CHXPas\ScriptManager\imports\uPSI_CHXBasic.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit112>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

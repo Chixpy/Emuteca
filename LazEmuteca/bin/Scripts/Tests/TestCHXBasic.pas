@@ -1,6 +1,6 @@
 {
 [Info]
-This script test some basic functions added to Pascal Script.
+This script test some basic functions added to Pascal Script from uPSI_CHXBasic.
 [Data]
 Name=Chixpy
 Version=0.01
@@ -21,6 +21,14 @@ begin
   WriteLn('');
   WriteLn('This Script will test some basic functions added to Pascal Script.');
   WriteLn('');
+
+  WriteLn('');
+  WriteLn('type SizeInt = Int64');
+  WriteLn('type SizeUInt = Int64 (must be QWord...)');
+
+  WriteLn('');
+  WriteLn('');
+
   WriteLn('Some Basic functions');
   WriteLn('--------------------');
 

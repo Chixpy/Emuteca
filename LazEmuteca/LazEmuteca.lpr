@@ -96,7 +96,7 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   ufrLEmuTKMain,
   // LazEmuteca threads
   utLEmuTKCacheGrpIcons,
-  utLEmuTKCacheSysIcons;
+  utLEmuTKCacheSysIcons, uPSI_CHXBasic;
 
 {$R *.res}
 

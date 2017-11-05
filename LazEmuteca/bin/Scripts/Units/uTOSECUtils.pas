@@ -1,7 +1,10 @@
 {
 [Info]
 Some common functions and data for TOSEC.
+
 It's far from perfect.
+
+Only to include in other programs.
 [Data]
 Name=Chixpy
 Version=

@@ -2,6 +2,9 @@
 
 [More screenshots / Más imágenes](../../wiki/Screenshots)
 
+Emuteca 0.8 preview
+![Emuteca 0.8 preview](../../wiki/img/0_8/GameManager%200_8_0_106.png)
+
 # English #
 _v0.8 is being developed from scratch_; v0.7 information follows:
 
