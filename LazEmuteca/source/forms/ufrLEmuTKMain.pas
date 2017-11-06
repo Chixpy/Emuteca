@@ -492,31 +492,14 @@ begin
 end;
 
 procedure TfrmLEmuTKMain.actEmulatorManagerExecute(Sender: TObject);
-var
-  aForm: TfrmCHXForm;
-  aFrame: TfmLEmuTKEmuManager;
 begin
-  Application.CreateForm(TfrmCHXForm, aForm);
-  try
-    aForm.Name := 'frmLEmuTKEmuManager';
-    aForm.Caption := Format(krsFmtWindowCaption,
-      [Application.Title, actEmulatorManager.Caption]);
+    // Fix runtime errors, while trying to update if something is changed
+  fmEmutecaMainFrame.Emuteca := nil;
 
-    aFrame := TfmLEmuTKEmuManager.Create(aForm);
-    aFrame.EmuManager := Emuteca.EmulatorManager;
-    aFrame.SaveButtons := True;
-    aFrame.ButtonClose := True;
-    aFrame.Align := alClient;
+  TfmLEmuTKEmuManager.SimpleForm(Emuteca.EmulatorManager, SHA1Folder, GUIIconsFile,
+    GUIConfig.ConfigFile);
 
-
-    aForm.LoadGUIConfig(GUIConfig.ConfigFile);
-    aForm.LoadGUIIcons(GUIConfig.GUIIcnFile);
-    aFrame.Parent := aForm;
-
-    aForm.ShowModal;
-  finally
-    FreeAndNil(aForm);
-  end;
+  fmEmutecaMainFrame.Emuteca := Emuteca;
 end;
 
 procedure TfrmLEmuTKMain.actExportSoftDataExecute(Sender: TObject);

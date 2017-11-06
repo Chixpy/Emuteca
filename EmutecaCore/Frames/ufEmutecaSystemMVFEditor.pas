@@ -57,15 +57,19 @@ begin
   begin
     fmMusicFolders.FolderList := System.MusicFolders;
     fmMusicFolders.CaptionList := System.MusicCaptions;
+    fmMusicFolders.BaseFolder:=System.BaseFolder;
     fmVideoFolders.FolderList := System.VideoFolders;
     fmVideoFolders.CaptionList := System.VideoCaptions;
+    fmVideoFolders.BaseFolder:=System.BaseFolder;
   end
   else
   begin
     fmMusicFolders.FolderList := nil;
     fmMusicFolders.CaptionList := nil;
+    fmMusicFolders.BaseFolder := '';
     fmVideoFolders.FolderList := nil;
     fmVideoFolders.CaptionList := nil;
+    fmVideoFolders.BaseFolder := '';
   end;
   LoadFrameData;
 end;

@@ -57,15 +57,19 @@ begin
   begin
     fmImageFolders.FolderList := System.ImageFolders;
     fmImageFolders.CaptionList := System.ImageCaptions;
+    fmImageFolders.BaseFolder:=System.BaseFolder;
     fmTextFolders.FolderList := System.TextFolders;
     fmTextFolders.CaptionList := System.TextCaptions;
+    fmTextFolders.BaseFolder:=System.BaseFolder;
   end
   else
   begin
     fmImageFolders.FolderList := nil;
     fmImageFolders.CaptionList := nil;
+    fmImageFolders.BaseFolder:='';
     fmTextFolders.FolderList := nil;
     fmTextFolders.CaptionList := nil;
+    fmTextFolders.BaseFolder:='';
   end;
 
   LoadFrameData;

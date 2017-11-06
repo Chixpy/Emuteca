@@ -13,7 +13,7 @@ uses
   ufLEmuTKFullSystemEditor;
 
 resourcestring
-  rsSystemName = 'System name [Company: Model (extra)]';
+  rsSystemName = 'System name [Company: Model (extra)].';
 
 type
   { Frame for System Manager. }
@@ -73,7 +73,10 @@ end;
 
 procedure TfmLEmuTKSysManager.SetCheckedAll(aBool: boolean);
 begin
-  // DO NOTHING, ENABLING SYSTEMS IS DONE ON SAVING LIST
+  // DO NOTHING, ENABLING SYSTEMS IS DONE ON SAVING LIST TO TEST
+  //   ONLY STATE CHANGED SYSTEMS:
+  //     - UNCHECKED MUST BE SAVED AND UNLOADED.
+  //     - CHECKED MUST BE LOADED.
 end;
 
 procedure TfmLEmuTKSysManager.SetEmuteca(AValue: cEmuteca);
@@ -101,7 +104,10 @@ end;
 procedure TfmLEmuTKSysManager.OnListClickCheck(aObject: TObject;
   aBool: boolean);
 begin
-  // DO NOTHING, ENABLING SYSTEMS IS DONE ON SAVING LIST
+  // DO NOTHING, ENABLING SYSTEMS IS DONE ON SAVING LIST TO TEST
+  //   ONLY STATE CHANGED SYSTEMS:
+  //     - UNCHECKED MUST BE SAVED AND UNLOADED.
+  //     - CHECKED MUST BE LOADED.
 end;
 
 procedure TfmLEmuTKSysManager.AddItemToList;
@@ -129,22 +135,25 @@ begin
 end;
 
 procedure TfmLEmuTKSysManager.DeleteItemFromList;
+var
+  aSystem: cEmutecaSystem;
 begin
   if not assigned(Emuteca) then
     Exit;
+
   if clbPropItems.ItemIndex = -1 then
-    exit;
+    Exit;
 
   fmSysEditor.System := nil;
 
+  aSystem := cEmutecaSystem(clbPropItems.Items.Objects[clbPropItems.ItemIndex]);
   try
-    Emuteca.SystemManager.FullList.Remove(
-      cEmutecaSystem(clbPropItems.Items.Objects[clbPropItems.ItemIndex]));
-
     // If already in enabled list remove here too.
-    Emuteca.SystemManager.EnabledList.Remove(
-      cEmutecaSystem(clbPropItems.Items.Objects[clbPropItems.ItemIndex]));
+    Emuteca.SystemManager.EnabledList.Remove(aSystem);
 
+    // FullList frees the object too.
+    Emuteca.SystemManager.FullList.Remove(aSystem);
+    //aSystem.Free;
   finally
     LoadFrameData;
   end;
@@ -178,7 +187,7 @@ var
 begin
   Enabled := assigned(Emuteca);
 
-  if not assigned(Emuteca) then
+  if not Enabled then
   begin
     ClearFrameData;
     Exit;

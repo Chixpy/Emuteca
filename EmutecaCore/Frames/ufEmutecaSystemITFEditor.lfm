@@ -27,7 +27,7 @@ inherited fmEmutecaSystemITFEditor: TfmEmutecaSystemITFEditor
     Width = 320
     Align = alBottom
     Caption = 'Text Folders'
-    TabOrder = 2
+    TabOrder = 1
   end
   inherited alPropEditor: TActionList[4]
   end

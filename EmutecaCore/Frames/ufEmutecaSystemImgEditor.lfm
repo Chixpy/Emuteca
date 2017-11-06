@@ -124,7 +124,7 @@ inherited fmEmuTKSystemImgEditor: TfmEmuTKSystemImgEditor
     Top = 266
     Width = 600
     Align = alBottom
-    Caption = 'gbxSystemIcons'
+    Caption = 'System Icons'
     ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
     ChildSizing.EnlargeVertical = crsHomogenousChildResize
     ChildSizing.ShrinkHorizontal = crsHomogenousChildResize

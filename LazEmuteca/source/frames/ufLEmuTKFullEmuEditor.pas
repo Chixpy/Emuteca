@@ -6,7 +6,8 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  Buttons, ActnList, ComCtrls,
+  Buttons, ActnList, ComCtrls, StdCtrls, LCLIntf, LazFileUtils,
+  uCHXStrUtils,
   ufCHXPropEditor,
   ucEmutecaEmulator,
   ufEmutecaEmulatorEditor;
@@ -16,11 +17,17 @@ type
   { TfmLEmuTKFullEmuEditor }
 
   TfmLEmuTKFullEmuEditor = class(TfmCHXPropEditor)
+    actOpenEmulatorFolder: TAction;
     pcProperties: TPageControl;
+    ToolBar1: TToolBar;
+    bOpenEmulatorFolder: TToolButton;
+    procedure actOpenEmulatorFolderExecute(Sender: TObject);
   private
     FEmuEditor: TfmEmutecaEmulatorEditor;
     FEmulator: cEmutecaEmulator;
+    FSHA1Folder: string;
     procedure SetEmulator(AValue: cEmutecaEmulator);
+    procedure SetSHA1Folder(AValue: string);
     { private declarations }
 
   protected
@@ -34,6 +41,8 @@ type
     { public declarations }
     property Emulator: cEmutecaEmulator read FEmulator write SetEmulator;
 
+    property SHA1Folder: string read FSHA1Folder write SetSHA1Folder;
+
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
   end;
@@ -44,11 +53,34 @@ implementation
 
 { TfmLEmuTKFullEmuEditor }
 
+procedure TfmLEmuTKFullEmuEditor.actOpenEmulatorFolderExecute(Sender: TObject);
+var
+  aFolder: string;
+begin
+  if not Assigned(Emulator) then
+    Exit;
+
+  aFolder := ExtractFilePath(Emulator.ExeFile);
+  if not DirectoryExistsUTF8(aFolder) then
+    Exit;
+
+  OpenDocument(aFolder);
+end;
+
 procedure TfmLEmuTKFullEmuEditor.SetEmulator(AValue: cEmutecaEmulator);
 begin
-  if FEmulator = AValue then Exit;
+  if FEmulator = AValue then
+    Exit;
   FEmulator := AValue;
   EmuEditor.Emulator := Emulator;
+
+  LoadFrameData;
+end;
+
+procedure TfmLEmuTKFullEmuEditor.SetSHA1Folder(AValue: string);
+begin
+  FSHA1Folder := SetAsFolder(AValue);
+  //fmEmuImgEditor.SHA1Folder := SHA1Folder;
 end;
 
 procedure TfmLEmuTKFullEmuEditor.DoClearFrameData;
@@ -67,6 +99,7 @@ begin
 end;
 
 constructor TfmLEmuTKFullEmuEditor.Create(TheOwner: TComponent);
+
   procedure CreatePages;
   var
     aTabSheet: TTabSheet;
@@ -95,4 +128,3 @@ begin
 end;
 
 end.
-
