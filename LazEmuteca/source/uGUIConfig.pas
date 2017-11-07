@@ -38,6 +38,7 @@ const
   // [Experimental]
   krsSectionExperimental = 'Experimental';
   krsKeyGlobalCache = 'GlobalCache';
+  krsKeyw7zErrorFileName = 'w7zErrorFileName';
 
 type
 
@@ -55,6 +56,7 @@ type
     FImageExtensions: TStringList;
     FScriptsFolder: string;
     FTextExtensions: TStringList;
+    Fw7zErrorFileName: string;
     FZoneIcnFolder: string;
     FHelpFolder: string;
     FGUIIcnFile: string;
@@ -67,6 +69,7 @@ type
     procedure SetEmutecaIni(AValue: string);
     procedure SetGlobalCache(AValue: string);
     procedure SetScriptsFolder(AValue: string);
+    procedure Setw7zErrorFileName(AValue: string);
     procedure SetZoneIcnFolder(AValue: string);
     procedure SetHelpFolder(AValue: string);
     procedure SetGUIIcnFile(AValue: string);
@@ -117,6 +120,8 @@ type
     // Experimental
     property GlobalCache: string read FGlobalCache write SetGlobalCache;
 
+    property w7zErrorFileName: string read Fw7zErrorFileName write Setw7zErrorFileName;
+
   public
     procedure ResetDefaultConfig; override;
 
@@ -152,6 +157,11 @@ end;
 procedure cGUIConfig.SetScriptsFolder(AValue: string);
 begin
   FScriptsFolder := SetAsFolder(AValue);
+end;
+
+procedure cGUIConfig.Setw7zErrorFileName(AValue: string);
+begin
+  Fw7zErrorFileName:=SetAsFile(AValue)
 end;
 
 procedure cGUIConfig.SetZoneIcnFolder(AValue: string);
@@ -232,6 +242,8 @@ begin
   // Experimental
   GlobalCache := IniFile.ReadString(krsSectionExperimental,
     krsKeyGlobalCache, GlobalCache);
+  w7zErrorFileName := IniFile.ReadString(krsSectionExperimental,
+    krsKeyw7zErrorFileName, w7zErrorFileName);
 end;
 
 procedure cGUIConfig.OnSaveConfig(IniFile: TIniFile);
@@ -261,6 +273,7 @@ begin
 
 
   IniFile.WriteString(krsSectionExperimental, krsKeyGlobalCache, GlobalCache);
+  IniFile.WriteString(krsSectionExperimental, krsKeyw7zErrorFileName, w7zErrorFileName);
 end;
 
 procedure cGUIConfig.ResetDefaultConfig;
@@ -294,6 +307,7 @@ begin
 
   // Experimental
   GlobalCache := 'SHA1Cache/';
+  w7zErrorFileName := 'w7zErrors.log'
 end;
 
 constructor cGUIConfig.Create(aOwner: TComponent);

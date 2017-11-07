@@ -24,7 +24,6 @@ uses
   uGUIConfig;
 
 type
-  TEmutecaGrpListChanged = procedure(aGroupList: cEmutecaGroupList) of object;
 
   { TfmLEmuTKMain }
 
@@ -50,14 +49,20 @@ type
     FFullSoftlist: cEmutecaSoftList;
     FGUIConfig: cGUIConfig;
     FIconList: cCHXImageList;
-    FOnGrpListChanged: TEmutecaGrpListChanged;
+    FOnGroupChanged: TEmutecaReturnGroupCB;
+    FOnGrpListChanged: TEmutecaReturnGrpLstCB;
+    FOnSoftChanged: TEmutecaReturnSoftCB;
+    FOnSystemChanged: TEmutecaReturnSystemCB;
     FSHA1Folder: string;
     FZoneIcons: cCHXImageMap;
     procedure SetDumpIcons(AValue: cCHXImageList);
     procedure SetEmuteca(AValue: cEmuteca);
     procedure SetGUIConfig(AValue: cGUIConfig);
     procedure SetIconList(AValue: cCHXImageList);
-    procedure SetOnGrpListChanged(AValue: TEmutecaGrpListChanged);
+    procedure SetOnGroupChanged(AValue: TEmutecaReturnGroupCB);
+    procedure SetOnGrpListChanged(AValue: TEmutecaReturnGrpLstCB);
+    procedure SetOnSoftChanged(AValue: TEmutecaReturnSoftCB);
+    procedure SetOnSystemChanged(AValue: TEmutecaReturnSystemCB);
     procedure SetSHA1Folder(AValue: string);
     procedure SetZoneIcons(AValue: cCHXImageMap);
 
@@ -104,7 +109,10 @@ type
 
     property SHA1Folder: string read FSHA1Folder write SetSHA1Folder;
 
-    property OnGrpListChanged: TEmutecaGrpListChanged read FOnGrpListChanged write SetOnGrpListChanged;
+    property OnSystemChanged: TEmutecaReturnSystemCB read FOnSystemChanged write SetOnSystemChanged;
+    property OnGrpListChanged: TEmutecaReturnGrpLstCB read FOnGrpListChanged write SetOnGrpListChanged;
+    property OnGroupChanged: TEmutecaReturnGroupCB read FOnGroupChanged write SetOnGroupChanged;
+    property OnSoftChanged: TEmutecaReturnSoftCB read FOnSoftChanged write SetOnSoftChanged;
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -196,10 +204,28 @@ begin
   end;
 end;
 
-procedure TfmLEmuTKMain.SetOnGrpListChanged(AValue: TEmutecaGrpListChanged);
+procedure TfmLEmuTKMain.SetOnGroupChanged(AValue: TEmutecaReturnGroupCB);
+begin
+  if FOnGroupChanged=AValue then Exit;
+  FOnGroupChanged:=AValue;
+end;
+
+procedure TfmLEmuTKMain.SetOnGrpListChanged(AValue: TEmutecaReturnGrpLstCB);
 begin
   if FOnGrpListChanged = AValue then Exit;
   FOnGrpListChanged := AValue;
+end;
+
+procedure TfmLEmuTKMain.SetOnSoftChanged(AValue: TEmutecaReturnSoftCB);
+begin
+  if FOnSoftChanged=AValue then Exit;
+  FOnSoftChanged:=AValue;
+end;
+
+procedure TfmLEmuTKMain.SetOnSystemChanged(AValue: TEmutecaReturnSystemCB);
+begin
+  if FOnSystemChanged=AValue then Exit;
+  FOnSystemChanged:=AValue;
 end;
 
 procedure TfmLEmuTKMain.SetSHA1Folder(AValue: string);
@@ -235,9 +261,13 @@ begin
     fmSoftTree.GroupList := FullGroupList;
   end;
 
-  // fmSoftTree.GroupList is dirty,
+  // Using fmSoftTree.GroupList is dirty...
+  // Catching icons
   if assigned(OnGrpListChanged) then
     OnGrpListChanged(fmSoftTree.GroupList);
+
+  if assigned(OnSystemChanged) then
+    OnSystemChanged(aSystem);
 
   fmSystemPanel.System := aSystem;
 end;
@@ -249,6 +279,9 @@ begin
   fmSoftEditor.Group := aGroup;
   fmSoftMedia.Group := aGroup;
 
+    if assigned(OnGroupChanged) then
+    OnGroupChanged(aGroup);
+
   if Assigned(aGroup) then
     fmSystemPanel.System := cEmutecaSystem(aGroup.CachedSystem);
 end;
@@ -259,6 +292,9 @@ begin
 
   fmSoftEditor.Software := aSoftware;
   fmSoftMedia.Software := aSoftware;
+
+  if assigned(OnSoftChanged) then
+    OnSoftChanged(aSoftware);
 
   if Assigned(aSoftware) then
     fmSystemPanel.System := cEmutecaSystem(aSoftware.CachedSystem);

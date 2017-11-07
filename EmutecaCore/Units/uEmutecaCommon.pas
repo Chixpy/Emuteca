@@ -170,7 +170,7 @@ resourcestring
   // Misc
   rsNever = 'Never';
   rsFileAlreadyAdded = 'This file is already added.';
-  rsCleaningSystemData = 'Cleaning systems data...';
+  rsCleaningSystemData = 'Cleaning system data...';
 
   // List action
   rsLoadingSystemList = 'Loading system list...';
@@ -185,6 +185,12 @@ resourcestring
   rsLoadingEmulatorList = 'Loading emulator list...';
   rsImportingEmulatorList = 'Importing emulator list...';
   rsSavingEmulatorList = 'Saving emulator list...';
+
+  // Importing/Exporting Warnings
+  rsImportingNoSHA1 = 'Warning: Some info could not be imported because some files haven''t got SHA1 cached.'
+    + LineEnding + '(%2:d/%3:d) %0:s%1:s';
+  rsExportingNoSHA1 = 'Warning: We can''t export because not all files have SHA1 cached.'
+    + LineEnding + '(%2:d/%3:d) %0:s%1:s';
 
   // File mask descriptions
   // ----------------------

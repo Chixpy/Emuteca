@@ -217,7 +217,7 @@ begin
   if not assigned(aSoftware) then
   begin
     Result := kErrorRunSoftNoSoft;
-    exit;
+    Exit;
   end;
 
   // 1. Searching for current emulator.
@@ -231,7 +231,7 @@ begin
   if not assigned(aEmulator) then
   begin
     Result := kErrorRunSoftNoEmu;
-    exit;
+    Exit;
   end;
 
   // 2. Setting temp folder.

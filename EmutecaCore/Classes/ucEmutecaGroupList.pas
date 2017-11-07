@@ -41,6 +41,8 @@ type
     }
   end;
 
+  TEmutecaReturnGrpLstCB = function(aGroupList: cEmutecaGroupList): boolean of object;
+
   function EmutecaCompareGroupsByID(const aGroup1, aGroup2: cEmutecaGroup): integer;
 
 

@@ -11,7 +11,7 @@ uses
   ufrCHXForm, ufCHXPropEditor, ufCHXProgressBar,
   uEmutecaCommon,
   uaEmutecaCustomSystem,
-  ucEmuteca, ucEmutecaSystem,
+  ucEmuteca, ucEmutecaSystem, ucEmutecaSoftware,
   ufEmutecaSystemCBX;
 
 type
@@ -84,6 +84,7 @@ end;
 
 procedure TfmActExportSoftData.SetSystem(AValue: cEmutecaSystem);
 var
+  aSoft: cEmutecaSoftware;
   IsCached: boolean;
   i: integer;
 begin
@@ -103,7 +104,8 @@ begin
       i := 0;
       while IsCached and (i < System.SoftManager.FullList.Count) do
       begin
-        IsCached := not System.SoftManager.FullList[i].SHA1IsEmpty;
+        aSoft := System.SoftManager.FullList[i];
+        IsCached := not aSoft.SHA1IsEmpty;
         Inc(i);
       end;
     end;
@@ -112,8 +114,8 @@ begin
 
     if not IsCached then
     begin
-      lWarning.Caption :=
-        'Warning: We can''t export because not all files have SHA1 cached';
+      lWarning.Caption :=  Format(rsExportingNoSHA1,
+         [aSoft.Folder, aSoft.FileName, i, System.SoftManager.FullList.Count]);
       eExportFile.FileName := '';
     end
     else

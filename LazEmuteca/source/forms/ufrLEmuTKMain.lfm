@@ -95,17 +95,16 @@ object frmLEmuTKMain: TfrmLEmuTKMain
       Caption = 'Import soft data...'
       OnExecute = actImportSoftDataExecute
     end
-    object actCleanAllSystems: TAction
-      Category = 'System'
-      Caption = 'Clean all systems'
-      Hint = 'Clean all systems data.|Removes soft not found and groups without soft in all enabled systems.'
-      OnExecute = actCleanAllSystemsExecute
-    end
     object actCleanSystemData: TAction
       Category = 'System'
       Caption = 'Clean system data'
       Hint = 'Clean current system data|Cleans current system soft not found and groups without soft'
       OnExecute = actCleanSystemDataExecute
+    end
+    object actUpdateGroupList: TAction
+      Category = 'System'
+      Caption = 'Update group list'
+      OnExecute = actUpdateGroupListExecute
     end
   end
   object MainMenu: TMainMenu
@@ -155,14 +154,14 @@ object frmLEmuTKMain: TfrmLEmuTKMain
     end
     object mimmSystem: TMenuItem
       Caption = 'System'
-      object mimmCleanSystem: TMenuItem
-        Action = actCleanSystemData
+      object mimmUpdateSystemGroups: TMenuItem
+        Action = actUpdateGroupList
       end
       object MenuItem3: TMenuItem
         Caption = '-'
       end
-      object mimmCleanAllSystems: TMenuItem
-        Action = actCleanAllSystems
+      object mimmCleanSystem: TMenuItem
+        Action = actCleanSystemData
       end
     end
     object mimmSoft: TMenuItem

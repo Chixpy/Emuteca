@@ -34,8 +34,11 @@ uses
   uCHXStrUtils, uCHXFileUtils, uCHXImageUtils, ucCHXImageList,
   // CHX forms
   ufrCHXForm, ufCHXProgressBar,
+  // Emuteca units
+  uEmutecaCommon,
   // Emuteca clases
-  ucEmuteca, ucEmutecaGroupList, uEmutecaCommon,
+  ucEmuteca, ucEmutecaSystem, ucEmutecaGroupList, ucEmutecaGroup,
+  ucEmutecaSoftware,
   // Emuteca forms
   ufrLEmuTKAbout,
   // Emuteca windows
@@ -60,8 +63,8 @@ type
     actAutoSave: TAction;
     actExportSoftData: TAction;
     actImportSoftData: TAction;
-    actCleanAllSystems: TAction;
     actCleanSystemData: TAction;
+    actUpdateGroupList: TAction;
     actOpenTempFolder: TAction;
     actSaveLists: TAction;
     actMediaManager: TAction;
@@ -73,9 +76,9 @@ type
     ActImages: TImageList;
     IniPropStorage: TIniPropStorage;
     MainMenu: TMainMenu;
+    mimmUpdateSystemGroups: TMenuItem;
     mimmCleanSystem: TMenuItem;
     MenuItem3: TMenuItem;
-    mimmCleanAllSystems: TMenuItem;
     mimmSystem: TMenuItem;
     mimmImportSoftData: TMenuItem;
     mimmExportSoftData: TMenuItem;
@@ -103,7 +106,6 @@ type
     procedure actAddSoftExecute(Sender: TObject);
     procedure actAddFolderExecute(Sender: TObject);
     procedure actAutoSaveExecute(Sender: TObject);
-    procedure actCleanAllSystemsExecute(Sender: TObject);
     procedure actCleanSystemDataExecute(Sender: TObject);
     procedure actEmulatorManagerExecute(Sender: TObject);
     procedure actExportSoftDataExecute(Sender: TObject);
@@ -113,6 +115,7 @@ type
     procedure actSaveListsExecute(Sender: TObject);
     procedure actScriptManagerExecute(Sender: TObject);
     procedure actSystemManagerExecute(Sender: TObject);
+    procedure actUpdateGroupListExecute(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -122,6 +125,9 @@ type
   private
     FCacheGrpIconsThread: ctLEmuTKCacheGrpIcons;
     FCacheSysIconsThread: ctLEmuTKCacheSysIcons;
+    FCurrentGroup: cEmutecaGroup;
+    FCurrentSoft: cEmutecaSoftware;
+    FCurrentSystem: cEmutecaSystem;
     FfmEmutecaMainFrame: TfmLEmuTKMain;
     FGUIIconsFile: string;
     FSHA1Folder: string;
@@ -129,11 +135,16 @@ type
     FEmuteca: cEmuteca;
     FGUIConfig: cGUIConfig;
     FIconList: cCHXImageList;
+    Fw7zErrorFileName: string;
     FZoneIcons: cCHXImageMap;
     procedure SetCacheGrpIconsThread(AValue: ctLEmuTKCacheGrpIcons);
     procedure SetCacheSysIconsThread(AValue: ctLEmuTKCacheSysIcons);
+    procedure SetCurrentGroup(AValue: cEmutecaGroup);
+    procedure SetCurrentSoft(AValue: cEmutecaSoftware);
+    procedure SetCurrentSystem(AValue: cEmutecaSystem);
     procedure SetGUIIconsFile(AValue: string);
     procedure SetSHA1Folder(AValue: string);
+    procedure Setw7zErrorFileName(AValue: string);
 
   protected
     property fmEmutecaMainFrame: TfmLEmuTKMain read FfmEmutecaMainFrame;
@@ -146,20 +157,34 @@ type
     property GUIIconsFile: string read FGUIIconsFile write SetGUIIconsFile;
 
     property IconList: cCHXImageList read FIconList;
-    // Icons for parents, soft, systems and emulators
+    //< Icons for parents, soft, systems and emulators
     property DumpIcons: cCHXImageList read FDumpIcons;
-    // Icons for dump info
+    //< Icons for dump info
     property ZoneIcons: cCHXImageMap read FZoneIcons;
-    // Icons of zones
+    //< Icons of zones
+
+    property CurrentSystem: cEmutecaSystem
+      read FCurrentSystem write SetCurrentSystem;
+    property CurrentGroup: cEmutecaGroup read FCurrentGroup
+      write SetCurrentGroup;
+    property CurrentSoft: cEmutecaSoftware
+      read FCurrentSoft write SetCurrentSoft;
 
     property SHA1Folder: string read FSHA1Folder write SetSHA1Folder;
+    //< Global Cache folder
+    property w7zErrorFileName: string read Fw7zErrorFileName
+      write Setw7zErrorFileName;
+    //< File for w7z errors and warnings
 
     property CacheSysIconsThread: ctLEmuTKCacheSysIcons
       read FCacheSysIconsThread write SetCacheSysIconsThread;
-    procedure CacheSysIconsThreadTerminated(Sender: TObject); // For TThread.OnTerminate
+    procedure CacheSysIconsThreadTerminated(Sender: TObject);
+    // For TThread.OnTerminate
 
-    property CacheGrpIconsThread: ctLEmuTKCacheGrpIcons read FCacheGrpIconsThread write SetCacheGrpIconsThread;
-    procedure CacheGrpIconsThreadTerminated(Sender: TObject); // For TThread.OnTerminate
+    property CacheGrpIconsThread: ctLEmuTKCacheGrpIcons
+      read FCacheGrpIconsThread write SetCacheGrpIconsThread;
+    procedure CacheGrpIconsThreadTerminated(Sender: TObject);
+    // For TThread.OnTerminate
 
     procedure LoadIcons;
     procedure LoadSystemsIcons;
@@ -177,7 +202,10 @@ type
       const Value, MaxValue: int64): boolean;
     //< Progress bar call back
 
-    procedure DoChangeGrpList(aGroupList: cEmutecaGroupList);
+    function DoChangeSystem(aSystem: cEmutecaSystem): boolean;
+    function DoChangeGrpList(aGroupList: cEmutecaGroupList): boolean;
+    function DoChangeGroup(aGroup: cEmutecaGroup): boolean;
+    function DoChangeSoft(aSoft: cEmutecaSoftware): boolean;
 
   public
     { public declarations }
@@ -216,9 +244,7 @@ end;
 
 procedure TfrmLEmuTKMain.SetGUIIconsFile(AValue: string);
 begin
-  if FGUIIconsFile = AValue then
-    Exit;
-  FGUIIconsFile := AValue;
+  FGUIIconsFile := SetAsFile(SetAsAbsoluteFile(AValue, ProgramDirectory));
 end;
 
 procedure TfrmLEmuTKMain.SetCacheSysIconsThread(AValue: ctLEmuTKCacheSysIcons);
@@ -228,9 +254,31 @@ begin
   FCacheSysIconsThread := AValue;
 end;
 
+procedure TfrmLEmuTKMain.SetCurrentGroup(AValue: cEmutecaGroup);
+begin
+  if FCurrentGroup = AValue then
+    Exit;
+  FCurrentGroup := AValue;
+end;
+
+procedure TfrmLEmuTKMain.SetCurrentSoft(AValue: cEmutecaSoftware);
+begin
+  if FCurrentSoft = AValue then
+    Exit;
+  FCurrentSoft := AValue;
+end;
+
+procedure TfrmLEmuTKMain.SetCurrentSystem(AValue: cEmutecaSystem);
+begin
+  if FCurrentSystem = AValue then
+    Exit;
+  FCurrentSystem := AValue;
+end;
+
 procedure TfrmLEmuTKMain.SetCacheGrpIconsThread(AValue: ctLEmuTKCacheGrpIcons);
 begin
-  if FCacheGrpIconsThread = AValue then Exit;
+  if FCacheGrpIconsThread = AValue then
+    Exit;
   FCacheGrpIconsThread := AValue;
 end;
 
@@ -238,6 +286,13 @@ procedure TfrmLEmuTKMain.SetSHA1Folder(AValue: string);
 begin
   FSHA1Folder := SetAsFolder(SetAsAbsoluteFile(AValue, ProgramDirectory));
   w7zSetGlobalCache(SHA1Folder);
+end;
+
+procedure TfrmLEmuTKMain.Setw7zErrorFileName(AValue: string);
+begin
+  Fw7zErrorFileName := SetAsFolder(SetAsAbsoluteFile(AValue,
+    ProgramDirectory));
+  w7zSetErrorListFile(w7zErrorFileName);
 end;
 
 procedure TfrmLEmuTKMain.CacheSysIconsThreadTerminated(Sender: TObject);
@@ -323,9 +378,38 @@ begin
     Value, MaxValue);
 end;
 
-procedure TfrmLEmuTKMain.DoChangeGrpList(aGroupList: cEmutecaGroupList);
+function TfrmLEmuTKMain.DoChangeSystem(aSystem: cEmutecaSystem): boolean;
 begin
-   LoadGrpIcons(aGroupList);
+  Result := True;
+  CurrentSystem := aSystem;
+end;
+
+function TfrmLEmuTKMain.DoChangeGrpList(aGroupList:
+  cEmutecaGroupList): boolean;
+begin
+  Result := True;
+  LoadGrpIcons(aGroupList);
+end;
+
+function TfrmLEmuTKMain.DoChangeGroup(aGroup: cEmutecaGroup): boolean;
+begin
+  Result := True;
+  CurrentGroup := aGroup;
+  if Assigned(CurrentGroup) then
+  begin
+    CurrentSystem := cEmutecaSystem(CurrentGroup.CachedSystem);
+  end;
+end;
+
+function TfrmLEmuTKMain.DoChangeSoft(aSoft: cEmutecaSoftware): boolean;
+begin
+  Result := True;
+  CurrentSoft := aSoft;
+  if Assigned(CurrentSoft) then
+  begin
+    CurrentGroup := cEmutecaGroup(CurrentSoft.CachedGroup);
+    CurrentSystem := cEmutecaSystem(CurrentSoft.CachedSystem);
+  end;
 end;
 
 function TfrmLEmuTKMain.AddZoneIcon(aFolder: string;
@@ -379,13 +463,14 @@ begin
   // Teminate if it's running
   if assigned(CacheGrpIconsThread) then
   begin
-    CacheGrpIconsThread.OnTerminate:= nil;
+    CacheGrpIconsThread.OnTerminate := nil;
     CacheGrpIconsThread.Terminate;
     // CacheGrpIconsThread.WaitFor; Don't wait
   end;
   // Auto freed with FreeOnTerminate and nil
 
-  if not (Assigned(aGroupList) and Assigned(IconList) and Assigned(GUIConfig)) then
+  if not (Assigned(aGroupList) and Assigned(IconList) and
+    Assigned(GUIConfig)) then
     Exit;
 
   FCacheGrpIconsThread := ctLEmuTKCacheGrpIcons.Create;
@@ -393,7 +478,7 @@ begin
     raise CacheGrpIconsThread.FatalException;
   CacheGrpIconsThread.OnTerminate := @CacheGrpIconsThreadTerminated; //Autonil
 
-  CacheGrpIconsThread.GroupList :=aGroupList;
+  CacheGrpIconsThread.GroupList := aGroupList;
   CacheGrpIconsThread.IconList := IconList;
   CacheGrpIconsThread.ImageExt := GUIConfig.ImageExtensions;
 
@@ -437,10 +522,11 @@ begin
   IniPropStorage.IniFileName := GUIConfig.ConfigFile;
   IniPropStorage.Restore;
 
-  GUIIconsFile := SetAsAbsoluteFile(GUIConfig.GUIIcnFile, ProgramDirectory);
+  GUIIconsFile := GUIConfig.GUIIcnFile;
 
   // Experimental
-  SHA1Folder := SetAsAbsoluteFile(GUIConfig.GlobalCache, ProgramDirectory);
+  SHA1Folder := GUIConfig.GlobalCache;
+  w7zErrorFileName := GUIConfig.w7zErrorFileName;
 
   // Image lists
   FIconList := cCHXImageList.Create(True);
@@ -459,7 +545,10 @@ begin
 
   // Creating main frame
   FfmEmutecaMainFrame := TfmLEmuTKMain.Create(Self);
+  fmEmutecaMainFrame.OnSystemChanged := @DoChangeSystem;
   fmEmutecaMainFrame.OnGrpListChanged := @DoChangeGrpList;
+  fmEmutecaMainFrame.OnGroupChanged := @DoChangeGroup;
+  fmEmutecaMainFrame.OnSoftChanged := @DoChangeSoft;
   fmEmutecaMainFrame.IconList := IconList;
   fmEmutecaMainFrame.DumpIcons := DumpIcons;
   fmEmutecaMainFrame.ZoneIcons := ZoneIcons;
@@ -493,10 +582,11 @@ end;
 
 procedure TfrmLEmuTKMain.actEmulatorManagerExecute(Sender: TObject);
 begin
-    // Fix runtime errors, while trying to update if something is changed
+  // Fix runtime errors, while trying to update if something is changed
   fmEmutecaMainFrame.Emuteca := nil;
 
-  TfmLEmuTKEmuManager.SimpleForm(Emuteca.EmulatorManager, SHA1Folder, GUIIconsFile,
+  TfmLEmuTKEmuManager.SimpleForm(Emuteca.EmulatorManager,
+    SHA1Folder, GUIIconsFile,
     GUIConfig.ConfigFile);
 
   fmEmutecaMainFrame.Emuteca := Emuteca;
@@ -561,24 +651,20 @@ begin
   GUIConfig.SaveOnExit := actAutoSave.Checked;
 end;
 
-procedure TfrmLEmuTKMain.actCleanAllSystemsExecute(Sender: TObject);
-begin
-  // Fix runtime errors, while trying to update if something is changed
-  fmEmutecaMainFrame.Emuteca := nil;
-
-  Emuteca.CleanSystems;
-
-  fmEmutecaMainFrame.Emuteca := Emuteca;
-end;
-
 procedure TfrmLEmuTKMain.actCleanSystemDataExecute(Sender: TObject);
+var
+  aPCB: TEmutecaProgressCallBack;
 begin
+  // TODO: Make this a script?
+  if not assigned(CurrentSystem) then
+    Exit;
+
   // Fix runtime errors, while trying to update if something is changed
   fmEmutecaMainFrame.Emuteca := nil;
-
-
-  // TODO: We need a callback setting current system/group/soft
-  // Emuteca.CleanSystems;
+  aPCB := CurrentSystem.ProgressCallBack;
+  CurrentSystem.ProgressCallBack := @DoProgressBar;
+  CurrentSystem.CleanSystemData;
+  CurrentSystem.ProgressCallBack := aPCB;
 
   fmEmutecaMainFrame.Emuteca := Emuteca;
 end;
@@ -602,6 +688,18 @@ begin
   TfmLEmuTKSysManager.SimpleForm(Emuteca, SHA1Folder, GUIIconsFile,
     GUIConfig.ConfigFile);
   LoadSystemsIcons; // Reloads system icons
+
+  fmEmutecaMainFrame.Emuteca := Emuteca;
+end;
+
+procedure TfrmLEmuTKMain.actUpdateGroupListExecute(Sender: TObject);
+begin
+  if not Assigned(CurrentSystem) then Exit;
+
+  // Fix runtime errors, while trying to update if something is changed
+  fmEmutecaMainFrame.Emuteca := nil;
+
+  CurrentSystem.CacheGroups;
 
   fmEmutecaMainFrame.Emuteca := Emuteca;
 end;

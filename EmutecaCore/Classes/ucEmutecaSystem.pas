@@ -45,7 +45,6 @@ type
     procedure SetProgressCallBack(AValue: TEmutecaProgressCallBack);
 
   protected
-    procedure CacheGroups;
 
   public
     property ProgressCallBack: TEmutecaProgressCallBack
@@ -56,6 +55,7 @@ type
     procedure AddGroup(aGroup: cEmutecaGroup);
     //< Safe way to add groups (adds group in full list and visile list).
 
+    procedure CacheGroups;
     procedure CleanSystemData;
     //< Removes parents without soft and Soft not found
 

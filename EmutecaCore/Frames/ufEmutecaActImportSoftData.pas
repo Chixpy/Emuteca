@@ -10,7 +10,7 @@ uses
   uCHXDlgUtils,
   ufrCHXForm, ufCHXPropEditor, ufCHXProgressBar,
   uEmutecaCommon,
-  ucEmuteca, ucEmutecaSystem,
+  ucEmuteca, ucEmutecaSystem, ucEmutecaSoftware,
   ufEmutecaSystemCBX;
 
 type
@@ -64,6 +64,7 @@ implementation
 
 procedure TfmEmutecaActImportSoftData.SetSystem(AValue: cEmutecaSystem);
 var
+  aSoft: cEmutecaSoftware;
   IsCached: boolean;
   i: integer;
 begin
@@ -82,14 +83,17 @@ begin
       i := 0;
       while IsCached and (i < System.SoftManager.FullList.Count) do
       begin
-        IsCached := not System.SoftManager.FullList[i].SHA1IsEmpty;
+        aSoft := System.SoftManager.FullList[i];
+        IsCached := not aSoft.SHA1IsEmpty;
         Inc(i);
       end;
     end;
 
     if not IsCached then
-      lWarning.Caption :=
-        'Warning: Some info could not be imported because some files haven''t got SHA1 cached.'
+    begin
+      lWarning.Caption := Format(rsImportingNoSHA1,
+        [aSoft.Folder, aSoft.FileName, i, System.SoftManager.FullList.Count]);
+    end
     else
       lWarning.Caption := '';
 

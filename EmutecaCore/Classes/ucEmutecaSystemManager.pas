@@ -213,7 +213,13 @@ begin
     aSystem.SaveToIni(aIniFile, ExportMode);
     Inc(i);
 
-    if aSystem.Enabled then
+
+    // If ExportMode, we want to save only system info without user data
+    //   (exporting other Systems.ini), if we want export system data
+    //   we must call aSystem.SaveSoftGroupLists(XXX, True);
+    // If not ExportMode, we want to save both:
+    //   Systems.ini AND Systems/aSystem.cvs
+    if (aSystem.Enabled) and (not ExportMode) then
       aSystem.SaveSoftGroupLists(SysDataFolder + aSystem.FileName, False);
   end;
   if assigned(ProgressCallBack) then
