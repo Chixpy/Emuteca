@@ -90,7 +90,13 @@ end;
 
 procedure TfmLEmuTKFullEmuEditor.DoLoadFrameData;
 begin
+  Enabled := Assigned(Emulator);
 
+  if not Enabled then
+  begin
+    ClearFrameData;
+    Exit;
+  end;
 end;
 
 procedure TfmLEmuTKFullEmuEditor.DoSaveFrameData;

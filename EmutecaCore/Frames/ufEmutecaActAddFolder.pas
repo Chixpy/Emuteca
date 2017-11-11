@@ -240,7 +240,7 @@ begin
         Emuteca.ProgressCallBack('Adding files', aFolder,
           aFile, i, FileList.Count);
 
-      if SupportedExtSL(FileList[i], aSystem.Extensions) then
+      if SupportedExtSL(aFile, aSystem.Extensions) then
       begin // it's a supported file
         AddFile(aFolder, aFile, aSystem, CacheSoftList);
       end

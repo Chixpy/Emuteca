@@ -112,7 +112,6 @@ type
     procedure actMoveFileExecute(Sender: TObject);
     procedure actRenameGroupFileExecute(Sender: TObject);
     procedure actRenameGroupTitleExecute(Sender: TObject);
-    procedure actSearchMediaInZipExecute(Sender: TObject);
     procedure chkSimilarFilesChange(Sender: TObject);
     procedure eOtherFolderAcceptDirectory(Sender: TObject; var Value: string);
     procedure lbxFolderSelectionChange(Sender: TObject; User: boolean);
@@ -1055,6 +1054,9 @@ procedure TfmLEmuTKMediaManager.MoveAllFiles;
 var
   aVSTFiles: TCustomVirtualStringTree;
   aFileList: TStringList;
+  aNode: PVirtualNode;
+  pFile: PFileRow;
+  aFolder: string;
 begin
   aVSTFiles := GetCurrentFilesVST;
 
@@ -1069,6 +1071,15 @@ begin
 
   aFileList := TStringList.Create;
   try
+    aNode := aVSTFiles.GetFirstChild(nil);
+    while aNode <> nil do
+    //   if aNode^.isvisible then
+       begin
+      //   end;
+
+      aNode := aVSTFiles.GetNextSibling(aNode);
+    end;
+
 
   finally
     aFileList.Free;
