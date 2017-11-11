@@ -110,7 +110,7 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
       Width = 200
       Align = alClient
       BevelOuter = bvNone
-      TabOrder = 2
+      TabOrder = 1
     end
   end
   object Splitter2: TSplitter[4]
@@ -445,10 +445,10 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
         Height = 139
         Top = 0
         Width = 479
-        ActivePage = pagGroupsWOFile
+        ActivePage = pagAllGroups
         Align = alClient
         PopupMenu = pumVSTGroups
-        TabIndex = 0
+        TabIndex = 2
         TabOrder = 0
         OnChange = pcTargetChange
         object pagGroupsWOFile: TTabSheet
@@ -541,9 +541,9 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
           ClientWidth = 471
           object vstGroupsAll: TVirtualStringTree
             Left = 0
-            Height = 50
+            Height = 111
             Top = 0
-            Width = 279
+            Width = 471
             Align = alClient
             Colors.UnfocusedColor = clMedGray
             DefaultText = 'Node'

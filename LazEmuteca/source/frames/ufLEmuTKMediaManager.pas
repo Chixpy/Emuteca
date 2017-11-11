@@ -351,8 +351,8 @@ procedure TfmLEmuTKMediaManager.SetTargetFile(AValue: string);
 begin
   FTargetFile := RemoveFromBrackets(ExtractFileNameOnly(AValue));
 
-  if (TargetFile <> '') and (SourceFile <> '') then
-    FTargetFile := TargetFile + UTF8LowerCase(ExtractFileExt(SourceFile));
+  if (FTargetFile <> '') and (SourceFile <> '') then
+    FTargetFile := FTargetFile + UTF8LowerCase(ExtractFileExt(SourceFile));
 
   UpdateStatusBars;
 end;
@@ -1054,12 +1054,25 @@ end;
 procedure TfmLEmuTKMediaManager.MoveAllFiles;
 var
   aVSTFiles: TCustomVirtualStringTree;
+  aFileList: TStringList;
 begin
   aVSTFiles := GetCurrentFilesVST;
 
   if not Assigned(aVSTFiles) then
     Exit;
+
+  if not SelectDirectoryDialog1.Execute then Exit;
+
+
+
   raise ENotImplemented.Create('Not implemented');
+
+  aFileList := TStringList.Create;
+  try
+
+  finally
+    aFileList.Free;
+  end;
 
 end;
 
@@ -1474,63 +1487,6 @@ begin
   TargetFile := CurrGroup.MediaFileName + krsVirtualExt;
   ChangeGroupMedia(CurrGroup);
   FilterFiles;
-end;
-
-procedure TfmLEmuTKMediaManager.actSearchMediaInZipExecute(Sender: TObject);
-var
-  Nodo: PVirtualNode;
-  pGroup: ^cEmutecaGroup;
-  pSoft: ^cEmutecaSoftware;
-  aFile: string;
-begin
-  frmCHXProgressBar.UpdTextAndBar('Searching...',
-    'Files without group and groups without file', '', 1, 4);
-
-  // vstGroupsWOFile
-  vstGroupsWOFile.BeginUpdate;
-  Nodo := vstGroupsWOFile.GetFirstChild(nil);
-  while (Nodo <> nil) do
-  begin
-    pGroup := vstGroupsWOFile.GetNodeData(Nodo);
-
-    aFile := pGroup^.SearchFirstRelatedFile(TargetFolder, ExtFilter, False);
-
-    if aFile = '' then
-    begin
-      vstGroupsWOFile.DeleteNode(Nodo);
-      // See RemoveFileFromVSTWO comment...
-      //   ... but this time it's tooo slow
-      Nodo := vstGroupsWOFile.GetFirstChild(nil);
-    end
-    else
-      Nodo := vstGroupsWOFile.GetNextSibling(Nodo);
-  end;
-  vstGroupsWOFile.EndUpdate;
-
-  frmCHXProgressBar.UpdTextAndBar('Searching...',
-    'Files without soft and soft without file', '', 2, 4);
-  // vstSoftWOFile
-  vstSoftWOFile.BeginUpdate;
-  Nodo := vstSoftWOFile.GetFirstChild(nil);
-  while (Nodo <> nil) do
-  begin
-    pSoft := vstSoftWOFile.GetNodeData(Nodo);
-
-    aFile := pSoft^.SearchFirstRelatedFile(TargetFolder, ExtFilter, False);
-
-    if aFile = '' then
-    begin
-      vstSoftWOFile.DeleteNode(Nodo);
-      // See RemoveFileFromVSTWO comment...
-      //   ... but this time it's tooo slow
-      Nodo := vstSoftWOFile.GetFirstChild(nil);
-    end
-    else
-      Nodo := vstSoftWOFile.GetNextSibling(Nodo);
-  end;
-  vstSoftWOFile.EndUpdate;
-
-  frmCHXProgressBar.UpdateProgressBar(0, 0);
 end;
 
 procedure TfmLEmuTKMediaManager.vstFileFreeNode(Sender: TBaseVirtualTree;

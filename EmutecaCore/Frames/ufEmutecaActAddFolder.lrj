@@ -6,6 +6,8 @@
 {"hash":129114579,"name":"tfmemutecaactaddfolder.chknozip.caption","sourcebytes":[68,111,110,39,116,32,115,101,97,114,99,104,32,105,110,115,105,100,101,32,99,111,109,112,114,101,115,115,101,100,32,97,114,99,104,105,118,101,115],"value":"Don't search inside compressed archives"},
 {"hash":158081657,"name":"tfmemutecaactaddfolder.rgbgroup.caption","sourcebytes":[71,114,111,117,112,32,98,121],"value":"Group by"},
 {"hash":229999502,"name":"tfmemutecaactaddfolder.rgbfilename.caption","sourcebytes":[73,102,32,100,117,112,108,105,99,97,116,101,32,102,105,108,101,32,102,111,117,110,100,46,46,46],"value":"If duplicate file found..."},
-{"hash":184630559,"name":"tfmemutecaactaddfolder.gbxsysinfo.caption","sourcebytes":[103,98,120,83,121,115,73,110,102,111],"value":"gbxSysInfo"},
-{"hash":32784723,"name":"tfmemutecaactaddfolder.lsystemextensions.caption","sourcebytes":[83,121,115,116,101,109,32,101,120,116,101,110,115,105,111,110,115],"value":"System extensions"}
+{"hash":196087407,"name":"tfmemutecaactaddfolder.gbxsysinfo.caption","sourcebytes":[83,121,115,116,101,109,32,73,110,102,111],"value":"System Info"},
+{"hash":32784723,"name":"tfmemutecaactaddfolder.lsystemextensions.caption","sourcebytes":[83,121,115,116,101,109,32,101,120,116,101,110,115,105,111,110,115],"value":"System extensions"},
+{"hash":222016537,"name":"tfmemutecaactaddfolder.lsystemexportkey.caption","sourcebytes":[83,121,115,116,101,109,32,101,120,112,111,114,116,32,107,101,121],"value":"System export key"},
+{"hash":231163449,"name":"tfmemutecaactaddfolder.esystemexportkey.text","sourcebytes":[101,83,121,115,116,101,109,69,120,112,111,114,116,75,101,121],"value":"eSystemExportKey"}
 ]}

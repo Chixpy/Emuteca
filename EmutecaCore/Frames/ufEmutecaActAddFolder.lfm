@@ -120,7 +120,7 @@ inherited fmEmutecaActAddFolder: TfmEmutecaActAddFolder
     Top = 216
     Width = 320
     Align = alClient
-    Caption = 'gbxSysInfo'
+    Caption = 'System Info'
     ClientHeight = 152
     ClientWidth = 316
     TabOrder = 4
@@ -141,6 +141,25 @@ inherited fmEmutecaActAddFolder: TfmEmutecaActAddFolder
       Align = alTop
       ReadOnly = True
       TabOrder = 0
+    end
+    object lSystemExportKey: TLabel
+      Left = 0
+      Height = 15
+      Top = 38
+      Width = 316
+      Align = alTop
+      Caption = 'System export key'
+      ParentColor = False
+    end
+    object eSystemExportKey: TEdit
+      Left = 0
+      Height = 23
+      Top = 53
+      Width = 316
+      Align = alTop
+      ReadOnly = True
+      TabOrder = 1
+      Text = 'eSystemExportKey'
     end
   end
   inherited alPropEditor: TActionList[6]
