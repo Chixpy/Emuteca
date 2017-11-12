@@ -247,9 +247,10 @@ begin
       else if (not chkNoZip.Checked) and SupportedExtSL(aFile,
         Emuteca.Config.CompressedExtensions) then
       begin // It´s a compressed archive (not supported by system)
+
         ComprFileList.BeginUpdate;
         ComprFileList.Clear;
-        w7zListFiles(aFolder, ComprFileList, True, '');
+        w7zListFiles(aFolder + aFile, ComprFileList, True, '');
         ComprFileList.EndUpdate;
         j := 0;
         while j < ComprFileList.Count do

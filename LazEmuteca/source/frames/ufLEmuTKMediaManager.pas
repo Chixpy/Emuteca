@@ -982,14 +982,54 @@ end;
 procedure TfmLEmuTKMediaManager.DeleteAllFiles;
 var
   aVSTFiles: TCustomVirtualStringTree;
+  aNode: PVirtualNode;
+  pFile: PFileRow;
+  IsFolder, aBool: boolean;
+  SourcePath: string;
 begin
   aVSTFiles := GetCurrentFilesVST;
-
   if not Assigned(aVSTFiles) then
     Exit;
 
-  raise ENotImplemented.Create('Not implemented');
+  if MessageDlg('Do you want delete ALL visible files?',
+    mtConfirmation, [mbYes, mbNo], -1) = mrNo then
+    Exit;
 
+  aNode := aVSTFiles.GetFirstChild(nil);
+  while aNode <> nil do
+  begin
+    if aVSTFiles.IsVisible[aNode] then
+    begin
+      pFile := aVSTFiles.GetNodeData(aNode);
+
+      // SourceFolder is in sync with current VSTFile
+      // Testing if it's a folder, and removing virtual folder extension.
+      IsFolder := CompareFileExt(pFile^.Extension, krsVirtualFolderExt) = 0;
+      if IsFolder then
+        SourcePath := SourceFolder + pFile^.FileName
+      else
+        SourcePath := SourceFolder + pFile^.FileName + pFile^.Extension;
+
+      // Checking source existence, may be it's redundant...
+      if IsFolder then
+        aBool := DirectoryExistsUTF8(SourcePath)
+      else
+        aBool := FileExistsUTF8(SourcePath);
+
+      if aBool then
+      begin
+        if not DeleteFileUTF8(SourcePath) then
+        begin
+          ShowMessageFmt('Error deleting: %0:s', [SourcePath]);
+          Exit;
+        end;
+      end;
+    end;
+    aNode := aVSTFiles.GetNextSibling(aNode);
+  end;
+
+  // Full update of VSTs
+  UpdateVST(TargetFolder);
 end;
 
 procedure TfmLEmuTKMediaManager.MoveFile;
@@ -998,6 +1038,10 @@ var
   IsFolder, aBool: boolean;
 begin
   if (SourceFile = '') or (SourceFolder = '') then
+    Exit;
+
+  SetDlgInitialDir(SelectDirectoryDialog1, SourceFolder);
+  if not SelectDirectoryDialog1.Execute then
     Exit;
 
   // Testing if it's a folder, and removing virtual folder extension.
@@ -1013,11 +1057,6 @@ begin
   else
     aBool := FileExistsUTF8(SourcePath);
   if not aBool then
-    Exit;
-
-  SetDlgInitialDir(SelectDirectoryDialog1, SourceFolder);
-
-  if not SelectDirectoryDialog1.Execute then
     Exit;
 
   TargetPath := SetAsFolder(SelectDirectoryDialog1.FileName) +
@@ -1053,38 +1092,76 @@ end;
 procedure TfmLEmuTKMediaManager.MoveAllFiles;
 var
   aVSTFiles: TCustomVirtualStringTree;
-  aFileList: TStringList;
   aNode: PVirtualNode;
-  pFile: PFileRow;
-  aFolder: string;
+  pFile: pFileRow;
+  IsFolder, aBool: boolean;
+  SourcePath, TargetPath: string;
 begin
   aVSTFiles := GetCurrentFilesVST;
 
   if not Assigned(aVSTFiles) then
     Exit;
 
-  if not SelectDirectoryDialog1.Execute then Exit;
+  SetDlgInitialDir(SelectDirectoryDialog1, SourceFolder);
+  if not SelectDirectoryDialog1.Execute then
+    Exit;
 
+  aNode := aVSTFiles.GetFirstChild(nil);
+  while aNode <> nil do
+  begin
+    if aVSTFiles.IsVisible[aNode] then
+    begin
+      pFile := aVSTFiles.GetNodeData(aNode);
 
+      // SourceFolder is in sync with current VSTFile
+      // Testing if it's a folder, and removing virtual folder extension.
+      IsFolder := CompareFileExt(pFile^.Extension, krsVirtualFolderExt) = 0;
+      if IsFolder then
+        SourcePath := SourceFolder + pFile^.FileName
+      else
+        SourcePath := SourceFolder + pFile^.FileName + pFile^.Extension;
 
-  raise ENotImplemented.Create('Not implemented');
+      // Checking source existence, may be it's redundant...
+      if IsFolder then
+        aBool := DirectoryExistsUTF8(SourcePath)
+      else
+        aBool := FileExistsUTF8(SourcePath);
 
-  aFileList := TStringList.Create;
-  try
-    aNode := aVSTFiles.GetFirstChild(nil);
-    while aNode <> nil do
-    //   if aNode^.isvisible then
-       begin
-      //   end;
+      if aBool then
+      begin
+        TargetPath := SetAsFolder(SelectDirectoryDialog1.FileName) +
+          ExtractFileName(SourcePath);
 
-      aNode := aVSTFiles.GetNextSibling(aNode);
+        // Checking target existence for files
+        if IsFolder then
+          aBool := DirectoryExistsUTF8(TargetPath)
+        else
+          aBool := FileExistsUTF8(TargetPath);
+
+        if aBool then
+        begin
+          if MessageDlg(Format('%0:s already exists. ¿Overwrite?',
+            [TargetPath]), mtConfirmation, [mbYes, mbNo], -1) = mrYes then
+          begin
+            if IsFolder then
+              DeleteDirectory(UTF8ToSys(TargetPath), False)
+            else
+              DeleteFileUTF8(TargetPath);
+
+            RenameFileUTF8(SourcePath, TargetPath);
+          end;
+          // TODO: Merge Folders
+        end
+        else
+          RenameFileUTF8(SourcePath, TargetPath);
+      end;
     end;
 
-
-  finally
-    aFileList.Free;
+    aNode := aVSTFiles.GetNextSibling(aNode);
   end;
 
+  // Full update of VSTs
+  UpdateVST(TargetFolder);
 end;
 
 procedure TfmLEmuTKMediaManager.DoClearFrameData;
@@ -1341,10 +1418,10 @@ begin
   SourceFile := '';
   SourceFolder := eOtherFolder.Text;
 
-  if  assigned(Sender) and assigned(Node) then
+  if assigned(Sender) and assigned(Node) then
   begin
-  aFileRow := Sender.GetNodeData(Node);
-  SourceFile := aFileRow^.FileName + aFileRow^.Extension;
+    aFileRow := Sender.GetNodeData(Node);
+    SourceFile := aFileRow^.FileName + aFileRow^.Extension;
   end;
 
   ChangeFileMedia(SourceFolder, SourceFile);
@@ -1358,17 +1435,17 @@ begin
   SourceFile := '';
   SourceFolder := TargetFolder;
 
-  if  assigned(Sender) and assigned(Node) then
+  if assigned(Sender) and assigned(Node) then
   begin
-  aFileRow := Sender.GetNodeData(Node);
-  SourceFile := aFileRow^.FileName + aFileRow^.Extension;
+    aFileRow := Sender.GetNodeData(Node);
+    SourceFile := aFileRow^.FileName + aFileRow^.Extension;
   end;
 
   ChangeFileMedia(SourceFolder, SourceFile);
 end;
 
-procedure TfmLEmuTKMediaManager.vstNodeClick(
-  Sender: TBaseVirtualTree; const HitInfo: THitInfo);
+procedure TfmLEmuTKMediaManager.vstNodeClick(Sender: TBaseVirtualTree;
+  const HitInfo: THitInfo);
 var
   aTree: TVirtualStringTree;
 begin
@@ -1379,15 +1456,17 @@ begin
   // When called On(Node)Click on not selected node OnChange is called too;
   //   so Media Preview is "updated" 2 times ~_~U
 
-  if not (Sender is TVirtualStringTree) then Exit;
-  aTree :=  TVirtualStringTree(Sender);
+  if not (Sender is TVirtualStringTree) then
+    Exit;
+  aTree := TVirtualStringTree(Sender);
 
   // We want call OnChange only if same selected node is clicked...
   //   but OnChange is called before... so FocusedNode = HitInfo.HitNode...
-  if HitInfo.HitNode <> aTree.FocusedNode then Exit;
+  if HitInfo.HitNode <> aTree.FocusedNode then
+    Exit;
 
   if Assigned(aTree.OnChange) then
-   aTree.OnChange(aTree, HitInfo.HitNode);
+    aTree.OnChange(aTree, HitInfo.HitNode);
 end;
 
 procedure TfmLEmuTKMediaManager.vstGroupCompareNodes(Sender: TBaseVirtualTree;

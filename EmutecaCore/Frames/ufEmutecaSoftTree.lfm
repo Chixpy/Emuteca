@@ -28,6 +28,7 @@ inherited fmEmutecaSoftTree: TfmEmutecaSoftTree
     Align = alClient
     Colors.UnfocusedColor = clMedGray
     DefaultText = 'Node'
+    EmptyListMessage = 'Empty'
     Header.AutoSizeIndex = 1
     Header.Columns = <    
       item
@@ -77,8 +78,11 @@ inherited fmEmutecaSoftTree: TfmEmutecaSoftTree
       end>
     Header.DefaultHeight = 17
     Header.Height = 17
-    Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoRestrictDrag, hoShowSortGlyphs, hoVisible, hoDisableAnimatedResize, hoHeaderClickAutoSort]
+    Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoRestrictDrag, hoShowHint, hoShowSortGlyphs, hoVisible, hoDisableAnimatedResize, hoHeaderClickAutoSort]
+    Header.PopupMenu = VTHPopupMenu
+    HintMode = hmHintAndDefault
     ParentShowHint = False
+    PopupMenu = pmSoftTree
     ShowHint = True
     TabOrder = 0
     TreeOptions.AutoOptions = [toAutoDropExpand, toAutoExpand, toAutoScroll, toAutoScrollOnExpand, toAutoSort, toAutoSpanColumns, toAutoTristateTracking, toAutoHideButtons, toAutoDeleteMovedNodes]
@@ -93,5 +97,30 @@ inherited fmEmutecaSoftTree: TfmEmutecaSoftTree
     OnGetHint = VDTGetHint
     OnInitChildren = VDTInitChildren
     OnInitNode = VDTInitNode
+  end
+  object VTHPopupMenu: TVTHeaderPopupMenu[2]
+    Options = [poResizeToFitItem]
+    left = 584
+    top = 48
+  end
+  object ActionList: TActionList[3]
+    left = 189
+    top = 199
+    object actMergeGroupFiles: TAction
+      Category = 'Group'
+      Caption = 'Merge group files...'
+      Hint = 'Merge group files|Merges al group files in one folder or compressed archive.'
+      OnExecute = actMergeGroupFilesExecute
+    end
+  end
+  object pmSoftTree: TPopupMenu[4]
+    left = 234
+    top = 153
+    object mistGroup: TMenuItem
+      Caption = 'Group'
+      object mistMergeGroupFiles: TMenuItem
+        Action = actMergeGroupFiles
+      end
+    end
   end
 end

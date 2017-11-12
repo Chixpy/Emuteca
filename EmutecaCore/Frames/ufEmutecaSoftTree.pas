@@ -5,8 +5,8 @@ unit ufEmutecaSoftTree;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, VirtualTrees, Forms, Controls,
-  Graphics, Dialogs, ComCtrls, LazUTF8, LazFileUtils, IniFiles,
+  Classes, SysUtils, FileUtil, VirtualTrees, VTHeaderPopup, Forms, Controls,
+  Graphics, Dialogs, ComCtrls, ActnList, Menus, LazUTF8, LazFileUtils, IniFiles,
   ufCHXFrame,
   uLEmuTKCommon,
   uaEmutecaCustomSoft,
@@ -21,8 +21,15 @@ type
   { TfmEmutecaSoftTree }
 
   TfmEmutecaSoftTree = class(TfmCHXFrame)
+    actMergeGroupFiles: TAction;
+    ActionList: TActionList;
+    mistMergeGroupFiles: TMenuItem;
+    mistGroup: TMenuItem;
+    pmSoftTree: TPopupMenu;
     StatusBar: TStatusBar;
     VDT: TVirtualStringTree;
+    VTHPopupMenu: TVTHeaderPopupMenu;
+    procedure actMergeGroupFilesExecute(Sender: TObject);
     procedure VDTChange(Sender: TBaseVirtualTree; Node: PVirtualNode);
     procedure VDTCompareNodes(Sender: TBaseVirtualTree;
       Node1, Node2: PVirtualNode; Column: TColumnIndex; var Result: integer);
@@ -274,6 +281,11 @@ begin
     if Assigned(OnSelectGroup) then
       OnSelectGroup(aGroup);
   end;
+end;
+
+procedure TfmEmutecaSoftTree.actMergeGroupFilesExecute(Sender: TObject);
+begin
+  raise ENotImplemented.Create('Not Implemented.');
 end;
 
 procedure TfmEmutecaSoftTree.VDTCompareNodes(Sender: TBaseVirtualTree;
