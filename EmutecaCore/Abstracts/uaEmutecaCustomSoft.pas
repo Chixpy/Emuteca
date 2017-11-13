@@ -369,7 +369,11 @@ procedure caEmutecaCustomSoft.SetTitle(AValue: string);
 begin
   if FTitle = AValue then
     Exit;
-  FTitle := AValue;
+
+  if (UTF8CompareText(AValue, GroupKey) = 0) then
+    FTitle := ''
+  else
+    FTitle := AValue;
 end;
 
 procedure caEmutecaCustomSoft.SetTrainer(AValue: string);

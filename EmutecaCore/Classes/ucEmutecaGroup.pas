@@ -75,9 +75,8 @@ end;
 procedure cEmutecaGroup.SearchAllRelatedFiles(OutFileList: TStrings;
   aFolder: string; Extensions: TStrings; AutoExtract: boolean);
 begin
-  // HACK: Dot added to MediaFileName, to preserve dots in ids like "Super Mario Bros."
   if Assigned(CachedSystem) then
-    EmuTKSearchAllRelatedFiles(OutFileList, aFolder, MediaFileName + '.', Extensions,
+    EmuTKSearchAllRelatedFiles(OutFileList, aFolder, MediaFileName, Extensions,
       AutoExtract, CachedSystem.TempFolder)
   else
     inherited;
@@ -86,9 +85,8 @@ end;
 function cEmutecaGroup.SearchFirstRelatedFile(aFolder: string;
   Extensions: TStrings; AutoExtract: boolean): string;
 begin
-   // HACK: Dot added to MediaFileName, to preserve dots in ids like "Super Mario Bros."
    if Assigned(CachedSystem) then
-    Result := EmuTKSearchFirstRelatedFile(aFolder, MediaFileName + '.', Extensions,
+    Result := EmuTKSearchFirstRelatedFile(aFolder, MediaFileName, Extensions,
       True, AutoExtract, CachedSystem.TempFolder)
   else
     Result := inherited;
