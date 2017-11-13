@@ -16,7 +16,6 @@ Date=20170923
 program TOSECImport;
 
 //uses uTOSECUtils;
-
 {$I '../Units/uTOSECUtils.pas'}
 
 var
@@ -24,6 +23,16 @@ var
   TOSECFileNames, TOSECFile, SoftList, DBList: TStringList;
   i, j: LongInt;
 begin
+  DBFilename := AskFile('Database file for output',
+    'Emuteca soft DB|' + krsFileMaskSoft,
+    '');
+  if DBFilename = '' then
+  begin
+    WriteLn('Error: No Database file selected.');
+    TOSECFileNames.Free;
+    Exit;
+  end;
+
   TOSECFileNames := CreateStringList;
   TOSECFileNames.Duplicates := dupIgnore;
 
@@ -34,17 +43,6 @@ begin
   if TOSECFileNames.Count = 0 then
   begin
     WriteLn('Error: No TOSEC files selected.');
-    TOSECFileNames.Free;
-    Exit;
-  end;
-
-  DBFilename := AskFile('Database file for output',
-    'Emuteca soft DB|' + krsFileMaskSoft,
-    '');
-
-  if DBFilename = '' then
-  begin
-    WriteLn('Error: No Database file selected.');
     TOSECFileNames.Free;
     Exit;
   end;

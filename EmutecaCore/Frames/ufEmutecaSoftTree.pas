@@ -15,6 +15,7 @@ uses
 const
   krsIniSoftTreeSection = 'SoftTree';
   krsIniSoftTreeWidthFmt = 'Column%0:d_Width';
+  krsIniSoftTreeVisibleFmt = 'Column%0:d_Visible';
 
 type
 
@@ -550,13 +551,29 @@ end;
 procedure TfmEmutecaSoftTree.DoLoadGUIConfig(aIniFile: TIniFile);
 var
   i: integer;
+  aBool: Boolean;
+  vstOptions: TVTColumnOptions;
 begin
+  // VST Columns
   i := 0;
   while i < VDT.Header.Columns.Count do
   begin
+    // Columns width
     VDT.Header.Columns.Items[i].Width :=
       aIniFile.ReadInteger(krsIniSoftTreeSection,
       Format(krsIniSoftTreeWidthFmt, [i]), VDT.Header.Columns.Items[i].Width);
+
+    vstOptions := VDT.Header.Columns.Items[i].Options;
+
+    // Columns visibility
+    aBool := aIniFile.ReadBool(krsIniSoftTreeSection,
+      Format(krsIniSoftTreeVisibleFmt, [i]), True);
+    if aBool then
+      Include(vstOptions, coVisible)
+      else
+        Exclude(vstOptions, coVisible);
+
+    VDT.Header.Columns.Items[i].Options := vstOptions;
     Inc(i);
   end;
 end;
@@ -570,6 +587,10 @@ begin
   begin
     aIniFile.WriteInteger(krsIniSoftTreeSection,
       Format(krsIniSoftTreeWidthFmt, [i]), VDT.Header.Columns.Items[i].Width);
+
+    aIniFile.WriteBool(krsIniSoftTreeSection,
+      Format(krsIniSoftTreeVisibleFmt, [i]),
+      coVisible in VDT.Header.Columns.Items[i].Options);
     Inc(i);
   end;
 end;

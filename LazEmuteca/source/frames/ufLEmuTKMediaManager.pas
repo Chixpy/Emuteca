@@ -398,7 +398,9 @@ begin
 
   // Adding all files/folders of the target folder
   vstFilesAll.BeginUpdate;
+  vstFilesAll.Clear;
   vstFilesOtherExt.BeginUpdate;
+  vstFilesOtherExt.Clear;
   frmCHXProgressBar.UpdTextAndBar('Searching files...',
     'This can take some time', '', 1, 4);
   IterateFolderObj(aFolder, @AddFileCB, False);
@@ -416,7 +418,9 @@ begin
   vstGroupsAll.SortTree(1, VirtualTrees.sdAscending, True); // By filename
 
   vstFilesWOGroup.BeginUpdate;
+  vstFilesWOGroup.Clear;
   vstGroupsWOFile.BeginUpdate;
+  vstGroupsWOFile.Clear;
   GroupNode := vstGroupsAll.GetFirstChild(nil);
   FileNode := vstFilesAll.GetFirstChild(nil);
   while assigned(GroupNode) or assigned(FileNode) do
@@ -515,7 +519,9 @@ begin
   vstSoftAll.SortTree(2, VirtualTrees.sdAscending, True); // By filename
 
   vstFilesWOSoft.BeginUpdate;
+  vstFilesWOSoft.Clear;
   vstSoftWOFile.BeginUpdate;
+  vstSoftWOFile.Clear;
   SoftNode := vstSoftAll.GetFirstChild(nil);
   FileNode := vstFilesWOGroup.GetFirstChild(nil);
   while (assigned(SoftNode)) or (assigned(FileNode)) do
@@ -876,7 +882,8 @@ begin
   TargetPath := TargetFolder + TargetFile;
   SourcePath := SourceFolder + SourceFile;
 
-  if TargetPath = SourcePath then
+  // Testing if same file...
+  if CompareFilenames(TargetPath, SourcePath) = 0 then
     Exit;
 
   // Testing if it's a folder
@@ -956,7 +963,6 @@ begin
   end;
 
   FilterFiles;
-
 end;
 
 procedure TfmLEmuTKMediaManager.DeleteFile;
@@ -1028,8 +1034,14 @@ begin
     aNode := aVSTFiles.GetNextSibling(aNode);
   end;
 
+  // Clear vstFilesOtherFolder if needed
+  if CompareFilenames(SourceFolder,
+    SetAsFolder(eOtherFolder.Directory)) = 0 then
+    UpdateFileOtherFolder(SourceFolder);
+
   // Full update of VSTs
-  UpdateVST(TargetFolder);
+  if CompareFilenames(SourceFolder, TargetFolder) = 0 then
+    UpdateVST(TargetFolder);
 end;
 
 procedure TfmLEmuTKMediaManager.MoveFile;
@@ -1160,8 +1172,14 @@ begin
     aNode := aVSTFiles.GetNextSibling(aNode);
   end;
 
+  // Clear vstFilesOtherFolder if needed
+  if CompareFilenames(SourceFolder,
+    SetAsFolder(eOtherFolder.Directory)) = 0 then
+    UpdateFileOtherFolder(SourceFolder);
+
   // Full update of VSTs
-  UpdateVST(TargetFolder);
+  if CompareFilenames(SourceFolder, TargetFolder) = 0 then
+    UpdateVST(TargetFolder);
 end;
 
 procedure TfmLEmuTKMediaManager.DoClearFrameData;

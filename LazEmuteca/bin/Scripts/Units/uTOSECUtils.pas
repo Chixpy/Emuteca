@@ -13,6 +13,10 @@ Date=20171010
 
 [EndInfo]
 }
+
+//uses uETKStrUtils;
+{$I 'uETKStrUtils.pas'}
+
 const
   TOSECIDSep = '|';
   TOSECMaxCopy = 512;
