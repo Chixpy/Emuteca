@@ -6,9 +6,10 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  Buttons, ActnList, StdCtrls, EditBtn,
+  Buttons, ActnList, StdCtrls, EditBtn, ComCtrls,
   uCHXDlgUtils,
-  ufrCHXForm, ufCHXPropEditor, ufCHXProgressBar,
+  ufrCHXForm,
+  ufCHXPropEditor, ufCHXProgressBar,
   uEmutecaCommon,
   uaEmutecaCustomSystem,
   ucEmuteca, ucEmutecaSystem, ucEmutecaSoftware,
@@ -19,6 +20,9 @@ type
   { TfmActExportSoftData }
 
   TfmActExportSoftData = class(TfmCHXPropEditor)
+    actSoftDataCheckAll: TAction;
+    bSoftDataCheckAll: TToolButton;
+    cgbSoftData: TCheckGroup;
     eExportFile: TFileNameEdit;
     eSoftIDType: TEdit;
     gbxExportFile: TGroupBox;
@@ -26,6 +30,7 @@ type
     lSoftIDType: TLabel;
     lWarning: TLabel;
     pSelectSystem: TPanel;
+    tbSoftData: TToolBar;
     procedure eExportFileButtonClick(Sender: TObject);
 
   private
@@ -40,6 +45,8 @@ type
 
     property System: cEmutecaSystem read FSystem write SetSystem;
     function SelectSystem(aSystem: cEmutecaSystem): boolean;
+
+    procedure CheckAllSoftData;
 
     procedure DoClearFrameData;
     procedure DoLoadFrameData;
@@ -141,6 +148,18 @@ begin
   System := aSystem;
 end;
 
+procedure TfmActExportSoftData.CheckAllSoftData;
+var
+  i: Integer;
+begin
+  i := 0;
+  while i < cgbSoftData.Items.Count do
+  begin
+    cgbSoftData.Checked[i] := True;
+    inc(i);
+  end;
+end;
+
 procedure TfmActExportSoftData.DoClearFrameData;
 begin
   eSoftIDType.Clear;
@@ -229,6 +248,8 @@ begin
     Application.CreateForm(TfrmCHXProgressBar, frmCHXProgressBar);
 
   eExportFile.Filter := rsFileMaskDescSoft + '|' + krsFileMaskSoft;
+
+  CheckAllSoftData;
 end;
 
 destructor TfmActExportSoftData.Destroy;

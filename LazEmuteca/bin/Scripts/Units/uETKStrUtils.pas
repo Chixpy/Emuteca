@@ -23,7 +23,7 @@ procedure ETKFixTitle(aOrigTitle: string; var NewTitle, SortTitle,
   MediaFile: string);
 var
   aPos: integer;
-  Found: 
+  Found: Boolean;
 begin
   if Length(ETKArticles) = 0 then ETKStrUtilInit;
 
@@ -34,18 +34,16 @@ begin
   //   - The Title -> (Must be in NewTitle)
   //   - Title, The -> (Must be SortTitle)
   //   - Title (The) -> Covert to previous
+
+
+
   
-  
-  if AnsiCompareText(NewTitle, SortTitle) = 0 then 
-    SortTitle = '';
+  if CompareText(NewTitle, SortTitle) = 0 then
+    SortTitle := '';
   
   // Setting MediaFile
   if SortTitle <> '' then
     MediaFile := CleanFileName(SortTitle, true, false)
   else    
-    MediaFile := CleanFileName(NewTitle, true, false)
-  
-
-
-
+    MediaFile := CleanFileName(NewTitle, true, false);
 end;

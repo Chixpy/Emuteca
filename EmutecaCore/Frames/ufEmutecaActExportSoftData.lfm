@@ -1,14 +1,30 @@
 inherited fmActExportSoftData: TfmActExportSoftData
-  DesignLeft = 520
-  DesignTop = 236
+  Height = 357
+  Width = 430
+  ClientHeight = 357
+  ClientWidth = 430
+  DesignLeft = 427
+  DesignTop = 151
   inherited pButtons: TPanel
+    Top = 330
+    Width = 430
+    ClientWidth = 430
     TabOrder = 3
+    inherited chkCloseOnSave: TCheckBox
+      Left = 60
+    end
+    inherited bSave: TBitBtn
+      Left = 169
+    end
+    inherited bCancel: TBitBtn
+      Left = 291
+    end
   end
   object pSelectSystem: TPanel[1]
     Left = 0
     Height = 0
     Top = 0
-    Width = 320
+    Width = 430
     Align = alTop
     AutoSize = True
     BevelOuter = bvNone
@@ -16,19 +32,19 @@ inherited fmActExportSoftData: TfmActExportSoftData
   end
   object gbxSystemInfo: TGroupBox[2]
     Left = 0
-    Height = 170
+    Height = 287
     Top = 0
-    Width = 320
+    Width = 430
     Align = alClient
     Caption = 'System info'
-    ClientHeight = 150
-    ClientWidth = 316
+    ClientHeight = 267
+    ClientWidth = 426
     TabOrder = 0
     object lSoftIDType: TLabel
       Left = 0
       Height = 15
       Top = 0
-      Width = 316
+      Width = 426
       Align = alTop
       Caption = 'Soft ID Type'
       ParentColor = False
@@ -37,7 +53,7 @@ inherited fmActExportSoftData: TfmActExportSoftData
       Left = 0
       Height = 23
       Top = 15
-      Width = 316
+      Width = 426
       Align = alTop
       Enabled = False
       ReadOnly = True
@@ -45,30 +61,92 @@ inherited fmActExportSoftData: TfmActExportSoftData
     end
     object lWarning: TLabel
       Left = 0
-      Height = 112
-      Top = 38
-      Width = 316
+      Height = 83
+      Top = 184
+      Width = 426
       Align = alClient
       ParentColor = False
       WordWrap = True
+    end
+    object cgbSoftData: TCheckGroup
+      Left = 0
+      Height = 146
+      Top = 38
+      Width = 426
+      Align = alTop
+      AutoFill = True
+      AutoSize = True
+      Caption = 'Soft data to Export'
+      ChildSizing.LeftRightSpacing = 6
+      ChildSizing.TopBottomSpacing = 6
+      ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+      ChildSizing.EnlargeVertical = crsHomogenousChildResize
+      ChildSizing.ShrinkHorizontal = crsScaleChilds
+      ChildSizing.ShrinkVertical = crsScaleChilds
+      ChildSizing.Layout = cclTopToBottomThenLeftToRight
+      ChildSizing.ControlsPerLine = 6
+      ClientHeight = 126
+      ClientWidth = 422
+      ColumnLayout = clVerticalThenHorizontal
+      Columns = 3
+      Enabled = False
+      Items.Strings = (
+        'Group Key'
+        'Title'
+        'Transliterated'
+        'Sort Title'
+        'Version'
+        'Year'
+        'Publisher'
+        'Zone'
+        'Dump status'
+        'Dump info'
+        'Fixed'
+        'Trainer'
+        'Fan Traslation'
+        'Pirate'
+        'Cracked'
+        'Modified'
+        'Hack'
+      )
+      TabOrder = 1
+      Data = {
+        110000000202020202020202020202020202020202
+      }
+      object tbSoftData: TToolBar
+        Left = 392
+        Height = 114
+        Top = 6
+        Width = 24
+        Align = alRight
+        AutoSize = True
+        Caption = 'tbSoftData'
+        Images = ilPropEditor
+        TabOrder = 17
+        object bSoftDataCheckAll: TToolButton
+          Left = 1
+          Top = 2
+          Action = actSoftDataCheckAll
+        end
+      end
     end
   end
   object gbxExportFile: TGroupBox[3]
     Left = 0
     Height = 43
-    Top = 170
-    Width = 320
+    Top = 287
+    Width = 430
     Align = alBottom
     AutoSize = True
     Caption = 'Export file'
     ClientHeight = 23
-    ClientWidth = 316
+    ClientWidth = 426
     TabOrder = 2
     object eExportFile: TFileNameEdit
       Left = 0
       Height = 23
       Top = 0
-      Width = 316
+      Width = 426
       DialogKind = dkSave
       DialogOptions = [ofOverwritePrompt, ofNoChangeDir, ofEnableSizing, ofDontAddToRecent, ofViewDetail]
       FilterIndex = 0
@@ -84,6 +162,10 @@ inherited fmActExportSoftData: TfmActExportSoftData
     end
   end
   inherited alPropEditor: TActionList[4]
+    object actSoftDataCheckAll: TAction[2]
+      Category = 'SoftData'
+      Caption = 'Check all soft data'
+    end
   end
   inherited ilPropEditor: TImageList[5]
   end

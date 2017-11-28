@@ -449,8 +449,8 @@ end;
 
 function caEmutecaCustomSoft.MatchFile(aFolder, aFile: string): boolean;
 begin
-  Result := (CompareFilenames(FileName, aFile) = 0) and
-    (CompareFilenames(Folder, aFolder) = 0);
+  Result := (CompareFilenames(FileName, SetAsFile(aFile)) = 0) and
+    (CompareFilenames(Folder, SetAsFolder(aFolder)) = 0);
 end;
 
 function caEmutecaCustomSoft.MatchID(aID: string): boolean;
@@ -581,7 +581,7 @@ begin
   // Don't overwrite SHA1.
   // If SHA1 = ID -> whe don't need it
   //   else -> SHA1 is from actual file anyways.
-  // It's saved for custom porpouses.
+  // It's saved for custom purpouses.
   // SHA1 := StringToSHA1Digest(aIniFile.ReadString(Section, krsIniKeySHA1, SHA1Print(SHA1)));
 
   // We can export by SHA1 systems with custom ID...

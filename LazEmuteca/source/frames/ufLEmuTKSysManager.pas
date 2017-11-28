@@ -8,7 +8,8 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
   Buttons, CheckLst, ActnList, Menus,
   uCHXStrUtils,
-  ufCHXChkLstPropEditor, ufrCHXForm,
+  ufrCHXForm,
+  ufCHXChkLstPropEditor, ufCHXProgressBar,
   ucEmuteca, uEmutecaCommon, ucEmutecaSystem,
   ufLEmuTKFullSystemEditor;
 
@@ -146,7 +147,8 @@ begin
 
   fmSysEditor.System := nil;
 
-  aSystem := cEmutecaSystem(clbPropItems.Items.Objects[clbPropItems.ItemIndex]);
+  aSystem := cEmutecaSystem(
+    clbPropItems.Items.Objects[clbPropItems.ItemIndex]);
   try
     // If already in enabled list remove here too.
     Emuteca.SystemManager.EnabledList.Remove(aSystem);
@@ -214,10 +216,13 @@ begin
 
   // HACK: Preventing lost data from changed systems,
   //   saving current data or reloading from disk.
+
   i := 0;
   while i < clbPropItems.Items.Count do
   begin
     aSystem := cEmutecaSystem(clbPropItems.Items.Objects[i]);
+    frmCHXProgressBar.UpdTextAndBar('Saving/Loading state changed systems',
+      aSystem.Title, '', i, clbPropItems.Items.Count);
 
     if aSystem.Enabled <> clbPropItems.Checked[i] then
     begin
@@ -241,6 +246,8 @@ begin
 
     Inc(i);
   end;
+  frmCHXProgressBar.UpdTextAndBar('', '', '', 0, 0);
+
 
   Emuteca.SystemManager.UpdateEnabledList;
 end;
@@ -290,6 +297,10 @@ begin
   OnClearFrameData := @DoClearFrameData;
   OnLoadFrameData := @DoLoadFrameData;
   OnSaveFrameData := @DoSaveFrameData;
+
+  // If frmCHXProgressBar is not created...
+  if not Assigned(frmCHXProgressBar) then
+    Application.CreateForm(TfrmCHXProgressBar, frmCHXProgressBar);
 end;
 
 destructor TfmLEmuTKSysManager.Destroy;

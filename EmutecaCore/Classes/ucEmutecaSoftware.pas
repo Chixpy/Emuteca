@@ -123,7 +123,7 @@ begin
   // else GroupKey := ''; We don't want to delete old GroupKey
 
   // Hack (2/2): Preserving title when changing groups
-  //   + Reupdating title with
+  //   + Reupdating title with actual title.
   if GetActualTitle <> '' then
   begin
      aTitle := GetActualTitle;

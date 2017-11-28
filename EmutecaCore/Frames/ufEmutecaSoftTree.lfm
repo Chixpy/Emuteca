@@ -28,7 +28,6 @@ inherited fmEmutecaSoftTree: TfmEmutecaSoftTree
     Align = alClient
     Colors.UnfocusedColor = clMedGray
     DefaultText = 'Node'
-    EmptyListMessage = 'Empty'
     Header.AutoSizeIndex = 1
     Header.Columns = <    
       item
