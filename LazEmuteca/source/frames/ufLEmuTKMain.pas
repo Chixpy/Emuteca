@@ -11,6 +11,8 @@ uses
   uCHXStrUtils, ucCHXImageList,
   // CHX frames
   ufCHXFrame, ufCHXTagTree,
+  // Emuteca common
+  uEmutecaCommon,
   // Emuteca clases
   ucEmuteca, ucEmutecaSystem, ucEmutecaGroupList, ucEmutecaGroup,
   ucEmutecaSoftList, ucEmutecaSoftware,
@@ -109,10 +111,14 @@ type
 
     property SHA1Folder: string read FSHA1Folder write SetSHA1Folder;
 
-    property OnSystemChanged: TEmutecaReturnSystemCB read FOnSystemChanged write SetOnSystemChanged;
-    property OnGrpListChanged: TEmutecaReturnGrpLstCB read FOnGrpListChanged write SetOnGrpListChanged;
-    property OnGroupChanged: TEmutecaReturnGroupCB read FOnGroupChanged write SetOnGroupChanged;
-    property OnSoftChanged: TEmutecaReturnSoftCB read FOnSoftChanged write SetOnSoftChanged;
+    property OnSystemChanged: TEmutecaReturnSystemCB
+      read FOnSystemChanged write SetOnSystemChanged;
+    property OnGrpListChanged: TEmutecaReturnGrpLstCB
+      read FOnGrpListChanged write SetOnGrpListChanged;
+    property OnGroupChanged: TEmutecaReturnGroupCB
+      read FOnGroupChanged write SetOnGroupChanged;
+    property OnSoftChanged: TEmutecaReturnSoftCB
+      read FOnSoftChanged write SetOnSoftChanged;
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -206,31 +212,36 @@ end;
 
 procedure TfmLEmuTKMain.SetOnGroupChanged(AValue: TEmutecaReturnGroupCB);
 begin
-  if FOnGroupChanged=AValue then Exit;
-  FOnGroupChanged:=AValue;
+  if FOnGroupChanged = AValue then
+    Exit;
+  FOnGroupChanged := AValue;
 end;
 
 procedure TfmLEmuTKMain.SetOnGrpListChanged(AValue: TEmutecaReturnGrpLstCB);
 begin
-  if FOnGrpListChanged = AValue then Exit;
+  if FOnGrpListChanged = AValue then
+    Exit;
   FOnGrpListChanged := AValue;
 end;
 
 procedure TfmLEmuTKMain.SetOnSoftChanged(AValue: TEmutecaReturnSoftCB);
 begin
-  if FOnSoftChanged=AValue then Exit;
-  FOnSoftChanged:=AValue;
+  if FOnSoftChanged = AValue then
+    Exit;
+  FOnSoftChanged := AValue;
 end;
 
 procedure TfmLEmuTKMain.SetOnSystemChanged(AValue: TEmutecaReturnSystemCB);
 begin
-  if FOnSystemChanged=AValue then Exit;
-  FOnSystemChanged:=AValue;
+  if FOnSystemChanged = AValue then
+    Exit;
+  FOnSystemChanged := AValue;
 end;
 
 procedure TfmLEmuTKMain.SetSHA1Folder(AValue: string);
 begin
-  if FSHA1Folder = AValue then Exit;
+  if FSHA1Folder = AValue then
+    Exit;
   FSHA1Folder := AValue;
 
   fmSystemPanel.SHA1Folder := SHA1Folder;
@@ -279,7 +290,7 @@ begin
   fmSoftEditor.Group := aGroup;
   fmSoftMedia.Group := aGroup;
 
-    if assigned(OnGroupChanged) then
+  if assigned(OnGroupChanged) then
     OnGroupChanged(aGroup);
 
   if Assigned(aGroup) then
@@ -306,8 +317,52 @@ begin
 end;
 
 function TfmLEmuTKMain.RunSoftware(aSoftware: cEmutecaSoftware): boolean;
+var
+  aError: integer;
 begin
-  Result := Emuteca.RunSoftware(aSoftware) = 0;
+  Result := False;
+  aError := Emuteca.RunSoftware(aSoftware);
+
+  case aError of
+    0: ; // All OK
+    kErrorRunSoftUnknown:
+    begin
+      ShowMessageFmt('TfmLEmuTKMain.RunSoftware: Unknown Error.' +
+        LineEnding + '%0:s' + LineEnding + '%1:s',
+        [aSoftware.Folder, aSoftware.FileName]);
+    end;
+    kErrorRunSoftNoSoft:
+    begin
+      ShowMessage('TfmLEmuTKMain.RunSoftware: Software = nil.');
+    end;
+    kErrorRunSoftNoEmu:
+    begin
+      ShowMessageFmt('TfmLEmuTKMain.RunSoftware: Emulator = nil.' +
+        LineEnding + '%0:s' + LineEnding + '%1:s',
+        [aSoftware.Folder, aSoftware.FileName]);
+    end;
+    kErrorRunSoftNoSoftFile:
+    begin
+      ShowMessageFmt('TfmLEmuTKMain.RunSoftware: Soft file not found.' +
+        LineEnding + '%0:s' + LineEnding + '%1:s',
+        [aSoftware.Folder, aSoftware.FileName]);
+    end;
+    kErrorRunSoftNoEmuFile:
+    begin
+      ShowMessage('TfmLEmuTKMain.RunSoftware: Emulator executable not found');
+    end;
+    kError7zDecompress:
+    begin
+      ShowMessage('TfmLEmuTKMain.RunSoftware: Unknown decompress error.');
+    end;
+    else
+    begin
+      ShowMessageFmt('TfmLEmuTKMain.RunSoftware: Emulator returned: %0:d',
+        [aError]);
+    end;
+  end;
+
+  Result := aError = 0;
 end;
 
 procedure TfmLEmuTKMain.DoClearFrameData;

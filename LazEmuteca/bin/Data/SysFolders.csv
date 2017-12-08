@@ -9,11 +9,9 @@
 "Image/Manual","i","Manual"
 "Image/Map","i","Map"
 "Image/Icon","c","Icons"
-"Music/Demo","m","Demos"
+"Music/Autoplay","m","Autoplay"
 "Music/OST","m","OST"
-"Soft/Game",,
-"Soft/Demo",,
-"Soft/App",,
+"Soft",,
 "Save",,
 "Temp",,
 "Text/Info","t","Information"
@@ -22,6 +20,6 @@
 "Text/Manual","t","Manual"
 "Text/Note","t","Notes"
 "Tool",,
-"Video/Demo","v","Demos"
+"Video/Autoplay","v","Autoplay"
 "Video/TAS","v","TAS"
 "Video/Speedrun","v","Speedruns"

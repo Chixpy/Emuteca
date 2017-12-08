@@ -177,8 +177,9 @@ end;
 procedure TfmEmutecaEmulatorEditor.DoSaveFrameData;
 begin
   Emulator.EmulatorName := eName.Text;
-  Emulator.EmulatorName := eName.Text;
   Emulator.Developer := eDeveloper.Text;
+  Emulator.WebPage := eWebPage.Text;
+
   Emulator.ExeFile := eExePath.Text;
   Emulator.WorkingFolder := eWorkingFolder.Text;
   Emulator.Parameters := eParameters.Text;

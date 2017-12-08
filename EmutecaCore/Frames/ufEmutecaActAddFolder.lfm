@@ -84,7 +84,7 @@ inherited fmEmutecaActAddFolder: TfmEmutecaActAddFolder
     ClientWidth = 316
     ItemIndex = 0
     Items.Strings = (
-      'Folder name'
+      'Folder/Archive name'
       'Filename'
     )
     TabOrder = 2
@@ -109,8 +109,8 @@ inherited fmEmutecaActAddFolder: TfmEmutecaActAddFolder
     ClientWidth = 316
     ItemIndex = 0
     Items.Strings = (
+      'Ignore (Keep current data)'
       'Reset and Update SHA1'
-      'Ignore'
     )
     TabOrder = 3
   end
@@ -159,7 +159,6 @@ inherited fmEmutecaActAddFolder: TfmEmutecaActAddFolder
       Align = alTop
       ReadOnly = True
       TabOrder = 1
-      Text = 'eSystemExportKey'
     end
   end
   inherited alPropEditor: TActionList[6]

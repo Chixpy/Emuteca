@@ -128,7 +128,7 @@ procedure TfmEmutecaActAddFolder.DoSaveFrameData;
         Found := True;
 
         case rgbFilename.ItemIndex of
-          1: // Ignore  (set to nil and Found)
+          0: // Ignore  (set to nil and Found)
             aSoft := nil;
           else // Update SHA
             ;
@@ -190,6 +190,10 @@ procedure TfmEmutecaActAddFolder.DoSaveFrameData;
             RemoveFromBrackets(ExtractFileNameOnly(
             ExcludeTrailingPathDelimiter(aSoft.Folder)));
       end;
+
+      // We don't want to do whole articles thing here, but...
+      aSoft.Title := Trim(UTF8TextReplace(aSoft.Title, ' - ', ': '));
+      aSoft.GroupKey := Trim(UTF8TextReplace(aSoft.GroupKey, ' - ', ': '));
 
       // Add it if not found before
       if not Found then

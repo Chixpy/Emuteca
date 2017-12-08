@@ -4,7 +4,7 @@ This script creates a Emuteca database from a TOSEC .dat.
 
 Imports title, versión, year, publisher, dumpinfo, etc. from filenames.
 
-It doesn't add any parent info, so when importing data groups are keeped.
+Don't changes groups.
 [Data]
 Name=Chixpy
 Version=0.01
@@ -49,8 +49,6 @@ begin
 
   TOSECFile := CreateStringList;
   SoftList := CreateStringList;
-  SoftList.Duplicates := dupIgnore;
-  SoftList.Sorted := True;
   DBList := CreateStringList;
   try
     for j := 0 to TOSECFileNames.Count -1 do
@@ -67,29 +65,18 @@ begin
       TOSECFile.LoadFromFile(UTF8ToSys(TOSECFilenames[j]));
       WriteLn(IntToStr(TOSECFile.Count) + ' lines readed.');
       WriteLn('');
-      WriteLn('Analizing file...');
-
-      i := 0;
-      while i < TOSECFile.Count do
-      begin
-        aStr := TOSECExtractSoftLine(TOSECFile[i], 'sha1');
-        // aStr = <SHA1>|<SoftName>
-
-        if aStr <> '' then
-          SoftList.Add(aStr);
-
-        if (i and 1023) = 1023 then
-          WriteLn(IntToStr(i) + ' lines analized.');
-        Inc(i);        
-      end; 
-      WriteLn('File analized.');
+      WriteLn('Analizing file...');      
+      TOSECReadDatFile(TOSECFile, SoftList, 'sha1');
+      WriteLn('File analisis finalized.');
       WriteLn('');
     end;
 
+    SoftList.Sort;
     WriteLn('');
     WriteLn(IntToStr(SoftList.Count) + ' soft files found.');
     WriteLn('');
 
+    DBList.BeginUpdate;
     i := 0;
     while i < SoftList.Count do
     begin
@@ -98,11 +85,12 @@ begin
       if aStr <> '' then
         DBList.Add(aStr);
 
-      if (i and 1023) = 1023 then
+      if (i and 511) = 511 then
         WriteLn(IntToStr(i) + ' soft files analized.');
       Inc(i);
     end;
-
+    DBList.EndUpdate;
+    
     WriteLn('');
     WriteLn('Saving... ' + DBFilename);
     DBList.Sort;

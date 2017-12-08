@@ -165,6 +165,7 @@ inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
     Width = 359
     Align = alTop
     Constraints.MinHeight = 50
+    ScrollBars = ssAutoVertical
     TabOrder = 6
   end
   object lExitCode: TLabel[10]

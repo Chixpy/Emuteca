@@ -303,9 +303,15 @@ begin
   WriteLn('    NPos(''e'', ''An example'', 2) -> ' + 
     IntToStr(NPos('e', 'An example', 2)));
   WriteLn('');
-  //WriteLn('function RPosEX(Const Substr : AnsiString; Const Source : AnsiString;offs:cardinal) : SizeInt;');
-  WriteLn('function RPos(Const Substr : AnsiString; Const Source : AnsiString) : SizeInt;');
-  WriteLn('    Some explanation...');
+  WriteLn('function RPosEx(Const Substr, Source: string; Offset: SizeInt): SizeInt;');
+  WriteLn('    Searchs a substring from the right, from Offset position (counted from left).');
+  WriteLn('    RPosEx(''e'', ''An example'', 2) -> ' + 
+    IntToStr(RPosEx('e', 'An example', 2)));
+  WriteLn('    RPosEx(''e'', ''An example'', 5) -> ' +
+    IntToStr(RPosEx('e', 'An example', 5)));
+  WriteLn('');
+  WriteLn('function RPos(Const Substr, Source: string) : SizeInt;');
+  WriteLn('    Searchs a substring from the right');
   WriteLn('    RPos(''e'', ''An example'') -> ' + 
     IntToStr(RPos('e', 'An example')));
   WriteLn('');

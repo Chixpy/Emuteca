@@ -60,7 +60,7 @@ const
   {< Run Software: Error code when Emulator = nil. }
   kErrorRunSoftNoSoftFile = -303;
   {< Run Software: Error code when soft file is not found. }
-  kErrorRunSoftNoEmuFile = -304;
+  kErrorRunSoftNoEmuFile = -305;
   {< Run Software: Error code when emulator exe is not found. }
   kError7zDecompress = -400;
   {< Base error const decompressing archive. }
@@ -253,7 +253,6 @@ function Key2DumpSt(aString: string): TEmutecaDumpStatus;
 function DumpSt2Key(aEDS: TEmutecaDumpStatus): string;
 function DumpSt2Str(aEDS: TEmutecaDumpStatus): string;
 function DumpSt2StrK(aEDS: TEmutecaDumpStatus): string;
-
 
 procedure EmuTKSearchAllRelatedFiles(OutFileList: TStrings;
   aFolder: string; aFileName: string; Extensions: TStrings;

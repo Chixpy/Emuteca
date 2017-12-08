@@ -352,10 +352,10 @@ begin
     // Hack for run system executables ;P
     if ExeFile = '' then
       { TODO : If not an executable try OpenDocument }
-      Result := ExecuteProcess(UTF8ToSys(TempParam), '')
+      Result := ExecuteProcess(UTF8ToWinCP(TempParam), '')
     else
-      Result := ExecuteProcess(UTF8ToSys(SysPath(ExeFile)),
-        UTF8ToSys(TempParam));
+      Result := ExecuteProcess(UTF8ToWinCP(SysPath(ExeFile)),
+        UTF8ToWinCP(TempParam));
 
     // Hack: If normal exit code <> 0, compare and set to 0
     //   So, this way 0 always is the correct exit of the program,
@@ -423,6 +423,7 @@ begin
   Developer := aIniFile.ReadString(ID, krsEmulatorDeveloperKey,
     Developer);
   WebPage := aIniFile.ReadString(ID, krsEmulatorWebPageKey, WebPage);
+
   Icon := aIniFile.ReadString(ID, krsEmulatorIconKey, Icon);
   Image := aIniFile.ReadString(ID, krsEmulatorImageKey, Image);
   InfoFile := aIniFile.ReadString(ID, krsEmulatorInfoFileKey, InfoFile);
@@ -435,10 +436,12 @@ procedure cEmutecaEmulator.SaveToIni(aIniFile: TCustomIniFile;
 begin
   if not assigned(aIniFile) then
     Exit;
+
   aIniFile.WriteString(ID, krsEmulatorNameKey, EmulatorName);
 
   aIniFile.WriteString(ID, krsEmulatorWorkingFoldeKey, WorkingFolder);
   aIniFile.WriteString(ID, krsEmulatorParametersKey, Parameters);
+  aIniFile.WriteString(ID, krsEmulatorFileExtKey, FileExt.CommaText);
   aIniFile.WriteInteger(ID, krsEmulatorExitCodeKey, ExitCode);
 
   aIniFile.WriteString(ID, krsEmulatorDeveloperKey, Developer);

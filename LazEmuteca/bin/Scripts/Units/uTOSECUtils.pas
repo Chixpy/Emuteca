@@ -7,10 +7,16 @@ It's far from perfect.
 Only to include in other programs.
 [Data]
 Name=Chixpy
-Version=
-Date=20171010
+Version=0.07
+Date=20171205
 [Changes]
-
+0.07
+  + TOSECExtractSoftLine: Lenguajes searched, so Copyright may be work better.
+  - TOSECExtractSoftLine: Don't Group.
+0.06
+  m TOSECExtractSoftLine: Group by (Sort)Title
+0.05
+  + TOSECExtractSoftLine: Using uETKStrUtils to extract articles
 [EndInfo]
 }
 
@@ -19,7 +25,8 @@ Date=20171010
 
 const
   TOSECIDSep = '|';
-  TOSECMaxCopy = 512;
+  TOSECValueSepBegin = '; ';
+  TOSECValueSepEnd = '';
   
 var
   TOSECVideo: Array of string;
@@ -48,76 +55,123 @@ begin
     'Commercial'];    
 end;
 
+// Internal procedure to log Errors
 procedure TOSECError(const aFile: string; aError: string);
 begin
   WriteLn('TOSEC ERROR: ' + aFile);
   WriteLn('  ' + aError);
 end;
 
-procedure TOSECAddStr(var aFlag: string; const aStr: string);
+// Internal procedure for adding values to a Emuteca tag
+procedure TOSECAddStr(var aTag: string; const aStr: string);
 begin
-  if aFlag = '' then 
-   aFlag := Trim(aStr)
+  if aTag = '' then 
+   aTag := Trim(aStr)
   else
-    aFlag := Trim(aFlag) + '; ' + Trim(aStr);
+    aTag := Trim(aTag) + TOSECValueSepBegin + Trim(aStr) + TOSECValueSepEnd;
 end;
   
+// Internal procedure for extracting a TOSEC tag
 function TOSECExtractTag(var Tags: String; Open, Close: String): String;
 var
-  oPos, cPos: Integer;
+  oPos, oLength, cPos: Integer;
 begin
   Result := '';
   oPos := Pos(Open, Tags);
-  if oPos = 0 then Exit;
+  if oPos = 0 then Exit; // Not found
 
-  cPos := PosEx(Close, Tags, oPos + Length(Open));
-  if cPos = 0 then Exit;
+  oLength := Length(Open);
+  cPos := PosEx(Close, Tags, oPos + oLength);
+  if cPos = 0 then Exit; // Not closed?
 
-  Result := Trim(Copy(Tags, oPos + Length(Open), cPos - oPos - Length(Open)));
-  if Result = '' then Result := '1';
+  Result := Trim(Copy(Tags, oPos + oLength, cPos - oPos - oLength));
+  if Result = '' then Result := '1'; // [a]
 
-  Tags := Trim(Copy(Tags, 1, oPos - 1) +
-    Copy(Tags, cPos + Length(Close), TOSECMaxCopy));
+  // Removing readed tag
+  Tags := Trim(AnsiLeftStr(Tags, oPos - 1) + ETKCopyFrom(Tags, 
+    cPos + Length(Close)));
 end;
 
-function TOSECExtractSoftLine(aStr, aIDKey: string): string;
+procedure TOSECReadDatFile(aTOSECFile, aSoftList: TStringList;
+  aIDKey: string);
+// Extracts all roms names from a TOSEC dat file and saves in a aSoftList
+//   with 'IDKeyValue + TOSECIDSep + ROMName' format.
+// * aTOSECFile: File of TOSEC dat
+// * aSoftList: Output StringList
+// * aIDKey: value key - 'sha1'/'crc'/'md5'
 var
-  SHA1: string;
-  Title: string;
-  aPos: integer;
+  i, aPos: integer;
+  aLine, aTitle, aID: string;
 begin
-  Result := '';
-
-  // <rom name="!Mario (2000-[..]
-  aStr := Trim(aStr);
-  if Pos('<rom', aStr) <> 1 then
-    Exit;
-
-  // Title - name="<Title.ext>"
-  aPos := Pos('name="',aStr);
-  if aPos < 1 then
-    Exit;
-
-  aStr := Copy(aStr, aPos + 6, TOSECMaxCopy);
-  aPos := Pos('"', aStr);
-  if aPos < 1 then
-    Exit;
-  Title := ExtractFilenameOnly(Copy(aStr, 1, aPos - 1));
-
-  aStr := Copy(aStr, aPos + 1, TOSECMaxCopy);
-
-  // SHA1 - sha1="<sha1>"
-  // md5=, crc32=, etc
-  aPos := Pos(LowerCase(aIDKey) + '="',aStr);
-  if aPos < 1 then
-    Exit;
-  aStr := Copy(aStr, aPos + Length(aIDKey) + 2, TOSECMaxCopy);
-  aPos := Pos('"', aStr);
-  if aPos < 1 then
-    Exit;
-  SHA1 := Copy(aStr, 1, aPos - 1);
-
-  Result := SHA1 + TOSECIDSep + Title;
+  aIDKey := LowerCase(aIDKey);
+  
+  aSoftList.BeginUpdate;
+  while i < aTOSECFile.Count do
+  begin
+    aLine := aTOSECFile[i];
+    
+    if Pos('<rom', aLine) > 1 then
+    begin
+      // Searching "name=" key for Title
+      // and joning next lines if not found
+      aPos := Pos('name="', aLine);
+      
+      // TODO: Check file end.
+      while (aPos < 1) do
+      begin
+        Inc(i);
+        aLine := aLine + aTOSECFile[i];
+        aPos := Pos('name="', aLine);
+      end;
+      
+      aLine := Trim(ETKCopyFrom(aLine, aPos + 6)); // Removing beginning
+      
+      aPos := Pos('"', aLine);      
+      // TODO: Check file end.
+      while (aPos < 1) do
+      begin
+        Inc(i);
+        aLine := aLine + aTOSECFile[i];
+        aPos := Pos('"', aLine);
+      end;
+      
+      aTitle := ExtractFilenameOnly(AnsiLeftStr(aLine, aPos - 1));
+      aLine := ETKCopyFrom(aLine, aPos + 1);
+      
+      // Searching "<aIDKey>=" key for ID
+      // SHA1 - sha1="<sha1>"
+      // md5=, crc32=, etc
+      aPos := Pos(aIDKey + '="', aLine);
+      
+      // TODO: Check file end.
+      while (aPos < 1) do
+      begin
+        Inc(i);
+        aLine := aLine + aTOSECFile[i];
+        aPos := Pos(aIDKey + '="', aLine);
+      end;     
+      
+      aLine := Trim(ETKCopyFrom(aLine, aPos + Length(aIDKey) + 2));
+      
+      aPos := Pos('"', aLine);      
+      // TODO: Check file end.
+      while (aPos < 1) do
+      begin
+        Inc(i);
+        aLine := aLine + aTOSECFile[i];
+        aPos := Pos('"', aLine);
+      end;
+      
+      aID := ExtractFilenameOnly(AnsiLeftStr(aLine, aPos - 1));      
+      
+      aSoftList.Add(aID + TOSECIDSep + aTitle);
+    end;   
+    
+    if (i and 1023) = 1023 then
+      WriteLn(IntToStr(i) + ' lines analized.');
+    Inc(i);
+  end;
+  aSoftList.EndUpdate;
 end;
 
 function TOSECExtractInfo(aSoftLine: string): string;
@@ -166,9 +220,9 @@ begin
   aPos := Pos(TOSECIDSep, SoftStr);
   if aPos < 1 then 
     Exit;
-  DBID := Copy(SoftStr, 1, aPos -1);
-  
-  SoftStr := Copy(SoftStr, aPos + 1, TOSECMaxCopy);
+    
+  DBID := AnsiLeftStr(SoftStr, aPos -1);  
+  SoftStr := ETKCopyFrom(SoftStr, aPos + 1);
   
   // Title (+ Version) (+ Demo)
   // -----------------
@@ -176,21 +230,19 @@ begin
   // FIX: Searching mandatory space, some game have '(' in Title
   //   and ' (' too.. 
   // FIX2: Searching ' (' from right, then '(demo)' will be in DBTitle.
-
-  // TODO:
-  // Metroid - Wall Jump (2004)(VL-Tone)[h][Metroid (Eu)] No YEAR or PUBLISHER found.
-  // Metroid - AutoMap (2004-06-11)(Parasyte)[h][Metroid (US)] No YEAR or PUBLISHER found.
+  // FIX3: Searching from 8th character (year+pub) from the right, this may
+  //   fix: Metroid - Wall Jump (2004)(VL-Tone)[h][Metroid (Eu)]
 
   
-  aPos := RPos(' (', SoftStr);
+  aPos := RPosEx(' (', SoftStr, Length(SoftStr) - 8);
   if aPos < 1 then
   begin
     TOSECError(aSoftLine, 'No flags found.');
     Exit;
   end;
   
-  DBTitle := Trim(Copy(SoftStr, 1, aPos - 1)); // Title [+ version] [+ Demo]
-  SoftStr := Trim(Copy(SoftStr, aPos, TOSECMaxCopy)); // Flags 
+  DBTitle := Trim(AnsiLeftStr(SoftStr, aPos - 1)); // Title [+ version] [+ Demo]
+  SoftStr := Trim(ETKCopyFrom(SoftStr, aPos)); // Flags 
      
   // Demo (opt)
   // -----------------
@@ -200,13 +252,13 @@ begin
   if TempDemo <> '' then
   begin
     if Pos('-', TempDemo) = 1 then
-      TempDemo := Trim(Copy(TempDemo, 2, TOSECMaxCopy));
+      TempDemo := Trim(ETKCopyFrom(TempDemo, 2));
   end;  
 
   // Playing with Title [+ version]
   // Too many problems
   // * ', The' / ', A' / ', El' / etc. 
-  // * Some games have "Game, The v 1", others "Game v 1, The " (wrong)
+  // * Some games have "Game, The v 1", others "Game v 1, The" (wrong)
   // * Version tags:
   //   Game v1
   //   Game v 1
@@ -216,29 +268,18 @@ begin
   //   Game PRG 1
   //   Game Whatever
   //   Too many cases...  
+  
+  // FIX: Checking wrong article position after version
+  // "Game v 1, The"
+  ETKFixTitle(DBTitle, DBSortTitle, TempStr); //DBSortTitle and TempStr unused
+  
   aPos := RPos(' ', DBTitle);
   if (aPos > 1) then
-  begin
-    TempStr := Trim(Copy(DBTitle, aPos + 1, TOSECMaxCopy)); // Last word
-    DBTitle := Trim(Copy(DBTitle, 1, aPos - 1)); 
-           
-    // FIX: Checking wrong article position after version
-    // As security check, article must have less than 5 chars (trimmed)  
-    if (Length(TempStr) < 5) and
-      (CompareText(DBTitle[Length(DBTitle)], ',') = 0) then
-    begin 
-      DBSortTitle := DBTitle + ' ' + TempStr // Keep as sort title
-      DBTitle := Trim(Copy(DBTitle, 1, Length(DBTitle) - 1)); // Removing ','
-      DBTitle := TempStr + ' ' + DBTitle; // Moving 'The' at beginning 
-      
-      aPos := RPos(' ', DBTitle); // Always aPos > 1
-      TempStr := Trim(Copy(DBTitle, aPos + 1, TOSECMaxCopy)); // Last word
-      DBTitle := Trim(Copy(DBTitle, 1, aPos - 1)); 
-    end;    
+  begin  
+    TempStr := Trim(ETKCopyFrom(DBTitle, aPos + 1)); // Last word
+    DBTitle := Trim(AnsiLeftStr(DBTitle, aPos - 1));     
     
-    // Trying to extract version...
-    // Length(TempStr) > 0 always
-    
+    // Trying to extract version...    
     // if Length(TempStr) = 1 then "V" => "5" Roman 
     if Length(TempStr) > 1 then
     begin
@@ -247,21 +288,19 @@ begin
         // A testing to diferenciate version with any other word...
         //   if TempStr[2] = number we can be sure that is a version.
         if (TempStr[2] <= '9') and (TempStr[2] >= '0') then
-          TOSECAddStr(DBVersion, 'v ' + Trim(Copy(TempStr, 2, TOSECMaxCopy)));
+          TOSECAddStr(DBVersion, 'v ' + Trim(ETKCopyFrom(TempStr, 2)));
       end
       else if (Length(TempStr) > 4) then
       begin
         if (Pos('rev', LowerCase(TempStr)) = 1) then
         begin // try revXXXXXX
           if (TempStr[4] <= '9') and (TempStr[4] >= '0') then
-            TOSECAddStr(DBVersion, 'v rev' + Trim(Copy(TempStr, 4,
-              TOSECMaxCopy)));
+            TOSECAddStr(DBVersion, 'v rev' + Trim(ETKCopyFrom(TempStr, 4)));
         end
         else if (Pos('prg', LowerCase(TempStr)) = 1) then
         begin // try PRGXXXXXX
           if (TempStr[4] <= '9') and (TempStr[4] >= '0') then
-            TOSECAddStr(DBVersion, 'v PRG' + Trim(Copy(TempStr, 4,
-              TOSECMaxCopy)));
+            TOSECAddStr(DBVersion, 'v PRG' + Trim(ETKCopyFrom(TempStr, 4)));
         end;
       end;
     end;
@@ -273,49 +312,33 @@ begin
       
       if aPos > 1 then
       begin
-        TempStr := Trim(Copy(DBTitle, aPos + 1, TOSECMaxCopy)) + 
-          ' ' + TempStr; // Last 2 words
-        DBTitle := Trim(Copy(DBTitle, 1, aPos - 1));         
+        TempStr := Trim(ETKCopyFrom(DBTitle, aPos + 1)) + ' ' + TempStr; // Last 2 words
+        DBTitle := Trim(AnsiLeftStr(DBTitle, aPos - 1));         
          
         if Pos('v ', LowerCase(TempStr)) = 1 then
         begin // try v XXXXXX
-          TOSECAddStr(DBVersion, 'v ' + Trim(Copy(TempStr, 2, TOSECMaxCopy)));
+          TOSECAddStr(DBVersion, 'v ' + Trim(ETKCopyFrom(TempStr, 2)));
         end
         else if Pos('rev ', LowerCase(TempStr)) = 1 then
         begin // try rev XXXXXX
-          TOSECAddStr(DBVersion, 'v rev' + Trim(Copy(TempStr, 4, TOSECMaxCopy)));
+          TOSECAddStr(DBVersion, 'v rev' + Trim(ETKCopyFrom(TempStr, 4)));
         end
         else if Pos('prg ', LowerCase(TempStr)) = 1 then
         begin // try PRG XXXXXX
-          TOSECAddStr(DBVersion, 'v PRG' + Trim(Copy(TempStr, 4, TOSECMaxCopy)));
+          TOSECAddStr(DBVersion, 'v PRG' + Trim(ETKCopyFrom(TempStr, 4)));
         end;
       end;     
     end;    
 
     if DBVersion = '' then
       // Version not found: Restoring Title
-      DBTitle := DBTitle + ' ' + TempStr;     
-    
-    // Checking well placed article before version
-    // If there is no version, it's already checked, so we will do that if
-    //   DBSortTitle = '';
-    if DBSortTitle = '' then
-    begin
-      aPos := RPos(' ', DBTitle); 
-      if aPos > 1 then
-      begin     
-        // As security artique must have less than 6 chars (5 + space)
-        if ((Length(DBTitle) - aPos) < 6) and 
-          (DBTitle[aPos - 1] = ',') then
-        begin
-          DBSortTitle := DBTitle; // Keep as sort title
-          TempStr := Trim(Copy(DBTitle, aPos + 1, TOSECMaxCopy)); // Last word
-          DBTitle := Trim(Copy(DBTitle, 1, aPos - 2)); // Removing ','          
-          DBTitle := TempStr + ' ' + DBTitle; // Moving 'The' at beginning 
-        end;
-      end; 
-    end;     
+      DBTitle := DBTitle + ' ' + TempStr;  
   end;  
+  
+  // Checking well placed article before version
+  //  and setting DBSortTitle
+  ETKFixTitle(DBTitle, DBSortTitle, TempStr); //TempStr unused
+
   
   // Adding Demo in Version
   if TempDemo <> '' then
@@ -367,7 +390,7 @@ begin
     if TempStr = TOSECSystem[i] then
     begin
       TOSECAddStr(DBVersion, 'System ' + TempStr);
-      SoftStr := Trim(Copy(SoftStr, aPos + 1, TOSECMaxCopy));
+      SoftStr := Trim(ETKCopyFrom(SoftStr, aPos + 1));
       i := High(TOSECSystem); // Break;
     end;
     Inc(i);
@@ -395,7 +418,7 @@ begin
       if TempStr = TOSECVideo[i] then
       begin
         TOSECAddStr(DBVersion, 'Video ' + TempStr);
-        SoftStr := Trim(Copy(SoftStr, aPos + 1, TOSECMaxCopy));
+        SoftStr := Trim(ETKCopyFrom(SoftStr, aPos + 1));
         i := High(TOSECVideo); // Break;
       end;
       Inc(i);
@@ -432,63 +455,43 @@ begin
       TempStr := AnsiReplaceText(TempStr, 'as', 'xa');
             
       DBZone := LowerCase(AnsiReplaceText(TempStr, '-', ','));
-      SoftStr := Trim(Copy(SoftStr, aPos + 1, TOSECMaxCopy));
+      SoftStr := Trim(ETKCopyFrom(SoftStr, aPos + 1));
     end;    
   end;
   
   // Language
   // --------
+  // // '(' + Language + ')' -> es, pt, fr, ... es-pt
   
   // Removing (M) flag, it don't actually says wich languages has.
   // If (M) found then don't try to search language
   TempStr := TOSECExtractTag(SoftStr, '(M', ')');
   if TempStr = '' then
-  begin
-    // TODO: Search language(s)
-    // After searching... Emuteca don't store it in Soft Data, but it can be
-    //   used for a "future" Tag tree
+  begin  
   
-{
-  // Language
-  // -----------------
-  // '(' + Language + ')' -> es, pt, fr, ... es-pt
-  if Pos('(', SoftStr) = 1 then
-  begin
-    aPos := Pos(')', SoftStr);
-    if aPos = 0 then
+    // Actual search
+    // TODO: It's added to version, but this must go as tag...
+    if Pos('(', SoftStr) = 1 then
     begin
-      TOSECError(aSoftLine, 'No ")" found at LANGUAGE flag.');
-      Exit;
-    end;
-    
-    TempStr := Copy(SoftStr, 2, aPos - 2);
-    
-    if ((Length(TempStr) + 1) mod 3 = 0) and (TempStr = AnsiLowerCase(TempStr))
-    then
-    begin
-      TempStr := '"' + AnsiReplaceText(TempStr, '-', '","') + '"';
-      aGame.Languages.CommaText := TempStr;
-      aGame.Languages.Sort;
-      SoftStr := Trim(Copy(SoftStr, aPos + 1, TOSECMaxCopy)); 
-    end;    
-  end;
-  // if no languages found...
-  if (aGame.Languages.Count = 0) and (aGame.Zones.Count <> 0) then
-  begin
-    TempStr := 
-    aPos := StrToIntDef(TempStr, 0);
-    // We add zones to languajes...
-    aGame.Languages.CommaText := aGame.Zones.CommaText;
+      aPos := Pos(')', SoftStr);
+      if aPos = 0 then
+      begin
+        TOSECError(aSoftLine, 'No ")" found at LANGUAGE flag.');
+        Exit;
+      end;
+          
+      TempStr := Copy(SoftStr, 2, aPos - 2);
+      
+      // We don't need to check Copyright tag because is lowercase...
 
-    // if there are less zones that the number in M flag
-    //   we adds undefined lenguages.
-    while aPos > aGame.Languages.Count do
-    begin
-      aGame.Languages.Add('Undefined lang ' + IntToStr(
-        aGame.Languages.Count));
+      if ((Length(TempStr) + 1) mod 3 = 0) and (TempStr = AnsiLowerCase(TempStr))
+      then
+      begin
+        TempStr := AnsiReplaceText(TempStr, '-', ',');
+        TOSECAddStr(DBVersion, 'Language ' + TempStr);
+        SoftStr := Trim(ETKCopyFrom(SoftStr, aPos + 1));
+      end;    
     end;
-  end;
-}
   end;
 
   // Copyright
@@ -512,7 +515,7 @@ begin
       if TempStr = TOSECCopyright[i] then
       begin
         TOSECAddStr(DBVersion, 'Copyright ' + TOSECCopyrightStr[i]);
-        SoftStr := Trim(Copy(SoftStr, aPos + 1, TOSECMaxCopy));
+        SoftStr := Trim(ETKCopyFrom(SoftStr, aPos + 1));
         i := High(TOSECCopyright); // Break;
       end;
       Inc(i);
@@ -649,9 +652,9 @@ begin
   //"Group","SHA1","ID","Folder","FileName","Title","TransliteratedName",
   //"SortTitle","Version","Year","Publisher","Zone","DumpStatus","DumpInfo",
   //"Fixed","Trainer","Translation","Pirate","Cracked","Modified","Hack"
-  Result := krsImportKeepValue + ',,' + DBID + ','
-    + krsImportKeepValue + ',' + krsImportKeepValue + ',"' + DBTitle + '",'
-    + krsImportKeepValue + ',"' + DBSortTitle + '","' + DBVersion + '","'
+  Result := '"' + krsImportKeepValue + '",,"' + DBID + '","'
+    + krsImportKeepValue + '","' + krsImportKeepValue + '","' + DBTitle + '","'
+    + krsImportKeepValue + '","' + DBSortTitle + '","' + DBVersion + '","'
     + DBYear + '","' + DBPublisher + '","' + DBZone + '","'
     + DBDumpStatus + '","' + DBDumpInfo + '","' + DBFixed + '","'
     + DBTrainer + '","' + DBTranslation + '","' + DBPirate + '","'

@@ -8,6 +8,5 @@
 {"hash":229999502,"name":"tfmemutecaactaddfolder.rgbfilename.caption","sourcebytes":[73,102,32,100,117,112,108,105,99,97,116,101,32,102,105,108,101,32,102,111,117,110,100,46,46,46],"value":"If duplicate file found..."},
 {"hash":196087407,"name":"tfmemutecaactaddfolder.gbxsysinfo.caption","sourcebytes":[83,121,115,116,101,109,32,73,110,102,111],"value":"System Info"},
 {"hash":32784723,"name":"tfmemutecaactaddfolder.lsystemextensions.caption","sourcebytes":[83,121,115,116,101,109,32,101,120,116,101,110,115,105,111,110,115],"value":"System extensions"},
-{"hash":222016537,"name":"tfmemutecaactaddfolder.lsystemexportkey.caption","sourcebytes":[83,121,115,116,101,109,32,101,120,112,111,114,116,32,107,101,121],"value":"System export key"},
-{"hash":231163449,"name":"tfmemutecaactaddfolder.esystemexportkey.text","sourcebytes":[101,83,121,115,116,101,109,69,120,112,111,114,116,75,101,121],"value":"eSystemExportKey"}
+{"hash":222016537,"name":"tfmemutecaactaddfolder.lsystemexportkey.caption","sourcebytes":[83,121,115,116,101,109,32,101,120,112,111,114,116,32,107,101,121],"value":"System export key"}
 ]}
