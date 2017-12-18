@@ -168,8 +168,8 @@ begin
       TempSys.LoadFromIni(aIniFile);
 
       if assigned(ProgressCallBack) then
-        ProgressCallBack(rsLoadingSystemList, TempSys.ID,
-          TempSys.Title, i, TempList.Count);
+        ProgressCallBack(rsLoadingSystemList, TempSys.Title, TempSys.ID,
+           i, TempList.Count);
 
       FullList.Add(TempSys);
       Inc(i);
@@ -207,8 +207,8 @@ begin
     aSystem := cEmutecaSystem(FullList[i]);
 
     if assigned(ProgressCallBack) then
-      ProgressCallBack(rsSavingSystemList, aSystem.ID,
-        aSystem.Title, i, FullList.Count);
+      ProgressCallBack(rsSavingSystemList, aSystem.Title, aSystem.ID,
+        i, FullList.Count);
 
     aSystem.SaveToIni(aIniFile, ExportMode);
     Inc(i);

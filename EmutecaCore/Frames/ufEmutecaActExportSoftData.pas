@@ -184,12 +184,16 @@ begin
   if (eExportFile.FileName = '') or (not assigned(System)) then
     Exit;
 
+  Self.Enabled:= False;
+
   PCB := System.ProgressCallBack;
   System.ProgressCallBack := @(frmCHXProgressBar.UpdTextAndBar);
 
   System.SaveSoftGroupLists(ChangeFileExt(eExportFile.FileName, ''), True);
 
   System.ProgressCallBack := PCB;
+
+  Self.Enabled:= True;
 end;
 
 class function TfmActExportSoftData.SimpleForm(aEmuteca: cEmuteca;

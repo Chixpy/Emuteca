@@ -4,7 +4,7 @@ inherited fmEmutecaGroupEditor: TfmEmutecaGroupEditor
   ClientHeight = 275
   ClientWidth = 253
   inherited pButtons: TPanel
-    Top = 248
+    Top = 249
     Width = 253
     ClientWidth = 253
     TabOrder = 5
@@ -21,9 +21,11 @@ inherited fmEmutecaGroupEditor: TfmEmutecaGroupEditor
   object eDeveloper: TEdit[1]
     Left = 0
     Height = 23
-    Top = 46
+    Top = 54
     Width = 253
     Align = alTop
+    ParentShowHint = False
+    ShowHint = True
     TabOrder = 2
     TextHint = 'Developer'
   end
@@ -33,33 +35,41 @@ inherited fmEmutecaGroupEditor: TfmEmutecaGroupEditor
     Top = 0
     Width = 253
     Align = alTop
+    ParentShowHint = False
+    ShowHint = True
     TabOrder = 0
     TextHint = 'Title'
   end
   object eYear: TEdit[3]
     Left = 0
     Height = 23
-    Top = 69
+    Top = 81
     Width = 253
     Align = alTop
+    ParentShowHint = False
+    ShowHint = True
     TabOrder = 3
     TextHint = 'Year'
   end
   object eSortTitle: TEdit[4]
     Left = 0
     Height = 23
-    Top = 23
+    Top = 27
     Width = 253
     Align = alTop
+    ParentShowHint = False
+    ShowHint = True
     TabOrder = 1
     TextHint = 'Sort title (Empty = Title)'
   end
   object eMediaFile: TEdit[5]
     Left = 0
     Height = 23
-    Top = 92
+    Top = 108
     Width = 253
     Align = alTop
+    ParentShowHint = False
+    ShowHint = True
     TabOrder = 4
     TextHint = 'Media filename'
   end

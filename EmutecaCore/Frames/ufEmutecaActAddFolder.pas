@@ -217,6 +217,8 @@ begin
   if not assigned(aSystem) then
     Exit;
 
+  Self.Enabled := False;
+
   // Copy soft
   CacheSoftList := cEmutecaSoftList.Create(False);
   CacheSoftList.Assign(aSystem.SoftManager.FullList);
@@ -278,6 +280,8 @@ begin
     ComprFileList.Free;
     FileList.Free;
     CacheSoftList.Free;
+
+    Self.Enabled := True;
   end;
 end;
 

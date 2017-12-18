@@ -47,5 +47,7 @@
 {"hash":224234142,"name":"tfmlemutkmediamanager.actrenamegrouptitle.caption","sourcebytes":[82,101,110,97,109,101,32,103,114,111,117,112,32,116,105,116,108,101,46,46,46],"value":"Rename group title..."},
 {"hash":163891310,"name":"tfmlemutkmediamanager.actmovefile.caption","sourcebytes":[77,111,118,101,32,102,105,108,101,46,46,46],"value":"Move file..."},
 {"hash":169536446,"name":"tfmlemutkmediamanager.actmoveallfiles.caption","sourcebytes":[77,111,118,101,32,97,108,108,32,102,105,108,101,115,46,46,46],"value":"Move all files..."},
-{"hash":47140547,"name":"tfmlemutkmediamanager.actdeleteallfiles.caption","sourcebytes":[68,101,108,101,116,101,32,97,108,108,32,102,105,108,101,115],"value":"Delete all files"}
+{"hash":47140547,"name":"tfmlemutkmediamanager.actdeleteallfiles.caption","sourcebytes":[68,101,108,101,116,101,32,97,108,108,32,102,105,108,101,115],"value":"Delete all files"},
+{"hash":197050309,"name":"tfmlemutkmediamanager.actrenamegroupfilewithfilename.caption","sourcebytes":[82,101,110,97,109,101,32,103,114,111,117,112,32,102,105,108,101,32,119,105,116,104,32,99,117,114,114,101,110,116,32,70,105,108,101],"value":"Rename group file with current File"},
+{"hash":70093301,"name":"tfmlemutkmediamanager.actrenamegrouptitlewithfilenamr.caption","sourcebytes":[82,101,110,97,109,101,32,103,114,111,117,112,32,116,105,116,108,101,32,119,105,116,104,32,99,117,114,114,101,110,116,32,70,105,108,101],"value":"Rename group title with current File"}
 ]}

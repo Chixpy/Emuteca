@@ -154,12 +154,16 @@ begin
   if (eImportFile.FileName = '') or (not assigned(System)) then
     Exit;
 
+  Self.Enabled:= False;
+
   PCB := System.ProgressCallBack;
   System.ProgressCallBack := @(frmCHXProgressBar.UpdTextAndBar);
 
   System.ImportSoftGroupLists(ChangeFileExt(eImportFile.FileName, ''));
 
   System.ProgressCallBack := PCB;
+
+  Self.Enabled:= True;
 end;
 
 class function TfmEmutecaActImportSoftData.SimpleForm(aEmuteca: cEmuteca;

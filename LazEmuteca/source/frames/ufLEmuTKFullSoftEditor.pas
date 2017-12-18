@@ -185,18 +185,18 @@ constructor TfmLEmuTKFullSoftEditor.Create(TheOwner: TComponent);
     fmGroupCBX.OnSelectGroup := @SelectGroup;
     fmGroupCBX.Parent := pGroupCBX;
 
-    FfmGroupEditor := TfmEmutecaGroupEditor.Create(gbxGroup);
-    fmGroupEditor.Align := alClient;
-    FfmGroupEditor.SaveButtons := False;
-    FfmGroupEditor.ButtonClose := False;
-    fmGroupEditor.Parent := gbxGroup;
-
     FfmSoftEditor := TfmEmutecaSoftEditor.Create(sbxSoft);
     //fmSoftEditor.Align := alTop;
     fmSoftEditor.SaveButtons := False;
     fmSoftEditor.ButtonClose := False;
     fmSoftEditor.Parent := sbxSoft;
-  end;
+
+    FfmGroupEditor := TfmEmutecaGroupEditor.Create(gbxGroup);
+    fmGroupEditor.Align := alClient;
+    FfmGroupEditor.SaveButtons := False;
+    FfmGroupEditor.ButtonClose := False;
+    fmGroupEditor.Parent := gbxGroup;
+end;
 
 begin
   inherited Create(TheOwner);

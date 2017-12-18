@@ -26,7 +26,7 @@ unit ucEmutecaEmulator;
 interface
 
 uses  Classes, SysUtils, FileUtil, StrUtils, LazUTF8, LazFileUtils,
-  IniFiles,
+  IniFiles, lclintf,
   // CHX units
   uCHXStrUtils,
   ucEmutecaPlayingStats;
@@ -350,9 +350,16 @@ begin
 
   try
     // Hack for run system executables ;P
+    // ... and try to open with default player
     if ExeFile = '' then
-      { TODO : If not an executable try OpenDocument }
-      Result := ExecuteProcess(UTF8ToWinCP(TempParam), '')
+    begin
+      { TODO : OpenDocument can execute executables? }
+      if SupportedExtCT(TempParam, 'exe,com,bat,cmd') then
+        Result := ExecuteProcess(UTF8ToWinCP(TempParam), '')
+      else
+        // This don't keep statistics and file is deleted if it's extracted
+        OpenDocument(TempParam);
+    end
     else
       Result := ExecuteProcess(UTF8ToWinCP(SysPath(ExeFile)),
         UTF8ToWinCP(TempParam));

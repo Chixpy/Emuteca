@@ -34,6 +34,8 @@ type
     actAssignFile: TAction;
     actDeleteFile: TAction;
     actDeleteAllFiles: TAction;
+    actRenameGroupTitleWithFilenamr: TAction;
+    actRenameGroupFileWithFilename: TAction;
     actMoveAllFiles: TAction;
     actMoveFile: TAction;
     actRenameGroupTitle: TAction;
@@ -59,6 +61,9 @@ type
     lbxTexts: TListBox;
     lbxVideos: TListBox;
     MenuItem1: TMenuItem;
+    MenuItem3: TMenuItem;
+    migpRenameGroupFileWithFile: TMenuItem;
+    migpRenameGroupTitleWithFile: TMenuItem;
     miflDeleteAllFiles: TMenuItem;
     miflMoveAllFiles: TMenuItem;
     miflMoveFile: TMenuItem;

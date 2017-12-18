@@ -104,6 +104,7 @@ inherited fmEmutecaSystemEditor: TfmEmutecaSystemEditor
         Align = alTop
         AutoDropDown = True
         ItemHeight = 15
+        Sorted = True
         Style = csDropDownList
         TabOrder = 0
       end
@@ -123,6 +124,7 @@ inherited fmEmutecaSystemEditor: TfmEmutecaSystemEditor
         Width = 249
         Align = alClient
         ItemHeight = 0
+        Sorted = True
         TabOrder = 1
       end
     end
@@ -142,7 +144,7 @@ inherited fmEmutecaSystemEditor: TfmEmutecaSystemEditor
     Caption = 'Files'
     ClientHeight = 379
     ClientWidth = 206
-    TabOrder = 2
+    TabOrder = 1
     object lBaseFolder: TLabel
       Left = 0
       Height = 15
@@ -182,6 +184,7 @@ inherited fmEmutecaSystemEditor: TfmEmutecaSystemEditor
       Top = 168
       Width = 206
       Align = alClient
+      ScrollBars = ssAutoBoth
       TabOrder = 4
     end
     object rgbGameKey: TRadioGroup

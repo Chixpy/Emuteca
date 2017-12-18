@@ -22,34 +22,34 @@ inherited fmEmuTKSystemImgEditor: TfmEmuTKSystemImgEditor
   end
   object gbxImages: TGroupBox[1]
     Left = 0
-    Height = 266
+    Height = 371
     Top = 0
-    Width = 600
+    Width = 359
     Align = alClient
     Caption = 'System images'
     ChildSizing.EnlargeHorizontal = crsScaleChilds
     ChildSizing.EnlargeVertical = crsScaleChilds
     ChildSizing.ShrinkHorizontal = crsScaleChilds
     ChildSizing.ShrinkVertical = crsScaleChilds
-    ChildSizing.Layout = cclTopToBottomThenLeftToRight
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 1
-    ClientHeight = 246
-    ClientWidth = 596
+    ClientHeight = 351
+    ClientWidth = 355
     TabOrder = 0
     object gbxSystemImage: TGroupBox
       Left = 0
-      Height = 246
+      Height = 176
       Top = 0
-      Width = 276
+      Width = 355
       Caption = 'System image'
-      ClientHeight = 226
-      ClientWidth = 272
+      ClientHeight = 156
+      ClientWidth = 351
       TabOrder = 0
       object eSystemImage: TFileNameEdit
         Left = 0
         Height = 23
         Top = 0
-        Width = 272
+        Width = 351
         OnAcceptFileName = eSystemImageAcceptFileName
         DialogKind = dkPictureOpen
         DialogOptions = [ofNoChangeDir, ofEnableSizing, ofViewDetail]
@@ -65,10 +65,10 @@ inherited fmEmuTKSystemImgEditor: TfmEmuTKSystemImgEditor
       end
       object iSystemImage: TImage
         Left = 0
-        Height = 203
+        Height = 133
         Hint = 'System image|DblClk: Open in Image viewer.'
         Top = 23
-        Width = 272
+        Width = 351
         Align = alClient
         Center = True
         OnDblClick = iSystemImageDblClick
@@ -78,19 +78,19 @@ inherited fmEmuTKSystemImgEditor: TfmEmuTKSystemImgEditor
       end
     end
     object gbxSystemBG: TGroupBox
-      Left = 276
-      Height = 246
-      Top = 0
-      Width = 320
+      Left = 0
+      Height = 175
+      Top = 176
+      Width = 355
       Caption = 'System background'
-      ClientHeight = 226
-      ClientWidth = 316
+      ClientHeight = 155
+      ClientWidth = 351
       TabOrder = 1
       object eSystemBG: TFileNameEdit
         Left = 0
         Height = 23
         Top = 0
-        Width = 316
+        Width = 351
         OnAcceptFileName = eSystemBGAcceptFileName
         DialogKind = dkPictureOpen
         DialogOptions = [ofNoChangeDir, ofEnableSizing, ofViewDetail]
@@ -106,9 +106,9 @@ inherited fmEmuTKSystemImgEditor: TfmEmuTKSystemImgEditor
       end
       object iSystemBG: TImage
         Left = 0
-        Height = 203
+        Height = 132
         Top = 23
-        Width = 316
+        Width = 351
         Align = alClient
         Center = True
         OnDblClick = iSystemBGDblClick
@@ -119,35 +119,35 @@ inherited fmEmuTKSystemImgEditor: TfmEmuTKSystemImgEditor
     end
   end
   object gbxSystemIcons: TGroupBox[2]
-    Left = 0
-    Height = 105
-    Top = 266
-    Width = 600
-    Align = alBottom
+    Left = 359
+    Height = 371
+    Top = 0
+    Width = 241
+    Align = alRight
     Caption = 'System Icons'
     ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
     ChildSizing.EnlargeVertical = crsHomogenousChildResize
     ChildSizing.ShrinkHorizontal = crsHomogenousChildResize
     ChildSizing.ShrinkVertical = crsHomogenousChildResize
-    ChildSizing.Layout = cclTopToBottomThenLeftToRight
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 1
-    ClientHeight = 85
-    ClientWidth = 596
+    ClientHeight = 351
+    ClientWidth = 237
     TabOrder = 1
     object gbxSystemIcon: TGroupBox
       Left = 0
-      Height = 85
+      Height = 221
       Top = 0
-      Width = 287
+      Width = 237
       Caption = 'System icon'
-      ClientHeight = 65
-      ClientWidth = 283
+      ClientHeight = 201
+      ClientWidth = 233
       TabOrder = 0
       object eSystemIcon: TFileNameEdit
         Left = 0
         Height = 23
         Top = 0
-        Width = 283
+        Width = 233
         OnAcceptFileName = eSystemIconAcceptFileName
         DialogKind = dkPictureOpen
         DialogOptions = [ofNoChangeDir, ofEnableSizing, ofViewDetail]
@@ -163,9 +163,9 @@ inherited fmEmuTKSystemImgEditor: TfmEmuTKSystemImgEditor
       end
       object iSystemIcon: TImage
         Left = 0
-        Height = 42
+        Height = 178
         Top = 23
-        Width = 283
+        Width = 233
         Align = alClient
         Center = True
         OnDblClick = iSystemIconDblClick
@@ -175,20 +175,20 @@ inherited fmEmuTKSystemImgEditor: TfmEmuTKSystemImgEditor
       end
     end
     object gbxIconFolder: TGroupBox
-      Left = 287
-      Height = 85
-      Top = 0
-      Width = 309
+      Left = 0
+      Height = 130
+      Top = 221
+      Width = 237
       AutoSize = True
       Caption = 'Software icons folder'
-      ClientHeight = 65
-      ClientWidth = 305
+      ClientHeight = 110
+      ClientWidth = 233
       TabOrder = 1
       object eSoftIconFolder: TDirectoryEdit
         Left = 0
         Height = 23
         Top = 0
-        Width = 305
+        Width = 233
         DialogOptions = [ofNoChangeDir, ofEnableSizing, ofViewDetail]
         ShowHidden = False
         ButtonWidth = 23

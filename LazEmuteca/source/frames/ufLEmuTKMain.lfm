@@ -3,7 +3,7 @@ inherited fmLEmuTKMain: TfmLEmuTKMain
   Width = 640
   ClientHeight = 480
   ClientWidth = 640
-  DesignLeft = 384
+  DesignLeft = 387
   DesignTop = 110
   object Splitter1: TSplitter[0]
     Left = 200

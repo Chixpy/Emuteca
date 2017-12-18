@@ -22,11 +22,13 @@ type
   { TfmEmutecaSoftTree }
 
   TfmEmutecaSoftTree = class(TfmCHXFrame)
+    actRunSoftware: TAction;
     actMergeGroupFiles: TAction;
     ActionList: TActionList;
-    mistMergeGroupFiles: TMenuItem;
-    mistGroup: TMenuItem;
-    pmSoftTree: TPopupMenu;
+    miPMSRunSoftware: TMenuItem;
+    miPMGMergeGroupFiles: TMenuItem;
+    pmSTGroup: TPopupMenu;
+    pmSTSoft: TPopupMenu;
     StatusBar: TStatusBar;
     VDT: TVirtualStringTree;
     VTHPopupMenu: TVTHeaderPopupMenu;
@@ -38,6 +40,9 @@ type
     procedure VDTGetHint(Sender: TBaseVirtualTree; Node: PVirtualNode;
       Column: TColumnIndex; var LineBreakStyle: TVTTooltipLineBreakStyle;
       var HintText: string);
+    procedure VDTGetPopupMenu(Sender: TBaseVirtualTree; Node: PVirtualNode;
+      Column: TColumnIndex; const P: TPoint; var AskParent: Boolean;
+      var aPopupMenu: TPopupMenu);
     procedure VDTGetText(Sender: TBaseVirtualTree; Node: PVirtualNode;
       Column: TColumnIndex; TextType: TVSTTextType; var CellText: string);
     procedure VDTInitChildren(Sender: TBaseVirtualTree;
@@ -45,7 +50,6 @@ type
     procedure VDTInitNode(Sender: TBaseVirtualTree;
       ParentNode, Node: PVirtualNode;
       var InitialStates: TVirtualNodeInitStates);
-
   private
     FGroupList: cEmutecaGroupList;
     FOnDblClkGroup: TEmutecaReturnGroupCB;
@@ -508,6 +512,26 @@ begin
   else if pData^ is cEmutecaSoftware then
   begin
     GetSoftHint(cEmutecaSoftware(pData^), Column, LineBreakStyle, HintText);
+  end;
+end;
+
+procedure TfmEmutecaSoftTree.VDTGetPopupMenu(Sender: TBaseVirtualTree;
+  Node: PVirtualNode; Column: TColumnIndex; const P: TPoint;
+  var AskParent: Boolean; var aPopupMenu: TPopupMenu);
+var
+  pData: ^TObject;
+begin
+  pData := Sender.GetNodeData(Node);
+  if pData^ = nil then
+    Exit;
+
+  if pData^ is cEmutecaGroup then
+  begin
+    aPopupMenu := pmSTGroup;
+  end
+  else if pData^ is cEmutecaSoftware then
+  begin
+    aPopupMenu := pmSTSoft;
   end;
 end;
 

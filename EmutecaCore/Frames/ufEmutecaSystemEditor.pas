@@ -227,6 +227,7 @@ begin
 
   chkExtractAllFiles.Checked := System.ExtractAll;
 
+  System.Extensions.Sort;
   mExtensions.Lines.Assign(System.Extensions);
 end;
 

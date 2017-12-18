@@ -788,6 +788,14 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
       Caption = 'Delete all files'
       OnExecute = actDeleteAllFilesExecute
     end
+    object actRenameGroupFileWithFilename: TAction
+      Category = 'Groups'
+      Caption = 'Rename group file with current File'
+    end
+    object actRenameGroupTitleWithFilenamr: TAction
+      Category = 'Groups'
+      Caption = 'Rename group title with current File'
+    end
   end
   object ilActions: TImageList[8]
     left = 704
@@ -801,6 +809,15 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
       Action = actAssignFile
     end
     object MenuItem2: TMenuItem
+      Caption = '-'
+    end
+    object migpRenameGroupTitleWithFile: TMenuItem
+      Action = actRenameGroupTitleWithFilenamr
+    end
+    object migpRenameGroupFileWithFile: TMenuItem
+      Action = actRenameGroupFileWithFilename
+    end
+    object MenuItem3: TMenuItem
       Caption = '-'
     end
     object migpRenameGroupTitle: TMenuItem

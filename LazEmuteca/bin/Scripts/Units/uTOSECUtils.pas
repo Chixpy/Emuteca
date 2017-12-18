@@ -7,9 +7,11 @@ It's far from perfect.
 Only to include in other programs.
 [Data]
 Name=Chixpy
-Version=0.07
-Date=20171205
+Version=0.08
+Date=20171212
 [Changes]
+0.08 20171212
+  f TOSECExtractSoftLine: Better flags search.
 0.07
   + TOSECExtractSoftLine: Lenguajes searched, so Copyright may be work better.
   - TOSECExtractSoftLine: Don't Group.
@@ -218,10 +220,10 @@ begin
   // --
   // ID + TOSECIDSep + TOSEC Title
   aPos := Pos(TOSECIDSep, SoftStr);
-  if aPos < 1 then 
+  if aPos < 2 then
     Exit;
     
-  DBID := AnsiLeftStr(SoftStr, aPos -1);  
+  DBID := AnsiLeftStr(SoftStr, aPos - 1);
   SoftStr := ETKCopyFrom(SoftStr, aPos + 1);
   
   // Title (+ Version) (+ Demo)
@@ -230,11 +232,13 @@ begin
   // FIX: Searching mandatory space, some game have '(' in Title
   //   and ' (' too.. 
   // FIX2: Searching ' (' from right, then '(demo)' will be in DBTitle.
-  // FIX3: Searching from 8th character (year+pub) from the right, this may
-  //   fix: Metroid - Wall Jump (2004)(VL-Tone)[h][Metroid (Eu)]
-
+  // FIX3: Searching from first ')[', this will fix:
+  //   Metroid - Wall Jump (2004)(VL-Tone)[h][Metroid (Eu)]
   
-  aPos := RPosEx(' (', SoftStr, Length(SoftStr) - 8);
+  aPos := Pos(')[', SoftStr);
+  if aPos < 1 then
+    aPos := Length(SoftStr);
+  aPos := RPosEx(' (', SoftStr, aPos);
   if aPos < 1 then
   begin
     TOSECError(aSoftLine, 'No flags found.');

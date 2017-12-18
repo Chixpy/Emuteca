@@ -81,7 +81,6 @@ inherited fmEmutecaSoftTree: TfmEmutecaSoftTree
     Header.PopupMenu = VTHPopupMenu
     HintMode = hmHintAndDefault
     ParentShowHint = False
-    PopupMenu = pmSoftTree
     ShowHint = True
     TabOrder = 0
     TreeOptions.AutoOptions = [toAutoDropExpand, toAutoExpand, toAutoScroll, toAutoScrollOnExpand, toAutoSort, toAutoSpanColumns, toAutoTristateTracking, toAutoHideButtons, toAutoDeleteMovedNodes]
@@ -94,6 +93,7 @@ inherited fmEmutecaSoftTree: TfmEmutecaSoftTree
     OnDblClick = VDTDblClick
     OnGetText = VDTGetText
     OnGetHint = VDTGetHint
+    OnGetPopupMenu = VDTGetPopupMenu
     OnInitChildren = VDTInitChildren
     OnInitNode = VDTInitNode
   end
@@ -111,15 +111,23 @@ inherited fmEmutecaSoftTree: TfmEmutecaSoftTree
       Hint = 'Merge group files|Merges al group files in one folder or compressed archive.'
       OnExecute = actMergeGroupFilesExecute
     end
+    object actRunSoftware: TAction
+      Category = 'Game'
+      Caption = 'Run software'
+    end
   end
-  object pmSoftTree: TPopupMenu[4]
-    left = 234
-    top = 153
-    object mistGroup: TMenuItem
-      Caption = 'Group'
-      object mistMergeGroupFiles: TMenuItem
-        Action = actMergeGroupFiles
-      end
+  object pmSTGroup: TPopupMenu[4]
+    left = 200
+    top = 96
+    object miPMGMergeGroupFiles: TMenuItem
+      Action = actMergeGroupFiles
+    end
+  end
+  object pmSTSoft: TPopupMenu[5]
+    left = 330
+    top = 117
+    object miPMSRunSoftware: TMenuItem
+      Action = actRunSoftware
     end
   end
 end

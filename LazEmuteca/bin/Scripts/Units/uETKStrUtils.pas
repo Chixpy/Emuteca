@@ -30,7 +30,7 @@ procedure ETKFixTitleInit;
 begin
   ETKArticles := ['The', 'A', 
     'El', 'La', 'Los', 'Las', 'Un', 'Una', 'Unos', 'Unas',
-    'L''', 'Le', 'Les'];
+    'L''', 'Le', 'Les', 'Une', 'Des'];
 end;
   
 procedure ETKFixTitle(var aTitle: string; out SortTitle, MediaFile: string);

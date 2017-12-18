@@ -128,7 +128,7 @@ end;
 function caEmutecaCustomGroup.GetMediaFileName: string;
 begin
   if FMediaFileName = '' then
-    MediaFileName := Title;
+    MediaFileName := CleanFileName(SortTitle, True, False);
   Result := FMediaFileName;
 end;
 
@@ -144,9 +144,14 @@ end;
 procedure caEmutecaCustomGroup.SetMediaFileName(AValue: string);
 begin
   if AValue = '' then
-    FMediaFileName := CleanFileName(Title, True, False)
+    FMediaFileName := CleanFileName(SortTitle, True, False)
   else
     FMediaFileName := CleanFileName(AValue, True, False);
+
+  // Removing last dot "Super Mario Bros.", Windows have problems with
+  //   folders ended with dot
+  if (Length(FMediaFileName) > 0) and (FMediaFileName[Length(FMediaFileName)] = '.') then
+    FMediaFileName[Length(FMediaFileName)] := '_';
 end;
 
 procedure caEmutecaCustomGroup.SetSortTitle(AValue: string);
