@@ -52,9 +52,9 @@ type
     function MatchGroupFile: boolean; override;
 
     procedure SearchAllRelatedFiles(OutFileList: TStrings;
-      aFolder: string; Extensions: TStrings; AutoExtract: boolean); override;
+      aFolder: string; Extensions: TStrings; SearchInComp: boolean; AutoExtract: boolean); override;
     function SearchFirstRelatedFile(aFolder: string;
-      Extensions: TStrings; AutoExtract: boolean): string; override;
+      Extensions: TStrings; SearchInComp: boolean; AutoExtract: boolean): string; override;
 
     procedure FPOObservedChanged(ASender: TObject;
       Operation: TFPObservedOperation; Data: Pointer);
@@ -156,39 +156,21 @@ begin
 end;
 
 procedure cEmutecaSoftware.SearchAllRelatedFiles(OutFileList: TStrings;
-  aFolder: string; Extensions: TStrings; AutoExtract: boolean);
+  aFolder: string; Extensions: TStrings; SearchInComp: boolean;AutoExtract: boolean);
 begin
   if Assigned(CachedSystem) then
-  begin
-    if not MatchGroupFile then
-      EmuTKSearchAllRelatedFiles(OutFileList, aFolder, FileName, Extensions,
-        AutoExtract, CachedSystem.TempFolder);
-
-    if (OutFileList.Count > 0) or (not assigned(CachedGroup)) then
-      Exit;
-
-    CachedGroup.SearchAllRelatedFiles(OutFileList, aFolder,
-      Extensions, AutoExtract);
-  end
+      EmuTKSearchAllRelatedFiles(OutFileList, aFolder, GetMediaFileName, Extensions, SearchInComp,
+        AutoExtract, CachedSystem.TempFolder)
   else
     inherited;
 end;
 
 function cEmutecaSoftware.SearchFirstRelatedFile(aFolder: string;
-  Extensions: TStrings; AutoExtract: boolean): string;
+  Extensions: TStrings; SearchInComp: boolean; AutoExtract: boolean): string;
 begin
   if Assigned(CachedSystem) then
-  begin
-    if not MatchGroupFile then
-      Result := EmuTKSearchFirstRelatedFile(aFolder, FileName,
-        Extensions, True, AutoExtract, CachedSystem.TempFolder);
-
-    if (Result <> '') or (not assigned(CachedGroup)) then
-      Exit;
-
-    Result := CachedGroup.SearchFirstRelatedFile(aFolder,
-      Extensions, AutoExtract);
-  end
+      Result := EmuTKSearchFirstRelatedFile(aFolder, GetMediaFileName,
+        Extensions, SearchInComp, AutoExtract, CachedSystem.TempFolder)
   else
     Result := inherited;
 end;

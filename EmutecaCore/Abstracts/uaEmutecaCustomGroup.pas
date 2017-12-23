@@ -72,9 +72,9 @@ type
     procedure ImportFrom(aGroup: caEmutecaCustomGroup);
 
     procedure SearchAllRelatedFiles(OutFileList: TStrings;
-      aFolder: string; Extensions: TStrings; AutoExtract: boolean); virtual;
+      aFolder: string; Extensions: TStrings; SearchInComp: boolean; AutoExtract: boolean); virtual;
     function SearchFirstRelatedFile(aFolder: string;
-      Extensions: TStrings; AutoExtract: boolean): string; virtual;
+      Extensions: TStrings; SearchInComp: boolean; AutoExtract: boolean): string; virtual;
 
     constructor Create(aOwner: TComponent); override;
     destructor Destroy; override;
@@ -127,9 +127,16 @@ end;
 
 function caEmutecaCustomGroup.GetMediaFileName: string;
 begin
-  if FMediaFileName = '' then
-    MediaFileName := CleanFileName(SortTitle, True, False);
   Result := FMediaFileName;
+  if Result <> '' then Exit;
+
+  // Opps, it's empty
+
+  Result := CleanFileName(SortTitle, True, False);
+  // Removing last dots "Super Mario Bros.", Windows have problems with
+  //   removing folders ended with dot
+  while Utf8EndsText('.', Result) do
+    Result := Copy(Result, 1, Length(Result) - 1);
 end;
 
 procedure caEmutecaCustomGroup.SetID(AValue: string);
@@ -149,9 +156,9 @@ begin
     FMediaFileName := CleanFileName(AValue, True, False);
 
   // Removing last dot "Super Mario Bros.", Windows have problems with
-  //   folders ended with dot
-  if (Length(FMediaFileName) > 0) and (FMediaFileName[Length(FMediaFileName)] = '.') then
-    FMediaFileName[Length(FMediaFileName)] := '_';
+  //   removing folders ended with dot
+  if Utf8EndsText('.', FMediaFileName) then
+    FMediaFileName[UTF8LengthFast(FMediaFileName)] := '_';
 end;
 
 procedure caEmutecaCustomGroup.SetSortTitle(AValue: string);
@@ -288,20 +295,16 @@ begin
 end;
 
 procedure caEmutecaCustomGroup.SearchAllRelatedFiles(OutFileList: TStrings;
-  aFolder: string; Extensions: TStrings; AutoExtract: boolean);
+  aFolder: string; Extensions: TStrings; SearchInComp: boolean; AutoExtract: boolean);
 begin
-  // HACK: Dot added to MediaFileName, to preserve dots in ids like "Super Mario Bros."
-  EmuTKSearchAllRelatedFiles(OutFileList, aFolder, MediaFileName +
-    '.', Extensions,
-    False, '');
+  EmuTKSearchAllRelatedFiles(OutFileList, aFolder, MediaFileName, Extensions,
+    SearchInComp, AutoExtract, '');
 end;
 
 function caEmutecaCustomGroup.SearchFirstRelatedFile(aFolder: string;
-  Extensions: TStrings; AutoExtract: boolean): string;
+  Extensions: TStrings; SearchInComp: boolean; AutoExtract: boolean): string;
 begin
-  // HACK: Dot added to MediaFileName, to preserve dots in ids like "Super Mario Bros."
-  Result := EmuTKSearchFirstRelatedFile(aFolder, MediaFileName +
-    '.', Extensions, False, False, '');
+  Result := EmuTKSearchFirstRelatedFile(aFolder, MediaFileName, Extensions, SearchInComp, AutoExtract, '');
 end;
 
 constructor caEmutecaCustomGroup.Create(aOwner: TComponent);

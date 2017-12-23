@@ -104,7 +104,7 @@
         <PackageName Value="LCL"/>
       </Item8>
     </RequiredPackages>
-    <Units Count="113">
+    <Units Count="115">
       <Unit0>
         <Filename Value="LazEmuteca.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -701,6 +701,17 @@
         <Filename Value="..\CHXPas\ScriptManager\imports\uPSI_CHXBasic.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit112>
+      <Unit113>
+        <Filename Value="source\frames\ufLEmuTKactMergeGroup.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fmLEmuTKactMergeGroup"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+      </Unit113>
+      <Unit114>
+        <Filename Value="source\threads\utLEmuTKCacheSoftIcons.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit114>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

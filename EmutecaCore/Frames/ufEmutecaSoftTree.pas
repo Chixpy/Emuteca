@@ -6,16 +6,19 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, VirtualTrees, VTHeaderPopup, Forms, Controls,
-  Graphics, Dialogs, ComCtrls, ActnList, Menus, LazUTF8, LazFileUtils, IniFiles,
+  Graphics, Dialogs, ComCtrls, ActnList, Menus, LazUTF8,
+  LazFileUtils, IniFiles,
   ufCHXFrame,
   uLEmuTKCommon,
   uaEmutecaCustomSoft,
-  ucEmutecaGroupList, ucEmutecaGroup, ucEmutecaSoftware, uEmutecaCommon;
+  ucEmutecaGroupList, ucEmutecaGroup, ucEmutecaSoftware, uEmutecaCommon,
+  ufLEmuTKactMergeGroup;
 
 const
   krsIniSoftTreeSection = 'SoftTree';
   krsIniSoftTreeWidthFmt = 'Column%0:d_Width';
   krsIniSoftTreeVisibleFmt = 'Column%0:d_Visible';
+  krsIniSoftTreePositionFmt = 'Column%0:d_Position';
 
 type
 
@@ -32,7 +35,7 @@ type
     StatusBar: TStatusBar;
     VDT: TVirtualStringTree;
     VTHPopupMenu: TVTHeaderPopupMenu;
-    procedure actMergeGroupFilesExecute(Sender: TObject);
+    procedure actRunSoftwareExecute(Sender: TObject);
     procedure VDTChange(Sender: TBaseVirtualTree; Node: PVirtualNode);
     procedure VDTCompareNodes(Sender: TBaseVirtualTree;
       Node1, Node2: PVirtualNode; Column: TColumnIndex; var Result: integer);
@@ -40,9 +43,9 @@ type
     procedure VDTGetHint(Sender: TBaseVirtualTree; Node: PVirtualNode;
       Column: TColumnIndex; var LineBreakStyle: TVTTooltipLineBreakStyle;
       var HintText: string);
-    procedure VDTGetPopupMenu(Sender: TBaseVirtualTree; Node: PVirtualNode;
-      Column: TColumnIndex; const P: TPoint; var AskParent: Boolean;
-      var aPopupMenu: TPopupMenu);
+    procedure VDTGetPopupMenu(Sender: TBaseVirtualTree;
+      Node: PVirtualNode; Column: TColumnIndex; const P: TPoint;
+      var AskParent: boolean; var aPopupMenu: TPopupMenu);
     procedure VDTGetText(Sender: TBaseVirtualTree; Node: PVirtualNode;
       Column: TColumnIndex; TextType: TVSTTextType; var CellText: string);
     procedure VDTInitChildren(Sender: TBaseVirtualTree;
@@ -52,11 +55,15 @@ type
       var InitialStates: TVirtualNodeInitStates);
   private
     FGroupList: cEmutecaGroupList;
+    FGUIConfigFile: string;
+    FIconsIniFile: string;
     FOnDblClkGroup: TEmutecaReturnGroupCB;
     FOnDblClkSoft: TEmutecaReturnSoftCB;
     FOnSelectGroup: TEmutecaReturnGroupCB;
     FOnSelectSoft: TEmutecaReturnSoftCB;
     procedure SetGroupList(AValue: cEmutecaGroupList);
+    procedure SetGUIConfigFile(AValue: string);
+    procedure SetIconsIniFile(AValue: string);
     procedure SetOnDblClkGroup(AValue: TEmutecaReturnGroupCB);
     procedure SetOnDblClkSoft(AValue: TEmutecaReturnSoftCB);
     procedure SetOnSelectGroup(AValue: TEmutecaReturnGroupCB);
@@ -64,6 +71,8 @@ type
 
   protected
     procedure UpdateSBNodeCount;
+
+    procedure DoDblClkTree;
 
     procedure DoClearFrameData;
     procedure DoLoadFrameData;
@@ -99,30 +108,37 @@ procedure TfmEmutecaSoftTree.VDTGetText(Sender: TBaseVirtualTree;
   procedure GetGroupText(aGroup: cEmutecaGroup; Column: TColumnIndex;
     TextType: TVSTTextType; var CellText: string);
   begin
-    case Column of
-      0: // System
-        CellText := aGroup.CachedSystem.Title;
-      1: // Name
-        CellText := aGroup.Title;
-      2: // N. Versions
-        CellText := Format(rsFmtNVersions, [aGroup.SoftList.Count]);
-      3: // Developer
-        CellText := aGroup.Developer;
-      4: // Year
-        CellText := aGroup.Year;
-      5: // Flags
-        CellText := '';
-      6: // Times
-        CellText := aGroup.Stats.TimesPlayedStr;
-      7: // Total time
-        CellText := aGroup.Stats.PlayingTimeStr;
-      8: // Last time
-        CellText := aGroup.Stats.LastTimeStr;
-      9: // Folder
-        CellText := '';
-      10: // File
-        CellText := aGroup.MediaFileName;
-      else
+    case TextType of
+      ttNormal:
+      begin
+        case Column of
+          0: // System
+            CellText := aGroup.CachedSystem.Title;
+          1: // Name
+            CellText := aGroup.Title;
+          2: // N. Versions
+            CellText := Format(rsFmtNVersions, [aGroup.SoftList.Count]);
+          3: // Developer
+            CellText := aGroup.Developer;
+          4: // Year
+            CellText := aGroup.Year;
+          5: // Flags
+            CellText := '';
+          6: // Times
+            CellText := aGroup.Stats.TimesPlayedStr;
+          7: // Total time
+            CellText := aGroup.Stats.PlayingTimeStr;
+          8: // Last time
+            CellText := aGroup.Stats.LastTimeStr;
+          9: // Folder
+            CellText := '';
+          10: // File
+            CellText := aGroup.MediaFileName;
+          else
+            ;
+        end;
+      end;
+      else // ttStatic
         ;
     end;
   end;
@@ -131,79 +147,86 @@ procedure TfmEmutecaSoftTree.VDTGetText(Sender: TBaseVirtualTree;
   procedure GetSoftText(aSoft: cEmutecaSoftware; Column: TColumnIndex;
     TextType: TVSTTextType; var CellText: string);
   begin
-    case Column of
-      0: // System
-        CellText := aSoft.CachedSystem.Title;
-      1: // Title
-        CellText := aSoft.Title;
-      2: // Version
-        CellText := aSoft.Zone + ' ' + aSoft.Version;
-      3: // Publisher
+    case TextType of
+      ttNormal:
       begin
-        if aSoft.Publisher = '' then
-        begin
-          if assigned(aSoft.CachedGroup) and
-            (aSoft.CachedGroup.Developer <> '') then
-            CellText := '(' + aSoft.CachedGroup.Developer + ')'
+        case Column of
+          0: // System
+            CellText := aSoft.CachedSystem.Title;
+          1: // Title
+            CellText := aSoft.Title;
+          2: // Version
+            CellText := aSoft.Zone + ' ' + aSoft.Version;
+          3: // Publisher
+          begin
+            if aSoft.Publisher = '' then
+            begin
+              if assigned(aSoft.CachedGroup) and
+                (aSoft.CachedGroup.Developer <> '') then
+                CellText := '(' + aSoft.CachedGroup.Developer + ')'
+              else
+                CellText := '';
+            end
+            else
+              CellText := aSoft.Publisher;
+          end;
+          4: // Year
+          begin
+            if aSoft.Year = '' then
+            begin
+              if assigned(aSoft.CachedGroup) and
+                (aSoft.CachedGroup.Year <> '') then
+                CellText := '(' + aSoft.CachedGroup.Year + ')'
+              else
+                CellText := '';
+            end
+            else
+              CellText := aSoft.Year;
+          end;
+          5: // Flags
+          begin
+            // A simple formated output, to be overriden
+            CellText := DumpSt2Str(aSoft.DumpStatus);
+
+            if aSoft.DumpInfo <> '' then
+              CellText += ' [' + aSoft.DumpInfo + ']';
+
+            if aSoft.Fixed <> '' then
+              CellText += ' [f ' + aSoft.Fixed + ']';
+
+            if aSoft.Trainer <> '' then
+              CellText += ' [t ' + aSoft.Trainer + ']';
+
+            if aSoft.Translation <> '' then
+              CellText += ' [tr ' + aSoft.Translation + ']';
+
+            if aSoft.Pirate <> '' then
+              CellText += ' [p ' + aSoft.Pirate + ']';
+
+            if aSoft.Cracked <> '' then
+              CellText += ' [cr ' + aSoft.Cracked + ']';
+
+            if aSoft.Modified <> '' then
+              CellText += ' [m ' + aSoft.Modified + ']';
+
+            if aSoft.Hack <> '' then
+              CellText += ' [t ' + aSoft.Hack + ']';
+          end;
+          6: // Times Played
+            CellText := aSoft.Stats.TimesPlayedStr;
+          7: // Playing Time
+            CellText := aSoft.Stats.PlayingTimeStr;
+          8: // Last Time
+            CellText := aSoft.Stats.LastTimeStr;
+          9: // Folder
+            CellText := aSoft.Folder;
+          10: // File
+            CellText := aSoft.FileName;
           else
-            CellText := '';
-        end
-        else
-          CellText := aSoft.Publisher;
+            ;
+        end;
       end;
-      4: // Year
-      begin
-        if aSoft.Year = '' then
-        begin
-          if assigned(aSoft.CachedGroup) and
-            (aSoft.CachedGroup.Year <> '') then
-            CellText := '(' + aSoft.CachedGroup.Year + ')'
-          else
-            CellText := '';
-        end
-        else
-          CellText := aSoft.Year;
-      end;
-      5: // Flags
-      begin
-        // A simple formated output, to be overriden
-        CellText := DumpSt2Str(aSoft.DumpStatus);
-
-        if aSoft.DumpInfo <> '' then
-          CellText += ' [' + aSoft.DumpInfo + ']';
-
-        if aSoft.Fixed <> '' then
-          CellText += ' [f ' + aSoft.Fixed + ']';
-
-        if aSoft.Trainer <> '' then
-          CellText += ' [t ' + aSoft.Trainer + ']';
-
-        if aSoft.Translation <> '' then
-          CellText += ' [tr ' + aSoft.Translation + ']';
-
-        if aSoft.Pirate <> '' then
-          CellText += ' [p ' + aSoft.Pirate + ']';
-
-        if aSoft.Cracked <> '' then
-          CellText += ' [cr ' + aSoft.Cracked + ']';
-
-        if aSoft.Modified <> '' then
-          CellText += ' [m ' + aSoft.Modified + ']';
-
-        if aSoft.Hack <> '' then
-          CellText += ' [t ' + aSoft.Hack + ']';
-      end;
-      6: // Times Played
-        CellText := aSoft.Stats.TimesPlayedStr;
-      7: // Playing Time
-        CellText := aSoft.Stats.PlayingTimeStr;
-      8: // Last Time
-        CellText := aSoft.Stats.LastTimeStr;
-      9: // Folder
-        CellText := aSoft.Folder;
-      10: // File
-        CellText := aSoft.FileName;
-      else
+      else // ttStatic
         ;
     end;
   end;
@@ -288,9 +311,9 @@ begin
   end;
 end;
 
-procedure TfmEmutecaSoftTree.actMergeGroupFilesExecute(Sender: TObject);
+procedure TfmEmutecaSoftTree.actRunSoftwareExecute(Sender: TObject);
 begin
-  raise ENotImplemented.Create('Not Implemented.');
+  DoDblClkTree;
 end;
 
 procedure TfmEmutecaSoftTree.VDTCompareNodes(Sender: TBaseVirtualTree;
@@ -405,26 +428,8 @@ begin
 end;
 
 procedure TfmEmutecaSoftTree.VDTDblClick(Sender: TObject);
-var
-  pData: ^TObject;
 begin
-  pData := VDT.GetNodeData(VDT.FocusedNode);
-  if not assigned(pData) then
-  begin
-    OnDblClkGroup(nil);
-    Exit;
-  end;
-
-  if pData^ is cEmutecaSoftware then
-  begin
-    if Assigned(OnDblClkSoft) then
-      OnDblClkSoft(cEmutecaSoftware(pData^));
-  end
-  else
-  begin
-    if Assigned(OnDblClkGroup) then
-      OnDblClkGroup(cEmutecaGroup(pData^));
-  end;
+  DoDblClkTree;
 end;
 
 procedure TfmEmutecaSoftTree.VDTGetHint(Sender: TBaseVirtualTree;
@@ -434,6 +439,7 @@ procedure TfmEmutecaSoftTree.VDTGetHint(Sender: TBaseVirtualTree;
   procedure GetGroupHint(aGroup: cEmutecaGroup; Column: TColumnIndex;
   var LineBreakStyle: TVTTooltipLineBreakStyle; var HintText: string);
   begin
+    LineBreakStyle := hlbForceMultiLine;
     case Column of
       0: // System
         HintText := aGroup.CachedSystem.Title;
@@ -447,6 +453,7 @@ procedure TfmEmutecaSoftTree.VDTGetHint(Sender: TBaseVirtualTree;
   procedure GetSoftHint(aSoft: cEmutecaSoftware; Column: TColumnIndex;
   var LineBreakStyle: TVTTooltipLineBreakStyle; var HintText: string);
   begin
+    LineBreakStyle := hlbForceMultiLine;
     case Column of
       0: // System
         HintText := aSoft.CachedSystem.Title + sLineBreak +
@@ -517,7 +524,7 @@ end;
 
 procedure TfmEmutecaSoftTree.VDTGetPopupMenu(Sender: TBaseVirtualTree;
   Node: PVirtualNode; Column: TColumnIndex; const P: TPoint;
-  var AskParent: Boolean; var aPopupMenu: TPopupMenu);
+  var AskParent: boolean; var aPopupMenu: TPopupMenu);
 var
   pData: ^TObject;
 begin
@@ -542,6 +549,20 @@ begin
   FGroupList := AValue;
 
   LoadFrameData;
+end;
+
+procedure TfmEmutecaSoftTree.SetGUIConfigFile(AValue: string);
+begin
+  if FGUIConfigFile = AValue then
+    Exit;
+  FGUIConfigFile := AValue;
+end;
+
+procedure TfmEmutecaSoftTree.SetIconsIniFile(AValue: string);
+begin
+  if FIconsIniFile = AValue then
+    Exit;
+  FIconsIniFile := AValue;
 end;
 
 procedure TfmEmutecaSoftTree.SetOnDblClkGroup(AValue: TEmutecaReturnGroupCB);
@@ -575,7 +596,7 @@ end;
 procedure TfmEmutecaSoftTree.DoLoadGUIConfig(aIniFile: TIniFile);
 var
   i: integer;
-  aBool: Boolean;
+  aBool: boolean;
   vstOptions: TVTColumnOptions;
 begin
   // VST Columns
@@ -594,10 +615,15 @@ begin
       Format(krsIniSoftTreeVisibleFmt, [i]), True);
     if aBool then
       Include(vstOptions, coVisible)
-      else
-        Exclude(vstOptions, coVisible);
+    else
+      Exclude(vstOptions, coVisible);
 
     VDT.Header.Columns.Items[i].Options := vstOptions;
+
+    // Columns position
+    VDT.Header.Columns.Items[i].Position :=
+      aIniFile.ReadInteger(krsIniSoftTreeSection,
+      Format(krsIniSoftTreePositionFmt, [i]), VDT.Header.Columns.Items[i].Position);
     Inc(i);
   end;
 end;
@@ -609,12 +635,20 @@ begin
   i := 0;
   while i < VDT.Header.Columns.Count do
   begin
+    // Columns width
     aIniFile.WriteInteger(krsIniSoftTreeSection,
       Format(krsIniSoftTreeWidthFmt, [i]), VDT.Header.Columns.Items[i].Width);
 
+    // Columns visibility
     aIniFile.WriteBool(krsIniSoftTreeSection,
       Format(krsIniSoftTreeVisibleFmt, [i]),
       coVisible in VDT.Header.Columns.Items[i].Options);
+
+    // Columns position
+    aIniFile.WriteInteger(krsIniSoftTreeSection,
+      Format(krsIniSoftTreePositionFmt, [i]),
+      VDT.Header.Columns.Items[i].Position);
+
     Inc(i);
   end;
 end;
@@ -623,6 +657,29 @@ procedure TfmEmutecaSoftTree.UpdateSBNodeCount;
 begin
   StatusBar.Panels[0].Text :=
     Format(rsFmtNItems, [VDT.RootNodeCount, VDT.VisibleCount]);
+end;
+
+procedure TfmEmutecaSoftTree.DoDblClkTree;
+var
+  pData: ^TObject;
+begin
+  pData := VDT.GetNodeData(VDT.FocusedNode);
+  if not assigned(pData) then
+  begin
+    OnDblClkGroup(nil);
+    Exit;
+  end;
+
+  if pData^ is cEmutecaSoftware then
+  begin
+    if Assigned(OnDblClkSoft) then
+      OnDblClkSoft(cEmutecaSoftware(pData^));
+  end
+  else
+  begin
+    if Assigned(OnDblClkGroup) then
+      OnDblClkGroup(cEmutecaGroup(pData^));
+  end;
 end;
 
 procedure TfmEmutecaSoftTree.DoClearFrameData;

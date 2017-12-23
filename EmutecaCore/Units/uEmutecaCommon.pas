@@ -256,7 +256,7 @@ function DumpSt2StrK(aEDS: TEmutecaDumpStatus): string;
 
 procedure EmuTKSearchAllRelatedFiles(OutFileList: TStrings;
   aFolder: string; aFileName: string; Extensions: TStrings;
-  SearchInComp: boolean; DecompressFolder: string);
+  SearchInComp: boolean; AutoDecompress: boolean; DecompressFolder: string);
 
 function EmuTKSearchFirstRelatedFile(aFolder: string;
   aFileName: string; Extensions: TStrings; SearchInComp: boolean;
@@ -405,14 +405,13 @@ end;
 
 procedure EmuTKSearchAllRelatedFiles(OutFileList: TStrings;
   aFolder: string; aFileName: string; Extensions: TStrings;
-  SearchInComp: boolean; DecompressFolder: string);
+  SearchInComp: boolean; AutoDecompress: boolean; DecompressFolder: string);
 var
   CompressedArchives: TStringList;
   i: integer;
 begin
   aFolder := SetAsFolder(aFolder);
   DecompressFolder := SetAsFolder(DecompressFolder);
-  aFileName := RemoveFromBrackets(ExtractFileNameOnly(aFileName));
 
   if (aFileName = '') or (aFolder = '') or
     (not DirectoryExistsUTF8(aFolder)) or (Extensions = nil) or

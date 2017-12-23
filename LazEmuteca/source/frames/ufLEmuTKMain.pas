@@ -54,6 +54,7 @@ type
     FOnGroupChanged: TEmutecaReturnGroupCB;
     FOnGrpListChanged: TEmutecaReturnGrpLstCB;
     FOnSoftChanged: TEmutecaReturnSoftCB;
+    FOnSoftDblClk: TEmutecaReturnSoftCB;
     FOnSystemChanged: TEmutecaReturnSystemCB;
     FSHA1Folder: string;
     FZoneIcons: cCHXImageMap;
@@ -64,6 +65,7 @@ type
     procedure SetOnGroupChanged(AValue: TEmutecaReturnGroupCB);
     procedure SetOnGrpListChanged(AValue: TEmutecaReturnGrpLstCB);
     procedure SetOnSoftChanged(AValue: TEmutecaReturnSoftCB);
+    procedure SetOnSoftDblClk(AValue: TEmutecaReturnSoftCB);
     procedure SetOnSystemChanged(AValue: TEmutecaReturnSystemCB);
     procedure SetSHA1Folder(AValue: string);
     procedure SetZoneIcons(AValue: cCHXImageMap);
@@ -82,16 +84,16 @@ type
     property fmSoftMedia: TfmLEmuTKSoftMedia read FfmSoftMedia;
     property fmSoftTree: TfmLEmuTKIcnSoftTree read FfmSoftTree;
 
-    function SelectSystem(aSystem: cEmutecaSystem): boolean;
+    function DoSelectSystem(aSystem: cEmutecaSystem): boolean;
     //< Select a system
-    function SelectGroup(aGroup: cEmutecaGroup): boolean;
+    function DoSelectGroup(aGroup: cEmutecaGroup): boolean;
     //< Select a group
-    function SelectSoftware(aSoftware: cEmutecaSoftware): boolean;
+    function DoSelectSoftware(aSoftware: cEmutecaSoftware): boolean;
     //< Select a software
+    function DoDblClkSoftware(aSoftware: cEmutecaSoftware): boolean;
+    //< Double click on Software
     procedure CheckTags(aList: TStrings);
     //< Check Tags
-    function RunSoftware(aSoftware: cEmutecaSoftware): boolean;
-    //< Run a software
 
     procedure DoClearFrameData;
     procedure DoLoadFrameData;
@@ -119,6 +121,7 @@ type
       read FOnGroupChanged write SetOnGroupChanged;
     property OnSoftChanged: TEmutecaReturnSoftCB
       read FOnSoftChanged write SetOnSoftChanged;
+    property OnSoftDblClk: TEmutecaReturnSoftCB read FOnSoftDblClk write SetOnSoftDblClk;
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -151,7 +154,7 @@ begin
     fmEmutecaSystemCBX.SystemList := Emuteca.SystemManager.EnabledList;
     fmCHXTagTree.Folder :=
       SetAsAbsoluteFile(Emuteca.Config.TagsFolder, Emuteca.BaseFolder);
-    // fmSoftTree.GroupList set by SelectSystem;
+    // fmSoftTree.GroupList set by DoSelectSystem;
   end
   else
   begin
@@ -231,6 +234,12 @@ begin
   FOnSoftChanged := AValue;
 end;
 
+procedure TfmLEmuTKMain.SetOnSoftDblClk(AValue: TEmutecaReturnSoftCB);
+begin
+  if FOnSoftDblClk=AValue then Exit;
+  FOnSoftDblClk:=AValue;
+end;
+
 procedure TfmLEmuTKMain.SetOnSystemChanged(AValue: TEmutecaReturnSystemCB);
 begin
   if FOnSystemChanged = AValue then
@@ -257,9 +266,9 @@ begin
   fmSoftTree.ZoneIconMap := ZoneIcons;
 end;
 
-function TfmLEmuTKMain.SelectSystem(aSystem: cEmutecaSystem): boolean;
+function TfmLEmuTKMain.DoSelectSystem(aSystem: cEmutecaSystem): boolean;
 begin
-  Result := SelectGroup(nil);
+  Result := DoSelectGroup(nil);
 
   if Assigned(aSystem) then
   begin
@@ -283,9 +292,9 @@ begin
   fmSystemPanel.System := aSystem;
 end;
 
-function TfmLEmuTKMain.SelectGroup(aGroup: cEmutecaGroup): boolean;
+function TfmLEmuTKMain.DoSelectGroup(aGroup: cEmutecaGroup): boolean;
 begin
-  Result := SelectSoftware(nil);
+  Result := DoSelectSoftware(nil);
 
   fmSoftEditor.Group := aGroup;
   fmSoftMedia.Group := aGroup;
@@ -297,7 +306,7 @@ begin
     fmSystemPanel.System := cEmutecaSystem(aGroup.CachedSystem);
 end;
 
-function TfmLEmuTKMain.SelectSoftware(aSoftware: cEmutecaSoftware): boolean;
+function TfmLEmuTKMain.DoSelectSoftware(aSoftware: cEmutecaSoftware): boolean;
 begin
   Result := True;
 
@@ -305,10 +314,20 @@ begin
   fmSoftMedia.Software := aSoftware;
 
   if assigned(OnSoftChanged) then
-    OnSoftChanged(aSoftware);
+    Result := OnSoftChanged(aSoftware);
 
   if Assigned(aSoftware) then
-    fmSystemPanel.System := cEmutecaSystem(aSoftware.CachedSystem);
+    fmSystemPanel.System := cEmutecaSystem(aSoftware.CachedSystem)
+  else
+    fmSystemPanel.System := nil;
+end;
+
+function TfmLEmuTKMain.DoDblClkSoftware(aSoftware: cEmutecaSoftware): boolean;
+begin
+  Result := True;
+
+  if assigned(OnSoftDblClk) then
+    Result := OnSoftDblClk(aSoftware);
 end;
 
 procedure TfmLEmuTKMain.CheckTags(aList: TStrings);
@@ -316,58 +335,9 @@ begin
 
 end;
 
-function TfmLEmuTKMain.RunSoftware(aSoftware: cEmutecaSoftware): boolean;
-var
-  aError: integer;
-begin
-  Result := False;
-  aError := Emuteca.RunSoftware(aSoftware);
-
-  case aError of
-    0: ; // All OK
-    kErrorRunSoftUnknown:
-    begin
-      ShowMessageFmt('TfmLEmuTKMain.RunSoftware: Unknown Error.' +
-        LineEnding + '%0:s' + LineEnding + '%1:s',
-        [aSoftware.Folder, aSoftware.FileName]);
-    end;
-    kErrorRunSoftNoSoft:
-    begin
-      ShowMessage('TfmLEmuTKMain.RunSoftware: Software = nil.');
-    end;
-    kErrorRunSoftNoEmu:
-    begin
-      ShowMessageFmt('TfmLEmuTKMain.RunSoftware: Emulator = nil.' +
-        LineEnding + '%0:s' + LineEnding + '%1:s',
-        [aSoftware.Folder, aSoftware.FileName]);
-    end;
-    kErrorRunSoftNoSoftFile:
-    begin
-      ShowMessageFmt('TfmLEmuTKMain.RunSoftware: Soft file not found.' +
-        LineEnding + '%0:s' + LineEnding + '%1:s',
-        [aSoftware.Folder, aSoftware.FileName]);
-    end;
-    kErrorRunSoftNoEmuFile:
-    begin
-      ShowMessage('TfmLEmuTKMain.RunSoftware: Emulator executable not found');
-    end;
-    kError7zDecompress:
-    begin
-      ShowMessage('TfmLEmuTKMain.RunSoftware: Unknown decompress error.');
-    end;
-    else
-    begin
-      ShowMessageFmt('TfmLEmuTKMain.RunSoftware: Emulator returned: %0:d',
-        [aError]);
-    end;
-  end;
-
-  Result := aError = 0;
-end;
-
 procedure TfmLEmuTKMain.DoClearFrameData;
 begin
-
+  // Nothing
 end;
 
 procedure TfmLEmuTKMain.DoLoadFrameData;
@@ -410,7 +380,7 @@ begin
   fmEmutecaSystemCBX.SelectedSystem :=
     fmEmutecaSystemCBX.SystemList.ItemById(GUIConfig.CurrSystem);
 
-  SelectSystem(fmEmutecaSystemCBX.SelectedSystem);
+  DoSelectSystem(fmEmutecaSystemCBX.SelectedSystem);
 end;
 
 constructor TfmLEmuTKMain.Create(TheOwner: TComponent);
@@ -429,7 +399,7 @@ constructor TfmLEmuTKMain.Create(TheOwner: TComponent);
     fmEmutecaSystemCBX.cbxSystem.Height := 32;
     fmEmutecaSystemCBX.cbxSystem.ItemHeight := 32;
     fmEmutecaSystemCBX.FirstItem := ETKSysCBXFIAll;
-    fmEmutecaSystemCBX.OnSelectSystem := @SelectSystem;
+    fmEmutecaSystemCBX.OnSelectSystem := @DoSelectSystem;
     fmEmutecaSystemCBX.Parent := pMiddle;
 
     // Creating System Panel
@@ -467,9 +437,9 @@ constructor TfmLEmuTKMain.Create(TheOwner: TComponent);
     FfmSoftTree := TfmLEmuTKIcnSoftTree.Create(pMain);
     // TODO: Configurable
     fmSoftTree.VDT.Font.Height := 24;
-    fmSoftTree.OnSelectGroup := @SelectGroup;
-    fmSoftTree.OnSelectSoft := @SelectSoftware;
-    fmSoftTree.OnDblClkSoft := @RunSoftware;
+    fmSoftTree.OnSelectGroup := @DoSelectGroup;
+    fmSoftTree.OnSelectSoft := @DoSelectSoftware;
+    fmSoftTree.OnDblClkSoft := @DoDblClkSoftware;
     fmSoftTree.Align := alClient;
     fmSoftTree.Parent := pMain;
   end;

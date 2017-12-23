@@ -46,10 +46,10 @@ type
     procedure SetSoftIconList(AValue: cCHXImageList);
     procedure SetZoneIconMap(AValue: cCHXImageMap);
 
-    protected
-      procedure SetIconColumnsWidth;
+  protected
+    procedure SetIconColumnsWidth;
 
-      procedure DoLoadGUIConfig(aIniFile: TIniFile); override;
+    procedure DoLoadGUIConfig(aIniFile: TIniFile); override;
 
   public
     property DefSysIcon: TPicture read FDefSysIcon write SetDefSysIcon;
@@ -78,8 +78,8 @@ procedure TfmLEmuTKIcnSoftTree.VDTDrawText(Sender: TBaseVirtualTree;
   const CellText: string; const CellRect: TRect; var DefaultDraw: boolean);
 
   procedure DrawGroupText(aGroup: cEmutecaGroup; TargetCanvas: TCanvas;
-    Node: PVirtualNode; Column: TColumnIndex; const CellText: string;
-  const CellRect: TRect; var DefaultDraw: boolean);
+    Column: TColumnIndex; const CellText: string; const CellRect: TRect;
+  var DefaultDraw: boolean);
   var
     IconRect: TRect;
     aIcon: TPicture;
@@ -99,7 +99,7 @@ procedure TfmLEmuTKIcnSoftTree.VDTDrawText(Sender: TBaseVirtualTree;
 
         if assigned(aIcon) then
           TargetCanvas.StretchDraw(CorrectAspectRatio(IconRect, aIcon),
-              aIcon.Graphic);
+            aIcon.Graphic);
 
         // Don't draw text
 
@@ -127,7 +127,7 @@ procedure TfmLEmuTKIcnSoftTree.VDTDrawText(Sender: TBaseVirtualTree;
 
         if assigned(aIcon) then
           TargetCanvas.StretchDraw(CorrectAspectRatio(IconRect, aIcon),
-              aIcon.Graphic);
+            aIcon.Graphic);
 
         // Text space
         IconRect := CellRect;
@@ -138,13 +138,14 @@ procedure TfmLEmuTKIcnSoftTree.VDTDrawText(Sender: TBaseVirtualTree;
           DT_NOPREFIX or DT_VCENTER or DT_SINGLELINE or
           DT_WORDBREAK or DT_END_ELLIPSIS or DT_EDITCONTROL);
       end;
-
+      else
+        ;
     end;
   end;
 
   procedure DrawSoftText(aSoft: cEmutecaSoftware; TargetCanvas: TCanvas;
-    Node: PVirtualNode; Column: TColumnIndex; const CellText: string;
-  const CellRect: TRect; var DefaultDraw: boolean);
+    Column: TColumnIndex; const CellText: string; const CellRect: TRect;
+  var DefaultDraw: boolean);
   var
     IconRect: TRect;
     aIcon: TPicture;
@@ -172,7 +173,7 @@ procedure TfmLEmuTKIcnSoftTree.VDTDrawText(Sender: TBaseVirtualTree;
 
         if assigned(aIcon) then
           TargetCanvas.StretchDraw(CorrectAspectRatio(IconRect, aIcon),
-              aIcon.Graphic);
+            aIcon.Graphic);
 
         // Text space
         IconRect := CellRect;
@@ -292,13 +293,13 @@ begin
 
   if pData^ is cEmutecaGroup then
   begin
-    DrawGroupText(cEmutecaGroup(pData^), TargetCanvas, Node,
-      Column, CellText, CellRect, DefaultDraw);
+    DrawGroupText(cEmutecaGroup(pData^), TargetCanvas, Column,
+      CellText, CellRect, DefaultDraw);
   end
   else if pData^ is cEmutecaSoftware then
   begin
-    DrawSoftText(cEmutecaSoftware(pData^), TargetCanvas, Node,
-      Column, CellText, CellRect, DefaultDraw);
+    DrawSoftText(cEmutecaSoftware(pData^), TargetCanvas, Column,
+      CellText, CellRect, DefaultDraw);
   end;
 end;
 
@@ -311,19 +312,22 @@ end;
 
 procedure TfmLEmuTKIcnSoftTree.SetDefGrpIcon(AValue: TPicture);
 begin
-  if FDefGrpIcon = AValue then Exit;
+  if FDefGrpIcon = AValue then
+    Exit;
   FDefGrpIcon := AValue;
 end;
 
 procedure TfmLEmuTKIcnSoftTree.SetDefSoftIcon(AValue: TPicture);
 begin
-  if FDefSoftIcon = AValue then Exit;
+  if FDefSoftIcon = AValue then
+    Exit;
   FDefSoftIcon := AValue;
 end;
 
 procedure TfmLEmuTKIcnSoftTree.SetDefSysIcon(AValue: TPicture);
 begin
-  if FDefSysIcon = AValue then Exit;
+  if FDefSysIcon = AValue then
+    Exit;
   FDefSysIcon := AValue;
 end;
 

@@ -1,4 +1,4 @@
-{ Script Engine.
+{ Emuteca.
 
   Copyright (C) 2006-2018 Chixpy
 
@@ -17,42 +17,37 @@
   to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
   MA 02111-1307, USA.
 }
-unit utLEmuTKCacheGrpIcons;
+unit utLEmuTKCacheSoftIcons;
 
 {$mode objfpc}{$H+}
-
 interface
 
 uses
   Classes, SysUtils, Graphics, LazFileUtils,
   ucCHXImageList,
-  ucEmutecaGroupList, ucEmutecaGroup;
+  ucEmutecaSoftList, ucEmutecaSoftware;
 
 type
 
-  { ctLEmuTKCacheGrpIcons
+  { ctLEmuTKCacheSoftIcons
 
-    This Thread loads group icons in background.
+    This Thread loads software icons in background.
   }
 
-  ctLEmuTKCacheGrpIcons = class(TThread)
+  ctLEmuTKCacheSoftIcons = class(TThread)
   private
-    FDefaultIcon: TPicture;
-    FGroupList: cEmutecaGroupList;
     FIconList: cCHXImageList;
     FImageExt: TStrings;
-    procedure SetDefaultIcon(AValue: TPicture);
-    procedure SetGroupList(AValue: cEmutecaGroupList);
+    FSoftList: cEmutecaSoftList;
     procedure SetIconList(AValue: cCHXImageList);
     procedure SetImageExt(AValue: TStrings);
-
+    procedure SetSoftList(AValue: cEmutecaSoftList);
   protected
     procedure Execute; override;
 
   public
     property ImageExt: TStrings read FImageExt write SetImageExt;
-    property GroupList: cEmutecaGroupList read FGroupList write SetGroupList;
-    property DefaultIcon: TPicture read FDefaultIcon write SetDefaultIcon;
+    property SoftList: cEmutecaSoftList read FSoftList write SetSoftList;
     property IconList: cCHXImageList read FIconList write SetIconList;
 
     constructor Create;
@@ -60,79 +55,72 @@ type
 
 implementation
 
-{ ctLEmuTKCacheGrpIcons }
+{ ctLEmuTKCacheSoftIcons }
 
-procedure ctLEmuTKCacheGrpIcons.SetDefaultIcon(AValue: TPicture);
-begin
-  if FDefaultIcon = AValue then
-    Exit;
-  FDefaultIcon := AValue;
-end;
-
-procedure ctLEmuTKCacheGrpIcons.SetGroupList(AValue: cEmutecaGroupList);
-begin
-  if FGroupList = AValue then
-    Exit;
-  FGroupList := AValue;
-end;
-
-procedure ctLEmuTKCacheGrpIcons.SetIconList(AValue: cCHXImageList);
+procedure ctLEmuTKCacheSoftIcons.SetIconList(AValue: cCHXImageList);
 begin
   if FIconList = AValue then
     Exit;
   FIconList := AValue;
 end;
 
-procedure ctLEmuTKCacheGrpIcons.SetImageExt(AValue: TStrings);
+procedure ctLEmuTKCacheSoftIcons.SetImageExt(AValue: TStrings);
 begin
-  if FImageExt = AValue then Exit;
+  if FImageExt = AValue then
+    Exit;
   FImageExt := AValue;
 end;
 
-procedure ctLEmuTKCacheGrpIcons.Execute;
+procedure ctLEmuTKCacheSoftIcons.SetSoftList(AValue: cEmutecaSoftList);
+begin
+  if FSoftList = AValue then
+    Exit;
+  FSoftList := AValue;
+end;
+
+procedure ctLEmuTKCacheSoftIcons.Execute;
 var
   i: integer;
-  aGroup: cEmutecaGroup;
+  aSoft: cEmutecaSoftware;
   aIcon: TPicture;
   TempStr: string;
 begin
-  if not assigned(GroupList) then
+  if not assigned(SoftList) then
     Exit;
   if not assigned(IconList) then
     Exit;
-  if not assigned(DefaultIcon) then
-    Exit; // This can't be nil
 
   i := 0;
-  while (not Terminated) and (i < GroupList.Count) do
+  while (not Terminated) and (i < SoftList.Count) do
   begin
-    aGroup := GroupList[i];
+    aSoft := SoftList[i];
 
-    aIcon := aGroup.Stats.Icon;
+    aIcon := aSoft.Stats.Icon;
     if not Assigned(aIcon) then
     begin
-      TempStr := aGroup.SearchFirstRelatedFile(aGroup.CachedSystem.IconFolder,
+      TempStr := aSoft.SearchFirstRelatedFile(aSoft.CachedSystem.IconFolder,
         ImageExt, True,True);
 
       if FileExistsUTF8(TempStr) then
       begin
         aIcon := IconList[IconList.AddImageFile(TempStr)];
+        if Terminated then
+          Exit;
+        aSoft.Stats.Icon := aIcon;
       end
       else
       begin
-        aIcon := DefaultIcon;
+        if Terminated then
+          Exit;
+        aSoft.Stats.Icon := aSoft.CachedGroup.Stats.Icon;
       end;
-
-      if Terminated then
-        Exit;
-      aGroup.Stats.Icon := aIcon;
     end;
 
     Inc(i);
   end;
 end;
 
-constructor ctLEmuTKCacheGrpIcons.Create;
+constructor ctLEmuTKCacheSoftIcons.Create;
 begin
   inherited Create(True);
   FreeOnTerminate := True;

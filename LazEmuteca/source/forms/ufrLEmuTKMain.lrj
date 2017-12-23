@@ -19,10 +19,13 @@
 {"hash":197626241,"name":"tfrmlemutkmain.actcleansystemdata.caption","sourcebytes":[67,108,101,97,110,32,115,121,115,116,101,109,32,100,97,116,97],"value":"Clean system data"},
 {"hash":54747284,"name":"tfrmlemutkmain.actcleansystemdata.hint","sourcebytes":[67,108,101,97,110,32,99,117,114,114,101,110,116,32,115,121,115,116,101,109,32,100,97,116,97,124,67,108,101,97,110,115,32,99,117,114,114,101,110,116,32,115,121,115,116,101,109,32,115,111,102,116,32,110,111,116,32,102,111,117,110,100,32,97,110,100,32,103,114,111,117,112,115,32,119,105,116,104,111,117,116,32,115,111,102,116],"value":"Clean current system data|Cleans current system soft not found and groups without soft"},
 {"hash":101561156,"name":"tfrmlemutkmain.actupdategrouplist.caption","sourcebytes":[85,112,100,97,116,101,32,103,114,111,117,112,32,108,105,115,116],"value":"Update group list"},
+{"hash":197989918,"name":"tfrmlemutkmain.actmergegroupfiles.caption","sourcebytes":[77,101,114,103,101,32,103,114,111,117,112,32,102,105,108,101,115,46,46,46],"value":"Merge group files..."},
+{"hash":4710181,"name":"tfrmlemutkmain.actrunsoftware.caption","sourcebytes":[82,117,110,32,115,111,102,116,119,97,114,101],"value":"Run software"},
 {"hash":315429,"name":"tfrmlemutkmain.mimmfile.caption","sourcebytes":[70,105,108,101],"value":"File"},
 {"hash":371876,"name":"tfrmlemutkmain.mimmtest.caption","sourcebytes":[84,101,115,116],"value":"Test"},
 {"hash":138926499,"name":"tfrmlemutkmain.mimmmanagers.caption","sourcebytes":[77,97,110,97,103,101,114,115],"value":"Managers"},
 {"hash":95464125,"name":"tfrmlemutkmain.mimmsystem.caption","sourcebytes":[83,121,115,116,101,109],"value":"System"},
+{"hash":5150400,"name":"tfrmlemutkmain.mimmgroup.caption","sourcebytes":[71,114,111,117,112],"value":"Group"},
 {"hash":98295077,"name":"tfrmlemutkmain.mimmsoft.caption","sourcebytes":[83,111,102,116,119,97,114,101],"value":"Software"},
 {"hash":75133198,"name":"tfrmlemutkmain.mimmaddfiles.caption","sourcebytes":[65,100,100,46,46,46],"value":"Add..."},
 {"hash":322608,"name":"tfrmlemutkmain.mmihelp.caption","sourcebytes":[72,101,108,112],"value":"Help"}

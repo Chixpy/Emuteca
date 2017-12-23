@@ -38,7 +38,7 @@ uses
   uEmutecaCommon,
   // Emuteca clases
   ucEmuteca, ucEmutecaSystem, ucEmutecaGroupList, ucEmutecaGroup,
-  ucEmutecaSoftware,
+  ucEmutecaSoftware, ucEmutecaSoftList,
   // Emuteca forms
   ufrLEmuTKAbout,
   // Emuteca windows
@@ -47,10 +47,12 @@ uses
   // LazEmuteca units
   uLEmuTKCommon, uGUIConfig,
   // LazEmuteca frames
-  ufLEmuTKMain, ufLEmuTKSysManager, ufLEmuTKEmuManager,
-  ufLEmuTKMediaManager, ufLEmuTKScriptManager,
+  ufLEmuTKMain,
+  ufLEmuTKSysManager, ufLEmuTKEmuManager, ufLEmuTKMediaManager,
+  ufLEmuTKScriptManager,
+  ufLEmuTKactMergeGroup,
   // LazEmuteca threads
-  utLEmuTKCacheSysIcons, utLEmuTKCacheGrpIcons;
+  utLEmuTKCacheSysIcons, utLEmuTKCacheGrpIcons, utLEmuTKCacheSoftIcons;
 
 type
 
@@ -64,6 +66,8 @@ type
     actExportSoftData: TAction;
     actImportSoftData: TAction;
     actCleanSystemData: TAction;
+    actRunSoftware: TAction;
+    actMergeGroupFiles: TAction;
     actUpdateGroupList: TAction;
     actOpenTempFolder: TAction;
     actSaveLists: TAction;
@@ -76,6 +80,10 @@ type
     ActImages: TImageList;
     IniPropStorage: TIniPropStorage;
     MainMenu: TMainMenu;
+    mimmRunSoftware: TMenuItem;
+    MenuItem4: TMenuItem;
+    mimmMergeGroupFiles: TMenuItem;
+    mimmGroup: TMenuItem;
     mimmUpdateSystemGroups: TMenuItem;
     mimmCleanSystem: TMenuItem;
     MenuItem3: TMenuItem;
@@ -111,7 +119,9 @@ type
     procedure actExportSoftDataExecute(Sender: TObject);
     procedure actImportSoftDataExecute(Sender: TObject);
     procedure actMediaManagerExecute(Sender: TObject);
+    procedure actMergeGroupFilesExecute(Sender: TObject);
     procedure actOpenTempFolderExecute(Sender: TObject);
+    procedure actRunSoftwareExecute(Sender: TObject);
     procedure actSaveListsExecute(Sender: TObject);
     procedure actScriptManagerExecute(Sender: TObject);
     procedure actSystemManagerExecute(Sender: TObject);
@@ -124,6 +134,7 @@ type
 
   private
     FCacheGrpIconsThread: ctLEmuTKCacheGrpIcons;
+    FCacheSoftIconsThread: ctLEmuTKCacheSoftIcons;
     FCacheSysIconsThread: ctLEmuTKCacheSysIcons;
     FCurrentGroup: cEmutecaGroup;
     FCurrentSoft: cEmutecaSoftware;
@@ -138,6 +149,7 @@ type
     Fw7zErrorFileName: string;
     FZoneIcons: cCHXImageMap;
     procedure SetCacheGrpIconsThread(AValue: ctLEmuTKCacheGrpIcons);
+    procedure SetCacheSoftIconsThread(AValue: ctLEmuTKCacheSoftIcons);
     procedure SetCacheSysIconsThread(AValue: ctLEmuTKCacheSysIcons);
     procedure SetCurrentGroup(AValue: cEmutecaGroup);
     procedure SetCurrentSoft(AValue: cEmutecaSoftware);
@@ -186,9 +198,14 @@ type
     procedure CacheGrpIconsThreadTerminated(Sender: TObject);
     // For TThread.OnTerminate
 
+    property CacheSoftIconsThread: ctLEmuTKCacheSoftIcons read FCacheSoftIconsThread write SetCacheSoftIconsThread;
+    procedure CacheSoftIconsThreadTerminated(Sender: TObject);
+    // For TThread.OnTerminate
+
     procedure LoadIcons;
     procedure LoadSystemsIcons;
     procedure LoadGrpIcons(aGroupList: cEmutecaGroupList);
+    procedure LoadSoftIcons(aSoftList: cEmutecaSoftList);
 
     procedure LoadEmuteca;
     //< Load Emuteca, remove not saved data.
@@ -197,6 +214,9 @@ type
 
     function AddZoneIcon(aFolder: string; FileInfo: TSearchRec): boolean;
     //< Add Zone icon to list
+
+    function RunSoftware(aSoftware: cEmutecaSoftware): boolean;
+    //< Run a software
 
     function DoProgressBar(const Title, Info1, Info2: string;
       const Value, MaxValue: int64): boolean;
@@ -259,6 +279,9 @@ begin
   if FCurrentGroup = AValue then
     Exit;
   FCurrentGroup := AValue;
+
+  if Assigned(CurrentGroup) then
+    LoadSoftIcons(CurrentGroup.SoftList);
 end;
 
 procedure TfrmLEmuTKMain.SetCurrentSoft(AValue: cEmutecaSoftware);
@@ -282,6 +305,13 @@ begin
   FCacheGrpIconsThread := AValue;
 end;
 
+procedure TfrmLEmuTKMain.SetCacheSoftIconsThread(AValue: ctLEmuTKCacheSoftIcons
+  );
+begin
+  if FCacheSoftIconsThread=AValue then Exit;
+  FCacheSoftIconsThread:=AValue;
+end;
+
 procedure TfrmLEmuTKMain.SetSHA1Folder(AValue: string);
 begin
   FSHA1Folder := SetAsFolder(SetAsAbsoluteFile(AValue, ProgramDirectory));
@@ -303,6 +333,11 @@ end;
 procedure TfrmLEmuTKMain.CacheGrpIconsThreadTerminated(Sender: TObject);
 begin
   CacheGrpIconsThread := nil;
+end;
+
+procedure TfrmLEmuTKMain.CacheSoftIconsThreadTerminated(Sender: TObject);
+begin
+  CacheSoftIconsThread := nil;
 end;
 
 procedure TfrmLEmuTKMain.LoadIcons;
@@ -381,6 +416,8 @@ end;
 function TfrmLEmuTKMain.DoChangeSystem(aSystem: cEmutecaSystem): boolean;
 begin
   Result := True;
+  CurrentSoft := nil;
+  CurrentGroup := nil;
   CurrentSystem := aSystem;
 end;
 
@@ -394,22 +431,17 @@ end;
 function TfrmLEmuTKMain.DoChangeGroup(aGroup: cEmutecaGroup): boolean;
 begin
   Result := True;
+  if Assigned(aGroup) then
+    Result := DoChangeSystem(cEmutecaSystem(aGroup.CachedSystem));
   CurrentGroup := aGroup;
-  if Assigned(CurrentGroup) then
-  begin
-    CurrentSystem := cEmutecaSystem(CurrentGroup.CachedSystem);
-  end;
 end;
 
 function TfrmLEmuTKMain.DoChangeSoft(aSoft: cEmutecaSoftware): boolean;
 begin
   Result := True;
+  if Assigned(aSoft) then
+    Result := DoChangeGroup(cEmutecaGroup(aSoft.CachedGroup));
   CurrentSoft := aSoft;
-  if Assigned(CurrentSoft) then
-  begin
-    CurrentGroup := cEmutecaGroup(CurrentSoft.CachedGroup);
-    CurrentSystem := cEmutecaSystem(CurrentSoft.CachedSystem);
-  end;
 end;
 
 function TfrmLEmuTKMain.AddZoneIcon(aFolder: string;
@@ -424,6 +456,55 @@ begin
 
   ZoneIcons.AddImageFile(UTF8LowerCase(ExtractFileNameOnly(FileInfo.Name)),
     aFolder + FileInfo.Name);
+end;
+
+function TfrmLEmuTKMain.RunSoftware(aSoftware: cEmutecaSoftware): boolean;
+var
+  aError: integer;
+begin
+  Result := False;
+  aError := Emuteca.RunSoftware(aSoftware);
+
+  case aError of
+    0: ; // All OK
+    kErrorRunSoftUnknown:
+    begin
+      ShowMessageFmt('TfmLEmuTKMain.RunSoftware: Unknown Error.' +
+        LineEnding + '%0:s' + LineEnding + '%1:s',
+        [aSoftware.Folder, aSoftware.FileName]);
+    end;
+    kErrorRunSoftNoSoft:
+    begin
+      ShowMessage('TfmLEmuTKMain.RunSoftware: Software = nil.');
+    end;
+    kErrorRunSoftNoEmu:
+    begin
+      ShowMessageFmt('TfmLEmuTKMain.RunSoftware: Emulator = nil.' +
+        LineEnding + '%0:s' + LineEnding + '%1:s',
+        [aSoftware.Folder, aSoftware.FileName]);
+    end;
+    kErrorRunSoftNoSoftFile:
+    begin
+      ShowMessageFmt('TfmLEmuTKMain.RunSoftware: Soft file not found.' +
+        LineEnding + '%0:s' + LineEnding + '%1:s',
+        [aSoftware.Folder, aSoftware.FileName]);
+    end;
+    kErrorRunSoftNoEmuFile:
+    begin
+      ShowMessage('TfmLEmuTKMain.RunSoftware: Emulator executable not found');
+    end;
+    kError7zDecompress:
+    begin
+      ShowMessage('TfmLEmuTKMain.RunSoftware: Unknown decompress error.');
+    end;
+    else
+    begin
+      ShowMessageFmt('TfmLEmuTKMain.RunSoftware: Emulator returned: %0:d',
+        [aError]);
+    end;
+  end;
+
+  Result := aError = 0;
 end;
 
 procedure TfrmLEmuTKMain.LoadSystemsIcons;
@@ -491,6 +572,33 @@ begin
   CacheGrpIconsThread.Start;
 end;
 
+procedure TfrmLEmuTKMain.LoadSoftIcons(aSoftList: cEmutecaSoftList);
+begin
+   // Teminate if it's running
+  if assigned(CacheSoftIconsThread) then
+  begin
+    CacheSoftIconsThread.OnTerminate := nil;
+    CacheSoftIconsThread.Terminate;
+    // CacheSoftIconsThread.WaitFor; Don't wait
+  end;
+  // Auto freed with FreeOnTerminate and nil
+
+  if not (Assigned(aSoftList) and Assigned(IconList) and
+    Assigned(GUIConfig)) then
+    Exit;
+
+  FCacheSoftIconsThread := ctLEmuTKCacheSoftIcons.Create;
+  if Assigned(CacheSoftIconsThread.FatalException) then
+    raise CacheSoftIconsThread.FatalException;
+  CacheSoftIconsThread.OnTerminate := @CacheSoftIconsThreadTerminated; //Autonil
+
+  CacheSoftIconsThread.SoftList := aSoftList;
+  CacheSoftIconsThread.IconList := IconList;
+  CacheSoftIconsThread.ImageExt := GUIConfig.ImageExtensions;
+
+  CacheSoftIconsThread.Start;
+end;
+
 procedure TfrmLEmuTKMain.FormCreate(Sender: TObject);
 var
   aIni: TMemIniFile;
@@ -549,6 +657,7 @@ begin
   fmEmutecaMainFrame.OnGrpListChanged := @DoChangeGrpList;
   fmEmutecaMainFrame.OnGroupChanged := @DoChangeGroup;
   fmEmutecaMainFrame.OnSoftChanged := @DoChangeSoft;
+  fmEmutecaMainFrame.OnSoftDblClk := @RunSoftware;
   fmEmutecaMainFrame.IconList := IconList;
   fmEmutecaMainFrame.DumpIcons := DumpIcons;
   fmEmutecaMainFrame.ZoneIcons := ZoneIcons;
@@ -613,9 +722,20 @@ begin
   TfmLEmuTKMediaManager.SimpleForm(Emuteca, GUIIconsFile, GUIConfig);
 end;
 
+procedure TfrmLEmuTKMain.actMergeGroupFilesExecute(Sender: TObject);
+begin
+  TfmLEmuTKactMergeGroup.SimpleForm(CurrentGroup, GUIIconsFile,
+    GUIConfig.ConfigFile);
+end;
+
 procedure TfrmLEmuTKMain.actOpenTempFolderExecute(Sender: TObject);
 begin
   OpenDocument(Emuteca.TempFolder);
+end;
+
+procedure TfrmLEmuTKMain.actRunSoftwareExecute(Sender: TObject);
+begin
+  RunSoftware(CurrentSoft);
 end;
 
 procedure TfrmLEmuTKMain.actSaveListsExecute(Sender: TObject);
@@ -709,20 +829,28 @@ procedure TfrmLEmuTKMain.FormCloseQuery(Sender: TObject;
 var
   aIni: TMemIniFile;
 begin
-  // Teminate threads if they are running.
-  if Assigned(CacheSysIconsThread) then
+  if Assigned(CacheSoftIconsThread) then
   begin
-    CacheSysIconsThread.OnTerminate := nil;
-    CacheSysIconsThread.Terminate;
-    CacheSysIconsThread.WaitFor;
+    CacheSoftIconsThread.OnTerminate := nil;
+    CacheSoftIconsThread.Terminate;
+    CacheSoftIconsThread.WaitFor;
   end;
-  // CacheSysIconsThread.Free; Auto freed with FreeOnTerminate
+  // CacheSoftIconsThread.Free; Auto freed with FreeOnTerminate
 
   if Assigned(CacheGrpIconsThread) then
   begin
     CacheGrpIconsThread.OnTerminate := nil;
     CacheGrpIconsThread.Terminate;
     CacheGrpIconsThread.WaitFor;
+  end;
+  // CacheGrpIconsThread.Free; Auto freed with FreeOnTerminate
+
+  // Teminate threads if they are running.
+  if Assigned(CacheSysIconsThread) then
+  begin
+    CacheSysIconsThread.OnTerminate := nil;
+    CacheSysIconsThread.Terminate;
+    CacheSysIconsThread.WaitFor;
   end;
   // CacheSysIconsThread.Free; Auto freed with FreeOnTerminate
 

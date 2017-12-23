@@ -160,17 +160,17 @@ begin
 
   if Assigned(Software) then
   begin
-    Software.SearchAllRelatedFiles(FileList, GetFolder, FileExt, True);
+    Software.SearchAllRelatedFiles(FileList, GetFolder, FileExt, True, True);
 
     if (FileList.Count = 0) and (not Software.MatchGroupFile) then
     begin
       if Assigned(Software.CachedGroup) then
-        Software.CachedGroup.SearchAllRelatedFiles(FileList, GetFolder, FileExt, True);
+        Software.CachedGroup.SearchAllRelatedFiles(FileList, GetFolder, FileExt, True, True);
     end;
   end
   else if Assigned(Group) then
   begin
-    Group.SearchAllRelatedFiles(FileList, GetFolder, FileExt, True);
+    Group.SearchAllRelatedFiles(FileList, GetFolder, FileExt, True, True);
   end;
 
   fmListPreview.StrList := FileList;

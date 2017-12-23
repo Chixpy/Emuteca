@@ -10,6 +10,8 @@ Date=20171104
 [EndInfo]
 }
 program TestFPCStrUtils;
+var
+  aString: string;
 begin
   WriteLn('Hello!');
   WriteLn('');
@@ -281,37 +283,38 @@ begin
   WriteLn('');  
   
   WriteLn('type TRomanConversionStrictness = (rcsStrict, rcsRelaxed, rcsDontCare)');
-
+  WriteLn('');
   WriteLn('const SInvalidRomanNumeral = ' + SInvalidRomanNumeral);
-
+  WriteLn('');
   //WriteLn('function IsEmptyStr(const S: string; const EmptyChars: TSysCharSet): Boolean;');
   WriteLn('function DelSpace(const S: string): string;');
-  WriteLn('    Some explanation...');
+  WriteLn('    Removes spaces.');
   WriteLn('    DelSpace('' An      example '') -> ' + DelSpace(' An      example '));
   WriteLn('');
   //WriteLn('function DelChars(const S: string; Chr: Char): string;');
   WriteLn('function DelSpace1(const S: string): string;');
-  WriteLn('    Some explanation...');
+  WriteLn('    Removes multiple space with only one.');
   WriteLn('    DelSpace1('' An     example '') -> ' + DelSpace1(' An     example '));
   WriteLn('');
   WriteLn('function Tab2Space(const S: string; Numb: Byte): string;');
-  WriteLn('    Some explanation...');
+  WriteLn('    Converts TAB charater with N spaces');
   WriteLn('    Some example... -> ');
   WriteLn('');
   WriteLn('function NPos(const C: string; S: string; N: Integer): SizeInt;');
-  WriteLn('    Some explanation...');
+  WriteLn('    Returns de N iteration of S substring position.');
   WriteLn('    NPos(''e'', ''An example'', 2) -> ' + 
     IntToStr(NPos('e', 'An example', 2)));
   WriteLn('');
   WriteLn('function RPosEx(Const Substr, Source: string; Offset: SizeInt): SizeInt;');
-  WriteLn('    Searchs a substring from the right, from Offset position (counted from left).');
+  WriteLn('    Searchs a Substr substring from the right of Source string,');
+  WriteLn('      from Offset position (counted from left).');
   WriteLn('    RPosEx(''e'', ''An example'', 2) -> ' + 
     IntToStr(RPosEx('e', 'An example', 2)));
   WriteLn('    RPosEx(''e'', ''An example'', 5) -> ' +
     IntToStr(RPosEx('e', 'An example', 5)));
   WriteLn('');
   WriteLn('function RPos(Const Substr, Source: string) : SizeInt;');
-  WriteLn('    Searchs a substring from the right');
+  WriteLn('    Searchs a substring from the right.');
   WriteLn('    RPos(''e'', ''An example'') -> ' + 
     IntToStr(RPos('e', 'An example')));
   WriteLn('');
@@ -319,25 +322,28 @@ begin
   //WriteLn('function AddCharR(C: Char; const S: string; N: Integer): string;');
   WriteLn('function PadLeft(const S: string; N: Integer): string;');
   WriteLn('    Some explanation...');
-  WriteLn('    PadLeft(''An example'', 3) -> ' + PadLeft('An example', 3));
+  WriteLn('    PadLeft(''      An example'', 3) -> ' + PadLeft('An example', 3));
   WriteLn('');
   WriteLn('function PadRight(const S: string; N: Integer): string;');
   WriteLn('    Some explanation...');
-  WriteLn('    PadRight(''An example'', 3) -> ' + PadRight('An example', 3));
+  WriteLn('    PadRight(''An example'', 15) -> ' + PadRight('An example', 15));
   WriteLn('');
   WriteLn('function PadCenter(const S: string; Len: SizeInt): string;');
   WriteLn('    Some explanation...');
-  WriteLn('    PadCenter(''An example'', 3) -> ' + PadCenter('An example', 3));
+  WriteLn('    PadCenter(''An example'', 15) -> ' + PadCenter('An example', 15));
   WriteLn('');
   //WriteLn('function Copy2Symb(const S: string; Symb: Char): string;');
   //WriteLn('function Copy2SymbDel(var S: string; Symb: Char): string;');
   WriteLn('function Copy2Space(const S: string): string;');
-  WriteLn('    Some explanation...');
+  WriteLn('    Copies substring before an space.');
   WriteLn('    Copy2Space(''An example'') -> ' + Copy2Space('An example'));
   WriteLn('');
   WriteLn('function Copy2SpaceDel(var S: string): string;');
-  WriteLn('    Some explanation...');
-  WriteLn('    Some example... -> ');
+  WriteLn('    Splits S string variable, returning the substring before a space,');
+  WriteLn('      and removing it from S string variable.');
+  aString := 'An Example';
+  WriteLn('    aString := ''An Example''; Copy2SpaceDel(aString) -> ' + Copy2SpaceDel(aString));
+  WriteLn('    aString -> ' + aString);
   WriteLn('');
   //WriteLn('function AnsiProperCase(const S: string; const WordDelims: TSysCharSet): string;');
   //WriteLn('function WordCount(const S: string; const WordDelims: TSysCharSet): SizeInt;');

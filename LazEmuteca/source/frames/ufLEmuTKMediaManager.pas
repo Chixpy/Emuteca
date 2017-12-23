@@ -791,7 +791,7 @@ begin
     Exit;
   CurrPreview.StrList := nil;
   MediaFiles.Clear;
-  aGroup.SearchAllRelatedFiles(MediaFiles, TargetFolder, ExtFilter, True);
+  aGroup.SearchAllRelatedFiles(MediaFiles, TargetFolder, ExtFilter, True,True);
   CurrPreview.StrList := MediaFiles;
 end;
 
@@ -801,7 +801,7 @@ begin
     Exit;
   CurrPreview.StrList := nil;
   MediaFiles.Clear;
-  aSoft.SearchAllRelatedFiles(MediaFiles, TargetFolder, ExtFilter, True);
+  aSoft.SearchAllRelatedFiles(MediaFiles, TargetFolder, ExtFilter, True,True);
   CurrPreview.StrList := MediaFiles;
 end;
 

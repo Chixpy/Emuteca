@@ -81,7 +81,6 @@ type
   public
     property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
 
-
     // Creates a form with AddSoft frame.
     class function SimpleForm(aEmuteca: cEmuteca; aGUIIconsIni: string;
       aGUIConfigIni: string): integer;

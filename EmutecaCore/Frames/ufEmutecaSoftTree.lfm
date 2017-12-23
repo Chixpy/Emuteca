@@ -22,7 +22,7 @@ inherited fmEmutecaSoftTree: TfmEmutecaSoftTree
   end
   object VDT: TVirtualStringTree[1]
     Left = 0
-    Height = 343
+    Height = 339
     Top = 0
     Width = 811
     Align = alClient
@@ -109,11 +109,11 @@ inherited fmEmutecaSoftTree: TfmEmutecaSoftTree
       Category = 'Group'
       Caption = 'Merge group files...'
       Hint = 'Merge group files|Merges al group files in one folder or compressed archive.'
-      OnExecute = actMergeGroupFilesExecute
     end
     object actRunSoftware: TAction
       Category = 'Game'
       Caption = 'Run software'
+      OnExecute = actRunSoftwareExecute
     end
   end
   object pmSTGroup: TPopupMenu[4]

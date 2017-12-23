@@ -99,6 +99,7 @@ type
     //< Gets actual SortTitle string, not inherited from group or automade.
     function GetActualTranslitTitle: string;
     //< Gets actual TranslitTitle string, not inherited from group or automade.
+    function GetMediaFileName: string;
 
     function SHA1IsEmpty: boolean;
     function MatchSHA1(aSHA1: TSHA1Digest): boolean;
@@ -119,9 +120,9 @@ type
     procedure ImportFrom(aSoft: caEmutecaCustomSoft);
 
     procedure SearchAllRelatedFiles(OutFileList: TStrings;
-      aFolder: string; Extensions: TStrings; AutoExtract: boolean); virtual;
+      aFolder: string; Extensions: TStrings; SearchInComp: boolean; AutoExtract: boolean); virtual;
     function SearchFirstRelatedFile(aFolder: string;
-      Extensions: TStrings; AutoExtract: boolean): string; virtual;
+      Extensions: TStrings; SearchInComp: boolean; AutoExtract: boolean): string; virtual;
 
 
     constructor Create(aOwner: TComponent); override;
@@ -437,6 +438,16 @@ begin
   Result := FTranslitTitle;
 end;
 
+function caEmutecaCustomSoft.GetMediaFileName: string;
+begin
+  Result := RemoveFromBrackets(ExtractFileNameOnly(FileName));
+
+  // Removing last dots "Super Mario Bros.", Windows have problems with
+  //   removing folders ended with dot
+  while Utf8EndsText('.', Result) do
+    Result := Copy(Result, 1, Length(Result) - 1);
+end;
+
 function caEmutecaCustomSoft.SHA1IsEmpty: boolean;
 begin
   Result := SHA1Match(SHA1, kCHXSHA1Empty);
@@ -475,8 +486,7 @@ end;
 
 function caEmutecaCustomSoft.MatchGroupFile: boolean;
 begin
-  Result := CompareFilenames(GroupKey, RemoveFromBrackets(
-    ExtractFileNameOnly(FileName))) = 0;
+  Result := CompareFilenames(GroupKey, GetMediaFileName) = 0;
 end;
 
 procedure caEmutecaCustomSoft.LoadFromStrLst(aTxtFile: TStrings);
@@ -722,17 +732,17 @@ begin
 end;
 
 procedure caEmutecaCustomSoft.SearchAllRelatedFiles(OutFileList: TStrings;
-  aFolder: string; Extensions: TStrings; AutoExtract: boolean);
+  aFolder: string; Extensions: TStrings; SearchInComp: boolean; AutoExtract: boolean);
 begin
-  EmuTKSearchAllRelatedFiles(OutFileList, aFolder, FileName, Extensions,
-    False, '');
+  EmuTKSearchAllRelatedFiles(OutFileList, aFolder, GetMediaFileName, Extensions,
+    SearchInComp, AutoExtract, '');
 end;
 
 function caEmutecaCustomSoft.SearchFirstRelatedFile(aFolder: string;
-  Extensions: TStrings; AutoExtract: boolean): string;
+  Extensions: TStrings; SearchInComp: boolean; AutoExtract: boolean): string;
 begin
-  Result := EmuTKSearchFirstRelatedFile(aFolder, FileName,
-    Extensions, False, False, '');
+  Result := EmuTKSearchFirstRelatedFile(aFolder, GetMediaFileName,
+    Extensions, SearchInComp, AutoExtract, '');
 end;
 
 constructor caEmutecaCustomSoft.Create(aOwner: TComponent);

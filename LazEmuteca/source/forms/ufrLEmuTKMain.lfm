@@ -1,7 +1,7 @@
 object frmLEmuTKMain: TfrmLEmuTKMain
-  Left = 425
+  Left = 295
   Height = 600
-  Top = 29
+  Top = 53
   Width = 800
   Caption = 'Main'
   ClientHeight = 580
@@ -59,12 +59,12 @@ object frmLEmuTKMain: TfrmLEmuTKMain
       OnExecute = actMediaManagerExecute
     end
     object actAddFolder: TAction
-      Category = 'Version'
+      Category = 'Software'
       Caption = 'Scan files from folder...'
       OnExecute = actAddFolderExecute
     end
     object actAddSoft: TAction
-      Category = 'Version'
+      Category = 'Software'
       Caption = 'Add Software...'
       OnExecute = actAddSoftExecute
     end
@@ -105,6 +105,16 @@ object frmLEmuTKMain: TfrmLEmuTKMain
       Category = 'System'
       Caption = 'Update group list'
       OnExecute = actUpdateGroupListExecute
+    end
+    object actMergeGroupFiles: TAction
+      Category = 'Group'
+      Caption = 'Merge group files...'
+      OnExecute = actMergeGroupFilesExecute
+    end
+    object actRunSoftware: TAction
+      Category = 'Software'
+      Caption = 'Run software'
+      OnExecute = actRunSoftwareExecute
     end
   end
   object MainMenu: TMainMenu
@@ -164,8 +174,20 @@ object frmLEmuTKMain: TfrmLEmuTKMain
         Action = actCleanSystemData
       end
     end
+    object mimmGroup: TMenuItem
+      Caption = 'Group'
+      object mimmMergeGroupFiles: TMenuItem
+        Action = actMergeGroupFiles
+      end
+    end
     object mimmSoft: TMenuItem
       Caption = 'Software'
+      object mimmRunSoftware: TMenuItem
+        Action = actRunSoftware
+      end
+      object MenuItem4: TMenuItem
+        Caption = '-'
+      end
       object mimmAddFiles: TMenuItem
         Caption = 'Add...'
         object mimmScanFolder: TMenuItem
