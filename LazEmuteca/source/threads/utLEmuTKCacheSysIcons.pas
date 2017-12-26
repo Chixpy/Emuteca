@@ -80,11 +80,11 @@ begin
   begin
     aSystem := SystemManager.FullList[i];
 
-    if FileExistsUTF8(aSystem.Icon) then
+    if FileExistsUTF8(aSystem.IconFile) then
     begin
       if Terminated then
         Exit;
-      aSystem.Stats.Icon := IconList[IconList.AddImageFile(aSystem.Icon)];
+      aSystem.Stats.Icon := IconList[IconList.AddImageFile(aSystem.IconFile)];
     end
     else
     begin

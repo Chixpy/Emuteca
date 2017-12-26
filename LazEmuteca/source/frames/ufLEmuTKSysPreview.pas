@@ -97,8 +97,8 @@ end;
 
 procedure TfmLEmuTKSysPreview.SysImageDblClick(Sender: TObject);
 begin
-  if FileExistsUTF8(System.Image) then
-    TfmCHXImgViewer.SimpleFormI(System.Image, SHA1Folder,
+  if FileExistsUTF8(System.ImageFile) then
+    TfmCHXImgViewer.SimpleFormI(System.ImageFile, SHA1Folder,
       GUIIconsIni, GUIConfigIni);
 end;
 
@@ -174,8 +174,8 @@ begin
     Exit;
   end;
 
-  if FileExistsUTF8(System.Image) then
-    SysImage.Picture.LoadFromFile(System.Image)
+  if FileExistsUTF8(System.ImageFile) then
+    SysImage.Picture.LoadFromFile(System.ImageFile)
   else
     SysImage.Picture.Clear;
 

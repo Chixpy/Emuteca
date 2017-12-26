@@ -57,10 +57,10 @@ begin
   begin
     fmMusicFolders.FolderList := System.MusicFolders;
     fmMusicFolders.CaptionList := System.MusicCaptions;
-    fmMusicFolders.SetBaseFolder(System.BaseFolder);
+    fmMusicFolders.InitialFolder := System.BaseFolder;
     fmVideoFolders.FolderList := System.VideoFolders;
     fmVideoFolders.CaptionList := System.VideoCaptions;
-    fmVideoFolders.SetBaseFolder(System.BaseFolder);
+    fmVideoFolders.InitialFolder := System.BaseFolder;
   end
   else
   begin

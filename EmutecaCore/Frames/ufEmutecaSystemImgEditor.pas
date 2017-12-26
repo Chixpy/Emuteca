@@ -19,6 +19,7 @@ type
     eSoftIconFolder: TDirectoryEdit;
     eSystemIcon: TFileNameEdit;
     eSystemBG: TFileNameEdit;
+    eDefSoftIcon: TFileNameEdit;
     eSystemImage: TFileNameEdit;
     gbxIconFolder: TGroupBox;
     gbxImages: TGroupBox;
@@ -28,7 +29,11 @@ type
     gbxSystemImage: TGroupBox;
     iSystemIcon: TImage;
     iSystemBG: TImage;
+    iDefSoftIcon: TImage;
     iSystemImage: TImage;
+    lDefSoftIcon: TLabel;
+    lSoftIconFolder: TLabel;
+    Splitter1: TSplitter;
     procedure eSoftIconFolderButtonClick(Sender: TObject);
     procedure eSystemBGAcceptFileName(Sender: TObject; var Value: string);
     procedure eSystemBGButtonClick(Sender: TObject);
@@ -61,7 +66,8 @@ type
     procedure DoLoadFrameData;
     procedure DoSaveFrameData;
 
-    procedure DoLoadGUIIcons(aIconsIni: TIniFile; aBaseFolder: string); override;
+    procedure DoLoadGUIIcons(aIconsIni: TIniFile; aBaseFolder: string);
+      override;
     procedure DoLoadGUIConfig(aIniFile: TIniFile);
 
   public
@@ -95,17 +101,20 @@ end;
 
 procedure TfmEmuTKSystemImgEditor.iSystemBGDblClick(Sender: TObject);
 begin
-  TfmCHXImgViewer.SimpleFormI(eSystemBG.Text, SHA1Folder,GUIIconsIni, GUIConfigIni);
+  TfmCHXImgViewer.SimpleFormI(eSystemBG.Text, SHA1Folder, GUIIconsIni,
+    GUIConfigIni);
 end;
 
 procedure TfmEmuTKSystemImgEditor.iSystemIconDblClick(Sender: TObject);
 begin
-  TfmCHXImgViewer.SimpleFormI(eSystemIcon.Text, SHA1Folder,GUIIconsIni, GUIConfigIni);
+  TfmCHXImgViewer.SimpleFormI(eSystemIcon.Text, SHA1Folder, GUIIconsIni,
+    GUIConfigIni);
 end;
 
 procedure TfmEmuTKSystemImgEditor.iSystemImageDblClick(Sender: TObject);
 begin
-  TfmCHXImgViewer.SimpleFormI(eSystemImage.Text, SHA1Folder, GUIIconsIni, GUIConfigIni);
+  TfmCHXImgViewer.SimpleFormI(eSystemImage.Text, SHA1Folder,
+    GUIIconsIni, GUIConfigIni);
 end;
 
 procedure TfmEmuTKSystemImgEditor.eSystemIconAcceptFileName(Sender: TObject;
@@ -130,7 +139,7 @@ end;
 
 procedure TfmEmuTKSystemImgEditor.eSoftIconFolderButtonClick(Sender: TObject);
 begin
-   if Assigned(System) then
+  if Assigned(System) then
     SetDirEditInitialDir(eSoftIconFolder, System.BaseFolder)
   else
     SetDirEditInitialDir(eSoftIconFolder, '');
@@ -173,10 +182,11 @@ begin
   if not Enabled then
     Exit;
 
-  System.Icon := eSystemIcon.FileName;
-  System.Image := eSystemImage.FileName;
-  System.BackImage := eSystemBG.FileName;
+  System.IconFile := eSystemIcon.FileName;
+  System.ImageFile := eSystemImage.FileName;
+  System.BackgroundFile := eSystemBG.FileName;
   System.IconFolder := eSoftIconFolder.Directory;
+  System.SoftIconFile := eDefSoftIcon.FileName;
 end;
 
 procedure TfmEmuTKSystemImgEditor.DoLoadGUIIcons(aIconsIni: TIniFile;
@@ -201,13 +211,16 @@ begin
     Exit;
   end;
 
-  eSystemImage.FileName := System.Image;
+  eSystemImage.FileName := System.ImageFile;
   UpdateImage(iSystemImage, eSystemImage.FileName);
-  eSystemIcon.FileName := System.Icon;
-  UpdateImage(iSystemIcon, eSystemIcon.FileName);
-  eSystemBG.FileName := System.BackImage;
+  eSystemBG.FileName := System.BackgroundFile;
   UpdateImage(iSystemBG, eSystemBG.FileName);
+  eSystemIcon.FileName := System.IconFile;
+  UpdateImage(iSystemIcon, eSystemIcon.FileName);
   eSoftIconFolder.Directory := System.IconFolder;
+  eDefSoftIcon.FileName := System.SoftIconFile;
+  UpdateImage(iDefSoftIcon, eDefSoftIcon.FileName);
+
 end;
 
 constructor TfmEmuTKSystemImgEditor.Create(TheOwner: TComponent);
@@ -230,11 +243,13 @@ procedure TfmEmuTKSystemImgEditor.DoClearFrameData;
 begin
   eSystemImage.Clear;
   iSystemImage.Picture.Clear;
-  eSystemIcon.Clear;
-  iSystemIcon.Picture.Clear;
   eSystemBG.Clear;
   iSystemBG.Picture.Clear;
+  eSystemIcon.Clear;
+  iSystemIcon.Picture.Clear;
   eSoftIconFolder.Clear;
+  eDefSoftIcon.Clear;
+  iDefSoftIcon.Picture.Clear;
 end;
 
 procedure TfmEmuTKSystemImgEditor.UpdateImage(aTImage: TImage; aFile: string);

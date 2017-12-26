@@ -6,7 +6,7 @@ inherited fmEmuTKSystemImgEditor: TfmEmuTKSystemImgEditor
   DesignLeft = 321
   DesignTop = 161
   inherited pButtons: TPanel
-    Top = 371
+    Top = 372
     Width = 600
     ClientWidth = 600
     TabOrder = 2
@@ -22,10 +22,10 @@ inherited fmEmuTKSystemImgEditor: TfmEmuTKSystemImgEditor
   end
   object gbxImages: TGroupBox[1]
     Left = 0
-    Height = 371
+    Height = 368
     Top = 0
-    Width = 359
-    Align = alClient
+    Width = 354
+    Align = alLeft
     Caption = 'System images'
     ChildSizing.EnlargeHorizontal = crsScaleChilds
     ChildSizing.EnlargeVertical = crsScaleChilds
@@ -33,23 +33,23 @@ inherited fmEmuTKSystemImgEditor: TfmEmuTKSystemImgEditor
     ChildSizing.ShrinkVertical = crsScaleChilds
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 1
-    ClientHeight = 351
-    ClientWidth = 355
+    ClientHeight = 348
+    ClientWidth = 350
     TabOrder = 0
     object gbxSystemImage: TGroupBox
       Left = 0
-      Height = 176
+      Height = 174
       Top = 0
-      Width = 355
+      Width = 350
       Caption = 'System image'
-      ClientHeight = 156
-      ClientWidth = 351
+      ClientHeight = 154
+      ClientWidth = 346
       TabOrder = 0
       object eSystemImage: TFileNameEdit
         Left = 0
         Height = 23
         Top = 0
-        Width = 351
+        Width = 346
         OnAcceptFileName = eSystemImageAcceptFileName
         DialogKind = dkPictureOpen
         DialogOptions = [ofNoChangeDir, ofEnableSizing, ofViewDetail]
@@ -65,10 +65,10 @@ inherited fmEmuTKSystemImgEditor: TfmEmuTKSystemImgEditor
       end
       object iSystemImage: TImage
         Left = 0
-        Height = 133
+        Height = 131
         Hint = 'System image|DblClk: Open in Image viewer.'
         Top = 23
-        Width = 351
+        Width = 346
         Align = alClient
         Center = True
         OnDblClick = iSystemImageDblClick
@@ -79,18 +79,18 @@ inherited fmEmuTKSystemImgEditor: TfmEmuTKSystemImgEditor
     end
     object gbxSystemBG: TGroupBox
       Left = 0
-      Height = 175
-      Top = 176
-      Width = 355
+      Height = 174
+      Top = 174
+      Width = 350
       Caption = 'System background'
-      ClientHeight = 155
-      ClientWidth = 351
+      ClientHeight = 154
+      ClientWidth = 346
       TabOrder = 1
       object eSystemBG: TFileNameEdit
         Left = 0
         Height = 23
         Top = 0
-        Width = 351
+        Width = 346
         OnAcceptFileName = eSystemBGAcceptFileName
         DialogKind = dkPictureOpen
         DialogOptions = [ofNoChangeDir, ofEnableSizing, ofViewDetail]
@@ -106,9 +106,9 @@ inherited fmEmuTKSystemImgEditor: TfmEmuTKSystemImgEditor
       end
       object iSystemBG: TImage
         Left = 0
-        Height = 132
+        Height = 131
         Top = 23
-        Width = 351
+        Width = 346
         Align = alClient
         Center = True
         OnDblClick = iSystemBGDblClick
@@ -120,10 +120,10 @@ inherited fmEmuTKSystemImgEditor: TfmEmuTKSystemImgEditor
   end
   object gbxSystemIcons: TGroupBox[2]
     Left = 359
-    Height = 371
+    Height = 368
     Top = 0
     Width = 241
-    Align = alRight
+    Align = alClient
     Caption = 'System Icons'
     ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
     ChildSizing.EnlargeVertical = crsHomogenousChildResize
@@ -131,16 +131,16 @@ inherited fmEmuTKSystemImgEditor: TfmEmuTKSystemImgEditor
     ChildSizing.ShrinkVertical = crsHomogenousChildResize
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 1
-    ClientHeight = 351
+    ClientHeight = 348
     ClientWidth = 237
     TabOrder = 1
     object gbxSystemIcon: TGroupBox
       Left = 0
-      Height = 221
+      Height = 148
       Top = 0
       Width = 237
       Caption = 'System icon'
-      ClientHeight = 201
+      ClientHeight = 128
       ClientWidth = 233
       TabOrder = 0
       object eSystemIcon: TFileNameEdit
@@ -163,7 +163,7 @@ inherited fmEmuTKSystemImgEditor: TfmEmuTKSystemImgEditor
       end
       object iSystemIcon: TImage
         Left = 0
-        Height = 178
+        Height = 105
         Top = 23
         Width = 233
         Align = alClient
@@ -176,18 +176,18 @@ inherited fmEmuTKSystemImgEditor: TfmEmuTKSystemImgEditor
     end
     object gbxIconFolder: TGroupBox
       Left = 0
-      Height = 130
-      Top = 221
+      Height = 200
+      Top = 148
       Width = 237
       AutoSize = True
-      Caption = 'Software icons folder'
-      ClientHeight = 110
+      Caption = 'Software icons'
+      ClientHeight = 180
       ClientWidth = 233
       TabOrder = 1
       object eSoftIconFolder: TDirectoryEdit
         Left = 0
         Height = 23
-        Top = 0
+        Top = 15
         Width = 233
         DialogOptions = [ofNoChangeDir, ofEnableSizing, ofViewDetail]
         ShowHidden = False
@@ -199,10 +199,61 @@ inherited fmEmuTKSystemImgEditor: TfmEmuTKSystemImgEditor
         TabOrder = 0
         OnButtonClick = eSoftIconFolderButtonClick
       end
+      object lSoftIconFolder: TLabel
+        Left = 0
+        Height = 15
+        Top = 0
+        Width = 233
+        Align = alTop
+        Caption = 'Software icon folder'
+        ParentColor = False
+      end
+      object lDefSoftIcon: TLabel
+        Left = 0
+        Height = 15
+        Top = 38
+        Width = 233
+        Align = alTop
+        Caption = 'Default soft icon'
+        ParentColor = False
+      end
+      object eDefSoftIcon: TFileNameEdit
+        Left = 0
+        Height = 23
+        Top = 53
+        Width = 233
+        DialogKind = dkPictureOpen
+        DialogOptions = [ofNoChangeDir, ofEnableSizing, ofViewDetail]
+        FilterIndex = 0
+        HideDirectories = False
+        ButtonWidth = 23
+        NumGlyphs = 1
+        Flat = True
+        Align = alTop
+        MaxLength = 0
+        TabOrder = 1
+      end
+      object iDefSoftIcon: TImage
+        Left = 0
+        Height = 104
+        Top = 76
+        Width = 233
+        Align = alClient
+        Center = True
+        Proportional = True
+        Stretch = True
+        Transparent = True
+      end
     end
   end
-  inherited alPropEditor: TActionList[3]
+  object Splitter1: TSplitter[3]
+    Left = 354
+    Height = 368
+    Top = 0
+    Width = 5
   end
-  inherited ilPropEditor: TImageList[4]
+  inherited alPropEditor: TActionList[4]
+  end
+  inherited ilPropEditor: TImageList[5]
   end
 end

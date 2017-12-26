@@ -99,8 +99,6 @@ begin
 end;
 
 procedure cEmutecaSoftware.SetCachedGroup(AValue: caEmutecaCustomGroup);
-var
-  aTitle: string;
 begin
   if FCachedGroup = AValue then
     Exit;
@@ -108,9 +106,6 @@ begin
   if Assigned(FCachedGroup) then
   begin
     FCachedGroup.FPODetachObserver(Self);
-    // Hack (1/2): Preserving title when changing groups and Title = ''
-    if GetActualTitle = '' then
-      aTitle := FCachedGroup.Title;
   end;
 
   FCachedGroup := AValue;
@@ -121,15 +116,6 @@ begin
     GroupKey := CachedGroup.ID;
   end;
   // else GroupKey := ''; We don't want to delete old GroupKey
-
-  // Hack (2/2): Preserving title when changing groups
-  //   + Reupdating title with actual title.
-  if GetActualTitle <> '' then
-  begin
-     aTitle := GetActualTitle;
-     Title := '';
-  end;
-  Title := aTitle;
 end;
 
 procedure cEmutecaSoftware.SetTitle(AValue: string);

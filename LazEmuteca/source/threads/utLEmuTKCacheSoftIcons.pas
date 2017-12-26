@@ -98,22 +98,35 @@ begin
     aIcon := aSoft.Stats.Icon;
     if not Assigned(aIcon) then
     begin
-      TempStr := aSoft.SearchFirstRelatedFile(aSoft.CachedSystem.IconFolder,
-        ImageExt, True,True);
-
-      if FileExistsUTF8(TempStr) then
-      begin
-        aIcon := IconList[IconList.AddImageFile(TempStr)];
-        if Terminated then
-          Exit;
-        aSoft.Stats.Icon := aIcon;
-      end
-      else
+      if aSoft.MatchGroupFile then
       begin
         if Terminated then
           Exit;
         aSoft.Stats.Icon := aSoft.CachedGroup.Stats.Icon;
+      end
+      else
+      begin
+
+        if Terminated then
+          Exit;
+        TempStr := aSoft.SearchFirstRelatedFile(aSoft.CachedSystem.IconFolder,
+          ImageExt, True, True);
+
+        if FileExistsUTF8(TempStr) then
+        begin
+          aIcon := IconList[IconList.AddImageFile(TempStr)];
+          if Terminated then
+            Exit;
+          aSoft.Stats.Icon := aIcon;
+        end
+        else
+        begin
+          if Terminated then
+            Exit;
+          aSoft.Stats.Icon := aSoft.CachedGroup.Stats.Icon;
+        end;
       end;
+
     end;
 
     Inc(i);

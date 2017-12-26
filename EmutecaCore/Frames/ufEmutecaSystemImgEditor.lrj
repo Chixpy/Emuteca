@@ -5,5 +5,7 @@
 {"hash":172418820,"name":"tfmemutksystemimgeditor.gbxsystembg.caption","sourcebytes":[83,121,115,116,101,109,32,98,97,99,107,103,114,111,117,110,100],"value":"System background"},
 {"hash":184504547,"name":"tfmemutksystemimgeditor.gbxsystemicons.caption","sourcebytes":[83,121,115,116,101,109,32,73,99,111,110,115],"value":"System Icons"},
 {"hash":195949822,"name":"tfmemutksystemimgeditor.gbxsystemicon.caption","sourcebytes":[83,121,115,116,101,109,32,105,99,111,110],"value":"System icon"},
-{"hash":227655090,"name":"tfmemutksystemimgeditor.gbxiconfolder.caption","sourcebytes":[83,111,102,116,119,97,114,101,32,105,99,111,110,115,32,102,111,108,100,101,114],"value":"Software icons folder"}
+{"hash":45373811,"name":"tfmemutksystemimgeditor.gbxiconfolder.caption","sourcebytes":[83,111,102,116,119,97,114,101,32,105,99,111,110,115],"value":"Software icons"},
+{"hash":75658210,"name":"tfmemutksystemimgeditor.lsofticonfolder.caption","sourcebytes":[83,111,102,116,119,97,114,101,32,105,99,111,110,32,102,111,108,100,101,114],"value":"Software icon folder"},
+{"hash":18497678,"name":"tfmemutksystemimgeditor.ldefsofticon.caption","sourcebytes":[68,101,102,97,117,108,116,32,115,111,102,116,32,105,99,111,110],"value":"Default soft icon"}
 ]}

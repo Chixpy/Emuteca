@@ -99,6 +99,7 @@ const
   krsIniKeyIcon = 'Icon';
   krsIniKeyImage = 'Image';
   krsIniKeyBackImage = 'BackImage';
+  krsIniKeySoftIcon = 'SoftIcon';
   krsIniKeyIconFolder = 'IconFolder';
   krsIniKeyImageFolders = 'ImageFolders';
   krsIniKeyImageCaptions = 'ImageCaptions';

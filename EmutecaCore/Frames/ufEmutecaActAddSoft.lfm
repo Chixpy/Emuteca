@@ -6,7 +6,7 @@ inherited fmEmutecaActAddSoft: TfmEmutecaActAddSoft
   DesignLeft = 359
   DesignTop = 83
   inherited pButtons: TPanel
-    Top = 483
+    Top = 484
     Width = 594
     ClientWidth = 594
     TabOrder = 3
@@ -22,29 +22,30 @@ inherited fmEmutecaActAddSoft: TfmEmutecaActAddSoft
   end
   object pSelectFile: TPanel[1]
     Left = 0
-    Height = 483
+    Height = 480
     Top = 0
     Width = 285
     Align = alLeft
-    ClientHeight = 483
+    BevelOuter = bvNone
+    ClientHeight = 480
     ClientWidth = 285
     TabOrder = 0
     object gbxSelectSystem: TGroupBox
-      Left = 1
+      Left = 0
       Height = 35
-      Top = 1
-      Width = 283
+      Top = 0
+      Width = 285
       Align = alTop
       AutoSize = True
       Caption = 'Select a System'
       ClientHeight = 15
-      ClientWidth = 279
+      ClientWidth = 281
       TabOrder = 0
       object lSystemInfo: TLabel
         Left = 0
         Height = 15
         Top = 0
-        Width = 279
+        Width = 281
         Align = alTop
         Caption = 'Supported Extensions'
         ParentColor = False
@@ -52,22 +53,22 @@ inherited fmEmutecaActAddSoft: TfmEmutecaActAddSoft
       end
     end
     object gbxFileSelection: TGroupBox
-      Left = 1
+      Left = 0
       Height = 100
-      Top = 36
-      Width = 283
+      Top = 35
+      Width = 285
       Align = alTop
       AutoSize = True
       Caption = 'Select a file'
       ClientHeight = 80
-      ClientWidth = 279
+      ClientWidth = 281
       Enabled = False
       TabOrder = 1
       object eFile: TFileNameEdit
         Left = 0
         Height = 23
         Top = 0
-        Width = 279
+        Width = 281
         OnAcceptFileName = eFileAcceptFileName
         DialogOptions = [ofNoChangeDir, ofFileMustExist, ofEnableSizing, ofViewDetail]
         FilterIndex = 0
@@ -84,7 +85,7 @@ inherited fmEmutecaActAddSoft: TfmEmutecaActAddSoft
         Left = 0
         Height = 19
         Top = 23
-        Width = 279
+        Width = 281
         Align = alTop
         Caption = 'Open as compressed archive'
         Enabled = False
@@ -95,7 +96,7 @@ inherited fmEmutecaActAddSoft: TfmEmutecaActAddSoft
         Left = 0
         Height = 23
         Top = 57
-        Width = 279
+        Width = 281
         Align = alTop
         Enabled = False
         ItemHeight = 15
@@ -107,7 +108,7 @@ inherited fmEmutecaActAddSoft: TfmEmutecaActAddSoft
         Left = 0
         Height = 15
         Top = 42
-        Width = 279
+        Width = 281
         Align = alTop
         Caption = ' '
         Font.Color = clRed
@@ -117,10 +118,10 @@ inherited fmEmutecaActAddSoft: TfmEmutecaActAddSoft
       end
     end
     object rgbSoftKey: TRadioGroup
-      Left = 1
+      Left = 0
       Height = 58
-      Top = 136
-      Width = 283
+      Top = 135
+      Width = 285
       Align = alTop
       AutoFill = True
       AutoSize = True
@@ -133,7 +134,7 @@ inherited fmEmutecaActAddSoft: TfmEmutecaActAddSoft
       ChildSizing.Layout = cclLeftToRightThenTopToBottom
       ChildSizing.ControlsPerLine = 2
       ClientHeight = 38
-      ClientWidth = 279
+      ClientWidth = 281
       Columns = 2
       Enabled = False
       Items.Strings = (
@@ -146,31 +147,31 @@ inherited fmEmutecaActAddSoft: TfmEmutecaActAddSoft
       TabOrder = 2
     end
     object eVersionKey: TEdit
-      Left = 1
+      Left = 0
       Height = 23
-      Top = 194
-      Width = 283
+      Top = 193
+      Width = 285
       Align = alTop
       Enabled = False
       OnEditingDone = eVersionKeyEditingDone
       TabOrder = 3
     end
     object gbxDuplicates: TGroupBox
-      Left = 1
+      Left = 0
       Height = 35
-      Top = 217
-      Width = 283
+      Top = 216
+      Width = 285
       Align = alTop
       AutoSize = True
       Caption = 'Duplicates'
       ClientHeight = 15
-      ClientWidth = 279
+      ClientWidth = 281
       TabOrder = 4
       object lDupFile: TLabel
         Left = 0
         Height = 15
         Top = 0
-        Width = 279
+        Width = 281
         Align = alTop
         Caption = ' '
         Font.Style = [fsBold]
@@ -181,20 +182,20 @@ inherited fmEmutecaActAddSoft: TfmEmutecaActAddSoft
   end
   object Splitter1: TSplitter[2]
     Left = 285
-    Height = 483
+    Height = 480
     Top = 0
     Width = 5
   end
   object pInfo: TPanel[3]
     Left = 290
-    Height = 483
+    Height = 480
     Top = 0
     Width = 304
     Align = alClient
     BevelOuter = bvNone
-    ClientHeight = 483
+    ClientHeight = 480
     ClientWidth = 304
-    TabOrder = 2
+    TabOrder = 1
     object gbxGroup: TGroupBox
       Left = 0
       Height = 39
@@ -218,7 +219,7 @@ inherited fmEmutecaActAddSoft: TfmEmutecaActAddSoft
     end
     object gbxSoftInfo: TGroupBox
       Left = 0
-      Height = 444
+      Height = 441
       Top = 39
       Width = 304
       Align = alClient

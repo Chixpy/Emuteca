@@ -22,7 +22,8 @@ type
     gbxGroup: TGroupBox;
     gbxSoft: TGroupBox;
     pGroupCBX: TPanel;
-    sbxSoft: TScrollBox;
+    pGroupEditor: TPanel;
+    ScrollBox: TScrollBox;
     procedure actAddNewGroupExecute(Sender: TObject);
 
   private
@@ -185,17 +186,17 @@ constructor TfmLEmuTKFullSoftEditor.Create(TheOwner: TComponent);
     fmGroupCBX.OnSelectGroup := @SelectGroup;
     fmGroupCBX.Parent := pGroupCBX;
 
-    FfmSoftEditor := TfmEmutecaSoftEditor.Create(sbxSoft);
-    //fmSoftEditor.Align := alTop;
+    FfmGroupEditor := TfmEmutecaGroupEditor.Create(pGroupEditor);
+    fmGroupEditor.Align := alTop;
+    fmGroupEditor.SaveButtons := False;
+    fmGroupEditor.ButtonClose := False;
+    fmGroupEditor.Parent := pGroupEditor;
+
+    FfmSoftEditor := TfmEmutecaSoftEditor.Create(gbxSoft);
+    fmSoftEditor.Align := alTop;
     fmSoftEditor.SaveButtons := False;
     fmSoftEditor.ButtonClose := False;
-    fmSoftEditor.Parent := sbxSoft;
-
-    FfmGroupEditor := TfmEmutecaGroupEditor.Create(gbxGroup);
-    fmGroupEditor.Align := alClient;
-    FfmGroupEditor.SaveButtons := False;
-    FfmGroupEditor.ButtonClose := False;
-    fmGroupEditor.Parent := gbxGroup;
+    fmSoftEditor.Parent := gbxSoft;
 end;
 
 begin

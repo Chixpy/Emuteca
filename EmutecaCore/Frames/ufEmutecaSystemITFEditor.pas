@@ -57,10 +57,10 @@ begin
   begin
     fmImageFolders.FolderList := System.ImageFolders;
     fmImageFolders.CaptionList := System.ImageCaptions;
-    fmImageFolders.SetBaseFolder(System.BaseFolder);
+    fmImageFolders.InitialFolder :=System.BaseFolder;
     fmTextFolders.FolderList := System.TextFolders;
     fmTextFolders.CaptionList := System.TextCaptions;
-    fmTextFolders.SetBaseFolder(System.BaseFolder);
+    fmTextFolders.InitialFolder :=System.BaseFolder;
   end
   else
   begin

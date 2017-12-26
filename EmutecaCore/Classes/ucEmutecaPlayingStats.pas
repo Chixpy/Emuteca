@@ -42,10 +42,12 @@ type
     FIcon: TPicture;
     FLastTime: TDateTime;
     FPlayingTime: int64;
+    FSysSoftIcon: TPicture;
     FTimesPlayed: int64;
     procedure SetIcon(AValue: TPicture);
     procedure SetLastTime(AValue: TDateTime);
     procedure SetPlayingTime(AValue: int64);
+    procedure SetSysSoftIcon(AValue: TPicture);
     procedure SetTimesPlayed(AValue: int64);
 
   public
@@ -79,8 +81,9 @@ type
     function TimesPlayedStr: string;
     function PlayingTimeStr: string;
 
-    // TODO: This must be else where...
+    // TODO: This must be stored in another place...
     property Icon: TPicture read FIcon write SetIcon;
+    property SysSoftIcon: TPicture read FSysSoftIcon write SetSysSoftIcon;
   end;
 
 implementation
@@ -106,6 +109,12 @@ begin
   if FPlayingTime = AValue then
     Exit;
   FPlayingTime := AValue;
+end;
+
+procedure cEmutecaPlayingStats.SetSysSoftIcon(AValue: TPicture);
+begin
+  if FSysSoftIcon=AValue then Exit;
+  FSysSoftIcon:=AValue;
 end;
 
 procedure cEmutecaPlayingStats.SetTimesPlayed(AValue: int64);

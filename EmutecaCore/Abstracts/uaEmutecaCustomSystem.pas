@@ -37,14 +37,14 @@ type
 
   caEmutecaCustomSystem = class(caCHXStorableIni)
   private
-    FBackImage: string;
+    FBackgroundFile: string;
     FBaseFolder: string;
     FEnabled: boolean;
     FExtensions: TStringList;
     FExtractAll: boolean;
     FFileName: string;
     FSoftExportKey: TEmutecaSoftExportKey;
-    FIcon: string;
+    FIconFile: string;
     FIconFolder: string;
     FID: string;
     FImage: string;
@@ -55,6 +55,7 @@ type
     FMusicCaptions: TStringList;
     FMusicFolders: TStringList;
     FOtherEmulators: TStringList;
+    FSoftIconFile: string;
     FStats: cEmutecaPlayingStats;
     FTempFolder: string;
     FWorkingFolder: string;
@@ -63,18 +64,19 @@ type
     FTitle: string;
     FVideoCaptions: TStringList;
     FVideoFolders: TStringList;
-    procedure SetBackImage(AValue: string);
+    procedure SetBackgroundFile(AValue: string);
     procedure SetBaseFolder(AValue: string);
     procedure SetEnabled(AValue: boolean);
     procedure SetExtractAll(AValue: boolean);
     procedure SetFileName(AValue: string);
     procedure SetSoftExportKey(AValue: TEmutecaSoftExportKey);
-    procedure SetIcon(AValue: string);
+    procedure SetIconFile(AValue: string);
     procedure SetIconFolder(AValue: string);
     procedure SetID(AValue: string);
     procedure SetImage(AValue: string);
     procedure SetInfoText(AValue: string);
     procedure SetMainEmulator(AValue: string);
+    procedure SetSoftIconFile(AValue: string);
     procedure SetTempFolder(AValue: string);
     procedure SetWorkingFolder(AValue: string);
     procedure SetTitle(AValue: string);
@@ -150,12 +152,14 @@ type
 
     // System Images
     // -------------
-    property Icon: string read FIcon write SetIcon;
+    property IconFile: string read FIconFile write SetIconFile;
     {< Path to the icon of the system. }
-    property Image: string read FImage write SetImage;
+    property ImageFile: string read FImage write SetImage;
     {< Path to image of the system. }
-    property BackImage: string read FBackImage write SetBackImage;
+    property BackgroundFile: string read FBackgroundFile write SetBackgroundFile;
     {< Image used for as background. }
+    property SoftIconFile: string read FSoftIconFile write SetSoftIconFile;
+    {< Default soft icon. }
 
     // Soft image dirs
     // ---------------
@@ -236,9 +240,10 @@ begin
     aIniFile.ReadString(ID, krsIniKeyOtherEmulators, OtherEmulators.CommaText);
 
   // Images
-  Icon := aIniFile.ReadString(ID, krsIniKeyIcon, Icon);
-  Image := aIniFile.ReadString(ID, krsIniKeyImage, Image);
-  BackImage := aIniFile.ReadString(ID, krsIniKeyBackImage, BackImage);
+  IconFile := aIniFile.ReadString(ID, krsIniKeyIcon, IconFile);
+  ImageFile := aIniFile.ReadString(ID, krsIniKeyImage, ImageFile);
+  BackgroundFile := aIniFile.ReadString(ID, krsIniKeyBackImage, BackgroundFile);
+  SoftIconFile := aIniFile.ReadString(ID, krsIniKeySoftIcon, SoftIconFile);
 
   IconFolder := aIniFile.ReadString(ID, krsIniKeyIconFolder, IconFolder);
   ImageFolders.CommaText :=
@@ -313,6 +318,7 @@ begin
     aIniFile.DeleteKey(ID, krsIniKeyIcon);
     aIniFile.DeleteKey(ID, krsIniKeyImage);
     aIniFile.DeleteKey(ID, krsIniKeyBackImage);
+    aIniFile.DeleteKey(ID, krsIniKeySoftIcon);
 
     aIniFile.DeleteKey(ID, krsIniKeyIconFolder);
     aIniFile.DeleteKey(ID, krsIniKeyImageFolders);
@@ -340,9 +346,10 @@ begin
     aIniFile.WriteString(ID, krsIniKeyWorkingFolder, WorkingFolder);
 
     // Images
-    aIniFile.WriteString(ID, krsIniKeyIcon, Icon);
-    aIniFile.WriteString(ID, krsIniKeyImage, Image);
-    aIniFile.WriteString(ID, krsIniKeyBackImage, BackImage);
+    aIniFile.WriteString(ID, krsIniKeyIcon, IconFile);
+    aIniFile.WriteString(ID, krsIniKeyImage, ImageFile);
+    aIniFile.WriteString(ID, krsIniKeyBackImage, BackgroundFile);
+    aIniFile.WriteString(ID, krsIniKeySoftIcon, SoftIconFile);
 
     aIniFile.WriteString(ID, krsIniKeyIconFolder, IconFolder);
     aIniFile.WriteString(ID, krsIniKeyImageFolders, ImageFolders.CommaText);
@@ -371,9 +378,9 @@ begin
   FBaseFolder := SetAsFolder(AValue);
 end;
 
-procedure caEmutecaCustomSystem.SetBackImage(AValue: string);
+procedure caEmutecaCustomSystem.SetBackgroundFile(AValue: string);
 begin
-  FBackImage := SetAsFile(AValue);
+  FBackgroundFile := SetAsFile(AValue);
 end;
 
 procedure caEmutecaCustomSystem.SetEnabled(AValue: boolean);
@@ -403,9 +410,9 @@ begin
   FSoftExportKey := AValue;
 end;
 
-procedure caEmutecaCustomSystem.SetIcon(AValue: string);
+procedure caEmutecaCustomSystem.SetIconFile(AValue: string);
 begin
-  FIcon := SetAsFile(AValue);
+  FIconFile := SetAsFile(AValue);
 end;
 
 procedure caEmutecaCustomSystem.SetIconFolder(AValue: string);
@@ -440,6 +447,12 @@ begin
 
   if OtherEmulators.IndexOf(MainEmulator) = -1 then
     OtherEmulators.Add(MainEmulator);
+end;
+
+procedure caEmutecaCustomSystem.SetSoftIconFile(AValue: string);
+begin
+  if FSoftIconFile=AValue then Exit;
+  FSoftIconFile:=AValue;
 end;
 
 procedure caEmutecaCustomSystem.SetTempFolder(AValue: string);

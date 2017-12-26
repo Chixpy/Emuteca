@@ -167,27 +167,27 @@ begin T := Self.IconFolder; end;
 
 (*----------------------------------------------------------------------------*)
 procedure caEmutecaCustomSystemBackImage_W(Self: caEmutecaCustomSystem; const T: string);
-begin Self.BackImage := T; end;
+begin Self.BackgroundFile := T; end;
 
 (*----------------------------------------------------------------------------*)
 procedure caEmutecaCustomSystemBackImage_R(Self: caEmutecaCustomSystem; var T: string);
-begin T := Self.BackImage; end;
+begin T := Self.BackgroundFile; end;
 
 (*----------------------------------------------------------------------------*)
 procedure caEmutecaCustomSystemImage_W(Self: caEmutecaCustomSystem; const T: string);
-begin Self.Image := T; end;
+begin Self.ImageFile := T; end;
 
 (*----------------------------------------------------------------------------*)
 procedure caEmutecaCustomSystemImage_R(Self: caEmutecaCustomSystem; var T: string);
-begin T := Self.Image; end;
+begin T := Self.ImageFile; end;
 
 (*----------------------------------------------------------------------------*)
 procedure caEmutecaCustomSystemIcon_W(Self: caEmutecaCustomSystem; const T: string);
-begin Self.Icon := T; end;
+begin Self.IconFile := T; end;
 
 (*----------------------------------------------------------------------------*)
 procedure caEmutecaCustomSystemIcon_R(Self: caEmutecaCustomSystem; var T: string);
-begin T := Self.Icon; end;
+begin T := Self.IconFile; end;
 
 (*----------------------------------------------------------------------------*)
 procedure caEmutecaCustomSystemOtherEmulators_R(Self: caEmutecaCustomSystem; var T: TStringList);

@@ -6,13 +6,13 @@ inherited fmLEmuTKMain: TfmLEmuTKMain
   DesignLeft = 387
   DesignTop = 110
   object Splitter1: TSplitter[0]
-    Left = 200
+    Left = 204
     Height = 480
     Top = 0
     Width = 5
   end
   object Splitter2: TSplitter[1]
-    Left = 435
+    Left = 431
     Height = 480
     Top = 0
     Width = 5
@@ -20,20 +20,20 @@ inherited fmLEmuTKMain: TfmLEmuTKMain
     ResizeAnchor = akRight
   end
   object pMiddle: TPanel[2]
-    Left = 205
+    Left = 213
     Height = 480
     Top = 0
-    Width = 230
+    Width = 214
     Align = alClient
     BevelOuter = bvNone
     ClientHeight = 480
-    ClientWidth = 230
+    ClientWidth = 214
     TabOrder = 2
     object pMain: TPanel
       Left = 0
       Height = 457
       Top = 23
-      Width = 230
+      Width = 214
       Align = alClient
       BevelOuter = bvNone
       TabOrder = 1
@@ -42,7 +42,7 @@ inherited fmLEmuTKMain: TfmLEmuTKMain
       Left = 0
       Height = 23
       Top = 0
-      Width = 230
+      Width = 214
       Align = alTop
       TabOrder = 0
       TextHint = 'Filter by name...'

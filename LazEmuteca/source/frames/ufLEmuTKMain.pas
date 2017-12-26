@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls,
-  ExtCtrls, StdCtrls,
+  ExtCtrls, StdCtrls, IniFiles,
   // CHX
   uCHXStrUtils, ucCHXImageList,
   // CHX frames
@@ -24,6 +24,11 @@ uses
   ufLEmuTKSysPreview,
   // GUI
   uGUIConfig;
+
+const
+  krsIniMainFrameSection = 'MainFrame';
+  krsIniMainFrameLeftPanelWidth = 'LeftPanel_Width';
+  krsIniMainFrameRigthPanelWidth = 'RightPanel_Width';
 
 type
 
@@ -97,6 +102,8 @@ type
 
     procedure DoClearFrameData;
     procedure DoLoadFrameData;
+    procedure DoLoadGUIConfig(aIniFile: TIniFile);
+    procedure DoSaveGUIConfig(aIniFile: TIniFile);
 
   public
 
@@ -383,6 +390,20 @@ begin
   DoSelectSystem(fmEmutecaSystemCBX.SelectedSystem);
 end;
 
+procedure TfmLEmuTKMain.DoLoadGUIConfig(aIniFile: TIniFile);
+begin
+  pcLeft.Width := aIniFile.ReadInteger(krsIniMainFrameSection,
+    krsIniMainFrameLeftPanelWidth, pcLeft.Width);
+  pcSoftware.Width := aIniFile.ReadInteger(krsIniMainFrameSection,
+    krsIniMainFrameRigthPanelWidth, pcSoftware.Width);
+end;
+
+procedure TfmLEmuTKMain.DoSaveGUIConfig(aIniFile: TIniFile);
+begin
+  aIniFile.WriteInteger(krsIniMainFrameSection, krsIniMainFrameLeftPanelWidth, pcLeft.Width);
+  aIniFile.WriteInteger(krsIniMainFrameSection, krsIniMainFrameRigthPanelWidth, pcSoftware.Width);
+end;
+
 constructor TfmLEmuTKMain.Create(TheOwner: TComponent);
 
   procedure CreateFrames;
@@ -454,6 +475,9 @@ begin
 
   OnClearFrameData := @DoClearFrameData;
   OnLoadFrameData := @DoLoadFrameData;
+
+    OnLoadGUIConfig := @DoLoadGUIConfig;
+  OnSaveGUIConfig := @DoSaveGUIConfig;
 end;
 
 destructor TfmLEmuTKMain.Destroy;

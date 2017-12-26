@@ -34,7 +34,6 @@ type
     eYear: TEdit;
     eZone: TEdit;
     gbxDumpTags: TGroupBox;
-    gbxTitle: TGroupBox;
     gbxVersion: TGroupBox;
     lCracked: TLabel;
     lDumpInfo: TLabel;
@@ -49,7 +48,6 @@ type
     lVersion: TLabel;
     lYear: TLabel;
     lZone: TLabel;
-    pEmpty: TPanel;
 
   private
     FfmGroupEditor: TfmEmutecaGroupEditor;

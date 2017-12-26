@@ -1,5 +1,6 @@
 {"version":1,"strings":[
-{"hash":370132,"name":"tfmlemutkfullsofteditor.gbxsoft.caption","sourcebytes":[83,111,102,116],"value":"Soft"},
 {"hash":5150400,"name":"tfmlemutkfullsofteditor.gbxgroup.caption","sourcebytes":[71,114,111,117,112],"value":"Group"},
-{"hash":104413680,"name":"tfmlemutkfullsofteditor.actaddnewgroup.caption","sourcebytes":[97,99,116,65,100,100,78,101,119,71,114,111,117,112],"value":"actAddNewGroup"}
+{"hash":248054336,"name":"tfmlemutkfullsofteditor.baddnewgroup.hint","sourcebytes":[65,100,100,32,110,101,119,32,103,114,111,117,112],"value":"Add new group"},
+{"hash":98295077,"name":"tfmlemutkfullsofteditor.gbxsoft.caption","sourcebytes":[83,111,102,116,119,97,114,101],"value":"Software"},
+{"hash":248054336,"name":"tfmlemutkfullsofteditor.actaddnewgroup.caption","sourcebytes":[65,100,100,32,110,101,119,32,103,114,111,117,112],"value":"Add new group"}
 ]}

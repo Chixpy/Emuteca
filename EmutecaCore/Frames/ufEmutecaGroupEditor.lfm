@@ -1,6 +1,11 @@
 inherited fmEmutecaGroupEditor: TfmEmutecaGroupEditor
   Height = 275
   Width = 253
+  HorzScrollBar.Page = 1
+  VertScrollBar.Page = 1
+  AutoScroll = True
+  AutoSize = True
+  ChildSizing.HorizontalSpacing = 4
   ClientHeight = 275
   ClientWidth = 253
   inherited pButtons: TPanel
