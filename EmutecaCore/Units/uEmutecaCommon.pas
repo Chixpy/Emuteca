@@ -19,7 +19,7 @@ const
   krsTempGameSubFolder = 'Soft/';
   {< Subfolder in temp directory, where games will be decompressed.
 
-    With directory separator.
+    With ending folder separator.
   }
 
 
@@ -30,7 +30,7 @@ const
   krsFileExtSoft = '.csv';
   {< Extension for soft lists. }
   krsFileExtINI = '.ini';
-  {< Extension for ini databases (Systems, Emulators, Export/Import, ...). }
+  {< Extension for ini databases (Systems, Emulators). }
   krsFileExtScript = '.pas';
   {< Extension for script files. }
   krsFileExtTXT = '.txt';
@@ -43,7 +43,7 @@ const
   krsFileMaskSoft = '*' + krsFileExtSoft;
   {< File mask for soft lists. }
   krsFileMaskINI = '*' + krsFileExtINI;
-  {< File mask for ini databases (Systems, Emulators, Export/Import, ...). }
+  {< File mask for ini databases (Systems, Emulators). }
   krsFileMaskScript = '*' + krsFileExtScript;
   {< File mask for script files. }
   krsFileMaskTXT = '*' + krsFileExtTXT;
@@ -225,8 +225,9 @@ type
   TEmutecaDumpStatus = (edsVerified, edsGood, edsAlternate, edsOverDump,
     edsBadDump, edsUnderDump, edsKeepValue);
 
-  TEmutecaProgressCallBack = function(const Title, Info1, Info2: string;
-    const Value, MaxValue: int64): boolean of object;
+  TEmutecaProgressCallBack = function(const aAction, aInfo: string;
+    const aValue, aMaxValue: int64; const IsCancelable: boolean): boolean of
+    object;
 {< Callback funtion to show progress }
 
 const

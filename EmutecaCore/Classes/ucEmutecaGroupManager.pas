@@ -118,13 +118,16 @@ begin
     aGroup.CachedSystem := System;
 
     if Assigned(ProgressCallBack) then
-      ProgressCallBack(rsLoadingGroupList, aGroup.Title, aGroup.ID,
-        i, aTxtFile.Count);
+      ProgressCallBack(rsLoadingGroupList, aGroup.Title,
+        i, aTxtFile.Count, False);
 
     aGrpLst.Add(aGroup);
     Inc(i);
   end;
   // aGrpLst.EndUpdate;
+
+  if Assigned(ProgressCallBack) then
+    ProgressCallBack('', '', 0, 0, False);
 end;
 
 procedure cEmutecaGroupManager.ImportFromIni(aIniFile: TIniFile);
@@ -161,8 +164,8 @@ begin
       aGroup1 := FullList[j];
 
       if assigned(ProgressCallBack) then
-        ProgressCallBack(rsImportingGroupList, aGroup1.Title,
-          aGroup1.ID, j, FullList.Count);
+        ProgressCallBack(rsImportingGroupList, aGroup1.Title, j, FullList.Count,
+        False);
 
       if assigned(aGroup2) then
         aComp := aGroup1.CompareID(aGroup2.ID)
@@ -193,7 +196,7 @@ begin
     aGrpLst.Free;
   end;
   if assigned(ProgressCallBack) then
-    ProgressCallBack('', '', '', 0, 0);
+    ProgressCallBack('', '', 0, 0, False);
 end;
 
 function cEmutecaGroupManager.AddGroup(aID: string): integer;
@@ -245,8 +248,8 @@ procedure cEmutecaGroupManager.SaveToStrLst(aTxtFile: TStrings;
         aGroup := cEmutecaGroup(FullList[i]);
 
         if Assigned(ProgressCallBack) then
-          ProgressCallBack(rsSavingGroupList, aGroup.Title, aGroup.ID,
-            i, FullList.Count);
+          ProgressCallBack(rsSavingGroupList, aGroup.Title,
+            i, FullList.Count, False);
 
         aTxtFile.Add(aGroup.TXTString);
         Inc(i);
@@ -257,7 +260,7 @@ procedure cEmutecaGroupManager.SaveToStrLst(aTxtFile: TStrings;
     end;
 
     if assigned(ProgressCallBack) then
-      ProgressCallBack('', '', '', 0, 0);
+      ProgressCallBack('', '', 0, 0, False);
   end;
 
 
@@ -281,8 +284,8 @@ procedure cEmutecaGroupManager.SaveToStrLst(aTxtFile: TStrings;
         aGroup := cEmutecaGroup(FullList[i]);
 
         if Assigned(ProgressCallBack) then
-          ProgressCallBack(rsSavingGroupList, aGroup.Title, aGroup.ID,
-            i, FullList.Count);
+          ProgressCallBack(rsSavingGroupList, aGroup.Title,
+            i, FullList.Count, False);
 
         aTxtFile.Add(aGroup.TXTExportString);
         Inc(i);
@@ -293,7 +296,7 @@ procedure cEmutecaGroupManager.SaveToStrLst(aTxtFile: TStrings;
     end;
 
     if assigned(ProgressCallBack) then
-      ProgressCallBack('', '', '', 0, 0);
+      ProgressCallBack('', '', 0, 0, False);
   end;
 
 begin

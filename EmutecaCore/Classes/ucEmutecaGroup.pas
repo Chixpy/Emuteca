@@ -46,11 +46,12 @@ type
     property CachedSystem: caEmutecaCustomSystem
       read FCachedSystem write SetCachedSystem;
 
-
     procedure SearchAllRelatedFiles(OutFileList: TStrings;
-      aFolder: string; Extensions: TStrings; SearchInComp: boolean; AutoExtract: boolean); override;
+      aFolder: string; Extensions: TStrings; SearchInComp: boolean;
+      AutoExtract: boolean); override;
     function SearchFirstRelatedFile(aFolder: string;
-      Extensions: TStrings; SearchInComp: boolean; AutoExtract: boolean): string; override;
+      Extensions: TStrings; SearchInComp: boolean;
+      AutoExtract: boolean): string; override;
 
     constructor Create(aOwner: TComponent); override;
     destructor Destroy; override;
@@ -73,7 +74,8 @@ begin
 end;
 
 procedure cEmutecaGroup.SearchAllRelatedFiles(OutFileList: TStrings;
-  aFolder: string; Extensions: TStrings; SearchInComp: boolean;AutoExtract: boolean);
+  aFolder: string; Extensions: TStrings;
+  SearchInComp: boolean; AutoExtract: boolean);
 begin
   if Assigned(CachedSystem) then
     EmuTKSearchAllRelatedFiles(OutFileList, aFolder, MediaFileName, Extensions,
@@ -85,9 +87,9 @@ end;
 function cEmutecaGroup.SearchFirstRelatedFile(aFolder: string;
   Extensions: TStrings; SearchInComp: boolean; AutoExtract: boolean): string;
 begin
-   if Assigned(CachedSystem) then
-    Result := EmuTKSearchFirstRelatedFile(aFolder, MediaFileName, Extensions,
-      SearchInComp, AutoExtract, CachedSystem.TempFolder)
+  if Assigned(CachedSystem) then
+    Result := EmuTKSearchFirstRelatedFile(aFolder, MediaFileName,
+      Extensions, SearchInComp, AutoExtract, CachedSystem.TempFolder)
   else
     Result := inherited;
 end;

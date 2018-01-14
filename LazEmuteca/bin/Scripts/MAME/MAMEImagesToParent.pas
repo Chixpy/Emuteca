@@ -52,9 +52,9 @@ begin
       aClone := Trim(Copy2SpaceDel(aParent));
       aParent := Trim(aParent);
       
-      // TODO: Actually do it
-      
       WriteLn(aClone + ' -> ' + aParent);
+      
+      
       
       Inc(i);
     end;

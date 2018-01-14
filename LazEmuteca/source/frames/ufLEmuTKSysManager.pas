@@ -27,6 +27,7 @@ type
 
   private
     FEmuteca: cEmuteca;
+    FfmProgressBar: TfmCHXProgressBar;
     FSHA1Folder: string;
     FfmSysEditor: TfmLEmuTKFullSystemEditor;
     procedure SetEmuteca(AValue: cEmuteca);
@@ -35,6 +36,7 @@ type
   protected
 
     property fmSysEditor: TfmLEmuTKFullSystemEditor read FfmSysEditor;
+    property fmProgressBar: TfmCHXProgressBar read FfmProgressBar;
 
     procedure AddItemToList; override;
     procedure DeleteItemFromList; override;
@@ -221,8 +223,8 @@ begin
   while i < clbPropItems.Items.Count do
   begin
     aSystem := cEmutecaSystem(clbPropItems.Items.Objects[i]);
-    frmCHXProgressBar.UpdTextAndBar('Saving/Loading state changed systems',
-      aSystem.Title, '', i, clbPropItems.Items.Count);
+    fmProgressBar.UpdTextAndBar('Saving/Loading state changed systems',
+      aSystem.Title, i, clbPropItems.Items.Count, False);
 
     if aSystem.Enabled <> clbPropItems.Checked[i] then
     begin
@@ -246,7 +248,7 @@ begin
 
     Inc(i);
   end;
-  frmCHXProgressBar.UpdTextAndBar('', '', '', 0, 0);
+  fmProgressBar.Finish;
 
 
   Emuteca.SystemManager.UpdateEnabledList;
@@ -294,13 +296,11 @@ begin
   fmSysEditor.Align := alClient;
   fmSysEditor.Parent := Self;
 
+  FfmProgressBar := TfmCHXProgressBar.SimpleForm('');
+
   OnClearFrameData := @DoClearFrameData;
   OnLoadFrameData := @DoLoadFrameData;
   OnSaveFrameData := @DoSaveFrameData;
-
-  // If frmCHXProgressBar is not created...
-  if not Assigned(frmCHXProgressBar) then
-    Application.CreateForm(TfrmCHXProgressBar, frmCHXProgressBar);
 end;
 
 destructor TfmLEmuTKSysManager.Destroy;

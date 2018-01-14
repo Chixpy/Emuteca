@@ -40,13 +40,18 @@ type
   cEmutecaSystem = class(caEmutecaCustomSystem)
   private
     FGroupManager: cEmutecaGroupManager;
+    FLoaded: Boolean;
     FProgressCallBack: TEmutecaProgressCallBack;
     FSoftManager: cEmutecaSoftManager;
+    procedure SetLoaded(AValue: Boolean);
     procedure SetProgressCallBack(AValue: TEmutecaProgressCallBack);
 
   protected
 
   public
+       property Loaded: Boolean read FLoaded write SetLoaded;
+    {< Is the system soft and groups loaded? }
+
     property ProgressCallBack: TEmutecaProgressCallBack
       read FProgressCallBack write SetProgressCallBack;
 
@@ -91,6 +96,8 @@ begin
     GroupManager.LoadFromFileTxt(aFile + krsFileExtGroup);
 
   CacheGroups;
+
+  Loaded := True;
 end;
 
 procedure cEmutecaSystem.ImportSoftGroupLists(aFile: string);
@@ -122,6 +129,8 @@ constructor cEmutecaSystem.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
 
+  Loaded := False;
+
   FGroupManager := cEmutecaGroupManager.Create(Self);
   GroupManager.System := Self;
   FSoftManager := cEmutecaSoftManager.Create(Self);
@@ -144,6 +153,12 @@ begin
 
   GroupManager.ProgressCallBack := ProgressCallBack;
   SoftManager.ProgressCallBack := ProgressCallBack;
+end;
+
+procedure cEmutecaSystem.SetLoaded(AValue: Boolean);
+begin
+  if FLoaded=AValue then Exit;
+  FLoaded:=AValue;
 end;
 
 procedure cEmutecaSystem.CacheGroups;
@@ -270,16 +285,17 @@ var
   i: integer;
   aGroup: cEmutecaGroup;
   aSoft: cEmutecaSoftware;
-  Found: Boolean;
+  Found, Continue: Boolean;
 begin
   i := 0;
-  while i < SoftManager.FullList.Count do
+  Continue := True;
+  while Continue and (i < SoftManager.FullList.Count) do
   begin
     aSoft := SoftManager.FullList[i];
 
     if assigned(ProgressCallBack) then
-      ProgressCallBack(rsCleaningSystemData, Self.Title,
-        aSoft.Title, i, SoftManager.FullList.Count);
+      Continue := ProgressCallBack(rsCleaningSystemData,
+        aSoft.Title, i, SoftManager.FullList.Count, True);
 
     if DirectoryExistsUTF8(aSoft.Folder) then
       // Uncompressed
@@ -310,7 +326,7 @@ begin
   end;
 
   if assigned(ProgressCallBack) then
-    ProgressCallBack('', '', '', 0, 0);
+    ProgressCallBack('', '', 0, 0, False);
 end;
 
 initialization

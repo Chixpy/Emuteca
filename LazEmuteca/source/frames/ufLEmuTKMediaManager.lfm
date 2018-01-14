@@ -25,7 +25,7 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
   object sbSource: TStatusBar[1]
     Left = 0
     Height = 23
-    Top = 464
+    Top = 460
     Width = 863
     Panels = <    
       item
@@ -40,25 +40,25 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
     SimplePanel = False
   end
   object Splitter1: TSplitter[2]
-    Left = 170
-    Height = 464
+    Left = 174
+    Height = 456
     Top = 0
     Width = 5
   end
   object pRight: TPanel[3]
     Left = 663
-    Height = 464
+    Height = 456
     Top = 0
     Width = 200
     Align = alRight
     BevelOuter = bvNone
-    ClientHeight = 464
+    ClientHeight = 456
     ClientWidth = 200
     TabOrder = 4
     object gbxRename: TGroupBox
       Left = 0
       Height = 69
-      Top = 395
+      Top = 387
       Width = 200
       Align = alBottom
       AutoSize = True
@@ -105,7 +105,7 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
     end
     object pTextPreview: TPanel
       Left = 0
-      Height = 220
+      Height = 212
       Top = 175
       Width = 200
       Align = alClient
@@ -114,38 +114,38 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
     end
   end
   object Splitter2: TSplitter[4]
-    Left = 658
-    Height = 464
+    Left = 654
+    Height = 456
     Top = 0
     Width = 5
     Align = alRight
     ResizeAnchor = akRight
   end
   object pCenter: TPanel[5]
-    Left = 175
-    Height = 464
+    Left = 183
+    Height = 456
     Top = 0
-    Width = 483
+    Width = 467
     Align = alClient
     BevelOuter = bvNone
-    ClientHeight = 464
-    ClientWidth = 483
+    ClientHeight = 456
+    ClientWidth = 467
     TabOrder = 2
     object gbxSource: TGroupBox
       Left = 0
       Height = 300
       Top = 0
-      Width = 483
+      Width = 467
       Align = alTop
       Caption = 'Source'
       ClientHeight = 280
-      ClientWidth = 479
+      ClientWidth = 463
       TabOrder = 0
       object pcSource: TPageControl
         Left = 0
         Height = 255
         Top = 0
-        Width = 479
+        Width = 463
         ActivePage = pagFilesWOGroup
         Align = alClient
         TabIndex = 0
@@ -154,12 +154,12 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
         object pagFilesWOGroup: TTabSheet
           Caption = 'Files without group'
           ClientHeight = 227
-          ClientWidth = 471
+          ClientWidth = 455
           object vstFilesWOGroup: TVirtualStringTree
             Left = 0
             Height = 227
             Top = 0
-            Width = 471
+            Width = 455
             Align = alClient
             Colors.UnfocusedColor = clMedGray
             DefaultText = '-- Empty Row!!'
@@ -389,25 +389,25 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
         Left = 0
         Height = 25
         Top = 255
-        Width = 479
+        Width = 463
         Align = alBottom
         AutoSize = True
         BevelOuter = bvNone
         ClientHeight = 25
-        ClientWidth = 479
+        ClientWidth = 463
         TabOrder = 1
         object chkSimilarFiles: TCheckBox
           Left = 0
           Height = 25
           Top = 0
-          Width = 279
+          Width = 263
           Align = alClient
           Caption = 'Only show similar filenames'
           OnChange = chkSimilarFilesChange
           TabOrder = 0
         end
         object tbSimilarThresold: TTrackBar
-          Left = 279
+          Left = 263
           Height = 25
           Top = 0
           Width = 200
@@ -426,25 +426,25 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
       Left = 0
       Height = 5
       Top = 300
-      Width = 483
+      Width = 467
       Align = alTop
       ResizeAnchor = akTop
     end
     object gbxTarget: TGroupBox
       Left = 0
-      Height = 159
+      Height = 151
       Top = 305
-      Width = 483
+      Width = 467
       Align = alClient
       Caption = 'Target'
-      ClientHeight = 139
-      ClientWidth = 479
+      ClientHeight = 131
+      ClientWidth = 463
       TabOrder = 2
       object pcTarget: TPageControl
         Left = 0
-        Height = 139
+        Height = 131
         Top = 0
-        Width = 479
+        Width = 463
         ActivePage = pagAllGroups
         Align = alClient
         PopupMenu = pumVSTGroups
@@ -537,13 +537,13 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
         end
         object pagAllGroups: TTabSheet
           Caption = 'All groups'
-          ClientHeight = 111
-          ClientWidth = 471
+          ClientHeight = 103
+          ClientWidth = 455
           object vstGroupsAll: TVirtualStringTree
             Left = 0
-            Height = 111
+            Height = 103
             Top = 0
-            Width = 471
+            Width = 455
             Align = alClient
             Colors.UnfocusedColor = clMedGray
             DefaultText = 'Node'
@@ -624,13 +624,13 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
   end
   object pLeft: TScrollBox[6]
     Left = 0
-    Height = 464
+    Height = 456
     Top = 0
     Width = 170
     HorzScrollBar.Page = 104
-    VertScrollBar.Page = 460
+    VertScrollBar.Page = 452
     Align = alLeft
-    ClientHeight = 460
+    ClientHeight = 452
     ClientWidth = 149
     TabOrder = 0
     object gbxSystem: TGroupBox

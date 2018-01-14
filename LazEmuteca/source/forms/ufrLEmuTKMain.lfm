@@ -207,9 +207,9 @@ object frmLEmuTKMain: TfrmLEmuTKMain
         Action = actImportSoftData
       end
     end
-    object mmiHelp: TMenuItem
+    object mimmHelp: TMenuItem
       Caption = 'Help'
-      object mmiAbout: TMenuItem
+      object mimmAbout: TMenuItem
         Action = HelpOnHelp1
       end
     end

@@ -30,7 +30,7 @@ uses
   uCHXStrUtils,
   uaCHXStorable,
   uEmutecaCommon,
-  ucEmutecaSystemList;
+  ucEmutecaSystemList, ucEmutecaEmulatorList;
 
 type
   { cEmutecaSystemManager }
@@ -60,6 +60,7 @@ type
     //< Save data to last data file.
 
     procedure UpdateEnabledList;
+    procedure UpdateSystemsEmulators(aEmuList: cEmutecaEmulatorList);
 
     property ProgressCallBack: TEmutecaProgressCallBack
       read FProgressCallBack write SetProgressCallBack;
@@ -144,6 +145,19 @@ begin
   end;
 end;
 
+procedure cEmutecaSystemManager.UpdateSystemsEmulators(
+  aEmuList: cEmutecaEmulatorList);
+var
+  i: Integer;
+begin
+  i := 0;
+  while i < FullList.Count do
+  begin
+    FullList[i].LoadEmulatorsFrom(aEmuList);
+    Inc(i);
+  end;
+end;
+
 procedure cEmutecaSystemManager.LoadFromIni(aIniFile: TIniFile);
 var
   TempList: TStringList;
@@ -168,8 +182,8 @@ begin
       TempSys.LoadFromIni(aIniFile);
 
       if assigned(ProgressCallBack) then
-        ProgressCallBack(rsLoadingSystemList, TempSys.Title, TempSys.ID,
-           i, TempList.Count);
+        ProgressCallBack(rsLoadingSystemList, TempSys.Title,
+           i, TempList.Count, False);
 
       FullList.Add(TempSys);
       Inc(i);
@@ -185,7 +199,7 @@ begin
   UpdateEnabledList;
 
   if assigned(ProgressCallBack) then
-    ProgressCallBack('', '', '', 0, 0);
+    ProgressCallBack('', '', 0, 0, False);
 end;
 
 procedure cEmutecaSystemManager.SaveToIni(aIniFile: TMemIniFile;
@@ -207,8 +221,8 @@ begin
     aSystem := cEmutecaSystem(FullList[i]);
 
     if assigned(ProgressCallBack) then
-      ProgressCallBack(rsSavingSystemList, aSystem.Title, aSystem.ID,
-        i, FullList.Count);
+      ProgressCallBack(rsSavingSystemList, aSystem.Title,
+        i, FullList.Count, False);
 
     aSystem.SaveToIni(aIniFile, ExportMode);
     Inc(i);
@@ -223,7 +237,7 @@ begin
       aSystem.SaveSoftGroupLists(SysDataFolder + aSystem.FileName, False);
   end;
   if assigned(ProgressCallBack) then
-    ProgressCallBack(rsSavingSystemList, '', '', 0, 0);
+    ProgressCallBack('', '', 0, 0, False);
 end;
 
 constructor cEmutecaSystemManager.Create(aOwner: TComponent);

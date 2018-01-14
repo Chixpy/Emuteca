@@ -44,6 +44,7 @@ inherited fmLEmuTKMain: TfmLEmuTKMain
       Top = 0
       Width = 214
       Align = alTop
+      OnEditingDone = eSearchEditingDone
       TabOrder = 0
       TextHint = 'Filter by name...'
     end

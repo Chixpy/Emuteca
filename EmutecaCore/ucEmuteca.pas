@@ -157,27 +157,32 @@ var
   i: integer;
   aSystem: cEmutecaSystem;
   SysPCB: TEmutecaProgressCallBack;
+  Continue: Boolean;
 begin
   i := 0;
-  while i < SystemManager.EnabledList.Count do
+  Continue := True;
+  while Continue and (i < SystemManager.EnabledList.Count) do
   begin
     aSystem := SystemManager.EnabledList[i];
+
+    // Show only one global progress bar
     SysPCB := aSystem.ProgressCallBack;
     aSystem.ProgressCallBack := nil;
 
     if assigned(ProgressCallBack) then
-      ProgressCallBack(rsCleaningSystemData, aSystem.ID,
-        aSystem.Title, i, SystemManager.EnabledList.Count);
+      Continue := ProgressCallBack(rsCleaningSystemData,
+        aSystem.Title, i, SystemManager.EnabledList.Count, True);
 
     aSystem.CleanSystemData;
 
+    // Restoring aSystem progress bar
     aSystem.ProgressCallBack := SysPCB;
 
     Inc(i);
   end;
 
   if assigned(ProgressCallBack) then
-    ProgressCallBack('', '', '', 0, 0);
+    ProgressCallBack('', '', 0, 0, False);
 end;
 
 procedure cEmuteca.ClearAllData;
@@ -196,6 +201,7 @@ begin
 
   EmulatorManager.LoadData;
   SystemManager.LoadData;
+  SystemManager.UpdateSystemsEmulators(EmulatorManager.EnabledList);
 
   CacheData;
 end;

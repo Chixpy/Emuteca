@@ -91,7 +91,7 @@ type
     mimmImportSoftData: TMenuItem;
     mimmExportSoftData: TMenuItem;
     MenuItem2: TMenuItem;
-    mmiAbout: TMenuItem;
+    mimmAbout: TMenuItem;
     mimmAddFiles: TMenuItem;
     mimmScanFolder: TMenuItem;
     mimmAddSoft: TMenuItem;
@@ -108,7 +108,7 @@ type
     mimmMediaManager: TMenuItem;
     mimmTest: TMenuItem;
     mimmSoft: TMenuItem;
-    mmiHelp: TMenuItem;
+    mimmHelp: TMenuItem;
     mimmFile: TMenuItem;
     stbHelp: TStatusBar;
     procedure actAddSoftExecute(Sender: TObject);
@@ -140,6 +140,7 @@ type
     FCurrentSoft: cEmutecaSoftware;
     FCurrentSystem: cEmutecaSystem;
     FfmEmutecaMainFrame: TfmLEmuTKMain;
+    FfmProgressBar: TfmCHXProgressBar;
     FGUIIconsFile: string;
     FSHA1Folder: string;
     FDumpIcons: cCHXImageList;
@@ -161,6 +162,7 @@ type
   protected
     property fmEmutecaMainFrame: TfmLEmuTKMain read FfmEmutecaMainFrame;
     //< Main Frame
+    property fmProgressBar: TfmCHXProgressBar read FfmProgressBar;
 
     property Emuteca: cEmuteca read FEmuteca;
     //< Main Emuteca Core
@@ -218,8 +220,8 @@ type
     function RunSoftware(aSoftware: cEmutecaSoftware): boolean;
     //< Run a software
 
-    function DoProgressBar(const Title, Info1, Info2: string;
-      const Value, MaxValue: int64): boolean;
+    function DoProgressBar(const Title, Info: string;
+      const Value, MaxValue: int64; const IsCancelable: Boolean): boolean;
     //< Progress bar call back
 
     function DoChangeSystem(aSystem: cEmutecaSystem): boolean;
@@ -367,14 +369,12 @@ begin
 
   // Cached Icons (Sys, soft, group, emu)
   IconList.Clear;
- { Icons for games parents and software, first default one
+ { Icons for games parents and software; first, ugly default ones
     0: Default for software
-    1: Default for parent
-    2: Default for system
-    3: Default for emulator
+    1: Default for system
+    2: Default for emulator
   }
   IconList.AddImageFile(aFolder + 'SoftIcon.png');
-  IconList.AddImageFile(aFolder + 'GroupIcon.png');
   IconList.AddImageFile(aFolder + 'SysIcon.png');
   IconList.AddImageFile(aFolder + 'EmuIcon.png');
 
@@ -405,12 +405,12 @@ begin
   Emuteca.SaveData;
 end;
 
-function TfrmLEmuTKMain.DoProgressBar(const Title, Info1, Info2: string;
-  const Value, MaxValue: int64): boolean;
+function TfrmLEmuTKMain.DoProgressBar(const Title, Info: string; const Value,
+  MaxValue: int64; const IsCancelable: Boolean): boolean;
 begin
-  // We asume that frmCHXProgressBar is always created...
-  Result := frmCHXProgressBar.UpdTextAndBar(Title, Info1, Info2,
-    Value, MaxValue);
+  // We asume that fmCHXProgressBar is always created...
+  Result := fmProgressBar.UpdTextAndBar(Title, Info,
+    Value, MaxValue, IsCancelable);
 end;
 
 function TfrmLEmuTKMain.DoChangeSystem(aSystem: cEmutecaSystem): boolean;
@@ -530,11 +530,15 @@ begin
   CacheSysIconsThread.SystemManager := Emuteca.SystemManager;
   CacheSysIconsThread.IconList := IconList;
 
-  if IconList.Count > 2 then
-    // 2: Default for system
-    CacheSysIconsThread.DefaultIcon := IconList[2]
+  if IconList.Count > 1 then
+    // 1: Default for system
+    CacheSysIconsThread.DefSysIcon := IconList[1]
   else if IconList.Count > 0 then
-    CacheSysIconsThread.DefaultIcon := IconList[IconList.Count - 1];
+    CacheSysIconsThread.DefSysIcon := IconList[IconList.Count - 1];
+
+  if IconList.Count > 0 then
+    // 0: Default for soft
+    CacheSysIconsThread.DefSoftIcon := IconList[0];
 
   CacheSysIconsThread.Start;
 end;
@@ -562,12 +566,6 @@ begin
   CacheGrpIconsThread.GroupList := aGroupList;
   CacheGrpIconsThread.IconList := IconList;
   CacheGrpIconsThread.ImageExt := GUIConfig.ImageExtensions;
-
-  if IconList.Count > 1 then
-    // 1: Default for groups
-    CacheGrpIconsThread.DefaultIcon := IconList[1]
-  else if IconList.Count > 0 then
-    CacheGrpIconsThread.DefaultIcon := IconList[IconList.Count - 1];
 
   CacheGrpIconsThread.Start;
 end;
@@ -618,10 +616,6 @@ begin
   // This overrides user local settings which can cause errors
   StandardFormatSettings;
 
-  // Creating ProgressBar
-  if not Assigned(frmCHXProgressBar) then
-    Application.CreateForm(TfrmCHXProgressBar, frmCHXProgressBar);
-
   // Windows Caption
   Caption := Format(krsFmtWindowCaption, [Application.Title, Caption]);
 
@@ -641,13 +635,16 @@ begin
   FDumpIcons := cCHXImageList.Create(True);
   FZoneIcons := cCHXImageMap.Create(True);
 
+  // Creating ProgressBar
+  FfmProgressBar := TfmCHXProgressBar.SimpleForm(GUIConfig.ConfigFile);
+
   // Creating Emuteca Core :-D
   FEmuteca := cEmuteca.Create(self);
   Emuteca.BaseFolder := ProgramDirectory;
   Emuteca.ProgressCallBack := @DoProgressBar;
   Emuteca.LoadConfig(GUIConfig.EmutecaIni);
 
-  // This must after creating and loading Emuteca
+  // This must be after creating and loading Emuteca
   //   runs CacheSysIconsThread too
   LoadIcons;
 
@@ -658,7 +655,6 @@ begin
   fmEmutecaMainFrame.OnGroupChanged := @DoChangeGroup;
   fmEmutecaMainFrame.OnSoftChanged := @DoChangeSoft;
   fmEmutecaMainFrame.OnSoftDblClk := @RunSoftware;
-  fmEmutecaMainFrame.IconList := IconList;
   fmEmutecaMainFrame.DumpIcons := DumpIcons;
   fmEmutecaMainFrame.ZoneIcons := ZoneIcons;
   fmEmutecaMainFrame.Emuteca := Emuteca;

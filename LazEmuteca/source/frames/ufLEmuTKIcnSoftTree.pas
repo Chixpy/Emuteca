@@ -31,19 +31,9 @@ type
       const CellText: string; const CellRect: TRect; var DefaultDraw: boolean);
 
   private
-    FDefGrpIcon: TPicture;
-    FDefSoftIcon: TPicture;
-    FDefSysIcon: TPicture;
     FDumpIconList: cCHXImageList;
-    FImageExt: TStrings;
-    FSoftIconList: cCHXImageList;
     FZoneIconMap: cCHXImageMap;
-    procedure SetDefGrpIcon(AValue: TPicture);
-    procedure SetDefSoftIcon(AValue: TPicture);
-    procedure SetDefSysIcon(AValue: TPicture);
     procedure SetDumpIconList(AValue: cCHXImageList);
-    procedure SetImageExt(AValue: TStrings);
-    procedure SetSoftIconList(AValue: cCHXImageList);
     procedure SetZoneIconMap(AValue: cCHXImageMap);
 
   protected
@@ -52,16 +42,11 @@ type
     procedure DoLoadGUIConfig(aIniFile: TIniFile); override;
 
   public
-    property DefSysIcon: TPicture read FDefSysIcon write SetDefSysIcon;
-    property DefGrpIcon: TPicture read FDefGrpIcon write SetDefGrpIcon;
-    property DefSoftIcon: TPicture read FDefSoftIcon write SetDefSoftIcon;
-
     property DumpIconList: cCHXImageList read FDumpIconList
       write SetDumpIconList;
     //< Icons of dump info.
     property ZoneIconMap: cCHXImageMap read FZoneIconMap write SetZoneIconMap;
     //< Icons for zones
-    property ImageExt: TStrings read FImageExt write SetImageExt;
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -94,8 +79,6 @@ procedure TfmLEmuTKIcnSoftTree.VDTDrawText(Sender: TBaseVirtualTree;
         IconRect.Right := IconRect.Left + IconRect.Bottom - IconRect.Top;
 
         aIcon := aGroup.CachedSystem.Stats.Icon;
-        if not assigned(aIcon) then
-          aIcon := DefSysIcon;
 
         if assigned(aIcon) then
           TargetCanvas.StretchDraw(CorrectAspectRatio(IconRect, aIcon),
@@ -122,9 +105,6 @@ procedure TfmLEmuTKIcnSoftTree.VDTDrawText(Sender: TBaseVirtualTree;
         IconRect.Right := IconRect.Left + IconRect.Bottom - IconRect.Top;
 
         aIcon := aGroup.Stats.Icon;
-        if not assigned(aIcon) then
-          aIcon := DefGrpIcon;
-
         if assigned(aIcon) then
           TargetCanvas.StretchDraw(CorrectAspectRatio(IconRect, aIcon),
             aIcon.Graphic);
@@ -168,9 +148,6 @@ procedure TfmLEmuTKIcnSoftTree.VDTDrawText(Sender: TBaseVirtualTree;
         IconRect.Right := IconRect.Left + IconRect.Bottom - IconRect.Top;
 
         aIcon := aSoft.Stats.Icon;
-        if not assigned(aIcon) then
-          aIcon := DefSoftIcon;
-
         if assigned(aIcon) then
           TargetCanvas.StretchDraw(CorrectAspectRatio(IconRect, aIcon),
             aIcon.Graphic);
@@ -308,41 +285,6 @@ begin
   if FDumpIconList = AValue then
     Exit;
   FDumpIconList := AValue;
-end;
-
-procedure TfmLEmuTKIcnSoftTree.SetDefGrpIcon(AValue: TPicture);
-begin
-  if FDefGrpIcon = AValue then
-    Exit;
-  FDefGrpIcon := AValue;
-end;
-
-procedure TfmLEmuTKIcnSoftTree.SetDefSoftIcon(AValue: TPicture);
-begin
-  if FDefSoftIcon = AValue then
-    Exit;
-  FDefSoftIcon := AValue;
-end;
-
-procedure TfmLEmuTKIcnSoftTree.SetDefSysIcon(AValue: TPicture);
-begin
-  if FDefSysIcon = AValue then
-    Exit;
-  FDefSysIcon := AValue;
-end;
-
-procedure TfmLEmuTKIcnSoftTree.SetImageExt(AValue: TStrings);
-begin
-  if FImageExt = AValue then
-    Exit;
-  FImageExt := AValue;
-end;
-
-procedure TfmLEmuTKIcnSoftTree.SetSoftIconList(AValue: cCHXImageList);
-begin
-  if FSoftIconList = AValue then
-    Exit;
-  FSoftIconList := AValue;
 end;
 
 procedure TfmLEmuTKIcnSoftTree.SetZoneIconMap(AValue: cCHXImageMap);

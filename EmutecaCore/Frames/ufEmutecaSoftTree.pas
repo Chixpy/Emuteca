@@ -61,6 +61,7 @@ type
     FOnDblClkSoft: TEmutecaReturnSoftCB;
     FOnSelectGroup: TEmutecaReturnGroupCB;
     FOnSelectSoft: TEmutecaReturnSoftCB;
+    FTitleFilter: string;
     procedure SetGroupList(AValue: cEmutecaGroupList);
     procedure SetGUIConfigFile(AValue: string);
     procedure SetIconsIniFile(AValue: string);
@@ -68,9 +69,12 @@ type
     procedure SetOnDblClkSoft(AValue: TEmutecaReturnSoftCB);
     procedure SetOnSelectGroup(AValue: TEmutecaReturnGroupCB);
     procedure SetOnSelectSoft(AValue: TEmutecaReturnSoftCB);
+    procedure SetTitleFilter(AValue: string);
 
   protected
     procedure UpdateSBNodeCount;
+
+    procedure FilterNodes;
 
     procedure DoDblClkTree;
 
@@ -81,6 +85,8 @@ type
 
   public
     property GroupList: cEmutecaGroupList read FGroupList write SetGroupList;
+
+    property TitleFilter: string read FTitleFilter write SetTitleFilter;
 
     property OnSelectGroup: TEmutecaReturnGroupCB
       read FOnSelectGroup write SetOnSelectGroup;
@@ -593,6 +599,15 @@ begin
   FOnSelectSoft := AValue;
 end;
 
+procedure TfmEmutecaSoftTree.SetTitleFilter(AValue: string);
+begin
+  if FTitleFilter=AValue then Exit;
+  FTitleFilter:=AValue;
+
+  FilterNodes;
+  UpdateSBNodeCount;
+end;
+
 procedure TfmEmutecaSoftTree.DoLoadGUIConfig(aIniFile: TIniFile);
 var
   i: integer;
@@ -659,6 +674,11 @@ begin
     Format(rsFmtNItems, [VDT.RootNodeCount, VDT.VisibleCount]);
 end;
 
+procedure TfmEmutecaSoftTree.FilterNodes;
+begin
+  // TODO: Hide nodes by name
+end;
+
 procedure TfmEmutecaSoftTree.DoDblClkTree;
 var
   pData: ^TObject;
@@ -702,6 +722,7 @@ begin
   VDT.Clear;
   VDT.RootNodeCount := GroupList.Count;
 
+  FilterNodes;
   UpdateSBNodeCount;
 end;
 

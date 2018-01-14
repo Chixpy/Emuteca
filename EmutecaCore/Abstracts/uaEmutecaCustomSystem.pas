@@ -30,6 +30,7 @@ uses
   uCHXStrUtils,
   uaCHXStorable,
   uEmutecaCommon,
+  ucEmutecaEmulatorList, ucEmutecaEmulator,
   ucEmutecaPlayingStats;
 
 type
@@ -39,6 +40,8 @@ type
   private
     FBackgroundFile: string;
     FBaseFolder: string;
+    FCurrentEmulator: cEmutecaEmulator;
+    FEmulatorList: cEmutecaEmulatorList;
     FEnabled: boolean;
     FExtensions: TStringList;
     FExtractAll: boolean;
@@ -66,6 +69,7 @@ type
     FVideoFolders: TStringList;
     procedure SetBackgroundFile(AValue: string);
     procedure SetBaseFolder(AValue: string);
+    procedure SetCurrentEmulator(AValue: cEmutecaEmulator);
     procedure SetEnabled(AValue: boolean);
     procedure SetExtractAll(AValue: boolean);
     procedure SetFileName(AValue: string);
@@ -93,8 +97,17 @@ type
     {< System temp folder for decompressing media
     }
 
+    property EmulatorList: cEmutecaEmulatorList read FEmulatorList;
+    {< List of current assigned and enabled emulators. }
+    property CurrentEmulator: cEmutecaEmulator
+      read FCurrentEmulator write SetCurrentEmulator;
+    {< Current assigned emulator. }
+
     function MatchID(aID: string): boolean;
     function CompareID(aID: string): integer;
+
+    procedure LoadEmulatorsFrom(aEmuList: cEmutecaEmulatorList);
+    {< Updates EmulatorList from aEmuList. }
 
     procedure LoadFromIni(aIniFile: TIniFile); override;
     procedure SaveToIni(aIniFile: TMemIniFile; const ExportMode: boolean);
@@ -114,10 +127,10 @@ type
     {< Visible name (Usually "%Company%: %Model% %(info)%"}
 
     property FileName: string read FFileName write SetFileName;
-    {< Name used for files or folders }
+    {< Name used for files or folders. }
 
     property Enabled: boolean read FEnabled write SetEnabled;
-    {< Is the system visible }
+    {< Is the system visible? }
 
     property ExtractAll: boolean read FExtractAll write SetExtractAll;
     {< Must all files be extracted from compressed archives? }
@@ -148,7 +161,10 @@ type
     property MainEmulator: string read FMainEmulator write SetMainEmulator;
     {< Main emulator ID. }
     property OtherEmulators: TStringList read FOtherEmulators;
-    {< Ids of other emulators for the system. }
+    {< Ids of other emulators for the system.
+
+    It holds enabled, disabled and inexistent emulator ids too.
+      This is different from EmulatorList only current enabled ones.}
 
     // System Images
     // -------------
@@ -156,7 +172,8 @@ type
     {< Path to the icon of the system. }
     property ImageFile: string read FImage write SetImage;
     {< Path to image of the system. }
-    property BackgroundFile: string read FBackgroundFile write SetBackgroundFile;
+    property BackgroundFile: string read FBackgroundFile
+      write SetBackgroundFile;
     {< Image used for as background. }
     property SoftIconFile: string read FSoftIconFile write SetSoftIconFile;
     {< Default soft icon. }
@@ -242,7 +259,8 @@ begin
   // Images
   IconFile := aIniFile.ReadString(ID, krsIniKeyIcon, IconFile);
   ImageFile := aIniFile.ReadString(ID, krsIniKeyImage, ImageFile);
-  BackgroundFile := aIniFile.ReadString(ID, krsIniKeyBackImage, BackgroundFile);
+  BackgroundFile := aIniFile.ReadString(ID, krsIniKeyBackImage,
+    BackgroundFile);
   SoftIconFile := aIniFile.ReadString(ID, krsIniKeySoftIcon, SoftIconFile);
 
   IconFolder := aIniFile.ReadString(ID, krsIniKeyIconFolder, IconFolder);
@@ -289,6 +307,8 @@ end;
 
 procedure caEmutecaCustomSystem.SaveToIni(aIniFile: TMemIniFile;
   const ExportMode: boolean);
+var
+  i: integer;
 begin
   if aIniFile = nil then
     Exit;
@@ -299,8 +319,21 @@ begin
   aIniFile.WriteBool(ID, krsIniKeyExtractAll, ExtractAll);
 
   // Emulators
-  aIniFile.WriteString(ID, krsIniKeyMainEmulator, MainEmulator);
-  aIniFile.WriteString(ID, krsIniKeyOtherEmulators, OtherEmulators.CommaText);
+  if Assigned(CurrentEmulator) then
+    aIniFile.WriteString(ID, krsIniKeyMainEmulator, CurrentEmulator.ID)
+  else
+    aIniFile.WriteString(ID, krsIniKeyMainEmulator, MainEmulator);
+
+  // Adding EmulatorList ones if not already added
+  i := 0;
+  while i < EmulatorList.Count do
+  begin
+    if OtherEmulators.IndexOf(EmulatorList[i].ID) = -1 then
+      OtherEmulators.Add(EmulatorList[i].ID);
+    Inc(i);
+  end;
+  aIniFile.WriteString(ID, krsIniKeyOtherEmulators,
+    OtherEmulators.CommaText);
 
   // Import
   aIniFile.WriteString(ID, krsIniKeySoftExportKey,
@@ -378,6 +411,23 @@ begin
   FBaseFolder := SetAsFolder(AValue);
 end;
 
+procedure caEmutecaCustomSystem.SetCurrentEmulator(AValue: cEmutecaEmulator);
+begin
+  if FCurrentEmulator = AValue then
+    Exit;
+  FCurrentEmulator := AValue;
+
+  // if not already added then add to list
+  if Assigned(CurrentEmulator) then
+  begin
+    if EmulatorList.IndexOf(CurrentEmulator) = -1 then
+      EmulatorList.Add(CurrentEmulator);
+    MainEmulator := CurrentEmulator.ID;
+  end
+  else
+  ; // MainEmulator := ''; ?
+end;
+
 procedure caEmutecaCustomSystem.SetBackgroundFile(AValue: string);
 begin
   FBackgroundFile := SetAsFile(AValue);
@@ -451,8 +501,9 @@ end;
 
 procedure caEmutecaCustomSystem.SetSoftIconFile(AValue: string);
 begin
-  if FSoftIconFile=AValue then Exit;
-  FSoftIconFile:=AValue;
+  if FSoftIconFile = AValue then
+    Exit;
+  FSoftIconFile := AValue;
 end;
 
 procedure caEmutecaCustomSystem.SetTempFolder(AValue: string);
@@ -477,7 +528,7 @@ procedure caEmutecaCustomSystem.FixFolderListData(FolderList,
 var
   i: integer;
 begin
-  // Removing empty Folders and asociated captions.
+  // Removing empty Folders and associated captions.
   i := 0;
   while i < FolderList.Count do
   begin
@@ -519,6 +570,30 @@ begin
   Result := UTF8CompareText(Self.ID, aID);
 end;
 
+procedure caEmutecaCustomSystem.LoadEmulatorsFrom(aEmuList:
+  cEmutecaEmulatorList);
+var
+  i: integer;
+begin
+  EmulatorList.Clear;
+
+  if not Assigned(aEmuList) then
+    Exit;
+
+  i := 0;
+  while i < aEmuList.Count do
+  begin
+    if (aEmuList[i].Enabled) and
+      (OtherEmulators.IndexOf(aEmuList[i].ID) <> -1) then
+    begin
+      EmulatorList.Add(aEmuList[i]);
+      if aEmuList[i].MatchID(MainEmulator) then
+        CurrentEmulator := aEmuList[i];
+    end;
+    Inc(i);
+  end;
+end;
+
 constructor caEmutecaCustomSystem.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
@@ -529,6 +604,8 @@ begin
   FExtensions := TStringList.Create;
   Extensions.CaseSensitive := False;
   Extensions.Sorted := True;
+
+  FEmulatorList := cEmutecaEmulatorList.Create(False);
 
   FOtherEmulators := TStringList.Create;
   OtherEmulators.CaseSensitive := False;
@@ -552,6 +629,8 @@ end;
 destructor caEmutecaCustomSystem.Destroy;
 begin
   Extensions.Free;
+
+  FEmulatorList.Free;
   OtherEmulators.Free;
 
   ImageCaptions.Free;

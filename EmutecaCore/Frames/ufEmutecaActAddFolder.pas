@@ -207,6 +207,7 @@ var
   aFile, aFolder: string;
   i, j: integer;
   CacheSoftList: cEmutecaSoftList;
+  Continue: Boolean;
 begin
   if not assigned(Emuteca) then
     Exit;
@@ -226,9 +227,10 @@ begin
   FileList := TStringList.Create;
   ComprFileList := TStringList.Create;
   try
+    Continue := True;
     if assigned(Emuteca.ProgressCallBack) then
-      Emuteca.ProgressCallBack('Adding files', Format('Searching for: %0:s',
-        [aSystem.Extensions.CommaText]), 'This can take a while', 1, 100);
+      Continue := Emuteca.ProgressCallBack('Adding files', Format('This can take a while. Searching for: %0:s',
+        [aSystem.Extensions.CommaText]), 1, 100, True);
 
     // 1.- Straight search of all files
     FileList.BeginUpdate;
@@ -236,15 +238,15 @@ begin
     FileList.EndUpdate;
 
     i := 0;
-    while i < FileList.Count do
+    while Continue and (i < FileList.Count) do
     begin
       aFolder := SetAsFolder(ExtractFilePath(FileList[i]));
       aFile := SetAsFile(ExtractFileName(FileList[i]));
 
       // Maybe must go after extension check...
       if assigned(Emuteca.ProgressCallBack) then
-        Emuteca.ProgressCallBack('Adding files', aFolder,
-          aFile, i, FileList.Count);
+        Continue := Emuteca.ProgressCallBack('Adding files', FileList[i],
+          i, FileList.Count, True);
 
       if SupportedExtSL(aFile, aSystem.Extensions) then
       begin // it's a supported file
@@ -273,7 +275,7 @@ begin
   finally
 
     if assigned(Emuteca.ProgressCallBack) then
-      Emuteca.ProgressCallBack('', '', '', 0, 0);
+      Emuteca.ProgressCallBack('', '',  0, 0, False);
 
     Emuteca.CacheData;
 

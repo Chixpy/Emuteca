@@ -158,8 +158,8 @@ begin
       TempEmu.LoadFromIni(aIniFile);
 
       if assigned(ProgressCallBack) then
-        ProgressCallBack(rsLoadingEmulatorList, TempEmu.ID,
-          TempEmu.EmulatorName, i, TempList.Count);
+        ProgressCallBack(rsLoadingEmulatorList, TempEmu.EmulatorName, i,
+          TempList.Count, False);
 
       FullList.Add(TempEmu);
       Inc(i);
@@ -171,7 +171,7 @@ begin
   UpdateEnabledList;
 
   if assigned(ProgressCallBack) then
-    ProgressCallBack('', '', '', 0, 0);
+    ProgressCallBack('', '', 0, 0, False);
 end;
 
 procedure cEmutecaEmulatorManager.SaveToIni(aIniFile: TMemIniFile;
@@ -193,15 +193,15 @@ begin
     aEmulator := cEmutecaEmulator(FullList[i]);
 
     if assigned(ProgressCallBack) then
-      ProgressCallBack(rsSavingEmulatorList, aEmulator.ID,
-        aEmulator.EmulatorName, i, FullList.Count);
+      ProgressCallBack(rsSavingEmulatorList, aEmulator.EmulatorName,
+      i, FullList.Count, False);
 
     aEmulator.SaveToIni(aIniFile, ExportMode);
     Inc(i);
   end;
 
   if assigned(ProgressCallBack) then
-    ProgressCallBack('', '', '', 0, 0);
+    ProgressCallBack('', '', 0, 0, False);
 
 end;
 

@@ -165,6 +165,7 @@ type
     FEmuteca: cEmuteca;
     FExtFilter: TStrings;
     FfmImagePreview: TfmCHXImgListPreview;
+    FfmProgressBar: TfmCHXProgressBar;
     FfmSystemCBX: TfmEmutecaSystemCBX;
     FfmTextPreview: TfmCHXTxtListPreview;
     FGUIConfig: cGUIConfig;
@@ -192,6 +193,7 @@ type
     property fmSystemCBX: TfmEmutecaSystemCBX read FfmSystemCBX;
     property fmImagePreview: TfmCHXImgListPreview read FfmImagePreview;
     property fmTextPreview: TfmCHXTxtListPreview read FfmTextPreview;
+    property fmProgressBar: TfmCHXProgressBar read FfmProgressBar;
 
     // Properties
     // ----------
@@ -406,8 +408,8 @@ begin
   vstFilesAll.Clear;
   vstFilesOtherExt.BeginUpdate;
   vstFilesOtherExt.Clear;
-  frmCHXProgressBar.UpdTextAndBar('Searching files...',
-    'This can take some time', '', 1, 4);
+  fmProgressBar.UpdTextAndBar('Searching files...',
+    'This can take some time', 1, 4, False);
   IterateFolderObj(aFolder, @AddFileCB, False);
   vstFilesAll.EndUpdate;
   vstFilesOtherExt.EndUpdate;
@@ -415,8 +417,8 @@ begin
   // vstFilesAll -> vstFilesWOGroup and
   //   vstGroupsAll -> vstGroupsWOFile.
   // ----------------------------------
-  frmCHXProgressBar.UpdTextAndBar('Searching...',
-    'Files without group and groups without file', '', 2, 4);
+  fmProgressBar.UpdTextAndBar('Searching...',
+    'Files without group and groups without file', 2, 4, False);
 
   // Sorting vstFilesAll and vstGroupsAll to iterate them;
   vstFilesAll.SortTree(0, VirtualTrees.sdAscending, True); // By filename
@@ -516,8 +518,8 @@ begin
   // vstFilesWOGroup -> vstFilesWOSoft and
   //   vstSoftAll -> vstSoftWOFile.
   // -------------------------------------
-  frmCHXProgressBar.UpdTextAndBar('Searching...',
-    'Files without soft and soft without file', '', 3, 4);
+  fmProgressBar.UpdTextAndBar('Searching...',
+    'Files without soft and soft without file', 3, 4, False);
 
   // Sorting vstFilesWOGroup and vstvstAllGroups to iterate them;
   vstFilesWOGroup.SortTree(0, VirtualTrees.sdAscending, True); // By filename
@@ -613,7 +615,7 @@ begin
   vstSoftWOFile.EndUpdate;
 
 
-  frmCHXProgressBar.UpdateProgressBar(0, 0);
+  fmProgressBar.Finish;
 end;
 
 function TfmLEmuTKMediaManager.SelectSystem(aSystem: cEmutecaSystem): boolean;
@@ -824,7 +826,6 @@ var
 begin
   Result := True;
 
-
   if (Info.Attr and faDirectory) <> 0 then
   begin
     if (Info.Name = '.') or (Info.Name = '..') then
@@ -861,12 +862,12 @@ begin
     Exit;
 
   vstFilesOtherFolder.BeginUpdate;
-  frmCHXProgressBar.UpdTextAndBar('Searching files...',
-    'This can take some time', '', 1, 2);
+  fmProgressBar.UpdTextAndBar('Searching files...',
+    'This can take some time', 1, 2, False);
   IterateFolderObj(aFolder, @AddFilesOtherFolderCB, False);
   vstFilesOtherFolder.EndUpdate;
 
-  frmCHXProgressBar.UpdTextAndBar('', '', '', 0, 0);
+  fmProgressBar.Finish;
 end;
 
 procedure TfmLEmuTKMediaManager.AssignFile;
@@ -1867,6 +1868,8 @@ constructor TfmLEmuTKMediaManager.Create(TheOwner: TComponent);
     FfmTextPreview := TfmCHXTxtListPreview.Create(pTextPreview);
     fmTextPreview.Align := alClient;
     fmTextPreview.Parent := pTextPreview;
+
+    FfmProgressBar := TfmCHXProgressBar.SimpleForm('');
   end;
 
 begin
@@ -1888,11 +1891,6 @@ begin
   pcTarget.ActivePageIndex := 0;
 
   FMediaFiles := TStringList.Create;
-
-  // If frmCHXProgressBar is not created...
-  // TODO: Use Emuteca callback
-  if not Assigned(frmCHXProgressBar) then
-    Application.CreateForm(TfrmCHXProgressBar, frmCHXProgressBar);
 
   OnClearFrameData := @DoClearFrameData;
   OnLoadFrameData := @DoLoadFrameData;

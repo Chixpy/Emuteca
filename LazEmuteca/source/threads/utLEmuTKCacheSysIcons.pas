@@ -19,10 +19,12 @@ type
 
   ctLEmuTKCacheSysIcons = class(TThread)
   private
-    FDefaultIcon: TPicture;
+    FDefSoftIcon: TPicture;
+    FDefSysIcon: TPicture;
     FIconList: cCHXImageList;
     FSystemManager: cEmutecaSystemManager;
-    procedure SetDefaultIcon(AValue: TPicture);
+    procedure SetDefSoftIcon(AValue: TPicture);
+    procedure SetDefSysIcon(AValue: TPicture);
     procedure SetIconList(AValue: cCHXImageList);
     procedure SetSystemManager(AValue: cEmutecaSystemManager);
 
@@ -30,7 +32,8 @@ type
     procedure Execute; override;
 
   public
-    property DefaultIcon: TPicture read FDefaultIcon write SetDefaultIcon;
+    property DefSysIcon: TPicture read FDefSysIcon write SetDefSysIcon;
+    property DefSoftIcon: TPicture read FDefSoftIcon write SetDefSoftIcon;
     property IconList: cCHXImageList read FIconList write SetIconList;
     property SystemManager: cEmutecaSystemManager
       read FSystemManager write SetSystemManager;
@@ -42,11 +45,18 @@ implementation
 
 { ctLEmuTKCacheSysIcons }
 
-procedure ctLEmuTKCacheSysIcons.SetDefaultIcon(AValue: TPicture);
+procedure ctLEmuTKCacheSysIcons.SetDefSysIcon(AValue: TPicture);
 begin
-  if FDefaultIcon = AValue then
+  if FDefSysIcon = AValue then
     Exit;
-  FDefaultIcon := AValue;
+  FDefSysIcon := AValue;
+end;
+
+procedure ctLEmuTKCacheSysIcons.SetDefSoftIcon(AValue: TPicture);
+begin
+  if FDefSoftIcon = AValue then
+    Exit;
+  FDefSoftIcon := AValue;
 end;
 
 procedure ctLEmuTKCacheSysIcons.SetIconList(AValue: cCHXImageList);
@@ -68,12 +78,13 @@ procedure ctLEmuTKCacheSysIcons.Execute;
 var
   i: integer;
   aSystem: cEmutecaSystem;
+  aIcon: TPicture;
 begin
   if not assigned(SystemManager) then
     Exit;
   if not assigned(IconList) then
     Exit;
-  // if not assigned(DefaultIcon) then Exit; // Can be nil
+  // if not assigned(DefSysIcon) then Exit; // Can be nil
 
   i := 0;
   while (not Terminated) and (i < SystemManager.FullList.Count) do
@@ -84,14 +95,31 @@ begin
     begin
       if Terminated then
         Exit;
-      aSystem.Stats.Icon := IconList[IconList.AddImageFile(aSystem.IconFile)];
+      aIcon := IconList[IconList.AddImageFile(aSystem.IconFile)];
     end
     else
     begin
+      aIcon := DefSysIcon;
+    end;
+
+    if Terminated then
+      Exit;
+    aSystem.Stats.Icon := aIcon;
+
+    if FileExistsUTF8(aSystem.SoftIconFile) then
+    begin
       if Terminated then
         Exit;
-      aSystem.Stats.Icon := DefaultIcon;
+      aIcon := IconList[IconList.AddImageFile(aSystem.SoftIconFile)];
+    end
+    else
+    begin
+      aIcon := DefSoftIcon;
     end;
+
+    if Terminated then
+      Exit;
+    aSystem.Stats.SysSoftIcon := aIcon;
 
     Inc(i);
   end;

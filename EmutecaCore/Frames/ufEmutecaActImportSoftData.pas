@@ -28,6 +28,7 @@ type
     procedure eImportFileButtonClick(Sender: TObject);
   private
     FEmuteca: cEmuteca;
+    FfmProgressBar: TfmCHXProgressBar;
     FfmSystemCBX: TfmEmutecaSystemCBX;
     FSystem: cEmutecaSystem;
     procedure SetEmuteca(AValue: cEmuteca);
@@ -35,6 +36,7 @@ type
 
   protected
     property fmSystemCBX: TfmEmutecaSystemCBX read FfmSystemCBX;
+    property fmProgressBar: TfmCHXProgressBar read FfmProgressBar;
 
     property System: cEmutecaSystem read FSystem write SetSystem;
 
@@ -149,19 +151,19 @@ end;
 
 procedure TfmEmutecaActImportSoftData.DoSaveFrameData;
 var
-  PCB: TEmutecaProgressCallBack;
+  SysPBCB: TEmutecaProgressCallBack; // System PB Backup
 begin
   if (eImportFile.FileName = '') or (not assigned(System)) then
     Exit;
 
   Self.Enabled:= False;
 
-  PCB := System.ProgressCallBack;
-  System.ProgressCallBack := @(frmCHXProgressBar.UpdTextAndBar);
+  SysPBCB := System.ProgressCallBack;
+  System.ProgressCallBack := @(fmProgressBar.UpdTextAndBar);
 
   System.ImportSoftGroupLists(ChangeFileExt(eImportFile.FileName, ''));
 
-  System.ProgressCallBack := PCB;
+  System.ProgressCallBack := SysPBCB;
 
   Self.Enabled:= True;
 end;
@@ -206,6 +208,8 @@ constructor TfmEmutecaActImportSoftData.Create(TheOwner: TComponent);
     fmSystemCBX.FirstItem := ETKSysCBXFISelect;
     fmSystemCBX.OnSelectSystem := @SelectSystem;
     fmSystemCBX.Parent := pSelectSystem;
+
+    FfmProgressBar := TfmCHXProgressBar.SimpleForm('');
   end;
 
 begin
@@ -219,10 +223,6 @@ begin
 
   // Add
   eImportFile.Filter := rsFileMaskDescSoft + '|' + krsFileMaskSoft;
-
-  // If frmCHXProgressBar is not created...
-  if not Assigned(frmCHXProgressBar) then
-    Application.CreateForm(TfrmCHXProgressBar, frmCHXProgressBar);
 end;
 
 destructor TfmEmutecaActImportSoftData.Destroy;

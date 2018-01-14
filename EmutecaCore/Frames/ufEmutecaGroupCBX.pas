@@ -12,6 +12,8 @@ type
 
   { TfmEmutecaGroupCBX }
 
+  // TODO: Think about do it like TfmEmutecaEmulatorCBX
+
   TfmEmutecaGroupCBX = class(TfmCHXFrame)
     cbxGroup: TComboBox;
     procedure cbxGroupChange(Sender: TObject);
@@ -23,22 +25,24 @@ type
     procedure SetOnSelectGroup(AValue: TEmutecaReturnGroupCB);
     procedure SetSelectedGroup(AValue: cEmutecaGroup);
 
-      protected
+  protected
     procedure DoClearFrameData;
     procedure DoLoadFrameData;
 
   public
 
-  property GroupList: cEmutecaGroupList read FGroupList write SetGroupList;
+    property GroupList: cEmutecaGroupList read FGroupList write SetGroupList;
     {< List of groups. }
 
-    property SelectedGroup: cEmutecaGroup read FSelectedGroup write SetSelectedGroup;
+    property SelectedGroup: cEmutecaGroup
+      read FSelectedGroup write SetSelectedGroup;
     {< Returns current selected group or select it in cbx. }
 
-    property OnSelectGroup: TEmutecaReturnGroupCB read FOnSelectGroup write SetOnSelectGroup;
+    property OnSelectGroup: TEmutecaReturnGroupCB
+      read FOnSelectGroup write SetOnSelectGroup;
     {< Callback when selecting a group. }
 
-        constructor Create(TheOwner: TComponent); override;
+    constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
   end;
 
@@ -50,7 +54,7 @@ implementation
 
 procedure TfmEmutecaGroupCBX.cbxGroupChange(Sender: TObject);
 begin
-    // We don't need to call SetSelectedSystem
+  // We don't need to call SetSelectedSystem
   if cbxGroup.ItemIndex <> -1 then
     FSelectedGroup := cEmutecaGroup(
       cbxGroup.Items.Objects[cbxGroup.ItemIndex])
@@ -63,13 +67,15 @@ end;
 
 procedure TfmEmutecaGroupCBX.SetOnSelectGroup(AValue: TEmutecaReturnGroupCB);
 begin
-  if FOnSelectGroup = AValue then Exit;
+  if FOnSelectGroup = AValue then
+    Exit;
   FOnSelectGroup := AValue;
 end;
 
 procedure TfmEmutecaGroupCBX.SetGroupList(AValue: cEmutecaGroupList);
 begin
-  if FGroupList = AValue then Exit;
+  if FGroupList = AValue then
+    Exit;
   FGroupList := AValue;
   LoadFrameData;
 end;
@@ -78,16 +84,17 @@ procedure TfmEmutecaGroupCBX.SetSelectedGroup(AValue: cEmutecaGroup);
 var
   aPos: integer;
 begin
-  if FSelectedGroup = AValue then Exit;
+  if FSelectedGroup = AValue then
+    Exit;
   FSelectedGroup := AValue;
 
-    if not assigned(SelectedGroup) then
+  if not assigned(SelectedGroup) then
   begin
     cbxGroup.ItemIndex := -1;
     Exit;
   end;
 
-      aPos := cbxGroup.Items.IndexOfObject(SelectedGroup);
+  aPos := cbxGroup.Items.IndexOfObject(SelectedGroup);
   if aPos = -1 then
   begin
     // Uhm....
@@ -103,7 +110,7 @@ end;
 
 procedure TfmEmutecaGroupCBX.DoLoadFrameData;
 begin
-    Enabled := Assigned(GroupList);
+  Enabled := Assigned(GroupList);
 
   if not Enabled then
   begin
@@ -111,14 +118,14 @@ begin
     Exit;
   end;
 
-    cbxGroup.Clear;
+  cbxGroup.Clear;
   GroupList.AssignToStrLst(cbxGroup.Items);
 
   if cbxGroup.Items.Count = 0 then
   begin
     cbxGroup.ItemIndex := -1;
     Exit;
-    end;
+  end;
 
   cbxGroup.ItemIndex := cbxGroup.Items.IndexOfObject(SelectedGroup);
 end;
@@ -137,4 +144,3 @@ begin
 end;
 
 end.
-

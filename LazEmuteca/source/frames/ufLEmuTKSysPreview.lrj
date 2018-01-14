@@ -7,6 +7,7 @@
 {"hash":82406947,"name":"tfmlemutksyspreview.engroups.texthint","sourcebytes":[35,32,71,114,111,117,112,115],"value":"# Groups"},
 {"hash":95464125,"name":"tfmlemutksyspreview.lsystemtitle.caption","sourcebytes":[83,121,115,116,101,109],"value":"System"},
 {"hash":106991073,"name":"tfmlemutksyspreview.toolbar1.caption","sourcebytes":[84,111,111,108,66,97,114,49],"value":"ToolBar1"},
+{"hash":209928530,"name":"tfmlemutksyspreview.gbxemulator.caption","sourcebytes":[67,117,114,114,101,110,116,32,101,109,117,108,97,116,111,114],"value":"Current emulator"},
 {"hash":112869810,"name":"tfmlemutksyspreview.actopensystemfolder.caption","sourcebytes":[79,112,101,110,32,115,121,115,116,101,109,32,102,111,108,100,101,114],"value":"Open system folder"},
 {"hash":112682434,"name":"tfmlemutksyspreview.actopensystemfolder.hint","sourcebytes":[79,112,101,110,32,115,121,115,116,101,109,32,102,111,108,100,101,114,124,79,112,101,110,115,32,116,104,101,32,115,121,115,116,101,109,32,98,97,115,101,32,102,111,108,100,101,114],"value":"Open system folder|Opens the system base folder"}
 ]}

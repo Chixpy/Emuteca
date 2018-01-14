@@ -36,12 +36,15 @@ type
   private
     FEmuteca: cEmuteca;
     FfmSystemCBX: TfmEmutecaSystemCBX;
+    FfmProgressBar: TfmCHXProgressBar;
     FSystem: cEmutecaSystem;
     procedure SetEmuteca(AValue: cEmuteca);
     procedure SetSystem(AValue: cEmutecaSystem);
 
   protected
     property fmSystemCBX: TfmEmutecaSystemCBX read FfmSystemCBX;
+    property fmProgressBar: TfmCHXProgressBar read FfmProgressBar;
+
 
     property System: cEmutecaSystem read FSystem write SetSystem;
     function SelectSystem(aSystem: cEmutecaSystem): boolean;
@@ -179,19 +182,19 @@ end;
 
 procedure TfmActExportSoftData.DoSaveFrameData;
 var
-  PCB: TEmutecaProgressCallBack;
+  SysPBCB: TEmutecaProgressCallBack; // System PB Backup
 begin
   if (eExportFile.FileName = '') or (not assigned(System)) then
     Exit;
 
   Self.Enabled:= False;
 
-  PCB := System.ProgressCallBack;
-  System.ProgressCallBack := @(frmCHXProgressBar.UpdTextAndBar);
+  SysPBCB := System.ProgressCallBack;
+  System.ProgressCallBack := @(fmProgressBar.UpdTextAndBar);
 
   System.SaveSoftGroupLists(ChangeFileExt(eExportFile.FileName, ''), True);
 
-  System.ProgressCallBack := PCB;
+  System.ProgressCallBack := SysPBCB;
 
   Self.Enabled:= True;
 end;
@@ -236,7 +239,9 @@ constructor TfmActExportSoftData.Create(TheOwner: TComponent);
     fmSystemCBX.FirstItem := ETKSysCBXFISelect;
     fmSystemCBX.OnSelectSystem := @SelectSystem;
     fmSystemCBX.Parent := pSelectSystem;
-  end;
+
+    FfmProgressBar := TfmCHXProgressBar.SimpleForm('');
+end;
 
 begin
   inherited Create(TheOwner);
@@ -246,10 +251,6 @@ begin
   OnClearFrameData := @DoClearFrameData;
   OnLoadFrameData := @DoLoadFrameData;
   OnSaveFrameData := @DoSaveFrameData;
-
-  // If frmCHXProgressBar is not created...
-  if not Assigned(frmCHXProgressBar) then
-    Application.CreateForm(TfrmCHXProgressBar, frmCHXProgressBar);
 
   eExportFile.Filter := rsFileMaskDescSoft + '|' + krsFileMaskSoft;
 

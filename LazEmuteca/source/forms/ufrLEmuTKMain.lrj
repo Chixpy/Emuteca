@@ -28,5 +28,5 @@
 {"hash":5150400,"name":"tfrmlemutkmain.mimmgroup.caption","sourcebytes":[71,114,111,117,112],"value":"Group"},
 {"hash":98295077,"name":"tfrmlemutkmain.mimmsoft.caption","sourcebytes":[83,111,102,116,119,97,114,101],"value":"Software"},
 {"hash":75133198,"name":"tfrmlemutkmain.mimmaddfiles.caption","sourcebytes":[65,100,100,46,46,46],"value":"Add..."},
-{"hash":322608,"name":"tfrmlemutkmain.mmihelp.caption","sourcebytes":[72,101,108,112],"value":"Help"}
+{"hash":322608,"name":"tfrmlemutkmain.mimmhelp.caption","sourcebytes":[72,101,108,112],"value":"Help"}
 ]}

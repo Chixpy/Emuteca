@@ -28,7 +28,8 @@ uses
   StdCtrls, Buttons, ActnList, LCLIntf, ComCtrls, LazFileUtils, IniFiles,
   uCHXImageUtils, uCHXStrUtils,
   ufCHXFrame, ufCHXImgViewer,
-  ucEmutecaSystem,
+  ucEmutecaSystem, ucEmutecaEmulator,
+  ufEmutecaEmulatorCBX,
   uLEmuTKCommon;
 
 type
@@ -40,6 +41,7 @@ type
     ActionList: TActionList;
     eNSoft: TEdit;
     eNGroups: TEdit;
+    gbxEmulator: TGroupBox;
     ilActions: TImageList;
     eLastTime: TEdit;
     eNTimes: TEdit;
@@ -53,6 +55,7 @@ type
     procedure actOpenSystemFolderExecute(Sender: TObject);
     procedure SysImageDblClick(Sender: TObject);
   private
+    FfEmulatorCBX: TfmEmutecaEmulatorCBX;
     FGUIConfigIni: string;
     FGUIIconsIni: string;
     FSHA1Folder: string;
@@ -63,8 +66,12 @@ type
     procedure SetSystem(AValue: cEmutecaSystem);
 
   protected
+    property fEmulatorCBX: TfmEmutecaEmulatorCBX read FfEmulatorCBX;
+
     property GUIIconsIni: string read FGUIIconsIni write SetGUIIconsIni;
     property GUIConfigIni: string read FGUIConfigIni write SetGUIConfigIni;
+
+    function DoSelectEmulator(aEmulator: cEmutecaEmulator): boolean;
 
     procedure DoClearFrameData;
     procedure DoLoadFrameData;
@@ -111,6 +118,12 @@ begin
   LoadFrameData;
 end;
 
+function TfmLEmuTKSysPreview.DoSelectEmulator(aEmulator: cEmutecaEmulator
+  ): boolean;
+begin
+  System.CurrentEmulator := aEmulator;
+end;
+
 procedure TfmLEmuTKSysPreview.DoLoadGUIIcons(aIconsIni: TIniFile;
   aBaseFolder: string);
 begin
@@ -121,8 +134,18 @@ begin
 end;
 
 constructor TfmLEmuTKSysPreview.Create(TheOwner: TComponent);
+  procedure CreateFrames;
+  begin
+    FfEmulatorCBX := TfmEmutecaEmulatorCBX.Create(gbxEmulator);
+
+    fEmulatorCBX.OnSelectEmulator := @DoSelectEmulator;
+    fEmulatorCBX.Align := alClient;
+    fEmulatorCBX.Parent := gbxEmulator;
+  end;
 begin
   inherited Create(TheOwner);
+
+  CreateFrames;
 
   OnClearFrameData := @DoClearFrameData;
   OnLoadFrameData := @DoLoadFrameData;
@@ -156,12 +179,15 @@ end;
 procedure TfmLEmuTKSysPreview.DoClearFrameData;
 begin
   SysImage.Picture.Clear;
+
   lSystemTitle.Caption := 'System';
   eNSoft.Clear;
   eNGroups.Clear;
   ePlayedTime.Clear;
   eNTimes.Clear;
   eLastTime.Clear;
+
+  fEmulatorCBX.EmulatorList := nil;
 end;
 
 procedure TfmLEmuTKSysPreview.DoLoadFrameData;
@@ -178,6 +204,9 @@ begin
     SysImage.Picture.LoadFromFile(System.ImageFile)
   else
     SysImage.Picture.Clear;
+
+  fEmulatorCBX.EmulatorList := System.EmulatorList;
+  fEmulatorCBX.SelectedEmulator := System.CurrentEmulator;
 
   lSystemTitle.Caption := System.Title;
   eNSoft.Text := Format(rsFmtNVersions, [System.SoftManager.FullList.Count]);

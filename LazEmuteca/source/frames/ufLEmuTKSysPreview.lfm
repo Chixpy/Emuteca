@@ -21,7 +21,7 @@ inherited fmLEmuTKSysPreview: TfmLEmuTKSysPreview
     Cursor = crVSplit
     Left = 0
     Height = 5
-    Top = 226
+    Top = 234
     Width = 200
     Align = alTop
     ResizeAnchor = akTop
@@ -29,7 +29,7 @@ inherited fmLEmuTKSysPreview: TfmLEmuTKSysPreview
   object gbxStats: TGroupBox[2]
     Left = 0
     Height = 150
-    Top = 231
+    Top = 243
     Width = 200
     Align = alTop
     AutoSize = True
@@ -100,7 +100,7 @@ inherited fmLEmuTKSysPreview: TfmLEmuTKSysPreview
   object ToolBar1: TToolBar[3]
     Left = 0
     Height = 26
-    Top = 200
+    Top = 204
     Width = 200
     Caption = 'ToolBar1'
     Images = ilActions
@@ -111,7 +111,17 @@ inherited fmLEmuTKSysPreview: TfmLEmuTKSysPreview
       Action = actOpenSystemFolder
     end
   end
-  object ActionList: TActionList[4]
+  object gbxEmulator: TGroupBox[4]
+    Left = 0
+    Height = 19
+    Top = 397
+    Width = 200
+    Align = alTop
+    AutoSize = True
+    Caption = 'Current emulator'
+    TabOrder = 3
+  end
+  object ActionList: TActionList[5]
     Images = ilActions
     left = 133
     top = 336
@@ -122,7 +132,7 @@ inherited fmLEmuTKSysPreview: TfmLEmuTKSysPreview
       OnExecute = actOpenSystemFolderExecute
     end
   end
-  object ilActions: TImageList[5]
+  object ilActions: TImageList[6]
     left = 133
     top = 276
   end

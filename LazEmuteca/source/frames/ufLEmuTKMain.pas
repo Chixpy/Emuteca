@@ -42,8 +42,12 @@ type
     pMiddle: TPanel;
     Splitter1: TSplitter;
     Splitter2: TSplitter;
+    procedure eSearchEditingDone(Sender: TObject);
 
   private
+    FCurrentGroup: cEmutecaGroup;
+    FCurrentSoft: cEmutecaSoftware;
+    FCurrentSystem: cEmutecaSystem;
     FDumpIcons: cCHXImageList;
     FEmuteca: cEmuteca;
     FfmCHXTagTree: TfmCHXTagTree;
@@ -55,7 +59,6 @@ type
     FFullGroupList: cEmutecaGroupList;
     FFullSoftlist: cEmutecaSoftList;
     FGUIConfig: cGUIConfig;
-    FIconList: cCHXImageList;
     FOnGroupChanged: TEmutecaReturnGroupCB;
     FOnGrpListChanged: TEmutecaReturnGrpLstCB;
     FOnSoftChanged: TEmutecaReturnSoftCB;
@@ -63,10 +66,12 @@ type
     FOnSystemChanged: TEmutecaReturnSystemCB;
     FSHA1Folder: string;
     FZoneIcons: cCHXImageMap;
+    procedure SetCurrentGroup(AValue: cEmutecaGroup);
+    procedure SetCurrentSoft(AValue: cEmutecaSoftware);
+    procedure SetCurrentSystem(AValue: cEmutecaSystem);
     procedure SetDumpIcons(AValue: cCHXImageList);
     procedure SetEmuteca(AValue: cEmuteca);
     procedure SetGUIConfig(AValue: cGUIConfig);
-    procedure SetIconList(AValue: cCHXImageList);
     procedure SetOnGroupChanged(AValue: TEmutecaReturnGroupCB);
     procedure SetOnGrpListChanged(AValue: TEmutecaReturnGrpLstCB);
     procedure SetOnSoftChanged(AValue: TEmutecaReturnSoftCB);
@@ -78,6 +83,10 @@ type
   protected
     property FullGroupList: cEmutecaGroupList read FFullGroupList;
     property FullSoftlist: cEmutecaSoftList read FFullSoftlist;
+
+    property CurrentSoft: cEmutecaSoftware read FCurrentSoft write SetCurrentSoft;
+    property CurrentGroup: cEmutecaGroup read FCurrentGroup write SetCurrentGroup;
+    property CurrentSystem: cEmutecaSystem read FCurrentSystem write SetCurrentSystem;
 
     // Frames
     property fmEmutecaSystemCBX: TfmLEmuTKIcnSysCBX read FfmEmutecaSystemCBX;
@@ -109,8 +118,6 @@ type
 
     property GUIConfig: cGUIConfig read FGUIConfig write SetGUIConfig;
 
-    property IconList: cCHXImageList read FIconList write SetIconList;
-    //< Icons for parents, soft, systems and emulators
     property DumpIcons: cCHXImageList read FDumpIcons write SetDumpIcons;
     //< Icons for dump info
     property ZoneIcons: cCHXImageMap read FZoneIcons write SetZoneIcons;
@@ -141,6 +148,11 @@ implementation
 
 { TfmLEmuTKMain }
 
+procedure TfmLEmuTKMain.eSearchEditingDone(Sender: TObject);
+begin
+  fmSoftTree.TitleFilter := eSearch.Text;
+end;
+
 procedure TfmLEmuTKMain.SetDumpIcons(AValue: cCHXImageList);
 begin
   if FDumpIcons = AValue then
@@ -148,6 +160,62 @@ begin
   FDumpIcons := AValue;
 
   fmSoftTree.DumpIconList := DumpIcons;
+end;
+
+procedure TfmLEmuTKMain.SetCurrentGroup(AValue: cEmutecaGroup);
+begin
+  if FCurrentGroup=AValue then Exit;
+  FCurrentGroup:=AValue;
+
+    fmSoftEditor.Group := CurrentGroup;
+  fmSoftMedia.Group := CurrentGroup;
+
+  if assigned(OnGroupChanged) then
+    {var :=} OnGroupChanged(CurrentGroup);
+
+  if Assigned(CurrentGroup) then
+    fmSystemPanel.System := cEmutecaSystem(CurrentGroup.CachedSystem);
+end;
+
+procedure TfmLEmuTKMain.SetCurrentSoft(AValue: cEmutecaSoftware);
+begin
+  if FCurrentSoft=AValue then Exit;
+  FCurrentSoft:=AValue;
+
+  fmSoftEditor.Software := CurrentSoft;
+  fmSoftMedia.Software := CurrentSoft;
+
+  if assigned(OnSoftChanged) then
+    {var :=} OnSoftChanged(CurrentSoft);
+
+  if Assigned(CurrentSoft) then
+    fmSystemPanel.System := cEmutecaSystem(CurrentSoft.CachedSystem);
+end;
+
+procedure TfmLEmuTKMain.SetCurrentSystem(AValue: cEmutecaSystem);
+begin
+  if FCurrentSystem=AValue then Exit;
+  FCurrentSystem:=AValue;
+
+  if Assigned(CurrentSystem) then
+  begin
+    GUIConfig.CurrSystem := CurrentSystem.ID;
+    fmSoftTree.GroupList := CurrentSystem.GroupManager.VisibleList;
+  end
+  else
+  begin
+    GUIConfig.CurrSystem := '';
+    fmSoftTree.GroupList := FullGroupList;
+  end;
+
+  // Using fmSoftTree.GroupList is dirty...
+  if assigned(OnGrpListChanged) then
+    {var :=} OnGrpListChanged(fmSoftTree.GroupList);
+
+  if assigned(OnSystemChanged) then
+    {var :=} OnSystemChanged(CurrentSystem);
+
+  fmSystemPanel.System := CurrentSystem;
 end;
 
 procedure TfmLEmuTKMain.SetEmuteca(AValue: cEmuteca);
@@ -185,39 +253,7 @@ begin
   fmSoftMedia.ImageExt := GUIConfig.ImageExtensions;
   fmSoftMedia.TextExt := GUIConfig.TextExtensions;
 
-  fmSoftTree.ImageExt := GUIConfig.ImageExtensions;
-
   LoadFrameData;
-end;
-
-procedure TfmLEmuTKMain.SetIconList(AValue: cCHXImageList);
-begin
-  if FIconList = AValue then
-    Exit;
-  FIconList := AValue;
-
-
-  if Assigned(IconList) and (IconList.Count > 2) then
-  begin
-    { Icons for games parents and software, first default one
-      0: Default for software
-      1: Default for parent
-      2: Default for system
-      3: Default for emulator
-    }
-    fmEmutecaSystemCBX.DefSysIcon := IconList[2];
-
-    fmSoftTree.DefSoftIcon := IconList[0];
-    fmSoftTree.DefGrpIcon := IconList[1];
-    fmSoftTree.DefSysIcon := IconList[2];
-  end
-  else
-  begin
-    fmEmutecaSystemCBX.DefSysIcon := nil;
-    fmSoftTree.DefSoftIcon := nil;
-    fmSoftTree.DefGrpIcon := nil;
-    fmSoftTree.DefSysIcon := nil;
-  end;
 end;
 
 procedure TfmLEmuTKMain.SetOnGroupChanged(AValue: TEmutecaReturnGroupCB);
@@ -277,56 +313,21 @@ function TfmLEmuTKMain.DoSelectSystem(aSystem: cEmutecaSystem): boolean;
 begin
   Result := DoSelectGroup(nil);
 
-  if Assigned(aSystem) then
-  begin
-    GUIConfig.CurrSystem := aSystem.ID;
-    fmSoftTree.GroupList := aSystem.GroupManager.VisibleList;
-  end
-  else
-  begin
-    GUIConfig.CurrSystem := '';
-    fmSoftTree.GroupList := FullGroupList;
-  end;
-
-  // Using fmSoftTree.GroupList is dirty...
-  // Catching icons
-  if assigned(OnGrpListChanged) then
-    OnGrpListChanged(fmSoftTree.GroupList);
-
-  if assigned(OnSystemChanged) then
-    OnSystemChanged(aSystem);
-
-  fmSystemPanel.System := aSystem;
+  CurrentSystem := aSystem;
 end;
 
 function TfmLEmuTKMain.DoSelectGroup(aGroup: cEmutecaGroup): boolean;
 begin
   Result := DoSelectSoftware(nil);
 
-  fmSoftEditor.Group := aGroup;
-  fmSoftMedia.Group := aGroup;
-
-  if assigned(OnGroupChanged) then
-    OnGroupChanged(aGroup);
-
-  if Assigned(aGroup) then
-    fmSystemPanel.System := cEmutecaSystem(aGroup.CachedSystem);
+  CurrentGroup := aGroup;
 end;
 
 function TfmLEmuTKMain.DoSelectSoftware(aSoftware: cEmutecaSoftware): boolean;
 begin
   Result := True;
 
-  fmSoftEditor.Software := aSoftware;
-  fmSoftMedia.Software := aSoftware;
-
-  if assigned(OnSoftChanged) then
-    Result := OnSoftChanged(aSoftware);
-
-  if Assigned(aSoftware) then
-    fmSystemPanel.System := cEmutecaSystem(aSoftware.CachedSystem)
-  else
-    fmSystemPanel.System := nil;
+  CurrentSoft := aSoftware;
 end;
 
 function TfmLEmuTKMain.DoDblClkSoftware(aSoftware: cEmutecaSoftware): boolean;
@@ -416,9 +417,9 @@ constructor TfmLEmuTKMain.Create(TheOwner: TComponent);
     FfmEmutecaSystemCBX := TfmLEmuTKIcnSysCBX.Create(pMiddle);
     fmEmutecaSystemCBX.Align := alTop;
     // TODO: Configurable
-    fmEmutecaSystemCBX.cbxSystem.Font.Height := 32;
-    fmEmutecaSystemCBX.cbxSystem.Height := 32;
-    fmEmutecaSystemCBX.cbxSystem.ItemHeight := 32;
+    //fmEmutecaSystemCBX.cbxSystem.Font.Height := 32;
+    //fmEmutecaSystemCBX.cbxSystem.Height := 32;
+    //fmEmutecaSystemCBX.cbxSystem.ItemHeight := 32;
     fmEmutecaSystemCBX.FirstItem := ETKSysCBXFIAll;
     fmEmutecaSystemCBX.OnSelectSystem := @DoSelectSystem;
     fmEmutecaSystemCBX.Parent := pMiddle;
@@ -457,7 +458,7 @@ constructor TfmLEmuTKMain.Create(TheOwner: TComponent);
     // Creating SoftTree frame
     FfmSoftTree := TfmLEmuTKIcnSoftTree.Create(pMain);
     // TODO: Configurable
-    fmSoftTree.VDT.Font.Height := 24;
+    //fmSoftTree.VDT.Font.Height := 24;
     fmSoftTree.OnSelectGroup := @DoSelectGroup;
     fmSoftTree.OnSelectSoft := @DoSelectSoftware;
     fmSoftTree.OnDblClkSoft := @DoDblClkSoftware;

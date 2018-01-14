@@ -37,11 +37,9 @@ type
 
   ctLEmuTKCacheGrpIcons = class(TThread)
   private
-    FDefaultIcon: TPicture;
     FGroupList: cEmutecaGroupList;
     FIconList: cCHXImageList;
     FImageExt: TStrings;
-    procedure SetDefaultIcon(AValue: TPicture);
     procedure SetGroupList(AValue: cEmutecaGroupList);
     procedure SetIconList(AValue: cCHXImageList);
     procedure SetImageExt(AValue: TStrings);
@@ -52,7 +50,6 @@ type
   public
     property ImageExt: TStrings read FImageExt write SetImageExt;
     property GroupList: cEmutecaGroupList read FGroupList write SetGroupList;
-    property DefaultIcon: TPicture read FDefaultIcon write SetDefaultIcon;
     property IconList: cCHXImageList read FIconList write SetIconList;
 
     constructor Create;
@@ -61,13 +58,6 @@ type
 implementation
 
 { ctLEmuTKCacheGrpIcons }
-
-procedure ctLEmuTKCacheGrpIcons.SetDefaultIcon(AValue: TPicture);
-begin
-  if FDefaultIcon = AValue then
-    Exit;
-  FDefaultIcon := AValue;
-end;
 
 procedure ctLEmuTKCacheGrpIcons.SetGroupList(AValue: cEmutecaGroupList);
 begin
@@ -100,8 +90,6 @@ begin
     Exit;
   if not assigned(IconList) then
     Exit;
-  if not assigned(DefaultIcon) then
-    Exit; // This can't be nil
 
   i := 0;
   while (not Terminated) and (i < GroupList.Count) do
@@ -120,7 +108,9 @@ begin
       end
       else
       begin
-        aIcon := DefaultIcon;
+        if Terminated then
+        Exit;
+        aIcon := aGroup.CachedSystem.Stats.SysSoftIcon;
       end;
 
       if Terminated then

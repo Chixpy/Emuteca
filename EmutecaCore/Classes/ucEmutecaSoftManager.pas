@@ -104,8 +104,8 @@ begin
       aSoft := FullList[i];
 
       if Assigned(ProgressCallBack) then
-        ProgressCallBack(rsSavingSoftList, aSoft.Title, aSoft.Version,
-          i, FullList.Count);
+        ProgressCallBack(rsSavingSoftList, aSoft.Title,
+          i, FullList.Count, False);
 
       aSoft.SaveToIni(aIniFile, ExportMode);
       Inc(i);
@@ -115,7 +115,7 @@ begin
   end;
 
   if assigned(ProgressCallBack) then
-    ProgressCallBack('', '', '', 0, 0);
+    ProgressCallBack('', '', 0, 0, False);
 end;
 
 procedure cEmutecaSoftManager.ClearData;
@@ -176,8 +176,7 @@ begin
     aSoftLst.Add(aSoft);
 
     if Assigned(ProgressCallBack) then
-      ProgressCallBack(rsLoadingSoftList, aSoft.Title, aSoft.Version,
-        i, aTxtFile.Count);
+      ProgressCallBack(rsLoadingSoftList, aSoft.Title, i, aTxtFile.Count, False);
 
     Inc(i);
   end;
@@ -216,15 +215,15 @@ begin
     aSoft := FullList[i];
 
     if Assigned(ProgressCallBack) then
-      ProgressCallBack(rsImportingSoftList, aSoft.Title, aSoft.Version,
-        i, FullList.Count);
+      ProgressCallBack(rsImportingSoftList, aSoft.Title, i, FullList.Count,
+       False);
 
     aSoft.LoadFromIni(aIniFile);
     Inc(i);
   end;
 
   if assigned(ProgressCallBack) then
-    ProgressCallBack('', '', '', 0, 0);
+    ProgressCallBack('', '', 0, 0, False);
 end;
 
 procedure cEmutecaSoftManager.ImportFromStrLst(aTxtFile: TStrings);
@@ -256,8 +255,8 @@ begin
       aSoft1 := FullList[j];
 
       if assigned(ProgressCallBack) then
-        ProgressCallBack(rsImportingGroupList, aSoft1.Title, aSoft1.ID,
-          j, FullList.Count);
+        ProgressCallBack(rsImportingGroupList, aSoft1.Title,
+          j, FullList.Count, False);
 
       if assigned(aSoft2) then
         aComp := aSoft1.CompareID(aSoft2.ID)
@@ -288,7 +287,7 @@ begin
     aSoftLst.Free;
   end;
   if assigned(ProgressCallBack) then
-    ProgressCallBack('', '', '', 0, 0);
+    ProgressCallBack('', '', 0, 0, False);
 end;
 
 procedure cEmutecaSoftManager.LoadFromStrLst(aTxtFile: TStrings);
@@ -321,8 +320,8 @@ procedure cEmutecaSoftManager.SaveToStrLst(aTxtFile: TStrings;
       begin
         aSoft := FullList[i];
         if Assigned(ProgressCallBack) then
-          ProgressCallBack(rsSavingSystemList, aSoft.Title, aSoft.Version,
-            i, FullList.Count);
+          ProgressCallBack(rsSavingSystemList, aSoft.Title,
+            i, FullList.Count, False);
         aTxtFile.Add(aSoft.TXTString);
         Inc(i);
       end;
@@ -330,7 +329,7 @@ procedure cEmutecaSoftManager.SaveToStrLst(aTxtFile: TStrings;
       aTxtFile.EndUpdate;
     end;
     if assigned(ProgressCallBack) then
-      ProgressCallBack('', '', '', 0, 0);
+      ProgressCallBack('', '', 0, 0, False);
 
   end;
 
@@ -353,8 +352,8 @@ procedure cEmutecaSoftManager.SaveToStrLst(aTxtFile: TStrings;
       begin
         aSoft := FullList[i];
         if Assigned(ProgressCallBack) then
-          ProgressCallBack(rsSavingSystemList, aSoft.Title, aSoft.Version,
-            i, FullList.Count);
+          ProgressCallBack(rsSavingSystemList, aSoft.Title,
+            i, FullList.Count, False);
 
         aTxtFile.Add(aSoft.TXTExportString);
 
@@ -364,7 +363,7 @@ procedure cEmutecaSoftManager.SaveToStrLst(aTxtFile: TStrings;
       aTxtFile.EndUpdate;
     end;
     if assigned(ProgressCallBack) then
-      ProgressCallBack('', '', '', 0, 0);
+      ProgressCallBack('', '', 0, 0, False);
   end;
 
 begin
