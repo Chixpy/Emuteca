@@ -66,6 +66,7 @@ type
     actExportSoftData: TAction;
     actImportSoftData: TAction;
     actCleanSystemData: TAction;
+    actOpenSoftFolder: TAction;
     actRunSoftware: TAction;
     actMergeGroupFiles: TAction;
     actUpdateGroupList: TAction;
@@ -80,6 +81,11 @@ type
     ActImages: TImageList;
     IniPropStorage: TIniPropStorage;
     MainMenu: TMainMenu;
+    MenuItem1: TMenuItem;
+    MenuItem5: TMenuItem;
+    mipmSOpenSoftFolder: TMenuItem;
+    mipmSRunSoft: TMenuItem;
+    mummOpenSoftFolder: TMenuItem;
     mimmRunSoftware: TMenuItem;
     MenuItem4: TMenuItem;
     mimmMergeGroupFiles: TMenuItem;
@@ -110,6 +116,8 @@ type
     mimmSoft: TMenuItem;
     mimmHelp: TMenuItem;
     mimmFile: TMenuItem;
+    pmGroup: TPopupMenu;
+    pmSoft: TPopupMenu;
     stbHelp: TStatusBar;
     procedure actAddSoftExecute(Sender: TObject);
     procedure actAddFolderExecute(Sender: TObject);
@@ -120,6 +128,7 @@ type
     procedure actImportSoftDataExecute(Sender: TObject);
     procedure actMediaManagerExecute(Sender: TObject);
     procedure actMergeGroupFilesExecute(Sender: TObject);
+    procedure actOpenSoftFolderExecute(Sender: TObject);
     procedure actOpenTempFolderExecute(Sender: TObject);
     procedure actRunSoftwareExecute(Sender: TObject);
     procedure actSaveListsExecute(Sender: TObject);
@@ -602,7 +611,7 @@ var
   aIni: TMemIniFile;
 begin
   Application.Title := Format(rsFmtApplicationTitle,
-    [krsEmuteca, GetFileVersion]); // Usually is deleted in .lpr file...
+    [krsEmuteca, GetFileVersion]); // Usually it's autodeleted in .lpr file...
 
   // Always work from program folder :P
   // TODO 3: Change for Linux... ¬_¬U
@@ -619,6 +628,7 @@ begin
   // Windows Caption
   Caption := Format(krsFmtWindowCaption, [Application.Title, Caption]);
 
+  // Loading GUI config
   FGUIConfig := cGUIConfig.Create(self);
   GUIConfig.LoadConfig(SetAsAbsoluteFile('GUI.ini', ProgramDirectory));
   IniPropStorage.IniFileName := GUIConfig.ConfigFile;
@@ -626,7 +636,9 @@ begin
 
   GUIIconsFile := GUIConfig.GUIIcnFile;
 
-  // Experimental
+  // Experimental:
+  //   - 7z files cache
+  //   - 7z error logs
   SHA1Folder := GUIConfig.GlobalCache;
   w7zErrorFileName := GUIConfig.w7zErrorFileName;
 
@@ -635,7 +647,7 @@ begin
   FDumpIcons := cCHXImageList.Create(True);
   FZoneIcons := cCHXImageMap.Create(True);
 
-  // Creating ProgressBar
+  // Creating ProgressBar form
   FfmProgressBar := TfmCHXProgressBar.SimpleForm(GUIConfig.ConfigFile);
 
   // Creating Emuteca Core :-D
@@ -644,8 +656,8 @@ begin
   Emuteca.ProgressCallBack := @DoProgressBar;
   Emuteca.LoadConfig(GUIConfig.EmutecaIni);
 
-  // This must be after creating and loading Emuteca
-  //   runs CacheSysIconsThread too
+  // This must be after creating and loading Emuteca,
+  //   it runs CacheSysIconsThread too
   LoadIcons;
 
   // Creating main frame
@@ -655,6 +667,8 @@ begin
   fmEmutecaMainFrame.OnGroupChanged := @DoChangeGroup;
   fmEmutecaMainFrame.OnSoftChanged := @DoChangeSoft;
   fmEmutecaMainFrame.OnSoftDblClk := @RunSoftware;
+  fmEmutecaMainFrame.pmGroup:= pmGroup;
+  fmEmutecaMainFrame.pmSoft:= pmSoft;
   fmEmutecaMainFrame.DumpIcons := DumpIcons;
   fmEmutecaMainFrame.ZoneIcons := ZoneIcons;
   fmEmutecaMainFrame.Emuteca := Emuteca;
@@ -681,6 +695,7 @@ begin
   // Misc
   actAutoSave.Checked := GUIConfig.SaveOnExit; // TODO: Use IniPropStorage?
 
+  // if there is not enabled systems then open SysManager
   if Emuteca.SystemManager.EnabledList.Count = 0 then
     actSystemManager.Execute;
 end;
@@ -722,6 +737,12 @@ procedure TfrmLEmuTKMain.actMergeGroupFilesExecute(Sender: TObject);
 begin
   TfmLEmuTKactMergeGroup.SimpleForm(CurrentGroup, GUIIconsFile,
     GUIConfig.ConfigFile);
+end;
+
+procedure TfrmLEmuTKMain.actOpenSoftFolderExecute(Sender: TObject);
+begin
+  if assigned(CurrentSoft) then
+    OpenDocument(CurrentSoft.Folder);
 end;
 
 procedure TfrmLEmuTKMain.actOpenTempFolderExecute(Sender: TObject);

@@ -297,6 +297,7 @@ begin
       Continue := ProgressCallBack(rsCleaningSystemData,
         aSoft.Title, i, SoftManager.FullList.Count, True);
 
+    Found := False;
     if DirectoryExistsUTF8(aSoft.Folder) then
       // Uncompressed
       Found := FileExistsUTF8(aSoft.Folder + aSoft.FileName)

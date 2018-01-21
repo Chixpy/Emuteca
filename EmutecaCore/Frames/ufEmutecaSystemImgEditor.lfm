@@ -119,10 +119,10 @@ inherited fmEmuTKSystemImgEditor: TfmEmuTKSystemImgEditor
     end
   end
   object gbxSystemIcons: TGroupBox[2]
-    Left = 359
+    Left = 367
     Height = 368
     Top = 0
-    Width = 241
+    Width = 233
     Align = alClient
     Caption = 'System Icons'
     ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
@@ -132,22 +132,23 @@ inherited fmEmuTKSystemImgEditor: TfmEmuTKSystemImgEditor
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 1
     ClientHeight = 348
-    ClientWidth = 237
+    ClientWidth = 229
+    Constraints.MinWidth = 200
     TabOrder = 1
     object gbxSystemIcon: TGroupBox
       Left = 0
       Height = 148
       Top = 0
-      Width = 237
+      Width = 229
       Caption = 'System icon'
       ClientHeight = 128
-      ClientWidth = 233
+      ClientWidth = 225
       TabOrder = 0
       object eSystemIcon: TFileNameEdit
         Left = 0
         Height = 23
         Top = 0
-        Width = 233
+        Width = 225
         OnAcceptFileName = eSystemIconAcceptFileName
         DialogKind = dkPictureOpen
         DialogOptions = [ofNoChangeDir, ofEnableSizing, ofViewDetail]
@@ -165,7 +166,7 @@ inherited fmEmuTKSystemImgEditor: TfmEmuTKSystemImgEditor
         Left = 0
         Height = 105
         Top = 23
-        Width = 233
+        Width = 225
         Align = alClient
         Center = True
         OnDblClick = iSystemIconDblClick
@@ -178,17 +179,17 @@ inherited fmEmuTKSystemImgEditor: TfmEmuTKSystemImgEditor
       Left = 0
       Height = 200
       Top = 148
-      Width = 237
+      Width = 229
       AutoSize = True
       Caption = 'Software icons'
       ClientHeight = 180
-      ClientWidth = 233
+      ClientWidth = 225
       TabOrder = 1
       object eSoftIconFolder: TDirectoryEdit
         Left = 0
         Height = 23
         Top = 15
-        Width = 233
+        Width = 225
         DialogOptions = [ofNoChangeDir, ofEnableSizing, ofViewDetail]
         ShowHidden = False
         ButtonWidth = 23
@@ -203,7 +204,7 @@ inherited fmEmuTKSystemImgEditor: TfmEmuTKSystemImgEditor
         Left = 0
         Height = 15
         Top = 0
-        Width = 233
+        Width = 225
         Align = alTop
         Caption = 'Software icon folder'
         ParentColor = False
@@ -212,7 +213,7 @@ inherited fmEmuTKSystemImgEditor: TfmEmuTKSystemImgEditor
         Left = 0
         Height = 15
         Top = 38
-        Width = 233
+        Width = 225
         Align = alTop
         Caption = 'Default soft icon'
         ParentColor = False
@@ -221,7 +222,8 @@ inherited fmEmuTKSystemImgEditor: TfmEmuTKSystemImgEditor
         Left = 0
         Height = 23
         Top = 53
-        Width = 233
+        Width = 225
+        OnAcceptFileName = eDefSoftIconAcceptFileName
         DialogKind = dkPictureOpen
         DialogOptions = [ofNoChangeDir, ofEnableSizing, ofViewDetail]
         FilterIndex = 0
@@ -232,14 +234,16 @@ inherited fmEmuTKSystemImgEditor: TfmEmuTKSystemImgEditor
         Align = alTop
         MaxLength = 0
         TabOrder = 1
+        OnButtonClick = eDefSoftIconButtonClick
       end
       object iDefSoftIcon: TImage
         Left = 0
         Height = 104
         Top = 76
-        Width = 233
+        Width = 225
         Align = alClient
         Center = True
+        OnDblClick = iDefSoftIconDblClick
         Proportional = True
         Stretch = True
         Transparent = True
@@ -247,7 +251,7 @@ inherited fmEmuTKSystemImgEditor: TfmEmuTKSystemImgEditor
     end
   end
   object Splitter1: TSplitter[3]
-    Left = 354
+    Left = 358
     Height = 368
     Top = 0
     Width = 5

@@ -21,6 +21,7 @@
 {"hash":101561156,"name":"tfrmlemutkmain.actupdategrouplist.caption","sourcebytes":[85,112,100,97,116,101,32,103,114,111,117,112,32,108,105,115,116],"value":"Update group list"},
 {"hash":197989918,"name":"tfrmlemutkmain.actmergegroupfiles.caption","sourcebytes":[77,101,114,103,101,32,103,114,111,117,112,32,102,105,108,101,115,46,46,46],"value":"Merge group files..."},
 {"hash":4710181,"name":"tfrmlemutkmain.actrunsoftware.caption","sourcebytes":[82,117,110,32,115,111,102,116,119,97,114,101],"value":"Run software"},
+{"hash":231333762,"name":"tfrmlemutkmain.actopensoftfolder.caption","sourcebytes":[79,112,101,110,32,115,111,102,116,119,97,114,101,32,102,111,108,100,101,114],"value":"Open software folder"},
 {"hash":315429,"name":"tfrmlemutkmain.mimmfile.caption","sourcebytes":[70,105,108,101],"value":"File"},
 {"hash":371876,"name":"tfrmlemutkmain.mimmtest.caption","sourcebytes":[84,101,115,116],"value":"Test"},
 {"hash":138926499,"name":"tfrmlemutkmain.mimmmanagers.caption","sourcebytes":[77,97,110,97,103,101,114,115],"value":"Managers"},

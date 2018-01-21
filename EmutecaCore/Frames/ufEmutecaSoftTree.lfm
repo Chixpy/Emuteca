@@ -102,32 +102,4 @@ inherited fmEmutecaSoftTree: TfmEmutecaSoftTree
     left = 584
     top = 48
   end
-  object ActionList: TActionList[3]
-    left = 189
-    top = 199
-    object actMergeGroupFiles: TAction
-      Category = 'Group'
-      Caption = 'Merge group files...'
-      Hint = 'Merge group files|Merges al group files in one folder or compressed archive.'
-    end
-    object actRunSoftware: TAction
-      Category = 'Game'
-      Caption = 'Run software'
-      OnExecute = actRunSoftwareExecute
-    end
-  end
-  object pmSTGroup: TPopupMenu[4]
-    left = 200
-    top = 96
-    object miPMGMergeGroupFiles: TMenuItem
-      Action = actMergeGroupFiles
-    end
-  end
-  object pmSTSoft: TPopupMenu[5]
-    left = 330
-    top = 117
-    object miPMSRunSoftware: TMenuItem
-      Action = actRunSoftware
-    end
-  end
 end

@@ -121,6 +121,7 @@ end;
 function TfmLEmuTKSysPreview.DoSelectEmulator(aEmulator: cEmutecaEmulator
   ): boolean;
 begin
+  Result := True;
   System.CurrentEmulator := aEmulator;
 end;
 

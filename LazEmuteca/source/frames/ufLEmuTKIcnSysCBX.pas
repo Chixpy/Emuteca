@@ -6,8 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
-  Types, StdCtrls, LCLType,
-  ucCHXImageList, uCHXImageUtils,
+  Types, StdCtrls, LCLType,uCHXImageUtils,
   ucEmutecaSystem,
   ufEmutecaSystemCBX;
 

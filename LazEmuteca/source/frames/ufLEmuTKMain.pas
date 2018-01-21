@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls,
-  ExtCtrls, StdCtrls, IniFiles,
+  ExtCtrls, StdCtrls, IniFiles, Menus,
   // CHX
   uCHXStrUtils, ucCHXImageList,
   // CHX frames
@@ -64,6 +64,8 @@ type
     FOnSoftChanged: TEmutecaReturnSoftCB;
     FOnSoftDblClk: TEmutecaReturnSoftCB;
     FOnSystemChanged: TEmutecaReturnSystemCB;
+    FpmGroup: TPopupMenu;
+    FpmSoft: TPopupMenu;
     FSHA1Folder: string;
     FZoneIcons: cCHXImageMap;
     procedure SetCurrentGroup(AValue: cEmutecaGroup);
@@ -77,6 +79,8 @@ type
     procedure SetOnSoftChanged(AValue: TEmutecaReturnSoftCB);
     procedure SetOnSoftDblClk(AValue: TEmutecaReturnSoftCB);
     procedure SetOnSystemChanged(AValue: TEmutecaReturnSystemCB);
+    procedure SetpmGroup(AValue: TPopupMenu);
+    procedure SetpmSoft(AValue: TPopupMenu);
     procedure SetSHA1Folder(AValue: string);
     procedure SetZoneIcons(AValue: cCHXImageMap);
 
@@ -136,6 +140,9 @@ type
     property OnSoftChanged: TEmutecaReturnSoftCB
       read FOnSoftChanged write SetOnSoftChanged;
     property OnSoftDblClk: TEmutecaReturnSoftCB read FOnSoftDblClk write SetOnSoftDblClk;
+
+    property pmSoft: TPopupMenu read FpmSoft write SetpmSoft;
+    property pmGroup: TPopupMenu read FpmGroup write SetpmGroup;
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -227,6 +234,10 @@ begin
   if assigned(Emuteca) then
   begin
     fmEmutecaSystemCBX.SystemList := Emuteca.SystemManager.EnabledList;
+
+    // TODO: Hack, don't work if all systems is selected
+    FCurrentSystem:=nil; // Updated by LoadFrameData;
+
     fmCHXTagTree.Folder :=
       SetAsAbsoluteFile(Emuteca.Config.TagsFolder, Emuteca.BaseFolder);
     // fmSoftTree.GroupList set by DoSelectSystem;
@@ -288,6 +299,22 @@ begin
   if FOnSystemChanged = AValue then
     Exit;
   FOnSystemChanged := AValue;
+end;
+
+procedure TfmLEmuTKMain.SetpmGroup(AValue: TPopupMenu);
+begin
+  if FpmGroup=AValue then Exit;
+  FpmGroup:=AValue;
+
+  fmSoftTree.pmGroup := pmGroup;
+end;
+
+procedure TfmLEmuTKMain.SetpmSoft(AValue: TPopupMenu);
+begin
+  if FpmSoft=AValue then Exit;
+  FpmSoft:=AValue;
+
+  fmSoftTree.pmSoft := pmSoft;
 end;
 
 procedure TfmLEmuTKMain.SetSHA1Folder(AValue: string);

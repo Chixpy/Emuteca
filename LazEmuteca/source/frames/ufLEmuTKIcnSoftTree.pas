@@ -5,14 +5,10 @@ unit ufLEmuTKIcnSoftTree;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, LazFileUtils, Forms, Controls,
-  Graphics, Dialogs, IniFiles,
-  VirtualTrees, LCLIntf, LCLType, ComCtrls, Menus, ActnList, LazUTF8,
-  ucCHXImageList, uCHXImageUtils,
-  uEmutecaCommon,
-  uaEmutecaCustomSoft,
-  ucEmutecaGroup, ucEmutecaSoftware,
-  ufEmutecaSoftTree;
+  Classes, SysUtils, FileUtil, LazFileUtils, Forms, Controls, Graphics, Dialogs,
+  IniFiles, VirtualTrees, VTHeaderPopup, LCLIntf, LCLType, ComCtrls, Menus,
+  ActnList, LazUTF8, ucCHXImageList, uCHXImageUtils, uEmutecaCommon,
+  uaEmutecaCustomSoft, ucEmutecaGroup, ucEmutecaSoftware, ufEmutecaSoftTree;
 
 const
   LazEmuTKIconFiles: array [0..12] of string =
@@ -25,6 +21,7 @@ type
   { TfmLEmuTKIcnSoftTree }
 
   TfmLEmuTKIcnSoftTree = class(TfmEmutecaSoftTree)
+    actOpenSoftFolder: TAction;
 
     procedure VDTDrawText(Sender: TBaseVirtualTree;
       TargetCanvas: TCanvas; Node: PVirtualNode; Column: TColumnIndex;

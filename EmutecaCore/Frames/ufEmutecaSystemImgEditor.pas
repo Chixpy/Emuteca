@@ -34,6 +34,8 @@ type
     lDefSoftIcon: TLabel;
     lSoftIconFolder: TLabel;
     Splitter1: TSplitter;
+    procedure eDefSoftIconAcceptFileName(Sender: TObject; Var Value: String);
+    procedure eDefSoftIconButtonClick(Sender: TObject);
     procedure eSoftIconFolderButtonClick(Sender: TObject);
     procedure eSystemBGAcceptFileName(Sender: TObject; var Value: string);
     procedure eSystemBGButtonClick(Sender: TObject);
@@ -41,6 +43,7 @@ type
     procedure eSystemIconButtonClick(Sender: TObject);
     procedure eSystemImageAcceptFileName(Sender: TObject; var Value: string);
     procedure eSystemImageButtonClick(Sender: TObject);
+    procedure iDefSoftIconDblClick(Sender: TObject);
     procedure iSystemBGDblClick(Sender: TObject);
     procedure iSystemIconDblClick(Sender: TObject);
     procedure iSystemImageDblClick(Sender: TObject);
@@ -99,6 +102,12 @@ begin
     SetFileEditInitialDir(eSystemImage, '');
 end;
 
+procedure TfmEmuTKSystemImgEditor.iDefSoftIconDblClick(Sender: TObject);
+begin
+    TfmCHXImgViewer.SimpleFormI(eDefSoftIcon.Text, SHA1Folder, GUIIconsIni,
+    GUIConfigIni);
+end;
+
 procedure TfmEmuTKSystemImgEditor.iSystemBGDblClick(Sender: TObject);
 begin
   TfmCHXImgViewer.SimpleFormI(eSystemBG.Text, SHA1Folder, GUIIconsIni,
@@ -143,6 +152,20 @@ begin
     SetDirEditInitialDir(eSoftIconFolder, System.BaseFolder)
   else
     SetDirEditInitialDir(eSoftIconFolder, '');
+end;
+
+procedure TfmEmuTKSystemImgEditor.eDefSoftIconAcceptFileName(Sender: TObject;
+  Var Value: String);
+begin
+  UpdateImage(iDefSoftIcon, Value);
+end;
+
+procedure TfmEmuTKSystemImgEditor.eDefSoftIconButtonClick(Sender: TObject);
+begin
+    if Assigned(System) then
+    SetFileEditInitialDir(eDefSoftIcon, System.BaseFolder)
+  else
+    SetFileEditInitialDir(eDefSoftIcon, '');
 end;
 
 procedure TfmEmuTKSystemImgEditor.eSystemBGButtonClick(Sender: TObject);

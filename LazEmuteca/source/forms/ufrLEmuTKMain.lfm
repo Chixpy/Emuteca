@@ -116,6 +116,11 @@ object frmLEmuTKMain: TfrmLEmuTKMain
       Caption = 'Run software'
       OnExecute = actRunSoftwareExecute
     end
+    object actOpenSoftFolder: TAction
+      Category = 'Software'
+      Caption = 'Open software folder'
+      OnExecute = actOpenSoftFolderExecute
+    end
   end
   object MainMenu: TMainMenu
     Images = ActImages
@@ -185,6 +190,12 @@ object frmLEmuTKMain: TfrmLEmuTKMain
       object mimmRunSoftware: TMenuItem
         Action = actRunSoftware
       end
+      object MenuItem1: TMenuItem
+        Caption = '-'
+      end
+      object mummOpenSoftFolder: TMenuItem
+        Action = actOpenSoftFolder
+      end
       object MenuItem4: TMenuItem
         Caption = '-'
       end
@@ -223,5 +234,24 @@ object frmLEmuTKMain: TfrmLEmuTKMain
   object ActImages: TImageList
     left = 40
     top = 128
+  end
+  object pmSoft: TPopupMenu
+    Images = ActImages
+    left = 120
+    top = 16
+    object mipmSRunSoft: TMenuItem
+      Action = actRunSoftware
+    end
+    object MenuItem5: TMenuItem
+      Caption = '-'
+    end
+    object mipmSOpenSoftFolder: TMenuItem
+      Action = actOpenSoftFolder
+    end
+  end
+  object pmGroup: TPopupMenu
+    Images = ActImages
+    left = 176
+    top = 16
   end
 end

@@ -27,11 +27,8 @@ type
   TfmEmutecaSoftTree = class(TfmCHXFrame)
     actRunSoftware: TAction;
     actMergeGroupFiles: TAction;
-    ActionList: TActionList;
     miPMSRunSoftware: TMenuItem;
     miPMGMergeGroupFiles: TMenuItem;
-    pmSTGroup: TPopupMenu;
-    pmSTSoft: TPopupMenu;
     StatusBar: TStatusBar;
     VDT: TVirtualStringTree;
     VTHPopupMenu: TVTHeaderPopupMenu;
@@ -61,6 +58,8 @@ type
     FOnDblClkSoft: TEmutecaReturnSoftCB;
     FOnSelectGroup: TEmutecaReturnGroupCB;
     FOnSelectSoft: TEmutecaReturnSoftCB;
+    FpmGroup: TPopupMenu;
+    FpmSoft: TPopupMenu;
     FTitleFilter: string;
     procedure SetGroupList(AValue: cEmutecaGroupList);
     procedure SetGUIConfigFile(AValue: string);
@@ -69,6 +68,8 @@ type
     procedure SetOnDblClkSoft(AValue: TEmutecaReturnSoftCB);
     procedure SetOnSelectGroup(AValue: TEmutecaReturnGroupCB);
     procedure SetOnSelectSoft(AValue: TEmutecaReturnSoftCB);
+    procedure SetpmGroup(AValue: TPopupMenu);
+    procedure SetpmSoft(AValue: TPopupMenu);
     procedure SetTitleFilter(AValue: string);
 
   protected
@@ -88,6 +89,8 @@ type
 
     property TitleFilter: string read FTitleFilter write SetTitleFilter;
 
+    // Callbacks on actions
+    // --------------------
     property OnSelectGroup: TEmutecaReturnGroupCB
       read FOnSelectGroup write SetOnSelectGroup;
     property OnDblClkGroup: TEmutecaReturnGroupCB
@@ -96,6 +99,10 @@ type
       read FOnSelectSoft write SetOnSelectSoft;
     property OnDblClkSoft: TEmutecaReturnSoftCB
       read FOnDblClkSoft write SetOnDblClkSoft;
+
+    // Menu popups
+    property pmSoft: TPopupMenu read FpmSoft write SetpmSoft;
+    property pmGroup: TPopupMenu read FpmGroup write SetpmGroup;
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -540,11 +547,13 @@ begin
 
   if pData^ is cEmutecaGroup then
   begin
-    aPopupMenu := pmSTGroup;
+    if Assigned(pmGroup) then
+    aPopupMenu := pmGroup;
   end
   else if pData^ is cEmutecaSoftware then
   begin
-    aPopupMenu := pmSTSoft;
+    if Assigned(pmSoft) then
+    aPopupMenu := pmSoft;
   end;
 end;
 
@@ -597,6 +606,18 @@ begin
   if FOnSelectSoft = AValue then
     Exit;
   FOnSelectSoft := AValue;
+end;
+
+procedure TfmEmutecaSoftTree.SetpmGroup(AValue: TPopupMenu);
+begin
+  if FpmGroup=AValue then Exit;
+  FpmGroup:=AValue;
+end;
+
+procedure TfmEmutecaSoftTree.SetpmSoft(AValue: TPopupMenu);
+begin
+  if FpmSoft=AValue then Exit;
+  FpmSoft:=AValue;
 end;
 
 procedure TfmEmutecaSoftTree.SetTitleFilter(AValue: string);
