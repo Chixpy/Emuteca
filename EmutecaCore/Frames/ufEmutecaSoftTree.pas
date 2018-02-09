@@ -82,7 +82,7 @@ type
     procedure DoClearFrameData;
     procedure DoLoadFrameData;
     procedure DoLoadGUIConfig(aIniFile: TIniFile); virtual;
-    procedure DoSaveGUIConfig(aIniFile: TIniFile);
+    procedure DoSaveGUIConfig(aIniFile: TIniFile); virtual;
 
   public
     property GroupList: cEmutecaGroupList read FGroupList write SetGroupList;
@@ -698,6 +698,15 @@ end;
 procedure TfmEmutecaSoftTree.FilterNodes;
 begin
   // TODO: Hide nodes by name
+  if TitleFilter = '' then
+  begin
+    // Show all nodes
+    Exit;
+  end
+  else
+  begin
+    ShowMessage('Filtering not implemented.');
+  end;
 end;
 
 procedure TfmEmutecaSoftTree.DoDblClkTree;

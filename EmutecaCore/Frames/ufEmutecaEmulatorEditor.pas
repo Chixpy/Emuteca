@@ -28,6 +28,8 @@ type
     eParameters: TEdit;
     eWebPage: TEdit;
     eWorkingFolder: TDirectoryEdit;
+    gbxAdvanced: TGroupBox;
+    gbxBasic: TGroupBox;
     lDeveloper: TLabel;
     lExePath: TLabel;
     lExitCode: TLabel;
@@ -46,6 +48,7 @@ type
     pWebPage: TPanel;
     pWFolder: TPanel;
     bWorkingFolder: TSpeedButton;
+    Splitter1: TSplitter;
     procedure actOpenWebPageExecute(Sender: TObject);
     procedure actWFEmulatorExecute(Sender: TObject);
     procedure actWFROMExecute(Sender: TObject);

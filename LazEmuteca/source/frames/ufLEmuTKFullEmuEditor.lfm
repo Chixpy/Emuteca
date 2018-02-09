@@ -4,8 +4,8 @@ inherited fmLEmuTKFullEmuEditor: TfmLEmuTKFullEmuEditor
   end
   object pcProperties: TPageControl[1]
     Left = 0
-    Height = 187
-    Top = 26
+    Height = 180
+    Top = 30
     Width = 320
     Align = alClient
     TabOrder = 0
