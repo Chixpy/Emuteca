@@ -16,6 +16,12 @@ type
   { TfmEmutecaEmulatorEditor }
 
   TfmEmutecaEmulatorEditor = class(TfmCHXPropEditor)
+    actParamROMFileExtension: TAction;
+    actParamROMFileNoExt: TAction;
+    actParamROMFilename: TAction;
+    actParamROMDir: TAction;
+    actParamROMPath: TAction;
+    actWFEmuteca: TAction;
     actOpenWebPage: TAction;
     actWFEmulator: TAction;
     actWFROM: TAction;
@@ -39,6 +45,12 @@ type
     lParameters: TLabel;
     lWebPage: TLabel;
     lWorkingFolder: TLabel;
+    pmiParamROMFileExtension: TMenuItem;
+    pmiParamROMFileNoExt: TMenuItem;
+    pmiParamROMFilename: TMenuItem;
+    pmiParamROMDir: TMenuItem;
+    pmiParamROMPath: TMenuItem;
+    pmiWFEmuteca: TMenuItem;
     pmiWFEmu: TMenuItem;
     pmiWFROM: TMenuItem;
     mExtensions: TMemo;
@@ -50,7 +62,13 @@ type
     bWorkingFolder: TSpeedButton;
     Splitter1: TSplitter;
     procedure actOpenWebPageExecute(Sender: TObject);
+    procedure actParamROMDirExecute(Sender: TObject);
+    procedure actParamROMFileExtensionExecute(Sender: TObject);
+    procedure actParamROMFilenameExecute(Sender: TObject);
+    procedure actParamROMFileNoExtExecute(Sender: TObject);
+    procedure actParamROMPathExecute(Sender: TObject);
     procedure actWFEmulatorExecute(Sender: TObject);
+    procedure actWFEmutecaExecute(Sender: TObject);
     procedure actWFROMExecute(Sender: TObject);
     procedure bParametersClick(Sender: TObject);
     procedure bWorkingFolderClick(Sender: TObject);
@@ -98,15 +116,46 @@ begin
   eWorkingFolder.Text := kEmutecaEmuDirKey;
 end;
 
+procedure TfmEmutecaEmulatorEditor.actWFEmutecaExecute(Sender: TObject);
+begin
+  eWorkingFolder.Text := kEmutecaCurrentDirKey;
+end;
+
 procedure TfmEmutecaEmulatorEditor.actOpenWebPageExecute(Sender: TObject);
 begin
   if eWebPage.Text = '' then Exit;
   OpenURL(eWebPage.Text);
 end;
 
+procedure TfmEmutecaEmulatorEditor.actParamROMDirExecute(Sender: TObject);
+begin
+   eParameters.SelText:=kEmutecaROMDirKey;
+end;
+
+procedure TfmEmutecaEmulatorEditor.actParamROMFileExtensionExecute(
+  Sender: TObject);
+begin
+  eParameters.SelText:=kEmutecaROMFileExtKey;
+end;
+
+procedure TfmEmutecaEmulatorEditor.actParamROMFilenameExecute(Sender: TObject);
+begin
+  eParameters.SelText:=kEmutecaROMFileNameKey;
+end;
+
+procedure TfmEmutecaEmulatorEditor.actParamROMFileNoExtExecute(Sender: TObject);
+begin
+   eParameters.SelText:=kEmutecaROMFileNameNoExtKey;
+end;
+
+procedure TfmEmutecaEmulatorEditor.actParamROMPathExecute(Sender: TObject);
+begin
+  eParameters.SelText:=kEmutecaROMPathKey;
+end;
+
 procedure TfmEmutecaEmulatorEditor.actWFROMExecute(Sender: TObject);
 begin
-  eWorkingFolder.Text := kEmutecaRomDirKey;
+  eWorkingFolder.Text := kEmutecaROMDirKey;
 end;
 
 procedure TfmEmutecaEmulatorEditor.bParametersClick(Sender: TObject);

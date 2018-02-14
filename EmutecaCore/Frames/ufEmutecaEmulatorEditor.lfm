@@ -21,12 +21,12 @@ inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
   end
   object gbxAdvanced: TGroupBox[1]
     Left = 307
-    Height = 425
-    Top = 0
+    Height = 406
+    Top = 19
     Width = 98
     Align = alRight
     Caption = 'Advanced'
-    ClientHeight = 405
+    ClientHeight = 386
     ClientWidth = 94
     TabOrder = 1
     object lExtensions: TLabel
@@ -40,7 +40,7 @@ inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
     end
     object mExtensions: TMemo
       Left = 0
-      Height = 352
+      Height = 333
       Top = 15
       Width = 94
       Align = alClient
@@ -51,7 +51,7 @@ inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
     object lExitCode: TLabel
       Left = 0
       Height = 15
-      Top = 367
+      Top = 348
       Width = 94
       Align = alBottom
       Caption = 'Exit code'
@@ -60,7 +60,7 @@ inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
     object eExitCode: TSpinEdit
       Left = 0
       Height = 23
-      Top = 382
+      Top = 363
       Width = 94
       Align = alBottom
       TabOrder = 1
@@ -68,26 +68,26 @@ inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
   end
   object Splitter1: TSplitter[2]
     Left = 298
-    Height = 425
-    Top = 0
+    Height = 406
+    Top = 19
     Width = 5
     Align = alRight
     ResizeAnchor = akRight
   end
   object gbxBasic: TGroupBox[3]
     Left = 0
-    Height = 425
-    Top = 0
+    Height = 406
+    Top = 19
     Width = 294
     Align = alClient
     Caption = 'Basic configuration'
-    ClientHeight = 405
+    ClientHeight = 386
     ClientWidth = 290
     TabOrder = 3
     object lName: TLabel
       Left = 0
       Height = 15
-      Top = 91
+      Top = 0
       Width = 290
       Align = alTop
       Caption = 'Name'
@@ -96,7 +96,7 @@ inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
     object eName: TEdit
       Left = 0
       Height = 23
-      Top = 106
+      Top = 15
       Width = 290
       Align = alTop
       TabOrder = 0
@@ -104,7 +104,7 @@ inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
     object lExePath: TLabel
       Left = 0
       Height = 15
-      Top = 129
+      Top = 114
       Width = 290
       Align = alTop
       Caption = 'Exe path'
@@ -113,7 +113,7 @@ inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
     object eExePath: TFileNameEdit
       Left = 0
       Height = 23
-      Top = 144
+      Top = 129
       Width = 290
       DialogOptions = [ofNoChangeDir, ofEnableSizing, ofViewDetail]
       FilterIndex = 0
@@ -129,7 +129,7 @@ inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
     object lWorkingFolder: TLabel
       Left = 0
       Height = 15
-      Top = 167
+      Top = 152
       Width = 290
       Align = alTop
       Caption = 'Working folder'
@@ -138,7 +138,7 @@ inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
     object pWFolder: TPanel
       Left = 0
       Height = 23
-      Top = 182
+      Top = 167
       Width = 290
       Align = alTop
       BevelOuter = bvNone
@@ -208,7 +208,7 @@ inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
     object lParameters: TLabel
       Left = 0
       Height = 15
-      Top = 205
+      Top = 190
       Width = 290
       Align = alTop
       Caption = 'Parameters'
@@ -217,7 +217,7 @@ inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
     object pParameters: TPanel
       Left = 0
       Height = 23
-      Top = 220
+      Top = 205
       Width = 290
       Align = alTop
       AutoSize = True
@@ -279,20 +279,10 @@ inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
         PopupMenu = pmParameters
       end
     end
-    object lID: TLabel
-      Left = 0
-      Height = 15
-      Top = 0
-      Width = 290
-      Align = alTop
-      Alignment = taCenter
-      Caption = 'ID'
-      ParentColor = False
-    end
     object lDeveloper: TLabel
       Left = 0
       Height = 15
-      Top = 76
+      Top = 38
       Width = 290
       Align = alTop
       Caption = 'Developer'
@@ -309,7 +299,7 @@ inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
     object lWebPage: TLabel
       Left = 0
       Height = 15
-      Top = 38
+      Top = 76
       Width = 290
       Align = alTop
       Caption = 'WebPage'
@@ -318,7 +308,7 @@ inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
     object pWebPage: TPanel
       Left = 0
       Height = 23
-      Top = 15
+      Top = 91
       Width = 290
       Align = alTop
       AutoSize = True
@@ -380,7 +370,17 @@ inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
       end
     end
   end
-  inherited alPropEditor: TActionList[4]
+  object lID: TLabel[4]
+    Left = 0
+    Height = 15
+    Top = 0
+    Width = 405
+    Align = alTop
+    Alignment = taCenter
+    Caption = 'ID'
+    ParentColor = False
+  end
+  inherited alPropEditor: TActionList[5]
     left = 16
     top = 304
     object actWFEmulator: TAction[2]
@@ -398,12 +398,42 @@ inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
       Caption = 'Open Webpage'
       OnExecute = actOpenWebPageExecute
     end
+    object actWFEmuteca: TAction[5]
+      Category = 'PUWFolder'
+      Caption = 'Emuteca folder'
+      OnExecute = actWFEmutecaExecute
+    end
+    object actParamROMPath: TAction[6]
+      Category = 'PUParameters'
+      Caption = 'ROM Full path'
+      OnExecute = actParamROMPathExecute
+    end
+    object actParamROMDir: TAction[7]
+      Category = 'PUParameters'
+      Caption = 'ROM Folder'
+      OnExecute = actParamROMDirExecute
+    end
+    object actParamROMFilename: TAction[8]
+      Category = 'PUParameters'
+      Caption = 'ROM Filename'
+      OnExecute = actParamROMFilenameExecute
+    end
+    object actParamROMFileNoExt: TAction[9]
+      Category = 'PUParameters'
+      Caption = 'ROM Filename no extension'
+      OnExecute = actParamROMFileNoExtExecute
+    end
+    object actParamROMFileExtension: TAction[10]
+      Category = 'PUParameters'
+      Caption = 'ROM File extension'
+      OnExecute = actParamROMFileExtensionExecute
+    end
   end
-  inherited ilPropEditor: TImageList[5]
+  inherited ilPropEditor: TImageList[6]
     left = 312
     top = 304
   end
-  object pmWFolder: TPopupMenu[6]
+  object pmWFolder: TPopupMenu[7]
     left = 45
     top = 268
     object pmiWFEmu: TMenuItem
@@ -412,9 +442,27 @@ inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
     object pmiWFROM: TMenuItem
       Action = actWFROM
     end
+    object pmiWFEmuteca: TMenuItem
+      Caption = 'MenuItem1'
+    end
   end
-  object pmParameters: TPopupMenu[7]
+  object pmParameters: TPopupMenu[8]
     left = 148
     top = 274
+    object pmiParamROMPath: TMenuItem
+      Action = actParamROMPath
+    end
+    object pmiParamROMDir: TMenuItem
+      Action = actParamROMDir
+    end
+    object pmiParamROMFilename: TMenuItem
+      Action = actParamROMFilename
+    end
+    object pmiParamROMFileNoExt: TMenuItem
+      Action = actParamROMFileNoExt
+    end
+    object pmiParamROMFileExtension: TMenuItem
+      Action = actParamROMFileExtension
+    end
   end
 end

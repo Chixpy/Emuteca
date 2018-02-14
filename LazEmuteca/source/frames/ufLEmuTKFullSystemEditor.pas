@@ -7,10 +7,20 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
   Buttons, ComCtrls, ActnList, LazFileUtils, LCLIntf, StdCtrls,
-  ufCHXPropEditor, uCHXStrUtils,
+  // CHX units
+  uCHXStrUtils,
+  // CHX forms
+  ufrCHXForm,
+  // CHX frames
+  ufCHXPropEditor,
+  // Emuteca common
+  uEmutecaCommon,
+  // Emuteca clases
   ucEmuteca, ucEmutecaSystem,
+  // Emuteca frames
   ufEmutecaSystemEditor, ufEmutecaSystemImgEditor,
   ufEmutecaSystemITFEditor, ufEmutecaSystemMVFEditor,
+  // LazEmuteca units
   uLEmuTKCommon;
 
 type
@@ -59,6 +69,10 @@ type
     property System: cEmutecaSystem read FSystem write SetSystem;
 
     property SHA1Folder: string read FSHA1Folder write SetSHA1Folder;
+
+    class function SimpleForm(aEmuteca: cEmuteca; aSystem: cEmutecaSystem; aSHA1Folder: string;
+      aGUIIconsIni: string; aGUIConfigIni: string): integer;
+    //< Creates a form with System Manager.
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -242,12 +256,52 @@ procedure TfmLEmuTKFullSystemEditor.DoClearFrameData;
 begin
 end;
 
-procedure TfmLEmuTKFullSystemEditor.DoSaveFrameData;
+procedure TfmLEmuTKFullSystemEditor.DOSaveFrameData;
 begin
   fmSysEditor.SaveFrameData;
   fmSysImgEditor.SaveFrameData;
   fmSysITFEditor.SaveFrameData;
   fmSysMVFEditor.SaveFrameData;
+end;
+
+class function TfmLEmuTKFullSystemEditor.SimpleForm(aEmuteca: cEmuteca;
+  aSystem: cEmutecaSystem; aSHA1Folder: string; aGUIIconsIni: string;
+  aGUIConfigIni: string): integer;
+var
+  aForm: TfrmCHXForm;
+  aFrame: TfmLEmuTKFullSystemEditor;
+begin
+  Result := mrNone;
+
+  if (not assigned(aEmuteca)) or (not assigned(aSystem)) then
+  begin
+    Result := mrAbort;
+    Exit;
+  end;
+
+  Application.CreateForm(TfrmCHXForm, aForm);
+  try
+    aForm.Name := 'frmLEmuTKSysEditor';
+    aForm.Caption := Format(krsFmtWindowCaption,
+      [Application.Title, 'System Editor']);
+
+    aFrame := TfmLEmuTKFullSystemEditor.Create(aForm);
+    aFrame.SaveButtons := True;
+    aFrame.ButtonClose := True;
+    aFrame.Align := alClient;
+
+    aFrame.SHA1Folder := aSHA1Folder;
+    aFrame.Emuteca := aEmuteca;
+    aFrame.System := aSystem;
+
+    aForm.LoadGUIConfig(aGUIConfigIni);
+    aForm.LoadGUIIcons(aGUIIconsIni);
+    aFrame.Parent := aForm;
+
+    Result := aForm.ShowModal;
+  finally
+    aForm.Free;
+  end;
 end;
 
 procedure TfmLEmuTKFullSystemEditor.DoLoadFrameData;
@@ -268,6 +322,7 @@ constructor TfmLEmuTKFullSystemEditor.Create(TheOwner: TComponent);
     aTabSheet: TTabSheet;
   begin
     aTabSheet := pcProperties.AddTabSheet;
+    aTabSheet.Caption := 'Basic config';
     FfmSysEditor := TfmEmutecaSystemEditor.Create(aTabSheet);
     fmSysEditor.SaveButtons := False;
     fmSysEditor.ButtonClose := False;
@@ -275,6 +330,7 @@ constructor TfmLEmuTKFullSystemEditor.Create(TheOwner: TComponent);
     fmSysEditor.Parent := aTabSheet;
 
     aTabSheet := pcProperties.AddTabSheet;
+    aTabSheet.Caption := 'Basic images';
     FfmSysImgEditor := TfmEmuTKSystemImgEditor.Create(aTabSheet);
     fmSysImgEditor.SaveButtons := False;
     fmSysImgEditor.ButtonClose := False;
@@ -283,12 +339,14 @@ constructor TfmLEmuTKFullSystemEditor.Create(TheOwner: TComponent);
 
     aTabSheet := pcProperties.AddTabSheet;
     FfmSysITFEditor := TfmEmutecaSystemITFEditor.Create(aTabSheet);
+    aTabSheet.Caption := 'Software images';
     fmSysITFEditor.SaveButtons := False;
     fmSysITFEditor.ButtonClose := False;
     fmSysITFEditor.Align := alClient;
     fmSysITFEditor.Parent := aTabSheet;
 
     aTabSheet := pcProperties.AddTabSheet;
+    aTabSheet.Caption := 'Music & Video';
     FfmSysMVFEditor := TfmEmutecaSystemMVFEditor.Create(aTabSheet);
     fmSysMVFEditor.SaveButtons := False;
     fmSysMVFEditor.ButtonClose := False;

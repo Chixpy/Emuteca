@@ -52,12 +52,13 @@ const
   // Working folders
   kEmutecaEmuDirKey = '%EMUDIR%';
   {< Emulator's directory key. }
-  kEmutecaRomDirKey = '%ROMDIR%';
+  kEmutecaROMDirKey = '%ROMDIR%';
   {< ROM's directory key. }
   kEmutecaCurrentDirKey = '%CURRENTDIR%';
   {< Current directory key. }
 
   // Parameters
+  //kEmutecaROMDirKey = '%ROMDIR%'; <- Same as Working Folders
   kEmutecaROMPathKey = '%ROM%';
   {< ROM full path. }
   kEmutecaROMFileNameKey = '%ROMNAME%';
@@ -146,6 +147,8 @@ type
        @definitionList(
          @itemLabel(%ROM%)
          @item(Full ROM path.)
+         @itemLabel(%ROMDIR%)
+         @item(ROM's folder.)
          @itemLabel(%ROMNAME%)
          @item(ROM filename with extension, but without folder.)
          @itemLabel(%ROMNAMENOEXT%)
@@ -326,7 +329,7 @@ begin
   TempDir := SysPath(WorkingFolder);
   TempDir := AnsiReplaceText(TempDir, kEmutecaEmuDirKey,
     ExtractFileDir(ExeFile));
-  TempDir := AnsiReplaceText(TempDir, kEmutecaRomDirKey,
+  TempDir := AnsiReplaceText(TempDir, kEmutecaROMDirKey,
     ExtractFileDir(GameFile));
   TempDir := AnsiReplaceText(TempDir, kEmutecaCurrentDirKey,
     ExtractFileDir(CurrFolder));
@@ -338,12 +341,12 @@ begin
   // Changing parameters
   TempParam := Parameters;
   TempParam := AnsiReplaceText(TempParam, kEmutecaROMPathKey, GameFile);
-  TempParam := AnsiReplaceText(TempParam, kEmutecaRomDirKey,
+  TempParam := AnsiReplaceText(TempParam, kEmutecaROMDirKey,
     ExtractFileDir(GameFile));
   TempParam := AnsiReplaceText(TempParam, kEmutecaROMFileNameKey,
     ExtractFileName(GameFile));
   TempParam := AnsiReplaceText(TempParam, kEmutecaROMFileNameNoExtKey,
-    ExtractFileNameWithoutExt(GameFile));
+    ExtractFileNameWithoutExt(ExtractFileName(GameFile)));
   TempParam := AnsiReplaceText(TempParam, kEmutecaROMFileExtKey,
     ExtractFileExt(GameFile));
   TempParam := Trim(TempParam);
@@ -388,7 +391,7 @@ begin
   TempDir := WorkingFolder;
   TempDir := AnsiReplaceText(TempDir, kEmutecaEmuDirKey,
     ExtractFileDir(ExeFile));
-  TempDir := AnsiReplaceText(TempDir, kEmutecaRomDirKey,
+  TempDir := AnsiReplaceText(TempDir, kEmutecaROMDirKey,
     ExtractFileDir(ExeFile));
   TempDir := AnsiReplaceText(TempDir, kEmutecaCurrentDirKey,
     ExtractFileDir(CurrFolder));

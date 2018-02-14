@@ -41,7 +41,7 @@ uses
   ucEmutecaSoftware, ucEmutecaSoftList,
   // Emuteca forms
   ufrLEmuTKAbout,
-  // Emuteca windows
+  // Emuteca frames
   ufEmutecaActAddSoft, ufEmutecaActAddFolder, ufEmutecaActExportSoftData,
   ufEmutecaActImportSoftData,
   // LazEmuteca units
@@ -50,6 +50,7 @@ uses
   ufLEmuTKMain,
   ufLEmuTKSysManager, ufLEmuTKEmuManager, ufLEmuTKMediaManager,
   ufLEmuTKScriptManager,
+  ufLEmuTKFullSystemEditor,
   ufLEmuTKactMergeGroup,
   // LazEmuteca threads
   utLEmuTKCacheSysIcons, utLEmuTKCacheGrpIcons, utLEmuTKCacheSoftIcons;
@@ -66,6 +67,7 @@ type
     actExportSoftData: TAction;
     actImportSoftData: TAction;
     actCleanSystemData: TAction;
+    actEditSystem: TAction;
     actOpenSoftFolder: TAction;
     actRunSoftware: TAction;
     actMergeGroupFiles: TAction;
@@ -83,6 +85,7 @@ type
     MainMenu: TMainMenu;
     MenuItem1: TMenuItem;
     MenuItem5: TMenuItem;
+    mimmEditSystem: TMenuItem;
     mipmSOpenSoftFolder: TMenuItem;
     mipmSRunSoft: TMenuItem;
     mummOpenSoftFolder: TMenuItem;
@@ -123,6 +126,7 @@ type
     procedure actAddFolderExecute(Sender: TObject);
     procedure actAutoSaveExecute(Sender: TObject);
     procedure actCleanSystemDataExecute(Sender: TObject);
+    procedure actEditSystemExecute(Sender: TObject);
     procedure actEmulatorManagerExecute(Sender: TObject);
     procedure actExportSoftDataExecute(Sender: TObject);
     procedure actImportSoftDataExecute(Sender: TObject);
@@ -802,6 +806,18 @@ begin
   CurrentSystem.ProgressCallBack := @DoProgressBar;
   CurrentSystem.CleanSystemData;
   CurrentSystem.ProgressCallBack := aPCB;
+
+  fmEmutecaMainFrame.Emuteca := Emuteca;
+end;
+
+procedure TfrmLEmuTKMain.actEditSystemExecute(Sender: TObject);
+begin
+  // Fix runtime errors, while trying to update if something is changed
+  fmEmutecaMainFrame.Emuteca := nil;
+
+  TfmLEmuTKFullSystemEditor.SimpleForm(Emuteca, CurrentSystem, SHA1Folder,
+    GUIIconsFile, GUIConfig.ConfigFile);
+  LoadSystemsIcons;
 
   fmEmutecaMainFrame.Emuteca := Emuteca;
 end;

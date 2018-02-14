@@ -7,10 +7,17 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
   Buttons, CheckLst, ActnList, Menus,
+  // CHX units
   uCHXStrUtils,
+  // CHX forms
   ufrCHXForm,
+  // CHX frames
   ufCHXChkLstPropEditor, ufCHXProgressBar,
-  ucEmuteca, uEmutecaCommon, ucEmutecaSystem,
+  // Emuteca units
+  uEmutecaCommon,
+  // Emuteca clases
+  ucEmuteca, ucEmutecaSystem,
+  // LazEmuteca frames
   ufLEmuTKFullSystemEditor;
 
 resourcestring
