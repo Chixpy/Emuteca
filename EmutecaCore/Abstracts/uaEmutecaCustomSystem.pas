@@ -476,6 +476,9 @@ begin
     Exit;
   FID := AValue;
 
+  if FileName = '' then
+    FileName := ID;
+
   FPONotifyObservers(Self, ooChange, nil);
 end;
 
@@ -501,9 +504,7 @@ end;
 
 procedure caEmutecaCustomSystem.SetSoftIconFile(AValue: string);
 begin
-  if FSoftIconFile = AValue then
-    Exit;
-  FSoftIconFile := AValue;
+  FSoftIconFile := SetAsFile(AValue)
 end;
 
 procedure caEmutecaCustomSystem.SetTempFolder(AValue: string);

@@ -68,6 +68,7 @@ type
     actImportSoftData: TAction;
     actCleanSystemData: TAction;
     actEditSystem: TAction;
+    actEditEmulator: TAction;
     actOpenSoftFolder: TAction;
     actRunSoftware: TAction;
     actMergeGroupFiles: TAction;
@@ -85,6 +86,8 @@ type
     MainMenu: TMainMenu;
     MenuItem1: TMenuItem;
     MenuItem5: TMenuItem;
+    mimmEditEmulator: TMenuItem;
+    mimmEmulator: TMenuItem;
     mimmEditSystem: TMenuItem;
     mipmSOpenSoftFolder: TMenuItem;
     mipmSRunSoft: TMenuItem;
@@ -126,6 +129,7 @@ type
     procedure actAddFolderExecute(Sender: TObject);
     procedure actAutoSaveExecute(Sender: TObject);
     procedure actCleanSystemDataExecute(Sender: TObject);
+    procedure actEditEmulatorExecute(Sender: TObject);
     procedure actEditSystemExecute(Sender: TObject);
     procedure actEmulatorManagerExecute(Sender: TObject);
     procedure actExportSoftDataExecute(Sender: TObject);
@@ -810,8 +814,31 @@ begin
   fmEmutecaMainFrame.Emuteca := Emuteca;
 end;
 
+procedure TfrmLEmuTKMain.actEditEmulatorExecute(Sender: TObject);
+begin
+   if not assigned(CurrentSystem) then
+    Exit;
+
+
+  // TODO
+  {
+  // Fix runtime errors, while trying to update if something is changed
+  fmEmutecaMainFrame.Emuteca := nil;
+
+
+  //TfmLEmuTKFullSystemEditor.SimpleForm(Emuteca, CurrentSystem, SHA1Folder,
+    GUIIconsFile, GUIConfig.ConfigFile);
+  //LoadSystemsIcons;
+
+  fmEmutecaMainFrame.Emuteca := Emuteca;
+  }
+end;
+
 procedure TfrmLEmuTKMain.actEditSystemExecute(Sender: TObject);
 begin
+  if not assigned(CurrentSystem) then
+    Exit;
+
   // Fix runtime errors, while trying to update if something is changed
   fmEmutecaMainFrame.Emuteca := nil;
 

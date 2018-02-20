@@ -21,7 +21,7 @@ uses
   ufLEmuTKFullSystemEditor;
 
 resourcestring
-  rsSystemName = 'System name [Company: Model (extra)].';
+  rsSystemNameModel = 'System name [Company: Model (extra)].';
 
 type
   { Frame for System Manager. }
@@ -128,13 +128,14 @@ begin
   if not assigned(Emuteca) then
     Exit;
 
-  SystemID := Trim(InputBox(actAddItem.Caption, rsSystemName, ''));
+  SystemID := Trim(InputBox(actAddItem.Caption, rsSystemNameModel, ''));
   if SystemID = '' then
     Exit;
 
   aSystem := cEmutecaSystem.Create(nil);
   aSystem.ID := SystemID;
   aSystem.Title := SystemID;
+  aSystem.FileName:=SystemID;
   aSystem.Enabled := True;
 
   Emuteca.SystemManager.FullList.Add(aSystem);
@@ -222,6 +223,9 @@ var
 begin
   if not assigned(Emuteca) then
     Exit;
+
+  // Saving current system data
+  if assigned(fmSysEditor.System) then fmSysEditor.SaveFrameData;
 
   // HACK: Preventing lost data from changed systems,
   //   saving current data or reloading from disk.

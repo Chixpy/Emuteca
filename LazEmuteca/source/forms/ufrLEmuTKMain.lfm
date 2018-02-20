@@ -126,6 +126,11 @@ object frmLEmuTKMain: TfrmLEmuTKMain
       Caption = 'Edit system...'
       OnExecute = actEditSystemExecute
     end
+    object actEditEmulator: TAction
+      Category = 'Emulator'
+      Caption = 'Edit emulator...'
+      OnExecute = actEditEmulatorExecute
+    end
   end
   object MainMenu: TMainMenu
     Images = ActImages
@@ -185,6 +190,12 @@ object frmLEmuTKMain: TfrmLEmuTKMain
       end
       object mimmCleanSystem: TMenuItem
         Action = actCleanSystemData
+      end
+    end
+    object mimmEmulator: TMenuItem
+      Caption = 'Emulator'
+      object mimmEditEmulator: TMenuItem
+        Action = actEditEmulator
       end
     end
     object mimmGroup: TMenuItem
