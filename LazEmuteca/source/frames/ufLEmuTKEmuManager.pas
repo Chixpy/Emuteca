@@ -208,6 +208,9 @@ begin
   if not assigned(EmuManager) then
     Exit;
 
+   // Saving current system data
+  if assigned(fmEmuEditor.Emulator) then fmEmuEditor.SaveFrameData;
+
   EmuManager.UpdateEnabledList;
 end;
 

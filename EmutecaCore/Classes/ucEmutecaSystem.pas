@@ -121,6 +121,8 @@ begin
   if not DirectoryExistsUTF8(ExtractFileDir(aFile)) then
     ForceDirectoriesUTF8(ExtractFileDir(aFile));
 
+  // TODO: On exporting, don't remove existing software and groups in the file.
+
   GroupManager.SaveToFileTxt(aFile + krsFileExtGroup, ExportMode);
   SoftManager.SaveToFileTxt(aFile + krsFileExtSoft, ExportMode);
 end;

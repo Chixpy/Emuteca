@@ -26,7 +26,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, LazFileUtils, Forms, Controls,
   Graphics, Dialogs, LazUTF8, LCLIntf, IniFiles,
-  ActnList, Menus, StdActns, ComCtrls, ExtCtrls, LCLTranslator,
+  ActnList, Menus, StdActns, ComCtrls, ExtCtrls, DefaultTranslator,
   IniPropStorage, StdCtrls,
   // Misc
   uVersionSupport, u7zWrapper,

@@ -37,12 +37,12 @@
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="bin\$NameOnly($(ProjFile))-$(BuildMode)-$(TargetCPU)-$(TargetOS)"/>
+            <Filename Value="..\bin\$NameOnly($(ProjFile))-$(BuildMode)-$(TargetCPU)-$(TargetOS)"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
             <OtherUnitFiles Value="..\CHXPas;..\CHXPas\Abstract;..\CHXPas\Classes;..\CHXPas\Forms;..\CHXPas\Frames;..\CHXPas\Misc;..\CHXPas\ScriptManager;..\CHXPas\ScriptManager\imports;..\CHXPas\ScriptManager\frames;..\CHXPas\Units;..\EmutecaCore;..\EmutecaCore\Abstracts;..\EmutecaCore\Classes;..\EmutecaCore\Frames;..\EmutecaCore\ScriptMng;..\EmutecaCore\Units;source;source\abstracts;source\forms;source\forms\ScriptMng;source\frames;source\units"/>
-            <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+            <UnitOutputDirectory Value="..\lib\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
             <SmartLinkUnit Value="True"/>
@@ -725,12 +725,12 @@
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="bin\$NameOnly($(ProjFile))-$(BuildMode)-$(TargetCPU)-$(TargetOS)"/>
+      <Filename Value="..\bin\$NameOnly($(ProjFile))-$(BuildMode)-$(TargetCPU)-$(TargetOS)"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
       <OtherUnitFiles Value="..\CHXPas;..\CHXPas\Abstract;..\CHXPas\Classes;..\CHXPas\Forms;..\CHXPas\Frames;..\CHXPas\Misc;..\CHXPas\ScriptManager;..\CHXPas\ScriptManager\imports;..\CHXPas\ScriptManager\frames;..\CHXPas\Units;..\EmutecaCore;..\EmutecaCore\Abstracts;..\EmutecaCore\Classes;..\EmutecaCore\Frames;..\EmutecaCore\ScriptMng;..\EmutecaCore\Threads;..\EmutecaCore\Units;source;source\abstracts;source\forms;source\forms\ScriptMng;source\frames;source\units;source\threads"/>
-      <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+      <UnitOutputDirectory Value="..\lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>
       <SyntaxOptions>

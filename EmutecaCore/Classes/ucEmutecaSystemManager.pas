@@ -188,7 +188,6 @@ begin
       FullList.Add(TempSys);
       Inc(i);
 
-
       if TempSys.Enabled then
         TempSys.LoadSoftGroupLists(SysDataFolder + TempSys.FileName);
     end;

@@ -3,8 +3,8 @@ inherited fmEmuTKSystemImgEditor: TfmEmuTKSystemImgEditor
   Width = 420
   ClientHeight = 398
   ClientWidth = 420
-  DesignLeft = 321
-  DesignTop = 161
+  DesignLeft = 420
+  DesignTop = 159
   inherited pButtons: TPanel
     Top = 372
     Width = 420
@@ -111,7 +111,6 @@ inherited fmEmuTKSystemImgEditor: TfmEmuTKSystemImgEditor
         Width = 199
         Align = alClient
         Center = True
-        Constraints.MinHeight = 100
         OnDblClick = iSystemBGDblClick
         Proportional = True
         Stretch = True
@@ -243,7 +242,6 @@ inherited fmEmuTKSystemImgEditor: TfmEmuTKSystemImgEditor
         Width = 192
         Align = alClient
         Center = True
-        Constraints.MinHeight = 64
         OnDblClick = iDefSoftIconDblClick
         Proportional = True
         Stretch = True
