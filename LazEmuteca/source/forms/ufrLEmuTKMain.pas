@@ -118,7 +118,6 @@ type
     mimmSystemManager: TMenuItem;
     mimmScriptManager: TMenuItem;
     mimmMediaManager: TMenuItem;
-    mimmTest: TMenuItem;
     mimmSoft: TMenuItem;
     mimmHelp: TMenuItem;
     mimmFile: TMenuItem;
@@ -147,7 +146,6 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure HelpOnHelp1Execute(Sender: TObject);
-    procedure mimmTestClick(Sender: TObject);
 
   private
     FCacheGrpIconsThread: ctLEmuTKCacheGrpIcons;
@@ -180,6 +178,7 @@ type
     property fmEmutecaMainFrame: TfmLEmuTKMain read FfmEmutecaMainFrame;
     //< Main Frame
     property fmProgressBar: TfmCHXProgressBar read FfmProgressBar;
+    //< ProgressBar
 
     property Emuteca: cEmuteca read FEmuteca;
     //< Main Emuteca Core
@@ -276,14 +275,11 @@ begin
   end;
 end;
 
-procedure TfrmLEmuTKMain.mimmTestClick(Sender: TObject);
-begin
-  ShowMessage('Temp button for fast testing.');
-end;
-
 procedure TfrmLEmuTKMain.SetGUIIconsFile(AValue: string);
 begin
-  FGUIIconsFile := SetAsFile(SetAsAbsoluteFile(AValue, ProgramDirectory));
+  if FGUIIconsFile = AValue then
+    Exit;
+  FGUIIconsFile := SetAsFile(AValue);
 end;
 
 procedure TfrmLEmuTKMain.SetCacheSysIconsThread(AValue: ctLEmuTKCacheSysIcons);
@@ -412,14 +408,14 @@ begin
   fmEmutecaMainFrame.Emuteca := nil;
   LoadIcons; // Resets cached icons
 
-  Emuteca.LoadData;
+  Emuteca.LoadAllData;
 
   fmEmutecaMainFrame.Emuteca := Emuteca;
 end;
 
 procedure TfrmLEmuTKMain.SaveEmuteca;
 begin
-  Emuteca.SaveData;
+  Emuteca.SaveAllData;
 end;
 
 function TfrmLEmuTKMain.DoProgressBar(const Title, Info: string; const Value,
@@ -619,7 +615,7 @@ var
   aIni: TMemIniFile;
 begin
   Application.Title := Format(rsFmtApplicationTitle,
-    [krsEmuteca, GetFileVersion]); // Usually it's autodeleted in .lpr file...
+    [Application.Title, GetFileVersion]); // Usually it's autodeleted in .lpr file...
 
   // Always work from program folder :P
   // TODO 3: Change for Linux... ¬_¬U
@@ -630,7 +626,7 @@ begin
     mkdir('locale');
 
   // Standard format setting (for .ini and other conversions)
-  // This overrides user local settings which can cause errors
+  // This overrides user local settings which can cause errors.
   StandardFormatSettings;
 
   // Windows Caption
@@ -638,11 +634,12 @@ begin
 
   // Loading GUI config
   FGUIConfig := cGUIConfig.Create(self);
-  GUIConfig.LoadConfig(SetAsAbsoluteFile('GUI.ini', ProgramDirectory));
-  IniPropStorage.IniFileName := GUIConfig.ConfigFile;
+  GUIConfig.DefaultFileName := SetAsAbsoluteFile('GUI.ini', ProgramDirectory);
+  GUIConfig.LoadFromFile('');
+  IniPropStorage.IniFileName := GUIConfig.DefaultFileName;
   IniPropStorage.Restore;
 
-  GUIIconsFile := GUIConfig.GUIIcnFile;
+  GUIIconsFile := SetAsFile(SetAsAbsoluteFile(GUIConfig.GUIIcnFile, ProgramDirectory));
 
   // Experimental:
   //   - 7z files cache
@@ -656,7 +653,7 @@ begin
   FZoneIcons := cCHXImageMap.Create(True);
 
   // Creating ProgressBar form
-  FfmProgressBar := TfmCHXProgressBar.SimpleForm(GUIConfig.ConfigFile);
+  FfmProgressBar := TfmCHXProgressBar.SimpleForm(GUIConfig.DefaultFileName);
 
   // Creating Emuteca Core :-D
   FEmuteca := cEmuteca.Create(self);
@@ -692,7 +689,7 @@ begin
 
   fmEmutecaMainFrame.Align := alClient;
 
-  aIni := TMemIniFile.Create(GUIConfig.ConfigFile);
+  aIni := TMemIniFile.Create(GUIConfig.DefaultFileName);
   try
     fmEmutecaMainFrame.LoadGUIConfig(aIni);
   finally
@@ -713,16 +710,14 @@ begin
   // Fix runtime errors, while trying to update if something is changed
   fmEmutecaMainFrame.Emuteca := nil;
 
-  TfmLEmuTKEmuManager.SimpleForm(Emuteca.EmulatorManager,
-    SHA1Folder, GUIIconsFile,
-    GUIConfig.ConfigFile);
+  TfmLEmuTKEmuManager.SimpleForm(Emuteca.EmulatorManager, SHA1Folder, GUIIconsFile, GUIConfig.DefaultFileName);
 
   fmEmutecaMainFrame.Emuteca := Emuteca;
 end;
 
 procedure TfrmLEmuTKMain.actExportSoftDataExecute(Sender: TObject);
 begin
-  TfmActExportSoftData.SimpleForm(Emuteca, GUIIconsFile, GUIConfig.ConfigFile);
+  TfmActExportSoftData.SimpleForm(Emuteca, GUIIconsFile, GUIConfig.DefaultFileName);
 end;
 
 procedure TfrmLEmuTKMain.actImportSoftDataExecute(Sender: TObject);
@@ -730,8 +725,7 @@ begin
   // Fix runtime errors, while trying to update if something is changed
   fmEmutecaMainFrame.Emuteca := nil;
 
-  TfmEmutecaActImportSoftData.SimpleForm(Emuteca, GUIIconsFile,
-    GUIConfig.ConfigFile);
+  TfmEmutecaActImportSoftData.SimpleForm(Emuteca, GUIIconsFile, GUIConfig.DefaultFileName);
 
   fmEmutecaMainFrame.Emuteca := Emuteca;
 end;
@@ -743,8 +737,7 @@ end;
 
 procedure TfrmLEmuTKMain.actMergeGroupFilesExecute(Sender: TObject);
 begin
-  TfmLEmuTKactMergeGroup.SimpleForm(CurrentGroup, GUIIconsFile,
-    GUIConfig.ConfigFile);
+  TfmLEmuTKactMergeGroup.SimpleForm(CurrentGroup, GUIIconsFile, GUIConfig.DefaultFileName);
 end;
 
 procedure TfrmLEmuTKMain.actOpenSoftFolderExecute(Sender: TObject);
@@ -774,8 +767,7 @@ begin
   fmEmutecaMainFrame.Emuteca := nil;
 
   TfmLEmuTKScriptManager.SimpleForm(Emuteca,
-    SetAsAbsoluteFile(GUIConfig.ScriptsFolder, ProgramDirectory),
-    GUIIconsFile, GUIConfig.ConfigFile);
+    SetAsAbsoluteFile(GUIConfig.ScriptsFolder, ProgramDirectory), GUIIconsFile, GUIConfig.DefaultFileName);
 
   fmEmutecaMainFrame.Emuteca := Emuteca;
 end;
@@ -785,8 +777,7 @@ begin
   // Fix runtime errors, while trying to update if something is changed
   fmEmutecaMainFrame.Emuteca := nil;
 
-  TfmEmutecaActAddFolder.SimpleForm(Emuteca, GUIIconsFile,
-    GUIConfig.ConfigFile);
+  TfmEmutecaActAddFolder.SimpleForm(Emuteca, GUIIconsFile, GUIConfig.DefaultFileName);
 
   fmEmutecaMainFrame.Emuteca := Emuteca;
 end;
@@ -808,7 +799,7 @@ begin
   fmEmutecaMainFrame.Emuteca := nil;
   aPCB := CurrentSystem.ProgressCallBack;
   CurrentSystem.ProgressCallBack := @DoProgressBar;
-  CurrentSystem.CleanSystemData;
+  CurrentSystem.CleanSoftGroup;
   CurrentSystem.ProgressCallBack := aPCB;
 
   fmEmutecaMainFrame.Emuteca := Emuteca;
@@ -842,8 +833,7 @@ begin
   // Fix runtime errors, while trying to update if something is changed
   fmEmutecaMainFrame.Emuteca := nil;
 
-  TfmLEmuTKFullSystemEditor.SimpleForm(Emuteca, CurrentSystem, SHA1Folder,
-    GUIIconsFile, GUIConfig.ConfigFile);
+  TfmLEmuTKFullSystemEditor.SimpleForm(Emuteca, CurrentSystem, SHA1Folder, GUIIconsFile, GUIConfig.DefaultFileName);
   LoadSystemsIcons;
 
   fmEmutecaMainFrame.Emuteca := Emuteca;
@@ -854,8 +844,7 @@ begin
   // Fix runtime errors, while trying to update if something is changed
   fmEmutecaMainFrame.Emuteca := nil;
 
-  TfmEmutecaActAddSoft.SimpleForm(Emuteca, GUIIconsFile,
-    GUIConfig.ConfigFile);
+  TfmEmutecaActAddSoft.SimpleForm(Emuteca, GUIIconsFile, GUIConfig.DefaultFileName);
 
   fmEmutecaMainFrame.Emuteca := Emuteca;
 end;
@@ -865,8 +854,7 @@ begin
   // Fix runtime errors, while trying to update if something is changed
   fmEmutecaMainFrame.Emuteca := nil;
 
-  TfmLEmuTKSysManager.SimpleForm(Emuteca, SHA1Folder, GUIIconsFile,
-    GUIConfig.ConfigFile);
+  TfmLEmuTKSysManager.SimpleForm(Emuteca, SHA1Folder, GUIIconsFile, GUIConfig.DefaultFileName);
   LoadSystemsIcons; // Reloads system icons
 
   fmEmutecaMainFrame.Emuteca := Emuteca;
@@ -914,16 +902,15 @@ begin
   end;
   // CacheSysIconsThread.Free; Auto freed with FreeOnTerminate
 
-  aIni := TMemIniFile.Create(GUIConfig.ConfigFile);
+  aIni := TMemIniFile.Create(GUIConfig.DefaultFileName);
   try
     fmEmutecaMainFrame.SaveGUIConfig(aIni);
   finally
     aIni.Free;
   end;
 
-  GUIConfig.SaveConfig('');
-  if GUIConfig.SaveOnExit then
-    SaveEmuteca;
+  GUIConfig.SaveToFile('', False); // File has Forms config too, don't delete
+  if GUIConfig.SaveOnExit then SaveEmuteca;
 
   CanClose := True;
 end;

@@ -138,10 +138,6 @@ object frmLEmuTKMain: TfrmLEmuTKMain
     top = 16
     object mimmFile: TMenuItem
       Caption = 'File'
-      object mimmTest: TMenuItem
-        Caption = 'Test'
-        OnClick = mimmTestClick
-      end
       object mimmOpenTempFolder: TMenuItem
         Action = actOpenTempFolder
       end

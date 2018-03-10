@@ -1,6 +1,6 @@
 { This file is part of Emuteca
 
-  Copyright (C) 2006-2017 Chixpy
+  Copyright (C) 2006-2018 Chixpy
 
   This source is free software; you can redistribute it and/or modify it under
   the terms of the GNU General Public License as published by the Free
@@ -27,58 +27,209 @@ interface
 
 uses
   Classes, SysUtils, LazFileUtils, LazUTF8, IniFiles,
+  // CHX abstracts
   uaCHXStorable,
+  // Emuteca units
   uEmutecaCommon,
-  ucEmutecaEmulatorList;
+  // Emuteca abstracts
+  uaEmutecaCustomManager,
+  // Emuteca classes
+  ucEmutecaEmulator, ucEmutecaEmulatorList;
 
 type
-  { TODO : Create a cEmutecaManager generic (for systems and emulators) }
-
   { cEmutecaEmulatorManager }
 
-  cEmutecaEmulatorManager = class(caCHXStorableIni)
+  cEmutecaEmulatorManager = class(caEmutecaCustomManagerIni)
   private
     FEnabledList: cEmutecaEmulatorList;
     FFullList: cEmutecaEmulatorList;
-    FProgressCallBack: TEmutecaProgressCallBack;
-    procedure SetProgressCallBack(AValue: TEmutecaProgressCallBack);
-
-  protected
-
 
   public
-    property ProgressCallBack: TEmutecaProgressCallBack
-      read FProgressCallBack write SetProgressCallBack;
-    //< CallBack function to show the progress in actions.
+    property EnabledList: cEmutecaEmulatorList read FEnabledList;
+    {< Enabled emulators. }
 
     procedure ClearData;
     //< Clears all data WITHOUT saving.
-    procedure LoadData;
-    //< Reload last data file WITHOUT saving changes.
-    procedure SaveData;
-    //< Save data to last data file.
-
+    function AddEmulator(aID: string): cEmutecaEmulator;
+    //< Adds an emulator to the list.
     procedure UpdateEnabledList;
+    //< Updates the Enabled list.
 
-    procedure LoadFromIni(aIniFile: TIniFile); override;
-    procedure SaveToIni(aIniFile: TMemIniFile; const ExportMode: boolean);
-      override;
+    // Inherited abstracts
+    // -------------------
+    procedure LoadFromIni(aIniFile: TMemIniFile); override;
+    procedure SaveToIni(aIniFile: TMemIniFile); override;
+    procedure ImportFromIni(aIniFile: TMemIniFile); override;
+    {< Updates emulators' data from Ini. It don't add any emulator to the list.
+    }
+    procedure ExportToIni(aIniFile: TMemIniFile); override;
+    {< Saves emulators' common data for importing.
+    }
 
     constructor Create(aOwner: TComponent); override;
     destructor Destroy; override;
 
   published
     property FullList: cEmutecaEmulatorList read FFullList;
-    property EnabledList: cEmutecaEmulatorList read FEnabledList;
-
+    {< All emulators. }
   end;
 
 
 implementation
 
-uses ucEmutecaEmulator;
-
 { cEmutecaEmulatorManager }
+
+procedure cEmutecaEmulatorManager.ImportFromIni(aIniFile: TMemIniFile);
+var
+  i: longint;
+  aEmulator: cEmutecaEmulator;
+begin
+  if not Assigned(aIniFile) then
+    Exit;
+
+  i := 0;
+  while i < FullList.Count do
+  begin
+    aEmulator := FullList[i];
+
+    if assigned(ProgressCallBack) then
+      ProgressCallBack(rsImportingEmulatorList, aEmulator.EmulatorName,
+        i, FullList.Count, False);
+
+    aEmulator.ImportFromIni(aIniFile);
+
+    Inc(i);
+  end;
+
+  if assigned(ProgressCallBack) then
+    ProgressCallBack('', '', 0, 0, False);
+end;
+
+
+procedure cEmutecaEmulatorManager.ClearData;
+begin
+  EnabledList.Clear;
+  FullList.Clear;
+end;
+
+function cEmutecaEmulatorManager.AddEmulator(aID: string): cEmutecaEmulator;
+var
+  TempEmulator: cEmutecaEmulator;
+begin
+  TempEmulator := cEmutecaEmulator.Create(nil);
+  TempEmulator.ID := aID;
+  TempEmulator.DefaultFileName := DefaultFileName;
+  FullList.Add(TempEmulator);
+  Result := TempEmulator;
+end;
+
+procedure cEmutecaEmulatorManager.UpdateEnabledList;
+var
+  i: integer;
+  aEmu: cEmutecaEmulator;
+begin
+  EnabledList.Clear;
+
+  i := 0;
+  while i < FullList.Count do
+  begin
+    aEmu := FullList[i];
+    if aEmu.Enabled then
+      EnabledList.Add(aEmu);
+    Inc(i);
+  end;
+end;
+
+procedure cEmutecaEmulatorManager.LoadFromIni(aIniFile: TMemIniFile);
+var
+  TempList: TStringList;
+  TempEmu: cEmutecaEmulator;
+  i: longint;
+begin
+  if not Assigned(aIniFile) then
+    Exit;
+
+  if assigned(ProgressCallBack) then
+    ProgressCallBack(rsLoadingEmulatorList, '', 0, 100, False);
+
+  TempList := TStringList.Create;
+  try
+    aIniFile.ReadSections(TempList);
+    TempList.Sort;
+
+    i := 0;
+    while i < TempList.Count do
+    begin
+      TempEmu := AddEmulator(TempList[i]);
+      TempEmu.LoadFromIni(aIniFile);
+
+      if assigned(ProgressCallBack) then
+        ProgressCallBack(rsLoadingEmulatorList, TempEmu.EmulatorName, i,
+          TempList.Count, False);
+
+      Inc(i);
+    end;
+  finally
+    FreeAndNil(TempList);
+  end;
+
+  UpdateEnabledList;
+
+  if assigned(ProgressCallBack) then
+    ProgressCallBack('', '', 0, 0, False);
+end;
+
+procedure cEmutecaEmulatorManager.ExportToIni(aIniFile: TMemIniFile);
+var
+  i: longint;
+  aEmulator: cEmutecaEmulator;
+begin
+  if not Assigned(aIniFile) then
+    Exit;
+
+  i := 0;
+  while i < FullList.Count do
+  begin
+    aEmulator := FullList[i];
+
+    if assigned(ProgressCallBack) then
+      ProgressCallBack(rsSavingEmulatorList, aEmulator.EmulatorName,
+        i, FullList.Count, False);
+
+    aEmulator.ExportToIni(aIniFile);
+
+    Inc(i);
+  end;
+
+  if assigned(ProgressCallBack) then
+    ProgressCallBack('', '', 0, 0, False);
+end;
+
+procedure cEmutecaEmulatorManager.SaveToIni(aIniFile: TMemIniFile);
+var
+  i: longint;
+  aEmulator: cEmutecaEmulator;
+begin
+  if not Assigned(aIniFile) then
+    Exit;
+
+  i := 0;
+  while i < FullList.Count do
+  begin
+    aEmulator := FullList[i];
+
+    if assigned(ProgressCallBack) then
+      ProgressCallBack(rsSavingEmulatorList, aEmulator.EmulatorName,
+        i, FullList.Count, False);
+
+    aEmulator.SaveToIni(aIniFile);
+
+    Inc(i);
+  end;
+
+  if assigned(ProgressCallBack) then
+    ProgressCallBack('', '', 0, 0, False);
+end;
 
 constructor cEmutecaEmulatorManager.Create(aOwner: TComponent);
 begin
@@ -96,113 +247,9 @@ begin
   inherited Destroy;
 end;
 
-procedure cEmutecaEmulatorManager.SetProgressCallBack(
-  AValue: TEmutecaProgressCallBack);
-begin
-  if FProgressCallBack = AValue then
-    Exit;
-  FProgressCallBack := AValue;
-end;
+initialization
+  RegisterClass(cEmutecaEmulatorManager);
 
-procedure cEmutecaEmulatorManager.ClearData;
-begin
-  EnabledList.Clear;
-  FullList.Clear;
-end;
-
-procedure cEmutecaEmulatorManager.LoadData;
-begin
-  ClearData;
-  LoadFromFileIni('');
-end;
-
-procedure cEmutecaEmulatorManager.SaveData;
-begin
-  SaveToFileIni('', False);
-end;
-
-procedure cEmutecaEmulatorManager.UpdateEnabledList;
-var
-  i: integer;
-  aEmu: cEmutecaEmulator;
-begin
-  EnabledList.Clear;
-  i := 0;
-  while i < FullList.Count do
-  begin
-    aEmu := FullList[i];
-    if aEmu.Enabled then
-      EnabledList.Add(aEmu);
-    Inc(i);
-  end;
-end;
-
-procedure cEmutecaEmulatorManager.LoadFromIni(aIniFile: TIniFile);
-var
-  TempList: TStringList;
-  TempEmu: cEmutecaEmulator;
-  i: longint;
-begin
-  if not Assigned(aIniFile) then
-    Exit;
-
-  TempList := TStringList.Create;
-  try
-    aIniFile.ReadSections(TempList);
-
-    i := 0;
-    while i < TempList.Count do
-    begin
-      TempEmu := cEmutecaEmulator.Create(nil);
-      TempEmu.ID := TempList[i];
-      TempEmu.LoadFromIni(aIniFile);
-
-      if assigned(ProgressCallBack) then
-        ProgressCallBack(rsLoadingEmulatorList, TempEmu.EmulatorName, i,
-          TempList.Count, False);
-
-      FullList.Add(TempEmu);
-      Inc(i);
-    end;
-  finally
-    FreeAndNil(TempList);
-  end;
-
-  UpdateEnabledList;
-
-  if assigned(ProgressCallBack) then
-    ProgressCallBack('', '', 0, 0, False);
-end;
-
-procedure cEmutecaEmulatorManager.SaveToIni(aIniFile: TMemIniFile;
-  const ExportMode: boolean);
-var
-  i: longint;
-  aEmulator: cEmutecaEmulator;
-begin
-  if not Assigned(aIniFile) then
-    Exit;
-
-  // If not export mode remove file data
-  if not ExportMode then
-    aIniFile.Clear;
-
-  i := 0;
-  while i < FullList.Count do
-  begin
-    aEmulator := cEmutecaEmulator(FullList[i]);
-
-    if assigned(ProgressCallBack) then
-      ProgressCallBack(rsSavingEmulatorList, aEmulator.EmulatorName,
-      i, FullList.Count, False);
-
-    aEmulator.SaveToIni(aIniFile, ExportMode);
-    Inc(i);
-  end;
-
-  if assigned(ProgressCallBack) then
-    ProgressCallBack('', '', 0, 0, False);
-
-end;
-
+finalization
+  UnRegisterClass(cEmutecaEmulatorManager);
 end.

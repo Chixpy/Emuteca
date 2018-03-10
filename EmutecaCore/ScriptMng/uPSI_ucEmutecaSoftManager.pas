@@ -111,7 +111,7 @@ begin
   with CL.Add(cEmutecaSoftManager) do
   begin
     RegisterMethod(@cEmutecaSoftManager.ClearData, 'ClearData');
-    RegisterMethod(@cEmutecaSoftManager.LoadData, 'LoadData');
+//    RegisterMethod(@cEmutecaSoftManager.LoadData, 'LoadData');
     RegisterPropertyHelper(@cEmutecaSoftManagerSystem_R,@cEmutecaSoftManagerSystem_W,'System');
     RegisterPropertyHelper(@cEmutecaSoftManagerFilterGroup_R,@cEmutecaSoftManagerFilterGroup_W,'FilterGroup');
     RegisterPropertyHelper(@cEmutecaSoftManagerVisibleList_R,nil,'VisibleList');

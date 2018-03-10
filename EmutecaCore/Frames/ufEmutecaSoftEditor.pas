@@ -227,11 +227,12 @@ end;
 procedure TfmEmutecaSoftEditor.FPOObservedChanged(ASender: TObject;
   Operation: TFPObservedOperation; Data: Pointer);
 begin
-  case Operation of
-    ooFree: Software := nil
-    else
-      ;
-  end;
+  if ASender = Software then
+    case Operation of
+      ooFree: Software := nil
+      else
+        ;
+    end;
 end;
 
 constructor TfmEmutecaSoftEditor.Create(TheOwner: TComponent);

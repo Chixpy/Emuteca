@@ -1232,6 +1232,10 @@ begin
   if not Assigned(CurrSystem) then
     Exit;
 
+        // Loading data if not already loaded
+    if not CurrSystem.SoftGroupLoaded then
+      Emuteca.SystemManager.LoadSystemData(CurrSystem);
+
   lbxImages.Clear;
   lbxImages.Items.Add('Icons'); // Special images folder
   lbxImages.Items.AddStrings(CurrSystem.ImageCaptions, False);
@@ -1843,7 +1847,7 @@ begin
 
     aFrame.Parent := aForm;
 
-    aForm.LoadGUIConfig(aGUIConfig.ConfigFile);
+    aForm.LoadGUIConfig(aGUIConfig.DefaultFileName);
     aForm.LoadGUIIcons(aGUIIconsIni);
     Result := aForm.ShowModal;
   finally

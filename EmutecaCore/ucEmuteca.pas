@@ -1,6 +1,6 @@
 { This file is part of Emuteca
 
-  Copyright (C) 2006-2017 Chixpy
+  Copyright (C) 2006-2018 Chixpy
 
   This source is free software; you can redistribute it and/or modify it under
   the terms of the GNU General Public License as published by the Free
@@ -69,8 +69,8 @@ type
     procedure LoadConfig(aFile: string);
 
     procedure ClearAllData;
-    procedure LoadData;
-    procedure SaveData;
+    procedure LoadAllData;
+    procedure SaveAllData;
 
     procedure CleanSystems;
     // Removes parents without soft and Soft not found of all systems.
@@ -133,23 +133,22 @@ begin
   ForceDirectories(TempFolder);
 
   // Setting EmulatorManager
-  EmulatorManager.IniFileName :=
-    SetAsAbsoluteFile(Config.EmulatorsFile, BaseFolder);
+  EmulatorManager.DefaultFileName := SetAsAbsoluteFile(Config.EmulatorsFile, BaseFolder);
 
   // Setting SystemManager
   SystemManager.TempFolder := TempFolder;
-  SystemManager.IniFileName :=
-    SetAsAbsoluteFile(Config.SystemsFile, BaseFolder);
-  SystemManager.SysDataFolder :=
-    SetAsAbsoluteFile(Config.SysDataFolder, BaseFolder);
+  SystemManager.DefaultFileName := SetAsAbsoluteFile(Config.SystemsFile, BaseFolder);
+  SystemManager.SysDataFolder := SetAsAbsoluteFile(Config.SysDataFolder, BaseFolder);
 
-  LoadData;
+  LoadAllData;
 end;
 
-procedure cEmuteca.SaveData;
+procedure cEmuteca.SaveAllData;
 begin
-  SystemManager.SaveToFileIni('', False);
-  EmulatorManager.SaveToFileIni('', False);
+  // If we do a cancelable loading, ClearData must be False
+  SystemManager.SaveToFile('', True);
+  SystemManager.SaveAllEnabledSystemsData;
+  EmulatorManager.SaveToFile('', True);
 end;
 
 procedure cEmuteca.CleanSystems;
@@ -173,7 +172,7 @@ begin
       Continue := ProgressCallBack(rsCleaningSystemData,
         aSystem.Title, i, SystemManager.EnabledList.Count, True);
 
-    aSystem.CleanSystemData;
+    aSystem.CleanSoftGroup;
 
     // Restoring aSystem progress bar
     aSystem.ProgressCallBack := SysPCB;
@@ -195,12 +194,12 @@ begin
   SystemManager.ClearData;
 end;
 
-procedure cEmuteca.LoadData;
+procedure cEmuteca.LoadAllData;
 begin
   ClearAllData;
 
-  EmulatorManager.LoadData;
-  SystemManager.LoadData;
+  EmulatorManager.LoadFromFile('');
+  SystemManager.LoadFromFile('');
   SystemManager.UpdateSystemsEmulators(EmulatorManager.EnabledList);
 
   CacheData;
@@ -405,4 +404,9 @@ begin
   inherited Destroy;
 end;
 
+initialization
+  RegisterClass(cEmuteca);
+
+finalization
+  UnRegisterClass(cEmuteca);
 end.

@@ -105,11 +105,12 @@ end;
 procedure TfmEmutecaGroupEditor.FPOObservedChanged(ASender: TObject;
   Operation: TFPObservedOperation; Data: Pointer);
 begin
-  case Operation of
-    ooFree: Group := nil
-    else
-      ;
-  end;
+  if ASender = Group then
+    case Operation of
+      ooFree: Group := nil
+      else
+        ;
+    end;
 end;
 
 constructor TfmEmutecaGroupEditor.Create(TheOwner: TComponent);

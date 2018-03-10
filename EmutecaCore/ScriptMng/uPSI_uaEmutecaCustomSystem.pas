@@ -235,11 +235,11 @@ begin T := Self.Enabled; end;
 
 (*----------------------------------------------------------------------------*)
 procedure caEmutecaCustomSystemFileName_W(Self: caEmutecaCustomSystem; const T: string);
-begin Self.FileName := T; end;
+begin Self.ListFileName := T; end;
 
 (*----------------------------------------------------------------------------*)
 procedure caEmutecaCustomSystemFileName_R(Self: caEmutecaCustomSystem; var T: string);
-begin T := Self.FileName; end;
+begin T := Self.ListFileName; end;
 
 (*----------------------------------------------------------------------------*)
 procedure caEmutecaCustomSystemTitle_W(Self: caEmutecaCustomSystem; const T: string);

@@ -132,13 +132,8 @@ begin
   if SystemID = '' then
     Exit;
 
-  aSystem := cEmutecaSystem.Create(nil);
-  aSystem.ID := SystemID;
-  aSystem.Title := SystemID;
-  aSystem.FileName:=SystemID;
+  aSystem := Emuteca.SystemManager.AddSystem(SystemID);
   aSystem.Enabled := True;
-
-  Emuteca.SystemManager.FullList.Add(aSystem);
 
   LoadFrameData;
 
@@ -179,7 +174,7 @@ begin
   if not SaveDialog1.Execute then
     Exit;
 
-  Emuteca.SystemManager.SaveToFileIni(SaveDialog1.FileName, True);
+  Emuteca.SystemManager.ExportToFile(SaveDialog1.FileName, False);
 end;
 
 procedure TfmLEmuTKSysManager.ImportList;
@@ -190,7 +185,7 @@ begin
   if not OpenDialog1.Execute then
     Exit;
 
-  Emuteca.SystemManager.LoadFromFileIni(OpenDialog1.FileName);
+  Emuteca.SystemManager.ImportFromFile(OpenDialog1.FileName);
 end;
 
 procedure TfmLEmuTKSysManager.DoLoadFrameData;
@@ -220,6 +215,7 @@ procedure TfmLEmuTKSysManager.DoSaveFrameData;
 var
   i: integer;
   aSystem: cEmutecaSystem;
+  aPBCB: TEmutecaProgressCallBack;
 begin
   if not assigned(Emuteca) then
     Exit;
@@ -239,21 +235,32 @@ begin
 
     if aSystem.Enabled <> clbPropItems.Checked[i] then
     begin
-      if aSystem.FileName = '' then
-        aSystem.FileName := aSystem.Title;
+      if aSystem.ListFileName = '' then
+        aSystem.ListFileName := aSystem.Title;
+
+      aPBCB := aSystem.ProgressCallBack;
+      aSystem.ProgressCallBack := nil; // Disabling system callback
 
       if aSystem.Enabled then
       begin
         // Saving soft of previously enabled systems ...
-        aSystem.SaveSoftGroupLists(Emuteca.SystemManager.SysDataFolder +
-          aSystem.FileName, False);
+        // ... if not loaded then not needed.
+        if aSystem.SoftGroupLoaded then
+        begin
+          Emuteca.SystemManager.SaveSystemData(aSystem, True);
+          // Unloading System Data
+          aSystem.ClearData;
+        end;
       end
       else
       begin
-        // ... loading soft of previously disabled systems
-        aSystem.LoadSoftGroupLists(Emuteca.SystemManager.SysDataFolder +
-          aSystem.FileName);
+        // Loading soft of previously disabled systems
+        // Actually it can be loaded on demand, but loading here don't hurts.
+        Emuteca.SystemManager.LoadSystemData(aSystem);
       end;
+
+      aSystem.ProgressCallBack := aPBCB; // Reenabling system callback
+
       aSystem.Enabled := clbPropItems.Checked[i];
     end;
 

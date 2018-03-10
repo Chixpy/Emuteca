@@ -54,13 +54,14 @@ type
     procedure AddPlayingTime(const Start: TDateTime; NumberOfSeconds: int64);
     {< Adds the seconds between two TDateTime to PlayingTime.
 
-       Aditionally adds 1 to TimesPlayed counter and updates LastTime
+       Additionally adds 1 to TimesPlayed counter and updates LastTime
     }
 
     procedure WriteToIni(aIniFile: TCustomIniFile; const Section: string;
       ExportMode: boolean);
     procedure LoadFromIni(aIniFile: TCustomIniFile; const Section: string);
-    procedure WriteToStrLst(aTxtFile: TStrings; ExportMode: boolean);
+    procedure WriteToStrLst(aTxtFile: TStrings;
+      ExportMode: boolean);
     procedure LoadFromStrLst(aTxtFile: TStrings; const NLine: integer);
 
     constructor Create(aOwner: TComponent); override;

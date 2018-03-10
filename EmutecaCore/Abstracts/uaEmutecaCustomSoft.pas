@@ -24,7 +24,7 @@ unit uaEmutecaCustomSoft;
 interface
 
 uses
-  Classes, SysUtils, IniFiles, sha1, LazUTF8, LazFileUtils,
+  Classes, SysUtils, sha1, LazUTF8, LazFileUtils,
   uCHXStrUtils, uCHXFileUtils,
   uaCHXStorable,
   uEmutecaCommon,
@@ -87,6 +87,8 @@ type
     function GetTitle: string; virtual;
     procedure SetTitle(AValue: string); virtual;
 
+    procedure DoSaveToStrLst(aTxtFile: TStrings; ExportMode: boolean); virtual;
+
   public
     property SHA1: TSHA1Digest read FSHA1 write SetSHA1;
     {< SHA1 of the file. For searching in SHA1 DB. }
@@ -111,18 +113,18 @@ type
     function MatchGroupFile: boolean; virtual;
 
     procedure LoadFromStrLst(aTxtFile: TStrings); override;
-    procedure SaveToStrLst(aTxtFile: TStrings; const ExportMode: boolean);
-      override;
-    procedure LoadFromIni(aIniFile: TIniFile); override;
-    procedure SaveToIni(aIniFile: TMemIniFile; const ExportMode: boolean);
-      override;
+    procedure SaveToStrLst(aTxtFile: TStrings); override;
+    procedure ExportToStrLst(aTxtFile: TStrings); virtual;
+    function ExportCommaText: string;
 
     procedure ImportFrom(aSoft: caEmutecaCustomSoft);
 
     procedure SearchAllRelatedFiles(OutFileList: TStrings;
-      aFolder: string; Extensions: TStrings; SearchInComp: boolean; AutoExtract: boolean); virtual;
+      aFolder: string; Extensions: TStrings; SearchInComp: boolean;
+      AutoExtract: boolean); virtual;
     function SearchFirstRelatedFile(aFolder: string;
-      Extensions: TStrings; SearchInComp: boolean; AutoExtract: boolean): string; virtual;
+      Extensions: TStrings; SearchInComp: boolean;
+      AutoExtract: boolean): string; virtual;
 
 
     constructor Create(aOwner: TComponent); override;
@@ -377,6 +379,51 @@ begin
     FTitle := AValue;
 end;
 
+procedure caEmutecaCustomSoft.DoSaveToStrLst(aTxtFile: TStrings;
+  ExportMode: boolean);
+begin
+  if not assigned(aTxtFile) then
+    Exit;
+
+  aTxtFile.Add(GroupKey);
+
+  if ExportMode then
+  begin
+    aTxtFile.Add('');
+    aTxtFile.Add(ID); // Exporting only ID
+    aTxtFile.Add('');
+    aTxtFile.Add('');
+  end
+  else
+  begin
+    aTxtFile.Add(SHA1Print(SHA1));
+    aTxtFile.Add(GetActualID); // If SHA1 = ID then FID = ''
+    aTxtFile.Add(Folder);
+    aTxtFile.Add(FileName);
+  end;
+
+  aTxtFile.Add(GetActualTitle);
+  aTxtFile.Add(GetActualTranslitTitle);
+  aTxtFile.Add(GetActualSortTitle);
+
+  aTxtFile.Add(Version);
+  aTxtFile.Add(Year);
+  aTxtFile.Add(Publisher);
+  aTxtFile.Add(Zone);
+
+  aTxtFile.Add(DumpSt2Key(DumpStatus));
+  aTxtFile.Add(DumpInfo);
+  aTxtFile.Add(Fixed);
+  aTxtFile.Add(Trainer);
+  aTxtFile.Add(Translation);
+  aTxtFile.Add(Pirate);
+  aTxtFile.Add(Cracked);
+  aTxtFile.Add(Modified);
+  aTxtFile.Add(Hack);
+
+  Stats.WriteToStrLst(aTxtFile, ExportMode);
+end;
+
 procedure caEmutecaCustomSoft.SetTrainer(AValue: string);
 begin
   if FTrainer = AValue then
@@ -528,162 +575,29 @@ begin
   Stats.LoadFromStrLst(aTxtFile, 21);
 
   // Next := aTxtFile[24]
-
 end;
 
-procedure caEmutecaCustomSoft.SaveToStrLst(aTxtFile: TStrings;
-  const ExportMode: boolean);
+procedure caEmutecaCustomSoft.ExportToStrLst(aTxtFile: TStrings);
 begin
-  if not assigned(aTxtFile) then
-    Exit;
-
-  aTxtFile.Add(GroupKey);
-
-  if ExportMode then
-  begin
-    aTxtFile.Add('');
-    aTxtFile.Add(ID); // Exporting only ID
-    aTxtFile.Add('');
-    aTxtFile.Add('');
-  end
-  else
-  begin
-    aTxtFile.Add(SHA1Print(SHA1));
-    aTxtFile.Add(GetActualID); // If SHA1 = ID then FID = ''
-    aTxtFile.Add(Folder);
-    aTxtFile.Add(FileName);
-  end;
-
-  aTxtFile.Add(GetActualTitle);
-  aTxtFile.Add(GetActualTranslitTitle);
-  aTxtFile.Add(GetActualSortTitle);
-
-  aTxtFile.Add(Version);
-  aTxtFile.Add(Year);
-  aTxtFile.Add(Publisher);
-  aTxtFile.Add(Zone);
-
-  aTxtFile.Add(DumpSt2Key(DumpStatus));
-  aTxtFile.Add(DumpInfo);
-  aTxtFile.Add(Fixed);
-  aTxtFile.Add(Trainer);
-  aTxtFile.Add(Translation);
-  aTxtFile.Add(Pirate);
-  aTxtFile.Add(Cracked);
-  aTxtFile.Add(Modified);
-  aTxtFile.Add(Hack);
-
-  Stats.WriteToStrLst(aTxtFile, ExportMode);
+  DoSaveToStrLst(aTxtFile, True);
 end;
 
-procedure caEmutecaCustomSoft.LoadFromIni(aIniFile: TIniFile);
+function caEmutecaCustomSoft.ExportCommaText: string;
 var
-  Section: string;
+  aStringList: TStringList;
 begin
-  if not assigned(aIniFile) then
-    Exit;
-
-  Section := ID;
-
-  // Basic data
-  // ----------
-
-  // Don't overwrite SHA1.
-  // If SHA1 = ID -> whe don't need it
-  //   else -> SHA1 is from actual file anyways.
-  // It's saved for custom purpouses.
-  // SHA1 := StringToSHA1Digest(aIniFile.ReadString(Section, krsIniKeySHA1, SHA1Print(SHA1)));
-
-  // We can export by SHA1 systems with custom ID...
-  if GetActualID = '' then
-    ID := aIniFile.ReadString(Section, krsIniKeyID, GetActualID);
-
-  GroupKey := aIniFile.ReadString(Section, krsIniKeyGroup, GroupKey);
-  Title := aIniFile.ReadString(Section, krsIniKeyTitle, GetActualTitle);
-  TranslitTitle := aIniFile.ReadString(Section, krsIniKeyTranslitTitle,
-    GetActualTranslitTitle);
-  SortTitle := aIniFile.ReadString(Section, krsIniKeySortTitle,
-    GetActualSortTitle);
-
-  // Release data
-  // ------------
-  Version := aIniFile.ReadString(Section, krsIniKeyVersion, Version);
-  Year := aIniFile.ReadString(Section, krsIniKeyYear, Year);
-  Publisher := aIniFile.ReadString(Section, krsIniKeyPublisher, Publisher);
-  Zone := aIniFile.ReadString(Section, krsIniKeyZone, Zone);
-
-  // Version Flags
-  // ---------------
-  DumpStatus := Key2DumpSt(aIniFile.ReadString(Section,
-    krsIniKeyDumpStatus, DumpSt2Key(DumpStatus)));
-  DumpInfo := aIniFile.ReadString(Section, krsIniKeyDumpInfo, DumpInfo);
-  Fixed := aIniFile.ReadString(Section, krsIniKeyFixed, Fixed);
-  Trainer := aIniFile.ReadString(Section, krsIniKeyTrainer, Trainer);
-  Translation := aIniFile.ReadString(Section, krsIniKeyTranslation,
-    Translation);
-  Pirate := aIniFile.ReadString(Section, krsIniKeyPirate, Pirate);
-  Cracked := aIniFile.ReadString(Section, krsIniKeyCracked, Cracked);
-  Modified := aIniFile.ReadString(Section, krsIniKeyModified, Modified);
-  Hack := aIniFile.ReadString(Section, krsIniKeyHack, Hack);
-
-  Folder := aIniFile.ReadString(Section, krsIniKeyFolder, Folder);
-  FileName := aIniFile.ReadString(Section, krsIniKeyFileName, FileName);
-
-  Stats.LoadFromIni(aIniFile, Section);
+  aStringList := TStringList.Create;
+  try
+    ExportToStrLst(aStringList);
+  finally
+    Result := aStringList.CommaText;
+    FreeAndNil(aStringList);
+  end;
 end;
 
-procedure caEmutecaCustomSoft.SaveToIni(aIniFile: TMemIniFile;
-  const ExportMode: boolean);
-var
-  Section: string;
+procedure caEmutecaCustomSoft.SaveToStrLst(aTxtFile: TStrings);
 begin
-  if not assigned(aIniFile) then
-    Exit;
-
-  Section := ID;
-
-  // Basic data
-  // ----------
-  aIniFile.WriteString(Section, krsIniKeySHA1, SHA1Print(SHA1));
-  aIniFile.WriteString(Section, krsIniKeyID, GetActualID);
-  aIniFile.WriteString(Section, krsIniKeyGroup, GroupKey);
-  aIniFile.WriteString(Section, krsIniKeyTitle, GetActualTitle);
-  aIniFile.WriteString(Section, krsIniKeyTranslitTitle,
-    GetActualTranslitTitle);
-  aIniFile.WriteString(Section, krsIniKeySortTitle, GetActualSortTitle);
-
-  // Release data
-  // ------------
-  aIniFile.WriteString(Section, krsIniKeyVersion, Version);
-  aIniFile.WriteString(Section, krsIniKeyYear, Year);
-  aIniFile.WriteString(Section, krsIniKeyPublisher, Publisher);
-  aIniFile.WriteString(Section, krsIniKeyZone, Zone);
-
-  // Version Flags
-  // ---------------
-  aIniFile.WriteString(Section,
-    krsIniKeyDumpStatus, DumpSt2Key(DumpStatus));
-  aIniFile.WriteString(Section, krsIniKeyDumpInfo, DumpInfo);
-  aIniFile.WriteString(Section, krsIniKeyFixed, Fixed);
-  aIniFile.WriteString(Section, krsIniKeyTrainer, Trainer);
-  aIniFile.WriteString(Section, krsIniKeyTranslation, Translation);
-  aIniFile.WriteString(Section, krsIniKeyPirate, Pirate);
-  aIniFile.WriteString(Section, krsIniKeyCracked, Cracked);
-  aIniFile.WriteString(Section, krsIniKeyModified, Modified);
-  aIniFile.WriteString(Section, krsIniKeyHack, Hack);
-
-  if ExportMode then
-  begin
-    aIniFile.DeleteKey(Section, krsIniKeyFolder);
-    aIniFile.DeleteKey(Section, krsIniKeyFileName);
-  end
-  else
-  begin
-    aIniFile.WriteString(Section, krsIniKeyFolder, Folder);
-    aIniFile.WriteString(Section, krsIniKeyFileName, FileName);
-  end;
-
-  Stats.WriteToIni(aIniFile, Section, ExportMode);
+  DoSaveToStrLst(aTxtFile, False);
 end;
 
 procedure caEmutecaCustomSoft.ImportFrom(aSoft: caEmutecaCustomSoft);
@@ -728,14 +642,14 @@ begin
     Modified := aSoft.Modified;
   if aSoft.Hack <> krsImportKeepValue then
     Hack := aSoft.Hack;
-
 end;
 
 procedure caEmutecaCustomSoft.SearchAllRelatedFiles(OutFileList: TStrings;
-  aFolder: string; Extensions: TStrings; SearchInComp: boolean; AutoExtract: boolean);
+  aFolder: string; Extensions: TStrings; SearchInComp: boolean;
+  AutoExtract: boolean);
 begin
-  EmuTKSearchAllRelatedFiles(OutFileList, aFolder, GetMediaFileName, Extensions,
-    SearchInComp, AutoExtract, '');
+  EmuTKSearchAllRelatedFiles(OutFileList, aFolder, GetMediaFileName,
+    Extensions, SearchInComp, AutoExtract, '');
 end;
 
 function caEmutecaCustomSoft.SearchFirstRelatedFile(aFolder: string;

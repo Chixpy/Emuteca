@@ -20,17 +20,14 @@ type
   { TfmActExportSoftData }
 
   TfmActExportSoftData = class(TfmCHXPropEditor)
-    actSoftDataCheckAll: TAction;
-    bSoftDataCheckAll: TToolButton;
-    cgbSoftData: TCheckGroup;
     eExportFile: TFileNameEdit;
     eSoftIDType: TEdit;
     gbxExportFile: TGroupBox;
     gbxSystemInfo: TGroupBox;
+    lExportInfo: TLabel;
     lSoftIDType: TLabel;
     lWarning: TLabel;
     pSelectSystem: TPanel;
-    tbSoftData: TToolBar;
     procedure eExportFileButtonClick(Sender: TObject);
 
   private
@@ -48,8 +45,6 @@ type
 
     property System: cEmutecaSystem read FSystem write SetSystem;
     function SelectSystem(aSystem: cEmutecaSystem): boolean;
-
-    procedure CheckAllSoftData;
 
     procedure DoClearFrameData;
     procedure DoLoadFrameData;
@@ -106,6 +101,9 @@ begin
   begin
     eSoftIDType.Text := SoftExportKey2StrK(System.SoftExportKey);
 
+    // Loading data if not already loaded
+    if not System.SoftGroupLoaded then
+      Emuteca.SystemManager.LoadSystemData(System);
 
     // Testing if all files have SHA1 cached
     IsCached := True;
@@ -132,7 +130,7 @@ begin
     begin
       lWarning.Caption := '';
       eExportFile.FileName :=
-        ExtractFilePath(eExportFile.FileName) + System.FileName +
+        ExtractFilePath(eExportFile.FileName) + System.ListFileName +
         krsFileExtSoft;
     end;
   end
@@ -149,18 +147,6 @@ begin
   Result := True;
 
   System := aSystem;
-end;
-
-procedure TfmActExportSoftData.CheckAllSoftData;
-var
-  i: Integer;
-begin
-  i := 0;
-  while i < cgbSoftData.Items.Count do
-  begin
-    cgbSoftData.Checked[i] := True;
-    inc(i);
-  end;
 end;
 
 procedure TfmActExportSoftData.DoClearFrameData;
@@ -192,7 +178,7 @@ begin
   SysPBCB := System.ProgressCallBack;
   System.ProgressCallBack := @(fmProgressBar.UpdTextAndBar);
 
-  System.SaveSoftGroupLists(ChangeFileExt(eExportFile.FileName, ''), True);
+  System.ExportSoftGroupLists(ChangeFileExt(eExportFile.FileName, ''), False);
 
   System.ProgressCallBack := SysPBCB;
 
@@ -253,8 +239,6 @@ begin
   OnSaveFrameData := @DoSaveFrameData;
 
   eExportFile.Filter := rsFileMaskDescSoft + '|' + krsFileMaskSoft;
-
-  CheckAllSoftData;
 end;
 
 destructor TfmActExportSoftData.Destroy;

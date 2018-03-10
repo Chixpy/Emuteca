@@ -25,7 +25,6 @@
 {"hash":28156094,"name":"tfrmlemutkmain.acteditsystem.caption","sourcebytes":[69,100,105,116,32,115,121,115,116,101,109,46,46,46],"value":"Edit system..."},
 {"hash":250004014,"name":"tfrmlemutkmain.acteditemulator.caption","sourcebytes":[69,100,105,116,32,101,109,117,108,97,116,111,114,46,46,46],"value":"Edit emulator..."},
 {"hash":315429,"name":"tfrmlemutkmain.mimmfile.caption","sourcebytes":[70,105,108,101],"value":"File"},
-{"hash":371876,"name":"tfrmlemutkmain.mimmtest.caption","sourcebytes":[84,101,115,116],"value":"Test"},
 {"hash":138926499,"name":"tfrmlemutkmain.mimmmanagers.caption","sourcebytes":[77,97,110,97,103,101,114,115],"value":"Managers"},
 {"hash":95464125,"name":"tfrmlemutkmain.mimmsystem.caption","sourcebytes":[83,121,115,116,101,109],"value":"System"},
 {"hash":79859618,"name":"tfrmlemutkmain.mimmemulator.caption","sourcebytes":[69,109,117,108,97,116,111,114],"value":"Emulator"},

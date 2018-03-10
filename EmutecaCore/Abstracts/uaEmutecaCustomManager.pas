@@ -1,3 +1,22 @@
+{ This file is part of Emuteca
+
+  Copyright (C) 2006-2018 Chixpy
+
+  This source is free software; you can redistribute it and/or modify it under
+  the terms of the GNU General Public License as published by the Free
+  Software Foundation; either version 3 of the License, or (at your option)
+  any later version.
+
+  This code is distributed in the hope that it will be useful, but WITHOUT ANY
+  WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+  FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+  details.
+
+  A copy of the GNU General Public License is available on the World Wide Web
+  at <http://www.gnu.org/copyleft/gpl.html>. You can also obtain it by writing
+  to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
+  MA 02111-1307, USA.
+}
 unit uaEmutecaCustomManager;
 
 {$mode objfpc}{$H+}
@@ -6,81 +25,93 @@ interface
 
 uses
   Classes, SysUtils, IniFiles, LazFileUtils, LazUTF8,
+  // CHX abstracts
   uaCHXStorable,
+  // Emuteca units
   uEmutecaCommon;
 
 type
 
-  { caEmutecaCustomManager }
+  { caEmutecaCustomManagerTxt }
 
-  caEmutecaCustomManager = class(caCHXStorableTxt)
+  caEmutecaCustomManagerTxt = class(caCHXStorableTxt)
   private
     FProgressCallBack: TEmutecaProgressCallBack;
 
   protected
-    procedure SetProgressCallBack(AValue: TEmutecaProgressCallBack);
+    procedure SetProgressCallBack(AValue: TEmutecaProgressCallBack); virtual;
 
   public
-    property ProgressCallBack: TEmutecaProgressCallBack read FProgressCallBack write SetProgressCallBack;
+    property ProgressCallBack: TEmutecaProgressCallBack
+      read FProgressCallBack write SetProgressCallBack;
 
-    procedure ImportFromFileIni(aFilename: string); virtual;
-    procedure ImportFromIni(aIniFile: TIniFile); virtual; abstract;
-    procedure ImportFromFileCSV(aFilename: string); virtual;
+    procedure ImportFromFile(const aFilename: string); virtual;
     procedure ImportFromStrLst(aTxtFile: TStrings); virtual; abstract;
+    procedure ExportToFile(const aFilename: string; ClearFile: boolean); virtual;
+    procedure ExportToStrLst(aTxtFile: TStrings); virtual; abstract;
+  end;
+
+  { caEmutecaCustomManagerIni }
+
+  caEmutecaCustomManagerIni = class(caCHXStorableIni)
+  private
+    FProgressCallBack: TEmutecaProgressCallBack;
+
+  protected
+    procedure SetProgressCallBack(AValue: TEmutecaProgressCallBack); virtual;
+
+  public
+    property ProgressCallBack: TEmutecaProgressCallBack
+      read FProgressCallBack write SetProgressCallBack;
+
+    procedure ImportFromFile(const aFilename: string); virtual;
+    procedure ImportFromIni(aIniFile: TMemIniFile); virtual; abstract;
+    procedure ExportToFile(const aFilename: string; ClearFile: boolean); virtual;
+    procedure ExportToIni(aIniFile: TMemIniFile); virtual; abstract;
   end;
 
 implementation
 
-{ caEmutecaCustomManager }
+{ caEmutecaCustomManagerIni }
 
-procedure caEmutecaCustomManager.SetProgressCallBack(
+procedure caEmutecaCustomManagerIni.SetProgressCallBack(
   AValue: TEmutecaProgressCallBack);
 begin
-  if FProgressCallBack = AValue then Exit;
+  if FProgressCallBack = AValue then
+    Exit;
   FProgressCallBack := AValue;
 end;
 
-procedure caEmutecaCustomManager.ImportFromFileIni(aFilename: string);
-var
-  aIniFile: TMemIniFile;
-  IniFileOps: TIniFileOptions;
+procedure caEmutecaCustomManagerIni.ImportFromFile(const aFilename: string);
 begin
-  if aFilename = '' then
-    aFilename := IniFileName;
-  if not FileExistsUTF8(aFilename) then
-    Exit;
-
-  try
-    aIniFile := TMemIniFile.Create(UTF8ToSys(aFilename));
-    IniFileOps :=  aIniFile.Options;
-    Exclude(IniFileOps, ifoCaseSensitive);
-    aIniFile.Options := IniFileOps;
-
-    ImportFromIni(aIniFile);
-  finally
-    FreeAndNil(aIniFile);
-  end;
+  DoFileOpen(aFilename, @ImportFromIni, True, False, False);
 end;
 
-procedure caEmutecaCustomManager.ImportFromFileCSV(aFilename: string);
-var
-  aTxtFile: TStringList;
+procedure caEmutecaCustomManagerIni.ExportToFile(const aFilename: string;
+  ClearFile: boolean);
 begin
-  if aFilename = '' then
-    aFilename := TxtFileName;
-  if not FileExistsUTF8(aFilename) then
+  DoFileOpen(aFilename, @ExportToIni, False, ClearFile, True);
+end;
+
+{ caEmutecaCustomManagerTxt }
+
+procedure caEmutecaCustomManagerTxt.SetProgressCallBack(
+  AValue: TEmutecaProgressCallBack);
+begin
+  if FProgressCallBack = AValue then
     Exit;
+  FProgressCallBack := AValue;
+end;
 
-  try
-    aTxtFile := TStringList.Create;
-    aTxtFile.LoadFromFile(UTF8ToSys(aFilename));
-    aTxtFile.CaseSensitive := False;
+procedure caEmutecaCustomManagerTxt.ImportFromFile(const aFilename: string);
+begin
+  DoFileOpen(aFilename, @ImportFromStrLst, True, False, False);
+end;
 
-    ImportFromStrLst(aTxtFile);
-  finally
-    FreeAndNil(aTxtFile);
-  end;
+procedure caEmutecaCustomManagerTxt.ExportToFile(const aFilename: string;
+  ClearFile: boolean);
+begin
+  DoFileOpen(aFilename, @ExportToStrLst, False, ClearFile, True);
 end;
 
 end.
-

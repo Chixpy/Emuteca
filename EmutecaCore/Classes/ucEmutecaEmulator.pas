@@ -29,6 +29,9 @@ uses  Classes, SysUtils, FileUtil, StrUtils, LazUTF8, LazFileUtils,
   IniFiles, lclintf,
   // CHX units
   uCHXStrUtils,
+  // CHX abstracts
+  uaCHXStorable,
+  // Emuteca clases
   ucEmutecaPlayingStats;
 
 const
@@ -72,7 +75,7 @@ type
   { cEmutecaEmulator class.
 
     Stores all basic info of an emulator. }
-  cEmutecaEmulator = class(TComponent)
+  cEmutecaEmulator = class(caCHXStorableIni)
   private
     FDeveloper: string;
     FEmulatorName: string;
@@ -102,6 +105,9 @@ type
     procedure SetWebPage(AValue: string);
     procedure SetWorkingFolder(AValue: string);
 
+  protected
+    procedure DoSaveToIni(aIniFile: TMemIniFile; ExportMode: Boolean); virtual;
+
   public
     constructor Create(aOwner: TComponent); override;
     destructor Destroy; override;
@@ -112,8 +118,10 @@ type
     function Execute(GameFile: string): integer;
     function ExecuteAlone: integer;
 
-    procedure LoadFromIni(aIniFile: TCustomIniFile);
-    procedure SaveToIni(aIniFile: TCustomIniFile; const ExportMode: boolean);
+    procedure LoadFromIni(aIniFile: TMemIniFile); override;
+    procedure SaveToIni(aIniFile: TMemIniFile); override;
+    procedure ImportFromIni(aIniFile: TMemIniFile); virtual;
+    procedure ExportToIni(aIniFile: TMemIniFile); virtual;
 
   published
     property ID: string read FID write SetID;
@@ -230,6 +238,41 @@ begin
   //if FWorkingFolder = AValue then
   //  Exit;
   FWorkingFolder := SetAsFolder(AValue);
+end;
+
+procedure cEmutecaEmulator.DoSaveToIni(aIniFile: TMemIniFile; ExportMode: Boolean);
+begin
+  if not assigned(aIniFile) then
+    Exit;
+
+  aIniFile.WriteString(ID, krsEmulatorNameKey, EmulatorName);
+
+  aIniFile.WriteString(ID, krsEmulatorWorkingFoldeKey, WorkingFolder);
+  aIniFile.WriteString(ID, krsEmulatorParametersKey, Parameters);
+  aIniFile.WriteString(ID, krsEmulatorFileExtKey, FileExt.CommaText);
+  aIniFile.WriteInteger(ID, krsEmulatorExitCodeKey, ExitCode);
+
+  aIniFile.WriteString(ID, krsEmulatorDeveloperKey, Developer);
+  aIniFile.WriteString(ID, krsEmulatorWebPageKey, WebPage);
+
+  if ExportMode then
+  begin
+    aIniFile.DeleteKey(ID, krsEmulatorExeFileKey);
+    aIniFile.DeleteKey(ID, krsEmulatorEnabledKey);
+    aIniFile.DeleteKey(ID, krsEmulatorIconKey);
+    aIniFile.DeleteKey(ID, krsEmulatorImageKey);
+    aIniFile.DeleteKey(ID, krsEmulatorInfoFileKey);
+  end
+  else
+  begin
+    aIniFile.WriteString(ID, krsEmulatorExeFileKey, ExeFile);
+    aIniFile.WriteBool(ID, krsEmulatorEnabledKey, Enabled);
+    aIniFile.WriteString(ID, krsEmulatorIconKey, Icon);
+    aIniFile.WriteString(ID, krsEmulatorImageKey, Image);
+    aIniFile.WriteString(ID, krsEmulatorInfoFileKey, InfoFile);
+  end;
+
+  Stats.WriteToIni(aIniFile, ID, ExportMode);
 end;
 
 procedure cEmutecaEmulator.SetEnabled(AValue: boolean);
@@ -412,7 +455,7 @@ begin
   end;
 end;
 
-procedure cEmutecaEmulator.LoadFromIni(aIniFile: TCustomIniFile);
+procedure cEmutecaEmulator.LoadFromIni(aIniFile: TMemIniFile);
 begin
   if not assigned(aIniFile) then
     Exit;
@@ -441,40 +484,20 @@ begin
   Stats.LoadFromIni(aIniFile, ID);
 end;
 
-procedure cEmutecaEmulator.SaveToIni(aIniFile: TCustomIniFile;
-  const ExportMode: boolean);
+procedure cEmutecaEmulator.ExportToIni(aIniFile: TMemIniFile);
 begin
-  if not assigned(aIniFile) then
-    Exit;
+  DoSaveToIni(aIniFile, True);
+end;
 
-  aIniFile.WriteString(ID, krsEmulatorNameKey, EmulatorName);
+procedure cEmutecaEmulator.SaveToIni(aIniFile: TMemIniFile);
+begin
+  DoSaveToIni(aIniFile, False);
+end;
 
-  aIniFile.WriteString(ID, krsEmulatorWorkingFoldeKey, WorkingFolder);
-  aIniFile.WriteString(ID, krsEmulatorParametersKey, Parameters);
-  aIniFile.WriteString(ID, krsEmulatorFileExtKey, FileExt.CommaText);
-  aIniFile.WriteInteger(ID, krsEmulatorExitCodeKey, ExitCode);
-
-  aIniFile.WriteString(ID, krsEmulatorDeveloperKey, Developer);
-  aIniFile.WriteString(ID, krsEmulatorWebPageKey, WebPage);
-
-  if ExportMode then
-  begin
-    aIniFile.DeleteKey(ID, krsEmulatorExeFileKey);
-    aIniFile.DeleteKey(ID, krsEmulatorEnabledKey);
-    aIniFile.DeleteKey(ID, krsEmulatorIconKey);
-    aIniFile.DeleteKey(ID, krsEmulatorImageKey);
-    aIniFile.DeleteKey(ID, krsEmulatorInfoFileKey);
-  end
-  else
-  begin
-    aIniFile.WriteString(ID, krsEmulatorExeFileKey, ExeFile);
-    aIniFile.WriteBool(ID, krsEmulatorEnabledKey, Enabled);
-    aIniFile.WriteString(ID, krsEmulatorIconKey, Icon);
-    aIniFile.WriteString(ID, krsEmulatorImageKey, Image);
-    aIniFile.WriteString(ID, krsEmulatorInfoFileKey, InfoFile);
-  end;
-
-  Stats.WriteToIni(aIniFile, ID, ExportMode);
+procedure cEmutecaEmulator.ImportFromIni(aIniFile: TMemIniFile);
+begin
+  // Simply load from file, when exporting user data is removed
+  LoadFromIni(aIniFile);
 end;
 
 end.

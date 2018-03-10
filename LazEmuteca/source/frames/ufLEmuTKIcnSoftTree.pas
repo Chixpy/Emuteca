@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, LazFileUtils, Forms, Controls, Graphics, Dialogs,
-  IniFiles, VirtualTrees, VTHeaderPopup, LCLIntf, LCLType, ComCtrls, Menus,
+  IniFiles, VirtualTrees, LCLIntf, LCLType, ComCtrls, Menus,
   ActnList, LazUTF8, ucCHXImageList, uCHXImageUtils, uEmutecaCommon,
   uaEmutecaCustomSoft, ucEmutecaGroup, ucEmutecaSoftware, ufEmutecaSoftTree;
 

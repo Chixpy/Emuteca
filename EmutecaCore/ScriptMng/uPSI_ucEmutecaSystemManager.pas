@@ -125,8 +125,8 @@ begin
     RegisterPropertyHelper(@cEmutecaSystemManagerTempFolder_R,@cEmutecaSystemManagerTempFolder_W,'TempFolder');
     RegisterPropertyHelper(@cEmutecaSystemManagerSysDataFolder_R,@cEmutecaSystemManagerSysDataFolder_W,'SysDataFolder');
     RegisterMethod(@cEmutecaSystemManager.ClearData, 'ClearData');
-    RegisterMethod(@cEmutecaSystemManager.LoadData, 'LoadData');
-    RegisterMethod(@cEmutecaSystemManager.SaveData, 'SaveData');
+//    RegisterMethod(@cEmutecaSystemManager.LoadData, 'LoadData');
+//    RegisterMethod(@cEmutecaSystemManager.SaveData, 'SaveData');
     RegisterMethod(@cEmutecaSystemManager.UpdateEnabledList, 'UpdateEnabledList');
     RegisterPropertyHelper(@cEmutecaSystemManagerProgressCallBack_R,@cEmutecaSystemManagerProgressCallBack_W,'ProgressCallBack');
     RegisterPropertyHelper(@cEmutecaSystemManagerFullList_R,nil,'FullList');

@@ -78,6 +78,10 @@ begin
   begin
     eSoftIDType.Text := SoftExportKey2StrK(System.SoftExportKey);
 
+    // Loading data if not already loaded
+    if not System.SoftGroupLoaded then
+      Emuteca.SystemManager.LoadSystemData(System);
+
     // Testing if all files have SHA1 cached
     IsCached := True;
     if System.SoftExportKey = TEFKSHA1 then

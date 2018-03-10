@@ -1,3 +1,22 @@
+{ This file is part of Emuteca
+
+  Copyright (C) 2006-2018 Chixpy
+
+  This source is free software; you can redistribute it and/or modify it under
+  the terms of the GNU General Public License as published by the Free
+  Software Foundation; either version 3 of the License, or (at your option)
+  any later version.
+
+  This code is distributed in the hope that it will be useful, but WITHOUT ANY
+  WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+  FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+  details.
+
+  A copy of the GNU General Public License is available on the World Wide Web
+  at <http://www.gnu.org/copyleft/gpl.html>. You can also obtain it by writing
+  to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
+  MA 02111-1307, USA.
+}
 unit ufEmutecaSoftTree;
 
 {$mode objfpc}{$H+}
@@ -11,8 +30,7 @@ uses
   ufCHXFrame,
   uLEmuTKCommon,
   uaEmutecaCustomSoft,
-  ucEmutecaGroupList, ucEmutecaGroup, ucEmutecaSoftware, uEmutecaCommon,
-  ufLEmuTKactMergeGroup;
+  ucEmutecaGroupList, ucEmutecaGroup, ucEmutecaSoftware, uEmutecaCommon;
 
 const
   krsIniSoftTreeSection = 'SoftTree';
@@ -545,16 +563,20 @@ begin
   if pData^ = nil then
     Exit;
 
+  AskParent := False;
+
   if pData^ is cEmutecaGroup then
   begin
     if Assigned(pmGroup) then
-    aPopupMenu := pmGroup;
+      aPopupMenu := pmGroup;
   end
   else if pData^ is cEmutecaSoftware then
   begin
     if Assigned(pmSoft) then
     aPopupMenu := pmSoft;
-  end;
+  end
+  else
+    AskParent := True; // Ask Parent Popup
 end;
 
 procedure TfmEmutecaSoftTree.SetGroupList(AValue: cEmutecaGroupList);

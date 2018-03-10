@@ -1,6 +1,6 @@
 { This file is part of Emuteca
 
-  Copyright (C) 2006-2017 Chixpy
+  Copyright (C) 2006-2018 Chixpy
 
   This source is free software; you can redistribute it and/or modify it under
   the terms of the GNU General Public License as published by the Free
@@ -45,7 +45,7 @@ type
     FEnabled: boolean;
     FExtensions: TStringList;
     FExtractAll: boolean;
-    FFileName: string;
+    FListFileName: string;
     FSoftExportKey: TEmutecaSoftExportKey;
     FIconFile: string;
     FIconFolder: string;
@@ -67,12 +67,13 @@ type
     FTitle: string;
     FVideoCaptions: TStringList;
     FVideoFolders: TStringList;
+    function GetListFileName: string;
     procedure SetBackgroundFile(AValue: string);
     procedure SetBaseFolder(AValue: string);
     procedure SetCurrentEmulator(AValue: cEmutecaEmulator);
     procedure SetEnabled(AValue: boolean);
     procedure SetExtractAll(AValue: boolean);
-    procedure SetFileName(AValue: string);
+    procedure SetListFileName(AValue: string);
     procedure SetSoftExportKey(AValue: TEmutecaSoftExportKey);
     procedure SetIconFile(AValue: string);
     procedure SetIconFolder(AValue: string);
@@ -91,6 +92,7 @@ type
 
     Who knows if somebody edited the .ini file by hand...
     }
+    procedure DoSaveToIni(aIniFile: TIniFile; ExportMode: Boolean); virtual;
 
   public
     property TempFolder: string read FTempFolder write SetTempFolder;
@@ -109,9 +111,10 @@ type
     procedure LoadEmulatorsFrom(aEmuList: cEmutecaEmulatorList);
     {< Updates EmulatorList from aEmuList. }
 
-    procedure LoadFromIni(aIniFile: TIniFile); override;
-    procedure SaveToIni(aIniFile: TMemIniFile; const ExportMode: boolean);
-      override;
+    procedure LoadFromIni(aIniFile: TMemIniFile); override;
+    procedure SaveToIni(aIniFile: TMemIniFile); override;
+    procedure ExportToIni(aIniFile: TMemIniFile); virtual;
+    procedure ImportFromIni(aIniFile: TMemIniFile); virtual;
 
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
@@ -126,8 +129,8 @@ type
     property Title: string read FTitle write SetTitle;
     {< Visible name (Usually "%Company%: %Model% %(info)%"}
 
-    property FileName: string read FFileName write SetFileName;
-    {< Name used for files or folders. }
+    property ListFileName: string read GetListFileName write SetListFileName;
+    {< Name used for soft and group files. }
 
     property Enabled: boolean read FEnabled write SetEnabled;
     {< Is the system visible? }
@@ -231,7 +234,7 @@ implementation
 
 { caEmutecaCustomSystem }
 
-procedure caEmutecaCustomSystem.LoadFromIni(aIniFile: TIniFile);
+procedure caEmutecaCustomSystem.LoadFromIni(aIniFile: TMemIniFile);
 begin
   if aIniFile = nil then
     Exit;
@@ -239,9 +242,9 @@ begin
   // Basic data
   Title := aIniFile.ReadString(ID, krsIniKeyTitle, Title);
 
-  FileName := aIniFile.ReadString(ID, krsIniKeyFileName, FileName);
-  if FileName = '' then
-    FileName := Title;
+  ListFileName := aIniFile.ReadString(ID, krsIniKeyFileName, ListFileName);
+  if ListFileName = '' then
+    ListFileName := Title;
 
   Enabled := aIniFile.ReadBool(ID, krsIniKeyEnabled, Enabled);
 
@@ -305,8 +308,186 @@ begin
   FixFolderListData(VideoFolders, VideoCaptions);
 end;
 
-procedure caEmutecaCustomSystem.SaveToIni(aIniFile: TMemIniFile;
-  const ExportMode: boolean);
+procedure caEmutecaCustomSystem.ExportToIni(aIniFile: TMemIniFile);
+begin
+  DoSaveToIni(aIniFile, True);
+end;
+
+procedure caEmutecaCustomSystem.ImportFromIni(aIniFile: TMemIniFile);
+begin
+  // Simply load from file, when exporting user data is removed
+  LoadFromIni(aIniFile);
+end;
+
+procedure caEmutecaCustomSystem.SaveToIni(aIniFile: TMemIniFile);
+begin
+  DoSaveToIni(aIniFile, False);
+end;
+
+procedure caEmutecaCustomSystem.SetBaseFolder(AValue: string);
+begin
+  FBaseFolder := SetAsFolder(AValue);
+end;
+
+procedure caEmutecaCustomSystem.SetCurrentEmulator(AValue: cEmutecaEmulator);
+begin
+  if FCurrentEmulator = AValue then
+    Exit;
+  FCurrentEmulator := AValue;
+
+  // if not already added then add to list
+  if Assigned(CurrentEmulator) then
+  begin
+    if EmulatorList.IndexOf(CurrentEmulator) = -1 then
+      EmulatorList.Add(CurrentEmulator);
+    MainEmulator := CurrentEmulator.ID;
+  end
+  else
+  ; // MainEmulator := ''; ?
+end;
+
+procedure caEmutecaCustomSystem.SetBackgroundFile(AValue: string);
+begin
+  FBackgroundFile := SetAsFile(AValue);
+end;
+
+function caEmutecaCustomSystem.GetListFileName: string;
+begin
+  if FListFileName = '' then
+    ListFileName := ID;
+  Result := FListFileName;
+end;
+
+procedure caEmutecaCustomSystem.SetEnabled(AValue: boolean);
+begin
+  if FEnabled = AValue then
+    Exit;
+  FEnabled := AValue;
+end;
+
+procedure caEmutecaCustomSystem.SetExtractAll(AValue: boolean);
+begin
+  if FExtractAll = AValue then
+    Exit;
+  FExtractAll := AValue;
+end;
+
+procedure caEmutecaCustomSystem.SetListFileName(AValue: string);
+begin
+  FListFileName := CleanFileName(AValue);
+end;
+
+procedure caEmutecaCustomSystem.SetSoftExportKey(
+  AValue: TEmutecaSoftExportKey);
+begin
+  if FSoftExportKey = AValue then
+    Exit;
+  FSoftExportKey := AValue;
+end;
+
+procedure caEmutecaCustomSystem.SetIconFile(AValue: string);
+begin
+  FIconFile := SetAsFile(AValue);
+end;
+
+procedure caEmutecaCustomSystem.SetIconFolder(AValue: string);
+begin
+  FIconFolder := SetAsFolder(AValue);
+end;
+
+procedure caEmutecaCustomSystem.SetID(AValue: string);
+begin
+  if FID = AValue then
+    Exit;
+  FID := AValue;
+
+  if ListFileName = '' then
+    ListFileName := ID;
+
+  FPONotifyObservers(Self, ooChange, nil);
+end;
+
+procedure caEmutecaCustomSystem.SetImage(AValue: string);
+begin
+  FImage := SetAsFile(AValue);
+end;
+
+procedure caEmutecaCustomSystem.SetInfoText(AValue: string);
+begin
+  FInfoText := SetAsFile(AValue);
+end;
+
+procedure caEmutecaCustomSystem.SetMainEmulator(AValue: string);
+begin
+  if FMainEmulator = AValue then
+    Exit;
+  FMainEmulator := AValue;
+
+  if OtherEmulators.IndexOf(MainEmulator) = -1 then
+    OtherEmulators.Add(MainEmulator);
+end;
+
+procedure caEmutecaCustomSystem.SetSoftIconFile(AValue: string);
+begin
+  FSoftIconFile := SetAsFile(AValue)
+end;
+
+procedure caEmutecaCustomSystem.SetTempFolder(AValue: string);
+begin
+  FTempFolder := SetAsFolder(AValue) + SetAsFolder(ID);
+end;
+
+procedure caEmutecaCustomSystem.SetWorkingFolder(AValue: string);
+begin
+  FWorkingFolder := SetAsFolder(AValue);
+end;
+
+procedure caEmutecaCustomSystem.SetTitle(AValue: string);
+begin
+  if FTitle = AValue then
+    Exit;
+  FTitle := AValue;
+end;
+
+procedure caEmutecaCustomSystem.FixFolderListData(FolderList,
+  CaptionList: TStrings);
+var
+  i: integer;
+begin
+  // Removing empty Folders and associated captions.
+  i := 0;
+  while i < FolderList.Count do
+  begin
+    FolderList[i] := SetAsFolder(FolderList[i]);
+    if FolderList[i] = '' then
+    begin
+      FolderList.Delete(i);
+      if i < CaptionList.Count then
+        CaptionList.Delete(i);
+    end
+    else
+      Inc(i);
+  end;
+
+  // Adding text (folder name) to empty Captions
+  if FolderList.Count > CaptionList.Count then
+  begin
+    i := CaptionList.Count;
+    while i < FolderList.Count do
+    begin
+      CaptionList.Add(ExtractFileName(ExcludeTrailingPathDelimiter(
+        FolderList[i])));
+      Inc(i);
+    end;
+  end;
+
+  // Removing exceed of captions
+  while FolderList.Count < CaptionList.Count do
+    CaptionList.Delete(CaptionList.Count - 1);
+end;
+
+procedure caEmutecaCustomSystem.DoSaveToIni(aIniFile: TIniFile;
+  ExportMode: Boolean);
 var
   i: integer;
 begin
@@ -315,7 +496,7 @@ begin
 
   // Basic data
   aIniFile.WriteString(ID, krsIniKeyTitle, Title);
-  aIniFile.WriteString(ID, krsIniKeyFileName, FileName);
+  aIniFile.WriteString(ID, krsIniKeyFileName, ListFileName);
   aIniFile.WriteBool(ID, krsIniKeyExtractAll, ExtractAll);
 
   // Emulators
@@ -404,161 +585,6 @@ begin
   end;
 
   Stats.WriteToIni(aIniFile, ID, ExportMode);
-end;
-
-procedure caEmutecaCustomSystem.SetBaseFolder(AValue: string);
-begin
-  FBaseFolder := SetAsFolder(AValue);
-end;
-
-procedure caEmutecaCustomSystem.SetCurrentEmulator(AValue: cEmutecaEmulator);
-begin
-  if FCurrentEmulator = AValue then
-    Exit;
-  FCurrentEmulator := AValue;
-
-  // if not already added then add to list
-  if Assigned(CurrentEmulator) then
-  begin
-    if EmulatorList.IndexOf(CurrentEmulator) = -1 then
-      EmulatorList.Add(CurrentEmulator);
-    MainEmulator := CurrentEmulator.ID;
-  end
-  else
-  ; // MainEmulator := ''; ?
-end;
-
-procedure caEmutecaCustomSystem.SetBackgroundFile(AValue: string);
-begin
-  FBackgroundFile := SetAsFile(AValue);
-end;
-
-procedure caEmutecaCustomSystem.SetEnabled(AValue: boolean);
-begin
-  if FEnabled = AValue then
-    Exit;
-  FEnabled := AValue;
-end;
-
-procedure caEmutecaCustomSystem.SetExtractAll(AValue: boolean);
-begin
-  if FExtractAll = AValue then
-    Exit;
-  FExtractAll := AValue;
-end;
-
-procedure caEmutecaCustomSystem.SetFileName(AValue: string);
-begin
-  FFileName := CleanFileName(AValue);
-end;
-
-procedure caEmutecaCustomSystem.SetSoftExportKey(
-  AValue: TEmutecaSoftExportKey);
-begin
-  if FSoftExportKey = AValue then
-    Exit;
-  FSoftExportKey := AValue;
-end;
-
-procedure caEmutecaCustomSystem.SetIconFile(AValue: string);
-begin
-  FIconFile := SetAsFile(AValue);
-end;
-
-procedure caEmutecaCustomSystem.SetIconFolder(AValue: string);
-begin
-  FIconFolder := SetAsFolder(AValue);
-end;
-
-procedure caEmutecaCustomSystem.SetID(AValue: string);
-begin
-  if FID = AValue then
-    Exit;
-  FID := AValue;
-
-  if FileName = '' then
-    FileName := ID;
-
-  FPONotifyObservers(Self, ooChange, nil);
-end;
-
-procedure caEmutecaCustomSystem.SetImage(AValue: string);
-begin
-  FImage := SetAsFile(AValue);
-end;
-
-procedure caEmutecaCustomSystem.SetInfoText(AValue: string);
-begin
-  FInfoText := SetAsFile(AValue);
-end;
-
-procedure caEmutecaCustomSystem.SetMainEmulator(AValue: string);
-begin
-  if FMainEmulator = AValue then
-    Exit;
-  FMainEmulator := AValue;
-
-  if OtherEmulators.IndexOf(MainEmulator) = -1 then
-    OtherEmulators.Add(MainEmulator);
-end;
-
-procedure caEmutecaCustomSystem.SetSoftIconFile(AValue: string);
-begin
-  FSoftIconFile := SetAsFile(AValue)
-end;
-
-procedure caEmutecaCustomSystem.SetTempFolder(AValue: string);
-begin
-  FTempFolder := SetAsFolder(AValue) + SetAsFolder(ID);
-end;
-
-procedure caEmutecaCustomSystem.SetWorkingFolder(AValue: string);
-begin
-  FWorkingFolder := SetAsFolder(AValue);
-end;
-
-procedure caEmutecaCustomSystem.SetTitle(AValue: string);
-begin
-  if FTitle = AValue then
-    Exit;
-  FTitle := AValue;
-end;
-
-procedure caEmutecaCustomSystem.FixFolderListData(FolderList,
-  CaptionList: TStrings);
-var
-  i: integer;
-begin
-  // Removing empty Folders and associated captions.
-  i := 0;
-  while i < FolderList.Count do
-  begin
-    FolderList[i] := SetAsFolder(FolderList[i]);
-    if FolderList[i] = '' then
-    begin
-      FolderList.Delete(i);
-      if i < CaptionList.Count then
-        CaptionList.Delete(i);
-    end
-    else
-      Inc(i);
-  end;
-
-  // Adding text (folder name) to empty Captions
-  if FolderList.Count > CaptionList.Count then
-  begin
-    i := CaptionList.Count;
-    while i < FolderList.Count do
-    begin
-      CaptionList.Add(ExtractFileName(ExcludeTrailingPathDelimiter(
-        FolderList[i])));
-      Inc(i);
-    end;
-  end;
-
-  // Removing exceed of captions
-  while FolderList.Count < CaptionList.Count do
-    CaptionList.Delete(CaptionList.Count - 1);
 end;
 
 function caEmutecaCustomSystem.MatchID(aID: string): boolean;

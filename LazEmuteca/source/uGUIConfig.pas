@@ -78,11 +78,17 @@ type
     procedure SetSearchFile(AValue: string);
     procedure SetDumpIcnFolder(AValue: string);
 
-  protected
-    procedure OnLoadConfig(IniFile: TIniFile); override;
-    procedure OnSaveConfig(IniFile: TIniFile); override;
+  public
+    procedure ResetDefaultConfig; override;
 
-  published
+    procedure LoadFromIni(IniFile: TMemIniFile); override;
+    procedure SaveToIni(IniFile: TMemIniFile); override;
+
+
+    constructor Create(aOwner: TComponent); override;
+    destructor Destroy; override;
+
+    published
     // Images
     // ------
     property DefImgFolder: string read FDefImgFolder write SetDefImgFolder;
@@ -121,13 +127,7 @@ type
     property GlobalCache: string read FGlobalCache write SetGlobalCache;
 
     property w7zErrorFileName: string read Fw7zErrorFileName write Setw7zErrorFileName;
-
-  public
-    procedure ResetDefaultConfig; override;
-
-    constructor Create(aOwner: TComponent); override;
-    destructor Destroy; override;
-  end;
+end;
 
 implementation
 
@@ -201,11 +201,44 @@ begin
   FDumpIcnFolder := SetAsFolder(AValue);
 end;
 
-procedure cGUIConfig.OnLoadConfig(IniFile: TIniFile);
+procedure cGUIConfig.ResetDefaultConfig;
+var
+  TempStr: string;
 begin
   // Images
-  DefImgFolder := IniFile.ReadString(krsSectionImages,
-    krsKeyDefImgFolder, DefImgFolder);
+  DefImgFolder := 'Images/Default';
+  GUIIcnFile := 'Images/GUI/Icons.ini';
+  ZoneIcnFolder := 'Images/Zone';
+  DumpIcnFolder := 'Images/DumpInfo';
+
+  TempStr := '"' + UTF8LowerCase(GraphicFileMask(TGraphic)) + '"';
+  TempStr := UTF8TextReplace(TempStr, '*.', '');
+  TempStr := UTF8TextReplace(TempStr, ';', '","');
+  ImageExtensions.CommaText := TempStr;
+
+  // Texts
+  TextExtensions.CommaText := 'txt,nfo';
+
+  // Config/Data
+  EmutecaIni := 'Emuteca.ini';
+  CurrSystem := '';
+  SaveOnExit := True;
+  SearchFile := 'Search.ini';
+  HelpFolder := 'Help';
+
+  // Tools
+  ScriptsFolder := 'Scripts';
+  mPlayerExe := 'Tools/mplayer/mplayer2.exe';
+
+  // Experimental
+  GlobalCache := 'SHA1Cache/';
+  w7zErrorFileName := 'w7zErrors.log'
+end;
+
+procedure cGUIConfig.LoadFromIni(IniFile: TMemIniFile);
+begin
+  // Images
+  DefImgFolder := IniFile.ReadString(krsSectionImages, krsKeyDefImgFolder, DefImgFolder);
   ZoneIcnFolder := IniFile.ReadString(krsSectionImages,
     krsKeyZoneIcnFolder, ZoneIcnFolder);
   DumpIcnFolder := IniFile.ReadString(krsSectionImages,
@@ -246,7 +279,7 @@ begin
     krsKeyw7zErrorFileName, w7zErrorFileName);
 end;
 
-procedure cGUIConfig.OnSaveConfig(IniFile: TIniFile);
+procedure cGUIConfig.SaveToIni(IniFile: TMemIniFile);
 begin
   // Images
   IniFile.WriteString(krsSectionImages, krsKeyDefImgFolder, DefImgFolder);
@@ -274,40 +307,6 @@ begin
 
   IniFile.WriteString(krsSectionExperimental, krsKeyGlobalCache, GlobalCache);
   IniFile.WriteString(krsSectionExperimental, krsKeyw7zErrorFileName, w7zErrorFileName);
-end;
-
-procedure cGUIConfig.ResetDefaultConfig;
-var
-  TempStr: string;
-begin
-  // Images
-  DefImgFolder := 'Images/Default';
-  GUIIcnFile := 'Images/GUI/Icons.ini';
-  ZoneIcnFolder := 'Images/Zone';
-  DumpIcnFolder := 'Images/DumpInfo';
-
-  TempStr := '"' + UTF8LowerCase(GraphicFileMask(TGraphic)) + '"';
-  TempStr := UTF8TextReplace(TempStr, '*.', '');
-  TempStr := UTF8TextReplace(TempStr, ';', '","');
-  ImageExtensions.CommaText := TempStr;
-
-  // Texts
-  TextExtensions.CommaText := 'txt,nfo';
-
-  // Config/Data
-  EmutecaIni := 'Emuteca.ini';
-  CurrSystem := '';
-  SaveOnExit := True;
-  SearchFile := 'Search.ini';
-  HelpFolder := 'Help';
-
-  // Tools
-  ScriptsFolder := 'Scripts';
-  mPlayerExe := 'Tools/mplayer/mplayer2.exe';
-
-  // Experimental
-  GlobalCache := 'SHA1Cache/';
-  w7zErrorFileName := 'w7zErrors.log'
 end;
 
 constructor cGUIConfig.Create(aOwner: TComponent);

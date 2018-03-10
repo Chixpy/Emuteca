@@ -97,8 +97,8 @@ begin
     RegisterPropertyHelper(@cEmutecaEmulatorManagerProgressCallBack_R,
       @cEmutecaEmulatorManagerProgressCallBack_W, 'ProgressCallBack');
     RegisterMethod(@cEmutecaEmulatorManager.ClearData, 'ClearData');
-    RegisterMethod(@cEmutecaEmulatorManager.LoadData, 'LoadData');
-    RegisterMethod(@cEmutecaEmulatorManager.SaveData, 'SaveData');
+//    RegisterMethod(@cEmutecaEmulatorManager.LoadData, 'LoadData');
+//    RegisterMethod(@cEmutecaEmulatorManager.SaveData, 'SaveData');
     RegisterPropertyHelper(@cEmutecaEmulatorManagerFullList_R, nil, 'FullList');
     RegisterPropertyHelper(@cEmutecaEmulatorManagerEnabledList_R,
       nil, 'EnabledList');

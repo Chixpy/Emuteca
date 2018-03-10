@@ -77,23 +77,23 @@ end;
 
 (* === run-time registration functions === *)
 (*----------------------------------------------------------------------------*)
-procedure caEmutecaCustomManagerProgressCallBack_W(Self: caEmutecaCustomManager; const T: TEmutecaProgressCallBack);
+procedure caEmutecaCustomManagerProgressCallBack_W(Self: caEmutecaCustomManagerTxt; const T: TEmutecaProgressCallBack);
 begin Self.ProgressCallBack := T; end;
 
 (*----------------------------------------------------------------------------*)
-procedure caEmutecaCustomManagerProgressCallBack_R(Self: caEmutecaCustomManager; var T: TEmutecaProgressCallBack);
+procedure caEmutecaCustomManagerProgressCallBack_R(Self: caEmutecaCustomManagerTxt; var T: TEmutecaProgressCallBack);
 begin T := Self.ProgressCallBack; end;
 
 (*----------------------------------------------------------------------------*)
 procedure RIRegister_caEmutecaCustomManager(CL: TPSRuntimeClassImporter);
 begin
-  with CL.Add(caEmutecaCustomManager) do
+  with CL.Add(caEmutecaCustomManagerTxt) do
   begin
     RegisterPropertyHelper(@caEmutecaCustomManagerProgressCallBack_R,@caEmutecaCustomManagerProgressCallBack_W,'ProgressCallBack');
-    RegisterVirtualMethod(@caEmutecaCustomManager.ImportFromFileIni, 'ImportFromFileIni');
-    RegisterVirtualAbstractMethod(@caEmutecaCustomManager, @!.ImportFromIni, 'ImportFromIni');
-    RegisterVirtualMethod(@caEmutecaCustomManager.ImportFromFileCSV, 'ImportFromFileCSV');
-    RegisterVirtualAbstractMethod(@caEmutecaCustomManager, @!.ImportFromStrLst, 'ImportFromStrLst');
+    RegisterVirtualMethod(@caEmutecaCustomManagerTxt.ImportFromFileIni, 'ImportFromFileIni');
+    RegisterVirtualAbstractMethod(@caEmutecaCustomManagerTxt, @!.ImportFromIni, 'ImportFromIni');
+    RegisterVirtualMethod(@caEmutecaCustomManagerTxt.ImportFromFileCSV, 'ImportFromFileCSV');
+    RegisterVirtualAbstractMethod(@caEmutecaCustomManagerTxt, @!.ImportFromStrLst, 'ImportFromStrLst');
   end;
 end;
 

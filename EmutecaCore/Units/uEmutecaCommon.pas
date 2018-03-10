@@ -175,17 +175,21 @@ resourcestring
 
   // List action
   rsLoadingSystemList = 'Loading system list...';
-  rsImportingSystemList = 'Importing system list...';
   rsSavingSystemList = 'Saving system list...';
+  rsImportingSystemList = 'Importing system list...';
+  rsExportingSystemList = 'Exporting system list...';
   rsLoadingGroupList = 'Loading group list...';
-  rsImportingGroupList = 'Importing group list...';
   rsSavingGroupList = 'Saving group list...';
+  rsImportingGroupList = 'Importing group list...';
+  rsExportingGroupList = 'Exporting group list...';
   rsLoadingSoftList = 'Loading soft list...';
-  rsImportingSoftList = 'Importing soft list...';
   rsSavingSoftList = 'Saving soft list...';
+  rsImportingSoftList = 'Importing soft list...';
+  rsExportingSoftList = 'Exporting soft list...';
   rsLoadingEmulatorList = 'Loading emulator list...';
-  rsImportingEmulatorList = 'Importing emulator list...';
   rsSavingEmulatorList = 'Saving emulator list...';
+  rsImportingEmulatorList = 'Importing emulator list...';
+  rsExportingEmulatorList = 'Exporting emulator list...';
 
   // Importing/Exporting Warnings
   rsImportingNoSHA1 = 'Warning: Some info could not be imported because some files haven''t got SHA1 cached.'

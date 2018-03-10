@@ -220,6 +220,10 @@ begin
 
   Self.Enabled := False;
 
+      // Loading data if not already loaded
+    if not aSystem.SoftGroupLoaded then
+      Emuteca.SystemManager.LoadSystemData(aSystem);
+
   // Copy soft
   CacheSoftList := cEmutecaSoftList.Create(False);
   CacheSoftList.Assign(aSystem.SoftManager.FullList);

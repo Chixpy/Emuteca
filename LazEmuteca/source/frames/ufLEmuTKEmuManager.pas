@@ -164,7 +164,7 @@ begin
   if not SaveDialog1.Execute then
     Exit;
 
-  EmuManager.SaveToFileIni(SaveDialog1.FileName, True);
+  EmuManager.ExportToFile(SaveDialog1.FileName, False);
 end;
 
 procedure TfmLEmuTKEmuManager.ImportList;
@@ -175,7 +175,7 @@ begin
   if not OpenDialog1.Execute then
     Exit;
 
-  EmuManager.LoadFromFileIni(OpenDialog1.FileName);
+  EmuManager.ImportFromFile(OpenDialog1.FileName);
 end;
 
 procedure TfmLEmuTKEmuManager.DoLoadFrameData;

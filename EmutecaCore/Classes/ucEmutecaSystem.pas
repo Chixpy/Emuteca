@@ -1,6 +1,6 @@
 { This file is part of Emuteca
 
-  Copyright (C) 2006-2017 Chixpy
+  Copyright (C) 2006-2018 Chixpy
 
   This source is free software; you can redistribute it and/or modify it under
   the terms of the GNU General Public License as published by the Free
@@ -40,33 +40,37 @@ type
   cEmutecaSystem = class(caEmutecaCustomSystem)
   private
     FGroupManager: cEmutecaGroupManager;
-    FLoaded: Boolean;
+    FSoftGroupLoaded: Boolean;
     FProgressCallBack: TEmutecaProgressCallBack;
     FSoftManager: cEmutecaSoftManager;
-    procedure SetLoaded(AValue: Boolean);
+    procedure SetSoftGroupLoaded(AValue: Boolean);
     procedure SetProgressCallBack(AValue: TEmutecaProgressCallBack);
 
   protected
 
   public
-       property Loaded: Boolean read FLoaded write SetLoaded;
-    {< Is the system soft and groups loaded? }
+    property SoftGroupLoaded: Boolean read FSoftGroupLoaded write SetSoftGroupLoaded;
+    {< Are system soft and groups loaded? }
 
     property ProgressCallBack: TEmutecaProgressCallBack
       read FProgressCallBack write SetProgressCallBack;
+    {< Progress callback for loading soft and groups. }
 
+    procedure ClearData;
     procedure AddSoft(aSoft: cEmutecaSoftware);
     //< Safe way to add software (adds group if needed, and link them).
     procedure AddGroup(aGroup: cEmutecaGroup);
     //< Safe way to add groups (adds group in full list and visile list).
 
     procedure CacheGroups;
-    procedure CleanSystemData;
+    procedure CleanSoftGroup;
     //< Removes parents without soft and Soft not found
 
-    procedure LoadSoftGroupLists(aFile: string);
-    procedure ImportSoftGroupLists(aFile: string);
-    procedure SaveSoftGroupLists(aFile: string; ExportMode: boolean);
+
+    procedure LoadSoftGroupLists(const aFile: string);
+    procedure SaveSoftGroupLists(const aFile: string; ClearFile: Boolean);
+    procedure ImportSoftGroupLists(const aFile: string);
+    procedure ExportSoftGroupLists(const aFile: string; ClearFile: Boolean);
 
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
@@ -85,53 +89,65 @@ implementation
 
 { cEmutecaSystem }
 
-procedure cEmutecaSystem.LoadSoftGroupLists(aFile: string);
+procedure cEmutecaSystem.LoadSoftGroupLists(const aFile: string);
 begin
-  SoftManager.ClearData;
-  if FileExistsUTF8(aFile + krsFileExtSoft) then
-    SoftManager.LoadFromFileTxt(aFile + krsFileExtSoft);
-
-  GroupManager.ClearData;
-  if FileExistsUTF8(aFile + krsFileExtGroup) then
-    GroupManager.LoadFromFileTxt(aFile + krsFileExtGroup);
+  SoftManager.LoadFromFile(aFile + krsFileExtSoft);
+  GroupManager.LoadFromFile(aFile + krsFileExtGroup);
 
   CacheGroups;
 
-  Loaded := True;
+  SoftGroupLoaded := True;
 end;
 
-procedure cEmutecaSystem.ImportSoftGroupLists(aFile: string);
+procedure cEmutecaSystem.ImportSoftGroupLists(const aFile: string);
 begin
   if FileExistsUTF8(aFile + krsFileExtSoft) then
-    SoftManager.ImportFromFileCSV(aFile + krsFileExtSoft);
+    SoftManager.ImportFromFile(aFile + krsFileExtSoft);
 
   // Updating groups and lists
   CacheGroups;
 
   if FileExistsUTF8(aFile + krsFileExtGroup) then
-    GroupManager.ImportFromFileCSV(aFile + krsFileExtGroup);
+    GroupManager.ImportFromFile(aFile + krsFileExtGroup);
 end;
 
-procedure cEmutecaSystem.SaveSoftGroupLists(aFile: string;
-  ExportMode: boolean);
+procedure cEmutecaSystem.ExportSoftGroupLists(const aFile: string;
+  ClearFile: Boolean);
 begin
   if aFile = '' then
     Exit;
 
+  if not SoftGroupLoaded then Exit;
+
   if not DirectoryExistsUTF8(ExtractFileDir(aFile)) then
     ForceDirectoriesUTF8(ExtractFileDir(aFile));
 
-  // TODO: On exporting, don't remove existing software and groups in the file.
+  GroupManager.ExportToFile(aFile + krsFileExtGroup, ClearFile);
+  SoftManager.ExportToFile(aFile + krsFileExtSoft, ClearFile);
+end;
 
-  GroupManager.SaveToFileTxt(aFile + krsFileExtGroup, ExportMode);
-  SoftManager.SaveToFileTxt(aFile + krsFileExtSoft, ExportMode);
+procedure cEmutecaSystem.SaveSoftGroupLists(const aFile: string;
+  ClearFile: Boolean);
+begin
+  if aFile = '' then
+    Exit;
+
+  // If not loaded, don't overwrite and empty file.
+  if not SoftGroupLoaded then Exit;
+
+  if not DirectoryExistsUTF8(ExtractFileDir(aFile)) then
+    ForceDirectoriesUTF8(ExtractFileDir(aFile));
+
+
+  GroupManager.SaveToFile(aFile + krsFileExtGroup, ClearFile);
+  SoftManager.SaveToFile(aFile + krsFileExtSoft, ClearFile);
 end;
 
 constructor cEmutecaSystem.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
 
-  Loaded := False;
+  SoftGroupLoaded := False;
 
   FGroupManager := cEmutecaGroupManager.Create(Self);
   GroupManager.System := Self;
@@ -157,10 +173,18 @@ begin
   SoftManager.ProgressCallBack := ProgressCallBack;
 end;
 
-procedure cEmutecaSystem.SetLoaded(AValue: Boolean);
+procedure cEmutecaSystem.ClearData;
 begin
-  if FLoaded=AValue then Exit;
-  FLoaded:=AValue;
+  SoftManager.ClearData;
+  GroupManager.ClearData;
+
+  SoftGroupLoaded := False;
+end;
+
+procedure cEmutecaSystem.SetSoftGroupLoaded(AValue: Boolean);
+begin
+  if FSoftGroupLoaded=AValue then Exit;
+  FSoftGroupLoaded:=AValue;
 end;
 
 procedure cEmutecaSystem.CacheGroups;
@@ -264,9 +288,12 @@ begin
     aGroup.SoftList.Add(aSoft);
   end;
 
+  // Faster than CacheGroups;
   if aGroup.SoftList.Count > 0 then
     if GroupManager.VisibleList.IndexOf(aGroup) = -1 then
       GroupManager.VisibleList.Add(aGroup);
+
+  SoftGroupLoaded := True;
 end;
 
 procedure cEmutecaSystem.AddGroup(aGroup: cEmutecaGroup);
@@ -277,18 +304,23 @@ begin
   aGroup.CachedSystem := Self;
   GroupManager.FullList.Add(aGroup);
 
+  // Faster than CacheGroups;
   if aGroup.SoftList.Count > 0 then
     if GroupManager.VisibleList.IndexOf(aGroup) = -1 then
       GroupManager.VisibleList.Add(aGroup);
+
+  SoftGroupLoaded := True;
 end;
 
-procedure cEmutecaSystem.CleanSystemData;
+procedure cEmutecaSystem.CleanSoftGroup;
 var
   i: integer;
   aGroup: cEmutecaGroup;
   aSoft: cEmutecaSoftware;
   Found, Continue: Boolean;
 begin
+  if not SoftGroupLoaded then Exit;
+
   i := 0;
   Continue := True;
   while Continue and (i < SoftManager.FullList.Count) do

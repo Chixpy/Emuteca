@@ -111,8 +111,8 @@ begin
     RegisterPropertyHelper(@cEmutecaTempFolder_R, nil, 'TempFolder');
    // RegisterMethod(@cEmuteca.LoadConfig, 'LoadConfig');
    // RegisterMethod(@cEmuteca.ClearAllData, 'ClearAllData');
-   // RegisterMethod(@cEmuteca.LoadData, 'LoadData');
-    RegisterMethod(@cEmuteca.SaveData, 'SaveData');
+   // RegisterMethod(@cEmuteca.LoadAllData, 'LoadData');
+    RegisterMethod(@cEmuteca.SaveAllData, 'SaveData');
    // RegisterMethod(@cEmuteca.CacheData, 'CacheData');
     RegisterMethod(@cEmuteca.RunSoftware, 'RunSoftware');
     RegisterPropertyHelper(@cEmutecaBaseFolder_R, @cEmutecaBaseFolder_W,

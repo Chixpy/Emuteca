@@ -24,9 +24,14 @@ unit uaEmutecaCustomGroup;
 interface
 
 uses
-  Classes, SysUtils, IniFiles, LazUTF8,
-  uaCHXStorable, uCHXStrUtils,
+  Classes, SysUtils, LazUTF8,
+  // CHX units
+  uCHXStrUtils,
+  // CHX abstract objects
+  uaCHXStorable,
+  // Emuteca units
   uEmutecaCommon,
+  // Emuteca classes
   ucEmutecaPlayingStats;
 
 type
@@ -52,6 +57,8 @@ type
     procedure SetTitle(AValue: string);
     procedure SetYear(AValue: string);
 
+  protected
+     procedure DoSaveToIni(aTxtFile: TStrings; ExportMode: Boolean); virtual;
 
   public
     function GetActualTitle: string;
@@ -62,13 +69,11 @@ type
     function CompareID(aID: string): integer;
     function MatchID(aID: string): boolean;
 
-    procedure LoadFromIni(aIniFile: TIniFile); override;
     procedure LoadFromStrLst(aTxtFile: TStrings); override;
-    procedure SaveToIni(aIniFile: TMemIniFile; const ExportMode: boolean);
-      override;
-    procedure SaveToStrLst(aTxtFile: TStrings; const ExportMode: boolean);
-      override;
+    procedure ExportToStrLst(aTxtFile: TStrings); virtual;
+    procedure SaveToStrLst(aTxtFile: TStrings); override;
 
+    function ExportCommaText: string;
     procedure ImportFrom(aGroup: caEmutecaCustomGroup);
 
     procedure SearchAllRelatedFiles(OutFileList: TStrings;
@@ -190,6 +195,22 @@ begin
   FYear := AValue;
 end;
 
+procedure caEmutecaCustomGroup.DoSaveToIni(aTxtFile: TStrings;
+  ExportMode: Boolean);
+begin
+  if not assigned(aTxtFile) then
+    Exit;
+
+  aTxtFile.Add(ID);
+  aTxtFile.Add(GetActualTitle);
+  aTxtFile.Add(GetActualSortTitle);
+  aTxtFile.Add(Year);
+  aTxtFile.Add(Developer);
+  aTxtFile.Add(MediaFileName);
+
+  Stats.WriteToStrLst(aTxtFile, ExportMode);
+end;
+
 procedure caEmutecaCustomGroup.ImportFrom(aGroup: caEmutecaCustomGroup);
 begin
   if not assigned(aGroup) then
@@ -229,21 +250,6 @@ begin
   Result := CompareID(aID) = 0;
 end;
 
-procedure caEmutecaCustomGroup.LoadFromIni(aIniFile: TIniFile);
-begin
-  if aIniFile = nil then
-    Exit;
-
-  Title := aIniFile.ReadString(ID, krsIniKeyTitle, GetActualTitle);
-  SortTitle := aIniFile.ReadString(ID, krsIniKeySortTitle, GetActualSortTitle);
-  Year := aIniFile.ReadString(ID, krsIniKeyYear, Year);
-  Developer := aIniFile.ReadString(ID, krsIniKeyDeveloper, Developer);
-  MediaFileName := aIniFile.ReadString(ID, krsIniKeyFileName,
-    MediaFileName);
-
-  Stats.LoadFromIni(aIniFile, ID);
-end;
-
 procedure caEmutecaCustomGroup.LoadFromStrLst(aTxtFile: TStrings);
 begin
   if not assigned(aTxtFile) then
@@ -263,35 +269,27 @@ begin
   // Next := aTxtFile[9]
 end;
 
-procedure caEmutecaCustomGroup.SaveToIni(aIniFile: TMemIniFile;
-  const ExportMode: boolean);
+procedure caEmutecaCustomGroup.ExportToStrLst(aTxtFile: TStrings);
 begin
-  if aIniFile = nil then
-    Exit;
-
-  aIniFile.WriteString(ID, krsIniKeyTitle, GetActualTitle);
-  aIniFile.WriteString(ID, krsIniKeySortTitle, GetActualSortTitle);
-  aIniFile.WriteString(ID, krsIniKeyYear, Year);
-  aIniFile.WriteString(ID, krsIniKeyDeveloper, Developer);
-  aIniFile.WriteString(ID, krsIniKeyFileName, MediaFileName);
-
-  Stats.WriteToIni(aIniFile, ID, ExportMode);
+  DoSaveToIni(aTxtFile, True);
 end;
 
-procedure caEmutecaCustomGroup.SaveToStrLst(aTxtFile: TStrings;
-  const ExportMode: boolean);
+procedure caEmutecaCustomGroup.SaveToStrLst(aTxtFile: TStrings);
 begin
-  if not assigned(aTxtFile) then
-    Exit;
+  DoSaveToIni(aTxtFile, False);
+end;
 
-  aTxtFile.Add(ID);
-  aTxtFile.Add(GetActualTitle);
-  aTxtFile.Add(GetActualSortTitle);
-  aTxtFile.Add(Year);
-  aTxtFile.Add(Developer);
-  aTxtFile.Add(MediaFileName);
-
-  Stats.WriteToStrLst(aTxtFile, ExportMode);
+function caEmutecaCustomGroup.ExportCommaText: string;
+var
+  aStringList: TStringList;
+begin
+  aStringList := TStringList.Create;
+  try
+    ExportToStrLst(aStringList);
+  finally
+    Result := aStringList.CommaText;
+    FreeAndNil(aStringList);
+  end;
 end;
 
 procedure caEmutecaCustomGroup.SearchAllRelatedFiles(OutFileList: TStrings;
