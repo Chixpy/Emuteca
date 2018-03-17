@@ -1,18 +1,14 @@
 inherited fmEmutecaGroupEditor: TfmEmutecaGroupEditor
   Height = 275
   Width = 253
-  HorzScrollBar.Page = 1
-  VertScrollBar.Page = 1
   AutoScroll = True
-  AutoSize = True
-  ChildSizing.HorizontalSpacing = 4
   ClientHeight = 275
   ClientWidth = 253
   inherited pButtons: TPanel
     Top = 249
     Width = 253
     ClientWidth = 253
-    TabOrder = 5
+    TabOrder = 4
     inherited chkCloseOnSave: TCheckBox
       Left = 15
     end
@@ -23,18 +19,7 @@ inherited fmEmutecaGroupEditor: TfmEmutecaGroupEditor
       Left = 156
     end
   end
-  object eDeveloper: TEdit[1]
-    Left = 0
-    Height = 23
-    Top = 54
-    Width = 253
-    Align = alTop
-    ParentShowHint = False
-    ShowHint = True
-    TabOrder = 2
-    TextHint = 'Developer'
-  end
-  object eTitle: TEdit[2]
+  object eTitle: TEdit[1]
     Left = 0
     Height = 23
     Top = 0
@@ -45,7 +30,7 @@ inherited fmEmutecaGroupEditor: TfmEmutecaGroupEditor
     TabOrder = 0
     TextHint = 'Title'
   end
-  object eYear: TEdit[3]
+  object eYear: TEdit[2]
     Left = 0
     Height = 23
     Top = 81
@@ -53,10 +38,10 @@ inherited fmEmutecaGroupEditor: TfmEmutecaGroupEditor
     Align = alTop
     ParentShowHint = False
     ShowHint = True
-    TabOrder = 3
+    TabOrder = 2
     TextHint = 'Year'
   end
-  object eSortTitle: TEdit[4]
+  object eSortTitle: TEdit[3]
     Left = 0
     Height = 23
     Top = 27
@@ -67,7 +52,7 @@ inherited fmEmutecaGroupEditor: TfmEmutecaGroupEditor
     TabOrder = 1
     TextHint = 'Sort title (Empty = Title)'
   end
-  object eMediaFile: TEdit[5]
+  object eMediaFile: TEdit[4]
     Left = 0
     Height = 23
     Top = 108
@@ -75,8 +60,23 @@ inherited fmEmutecaGroupEditor: TfmEmutecaGroupEditor
     Align = alTop
     ParentShowHint = False
     ShowHint = True
-    TabOrder = 4
+    TabOrder = 3
     TextHint = 'Media filename'
+  end
+  object eDeveloper: TComboBox[5]
+    Left = 0
+    Height = 23
+    Hint = 'Developer of the software'
+    Top = 54
+    Width = 253
+    Align = alTop
+    AutoComplete = True
+    AutoCompleteText = [cbactEnabled, cbactEndOfLineComplete, cbactSearchAscending]
+    ItemHeight = 15
+    ParentShowHint = False
+    ShowHint = True
+    Sorted = True
+    TabOrder = 5
   end
   inherited alPropEditor: TActionList[6]
   end

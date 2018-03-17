@@ -15,7 +15,7 @@ type
   { TfmEmutecaGroupEditor }
 
   TfmEmutecaGroupEditor = class(TfmCHXPropEditor, IFPObserver)
-    eDeveloper: TEdit;
+    eDeveloper: TComboBox;
     eMediaFile: TEdit;
     eSortTitle: TEdit;
     eTitle: TEdit;
@@ -68,7 +68,8 @@ procedure TfmEmutecaGroupEditor.DoClearFrameData;
 begin
   eTitle.Clear;
   eSortTitle.Clear;
-  eDeveloper.Clear;
+  //  eDeveloper.Clear; We don't want to clear item list
+  eDeveloper.Text := '';
   eYear.Clear;
   eMediaFile.Clear;
 end;
@@ -85,7 +86,12 @@ begin
 
   eTitle.Text := Group.Title;
   eSortTitle.Text := Group.GetActualSortTitle;
-  eDeveloper.Text := Group.Developer;
+
+  eDeveloper.ItemIndex := eDeveloper.Items.IndexOf(Group.Developer);
+  // Adding to ComboBox List
+  if (eDeveloper.ItemIndex = -1) and (Group.Developer <> '') then
+    eDeveloper.ItemIndex := eDeveloper.Items.Add(Group.Developer);
+
   eYear.Text := Group.Year;
   eMediaFile.Text := Group.MediaFileName;
 end;
@@ -98,6 +104,9 @@ begin
   Group.Title := eTitle.Text;
   Group.SortTitle := eSortTitle.Text;
   Group.Developer := eDeveloper.Text;
+  // Adding to ComboBox List
+  if (eDeveloper.ItemIndex = -1) and (Group.Developer <> '') then
+    eDeveloper.AddItem(Group.Developer, nil);
   Group.Year := eYear.Text;
   Group.MediaFileName := eMediaFile.Text;
 end;

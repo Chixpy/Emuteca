@@ -24,6 +24,7 @@
 {"hash":231333762,"name":"tfrmlemutkmain.actopensoftfolder.caption","sourcebytes":[79,112,101,110,32,115,111,102,116,119,97,114,101,32,102,111,108,100,101,114],"value":"Open software folder"},
 {"hash":28156094,"name":"tfrmlemutkmain.acteditsystem.caption","sourcebytes":[69,100,105,116,32,115,121,115,116,101,109,46,46,46],"value":"Edit system..."},
 {"hash":250004014,"name":"tfrmlemutkmain.acteditemulator.caption","sourcebytes":[69,100,105,116,32,101,109,117,108,97,116,111,114,46,46,46],"value":"Edit emulator..."},
+{"hash":105934030,"name":"tfrmlemutkmain.actopensystembasefolder.caption","sourcebytes":[79,112,101,110,32,115,121,115,116,101,109,32,98,97,115,101,32,102,111,108,100,101,114,46,46,46],"value":"Open system base folder..."},
 {"hash":315429,"name":"tfrmlemutkmain.mimmfile.caption","sourcebytes":[70,105,108,101],"value":"File"},
 {"hash":138926499,"name":"tfrmlemutkmain.mimmmanagers.caption","sourcebytes":[77,97,110,97,103,101,114,115],"value":"Managers"},
 {"hash":95464125,"name":"tfrmlemutkmain.mimmsystem.caption","sourcebytes":[83,121,115,116,101,109],"value":"System"},
@@ -31,5 +32,6 @@
 {"hash":5150400,"name":"tfrmlemutkmain.mimmgroup.caption","sourcebytes":[71,114,111,117,112],"value":"Group"},
 {"hash":98295077,"name":"tfrmlemutkmain.mimmsoft.caption","sourcebytes":[83,111,102,116,119,97,114,101],"value":"Software"},
 {"hash":75133198,"name":"tfrmlemutkmain.mimmaddfiles.caption","sourcebytes":[65,100,100,46,46,46],"value":"Add..."},
-{"hash":322608,"name":"tfrmlemutkmain.mimmhelp.caption","sourcebytes":[72,101,108,112],"value":"Help"}
+{"hash":322608,"name":"tfrmlemutkmain.mimmhelp.caption","sourcebytes":[72,101,108,112],"value":"Help"},
+{"hash":95464125,"name":"tfrmlemutkmain.mipmssystem.caption","sourcebytes":[83,121,115,116,101,109],"value":"System"}
 ]}

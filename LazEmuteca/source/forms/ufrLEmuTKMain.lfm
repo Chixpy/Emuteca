@@ -131,6 +131,11 @@ object frmLEmuTKMain: TfrmLEmuTKMain
       Caption = 'Edit emulator...'
       OnExecute = actEditEmulatorExecute
     end
+    object actOpenSystemBaseFolder: TAction
+      Category = 'System'
+      Caption = 'Open system base folder...'
+      OnExecute = actOpenSystemBaseFolderExecute
+    end
   end
   object MainMenu: TMainMenu
     Images = ActImages
@@ -175,8 +180,15 @@ object frmLEmuTKMain: TfrmLEmuTKMain
     end
     object mimmSystem: TMenuItem
       Caption = 'System'
+      Enabled = False
       object mimmEditSystem: TMenuItem
         Action = actEditSystem
+      end
+      object mimmOpenSystemBaseFolder: TMenuItem
+        Action = actOpenSystemBaseFolder
+      end
+      object MenuItem6: TMenuItem
+        Caption = '-'
       end
       object mimmUpdateSystemGroups: TMenuItem
         Action = actUpdateGroupList
@@ -190,18 +202,21 @@ object frmLEmuTKMain: TfrmLEmuTKMain
     end
     object mimmEmulator: TMenuItem
       Caption = 'Emulator'
+      Enabled = False
       object mimmEditEmulator: TMenuItem
         Action = actEditEmulator
       end
     end
     object mimmGroup: TMenuItem
       Caption = 'Group'
+      Enabled = False
       object mimmMergeGroupFiles: TMenuItem
         Action = actMergeGroupFiles
       end
     end
     object mimmSoft: TMenuItem
       Caption = 'Software'
+      Enabled = False
       object mimmRunSoftware: TMenuItem
         Action = actRunSoftware
       end
@@ -262,6 +277,12 @@ object frmLEmuTKMain: TfrmLEmuTKMain
     end
     object mipmSOpenSoftFolder: TMenuItem
       Action = actOpenSoftFolder
+    end
+    object mipmSSystem: TMenuItem
+      Caption = 'System'
+      object mipmSSOpenSysBaseFolder: TMenuItem
+        Action = actOpenSystemBaseFolder
+      end
     end
   end
   object pmGroup: TPopupMenu

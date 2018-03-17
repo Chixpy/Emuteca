@@ -69,6 +69,7 @@ type
     actCleanSystemData: TAction;
     actEditSystem: TAction;
     actEditEmulator: TAction;
+    actOpenSystemBaseFolder: TAction;
     actOpenSoftFolder: TAction;
     actRunSoftware: TAction;
     actMergeGroupFiles: TAction;
@@ -86,6 +87,10 @@ type
     MainMenu: TMainMenu;
     MenuItem1: TMenuItem;
     MenuItem5: TMenuItem;
+    MenuItem6: TMenuItem;
+    mipmSSOpenSysBaseFolder: TMenuItem;
+    mipmSSystem: TMenuItem;
+    mimmOpenSystemBaseFolder: TMenuItem;
     mimmEditEmulator: TMenuItem;
     mimmEmulator: TMenuItem;
     mimmEditSystem: TMenuItem;
@@ -136,6 +141,7 @@ type
     procedure actMediaManagerExecute(Sender: TObject);
     procedure actMergeGroupFilesExecute(Sender: TObject);
     procedure actOpenSoftFolderExecute(Sender: TObject);
+    procedure actOpenSystemBaseFolderExecute(Sender: TObject);
     procedure actOpenTempFolderExecute(Sender: TObject);
     procedure actRunSoftwareExecute(Sender: TObject);
     procedure actSaveListsExecute(Sender: TObject);
@@ -432,6 +438,11 @@ begin
   CurrentSoft := nil;
   CurrentGroup := nil;
   CurrentSystem := aSystem;
+
+  mimmSystem.Enabled := Assigned(aSystem);
+
+  // TODO: This must be enabled if system's current emulator is set
+  mimmEmulator.Enabled := mimmSystem.Enabled;
 end;
 
 function TfrmLEmuTKMain.DoChangeGrpList(aGroupList:
@@ -444,6 +455,9 @@ end;
 function TfrmLEmuTKMain.DoChangeGroup(aGroup: cEmutecaGroup): boolean;
 begin
   Result := True;
+
+  mimmGroup.Enabled := Assigned(aGroup);
+
   if Assigned(aGroup) then
     Result := DoChangeSystem(cEmutecaSystem(aGroup.CachedSystem));
   CurrentGroup := aGroup;
@@ -452,6 +466,9 @@ end;
 function TfrmLEmuTKMain.DoChangeSoft(aSoft: cEmutecaSoftware): boolean;
 begin
   Result := True;
+
+  mimmSoft.Enabled := Assigned(aSoft);
+
   if Assigned(aSoft) then
     Result := DoChangeGroup(cEmutecaGroup(aSoft.CachedGroup));
   CurrentSoft := aSoft;
@@ -746,9 +763,18 @@ begin
     OpenDocument(CurrentSoft.Folder);
 end;
 
+procedure TfrmLEmuTKMain.actOpenSystemBaseFolderExecute(Sender: TObject);
+begin
+  if not assigned(CurrentSystem) then Exit;
+
+  if not OpenDocument(CurrentSystem.BaseFolder) then
+    raise EFileNotFoundException.CreateFmt(rsFmtNotFound, [GetCurrentDirUTF8, CurrentSystem.BaseFolder]);
+end;
+
 procedure TfrmLEmuTKMain.actOpenTempFolderExecute(Sender: TObject);
 begin
-  OpenDocument(Emuteca.TempFolder);
+  if not OpenDocument(Emuteca.TempFolder) then
+    raise EFileNotFoundException.CreateFmt(rsFmtNotFound, [GetCurrentDirUTF8, Emuteca.TempFolder]);
 end;
 
 procedure TfrmLEmuTKMain.actRunSoftwareExecute(Sender: TObject);
