@@ -143,8 +143,35 @@ object frmLEmuTKMain: TfrmLEmuTKMain
     top = 16
     object mimmFile: TMenuItem
       Caption = 'File'
-      object mimmOpenTempFolder: TMenuItem
-        Action = actOpenTempFolder
+      object mimmAddFiles: TMenuItem
+        Caption = 'Add files...'
+        object mimmAddSoftFolder: TMenuItem
+          Action = actAddFolder
+        end
+        object mimmAddSoft: TMenuItem
+          Action = actAddSoft
+        end
+      end
+      object MenuItem4: TMenuItem
+        Caption = '-'
+      end
+      object mimmImportExport: TMenuItem
+        Caption = 'Import/Export data'
+        object mimmImport: TMenuItem
+          Action = actImportSoftData
+        end
+        object mimmExport: TMenuItem
+          Action = actExportSoftData
+        end
+      end
+      object MenuItem2: TMenuItem
+        Caption = '-'
+      end
+      object mimmDebug: TMenuItem
+        Caption = 'Debug'
+        object mimmOpenTempFolder: TMenuItem
+          Action = actOpenTempFolder
+        end
       end
       object MenuItem13: TMenuItem
         Caption = '-'
@@ -225,27 +252,6 @@ object frmLEmuTKMain: TfrmLEmuTKMain
       end
       object mummOpenSoftFolder: TMenuItem
         Action = actOpenSoftFolder
-      end
-      object MenuItem4: TMenuItem
-        Caption = '-'
-      end
-      object mimmAddFiles: TMenuItem
-        Caption = 'Add...'
-        object mimmScanFolder: TMenuItem
-          Action = actAddFolder
-        end
-        object mimmAddSoft: TMenuItem
-          Action = actAddSoft
-        end
-      end
-      object MenuItem2: TMenuItem
-        Caption = '-'
-      end
-      object mimmExportSoftData: TMenuItem
-        Action = actExportSoftData
-      end
-      object mimmImportSoftData: TMenuItem
-        Action = actImportSoftData
       end
     end
     object mimmHelp: TMenuItem
