@@ -24,7 +24,7 @@ type
     eHack: TEdit;
     eModified: TEdit;
     ePirate: TEdit;
-    ePublisher: TEdit;
+    ePublisher: TComboBox;
     eSortKey: TEdit;
     eTitle: TEdit;
     eTrainer: TEdit;
@@ -122,10 +122,11 @@ begin
 
   eVersion.Clear;
   eYear.Clear;
-  ePublisher.Clear;
+  // ePublisher.Clear; We don't want to clear item list.
+  ePublisher.ItemIndex := -1;
   eZone.Clear;
 
-  // We want keep DumpType list, so don't cbxDumpType.Clear;
+  // cbxDumpType.Clear; We want keep DumpType list.
   cbxDumpType.ItemIndex := -1;
   cbxDumpType.Text := '';
   eDumpInfo.Clear;
@@ -155,7 +156,12 @@ begin
 
   eVersion.Text := Software.Version;
   eYear.Text := Software.Year;
-  ePublisher.Text := Software.Publisher;
+
+  ePublisher.ItemIndex := ePublisher.Items.IndexOf(Software.Publisher);
+  // Adding to ComboBox List
+  if (ePublisher.ItemIndex = -1) and (Software.Publisher <> '') then
+    ePublisher.ItemIndex := ePublisher.Items.Add(Software.Publisher);
+
   eZone.Text := Software.Zone;
 
   case Software.DumpStatus of
@@ -199,7 +205,12 @@ begin
 
   Software.Version := eVersion.Text;
   Software.Year := eYear.Text;
+
   Software.Publisher := ePublisher.Text;
+  // Adding to ComboBox List
+  if (ePublisher.ItemIndex = -1) and (Software.Publisher <> '') then
+    ePublisher.AddItem(Software.Publisher, nil);
+
   Software.Zone := eZone.Text;
 
   case cbxDumpType.ItemIndex of

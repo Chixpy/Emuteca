@@ -68,8 +68,8 @@ procedure TfmEmutecaGroupEditor.DoClearFrameData;
 begin
   eTitle.Clear;
   eSortTitle.Clear;
-  //  eDeveloper.Clear; We don't want to clear item list
-  eDeveloper.Text := '';
+  // eDeveloper.Clear; We don't want to clear item list.
+  eDeveloper.ItemIndex := -1;
   eYear.Clear;
   eMediaFile.Clear;
 end;
@@ -103,10 +103,12 @@ begin
 
   Group.Title := eTitle.Text;
   Group.SortTitle := eSortTitle.Text;
+
   Group.Developer := eDeveloper.Text;
   // Adding to ComboBox List
   if (eDeveloper.ItemIndex = -1) and (Group.Developer <> '') then
     eDeveloper.AddItem(Group.Developer, nil);
+
   Group.Year := eYear.Text;
   Group.MediaFileName := eMediaFile.Text;
 end;
