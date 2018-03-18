@@ -65,7 +65,7 @@ type
     property EmuManager: cEmutecaEmulatorManager
       read FEmuManager write SetEmuManager;
     constructor Create(TheOwner: TComponent); override;
-destructor Destroy; override;
+    destructor Destroy; override;
   end;
 
 implementation
@@ -81,7 +81,13 @@ end;
 
 procedure TfmEmutecaSystemEditor.eWorkingFolderButtonClick(Sender: TObject);
 begin
-  SetDirEditInitialDir(eWorkingFolder, ProgramDirectory);
+
+  if eBaseFolder.Text = '' then
+    SetDirEditInitialDir(eWorkingFolder, ProgramDirectory)
+  else
+    // Using eBaseFolder.Text instead of System.BaseFolder, because
+    //   it can be used without saving before;
+    SetDirEditInitialDir(eWorkingFolder, eBaseFolder.Text);
 end;
 
 procedure TfmEmutecaSystemEditor.SetEmuManager(AValue:

@@ -45,6 +45,7 @@ type
 // Functions for sorting lists
 function EmutecaCompareSoftByID(const aSoft1, aSoft2: cEmutecaSoftware): integer;
 function EmutecaCompareSoftByGroupKey(const aSoft1, aSoft2: cEmutecaSoftware): integer;
+function EmutecaCompareSoftByFileName(const aSoft1, aSoft2: cEmutecaSoftware): integer;
 
 
 implementation
@@ -59,6 +60,12 @@ function EmutecaCompareSoftByGroupKey(const aSoft1, aSoft2: cEmutecaSoftware
   ): integer;
 begin
   Result := aSoft1.CompareGroupKey(aSoft2.GroupKey);
+end;
+
+function EmutecaCompareSoftByFileName(const aSoft1, aSoft2: cEmutecaSoftware
+  ): integer;
+begin
+  Result := aSoft1.CompareFile(aSoft2.Folder, aSoft2.FileName);
 end;
 
 { cEmutecaSoftList }

@@ -105,11 +105,12 @@ type
 
     function SHA1IsEmpty: boolean;
     function MatchSHA1(aSHA1: TSHA1Digest): boolean;
-    function MatchFile(aFolder, aFile: string): boolean;
-    function MatchID(aID: string): boolean;
-    function CompareID(aID: string): integer;
-    function MatchGroupKey(aGroupID: string): boolean;
-    function CompareGroupKey(aGroupID: string): integer;
+    function CompareFile(const aFolder, aFile: string): integer;
+    function MatchFile(const aFolder, aFile: string): boolean;
+    function MatchID(const aID: string): boolean;
+    function CompareID(const aID: string): integer;
+    function MatchGroupKey(const aGroupID: string): boolean;
+    function CompareGroupKey(const aGroupID: string): integer;
     function MatchGroupFile: boolean; virtual;
 
     procedure LoadFromStrLst(aTxtFile: TStrings); override;
@@ -505,28 +506,34 @@ begin
   Result := SHA1Match(SHA1, aSHA1);
 end;
 
-function caEmutecaCustomSoft.MatchFile(aFolder, aFile: string): boolean;
+function caEmutecaCustomSoft.CompareFile(const aFolder, aFile: string): integer;
 begin
-  Result := (CompareFilenames(FileName, SetAsFile(aFile)) = 0) and
-    (CompareFilenames(Folder, SetAsFolder(aFolder)) = 0);
+  Result := CompareFilenames(Folder, SetAsFolder(aFolder));
+  if Result = 0 then
+    Result := CompareFilenames(FileName, SetAsFile(aFile));
 end;
 
-function caEmutecaCustomSoft.MatchID(aID: string): boolean;
+function caEmutecaCustomSoft.MatchFile(const aFolder, aFile: string): boolean;
+begin
+  Result := CompareFile(Folder, aFile) = 0;
+end;
+
+function caEmutecaCustomSoft.MatchID(const aID: string): boolean;
 begin
   Result := CompareID(aID) = 0;
 end;
 
-function caEmutecaCustomSoft.CompareID(aID: string): integer;
+function caEmutecaCustomSoft.CompareID(const aID: string): integer;
 begin
   Result := UTF8CompareText(Self.ID, aID);
 end;
 
-function caEmutecaCustomSoft.MatchGroupKey(aGroupID: string): boolean;
+function caEmutecaCustomSoft.MatchGroupKey(const aGroupID: string): boolean;
 begin
   Result := CompareGroupKey(aGroupID) = 0;
 end;
 
-function caEmutecaCustomSoft.CompareGroupKey(aGroupID: string): integer;
+function caEmutecaCustomSoft.CompareGroupKey(const aGroupID: string): integer;
 begin
   Result := UTF8CompareText(Self.GroupKey, aGroupID);
 end;

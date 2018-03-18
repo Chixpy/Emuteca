@@ -134,8 +134,7 @@ function cEmutecaSoftware.MatchGroupFile: boolean;
 begin
   if Assigned(CachedGroup) then
   begin
-    Result := CompareFilenames(CachedGroup.MediaFileName,
-      RemoveFromBrackets(ExtractFileNameOnly(FileName))) = 0;
+    Result := CompareFilenames(CachedGroup.MediaFileName, GetMediaFileName) = 0;
   end
   else
     inherited MatchGroupFile;
@@ -172,6 +171,8 @@ begin
     case Operation of
       ooFree: CachedSystem := nil;
       else
+        // There isn't SystemKey
+        // SystemKey := caEmutecaCustomSystem(ASender).ID;
         ;
     end;
   end

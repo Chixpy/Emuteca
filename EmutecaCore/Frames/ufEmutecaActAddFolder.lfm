@@ -4,7 +4,7 @@ inherited fmEmutecaActAddFolder: TfmEmutecaActAddFolder
   DesignLeft = 591
   DesignTop = 146
   inherited pButtons: TPanel
-    Top = 388
+    Top = 389
     TabOrder = 5
   end
   object gbxSelectSystem: TGroupBox[1]
@@ -20,7 +20,7 @@ inherited fmEmutecaActAddFolder: TfmEmutecaActAddFolder
   object gbxFolder: TGroupBox[2]
     Left = 0
     Height = 81
-    Top = 19
+    Top = 23
     Width = 320
     Align = alTop
     AutoSize = True
@@ -67,7 +67,7 @@ inherited fmEmutecaActAddFolder: TfmEmutecaActAddFolder
   object rgbGroup: TRadioGroup[3]
     Left = 0
     Height = 58
-    Top = 100
+    Top = 108
     Width = 320
     Align = alTop
     AutoFill = True
@@ -92,7 +92,7 @@ inherited fmEmutecaActAddFolder: TfmEmutecaActAddFolder
   object rgbFilename: TRadioGroup[4]
     Left = 0
     Height = 58
-    Top = 158
+    Top = 170
     Width = 320
     Align = alTop
     AutoFill = True
@@ -116,12 +116,12 @@ inherited fmEmutecaActAddFolder: TfmEmutecaActAddFolder
   end
   object gbxSysInfo: TGroupBox[5]
     Left = 0
-    Height = 172
-    Top = 216
+    Height = 153
+    Top = 232
     Width = 320
     Align = alClient
     Caption = 'System Info'
-    ClientHeight = 152
+    ClientHeight = 133
     ClientWidth = 316
     TabOrder = 4
     object lSystemExtensions: TLabel

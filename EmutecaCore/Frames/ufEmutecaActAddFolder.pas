@@ -203,7 +203,7 @@ procedure TfmEmutecaActAddFolder.DoSaveFrameData;
 
 var
   aSystem: cEmutecaSystem;
-  FileList, ComprFileList: TStrings;
+  FileList, ComprFileList: TStringList;
   aFile, aFolder: string;
   i, j: integer;
   CacheSoftList: cEmutecaSoftList;
@@ -220,25 +220,27 @@ begin
 
   Self.Enabled := False;
 
-      // Loading data if not already loaded
-    if not aSystem.SoftGroupLoaded then
-      Emuteca.SystemManager.LoadSystemData(aSystem);
+  // Loading data if not already loaded
+  if not aSystem.SoftGroupLoaded then
+    Emuteca.SystemManager.LoadSystemData(aSystem);
 
   // Copy soft
   CacheSoftList := cEmutecaSoftList.Create(False);
   CacheSoftList.Assign(aSystem.SoftManager.FullList);
+  CacheSoftList.Sort(@EmutecaCompareSoftByFileName);
 
   FileList := TStringList.Create;
   ComprFileList := TStringList.Create;
   try
     Continue := True;
     if assigned(Emuteca.ProgressCallBack) then
-      Continue := Emuteca.ProgressCallBack('Adding files', Format('This can take a while. Searching for: %0:s',
+      Continue := Emuteca.ProgressCallBack('Making list of all files', Format('This can take a while. Searching for: %0:s',
         [aSystem.Extensions.CommaText]), 1, 100, True);
 
     // 1.- Straight search of all files
     FileList.BeginUpdate;
-    FindAllFiles(FileList, eFolder.Text, '', True);
+    FindAllFiles(FileList, eFolder.Text, FileMaskFromStringList(aSystem.Extensions), chkSubfolders.Checked);
+    FileList.Sorted := True;
     FileList.EndUpdate;
 
     i := 0;
