@@ -123,11 +123,10 @@ begin
   eVersion.Clear;
   eYear.Clear;
   // ePublisher.Clear; We don't want to clear item list.
-  ePublisher.ItemIndex := -1;
+  ePublisher.Text := '';
   eZone.Clear;
 
   // cbxDumpType.Clear; We want keep DumpType list.
-  cbxDumpType.ItemIndex := -1;
   cbxDumpType.Text := '';
   eDumpInfo.Clear;
 
@@ -157,7 +156,7 @@ begin
   eVersion.Text := Software.Version;
   eYear.Text := Software.Year;
 
-  ePublisher.ItemIndex := ePublisher.Items.IndexOf(Software.Publisher);
+  ePublisher.Text := Software.Publisher;
   // Adding to ComboBox List
   if (ePublisher.ItemIndex = -1) and (Software.Publisher <> '') then
     ePublisher.ItemIndex := ePublisher.Items.Add(Software.Publisher);
@@ -208,7 +207,8 @@ begin
 
   Software.Publisher := ePublisher.Text;
   // Adding to ComboBox List
-  if (ePublisher.ItemIndex = -1) and (Software.Publisher <> '') then
+  if (Software.Publisher <> '') and
+    (ePublisher.Items.IndexOf(Software.Publisher) = -1) then
     ePublisher.AddItem(Software.Publisher, nil);
 
   Software.Zone := eZone.Text;

@@ -69,7 +69,7 @@ begin
   eTitle.Clear;
   eSortTitle.Clear;
   // eDeveloper.Clear; We don't want to clear item list.
-  eDeveloper.ItemIndex := -1;
+  eDeveloper.Text := '';
   eYear.Clear;
   eMediaFile.Clear;
 end;
@@ -87,7 +87,7 @@ begin
   eTitle.Text := Group.Title;
   eSortTitle.Text := Group.GetActualSortTitle;
 
-  eDeveloper.ItemIndex := eDeveloper.Items.IndexOf(Group.Developer);
+  eDeveloper.Text := Group.Developer;
   // Adding to ComboBox List
   if (eDeveloper.ItemIndex = -1) and (Group.Developer <> '') then
     eDeveloper.ItemIndex := eDeveloper.Items.Add(Group.Developer);
@@ -106,7 +106,8 @@ begin
 
   Group.Developer := eDeveloper.Text;
   // Adding to ComboBox List
-  if (eDeveloper.ItemIndex = -1) and (Group.Developer <> '') then
+  if (Group.Developer <> '') and
+    (eDeveloper.Items.IndexOf(Group.Developer) = -1) then
     eDeveloper.AddItem(Group.Developer, nil);
 
   Group.Year := eYear.Text;

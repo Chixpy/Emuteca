@@ -266,8 +266,8 @@ var
   pData: ^TObject;
 begin
   pData := Sender.GetNodeData(Node);
-  if pData^ = nil then
-    Exit;
+  if not Assigned(pData) then Exit;
+  if not Assigned(pData^) then Exit;
 
   if pData^ is cEmutecaGroup then
   begin
@@ -284,7 +284,7 @@ procedure TfmEmutecaSoftTree.VDTInitChildren(Sender: TBaseVirtualTree;
 var
   pGroup: ^cEmutecaGroup;
 begin
-  if Node = nil then
+  if not Assigned(Node) then
     Exit;
   pGroup := Sender.GetNodeData(Node);
   ChildCount := pGroup^.SoftList.Count;
@@ -296,7 +296,7 @@ var
   pGroup: ^cEmutecaGroup;
   pSoft: ^cEmutecaSoftware;
 begin
-  if ParentNode = nil then
+  if not Assigned(ParentNode) then
   begin
     pGroup := Sender.GetNodeData(Node);
     pGroup^ := GroupList[Node^.Index];
@@ -540,7 +540,9 @@ var
   pData: ^TObject;
 begin
   pData := Sender.GetNodeData(Node);
-  if pData^ = nil then
+  if not assigned(pData) then
+    Exit;
+  if not assigned(pData^) then
     Exit;
 
   if pData^ is cEmutecaGroup then
@@ -560,8 +562,8 @@ var
   pData: ^TObject;
 begin
   pData := Sender.GetNodeData(Node);
-  if pData^ = nil then
-    Exit;
+  if not Assigned(pData) then Exit;
+  if not Assigned(pData^) then Exit;
 
   AskParent := False;
 
@@ -573,7 +575,7 @@ begin
   else if pData^ is cEmutecaSoftware then
   begin
     if Assigned(pmSoft) then
-    aPopupMenu := pmSoft;
+      aPopupMenu := pmSoft;
   end
   else
     AskParent := True; // Ask Parent Popup
@@ -632,20 +634,23 @@ end;
 
 procedure TfmEmutecaSoftTree.SetpmGroup(AValue: TPopupMenu);
 begin
-  if FpmGroup=AValue then Exit;
-  FpmGroup:=AValue;
+  if FpmGroup = AValue then
+    Exit;
+  FpmGroup := AValue;
 end;
 
 procedure TfmEmutecaSoftTree.SetpmSoft(AValue: TPopupMenu);
 begin
-  if FpmSoft=AValue then Exit;
-  FpmSoft:=AValue;
+  if FpmSoft = AValue then
+    Exit;
+  FpmSoft := AValue;
 end;
 
 procedure TfmEmutecaSoftTree.SetTitleFilter(AValue: string);
 begin
-  if FTitleFilter=AValue then Exit;
-  FTitleFilter:=AValue;
+  if FTitleFilter = AValue then
+    Exit;
+  FTitleFilter := AValue;
 
   FilterNodes;
   UpdateSBNodeCount;
@@ -681,7 +686,8 @@ begin
     // Columns position
     VDT.Header.Columns.Items[i].Position :=
       aIniFile.ReadInteger(krsIniSoftTreeSection,
-      Format(krsIniSoftTreePositionFmt, [i]), VDT.Header.Columns.Items[i].Position);
+      Format(krsIniSoftTreePositionFmt, [i]),
+      VDT.Header.Columns.Items[i].Position);
     Inc(i);
   end;
 end;

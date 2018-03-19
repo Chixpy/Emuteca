@@ -262,8 +262,8 @@ var
   pData: ^TObject;
 begin
   pData := Sender.GetNodeData(Node);
-  if pData^ = nil then
-    Exit;
+  if not Assigned(pData) then Exit;
+  if not Assigned(pData^) then Exit;
 
   if pData^ is cEmutecaGroup then
   begin

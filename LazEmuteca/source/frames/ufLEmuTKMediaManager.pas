@@ -651,7 +651,7 @@ var
   aVST: TCustomVirtualStringTree;
 begin
   aVST := GetCurrentFilesVST;
-  if aVST = nil then
+  if not Assigned(aVST) then
     Exit;
 
   aTargetFile := Trim(ExtractFileNameOnly(TargetFile));
@@ -730,7 +730,7 @@ procedure TfmLEmuTKMediaManager.RemoveFileVSTFiles(aFile: string);
 
     // From LastChild
     Nodo := aVST.GetLastChild(nil);
-    while (Nodo <> nil) do
+    while Assigned(Nodo) do
     begin
       pFileName := aVST.GetNodeData(Nodo);
       if CompareFilenames(pFileName^.FileName + pFileName^.Extension,
@@ -771,7 +771,7 @@ begin
   // vstGroupsWOFile
   vstGroupsWOFile.BeginUpdate;
   Nodo := vstGroupsWOFile.GetFirstChild(nil);
-  while (Nodo <> nil) do
+  while Assigned(Nodo) do
   begin
     PGroup := vstGroupsWOFile.GetNodeData(Nodo);
     if CompareFilenames(PGroup^.MediaFileName, aFile) = 0 then
@@ -788,7 +788,7 @@ begin
   // vstSoftWOFile
   vstSoftWOFile.BeginUpdate;
   Nodo := vstSoftWOFile.GetFirstChild(nil);
-  while (Nodo <> nil) do
+  while Assigned(Nodo) do
   begin
     pSoft := vstSoftWOFile.GetNodeData(Nodo);
     if CompareFilenames(pSoft^.GetMediaFileName, aFile) = 0 then
@@ -1029,7 +1029,7 @@ begin
     Exit;
 
   aNode := aVSTFiles.GetFirstChild(nil);
-  while aNode <> nil do
+  while Assigned(aNode) do
   begin
     if aVSTFiles.IsVisible[aNode] then
     begin
@@ -1146,7 +1146,7 @@ begin
     Exit;
 
   aNode := aVSTFiles.GetFirstChild(nil);
-  while aNode <> nil do
+  while Assigned(aNode) do
   begin
     if aVSTFiles.IsVisible[aNode] then
     begin
@@ -1647,8 +1647,7 @@ var
   pFile: PFileRow;
 begin
   pFile := Sender.GetNodeData(Node);
-  if pFile = nil then
-    Exit;
+  if not Assigned(pFile) then Exit;
 
   case TextType of
     ttNormal: case Column of
@@ -1746,8 +1745,9 @@ var
   pSoft: ^cEmutecaSoftware;
 begin
   pSoft := Sender.GetNodeData(Node);
-  if pSoft^ = nil then
-    Exit;
+  if not Assigned(pSoft) then Exit;
+  if not Assigned(pSoft^) then Exit;
+
   case TextType of
     ttNormal: case Column of
         0: CellText := pSoft^.Title;
@@ -1768,8 +1768,9 @@ var
   pGroup: ^cEmutecaGroup;
 begin
   pGroup := Sender.GetNodeData(Node);
-  if pGroup^ = nil then
-    Exit;
+  if not Assigned(pGroup) then Exit;
+  if not Assigned(pGroup^) then Exit;
+
   case TextType of
     ttNormal: case Column of
         0: CellText := pGroup^.Title;

@@ -547,7 +547,7 @@ begin
   aFileName := RemoveFromBrackets(ExtractFileNameOnly(aFileName));
 
   if (aFileName = '') or (aFolder = '') or
-    (not DirectoryExistsUTF8(aFolder)) or (Extensions = nil) or
+    (not DirectoryExistsUTF8(aFolder)) or (not assigned(Extensions)) or
     (Extensions.Count = 0) then
     Exit;
 

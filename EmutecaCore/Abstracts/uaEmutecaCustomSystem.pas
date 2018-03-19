@@ -236,7 +236,7 @@ implementation
 
 procedure caEmutecaCustomSystem.LoadFromIni(aIniFile: TMemIniFile);
 begin
-  if aIniFile = nil then
+  if not Assigned(aIniFile) then
     Exit;
 
   // Basic data
@@ -491,7 +491,7 @@ procedure caEmutecaCustomSystem.DoSaveToIni(aIniFile: TIniFile;
 var
   i: integer;
 begin
-  if aIniFile = nil then
+  if not Assigned(aIniFile) then
     Exit;
 
   // Basic data

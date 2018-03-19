@@ -204,6 +204,7 @@ procedure TfmEmutecaActAddFolder.DoSaveFrameData;
 var
   aSystem: cEmutecaSystem;
   FileList, ComprFileList: TStringList;
+  aFileMask: string;
   aFile, aFolder: string;
   i, j: integer;
   CacheSoftList: cEmutecaSoftList;
@@ -214,6 +215,7 @@ begin
 
   if not DirectoryExistsUTF8(eFolder.Text) then
     Exit;
+
   aSystem := fmSystemCBX.SelectedSystem;
   if not assigned(aSystem) then
     Exit;
@@ -232,24 +234,28 @@ begin
   FileList := TStringList.Create;
   ComprFileList := TStringList.Create;
   try
-    Continue := True;
     if assigned(Emuteca.ProgressCallBack) then
       Continue := Emuteca.ProgressCallBack('Making list of all files', Format('This can take a while. Searching for: %0:s',
         [aSystem.Extensions.CommaText]), 1, 100, True);
 
     // 1.- Straight search of all files
+    aFileMask := FileMaskFromStringList(aSystem.Extensions);
+    if chkNoZip.Checked then
+      aFileMask := aFileMask + ';' + FileMaskFromStringList(Emuteca.Config.CompressedExtensions);
+
     FileList.BeginUpdate;
-    FindAllFiles(FileList, eFolder.Text, FileMaskFromStringList(aSystem.Extensions), chkSubfolders.Checked);
+    FileList.Sorted := False;
+    FindAllFiles(FileList, eFolder.Text, aFileMask, chkSubfolders.Checked);
     FileList.Sorted := True;
     FileList.EndUpdate;
 
     i := 0;
+    Continue := True;
     while Continue and (i < FileList.Count) do
     begin
       aFolder := SetAsFolder(ExtractFilePath(FileList[i]));
       aFile := SetAsFile(ExtractFileName(FileList[i]));
 
-      // Maybe must go after extension check...
       if assigned(Emuteca.ProgressCallBack) then
         Continue := Emuteca.ProgressCallBack('Adding files', FileList[i],
           i, FileList.Count, True);
@@ -264,7 +270,9 @@ begin
 
         ComprFileList.BeginUpdate;
         ComprFileList.Clear;
+        ComprFileList.Sorted := False;
         w7zListFiles(aFolder + aFile, ComprFileList, True, '');
+        ComprFileList.Sorted := True;
         ComprFileList.EndUpdate;
         j := 0;
         while j < ComprFileList.Count do
@@ -280,10 +288,10 @@ begin
 
   finally
 
+    Emuteca.CacheData;
+
     if assigned(Emuteca.ProgressCallBack) then
       Emuteca.ProgressCallBack('', '',  0, 0, False);
-
-    Emuteca.CacheData;
 
     ComprFileList.Free;
     FileList.Free;
