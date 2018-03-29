@@ -4,6 +4,8 @@ inherited fmEmutecaGroupEditor: TfmEmutecaGroupEditor
   AutoScroll = True
   ClientHeight = 275
   ClientWidth = 253
+  DesignLeft = 671
+  DesignTop = 252
   inherited pButtons: TPanel
     Top = 249
     Width = 253
@@ -22,6 +24,7 @@ inherited fmEmutecaGroupEditor: TfmEmutecaGroupEditor
   object eTitle: TEdit[1]
     Left = 0
     Height = 23
+    Hint = 'Title of the group.'
     Top = 0
     Width = 253
     Align = alTop
@@ -33,17 +36,19 @@ inherited fmEmutecaGroupEditor: TfmEmutecaGroupEditor
   object eYear: TEdit[2]
     Left = 0
     Height = 23
+    Hint = 'Date of development.'
     Top = 81
     Width = 253
     Align = alTop
     ParentShowHint = False
     ShowHint = True
     TabOrder = 2
-    TextHint = 'Year'
+    TextHint = 'Date YYYY/MM/DD'
   end
   object eSortTitle: TEdit[3]
     Left = 0
     Height = 23
+    Hint = 'Title used for sorting.'
     Top = 27
     Width = 253
     Align = alTop
@@ -55,6 +60,7 @@ inherited fmEmutecaGroupEditor: TfmEmutecaGroupEditor
   object eMediaFile: TEdit[4]
     Left = 0
     Height = 23
+    Hint = 'Filename for searching media.'
     Top = 108
     Width = 253
     Align = alTop
@@ -66,7 +72,7 @@ inherited fmEmutecaGroupEditor: TfmEmutecaGroupEditor
   object eDeveloper: TComboBox[5]
     Left = 0
     Height = 23
-    Hint = 'Developer of the software'
+    Hint = 'Developer of the software.'
     Top = 54
     Width = 253
     Align = alTop

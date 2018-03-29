@@ -240,7 +240,7 @@ begin
 
     // 1.- Straight search of all files
     aFileMask := FileMaskFromStringList(aSystem.Extensions);
-    if chkNoZip.Checked then
+    if not chkNoZip.Checked then
       aFileMask := aFileMask + ';' + FileMaskFromStringList(Emuteca.Config.CompressedExtensions);
 
     FileList.BeginUpdate;

@@ -333,7 +333,13 @@ begin
   // Tools
   z7CMExecutable := 'Tools/7zip/7z.exe';
   z7GExecutable := 'Tools/7zip/7zG.exe';
-  CompressedExtensions.CommaText := w7zGetFileExts;
+  // CompressedExtensions.CommaText := w7zGetFileExts;
+  // Removed ext: cab,chm,dll,iso,img,jar,msi,swf,ntfs,ppt,doc,,xls,xpi,vhd,
+  //   deb,rpm,cpio,cramfs,dmg,fat,flv,mbr,nsis,sys,bpl,hfs,hxi,hxq,hxr,hxs,
+  //   chi,chq,chw,hxw,msp,scap,squashfs,swm,wim,exe,
+  CompressedExtensions.CommaText :='001,7z,arj,bz2,bzip2,cba,cb7,cbr,cbz,' +
+    'gz,gzip,-ha,lit,lzh,lzma,lzma86,r00,rar,tar,taz,tbz,tbz2,tgz,tpz,txz,' +
+    'xar,xz,z,zip';
 
   // Temp
   TempSubfolder := 'tEMpUTECA/';
