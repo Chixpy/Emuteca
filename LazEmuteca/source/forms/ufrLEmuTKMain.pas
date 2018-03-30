@@ -69,6 +69,8 @@ type
     actCleanSystemData: TAction;
     actEditSystem: TAction;
     actEditEmulator: TAction;
+    actOpenEmulatorFolder: TAction;
+    actOpenEmutecaFolder: TAction;
     actOpenSystemBaseFolder: TAction;
     actOpenSoftFolder: TAction;
     actRunSoftware: TAction;
@@ -88,6 +90,8 @@ type
     MenuItem1: TMenuItem;
     MenuItem2: TMenuItem;
     MenuItem4: TMenuItem;
+    mimmOpenEmulatorFolder: TMenuItem;
+    mimmOpenEmutecaFolder: TMenuItem;
     mimmExport: TMenuItem;
     mimmImport: TMenuItem;
     mimmImportExport: TMenuItem;
@@ -142,6 +146,7 @@ type
     procedure actImportSoftDataExecute(Sender: TObject);
     procedure actMediaManagerExecute(Sender: TObject);
     procedure actMergeGroupFilesExecute(Sender: TObject);
+    procedure actOpenEmutecaFolderExecute(Sender: TObject);
     procedure actOpenSoftFolderExecute(Sender: TObject);
     procedure actOpenSystemBaseFolderExecute(Sender: TObject);
     procedure actOpenTempFolderExecute(Sender: TObject);
@@ -757,6 +762,11 @@ end;
 procedure TfrmLEmuTKMain.actMergeGroupFilesExecute(Sender: TObject);
 begin
   TfmLEmuTKactMergeGroup.SimpleForm(CurrentGroup, GUIIconsFile, GUIConfig.DefaultFileName);
+end;
+
+procedure TfrmLEmuTKMain.actOpenEmutecaFolderExecute(Sender: TObject);
+begin
+   OpenDocument(ProgramDirectory);
 end;
 
 procedure TfrmLEmuTKMain.actOpenSoftFolderExecute(Sender: TObject);

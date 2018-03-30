@@ -30,69 +30,79 @@ object frmLEmuTKMain: TfrmLEmuTKMain
     object HelpOnHelp1: THelpOnHelp
       Category = 'Help'
       Caption = 'About Emuteca...'
-      Hint = 'Información de Emuteca|Muestra un cuadro con información sobre Emuteca.'
+      Hint = 'About Emuteca...|Help about Emuteca.'
       OnExecute = HelpOnHelp1Execute
     end
     object FileExit1: TFileExit
       Category = 'File'
       Caption = 'Exit'
-      Hint = 'Exit|Exits Emuteca.'
+      Hint = 'Exit.|Exits Emuteca.'
     end
     object actEmulatorManager: TAction
       Category = 'Managers'
       Caption = 'Emulator Manager...'
+      Hint = 'Emulator Manager...|Open Emulator Manager.'
       OnExecute = actEmulatorManagerExecute
     end
     object actSystemManager: TAction
       Category = 'Managers'
       Caption = 'System Manager...'
+      Hint = 'System Manager...|Open System Manager.'
       OnExecute = actSystemManagerExecute
     end
     object actScriptManager: TAction
       Category = 'Managers'
       Caption = 'Script Manager...'
+      Hint = 'Script Manager...|Open Script Manager.'
       OnExecute = actScriptManagerExecute
     end
     object actMediaManager: TAction
       Category = 'Managers'
       Caption = 'Media Manager...'
+      Hint = 'Media Manager...|Open Media Manager.'
       OnExecute = actMediaManagerExecute
     end
     object actAddFolder: TAction
-      Category = 'Software'
+      Category = 'File'
       Caption = 'Scan files from folder...'
+      Hint = 'Scan files from folder...|Open form to add software from a folder.'
       OnExecute = actAddFolderExecute
     end
     object actAddSoft: TAction
-      Category = 'Software'
+      Category = 'File'
       Caption = 'Add Software...'
+      Hint = 'Add Software...|Open form to add a software file.'
       OnExecute = actAddSoftExecute
     end
     object actSaveLists: TAction
       Category = 'File'
       Caption = 'Save Lists'
+      Hint = 'Save Lists.|Saves loaded sofware lists.'
       OnExecute = actSaveListsExecute
     end
     object actAutoSave: TAction
       Category = 'File'
       AutoCheck = True
       Caption = '+Save on Exit'
-      Hint = 'Autosave game list on exit'
+      Hint = 'Save lists on Exit.|Autosave software lists on exit.'
       OnExecute = actAutoSaveExecute
     end
     object actOpenTempFolder: TAction
       Category = 'File'
-      Caption = 'Open Temp Folder'
+      Caption = 'Open Temp folder...'
+      Hint = 'Open Temp folder...|Open Emuteca''s temporal folder.'
       OnExecute = actOpenTempFolderExecute
     end
     object actExportSoftData: TAction
       Category = 'File'
-      Caption = 'Export soft data...'
+      Caption = 'Export software data...'
+      Hint = 'Export software data...|Open form to export software data.'
       OnExecute = actExportSoftDataExecute
     end
     object actImportSoftData: TAction
       Category = 'File'
-      Caption = 'Import soft data...'
+      Caption = 'Import software data...'
+      Hint = 'Import software data...|Open form to import software data.'
       OnExecute = actImportSoftDataExecute
     end
     object actCleanSystemData: TAction
@@ -104,37 +114,55 @@ object frmLEmuTKMain: TfrmLEmuTKMain
     object actUpdateGroupList: TAction
       Category = 'System'
       Caption = 'Update group list'
+      Hint = 'Update group list.|Reload group list to update changes.'
       OnExecute = actUpdateGroupListExecute
     end
     object actMergeGroupFiles: TAction
       Category = 'Group'
       Caption = 'Merge group files...'
+      Hint = 'Merge group files...|Open form to merge current group''s sofware in same compressed file.'
       OnExecute = actMergeGroupFilesExecute
     end
     object actRunSoftware: TAction
       Category = 'Software'
       Caption = 'Run software'
+      Hint = 'Run software.|Run current software.'
       OnExecute = actRunSoftwareExecute
     end
     object actOpenSoftFolder: TAction
       Category = 'Software'
-      Caption = 'Open software folder'
+      Caption = 'Open software folder...'
+      Hint = 'Open software folder...|Open current software folder.'
       OnExecute = actOpenSoftFolderExecute
     end
     object actEditSystem: TAction
       Category = 'System'
       Caption = 'Edit system...'
+      Hint = 'Edit system...|Open current system editor.'
       OnExecute = actEditSystemExecute
     end
     object actEditEmulator: TAction
       Category = 'Emulator'
       Caption = 'Edit emulator...'
+      Hint = 'Edit emulator...|Open editor for current emulator.'
       OnExecute = actEditEmulatorExecute
     end
     object actOpenSystemBaseFolder: TAction
       Category = 'System'
       Caption = 'Open system base folder...'
+      Hint = 'Open system base folder...|Open current system base folder.'
       OnExecute = actOpenSystemBaseFolderExecute
+    end
+    object actOpenEmutecaFolder: TAction
+      Category = 'File'
+      Caption = 'Open Emuteca folder...'
+      Hint = 'Open Emuteca folder...|Open Emuteca program folder.'
+      OnExecute = actOpenEmutecaFolderExecute
+    end
+    object actOpenEmulatorFolder: TAction
+      Category = 'Emulator'
+      Caption = 'Open emulator folder...'
+      Hint = 'Open emulator folder...|Open current emulator folder.'
     end
   end
   object MainMenu: TMainMenu
@@ -169,6 +197,9 @@ object frmLEmuTKMain: TfrmLEmuTKMain
       end
       object mimmDebug: TMenuItem
         Caption = 'Debug'
+        object mimmOpenEmutecaFolder: TMenuItem
+          Action = actOpenEmutecaFolder
+        end
         object mimmOpenTempFolder: TMenuItem
           Action = actOpenTempFolder
         end
@@ -232,6 +263,9 @@ object frmLEmuTKMain: TfrmLEmuTKMain
       Enabled = False
       object mimmEditEmulator: TMenuItem
         Action = actEditEmulator
+      end
+      object mimmOpenEmulatorFolder: TMenuItem
+        Action = actOpenEmulatorFolder
       end
     end
     object mimmGroup: TMenuItem

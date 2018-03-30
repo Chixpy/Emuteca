@@ -338,7 +338,7 @@ begin
   //   deb,rpm,cpio,cramfs,dmg,fat,flv,mbr,nsis,sys,bpl,hfs,hxi,hxq,hxr,hxs,
   //   chi,chq,chw,hxw,msp,scap,squashfs,swm,wim,exe,
   CompressedExtensions.CommaText :='001,7z,arj,bz2,bzip2,cba,cb7,cbr,cbz,' +
-    'gz,gzip,-ha,lit,lzh,lzma,lzma86,r00,rar,tar,taz,tbz,tbz2,tgz,tpz,txz,' +
+    'gz,gzip,lha,lit,lzh,lzma,lzma86,r00,rar,tar,taz,tbz,tbz2,tgz,tpz,txz,' +
     'xar,xz,z,zip';
 
   // Temp
