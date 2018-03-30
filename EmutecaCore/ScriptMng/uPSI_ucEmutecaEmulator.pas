@@ -198,11 +198,11 @@ begin T := Self.ExeFile; end;
 
 (*----------------------------------------------------------------------------*)
 procedure cEmutecaEmulatorEmulatorName_W(Self: cEmutecaEmulator; const T: string);
-begin Self.EmulatorName := T; end;
+begin Self.Title := T; end;
 
 (*----------------------------------------------------------------------------*)
 procedure cEmutecaEmulatorEmulatorName_R(Self: cEmutecaEmulator; var T: string);
-begin T := Self.EmulatorName; end;
+begin T := Self.Title; end;
 
 (*----------------------------------------------------------------------------*)
 procedure cEmutecaEmulatorEnabled_W(Self: cEmutecaEmulator; const T: boolean);

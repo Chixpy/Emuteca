@@ -121,7 +121,7 @@ begin
 
   aEmulator := cEmutecaEmulator.Create(nil);
   aEmulator.ID := EmulatorID;
-  aEmulator.EmulatorName := EmulatorID;
+  aEmulator.Title := EmulatorID;
   aEmulator.Enabled := True;
 
   EmuManager.FullList.Add(aEmulator);

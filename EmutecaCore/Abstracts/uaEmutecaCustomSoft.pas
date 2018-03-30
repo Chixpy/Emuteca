@@ -39,6 +39,7 @@ type
     FCracked: string;
     FDumpInfo: string;
     FDumpStatus: TEmutecaDumpStatus;
+    FExtraParameters: TStringList;
     FFileName: string;
     FFixed: string;
     FFolder: string;
@@ -126,7 +127,6 @@ type
     function SearchFirstRelatedFile(aFolder: string;
       Extensions: TStrings; SearchInComp: boolean;
       AutoExtract: boolean): string; virtual;
-
 
     constructor Create(aOwner: TComponent); override;
     destructor Destroy; override;
@@ -222,9 +222,15 @@ type
     {< The game was modified by use (hiscores or saves). }
 
     property Hack: string read FHack write SetHack;
-        {< The game was modified for changing something (intros, sprites).
+    {< The game was modified for changing something (intros, sprites).
 
-          Only if not covered by previous properties.}
+      Only used if not covered by previous properties.}
+
+    property ExtraParameters: TStringList read FExtraParameters;
+    {< Extra parameters for use in emulator command line.
+
+      For example: Number of map to use with Doom; line to execute in some
+        MSX/CPC emulators, etc.}
 
     property Stats: cEmutecaPlayingStats read FStats;
 
@@ -421,6 +427,7 @@ begin
   aTxtFile.Add(Cracked);
   aTxtFile.Add(Modified);
   aTxtFile.Add(Hack);
+  aTxtFile.Add(ExtraParameters.CommaText);
 
   Stats.WriteToStrLst(aTxtFile, ExportMode);
 end;
@@ -506,7 +513,8 @@ begin
   Result := SHA1Match(SHA1, aSHA1);
 end;
 
-function caEmutecaCustomSoft.CompareFile(const aFolder, aFile: string): integer;
+function caEmutecaCustomSoft.CompareFile(
+  const aFolder, aFile: string): integer;
 begin
   Result := CompareFilenames(Folder, SetAsFolder(aFolder));
   if Result = 0 then
@@ -515,7 +523,7 @@ end;
 
 function caEmutecaCustomSoft.MatchFile(const aFolder, aFile: string): boolean;
 begin
-  Result := CompareFile(Folder, aFile) = 0;
+  Result := CompareFile(aFolder, aFile) = 0;
 end;
 
 function caEmutecaCustomSoft.MatchID(const aID: string): boolean;
@@ -548,7 +556,8 @@ begin
   if not assigned(aTxtFile) then
     Exit;
 
-  while aTxtFile.Count < 21 do
+  // Dirty error fix
+  while aTxtFile.Count < 22 do
     aTxtFile.Add('');
 
   GroupKey := aTxtFile[0];
@@ -578,10 +587,11 @@ begin
   Cracked := aTxtFile[18];
   Modified := aTxtFile[19];
   Hack := aTxtFile[20];
+  ExtraParameters.CommaText := aTxtFile[21];
 
-  Stats.LoadFromStrLst(aTxtFile, 21);
+  Stats.LoadFromStrLst(aTxtFile, 22);
 
-  // Next := aTxtFile[24]
+  // Next := aTxtFile[25]
 end;
 
 procedure caEmutecaCustomSoft.ExportToStrLst(aTxtFile: TStrings);
@@ -608,47 +618,61 @@ begin
 end;
 
 procedure caEmutecaCustomSoft.ImportFrom(aSoft: caEmutecaCustomSoft);
+var
+  i: integer;
 begin
   if not Assigned(aSoft) then
     Exit;
 
-  if aSoft.GroupKey <> krsImportKeepValue then
-    GroupKey := aSoft.GroupKey;
+  if aSoft.GroupKey <> krsImportKeepValueKey then
+    Self.GroupKey := aSoft.GroupKey;
 
-  if aSoft.Title <> krsImportKeepValue then
-    Title := aSoft.Title;
-  if aSoft.TranslitTitle <> krsImportKeepValue then
-    TranslitTitle := aSoft.TranslitTitle;
-  if aSoft.SortTitle <> krsImportKeepValue then
-    SortTitle := aSoft.SortTitle;
+  if aSoft.Title <> krsImportKeepValueKey then
+    Self.Title := aSoft.Title;
+  if aSoft.TranslitTitle <> krsImportKeepValueKey then
+    Self.TranslitTitle := aSoft.TranslitTitle;
+  if aSoft.SortTitle <> krsImportKeepValueKey then
+    Self.SortTitle := aSoft.SortTitle;
 
-  if aSoft.Version <> krsImportKeepValue then
-    Version := aSoft.Version;
-  if aSoft.Year <> krsImportKeepValue then
-    Year := aSoft.Year;
-  if aSoft.Publisher <> krsImportKeepValue then
-    Publisher := aSoft.Publisher;
-  if aSoft.Zone <> krsImportKeepValue then
-    Zone := aSoft.Zone;
+  if aSoft.Version <> krsImportKeepValueKey then
+    Self.Version := aSoft.Version;
+  if aSoft.Year <> krsImportKeepValueKey then
+    Self.Year := aSoft.Year;
+  if aSoft.Publisher <> krsImportKeepValueKey then
+    Self.Publisher := aSoft.Publisher;
+  if aSoft.Zone <> krsImportKeepValueKey then
+    Self.Zone := aSoft.Zone;
 
   if aSoft.DumpStatus <> edsKeepValue then
-    DumpStatus := aSoft.DumpStatus;
-  if aSoft.DumpInfo <> krsImportKeepValue then
-    DumpInfo := aSoft.DumpInfo;
-  if aSoft.Fixed <> krsImportKeepValue then
-    Fixed := aSoft.Fixed;
-  if aSoft.Trainer <> krsImportKeepValue then
-    Trainer := aSoft.Trainer;
-  if aSoft.Translation <> krsImportKeepValue then
-    Translation := aSoft.Translation;
-  if aSoft.Pirate <> krsImportKeepValue then
-    Pirate := aSoft.Pirate;
-  if aSoft.Cracked <> krsImportKeepValue then
-    Cracked := aSoft.Cracked;
-  if aSoft.Modified <> krsImportKeepValue then
-    Modified := aSoft.Modified;
-  if aSoft.Hack <> krsImportKeepValue then
-    Hack := aSoft.Hack;
+    Self.DumpStatus := aSoft.DumpStatus;
+  if aSoft.DumpInfo <> krsImportKeepValueKey then
+    Self.DumpInfo := aSoft.DumpInfo;
+  if aSoft.Fixed <> krsImportKeepValueKey then
+    Self.Fixed := aSoft.Fixed;
+  if aSoft.Trainer <> krsImportKeepValueKey then
+    Self.Trainer := aSoft.Trainer;
+  if aSoft.Translation <> krsImportKeepValueKey then
+    Self.Translation := aSoft.Translation;
+  if aSoft.Pirate <> krsImportKeepValueKey then
+    Self.Pirate := aSoft.Pirate;
+  if aSoft.Cracked <> krsImportKeepValueKey then
+    Self.Cracked := aSoft.Cracked;
+  if aSoft.Modified <> krsImportKeepValueKey then
+    Self.Modified := aSoft.Modified;
+  if aSoft.Hack <> krsImportKeepValueKey then
+    Self.Hack := aSoft.Hack;
+
+  i := 0;
+  while i < aSoft.ExtraParameters.Count do
+  begin
+    if aSoft.ExtraParameters[i] <> krsImportKeepValueKey then
+    begin
+      while Self.ExtraParameters.Count <= i do
+        Self.ExtraParameters.Add('');
+      Self.ExtraParameters[i] := aSoft.ExtraParameters[i];
+    end;
+    Inc(i);
+  end;
 end;
 
 procedure caEmutecaCustomSoft.SearchAllRelatedFiles(OutFileList: TStrings;
@@ -671,13 +695,15 @@ begin
   inherited Create(aOwner);
 
   FStats := cEmutecaPlayingStats.Create(Self);
+  FExtraParameters := TStringList.Create;
 
-  DumpStatus := edsGood;
+  DumpStatus := edsUnknown;
 end;
 
 destructor caEmutecaCustomSoft.Destroy;
 begin
   Stats.Free;
+  ExtraParameters.Free;
 
   inherited Destroy;
 end;

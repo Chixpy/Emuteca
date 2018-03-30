@@ -60,7 +60,7 @@ begin
   while i < Count do
   begin
     aEmulator := Items[i];
-    aStrList.AddObject(aEmulator.EmulatorName, aEmulator);
+    aStrList.AddObject(aEmulator.Title, aEmulator);
     Inc(i);
   end;
   aStrList.EndUpdate;

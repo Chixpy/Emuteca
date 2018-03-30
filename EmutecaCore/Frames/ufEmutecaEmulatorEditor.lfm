@@ -3,7 +3,7 @@ inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
   Width = 405
   ClientHeight = 455
   ClientWidth = 405
-  DesignLeft = 686
+  DesignLeft = 520
   DesignTop = 159
   inherited pButtons: TPanel
     Top = 429
@@ -369,6 +369,24 @@ inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
         TabOrder = 0
       end
     end
+    object lExtraParameters: TLabel
+      Left = 0
+      Height = 15
+      Top = 228
+      Width = 290
+      Align = alTop
+      Caption = 'Extra software parameters'
+      ParentColor = False
+    end
+    object mExtraParameters: TMemo
+      Left = 0
+      Height = 143
+      Top = 243
+      Width = 290
+      Align = alClient
+      ScrollBars = ssAutoVertical
+      TabOrder = 6
+    end
   end
   object lID: TLabel[4]
     Left = 0
@@ -428,6 +446,12 @@ inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
       Caption = 'ROM File extension'
       OnExecute = actParamROMFileExtensionExecute
     end
+    object actParamROMExtra: TAction[11]
+      Category = 'PUParameters'
+      Caption = 'ROM Extra parameter'
+      Hint = 'Add extra parameter from ROM info.'
+      OnExecute = actParamROMExtraExecute
+    end
   end
   inherited ilPropEditor: TImageList[6]
     left = 312
@@ -463,6 +487,9 @@ inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
     end
     object pmiParamROMFileExtension: TMenuItem
       Action = actParamROMFileExtension
+    end
+    object pmiParamROMExtra: TMenuItem
+      Caption = 'ROM Extra Parameter'
     end
   end
 end

@@ -115,7 +115,7 @@ begin
   if aPos = -1 then
   begin
     // Uhm.... not exists in list, adding it.
-    aPos := cbxEmulator.Items.AddObject(SelectedEmulator.EmulatorName,
+    aPos := cbxEmulator.Items.AddObject(SelectedEmulator.Title,
       SelectedEmulator);
   end;
   // TODO: Test if this creates an infinity loop...

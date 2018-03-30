@@ -216,17 +216,17 @@ begin
   if not assigned(aGroup) then
     Exit;
 
-  if aGroup.ID <> krsImportKeepValue then
+  if aGroup.ID <> krsImportKeepValueKey then
     ID := aGroup.ID;
-  if aGroup.Title <> krsImportKeepValue then
+  if aGroup.Title <> krsImportKeepValueKey then
     Title := aGroup.Title;
-  if aGroup.SortTitle <> krsImportKeepValue then
+  if aGroup.SortTitle <> krsImportKeepValueKey then
     SortTitle := aGroup.SortTitle;
-  if aGroup.Year <> krsImportKeepValue then
+  if aGroup.Year <> krsImportKeepValueKey then
     Year := aGroup.Year;
-  if aGroup.Developer <> krsImportKeepValue then
+  if aGroup.Developer <> krsImportKeepValueKey then
     Developer := aGroup.Developer;
-  if aGroup.MediaFileName <> krsImportKeepValue then
+  if aGroup.MediaFileName <> krsImportKeepValueKey then
     MediaFileName := aGroup.MediaFileName;
 end;
 

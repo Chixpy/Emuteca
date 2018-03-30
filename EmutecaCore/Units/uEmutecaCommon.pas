@@ -70,11 +70,11 @@ const
   krsCSVStatsHeader = '"Last Time","Times Played","Playing Time"';
 
   krsCSVSoftHeader = '"Group","SHA1","ID","Folder","FileName",' +
-    '"Title","TransliteratedName","SortTitle","Version","Year","Publisher",' +
-    '"Zone","DumpStatus","DumpInfo","Fixed","Trainer","Translation",' +
-    '"Pirate","Cracked","Modified","Hack"';
+    '"Title","Transliterated Name","Sort Title","Version","Year","Publisher",' +
+    '"Zone","DumpStatus","Dump Info","Fixed","Trainer","Translation",' +
+    '"Pirate","Cracked","Modified","Hack","Extra Parameters"';
   krsCSVSoftStatsHeader = krsCSVSoftHeader + ',' + krsCSVStatsHeader;
-  krsCSVGroupHeader = '"ID","Title","Sort title","Year","Developer",' +
+  krsCSVGroupHeader = '"ID","Title","Sort Title","Year","Developer",' +
     '"Media file"';
   krsCSVGroupStatsHeader = krsCSVGroupHeader + ',' + krsCSVStatsHeader;
 
@@ -88,16 +88,19 @@ const
   krsIniKeyFileName = 'FileName';
   krsIniKeyYear = 'Year';
   krsIniKeyEnabled = 'Enabled';
-
-  // System
-  // Shared Keys: krsIniKeyID, krsIniKeyTitle, krsIniKeyFileName
-  krsIniKeyExtensions = 'Extensions';
-  krsIniKeyBaseFolder = 'BaseFolder';
   krsIniKeyWorkingFolder = 'WorkingFolder';
-  krsIniKeyMainEmulator = 'MainEmulator';
-  krsIniKeyOtherEmulators = 'OtherEmulators';
   krsIniKeyIcon = 'Icon';
   krsIniKeyImage = 'Image';
+  krsIniKeyDeveloper = 'Developer';
+  krsIniKeyExtensions = 'Extensions';
+
+  // System
+  // Shared Keys: krsIniKeyID, krsIniKeyTitle, krsIniKeyFileName,
+  //   krsIniKeyWorkingFolder, krsIniKeyIcon, krsIniKeyImage,
+  //   krsIniKeyExtensions
+  krsIniKeyBaseFolder = 'BaseFolder';
+  krsIniKeyMainEmulator = 'MainEmulator';
+  krsIniKeyOtherEmulators = 'OtherEmulators';
   krsIniKeyBackImage = 'BackImage';
   krsIniKeySoftIcon = 'SoftIcon';
   krsIniKeyIconFolder = 'IconFolder';
@@ -115,8 +118,8 @@ const
 
   // Group
   // Shared Keys: krsIniKeyID, krsIniKeyTitle, krsIniKeySortTitle,
-  //   krsIniKeyYear, krsIniKeyFileName
-  krsIniKeyDeveloper = 'Developer';
+  //   krsIniKeyYear, krsIniKeyFileName, krsIniKeyDeveloper
+
 
   // Soft
   // Shared Keys: krsIniKeyID, krsIniKeyTitle, krsIniKeySortTitle,
@@ -138,6 +141,16 @@ const
   krsIniKeyHack = 'Hack';
   krsIniKeyFolder = 'Folder';
 
+  // Emulator
+  // Shared Keys: krsIniKeyEnabled, krsIniKeyTitle, krsIniKeyWorkingFolder,
+  //   krsIniKeyIcon, krsIniKeyImage, krsIniKeyDeveloper, krsIniKeyExtensions
+  krsIniKeyParameters = 'Parameters';
+  krsIniKeyExtraParamFmt = 'ExtraParamFmt';
+  krsIniKeyExitCode = 'ExitCode';
+  krsIniKeyExeFile = 'ExeFile';
+  krsIniKeyWebPage = 'WebPage';
+  krsIniKeyInfoFile = 'InfoFile';
+
   // Playing Stats
   krsIniKeyPlayingTime = 'PlayingTime';
   krsIniKeyTimesPlayed = 'TimesPlayed';
@@ -158,10 +171,20 @@ const
   krsEDSOverDump = 'OverDump';
   krsEDSBadDump = 'BadDump';
   krsEDSUnderDump = 'UnderDump';
-  krsEDSKeepValue = 'KeepValue';
+  krsEDSUnknown = 'Unknown';
+  krsEDSKeepValue = 'Keep value';
+
+  // Constant for DumpStatus, fixed (for databases)
+  krsEDSVerifiedKey = '!';
+  krsEDSGoodKey = '';
+  krsEDSAlternateKey = 'a';
+  krsEDSOverDumpKey = 'o';
+  krsEDSBadDumpKey = 'b';
+  krsEDSUnderDumpKey = 'u';
+  krsEDSUnknownKey = '?';
 
   // Key for import file to keep current value
-  krsImportKeepValue = '@';
+  krsImportKeepValueKey = '@';
 
   // Dirs
   krsTemp7zCacheFolder = 'SHA1Cache/';
@@ -221,13 +244,14 @@ resourcestring
   rsEDSOverDump = 'OverDump';
   rsEDSBadDump = 'BadDump';
   rsEDSUnderDump = 'UnderDump';
+  rsEDSUnknown = 'Unknown';
   rsEDSKeepValue = 'KeepValue'; // Only for imports
 
 
 type
   TEmutecaSoftExportKey = (TEFKSHA1, TEFKCRC32, TEFKFileName, TEFKCustom);
   TEmutecaDumpStatus = (edsVerified, edsGood, edsAlternate, edsOverDump,
-    edsBadDump, edsUnderDump, edsKeepValue);
+    edsBadDump, edsUnderDump, edsUnknown, edsKeepValue);
 
   TEmutecaProgressCallBack = function(const aAction, aInfo: string;
     const aValue, aMaxValue: int64; const IsCancelable: boolean): boolean of
@@ -240,16 +264,17 @@ const
   //< Strings for FileKeys (fixed constants, used for ini files, etc. )
 
   EmutecaDumpStatusKey: array [TEmutecaDumpStatus] of string =
-    ('!', '', 'a', 'o', 'b', 'u', krsImportKeepValue);
+    (krsEDSVerifiedKey, krsEDSGoodKey, krsEDSAlternateKey, krsEDSOverDumpKey,
+    krsEDSBadDumpKey, krsEDSUnderDumpKey, krsEDSUnknownKey, krsImportKeepValueKey);
   //< Keys for DumpStatus, used in IniFiles
-  EmutecaDumpStatusStr: array [TEmutecaDumpStatus] of string =
-    (rsEDSVerified, rsEDSGood, rsEDSAlternate, rsEDSOverDump,
-    rsEDSBadDump, rsEDSUnderDump, rsEDSKeepValue);
-  //< Strings for DumpStatus (localizable)
   EmutecaDumpStatusStrK: array [TEmutecaDumpStatus] of string =
     (krsEDSVerified, krsEDSGood, krsEDSAlternate, krsEDSOverDump,
-    krsEDSBadDump, krsEDSUnderDump, krsEDSKeepValue);
+    krsEDSBadDump, krsEDSUnderDump, krsEDSUnknown, krsEDSKeepValue);
 //< Strings for DumpStatus (fixed constants, used for icon filenames, etc. )
+  EmutecaDumpStatusStr: array [TEmutecaDumpStatus] of string =
+    (rsEDSVerified, rsEDSGood, rsEDSAlternate, rsEDSOverDump,
+    rsEDSBadDump, rsEDSUnderDump, rsEDSUnknown, rsEDSKeepValue);
+  //< Strings for DumpStatus (localizable)
 
 
 function Str2SoftExportKey(aString: string): TEmutecaSoftExportKey;
@@ -388,10 +413,12 @@ begin
     Result := edsBadDump
   else if (aString[1] = DumpSt2Key(edsUnderDump)) then
     Result := edsUnderDump
+  else if (aString[1] = DumpSt2Key(edsUnknown)) then
+    Result := edsUnknown
   else if (aString[1] = DumpSt2Key(edsKeepValue)) then
     Result := edsKeepValue
   else
-    Result := edsGood;
+    Result := edsUnknown;
 end;
 
 function DumpSt2Key(aEDS: TEmutecaDumpStatus): string;

@@ -1,6 +1,6 @@
 { This file is part of Emuteca
 
-  Copyright (C) 2006-2017 Chixpy
+  Copyright (C) 2006-2018 Chixpy
 
   This source is free software; you can redistribute it and/or modify it under
   the terms of the GNU General Public License as published by the Free
@@ -31,24 +31,12 @@ uses  Classes, SysUtils, FileUtil, StrUtils, LazUTF8, LazFileUtils,
   uCHXStrUtils,
   // CHX abstracts
   uaCHXStorable,
+  // Emuteca common
+  uEmutecaCommon,
   // Emuteca clases
   ucEmutecaPlayingStats;
 
 const
-  // Ini file Keys
-  // -------------
-  krsEmulatorEnabledKey = 'Enabled';
-  krsEmulatorNameKey = 'Name';
-  krsEmulatorWorkingFoldeKey = 'WorkingFolder';
-  krsEmulatorParametersKey = 'Parameters';
-  krsEmulatorExitCodeKey = 'ExitCode';
-  krsEmulatorExeFileKey = 'ExeFile';
-  krsEmulatorFileExtKey = 'Extensions';
-  krsEmulatorDeveloperKey = 'Developer';
-  krsEmulatorWebPageKey = 'WebPage';
-  krsEmulatorIconKey = 'Icon';
-  krsEmulatorImageKey = 'Image';
-  krsEmulatorInfoFileKey = 'InfoFile';
 
   // Keys for command line parameters for emulators
   // ----------------------------------------------
@@ -69,7 +57,9 @@ const
   kEmutecaROMFileNameNoExtKey = '%ROMNAMENOEXT%';
   {< ROM filename without extension. }
   kEmutecaROMFileExtKey = '%ROMEXT%';
-{< ROM file extension. }
+  {< ROM file extension. }
+  kEmutecaROMExtraParamKey = '%EXTRA%';
+{< Extra parameter from Software.ExtraParameter }
 
 type
   { cEmutecaEmulator class.
@@ -78,10 +68,11 @@ type
   cEmutecaEmulator = class(caCHXStorableIni)
   private
     FDeveloper: string;
-    FEmulatorName: string;
+    FTitle: string;
     FEnabled: boolean;
     FExeFile: string;
     FExitCode: integer;
+    FExtraParamFormat: TStringList;
     FFileExt: TStringList;
     FIcon: string;
     FID: string;
@@ -92,7 +83,7 @@ type
     FWebPage: string;
     FWorkingFolder: string;
     procedure SetDeveloper(AValue: string);
-    procedure SetEmulatorName(AValue: string);
+    procedure SetTitle(AValue: string);
     procedure SetEnabled(AValue: boolean);
     procedure SetExeFile(AValue: string);
     procedure SetExitCode(AValue: integer);
@@ -106,22 +97,22 @@ type
     procedure SetWorkingFolder(AValue: string);
 
   protected
-    procedure DoSaveToIni(aIniFile: TMemIniFile; ExportMode: Boolean); virtual;
+    procedure DoSaveToIni(aIniFile: TMemIniFile; ExportMode: boolean); virtual;
 
   public
-    constructor Create(aOwner: TComponent); override;
-    destructor Destroy; override;
-
     function CompareID(aID: string): integer;
     function MatchID(aID: string): boolean;
 
-    function Execute(GameFile: string): integer;
+    function Execute(GameFile: string; ExtraParameters: TStringList): integer;
     function ExecuteAlone: integer;
 
     procedure LoadFromIni(aIniFile: TMemIniFile); override;
     procedure SaveToIni(aIniFile: TMemIniFile); override;
     procedure ImportFromIni(aIniFile: TMemIniFile); virtual;
     procedure ExportToIni(aIniFile: TMemIniFile); virtual;
+
+    constructor Create(aOwner: TComponent); override;
+    destructor Destroy; override;
 
   published
     property ID: string read FID write SetID;
@@ -130,7 +121,7 @@ type
     property Enabled: boolean read FEnabled write SetEnabled;
     {< Is it enabled? }
 
-    property EmulatorName: string read FEmulatorName write SetEmulatorName;
+    property Title: string read FTitle write SetTitle;
     {< Emulator's name. }
     property ExeFile: string read FExeFile write SetExeFile;
     {< Path to executable. }
@@ -164,7 +155,12 @@ type
            Usefull for MAME.)
          @itemLabel(%ROMEXT%)
          @item(Only ROM extension.)
+         @itemLabel(%EXTRA%)
+         @item(Extra parameters from software ExtraParameter property.)
        )
+    }
+    property ExtraParamFormat: TStringList read FExtraParamFormat;
+    {< Strings to encapsulate %EXTRA% parameters from software.
     }
     property FileExt: TStringList read FFileExt write SetFileExt;
     {< Extensions used by the emulator.
@@ -240,36 +236,39 @@ begin
   FWorkingFolder := SetAsFolder(AValue);
 end;
 
-procedure cEmutecaEmulator.DoSaveToIni(aIniFile: TMemIniFile; ExportMode: Boolean);
+procedure cEmutecaEmulator.DoSaveToIni(aIniFile: TMemIniFile;
+  ExportMode: boolean);
 begin
   if not assigned(aIniFile) then
     Exit;
 
-  aIniFile.WriteString(ID, krsEmulatorNameKey, EmulatorName);
+  aIniFile.WriteString(ID, krsIniKeyTitle, Title);
 
-  aIniFile.WriteString(ID, krsEmulatorWorkingFoldeKey, WorkingFolder);
-  aIniFile.WriteString(ID, krsEmulatorParametersKey, Parameters);
-  aIniFile.WriteString(ID, krsEmulatorFileExtKey, FileExt.CommaText);
-  aIniFile.WriteInteger(ID, krsEmulatorExitCodeKey, ExitCode);
+  aIniFile.WriteString(ID, krsIniKeyWorkingFolder, WorkingFolder);
+  aIniFile.WriteString(ID, krsIniKeyParameters, Parameters);
+  aIniFile.WriteString(ID, krsIniKeyExtraParamFmt,
+    ExtraParamFormat.CommaText);
+  aIniFile.WriteString(ID, krsIniKeyExtensions, FileExt.CommaText);
+  aIniFile.WriteInteger(ID, krsIniKeyExitCode, ExitCode);
 
-  aIniFile.WriteString(ID, krsEmulatorDeveloperKey, Developer);
-  aIniFile.WriteString(ID, krsEmulatorWebPageKey, WebPage);
+  aIniFile.WriteString(ID, krsIniKeyDeveloper, Developer);
+  aIniFile.WriteString(ID, krsIniKeyWebPage, WebPage);
 
   if ExportMode then
   begin
-    aIniFile.DeleteKey(ID, krsEmulatorExeFileKey);
-    aIniFile.DeleteKey(ID, krsEmulatorEnabledKey);
-    aIniFile.DeleteKey(ID, krsEmulatorIconKey);
-    aIniFile.DeleteKey(ID, krsEmulatorImageKey);
-    aIniFile.DeleteKey(ID, krsEmulatorInfoFileKey);
+    aIniFile.DeleteKey(ID, krsIniKeyExeFile);
+    aIniFile.DeleteKey(ID, krsIniKeyEnabled);
+    aIniFile.DeleteKey(ID, krsIniKeyIcon);
+    aIniFile.DeleteKey(ID, krsIniKeyImage);
+    aIniFile.DeleteKey(ID, krsIniKeyInfoFile);
   end
   else
   begin
-    aIniFile.WriteString(ID, krsEmulatorExeFileKey, ExeFile);
-    aIniFile.WriteBool(ID, krsEmulatorEnabledKey, Enabled);
-    aIniFile.WriteString(ID, krsEmulatorIconKey, Icon);
-    aIniFile.WriteString(ID, krsEmulatorImageKey, Image);
-    aIniFile.WriteString(ID, krsEmulatorInfoFileKey, InfoFile);
+    aIniFile.WriteString(ID, krsIniKeyExeFile, ExeFile);
+    aIniFile.WriteBool(ID, krsIniKeyEnabled, Enabled);
+    aIniFile.WriteString(ID, krsIniKeyIcon, Icon);
+    aIniFile.WriteString(ID, krsIniKeyImage, Image);
+    aIniFile.WriteString(ID, krsIniKeyInfoFile, InfoFile);
   end;
 
   Stats.WriteToIni(aIniFile, ID, ExportMode);
@@ -282,11 +281,11 @@ begin
   FEnabled := AValue;
 end;
 
-procedure cEmutecaEmulator.SetEmulatorName(AValue: string);
+procedure cEmutecaEmulator.SetTitle(AValue: string);
 begin
-  if FEmulatorName = AValue then
+  if FTitle = AValue then
     Exit;
-  FEmulatorName := AValue;
+  FTitle := AValue;
 end;
 
 procedure cEmutecaEmulator.SetDeveloper(AValue: string);
@@ -332,13 +331,15 @@ begin
   Parameters := '"' + kEmutecaROMPathKey + '"';
 
   FFileExt := TStringList.Create;
+  FExtraParamFormat := TStringList.Create;
 end;
 
 
 destructor cEmutecaEmulator.Destroy;
 begin
-  FreeAndNil(FFileExt);
-  FreeAndNil(FStats);
+  ExtraParamFormat.Free;
+  FileExt.Free;
+  Stats.Free;
 
   inherited Destroy;
 end;
@@ -353,11 +354,13 @@ begin
   Result := CompareID(aID) = 0;
 end;
 
-function cEmutecaEmulator.Execute(GameFile: string): integer;
+function cEmutecaEmulator.Execute(GameFile: string;
+  ExtraParameters: TStringList): integer;
 var
+  i, j: integer;
   CurrFolder: string;
   TempDir: string;
-  TempParam: string;
+  TempParam, Extra, TempExtra: string;
 begin
   CurrFolder := GetCurrentDirUTF8;
 
@@ -392,6 +395,45 @@ begin
     ExtractFileNameWithoutExt(ExtractFileName(GameFile)));
   TempParam := AnsiReplaceText(TempParam, kEmutecaROMFileExtKey,
     ExtractFileExt(GameFile));
+
+  // Extra parameters from software
+  if assigned(ExtraParameters) and (ExtraParameters.Count > 0) then
+  begin
+    Extra := '';
+
+    j := 0;
+    while j < ExtraParamFormat.Count do
+    begin
+      TempExtra := ExtraParamFormat[j];
+
+      i := 0;
+      while i < ExtraParameters.Count do
+      begin
+        if ExtraParameters[i] <> '' then
+          TempExtra := AnsiReplaceText(TempExtra, '%' +
+            IntToStr(i) + '%', ExtraParameters[i]);
+        Inc(i);
+      end;
+
+      // Nothing is changed, don't add extra parameter
+      if TempExtra = ExtraParamFormat[j] then
+        TempExtra := ''
+      else
+        TempExtra := Trim(TempExtra);
+
+      if TempExtra <> '' then
+        Extra := Extra + ' ' + Trim(TempExtra);
+
+      Inc(j);
+    end;
+
+    TempParam := AnsiReplaceText(TempParam, kEmutecaROMExtraParamKey,
+      Trim(Extra));
+  end
+  else
+    // Removing %EXTRA% from parameters.
+    TempParam := AnsiReplaceText(TempParam, kEmutecaROMExtraParamKey, '');
+
   TempParam := Trim(TempParam);
 
   try
@@ -403,7 +445,8 @@ begin
       if SupportedExtCT(TempParam, 'exe,com,bat,cmd') then
         Result := ExecuteProcess(UTF8ToWinCP(TempParam), '')
       else
-        // This don't keep statistics and file is deleted if it's extracted
+        // This don't keep statistics because don't wait until closed
+        //   and file is deleted if it's extracted.
         OpenDocument(TempParam);
     end
     else
@@ -414,7 +457,7 @@ begin
     //   So, this way 0 always is the correct exit of the program,
     //     and Managers don't care about wich is the actual code
     if Result = ExitCode then
-       Result := 0;
+      Result := 0;
 
   finally
     ChDir(CurrFolder);
@@ -460,26 +503,27 @@ begin
   if not assigned(aIniFile) then
     Exit;
 
-  Enabled := aIniFile.ReadBool(ID, krsEmulatorEnabledKey, Enabled);
+  Enabled := aIniFile.ReadBool(ID, krsIniKeyEnabled, Enabled);
 
-  EmulatorName := aIniFile.ReadString(ID, krsEmulatorNameKey, EmulatorName);
+  Title := aIniFile.ReadString(ID, krsIniKeyTitle, Title);
 
-  ExeFile := aIniFile.ReadString(ID, krsEmulatorExeFileKey, ExeFile);
-  WorkingFolder := aIniFile.ReadString(ID, krsEmulatorWorkingFoldeKey,
+  ExeFile := aIniFile.ReadString(ID, krsIniKeyExeFile, ExeFile);
+  WorkingFolder := aIniFile.ReadString(ID, krsIniKeyWorkingFolder,
     WorkingFolder);
-  Parameters := aIniFile.ReadString(ID, krsEmulatorParametersKey,
-    Parameters);
-  FileExt.CommaText := aIniFile.ReadString(ID, krsEmulatorFileExtKey,
+  Parameters := aIniFile.ReadString(ID, krsIniKeyParameters, Parameters);
+  ExtraParamFormat.CommaText :=
+    aIniFile.ReadString(ID, krsIniKeyExtraParamFmt,
+    ExtraParamFormat.CommaText);
+  FileExt.CommaText := aIniFile.ReadString(ID, krsIniKeyExtensions,
     FileExt.CommaText);
-  ExitCode := aIniFile.ReadInteger(ID, krsEmulatorExitCodeKey, ExitCode);
+  ExitCode := aIniFile.ReadInteger(ID, krsIniKeyExitCode, ExitCode);
 
-  Developer := aIniFile.ReadString(ID, krsEmulatorDeveloperKey,
-    Developer);
-  WebPage := aIniFile.ReadString(ID, krsEmulatorWebPageKey, WebPage);
+  Developer := aIniFile.ReadString(ID, krsIniKeyDeveloper, Developer);
+  WebPage := aIniFile.ReadString(ID, krsIniKeyWebPage, WebPage);
 
-  Icon := aIniFile.ReadString(ID, krsEmulatorIconKey, Icon);
-  Image := aIniFile.ReadString(ID, krsEmulatorImageKey, Image);
-  InfoFile := aIniFile.ReadString(ID, krsEmulatorInfoFileKey, InfoFile);
+  Icon := aIniFile.ReadString(ID, krsIniKeyIcon, Icon);
+  Image := aIniFile.ReadString(ID, krsIniKeyImage, Image);
+  InfoFile := aIniFile.ReadString(ID, krsIniKeyInfoFile, InfoFile);
 
   Stats.LoadFromIni(aIniFile, ID);
 end;

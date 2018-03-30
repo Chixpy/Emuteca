@@ -65,21 +65,25 @@ begin
   CL.AddConstantN('krsIniKeyFileName', 'String').SetString(krsIniKeyFileName);
   CL.AddConstantN('krsIniKeyYear', 'String').SetString(krsIniKeyYear);
   CL.AddConstantN('krsIniKeyEnabled', 'String').SetString(krsIniKeyEnabled);
-
-  // System
-  // Shared Keys: krsIniKeyID, krsIniKeyTitle, krsIniKeyFileName
-  CL.AddConstantN('krsIniKeyExtensions', 'String').SetString(
-    krsIniKeyExtensions);
-  CL.AddConstantN('krsIniKeyBaseFolder', 'String').SetString(
-    krsIniKeyBaseFolder);
   CL.AddConstantN('krsIniKeyWorkingFolder', 'String').SetString(
     krsIniKeyWorkingFolder);
+  CL.AddConstantN('krsIniKeyIcon', 'String').SetString(krsIniKeyIcon);
+  CL.AddConstantN('krsIniKeyImage', 'String').SetString(krsIniKeyImage);
+  CL.AddConstantN('krsIniKeyDeveloper', 'String').SetString(
+    krsIniKeyDeveloper);
+  CL.AddConstantN('krsIniKeyExtensions', 'String').SetString(
+    krsIniKeyExtensions);
+
+  // System
+  // Shared Keys: krsIniKeyID, krsIniKeyTitle, krsIniKeyFileName,
+  //   krsIniKeyWorkingFolder, krsIniKeyIcon, krsIniKeyImage,
+  //   krsIniKeyExtensions
+  CL.AddConstantN('krsIniKeyBaseFolder', 'String').SetString(
+    krsIniKeyBaseFolder);
   CL.AddConstantN('krsIniKeyMainEmulator', 'String').SetString(
     krsIniKeyMainEmulator);
   CL.AddConstantN('krsIniKeyOtherEmulators', 'String').SetString(
     krsIniKeyOtherEmulators);
-  CL.AddConstantN('krsIniKeyIcon', 'String').SetString(krsIniKeyIcon);
-  CL.AddConstantN('krsIniKeyImage', 'String').SetString(krsIniKeyImage);
   CL.AddConstantN('krsIniKeyBackImage', 'String').SetString(
     krsIniKeyBackImage);
   CL.AddConstantN('krsIniKeyIconFolder', 'String').SetString(
@@ -108,9 +112,8 @@ begin
 
   // Group
   // Shared Keys: krsIniKeyID, krsIniKeyTitle, krsIniKeySortTitle,
-  //   krsIniKeyYear, krsIniKeyFileName
-  CL.AddConstantN('krsIniKeyDeveloper', 'String').SetString(
-    krsIniKeyDeveloper);
+  //   krsIniKeyYear, krsIniKeyFileName, krsIniKeyDeveloper
+
 
   // Soft
   // Shared Keys: krsIniKeyID, krsIniKeyTitle, krsIniKeySortTitle,
@@ -136,6 +139,16 @@ begin
   CL.AddConstantN('krsIniKeyHack', 'String').SetString(krsIniKeyHack);
   CL.AddConstantN('krsIniKeyFolder', 'String').SetString(krsIniKeyFolder);
 
+  // Emulator
+  // Shared Keys: krsIniKeyEnabled, krsIniKeyTitle, krsIniKeyWorkingFolder,
+  //   krsIniKeyIcon, krsIniKeyImage, krsIniKeyDeveloper, krsIniKeyExtensions
+  CL.AddConstantN('krsIniKeyParameters', 'String').SetString(krsIniKeyParameters);
+  CL.AddConstantN('krsIniKeyExtraParamFmt', 'String').SetString(krsIniKeyExtraParamFmt);
+  CL.AddConstantN('krsIniKeyExitCode', 'String').SetString(krsIniKeyExitCode);
+  CL.AddConstantN('krsIniKeyExeFile', 'String').SetString(krsIniKeyExeFile);
+  CL.AddConstantN('krsIniKeyWebPage', 'String').SetString(krsIniKeyWebPage);
+  CL.AddConstantN('krsIniKeyInfoFile', 'String').SetString(krsIniKeyInfoFile);
+
   // Playing Stats
   CL.AddConstantN('krsIniKeyPlayingTime', 'String').SetString(
     krsIniKeyPlayingTime);
@@ -158,10 +171,20 @@ begin
   CL.AddConstantN('krsEDSOverDump', 'String').SetString(krsEDSOverDump);
   CL.AddConstantN('krsEDSBadDump', 'String').SetString(krsEDSBadDump);
   CL.AddConstantN('krsEDSUnderDump', 'String').SetString(krsEDSUnderDump);
+  CL.AddConstantN('krsEDSUnknown', 'String').SetString(krsEDSUnknown);
   CL.AddConstantN('krsEDSKeepValue', 'String').SetString(krsEDSKeepValue);
 
+    // Constant for DumpStatus, fixed (for databases)
+  CL.AddConstantN('krsEDSVerifiedKey', 'String').SetString(krsEDSVerifiedKey);
+  CL.AddConstantN('krsEDSGoodKey', 'String').SetString(krsEDSGoodKey);
+  CL.AddConstantN('krsEDSAlternateKey', 'String').SetString(krsEDSAlternateKey);
+  CL.AddConstantN('krsEDSOverDumpKey', 'String').SetString(krsEDSOverDumpKey);
+  CL.AddConstantN('krsEDSBadDumpKey', 'String').SetString(krsEDSBadDumpKey);
+  CL.AddConstantN('krsEDSUnderDumpKey', 'String').SetString(krsEDSUnderDumpKey);
+  CL.AddConstantN('krsEDSUnknownKey', 'String').SetString(krsEDSUnknownKey);
+
   // Key when importing to keep current value
-  CL.AddConstantN('krsImportKeepValue', 'String').SetString(krsImportKeepValue);
+  CL.AddConstantN('krsImportKeepValueKey', 'String').SetString(krsImportKeepValueKey);
 
   // Internal folders
   CL.AddConstantN('krsTemp7zCacheFolder', 'String').SetString(krsTemp7zCacheFolder);
@@ -181,22 +204,34 @@ begin
   // -----
   CL.AddConstantN('rsLoadingSystemList', 'String').SetString(
     rsLoadingSystemList);
-  CL.AddConstantN('rsImportingSystemList', 'String').SetString(
-    rsImportingSystemList);
   CL.AddConstantN('rsSavingSystemList', 'String').SetString(
     rsSavingSystemList);
+  CL.AddConstantN('rsImportingSystemList', 'String').SetString(
+    rsImportingSystemList);
+  CL.AddConstantN('rsExportingSystemList', 'String').SetString(
+    rsExportingSystemList);
   CL.AddConstantN('rsLoadingGroupList', 'String').SetString(
     rsLoadingGroupList);
+  CL.AddConstantN('rsSavingGroupList', 'String').SetString(rsSavingGroupList);
   CL.AddConstantN('rsImportingGroupList', 'String').SetString(
     rsImportingGroupList);
-  CL.AddConstantN('rsSavingGroupList', 'String').SetString(rsSavingGroupList);
+  CL.AddConstantN('rsExportingGroupList', 'String').SetString(
+    rsExportingGroupList);
   CL.AddConstantN('rsLoadingSoftList', 'String').SetString(rsLoadingSoftList);
+  CL.AddConstantN('rsSavingSoftList', 'String').SetString(rsSavingSoftList);
   CL.AddConstantN('rsImportingSoftList', 'String').SetString(
     rsImportingSoftList);
-  CL.AddConstantN('rsSavingSoftList', 'String').SetString(rsSavingSoftList);
+  CL.AddConstantN('rsExportingSoftList', 'String').SetString(
+    rsExportingSoftList);
   CL.AddConstantN('rsLoadingEmulatorList', 'String').SetString(rsLoadingEmulatorList);
-  CL.AddConstantN('rsImportingEmulatorList', 'String').SetString(rsImportingEmulatorList);
   CL.AddConstantN('rsSavingEmulatorList', 'String').SetString(rsSavingEmulatorList);
+  CL.AddConstantN('rsImportingEmulatorList', 'String').SetString(rsImportingEmulatorList);
+  CL.AddConstantN('rsExportingEmulatorList', 'String').SetString(
+    rsExportingEmulatorList);
+
+  // Importing/Exporting Warnings
+  CL.AddConstantN('rsImportingNoSHA1', 'String').SetString(rsImportingNoSHA1);
+  CL.AddConstantN('rsExportingNoSHA1', 'String').SetString(rsExportingNoSHA1);
 
   // File mask descriptions
   // ----------------------
@@ -217,6 +252,7 @@ begin
   CL.AddConstantN('rsEDSOverDump', 'String').SetString(rsEDSOverDump);
   CL.AddConstantN('rsEDSBadDump', 'String').SetString(rsEDSBadDump);
   CL.AddConstantN('rsEDSUnderDump', 'String').SetString(rsEDSUnderDump);
+  CL.AddConstantN('rsEDSUnknown', 'String').SetString(rsEDSUnknown);
   CL.AddConstantN('rsEDSKeepValue', 'String').SetString(rsEDSKeepValue);
 
   // TYPES
@@ -224,7 +260,7 @@ begin
   CL.AddTypeS('TEmutecaSoftExportKey',
     '(TEFKSHA1, TEFKCRC32, TEFKFileName, TEFKCustom)');
   CL.AddTypeS('TEmutecaDumpStatus',
-    '(edsVerified, edsGood, edsAlternate, edsOverDump, edsBadDump, edsUnderDump, edsKeepValue)');
+    '(edsVerified, edsGood, edsAlternate, edsOverDump, edsBadDump, edsUnderDump, edsUnknown, edsKeepValue)');
 
   CL.AddTypeS('TEmutecaProgressCallBack',
     'function(const Title, Info1, Info2: string; const Value, MaxValue: int64) : boolean');
@@ -232,20 +268,21 @@ begin
   {
   const
     EmutecaSoftExportKeyStrK: array [TEmutecaSoftExportKey] of string =
-    (krsSEKSHA1, krsSEKCRC32, krsSEKFileName, krsSEKCustom);
-  //< Strings for FileKeys (fixed constants, used for ini files, etc. )
+      (krsSEKSHA1, krsSEKCRC32, krsSEKFileName, krsSEKCustom);
+    //< Strings for FileKeys (fixed constants, used for ini files, etc. )
 
-  EmutecaDumpStatusKey: array [TEmutecaDumpStatus] of string =
-    ('!', '', 'a', 'o', 'b', 'u');
-  //< Keys for DumpStatus, used in IniFiles
-  EmutecaDumpStatusStr: array [TEmutecaDumpStatus] of string =
-    (rsEDSVerified, rsEDSGood, rsEDSAlternate, rsEDSOverDump,
-    rsEDSBadDump, rsEDSUnderDump);
-  //< Strings for DumpStatus (localizable)
-  EmutecaDumpStatusStrK: array [TEmutecaDumpStatus] of string =
-    (krsEDSVerified, krsEDSGood, krsEDSAlternate, krsEDSOverDump,
-    krsEDSBadDump, krsEDSUnderDump);
-//< Strings for DumpStatus (fixed constants, used for icon filenames, etc. )
+    EmutecaDumpStatusKey: array [TEmutecaDumpStatus] of string =
+      (krsEDSVerifiedKey, krsEDSGoodKey, krsEDSAlternateKey, krsEDSOverDumpKey,
+      krsEDSBadDumpKey, krsEDSUnderDumpKey, krsEDSUnknownKey, krsImportKeepValueKey);
+    //< Keys for DumpStatus, used in IniFiles
+    EmutecaDumpStatusStrK: array [TEmutecaDumpStatus] of string =
+      (krsEDSVerified, krsEDSGood, krsEDSAlternate, krsEDSOverDump,
+      krsEDSBadDump, krsEDSUnderDump, krsEDSUnknown, krsEDSKeepValue);
+  //< Strings for DumpStatus (fixed constants, used for icon filenames, etc. )
+    EmutecaDumpStatusStr: array [TEmutecaDumpStatus] of string =
+      (rsEDSVerified, rsEDSGood, rsEDSAlternate, rsEDSOverDump,
+      rsEDSBadDump, rsEDSUnderDump, rsEDSUnknown, rsEDSKeepValue);
+    //< Strings for DumpStatus (localizable)
   }
 
 

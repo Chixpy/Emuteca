@@ -93,7 +93,7 @@ begin
     aEmulator := FullList[i];
 
     if assigned(ProgressCallBack) then
-      ProgressCallBack(rsImportingEmulatorList, aEmulator.EmulatorName,
+      ProgressCallBack(rsImportingEmulatorList, aEmulator.Title,
         i, FullList.Count, False);
 
     aEmulator.ImportFromIni(aIniFile);
@@ -164,7 +164,7 @@ begin
       TempEmu.LoadFromIni(aIniFile);
 
       if assigned(ProgressCallBack) then
-        ProgressCallBack(rsLoadingEmulatorList, TempEmu.EmulatorName, i,
+        ProgressCallBack(rsLoadingEmulatorList, TempEmu.Title, i,
           TempList.Count, False);
 
       Inc(i);
@@ -193,7 +193,7 @@ begin
     aEmulator := FullList[i];
 
     if assigned(ProgressCallBack) then
-      ProgressCallBack(rsSavingEmulatorList, aEmulator.EmulatorName,
+      ProgressCallBack(rsSavingEmulatorList, aEmulator.Title,
         i, FullList.Count, False);
 
     aEmulator.ExportToIni(aIniFile);
@@ -219,7 +219,7 @@ begin
     aEmulator := FullList[i];
 
     if assigned(ProgressCallBack) then
-      ProgressCallBack(rsSavingEmulatorList, aEmulator.EmulatorName,
+      ProgressCallBack(rsSavingEmulatorList, aEmulator.Title,
         i, FullList.Count, False);
 
     aEmulator.SaveToIni(aIniFile);

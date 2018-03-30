@@ -115,7 +115,7 @@ inherited fmEmutecaSoftEditor: TfmEmutecaSoftEditor
       Top = 112
       Width = 120
       TabOrder = 4
-      TextHint = 'ISO 639-1'
+      TextHint = 'ISO 639-1 code'
     end
     object lPirate: TLabel
       Left = 4
@@ -289,10 +289,30 @@ inherited fmEmutecaSoftEditor: TfmEmutecaSoftEditor
     Width = 232
     Align = alTop
     TabOrder = 5
-    TextHint = 'Sort Key (Empty = Title)'
+    TextHint = 'Sort Key (Empty = TranslitTitle)'
   end
-  inherited alPropEditor: TActionList[6]
+  object gbxExtraParameters: TGroupBox[6]
+    Left = 0
+    Height = 82
+    Top = 472
+    Width = 232
+    Align = alClient
+    Caption = 'Extra parameters'
+    ClientHeight = 62
+    ClientWidth = 228
+    TabOrder = 6
+    object mExtraParameters: TMemo
+      Left = 0
+      Height = 62
+      Top = 0
+      Width = 228
+      Align = alClient
+      ScrollBars = ssAutoVertical
+      TabOrder = 0
+    end
   end
-  inherited ilPropEditor: TImageList[7]
+  inherited alPropEditor: TActionList[7]
+  end
+  inherited ilPropEditor: TImageList[8]
   end
 end

@@ -34,6 +34,7 @@ type
     eYear: TEdit;
     eZone: TEdit;
     gbxDumpTags: TGroupBox;
+    gbxExtraParameters: TGroupBox;
     gbxVersion: TGroupBox;
     lCracked: TLabel;
     lDumpInfo: TLabel;
@@ -48,6 +49,7 @@ type
     lVersion: TLabel;
     lYear: TLabel;
     lZone: TLabel;
+    mExtraParameters: TMemo;
 
   private
     FfmGroupEditor: TfmEmutecaGroupEditor;
@@ -137,6 +139,8 @@ begin
   eCracked.Clear;
   eModified.Clear;
   eHack.Clear;
+
+  mExtraParameters.Clear;
 end;
 
 procedure TfmEmutecaSoftEditor.DoLoadFrameData;
@@ -183,6 +187,8 @@ begin
   eCracked.Text := Software.Cracked;
   eModified.Text := Software.Modified;
   eHack.Text := Software.Hack;
+  mExtraParameters.Lines.Assign(Software.ExtraParameters);
+
 end;
 
 procedure TfmEmutecaSoftEditor.DoSaveFrameData;
@@ -233,6 +239,7 @@ begin
   Software.Cracked := eCracked.Text;
   Software.Modified := eModified.Text;
   Software.Hack := eHack.Text;
+  Software.ExtraParameters.Assign(mExtraParameters.Lines);
 end;
 
 procedure TfmEmutecaSoftEditor.FPOObservedChanged(ASender: TObject;

@@ -309,7 +309,7 @@ begin
 
   StartTime := Now; // Stats
 
-  Result := aEmulator.Execute(RomFile);
+  Result := aEmulator.Execute(RomFile, aSoftware.ExtraParameters);
 
   { TODO : Windows shorcuts don't work }
   TimePlaying := SecondsBetween(Now, StartTime);

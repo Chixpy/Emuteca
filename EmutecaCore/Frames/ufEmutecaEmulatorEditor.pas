@@ -16,6 +16,7 @@ type
   { TfmEmutecaEmulatorEditor }
 
   TfmEmutecaEmulatorEditor = class(TfmCHXPropEditor)
+    actParamROMExtra: TAction;
     actParamROMFileExtension: TAction;
     actParamROMFileNoExt: TAction;
     actParamROMFilename: TAction;
@@ -40,11 +41,14 @@ type
     lExePath: TLabel;
     lExitCode: TLabel;
     lExtensions: TLabel;
+    lExtraParameters: TLabel;
     lID: TLabel;
     lName: TLabel;
     lParameters: TLabel;
     lWebPage: TLabel;
     lWorkingFolder: TLabel;
+    mExtraParameters: TMemo;
+    pmiParamROMExtra: TMenuItem;
     pmiParamROMFileExtension: TMenuItem;
     pmiParamROMFileNoExt: TMenuItem;
     pmiParamROMFilename: TMenuItem;
@@ -63,6 +67,7 @@ type
     Splitter1: TSplitter;
     procedure actOpenWebPageExecute(Sender: TObject);
     procedure actParamROMDirExecute(Sender: TObject);
+    procedure actParamROMExtraExecute(Sender: TObject);
     procedure actParamROMFileExtensionExecute(Sender: TObject);
     procedure actParamROMFilenameExecute(Sender: TObject);
     procedure actParamROMFileNoExtExecute(Sender: TObject);
@@ -130,6 +135,11 @@ end;
 procedure TfmEmutecaEmulatorEditor.actParamROMDirExecute(Sender: TObject);
 begin
    eParameters.SelText:=kEmutecaROMDirKey;
+end;
+
+procedure TfmEmutecaEmulatorEditor.actParamROMExtraExecute(Sender: TObject);
+begin
+  eParameters.SelText:=kEmutecaROMExtraParamKey;
 end;
 
 procedure TfmEmutecaEmulatorEditor.actParamROMFileExtensionExecute(
@@ -203,6 +213,7 @@ begin
   eParameters.Clear;
   mExtensions.Clear;
   eExitCode.Value := 0;
+  mExtraParameters.Clear;
 end;
 
 procedure TfmEmutecaEmulatorEditor.DoLoadFrameData;
@@ -215,7 +226,7 @@ begin
     Exit;
 
   lID.Caption := Emulator.ID;
-  eName.Text := Emulator.EmulatorName;
+  eName.Text := Emulator.Title;
   eDeveloper.Text := Emulator.Developer;
   eWebPage.Text := Emulator.WebPage;
 
@@ -224,11 +235,12 @@ begin
   eParameters.Text := Emulator.Parameters;
   mExtensions.Lines.Assign(Emulator.FileExt);
   eExitCode.Value := Emulator.ExitCode;
+  mExtraParameters.Lines.Assign(Emulator.ExtraParamFormat);
 end;
 
 procedure TfmEmutecaEmulatorEditor.DoSaveFrameData;
 begin
-  Emulator.EmulatorName := eName.Text;
+  Emulator.Title := eName.Text;
   Emulator.Developer := eDeveloper.Text;
   Emulator.WebPage := eWebPage.Text;
 
@@ -237,6 +249,7 @@ begin
   Emulator.Parameters := eParameters.Text;
   Emulator.FileExt.Assign(mExtensions.Lines);
   Emulator.ExitCode := eExitCode.Value;
+  Emulator.ExtraParamFormat.Assign(mExtraParameters.Lines);
 end;
 
 end.
