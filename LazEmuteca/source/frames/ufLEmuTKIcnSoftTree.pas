@@ -1,3 +1,22 @@
+{ Icon soft list frame of LazEmuteca.
+
+  Copyright (C) 2011-2018 Chixpy
+
+  This source is free software; you can redistribute it and/or modify it
+  under the terms of the GNU General Public License as published by the Free
+  Software Foundation; either version 3 of the License, or (at your option)
+  any later version.
+
+  This code is distributed in the hope that it will be useful, but WITHOUT
+  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+  FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+  more details.
+
+  A copy of the GNU General Public License is available on the World Wide Web
+  at <http://www.gnu.org/copyleft/gpl.html>. You can also obtain it by
+  writing to the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+  Boston, MA 02111-1307, USA.
+}
 unit ufLEmuTKIcnSoftTree;
 
 {$mode objfpc}{$H+}
@@ -7,14 +26,21 @@ interface
 uses
   Classes, SysUtils, FileUtil, LazFileUtils, Forms, Controls, Graphics, Dialogs,
   IniFiles, VirtualTrees, LCLIntf, LCLType, ComCtrls, Menus,
-  ActnList, LazUTF8, ucCHXImageList, uCHXImageUtils, uEmutecaCommon,
-  uaEmutecaCustomSoft, ucEmutecaGroup, ucEmutecaSoftware, ufEmutecaSoftTree;
-
-const
-  LazEmuTKIconFiles: array [0..12] of string =
-    (krsEDSVerified, krsEDSGood, krsEDSAlternate, krsEDSOverDump,
-    krsEDSBadDump, krsEDSUnderDump, 'Fixed', 'Trainer',
-    'Translation', 'Pirate', 'Cracked', 'Modified', 'Hack');
+  ActnList, LazUTF8,
+  // CHX units
+  uCHXImageUtils,
+  // CHX clases
+  ucCHXImageList,
+  // Emuteca units
+  uEmutecaCommon,
+  // Emuteca abstracts
+  uaEmutecaCustomSoft,
+  // Emuteca clases
+  ucEmutecaGroup, ucEmutecaSoftware,
+  // Emuteca frames
+  ufEmutecaSoftTree,
+  // LazEmuteca commons
+  uLEmuTKCommon;
 
 type
 
@@ -196,31 +222,31 @@ procedure TfmLEmuTKIcnSoftTree.VDTDrawText(Sender: TBaseVirtualTree;
         IconRect := CellRect;
         IconRect.Right := IconRect.Left + IconRect.Bottom - IconRect.Top;
 
-        // DumpStatus (0-5)
+        // DumpStatus
         TargetCanvas.StretchDraw(CorrectAspectRatio(IconRect,
           DumpIconList[Ord(aSoft.DumpStatus)]),
           DumpIconList[Ord(aSoft.DumpStatus)].Graphic);
 
         // Others
-        for i := 6 to High(LazEmuTKIconFiles) do
+        for i := 0 to High(LazEmuTKDumpInfoIconFiles) do
         begin
           IconRect.Left := IconRect.Left + IconRect.Bottom - IconRect.Top;
           IconRect.Right := IconRect.Right + IconRect.Bottom - IconRect.Top;
 
           case i of
-            6: // Fixed
+            0: // Fixed
               TmpStr := aSoft.Fixed;
-            7: // Trainer
+            1: // Trainer
               TmpStr := aSoft.Trainer;
-            8: // Translation;
+            2: // Translation;
               TmpStr := aSoft.Translation;
-            9: // Pirate
+            3: // Pirate
               TmpStr := aSoft.Pirate;
-            10: // Cracked
+            4: // Cracked
               TmpStr := aSoft.Cracked;
-            11: // Modified
+            5: // Modified
               TmpStr := aSoft.Modified;
-            12: // Hack
+            6: // Hack
               TmpStr := aSoft.Hack;
             else
               TmpStr := '';
@@ -230,11 +256,11 @@ procedure TfmLEmuTKIcnSoftTree.VDTDrawText(Sender: TBaseVirtualTree;
           if (TmpStr <> '') then
           begin
             TargetCanvas.StretchDraw(CorrectAspectRatio(IconRect,
-              DumpIconList[i]), DumpIconList[i].Graphic);
+              DumpIconList[i + Length(EmutecaDumpStatusStrK)]), DumpIconList[i + Length(EmutecaDumpStatusStrK)].Graphic);
 
             // Some magic
             case i of
-              8: // Translation;
+              2: // Translation;
               begin
                 if (TmpStr[1] = '+') then
                   TmpStr := Trim(UTF8Copy(TmpStr, 2, 3))

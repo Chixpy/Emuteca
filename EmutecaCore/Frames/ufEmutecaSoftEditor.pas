@@ -112,7 +112,6 @@ end;
 
 function TfmEmutecaSoftEditor.SelectGroup(aGroup: cEmutecaGroup): boolean;
 begin
-
   Result := True;
 end;
 
@@ -167,17 +166,8 @@ begin
 
   eZone.Text := Software.Zone;
 
-  case Software.DumpStatus of
-    edsVerified: cbxDumpType.ItemIndex := 0;
-    edsGood: cbxDumpType.ItemIndex := 1;
-    edsAlternate: cbxDumpType.ItemIndex := 2;
-    edsOverDump: cbxDumpType.ItemIndex := 3;
-    edsBadDump: cbxDumpType.ItemIndex := 4;
-    edsUnderDump: cbxDumpType.ItemIndex := 5;
-    edsKeepValue: cbxDumpType.ItemIndex := 6;
-    else
-      cbxDumpType.ItemIndex := 1;
-  end;
+  cbxDumpType.ItemIndex := Ord(Software.DumpStatus);
+
   eDumpInfo.Text := Software.DumpInfo;
 
   eFixed.Text := Software.Fixed;
@@ -219,17 +209,9 @@ begin
 
   Software.Zone := eZone.Text;
 
-  case cbxDumpType.ItemIndex of
-    0: Software.DumpStatus := edsVerified;
-    1: Software.DumpStatus := edsGood;
-    2: Software.DumpStatus := edsAlternate;
-    3: Software.DumpStatus := edsOverDump;
-    4: Software.DumpStatus := edsBadDump;
-    5: Software.DumpStatus := edsUnderDump;
-    6: Software.DumpStatus := edsKeepValue;
-    else
-      Software.DumpStatus := edsGood;
-  end;
+  if TEmutecaDumpStatus(cbxDumpType.ItemIndex) <> edsKeepValue then
+    Software.DumpStatus := TEmutecaDumpStatus(cbxDumpType.ItemIndex);
+
   Software.DumpInfo := eDumpInfo.Text;
 
   Software.Fixed := eFixed.Text;

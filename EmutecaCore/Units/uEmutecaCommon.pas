@@ -1,3 +1,22 @@
+{ Commons unit of Emuteca.
+
+  Copyright (C) 2011-2018 Chixpy
+
+  This source is free software; you can redistribute it and/or modify it
+  under the terms of the GNU General Public License as published by the Free
+  Software Foundation; either version 3 of the License, or (at your option)
+  any later version.
+
+  This code is distributed in the hope that it will be useful, but WITHOUT
+  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+  FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+  more details.
+
+  A copy of the GNU General Public License is available on the World Wide Web
+  at <http://www.gnu.org/copyleft/gpl.html>. You can also obtain it by
+  writing to the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+  Boston, MA 02111-1307, USA.
+}
 unit uEmutecaCommon;
 
 {$mode objfpc}{$H+}
@@ -70,7 +89,8 @@ const
   krsCSVStatsHeader = '"Last Time","Times Played","Playing Time"';
 
   krsCSVSoftHeader = '"Group","SHA1","ID","Folder","FileName",' +
-    '"Title","Transliterated Name","Sort Title","Version","Year","Publisher",' +
+    '"Title","Transliterated Name","Sort Title","Version","Year","Publisher",'
+    +
     '"Zone","DumpStatus","Dump Info","Fixed","Trainer","Translation",' +
     '"Pirate","Cracked","Modified","Hack","Extra Parameters"';
   krsCSVSoftStatsHeader = krsCSVSoftHeader + ',' + krsCSVStatsHeader;
@@ -172,7 +192,7 @@ const
   krsEDSBadDump = 'BadDump';
   krsEDSUnderDump = 'UnderDump';
   krsEDSUnknown = 'Unknown';
-  krsEDSKeepValue = 'Keep value';
+  krsEDSKeepValue = 'KeepValue';
 
   // Constant for DumpStatus, fixed (for databases)
   krsEDSVerifiedKey = '!';
@@ -215,10 +235,12 @@ resourcestring
   rsExportingEmulatorList = 'Exporting emulator list...';
 
   // Importing/Exporting Warnings
-  rsImportingNoSHA1 = 'Warning: Some info could not be imported because some files haven''t got SHA1 cached.'
+  rsImportingNoSHA1 =
+    'Warning: Some info could not be imported because some files haven''t got SHA1 cached.'
     + LineEnding + '(%2:d/%3:d) %0:s%1:s';
-  rsExportingNoSHA1 = 'Warning: We can''t export because not all files have SHA1 cached.'
-    + LineEnding + '(%2:d/%3:d) %0:s%1:s';
+  rsExportingNoSHA1 =
+    'Warning: We can''t export because not all files have SHA1 cached.' +
+    LineEnding + '(%2:d/%3:d) %0:s%1:s';
 
   // File mask descriptions
   // ----------------------
@@ -245,7 +267,7 @@ resourcestring
   rsEDSBadDump = 'BadDump';
   rsEDSUnderDump = 'UnderDump';
   rsEDSUnknown = 'Unknown';
-  rsEDSKeepValue = 'KeepValue'; // Only for imports
+  rsEDSKeepValue = 'Keep value'; // Only for imports
 
 
 type
@@ -265,12 +287,13 @@ const
 
   EmutecaDumpStatusKey: array [TEmutecaDumpStatus] of string =
     (krsEDSVerifiedKey, krsEDSGoodKey, krsEDSAlternateKey, krsEDSOverDumpKey,
-    krsEDSBadDumpKey, krsEDSUnderDumpKey, krsEDSUnknownKey, krsImportKeepValueKey);
+    krsEDSBadDumpKey, krsEDSUnderDumpKey, krsEDSUnknownKey,
+    krsImportKeepValueKey);
   //< Keys for DumpStatus, used in IniFiles
   EmutecaDumpStatusStrK: array [TEmutecaDumpStatus] of string =
     (krsEDSVerified, krsEDSGood, krsEDSAlternate, krsEDSOverDump,
     krsEDSBadDump, krsEDSUnderDump, krsEDSUnknown, krsEDSKeepValue);
-//< Strings for DumpStatus (fixed constants, used for icon filenames, etc. )
+  //< Strings for DumpStatus (fixed constants, used for icon filenames, etc. )
   EmutecaDumpStatusStr: array [TEmutecaDumpStatus] of string =
     (rsEDSVerified, rsEDSGood, rsEDSAlternate, rsEDSOverDump,
     rsEDSBadDump, rsEDSUnderDump, rsEDSUnknown, rsEDSKeepValue);
@@ -506,12 +529,12 @@ begin
 
   //// 4. If nothing found, search ONLY ONE from every compressed archive.
   //// Folder/*.zip/aFileName.mext
-  //
+
   //CompressedArchives := TStringList.Create;
   //try
   //  FindAllFiles(CompressedArchives, aFolder,
   //    FileMaskFromCommaText(w7zGetFileExts), True);
-  //
+
   //  i := 0;
   //  while i < CompressedArchives.Count do
   //  begin
@@ -523,7 +546,7 @@ begin
   //finally
   //  FreeAndNil(CompressedArchives);
   //end;
-  //
+
   //FindAllFiles(OutFileList, DecompressFolder,
   //  FileMaskFromStringList(Extensions), True);
 end;
@@ -586,7 +609,8 @@ begin
 
   // 2. Search in folder
   // Folder/aFileName/[*]/*.mext
-  Result := SearchFirstFileInFolderByExtSL(aFolder + SetAsFolder(aFileName), Extensions);
+  Result := SearchFirstFileInFolderByExtSL(aFolder +
+    SetAsFolder(aFileName), Extensions);
   if Result <> '' then
     Exit;
 
@@ -637,7 +661,7 @@ begin
     //try
     //  FindAllFiles(CompressedArchives, aFolder,
     //    FileMaskFromCommaText(w7zGetFileExts), True);
-    //
+
     //  i := 0;
     //  while i < CompressedArchives.Count do
     //  begin
@@ -687,17 +711,17 @@ begin
     //try
     //  EmuTKSearchAllFilesByNameExtCT(CompressedArchives, aFolder,
     //    w7zGetFileExts);
-    //
+
     //  i := 0;
     //  while i < CompressedArchives.Count do
     //  begin
     //    TempStrLst.Clear;
     //    w7zListFiles(CompressedArchives[i], TempStrLst, True, '');
-    //
+
     //    Result := SearchComprFile(TempStrLst, aFileName, Extensions);
     //    if Result <> '' then
     //      Result := SetAsFolder(CompressedArchives[i]) + Result;
-    //
+
     //    Inc(i);
     //  end;
     //finally

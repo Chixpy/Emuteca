@@ -404,12 +404,12 @@ begin
   IconList.AddImageFile(aFolder + 'SysIcon.png');
   IconList.AddImageFile(aFolder + 'EmuIcon.png');
 
-  { Icons for "flags" column, see ufEmutecaIcnSoftList.LazEmuTKIconFiles
-    case ord(LazEmuTKIconFiles)
-    }
+  { Icons for "flags" column. }
   DumpIcons.Clear;
   aFolder := SetAsAbsoluteFile(GUIConfig.DumpIcnFolder, ProgramDirectory);
-  for aFile in LazEmuTKIconFiles do
+  for aFile in EmutecaDumpStatusStrK do
+    DumpIcons.AddImageFile(aFolder + aFile + '.png');
+  for aFile in LazEmuTKDumpInfoIconFiles do
     DumpIcons.AddImageFile(aFolder + aFile + '.png');
 
   LoadSystemsIcons;
