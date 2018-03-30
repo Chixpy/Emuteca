@@ -1,3 +1,22 @@
+{ Frame to add sofware from folder of Emuteca
+
+  Copyright (C) 2011-2018 Chixpy
+
+  This source is free software; you can redistribute it and/or modify it under
+  the terms of the GNU General Public License as published by the Free
+  Software Foundation; either version 3 of the License, or (at your option)
+  any later version.
+
+  This code is distributed in the hope that it will be useful, but WITHOUT ANY
+  WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+  FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+  details.
+
+  A copy of the GNU General Public License is available on the World Wide Web
+  at <http://www.gnu.org/copyleft/gpl.html>. You can also obtain it by writing
+  to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
+  MA 02111-1307, USA.
+}
 unit ufEmutecaActAddFolder;
 
 {$mode objfpc}{$H+}
@@ -7,12 +26,19 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
   Buttons, ActnList, StdCtrls, EditBtn, LazFileUtils, LazUTF8,
-  u7zWrapper,
-  uCHXFileUtils, uCHXStrUtils, uCHXDlgUtils,
-  ufrCHXForm, ufCHXPropEditor,
+  // CHX units
+  u7zWrapper, uCHXFileUtils, uCHXStrUtils, uCHXDlgUtils,
+  // CHX forms
+  ufrCHXForm,
+  // CHX frames
+  ufCHXPropEditor,
+  // Emuteca units
   uEmutecaCommon,
-  ucEmuteca, uaEmutecaCustomSystem, ucEmutecaSystem,
-  ucEmutecaSoftList, ucEmutecaSoftware,
+  // Enuteca abstracts
+  uaEmutecaCustomSystem,
+  // Emuteca clases
+  ucEmuteca, ucEmutecaSystem, ucEmutecaSoftList, ucEmutecaSoftware,
+  // Emuteca frames
   ufEmutecaSystemCBX;
 
 type
@@ -85,6 +111,7 @@ begin
 
   eSystemExtensions.Text := '';
   eSystemExportKey.Text := '';
+  eFolder.Text := '';
   gbxFolder.Enabled := Assigned(aSystem);
 
   if not Assigned(aSystem) then
@@ -92,6 +119,7 @@ begin
 
   eSystemExtensions.Text := aSystem.Extensions.CommaText;
   eSystemExportKey.Text := SoftExportKey2StrK(aSystem.SoftExportKey);
+
   SetDirEditInitialDir(eFolder, aSystem.BaseFolder);
 end;
 
@@ -112,19 +140,28 @@ procedure TfmEmutecaActAddFolder.DoSaveFrameData;
     aCacheSoftList: cEmutecaSoftList);
   var
     aSoft: cEmutecaSoftware;
+    aComp: Integer;
     Found: boolean;
-    j: integer;
   begin
-    // Search if file is already added to system list
+    // aCacheSoftList is sorted.
+    // aFolder, aFile will enter this procedure sorted too.
+
+    // Search if file is already added to system list,
+    //   we will delete items from aCacheSoftList <= aFolder+aFile
+    // Similar to import/export dragons
+
     aSoft := nil;
     Found := False;
-    j := 0;
-    while (j < aCacheSoftList.Count) and (not Found) do
+    aComp := -1;
+    while (aCacheSoftList.Count > 0) and (aComp < 0) do
     begin
-      aSoft := aCacheSoftList[j];
-      // Same file
-      if aSoft.MatchFile(aFolder, aFile) then
+      aSoft := aCacheSoftList[0];
+
+      aComp := aSoft.CompareFile(aFolder, aFile);
+
+      if aComp = 0 then
       begin
+        // Match file
         Found := True;
 
         case rgbFilename.ItemIndex of
@@ -133,9 +170,10 @@ procedure TfmEmutecaActAddFolder.DoSaveFrameData;
           else // Update SHA
             ;
         end;
-        aCacheSoftList.Delete(j); // Speeds up following searchs
       end;
-      Inc(j);
+
+      if aComp <= 0 then
+        aCacheSoftList.Delete(0); // Removing from cache
     end;
 
     if not Found then // Create soft
@@ -195,7 +233,7 @@ procedure TfmEmutecaActAddFolder.DoSaveFrameData;
       aSoft.Title := Trim(UTF8TextReplace(aSoft.Title, ' - ', ': '));
       aSoft.GroupKey := Trim(UTF8TextReplace(aSoft.GroupKey, ' - ', ': '));
 
-      // Add it if not found before
+      // Add it, if not found
       if not Found then
         aSystem.AddSoft(aSoft);
     end;
@@ -226,7 +264,7 @@ begin
   if not aSystem.SoftGroupLoaded then
     Emuteca.SystemManager.LoadSystemData(aSystem);
 
-  // Copy soft
+  // Copy actual soft to CacheSoftList
   CacheSoftList := cEmutecaSoftList.Create(False);
   CacheSoftList.Assign(aSystem.SoftManager.FullList);
   CacheSoftList.Sort(@EmutecaCompareSoftByFileName);

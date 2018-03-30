@@ -1,3 +1,22 @@
+{ Software editor of Emuteca.
+
+  Copyright (C) 2011-2018 Chixpy
+
+  This source is free software; you can redistribute it and/or modify it
+  under the terms of the GNU General Public License as published by the Free
+  Software Foundation; either version 3 of the License, or (at your option)
+  any later version.
+
+  This code is distributed in the hope that it will be useful, but WITHOUT
+  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+  FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+  more details.
+
+  A copy of the GNU General Public License is available on the World Wide Web
+  at <http://www.gnu.org/copyleft/gpl.html>. You can also obtain it by
+  writing to the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+  Boston, MA 02111-1307, USA.
+}
 unit ufEmutecaSoftEditor;
 
 {$mode objfpc}{$H+}
@@ -7,10 +26,12 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
   Buttons, ActnList, StdCtrls,
+  // CHX frames
   ufCHXPropEditor,
+  // Emuteca units
   uEmutecaCommon,
-  ucEmutecaSystem, ucEmutecaGroup, ucEmutecaSoftware,
-  ufEmutecaGroupEditor;
+  // Emuteca classes
+  ucEmutecaSystem, ucEmutecaSoftware;
 
 type
 
@@ -52,17 +73,10 @@ type
     mExtraParameters: TMemo;
 
   private
-    FfmGroupEditor: TfmEmutecaGroupEditor;
-    FGroup: cEmutecaGroup;
     FSoftware: cEmutecaSoftware;
-    procedure SetGroup(AValue: cEmutecaGroup);
     procedure SetSoftware(AValue: cEmutecaSoftware);
 
   protected
-    property fmGroupEditor: TfmEmutecaGroupEditor read FfmGroupEditor;
-
-    function SelectGroup(aGroup: cEmutecaGroup): boolean;
-
     procedure DoClearFrameData;
     procedure DoLoadFrameData;
     procedure DoSaveFrameData;
@@ -77,7 +91,6 @@ type
 
   published
     property Software: cEmutecaSoftware read FSoftware write SetSoftware;
-    property Group: cEmutecaGroup read FGroup write SetGroup;
   end;
 
 implementation
@@ -101,18 +114,6 @@ begin
     Software.FPOAttachObserver(Self);
 
   LoadFrameData;
-end;
-
-procedure TfmEmutecaSoftEditor.SetGroup(AValue: cEmutecaGroup);
-begin
-  if FGroup = AValue then
-    Exit;
-  FGroup := AValue;
-end;
-
-function TfmEmutecaSoftEditor.SelectGroup(aGroup: cEmutecaGroup): boolean;
-begin
-  Result := True;
 end;
 
 procedure TfmEmutecaSoftEditor.DoClearFrameData;

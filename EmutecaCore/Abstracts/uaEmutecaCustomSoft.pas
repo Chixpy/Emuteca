@@ -513,8 +513,7 @@ begin
   Result := SHA1Match(SHA1, aSHA1);
 end;
 
-function caEmutecaCustomSoft.CompareFile(
-  const aFolder, aFile: string): integer;
+function caEmutecaCustomSoft.CompareFile(const aFolder, aFile: string): integer;
 begin
   Result := CompareFilenames(Folder, SetAsFolder(aFolder));
   if Result = 0 then
