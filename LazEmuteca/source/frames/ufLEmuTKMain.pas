@@ -240,10 +240,14 @@ begin
   else
   begin
     Emuteca.SystemManager.LoadAllEnabledSystemsData;
-    if FullGroupList.Count = 0 then;
+    if FullGroupList.Count = 0 then // If empty populate
+      UpdateFullGroupList;
     GUIConfig.CurrSystem := '';
     fmSoftTree.GroupList := FullGroupList;
   end;
+
+  if assigned(Emuteca) then
+    Emuteca.CacheData;
 
   // Using fmSoftTree.GroupList is dirty...
   if assigned(OnGrpListChanged) then
@@ -280,6 +284,7 @@ begin
     fmSoftEditor.Software := nil;
     fmSoftMedia.Software := nil;
     fmSystemPanel.System := nil;
+    FullGroupList.Clear; // Clear full list
   end;
 
   LoadFrameData;
