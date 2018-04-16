@@ -125,7 +125,7 @@ constructor TfmLEmuTKScriptManager.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
 
-  slvGeneral.Mask := krsFileMaskScript;
+  slvFiles.Mask := krsFileMaskScript;
 
   OnClearFrameData := @DoClearFrameData;
   OnLoadFrameData := @DoLoadFrameData;
