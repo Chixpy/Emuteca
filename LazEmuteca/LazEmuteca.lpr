@@ -7,7 +7,7 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   Interfaces, // this includes the LCL widgetset
   Forms,
   lazcontrols,
-  runtimetypeinfocontrols,
+  runtimetypeinfocontrols, pascalscript,
   // CHX units
   uCHXDlgUtils,
   // CHX abstract classes
@@ -34,7 +34,7 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   uaEmutecaCustomSoft,
   uaEmutecaCustomSystem,
   // Emuteca classes
-  ucEmuteca, PascalScriptFCL,
+  ucEmuteca,
   ucEmutecaConfig,
   ucEmutecaEmulator,
   ucEmutecaEmulatorList,
