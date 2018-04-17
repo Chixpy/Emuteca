@@ -8,8 +8,6 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   Forms,
   lazcontrols,
   runtimetypeinfocontrols,
-  PascalScriptFCL,
-  PascalScriptLCL,
   // CHX units
   uCHXDlgUtils,
   // CHX abstract classes
@@ -36,7 +34,7 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   uaEmutecaCustomSoft,
   uaEmutecaCustomSystem,
   // Emuteca classes
-  ucEmuteca,
+  ucEmuteca, PascalScriptFCL,
   ucEmutecaConfig,
   ucEmutecaEmulator,
   ucEmutecaEmulatorList,
