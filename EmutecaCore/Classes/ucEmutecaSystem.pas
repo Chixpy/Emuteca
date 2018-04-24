@@ -27,9 +27,13 @@ interface
 
 uses
   Classes, SysUtils, LazFileUtils, LazUTF8,
-  u7zWrapper,
+  // CHX units
+  uCHX7zWrapper,
+  // Emuteca units
   uEmutecaCommon,
+  // Emuteca abstracts
   uaEmutecaCustomSystem,
+  // Emuteca classes
   ucEmutecaGroupManager, ucEmutecaGroupList, ucEmutecaGroup,
   ucEmutecaSoftManager, ucEmutecaSoftList, ucEmutecaSoftware;
 

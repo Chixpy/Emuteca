@@ -26,13 +26,20 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
   ExtCtrls, Buttons, ActnList, StdCtrls, EditBtn, LazFileUtils,
-  u7zWrapper,
-  uCHXStrUtils, uCHXFileUtils, ufrCHXForm,
+  // CHX units
+  uCHX7zWrapper, uCHXStrUtils, uCHXFileUtils,
+  // CHX forms
+  ufrCHXForm,
+  // CHX frames
   ufCHXPropEditor,
+  // Emuteca units
   uEmutecaCommon,
+  // Emuteca abstracts
   uaEmutecaCustomSystem,
-  ucEmuteca,
-  ucEmutecaSystem, ucEmutecaSoftList, ucEmutecaGroup, ucEmutecaSoftware,
+  // Emuteca classes
+  ucEmuteca, ucEmutecaSystem, ucEmutecaSoftList, ucEmutecaGroup,
+  ucEmutecaSoftware,
+  // Emuteca frames
   ufEmutecaSoftEditor, ufEmutecaSystemCBX, ufEmutecaGroupCBX;
 
 type

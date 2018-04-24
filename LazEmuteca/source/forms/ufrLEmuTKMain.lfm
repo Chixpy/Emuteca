@@ -14,7 +14,7 @@ object frmLEmuTKMain: TfrmLEmuTKMain
   Position = poDesktopCenter
   SessionProperties = 'Height;Width;WindowState'
   ShowHint = True
-  LCLVersion = '1.8.0.5'
+  LCLVersion = '1.8.2.0'
   object stbHelp: TStatusBar
     Left = 0
     Height = 23
@@ -89,8 +89,8 @@ object frmLEmuTKMain: TfrmLEmuTKMain
     end
     object actOpenTempFolder: TAction
       Category = 'File'
-      Caption = 'Open Temp folder...'
-      Hint = 'Open Temp folder...|Open Emuteca''s temporal folder.'
+      Caption = 'Open Emuteca''s Temp folder...'
+      Hint = 'Open Emuteca''s Temp folder...|Open Emuteca''s temporal folder.'
       OnExecute = actOpenTempFolderExecute
     end
     object actExportSoftData: TAction
@@ -155,14 +155,20 @@ object frmLEmuTKMain: TfrmLEmuTKMain
     end
     object actOpenEmutecaFolder: TAction
       Category = 'File'
-      Caption = 'Open Emuteca folder...'
-      Hint = 'Open Emuteca folder...|Open Emuteca program folder.'
+      Caption = 'Open Emuteca''s folder...'
+      Hint = 'Open Emuteca''s folder...|Open Emuteca''s program folder.'
       OnExecute = actOpenEmutecaFolderExecute
     end
     object actOpenEmulatorFolder: TAction
       Category = 'Emulator'
       Caption = 'Open emulator folder...'
       Hint = 'Open emulator folder...|Open current emulator folder.'
+    end
+    object actOpen7zCacheFolder: TAction
+      Category = 'File'
+      Caption = 'Open 7z cache folder...'
+      Hint = 'Open 7z caché folder...|Open 7z caché folder.'
+      OnExecute = actOpen7zCacheFolderExecute
     end
   end
   object MainMenu: TMainMenu
@@ -202,6 +208,9 @@ object frmLEmuTKMain: TfrmLEmuTKMain
         end
         object mimmOpenTempFolder: TMenuItem
           Action = actOpenTempFolder
+        end
+        object mimmOpen7zCacheFolder: TMenuItem
+          Action = actOpen7zCacheFolder
         end
       end
       object MenuItem13: TMenuItem

@@ -699,7 +699,7 @@ begin
 
   if SupportedExtCT(aName, krsVirtualFolderExt) then
   begin
-    // It's a folder
+    // It's a folder.
     // TOD0 2: Test if it's empty or not have the current type of mediafiles
     pFile := vstFilesAll.GetNodeData(vstFilesAll.AddChild(nil));
 

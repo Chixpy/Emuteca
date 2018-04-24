@@ -29,11 +29,13 @@ uses
   ActnList, Menus, StdActns, ComCtrls, ExtCtrls, DefaultTranslator,
   IniPropStorage, StdCtrls,
   // Misc
-  uVersionSupport, u7zWrapper,
+  uVersionSupport,
   // CHX units
-  uCHXStrUtils, uCHXFileUtils, uCHXImageUtils, ucCHXImageList,
+  uCHX7zWrapper, uCHXStrUtils, uCHXFileUtils, uCHXImageUtils, ucCHXImageList,
   // CHX forms
-  ufrCHXForm, ufCHXProgressBar,
+  ufrCHXForm,
+  // CHX frames
+  ufCHXProgressBar,
   // Emuteca units
   uEmutecaCommon,
   // Emuteca clases
@@ -69,6 +71,7 @@ type
     actCleanSystemData: TAction;
     actEditSystem: TAction;
     actEditEmulator: TAction;
+    actOpen7zCacheFolder: TAction;
     actOpenEmulatorFolder: TAction;
     actOpenEmutecaFolder: TAction;
     actOpenSystemBaseFolder: TAction;
@@ -90,6 +93,7 @@ type
     MenuItem1: TMenuItem;
     MenuItem2: TMenuItem;
     MenuItem4: TMenuItem;
+    mimmOpen7zCacheFolder: TMenuItem;
     mimmOpenEmulatorFolder: TMenuItem;
     mimmOpenEmutecaFolder: TMenuItem;
     mimmExport: TMenuItem;
@@ -146,6 +150,7 @@ type
     procedure actImportSoftDataExecute(Sender: TObject);
     procedure actMediaManagerExecute(Sender: TObject);
     procedure actMergeGroupFilesExecute(Sender: TObject);
+    procedure actOpen7zCacheFolderExecute(Sender: TObject);
     procedure actOpenEmutecaFolderExecute(Sender: TObject);
     procedure actOpenSoftFolderExecute(Sender: TObject);
     procedure actOpenSystemBaseFolderExecute(Sender: TObject);
@@ -762,6 +767,11 @@ end;
 procedure TfrmLEmuTKMain.actMergeGroupFilesExecute(Sender: TObject);
 begin
   TfmLEmuTKactMergeGroup.SimpleForm(CurrentGroup, GUIIconsFile, GUIConfig.DefaultFileName);
+end;
+
+procedure TfrmLEmuTKMain.actOpen7zCacheFolderExecute(Sender: TObject);
+begin
+  OpenDocument(w7zGetCacheDir);
 end;
 
 procedure TfrmLEmuTKMain.actOpenEmutecaFolderExecute(Sender: TObject);

@@ -27,7 +27,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
   Buttons, ActnList, StdCtrls, EditBtn, LazFileUtils, LazUTF8,
   // CHX units
-  u7zWrapper, uCHXFileUtils, uCHXStrUtils, uCHXDlgUtils,
+  uCHX7zWrapper, uCHXFileUtils, uCHXStrUtils, uCHXDlgUtils,
   // CHX forms
   ufrCHXForm,
   // CHX frames

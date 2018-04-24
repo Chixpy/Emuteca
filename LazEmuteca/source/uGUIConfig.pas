@@ -6,7 +6,10 @@ interface
 
 uses
   Classes, SysUtils, IniFiles, LazUTF8, Graphics,
-  uCHXStrUtils, uaCHXConfig, u7zWrapper;
+  // CHX units
+  uCHX7zWrapper, uCHXStrUtils,
+  // CHX abstracts
+  uaCHXConfig;
 
 const
   // Sections and keys for ini file

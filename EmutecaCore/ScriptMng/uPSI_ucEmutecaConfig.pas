@@ -45,7 +45,7 @@ uses
   ,Graphics
   ,uCHXStrUtils
   ,uCHXRscStr
-  ,u7zWrapper
+  ,uCHX7zWrapper
   ,ucEmutecaConfig
   ;
  

@@ -25,7 +25,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, LazFileUtils, LazUTF8,
-  u7zWrapper,
+  uCHX7zWrapper,
   uCHXStrUtils, uCHXFileUtils;
 
 const

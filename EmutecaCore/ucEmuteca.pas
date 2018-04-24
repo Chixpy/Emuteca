@@ -27,13 +27,16 @@ interface
 
 uses
   Classes, SysUtils, fgl, FileUtil, LazUTF8, LazFileUtils, dateutils,
-  u7zWrapper,
-  uCHXStrUtils,
+  // CHX units
+  uCHX7zWrapper, uCHXStrUtils,
+  // Emuteca units
   uEmutecaCommon,
+  // Emuteca abstracts
   uaEmutecaCustomGroup,
-  ucEmutecaConfig,
-  ucEmutecaEmulatorManager, ucEmutecaSystemManager,
+  // Emuteca units
+  ucEmutecaConfig, ucEmutecaEmulatorManager, ucEmutecaSystemManager,
   ucEmutecaSoftware, ucEmutecaSystem, ucEmutecaEmulator,
+  // Emuteca threads
   utEmutecaGetSoftSHA1;
 
 type

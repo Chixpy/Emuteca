@@ -5,8 +5,11 @@ unit utEmutecaGetSoftSHA1;
 interface
 
 uses
-  Classes, SysUtils, sha1, ucEmutecaSystemManager, ucEmutecaSoftware,
-  ucEmutecaSoftList, uCHXStrUtils, u7zWrapper, LazFileUtils;
+  Classes, SysUtils, sha1, LazFileUtils,
+  // CHX units
+  uCHX7zWrapper, uCHXStrUtils,
+  // Emuteca classes
+  ucEmutecaSystemManager, ucEmutecaSoftware, ucEmutecaSoftList;
 
 type
   {  }
