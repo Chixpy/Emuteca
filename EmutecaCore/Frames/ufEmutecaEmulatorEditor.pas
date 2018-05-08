@@ -7,8 +7,11 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
   Buttons, ActnList, StdCtrls, EditBtn, Spin, Menus, LazFileUtils, LCLIntf,
-  uCHXStrUtils,
+  // CHX units
+  uCHXStrUtils, uCHXDlgUtils,
+  // CHX frames
   ufCHXPropEditor,
+  // Emuteca classes
   ucEmutecaEmulator;
 
 type
@@ -179,19 +182,8 @@ begin
 end;
 
 procedure TfmEmutecaEmulatorEditor.eFileButtonClick(Sender: TObject);
-var
-  aEFN: TFileNameEdit;
 begin
-  aEFN := TFileNameEdit(Sender);
-  if FilenameIsAbsolute(aEFN.FileName) then
-  begin
-    aEFN.InitialDir := ExtractFileDir(SysPath(aEFN.FileName));
-  end
-  else
-  begin
-    aEFN.InitialDir := ExtractFileDir(TrimFilename(ProgramDirectory +
-      aEFN.FileName));
-  end;
+  SetFileEditInitialDir(TFileNameEdit(Sender), ProgramDirectory);
 end;
 
 procedure TfmEmutecaEmulatorEditor.SetEmulator(AValue: cEmutecaEmulator);

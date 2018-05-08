@@ -1,0 +1,139 @@
+inherited fmETKGUISysPreview: TfmETKGUISysPreview
+  Height = 490
+  Width = 200
+  ClientHeight = 490
+  ClientWidth = 200
+  DesignLeft = 472
+  DesignTop = 74
+  object SysImage: TImage[0]
+    Left = 0
+    Height = 200
+    Top = 0
+    Width = 200
+    Align = alTop
+    Center = True
+    OnDblClick = SysImageDblClick
+    Proportional = True
+    Stretch = True
+    Transparent = True
+  end
+  object Splitter1: TSplitter[1]
+    Cursor = crVSplit
+    Left = 0
+    Height = 5
+    Top = 234
+    Width = 200
+    Align = alTop
+    ResizeAnchor = akTop
+  end
+  object gbxStats: TGroupBox[2]
+    Left = 0
+    Height = 150
+    Top = 243
+    Width = 200
+    Align = alTop
+    AutoSize = True
+    Caption = 'Stats'
+    ClientHeight = 130
+    ClientWidth = 196
+    TabOrder = 2
+    object ePlayedTime: TEdit
+      Left = 0
+      Height = 23
+      Top = 61
+      Width = 196
+      Align = alTop
+      Enabled = False
+      TabOrder = 2
+      TextHint = 'Played Time'
+    end
+    object eNTimes: TEdit
+      Left = 0
+      Height = 23
+      Top = 84
+      Width = 196
+      Align = alTop
+      Enabled = False
+      TabOrder = 3
+      TextHint = '# Times'
+    end
+    object eLastTime: TEdit
+      Left = 0
+      Height = 23
+      Top = 107
+      Width = 196
+      Align = alTop
+      Enabled = False
+      TabOrder = 4
+      TextHint = 'Last time played'
+    end
+    object eNSoft: TEdit
+      Left = 0
+      Height = 23
+      Top = 15
+      Width = 196
+      Align = alTop
+      Enabled = False
+      TabOrder = 0
+      TextHint = '# Software'
+    end
+    object eNGroups: TEdit
+      Left = 0
+      Height = 23
+      Top = 38
+      Width = 196
+      Align = alTop
+      Enabled = False
+      TabOrder = 1
+      TextHint = '# Groups'
+    end
+    object lSystemTitle: TLabel
+      Left = 0
+      Height = 15
+      Top = 0
+      Width = 196
+      Align = alTop
+      Caption = 'System'
+      ParentColor = False
+    end
+  end
+  object ToolBar1: TToolBar[3]
+    Left = 0
+    Height = 26
+    Top = 204
+    Width = 200
+    Caption = 'ToolBar1'
+    Images = ilActions
+    TabOrder = 0
+    object ToolButton1: TToolButton
+      Left = 1
+      Top = 2
+      Action = actOpenSystemFolder
+    end
+  end
+  object gbxEmulator: TGroupBox[4]
+    Left = 0
+    Height = 19
+    Top = 397
+    Width = 200
+    Align = alTop
+    AutoSize = True
+    Caption = 'Current emulator'
+    TabOrder = 3
+  end
+  object ActionList: TActionList[5]
+    Images = ilActions
+    left = 133
+    top = 336
+    object actOpenSystemFolder: TAction
+      Category = 'System'
+      Caption = 'Open system folder'
+      Hint = 'Open system folder|Opens the system base folder'
+      OnExecute = actOpenSystemFolderExecute
+    end
+  end
+  object ilActions: TImageList[6]
+    left = 133
+    top = 276
+  end
+end

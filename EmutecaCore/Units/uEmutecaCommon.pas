@@ -270,6 +270,24 @@ resourcestring
   rsEDSKeepValue = 'Keep value'; // Only for imports
 
 
+  // Example frames text
+  // -------------------
+
+  rsUnknown = 'Unknown';
+
+  // Formated statistics
+  rsFmtNGroups = '%0:d groups';
+  rsFmtNVersions = '%0:d versions.';
+  rsFmtNItems = '%1:d visible of %0:d items.';
+  {<
+     %0:d = Number of items.
+     %1:d = Number of visible items.
+  }
+
+  rsFmtNTimes = '%0:d times.';
+  {< %0:d = Number of times. }
+
+
 type
   TEmutecaSoftExportKey = (TEFKSHA1, TEFKCRC32, TEFKFileName, TEFKCustom);
   TEmutecaDumpStatus = (edsVerified, edsGood, edsAlternate, edsOverDump,
@@ -488,6 +506,11 @@ begin
 
   if not SearchInComp then
     Exit; // If we don't want to search in CompArchives
+
+
+  // TODO: Autodecompress is not used here
+
+
 
   if DecompressFolder = '' then
     Exit;

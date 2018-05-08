@@ -498,6 +498,8 @@ begin
   FSoftware := cEmutecaSoftware.Create(nil);
   ClearFrameData;
 
+  Emuteca.CacheData;
+
   fmSoftEditor.Software := Software;
 end;
 

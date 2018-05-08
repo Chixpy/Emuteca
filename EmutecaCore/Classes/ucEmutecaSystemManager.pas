@@ -344,7 +344,7 @@ begin
       aSystem.ProgressCallBack := nil;
 
       if assigned(ProgressCallBack) then
-        ProgressCallBack(rsLoadingSystemList, aSystem.Title, i, EnabledList.Count, False);
+        ProgressCallBack(rsLoadingGroupList, aSystem.Title, i, EnabledList.Count, False);
 
       LoadSystemData(aSystem);
 
@@ -377,7 +377,7 @@ begin
       aSystem.ProgressCallBack := nil;
 
       if assigned(ProgressCallBack) then
-        ProgressCallBack(rsSavingSystemList, aSystem.Title, i, EnabledList.Count, False);
+        ProgressCallBack(rsSavingGroupList, aSystem.Title, i, EnabledList.Count, False);
 
       SaveSystemData(aSystem, True);
 

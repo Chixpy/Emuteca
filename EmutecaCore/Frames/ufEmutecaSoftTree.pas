@@ -1,4 +1,4 @@
-{ This file is part of Emuteca
+{ Software tree example frame of Emuteca
 
   Copyright (C) 2006-2018 Chixpy
 
@@ -28,7 +28,6 @@ uses
   Graphics, Dialogs, ComCtrls, ActnList, Menus, LazUTF8,
   LazFileUtils, IniFiles,
   ufCHXFrame,
-  uLEmuTKCommon,
   uaEmutecaCustomSoft,
   ucEmutecaGroupList, ucEmutecaGroup, ucEmutecaSoftware, uEmutecaCommon;
 

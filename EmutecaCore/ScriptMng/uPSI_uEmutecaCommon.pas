@@ -1,4 +1,4 @@
-{ Exports of uEmutecaCommon for Pascal Script engine of LazEmuteca.
+{ Exports of uEmutecaCommon for Pascal Script engine of Emuteca.
 
   Copyright (C) 2011-2018 Chixpy
 

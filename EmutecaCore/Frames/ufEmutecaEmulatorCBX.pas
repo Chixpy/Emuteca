@@ -1,4 +1,4 @@
-{ Generic emulator combobox frame of LazEmuteca
+{ Generic emulator combobox frame of Emuteca
 
   Copyright (C) 2011-2017 Chixpy
 

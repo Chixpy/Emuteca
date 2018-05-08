@@ -1,0 +1,7 @@
+object fmETKGUIactMergeGroup: TfmETKGUIactMergeGroup
+  Left = 376
+  Height = 240
+  Top = 169
+  Width = 320
+  LCLVersion = '1.8.2.0'
+end

@@ -1,0 +1,5 @@
+inherited frmETKGUIAbout: TfrmETKGUIAbout
+  inherited mAditional: TMemo
+    ReadOnly = True
+  end
+end

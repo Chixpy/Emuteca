@@ -1,0 +1,1 @@
+Emuteca GUI is the main Emuteca front-end project, it's the full front-end with database editing features.

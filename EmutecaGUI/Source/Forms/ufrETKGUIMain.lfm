@@ -1,0 +1,332 @@
+inherited frmETKGUIMain: TfrmETKGUIMain
+  Left = 388
+  Top = 132
+  Caption = 'Main'
+  ClientHeight = 460
+  Menu = MainMenu
+  OnCloseQuery = FormCloseQuery
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  object stbHelp: TStatusBar[0]
+    Left = 4
+    Height = 23
+    Top = 433
+    Width = 632
+    AutoHint = True
+    Panels = <>
+  end
+  inherited IniPropStorage: TIniPropStorage[1]
+    left = 568
+    top = 376
+  end
+  object pmSoft: TPopupMenu[2]
+    Images = ActImages
+    left = 148
+    top = 44
+    object mipmSRunSoft: TMenuItem
+      Action = actRunSoftware
+    end
+    object MenuItem5: TMenuItem
+      Caption = '-'
+    end
+    object mipmSOpenSoftFolder: TMenuItem
+      Action = actOpenSoftFolder
+    end
+    object mipmSSystem: TMenuItem
+      Caption = 'System'
+      object mipmSSOpenSysBaseFolder: TMenuItem
+        Action = actOpenSystemBaseFolder
+      end
+    end
+  end
+  object pmGroup: TPopupMenu[3]
+    Images = ActImages
+    left = 204
+    top = 44
+  end
+  object MainMenu: TMainMenu[4]
+    Images = ActImages
+    left = 68
+    top = 44
+    object mimmFile: TMenuItem
+      Caption = 'File'
+      object mimmAddFiles: TMenuItem
+        Caption = 'Add files...'
+        object mimmAddSoftFolder: TMenuItem
+          Action = actAddFolder
+        end
+        object mimmAddSoft: TMenuItem
+          Action = actAddSoft
+        end
+      end
+      object MenuItem4: TMenuItem
+        Caption = '-'
+      end
+      object mimmImportExport: TMenuItem
+        Caption = 'Import/Export data'
+        object mimmImport: TMenuItem
+          Action = actImportSoftData
+        end
+        object mimmExport: TMenuItem
+          Action = actExportSoftData
+        end
+      end
+      object MenuItem2: TMenuItem
+        Caption = '-'
+      end
+      object mimmDebug: TMenuItem
+        Caption = 'Debug'
+        object mimmOpenEmutecaFolder: TMenuItem
+          Action = actOpenEmutecaFolder
+        end
+        object mimmOpenTempFolder: TMenuItem
+          Action = actOpenTempFolder
+        end
+        object mimmOpen7zCacheFolder: TMenuItem
+          Action = actOpen7zCacheFolder
+        end
+      end
+      object MenuItem13: TMenuItem
+        Caption = '-'
+      end
+      object mimmSaveLists: TMenuItem
+        Action = actSaveLists
+      end
+      object mimmSaveOnExit: TMenuItem
+        Action = actAutoSave
+        AutoCheck = True
+      end
+      object MenuItem15: TMenuItem
+        Caption = '-'
+      end
+      object mimmExit: TMenuItem
+        Action = FileExit1
+      end
+    end
+    object mimmManagers: TMenuItem
+      Caption = 'Managers'
+      object mimmEmulatorManager: TMenuItem
+        Action = actEmulatorManager
+      end
+      object mimmSystemManager: TMenuItem
+        Action = actSystemManager
+      end
+      object mimmMediaManager: TMenuItem
+        Action = actMediaManager
+      end
+      object mimmScriptManager: TMenuItem
+        Action = actScriptManager
+      end
+    end
+    object mimmSystem: TMenuItem
+      Caption = 'System'
+      Enabled = False
+      object mimmEditSystem: TMenuItem
+        Action = actEditSystem
+      end
+      object mimmOpenSystemBaseFolder: TMenuItem
+        Action = actOpenSystemBaseFolder
+      end
+      object MenuItem6: TMenuItem
+        Caption = '-'
+      end
+      object mimmUpdateSystemGroups: TMenuItem
+        Action = actUpdateGroupList
+      end
+      object MenuItem3: TMenuItem
+        Caption = '-'
+      end
+      object mimmCleanSystem: TMenuItem
+        Action = actCleanSystemData
+      end
+    end
+    object mimmEmulator: TMenuItem
+      Caption = 'Emulator'
+      Enabled = False
+      object mimmEditEmulator: TMenuItem
+        Action = actEditEmulator
+      end
+      object mimmOpenEmulatorFolder: TMenuItem
+        Action = actOpenEmulatorFolder
+      end
+    end
+    object mimmGroup: TMenuItem
+      Caption = 'Group'
+      Enabled = False
+      object mimmMergeGroupFiles: TMenuItem
+        Action = actMergeGroupFiles
+      end
+    end
+    object mimmSoft: TMenuItem
+      Caption = 'Software'
+      Enabled = False
+      object mimmRunSoftware: TMenuItem
+        Action = actRunSoftware
+      end
+      object MenuItem1: TMenuItem
+        Caption = '-'
+      end
+      object mummOpenSoftFolder: TMenuItem
+        Action = actOpenSoftFolder
+      end
+    end
+    object mimmHelp: TMenuItem
+      Caption = 'Help'
+      object mimmAbout: TMenuItem
+        Action = HelpOnHelp1
+      end
+    end
+  end
+  object ActionList: TActionList[5]
+    Images = ActImages
+    left = 68
+    top = 100
+    object HelpOnHelp1: THelpOnHelp
+      Category = 'Help'
+      Caption = 'About Emuteca...'
+      Hint = 'About Emuteca...|Help about Emuteca.'
+      OnExecute = HelpOnHelp1Execute
+    end
+    object FileExit1: TFileExit
+      Category = 'File'
+      Caption = 'Exit'
+      Hint = 'Exit.|Exits Emuteca.'
+    end
+    object actEmulatorManager: TAction
+      Category = 'Managers'
+      Caption = 'Emulator Manager...'
+      Hint = 'Emulator Manager...|Open Emulator Manager.'
+      OnExecute = actEmulatorManagerExecute
+    end
+    object actSystemManager: TAction
+      Category = 'Managers'
+      Caption = 'System Manager...'
+      Hint = 'System Manager...|Open System Manager.'
+      OnExecute = actSystemManagerExecute
+    end
+    object actScriptManager: TAction
+      Category = 'Managers'
+      Caption = 'Script Manager...'
+      Hint = 'Script Manager...|Open Script Manager.'
+      OnExecute = actScriptManagerExecute
+    end
+    object actMediaManager: TAction
+      Category = 'Managers'
+      Caption = 'Media Manager...'
+      Hint = 'Media Manager...|Open Media Manager.'
+      OnExecute = actMediaManagerExecute
+    end
+    object actAddFolder: TAction
+      Category = 'File'
+      Caption = 'Scan files from folder...'
+      Hint = 'Scan files from folder...|Open form to add software from a folder.'
+      OnExecute = actAddFolderExecute
+    end
+    object actAddSoft: TAction
+      Category = 'File'
+      Caption = 'Add Software...'
+      Hint = 'Add Software...|Open form to add a software file.'
+      OnExecute = actAddSoftExecute
+    end
+    object actSaveLists: TAction
+      Category = 'File'
+      Caption = 'Save Lists'
+      Hint = 'Save Lists.|Saves loaded sofware lists.'
+      OnExecute = actSaveListsExecute
+    end
+    object actAutoSave: TAction
+      Category = 'File'
+      AutoCheck = True
+      Caption = '+Save on Exit'
+      Hint = 'Save lists on Exit.|Autosave software lists on exit.'
+      OnExecute = actAutoSaveExecute
+    end
+    object actOpenTempFolder: TAction
+      Category = 'File'
+      Caption = 'Open Emuteca''s Temp folder...'
+      Hint = 'Open Emuteca''s Temp folder...|Open Emuteca''s temporal folder.'
+      OnExecute = actOpenTempFolderExecute
+    end
+    object actExportSoftData: TAction
+      Category = 'File'
+      Caption = 'Export software data...'
+      Hint = 'Export software data...|Open form to export software data.'
+      OnExecute = actExportSoftDataExecute
+    end
+    object actImportSoftData: TAction
+      Category = 'File'
+      Caption = 'Import software data...'
+      Hint = 'Import software data...|Open form to import software data.'
+      OnExecute = actImportSoftDataExecute
+    end
+    object actCleanSystemData: TAction
+      Category = 'System'
+      Caption = 'Clean system data'
+      Hint = 'Clean current system data|Cleans current system soft not found and groups without soft'
+      OnExecute = actCleanSystemDataExecute
+    end
+    object actUpdateGroupList: TAction
+      Category = 'System'
+      Caption = 'Update group list'
+      Hint = 'Update group list.|Reload group list to update changes.'
+      OnExecute = actUpdateGroupListExecute
+    end
+    object actMergeGroupFiles: TAction
+      Category = 'Group'
+      Caption = 'Merge group files...'
+      Hint = 'Merge group files...|Open form to merge current group''s sofware in same compressed file.'
+      OnExecute = actMergeGroupFilesExecute
+    end
+    object actRunSoftware: TAction
+      Category = 'Software'
+      Caption = 'Run software'
+      Hint = 'Run software.|Run current software.'
+      OnExecute = actRunSoftwareExecute
+    end
+    object actOpenSoftFolder: TAction
+      Category = 'Software'
+      Caption = 'Open software folder...'
+      Hint = 'Open software folder...|Open current software folder.'
+      OnExecute = actOpenSoftFolderExecute
+    end
+    object actEditSystem: TAction
+      Category = 'System'
+      Caption = 'Edit system...'
+      Hint = 'Edit system...|Open current system editor.'
+      OnExecute = actEditSystemExecute
+    end
+    object actEditEmulator: TAction
+      Category = 'Emulator'
+      Caption = 'Edit emulator...'
+      Hint = 'Edit emulator...|Open editor for current emulator.'
+      OnExecute = actEditEmulatorExecute
+    end
+    object actOpenSystemBaseFolder: TAction
+      Category = 'System'
+      Caption = 'Open system base folder...'
+      Hint = 'Open system base folder...|Open current system base folder.'
+      OnExecute = actOpenSystemBaseFolderExecute
+    end
+    object actOpenEmutecaFolder: TAction
+      Category = 'File'
+      Caption = 'Open Emuteca''s folder...'
+      Hint = 'Open Emuteca''s folder...|Open Emuteca''s program folder.'
+      OnExecute = actOpenEmutecaFolderExecute
+    end
+    object actOpenEmulatorFolder: TAction
+      Category = 'Emulator'
+      Caption = 'Open emulator folder...'
+      Hint = 'Open emulator folder...|Open current emulator folder.'
+    end
+    object actOpen7zCacheFolder: TAction
+      Category = 'File'
+      Caption = 'Open 7z cache folder...'
+      Hint = 'Open 7z caché folder...|Open 7z caché folder.'
+      OnExecute = actOpen7zCacheFolderExecute
+    end
+  end
+  object ActImages: TImageList[6]
+    left = 68
+    top = 156
+  end
+end
