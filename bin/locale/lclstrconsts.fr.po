@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
-"Last-Translator: Vasseur Gilles <gillesvasseur58@gmail.com>\n"
-"PO-Revision-Date: 2015-04-12 18:41+0100\n"
-"Language-Team: Laurent Jacques <wile64@gmail.com>\n"
+"Last-Translator: <h.mira@free.fr>\n"
+"Language-Team: http://lazarus.developpez.com/\n"
+"PO-Revision-Date: 2017-05-24 10:06+0200\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "MIME-Version: 1.0\n"
 "POT-Creation-Date: \n"
 "Project-Id-Version: \n"
 "Language: fr\n"
-"X-Generator: Poedit 1.7.5\n"
+"X-Generator: Poedit 2.0.1\n"
 
 #: lclstrconsts.hhshelpbrowsernotexecutable
 msgid "Browser \"%s\" not executable."
@@ -289,6 +289,10 @@ msgstr "Espace d'application"
 msgid "Aqua"
 msgstr "Aqua"
 
+#: lclstrconsts.rsascannothaveasparent
+msgid "Class %s cannot have %s as parent."
+msgstr "La classe \"%s\" ne peut pas avoir \"%s\" comme parent."
+
 #: lclstrconsts.rsbackgroundcolorcaption
 msgid "Desktop"
 msgstr "Bureau"
@@ -358,6 +362,10 @@ msgstr "Respecter la casse"
 msgid "Control of class '%s' can't have control of class '%s' as a child"
 msgstr "Le contrôle de la classe \"%s\" ne peut pas contenir un contrôle de la classe \"%s\" comme enfant"
 
+#: lclstrconsts.rscontrolhasnoparentformorframe
+msgid "Control '%s' has no parent form or frame"
+msgstr "Le contrôle \"%s\" n'a pas de fenêtre  ou de cadre parent"
+
 #: lclstrconsts.rscontrolhasnoparentwindow
 msgid "Control '%s' has no parent window"
 msgstr "Le contrôle \"%s\" n'a pas de fenêtre parent"
@@ -413,11 +421,11 @@ msgstr "Amarrage"
 
 #: lclstrconsts.rsdocopy
 msgid "Copy"
-msgstr ""
+msgstr "Copier"
 
 #: lclstrconsts.rsdopaste
 msgid "Paste"
-msgstr ""
+msgstr "Coller"
 
 #: lclstrconsts.rsduplicateiconformat
 msgid "Duplicate icon format."
@@ -547,7 +555,7 @@ msgstr "Fiche"
 
 #: lclstrconsts.rsformresourcesnotfoundforresourcelessformscreatenew
 msgid "Form resource %s not found. For resourceless forms CreateNew constructor must be used. See the global variable RequireDerivedFormResource."
-msgstr "Ressource de fiche %s introuvable. Pour les fiches sans ressources, le contructeur \"CreateNew\" doit être utilisé. Voir la variable globale \"RequireDerivedFormResource\"."
+msgstr "Ressource de fiche %s introuvable. Pour les fiches sans ressources, le constructeur \"CreateNew\" doit être utilisé. Voir la variable globale \"RequireDerivedFormResource\"."
 
 #: lclstrconsts.rsformstreamingerror
 msgid "Form streaming \"%s\" error: %s"
@@ -868,10 +876,6 @@ msgstr "Vert citron"
 msgid "List index exceeds bounds (%d)"
 msgstr "Index de liste hors limites (%d)"
 
-#: lclstrconsts.rslistmustbeempty
-msgid "List must be empty"
-msgstr "La liste doit être vide"
-
 #: lclstrconsts.rsmarooncolorcaption
 msgid "Maroon"
 msgstr "Marron"
@@ -1044,9 +1048,9 @@ msgstr "Portable PixMap"
 msgid "Post"
 msgstr "Poster"
 
-#: lclstrconsts.rspressoktoignoreandriskdatacorruptionpresscanceltok
-msgid "%s%sPress OK to ignore and risk data corruption.%sPress Cancel to kill the program."
-msgstr "%s%sPressez \"OK\" pour ignorer et risquer la corruption des données.%sPressez \"Annuler\" pour fermer le programme."
+#: lclstrconsts.rspressoktoignoreandriskdatacorruptionpressaborttok
+msgid "%s%sPress OK to ignore and risk data corruption.%sPress Abort to kill the program."
+msgstr "%s%sAppuyez sur \"OK\" pour ignorer et risquer une corruption des données.%sAppuyez sur \"Abandonner\" pour fermer le programme."
 
 #: lclstrconsts.rspriorrecordhint
 msgctxt "lclstrconsts.rspriorrecordhint"
@@ -1087,11 +1091,11 @@ msgstr "-session session rétablit l'application à partir d'une session plus an
 
 #: lclstrconsts.rsqtoptionstyle
 msgid "-style style or -style=style, sets the application GUI style. Possible values are motif, windows, and platinum. If you compiled Qt with additional styles or have additional styles as plugins these will be available to the -style  command line option. NOTE: Not all styles are available on all platforms. If style param does not exist Qt will start an application with default common style (windows)."
-msgstr "-style style ou -style=style détremine le style GUI. Les valeurs possibles sont 'motif', 'windows' et 'platinum'. Si vous avez compilé Qt avec d'autres styles ou si vous disposez d'autres style en tant que plugins, ces styles seront disponibles grâce à l'option de commande en ligne -style. N.B. : Tous les styles ne sont pas disponibles sur toutes les plates-formes. Si le style en paramètre fourni n'existe pas, Qt démarrera l'application avec le style par défaut ('windows')."
+msgstr "-style style ou -style=style détermine le style GUI. Les valeurs possibles sont 'motif', 'windows' et 'platinum'. Si vous avez compilé Qt avec d'autres styles ou si vous disposez d'autres style en tant que plugins, ces styles seront disponibles grâce à l'option de commande en ligne -style. N.B. : Tous les styles ne sont pas disponibles sur toutes les plates-formes. Si le style en paramètre fourni n'existe pas, Qt démarrera l'application avec le style par défaut ('windows')."
 
 #: lclstrconsts.rsqtoptionstylesheet
 msgid "-stylesheet stylesheet or -stylesheet=stylesheet, sets the application Style Sheet. The value must be a path to a file that contains the Style Sheet. Note: Relative URLs in the Style Sheet file are relative to the Style Sheet file's path."
-msgstr "-stylesheet stylesheet ou -stylesheet=stylesheet détremine la feuille de style de l'application. La valeur associée doit être le chemin vers un fichier qui contient la feuille de style. N.B. : Les URLs relatives dans la feuille de style sont relatives au chemin du fichier de la feuille de style."
+msgstr "-stylesheet stylesheet ou -stylesheet=stylesheet détermine la feuille de style de l'application. La valeur associée doit être le chemin vers un fichier qui contient la feuille de style. N.B. : Les URLs relatives dans la feuille de style sont relatives au chemin du fichier de la feuille de style."
 
 #: lclstrconsts.rsqtoptionsync
 msgid "-sync (only under X11), switches to synchronous mode for debugging."
@@ -1115,7 +1119,7 @@ msgstr "-cmap fait que l'application installera une table de correspondance des 
 
 #: lclstrconsts.rsqtoptionx11display
 msgid "-display display, sets the X display (default is $DISPLAY)."
-msgstr "-display display détremine l'affichage pour X (par défaut $DISPLAY)."
+msgstr "-display display détermine l'affichage pour X (par défaut $DISPLAY)."
 
 #: lclstrconsts.rsqtoptionx11fgcolor
 msgid "-fg or -foreground color, sets the default foreground color."
@@ -1325,6 +1329,10 @@ msgstr "Jaune"
 msgid "Cannot focus a disabled or invisible window"
 msgstr "Impossible de focaliser une fenêtre invisible ou désactivée"
 
+#: lclstrconsts.scannotsetdesigntimeppi
+msgid "Cannot set design time PPI."
+msgstr "Impossible de définir le PPI de conception."
+
 #: lclstrconsts.sduplicatemenus
 msgid "Duplicate menus"
 msgstr "Doublon de menus"
@@ -1462,7 +1470,7 @@ msgstr "Aucune fiche MDI présente."
 
 #: lclstrconsts.snotimers
 msgid "No timers available"
-msgstr "Aucun temporisateur disponible \"timer\")"
+msgstr "Aucun temporisateur disponible (\"timer\")"
 
 #: lclstrconsts.sparentrequired
 msgid "Control \"%s\" has no parent window."
@@ -1505,10 +1513,6 @@ msgid "%s bytes"
 msgstr "%s octets"
 
 #: lclstrconsts.sshellctrlsinvalidpath
-#, fuzzy
-#| msgid ""
-#| "Invalid pathname:\n"
-#| "\"%s\"\n"
 msgctxt "lclstrconsts.sshellctrlsinvalidpath"
 msgid ""
 "Invalid pathname:\n"
@@ -1518,12 +1522,6 @@ msgstr ""
 "\"%s\"\n"
 
 #: lclstrconsts.sshellctrlsinvalidpathrelative
-#, fuzzy
-#| msgid ""
-#| "Invalid relative pathname:\n"
-#| "\"%s\"\n"
-#| "in relation to rootpath:\n"
-#| "\"%s\"\n"
 msgid ""
 "Invalid relative pathname:\n"
 "\"%s\"\n"
@@ -1536,10 +1534,6 @@ msgstr ""
 "\"%s\"\n"
 
 #: lclstrconsts.sshellctrlsinvalidroot
-#, fuzzy
-#| msgid ""
-#| "Invalid pathname:\n"
-#| "\"%s\"\n"
 msgctxt "lclstrconsts.sshellctrlsinvalidroot"
 msgid ""
 "Invalid pathname:\n"
@@ -1561,10 +1555,6 @@ msgid "Name"
 msgstr "Nom"
 
 #: lclstrconsts.sshellctrlsselecteditemdoesnotexists
-#, fuzzy
-#| msgid ""
-#| "The selected item does not exist on disk:\n"
-#| "\"%s\"\n"
 msgid ""
 "The selected item does not exist on disk:\n"
 "\"%s\"\n"

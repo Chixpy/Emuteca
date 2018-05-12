@@ -287,6 +287,10 @@ msgstr "Espacio de trabajo de la Aplicación"
 msgid "Aqua"
 msgstr "Agua"
 
+#: lclstrconsts.rsascannothaveasparent
+msgid "Class %s cannot have %s as parent."
+msgstr ""
+
 #: lclstrconsts.rsbackgroundcolorcaption
 msgid "Desktop"
 msgstr "Escritorio"
@@ -355,6 +359,10 @@ msgstr "Sensible a mayúsculas/minúsculas"
 #: lclstrconsts.rscontrolclasscantcontainchildclass
 msgid "Control of class '%s' can't have control of class '%s' as a child"
 msgstr "El control de clase '%s' no puede tener al control de clase '%s' como hijo"
+
+#: lclstrconsts.rscontrolhasnoparentformorframe
+msgid "Control '%s' has no parent form or frame"
+msgstr ""
 
 #: lclstrconsts.rscontrolhasnoparentwindow
 msgid "Control '%s' has no parent window"
@@ -867,10 +875,6 @@ msgstr "Lima"
 msgid "List index exceeds bounds (%d)"
 msgstr "El índice de lista excede los límites (%d)"
 
-#: lclstrconsts.rslistmustbeempty
-msgid "List must be empty"
-msgstr "La lista debe estar vacía"
-
 #: lclstrconsts.rsmarooncolorcaption
 msgid "Maroon"
 msgstr "Marrón"
@@ -1043,9 +1047,9 @@ msgstr "Portable PixMap"
 msgid "Post"
 msgstr "Enviar"
 
-#: lclstrconsts.rspressoktoignoreandriskdatacorruptionpresscanceltok
-msgid "%s%sPress OK to ignore and risk data corruption.%sPress Cancel to kill the program."
-msgstr "%s%sPulse Aceptar para ignorar y correr el riesgo de corromper datos.%sPulse Cancelar para terminar el programa."
+#: lclstrconsts.rspressoktoignoreandriskdatacorruptionpressaborttok
+msgid "%s%sPress OK to ignore and risk data corruption.%sPress Abort to kill the program."
+msgstr ""
 
 #: lclstrconsts.rspriorrecordhint
 msgctxt "lclstrconsts.rspriorrecordhint"
@@ -1324,6 +1328,10 @@ msgstr "Amarillo"
 msgid "Cannot focus a disabled or invisible window"
 msgstr "No se puede establecer el foco en una ventana desactivada o invisible"
 
+#: lclstrconsts.scannotsetdesigntimeppi
+msgid "Cannot set design time PPI."
+msgstr ""
+
 #: lclstrconsts.sduplicatemenus
 msgid "Duplicate menus"
 msgstr "Duplicar menús"
@@ -1504,10 +1512,6 @@ msgid "%s bytes"
 msgstr "%s bytes"
 
 #: lclstrconsts.sshellctrlsinvalidpath
-#, fuzzy
-#| msgid ""
-#| "Invalid pathname:\n"
-#| "\"%s\"\n"
 msgctxt "lclstrconsts.sshellctrlsinvalidpath"
 msgid ""
 "Invalid pathname:\n"
@@ -1517,12 +1521,6 @@ msgstr ""
 "\"%s\"\n"
 
 #: lclstrconsts.sshellctrlsinvalidpathrelative
-#, fuzzy
-#| msgid ""
-#| "Invalid relative pathname:\n"
-#| "\"%s\"\n"
-#| "in relation to rootpath:\n"
-#| "\"%s\"\n"
 msgid ""
 "Invalid relative pathname:\n"
 "\"%s\"\n"
@@ -1535,10 +1533,6 @@ msgstr ""
 "\"%s\"\n"
 
 #: lclstrconsts.sshellctrlsinvalidroot
-#, fuzzy
-#| msgid ""
-#| "Invalid pathname:\n"
-#| "\"%s\"\n"
 msgctxt "lclstrconsts.sshellctrlsinvalidroot"
 msgid ""
 "Invalid pathname:\n"
@@ -1560,10 +1554,6 @@ msgid "Name"
 msgstr "Nombre"
 
 #: lclstrconsts.sshellctrlsselecteditemdoesnotexists
-#, fuzzy
-#| msgid ""
-#| "The selected item does not exist on disk:\n"
-#| "\"%s\"\n"
 msgid ""
 "The selected item does not exist on disk:\n"
 "\"%s\"\n"

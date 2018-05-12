@@ -297,6 +297,10 @@ msgstr ""
 msgid "Aqua"
 msgstr ""
 
+#: lclstrconsts.rsascannothaveasparent
+msgid "Class %s cannot have %s as parent."
+msgstr ""
+
 #: lclstrconsts.rsbackgroundcolorcaption
 msgid "Desktop"
 msgstr ""
@@ -364,6 +368,10 @@ msgstr "Sensible a majúsc-minúsc."
 
 #: lclstrconsts.rscontrolclasscantcontainchildclass
 msgid "Control of class '%s' can't have control of class '%s' as a child"
+msgstr ""
+
+#: lclstrconsts.rscontrolhasnoparentformorframe
+msgid "Control '%s' has no parent form or frame"
 msgstr ""
 
 #: lclstrconsts.rscontrolhasnoparentwindow
@@ -908,10 +916,6 @@ msgstr ""
 msgid "List index exceeds bounds (%d)"
 msgstr "L'índex de la llista excedeix els límits (%d)"
 
-#: lclstrconsts.rslistmustbeempty
-msgid "List must be empty"
-msgstr "Cal que la llista sigui buida"
-
 #: lclstrconsts.rsmarooncolorcaption
 msgid "Maroon"
 msgstr ""
@@ -1084,11 +1088,9 @@ msgstr ""
 msgid "Post"
 msgstr ""
 
-#: lclstrconsts.rspressoktoignoreandriskdatacorruptionpresscanceltok
-#, fuzzy,badformat
-#| msgid "%s%sPress Ok to ignore and risk data corruption.%sPress Cancel to kill the program."
-msgid "%s%sPress OK to ignore and risk data corruption.%sPress Cancel to kill the program."
-msgstr "%s%s%sPolseu Ok per ignorar, tot arriscant de corrompre les dades.%sPolseu Cancel per interrompre el programa"
+#: lclstrconsts.rspressoktoignoreandriskdatacorruptionpressaborttok
+msgid "%s%sPress OK to ignore and risk data corruption.%sPress Abort to kill the program."
+msgstr ""
 
 #: lclstrconsts.rspriorrecordhint
 msgctxt "lclstrconsts.rspriorrecordhint"
@@ -1366,6 +1368,10 @@ msgstr ""
 #: lclstrconsts.scannotfocus
 msgid "Cannot focus a disabled or invisible window"
 msgstr "No puc accedir a una finestra invisible o tancada"
+
+#: lclstrconsts.scannotsetdesigntimeppi
+msgid "Cannot set design time PPI."
+msgstr ""
 
 #: lclstrconsts.sduplicatemenus
 msgid "Duplicate menus"

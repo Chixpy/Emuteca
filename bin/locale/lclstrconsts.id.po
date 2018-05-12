@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Typhon LCL v1.x\n"
+"Project-Id-Version: Lazarus LCL v1.x\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: 2007-01-30 02:21+0700\n"
 "Last-Translator: Zaenal Mutaqin <ade999@gmail.com>\n"
@@ -298,6 +298,10 @@ msgstr ""
 msgid "Aqua"
 msgstr ""
 
+#: lclstrconsts.rsascannothaveasparent
+msgid "Class %s cannot have %s as parent."
+msgstr ""
+
 #: lclstrconsts.rsbackgroundcolorcaption
 msgid "Desktop"
 msgstr ""
@@ -365,6 +369,10 @@ msgstr "Sensitif huruf"
 
 #: lclstrconsts.rscontrolclasscantcontainchildclass
 msgid "Control of class '%s' can't have control of class '%s' as a child"
+msgstr ""
+
+#: lclstrconsts.rscontrolhasnoparentformorframe
+msgid "Control '%s' has no parent form or frame"
 msgstr ""
 
 #: lclstrconsts.rscontrolhasnoparentwindow
@@ -907,10 +915,6 @@ msgstr ""
 msgid "List index exceeds bounds (%d)"
 msgstr "Indeks List melebihi jangkauan (%d)"
 
-#: lclstrconsts.rslistmustbeempty
-msgid "List must be empty"
-msgstr "List harus kosong"
-
 #: lclstrconsts.rsmarooncolorcaption
 msgid "Maroon"
 msgstr ""
@@ -1083,11 +1087,9 @@ msgstr ""
 msgid "Post"
 msgstr ""
 
-#: lclstrconsts.rspressoktoignoreandriskdatacorruptionpresscanceltok
-#, fuzzy
-#| msgid "%s%sPress Ok to ignore and risk data corruption.%sPress Cancel to kill the program."
-msgid "%s%sPress OK to ignore and risk data corruption.%sPress Cancel to kill the program."
-msgstr "%s%sTekan Ok untuk mengabaikan dan resiko kerusakan data.%sTekan Batal untuk mematikan program"
+#: lclstrconsts.rspressoktoignoreandriskdatacorruptionpressaborttok
+msgid "%s%sPress OK to ignore and risk data corruption.%sPress Abort to kill the program."
+msgstr ""
 
 #: lclstrconsts.rspriorrecordhint
 msgctxt "lclstrconsts.rspriorrecordhint"
@@ -1365,6 +1367,10 @@ msgstr ""
 #: lclstrconsts.scannotfocus
 msgid "Cannot focus a disabled or invisible window"
 msgstr "Tidak bisa memberikan fokus ke jendela yang dimatikan atau tidak nampak"
+
+#: lclstrconsts.scannotsetdesigntimeppi
+msgid "Cannot set design time PPI."
+msgstr ""
 
 #: lclstrconsts.sduplicatemenus
 msgid "Duplicate menus"

@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Typhon LCL\n"
+"Project-Id-Version: Lazarus LCL\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: 2015-11-14 16:19+0100\n"
 "Last-Translator: Chronos <robie@centrum.cz>\n"
@@ -291,6 +291,10 @@ msgstr "Pracovní prostředí aplikace"
 msgid "Aqua"
 msgstr "Vodní"
 
+#: lclstrconsts.rsascannothaveasparent
+msgid "Class %s cannot have %s as parent."
+msgstr ""
+
 #: lclstrconsts.rsbackgroundcolorcaption
 msgid "Desktop"
 msgstr "Plocha"
@@ -359,6 +363,10 @@ msgstr "Rozlišovat velká/malá"
 #: lclstrconsts.rscontrolclasscantcontainchildclass
 msgid "Control of class '%s' can't have control of class '%s' as a child"
 msgstr "Prvek třídy '%s' nemůže mít prvek třídy '%s' jako dítě"
+
+#: lclstrconsts.rscontrolhasnoparentformorframe
+msgid "Control '%s' has no parent form or frame"
+msgstr ""
 
 #: lclstrconsts.rscontrolhasnoparentwindow
 msgid "Control '%s' has no parent window"
@@ -870,10 +878,6 @@ msgstr "Citrusová"
 msgid "List index exceeds bounds (%d)"
 msgstr "Index seznamu překročil meze (%d)"
 
-#: lclstrconsts.rslistmustbeempty
-msgid "List must be empty"
-msgstr "Seznam musí být prázdný"
-
 #: lclstrconsts.rsmarooncolorcaption
 msgid "Maroon"
 msgstr "Kaštanová"
@@ -1046,9 +1050,9 @@ msgstr "Přenositelná PixMapa"
 msgid "Post"
 msgstr "Odeslat"
 
-#: lclstrconsts.rspressoktoignoreandriskdatacorruptionpresscanceltok
-msgid "%s%sPress OK to ignore and risk data corruption.%sPress Cancel to kill the program."
-msgstr "%s%sStiskněte OK k ignorování a riskování poškození dat.%sStiskněte Zrušit k zabití programu."
+#: lclstrconsts.rspressoktoignoreandriskdatacorruptionpressaborttok
+msgid "%s%sPress OK to ignore and risk data corruption.%sPress Abort to kill the program."
+msgstr ""
 
 #: lclstrconsts.rspriorrecordhint
 msgctxt "lclstrconsts.rspriorrecordhint"
@@ -1327,6 +1331,10 @@ msgstr "Žlutá"
 msgid "Cannot focus a disabled or invisible window"
 msgstr "Nelze zaktivnit zakázané nebo neviditelné okno"
 
+#: lclstrconsts.scannotsetdesigntimeppi
+msgid "Cannot set design time PPI."
+msgstr ""
+
 #: lclstrconsts.sduplicatemenus
 msgid "Duplicate menus"
 msgstr "Zdvojit nabídku"
@@ -1507,10 +1515,6 @@ msgid "%s bytes"
 msgstr "%s bajtů"
 
 #: lclstrconsts.sshellctrlsinvalidpath
-#, fuzzy
-#| msgid ""
-#| "Invalid pathname:\n"
-#| "\"%s\"\n"
 msgctxt "lclstrconsts.sshellctrlsinvalidpath"
 msgid ""
 "Invalid pathname:\n"
@@ -1520,12 +1524,6 @@ msgstr ""
 "\"%s\"\n"
 
 #: lclstrconsts.sshellctrlsinvalidpathrelative
-#, fuzzy
-#| msgid ""
-#| "Invalid relative pathname:\n"
-#| "\"%s\"\n"
-#| "in relation to rootpath:\n"
-#| "\"%s\"\n"
 msgid ""
 "Invalid relative pathname:\n"
 "\"%s\"\n"
@@ -1538,10 +1536,6 @@ msgstr ""
 "\"%s\"\n"
 
 #: lclstrconsts.sshellctrlsinvalidroot
-#, fuzzy
-#| msgid ""
-#| "Invalid pathname:\n"
-#| "\"%s\"\n"
 msgctxt "lclstrconsts.sshellctrlsinvalidroot"
 msgid ""
 "Invalid pathname:\n"
@@ -1563,10 +1557,6 @@ msgid "Name"
 msgstr "Jméno"
 
 #: lclstrconsts.sshellctrlsselecteditemdoesnotexists
-#, fuzzy
-#| msgid ""
-#| "The selected item does not exist on disk:\n"
-#| "\"%s\"\n"
 msgid ""
 "The selected item does not exist on disk:\n"
 "\"%s\"\n"

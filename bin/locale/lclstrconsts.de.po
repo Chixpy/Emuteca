@@ -4,13 +4,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Project-Id-Version: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2015-01-27 16:19+0100\n"
+"PO-Revision-Date: 2016-12-10 16:47+0100\n"
 "Last-Translator: Swen Heinig <swen@heinig.email>\n"
-"Language-Team: Deutsch <typhon@miraclec.com>\n"
+"Language-Team: Deutsch <lazarus@miraclec.com>\n"
 "MIME-Version: 1.0\n"
 "X-Poedit-SourceCharset: utf-8\n"
 "Language: de_DE\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.8.9\n"
 
 #: lclstrconsts.hhshelpbrowsernotexecutable
 msgid "Browser \"%s\" not executable."
@@ -290,6 +290,10 @@ msgstr "Arbeitsbereich"
 msgid "Aqua"
 msgstr "Aquamarin"
 
+#: lclstrconsts.rsascannothaveasparent
+msgid "Class %s cannot have %s as parent."
+msgstr ""
+
 #: lclstrconsts.rsbackgroundcolorcaption
 msgid "Desktop"
 msgstr "Desktop"
@@ -357,6 +361,10 @@ msgstr "Schreibweisenabhängig"
 
 #: lclstrconsts.rscontrolclasscantcontainchildclass
 msgid "Control of class '%s' can't have control of class '%s' as a child"
+msgstr ""
+
+#: lclstrconsts.rscontrolhasnoparentformorframe
+msgid "Control '%s' has no parent form or frame"
 msgstr ""
 
 #: lclstrconsts.rscontrolhasnoparentwindow
@@ -671,10 +679,8 @@ msgid "%s: Already registered"
 msgstr "%s: Bereits registriert"
 
 #: lclstrconsts.rshelpcontextnotfound
-#, fuzzy
-#| msgid "Help Context not found"
 msgid "A help database was found for this topic, but this topic was not found"
-msgstr "Hilfekontext nicht gefunden"
+msgstr "Eine Hilfe-Datenbank wurde für dieses Thema gefunden, aber dieses Thema wurde nicht gefunden"
 
 #: lclstrconsts.rshelpdatabasenotfound
 msgid "There is no help database installed for this topic"
@@ -871,10 +877,6 @@ msgstr "Hellgrün"
 msgid "List index exceeds bounds (%d)"
 msgstr "Listenindex überschreitet Grenzen (%d)"
 
-#: lclstrconsts.rslistmustbeempty
-msgid "List must be empty"
-msgstr "Zeile muß leer sein"
-
 #: lclstrconsts.rsmarooncolorcaption
 msgid "Maroon"
 msgstr "Kastanienbraun"
@@ -1047,9 +1049,9 @@ msgstr "Portable Pixmap"
 msgid "Post"
 msgstr "Übertragen"
 
-#: lclstrconsts.rspressoktoignoreandriskdatacorruptionpresscanceltok
-msgid "%s%sPress OK to ignore and risk data corruption.%sPress Cancel to kill the program."
-msgstr "%s%sOk übergeht und riskiert Dateninkonsistenz.%sMit Abbrechen wird das Programm abgebrochen."
+#: lclstrconsts.rspressoktoignoreandriskdatacorruptionpressaborttok
+msgid "%s%sPress OK to ignore and risk data corruption.%sPress Abort to kill the program."
+msgstr ""
 
 #: lclstrconsts.rspriorrecordhint
 msgctxt "lclstrconsts.rspriorrecordhint"
@@ -1328,6 +1330,10 @@ msgstr "Gelb"
 msgid "Cannot focus a disabled or invisible window"
 msgstr "Kann abgeschaltetes oder unsichtbares Fenster nicht fokussieren"
 
+#: lclstrconsts.scannotsetdesigntimeppi
+msgid "Cannot set design time PPI."
+msgstr ""
+
 #: lclstrconsts.sduplicatemenus
 msgid "Duplicate menus"
 msgstr "Doppelte Menüs"
@@ -1505,7 +1511,7 @@ msgstr "Falscher Token-Typ: %s erwartet, %s gefunden"
 
 #: lclstrconsts.sshellctrlsbytes
 msgid "%s bytes"
-msgstr ""
+msgstr "%s Bytes"
 
 #: lclstrconsts.sshellctrlsinvalidpath
 msgctxt "lclstrconsts.sshellctrlsinvalidpath"
@@ -1513,6 +1519,8 @@ msgid ""
 "Invalid pathname:\n"
 "\"%s\"\n"
 msgstr ""
+"Ungültiger Pfadname:\n"
+"\"%s\"\n"
 
 #: lclstrconsts.sshellctrlsinvalidpathrelative
 msgid ""
@@ -1528,6 +1536,8 @@ msgid ""
 "Invalid pathname:\n"
 "\"%s\"\n"
 msgstr ""
+"Ungültiger Pfadname:\n"
+"\"%s\"\n"
 
 #: lclstrconsts.sshellctrlskb
 msgid "%s kB"
@@ -1539,7 +1549,7 @@ msgstr ""
 
 #: lclstrconsts.sshellctrlsname
 msgid "Name"
-msgstr ""
+msgstr "Name"
 
 #: lclstrconsts.sshellctrlsselecteditemdoesnotexists
 msgid ""
@@ -1549,9 +1559,9 @@ msgstr ""
 
 #: lclstrconsts.sshellctrlssize
 msgid "Size"
-msgstr ""
+msgstr "Größe"
 
 #: lclstrconsts.sshellctrlstype
 msgid "Type"
-msgstr ""
+msgstr "Typ"
 

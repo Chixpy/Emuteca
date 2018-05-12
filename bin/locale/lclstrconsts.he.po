@@ -297,6 +297,10 @@ msgstr "שטח עבודה של היישום"
 msgid "Aqua"
 msgstr "מימי"
 
+#: lclstrconsts.rsascannothaveasparent
+msgid "Class %s cannot have %s as parent."
+msgstr ""
+
 #: lclstrconsts.rsbackgroundcolorcaption
 msgid "Desktop"
 msgstr "שולחן עבודה"
@@ -366,6 +370,10 @@ msgstr "רגיש לריישיות"
 #, fuzzy,badformat
 msgid "Control of class '%s' can't have control of class '%s' as a child"
 msgstr "פקד של המחלקה  '%s' לא יכול לקבל פקד של מחלקה s% בתור בן"
+
+#: lclstrconsts.rscontrolhasnoparentformorframe
+msgid "Control '%s' has no parent form or frame"
+msgstr ""
 
 #: lclstrconsts.rscontrolhasnoparentwindow
 #, fuzzy,badformat
@@ -913,10 +921,6 @@ msgstr "לימוני"
 msgid "List index exceeds bounds (%d)"
 msgstr "אינדקס הרשימה עובר את הגבול"
 
-#: lclstrconsts.rslistmustbeempty
-msgid "List must be empty"
-msgstr "הרשימה חייבת להיות ריקה"
-
 #: lclstrconsts.rsmarooncolorcaption
 msgid "Maroon"
 msgstr "ערמוני"
@@ -1089,10 +1093,9 @@ msgstr "מפת פיקסלים ברת ניידות"
 msgid "Post"
 msgstr "אחרי"
 
-#: lclstrconsts.rspressoktoignoreandriskdatacorruptionpresscanceltok
-#, fuzzy,badformat
-msgid "%s%sPress OK to ignore and risk data corruption.%sPress Cancel to kill the program."
-msgstr "לחץ אישור להתעלמות וסיכון של השחתת מידע. לחץ ביטול כדי להרוג את התכנית."
+#: lclstrconsts.rspressoktoignoreandriskdatacorruptionpressaborttok
+msgid "%s%sPress OK to ignore and risk data corruption.%sPress Abort to kill the program."
+msgstr ""
 
 #: lclstrconsts.rspriorrecordhint
 msgctxt "lclstrconsts.rspriorrecordhint"
@@ -1378,6 +1381,10 @@ msgstr "צהוב"
 #: lclstrconsts.scannotfocus
 msgid "Cannot focus a disabled or invisible window"
 msgstr "לא יכול להתמקד בחלון מנוטרל או בלתי נראה"
+
+#: lclstrconsts.scannotsetdesigntimeppi
+msgid "Cannot set design time PPI."
+msgstr ""
 
 #: lclstrconsts.sduplicatemenus
 msgid "Duplicate menus"
