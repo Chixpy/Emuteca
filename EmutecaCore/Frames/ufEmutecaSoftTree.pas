@@ -160,10 +160,10 @@ procedure TfmEmutecaSoftTree.VDTGetText(Sender: TBaseVirtualTree;
             CellText := aGroup.Stats.PlayingTimeStr;
           8: // Last time
             CellText := aGroup.Stats.LastTimeStr;
-          9: // Folder
-            CellText := '';
-          10: // File
+          9: // File
             CellText := aGroup.MediaFileName;
+          10: // Folder
+            CellText := '';
           else
             ;
         end;
@@ -248,10 +248,10 @@ procedure TfmEmutecaSoftTree.VDTGetText(Sender: TBaseVirtualTree;
             CellText := aSoft.Stats.PlayingTimeStr;
           8: // Last Time
             CellText := aSoft.Stats.LastTimeStr;
-          9: // Folder
-            CellText := aSoft.Folder;
-          10: // File
+          9: // File
             CellText := aSoft.FileName;
+          10: // Folder
+            CellText := aSoft.Folder;
           else
             ;
         end;
@@ -265,8 +265,10 @@ var
   pData: ^TObject;
 begin
   pData := Sender.GetNodeData(Node);
-  if not Assigned(pData) then Exit;
-  if not Assigned(pData^) then Exit;
+  if not Assigned(pData) then
+    Exit;
+  if not Assigned(pData^) then
+    Exit;
 
   if pData^ is cEmutecaGroup then
   begin
@@ -297,9 +299,19 @@ var
 begin
   if not Assigned(ParentNode) then
   begin
-    pGroup := Sender.GetNodeData(Node);
-    pGroup^ := GroupList[Node^.Index];
-    Include(InitialStates, ivsHasChildren);
+    if (GroupList[Node^.Index].SoftList.Count = 1) then
+    begin
+      // If group has one game, list it
+      pSoft := Sender.GetNodeData(Node);
+      pSoft^ := GroupList[Node^.Index].SoftList[0];
+    end
+    else
+    begin
+      // Nodo base -> grupo
+      pGroup := Sender.GetNodeData(Node);
+      pGroup^ := GroupList[Node^.Index];
+      Include(InitialStates, ivsHasChildren);
+    end;
   end
   else
   begin
@@ -367,18 +379,18 @@ procedure TfmEmutecaSoftTree.VDTCompareNodes(Sender: TBaseVirtualTree;
       4: // Year
         Result := UTF8CompareText(aGroup1.Year, aGroup2.Year);
       //      5: // Flags
-      //        Result := '';
+      //        Result := 0;
       6: // Times
         Result := aGroup1.Stats.TimesPlayed - aGroup2.Stats.TimesPlayed;
       7: // Total time
         Result := aGroup1.Stats.PlayingTime - aGroup2.Stats.PlayingTime;
       8: // Last time
         Result := Trunc(aGroup1.Stats.LastTime - aGroup2.Stats.LastTime);
-      //      9: // Folder
-      //        Result := '';
-      10: // File
+      9: // File
         Result := UTF8CompareText(aGroup1.MediaFileName,
           aGroup2.MediaFileName);
+        //      10: // Folder
+        //        Result := 0;
       else
         ;
     end;
@@ -420,14 +432,53 @@ procedure TfmEmutecaSoftTree.VDTCompareNodes(Sender: TBaseVirtualTree;
         Result := aSoft1.Stats.PlayingTime - aSoft2.Stats.PlayingTime;
       8: // Last Time
         Result := Trunc(aSoft1.Stats.LastTime - aSoft2.Stats.LastTime);
-      9: // Folder
-        Result := UTF8CompareText(aSoft1.Folder, aSoft2.Folder);
-      10: // File
+      9: // File
         Result := UTF8CompareText(aSoft1.FileName, aSoft2.FileName);
+      10: // Folder
+        Result := UTF8CompareText(aSoft1.Folder, aSoft2.Folder);
       else
         ;
     end;
+  end;
 
+  function CompareSoftGroup(aSoft: cEmutecaSoftware;
+    aGroup: cEmutecaGroup; Column: TColumnIndex): integer;
+  begin
+    Result := 0;
+
+    case Column of
+      0: // System
+        Result := UTF8CompareText(aSoft.CachedSystem.Title,
+          aGroup.CachedSystem.Title);
+      1: // Title
+        Result := UTF8CompareText(aSoft.SortTitle, aGroup.SortTitle);
+      2: // Version
+      begin
+        // aSoft = 1 version; aGroup > 1 version
+        Result := -1;
+      end;
+      3: // Publisher/Developer
+        // Comparing only developers
+        Result := UTF8CompareText(aSoft.CachedGroup.Developer,
+          aGroup.Developer);
+      4: // Year
+        // Comparing only developing years
+        Result := UTF8CompareText(aSoft.CachedGroup.Year, aGroup.Year);
+      // 5: // Flags
+      //  Result := 0
+      6: // Times Played
+        Result := aSoft.Stats.TimesPlayed - aGroup.Stats.TimesPlayed;
+      7: // Playing Time
+        Result := aSoft.Stats.PlayingTime - aGroup.Stats.PlayingTime;
+      8: // Last Time
+        Result := Trunc(aSoft.Stats.LastTime - aGroup.Stats.LastTime);
+      9: // File
+        Result := UTF8CompareText(aSoft.FileName, aGroup.MediaFileName);
+        // 10: // Folder
+        //   Result := 0;
+      else
+        ;
+    end;
   end;
 
 var
@@ -443,16 +494,34 @@ begin
   if pData1^ is cEmutecaGroup then
   begin
     if not (pData2^ is cEmutecaGroup) then
-      Exit;
-    Result := CompareGroups(cEmutecaGroup(pData1^), cEmutecaGroup(
-      pData2^), Column);
+    begin
+      if pData2^ is cEmutecaSoftware then
+        Result := -CompareSoftGroup(cEmutecaSoftware(pData2^),
+          cEmutecaGroup(pData1^), Column)
+      else
+        Exit;
+    end
+    else
+    begin
+      Result := CompareGroups(cEmutecaGroup(pData1^),
+        cEmutecaGroup(pData2^), Column);
+    end;
   end
   else if pData1^ is cEmutecaSoftware then
   begin
     if not (pData2^ is cEmutecaSoftware) then
-      Exit;
-    Result := CompareSoftware(cEmutecaSoftware(pData1^),
-      cEmutecaSoftware(pData2^), Column);
+    begin
+      if pData2^ is cEmutecaGroup then
+        Result := CompareSoftGroup(cEmutecaSoftware(pData1^),
+          cEmutecaGroup(pData2^), Column)
+      else
+        Exit;
+    end
+    else
+    begin
+      Result := CompareSoftware(cEmutecaSoftware(pData1^),
+        cEmutecaSoftware(pData2^), Column);
+    end;
   end;
 
 end;
@@ -526,10 +595,10 @@ procedure TfmEmutecaSoftTree.VDTGetHint(Sender: TBaseVirtualTree;
         if aSoft.Hack <> '' then
           HintText += sLineBreak + 'Hack: ' + aSoft.Hack;
       end;
-      9: // Folder
-        HintText := aSoft.Folder;
-      10: // File
+      9: // File
         HintText := aSoft.FileName;
+      10: // Folder
+        HintText := aSoft.Folder;
       else
         ;
     end;
@@ -561,8 +630,10 @@ var
   pData: ^TObject;
 begin
   pData := Sender.GetNodeData(Node);
-  if not Assigned(pData) then Exit;
-  if not Assigned(pData^) then Exit;
+  if not Assigned(pData) then
+    Exit;
+  if not Assigned(pData^) then
+    Exit;
 
   AskParent := False;
 

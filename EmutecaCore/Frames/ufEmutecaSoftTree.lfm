@@ -69,11 +69,11 @@ inherited fmEmutecaSoftTree: TfmEmutecaSoftTree
       end    
       item
         Position = 9
-        Text = 'Folder'
+        Text = 'File'
       end    
       item
         Position = 10
-        Text = 'File'
+        Text = 'Folder'
       end>
     Header.DefaultHeight = 17
     Header.Height = 17

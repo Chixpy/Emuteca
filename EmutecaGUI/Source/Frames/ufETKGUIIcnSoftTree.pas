@@ -158,8 +158,19 @@ procedure TfmETKGUIIcnSoftTree.VDTDrawText(Sender: TBaseVirtualTree;
     case Column of
       0: // System
       begin
-        // Don't Draw
         DefaultDraw := False;
+
+        // Dibujar el sistema si el grupo del juego solo tiene un juego.
+        if cEmutecaGroup(aSoft.CachedGroup).SoftList.Count <> 1 then Exit;
+
+        // Icon space
+        IconRect := CellRect;
+        IconRect.Right := IconRect.Left + IconRect.Bottom - IconRect.Top;
+
+        aIcon := aSoft.CachedSystem.Stats.Icon;
+        if assigned(aIcon) then
+          TargetCanvas.StretchDraw(CorrectAspectRatio(IconRect, aIcon),
+            aIcon.Graphic);
       end;
 
       1: // Title

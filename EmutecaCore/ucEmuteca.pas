@@ -59,7 +59,8 @@ type
   protected
     property GetSoftSHA1Thread: ctEmutecaGetSoftSHA1
       read FGetSoftSHA1Thread write SetGetSoftSHA1Thread;
-    procedure GetSoftSHA1ThreadThreadTerminated(Sender: TObject); // For TThread.OnTerminate
+    procedure GetSoftSHA1ThreadThreadTerminated(Sender: TObject);
+    // For ctEmutecaGetSoftSHA1.OnTerminate
 
     procedure SetTempFolder(AValue: string);
 
@@ -68,6 +69,7 @@ type
       read FProgressCallBack write SetProgressBar;
 
     property TempFolder: string read FTempFolder;
+    {< Emuteca's TempFolder. }
 
     procedure LoadConfig(aFile: string);
 
@@ -101,7 +103,7 @@ implementation
 { cEmuteca }
 procedure cEmuteca.CacheData;
 begin
-    // Teminate thread if it's running
+  // Teminate thread if it's running
   if assigned(GetSoftSHA1Thread) then
   begin
     GetSoftSHA1Thread.OnTerminate := nil;
@@ -109,7 +111,8 @@ begin
     //GetSoftSHA1Thread.WaitFor; Don't wait
   end;
 
-  if (TempFolder = '') or (not Assigned(SystemManager)) then Exit;
+  if (TempFolder = '') or (not Assigned(SystemManager)) then
+    Exit;
 
   // CacheSysIconsThread.Free; Auto freed with FreeOnTerminate
 
@@ -117,7 +120,8 @@ begin
   FGetSoftSHA1Thread := ctEmutecaGetSoftSHA1.Create;
   if Assigned(GetSoftSHA1Thread.FatalException) then
     raise GetSoftSHA1Thread.FatalException;
-  GetSoftSHA1Thread.OnTerminate := @GetSoftSHA1ThreadThreadTerminated; //Autonil
+  GetSoftSHA1Thread.OnTerminate := @GetSoftSHA1ThreadThreadTerminated;
+  //Autonil
 
   GetSoftSHA1Thread.TempFolder := TempFolder;
   GetSoftSHA1Thread.SystemManager := SystemManager;
@@ -136,12 +140,15 @@ begin
   ForceDirectories(TempFolder);
 
   // Setting EmulatorManager
-  EmulatorManager.DefaultFileName := SetAsAbsoluteFile(Config.EmulatorsFile, BaseFolder);
+  EmulatorManager.DefaultFileName :=
+    SetAsAbsoluteFile(Config.EmulatorsFile, BaseFolder);
 
   // Setting SystemManager
   SystemManager.TempFolder := TempFolder;
-  SystemManager.DefaultFileName := SetAsAbsoluteFile(Config.SystemsFile, BaseFolder);
-  SystemManager.SysDataFolder := SetAsAbsoluteFile(Config.SysDataFolder, BaseFolder);
+  SystemManager.DefaultFileName :=
+    SetAsAbsoluteFile(Config.SystemsFile, BaseFolder);
+  SystemManager.SysDataFolder :=
+    SetAsAbsoluteFile(Config.SysDataFolder, BaseFolder);
 
   LoadAllData;
 end;
@@ -159,7 +166,7 @@ var
   i: integer;
   aSystem: cEmutecaSystem;
   SysPCB: TEmutecaProgressCallBack;
-  Continue: Boolean;
+  Continue: boolean;
 begin
   i := 0;
   Continue := True;

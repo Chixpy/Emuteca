@@ -361,7 +361,7 @@ begin
     Exit;
   end;
   if TempStr = '-' then
-    DBYear := krsImportKeepValue
+    DBYear := krsImportKeepValueKey
   else
     DBYear := AnsiReplaceText(TempStr, '-', '/');
     
@@ -375,7 +375,7 @@ begin
     Exit;
   end;  
   if TempStr = '-' then
-    DBPublisher := krsImportKeepValue
+    DBPublisher := krsImportKeepValueKey
   else
     DBPublisher := TempStr;  
    
@@ -656,10 +656,10 @@ begin
   //"Group","SHA1","ID","Folder","FileName","Title","TransliteratedName",
   //"SortTitle","Version","Year","Publisher","Zone","DumpStatus","DumpInfo",
   //"Fixed","Trainer","Translation","Pirate","Cracked","Modified","Hack"
-  Result := '"' + krsImportKeepValue + '",,"' + DBID + '","'
-    + krsImportKeepValue + '","' + krsImportKeepValue + '","' + DBTitle + '","'
-    + krsImportKeepValue + '","' + DBSortTitle + '","' + DBVersion + '","'
-    + DBYear + '","' + DBPublisher + '","' + DBZone + '","'
+  Result := '"' + krsImportKeepValueKey + '",,"' + DBID + '","'
+    + krsImportKeepValueKey + '","' + krsImportKeepValueKey + '","' + DBTitle
+    + '","' + krsImportKeepValueKey + '","' + DBSortTitle + '","' + DBVersion
+    + '","' + DBYear + '","' + DBPublisher + '","' + DBZone + '","'
     + DBDumpStatus + '","' + DBDumpInfo + '","' + DBFixed + '","'
     + DBTrainer + '","' + DBTranslation + '","' + DBPirate + '","'
     + DBCracked + '","' + DBModified + '","' + DBHack + '"'

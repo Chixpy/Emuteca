@@ -761,7 +761,7 @@ msgstr ""
 
 #: tfmemutecasofttree.vdt.header.columns[10].text
 msgctxt "tfmemutecasofttree.vdt.header.columns[10].text"
-msgid "File"
+msgid "Folder"
 msgstr ""
 
 #: tfmemutecasofttree.vdt.header.columns[1].text
@@ -801,7 +801,7 @@ msgstr ""
 
 #: tfmemutecasofttree.vdt.header.columns[9].text
 msgctxt "tfmemutecasofttree.vdt.header.columns[9].text"
-msgid "Folder"
+msgid "File"
 msgstr ""
 
 #: tfmemutecasystemeditor.chkextractallfiles.caption
