@@ -15,10 +15,6 @@ inherited frmETKGUIMain: TfrmETKGUIMain
     AutoHint = True
     Panels = <>
   end
-  inherited IniPropStorage: TIniPropStorage[1]
-    left = 568
-    top = 376
-  end
   object pmSoft: TPopupMenu[2]
     Images = ActImages
     left = 148

@@ -24,7 +24,7 @@ program EmutecaGUI;
 uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   cthreads, {$ENDIF} {$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, lazcontrols, runtimetypeinfocontrols, pascalscript,
+  Forms, lazcontrols, pascalscript,
   // CHX units
   uCHXDlgUtils,
   // CHX abstract classes
