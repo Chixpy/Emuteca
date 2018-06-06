@@ -53,7 +53,7 @@ type
     actAssignFile: TAction;
     actDeleteFile: TAction;
     actDeleteAllFiles: TAction;
-    actRenameGroupTitleWithFilenamr: TAction;
+    actRenameGroupTitleWithFilename: TAction;
     actRenameGroupFileWithFilename: TAction;
     actMoveAllFiles: TAction;
     actMoveFile: TAction;

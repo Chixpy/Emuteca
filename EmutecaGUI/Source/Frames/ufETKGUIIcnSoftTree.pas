@@ -160,7 +160,7 @@ procedure TfmETKGUIIcnSoftTree.VDTDrawText(Sender: TBaseVirtualTree;
       begin
         DefaultDraw := False;
 
-        // Dibujar el sistema si el grupo del juego solo tiene un juego.
+        // Draw system if group havs only one sofware.
         if cEmutecaGroup(aSoft.CachedGroup).SoftList.Count <> 1 then Exit;
 
         // Icon space

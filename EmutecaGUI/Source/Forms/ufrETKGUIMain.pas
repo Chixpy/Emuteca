@@ -297,8 +297,8 @@ end;
 
 procedure TfrmETKGUIMain.FormCreate(Sender: TObject);
 begin
-  Application.Title := Format(rsFmtApplicationTitle, [Application.Title, GetFileVersion]);
   // Usually it's autodeleted in .lpr file...
+  Application.Title := Format(rsFmtApplicationTitle, [Application.Title, GetFileVersion]);
 
   BaseFolder := ExtractFileDir(ExcludeTrailingPathDelimiter(ProgramDirectory));
   ChDir(BaseFolder);

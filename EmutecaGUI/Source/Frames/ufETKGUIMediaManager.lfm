@@ -445,21 +445,21 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
         Height = 131
         Top = 0
         Width = 463
-        ActivePage = pagAllGroups
+        ActivePage = pagGroupsWOFile
         Align = alClient
         PopupMenu = pumVSTGroups
-        TabIndex = 2
+        TabIndex = 0
         TabOrder = 0
         OnChange = pcTargetChange
         object pagGroupsWOFile: TTabSheet
           Caption = 'Groups without file'
-          ClientHeight = 111
-          ClientWidth = 471
+          ClientHeight = 103
+          ClientWidth = 455
           object vstGroupsWOFile: TVirtualStringTree
             Left = 0
-            Height = 111
+            Height = 103
             Top = 0
-            Width = 471
+            Width = 455
             Align = alClient
             Colors.UnfocusedColor = clMedGray
             DefaultText = 'Node'
@@ -792,7 +792,7 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
       Category = 'Groups'
       Caption = 'Rename group file with current File'
     end
-    object actRenameGroupTitleWithFilenamr: TAction
+    object actRenameGroupTitleWithFilename: TAction
       Category = 'Groups'
       Caption = 'Rename group title with current File'
     end
@@ -803,8 +803,8 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
   end
   object pumVSTGroups: TPopupMenu[9]
     Images = ilActions
-    left = 192
-    top = 368
+    left = 216
+    top = 376
     object migpAssignFile: TMenuItem
       Action = actAssignFile
     end
@@ -812,7 +812,7 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
       Caption = '-'
     end
     object migpRenameGroupTitleWithFile: TMenuItem
-      Action = actRenameGroupTitleWithFilenamr
+      Action = actRenameGroupTitleWithFilename
     end
     object migpRenameGroupFileWithFile: TMenuItem
       Action = actRenameGroupFileWithFilename
@@ -828,8 +828,9 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
     end
   end
   object pumVSTFiles: TPopupMenu[10]
-    left = 305
-    top = 181
+    Images = ilActions
+    left = 216
+    top = 72
     object miflAssignFile: TMenuItem
       Action = actAssignFile
     end
@@ -853,7 +854,7 @@ inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
     end
   end
   object SelectDirectoryDialog1: TSelectDirectoryDialog[11]
-    left = 417
-    top = 146
+    left = 320
+    top = 72
   end
 end

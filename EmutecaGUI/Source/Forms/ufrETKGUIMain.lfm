@@ -2,7 +2,7 @@ inherited frmETKGUIMain: TfrmETKGUIMain
   Left = 388
   Top = 132
   Caption = 'Main'
-  ClientHeight = 460
+  ClientHeight = 380
   Menu = MainMenu
   OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
@@ -10,12 +10,12 @@ inherited frmETKGUIMain: TfrmETKGUIMain
   object stbHelp: TStatusBar[0]
     Left = 4
     Height = 23
-    Top = 433
+    Top = 353
     Width = 632
     AutoHint = True
     Panels = <>
   end
-  object pmSoft: TPopupMenu[2]
+  object pmSoft: TPopupMenu[1]
     Images = ActImages
     left = 148
     top = 44
@@ -35,12 +35,12 @@ inherited frmETKGUIMain: TfrmETKGUIMain
       end
     end
   end
-  object pmGroup: TPopupMenu[3]
+  object pmGroup: TPopupMenu[2]
     Images = ActImages
     left = 204
     top = 44
   end
-  object MainMenu: TMainMenu[4]
+  object MainMenu: TMainMenu[3]
     Images = ActImages
     left = 68
     top = 44
@@ -173,7 +173,7 @@ inherited frmETKGUIMain: TfrmETKGUIMain
       end
     end
   end
-  object ActionList: TActionList[5]
+  object ActionList: TActionList[4]
     Images = ActImages
     left = 68
     top = 100
@@ -321,7 +321,7 @@ inherited frmETKGUIMain: TfrmETKGUIMain
       OnExecute = actOpen7zCacheFolderExecute
     end
   end
-  object ActImages: TImageList[6]
+  object ActImages: TImageList[5]
     left = 68
     top = 156
   end

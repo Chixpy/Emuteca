@@ -1,4 +1,4 @@
-{ Emuteca.
+{ Emuteca GUI thread to search soft icons.
 
   Copyright (C) 2006-2018 Chixpy
 
@@ -95,8 +95,7 @@ begin
   begin
     aSoft := SoftList[i];
 
-    aIcon := aSoft.Stats.Icon;
-    if not Assigned(aIcon) then
+    if not Assigned(aSoft.Stats.Icon) then
     begin
       if aSoft.MatchGroupFile then
       begin

@@ -975,6 +975,236 @@ msgctxt "tfmetkguisyspreview.toolbar1.caption"
 msgid "ToolBar1"
 msgstr ""
 
+#: tfmlemutkmediamanager.actassignfile.caption
+msgid "Assign file"
+msgstr ""
+
+#: tfmlemutkmediamanager.actdeleteallfiles.caption
+msgid "Delete all files"
+msgstr ""
+
+#: tfmlemutkmediamanager.actdeletefile.caption
+msgid "Delete file"
+msgstr ""
+
+#: tfmlemutkmediamanager.actmoveallfiles.caption
+msgid "Move all files..."
+msgstr ""
+
+#: tfmlemutkmediamanager.actmovefile.caption
+msgid "Move file..."
+msgstr ""
+
+#: tfmlemutkmediamanager.actrenamegroupfile.caption
+msgid "Rename group file..."
+msgstr ""
+
+#: tfmlemutkmediamanager.actrenamegroupfilewithfilename.caption
+msgid "Rename group file with current File"
+msgstr ""
+
+#: tfmlemutkmediamanager.actrenamegrouptitle.caption
+msgid "Rename group title..."
+msgstr ""
+
+#: tfmlemutkmediamanager.actrenamegrouptitlewithfilename.caption
+msgid "Rename group title with current File"
+msgstr ""
+
+#: tfmlemutkmediamanager.chkcopyfile.caption
+msgid "Copy file"
+msgstr ""
+
+#: tfmlemutkmediamanager.chksimilarfiles.caption
+msgid "Only show similar filenames"
+msgstr ""
+
+#: tfmlemutkmediamanager.gbximages.caption
+msgid "Images"
+msgstr ""
+
+#: tfmlemutkmediamanager.gbxmusic.caption
+msgid "Music"
+msgstr ""
+
+#: tfmlemutkmediamanager.gbxotherfiles.caption
+msgid "gbxOtherFiles"
+msgstr ""
+
+#: tfmlemutkmediamanager.gbxrename.caption
+msgid "Change filename"
+msgstr ""
+
+#: tfmlemutkmediamanager.gbxsource.caption
+msgctxt "tfmlemutkmediamanager.gbxsource.caption"
+msgid "Source"
+msgstr ""
+
+#: tfmlemutkmediamanager.gbxsystem.caption
+msgctxt "tfmlemutkmediamanager.gbxsystem.caption"
+msgid "System"
+msgstr ""
+
+#: tfmlemutkmediamanager.gbxtarget.caption
+msgctxt "tfmlemutkmediamanager.gbxtarget.caption"
+msgid "Target"
+msgstr ""
+
+#: tfmlemutkmediamanager.gbxtexts.caption
+msgid "Texts"
+msgstr ""
+
+#: tfmlemutkmediamanager.gbxvideos.caption
+msgid "Videos"
+msgstr ""
+
+#: tfmlemutkmediamanager.pagallfiles.caption
+msgctxt "tfmlemutkmediamanager.pagallfiles.caption"
+msgid "All files"
+msgstr ""
+
+#: tfmlemutkmediamanager.pagallgroups.caption
+msgid "All groups"
+msgstr ""
+
+#: tfmlemutkmediamanager.pagallsoft.caption
+msgid "All software"
+msgstr ""
+
+#: tfmlemutkmediamanager.pagfilesotherfolder.caption
+msgid "Files from other folder"
+msgstr ""
+
+#: tfmlemutkmediamanager.pagfileswogroup.caption
+msgid "Files without group"
+msgstr ""
+
+#: tfmlemutkmediamanager.pagfileswosoft.caption
+msgid "Files without soft"
+msgstr ""
+
+#: tfmlemutkmediamanager.paggroupswofile.caption
+msgid "Groups without file"
+msgstr ""
+
+#: tfmlemutkmediamanager.pagotherfiles.caption
+msgid "Other files"
+msgstr ""
+
+#: tfmlemutkmediamanager.pagsoftwofile.caption
+msgid "Software without file"
+msgstr ""
+
+#: tfmlemutkmediamanager.sbsource.panels[0].text
+msgctxt "tfmlemutkmediamanager.sbsource.panels[0].text"
+msgid "Source"
+msgstr ""
+
+#: tfmlemutkmediamanager.sbtarget.panels[0].text
+msgctxt "tfmlemutkmediamanager.sbtarget.panels[0].text"
+msgid "Target"
+msgstr ""
+
+#: tfmlemutkmediamanager.vstfilesall.header.columns[0].text
+msgctxt "tfmlemutkmediamanager.vstfilesall.header.columns[0].text"
+msgid "Filename"
+msgstr ""
+
+#: tfmlemutkmediamanager.vstfilesall.header.columns[1].text
+msgctxt "tfmlemutkmediamanager.vstfilesall.header.columns[1].text"
+msgid "Extension"
+msgstr ""
+
+#: tfmlemutkmediamanager.vstfilesotherext.header.columns[0].text
+msgctxt "tfmlemutkmediamanager.vstfilesotherext.header.columns[0].text"
+msgid "Filename"
+msgstr ""
+
+#: tfmlemutkmediamanager.vstfilesotherext.header.columns[1].text
+msgctxt "tfmlemutkmediamanager.vstfilesotherext.header.columns[1].text"
+msgid "Extension"
+msgstr ""
+
+#: tfmlemutkmediamanager.vstfilesotherfolder.header.columns[0].text
+msgctxt "tfmlemutkmediamanager.vstfilesotherfolder.header.columns[0].text"
+msgid "Filename"
+msgstr ""
+
+#: tfmlemutkmediamanager.vstfilesotherfolder.header.columns[1].text
+msgctxt "tfmlemutkmediamanager.vstfilesotherfolder.header.columns[1].text"
+msgid "Extension"
+msgstr ""
+
+#: tfmlemutkmediamanager.vstfileswogroup.header.columns[0].text
+msgctxt "tfmlemutkmediamanager.vstfileswogroup.header.columns[0].text"
+msgid "Filename"
+msgstr ""
+
+#: tfmlemutkmediamanager.vstfileswogroup.header.columns[1].text
+msgctxt "tfmlemutkmediamanager.vstfileswogroup.header.columns[1].text"
+msgid "Extension"
+msgstr ""
+
+#: tfmlemutkmediamanager.vstfileswosoft.header.columns[0].text
+msgctxt "tfmlemutkmediamanager.vstfileswosoft.header.columns[0].text"
+msgid "Filename"
+msgstr ""
+
+#: tfmlemutkmediamanager.vstfileswosoft.header.columns[1].text
+msgctxt "tfmlemutkmediamanager.vstfileswosoft.header.columns[1].text"
+msgid "Extension"
+msgstr ""
+
+#: tfmlemutkmediamanager.vstgroupsall.header.columns[0].text
+msgctxt "tfmlemutkmediamanager.vstgroupsall.header.columns[0].text"
+msgid "Group"
+msgstr ""
+
+#: tfmlemutkmediamanager.vstgroupsall.header.columns[1].text
+msgctxt "tfmlemutkmediamanager.vstgroupsall.header.columns[1].text"
+msgid "File"
+msgstr ""
+
+#: tfmlemutkmediamanager.vstgroupswofile.header.columns[0].text
+msgctxt "tfmlemutkmediamanager.vstgroupswofile.header.columns[0].text"
+msgid "Group"
+msgstr ""
+
+#: tfmlemutkmediamanager.vstgroupswofile.header.columns[1].text
+msgctxt "tfmlemutkmediamanager.vstgroupswofile.header.columns[1].text"
+msgid "File"
+msgstr ""
+
+#: tfmlemutkmediamanager.vstsoftall.header.columns[0].text
+msgctxt "tfmlemutkmediamanager.vstsoftall.header.columns[0].text"
+msgid "Game"
+msgstr ""
+
+#: tfmlemutkmediamanager.vstsoftall.header.columns[1].text
+msgctxt "tfmlemutkmediamanager.vstsoftall.header.columns[1].text"
+msgid "Group"
+msgstr ""
+
+#: tfmlemutkmediamanager.vstsoftall.header.columns[2].text
+msgctxt "tfmlemutkmediamanager.vstsoftall.header.columns[2].text"
+msgid "File"
+msgstr ""
+
+#: tfmlemutkmediamanager.vstsoftwofile.header.columns[0].text
+msgctxt "tfmlemutkmediamanager.vstsoftwofile.header.columns[0].text"
+msgid "Game"
+msgstr ""
+
+#: tfmlemutkmediamanager.vstsoftwofile.header.columns[1].text
+msgctxt "tfmlemutkmediamanager.vstsoftwofile.header.columns[1].text"
+msgid "Group"
+msgstr ""
+
+#: tfmlemutkmediamanager.vstsoftwofile.header.columns[2].text
+msgctxt "tfmlemutkmediamanager.vstsoftwofile.header.columns[2].text"
+msgid "File"
+msgstr ""
+
 #: tfmsmaskmultifile.actaddfiles.caption
 msgid "Add files"
 msgstr ""
@@ -1525,6 +1755,7 @@ msgid "Developer"
 msgstr ""
 
 #: uetkguicommon.rsfilename
+msgctxt "uetkguicommon.rsfilename"
 msgid "Filename"
 msgstr ""
 
@@ -1605,6 +1836,7 @@ msgid "Please Wait..."
 msgstr ""
 
 #: ufchxscriptmanager.rsfsmallfilesmaskdesc
+msgctxt "ufchxscriptmanager.rsfsmallfilesmaskdesc"
 msgid "All files"
 msgstr ""
 

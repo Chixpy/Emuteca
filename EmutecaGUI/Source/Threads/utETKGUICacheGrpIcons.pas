@@ -25,8 +25,10 @@ interface
 
 uses
   Classes, SysUtils, Graphics, LazFileUtils,
+  // CHX classes
   ucCHXImageList,
-  ucEmutecaGroupList, ucEmutecaGroup;
+  // Emuteca classes
+  ucEmutecaGroupList, ucEmutecaGroup, ucEmutecaSoftware;
 
 type
 
@@ -75,7 +77,8 @@ end;
 
 procedure ctEGUICacheGrpIcons.SetImageExt(AValue: TStrings);
 begin
-  if FImageExt = AValue then Exit;
+  if FImageExt = AValue then
+    Exit;
   FImageExt := AValue;
 end;
 
@@ -83,6 +86,7 @@ procedure ctEGUICacheGrpIcons.Execute;
 var
   i: integer;
   aGroup: cEmutecaGroup;
+  aSoft: cEmutecaSoftware;
   aIcon: TPicture;
   TempStr: string;
 begin
@@ -97,10 +101,9 @@ begin
     aGroup := GroupList[i];
 
     aIcon := aGroup.Stats.Icon;
-    if not Assigned(aIcon) then
     begin
       TempStr := aGroup.SearchFirstRelatedFile(aGroup.CachedSystem.IconFolder,
-        ImageExt, True,True);
+        ImageExt, True, True);
 
       if FileExistsUTF8(TempStr) then
       begin
@@ -109,13 +112,57 @@ begin
       else
       begin
         if Terminated then
-        Exit;
+          Exit;
         aIcon := aGroup.CachedSystem.Stats.SysSoftIcon;
       end;
 
       if Terminated then
         Exit;
       aGroup.Stats.Icon := aIcon;
+
+      // If group have only one software, search its icon.
+      // ufETKGUIIcnSoftTree shows straight its child.
+      if aGroup.SoftList.Count = 1 then
+      begin
+        aSoft := aGroup.SoftList[0];
+
+        if not Assigned(aSoft.Stats.Icon) then
+        begin
+          if aSoft.MatchGroupFile then
+          begin
+            // Same icon as group
+            if Terminated then
+              Exit;
+            aSoft.Stats.Icon := aGroup.Stats.Icon;
+          end
+          else
+          begin
+
+            if Terminated then
+              Exit;
+            TempStr := aSoft.SearchFirstRelatedFile(aSoft.CachedSystem.IconFolder,
+              ImageExt, True, True);
+
+            if FileExistsUTF8(TempStr) then
+            begin
+              aIcon := IconList[IconList.AddImageFile(TempStr)];
+
+            end
+            else
+            begin
+              aIcon := aSoft.CachedGroup.Stats.Icon;
+            end;
+
+            if Terminated then
+              Exit;
+            aSoft.Stats.Icon := aIcon;
+
+          end;
+
+        end;
+
+
+      end;
     end;
 
     Inc(i);
