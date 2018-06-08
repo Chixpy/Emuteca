@@ -1,0 +1,9 @@
+[submodule "TMPlayerControl"]
+	path = TMPlayerControl
+	owner = /
+	url = svn://svn.code.sf.net/p/lazarus-ccr/svn/components/mplayer
+	revision = 3324
+	branch = /
+	fetch = :refs/remotes/git-svn
+	remote = svn
+	type = dir
