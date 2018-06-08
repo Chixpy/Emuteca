@@ -405,6 +405,7 @@ msgid "tbOutput"
 msgstr ""
 
 #: tfmchxscriptmanager.toolbutton2.caption
+msgctxt "tfmchxscriptmanager.toolbutton2.caption"
 msgid "ToolButton2"
 msgstr ""
 
@@ -909,6 +910,15 @@ msgstr ""
 msgid "Software icon folder"
 msgstr ""
 
+#: tfmetkguifullemueditor.actopenemulatorfolder.caption
+msgid "Open emulator folder"
+msgstr ""
+
+#: tfmetkguifullemueditor.toolbar1.caption
+msgctxt "tfmetkguifullemueditor.toolbar1.caption"
+msgid "ToolBar1"
+msgstr ""
+
 #: tfmetkguifullsofteditor.actaddnewgroup.caption
 msgctxt "tfmetkguifullsofteditor.actaddnewgroup.caption"
 msgid "Add new group"
@@ -929,7 +939,291 @@ msgctxt "tfmetkguifullsofteditor.gbxsoft.caption"
 msgid "Software"
 msgstr ""
 
+#: tfmetkguifullsystemeditor.actcreatefolders.caption
+msgid "Create Folders"
+msgstr ""
+
+#: tfmetkguifullsystemeditor.actopensystemfolder.caption
+msgctxt "tfmetkguifullsystemeditor.actopensystemfolder.caption"
+msgid "Open system folder"
+msgstr ""
+
+#: tfmetkguifullsystemeditor.toolbar1.caption
+msgctxt "tfmetkguifullsystemeditor.toolbar1.caption"
+msgid "ToolBar1"
+msgstr ""
+
+#: tfmetkguifullsystemeditor.toolbutton1.caption
+msgctxt "tfmetkguifullsystemeditor.toolbutton1.caption"
+msgid "ToolButton1"
+msgstr ""
+
+#: tfmetkguifullsystemeditor.toolbutton2.caption
+msgctxt "tfmetkguifullsystemeditor.toolbutton2.caption"
+msgid "ToolButton2"
+msgstr ""
+
+#: tfmetkguimain.esearch.texthint
+msgid "Filter by name..."
+msgstr ""
+
+#: tfmetkguimediamanager.actassignfile.caption
+msgctxt "tfmetkguimediamanager.actassignfile.caption"
+msgid "Assign file"
+msgstr ""
+
+#: tfmetkguimediamanager.actdeleteallfiles.caption
+msgctxt "tfmetkguimediamanager.actdeleteallfiles.caption"
+msgid "Delete all files"
+msgstr ""
+
+#: tfmetkguimediamanager.actdeletefile.caption
+msgctxt "tfmetkguimediamanager.actdeletefile.caption"
+msgid "Delete file"
+msgstr ""
+
+#: tfmetkguimediamanager.actmoveallfiles.caption
+msgctxt "tfmetkguimediamanager.actmoveallfiles.caption"
+msgid "Move all files..."
+msgstr ""
+
+#: tfmetkguimediamanager.actmovefile.caption
+msgctxt "tfmetkguimediamanager.actmovefile.caption"
+msgid "Move file..."
+msgstr ""
+
+#: tfmetkguimediamanager.actrenamegroupfile.caption
+msgctxt "tfmetkguimediamanager.actrenamegroupfile.caption"
+msgid "Rename group file..."
+msgstr ""
+
+#: tfmetkguimediamanager.actrenamegroupfilewithfilename.caption
+msgctxt "tfmetkguimediamanager.actrenamegroupfilewithfilename.caption"
+msgid "Rename group file with current File"
+msgstr ""
+
+#: tfmetkguimediamanager.actrenamegrouptitle.caption
+msgctxt "tfmetkguimediamanager.actrenamegrouptitle.caption"
+msgid "Rename group title..."
+msgstr ""
+
+#: tfmetkguimediamanager.actrenamegrouptitlewithfilename.caption
+msgctxt "tfmetkguimediamanager.actrenamegrouptitlewithfilename.caption"
+msgid "Rename group title with current File"
+msgstr ""
+
+#: tfmetkguimediamanager.chkcopyfile.caption
+msgctxt "tfmetkguimediamanager.chkcopyfile.caption"
+msgid "Copy file"
+msgstr ""
+
+#: tfmetkguimediamanager.chksimilarfiles.caption
+msgctxt "tfmetkguimediamanager.chksimilarfiles.caption"
+msgid "Only show similar filenames"
+msgstr ""
+
+#: tfmetkguimediamanager.gbximages.caption
+msgctxt "tfmetkguimediamanager.gbximages.caption"
+msgid "Images"
+msgstr ""
+
+#: tfmetkguimediamanager.gbxmusic.caption
+msgctxt "tfmetkguimediamanager.gbxmusic.caption"
+msgid "Music"
+msgstr ""
+
+#: tfmetkguimediamanager.gbxotherfiles.caption
+msgctxt "tfmetkguimediamanager.gbxotherfiles.caption"
+msgid "gbxOtherFiles"
+msgstr ""
+
+#: tfmetkguimediamanager.gbxrename.caption
+msgctxt "tfmetkguimediamanager.gbxrename.caption"
+msgid "Change filename"
+msgstr ""
+
+#: tfmetkguimediamanager.gbxsource.caption
+msgctxt "tfmetkguimediamanager.gbxsource.caption"
+msgid "Source"
+msgstr ""
+
+#: tfmetkguimediamanager.gbxsystem.caption
+msgctxt "tfmetkguimediamanager.gbxsystem.caption"
+msgid "System"
+msgstr ""
+
+#: tfmetkguimediamanager.gbxtarget.caption
+msgctxt "tfmetkguimediamanager.gbxtarget.caption"
+msgid "Target"
+msgstr ""
+
+#: tfmetkguimediamanager.gbxtexts.caption
+msgctxt "tfmetkguimediamanager.gbxtexts.caption"
+msgid "Texts"
+msgstr ""
+
+#: tfmetkguimediamanager.gbxvideos.caption
+msgctxt "tfmetkguimediamanager.gbxvideos.caption"
+msgid "Videos"
+msgstr ""
+
+#: tfmetkguimediamanager.pagallfiles.caption
+msgctxt "tfmetkguimediamanager.pagallfiles.caption"
+msgid "All files"
+msgstr ""
+
+#: tfmetkguimediamanager.pagallgroups.caption
+msgctxt "tfmetkguimediamanager.pagallgroups.caption"
+msgid "All groups"
+msgstr ""
+
+#: tfmetkguimediamanager.pagallsoft.caption
+msgctxt "tfmetkguimediamanager.pagallsoft.caption"
+msgid "All software"
+msgstr ""
+
+#: tfmetkguimediamanager.pagfilesotherfolder.caption
+msgctxt "tfmetkguimediamanager.pagfilesotherfolder.caption"
+msgid "Files from other folder"
+msgstr ""
+
+#: tfmetkguimediamanager.pagfileswogroup.caption
+msgctxt "tfmetkguimediamanager.pagfileswogroup.caption"
+msgid "Files without group"
+msgstr ""
+
+#: tfmetkguimediamanager.pagfileswosoft.caption
+msgctxt "tfmetkguimediamanager.pagfileswosoft.caption"
+msgid "Files without soft"
+msgstr ""
+
+#: tfmetkguimediamanager.paggroupswofile.caption
+msgctxt "tfmetkguimediamanager.paggroupswofile.caption"
+msgid "Groups without file"
+msgstr ""
+
+#: tfmetkguimediamanager.pagotherfiles.caption
+msgctxt "tfmetkguimediamanager.pagotherfiles.caption"
+msgid "Other files"
+msgstr ""
+
+#: tfmetkguimediamanager.pagsoftwofile.caption
+msgctxt "tfmetkguimediamanager.pagsoftwofile.caption"
+msgid "Software without file"
+msgstr ""
+
+#: tfmetkguimediamanager.sbsource.panels[0].text
+msgctxt "tfmetkguimediamanager.sbsource.panels[0].text"
+msgid "Source"
+msgstr ""
+
+#: tfmetkguimediamanager.sbtarget.panels[0].text
+msgctxt "tfmetkguimediamanager.sbtarget.panels[0].text"
+msgid "Target"
+msgstr ""
+
+#: tfmetkguimediamanager.vstfilesall.header.columns[0].text
+msgctxt "tfmetkguimediamanager.vstfilesall.header.columns[0].text"
+msgid "Filename"
+msgstr ""
+
+#: tfmetkguimediamanager.vstfilesall.header.columns[1].text
+msgctxt "tfmetkguimediamanager.vstfilesall.header.columns[1].text"
+msgid "Extension"
+msgstr ""
+
+#: tfmetkguimediamanager.vstfilesotherext.header.columns[0].text
+msgctxt "tfmetkguimediamanager.vstfilesotherext.header.columns[0].text"
+msgid "Filename"
+msgstr ""
+
+#: tfmetkguimediamanager.vstfilesotherext.header.columns[1].text
+msgctxt "tfmetkguimediamanager.vstfilesotherext.header.columns[1].text"
+msgid "Extension"
+msgstr ""
+
+#: tfmetkguimediamanager.vstfilesotherfolder.header.columns[0].text
+msgctxt "tfmetkguimediamanager.vstfilesotherfolder.header.columns[0].text"
+msgid "Filename"
+msgstr ""
+
+#: tfmetkguimediamanager.vstfilesotherfolder.header.columns[1].text
+msgctxt "tfmetkguimediamanager.vstfilesotherfolder.header.columns[1].text"
+msgid "Extension"
+msgstr ""
+
+#: tfmetkguimediamanager.vstfileswogroup.header.columns[0].text
+msgctxt "tfmetkguimediamanager.vstfileswogroup.header.columns[0].text"
+msgid "Filename"
+msgstr ""
+
+#: tfmetkguimediamanager.vstfileswogroup.header.columns[1].text
+msgctxt "tfmetkguimediamanager.vstfileswogroup.header.columns[1].text"
+msgid "Extension"
+msgstr ""
+
+#: tfmetkguimediamanager.vstfileswosoft.header.columns[0].text
+msgctxt "tfmetkguimediamanager.vstfileswosoft.header.columns[0].text"
+msgid "Filename"
+msgstr ""
+
+#: tfmetkguimediamanager.vstfileswosoft.header.columns[1].text
+msgctxt "tfmetkguimediamanager.vstfileswosoft.header.columns[1].text"
+msgid "Extension"
+msgstr ""
+
+#: tfmetkguimediamanager.vstgroupsall.header.columns[0].text
+msgctxt "tfmetkguimediamanager.vstgroupsall.header.columns[0].text"
+msgid "Group"
+msgstr ""
+
+#: tfmetkguimediamanager.vstgroupsall.header.columns[1].text
+msgctxt "tfmetkguimediamanager.vstgroupsall.header.columns[1].text"
+msgid "File"
+msgstr ""
+
+#: tfmetkguimediamanager.vstgroupswofile.header.columns[0].text
+msgctxt "tfmetkguimediamanager.vstgroupswofile.header.columns[0].text"
+msgid "Group"
+msgstr ""
+
+#: tfmetkguimediamanager.vstgroupswofile.header.columns[1].text
+msgctxt "tfmetkguimediamanager.vstgroupswofile.header.columns[1].text"
+msgid "File"
+msgstr ""
+
+#: tfmetkguimediamanager.vstsoftall.header.columns[0].text
+msgctxt "tfmetkguimediamanager.vstsoftall.header.columns[0].text"
+msgid "Game"
+msgstr ""
+
+#: tfmetkguimediamanager.vstsoftall.header.columns[1].text
+msgctxt "tfmetkguimediamanager.vstsoftall.header.columns[1].text"
+msgid "Group"
+msgstr ""
+
+#: tfmetkguimediamanager.vstsoftall.header.columns[2].text
+msgctxt "tfmetkguimediamanager.vstsoftall.header.columns[2].text"
+msgid "File"
+msgstr ""
+
+#: tfmetkguimediamanager.vstsoftwofile.header.columns[0].text
+msgctxt "tfmetkguimediamanager.vstsoftwofile.header.columns[0].text"
+msgid "Game"
+msgstr ""
+
+#: tfmetkguimediamanager.vstsoftwofile.header.columns[1].text
+msgctxt "tfmetkguimediamanager.vstsoftwofile.header.columns[1].text"
+msgid "Group"
+msgstr ""
+
+#: tfmetkguimediamanager.vstsoftwofile.header.columns[2].text
+msgctxt "tfmetkguimediamanager.vstsoftwofile.header.columns[2].text"
+msgid "File"
+msgstr ""
+
 #: tfmetkguisyspreview.actopensystemfolder.caption
+msgctxt "tfmetkguisyspreview.actopensystemfolder.caption"
 msgid "Open system folder"
 msgstr ""
 
@@ -976,62 +1270,77 @@ msgid "ToolBar1"
 msgstr ""
 
 #: tfmlemutkmediamanager.actassignfile.caption
+msgctxt "tfmlemutkmediamanager.actassignfile.caption"
 msgid "Assign file"
 msgstr ""
 
 #: tfmlemutkmediamanager.actdeleteallfiles.caption
+msgctxt "tfmlemutkmediamanager.actdeleteallfiles.caption"
 msgid "Delete all files"
 msgstr ""
 
 #: tfmlemutkmediamanager.actdeletefile.caption
+msgctxt "tfmlemutkmediamanager.actdeletefile.caption"
 msgid "Delete file"
 msgstr ""
 
 #: tfmlemutkmediamanager.actmoveallfiles.caption
+msgctxt "tfmlemutkmediamanager.actmoveallfiles.caption"
 msgid "Move all files..."
 msgstr ""
 
 #: tfmlemutkmediamanager.actmovefile.caption
+msgctxt "tfmlemutkmediamanager.actmovefile.caption"
 msgid "Move file..."
 msgstr ""
 
 #: tfmlemutkmediamanager.actrenamegroupfile.caption
+msgctxt "tfmlemutkmediamanager.actrenamegroupfile.caption"
 msgid "Rename group file..."
 msgstr ""
 
 #: tfmlemutkmediamanager.actrenamegroupfilewithfilename.caption
+msgctxt "tfmlemutkmediamanager.actrenamegroupfilewithfilename.caption"
 msgid "Rename group file with current File"
 msgstr ""
 
 #: tfmlemutkmediamanager.actrenamegrouptitle.caption
+msgctxt "tfmlemutkmediamanager.actrenamegrouptitle.caption"
 msgid "Rename group title..."
 msgstr ""
 
 #: tfmlemutkmediamanager.actrenamegrouptitlewithfilename.caption
+msgctxt "tfmlemutkmediamanager.actrenamegrouptitlewithfilename.caption"
 msgid "Rename group title with current File"
 msgstr ""
 
 #: tfmlemutkmediamanager.chkcopyfile.caption
+msgctxt "tfmlemutkmediamanager.chkcopyfile.caption"
 msgid "Copy file"
 msgstr ""
 
 #: tfmlemutkmediamanager.chksimilarfiles.caption
+msgctxt "tfmlemutkmediamanager.chksimilarfiles.caption"
 msgid "Only show similar filenames"
 msgstr ""
 
 #: tfmlemutkmediamanager.gbximages.caption
+msgctxt "tfmlemutkmediamanager.gbximages.caption"
 msgid "Images"
 msgstr ""
 
 #: tfmlemutkmediamanager.gbxmusic.caption
+msgctxt "tfmlemutkmediamanager.gbxmusic.caption"
 msgid "Music"
 msgstr ""
 
 #: tfmlemutkmediamanager.gbxotherfiles.caption
+msgctxt "tfmlemutkmediamanager.gbxotherfiles.caption"
 msgid "gbxOtherFiles"
 msgstr ""
 
 #: tfmlemutkmediamanager.gbxrename.caption
+msgctxt "tfmlemutkmediamanager.gbxrename.caption"
 msgid "Change filename"
 msgstr ""
 
@@ -1051,10 +1360,12 @@ msgid "Target"
 msgstr ""
 
 #: tfmlemutkmediamanager.gbxtexts.caption
+msgctxt "tfmlemutkmediamanager.gbxtexts.caption"
 msgid "Texts"
 msgstr ""
 
 #: tfmlemutkmediamanager.gbxvideos.caption
+msgctxt "tfmlemutkmediamanager.gbxvideos.caption"
 msgid "Videos"
 msgstr ""
 
@@ -1064,34 +1375,42 @@ msgid "All files"
 msgstr ""
 
 #: tfmlemutkmediamanager.pagallgroups.caption
+msgctxt "tfmlemutkmediamanager.pagallgroups.caption"
 msgid "All groups"
 msgstr ""
 
 #: tfmlemutkmediamanager.pagallsoft.caption
+msgctxt "tfmlemutkmediamanager.pagallsoft.caption"
 msgid "All software"
 msgstr ""
 
 #: tfmlemutkmediamanager.pagfilesotherfolder.caption
+msgctxt "tfmlemutkmediamanager.pagfilesotherfolder.caption"
 msgid "Files from other folder"
 msgstr ""
 
 #: tfmlemutkmediamanager.pagfileswogroup.caption
+msgctxt "tfmlemutkmediamanager.pagfileswogroup.caption"
 msgid "Files without group"
 msgstr ""
 
 #: tfmlemutkmediamanager.pagfileswosoft.caption
+msgctxt "tfmlemutkmediamanager.pagfileswosoft.caption"
 msgid "Files without soft"
 msgstr ""
 
 #: tfmlemutkmediamanager.paggroupswofile.caption
+msgctxt "tfmlemutkmediamanager.paggroupswofile.caption"
 msgid "Groups without file"
 msgstr ""
 
 #: tfmlemutkmediamanager.pagotherfiles.caption
+msgctxt "tfmlemutkmediamanager.pagotherfiles.caption"
 msgid "Other files"
 msgstr ""
 
 #: tfmlemutkmediamanager.pagsoftwofile.caption
+msgctxt "tfmlemutkmediamanager.pagsoftwofile.caption"
 msgid "Software without file"
 msgstr ""
 

@@ -96,7 +96,7 @@ begin
 
   Application.CreateForm(TfrmCHXForm, aForm);
   try
-    aForm.Name := 'frmLEmuTKactMergeGroup';
+    aForm.Name := 'frmETKGUIactMergeGroup';
     aForm.Caption := Format(krsFmtWindowCaption,
       [Application.Title, 'Merge group files...']);
     aForm.AutoSize := True;

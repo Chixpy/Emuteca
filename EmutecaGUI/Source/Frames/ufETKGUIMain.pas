@@ -52,9 +52,9 @@ const
 
 type
 
-  { TfmLEmuTKMain }
+  { TfmETKGUIMain }
 
-  TfmLEmuTKMain = class(TfmCHXFrame)
+  TfmETKGUIMain = class(TfmCHXFrame)
     eSearch: TEdit;
     pcLeft: TPageControl;
     pcSoftware: TPageControl;
@@ -71,7 +71,7 @@ type
     FDumpIcons: cCHXImageList;
     FEmuteca: cEmuteca;
     FfmCHXTagTree: TfmCHXTagTree;
-    FfmEmutecaSystemCBX: TfmLEmuTKIcnSysCBX;
+    FfmEmutecaSystemCBX: TfmETKGUIIcnSysCBX;
     FfmSoftEditor: TfmETKGUIFullSoftEditor;
     FfmSoftMedia: TfmETKGUISoftMedia;
     FfmSoftTree: TfmETKGUIIcnSoftTree;
@@ -116,7 +116,7 @@ type
       read FCurrentSystem write SetCurrentSystem;
 
     // Frames
-    property fmEmutecaSystemCBX: TfmLEmuTKIcnSysCBX read FfmEmutecaSystemCBX;
+    property fmEmutecaSystemCBX: TfmETKGUIIcnSysCBX read FfmEmutecaSystemCBX;
 
     property fmCHXTagTree: TfmCHXTagTree read FfmCHXTagTree;
 
@@ -177,14 +177,14 @@ implementation
 
 {$R *.lfm}
 
-{ TfmLEmuTKMain }
+{ TfmETKGUIMain }
 
-procedure TfmLEmuTKMain.eSearchEditingDone(Sender: TObject);
+procedure TfmETKGUIMain.eSearchEditingDone(Sender: TObject);
 begin
   fmSoftTree.TitleFilter := eSearch.Text;
 end;
 
-procedure TfmLEmuTKMain.SetDumpIcons(AValue: cCHXImageList);
+procedure TfmETKGUIMain.SetDumpIcons(AValue: cCHXImageList);
 begin
   if FDumpIcons = AValue then
     Exit;
@@ -193,7 +193,7 @@ begin
   fmSoftTree.DumpIconList := DumpIcons;
 end;
 
-procedure TfmLEmuTKMain.SetCurrentGroup(AValue: cEmutecaGroup);
+procedure TfmETKGUIMain.SetCurrentGroup(AValue: cEmutecaGroup);
 begin
   if FCurrentGroup = AValue then
     Exit;
@@ -209,7 +209,7 @@ begin
     fmSystemPanel.System := cEmutecaSystem(CurrentGroup.CachedSystem);
 end;
 
-procedure TfmLEmuTKMain.SetCurrentSoft(AValue: cEmutecaSoftware);
+procedure TfmETKGUIMain.SetCurrentSoft(AValue: cEmutecaSoftware);
 begin
   if FCurrentSoft = AValue then
     Exit;
@@ -225,7 +225,7 @@ begin
     fmSystemPanel.System := cEmutecaSystem(CurrentSoft.CachedSystem);
 end;
 
-procedure TfmLEmuTKMain.SetCurrentSystem(AValue: cEmutecaSystem);
+procedure TfmETKGUIMain.SetCurrentSystem(AValue: cEmutecaSystem);
 begin
   if FCurrentSystem = AValue then
     Exit;
@@ -260,7 +260,7 @@ begin
   fmSystemPanel.System := CurrentSystem;
 end;
 
-procedure TfmLEmuTKMain.SetEmuteca(AValue: cEmuteca);
+procedure TfmETKGUIMain.SetEmuteca(AValue: cEmuteca);
 begin
   if FEmuteca = AValue then
     Exit;
@@ -291,7 +291,7 @@ begin
   LoadFrameData;
 end;
 
-procedure TfmLEmuTKMain.SetGUIConfig(AValue: cETKGUIConfig);
+procedure TfmETKGUIMain.SetGUIConfig(AValue: cETKGUIConfig);
 begin
   if FGUIConfig = AValue then
     Exit;
@@ -303,42 +303,42 @@ begin
   LoadFrameData;
 end;
 
-procedure TfmLEmuTKMain.SetOnGroupChanged(AValue: TEmutecaReturnGroupCB);
+procedure TfmETKGUIMain.SetOnGroupChanged(AValue: TEmutecaReturnGroupCB);
 begin
   if FOnGroupChanged = AValue then
     Exit;
   FOnGroupChanged := AValue;
 end;
 
-procedure TfmLEmuTKMain.SetOnGrpListChanged(AValue: TEmutecaReturnGrpLstCB);
+procedure TfmETKGUIMain.SetOnGrpListChanged(AValue: TEmutecaReturnGrpLstCB);
 begin
   if FOnGrpListChanged = AValue then
     Exit;
   FOnGrpListChanged := AValue;
 end;
 
-procedure TfmLEmuTKMain.SetOnSoftChanged(AValue: TEmutecaReturnSoftCB);
+procedure TfmETKGUIMain.SetOnSoftChanged(AValue: TEmutecaReturnSoftCB);
 begin
   if FOnSoftChanged = AValue then
     Exit;
   FOnSoftChanged := AValue;
 end;
 
-procedure TfmLEmuTKMain.SetOnSoftDblClk(AValue: TEmutecaReturnSoftCB);
+procedure TfmETKGUIMain.SetOnSoftDblClk(AValue: TEmutecaReturnSoftCB);
 begin
   if FOnSoftDblClk = AValue then
     Exit;
   FOnSoftDblClk := AValue;
 end;
 
-procedure TfmLEmuTKMain.SetOnSystemChanged(AValue: TEmutecaReturnSystemCB);
+procedure TfmETKGUIMain.SetOnSystemChanged(AValue: TEmutecaReturnSystemCB);
 begin
   if FOnSystemChanged = AValue then
     Exit;
   FOnSystemChanged := AValue;
 end;
 
-procedure TfmLEmuTKMain.SetpmGroup(AValue: TPopupMenu);
+procedure TfmETKGUIMain.SetpmGroup(AValue: TPopupMenu);
 begin
   if FpmGroup = AValue then
     Exit;
@@ -347,7 +347,7 @@ begin
   fmSoftTree.pmGroup := pmGroup;
 end;
 
-procedure TfmLEmuTKMain.SetpmSoft(AValue: TPopupMenu);
+procedure TfmETKGUIMain.SetpmSoft(AValue: TPopupMenu);
 begin
   if FpmSoft = AValue then
     Exit;
@@ -356,7 +356,7 @@ begin
   fmSoftTree.pmSoft := pmSoft;
 end;
 
-procedure TfmLEmuTKMain.SetSHA1Folder(AValue: string);
+procedure TfmETKGUIMain.SetSHA1Folder(AValue: string);
 begin
   if FSHA1Folder = AValue then
     Exit;
@@ -366,7 +366,7 @@ begin
   fmSoftMedia.SHA1Folder := SHA1Folder;
 end;
 
-procedure TfmLEmuTKMain.SetZoneIcons(AValue: cCHXImageMap);
+procedure TfmETKGUIMain.SetZoneIcons(AValue: cCHXImageMap);
 begin
   if FZoneIcons = AValue then
     Exit;
@@ -375,7 +375,7 @@ begin
   fmSoftTree.ZoneIconMap := ZoneIcons;
 end;
 
-procedure TfmLEmuTKMain.UpdateFullGroupList;
+procedure TfmETKGUIMain.UpdateFullGroupList;
 var
   i, j: Integer;
   aSystem: cEmutecaSystem;
@@ -398,28 +398,28 @@ begin
   end;
 end;
 
-function TfmLEmuTKMain.DoSelectSystem(aSystem: cEmutecaSystem): boolean;
+function TfmETKGUIMain.DoSelectSystem(aSystem: cEmutecaSystem): boolean;
 begin
   Result := DoSelectGroup(nil);
 
   CurrentSystem := aSystem;
 end;
 
-function TfmLEmuTKMain.DoSelectGroup(aGroup: cEmutecaGroup): boolean;
+function TfmETKGUIMain.DoSelectGroup(aGroup: cEmutecaGroup): boolean;
 begin
   Result := DoSelectSoftware(nil);
 
   CurrentGroup := aGroup;
 end;
 
-function TfmLEmuTKMain.DoSelectSoftware(aSoftware: cEmutecaSoftware): boolean;
+function TfmETKGUIMain.DoSelectSoftware(aSoftware: cEmutecaSoftware): boolean;
 begin
   Result := True;
 
   CurrentSoft := aSoftware;
 end;
 
-function TfmLEmuTKMain.DoDblClkSoftware(aSoftware: cEmutecaSoftware): boolean;
+function TfmETKGUIMain.DoDblClkSoftware(aSoftware: cEmutecaSoftware): boolean;
 begin
   Result := True;
 
@@ -427,17 +427,17 @@ begin
     Result := OnSoftDblClk(aSoftware);
 end;
 
-procedure TfmLEmuTKMain.CheckTags(aList: TStrings);
+procedure TfmETKGUIMain.CheckTags(aList: TStrings);
 begin
 
 end;
 
-procedure TfmLEmuTKMain.DoClearFrameData;
+procedure TfmETKGUIMain.DoClearFrameData;
 begin
   // Nothing
 end;
 
-procedure TfmLEmuTKMain.DoLoadFrameData;
+procedure TfmETKGUIMain.DoLoadFrameData;
 begin
   Enabled := Assigned(Emuteca) and Assigned(GUIConfig);
 
@@ -453,7 +453,7 @@ begin
   DoSelectSystem(fmEmutecaSystemCBX.SelectedSystem);
 end;
 
-procedure TfmLEmuTKMain.DoLoadGUIConfig(aIniFile: TIniFile);
+procedure TfmETKGUIMain.DoLoadGUIConfig(aIniFile: TIniFile);
 begin
   pcLeft.Width := aIniFile.ReadInteger(krsIniMainFrameSection,
     krsIniMainFrameLeftPanelWidth, pcLeft.Width);
@@ -461,7 +461,7 @@ begin
     krsIniMainFrameRigthPanelWidth, pcSoftware.Width);
 end;
 
-procedure TfmLEmuTKMain.DoSaveGUIConfig(aIniFile: TIniFile);
+procedure TfmETKGUIMain.DoSaveGUIConfig(aIniFile: TIniFile);
 begin
   aIniFile.WriteInteger(krsIniMainFrameSection, krsIniMainFrameLeftPanelWidth,
     pcLeft.Width);
@@ -469,7 +469,7 @@ begin
     krsIniMainFrameRigthPanelWidth, pcSoftware.Width);
 end;
 
-constructor TfmLEmuTKMain.Create(TheOwner: TComponent);
+constructor TfmETKGUIMain.Create(TheOwner: TComponent);
 
   procedure CreateFrames;
   var
@@ -478,12 +478,12 @@ constructor TfmLEmuTKMain.Create(TheOwner: TComponent);
     // Better create frames in code while developing...
 
     // Creating and Setting the System ComboBox
-    FfmEmutecaSystemCBX := TfmLEmuTKIcnSysCBX.Create(pMiddle);
+    FfmEmutecaSystemCBX := TfmETKGUIIcnSysCBX.Create(pMiddle);
     fmEmutecaSystemCBX.Align := alTop;
     // TODO: Configurable
-    //fmEmutecaSystemCBX.cbxSystem.Font.Height := 32;
-    //fmEmutecaSystemCBX.cbxSystem.Height := 32;
-    //fmEmutecaSystemCBX.cbxSystem.ItemHeight := 32;
+    fmEmutecaSystemCBX.cbxSystem.Font.Height := 32;
+    fmEmutecaSystemCBX.cbxSystem.Height := 32;
+    fmEmutecaSystemCBX.cbxSystem.ItemHeight := 32;
     fmEmutecaSystemCBX.FirstItem := ETKSysCBXFIAll;
     fmEmutecaSystemCBX.OnSelectSystem := @DoSelectSystem;
     fmEmutecaSystemCBX.Parent := pMiddle;
@@ -544,7 +544,7 @@ begin
   OnSaveGUIConfig := @DoSaveGUIConfig;
 end;
 
-destructor TfmLEmuTKMain.Destroy;
+destructor TfmETKGUIMain.Destroy;
 begin
   FFullGroupList.Free;
 

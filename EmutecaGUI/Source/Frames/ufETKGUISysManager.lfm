@@ -1,5 +1,7 @@
-inherited fmLEmuTKSysManager: TfmLEmuTKSysManager
+inherited fmETKGUISysManager: TfmETKGUISysManager
   inherited pPropChkList: TPanel
+    Height = 522
+    ClientHeight = 522
     inherited tbPropChkList: TToolBar
       inherited ToolButton3: TToolButton
         Height = 22
@@ -8,6 +10,16 @@ inherited fmLEmuTKSysManager: TfmLEmuTKSysManager
         Height = 22
       end
     end
+    inherited clbPropItems: TCheckListBox
+      Height = 473
+    end
+    inherited sbPropChkList: TStatusBar
+      Top = 499
+    end
+  end
+  inherited splPropChkList: TSplitter
+    Left = 204
+    Height = 522
   end
   object SaveDialog1: TSaveDialog[6]
     Filter = 'Systems ini file|*.ini|All files|*.*'

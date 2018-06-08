@@ -25,9 +25,9 @@ uses
 
 type
 
-  { TfmLEmuTKFullSystemEditor }
+  { TfmETKGUIFullSystemEditor }
 
-  TfmLEmuTKFullSystemEditor = class(TfmCHXPropEditor)
+  TfmETKGUIFullSystemEditor = class(TfmCHXPropEditor)
     actCreateFolders: TAction;
     actOpenSystemFolder: TAction;
     pcProperties: TPageControl;
@@ -82,9 +82,9 @@ implementation
 
 {$R *.lfm}
 
-{ TfmLEmuTKFullSystemEditor }
+{ TfmETKGUIFullSystemEditor }
 
-procedure TfmLEmuTKFullSystemEditor.actCreateFoldersExecute(Sender: TObject);
+procedure TfmETKGUIFullSystemEditor.actCreateFoldersExecute(Sender: TObject);
 
   procedure CreateFolder(aSystem: cEmutecaSystem; aLine: TStringList);
   var
@@ -207,14 +207,14 @@ begin
   System := TmpSys;
 end;
 
-procedure TfmLEmuTKFullSystemEditor.actOpenSystemFolderExecute(Sender: TObject);
+procedure TfmETKGUIFullSystemEditor.actOpenSystemFolderExecute(Sender: TObject);
 begin
   if (not Assigned(System)) or (not DirectoryExistsUTF8(System.BaseFolder)) then Exit;
 
   OpenDocument(System.BaseFolder);
 end;
 
-procedure TfmLEmuTKFullSystemEditor.SetEmuteca(AValue: cEmuteca);
+procedure TfmETKGUIFullSystemEditor.SetEmuteca(AValue: cEmuteca);
 begin
   if FEmuteca = AValue then
     Exit;
@@ -232,13 +232,13 @@ begin
   LoadFrameData;
 end;
 
-procedure TfmLEmuTKFullSystemEditor.SetSHA1Folder(AValue: string);
+procedure TfmETKGUIFullSystemEditor.SetSHA1Folder(AValue: string);
 begin
   FSHA1Folder := SetAsFolder(AValue);
   fmSysImgEditor.SHA1Folder := SHA1Folder;
 end;
 
-procedure TfmLEmuTKFullSystemEditor.SetSystem(AValue: cEmutecaSystem);
+procedure TfmETKGUIFullSystemEditor.SetSystem(AValue: cEmutecaSystem);
 begin
   if FSystem = AValue then
     Exit;
@@ -252,11 +252,11 @@ begin
   LoadFrameData;
 end;
 
-procedure TfmLEmuTKFullSystemEditor.DoClearFrameData;
+procedure TfmETKGUIFullSystemEditor.DoClearFrameData;
 begin
 end;
 
-procedure TfmLEmuTKFullSystemEditor.DOSaveFrameData;
+procedure TfmETKGUIFullSystemEditor.DOSaveFrameData;
 begin
   fmSysEditor.SaveFrameData;
   fmSysImgEditor.SaveFrameData;
@@ -264,12 +264,12 @@ begin
   fmSysMVFEditor.SaveFrameData;
 end;
 
-class function TfmLEmuTKFullSystemEditor.SimpleForm(aEmuteca: cEmuteca;
+class function TfmETKGUIFullSystemEditor.SimpleForm(aEmuteca: cEmuteca;
   aSystem: cEmutecaSystem; aSHA1Folder: string; aGUIIconsIni: string;
   aGUIConfigIni: string): integer;
 var
   aForm: TfrmCHXForm;
-  aFrame: TfmLEmuTKFullSystemEditor;
+  aFrame: TfmETKGUIFullSystemEditor;
 begin
   Result := mrNone;
 
@@ -281,11 +281,11 @@ begin
 
   Application.CreateForm(TfrmCHXForm, aForm);
   try
-    aForm.Name := 'frmLEmuTKSysEditor';
+    aForm.Name := 'frmETKGUIFullSysEditor';
     aForm.Caption := Format(krsFmtWindowCaption,
       [Application.Title, 'System Editor']);
 
-    aFrame := TfmLEmuTKFullSystemEditor.Create(aForm);
+    aFrame := TfmETKGUIFullSystemEditor.Create(aForm);
     aFrame.SaveButtons := True;
     aFrame.ButtonClose := True;
     aFrame.Align := alClient;
@@ -304,7 +304,7 @@ begin
   end;
 end;
 
-procedure TfmLEmuTKFullSystemEditor.DoLoadFrameData;
+procedure TfmETKGUIFullSystemEditor.DoLoadFrameData;
 begin
   Enabled := Assigned(Emuteca) and Assigned(System);
 
@@ -315,7 +315,7 @@ begin
   end;
 end;
 
-constructor TfmLEmuTKFullSystemEditor.Create(TheOwner: TComponent);
+constructor TfmETKGUIFullSystemEditor.Create(TheOwner: TComponent);
 
   procedure CreatePages;
   var
@@ -364,7 +364,7 @@ begin
   OnSaveFrameData := @DoSaveFrameData;
 end;
 
-destructor TfmLEmuTKFullSystemEditor.Destroy;
+destructor TfmETKGUIFullSystemEditor.Destroy;
 begin
   inherited Destroy;
 end;

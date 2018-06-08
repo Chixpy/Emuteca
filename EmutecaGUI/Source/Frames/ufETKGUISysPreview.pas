@@ -55,6 +55,7 @@ type
     ePlayedTime: TEdit;
     gbxStats: TGroupBox;
     lSystemTitle: TLabel;
+    pSysImage: TPanel;
     Splitter1: TSplitter;
     SysImage: TImage;
     ToolBar1: TToolBar;

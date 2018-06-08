@@ -5,38 +5,26 @@ inherited fmETKGUISysPreview: TfmETKGUISysPreview
   ClientWidth = 200
   DesignLeft = 472
   DesignTop = 74
-  object SysImage: TImage[0]
-    Left = 0
-    Height = 200
-    Top = 0
-    Width = 200
-    Align = alTop
-    Center = True
-    OnDblClick = SysImageDblClick
-    Proportional = True
-    Stretch = True
-    Transparent = True
-  end
-  object Splitter1: TSplitter[1]
+  object Splitter1: TSplitter[0]
     Cursor = crVSplit
     Left = 0
     Height = 5
-    Top = 234
+    Top = 230
     Width = 200
     Align = alTop
     ResizeAnchor = akTop
   end
-  object gbxStats: TGroupBox[2]
+  object gbxStats: TGroupBox[1]
     Left = 0
     Height = 150
-    Top = 243
+    Top = 239
     Width = 200
     Align = alTop
     AutoSize = True
     Caption = 'Stats'
     ClientHeight = 130
     ClientWidth = 196
-    TabOrder = 2
+    TabOrder = 1
     object ePlayedTime: TEdit
       Left = 0
       Height = 23
@@ -97,31 +85,55 @@ inherited fmETKGUISysPreview: TfmETKGUISysPreview
       ParentColor = False
     end
   end
-  object ToolBar1: TToolBar[3]
-    Left = 0
-    Height = 26
-    Top = 204
-    Width = 200
-    Caption = 'ToolBar1'
-    Images = ilActions
-    TabOrder = 0
-    object ToolButton1: TToolButton
-      Left = 1
-      Top = 2
-      Action = actOpenSystemFolder
-    end
-  end
-  object gbxEmulator: TGroupBox[4]
+  object gbxEmulator: TGroupBox[2]
     Left = 0
     Height = 19
-    Top = 397
+    Top = 393
     Width = 200
     Align = alTop
     AutoSize = True
     Caption = 'Current emulator'
-    TabOrder = 3
+    TabOrder = 2
   end
-  object ActionList: TActionList[5]
+  object pSysImage: TPanel[3]
+    Left = 0
+    Height = 226
+    Top = 0
+    Width = 200
+    Align = alTop
+    BevelOuter = bvNone
+    ClientHeight = 226
+    ClientWidth = 200
+    TabOrder = 3
+    object ToolBar1: TToolBar
+      Left = 0
+      Height = 26
+      Top = 200
+      Width = 200
+      Align = alBottom
+      Caption = 'ToolBar1'
+      Images = ilActions
+      TabOrder = 0
+      object ToolButton1: TToolButton
+        Left = 1
+        Top = 2
+        Action = actOpenSystemFolder
+      end
+    end
+    object SysImage: TImage
+      Left = 0
+      Height = 200
+      Top = 0
+      Width = 200
+      Align = alClient
+      Center = True
+      OnDblClick = SysImageDblClick
+      Proportional = True
+      Stretch = True
+      Transparent = True
+    end
+  end
+  object ActionList: TActionList[4]
     Images = ilActions
     left = 133
     top = 336
@@ -132,7 +144,7 @@ inherited fmETKGUISysPreview: TfmETKGUISysPreview
       OnExecute = actOpenSystemFolderExecute
     end
   end
-  object ilActions: TImageList[6]
+  object ilActions: TImageList[5]
     left = 133
     top = 276
   end

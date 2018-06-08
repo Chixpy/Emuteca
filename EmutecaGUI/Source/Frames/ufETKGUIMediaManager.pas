@@ -45,11 +45,11 @@ type
   end;
   PFileRow = ^TFileRow;
 
-  { TfmLEmuTKMediaManager }
+  { TfmETKGUIMediaManager }
 
   // TODO: Simplify this. Many copypasted code can be functions.
 
-  TfmLEmuTKMediaManager = class(TfmCHXFrame)
+  TfmETKGUIMediaManager = class(TfmCHXFrame)
     actAssignFile: TAction;
     actDeleteFile: TAction;
     actDeleteAllFiles: TAction;
@@ -349,14 +349,14 @@ implementation
 
 {$R *.lfm}
 
-{ TfmLEmuTKMediaManager }
+{ TfmETKGUIMediaManager }
 
-procedure TfmLEmuTKMediaManager.SetSHA1Folder(AValue: string);
+procedure TfmETKGUIMediaManager.SetSHA1Folder(AValue: string);
 begin
   FSHA1Folder := SetAsFolder(AValue);
 end;
 
-procedure TfmLEmuTKMediaManager.SetSourceFile(AValue: string);
+procedure TfmETKGUIMediaManager.SetSourceFile(AValue: string);
 begin
   FSourceFile := SetAsFile(AValue);
 
@@ -366,13 +366,13 @@ begin
   // UpdateStatusBars; Updated by SetTargetFile
 end;
 
-procedure TfmLEmuTKMediaManager.SetSourceFolder(AValue: string);
+procedure TfmETKGUIMediaManager.SetSourceFolder(AValue: string);
 begin
   FSourceFolder := SetAsFolder(AValue);
   UpdateStatusBars;
 end;
 
-procedure TfmLEmuTKMediaManager.SetTargetFile(AValue: string);
+procedure TfmETKGUIMediaManager.SetTargetFile(AValue: string);
 begin
   FTargetFile := RemoveFromBrackets(ExtractFileNameOnly(AValue));
 
@@ -382,26 +382,26 @@ begin
   UpdateStatusBars;
 end;
 
-procedure TfmLEmuTKMediaManager.SetTargetFolder(AValue: string);
+procedure TfmETKGUIMediaManager.SetTargetFolder(AValue: string);
 begin
   FTargetFolder := SetAsFolder(AValue);
   UpdateStatusBars;
 end;
 
-procedure TfmLEmuTKMediaManager.DoLoadGUIIcons(aIconsIni: TIniFile;
+procedure TfmETKGUIMediaManager.DoLoadGUIIcons(aIconsIni: TIniFile;
   aBaseFolder: string);
 begin
   ReadActionsIconsIni(aIconsIni, aBaseFolder, Self.Name,
     ilActions, ActionList);
 end;
 
-procedure TfmLEmuTKMediaManager.UpdateStatusBars;
+procedure TfmETKGUIMediaManager.UpdateStatusBars;
 begin
   sbSource.Panels[1].Text := SourceFolder + SourceFile;
   sbTarget.Panels[1].Text := TargetFolder + TargetFile;
 end;
 
-procedure TfmLEmuTKMediaManager.UpdateVST(aFolder: string);
+procedure TfmETKGUIMediaManager.UpdateVST(aFolder: string);
 var
   GroupNode, SoftNode, FileNode: PVirtualNode;
   aFileName: TFileRow;
@@ -637,13 +637,13 @@ begin
   fmProgressBar.Finish;
 end;
 
-function TfmLEmuTKMediaManager.SelectSystem(aSystem: cEmutecaSystem): boolean;
+function TfmETKGUIMediaManager.SelectSystem(aSystem: cEmutecaSystem): boolean;
 begin
   Result := True;
   CurrSystem := aSystem;
 end;
 
-procedure TfmLEmuTKMediaManager.FilterFiles;
+procedure TfmETKGUIMediaManager.FilterFiles;
 var
   FileNode: PVirtualNode;
   aTargetFile: string;
@@ -677,7 +677,7 @@ begin
   aVST.EndUpdate;
 end;
 
-function TfmLEmuTKMediaManager.AddFileCB(aFolder: string;
+function TfmETKGUIMediaManager.AddFileCB(aFolder: string;
   Info: TSearchRec): boolean;
 begin
   Result := True;
@@ -691,7 +691,7 @@ begin
     Result := AddFileVSTAllFiles(Info.Name);
 end;
 
-function TfmLEmuTKMediaManager.AddFileVSTAllFiles(aName: string): boolean;
+function TfmETKGUIMediaManager.AddFileVSTAllFiles(aName: string): boolean;
 var
   pFile: PFileRow;
 begin
@@ -719,7 +719,7 @@ begin
   end;
 end;
 
-procedure TfmLEmuTKMediaManager.RemoveFileVSTFiles(aFile: string);
+procedure TfmETKGUIMediaManager.RemoveFileVSTFiles(aFile: string);
 
   procedure RemoveFileFromVST(aVST: TBaseVirtualTree; aFile: string);
   var
@@ -760,7 +760,7 @@ begin
     RemoveFileFromVST(vstFilesOtherFolder, aFile);
 end;
 
-procedure TfmLEmuTKMediaManager.RemoveGroupSoftWOFile(aFile: string);
+procedure TfmETKGUIMediaManager.RemoveGroupSoftWOFile(aFile: string);
 var
   Nodo: PVirtualNode;
   PGroup: ^cEmutecaGroup;
@@ -804,7 +804,7 @@ begin
 
 end;
 
-procedure TfmLEmuTKMediaManager.ChangeGroupMedia(aGroup: cEmutecaGroup);
+procedure TfmETKGUIMediaManager.ChangeGroupMedia(aGroup: cEmutecaGroup);
 begin
   if not Assigned(CurrPreview) then
     Exit;
@@ -814,7 +814,7 @@ begin
   CurrPreview.StrList := MediaFiles;
 end;
 
-procedure TfmLEmuTKMediaManager.ChangeSoftMedia(aSoft: cEmutecaSoftware);
+procedure TfmETKGUIMediaManager.ChangeSoftMedia(aSoft: cEmutecaSoftware);
 begin
   if not Assigned(CurrPreview) then
     Exit;
@@ -824,7 +824,7 @@ begin
   CurrPreview.StrList := MediaFiles;
 end;
 
-procedure TfmLEmuTKMediaManager.ChangeFileMedia(aFolder, aFileName: string);
+procedure TfmETKGUIMediaManager.ChangeFileMedia(aFolder, aFileName: string);
 begin
   if not Assigned(CurrPreview) then
     Exit;
@@ -838,7 +838,7 @@ begin
   CurrPreview.StrList := MediaFiles;
 end;
 
-function TfmLEmuTKMediaManager.AddFilesOtherFolderCB(aFolder: string;
+function TfmETKGUIMediaManager.AddFilesOtherFolderCB(aFolder: string;
   Info: TSearchRec): boolean;
 var
   pFile: PFileRow;
@@ -872,7 +872,7 @@ begin
   end;
 end;
 
-procedure TfmLEmuTKMediaManager.UpdateFileOtherFolder(aFolder: string);
+procedure TfmETKGUIMediaManager.UpdateFileOtherFolder(aFolder: string);
 begin
   vstFilesOtherFolder.Clear;
   aFolder := SetAsFolder(aFolder);
@@ -889,7 +889,7 @@ begin
   fmProgressBar.Finish;
 end;
 
-procedure TfmLEmuTKMediaManager.AssignFile;
+procedure TfmETKGUIMediaManager.AssignFile;
 var
   TargetPath: string;
   SourcePath: string;
@@ -992,7 +992,7 @@ begin
   FilterFiles;
 end;
 
-procedure TfmLEmuTKMediaManager.DeleteFile;
+procedure TfmETKGUIMediaManager.DeleteFile;
 begin
   if (SourceFile = '') or (SourceFolder = '') then
     Exit;
@@ -1012,7 +1012,7 @@ begin
   SourceFile := '';
 end;
 
-procedure TfmLEmuTKMediaManager.DeleteAllFiles;
+procedure TfmETKGUIMediaManager.DeleteAllFiles;
 var
   aVSTFiles: TCustomVirtualStringTree;
   aNode: PVirtualNode;
@@ -1071,7 +1071,7 @@ begin
     UpdateVST(TargetFolder);
 end;
 
-procedure TfmLEmuTKMediaManager.MoveFile;
+procedure TfmETKGUIMediaManager.MoveFile;
 var
   SourcePath, TargetPath: string;
   IsFolder, aBool: boolean;
@@ -1128,7 +1128,7 @@ begin
   SourceFile := '';
 end;
 
-procedure TfmLEmuTKMediaManager.MoveAllFiles;
+procedure TfmETKGUIMediaManager.MoveAllFiles;
 var
   aVSTFiles: TCustomVirtualStringTree;
   aNode: PVirtualNode;
@@ -1209,12 +1209,12 @@ begin
     UpdateVST(TargetFolder);
 end;
 
-procedure TfmLEmuTKMediaManager.DoClearFrameData;
+procedure TfmETKGUIMediaManager.DoClearFrameData;
 begin
 
 end;
 
-procedure TfmLEmuTKMediaManager.DoLoadFrameData;
+procedure TfmETKGUIMediaManager.DoLoadFrameData;
 begin
   Enabled := assigned(Emuteca);
 
@@ -1226,7 +1226,7 @@ begin
 
 end;
 
-procedure TfmLEmuTKMediaManager.LoadSysFolders;
+procedure TfmETKGUIMediaManager.LoadSysFolders;
 begin
   lbxImages.Clear;
   lbxTexts.Clear;
@@ -1268,7 +1268,7 @@ begin
   LoadSystemSoft;
 end;
 
-procedure TfmLEmuTKMediaManager.LoadSystemSoft;
+procedure TfmETKGUIMediaManager.LoadSystemSoft;
 var
   i: integer;
   pSoft: ^cEmutecaSoftware;
@@ -1295,7 +1295,7 @@ begin
   vstSoftAll.EndUpdate;
 end;
 
-function TfmLEmuTKMediaManager.GetCurrentFilesVST: TCustomVirtualStringTree;
+function TfmETKGUIMediaManager.GetCurrentFilesVST: TCustomVirtualStringTree;
 begin
 
   // TODO: Make this... "dinamic"; search vst in current page...
@@ -1310,7 +1310,7 @@ begin
   end;
 end;
 
-procedure TfmLEmuTKMediaManager.lbxFolderSelectionChange(Sender: TObject;
+procedure TfmETKGUIMediaManager.lbxFolderSelectionChange(Sender: TObject;
   User: boolean);
 var
   aLBX: TListBox;
@@ -1394,7 +1394,7 @@ begin
     UpdateVST('');
 end;
 
-procedure TfmLEmuTKMediaManager.pcSourceChange(Sender: TObject);
+procedure TfmETKGUIMediaManager.pcSourceChange(Sender: TObject);
 begin
   vstFilesAll.ClearSelection;
   vstFilesOtherExt.ClearSelection;
@@ -1404,7 +1404,7 @@ begin
   SourceFile := '';
 end;
 
-procedure TfmLEmuTKMediaManager.pcTargetChange(Sender: TObject);
+procedure TfmETKGUIMediaManager.pcTargetChange(Sender: TObject);
 begin
   vstGroupsAll.ClearSelection;
   vstGroupsWOFile.ClearSelection;
@@ -1413,14 +1413,14 @@ begin
   TargetFile := '';
 end;
 
-procedure TfmLEmuTKMediaManager.tbSimilarThresoldClick(Sender: TObject);
+procedure TfmETKGUIMediaManager.tbSimilarThresoldClick(Sender: TObject);
 begin
   // In TrackBar, this method means end of changing it.
   if chkSimilarFiles.Checked then
     FilterFiles;
 end;
 
-procedure TfmLEmuTKMediaManager.vstFileCompareNodes(Sender: TBaseVirtualTree;
+procedure TfmETKGUIMediaManager.vstFileCompareNodes(Sender: TBaseVirtualTree;
   Node1, Node2: PVirtualNode; Column: TColumnIndex; var Result: integer);
 var
   pFile1, pFile2: PFileRow;
@@ -1439,7 +1439,7 @@ begin
   end;
 end;
 
-procedure TfmLEmuTKMediaManager.vstFileKeyDown(Sender: TObject;
+procedure TfmETKGUIMediaManager.vstFileKeyDown(Sender: TObject;
   var Key: word; Shift: TShiftState);
 begin
   if Shift = [] then
@@ -1453,13 +1453,13 @@ begin
   end;
 end;
 
-procedure TfmLEmuTKMediaManager.vstFilesGetNodeDataSize(
+procedure TfmETKGUIMediaManager.vstFilesGetNodeDataSize(
   Sender: TBaseVirtualTree; var NodeDataSize: integer);
 begin
   NodeDataSize := SizeOf(TFileRow);
 end;
 
-procedure TfmLEmuTKMediaManager.vstFilesOtherFolderChange(
+procedure TfmETKGUIMediaManager.vstFilesOtherFolderChange(
   Sender: TBaseVirtualTree; Node: PVirtualNode);
 var
   aFileRow: PFileRow;
@@ -1476,7 +1476,7 @@ begin
   ChangeFileMedia(SourceFolder, SourceFile);
 end;
 
-procedure TfmLEmuTKMediaManager.vstFilesChange(Sender: TBaseVirtualTree;
+procedure TfmETKGUIMediaManager.vstFilesChange(Sender: TBaseVirtualTree;
   Node: PVirtualNode);
 var
   aFileRow: PFileRow;
@@ -1493,7 +1493,7 @@ begin
   ChangeFileMedia(SourceFolder, SourceFile);
 end;
 
-procedure TfmLEmuTKMediaManager.vstNodeClick(Sender: TBaseVirtualTree;
+procedure TfmETKGUIMediaManager.vstNodeClick(Sender: TBaseVirtualTree;
   const HitInfo: THitInfo);
 var
   aTree: TVirtualStringTree;
@@ -1518,7 +1518,7 @@ begin
     aTree.OnChange(aTree, HitInfo.HitNode);
 end;
 
-procedure TfmLEmuTKMediaManager.vstGroupCompareNodes(Sender: TBaseVirtualTree;
+procedure TfmETKGUIMediaManager.vstGroupCompareNodes(Sender: TBaseVirtualTree;
   Node1, Node2: PVirtualNode; Column: TColumnIndex; var Result: integer);
 var
   pGroup1, pGroup2: ^cEmutecaGroup;
@@ -1536,7 +1536,7 @@ begin
   end;
 end;
 
-procedure TfmLEmuTKMediaManager.vstGroupKeyDown(Sender: TObject;
+procedure TfmETKGUIMediaManager.vstGroupKeyDown(Sender: TObject;
   var Key: word; Shift: TShiftState);
 begin
   if Shift = [] then
@@ -1549,43 +1549,43 @@ begin
   end;
 end;
 
-procedure TfmLEmuTKMediaManager.chkSimilarFilesChange(Sender: TObject);
+procedure TfmETKGUIMediaManager.chkSimilarFilesChange(Sender: TObject);
 begin
   FilterFiles;
 end;
 
-procedure TfmLEmuTKMediaManager.eOtherFolderAcceptDirectory(Sender: TObject;
+procedure TfmETKGUIMediaManager.eOtherFolderAcceptDirectory(Sender: TObject;
   var Value: string);
 begin
   UpdateFileOtherFolder(Value);
 end;
 
-procedure TfmLEmuTKMediaManager.actAssignFileExecute(Sender: TObject);
+procedure TfmETKGUIMediaManager.actAssignFileExecute(Sender: TObject);
 begin
   AssignFile;
 end;
 
-procedure TfmLEmuTKMediaManager.actDeleteAllFilesExecute(Sender: TObject);
+procedure TfmETKGUIMediaManager.actDeleteAllFilesExecute(Sender: TObject);
 begin
   DeleteAllFiles;
 end;
 
-procedure TfmLEmuTKMediaManager.actDeleteFileExecute(Sender: TObject);
+procedure TfmETKGUIMediaManager.actDeleteFileExecute(Sender: TObject);
 begin
   DeleteFile;
 end;
 
-procedure TfmLEmuTKMediaManager.actMoveAllFilesExecute(Sender: TObject);
+procedure TfmETKGUIMediaManager.actMoveAllFilesExecute(Sender: TObject);
 begin
   MoveAllFiles;
 end;
 
-procedure TfmLEmuTKMediaManager.actMoveFileExecute(Sender: TObject);
+procedure TfmETKGUIMediaManager.actMoveFileExecute(Sender: TObject);
 begin
   MoveFile;
 end;
 
-procedure TfmLEmuTKMediaManager.actRenameGroupFileExecute(Sender: TObject);
+procedure TfmETKGUIMediaManager.actRenameGroupFileExecute(Sender: TObject);
 var
   NewName: string;
 begin
@@ -1603,7 +1603,7 @@ begin
   FilterFiles;
 end;
 
-procedure TfmLEmuTKMediaManager.actRenameGroupTitleExecute(Sender: TObject);
+procedure TfmETKGUIMediaManager.actRenameGroupTitleExecute(Sender: TObject);
 var
   NewName: string;
 begin
@@ -1628,7 +1628,7 @@ begin
   FilterFiles;
 end;
 
-procedure TfmLEmuTKMediaManager.vstFileFreeNode(Sender: TBaseVirtualTree;
+procedure TfmETKGUIMediaManager.vstFileFreeNode(Sender: TBaseVirtualTree;
   Node: PVirtualNode);
 var
   pFile: PFileRow;
@@ -1640,7 +1640,7 @@ begin
   Finalize(pFile);
 end;
 
-procedure TfmLEmuTKMediaManager.vstFileGetText(Sender: TBaseVirtualTree;
+procedure TfmETKGUIMediaManager.vstFileGetText(Sender: TBaseVirtualTree;
   Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType;
   var CellText: string);
 var
@@ -1661,7 +1661,7 @@ begin
   end;
 end;
 
-procedure TfmLEmuTKMediaManager.vstGroupsChange(Sender: TBaseVirtualTree;
+procedure TfmETKGUIMediaManager.vstGroupsChange(Sender: TBaseVirtualTree;
   Node: PVirtualNode);
 var
   PData: ^cEmutecaGroup;
@@ -1679,7 +1679,7 @@ begin
   FilterFiles;
 end;
 
-procedure TfmLEmuTKMediaManager.vstGroupsAllInitNode(Sender: TBaseVirtualTree;
+procedure TfmETKGUIMediaManager.vstGroupsAllInitNode(Sender: TBaseVirtualTree;
   ParentNode, Node: PVirtualNode; var InitialStates: TVirtualNodeInitStates);
 var
   pGroup: ^cEmutecaGroup;
@@ -1690,7 +1690,7 @@ begin
   pGroup^ := CurrSystem.GroupManager.VisibleList[Node^.Index];
 end;
 
-procedure TfmLEmuTKMediaManager.vstKeyPress(Sender: TObject; var Key: char);
+procedure TfmETKGUIMediaManager.vstKeyPress(Sender: TObject; var Key: char);
 begin
   // Removing "Beep" sound when key Return is pressed
   case Key of
@@ -1700,7 +1700,7 @@ begin
   end;
 end;
 
-procedure TfmLEmuTKMediaManager.vstSoftChange(Sender: TBaseVirtualTree;
+procedure TfmETKGUIMediaManager.vstSoftChange(Sender: TBaseVirtualTree;
   Node: PVirtualNode);
 var
   pSoft: ^cEmutecaSoftware;
@@ -1719,7 +1719,7 @@ begin
   FilterFiles;
 end;
 
-procedure TfmLEmuTKMediaManager.vstSoftCompareNodes(Sender: TBaseVirtualTree;
+procedure TfmETKGUIMediaManager.vstSoftCompareNodes(Sender: TBaseVirtualTree;
   Node1, Node2: PVirtualNode; Column: TColumnIndex; var Result: integer);
 var
   pSoft1, pSoft2: ^cEmutecaSoftware;
@@ -1738,7 +1738,7 @@ begin
   end;
 end;
 
-procedure TfmLEmuTKMediaManager.vstSoftGetText(Sender: TBaseVirtualTree;
+procedure TfmETKGUIMediaManager.vstSoftGetText(Sender: TBaseVirtualTree;
   Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType;
   var CellText: string);
 var
@@ -1761,7 +1761,7 @@ begin
   end;
 end;
 
-procedure TfmLEmuTKMediaManager.vstGroupGetText(Sender: TBaseVirtualTree;
+procedure TfmETKGUIMediaManager.vstGroupGetText(Sender: TBaseVirtualTree;
   Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType;
   var CellText: string);
 var
@@ -1783,7 +1783,7 @@ begin
   end;
 end;
 
-procedure TfmLEmuTKMediaManager.SetEmuteca(AValue: cEmuteca);
+procedure TfmETKGUIMediaManager.SetEmuteca(AValue: cEmuteca);
 begin
   if FEmuteca = AValue then
     Exit;
@@ -1798,14 +1798,14 @@ begin
   LoadFrameData;
 end;
 
-procedure TfmLEmuTKMediaManager.SetExtFilter(AValue: TStrings);
+procedure TfmETKGUIMediaManager.SetExtFilter(AValue: TStrings);
 begin
   if FExtFilter = AValue then
     Exit;
   FExtFilter := AValue;
 end;
 
-procedure TfmLEmuTKMediaManager.SetGUIConfig(AValue: cETKGUIConfig);
+procedure TfmETKGUIMediaManager.SetGUIConfig(AValue: cETKGUIConfig);
 begin
   if FGUIConfig = AValue then
     Exit;
@@ -1823,7 +1823,7 @@ begin
   end;
 end;
 
-procedure TfmLEmuTKMediaManager.SetCurrSystem(AValue: cEmutecaSystem);
+procedure TfmETKGUIMediaManager.SetCurrSystem(AValue: cEmutecaSystem);
 begin
   if FCurrSystem = AValue then
     Exit;
@@ -1832,35 +1832,35 @@ begin
   LoadSysFolders;
 end;
 
-procedure TfmLEmuTKMediaManager.SetCurrGroup(AValue: cEmutecaGroup);
+procedure TfmETKGUIMediaManager.SetCurrGroup(AValue: cEmutecaGroup);
 begin
   if FCurrGroup = AValue then
     Exit;
   FCurrGroup := AValue;
 end;
 
-procedure TfmLEmuTKMediaManager.SetCurrPreview(AValue: TfmCHXStrLstPreview);
+procedure TfmETKGUIMediaManager.SetCurrPreview(AValue: TfmCHXStrLstPreview);
 begin
   if FCurrPreview = AValue then
     Exit;
   FCurrPreview := AValue;
 end;
 
-class function TfmLEmuTKMediaManager.SimpleForm(aEmuteca: cEmuteca;
+class function TfmETKGUIMediaManager.SimpleForm(aEmuteca: cEmuteca;
   aGUIIconsIni: string; aGUIConfig: cETKGUIConfig): integer;
 var
   aForm: TfrmCHXForm;
-  aFrame: TfmLEmuTKMediaManager;
+  aFrame: TfmETKGUIMediaManager;
 begin
   Result := mrNone;
 
   Application.CreateForm(TfrmCHXForm, aForm);
   try
-    aForm.Name := 'frmLEmuTKMediaManager';
+    aForm.Name := 'frmETKGUIMediaManager';
     aForm.Caption := Format(krsFmtWindowCaption,
       [Application.Title, 'Media Manager']);
 
-    aFrame := TfmLEmuTKMediaManager.Create(aForm);
+    aFrame := TfmETKGUIMediaManager.Create(aForm);
     aFrame.Align := alClient;
 
     aFrame.GUIConfig := aGUIConfig;
@@ -1876,7 +1876,7 @@ begin
   end;
 end;
 
-constructor TfmLEmuTKMediaManager.Create(TheOwner: TComponent);
+constructor TfmETKGUIMediaManager.Create(TheOwner: TComponent);
 
   procedure CreateFrames;
   begin
@@ -1922,7 +1922,7 @@ begin
   OnLoadGUIIcons := @DoLoadGUIIcons;
 end;
 
-destructor TfmLEmuTKMediaManager.Destroy;
+destructor TfmETKGUIMediaManager.Destroy;
 begin
   MediaFiles.Free;
 

@@ -1,3 +1,22 @@
+{ System manager of Emuteca GUI
+
+  Copyright (C) 2006-2018 Chixpy
+
+  This source is free software; you can redistribute it and/or modify it under
+  the terms of the GNU General Public License as published by the Free
+  Software Foundation; either version 3 of the License, or (at your option)
+  any later version.
+
+  This code is distributed in the hope that it will be useful, but WITHOUT ANY
+  WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+  FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+  details.
+
+  A copy of the GNU General Public License is available on the World Wide Web
+  at <http://www.gnu.org/copyleft/gpl.html>. You can also obtain it by writing
+  to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
+  MA 02111-1307, USA.
+}
 unit ufETKGUISysManager;
 
 {$mode objfpc}{$H+}
@@ -26,9 +45,9 @@ resourcestring
 type
   { Frame for System Manager. }
 
-  { TfmLEmuTKSysManager }
+  { TfmETKGUISysManager }
 
-  TfmLEmuTKSysManager = class(TfmCHXChkLstPropEditor)
+  TfmETKGUISysManager = class(TfmCHXChkLstPropEditor)
     OpenDialog1: TOpenDialog;
     SaveDialog1: TSaveDialog;
 
@@ -36,13 +55,13 @@ type
     FEmuteca: cEmuteca;
     FfmProgressBar: TfmCHXProgressBar;
     FSHA1Folder: string;
-    FfmSysEditor: TfmLEmuTKFullSystemEditor;
+    FfmSysEditor: TfmETKGUIFullSystemEditor;
     procedure SetEmuteca(AValue: cEmuteca);
     procedure SetSHA1Folder(AValue: string);
 
   protected
 
-    property fmSysEditor: TfmLEmuTKFullSystemEditor read FfmSysEditor;
+    property fmSysEditor: TfmETKGUIFullSystemEditor read FfmSysEditor;
     property fmProgressBar: TfmCHXProgressBar read FfmProgressBar;
 
     procedure AddItemToList; override;
@@ -74,14 +93,14 @@ implementation
 
 {$R *.lfm}
 
-{ TfmLEmuTKSysManager }
+{ TfmETKGUISysManager }
 
-procedure TfmLEmuTKSysManager.DoClearFrameData;
+procedure TfmETKGUISysManager.DoClearFrameData;
 begin
   inherited ClearFrameData;
 end;
 
-procedure TfmLEmuTKSysManager.SetCheckedAll(aBool: boolean);
+procedure TfmETKGUISysManager.SetCheckedAll(aBool: boolean);
 begin
   // DO NOTHING, ENABLING SYSTEMS IS DONE ON SAVING LIST TO TEST
   //   ONLY STATE CHANGED SYSTEMS:
@@ -89,7 +108,7 @@ begin
   //     - CHECKED MUST BE LOADED.
 end;
 
-procedure TfmLEmuTKSysManager.SetEmuteca(AValue: cEmuteca);
+procedure TfmETKGUISysManager.SetEmuteca(AValue: cEmuteca);
 begin
   if FEmuteca = AValue then
     Exit;
@@ -100,18 +119,18 @@ begin
   LoadFrameData;
 end;
 
-procedure TfmLEmuTKSysManager.SetSHA1Folder(AValue: string);
+procedure TfmETKGUISysManager.SetSHA1Folder(AValue: string);
 begin
   FSHA1Folder := SetAsFolder(AValue);
   fmSysEditor.SHA1Folder := SHA1Folder;
 end;
 
-procedure TfmLEmuTKSysManager.OnListClick(aObject: TObject);
+procedure TfmETKGUISysManager.OnListClick(aObject: TObject);
 begin
   fmSysEditor.System := cEmutecaSystem(aObject);
 end;
 
-procedure TfmLEmuTKSysManager.OnListClickCheck(aObject: TObject;
+procedure TfmETKGUISysManager.OnListClickCheck(aObject: TObject;
   aBool: boolean);
 begin
   // DO NOTHING, ENABLING SYSTEMS IS DONE ON SAVING LIST TO TEST
@@ -120,7 +139,7 @@ begin
   //     - CHECKED MUST BE LOADED.
 end;
 
-procedure TfmLEmuTKSysManager.AddItemToList;
+procedure TfmETKGUISysManager.AddItemToList;
 var
   SystemID: string;
   aSystem: cEmutecaSystem;
@@ -140,7 +159,7 @@ begin
   fmSysEditor.System := aSystem;
 end;
 
-procedure TfmLEmuTKSysManager.DeleteItemFromList;
+procedure TfmETKGUISysManager.DeleteItemFromList;
 var
   aSystem: cEmutecaSystem;
 begin
@@ -166,7 +185,7 @@ begin
   end;
 end;
 
-procedure TfmLEmuTKSysManager.ExportList;
+procedure TfmETKGUISysManager.ExportList;
 begin
   if not assigned(Emuteca) then
     Exit;
@@ -177,7 +196,7 @@ begin
   Emuteca.SystemManager.ExportToFile(SaveDialog1.FileName, False);
 end;
 
-procedure TfmLEmuTKSysManager.ImportList;
+procedure TfmETKGUISysManager.ImportList;
 begin
   if not assigned(Emuteca) then
     Exit;
@@ -188,7 +207,7 @@ begin
   Emuteca.SystemManager.ImportFromFile(OpenDialog1.FileName);
 end;
 
-procedure TfmLEmuTKSysManager.DoLoadFrameData;
+procedure TfmETKGUISysManager.DoLoadFrameData;
 var
   i: integer;
 begin
@@ -211,7 +230,7 @@ begin
   end;
 end;
 
-procedure TfmLEmuTKSysManager.DoSaveFrameData;
+procedure TfmETKGUISysManager.DoSaveFrameData;
 var
   i: integer;
   aSystem: cEmutecaSystem;
@@ -272,21 +291,21 @@ begin
   Emuteca.SystemManager.UpdateEnabledList;
 end;
 
-class function TfmLEmuTKSysManager.SimpleForm(aEmuteca: cEmuteca;
+class function TfmETKGUISysManager.SimpleForm(aEmuteca: cEmuteca;
   aSHA1Folder: string; aGUIIconsIni: string; aGUIConfigIni: string): integer;
 var
   aForm: TfrmCHXForm;
-  aFrame: TfmLEmuTKSysManager;
+  aFrame: TfmETKGUISysManager;
 begin
   Result := mrNone;
 
   Application.CreateForm(TfrmCHXForm, aForm);
   try
-    aForm.Name := 'frmLEmuTKSysManager';
+    aForm.Name := 'frmETKGUISysManager';
     aForm.Caption := Format(krsFmtWindowCaption,
       [Application.Title, 'System Manager']);
 
-    aFrame := TfmLEmuTKSysManager.Create(aForm);
+    aFrame := TfmETKGUISysManager.Create(aForm);
     aFrame.SaveButtons := True;
     aFrame.ButtonClose := True;
     aFrame.Align := alClient;
@@ -304,11 +323,11 @@ begin
   end;
 end;
 
-constructor TfmLEmuTKSysManager.Create(TheOwner: TComponent);
+constructor TfmETKGUISysManager.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
 
-  FfmSysEditor := TfmLEmuTKFullSystemEditor.Create(Self);
+  FfmSysEditor := TfmETKGUIFullSystemEditor.Create(Self);
   fmSysEditor.SaveButtons := True;
   fmSysEditor.ButtonClose := False;
   fmSysEditor.Align := alClient;
@@ -321,7 +340,7 @@ begin
   OnSaveFrameData := @DoSaveFrameData;
 end;
 
-destructor TfmLEmuTKSysManager.Destroy;
+destructor TfmETKGUISysManager.Destroy;
 begin
 
   inherited Destroy;

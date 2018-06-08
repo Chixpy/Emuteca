@@ -33,9 +33,9 @@ uses
 
 type
 
-  { TfmEEGUIFullEmuEditor }
+  { TfmETKGUIFullEmuEditor }
 
-  TfmEEGUIFullEmuEditor = class(TfmCHXPropEditor)
+  TfmETKGUIFullEmuEditor = class(TfmCHXPropEditor)
     actOpenEmulatorFolder: TAction;
     pcProperties: TPageControl;
     ToolBar1: TToolBar;
@@ -70,9 +70,9 @@ implementation
 
 {$R *.lfm}
 
-{ TfmEEGUIFullEmuEditor }
+{ TfmETKGUIFullEmuEditor }
 
-procedure TfmEEGUIFullEmuEditor.actOpenEmulatorFolderExecute(Sender: TObject);
+procedure TfmETKGUIFullEmuEditor.actOpenEmulatorFolderExecute(Sender: TObject);
 var
   aFolder: string;
 begin
@@ -86,7 +86,7 @@ begin
   OpenDocument(aFolder);
 end;
 
-procedure TfmEEGUIFullEmuEditor.SetEmulator(AValue: cEmutecaEmulator);
+procedure TfmETKGUIFullEmuEditor.SetEmulator(AValue: cEmutecaEmulator);
 begin
   if FEmulator = AValue then
     Exit;
@@ -96,18 +96,18 @@ begin
   LoadFrameData;
 end;
 
-procedure TfmEEGUIFullEmuEditor.SetSHA1Folder(AValue: string);
+procedure TfmETKGUIFullEmuEditor.SetSHA1Folder(AValue: string);
 begin
   FSHA1Folder := SetAsFolder(AValue);
   //fmEmuImgEditor.SHA1Folder := SHA1Folder;
 end;
 
-procedure TfmEEGUIFullEmuEditor.DoClearFrameData;
+procedure TfmETKGUIFullEmuEditor.DoClearFrameData;
 begin
 
 end;
 
-procedure TfmEEGUIFullEmuEditor.DoLoadFrameData;
+procedure TfmETKGUIFullEmuEditor.DoLoadFrameData;
 begin
   Enabled := Assigned(Emulator);
 
@@ -118,12 +118,12 @@ begin
   end;
 end;
 
-procedure TfmEEGUIFullEmuEditor.DoSaveFrameData;
+procedure TfmETKGUIFullEmuEditor.DoSaveFrameData;
 begin
   EmuEditor.SaveFrameData;
 end;
 
-constructor TfmEEGUIFullEmuEditor.Create(TheOwner: TComponent);
+constructor TfmETKGUIFullEmuEditor.Create(TheOwner: TComponent);
 
   procedure CreatePages;
   var
@@ -148,7 +148,7 @@ begin
   OnSaveFrameData := @DoSaveFrameData;
 end;
 
-destructor TfmEEGUIFullEmuEditor.Destroy;
+destructor TfmETKGUIFullEmuEditor.Destroy;
 begin
   inherited Destroy;
 end;

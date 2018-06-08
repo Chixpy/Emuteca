@@ -1,4 +1,4 @@
-inherited fmLEmuTKFullSystemEditor: TfmLEmuTKFullSystemEditor
+inherited fmETKGUIFullSystemEditor: TfmETKGUIFullSystemEditor
   Height = 411
   Width = 481
   ClientHeight = 411
@@ -6,7 +6,7 @@ inherited fmLEmuTKFullSystemEditor: TfmLEmuTKFullSystemEditor
   DesignLeft = 393
   DesignTop = 148
   inherited pButtons: TPanel
-    Top = 384
+    Top = 385
     Width = 481
     ClientWidth = 481
     TabOrder = 2
@@ -22,8 +22,8 @@ inherited fmLEmuTKFullSystemEditor: TfmLEmuTKFullSystemEditor
   end
   object pcProperties: TPageControl[1]
     Left = 0
-    Height = 358
-    Top = 26
+    Height = 351
+    Top = 30
     Width = 481
     Align = alClient
     TabOrder = 1

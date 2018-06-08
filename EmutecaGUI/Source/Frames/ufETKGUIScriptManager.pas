@@ -13,9 +13,9 @@ uses
 
 type
 
-  { TfmLEmuTKScriptManager }
+  { TfmETKGUIScriptManager }
 
-  TfmLEmuTKScriptManager = class(TfmCHXScriptManager)
+  TfmETKGUIScriptManager = class(TfmCHXScriptManager)
   private
     FEmuteca: cEmuteca;
     procedure SetEmuteca(AValue: cEmuteca);
@@ -43,9 +43,9 @@ implementation
 
 {$R *.lfm}
 
-{ TfmLEmuTKScriptManager }
+{ TfmETKGUIScriptManager }
 
-procedure TfmLEmuTKScriptManager.SetEmuteca(AValue: cEmuteca);
+procedure TfmETKGUIScriptManager.SetEmuteca(AValue: cEmuteca);
 begin
   if FEmuteca = AValue then
     Exit;
@@ -54,12 +54,12 @@ begin
   LoadFrameData;
 end;
 
-procedure TfmLEmuTKScriptManager.DoClearFrameData;
+procedure TfmETKGUIScriptManager.DoClearFrameData;
 begin
 
 end;
 
-procedure TfmLEmuTKScriptManager.DoLoadFrameData;
+procedure TfmETKGUIScriptManager.DoLoadFrameData;
 begin
   Enabled := Assigned(Emuteca);
 
@@ -73,7 +73,7 @@ begin
     cEmutecaScriptEngine(ScriptEngine).Emuteca := Emuteca;
 end;
 
-procedure TfmLEmuTKScriptManager.CreateCustomEngine;
+procedure TfmETKGUIScriptManager.CreateCustomEngine;
 var
   aScriptEngine: cEmutecaScriptEngine;
 begin
@@ -85,27 +85,27 @@ begin
   inherited CreateCustomEngine;
 end;
 
-procedure TfmLEmuTKScriptManager.SetBaseFolder(const aFolder: string);
+procedure TfmETKGUIScriptManager.SetBaseFolder(const aFolder: string);
 begin
   inherited SetBaseFolder(aFolder);
   ScriptEngine.CommonUnitFolder := SetAsFolder(aFolder) + 'Units';
 end;
 
-class function TfmLEmuTKScriptManager.SimpleForm(aEmuteca: cEmuteca;
+class function TfmETKGUIScriptManager.SimpleForm(aEmuteca: cEmuteca;
   aBaseFolder: string; aGUIIconsIni: string; aGUIConfigIni: string): integer;
 var
   aForm: TfrmCHXForm;
-  aFrame: TfmLEmuTKScriptManager;
+  aFrame: TfmETKGUIScriptManager;
 begin
   Result := mrNone;
 
   Application.CreateForm(TfrmCHXForm, aForm);
   try
-    aForm.Name := 'frmLEmuTKScriptManager';
+    aForm.Name := 'frmETKGUIScriptManager';
     aForm.Caption := Format(krsFmtWindowCaption,
       [Application.Title, 'Script Manager']);
 
-    aFrame := TfmLEmuTKScriptManager.Create(aForm);
+    aFrame := TfmETKGUIScriptManager.Create(aForm);
     aFrame.Align := alClient;
 
     aFrame.SetBaseFolder(aBaseFolder);
@@ -121,7 +121,7 @@ begin
   end;
 end;
 
-constructor TfmLEmuTKScriptManager.Create(TheOwner: TComponent);
+constructor TfmETKGUIScriptManager.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
 
@@ -131,7 +131,7 @@ begin
   OnLoadFrameData := @DoLoadFrameData;
 end;
 
-destructor TfmLEmuTKScriptManager.Destroy;
+destructor TfmETKGUIScriptManager.Destroy;
 begin
   inherited Destroy;
 end;

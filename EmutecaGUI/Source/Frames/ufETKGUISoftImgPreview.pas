@@ -13,9 +13,9 @@ uses
 
 type
 
-  { TfmLEmuTKSoftImgPreview }
+  { TfmETKGUISoftImgPreview }
 
-  TfmLEmuTKSoftImgPreview = class(TfmaETKGUISoftFoldersPreview)
+  TfmETKGUISoftImgPreview = class(TfmaETKGUISoftFoldersPreview)
   private
     FSHA1Folder: string;
     procedure SetSHA1Folder(AValue: string);
@@ -33,9 +33,9 @@ implementation
 
 {$R *.lfm}
 
-{ TfmLEmuTKSoftImgPreview }
+{ TfmETKGUISoftImgPreview }
 
-procedure TfmLEmuTKSoftImgPreview.SetSHA1Folder(AValue: string);
+procedure TfmETKGUISoftImgPreview.SetSHA1Folder(AValue: string);
 begin
   if FSHA1Folder = AValue then Exit;
   FSHA1Folder := AValue;
@@ -43,14 +43,14 @@ begin
   TfmCHXImgListPreview(fmListPreview).SHA1Folder := SHA1Folder;
 end;
 
-procedure TfmLEmuTKSoftImgPreview.CreateListView;
+procedure TfmETKGUISoftImgPreview.CreateListView;
 begin
   SetListPreview(TfmCHXImgListPreview.Create(Self));
   fmListPreview.Align := alClient;
   fmListPreview.Parent := Self;
 end;
 
-function TfmLEmuTKSoftImgPreview.GetCaptionList: TStrings;
+function TfmETKGUISoftImgPreview.GetCaptionList: TStrings;
 begin
   Result := nil;
 
@@ -58,7 +58,7 @@ begin
    Result := System.ImageCaptions;
 end;
 
-function TfmLEmuTKSoftImgPreview.GetFolder: string;
+function TfmETKGUISoftImgPreview.GetFolder: string;
 begin
   Result := '';
 

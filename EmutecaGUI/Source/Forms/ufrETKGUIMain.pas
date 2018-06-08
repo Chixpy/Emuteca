@@ -174,7 +174,7 @@ type
     FCurrentSystem: cEmutecaSystem;
     FDumpIcons: cCHXImageList;
     FEmuteca: cEmuteca;
-    FfmEmutecaMainFrame: TfmLEmuTKMain;
+    FfmEmutecaMainFrame: TfmETKGUIMain;
     FfmProgressBar: TfmCHXProgressBar;
     FGUIConfig: cETKGUIConfig;
     FGUIIconsFile: string;
@@ -194,7 +194,7 @@ type
     procedure Setw7zErrorFileName(AValue: string);
 
   protected
-    property fmEmutecaMainFrame: TfmLEmuTKMain read FfmEmutecaMainFrame;
+    property fmEmutecaMainFrame: TfmETKGUIMain read FfmEmutecaMainFrame;
     //< Main Frame
     property fmProgressBar: TfmCHXProgressBar read FfmProgressBar;
     //< ProgressBar
@@ -345,7 +345,7 @@ begin
   LoadIcons;
 
   // Creating main frame
-  FfmEmutecaMainFrame := TfmLEmuTKMain.Create(Self);
+  FfmEmutecaMainFrame := TfmETKGUIMain.Create(Self);
   fmEmutecaMainFrame.OnSystemChanged := @DoChangeSystem;
   fmEmutecaMainFrame.OnGrpListChanged := @DoChangeGrpList;
   fmEmutecaMainFrame.OnGroupChanged := @DoChangeGroup;
@@ -536,7 +536,7 @@ begin
   // Fix runtime errors, while trying to update if something is changed
   fmEmutecaMainFrame.Emuteca := nil;
 
-  TfmLEmuTKFullSystemEditor.SimpleForm(Emuteca, CurrentSystem,
+  TfmETKGUIFullSystemEditor.SimpleForm(Emuteca, CurrentSystem,
     SHA1Folder, GUIIconsFile, GUIConfig.DefaultFileName);
   LoadSystemsIcons;
 
@@ -545,7 +545,7 @@ end;
 
 procedure TfrmETKGUIMain.actMediaManagerExecute(Sender: TObject);
 begin
-  TfmLEmuTKMediaManager.SimpleForm(Emuteca, GUIIconsFile, GUIConfig);
+  TfmETKGUIMediaManager.SimpleForm(Emuteca, GUIIconsFile, GUIConfig);
 end;
 
 procedure TfrmETKGUIMain.actMergeGroupFilesExecute(Sender: TObject);
@@ -602,7 +602,7 @@ begin
   // Fix runtime errors, while trying to update if something is changed
   fmEmutecaMainFrame.Emuteca := nil;
 
-  TfmLEmuTKScriptManager.SimpleForm(Emuteca,
+  TfmETKGUIScriptManager.SimpleForm(Emuteca,
     SetAsAbsoluteFile(GUIConfig.ScriptsFolder, BaseFolder),
     GUIIconsFile, GUIConfig.DefaultFileName);
 
@@ -614,7 +614,7 @@ begin
   // Fix runtime errors, while trying to update if something is changed
   fmEmutecaMainFrame.Emuteca := nil;
 
-  TfmLEmuTKSysManager.SimpleForm(Emuteca, SHA1Folder, GUIIconsFile,
+  TfmETKGUISysManager.SimpleForm(Emuteca, SHA1Folder, GUIIconsFile,
     GUIConfig.DefaultFileName);
   LoadSystemsIcons; // Reloads system icons
 

@@ -47,14 +47,14 @@ type
     SaveDialog1: TSaveDialog;
 
   private
-    FfmEmuEditor: TfmEEGUIFullEmuEditor;
+    FfmEmuEditor: TfmETKGUIFullEmuEditor;
     FEmuManager: cEmutecaEmulatorManager;
     FSHA1Folder: string;
     procedure SetEmuManager(AValue: cEmutecaEmulatorManager);
     procedure SetSHA1Folder(AValue: string);
 
   protected
-    property fmEmuEditor: TfmEEGUIFullEmuEditor read FfmEmuEditor;
+    property fmEmuEditor: TfmETKGUIFullEmuEditor read FfmEmuEditor;
 
     procedure AddItemToList; override;
     procedure DeleteItemFromList; override;
@@ -245,7 +245,7 @@ begin
 
       Application.CreateForm(TfrmCHXForm, aForm);
   try
-    aForm.Name := 'frmLEmuTKEmuManager';
+    aForm.Name := 'frmETKGUIEmuManager';
     aForm.Caption := Format(krsFmtWindowCaption,
       [Application.Title, 'Emulator Manager']);
 
@@ -288,7 +288,7 @@ constructor TfmETKGUIEmuManager.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
 
-  FfmEmuEditor := TfmEEGUIFullEmuEditor.Create(Self);
+  FfmEmuEditor := TfmETKGUIFullEmuEditor.Create(Self);
   fmEmuEditor.SaveButtons := True;
   fmEmuEditor.ButtonClose := False;
   fmEmuEditor.Align := alClient;

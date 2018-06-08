@@ -1,2 +1,2 @@
-inherited fmLEmuTKSoftImgPreview: TfmLEmuTKSoftImgPreview
+inherited fmETKGUISoftImgPreview: TfmETKGUISoftImgPreview
 end

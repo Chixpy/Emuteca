@@ -1,4 +1,4 @@
-inherited fmLEmuTKMediaManager: TfmLEmuTKMediaManager
+inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
   Height = 510
   Width = 863
   ClientHeight = 510

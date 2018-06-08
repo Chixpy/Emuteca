@@ -26,7 +26,7 @@ type
     FGroup: cEmutecaGroup;
     FImageExt: TStrings;
     FSHA1Folder: string;
-    FSoftImgPreview: TfmLEmuTKSoftImgPreview;
+    FSoftImgPreview: TfmETKGUISoftImgPreview;
     FSoftTxtPreview: TfmETKGUISoftTxtPreview;
     FSoftware: cEmutecaSoftware;
     FTextExt: TStrings;
@@ -37,7 +37,7 @@ type
     procedure SetTextExt(AValue: TStrings);
 
   protected
-    property SoftImgPreview: TfmLEmuTKSoftImgPreview read FSoftImgPreview;
+    property SoftImgPreview: TfmETKGUISoftImgPreview read FSoftImgPreview;
     property SoftTxtPreview: TfmETKGUISoftTxtPreview read FSoftTxtPreview;
 
   public
@@ -112,7 +112,7 @@ constructor TfmETKGUISoftMedia.Create(TheOwner: TComponent);
 
   procedure CreateFrames;
   begin
-    FSoftImgPreview := TfmLEmuTKSoftImgPreview.Create(pSoftImagPreview);
+    FSoftImgPreview := TfmETKGUISoftImgPreview.Create(pSoftImagPreview);
     SoftImgPreview.Align := alClient;
     SoftImgPreview.Parent := pSoftImagPreview;
 

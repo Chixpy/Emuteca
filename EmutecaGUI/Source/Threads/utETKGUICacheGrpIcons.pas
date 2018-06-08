@@ -1,4 +1,4 @@
-{ Script Engine.
+{ Thread for caching groups icons of Emuteca GUI
 
   Copyright (C) 2006-2018 Chixpy
 
@@ -133,7 +133,12 @@ begin
             // Same icon as group
             if Terminated then
               Exit;
-            aSoft.Stats.Icon := aGroup.Stats.Icon;
+            { Don't use:
+                aSoft.Stats.Icon := aGroup.Stats.Icon;
+
+              May be group can be a publisher, year or something
+            }
+            aSoft.Stats.Icon := aSoft.CachedGroup.Stats.Icon;
           end
           else
           begin
@@ -158,10 +163,7 @@ begin
             aSoft.Stats.Icon := aIcon;
 
           end;
-
         end;
-
-
       end;
     end;
 

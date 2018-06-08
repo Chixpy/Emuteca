@@ -1,4 +1,4 @@
-inherited fmEEGUIFullEmuEditor: TfmEEGUIFullEmuEditor
+inherited fmETKGUIFullEmuEditor: TfmETKGUIFullEmuEditor
   inherited pButtons: TPanel
     TabOrder = 1
   end

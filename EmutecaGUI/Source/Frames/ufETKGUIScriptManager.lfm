@@ -1,4 +1,4 @@
-inherited fmLEmuTKScriptManager: TfmLEmuTKScriptManager
+inherited fmETKGUIScriptManager: TfmETKGUIScriptManager
   inherited PageControl: TPageControl
     inherited pagSourceCode: TTabSheet
       ClientHeight = 408

@@ -12,9 +12,9 @@ uses
 
 type
 
-  { TfmLEmuTKIcnSysCBX }
+  { TfmETKGUIIcnSysCBX }
 
-  TfmLEmuTKIcnSysCBX = class(TfmEmutecaSystemCBX)
+  TfmETKGUIIcnSysCBX = class(TfmEmutecaSystemCBX)
   private
     FDefSysIcon: TPicture;
     procedure SetDefSysIcon(AValue: TPicture);
@@ -29,16 +29,16 @@ implementation
 
 {$R *.lfm}
 
-{ TfmLEmuTKIcnSysCBX }
+{ TfmETKGUIIcnSysCBX }
 
-procedure TfmLEmuTKIcnSysCBX.SetDefSysIcon(AValue: TPicture);
+procedure TfmETKGUIIcnSysCBX.SetDefSysIcon(AValue: TPicture);
 begin
   if FDefSysIcon = AValue then
     Exit;
   FDefSysIcon := AValue;
 end;
 
-procedure TfmLEmuTKIcnSysCBX.cbxSystemDrawItem(Control: TWinControl;
+procedure TfmETKGUIIcnSysCBX.cbxSystemDrawItem(Control: TWinControl;
   Index: integer; ARect: TRect; State: TOwnerDrawState);
 var
   IconRect: TRect;
