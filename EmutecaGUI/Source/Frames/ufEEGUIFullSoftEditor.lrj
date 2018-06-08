@@ -1,6 +1,0 @@
-{"version":1,"strings":[
-{"hash":5150400,"name":"tfmeeguifullsofteditor.gbxgroup.caption","sourcebytes":[71,114,111,117,112],"value":"Group"},
-{"hash":248054336,"name":"tfmeeguifullsofteditor.baddnewgroup.hint","sourcebytes":[65,100,100,32,110,101,119,32,103,114,111,117,112],"value":"Add new group"},
-{"hash":98295077,"name":"tfmeeguifullsofteditor.gbxsoft.caption","sourcebytes":[83,111,102,116,119,97,114,101],"value":"Software"},
-{"hash":248054336,"name":"tfmeeguifullsofteditor.actaddnewgroup.caption","sourcebytes":[65,100,100,32,110,101,119,32,103,114,111,117,112],"value":"Add new group"}
-]}
