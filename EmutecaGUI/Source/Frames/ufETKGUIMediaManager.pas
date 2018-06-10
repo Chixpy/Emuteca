@@ -1,4 +1,4 @@
-{ This file is part of Emuteca
+{ Media manager of Emuteca GUI
 
   Copyright (C) 2006-2018 Chixpy
 
@@ -810,7 +810,7 @@ begin
     Exit;
   CurrPreview.StrList := nil;
   MediaFiles.Clear;
-  aGroup.SearchAllRelatedFiles(MediaFiles, TargetFolder, ExtFilter, True,True);
+  aGroup.SearchAllRelatedFiles(MediaFiles, TargetFolder, ExtFilter, True, True);
   CurrPreview.StrList := MediaFiles;
 end;
 
@@ -820,7 +820,7 @@ begin
     Exit;
   CurrPreview.StrList := nil;
   MediaFiles.Clear;
-  aSoft.SearchAllRelatedFiles(MediaFiles, TargetFolder, ExtFilter, True,True);
+  aSoft.SearchAllRelatedFiles(MediaFiles, TargetFolder, ExtFilter, True, True);
   CurrPreview.StrList := MediaFiles;
 end;
 
@@ -1252,9 +1252,9 @@ begin
   if not Assigned(CurrSystem) then
     Exit;
 
-        // Loading data if not already loaded
-    if not CurrSystem.SoftGroupLoaded then
-      Emuteca.SystemManager.LoadSystemData(CurrSystem);
+  // Loading data if not already loaded
+  if not CurrSystem.SoftGroupLoaded then
+    Emuteca.SystemManager.LoadSystemData(CurrSystem);
 
   lbxImages.Clear;
   lbxImages.Items.Add('Icons'); // Special images folder
@@ -1375,14 +1375,14 @@ begin
   end
   else if aLBX = lbxMusic then
   begin
-    //    if Assigned(GUIConfig) then
-    // ExtFilter := GUIConfig.MusicExtensions;
+    if Assigned(GUIConfig) then
+      ExtFilter := GUIConfig.MusicExtensions;
     UpdateVST(CurrSystem.MusicFolders[aLBX.ItemIndex]);
   end
   else if aLBX = lbxVideos then
   begin
-    //    if Assigned(GUIConfig) then
-    // ExtFilter := GUIConfig.VideoExtensions;
+    if Assigned(GUIConfig) then
+      ExtFilter := GUIConfig.VideoExtensions;
     UpdateVST(CurrSystem.VideoFolders[aLBX.ItemIndex]);
   end
   else if aLBX = lbxOtherFiles then
@@ -1647,7 +1647,8 @@ var
   pFile: PFileRow;
 begin
   pFile := Sender.GetNodeData(Node);
-  if not Assigned(pFile) then Exit;
+  if not Assigned(pFile) then
+    Exit;
 
   case TextType of
     ttNormal: case Column of
@@ -1711,7 +1712,7 @@ begin
     Exit;
 
   pSoft := Sender.GetNodeData(Node);
-  TargetFile := pSoft^.GetMediaFileName  + krsVirtualExt;
+  TargetFile := pSoft^.GetMediaFileName + krsVirtualExt;
   CurrGroup := cEmutecaGroup(pSoft^.CachedGroup);
 
   ChangeSoftMedia(pSoft^);
@@ -1732,7 +1733,8 @@ begin
     0: Result := UTF8CompareText(pSoft1^.Title, pSoft2^.Title);
     1: Result := UTF8CompareText(pSoft1^.CachedGroup.Title,
         pSoft2^.CachedGroup.Title);
-    2: Result := CompareFilenames(pSoft1^.GetMediaFileName, pSoft2^.GetMediaFileName);
+    2: Result := CompareFilenames(pSoft1^.GetMediaFileName,
+        pSoft2^.GetMediaFileName);
     else
       ;
   end;
@@ -1745,8 +1747,10 @@ var
   pSoft: ^cEmutecaSoftware;
 begin
   pSoft := Sender.GetNodeData(Node);
-  if not Assigned(pSoft) then Exit;
-  if not Assigned(pSoft^) then Exit;
+  if not Assigned(pSoft) then
+    Exit;
+  if not Assigned(pSoft^) then
+    Exit;
 
   case TextType of
     ttNormal: case Column of
@@ -1768,8 +1772,10 @@ var
   pGroup: ^cEmutecaGroup;
 begin
   pGroup := Sender.GetNodeData(Node);
-  if not Assigned(pGroup) then Exit;
-  if not Assigned(pGroup^) then Exit;
+  if not Assigned(pGroup) then
+    Exit;
+  if not Assigned(pGroup^) then
+    Exit;
 
   case TextType of
     ttNormal: case Column of

@@ -44,6 +44,15 @@ const
   krsSectionTexts = 'Texts';
   krsKeyTxtExt = 'TxtExt';
 
+
+  // [Video]
+  krsSectionVideo = 'Video';
+  krsKeyVideoExt = 'VideoExt';
+
+  // [Music]
+  krsSectionMusic = 'Music';
+  krsKeyMusicExt = 'MusicExt';
+
   // [Config]
   krsSectionConfig = 'Config';
   krsKeyEmutecaIni = 'EmutecaIni';
@@ -76,8 +85,10 @@ type
     FEmutecaIni: string;
     FGlobalCache: string;
     FImageExtensions: TStringList;
+    FMusicExtensions: TStringList;
     FScriptsFolder: string;
     FTextExtensions: TStringList;
+    FVideoExtensions: TStringList;
     Fw7zErrorFileName: string;
     FZoneIcnFolder: string;
     FHelpFolder: string;
@@ -110,7 +121,7 @@ type
     constructor Create(aOwner: TComponent); override;
     destructor Destroy; override;
 
-    published
+  published
     // Images
     // ------
     property DefImgFolder: string read FDefImgFolder write SetDefImgFolder;
@@ -125,6 +136,12 @@ type
 
     // Texts
     property TextExtensions: TStringList read FTextExtensions;
+
+    // Video
+    property VideoExtensions: TStringList read FVideoExtensions;
+
+    // Music
+    property MusicExtensions: TStringList read FMusicExtensions;
 
     // Tools
     // -----
@@ -148,8 +165,9 @@ type
     // Experimental
     property GlobalCache: string read FGlobalCache write SetGlobalCache;
 
-    property w7zErrorFileName: string read Fw7zErrorFileName write Setw7zErrorFileName;
-end;
+    property w7zErrorFileName: string read Fw7zErrorFileName
+      write Setw7zErrorFileName;
+  end;
 
 implementation
 
@@ -162,7 +180,8 @@ end;
 
 procedure cETKGUIConfig.SetCurrSystem(AValue: string);
 begin
-  if FCurrSystem = AValue then Exit;
+  if FCurrSystem = AValue then
+    Exit;
   FCurrSystem := AValue;
 end;
 
@@ -183,7 +202,7 @@ end;
 
 procedure cETKGUIConfig.Setw7zErrorFileName(AValue: string);
 begin
-  Fw7zErrorFileName:=SetAsFile(AValue)
+  Fw7zErrorFileName := SetAsFile(AValue);
 end;
 
 procedure cETKGUIConfig.SetZoneIcnFolder(AValue: string);
@@ -241,6 +260,12 @@ begin
   // Texts
   TextExtensions.CommaText := 'txt,nfo';
 
+  // Video
+  VideoExtensions.CommaText := 'mpg,avi,mkv,mp4';
+
+  // Music
+  MusicExtensions.CommaText := 'mid,mp3,ogg';
+
   // Config/Data
   EmutecaIni := 'Emuteca.ini';
   CurrSystem := '';
@@ -250,17 +275,18 @@ begin
 
   // Tools
   ScriptsFolder := 'Scripts';
-  mPlayerExe := 'Tools/mplayer/mplayer2.exe';
+  mPlayerExe := 'Tools/mplayer/mplayer.exe';
 
   // Experimental
   GlobalCache := 'SHA1Cache/';
-  w7zErrorFileName := 'w7zErrors.log'
+  w7zErrorFileName := 'w7zErrors.log';
 end;
 
 procedure cETKGUIConfig.LoadFromIni(IniFile: TMemIniFile);
 begin
   // Images
-  DefImgFolder := IniFile.ReadString(krsSectionImages, krsKeyDefImgFolder, DefImgFolder);
+  DefImgFolder := IniFile.ReadString(krsSectionImages,
+    krsKeyDefImgFolder, DefImgFolder);
   ZoneIcnFolder := IniFile.ReadString(krsSectionImages,
     krsKeyZoneIcnFolder, ZoneIcnFolder);
   DumpIcnFolder := IniFile.ReadString(krsSectionImages,
@@ -276,10 +302,20 @@ begin
     IniFile.ReadString(krsSectionTexts, krsKeyTxtExt,
     TextExtensions.CommaText);
 
+  // Video
+  VideoExtensions.CommaText :=
+    IniFile.ReadString(krsSectionVideo, krsKeyVideoExt,
+    VideoExtensions.CommaText);
+
+  // Music
+  MusicExtensions.CommaText :=
+    IniFile.ReadString(krsSectionMusic, krsKeyMusicExt,
+    MusicExtensions.CommaText);
+
   // Config/Data
   EmutecaIni := IniFile.ReadString(krsSectionConfig,
     krsKeyEmutecaIni, EmutecaIni);
-    CurrSystem := IniFile.ReadString(krsSectionConfig,
+  CurrSystem := IniFile.ReadString(krsSectionConfig,
     krsKeyCurrSystem, CurrSystem);
   SaveOnExit := IniFile.ReadBool(krsSectionConfig, krsKeySaveOnExit,
     SaveOnExit);
@@ -289,7 +325,7 @@ begin
     krsKeyHelpFolder, HelpFolder);
 
   // Tools
-    ScriptsFolder := IniFile.ReadString(krsSectionTools,
+  ScriptsFolder := IniFile.ReadString(krsSectionTools,
     krsKeyScriptsFolder, ScriptsFolder);
   mPlayerExe := IniFile.ReadString(krsSectionTools,
     krsKeyMPlayerExe, mPlayerExe);
@@ -315,9 +351,17 @@ begin
   IniFile.WriteString(krsSectionTexts, krsKeyTxtExt,
     TextExtensions.CommaText);
 
+  // Video
+  IniFile.WriteString(krsSectionVideo, krsKeyVideoExt,
+    VideoExtensions.CommaText);
+
+    // Music
+  IniFile.WriteString(krsSectionMusic, krsKeyMusicExt,
+    MusicExtensions.CommaText);
+
   // Data
   IniFile.WriteString(krsSectionConfig, krsKeyEmutecaIni, EmutecaIni);
-    IniFile.WriteString(krsSectionConfig, krsKeyCurrSystem, CurrSystem);
+  IniFile.WriteString(krsSectionConfig, krsKeyCurrSystem, CurrSystem);
   IniFile.WriteBool(krsSectionConfig, krsKeySaveOnExit, SaveOnExit);
   IniFile.WriteString(krsSectionConfig, krsKeySearchFile, SearchFile);
   IniFile.WriteString(krsSectionConfig, krsKeyHelpFolder, HelpFolder);
@@ -328,7 +372,8 @@ begin
 
 
   IniFile.WriteString(krsSectionExperimental, krsKeyGlobalCache, GlobalCache);
-  IniFile.WriteString(krsSectionExperimental, krsKeyw7zErrorFileName, w7zErrorFileName);
+  IniFile.WriteString(krsSectionExperimental, krsKeyw7zErrorFileName,
+    w7zErrorFileName);
 end;
 
 constructor cETKGUIConfig.Create(aOwner: TComponent);
@@ -339,17 +384,28 @@ begin
   ImageExtensions.Sorted := True;
   ImageExtensions.CaseSensitive := False;
 
-  FTextExtensions :=TStringList.Create;
+  FTextExtensions := TStringList.Create;
   TextExtensions.Sorted := True;
   TextExtensions.CaseSensitive := False;
+
+  FVideoExtensions := TStringList.Create;
+  VideoExtensions.Sorted := True;
+  VideoExtensions.CaseSensitive := False;
+
+  FMusicExtensions := TStringList.Create;
+  MusicExtensions.Sorted := True;
+  MusicExtensions.CaseSensitive := False;
 
   inherited Create(aOwner);
 end;
 
 destructor cETKGUIConfig.Destroy;
 begin
-  FreeAndNil(FImageExtensions);
-  FreeAndNil(FTextExtensions);
+  ImageExtensions.Free;
+  TextExtensions.Free;
+  VideoExtensions.Free;
+  MusicExtensions.Free;
+
   inherited Destroy;
 end;
 

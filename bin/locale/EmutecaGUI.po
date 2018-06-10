@@ -156,12 +156,36 @@ msgstr ""
 msgid "tbImage"
 msgstr ""
 
+#: tfmchxlistpreview.actfirstitem.caption
+msgid "First item"
+msgstr ""
+
+#: tfmchxlistpreview.actfirstitem.hint
+msgid "Go to first item"
+msgstr ""
+
+#: tfmchxlistpreview.actlastitem.caption
+msgid "Last item"
+msgstr ""
+
+#: tfmchxlistpreview.actlastitem.hint
+msgid "Go to last item."
+msgstr ""
+
 #: tfmchxlistpreview.actnextitem.caption
 msgid "Next item"
 msgstr ""
 
+#: tfmchxlistpreview.actnextitem.hint
+msgid "Go to next item."
+msgstr ""
+
 #: tfmchxlistpreview.actpreviousitem.caption
 msgid "Previous item"
+msgstr ""
+
+#: tfmchxlistpreview.actpreviousitem.hint
+msgid "Go to previous item."
 msgstr ""
 
 #: tfmchxlistpreview.lmaxitems.caption
@@ -349,6 +373,7 @@ msgid "&Reemplazar"
 msgstr ""
 
 #: tfmchxscriptmanager.actstop.caption
+msgctxt "tfmchxscriptmanager.actstop.caption"
 msgid "Stop"
 msgstr ""
 
@@ -422,6 +447,31 @@ msgstr ""
 #: tfmchxtagtree.vst.header.columns[2].text
 msgctxt "tfmchxtagtree.vst.header.columns[2].text"
 msgid "File"
+msgstr ""
+
+#: tfmchxvideolistpreview.actpause.caption
+msgid "Pause"
+msgstr ""
+
+#: tfmchxvideolistpreview.actpause.hint
+msgid "Pauses current media."
+msgstr ""
+
+#: tfmchxvideolistpreview.actplay.caption
+msgid "Play"
+msgstr ""
+
+#: tfmchxvideolistpreview.actplay.hint
+msgid "Plays current media."
+msgstr ""
+
+#: tfmchxvideolistpreview.actstop.caption
+msgctxt "tfmchxvideolistpreview.actstop.caption"
+msgid "Stop"
+msgstr ""
+
+#: tfmchxvideolistpreview.actstop.hint
+msgid "Stops current media."
 msgstr ""
 
 #: tfmemutecaactaddfolder.chknozip.caption

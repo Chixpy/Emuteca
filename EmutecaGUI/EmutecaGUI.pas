@@ -24,7 +24,7 @@ program EmutecaGUI;
 uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   cthreads, {$ENDIF} {$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, lazcontrols, pascalscript,
+  Forms, mplayercontrollaz, lazcontrols, pascalscript,
   // CHX units
   uCHXDlgUtils,
   // CHX abstract classes
@@ -113,7 +113,7 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   ufrETKGUIMain,
   // Emuteca GUI threads
   utETKGUICacheGrpIcons, utETKGUICacheSysIcons,
-  utETKGUICacheSoftIcons;
+  utETKGUICacheSoftIcons, ufETKGUISoftVideoPreview, ufCHXVideoListPreview;
 
 {$R *.res}
 

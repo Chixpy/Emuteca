@@ -1,4 +1,4 @@
-{ Text preview frame of Emuteca GUI
+{ Video preview frame of Emuteca GUI.
 
   Copyright (C) 2006-2018 Chixpy
 
@@ -17,31 +17,35 @@
   to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
   MA 02111-1307, USA.
 }
-unit ufETKGUISoftTxtPreview;
+unit ufETKGUISoftVideoPreview;
 
 {$mode objfpc}{$H+}
 
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
+  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, 
   // CHX frames
-  ufCHXTxtListPreview,
+  ufCHXVideoListPreview,
   // Emuteca GUI abstracts
   uafETKGUISoftFoldersPreview;
 
 type
 
-  { TfmETKGUISoftTxtPreview }
+  { TfmETKGUISoftVideoPreview }
 
-  TfmETKGUISoftTxtPreview = class(TfmaETKGUISoftFoldersPreview)
+  TfmETKGUISoftVideoPreview = class(TfmaETKGUISoftFoldersPreview)
   private
+    FMPlayerPath: string;
+    procedure SetMPlayerPath(const aMPlayerPath: string);
 
   protected
     procedure CreateListView; override;
     function GetCaptionList: TStrings; override;
     function GetFolder: string; override;
+
   public
+    property MPlayerPath: string read FMPlayerPath write SetMPlayerPath;
 
   end;
 
@@ -49,29 +53,37 @@ implementation
 
 {$R *.lfm}
 
-{ TfmETKGUISoftTxtPreview }
+{ TfmETKGUISoftVideoPreview }
 
-procedure TfmETKGUISoftTxtPreview.CreateListView;
+procedure TfmETKGUISoftVideoPreview.SetMPlayerPath(const aMPlayerPath: string);
 begin
-  SetListPreview(TfmCHXTxtListPreview.Create(Self));
+  if FMPlayerPath = aMPlayerPath then Exit;
+  FMPlayerPath := aMPlayerPath;
+
+  TfmCHXVideoListPreview(fmListPreview).MPlayerPath := FMPlayerPath;
+end;
+
+procedure TfmETKGUISoftVideoPreview.CreateListView;
+begin
+  SetListPreview(TfmCHXVideoListPreview.Create(Self));
   fmListPreview.Align := alClient;
   fmListPreview.Parent := Self;
 end;
 
-function TfmETKGUISoftTxtPreview.GetCaptionList: TStrings;
+function TfmETKGUISoftVideoPreview.GetCaptionList: TStrings;
 begin
   Result := nil;
 
   if Assigned(System) then
-    Result := System.TextCaptions;
+    Result := System.VideoCaptions;
 end;
 
-function TfmETKGUISoftTxtPreview.GetFolder: string;
+function TfmETKGUISoftVideoPreview.GetFolder: string;
 begin
   Result := '';
 
   if Assigned(System) then
-    Result := System.TextFolders[cbxFolderCaption.ItemIndex];
+    Result := System.VideoFolders[cbxFolderCaption.ItemIndex];
 end;
 
 end.
