@@ -449,6 +449,14 @@ msgctxt "tfmchxtagtree.vst.header.columns[2].text"
 msgid "File"
 msgstr ""
 
+#: tfmchxvideolistpreview.actmute.caption
+msgid "Mute"
+msgstr ""
+
+#: tfmchxvideolistpreview.actmute.hint
+msgid "Mute audio."
+msgstr ""
+
 #: tfmchxvideolistpreview.actpause.caption
 msgid "Pause"
 msgstr ""
@@ -472,6 +480,15 @@ msgstr ""
 
 #: tfmchxvideolistpreview.actstop.hint
 msgid "Stops current media."
+msgstr ""
+
+#: tfmchxvideolistpreview.tbplayer.caption
+msgid "tbPlayer"
+msgstr ""
+
+#: tfmchxvideolistpreview.toolbutton2.caption
+msgctxt "tfmchxvideolistpreview.toolbutton2.caption"
+msgid "ToolButton2"
 msgstr ""
 
 #: tfmemutecaactaddfolder.chknozip.caption
