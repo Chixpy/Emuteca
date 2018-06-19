@@ -25,8 +25,8 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, LazFileUtils, LazUTF8,
-  uCHX7zWrapper,
-  uCHXStrUtils, uCHXFileUtils;
+  // CHX units
+  uCHX7zWrapper, uCHXStrUtils, uCHXFileUtils;
 
 const
   krsFmtWindowCaption = '%0:s: %1:s';
@@ -505,12 +505,11 @@ begin
     FileMaskFromStringList(Extensions), True);
 
   if not SearchInComp then
-    Exit; // If we don't want to search in CompArchives
+    Exit; // If we don't want to search in CompArchives then Exit.
 
 
-  // TODO: Autodecompress is not used here
-
-
+  if AutoDecompress then
+  begin
 
   if DecompressFolder = '' then
     Exit;
@@ -546,12 +545,14 @@ begin
   FindAllFiles(OutFileList, DecompressFolder,
     FileMaskFromStringList(Extensions), True);
 
-  // If Found something then Exit
+  // If something is found then Exit
   if OutFileList.Count > 0 then
     Exit;
 
   //// 4. If nothing found, search ONLY ONE from every compressed archive.
   //// Folder/*.zip/aFileName.mext
+
+  // COMENTED: Too sloooow..., keeped for reference
 
   //CompressedArchives := TStringList.Create;
   //try
@@ -572,6 +573,70 @@ begin
 
   //FindAllFiles(OutFileList, DecompressFolder,
   //  FileMaskFromStringList(Extensions), True);
+
+  end
+  else
+  begin // Autodecompress = False
+   // We don't want to auto decompress it only check if it exists.
+
+    // TODO: It's a copy of EmuTKSearchFirstRelatedFile, must adapted to
+    //   search all files found.
+
+    // 3. Without extracting
+    //CompressedArchives := TStringList.Create;
+    //TempStrLst := TStringList.Create;
+    //try
+    //  EmuTKSearchAllFilesByNameExtCT(CompressedArchives, aFolder + aFileName,
+    //    w7zGetFileExts);
+    //
+    //  i := 0;
+    //  while (i < CompressedArchives.Count) and (Result = '') do
+    //  begin
+    //    TempStrLst.Clear;
+    //    w7zListFiles(CompressedArchives[i], TempStrLst, True, '');
+    //
+    //    // Testing if a valid file is found
+    //    Result := SearchComprFile(TempStrLst, '', Extensions);
+    //    if Result <> '' then
+    //      Result := SetAsFolder(CompressedArchives[i]) + Result;
+    //
+    //    Inc(i);
+    //  end;
+    //finally
+    //  TempStrLst.Free;
+    //  FreeAndNil(CompressedArchives);
+    //end;
+    //if Result <> '' then
+    //  Exit;
+
+    //// 4. Without extracting
+
+    // COMENTED: Too sloooow..., keeped for reference
+
+    //CompressedArchives := TStringList.Create;
+    //TempStrLst := TStringList.Create;
+    //try
+    //  EmuTKSearchAllFilesByNameExtCT(CompressedArchives, aFolder,
+    //    w7zGetFileExts);
+
+    //  i := 0;
+    //  while i < CompressedArchives.Count do
+    //  begin
+    //    TempStrLst.Clear;
+    //    w7zListFiles(CompressedArchives[i], TempStrLst, True, '');
+
+    //    Result := SearchComprFile(TempStrLst, aFileName, Extensions);
+    //    if Result <> '' then
+    //      Result := SetAsFolder(CompressedArchives[i]) + Result;
+
+    //    Inc(i);
+    //  end;
+    //finally
+    //  TempStrLst.Free;
+    //  FreeAndNil(CompressedArchives);
+    //end;
+    //Result := SearchFirstFileInFolderByExtSL(DecompressFolder, Extensions);
+  end;
 end;
 
 function EmuTKSearchFirstRelatedFile(aFolder: string;
@@ -632,8 +697,7 @@ begin
 
   // 2. Search in folder
   // Folder/aFileName/[*]/*.mext
-  Result := SearchFirstFileInFolderByExtSL(aFolder +
-    SetAsFolder(aFileName), Extensions);
+  Result := SearchFirstFileInFolderByExtSL(aFolder + SetAsFolder(aFileName), Extensions);
   if Result <> '' then
     Exit;
 
@@ -680,6 +744,9 @@ begin
 
     //// 4. If nothing found, search ONLY ONE from every compressed archive.
     //// Folder/*.zip/aFileName.mext
+
+    // COMENTED: Too sloooow..., keeped for reference
+
     //CompressedArchives := TStringList.Create;
     //try
     //  FindAllFiles(CompressedArchives, aFolder,
@@ -729,6 +796,9 @@ begin
       Exit;
 
     //// 4. Without extracting
+
+    // COMENTED: Too sloooow..., keeped for reference
+
     //CompressedArchives := TStringList.Create;
     //TempStrLst := TStringList.Create;
     //try

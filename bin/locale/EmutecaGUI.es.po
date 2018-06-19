@@ -3,45 +3,45 @@ msgstr "Content-Type: text/plain; charset=UTF-8"
 
 #: tfmactexportsoftdata.gbxexportfile.caption
 msgid "Export file"
-msgstr ""
+msgstr "F1chero de exportación"
 
 #: tfmactexportsoftdata.gbxsysteminfo.caption
 msgctxt "tfmactexportsoftdata.gbxsysteminfo.caption"
 msgid "System info"
-msgstr ""
+msgstr "Información del sistema"
 
 #: tfmactexportsoftdata.lexportinfo.caption
 msgid "If the file already exists, the data will be merged."
-msgstr ""
+msgstr "Si el fichero ya existe, los datos serán combinados."
 
 #: tfmactexportsoftdata.lsoftidtype.caption
 msgctxt "tfmactexportsoftdata.lsoftidtype.caption"
 msgid "Soft ID Type"
-msgstr ""
+msgstr "Tipo de identificación del soft"
 
 #: tfmchxchklstpropeditor.actadditem.caption
 msgid "Add item"
-msgstr ""
+msgstr "Añadir objeto"
 
 #: tfmchxchklstpropeditor.actcheckall.caption
 msgid "Check all"
-msgstr ""
+msgstr "Marcar todos"
 
 #: tfmchxchklstpropeditor.actdeleteitem.caption
 msgid "Delete item"
-msgstr ""
+msgstr "Borrar objeto"
 
 #: tfmchxchklstpropeditor.actexportlist.caption
 msgid "Export list"
-msgstr ""
+msgstr "Exportar lista"
 
 #: tfmchxchklstpropeditor.actimportlist.caption
 msgid "Import list"
-msgstr ""
+msgstr "Importar lista"
 
 #: tfmchxchklstpropeditor.actuncheckall.caption
 msgid "Uncheck all"
-msgstr ""
+msgstr "Desmarcar todos"
 
 #: tfmchxchklstpropeditor.tbpropchklist.caption
 msgid "tbPropChkList"
@@ -59,23 +59,23 @@ msgstr ""
 
 #: tfmchximgviewer.actfirst.caption
 msgid "First"
-msgstr ""
+msgstr "Primero"
 
 #: tfmchximgviewer.actfirst.hint
 msgid "First Image|Show first image in the list"
-msgstr ""
+msgstr "Primera imagen|Muestra la primera imagen en la lista."
 
 #: tfmchximgviewer.actlast.caption
 msgid "Last"
-msgstr ""
+msgstr "Último"
 
 #: tfmchximgviewer.actlast.hint
 msgid "Last Image|Show last image in the list"
-msgstr ""
+msgstr "Última imagen|Muestra la última imagen en la lista."
 
 #: tfmchximgviewer.actnext.caption
 msgid "Next"
-msgstr ""
+msgstr "Siguiente"
 
 #: tfmchximgviewer.actnext.hint
 msgid "Next Image|Show next image in the list"
@@ -584,14 +584,16 @@ msgid "Import file"
 msgstr ""
 
 #: tfmemutecaactimportsoftdata.gbxsysteminfo.caption
+#, fuzzy
 msgctxt "tfmemutecaactimportsoftdata.gbxsysteminfo.caption"
 msgid "System info"
-msgstr ""
+msgstr "Información del sistema"
 
 #: tfmemutecaactimportsoftdata.lsoftidtype.caption
+#, fuzzy
 msgctxt "tfmemutecaactimportsoftdata.lsoftidtype.caption"
 msgid "Soft ID Type"
-msgstr ""
+msgstr "Tipo de identificación del soft"
 
 #: tfmemutecaemulatoreditor.actopenwebpage.caption
 msgid "Open Webpage"
@@ -1287,6 +1289,39 @@ msgstr ""
 #: tfmetkguimediamanager.vstsoftwofile.header.columns[2].text
 msgctxt "tfmetkguimediamanager.vstsoftwofile.header.columns[2].text"
 msgid "File"
+msgstr ""
+
+#: tfmetkguisoftmedia.actaddimagepanel.caption
+msgid "Add image panel"
+msgstr ""
+
+#: tfmetkguisoftmedia.actaddmusicpanel.caption
+msgid "Add music panel"
+msgstr ""
+
+#: tfmetkguisoftmedia.actaddtextpanel.caption
+msgid "Add text panel"
+msgstr ""
+
+#: tfmetkguisoftmedia.actaddvideopanel.caption
+msgid "actAddVideoPanel"
+msgstr ""
+
+#: tfmetkguisoftmedia.actclearpanels.caption
+msgid "Clear panels"
+msgstr ""
+
+#: tfmetkguisoftmedia.actclearpanels.hint
+msgid "Remove all panels."
+msgstr ""
+
+#: tfmetkguisoftmedia.toolbar1.caption
+msgid "tbSoftMediaPanel"
+msgstr ""
+
+#: tfmetkguisoftmedia.toolbutton1.caption
+msgctxt "tfmetkguisoftmedia.toolbutton1.caption"
+msgid "ToolButton1"
 msgstr ""
 
 #: tfmetkguisyspreview.actopensystemfolder.caption
@@ -2123,7 +2158,7 @@ msgstr ""
 #: uemutecacommon.rsunknown
 msgctxt "uemutecacommon.rsunknown"
 msgid "Unknown"
-msgstr ""
+msgstr "Desconocido"
 
 #: uetkguicommon.rsautofolderwarning
 msgid ""
@@ -2138,7 +2173,7 @@ msgstr ""
 #: uetkguicommon.rsdeveloper
 msgctxt "uetkguicommon.rsdeveloper"
 msgid "Developer"
-msgstr ""
+msgstr "Desarrollador"
 
 #: uetkguicommon.rsfilename
 msgctxt "uetkguicommon.rsfilename"
@@ -2156,15 +2191,19 @@ msgid ""
 "Current folder: %0:s\n"
 "Searched file: %1:s\n"
 msgstr ""
+"No encontrado.\n"
+"\n"
+"Carpeta: %0:s\n"
+"Fichero: %1:s\n"
 
 #: uetkguicommon.rsgamekey
 msgid "Key"
-msgstr ""
+msgstr "Clave"
 
 #: uetkguicommon.rspublisher
 msgctxt "uetkguicommon.rspublisher"
 msgid "Publisher"
-msgstr ""
+msgstr "Publicador"
 
 #: uetkguicommon.rssofteditorcaption
 msgid "Soft Editor"
@@ -2177,25 +2216,25 @@ msgstr ""
 #: uetkguicommon.rssystemcaption
 msgctxt "uetkguicommon.rssystemcaption"
 msgid "System"
-msgstr ""
+msgstr "Sistema"
 
 #: uetkguicommon.rstagscaption
 msgid "Tags"
-msgstr ""
+msgstr "Etiquetas"
 
 #: uetkguicommon.rsversion
 msgctxt "uetkguicommon.rsversion"
 msgid "Version"
-msgstr ""
+msgstr "Versión"
 
 #: uetkguicommon.rswarning
 msgctxt "uetkguicommon.rswarning"
 msgid "Warning"
-msgstr ""
+msgstr "Atención"
 
 #: uetkguicommon.rszones
 msgid "Zones"
-msgstr ""
+msgstr "Zonas"
 
 #: ufchxchklstpropeditor.rsleclpesavelist
 msgid "Save list"
@@ -2211,7 +2250,7 @@ msgstr ""
 
 #: ufchxprogressbar.rsestimatedtime
 msgid "%0:s (Left: %1:s)"
-msgstr ""
+msgstr "%0:s (Quedan: %1:s)"
 
 #: ufchxprogressbar.rsestimatedtime0
 msgid "Estimated Time to Finish: Unknown"
@@ -2219,7 +2258,7 @@ msgstr ""
 
 #: ufchxprogressbar.rsprogressbartitle
 msgid "Please Wait..."
-msgstr ""
+msgstr "Por favor, espera..."
 
 #: ufchxscriptmanager.rsfsmallfilesmaskdesc
 msgctxt "ufchxscriptmanager.rsfsmallfilesmaskdesc"
@@ -2257,9 +2296,9 @@ msgstr ""
 
 #: ufetkguiemumanager.rsemulatorname
 msgid "Emulator name."
-msgstr ""
+msgstr "Nombre del emulador."
 
 #: ufetkguisysmanager.rssystemnamemodel
 msgid "System name [Company: Model (extra)]."
-msgstr ""
+msgstr "Nombre del sistema [Compañía: Modelo (extra)]"
 

@@ -1,4 +1,4 @@
-{ This file is part of Emuteca
+{ Basic abstract group class of Emuteca
 
   Copyright (C) 2006-2017 Chixpy
 

@@ -1,4 +1,5 @@
 inherited fmaETKGUISoftFoldersPreview: TfmaETKGUISoftFoldersPreview
+  AutoSize = False
   DesignLeft = 633
   DesignTop = 304
   object cbxFolderCaption: TComboBox[0]

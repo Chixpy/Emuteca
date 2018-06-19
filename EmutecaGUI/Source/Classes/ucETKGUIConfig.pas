@@ -243,8 +243,6 @@ begin
 end;
 
 procedure cETKGUIConfig.ResetDefaultConfig;
-var
-  TempStr: string;
 begin
   // Images
   DefImgFolder := 'Images/Default';
@@ -252,10 +250,11 @@ begin
   ZoneIcnFolder := 'Images/Zone';
   DumpIcnFolder := 'Images/DumpInfo';
 
-  TempStr := '"' + UTF8LowerCase(GraphicFileMask(TGraphic)) + '"';
-  TempStr := UTF8TextReplace(TempStr, '*.', '');
-  TempStr := UTF8TextReplace(TempStr, ';', '","');
-  ImageExtensions.CommaText := TempStr;
+
+  // Lazaus support:
+  //  bmp,cur,gif,icns,ico,jfif,jpe,jpeg,jpg,pbm,pgm,png,ppm,tif,tiff,xpm
+  // But I will cut them a little for faster searching
+  ImageExtensions.CommaText := 'png,gif,ico,jpg,bmp';
 
   // Texts
   TextExtensions.CommaText := 'txt,nfo';
@@ -264,7 +263,7 @@ begin
   VideoExtensions.CommaText := 'mpg,avi,mkv,mp4';
 
   // Music
-  MusicExtensions.CommaText := 'mid,mp3,ogg';
+  MusicExtensions.CommaText := 'mp3,ogg,wav';
 
   // Config/Data
   EmutecaIni := 'Emuteca.ini';

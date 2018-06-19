@@ -112,8 +112,8 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   ufrETKGUIAbout,
   ufrETKGUIMain,
   // Emuteca GUI threads
-  utETKGUICacheGrpIcons, utETKGUICacheSysIcons,
-  utETKGUICacheSoftIcons, ufETKGUISoftVideoPreview, ufCHXVideoListPreview;
+  utETKGUICacheGrpIcons, utETKGUICacheSysIcons, utETKGUICacheSoftIcons,
+  ufETKGUISoftVideoPreview, ufCHXVideoListPreview, ufETKGUISoftMusicPreview;
 
 {$R *.res}
 

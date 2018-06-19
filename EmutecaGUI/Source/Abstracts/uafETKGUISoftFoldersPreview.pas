@@ -60,7 +60,6 @@ type
     property FileList: TStringList read FFileList;
 
     property System: caEmutecaCustomSystem read FSystem write SetSystem;
-    property LastCaption: string read FLastCaption write SetLastCaption;
 
     procedure UpdateFileList;
 
@@ -79,9 +78,13 @@ type
 
     property FileExt: TStrings read FFileExt write SetFileExt;
 
+    property LastCaption: string read FLastCaption write SetLastCaption;
+
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
   end;
+
+  TfmaETKGUISoftFoldersPreviewClass = class of TfmaETKGUISoftFoldersPreview;
 
 implementation
 

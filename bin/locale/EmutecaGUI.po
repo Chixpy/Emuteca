@@ -1289,6 +1289,39 @@ msgctxt "tfmetkguimediamanager.vstsoftwofile.header.columns[2].text"
 msgid "File"
 msgstr ""
 
+#: tfmetkguisoftmedia.actaddimagepanel.caption
+msgid "Add image panel"
+msgstr ""
+
+#: tfmetkguisoftmedia.actaddmusicpanel.caption
+msgid "Add music panel"
+msgstr ""
+
+#: tfmetkguisoftmedia.actaddtextpanel.caption
+msgid "Add text panel"
+msgstr ""
+
+#: tfmetkguisoftmedia.actaddvideopanel.caption
+msgid "actAddVideoPanel"
+msgstr ""
+
+#: tfmetkguisoftmedia.actclearpanels.caption
+msgid "Clear panels"
+msgstr ""
+
+#: tfmetkguisoftmedia.actclearpanels.hint
+msgid "Remove all panels."
+msgstr ""
+
+#: tfmetkguisoftmedia.toolbar1.caption
+msgid "tbSoftMediaPanel"
+msgstr ""
+
+#: tfmetkguisoftmedia.toolbutton1.caption
+msgctxt "tfmetkguisoftmedia.toolbutton1.caption"
+msgid "ToolButton1"
+msgstr ""
+
 #: tfmetkguisyspreview.actopensystemfolder.caption
 msgctxt "tfmetkguisyspreview.actopensystemfolder.caption"
 msgid "Open system folder"
