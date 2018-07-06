@@ -101,7 +101,7 @@
         <PackageName Value="LCL"/>
       </Item7>
     </RequiredPackages>
-    <Units Count="111">
+    <Units Count="112">
       <Unit0>
         <Filename Value="EmutecaGUI.pas"/>
         <IsPartOfProject Value="True"/>
@@ -699,6 +699,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
       </Unit110>
+      <Unit111>
+        <Filename Value="..\CHXPas\Units\uCHXImageUtils.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit111>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

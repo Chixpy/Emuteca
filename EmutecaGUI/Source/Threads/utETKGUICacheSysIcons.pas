@@ -85,6 +85,7 @@ begin
   if not assigned(IconList) then
     Exit;
   // if not assigned(DefSysIcon) then Exit; // Can be nil
+  // if not assigned(DefSoftIcon) then Exit; // Can be nil
 
   i := 0;
   while (not Terminated) and (i < SystemManager.FullList.Count) do
@@ -128,6 +129,8 @@ end;
 constructor ctEGUICacheSysIcons.Create;
 begin
   inherited Create(True);
+  DefSoftIcon := nil; // Just to be sure...
+  DefSysIcon := nil;
   FreeOnTerminate := True;
 end;
 

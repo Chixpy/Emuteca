@@ -330,7 +330,7 @@ type
 
     procedure DoClearFrameData;
     procedure DoLoadFrameData;
-    procedure DoLoadGUIIcons(aIconsIni: TIniFile; aBaseFolder: string);
+    procedure DoLoadGUIIcons(aIconsIni: TIniFile; const aBaseFolder: string);
 
   public
     property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
@@ -389,7 +389,7 @@ begin
 end;
 
 procedure TfmETKGUIMediaManager.DoLoadGUIIcons(aIconsIni: TIniFile;
-  aBaseFolder: string);
+  const aBaseFolder: string);
 begin
   ReadActionsIconsIni(aIconsIni, aBaseFolder, Self.Name,
     ilActions, ActionList);

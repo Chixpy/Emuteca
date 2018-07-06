@@ -26,6 +26,8 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
   ComCtrls, ActnList, IniFiles,
+  // CHX units
+  uCHXImageUtils,
   // CHX frames
   ufCHXFrame,
   // Emuteca classes
@@ -97,6 +99,7 @@ type
 
     procedure DoLoadGUIConfig(aIniFile: TIniFile);
     procedure DoSaveGUIConfig(aIniFile: TIniFile);
+    procedure DoLoadGUIIcons(aIconsIni: TIniFile; const aBaseFolder: string);
 
   public
     property Software: cEmutecaSoftware read FSoftware write SetSoftware;
@@ -423,6 +426,13 @@ begin
   end;
 end;
 
+procedure TfmETKGUISoftMedia.DoLoadGUIIcons(aIconsIni: TIniFile;
+  const aBaseFolder: string);
+begin
+  ReadActionsIconsIni(aIconsIni, aBaseFolder, Self.Name,
+    ilMediaPanel, alMediaPanel);
+end;
+
 constructor TfmETKGUISoftMedia.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
@@ -432,6 +442,7 @@ begin
 
   OnLoadGUIConfig := @DoLoadGUIConfig;
   OnSaveGUIConfig := @DoSaveGUIConfig;
+  OnLoadGUIIcons := @DoLoadGUIIcons;
 end;
 
 destructor TfmETKGUISoftMedia.Destroy;

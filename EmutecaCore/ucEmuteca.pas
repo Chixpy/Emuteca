@@ -250,14 +250,14 @@ begin
   end;
 
   // 2. Setting temp folder.
+  //    (Overrided if it's in a compressed file with a subfolder)
   if Trim(ExcludeTrailingPathDelimiter(
     aSoftware.CachedSystem.WorkingFolder)) <> '' then
-
     aFolder := aSoftware.CachedSystem.WorkingFolder
   else
     aFolder := TempFolder + krsTempGameSubFolder;
 
-  //   2.1. If don't exists create new, and mark it to delete at the end.
+  //   2.1. If don't exists create new, and delete it at the end.
   NewDir := not DirectoryExistsUTF8(aFolder);
   if NewDir then
     ForceDirectoriesUTF8(aFolder);
@@ -273,6 +273,13 @@ begin
   //   3.2 Actual extracting, and setting RomFile
   if Compressed then
   begin
+    // If compressed then make a subfolder inside the temp folder
+    aFolder := SetAsFolder(aFolder + ExtractFileNameOnly(CompressedFile));
+
+    NewDir := not DirectoryExistsUTF8(aFolder);
+    if NewDir then
+      ForceDirectoriesUTF8(aFolder);
+
     if aSoftware.CachedSystem.ExtractAll then
       CompError := w7zExtractFile(CompressedFile, AllFilesMask,
         aFolder, True, '')
@@ -290,24 +297,6 @@ begin
   else
   begin
     RomFile := aSoftware.Folder + aSoftware.FileName;
-
-    { TODO : I don't remember why I implemened this.
-        When it is a normal "decompressed" ROM, if it is a 7z and
-        ExtractAll is True then decompress it.
-
-        RomFile := ZipFileName anyways. }
-    //if aSoftware.CachedSystem.ExtractAll and
-    //  SupportedExt(aSoftware.FileName, Config.CompressedExtensions) then
-    //begin
-    //  // The ROM is a compressed file but must be extracted anyways
-    //  CompError := w7zExtractFile(RomFile, AllFilesMask, aFolder, True, '');
-    //  if CompError <> 0 then
-    //  begin
-    // Result := kError7zDecompress - CompError;
-    //  Exit;
-    // end;
-    //  Compressed := True;
-    //end;
   end;
 
   // Last test if extracting goes wrong...

@@ -69,7 +69,7 @@ type
     procedure DoLoadFrameData;
     procedure DoSaveFrameData;
 
-    procedure DoLoadGUIIcons(aIconsIni: TIniFile; aBaseFolder: string);
+    procedure DoLoadGUIIcons(aIconsIni: TIniFile; const aBaseFolder: string);
       override;
     procedure DoLoadGUIConfig(aIniFile: TIniFile);
 
@@ -155,7 +155,7 @@ begin
 end;
 
 procedure TfmEmuTKSystemImgEditor.eDefSoftIconAcceptFileName(Sender: TObject;
-  Var Value: String);
+  var Value: String);
 begin
   UpdateImage(iDefSoftIcon, Value);
 end;
@@ -213,7 +213,7 @@ begin
 end;
 
 procedure TfmEmuTKSystemImgEditor.DoLoadGUIIcons(aIconsIni: TIniFile;
-  aBaseFolder: string);
+  const aBaseFolder: string);
 begin
   inherited DoLoadGUIIcons(aIconsIni, aBaseFolder);
   GUIIconsIni := aIconsIni.FileName;

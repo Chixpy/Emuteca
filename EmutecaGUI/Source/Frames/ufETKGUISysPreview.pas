@@ -85,7 +85,7 @@ type
     procedure DoLoadFrameData;
 
     procedure DoLoadGUIConfig(aIniFile: TIniFile);
-    procedure DoLoadGUIIcons(aIconsIni: TIniFile; aBaseFolder: string);
+    procedure DoLoadGUIIcons(aIconsIni: TIniFile; const aBaseFolder: string);
 
   public
     property System: cEmutecaSystem read FSystem write SetSystem;
@@ -134,7 +134,7 @@ begin
 end;
 
 procedure TfmETKGUISysPreview.DoLoadGUIIcons(aIconsIni: TIniFile;
-  aBaseFolder: string);
+  const aBaseFolder: string);
 begin
   GUIIconsIni := aIconsIni.FileName;
   ReadActionsIconsIni(aIconsIni, aBaseFolder, Self.Name,

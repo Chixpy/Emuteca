@@ -258,7 +258,7 @@ type
     function DoChangeGroup(aGroup: cEmutecaGroup): boolean;
     function DoChangeSoft(aSoft: cEmutecaSoftware): boolean;
 
-    procedure DoLoadGUIIcons(aIniFile: TIniFile; aBaseFolder: string); virtual;
+    procedure DoLoadGUIIcons(aIniFile: TIniFile; const aBaseFolder: string); virtual;
 
 
   public
@@ -947,8 +947,8 @@ begin
   CurrentSoft := aSoft;
 end;
 
-procedure TfrmETKGUIMain.DoLoadGUIIcons(aIniFile: TIniFile; aBaseFolder: string
-  );
+procedure TfrmETKGUIMain.DoLoadGUIIcons(aIniFile: TIniFile;
+  const aBaseFolder: string);
 begin
    // Icons for TActions
    ReadActionsIconsIni(aIniFile, aBaseFolder, Name, ActImages, ActionList);
