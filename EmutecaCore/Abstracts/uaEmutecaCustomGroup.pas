@@ -242,7 +242,7 @@ end;
 
 function caEmutecaCustomGroup.CompareID(aID: string): integer;
 begin
-  Result := UTF8CompareText(ID, aID);
+  Result := UTF8CompareText(Self.ID, aID);
 end;
 
 function caEmutecaCustomGroup.MatchID(aID: string): boolean;

@@ -233,8 +233,7 @@ begin
 
   if Assigned(CurrentSystem) then
   begin
-    if not CurrentSystem.SoftGroupLoaded then
-      Emuteca.SystemManager.LoadSystemData(CurrentSystem);
+    Emuteca.SystemManager.LoadSystemData(CurrentSystem);
     GUIConfig.CurrSystem := CurrentSystem.ID;
     fmSoftTree.GroupList := CurrentSystem.GroupManager.VisibleList;
   end
@@ -526,7 +525,7 @@ constructor TfmETKGUIMain.Create(TheOwner: TComponent);
     // Creating SoftTree frame
     FfmSoftTree := TfmETKGUIIcnSoftTree.Create(pMain);
     // TODO: Configurable
-    //fmSoftTree.VDT.Font.Height := 24;
+    fmSoftTree.VDT.Font.Height := 24;
     fmSoftTree.OnSelectGroup := @DoSelectGroup;
     fmSoftTree.OnSelectSoft := @DoSelectSoftware;
     fmSoftTree.OnDblClkSoft := @DoDblClkSoftware;

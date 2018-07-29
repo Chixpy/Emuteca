@@ -1,3 +1,22 @@
+{ Frame for import soft data of Emuteca
+
+  Copyright (C) 2006-2018 Chixpy
+
+  This source is free software; you can redistribute it and/or modify it under
+  the terms of the GNU General Public License as published by the Free
+  Software Foundation; either version 3 of the License, or (at your option)
+  any later version.
+
+  This code is distributed in the hope that it will be useful, but WITHOUT ANY
+  WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+  FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+  details.
+
+  A copy of the GNU General Public License is available on the World Wide Web
+  at <http://www.gnu.org/copyleft/gpl.html>. You can also obtain it by writing
+  to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
+  MA 02111-1307, USA.
+}
 unit ufEmutecaActImportSoftData;
 
 {$mode objfpc}{$H+}
@@ -7,10 +26,17 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
   StdCtrls, Buttons, ActnList, EditBtn,
-  uCHXDlgUtils,
-  ufrCHXForm, ufCHXPropEditor, ufCHXProgressBar,
+  // CHX units
+  uCHXDlgUtils, uCHXStrUtils,
+  // CHX forms
+  ufrCHXForm,
+  // CHX frames
+  ufCHXPropEditor, ufCHXProgressBar,
+  // Emuteca units
   uEmutecaCommon,
+  // Emuteca classes
   ucEmuteca, ucEmutecaSystem, ucEmutecaSoftware,
+  // Emuteca frames
   ufEmutecaSystemCBX;
 
 type
@@ -26,6 +52,7 @@ type
     lWarning: TLabel;
     pSelectSystem: TPanel;
     procedure eImportFileButtonClick(Sender: TObject);
+
   private
     FEmuteca: cEmuteca;
     FfmProgressBar: TfmCHXProgressBar;
@@ -48,10 +75,10 @@ type
 
   public
     property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
+    //< Emuteca
 
-    // Creates a form with AddFolder frame.
-    class function SimpleForm(aEmuteca: cEmuteca; aGUIIconsIni: string;
-      aGUIConfigIni: string): integer;
+    class function SimpleForm(aEmuteca: cEmuteca; const aGUIIconsIni, aGUIConfigIni: string): integer;
+    //< Creates a form with AddFolder frame.
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -79,8 +106,7 @@ begin
     eSoftIDType.Text := SoftExportKey2StrK(System.SoftExportKey);
 
     // Loading data if not already loaded
-    if not System.SoftGroupLoaded then
-      Emuteca.SystemManager.LoadSystemData(System);
+    Emuteca.SystemManager.LoadSystemData(System);
 
     // Testing if all files have SHA1 cached
     IsCached := True;
@@ -116,7 +142,8 @@ end;
 
 procedure TfmEmutecaActImportSoftData.eImportFileButtonClick(Sender: TObject);
 begin
-  SetFileEditInitialDir(eImportFile, ProgramDirectory);
+  if Assigned(Emuteca) then
+    SetFileEditInitialDir(eImportFile, Emuteca.BaseFolder);
 end;
 
 procedure TfmEmutecaActImportSoftData.SetEmuteca(AValue: cEmuteca);
@@ -173,7 +200,7 @@ begin
 end;
 
 class function TfmEmutecaActImportSoftData.SimpleForm(aEmuteca: cEmuteca;
-  aGUIIconsIni: string; aGUIConfigIni: string): integer;
+  const aGUIIconsIni, aGUIConfigIni: string): integer;
 var
   aForm: TfrmCHXForm;
   aFrame: TfmEmutecaActImportSoftData;
@@ -225,7 +252,7 @@ begin
   OnLoadFrameData := @DoLoadFrameData;
   OnSaveFrameData := @DoSaveFrameData;
 
-  // Add
+  // Extension filter
   eImportFile.Filter := rsFileMaskDescSoft + '|' + krsFileMaskSoft;
 end;
 

@@ -157,6 +157,9 @@ begin
     Inc(i);
   end;
   // aSoftLst.EndUpdate;
+
+  if Assigned(ProgressCallBack) then
+    ProgressCallBack('', '', 0, 0, False);
 end;
 
 procedure cEmutecaSoftManager.SetSystem(AValue: caEmutecaCustomSystem);

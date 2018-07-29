@@ -1,3 +1,22 @@
+{ Frame for export soft data of Emuteca
+
+  Copyright (C) 2006-2018 Chixpy
+
+  This source is free software; you can redistribute it and/or modify it under
+  the terms of the GNU General Public License as published by the Free
+  Software Foundation; either version 3 of the License, or (at your option)
+  any later version.
+
+  This code is distributed in the hope that it will be useful, but WITHOUT ANY
+  WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+  FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+  details.
+
+  A copy of the GNU General Public License is available on the World Wide Web
+  at <http://www.gnu.org/copyleft/gpl.html>. You can also obtain it by writing
+  to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
+  MA 02111-1307, USA.
+}
 unit ufEmutecaActExportSoftData;
 
 {$mode objfpc}{$H+}
@@ -17,9 +36,9 @@ uses
 
 type
 
-  { TfmActExportSoftData }
+  { TfmEmutecaActExportSoftData }
 
-  TfmActExportSoftData = class(TfmCHXPropEditor)
+  TfmEmutecaActExportSoftData = class(TfmCHXPropEditor)
     eExportFile: TFileNameEdit;
     eSoftIDType: TEdit;
     gbxExportFile: TGroupBox;
@@ -52,10 +71,10 @@ type
 
   public
     property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
+    //< Emuteca
 
-    // Creates a form with AddFolder frame.
-    class function SimpleForm(aEmuteca: cEmuteca; aGUIIconsIni: string;
-      aGUIConfigIni: string): integer;
+    class function SimpleForm(aEmuteca: cEmuteca; const aGUIIconsIni, aGUIConfigIni: string): integer;
+    //< Creates a form with AddFolder frame.
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -65,14 +84,15 @@ implementation
 
 {$R *.lfm}
 
-{ TfmActExportSoftData }
+{ TfmEmutecaActExportSoftData }
 
-procedure TfmActExportSoftData.eExportFileButtonClick(Sender: TObject);
+procedure TfmEmutecaActExportSoftData.eExportFileButtonClick(Sender: TObject);
 begin
-  SetFileEditInitialDir(eExportFile, ProgramDirectory);
+  if Assigned(Emuteca) then
+    SetFileEditInitialDir(eExportFile, Emuteca.BaseFolder);
 end;
 
-procedure TfmActExportSoftData.SetEmuteca(AValue: cEmuteca);
+procedure TfmEmutecaActExportSoftData.SetEmuteca(AValue: cEmuteca);
 begin
   if FEmuteca = AValue then
     Exit;
@@ -87,7 +107,7 @@ begin
   LoadFrameData;
 end;
 
-procedure TfmActExportSoftData.SetSystem(AValue: cEmutecaSystem);
+procedure TfmEmutecaActExportSoftData.SetSystem(AValue: cEmutecaSystem);
 var
   aSoft: cEmutecaSoftware;
   IsCached: boolean;
@@ -102,8 +122,7 @@ begin
     eSoftIDType.Text := SoftExportKey2StrK(System.SoftExportKey);
 
     // Loading data if not already loaded
-    if not System.SoftGroupLoaded then
-      Emuteca.SystemManager.LoadSystemData(System);
+    Emuteca.SystemManager.LoadSystemData(System);
 
     // Testing if all files have SHA1 cached
     IsCached := True;
@@ -142,20 +161,20 @@ begin
   end;
 end;
 
-function TfmActExportSoftData.SelectSystem(aSystem: cEmutecaSystem): boolean;
+function TfmEmutecaActExportSoftData.SelectSystem(aSystem: cEmutecaSystem): boolean;
 begin
   Result := True;
 
   System := aSystem;
 end;
 
-procedure TfmActExportSoftData.DoClearFrameData;
+procedure TfmEmutecaActExportSoftData.DoClearFrameData;
 begin
   eSoftIDType.Clear;
   lWarning.Caption := '';
 end;
 
-procedure TfmActExportSoftData.DoLoadFrameData;
+procedure TfmEmutecaActExportSoftData.DoLoadFrameData;
 begin
   Enabled := Assigned(Emuteca);
 
@@ -166,7 +185,7 @@ begin
   end;
 end;
 
-procedure TfmActExportSoftData.DoSaveFrameData;
+procedure TfmEmutecaActExportSoftData.DoSaveFrameData;
 var
   SysPBCB: TEmutecaProgressCallBack; // System PB Backup
 begin
@@ -185,11 +204,11 @@ begin
   Self.Enabled:= True;
 end;
 
-class function TfmActExportSoftData.SimpleForm(aEmuteca: cEmuteca;
-  aGUIIconsIni: string; aGUIConfigIni: string): integer;
+class function TfmEmutecaActExportSoftData.SimpleForm(aEmuteca: cEmuteca;
+  const aGUIIconsIni, aGUIConfigIni: string): integer;
 var
   aForm: TfrmCHXForm;
-  aFrame: TfmActExportSoftData;
+  aFrame: TfmEmutecaActExportSoftData;
 begin
   Result := mrNone;
 
@@ -199,7 +218,7 @@ begin
     aForm.Caption := Format(krsFmtWindowCaption,
       [Application.Title, 'Export soft data']);
 
-    aFrame := TfmActExportSoftData.Create(aForm);
+    aFrame := TfmEmutecaActExportSoftData.Create(aForm);
     aFrame.SaveButtons := True;
     aFrame.ButtonClose := True;
     aFrame.Align := alClient;
@@ -216,7 +235,7 @@ begin
   end;
 end;
 
-constructor TfmActExportSoftData.Create(TheOwner: TComponent);
+constructor TfmEmutecaActExportSoftData.Create(TheOwner: TComponent);
 
   procedure CreateFrames;
   begin
@@ -238,10 +257,11 @@ begin
   OnLoadFrameData := @DoLoadFrameData;
   OnSaveFrameData := @DoSaveFrameData;
 
+  // Database file mask
   eExportFile.Filter := rsFileMaskDescSoft + '|' + krsFileMaskSoft;
 end;
 
-destructor TfmActExportSoftData.Destroy;
+destructor TfmEmutecaActExportSoftData.Destroy;
 begin
   inherited Destroy;
 end;

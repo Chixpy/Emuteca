@@ -306,10 +306,6 @@ begin
   if not Assigned(aSystem) then
     Exit;
 
-  // If already loaded, don't reload
-  if aSystem.SoftGroupLoaded then
-    Exit;
-
   aSystem.LoadSoftGroupLists(SysDataFolder + aSystem.ListFileName);
 end;
 
@@ -317,10 +313,6 @@ procedure cEmutecaSystemManager.SaveSystemData(aSystem: cEmutecaSystem;
   ClearFile: Boolean);
 begin
   if not Assigned(aSystem) then
-    Exit;
-
-  // If not loaded, don't save
-  if not aSystem.SoftGroupLoaded then
     Exit;
 
   aSystem.SaveSoftGroupLists(SysDataFolder + aSystem.ListFileName, ClearFile);

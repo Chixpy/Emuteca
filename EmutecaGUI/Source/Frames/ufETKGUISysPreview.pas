@@ -112,6 +112,9 @@ end;
 
 procedure TfmETKGUISysPreview.SysImageDblClick(Sender: TObject);
 begin
+    if not Assigned(System) then
+    Exit;
+
   if FileExistsUTF8(System.ImageFile) then
     TfmCHXImgViewer.SimpleFormI(System.ImageFile, SHA1Folder,
       GUIIconsIni, GUIConfigIni);

@@ -1,4 +1,4 @@
-inherited fmActExportSoftData: TfmActExportSoftData
+inherited fmEmutecaActExportSoftData: TfmEmutecaActExportSoftData
   Height = 357
   Width = 430
   ClientHeight = 357

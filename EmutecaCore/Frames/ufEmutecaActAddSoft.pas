@@ -275,8 +275,7 @@ begin
   if Assigned(aSystem) then
   begin
     // Loading data if not already loaded
-    if not aSystem.SoftGroupLoaded then
-      Emuteca.SystemManager.LoadSystemData(aSystem);
+    Emuteca.SystemManager.LoadSystemData(aSystem);
     fmGroupCBX.GroupList := aSystem.GroupManager.FullList
   end
   else

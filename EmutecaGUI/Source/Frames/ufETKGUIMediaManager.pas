@@ -1253,7 +1253,6 @@ begin
     Exit;
 
   // Loading data if not already loaded
-  if not CurrSystem.SoftGroupLoaded then
     Emuteca.SystemManager.LoadSystemData(CurrSystem);
 
   lbxImages.Clear;

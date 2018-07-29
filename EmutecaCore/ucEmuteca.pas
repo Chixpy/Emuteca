@@ -81,6 +81,7 @@ type
     // Removes parents without soft and Soft not found of all systems.
 
     procedure CacheData;
+    procedure UpdateSysEmulators;
 
     function RunSoftware(const aSoftware: cEmutecaSoftware): integer;
 
@@ -126,6 +127,11 @@ begin
   GetSoftSHA1Thread.TempFolder := TempFolder;
   GetSoftSHA1Thread.SystemManager := SystemManager;
   GetSoftSHA1Thread.Start;
+end;
+
+procedure cEmuteca.UpdateSysEmulators;
+begin
+    SystemManager.UpdateSystemsEmulators(EmulatorManager.EnabledList);
 end;
 
 procedure cEmuteca.LoadConfig(aFile: string);
@@ -210,7 +216,7 @@ begin
 
   EmulatorManager.LoadFromFile('');
   SystemManager.LoadFromFile('');
-  SystemManager.UpdateSystemsEmulators(EmulatorManager.EnabledList);
+  UpdateSysEmulators;
 
   CacheData;
 end;
@@ -255,7 +261,7 @@ begin
     aSoftware.CachedSystem.WorkingFolder)) <> '' then
     aFolder := aSoftware.CachedSystem.WorkingFolder
   else
-    aFolder := TempFolder + krsTempGameSubFolder;
+    aFolder := SetAsFolder(TempFolder + aSoftware.CachedSystem.ListFileName) + krsTempGameSubFolder;
 
   //   2.1. If don't exists create new, and delete it at the end.
   NewDir := not DirectoryExistsUTF8(aFolder);
@@ -273,19 +279,24 @@ begin
   //   3.2 Actual extracting, and setting RomFile
   if Compressed then
   begin
-    // If compressed then make a subfolder inside the temp folder
-    aFolder := SetAsFolder(aFolder + ExtractFileNameOnly(CompressedFile));
-
-    NewDir := not DirectoryExistsUTF8(aFolder);
-    if NewDir then
-      ForceDirectoriesUTF8(aFolder);
 
     if aSoftware.CachedSystem.ExtractAll then
+    begin
+      // If ExtractAll then make a subfolder inside the temp folder
+      aFolder := SetAsFolder(aFolder + ExtractFileNameOnly(CompressedFile));
+
+      NewDir := not DirectoryExistsUTF8(aFolder);
+      if NewDir then
+        ForceDirectoriesUTF8(aFolder);
+
       CompError := w7zExtractFile(CompressedFile, AllFilesMask,
         aFolder, True, '')
+    end
     else
+    begin
       CompError := w7zExtractFile(CompressedFile, aSoftware.FileName,
         aFolder, True, '');
+    end;
 
     if CompError <> 0 then
     begin

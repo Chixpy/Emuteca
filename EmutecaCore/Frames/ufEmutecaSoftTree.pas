@@ -474,8 +474,8 @@ procedure TfmEmutecaSoftTree.VDTCompareNodes(Sender: TBaseVirtualTree;
         Result := Trunc(aSoft.Stats.LastTime - aGroup.Stats.LastTime);
       9: // File
         Result := UTF8CompareText(aSoft.FileName, aGroup.MediaFileName);
-        // 10: // Folder
-        //   Result := 0;
+      10: // Folder
+        Result := 1;
       else
         ;
     end;

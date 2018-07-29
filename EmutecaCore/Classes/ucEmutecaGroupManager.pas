@@ -51,7 +51,7 @@ type
     {< Owner, as a shorcut to access it. }
 
     property VisibleList: cEmutecaGroupList read FVisibleList;
-    {< Parents with soft. Updated by System thread on loading. }
+    {< Parents with soft. Updated by System when loading. }
 
     procedure ClearData;
     function AddGroup(aID: string): integer;

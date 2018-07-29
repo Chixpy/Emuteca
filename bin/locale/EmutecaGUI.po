@@ -2,6 +2,7 @@ msgid ""
 msgstr "Content-Type: text/plain; charset=UTF-8"
 
 #: tfmactexportsoftdata.gbxexportfile.caption
+msgctxt "tfmactexportsoftdata.gbxexportfile.caption"
 msgid "Export file"
 msgstr ""
 
@@ -11,6 +12,7 @@ msgid "System info"
 msgstr ""
 
 #: tfmactexportsoftdata.lexportinfo.caption
+msgctxt "tfmactexportsoftdata.lexportinfo.caption"
 msgid "If the file already exists, the data will be merged."
 msgstr ""
 
@@ -577,6 +579,26 @@ msgstr ""
 
 #: tfmemutecaactaddsoft.rgbsoftkey.caption
 msgid "Soft Key"
+msgstr ""
+
+#: tfmemutecaactexportsoftdata.gbxexportfile.caption
+msgctxt "tfmemutecaactexportsoftdata.gbxexportfile.caption"
+msgid "Export file"
+msgstr ""
+
+#: tfmemutecaactexportsoftdata.gbxsysteminfo.caption
+msgctxt "tfmemutecaactexportsoftdata.gbxsysteminfo.caption"
+msgid "System info"
+msgstr ""
+
+#: tfmemutecaactexportsoftdata.lexportinfo.caption
+msgctxt "tfmemutecaactexportsoftdata.lexportinfo.caption"
+msgid "If the file already exists, the data will be merged."
+msgstr ""
+
+#: tfmemutecaactexportsoftdata.lsoftidtype.caption
+msgctxt "tfmemutecaactexportsoftdata.lsoftidtype.caption"
+msgid "Soft ID Type"
 msgstr ""
 
 #: tfmemutecaactimportsoftdata.gbximportfile.caption

@@ -2,6 +2,7 @@ msgid ""
 msgstr "Content-Type: text/plain; charset=UTF-8"
 
 #: tfmactexportsoftdata.gbxexportfile.caption
+msgctxt "tfmactexportsoftdata.gbxexportfile.caption"
 msgid "Export file"
 msgstr "F1chero de exportación"
 
@@ -11,6 +12,7 @@ msgid "System info"
 msgstr "Información del sistema"
 
 #: tfmactexportsoftdata.lexportinfo.caption
+msgctxt "tfmactexportsoftdata.lexportinfo.caption"
 msgid "If the file already exists, the data will be merged."
 msgstr "Si el fichero ya existe, los datos serán combinados."
 
@@ -578,6 +580,30 @@ msgstr ""
 #: tfmemutecaactaddsoft.rgbsoftkey.caption
 msgid "Soft Key"
 msgstr ""
+
+#: tfmemutecaactexportsoftdata.gbxexportfile.caption
+#, fuzzy
+msgctxt "tfmemutecaactexportsoftdata.gbxexportfile.caption"
+msgid "Export file"
+msgstr "F1chero de exportación"
+
+#: tfmemutecaactexportsoftdata.gbxsysteminfo.caption
+#, fuzzy
+msgctxt "tfmemutecaactexportsoftdata.gbxsysteminfo.caption"
+msgid "System info"
+msgstr "Información del sistema"
+
+#: tfmemutecaactexportsoftdata.lexportinfo.caption
+#, fuzzy
+msgctxt "tfmemutecaactexportsoftdata.lexportinfo.caption"
+msgid "If the file already exists, the data will be merged."
+msgstr "Si el fichero ya existe, los datos serán combinados."
+
+#: tfmemutecaactexportsoftdata.lsoftidtype.caption
+#, fuzzy
+msgctxt "tfmemutecaactexportsoftdata.lsoftidtype.caption"
+msgid "Soft ID Type"
+msgstr "Tipo de identificación del soft"
 
 #: tfmemutecaactimportsoftdata.gbximportfile.caption
 msgid "Import file"

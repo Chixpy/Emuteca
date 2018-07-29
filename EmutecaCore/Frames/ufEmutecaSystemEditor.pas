@@ -178,6 +178,9 @@ begin
     Inc(i);
   end;
 
+  // Reloading emulator cache
+  System.LoadEmulatorsFrom(EmuManager.EnabledList);
+
   System.BaseFolder := eBaseFolder.Text;
   System.WorkingFolder := eWorkingFolder.Text;
   system.ExtractAll := chkExtractAllFiles.Checked;

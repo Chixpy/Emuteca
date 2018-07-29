@@ -303,35 +303,40 @@ function TfmETKGUISoftMedia.AddMediaPanel(
   aPanelClass: TfmaETKGUISoftFoldersPreviewClass;
   aHeight: integer): TfmaETKGUISoftFoldersPreview;
 var
-  aPanel: TfmaETKGUISoftFoldersPreview;
+  aPanel: TPanel;
+  aMediaPanel: TfmaETKGUISoftFoldersPreview;
 begin
 
-  aPanel := aPanelClass.Create(ScrollBox1);
+  aPanel := TPanel.Create(ScrollBox1);
+  aMediaPanel := aPanelClass.Create(aPanel);
 
-  //aPanel.LoadGUIConfig();
+  aPanel.Align := alTop;
+  if not (aMediaPanel is TfmETKGUISoftMusicPreview) then
+    aPanel.Height := aHeight;
 
-  if aPanel is TfmETKGUISoftImgPreview then
-    aPanel.FileExt := ImageExt
-  else if aPanel is TfmETKGUISoftTxtPreview then
-    aPanel.FileExt := TextExt
-  else if aPanel is TfmETKGUISoftMusicPreview then
+  //aMediaPanel.LoadGUIConfig();
+
+  if aMediaPanel is TfmETKGUISoftImgPreview then
+    aMediaPanel.FileExt := ImageExt
+  else if aMediaPanel is TfmETKGUISoftTxtPreview then
+    aMediaPanel.FileExt := TextExt
+  else if aMediaPanel is TfmETKGUISoftMusicPreview then
   begin
-    aPanel.FileExt := MusicExt;
-    TfmETKGUISoftMusicPreview(aPanel).MPlayerPath := MPlayerPath;
+    aMediaPanel.FileExt := MusicExt;
+    TfmETKGUISoftMusicPreview(aMediaPanel).MPlayerPath := MPlayerPath;
   end
-  else if aPanel is TfmETKGUISoftVideoPreview then
+  else if aMediaPanel is TfmETKGUISoftVideoPreview then
   begin
-    aPanel.FileExt := VideoExt;
-    TfmETKGUISoftVideoPreview(aPanel).MPlayerPath := MPlayerPath;
+    aMediaPanel.FileExt := VideoExt;
+    TfmETKGUISoftVideoPreview(aMediaPanel).MPlayerPath := MPlayerPath;
   end;
 
-  aPanel.Name := aPanel.Name + IntToStr(ScrollBox1.ComponentCount + 1);
-  if not (aPanel is TfmETKGUISoftMusicPreview) then
-    aPanel.Height := aHeight;
-  aPanel.Align := alTop;
+  aMediaPanel.Align := alClient;
+
+  aMediaPanel.Parent := aPanel;
   aPanel.Parent := ScrollBox1;
 
-  Result := aPanel;
+  Result := aMediaPanel;
 end;
 
 procedure TfmETKGUISoftMedia.DoLoadGUIConfig(aIniFile: TIniFile);
@@ -374,7 +379,7 @@ begin
           aPanel := AddMediaPanel(TfmETKGUISoftVideoPreview, PanelHeight)
         else if CompareText(PanelType, krsIniTextPanelKey) = 0 then
           aPanel := AddMediaPanel(TfmETKGUISoftTxtPreview, PanelHeight)
-        else //if CompareText(PanelType, krsIniImagePanelKey) = 0 then;
+        else if CompareText(PanelType, krsIniImagePanelKey) = 0 then;
           aPanel := AddMediaPanel(TfmETKGUISoftImgPreview, PanelHeight);
 
         aPanel.LastCaption := PanelCaption;

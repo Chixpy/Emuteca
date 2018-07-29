@@ -263,13 +263,11 @@ begin
       if aSystem.Enabled then
       begin
         // Saving soft of previously enabled systems ...
-        // ... if not loaded then not needed.
-        if aSystem.SoftGroupLoaded then
-        begin
+        // ... if not loaded its not saved
+
           Emuteca.SystemManager.SaveSystemData(aSystem, True);
           // Unloading System Data
-          aSystem.ClearData;
-        end;
+          aSystem.UnloadSoftGroupLists;
       end
       else
       begin

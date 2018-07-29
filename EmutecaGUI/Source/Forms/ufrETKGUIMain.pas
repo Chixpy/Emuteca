@@ -443,12 +443,14 @@ begin
   TfmETKGUIEmuManager.SimpleForm(Emuteca.EmulatorManager,
     SHA1Folder, GUIIconsFile, GUIConfig.DefaultFileName);
 
+  Emuteca.UpdateSysEmulators;
+
   fmEmutecaMainFrame.Emuteca := Emuteca;
 end;
 
 procedure TfrmETKGUIMain.actExportSoftDataExecute(Sender: TObject);
 begin
-  TfmActExportSoftData.SimpleForm(Emuteca, GUIIconsFile,
+  TfmEmutecaActExportSoftData.SimpleForm(Emuteca, GUIIconsFile,
     GUIConfig.DefaultFileName);
 end;
 

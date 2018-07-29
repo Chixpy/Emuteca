@@ -58,6 +58,7 @@ type
     lSystemExtensions: TLabel;
     rgbFilename: TRadioGroup;
     rgbGroup: TRadioGroup;
+
   private
     FfmSystemCBX: TfmEmutecaSystemCBX;
     FEmuteca: cEmuteca;
@@ -73,7 +74,6 @@ type
 
   public
     property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
-
 
     // Creates a form with AddFolder frame.
     class function SimpleForm(aEmuteca: cEmuteca; aGUIIconsIni: string;
@@ -97,9 +97,14 @@ begin
   FEmuteca := AValue;
 
   if assigned(Emuteca) then
-    fmSystemCBX.SystemList := Emuteca.SystemManager.EnabledList
+  begin
+    fmSystemCBX.SystemList := Emuteca.SystemManager.EnabledList;
+  end
   else
+  begin
     fmSystemCBX.SystemList := nil;
+  end;
+
   fmSystemCBX.SelectedSystem := nil;
 
   LoadFrameData;
@@ -261,10 +266,9 @@ begin
   Self.Enabled := False;
 
   // Loading data if not already loaded
-  if not aSystem.SoftGroupLoaded then
-    Emuteca.SystemManager.LoadSystemData(aSystem);
+  Emuteca.SystemManager.LoadSystemData(aSystem);
 
-  // Copy actual soft to CacheSoftList
+  // Copy actual soft list to CacheSoftList
   CacheSoftList := cEmutecaSoftList.Create(False);
   CacheSoftList.Assign(aSystem.SoftManager.FullList);
   CacheSoftList.Sort(@EmutecaCompareSoftByFileName);
