@@ -25,8 +25,10 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  ucEmutecaEmulator, ucEmutecaEmulatorList,
-  ufCHXFrame;
+  // CHX frames
+  ufCHXFrame,
+  // Emuteca classes
+  ucEmutecaEmulator, ucEmutecaEmulatorList;
 
 type
 

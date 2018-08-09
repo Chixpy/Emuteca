@@ -1,4 +1,4 @@
-{ System preview frame of Emuteca GUI
+{ System (and emulator) preview frame of Emuteca GUI
 
   Copyright (C) 2011-2017 Chixpy
 
@@ -46,15 +46,19 @@ type
   TfmETKGUISysPreview = class(TfmCHXFrame)
     actOpenSystemFolder: TAction;
     ActionList: TActionList;
-    eNSoft: TEdit;
-    eNGroups: TEdit;
+    eEmuLastTime: TEdit;
+    eSysNSoft: TEdit;
+    eSysNGroups: TEdit;
+    eEmuPlayedTime: TEdit;
+    eEmuNTimes: TEdit;
     gbxEmulator: TGroupBox;
     ilActions: TImageList;
-    eLastTime: TEdit;
-    eNTimes: TEdit;
-    ePlayedTime: TEdit;
+    eSysLastTime: TEdit;
+    eSysNTimes: TEdit;
+    eSysPlayedTime: TEdit;
     gbxStats: TGroupBox;
     lSystemTitle: TLabel;
+    pEmulator: TPanel;
     pSysImage: TPanel;
     Splitter1: TSplitter;
     SysImage: TImage;
@@ -62,14 +66,20 @@ type
     ToolButton1: TToolButton;
     procedure actOpenSystemFolderExecute(Sender: TObject);
     procedure SysImageDblClick(Sender: TObject);
+
   private
+    FCurrentEmu: cEmutecaEmulator;
     FfEmulatorCBX: TfmEmutecaEmulatorCBX;
     FGUIConfigIni: string;
     FGUIIconsIni: string;
+    FOnChangeEmulator: TEmutecaReturnEmulatorCB;
     FSHA1Folder: string;
     FSystem: cEmutecaSystem;
+    procedure SetCurrentEmu(const aCurrentEmu: cEmutecaEmulator);
     procedure SetGUIConfigIni(AValue: string);
     procedure SetGUIIconsIni(AValue: string);
+    procedure SetOnChangeEmulator(
+      const aOnSelectEmulator: TEmutecaReturnEmulatorCB);
     procedure SetSHA1Folder(AValue: string);
     procedure SetSystem(AValue: cEmutecaSystem);
 
@@ -90,7 +100,13 @@ type
   public
     property System: cEmutecaSystem read FSystem write SetSystem;
 
+    property CurrentEmu: cEmutecaEmulator read FCurrentEmu write SetCurrentEmu;
+
     property SHA1Folder: string read FSHA1Folder write SetSHA1Folder;
+
+    property OnChangeEmulator: TEmutecaReturnEmulatorCB
+      read FOnChangeEmulator write SetOnChangeEmulator;
+    {< Callback when selecting an emulator. }
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -112,7 +128,7 @@ end;
 
 procedure TfmETKGUISysPreview.SysImageDblClick(Sender: TObject);
 begin
-    if not Assigned(System) then
+  if not Assigned(System) then
     Exit;
 
   if FileExistsUTF8(System.ImageFile) then
@@ -129,11 +145,12 @@ begin
   LoadFrameData;
 end;
 
-function TfmETKGUISysPreview.DoSelectEmulator(aEmulator: cEmutecaEmulator
-  ): boolean;
+function TfmETKGUISysPreview.DoSelectEmulator(aEmulator:
+  cEmutecaEmulator): boolean;
 begin
   Result := True;
-  System.CurrentEmulator := aEmulator;
+
+  Self.CurrentEmu := aEmulator;
 end;
 
 procedure TfmETKGUISysPreview.DoLoadGUIIcons(aIconsIni: TIniFile;
@@ -146,14 +163,16 @@ begin
 end;
 
 constructor TfmETKGUISysPreview.Create(TheOwner: TComponent);
+
   procedure CreateFrames;
   begin
-    FfEmulatorCBX := TfmEmutecaEmulatorCBX.Create(gbxEmulator);
+    FfEmulatorCBX := TfmEmutecaEmulatorCBX.Create(pEmulator);
 
     fEmulatorCBX.OnSelectEmulator := @DoSelectEmulator;
     fEmulatorCBX.Align := alClient;
-    fEmulatorCBX.Parent := gbxEmulator;
+    fEmulatorCBX.Parent := pEmulator;
   end;
+
 begin
   inherited Create(TheOwner);
 
@@ -183,9 +202,44 @@ begin
   FGUIConfigIni := SetAsFile(AValue);
 end;
 
+procedure TfmETKGUISysPreview.SetCurrentEmu(
+  const aCurrentEmu: cEmutecaEmulator);
+begin
+  if FCurrentEmu = aCurrentEmu then
+    Exit;
+  FCurrentEmu := aCurrentEmu;
+
+  fEmulatorCBX.SelectedEmulator := aCurrentEmu;
+
+  if assigned(aCurrentEmu) then
+  begin
+    eEmuPlayedTime.Text := aCurrentEmu.Stats.PlayingTimeStr;
+    eEmuNTimes.Text := aCurrentEmu.Stats.TimesPlayedStr;
+    eEmuLastTime.Text := aCurrentEmu.Stats.LastTimeStr;
+  end
+  else
+  begin
+    eEmuPlayedTime.Clear;
+    eEmuNTimes.Clear;
+    eEmuLastTime.Clear;
+  end;
+
+  if Assigned(OnChangeEmulator) then
+    {Var := } OnChangeEmulator(aCurrentEmu);
+
+end;
+
 procedure TfmETKGUISysPreview.SetGUIIconsIni(AValue: string);
 begin
   FGUIIconsIni := SetAsFile(AValue);
+end;
+
+procedure TfmETKGUISysPreview.SetOnChangeEmulator(
+  const aOnSelectEmulator: TEmutecaReturnEmulatorCB);
+begin
+  if FOnChangeEmulator = aOnSelectEmulator then
+    Exit;
+  FOnChangeEmulator := aOnSelectEmulator;
 end;
 
 procedure TfmETKGUISysPreview.DoClearFrameData;
@@ -193,13 +247,16 @@ begin
   SysImage.Picture.Clear;
 
   lSystemTitle.Caption := 'System';
-  eNSoft.Clear;
-  eNGroups.Clear;
-  ePlayedTime.Clear;
-  eNTimes.Clear;
-  eLastTime.Clear;
+  eSysNSoft.Clear;
+  eSysNGroups.Clear;
+  eSysPlayedTime.Clear;
+  eSysNTimes.Clear;
+  eSysLastTime.Clear;
 
   fEmulatorCBX.EmulatorList := nil;
+  eEmuPlayedTime.Clear;
+  eEmuNTimes.Clear;
+  eEmuLastTime.Clear;
 end;
 
 procedure TfmETKGUISysPreview.DoLoadFrameData;
@@ -221,12 +278,13 @@ begin
   fEmulatorCBX.SelectedEmulator := System.CurrentEmulator;
 
   lSystemTitle.Caption := System.Title;
-  eNSoft.Text := Format(rsFmtNVersions, [System.SoftManager.FullList.Count]);
-  eNGroups.Text := Format(rsFmtNGroups,
+  eSysNSoft.Text := Format(rsFmtNVersions,
+    [System.SoftManager.FullList.Count]);
+  eSysNGroups.Text := Format(rsFmtNGroups,
     [System.GroupManager.VisibleList.Count]);
-  ePlayedTime.Text := System.Stats.PlayingTimeStr;
-  eNTimes.Text := System.Stats.TimesPlayedStr;
-  eLastTime.Text := System.Stats.LastTimeStr;
+  eSysPlayedTime.Text := System.Stats.PlayingTimeStr;
+  eSysNTimes.Text := System.Stats.TimesPlayedStr;
+  eSysLastTime.Text := System.Stats.LastTimeStr;
 
 end;
 

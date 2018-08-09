@@ -34,7 +34,7 @@ uses
   uEmutecaCommon,
   // Emuteca clases
   ucEmuteca, ucEmutecaSystem, ucEmutecaGroupList, ucEmutecaGroup,
-  ucEmutecaSoftware,
+  ucEmutecaSoftware, ucEmutecaEmulator,
   // Emuteca frames
   ufEmutecaSystemCBX,
   // Emuteca GUI units
@@ -78,6 +78,7 @@ type
     FfmSystemPanel: TfmETKGUISysPreview;
     FFullGroupList: cEmutecaGroupList;
     FGUIConfig: cETKGUIConfig;
+    FOnEmulatorChanged: TEmutecaReturnEmulatorCB;
     FOnGroupChanged: TEmutecaReturnGroupCB;
     FOnGrpListChanged: TEmutecaReturnGrpLstCB;
     FOnSoftChanged: TEmutecaReturnSoftCB;
@@ -93,6 +94,8 @@ type
     procedure SetDumpIcons(AValue: cCHXImageList);
     procedure SetEmuteca(AValue: cEmuteca);
     procedure SetGUIConfig(AValue: cETKGUIConfig);
+    procedure SetOnEmulatorChanged(
+      const aOnEmulatorChanged: TEmutecaReturnEmulatorCB);
     procedure SetOnGroupChanged(AValue: TEmutecaReturnGroupCB);
     procedure SetOnGrpListChanged(AValue: TEmutecaReturnGrpLstCB);
     procedure SetOnSoftChanged(AValue: TEmutecaReturnSoftCB);
@@ -133,6 +136,8 @@ type
     //< Select a software
     function DoDblClkSoftware(aSoftware: cEmutecaSoftware): boolean;
     //< Double click on Software
+        function DoSelectEmu(aEmulator: cEmutecaEmulator): boolean;
+    //< Select a emulator
     procedure CheckTags(aList: TStrings);
     //< Check Tags
 
@@ -160,10 +165,12 @@ type
       read FOnGrpListChanged write SetOnGrpListChanged;
     property OnGroupChanged: TEmutecaReturnGroupCB
       read FOnGroupChanged write SetOnGroupChanged;
+    {< Callback when selecting a group. }
     property OnSoftChanged: TEmutecaReturnSoftCB
       read FOnSoftChanged write SetOnSoftChanged;
     property OnSoftDblClk: TEmutecaReturnSoftCB
       read FOnSoftDblClk write SetOnSoftDblClk;
+    property OnEmulatorChanged: TEmutecaReturnEmulatorCB read FOnEmulatorChanged write SetOnEmulatorChanged;
 
     property pmSoft: TPopupMenu read FpmSoft write SetpmSoft;
     property pmGroup: TPopupMenu read FpmGroup write SetpmGroup;
@@ -306,6 +313,13 @@ begin
   LoadFrameData;
 end;
 
+procedure TfmETKGUIMain.SetOnEmulatorChanged(
+  const aOnEmulatorChanged: TEmutecaReturnEmulatorCB);
+begin
+  if FOnEmulatorChanged = aOnEmulatorChanged then Exit;
+  FOnEmulatorChanged := aOnEmulatorChanged;
+end;
+
 procedure TfmETKGUIMain.SetOnGroupChanged(AValue: TEmutecaReturnGroupCB);
 begin
   if FOnGroupChanged = AValue then
@@ -430,6 +444,16 @@ begin
     Result := OnSoftDblClk(aSoftware);
 end;
 
+function TfmETKGUIMain.DoSelectEmu(aEmulator: cEmutecaEmulator): boolean;
+begin
+  Result := True;
+
+  CurrentSystem.CurrentEmulator := aEmulator;
+
+  if Assigned(OnEmulatorChanged) then
+    Result := OnEmulatorChanged(aEmulator);
+end;
+
 procedure TfmETKGUIMain.CheckTags(aList: TStrings);
 begin
 
@@ -495,6 +519,7 @@ constructor TfmETKGUIMain.Create(TheOwner: TComponent);
     aTabSheet := pcLeft.AddTabSheet;
     FfmSystemPanel := TfmETKGUISysPreview.Create(aTabSheet);
     aTabSheet.Caption := rsSystemCaption;
+    fmSystemPanel.OnChangeEmulator := @DoSelectEmu;
     fmSystemPanel.Align := alClient;
     fmSystemPanel.Parent := aTabSheet;
 

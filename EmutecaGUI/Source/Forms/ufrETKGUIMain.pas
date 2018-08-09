@@ -41,7 +41,7 @@ uses
   uEmutecaCommon,
   // Emuteca clases
   ucEmuteca, ucEmutecaSystem, ucEmutecaGroupList, ucEmutecaGroup,
-  ucEmutecaSoftware, ucEmutecaSoftList,
+  ucEmutecaSoftware, ucEmutecaSoftList, ucEmutecaEmulator,
   // Emuteca frames
   ufEmutecaActAddSoft, ufEmutecaActAddFolder, ufEmutecaActExportSoftData,
   ufEmutecaActImportSoftData,
@@ -51,7 +51,8 @@ uses
   ucETKGUIConfig,
   // Emuteca GUI frames
   ufETKGUIMain, ufETKGUISysManager, ufETKGUIEmuManager, ufETKGUIMediaManager,
-  ufETKGUIScriptManager, ufETKGUIFullSysEditor, ufETKGUIactMergeGroup,
+  ufETKGUIScriptManager, ufETKGUIFullSysEditor, ufETKGUIFullEmuEditor,
+  ufETKGUIactMergeGroup,
   // Emuteca GUI forms
   ufrETKGUIAbout,
   // Emuteca GUI threads
@@ -169,6 +170,7 @@ type
     FCacheGrpIconsThread: ctEGUICacheGrpIcons;
     FCacheSoftIconsThread: ctEGUICacheSoftIcons;
     FCacheSysIconsThread: ctEGUICacheSysIcons;
+    FCurrentEmu: cEmutecaEmulator;
     FCurrentGroup: cEmutecaGroup;
     FCurrentSoft: cEmutecaSoftware;
     FCurrentSystem: cEmutecaSystem;
@@ -186,6 +188,7 @@ type
     procedure SetCacheGrpIconsThread(AValue: ctEGUICacheGrpIcons);
     procedure SetCacheSoftIconsThread(AValue: ctEGUICacheSoftIcons);
     procedure SetCacheSysIconsThread(AValue: ctEGUICacheSysIcons);
+    procedure SetCurrentEmu(const aCurrentEmu: cEmutecaEmulator);
     procedure SetCurrentGroup(AValue: cEmutecaGroup);
     procedure SetCurrentSoft(AValue: cEmutecaSoftware);
     procedure SetCurrentSystem(AValue: cEmutecaSystem);
@@ -217,6 +220,7 @@ type
       write SetCurrentGroup;
     property CurrentSoft: cEmutecaSoftware
       read FCurrentSoft write SetCurrentSoft;
+    property CurrentEmu: cEmutecaEmulator read FCurrentEmu write SetCurrentEmu;
 
 
     property SHA1Folder: string read FSHA1Folder write SetSHA1Folder;
@@ -257,8 +261,10 @@ type
     function DoChangeGrpList(aGroupList: cEmutecaGroupList): boolean;
     function DoChangeGroup(aGroup: cEmutecaGroup): boolean;
     function DoChangeSoft(aSoft: cEmutecaSoftware): boolean;
+    function DoChangeEmu(aEmulator: cEmutecaEmulator): boolean;
 
-    procedure DoLoadGUIIcons(aIniFile: TIniFile; const aBaseFolder: string); virtual;
+    procedure DoLoadGUIIcons(aIniFile: TIniFile;
+      const aBaseFolder: string); virtual;
 
 
   public
@@ -298,7 +304,8 @@ end;
 procedure TfrmETKGUIMain.FormCreate(Sender: TObject);
 begin
   // Usually it's autodeleted in .lpr file...
-  Application.Title := Format(rsFmtApplicationTitle, [Application.Title, GetFileVersion]);
+  Application.Title := Format(rsFmtApplicationTitle,
+    [Application.Title, GetFileVersion]);
 
   BaseFolder := ExtractFileDir(ExcludeTrailingPathDelimiter(ProgramDirectory));
   ChDir(BaseFolder);
@@ -512,22 +519,11 @@ end;
 
 procedure TfrmETKGUIMain.actEditEmulatorExecute(Sender: TObject);
 begin
-  if not assigned(CurrentSystem) then
+  if not assigned(CurrentEmu) then
     Exit;
 
-
   // TODO
-  {
-  // Fix runtime errors, while trying to update if something is changed
-  fmEmutecaMainFrame.Emuteca := nil;
-
-
-  //TfmLEmuTKFullSystemEditor.SimpleForm(Emuteca, CurrentSystem, SHA1Folder,
-    GUIIconsFile, GUIConfig.ConfigFile);
-  //LoadSystemsIcons;
-
-  fmEmutecaMainFrame.Emuteca := Emuteca;
-  }
+  // TfmETKGUIFullEmuEditor.SimpleForm(Emuteca, CurrentEmu, GUIIconsFile, GUIConfig);
 end;
 
 procedure TfrmETKGUIMain.actEditSystemExecute(Sender: TObject);
@@ -661,6 +657,13 @@ begin
   if FCacheSysIconsThread = AValue then
     Exit;
   FCacheSysIconsThread := AValue;
+end;
+
+procedure TfrmETKGUIMain.SetCurrentEmu(const aCurrentEmu: cEmutecaEmulator);
+begin
+  if FCurrentEmu = aCurrentEmu then
+    Exit;
+  FCurrentEmu := aCurrentEmu;
 end;
 
 procedure TfrmETKGUIMain.SetCurrentSoft(AValue: cEmutecaSoftware);
@@ -949,16 +952,21 @@ begin
   CurrentSoft := aSoft;
 end;
 
+function TfrmETKGUIMain.DoChangeEmu(aEmulator: cEmutecaEmulator): boolean;
+begin
+  CurrentEmu := aEmulator;
+end;
+
 procedure TfrmETKGUIMain.DoLoadGUIIcons(aIniFile: TIniFile;
   const aBaseFolder: string);
 begin
-   // Icons for TActions
-   ReadActionsIconsIni(aIniFile, aBaseFolder, Name, ActImages, ActionList);
+  // Icons for TActions
+  ReadActionsIconsIni(aIniFile, aBaseFolder, Name, ActImages, ActionList);
 
-   // Icons for menus (without assigned TAction)
-   ReadMenuIconsIni(aIniFile,aBaseFolder, Name, ActImages, MainMenu);
-    ReadMenuIconsIni(aIniFile, aBaseFolder, Name, ActImages, pmGroup);
-     ReadMenuIconsIni(aIniFile, aBaseFolder, Name, ActImages, pmSoft);
+  // Icons for menus (without assigned TAction)
+  ReadMenuIconsIni(aIniFile, aBaseFolder, Name, ActImages, MainMenu);
+  ReadMenuIconsIni(aIniFile, aBaseFolder, Name, ActImages, pmGroup);
+  ReadMenuIconsIni(aIniFile, aBaseFolder, Name, ActImages, pmSoft);
 end;
 
 constructor TfrmETKGUIMain.Create(TheOwner: TComponent);

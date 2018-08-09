@@ -122,7 +122,7 @@ begin
   if Assigned(GetSoftSHA1Thread.FatalException) then
     raise GetSoftSHA1Thread.FatalException;
   GetSoftSHA1Thread.OnTerminate := @GetSoftSHA1ThreadThreadTerminated;
-  //Autonil
+  //< Autonil
 
   GetSoftSHA1Thread.TempFolder := TempFolder;
   GetSoftSHA1Thread.SystemManager := SystemManager;

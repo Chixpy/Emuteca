@@ -1353,23 +1353,43 @@ msgstr ""
 msgid "Open system folder|Opens the system base folder"
 msgstr ""
 
-#: tfmetkguisyspreview.elasttime.texthint
+#: tfmetkguisyspreview.eemulasttime.texthint
+msgctxt "tfmetkguisyspreview.eemulasttime.texthint"
 msgid "Last time played"
 msgstr ""
 
-#: tfmetkguisyspreview.engroups.texthint
-msgid "# Groups"
-msgstr ""
-
-#: tfmetkguisyspreview.ensoft.texthint
-msgid "# Software"
-msgstr ""
-
-#: tfmetkguisyspreview.entimes.texthint
+#: tfmetkguisyspreview.eemuntimes.texthint
+msgctxt "tfmetkguisyspreview.eemuntimes.texthint"
 msgid "# Times"
 msgstr ""
 
-#: tfmetkguisyspreview.eplayedtime.texthint
+#: tfmetkguisyspreview.eemuplayedtime.texthint
+msgctxt "tfmetkguisyspreview.eemuplayedtime.texthint"
+msgid "Played Time"
+msgstr ""
+
+#: tfmetkguisyspreview.esyslasttime.texthint
+msgctxt "tfmetkguisyspreview.esyslasttime.texthint"
+msgid "Last time played"
+msgstr ""
+
+#: tfmetkguisyspreview.esysngroups.texthint
+msgctxt "tfmetkguisyspreview.esysngroups.texthint"
+msgid "# Groups"
+msgstr ""
+
+#: tfmetkguisyspreview.esysnsoft.texthint
+msgctxt "tfmetkguisyspreview.esysnsoft.texthint"
+msgid "# Software"
+msgstr ""
+
+#: tfmetkguisyspreview.esysntimes.texthint
+msgctxt "tfmetkguisyspreview.esysntimes.texthint"
+msgid "# Times"
+msgstr ""
+
+#: tfmetkguisyspreview.esysplayedtime.texthint
+msgctxt "tfmetkguisyspreview.esysplayedtime.texthint"
 msgid "Played Time"
 msgstr ""
 

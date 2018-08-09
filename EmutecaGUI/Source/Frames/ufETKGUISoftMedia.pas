@@ -97,6 +97,13 @@ type
     function AddMediaPanel(aPanelClass: TfmaETKGUISoftFoldersPreviewClass;
       aHeight: integer): TfmaETKGUISoftFoldersPreview;
 
+    procedure UpdateChildrenConfig(aComponent: TComponent);
+    //< Updates config of all childrens: Extensions and paths
+    procedure UpdateChildrenGroup(aComponent: TComponent);
+    //< Updates group of all childrens.
+    procedure UpdateChildrenSoft(aComponent: TComponent);
+    //< Updates soft of all childrens.
+
     procedure DoLoadGUIConfig(aIniFile: TIniFile);
     procedure DoSaveGUIConfig(aIniFile: TIniFile);
     procedure DoLoadGUIIcons(aIconsIni: TIniFile; const aBaseFolder: string);
@@ -147,156 +154,85 @@ end;
 
 procedure TfmETKGUISoftMedia.actClearPanelsExecute(Sender: TObject);
 begin
+  // Maybe the is a better way to delete panels...
   while ScrollBox1.ComponentCount > 0 do
     ScrollBox1.Components[0].Free;
 end;
 
 procedure TfmETKGUISoftMedia.SetGroup(AValue: cEmutecaGroup);
-var
-  i: integer;
 begin
   if FGroup = AValue then
     Exit;
   FGroup := AValue;
 
-  i := 0;
-  while i < ScrollBox1.ComponentCount do
-  begin
-    if ScrollBox1.Components[i] is TfmaETKGUISoftFoldersPreview then
-      TfmaETKGUISoftFoldersPreview(ScrollBox1.Components[i]).Group := Group;
-    Inc(i);
-  end;
+  UpdateChildrenGroup(ScrollBox1);
 
   LoadFrameData;
 end;
 
 procedure TfmETKGUISoftMedia.SetImageExt(AValue: TStrings);
-var
-  i: integer;
 begin
   if FImageExt = AValue then
     Exit;
   FImageExt := AValue;
 
-  i := 0;
-  while i < ScrollBox1.ComponentCount do
-  begin
-    if ScrollBox1.Components[i] is TfmETKGUISoftImgPreview then
-      TfmETKGUISoftImgPreview(ScrollBox1.Components[i]).FileExt := ImageExt;
-    Inc(i);
-  end;
+  UpdateChildrenConfig(ScrollBox1);
 end;
 
 procedure TfmETKGUISoftMedia.SetMPlayerPath(const aMPlayerPath: string);
-var
-  i: integer;
 begin
   if FMPlayerPath = aMPlayerPath then
     Exit;
   FMPlayerPath := aMPlayerPath;
 
-
-  i := 0;
-  while i < ScrollBox1.ComponentCount do
-  begin
-    if ScrollBox1.Components[i] is TfmETKGUISoftMusicPreview then
-      TfmETKGUISoftMusicPreview(ScrollBox1.Components[i]).MPlayerPath :=
-        MPlayerPath
-    else if ScrollBox1.Components[i] is TfmETKGUISoftVideoPreview then
-      TfmETKGUISoftVideoPreview(ScrollBox1.Components[i]).MPlayerPath :=
-        MPlayerPath;
-    Inc(i);
-  end;
+  UpdateChildrenConfig(ScrollBox1);
 end;
 
 procedure TfmETKGUISoftMedia.SetMusicExt(const aMusicExt: TStrings);
-var
-  i: integer;
 begin
   if FMusicExt = aMusicExt then
     Exit;
   FMusicExt := aMusicExt;
 
-
-  i := 0;
-  while i < ScrollBox1.ComponentCount do
-  begin
-    if ScrollBox1.Components[i] is TfmETKGUISoftMusicPreview then
-      TfmETKGUISoftMusicPreview(ScrollBox1.Components[i]).FileExt := MusicExt;
-    Inc(i);
-  end;
+  UpdateChildrenConfig(ScrollBox1);
 end;
 
 procedure TfmETKGUISoftMedia.SetSHA1Folder(const AValue: string);
-var
-  i: integer;
 begin
   if FSHA1Folder = AValue then
     Exit;
   FSHA1Folder := AValue;
 
-  i := 0;
-  while i < ScrollBox1.ComponentCount do
-  begin
-    if ScrollBox1.Components[i] is TfmETKGUISoftImgPreview then
-      TfmETKGUISoftImgPreview(ScrollBox1.Components[i]).SHA1Folder :=
-        SHA1Folder;
-    Inc(i);
-  end;
+  UpdateChildrenConfig(ScrollBox1);
 end;
 
 procedure TfmETKGUISoftMedia.SetSoftware(AValue: cEmutecaSoftware);
-var
-  i: integer;
 begin
   if FSoftware = AValue then
     Exit;
   FSoftware := AValue;
 
-  i := 0;
-  while i < ScrollBox1.ComponentCount do
-  begin
-    if ScrollBox1.Components[i] is TfmaETKGUISoftFoldersPreview then
-      TfmaETKGUISoftFoldersPreview(ScrollBox1.Components[i]).Software :=
-        Software;
-    Inc(i);
-  end;
+  UpdateChildrenSoft(ScrollBox1);
 
   LoadFrameData;
 end;
 
 procedure TfmETKGUISoftMedia.SetTextExt(AValue: TStrings);
-var
-  i: integer;
 begin
   if FTextExt = AValue then
     Exit;
   FTextExt := AValue;
 
-  i := 0;
-  while i < ScrollBox1.ComponentCount do
-  begin
-    if ScrollBox1.Components[i] is TfmETKGUISoftTxtPreview then
-      TfmETKGUISoftTxtPreview(ScrollBox1.Components[i]).FileExt := TextExt;
-    Inc(i);
-  end;
+  UpdateChildrenConfig(ScrollBox1);
 end;
 
 procedure TfmETKGUISoftMedia.SetVideoExt(const aVideoExt: TStrings);
-var
-  i: integer;
 begin
   if FVideoExt = aVideoExt then
     Exit;
   FVideoExt := aVideoExt;
 
-  i := 0;
-  while i < ScrollBox1.ComponentCount do
-  begin
-    if ScrollBox1.Components[i] is TfmETKGUISoftVideoPreview then
-      TfmETKGUISoftVideoPreview(ScrollBox1.Components[i]).FileExt := VideoExt;
-    Inc(i);
-  end;
+  UpdateChildrenConfig(ScrollBox1);
 end;
 
 function TfmETKGUISoftMedia.AddMediaPanel(
@@ -316,20 +252,7 @@ begin
 
   //aMediaPanel.LoadGUIConfig();
 
-  if aMediaPanel is TfmETKGUISoftImgPreview then
-    aMediaPanel.FileExt := ImageExt
-  else if aMediaPanel is TfmETKGUISoftTxtPreview then
-    aMediaPanel.FileExt := TextExt
-  else if aMediaPanel is TfmETKGUISoftMusicPreview then
-  begin
-    aMediaPanel.FileExt := MusicExt;
-    TfmETKGUISoftMusicPreview(aMediaPanel).MPlayerPath := MPlayerPath;
-  end
-  else if aMediaPanel is TfmETKGUISoftVideoPreview then
-  begin
-    aMediaPanel.FileExt := VideoExt;
-    TfmETKGUISoftVideoPreview(aMediaPanel).MPlayerPath := MPlayerPath;
-  end;
+  UpdateChildrenConfig(aPanel);
 
   aMediaPanel.Align := alClient;
 
@@ -337,6 +260,96 @@ begin
   aPanel.Parent := ScrollBox1;
 
   Result := aMediaPanel;
+end;
+
+procedure TfmETKGUISoftMedia.UpdateChildrenConfig(aComponent: TComponent);
+var
+  aChild: TComponent;
+  i: integer;
+begin
+  if aComponent.ComponentCount = 0 then
+    Exit;
+
+  i := 0;
+  while i < aComponent.ComponentCount do
+  begin
+    aChild := aComponent.Components[i];
+
+    if (aChild is TfmaETKGUISoftFoldersPreview) then
+    begin
+      if (aChild is TfmETKGUISoftImgPreview) then
+      begin
+        TfmETKGUISoftImgPreview(aChild).FileExt := ImageExt;
+        TfmETKGUISoftImgPreview(aChild).SHA1Folder := SHA1Folder;
+      end
+      else if (aChild is TfmETKGUISoftTxtPreview) then
+      begin
+        TfmETKGUISoftTxtPreview(aChild).FileExt := TextExt;
+      end
+      else if (aChild is TfmETKGUISoftVideoPreview) then
+      begin
+        TfmETKGUISoftVideoPreview(aChild).FileExt := VideoExt;
+        TfmETKGUISoftVideoPreview(aChild).MPlayerPath := MPlayerPath;
+      end
+      else if (aChild is TfmETKGUISoftMusicPreview) then
+      begin
+        TfmETKGUISoftMusicPreview(aChild).FileExt := MusicExt;
+        TfmETKGUISoftMusicPreview(aChild).MPlayerPath := MPlayerPath;
+      end;
+    end
+    else
+      UpdateChildrenConfig(aChild);
+
+    Inc(i);
+  end;
+end;
+
+procedure TfmETKGUISoftMedia.UpdateChildrenGroup(aComponent: TComponent);
+var
+  aChild: TComponent;
+  i: integer;
+begin
+  if aComponent.ComponentCount = 0 then
+    Exit;
+
+  i := 0;
+  while i < aComponent.ComponentCount do
+  begin
+    aChild := aComponent.Components[i];
+
+    if (aChild is TfmaETKGUISoftFoldersPreview) then
+    begin
+      TfmaETKGUISoftFoldersPreview(aChild).Group := Group;
+    end
+    else
+      UpdateChildrenGroup(aChild);
+
+    Inc(i);
+  end;
+end;
+
+procedure TfmETKGUISoftMedia.UpdateChildrenSoft(aComponent: TComponent);
+var
+  aChild: TComponent;
+  i: integer;
+begin
+  if aComponent.ComponentCount = 0 then
+    Exit;
+
+  i := 0;
+  while i < aComponent.ComponentCount do
+  begin
+    aChild := aComponent.Components[i];
+
+    if (aChild is TfmaETKGUISoftFoldersPreview) then
+    begin
+      TfmaETKGUISoftFoldersPreview(aChild).Software := Software;
+    end
+    else
+      UpdateChildrenSoft(aChild);
+
+    Inc(i);
+  end;
 end;
 
 procedure TfmETKGUISoftMedia.DoLoadGUIConfig(aIniFile: TIniFile);
@@ -362,28 +375,26 @@ begin
     i := 0;
     while i < NPanels do
     begin
-
+      aPanel := nil;
       PanelType := aIniFile.ReadString(krsIniSoftMediaFrameSection,
         Format(krsIniSoftMediaPanelType, [i]), krsIniUnknownPanelKey);
 
-      if CompareText(PanelType, krsIniUnknownPanelKey) <> 0 then
-      begin
-        PanelHeight := aIniFile.ReadInteger(krsIniSoftMediaFrameSection,
-          Format(krsIniSoftMediaPanelHeight, [i]), ScrollBox1.ClientWidth);
-        PanelCaption := aIniFile.ReadString(krsIniSoftMediaFrameSection,
-          Format(krsIniSoftMediaPanelCaption, [i]), '');
+      PanelHeight := aIniFile.ReadInteger(krsIniSoftMediaFrameSection,
+        Format(krsIniSoftMediaPanelHeight, [i]), ScrollBox1.ClientWidth);
+      PanelCaption := aIniFile.ReadString(krsIniSoftMediaFrameSection,
+        Format(krsIniSoftMediaPanelCaption, [i]), '');
 
-        if CompareText(PanelType, krsIniMusicPanelKey) = 0 then
-          aPanel := AddMediaPanel(TfmETKGUISoftMusicPreview, PanelHeight)
-        else if CompareText(PanelType, krsIniVideoPanelKey) = 0 then
-          aPanel := AddMediaPanel(TfmETKGUISoftVideoPreview, PanelHeight)
-        else if CompareText(PanelType, krsIniTextPanelKey) = 0 then
-          aPanel := AddMediaPanel(TfmETKGUISoftTxtPreview, PanelHeight)
-        else if CompareText(PanelType, krsIniImagePanelKey) = 0 then;
-          aPanel := AddMediaPanel(TfmETKGUISoftImgPreview, PanelHeight);
+      if CompareText(PanelType, krsIniMusicPanelKey) = 0 then
+        aPanel := AddMediaPanel(TfmETKGUISoftMusicPreview, PanelHeight)
+      else if CompareText(PanelType, krsIniVideoPanelKey) = 0 then
+        aPanel := AddMediaPanel(TfmETKGUISoftVideoPreview, PanelHeight)
+      else if CompareText(PanelType, krsIniTextPanelKey) = 0 then
+        aPanel := AddMediaPanel(TfmETKGUISoftTxtPreview, PanelHeight)
+      else if CompareText(PanelType, krsIniImagePanelKey) = 0 then
+        aPanel := AddMediaPanel(TfmETKGUISoftImgPreview, PanelHeight);
 
+      if Assigned(aPanel) then
         aPanel.LastCaption := PanelCaption;
-      end;
 
       Inc(i);
     end;
@@ -393,7 +404,8 @@ end;
 procedure TfmETKGUISoftMedia.DoSaveGUIConfig(aIniFile: TIniFile);
 var
   i: integer;
-  aPanel: TfmaETKGUISoftFoldersPreview;
+  aPanel: TPanel;
+  aPreview: TfmaETKGUISoftFoldersPreview;
 begin
   aIniFile.WriteInteger(krsIniSoftMediaFrameSection,
     krsIniSoftMediaNPanels, ScrollBox1.ComponentCount);
@@ -401,31 +413,42 @@ begin
   i := 0;
   while i < ScrollBox1.ComponentCount do
   begin
-    if ScrollBox1.Components[i] is TfmaETKGUISoftFoldersPreview then
+    // Previews are inside TPanels
+    if ScrollBox1.Components[i] is TPanel then
     begin
-      aPanel := TfmaETKGUISoftFoldersPreview(ScrollBox1.Components[i]);
+      aPanel := TPanel(ScrollBox1.Components[i]);
 
-      if aPanel is TfmETKGUISoftMusicPreview then
-        aIniFile.WriteString(krsIniSoftMediaFrameSection,
-          Format(krsIniSoftMediaPanelType, [i]), krsIniMusicPanelKey)
-      else if aPanel is TfmETKGUISoftVideoPreview then
-        aIniFile.WriteString(krsIniSoftMediaFrameSection,
-          Format(krsIniSoftMediaPanelType, [i]), krsIniVideoPanelKey)
-      else if aPanel is TfmETKGUISoftImgPreview then
-        aIniFile.WriteString(krsIniSoftMediaFrameSection,
-          Format(krsIniSoftMediaPanelType, [i]), krsIniImagePanelKey)
-      else if aPanel is TfmETKGUISoftTxtPreview then
-        aIniFile.WriteString(krsIniSoftMediaFrameSection,
-          Format(krsIniSoftMediaPanelType, [i]), krsIniTextPanelKey);
+    { It's supposed that aPanel have only one component and is a
+         TfmaETKGUISoftFoldersPreview... }
 
-      aIniFile.WriteInteger(krsIniSoftMediaFrameSection,
-        Format(krsIniSoftMediaPanelHeight, [i]), aPanel.Height);
-      aIniFile.WriteString(krsIniSoftMediaFrameSection,
-        Format(krsIniSoftMediaPanelCaption, [i]), aPanel.LastCaption);
-    end
-    else
-      aIniFile.WriteString(krsIniSoftMediaFrameSection,
-        Format(krsIniSoftMediaPanelType, [i]), krsIniUnknownPanelKey);
+      if (aPanel.ComponentCount > 0) and (aPanel.Components[0] is
+        TfmaETKGUISoftFoldersPreview) then
+      begin
+        aPreview := TfmaETKGUISoftFoldersPreview(aPanel.Components[0]);
+
+        if aPreview is TfmETKGUISoftMusicPreview then
+          aIniFile.WriteString(krsIniSoftMediaFrameSection,
+            Format(krsIniSoftMediaPanelType, [i]), krsIniMusicPanelKey)
+        else if aPreview is TfmETKGUISoftVideoPreview then
+          aIniFile.WriteString(krsIniSoftMediaFrameSection,
+            Format(krsIniSoftMediaPanelType, [i]), krsIniVideoPanelKey)
+        else if aPreview is TfmETKGUISoftImgPreview then
+          aIniFile.WriteString(krsIniSoftMediaFrameSection,
+            Format(krsIniSoftMediaPanelType, [i]), krsIniImagePanelKey)
+        else if aPreview is TfmETKGUISoftTxtPreview then
+          aIniFile.WriteString(krsIniSoftMediaFrameSection,
+            Format(krsIniSoftMediaPanelType, [i]), krsIniTextPanelKey);
+
+        aIniFile.WriteInteger(krsIniSoftMediaFrameSection,
+          Format(krsIniSoftMediaPanelHeight, [i]), aPanel.Height);
+        aIniFile.WriteString(krsIniSoftMediaFrameSection,
+          Format(krsIniSoftMediaPanelCaption, [i]), aPreview.LastCaption);
+      end
+      else
+        aIniFile.WriteString(krsIniSoftMediaFrameSection,
+          Format(krsIniSoftMediaPanelType, [i]), krsIniUnknownPanelKey);
+
+    end;
 
     Inc(i);
   end;

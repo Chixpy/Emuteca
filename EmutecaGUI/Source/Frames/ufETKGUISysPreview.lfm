@@ -1,7 +1,7 @@
 inherited fmETKGUISysPreview: TfmETKGUISysPreview
-  Height = 490
+  Height = 522
   Width = 200
-  ClientHeight = 490
+  ClientHeight = 522
   ClientWidth = 200
   DesignLeft = 472
   DesignTop = 74
@@ -25,7 +25,7 @@ inherited fmETKGUISysPreview: TfmETKGUISysPreview
     ClientHeight = 130
     ClientWidth = 196
     TabOrder = 1
-    object ePlayedTime: TEdit
+    object eSysPlayedTime: TEdit
       Left = 0
       Height = 23
       Top = 61
@@ -35,7 +35,7 @@ inherited fmETKGUISysPreview: TfmETKGUISysPreview
       TabOrder = 2
       TextHint = 'Played Time'
     end
-    object eNTimes: TEdit
+    object eSysNTimes: TEdit
       Left = 0
       Height = 23
       Top = 84
@@ -45,7 +45,7 @@ inherited fmETKGUISysPreview: TfmETKGUISysPreview
       TabOrder = 3
       TextHint = '# Times'
     end
-    object eLastTime: TEdit
+    object eSysLastTime: TEdit
       Left = 0
       Height = 23
       Top = 107
@@ -55,7 +55,7 @@ inherited fmETKGUISysPreview: TfmETKGUISysPreview
       TabOrder = 4
       TextHint = 'Last time played'
     end
-    object eNSoft: TEdit
+    object eSysNSoft: TEdit
       Left = 0
       Height = 23
       Top = 15
@@ -65,7 +65,7 @@ inherited fmETKGUISysPreview: TfmETKGUISysPreview
       TabOrder = 0
       TextHint = '# Software'
     end
-    object eNGroups: TEdit
+    object eSysNGroups: TEdit
       Left = 0
       Height = 23
       Top = 38
@@ -87,13 +87,55 @@ inherited fmETKGUISysPreview: TfmETKGUISysPreview
   end
   object gbxEmulator: TGroupBox[2]
     Left = 0
-    Height = 19
+    Height = 89
     Top = 393
     Width = 200
     Align = alTop
     AutoSize = True
     Caption = 'Current emulator'
+    ClientHeight = 69
+    ClientWidth = 196
     TabOrder = 2
+    object eEmuPlayedTime: TEdit
+      Left = 0
+      Height = 23
+      Top = 23
+      Width = 196
+      Align = alTop
+      Enabled = False
+      TabOrder = 0
+      TextHint = 'Played Time'
+    end
+    object eEmuNTimes: TEdit
+      Left = 0
+      Height = 23
+      Top = 0
+      Width = 196
+      Align = alTop
+      Enabled = False
+      TabOrder = 1
+      TextHint = '# Times'
+    end
+    object eEmuLastTime: TEdit
+      Left = 0
+      Height = 23
+      Top = 46
+      Width = 196
+      Align = alTop
+      Enabled = False
+      TabOrder = 2
+      TextHint = 'Last time played'
+    end
+    object pEmulator: TPanel
+      Left = 0
+      Height = 0
+      Top = 0
+      Width = 196
+      Align = alTop
+      AutoSize = True
+      BevelOuter = bvNone
+      TabOrder = 3
+    end
   end
   object pSysImage: TPanel[3]
     Left = 0
