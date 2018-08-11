@@ -513,11 +513,11 @@ begin
   Result := SHA1Match(SHA1, aSHA1);
 end;
 
-function caEmutecaCustomSoft.CompareFile(const aFolder, aFile: string): integer;
+function caEmutecaCustomSoft.CompareFile(
+  const aFolder, aFile: string): integer;
 begin
-  Result := CompareFilenames(Folder, SetAsFolder(aFolder));
-  if Result = 0 then
-    Result := CompareFilenames(FileName, SetAsFile(aFile));
+  Result := CompareFilenames(SetAsAbsoluteFile(Folder + Filename,''),
+    SetAsAbsoluteFile(SetAsFolder(aFolder) + aFile,''));
 end;
 
 function caEmutecaCustomSoft.MatchFile(const aFolder, aFile: string): boolean;

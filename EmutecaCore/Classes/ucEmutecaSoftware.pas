@@ -126,9 +126,13 @@ begin
   if FTitle = AValue then
     Exit;
 
-  if Assigned(CachedGroup) and
-    (UTF8CompareText(AValue, CachedGroup.Title) = 0) then
-    FTitle := ''
+  if Assigned(CachedGroup) then
+  begin
+    if (UTF8CompareText(AValue, CachedGroup.Title) = 0) then
+      FTitle := ''
+    else
+     FTitle := AValue;
+  end
   else
     inherited SetTitle(AValue);
 end;
