@@ -151,6 +151,7 @@ type
     procedure actMediaManagerExecute(Sender: TObject);
     procedure actMergeGroupFilesExecute(Sender: TObject);
     procedure actOpen7zCacheFolderExecute(Sender: TObject);
+    procedure actOpenEmulatorFolderExecute(Sender: TObject);
     procedure actOpenEmutecaFolderExecute(Sender: TObject);
     procedure actOpenSoftFolderExecute(Sender: TObject);
     procedure actOpenSystemBaseFolderExecute(Sender: TObject);
@@ -358,6 +359,7 @@ begin
   fmEmutecaMainFrame.OnGroupChanged := @DoChangeGroup;
   fmEmutecaMainFrame.OnSoftChanged := @DoChangeSoft;
   fmEmutecaMainFrame.OnSoftDblClk := @RunSoftware;
+  fmEmutecaMainFrame.OnEmulatorChanged := @DoChangeEmu;
   fmEmutecaMainFrame.pmGroup := pmGroup;
   fmEmutecaMainFrame.pmSoft := pmSoft;
   fmEmutecaMainFrame.DumpIcons := DumpIcons;
@@ -522,8 +524,7 @@ begin
   if not assigned(CurrentEmu) then
     Exit;
 
-  // TODO
-  // TfmETKGUIFullEmuEditor.SimpleForm(Emuteca, CurrentEmu, GUIIconsFile, GUIConfig);
+  TfmETKGUIFullEmuEditor.SimpleModalForm(CurrentEmu, SHA1Folder, GUIIconsFile, GUIConfig.DefaultFileName);
 end;
 
 procedure TfrmETKGUIMain.actEditSystemExecute(Sender: TObject);
@@ -555,6 +556,13 @@ end;
 procedure TfrmETKGUIMain.actOpen7zCacheFolderExecute(Sender: TObject);
 begin
   OpenDocument(w7zGetCacheDir);
+end;
+
+procedure TfrmETKGUIMain.actOpenEmulatorFolderExecute(Sender: TObject);
+begin
+  if not Assigned(CurrentEmu) then Exit;
+
+  OpenDocument(ExtractFileDir(CurrentEmu.ExeFile));
 end;
 
 procedure TfrmETKGUIMain.actOpenEmutecaFolderExecute(Sender: TObject);
@@ -664,6 +672,8 @@ begin
   if FCurrentEmu = aCurrentEmu then
     Exit;
   FCurrentEmu := aCurrentEmu;
+
+  mimmEmulator.Enabled := Assigned(CurrentEmu);
 end;
 
 procedure TfrmETKGUIMain.SetCurrentSoft(AValue: cEmutecaSoftware);
@@ -834,7 +844,7 @@ begin
     CacheSoftIconsThread.Terminate;
     // CacheSoftIconsThread.WaitFor; Don't wait
   end;
-  // Auto freed with FreeOnTerminate and nil
+  // Auto freed with FreeOnTerminate
 
   if not (Assigned(aSoftList) and Assigned(IconList) and
     Assigned(GUIConfig)) then
@@ -844,7 +854,7 @@ begin
   if Assigned(CacheSoftIconsThread.FatalException) then
     raise CacheSoftIconsThread.FatalException;
   CacheSoftIconsThread.OnTerminate := @CacheSoftIconsThreadTerminated;
-  //Autonil
+  //< Autonil when terminated
 
   CacheSoftIconsThread.SoftList := aSoftList;
   CacheSoftIconsThread.IconList := IconList;
@@ -918,9 +928,6 @@ begin
   CurrentSystem := aSystem;
 
   mimmSystem.Enabled := Assigned(aSystem);
-
-  // TODO: This must be enabled if system's current emulator is set
-  mimmEmulator.Enabled := mimmSystem.Enabled;
 end;
 
 function TfrmETKGUIMain.DoChangeGrpList(aGroupList:
@@ -954,6 +961,8 @@ end;
 
 function TfrmETKGUIMain.DoChangeEmu(aEmulator: cEmutecaEmulator): boolean;
 begin
+  Result := True;
+
   CurrentEmu := aEmulator;
 end;
 

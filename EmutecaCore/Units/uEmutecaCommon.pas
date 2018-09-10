@@ -30,7 +30,7 @@ uses
 
 const
   krsFmtWindowCaption = '%0:s: %1:s';
-  {<
+  {< Window caption format
     %0:s = Application.Title (derived from rsFmtApplicationTitle).
     %1:s = Window caption.
   }

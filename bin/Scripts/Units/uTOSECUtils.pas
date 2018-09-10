@@ -108,6 +108,7 @@ begin
   aIDKey := LowerCase(aIDKey);
   
   aSoftList.BeginUpdate;
+  i := 0;
   while i < aTOSECFile.Count do
   begin
     aLine := aTOSECFile[i];

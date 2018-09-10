@@ -37,12 +37,23 @@ const
   krsVirtualFolderExt = '.(folder)';
   krsVirtualExt = '.(ext)';
 
+  // Form IDs
+  // --------
+  krsETKGUISystemEditorID = 'frmETKGUIFullSysEditor';
+    krsETKGUIEmuEditorID = 'frmETKGUIFullEmuEditor'  ;
+
 resourcestring
   rsFmtApplicationTitle = '%0:s %1:s';
-  {<
-    %0:s = 'Emuteca' (Application name).
-    %1:s = Version.
+  {< Aplication title used in forms, formated by
+    uEmutecaCommon.krsFmtWindowCaption
+    @param(%0:s 'Emuteca' (Application name)).
+    @param(%1:s Version).
   }
+
+  // Form titles
+  // -------------
+  rsETKGUISystemEditorTitle = 'System Editor';
+  rsETKGUIEmuEditorTitle = 'Emulator Editor';
 
 
   // Game / Group property names

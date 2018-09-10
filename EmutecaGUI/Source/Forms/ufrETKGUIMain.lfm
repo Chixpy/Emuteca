@@ -313,6 +313,7 @@ inherited frmETKGUIMain: TfrmETKGUIMain
       Category = 'Emulator'
       Caption = 'Open emulator folder...'
       Hint = 'Open emulator folder...|Open current emulator folder.'
+      OnExecute = actOpenEmulatorFolderExecute
     end
     object actOpen7zCacheFolder: TAction
       Category = 'File'

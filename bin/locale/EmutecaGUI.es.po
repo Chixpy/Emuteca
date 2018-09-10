@@ -2221,6 +2221,14 @@ msgctxt "uetkguicommon.rsdeveloper"
 msgid "Developer"
 msgstr "Desarrollador"
 
+#: uetkguicommon.rsetkguiemueditortitle
+msgid "Emulator Editor"
+msgstr ""
+
+#: uetkguicommon.rsetkguisystemeditortitle
+msgid "System Editor"
+msgstr ""
+
 #: uetkguicommon.rsfilename
 msgctxt "uetkguicommon.rsfilename"
 msgid "Filename"

@@ -72,7 +72,7 @@ type
 
     class function SimpleForm(aEmuteca: cEmuteca; aSystem: cEmutecaSystem; aSHA1Folder: string;
       aGUIIconsIni: string; aGUIConfigIni: string): integer;
-    //< Creates a form with System Manager.
+    //< Creates a form with System Editor.
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -281,9 +281,9 @@ begin
 
   Application.CreateForm(TfrmCHXForm, aForm);
   try
-    aForm.Name := 'frmETKGUIFullSysEditor';
+    aForm.Name := krsETKGUISystemEditorID;
     aForm.Caption := Format(krsFmtWindowCaption,
-      [Application.Title, 'System Editor']);
+      [Application.Title, rsETKGUISystemEditorTitle]);
 
     aFrame := TfmETKGUIFullSystemEditor.Create(aForm);
     aFrame.SaveButtons := True;
