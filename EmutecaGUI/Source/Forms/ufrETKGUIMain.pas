@@ -73,6 +73,7 @@ type
     actExportSoftData: TAction;
     ActImages: TImageList;
     actImportSoftData: TAction;
+    actRunEmulatorAlone: TAction;
     ActionList: TActionList;
     actMediaManager: TAction;
     actMergeGroupFiles: TAction;
@@ -98,6 +99,7 @@ type
     MenuItem4: TMenuItem;
     MenuItem5: TMenuItem;
     MenuItem6: TMenuItem;
+    mimmRunEmulatorAlone: TMenuItem;
     mimmAbout: TMenuItem;
     mimmAddFiles: TMenuItem;
     mimmAddSoft: TMenuItem;
@@ -156,6 +158,7 @@ type
     procedure actOpenSoftFolderExecute(Sender: TObject);
     procedure actOpenSystemBaseFolderExecute(Sender: TObject);
     procedure actOpenTempFolderExecute(Sender: TObject);
+    procedure actRunEmulatorAloneExecute(Sender: TObject);
     procedure actRunSoftwareExecute(Sender: TObject);
     procedure actSaveListsExecute(Sender: TObject);
     procedure actScriptManagerExecute(Sender: TObject);
@@ -524,7 +527,8 @@ begin
   if not assigned(CurrentEmu) then
     Exit;
 
-  TfmETKGUIFullEmuEditor.SimpleModalForm(CurrentEmu, SHA1Folder, GUIIconsFile, GUIConfig.DefaultFileName);
+  TfmETKGUIFullEmuEditor.SimpleModalForm(CurrentEmu, SHA1Folder,
+    GUIIconsFile, GUIConfig.DefaultFileName);
 end;
 
 procedure TfrmETKGUIMain.actEditSystemExecute(Sender: TObject);
@@ -560,7 +564,8 @@ end;
 
 procedure TfrmETKGUIMain.actOpenEmulatorFolderExecute(Sender: TObject);
 begin
-  if not Assigned(CurrentEmu) then Exit;
+  if not Assigned(CurrentEmu) then
+    Exit;
 
   OpenDocument(ExtractFileDir(CurrentEmu.ExeFile));
 end;
@@ -591,6 +596,11 @@ begin
   if not OpenDocument(Emuteca.TempFolder) then
     raise EFileNotFoundException.CreateFmt(rsFmtNotFound,
       [GetCurrentDirUTF8, Emuteca.TempFolder]);
+end;
+
+procedure TfrmETKGUIMain.actRunEmulatorAloneExecute(Sender: TObject);
+begin
+  CurrentEmu.ExecuteAlone;
 end;
 
 procedure TfrmETKGUIMain.actRunSoftwareExecute(Sender: TObject);

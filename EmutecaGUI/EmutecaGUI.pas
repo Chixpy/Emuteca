@@ -26,7 +26,7 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   Interfaces, // this includes the LCL widgetset
   Forms, mplayercontrollaz, lazcontrols, pascalscript,
   // CHX units
-  uCHXDlgUtils, uCHXImageUtils,
+  uCHXDlgUtils, uCHXImageUtils, uCHXExecute,
   // CHX abstract classes
   uaCHXConfig,
   uaCHXStorable,

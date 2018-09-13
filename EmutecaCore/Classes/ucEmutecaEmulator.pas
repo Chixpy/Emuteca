@@ -28,7 +28,7 @@ interface
 uses  Classes, SysUtils, FileUtil, StrUtils, LazUTF8, LazFileUtils,
   IniFiles, lclintf,
   // CHX units
-  uCHXStrUtils,
+  uCHXStrUtils, uCHXExecute,
   // CHX abstracts
   uaCHXStorable,
   // Emuteca common
@@ -358,18 +358,19 @@ function cEmutecaEmulator.Execute(GameFile: string;
   ExtraParameters: TStringList): integer;
 var
   i, j: integer;
-  CurrFolder: string;
   TempDir: string;
   TempParam, Extra, TempExtra: string;
+  msOutput, msError: TMemoryStream;
 begin
-  CurrFolder := GetCurrentDirUTF8;
+  Result := -1;
 
+  // Some emulators don't accept linux style in parameters...
   GameFile := SysPath(GameFile);
 
   // If GameFile is relative to emuteca directory,
   //   absolute path is better right now.
   if not FilenameIsAbsolute(GameFile) then
-    GameFile := CreateAbsoluteSearchPath(GameFile, CurrFolder);
+    GameFile := CreateAbsoluteSearchPath(GameFile, GetCurrentDirUTF8);
 
   // Changing current directory
   TempDir := SysPath(WorkingFolder);
@@ -378,11 +379,7 @@ begin
   TempDir := AnsiReplaceText(TempDir, kEmutecaROMDirKey,
     ExtractFileDir(GameFile));
   TempDir := AnsiReplaceText(TempDir, kEmutecaCurrentDirKey,
-    ExtractFileDir(CurrFolder));
-  TempDir := SetAsFolder(TempDir);
-  if TempDir <> '' then
-    if DirectoryExistsUTF8(TempDir) then
-      ChDir(TempDir);
+    GetCurrentDirUTF8);
 
   // Changing parameters
   TempParam := Parameters;
@@ -397,10 +394,9 @@ begin
     ExtractFileExt(GameFile));
 
   // Extra parameters from software
+  Extra := '';
   if assigned(ExtraParameters) and (ExtraParameters.Count > 0) then
   begin
-    Extra := '';
-
     j := 0;
     while j < ExtraParamFormat.Count do
     begin
@@ -426,76 +422,71 @@ begin
 
       Inc(j);
     end;
-
-    TempParam := AnsiReplaceText(TempParam, kEmutecaROMExtraParamKey,
-      Trim(Extra));
-  end
-  else
-    // Removing %EXTRA% from parameters.
-    TempParam := AnsiReplaceText(TempParam, kEmutecaROMExtraParamKey, '');
+  end;
+  TempParam := AnsiReplaceText(TempParam, kEmutecaROMExtraParamKey,
+    Trim(Extra));
 
   TempParam := Trim(TempParam);
 
+  // Go, go, go!!
+
+  msError := TMemoryStream.Create;
+  msOutput := TMemoryStream.Create;
   try
-    // Hack for run system executables ;P
-    // ... and try to open with default player
-    if ExeFile = '' then
-    begin
-      { TODO : OpenDocument can execute executables? }
-      if SupportedExtCT(TempParam, 'exe,com,bat,cmd') then
-        Result := ExecuteProcess(UTF8ToWinCP(TempParam), '')
-      else
-        // This don't keep statistics because don't wait until closed
-        //   and file is deleted if it's extracted.
-        OpenDocument(TempParam);
-    end
+  // Hack for run system executables ;P
+  // ... and try to open with default player
+  if ExeFile = '' then
+  begin
+    { TODO : OpenDocument can execute executables? }
+    if SupportedExtCT(TempParam, 'exe,com,bat,cmd') then
+      ExecuteCMDArray(TempDir, TempParam, [], nil, nil, Result)
     else
-      Result := ExecuteProcess(UTF8ToWinCP(SysPath(ExeFile)),
-        UTF8ToWinCP(TempParam));
+      // This don't keep statistics because don't wait until closed
+      //   and file is deleted if it's extracted.
+      OpenDocument(TempParam);
+  end
+  else
+    ExecuteCMDString(TempDir, ExeFile, TempParam, msOutput, msError, Result);
 
-    // Hack: If normal exit code <> 0, compare and set to 0
-    //   So, this way 0 always is the correct exit of the program,
-    //     and Managers don't care about wich is the actual code
-    if Result = ExitCode then
-      Result := 0;
-
+    if msError.Size > 0 then
+      msError.SaveToFile('Error.txt');
+    if msOutput.Size > 0 then
+      msOutput.SaveToFile('Output.txt');
   finally
-    ChDir(CurrFolder);
+    msError.Free;
+    msOutput.Free;
   end;
+  // Hack: If normal exit code <> 0, compare and set to 0
+  //   So, this way 0 always is the correct exit of the program,
+  //     and Managers don't care about wich is the actual code
+  if Result = ExitCode then
+    Result := 0;
+
 end;
 
 function cEmutecaEmulator.ExecuteAlone: integer;
 var
-  CurrFolder: string;
   TempDir: string;
 begin
+  Result := -1;
+
   if ExeFile = '' then
     Exit;
 
-  // Changing current file
-  CurrFolder := GetCurrentDirUTF8;
-  TempDir := WorkingFolder;
+  // Changing working folder
+  TempDir := SysPath(WorkingFolder);
   TempDir := AnsiReplaceText(TempDir, kEmutecaEmuDirKey,
     ExtractFileDir(ExeFile));
+  // Here ROMDIR is changed to EmuDir too
   TempDir := AnsiReplaceText(TempDir, kEmutecaROMDirKey,
     ExtractFileDir(ExeFile));
   TempDir := AnsiReplaceText(TempDir, kEmutecaCurrentDirKey,
-    ExtractFileDir(CurrFolder));
-  if TempDir <> '' then
-    ChDir(TempDir);
+    GetCurrentDirUTF8);
 
-  try
-    Result := SysUtils.ExecuteProcess(UTF8ToSys(ExeFile), '');
+  ExecuteCMDArray(TempDir, ExeFile, [], nil, nil, Result);
 
-    if (ExitCode <> 0) then
-      if Result = 0 then
-        Result := ExitCode
-      else
-        Result := 0;
-
-  finally
-    ChDir(CurrFolder);
-  end;
+  if Result = ExitCode then
+    Result := 0;
 end;
 
 procedure cEmutecaEmulator.LoadFromIni(aIniFile: TMemIniFile);

@@ -1881,6 +1881,10 @@ msgstr ""
 msgid "Open Emuteca's Temp folder...|Open Emuteca's temporal folder."
 msgstr ""
 
+#: tfrmetkguimain.actrunemulatoralone.caption
+msgid "Run emulator alone"
+msgstr ""
+
 #: tfrmetkguimain.actrunsoftware.caption
 msgid "Run software"
 msgstr ""

@@ -139,6 +139,9 @@ inherited frmETKGUIMain: TfrmETKGUIMain
     object mimmEmulator: TMenuItem
       Caption = 'Emulator'
       Enabled = False
+      object mimmRunEmulatorAlone: TMenuItem
+        Action = actRunEmulatorAlone
+      end
       object mimmEditEmulator: TMenuItem
         Action = actEditEmulator
       end
@@ -320,6 +323,11 @@ inherited frmETKGUIMain: TfrmETKGUIMain
       Caption = 'Open 7z cache folder...'
       Hint = 'Open 7z caché folder...|Open 7z caché folder.'
       OnExecute = actOpen7zCacheFolderExecute
+    end
+    object actRunEmulatorAlone: TAction
+      Category = 'Emulator'
+      Caption = 'Run emulator alone'
+      OnExecute = actRunEmulatorAloneExecute
     end
   end
   object ActImages: TImageList[5]
