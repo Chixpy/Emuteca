@@ -1,4 +1,9 @@
-{ Software media frame of Emuteca GUI.
+unit ufETKGUISoftMedia;
+{< TfmETKGUISoftMedia frame unit.
+
+  ----
+
+  This file is part of Emuteca GUI.
 
   Copyright (C) 2006-2018 Chixpy
 
@@ -17,7 +22,7 @@
   to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
   MA 02111-1307, USA.
 }
-unit ufETKGUISoftMedia;
+
 
 {$mode objfpc}{$H+}
 
@@ -82,6 +87,7 @@ type
     FMusicExt: TStrings;
     FSHA1Folder: string;
     FSoftware: cEmutecaSoftware;
+    FTempFolder: string;
     FTextExt: TStrings;
     FVideoExt: TStrings;
     procedure SetGroup(AValue: cEmutecaGroup);
@@ -90,6 +96,7 @@ type
     procedure SetMusicExt(const aMusicExt: TStrings);
     procedure SetSHA1Folder(const AValue: string);
     procedure SetSoftware(AValue: cEmutecaSoftware);
+    procedure SetTempFolder(const aTempFolder: string);
     procedure SetTextExt(AValue: TStrings);
     procedure SetVideoExt(const aVideoExt: TStrings);
 
@@ -111,6 +118,7 @@ type
   public
     property Software: cEmutecaSoftware read FSoftware write SetSoftware;
     property Group: cEmutecaGroup read FGroup write SetGroup;
+    property TempFolder: string read FTempFolder write SetTempFolder;
 
     property ImageExt: TStrings read FImageExt write SetImageExt;
     property TextExt: TStrings read FTextExt write SetTextExt;
@@ -217,6 +225,14 @@ begin
   LoadFrameData;
 end;
 
+procedure TfmETKGUISoftMedia.SetTempFolder(const aTempFolder: string);
+begin
+  if FTempFolder = aTempFolder then Exit;
+  FTempFolder := aTempFolder;
+
+  UpdateChildrenConfig(ScrollBox1)
+end;
+
 procedure TfmETKGUISoftMedia.SetTextExt(AValue: TStrings);
 begin
   if FTextExt = AValue then
@@ -277,6 +293,8 @@ begin
 
     if (aChild is TfmaETKGUISoftFoldersPreview) then
     begin
+      TfmaETKGUISoftFoldersPreview(aChild).TempFolder := TempFolder;
+
       if (aChild is TfmETKGUISoftImgPreview) then
       begin
         TfmETKGUISoftImgPreview(aChild).FileExt := ImageExt;

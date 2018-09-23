@@ -1,4 +1,9 @@
-{ This file is part of Emuteca
+unit ucEmuteca;
+{< cEmuteca class unit.
+
+  ----
+
+  This file is part of Emuteca Core.
 
   Copyright (C) 2006-2018 Chixpy
 
@@ -17,10 +22,6 @@
   to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
   MA 02111-1307, USA.
 }
-
-{ cEmuteca unit. }
-unit ucEmuteca;
-
 {$mode objfpc}{$H+}
 
 interface
@@ -29,14 +30,14 @@ uses
   Classes, SysUtils, fgl, FileUtil, LazUTF8, LazFileUtils, dateutils,
   // CHX units
   uCHX7zWrapper, uCHXStrUtils,
-  // Emuteca units
-  uEmutecaCommon,
-  // Emuteca abstracts
+  // Emuteca Core units
+  uEmutecaConst, uEmutecaRscStr, uEmutecaCommon,
+  // Emuteca Core abstracts
   uaEmutecaCustomGroup,
-  // Emuteca units
+  // Emuteca Core units
   ucEmutecaConfig, ucEmutecaEmulatorManager, ucEmutecaSystemManager,
   ucEmutecaSoftware, ucEmutecaSystem, ucEmutecaEmulator,
-  // Emuteca threads
+  // Emuteca Core threads
   utEmutecaGetSoftSHA1;
 
 type

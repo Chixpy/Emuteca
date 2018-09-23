@@ -1,4 +1,7 @@
-{ System manager of Emuteca GUI
+unit ufETKGUISysManager;
+{< TfmETKGUISysManager frame unit of Emuteca GUI.
+
+  ----
 
   Copyright (C) 2006-2018 Chixpy
 
@@ -17,8 +20,6 @@
   to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
   MA 02111-1307, USA.
 }
-unit ufETKGUISysManager;
-
 {$mode objfpc}{$H+}
 
 interface
@@ -32,9 +33,9 @@ uses
   ufrCHXForm,
   // CHX frames
   ufCHXChkLstPropEditor, ufCHXProgressBar,
-  // Emuteca units
-  uEmutecaCommon,
-  // Emuteca clases
+  // Emuteca Core units
+  uEmutecaConst, uEmutecaRscStr, uEmutecaCommon,
+  // Emuteca Core clases
   ucEmuteca, ucEmutecaSystem,
   // Emuteca GUI frames
   ufETKGUIFullSysEditor;

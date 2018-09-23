@@ -1,23 +1,20 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <title>Emuteca: ucEmutecaEmulator: Class cEmutecaEmulator</title>
-<meta name="generator" content="PasDoc 0.14.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="PasDoc 0.15.0">
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-<script type="text/javascript" src="tipuesearch/jquery.min.js"></script>
-<script type="text/javascript" src="tipuesearch/tipuesearch_data.js"></script>
 <link rel="stylesheet" type="text/css" href="tipuesearch/tipuesearch.css">
-<script type="text/javascript" src="tipuesearch/tipuesearch_set.js"></script>
-<script type="text/javascript" src="tipuesearch/tipuesearch.js"></script>
 
 <link rel="StyleSheet" type="text/css" href="pasdoc.css">
 </head>
 <body>
 <table class="container"><tr><td class="navigation">
-<h2>Emuteca</h2><p><a href="AllUnits.html" class="navigation">Units</a></p><p><a href="ClassHierarchy.html" class="navigation">Class Hierarchy</a></p><p><a href="AllClasses.html" class="navigation">Classes, Interfaces, Objects and Records</a></p><p><a href="AllTypes.html" class="navigation">Types</a></p><p><a href="AllVariables.html" class="navigation">Variables</a></p><p><a href="AllConstants.html" class="navigation">Constants</a></p><p><a href="AllFunctions.html" class="navigation">Functions and Procedures</a></p><p><a href="AllIdentifiers.html" class="navigation">Identifiers</a></p><p><form class="search-form" action="_tipue_results.html"><div class="search-input"><input type="text" name="q" id="tipue_search_input"></div><div class="search-button"><input type="button" id="tipue_search_button" onclick="this.form.submit();"></div></form>
+<h2>Emuteca</h2><p><a href="AllUnits.html" class="navigation">Units</a></p><p><a href="ClassHierarchy.html" class="navigation">Class Hierarchy</a></p><p><a href="AllClasses.html" class="navigation">Classes, Interfaces, Objects and Records</a></p><p><a href="AllTypes.html" class="navigation">Types</a></p><p><a href="AllVariables.html" class="navigation">Variables</a></p><p><a href="AllConstants.html" class="navigation">Constants</a></p><p><a href="AllFunctions.html" class="navigation">Functions and Procedures</a></p><p><a href="AllIdentifiers.html" class="navigation">Identifiers</a></p><form class="search-form" action="_tipue_results.html"><div class="search-input"><input type="text" name="q" id="tipue_search_input"></div><div class="search-button"><input type="button" id="tipue_search_button" onclick="this.form.submit();"></div></form>
 <div style="clear: both"></div>
 
-<script>
+<script type="text/javascript">
 $(document).ready(function() {
     $('#tipue_search_input').tipuesearch({
         /* 10 items to display seems standard */
@@ -28,252 +25,24 @@ $(document).ready(function() {
     });
 });
 </script>
-</p></td><td class="content">
-<a name="cEmutecaEmulator"></a><h1 class="cio">Class cEmutecaEmulator</h1>
-<table class="sections wide_list">
-<tr>
-<td><a class="section" href="#PasDoc-Description">Description</a></td><td><a class="section" href="#PasDoc-Hierarchy">Hierarchy</a></td><td>Fields</td><td><a class="section" href="#PasDoc-Methods">Methods</a></td><td><a class="section" href="#PasDoc-Properties">Properties</a></td></tr></table>
-<a name="PasDoc-Description"></a><h2 class="unit">Unit</h2>
+</td><td class="content">
+<span id="cEmutecaEmulator"></span><h1 class="cio">Class cEmutecaEmulator</h1>
+<div class="sections">
+<div class="one_section"><a class="section" href="#PasDoc-Description">Description</a></div><div class="one_section"><a class="section" href="#PasDoc-Hierarchy">Hierarchy</a></div><div class="one_section">Fields</div><div class="one_section">Methods</div><div class="one_section">Properties</div></div>
+<span id="PasDoc-Description"></span><h2 class="unit">Unit</h2>
 <p class="unitlink">
 <a  href="ucEmutecaEmulator.html">ucEmutecaEmulator</a></p>
 <h2 class="declaration">Declaration</h2>
 <p class="declaration">
-<code>type cEmutecaEmulator = class(<a class="normal" href="uaEmutecaStorable.caEmutecaStorableIni.html">caEmutecaStorableIni</a>)</code></p>
+<code>type cEmutecaEmulator = class(<a class="normal" href="uaEmutecaCustomEmu.caEmutecaCustomEmu.html">caEmutecaCustomEmu</a>)</code></p>
 <h2 class="description">Description</h2>
 <p>
-<code>cEmutecaEmulator</code> class.
-
-<p>Stores all basic info of an emulator.</p>
-<a name="PasDoc-Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
+Emuteca abstracts</p>
+<span id="PasDoc-Hierarchy"></span><h2 class="hierarchy">Hierarchy</h2>
 <ul class="hierarchy"><li class="ancestor">TComponent</li>
-<li class="ancestor"><a class="normal" href="uaEmutecaStorable.caEmutecaStorable.html">caEmutecaStorable</a></li>
-<li class="ancestor"><a class="normal" href="uaEmutecaStorable.caEmutecaStorableIni.html">caEmutecaStorableIni</a></li>
-<li class="thisitem">cEmutecaEmulator</li></ul><h2 class="overview">Overview</h2>
-<a name="PasDoc-Methods"></a><h3 class="summary">Methods</h3>
-<table class="summary wide_list">
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>constructor <b><a  href="ucEmutecaEmulator.cEmutecaEmulator.html#Create">Create</a></b>(aOwner: TComponent); override;</code></td>
-</tr>
-<tr class="list2">
-<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>destructor <b><a  href="ucEmutecaEmulator.cEmutecaEmulator.html#Destroy">Destroy</a></b>; override;</code></td>
-</tr>
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>function <b><a  href="ucEmutecaEmulator.cEmutecaEmulator.html#Execute">Execute</a></b>(GameFile: string): integer;</code></td>
-</tr>
-<tr class="list2">
-<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>function <b><a  href="ucEmutecaEmulator.cEmutecaEmulator.html#ExecuteAlone">ExecuteAlone</a></b>: integer;</code></td>
-</tr>
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a  href="ucEmutecaEmulator.cEmutecaEmulator.html#LoadFromFileIni">LoadFromFileIni</a></b>(IniFile: TCustomIniFile); override;</code></td>
-</tr>
-<tr class="list2">
-<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a  href="ucEmutecaEmulator.cEmutecaEmulator.html#SaveToFileIni">SaveToFileIni</a></b>(IniFile: TCustomIniFile; const ExportMode: boolean ); override;</code></td>
-</tr>
-</table>
-<a name="PasDoc-Properties"></a><h3 class="summary">Properties</h3>
-<table class="summary wide_list">
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <b><a  href="ucEmutecaEmulator.cEmutecaEmulator.html#ID">ID</a></b>: string read FID write SetID;</code></td>
-</tr>
-<tr class="list2">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <b><a  href="ucEmutecaEmulator.cEmutecaEmulator.html#Enabled">Enabled</a></b>: boolean read FEnabled write SetEnabled;</code></td>
-</tr>
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <b><a  href="ucEmutecaEmulator.cEmutecaEmulator.html#EmulatorName">EmulatorName</a></b>: string read FEmulatorName write SetEmulatorName;</code></td>
-</tr>
-<tr class="list2">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <b><a  href="ucEmutecaEmulator.cEmutecaEmulator.html#ExeFile">ExeFile</a></b>: string read FExeFile write SetExeFile;</code></td>
-</tr>
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <b><a  href="ucEmutecaEmulator.cEmutecaEmulator.html#WorkingFolder">WorkingFolder</a></b>: string read FWorkingFolder write SetWorkingFolder;</code></td>
-</tr>
-<tr class="list2">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <b><a  href="ucEmutecaEmulator.cEmutecaEmulator.html#Parameters">Parameters</a></b>: string read FParameters write SetParameters;</code></td>
-</tr>
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <b><a  href="ucEmutecaEmulator.cEmutecaEmulator.html#FileExt">FileExt</a></b>: TStringList read FFileExt write SetFileExt;</code></td>
-</tr>
-<tr class="list2">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <b><a  href="ucEmutecaEmulator.cEmutecaEmulator.html#ExitCode">ExitCode</a></b>: integer read FExitCode write SetExitCode;</code></td>
-</tr>
-</table>
-<h2 class="description">Description</h2>
-<h3 class="detail">Methods</h3>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Create"></a><code>constructor <b>Create</b>(aOwner: TComponent); override;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Destroy"></a><code>destructor <b>Destroy</b>; override;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Execute"></a><code>function <b>Execute</b>(GameFile: string): integer;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="ExecuteAlone"></a><code>function <b>ExecuteAlone</b>: integer;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="LoadFromFileIni"></a><code>procedure <b>LoadFromFileIni</b>(IniFile: TCustomIniFile); override;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="SaveToFileIni"></a><code>procedure <b>SaveToFileIni</b>(IniFile: TCustomIniFile; const ExportMode: boolean ); override;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<h3 class="detail">Properties</h3>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="ID"></a><code>property <b>ID</b>: string read FID write SetID;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-<code>ID</code> of the Emulator.</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="Enabled"></a><code>property <b>Enabled</b>: boolean read FEnabled write SetEnabled;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-Is it <code>enabled</code>?</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="EmulatorName"></a><code>property <b>EmulatorName</b>: string read FEmulatorName write SetEmulatorName;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-Emulator's name.</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="ExeFile"></a><code>property <b>ExeFile</b>: string read FExeFile write SetExeFile;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-Path to executable.</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="WorkingFolder"></a><code>property <b>WorkingFolder</b>: string read FWorkingFolder write SetWorkingFolder;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-Working folder. Emuteca will change to that folder before launching the emulator. Following key items can be used:
-
-<p></p>
-
-<dl class="paragraph_spacing">
-  <dt>%EMUDIR% (default)</dt>
-  <dd><p>Change to emulator's folder.</p></dd>
-  <dt>%ROMDIR%</dt>
-  <dd><p>Change to ROM's folder.</p></dd>
-  <dt>%CURRENTDIR%</dt>
-  <dd><p>Use current folder.</p></dd>
-</dl>
-
-<p></p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="Parameters"></a><code>property <b>Parameters</b>: string read FParameters write SetParameters;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-<code>Parameters</code> used with the executable.
-
-<p>Tip: Following key items can be used:
-
-<p></p>
-
-<dl class="paragraph_spacing">
-  <dt>%ROM%</dt>
-  <dd><p>Full ROM path.</p></dd>
-  <dt>%ROMNAME%</dt>
-  <dd><p>ROM filename with extension, but without folder.</p></dd>
-  <dt>%ROMNAMENOEXT%</dt>
-  <dd><p>Only ROM filename, without folder or extension. Usefull for MAME.</p></dd>
-  <dt>%ROMEXT%</dt>
-  <dd><p>Only ROM extension.</p></dd>
-</dl>
-
-<p></p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="FileExt"></a><code>property <b>FileExt</b>: TStringList read FFileExt write SetFileExt;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-Extensions used by the emulator.
-
-<p>Only one extension in every string, without dot.</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="ExitCode"></a><code>property <b>ExitCode</b>: integer read FExitCode write SetExitCode;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-Code returned by emulator in usual conditions. Emuteca will not show an error message if this code is returned.</p>
-</td></tr>
-</table>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/">PasDoc 0.14.0</a>. </em>
+<li class="ancestor"><a class="normal" href="uaCHXStorable.caCHXStorable.html">caCHXStorable</a></li>
+<li class="ancestor"><a class="normal" href="uaCHXStorable.caCHXStorableIni.html">caCHXStorableIni</a></li>
+<li class="ancestor"><a class="normal" href="uaEmutecaCustomEmu.caEmutecaCustomEmu.html">caEmutecaCustomEmu</a></li>
+<li class="thisitem">cEmutecaEmulator</li></ul><hr><span class="appinfo"><em>Generated by <a  href="https://github.com/pasdoc/pasdoc/wiki">PasDoc 0.15.0</a>. </em>
 </span>
 </td></tr></table></body></html>

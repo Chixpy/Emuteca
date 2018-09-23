@@ -1,23 +1,20 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <title>Emuteca: ufEmutecaSoftEditor: Class TfmEmutecaSoftEditor</title>
-<meta name="generator" content="PasDoc 0.14.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="PasDoc 0.15.0">
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-<script type="text/javascript" src="tipuesearch/jquery.min.js"></script>
-<script type="text/javascript" src="tipuesearch/tipuesearch_data.js"></script>
 <link rel="stylesheet" type="text/css" href="tipuesearch/tipuesearch.css">
-<script type="text/javascript" src="tipuesearch/tipuesearch_set.js"></script>
-<script type="text/javascript" src="tipuesearch/tipuesearch.js"></script>
 
 <link rel="StyleSheet" type="text/css" href="pasdoc.css">
 </head>
 <body>
 <table class="container"><tr><td class="navigation">
-<h2>Emuteca</h2><p><a href="AllUnits.html" class="navigation">Units</a></p><p><a href="ClassHierarchy.html" class="navigation">Class Hierarchy</a></p><p><a href="AllClasses.html" class="navigation">Classes, Interfaces, Objects and Records</a></p><p><a href="AllTypes.html" class="navigation">Types</a></p><p><a href="AllVariables.html" class="navigation">Variables</a></p><p><a href="AllConstants.html" class="navigation">Constants</a></p><p><a href="AllFunctions.html" class="navigation">Functions and Procedures</a></p><p><a href="AllIdentifiers.html" class="navigation">Identifiers</a></p><p><form class="search-form" action="_tipue_results.html"><div class="search-input"><input type="text" name="q" id="tipue_search_input"></div><div class="search-button"><input type="button" id="tipue_search_button" onclick="this.form.submit();"></div></form>
+<h2>Emuteca</h2><p><a href="AllUnits.html" class="navigation">Units</a></p><p><a href="ClassHierarchy.html" class="navigation">Class Hierarchy</a></p><p><a href="AllClasses.html" class="navigation">Classes, Interfaces, Objects and Records</a></p><p><a href="AllTypes.html" class="navigation">Types</a></p><p><a href="AllVariables.html" class="navigation">Variables</a></p><p><a href="AllConstants.html" class="navigation">Constants</a></p><p><a href="AllFunctions.html" class="navigation">Functions and Procedures</a></p><p><a href="AllIdentifiers.html" class="navigation">Identifiers</a></p><form class="search-form" action="_tipue_results.html"><div class="search-input"><input type="text" name="q" id="tipue_search_input"></div><div class="search-button"><input type="button" id="tipue_search_button" onclick="this.form.submit();"></div></form>
 <div style="clear: both"></div>
 
-<script>
+<script type="text/javascript">
 $(document).ready(function() {
     $('#tipue_search_input').tipuesearch({
         /* 10 items to display seems standard */
@@ -28,187 +25,172 @@ $(document).ready(function() {
     });
 });
 </script>
-</p></td><td class="content">
-<a name="TfmEmutecaSoftEditor"></a><h1 class="cio">Class TfmEmutecaSoftEditor</h1>
-<table class="sections wide_list">
-<tr>
-<td><a class="section" href="#PasDoc-Description">Description</a></td><td><a class="section" href="#PasDoc-Hierarchy">Hierarchy</a></td><td><a class="section" href="#PasDoc-Fields">Fields</a></td><td><a class="section" href="#PasDoc-Methods">Methods</a></td><td><a class="section" href="#PasDoc-Properties">Properties</a></td></tr></table>
-<a name="PasDoc-Description"></a><h2 class="unit">Unit</h2>
+</td><td class="content">
+<span id="TfmEmutecaSoftEditor"></span><h1 class="cio">Class TfmEmutecaSoftEditor</h1>
+<div class="sections">
+<div class="one_section"><a class="section" href="#PasDoc-Description">Description</a></div><div class="one_section"><a class="section" href="#PasDoc-Hierarchy">Hierarchy</a></div><div class="one_section"><a class="section" href="#PasDoc-Fields">Fields</a></div><div class="one_section"><a class="section" href="#PasDoc-Methods">Methods</a></div><div class="one_section"><a class="section" href="#PasDoc-Properties">Properties</a></div></div>
+<span id="PasDoc-Description"></span><h2 class="unit">Unit</h2>
 <p class="unitlink">
 <a  href="ufEmutecaSoftEditor.html">ufEmutecaSoftEditor</a></p>
 <h2 class="declaration">Declaration</h2>
 <p class="declaration">
-<code>type TfmEmutecaSoftEditor = class(TFrame, IFPObserver)</code></p>
+<code>type TfmEmutecaSoftEditor = class(<a class="normal" href="ufCHXPropEditor.TfmCHXPropEditor.html">TfmCHXPropEditor</a>, IFPObserver)</code></p>
 <h2 class="description">Description</h2>
 <p>
 <code>TfmEmutecaSoftEditor</code></p>
-<a name="PasDoc-Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
+<span id="PasDoc-Hierarchy"></span><h2 class="hierarchy">Hierarchy</h2>
 <ul class="hierarchy"><li class="ancestor">TFrame</li>
+<li class="ancestor"><a class="normal" href="ufCHXFrame.TfmCHXFrame.html">TfmCHXFrame</a></li>
+<li class="ancestor"><a class="normal" href="ufCHXPropEditor.TfmCHXPropEditor.html">TfmCHXPropEditor</a></li>
 <li class="thisitem">TfmEmutecaSoftEditor</li></ul><h2 class="overview">Overview</h2>
-<a name="PasDoc-Fields"></a><h3 class="summary">Fields</h3>
+<span id="PasDoc-Fields"></span><h3 class="summary">Fields</h3>
 <table class="summary wide_list">
 <tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code><b><a  href="ufEmutecaSoftEditor.TfmEmutecaSoftEditor.html#eModified">eModified</a></b>: TEdit;</code></td>
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code><b><a  href="ufEmutecaSoftEditor.TfmEmutecaSoftEditor.html#cbxDumpType">cbxDumpType</a></b>: TComboBox;</code></td>
 </tr>
 <tr class="list2">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code><b><a  href="ufEmutecaSoftEditor.TfmEmutecaSoftEditor.html#ePirate">ePirate</a></b>: TEdit;</code></td>
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code><b><a  href="ufEmutecaSoftEditor.TfmEmutecaSoftEditor.html#eCracked">eCracked</a></b>: TEdit;</code></td>
 </tr>
 <tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code><b><a  href="ufEmutecaSoftEditor.TfmEmutecaSoftEditor.html#eDumpInfo">eDumpInfo</a></b>: TEdit;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code><b><a  href="ufEmutecaSoftEditor.TfmEmutecaSoftEditor.html#eFixed">eFixed</a></b>: TEdit;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code><b><a  href="ufEmutecaSoftEditor.TfmEmutecaSoftEditor.html#eHack">eHack</a></b>: TEdit;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code><b><a  href="ufEmutecaSoftEditor.TfmEmutecaSoftEditor.html#eModified">eModified</a></b>: TEdit;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code><b><a  href="ufEmutecaSoftEditor.TfmEmutecaSoftEditor.html#ePirate">ePirate</a></b>: TEdit;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code><b><a  href="ufEmutecaSoftEditor.TfmEmutecaSoftEditor.html#ePublisher">ePublisher</a></b>: TComboBox;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code><b><a  href="ufEmutecaSoftEditor.TfmEmutecaSoftEditor.html#eSortKey">eSortKey</a></b>: TEdit;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code><b><a  href="ufEmutecaSoftEditor.TfmEmutecaSoftEditor.html#eTitle">eTitle</a></b>: TEdit;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a  href="ufEmutecaSoftEditor.TfmEmutecaSoftEditor.html#eTrainer">eTrainer</a></b>: TEdit;</code></td>
 </tr>
 <tr class="list2">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code><b><a  href="ufEmutecaSoftEditor.TfmEmutecaSoftEditor.html#cbxDumpType">cbxDumpType</a></b>: TComboBox;</code></td>
-</tr>
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code><b><a  href="ufEmutecaSoftEditor.TfmEmutecaSoftEditor.html#eCracked">eCracked</a></b>: TEdit;</code></td>
-</tr>
-<tr class="list2">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code><b><a  href="ufEmutecaSoftEditor.TfmEmutecaSoftEditor.html#eDumpInfo">eDumpInfo</a></b>: TEdit;</code></td>
-</tr>
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code><b><a  href="ufEmutecaSoftEditor.TfmEmutecaSoftEditor.html#eFixed">eFixed</a></b>: TEdit;</code></td>
-</tr>
-<tr class="list2">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code><b><a  href="ufEmutecaSoftEditor.TfmEmutecaSoftEditor.html#eHack">eHack</a></b>: TEdit;</code></td>
-</tr>
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code><b><a  href="ufEmutecaSoftEditor.TfmEmutecaSoftEditor.html#ePublisher">ePublisher</a></b>: TEdit;</code></td>
-</tr>
-<tr class="list2">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code><b><a  href="ufEmutecaSoftEditor.TfmEmutecaSoftEditor.html#eSortKey">eSortKey</a></b>: TEdit;</code></td>
-</tr>
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a  href="ufEmutecaSoftEditor.TfmEmutecaSoftEditor.html#eTranslated">eTranslated</a></b>: TEdit;</code></td>
 </tr>
-<tr class="list2">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a  href="ufEmutecaSoftEditor.TfmEmutecaSoftEditor.html#eTransTitle">eTransTitle</a></b>: TEdit;</code></td>
 </tr>
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a  href="ufEmutecaSoftEditor.TfmEmutecaSoftEditor.html#eVersion">eVersion</a></b>: TEdit;</code></td>
 </tr>
-<tr class="list2">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a  href="ufEmutecaSoftEditor.TfmEmutecaSoftEditor.html#eYear">eYear</a></b>: TEdit;</code></td>
 </tr>
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a  href="ufEmutecaSoftEditor.TfmEmutecaSoftEditor.html#eZone">eZone</a></b>: TEdit;</code></td>
 </tr>
-<tr class="list2">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code><b><a  href="ufEmutecaSoftEditor.TfmEmutecaSoftEditor.html#gbxParent">gbxParent</a></b>: TGroupBox;</code></td>
-</tr>
 <tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code><b><a  href="ufEmutecaSoftEditor.TfmEmutecaSoftEditor.html#eTitle">eTitle</a></b>: TEdit;</code></td>
-</tr>
-<tr class="list2">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code><b><a  href="ufEmutecaSoftEditor.TfmEmutecaSoftEditor.html#gbxSystem">gbxSystem</a></b>: TGroupBox;</code></td>
-</tr>
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a  href="ufEmutecaSoftEditor.TfmEmutecaSoftEditor.html#gbxDumpTags">gbxDumpTags</a></b>: TGroupBox;</code></td>
 </tr>
 <tr class="list2">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code><b><a  href="ufEmutecaSoftEditor.TfmEmutecaSoftEditor.html#gbxTitle">gbxTitle</a></b>: TGroupBox;</code></td>
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code><b><a  href="ufEmutecaSoftEditor.TfmEmutecaSoftEditor.html#gbxExtraParameters">gbxExtraParameters</a></b>: TGroupBox;</code></td>
 </tr>
 <tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code><b><a  href="ufEmutecaSoftEditor.TfmEmutecaSoftEditor.html#gbxVersion">gbxVersion</a></b>: TGroupBox;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a  href="ufEmutecaSoftEditor.TfmEmutecaSoftEditor.html#lCracked">lCracked</a></b>: TLabel;</code></td>
 </tr>
-<tr class="list2">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a  href="ufEmutecaSoftEditor.TfmEmutecaSoftEditor.html#lDumpInfo">lDumpInfo</a></b>: TLabel;</code></td>
 </tr>
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a  href="ufEmutecaSoftEditor.TfmEmutecaSoftEditor.html#lDumpType">lDumpType</a></b>: TLabel;</code></td>
 </tr>
-<tr class="list2">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a  href="ufEmutecaSoftEditor.TfmEmutecaSoftEditor.html#lFixed">lFixed</a></b>: TLabel;</code></td>
 </tr>
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a  href="ufEmutecaSoftEditor.TfmEmutecaSoftEditor.html#lHack">lHack</a></b>: TLabel;</code></td>
 </tr>
-<tr class="list2">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a  href="ufEmutecaSoftEditor.TfmEmutecaSoftEditor.html#lModified">lModified</a></b>: TLabel;</code></td>
 </tr>
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a  href="ufEmutecaSoftEditor.TfmEmutecaSoftEditor.html#lPirate">lPirate</a></b>: TLabel;</code></td>
 </tr>
-<tr class="list2">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a  href="ufEmutecaSoftEditor.TfmEmutecaSoftEditor.html#lPublisher">lPublisher</a></b>: TLabel;</code></td>
 </tr>
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a  href="ufEmutecaSoftEditor.TfmEmutecaSoftEditor.html#lTrainer">lTrainer</a></b>: TLabel;</code></td>
 </tr>
-<tr class="list2">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a  href="ufEmutecaSoftEditor.TfmEmutecaSoftEditor.html#lTranslated">lTranslated</a></b>: TLabel;</code></td>
 </tr>
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code><b><a  href="ufEmutecaSoftEditor.TfmEmutecaSoftEditor.html#lTitle">lTitle</a></b>: TLabel;</code></td>
-</tr>
 <tr class="list2">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a  href="ufEmutecaSoftEditor.TfmEmutecaSoftEditor.html#lVersion">lVersion</a></b>: TLabel;</code></td>
 </tr>
 <tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a  href="ufEmutecaSoftEditor.TfmEmutecaSoftEditor.html#lYear">lYear</a></b>: TLabel;</code></td>
 </tr>
 <tr class="list2">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code><b><a  href="ufEmutecaSoftEditor.TfmEmutecaSoftEditor.html#lZone">lZone</a></b>: TLabel;</code></td>
 </tr>
 <tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code><b><a  href="ufEmutecaSoftEditor.TfmEmutecaSoftEditor.html#gbxVersion">gbxVersion</a></b>: TGroupBox;</code></td>
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code><b><a  href="ufEmutecaSoftEditor.TfmEmutecaSoftEditor.html#mExtraParameters">mExtraParameters</a></b>: TMemo;</code></td>
 </tr>
 </table>
-<a name="PasDoc-Methods"></a><h3 class="summary">Methods</h3>
+<span id="PasDoc-Methods"></span><h3 class="summary">Methods</h3>
 <table class="summary wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>function <b><a  href="ufEmutecaSoftEditor.TfmEmutecaSoftEditor.html#SelectSystem">SelectSystem</a></b>(aSystem: <a  href="ucEmutecaSystem.cEmutecaSystem.html">cEmutecaSystem</a>): boolean;</code></td>
+<td class="itemcode"><code>procedure <b><a  href="ufEmutecaSoftEditor.TfmEmutecaSoftEditor.html#DoClearFrameData">DoClearFrameData</a></b>;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>function <b><a  href="ufEmutecaSoftEditor.TfmEmutecaSoftEditor.html#SelectParent">SelectParent</a></b>(aParent: <a  href="ucEmutecaParent.cEmutecaParent.html">cEmutecaParent</a>): boolean;</code></td>
+<td class="itemcode"><code>procedure <b><a  href="ufEmutecaSoftEditor.TfmEmutecaSoftEditor.html#DoLoadFrameData">DoLoadFrameData</a></b>;</code></td>
 </tr>
 <tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a  href="ufEmutecaSoftEditor.TfmEmutecaSoftEditor.html#SaveData">SaveData</a></b>;</code></td>
-</tr>
-<tr class="list2">
-<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a  href="ufEmutecaSoftEditor.TfmEmutecaSoftEditor.html#UpdateData">UpdateData</a></b>;</code></td>
-</tr>
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a  href="ufEmutecaSoftEditor.TfmEmutecaSoftEditor.html#ClearData">ClearData</a></b>;</code></td>
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="ufEmutecaSoftEditor.TfmEmutecaSoftEditor.html#DoSaveFrameData">DoSaveFrameData</a></b>;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -223,303 +205,275 @@ $(document).ready(function() {
 <td class="itemcode"><code>destructor <b><a  href="ufEmutecaSoftEditor.TfmEmutecaSoftEditor.html#Destroy">Destroy</a></b>; override;</code></td>
 </tr>
 </table>
-<a name="PasDoc-Properties"></a><h3 class="summary">Properties</h3>
+<span id="PasDoc-Properties"></span><h3 class="summary">Properties</h3>
 <table class="summary wide_list">
 <tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>property <b><a  href="ufEmutecaSoftEditor.TfmEmutecaSoftEditor.html#cbxSystem">cbxSystem</a></b>: <a  href="ufEmutecaSystemCBX.TfmEmutecaSystemCBX.html">TfmEmutecaSystemCBX</a> read FcbxSystem;</code></td>
-</tr>
-<tr class="list2">
-<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>property <b><a  href="ufEmutecaSoftEditor.TfmEmutecaSoftEditor.html#cbxParent">cbxParent</a></b>: <a  href="ufEmutecaParentCBX.TfmEmutecaParentCBX.html">TfmEmutecaParentCBX</a> read FcbxParent;</code></td>
-</tr>
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
 <td class="itemcode"><code>property <b><a  href="ufEmutecaSoftEditor.TfmEmutecaSoftEditor.html#Software">Software</a></b>: <a  href="ucEmutecaSoftware.cEmutecaSoftware.html">cEmutecaSoftware</a> read FSoftware write SetSoftware;</code></td>
-</tr>
-<tr class="list2">
-<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a  href="ufEmutecaSoftEditor.TfmEmutecaSoftEditor.html#Emuteca">Emuteca</a></b>: <a  href="ucEmuteca.cEmuteca.html">cEmuteca</a> read FEmuteca write SetEmuteca;</code></td>
 </tr>
 </table>
 <h2 class="description">Description</h2>
 <h3 class="detail">Fields</h3>
 <table class="detail wide_list">
 <tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="eModified"></a><code><b>eModified</b>: TEdit;</code></td>
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="cbxDumpType"></span><code><b>cbxDumpType</b>: TComboBox;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="ePirate"></a><code><b>ePirate</b>: TEdit;</code></td>
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="eCracked"></span><code><b>eCracked</b>: TEdit;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="eTrainer"></a><code><b>eTrainer</b>: TEdit;</code></td>
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="eDumpInfo"></span><code><b>eDumpInfo</b>: TEdit;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="cbxDumpType"></a><code><b>cbxDumpType</b>: TComboBox;</code></td>
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="eFixed"></span><code><b>eFixed</b>: TEdit;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="eCracked"></a><code><b>eCracked</b>: TEdit;</code></td>
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="eHack"></span><code><b>eHack</b>: TEdit;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="eDumpInfo"></a><code><b>eDumpInfo</b>: TEdit;</code></td>
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="eModified"></span><code><b>eModified</b>: TEdit;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="eFixed"></a><code><b>eFixed</b>: TEdit;</code></td>
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="ePirate"></span><code><b>ePirate</b>: TEdit;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="eHack"></a><code><b>eHack</b>: TEdit;</code></td>
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="ePublisher"></span><code><b>ePublisher</b>: TComboBox;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="ePublisher"></a><code><b>ePublisher</b>: TEdit;</code></td>
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="eSortKey"></span><code><b>eSortKey</b>: TEdit;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="eSortKey"></a><code><b>eSortKey</b>: TEdit;</code></td>
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="eTitle"></span><code><b>eTitle</b>: TEdit;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="eTranslated"></a><code><b>eTranslated</b>: TEdit;</code></td>
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="eTrainer"></span><code><b>eTrainer</b>: TEdit;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="eTransTitle"></a><code><b>eTransTitle</b>: TEdit;</code></td>
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="eTranslated"></span><code><b>eTranslated</b>: TEdit;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="eVersion"></a><code><b>eVersion</b>: TEdit;</code></td>
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="eTransTitle"></span><code><b>eTransTitle</b>: TEdit;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="eYear"></a><code><b>eYear</b>: TEdit;</code></td>
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="eVersion"></span><code><b>eVersion</b>: TEdit;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="eZone"></a><code><b>eZone</b>: TEdit;</code></td>
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="eYear"></span><code><b>eYear</b>: TEdit;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="gbxParent"></a><code><b>gbxParent</b>: TGroupBox;</code></td>
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="eZone"></span><code><b>eZone</b>: TEdit;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="eTitle"></a><code><b>eTitle</b>: TEdit;</code></td>
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="gbxDumpTags"></span><code><b>gbxDumpTags</b>: TGroupBox;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="gbxSystem"></a><code><b>gbxSystem</b>: TGroupBox;</code></td>
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="gbxExtraParameters"></span><code><b>gbxExtraParameters</b>: TGroupBox;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="gbxDumpTags"></a><code><b>gbxDumpTags</b>: TGroupBox;</code></td>
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="gbxVersion"></span><code><b>gbxVersion</b>: TGroupBox;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="gbxTitle"></a><code><b>gbxTitle</b>: TGroupBox;</code></td>
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="lCracked"></span><code><b>lCracked</b>: TLabel;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="lCracked"></a><code><b>lCracked</b>: TLabel;</code></td>
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="lDumpInfo"></span><code><b>lDumpInfo</b>: TLabel;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="lDumpInfo"></a><code><b>lDumpInfo</b>: TLabel;</code></td>
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="lDumpType"></span><code><b>lDumpType</b>: TLabel;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="lDumpType"></a><code><b>lDumpType</b>: TLabel;</code></td>
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="lFixed"></span><code><b>lFixed</b>: TLabel;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="lFixed"></a><code><b>lFixed</b>: TLabel;</code></td>
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="lHack"></span><code><b>lHack</b>: TLabel;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="lHack"></a><code><b>lHack</b>: TLabel;</code></td>
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="lModified"></span><code><b>lModified</b>: TLabel;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="lModified"></a><code><b>lModified</b>: TLabel;</code></td>
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="lPirate"></span><code><b>lPirate</b>: TLabel;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="lPirate"></a><code><b>lPirate</b>: TLabel;</code></td>
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="lPublisher"></span><code><b>lPublisher</b>: TLabel;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="lPublisher"></a><code><b>lPublisher</b>: TLabel;</code></td>
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="lTrainer"></span><code><b>lTrainer</b>: TLabel;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="lTrainer"></a><code><b>lTrainer</b>: TLabel;</code></td>
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="lTranslated"></span><code><b>lTranslated</b>: TLabel;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="lTranslated"></a><code><b>lTranslated</b>: TLabel;</code></td>
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="lVersion"></span><code><b>lVersion</b>: TLabel;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="lTitle"></a><code><b>lTitle</b>: TLabel;</code></td>
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="lYear"></span><code><b>lYear</b>: TLabel;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="lVersion"></a><code><b>lVersion</b>: TLabel;</code></td>
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="lZone"></span><code><b>lZone</b>: TLabel;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="lYear"></a><code><b>lYear</b>: TLabel;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="lZone"></a><code><b>lZone</b>: TLabel;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="gbxVersion"></a><code><b>gbxVersion</b>: TGroupBox;</code></td>
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="mExtraParameters"></span><code><b>mExtraParameters</b>: TMemo;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -528,7 +482,7 @@ $(document).ready(function() {
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><a name="SelectSystem"></a><code>function <b>SelectSystem</b>(aSystem: <a  href="ucEmutecaSystem.cEmutecaSystem.html">cEmutecaSystem</a>): boolean;</code></td>
+<td class="itemcode"><span id="DoClearFrameData"></span><code>procedure <b>DoClearFrameData</b>;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -536,7 +490,15 @@ $(document).ready(function() {
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><a name="SelectParent"></a><code>function <b>SelectParent</b>(aParent: <a  href="ucEmutecaParent.cEmutecaParent.html">cEmutecaParent</a>): boolean;</code></td>
+<td class="itemcode"><span id="DoLoadFrameData"></span><code>procedure <b>DoLoadFrameData</b>;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><span id="DoSaveFrameData"></span><code>procedure <b>DoSaveFrameData</b>;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -544,7 +506,7 @@ $(document).ready(function() {
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="SaveData"></a><code>procedure <b>SaveData</b>;</code></td>
+<td class="itemcode"><span id="FPOObservedChanged"></span><code>procedure <b>FPOObservedChanged</b>(ASender: TObject; Operation: TFPObservedOperation; Data: Pointer);</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -552,7 +514,7 @@ $(document).ready(function() {
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="UpdateData"></a><code>procedure <b>UpdateData</b>;</code></td>
+<td class="itemcode"><span id="Create"></span><code>constructor <b>Create</b>(TheOwner: TComponent); override;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -560,31 +522,7 @@ $(document).ready(function() {
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="ClearData"></a><code>procedure <b>ClearData</b>;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="FPOObservedChanged"></a><code>procedure <b>FPOObservedChanged</b>(ASender: TObject; Operation: TFPObservedOperation; Data: Pointer);</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Create"></a><code>constructor <b>Create</b>(TheOwner: TComponent); override;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Destroy"></a><code>destructor <b>Destroy</b>; override;</code></td>
+<td class="itemcode"><span id="Destroy"></span><code>destructor <b>Destroy</b>; override;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -592,38 +530,12 @@ $(document).ready(function() {
 <h3 class="detail">Properties</h3>
 <table class="detail wide_list">
 <tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><a name="cbxSystem"></a><code>property <b>cbxSystem</b>: <a  href="ufEmutecaSystemCBX.TfmEmutecaSystemCBX.html">TfmEmutecaSystemCBX</a> read FcbxSystem;</code></td>
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="Software"></span><code>property <b>Software</b>: <a  href="ucEmutecaSoftware.cEmutecaSoftware.html">cEmutecaSoftware</a> read FSoftware write SetSoftware;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
 </table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><a name="cbxParent"></a><code>property <b>cbxParent</b>: <a  href="ufEmutecaParentCBX.TfmEmutecaParentCBX.html">TfmEmutecaParentCBX</a> read FcbxParent;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Software"></a><code>property <b>Software</b>: <a  href="ucEmutecaSoftware.cEmutecaSoftware.html">cEmutecaSoftware</a> read FSoftware write SetSoftware;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-public declarations</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Emuteca"></a><code>property <b>Emuteca</b>: <a  href="ucEmuteca.cEmuteca.html">cEmuteca</a> read FEmuteca write SetEmuteca;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/">PasDoc 0.14.0</a>. </em>
+<hr><span class="appinfo"><em>Generated by <a  href="https://github.com/pasdoc/pasdoc/wiki">PasDoc 0.15.0</a>. </em>
 </span>
 </td></tr></table></body></html>

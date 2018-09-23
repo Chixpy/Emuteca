@@ -1,4 +1,10 @@
-{ Software tree example frame of Emuteca
+unit ufEmutecaSoftTree;
+
+{< TfmEmutecaSoftTree frame unit.
+
+  ----
+
+  This file is part of Emuteca Core.
 
   Copyright (C) 2006-2018 Chixpy
 
@@ -17,25 +23,32 @@
   to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
   MA 02111-1307, USA.
 }
-unit ufEmutecaSoftTree;
-
 {$mode objfpc}{$H+}
 
 interface
 
 uses
   Classes, SysUtils, FileUtil, VirtualTrees, VTHeaderPopup, Forms, Controls,
-  Graphics, Dialogs, ComCtrls, ActnList, Menus, LazUTF8,
+  Graphics, Dialogs, ComCtrls, ActnList, Menus, LazUTF8, LCLType,
   LazFileUtils, IniFiles,
+  // CHX units
+  uCHXImageUtils,
+  // CHX frames
   ufCHXFrame,
+  // Emuteca Core units
+  uEmutecaConst, uEmutecaRscStr, uEmutecaCommon,
+  // Emuteca Core abstract
   uaEmutecaCustomSoft,
-  ucEmutecaGroupList, ucEmutecaGroup, ucEmutecaSoftware, uEmutecaCommon;
+  // Emuteca Core classes
+  ucEmutecaGroupList, ucEmutecaGroup, ucEmutecaSoftware;
 
 const
   krsIniSoftTreeSection = 'SoftTree';
   krsIniSoftTreeWidthFmt = 'Column%0:d_Width';
   krsIniSoftTreeVisibleFmt = 'Column%0:d_Visible';
   krsIniSoftTreePositionFmt = 'Column%0:d_Position';
+  krsIniSoftTreeGroupFont = 'GroupFont';
+  krsIniSoftTreeSoftFont = 'SoftFont';
 
 type
 
@@ -67,6 +80,8 @@ type
     procedure VDTInitNode(Sender: TBaseVirtualTree;
       ParentNode, Node: PVirtualNode;
       var InitialStates: TVirtualNodeInitStates);
+    procedure VDTKeyDown(Sender: TObject; var Key: word; Shift: TShiftState);
+
   private
     FGroupList: cEmutecaGroupList;
     FGUIConfigFile: string;
@@ -95,6 +110,9 @@ type
     procedure FilterNodes;
 
     procedure DoDblClkTree;
+
+    procedure SetNodesHeight(Sender: TBaseVirtualTree;
+      Node: PVirtualNode; Data: Pointer; var Abort: boolean);
 
     procedure DoClearFrameData;
     procedure DoLoadFrameData;
@@ -319,6 +337,37 @@ begin
     pSoft := Sender.GetNodeData(Node);
     pSoft^ := pGroup^.SoftList[Node^.Index];
   end;
+end;
+
+procedure TfmEmutecaSoftTree.VDTKeyDown(Sender: TObject;
+  var Key: word; Shift: TShiftState);
+var
+  Tree: TVirtualStringTree;
+begin
+  if not Assigned(Sender) then
+    Exit;
+
+  Tree := TVirtualStringTree(Sender);
+  if (Shift = [ssCtrl]) then //CTRL key down
+  begin
+    if (Key = VK_ADD) then //"+" (plus) key down
+    begin
+      Key := 0; //so no FHeader.AutoFitColumns from TBaseVirtualTree.WMKeyDown
+      Tree.Font.Height := abs(Tree.Font.Height) + 1;
+      Tree.DefaultNodeHeight := Tree.Font.Height;
+      Tree.IterateSubtree(nil, @SetNodesHeight, nil);
+    end;
+    if (Key = VK_SUBTRACT) then //"-" (minus) key down
+    begin
+      Key := 0; //so no FHeader.RestoreColumns from TBaseVirtualTree.WMKeyDown
+      if (abs(Tree.Font.Height) > 8) then // Minimal size...
+      begin
+        Tree.Font.Height := abs(Tree.Font.Height) - 1;
+        Tree.DefaultNodeHeight := Tree.Font.Height;
+        Tree.IterateSubtree(nil, @SetNodesHeight, nil);
+      end;
+    end;
+  end; //CTRL
 end;
 
 procedure TfmEmutecaSoftTree.VDTChange(Sender: TBaseVirtualTree;
@@ -732,6 +781,12 @@ var
   aBool: boolean;
   vstOptions: TVTColumnOptions;
 begin
+  // VST Fonts
+  LoadFontFromIni(aIniFile, krsIniSoftTreeSection,
+    krsIniSoftTreeSoftFont, VDT.Font);
+  VDT.DefaultNodeHeight := abs(VDT.Font.Height);
+  VDT.IterateSubtree(nil, @SetNodesHeight, nil);
+
   // VST Columns
   i := 0;
   while i < VDT.Header.Columns.Count do
@@ -766,6 +821,11 @@ procedure TfmEmutecaSoftTree.DoSaveGUIConfig(aIniFile: TIniFile);
 var
   i: integer;
 begin
+  // VST Fonts
+  SaveFontToIni(aIniFile, krsIniSoftTreeSection,
+    krsIniSoftTreeSoftFont, VDT.Font);
+
+  // VST Columns
   i := 0;
   while i < VDT.Header.Columns.Count do
   begin
@@ -828,6 +888,13 @@ begin
     if Assigned(OnDblClkGroup) then
       OnDblClkGroup(cEmutecaGroup(pData^));
   end;
+end;
+
+procedure TfmEmutecaSoftTree.SetNodesHeight(Sender: TBaseVirtualTree;
+  Node: PVirtualNode; Data: Pointer; var Abort: boolean);
+begin
+  Abort := False;
+  Sender.NodeHeight[Node] := VDT.DefaultNodeHeight;
 end;
 
 procedure TfmEmutecaSoftTree.DoClearFrameData;

@@ -1,6 +1,11 @@
-{ This file is part of Emuteca
+unit ucEmutecaGroup;
+{< cEmutecaGroup class unit.
 
-  Copyright (C) 2006-2017 Chixpy
+  ----
+
+  This file is part of Emuteca Core.
+
+  Copyright (C) 2006-2018 Chixpy
 
   This source is free software; you can redistribute it and/or modify it under
   the terms of the GNU General Public License as published by the Free
@@ -17,10 +22,6 @@
   to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
   MA 02111-1307, USA.
 }
-
-{ cEmutecaGroup unit. }
-unit ucEmutecaGroup;
-
 {$mode objfpc}{$H+}
 
 interface
@@ -46,13 +47,6 @@ type
     property CachedSystem: caEmutecaCustomSystem
       read FCachedSystem write SetCachedSystem;
 
-    procedure SearchAllRelatedFiles(OutFileList: TStrings;
-      aFolder: string; Extensions: TStrings; SearchInComp: boolean;
-      AutoExtract: boolean); override;
-    function SearchFirstRelatedFile(aFolder: string;
-      Extensions: TStrings; SearchInComp: boolean;
-      AutoExtract: boolean): string; override;
-
     constructor Create(aOwner: TComponent); override;
     destructor Destroy; override;
 
@@ -72,28 +66,6 @@ begin
     Exit;
   FCachedSystem := AValue;
 end;
-
-procedure cEmutecaGroup.SearchAllRelatedFiles(OutFileList: TStrings;
-  aFolder: string; Extensions: TStrings;
-  SearchInComp: boolean; AutoExtract: boolean);
-begin
-  if Assigned(CachedSystem) then
-    EmuTKSearchAllRelatedFiles(OutFileList, aFolder, MediaFileName, Extensions,
-      SearchInComp, AutoExtract, CachedSystem.TempFolder)
-  else
-    inherited;
-end;
-
-function cEmutecaGroup.SearchFirstRelatedFile(aFolder: string;
-  Extensions: TStrings; SearchInComp: boolean; AutoExtract: boolean): string;
-begin
-  if Assigned(CachedSystem) then
-    Result := EmuTKSearchFirstRelatedFile(aFolder, MediaFileName,
-      Extensions, SearchInComp, AutoExtract, CachedSystem.TempFolder)
-  else
-    Result := inherited;
-end;
-
 
 constructor cEmutecaGroup.Create(aOwner: TComponent);
 begin

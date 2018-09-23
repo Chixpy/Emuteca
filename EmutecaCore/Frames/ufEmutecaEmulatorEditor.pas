@@ -1,5 +1,27 @@
 unit ufEmutecaEmulatorEditor;
+{< TfmEmutecaEmulatorEditor frame unit.
 
+  ----
+
+  This file is part of Emuteca Core.
+
+  Copyright (C) 2006-2018 Chixpy
+
+  This source is free software; you can redistribute it and/or modify it under
+  the terms of the GNU General Public License as published by the Free
+  Software Foundation; either version 3 of the License, or (at your option)
+  any later version.
+
+  This code is distributed in the hope that it will be useful, but WITHOUT ANY
+  WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+  FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+  details.
+
+  A copy of the GNU General Public License is available on the World Wide Web
+  at <http://www.gnu.org/copyleft/gpl.html>. You can also obtain it by writing
+  to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
+  MA 02111-1307, USA.
+}
 {$mode objfpc}{$H+}
 
 interface
@@ -11,7 +33,9 @@ uses
   uCHXStrUtils, uCHXDlgUtils,
   // CHX frames
   ufCHXPropEditor,
-  // Emuteca classes
+  // Emuteca Core abstract
+  uaEmutecaCustomEmu,
+  // Emuteca Core classes
   ucEmutecaEmulator;
 
 type
@@ -131,39 +155,41 @@ end;
 
 procedure TfmEmutecaEmulatorEditor.actOpenWebPageExecute(Sender: TObject);
 begin
-  if eWebPage.Text = '' then Exit;
+  if eWebPage.Text = '' then
+    Exit;
   OpenURL(eWebPage.Text);
 end;
 
 procedure TfmEmutecaEmulatorEditor.actParamROMDirExecute(Sender: TObject);
 begin
-   eParameters.SelText:=kEmutecaROMDirKey;
+  eParameters.SelText := kEmutecaROMDirKey;
 end;
 
 procedure TfmEmutecaEmulatorEditor.actParamROMExtraExecute(Sender: TObject);
 begin
-  eParameters.SelText:=kEmutecaROMExtraParamKey;
+  eParameters.SelText := kEmutecaROMExtraParamKey;
 end;
 
 procedure TfmEmutecaEmulatorEditor.actParamROMFileExtensionExecute(
   Sender: TObject);
 begin
-  eParameters.SelText:=kEmutecaROMFileExtKey;
+  eParameters.SelText := kEmutecaROMFileExtKey;
 end;
 
 procedure TfmEmutecaEmulatorEditor.actParamROMFilenameExecute(Sender: TObject);
 begin
-  eParameters.SelText:=kEmutecaROMFileNameKey;
+  eParameters.SelText := kEmutecaROMFileNameKey;
 end;
 
-procedure TfmEmutecaEmulatorEditor.actParamROMFileNoExtExecute(Sender: TObject);
+procedure TfmEmutecaEmulatorEditor.actParamROMFileNoExtExecute(
+  Sender: TObject);
 begin
-   eParameters.SelText:=kEmutecaROMFileNameNoExtKey;
+  eParameters.SelText := kEmutecaROMFileNameNoExtKey;
 end;
 
 procedure TfmEmutecaEmulatorEditor.actParamROMPathExecute(Sender: TObject);
 begin
-  eParameters.SelText:=kEmutecaROMPathKey;
+  eParameters.SelText := kEmutecaROMPathKey;
 end;
 
 procedure TfmEmutecaEmulatorEditor.actWFROMExecute(Sender: TObject);

@@ -1,4 +1,7 @@
-{ Merge Groups frame of Emuteca GUI.
+unit ufETKGUIactMergeGroup;
+{< TfmEEGUIactMergeGroup frame unit of Emuteca GUI.
+
+  ----
 
   Copyright (C) 2011-2018 Chixpy
 
@@ -17,8 +20,6 @@
   writing to the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
   Boston, MA 02111-1307, USA.
 }
-unit ufETKGUIactMergeGroup;
-
 {$mode objfpc}{$H+}
 
 interface
@@ -29,16 +30,16 @@ uses
   ufrCHXForm,
   // CHX frames
   ufCHXPropEditor,
-  // Emuteca units
-  uEmutecaCommon,
-  // Emuteca classes
+  // Emuteca Core units
+  uEmutecaConst, uEmutecaRscStr, uEmutecaCommon,
+  // Emuteca Core classes
   ucEmutecaGroup;
 
 type
 
-  { TfmEEGUIactMergeGroup }
+  { TfmETKGUIactMergeGroup }
 
-  TfmEEGUIactMergeGroup = class(TfmCHXPropEditor)
+  TfmETKGUIactMergeGroup = class(TfmCHXPropEditor)
   private
     FGroup: cEmutecaGroup;
     procedure SetGroup(AValue: cEmutecaGroup);
@@ -63,34 +64,34 @@ implementation
 
 {$R *.lfm}
 
-{ TfmEEGUIactMergeGroup }
+{ TfmETKGUIactMergeGroup }
 
-procedure TfmEEGUIactMergeGroup.SetGroup(AValue: cEmutecaGroup);
+procedure TfmETKGUIactMergeGroup.SetGroup(AValue: cEmutecaGroup);
 begin
   if FGroup=AValue then Exit;
   FGroup:=AValue;
 end;
 
-procedure TfmEEGUIactMergeGroup.DoClearFrameData;
+procedure TfmETKGUIactMergeGroup.DoClearFrameData;
 begin
 
 end;
 
-procedure TfmEEGUIactMergeGroup.DoLoadFrameData;
+procedure TfmETKGUIactMergeGroup.DoLoadFrameData;
 begin
 
 end;
 
-procedure TfmEEGUIactMergeGroup.DoSaveFrameData;
+procedure TfmETKGUIactMergeGroup.DoSaveFrameData;
 begin
 
 end;
 
-class function TfmEEGUIactMergeGroup.SimpleForm(aGroup: cEmutecaGroup;
+class function TfmETKGUIactMergeGroup.SimpleForm(aGroup: cEmutecaGroup;
   aGUIIconsIni: string; aGUIConfigIni: string): integer;
 var
   aForm: TfrmCHXForm;
-  aFrame: TfmEEGUIactMergeGroup;
+  aFrame: TfmETKGUIactMergeGroup;
 begin
   Result := mrNone;
 
@@ -101,7 +102,7 @@ begin
       [Application.Title, 'Merge group files...']);
     aForm.AutoSize := True;
 
-    aFrame := TfmEEGUIactMergeGroup.Create(aForm);
+    aFrame := TfmETKGUIactMergeGroup.Create(aForm);
     aFrame.SaveButtons := True;
     aFrame.ButtonClose := True;
     aFrame.Align := alClient;
@@ -118,7 +119,7 @@ begin
   end;
 end;
 
-constructor TfmEEGUIactMergeGroup.Create(TheOwner: TComponent);
+constructor TfmETKGUIactMergeGroup.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
 
@@ -129,7 +130,7 @@ begin
   OnSaveFrameData := @DoSaveFrameData;
 end;
 
-destructor TfmEEGUIactMergeGroup.Destroy;
+destructor TfmETKGUIactMergeGroup.Destroy;
 begin
   inherited Destroy;
 end;

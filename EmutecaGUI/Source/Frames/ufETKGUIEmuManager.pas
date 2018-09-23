@@ -1,4 +1,9 @@
-{ Emulator Manager frame of Emuteca GUI.
+unit ufETKGUIEmuManager;
+{< TfmETKGUIEmuManager frame unit.
+
+  ----
+
+  This file is part of Emuteca GUI.
 
   Copyright (C) 2011-2018 Chixpy
 
@@ -17,8 +22,6 @@
   writing to the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
   Boston, MA 02111-1307, USA.
 }
-unit ufETKGUIEmuManager;
-
 {$mode objfpc}{$H+}
 
 interface
@@ -26,11 +29,19 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
   Buttons, CheckLst, ActnList, Menus,
+  // CHX units
   uCHXStrUtils,
-  ufrCHXForm, ufCHXChkLstPropEditor,
-  uEmutecaCommon,
+  // CHX frames
+  ufCHXChkLstPropEditor,
+  // CHX forms
+  ufrCHXForm,
+  // Emuteca Core units
+  uEmutecaCommon, uEmutecaConst,uEmutecaRscStr,
+  // Emuteca Core classes
   ucEmutecaEmulatorManager, ucEmutecaEmulator,
+  // Emuteca GUI units
   uETKGUICommon,
+  // Emuteca GUI frames
   ufETKGUIFullEmuEditor;
 
 resourcestring

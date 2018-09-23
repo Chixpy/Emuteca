@@ -1,4 +1,9 @@
-{ Frame to add sofware from folder of Emuteca
+unit ufEmutecaActAddFolder;
+{ Frame to add sofware from folder.
+
+  ----
+
+  This file is part of Emuteca Core.
 
   Copyright (C) 2011-2018 Chixpy
 
@@ -17,8 +22,6 @@
   to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
   MA 02111-1307, USA.
 }
-unit ufEmutecaActAddFolder;
-
 {$mode objfpc}{$H+}
 
 interface
@@ -32,13 +35,13 @@ uses
   ufrCHXForm,
   // CHX frames
   ufCHXPropEditor,
-  // Emuteca units
-  uEmutecaCommon,
-  // Enuteca abstracts
+  // Emuteca Core units
+  uEmutecaConst, uEmutecaRscStr, uEmutecaCommon,
+  // Enuteca Core abstracts
   uaEmutecaCustomSystem,
-  // Emuteca clases
+  // Emuteca Core clases
   ucEmuteca, ucEmutecaSystem, ucEmutecaSoftList, ucEmutecaSoftware,
-  // Emuteca frames
+  // Emuteca Core frames
   ufEmutecaSystemCBX;
 
 type

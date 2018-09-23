@@ -1,4 +1,9 @@
-{ System (and emulator) preview frame of Emuteca GUI
+unit ufETKGUISysPreview;
+{< TfmETKGUISysPreview frame unit.
+
+  ----
+
+  This file is part of Emuteca GUI.
 
   Copyright (C) 2011-2017 Chixpy
 
@@ -17,8 +22,6 @@
   writing to the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
   Boston, MA 02111-1307, USA.
 }
-unit ufETKGUISysPreview;
-
 {$mode objfpc}{$H+}
 
 interface
@@ -30,14 +33,14 @@ uses
   uCHXImageUtils, uCHXStrUtils,
   // CHX frames
   ufCHXFrame, ufCHXImgViewer,
-  // Emuteca units
-  uEmutecaCommon,
-  // Emuteca classes
+  // Emuteca Core units
+  uEmutecaConst,uEmutecaRscStr,uEmutecaCommon,
+  // Emuteca Core classes
   ucEmutecaSystem, ucEmutecaEmulator,
-  // Emuteca frames
+  // Emuteca Core frames
   ufEmutecaEmulatorCBX,
   // Emuteca GUI units
-  uETKGUICommon;
+  uETKGUIConst, uETKGUIRscStr;
 
 type
 

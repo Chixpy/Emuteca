@@ -1,6 +1,12 @@
-{ This file is part of Emuteca
+unit ucEmutecaPlayingStats;
 
-  Copyright (C) 2006-2017 Chixpy
+{ cEmutecaPlayingStats class unit.
+
+  ----
+
+  This file is part of Emuteca Core.
+
+  Copyright (C) 2006-2018 Chixpy
 
   This source is free software; you can redistribute it and/or modify it under
   the terms of the GNU General Public License as published by the Free
@@ -17,25 +23,20 @@
   to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
   MA 02111-1307, USA.
 }
-
-{ cGameStats unit. }
-unit ucEmutecaPlayingStats;
-
 {$mode objfpc}{$H+}
 
 interface
 
 uses
   Classes, SysUtils, dateutils, IniFiles, Graphics,
+  // CHX units
   uCHXStrUtils,
-  uEmutecaCommon;
+  // Emuteca Core units.
+  uEmutecaConst, uEmutecaRscStr;
 
 type
 
-  { cEmutecaPlayingStats class.
-
-    This class is for storing stats (System, Emulator, Parent and Soft).
-  }
+  { cEmutecaPlayingStats class. }
 
   cEmutecaPlayingStats = class(TComponent)
   private
@@ -60,8 +61,7 @@ type
     procedure WriteToIni(aIniFile: TCustomIniFile; const Section: string;
       ExportMode: boolean);
     procedure LoadFromIni(aIniFile: TCustomIniFile; const Section: string);
-    procedure WriteToStrLst(aTxtFile: TStrings;
-      ExportMode: boolean);
+    procedure WriteToStrLst(aTxtFile: TStrings; ExportMode: boolean);
     procedure LoadFromStrLst(aTxtFile: TStrings; const NLine: integer);
 
     constructor Create(aOwner: TComponent); override;
@@ -79,13 +79,19 @@ type
     {< Total seconds played. }
 
     function LastTimeStr: string;
+    {< Returns LastTime as string. }
     function TimesPlayedStr: string;
+    {< Returns TimesPlayed as string. }
     function PlayingTimeStr: string;
+    {< Returns PlayingTime as string. }
 
     // TODO: This must be stored in another place...
     property Icon: TPicture read FIcon write SetIcon;
     property SysSoftIcon: TPicture read FSysSoftIcon write SetSysSoftIcon;
   end;
+
+  {< This class is for storing stats (System, Emulator, Parent and Soft).
+  }
 
 implementation
 
@@ -114,8 +120,9 @@ end;
 
 procedure cEmutecaPlayingStats.SetSysSoftIcon(AValue: TPicture);
 begin
-  if FSysSoftIcon=AValue then Exit;
-  FSysSoftIcon:=AValue;
+  if FSysSoftIcon = AValue then
+    Exit;
+  FSysSoftIcon := AValue;
 end;
 
 procedure cEmutecaPlayingStats.SetTimesPlayed(AValue: int64);

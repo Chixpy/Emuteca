@@ -1,6 +1,11 @@
-{ Basic abstract group class of Emuteca
+unit uaEmutecaCustomGroup;
+{< caEmutecaCustomGroup class unit.
 
-  Copyright (C) 2006-2017 Chixpy
+  ----
+
+  This file is part of Emuteca Core.
+
+  Copyright (C) 2006-2018 Chixpy
 
   This source is free software; you can redistribute it and/or modify it under
   the terms of the GNU General Public License as published by the Free
@@ -17,8 +22,6 @@
   to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
   MA 02111-1307, USA.
 }
-unit uaEmutecaCustomGroup;
-
 {$mode objfpc}{$H+}
 
 interface
@@ -30,7 +33,7 @@ uses
   // CHX abstract objects
   uaCHXStorable,
   // Emuteca units
-  uEmutecaCommon,
+  uEmutecaConst,
   // Emuteca classes
   ucEmutecaPlayingStats;
 
@@ -76,11 +79,6 @@ type
     function ExportCommaText: string;
     procedure ImportFrom(aGroup: caEmutecaCustomGroup);
 
-    procedure SearchAllRelatedFiles(OutFileList: TStrings;
-      aFolder: string; Extensions: TStrings; SearchInComp: boolean; AutoExtract: boolean); virtual;
-    function SearchFirstRelatedFile(aFolder: string;
-      Extensions: TStrings; SearchInComp: boolean; AutoExtract: boolean): string; virtual;
-
     constructor Create(aOwner: TComponent); override;
     destructor Destroy; override;
 
@@ -99,9 +97,11 @@ type
       write SetMediaFileName;
     {< Name of media files. }
 
-
     property Stats: cEmutecaPlayingStats read FStats;
   end;
+  {< This class defines an abstract basic group with all basic properties,
+    but without a software list to avoid circular reference with
+    ucEmutecaSoftware, using this in cEmutecaSoftware.CachedGroup property. }
 
 implementation
 
@@ -290,19 +290,6 @@ begin
     Result := aStringList.CommaText;
     FreeAndNil(aStringList);
   end;
-end;
-
-procedure caEmutecaCustomGroup.SearchAllRelatedFiles(OutFileList: TStrings;
-  aFolder: string; Extensions: TStrings; SearchInComp: boolean; AutoExtract: boolean);
-begin
-  EmuTKSearchAllRelatedFiles(OutFileList, aFolder, MediaFileName, Extensions,
-    SearchInComp, AutoExtract, '');
-end;
-
-function caEmutecaCustomGroup.SearchFirstRelatedFile(aFolder: string;
-  Extensions: TStrings; SearchInComp: boolean; AutoExtract: boolean): string;
-begin
-  Result := EmuTKSearchFirstRelatedFile(aFolder, MediaFileName, Extensions, SearchInComp, AutoExtract, '');
 end;
 
 constructor caEmutecaCustomGroup.Create(aOwner: TComponent);

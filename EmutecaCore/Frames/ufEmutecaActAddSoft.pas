@@ -1,4 +1,9 @@
-{ Frame to add sofware of Emuteca
+unit ufEmutecaActAddSoft;
+{ Frame to add sofware.
+
+  ----
+
+  This file is part of Emuteca Core.
 
   Copyright (C) 2011-2018 Chixpy
 
@@ -17,8 +22,6 @@
   to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
   MA 02111-1307, USA.
 }
-unit ufEmutecaActAddSoft;
-
 {$mode objfpc}{$H+}
 
 interface
@@ -32,14 +35,14 @@ uses
   ufrCHXForm,
   // CHX frames
   ufCHXPropEditor,
-  // Emuteca units
-  uEmutecaCommon,
-  // Emuteca abstracts
+  // Emuteca Core units
+  uEmutecaConst, uEmutecaRscStr, uEmutecaCommon,
+  // Emuteca Core abstracts
   uaEmutecaCustomSystem,
-  // Emuteca classes
+  // Emuteca Core classes
   ucEmuteca, ucEmutecaSystem, ucEmutecaSoftList, ucEmutecaGroup,
   ucEmutecaSoftware,
-  // Emuteca frames
+  // Emuteca Core frames
   ufEmutecaSoftEditor, ufEmutecaSystemCBX, ufEmutecaGroupCBX;
 
 type

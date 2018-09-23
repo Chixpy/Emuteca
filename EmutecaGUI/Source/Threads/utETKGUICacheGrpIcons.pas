@@ -1,4 +1,7 @@
-{ Thread for caching groups icons of Emuteca GUI
+unit utETKGUICacheGrpIcons;
+{< ctEGUICacheGrpIcons thread class unit of Emuteca GUI.
+
+  ----
 
   Copyright (C) 2006-2018 Chixpy
 
@@ -17,8 +20,6 @@
   to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
   MA 02111-1307, USA.
 }
-unit utETKGUICacheGrpIcons;
-
 {$mode objfpc}{$H+}
 
 interface
@@ -27,35 +28,39 @@ uses
   Classes, SysUtils, Graphics, LazFileUtils,
   // CHX classes
   ucCHXImageList,
-  // Emuteca classes
+  // Emuteca Core units
+  uEmutecaCommon,
+  // Emuteca Core classes
   ucEmutecaGroupList, ucEmutecaGroup, ucEmutecaSoftware;
 
 type
 
-  { ctEGUICacheGrpIcons
-
-    This Thread loads group icons in background.
-  }
+  { ctEGUICacheGrpIcons }
 
   ctEGUICacheGrpIcons = class(TThread)
   private
     FGroupList: cEmutecaGroupList;
     FIconList: cCHXImageList;
     FImageExt: TStrings;
+    FTempFolder: string;
     procedure SetGroupList(AValue: cEmutecaGroupList);
     procedure SetIconList(AValue: cCHXImageList);
     procedure SetImageExt(AValue: TStrings);
+    procedure SetTempFolder(const aTempFolder: string);
 
   protected
     procedure Execute; override;
 
   public
     property ImageExt: TStrings read FImageExt write SetImageExt;
+    property TempFolder: string read FTempFolder write SetTempFolder;
     property GroupList: cEmutecaGroupList read FGroupList write SetGroupList;
     property IconList: cCHXImageList read FIconList write SetIconList;
 
     constructor Create;
   end;
+
+{< This thread loads group icons in background. }
 
 implementation
 
@@ -82,6 +87,13 @@ begin
   FImageExt := AValue;
 end;
 
+procedure ctEGUICacheGrpIcons.SetTempFolder(const aTempFolder: string);
+begin
+  if FTempFolder = aTempFolder then
+    Exit;
+  FTempFolder := aTempFolder;
+end;
+
 procedure ctEGUICacheGrpIcons.Execute;
 var
   i: integer;
@@ -102,8 +114,8 @@ begin
 
     aIcon := aGroup.Stats.Icon;
     begin
-      TempStr := aGroup.SearchFirstRelatedFile(aGroup.CachedSystem.IconFolder,
-        ImageExt, True, True);
+      TempStr := EmuTKSearchFirstRelatedFile(aGroup.CachedSystem.IconFolder,
+        aGroup.MediaFileName, ImageExt, True, True, TempFolder);
 
       if FileExistsUTF8(TempStr) then
       begin
@@ -142,16 +154,15 @@ begin
           end
           else
           begin
-
             if Terminated then
               Exit;
-            TempStr := aSoft.SearchFirstRelatedFile(aSoft.CachedSystem.IconFolder,
-              ImageExt, True, True);
+            TempStr :=
+              EmuTKSearchFirstRelatedFile(aSoft.CachedSystem.IconFolder,
+              aSoft.GetMediaFileName, ImageExt, True, True, TempFolder);
 
             if FileExistsUTF8(TempStr) then
             begin
               aIcon := IconList[IconList.AddImageFile(TempStr)];
-
             end
             else
             begin
@@ -161,7 +172,6 @@ begin
             if Terminated then
               Exit;
             aSoft.Stats.Icon := aIcon;
-
           end;
         end;
       end;

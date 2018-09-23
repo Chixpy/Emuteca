@@ -96,6 +96,7 @@ inherited fmEmutecaSoftTree: TfmEmutecaSoftTree
     OnGetPopupMenu = VDTGetPopupMenu
     OnInitChildren = VDTInitChildren
     OnInitNode = VDTInitNode
+    OnKeyDown = VDTKeyDown
   end
   object VTHPopupMenu: TVTHeaderPopupMenu[2]
     Options = [poResizeToFitItem]

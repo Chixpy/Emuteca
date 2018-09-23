@@ -1,4 +1,9 @@
-{ Software manager of Emuteca
+unit ucEmutecaSoftManager;
+{< cEmutecaSoftManager class unit.
+
+  ----
+
+  This file is part of Emuteca Core.
 
   Copyright (C) 2011-2018 Chixpy
 
@@ -17,17 +22,17 @@
   to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
   MA 02111-1307, USA.
 }
-unit ucEmutecaSoftManager;
-
 {$mode objfpc}{$H+}
 
 interface
 
 uses
   Classes, SysUtils, fgl, LazUTF8, LazFileUtils,
-  uEmutecaCommon,
-  uaEmutecaCustomManager,
-  uaEmutecaCustomSystem, uaEmutecaCustomGroup,
+  // Emuteca Core Units
+  uEmutecaConst, uEmutecaRscStr, uEmutecaCommon,
+  // Emuteca Core abstracts
+  uaEmutecaCustomManager, uaEmutecaCustomSystem, uaEmutecaCustomGroup,
+  // Emuteca Core classes
   ucEmutecaSoftList;
 
 type

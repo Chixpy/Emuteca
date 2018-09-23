@@ -1,4 +1,9 @@
-{ Main frame of Emuteca GUI
+unit ufETKGUIMain;
+{< TfmETKGUIMain frame unit.
+
+  ----
+
+  This file is part of Emuteca GUI.
 
   Copyright (C) 2006-2018 Chixpy
 
@@ -17,7 +22,6 @@
   to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
   MA 02111-1307, USA.
 }
-unit ufETKGUIMain;
 
 {$mode objfpc}{$H+}
 
@@ -30,15 +34,15 @@ uses
   uCHXStrUtils, ucCHXImageList,
   // CHX frames
   ufCHXFrame, ufCHXTagTree,
-  // Emuteca common
-  uEmutecaCommon,
-  // Emuteca clases
+  // Emuteca Core units
+  uEmutecaConst, uEmutecaRscStr,
+  // Emuteca Core clases
   ucEmuteca, ucEmutecaSystem, ucEmutecaGroupList, ucEmutecaGroup,
   ucEmutecaSoftware, ucEmutecaEmulator,
-  // Emuteca frames
+  // Emuteca Core frames
   ufEmutecaSystemCBX,
   // Emuteca GUI units
-  uETKGUICommon,
+  uETKGUIConst, uETKGUIRscStr,
   // Emuteca GUI classes
   ucETKGUIConfig,
   // Emuteca GUI frames
@@ -136,7 +140,7 @@ type
     //< Select a software
     function DoDblClkSoftware(aSoftware: cEmutecaSoftware): boolean;
     //< Double click on Software
-        function DoSelectEmu(aEmulator: cEmutecaEmulator): boolean;
+    function DoSelectEmu(aEmulator: cEmutecaEmulator): boolean;
     //< Select a emulator
     procedure CheckTags(aList: TStrings);
     //< Check Tags
@@ -170,7 +174,8 @@ type
       read FOnSoftChanged write SetOnSoftChanged;
     property OnSoftDblClk: TEmutecaReturnSoftCB
       read FOnSoftDblClk write SetOnSoftDblClk;
-    property OnEmulatorChanged: TEmutecaReturnEmulatorCB read FOnEmulatorChanged write SetOnEmulatorChanged;
+    property OnEmulatorChanged: TEmutecaReturnEmulatorCB
+      read FOnEmulatorChanged write SetOnEmulatorChanged;
 
     property pmSoft: TPopupMenu read FpmSoft write SetpmSoft;
     property pmGroup: TPopupMenu read FpmGroup write SetpmGroup;
@@ -279,9 +284,12 @@ begin
     // TODO: Hack, don't work if all systems is selected
     FCurrentSystem := nil; // Updated by LoadFrameData;
 
+    fmSoftMedia.TempFolder := Emuteca.TempFolder;
+
     fmCHXTagTree.Folder :=
       SetAsAbsoluteFile(Emuteca.Config.TagsFolder, Emuteca.BaseFolder);
     // fmSoftTree.GroupList set by DoSelectSystem;
+
   end
   else
   begin
@@ -289,6 +297,7 @@ begin
     fmCHXTagTree.Folder := '';
     fmSoftTree.GroupList := nil;
     fmSoftEditor.Software := nil;
+    fmSoftMedia.TempFolder := '';
     fmSoftMedia.Software := nil;
     fmSystemPanel.System := nil;
     FullGroupList.Clear; // Clear full list
@@ -307,7 +316,8 @@ begin
   fmSoftMedia.TextExt := GUIConfig.TextExtensions;
   fmSoftMedia.VideoExt := GUIConfig.VideoExtensions;
   fmSoftMedia.MusicExt := GUIConfig.MusicExtensions;
-  fmSoftMedia.MPlayerPath := SetAsAbsoluteFile(GUIConfig.mPlayerExe,
+  fmSoftMedia.MPlayerPath :=
+    SetAsAbsoluteFile(GUIConfig.mPlayerExe,
     ExtractFileDir(GUIConfig.DefaultFileName));
 
   LoadFrameData;
@@ -316,7 +326,8 @@ end;
 procedure TfmETKGUIMain.SetOnEmulatorChanged(
   const aOnEmulatorChanged: TEmutecaReturnEmulatorCB);
 begin
-  if FOnEmulatorChanged = aOnEmulatorChanged then Exit;
+  if FOnEmulatorChanged = aOnEmulatorChanged then
+    Exit;
   FOnEmulatorChanged := aOnEmulatorChanged;
 end;
 
@@ -394,10 +405,10 @@ end;
 
 procedure TfmETKGUIMain.UpdateFullGroupList;
 var
-  i, j: Integer;
+  i, j: integer;
   aSystem: cEmutecaSystem;
 begin
-    FullGroupList.Clear;
+  FullGroupList.Clear;
 
   i := 0;
   while i < Emuteca.SystemManager.EnabledList.Count do
@@ -448,7 +459,8 @@ function TfmETKGUIMain.DoSelectEmu(aEmulator: cEmutecaEmulator): boolean;
 begin
   Result := True;
 
-  CurrentSystem.CurrentEmulator := aEmulator;
+  if Assigned(CurrentSystem) then
+    CurrentSystem.CurrentEmulator := aEmulator;
 
   if Assigned(OnEmulatorChanged) then
     Result := OnEmulatorChanged(aEmulator);
@@ -549,8 +561,6 @@ constructor TfmETKGUIMain.Create(TheOwner: TComponent);
 
     // Creating SoftTree frame
     FfmSoftTree := TfmETKGUIIcnSoftTree.Create(pMain);
-    // TODO: Configurable
-    fmSoftTree.VDT.Font.Height := 24;
     fmSoftTree.OnSelectGroup := @DoSelectGroup;
     fmSoftTree.OnSelectSoft := @DoSelectSoftware;
     fmSoftTree.OnDblClkSoft := @DoDblClkSoftware;

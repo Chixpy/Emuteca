@@ -1,4 +1,9 @@
-{ Icon soft list frame of Emuteca GUI.
+unit ufETKGUIIcnSoftTree;
+{< TfmETKGUIIcnSoftTree frame unit.
+
+  ----
+
+  This file is part of Emuteca GUI.
 
   Copyright (C) 2011-2018 Chixpy
 
@@ -17,8 +22,6 @@
   writing to the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
   Boston, MA 02111-1307, USA.
 }
-unit ufETKGUIIcnSoftTree;
-
 {$mode objfpc}{$H+}
 
 interface
@@ -31,16 +34,16 @@ uses
   uCHXImageUtils,
   // CHX clases
   ucCHXImageList,
-  // Emuteca units
-  uEmutecaCommon,
-  // Emuteca abstracts
+  // Emuteca Core units
+  uEmutecaConst,uEmutecaRscStr,uEmutecaCommon,
+  // Emuteca Core abstracts
   uaEmutecaCustomSoft,
-  // Emuteca clases
+  // Emuteca Core clases
   ucEmutecaGroup, ucEmutecaSoftware,
-  // Emuteca frames
+  // Emuteca Core frames
   ufEmutecaSoftTree,
   // Emuteca GUI units
-  uETKGUICommon;
+  uETKGUIConst, uETKGUIRscStr;
 
 type
 
@@ -52,6 +55,7 @@ type
     procedure VDTDrawText(Sender: TBaseVirtualTree;
       TargetCanvas: TCanvas; Node: PVirtualNode; Column: TColumnIndex;
       const CellText: string; const CellRect: TRect; var DefaultDraw: boolean);
+    procedure VDTKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
 
   private
     FDumpIconList: cCHXImageList;
@@ -312,6 +316,14 @@ begin
     DrawSoftText(cEmutecaSoftware(pData^), TargetCanvas, Column,
       CellText, CellRect, DefaultDraw);
   end;
+end;
+
+procedure TfmETKGUIIcnSoftTree.VDTKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  inherited;
+
+  SetIconColumnsWidth;
 end;
 
 procedure TfmETKGUIIcnSoftTree.SetDumpIconList(AValue: cCHXImageList);

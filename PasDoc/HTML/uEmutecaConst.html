@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Emuteca: uEmutecaConst</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="PasDoc 0.15.0">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="tipuesearch/tipuesearch.css">
+
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body>
+<table class="container"><tr><td class="navigation">
+<h2>Emuteca</h2><p><a href="AllUnits.html" class="navigation">Units</a></p><p><a href="ClassHierarchy.html" class="navigation">Class Hierarchy</a></p><p><a href="AllClasses.html" class="navigation">Classes, Interfaces, Objects and Records</a></p><p><a href="AllTypes.html" class="navigation">Types</a></p><p><a href="AllVariables.html" class="navigation">Variables</a></p><p><a href="AllConstants.html" class="navigation">Constants</a></p><p><a href="AllFunctions.html" class="navigation">Functions and Procedures</a></p><p><a href="AllIdentifiers.html" class="navigation">Identifiers</a></p><form class="search-form" action="_tipue_results.html"><div class="search-input"><input type="text" name="q" id="tipue_search_input"></div><div class="search-button"><input type="button" id="tipue_search_button" onclick="this.form.submit();"></div></form>
+<div style="clear: both"></div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#tipue_search_input').tipuesearch({
+        /* 10 items to display seems standard */
+        'show': 10,
+        /* For PasDoc docs, showing urls is not very useful,
+           since the page title already shows the unit and identifier. */
+        'showURL': false
+    });
+});
+</script>
+</td><td class="content">
+<h1 class="unit">Unit uEmutecaConst</h1>
+<div class="sections">
+<div class="one_section"><a class="section" href="#PasDoc-Description">Description</a></div><div class="one_section">Uses</div><div class="one_section">Classes, Interfaces, Objects and Records</div><div class="one_section">Functions and Procedures</div><div class="one_section"><a class="section" href="#PasDoc-Types">Types</a></div><div class="one_section"><a class="section" href="#PasDoc-Constants">Constants</a></div><div class="one_section">Variables</div></div>
+<span id="PasDoc-Description"></span><h2 class="description">Description</h2>
+<p>
+Constants unit of Emuteca Core.
+
+<p>&mdash;-
+
+<p>This file is part of Emuteca Core.
+
+<p>Copyright (C) 2011-2018 Chixpy
+
+<p>This source is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
+
+<p>This code is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+<p>A copy of the GNU General Public License is available on the World Wide Web at &lt;<a  href="http://www.gnu.org/copyleft/gpl.html">http://www.gnu.org/copyleft/gpl.html</a>&gt;. You can also obtain it by writing to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.</p>
+<span id="PasDoc-Uses"></span><h2 class="overview">Overview</h2>
+<span id="PasDoc-Types"></span><h3 class="summary">Types</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#TEmutecaSoftExportKey">TEmutecaSoftExportKey</a></b> = (...);</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#TEmutecaDumpStatus">TEmutecaDumpStatus</a></b> = (...);</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#TEmutecaProgressCallBack">TEmutecaProgressCallBack</a></b> = function(const aAction, aInfo: string; const aValue, aMaxValue: int64; const IsCancelable: boolean): boolean of object;</code></td>
+</tr>
+</table>
+<span id="PasDoc-Constants"></span><h3 class="summary">Constants</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsFmtWindowCaption">krsFmtWindowCaption</a></b> = '%0:s: %1:s';</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsTempGameSubFolder">krsTempGameSubFolder</a></b> = 'Soft/';</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsFileExtGroup">krsFileExtGroup</a></b> = '.egl';</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsFileExtSoft">krsFileExtSoft</a></b> = '.csv';</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsFileExtINI">krsFileExtINI</a></b> = '.ini';</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsFileExtScript">krsFileExtScript</a></b> = '.pas';</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsFileExtTXT">krsFileExtTXT</a></b> = '.txt';</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsFileMaskGroup">krsFileMaskGroup</a></b> = '*' + <a  href="uEmutecaConst.html#krsFileExtGroup">krsFileExtGroup</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsFileMaskSoft">krsFileMaskSoft</a></b> = '*' + <a  href="uEmutecaConst.html#krsFileExtSoft">krsFileExtSoft</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsFileMaskINI">krsFileMaskINI</a></b> = '*' + <a  href="uEmutecaConst.html#krsFileExtINI">krsFileExtINI</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsFileMaskScript">krsFileMaskScript</a></b> = '*' + <a  href="uEmutecaConst.html#krsFileExtScript">krsFileExtScript</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsFileMaskTXT">krsFileMaskTXT</a></b> = '*' + <a  href="uEmutecaConst.html#krsFileExtTXT">krsFileExtTXT</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#kErrorRunSoftUnknown">kErrorRunSoftUnknown</a></b> = -300;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#kErrorRunSoftNoSoft">kErrorRunSoftNoSoft</a></b> = -301;</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#kErrorRunSoftNoEmu">kErrorRunSoftNoEmu</a></b> = -302;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#kErrorRunSoftNoSoftFile">kErrorRunSoftNoSoftFile</a></b> = -303;</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#kErrorRunSoftNoEmuFile">kErrorRunSoftNoEmuFile</a></b> = -305;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#kError7zDecompress">kError7zDecompress</a></b> = -400;</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsCSVStatsHeader">krsCSVStatsHeader</a></b> = '&quot;Last Time&quot;,&quot;Times Played&quot;,&quot;Playing Time&quot;';</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsCSVSoftHeader">krsCSVSoftHeader</a></b> = '&quot;Group&quot;,&quot;SHA1&quot;,&quot;ID&quot;,&quot;Folder&quot;,&quot;FileName&quot;,' +
+    '&quot;Title&quot;,&quot;Transliterated Name&quot;,&quot;Sort Title&quot;,&quot;Version&quot;,&quot;Year&quot;,&quot;Publisher&quot;,'
+    +
+    '&quot;Zone&quot;,&quot;DumpStatus&quot;,&quot;Dump Info&quot;,&quot;Fixed&quot;,&quot;Trainer&quot;,&quot;Translation&quot;,' +
+    '&quot;Pirate&quot;,&quot;Cracked&quot;,&quot;Modified&quot;,&quot;Hack&quot;,&quot;Extra Parameters&quot;';</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsCSVSoftStatsHeader">krsCSVSoftStatsHeader</a></b> = <a  href="uEmutecaConst.html#krsCSVSoftHeader">krsCSVSoftHeader</a> + ',' + <a  href="uEmutecaConst.html#krsCSVStatsHeader">krsCSVStatsHeader</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsCSVGroupHeader">krsCSVGroupHeader</a></b> = '&quot;ID&quot;,&quot;Title&quot;,&quot;Sort Title&quot;,&quot;Year&quot;,&quot;Developer&quot;,' +
+    '&quot;Media file&quot;';</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsCSVGroupStatsHeader">krsCSVGroupStatsHeader</a></b> = <a  href="uEmutecaConst.html#krsCSVGroupHeader">krsCSVGroupHeader</a> + ',' + <a  href="uEmutecaConst.html#krsCSVStatsHeader">krsCSVStatsHeader</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsIniKeyID">krsIniKeyID</a></b> = 'ID';</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsIniKeyTitle">krsIniKeyTitle</a></b> = 'Title';</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsIniKeySortTitle">krsIniKeySortTitle</a></b> = 'SortTitle';</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsIniKeyFileName">krsIniKeyFileName</a></b> = 'FileName';</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsIniKeyYear">krsIniKeyYear</a></b> = 'Year';</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsIniKeyEnabled">krsIniKeyEnabled</a></b> = 'Enabled';</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsIniKeyWorkingFolder">krsIniKeyWorkingFolder</a></b> = 'WorkingFolder';</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsIniKeyIcon">krsIniKeyIcon</a></b> = 'Icon';</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsIniKeyImage">krsIniKeyImage</a></b> = 'Image';</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsIniKeyDeveloper">krsIniKeyDeveloper</a></b> = 'Developer';</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsIniKeyExtensions">krsIniKeyExtensions</a></b> = 'Extensions';</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsIniKeyBaseFolder">krsIniKeyBaseFolder</a></b> = 'BaseFolder';</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsIniKeyMainEmulator">krsIniKeyMainEmulator</a></b> = 'MainEmulator';</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsIniKeyOtherEmulators">krsIniKeyOtherEmulators</a></b> = 'OtherEmulators';</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsIniKeyBackImage">krsIniKeyBackImage</a></b> = 'BackImage';</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsIniKeySoftIcon">krsIniKeySoftIcon</a></b> = 'SoftIcon';</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsIniKeyIconFolder">krsIniKeyIconFolder</a></b> = 'IconFolder';</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsIniKeyImageFolders">krsIniKeyImageFolders</a></b> = 'ImageFolders';</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsIniKeyImageCaptions">krsIniKeyImageCaptions</a></b> = 'ImageCaptions';</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsIniKeyText">krsIniKeyText</a></b> = 'Text';</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsIniKeyTextFolders">krsIniKeyTextFolders</a></b> = 'TextFolders';</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsIniKeyTextCaptions">krsIniKeyTextCaptions</a></b> = 'TextCaptions';</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsIniKeyMusicFolders">krsIniKeyMusicFolders</a></b> = 'MusicFolders';</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsIniKeyMusicCaptions">krsIniKeyMusicCaptions</a></b> = 'MusicCaptions';</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsIniKeyVideoFolders">krsIniKeyVideoFolders</a></b> = 'VideoFolders';</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsIniKeyVideoCaptions">krsIniKeyVideoCaptions</a></b> = 'VideoCaptions';</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsIniKeySoftExportKey">krsIniKeySoftExportKey</a></b> = 'SoftExportKey';</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsIniKeyExtractAll">krsIniKeyExtractAll</a></b> = 'ExtractAll';</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsIniKeySHA1">krsIniKeySHA1</a></b> = 'SHA1';</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsIniKeyGroup">krsIniKeyGroup</a></b> = 'Group';</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsIniKeyTranslitTitle">krsIniKeyTranslitTitle</a></b> = 'TranslitTitle';</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsIniKeyVersion">krsIniKeyVersion</a></b> = 'Version';</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsIniKeyPublisher">krsIniKeyPublisher</a></b> = 'Publisher';</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsIniKeyZone">krsIniKeyZone</a></b> = 'Zone';</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsIniKeyDumpInfo">krsIniKeyDumpInfo</a></b> = 'DumpInfo';</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsIniKeyDumpStatus">krsIniKeyDumpStatus</a></b> = 'DumpStatus';</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsIniKeyFixed">krsIniKeyFixed</a></b> = 'Fixed';</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsIniKeyTrainer">krsIniKeyTrainer</a></b> = 'Trainer';</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsIniKeyTranslation">krsIniKeyTranslation</a></b> = 'Translation';</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsIniKeyPirate">krsIniKeyPirate</a></b> = 'Pirate';</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsIniKeyCracked">krsIniKeyCracked</a></b> = 'Cracked';</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsIniKeyModified">krsIniKeyModified</a></b> = 'Modified';</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsIniKeyHack">krsIniKeyHack</a></b> = 'Hack';</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsIniKeyFolder">krsIniKeyFolder</a></b> = 'Folder';</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsIniKeyParameters">krsIniKeyParameters</a></b> = 'Parameters';</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsIniKeyExtraParamFmt">krsIniKeyExtraParamFmt</a></b> = 'ExtraParamFmt';</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsIniKeyExitCode">krsIniKeyExitCode</a></b> = 'ExitCode';</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsIniKeyExeFile">krsIniKeyExeFile</a></b> = 'ExeFile';</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsIniKeyWebPage">krsIniKeyWebPage</a></b> = 'WebPage';</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsIniKeyInfoFile">krsIniKeyInfoFile</a></b> = 'InfoFile';</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsIniKeyPlayingTime">krsIniKeyPlayingTime</a></b> = 'PlayingTime';</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsIniKeyTimesPlayed">krsIniKeyTimesPlayed</a></b> = 'TimesPlayed';</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsIniKeyLastTime">krsIniKeyLastTime</a></b> = 'LastTime';</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsSEKCRC32">krsSEKCRC32</a></b> = 'CRC32';</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsSEKSHA1">krsSEKSHA1</a></b> = 'SHA1';</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsSEKFileName">krsSEKFileName</a></b> = 'FileName';</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsSEKCustom">krsSEKCustom</a></b> = 'Custom';</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsEDSVerified">krsEDSVerified</a></b> = 'Verified';</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsEDSGood">krsEDSGood</a></b> = 'GoodDump';</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsEDSAlternate">krsEDSAlternate</a></b> = 'Alternate';</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsEDSOverDump">krsEDSOverDump</a></b> = 'OverDump';</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsEDSBadDump">krsEDSBadDump</a></b> = 'BadDump';</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsEDSUnderDump">krsEDSUnderDump</a></b> = 'UnderDump';</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsEDSUnknown">krsEDSUnknown</a></b> = 'Unknown';</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsEDSKeepValue">krsEDSKeepValue</a></b> = 'KeepValue';</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsEDSVerifiedKey">krsEDSVerifiedKey</a></b> = '!';</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsEDSGoodKey">krsEDSGoodKey</a></b> = '';</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsEDSAlternateKey">krsEDSAlternateKey</a></b> = 'a';</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsEDSOverDumpKey">krsEDSOverDumpKey</a></b> = 'o';</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsEDSBadDumpKey">krsEDSBadDumpKey</a></b> = 'b';</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsEDSUnderDumpKey">krsEDSUnderDumpKey</a></b> = 'u';</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsEDSUnknownKey">krsEDSUnknownKey</a></b> = '?';</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsImportKeepValueKey">krsImportKeepValueKey</a></b> = '@';</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#krsTemp7zCacheFolder">krsTemp7zCacheFolder</a></b> = 'SHA1Cache/';</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#EmutecaSoftExportKeyStrK">EmutecaSoftExportKeyStrK</a></b>: array [<a  href="uEmutecaConst.html#TEmutecaSoftExportKey">TEmutecaSoftExportKey</a>] of string =
+    (<a  href="uEmutecaConst.html#krsSEKSHA1">krsSEKSHA1</a>, <a  href="uEmutecaConst.html#krsSEKCRC32">krsSEKCRC32</a>, <a  href="uEmutecaConst.html#krsSEKFileName">krsSEKFileName</a>, <a  href="uEmutecaConst.html#krsSEKCustom">krsSEKCustom</a>);</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#EmutecaDumpStatusKey">EmutecaDumpStatusKey</a></b>: array [<a  href="uEmutecaConst.html#TEmutecaDumpStatus">TEmutecaDumpStatus</a>] of string =
+    (<a  href="uEmutecaConst.html#krsEDSVerifiedKey">krsEDSVerifiedKey</a>, <a  href="uEmutecaConst.html#krsEDSGoodKey">krsEDSGoodKey</a>, <a  href="uEmutecaConst.html#krsEDSAlternateKey">krsEDSAlternateKey</a>, <a  href="uEmutecaConst.html#krsEDSOverDumpKey">krsEDSOverDumpKey</a>,
+    <a  href="uEmutecaConst.html#krsEDSBadDumpKey">krsEDSBadDumpKey</a>, <a  href="uEmutecaConst.html#krsEDSUnderDumpKey">krsEDSUnderDumpKey</a>, <a  href="uEmutecaConst.html#krsEDSUnknownKey">krsEDSUnknownKey</a>,
+    <a  href="uEmutecaConst.html#krsImportKeepValueKey">krsImportKeepValueKey</a>);</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="uEmutecaConst.html#EmutecaDumpStatusStrK">EmutecaDumpStatusStrK</a></b>: array [<a  href="uEmutecaConst.html#TEmutecaDumpStatus">TEmutecaDumpStatus</a>] of string =
+    (<a  href="uEmutecaConst.html#krsEDSVerified">krsEDSVerified</a>, <a  href="uEmutecaConst.html#krsEDSGood">krsEDSGood</a>, <a  href="uEmutecaConst.html#krsEDSAlternate">krsEDSAlternate</a>, <a  href="uEmutecaConst.html#krsEDSOverDump">krsEDSOverDump</a>,
+    <a  href="uEmutecaConst.html#krsEDSBadDump">krsEDSBadDump</a>, <a  href="uEmutecaConst.html#krsEDSUnderDump">krsEDSUnderDump</a>, <a  href="uEmutecaConst.html#krsEDSUnknown">krsEDSUnknown</a>, <a  href="uEmutecaConst.html#krsEDSKeepValue">krsEDSKeepValue</a>);</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Types</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="TEmutecaSoftExportKey"></span><code><b>TEmutecaSoftExportKey</b> = (...);</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;<h6 class="description_section">Values</h6>
+<ul>
+<li>
+<span id="TEFKSHA1">TEFKSHA1</span></li>
+<li>
+<span id="TEFKCRC32">TEFKCRC32</span></li>
+<li>
+<span id="TEFKFileName">TEFKFileName</span></li>
+<li>
+<span id="TEFKCustom">TEFKCustom</span></li>
+</ul>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="TEmutecaDumpStatus"></span><code><b>TEmutecaDumpStatus</b> = (...);</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;<h6 class="description_section">Values</h6>
+<ul>
+<li>
+<span id="edsVerified">edsVerified</span></li>
+<li>
+<span id="edsGood">edsGood</span></li>
+<li>
+<span id="edsAlternate">edsAlternate</span></li>
+<li>
+<span id="edsOverDump">edsOverDump</span></li>
+<li>
+<span id="edsBadDump">edsBadDump</span></li>
+<li>
+<span id="edsUnderDump">edsUnderDump</span></li>
+<li>
+<span id="edsUnknown">edsUnknown</span></li>
+<li>
+<span id="edsKeepValue">edsKeepValue</span></li>
+</ul>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="TEmutecaProgressCallBack"></span><code><b>TEmutecaProgressCallBack</b> = function(const aAction, aInfo: string; const aValue, aMaxValue: int64; const IsCancelable: boolean): boolean of object;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Callback funtion to show progress</p>
+</td></tr>
+</table>
+<h3 class="detail">Constants</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsFmtWindowCaption"></span><code><b>krsFmtWindowCaption</b> = '%0:s: %1:s';</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Window caption format %0:s = Application.Title (derived from rsFmtApplicationTitle). %1:s = Window caption.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsTempGameSubFolder"></span><code><b>krsTempGameSubFolder</b> = 'Soft/';</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Subfolder in temp directory, where games will be decompressed.
+
+<p>With ending folder separator.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsFileExtGroup"></span><code><b>krsFileExtGroup</b> = '.egl';</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Extension for group lists.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsFileExtSoft"></span><code><b>krsFileExtSoft</b> = '.csv';</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Extension for soft lists.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsFileExtINI"></span><code><b>krsFileExtINI</b> = '.ini';</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Extension for ini databases (Systems, Emulators).</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsFileExtScript"></span><code><b>krsFileExtScript</b> = '.pas';</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Extension for script files.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsFileExtTXT"></span><code><b>krsFileExtTXT</b> = '.txt';</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Extension for generic text files.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsFileMaskGroup"></span><code><b>krsFileMaskGroup</b> = '*' + <a  href="uEmutecaConst.html#krsFileExtGroup">krsFileExtGroup</a>;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+File mask for group lists.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsFileMaskSoft"></span><code><b>krsFileMaskSoft</b> = '*' + <a  href="uEmutecaConst.html#krsFileExtSoft">krsFileExtSoft</a>;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+File mask for soft lists.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsFileMaskINI"></span><code><b>krsFileMaskINI</b> = '*' + <a  href="uEmutecaConst.html#krsFileExtINI">krsFileExtINI</a>;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+File mask for ini databases (Systems, Emulators).</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsFileMaskScript"></span><code><b>krsFileMaskScript</b> = '*' + <a  href="uEmutecaConst.html#krsFileExtScript">krsFileExtScript</a>;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+File mask for script files.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsFileMaskTXT"></span><code><b>krsFileMaskTXT</b> = '*' + <a  href="uEmutecaConst.html#krsFileExtTXT">krsFileExtTXT</a>;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+File mask for generic text files.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="kErrorRunSoftUnknown"></span><code><b>kErrorRunSoftUnknown</b> = -300;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Run Software: Unknown error.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="kErrorRunSoftNoSoft"></span><code><b>kErrorRunSoftNoSoft</b> = -301;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Run Software: Error code when soft = nil.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="kErrorRunSoftNoEmu"></span><code><b>kErrorRunSoftNoEmu</b> = -302;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Run Software: Error code when Emulator = nil.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="kErrorRunSoftNoSoftFile"></span><code><b>kErrorRunSoftNoSoftFile</b> = -303;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Run Software: Error code when soft file is not found.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="kErrorRunSoftNoEmuFile"></span><code><b>kErrorRunSoftNoEmuFile</b> = -305;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Run Software: Error code when emulator exe is not found.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="kError7zDecompress"></span><code><b>kError7zDecompress</b> = -400;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Base error const decompressing archive.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsCSVStatsHeader"></span><code><b>krsCSVStatsHeader</b> = '&quot;Last Time&quot;,&quot;Times Played&quot;,&quot;Playing Time&quot;';</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+CSV list headers &mdash;&mdash;&mdash;&mdash;&mdash;-</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsCSVSoftHeader"></span><code><b>krsCSVSoftHeader</b> = '&quot;Group&quot;,&quot;SHA1&quot;,&quot;ID&quot;,&quot;Folder&quot;,&quot;FileName&quot;,' +
+    '&quot;Title&quot;,&quot;Transliterated Name&quot;,&quot;Sort Title&quot;,&quot;Version&quot;,&quot;Year&quot;,&quot;Publisher&quot;,'
+    +
+    '&quot;Zone&quot;,&quot;DumpStatus&quot;,&quot;Dump Info&quot;,&quot;Fixed&quot;,&quot;Trainer&quot;,&quot;Translation&quot;,' +
+    '&quot;Pirate&quot;,&quot;Cracked&quot;,&quot;Modified&quot;,&quot;Hack&quot;,&quot;Extra Parameters&quot;';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsCSVSoftStatsHeader"></span><code><b>krsCSVSoftStatsHeader</b> = <a  href="uEmutecaConst.html#krsCSVSoftHeader">krsCSVSoftHeader</a> + ',' + <a  href="uEmutecaConst.html#krsCSVStatsHeader">krsCSVStatsHeader</a>;</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsCSVGroupHeader"></span><code><b>krsCSVGroupHeader</b> = '&quot;ID&quot;,&quot;Title&quot;,&quot;Sort Title&quot;,&quot;Year&quot;,&quot;Developer&quot;,' +
+    '&quot;Media file&quot;';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsCSVGroupStatsHeader"></span><code><b>krsCSVGroupStatsHeader</b> = <a  href="uEmutecaConst.html#krsCSVGroupHeader">krsCSVGroupHeader</a> + ',' + <a  href="uEmutecaConst.html#krsCSVStatsHeader">krsCSVStatsHeader</a>;</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsIniKeyID"></span><code><b>krsIniKeyID</b> = 'ID';</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+IniKeys &mdash;&mdash;- Shared</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsIniKeyTitle"></span><code><b>krsIniKeyTitle</b> = 'Title';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsIniKeySortTitle"></span><code><b>krsIniKeySortTitle</b> = 'SortTitle';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsIniKeyFileName"></span><code><b>krsIniKeyFileName</b> = 'FileName';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsIniKeyYear"></span><code><b>krsIniKeyYear</b> = 'Year';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsIniKeyEnabled"></span><code><b>krsIniKeyEnabled</b> = 'Enabled';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsIniKeyWorkingFolder"></span><code><b>krsIniKeyWorkingFolder</b> = 'WorkingFolder';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsIniKeyIcon"></span><code><b>krsIniKeyIcon</b> = 'Icon';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsIniKeyImage"></span><code><b>krsIniKeyImage</b> = 'Image';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsIniKeyDeveloper"></span><code><b>krsIniKeyDeveloper</b> = 'Developer';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsIniKeyExtensions"></span><code><b>krsIniKeyExtensions</b> = 'Extensions';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsIniKeyBaseFolder"></span><code><b>krsIniKeyBaseFolder</b> = 'BaseFolder';</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+System Shared Keys: <a class="normal" href="uEmutecaConst.html#krsIniKeyID">krsIniKeyID</a>, <a class="normal" href="uEmutecaConst.html#krsIniKeyTitle">krsIniKeyTitle</a>, <a class="normal" href="uEmutecaConst.html#krsIniKeyFileName">krsIniKeyFileName</a>, <a class="normal" href="uEmutecaConst.html#krsIniKeyWorkingFolder">krsIniKeyWorkingFolder</a>, <a class="normal" href="uEmutecaConst.html#krsIniKeyIcon">krsIniKeyIcon</a>, <a class="normal" href="uEmutecaConst.html#krsIniKeyImage">krsIniKeyImage</a>, <a class="normal" href="uEmutecaConst.html#krsIniKeyExtensions">krsIniKeyExtensions</a></p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsIniKeyMainEmulator"></span><code><b>krsIniKeyMainEmulator</b> = 'MainEmulator';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsIniKeyOtherEmulators"></span><code><b>krsIniKeyOtherEmulators</b> = 'OtherEmulators';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsIniKeyBackImage"></span><code><b>krsIniKeyBackImage</b> = 'BackImage';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsIniKeySoftIcon"></span><code><b>krsIniKeySoftIcon</b> = 'SoftIcon';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsIniKeyIconFolder"></span><code><b>krsIniKeyIconFolder</b> = 'IconFolder';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsIniKeyImageFolders"></span><code><b>krsIniKeyImageFolders</b> = 'ImageFolders';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsIniKeyImageCaptions"></span><code><b>krsIniKeyImageCaptions</b> = 'ImageCaptions';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsIniKeyText"></span><code><b>krsIniKeyText</b> = 'Text';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsIniKeyTextFolders"></span><code><b>krsIniKeyTextFolders</b> = 'TextFolders';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsIniKeyTextCaptions"></span><code><b>krsIniKeyTextCaptions</b> = 'TextCaptions';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsIniKeyMusicFolders"></span><code><b>krsIniKeyMusicFolders</b> = 'MusicFolders';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsIniKeyMusicCaptions"></span><code><b>krsIniKeyMusicCaptions</b> = 'MusicCaptions';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsIniKeyVideoFolders"></span><code><b>krsIniKeyVideoFolders</b> = 'VideoFolders';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsIniKeyVideoCaptions"></span><code><b>krsIniKeyVideoCaptions</b> = 'VideoCaptions';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsIniKeySoftExportKey"></span><code><b>krsIniKeySoftExportKey</b> = 'SoftExportKey';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsIniKeyExtractAll"></span><code><b>krsIniKeyExtractAll</b> = 'ExtractAll';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsIniKeySHA1"></span><code><b>krsIniKeySHA1</b> = 'SHA1';</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Group Shared Keys: <a class="normal" href="uEmutecaConst.html#krsIniKeyID">krsIniKeyID</a>, <a class="normal" href="uEmutecaConst.html#krsIniKeyTitle">krsIniKeyTitle</a>, <a class="normal" href="uEmutecaConst.html#krsIniKeySortTitle">krsIniKeySortTitle</a>, <a class="normal" href="uEmutecaConst.html#krsIniKeyYear">krsIniKeyYear</a>, <a class="normal" href="uEmutecaConst.html#krsIniKeyFileName">krsIniKeyFileName</a>, <a class="normal" href="uEmutecaConst.html#krsIniKeyDeveloper">krsIniKeyDeveloper</a> Soft Shared Keys: <a class="normal" href="uEmutecaConst.html#krsIniKeyID">krsIniKeyID</a>, <a class="normal" href="uEmutecaConst.html#krsIniKeyTitle">krsIniKeyTitle</a>, <a class="normal" href="uEmutecaConst.html#krsIniKeySortTitle">krsIniKeySortTitle</a>, <a class="normal" href="uEmutecaConst.html#krsIniKeyYear">krsIniKeyYear</a>, <a class="normal" href="uEmutecaConst.html#krsIniKeyFileName">krsIniKeyFileName</a></p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsIniKeyGroup"></span><code><b>krsIniKeyGroup</b> = 'Group';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsIniKeyTranslitTitle"></span><code><b>krsIniKeyTranslitTitle</b> = 'TranslitTitle';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsIniKeyVersion"></span><code><b>krsIniKeyVersion</b> = 'Version';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsIniKeyPublisher"></span><code><b>krsIniKeyPublisher</b> = 'Publisher';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsIniKeyZone"></span><code><b>krsIniKeyZone</b> = 'Zone';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsIniKeyDumpInfo"></span><code><b>krsIniKeyDumpInfo</b> = 'DumpInfo';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsIniKeyDumpStatus"></span><code><b>krsIniKeyDumpStatus</b> = 'DumpStatus';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsIniKeyFixed"></span><code><b>krsIniKeyFixed</b> = 'Fixed';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsIniKeyTrainer"></span><code><b>krsIniKeyTrainer</b> = 'Trainer';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsIniKeyTranslation"></span><code><b>krsIniKeyTranslation</b> = 'Translation';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsIniKeyPirate"></span><code><b>krsIniKeyPirate</b> = 'Pirate';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsIniKeyCracked"></span><code><b>krsIniKeyCracked</b> = 'Cracked';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsIniKeyModified"></span><code><b>krsIniKeyModified</b> = 'Modified';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsIniKeyHack"></span><code><b>krsIniKeyHack</b> = 'Hack';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsIniKeyFolder"></span><code><b>krsIniKeyFolder</b> = 'Folder';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsIniKeyParameters"></span><code><b>krsIniKeyParameters</b> = 'Parameters';</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Emulator Shared Keys: <a class="normal" href="uEmutecaConst.html#krsIniKeyEnabled">krsIniKeyEnabled</a>, <a class="normal" href="uEmutecaConst.html#krsIniKeyTitle">krsIniKeyTitle</a>, <a class="normal" href="uEmutecaConst.html#krsIniKeyWorkingFolder">krsIniKeyWorkingFolder</a>, <a class="normal" href="uEmutecaConst.html#krsIniKeyIcon">krsIniKeyIcon</a>, <a class="normal" href="uEmutecaConst.html#krsIniKeyImage">krsIniKeyImage</a>, <a class="normal" href="uEmutecaConst.html#krsIniKeyDeveloper">krsIniKeyDeveloper</a>, <a class="normal" href="uEmutecaConst.html#krsIniKeyExtensions">krsIniKeyExtensions</a></p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsIniKeyExtraParamFmt"></span><code><b>krsIniKeyExtraParamFmt</b> = 'ExtraParamFmt';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsIniKeyExitCode"></span><code><b>krsIniKeyExitCode</b> = 'ExitCode';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsIniKeyExeFile"></span><code><b>krsIniKeyExeFile</b> = 'ExeFile';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsIniKeyWebPage"></span><code><b>krsIniKeyWebPage</b> = 'WebPage';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsIniKeyInfoFile"></span><code><b>krsIniKeyInfoFile</b> = 'InfoFile';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsIniKeyPlayingTime"></span><code><b>krsIniKeyPlayingTime</b> = 'PlayingTime';</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Playing Stats</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsIniKeyTimesPlayed"></span><code><b>krsIniKeyTimesPlayed</b> = 'TimesPlayed';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsIniKeyLastTime"></span><code><b>krsIniKeyLastTime</b> = 'LastTime';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsSEKCRC32"></span><code><b>krsSEKCRC32</b> = 'CRC32';</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Enumerated, sets, etc. &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;- Constants for <a class="normal" href="uEmutecaConst.html#krsIniKeySoftExportKey">krsIniKeySoftExportKey</a></p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsSEKSHA1"></span><code><b>krsSEKSHA1</b> = 'SHA1';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsSEKFileName"></span><code><b>krsSEKFileName</b> = 'FileName';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsSEKCustom"></span><code><b>krsSEKCustom</b> = 'Custom';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsEDSVerified"></span><code><b>krsEDSVerified</b> = 'Verified';</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Constant for DumpStatus, fixed (for icon filenames)</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsEDSGood"></span><code><b>krsEDSGood</b> = 'GoodDump';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsEDSAlternate"></span><code><b>krsEDSAlternate</b> = 'Alternate';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsEDSOverDump"></span><code><b>krsEDSOverDump</b> = 'OverDump';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsEDSBadDump"></span><code><b>krsEDSBadDump</b> = 'BadDump';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsEDSUnderDump"></span><code><b>krsEDSUnderDump</b> = 'UnderDump';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsEDSUnknown"></span><code><b>krsEDSUnknown</b> = 'Unknown';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsEDSKeepValue"></span><code><b>krsEDSKeepValue</b> = 'KeepValue';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsEDSVerifiedKey"></span><code><b>krsEDSVerifiedKey</b> = '!';</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Constant for DumpStatus, fixed (for databases)</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsEDSGoodKey"></span><code><b>krsEDSGoodKey</b> = '';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsEDSAlternateKey"></span><code><b>krsEDSAlternateKey</b> = 'a';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsEDSOverDumpKey"></span><code><b>krsEDSOverDumpKey</b> = 'o';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsEDSBadDumpKey"></span><code><b>krsEDSBadDumpKey</b> = 'b';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsEDSUnderDumpKey"></span><code><b>krsEDSUnderDumpKey</b> = 'u';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsEDSUnknownKey"></span><code><b>krsEDSUnknownKey</b> = '?';</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsImportKeepValueKey"></span><code><b>krsImportKeepValueKey</b> = '@';</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Key for import file to keep current value</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="krsTemp7zCacheFolder"></span><code><b>krsTemp7zCacheFolder</b> = 'SHA1Cache/';</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Dirs</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="EmutecaSoftExportKeyStrK"></span><code><b>EmutecaSoftExportKeyStrK</b>: array [<a  href="uEmutecaConst.html#TEmutecaSoftExportKey">TEmutecaSoftExportKey</a>] of string =
+    (<a  href="uEmutecaConst.html#krsSEKSHA1">krsSEKSHA1</a>, <a  href="uEmutecaConst.html#krsSEKCRC32">krsSEKCRC32</a>, <a  href="uEmutecaConst.html#krsSEKFileName">krsSEKFileName</a>, <a  href="uEmutecaConst.html#krsSEKCustom">krsSEKCustom</a>);</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Strings for FileKeys (fixed constants, used for ini files, etc. )</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="EmutecaDumpStatusKey"></span><code><b>EmutecaDumpStatusKey</b>: array [<a  href="uEmutecaConst.html#TEmutecaDumpStatus">TEmutecaDumpStatus</a>] of string =
+    (<a  href="uEmutecaConst.html#krsEDSVerifiedKey">krsEDSVerifiedKey</a>, <a  href="uEmutecaConst.html#krsEDSGoodKey">krsEDSGoodKey</a>, <a  href="uEmutecaConst.html#krsEDSAlternateKey">krsEDSAlternateKey</a>, <a  href="uEmutecaConst.html#krsEDSOverDumpKey">krsEDSOverDumpKey</a>,
+    <a  href="uEmutecaConst.html#krsEDSBadDumpKey">krsEDSBadDumpKey</a>, <a  href="uEmutecaConst.html#krsEDSUnderDumpKey">krsEDSUnderDumpKey</a>, <a  href="uEmutecaConst.html#krsEDSUnknownKey">krsEDSUnknownKey</a>,
+    <a  href="uEmutecaConst.html#krsImportKeepValueKey">krsImportKeepValueKey</a>);</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Keys for DumpStatus, used in IniFiles</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="EmutecaDumpStatusStrK"></span><code><b>EmutecaDumpStatusStrK</b>: array [<a  href="uEmutecaConst.html#TEmutecaDumpStatus">TEmutecaDumpStatus</a>] of string =
+    (<a  href="uEmutecaConst.html#krsEDSVerified">krsEDSVerified</a>, <a  href="uEmutecaConst.html#krsEDSGood">krsEDSGood</a>, <a  href="uEmutecaConst.html#krsEDSAlternate">krsEDSAlternate</a>, <a  href="uEmutecaConst.html#krsEDSOverDump">krsEDSOverDump</a>,
+    <a  href="uEmutecaConst.html#krsEDSBadDump">krsEDSBadDump</a>, <a  href="uEmutecaConst.html#krsEDSUnderDump">krsEDSUnderDump</a>, <a  href="uEmutecaConst.html#krsEDSUnknown">krsEDSUnknown</a>, <a  href="uEmutecaConst.html#krsEDSKeepValue">krsEDSKeepValue</a>);</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Strings for DumpStatus (fixed constants, used for icon filenames, etc. )</p>
+</td></tr>
+</table>
+<hr><span class="appinfo"><em>Generated by <a  href="https://github.com/pasdoc/pasdoc/wiki">PasDoc 0.15.0</a>. </em>
+</span>
+</td></tr></table></body></html>

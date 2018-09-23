@@ -1,4 +1,9 @@
-{ Media manager of Emuteca GUI
+unit ufETKGUIMediaManager;
+{< TfmETKGUIMediaManager frame unit.
+
+  ----
+
+  This file is part of Emuteca GUI.
 
   Copyright (C) 2006-2018 Chixpy
 
@@ -17,8 +22,6 @@
   to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
   MA 02111-1307, USA.
 }
-unit ufETKGUIMediaManager;
-
 {$mode objfpc}{$H+}
 
 interface
@@ -27,15 +30,23 @@ uses
   Classes, SysUtils, FileUtil, VirtualTrees, Forms, Controls,
   Graphics, Dialogs, ExtCtrls, ComCtrls, StdCtrls, ActnList,
   LCLType, Buttons, EditBtn, Menus, LazFileUtils, LazUTF8, IniFiles,
+  // CHX units
   uCHXStrUtils, uCHXImageUtils, uCHXFileUtils, uCHXDlgUtils,
-  ufrCHXForm,
+  // CHX frames
   ufCHXFrame, ufCHXStrLstPreview, ufCHXImgListPreview,
   ufCHXTxtListPreview, ufCHXProgressBar,
-  uEmutecaCommon,
+  // CHX forms
+  ufrCHXForm,
+  // Emuteca Core units
+  uEmutecaConst, uEmutecaRscStr, uEmutecaCommon,
+  // Emuteca Core classes
   ucEmuteca, ucEmutecaSystem, ucEmutecaGroup, ucEmutecaSoftware,
+  // Emuteca Core frames
   ufEmutecaSystemCBX,
-  ucETKGUIConfig,
-  uETKGUICommon;
+  // Emuteca GUI units
+  uETKGUIConst, uETKGUIRscStr,
+  // Emuteca GUI classes
+  ucETKGUIConfig;
 
 type
   // Data stored in File Trees
@@ -810,7 +821,8 @@ begin
     Exit;
   CurrPreview.StrList := nil;
   MediaFiles.Clear;
-  aGroup.SearchAllRelatedFiles(MediaFiles, TargetFolder, ExtFilter, True, True);
+  EmuTKSearchAllRelatedFiles(MediaFiles, TargetFolder,
+    aGroup.MediaFileName, ExtFilter, True, True, Emuteca.TempFolder);
   CurrPreview.StrList := MediaFiles;
 end;
 
@@ -820,7 +832,8 @@ begin
     Exit;
   CurrPreview.StrList := nil;
   MediaFiles.Clear;
-  aSoft.SearchAllRelatedFiles(MediaFiles, TargetFolder, ExtFilter, True, True);
+  EmuTKSearchAllRelatedFiles(MediaFiles, TargetFolder,
+    aSoft.GetMediaFileName, ExtFilter, True, True, Emuteca.TempFolder);
   CurrPreview.StrList := MediaFiles;
 end;
 
@@ -1253,7 +1266,7 @@ begin
     Exit;
 
   // Loading data if not already loaded
-    Emuteca.SystemManager.LoadSystemData(CurrSystem);
+  Emuteca.SystemManager.LoadSystemData(CurrSystem);
 
   lbxImages.Clear;
   lbxImages.Items.Add('Icons'); // Special images folder

@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Emuteca: uaEmutecaCustomSystem: Class caEmutecaCustomSystem</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="PasDoc 0.15.0">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="tipuesearch/tipuesearch.css">
+
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body>
+<table class="container"><tr><td class="navigation">
+<h2>Emuteca</h2><p><a href="AllUnits.html" class="navigation">Units</a></p><p><a href="ClassHierarchy.html" class="navigation">Class Hierarchy</a></p><p><a href="AllClasses.html" class="navigation">Classes, Interfaces, Objects and Records</a></p><p><a href="AllTypes.html" class="navigation">Types</a></p><p><a href="AllVariables.html" class="navigation">Variables</a></p><p><a href="AllConstants.html" class="navigation">Constants</a></p><p><a href="AllFunctions.html" class="navigation">Functions and Procedures</a></p><p><a href="AllIdentifiers.html" class="navigation">Identifiers</a></p><form class="search-form" action="_tipue_results.html"><div class="search-input"><input type="text" name="q" id="tipue_search_input"></div><div class="search-button"><input type="button" id="tipue_search_button" onclick="this.form.submit();"></div></form>
+<div style="clear: both"></div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#tipue_search_input').tipuesearch({
+        /* 10 items to display seems standard */
+        'show': 10,
+        /* For PasDoc docs, showing urls is not very useful,
+           since the page title already shows the unit and identifier. */
+        'showURL': false
+    });
+});
+</script>
+</td><td class="content">
+<span id="caEmutecaCustomSystem"></span><h1 class="cio">Class caEmutecaCustomSystem</h1>
+<div class="sections">
+<div class="one_section"><a class="section" href="#PasDoc-Description">Description</a></div><div class="one_section"><a class="section" href="#PasDoc-Hierarchy">Hierarchy</a></div><div class="one_section">Fields</div><div class="one_section"><a class="section" href="#PasDoc-Methods">Methods</a></div><div class="one_section"><a class="section" href="#PasDoc-Properties">Properties</a></div></div>
+<span id="PasDoc-Description"></span><h2 class="unit">Unit</h2>
+<p class="unitlink">
+<a  href="uaEmutecaCustomSystem.html">uaEmutecaCustomSystem</a></p>
+<h2 class="declaration">Declaration</h2>
+<p class="declaration">
+<code>type caEmutecaCustomSystem = class(<a class="normal" href="uaCHXStorable.caCHXStorableIni.html">caCHXStorableIni</a>)</code></p>
+<h2 class="description">Description</h2>
+<p>
+<code>caEmutecaCustomSystem</code></p>
+<span id="PasDoc-Hierarchy"></span><h2 class="hierarchy">Hierarchy</h2>
+<ul class="hierarchy"><li class="ancestor">TComponent</li>
+<li class="ancestor"><a class="normal" href="uaCHXStorable.caCHXStorable.html">caCHXStorable</a></li>
+<li class="ancestor"><a class="normal" href="uaCHXStorable.caCHXStorableIni.html">caCHXStorableIni</a></li>
+<li class="thisitem">caEmutecaCustomSystem</li></ul><h2 class="overview">Overview</h2>
+<span id="PasDoc-Methods"></span><h3 class="summary">Methods</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="uaEmutecaCustomSystem.caEmutecaCustomSystem.html#FixFolderListData">FixFolderListData</a></b>(FolderList, CaptionList: TStrings);</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="uaEmutecaCustomSystem.caEmutecaCustomSystem.html#DoSaveToIni">DoSaveToIni</a></b>(aIniFile: TIniFile; ExportMode: Boolean); virtual;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>function <b><a  href="uaEmutecaCustomSystem.caEmutecaCustomSystem.html#MatchID">MatchID</a></b>(aID: string): boolean;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>function <b><a  href="uaEmutecaCustomSystem.caEmutecaCustomSystem.html#CompareID">CompareID</a></b>(aID: string): integer;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="uaEmutecaCustomSystem.caEmutecaCustomSystem.html#LoadEmulatorsFrom">LoadEmulatorsFrom</a></b>(aEmuList: <a  href="ucEmutecaEmulatorList.cEmutecaEmulatorList.html">cEmutecaEmulatorList</a>);</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="uaEmutecaCustomSystem.caEmutecaCustomSystem.html#LoadFromIni">LoadFromIni</a></b>(aIniFile: TMemIniFile); override;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="uaEmutecaCustomSystem.caEmutecaCustomSystem.html#SaveToIni">SaveToIni</a></b>(aIniFile: TMemIniFile); override;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="uaEmutecaCustomSystem.caEmutecaCustomSystem.html#ExportToIni">ExportToIni</a></b>(aIniFile: TMemIniFile); virtual;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="uaEmutecaCustomSystem.caEmutecaCustomSystem.html#ImportFromIni">ImportFromIni</a></b>(aIniFile: TMemIniFile); virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>constructor <b><a  href="uaEmutecaCustomSystem.caEmutecaCustomSystem.html#Create">Create</a></b>(AOwner: TComponent); override;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>destructor <b><a  href="uaEmutecaCustomSystem.caEmutecaCustomSystem.html#Destroy">Destroy</a></b>; override;</code></td>
+</tr>
+</table>
+<span id="PasDoc-Properties"></span><h3 class="summary">Properties</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a  href="uaEmutecaCustomSystem.caEmutecaCustomSystem.html#TempFolder">TempFolder</a></b>: string read FTempFolder write SetTempFolder;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a  href="uaEmutecaCustomSystem.caEmutecaCustomSystem.html#EmulatorList">EmulatorList</a></b>: <a  href="ucEmutecaEmulatorList.cEmutecaEmulatorList.html">cEmutecaEmulatorList</a> read FEmulatorList;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a  href="uaEmutecaCustomSystem.caEmutecaCustomSystem.html#CurrentEmulator">CurrentEmulator</a></b>: <a  href="ucEmutecaEmulator.cEmutecaEmulator.html">cEmutecaEmulator</a>
+      read FCurrentEmulator write SetCurrentEmulator;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="uaEmutecaCustomSystem.caEmutecaCustomSystem.html#ID">ID</a></b>: string read FID write SetID;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="uaEmutecaCustomSystem.caEmutecaCustomSystem.html#Title">Title</a></b>: string read FTitle write SetTitle;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="uaEmutecaCustomSystem.caEmutecaCustomSystem.html#ListFileName">ListFileName</a></b>: string read GetListFileName write SetListFileName;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="uaEmutecaCustomSystem.caEmutecaCustomSystem.html#Enabled">Enabled</a></b>: boolean read FEnabled write SetEnabled;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="uaEmutecaCustomSystem.caEmutecaCustomSystem.html#ExtractAll">ExtractAll</a></b>: boolean read FExtractAll write SetExtractAll;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="uaEmutecaCustomSystem.caEmutecaCustomSystem.html#BaseFolder">BaseFolder</a></b>: string read FBaseFolder write SetBaseFolder;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="uaEmutecaCustomSystem.caEmutecaCustomSystem.html#WorkingFolder">WorkingFolder</a></b>: string read FWorkingFolder write SetWorkingFolder;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="uaEmutecaCustomSystem.caEmutecaCustomSystem.html#MainEmulator">MainEmulator</a></b>: string read FMainEmulator write SetMainEmulator;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="uaEmutecaCustomSystem.caEmutecaCustomSystem.html#OtherEmulators">OtherEmulators</a></b>: TStringList read FOtherEmulators;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="uaEmutecaCustomSystem.caEmutecaCustomSystem.html#IconFile">IconFile</a></b>: string read FIconFile write SetIconFile;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="uaEmutecaCustomSystem.caEmutecaCustomSystem.html#ImageFile">ImageFile</a></b>: string read FImage write SetImage;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="uaEmutecaCustomSystem.caEmutecaCustomSystem.html#BackgroundFile">BackgroundFile</a></b>: string read FBackgroundFile
+      write SetBackgroundFile;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="uaEmutecaCustomSystem.caEmutecaCustomSystem.html#SoftIconFile">SoftIconFile</a></b>: string read FSoftIconFile write SetSoftIconFile;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="uaEmutecaCustomSystem.caEmutecaCustomSystem.html#IconFolder">IconFolder</a></b>: string read FIconFolder write SetIconFolder;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="uaEmutecaCustomSystem.caEmutecaCustomSystem.html#ImageFolders">ImageFolders</a></b>: TStringList read FImageFolders;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="uaEmutecaCustomSystem.caEmutecaCustomSystem.html#ImageCaptions">ImageCaptions</a></b>: TStringList read FImageCaptions;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="uaEmutecaCustomSystem.caEmutecaCustomSystem.html#InfoText">InfoText</a></b>: string read FInfoText write SetInfoText;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="uaEmutecaCustomSystem.caEmutecaCustomSystem.html#TextFolders">TextFolders</a></b>: TStringList read FTextFolders;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="uaEmutecaCustomSystem.caEmutecaCustomSystem.html#TextCaptions">TextCaptions</a></b>: TStringList read FTextCaptions;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="uaEmutecaCustomSystem.caEmutecaCustomSystem.html#MusicFolders">MusicFolders</a></b>: TStringList read FMusicFolders;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="uaEmutecaCustomSystem.caEmutecaCustomSystem.html#MusicCaptions">MusicCaptions</a></b>: TStringList read FMusicCaptions;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="uaEmutecaCustomSystem.caEmutecaCustomSystem.html#VideoFolders">VideoFolders</a></b>: TStringList read FVideoFolders;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="uaEmutecaCustomSystem.caEmutecaCustomSystem.html#VideoCaptions">VideoCaptions</a></b>: TStringList read FVideoCaptions;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="uaEmutecaCustomSystem.caEmutecaCustomSystem.html#SoftExportKey">SoftExportKey</a></b>: <a  href="uEmutecaConst.html#TEmutecaSoftExportKey">TEmutecaSoftExportKey</a>
+      read FSoftExportKey write SetSoftExportKey;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="uaEmutecaCustomSystem.caEmutecaCustomSystem.html#Extensions">Extensions</a></b>: TStringList read FExtensions;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="uaEmutecaCustomSystem.caEmutecaCustomSystem.html#Stats">Stats</a></b>: <a  href="ucEmutecaPlayingStats.cEmutecaPlayingStats.html">cEmutecaPlayingStats</a> read FStats;</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Methods</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><span id="FixFolderListData"></span><code>procedure <b>FixFolderListData</b>(FolderList, CaptionList: TStrings);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Try to fix some incosistences in folders and its captions.
+
+<p>Who knows if somebody edited the .ini file by hand...</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><span id="DoSaveToIni"></span><code>procedure <b>DoSaveToIni</b>(aIniFile: TIniFile; ExportMode: Boolean); virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="MatchID"></span><code>function <b>MatchID</b>(aID: string): boolean;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="CompareID"></span><code>function <b>CompareID</b>(aID: string): integer;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="LoadEmulatorsFrom"></span><code>procedure <b>LoadEmulatorsFrom</b>(aEmuList: <a  href="ucEmutecaEmulatorList.cEmutecaEmulatorList.html">cEmutecaEmulatorList</a>);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Updates <a class="normal" href="uaEmutecaCustomSystem.caEmutecaCustomSystem.html#EmulatorList">EmulatorList</a> from aEmuList.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="LoadFromIni"></span><code>procedure <b>LoadFromIni</b>(aIniFile: TMemIniFile); override;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="SaveToIni"></span><code>procedure <b>SaveToIni</b>(aIniFile: TMemIniFile); override;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="ExportToIni"></span><code>procedure <b>ExportToIni</b>(aIniFile: TMemIniFile); virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="ImportFromIni"></span><code>procedure <b>ImportFromIni</b>(aIniFile: TMemIniFile); virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="Create"></span><code>constructor <b>Create</b>(AOwner: TComponent); override;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="Destroy"></span><code>destructor <b>Destroy</b>; override;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<h3 class="detail">Properties</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="TempFolder"></span><code>property <b>TempFolder</b>: string read FTempFolder write SetTempFolder;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+System temp folder for decompressing media</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="EmulatorList"></span><code>property <b>EmulatorList</b>: <a  href="ucEmutecaEmulatorList.cEmutecaEmulatorList.html">cEmutecaEmulatorList</a> read FEmulatorList;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+List of current assigned and <a class="normal" href="uaEmutecaCustomSystem.caEmutecaCustomSystem.html#Enabled">enabled</a> emulators.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="CurrentEmulator"></span><code>property <b>CurrentEmulator</b>: <a  href="ucEmutecaEmulator.cEmutecaEmulator.html">cEmutecaEmulator</a>
+      read FCurrentEmulator write SetCurrentEmulator;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Current assigned emulator.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="ID"></span><code>property <b>ID</b>: string read FID write SetID;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+<code>ID</code> of the system.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="Title"></span><code>property <b>Title</b>: string read FTitle write SetTitle;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Visible name (Usually &quot;%Company%: %Model% %(info)%&quot;</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="ListFileName"></span><code>property <b>ListFileName</b>: string read GetListFileName write SetListFileName;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Name used for soft and group files.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="Enabled"></span><code>property <b>Enabled</b>: boolean read FEnabled write SetEnabled;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Is the system visible?</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="ExtractAll"></span><code>property <b>ExtractAll</b>: boolean read FExtractAll write SetExtractAll;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Must all files be extracted from compressed archives?</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="BaseFolder"></span><code>property <b>BaseFolder</b>: string read FBaseFolder write SetBaseFolder;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+System base folder
+
+<p>Used by default to store some data if the file isn't defined (System image or text).</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="WorkingFolder"></span><code>property <b>WorkingFolder</b>: string read FWorkingFolder write SetWorkingFolder;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Temp folder for decompress Software, it's recommended leave it empty so Emuteca will use OS Temp folder.
+
+<p>Some cases of use it: </p>
+
+<ul class="paragraph_spacing">
+  <li><p>File must extracted to a specific folder. So emulator can recognize it.</p></li>
+  <li><p>Emulator can't run from command line and you must browse to the file with the emulator... :-@ </p></li>
+  <li><p>Lazy testing... &gt;_&lt;U </p></li>
+</ul>
+
+<p></p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="MainEmulator"></span><code>property <b>MainEmulator</b>: string read FMainEmulator write SetMainEmulator;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Main emulator <a class="normal" href="uaEmutecaCustomSystem.caEmutecaCustomSystem.html#ID">ID</a>.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="OtherEmulators"></span><code>property <b>OtherEmulators</b>: TStringList read FOtherEmulators;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Ids of other emulators for the system.
+
+<p>It holds <a class="normal" href="uaEmutecaCustomSystem.caEmutecaCustomSystem.html#Enabled">enabled</a>, disabled and inexistent emulator ids too. This is different from <a class="normal" href="uaEmutecaCustomSystem.caEmutecaCustomSystem.html#EmulatorList">EmulatorList</a> only current <a class="normal" href="uaEmutecaCustomSystem.caEmutecaCustomSystem.html#Enabled">enabled</a> ones.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="IconFile"></span><code>property <b>IconFile</b>: string read FIconFile write SetIconFile;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Path to the icon of the system.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="ImageFile"></span><code>property <b>ImageFile</b>: string read FImage write SetImage;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Path to image of the system.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="BackgroundFile"></span><code>property <b>BackgroundFile</b>: string read FBackgroundFile
+      write SetBackgroundFile;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Image used for as background.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="SoftIconFile"></span><code>property <b>SoftIconFile</b>: string read FSoftIconFile write SetSoftIconFile;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Default soft icon.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="IconFolder"></span><code>property <b>IconFolder</b>: string read FIconFolder write SetIconFolder;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Folder for the icons of the games.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="ImageFolders"></span><code>property <b>ImageFolders</b>: TStringList read FImageFolders;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Folders for the game images.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="ImageCaptions"></span><code>property <b>ImageCaptions</b>: TStringList read FImageCaptions;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Captions for the folders of game's images.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="InfoText"></span><code>property <b>InfoText</b>: string read FInfoText write SetInfoText;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Path to text file of the system.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="TextFolders"></span><code>property <b>TextFolders</b>: TStringList read FTextFolders;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Folders for game texts.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="TextCaptions"></span><code>property <b>TextCaptions</b>: TStringList read FTextCaptions;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Captions for the folders of game's texts.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="MusicFolders"></span><code>property <b>MusicFolders</b>: TStringList read FMusicFolders;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Folders for game music.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="MusicCaptions"></span><code>property <b>MusicCaptions</b>: TStringList read FMusicCaptions;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Captions for the folders of game's music.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="VideoFolders"></span><code>property <b>VideoFolders</b>: TStringList read FVideoFolders;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Folders for game videos.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="VideoCaptions"></span><code>property <b>VideoCaptions</b>: TStringList read FVideoCaptions;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Captions for the folders of game's video.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="SoftExportKey"></span><code>property <b>SoftExportKey</b>: <a  href="uEmutecaConst.html#TEmutecaSoftExportKey">TEmutecaSoftExportKey</a>
+      read FSoftExportKey write SetSoftExportKey;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Default key (CRC/SHA) to be used as game identifiers (when importing/exporting data).</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="Extensions"></span><code>property <b>Extensions</b>: TStringList read FExtensions;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+<code>Extensions</code> used by the system.
+
+<p>Only one extension in every string, without dot.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="Stats"></span><code>property <b>Stats</b>: <a  href="ucEmutecaPlayingStats.cEmutecaPlayingStats.html">cEmutecaPlayingStats</a> read FStats;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<hr><span class="appinfo"><em>Generated by <a  href="https://github.com/pasdoc/pasdoc/wiki">PasDoc 0.15.0</a>. </em>
+</span>
+</td></tr></table></body></html>

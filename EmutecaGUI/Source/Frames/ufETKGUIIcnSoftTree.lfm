@@ -3,5 +3,6 @@ inherited fmETKGUIIcnSoftTree: TfmETKGUIIcnSoftTree
   DesignTop = 168
   inherited VDT: TVirtualStringTree
     OnDrawText = VDTDrawText
+    OnKeyDown = VDTKeyDown
   end
 end

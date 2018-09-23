@@ -1,4 +1,9 @@
-{ Frame for export soft data of Emuteca
+unit ufEmutecaActExportSoftData;
+{ Frame for export soft data.
+
+  ----
+
+  This file is part of Emuteca Core.
 
   Copyright (C) 2006-2018 Chixpy
 
@@ -17,8 +22,6 @@
   to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
   MA 02111-1307, USA.
 }
-unit ufEmutecaActExportSoftData;
-
 {$mode objfpc}{$H+}
 
 interface
@@ -26,12 +29,19 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
   Buttons, ActnList, StdCtrls, EditBtn, ComCtrls,
+  // CHX units
   uCHXDlgUtils,
+  // CHX forms
   ufrCHXForm,
+  // CHX frames
   ufCHXPropEditor, ufCHXProgressBar,
-  uEmutecaCommon,
+  // Emuteca Core units
+  uEmutecaConst, uEmutecaRscStr, uEmutecaCommon,
+  // Emuteca Core abstracts
   uaEmutecaCustomSystem,
+  // Emuteca Core classes
   ucEmuteca, ucEmutecaSystem, ucEmutecaSoftware,
+  // Emuteca Core frames
   ufEmutecaSystemCBX;
 
 type

@@ -1,23 +1,20 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <title>Emuteca: ucEmutecaSoftware: Class cEmutecaSoftware</title>
-<meta name="generator" content="PasDoc 0.14.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="PasDoc 0.15.0">
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-<script type="text/javascript" src="tipuesearch/jquery.min.js"></script>
-<script type="text/javascript" src="tipuesearch/tipuesearch_data.js"></script>
 <link rel="stylesheet" type="text/css" href="tipuesearch/tipuesearch.css">
-<script type="text/javascript" src="tipuesearch/tipuesearch_set.js"></script>
-<script type="text/javascript" src="tipuesearch/tipuesearch.js"></script>
 
 <link rel="StyleSheet" type="text/css" href="pasdoc.css">
 </head>
 <body>
 <table class="container"><tr><td class="navigation">
-<h2>Emuteca</h2><p><a href="AllUnits.html" class="navigation">Units</a></p><p><a href="ClassHierarchy.html" class="navigation">Class Hierarchy</a></p><p><a href="AllClasses.html" class="navigation">Classes, Interfaces, Objects and Records</a></p><p><a href="AllTypes.html" class="navigation">Types</a></p><p><a href="AllVariables.html" class="navigation">Variables</a></p><p><a href="AllConstants.html" class="navigation">Constants</a></p><p><a href="AllFunctions.html" class="navigation">Functions and Procedures</a></p><p><a href="AllIdentifiers.html" class="navigation">Identifiers</a></p><p><form class="search-form" action="_tipue_results.html"><div class="search-input"><input type="text" name="q" id="tipue_search_input"></div><div class="search-button"><input type="button" id="tipue_search_button" onclick="this.form.submit();"></div></form>
+<h2>Emuteca</h2><p><a href="AllUnits.html" class="navigation">Units</a></p><p><a href="ClassHierarchy.html" class="navigation">Class Hierarchy</a></p><p><a href="AllClasses.html" class="navigation">Classes, Interfaces, Objects and Records</a></p><p><a href="AllTypes.html" class="navigation">Types</a></p><p><a href="AllVariables.html" class="navigation">Variables</a></p><p><a href="AllConstants.html" class="navigation">Constants</a></p><p><a href="AllFunctions.html" class="navigation">Functions and Procedures</a></p><p><a href="AllIdentifiers.html" class="navigation">Identifiers</a></p><form class="search-form" action="_tipue_results.html"><div class="search-input"><input type="text" name="q" id="tipue_search_input"></div><div class="search-button"><input type="button" id="tipue_search_button" onclick="this.form.submit();"></div></form>
 <div style="clear: both"></div>
 
-<script>
+<script type="text/javascript">
 $(document).ready(function() {
     $('#tipue_search_input').tipuesearch({
         /* 10 items to display seems standard */
@@ -28,27 +25,47 @@ $(document).ready(function() {
     });
 });
 </script>
-</p></td><td class="content">
-<a name="cEmutecaSoftware"></a><h1 class="cio">Class cEmutecaSoftware</h1>
-<table class="sections wide_list">
-<tr>
-<td><a class="section" href="#PasDoc-Description">Description</a></td><td><a class="section" href="#PasDoc-Hierarchy">Hierarchy</a></td><td>Fields</td><td><a class="section" href="#PasDoc-Methods">Methods</a></td><td><a class="section" href="#PasDoc-Properties">Properties</a></td></tr></table>
-<a name="PasDoc-Description"></a><h2 class="unit">Unit</h2>
+</td><td class="content">
+<span id="cEmutecaSoftware"></span><h1 class="cio">Class cEmutecaSoftware</h1>
+<div class="sections">
+<div class="one_section"><a class="section" href="#PasDoc-Description">Description</a></div><div class="one_section"><a class="section" href="#PasDoc-Hierarchy">Hierarchy</a></div><div class="one_section">Fields</div><div class="one_section"><a class="section" href="#PasDoc-Methods">Methods</a></div><div class="one_section"><a class="section" href="#PasDoc-Properties">Properties</a></div></div>
+<span id="PasDoc-Description"></span><h2 class="unit">Unit</h2>
 <p class="unitlink">
 <a  href="ucEmutecaSoftware.html">ucEmutecaSoftware</a></p>
 <h2 class="declaration">Declaration</h2>
 <p class="declaration">
-<code>type cEmutecaSoftware = class(<a class="normal" href="uaEmutecaStorable.caEmutecaStorableTxt.html">caEmutecaStorableTxt</a>)</code></p>
+<code>type cEmutecaSoftware = class(<a class="normal" href="uaEmutecaCustomSoft.caEmutecaCustomSoft.html">caEmutecaCustomSoft</a>, IFPObserver)</code></p>
 <h2 class="description">Description</h2>
 <p>
-<code>cEmutecaSoftware</code>.</p>
-<a name="PasDoc-Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
+This class defines a parented sofware with links to its System and Group. In <a class="normal" href="ucEmutecaSoftware.cEmutecaSoftware.html#CachedSystem">CachedSystem</a> and <a class="normal" href="ucEmutecaSoftware.cEmutecaSoftware.html#CachedGroup">CachedGroup</a> properties, and autoupdating the reference keys from both with Observer Pattern.
+
+<p>Overrides the <a class="normal" href="ucEmutecaSoftware.cEmutecaSoftware.html#GetTitle">GetTitle</a> method to get actual <a class="normal" href="uaEmutecaCustomSoft.caEmutecaCustomSoft.html#Title">title</a> from group if <a class="normal" href="uaEmutecaCustomSoft.caEmutecaCustomSoft.html#Title">Title</a> property is empty.
+
+<p>It can check if the filenames for media match with groups one.</p>
+<span id="PasDoc-Hierarchy"></span><h2 class="hierarchy">Hierarchy</h2>
 <ul class="hierarchy"><li class="ancestor">TComponent</li>
-<li class="ancestor"><a class="normal" href="uaEmutecaStorable.caEmutecaStorable.html">caEmutecaStorable</a></li>
-<li class="ancestor"><a class="normal" href="uaEmutecaStorable.caEmutecaStorableTxt.html">caEmutecaStorableTxt</a></li>
+<li class="ancestor"><a class="normal" href="uaCHXStorable.caCHXStorable.html">caCHXStorable</a></li>
+<li class="ancestor"><a class="normal" href="uaCHXStorable.caCHXStorableTxt.html">caCHXStorableTxt</a></li>
+<li class="ancestor"><a class="normal" href="uaEmutecaCustomSoft.caEmutecaCustomSoft.html">caEmutecaCustomSoft</a></li>
 <li class="thisitem">cEmutecaSoftware</li></ul><h2 class="overview">Overview</h2>
-<a name="PasDoc-Methods"></a><h3 class="summary">Methods</h3>
+<span id="PasDoc-Methods"></span><h3 class="summary">Methods</h3>
 <table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>function <b><a  href="ucEmutecaSoftware.cEmutecaSoftware.html#GetTitle">GetTitle</a></b>: string; override;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="ucEmutecaSoftware.cEmutecaSoftware.html#SetTitle">SetTitle</a></b>(AValue: string); override;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>function <b><a  href="ucEmutecaSoftware.cEmutecaSoftware.html#MatchGroupFile">MatchGroupFile</a></b>: boolean; override;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="ucEmutecaSoftware.cEmutecaSoftware.html#FPOObservedChanged">FPOObservedChanged</a></b>(ASender: TObject; Operation: TFPObservedOperation; Data: Pointer);</code></td>
+</tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>constructor <b><a  href="ucEmutecaSoftware.cEmutecaSoftware.html#Create">Create</a></b>(aOwner: TComponent); override;</code></td>
@@ -57,118 +74,34 @@ $(document).ready(function() {
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>destructor <b><a  href="ucEmutecaSoftware.cEmutecaSoftware.html#Destroy">Destroy</a></b>; override;</code></td>
 </tr>
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a  href="ucEmutecaSoftware.cEmutecaSoftware.html#LoadFromFileTxt">LoadFromFileTxt</a></b>(TxtFile: TStrings); override;</code></td>
-</tr>
-<tr class="list2">
-<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a  href="ucEmutecaSoftware.cEmutecaSoftware.html#SaveToFileTxt">SaveToFileTxt</a></b>(TxtFile: TStrings; const ExportMode: boolean); override;</code></td>
-</tr>
 </table>
-<a name="PasDoc-Properties"></a><h3 class="summary">Properties</h3>
+<span id="PasDoc-Properties"></span><h3 class="summary">Properties</h3>
 <table class="summary wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <b><a  href="ucEmutecaSoftware.cEmutecaSoftware.html#DataString">DataString</a></b>: string read GetDataString write SetDataString;</code></td>
+<td class="itemcode"><code>property <b><a  href="ucEmutecaSoftware.cEmutecaSoftware.html#CachedSystem">CachedSystem</a></b>: <a  href="uaEmutecaCustomSystem.caEmutecaCustomSystem.html">caEmutecaCustomSystem</a>
+      read FCachedSystem write SetCachedSystem;</code></td>
 </tr>
 <tr class="list2">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <b><a  href="ucEmutecaSoftware.cEmutecaSoftware.html#ID">ID</a></b>: string read FID write SetID;</code></td>
-</tr>
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <b><a  href="ucEmutecaSoftware.cEmutecaSoftware.html#Folder">Folder</a></b>: string read FFolder write SetFolder;</code></td>
-</tr>
-<tr class="list2">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <b><a  href="ucEmutecaSoftware.cEmutecaSoftware.html#FileName">FileName</a></b>: string read FFileName write SetFileName;</code></td>
-</tr>
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <b><a  href="ucEmutecaSoftware.cEmutecaSoftware.html#Title">Title</a></b>: string read FTitle write SetTitle;</code></td>
-</tr>
-<tr class="list2">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <b><a  href="ucEmutecaSoftware.cEmutecaSoftware.html#Parent">Parent</a></b>: string read FParent write SetParent;</code></td>
-</tr>
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <b><a  href="ucEmutecaSoftware.cEmutecaSoftware.html#System">System</a></b>: string read FSystem write SetSystem;</code></td>
-</tr>
-<tr class="list2">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <b><a  href="ucEmutecaSoftware.cEmutecaSoftware.html#TranslitTitle">TranslitTitle</a></b>: string
-      read FTranslitTitle write SetTranslitTitle;</code></td>
-</tr>
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <b><a  href="ucEmutecaSoftware.cEmutecaSoftware.html#SortTitle">SortTitle</a></b>: string read FSortTitle write SetSortTitle;</code></td>
-</tr>
-<tr class="list2">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <b><a  href="ucEmutecaSoftware.cEmutecaSoftware.html#Version">Version</a></b>: string read FVersion write SetVersion;</code></td>
-</tr>
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <b><a  href="ucEmutecaSoftware.cEmutecaSoftware.html#Year">Year</a></b>: string read FYear write SetYear;</code></td>
-</tr>
-<tr class="list2">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <b><a  href="ucEmutecaSoftware.cEmutecaSoftware.html#Publisher">Publisher</a></b>: string read FPublisher write SetPublisher;</code></td>
-</tr>
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <b><a  href="ucEmutecaSoftware.cEmutecaSoftware.html#Zone">Zone</a></b>: string read FZone write SetZone;</code></td>
-</tr>
-<tr class="list2">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <b><a  href="ucEmutecaSoftware.cEmutecaSoftware.html#DumpStatus">DumpStatus</a></b>: <a  href="ucEmutecaSoftware.html#TEmutecaDumpStatus">TEmutecaDumpStatus</a>
-      read FDumpStatus write SetDumpStatus;</code></td>
-</tr>
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <b><a  href="ucEmutecaSoftware.cEmutecaSoftware.html#DumpInfo">DumpInfo</a></b>: string read FDumpInfo write SetDumpInfo;</code></td>
-</tr>
-<tr class="list2">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <b><a  href="ucEmutecaSoftware.cEmutecaSoftware.html#Fixed">Fixed</a></b>: string read FFixed write SetFixed;</code></td>
-</tr>
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <b><a  href="ucEmutecaSoftware.cEmutecaSoftware.html#Trainer">Trainer</a></b>: string read FTrainer write SetTrainer;</code></td>
-</tr>
-<tr class="list2">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <b><a  href="ucEmutecaSoftware.cEmutecaSoftware.html#Translation">Translation</a></b>: string read FTranslation write SetTranslation;</code></td>
-</tr>
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <b><a  href="ucEmutecaSoftware.cEmutecaSoftware.html#Pirate">Pirate</a></b>: string read FPirate write SetPirate;</code></td>
-</tr>
-<tr class="list2">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <b><a  href="ucEmutecaSoftware.cEmutecaSoftware.html#Cracked">Cracked</a></b>: string read FCracked write SetCracked;</code></td>
-</tr>
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <b><a  href="ucEmutecaSoftware.cEmutecaSoftware.html#Modified">Modified</a></b>: string read FModified write SetModified;</code></td>
-</tr>
-<tr class="list2">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <b><a  href="ucEmutecaSoftware.cEmutecaSoftware.html#Hack">Hack</a></b>: string read FHack write SetHack;</code></td>
-</tr>
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <b><a  href="ucEmutecaSoftware.cEmutecaSoftware.html#Stats">Stats</a></b>: <a  href="ucEmutecaPlayingStats.cEmutecaPlayingStats.html">cEmutecaPlayingStats</a> read FStats write SetStats;</code></td>
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a  href="ucEmutecaSoftware.cEmutecaSoftware.html#CachedGroup">CachedGroup</a></b>: <a  href="uaEmutecaCustomGroup.caEmutecaCustomGroup.html">caEmutecaCustomGroup</a>
+      read FCachedGroup write SetCachedGroup;</code></td>
 </tr>
 </table>
 <h2 class="description">Description</h2>
 <h3 class="detail">Methods</h3>
 <table class="detail wide_list">
 <tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Create"></a><code>constructor <b>Create</b>(aOwner: TComponent); override;</code></td>
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><span id="GetTitle"></span><code>function <b>GetTitle</b>: string; override;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><span id="SetTitle"></span><code>procedure <b>SetTitle</b>(AValue: string); override;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -176,7 +109,7 @@ $(document).ready(function() {
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Destroy"></a><code>destructor <b>Destroy</b>; override;</code></td>
+<td class="itemcode"><span id="MatchGroupFile"></span><code>function <b>MatchGroupFile</b>: boolean; override;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -184,7 +117,7 @@ $(document).ready(function() {
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="LoadFromFileTxt"></a><code>procedure <b>LoadFromFileTxt</b>(TxtFile: TStrings); override;</code></td>
+<td class="itemcode"><span id="FPOObservedChanged"></span><code>procedure <b>FPOObservedChanged</b>(ASender: TObject; Operation: TFPObservedOperation; Data: Pointer);</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -192,7 +125,15 @@ $(document).ready(function() {
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="SaveToFileTxt"></a><code>procedure <b>SaveToFileTxt</b>(TxtFile: TStrings; const ExportMode: boolean); override;</code></td>
+<td class="itemcode"><span id="Create"></span><code>constructor <b>Create</b>(aOwner: TComponent); override;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="Destroy"></span><code>destructor <b>Destroy</b>; override;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
@@ -201,243 +142,23 @@ $(document).ready(function() {
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="DataString"></a><code>property <b>DataString</b>: string read GetDataString write SetDataString;</code></td>
+<td class="itemcode"><span id="CachedSystem"></span><code>property <b>CachedSystem</b>: <a  href="uaEmutecaCustomSystem.caEmutecaCustomSystem.html">caEmutecaCustomSystem</a>
+      read FCachedSystem write SetCachedSystem;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Cached data</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="CachedGroup"></span><code>property <b>CachedGroup</b>: <a  href="uaEmutecaCustomGroup.caEmutecaCustomGroup.html">caEmutecaCustomGroup</a>
+      read FCachedGroup write SetCachedGroup;</code></td>
 </tr>
 <tr><td colspan="2">
 &nbsp;</td></tr>
 </table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="ID"></a><code>property <b>ID</b>: string read FID write SetID;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-<code>ID</code> of the file. Usually SHA1, some <a class="normal" href="ucEmutecaSoftware.cEmutecaSoftware.html#System">system</a> <a class="normal" href="ucEmutecaSoftware.cEmutecaSoftware.html#FileName">filename</a></p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="Folder"></a><code>property <b>Folder</b>: string read FFolder write SetFolder;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-<code>Folder</code> or archive where the file is in.</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="FileName"></a><code>property <b>FileName</b>: string read FFileName write SetFileName;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-<code>Filename</code> (or file inside and archive).</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="Title"></a><code>property <b>Title</b>: string read FTitle write SetTitle;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-<code>Title</code>.</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="Parent"></a><code>property <b>Parent</b>: string read FParent write SetParent;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-<a class="normal" href="ucEmutecaSoftware.cEmutecaSoftware.html#ID">ID</a> of the <code>parent</code>.</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="System"></a><code>property <b>System</b>: string read FSystem write SetSystem;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-<a class="normal" href="ucEmutecaSoftware.cEmutecaSoftware.html#ID">ID</a> of the <code>System</code>.</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="TranslitTitle"></a><code>property <b>TranslitTitle</b>: string
-      read FTranslitTitle write SetTranslitTitle;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-Trasliterated name in english (ASCII7) characters.</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="SortTitle"></a><code>property <b>SortTitle</b>: string read FSortTitle write SetSortTitle;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-<a class="normal" href="ucEmutecaSoftware.cEmutecaSoftware.html#Title">Title</a> formated for sorting purposes.</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="Version"></a><code>property <b>Version</b>: string read FVersion write SetVersion;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-<code>Version</code> (v1.0; PRG1) or release type info (demo, prototype), or both (v1.0RC2, alpha 3).</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="Year"></a><code>property <b>Year</b>: string read FYear write SetYear;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-Date of the release (no development one).
-
-<p>Format: YYYY/MM/DD</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="Publisher"></a><code>property <b>Publisher</b>: string read FPublisher write SetPublisher;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-<code>Publisher</code>.
-
-<p>Don't confuse with developer.</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="Zone"></a><code>property <b>Zone</b>: string read FZone write SetZone;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-<code>Zone</code>.</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="DumpStatus"></a><code>property <b>DumpStatus</b>: <a  href="ucEmutecaSoftware.html#TEmutecaDumpStatus">TEmutecaDumpStatus</a>
-      read FDumpStatus write SetDumpStatus;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-Merged Verified, good, bad dump, etc.</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="DumpInfo"></a><code>property <b>DumpInfo</b>: string read FDumpInfo write SetDumpInfo;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-Number of alternate, bad dump, etc.</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="Fixed"></a><code>property <b>Fixed</b>: string read FFixed write SetFixed;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-The game has been <code>fixed</code> to make it to work with emulators.</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="Trainer"></a><code>property <b>Trainer</b>: string read FTrainer write SetTrainer;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-The game has been <a class="normal" href="ucEmutecaSoftware.cEmutecaSoftware.html#Modified">modified</a> to add cheats.</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="Translation"></a><code>property <b>Translation</b>: string read FTranslation write SetTranslation;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-The game is fan-traslated.
-
-<p>Lenguage abreviation of <code>translation</code>.</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="Pirate"></a><code>property <b>Pirate</b>: string read FPirate write SetPirate;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-The game was released physically breaking some IP laws.
-
-<p>This is for not licensed copies of the games, mainly in China, Korea, etc.</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="Cracked"></a><code>property <b>Cracked</b>: string read FCracked write SetCracked;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-The game was <a class="normal" href="ucEmutecaSoftware.cEmutecaSoftware.html#Modified">modified</a> for breaking some segurity check.</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="Modified"></a><code>property <b>Modified</b>: string read FModified write SetModified;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-The game was <code>modified</code> by use (hiscores or saves).</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="Hack"></a><code>property <b>Hack</b>: string read FHack write SetHack;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-The game was <a class="normal" href="ucEmutecaSoftware.cEmutecaSoftware.html#Modified">modified</a> for changing something (intros, sprites).
-
-<p>Only if not covered by previous properties.</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="Stats"></a><code>property <b>Stats</b>: <a  href="ucEmutecaPlayingStats.cEmutecaPlayingStats.html">cEmutecaPlayingStats</a> read FStats write SetStats;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-Usage statitics &mdash;&mdash;&mdash;&mdash;&mdash;</p>
-</td></tr>
-</table>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/">PasDoc 0.14.0</a>. </em>
+<hr><span class="appinfo"><em>Generated by <a  href="https://github.com/pasdoc/pasdoc/wiki">PasDoc 0.15.0</a>. </em>
 </span>
 </td></tr></table></body></html>

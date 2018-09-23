@@ -1,4 +1,9 @@
-{ This file is part of Emuteca
+unit ucEmutecaSoftware;
+{ cEmutecaSoftware class unit.
+
+  ----
+
+  This file is part of Emuteca Core.
 
   Copyright (C) 2006-2018 Chixpy
 
@@ -17,7 +22,7 @@
   to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
   MA 02111-1307, USA.
 }
-unit ucEmutecaSoftware;
+
 
 {$mode objfpc}{$H+}
 
@@ -54,11 +59,6 @@ type
 
     function MatchGroupFile: boolean; override;
 
-    procedure SearchAllRelatedFiles(OutFileList: TStrings;
-      aFolder: string; Extensions: TStrings; SearchInComp: boolean; AutoExtract: boolean); override;
-    function SearchFirstRelatedFile(aFolder: string;
-      Extensions: TStrings; SearchInComp: boolean; AutoExtract: boolean): string; override;
-
     procedure FPOObservedChanged(ASender: TObject;
       Operation: TFPObservedOperation; Data: Pointer);
 
@@ -66,6 +66,15 @@ type
     destructor Destroy; override;
 
   end;
+  {< This class defines a parented sofware with links to its System and Group.
+       In CachedSystem and CachedGroup properties, and autoupdating the
+       reference keys from both with Observer Pattern.
+
+     Overrides the GetTitle method to get actual title from group if Title
+       property is empty.
+
+     It can check if the filenames for media match with groups one.
+  }
 
   TEmutecaReturnSoftCB = function(aSoft: cEmutecaSoftware): boolean of object;
 
@@ -147,26 +156,6 @@ begin
     inherited MatchGroupFile;
 end;
 
-procedure cEmutecaSoftware.SearchAllRelatedFiles(OutFileList: TStrings;
-  aFolder: string; Extensions: TStrings; SearchInComp: boolean;AutoExtract: boolean);
-begin
-  if Assigned(CachedSystem) then
-      EmuTKSearchAllRelatedFiles(OutFileList, aFolder, GetMediaFileName, Extensions, SearchInComp,
-        AutoExtract, CachedSystem.TempFolder)
-  else
-    inherited;
-end;
-
-function cEmutecaSoftware.SearchFirstRelatedFile(aFolder: string;
-  Extensions: TStrings; SearchInComp: boolean; AutoExtract: boolean): string;
-begin
-  if Assigned(CachedSystem) then
-      Result := EmuTKSearchFirstRelatedFile(aFolder, GetMediaFileName,
-        Extensions, SearchInComp, AutoExtract, CachedSystem.TempFolder)
-  else
-    Result := inherited;
-end;
-
 procedure cEmutecaSoftware.FPOObservedChanged(ASender: TObject;
   Operation: TFPObservedOperation; Data: Pointer);
 begin
@@ -178,7 +167,8 @@ begin
     case Operation of
       ooFree: CachedSystem := nil;
       else
-        // There isn't SystemKey
+        // Actually... There isn't SystemKey as software lists are stored by
+        //   their system.
         // SystemKey := caEmutecaCustomSystem(ASender).ID;
         ;
     end;

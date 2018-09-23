@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Emuteca: ucETKGUIConfig: Class cETKGUIConfig</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="PasDoc 0.15.0">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="tipuesearch/tipuesearch.css">
+
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body>
+<table class="container"><tr><td class="navigation">
+<h2>Emuteca</h2><p><a href="AllUnits.html" class="navigation">Units</a></p><p><a href="ClassHierarchy.html" class="navigation">Class Hierarchy</a></p><p><a href="AllClasses.html" class="navigation">Classes, Interfaces, Objects and Records</a></p><p><a href="AllTypes.html" class="navigation">Types</a></p><p><a href="AllVariables.html" class="navigation">Variables</a></p><p><a href="AllConstants.html" class="navigation">Constants</a></p><p><a href="AllFunctions.html" class="navigation">Functions and Procedures</a></p><p><a href="AllIdentifiers.html" class="navigation">Identifiers</a></p><form class="search-form" action="_tipue_results.html"><div class="search-input"><input type="text" name="q" id="tipue_search_input"></div><div class="search-button"><input type="button" id="tipue_search_button" onclick="this.form.submit();"></div></form>
+<div style="clear: both"></div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#tipue_search_input').tipuesearch({
+        /* 10 items to display seems standard */
+        'show': 10,
+        /* For PasDoc docs, showing urls is not very useful,
+           since the page title already shows the unit and identifier. */
+        'showURL': false
+    });
+});
+</script>
+</td><td class="content">
+<span id="cETKGUIConfig"></span><h1 class="cio">Class cETKGUIConfig</h1>
+<div class="sections">
+<div class="one_section"><a class="section" href="#PasDoc-Description">Description</a></div><div class="one_section"><a class="section" href="#PasDoc-Hierarchy">Hierarchy</a></div><div class="one_section">Fields</div><div class="one_section"><a class="section" href="#PasDoc-Methods">Methods</a></div><div class="one_section"><a class="section" href="#PasDoc-Properties">Properties</a></div></div>
+<span id="PasDoc-Description"></span><h2 class="unit">Unit</h2>
+<p class="unitlink">
+<a  href="ucETKGUIConfig.html">ucETKGUIConfig</a></p>
+<h2 class="declaration">Declaration</h2>
+<p class="declaration">
+<code>type cETKGUIConfig = class(<a class="normal" href="uaCHXConfig.caCHXConfig.html">caCHXConfig</a>)</code></p>
+<h2 class="description">Description</h2>
+<p>
+<code>cETKGUIConfig</code>: Class wich has all general options and configurations for GUI use only.
+
+<p>All folder paths (absolute and relative) have the trailing path separator.</p>
+<span id="PasDoc-Hierarchy"></span><h2 class="hierarchy">Hierarchy</h2>
+<ul class="hierarchy"><li class="ancestor">TComponent</li>
+<li class="ancestor"><a class="normal" href="uaCHXStorable.caCHXStorable.html">caCHXStorable</a></li>
+<li class="ancestor"><a class="normal" href="uaCHXStorable.caCHXStorableIni.html">caCHXStorableIni</a></li>
+<li class="ancestor"><a class="normal" href="uaCHXConfig.caCHXConfig.html">caCHXConfig</a></li>
+<li class="thisitem">cETKGUIConfig</li></ul><h2 class="overview">Overview</h2>
+<span id="PasDoc-Methods"></span><h3 class="summary">Methods</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="ucETKGUIConfig.cETKGUIConfig.html#ResetDefaultConfig">ResetDefaultConfig</a></b>; override;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="ucETKGUIConfig.cETKGUIConfig.html#LoadFromIni">LoadFromIni</a></b>(IniFile: TMemIniFile); override;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="ucETKGUIConfig.cETKGUIConfig.html#SaveToIni">SaveToIni</a></b>(IniFile: TMemIniFile); override;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>constructor <b><a  href="ucETKGUIConfig.cETKGUIConfig.html#Create">Create</a></b>(aOwner: TComponent); override;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>destructor <b><a  href="ucETKGUIConfig.cETKGUIConfig.html#Destroy">Destroy</a></b>; override;</code></td>
+</tr>
+</table>
+<span id="PasDoc-Properties"></span><h3 class="summary">Properties</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="ucETKGUIConfig.cETKGUIConfig.html#DefImgFolder">DefImgFolder</a></b>: string read FDefImgFolder write SetDefImgFolder;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="ucETKGUIConfig.cETKGUIConfig.html#GUIIcnFile">GUIIcnFile</a></b>: string read FGUIIcnFile write SetGUIIcnFile;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="ucETKGUIConfig.cETKGUIConfig.html#ZoneIcnFolder">ZoneIcnFolder</a></b>: string read FZoneIcnFolder write SetZoneIcnFolder;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="ucETKGUIConfig.cETKGUIConfig.html#DumpIcnFolder">DumpIcnFolder</a></b>: string read FDumpIcnFolder write SetDumpIcnFolder;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="ucETKGUIConfig.cETKGUIConfig.html#ImageExtensions">ImageExtensions</a></b>: TStringList read FImageExtensions;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="ucETKGUIConfig.cETKGUIConfig.html#TextExtensions">TextExtensions</a></b>: TStringList read FTextExtensions;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="ucETKGUIConfig.cETKGUIConfig.html#VideoExtensions">VideoExtensions</a></b>: TStringList read FVideoExtensions;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="ucETKGUIConfig.cETKGUIConfig.html#MusicExtensions">MusicExtensions</a></b>: TStringList read FMusicExtensions;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="ucETKGUIConfig.cETKGUIConfig.html#ScriptsFolder">ScriptsFolder</a></b>: string read FScriptsFolder write SetScriptsFolder;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="ucETKGUIConfig.cETKGUIConfig.html#mPlayerExe">mPlayerExe</a></b>: string read FmPlayerExe write SetmPlayerExe;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="ucETKGUIConfig.cETKGUIConfig.html#EmutecaIni">EmutecaIni</a></b>: string read FEmutecaIni write SetEmutecaIni;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="ucETKGUIConfig.cETKGUIConfig.html#CurrSystem">CurrSystem</a></b>: string read FCurrSystem write SetCurrSystem;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="ucETKGUIConfig.cETKGUIConfig.html#SaveOnExit">SaveOnExit</a></b>: boolean read FSaveOnExit write SetSaveOnExit;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="ucETKGUIConfig.cETKGUIConfig.html#HelpFolder">HelpFolder</a></b>: string read FHelpFolder write SetHelpFolder;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="ucETKGUIConfig.cETKGUIConfig.html#SearchFile">SearchFile</a></b>: string read FSearchFile write SetSearchFile;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="ucETKGUIConfig.cETKGUIConfig.html#GlobalCache">GlobalCache</a></b>: string read FGlobalCache write SetGlobalCache;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="ucETKGUIConfig.cETKGUIConfig.html#w7zErrorFileName">w7zErrorFileName</a></b>: string read Fw7zErrorFileName
+      write Setw7zErrorFileName;</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Methods</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="ResetDefaultConfig"></span><code>procedure <b>ResetDefaultConfig</b>; override;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="LoadFromIni"></span><code>procedure <b>LoadFromIni</b>(IniFile: TMemIniFile); override;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="SaveToIni"></span><code>procedure <b>SaveToIni</b>(IniFile: TMemIniFile); override;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="Create"></span><code>constructor <b>Create</b>(aOwner: TComponent); override;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="Destroy"></span><code>destructor <b>Destroy</b>; override;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<h3 class="detail">Properties</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="DefImgFolder"></span><code>property <b>DefImgFolder</b>: string read FDefImgFolder write SetDefImgFolder;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Folder with default images and icons for soft, parents and systems.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="GUIIcnFile"></span><code>property <b>GUIIcnFile</b>: string read FGUIIcnFile write SetGUIIcnFile;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+File for GUI Icons</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="ZoneIcnFolder"></span><code>property <b>ZoneIcnFolder</b>: string read FZoneIcnFolder write SetZoneIcnFolder;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Folder with flags of zones</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="DumpIcnFolder"></span><code>property <b>DumpIcnFolder</b>: string read FDumpIcnFolder write SetDumpIcnFolder;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Folder with icons for Dump Status</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="ImageExtensions"></span><code>property <b>ImageExtensions</b>: TStringList read FImageExtensions;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="TextExtensions"></span><code>property <b>TextExtensions</b>: TStringList read FTextExtensions;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Texts</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="VideoExtensions"></span><code>property <b>VideoExtensions</b>: TStringList read FVideoExtensions;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Video</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="MusicExtensions"></span><code>property <b>MusicExtensions</b>: TStringList read FMusicExtensions;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Music</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="ScriptsFolder"></span><code>property <b>ScriptsFolder</b>: string read FScriptsFolder write SetScriptsFolder;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Tools &mdash;&ndash;</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="mPlayerExe"></span><code>property <b>mPlayerExe</b>: string read FmPlayerExe write SetmPlayerExe;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Path to mPlayer[2].exe</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="EmutecaIni"></span><code>property <b>EmutecaIni</b>: string read FEmutecaIni write SetEmutecaIni;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Emuteca config file</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="CurrSystem"></span><code>property <b>CurrSystem</b>: string read FCurrSystem write SetCurrSystem;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Last system used</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="SaveOnExit"></span><code>property <b>SaveOnExit</b>: boolean read FSaveOnExit write SetSaveOnExit;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Save software and parent lists on exit?</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="HelpFolder"></span><code>property <b>HelpFolder</b>: string read FHelpFolder write SetHelpFolder;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Folder with help</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="SearchFile"></span><code>property <b>SearchFile</b>: string read FSearchFile write SetSearchFile;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+File with search configuration</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="GlobalCache"></span><code>property <b>GlobalCache</b>: string read FGlobalCache write SetGlobalCache;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Experimental</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="w7zErrorFileName"></span><code>property <b>w7zErrorFileName</b>: string read Fw7zErrorFileName
+      write Setw7zErrorFileName;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<hr><span class="appinfo"><em>Generated by <a  href="https://github.com/pasdoc/pasdoc/wiki">PasDoc 0.15.0</a>. </em>
+</span>
+</td></tr></table></body></html>

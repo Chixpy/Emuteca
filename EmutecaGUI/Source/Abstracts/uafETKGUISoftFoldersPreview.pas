@@ -1,4 +1,10 @@
-{ Abstract frame for previewing soft media of Emuteca GUI
+unit uafETKGUISoftFoldersPreview;
+
+{< TfmaETKGUISoftFoldersPreview abstract frame unit.
+
+  ----
+
+  This file is part of Emuteca GUI.
 
   Copyright (C) 2006-2018 Chixpy
 
@@ -17,8 +23,6 @@
   to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
   MA 02111-1307, USA.
 }
-unit uafETKGUISoftFoldersPreview;
-
 {$mode objfpc}{$H+}
 
 interface
@@ -27,9 +31,11 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
   // CHX frames
   ufCHXFrame, ufCHXStrLstPreview,
-  // Emuteca abstracts
+  // Emuteca Core units
+  uEmutecaCommon,
+  // Emuteca Core abstracts
   uaEmutecaCustomSystem,
-  // Emuteca classes
+  // Emuteca Core classes
   ucEmutecaGroup, ucEmutecaSoftware;
 
 type
@@ -48,12 +54,14 @@ type
     FfmListPreview: TfmCHXStrLstPreview;
     FSoftware: cEmutecaSoftware;
     FSystem: caEmutecaCustomSystem;
+    FTempFolder: string;
     procedure SetGroup(AValue: cEmutecaGroup);
     procedure SetFileExt(AValue: TStrings);
     procedure SetLastCaption(AValue: string);
 
     procedure SetSoftware(AValue: cEmutecaSoftware);
     procedure SetSystem(AValue: caEmutecaCustomSystem);
+    procedure SetTempFolder(const aTempFolder: string);
 
   protected
     property fmListPreview: TfmCHXStrLstPreview read FfmListPreview;
@@ -76,6 +84,8 @@ type
     property Software: cEmutecaSoftware read FSoftware write SetSoftware;
     property Group: cEmutecaGroup read FGroup write SetGroup;
 
+    property TempFolder: string read FTempFolder write SetTempFolder;
+
     property FileExt: TStrings read FFileExt write SetFileExt;
 
     property LastCaption: string read FLastCaption write SetLastCaption;
@@ -94,7 +104,7 @@ implementation
 
 procedure TfmaETKGUISoftFoldersPreview.cbxFolderCaptionSelect(Sender: TObject);
 begin
-  if cbxFolderCaption.ItemIndex >=  0 then
+  if cbxFolderCaption.ItemIndex >= 0 then
     LastCaption := cbxFolderCaption.Items[cbxFolderCaption.ItemIndex];
 
   UpdateFileList;
@@ -133,8 +143,9 @@ end;
 procedure TfmaETKGUISoftFoldersPreview.SetListPreview(AValue:
   TfmCHXStrLstPreview);
 begin
-   if FfmListPreview = AValue then Exit;
-   FfmListPreview := AValue;
+  if FfmListPreview = AValue then
+    Exit;
+  FfmListPreview := AValue;
 end;
 
 procedure TfmaETKGUISoftFoldersPreview.CreateListView;
@@ -144,14 +155,14 @@ end;
 
 function TfmaETKGUISoftFoldersPreview.GetCaptionList: TStrings;
 begin
-   // This method must be overrided
-   Result := nil;
+  // This method must be overrided
+  Result := nil;
 end;
 
 function TfmaETKGUISoftFoldersPreview.GetFolder: string;
 begin
-   // This method must be overrided
-   Result := '';
+  // This method must be overrided
+  Result := '';
 end;
 
 procedure TfmaETKGUISoftFoldersPreview.SetSoftware(AValue: cEmutecaSoftware);
@@ -167,13 +178,22 @@ begin
   UpdateFileList;
 end;
 
-procedure TfmaETKGUISoftFoldersPreview.SetSystem(AValue: caEmutecaCustomSystem);
+procedure TfmaETKGUISoftFoldersPreview.SetSystem(
+  AValue: caEmutecaCustomSystem);
 begin
   if FSystem = AValue then
     Exit;
   FSystem := AValue;
 
   LoadFrameData;
+end;
+
+procedure TfmaETKGUISoftFoldersPreview.SetTempFolder(
+  const aTempFolder: string);
+begin
+  if FTempFolder = aTempFolder then
+    Exit;
+  FTempFolder := aTempFolder;
 end;
 
 procedure TfmaETKGUISoftFoldersPreview.UpdateFileList;
@@ -184,19 +204,23 @@ begin
   fmListPreview.StrList := nil;
   FileList.Clear;
 
+  // TODO: Maybe Emuteca Core must do this...
   if Assigned(Software) then
   begin
-    Software.SearchAllRelatedFiles(FileList, GetFolder, FileExt, True, True);
+    EmuTKSearchAllRelatedFiles(FileList, GetFolder, Software.GetMediaFileName,
+      FileExt, True, True, TempFolder);
 
     if (FileList.Count = 0) and (not Software.MatchGroupFile) then
     begin
       if Assigned(Software.CachedGroup) then
-        Software.CachedGroup.SearchAllRelatedFiles(FileList, GetFolder, FileExt, True, True);
+        EmuTKSearchAllRelatedFiles(FileList, GetFolder,
+          Software.CachedGroup.MediaFileName, FileExt, True, True, TempFolder);
     end;
   end
   else if Assigned(Group) then
   begin
-    Group.SearchAllRelatedFiles(FileList, GetFolder, FileExt, True, True);
+    EmuTKSearchAllRelatedFiles(FileList, GetFolder, Group.MediaFileName,
+      FileExt, True, True, TempFolder);
   end;
 
   fmListPreview.StrList := FileList;

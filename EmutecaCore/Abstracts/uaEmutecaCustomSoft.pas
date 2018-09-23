@@ -1,6 +1,11 @@
-{ This file is part of Emuteca
+unit uaEmutecaCustomSoft;
+{< caEmutecaCustomSoft class unit.
 
-  Copyright (C) 2006-2017 Chixpy
+  ----
+
+  This file is part of Emuteca Core.
+
+  Copyright (C) 2006-2018 Chixpy
 
   This source is free software; you can redistribute it and/or modify it under
   the terms of the GNU General Public License as published by the Free
@@ -17,7 +22,6 @@
   to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
   MA 02111-1307, USA.
 }
-unit uaEmutecaCustomSoft;
 
 {$mode objfpc}{$H+}
 
@@ -25,9 +29,13 @@ interface
 
 uses
   Classes, SysUtils, sha1, LazUTF8, LazFileUtils,
+  // CHX units
   uCHXStrUtils, uCHXFileUtils,
+  // CHX abstracts
   uaCHXStorable,
-  uEmutecaCommon,
+  // Emuteca Core units
+  uEmutecaConst, uEmutecaCommon,
+  // Emuteca Core classes
   ucEmutecaPlayingStats;
 
 type
@@ -120,13 +128,6 @@ type
     function ExportCommaText: string;
 
     procedure ImportFrom(aSoft: caEmutecaCustomSoft);
-
-    procedure SearchAllRelatedFiles(OutFileList: TStrings;
-      aFolder: string; Extensions: TStrings; SearchInComp: boolean;
-      AutoExtract: boolean); virtual;
-    function SearchFirstRelatedFile(aFolder: string;
-      Extensions: TStrings; SearchInComp: boolean;
-      AutoExtract: boolean): string; virtual;
 
     constructor Create(aOwner: TComponent); override;
     destructor Destroy; override;
@@ -497,8 +498,8 @@ function caEmutecaCustomSoft.GetMediaFileName: string;
 begin
   Result := RemoveFromBrackets(ExtractFileNameOnly(FileName));
 
-  // Removing last dots "Super Mario Bros.", Windows have problems with
-  //   removing folders ended with dot
+  // Removing last dots "Super Mario Bros.",
+  // Windows have problems with removing folders ended with dot...
   while Utf8EndsText('.', Result) do
     Result := Copy(Result, 1, Length(Result) - 1);
 end;
@@ -672,21 +673,6 @@ begin
     end;
     Inc(i);
   end;
-end;
-
-procedure caEmutecaCustomSoft.SearchAllRelatedFiles(OutFileList: TStrings;
-  aFolder: string; Extensions: TStrings; SearchInComp: boolean;
-  AutoExtract: boolean);
-begin
-  EmuTKSearchAllRelatedFiles(OutFileList, aFolder, GetMediaFileName,
-    Extensions, SearchInComp, AutoExtract, '');
-end;
-
-function caEmutecaCustomSoft.SearchFirstRelatedFile(aFolder: string;
-  Extensions: TStrings; SearchInComp: boolean; AutoExtract: boolean): string;
-begin
-  Result := EmuTKSearchFirstRelatedFile(aFolder, GetMediaFileName,
-    Extensions, SearchInComp, AutoExtract, '');
 end;
 
 constructor caEmutecaCustomSoft.Create(aOwner: TComponent);

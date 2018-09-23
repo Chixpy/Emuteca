@@ -1,4 +1,9 @@
-{ This file is part of Emuteca
+unit ucEmutecaGroupManager;
+{< cEmutecaGroupManager class unit.
+
+  ----
+
+  This file is part of Emuteca Core.
 
   Copyright (C) 2006-2018 Chixpy
 
@@ -17,21 +22,20 @@
   to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
   MA 02111-1307, USA.
 }
-
-{ cGameManager unit. }
-unit ucEmutecaGroupManager;
-
 {$mode objfpc}{$H+}
 
 interface
 
 uses
-  Classes, SysUtils, FileUtil, LazFileUtils,
-  LazUTF8, LConvEncoding, LResources,
+  Classes, SysUtils, FileUtil, LazFileUtils, LazUTF8, LConvEncoding, LResources,
+  // CHX abstracts
   uaCHXStorable,
-  uEmutecaCommon,
-  uaEmutecaCustomManager,
-  uaEmutecaCustomSystem, ucEmutecaGroupList;
+  // Emuteca Core units
+  uEmutecaConst, uEmutecaRscStr, uEmutecaCommon,
+  // Emuteca Core abstracts
+  uaEmutecaCustomManager, uaEmutecaCustomSystem,
+  // Emuteca Core classes
+  ucEmutecaGroupList;
 
 type
   { cEmutecaGroupManager }

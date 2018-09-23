@@ -1,4 +1,9 @@
-{ Main form of Emuteca GUI.
+unit ufrETKGUIMain;
+{< TfrmETKGUIMain form unit.
+
+  ----
+
+  This file is part of Emuteca GUI.
 
   Copyright (C) 2011-2018 Chixpy
 
@@ -17,8 +22,6 @@
   writing to the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
   Boston, MA 02111-1307, USA.
 }
-unit ufrETKGUIMain;
-
 {$mode objfpc}{$H+}
 
 interface
@@ -37,16 +40,16 @@ uses
   ufrCHXForm,
   // CHX frames
   ufCHXProgressBar,
-  // Emuteca units
-  uEmutecaCommon,
-  // Emuteca clases
+  // Emuteca Core units
+  uEmutecaConst, uEmutecaRscStr,
+  // Emuteca Core clases
   ucEmuteca, ucEmutecaSystem, ucEmutecaGroupList, ucEmutecaGroup,
   ucEmutecaSoftware, ucEmutecaSoftList, ucEmutecaEmulator,
-  // Emuteca frames
+  // Emuteca Core frames
   ufEmutecaActAddSoft, ufEmutecaActAddFolder, ufEmutecaActExportSoftData,
   ufEmutecaActImportSoftData,
   // Emuteca GUI units
-  uETKGUICommon,
+  uETKGUIConst, uETKGUIRscStr,
   // Emuteca GUI classes
   ucETKGUIConfig,
   // Emuteca GUI frames
@@ -553,7 +556,7 @@ end;
 
 procedure TfrmETKGUIMain.actMergeGroupFilesExecute(Sender: TObject);
 begin
-  TfmEEGUIactMergeGroup.SimpleForm(CurrentGroup, GUIIconsFile,
+  TfmETKGUIactMergeGroup.SimpleForm(CurrentGroup, GUIIconsFile,
     GUIConfig.DefaultFileName);
 end;
 
@@ -840,7 +843,10 @@ begin
 
   CacheGrpIconsThread.GroupList := aGroupList;
   CacheGrpIconsThread.IconList := IconList;
+
   CacheGrpIconsThread.ImageExt := GUIConfig.ImageExtensions;
+  if Assigned(Emuteca) then
+    CacheGrpIconsThread.TempFolder := Emuteca.TempFolder;
 
   CacheGrpIconsThread.Start;
 end;
@@ -869,6 +875,8 @@ begin
   CacheSoftIconsThread.SoftList := aSoftList;
   CacheSoftIconsThread.IconList := IconList;
   CacheSoftIconsThread.ImageExt := GUIConfig.ImageExtensions;
+  if Assigned(Emuteca) then
+    CacheSoftIconsThread.TempFolder := Emuteca.TempFolder;
 
   CacheSoftIconsThread.Start;
 end;

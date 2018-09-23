@@ -1,4 +1,9 @@
-{ Main program of Emuteca GUI
+program EmutecaGUI;
+{< Main program of Emuteca GUI.
+
+  ----
+
+  This file is part of Emuteca GUI.
 
   Copyright (C) 2006-2018 Chixpy
 
@@ -17,8 +22,6 @@
   to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
   MA 02111-1307, USA.
 }
-program EmutecaGUI;
-
 {$mode objfpc}{$H+}
 
 uses {$IFDEF UNIX} {$IFDEF UseCThreads}
@@ -26,7 +29,7 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   Interfaces, // this includes the LCL widgetset
   Forms, mplayercontrollaz, lazcontrols, pascalscript,
   // CHX units
-  uCHXDlgUtils, uCHXImageUtils, uCHXExecute,
+  uCHXDlgUtils, uCHXImageUtils, uCHXExecute, uCHXConst, uCHXRscStr,
   // CHX abstract classes
   uaCHXConfig,
   uaCHXStorable,
@@ -113,7 +116,9 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   ufrETKGUIMain,
   // Emuteca GUI threads
   utETKGUICacheGrpIcons, utETKGUICacheSysIcons, utETKGUICacheSoftIcons,
-  ufETKGUISoftVideoPreview, ufCHXVideoListPreview, ufETKGUISoftMusicPreview;
+  ufETKGUISoftVideoPreview, ufCHXVideoListPreview, ufETKGUISoftMusicPreview,
+  uEmutecaRscStr, uEmutecaConst, uaEmutecaCustomEmu, uPSI_uEmutecaConst,
+  uPSI_uEmutecaRscStr, uETKGUIConst, uETKGUIRscStr;
 
 {$R *.res}
 

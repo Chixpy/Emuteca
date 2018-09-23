@@ -1,4 +1,9 @@
-{ This file is part of Emuteca
+unit uaEmutecaCustomSystem;
+{ <caEmutecaCustomSystem class unit.
+
+  ----
+
+  This file is part of Emuteca Core.
 
   Copyright (C) 2006-2018 Chixpy
 
@@ -17,19 +22,19 @@
   to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
   MA 02111-1307, USA.
 }
-
-unit uaEmutecaCustomSystem;
-
-
 {$mode objfpc}{$H+}
 
 interface
 
 uses
   Classes, SysUtils, IniFiles, LazFileUtils, LazUTF8,
+  // CHX units
   uCHXStrUtils,
+  // CHX abstracts
   uaCHXStorable,
-  uEmutecaCommon,
+  // Emuteca Core units
+  uEmutecaConst, uEmutecaCommon,
+  // Emuteca classes
   ucEmutecaEmulatorList, ucEmutecaEmulator,
   ucEmutecaPlayingStats;
 

@@ -1,4 +1,9 @@
-{ This file is part of Emuteca
+unit ucEmutecaEmulatorManager;
+{< cEmutecaEmulatorManager class unit.
+
+  ----
+
+  This file is part of Emuteca Core.
 
   Copyright (C) 2006-2018 Chixpy
 
@@ -17,10 +22,6 @@
   to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
   MA 02111-1307, USA.
 }
-
-{ cEmulatorManager unit. }
-unit ucEmutecaEmulatorManager;
-
 {$mode objfpc}{$H+}
 
 interface
@@ -30,7 +31,7 @@ uses
   // CHX abstracts
   uaCHXStorable,
   // Emuteca units
-  uEmutecaCommon,
+  uEmutecaRscStr,
   // Emuteca abstracts
   uaEmutecaCustomManager,
   // Emuteca classes

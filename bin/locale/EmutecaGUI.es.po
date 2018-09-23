@@ -2049,30 +2049,37 @@ msgid "Error extracting CRC32: \"%0:s\""
 msgstr ""
 
 #: uemutecacommon.rscleaningsystemdata
+msgctxt "uemutecacommon.rscleaningsystemdata"
 msgid "Cleaning system data..."
 msgstr ""
 
 #: uemutecacommon.rsedsalternate
+msgctxt "uemutecacommon.rsedsalternate"
 msgid "Alternate"
 msgstr ""
 
 #: uemutecacommon.rsedsbaddump
+msgctxt "uemutecacommon.rsedsbaddump"
 msgid "BadDump"
 msgstr ""
 
 #: uemutecacommon.rsedsgood
+msgctxt "uemutecacommon.rsedsgood"
 msgid "GoodDump"
 msgstr ""
 
 #: uemutecacommon.rsedskeepvalue
+msgctxt "uemutecacommon.rsedskeepvalue"
 msgid "Keep value"
 msgstr ""
 
 #: uemutecacommon.rsedsoverdump
+msgctxt "uemutecacommon.rsedsoverdump"
 msgid "OverDump"
 msgstr ""
 
 #: uemutecacommon.rsedsunderdump
+msgctxt "uemutecacommon.rsedsunderdump"
 msgid "UnderDump"
 msgstr ""
 
@@ -2082,126 +2089,156 @@ msgid "Unknown"
 msgstr ""
 
 #: uemutecacommon.rsedsverified
+msgctxt "uemutecacommon.rsedsverified"
 msgid "Verified"
 msgstr ""
 
 #: uemutecacommon.rsexportingemulatorlist
+msgctxt "uemutecacommon.rsexportingemulatorlist"
 msgid "Exporting emulator list..."
 msgstr ""
 
 #: uemutecacommon.rsexportinggrouplist
+msgctxt "uemutecacommon.rsexportinggrouplist"
 msgid "Exporting group list..."
 msgstr ""
 
 #: uemutecacommon.rsexportingnosha1
+msgctxt "uemutecacommon.rsexportingnosha1"
 msgid ""
 "Warning: We can't export because not all files have SHA1 cached.\n"
 "(%2:d/%3:d) %0:s%1:s\n"
 msgstr ""
 
 #: uemutecacommon.rsexportingsoftlist
+msgctxt "uemutecacommon.rsexportingsoftlist"
 msgid "Exporting soft list..."
 msgstr ""
 
 #: uemutecacommon.rsexportingsystemlist
+msgctxt "uemutecacommon.rsexportingsystemlist"
 msgid "Exporting system list..."
 msgstr ""
 
 #: uemutecacommon.rsfilealreadyadded
+msgctxt "uemutecacommon.rsfilealreadyadded"
 msgid "This file is already added."
 msgstr ""
 
 #: uemutecacommon.rsfilemaskdescgroup
+msgctxt "uemutecacommon.rsfilemaskdescgroup"
 msgid "Group file list (*.egl)"
 msgstr ""
 
 #: uemutecacommon.rsfilemaskdescini
+msgctxt "uemutecacommon.rsfilemaskdescini"
 msgid "Soft file list (*.ini)"
 msgstr ""
 
 #: uemutecacommon.rsfilemaskdescscript
+msgctxt "uemutecacommon.rsfilemaskdescscript"
 msgid "Soft file list (*.pas)"
 msgstr ""
 
 #: uemutecacommon.rsfilemaskdescsoft
+msgctxt "uemutecacommon.rsfilemaskdescsoft"
 msgid "Soft file list (*.csv)"
 msgstr ""
 
 #: uemutecacommon.rsfilemaskdesctxt
+msgctxt "uemutecacommon.rsfilemaskdesctxt"
 msgid "Soft file list (*.txt)"
 msgstr ""
 
 #: uemutecacommon.rsfmtngroups
+msgctxt "uemutecacommon.rsfmtngroups"
 msgid "%0:d groups"
 msgstr ""
 
 #: uemutecacommon.rsfmtnitems
+msgctxt "uemutecacommon.rsfmtnitems"
 msgid "%1:d visible of %0:d items."
 msgstr ""
 
 #: uemutecacommon.rsfmtntimes
+msgctxt "uemutecacommon.rsfmtntimes"
 msgid "%0:d times."
 msgstr ""
 
 #: uemutecacommon.rsfmtnversions
+msgctxt "uemutecacommon.rsfmtnversions"
 msgid "%0:d versions."
 msgstr ""
 
 #: uemutecacommon.rsimportingemulatorlist
+msgctxt "uemutecacommon.rsimportingemulatorlist"
 msgid "Importing emulator list..."
 msgstr ""
 
 #: uemutecacommon.rsimportinggrouplist
+msgctxt "uemutecacommon.rsimportinggrouplist"
 msgid "Importing group list..."
 msgstr ""
 
 #: uemutecacommon.rsimportingnosha1
+msgctxt "uemutecacommon.rsimportingnosha1"
 msgid ""
 "Warning: Some info could not be imported because some files haven't got SHA1 cached.\n"
 "(%2:d/%3:d) %0:s%1:s\n"
 msgstr ""
 
 #: uemutecacommon.rsimportingsoftlist
+msgctxt "uemutecacommon.rsimportingsoftlist"
 msgid "Importing soft list..."
 msgstr ""
 
 #: uemutecacommon.rsimportingsystemlist
+msgctxt "uemutecacommon.rsimportingsystemlist"
 msgid "Importing system list..."
 msgstr ""
 
 #: uemutecacommon.rsloadingemulatorlist
+msgctxt "uemutecacommon.rsloadingemulatorlist"
 msgid "Loading emulator list..."
 msgstr ""
 
 #: uemutecacommon.rsloadinggrouplist
+msgctxt "uemutecacommon.rsloadinggrouplist"
 msgid "Loading group list..."
 msgstr ""
 
 #: uemutecacommon.rsloadingsoftlist
+msgctxt "uemutecacommon.rsloadingsoftlist"
 msgid "Loading soft list..."
 msgstr ""
 
 #: uemutecacommon.rsloadingsystemlist
+msgctxt "uemutecacommon.rsloadingsystemlist"
 msgid "Loading system list..."
 msgstr ""
 
 #: uemutecacommon.rsnever
+msgctxt "uemutecacommon.rsnever"
 msgid "Never"
 msgstr ""
 
 #: uemutecacommon.rssavingemulatorlist
+msgctxt "uemutecacommon.rssavingemulatorlist"
 msgid "Saving emulator list..."
 msgstr ""
 
 #: uemutecacommon.rssavinggrouplist
+msgctxt "uemutecacommon.rssavinggrouplist"
 msgid "Saving group list..."
 msgstr ""
 
 #: uemutecacommon.rssavingsoftlist
+msgctxt "uemutecacommon.rssavingsoftlist"
 msgid "Saving soft list..."
 msgstr ""
 
 #: uemutecacommon.rssavingsystemlist
+msgctxt "uemutecacommon.rssavingsystemlist"
 msgid "Saving system list..."
 msgstr ""
 
@@ -2210,7 +2247,208 @@ msgctxt "uemutecacommon.rsunknown"
 msgid "Unknown"
 msgstr "Desconocido"
 
+#: uemutecarscstr.rscleaningsystemdata
+msgctxt "uemutecarscstr.rscleaningsystemdata"
+msgid "Cleaning system data..."
+msgstr ""
+
+#: uemutecarscstr.rsedsalternate
+msgctxt "uemutecarscstr.rsedsalternate"
+msgid "Alternate"
+msgstr ""
+
+#: uemutecarscstr.rsedsbaddump
+msgctxt "uemutecarscstr.rsedsbaddump"
+msgid "BadDump"
+msgstr ""
+
+#: uemutecarscstr.rsedsgood
+msgctxt "uemutecarscstr.rsedsgood"
+msgid "GoodDump"
+msgstr ""
+
+#: uemutecarscstr.rsedskeepvalue
+msgctxt "uemutecarscstr.rsedskeepvalue"
+msgid "Keep value"
+msgstr ""
+
+#: uemutecarscstr.rsedsoverdump
+msgctxt "uemutecarscstr.rsedsoverdump"
+msgid "OverDump"
+msgstr ""
+
+#: uemutecarscstr.rsedsunderdump
+msgctxt "uemutecarscstr.rsedsunderdump"
+msgid "UnderDump"
+msgstr ""
+
+#: uemutecarscstr.rsedsunknown
+msgctxt "uemutecarscstr.rsedsunknown"
+msgid "Unknown"
+msgstr ""
+
+#: uemutecarscstr.rsedsverified
+msgctxt "uemutecarscstr.rsedsverified"
+msgid "Verified"
+msgstr ""
+
+#: uemutecarscstr.rsexportingemulatorlist
+msgctxt "uemutecarscstr.rsexportingemulatorlist"
+msgid "Exporting emulator list..."
+msgstr ""
+
+#: uemutecarscstr.rsexportinggrouplist
+msgctxt "uemutecarscstr.rsexportinggrouplist"
+msgid "Exporting group list..."
+msgstr ""
+
+#: uemutecarscstr.rsexportingnosha1
+msgctxt "uemutecarscstr.rsexportingnosha1"
+msgid ""
+"Warning: We can't export because not all files have SHA1 cached.\n"
+"(%2:d/%3:d) %0:s%1:s\n"
+msgstr ""
+
+#: uemutecarscstr.rsexportingsoftlist
+msgctxt "uemutecarscstr.rsexportingsoftlist"
+msgid "Exporting soft list..."
+msgstr ""
+
+#: uemutecarscstr.rsexportingsystemlist
+msgctxt "uemutecarscstr.rsexportingsystemlist"
+msgid "Exporting system list..."
+msgstr ""
+
+#: uemutecarscstr.rsfilealreadyadded
+msgctxt "uemutecarscstr.rsfilealreadyadded"
+msgid "This file is already added."
+msgstr ""
+
+#: uemutecarscstr.rsfilemaskdescgroup
+msgctxt "uemutecarscstr.rsfilemaskdescgroup"
+msgid "Group file list (*.egl)"
+msgstr ""
+
+#: uemutecarscstr.rsfilemaskdescini
+msgctxt "uemutecarscstr.rsfilemaskdescini"
+msgid "Soft file list (*.ini)"
+msgstr ""
+
+#: uemutecarscstr.rsfilemaskdescscript
+msgctxt "uemutecarscstr.rsfilemaskdescscript"
+msgid "Soft file list (*.pas)"
+msgstr ""
+
+#: uemutecarscstr.rsfilemaskdescsoft
+msgctxt "uemutecarscstr.rsfilemaskdescsoft"
+msgid "Soft file list (*.csv)"
+msgstr ""
+
+#: uemutecarscstr.rsfilemaskdesctxt
+msgctxt "uemutecarscstr.rsfilemaskdesctxt"
+msgid "Soft file list (*.txt)"
+msgstr ""
+
+#: uemutecarscstr.rsfmtngroups
+msgctxt "uemutecarscstr.rsfmtngroups"
+msgid "%0:d groups"
+msgstr ""
+
+#: uemutecarscstr.rsfmtnitems
+msgctxt "uemutecarscstr.rsfmtnitems"
+msgid "%1:d visible of %0:d items."
+msgstr ""
+
+#: uemutecarscstr.rsfmtntimes
+msgctxt "uemutecarscstr.rsfmtntimes"
+msgid "%0:d times."
+msgstr ""
+
+#: uemutecarscstr.rsfmtnversions
+msgctxt "uemutecarscstr.rsfmtnversions"
+msgid "%0:d versions."
+msgstr ""
+
+#: uemutecarscstr.rsimportingemulatorlist
+msgctxt "uemutecarscstr.rsimportingemulatorlist"
+msgid "Importing emulator list..."
+msgstr ""
+
+#: uemutecarscstr.rsimportinggrouplist
+msgctxt "uemutecarscstr.rsimportinggrouplist"
+msgid "Importing group list..."
+msgstr ""
+
+#: uemutecarscstr.rsimportingnosha1
+msgctxt "uemutecarscstr.rsimportingnosha1"
+msgid ""
+"Warning: Some info could not be imported because some files haven't got SHA1 cached.\n"
+"(%2:d/%3:d) %0:s%1:s\n"
+msgstr ""
+
+#: uemutecarscstr.rsimportingsoftlist
+msgctxt "uemutecarscstr.rsimportingsoftlist"
+msgid "Importing soft list..."
+msgstr ""
+
+#: uemutecarscstr.rsimportingsystemlist
+msgctxt "uemutecarscstr.rsimportingsystemlist"
+msgid "Importing system list..."
+msgstr ""
+
+#: uemutecarscstr.rsloadingemulatorlist
+msgctxt "uemutecarscstr.rsloadingemulatorlist"
+msgid "Loading emulator list..."
+msgstr ""
+
+#: uemutecarscstr.rsloadinggrouplist
+msgctxt "uemutecarscstr.rsloadinggrouplist"
+msgid "Loading group list..."
+msgstr ""
+
+#: uemutecarscstr.rsloadingsoftlist
+msgctxt "uemutecarscstr.rsloadingsoftlist"
+msgid "Loading soft list..."
+msgstr ""
+
+#: uemutecarscstr.rsloadingsystemlist
+msgctxt "uemutecarscstr.rsloadingsystemlist"
+msgid "Loading system list..."
+msgstr ""
+
+#: uemutecarscstr.rsnever
+msgctxt "uemutecarscstr.rsnever"
+msgid "Never"
+msgstr ""
+
+#: uemutecarscstr.rssavingemulatorlist
+msgctxt "uemutecarscstr.rssavingemulatorlist"
+msgid "Saving emulator list..."
+msgstr ""
+
+#: uemutecarscstr.rssavinggrouplist
+msgctxt "uemutecarscstr.rssavinggrouplist"
+msgid "Saving group list..."
+msgstr ""
+
+#: uemutecarscstr.rssavingsoftlist
+msgctxt "uemutecarscstr.rssavingsoftlist"
+msgid "Saving soft list..."
+msgstr ""
+
+#: uemutecarscstr.rssavingsystemlist
+msgctxt "uemutecarscstr.rssavingsystemlist"
+msgid "Saving system list..."
+msgstr ""
+
+#: uemutecarscstr.rsunknown
+#, fuzzy
+msgctxt "uemutecarscstr.rsunknown"
+msgid "Unknown"
+msgstr "Desconocido"
+
 #: uetkguicommon.rsautofolderwarning
+msgctxt "uetkguicommon.rsautofolderwarning"
 msgid ""
 "This action will:\n"
 "* Save current system data.\n"
@@ -2226,10 +2464,12 @@ msgid "Developer"
 msgstr "Desarrollador"
 
 #: uetkguicommon.rsetkguiemueditortitle
+msgctxt "uetkguicommon.rsetkguiemueditortitle"
 msgid "Emulator Editor"
 msgstr ""
 
 #: uetkguicommon.rsetkguisystemeditortitle
+msgctxt "uetkguicommon.rsetkguisystemeditortitle"
 msgid "System Editor"
 msgstr ""
 
@@ -2239,10 +2479,12 @@ msgid "Filename"
 msgstr ""
 
 #: uetkguicommon.rsfmtapplicationtitle
+msgctxt "uetkguicommon.rsfmtapplicationtitle"
 msgid "%0:s %1:s"
 msgstr ""
 
 #: uetkguicommon.rsfmtnotfound
+msgctxt "uetkguicommon.rsfmtnotfound"
 msgid ""
 "Not Found.\n"
 "\n"
@@ -2255,6 +2497,7 @@ msgstr ""
 "Fichero: %1:s\n"
 
 #: uetkguicommon.rsgamekey
+msgctxt "uetkguicommon.rsgamekey"
 msgid "Key"
 msgstr "Clave"
 
@@ -2264,10 +2507,12 @@ msgid "Publisher"
 msgstr "Publicador"
 
 #: uetkguicommon.rssofteditorcaption
+msgctxt "uetkguicommon.rssofteditorcaption"
 msgid "Soft Editor"
 msgstr ""
 
 #: uetkguicommon.rssoftmediacaption
+msgctxt "uetkguicommon.rssoftmediacaption"
 msgid "Soft Media"
 msgstr ""
 
@@ -2277,6 +2522,7 @@ msgid "System"
 msgstr "Sistema"
 
 #: uetkguicommon.rstagscaption
+msgctxt "uetkguicommon.rstagscaption"
 msgid "Tags"
 msgstr "Etiquetas"
 
@@ -2291,6 +2537,107 @@ msgid "Warning"
 msgstr "Atención"
 
 #: uetkguicommon.rszones
+msgctxt "uetkguicommon.rszones"
+msgid "Zones"
+msgstr "Zonas"
+
+#: uetkguirscstr.rsautofolderwarning
+msgctxt "uetkguirscstr.rsautofolderwarning"
+msgid ""
+"This action will:\n"
+"* Save current system data.\n"
+"* Create many folders in \"%0:s\".\n"
+"* Change all defined image, music, video folders with created ones.\n"
+"\n"
+"¿Are you sure?\n"
+msgstr ""
+
+#: uetkguirscstr.rsdeveloper
+msgctxt "uetkguirscstr.rsdeveloper"
+msgid "Developer"
+msgstr ""
+
+#: uetkguirscstr.rsetkguiemueditortitle
+msgctxt "uetkguirscstr.rsetkguiemueditortitle"
+msgid "Emulator Editor"
+msgstr ""
+
+#: uetkguirscstr.rsetkguisystemeditortitle
+msgctxt "uetkguirscstr.rsetkguisystemeditortitle"
+msgid "System Editor"
+msgstr ""
+
+#: uetkguirscstr.rsfilename
+msgctxt "uetkguirscstr.rsfilename"
+msgid "Filename"
+msgstr ""
+
+#: uetkguirscstr.rsfmtapplicationtitle
+msgctxt "uetkguirscstr.rsfmtapplicationtitle"
+msgid "%0:s %1:s"
+msgstr ""
+
+#: uetkguirscstr.rsfmtnotfound
+#, fuzzy
+msgctxt "uetkguirscstr.rsfmtnotfound"
+msgid ""
+"Not Found.\n"
+"\n"
+"Current folder: %0:s\n"
+"Searched file: %1:s\n"
+msgstr ""
+"No encontrado.\n"
+"\n"
+"Carpeta: %0:s\n"
+"Fichero: %1:s\n"
+
+#: uetkguirscstr.rsgamekey
+#, fuzzy
+msgctxt "uetkguirscstr.rsgamekey"
+msgid "Key"
+msgstr "Clave"
+
+#: uetkguirscstr.rspublisher
+msgctxt "uetkguirscstr.rspublisher"
+msgid "Publisher"
+msgstr ""
+
+#: uetkguirscstr.rssofteditorcaption
+msgctxt "uetkguirscstr.rssofteditorcaption"
+msgid "Soft Editor"
+msgstr ""
+
+#: uetkguirscstr.rssoftmediacaption
+msgctxt "uetkguirscstr.rssoftmediacaption"
+msgid "Soft Media"
+msgstr ""
+
+#: uetkguirscstr.rssystemcaption
+msgctxt "uetkguirscstr.rssystemcaption"
+msgid "System"
+msgstr ""
+
+#: uetkguirscstr.rstagscaption
+#, fuzzy
+msgctxt "uetkguirscstr.rstagscaption"
+msgid "Tags"
+msgstr "Etiquetas"
+
+#: uetkguirscstr.rsversion
+#, fuzzy
+msgctxt "uetkguirscstr.rsversion"
+msgid "Version"
+msgstr "Versión"
+
+#: uetkguirscstr.rswarning
+#, fuzzy
+msgctxt "uetkguirscstr.rswarning"
+msgid "Warning"
+msgstr "Atención"
+
+#: uetkguirscstr.rszones
+#, fuzzy
+msgctxt "uetkguirscstr.rszones"
 msgid "Zones"
 msgstr "Zonas"
 

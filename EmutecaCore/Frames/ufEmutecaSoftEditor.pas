@@ -1,4 +1,9 @@
-{ Software editor of Emuteca.
+unit ufEmutecaSoftEditor;
+{ Software editor.
+  
+  ----
+
+  This file is part of Emuteca Core.
 
   Copyright (C) 2011-2018 Chixpy
 
@@ -17,8 +22,6 @@
   writing to the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
   Boston, MA 02111-1307, USA.
 }
-unit ufEmutecaSoftEditor;
-
 {$mode objfpc}{$H+}
 
 interface
@@ -28,9 +31,9 @@ uses
   Buttons, ActnList, StdCtrls,
   // CHX frames
   ufCHXPropEditor,
-  // Emuteca units
-  uEmutecaCommon,
-  // Emuteca classes
+  // Emuteca Core units
+  uEmutecaConst, uEmutecaRscStr, uEmutecaCommon,
+  // Emuteca Core classes
   ucEmutecaSystem, ucEmutecaSoftware;
 
 type
