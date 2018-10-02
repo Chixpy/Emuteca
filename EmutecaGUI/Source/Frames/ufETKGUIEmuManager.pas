@@ -36,11 +36,9 @@ uses
   // CHX forms
   ufrCHXForm,
   // Emuteca Core units
-  uEmutecaCommon, uEmutecaConst,uEmutecaRscStr,
+  uEmutecaConst,uEmutecaRscStr,
   // Emuteca Core classes
   ucEmutecaEmulatorManager, ucEmutecaEmulator,
-  // Emuteca GUI units
-  uETKGUICommon,
   // Emuteca GUI frames
   ufETKGUIFullEmuEditor;
 

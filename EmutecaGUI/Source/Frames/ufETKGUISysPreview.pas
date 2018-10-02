@@ -34,13 +34,13 @@ uses
   // CHX frames
   ufCHXFrame, ufCHXImgViewer,
   // Emuteca Core units
-  uEmutecaConst,uEmutecaRscStr,uEmutecaCommon,
+  uEmutecaConst,uEmutecaRscStr,
   // Emuteca Core classes
   ucEmutecaSystem, ucEmutecaEmulator,
   // Emuteca Core frames
   ufEmutecaEmulatorCBX,
   // Emuteca GUI units
-  uETKGUIConst, uETKGUIRscStr;
+  uETKGUIConst;
 
 type
 

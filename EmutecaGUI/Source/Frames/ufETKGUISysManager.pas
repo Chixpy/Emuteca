@@ -1,7 +1,7 @@
 unit ufETKGUISysManager;
-{< TfmETKGUISysManager frame unit of Emuteca GUI.
+{< TfmETKGUISysManager frame unit.
 
-  ----
+  This file is part of Emuteca GUI.
 
   Copyright (C) 2006-2018 Chixpy
 
@@ -34,7 +34,7 @@ uses
   // CHX frames
   ufCHXChkLstPropEditor, ufCHXProgressBar,
   // Emuteca Core units
-  uEmutecaConst, uEmutecaRscStr, uEmutecaCommon,
+  uEmutecaConst, uEmutecaRscStr,
   // Emuteca Core clases
   ucEmuteca, ucEmutecaSystem,
   // Emuteca GUI frames
@@ -42,10 +42,9 @@ uses
 
 resourcestring
   rsSystemNameModel = 'System name [Company: Model (extra)].';
+  {< Title of Add System dialog}
 
 type
-  { Frame for System Manager. }
-
   { TfmETKGUISysManager }
 
   TfmETKGUISysManager = class(TfmCHXChkLstPropEditor)
@@ -79,16 +78,19 @@ type
 
   public
     property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
-    //< Needed by fmSysEditor
+    //< Needed by fmSysEditor.
     property SHA1Folder: string read FSHA1Folder write SetSHA1Folder;
+    //< Folder with image statistiscs files.
 
-    // Creates a form with System Manager.
     class function SimpleForm(aEmuteca: cEmuteca; aSHA1Folder: string;
       aGUIIconsIni: string; aGUIConfigIni: string): integer;
+    //< Creates a form with System Manager frame.
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
   end;
+  {< Frame for System Manager. }
+
 
 implementation
 

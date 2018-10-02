@@ -1,8 +1,6 @@
 unit ucEmuteca;
 {< cEmuteca class unit.
 
-  ----
-
   This file is part of Emuteca Core.
 
   Copyright (C) 2006-2018 Chixpy
@@ -61,13 +59,15 @@ type
     property GetSoftSHA1Thread: ctEmutecaGetSoftSHA1
       read FGetSoftSHA1Thread write SetGetSoftSHA1Thread;
     procedure GetSoftSHA1ThreadThreadTerminated(Sender: TObject);
-    // For ctEmutecaGetSoftSHA1.OnTerminate
+    {< Used with ctEmutecaGetSoftSHA1.OnTerminate to change GetSoftSHA1Thread
+      to @nil. }
 
     procedure SetTempFolder(AValue: string);
 
   public
     property ProgressCallBack: TEmutecaProgressCallBack
       read FProgressCallBack write SetProgressBar;
+    {< Callback function to show progress. }
 
     property TempFolder: string read FTempFolder;
     {< Emuteca's TempFolder. }
@@ -75,16 +75,25 @@ type
     procedure LoadConfig(aFile: string);
 
     procedure ClearAllData;
+    {< Removes all loaded data. }
     procedure LoadAllData;
+    {< Loads all data. }
     procedure SaveAllData;
+    {< Saves all data. }
 
     procedure CleanSystems;
-    // Removes parents without soft and Soft not found of all systems.
+    {< Removes Groups without soft, and Soft not found of all systems. }
 
     procedure CacheData;
+    {< Runs background threads.
+
+      Now only calculates SHA1 of files in background. It was used to
+        load icons too, but it's a Emuteca GUI job. }
     procedure UpdateSysEmulators;
+    {< (Re)Loads emulators assigned to systems. }
 
     function RunSoftware(const aSoftware: cEmutecaSoftware): integer;
+    {< Runs a software with its current system emulator. }
 
     constructor Create(aOwner: TComponent); override;
     destructor Destroy; override;
@@ -94,11 +103,17 @@ type
     {< Base folder for relative config paths. }
 
     property Config: cEmutecaConfig read FConfig;
+    {< Config component. }
 
     property SystemManager: cEmutecaSystemManager read FSystemManager;
+    {< System Manager component. }
 
     property EmulatorManager: cEmutecaEmulatorManager read FEmulatorManager;
+    {< Emulator Manager component. }
   end;
+  {< Main Emuteca Core class.
+
+  It manages and stores all data and relations. }
 
 implementation
 
@@ -108,15 +123,16 @@ begin
   // Teminate thread if it's running
   if assigned(GetSoftSHA1Thread) then
   begin
+    // Don't auto nil GetSoftSHA1Thread, only terminate it.
+    // GetSoftSHA1Thread will be reused.
     GetSoftSHA1Thread.OnTerminate := nil;
     GetSoftSHA1Thread.Terminate;
     //GetSoftSHA1Thread.WaitFor; Don't wait
   end;
+  // GetSoftSHA1Thread.Free; Auto freed with FreeOnTerminate
 
   if (TempFolder = '') or (not Assigned(SystemManager)) then
     Exit;
-
-  // CacheSysIconsThread.Free; Auto freed with FreeOnTerminate
 
   // Caching data in background
   FGetSoftSHA1Thread := ctEmutecaGetSoftSHA1.Create;

@@ -1,7 +1,5 @@
 unit uaEmutecaCustomSystem;
-{ <caEmutecaCustomSystem class unit.
-
-  ----
+{< caEmutecaCustomSystem abstract class unit.
 
   This file is part of Emuteca Core.
 

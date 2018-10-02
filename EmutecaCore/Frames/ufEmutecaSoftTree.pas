@@ -1,8 +1,5 @@
 unit ufEmutecaSoftTree;
-
 {< TfmEmutecaSoftTree frame unit.
-
-  ----
 
   This file is part of Emuteca Core.
 
@@ -44,9 +41,13 @@ uses
 
 const
   krsIniSoftTreeSection = 'SoftTree';
+  {< Config file section name. }
   krsIniSoftTreeWidthFmt = 'Column%0:d_Width';
+  {< Config file columns width key. }
   krsIniSoftTreeVisibleFmt = 'Column%0:d_Visible';
+  {< Config file columns visibility key. }
   krsIniSoftTreePositionFmt = 'Column%0:d_Position';
+  {< Config file columns position key. }
   krsIniSoftTreeGroupFont = 'GroupFont';
   krsIniSoftTreeSoftFont = 'SoftFont';
 
@@ -62,7 +63,8 @@ type
     StatusBar: TStatusBar;
     VDT: TVirtualStringTree;
     VTHPopupMenu: TVTHeaderPopupMenu;
-    procedure actRunSoftwareExecute(Sender: TObject);
+    procedure VDTAfterItemPaint(Sender: TBaseVirtualTree;
+      TargetCanvas: TCanvas; Node: PVirtualNode; const ItemRect: TRect);
     procedure VDTChange(Sender: TBaseVirtualTree; Node: PVirtualNode);
     procedure VDTCompareNodes(Sender: TBaseVirtualTree;
       Node1, Node2: PVirtualNode; Column: TColumnIndex; var Result: integer);
@@ -106,13 +108,20 @@ type
 
   protected
     procedure UpdateSBNodeCount;
+    {< Updates the Status Bar visible node count. }
 
-    procedure FilterNodes;
-
-    procedure DoDblClkTree;
+    procedure DoFilterNodes;
+    {< Shows/Hides node using TitleFilter. }
+    procedure SetFilterHideNodes(Sender: TBaseVirtualTree;
+      Node: PVirtualNode; Data: Pointer; var Abort: boolean);
+    {< Callback for IterateSubtree, to hide filtered nodes. }
+    procedure SetShowAllNodes(Sender: TBaseVirtualTree;
+      Node: PVirtualNode; Data: Pointer; var Abort: boolean);
+    {< Callback for IterateSubtree, to show all nodes. }
 
     procedure SetNodesHeight(Sender: TBaseVirtualTree;
       Node: PVirtualNode; Data: Pointer; var Abort: boolean);
+    {< Callback for IterateSubtree, sets node height to default (changed) one.}
 
     procedure DoClearFrameData;
     procedure DoLoadFrameData;
@@ -121,27 +130,56 @@ type
 
   public
     property GroupList: cEmutecaGroupList read FGroupList write SetGroupList;
+    {< GroupList to show. }
 
     property TitleFilter: string read FTitleFilter write SetTitleFilter;
+    {< String to filter items and hide them. }
 
     // Callbacks on actions
     // --------------------
     property OnSelectGroup: TEmutecaReturnGroupCB
       read FOnSelectGroup write SetOnSelectGroup;
+    {< Callback when a group is selected. }
     property OnDblClkGroup: TEmutecaReturnGroupCB
       read FOnDblClkGroup write SetOnDblClkGroup;
+    {< Callback when a group is double clicked.
+
+      Automatically group childs are expanded. }
     property OnSelectSoft: TEmutecaReturnSoftCB
       read FOnSelectSoft write SetOnSelectSoft;
+    {< Callback when a software is selected. }
     property OnDblClkSoft: TEmutecaReturnSoftCB
       read FOnDblClkSoft write SetOnDblClkSoft;
+    {< Callback when a software is double clicked. }
 
     // Menu popups
     property pmSoft: TPopupMenu read FpmSoft write SetpmSoft;
+    {< PopUp menu used when RClick on a software. }
     property pmGroup: TPopupMenu read FpmGroup write SetpmGroup;
+    {< PopUp menu used when RClick on a group. }
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
   end;
+
+  {< Example frame for Emuteca Core to show a group list.
+
+    It uses a VirtualTreeView (TVirtualStringTree) a base component.
+
+    It show a tree structure with group-soft relationship, unless a group
+      only have one software with it's showed straight.
+
+    With TitleFilter property, nodes not matching are hidden, empty string will
+      show all.
+
+    OnSelectX are callbacks functions for some common events.
+
+    pmX are PopUp menus showed when right click on an item.
+
+    CTRL + + and CTRL + - change row's height.
+
+    It autoloads/saves columns order, witdh, visibility; font properties; etc.
+  }
 
 implementation
 
@@ -343,6 +381,7 @@ procedure TfmEmutecaSoftTree.VDTKeyDown(Sender: TObject;
   var Key: word; Shift: TShiftState);
 var
   Tree: TVirtualStringTree;
+  // tmpGroupList: cEmutecaGroupList;
 begin
   if not Assigned(Sender) then
     Exit;
@@ -353,18 +392,30 @@ begin
     if (Key = VK_ADD) then //"+" (plus) key down
     begin
       Key := 0; //so no FHeader.AutoFitColumns from TBaseVirtualTree.WMKeyDown
+      Tree.BeginUpdate;
       Tree.Font.Height := abs(Tree.Font.Height) + 1;
       Tree.DefaultNodeHeight := Tree.Font.Height;
+      // This way is faster, but it don't keep selected item:
+      // tmpGroupList := GroupList;
+      // GroupList := nil;
+      // GroupList := tmpGroupList;
       Tree.IterateSubtree(nil, @SetNodesHeight, nil);
+      Tree.EndUpdate;
     end;
     if (Key = VK_SUBTRACT) then //"-" (minus) key down
     begin
       Key := 0; //so no FHeader.RestoreColumns from TBaseVirtualTree.WMKeyDown
       if (abs(Tree.Font.Height) > 8) then // Minimal size...
       begin
+        Tree.BeginUpdate;
         Tree.Font.Height := abs(Tree.Font.Height) - 1;
         Tree.DefaultNodeHeight := Tree.Font.Height;
+        // This way is faster, but it don't keep selected item:
+        // tmpGroupList := GroupList;
+        // GroupList := nil;
+        // GroupList := tmpGroupList;
         Tree.IterateSubtree(nil, @SetNodesHeight, nil);
+        Tree.EndUpdate;
       end;
     end;
   end; //CTRL
@@ -402,9 +453,11 @@ begin
   end;
 end;
 
-procedure TfmEmutecaSoftTree.actRunSoftwareExecute(Sender: TObject);
+procedure TfmEmutecaSoftTree.VDTAfterItemPaint(Sender: TBaseVirtualTree;
+  TargetCanvas: TCanvas; Node: PVirtualNode; const ItemRect: TRect);
 begin
-  DoDblClkTree;
+  //if Node^.Parent <> Sender.RootNode then Exit;
+  //TargetCanvas.Line(ItemRect.Left, ItemRect.Top,ItemRect.Right, ItemRect.Top);
 end;
 
 procedure TfmEmutecaSoftTree.VDTCompareNodes(Sender: TBaseVirtualTree;
@@ -576,8 +629,26 @@ begin
 end;
 
 procedure TfmEmutecaSoftTree.VDTDblClick(Sender: TObject);
+var
+  pData: ^TObject;
 begin
-  DoDblClkTree;
+  pData := VDT.GetNodeData(VDT.FocusedNode);
+  if not assigned(pData) then
+  begin
+    OnDblClkGroup(nil);
+    Exit;
+  end;
+
+  if pData^ is cEmutecaSoftware then
+  begin
+    if Assigned(OnDblClkSoft) then
+      OnDblClkSoft(cEmutecaSoftware(pData^));
+  end
+  else
+  begin
+    if Assigned(OnDblClkGroup) then
+      OnDblClkGroup(cEmutecaGroup(pData^));
+  end;
 end;
 
 procedure TfmEmutecaSoftTree.VDTGetHint(Sender: TBaseVirtualTree;
@@ -767,11 +838,12 @@ end;
 
 procedure TfmEmutecaSoftTree.SetTitleFilter(AValue: string);
 begin
+  AValue := UTF8LowerString(AValue);
   if FTitleFilter = AValue then
     Exit;
   FTitleFilter := AValue;
 
-  FilterNodes;
+  DoFilterNodes;
   UpdateSBNodeCount;
 end;
 
@@ -781,6 +853,7 @@ var
   aBool: boolean;
   vstOptions: TVTColumnOptions;
 begin
+  VDT.BeginUpdate;
   // VST Fonts
   LoadFontFromIni(aIniFile, krsIniSoftTreeSection,
     krsIniSoftTreeSoftFont, VDT.Font);
@@ -815,6 +888,7 @@ begin
       VDT.Header.Columns.Items[i].Position);
     Inc(i);
   end;
+  VDT.EndUpdate;
 end;
 
 procedure TfmEmutecaSoftTree.DoSaveGUIConfig(aIniFile: TIniFile);
@@ -853,41 +927,65 @@ begin
     Format(rsFmtNItems, [VDT.RootNodeCount, VDT.VisibleCount]);
 end;
 
-procedure TfmEmutecaSoftTree.FilterNodes;
+procedure TfmEmutecaSoftTree.DoFilterNodes;
 begin
-  // TODO: Hide nodes by name
   if TitleFilter = '' then
   begin
-    // Show all nodes
-    Exit;
+    VDT.IterateSubtree(nil, @SetShowAllNodes, nil);
   end
   else
   begin
-    ShowMessage('Filtering not implemented.');
+    VDT.IterateSubtree(nil, @SetFilterHideNodes, nil);
   end;
+
+  // TODO: Add more filters
 end;
 
-procedure TfmEmutecaSoftTree.DoDblClkTree;
+procedure TfmEmutecaSoftTree.SetFilterHideNodes(Sender: TBaseVirtualTree;
+  Node: PVirtualNode; Data: Pointer; var Abort: boolean);
+
+  function FilterGroup(aGroup: cEmutecaGroup): boolean;
+  begin
+    Result := UTF8Pos(TitleFilter, UTF8LowerString(aGroup.Title)) <> 0;
+  end;
+
+  function FilterSoft(aSoft: cEmutecaSoftware): boolean;
+  begin
+    Result := UTF8Pos(TitleFilter, UTF8LowerString(aSoft.Title)) <> 0;
+  end;
+
 var
   pData: ^TObject;
 begin
-  pData := VDT.GetNodeData(VDT.FocusedNode);
-  if not assigned(pData) then
-  begin
-    OnDblClkGroup(nil);
-    Exit;
-  end;
+  Abort := False;
 
-  if pData^ is cEmutecaSoftware then
+  //if Assigned(Node^.Parent) then
+  //  Exit; // only work with base nodes
+
+  pData := Sender.GetNodeData(Node);
+  if not assigned(pData) then
+    Exit;
+  if not assigned(pData^) then
+    Exit;
+
+  Sender.BeginUpdate;
+  if pData^ is cEmutecaGroup then
   begin
-    if Assigned(OnDblClkSoft) then
-      OnDblClkSoft(cEmutecaSoftware(pData^));
+    Sender.IsVisible[Node] := FilterGroup(cEmutecaGroup(pData^));
   end
-  else
+  else if pData^ is cEmutecaSoftware then
   begin
-    if Assigned(OnDblClkGroup) then
-      OnDblClkGroup(cEmutecaGroup(pData^));
+    Sender.IsVisible[Node] := FilterSoft(cEmutecaSoftware(pData^));
   end;
+  Sender.EndUpdate;
+end;
+
+procedure TfmEmutecaSoftTree.SetShowAllNodes(Sender: TBaseVirtualTree;
+  Node: PVirtualNode; Data: Pointer; var Abort: boolean);
+begin
+  Abort := False;
+  Sender.IsVisible[Node] := True;
+  Sender.Expanded[Node^.Parent] := False;
 end;
 
 procedure TfmEmutecaSoftTree.SetNodesHeight(Sender: TBaseVirtualTree;
@@ -917,7 +1015,7 @@ begin
   VDT.Clear;
   VDT.RootNodeCount := GroupList.Count;
 
-  FilterNodes;
+  DoFilterNodes;
   UpdateSBNodeCount;
 end;
 

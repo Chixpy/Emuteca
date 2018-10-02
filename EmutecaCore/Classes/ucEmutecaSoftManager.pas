@@ -29,7 +29,7 @@ interface
 uses
   Classes, SysUtils, fgl, LazUTF8, LazFileUtils,
   // Emuteca Core Units
-  uEmutecaConst, uEmutecaRscStr, uEmutecaCommon,
+  uEmutecaConst, uEmutecaRscStr,
   // Emuteca Core abstracts
   uaEmutecaCustomManager, uaEmutecaCustomSystem, uaEmutecaCustomGroup,
   // Emuteca Core classes

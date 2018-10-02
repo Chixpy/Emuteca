@@ -1,8 +1,6 @@
 unit ufETKGUIMediaManager;
 {< TfmETKGUIMediaManager frame unit.
 
-  ----
-
   This file is part of Emuteca GUI.
 
   Copyright (C) 2006-2018 Chixpy
@@ -44,7 +42,7 @@ uses
   // Emuteca Core frames
   ufEmutecaSystemCBX,
   // Emuteca GUI units
-  uETKGUIConst, uETKGUIRscStr,
+  uETKGUIConst,
   // Emuteca GUI classes
   ucETKGUIConfig;
 
@@ -228,8 +226,9 @@ type
     // Properties
     // ----------
     property CurrSystem: cEmutecaSystem read FCurrSystem write SetCurrSystem;
+    {< Current selected system. }
     property CurrGroup: cEmutecaGroup read FCurrGroup write SetCurrGroup;
-
+    {< Current selected group. }
     property ExtFilter: TStrings read FExtFilter write SetExtFilter;
     {< Extensions of the current selected Media. }
     property CurrPreview: TfmCHXStrLstPreview
@@ -253,8 +252,7 @@ type
     }
 
     function SelectSystem(aSystem: cEmutecaSystem): boolean;
-    {< Selects a system.
-    }
+    {< Selects a system. }
 
     procedure LoadSysFolders;
     {< Loads CurrSystem folders in lbx. }
@@ -328,6 +326,8 @@ type
     procedure UpdateFileOtherFolder(aFolder: string);
 
     procedure AssignFile;
+    {< Renames (or copies) selected file to required filename by selected
+      group or soft. }
     procedure DeleteFile;
     {< Deletes current selected (source) file FROM DISC PHYSICALLY. }
     procedure DeleteAllFiles;
@@ -345,12 +345,15 @@ type
 
   public
     property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
+    {< Emuteca Core. }
     property SHA1Folder: string read FSHA1Folder write SetSHA1Folder;
+    {< Folder SHA1 caché is stored. }
     property GUIConfig: cETKGUIConfig read FGUIConfig write SetGUIConfig;
+    {< Config of GUI. }
 
-    // Creates a form with Media Manager.
     class function SimpleForm(aEmuteca: cEmuteca; aGUIIconsIni: string;
       aGUIConfig: cETKGUIConfig): integer;
+    {< Creates a form with Media Manager. }
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;

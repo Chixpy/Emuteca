@@ -85,7 +85,7 @@ msgstr ""
 
 #: tfmchximgviewer.actoriginalsize.caption
 msgid "Original Size"
-msgstr ""
+msgstr "Tamaño original"
 
 #: tfmchximgviewer.actoriginalsize.hint
 msgid "Original Size|Shows image in its original size"
@@ -93,7 +93,7 @@ msgstr ""
 
 #: tfmchximgviewer.actprevious.caption
 msgid "Previous"
-msgstr ""
+msgstr "Anterior"
 
 #: tfmchximgviewer.actprevious.hint
 msgid "Previous Image|Show previous image in the list"
@@ -2048,6 +2048,22 @@ msgstr ""
 msgid "Error extracting CRC32: \"%0:s\""
 msgstr ""
 
+#: uchxrscstr.rscuexcalreadyexists
+msgid "\"%0:s\" already exists."
+msgstr ""
+
+#: uchxrscstr.rscuexccardrange
+msgid "\"%0:d\" is not in cardinal range."
+msgstr ""
+
+#: uchxrscstr.rscuexcnilparameter
+msgid "%0:s: %1:s parameter (%2:s) = nil"
+msgstr ""
+
+#: uchxrscstr.rsenotfilename
+msgid "%0:s: Not defined filename"
+msgstr ""
+
 #: uemutecacommon.rscleaningsystemdata
 msgctxt "uemutecacommon.rscleaningsystemdata"
 msgid "Cleaning system data..."
@@ -2285,12 +2301,12 @@ msgstr ""
 #: uemutecarscstr.rsedsunknown
 msgctxt "uemutecarscstr.rsedsunknown"
 msgid "Unknown"
-msgstr ""
+msgstr "Desconocido"
 
 #: uemutecarscstr.rsedsverified
 msgctxt "uemutecarscstr.rsedsverified"
 msgid "Verified"
-msgstr ""
+msgstr "Verificado"
 
 #: uemutecarscstr.rsexportingemulatorlist
 msgctxt "uemutecarscstr.rsexportingemulatorlist"
@@ -2308,6 +2324,8 @@ msgid ""
 "Warning: We can't export because not all files have SHA1 cached.\n"
 "(%2:d/%3:d) %0:s%1:s\n"
 msgstr ""
+"Atención: No se puede exportar porque no se ha terminado de calcular el SHA1 de todos los ficheros.\n"
+"(%2:d/%3:d) %0:s%1:s\n"
 
 #: uemutecarscstr.rsexportingsoftlist
 msgctxt "uemutecarscstr.rsexportingsoftlist"
@@ -2326,27 +2344,27 @@ msgstr ""
 
 #: uemutecarscstr.rsfilemaskdescgroup
 msgctxt "uemutecarscstr.rsfilemaskdescgroup"
-msgid "Group file list (*.egl)"
+msgid "Group list files  (*.egl)"
 msgstr ""
 
 #: uemutecarscstr.rsfilemaskdescini
 msgctxt "uemutecarscstr.rsfilemaskdescini"
-msgid "Soft file list (*.ini)"
+msgid "Database files (*.ini)"
 msgstr ""
 
 #: uemutecarscstr.rsfilemaskdescscript
 msgctxt "uemutecarscstr.rsfilemaskdescscript"
-msgid "Soft file list (*.pas)"
+msgid "Script files (*.pas)"
 msgstr ""
 
 #: uemutecarscstr.rsfilemaskdescsoft
 msgctxt "uemutecarscstr.rsfilemaskdescsoft"
-msgid "Soft file list (*.csv)"
+msgid "Soft list files  (*.csv)"
 msgstr ""
 
 #: uemutecarscstr.rsfilemaskdesctxt
 msgctxt "uemutecarscstr.rsfilemaskdesctxt"
-msgid "Soft file list (*.txt)"
+msgid "Text files (*.txt)"
 msgstr ""
 
 #: uemutecarscstr.rsfmtngroups
@@ -2481,7 +2499,7 @@ msgstr ""
 #: uetkguicommon.rsfmtapplicationtitle
 msgctxt "uetkguicommon.rsfmtapplicationtitle"
 msgid "%0:s %1:s"
-msgstr ""
+msgstr "%0:s %1:s"
 
 #: uetkguicommon.rsfmtnotfound
 msgctxt "uetkguicommon.rsfmtnotfound"
@@ -2553,8 +2571,13 @@ msgid ""
 msgstr ""
 
 #: uetkguirscstr.rsdeveloper
+#, fuzzy
 msgctxt "uetkguirscstr.rsdeveloper"
 msgid "Developer"
+msgstr "Desarrollador"
+
+#: uetkguirscstr.rsetkguiconfigtitle
+msgid "Config Editor"
 msgstr ""
 
 #: uetkguirscstr.rsetkguiemueditortitle
@@ -2573,9 +2596,10 @@ msgid "Filename"
 msgstr ""
 
 #: uetkguirscstr.rsfmtapplicationtitle
+#, fuzzy
 msgctxt "uetkguirscstr.rsfmtapplicationtitle"
 msgid "%0:s %1:s"
-msgstr ""
+msgstr "%0:s %1:s"
 
 #: uetkguirscstr.rsfmtnotfound
 #, fuzzy
@@ -2598,9 +2622,10 @@ msgid "Key"
 msgstr "Clave"
 
 #: uetkguirscstr.rspublisher
+#, fuzzy
 msgctxt "uetkguirscstr.rspublisher"
 msgid "Publisher"
-msgstr ""
+msgstr "Publicador"
 
 #: uetkguirscstr.rssofteditorcaption
 msgctxt "uetkguirscstr.rssofteditorcaption"
@@ -2615,7 +2640,7 @@ msgstr ""
 #: uetkguirscstr.rssystemcaption
 msgctxt "uetkguirscstr.rssystemcaption"
 msgid "System"
-msgstr ""
+msgstr "Sistema"
 
 #: uetkguirscstr.rstagscaption
 #, fuzzy
@@ -2651,7 +2676,7 @@ msgstr ""
 
 #: ufchxprogressbar.rschxpbarlogline
 msgid "%0:s - %2:s (%1:s)"
-msgstr ""
+msgstr "%0:s - %2:s (%1:s)"
 
 #: ufchxprogressbar.rsestimatedtime
 msgid "%0:s (Left: %1:s)"
@@ -2659,7 +2684,7 @@ msgstr "%0:s (Quedan: %1:s)"
 
 #: ufchxprogressbar.rsestimatedtime0
 msgid "Estimated Time to Finish: Unknown"
-msgstr ""
+msgstr "Tiempo estimado de finalización: Desconocido"
 
 #: ufchxprogressbar.rsprogressbartitle
 msgid "Please Wait..."
@@ -2668,7 +2693,7 @@ msgstr "Por favor, espera..."
 #: ufchxscriptmanager.rsfsmallfilesmaskdesc
 msgctxt "ufchxscriptmanager.rsfsmallfilesmaskdesc"
 msgid "All files"
-msgstr ""
+msgstr "Todos los archivos"
 
 #: ufchxscriptmanager.rsfsmasksavechanges
 msgid ""
@@ -2687,7 +2712,7 @@ msgstr ""
 
 #: ufemutecasystemcbx.rsallsystems
 msgid "All Systems"
-msgstr ""
+msgstr "Todos los sistemas"
 
 #: ufemutecasystemcbx.rsselectsystem
 msgctxt "ufemutecasystemcbx.rsselectsystem"

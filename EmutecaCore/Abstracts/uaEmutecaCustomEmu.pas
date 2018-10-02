@@ -1,7 +1,5 @@
 unit uaEmutecaCustomEmu;
-{< caEmutecaEmulator abstract unit.
-
-  ----
+{< caEmutecaEmulator abstract class unit.
 
   This file is part of Emuteca Core.
 

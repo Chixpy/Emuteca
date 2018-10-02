@@ -2042,6 +2042,22 @@ msgstr ""
 msgid "Error extracting CRC32: \"%0:s\""
 msgstr ""
 
+#: uchxrscstr.rscuexcalreadyexists
+msgid "\"%0:s\" already exists."
+msgstr ""
+
+#: uchxrscstr.rscuexccardrange
+msgid "\"%0:d\" is not in cardinal range."
+msgstr ""
+
+#: uchxrscstr.rscuexcnilparameter
+msgid "%0:s: %1:s parameter (%2:s) = nil"
+msgstr ""
+
+#: uchxrscstr.rsenotfilename
+msgid "%0:s: Not defined filename"
+msgstr ""
+
 #: uemutecacommon.rscleaningsystemdata
 msgctxt "uemutecacommon.rscleaningsystemdata"
 msgid "Cleaning system data..."
@@ -2320,27 +2336,27 @@ msgstr ""
 
 #: uemutecarscstr.rsfilemaskdescgroup
 msgctxt "uemutecarscstr.rsfilemaskdescgroup"
-msgid "Group file list (*.egl)"
+msgid "Group list files  (*.egl)"
 msgstr ""
 
 #: uemutecarscstr.rsfilemaskdescini
 msgctxt "uemutecarscstr.rsfilemaskdescini"
-msgid "Soft file list (*.ini)"
+msgid "Database files (*.ini)"
 msgstr ""
 
 #: uemutecarscstr.rsfilemaskdescscript
 msgctxt "uemutecarscstr.rsfilemaskdescscript"
-msgid "Soft file list (*.pas)"
+msgid "Script files (*.pas)"
 msgstr ""
 
 #: uemutecarscstr.rsfilemaskdescsoft
 msgctxt "uemutecarscstr.rsfilemaskdescsoft"
-msgid "Soft file list (*.csv)"
+msgid "Soft list files  (*.csv)"
 msgstr ""
 
 #: uemutecarscstr.rsfilemaskdesctxt
 msgctxt "uemutecarscstr.rsfilemaskdesctxt"
-msgid "Soft file list (*.txt)"
+msgid "Text files (*.txt)"
 msgstr ""
 
 #: uemutecarscstr.rsfmtngroups
@@ -2544,6 +2560,10 @@ msgstr ""
 #: uetkguirscstr.rsdeveloper
 msgctxt "uetkguirscstr.rsdeveloper"
 msgid "Developer"
+msgstr ""
+
+#: uetkguirscstr.rsetkguiconfigtitle
+msgid "Config Editor"
 msgstr ""
 
 #: uetkguirscstr.rsetkguiemueditortitle

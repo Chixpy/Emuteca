@@ -1,8 +1,6 @@
 unit ufETKGUIFullSysEditor;
 {< TfmETKGUIFullSystemEditor frame unit.
 
-  ----
-
   This file is part of Emuteca GUI.
 
   Copyright (C) 2011-2018 Chixpy
@@ -36,7 +34,7 @@ uses
   // CHX frames
   ufCHXPropEditor,
   // Emuteca Core common
-  uEmutecaConst,uEmutecaRscStr,uEmutecaCommon,
+  uEmutecaConst,uEmutecaRscStr,
   // Emuteca Core clases
   ucEmuteca, ucEmutecaSystem,
   // Emuteca Core frames
@@ -86,7 +84,6 @@ type
 
 
   public
-    { public declarations }
     property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
     property System: cEmutecaSystem read FSystem write SetSystem;
 

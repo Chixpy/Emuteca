@@ -36,7 +36,7 @@ uses
   // CHX frames
   ufCHXPropEditor,
   // Emuteca Core units
-  uEmutecaConst, uEmutecaRscStr, uEmutecaCommon,
+  uEmutecaConst, uEmutecaRscStr,
   // Emuteca Core abstracts
   uaEmutecaCustomSystem,
   // Emuteca Core classes

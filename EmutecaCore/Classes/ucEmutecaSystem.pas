@@ -1,4 +1,5 @@
 unit ucEmutecaSystem;
+
 {< cEmutecaSystem class unit.
 
   ----
@@ -27,11 +28,11 @@ unit ucEmutecaSystem;
 interface
 
 uses
-  Classes, SysUtils, LazFileUtils, LazUTF8,
+  Classes, SysUtils, fgl, LazFileUtils, LazUTF8,
   // CHX units
   uCHX7zWrapper,
   // Emuteca Core units
-  uEmutecaConst, uEmutecaRscStr, uEmutecaCommon,
+  uEmutecaConst, uEmutecaRscStr,
   // Emuteca Core abstracts
   uaEmutecaCustomSystem,
   // Emuteca Core classes
@@ -64,13 +65,14 @@ type
 
     procedure ClearData;
     procedure AddSoft(aSoft: cEmutecaSoftware);
-    //< Safe way to add software (adds group if needed, and link them).
+    {< Safe way to add software (adds group if needed, and link them). }
     procedure AddGroup(aGroup: cEmutecaGroup);
-    //< Safe way to add groups (adds group in full list and visile list).
+    {< Safe way to add groups (adds group in full list and visile list). }
 
     procedure CacheGroups;
+    {< Add groups to software. }
     procedure CleanSoftGroup;
-    //< Removes parents without soft and Soft not found
+    {< Removes parents without soft and Soft not found. }
 
 
     procedure LoadSoftGroupLists(const aFile: string);
@@ -160,7 +162,6 @@ begin
 
   if not DirectoryExistsUTF8(ExtractFileDir(aFile)) then
     ForceDirectoriesUTF8(ExtractFileDir(aFile));
-
 
   GroupManager.SaveToFile(aFile + krsFileExtGroup, ClearFile);
   SoftManager.SaveToFile(aFile + krsFileExtSoft, ClearFile);
@@ -347,56 +348,117 @@ begin
 end;
 
 procedure cEmutecaSystem.CleanSoftGroup;
-var
-  i: integer;
-  aGroup: cEmutecaGroup;
-  aSoft: cEmutecaSoftware;
-  Found, Continue: boolean;
+
+  procedure CleanSoftList;
+  var
+    Last7z: string;
+    CompFileList: TStringList;
+    aSoft: cEmutecaSoftware;
+    Found, Continue: boolean;
+    i, j: integer;
+  begin
+    // Sorting by filename
+    if assigned(ProgressCallBack) then
+      ProgressCallBack('Sorting soft list by filename...',
+        'This can take a while.', 1, 100, False);
+    SoftManager.FullList.Sort(@EmutecaCompareSoftByFileName);
+
+    i := 0;
+    Continue := True;
+    Last7z := '';
+    CompFileList := TStringList.Create;
+    try
+      while Continue and (i < SoftManager.FullList.Count) do
+      begin
+        aSoft := SoftManager.FullList[i];
+
+        if assigned(ProgressCallBack) then
+          Continue := ProgressCallBack(rsCleaningSystemData,
+            aSoft.Title, i, SoftManager.FullList.Count, True);
+
+        Found := False;
+
+        if DirectoryExistsUTF8(aSoft.Folder) then
+          // Uncompressed, simple.
+          Found := FileExistsUTF8(aSoft.Folder + aSoft.FileName)
+        else
+        begin
+        { Old, simple and slow way... Calculates SHA1 of 7z with every soft!!!
+        Found := w7zFileExists(aSoft.Folder, aSoft.FileName, '') = 0;
+        }
+
+          // New, complex and faster way
+
+          if CompareFilenames(Last7z, ExcludeTrailingPathDelimiter(
+            aSoft.Folder)) <> 0 then
+          begin
+            // It's a new non cached 7z
+            Last7z := ExcludeTrailingPathDelimiter(aSoft.Folder);
+            CompFileList.Clear;
+            if FileExistsUTF8(Last7z) then // Hides file not found error.
+              w7zListFiles(Last7z, CompFileList, True, '');
+          end;
+
+          // Searching aSoft.FileName en CompFileList
+          j := 0;
+          while (not Found) and (j < CompFileList.Count) do
+          begin
+            Found := CompareFilenames(CompFileList[j], aSoft.FileName) = 0;
+            if Found then
+              CompFileList.Delete(j);
+            Inc(j);
+          end;
+        end;
+
+        if not Found then
+          SoftManager.FullList.Delete(i)
+        else
+          Inc(i);
+      end;
+
+    finally
+      CompFileList.Free;
+    end;
+
+    if assigned(ProgressCallBack) then
+      ProgressCallBack('', '', 0, 0, False);
+  end;
+
+  procedure CleanGroupList;
+  var
+    i: integer;
+    aGroup: cEmutecaGroup;
+  begin
+    if assigned(ProgressCallBack) then
+      ProgressCallBack(rsCleaningSystemData,
+        'Cleaning empty groups.', 1, 2, False);
+
+    i := 0;
+    while i < GroupManager.FullList.Count do
+    begin
+      aGroup := GroupManager.FullList[i];
+
+      if aGroup.SoftList.Count <= 0 then
+        GroupManager.FullList.Delete(i)
+      else
+        Inc(i);
+    end;
+
+    if assigned(ProgressCallBack) then
+      ProgressCallBack('', '', 0, 0, False);
+  end;
+
 begin
   if not SoftGroupLoaded then
     Exit;
 
-  i := 0;
-  Continue := True;
-  while Continue and (i < SoftManager.FullList.Count) do
-  begin
-    aSoft := SoftManager.FullList[i];
+  CleanSoftList;
 
-    if assigned(ProgressCallBack) then
-      Continue := ProgressCallBack(rsCleaningSystemData,
-        aSoft.Title, i, SoftManager.FullList.Count, True);
-
-    Found := False;
-    if DirectoryExistsUTF8(aSoft.Folder) then
-      // Uncompressed
-      Found := FileExistsUTF8(aSoft.Folder + aSoft.FileName)
-    else // Compressed
-      Found := w7zFileExists(aSoft.Folder, aSoft.FileName, '') = 0;
-
-    if not Found then
-      SoftManager.FullList.Delete(i)
-    else
-      Inc(i);
-  end;
-
-  // Group can lose all soft...
+  // Groups can be empty...
   CacheGroups;
 
-  i := 0;
-  while i < GroupManager.FullList.Count do
-  begin
-    aGroup := GroupManager.FullList[i];
-
-    // This is fast so no ProgressCallBack here
-
-    if aGroup.SoftList.Count <= 0 then
-      GroupManager.FullList.Delete(i)
-    else
-      Inc(i);
-  end;
-
-  if assigned(ProgressCallBack) then
-    ProgressCallBack('', '', 0, 0, False);
+  // ... so this must be executed.
+  CleanGroupList;
 end;
 
 initialization

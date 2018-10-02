@@ -88,6 +88,7 @@ inherited fmEmutecaSoftTree: TfmEmutecaSoftTree
     TreeOptions.PaintOptions = [toShowBackground, toShowButtons, toShowDropmark, toShowHorzGridLines, toShowTreeLines, toShowVertGridLines, toThemeAware, toUseBlendedImages, toFullVertGridLines]
     TreeOptions.SelectionOptions = [toExtendedFocus, toFullRowSelect, toMiddleClickSelect, toRightClickSelect]
     TreeOptions.StringOptions = [toSaveCaptions]
+    OnAfterItemPaint = VDTAfterItemPaint
     OnChange = VDTChange
     OnCompareNodes = VDTCompareNodes
     OnDblClick = VDTDblClick

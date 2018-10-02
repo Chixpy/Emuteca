@@ -43,6 +43,7 @@ const
   // --------
   krsETKGUISystemEditorID = 'frmETKGUIFullSysEditor';
   krsETKGUIEmuEditorID = 'frmETKGUIFullEmuEditor';
+  krsETKGUIConfigID = 'frmETKGUIConfig';
 
 implementation
 

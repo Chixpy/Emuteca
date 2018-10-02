@@ -1,7 +1,5 @@
 unit uaEmutecaCustomGroup;
-{< caEmutecaCustomGroup class unit.
-
-  ----
+{< caEmutecaCustomGroup abstact class unit.
 
   This file is part of Emuteca Core.
 
@@ -99,9 +97,11 @@ type
 
     property Stats: cEmutecaPlayingStats read FStats;
   end;
-  {< This class defines an abstract basic group with all basic properties,
-    but without a software list to avoid circular reference with
-    ucEmutecaSoftware, using this in cEmutecaSoftware.CachedGroup property. }
+  {< This class defines an abstract basic group.
+
+    It stores with all basic properties, but without a software list to avoid
+    circular reference with ucEmutecaSoftware, using this in class
+    cEmutecaSoftware.CachedGroup property. }
 
 implementation
 

@@ -118,7 +118,7 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   utETKGUICacheGrpIcons, utETKGUICacheSysIcons, utETKGUICacheSoftIcons,
   ufETKGUISoftVideoPreview, ufCHXVideoListPreview, ufETKGUISoftMusicPreview,
   uEmutecaRscStr, uEmutecaConst, uaEmutecaCustomEmu, uPSI_uEmutecaConst,
-  uPSI_uEmutecaRscStr, uETKGUIConst, uETKGUIRscStr;
+  uPSI_uEmutecaRscStr, uETKGUIConst, uETKGUIRscStr, ufETKGUIFullConfigEditor;
 
 {$R *.res}
 

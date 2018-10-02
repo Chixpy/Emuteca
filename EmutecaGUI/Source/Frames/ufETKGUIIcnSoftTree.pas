@@ -1,8 +1,6 @@
 unit ufETKGUIIcnSoftTree;
 {< TfmETKGUIIcnSoftTree frame unit.
 
-  ----
-
   This file is part of Emuteca GUI.
 
   Copyright (C) 2011-2018 Chixpy
@@ -35,7 +33,7 @@ uses
   // CHX clases
   ucCHXImageList,
   // Emuteca Core units
-  uEmutecaConst,uEmutecaRscStr,uEmutecaCommon,
+  uEmutecaConst,uEmutecaRscStr,
   // Emuteca Core abstracts
   uaEmutecaCustomSoft,
   // Emuteca Core clases
@@ -43,7 +41,7 @@ uses
   // Emuteca Core frames
   ufEmutecaSoftTree,
   // Emuteca GUI units
-  uETKGUIConst, uETKGUIRscStr;
+  uETKGUIConst;
 
 type
 
@@ -308,6 +306,8 @@ begin
 
   if pData^ is cEmutecaGroup then
   begin
+    if Column = 1 then
+      TargetCanvas.Font.Style := TargetCanvas.Font.Style + [fsItalic];
     DrawGroupText(cEmutecaGroup(pData^), TargetCanvas, Column,
       CellText, CellRect, DefaultDraw);
   end

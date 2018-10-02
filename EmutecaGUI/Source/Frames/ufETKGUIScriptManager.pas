@@ -35,7 +35,7 @@ uses
   // CHX forms
   ufrCHXForm,
   // Emuteca Core units
-  uEmutecaConst, uEmutecaRscStr, uEmutecaCommon,
+  uEmutecaConst, uEmutecaRscStr,
   // Emuteca Core classes
   ucEmuteca, ucEmutecaScriptEngine;
 

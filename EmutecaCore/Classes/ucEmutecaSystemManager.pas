@@ -33,7 +33,7 @@ uses
   // CHX abstracts
   uaCHXStorable,
   // Emuteca Core units
-  uEmutecaConst, uEmutecaRscStr, uEmutecaCommon,
+  uEmutecaConst, uEmutecaRscStr,
   // Emuteca Core abstracts
   uaEmutecaCustomManager,
   // Emuteca Core classes

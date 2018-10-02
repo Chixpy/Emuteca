@@ -68,17 +68,17 @@ resourcestring
   // File mask descriptions
   // ----------------------
   rsFileMaskDescGroup =
-    'Group file list (' + krsFileMaskGroup + ')';
+    'Group list files  (' + krsFileMaskGroup + ')';
   {< Description of file mask for group lists. }
   rsFileMaskDescSoft =
-    'Soft file list (' + krsFileMaskSoft + ')';
+    'Soft list files  (' + krsFileMaskSoft + ')';
   {< Description of file mask for soft lists. }
-  rsFileMaskDescINI = 'Soft file list (' + krsFileMaskINI + ')';
-  {< Description of file mask for ini databases (Systems, Emulators, Export/Import, ...). }
+  rsFileMaskDescINI = 'Database files (' + krsFileMaskINI + ')';
+  {< Description of file mask for ini databases (Systems, Emulators, ...). }
   rsFileMaskDescScript =
-    'Soft file list (' + krsFileMaskScript + ')';
+    'Script files (' + krsFileMaskScript + ')';
   {< Description of file mask for script files. }
-  rsFileMaskDescTXT = 'Soft file list (' + krsFileMaskTXT + ')';
+  rsFileMaskDescTXT = 'Text files (' + krsFileMaskTXT + ')';
   {< Description of file mask for generic text files. }
 
   // Strings for DumpStatus, translatable

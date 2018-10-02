@@ -1,7 +1,5 @@
 unit uEmutecaCommon;
-{< Commons methods unit.
-
-  ----
+{< Commons methods unit of Emuteca Core.
 
   This file is part of Emuteca Core.
 

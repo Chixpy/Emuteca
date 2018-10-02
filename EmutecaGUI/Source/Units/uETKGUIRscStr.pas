@@ -39,6 +39,7 @@ resourcestring
   // -------------
   rsETKGUISystemEditorTitle = 'System Editor';
   rsETKGUIEmuEditorTitle = 'Emulator Editor';
+  rsETKGUIConfigTitle = 'Config Editor';
 
 
   // Game / Group property names

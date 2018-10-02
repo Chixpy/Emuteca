@@ -1,4 +1,7 @@
-{ This file is part of Emuteca
+unit ucEmutecaConfig;
+{< cEmutecaConfig class unit.
+
+  This file is part of Emuteca
 
   Copyright (C) 2006-2017 Chixpy
 
@@ -17,10 +20,6 @@
   to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
   MA 02111-1307, USA.
 }
-
-{ cConfig unit. }
-unit ucEmutecaConfig;
-
 {$mode objfpc}{$H+}
 
 interface
@@ -59,11 +58,7 @@ const
 
 type
 
-  { cEmutecaConfig: Class wich has all general options and configurations
-      for Emuteca.
-
-    All folder paths (absolute and relative) have the trailing path separator.
-  }
+  { cEmutecaConfig }
   // TODO: Use caCHXConfig
   cEmutecaConfig = class(TComponent)
   private
@@ -97,9 +92,10 @@ type
 
   published
     // Tools
-    property z7CMExecutable: string
-      read Fz7CMExecutable write Setz7CMExecutable;
+    property z7CMExecutable: string read Fz7CMExecutable write Setz7CMExecutable;
+    {< 7z.exe path. }
     property z7GExecutable: string read Fz7GExecutable write Setz7GExecutable;
+    {< 7zG.exe path. }
 
     // Config/Data
     property EmulatorsFile: string read FEmulatorsFile write SetEmulatorsFile;
@@ -110,14 +106,19 @@ type
 
     // File extensions
     property CompressedExtensions: TStringList read FCompressedExtensions;
+    {< List of compressed file extensions. }
 
     // Temp folder/file
     property TempSubfolder: string read FTempSubFolder write SetTempSubFolder;
+    {< Subfolder for temporal files.
+
+      It can be a full path folder, or if a relative path is stored
+        a subfolder for system's temporal folder. }
     property TempFile: string read FTempFile write SetTempFile;
 
     // Misc
     property MinPlayTime: integer read FMinPlayTime write SetMinPlayTime;
-
+    {< Minimal time playing needed to store in statistics. }
 
   public
     property ConfigFile: string read FConfigFile write SetConfigFile;
@@ -128,7 +129,10 @@ type
     constructor Create(aOwner: TComponent); override;
     destructor Destroy; override;
   end;
+  {< Class wich has all general options and configurations for Emuteca Core.
 
+    All folder paths (absolute and relative) have the trailing path separator.
+  }
 implementation
 
 uses

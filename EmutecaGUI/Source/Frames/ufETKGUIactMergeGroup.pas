@@ -1,7 +1,7 @@
 unit ufETKGUIactMergeGroup;
 {< TfmEEGUIactMergeGroup frame unit of Emuteca GUI.
 
-  ----
+  This file is part of Emuteca GUI.
 
   Copyright (C) 2011-2018 Chixpy
 
@@ -31,7 +31,7 @@ uses
   // CHX frames
   ufCHXPropEditor,
   // Emuteca Core units
-  uEmutecaConst, uEmutecaRscStr, uEmutecaCommon,
+  uEmutecaConst, uEmutecaRscStr,
   // Emuteca Core classes
   ucEmutecaGroup;
 
