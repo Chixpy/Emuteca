@@ -28,7 +28,7 @@ uses
   Classes, SysUtils, LazUTF8,
   // CHX units
   uCHXStrUtils,
-  // CHX abstract objects
+  // CHX abstract classes
   uaCHXStorable,
   // Emuteca units
   uEmutecaConst,

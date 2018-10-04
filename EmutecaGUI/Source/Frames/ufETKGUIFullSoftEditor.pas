@@ -1,4 +1,7 @@
-{ Full software editor frame of Emuteca GUI.
+unit ufETKGUIFullSoftEditor;
+{< TfmETKGUIFullSoftEditor frame unit.
+
+  This file is part of Emuteca GUI.
 
   Copyright (C) 2011-2018 Chixpy
 
@@ -17,8 +20,6 @@
   writing to the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
   Boston, MA 02111-1307, USA.
 }
-unit ufETKGUIFullSoftEditor;
-
 {$mode objfpc}{$H+}
 
 interface
@@ -26,10 +27,12 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
   StdCtrls, Buttons, ActnList,
+  // CHX frames
   ufCHXPropEditor,
+  // Emuteca Core classes
   ucEmutecaSystem, ucEmutecaGroup, ucEmutecaSoftware,
-  ufEmutecaGroupCBX, ufEmutecaGroupEditor, ufEmutecaSoftEditor,
-  uETKGUICommon;
+  // Emuteca Core frames
+  ufEmutecaGroupCBX, ufEmutecaGroupEditor, ufEmutecaSoftEditor;
 
 type
 
@@ -71,7 +74,15 @@ type
 
   published
     property Software: cEmutecaSoftware read FSoftware write SetSoftware;
+    {< Current software displayed.
+
+       If assigned, Group property will be assigned to software's group.
+    }
     property Group: cEmutecaGroup read FGroup write SetGroup;
+    {< Current group displayed, or Current software's group.
+
+       If assigned, Software property will be nil.
+    }
   end;
 
 implementation
@@ -86,14 +97,17 @@ var
   aGroup: cEmutecaGroup;
   aSystem: cEmutecaSystem;
 begin
-  if not Assigned(Software) then Exit;
-  if not Assigned(Software.CachedSystem) then Exit;
+  if not Assigned(Software) then
+    Exit;
+  if not Assigned(Software.CachedSystem) then
+    Exit;
 
   fmGroupCBX.GroupList := nil;
 
   GroupTitle := Software.Title;
 
-  if InputQuery('New group', 'Name of the new group.', GroupTitle) = false then Exit;
+  if InputQuery('New group', 'Name of the new group.', GroupTitle) = False then
+    Exit;
 
   aGroup := cEmutecaGroup.Create(nil);
   aGroup.ID := GroupTitle;
@@ -168,8 +182,6 @@ end;
 function TfmETKGUIFullSoftEditor.SelectGroup(aGroup: cEmutecaGroup): boolean;
 begin
   Result := True;
-  if assigned(Software) then
-    Software.CachedGroup := aGroup;
   fmGroupEditor.Group := aGroup;
 end;
 
@@ -189,11 +201,23 @@ end;
 
 procedure TfmETKGUIFullSoftEditor.DoSaveFrameData;
 begin
-  if Assigned(Group) then
-    fmGroupEditor.SaveFrameData;
+  fmGroupEditor.SaveFrameData;
 
   if Assigned(Software) then
+  begin
+    // If group is changed assign it to software; and keep Title if empty.
+    if fmGroupEditor.Group <> Software.CachedGroup then
+    begin
+      // If empty; change TEdit, with old group title.
+      if fmSoftEditor.eTitle.Caption = '' then;
+        fmSoftEditor.eTitle.Caption := Software.CachedGroup.Title;
+
+      // Assigning new group
+      Software.CachedGroup := fmGroupEditor.Group;
+    end;
+
     fmSoftEditor.SaveFrameData;
+  end;
 end;
 
 constructor TfmETKGUIFullSoftEditor.Create(TheOwner: TComponent);
@@ -216,7 +240,7 @@ constructor TfmETKGUIFullSoftEditor.Create(TheOwner: TComponent);
     fmSoftEditor.SaveButtons := False;
     fmSoftEditor.ButtonClose := False;
     fmSoftEditor.Parent := gbxSoft;
-end;
+  end;
 
 begin
   inherited Create(TheOwner);

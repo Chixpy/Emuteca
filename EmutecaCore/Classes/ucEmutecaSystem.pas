@@ -1,8 +1,5 @@
 unit ucEmutecaSystem;
-
 {< cEmutecaSystem class unit.
-
-  ----
 
   This file is part of Emuteca Core.
 
