@@ -81,7 +81,7 @@ type
     property Group: cEmutecaGroup read FGroup write SetGroup;
     {< Current group displayed, or Current software's group.
 
-       If assigned, Software property will be nil.
+       If assigned, Software property will be @nil.
     }
   end;
 

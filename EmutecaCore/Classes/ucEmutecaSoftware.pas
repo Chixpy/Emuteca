@@ -28,8 +28,6 @@ interface
 
 uses
   Classes, SysUtils, LazFileUtils, LazUTF8, uaEmutecaCustomSystem,
-  // Emuteca Commons
-  uEmutecaCommon,
   // Emuteca abstracts
   uaEmutecaCustomGroup, uaEmutecaCustomSoft;
 

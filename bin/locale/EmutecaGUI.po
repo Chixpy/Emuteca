@@ -1973,6 +1973,19 @@ msgstr ""
 msgid "Managers"
 msgstr ""
 
+#: tfrmetkguimain.mimmsearchinternete.caption
+msgid "Search emulator in Internet"
+msgstr ""
+
+#: tfrmetkguimain.mimmsearchinternetg.caption
+msgctxt "tfrmetkguimain.mimmsearchinternetg.caption"
+msgid "Search group in Internet"
+msgstr ""
+
+#: tfrmetkguimain.mimmsearchinternets.caption
+msgid "Search system in Internet"
+msgstr ""
+
 #: tfrmetkguimain.mimmsoft.caption
 msgctxt "tfrmetkguimain.mimmsoft.caption"
 msgid "Software"
@@ -1981,6 +1994,11 @@ msgstr ""
 #: tfrmetkguimain.mimmsystem.caption
 msgctxt "tfrmetkguimain.mimmsystem.caption"
 msgid "System"
+msgstr ""
+
+#: tfrmetkguimain.mipmgsearchinternet.caption
+msgctxt "tfrmetkguimain.mipmgsearchinternet.caption"
+msgid "Search in Internet"
 msgstr ""
 
 #: tfrmetkguimain.mipmssystem.caption

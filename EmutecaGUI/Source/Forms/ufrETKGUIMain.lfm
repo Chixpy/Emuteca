@@ -39,6 +39,9 @@ inherited frmETKGUIMain: TfrmETKGUIMain
     Images = ActImages
     left = 204
     top = 44
+    object mipmGSearchInternet: TMenuItem
+      Caption = 'Search in Internet'
+    end
   end
   object MainMenu: TMainMenu[3]
     Images = ActImages
@@ -123,6 +126,9 @@ inherited frmETKGUIMain: TfrmETKGUIMain
       object mimmOpenSystemBaseFolder: TMenuItem
         Action = actOpenSystemBaseFolder
       end
+      object mimmSearchInternetS: TMenuItem
+        Caption = 'Search system in Internet'
+      end
       object MenuItem6: TMenuItem
         Caption = '-'
       end
@@ -148,12 +154,18 @@ inherited frmETKGUIMain: TfrmETKGUIMain
       object mimmOpenEmulatorFolder: TMenuItem
         Action = actOpenEmulatorFolder
       end
+      object mimmSearchInternetE: TMenuItem
+        Caption = 'Search emulator in Internet'
+      end
     end
     object mimmGroup: TMenuItem
       Caption = 'Group'
       Enabled = False
       object mimmMergeGroupFiles: TMenuItem
         Action = actMergeGroupFiles
+      end
+      object mimmSearchInternetG: TMenuItem
+        Caption = 'Search group in Internet'
       end
     end
     object mimmSoft: TMenuItem

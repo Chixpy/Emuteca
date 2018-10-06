@@ -1,4 +1,5 @@
 unit ufrETKGUIMain;
+
 {< TfrmETKGUIMain form unit.
 
   ----
@@ -102,6 +103,10 @@ type
     MenuItem4: TMenuItem;
     MenuItem5: TMenuItem;
     MenuItem6: TMenuItem;
+    mimmSearchInternetE: TMenuItem;
+    mimmSearchInternetS: TMenuItem;
+    mimmSearchInternetG: TMenuItem;
+    mipmGSearchInternet: TMenuItem;
     mimmRunEmulatorAlone: TMenuItem;
     mimmAbout: TMenuItem;
     mimmAddFiles: TMenuItem;
@@ -256,6 +261,8 @@ type
     procedure LoadGrpIcons(aGroupList: cEmutecaGroupList);
     procedure LoadSoftIcons(aSoftList: cEmutecaSoftList);
 
+    procedure LoadSearchLinks;
+    procedure SearchInInternet(Sender: TObject);
 
     function RunSoftware(aSoftware: cEmutecaSoftware): boolean;
     //< Run a software
@@ -310,14 +317,15 @@ end;
 
 procedure TfrmETKGUIMain.FormCreate(Sender: TObject);
 begin
-  // Usually it's autodeleted in .lpr file...
+  // Title of application, usually it's autodeleted in .lpr file...
   Application.Title := Format(rsFmtApplicationTitle,
     [Application.Title, GetFileVersion]);
 
+  // Changing base folder to parents exe folder.
   BaseFolder := ExtractFileDir(ExcludeTrailingPathDelimiter(ProgramDirectory));
   ChDir(BaseFolder);
 
-  // Used to store translations...
+  // Loading translation
   if not DirectoryExistsUTF8(BaseFolder + 'locale') then
     mkdir(BaseFolder + 'locale');
   SetDefaultLang('', BaseFolder + 'locale');
@@ -337,8 +345,9 @@ begin
   // Experimental:
   //   - 7z files cache folder
   //   - 7z error logs file
-  SHA1Folder := GUIConfig.GlobalCache;
-  w7zErrorFileName := GUIConfig.w7zErrorFileName;
+  SHA1Folder := SetAsAbsoluteFile(GUIConfig.GlobalCache, BaseFolder);
+  w7zErrorFileName := SetAsAbsoluteFile(GUIConfig.w7zErrorFileName,
+    BaseFolder);
 
   // Image lists
   FIconList := cCHXImageList.Create(True);
@@ -357,6 +366,9 @@ begin
   // This must be after creating and loading Emuteca,
   //   it runs CacheSysIconsThread too
   LoadIcons;
+
+  // Loading search links
+  LoadSearchLinks;
 
   // Creating main frame
   FfmEmutecaMainFrame := TfmETKGUIMain.Create(Self);
@@ -382,7 +394,7 @@ begin
   fmEmutecaMainFrame.Parent := Self;
 
   // Misc
-  actAutoSave.Checked := GUIConfig.SaveOnExit; // TODO: Use IniPropStorage?
+  actAutoSave.Checked := GUIConfig.SaveOnExit;
 
   // if there is not enabled systems then open SysManager
   if Emuteca.SystemManager.EnabledList.Count = 0 then
@@ -879,6 +891,178 @@ begin
     CacheSoftIconsThread.TempFolder := Emuteca.TempFolder;
 
   CacheSoftIconsThread.Start;
+end;
+
+procedure TfrmETKGUIMain.LoadSearchLinks;
+var
+  aFile: TStringList;
+  aSearcher: TStringList;
+  i: integer;
+  aPos: integer;
+  aAction: TAction;
+  aMenu: TMenuItem;
+  aFilename: string;
+begin
+  aFilename := SetAsAbsoluteFile(GUIConfig.SearchFile, BaseFolder);
+
+  // TODO: remove actions and menúes
+
+  if not FileExistsUTF8(aFilename) then
+    Exit;
+
+
+  aFile := TStringList.Create;
+  aSearcher := TStringList.Create;
+
+  try
+    aFile.LoadFromFile(aFilename);
+    i := 0;
+    while i < aFile.Count do
+    begin
+      aPos := UTF8Pos('##', aFile[i]); // Used for comments
+      if aPos <> 0 then
+        aFile[i] := UTF8Copy(aFile[i], 1, aPos - 1);
+      aSearcher.Clear;
+      aSearcher.CommaText := aFile[i];
+
+      if aSearcher.Count >= 3 then
+      begin
+        aSearcher[0] := UTF8UpperCase(aSearcher[0]);
+
+        while aSearcher.Count < 4 do
+          aSearcher.add('');
+
+        // TODO 4: Repeated code...
+
+        // Web searcher for Game
+        aPos := UTF8Pos('G', aSearcher[0]);
+        if aPos <> 0 then
+        begin
+          aAction := TAction.Create(nil); //< nil?
+          if aSearcher[3] <> '' then
+            aAction.Name := 'actSearcherG' + Trim(aSearcher[3])
+          else
+            aAction.Name := 'actSearcherG' + IntToStr(i);
+          aAction.Caption := aSearcher[1];
+          // Hint is used to show URL... and store it
+          aAction.Hint := aSearcher[2];
+          aAction.Tag := 1; //< Tag = 1 -> Search for Game
+          aAction.Category := 'Game search';
+          aAction.OnExecute := @SearchInInternet;
+          aAction.ActionList := ActionList;
+
+          aMenu := TMenuItem.Create(nil);
+          aMenu.Name := 'mipmGSearcherG' + IntToStr(i);
+          aMenu.Action := aAction;
+          mipmGSearchInternet.Add(aMenu);
+
+          aMenu := TMenuItem.Create(nil);
+          aMenu.Name := 'mimmSearchInternetG' + IntToStr(i);
+          aMenu.Action := aAction;
+          mimmSearchInternetG.Add(aMenu);
+        end;
+
+        // Web searcher for System
+        aPos := UTF8Pos('S', aSearcher[0]);
+        if aPos <> 0 then
+        begin
+          aAction := TAction.Create(nil); //< nil?
+          if aSearcher[3] <> '' then
+            aAction.Name := 'actSearcherS' + Trim(aSearcher[3])
+          else
+            aAction.Name := 'actSearcherS' + IntToStr(i);
+          aAction.Caption := aSearcher[1];
+          // Hint is used to show URL... and store it
+          aAction.Hint := aSearcher[2];
+          aAction.Tag := 2; //< Tag = 2 -> Search for System
+          aAction.Category := 'System search';
+          aAction.OnExecute := @SearchInInternet;
+          aAction.ActionList := ActionList;
+
+          aMenu := TMenuItem.Create(nil);
+          aMenu.Name := 'mimmSearcherS' + IntToStr(i);
+          aMenu.Action := aAction;
+          mimmSearchInternetS.Add(aMenu);
+        end;
+
+        // Web searcher for Emulator
+        aPos := UTF8Pos('E', aSearcher[0]);
+        if aPos <> 0 then
+        begin
+          aAction := TAction.Create(nil); //< nil?
+          if aSearcher[3] <> '' then
+            aAction.Name := 'actSearcherE' + Trim(aSearcher[3])
+          else
+            aAction.Name := 'actSearcherE' + IntToStr(i);
+          aAction.Caption := aSearcher[1];
+          // Hint is used to show URL... and store it
+          aAction.Hint := aSearcher[2];
+          aAction.Tag := 3; //< Tag = 3 -> Search for Emulator
+          aAction.Category := 'Emulator search';
+          aAction.OnExecute := @SearchInInternet;
+          aAction.ActionList := ActionList;
+
+          // TODO 2: Add icon to the list and assign it to the action
+
+          aMenu := TMenuItem.Create(nil);
+          aMenu.Name := 'mimmSearcherE' + IntToStr(i);
+          aMenu.Action := aAction;
+          mimmSearchInternetE.Add(aMenu);
+        end;
+      end;
+
+      Inc(i);
+    end;
+
+
+
+  finally
+    aFile.Free;
+    aSearcher.Free;
+  end;
+end;
+
+procedure TfrmETKGUIMain.SearchInInternet(Sender: TObject);
+var
+  aAction: TCustomAction;
+  TempStr: string;
+begin
+  if not (Sender is TCustomAction) then
+    Exit;
+  aAction := TCustomAction(Sender);
+
+  case aAction.Tag of
+    1:
+    begin
+      if not Assigned(CurrentGroup) then
+        Exit;
+      if Assigned(CurrentSoft) then
+        TempStr := CurrentSoft.Title
+      else
+        TempStr := CurrentGroup.Title;
+    end;
+    2:
+    begin
+      if not Assigned(CurrentSystem) then
+        Exit;
+      TempStr := CurrentSystem.Title;
+    end;
+    3:
+    begin
+      if not Assigned(CurrentEmu) then
+        Exit;
+      TempStr := CurrentEmu.Title;
+    end;
+    else
+    begin
+      Exit;
+    end;
+  end;
+  if TempStr = '' then
+    Exit;
+
+  TempStr := Format(aAction.Hint, [TempStr]);
+  OpenURL(TempStr);
 end;
 
 function TfrmETKGUIMain.RunSoftware(aSoftware: cEmutecaSoftware): boolean;

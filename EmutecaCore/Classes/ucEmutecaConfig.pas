@@ -99,10 +99,23 @@ type
 
     // Config/Data
     property EmulatorsFile: string read FEmulatorsFile write SetEmulatorsFile;
+    {< Emulators file.}
     property SystemsFile: string read FSystemsFile write SetSystemsFile;
+    {< Systems file.}
     property SysDataFolder: string read FSysDataFolder write SetSysDataFolder;
+    {< Systems' data folder (cvs and egl).}
     property AutoSysFolder: string read FAutoSysFolder write SetAutoSysFolder;
+    {< File with automatic folder structure.
+
+      TODO: It's a file, not a folder.
+
+      TODO: It's a Emuteca GUI config.
+    }
     property TagsFolder: string read FTagsFolder write SetTagsFolder;
+    {< Folder with tags files.
+
+      TODO: Is it a Emuteca GUI config?.
+    }
 
     // File extensions
     property CompressedExtensions: TStringList read FCompressedExtensions;
@@ -115,6 +128,9 @@ type
       It can be a full path folder, or if a relative path is stored
         a subfolder for system's temporal folder. }
     property TempFile: string read FTempFile write SetTempFile;
+    {< Temp filename...
+
+      TODO: Not used...}
 
     // Misc
     property MinPlayTime: integer read FMinPlayTime write SetMinPlayTime;
@@ -337,13 +353,14 @@ begin
   // Tools
   z7CMExecutable := 'Tools/7zip/7z.exe';
   z7GExecutable := 'Tools/7zip/7zG.exe';
-  // CompressedExtensions.CommaText := w7zGetFileExts;
-  // Removed ext: cab,chm,dll,iso,img,jar,msi,swf,ntfs,ppt,doc,,xls,xpi,vhd,
-  //   deb,rpm,cpio,cramfs,dmg,fat,flv,mbr,nsis,sys,bpl,hfs,hxi,hxq,hxr,hxs,
-  //   chi,chq,chw,hxw,msp,scap,squashfs,swm,wim,exe,
-  CompressedExtensions.CommaText :='001,7z,arj,bz2,bzip2,cba,cb7,cbr,cbz,' +
-    'gz,gzip,lha,lit,lzh,lzma,lzma86,r00,rar,tar,taz,tbz,tbz2,tgz,tpz,txz,' +
-    'xar,xz,z,zip';
+  { CompressedExtensions.CommaText := w7zGetFileExts;
+
+    Removed ext: 001,cab,chm,dll,iso,img,jar,msi,swf,ntfs,ppt,doc,,xls,xpi,vhd,
+      deb,rpm,cpio,cramfs,dmg,fat,flv,mbr,nsis,sys,bpl,hfs,hxi,hxq,hxr,hxs,
+      chi,chq,chw,hxw,msp,scap,squashfs,swm,wim,exe,lit,xar,xz,z,lzma,lzma86,
+      r00,tar,taz,tbz,tbz2,tgz,tpz,txz,gz,gzip,lha,lzh,bz2,bzip2,
+  }
+  CompressedExtensions.CommaText :='7z,arj,rar,zip,cb7,cba,cbr,cbz';
 
   // Temp
   TempSubfolder := 'tEMpUTECA/';

@@ -252,7 +252,7 @@ begin
   DumpIcnFolder := 'Images/DumpInfo';
 
 
-  // Lazaus support:
+  // Lazaus supports:
   //  bmp,cur,gif,icns,ico,jfif,jpe,jpeg,jpg,pbm,pgm,png,ppm,tif,tiff,xpm
   // But I will cut them a little for faster searching
   ImageExtensions.CommaText := 'png,gif,ico,jpg,bmp';
@@ -274,7 +274,7 @@ begin
   HelpFolder := 'Help';
 
   // Tools
-  ScriptsFolder := 'Scripts';
+  ScriptsFolder := 'Scripts/';
   mPlayerExe := 'Tools/mplayer/mplayer.exe';
 
   // Experimental
