@@ -1843,6 +1843,10 @@ msgstr ""
 msgid "Open emulator folder...|Open current emulator folder."
 msgstr ""
 
+#: tfrmetkguimain.actopenemulatorweb.caption
+msgid "Open emulator website..."
+msgstr ""
+
 #: tfrmetkguimain.actopenemutecafolder.caption
 msgid "Open Emuteca's folder..."
 msgstr ""
@@ -1876,7 +1880,7 @@ msgid "Open Emuteca's Temp folder...|Open Emuteca's temporal folder."
 msgstr ""
 
 #: tfrmetkguimain.actrunemulatoralone.caption
-msgid "Run emulator alone"
+msgid "Run emulator alone."
 msgstr ""
 
 #: tfrmetkguimain.actrunsoftware.caption

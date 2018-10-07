@@ -77,6 +77,7 @@ type
     actExportSoftData: TAction;
     ActImages: TImageList;
     actImportSoftData: TAction;
+    actOpenEmulatorWeb: TAction;
     actRunEmulatorAlone: TAction;
     ActionList: TActionList;
     actMediaManager: TAction;
@@ -103,6 +104,7 @@ type
     MenuItem4: TMenuItem;
     MenuItem5: TMenuItem;
     MenuItem6: TMenuItem;
+    mimmOpenEmulatorWeb: TMenuItem;
     mimmSearchInternetE: TMenuItem;
     mimmSearchInternetS: TMenuItem;
     mimmSearchInternetG: TMenuItem;
@@ -162,6 +164,7 @@ type
     procedure actMergeGroupFilesExecute(Sender: TObject);
     procedure actOpen7zCacheFolderExecute(Sender: TObject);
     procedure actOpenEmulatorFolderExecute(Sender: TObject);
+    procedure actOpenEmulatorWebExecute(Sender: TObject);
     procedure actOpenEmutecaFolderExecute(Sender: TObject);
     procedure actOpenSoftFolderExecute(Sender: TObject);
     procedure actOpenSystemBaseFolderExecute(Sender: TObject);
@@ -574,7 +577,9 @@ end;
 
 procedure TfrmETKGUIMain.actOpen7zCacheFolderExecute(Sender: TObject);
 begin
-  OpenDocument(w7zGetCacheDir);
+  if not OpenDocument(w7zGetCacheDir) then
+    raise EFileNotFoundException.CreateFmt(rsFmtNotFound,
+      [GetCurrentDirUTF8, ExtractFileDir(w7zGetCacheDir)]);
 end;
 
 procedure TfrmETKGUIMain.actOpenEmulatorFolderExecute(Sender: TObject);
@@ -582,18 +587,37 @@ begin
   if not Assigned(CurrentEmu) then
     Exit;
 
-  OpenDocument(ExtractFileDir(CurrentEmu.ExeFile));
+  if not OpenDocument(ExtractFileDir(CurrentEmu.ExeFile)) then
+    raise EFileNotFoundException.CreateFmt(rsFmtNotFound,
+      [GetCurrentDirUTF8, ExtractFileDir(CurrentEmu.ExeFile)]);
+end;
+
+procedure TfrmETKGUIMain.actOpenEmulatorWebExecute(Sender: TObject);
+begin
+  if not assigned(CurrentEmu) then
+    Exit;
+
+  if CurrentEmu.WebPage = '' then
+    ShowMessage('Emulator''s webpage not configured')
+  else
+    OpenURL(CurrentEmu.WebPage);
 end;
 
 procedure TfrmETKGUIMain.actOpenEmutecaFolderExecute(Sender: TObject);
 begin
-  OpenDocument(BaseFolder);
+  if not OpenDocument(BaseFolder) then
+    raise EFileNotFoundException.CreateFmt(rsFmtNotFound,
+      [GetCurrentDirUTF8, BaseFolder]);
 end;
 
 procedure TfrmETKGUIMain.actOpenSoftFolderExecute(Sender: TObject);
 begin
-  if assigned(CurrentSoft) then
-    OpenDocument(CurrentSoft.Folder);
+    if not assigned(CurrentSystem) then
+    Exit;
+
+  if not OpenDocument(CurrentSoft.Folder) then
+    raise EFileNotFoundException.CreateFmt(rsFmtNotFound,
+      [GetCurrentDirUTF8, CurrentSoft.Folder]);
 end;
 
 procedure TfrmETKGUIMain.actOpenSystemBaseFolderExecute(Sender: TObject);

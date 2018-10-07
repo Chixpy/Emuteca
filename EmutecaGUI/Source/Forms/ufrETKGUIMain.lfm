@@ -154,6 +154,9 @@ inherited frmETKGUIMain: TfrmETKGUIMain
       object mimmOpenEmulatorFolder: TMenuItem
         Action = actOpenEmulatorFolder
       end
+      object mimmOpenEmulatorWeb: TMenuItem
+        Action = actOpenEmulatorWeb
+      end
       object mimmSearchInternetE: TMenuItem
         Caption = 'Search emulator in Internet'
       end
@@ -338,8 +341,13 @@ inherited frmETKGUIMain: TfrmETKGUIMain
     end
     object actRunEmulatorAlone: TAction
       Category = 'Emulator'
-      Caption = 'Run emulator alone'
+      Caption = 'Run emulator alone.'
       OnExecute = actRunEmulatorAloneExecute
+    end
+    object actOpenEmulatorWeb: TAction
+      Category = 'Emulator'
+      Caption = 'Open emulator website...'
+      OnExecute = actOpenEmulatorWebExecute
     end
   end
   object ActImages: TImageList[5]
