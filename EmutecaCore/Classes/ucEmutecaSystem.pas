@@ -54,6 +54,12 @@ type
       write SetSoftGroupLoaded;
     {< Are system soft and groups allready loaded? }
 
+    procedure CleanGroupList;
+    {< Removes empty groups.
+
+      Used by CleanSoftGroupLists and ExportSoftGroupLists.
+    }
+
   public
 
     property ProgressCallBack: TEmutecaProgressCallBack
@@ -68,9 +74,8 @@ type
 
     procedure CacheGroups;
     {< Add groups to software. }
-    procedure CleanSoftGroup;
+    procedure CleanSoftGroupLists;
     {< Removes parents without soft and Soft not found. }
-
 
     procedure LoadSoftGroupLists(const aFile: string);
     procedure SaveSoftGroupLists(const aFile: string; ClearFile: boolean);
@@ -142,6 +147,8 @@ begin
 
   if not DirectoryExistsUTF8(ExtractFileDir(aFile)) then
     ForceDirectoriesUTF8(ExtractFileDir(aFile));
+
+  CleanGroupList; // Removing hidden empty groups before exporting.
 
   GroupManager.ExportToFile(aFile + krsFileExtGroup, ClearFile);
   SoftManager.ExportToFile(aFile + krsFileExtSoft, ClearFile);
@@ -344,7 +351,31 @@ begin
       GroupManager.VisibleList.Add(aGroup);
 end;
 
-procedure cEmutecaSystem.CleanSoftGroup;
+procedure cEmutecaSystem.CleanGroupList;
+var
+  i: integer;
+  aGroup: cEmutecaGroup;
+begin
+  if assigned(ProgressCallBack) then
+    ProgressCallBack(rsCleaningSystemData,
+      'Cleaning empty groups.', 1, 2, False);
+
+  i := 0;
+  while i < GroupManager.FullList.Count do
+  begin
+    aGroup := GroupManager.FullList[i];
+
+    if aGroup.SoftList.Count <= 0 then
+      GroupManager.FullList.Delete(i)
+    else
+      Inc(i);
+  end;
+
+  if assigned(ProgressCallBack) then
+    ProgressCallBack('', '', 0, 0, False);
+end;
+
+procedure cEmutecaSystem.CleanSoftGroupLists;
 
   procedure CleanSoftList;
   var
@@ -396,7 +427,7 @@ procedure cEmutecaSystem.CleanSoftGroup;
               w7zListFiles(Last7z, CompFileList, True, '');
           end;
 
-          // Searching aSoft.FileName en CompFileList
+          // Searching aSoft.FileName in CompFileList
           j := 0;
           while (not Found) and (j < CompFileList.Count) do
           begin
@@ -415,30 +446,6 @@ procedure cEmutecaSystem.CleanSoftGroup;
 
     finally
       CompFileList.Free;
-    end;
-
-    if assigned(ProgressCallBack) then
-      ProgressCallBack('', '', 0, 0, False);
-  end;
-
-  procedure CleanGroupList;
-  var
-    i: integer;
-    aGroup: cEmutecaGroup;
-  begin
-    if assigned(ProgressCallBack) then
-      ProgressCallBack(rsCleaningSystemData,
-        'Cleaning empty groups.', 1, 2, False);
-
-    i := 0;
-    while i < GroupManager.FullList.Count do
-    begin
-      aGroup := GroupManager.FullList[i];
-
-      if aGroup.SoftList.Count <= 0 then
-        GroupManager.FullList.Delete(i)
-      else
-        Inc(i);
     end;
 
     if assigned(ProgressCallBack) then

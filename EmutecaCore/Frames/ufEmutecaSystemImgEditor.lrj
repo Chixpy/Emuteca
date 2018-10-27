@@ -1,11 +1,11 @@
 {"version":1,"strings":[
-{"hash":235525731,"name":"tfmemutksystemimgeditor.gbximages.caption","sourcebytes":[83,121,115,116,101,109,32,105,109,97,103,101,115],"value":"System images"},
-{"hash":182492517,"name":"tfmemutksystemimgeditor.gbxsystemimage.caption","sourcebytes":[83,121,115,116,101,109,32,105,109,97,103,101],"value":"System image"},
-{"hash":231445278,"name":"tfmemutksystemimgeditor.isystemimage.hint","sourcebytes":[83,121,115,116,101,109,32,105,109,97,103,101,124,68,98,108,67,108,107,58,32,79,112,101,110,32,105,110,32,73,109,97,103,101,32,118,105,101,119,101,114,46],"value":"System image|DblClk: Open in Image viewer."},
-{"hash":172418820,"name":"tfmemutksystemimgeditor.gbxsystembg.caption","sourcebytes":[83,121,115,116,101,109,32,98,97,99,107,103,114,111,117,110,100],"value":"System background"},
-{"hash":184504547,"name":"tfmemutksystemimgeditor.gbxsystemicons.caption","sourcebytes":[83,121,115,116,101,109,32,73,99,111,110,115],"value":"System Icons"},
-{"hash":195949822,"name":"tfmemutksystemimgeditor.gbxsystemicon.caption","sourcebytes":[83,121,115,116,101,109,32,105,99,111,110],"value":"System icon"},
-{"hash":45373811,"name":"tfmemutksystemimgeditor.gbxiconfolder.caption","sourcebytes":[83,111,102,116,119,97,114,101,32,105,99,111,110,115],"value":"Software icons"},
-{"hash":75658210,"name":"tfmemutksystemimgeditor.lsofticonfolder.caption","sourcebytes":[83,111,102,116,119,97,114,101,32,105,99,111,110,32,102,111,108,100,101,114],"value":"Software icon folder"},
-{"hash":18497678,"name":"tfmemutksystemimgeditor.ldefsofticon.caption","sourcebytes":[68,101,102,97,117,108,116,32,115,111,102,116,32,105,99,111,110],"value":"Default soft icon"}
+{"hash":235525731,"name":"tfmemutecasystemimgeditor.gbximages.caption","sourcebytes":[83,121,115,116,101,109,32,105,109,97,103,101,115],"value":"System images"},
+{"hash":182492517,"name":"tfmemutecasystemimgeditor.gbxsystemimage.caption","sourcebytes":[83,121,115,116,101,109,32,105,109,97,103,101],"value":"System image"},
+{"hash":231445278,"name":"tfmemutecasystemimgeditor.isystemimage.hint","sourcebytes":[83,121,115,116,101,109,32,105,109,97,103,101,124,68,98,108,67,108,107,58,32,79,112,101,110,32,105,110,32,73,109,97,103,101,32,118,105,101,119,101,114,46],"value":"System image|DblClk: Open in Image viewer."},
+{"hash":172418820,"name":"tfmemutecasystemimgeditor.gbxsystembg.caption","sourcebytes":[83,121,115,116,101,109,32,98,97,99,107,103,114,111,117,110,100],"value":"System background"},
+{"hash":184504547,"name":"tfmemutecasystemimgeditor.gbxsystemicons.caption","sourcebytes":[83,121,115,116,101,109,32,73,99,111,110,115],"value":"System Icons"},
+{"hash":195949822,"name":"tfmemutecasystemimgeditor.gbxsystemicon.caption","sourcebytes":[83,121,115,116,101,109,32,105,99,111,110],"value":"System icon"},
+{"hash":45373811,"name":"tfmemutecasystemimgeditor.gbxiconfolder.caption","sourcebytes":[83,111,102,116,119,97,114,101,32,105,99,111,110,115],"value":"Software icons"},
+{"hash":75658210,"name":"tfmemutecasystemimgeditor.lsofticonfolder.caption","sourcebytes":[83,111,102,116,119,97,114,101,32,105,99,111,110,32,102,111,108,100,101,114],"value":"Software icon folder"},
+{"hash":18497678,"name":"tfmemutecasystemimgeditor.ldefsofticon.caption","sourcebytes":[68,101,102,97,117,108,116,32,115,111,102,116,32,105,99,111,110],"value":"Default soft icon"}
 ]}

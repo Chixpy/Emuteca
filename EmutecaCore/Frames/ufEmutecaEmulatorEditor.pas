@@ -1,8 +1,6 @@
 unit ufEmutecaEmulatorEditor;
 {< TfmEmutecaEmulatorEditor frame unit.
 
-  ----
-
   This file is part of Emuteca Core.
 
   Copyright (C) 2006-2018 Chixpy

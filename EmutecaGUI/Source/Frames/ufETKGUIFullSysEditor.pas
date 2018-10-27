@@ -64,7 +64,7 @@ type
     FEmuteca: cEmuteca;
     FfmSysITFEditor: TfmEmutecaSystemITFEditor;
     FfmSysEditor: TfmEmutecaSystemEditor;
-    FfmSysImgEditor: TfmEmuTKSystemImgEditor;
+    FfmSysImgEditor: TfmEmutecaSystemImgEditor;
     FfmSysMVFEditor: TfmEmutecaSystemMVFEditor;
     FSHA1Folder: string;
     FSystem: cEmutecaSystem;
@@ -74,7 +74,7 @@ type
 
   protected
     property fmSysEditor: TfmEmutecaSystemEditor read FfmSysEditor;
-    property fmSysImgEditor: TfmEmuTKSystemImgEditor read FfmSysImgEditor;
+    property fmSysImgEditor: TfmEmutecaSystemImgEditor read FfmSysImgEditor;
     property fmSysITFEditor: TfmEmutecaSystemITFEditor read FfmSysITFEditor;
     property fmSysMVFEditor: TfmEmutecaSystemMVFEditor read FfmSysMVFEditor;
 
@@ -350,7 +350,7 @@ constructor TfmETKGUIFullSystemEditor.Create(TheOwner: TComponent);
 
     aTabSheet := pcProperties.AddTabSheet;
     aTabSheet.Caption := 'Basic images';
-    FfmSysImgEditor := TfmEmuTKSystemImgEditor.Create(aTabSheet);
+    FfmSysImgEditor := TfmEmutecaSystemImgEditor.Create(aTabSheet);
     fmSysImgEditor.SaveButtons := False;
     fmSysImgEditor.ButtonClose := False;
     fmSysImgEditor.Align := alClient;

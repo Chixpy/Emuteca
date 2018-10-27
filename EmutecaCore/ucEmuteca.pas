@@ -205,7 +205,7 @@ begin
       Continue := ProgressCallBack(rsCleaningSystemData,
         aSystem.Title, i, SystemManager.EnabledList.Count, True);
 
-    aSystem.CleanSoftGroup;
+    aSystem.CleanSoftGroupLists;
 
     // Restoring aSystem progress bar
     aSystem.ProgressCallBack := SysPCB;

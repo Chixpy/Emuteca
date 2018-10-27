@@ -1,5 +1,5 @@
 unit ufEmutecaSystemImgEditor;
-{< TfmEmuTKSystemImgEditor frame unit.
+{< TfmEmutecaSystemImgEditor frame unit.
 
   This file is part of Emuteca Core.
 
@@ -27,15 +27,18 @@ interface
 uses
   Classes, SysUtils, LazFileUtils, Forms, Controls, StdCtrls,
   EditBtn, ExtCtrls, Buttons, ActnList, ComCtrls, inifiles,
+  // CHX units
   uCHXStrUtils, uCHXDlgUtils,
+  // CHX frames
   ufCHXPropEditor, ufCHXImgViewer,
+  // Emuteca Core classes
   ucEmutecaSystem;
 
 type
 
-  { TfmEmuTKSystemImgEditor }
+  { TfmEmutecaSystemImgEditor }
 
-  TfmEmuTKSystemImgEditor = class(TfmCHXPropEditor)
+  TfmEmutecaSystemImgEditor = class(TfmCHXPropEditor)
     eSoftIconFolder: TDirectoryEdit;
     eSystemIcon: TFileNameEdit;
     eSystemBG: TFileNameEdit;
@@ -106,15 +109,15 @@ implementation
 
 {$R *.lfm}
 
-{ TfmEmuTKSystemImgEditor }
+{ TfmEmutecaSystemImgEditor }
 
-procedure TfmEmuTKSystemImgEditor.eSystemImageAcceptFileName(Sender: TObject;
+procedure TfmEmutecaSystemImgEditor.eSystemImageAcceptFileName(Sender: TObject;
   var Value: string);
 begin
   UpdateImage(iSystemImage, Value);
 end;
 
-procedure TfmEmuTKSystemImgEditor.eSystemImageButtonClick(Sender: TObject);
+procedure TfmEmutecaSystemImgEditor.eSystemImageButtonClick(Sender: TObject);
 begin
   if Assigned(System) then
     SetFileEditInitialDir(eSystemImage, System.BaseFolder)
@@ -122,37 +125,37 @@ begin
     SetFileEditInitialDir(eSystemImage, '');
 end;
 
-procedure TfmEmuTKSystemImgEditor.iDefSoftIconDblClick(Sender: TObject);
+procedure TfmEmutecaSystemImgEditor.iDefSoftIconDblClick(Sender: TObject);
 begin
     TfmCHXImgViewer.SimpleFormI(eDefSoftIcon.Text, SHA1Folder, GUIIconsIni,
     GUIConfigIni);
 end;
 
-procedure TfmEmuTKSystemImgEditor.iSystemBGDblClick(Sender: TObject);
+procedure TfmEmutecaSystemImgEditor.iSystemBGDblClick(Sender: TObject);
 begin
   TfmCHXImgViewer.SimpleFormI(eSystemBG.Text, SHA1Folder, GUIIconsIni,
     GUIConfigIni);
 end;
 
-procedure TfmEmuTKSystemImgEditor.iSystemIconDblClick(Sender: TObject);
+procedure TfmEmutecaSystemImgEditor.iSystemIconDblClick(Sender: TObject);
 begin
   TfmCHXImgViewer.SimpleFormI(eSystemIcon.Text, SHA1Folder, GUIIconsIni,
     GUIConfigIni);
 end;
 
-procedure TfmEmuTKSystemImgEditor.iSystemImageDblClick(Sender: TObject);
+procedure TfmEmutecaSystemImgEditor.iSystemImageDblClick(Sender: TObject);
 begin
   TfmCHXImgViewer.SimpleFormI(eSystemImage.Text, SHA1Folder,
     GUIIconsIni, GUIConfigIni);
 end;
 
-procedure TfmEmuTKSystemImgEditor.eSystemIconAcceptFileName(Sender: TObject;
+procedure TfmEmutecaSystemImgEditor.eSystemIconAcceptFileName(Sender: TObject;
   var Value: string);
 begin
   UpdateImage(iSystemIcon, Value);
 end;
 
-procedure TfmEmuTKSystemImgEditor.eSystemIconButtonClick(Sender: TObject);
+procedure TfmEmutecaSystemImgEditor.eSystemIconButtonClick(Sender: TObject);
 begin
   if Assigned(System) then
     SetFileEditInitialDir(eSystemIcon, System.BaseFolder)
@@ -160,13 +163,13 @@ begin
     SetFileEditInitialDir(eSystemIcon, '');
 end;
 
-procedure TfmEmuTKSystemImgEditor.eSystemBGAcceptFileName(Sender: TObject;
+procedure TfmEmutecaSystemImgEditor.eSystemBGAcceptFileName(Sender: TObject;
   var Value: string);
 begin
   UpdateImage(iSystemBG, Value);
 end;
 
-procedure TfmEmuTKSystemImgEditor.eSoftIconFolderButtonClick(Sender: TObject);
+procedure TfmEmutecaSystemImgEditor.eSoftIconFolderButtonClick(Sender: TObject);
 begin
   if Assigned(System) then
     SetDirEditInitialDir(eSoftIconFolder, System.BaseFolder)
@@ -174,13 +177,13 @@ begin
     SetDirEditInitialDir(eSoftIconFolder, '');
 end;
 
-procedure TfmEmuTKSystemImgEditor.eDefSoftIconAcceptFileName(Sender: TObject;
+procedure TfmEmutecaSystemImgEditor.eDefSoftIconAcceptFileName(Sender: TObject;
   var Value: String);
 begin
   UpdateImage(iDefSoftIcon, Value);
 end;
 
-procedure TfmEmuTKSystemImgEditor.eDefSoftIconButtonClick(Sender: TObject);
+procedure TfmEmutecaSystemImgEditor.eDefSoftIconButtonClick(Sender: TObject);
 begin
     if Assigned(System) then
     SetFileEditInitialDir(eDefSoftIcon, System.BaseFolder)
@@ -188,7 +191,7 @@ begin
     SetFileEditInitialDir(eDefSoftIcon, '');
 end;
 
-procedure TfmEmuTKSystemImgEditor.eSystemBGButtonClick(Sender: TObject);
+procedure TfmEmutecaSystemImgEditor.eSystemBGButtonClick(Sender: TObject);
 begin
   if Assigned(System) then
     SetFileEditInitialDir(eSystemBG, System.BaseFolder)
@@ -196,7 +199,7 @@ begin
     SetFileEditInitialDir(eSystemBG, '');
 end;
 
-procedure TfmEmuTKSystemImgEditor.SetSystem(AValue: cEmutecaSystem);
+procedure TfmEmutecaSystemImgEditor.SetSystem(AValue: cEmutecaSystem);
 begin
   if FSystem = AValue then
     Exit;
@@ -205,22 +208,22 @@ begin
   LoadFrameData;
 end;
 
-procedure TfmEmuTKSystemImgEditor.SetSHA1Folder(AValue: string);
+procedure TfmEmutecaSystemImgEditor.SetSHA1Folder(AValue: string);
 begin
   FSHA1Folder := SetAsFolder(AValue);
 end;
 
-procedure TfmEmuTKSystemImgEditor.SetGUIConfigIni(AValue: string);
+procedure TfmEmutecaSystemImgEditor.SetGUIConfigIni(AValue: string);
 begin
   FGUIConfigIni := SetAsFile(AValue);
 end;
 
-procedure TfmEmuTKSystemImgEditor.SetGUIIconsIni(AValue: string);
+procedure TfmEmutecaSystemImgEditor.SetGUIIconsIni(AValue: string);
 begin
   FGUIIconsIni := SetAsFile(AValue);
 end;
 
-procedure TfmEmuTKSystemImgEditor.DoSaveFrameData;
+procedure TfmEmutecaSystemImgEditor.DoSaveFrameData;
 begin
   if not Enabled then
     Exit;
@@ -232,19 +235,19 @@ begin
   System.SoftIconFile := eDefSoftIcon.FileName;
 end;
 
-procedure TfmEmuTKSystemImgEditor.DoLoadGUIIcons(aIconsIni: TIniFile;
+procedure TfmEmutecaSystemImgEditor.DoLoadGUIIcons(aIconsIni: TIniFile;
   const aBaseFolder: string);
 begin
   inherited DoLoadGUIIcons(aIconsIni, aBaseFolder);
   GUIIconsIni := aIconsIni.FileName;
 end;
 
-procedure TfmEmuTKSystemImgEditor.DoLoadGUIConfig(aIniFile: TIniFile);
+procedure TfmEmutecaSystemImgEditor.DoLoadGUIConfig(aIniFile: TIniFile);
 begin
   GUIConfigIni := aIniFile.FileName;
 end;
 
-procedure TfmEmuTKSystemImgEditor.DoLoadFrameData;
+procedure TfmEmutecaSystemImgEditor.DoLoadFrameData;
 begin
   Enabled := Assigned(System);
 
@@ -266,7 +269,7 @@ begin
 
 end;
 
-constructor TfmEmuTKSystemImgEditor.Create(TheOwner: TComponent);
+constructor TfmEmutecaSystemImgEditor.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
 
@@ -277,12 +280,12 @@ begin
   OnLoadGUIIcons := @DoLoadGUIIcons;
 end;
 
-destructor TfmEmuTKSystemImgEditor.Destroy;
+destructor TfmEmutecaSystemImgEditor.Destroy;
 begin
   inherited Destroy;
 end;
 
-procedure TfmEmuTKSystemImgEditor.DoClearFrameData;
+procedure TfmEmutecaSystemImgEditor.DoClearFrameData;
 begin
   eSystemImage.Clear;
   iSystemImage.Picture.Clear;
@@ -295,7 +298,7 @@ begin
   iDefSoftIcon.Picture.Clear;
 end;
 
-procedure TfmEmuTKSystemImgEditor.UpdateImage(aTImage: TImage; aFile: string);
+procedure TfmEmutecaSystemImgEditor.UpdateImage(aTImage: TImage; aFile: string);
 begin
   if not Assigned(aTImage) then
     Exit;

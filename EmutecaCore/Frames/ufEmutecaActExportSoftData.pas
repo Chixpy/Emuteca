@@ -1,7 +1,5 @@
 unit ufEmutecaActExportSoftData;
-{ Frame for export soft data.
-
-  ----
+{< TfmEmutecaActExportSoftData frame unit.
 
   This file is part of Emuteca Core.
 

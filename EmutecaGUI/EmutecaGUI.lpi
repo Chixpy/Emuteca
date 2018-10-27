@@ -101,7 +101,7 @@
         <PackageName Value="LCL"/>
       </Item7>
     </RequiredPackages>
-    <Units Count="123">
+    <Units Count="126">
       <Unit0>
         <Filename Value="EmutecaGUI.pas"/>
         <IsPartOfProject Value="True"/>
@@ -192,7 +192,7 @@
       <Unit21>
         <Filename Value="..\EmutecaCore\Frames\ufEmutecaSystemImgEditor.pas"/>
         <IsPartOfProject Value="True"/>
-        <ComponentName Value="fmEmuTKSystemImgEditor"/>
+        <ComponentName Value="fmEmutecaSystemImgEditor"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
       </Unit21>
@@ -750,6 +750,27 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
       </Unit122>
+      <Unit123>
+        <Filename Value="..\EmutecaCore\Frames\ufEmutecaSoftImgPreview.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fmEmutecaSoftImgPreview"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+      </Unit123>
+      <Unit124>
+        <Filename Value="..\EmutecaCore\Frames\ufEmutecaSoftTxtPreview.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fmEmutecaSoftTxtPreview"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+      </Unit124>
+      <Unit125>
+        <Filename Value="..\EmutecaCore\Frames\ufEmutecaSoftVideoPreview.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fmEmutecaSoftVideoPreview"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+      </Unit125>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

@@ -20,16 +20,14 @@ unit ucEmutecaSoftware;
   to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
   MA 02111-1307, USA.
 }
-
-
 {$mode objfpc}{$H+}
 
 interface
 
 uses
-  Classes, SysUtils, LazFileUtils, LazUTF8, uaEmutecaCustomSystem,
-  // Emuteca abstracts
-  uaEmutecaCustomGroup, uaEmutecaCustomSoft;
+  Classes, SysUtils, LazFileUtils, LazUTF8, 
+  // Emuteca Core abstracts
+  uaEmutecaCustomSystem, uaEmutecaCustomGroup, uaEmutecaCustomSoft;
 
 type
   { cEmutecaSoftware. }

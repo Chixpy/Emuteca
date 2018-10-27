@@ -1,8 +1,6 @@
 program EmutecaGUI;
 {< Main program of Emuteca GUI.
 
-  ----
-
   This file is part of Emuteca GUI.
 
   Copyright (C) 2006-2018 Chixpy
@@ -118,7 +116,8 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   utETKGUICacheGrpIcons, utETKGUICacheSysIcons, utETKGUICacheSoftIcons,
   ufETKGUISoftVideoPreview, ufCHXVideoListPreview, ufETKGUISoftMusicPreview,
   uEmutecaRscStr, uEmutecaConst, uaEmutecaCustomEmu, uPSI_uEmutecaConst,
-  uPSI_uEmutecaRscStr, uETKGUIConst, uETKGUIRscStr, ufETKGUIFullConfigEditor;
+  uPSI_uEmutecaRscStr, uETKGUIConst, uETKGUIRscStr, ufETKGUIFullConfigEditor,
+  ufEmutecaSoftImgPreview, ufEmutecaSoftTxtPreview, ufEmutecaSoftVideoPreview;
 
 {$R *.res}
 

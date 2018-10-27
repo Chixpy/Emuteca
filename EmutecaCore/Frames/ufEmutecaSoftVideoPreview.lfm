@@ -1,0 +1,7 @@
+inherited fmEmutecaSoftVideoPreview: TfmEmutecaSoftVideoPreview
+  inherited tbPlayer: TToolBar
+    inherited ToolButton2: TToolButton
+      Height = 22
+    end
+  end
+end

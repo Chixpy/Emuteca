@@ -1,8 +1,5 @@
 unit ufrETKGUIMain;
-
 {< TfrmETKGUIMain form unit.
-
-  ----
 
   This file is part of Emuteca GUI.
 
@@ -534,7 +531,7 @@ begin
   fmEmutecaMainFrame.Emuteca := nil;
   aPCB := CurrentSystem.ProgressCallBack;
   CurrentSystem.ProgressCallBack := @DoProgressBar;
-  CurrentSystem.CleanSoftGroup;
+  CurrentSystem.CleanSoftGroupLists;
   CurrentSystem.ProgressCallBack := aPCB;
 
   fmEmutecaMainFrame.Emuteca := Emuteca;

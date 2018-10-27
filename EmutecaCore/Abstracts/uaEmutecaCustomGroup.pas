@@ -59,7 +59,7 @@ type
     procedure SetYear(AValue: string);
 
   protected
-     procedure DoSaveToIni(aTxtFile: TStrings; ExportMode: Boolean); virtual;
+     procedure DoSaveToStrLst(aTxtFile: TStrings; ExportMode: Boolean); virtual;
 
   public
     function GetActualTitle: string;
@@ -195,7 +195,7 @@ begin
   FYear := AValue;
 end;
 
-procedure caEmutecaCustomGroup.DoSaveToIni(aTxtFile: TStrings;
+procedure caEmutecaCustomGroup.DoSaveToStrLst(aTxtFile: TStrings;
   ExportMode: Boolean);
 begin
   if not assigned(aTxtFile) then
@@ -271,12 +271,12 @@ end;
 
 procedure caEmutecaCustomGroup.ExportToStrLst(aTxtFile: TStrings);
 begin
-  DoSaveToIni(aTxtFile, True);
+  DoSaveToStrLst(aTxtFile, True);
 end;
 
 procedure caEmutecaCustomGroup.SaveToStrLst(aTxtFile: TStrings);
 begin
-  DoSaveToIni(aTxtFile, False);
+  DoSaveToStrLst(aTxtFile, False);
 end;
 
 function caEmutecaCustomGroup.ExportCommaText: string;

@@ -1,7 +1,5 @@
 unit ufEmutecaActAddFolder;
-{ Frame to add sofware from folder.
-
-  ----
+{< TfmEmutecaActAddFolder frame unit.
 
   This file is part of Emuteca Core.
 

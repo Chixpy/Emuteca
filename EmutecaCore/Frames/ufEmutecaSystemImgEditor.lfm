@@ -1,4 +1,4 @@
-inherited fmEmuTKSystemImgEditor: TfmEmuTKSystemImgEditor
+inherited fmEmutecaSystemImgEditor: TfmEmutecaSystemImgEditor
   Height = 398
   Width = 420
   ClientHeight = 398
@@ -38,11 +38,11 @@ inherited fmEmuTKSystemImgEditor: TfmEmuTKSystemImgEditor
     TabOrder = 0
     object gbxSystemImage: TGroupBox
       Left = 0
-      Height = 168
+      Height = 174
       Top = 0
       Width = 203
       Caption = 'System image'
-      ClientHeight = 148
+      ClientHeight = 154
       ClientWidth = 199
       TabOrder = 0
       object eSystemImage: TFileNameEdit
@@ -65,7 +65,7 @@ inherited fmEmuTKSystemImgEditor: TfmEmuTKSystemImgEditor
       end
       object iSystemImage: TImage
         Left = 0
-        Height = 125
+        Height = 131
         Hint = 'System image|DblClk: Open in Image viewer.'
         Top = 23
         Width = 199
@@ -79,11 +79,11 @@ inherited fmEmuTKSystemImgEditor: TfmEmuTKSystemImgEditor
     end
     object gbxSystemBG: TGroupBox
       Left = 0
-      Height = 180
-      Top = 168
+      Height = 174
+      Top = 174
       Width = 203
       Caption = 'System background'
-      ClientHeight = 160
+      ClientHeight = 154
       ClientWidth = 199
       TabOrder = 1
       object eSystemBG: TFileNameEdit
@@ -106,7 +106,7 @@ inherited fmEmuTKSystemImgEditor: TfmEmuTKSystemImgEditor
       end
       object iSystemBG: TImage
         Left = 0
-        Height = 137
+        Height = 131
         Top = 23
         Width = 199
         Align = alClient

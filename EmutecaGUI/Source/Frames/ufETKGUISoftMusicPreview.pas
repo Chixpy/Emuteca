@@ -1,4 +1,7 @@
-{ Music preview frame of Emuteca GUI.
+unit ufETKGUISoftMusicPreview;
+{< TfmETKGUISoftMusicPreview frame unit.
+
+  This file is part of Emuteca GUI.
 
   Copyright (C) 2006-2018 Chixpy
 
@@ -17,16 +20,14 @@
   to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
   MA 02111-1307, USA.
 }
-unit ufETKGUISoftMusicPreview;
-
 {$mode objfpc}{$H+}
 
 interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
-  // CHX frames
-  ufCHXVideoListPreview,
+  // Emuteca Core frames
+  ufEmutecaSoftVideoPreview,
   // Emuteca GUI abstracts
   uafETKGUISoftFoldersPreview;
 
@@ -59,14 +60,14 @@ begin
   if FMPlayerPath = aMPlayerPath then Exit;
   FMPlayerPath := aMPlayerPath;
 
-  TfmCHXVideoListPreview(fmListPreview).MPlayerPath := FMPlayerPath;
+  TfmEmutecaSoftVideoPreview(fmListPreview).MPlayerPath := FMPlayerPath;
 end;
 
 procedure TfmETKGUISoftMusicPreview.CreateListView;
 begin
-  SetListPreview(TfmCHXVideoListPreview.Create(Self));
+  SetListPreview(TfmEmutecaSoftVideoPreview.Create(Self));
   // MPlayer don't return any visualization... :-(
-  TfmCHXVideoListPreview(fmListPreview).MPlayerControl.Visible := False;
+  TfmEmutecaSoftVideoPreview(fmListPreview).MPlayerControl.Visible := False;
   fmListPreview.AutoSize := True;
   fmListPreview.Align := alClient;
   fmListPreview.Parent := Self;

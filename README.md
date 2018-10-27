@@ -2,7 +2,8 @@
 
 [More screenshots / Más imágenes](../../wiki/Screenshots)
 
-Emuteca 0.8 preview
+Emuteca 0.8 preview...
+
 ![Emuteca 0.8 preview](../../wiki/img/0_8/GameManager%200_8_0_119.png)
 
 # English #

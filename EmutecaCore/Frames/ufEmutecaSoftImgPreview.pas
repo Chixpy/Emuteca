@@ -1,5 +1,5 @@
-unit ufETKGUISoftTxtPreview;
-{< TfmETKGUISoftTxtPreview frame unit.
+unit ufEmutecaSoftImgPreview;
+{< TfmEmutecaSoftImgPreview frame unit.
 
   This file is part of Emuteca GUI.
 
@@ -26,22 +26,12 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
-  // Emuteca core frames
-  ufEmutecaSoftTxtPreview,
-  // Emuteca GUI abstracts
-  uafETKGUISoftFoldersPreview;
+  // CHX frames
+  ufCHXImgListPreview;
 
 type
-
-  { TfmETKGUISoftTxtPreview }
-
-  TfmETKGUISoftTxtPreview = class(TfmaETKGUISoftFoldersPreview)
+  TfmEmutecaSoftImgPreview = class(TfmCHXImgListPreview)
   private
-
-  protected
-    procedure CreateListView; override;
-    function GetCaptionList: TStrings; override;
-    function GetFolder: string; override;
 
   public
 
@@ -50,31 +40,6 @@ type
 implementation
 
 {$R *.lfm}
-
-{ TfmETKGUISoftTxtPreview }
-
-procedure TfmETKGUISoftTxtPreview.CreateListView;
-begin
-  SetListPreview(TfmEmutecaSoftTxtPreview.Create(Self));
-  fmListPreview.Align := alClient;
-  fmListPreview.Parent := Self;
-end;
-
-function TfmETKGUISoftTxtPreview.GetCaptionList: TStrings;
-begin
-  Result := nil;
-
-  if Assigned(System) then
-    Result := System.TextCaptions;
-end;
-
-function TfmETKGUISoftTxtPreview.GetFolder: string;
-begin
-  Result := '';
-
-  if Assigned(System) then
-    Result := System.TextFolders[cbxFolderCaption.ItemIndex];
-end;
 
 end.
 

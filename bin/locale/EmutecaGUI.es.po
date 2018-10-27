@@ -630,7 +630,7 @@ msgid "ROM Folder"
 msgstr ""
 
 #: tfmemutecaemulatoreditor.actparamromextra.caption
-msgid "ROM Extra parameter"
+msgid "ROM Extra parameters"
 msgstr ""
 
 #: tfmemutecaemulatoreditor.actparamromextra.hint
@@ -712,10 +712,6 @@ msgstr ""
 
 #: tfmemutecaemulatoreditor.lworkingfolder.caption
 msgid "Working folder"
-msgstr ""
-
-#: tfmemutecaemulatoreditor.pmiparamromextra.caption
-msgid "ROM Extra Parameter"
 msgstr ""
 
 #: tfmemutecaemulatoreditor.pmiwfemuteca.caption
@@ -953,6 +949,51 @@ msgstr ""
 msgid "Key for Games"
 msgstr ""
 
+#: tfmemutecasystemimgeditor.gbxiconfolder.caption
+msgctxt "tfmemutecasystemimgeditor.gbxiconfolder.caption"
+msgid "Software icons"
+msgstr ""
+
+#: tfmemutecasystemimgeditor.gbximages.caption
+msgctxt "tfmemutecasystemimgeditor.gbximages.caption"
+msgid "System images"
+msgstr ""
+
+#: tfmemutecasystemimgeditor.gbxsystembg.caption
+msgctxt "tfmemutecasystemimgeditor.gbxsystembg.caption"
+msgid "System background"
+msgstr ""
+
+#: tfmemutecasystemimgeditor.gbxsystemicon.caption
+msgctxt "tfmemutecasystemimgeditor.gbxsystemicon.caption"
+msgid "System icon"
+msgstr ""
+
+#: tfmemutecasystemimgeditor.gbxsystemicons.caption
+msgctxt "tfmemutecasystemimgeditor.gbxsystemicons.caption"
+msgid "System Icons"
+msgstr ""
+
+#: tfmemutecasystemimgeditor.gbxsystemimage.caption
+msgctxt "tfmemutecasystemimgeditor.gbxsystemimage.caption"
+msgid "System image"
+msgstr ""
+
+#: tfmemutecasystemimgeditor.isystemimage.hint
+msgctxt "tfmemutecasystemimgeditor.isystemimage.hint"
+msgid "System image|DblClk: Open in Image viewer."
+msgstr ""
+
+#: tfmemutecasystemimgeditor.ldefsofticon.caption
+msgctxt "tfmemutecasystemimgeditor.ldefsofticon.caption"
+msgid "Default soft icon"
+msgstr ""
+
+#: tfmemutecasystemimgeditor.lsofticonfolder.caption
+msgctxt "tfmemutecasystemimgeditor.lsofticonfolder.caption"
+msgid "Software icon folder"
+msgstr ""
+
 #: tfmemutecasystemitfeditor.gbximagefolders.caption
 msgid "Image Folders"
 msgstr ""
@@ -970,38 +1011,47 @@ msgid "Video folders"
 msgstr ""
 
 #: tfmemutksystemimgeditor.gbxiconfolder.caption
+msgctxt "tfmemutksystemimgeditor.gbxiconfolder.caption"
 msgid "Software icons"
 msgstr ""
 
 #: tfmemutksystemimgeditor.gbximages.caption
+msgctxt "tfmemutksystemimgeditor.gbximages.caption"
 msgid "System images"
 msgstr ""
 
 #: tfmemutksystemimgeditor.gbxsystembg.caption
+msgctxt "tfmemutksystemimgeditor.gbxsystembg.caption"
 msgid "System background"
 msgstr ""
 
 #: tfmemutksystemimgeditor.gbxsystemicon.caption
+msgctxt "tfmemutksystemimgeditor.gbxsystemicon.caption"
 msgid "System icon"
 msgstr ""
 
 #: tfmemutksystemimgeditor.gbxsystemicons.caption
+msgctxt "tfmemutksystemimgeditor.gbxsystemicons.caption"
 msgid "System Icons"
 msgstr ""
 
 #: tfmemutksystemimgeditor.gbxsystemimage.caption
+msgctxt "tfmemutksystemimgeditor.gbxsystemimage.caption"
 msgid "System image"
 msgstr ""
 
 #: tfmemutksystemimgeditor.isystemimage.hint
+msgctxt "tfmemutksystemimgeditor.isystemimage.hint"
 msgid "System image|DblClk: Open in Image viewer."
 msgstr ""
 
 #: tfmemutksystemimgeditor.ldefsofticon.caption
+msgctxt "tfmemutksystemimgeditor.ldefsofticon.caption"
 msgid "Default soft icon"
 msgstr ""
 
 #: tfmemutksystemimgeditor.lsofticonfolder.caption
+msgctxt "tfmemutksystemimgeditor.lsofticonfolder.caption"
 msgid "Software icon folder"
 msgstr ""
 

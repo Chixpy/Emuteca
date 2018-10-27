@@ -448,7 +448,7 @@ inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
     end
     object actParamROMExtra: TAction[11]
       Category = 'PUParameters'
-      Caption = 'ROM Extra parameter'
+      Caption = 'ROM Extra parameters'
       Hint = 'Add extra parameter from ROM info.'
       OnExecute = actParamROMExtraExecute
     end
@@ -489,7 +489,7 @@ inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
       Action = actParamROMFileExtension
     end
     object pmiParamROMExtra: TMenuItem
-      Caption = 'ROM Extra Parameter'
+      Action = actParamROMExtra
     end
   end
 end

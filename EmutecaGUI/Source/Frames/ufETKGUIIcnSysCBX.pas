@@ -44,12 +44,17 @@ var
   IconRect: TRect;
   aIcon: TPicture;
   aSystem: cEmutecaSystem;
+  aCBXS: TComboBox;
 
 begin
   if odInactive in State then
     Exit;
 
-  aSystem := cEmutecaSystem(cbxSystem.Items.Objects[Index]);
+  if not (Control is TComboBox) then Exit;
+
+  aCBXS := TComboBox(Control);
+
+  aSystem := cEmutecaSystem(aCBXS.Items.Objects[Index]);
 
   // Icon
   // aCBX.Canvas.FillRect(ARect);
@@ -65,12 +70,10 @@ begin
     aIcon := DefSysIcon;
 
   if assigned(aIcon) then
-    cbxSystem.Canvas.StretchDraw(CorrectAspectRatio(IconRect, aIcon),
-      aIcon.Graphic);
+    aCBXS.Canvas.StretchDraw(CorrectAspectRatio(IconRect, aIcon), aIcon.Graphic);
 
   // Text
-  cbxSystem.Canvas.TextOut(IconRect.Right + 4, ARect.Top,
-    cbxSystem.Items[Index]);
+  aCBXS.Canvas.TextOut(IconRect.Right + 4, ARect.Top, aCBXS.Items[Index]);
 end;
 
 end.
