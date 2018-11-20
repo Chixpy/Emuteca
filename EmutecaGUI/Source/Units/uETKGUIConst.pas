@@ -1,8 +1,5 @@
 unit uETKGUIConst;
-
 {< Constants unit.
-
-  ----
 
   This file is part of Emuteca GUI.
 
@@ -34,16 +31,20 @@ const
   {< Filenames for dump status icons. }
 
   krsEmuteca = 'Emuteca';
-  {< Main 'Emuteca' String!!! }
+  {< Main 'Emuteca' string. }
 
+  // TODO: Is it used only by Script Manager?
   krsVirtualFolderExt = '.(folder)';
+  {< String to identify folders in Script Manager. }
   krsVirtualExt = '.(ext)';
+  {< }
 
-  // Form IDs
-  // --------
   krsETKGUISystemEditorID = 'frmETKGUIFullSysEditor';
+  {< ID for (full) System Editor form. }
   krsETKGUIEmuEditorID = 'frmETKGUIFullEmuEditor';
+  {< ID for (full) Emulator Editor form. }
   krsETKGUIConfigID = 'frmETKGUIConfig';
+  {< ID for Emuteca GUI config form. }
 
 implementation
 

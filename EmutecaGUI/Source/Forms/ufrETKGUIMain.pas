@@ -430,6 +430,12 @@ end;
 procedure TfrmETKGUIMain.FormCloseQuery(Sender: TObject;
   var CanClose: boolean);
 begin
+  // If CacheSysIconsThread is not terminated, maybe last SHA1 is not saved;
+  //   but at least not all work is losed on error...
+  GUIConfig.SaveToFile('', False); // File has Forms config too, don't delete
+  if GUIConfig.SaveOnExit then
+    Emuteca.SaveAllData;
+
   if Assigned(CacheSoftIconsThread) then
   begin
     CacheSoftIconsThread.OnTerminate := nil;
@@ -449,15 +455,11 @@ begin
   // Teminate threads if they are running.
   if Assigned(CacheSysIconsThread) then
   begin
-    CacheSysIconsThread.OnTerminate := nil;
+     CacheSysIconsThread.OnTerminate := nil;
     CacheSysIconsThread.Terminate;
     CacheSysIconsThread.WaitFor;
   end;
   // CacheSysIconsThread.Free; Auto freed with FreeOnTerminate
-
-  GUIConfig.SaveToFile('', False); // File has Forms config too, don't delete
-  if GUIConfig.SaveOnExit then
-    Emuteca.SaveAllData;
 
   CanClose := True;
 end;

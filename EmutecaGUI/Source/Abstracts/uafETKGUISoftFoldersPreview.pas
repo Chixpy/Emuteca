@@ -42,6 +42,7 @@ type
 
   TfmaETKGUISoftFoldersPreview = class(TfmCHXFrame)
     cbxFolderCaption: TComboBox;
+    gbxPanel: TGroupBox;
     procedure cbxFolderCaptionSelect(Sender: TObject);
 
   private
@@ -53,11 +54,8 @@ type
     FSoftware: cEmutecaSoftware;
     FSystem: caEmutecaCustomSystem;
     FTempFolder: string;
-    procedure SetGroup(AValue: cEmutecaGroup);
     procedure SetFileExt(AValue: TStrings);
     procedure SetLastCaption(AValue: string);
-
-    procedure SetSoftware(AValue: cEmutecaSoftware);
     procedure SetSystem(AValue: caEmutecaCustomSystem);
     procedure SetTempFolder(const aTempFolder: string);
 
@@ -70,6 +68,8 @@ type
     procedure UpdateFileList;
 
     procedure SetListPreview(AValue: TfmCHXStrLstPreview);
+    procedure SetSoftware(AValue: cEmutecaSoftware); virtual;
+    procedure SetGroup(AValue: cEmutecaGroup); virtual;
 
     procedure DoClearFrameData;
     procedure DoLoadFrameData;

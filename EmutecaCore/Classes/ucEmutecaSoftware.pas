@@ -126,12 +126,13 @@ end;
 
 procedure cEmutecaSoftware.SetTitle(AValue: string);
 begin
+  AValue := UTF8Trim(AValue);
   if FTitle = AValue then
     Exit;
 
   if Assigned(CachedGroup) then
   begin
-    if (UTF8CompareText(AValue, CachedGroup.Title) = 0) then
+    if AValue = CachedGroup.Title then
       FTitle := ''
     else
      FTitle := AValue;

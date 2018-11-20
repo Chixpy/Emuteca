@@ -21,6 +21,10 @@ msgctxt "tfmactexportsoftdata.lsoftidtype.caption"
 msgid "Soft ID Type"
 msgstr "Tipo de identificación del soft"
 
+#: tfmaetkguisoftfolderspreview.gbxpanel.caption
+msgid "Panel"
+msgstr ""
+
 #: tfmchxchklstpropeditor.actadditem.caption
 msgid "Add item"
 msgstr "Añadir objeto"
@@ -59,6 +63,10 @@ msgctxt "tfmchxchklstpropeditor.toolbutton6.caption"
 msgid "ToolButton6"
 msgstr ""
 
+#: tfmchximglistpreview.iimage.hint
+msgid "DblClk to open in Image Viewer"
+msgstr ""
+
 #: tfmchximgviewer.actfirst.caption
 msgid "First"
 msgstr "Primero"
@@ -81,7 +89,7 @@ msgstr "Siguiente"
 
 #: tfmchximgviewer.actnext.hint
 msgid "Next Image|Show next image in the list"
-msgstr ""
+msgstr "Siguiente imagen|Muestra la siguiente imagen de la lista."
 
 #: tfmchximgviewer.actoriginalsize.caption
 msgid "Original Size"
@@ -89,7 +97,7 @@ msgstr "Tamaño original"
 
 #: tfmchximgviewer.actoriginalsize.hint
 msgid "Original Size|Shows image in its original size"
-msgstr ""
+msgstr "Tamaño original|Muestra la imagen a su tamaño original."
 
 #: tfmchximgviewer.actprevious.caption
 msgid "Previous"
@@ -97,39 +105,39 @@ msgstr "Anterior"
 
 #: tfmchximgviewer.actprevious.hint
 msgid "Previous Image|Show previous image in the list"
-msgstr ""
+msgstr "Anterior imagen|Muestra la imagen anterior en la lista."
 
 #: tfmchximgviewer.actshowfilelist.caption
 msgid "Shows file list"
-msgstr ""
+msgstr "Muestra la lista de ficheros."
 
 #: tfmchximgviewer.actshowfilelist.hint
 msgid "Show file list.|Shows the of files"
-msgstr ""
+msgstr "Mostrar lista de ficheros.|Muestra la lista de ficheros."
 
 #: tfmchximgviewer.actstretch.caption
 msgid "Stretch"
-msgstr ""
+msgstr "Adaptar"
 
 #: tfmchximgviewer.actstretch.hint
 msgid "Strech Image|Resizes the image to the window"
-msgstr ""
+msgstr "Adaptar la imagen|Redimensiona la imagen al tamaño de la ventana."
 
 #: tfmchximgviewer.actzoomin.caption
 msgid "Zoom In"
-msgstr ""
+msgstr "Aumentar"
 
 #: tfmchximgviewer.actzoomin.hint
 msgid "Zoom In|Zooms in the image (x2)"
-msgstr ""
+msgstr "Aumentar|Aumenta la imagen (x2)"
 
 #: tfmchximgviewer.actzoomout.caption
 msgid "Zoom Out"
-msgstr ""
+msgstr "Encoger"
 
 #: tfmchximgviewer.actzoomout.hint
 msgid "Zoom Out|Zooms out the image (/2)"
-msgstr ""
+msgstr "Encoger|Encoge la imagen (/2)"
 
 #: tfmchximgviewer.bsep1.caption
 msgctxt "tfmchximgviewer.bsep1.caption"
@@ -148,11 +156,11 @@ msgstr ""
 #: tfmchximgviewer.mclose.caption
 msgctxt "tfmchximgviewer.mclose.caption"
 msgid "Close"
-msgstr ""
+msgstr "Cerrar"
 
 #: tfmchximgviewer.mclose.hint
 msgid "Close the window (Dbl Click)"
-msgstr ""
+msgstr "Cierra la ventana (Dbl Click)"
 
 #: tfmchximgviewer.tbimage.caption
 msgid "tbImage"
@@ -160,39 +168,39 @@ msgstr ""
 
 #: tfmchxlistpreview.actfirstitem.caption
 msgid "First item"
-msgstr ""
+msgstr "Primer elemento"
 
 #: tfmchxlistpreview.actfirstitem.hint
 msgid "Go to first item"
-msgstr ""
+msgstr "Ir al primer elemento."
 
 #: tfmchxlistpreview.actlastitem.caption
 msgid "Last item"
-msgstr ""
+msgstr "Último elemento"
 
 #: tfmchxlistpreview.actlastitem.hint
 msgid "Go to last item."
-msgstr ""
+msgstr "Ir al último elemento."
 
 #: tfmchxlistpreview.actnextitem.caption
 msgid "Next item"
-msgstr ""
+msgstr "Siguiente elemento"
 
 #: tfmchxlistpreview.actnextitem.hint
 msgid "Go to next item."
-msgstr ""
+msgstr "Ir al siguiente elemento."
 
 #: tfmchxlistpreview.actpreviousitem.caption
 msgid "Previous item"
-msgstr ""
+msgstr "Anterior elemento"
 
 #: tfmchxlistpreview.actpreviousitem.hint
 msgid "Go to previous item."
-msgstr ""
+msgstr "Ir al elemento anterior."
 
 #: tfmchxlistpreview.lmaxitems.caption
 msgid "/ 0"
-msgstr ""
+msgstr "/ 0"
 
 #: tfmchxlistpreview.tbpreviewlist.caption
 msgid "tbPreviewList"
@@ -210,23 +218,23 @@ msgstr ""
 
 #: tfmchxmultifoldereditor.actaddfolder.caption
 msgid "Add folder"
-msgstr ""
+msgstr "Añadir carpeta"
 
 #: tfmchxmultifoldereditor.actdeletefolder.caption
 msgid "Delete folder"
-msgstr ""
+msgstr "Borrar carpeta"
 
 #: tfmchxmultifoldereditor.actfolderdown.caption
 msgid "Move folder down"
-msgstr ""
+msgstr "Mover carpeta abajo"
 
 #: tfmchxmultifoldereditor.actfolderup.caption
 msgid "Move folder up"
-msgstr ""
+msgstr "Mover carpeta arriba"
 
 #: tfmchxmultifoldereditor.actupdatefolder.caption
 msgid "Update folder"
-msgstr ""
+msgstr "Actualizar carperta"
 
 #: tfmchxmultifoldereditor.tbimagefolderbuttons.caption
 msgid "tbImageFolderButtons"
@@ -235,54 +243,54 @@ msgstr ""
 #: tfmchxprogressbar.actcancel.caption
 msgctxt "tfmchxprogressbar.actcancel.caption"
 msgid "Cancel"
-msgstr ""
+msgstr "CAncelar"
 
 #: tfmchxprogressbar.actupdate100.caption
 msgid "Update = 100 ms"
-msgstr ""
+msgstr "Actualizar cada 100ms"
 
 #: tfmchxprogressbar.actupdate1000.caption
 msgid "Update = 1 s"
-msgstr ""
+msgstr "Actualizar cada 1s"
 
 #: tfmchxprogressbar.actupdate250.caption
 msgid "Update = 250 ms"
-msgstr ""
+msgstr "Actualizar cada 250ms"
 
 #: tfmchxprogressbar.actupdate500.caption
 msgid "Update = 500 ms"
-msgstr ""
+msgstr "Actualizar cada 500ms"
 
 #: tfmchxprogressbar.mipbupdatefrecuency.caption
 msgid "Update frecuency"
-msgstr ""
+msgstr "Frecuencia de actualización"
 
 #: tfmchxpropeditor.actframecancel.caption
 msgctxt "tfmchxpropeditor.actframecancel.caption"
 msgid "Cancel"
-msgstr ""
+msgstr "Cancelar"
 
 #: tfmchxpropeditor.actframeok.caption
 msgctxt "tfmchxpropeditor.actframeok.caption"
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: tfmchxpropeditor.chkcloseonsave.caption
 msgctxt "tfmchxpropeditor.chkcloseonsave.caption"
 msgid "Close"
-msgstr ""
+msgstr "Cerrar"
 
 #: tfmchxscriptmanager.actcompile.caption
 msgid "Syntax check"
-msgstr ""
+msgstr "Comprobar sintaxis"
 
 #: tfmchxscriptmanager.actcompile.hint
 msgid "Checks the script syntax (actually tries to compile)"
-msgstr ""
+msgstr "Comprueba la sitaxis del script (Realmente lo intenta compilar)."
 
 #: tfmchxscriptmanager.acteditcopy.caption
 msgid "&Copiar"
-msgstr ""
+msgstr "&Copiar"
 
 #: tfmchxscriptmanager.acteditcopy.hint
 msgid "Copiar"
@@ -322,7 +330,7 @@ msgstr ""
 
 #: tfmchxscriptmanager.actexecute.caption
 msgid "Execute"
-msgstr ""
+msgstr "Ejecutar"
 
 #: tfmchxscriptmanager.actfileopenfolder.caption
 msgid "Open folder in Explorer"
@@ -495,7 +503,7 @@ msgstr ""
 
 #: tfmemutecaactaddfolder.chknozip.caption
 msgid "Don't search inside compressed archives"
-msgstr ""
+msgstr "No buscar dentro de archivos comprimidos."
 
 #: tfmemutecaactaddfolder.chknozip.hint
 msgid "Check it for MAME speedup"
@@ -503,20 +511,20 @@ msgstr ""
 
 #: tfmemutecaactaddfolder.chksubfolders.caption
 msgid "Search in subfolders"
-msgstr ""
+msgstr "Buscar en subcarpetas"
 
 #: tfmemutecaactaddfolder.gbxfolder.caption
 msgid "Select folder"
-msgstr ""
+msgstr "Seleccionar carpeta"
 
 #: tfmemutecaactaddfolder.gbxselectsystem.caption
 msgctxt "tfmemutecaactaddfolder.gbxselectsystem.caption"
 msgid "Select a System"
-msgstr ""
+msgstr "Seleciona un sistema"
 
 #: tfmemutecaactaddfolder.gbxsysinfo.caption
 msgid "System Info"
-msgstr ""
+msgstr "Información del sistema"
 
 #: tfmemutecaactaddfolder.lsystemexportkey.caption
 msgid "System export key"
@@ -528,40 +536,41 @@ msgstr ""
 
 #: tfmemutecaactaddfolder.rgbfilename.caption
 msgid "If duplicate file found..."
-msgstr ""
+msgstr "Si se encuentra un fichero duplicado..."
 
 #: tfmemutecaactaddfolder.rgbgroup.caption
 msgid "Group by"
-msgstr ""
+msgstr "Agrupar por"
 
 #: tfmemutecaactaddsoft.actaddnewgroup.caption
 msgid "Add new group..."
-msgstr ""
+msgstr "Añadir un nuevo grupo..."
 
 #: tfmemutecaactaddsoft.chkopenasarchive.caption
 msgid "Open as compressed archive"
-msgstr ""
+msgstr "Abrir como un archivo comprimido"
 
 #: tfmemutecaactaddsoft.gbxduplicates.caption
 msgid "Duplicates"
-msgstr ""
+msgstr "Duplicados"
 
 #: tfmemutecaactaddsoft.gbxfileselection.caption
 msgid "Select a file"
-msgstr ""
+msgstr "Selecciona un fichero"
 
 #: tfmemutecaactaddsoft.gbxgroup.caption
 msgid "Group info"
-msgstr ""
+msgstr "Información del grupo"
 
 #: tfmemutecaactaddsoft.gbxselectsystem.caption
+#, fuzzy
 msgctxt "tfmemutecaactaddsoft.gbxselectsystem.caption"
 msgid "Select a System"
-msgstr ""
+msgstr "Seleciona un sistema"
 
 #: tfmemutecaactaddsoft.gbxsoftinfo.caption
 msgid "Software Info"
-msgstr ""
+msgstr "Informción del software"
 
 #: tfmemutecaactaddsoft.lcompressederror.caption
 msgctxt "tfmemutecaactaddsoft.lcompressederror.caption"
@@ -575,11 +584,11 @@ msgstr ""
 
 #: tfmemutecaactaddsoft.lsysteminfo.caption
 msgid "Supported Extensions"
-msgstr ""
+msgstr "Extensiones soportadas"
 
 #: tfmemutecaactaddsoft.rgbsoftkey.caption
 msgid "Soft Key"
-msgstr ""
+msgstr "Clave del software"
 
 #: tfmemutecaactexportsoftdata.gbxexportfile.caption
 #, fuzzy
@@ -607,7 +616,7 @@ msgstr "Tipo de identificación del soft"
 
 #: tfmemutecaactimportsoftdata.gbximportfile.caption
 msgid "Import file"
-msgstr ""
+msgstr "Importar fichero"
 
 #: tfmemutecaactimportsoftdata.gbxsysteminfo.caption
 #, fuzzy
@@ -623,96 +632,96 @@ msgstr "Tipo de identificación del soft"
 
 #: tfmemutecaemulatoreditor.actopenwebpage.caption
 msgid "Open Webpage"
-msgstr ""
+msgstr "Abrir página web"
 
 #: tfmemutecaemulatoreditor.actparamromdir.caption
 msgid "ROM Folder"
-msgstr ""
+msgstr "Carpeta de la ROM"
 
 #: tfmemutecaemulatoreditor.actparamromextra.caption
 msgid "ROM Extra parameters"
-msgstr ""
+msgstr "Parámetros extra de la ROM"
 
 #: tfmemutecaemulatoreditor.actparamromextra.hint
 msgid "Add extra parameter from ROM info."
-msgstr ""
+msgstr "Añade los parámetros extra de la información de la ROM"
 
 #: tfmemutecaemulatoreditor.actparamromfileextension.caption
 msgid "ROM File extension"
-msgstr ""
+msgstr "Extensión de la ROM"
 
 #: tfmemutecaemulatoreditor.actparamromfilename.caption
 msgid "ROM Filename"
-msgstr ""
+msgstr "Nombre del fichero de la ROM"
 
 #: tfmemutecaemulatoreditor.actparamromfilenoext.caption
 msgid "ROM Filename no extension"
-msgstr ""
+msgstr "Nombre del fichero (sin extensión) de la ROM"
 
 #: tfmemutecaemulatoreditor.actparamrompath.caption
 msgid "ROM Full path"
-msgstr ""
+msgstr "Ruta completa de la ROM"
 
 #: tfmemutecaemulatoreditor.actwfemulator.caption
 msgid "Emulator folder"
-msgstr ""
+msgstr "Carpeta del emulador"
 
 #: tfmemutecaemulatoreditor.actwfemuteca.caption
 msgid "Emuteca folder"
-msgstr ""
+msgstr "Carpeta de Emuteca"
 
 #: tfmemutecaemulatoreditor.actwfrom.caption
 msgid "ROM folder"
-msgstr ""
+msgstr "Carpeta de la ROM"
 
 #: tfmemutecaemulatoreditor.gbxadvanced.caption
 msgid "Advanced"
-msgstr ""
+msgstr "Avanzado"
 
 #: tfmemutecaemulatoreditor.gbxbasic.caption
 msgid "Basic configuration"
-msgstr ""
+msgstr "Configuración básica"
 
 #: tfmemutecaemulatoreditor.ldeveloper.caption
 msgctxt "tfmemutecaemulatoreditor.ldeveloper.caption"
 msgid "Developer"
-msgstr ""
+msgstr "Desarrollador"
 
 #: tfmemutecaemulatoreditor.lexepath.caption
 msgid "Exe path"
-msgstr ""
+msgstr "Ruta del ejecutable"
 
 #: tfmemutecaemulatoreditor.lexitcode.caption
 msgid "Exit code"
-msgstr ""
+msgstr "Código de salida"
 
 #: tfmemutecaemulatoreditor.lextensions.caption
 msgid "Extensions"
-msgstr ""
+msgstr "Extensiones"
 
 #: tfmemutecaemulatoreditor.lextraparameters.caption
 msgid "Extra software parameters"
-msgstr ""
+msgstr "Parámetros extra del software"
 
 #: tfmemutecaemulatoreditor.lid.caption
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #: tfmemutecaemulatoreditor.lname.caption
 msgid "Name"
-msgstr ""
+msgstr "Nombre"
 
 #: tfmemutecaemulatoreditor.lparameters.caption
 msgid "Parameters"
-msgstr ""
+msgstr "Parámetros"
 
 #: tfmemutecaemulatoreditor.lwebpage.caption
 msgid "WebPage"
-msgstr ""
+msgstr "Página web"
 
 #: tfmemutecaemulatoreditor.lworkingfolder.caption
 msgid "Working folder"
-msgstr ""
+msgstr "Carpeta de trabajo"
 
 #: tfmemutecaemulatoreditor.pmiwfemuteca.caption
 msgid "MenuItem1"
@@ -720,181 +729,203 @@ msgstr ""
 
 #: tfmemutecagroupeditor.edeveloper.hint
 msgid "Developer of the software."
-msgstr ""
+msgstr "Desarrollador del software"
 
 #: tfmemutecagroupeditor.emediafile.hint
 msgid "Filename for searching media."
-msgstr ""
+msgstr "Nombre de fichero para buscar medios"
 
 #: tfmemutecagroupeditor.emediafile.texthint
 msgid "Media filename"
-msgstr ""
+msgstr "Nombre de medio"
 
 #: tfmemutecagroupeditor.esorttitle.hint
 msgid "Title used for sorting."
-msgstr ""
+msgstr "Título usado para ordenar"
 
 #: tfmemutecagroupeditor.esorttitle.texthint
 msgid "Sort title (Empty = Title)"
-msgstr ""
+msgstr "Título de ordenación (Vacío = Título)"
 
 #: tfmemutecagroupeditor.etitle.hint
 msgid "Title of the group."
-msgstr ""
+msgstr "Título del grupo."
 
 #: tfmemutecagroupeditor.etitle.texthint
 msgctxt "tfmemutecagroupeditor.etitle.texthint"
 msgid "Title"
-msgstr ""
+msgstr "Título"
 
 #: tfmemutecagroupeditor.eyear.hint
 msgid "Date of development."
-msgstr ""
+msgstr "Fecha de desarrollo."
 
 #: tfmemutecagroupeditor.eyear.texthint
 msgid "Date YYYY/MM/DD"
-msgstr ""
+msgstr "Fecha AAAA/MM/DD"
 
 #: tfmemutecasofteditor.esortkey.texthint
 msgid "Sort Key (Empty = TranslitTitle)"
-msgstr ""
+msgstr "Clave de ordenación (Vacío = Trasliteración del título)"
 
 #: tfmemutecasofteditor.etitle.texthint
 msgid "Title  (Empty = Group Title)"
-msgstr ""
+msgstr "Título (Vacío = Título del grupo)"
 
 #: tfmemutecasofteditor.etranslated.texthint
 msgid "ISO 639-1 code"
-msgstr ""
+msgstr "Codigo ISO 639-1"
 
 #: tfmemutecasofteditor.etranstitle.texthint
 msgid "Transliterated Title (Empty = Title)"
-msgstr ""
+msgstr "Trasliteración del título (Vacío = Título)"
 
 #: tfmemutecasofteditor.eyear.texthint
 msgid "YYYY/MM/DD"
-msgstr ""
+msgstr "AAAA/MM/DD"
 
 #: tfmemutecasofteditor.ezone.texthint
 msgid "ISO3166-1 alpha-2"
-msgstr ""
+msgstr "Código ISO3166-1 alpha-2"
 
 #: tfmemutecasofteditor.gbxdumptags.caption
 msgid "Dump Tags"
-msgstr ""
+msgstr "Etiquetas de la copia"
 
 #: tfmemutecasofteditor.gbxextraparameters.caption
 msgid "Extra parameters"
-msgstr ""
+msgstr "Parámetros extra"
 
 #: tfmemutecasofteditor.gbxversion.caption
 msgid "Version info"
-msgstr ""
+msgstr "Infrmación de la versión"
 
 #: tfmemutecasofteditor.lcracked.caption
 msgid "Cracked"
-msgstr ""
+msgstr "Crakeado"
 
 #: tfmemutecasofteditor.ldumpinfo.caption
 msgid "Dump info"
-msgstr ""
+msgstr "Información del copiado"
 
 #: tfmemutecasofteditor.ldumptype.caption
 msgid "Dump type"
-msgstr ""
+msgstr "Tipo de copiado"
 
 #: tfmemutecasofteditor.lfixed.caption
 msgid "Fixed"
-msgstr ""
+msgstr "Arreglado"
 
 #: tfmemutecasofteditor.lhack.caption
 msgid "Hack"
-msgstr ""
+msgstr "Hackeado"
 
 #: tfmemutecasofteditor.lmodified.caption
 msgid "Modified"
-msgstr ""
+msgstr "Modificado"
 
 #: tfmemutecasofteditor.lpirate.caption
 msgid "Pirate"
-msgstr ""
+msgstr "Pirata"
 
 #: tfmemutecasofteditor.lpublisher.caption
 msgctxt "tfmemutecasofteditor.lpublisher.caption"
 msgid "Publisher"
-msgstr ""
+msgstr "Publicador"
 
 #: tfmemutecasofteditor.ltrainer.caption
 msgid "Trainer"
-msgstr ""
+msgstr "Con trucos"
 
 #: tfmemutecasofteditor.ltranslated.caption
 msgid "Fan Translated"
-msgstr ""
+msgstr "Traducción amateur"
 
 #: tfmemutecasofteditor.lversion.caption
 msgctxt "tfmemutecasofteditor.lversion.caption"
 msgid "Version"
-msgstr ""
+msgstr "Versión"
 
 #: tfmemutecasofteditor.lyear.caption
 msgctxt "tfmemutecasofteditor.lyear.caption"
 msgid "Year"
-msgstr ""
+msgstr "Año"
 
 #: tfmemutecasofteditor.lzone.caption
 msgid "Zone"
+msgstr "Zona"
+
+#: tfmemutecasoftimgpreview.actaddimagefromclpbrd.caption
+#, fuzzy
+msgctxt "tfmemutecasoftimgpreview.actaddimagefromclpbrd.caption"
+msgid "Add image from Clipboard..."
+msgstr "Añadir imagen del portapapeles..."
+
+#: tfmemutecasoftimgpreview.actdeleteimage.caption
+msgid "Delete current image"
+msgstr ""
+
+#: tfmemutecasoftimgpreview.actreplaceimagefromclpbrd.caption
+msgid "Replace with image from Clipboard"
 msgstr ""
 
 #: tfmemutecasofttree.vdt.header.columns[0].text
 msgctxt "tfmemutecasofttree.vdt.header.columns[0].text"
 msgid "System"
-msgstr ""
+msgstr "Sistema"
 
 #: tfmemutecasofttree.vdt.header.columns[10].text
 msgctxt "tfmemutecasofttree.vdt.header.columns[10].text"
 msgid "Folder"
-msgstr ""
+msgstr "Carpeta"
 
 #: tfmemutecasofttree.vdt.header.columns[1].text
 msgctxt "tfmemutecasofttree.vdt.header.columns[1].text"
 msgid "Title"
-msgstr ""
+msgstr "Título"
 
 #: tfmemutecasofttree.vdt.header.columns[2].text
 msgctxt "tfmemutecasofttree.vdt.header.columns[2].text"
 msgid "Version"
-msgstr ""
+msgstr "Versión"
 
 #: tfmemutecasofttree.vdt.header.columns[3].text
 msgid "Dev. / Publ."
-msgstr ""
+msgstr "Des. / Publ."
 
 #: tfmemutecasofttree.vdt.header.columns[4].text
 msgctxt "tfmemutecasofttree.vdt.header.columns[4].text"
 msgid "Year"
-msgstr ""
+msgstr "Año"
 
 #: tfmemutecasofttree.vdt.header.columns[5].text
 msgid "Flags"
-msgstr ""
+msgstr "Etiquetas"
 
 #: tfmemutecasofttree.vdt.header.columns[6].text
 msgid "Times Played"
-msgstr ""
+msgstr "Veces jugado"
 
 #: tfmemutecasofttree.vdt.header.columns[7].text
 msgid "Playing Time"
-msgstr ""
+msgstr "Tiempo empleado"
 
 #: tfmemutecasofttree.vdt.header.columns[8].text
 msgid "Last Time"
-msgstr ""
+msgstr "Última vez"
 
 #: tfmemutecasofttree.vdt.header.columns[9].text
 msgctxt "tfmemutecasofttree.vdt.header.columns[9].text"
 msgid "File"
-msgstr ""
+msgstr "Fichero"
+
+#: tfmemutecasofttxtpreview.actlocktext.caption
+msgid "Lock text"
+msgstr "Bloquear texto"
+
+#: tfmemutecasofttxtpreview.actsavefile.caption
+msgid "Save file"
+msgstr "Guardar fichero"
 
 #: tfmemutecasystemeditor.chkextractallfiles.caption
 msgid "Extract All Files (If it's in compressed)"
@@ -910,150 +941,158 @@ msgstr ""
 
 #: tfmemutecasystemeditor.gbxemulators.caption
 msgid "Emulators"
-msgstr ""
+msgstr "Emuladores"
 
 #: tfmemutecasystemeditor.gbxfiles.caption
 msgid "Files"
-msgstr ""
+msgstr "Archivos"
 
 #: tfmemutecasystemeditor.lbasefolder.caption
 msgid "System base folder"
-msgstr ""
+msgstr "Carpeta base del sistema"
 
 #: tfmemutecasystemeditor.lfileextensions.caption
 msgid "File Extensions"
-msgstr ""
+msgstr "Extensiones de fichero"
 
 #: tfmemutecasystemeditor.lfilename.caption
 msgid "Default filename"
-msgstr ""
+msgstr "Nombre de fichero por defecto"
 
 #: tfmemutecasystemeditor.lmainemulator.caption
 msgid "Main Emulator"
-msgstr ""
+msgstr "Emulador principal"
 
 #: tfmemutecasystemeditor.lotheremulators.caption
 msgid "Other Emulators"
-msgstr ""
+msgstr "Otros emuladores"
 
 #: tfmemutecasystemeditor.ltitle.caption
 msgctxt "tfmemutecasystemeditor.ltitle.caption"
 msgid "Title"
-msgstr ""
+msgstr "Título"
 
 #: tfmemutecasystemeditor.lworkingfolder.caption
 msgid "Working Folder"
-msgstr ""
+msgstr "Carpeta de trabajo"
 
 #: tfmemutecasystemeditor.rgbgamekey.caption
 msgid "Key for Games"
-msgstr ""
+msgstr "Clave para juegos"
 
 #: tfmemutecasystemimgeditor.gbxiconfolder.caption
 msgctxt "tfmemutecasystemimgeditor.gbxiconfolder.caption"
 msgid "Software icons"
-msgstr ""
+msgstr "Iconos del software"
 
 #: tfmemutecasystemimgeditor.gbximages.caption
 msgctxt "tfmemutecasystemimgeditor.gbximages.caption"
 msgid "System images"
-msgstr ""
+msgstr "Imágenes del sistema"
 
 #: tfmemutecasystemimgeditor.gbxsystembg.caption
 msgctxt "tfmemutecasystemimgeditor.gbxsystembg.caption"
 msgid "System background"
-msgstr ""
+msgstr "Fondo de sistema"
 
 #: tfmemutecasystemimgeditor.gbxsystemicon.caption
 msgctxt "tfmemutecasystemimgeditor.gbxsystemicon.caption"
 msgid "System icon"
-msgstr ""
+msgstr "Icono del sistema"
 
 #: tfmemutecasystemimgeditor.gbxsystemicons.caption
 msgctxt "tfmemutecasystemimgeditor.gbxsystemicons.caption"
 msgid "System Icons"
-msgstr ""
+msgstr "Iconos del sistema"
 
 #: tfmemutecasystemimgeditor.gbxsystemimage.caption
 msgctxt "tfmemutecasystemimgeditor.gbxsystemimage.caption"
 msgid "System image"
-msgstr ""
+msgstr "Imagen del sistema"
 
 #: tfmemutecasystemimgeditor.isystemimage.hint
 msgctxt "tfmemutecasystemimgeditor.isystemimage.hint"
 msgid "System image|DblClk: Open in Image viewer."
-msgstr ""
+msgstr "Imagen del sistema|Dbl Click: Abrir en el visor de imágenes."
 
 #: tfmemutecasystemimgeditor.ldefsofticon.caption
 msgctxt "tfmemutecasystemimgeditor.ldefsofticon.caption"
 msgid "Default soft icon"
-msgstr ""
+msgstr "Icono por defecto para el software"
 
 #: tfmemutecasystemimgeditor.lsofticonfolder.caption
 msgctxt "tfmemutecasystemimgeditor.lsofticonfolder.caption"
 msgid "Software icon folder"
-msgstr ""
+msgstr "Carpeta de iconos del software"
 
 #: tfmemutecasystemitfeditor.gbximagefolders.caption
 msgid "Image Folders"
-msgstr ""
+msgstr "Carpetas de imágenes"
 
 #: tfmemutecasystemitfeditor.gbxtextfolders.caption
 msgid "Text Folders"
-msgstr ""
+msgstr "Carpetas de textos"
 
 #: tfmemutecasystemmvfeditor.gbxmusicfolders.caption
 msgid "Music folders"
-msgstr ""
+msgstr "Carpetas de música"
 
 #: tfmemutecasystemmvfeditor.gbxvideofolders.caption
 msgid "Video folders"
-msgstr ""
+msgstr "Carpetas de vídeos"
 
 #: tfmemutksystemimgeditor.gbxiconfolder.caption
 msgctxt "tfmemutksystemimgeditor.gbxiconfolder.caption"
 msgid "Software icons"
-msgstr ""
+msgstr "Iconos del software"
 
 #: tfmemutksystemimgeditor.gbximages.caption
+#, fuzzy
 msgctxt "tfmemutksystemimgeditor.gbximages.caption"
 msgid "System images"
-msgstr ""
+msgstr "Imágenes del sistema"
 
 #: tfmemutksystemimgeditor.gbxsystembg.caption
+#, fuzzy
 msgctxt "tfmemutksystemimgeditor.gbxsystembg.caption"
 msgid "System background"
-msgstr ""
+msgstr "Fondo de sistema"
 
 #: tfmemutksystemimgeditor.gbxsystemicon.caption
+#, fuzzy
 msgctxt "tfmemutksystemimgeditor.gbxsystemicon.caption"
 msgid "System icon"
-msgstr ""
+msgstr "Icono del sistema"
 
 #: tfmemutksystemimgeditor.gbxsystemicons.caption
+#, fuzzy
 msgctxt "tfmemutksystemimgeditor.gbxsystemicons.caption"
 msgid "System Icons"
-msgstr ""
+msgstr "Iconos del sistema"
 
 #: tfmemutksystemimgeditor.gbxsystemimage.caption
+#, fuzzy
 msgctxt "tfmemutksystemimgeditor.gbxsystemimage.caption"
 msgid "System image"
-msgstr ""
+msgstr "Imagen del sistema"
 
 #: tfmemutksystemimgeditor.isystemimage.hint
+#, fuzzy
 msgctxt "tfmemutksystemimgeditor.isystemimage.hint"
 msgid "System image|DblClk: Open in Image viewer."
-msgstr ""
+msgstr "Imagen del sistema|Dbl Click: Abrir en el visor de imágenes."
 
 #: tfmemutksystemimgeditor.ldefsofticon.caption
+#, fuzzy
 msgctxt "tfmemutksystemimgeditor.ldefsofticon.caption"
 msgid "Default soft icon"
-msgstr ""
+msgstr "Icono por defecto para el software"
 
 #: tfmemutksystemimgeditor.lsofticonfolder.caption
+#, fuzzy
 msgctxt "tfmemutksystemimgeditor.lsofticonfolder.caption"
 msgid "Software icon folder"
-msgstr ""
+msgstr "Carpeta de iconos del software"
 
 #: tfmetkguifullemueditor.actopenemulatorfolder.caption
 msgid "Open emulator folder"
@@ -1067,31 +1106,31 @@ msgstr ""
 #: tfmetkguifullsofteditor.actaddnewgroup.caption
 msgctxt "tfmetkguifullsofteditor.actaddnewgroup.caption"
 msgid "Add new group"
-msgstr ""
+msgstr "Añadir un nuevo grupo"
 
 #: tfmetkguifullsofteditor.baddnewgroup.hint
 msgctxt "tfmetkguifullsofteditor.baddnewgroup.hint"
 msgid "Add new group"
-msgstr ""
+msgstr "Añadir un nuevo grupo"
 
 #: tfmetkguifullsofteditor.gbxgroup.caption
 msgctxt "tfmetkguifullsofteditor.gbxgroup.caption"
 msgid "Group"
-msgstr ""
+msgstr "Grupo"
 
 #: tfmetkguifullsofteditor.gbxsoft.caption
 msgctxt "tfmetkguifullsofteditor.gbxsoft.caption"
 msgid "Software"
-msgstr ""
+msgstr "Software"
 
 #: tfmetkguifullsystemeditor.actcreatefolders.caption
 msgid "Create Folders"
-msgstr ""
+msgstr "Crear carpetas"
 
 #: tfmetkguifullsystemeditor.actopensystemfolder.caption
 msgctxt "tfmetkguifullsystemeditor.actopensystemfolder.caption"
 msgid "Open system folder"
-msgstr ""
+msgstr "Abrir la carpeta del sistema"
 
 #: tfmetkguifullsystemeditor.toolbar1.caption
 msgctxt "tfmetkguifullsystemeditor.toolbar1.caption"
@@ -1110,47 +1149,47 @@ msgstr ""
 
 #: tfmetkguimain.esearch.texthint
 msgid "Filter by name..."
-msgstr ""
+msgstr "Filtrar por nombre..."
 
 #: tfmetkguimediamanager.actassignfile.caption
 msgctxt "tfmetkguimediamanager.actassignfile.caption"
 msgid "Assign file"
-msgstr ""
+msgstr "Asignar fichero"
 
 #: tfmetkguimediamanager.actdeleteallfiles.caption
 msgctxt "tfmetkguimediamanager.actdeleteallfiles.caption"
 msgid "Delete all files"
-msgstr ""
+msgstr "Borrar todos los fichero"
 
 #: tfmetkguimediamanager.actdeletefile.caption
 msgctxt "tfmetkguimediamanager.actdeletefile.caption"
 msgid "Delete file"
-msgstr ""
+msgstr "Borrar fichero"
 
 #: tfmetkguimediamanager.actmoveallfiles.caption
 msgctxt "tfmetkguimediamanager.actmoveallfiles.caption"
 msgid "Move all files..."
-msgstr ""
+msgstr "Mover todos los fichero..."
 
 #: tfmetkguimediamanager.actmovefile.caption
 msgctxt "tfmetkguimediamanager.actmovefile.caption"
 msgid "Move file..."
-msgstr ""
+msgstr "Mover fichero..."
 
 #: tfmetkguimediamanager.actrenamegroupfile.caption
 msgctxt "tfmetkguimediamanager.actrenamegroupfile.caption"
 msgid "Rename group file..."
-msgstr ""
+msgstr "Renombra el fichero del grupo..."
 
 #: tfmetkguimediamanager.actrenamegroupfilewithfilename.caption
 msgctxt "tfmetkguimediamanager.actrenamegroupfilewithfilename.caption"
 msgid "Rename group file with current File"
-msgstr ""
+msgstr "Renombrar el fichero del grupo con el fichero actual"
 
 #: tfmetkguimediamanager.actrenamegrouptitle.caption
 msgctxt "tfmetkguimediamanager.actrenamegrouptitle.caption"
 msgid "Rename group title..."
-msgstr ""
+msgstr "Renombrar el grupo..."
 
 #: tfmetkguimediamanager.actrenamegrouptitlewithfilename.caption
 msgctxt "tfmetkguimediamanager.actrenamegrouptitlewithfilename.caption"
@@ -1193,9 +1232,10 @@ msgid "Source"
 msgstr ""
 
 #: tfmetkguimediamanager.gbxsystem.caption
+#, fuzzy
 msgctxt "tfmetkguimediamanager.gbxsystem.caption"
 msgid "System"
-msgstr ""
+msgstr "Sistema"
 
 #: tfmetkguimediamanager.gbxtarget.caption
 msgctxt "tfmetkguimediamanager.gbxtarget.caption"
@@ -1270,72 +1310,72 @@ msgstr ""
 #: tfmetkguimediamanager.vstfilesall.header.columns[0].text
 msgctxt "tfmetkguimediamanager.vstfilesall.header.columns[0].text"
 msgid "Filename"
-msgstr ""
+msgstr "Fichero"
 
 #: tfmetkguimediamanager.vstfilesall.header.columns[1].text
 msgctxt "tfmetkguimediamanager.vstfilesall.header.columns[1].text"
 msgid "Extension"
-msgstr ""
+msgstr "Extensión"
 
 #: tfmetkguimediamanager.vstfilesotherext.header.columns[0].text
 msgctxt "tfmetkguimediamanager.vstfilesotherext.header.columns[0].text"
 msgid "Filename"
-msgstr ""
+msgstr "Fichero"
 
 #: tfmetkguimediamanager.vstfilesotherext.header.columns[1].text
 msgctxt "tfmetkguimediamanager.vstfilesotherext.header.columns[1].text"
 msgid "Extension"
-msgstr ""
+msgstr "Extensión"
 
 #: tfmetkguimediamanager.vstfilesotherfolder.header.columns[0].text
 msgctxt "tfmetkguimediamanager.vstfilesotherfolder.header.columns[0].text"
 msgid "Filename"
-msgstr ""
+msgstr "Fichero"
 
 #: tfmetkguimediamanager.vstfilesotherfolder.header.columns[1].text
 msgctxt "tfmetkguimediamanager.vstfilesotherfolder.header.columns[1].text"
 msgid "Extension"
-msgstr ""
+msgstr "Extensión"
 
 #: tfmetkguimediamanager.vstfileswogroup.header.columns[0].text
 msgctxt "tfmetkguimediamanager.vstfileswogroup.header.columns[0].text"
 msgid "Filename"
-msgstr ""
+msgstr "Fichero"
 
 #: tfmetkguimediamanager.vstfileswogroup.header.columns[1].text
 msgctxt "tfmetkguimediamanager.vstfileswogroup.header.columns[1].text"
 msgid "Extension"
-msgstr ""
+msgstr "Extensión"
 
 #: tfmetkguimediamanager.vstfileswosoft.header.columns[0].text
 msgctxt "tfmetkguimediamanager.vstfileswosoft.header.columns[0].text"
 msgid "Filename"
-msgstr ""
+msgstr "Fichero"
 
 #: tfmetkguimediamanager.vstfileswosoft.header.columns[1].text
 msgctxt "tfmetkguimediamanager.vstfileswosoft.header.columns[1].text"
 msgid "Extension"
-msgstr ""
+msgstr "Extensión"
 
 #: tfmetkguimediamanager.vstgroupsall.header.columns[0].text
 msgctxt "tfmetkguimediamanager.vstgroupsall.header.columns[0].text"
 msgid "Group"
-msgstr ""
+msgstr "Grupo"
 
 #: tfmetkguimediamanager.vstgroupsall.header.columns[1].text
 msgctxt "tfmetkguimediamanager.vstgroupsall.header.columns[1].text"
 msgid "File"
-msgstr ""
+msgstr "Fichero"
 
 #: tfmetkguimediamanager.vstgroupswofile.header.columns[0].text
 msgctxt "tfmetkguimediamanager.vstgroupswofile.header.columns[0].text"
 msgid "Group"
-msgstr ""
+msgstr "Grupo"
 
 #: tfmetkguimediamanager.vstgroupswofile.header.columns[1].text
 msgctxt "tfmetkguimediamanager.vstgroupswofile.header.columns[1].text"
 msgid "File"
-msgstr ""
+msgstr "Fichero"
 
 #: tfmetkguimediamanager.vstsoftall.header.columns[0].text
 msgctxt "tfmetkguimediamanager.vstsoftall.header.columns[0].text"
@@ -1345,27 +1385,31 @@ msgstr ""
 #: tfmetkguimediamanager.vstsoftall.header.columns[1].text
 msgctxt "tfmetkguimediamanager.vstsoftall.header.columns[1].text"
 msgid "Group"
-msgstr ""
+msgstr "Grupo"
 
 #: tfmetkguimediamanager.vstsoftall.header.columns[2].text
 msgctxt "tfmetkguimediamanager.vstsoftall.header.columns[2].text"
 msgid "File"
-msgstr ""
+msgstr "Fichero"
 
 #: tfmetkguimediamanager.vstsoftwofile.header.columns[0].text
 msgctxt "tfmetkguimediamanager.vstsoftwofile.header.columns[0].text"
 msgid "Game"
-msgstr ""
+msgstr "Software"
 
 #: tfmetkguimediamanager.vstsoftwofile.header.columns[1].text
 msgctxt "tfmetkguimediamanager.vstsoftwofile.header.columns[1].text"
 msgid "Group"
-msgstr ""
+msgstr "Grupo"
 
 #: tfmetkguimediamanager.vstsoftwofile.header.columns[2].text
 msgctxt "tfmetkguimediamanager.vstsoftwofile.header.columns[2].text"
 msgid "File"
-msgstr ""
+msgstr "Fichero"
+
+#: tfmetkguisoftimgpreview.gbxpanel.caption
+msgid "Image"
+msgstr "Imagen"
 
 #: tfmetkguisoftmedia.actaddimagepanel.caption
 msgid "Add image panel"
@@ -1400,10 +1444,24 @@ msgctxt "tfmetkguisoftmedia.toolbutton1.caption"
 msgid "ToolButton1"
 msgstr ""
 
+#: tfmetkguisoftmusicpreview.gbxpanel.caption
+msgctxt "tfmetkguisoftmusicpreview.gbxpanel.caption"
+msgid "Music"
+msgstr ""
+
+#: tfmetkguisofttxtpreview.gbxpanel.caption
+msgid "Text"
+msgstr ""
+
+#: tfmetkguisoftvideopreview.gbxpanel.caption
+msgid "Video"
+msgstr ""
+
 #: tfmetkguisyspreview.actopensystemfolder.caption
+#, fuzzy
 msgctxt "tfmetkguisyspreview.actopensystemfolder.caption"
 msgid "Open system folder"
-msgstr ""
+msgstr "Abrir la carpeta del sistema"
 
 #: tfmetkguisyspreview.actopensystemfolder.hint
 msgid "Open system folder|Opens the system base folder"
@@ -1417,17 +1475,17 @@ msgstr ""
 #: tfmetkguisyspreview.eemuntimes.texthint
 msgctxt "tfmetkguisyspreview.eemuntimes.texthint"
 msgid "# Times"
-msgstr ""
+msgstr "Nº de veces"
 
 #: tfmetkguisyspreview.eemuplayedtime.texthint
 msgctxt "tfmetkguisyspreview.eemuplayedtime.texthint"
 msgid "Played Time"
-msgstr ""
+msgstr "Tiempo jugado"
 
 #: tfmetkguisyspreview.esyslasttime.texthint
 msgctxt "tfmetkguisyspreview.esyslasttime.texthint"
 msgid "Last time played"
-msgstr ""
+msgstr "Última vez"
 
 #: tfmetkguisyspreview.esysngroups.texthint
 msgctxt "tfmetkguisyspreview.esysngroups.texthint"
@@ -1440,14 +1498,16 @@ msgid "# Software"
 msgstr ""
 
 #: tfmetkguisyspreview.esysntimes.texthint
+#, fuzzy
 msgctxt "tfmetkguisyspreview.esysntimes.texthint"
 msgid "# Times"
-msgstr ""
+msgstr "Nº de veces"
 
 #: tfmetkguisyspreview.esysplayedtime.texthint
+#, fuzzy
 msgctxt "tfmetkguisyspreview.esysplayedtime.texthint"
 msgid "Played Time"
-msgstr ""
+msgstr "Tiempo jugado"
 
 #: tfmetkguisyspreview.gbxemulator.caption
 msgid "Current emulator"
@@ -1458,9 +1518,10 @@ msgid "Stats"
 msgstr ""
 
 #: tfmetkguisyspreview.lsystemtitle.caption
+#, fuzzy
 msgctxt "tfmetkguisyspreview.lsystemtitle.caption"
 msgid "System"
-msgstr ""
+msgstr "Sistema"
 
 #: tfmetkguisyspreview.toolbar1.caption
 msgctxt "tfmetkguisyspreview.toolbar1.caption"
@@ -1468,44 +1529,52 @@ msgid "ToolBar1"
 msgstr ""
 
 #: tfmlemutkmediamanager.actassignfile.caption
+#, fuzzy
 msgctxt "tfmlemutkmediamanager.actassignfile.caption"
 msgid "Assign file"
-msgstr ""
+msgstr "Asignar fichero"
 
 #: tfmlemutkmediamanager.actdeleteallfiles.caption
+#, fuzzy
 msgctxt "tfmlemutkmediamanager.actdeleteallfiles.caption"
 msgid "Delete all files"
-msgstr ""
+msgstr "Borrar todos los fichero"
 
 #: tfmlemutkmediamanager.actdeletefile.caption
+#, fuzzy
 msgctxt "tfmlemutkmediamanager.actdeletefile.caption"
 msgid "Delete file"
-msgstr ""
+msgstr "Borrar fichero"
 
 #: tfmlemutkmediamanager.actmoveallfiles.caption
+#, fuzzy
 msgctxt "tfmlemutkmediamanager.actmoveallfiles.caption"
 msgid "Move all files..."
-msgstr ""
+msgstr "Mover todos los fichero..."
 
 #: tfmlemutkmediamanager.actmovefile.caption
+#, fuzzy
 msgctxt "tfmlemutkmediamanager.actmovefile.caption"
 msgid "Move file..."
-msgstr ""
+msgstr "Mover fichero..."
 
 #: tfmlemutkmediamanager.actrenamegroupfile.caption
+#, fuzzy
 msgctxt "tfmlemutkmediamanager.actrenamegroupfile.caption"
 msgid "Rename group file..."
-msgstr ""
+msgstr "Renombra el fichero del grupo..."
 
 #: tfmlemutkmediamanager.actrenamegroupfilewithfilename.caption
+#, fuzzy
 msgctxt "tfmlemutkmediamanager.actrenamegroupfilewithfilename.caption"
 msgid "Rename group file with current File"
-msgstr ""
+msgstr "Renombrar el fichero del grupo con el fichero actual"
 
 #: tfmlemutkmediamanager.actrenamegrouptitle.caption
+#, fuzzy
 msgctxt "tfmlemutkmediamanager.actrenamegrouptitle.caption"
 msgid "Rename group title..."
-msgstr ""
+msgstr "Renombrar el grupo..."
 
 #: tfmlemutkmediamanager.actrenamegrouptitlewithfilename.caption
 msgctxt "tfmlemutkmediamanager.actrenamegrouptitlewithfilename.caption"
@@ -1548,9 +1617,10 @@ msgid "Source"
 msgstr ""
 
 #: tfmlemutkmediamanager.gbxsystem.caption
+#, fuzzy
 msgctxt "tfmlemutkmediamanager.gbxsystem.caption"
 msgid "System"
-msgstr ""
+msgstr "Sistema"
 
 #: tfmlemutkmediamanager.gbxtarget.caption
 msgctxt "tfmlemutkmediamanager.gbxtarget.caption"
@@ -1623,84 +1693,100 @@ msgid "Target"
 msgstr ""
 
 #: tfmlemutkmediamanager.vstfilesall.header.columns[0].text
+#, fuzzy
 msgctxt "tfmlemutkmediamanager.vstfilesall.header.columns[0].text"
 msgid "Filename"
-msgstr ""
+msgstr "Fichero"
 
 #: tfmlemutkmediamanager.vstfilesall.header.columns[1].text
+#, fuzzy
 msgctxt "tfmlemutkmediamanager.vstfilesall.header.columns[1].text"
 msgid "Extension"
-msgstr ""
+msgstr "Extensión"
 
 #: tfmlemutkmediamanager.vstfilesotherext.header.columns[0].text
+#, fuzzy
 msgctxt "tfmlemutkmediamanager.vstfilesotherext.header.columns[0].text"
 msgid "Filename"
-msgstr ""
+msgstr "Fichero"
 
 #: tfmlemutkmediamanager.vstfilesotherext.header.columns[1].text
+#, fuzzy
 msgctxt "tfmlemutkmediamanager.vstfilesotherext.header.columns[1].text"
 msgid "Extension"
-msgstr ""
+msgstr "Extensión"
 
 #: tfmlemutkmediamanager.vstfilesotherfolder.header.columns[0].text
+#, fuzzy
 msgctxt "tfmlemutkmediamanager.vstfilesotherfolder.header.columns[0].text"
 msgid "Filename"
-msgstr ""
+msgstr "Fichero"
 
 #: tfmlemutkmediamanager.vstfilesotherfolder.header.columns[1].text
+#, fuzzy
 msgctxt "tfmlemutkmediamanager.vstfilesotherfolder.header.columns[1].text"
 msgid "Extension"
-msgstr ""
+msgstr "Extensión"
 
 #: tfmlemutkmediamanager.vstfileswogroup.header.columns[0].text
+#, fuzzy
 msgctxt "tfmlemutkmediamanager.vstfileswogroup.header.columns[0].text"
 msgid "Filename"
-msgstr ""
+msgstr "Fichero"
 
 #: tfmlemutkmediamanager.vstfileswogroup.header.columns[1].text
+#, fuzzy
 msgctxt "tfmlemutkmediamanager.vstfileswogroup.header.columns[1].text"
 msgid "Extension"
-msgstr ""
+msgstr "Extensión"
 
 #: tfmlemutkmediamanager.vstfileswosoft.header.columns[0].text
+#, fuzzy
 msgctxt "tfmlemutkmediamanager.vstfileswosoft.header.columns[0].text"
 msgid "Filename"
-msgstr ""
+msgstr "Fichero"
 
 #: tfmlemutkmediamanager.vstfileswosoft.header.columns[1].text
+#, fuzzy
 msgctxt "tfmlemutkmediamanager.vstfileswosoft.header.columns[1].text"
 msgid "Extension"
-msgstr ""
+msgstr "Extensión"
 
 #: tfmlemutkmediamanager.vstgroupsall.header.columns[0].text
+#, fuzzy
 msgctxt "tfmlemutkmediamanager.vstgroupsall.header.columns[0].text"
 msgid "Group"
-msgstr ""
+msgstr "Grupo"
 
 #: tfmlemutkmediamanager.vstgroupsall.header.columns[1].text
+#, fuzzy
 msgctxt "tfmlemutkmediamanager.vstgroupsall.header.columns[1].text"
 msgid "File"
-msgstr ""
+msgstr "Fichero"
 
 #: tfmlemutkmediamanager.vstgroupswofile.header.columns[0].text
+#, fuzzy
 msgctxt "tfmlemutkmediamanager.vstgroupswofile.header.columns[0].text"
 msgid "Group"
-msgstr ""
+msgstr "Grupo"
 
 #: tfmlemutkmediamanager.vstgroupswofile.header.columns[1].text
+#, fuzzy
 msgctxt "tfmlemutkmediamanager.vstgroupswofile.header.columns[1].text"
 msgid "File"
-msgstr ""
+msgstr "Fichero"
 
 #: tfmlemutkmediamanager.vstsoftall.header.columns[0].text
+#, fuzzy
 msgctxt "tfmlemutkmediamanager.vstsoftall.header.columns[0].text"
 msgid "Game"
-msgstr ""
+msgstr "Software"
 
 #: tfmlemutkmediamanager.vstsoftall.header.columns[1].text
+#, fuzzy
 msgctxt "tfmlemutkmediamanager.vstsoftall.header.columns[1].text"
 msgid "Group"
-msgstr ""
+msgstr "Grupo"
 
 #: tfmlemutkmediamanager.vstsoftall.header.columns[2].text
 msgctxt "tfmlemutkmediamanager.vstsoftall.header.columns[2].text"
@@ -1708,19 +1794,22 @@ msgid "File"
 msgstr ""
 
 #: tfmlemutkmediamanager.vstsoftwofile.header.columns[0].text
+#, fuzzy
 msgctxt "tfmlemutkmediamanager.vstsoftwofile.header.columns[0].text"
 msgid "Game"
-msgstr ""
+msgstr "Software"
 
 #: tfmlemutkmediamanager.vstsoftwofile.header.columns[1].text
+#, fuzzy
 msgctxt "tfmlemutkmediamanager.vstsoftwofile.header.columns[1].text"
 msgid "Group"
-msgstr ""
+msgstr "Grupo"
 
 #: tfmlemutkmediamanager.vstsoftwofile.header.columns[2].text
+#, fuzzy
 msgctxt "tfmlemutkmediamanager.vstsoftwofile.header.columns[2].text"
 msgid "File"
-msgstr ""
+msgstr "Fichero"
 
 #: tfmsmaskmultifile.actaddfiles.caption
 msgid "Add files"
@@ -1782,14 +1871,16 @@ msgid "ImageExt"
 msgstr ""
 
 #: tfrmchxabout.ltitle.caption
+#, fuzzy
 msgctxt "tfrmchxabout.ltitle.caption"
 msgid "Title"
-msgstr ""
+msgstr "Título"
 
 #: tfrmchxabout.lversion.caption
+#, fuzzy
 msgctxt "tfrmchxabout.lversion.caption"
 msgid "Version"
-msgstr ""
+msgstr "Versión"
 
 #: tfrmchxform.caption
 msgid "frmCHXForm"
@@ -1949,55 +2040,55 @@ msgstr ""
 
 #: tfrmetkguimain.actsavelists.caption
 msgid "Save Lists"
-msgstr ""
+msgstr "Guardar listas"
 
 #: tfrmetkguimain.actsavelists.hint
 msgid "Save Lists.|Saves loaded sofware lists."
-msgstr ""
+msgstr "Guardar listas.|Guarda las listas de software cargadas."
 
 #: tfrmetkguimain.actscriptmanager.caption
 msgid "Script Manager..."
-msgstr ""
+msgstr "Gestor de scripts..."
 
 #: tfrmetkguimain.actscriptmanager.hint
 msgid "Script Manager...|Open Script Manager."
-msgstr ""
+msgstr "Gestor de scripts...|Abre el gestor de scripts."
 
 #: tfrmetkguimain.actsystemmanager.caption
 msgid "System Manager..."
-msgstr ""
+msgstr "Gestor de sistemas..."
 
 #: tfrmetkguimain.actsystemmanager.hint
 msgid "System Manager...|Open System Manager."
-msgstr ""
+msgstr "Gestor de sistemas...|Abre el gestor de sistemas."
 
 #: tfrmetkguimain.actupdategrouplist.caption
 msgid "Update group list"
-msgstr ""
+msgstr "Actualizar lista de grupos"
 
 #: tfrmetkguimain.actupdategrouplist.hint
 msgid "Update group list.|Reload group list to update changes."
-msgstr ""
+msgstr "Actualizar lista de grupos.|Recarga la lista de grupos para actualizar los cambios."
 
 #: tfrmetkguimain.caption
 msgid "Main"
-msgstr ""
+msgstr "Principal"
 
 #: tfrmetkguimain.fileexit1.caption
 msgid "Exit"
-msgstr ""
+msgstr "Salir"
 
 #: tfrmetkguimain.fileexit1.hint
 msgid "Exit.|Exits Emuteca."
-msgstr ""
+msgstr "Salir.|Sale de Emuteca."
 
 #: tfrmetkguimain.helponhelp1.caption
 msgid "About Emuteca..."
-msgstr ""
+msgstr "Sobre Emuteca..."
 
 #: tfrmetkguimain.helponhelp1.hint
 msgid "About Emuteca...|Help about Emuteca."
-msgstr ""
+msgstr "Sobre Emuteca...|Abre el cuadro de información de Emuteca."
 
 #: tfrmetkguimain.mimmaddfiles.caption
 msgid "Add files..."
@@ -2009,92 +2100,92 @@ msgstr ""
 
 #: tfrmetkguimain.mimmemulator.caption
 msgid "Emulator"
-msgstr ""
+msgstr "Emulador"
 
 #: tfrmetkguimain.mimmfile.caption
 msgctxt "tfrmetkguimain.mimmfile.caption"
 msgid "File"
-msgstr ""
+msgstr "Archivo"
 
 #: tfrmetkguimain.mimmgroup.caption
 msgctxt "tfrmetkguimain.mimmgroup.caption"
 msgid "Group"
-msgstr ""
+msgstr "Grupo"
 
 #: tfrmetkguimain.mimmhelp.caption
 msgid "Help"
-msgstr ""
+msgstr "Ayuda"
 
 #: tfrmetkguimain.mimmimportexport.caption
 msgid "Import/Export data"
-msgstr ""
+msgstr "Importar/Exportar datos"
 
 #: tfrmetkguimain.mimmmanagers.caption
 msgid "Managers"
-msgstr ""
+msgstr "Gestores"
 
 #: tfrmetkguimain.mimmsearchinternete.caption
 msgid "Search emulator in Internet"
-msgstr ""
+msgstr "Buscar emulador en Internet"
 
 #: tfrmetkguimain.mimmsearchinternetg.caption
 msgctxt "tfrmetkguimain.mimmsearchinternetg.caption"
 msgid "Search group in Internet"
-msgstr ""
+msgstr "Buscar grupo en Internet"
 
 #: tfrmetkguimain.mimmsearchinternets.caption
 msgid "Search system in Internet"
-msgstr ""
+msgstr "Buscar sistema en Internet"
 
 #: tfrmetkguimain.mimmsoft.caption
 msgctxt "tfrmetkguimain.mimmsoft.caption"
 msgid "Software"
-msgstr ""
+msgstr "Software"
 
 #: tfrmetkguimain.mimmsystem.caption
 msgctxt "tfrmetkguimain.mimmsystem.caption"
 msgid "System"
-msgstr ""
+msgstr "Sistema"
 
 #: tfrmetkguimain.mipmgsearchinternet.caption
 msgctxt "tfrmetkguimain.mipmgsearchinternet.caption"
 msgid "Search in Internet"
-msgstr ""
+msgstr "Buscar en Internet"
 
 #: tfrmetkguimain.mipmssystem.caption
 msgctxt "tfrmetkguimain.mipmssystem.caption"
 msgid "System"
-msgstr ""
+msgstr "Sistema"
 
 #: ucchxscriptengine.rsseecompilationmsg
 msgid "Compiling."
-msgstr ""
+msgstr "Compilando."
 
 #: ucchxscriptengine.rsseeexecutionmsg
 msgid "Executing."
-msgstr ""
+msgstr "Ejecutando."
 
 #: ucchxscriptengine.rsseelerror
 msgid "Error"
-msgstr ""
+msgstr "Error"
 
 #: ucchxscriptengine.rsseelinfo
 msgid "Info"
-msgstr ""
+msgstr "Información"
 
 #: ucchxscriptengine.rsseelok
 msgctxt "ucchxscriptengine.rsseelok"
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: ucchxscriptengine.rsseelwarning
 msgctxt "ucchxscriptengine.rsseelwarning"
 msgid "Warning"
-msgstr ""
+msgstr "Atención"
 
 #: ucchxscriptengine.rssemsgformat
 msgid "[%0:s](%1:.4d:%2:.4d): %3:s"
-msgstr ""
+msgstr "[%0:s](%1:.4d:%2:.4d): %3:s"
 
 #: uchx7zwrapper.rsw7zerrorline
 msgid "%0:s - %1:s: %2:s"
@@ -2139,57 +2230,57 @@ msgstr ""
 #: uemutecacommon.rscleaningsystemdata
 msgctxt "uemutecacommon.rscleaningsystemdata"
 msgid "Cleaning system data..."
-msgstr ""
+msgstr "Limpiando datos del sistema...."
 
 #: uemutecacommon.rsedsalternate
 msgctxt "uemutecacommon.rsedsalternate"
 msgid "Alternate"
-msgstr ""
+msgstr "Alternativa"
 
 #: uemutecacommon.rsedsbaddump
 msgctxt "uemutecacommon.rsedsbaddump"
 msgid "BadDump"
-msgstr ""
+msgstr "Copia mala"
 
 #: uemutecacommon.rsedsgood
 msgctxt "uemutecacommon.rsedsgood"
 msgid "GoodDump"
-msgstr ""
+msgstr "Copia buena"
 
 #: uemutecacommon.rsedskeepvalue
 msgctxt "uemutecacommon.rsedskeepvalue"
 msgid "Keep value"
-msgstr ""
+msgstr "Mantener valor"
 
 #: uemutecacommon.rsedsoverdump
 msgctxt "uemutecacommon.rsedsoverdump"
 msgid "OverDump"
-msgstr ""
+msgstr "Copia con exceso"
 
 #: uemutecacommon.rsedsunderdump
 msgctxt "uemutecacommon.rsedsunderdump"
 msgid "UnderDump"
-msgstr ""
+msgstr "Copia incompleta"
 
 #: uemutecacommon.rsedsunknown
 msgctxt "uemutecacommon.rsedsunknown"
 msgid "Unknown"
-msgstr ""
+msgstr "Desconocido"
 
 #: uemutecacommon.rsedsverified
 msgctxt "uemutecacommon.rsedsverified"
 msgid "Verified"
-msgstr ""
+msgstr "Verificado"
 
 #: uemutecacommon.rsexportingemulatorlist
 msgctxt "uemutecacommon.rsexportingemulatorlist"
 msgid "Exporting emulator list..."
-msgstr ""
+msgstr "Exportanto lista de emuladores..."
 
 #: uemutecacommon.rsexportinggrouplist
 msgctxt "uemutecacommon.rsexportinggrouplist"
 msgid "Exporting group list..."
-msgstr ""
+msgstr "Exportando lista de grupos..."
 
 #: uemutecacommon.rsexportingnosha1
 msgctxt "uemutecacommon.rsexportingnosha1"
@@ -2197,26 +2288,28 @@ msgid ""
 "Warning: We can't export because not all files have SHA1 cached.\n"
 "(%2:d/%3:d) %0:s%1:s\n"
 msgstr ""
+"ATENCIÓN: No se puede exportar porque no se ha calculado el SHA1 de todos los ficheros.\n"
+"(%2:d/%3:d) %0:s%1:s\n"
 
 #: uemutecacommon.rsexportingsoftlist
 msgctxt "uemutecacommon.rsexportingsoftlist"
 msgid "Exporting soft list..."
-msgstr ""
+msgstr "Exportando lista de software..."
 
 #: uemutecacommon.rsexportingsystemlist
 msgctxt "uemutecacommon.rsexportingsystemlist"
 msgid "Exporting system list..."
-msgstr ""
+msgstr "Exportando lista de sistemas..."
 
 #: uemutecacommon.rsfilealreadyadded
 msgctxt "uemutecacommon.rsfilealreadyadded"
 msgid "This file is already added."
-msgstr ""
+msgstr "El fichero ya está añadido."
 
 #: uemutecacommon.rsfilemaskdescgroup
 msgctxt "uemutecacommon.rsfilemaskdescgroup"
 msgid "Group file list (*.egl)"
-msgstr ""
+msgstr "Fichero de lista de grupos (*.egl)"
 
 #: uemutecacommon.rsfilemaskdescini
 msgctxt "uemutecacommon.rsfilemaskdescini"
@@ -2241,22 +2334,22 @@ msgstr ""
 #: uemutecacommon.rsfmtngroups
 msgctxt "uemutecacommon.rsfmtngroups"
 msgid "%0:d groups"
-msgstr ""
+msgstr "%0:d grupos"
 
 #: uemutecacommon.rsfmtnitems
 msgctxt "uemutecacommon.rsfmtnitems"
 msgid "%1:d visible of %0:d items."
-msgstr ""
+msgstr "%1:d visibles de %0:d elementos."
 
 #: uemutecacommon.rsfmtntimes
 msgctxt "uemutecacommon.rsfmtntimes"
 msgid "%0:d times."
-msgstr ""
+msgstr "%0:d veces."
 
 #: uemutecacommon.rsfmtnversions
 msgctxt "uemutecacommon.rsfmtnversions"
 msgid "%0:d versions."
-msgstr ""
+msgstr "%0:d versiones."
 
 #: uemutecacommon.rsimportingemulatorlist
 msgctxt "uemutecacommon.rsimportingemulatorlist"
@@ -2308,7 +2401,7 @@ msgstr ""
 #: uemutecacommon.rsnever
 msgctxt "uemutecacommon.rsnever"
 msgid "Never"
-msgstr ""
+msgstr "Nunca"
 
 #: uemutecacommon.rssavingemulatorlist
 msgctxt "uemutecacommon.rssavingemulatorlist"
@@ -2335,40 +2428,61 @@ msgctxt "uemutecacommon.rsunknown"
 msgid "Unknown"
 msgstr "Desconocido"
 
+#: uemutecarscstr.rschooseimagefileformat
+msgid ""
+"Do you want to save it in a lossless format?\n"
+"YES -> .png (lossless, for screenshots)\n"
+"NO -> .jpg (better for photographs or scans)\n"
+msgstr ""
+
 #: uemutecarscstr.rscleaningsystemdata
+#, fuzzy
 msgctxt "uemutecarscstr.rscleaningsystemdata"
 msgid "Cleaning system data..."
+msgstr "Limpiando datos del sistema...."
+
+#: uemutecarscstr.rsconfirmoverwritefile
+msgid ""
+"%0:s\n"
+"The file already exists.\n"
+"Do you want overwrite it?\n"
 msgstr ""
 
 #: uemutecarscstr.rsedsalternate
+#, fuzzy
 msgctxt "uemutecarscstr.rsedsalternate"
 msgid "Alternate"
-msgstr ""
+msgstr "Alternativa"
 
 #: uemutecarscstr.rsedsbaddump
+#, fuzzy
 msgctxt "uemutecarscstr.rsedsbaddump"
 msgid "BadDump"
-msgstr ""
+msgstr "Copia mala"
 
 #: uemutecarscstr.rsedsgood
+#, fuzzy
 msgctxt "uemutecarscstr.rsedsgood"
 msgid "GoodDump"
-msgstr ""
+msgstr "Copia buena"
 
 #: uemutecarscstr.rsedskeepvalue
+#, fuzzy
 msgctxt "uemutecarscstr.rsedskeepvalue"
 msgid "Keep value"
-msgstr ""
+msgstr "Mantener valor"
 
 #: uemutecarscstr.rsedsoverdump
+#, fuzzy
 msgctxt "uemutecarscstr.rsedsoverdump"
 msgid "OverDump"
-msgstr ""
+msgstr "Copia con exceso"
 
 #: uemutecarscstr.rsedsunderdump
+#, fuzzy
 msgctxt "uemutecarscstr.rsedsunderdump"
 msgid "UnderDump"
-msgstr ""
+msgstr "Copia incompleta"
 
 #: uemutecarscstr.rsedsunknown
 msgctxt "uemutecarscstr.rsedsunknown"
@@ -2381,14 +2495,16 @@ msgid "Verified"
 msgstr "Verificado"
 
 #: uemutecarscstr.rsexportingemulatorlist
+#, fuzzy
 msgctxt "uemutecarscstr.rsexportingemulatorlist"
 msgid "Exporting emulator list..."
-msgstr ""
+msgstr "Exportanto lista de emuladores..."
 
 #: uemutecarscstr.rsexportinggrouplist
+#, fuzzy
 msgctxt "uemutecarscstr.rsexportinggrouplist"
 msgid "Exporting group list..."
-msgstr ""
+msgstr "Exportando lista de grupos..."
 
 #: uemutecarscstr.rsexportingnosha1
 msgctxt "uemutecarscstr.rsexportingnosha1"
@@ -2400,19 +2516,22 @@ msgstr ""
 "(%2:d/%3:d) %0:s%1:s\n"
 
 #: uemutecarscstr.rsexportingsoftlist
+#, fuzzy
 msgctxt "uemutecarscstr.rsexportingsoftlist"
 msgid "Exporting soft list..."
-msgstr ""
+msgstr "Exportando lista de software..."
 
 #: uemutecarscstr.rsexportingsystemlist
+#, fuzzy
 msgctxt "uemutecarscstr.rsexportingsystemlist"
 msgid "Exporting system list..."
-msgstr ""
+msgstr "Exportando lista de sistemas..."
 
 #: uemutecarscstr.rsfilealreadyadded
+#, fuzzy
 msgctxt "uemutecarscstr.rsfilealreadyadded"
 msgid "This file is already added."
-msgstr ""
+msgstr "El fichero ya está añadido."
 
 #: uemutecarscstr.rsfilemaskdescgroup
 msgctxt "uemutecarscstr.rsfilemaskdescgroup"
@@ -2440,24 +2559,28 @@ msgid "Text files (*.txt)"
 msgstr ""
 
 #: uemutecarscstr.rsfmtngroups
+#, fuzzy
 msgctxt "uemutecarscstr.rsfmtngroups"
 msgid "%0:d groups"
-msgstr ""
+msgstr "%0:d grupos"
 
 #: uemutecarscstr.rsfmtnitems
+#, fuzzy
 msgctxt "uemutecarscstr.rsfmtnitems"
 msgid "%1:d visible of %0:d items."
-msgstr ""
+msgstr "%1:d visibles de %0:d elementos."
 
 #: uemutecarscstr.rsfmtntimes
+#, fuzzy
 msgctxt "uemutecarscstr.rsfmtntimes"
 msgid "%0:d times."
-msgstr ""
+msgstr "%0:d veces."
 
 #: uemutecarscstr.rsfmtnversions
+#, fuzzy
 msgctxt "uemutecarscstr.rsfmtnversions"
 msgid "%0:d versions."
-msgstr ""
+msgstr "%0:d versiones."
 
 #: uemutecarscstr.rsimportingemulatorlist
 msgctxt "uemutecarscstr.rsimportingemulatorlist"
@@ -2507,9 +2630,10 @@ msgid "Loading system list..."
 msgstr ""
 
 #: uemutecarscstr.rsnever
+#, fuzzy
 msgctxt "uemutecarscstr.rsnever"
 msgid "Never"
-msgstr ""
+msgstr "Nunca"
 
 #: uemutecarscstr.rssavingemulatorlist
 msgctxt "uemutecarscstr.rssavingemulatorlist"
@@ -2564,9 +2688,10 @@ msgid "System Editor"
 msgstr ""
 
 #: uetkguicommon.rsfilename
+#, fuzzy
 msgctxt "uetkguicommon.rsfilename"
 msgid "Filename"
-msgstr ""
+msgstr "Fichero"
 
 #: uetkguicommon.rsfmtapplicationtitle
 msgctxt "uetkguicommon.rsfmtapplicationtitle"
@@ -2663,9 +2788,10 @@ msgid "System Editor"
 msgstr ""
 
 #: uetkguirscstr.rsfilename
+#, fuzzy
 msgctxt "uetkguirscstr.rsfilename"
 msgid "Filename"
-msgstr ""
+msgstr "Fichero"
 
 #: uetkguirscstr.rsfmtapplicationtitle
 #, fuzzy
@@ -2787,14 +2913,16 @@ msgid "All Systems"
 msgstr "Todos los sistemas"
 
 #: ufemutecasystemcbx.rsselectsystem
+#, fuzzy
 msgctxt "ufemutecasystemcbx.rsselectsystem"
 msgid "Select a System"
-msgstr ""
+msgstr "Seleciona un sistema"
 
 #: ufemutecasystemeditor.rsselectemulator
+#, fuzzy
 msgctxt "ufemutecasystemeditor.rsselectemulator"
 msgid "Select a System"
-msgstr ""
+msgstr "Seleciona un sistema"
 
 #: ufetkguiemumanager.rsemulatorname
 msgid "Emulator name."

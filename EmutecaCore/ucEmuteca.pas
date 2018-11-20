@@ -29,7 +29,7 @@ uses
   // CHX units
   uCHX7zWrapper, uCHXStrUtils,
   // Emuteca Core units
-  uEmutecaConst, uEmutecaRscStr, uEmutecaCommon,
+  uEmutecaConst, uEmutecaRscStr,
   // Emuteca Core abstracts
   uaEmutecaCustomGroup,
   // Emuteca Core units

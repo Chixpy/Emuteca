@@ -223,10 +223,11 @@ end;
 
 procedure TfmETKGUISoftMedia.SetTempFolder(const aTempFolder: string);
 begin
-  if FTempFolder = aTempFolder then Exit;
+  if FTempFolder = aTempFolder then
+    Exit;
   FTempFolder := aTempFolder;
 
-  UpdateChildrenConfig(ScrollBox1)
+  UpdateChildrenConfig(ScrollBox1);
 end;
 
 procedure TfmETKGUISoftMedia.SetTextExt(AValue: TStrings);

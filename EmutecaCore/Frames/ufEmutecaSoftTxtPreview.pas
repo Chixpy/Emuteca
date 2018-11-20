@@ -25,20 +25,52 @@ unit ufEmutecaSoftTxtPreview;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, 
-    ufCHXTxtListPreview;
+  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls,
+  StdCtrls, ActnList,
+  // CHX units
+  uCHXStrUtils,
+  // CHX frames
+  ufCHXTxtListPreview;
 
 type
+
+  { TfmEmutecaSoftTxtPreview }
+
   TfmEmutecaSoftTxtPreview = class(TfmCHXTxtListPreview)
+    actSaveFile: TAction;
+    actLockText: TAction;
+    tbLockText: TToolButton;
+    tbSaveFile: TToolButton;
+    procedure actLockTextExecute(Sender: TObject);
+    procedure actSaveFileExecute(Sender: TObject);
+
   private
+    FSaveTextFolder: string;
+    procedure SetSaveTextFolder(const aSaveTextFolder: string);
 
   public
-
+    property SaveTextFolder: string read FSaveTextFolder write SetSaveTextFolder;
   end;
 
 implementation
 
 {$R *.lfm}
+
+procedure TfmEmutecaSoftTxtPreview.actLockTextExecute(Sender: TObject);
+begin
+  mText.ReadOnly := actLockText.Checked;
+end;
+
+procedure TfmEmutecaSoftTxtPreview.actSaveFileExecute(Sender: TObject);
+begin
+  // TODO: Save text file.
+end;
+
+procedure TfmEmutecaSoftTxtPreview.SetSaveTextFolder(
+  const aSaveTextFolder: string);
+begin
+  FSaveTextFolder := SetAsFolder(aSaveTextFolder);
+end;
 
 end.
 

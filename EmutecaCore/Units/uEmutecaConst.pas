@@ -1,8 +1,6 @@
 unit uEmutecaConst;
 {< Constants unit of Emuteca Core.
 
-  ----
-
   This file is part of Emuteca Core.
 
   Copyright (C) 2011-2018 Chixpy

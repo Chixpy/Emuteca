@@ -1,8 +1,6 @@
 unit uaEmutecaCustomManager;
 {< caEmutecaCustomManagerTxt class unit.
 
-  ----
-
   This file is part of Emuteca Core.
 
   Copyright (C) 2006-2018 Chixpy

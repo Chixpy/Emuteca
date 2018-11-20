@@ -65,12 +65,12 @@ end;
 
 procedure TfmETKGUISoftMusicPreview.CreateListView;
 begin
-  SetListPreview(TfmEmutecaSoftVideoPreview.Create(Self));
+  SetListPreview(TfmEmutecaSoftVideoPreview.Create(gbxPanel));
   // MPlayer don't return any visualization... :-(
   TfmEmutecaSoftVideoPreview(fmListPreview).MPlayerControl.Visible := False;
   fmListPreview.AutoSize := True;
   fmListPreview.Align := alClient;
-  fmListPreview.Parent := Self;
+  fmListPreview.Parent := gbxPanel;
 end;
 
 function TfmETKGUISoftMusicPreview.GetCaptionList: TStrings;

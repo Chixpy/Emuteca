@@ -1,8 +1,5 @@
 unit uETKGUIRscStr;
-
 {< Resource strings unit.
-
-  ----
 
   This file is part of Emuteca GUI.
 
@@ -30,20 +27,19 @@ interface
 resourcestring
   rsFmtApplicationTitle = '%0:s %1:s';
   {< Aplication title used in forms, formated by
-    uEmutecaCommon.krsFmtWindowCaption
-    @param(%0:s 'Emuteca' (Application name)).
-    @param(%1:s Version).
+       uEmutecaCommon.krsFmtWindowCaption.
+
+     @param(%0:s 'Emuteca' (Application name)).
+     @param(%1:s Version).
   }
 
-  // Form titles
-  // -------------
   rsETKGUISystemEditorTitle = 'System Editor';
+  {< Title for (full) System Editor form. }
   rsETKGUIEmuEditorTitle = 'Emulator Editor';
+  {< Title for (full) Emulator Editor form. }
   rsETKGUIConfigTitle = 'Config Editor';
+  {< Title for (full) Config Editor form. }
 
-
-  // Game / Group property names
-  // ---------------------------
   rsGameKey = 'Key';
   {< Game Key property. }
   rsZones = 'Zones';
@@ -57,11 +53,10 @@ resourcestring
   rsFilename = 'Filename';
   {< Game Filename property. }
 
-  // ERRORS & WARNINGS
-  // -----------------
   rsFmtNotFound = 'Not Found.' + LineEnding + LineEnding +
     'Current folder: %0:s' + LineEnding + 'Searched file: %1:s';
-  {<
+  {< File not found.
+
      %0:d = Current folder.
      %1:d = File/folder searched.
   }

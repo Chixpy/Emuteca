@@ -28,7 +28,7 @@ interface
 uses
   SysUtils, Classes, uPSComponent, uPSRuntime, uPSCompiler,
   // Emuteca Core units
-  uEmutecaConst, uEmutecaRscStr, uEmutecaCommon,
+  uEmutecaConst, uEmutecaRscStr,
   // Emuteca Core classes
   ucEmuteca, ucEmutecaConfig, ucEmutecaEmulatorManager, ucEmutecaSystemManager;
 

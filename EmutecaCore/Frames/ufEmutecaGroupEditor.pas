@@ -93,7 +93,7 @@ begin
     eDeveloper.ItemIndex := eDeveloper.Items.Add(Group.Developer);
 
   eYear.Text := Group.Year;
-  eMediaFile.Text := Group.MediaFileName;
+  eMediaFile.Text := Group.GetActualMediaFilename;
 end;
 
 procedure TfmEmutecaGroupEditor.DoSaveFrameData;

@@ -1,10 +1,32 @@
 inherited fmEmutecaSoftTxtPreview: TfmEmutecaSoftTxtPreview
   inherited tbPreviewList: TToolBar
-    inherited ToolButton1: TToolButton
-      Height = 22
+    object tbLockText: TToolButton[8]
+      Left = 190
+      Top = 2
+      Action = actLockText
+      Style = tbsCheck
     end
-    inherited ToolButton6: TToolButton
-      Height = 22
+    object tbSaveFile: TToolButton[9]
+      Left = 213
+      Top = 2
+      Action = actSaveFile
+    end
+  end
+  inherited mText: TMemo
+    ReadOnly = False
+  end
+  inherited alPreviewList: TActionList
+    object actLockText: TAction[4]
+      Category = 'Text'
+      AutoCheck = True
+      Caption = 'Lock text'
+      Checked = True
+      OnExecute = actLockTextExecute
+    end
+    object actSaveFile: TAction[5]
+      Category = 'Text'
+      Caption = 'Save file'
+      OnExecute = actSaveFileExecute
     end
   end
 end

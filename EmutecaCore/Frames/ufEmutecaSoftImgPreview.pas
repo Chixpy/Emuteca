@@ -1,4 +1,5 @@
 unit ufEmutecaSoftImgPreview;
+
 {< TfmEmutecaSoftImgPreview frame unit.
 
   This file is part of Emuteca GUI.
@@ -25,15 +26,44 @@ unit ufEmutecaSoftImgPreview;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
+  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls,
+  StdCtrls, ActnList, ExtCtrls, LCLType, Clipbrd, Menus, LazFileUtils,
+  // CHX units
+  uCHXStrUtils,
   // CHX frames
-  ufCHXImgListPreview;
+  ufCHXImgListPreview,
+  // Emuteca Core units
+  uEmutecaRscStr;
 
 type
+
+  { TfmEmutecaSoftImgPreview }
+
   TfmEmutecaSoftImgPreview = class(TfmCHXImgListPreview)
+    actDeleteImage: TAction;
+    actAddImageFromClpBrd: TAction;
+    actReplaceImageFromClpBrd: TAction;
+    MenuItem1: TMenuItem;
+    MenuItem2: TMenuItem;
+    MenuItem3: TMenuItem;
+    mipmImgPasteImage: TMenuItem;
+    pmImageActions: TPopupMenu;
+    tbPasteImage: TToolButton;
+    procedure actAddImageFromClpBrdExecute(Sender: TObject);
+
   private
+    FSaveImageFolder: string;
+    procedure SetSaveImageFolder(const aSaveImageFolder: string);
+
+    protected
+          procedure DoClearFrameData; override;
 
   public
+    property SaveImageFolder: string read FSaveImageFolder
+      write SetSaveImageFolder;
+
+        constructor Create(TheOwner: TComponent); override;
+    destructor Destroy; override;
 
   end;
 
@@ -41,5 +71,88 @@ implementation
 
 {$R *.lfm}
 
-end.
+{ TfmEmutecaSoftImgPreview }
 
+procedure TfmEmutecaSoftImgPreview.actAddImageFromClpBrdExecute(Sender: TObject);
+var
+  CF: TClipboardFormat;
+  DlgResult: integer;
+  aFileName: string;
+begin
+  if SaveImageFolder = '' then
+    Exit;
+
+  // Checking clipboard format
+  CF := Clipboard.FindPictureFormatID;
+  if CF = 0 then // There is no image in clipboard
+  begin
+    ShowMessage('Image format not recognized.');
+    Exit;
+  end;
+
+  // Loading image directly to iImage component
+  // TODO: Is this needed?
+  //if CF = Windows.CF_BITMAP then // Handle CF_BITMAP separately
+  //  aPicture.LoadFromClipboardFormat(PredefinedClipboardFormat(
+  //    pcfDelphiBitmap))
+  //else
+  iImage.Picture.LoadFromClipboardFormat(CF);
+
+  // TODO: If a software is selected ask if it must be assigned to the parent
+  //   or the software itself...
+
+  // Unique filename
+  aFileName := FormatDateTime('yyyymmddhhnnss', Now);
+  // Choosing format
+  DlgResult := MessageDlg(rsChooseImageFileFormat, mtConfirmation,
+    [mbYes, mbNo, mbCancel], 0);
+  case DlgResult of
+    mrYes: aFileName := aFileName + '.png';
+    mrNo: aFileName := aFileName + '.jpg';
+    else
+      Exit;
+  end;
+  aFileName := SaveImageFolder + aFileName;
+
+  // Checking if file already exists...
+  if FileExistsUTF8(aFilename) then
+    if MessageDlg(Format(rsConfirmOverwriteFile, [aFilename]),
+      mtConfirmation, [mbYes, mbNo], 0) = mrNo then
+      Exit;
+
+  // Creating folder
+  if not DirectoryExistsUTF8(SaveImageFolder) then
+    ForceDirectoriesUTF8(SaveImageFolder);
+
+  iImage.Picture.SaveToFile(aFileName);
+
+  StrList.Add(aFileName);
+end;
+
+procedure TfmEmutecaSoftImgPreview.SetSaveImageFolder(
+  const aSaveImageFolder: string);
+begin
+  FSaveImageFolder := SetAsFolder(aSaveImageFolder);
+
+  actAddImageFromClpBrd.Enabled := SaveImageFolder <> '';
+end;
+
+procedure TfmEmutecaSoftImgPreview.DoClearFrameData;
+begin
+  inherited DoClearFrameData;
+
+  // Enabling buttons because a image can be added.
+  Enabled := True;
+end;
+
+constructor TfmEmutecaSoftImgPreview.Create(TheOwner: TComponent);
+begin
+  inherited Create(TheOwner);
+end;
+
+destructor TfmEmutecaSoftImgPreview.Destroy;
+begin
+  inherited Destroy;
+end;
+
+end.

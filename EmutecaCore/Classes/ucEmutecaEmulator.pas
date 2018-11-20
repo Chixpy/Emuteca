@@ -26,7 +26,7 @@ interface
 
 uses
   Classes, SysUtils,
-  // Emuteca abstracts
+  // Emuteca Core abstracts
   uaEmutecaCustomEmu;
 
 type

@@ -21,6 +21,10 @@ msgctxt "tfmactexportsoftdata.lsoftidtype.caption"
 msgid "Soft ID Type"
 msgstr ""
 
+#: tfmaetkguisoftfolderspreview.gbxpanel.caption
+msgid "Panel"
+msgstr ""
+
 #: tfmchxchklstpropeditor.actadditem.caption
 msgid "Add item"
 msgstr ""
@@ -57,6 +61,10 @@ msgstr ""
 #: tfmchxchklstpropeditor.toolbutton6.caption
 msgctxt "tfmchxchklstpropeditor.toolbutton6.caption"
 msgid "ToolButton6"
+msgstr ""
+
+#: tfmchximglistpreview.iimage.hint
+msgid "DblClk to open in Image Viewer"
 msgstr ""
 
 #: tfmchximgviewer.actfirst.caption
@@ -840,6 +848,19 @@ msgstr ""
 msgid "Zone"
 msgstr ""
 
+#: tfmemutecasoftimgpreview.actaddimagefromclpbrd.caption
+msgctxt "tfmemutecasoftimgpreview.actaddimagefromclpbrd.caption"
+msgid "Add image from Clipboard..."
+msgstr ""
+
+#: tfmemutecasoftimgpreview.actdeleteimage.caption
+msgid "Delete current image"
+msgstr ""
+
+#: tfmemutecasoftimgpreview.actreplaceimagefromclpbrd.caption
+msgid "Replace with image from Clipboard"
+msgstr ""
+
 #: tfmemutecasofttree.vdt.header.columns[0].text
 msgctxt "tfmemutecasofttree.vdt.header.columns[0].text"
 msgid "System"
@@ -888,6 +909,14 @@ msgstr ""
 #: tfmemutecasofttree.vdt.header.columns[9].text
 msgctxt "tfmemutecasofttree.vdt.header.columns[9].text"
 msgid "File"
+msgstr ""
+
+#: tfmemutecasofttxtpreview.actlocktext.caption
+msgid "Lock text"
+msgstr ""
+
+#: tfmemutecasofttxtpreview.actsavefile.caption
+msgid "Save file"
 msgstr ""
 
 #: tfmemutecasystemeditor.chkextractallfiles.caption
@@ -1361,6 +1390,10 @@ msgctxt "tfmetkguimediamanager.vstsoftwofile.header.columns[2].text"
 msgid "File"
 msgstr ""
 
+#: tfmetkguisoftimgpreview.gbxpanel.caption
+msgid "Image"
+msgstr ""
+
 #: tfmetkguisoftmedia.actaddimagepanel.caption
 msgid "Add image panel"
 msgstr ""
@@ -1392,6 +1425,19 @@ msgstr ""
 #: tfmetkguisoftmedia.toolbutton1.caption
 msgctxt "tfmetkguisoftmedia.toolbutton1.caption"
 msgid "ToolButton1"
+msgstr ""
+
+#: tfmetkguisoftmusicpreview.gbxpanel.caption
+msgctxt "tfmetkguisoftmusicpreview.gbxpanel.caption"
+msgid "Music"
+msgstr ""
+
+#: tfmetkguisofttxtpreview.gbxpanel.caption
+msgid "Text"
+msgstr ""
+
+#: tfmetkguisoftvideopreview.gbxpanel.caption
+msgid "Video"
 msgstr ""
 
 #: tfmetkguisyspreview.actopensystemfolder.caption
@@ -2329,9 +2375,23 @@ msgctxt "uemutecacommon.rsunknown"
 msgid "Unknown"
 msgstr ""
 
+#: uemutecarscstr.rschooseimagefileformat
+msgid ""
+"Do you want to save it in a lossless format?\n"
+"YES -> .png (lossless, for screenshots)\n"
+"NO -> .jpg (better for photographs or scans)\n"
+msgstr ""
+
 #: uemutecarscstr.rscleaningsystemdata
 msgctxt "uemutecarscstr.rscleaningsystemdata"
 msgid "Cleaning system data..."
+msgstr ""
+
+#: uemutecarscstr.rsconfirmoverwritefile
+msgid ""
+"%0:s\n"
+"The file already exists.\n"
+"Do you want overwrite it?\n"
 msgstr ""
 
 #: uemutecarscstr.rsedsalternate

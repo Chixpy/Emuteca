@@ -400,6 +400,7 @@ end;
 
 procedure caEmutecaCustomSystem.SetID(AValue: string);
 begin
+  AValue := UTF8Trim(AValue);
   if FID = AValue then
     Exit;
   FID := AValue;
@@ -422,6 +423,7 @@ end;
 
 procedure caEmutecaCustomSystem.SetMainEmulator(AValue: string);
 begin
+  AValue := UTF8Trim(AValue);
   if FMainEmulator = AValue then
     Exit;
   FMainEmulator := AValue;
@@ -447,6 +449,7 @@ end;
 
 procedure caEmutecaCustomSystem.SetTitle(AValue: string);
 begin
+  AValue := UTF8Trim(AValue);
   if FTitle = AValue then
     Exit;
   FTitle := AValue;

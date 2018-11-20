@@ -1,4 +1,5 @@
 unit ufETKGUISoftImgPreview;
+
 {< TfmETKGUISoftImgPreview frame unit.
 
   This file is part of Emuteca GUI.
@@ -26,7 +27,11 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
-  // Emuteca core frames
+  // CHX units
+  uCHXStrUtils,
+  // Emuteca Core classes
+  ucEmutecaGroup, ucEmutecaSoftware,
+  // Emuteca Core frames
   ufEmutecaSoftImgPreview,
   // Emuteca GUI abstracts
   uafETKGUISoftFoldersPreview;
@@ -45,8 +50,12 @@ type
     function GetCaptionList: TStrings; override;
     function GetFolder: string; override;
 
+    procedure SetSoftware(AValue: cEmutecaSoftware); override;
+    procedure SetGroup(AValue: cEmutecaGroup); override;
+
   public
     property SHA1Folder: string read FSHA1Folder write SetSHA1Folder;
+
   end;
 
 implementation
@@ -57,7 +66,8 @@ implementation
 
 procedure TfmETKGUISoftImgPreview.SetSHA1Folder(AValue: string);
 begin
-  if FSHA1Folder = AValue then Exit;
+  if FSHA1Folder = AValue then
+    Exit;
   FSHA1Folder := AValue;
 
   TfmEmutecaSoftImgPreview(fmListPreview).SHA1Folder := SHA1Folder;
@@ -65,9 +75,9 @@ end;
 
 procedure TfmETKGUISoftImgPreview.CreateListView;
 begin
-  SetListPreview(TfmEmutecaSoftImgPreview.Create(Self));
+  SetListPreview(TfmEmutecaSoftImgPreview.Create(gbxPanel));
   fmListPreview.Align := alClient;
-  fmListPreview.Parent := Self;
+  fmListPreview.Parent := gbxPanel;
 end;
 
 function TfmETKGUISoftImgPreview.GetCaptionList: TStrings;
@@ -75,7 +85,7 @@ begin
   Result := nil;
 
   if Assigned(System) then
-   Result := System.ImageCaptions;
+    Result := System.ImageCaptions;
 end;
 
 function TfmETKGUISoftImgPreview.GetFolder: string;
@@ -83,9 +93,30 @@ begin
   Result := '';
 
   if Assigned(System) then
-   Result := System.ImageFolders[cbxFolderCaption.ItemIndex];
+    Result := SetAsFolder(System.ImageFolders[cbxFolderCaption.ItemIndex]);
+end;
+
+procedure TfmETKGUISoftImgPreview.SetSoftware(AValue: cEmutecaSoftware);
+begin
+  inherited SetSoftware(AValue);
+
+  if Assigned(AValue) then
+    TfmEmutecaSoftImgPreview(fmListPreview).SaveImageFolder :=
+      SetAsFolder(GetFolder + AValue.GetMediaFileName)
+  else
+    TfmEmutecaSoftImgPreview(fmListPreview).SaveImageFolder := '';
+end;
+
+procedure TfmETKGUISoftImgPreview.SetGroup(AValue: cEmutecaGroup);
+begin
+  inherited SetGroup(AValue);
+
+  if Assigned(AValue) then
+    TfmEmutecaSoftImgPreview(fmListPreview).SaveImageFolder :=
+      SetAsFolder(GetFolder + AValue.MediaFileName)
+  else
+    TfmEmutecaSoftImgPreview(fmListPreview).SaveImageFolder := '';
 end;
 
 
 end.
-

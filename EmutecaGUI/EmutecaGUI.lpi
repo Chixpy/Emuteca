@@ -27,7 +27,7 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="8"/>
-      <BuildNr Value="119"/>
+      <BuildNr Value="120"/>
       <StringTable Comments="Emuteca database editor" InternalName="EmutecaEditorGUI" LegalCopyright="Chixpy" ProductVersion="0.8.0"/>
     </VersionInfo>
     <BuildModes Count="2">
@@ -61,14 +61,8 @@
               </Win32>
             </Options>
           </Linking>
-          <Other>
-            <CustomOptions Value="-FcUTF8"/>
-          </Other>
         </CompilerOptions>
       </Item2>
-      <SharedMatrixOptions Count="1">
-        <Item1 ID="642066684418" Modes="Debug,Release" Value="-dEnableUTF8RTL"/>
-      </SharedMatrixOptions>
     </BuildModes>
     <PublishOptions>
       <Version Value="2"/>
@@ -796,9 +790,6 @@
         <OverflowChecks Value="True"/>
         <StackChecks Value="True"/>
       </Checks>
-      <Optimizations>
-        <OptimizationLevel Value="0"/>
-      </Optimizations>
     </CodeGeneration>
     <Linking>
       <Debugging>

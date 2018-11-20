@@ -1,9 +1,9 @@
 unit uEmutecaRscStr;
 {< Localizable strings unit of Emuteca Core.
 
-  Mainly used for example GUI frames.
+  Mainly used for example frames.
 
-  ----
+  This file is part of Emuteca Core.
 
   Copyright (C) 2011-2018 Chixpy
 
@@ -37,6 +37,13 @@ resourcestring
   rsNever = 'Never';
   rsUnknown = 'Unknown';
   rsFileAlreadyAdded = 'This file is already added.';
+  rsChooseImageFileFormat =
+    'Do you want to save it in a lossless format?' + LineEnding +
+    'YES -> .png (lossless, for screenshots)' + LineEnding +
+    'NO -> .jpg (better for photographs or scans)';
+  rsConfirmOverwriteFile = '%0:s' + LineEnding +
+    'The file already exists.' + LineEnding +
+    'Do you want overwrite it?';
   rsCleaningSystemData = 'Cleaning system data...';
 
   // List action
@@ -90,7 +97,7 @@ resourcestring
   rsEDSBadDump = 'BadDump';
   rsEDSUnderDump = 'UnderDump';
   rsEDSUnknown = 'Unknown';
-  rsEDSKeepValue = 'Keep value'; // Only for imports
+  rsEDSKeepValue = 'Keep value'; //< Only for imports
 
 
   // Formated statistics

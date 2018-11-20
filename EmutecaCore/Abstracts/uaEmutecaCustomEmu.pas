@@ -190,6 +190,7 @@ implementation
 
 procedure caEmutecaCustomEmu.SetID(AValue: string);
 begin
+  AValue := UTF8Trim(AValue);
   if FID = AValue then
     Exit;
   FID := AValue;
@@ -199,20 +200,17 @@ end;
 
 procedure caEmutecaCustomEmu.SetImage(AValue: string);
 begin
-  if FImage = AValue then
-    Exit;
-  FImage := AValue;
+  FImage := SetAsFile(UTF8Trim(AValue));
 end;
 
 procedure caEmutecaCustomEmu.SetInfoFile(AValue: string);
 begin
-  if FInfoFile = AValue then
-    Exit;
-  FInfoFile := AValue;
+  FInfoFile := SetAsFile(UTF8Trim(AValue));
 end;
 
 procedure caEmutecaCustomEmu.SetParameters(AValue: string);
 begin
+  AValue := UTF8Trim(AValue);
   if FParameters = AValue then
     Exit;
   FParameters := AValue;
@@ -220,6 +218,7 @@ end;
 
 procedure caEmutecaCustomEmu.SetWebPage(AValue: string);
 begin
+  AValue := UTF8Trim(AValue);
   if FWebPage = AValue then
     Exit;
   FWebPage := AValue;
@@ -227,8 +226,6 @@ end;
 
 procedure caEmutecaCustomEmu.SetWorkingFolder(AValue: string);
 begin
-  //if FWorkingFolder = AValue then
-  //  Exit;
   FWorkingFolder := SetAsFolder(AValue);
 end;
 
@@ -279,6 +276,7 @@ end;
 
 procedure caEmutecaCustomEmu.SetTitle(AValue: string);
 begin
+  AValue := UTF8Trim(AValue);
   if FTitle = AValue then
     Exit;
   FTitle := AValue;
@@ -286,6 +284,7 @@ end;
 
 procedure caEmutecaCustomEmu.SetDeveloper(AValue: string);
 begin
+  AValue := UTF8Trim(AValue);
   if FDeveloper = AValue then
     Exit;
   FDeveloper := AValue;
@@ -312,9 +311,7 @@ end;
 
 procedure caEmutecaCustomEmu.SetIcon(AValue: string);
 begin
-  if FIcon = AValue then
-    Exit;
-  FIcon := AValue;
+  FIcon := SetAsFile(UTF8Trim(AValue));
 end;
 
 constructor caEmutecaCustomEmu.Create(aOwner: TComponent);

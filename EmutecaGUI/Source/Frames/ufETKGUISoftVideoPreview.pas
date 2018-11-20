@@ -66,9 +66,9 @@ end;
 
 procedure TfmETKGUISoftVideoPreview.CreateListView;
 begin
-  SetListPreview(TfmEmutecaSoftVideoPreview.Create(Self));
+  SetListPreview(TfmEmutecaSoftVideoPreview.Create(gbxPanel));
   fmListPreview.Align := alClient;
-  fmListPreview.Parent := Self;
+  fmListPreview.Parent := gbxPanel;
 end;
 
 function TfmETKGUISoftVideoPreview.GetCaptionList: TStrings;

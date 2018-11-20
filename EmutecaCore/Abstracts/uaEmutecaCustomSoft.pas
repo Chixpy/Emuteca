@@ -1,4 +1,5 @@
 unit uaEmutecaCustomSoft;
+
 {< caEmutecaCustomSoft abstract class unit.
 
   This file is part of Emuteca Core.
@@ -241,7 +242,7 @@ implementation
 
 function caEmutecaCustomSoft.GetID: string;
 begin
-  if (FID = '') then
+  if FID = '' then
     Result := SHA1Print(SHA1)
   else
     Result := FID;
@@ -249,32 +250,31 @@ end;
 
 function caEmutecaCustomSoft.GetSortTitle: string;
 begin
-  Result := FSortTitle;
-  if Result <> '' then
-    Exit;
-
-  Result := UTF8LowerString(TranslitTitle);
+  if FSortTitle = '' then
+    Result := UTF8LowerString(TranslitTitle)
+  else
+    Result := FSortTitle;
 end;
 
 function caEmutecaCustomSoft.GetTitle: string;
 begin
-  if FTitle <> '' then
-    Result := FTitle
+  if FTitle = '' then
+    Result := GroupKey
   else
-    Result := GroupKey;
+    Result := FTitle;
 end;
 
 function caEmutecaCustomSoft.GetTranslitTitle: string;
 begin
-  Result := FTranslitTitle;
-  if Result <> '' then
-    Exit;
-
-  Result := Title;
+  if FTranslitTitle = '' then
+    Result := Title
+  else
+    Result := FTranslitTitle;
 end;
 
 procedure caEmutecaCustomSoft.SetCracked(AValue: string);
 begin
+  AValue := UTF8Trim(AValue);
   if FCracked = AValue then
     Exit;
   FCracked := AValue;
@@ -282,6 +282,7 @@ end;
 
 procedure caEmutecaCustomSoft.SetDumpInfo(AValue: string);
 begin
+  AValue := UTF8Trim(AValue);
   if FDumpInfo = AValue then
     Exit;
   FDumpInfo := AValue;
@@ -296,11 +297,12 @@ end;
 
 procedure caEmutecaCustomSoft.SetFileName(AValue: string);
 begin
-  FFileName := SetAsFile(AValue);
+  FFileName := SetAsFile(UTF8Trim(AValue));
 end;
 
 procedure caEmutecaCustomSoft.SetFixed(AValue: string);
 begin
+  AValue := UTF8Trim(AValue);
   if FFixed = AValue then
     Exit;
   FFixed := AValue;
@@ -308,11 +310,12 @@ end;
 
 procedure caEmutecaCustomSoft.SetFolder(AValue: string);
 begin
-  FFolder := SetAsFolder(AValue);
+  FFolder := SetAsFolder(UTF8Trim(AValue));
 end;
 
 procedure caEmutecaCustomSoft.SetGroupKey(AValue: string);
 begin
+  AValue := UTF8Trim(AValue);
   if FGroupKey = AValue then
     Exit;
   FGroupKey := AValue;
@@ -320,6 +323,7 @@ end;
 
 procedure caEmutecaCustomSoft.SetHack(AValue: string);
 begin
+  AValue := UTF8Trim(AValue);
   if FHack = AValue then
     Exit;
   FHack := AValue;
@@ -327,6 +331,7 @@ end;
 
 procedure caEmutecaCustomSoft.SetID(AValue: string);
 begin
+  AValue := UTF8Trim(AValue);
   if FID = AValue then
     Exit;
 
@@ -340,6 +345,7 @@ end;
 
 procedure caEmutecaCustomSoft.SetModified(AValue: string);
 begin
+  AValue := UTF8Trim(AValue);
   if FModified = AValue then
     Exit;
   FModified := AValue;
@@ -347,6 +353,7 @@ end;
 
 procedure caEmutecaCustomSoft.SetPirate(AValue: string);
 begin
+  AValue := UTF8Trim(AValue);
   if FPirate = AValue then
     Exit;
   FPirate := AValue;
@@ -354,6 +361,7 @@ end;
 
 procedure caEmutecaCustomSoft.SetPublisher(AValue: string);
 begin
+  AValue := UTF8Trim(AValue);
   if FPublisher = AValue then
     Exit;
   FPublisher := AValue;
@@ -368,7 +376,8 @@ end;
 
 procedure caEmutecaCustomSoft.SetSortTitle(AValue: string);
 begin
-  if (UTF8CompareText(AValue, TranslitTitle) = 0) then
+  AValue := UTF8Trim(AValue);
+  if AValue = TranslitTitle then
     FSortTitle := ''
   else
     FSortTitle := AValue;
@@ -376,10 +385,11 @@ end;
 
 procedure caEmutecaCustomSoft.SetTitle(AValue: string);
 begin
+  AValue := UTF8Trim(AValue);
   if FTitle = AValue then
     Exit;
 
-  if (UTF8CompareText(AValue, GroupKey) = 0) then
+  if AValue = GroupKey then
     FTitle := ''
   else
     FTitle := AValue;
@@ -433,6 +443,7 @@ end;
 
 procedure caEmutecaCustomSoft.SetTrainer(AValue: string);
 begin
+  AValue := UTF8Trim(AValue);
   if FTrainer = AValue then
     Exit;
   FTrainer := AValue;
@@ -440,6 +451,7 @@ end;
 
 procedure caEmutecaCustomSoft.SetTranslation(AValue: string);
 begin
+  AValue := UTF8Trim(AValue);
   if FTranslation = AValue then
     Exit;
   FTranslation := AValue;
@@ -447,7 +459,8 @@ end;
 
 procedure caEmutecaCustomSoft.SetTranslitTitle(AValue: string);
 begin
-  if (UTF8CompareText(AValue, Title) = 0) then
+  AValue := UTF8Trim(AValue);
+  if AValue = Title then
     FTranslitTitle := ''
   else
     FTranslitTitle := AValue;
@@ -455,6 +468,7 @@ end;
 
 procedure caEmutecaCustomSoft.SetVersion(AValue: string);
 begin
+  AValue := UTF8Trim(AValue);
   if FVersion = AValue then
     Exit;
   FVersion := AValue;
@@ -462,6 +476,7 @@ end;
 
 procedure caEmutecaCustomSoft.SetYear(AValue: string);
 begin
+  AValue := UTF8Trim(AValue);
   if FYear = AValue then
     Exit;
   FYear := AValue;
@@ -469,7 +484,7 @@ end;
 
 procedure caEmutecaCustomSoft.SetZone(AValue: string);
 begin
-  FZone := UTF8LowerString(AValue);
+  FZone := UTF8LowerString(UTF8Trim(AValue));
 end;
 
 function caEmutecaCustomSoft.GetActualID: string;
@@ -498,8 +513,8 @@ begin
 
   // Removing last dots "Super Mario Bros.",
   // Windows have problems with removing folders ended with dot...
-  while Utf8EndsText('.', Result) do
-    Result := Copy(Result, 1, Length(Result) - 1);
+  if Utf8EndsText('.', Result) then
+    Result[UTF8LengthFast(Result)] := '_';
 end;
 
 function caEmutecaCustomSoft.SHA1IsEmpty: boolean;
@@ -515,8 +530,8 @@ end;
 function caEmutecaCustomSoft.CompareFile(
   const aFolder, aFile: string): integer;
 begin
-  Result := CompareFilenames(SetAsAbsoluteFile(Folder + Filename,''),
-    SetAsAbsoluteFile(SetAsFolder(aFolder) + aFile,''));
+  Result := CompareFilenames(SetAsAbsoluteFile(Folder + Filename, ''),
+    SetAsAbsoluteFile(SetAsFolder(aFolder) + aFile, ''));
 end;
 
 function caEmutecaCustomSoft.MatchFile(const aFolder, aFile: string): boolean;

@@ -1,8 +1,5 @@
 unit uETKGUICommon;
-
-{< Commons unit.
-
-  ----
+{< Common functions and procedures unit.
 
   This file is part of Emuteca GUI.
 

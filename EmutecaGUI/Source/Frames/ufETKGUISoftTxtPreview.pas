@@ -1,4 +1,5 @@
 unit ufETKGUISoftTxtPreview;
+
 {< TfmETKGUISoftTxtPreview frame unit.
 
   This file is part of Emuteca GUI.
@@ -26,7 +27,11 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
-  // Emuteca core frames
+  // CHX units
+  uCHXStrUtils,
+  // Emuteca Core classes
+  ucEmutecaGroup, ucEmutecaSoftware,
+  // Emuteca Core frames
   ufEmutecaSoftTxtPreview,
   // Emuteca GUI abstracts
   uafETKGUISoftFoldersPreview;
@@ -36,28 +41,24 @@ type
   { TfmETKGUISoftTxtPreview }
 
   TfmETKGUISoftTxtPreview = class(TfmaETKGUISoftFoldersPreview)
-  private
-
   protected
     procedure CreateListView; override;
     function GetCaptionList: TStrings; override;
     function GetFolder: string; override;
 
-  public
-
+    procedure SetSoftware(AValue: cEmutecaSoftware); override;
+    procedure SetGroup(AValue: cEmutecaGroup); override;
   end;
 
 implementation
 
 {$R *.lfm}
 
-{ TfmETKGUISoftTxtPreview }
-
 procedure TfmETKGUISoftTxtPreview.CreateListView;
 begin
-  SetListPreview(TfmEmutecaSoftTxtPreview.Create(Self));
+  SetListPreview(TfmEmutecaSoftTxtPreview.Create(gbxPanel));
   fmListPreview.Align := alClient;
-  fmListPreview.Parent := Self;
+  fmListPreview.Parent := gbxPanel;
 end;
 
 function TfmETKGUISoftTxtPreview.GetCaptionList: TStrings;
@@ -73,8 +74,29 @@ begin
   Result := '';
 
   if Assigned(System) then
-    Result := System.TextFolders[cbxFolderCaption.ItemIndex];
+    Result := SetAsFolder(System.TextFolders[cbxFolderCaption.ItemIndex]);
+end;
+
+procedure TfmETKGUISoftTxtPreview.SetSoftware(AValue: cEmutecaSoftware);
+begin
+  inherited SetSoftware(AValue);
+
+  if Assigned(AValue) then
+    TfmEmutecaSoftTxtPreview(fmListPreview).SaveTextFolder :=
+      SetAsFolder(GetFolder + AValue.GetMediaFileName)
+  else
+    TfmEmutecaSoftTxtPreview(fmListPreview).SaveTextFolder := '';
+end;
+
+procedure TfmETKGUISoftTxtPreview.SetGroup(AValue: cEmutecaGroup);
+begin
+  inherited SetGroup(AValue);
+
+  if Assigned(AValue) then
+    TfmEmutecaSoftTxtPreview(fmListPreview).SaveTextFolder :=
+      SetAsFolder(GetFolder + AValue.MediaFileName)
+  else
+    TfmEmutecaSoftTxtPreview(fmListPreview).SaveTextFolder := '';
 end;
 
 end.
-

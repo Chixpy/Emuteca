@@ -1,2 +1,5 @@
 inherited fmETKGUISoftTxtPreview: TfmETKGUISoftTxtPreview
+  inherited gbxPanel: TGroupBox
+    Caption = 'Text'
+  end
 end

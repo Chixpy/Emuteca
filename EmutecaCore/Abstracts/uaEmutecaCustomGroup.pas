@@ -1,4 +1,5 @@
 unit uaEmutecaCustomGroup;
+
 {< caEmutecaCustomGroup abstact class unit.
 
   This file is part of Emuteca Core.
@@ -25,7 +26,7 @@ unit uaEmutecaCustomGroup;
 interface
 
 uses
-  Classes, SysUtils, LazUTF8,
+  Classes, SysUtils, LazUTF8, LazFileUtils,
   // CHX units
   uCHXStrUtils,
   // CHX abstract classes
@@ -59,13 +60,15 @@ type
     procedure SetYear(AValue: string);
 
   protected
-     procedure DoSaveToStrLst(aTxtFile: TStrings; ExportMode: Boolean); virtual;
+    procedure DoSaveToStrLst(aTxtFile: TStrings;
+      ExportMode: boolean); virtual;
 
   public
     function GetActualTitle: string;
     //< Gets actual Title string, not automade
     function GetActualSortTitle: string;
     //< Gets actual SortTitle string, not automade
+    function GetActualMediaFilename: string;
 
     function CompareID(aID: string): integer;
     function MatchID(aID: string): boolean;
@@ -97,6 +100,7 @@ type
 
     property Stats: cEmutecaPlayingStats read FStats;
   end;
+
   {< This class defines an abstract basic group.
 
     It stores with all basic properties, but without a software list to avoid
@@ -105,10 +109,9 @@ type
 
 implementation
 
-{ caEmutecaCustomGroup }
-
 procedure caEmutecaCustomGroup.SetDeveloper(AValue: string);
 begin
+  AValue := UTF8Trim(AValue);
   if FDeveloper = AValue then
     Exit;
   FDeveloper := AValue;
@@ -132,20 +135,22 @@ end;
 
 function caEmutecaCustomGroup.GetMediaFileName: string;
 begin
-  Result := FMediaFileName;
-  if Result <> '' then Exit;
+  if FMediaFileName = '' then
+  begin
+    Result := CleanFileName(SortTitle, True, False);
 
-  // Opps, it's empty
-
-  Result := CleanFileName(SortTitle, True, False);
-  // Removing last dots "Super Mario Bros.", Windows have problems with
-  //   removing folders ended with dot
-  while Utf8EndsText('.', Result) do
-    Result := Copy(Result, 1, Length(Result) - 1);
+    // Removing last dot "Super Mario Bros.", Windows have problems with
+    //   removing folders ended with dot
+    if Utf8EndsText('.', Result) then
+      Result[UTF8LengthFast(Result)] := '_';
+  end
+  else
+    Result := FMediaFileName;
 end;
 
 procedure caEmutecaCustomGroup.SetID(AValue: string);
 begin
+  AValue := UTF8Trim(AValue);
   if FID = AValue then
     Exit;
   FID := AValue;
@@ -155,19 +160,22 @@ end;
 
 procedure caEmutecaCustomGroup.SetMediaFileName(AValue: string);
 begin
-  if AValue = '' then
-    FMediaFileName := CleanFileName(SortTitle, True, False)
-  else
-    FMediaFileName := CleanFileName(AValue, True, False);
+  AValue := CleanFileName(AValue, True, False);
 
   // Removing last dot "Super Mario Bros.", Windows have problems with
   //   removing folders ended with dot
-  if Utf8EndsText('.', FMediaFileName) then
-    FMediaFileName[UTF8LengthFast(FMediaFileName)] := '_';
+  if Utf8EndsText('.', AValue) then
+    AValue[UTF8LengthFast(AValue)] := '_';
+
+  if CompareFilenames(AValue, SortTitle) = 0 then
+    FMediaFileName := ''
+  else
+    FMediaFileName := AValue;
 end;
 
 procedure caEmutecaCustomGroup.SetSortTitle(AValue: string);
 begin
+  AValue := UTF8Trim(AValue);
   if FSortTitle = AValue then
     Exit;
 
@@ -179,6 +187,8 @@ end;
 
 procedure caEmutecaCustomGroup.SetTitle(AValue: string);
 begin
+  AValue := UTF8Trim(AValue);
+
   if FTitle = AValue then
     Exit;
 
@@ -190,13 +200,15 @@ end;
 
 procedure caEmutecaCustomGroup.SetYear(AValue: string);
 begin
+  AValue := UTF8Trim(AValue);
+
   if FYear = AValue then
     Exit;
   FYear := AValue;
 end;
 
 procedure caEmutecaCustomGroup.DoSaveToStrLst(aTxtFile: TStrings;
-  ExportMode: Boolean);
+  ExportMode: boolean);
 begin
   if not assigned(aTxtFile) then
     Exit;
@@ -206,7 +218,7 @@ begin
   aTxtFile.Add(GetActualSortTitle);
   aTxtFile.Add(Year);
   aTxtFile.Add(Developer);
-  aTxtFile.Add(MediaFileName);
+  aTxtFile.Add(GetActualMediaFilename);
 
   Stats.WriteToStrLst(aTxtFile, ExportMode);
 end;
@@ -238,6 +250,11 @@ end;
 function caEmutecaCustomGroup.GetActualSortTitle: string;
 begin
   Result := FSortTitle;
+end;
+
+function caEmutecaCustomGroup.GetActualMediaFilename: string;
+begin
+  Result := FMediaFileName;
 end;
 
 function caEmutecaCustomGroup.CompareID(aID: string): integer;
