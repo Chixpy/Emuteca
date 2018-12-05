@@ -1,4 +1,5 @@
 unit ucEmutecaSoftware;
+
 {< cEmutecaSoftware class unit.
 
   This file is part of Emuteca Core.
@@ -25,7 +26,7 @@ unit ucEmutecaSoftware;
 interface
 
 uses
-  Classes, SysUtils, LazFileUtils, LazUTF8, 
+  Classes, SysUtils, LazFileUtils, LazUTF8,
   // Emuteca Core abstracts
   uaEmutecaCustomSystem, uaEmutecaCustomGroup, uaEmutecaCustomSoft;
 
@@ -42,6 +43,9 @@ type
   protected
     function GetTitle: string; override;
     procedure SetTitle(AValue: string); override;
+
+    function GetSortTitle: string; override;
+    procedure SetSortTitle(AValue: string); override;
 
   public
 
@@ -60,6 +64,7 @@ type
     destructor Destroy; override;
 
   end;
+
   {< This class defines a parented sofware with links to its System and Group.
        In CachedSystem and CachedGroup properties, and autoupdating the
        reference keys from both with Observer Pattern.
@@ -135,17 +140,35 @@ begin
     if AValue = CachedGroup.Title then
       FTitle := ''
     else
-     FTitle := AValue;
+      FTitle := AValue;
   end
   else
     inherited SetTitle(AValue);
+end;
+
+function cEmutecaSoftware.GetSortTitle: string;
+begin
+  if Assigned(CachedGroup) and (GetActualTitle = '') then
+    Result := CachedGroup.SortTitle
+  else
+    Result := inherited GetSortTitle;
+end;
+
+procedure cEmutecaSoftware.SetSortTitle(AValue: string);
+begin
+  if Assigned(CachedGroup) and (GetActualTitle = '') and
+    (UTF8CompareText(AValue, CachedGroup.SortTitle) = 0) then
+    FSortTitle := ''
+  else
+    inherited SetSortTitle(AValue);
 end;
 
 function cEmutecaSoftware.MatchGroupFile: boolean;
 begin
   if Assigned(CachedGroup) then
   begin
-    Result := CompareFilenames(CachedGroup.MediaFileName, GetMediaFileName) = 0;
+    Result := CompareFilenames(CachedGroup.MediaFileName,
+      GetMediaFileName) = 0;
   end
   else
     inherited MatchGroupFile;

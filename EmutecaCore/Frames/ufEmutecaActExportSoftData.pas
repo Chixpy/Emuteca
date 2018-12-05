@@ -81,7 +81,7 @@ type
     property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
     //< Emuteca
 
-    class function SimpleForm(aEmuteca: cEmuteca; const aGUIIconsIni, aGUIConfigIni: string): integer;
+    class function SimpleForm(aEmuteca: cEmuteca; SelectedSystem: cEmutecaSystem; const aGUIIconsIni, aGUIConfigIni: string): integer;
     //< Creates a form with AddFolder frame.
 
     constructor Create(TheOwner: TComponent); override;
@@ -213,7 +213,8 @@ begin
 end;
 
 class function TfmEmutecaActExportSoftData.SimpleForm(aEmuteca: cEmuteca;
-  const aGUIIconsIni, aGUIConfigIni: string): integer;
+  SelectedSystem: cEmutecaSystem; const aGUIIconsIni, aGUIConfigIni: string
+  ): integer;
 var
   aForm: TfrmCHXForm;
   aFrame: TfmEmutecaActExportSoftData;
@@ -232,6 +233,9 @@ begin
     aFrame.Align := alClient;
 
     aFrame.Emuteca := aEmuteca;
+    aFrame.fmSystemCBX.SelectedSystem := SelectedSystem;
+    // fmSystemCBX.SelectedSystem don't trigger SetSystem() callback.
+    aFrame.System := SelectedSystem;
 
     aForm.LoadGUIConfig(aGUIConfigIni);
     aForm.LoadGUIIcons(aGUIIconsIni);

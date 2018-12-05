@@ -67,104 +67,33 @@ msgstr ""
 msgid "DblClk to open in Image Viewer"
 msgstr ""
 
-#: tfmchximgviewer.actfirst.caption
-msgid "First"
-msgstr "Primero"
-
-#: tfmchximgviewer.actfirst.hint
-msgid "First Image|Show first image in the list"
-msgstr "Primera imagen|Muestra la primera imagen en la lista."
-
-#: tfmchximgviewer.actlast.caption
-msgid "Last"
-msgstr "Último"
-
-#: tfmchximgviewer.actlast.hint
-msgid "Last Image|Show last image in the list"
-msgstr "Última imagen|Muestra la última imagen en la lista."
-
-#: tfmchximgviewer.actnext.caption
-msgid "Next"
-msgstr "Siguiente"
-
-#: tfmchximgviewer.actnext.hint
-msgid "Next Image|Show next image in the list"
-msgstr "Siguiente imagen|Muestra la siguiente imagen de la lista."
+#: tfmchximgviewer.actclose.caption
+msgid "Close window"
+msgstr "Cerrar ventana"
 
 #: tfmchximgviewer.actoriginalsize.caption
-msgid "Original Size"
+#, fuzzy
+#| msgid "Original Size"
+msgid "Original size"
 msgstr "Tamaño original"
 
-#: tfmchximgviewer.actoriginalsize.hint
-msgid "Original Size|Shows image in its original size"
-msgstr "Tamaño original|Muestra la imagen a su tamaño original."
-
-#: tfmchximgviewer.actprevious.caption
-msgid "Previous"
-msgstr "Anterior"
-
-#: tfmchximgviewer.actprevious.hint
-msgid "Previous Image|Show previous image in the list"
-msgstr "Anterior imagen|Muestra la imagen anterior en la lista."
-
-#: tfmchximgviewer.actshowfilelist.caption
-msgid "Shows file list"
-msgstr "Muestra la lista de ficheros."
-
-#: tfmchximgviewer.actshowfilelist.hint
-msgid "Show file list.|Shows the of files"
-msgstr "Mostrar lista de ficheros.|Muestra la lista de ficheros."
-
 #: tfmchximgviewer.actstretch.caption
-msgid "Stretch"
+#, fuzzy
+#| msgid "Stretch"
+msgid "actStretch"
 msgstr "Adaptar"
 
-#: tfmchximgviewer.actstretch.hint
-msgid "Strech Image|Resizes the image to the window"
-msgstr "Adaptar la imagen|Redimensiona la imagen al tamaño de la ventana."
+#: tfmchximgviewer.acttogglefilelist.caption
+msgid "actToggleFileList"
+msgstr ""
 
 #: tfmchximgviewer.actzoomin.caption
 msgid "Zoom In"
 msgstr "Aumentar"
 
-#: tfmchximgviewer.actzoomin.hint
-msgid "Zoom In|Zooms in the image (x2)"
-msgstr "Aumentar|Aumenta la imagen (x2)"
-
 #: tfmchximgviewer.actzoomout.caption
 msgid "Zoom Out"
 msgstr "Encoger"
-
-#: tfmchximgviewer.actzoomout.hint
-msgid "Zoom Out|Zooms out the image (/2)"
-msgstr "Encoger|Encoge la imagen (/2)"
-
-#: tfmchximgviewer.bsep1.caption
-msgctxt "tfmchximgviewer.bsep1.caption"
-msgid "-"
-msgstr ""
-
-#: tfmchximgviewer.bsep3.caption
-msgctxt "tfmchximgviewer.bsep3.caption"
-msgid "-"
-msgstr ""
-
-#: tfmchximgviewer.bsep4.caption
-msgid "bSep4"
-msgstr ""
-
-#: tfmchximgviewer.mclose.caption
-msgctxt "tfmchximgviewer.mclose.caption"
-msgid "Close"
-msgstr "Cerrar"
-
-#: tfmchximgviewer.mclose.hint
-msgid "Close the window (Dbl Click)"
-msgstr "Cierra la ventana (Dbl Click)"
-
-#: tfmchximgviewer.tbimage.caption
-msgid "tbImage"
-msgstr ""
 
 #: tfmchxlistpreview.actfirstitem.caption
 msgid "First item"
@@ -243,7 +172,7 @@ msgstr ""
 #: tfmchxprogressbar.actcancel.caption
 msgctxt "tfmchxprogressbar.actcancel.caption"
 msgid "Cancel"
-msgstr "CAncelar"
+msgstr "Cancelar"
 
 #: tfmchxprogressbar.actupdate100.caption
 msgid "Update = 100 ms"
@@ -334,11 +263,11 @@ msgstr "Ejecutar"
 
 #: tfmchxscriptmanager.actfileopenfolder.caption
 msgid "Open folder in Explorer"
-msgstr ""
+msgstr "Abrir carpeta en el explorador"
 
 #: tfmchxscriptmanager.actfilesave.caption
 msgid "Save File"
-msgstr ""
+msgstr "Guardar fichero"
 
 #: tfmchxscriptmanager.actfilesaveas.caption
 msgid "Gu&ardar Como..."
@@ -429,7 +358,7 @@ msgstr ""
 
 #: tfmchxscriptmanager.pagsourcecode.caption
 msgid "Source Code"
-msgstr ""
+msgstr "Código fuente"
 
 #: tfmchxscriptmanager.tbeditor.caption
 msgid "tbEditor"
@@ -1209,12 +1138,12 @@ msgstr ""
 #: tfmetkguimediamanager.gbximages.caption
 msgctxt "tfmetkguimediamanager.gbximages.caption"
 msgid "Images"
-msgstr ""
+msgstr "Imágenes"
 
 #: tfmetkguimediamanager.gbxmusic.caption
 msgctxt "tfmetkguimediamanager.gbxmusic.caption"
 msgid "Music"
-msgstr ""
+msgstr "Música"
 
 #: tfmetkguimediamanager.gbxotherfiles.caption
 msgctxt "tfmetkguimediamanager.gbxotherfiles.caption"
@@ -1445,9 +1374,10 @@ msgid "ToolButton1"
 msgstr ""
 
 #: tfmetkguisoftmusicpreview.gbxpanel.caption
+#, fuzzy
 msgctxt "tfmetkguisoftmusicpreview.gbxpanel.caption"
 msgid "Music"
-msgstr ""
+msgstr "Música"
 
 #: tfmetkguisofttxtpreview.gbxpanel.caption
 msgid "Text"
@@ -1592,14 +1522,16 @@ msgid "Only show similar filenames"
 msgstr ""
 
 #: tfmlemutkmediamanager.gbximages.caption
+#, fuzzy
 msgctxt "tfmlemutkmediamanager.gbximages.caption"
 msgid "Images"
-msgstr ""
+msgstr "Imágenes"
 
 #: tfmlemutkmediamanager.gbxmusic.caption
+#, fuzzy
 msgctxt "tfmlemutkmediamanager.gbxmusic.caption"
 msgid "Music"
-msgstr ""
+msgstr "Música"
 
 #: tfmlemutkmediamanager.gbxotherfiles.caption
 msgctxt "tfmlemutkmediamanager.gbxotherfiles.caption"
@@ -1789,9 +1721,10 @@ msgid "Group"
 msgstr "Grupo"
 
 #: tfmlemutkmediamanager.vstsoftall.header.columns[2].text
+#, fuzzy
 msgctxt "tfmlemutkmediamanager.vstsoftall.header.columns[2].text"
 msgid "File"
-msgstr ""
+msgstr "Fichero"
 
 #: tfmlemutkmediamanager.vstsoftwofile.header.columns[0].text
 #, fuzzy
@@ -2448,6 +2381,12 @@ msgid ""
 "Do you want overwrite it?\n"
 msgstr ""
 
+#: uemutecarscstr.rscorfirmdeletefile
+msgid ""
+"%0:s\n"
+"Do you want to delete this file?\n"
+msgstr ""
+
 #: uemutecarscstr.rsedsalternate
 #, fuzzy
 msgctxt "uemutecarscstr.rsedsalternate"
@@ -2493,6 +2432,12 @@ msgstr "Desconocido"
 msgctxt "uemutecarscstr.rsedsverified"
 msgid "Verified"
 msgstr "Verificado"
+
+#: uemutecarscstr.rserrordeletingfile
+msgid ""
+"Error deleting:\n"
+"%0:s\n"
+msgstr ""
 
 #: uemutecarscstr.rsexportingemulatorlist
 #, fuzzy
@@ -2772,6 +2717,10 @@ msgstr ""
 msgctxt "uetkguirscstr.rsdeveloper"
 msgid "Developer"
 msgstr "Desarrollador"
+
+#: uetkguirscstr.rsemuwebempty
+msgid "Emulator's webpage not configured"
+msgstr ""
 
 #: uetkguirscstr.rsetkguiconfigtitle
 msgid "Config Editor"

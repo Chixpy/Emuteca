@@ -60,6 +60,7 @@ resourcestring
      %0:d = Current folder.
      %1:d = File/folder searched.
   }
+  rsEmuWebEmpty = 'Emulator''s webpage not configured';
   rsWarning = 'Warning';
   rsAutoFolderWarning = 'This action will:' + LineEnding +
     '* Save current system data.' + LineEnding +

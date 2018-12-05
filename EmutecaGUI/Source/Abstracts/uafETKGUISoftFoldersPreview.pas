@@ -28,7 +28,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
   // CHX frames
-  ufCHXFrame, ufCHXStrLstPreview,
+  ufCHXFrame, ufCHXFileListPreview,
   // Emuteca Core units
   uEmutecaCommon,
   // Emuteca Core abstracts
@@ -50,7 +50,7 @@ type
     FFileExt: TStrings;
     FFileList: TStringList;
     FLastCaption: string;
-    FfmListPreview: TfmCHXStrLstPreview;
+    FfmListPreview: TfmCHXFileListPreview;
     FSoftware: cEmutecaSoftware;
     FSystem: caEmutecaCustomSystem;
     FTempFolder: string;
@@ -60,14 +60,14 @@ type
     procedure SetTempFolder(const aTempFolder: string);
 
   protected
-    property fmListPreview: TfmCHXStrLstPreview read FfmListPreview;
+    property fmListPreview: TfmCHXFileListPreview read FfmListPreview;
     property FileList: TStringList read FFileList;
 
     property System: caEmutecaCustomSystem read FSystem write SetSystem;
 
     procedure UpdateFileList;
 
-    procedure SetListPreview(AValue: TfmCHXStrLstPreview);
+    procedure SetListPreview(AValue: TfmCHXFileListPreview);
     procedure SetSoftware(AValue: cEmutecaSoftware); virtual;
     procedure SetGroup(AValue: cEmutecaGroup); virtual;
 
@@ -139,7 +139,7 @@ begin
 end;
 
 procedure TfmaETKGUISoftFoldersPreview.SetListPreview(AValue:
-  TfmCHXStrLstPreview);
+  TfmCHXFileListPreview);
 begin
   if FfmListPreview = AValue then
     Exit;
@@ -199,7 +199,7 @@ begin
   if cbxFolderCaption.ItemIndex < 0 then
     Exit;
 
-  fmListPreview.StrList := nil;
+  fmListPreview.FileList := nil;
   FileList.Clear;
 
   // TODO: Maybe Emuteca Core must do this...
@@ -221,7 +221,7 @@ begin
       FileExt, True, True, TempFolder);
   end;
 
-  fmListPreview.StrList := FileList;
+  fmListPreview.FileList := FileList;
 end;
 
 procedure TfmaETKGUISoftFoldersPreview.DoClearFrameData;

@@ -57,7 +57,6 @@ type
     FPirate: string;
     FPublisher: string;
     FSHA1: TSHA1Digest;
-    FSortTitle: string;
     FStats: cEmutecaPlayingStats;
     FTrainer: string;
     FTranslation: string;
@@ -66,7 +65,6 @@ type
     FYear: string;
     FZone: string;
     function GetID: string;
-    function GetSortTitle: string;
     function GetTranslitTitle: string;
     procedure SetCracked(AValue: string);
     procedure SetDumpInfo(AValue: string);
@@ -81,7 +79,6 @@ type
     procedure SetPirate(AValue: string);
     procedure SetPublisher(AValue: string);
     procedure SetSHA1(AValue: TSHA1Digest);
-    procedure SetSortTitle(AValue: string);
     procedure SetTrainer(AValue: string);
     procedure SetTranslation(AValue: string);
     procedure SetTranslitTitle(AValue: string);
@@ -91,9 +88,13 @@ type
 
   protected
     FTitle: string;
+    FSortTitle: string;
 
     function GetTitle: string; virtual;
     procedure SetTitle(AValue: string); virtual;
+
+    function GetSortTitle: string; virtual;
+    procedure SetSortTitle(AValue: string); virtual;
 
     procedure DoSaveToStrLst(aTxtFile: TStrings; ExportMode: boolean); virtual;
 
@@ -377,7 +378,7 @@ end;
 procedure caEmutecaCustomSoft.SetSortTitle(AValue: string);
 begin
   AValue := UTF8Trim(AValue);
-  if AValue = TranslitTitle then
+  if UTF8CompareText(AValue, TranslitTitle) = 0 then
     FSortTitle := ''
   else
     FSortTitle := AValue;

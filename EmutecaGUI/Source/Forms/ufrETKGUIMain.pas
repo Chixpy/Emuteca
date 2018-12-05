@@ -1,4 +1,5 @@
 unit ufrETKGUIMain;
+
 {< TfrmETKGUIMain form unit.
 
   This file is part of Emuteca GUI.
@@ -455,7 +456,7 @@ begin
   // Teminate threads if they are running.
   if Assigned(CacheSysIconsThread) then
   begin
-     CacheSysIconsThread.OnTerminate := nil;
+    CacheSysIconsThread.OnTerminate := nil;
     CacheSysIconsThread.Terminate;
     CacheSysIconsThread.WaitFor;
   end;
@@ -479,7 +480,7 @@ end;
 
 procedure TfrmETKGUIMain.actExportSoftDataExecute(Sender: TObject);
 begin
-  TfmEmutecaActExportSoftData.SimpleForm(Emuteca, GUIIconsFile,
+  TfmEmutecaActExportSoftData.SimpleForm(Emuteca, CurrentSystem, GUIIconsFile,
     GUIConfig.DefaultFileName);
 end;
 
@@ -488,7 +489,7 @@ begin
   // Fix runtime errors, while trying to update if something is changed
   fmEmutecaMainFrame.Emuteca := nil;
 
-  TfmEmutecaActImportSoftData.SimpleForm(Emuteca, GUIIconsFile,
+  TfmEmutecaActImportSoftData.SimpleForm(Emuteca, CurrentSystem, GUIIconsFile,
     GUIConfig.DefaultFileName);
 
   fmEmutecaMainFrame.Emuteca := Emuteca;
@@ -565,7 +566,8 @@ end;
 
 procedure TfrmETKGUIMain.actMediaManagerExecute(Sender: TObject);
 begin
-  TfmETKGUIMediaManager.SimpleForm(Emuteca, GUIIconsFile, GUIConfig);
+  TfmETKGUIMediaManager.SimpleForm(Emuteca, CurrentSystem,
+    GUIIconsFile, GUIConfig);
 end;
 
 procedure TfrmETKGUIMain.actMergeGroupFilesExecute(Sender: TObject);
@@ -597,7 +599,7 @@ begin
     Exit;
 
   if CurrentEmu.WebPage = '' then
-    ShowMessage('Emulator''s webpage not configured')
+    ShowMessage(rsEmuWebEmpty)
   else
     OpenURL(CurrentEmu.WebPage);
 end;
@@ -611,7 +613,7 @@ end;
 
 procedure TfrmETKGUIMain.actOpenSoftFolderExecute(Sender: TObject);
 begin
-    if not assigned(CurrentSystem) then
+  if not assigned(CurrentSystem) then
     Exit;
 
   if not OpenDocument(CurrentSoft.Folder) then

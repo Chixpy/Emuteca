@@ -36,6 +36,8 @@ resourcestring
   // Misc
   rsNever = 'Never';
   rsUnknown = 'Unknown';
+
+  // File actions
   rsFileAlreadyAdded = 'This file is already added.';
   rsChooseImageFileFormat =
     'Do you want to save it in a lossless format?' + LineEnding +
@@ -44,7 +46,10 @@ resourcestring
   rsConfirmOverwriteFile = '%0:s' + LineEnding +
     'The file already exists.' + LineEnding +
     'Do you want overwrite it?';
-  rsCleaningSystemData = 'Cleaning system data...';
+  rsCorfirmDeleteFile = '%0:s' + LineEnding +
+    'Do you want to delete this file?';
+  rsErrorDeletingFile = 'Error deleting:' + LineEnding +
+    '%0:s';
 
   // List action
   rsLoadingSystemList = 'Loading system list...';
@@ -63,6 +68,7 @@ resourcestring
   rsSavingEmulatorList = 'Saving emulator list...';
   rsImportingEmulatorList = 'Importing emulator list...';
   rsExportingEmulatorList = 'Exporting emulator list...';
+  rsCleaningSystemData = 'Cleaning system data...';
 
   // Importing/Exporting Warnings
   rsImportingNoSHA1 =

@@ -50,19 +50,23 @@ type
     pmImageActions: TPopupMenu;
     tbPasteImage: TToolButton;
     procedure actAddImageFromClpBrdExecute(Sender: TObject);
+    procedure actDeleteImageExecute(Sender: TObject);
+    procedure actReplaceImageFromClpBrdExecute(Sender: TObject);
 
   private
     FSaveImageFolder: string;
     procedure SetSaveImageFolder(const aSaveImageFolder: string);
 
-    protected
-          procedure DoClearFrameData; override;
+  protected
+    procedure DoClearFrameData; override;
+
+    procedure SaveImageToFile(aFile: string);
 
   public
     property SaveImageFolder: string read FSaveImageFolder
       write SetSaveImageFolder;
 
-        constructor Create(TheOwner: TComponent); override;
+    constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
 
   end;
@@ -73,7 +77,8 @@ implementation
 
 { TfmEmutecaSoftImgPreview }
 
-procedure TfmEmutecaSoftImgPreview.actAddImageFromClpBrdExecute(Sender: TObject);
+procedure TfmEmutecaSoftImgPreview.actAddImageFromClpBrdExecute(
+  Sender: TObject);
 var
   CF: TClipboardFormat;
   DlgResult: integer;
@@ -84,7 +89,7 @@ begin
 
   // Checking clipboard format
   CF := Clipboard.FindPictureFormatID;
-  if CF = 0 then // There is no image in clipboard
+  if CF = 0 then // There isn't an image in clipboard
   begin
     ShowMessage('Image format not recognized.');
     Exit;
@@ -99,7 +104,7 @@ begin
   iImage.Picture.LoadFromClipboardFormat(CF);
 
   // TODO: If a software is selected ask if it must be assigned to the parent
-  //   or the software itself...
+  //   or the software itself... But, how can we check it?
 
   // Unique filename
   aFileName := FormatDateTime('yyyymmddhhnnss', Now);
@@ -114,19 +119,54 @@ begin
   end;
   aFileName := SaveImageFolder + aFileName;
 
-  // Checking if file already exists...
-  if FileExistsUTF8(aFilename) then
-    if MessageDlg(Format(rsConfirmOverwriteFile, [aFilename]),
-      mtConfirmation, [mbYes, mbNo], 0) = mrNo then
-      Exit;
+  SaveImageToFile(aFileName);
 
-  // Creating folder
-  if not DirectoryExistsUTF8(SaveImageFolder) then
-    ForceDirectoriesUTF8(SaveImageFolder);
+  FileList.Add(aFileName);
+end;
 
-  iImage.Picture.SaveToFile(aFileName);
+procedure TfmEmutecaSoftImgPreview.actDeleteImageExecute(Sender: TObject);
+begin
+  if (ItemCount = 0) or (ItemIndex < 0) or (ItemIndex >= ItemCount) then
+    Exit;
 
-  StrList.Add(aFileName);
+  if MessageDlg(Format(rsCorfirmDeleteFile, [FileList[ItemIndex]]),
+    mtConfirmation, [mbYes, mbNo], -1) = mrNo then
+    Exit;
+
+  if not DeleteFileUTF8(FileList[ItemIndex]) then
+  begin
+    ShowMessageFmt(rsErrorDeletingFile, [FileList[ItemIndex]]);
+    Exit;
+  end;
+
+  FileList.Delete(ItemIndex);
+end;
+
+procedure TfmEmutecaSoftImgPreview.actReplaceImageFromClpBrdExecute(
+  Sender: TObject);
+var
+  CF: TClipboardFormat;
+begin
+  if (ItemCount = 0) or (ItemIndex < 0) then
+    Exit;
+
+    // Checking clipboard format
+  CF := Clipboard.FindPictureFormatID;
+  if CF = 0 then // There isn't an image in clipboard
+  begin
+    ShowMessage('Image format not recognized.');
+    Exit;
+  end;
+
+  // Loading image directly to iImage component
+  // TODO: Is this needed?
+  //if CF = Windows.CF_BITMAP then // Handle CF_BITMAP separately
+  //  aPicture.LoadFromClipboardFormat(PredefinedClipboardFormat(
+  //    pcfDelphiBitmap))
+  //else
+  iImage.Picture.LoadFromClipboardFormat(CF);
+
+  SaveImageToFile(FileList[ItemIndex]);
 end;
 
 procedure TfmEmutecaSoftImgPreview.SetSaveImageFolder(
@@ -143,6 +183,33 @@ begin
 
   // Enabling buttons because a image can be added.
   Enabled := True;
+end;
+
+procedure TfmEmutecaSoftImgPreview.SaveImageToFile(aFile: string);
+begin
+  // Checking if file already exists...
+  if FileExistsUTF8(aFile) then
+  begin
+    if MessageDlg(Format(rsConfirmOverwriteFile, [aFile]),
+      mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+    begin
+      if not DeleteFileUTF8(FileList[ItemIndex]) then
+      begin
+        ShowMessageFmt(rsErrorDeletingFile, [aFile]);
+        Exit;
+      end;
+    end
+    else // Don't delete
+    begin
+      Exit;
+    end;
+  end;
+
+  // Creating folder
+  if not DirectoryExistsUTF8(ExtractFileDir(aFile)) then
+    ForceDirectoriesUTF8(ExtractFileDir(aFile));
+
+  iImage.Picture.SaveToFile(aFile);
 end;
 
 constructor TfmEmutecaSoftImgPreview.Create(TheOwner: TComponent);

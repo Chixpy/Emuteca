@@ -1,11 +1,5 @@
 inherited fmEmutecaSoftImgPreview: TfmEmutecaSoftImgPreview
   inherited tbPreviewList: TToolBar
-    inherited ToolButton1: TToolButton
-      Height = 22
-    end
-    inherited ToolButton6: TToolButton
-      Height = 22
-    end
     object tbPasteImage: TToolButton[8]
       Left = 190
       Top = 2
@@ -24,10 +18,12 @@ inherited fmEmutecaSoftImgPreview: TfmEmutecaSoftImgPreview
     object actDeleteImage: TAction[5]
       Category = 'Images'
       Caption = 'Delete current image'
+      OnExecute = actDeleteImageExecute
     end
     object actReplaceImageFromClpBrd: TAction[6]
       Category = 'Images'
       Caption = 'Replace with image from Clipboard'
+      OnExecute = actReplaceImageFromClpBrdExecute
     end
   end
   object pmImageActions: TPopupMenu[4]

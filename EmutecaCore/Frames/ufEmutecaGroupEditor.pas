@@ -136,6 +136,9 @@ end;
 
 destructor TfmEmutecaGroupEditor.Destroy;
 begin
+    if Assigned(FGroup) then
+    FGroup.FPODetachObserver(Self);
+
   inherited Destroy;
 end;
 

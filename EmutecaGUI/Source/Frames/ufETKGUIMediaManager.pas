@@ -31,7 +31,7 @@ uses
   // CHX units
   uCHXStrUtils, uCHXImageUtils, uCHXFileUtils, uCHXDlgUtils,
   // CHX frames
-  ufCHXFrame, ufCHXStrLstPreview, ufCHXImgListPreview,
+  ufCHXFrame, ufCHXFileListPreview, ufCHXImgListPreview,
   ufCHXTxtListPreview, ufCHXProgressBar,
   // CHX forms
   ufrCHXForm,
@@ -188,7 +188,7 @@ type
 
   private
     FCurrGroup: cEmutecaGroup;
-    FCurrPreview: TfmCHXStrLstPreview;
+    FCurrPreview: TfmCHXFileListPreview;
     FCurrSystem: cEmutecaSystem;
     FEmuteca: cEmuteca;
     FExtFilter: TStrings;
@@ -204,7 +204,7 @@ type
     FTargetFile: string;
     FTargetFolder: string;
     procedure SetCurrGroup(AValue: cEmutecaGroup);
-    procedure SetCurrPreview(AValue: TfmCHXStrLstPreview);
+    procedure SetCurrPreview(AValue: TfmCHXFileListPreview);
     procedure SetCurrSystem(AValue: cEmutecaSystem);
     procedure SetEmuteca(AValue: cEmuteca);
     procedure SetExtFilter(AValue: TStrings);
@@ -231,7 +231,7 @@ type
     {< Current selected group. }
     property ExtFilter: TStrings read FExtFilter write SetExtFilter;
     {< Extensions of the current selected Media. }
-    property CurrPreview: TfmCHXStrLstPreview
+    property CurrPreview: TfmCHXFileListPreview
       read FCurrPreview write SetCurrPreview;
     property MediaFiles: TStringList read FMediaFiles;
     {< Mediafiles assigned to the current game or group. }
@@ -351,7 +351,7 @@ type
     property GUIConfig: cETKGUIConfig read FGUIConfig write SetGUIConfig;
     {< Config of GUI. }
 
-    class function SimpleForm(aEmuteca: cEmuteca; aGUIIconsIni: string;
+    class function SimpleForm(aEmuteca: cEmuteca; SelectedSystem: cEmutecaSystem; aGUIIconsIni: string;
       aGUIConfig: cETKGUIConfig): integer;
     {< Creates a form with Media Manager. }
 
@@ -822,36 +822,36 @@ procedure TfmETKGUIMediaManager.ChangeGroupMedia(aGroup: cEmutecaGroup);
 begin
   if not Assigned(CurrPreview) then
     Exit;
-  CurrPreview.StrList := nil;
+  CurrPreview.FileList := nil;
   MediaFiles.Clear;
   EmuTKSearchAllRelatedFiles(MediaFiles, TargetFolder,
     aGroup.MediaFileName, ExtFilter, True, True, Emuteca.TempFolder);
-  CurrPreview.StrList := MediaFiles;
+  CurrPreview.FileList := MediaFiles;
 end;
 
 procedure TfmETKGUIMediaManager.ChangeSoftMedia(aSoft: cEmutecaSoftware);
 begin
   if not Assigned(CurrPreview) then
     Exit;
-  CurrPreview.StrList := nil;
+  CurrPreview.FileList := nil;
   MediaFiles.Clear;
   EmuTKSearchAllRelatedFiles(MediaFiles, TargetFolder,
     aSoft.GetMediaFileName, ExtFilter, True, True, Emuteca.TempFolder);
-  CurrPreview.StrList := MediaFiles;
+  CurrPreview.FileList := MediaFiles;
 end;
 
 procedure TfmETKGUIMediaManager.ChangeFileMedia(aFolder, aFileName: string);
 begin
   if not Assigned(CurrPreview) then
     Exit;
-  CurrPreview.StrList := nil;
+  CurrPreview.FileList := nil;
   MediaFiles.Clear;
 
   // TODO: Preview folders and zips
 
   if SupportedExtSL(aFileName, ExtFilter) then
     MediaFiles.Add(aFolder + aFileName);
-  CurrPreview.StrList := MediaFiles;
+  CurrPreview.FileList := MediaFiles;
 end;
 
 function TfmETKGUIMediaManager.AddFilesOtherFolderCB(aFolder: string;
@@ -951,7 +951,7 @@ begin
     aBool := FileExistsUTF8(TargetPath);
   if aBool then
   begin
-    if MessageDlg(Format('%0:s already exists. ¿Overwrite?', [TargetPath]),
+    if MessageDlg(Format(rsConfirmOverwriteFile, [TargetPath]),
       mtConfirmation, [mbYes, mbNo], -1) = mrNo then
       // TODO 2: Merge folders?
       Exit
@@ -1013,14 +1013,14 @@ begin
   if (SourceFile = '') or (SourceFolder = '') then
     Exit;
 
-  if MessageDlg(Format('Do you want delete? %0:s',
+  if MessageDlg(Format(rsCorfirmDeleteFile,
     [SourceFolder + SourceFile]), mtConfirmation, [mbYes, mbNo],
     -1) = mrNo then
     Exit;
 
   if not DeleteFileUTF8(SourceFolder + SourceFile) then
   begin
-    ShowMessageFmt('Error deleting: %0:s', [SourceFolder + SourceFile]);
+    ShowMessageFmt(rsErrorDeletingFile, [SourceFolder + SourceFile]);
     Exit;
   end;
 
@@ -1354,7 +1354,7 @@ begin
   ExtFilter := nil;
 
   if Assigned(CurrPreview) then
-    CurrPreview.StrList := nil;
+    CurrPreview.FileList := nil;
   CurrPreview := nil;
 
   SourceFile := '';
@@ -1860,7 +1860,7 @@ begin
   FCurrGroup := AValue;
 end;
 
-procedure TfmETKGUIMediaManager.SetCurrPreview(AValue: TfmCHXStrLstPreview);
+procedure TfmETKGUIMediaManager.SetCurrPreview(AValue: TfmCHXFileListPreview);
 begin
   if FCurrPreview = AValue then
     Exit;
@@ -1868,7 +1868,7 @@ begin
 end;
 
 class function TfmETKGUIMediaManager.SimpleForm(aEmuteca: cEmuteca;
-  aGUIIconsIni: string; aGUIConfig: cETKGUIConfig): integer;
+  SelectedSystem: cEmutecaSystem; aGUIIconsIni: string; aGUIConfig: cETKGUIConfig): integer;
 var
   aForm: TfrmCHXForm;
   aFrame: TfmETKGUIMediaManager;
@@ -1886,6 +1886,9 @@ begin
 
     aFrame.GUIConfig := aGUIConfig;
     aFrame.Emuteca := aEmuteca;
+    aFrame.fmSystemCBX.SelectedSystem := SelectedSystem;
+    // fmSystemCBX.SelectedSystem don't trigger SetSystem() callback.
+    aFrame.SelectSystem(SelectedSystem);
 
     aFrame.Parent := aForm;
 

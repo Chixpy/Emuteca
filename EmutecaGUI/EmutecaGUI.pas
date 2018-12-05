@@ -35,12 +35,11 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   ufCHXChkLstPropEditor,
   ufCHXFrame,
   ufCHXImgListPreview,
-  ufCHXImgViewer,
   ufCHXListPreview,
   ufCHXMultiFolderEditor,
   ufCHXPropEditor,
   ufCHXScriptManager,
-  ufCHXStrLstPreview,
+  ufCHXFileListPreview,
   ufCHXTagTree,
   ufCHXTxtListPreview,
   // CHX Script Engine stuff
@@ -117,7 +116,8 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   ufETKGUISoftVideoPreview, ufCHXVideoListPreview, ufETKGUISoftMusicPreview,
   uEmutecaRscStr, uEmutecaConst, uaEmutecaCustomEmu, uPSI_uEmutecaConst,
   uPSI_uEmutecaRscStr, uETKGUIConst, uETKGUIRscStr, ufETKGUIFullConfigEditor,
-  ufEmutecaSoftImgPreview, ufEmutecaSoftTxtPreview, ufEmutecaSoftVideoPreview;
+  ufEmutecaSoftImgPreview, ufEmutecaSoftTxtPreview, ufEmutecaSoftVideoPreview,
+  ufCHXImgViewer;
 
 {$R *.res}
 
