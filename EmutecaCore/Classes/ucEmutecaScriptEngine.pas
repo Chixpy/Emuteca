@@ -13,8 +13,8 @@ uses
   // CHX
   ucCHXScriptEngine,
   // PS Imports
-  uPSI_uEmutecaCommon,
   //uPSI_uaCHXStorable, uPSI_uaEmutecaManager,
+  uPSI_uEmutecaConst, uPSI_uEmutecaRscStr, uPSI_uEmutecaCommon,
   uPSI_ucEmutecaEmulator, uPSI_ucEmutecaSystem,
   uPSI_ucEmutecaGroup, uPSI_ucEmutecaSoftware,
   uPSI_ucEmutecaEmulatorManager, uPSI_ucEmutecaSystemManager,
@@ -68,6 +68,8 @@ procedure cEmutecaScriptEngine.PasScriptOnCompImport(Sender: TObject;
 begin
   inherited PasScriptOnCompImport(Sender, x);
 
+  SIRegister_uEmutecaConst(x);
+  SIRegister_uEmutecaRscStr(x);
   SIRegister_uEmutecaCommon(x);
 
   //SIRegister_uaCHXStorable(x);
@@ -89,6 +91,8 @@ procedure cEmutecaScriptEngine.PasScriptOnExecImport(Sender: TObject;
 begin
   inherited PasScriptOnExecImport(Sender, se, x);
 
+  RIRegister_uEmutecaConst_Routines(se);
+  RIRegister_uEmutecaRscStr_Routines(se);
   RIRegister_uEmutecaCommon_Routines(se);
 
   //RIRegister_uaCHXStorable(x);

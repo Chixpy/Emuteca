@@ -500,7 +500,7 @@ begin
   // Fix runtime errors, while trying to update if something is changed
   fmEmutecaMainFrame.Emuteca := nil;
 
-  TfmEmutecaActAddFolder.SimpleForm(Emuteca, GUIIconsFile,
+  TfmEmutecaActAddFolder.SimpleForm(Emuteca, CurrentSystem, GUIIconsFile,
     GUIConfig.DefaultFileName);
 
   fmEmutecaMainFrame.Emuteca := Emuteca;
@@ -511,7 +511,7 @@ begin
   // Fix runtime errors, while trying to update if something is changed
   fmEmutecaMainFrame.Emuteca := nil;
 
-  TfmEmutecaActAddSoft.SimpleForm(Emuteca, GUIIconsFile,
+  TfmEmutecaActAddSoft.SimpleForm(Emuteca, CurrentSystem, GUIIconsFile,
     GUIConfig.DefaultFileName);
 
   fmEmutecaMainFrame.Emuteca := Emuteca;

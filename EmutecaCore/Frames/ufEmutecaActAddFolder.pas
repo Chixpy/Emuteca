@@ -76,9 +76,9 @@ type
   public
     property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
 
-    // Creates a form with AddFolder frame.
-    class function SimpleForm(aEmuteca: cEmuteca; aGUIIconsIni: string;
-      aGUIConfigIni: string): integer;
+    class function SimpleForm(aEmuteca: cEmuteca; SelectedSystem: cEmutecaSystem;
+      const aGUIIconsIni: string; const aGUIConfigIni: string): integer;
+    //< Creates a form with TfmEmutecaActAddFolder frame.
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -345,7 +345,8 @@ begin
 end;
 
 class function TfmEmutecaActAddFolder.SimpleForm(aEmuteca: cEmuteca;
-  aGUIIconsIni: string; aGUIConfigIni: string): integer;
+  SelectedSystem: cEmutecaSystem; const aGUIIconsIni: string;
+  const aGUIConfigIni: string): integer;
 var
   aForm: TfrmCHXForm;
   aFrame: TfmEmutecaActAddFolder;
@@ -364,6 +365,9 @@ begin
     aFrame.Align := alClient;
 
     aFrame.Emuteca := aEmuteca;
+    aFrame.fmSystemCBX.SelectedSystem := SelectedSystem;
+    // fmSystemCBX.SelectedSystem don't trigger SetSystem() callback.
+    aFrame.SelectSystem(SelectedSystem);
 
     aForm.LoadGUIConfig(aGUIConfigIni);
     aForm.LoadGUIIcons(aGUIIconsIni);
