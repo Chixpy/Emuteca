@@ -12,9 +12,6 @@ inherited fmEmutecaSoftTxtPreview: TfmEmutecaSoftTxtPreview
       Action = actSaveFile
     end
   end
-  inherited mText: TMemo
-    ReadOnly = False
-  end
   inherited alPreviewList: TActionList
     object actLockText: TAction[4]
       Category = 'Text'

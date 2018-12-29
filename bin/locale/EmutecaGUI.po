@@ -91,6 +91,11 @@ msgstr ""
 msgid "Zoom Out"
 msgstr ""
 
+#: tfmchximgviewer.toolbutton2.caption
+msgctxt "tfmchximgviewer.toolbutton2.caption"
+msgid "ToolButton2"
+msgstr ""
+
 #: tfmchxlistpreview.actfirstitem.caption
 msgid "First item"
 msgstr ""
@@ -2676,6 +2681,43 @@ msgstr ""
 #: uetkguirscstr.rspublisher
 msgctxt "uetkguirscstr.rspublisher"
 msgid "Publisher"
+msgstr ""
+
+#: uetkguirscstr.rsrunsoftware7zerror
+msgid "TfmLEmuTKMain.RunSoftware: Unknown decompress error."
+msgstr ""
+
+#: uetkguirscstr.rsrunsoftwareexitcode
+msgid "TfmLEmuTKMain.RunSoftware: Emulator returned: %0:d"
+msgstr ""
+
+#: uetkguirscstr.rsrunsoftwarenoemu
+msgid ""
+"RunSoftware: Emulator = nil.\n"
+"%0:s\n"
+"%1:s\n"
+msgstr ""
+
+#: uetkguirscstr.rsrunsoftwarenoemuexe
+msgid "RunSoftware: Emulator executable not found"
+msgstr ""
+
+#: uetkguirscstr.rsrunsoftwarenosoft
+msgid "RunSoftware: Software = nil."
+msgstr ""
+
+#: uetkguirscstr.rsrunsoftwarenosoftfile
+msgid ""
+"RunSoftware: Soft file not found.\n"
+"%0:s\n"
+"%1:s\n"
+msgstr ""
+
+#: uetkguirscstr.rsrunsoftwareunkerror
+msgid ""
+"RunSoftware: Unknown Error.\n"
+"%0:s\n"
+"%1:s\n"
 msgstr ""
 
 #: uetkguirscstr.rssofteditorcaption

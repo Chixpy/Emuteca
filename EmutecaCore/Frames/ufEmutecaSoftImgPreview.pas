@@ -182,7 +182,7 @@ begin
   inherited DoClearFrameData;
 
   // Enabling buttons because a image can be added.
-  Enabled := True;
+  Enabled := SaveImageFolder <> '';
 end;
 
 procedure TfmEmutecaSoftImgPreview.SaveImageToFile(aFile: string);

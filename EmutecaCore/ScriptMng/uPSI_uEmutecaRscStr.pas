@@ -41,13 +41,23 @@ begin
   // Misc
   // ----
   CL.AddConstantN('rsNever', 'String').SetString(rsNever);
+  CL.AddConstantN('rsUnknown', 'String').SetString(rsUnknown);
+
+  // File actions
+  // ------------
   CL.AddConstantN('rsFileAlreadyAdded', 'String').SetString(
     rsFileAlreadyAdded);
-  CL.AddConstantN('rsCleaningSystemData', 'String').SetString(
-    rsCleaningSystemData);
+  CL.AddConstantN('rsChooseImageFileFormat', 'String').SetString(
+    rsChooseImageFileFormat);
+  CL.AddConstantN('rsConfirmOverwriteFile', 'String').SetString(
+    rsConfirmOverwriteFile);
+  CL.AddConstantN('rsCorfirmDeleteFile', 'String').SetString(
+    rsCorfirmDeleteFile);
+  CL.AddConstantN('rsErrorDeletingFile', 'String').SetString(
+    rsErrorDeletingFile);
 
-  // Lists
-  // -----
+  // List action
+  // -----------
   CL.AddConstantN('rsLoadingSystemList', 'String').SetString(
     rsLoadingSystemList);
   CL.AddConstantN('rsSavingSystemList', 'String').SetString(
@@ -74,6 +84,8 @@ begin
   CL.AddConstantN('rsImportingEmulatorList', 'String').SetString(rsImportingEmulatorList);
   CL.AddConstantN('rsExportingEmulatorList', 'String').SetString(
     rsExportingEmulatorList);
+  CL.AddConstantN('rsCleaningSystemData', 'String').SetString(
+    rsCleaningSystemData);
 
   // Importing/Exporting Warnings
   CL.AddConstantN('rsImportingNoSHA1', 'String').SetString(rsImportingNoSHA1);
@@ -101,6 +113,13 @@ begin
   CL.AddConstantN('rsEDSUnknown', 'String').SetString(rsEDSUnknown);
   CL.AddConstantN('rsEDSKeepValue', 'String').SetString(rsEDSKeepValue);
 
+
+  // Formated statistics
+  // -------------------
+  CL.AddConstantN('rsFmtNGroups', 'String').SetString(rsFmtNGroups);
+  CL.AddConstantN('rsFmtNVersions', 'String').SetString(rsFmtNVersions);
+  CL.AddConstantN('rsFmtNItems', 'String').SetString(rsFmtNItems);
+  CL.AddConstantN('rsFmtNTimes', 'String').SetString(rsFmtNTimes);
 end;
 
 procedure RIRegister_uEmutecaRscStr_Routines(S: TPSExec);

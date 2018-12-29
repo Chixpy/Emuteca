@@ -114,7 +114,6 @@ resourcestring
      %0:d = Number of items.
      %1:d = Number of visible items.
   }
-
   rsFmtNTimes = '%0:d times.';
 {< %0:d = Number of times. }
 

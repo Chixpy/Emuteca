@@ -1,9 +1,9 @@
 unit ufEmutecaSoftTxtPreview;
 {< TfmEmutecaSoftTxtPreview frame unit.
 
-  This file is part of Emuteca GUI.
+  This file is part of Emuteca Core.
 
-  Copyright (C) 2018-2018 Chixpy
+  Copyright (C) 2018-2019 Chixpy
 
   This source is free software; you can redistribute it and/or modify it under
   the terms of the GNU General Public License as published by the Free
@@ -48,8 +48,14 @@ type
     FSaveTextFolder: string;
     procedure SetSaveTextFolder(const aSaveTextFolder: string);
 
+    protected
+          procedure DoClearFrameData; override;
+
   public
     property SaveTextFolder: string read FSaveTextFolder write SetSaveTextFolder;
+
+        constructor Create(TheOwner: TComponent); override;
+    destructor Destroy; override;
   end;
 
 implementation
@@ -70,6 +76,28 @@ procedure TfmEmutecaSoftTxtPreview.SetSaveTextFolder(
   const aSaveTextFolder: string);
 begin
   FSaveTextFolder := SetAsFolder(aSaveTextFolder);
+
+  Enabled := SaveTextFolder <> '';
+end;
+
+procedure TfmEmutecaSoftTxtPreview.DoClearFrameData;
+begin
+  inherited DoClearFrameData;
+
+  // Enabling buttons because a text can be added.
+  Enabled := SaveTextFolder <> '';
+end;
+
+constructor TfmEmutecaSoftTxtPreview.Create(TheOwner: TComponent);
+begin
+  inherited Create(TheOwner);
+
+  actLockText.Checked := mText.ReadOnly;
+end;
+
+destructor TfmEmutecaSoftTxtPreview.Destroy;
+begin
+  inherited Destroy;
 end;
 
 end.

@@ -1,4 +1,5 @@
 unit uETKGUIRscStr;
+
 {< Resource strings unit.
 
   This file is part of Emuteca GUI.
@@ -61,6 +62,7 @@ resourcestring
      %1:d = File/folder searched.
   }
   rsEmuWebEmpty = 'Emulator''s webpage not configured';
+  {< Emulator's web page is empty. }
   rsWarning = 'Warning';
   rsAutoFolderWarning = 'This action will:' + LineEnding +
     '* Save current system data.' + LineEnding +
@@ -71,6 +73,19 @@ resourcestring
   rsSoftMediaCaption = 'Soft Media';
   rsTagsCaption = 'Tags';
   rsSystemCaption = 'System';
+
+  rsRunSoftwareUnkError = 'RunSoftware: Unknown Error.' +
+    LineEnding + '%0:s' + LineEnding + '%1:s';
+  rsRunSoftwareNoSoft = 'RunSoftware: Software = nil.';
+  rsRunSoftwareNoEmu = 'RunSoftware: Emulator = nil.' + LineEnding +
+    '%0:s' + LineEnding + '%1:s';
+  rsRunSoftwareNoSoftFile =
+    'RunSoftware: Soft file not found.' + LineEnding + '%0:s' +
+    LineEnding + '%1:s';
+  rsRunSoftwareNoEmuExe = 'RunSoftware: Emulator executable not found';
+  rsRunSoftware7zError =
+    'TfmLEmuTKMain.RunSoftware: Unknown decompress error.';
+  rsRunSoftwareExitCode = 'TfmLEmuTKMain.RunSoftware: Emulator returned: %0:d';
 
 
 implementation

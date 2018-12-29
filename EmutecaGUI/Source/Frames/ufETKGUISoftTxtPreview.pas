@@ -1,5 +1,4 @@
 unit ufETKGUISoftTxtPreview;
-
 {< TfmETKGUISoftTxtPreview frame unit.
 
   This file is part of Emuteca GUI.

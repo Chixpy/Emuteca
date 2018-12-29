@@ -1101,38 +1101,31 @@ begin
     0: ; // All OK
     kErrorRunSoftUnknown:
     begin
-      ShowMessageFmt('TfmLEmuTKMain.RunSoftware: Unknown Error.' +
-        LineEnding + '%0:s' + LineEnding + '%1:s',
-        [aSoftware.Folder, aSoftware.FileName]);
+      ShowMessageFmt(rsRunSoftwareUnkError, [aSoftware.Folder, aSoftware.FileName]);
     end;
     kErrorRunSoftNoSoft:
     begin
-      ShowMessage('TfmLEmuTKMain.RunSoftware: Software = nil.');
+      ShowMessage(rsRunSoftwareNoSoft);
     end;
     kErrorRunSoftNoEmu:
     begin
-      ShowMessageFmt('TfmLEmuTKMain.RunSoftware: Emulator = nil.' +
-        LineEnding + '%0:s' + LineEnding + '%1:s',
-        [aSoftware.Folder, aSoftware.FileName]);
+      ShowMessageFmt(rsRunSoftwareNoEmu,[aSoftware.Folder, aSoftware.FileName]);
     end;
     kErrorRunSoftNoSoftFile:
     begin
-      ShowMessageFmt('TfmLEmuTKMain.RunSoftware: Soft file not found.' +
-        LineEnding + '%0:s' + LineEnding + '%1:s',
-        [aSoftware.Folder, aSoftware.FileName]);
+      ShowMessageFmt(rsRunSoftwareNoSoftFile, [aSoftware.Folder, aSoftware.FileName]);
     end;
     kErrorRunSoftNoEmuFile:
     begin
-      ShowMessage('TfmLEmuTKMain.RunSoftware: Emulator executable not found');
+      ShowMessage(rsRunSoftwareNoEmuExe);
     end;
     kError7zDecompress:
     begin
-      ShowMessage('TfmLEmuTKMain.RunSoftware: Unknown decompress error.');
+      ShowMessage(rsRunSoftware7zError);
     end;
     else
     begin
-      ShowMessageFmt('TfmLEmuTKMain.RunSoftware: Emulator returned: %0:d',
-        [aError]);
+      ShowMessageFmt(rsRunSoftwareExitCode, [aError]);
     end;
   end;
 

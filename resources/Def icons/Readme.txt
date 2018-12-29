@@ -1,0 +1,1 @@
+Default preloaded icons when Images/Icons/Icons.ini is not used.
