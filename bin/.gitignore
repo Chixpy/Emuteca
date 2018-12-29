@@ -5,3 +5,5 @@
 /LazEmuteca-Debug-x86_64-win64.exe
 /LazEmuteca-Release-x86_64-win64.exe
 /*.log
+/Error.txt
+/Output.txt
