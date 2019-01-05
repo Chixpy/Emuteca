@@ -60,6 +60,7 @@ type
   protected
     procedure DoClearFrameData; override;
 
+    function LoadImageFromClpBrd: boolean;
     procedure SaveImageToFile(aFile: string);
 
   public
@@ -80,28 +81,14 @@ implementation
 procedure TfmEmutecaSoftImgPreview.actAddImageFromClpBrdExecute(
   Sender: TObject);
 var
-  CF: TClipboardFormat;
   DlgResult: integer;
   aFileName: string;
 begin
   if SaveImageFolder = '' then
     Exit;
 
-  // Checking clipboard format
-  CF := Clipboard.FindPictureFormatID;
-  if CF = 0 then // There isn't an image in clipboard
-  begin
-    ShowMessage('Image format not recognized.');
+  if not LoadImageFromClpBrd then
     Exit;
-  end;
-
-  // Loading image directly to iImage component
-  // TODO: Is this needed?
-  //if CF = Windows.CF_BITMAP then // Handle CF_BITMAP separately
-  //  aPicture.LoadFromClipboardFormat(PredefinedClipboardFormat(
-  //    pcfDelphiBitmap))
-  //else
-  iImage.Picture.LoadFromClipboardFormat(CF);
 
   // TODO: If a software is selected ask if it must be assigned to the parent
   //   or the software itself... But, how can we check it?
@@ -126,8 +113,10 @@ end;
 
 procedure TfmEmutecaSoftImgPreview.actDeleteImageExecute(Sender: TObject);
 begin
-  if (ItemCount = 0) or (ItemIndex < 0) or (ItemIndex >= ItemCount) then
+  if not (ItemIndex in [0..ItemCount]) then
     Exit;
+
+  // TODO: <game>.zip/file.png test....
 
   if MessageDlg(Format(rsCorfirmDeleteFile, [FileList[ItemIndex]]),
     mtConfirmation, [mbYes, mbNo], -1) = mrNo then
@@ -144,13 +133,44 @@ end;
 
 procedure TfmEmutecaSoftImgPreview.actReplaceImageFromClpBrdExecute(
   Sender: TObject);
+begin
+  if (ItemIndex in [0..ItemCount]) then
+  begin
+    // TODO: <game>.zip/file.png test....
+
+    if not LoadImageFromClpBrd then
+      Exit;
+
+    SaveImageToFile(FileList[ItemIndex]);
+  end
+  else
+    actAddImageFromClpBrd.Execute;
+end;
+
+procedure TfmEmutecaSoftImgPreview.SetSaveImageFolder(
+  const aSaveImageFolder: string);
+begin
+  FSaveImageFolder := SetAsFolder(aSaveImageFolder);
+
+  Enabled := SaveImageFolder <> '';
+end;
+
+procedure TfmEmutecaSoftImgPreview.DoClearFrameData;
+begin
+  inherited DoClearFrameData;
+
+  // Enabling buttons because a image can be added.
+  Enabled := SaveImageFolder <> '';
+end;
+
+function TfmEmutecaSoftImgPreview.LoadImageFromClpBrd: boolean;
 var
   CF: TClipboardFormat;
 begin
-  if (ItemCount = 0) or (ItemIndex < 0) then
-    Exit;
+  Result := False;
 
-    // Checking clipboard format
+  // Checking clipboard format
+  // TODO: Make an exception.
   CF := Clipboard.FindPictureFormatID;
   if CF = 0 then // There isn't an image in clipboard
   begin
@@ -166,23 +186,7 @@ begin
   //else
   iImage.Picture.LoadFromClipboardFormat(CF);
 
-  SaveImageToFile(FileList[ItemIndex]);
-end;
-
-procedure TfmEmutecaSoftImgPreview.SetSaveImageFolder(
-  const aSaveImageFolder: string);
-begin
-  FSaveImageFolder := SetAsFolder(aSaveImageFolder);
-
-  actAddImageFromClpBrd.Enabled := SaveImageFolder <> '';
-end;
-
-procedure TfmEmutecaSoftImgPreview.DoClearFrameData;
-begin
-  inherited DoClearFrameData;
-
-  // Enabling buttons because a image can be added.
-  Enabled := SaveImageFolder <> '';
+  Result := True;
 end;
 
 procedure TfmEmutecaSoftImgPreview.SaveImageToFile(aFile: string);

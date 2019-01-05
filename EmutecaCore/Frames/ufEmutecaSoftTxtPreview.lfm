@@ -10,6 +10,8 @@ inherited fmEmutecaSoftTxtPreview: TfmEmutecaSoftTxtPreview
       Left = 213
       Top = 2
       Action = actSaveFile
+      DropdownMenu = pmTextActions
+      Style = tbsButtonDrop
     end
   end
   inherited alPreviewList: TActionList
@@ -24,6 +26,33 @@ inherited fmEmutecaSoftTxtPreview: TfmEmutecaSoftTxtPreview
       Category = 'Text'
       Caption = 'Save file'
       OnExecute = actSaveFileExecute
+    end
+    object actCreateNew: TAction[6]
+      Category = 'Text'
+      Caption = 'Create new text file'
+      OnExecute = actCreateNewExecute
+    end
+    object actDeleteFile: TAction[7]
+      Category = 'Text'
+      Caption = 'Delete text file'
+      OnExecute = actDeleteFileExecute
+    end
+  end
+  object pmTextActions: TPopupMenu[4]
+    Images = ilPreviewList
+    left = 108
+    top = 105
+    object mipmCreateNew: TMenuItem
+      Action = actCreateNew
+    end
+    object mipmSaveFile: TMenuItem
+      Action = actSaveFile
+    end
+    object MenuItem1: TMenuItem
+      Caption = '-'
+    end
+    object mipmDeleteFile: TMenuItem
+      Action = actDeleteFile
     end
   end
 end

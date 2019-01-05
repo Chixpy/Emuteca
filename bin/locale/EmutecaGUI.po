@@ -841,6 +841,14 @@ msgctxt "tfmemutecasofttree.vdt.header.columns[9].text"
 msgid "File"
 msgstr ""
 
+#: tfmemutecasofttxtpreview.actcreatenew.caption
+msgid "Create new text file"
+msgstr ""
+
+#: tfmemutecasofttxtpreview.actdeletefile.caption
+msgid "Delete text file"
+msgstr ""
+
 #: tfmemutecasofttxtpreview.actlocktext.caption
 msgid "Lock text"
 msgstr ""

@@ -272,7 +272,7 @@ type
     function AddFileCB(aFolder: string; Info: TSearchRec): boolean;
     {< Adds a file to the lists.
       For use with IterateFolder.
-      @param(aFolder Folder where the file is in. @(Not usd@))
+      @param(aFolder Folder where the file is in. @(Not used@))
       @param(Info TSearchRec with file data.)
       @return(Always @true; needed for IterateFolder.)
     }
@@ -318,7 +318,7 @@ type
     function AddFilesOtherFolderCB(aFolder: string;
       Info: TSearchRec): boolean;
     //{< Add files or folders to vstFilesOtherFolder.
-    //  @param(aFolder Folder where the file is in.)
+    //  @param(aFolder Folder where the file is in. @(not used@))
     //  @param(Info TSearchRec with folder or file data.)
     //  @return(Always @true; needed for IterateFolder.)
     //}
