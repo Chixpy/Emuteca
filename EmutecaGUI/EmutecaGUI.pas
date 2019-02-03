@@ -122,7 +122,7 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
 {$R *.res}
 
 begin
-  Application.Title := 'Emuteca GUI';
+  Application.Title:='Emuteca GUI';
   RequireDerivedFormResource := True;
   Application.Initialize;
   Application.CreateForm(TfrmETKGUIMain, frmETKGUIMain);

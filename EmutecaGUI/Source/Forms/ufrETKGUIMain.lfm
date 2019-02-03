@@ -1,17 +1,18 @@
 inherited frmETKGUIMain: TfrmETKGUIMain
-  Left = 388
-  Top = 132
+  Left = 535
+  Height = 501
+  Top = 221
   Caption = 'Main'
-  ClientHeight = 380
+  ClientHeight = 476
   Menu = MainMenu
   OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   object stbHelp: TStatusBar[0]
     Left = 4
-    Height = 23
-    Top = 353
-    Width = 632
+    Height = 29
+    Top = 443
+    Width = 792
     AutoHint = True
     Panels = <>
   end
@@ -33,6 +34,12 @@ inherited frmETKGUIMain: TfrmETKGUIMain
       object mipmSSOpenSysBaseFolder: TMenuItem
         Action = actOpenSystemBaseFolder
       end
+    end
+    object MenuItem7: TMenuItem
+      Caption = '-'
+    end
+    object mipmSDeleteSoft: TMenuItem
+      Action = actRemoveSoft
     end
   end
   object pmGroup: TPopupMenu[2]
@@ -348,6 +355,11 @@ inherited frmETKGUIMain: TfrmETKGUIMain
       Category = 'Emulator'
       Caption = 'Open emulator website...'
       OnExecute = actOpenEmulatorWebExecute
+    end
+    object actRemoveSoft: TAction
+      Category = 'Software'
+      Caption = 'Remove software from list'
+      OnExecute = actRemoveSoftExecute
     end
   end
   object ActImages: TImageList[5]

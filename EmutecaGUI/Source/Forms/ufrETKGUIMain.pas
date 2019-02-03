@@ -75,6 +75,7 @@ type
     actExportSoftData: TAction;
     ActImages: TImageList;
     actImportSoftData: TAction;
+    actRemoveSoft: TAction;
     actOpenEmulatorWeb: TAction;
     actRunEmulatorAlone: TAction;
     ActionList: TActionList;
@@ -102,6 +103,8 @@ type
     MenuItem4: TMenuItem;
     MenuItem5: TMenuItem;
     MenuItem6: TMenuItem;
+    MenuItem7: TMenuItem;
+    mipmSDeleteSoft: TMenuItem;
     mimmOpenEmulatorWeb: TMenuItem;
     mimmSearchInternetE: TMenuItem;
     mimmSearchInternetS: TMenuItem;
@@ -167,6 +170,7 @@ type
     procedure actOpenSoftFolderExecute(Sender: TObject);
     procedure actOpenSystemBaseFolderExecute(Sender: TObject);
     procedure actOpenTempFolderExecute(Sender: TObject);
+    procedure actRemoveSoftExecute(Sender: TObject);
     procedure actRunEmulatorAloneExecute(Sender: TObject);
     procedure actRunSoftwareExecute(Sender: TObject);
     procedure actSaveListsExecute(Sender: TObject);
@@ -638,6 +642,20 @@ begin
       [GetCurrentDirUTF8, Emuteca.TempFolder]);
 end;
 
+procedure TfrmETKGUIMain.actRemoveSoftExecute(Sender: TObject);
+begin
+  if not Assigned(CurrentSoft) then
+    Exit;
+
+  if not QuestionDlg('Are you sure',
+    Format(rsAskDeleteItem, [CurrentSoft.Title]),
+    mtConfirmation, [mrYes, mrNo], 0) = mrYes then
+    Exit;
+
+
+  // TODO: Remove software from the system...
+end;
+
 procedure TfrmETKGUIMain.actRunEmulatorAloneExecute(Sender: TObject);
 begin
   CurrentEmu.ExecuteAlone;
@@ -1039,8 +1057,6 @@ begin
       Inc(i);
     end;
 
-
-
   finally
     aFile.Free;
     aSearcher.Free;
@@ -1101,7 +1117,8 @@ begin
     0: ; // All OK
     kErrorRunSoftUnknown:
     begin
-      ShowMessageFmt(rsRunSoftwareUnkError, [aSoftware.Folder, aSoftware.FileName]);
+      ShowMessageFmt(rsRunSoftwareUnkError, [aSoftware.Folder,
+        aSoftware.FileName]);
     end;
     kErrorRunSoftNoSoft:
     begin
@@ -1109,11 +1126,13 @@ begin
     end;
     kErrorRunSoftNoEmu:
     begin
-      ShowMessageFmt(rsRunSoftwareNoEmu,[aSoftware.Folder, aSoftware.FileName]);
+      ShowMessageFmt(rsRunSoftwareNoEmu, [aSoftware.Folder,
+        aSoftware.FileName]);
     end;
     kErrorRunSoftNoSoftFile:
     begin
-      ShowMessageFmt(rsRunSoftwareNoSoftFile, [aSoftware.Folder, aSoftware.FileName]);
+      ShowMessageFmt(rsRunSoftwareNoSoftFile,
+        [aSoftware.Folder, aSoftware.FileName]);
     end;
     kErrorRunSoftNoEmuFile:
     begin

@@ -87,6 +87,7 @@ resourcestring
     'TfmLEmuTKMain.RunSoftware: Unknown decompress error.';
   rsRunSoftwareExitCode = 'TfmLEmuTKMain.RunSoftware: Emulator returned: %0:d';
 
+  rsAskDeleteItem = 'Do you want to delete this item from Emuteca?' + LineEnding + '%0:s';
 
 implementation
 
