@@ -15,6 +15,7 @@ inherited frmETKGUIMain: TfrmETKGUIMain
     Width = 792
     AutoHint = True
     Panels = <>
+    SizeGrip = False
   end
   object pmSoft: TPopupMenu[1]
     Images = ActImages

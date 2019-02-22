@@ -1,7 +1,13 @@
 inherited fmEmutecaSoftImgPreview: TfmEmutecaSoftImgPreview
   inherited tbPreviewList: TToolBar
+    inherited ToolButton6: TToolButton
+      Left = 250
+    end
+    inherited cbxCurrItem: TComboBox
+      Top = 1
+    end
     object tbPasteImage: TToolButton[8]
-      Left = 190
+      Left = 206
       Top = 2
       Action = actAddImageFromClpBrd
       DropdownMenu = pmImageActions

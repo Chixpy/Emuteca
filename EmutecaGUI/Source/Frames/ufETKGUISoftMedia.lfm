@@ -7,19 +7,18 @@ inherited fmETKGUISoftMedia: TfmETKGUISoftMedia
   DesignTop = 110
   object ScrollBox1: TScrollBox[0]
     Left = 0
-    Height = 478
+    Height = 472
     Top = 0
     Width = 243
     HorzScrollBar.Page = 1
     VertScrollBar.Page = 1
     Align = alClient
-    BorderStyle = bsNone
     TabOrder = 0
   end
   object ToolBar1: TToolBar[1]
     Left = 0
-    Height = 24
-    Top = 482
+    Height = 30
+    Top = 476
     Width = 243
     Align = alBottom
     AutoSize = True
@@ -33,29 +32,29 @@ inherited fmETKGUISoftMedia: TfmETKGUISoftMedia
       Action = actAddImagePanel
     end
     object tbAddTextPanel: TToolButton
-      Left = 24
+      Left = 30
       Top = 2
       Action = actAddTextPanel
     end
     object tbAddVideoPanel: TToolButton
-      Left = 70
+      Left = 88
       Top = 2
       Action = actAddVideoPanel
     end
     object tbAddMusicPanel: TToolButton
-      Left = 47
+      Left = 59
       Top = 2
       Action = actAddMusicPanel
     end
     object ToolButton1: TToolButton
-      Left = 93
-      Height = 22
+      Left = 117
+      Height = 28
       Top = 2
       Caption = 'ToolButton1'
       Style = tbsSeparator
     end
     object tbClearPanels: TToolButton
-      Left = 101
+      Left = 125
       Top = 2
       Action = actClearPanels
     end

@@ -1,24 +1,24 @@
 inherited fmaETKGUISoftFoldersPreview: TfmaETKGUISoftFoldersPreview
   AutoSize = False
-  DesignLeft = 633
-  DesignTop = 304
+  DesignLeft = 716
+  DesignTop = 283
   object gbxPanel: TGroupBox[0]
     Left = 0
-    Height = 240
+    Height = 300
     Top = 0
-    Width = 320
+    Width = 400
     Align = alClient
     Caption = 'Panel'
-    ClientHeight = 220
-    ClientWidth = 316
+    ClientHeight = 275
+    ClientWidth = 396
     TabOrder = 0
     object cbxFolderCaption: TComboBox
       Left = 0
-      Height = 23
+      Height = 28
       Top = 0
-      Width = 316
+      Width = 396
       Align = alTop
-      ItemHeight = 15
+      ItemHeight = 20
       OnSelect = cbxFolderCaptionSelect
       Style = csDropDownList
       TabOrder = 0

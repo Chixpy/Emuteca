@@ -1,4 +1,5 @@
 unit ufETKGUISoftMedia;
+
 {< TfmETKGUISoftMedia frame unit.
 
   This file is part of Emuteca GUI.
@@ -101,11 +102,11 @@ type
       aHeight: integer): TfmaETKGUISoftFoldersPreview;
 
     procedure UpdateChildrenConfig(aComponent: TComponent);
-    //< Updates config of all childrens: Extensions and paths
+    //< Updates config of all media panels: Extensions and paths
     procedure UpdateChildrenGroup(aComponent: TComponent);
-    //< Updates group of all childrens.
+    //< Updates group of all media panels.
     procedure UpdateChildrenSoft(aComponent: TComponent);
-    //< Updates soft of all childrens.
+    //< Updates soft of all media panels.
 
     procedure DoLoadGUIConfig(aIniFile: TIniFile);
     procedure DoSaveGUIConfig(aIniFile: TIniFile);
@@ -158,7 +159,7 @@ end;
 
 procedure TfmETKGUISoftMedia.actClearPanelsExecute(Sender: TObject);
 begin
-  // Maybe the is a better way to delete panels...
+  // Maybe there is a better way to delete panels...
   while ScrollBox1.ComponentCount > 0 do
     ScrollBox1.Components[0].Free;
 end;
@@ -252,25 +253,28 @@ function TfmETKGUISoftMedia.AddMediaPanel(
   aPanelClass: TfmaETKGUISoftFoldersPreviewClass;
   aHeight: integer): TfmaETKGUISoftFoldersPreview;
 var
-  aPanel: TPanel;
+  aSplitter: TSplitter;
   aMediaPanel: TfmaETKGUISoftFoldersPreview;
 begin
 
-  aPanel := TPanel.Create(ScrollBox1);
-  aMediaPanel := aPanelClass.Create(aPanel);
+  aSplitter := TSplitter.Create(ScrollBox1);
+  aSplitter.Align := alTop;
+  aSplitter.Parent := ScrollBox1;
 
-  aPanel.Align := alTop;
+  aMediaPanel := aPanelClass.Create(ScrollBox1);
+  // Unique component name
+  aMediaPanel.Name := aMediaPanel.Name +
+    IntToStr(ScrollBox1.ComponentCount div 2);
+
+  // Music preview have fixed size
   if not (aMediaPanel is TfmETKGUISoftMusicPreview) then
-    aPanel.Height := aHeight;
+    aMediaPanel.Height := aHeight;
 
   //aMediaPanel.LoadGUIConfig();
+  //UpdateChildrenConfig(aPanel);
 
-  UpdateChildrenConfig(aPanel);
-
-  aMediaPanel.Align := alClient;
-
-  aMediaPanel.Parent := aPanel;
-  aPanel.Parent := ScrollBox1;
+  aMediaPanel.Align := alTop;
+  aMediaPanel.Parent := ScrollBox1;
 
   Result := aMediaPanel;
 end;
@@ -280,9 +284,6 @@ var
   aChild: TComponent;
   i: integer;
 begin
-  if aComponent.ComponentCount = 0 then
-    Exit;
-
   i := 0;
   while i < aComponent.ComponentCount do
   begin
@@ -324,9 +325,6 @@ var
   aChild: TComponent;
   i: integer;
 begin
-  if aComponent.ComponentCount = 0 then
-    Exit;
-
   i := 0;
   while i < aComponent.ComponentCount do
   begin
@@ -348,9 +346,6 @@ var
   aChild: TComponent;
   i: integer;
 begin
-  if aComponent.ComponentCount = 0 then
-    Exit;
-
   i := 0;
   while i < aComponent.ComponentCount do
   begin
@@ -418,52 +413,42 @@ end;
 
 procedure TfmETKGUISoftMedia.DoSaveGUIConfig(aIniFile: TIniFile);
 var
-  i: integer;
-  aPanel: TPanel;
-  aPreview: TfmaETKGUISoftFoldersPreview;
+  i, j: integer;
+  aPreview: TComponent;
 begin
+  // ScrollBox1.ComponentCount div 2 => Splitter + MediaPanel
   aIniFile.WriteInteger(krsIniSoftMediaFrameSection,
-    krsIniSoftMediaNPanels, ScrollBox1.ComponentCount);
+    krsIniSoftMediaNPanels, ScrollBox1.ComponentCount div 2);
 
   i := 0;
   while i < ScrollBox1.ComponentCount do
   begin
-    // Previews are inside TPanels
-    if ScrollBox1.Components[i] is TPanel then
+    aPreview := ScrollBox1.Components[i];
+    j := i div 2;
+
+    if (aPreview is TfmaETKGUISoftFoldersPreview) then
     begin
-      aPanel := TPanel(ScrollBox1.Components[i]);
-
-    { It's supposed that aPanel have only one component and is a
-         TfmaETKGUISoftFoldersPreview... }
-
-      if (aPanel.ComponentCount > 0) and (aPanel.Components[0] is
-        TfmaETKGUISoftFoldersPreview) then
-      begin
-        aPreview := TfmaETKGUISoftFoldersPreview(aPanel.Components[0]);
-
-        if aPreview is TfmETKGUISoftMusicPreview then
-          aIniFile.WriteString(krsIniSoftMediaFrameSection,
-            Format(krsIniSoftMediaPanelType, [i]), krsIniMusicPanelKey)
-        else if aPreview is TfmETKGUISoftVideoPreview then
-          aIniFile.WriteString(krsIniSoftMediaFrameSection,
-            Format(krsIniSoftMediaPanelType, [i]), krsIniVideoPanelKey)
-        else if aPreview is TfmETKGUISoftImgPreview then
-          aIniFile.WriteString(krsIniSoftMediaFrameSection,
-            Format(krsIniSoftMediaPanelType, [i]), krsIniImagePanelKey)
-        else if aPreview is TfmETKGUISoftTxtPreview then
-          aIniFile.WriteString(krsIniSoftMediaFrameSection,
-            Format(krsIniSoftMediaPanelType, [i]), krsIniTextPanelKey);
-
-        aIniFile.WriteInteger(krsIniSoftMediaFrameSection,
-          Format(krsIniSoftMediaPanelHeight, [i]), aPanel.Height);
+      if aPreview is TfmETKGUISoftMusicPreview then
         aIniFile.WriteString(krsIniSoftMediaFrameSection,
-          Format(krsIniSoftMediaPanelCaption, [i]), aPreview.LastCaption);
-      end
-      else
+          Format(krsIniSoftMediaPanelType, [j]), krsIniMusicPanelKey)
+      else if aPreview is TfmETKGUISoftVideoPreview then
         aIniFile.WriteString(krsIniSoftMediaFrameSection,
-          Format(krsIniSoftMediaPanelType, [i]), krsIniUnknownPanelKey);
+          Format(krsIniSoftMediaPanelType, [j]), krsIniVideoPanelKey)
+      else if aPreview is TfmETKGUISoftImgPreview then
+        aIniFile.WriteString(krsIniSoftMediaFrameSection,
+          Format(krsIniSoftMediaPanelType, [j]), krsIniImagePanelKey)
+      else if aPreview is TfmETKGUISoftTxtPreview then
+        aIniFile.WriteString(krsIniSoftMediaFrameSection,
+          Format(krsIniSoftMediaPanelType, [j]), krsIniTextPanelKey);
 
+      aIniFile.WriteInteger(krsIniSoftMediaFrameSection,
+        Format(krsIniSoftMediaPanelHeight, [j]),
+        TfmaETKGUISoftFoldersPreview(aPreview).Height);
+      aIniFile.WriteString(krsIniSoftMediaFrameSection,
+        Format(krsIniSoftMediaPanelCaption, [j]),
+        TfmaETKGUISoftFoldersPreview(aPreview).LastCaption);
     end;
+    // else it's a Splitter
 
     Inc(i);
   end;
