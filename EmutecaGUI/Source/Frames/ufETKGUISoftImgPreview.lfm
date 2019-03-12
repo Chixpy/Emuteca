@@ -1,5 +1,11 @@
 inherited fmETKGUISoftImgPreview: TfmETKGUISoftImgPreview
+  Height = 301
+  ClientHeight = 301
+  DesignLeft = 394
+  DesignTop = 221
   inherited gbxPanel: TGroupBox
+    Height = 301
     Caption = 'Image'
+    ClientHeight = 276
   end
 end

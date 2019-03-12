@@ -3,7 +3,7 @@ unit ucETKGUIConfig;
 
   This file is part of Emuteca GUI.
 
-  Copyright (C) 2006-2018 Chixpy
+  Copyright (C) 2006-2019 Chixpy
 
   This source is free software; you can redistribute it and/or modify it under
   the terms of the GNU General Public License as published by the Free
@@ -255,7 +255,7 @@ begin
   // Lazaus supports:
   //  bmp,cur,gif,icns,ico,jfif,jpe,jpeg,jpg,pbm,pgm,png,ppm,tif,tiff,xpm
   // But I will cut them a little for faster searching
-  ImageExtensions.CommaText := 'png,gif,ico,jpg,bmp';
+  ImageExtensions.CommaText := 'png,jpg,gif,ico,bmp';
 
   // Texts
   TextExtensions.CommaText := 'txt,nfo';

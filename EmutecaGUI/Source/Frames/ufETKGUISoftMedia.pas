@@ -271,8 +271,8 @@ begin
     aMediaPanel.Height := aHeight;
 
   //aMediaPanel.LoadGUIConfig();
-  //UpdateChildrenConfig(aPanel);
 
+  UpdateChildrenConfig(ScrollBox1);
   aMediaPanel.Align := alTop;
   aMediaPanel.Parent := ScrollBox1;
 
