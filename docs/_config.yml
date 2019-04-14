@@ -1,0 +1,39 @@
+# GitHub: No configurable
+# https://help.github.com/en/articles/configuring-jekyll
+# -----------------------
+# lsi: false
+# safe: true
+# source: [your repo's top level directory]
+# incremental: false
+# highlighter: rouge
+# gist:
+#   noscript: false
+# kramdown:
+#   math_engine: mathjax
+#   syntax_highlighter: rouge
+ 
+# GitHub: Configurable
+# https://help.github.com/en/articles/configuring-jekyll
+# --------------------
+# github: [metadata]
+# encoding: UTF-8
+# kramdown:
+#   input: GFM
+#   hard_wrap: false
+# future: true <- Mostrar entradas futuras
+future: false
+# jailed: false
+# theme: jekyll-theme-primer
+# gfm_quirks: paragraph_end
+
+# Plugins
+# Use the following plug-ins
+gems:
+  - jekyll-sitemap
+  - jekyll-feed
+  
+# Mis variables
+name: Emuteca
+description: Frontend para emuladores
+author: Chixpy
+icon: img/Icon.png
