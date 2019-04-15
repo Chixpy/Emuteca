@@ -34,6 +34,6 @@ gems:
   
 # Mis variables
 name: Emuteca
-description: Frontend para emuladores
+description: Frontend para juegos y emuladores
 author: Chixpy
 icon: img/Icon.png

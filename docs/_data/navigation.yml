@@ -1,5 +1,7 @@
 - name: Inicio
   link: /
+- name: Noticias
+  link: /news.html
 - name: Sobre
   link: /about.html
 - name: <hr />
