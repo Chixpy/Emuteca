@@ -2,10 +2,8 @@
   link: /
 - name: Noticias
   link: /news.html
-- name: Sobre
+- name: Sobre...
   link: /about.html
-- name: <hr />
-  link: 
 - name: Emuteca en Github
   link: https://github.com/Chixpy/Emuteca/ 
   

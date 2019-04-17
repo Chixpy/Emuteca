@@ -1,9 +1,17 @@
 .NavMain {
+  display: block;
   clear: left;
   float: left;
   width: 20%;
 }
 
-.current {
+.NavMain li {
+  display: block;
+  clear: both;
+  
+  border-color: #000;
+}
+
+.NavMain .current {
   color: green;
 }

@@ -1,6 +1,16 @@
 .SiteHeader {
+  clear: both;
+
   background: url("img/Header.gif");
   background-repeat: no-repeat;
-  background-position: center left;
-  clear: both;
+  background-position: top;  
+   
+  font-size: bigger;
+}
+
+.SiteHeader .SiteHeaderIcon{
+  clear: left;
+  float: left;
+  
+  width: 20%;
 }
