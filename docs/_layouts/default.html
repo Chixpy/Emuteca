@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="{{ site.baseurl }}/css/common.css" />
     <link rel="stylesheet" href="{{ site.baseurl }}/css/header.css" />
     <link rel="stylesheet" href="{{ site.baseurl }}/css/navigation.css" />
+    <link rel="stylesheet" href="{{ site.baseurl }}/css/TOC.css" />
     <link rel="stylesheet" href="{{ site.baseurl }}/css/footer.css" />
     
     <link rel="alternate" type="application/rss+xml" title="{{ site.name }}" href="{{ site.baseurl }}/feed.xml" />
@@ -19,7 +20,10 @@
   <body>
     {% include header.html %}
     {% include navigation.html %}
-    {{ content }}
+    {% include TOC.html %}
+    <div class="PageContent">
+      {{ content }}
+    </div>
     {% include footer.html %}
   </body>
 </html>

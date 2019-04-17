@@ -1,3 +1,5 @@
+---
+---
 .NavMain {
   display: block;
   clear: left;
@@ -5,7 +7,11 @@
   width: 20%;
 }
 
-.NavMain li {
+.NavMain ul {
+  font-size: bigger;
+}
+
+.NavMain ul li {
   display: block;
   clear: both;
   

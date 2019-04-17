@@ -1,16 +1,23 @@
+---
+---
 .SiteHeader {
   clear: both;
 
-  background: url("img/Header.gif");
+  background: url("{% site.baseurl %}/img/Header.gif");
   background-repeat: no-repeat;
   background-position: top;  
    
   font-size: bigger;
+  text-align: center;
 }
 
-.SiteHeader .SiteHeaderIcon{
+.SiteHeader .SiteHeaderIcon {
   clear: left;
   float: left;
   
-  width: 20%;
+  width: 15%;
+}
+
+.SiteHeader .SiteHeaderIcon .SiteIcon {
+  width: 100%;
 }
