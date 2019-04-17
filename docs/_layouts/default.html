@@ -9,16 +9,14 @@
       <script src="js/html5shiv-printshiv.js"></script>
     <![endif]-->
     
-    <link rel="stylesheet" href="{{ site.projecturl }}css/common.css" />
-    <link rel="stylesheet" href="{{ site.projecturl }}css/header.css" />
-    <link rel="stylesheet" href="{{ site.projecturl }}css/navigation.css" />
-    <link rel="stylesheet" href="{{ site.projecturl }}css/footer.css" />
+    <link rel="stylesheet" href="{{ site.baseurl }}/css/common.css" />
+    <link rel="stylesheet" href="{{ site.baseurl }}/css/header.css" />
+    <link rel="stylesheet" href="{{ site.baseurl }}/css/navigation.css" />
+    <link rel="stylesheet" href="{{ site.baseurl }}/css/footer.css" />
     
-    <link rel="alternate" type="application/rss+xml" title="{{ site.name }}" href="{{ site.projecturl }}feed.xml" />
+    <link rel="alternate" type="application/rss+xml" title="{{ site.name }}" href="{{ site.baseurl }}/feed.xml" />
   </head>
   <body>
-  {{ site.projecturl }}
-  {{ site.baseurl }}
     {% include header.html %}
     {% include navigation.html %}
     {{ content }}
