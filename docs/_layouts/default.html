@@ -20,7 +20,9 @@
   <body>
     {% include header.html %}
     {% include navigation.html %}
-    {% include TOC.html %}
+    <div class="TOC">
+      {% include TOC.md %}
+    </div>
     <div class="PageContent">
       {{ content }}
     </div>

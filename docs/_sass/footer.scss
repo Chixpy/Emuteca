@@ -1,7 +1,7 @@
 .SiteFooter {
   clear: both;
 
-  background: url("img/Header.gif");
+  background: url("{% site.baseurl %}img/Header.gif");
   background-repeat: no-repeat;
   background-position: bottom;
 }

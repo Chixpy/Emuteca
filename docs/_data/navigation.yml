@@ -1,11 +1,13 @@
 - name: Inicio
   link: {{ site.baseurl }}
 - name: Noticias
-  link: {{ site.baseurl }}/news.html
+  link: {{ site.baseurl }}/pages/news.html
+- name: Imágenes
+  link: {{ site.baseurl }}/pages/screenshots.html
 - name: FAQs
-  link: {{ site.baseurl }}/FAQs.html
+  link: {{ site.baseurl }}/pages/FAQ.html
 - name: Sobre...
-  link: {{ site.baseurl }}/about.html
+  link: {{ site.baseurl }}/pages/about.html
 - name: Emuteca en Github
   link: https://github.com/Chixpy/Emuteca/ 
   

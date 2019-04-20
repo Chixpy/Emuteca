@@ -12,4 +12,4 @@ Tampoco se recomienda usar las versiones 0.7 o anteriores (además son incompati
 
 ![Emuteca GUI 0.8](img/GameManager_0_8_0_119.png)
 
-[Página del proyecto en GitHub](https://github.com/Chixpy/Emuteca)
+[Página del proyecto en GitHub](https://github.com/Chixpy/Emuteca).
