@@ -1,4 +1,25 @@
----
-layout: default
----
-{{ content }}
+<!doctype html>
+<html>
+  <head>
+    <title>{% if page.title %}{{ page.title }} – {% endif %}{{ site.name }}</title>
+    
+    {% include meta.html %}
+
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv-printshiv.js"></script>
+    <![endif]-->
+    
+    <link rel="stylesheet" href="{{ site.baseurl }}/css/common.css" />
+    <link rel="stylesheet" href="{{ site.baseurl }}/css/header.css" />
+    <link rel="stylesheet" href="{{ site.baseurl }}/css/footer.css" />
+    
+    <link rel="alternate" type="application/rss+xml" title="{{ site.name }}" href="{{ site.baseurl }}/feed.xml" />
+  </head>
+  <body>
+    {% include header.html %}
+    <div class="PageContent">
+      {{ content }}
+    </div>
+    {% include footer.html %}
+  </body>
+</html>

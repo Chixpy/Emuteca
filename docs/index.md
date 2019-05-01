@@ -1,5 +1,5 @@
 ---
-layout: main
+layout: Main
 title: Inicio
 ---
 # Emuteca #
