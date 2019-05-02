@@ -44,3 +44,4 @@ description: > # > Para multilíneas
   Frontend para juegos y emuladores.
 lang: es
 date_format: "%B de %e de %Y"
+theme: jekyll-theme-leap-day
