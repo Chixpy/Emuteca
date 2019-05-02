@@ -27,15 +27,20 @@ future: false
 # gfm_quirks: paragraph_end
 
 # Plugins
-# Use the following plug-ins
+# -------
 gems:
   - jekyll-sitemap
   - jekyll-feed
+  - jekyll-seo-tag
   
 # Otras interesantes
 # baseurl: /Emuteca (dirección base)
   
 # Mis variables
-name: Emuteca
-description: Frontend para juegos y emuladores
+# -------------
+title: Emuteca
 author: Chixpy
+description: > # > Para multilíneas
+  Frontend para juegos y emuladores.
+lang: es
+date_format: "%B de %e de %Y"

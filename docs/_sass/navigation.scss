@@ -1,0 +1,21 @@
+.NavMain {
+  display: block;
+  clear: left;
+  float: left;
+  width: 20%;
+}
+
+.NavMain ul {
+  font-size: bigger;
+}
+
+.NavMain ul li {
+  display: block;
+  clear: both;
+  
+  border-color: #000;
+}
+
+.NavMain .current {
+  color: green;
+}

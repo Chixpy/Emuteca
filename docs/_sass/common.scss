@@ -1,0 +1,24 @@
+@charset "utf-8";
+
+// Variables principales
+$background-color: rgb(224, 224, 255);
+
+body {
+  background-color: $background-color;
+  
+  padding: 0 0 0 20px;
+  text-indent: -20px;
+  text-align: justify;
+}
+
+li {
+  text-indent: 0;
+}
+
+PageContent {
+  display: block;
+  
+  border-style: solid none;
+  border-width: 1px;
+  border-color: #888;
+}

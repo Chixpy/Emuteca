@@ -1,31 +1,21 @@
-<!doctype html>
-<html>
-  <head>
-    <title>{% if page.title %}{{ page.title }} – {% endif %}{{ site.name }}</title>
-    
-    {% include meta.html %}
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: "en" }}">
 
-    <!--[if lt IE 9]>
-      <script src="js/html5shiv-printshiv.js"></script>
-    <![endif]-->
-    
-    <link rel="stylesheet" href="{{ site.baseurl }}/css/common.css" />
-    <link rel="stylesheet" href="{{ site.baseurl }}/css/header.css" />
-    <link rel="stylesheet" href="{{ site.baseurl }}/css/navigation.css" />
-    <link rel="stylesheet" href="{{ site.baseurl }}/css/TOC.css" />
-    <link rel="stylesheet" href="{{ site.baseurl }}/css/footer.css" />
-    
-    <link rel="alternate" type="application/rss+xml" title="{{ site.name }}" href="{{ site.baseurl }}/feed.xml" />
-  </head>
+  {%- include head.html -%}
+
   <body>
     {% include header.html %}
+    
     {% include navigation.html %}
+    
     <div class="TOC">
       {% include TOC.md %}
     </div>
+    
     <div class="PageContent">
       {{ content }}
     </div>
+    
     {% include footer.html %}
   </body>
 </html>
