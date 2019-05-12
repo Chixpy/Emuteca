@@ -1,15 +1,22 @@
-- name: Inicio
-  link: {{ site.baseurl }}
-- name: Noticias
-  link: {{ site.baseurl }}/pages/news.html
-- name: ¿Por qué...
-  link: {{ site.baseurl }}/pages/Why-Emuteca.html
-- name: Imágenes
-  link: {{ site.baseurl }}/pages/screenshots.html
-- name: FAQs
-  link: {{ site.baseurl }}/pages/FAQ.html
-- name: Sobre...
-  link: {{ site.baseurl }}/pages/about.html
-- name: Emuteca en Github
-  link: https://github.com/Chixpy/Emuteca/ 
-  
+--- 
+- 
+  link: "{{ site.baseurl }}"
+  name: Inicio
+- 
+  link: "{{ site.baseurl }}/pages/news.html"
+  name: Noticias
+- 
+  link: "{{ site.baseurl }}/pages/Why-Emuteca.html"
+  name: "¿Por qué..."
+- 
+  link: "{{ site.baseurl }}/pages/screenshots.html"
+  name: Imágenes
+- 
+  link: "{{ site.baseurl }}/pages/FAQ.html"
+  name: FAQs
+- 
+  link: "{{ site.baseurl }}/pages/about.html"
+  name: Sobre...
+- 
+  link: "https://github.com/Chixpy/Emuteca/"
+  name: "Emuteca en Github"
