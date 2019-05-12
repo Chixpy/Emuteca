@@ -7,15 +7,15 @@ inherited fmEmutecaGroupEditor: TfmEmutecaGroupEditor
   DesignLeft = 671
   DesignTop = 252
   inherited pButtons: TPanel
-    Top = 249
+    Top = 245
     Width = 253
     ClientWidth = 253
     TabOrder = 4
     inherited chkCloseOnSave: TCheckBox
-      Left = 15
+      Left = 10
     end
     inherited bSave: TBitBtn
-      Left = 79
+      Left = 80
     end
     inherited bCancel: TBitBtn
       Left = 156
@@ -23,9 +23,9 @@ inherited fmEmutecaGroupEditor: TfmEmutecaGroupEditor
   end
   object eTitle: TEdit[1]
     Left = 0
-    Height = 23
+    Height = 28
     Hint = 'Title of the group.'
-    Top = 0
+    Top = 32
     Width = 253
     Align = alTop
     ParentShowHint = False
@@ -35,9 +35,9 @@ inherited fmEmutecaGroupEditor: TfmEmutecaGroupEditor
   end
   object eYear: TEdit[2]
     Left = 0
-    Height = 23
+    Height = 28
     Hint = 'Date of development.'
-    Top = 81
+    Top = 128
     Width = 253
     Align = alTop
     ParentShowHint = False
@@ -47,9 +47,9 @@ inherited fmEmutecaGroupEditor: TfmEmutecaGroupEditor
   end
   object eSortTitle: TEdit[3]
     Left = 0
-    Height = 23
+    Height = 28
     Hint = 'Title used for sorting.'
-    Top = 27
+    Top = 64
     Width = 253
     Align = alTop
     ParentShowHint = False
@@ -59,9 +59,9 @@ inherited fmEmutecaGroupEditor: TfmEmutecaGroupEditor
   end
   object eMediaFile: TEdit[4]
     Left = 0
-    Height = 23
+    Height = 28
     Hint = 'Filename for searching media.'
-    Top = 108
+    Top = 160
     Width = 253
     Align = alTop
     ParentShowHint = False
@@ -71,21 +71,30 @@ inherited fmEmutecaGroupEditor: TfmEmutecaGroupEditor
   end
   object eDeveloper: TComboBox[5]
     Left = 0
-    Height = 23
+    Height = 28
     Hint = 'Developer of the software.'
-    Top = 54
+    Top = 96
     Width = 253
     Align = alTop
     AutoComplete = True
     AutoCompleteText = [cbactEnabled, cbactEndOfLineComplete, cbactSearchAscending]
-    ItemHeight = 15
+    ItemHeight = 20
     ParentShowHint = False
     ShowHint = True
     Sorted = True
     TabOrder = 5
   end
-  inherited alPropEditor: TActionList[6]
+  object eGroupID: TEdit[6]
+    Left = 0
+    Height = 28
+    Top = 0
+    Width = 253
+    Align = alTop
+    TabOrder = 6
+    TextHint = 'Group ID'
   end
-  inherited ilPropEditor: TImageList[7]
+  inherited alPropEditor: TActionList[7]
+  end
+  inherited ilPropEditor: TImageList[8]
   end
 end

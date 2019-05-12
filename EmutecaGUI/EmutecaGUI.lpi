@@ -97,7 +97,7 @@
         <PackageName Value="LCL"/>
       </Item7>
     </RequiredPackages>
-    <Units Count="126">
+    <Units Count="127">
       <Unit0>
         <Filename Value="EmutecaGUI.pas"/>
         <IsPartOfProject Value="True"/>
@@ -636,7 +636,7 @@
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fmETKGUIactMergeGroup"/>
         <HasResources Value="True"/>
-        <ResourceBaseClass Value="Form"/>
+        <ResourceBaseClass Value="Frame"/>
       </Unit101>
       <Unit102>
         <Filename Value="Source\Threads\utETKGUICacheSoftIcons.pas"/>
@@ -767,6 +767,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
       </Unit125>
+      <Unit126>
+        <Filename Value="Source\Classes\ucETKGUIItemCache.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit126>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

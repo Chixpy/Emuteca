@@ -7,5 +7,6 @@
 {"hash":209374633,"name":"tfmemutecagroupeditor.esorttitle.texthint","sourcebytes":[83,111,114,116,32,116,105,116,108,101,32,40,69,109,112,116,121,32,61,32,84,105,116,108,101,41],"value":"Sort title (Empty = Title)"},
 {"hash":229409854,"name":"tfmemutecagroupeditor.emediafile.hint","sourcebytes":[70,105,108,101,110,97,109,101,32,102,111,114,32,115,101,97,114,99,104,105,110,103,32,109,101,100,105,97,46],"value":"Filename for searching media."},
 {"hash":92632517,"name":"tfmemutecagroupeditor.emediafile.texthint","sourcebytes":[77,101,100,105,97,32,102,105,108,101,110,97,109,101],"value":"Media filename"},
-{"hash":131177630,"name":"tfmemutecagroupeditor.edeveloper.hint","sourcebytes":[68,101,118,101,108,111,112,101,114,32,111,102,32,116,104,101,32,115,111,102,116,119,97,114,101,46],"value":"Developer of the software."}
+{"hash":131177630,"name":"tfmemutecagroupeditor.edeveloper.hint","sourcebytes":[68,101,118,101,108,111,112,101,114,32,111,102,32,116,104,101,32,115,111,102,116,119,97,114,101,46],"value":"Developer of the software."},
+{"hash":158081076,"name":"tfmemutecagroupeditor.egroupid.texthint","sourcebytes":[71,114,111,117,112,32,73,68],"value":"Group ID"}
 ]}

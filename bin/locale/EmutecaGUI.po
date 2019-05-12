@@ -634,6 +634,10 @@ msgstr ""
 msgid "Developer of the software."
 msgstr ""
 
+#: tfmemutecagroupeditor.egroupid.texthint
+msgid "Group ID"
+msgstr ""
+
 #: tfmemutecagroupeditor.emediafile.hint
 msgid "Filename for searching media."
 msgstr ""
@@ -949,6 +953,32 @@ msgstr ""
 
 #: tfmemutecasystemmvfeditor.gbxvideofolders.caption
 msgid "Video folders"
+msgstr ""
+
+#: tfmetkguiactmergegroup.chkaddtargettolist.caption
+msgid "Add merged files to system list."
+msgstr ""
+
+#: tfmetkguiactmergegroup.chkremovesource.caption
+msgid "Remove source files and remove them from system list."
+msgstr ""
+
+#: tfmetkguiactmergegroup.gbxsource.caption
+msgctxt "tfmetkguiactmergegroup.gbxsource.caption"
+msgid "Source"
+msgstr ""
+
+#: tfmetkguiactmergegroup.gbxtarget.caption
+msgctxt "tfmetkguiactmergegroup.gbxtarget.caption"
+msgid "Target"
+msgstr ""
+
+#: tfmetkguiactmergegroup.ltargetfolder.caption
+msgid "Target Folder"
+msgstr ""
+
+#: tfmetkguiactmergegroup.rgpformat.caption
+msgid "Output Format"
 msgstr ""
 
 #: tfmetkguifullemueditor.actopenemulatorfolder.caption

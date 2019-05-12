@@ -25,7 +25,8 @@ unit ufETKGUIactMergeGroup;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
+  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
+  StdCtrls, Buttons, ActnList, EditBtn, CheckLst,
   // CHX forms
   ufrCHXForm,
   // CHX frames
@@ -40,12 +41,20 @@ type
   { TfmETKGUIactMergeGroup }
 
   TfmETKGUIactMergeGroup = class(TfmCHXPropEditor)
+    chkAddTargetToList: TCheckBox;
+    chkRemoveSource: TCheckBox;
+    clbSourceFiles: TCheckListBox;
+    eTargetFolder: TDirectoryEdit;
+    gbxSource: TGroupBox;
+    gbxTarget: TGroupBox;
+    lTargetFolder: TLabel;
+    rgpFormat: TRadioGroup;
   private
     FGroup: cEmutecaGroup;
     procedure SetGroup(AValue: cEmutecaGroup);
 
   protected
-        procedure DoClearFrameData;
+    procedure DoClearFrameData;
     procedure DoLoadFrameData;
     procedure DoSaveFrameData;
 
@@ -83,7 +92,17 @@ begin
 end;
 
 procedure TfmETKGUIactMergeGroup.DoSaveFrameData;
+var
+  i: integer;
 begin
+  i := 0;
+  while i < clbSourceFiles.Count do
+  begin
+    // Extract/Copy Files to Temp folder
+
+    if chkRemoveSource.Checked then ;
+    // Remove Sourcefiles (If inside a zip/7z remove it too)
+  end;
 
 end;
 

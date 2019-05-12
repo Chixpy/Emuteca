@@ -29,7 +29,6 @@ begin
   if DBFilename = '' then
   begin
     WriteLn('Error: No Database file selected.');
-    TOSECFileNames.Free;
     Exit;
   end;
 

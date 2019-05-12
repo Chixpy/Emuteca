@@ -16,6 +16,7 @@ type
 
   TfmEmutecaGroupEditor = class(TfmCHXPropEditor, IFPObserver)
     eDeveloper: TComboBox;
+    eGroupID: TEdit;
     eMediaFile: TEdit;
     eSortTitle: TEdit;
     eTitle: TEdit;
@@ -66,6 +67,7 @@ end;
 
 procedure TfmEmutecaGroupEditor.DoClearFrameData;
 begin
+  eGroupID.Clear;
   eTitle.Clear;
   eSortTitle.Clear;
   // eDeveloper.Clear; We don't want to clear item list.
@@ -84,6 +86,7 @@ begin
     Exit;
   end;
 
+  eGroupID.Text := Group.ID;
   eTitle.Text := Group.Title;
   eSortTitle.Text := Group.GetActualSortTitle;
 
@@ -101,6 +104,7 @@ begin
   if not Assigned(Group) then
     Exit;
 
+  Group.ID := eGroupID.Text;
   Group.Title := eTitle.Text;
   Group.SortTitle := eSortTitle.Text;
 
