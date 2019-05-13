@@ -39,8 +39,9 @@ gems:
 # Mis variables
 # -------------
 title: Emuteca
-author: Chixpy
 description: > # > Para multilíneas
   Frontend para juegos y emuladores.
+logo: /Emuteca/img/Icon.png
+author: Chixpy
 lang: es
 date_format: "%B de %e de %Y"

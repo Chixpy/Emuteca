@@ -3,7 +3,8 @@ inherited fmETKGUIactMergeGroup: TfmETKGUIactMergeGroup
   Width = 716
   ClientHeight = 499
   ClientWidth = 716
-  DesignLeft = 589
+  DesignLeft = 503
+  DesignTop = 117
   inherited pButtons: TPanel
     Top = 469
     Width = 716

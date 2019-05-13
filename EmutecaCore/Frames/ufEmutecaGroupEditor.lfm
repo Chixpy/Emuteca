@@ -1,13 +1,13 @@
 inherited fmEmutecaGroupEditor: TfmEmutecaGroupEditor
-  Height = 275
+  Height = 276
   Width = 253
   AutoScroll = True
-  ClientHeight = 275
+  ClientHeight = 276
   ClientWidth = 253
-  DesignLeft = 671
-  DesignTop = 252
+  DesignLeft = 540
+  DesignTop = 246
   inherited pButtons: TPanel
-    Top = 245
+    Top = 246
     Width = 253
     ClientWidth = 253
     TabOrder = 4
