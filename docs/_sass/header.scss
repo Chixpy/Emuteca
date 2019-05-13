@@ -1,7 +1,7 @@
 .SiteHeader {
   clear: both;
 
-  background: url("{% site.baseurl %}/img/Header.gif");
+  background: url("{{ site.baseurl }}/img/Header.gif");
   background-repeat: no-repeat;
   background-position: top;  
    
