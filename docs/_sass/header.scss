@@ -1,12 +1,20 @@
 .SiteHeader {
   clear: both;
 
-  background: url("{{ site.baseurl }}/img/Header.gif");
+  background: url("/Emuteca/img/Header.gif");
   background-repeat: no-repeat;
   background-position: top;  
    
   font-size: bigger;
   text-align: center;
+  text-align-last: left;
+}
+
+.SiteHeader .SiteTitle{
+  font-size: bigger;
+}
+
+.SiteHeader .SiteDesc {
 }
 
 .SiteHeader .SiteHeaderIcon {
