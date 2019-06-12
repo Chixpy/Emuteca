@@ -2,7 +2,10 @@
   display: block;
   clear: left;
   float: left;
-  width: 20%;
+  
+  width: auto;
+  
+  border: 4px groove blue;
 }
 
 .NavMain ul {

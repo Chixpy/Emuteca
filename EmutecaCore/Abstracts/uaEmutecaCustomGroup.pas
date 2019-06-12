@@ -4,7 +4,7 @@ unit uaEmutecaCustomGroup;
 
   This file is part of Emuteca Core.
 
-  Copyright (C) 2006-2018 Chixpy
+  Copyright (C) 2006-2019 Chixpy
 
   This source is free software; you can redistribute it and/or modify it under
   the terms of the GNU General Public License as published by the Free
@@ -65,20 +65,29 @@ type
 
   public
     function GetActualTitle: string;
-    //< Gets actual Title string, not automade
+    {< Gets actual stored Title string, not autocreated. }
     function GetActualSortTitle: string;
-    //< Gets actual SortTitle string, not automade
+    {< Gets actual stored SortTitle string, not autocreated. }
     function GetActualMediaFilename: string;
+    {< Gets actual stored MediaFilename string, not autocreated. }
 
     function CompareID(aID: string): integer;
+    {< Compares aID with current Group ID (case insensitive). }
     function MatchID(aID: string): boolean;
+    {< True if ID is matched (case insensitive). }
 
     procedure LoadFromStrLst(aTxtFile: TStrings); override;
+    {< Loads Group properties from StringList. }
     procedure ExportToStrLst(aTxtFile: TStrings); virtual;
+    {< Saves Group properties to StringList (without custom user data). }
     procedure SaveToStrLst(aTxtFile: TStrings); override;
+    {< Saves all Group properties to StringList (to be overrided). }
 
     function ExportCommaText: string;
+    {< Saves Group properties to a comma separated string. }
+
     procedure ImportFrom(aGroup: caEmutecaCustomGroup);
+    {< Copies properties from another Group. }
 
     constructor Create(aOwner: TComponent); override;
     destructor Destroy; override;

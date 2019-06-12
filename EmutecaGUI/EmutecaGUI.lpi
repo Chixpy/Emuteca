@@ -97,7 +97,7 @@
         <PackageName Value="LCL"/>
       </Item7>
     </RequiredPackages>
-    <Units Count="127">
+    <Units Count="129">
       <Unit0>
         <Filename Value="EmutecaGUI.pas"/>
         <IsPartOfProject Value="True"/>
@@ -771,6 +771,14 @@
         <Filename Value="Source\Classes\ucETKGUIItemCache.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit126>
+      <Unit127>
+        <Filename Value="..\CHXPas\ScriptManager\imports\uPSI_uaCHXStorable.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit127>
+      <Unit128>
+        <Filename Value="..\EmutecaCore\ScriptMng\uPSI_uaEmutecaCustomEmu.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit128>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

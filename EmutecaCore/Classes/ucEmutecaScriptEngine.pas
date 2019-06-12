@@ -1,19 +1,37 @@
 unit ucEmutecaScriptEngine;
+{< cEmutecaScriptEngine class unit.
 
+  This file is part of Emuteca Core.
+
+  Copyright (C) 2018-2019 Chixpy
+
+  This source is free software; you can redistribute it and/or modify it under
+  the terms of the GNU General Public License as published by the Free
+  Software Foundation; either version 3 of the License, or (at your option)
+  any later version.
+
+  This code is distributed in the hope that it will be useful, but WITHOUT ANY
+  WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+  FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+  details.
+
+  A copy of the GNU General Public License is available on the World Wide Web
+  at <http://www.gnu.org/copyleft/gpl.html>. You can also obtain it by writing
+  to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
+  MA 02111-1307, USA.
+}
 {$mode objfpc}{$H+}
 
 interface
 
 uses
-  Classes, SysUtils,
-  // Pascal Script main units
-  uPSComponent, uPSRuntime, uPSCompiler, uPSUtils,
+  Classes, SysUtils, uPSComponent, uPSRuntime, uPSCompiler, uPSUtils,
+  // CHX classes
+  ucCHXScriptEngine,
   // Emuteca
   ucEmuteca,
-  // CHX
-  ucCHXScriptEngine,
   // PS Imports
-  //uPSI_uaCHXStorable, uPSI_uaEmutecaManager,
+  uPSI_uaCHXStorable, uPSI_uaEmutecaCustomManager,
   uPSI_uEmutecaConst, uPSI_uEmutecaRscStr, uPSI_uEmutecaCommon,
   uPSI_ucEmutecaEmulator, uPSI_ucEmutecaSystem,
   uPSI_ucEmutecaGroup, uPSI_ucEmutecaSoftware,
@@ -38,8 +56,8 @@ type
       x: TPSRuntimeClassImporter); override;
     procedure PasScriptOnExecute(Sender: TPSScript); override;
     function PasScriptOnFindUnknownFile(Sender: TObject;
-      const OriginFileName: tbtstring;
-      var FileName, Output: tbtstring): boolean; override;
+      const OriginFileName: tbtstring; var FileName, Output: tbtstring): boolean;
+      override;
     function PasScriptOnNeedFile(Sender: TObject;
       const OriginFileName: tbtstring;
       var FileName, Output: tbtstring): boolean; override;
@@ -68,12 +86,13 @@ procedure cEmutecaScriptEngine.PasScriptOnCompImport(Sender: TObject;
 begin
   inherited PasScriptOnCompImport(Sender, x);
 
+  SIRegister_uaCHXStorable(x);
+
   SIRegister_uEmutecaConst(x);
   SIRegister_uEmutecaRscStr(x);
   SIRegister_uEmutecaCommon(x);
 
-  //SIRegister_uaCHXStorable(x);
-  //SIRegister_uaEmutecaManager(x);
+  SIRegister_uaEmutecaCustomManager(x);
   SIRegister_ucEmutecaEmulator(x);
   SIRegister_ucEmutecaSystem(x);
   SIRegister_ucEmutecaGroup(x);
@@ -91,14 +110,14 @@ procedure cEmutecaScriptEngine.PasScriptOnExecImport(Sender: TObject;
 begin
   inherited PasScriptOnExecImport(Sender, se, x);
 
+  RIRegister_uaCHXStorable(x);
+
   RIRegister_uEmutecaConst_Routines(se);
   RIRegister_uEmutecaRscStr_Routines(se);
   RIRegister_uEmutecaCommon_Routines(se);
 
-  //RIRegister_uaCHXStorable(x);
-  //RIRegister_uaEmutecaManager(x);
+  RIRegister_uaEmutecaCustomManager(x);
   RIRegister_ucEmutecaEmulator(x);
-  //RIRegister_ucEmutecaSystem_Routines(se);
   RIRegister_ucEmutecaSystem(x);
   RIRegister_ucEmutecaGroup(x);
   RIRegister_ucEmutecaSoftware(x);
