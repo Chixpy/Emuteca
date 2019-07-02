@@ -1,31 +1,31 @@
 inherited fmEmutecaSoftEditor: TfmEmutecaSoftEditor
-  Height = 584
-  Width = 232
+  Height = 783
+  Width = 435
   AutoScroll = True
-  ClientHeight = 584
-  ClientWidth = 232
+  ClientHeight = 783
+  ClientWidth = 435
   DesignLeft = 632
   DesignTop = 86
   inherited pButtons: TPanel
-    Top = 558
-    Width = 232
-    ClientWidth = 232
+    Top = 753
+    Width = 435
+    ClientWidth = 435
     TabOrder = 2
     inherited chkCloseOnSave: TCheckBox
-      Left = 10
+      Left = 55
     end
     inherited bSave: TBitBtn
-      Left = 69
+      Left = 170
     end
     inherited bCancel: TBitBtn
-      Left = 141
+      Left = 291
     end
   end
   object gbxDumpTags: TGroupBox[1]
     Left = 0
-    Height = 267
-    Top = 201
-    Width = 232
+    Height = 317
+    Top = 318
+    Width = 435
     Align = alTop
     AutoSize = True
     Caption = 'Dump Tags'
@@ -36,153 +36,153 @@ inherited fmEmutecaSoftEditor: TfmEmutecaSoftEditor
     ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 2
-    ClientHeight = 247
-    ClientWidth = 228
+    ClientHeight = 292
+    ClientWidth = 431
     TabOrder = 1
     object lDumpType: TLabel
       Left = 4
-      Height = 23
+      Height = 28
       Top = 4
-      Width = 96
+      Width = 194
       Caption = 'Dump type'
       ParentColor = False
     end
     object cbxDumpType: TComboBox
-      Left = 104
-      Height = 23
+      Left = 202
+      Height = 28
       Top = 4
-      Width = 120
-      ItemHeight = 15
+      Width = 225
+      ItemHeight = 20
       Style = csDropDownList
       TabOrder = 0
     end
     object lDumpInfo: TLabel
       Left = 4
-      Height = 23
-      Top = 31
-      Width = 96
+      Height = 28
+      Top = 36
+      Width = 194
       Caption = 'Dump info'
       ParentColor = False
     end
     object eDumpInfo: TEdit
-      Left = 104
-      Height = 23
-      Top = 31
-      Width = 120
+      Left = 202
+      Height = 28
+      Top = 36
+      Width = 225
       TabOrder = 1
     end
     object lFixed: TLabel
       Left = 4
-      Height = 23
-      Top = 58
-      Width = 96
+      Height = 28
+      Top = 68
+      Width = 194
       Caption = 'Fixed'
       ParentColor = False
     end
     object eFixed: TEdit
-      Left = 104
-      Height = 23
-      Top = 58
-      Width = 120
+      Left = 202
+      Height = 28
+      Top = 68
+      Width = 225
       TabOrder = 2
     end
     object lTrainer: TLabel
       Left = 4
-      Height = 23
-      Top = 85
-      Width = 96
+      Height = 28
+      Top = 100
+      Width = 194
       Caption = 'Trainer'
       ParentColor = False
     end
     object eTrainer: TEdit
-      Left = 104
-      Height = 23
-      Top = 85
-      Width = 120
+      Left = 202
+      Height = 28
+      Top = 100
+      Width = 225
       TabOrder = 3
     end
     object lTranslated: TLabel
       Left = 4
-      Height = 23
-      Top = 112
-      Width = 96
+      Height = 28
+      Top = 132
+      Width = 194
       Caption = 'Fan Translated'
       ParentColor = False
     end
     object eTranslated: TEdit
-      Left = 104
-      Height = 23
-      Top = 112
-      Width = 120
+      Left = 202
+      Height = 28
+      Top = 132
+      Width = 225
       TabOrder = 4
       TextHint = 'ISO 639-1 code'
     end
     object lPirate: TLabel
       Left = 4
-      Height = 23
-      Top = 139
-      Width = 96
+      Height = 28
+      Top = 164
+      Width = 194
       Caption = 'Pirate'
       ParentColor = False
     end
     object ePirate: TEdit
-      Left = 104
-      Height = 23
-      Top = 139
-      Width = 120
+      Left = 202
+      Height = 28
+      Top = 164
+      Width = 225
       TabOrder = 5
     end
     object lCracked: TLabel
       Left = 4
-      Height = 23
-      Top = 166
-      Width = 96
+      Height = 28
+      Top = 196
+      Width = 194
       Caption = 'Cracked'
       ParentColor = False
     end
     object eCracked: TEdit
-      Left = 104
-      Height = 23
-      Top = 166
-      Width = 120
+      Left = 202
+      Height = 28
+      Top = 196
+      Width = 225
       TabOrder = 6
     end
     object lModified: TLabel
       Left = 4
-      Height = 23
-      Top = 193
-      Width = 96
+      Height = 28
+      Top = 228
+      Width = 194
       Caption = 'Modified'
       ParentColor = False
     end
     object eModified: TEdit
-      Left = 104
-      Height = 23
-      Top = 193
-      Width = 120
+      Left = 202
+      Height = 28
+      Top = 228
+      Width = 225
       TabOrder = 7
     end
     object lHack: TLabel
       Left = 4
-      Height = 23
-      Top = 220
-      Width = 96
+      Height = 28
+      Top = 260
+      Width = 194
       Caption = 'Hack'
       ParentColor = False
     end
     object eHack: TEdit
-      Left = 104
-      Height = 23
-      Top = 220
-      Width = 120
+      Left = 202
+      Height = 28
+      Top = 260
+      Width = 225
       TabOrder = 8
     end
   end
   object gbxVersion: TGroupBox[2]
     Left = 0
-    Height = 116
-    Top = 81
-    Width = 232
+    Height = 141
+    Top = 173
+    Width = 435
     Align = alTop
     AutoSize = True
     Caption = 'Version info'
@@ -194,125 +194,162 @@ inherited fmEmutecaSoftEditor: TfmEmutecaSoftEditor
     ChildSizing.ShrinkHorizontal = crsHomogenousChildResize
     ChildSizing.Layout = cclTopToBottomThenLeftToRight
     ChildSizing.ControlsPerLine = 4
-    ClientHeight = 96
-    ClientWidth = 228
+    ClientHeight = 116
+    ClientWidth = 431
     TabOrder = 0
     object lVersion: TLabel
       Left = 4
-      Height = 15
+      Height = 20
       Top = 4
-      Width = 118
+      Width = 222
       Caption = 'Version'
       ParentColor = False
     end
     object eVersion: TEdit
       Left = 4
-      Height = 23
-      Top = 23
-      Width = 118
+      Height = 28
+      Top = 28
+      Width = 222
       TabOrder = 0
     end
     object lPublisher: TLabel
       Left = 4
-      Height = 15
-      Top = 50
-      Width = 118
+      Height = 20
+      Top = 60
+      Width = 222
       Caption = 'Publisher'
       ParentColor = False
     end
     object ePublisher: TComboBox
       Left = 4
-      Height = 23
-      Top = 69
-      Width = 118
+      Height = 28
+      Top = 84
+      Width = 222
       AutoComplete = True
       AutoCompleteText = [cbactEnabled, cbactEndOfLineComplete, cbactSearchAscending]
-      ItemHeight = 15
+      ItemHeight = 20
       Sorted = True
       TabOrder = 3
     end
     object lYear: TLabel
-      Left = 126
-      Height = 15
+      Left = 230
+      Height = 20
       Top = 4
-      Width = 98
+      Width = 197
       Caption = 'Year'
       ParentColor = False
     end
     object eYear: TEdit
-      Left = 126
-      Height = 23
-      Top = 23
-      Width = 98
+      Left = 230
+      Height = 28
+      Top = 28
+      Width = 197
       TabOrder = 1
       TextHint = 'YYYY/MM/DD'
     end
     object lZone: TLabel
-      Left = 126
-      Height = 15
-      Top = 50
-      Width = 98
+      Left = 230
+      Height = 20
+      Top = 60
+      Width = 197
       Caption = 'Zone'
       ParentColor = False
     end
     object eZone: TEdit
-      Left = 126
-      Height = 23
-      Top = 69
-      Width = 98
+      Left = 230
+      Height = 28
+      Top = 84
+      Width = 197
       TabOrder = 2
       TextHint = 'ISO3166-1 alpha-2'
     end
   end
-  object eTitle: TEdit[3]
+  object gbxExtraParameters: TGroupBox[3]
     Left = 0
-    Height = 23
-    Top = 0
-    Width = 232
-    Align = alTop
-    TabOrder = 3
-    TextHint = 'Title  (Empty = Group Title)'
-  end
-  object eTransTitle: TEdit[4]
-    Left = 0
-    Height = 23
-    Top = 27
-    Width = 232
-    Align = alTop
-    TabOrder = 4
-    TextHint = 'Transliterated Title (Empty = Title)'
-  end
-  object eSortKey: TEdit[5]
-    Left = 0
-    Height = 23
-    Top = 54
-    Width = 232
-    Align = alTop
-    TabOrder = 5
-    TextHint = 'Sort Key (Empty = TranslitTitle)'
-  end
-  object gbxExtraParameters: TGroupBox[6]
-    Left = 0
-    Height = 82
-    Top = 472
-    Width = 232
+    Height = 110
+    Top = 639
+    Width = 435
     Align = alClient
     Caption = 'Extra parameters'
-    ClientHeight = 62
-    ClientWidth = 228
-    TabOrder = 6
+    ClientHeight = 85
+    ClientWidth = 431
+    TabOrder = 3
     object mExtraParameters: TMemo
       Left = 0
-      Height = 62
+      Height = 85
       Top = 0
-      Width = 228
+      Width = 431
       Align = alClient
+      Constraints.MinHeight = 50
       ScrollBars = ssAutoVertical
       TabOrder = 0
     end
   end
-  inherited alPropEditor: TActionList[7]
+  object gbxTitle: TGroupBox[4]
+    Left = 0
+    Height = 169
+    Top = 0
+    Width = 435
+    Align = alTop
+    AutoSize = True
+    Caption = 'Title'
+    ClientHeight = 144
+    ClientWidth = 431
+    TabOrder = 4
+    object lTitle: TLabel
+      Left = 0
+      Height = 20
+      Top = 0
+      Width = 431
+      Align = alTop
+      Caption = 'Title  (Empty = Group Title)'
+      ParentColor = False
+    end
+    object eTitle: TEdit
+      Left = 0
+      Height = 28
+      Top = 20
+      Width = 431
+      Align = alTop
+      TabOrder = 0
+    end
+    object lTransTitle: TLabel
+      Left = 0
+      Height = 20
+      Top = 48
+      Width = 431
+      Align = alTop
+      Caption = 'Transliterated Title (Empty = Title)'
+      ParentColor = False
+    end
+    object eTransTitle: TEdit
+      Left = 0
+      Height = 28
+      Top = 68
+      Width = 431
+      Align = alTop
+      TabOrder = 1
+    end
+    object lSortKey: TLabel
+      Left = 0
+      Height = 20
+      Top = 96
+      Width = 431
+      Align = alTop
+      Caption = 'Sort Key (Empty = TranslitTitle)'
+      ParentColor = False
+    end
+    object eSortKey: TEdit
+      Left = 0
+      Height = 28
+      Top = 116
+      Width = 431
+      Align = alTop
+      TabOrder = 2
+    end
   end
-  inherited ilPropEditor: TImageList[8]
+  inherited alPropEditor: TActionList[5]
+  end
+  inherited ilPropEditor: TImageList[6]
   end
 end

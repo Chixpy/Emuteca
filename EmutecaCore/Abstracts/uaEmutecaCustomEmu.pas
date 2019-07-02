@@ -1,4 +1,5 @@
 unit uaEmutecaCustomEmu;
+
 {< caEmutecaEmulator abstract class unit.
 
   This file is part of Emuteca Core.
@@ -57,8 +58,12 @@ const
   {< ROM filename without extension. }
   kEmutecaROMFileExtKey = '%ROMEXT%';
   {< ROM file extension. }
+  kEmutecaROMSysIDKey = '%SYSID%';
+  {< Extra parameter from System.CoreID. }
+  kEmutecaROMExtensionParamKey = '%EXTPARAM%';
+  {< Extra parameter from System.CoreID. }
   kEmutecaROMExtraParamKey = '%EXTRA%';
-{< Extra parameter from Software.ExtraParameter }
+{< Extra parameters from Software.ExtraParameter. }
 
 type
   { caEmutecaCustomEmu class.
@@ -66,30 +71,33 @@ type
     Stores all basic info of an emulator. }
   caEmutecaCustomEmu = class(caCHXStorableIni)
   private
+    FCoreIDKey: string;
+    FCoreIDParamFormat: string;
     FDeveloper: string;
+    FExtensionParamFormat: TStringList;
     FTitle: string;
     FEnabled: boolean;
     FExeFile: string;
     FExitCode: integer;
     FExtraParamFormat: TStringList;
     FFileExt: TStringList;
-    FIcon: string;
+    FIconFile: string;
     FID: string;
-    FImage: string;
     FInfoFile: string;
     FParameters: string;
     FStats: cEmutecaPlayingStats;
     FWebPage: string;
     FWorkingFolder: string;
+    procedure SetCoreIDKey(AValue: string);
+    procedure SetCoreIDParamFormat(AValue: string);
     procedure SetDeveloper(AValue: string);
     procedure SetTitle(AValue: string);
     procedure SetEnabled(AValue: boolean);
     procedure SetExeFile(AValue: string);
     procedure SetExitCode(AValue: integer);
     procedure SetFileExt(AValue: TStringList);
-    procedure SetIcon(AValue: string);
+    procedure SetIconFile(AValue: string);
     procedure SetID(AValue: string);
-    procedure SetImage(AValue: string);
     procedure SetInfoFile(AValue: string);
     procedure SetParameters(AValue: string);
     procedure SetWebPage(AValue: string);
@@ -102,7 +110,8 @@ type
     function CompareID(aID: string): integer;
     function MatchID(aID: string): boolean;
 
-    function Execute(GameFile: string; ExtraParameters: TStringList): integer;
+    function Execute(GameFile: string; ExtraParameters: TStringList;
+      SysID: string): integer;
     function ExecuteAlone: integer;
 
     procedure LoadFromIni(aIniFile: TMemIniFile); override;
@@ -154,13 +163,24 @@ type
            Usefull for MAME.)
          @itemLabel(%ROMEXT%)
          @item(Only ROM extension.)
+         @itemLabel(%SYSID%)
+         @item(ID for core in multisystem emulators.)
          @itemLabel(%EXTRA%)
          @item(Extra parameters from software ExtraParameter property.)
        )
     }
+    property CoreIDKey: string read FCoreIDKey write SetCoreIDKey;
+    {< Key to search core parameter in system. }
+    property CoreIDParamFormat: string
+      read FCoreIDParamFormat write SetCoreIDParamFormat;
+    {< String for %SYSID% parameter. }
+    property ExtensionParamFormat: TStringList read FExtensionParamFormat;
+    {< Strings to encapsulate %EXTPARAM% parameters from extension of ROM.
+    }
     property ExtraParamFormat: TStringList read FExtraParamFormat;
     {< Strings to encapsulate %EXTRA% parameters from software.
     }
+
     property FileExt: TStringList read FFileExt write SetFileExt;
     {< Extensions used by the emulator.
 
@@ -175,8 +195,7 @@ type
     // --------------------
     property Developer: string read FDeveloper write SetDeveloper;
     property WebPage: string read FWebPage write SetWebPage;
-    property Icon: string read FIcon write SetIcon;
-    property Image: string read FImage write SetImage;
+    property IconFile: string read FIconFile write SetIconFile;
     property InfoFile: string read FInfoFile write SetInfoFile;
 
     // Usage statitics
@@ -196,11 +215,6 @@ begin
   FID := AValue;
 
   FPONotifyObservers(Self, ooChange, nil);
-end;
-
-procedure caEmutecaCustomEmu.SetImage(AValue: string);
-begin
-  FImage := SetAsFile(UTF8Trim(AValue));
 end;
 
 procedure caEmutecaCustomEmu.SetInfoFile(AValue: string);
@@ -239,8 +253,13 @@ begin
 
   aIniFile.WriteString(ID, krsIniKeyWorkingFolder, WorkingFolder);
   aIniFile.WriteString(ID, krsIniKeyParameters, Parameters);
+  aIniFile.WriteString(ID, krsIniKeyExtensionParamFmt,
+    ExtensionParamFormat.CommaText);
+
   aIniFile.WriteString(ID, krsIniKeyExtraParamFmt,
     ExtraParamFormat.CommaText);
+  aIniFile.WriteString(ID, krsIniKeyCoreIDKey, CoreIDKey);
+  aIniFile.WriteString(ID, krsIniKeyCoreIDParamFmt, CoreIDParamFormat);
   aIniFile.WriteString(ID, krsIniKeyExtensions, FileExt.CommaText);
   aIniFile.WriteInteger(ID, krsIniKeyExitCode, ExitCode);
 
@@ -259,8 +278,7 @@ begin
   begin
     aIniFile.WriteString(ID, krsIniKeyExeFile, ExeFile);
     aIniFile.WriteBool(ID, krsIniKeyEnabled, Enabled);
-    aIniFile.WriteString(ID, krsIniKeyIcon, Icon);
-    aIniFile.WriteString(ID, krsIniKeyImage, Image);
+    aIniFile.WriteString(ID, krsIniKeyIcon, IconFile);
     aIniFile.WriteString(ID, krsIniKeyInfoFile, InfoFile);
   end;
 
@@ -290,6 +308,22 @@ begin
   FDeveloper := AValue;
 end;
 
+procedure caEmutecaCustomEmu.SetCoreIDKey(AValue: string);
+begin
+  AValue := UTF8Trim(AValue);
+  if FCoreIDKey = AValue then
+    Exit;
+  FCoreIDKey := AValue;
+end;
+
+procedure caEmutecaCustomEmu.SetCoreIDParamFormat(AValue: string);
+begin
+  AValue := UTF8Trim(AValue);
+  if FCoreIDParamFormat = AValue then
+    Exit;
+  FCoreIDParamFormat := AValue;
+end;
+
 procedure caEmutecaCustomEmu.SetExeFile(AValue: string);
 begin
   FExeFile := SetAsFile(AValue);
@@ -309,9 +343,9 @@ begin
   FFileExt := AValue;
 end;
 
-procedure caEmutecaCustomEmu.SetIcon(AValue: string);
+procedure caEmutecaCustomEmu.SetIconFile(AValue: string);
 begin
-  FIcon := SetAsFile(UTF8Trim(AValue));
+  FIconFile := SetAsFile(UTF8Trim(AValue));
 end;
 
 constructor caEmutecaCustomEmu.Create(aOwner: TComponent);
@@ -324,12 +358,19 @@ begin
   Parameters := '"' + kEmutecaROMPathKey + '"';
 
   FFileExt := TStringList.Create;
+
+  FExtensionParamFormat := TStringList.Create;
+  ExtensionParamFormat.CaseSensitive := False;
+  ExtensionParamFormat.Sorted := True;
+  ExtensionParamFormat.NameValueSeparator := '=';
+
   FExtraParamFormat := TStringList.Create;
 end;
 
 
 destructor caEmutecaCustomEmu.Destroy;
 begin
+  ExtensionParamFormat.Free;
   ExtraParamFormat.Free;
   FileExt.Free;
   Stats.Free;
@@ -348,14 +389,17 @@ begin
 end;
 
 function caEmutecaCustomEmu.Execute(GameFile: string;
-  ExtraParameters: TStringList): integer;
+  ExtraParameters: TStringList; SysID: string): integer;
 var
   i, j: integer;
-  TempDir: string;
-  TempParam, Extra, TempExtra: string;
+  ActualWorkDir: string;
+  ActualParam, Extra, TempExtra: string;
   msOutput, msError: TMemoryStream;
 begin
   Result := -1;
+
+  // PARSING COMMAND LINE
+  // --------------------
 
   // Some emulators don't accept linux style in parameters...
   GameFile := SysPath(GameFile);
@@ -365,28 +409,44 @@ begin
   if not FilenameIsAbsolute(GameFile) then
     GameFile := CreateAbsoluteSearchPath(GameFile, GetCurrentDirUTF8);
 
-  // Changing current directory
-  TempDir := SysPath(WorkingFolder);
-  TempDir := AnsiReplaceText(TempDir, kEmutecaEmuDirKey,
+  // Working directory
+  ActualWorkDir := WorkingFolder;
+  ActualWorkDir := AnsiReplaceText(ActualWorkDir, kEmutecaEmuDirKey,
     ExtractFileDir(ExeFile));
-  TempDir := AnsiReplaceText(TempDir, kEmutecaROMDirKey,
+  ActualWorkDir := AnsiReplaceText(ActualWorkDir, kEmutecaROMDirKey,
     ExtractFileDir(GameFile));
-  TempDir := AnsiReplaceText(TempDir, kEmutecaCurrentDirKey,
+  ActualWorkDir := AnsiReplaceText(ActualWorkDir, kEmutecaCurrentDirKey,
     GetCurrentDirUTF8);
+  ActualWorkDir := SysPath(ActualWorkDir);
 
-  // Changing parameters
-  TempParam := Parameters;
-  TempParam := AnsiReplaceText(TempParam, kEmutecaROMPathKey, GameFile);
-  TempParam := AnsiReplaceText(TempParam, kEmutecaROMDirKey,
-    ExtractFileDir(GameFile));
-  TempParam := AnsiReplaceText(TempParam, kEmutecaROMFileNameKey,
-    ExtractFileName(GameFile));
-  TempParam := AnsiReplaceText(TempParam, kEmutecaROMFileNameNoExtKey,
-    ExtractFileNameWithoutExt(ExtractFileName(GameFile)));
-  TempParam := AnsiReplaceText(TempParam, kEmutecaROMFileExtKey,
-    ExtractFileExt(GameFile));
+  // Parameters
+  ActualParam := Parameters;
 
-  // Extra parameters from software
+  // Setting SysID parameter
+  Extra := AnsiReplaceText(CoreIDParamFormat, kEmutecaROMSysIDKey, SysID);
+  ActualParam := AnsiReplaceText(ActualParam, kEmutecaROMSysIDKey,
+    Trim(Extra));
+
+  // Setting Extension specific parameters
+  // ext1,ext2,extX=/param "%ROM" blabla
+  Extra := '';
+  TempExtra := TrimLeftSet(ExtractFileExt(GameFile), ['.']);
+  TempExtra := ExtensionParamFormat.Delimiter + TempExtra +
+    ExtensionParamFormat.Delimiter;
+
+  j := 0;
+  while j < ExtensionParamFormat.Count do
+  begin
+    if AnsiContainsText(ExtensionParamFormat.Delimiter +
+      ExtensionParamFormat.Names[j] + ExtensionParamFormat.Delimiter,
+      TempExtra) then
+      Extra := Extra + ExtensionParamFormat.ValueFromIndex[j] + ' ';
+    Inc(j);
+  end;
+  ActualParam := AnsiReplaceText(ActualParam, kEmutecaROMExtensionParamKey,
+    Trim(Extra));
+
+  // Setting Extra parameters from software
   Extra := '';
   if assigned(ExtraParameters) and (ExtraParameters.Count > 0) then
   begin
@@ -416,29 +476,42 @@ begin
       Inc(j);
     end;
   end;
-  TempParam := AnsiReplaceText(TempParam, kEmutecaROMExtraParamKey,
+  ActualParam := AnsiReplaceText(ActualParam, kEmutecaROMExtraParamKey,
     Trim(Extra));
 
-  TempParam := Trim(TempParam);
+  // Changing common parameters
+  ActualParam := AnsiReplaceText(ActualParam, kEmutecaROMPathKey, GameFile);
+  ActualParam := AnsiReplaceText(ActualParam, kEmutecaROMDirKey,
+    ExtractFileDir(GameFile));
+  ActualParam := AnsiReplaceText(ActualParam, kEmutecaROMFileNameKey,
+    ExtractFileName(GameFile));
+  ActualParam := AnsiReplaceText(ActualParam, kEmutecaROMFileNameNoExtKey,
+    ExtractFileNameWithoutExt(ExtractFileName(GameFile)));
+  ActualParam := AnsiReplaceText(ActualParam, kEmutecaROMFileExtKey,
+    ExtractFileExt(GameFile));
+  ActualParam := Trim(ActualParam);
 
-  // Go, go, go!!
+  // GO, GO, GO!!
+  // ------------
 
   msError := TMemoryStream.Create;
   msOutput := TMemoryStream.Create;
   try
-  // Hack for run system executables ;P
-  // ... and try to open with default player
-  if ExeFile = '' then
-  begin
-    if SupportedExtCT(TempParam, 'exe,com,bat,cmd') then
-      ExecuteCMDArray(TempDir, TempParam, [], msOutput, msError, Result)
+    // Hack for run system executables ;P
+    // ... and try to open with default player
+    if ExeFile = '' then
+    begin
+      if SupportedExtCT(ActualParam, 'exe,com,bat,cmd') then
+        ExecuteCMDArray(ActualWorkDir, ActualParam, [], msOutput,
+          msError, Result)
+      else
+        // This don't keep statistics because don't wait until closed
+        //   and file is deleted if it's extracted...
+        OpenDocument(ActualParam);
+    end
     else
-      // This don't keep statistics because don't wait until closed
-      //   and file is deleted if it's extracted...
-      OpenDocument(TempParam);
-  end
-  else
-    ExecuteCMDString(TempDir, ExeFile, TempParam, msOutput, msError, Result);
+      ExecuteCMDString(ActualWorkDir, ExeFile, ActualParam,
+        msOutput, msError, Result);
 
     // TODO: Make this configurable and let open they from GUI
     if msError.Size > 0 then
@@ -495,9 +568,17 @@ begin
   WorkingFolder := aIniFile.ReadString(ID, krsIniKeyWorkingFolder,
     WorkingFolder);
   Parameters := aIniFile.ReadString(ID, krsIniKeyParameters, Parameters);
+  ExtensionParamFormat.CommaText :=
+    aIniFile.ReadString(ID, krsIniKeyExtensionParamFmt,
+    ExtensionParamFormat.CommaText);
   ExtraParamFormat.CommaText :=
     aIniFile.ReadString(ID, krsIniKeyExtraParamFmt,
     ExtraParamFormat.CommaText);
+
+  CoreIDKey := aIniFile.ReadString(ID, krsIniKeyCoreIDKey, CoreIDKey);
+  CoreIDParamFormat := aIniFile.ReadString(ID, krsIniKeyCoreIDParamFmt,
+    CoreIDParamFormat);
+
   FileExt.CommaText := aIniFile.ReadString(ID, krsIniKeyExtensions,
     FileExt.CommaText);
   ExitCode := aIniFile.ReadInteger(ID, krsIniKeyExitCode, ExitCode);
@@ -505,8 +586,7 @@ begin
   Developer := aIniFile.ReadString(ID, krsIniKeyDeveloper, Developer);
   WebPage := aIniFile.ReadString(ID, krsIniKeyWebPage, WebPage);
 
-  Icon := aIniFile.ReadString(ID, krsIniKeyIcon, Icon);
-  Image := aIniFile.ReadString(ID, krsIniKeyImage, Image);
+  IconFile := aIniFile.ReadString(ID, krsIniKeyIcon, IconFile);
   InfoFile := aIniFile.ReadString(ID, krsIniKeyInfoFile, InfoFile);
 
   Stats.LoadFromIni(aIniFile, ID);
@@ -534,4 +614,3 @@ initialization
 finalization
   UnRegisterClass(caEmutecaCustomEmu);
 end.
-

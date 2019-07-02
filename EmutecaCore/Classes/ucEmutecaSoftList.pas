@@ -1,6 +1,9 @@
-{ This file is part of Emuteca
+unit ucEmutecaSoftList;
+{< cEmutecaSoftList class unit.
 
-  Copyright (C) 2006-2017 Chixpy
+  Copyright (C) 2006-2019 Chixpy
+  
+  This file is part of Emuteca
 
   This source is free software; you can redistribute it and/or modify it under
   the terms of the GNU General Public License as published by the Free
@@ -17,8 +20,6 @@
   to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
   MA 02111-1307, USA.
 }
-unit ucEmutecaSoftList;
-
 {$mode objfpc}{$H+}
 
 interface

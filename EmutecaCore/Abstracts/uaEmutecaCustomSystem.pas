@@ -3,7 +3,7 @@ unit uaEmutecaCustomSystem;
 
   This file is part of Emuteca Core.
 
-  Copyright (C) 2006-2018 Chixpy
+  Copyright (C) 2006-2019 Chixpy
 
   This source is free software; you can redistribute it and/or modify it under
   the terms of the GNU General Public License as published by the Free
@@ -25,7 +25,7 @@ unit uaEmutecaCustomSystem;
 interface
 
 uses
-  Classes, SysUtils, IniFiles, LazFileUtils, LazUTF8,
+  Classes, SysUtils, IniFiles, LazFileUtils, LazUTF8, fgl,
   // CHX units
   uCHXStrUtils,
   // CHX abstracts
@@ -33,7 +33,6 @@ uses
   // Emuteca Core units
   uEmutecaConst, uEmutecaCommon,
   // Emuteca classes
-  ucEmutecaEmulatorList, ucEmutecaEmulator,
   ucEmutecaPlayingStats;
 
 type
@@ -43,8 +42,7 @@ type
   private
     FBackgroundFile: string;
     FBaseFolder: string;
-    FCurrentEmulator: cEmutecaEmulator;
-    FEmulatorList: cEmutecaEmulatorList;
+    FCoreIDs: TStringList;
     FEnabled: boolean;
     FExtensions: TStringList;
     FExtractAll: boolean;
@@ -73,7 +71,6 @@ type
     function GetListFileName: string;
     procedure SetBackgroundFile(AValue: string);
     procedure SetBaseFolder(AValue: string);
-    procedure SetCurrentEmulator(AValue: cEmutecaEmulator);
     procedure SetEnabled(AValue: boolean);
     procedure SetExtractAll(AValue: boolean);
     procedure SetListFileName(AValue: string);
@@ -99,20 +96,10 @@ type
 
   public
     property TempFolder: string read FTempFolder write SetTempFolder;
-    {< System temp folder for decompressing media
-    }
-
-    property EmulatorList: cEmutecaEmulatorList read FEmulatorList;
-    {< List of current assigned and enabled emulators. }
-    property CurrentEmulator: cEmutecaEmulator
-      read FCurrentEmulator write SetCurrentEmulator;
-    {< Current assigned emulator. }
+    {< System temp folder for decompressing media. }
 
     function MatchID(aID: string): boolean;
     function CompareID(aID: string): integer;
-
-    procedure LoadEmulatorsFrom(aEmuList: cEmutecaEmulatorList);
-    {< Updates EmulatorList from aEmuList. }
 
     procedure LoadFromIni(aIniFile: TMemIniFile); override;
     procedure SaveToIni(aIniFile: TMemIniFile); override;
@@ -171,6 +158,9 @@ type
 
     It holds enabled, disabled and inexistent emulator ids too.
       This is different from EmulatorList only current enabled ones.}
+    property CoreIDs: TStringList read FCoreIDs;
+    {< MultiEmulator Core IDs }
+
 
     // System Images
     // -------------
@@ -261,6 +251,7 @@ begin
   MainEmulator := aIniFile.ReadString(ID, krsIniKeyMainEmulator, MainEmulator);
   OtherEmulators.CommaText :=
     aIniFile.ReadString(ID, krsIniKeyOtherEmulators, OtherEmulators.CommaText);
+  CoreIDs.CommaText :=  aIniFile.ReadString(ID, krsIniKeyCoreIDs, CoreIDs.CommaText);
 
   // Images
   IconFile := aIniFile.ReadString(ID, krsIniKeyIcon, IconFile);
@@ -330,23 +321,6 @@ end;
 procedure caEmutecaCustomSystem.SetBaseFolder(AValue: string);
 begin
   FBaseFolder := SetAsFolder(AValue);
-end;
-
-procedure caEmutecaCustomSystem.SetCurrentEmulator(AValue: cEmutecaEmulator);
-begin
-  if FCurrentEmulator = AValue then
-    Exit;
-  FCurrentEmulator := AValue;
-
-  // if not already added then add to list
-  if Assigned(CurrentEmulator) then
-  begin
-    if EmulatorList.IndexOf(CurrentEmulator) = -1 then
-      EmulatorList.Add(CurrentEmulator);
-    MainEmulator := CurrentEmulator.ID;
-  end
-  else
-  ; // MainEmulator := ''; ?
 end;
 
 procedure caEmutecaCustomSystem.SetBackgroundFile(AValue: string);
@@ -494,8 +468,6 @@ end;
 
 procedure caEmutecaCustomSystem.DoSaveToIni(aIniFile: TIniFile;
   ExportMode: Boolean);
-var
-  i: integer;
 begin
   if not Assigned(aIniFile) then
     Exit;
@@ -505,22 +477,10 @@ begin
   aIniFile.WriteString(ID, krsIniKeyFileName, ListFileName);
   aIniFile.WriteBool(ID, krsIniKeyExtractAll, ExtractAll);
 
-  // Emulators
-  if Assigned(CurrentEmulator) then
-    aIniFile.WriteString(ID, krsIniKeyMainEmulator, CurrentEmulator.ID)
-  else
-    aIniFile.WriteString(ID, krsIniKeyMainEmulator, MainEmulator);
+  aIniFile.WriteString(ID, krsIniKeyMainEmulator, MainEmulator);
 
-  // Adding EmulatorList ones if not already added
-  i := 0;
-  while i < EmulatorList.Count do
-  begin
-    if OtherEmulators.IndexOf(EmulatorList[i].ID) = -1 then
-      OtherEmulators.Add(EmulatorList[i].ID);
-    Inc(i);
-  end;
-  aIniFile.WriteString(ID, krsIniKeyOtherEmulators,
-    OtherEmulators.CommaText);
+  aIniFile.WriteString(ID, krsIniKeyOtherEmulators, OtherEmulators.CommaText);
+  aIniFile.WriteString(ID, krsIniKeyCoreIDs, CoreIDs.CommaText);
 
   // Import
   aIniFile.WriteString(ID, krsIniKeySoftExportKey,
@@ -603,30 +563,6 @@ begin
   Result := UTF8CompareText(Self.ID, aID);
 end;
 
-procedure caEmutecaCustomSystem.LoadEmulatorsFrom(aEmuList:
-  cEmutecaEmulatorList);
-var
-  i: integer;
-begin
-  EmulatorList.Clear;
-
-  if not Assigned(aEmuList) then
-    Exit;
-
-  i := 0;
-  while i < aEmuList.Count do
-  begin
-    if (aEmuList[i].Enabled) and
-      (OtherEmulators.IndexOf(aEmuList[i].ID) <> -1) then
-    begin
-      EmulatorList.Add(aEmuList[i]);
-      if aEmuList[i].MatchID(MainEmulator) then
-        CurrentEmulator := aEmuList[i];
-    end;
-    Inc(i);
-  end;
-end;
-
 constructor caEmutecaCustomSystem.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
@@ -638,7 +574,10 @@ begin
   Extensions.CaseSensitive := False;
   Extensions.Sorted := True;
 
-  FEmulatorList := cEmutecaEmulatorList.Create(False);
+  FCoreIDs := TStringList.Create;
+  CoreIDs.CaseSensitive := False;
+  CoreIDs.Sorted := True;
+  CoreIDs.NameValueSeparator := '=';
 
   FOtherEmulators := TStringList.Create;
   OtherEmulators.CaseSensitive := False;
@@ -662,8 +601,8 @@ end;
 destructor caEmutecaCustomSystem.Destroy;
 begin
   Extensions.Free;
+  CoreIDs.Free;
 
-  FEmulatorList.Free;
   OtherEmulators.Free;
 
   ImageCaptions.Free;

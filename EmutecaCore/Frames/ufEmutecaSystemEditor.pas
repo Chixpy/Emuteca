@@ -28,7 +28,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  Buttons, StdCtrls, CheckLst, EditBtn, LazFileUtils,
+  Buttons, StdCtrls, CheckLst, EditBtn, ActnList, LazFileUtils,
   // CHX units
   uCHXStrUtils, uCHXDlgUtils,
   // CHX frames
@@ -37,9 +37,6 @@ uses
   uEmutecaConst, uEmutecaRscStr,
   // Emuteca Core classes
   ucEmutecaSystem, ucEmutecaEmulator, ucEmutecaEmulatorManager;
-
-resourcestring
-  rsSelectEmulator = 'Select a System';
 
 type
 
@@ -60,10 +57,12 @@ type
     lFileExtensions: TLabel;
     lFileName: TLabel;
     lMainEmulator: TLabel;
+    lMultiCoreIDs: TLabel;
     lOtherEmulators: TLabel;
     lWorkingFolder: TLabel;
     lTitle: TLabel;
     mExtensions: TMemo;
+    mMultiCoreIDs: TMemo;
     Panel2: TPanel;
     rgbGameKey: TRadioGroup;
     Splitter1: TSplitter;
@@ -170,6 +169,7 @@ begin
   rgbGameKey.ItemIndex := 0;
   chkExtractAllFiles.Checked := False;
   mExtensions.Clear;
+  mMultiCoreIDs.Clear;
 end;
 
 procedure TfmEmutecaSystemEditor.DoSaveFrameData;
@@ -218,6 +218,9 @@ begin
   end;
 
   System.Extensions.Assign(mExtensions.Lines);
+  System.Extensions.Sort;
+  System.CoreIDs.Assign(mMultiCoreIDs.Lines);
+  System.Extensions.Sort;
 end;
 
 procedure TfmEmutecaSystemEditor.DoLoadFrameData;
@@ -262,6 +265,9 @@ begin
 
   System.Extensions.Sort;
   mExtensions.Lines.Assign(System.Extensions);
+
+  System.CoreIDs.Sort;
+  mMultiCoreIDs.Lines.Assign(System.CoreIDs);
 end;
 
 end.

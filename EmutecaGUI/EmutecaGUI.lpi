@@ -28,7 +28,7 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="8"/>
-      <BuildNr Value="122"/>
+      <BuildNr Value="125"/>
       <StringTable Comments="Emuteca database editor" InternalName="EmutecaEditorGUI" LegalCopyright="Chixpy" ProductVersion="0.8.0"/>
     </VersionInfo>
     <BuildModes Count="2">
@@ -97,7 +97,7 @@
         <PackageName Value="LCL"/>
       </Item7>
     </RequiredPackages>
-    <Units Count="129">
+    <Units Count="132">
       <Unit0>
         <Filename Value="EmutecaGUI.pas"/>
         <IsPartOfProject Value="True"/>
@@ -779,6 +779,24 @@
         <Filename Value="..\EmutecaCore\ScriptMng\uPSI_uaEmutecaCustomEmu.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit128>
+      <Unit129>
+        <Filename Value="..\EmutecaCore\Frames\ufEmutecaEmulatorAdvParamsEditor.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fmEmutecaEmulatorAdvParamsEditor"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+      </Unit129>
+      <Unit130>
+        <Filename Value="Source\Frames\ufETKGUIIcnEmuCBX.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fmETKGUIIcnEmuCBX"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+      </Unit130>
+      <Unit131>
+        <Filename Value="Source\Threads\utETKGUICacheEmuIcons.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit131>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

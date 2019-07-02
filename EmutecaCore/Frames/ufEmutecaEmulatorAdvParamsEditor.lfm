@@ -1,0 +1,119 @@
+inherited fmEmutecaEmulatorAdvParamsEditor: TfmEmutecaEmulatorAdvParamsEditor
+  Height = 532
+  Width = 605
+  ClientHeight = 532
+  ClientWidth = 605
+  DesignLeft = 618
+  inherited pButtons: TPanel
+    Top = 502
+    Width = 605
+    ClientWidth = 605
+    inherited chkCloseOnSave: TCheckBox
+      Left = 98
+    end
+    inherited bSave: TBitBtn
+      Left = 256
+    end
+    inherited bCancel: TBitBtn
+      Left = 420
+    end
+  end
+  object gbxCoreID: TGroupBox[1]
+    Left = 0
+    Height = 121
+    Top = 0
+    Width = 605
+    Align = alTop
+    AutoSize = True
+    Caption = 'Multisystem core param'
+    ClientHeight = 96
+    ClientWidth = 601
+    TabOrder = 1
+    object lMultiEmuID: TLabel
+      Left = 0
+      Height = 20
+      Top = 0
+      Width = 601
+      Align = alTop
+      Caption = 'Multisystem emulator ID'
+      ParentColor = False
+    end
+    object eMultiEmuID: TEdit
+      Left = 0
+      Height = 28
+      Top = 20
+      Width = 601
+      Align = alTop
+      TabOrder = 0
+    end
+    object lCoreParamFmt: TLabel
+      Left = 0
+      Height = 20
+      Top = 48
+      Width = 601
+      Align = alTop
+      Caption = 'Core parameter format'
+      ParentColor = False
+    end
+    object eCoreIDParamFmt: TEdit
+      Left = 0
+      Height = 28
+      Top = 68
+      Width = 601
+      Align = alTop
+      TabOrder = 1
+    end
+  end
+  object gbxExtParams: TGroupBox[2]
+    Left = 0
+    Height = 243
+    Top = 125
+    Width = 605
+    Align = alTop
+    Caption = 'Parameters by extension'
+    ClientHeight = 218
+    ClientWidth = 601
+    TabOrder = 2
+    object mExtensionParameters: TMemo
+      Left = 0
+      Height = 218
+      Top = 0
+      Width = 601
+      Align = alClient
+      TabOrder = 0
+    end
+  end
+  object gbxExtraSoftParameters: TGroupBox[3]
+    Left = 0
+    Height = 116
+    Top = 382
+    Width = 605
+    Align = alClient
+    Caption = 'Extra software parameters'
+    ClientHeight = 91
+    ClientWidth = 601
+    TabOrder = 3
+    object mExtraParameters: TMemo
+      Left = 0
+      Height = 91
+      Top = 0
+      Width = 601
+      Align = alClient
+      ScrollBars = ssAutoVertical
+      TabOrder = 0
+    end
+  end
+  object Splitter1: TSplitter[4]
+    Cursor = crVSplit
+    Left = 0
+    Height = 6
+    Top = 372
+    Width = 605
+    Align = alTop
+    ResizeAnchor = akTop
+  end
+  inherited alPropEditor: TActionList[5]
+  end
+  inherited ilPropEditor: TImageList[6]
+  end
+end

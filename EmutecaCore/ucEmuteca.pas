@@ -241,7 +241,7 @@ end;
 function cEmuteca.RunSoftware(const aSoftware: cEmutecaSoftware): integer;
 var
   aEmulator: cEmutecaEmulator;
-  CompressedFile, aFolder, RomFile: string;
+  CompressedFile, aFolder, RomFile, SysID: string;
   Compressed, NewDir: boolean;
   CompError: integer;
   StartTime: TDateTime;
@@ -259,8 +259,15 @@ begin
   end;
 
   // 1. Searching for current emulator.
-  aEmulator := EmulatorManager.EnabledList.ItemById(
-    aSoftware.CachedSystem.MainEmulator);
+  if not assigned(aSoftware.CachedSystem) then
+  begin
+    Result := kErrorRunSoftNoSystem;
+    Exit;
+  end;
+  if aSoftware.CachedSystem is cEmutecaSystem then
+    aEmulator := cEmutecaSystem(aSoftware.CachedSystem).CurrentEmulator
+  else
+    aEmulator := EmulatorManager.EnabledList.ItemById(aSoftware.CachedSystem.MainEmulator);
 
   // TODO: 1.1 Test if emulator support aSoftware extension...
 
@@ -334,14 +341,17 @@ begin
     Exit;
   end;
 
+  // SysID
+  SysID := aSoftware.CachedSystem.CoreIDs.Values[aEmulator.CoreIDKey];
+
   StartTime := Now; // Stats
 
-  Result := aEmulator.Execute(RomFile, aSoftware.ExtraParameters);
+  Result := aEmulator.Execute(RomFile, aSoftware.ExtraParameters, SysID);
 
   { TODO : Windows shorcuts don't work }
   TimePlaying := SecondsBetween(Now, StartTime);
 
-  // if Emulator returns no error and passed at least MinTime...
+  // if Emulator returns no error and passed at least MinPlayTime...
   if (Result = 0) and (TimePlaying >= Config.MinPlayTime) then
   begin
     aSoftware.Stats.AddPlayingTime(StartTime, TimePlaying);

@@ -1,8 +1,6 @@
 unit uPSI_ucEmuteca;
 {< Exports of ucEmuteca for Pascal Script engine of Emuteca.
 
-  ----
-
   This file is part of Emuteca Core.
 
   Copyright (C) 2011-2018 Chixpy

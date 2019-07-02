@@ -3,7 +3,7 @@ unit ufETKGUIMediaManager;
 
   This file is part of Emuteca GUI.
 
-  Copyright (C) 2006-2018 Chixpy
+  Copyright (C) 2006-2019 Chixpy
 
   This source is free software; you can redistribute it and/or modify it under
   the terms of the GNU General Public License as published by the Free
@@ -317,11 +317,11 @@ type
 
     function AddFilesOtherFolderCB(aFolder: string;
       Info: TSearchRec): boolean;
-    //{< Add files or folders to vstFilesOtherFolder.
-    //  @param(aFolder Folder where the file is in. @(not used@))
-    //  @param(Info TSearchRec with folder or file data.)
-    //  @return(Always @true; needed for IterateFolder.)
-    //}
+    {< Add files or folders to vstFilesOtherFolder.
+      @param(aFolder Folder where the file is in. @(not used@))
+      @param(Info TSearchRec with folder or file data.)
+      @return(Always @true; needed for IterateFolder.)
+    }
 
     procedure UpdateFileOtherFolder(aFolder: string);
 

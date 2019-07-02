@@ -27,8 +27,8 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
-  LazFileUtils, LCLIntf, IniFiles,
-  LCLTranslator, ActnList, StdActns, Menus, ComCtrls, LazUTF8,
+  LazFileUtils, LCLIntf, IniFiles, LCLTranslator, ActnList, StdActns, Menus,
+  ComCtrls, LazUTF8,
   // Misc
   uVersionSupport,
   // CHX units
@@ -58,7 +58,7 @@ uses
   // Emuteca GUI forms
   ufrETKGUIAbout,
   // Emuteca GUI threads
-  utETKGUICacheSysIcons, utETKGUICacheGrpIcons, utETKGUICacheSoftIcons;
+  utETKGUICacheSysIcons, utETKGUICacheGrpIcons, utETKGUICacheSoftIcons, utETKGUICacheEmuIcons;
 
 type
 
@@ -184,6 +184,7 @@ type
 
   private
     FBaseFolder: string;
+    FCacheEmuIconsThread: ctETKGUICacheEmuIcons;
     FCacheGrpIconsThread: ctEGUICacheGrpIcons;
     FCacheSoftIconsThread: ctEGUICacheSoftIcons;
     FCacheSysIconsThread: ctEGUICacheSysIcons;
@@ -202,6 +203,7 @@ type
     Fw7zErrorFileName: string;
     FZoneIcons: cCHXImageMap;
     procedure SetBaseFolder(AValue: string);
+    procedure SetCacheEmuIconsThread(const AValue: ctETKGUICacheEmuIcons);
     procedure SetCacheGrpIconsThread(AValue: ctEGUICacheGrpIcons);
     procedure SetCacheSoftIconsThread(AValue: ctEGUICacheSoftIcons);
     procedure SetCacheSysIconsThread(AValue: ctEGUICacheSysIcons);
@@ -217,7 +219,7 @@ type
     property fmEmutecaMainFrame: TfmETKGUIMain read FfmEmutecaMainFrame;
     //< Main Frame
     property fmProgressBar: TfmCHXProgressBar read FfmProgressBar;
-    //< ProgressBar
+    //< Ganeral Progress Bar
 
     property Emuteca: cEmuteca read FEmuteca;
     //< Main Emuteca Core
@@ -249,18 +251,22 @@ type
     property CacheSysIconsThread: ctEGUICacheSysIcons
       read FCacheSysIconsThread write SetCacheSysIconsThread;
     procedure CacheSysIconsThreadTerminated(Sender: TObject);
-    // For use with TThread.OnTerminate, auto nil.
+    //< For use with TThread.OnTerminate, auto nil.
+    property CacheEmuIconsThread: ctETKGUICacheEmuIcons read FCacheEmuIconsThread write SetCacheEmuIconsThread;
+    procedure CacheEmuIconsThreadTerminated(Sender: TObject);
+    //< For use with TThread.OnTerminate, auto nil.
     property CacheGrpIconsThread: ctEGUICacheGrpIcons
       read FCacheGrpIconsThread write SetCacheGrpIconsThread;
     procedure CacheGrpIconsThreadTerminated(Sender: TObject);
-    // For use with TThread.OnTerminate, auto nil.
+    //< For use with TThread.OnTerminate, auto nil.
     property CacheSoftIconsThread: ctEGUICacheSoftIcons
       read FCacheSoftIconsThread write SetCacheSoftIconsThread;
     procedure CacheSoftIconsThreadTerminated(Sender: TObject);
-    // For use with TThread.OnTerminate, auto nil.
+    //< For use with TThread.OnTerminate, auto nil.
 
     procedure LoadIcons;
     procedure LoadSystemsIcons;
+    procedure LoadEmuIcons;
     function AddZoneIcon(aFolder: string; FileInfo: TSearchRec): boolean;
     //< Add Zone icon to list
     procedure LoadGrpIcons(aGroupList: cEmutecaGroupList);
@@ -441,6 +447,7 @@ begin
   if GUIConfig.SaveOnExit then
     Emuteca.SaveAllData;
 
+  // Teminate threads if they are running.
   if Assigned(CacheSoftIconsThread) then
   begin
     CacheSoftIconsThread.OnTerminate := nil;
@@ -457,12 +464,19 @@ begin
   end;
   // CacheGrpIconsThread.Free; Auto freed with FreeOnTerminate
 
-  // Teminate threads if they are running.
   if Assigned(CacheSysIconsThread) then
   begin
     CacheSysIconsThread.OnTerminate := nil;
     CacheSysIconsThread.Terminate;
     CacheSysIconsThread.WaitFor;
+  end;
+  // CacheSysIconsThread.Free; Auto freed with FreeOnTerminate
+
+  if Assigned(CacheEmuIconsThread) then
+  begin
+    CacheEmuIconsThread.OnTerminate := nil;
+    CacheEmuIconsThread.Terminate;
+    CacheEmuIconsThread.WaitFor;
   end;
   // CacheSysIconsThread.Free; Auto freed with FreeOnTerminate
 
@@ -720,6 +734,13 @@ begin
   FBaseFolder := SetAsFolder(AValue);
 end;
 
+procedure TfrmETKGUIMain.SetCacheEmuIconsThread(
+  const AValue: ctETKGUICacheEmuIcons);
+begin
+  if FCacheEmuIconsThread = AValue then Exit;
+  FCacheEmuIconsThread := AValue;
+end;
+
 procedure TfrmETKGUIMain.SetCacheSoftIconsThread(
   AValue: ctEGUICacheSoftIcons);
 begin
@@ -780,6 +801,11 @@ begin
   CacheSysIconsThread := nil;
 end;
 
+procedure TfrmETKGUIMain.CacheEmuIconsThreadTerminated(Sender: TObject);
+begin
+  CacheEmuIconsThread := nil;
+end;
+
 procedure TfrmETKGUIMain.CacheGrpIconsThreadTerminated(Sender: TObject);
 begin
   CacheGrpIconsThread := nil;
@@ -823,7 +849,7 @@ begin
     DumpIcons.AddImageFile(aFolder + aFile + '.png');
 
   LoadSystemsIcons;
-
+  LoadEmuIcons;
 end;
 
 procedure TfrmETKGUIMain.LoadSystemsIcons;
@@ -860,6 +886,36 @@ begin
     CacheSysIconsThread.DefSoftIcon := IconList[0];
 
   CacheSysIconsThread.Start;
+end;
+
+procedure TfrmETKGUIMain.LoadEmuIcons;
+begin
+  // Teminate if it's running
+  if assigned(CacheEmuIconsThread) then
+  begin
+    CacheEmuIconsThread.OnTerminate := nil;
+    CacheEmuIconsThread.Terminate;
+    // CacheEmuIconsThread.WaitFor; Don't wait
+  end;
+  // Auto freed with FreeOnTerminate and set to nil
+
+  if not (Assigned(Emuteca) and Assigned(IconList)) then
+    Exit;
+
+  // Creating background thread for
+  FCacheEmuIconsThread := ctETKGUICacheEmuIcons.Create;
+  if Assigned(CacheEmuIconsThread.FatalException) then
+    raise CacheEmuIconsThread.FatalException;
+  CacheEmuIconsThread.OnTerminate := @CacheEmuIconsThreadTerminated; //Autonil
+
+  CacheEmuIconsThread.EmuManager := Emuteca.EmulatorManager;
+  CacheEmuIconsThread.IconList := IconList;
+
+  if IconList.Count > 2 then
+    // 2: Default for Emulatots
+    CacheEmuIconsThread.DefEmuIcon := IconList[2];
+
+  CacheEmuIconsThread.Start;
 end;
 
 function TfrmETKGUIMain.AddZoneIcon(aFolder: string;

@@ -5,9 +5,9 @@ inherited fmEmutecaEmulatorCBX: TfmEmutecaEmulatorCBX
     Top = 0
     Width = 320
     Align = alTop
-    AutoDropDown = True
+    AutoSelect = False
     ItemHeight = 15
-    OnSelect = cbxEmulatorSelect
+    OnChange = cbxEmulatorChange
     Style = csDropDownList
     TabOrder = 0
   end

@@ -1,11 +1,9 @@
 unit ufEmutecaEmulatorCBX;
 {< TfmEmutecaEmulatorCBX frame unit.
 
-  ----
-
   This file is part of Emuteca Core.
 
-  Copyright (C) 2011-2018 Chixpy
+  Copyright (C) 2011-2019 Chixpy
 
   This source is free software; you can redistribute it and/or modify it
   under the terms of the GNU General Public License as published by the Free
@@ -39,7 +37,7 @@ type
 
   TfmEmutecaEmulatorCBX = class(TfmCHXFrame)
     cbxEmulator: TComboBox;
-    procedure cbxEmulatorSelect(Sender: TObject);
+    procedure cbxEmulatorChange(Sender: TObject);
   private
     FEmulatorList: cEmutecaEmulatorList;
     FOnSelectEmulator: TEmutecaReturnEmulatorCB;
@@ -76,9 +74,9 @@ implementation
 
 { TfmEmutecaEmulatorCBX }
 
-procedure TfmEmutecaEmulatorCBX.cbxEmulatorSelect(Sender: TObject);
+procedure TfmEmutecaEmulatorCBX.cbxEmulatorChange(Sender: TObject);
 begin
-  if cbxEmulator.ItemIndex <> -1 then
+    if cbxEmulator.ItemIndex <> -1 then
     SelectedEmulator := cEmutecaEmulator(
       cbxEmulator.Items.Objects[cbxEmulator.ItemIndex])
   else

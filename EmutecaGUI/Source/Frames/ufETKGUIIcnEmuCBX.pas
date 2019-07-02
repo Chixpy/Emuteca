@@ -1,9 +1,10 @@
-unit ufETKGUIIcnSysCBX;
-{< TfmETKGUIIcnSysCBX frame unit.
+unit ufETKGUIIcnEmuCBX;
+
+{< TfmETKGUIIcnEmuCBX frame unit.
 
   This file is part of Emuteca GUI.
 
-  Copyright (C) 2011-2019 Chixpy
+  Copyright (C) 2019-2019 Chixpy
 
   This source is free software; you can redistribute it and/or modify it
   under the terms of the GNU General Public License as published by the Free
@@ -25,60 +26,55 @@ unit ufETKGUIIcnSysCBX;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
-  Types, StdCtrls, LCLType,
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, Types,
+  StdCtrls, LCLType,
   // CHX units
   uCHXImageUtils,
-  // Emuteca classes
-  ucEmutecaSystem,
-  // Emuteca frames
-  ufEmutecaSystemCBX;
+  // Emuteca clases
+  ucEmutecaEmulator,
+  // Emuteca Core frames
+  ufEmutecaEmulatorCBX;
 
 type
 
-  { TfmETKGUIIcnSysCBX }
+  { TfmETKGUIIcnEmuCBX }
 
-  TfmETKGUIIcnSysCBX = class(TfmEmutecaSystemCBX)
+  TfmETKGUIIcnEmuCBX = class(TfmEmutecaEmulatorCBX)
+    procedure cbxEmulatorDrawItem(Control: TWinControl;
+      Index: integer; ARect: TRect; State: TOwnerDrawState);
   private
-    FDefSysIcon: TPicture;
-    procedure SetDefSysIcon(AValue: TPicture);
-  published
-    property DefSysIcon: TPicture read FDefSysIcon write SetDefSysIcon;
+    FDefEmuIcon: TPicture;
+    procedure SetDefEmuIcon(const AValue: TPicture);
 
-    procedure cbxSystemDrawItem(Control: TWinControl; Index: integer;
-      ARect: TRect; State: TOwnerDrawState);
+  public
+
+    property DefEmuIcon: TPicture read FDefEmuIcon write SetDefEmuIcon;
+
   end;
 
 implementation
 
 {$R *.lfm}
 
-{ TfmETKGUIIcnSysCBX }
+{ TfmETKGUIIcnEmuCBX }
 
-procedure TfmETKGUIIcnSysCBX.SetDefSysIcon(AValue: TPicture);
-begin
-  if FDefSysIcon = AValue then
-    Exit;
-  FDefSysIcon := AValue;
-end;
-
-procedure TfmETKGUIIcnSysCBX.cbxSystemDrawItem(Control: TWinControl;
+procedure TfmETKGUIIcnEmuCBX.cbxEmulatorDrawItem(Control: TWinControl;
   Index: integer; ARect: TRect; State: TOwnerDrawState);
 var
+  aCBXS: TComboBox;
+  aEmu: cEmutecaEmulator;
   IconRect: TRect;
   aIcon: TPicture;
-  aSystem: cEmutecaSystem;
-  aCBXS: TComboBox;
-
 begin
   if odInactive in State then
     Exit;
 
-  if not (Control is TComboBox) then Exit;
+  if not (Control is TComboBox) then
+    Exit;
 
   aCBXS := TComboBox(Control);
 
-  aSystem := cEmutecaSystem(aCBXS.Items.Objects[Index]);
+  aEmu := cEmutecaEmulator(aCBXS.Items.Objects[Index]);
 
   // Icon
   // aCBX.Canvas.FillRect(ARect);
@@ -87,17 +83,25 @@ begin
   IconRect.Right := IconRect.Left + ARect.Bottom - ARect.Top;
 
   aIcon := nil;
-  if assigned(aSystem) then
-    aIcon := aSystem.Stats.Icon;
+  if assigned(aEmu) then
+    aIcon := aEmu.Stats.Icon;
 
   if not assigned(aIcon) then
-    aIcon := DefSysIcon;
+    aIcon := DefEmuIcon;
 
   if assigned(aIcon) then
-    aCBXS.Canvas.StretchDraw(CorrectAspectRatio(IconRect, aIcon), aIcon.Graphic);
+    aCBXS.Canvas.StretchDraw(CorrectAspectRatio(IconRect, aIcon),
+      aIcon.Graphic);
 
   // Text
   aCBXS.Canvas.TextOut(IconRect.Right + 4, ARect.Top, aCBXS.Items[Index]);
+end;
+
+procedure TfmETKGUIIcnEmuCBX.SetDefEmuIcon(const AValue: TPicture);
+begin
+  if FDefEmuIcon = AValue then
+    Exit;
+  FDefEmuIcon := AValue;
 end;
 
 end.

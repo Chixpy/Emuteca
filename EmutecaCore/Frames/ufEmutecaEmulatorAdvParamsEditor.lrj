@@ -1,0 +1,7 @@
+{"version":1,"strings":[
+{"hash":126904429,"name":"tfmemutecaemulatoradvparamseditor.gbxcoreid.caption","sourcebytes":[77,117,108,116,105,115,121,115,116,101,109,32,99,111,114,101,32,112,97,114,97,109],"value":"Multisystem core param"},
+{"hash":115763188,"name":"tfmemutecaemulatoradvparamseditor.lmultiemuid.caption","sourcebytes":[77,117,108,116,105,115,121,115,116,101,109,32,101,109,117,108,97,116,111,114,32,73,68],"value":"Multisystem emulator ID"},
+{"hash":110959924,"name":"tfmemutecaemulatoradvparamseditor.lcoreparamfmt.caption","sourcebytes":[67,111,114,101,32,112,97,114,97,109,101,116,101,114,32,102,111,114,109,97,116],"value":"Core parameter format"},
+{"hash":264418174,"name":"tfmemutecaemulatoradvparamseditor.gbxextparams.caption","sourcebytes":[80,97,114,97,109,101,116,101,114,115,32,98,121,32,101,120,116,101,110,115,105,111,110],"value":"Parameters by extension"},
+{"hash":183368355,"name":"tfmemutecaemulatoradvparamseditor.gbxextrasoftparameters.caption","sourcebytes":[69,120,116,114,97,32,115,111,102,116,119,97,114,101,32,112,97,114,97,109,101,116,101,114,115],"value":"Extra software parameters"}
+]}

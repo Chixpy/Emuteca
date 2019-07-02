@@ -117,12 +117,14 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   uEmutecaRscStr, uEmutecaConst, uaEmutecaCustomEmu, uPSI_uEmutecaConst,
   uPSI_uEmutecaRscStr, uETKGUIConst, uETKGUIRscStr, ufETKGUIFullConfigEditor,
   ufEmutecaSoftImgPreview, ufEmutecaSoftTxtPreview, ufEmutecaSoftVideoPreview,
-  ufCHXImgViewer, ucETKGUIItemCache, uPSI_uaCHXStorable, uPSI_uaEmutecaCustomEmu;
+  ufCHXImgViewer, ucETKGUIItemCache, uPSI_uaCHXStorable,
+  uPSI_uaEmutecaCustomEmu, ufEmutecaEmulatorAdvParamsEditor, ufETKGUIIcnEmuCBX,
+  utETKGUICacheEmuIcons;
 
 {$R *.res}
 
 begin
-  Application.Title:='Emuteca GUI';
+  Application.Title := 'Emuteca GUI';
   RequireDerivedFormResource := True;
   Application.Initialize;
   Application.CreateForm(TfrmETKGUIMain, frmETKGUIMain);

@@ -1,4 +1,5 @@
 unit ufETKGUIFullEmuEditor;
+
 {< TfmETKGUIFullEmuEditor frame unit.
 
   ----
@@ -41,7 +42,7 @@ uses
   // Emuteca clases
   ucEmutecaEmulator,
   // Emuteca frames
-  ufEmutecaEmulatorEditor,
+  ufEmutecaEmulatorEditor, ufEmutecaEmulatorAdvParamsEditor,
   // Emuteca GUI units
   uETKGUIConst, uETKGUIRscStr;
 
@@ -58,6 +59,7 @@ type
   private
     FEmuEditor: TfmEmutecaEmulatorEditor;
     FEmulator: cEmutecaEmulator;
+    FEmuParamsEditor: TfmEmutecaEmulatorAdvParamsEditor;
     FSHA1Folder: string;
     procedure SetEmulator(AValue: cEmutecaEmulator);
     procedure SetSHA1Folder(AValue: string);
@@ -65,6 +67,8 @@ type
 
   protected
     property EmuEditor: TfmEmutecaEmulatorEditor read FEmuEditor;
+    property EmuParamsEditor: TfmEmutecaEmulatorAdvParamsEditor
+      read FEmuParamsEditor;
 
     procedure DoClearFrameData;
     procedure DoLoadFrameData;
@@ -76,8 +80,9 @@ type
 
     property SHA1Folder: string read FSHA1Folder write SetSHA1Folder;
 
-    class function SimpleModalForm(aEmulator: cEmutecaEmulator; const aSHA1Folder: string;
-      const aGUIIconsIni: string; const aGUIConfigIni: string): integer;
+    class function SimpleModalForm(aEmulator: cEmutecaEmulator;
+      const aSHA1Folder: string; const aGUIIconsIni: string;
+      const aGUIConfigIni: string): integer;
     //< Creates a form with Emulatoe Editor.
 
     constructor Create(TheOwner: TComponent); override;
@@ -110,6 +115,7 @@ begin
     Exit;
   FEmulator := AValue;
   EmuEditor.Emulator := Emulator;
+  EmuParamsEditor.Emulator := Emulator;
 
   LoadFrameData;
 end;
@@ -122,7 +128,8 @@ end;
 
 procedure TfmETKGUIFullEmuEditor.DoClearFrameData;
 begin
-
+  EmuEditor.ClearFrameData;
+  EmuParamsEditor.ClearFrameData;
 end;
 
 procedure TfmETKGUIFullEmuEditor.DoLoadFrameData;
@@ -139,6 +146,7 @@ end;
 procedure TfmETKGUIFullEmuEditor.DoSaveFrameData;
 begin
   EmuEditor.SaveFrameData;
+  EmuParamsEditor.SaveFrameData;
 end;
 
 class function TfmETKGUIFullEmuEditor.SimpleModalForm(
@@ -193,6 +201,11 @@ constructor TfmETKGUIFullEmuEditor.Create(TheOwner: TComponent);
     EmuEditor.Parent := aTabSheet;
 
     aTabSheet := pcProperties.AddTabSheet;
+    FEmuParamsEditor :=
+      TfmEmutecaEmulatorAdvParamsEditor.Create(aTabSheet);
+    EmuParamsEditor.SaveButtons := False;
+    EmuParamsEditor.Align := alClient;
+    EmuParamsEditor.Parent := aTabSheet;
   end;
 
 begin

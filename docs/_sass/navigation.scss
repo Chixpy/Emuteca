@@ -1,10 +1,16 @@
-.NavMain {
+.NavDiv { 
   display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
   clear: left;
   float: left;
   
-  width: auto;
-  
+  width: 150px;
+}
+
+.NavMain {
+  overflow: scroll;
   border: 4px groove blue;
 }
 

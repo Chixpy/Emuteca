@@ -533,6 +533,31 @@ msgctxt "tfmemutecaactimportsoftdata.lsoftidtype.caption"
 msgid "Soft ID Type"
 msgstr ""
 
+#: tfmemutecaemulatoradvparamseditor.gbxcoreid.caption
+msgctxt "tfmemutecaemulatoradvparamseditor.gbxcoreid.caption"
+msgid "Multisystem core param"
+msgstr ""
+
+#: tfmemutecaemulatoradvparamseditor.gbxextparams.caption
+msgctxt "tfmemutecaemulatoradvparamseditor.gbxextparams.caption"
+msgid "Parameters by extension"
+msgstr ""
+
+#: tfmemutecaemulatoradvparamseditor.gbxextrasoftparameters.caption
+msgctxt "tfmemutecaemulatoradvparamseditor.gbxextrasoftparameters.caption"
+msgid "Extra software parameters"
+msgstr ""
+
+#: tfmemutecaemulatoradvparamseditor.lcoreparamfmt.caption
+msgctxt "tfmemutecaemulatoradvparamseditor.lcoreparamfmt.caption"
+msgid "Core parameter format"
+msgstr ""
+
+#: tfmemutecaemulatoradvparamseditor.lmultiemuid.caption
+msgctxt "tfmemutecaemulatoradvparamseditor.lmultiemuid.caption"
+msgid "Multisystem emulator ID"
+msgstr ""
+
 #: tfmemutecaemulatoreditor.actopenwebpage.caption
 msgid "Open Webpage"
 msgstr ""
@@ -565,6 +590,10 @@ msgstr ""
 msgid "ROM Full path"
 msgstr ""
 
+#: tfmemutecaemulatoreditor.actparamsyscoreid.caption
+msgid "System Core ID"
+msgstr ""
+
 #: tfmemutecaemulatoreditor.actwfemulator.caption
 msgid "Emulator folder"
 msgstr ""
@@ -577,12 +606,13 @@ msgstr ""
 msgid "ROM folder"
 msgstr ""
 
-#: tfmemutecaemulatoreditor.gbxadvanced.caption
-msgid "Advanced"
-msgstr ""
-
 #: tfmemutecaemulatoreditor.gbxbasic.caption
 msgid "Basic configuration"
+msgstr ""
+
+#: tfmemutecaemulatoreditor.gbximages.caption
+msgctxt "tfmemutecaemulatoreditor.gbximages.caption"
+msgid "Images"
 msgstr ""
 
 #: tfmemutecaemulatoreditor.ldeveloper.caption
@@ -598,12 +628,8 @@ msgstr ""
 msgid "Exit code"
 msgstr ""
 
-#: tfmemutecaemulatoreditor.lextensions.caption
-msgid "Extensions"
-msgstr ""
-
-#: tfmemutecaemulatoreditor.lextraparameters.caption
-msgid "Extra software parameters"
+#: tfmemutecaemulatoreditor.licon.caption
+msgid "Icon"
 msgstr ""
 
 #: tfmemutecaemulatoreditor.lid.caption
@@ -671,20 +697,8 @@ msgstr ""
 msgid "Date YYYY/MM/DD"
 msgstr ""
 
-#: tfmemutecasofteditor.esortkey.texthint
-msgid "Sort Key (Empty = TranslitTitle)"
-msgstr ""
-
-#: tfmemutecasofteditor.etitle.texthint
-msgid "Title  (Empty = Group Title)"
-msgstr ""
-
 #: tfmemutecasofteditor.etranslated.texthint
 msgid "ISO 639-1 code"
-msgstr ""
-
-#: tfmemutecasofteditor.etranstitle.texthint
-msgid "Transliterated Title (Empty = Title)"
 msgstr ""
 
 #: tfmemutecasofteditor.eyear.texthint
@@ -701,6 +715,11 @@ msgstr ""
 
 #: tfmemutecasofteditor.gbxextraparameters.caption
 msgid "Extra parameters"
+msgstr ""
+
+#: tfmemutecasofteditor.gbxtitle.caption
+msgctxt "tfmemutecasofteditor.gbxtitle.caption"
+msgid "Title"
 msgstr ""
 
 #: tfmemutecasofteditor.gbxversion.caption
@@ -740,12 +759,27 @@ msgctxt "tfmemutecasofteditor.lpublisher.caption"
 msgid "Publisher"
 msgstr ""
 
+#: tfmemutecasofteditor.lsortkey.caption
+msgctxt "tfmemutecasofteditor.lsortkey.caption"
+msgid "Sort Key (Empty = TranslitTitle)"
+msgstr ""
+
+#: tfmemutecasofteditor.ltitle.caption
+msgctxt "tfmemutecasofteditor.ltitle.caption"
+msgid "Title  (Empty = Group Title)"
+msgstr ""
+
 #: tfmemutecasofteditor.ltrainer.caption
 msgid "Trainer"
 msgstr ""
 
 #: tfmemutecasofteditor.ltranslated.caption
 msgid "Fan Translated"
+msgstr ""
+
+#: tfmemutecasofteditor.ltranstitle.caption
+msgctxt "tfmemutecasofteditor.ltranstitle.caption"
+msgid "Transliterated Title (Empty = Title)"
 msgstr ""
 
 #: tfmemutecasofteditor.lversion.caption
@@ -866,7 +900,7 @@ msgid "System base folder"
 msgstr ""
 
 #: tfmemutecasystemeditor.lfileextensions.caption
-msgid "File Extensions"
+msgid "File Extensions (one by line)"
 msgstr ""
 
 #: tfmemutecasystemeditor.lfilename.caption
@@ -875,6 +909,12 @@ msgstr ""
 
 #: tfmemutecasystemeditor.lmainemulator.caption
 msgid "Main Emulator"
+msgstr ""
+
+#: tfmemutecasystemeditor.lmulticoreids.caption
+msgid ""
+"Multicore emulator IDs\n"
+"(ID=core param)\n"
 msgstr ""
 
 #: tfmemutecasystemeditor.lotheremulators.caption
@@ -2244,11 +2284,6 @@ msgstr ""
 
 #: ufemutecasystemcbx.rsselectsystem
 msgctxt "ufemutecasystemcbx.rsselectsystem"
-msgid "Select a System"
-msgstr ""
-
-#: ufemutecasystemeditor.rsselectemulator
-msgctxt "ufemutecasystemeditor.rsselectemulator"
 msgid "Select a System"
 msgstr ""
 

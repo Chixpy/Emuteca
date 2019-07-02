@@ -547,6 +547,31 @@ msgctxt "tfmemutecaactimportsoftdata.lsoftidtype.caption"
 msgid "Soft ID Type"
 msgstr "Tipo de identificación del soft"
 
+#: tfmemutecaemulatoradvparamseditor.gbxcoreid.caption
+msgctxt "tfmemutecaemulatoradvparamseditor.gbxcoreid.caption"
+msgid "Multisystem core param"
+msgstr ""
+
+#: tfmemutecaemulatoradvparamseditor.gbxextparams.caption
+msgctxt "tfmemutecaemulatoradvparamseditor.gbxextparams.caption"
+msgid "Parameters by extension"
+msgstr ""
+
+#: tfmemutecaemulatoradvparamseditor.gbxextrasoftparameters.caption
+msgctxt "tfmemutecaemulatoradvparamseditor.gbxextrasoftparameters.caption"
+msgid "Extra software parameters"
+msgstr ""
+
+#: tfmemutecaemulatoradvparamseditor.lcoreparamfmt.caption
+msgctxt "tfmemutecaemulatoradvparamseditor.lcoreparamfmt.caption"
+msgid "Core parameter format"
+msgstr ""
+
+#: tfmemutecaemulatoradvparamseditor.lmultiemuid.caption
+msgctxt "tfmemutecaemulatoradvparamseditor.lmultiemuid.caption"
+msgid "Multisystem emulator ID"
+msgstr ""
+
 #: tfmemutecaemulatoreditor.actopenwebpage.caption
 msgid "Open Webpage"
 msgstr "Abrir página web"
@@ -579,6 +604,10 @@ msgstr "Nombre del fichero (sin extensión) de la ROM"
 msgid "ROM Full path"
 msgstr "Ruta completa de la ROM"
 
+#: tfmemutecaemulatoreditor.actparamsyscoreid.caption
+msgid "System Core ID"
+msgstr ""
+
 #: tfmemutecaemulatoreditor.actwfemulator.caption
 msgid "Emulator folder"
 msgstr "Carpeta del emulador"
@@ -591,13 +620,15 @@ msgstr "Carpeta de Emuteca"
 msgid "ROM folder"
 msgstr "Carpeta de la ROM"
 
-#: tfmemutecaemulatoreditor.gbxadvanced.caption
-msgid "Advanced"
-msgstr "Avanzado"
-
 #: tfmemutecaemulatoreditor.gbxbasic.caption
 msgid "Basic configuration"
 msgstr "Configuración básica"
+
+#: tfmemutecaemulatoreditor.gbximages.caption
+#, fuzzy
+msgctxt "tfmemutecaemulatoreditor.gbximages.caption"
+msgid "Images"
+msgstr "Imágenes"
 
 #: tfmemutecaemulatoreditor.ldeveloper.caption
 msgctxt "tfmemutecaemulatoreditor.ldeveloper.caption"
@@ -612,13 +643,9 @@ msgstr "Ruta del ejecutable"
 msgid "Exit code"
 msgstr "Código de salida"
 
-#: tfmemutecaemulatoreditor.lextensions.caption
-msgid "Extensions"
-msgstr "Extensiones"
-
-#: tfmemutecaemulatoreditor.lextraparameters.caption
-msgid "Extra software parameters"
-msgstr "Parámetros extra del software"
+#: tfmemutecaemulatoreditor.licon.caption
+msgid "Icon"
+msgstr ""
 
 #: tfmemutecaemulatoreditor.lid.caption
 msgid "ID"
@@ -685,21 +712,9 @@ msgstr "Fecha de desarrollo."
 msgid "Date YYYY/MM/DD"
 msgstr "Fecha AAAA/MM/DD"
 
-#: tfmemutecasofteditor.esortkey.texthint
-msgid "Sort Key (Empty = TranslitTitle)"
-msgstr "Clave de ordenación (Vacío = Trasliteración del título)"
-
-#: tfmemutecasofteditor.etitle.texthint
-msgid "Title  (Empty = Group Title)"
-msgstr "Título (Vacío = Título del grupo)"
-
 #: tfmemutecasofteditor.etranslated.texthint
 msgid "ISO 639-1 code"
 msgstr "Codigo ISO 639-1"
-
-#: tfmemutecasofteditor.etranstitle.texthint
-msgid "Transliterated Title (Empty = Title)"
-msgstr "Trasliteración del título (Vacío = Título)"
 
 #: tfmemutecasofteditor.eyear.texthint
 msgid "YYYY/MM/DD"
@@ -716,6 +731,12 @@ msgstr "Etiquetas de la copia"
 #: tfmemutecasofteditor.gbxextraparameters.caption
 msgid "Extra parameters"
 msgstr "Parámetros extra"
+
+#: tfmemutecasofteditor.gbxtitle.caption
+#, fuzzy
+msgctxt "tfmemutecasofteditor.gbxtitle.caption"
+msgid "Title"
+msgstr "Título"
 
 #: tfmemutecasofteditor.gbxversion.caption
 msgid "Version info"
@@ -754,6 +775,18 @@ msgctxt "tfmemutecasofteditor.lpublisher.caption"
 msgid "Publisher"
 msgstr "Publicador"
 
+#: tfmemutecasofteditor.lsortkey.caption
+#, fuzzy
+msgctxt "tfmemutecasofteditor.lsortkey.caption"
+msgid "Sort Key (Empty = TranslitTitle)"
+msgstr "Clave de ordenación (Vacío = Trasliteración del título)"
+
+#: tfmemutecasofteditor.ltitle.caption
+#, fuzzy
+msgctxt "tfmemutecasofteditor.ltitle.caption"
+msgid "Title  (Empty = Group Title)"
+msgstr "Título (Vacío = Título del grupo)"
+
 #: tfmemutecasofteditor.ltrainer.caption
 msgid "Trainer"
 msgstr "Con trucos"
@@ -761,6 +794,12 @@ msgstr "Con trucos"
 #: tfmemutecasofteditor.ltranslated.caption
 msgid "Fan Translated"
 msgstr "Traducción amateur"
+
+#: tfmemutecasofteditor.ltranstitle.caption
+#, fuzzy
+msgctxt "tfmemutecasofteditor.ltranstitle.caption"
+msgid "Transliterated Title (Empty = Title)"
+msgstr "Trasliteración del título (Vacío = Título)"
 
 #: tfmemutecasofteditor.lversion.caption
 msgctxt "tfmemutecasofteditor.lversion.caption"
@@ -881,7 +920,9 @@ msgid "System base folder"
 msgstr "Carpeta base del sistema"
 
 #: tfmemutecasystemeditor.lfileextensions.caption
-msgid "File Extensions"
+#, fuzzy
+#| msgid "File Extensions"
+msgid "File Extensions (one by line)"
 msgstr "Extensiones de fichero"
 
 #: tfmemutecasystemeditor.lfilename.caption
@@ -891,6 +932,12 @@ msgstr "Nombre de fichero por defecto"
 #: tfmemutecasystemeditor.lmainemulator.caption
 msgid "Main Emulator"
 msgstr "Emulador principal"
+
+#: tfmemutecasystemeditor.lmulticoreids.caption
+msgid ""
+"Multicore emulator IDs\n"
+"(ID=core param)\n"
+msgstr ""
 
 #: tfmemutecasystemeditor.lotheremulators.caption
 msgid "Other Emulators"
@@ -2305,12 +2352,6 @@ msgstr "Todos los sistemas"
 #: ufemutecasystemcbx.rsselectsystem
 #, fuzzy
 msgctxt "ufemutecasystemcbx.rsselectsystem"
-msgid "Select a System"
-msgstr "Seleciona un sistema"
-
-#: ufemutecasystemeditor.rsselectemulator
-#, fuzzy
-msgctxt "ufemutecasystemeditor.rsselectemulator"
 msgid "Select a System"
 msgstr "Seleciona un sistema"
 

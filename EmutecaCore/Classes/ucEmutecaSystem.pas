@@ -3,7 +3,7 @@ unit ucEmutecaSystem;
 
   This file is part of Emuteca Core.
 
-  Copyright (C) 2006-2018 Chixpy
+  Copyright (C) 2006-2019 Chixpy
 
   This source is free software; you can redistribute it and/or modify it under
   the terms of the GNU General Public License as published by the Free
@@ -25,7 +25,7 @@ unit ucEmutecaSystem;
 interface
 
 uses
-  Classes, SysUtils, fgl, LazFileUtils, LazUTF8,
+  Classes, SysUtils, fgl, LazFileUtils, LazUTF8, inifiles,
   // CHX units
   uCHX7zWrapper,
   // Emuteca Core units
@@ -33,6 +33,7 @@ uses
   // Emuteca Core abstracts
   uaEmutecaCustomSystem,
   // Emuteca Core classes
+  ucEmutecaEmulatorList, ucEmutecaEmulator,
   ucEmutecaGroupManager, ucEmutecaGroupList, ucEmutecaGroup,
   ucEmutecaSoftManager, ucEmutecaSoftList, ucEmutecaSoftware;
 
@@ -42,10 +43,13 @@ type
 
   cEmutecaSystem = class(caEmutecaCustomSystem)
   private
+    FCurrentEmulator: cEmutecaEmulator;
+    FEmulatorList: cEmutecaEmulatorList;
     FGroupManager: cEmutecaGroupManager;
     FSoftGroupLoaded: boolean;
     FProgressCallBack: TEmutecaProgressCallBack;
     FSoftManager: cEmutecaSoftManager;
+    procedure SetCurrentEmulator(const AValue: cEmutecaEmulator);
     procedure SetSoftGroupLoaded(AValue: boolean);
     procedure SetProgressCallBack(AValue: TEmutecaProgressCallBack);
 
@@ -60,11 +64,18 @@ type
       Used by CleanSoftGroupLists and ExportSoftGroupLists.
     }
 
+    procedure DoSaveToIni(aIniFile: TIniFile; ExportMode: Boolean); override;
+
   public
 
     property ProgressCallBack: TEmutecaProgressCallBack
       read FProgressCallBack write SetProgressCallBack;
     {< Progress callback for loading soft and groups. }
+
+    property EmulatorList: cEmutecaEmulatorList read FEmulatorList;
+    {< List of current assigned and enabled emulators. }
+    property CurrentEmulator: cEmutecaEmulator read FCurrentEmulator write SetCurrentEmulator;
+    {< Current assigned emulator. }
 
     procedure ClearData;
     procedure AddSoft(aSoft: cEmutecaSoftware);
@@ -76,6 +87,9 @@ type
     {< Add groups to software. }
     procedure CleanSoftGroupLists;
     {< Removes parents without soft and Soft not found. }
+
+    procedure LoadEmulatorsFrom(aEmuList: cEmutecaEmulatorList);
+    {< Updates EmulatorList from aEmuList. }
 
     procedure LoadSoftGroupLists(const aFile: string);
     procedure SaveSoftGroupLists(const aFile: string; ClearFile: boolean);
@@ -187,10 +201,14 @@ begin
   GroupManager.System := Self;
   FSoftManager := cEmutecaSoftManager.Create(Self);
   SoftManager.System := Self;
+
+  FEmulatorList := cEmutecaEmulatorList.Create(False);
 end;
 
 destructor cEmutecaSystem.Destroy;
 begin
+  EmulatorList.Free;
+
   SoftManager.Free;
   GroupManager.Free;
 
@@ -218,6 +236,23 @@ begin
   if FSoftGroupLoaded = AValue then
     Exit;
   FSoftGroupLoaded := AValue;
+end;
+
+procedure cEmutecaSystem.SetCurrentEmulator(const AValue: cEmutecaEmulator);
+begin
+  if FCurrentEmulator = AValue then
+    Exit;
+  FCurrentEmulator := AValue;
+
+  // if not already added then add to list
+  if Assigned(CurrentEmulator) then
+  begin
+    if EmulatorList.IndexOf(CurrentEmulator) = -1 then
+      EmulatorList.Add(CurrentEmulator);
+    MainEmulator := CurrentEmulator.ID;
+  end
+  else
+   MainEmulator := '';
 end;
 
 procedure cEmutecaSystem.CacheGroups;
@@ -375,6 +410,30 @@ begin
     ProgressCallBack('', '', 0, 0, False);
 end;
 
+procedure cEmutecaSystem.DoSaveToIni(aIniFile: TIniFile; ExportMode: Boolean);
+var
+  i: Integer;
+begin
+  inherited DoSaveToIni(aIniFile, ExportMode);
+
+    // Emulators
+  if Assigned(CurrentEmulator) then
+    aIniFile.WriteString(ID, krsIniKeyMainEmulator, CurrentEmulator.ID)
+  else
+    aIniFile.WriteString(ID, krsIniKeyMainEmulator, MainEmulator);
+
+  // Adding EmulatorList ones if not already added
+  i := 0;
+  while i < EmulatorList.Count do
+  begin
+    if OtherEmulators.IndexOf(EmulatorList[i].ID) = -1 then
+      OtherEmulators.Add(EmulatorList[i].ID);
+    Inc(i);
+  end;
+  aIniFile.WriteString(ID, krsIniKeyOtherEmulators,
+    OtherEmulators.CommaText);
+end;
+
 procedure cEmutecaSystem.CleanSoftGroupLists;
 
   procedure CleanSoftList;
@@ -463,6 +522,29 @@ begin
 
   // ... so this must be executed.
   CleanGroupList;
+end;
+
+procedure cEmutecaSystem.LoadEmulatorsFrom(aEmuList: cEmutecaEmulatorList);
+var
+  i: integer;
+begin
+  EmulatorList.Clear;
+
+  if not Assigned(aEmuList) then
+    Exit;
+
+  i := 0;
+  while i < aEmuList.Count do
+  begin
+    if (aEmuList[i].Enabled) and
+      (OtherEmulators.IndexOf(aEmuList[i].ID) <> -1) then
+    begin
+      EmulatorList.Add(aEmuList[i]);
+      if aEmuList[i].MatchID(MainEmulator) then
+        CurrentEmulator := aEmuList[i];
+    end;
+    Inc(i);
+  end;
 end;
 
 initialization

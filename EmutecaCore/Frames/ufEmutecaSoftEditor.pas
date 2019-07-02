@@ -59,6 +59,7 @@ type
     eZone: TEdit;
     gbxDumpTags: TGroupBox;
     gbxExtraParameters: TGroupBox;
+    gbxTitle: TGroupBox;
     gbxVersion: TGroupBox;
     lCracked: TLabel;
     lDumpInfo: TLabel;
@@ -68,8 +69,11 @@ type
     lModified: TLabel;
     lPirate: TLabel;
     lPublisher: TLabel;
+    lSortKey: TLabel;
+    lTitle: TLabel;
     lTrainer: TLabel;
     lTranslated: TLabel;
+    lTransTitle: TLabel;
     lVersion: TLabel;
     lYear: TLabel;
     lZone: TLabel;

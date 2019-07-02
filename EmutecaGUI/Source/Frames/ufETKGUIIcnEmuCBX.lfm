@@ -1,11 +1,11 @@
-inherited fmETKGUIIcnSysCBX: TfmETKGUIIcnSysCBX
+inherited fmETKGUIIcnEmuCBX: TfmETKGUIIcnEmuCBX
   Height = 301
   ClientHeight = 301
-  inherited cbxSystem: TComboBox
+  inherited cbxEmulator: TComboBox
     Height = 30
     Width = 400
     ItemHeight = 24
-    OnDrawItem = cbxSystemDrawItem
+    OnDrawItem = cbxEmulatorDrawItem
     Style = csOwnerDrawFixed
   end
 end

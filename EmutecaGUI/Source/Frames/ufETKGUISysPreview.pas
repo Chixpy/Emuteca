@@ -38,7 +38,7 @@ uses
   // Emuteca Core classes
   ucEmutecaSystem, ucEmutecaEmulator,
   // Emuteca Core frames
-  ufEmutecaEmulatorCBX,
+  ufETKGUIIcnEmuCBX,
   // Emuteca GUI units
   uETKGUIConst;
 
@@ -72,7 +72,7 @@ type
 
   private
     FCurrentEmu: cEmutecaEmulator;
-    FfEmulatorCBX: TfmEmutecaEmulatorCBX;
+    FfEmulatorCBX: TfmETKGUIIcnEmuCBX;
     FGUIConfigIni: string;
     FGUIIconsIni: string;
     FOnChangeEmulator: TEmutecaReturnEmulatorCB;
@@ -87,7 +87,7 @@ type
     procedure SetSystem(AValue: cEmutecaSystem);
 
   protected
-    property fEmulatorCBX: TfmEmutecaEmulatorCBX read FfEmulatorCBX;
+    property fEmulatorCBX: TfmETKGUIIcnEmuCBX read FfEmulatorCBX;
 
     property GUIIconsIni: string read FGUIIconsIni write SetGUIIconsIni;
     property GUIConfigIni: string read FGUIConfigIni write SetGUIConfigIni;
@@ -169,7 +169,7 @@ constructor TfmETKGUISysPreview.Create(TheOwner: TComponent);
 
   procedure CreateFrames;
   begin
-    FfEmulatorCBX := TfmEmutecaEmulatorCBX.Create(pEmulator);
+    FfEmulatorCBX := TfmETKGUIIcnEmuCBX.Create(pEmulator);
 
     fEmulatorCBX.OnSelectEmulator := @DoSelectEmulator;
     fEmulatorCBX.Align := alClient;

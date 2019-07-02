@@ -1,8 +1,8 @@
 inherited fmETKGUISysPreview: TfmETKGUISysPreview
-  Height = 522
-  Width = 200
-  ClientHeight = 522
-  ClientWidth = 200
+  Height = 701
+  Width = 315
+  ClientHeight = 701
+  ClientWidth = 315
   DesignLeft = 472
   DesignTop = 74
   object Splitter1: TSplitter[0]
@@ -10,26 +10,26 @@ inherited fmETKGUISysPreview: TfmETKGUISysPreview
     Left = 0
     Height = 5
     Top = 230
-    Width = 200
+    Width = 315
     Align = alTop
     ResizeAnchor = akTop
   end
   object gbxStats: TGroupBox[1]
     Left = 0
-    Height = 150
+    Height = 185
     Top = 239
-    Width = 200
+    Width = 315
     Align = alTop
     AutoSize = True
     Caption = 'Stats'
-    ClientHeight = 130
-    ClientWidth = 196
+    ClientHeight = 160
+    ClientWidth = 311
     TabOrder = 1
     object eSysPlayedTime: TEdit
       Left = 0
-      Height = 23
-      Top = 61
-      Width = 196
+      Height = 28
+      Top = 76
+      Width = 311
       Align = alTop
       Enabled = False
       TabOrder = 2
@@ -37,9 +37,9 @@ inherited fmETKGUISysPreview: TfmETKGUISysPreview
     end
     object eSysNTimes: TEdit
       Left = 0
-      Height = 23
-      Top = 84
-      Width = 196
+      Height = 28
+      Top = 104
+      Width = 311
       Align = alTop
       Enabled = False
       TabOrder = 3
@@ -47,9 +47,9 @@ inherited fmETKGUISysPreview: TfmETKGUISysPreview
     end
     object eSysLastTime: TEdit
       Left = 0
-      Height = 23
-      Top = 107
-      Width = 196
+      Height = 28
+      Top = 132
+      Width = 311
       Align = alTop
       Enabled = False
       TabOrder = 4
@@ -57,9 +57,9 @@ inherited fmETKGUISysPreview: TfmETKGUISysPreview
     end
     object eSysNSoft: TEdit
       Left = 0
-      Height = 23
-      Top = 15
-      Width = 196
+      Height = 28
+      Top = 20
+      Width = 311
       Align = alTop
       Enabled = False
       TabOrder = 0
@@ -67,9 +67,9 @@ inherited fmETKGUISysPreview: TfmETKGUISysPreview
     end
     object eSysNGroups: TEdit
       Left = 0
-      Height = 23
-      Top = 38
-      Width = 196
+      Height = 28
+      Top = 48
+      Width = 311
       Align = alTop
       Enabled = False
       TabOrder = 1
@@ -77,9 +77,9 @@ inherited fmETKGUISysPreview: TfmETKGUISysPreview
     end
     object lSystemTitle: TLabel
       Left = 0
-      Height = 15
+      Height = 20
       Top = 0
-      Width = 196
+      Width = 311
       Align = alTop
       Caption = 'System'
       ParentColor = False
@@ -87,20 +87,20 @@ inherited fmETKGUISysPreview: TfmETKGUISysPreview
   end
   object gbxEmulator: TGroupBox[2]
     Left = 0
-    Height = 89
-    Top = 393
-    Width = 200
+    Height = 109
+    Top = 428
+    Width = 315
     Align = alTop
     AutoSize = True
     Caption = 'Current emulator'
-    ClientHeight = 69
-    ClientWidth = 196
+    ClientHeight = 84
+    ClientWidth = 311
     TabOrder = 2
     object eEmuPlayedTime: TEdit
       Left = 0
-      Height = 23
-      Top = 23
-      Width = 196
+      Height = 28
+      Top = 28
+      Width = 311
       Align = alTop
       Enabled = False
       TabOrder = 0
@@ -108,9 +108,9 @@ inherited fmETKGUISysPreview: TfmETKGUISysPreview
     end
     object eEmuNTimes: TEdit
       Left = 0
-      Height = 23
+      Height = 28
       Top = 0
-      Width = 196
+      Width = 311
       Align = alTop
       Enabled = False
       TabOrder = 1
@@ -118,9 +118,9 @@ inherited fmETKGUISysPreview: TfmETKGUISysPreview
     end
     object eEmuLastTime: TEdit
       Left = 0
-      Height = 23
-      Top = 46
-      Width = 196
+      Height = 28
+      Top = 56
+      Width = 311
       Align = alTop
       Enabled = False
       TabOrder = 2
@@ -130,7 +130,7 @@ inherited fmETKGUISysPreview: TfmETKGUISysPreview
       Left = 0
       Height = 0
       Top = 0
-      Width = 196
+      Width = 311
       Align = alTop
       AutoSize = True
       BevelOuter = bvNone
@@ -141,17 +141,17 @@ inherited fmETKGUISysPreview: TfmETKGUISysPreview
     Left = 0
     Height = 226
     Top = 0
-    Width = 200
+    Width = 315
     Align = alTop
     BevelOuter = bvNone
     ClientHeight = 226
-    ClientWidth = 200
+    ClientWidth = 315
     TabOrder = 3
     object ToolBar1: TToolBar
       Left = 0
       Height = 26
       Top = 200
-      Width = 200
+      Width = 315
       Align = alBottom
       Caption = 'ToolBar1'
       Images = ilActions
@@ -166,7 +166,7 @@ inherited fmETKGUISysPreview: TfmETKGUISysPreview
       Left = 0
       Height = 200
       Top = 0
-      Width = 200
+      Width = 315
       Align = alClient
       Center = True
       OnDblClick = SysImageDblClick

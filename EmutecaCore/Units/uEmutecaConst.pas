@@ -1,4 +1,5 @@
 unit uEmutecaConst;
+
 {< Constants unit of Emuteca Core.
 
   This file is part of Emuteca Core.
@@ -23,6 +24,7 @@ unit uEmutecaConst;
 {$mode objfpc}{$H+}
 
 interface
+
 const
   krsFmtWindowCaption = '%0:s: %1:s';
   {< Window caption format
@@ -68,13 +70,15 @@ const
   // Praying for no emulator use these exit codes.
   kErrorRunSoftUnknown = -300;
   {< Run Software: Unknown error. }
-  kErrorRunSoftNoSoft = -301;
+  kErrorRunSoftNoSoft = kErrorRunSoftUnknown - 1;
   {< Run Software: Error code when soft = nil. }
-  kErrorRunSoftNoEmu = -302;
+  kErrorRunSoftNoSystem = kErrorRunSoftNoSoft - 1;
+  {< Run Software: Fatal Error No system cached ¿¿??. }
+  kErrorRunSoftNoEmu = kErrorRunSoftNoSystem - 1;
   {< Run Software: Error code when Emulator = nil. }
-  kErrorRunSoftNoSoftFile = -303;
+  kErrorRunSoftNoSoftFile = kErrorRunSoftNoEmu - 1;
   {< Run Software: Error code when soft file is not found. }
-  kErrorRunSoftNoEmuFile = -305;
+  kErrorRunSoftNoEmuFile = kErrorRunSoftNoSoftFile - 1;
   {< Run Software: Error code when emulator exe is not found. }
   kError7zDecompress = -400;
   {< Base error const decompressing archive. }
@@ -113,6 +117,7 @@ const
   // Shared Keys: krsIniKeyID, krsIniKeyTitle, krsIniKeyFileName,
   //   krsIniKeyWorkingFolder, krsIniKeyIcon, krsIniKeyImage,
   //   krsIniKeyExtensions
+  krsIniKeyCoreIDs = 'CoreIDs';
   krsIniKeyBaseFolder = 'BaseFolder';
   krsIniKeyMainEmulator = 'MainEmulator';
   krsIniKeyOtherEmulators = 'OtherEmulators';
@@ -160,6 +165,9 @@ const
   // Shared Keys: krsIniKeyEnabled, krsIniKeyTitle, krsIniKeyWorkingFolder,
   //   krsIniKeyIcon, krsIniKeyImage, krsIniKeyDeveloper, krsIniKeyExtensions
   krsIniKeyParameters = 'Parameters';
+  krsIniKeyCoreIDKey = 'CoreIDKey';
+  krsIniKeyCoreIDParamFmt = 'CoreIDParamFmt';
+  krsIniKeyExtensionParamFmt = 'ExtensionParamFmt';
   krsIniKeyExtraParamFmt = 'ExtraParamFmt';
   krsIniKeyExitCode = 'ExitCode';
   krsIniKeyExeFile = 'ExeFile';
@@ -227,11 +235,10 @@ const
   EmutecaDumpStatusStrK: array [TEmutecaDumpStatus] of string =
     (krsEDSVerified, krsEDSGood, krsEDSAlternate, krsEDSOverDump,
     krsEDSBadDump, krsEDSUnderDump, krsEDSUnknown, krsEDSKeepValue);
-  //< Strings for DumpStatus (fixed constants, used for icon filenames, etc. )
+//< Strings for DumpStatus (fixed constants, used for icon filenames, etc. )
 
 
 // Nothing to implement... :-D
 implementation
 
 end.
-

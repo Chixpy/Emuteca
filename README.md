@@ -64,6 +64,7 @@ Entre sus características están:
   * En las versiones 0.6.X que fueron compiladas con Delphi, se puede reproducir un vídeo o música asignada al juego seleccionado (solo lo he probado con MPEGs y MIDIs). Ya veremos como lo soluciono para Lazarus...
 
 ## Noticias ##
+  * 20190617: Lazarus 2.0 y soporte para elegir núcleo en emuladores multisistema.
   * 20171024: Volviendo a usar Lazarus en vez de CodeTyphon
   * 2016XXXX: Retomando un poco esto. Y continúa en 2017...
   * 20160814: Arreglando un poco las imágenes de la wiki

@@ -1,5 +1,6 @@
 .SiteHeader {
   clear: both;
+  left: 150px;
 
   background: url("/Emuteca/img/Header.png");
   background-repeat: no-repeat;
@@ -15,15 +16,4 @@
 }
 
 .SiteHeader .SiteDesc {
-}
-
-.SiteHeader .SiteHeaderIcon {
-  clear: left;
-  float: left;
-  
-  width: 20%;
-}
-
-.SiteHeader .SiteHeaderIcon .SiteIcon {
-  width: 100%;
 }

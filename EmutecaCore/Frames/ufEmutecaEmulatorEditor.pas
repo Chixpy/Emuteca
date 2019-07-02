@@ -1,4 +1,5 @@
 unit ufEmutecaEmulatorEditor;
+
 {< TfmEmutecaEmulatorEditor frame unit.
 
   This file is part of Emuteca Core.
@@ -41,6 +42,7 @@ type
   { TfmEmutecaEmulatorEditor }
 
   TfmEmutecaEmulatorEditor = class(TfmCHXPropEditor)
+    actParamSysCoreID: TAction;
     actParamROMExtra: TAction;
     actParamROMFileExtension: TAction;
     actParamROMFileNoExt: TAction;
@@ -56,23 +58,25 @@ type
     eDeveloper: TEdit;
     eExePath: TFileNameEdit;
     eExitCode: TSpinEdit;
+    eIcon: TFileNameEdit;
     eName: TEdit;
     eParameters: TEdit;
     eWebPage: TEdit;
     eWorkingFolder: TDirectoryEdit;
-    gbxAdvanced: TGroupBox;
+    gbxImages: TGroupBox;
     gbxBasic: TGroupBox;
+    iIcon: TImage;
     lDeveloper: TLabel;
     lExePath: TLabel;
     lExitCode: TLabel;
-    lExtensions: TLabel;
-    lExtraParameters: TLabel;
+    lIcon: TLabel;
     lID: TLabel;
     lName: TLabel;
     lParameters: TLabel;
     lWebPage: TLabel;
     lWorkingFolder: TLabel;
-    mExtraParameters: TMemo;
+    mParametersHelp: TMemo;
+    pmiParamROMSysID: TMenuItem;
     pmiParamROMExtra: TMenuItem;
     pmiParamROMFileExtension: TMenuItem;
     pmiParamROMFileNoExt: TMenuItem;
@@ -82,7 +86,6 @@ type
     pmiWFEmuteca: TMenuItem;
     pmiWFEmu: TMenuItem;
     pmiWFROM: TMenuItem;
-    mExtensions: TMemo;
     pmParameters: TPopupMenu;
     pmWFolder: TPopupMenu;
     pParameters: TPanel;
@@ -90,6 +93,7 @@ type
     pWFolder: TPanel;
     bWorkingFolder: TSpeedButton;
     Splitter1: TSplitter;
+    Splitter2: TSplitter;
     procedure actOpenWebPageExecute(Sender: TObject);
     procedure actParamROMDirExecute(Sender: TObject);
     procedure actParamROMExtraExecute(Sender: TObject);
@@ -97,13 +101,15 @@ type
     procedure actParamROMFilenameExecute(Sender: TObject);
     procedure actParamROMFileNoExtExecute(Sender: TObject);
     procedure actParamROMPathExecute(Sender: TObject);
+    procedure actParamSysCoreIDExecute(Sender: TObject);
     procedure actWFEmulatorExecute(Sender: TObject);
     procedure actWFEmutecaExecute(Sender: TObject);
     procedure actWFROMExecute(Sender: TObject);
     procedure bParametersClick(Sender: TObject);
     procedure bWorkingFolderClick(Sender: TObject);
     procedure eFileButtonClick(Sender: TObject);
-
+    procedure eIconAcceptFileName(Sender: TObject; var Value: string);
+    procedure eIconButtonClick(Sender: TObject);
   private
     FEmulator: cEmutecaEmulator;
     procedure SetEmulator(AValue: cEmutecaEmulator);
@@ -190,6 +196,11 @@ begin
   eParameters.SelText := kEmutecaROMPathKey;
 end;
 
+procedure TfmEmutecaEmulatorEditor.actParamSysCoreIDExecute(Sender: TObject);
+begin
+  eParameters.SelText := kEmutecaROMSysIDKey;
+end;
+
 procedure TfmEmutecaEmulatorEditor.actWFROMExecute(Sender: TObject);
 begin
   eWorkingFolder.Text := kEmutecaROMDirKey;
@@ -210,6 +221,23 @@ begin
   SetFileEditInitialDir(TFileNameEdit(Sender), ProgramDirectory);
 end;
 
+procedure TfmEmutecaEmulatorEditor.eIconAcceptFileName(Sender: TObject;
+  var Value: string);
+begin
+  if FileExistsUTF8(Value) then
+    iIcon.Picture.LoadFromFile(Value)
+  else
+    iIcon.Picture.Clear;
+end;
+
+procedure TfmEmutecaEmulatorEditor.eIconButtonClick(Sender: TObject);
+begin
+  if Assigned(Emulator) then
+    SetFileEditInitialDir(eIcon, ExtractFileDir(eExePath.Text))
+  else
+    SetFileEditInitialDir(eIcon, '');
+end;
+
 procedure TfmEmutecaEmulatorEditor.SetEmulator(AValue: cEmutecaEmulator);
 begin
   if FEmulator = AValue then
@@ -224,12 +252,14 @@ begin
   eName.Clear;
   eDeveloper.Clear;
   eWebPage.Clear;
+
   eExePath.Clear;
   eWorkingFolder.Clear;
   eParameters.Clear;
-  mExtensions.Clear;
+
+  eIcon.Clear;
+
   eExitCode.Value := 0;
-  mExtraParameters.Clear;
 end;
 
 procedure TfmEmutecaEmulatorEditor.DoLoadFrameData;
@@ -249,9 +279,10 @@ begin
   eExePath.Text := SysPath(Emulator.ExeFile);
   eWorkingFolder.Text := SysPath(Emulator.WorkingFolder);
   eParameters.Text := Emulator.Parameters;
-  mExtensions.Lines.Assign(Emulator.FileExt);
+
+  eIcon.Text := Emulator.IconFile;
+
   eExitCode.Value := Emulator.ExitCode;
-  mExtraParameters.Lines.Assign(Emulator.ExtraParamFormat);
 end;
 
 procedure TfmEmutecaEmulatorEditor.DoSaveFrameData;
@@ -263,9 +294,10 @@ begin
   Emulator.ExeFile := eExePath.Text;
   Emulator.WorkingFolder := eWorkingFolder.Text;
   Emulator.Parameters := eParameters.Text;
-  Emulator.FileExt.Assign(mExtensions.Lines);
+
+  Emulator.IconFile := eIcon.Text;
+
   Emulator.ExitCode := eExitCode.Value;
-  Emulator.ExtraParamFormat.Assign(mExtraParameters.Lines);
 end;
 
 end.
