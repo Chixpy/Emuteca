@@ -483,6 +483,8 @@ begin
   ActualParam := AnsiReplaceText(ActualParam, kEmutecaROMPathKey, GameFile);
   ActualParam := AnsiReplaceText(ActualParam, kEmutecaROMDirKey,
     ExtractFileDir(GameFile));
+  ActualParam := AnsiReplaceText(ActualParam, kEmutecaEmuDirKey,
+    ExtractFileDir(ExeFile));
   ActualParam := AnsiReplaceText(ActualParam, kEmutecaROMFileNameKey,
     ExtractFileName(GameFile));
   ActualParam := AnsiReplaceText(ActualParam, kEmutecaROMFileNameNoExtKey,

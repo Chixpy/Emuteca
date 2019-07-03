@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Plantilla
+title: ¿Por qué...
 ---
 
 # ¿Por qué Emuteca? #

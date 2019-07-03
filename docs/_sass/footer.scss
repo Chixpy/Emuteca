@@ -1,7 +1,11 @@
 .SiteFooter {
   clear: both;
-
+  display: block;
+  left: 150px;
+  
   background: url("/Emuteca/img/Header.png");
   background-repeat: no-repeat;
   background-position: bottom;
+  
+  border-color: #000;
 }

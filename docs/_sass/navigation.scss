@@ -7,11 +7,12 @@
   float: left;
   
   width: 150px;
+  height: 100%;
 }
 
 .NavMain {
-  overflow: scroll;
-  border: 4px groove blue;
+  overflow: auto;
+  border-right: 4px groove blue;
 }
 
 .NavMain ul {
@@ -27,4 +28,8 @@
 
 .NavMain .current {
   color: green;
+}
+
+.NavMain .SiteHeaderIcon {
+  text-align: center;
 }
