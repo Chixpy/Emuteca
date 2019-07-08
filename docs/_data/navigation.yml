@@ -3,20 +3,23 @@
   link: "/home.html"
   name: Inicio
 - 
-  link: "/pages/news.html"
+  link: "/pages/News.html"
   name: Noticias
 - 
   link: "/pages/Why-Emuteca.html"
   name: "¿Por qué..."
 - 
-  link: "/pages/screenshots.html"
+  link: "/pages/Screenshots.html"
   name: Imágenes
+ - 
+  link: "/pages/Systems.html"
+  name: Sistemas
+- 
+  link: "/pages/Emulators.html"
+  name: Emuladores
 - 
   link: "/pages/FAQ.html"
   name: FAQs
 - 
-  link: "/pages/about.html"
+  link: "/pages/About.html"
   name: Sobre...
-- 
-  link: "https://github.com/Chixpy/Emuteca/"
-  name: "Emuteca en Github"
