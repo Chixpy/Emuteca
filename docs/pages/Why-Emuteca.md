@@ -22,7 +22,8 @@ soportaban, pero con el paso del tiempo el formato 7z se ha ido popularizando,
 y cada vez más programas y emuladores soportan este tipo de archivo comprimido
 directamente.
 
-![ROM dentro de un 7z]({{- site.baseurl -}}/img/WhyEmuteca/Inside7z.png)
+{% capture imagefile %}{{- site.baseurl -}}/img/WhyEmuteca/Inside7z.png{% endcapture %}
+{% include image.html file=imagefile caption="ROM dentro de un 7z" %}
 
 Aún así, a pesar que esta característica inicial esta siendo alcanzada por otros
 proyectos; Emuteca permite un tratamiento particular para cada sistema:
