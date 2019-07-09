@@ -1,7 +1,7 @@
 <figure>
-   <a href="{{ include.url | default: {{ include.file }} }}">
-   <img src="{{ include.file }}" style="max-width: {{ include.max-width | default: 100%}};"
-      alt="{{ include.alt | default: {{ include.caption | default: {{ include.file }} }} }}"/>
+   <a href="{{- include.url | default: {{- include.file -}} -}}">
+   <img src="{{- include.file -}}" style="max-width: {{- include.max-width | default: 100% -}};"
+      alt="{{- include.alt | default: {{- include.caption -}} -}}"/>
    </a>
-   <figcaption>{{ include.caption | default: {{ include.alt | default: {{ include.file }} }} }}</figcaption>
+   <figcaption>{{- include.caption | default: {{- include.alt -}} -}}</figcaption>
 </figure>

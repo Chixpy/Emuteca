@@ -1,7 +1,5 @@
 .SiteHeader {
   display: block;
-  position: absolute;
-  left: 150px;
 
   background: url("/Emuteca/img/Header.png");
   background-repeat: no-repeat;
@@ -9,7 +7,6 @@
    
   font-size: bigger;
   text-align: center;
-  text-align-last: left;
 }
 
 .SiteHeader .SiteTitle{
@@ -17,4 +14,5 @@
 }
 
 .SiteHeader .SiteDesc {
+  font-style: italic;
 }

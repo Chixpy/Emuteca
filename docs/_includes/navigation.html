@@ -3,7 +3,7 @@
 <nav class="NavMain">
 <ul>
 {%- for item in site.data.navigation -%}
-  <li {%- if page.url == item.link -%}class="current"{%- endif -%}><a href="{{- site.baseurl -}}{{- item.link -}}">{{- item.name -}}</a></li>
+  <li><a href="{{- site.baseurl -}}{{- item.link -}}">{{- item.name -}}</a></li>
 {%- endfor -%}
   <li><a href="https://github.com/Chixpy/Emuteca/">Emuteca en Github</a></li>
 </ul>

@@ -3,33 +3,27 @@
   position: fixed;
   top: 0;
   left: 0;
-  clear: left;
-  float: left;
   
   width: 150px;
   height: 100%;
 }
 
-.NavMain {
-  overflow: auto;
-  border-right: 4px groove blue;
+.NavDiv .SiteHeaderIcon {
+  text-align: center;
 }
 
-.NavMain ul {
+.NavDiv .NavMain {
+  overflow: auto;
+}
+
+.NavDiv .NavMain ul {
   font-size: bigger;
 }
 
-.NavMain ul li {
+.NavDiv .NavMain ul li {
   display: block;
   clear: both;
   
   border-color: #000;
 }
 
-.NavMain .current {
-  color: green;
-}
-
-.NavMain .SiteHeaderIcon {
-  text-align: center;
-}

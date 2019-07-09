@@ -6,8 +6,6 @@ $background-color: rgb(224, 224, 255);
 body {
   background-color: $background-color;
   
-  padding: 0 0 0 20px;
-  text-indent: -20px;
   text-align: justify;
 }
 
@@ -18,7 +16,11 @@ li {
 .PageContent {
   display: block;
   position: absolute;
+  top: 0;
   left: 150px;
+  
+  padding: 0 0 0 20px;
+  text-indent: -20px;
   
   border-style: solid none;
   border-width: 1px;
