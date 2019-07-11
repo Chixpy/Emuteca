@@ -22,8 +22,8 @@ soportaban, pero con el paso del tiempo el formato 7z se ha ido popularizando,
 y cada vez más programas y emuladores soportan este tipo de archivo comprimido
 directamente.
 
-{%- capture imagefile -%}{{- site.baseurl -}}/img/WhyEmuteca/Inside7z.png{%- endcapture -%}
-{%- include image.html file=imagefile caption="ROM dentro de un 7z" -%}
+{% capture imagefile -%}{{- site.baseurl -}}/img/WhyEmuteca/Inside7z.png{%- endcapture -%}
+{%- include image.html file=imagefile caption="ROM dentro de un 7z" %}
 
 Aún así, a pesar que esta característica inicial esta siendo alcanzada por otros
 proyectos; Emuteca permite un tratamiento particular para cada sistema:
@@ -47,8 +47,8 @@ directamente las ROMs a través de la línea de comandos.
 
 A diferencia de TOSEC, NoIntro, GoodTools y similares; Emuteca identifica los juegos de forma semántica. No tiene inicialmente la misión de _renombrar_ archivos de forma única; sino que cada variante del juego tiene campos donde guardar sus propiedades intrínsecas.
 
-{%- capture imagefile -%}{{- site.baseurl -}}/img/WhyEmuteca/ROMProperties.png{%- endcapture -%}
-{%- include image.html file=imagefile caption="Propiedades de una ROM" -%}
+{% capture imagefile -%}{{- site.baseurl -}}/img/WhyEmuteca/ROMProperties.png{%- endcapture -%}
+{%- include image.html file=imagefile caption="Propiedades de una ROM" %}
 
 La identificación se puede realizar mediante SHA1 (lo habitual con ROMs consistentes), CRC32 (en desuso, aunque útil para archivos muy grandes), nombre del fichero (MAME) o un identificador arbitrario (que tendría que ser introducido a mano).
 
@@ -75,8 +75,8 @@ En Emuteca se traduce como:
   * Pacman (set 2) _<- Otra versión_ 
   * Pacman (set 3) _<- Otra versión_
   
-{%- capture imagefile -%}{{- site.baseurl -}}/img/WhyEmuteca/EmutecaGroup.png{%- endcapture -%}
-{%- include image.html file=imagefile caption="Grupo de Pang en recreativa" -%}
+{% capture imagefile -%}{{- site.baseurl -}}/img/WhyEmuteca/EmutecaGroup.png{%- endcapture -%}
+{%- include image.html file=imagefile caption="Grupo de Pang en recreativa" %}
 
 De la misma forma que en otros sistema un grupo agruparia las distintas versiones, regiones, discos, etc. tal y como hace GoodMerge.
 
@@ -111,8 +111,8 @@ La búsqueda se realiza añadiendo lo que encuentre de la siguiente forma:
 
 Si se alcanza el tercer paso los ficheros son descomprimidos en una carpeta temporal.
 
-{%- capture imagefile -%}{{- site.baseurl -}}/img/WhyEmuteca/ManyImages.png{%- endcapture -%}
-{%- include image.html file=imagefile caption="Varias imágenes asignadas al manual de un juego" -%}
+{% capture imagefile -%}{{- site.baseurl -}}/img/WhyEmuteca/ManyImages.png{%- endcapture -%}
+{%- include image.html file=imagefile caption="Varias imágenes asignadas al manual de un juego" %}
 
 NOTA: En versiones anteriores de Emuteca, también tenían la posibilidad de buscar los ficheros dentro de un archivo comprimido que contuviera todos los fichero de todos los juegos (como soporta MAME). Pero se eliminó por ser muy lento si se usa conjuntamente con lo anterior y creaba conflictos con el tercer paso.
 
@@ -130,8 +130,8 @@ Dicho de otro modo, para cada sistema se puede definir grupos específicos y arb
 
 Así como suena, obviamente puede que tarde un poco en cargar todas las lista de juegos si no se han cargado antes (¿unos 30 segundos para 200.000 versiones con un i7?)
 
-{%- capture imagefile -%}{{- site.baseurl -}}/img/WhyEmuteca/AllSystems.png{%- endcapture -%}
-{%- include image.html file=imagefile caption="Arkanoid en distintos sistemas" -%}
+{% capture imagefile -%}{{- site.baseurl -}}/img/WhyEmuteca/AllSystems.png{%- endcapture -%}
+{%- include image.html file=imagefile caption="Arkanoid en distintos sistemas" %}
 
 ## El núcleo es independiente del GUI ##
 
