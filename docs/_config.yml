@@ -39,6 +39,7 @@ gems:
 # Mis variables
 # -------------
 title: Emuteca
+EmuVer: 0.8
 description: > # > Para multilíneas
   Frontend para juegos y emuladores.
 logo: /Emuteca/img/Icon.png

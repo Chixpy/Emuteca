@@ -17,6 +17,9 @@
 - 
   link: "/pages/Emulators.html"
   name: Emuladores
+  - 
+  link: "/pages/Dialogs.html"
+  name: Cuadros de diálogo
 - 
   link: "/pages/FAQ.html"
   name: FAQs

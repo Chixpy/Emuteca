@@ -1,13 +1,14 @@
 ---
-layout: default
+layout: page
 title: Preguntas frecuentes
+EmuVer: 0.8
 ---
 Lista de preguntas frecuentes. Bueno, lo de "frecuentes" es un decir, ya que
 nadie ha preguntado nada todavía... XD XD.
 
-# Sobre Emuteca #
+## Sobre Emuteca ##
 
-## Requisitos mínimos ##
+### Requisitos mínimos ###
 
 Ehh... Seguro que el ordenador con el que lo piensas usar usar es mucho mejor
 que el ordenador con el que lo estoy desarrollando XD XD XD.
@@ -21,25 +22,32 @@ S.O.
 : Teóricamente se puede compilar en Linux y espero que no se necesiten realizar muchas adaptaciones (incluso las rutas de archivos se guardan en formato Linux bajo Windows)
 : 95/98/ME quien sabe...
 : **Versiones anteriores de Emuteca (0.7)**: Probabas con XP/Vista/7. Dan problemas con Win10 y **hay que actualizar en 7zip** que va incluido por una versión que funcione correctamente.
+
 Procesador
 : **Pentium III** (y no me extrañaría que funcionara en un 386), aunque algunas operaciones en sistemas con más de 10.000 juegos y 1.500 familas tardan un rato en un incluso en un procesador de 2GHz. Y a la hora de descomprimir algo de un archivo comprimido de 300 megas o más también tarda un ratillo.
+
 RAM 
 : Unos 8 MiB + Iconos + Imágenes + Textos del juego seleccionado... = **~128MiB**. Para lo que se necesita RAM de verdad es para la compresión/descompresión de los archivos 7z (+1 GiB). Y por supuesto los requisitos para mover los emuladores son superiores.
+
 Disco Duro
 : ~2MiB + información del sistema = **8-16MiB**... pero esto solo es por parte de Emuteca. Si contamos todo: juegos, emuladores, imágenes, vídeos, música... 1 PiB puede venir justo...
 
-## Definiciones ##
+### Definiciones ###
 
 Antes que nada, esteblezcamos unos conceptos para entender a que me refiero. No deben diferir mucho en lo que comunmente significan en el contexto de los emuladores, pero sirven para aclarar dudas:
 
 Sistema
 : Se refiere a una videoconsola, ordenador u otro aparato físico que es emulado. También se puede referir a un conjunto de estos muy estrechamente relacionados (No merece la pena separar los Amstrad CPC en sus versiones 446, 646, 6128, los Plus, etc.) o por el contrario símplemente tan diversos que el emulador correspondiente es el que encarga de normalizarlos (MAME, Pinballs). En verdad tampoco tiene que ser "físico" pudiendo ser un Sistema Operativo como MS-DOS o Windows; o incluso ser un motor (Doom, OpenBOR, Unreal).
+
 Emulador
 : Programa que simula el funcionamiento de uno o varios sistemas. Pero en también es el programa motor dónde se pueden ejecutar mods o juegos (Doom, OpenBOR)
+
 Juego
 : Fichero (o varios fichero) con el programa para el sistema emulado. Ojo que no tiene que ser un "juego", puede ser una aplicación (sobre todo en ordenadores). Realmente, dependiendo del contexto, en verdad se trataría del soporte (Disco, CD, Cartucho), o del fichero principal que define ese soporte.
+
 Familia o Grupo
 : Conjunto de versiones del mismo juego. Además es usado para establecer algunos datos comunes y otros valores por defecto.
+
 Zip
 : Cualquier archivo comprimido, independientemente del tipo (rar, 7z, gz, etc.). Es que "archivo comprimido" es muy largo y puede hacerse muy repetitivo XD; también usaré "7z" indistintamente.
 
@@ -48,7 +56,7 @@ Una que intentaré evitar:
 ROM
 : _Read Only Memory_, aunque posiblemente si aparece sea usado de forma equivalente a "juego".
 
-## ¿Cuál es el objetivo de Emuteca? ##
+### ¿Cuál es el objetivo de Emuteca? ###
 
 El objetivo inicial y final de Emuteca, se podría resumir en:
 
@@ -66,7 +74,7 @@ considerar adornos:
 
 De todas formas en la página _[¿Porque...](Why-Emuteca)_ se explica con más detalle las cosas por las que fue creado Emuteca.
 
-## ¿En que se basa para funcionar? ##
+### ¿En que se basa para funcionar? ###
 
 La filosofía de Emuteca consiste en agrupar las distintas variaciones (o versiones) del mismo juego bajo el mismo nombre común (lo que denomino ''familia'').
 
@@ -83,7 +91,7 @@ más explicitos, en el sistema "Recreativa" el juego padre de MAME es un juego
 como otro cualquiera en Emuteca (aunque la familia tendrá su nombre y usará sus
 archivos multimedia)
 
-## Limitaciones ##
+### Limitaciones ###
 
 Esta es una serie de limitaciones conocidas (o puestas a proposito), sobre el
 funcionamiento del programa:
@@ -93,9 +101,9 @@ funcionamiento del programa:
 * El CRC32 o e SHA1 (para Importar/Exportar) se hace sobre el fichero en sí, no sobre los datos reales del juego (no extrae las cabeceras u otra información de los distintos formatos de archivos)
 * Solo un nivel de compresión, es decir, si la ROM dentro de un .zip dentro de un .7z, no se listará/descomprimirá/extraerá, sino que solo se podra listar el zip.
 
-# Sistemas, Emuladores y formatos soportados #
+## Sistemas, Emuladores y formatos soportados ##
 
-## ¿Qué sistemas soporta? ##
+### ¿Qué sistemas soporta? ###
 
 Uhm..., bueno pues contestando de forma rápida y mal: Todos.
 
@@ -110,11 +118,13 @@ Como ejemplos extremos del funcionamiento, se pueden probar cosas como:
 * Un sistema al que como extensión se define "txt" y el emulador sea el Bloc de Notas (No creo que alguien use este programa para organizar sus documentos pero puede aclarar los conceptos de emulador, sistema y juego).
 * Comprimir los zip de MAME en un 7z por familias (no se gana mucho la verdad); configurar el sistema para que las extensiones sean "zip" y marcar la opción de descoprimir todos los archivos.
 
-## ¿Qué emuladores soporta? ##
+### ¿Qué emuladores soporta? ###
 
 Emuteca ejecuta los emuladores desde la línea de comandos, para poder cargar los juegos directamente el emulador debe soportar hacerlo desde ahí.
 
-## ¿Que formatos soporta? ##
+Por lo demás... cualquier emulador es válido, e incluso si no se define ninguna ruta a un ejecutable, Emuteca intenta abrir los archivos con el programa por defecto del sistema.
+
+### ¿Que formatos soporta? ###
 
 Parte de esta información se puede encontrar en la caja de diálogo "Acerca de Emuteca..."
 
@@ -136,27 +146,31 @@ Hecha esta aclaración:
 Imágenes
 : Soporta: png, xpm, bpm, cur, ico, icns, jpeg, jpg, jpe, jfif, tif, tiff, gif, pbm, pgm, ppm
 : Preconfigurado: bmp, gif, ico, jpg, png.
+
 Textos
 : Soporta: Texto plano (UTF8), 
 : Preconfiguradas: nfo, txt
+
 Música
 : Realmente se usa [MPlayer](http://www.mplayerhq.hu) para reproducir la música así que las lista es muy grande 😁
 : Preconfiguradas: mp3,ogg,wav
+
 Vídeos
 : Obviamente también se usa [MPlayer](http://www.mplayerhq.hu). 
 : Preconfiguradas: avi,mkv,mp4,mpg
+
 Comprimidos
 : Se usa [7zip](https://www.7-zip.org/)...
 : Preconfiguradas:  001, 7z, arj, bz2, bzip2, cb7, cba, cbr, cbz, gz, gzip, lha, lit, lzh, lzma, lzma86, r00, rar, tar, taz, tbz, tbz2, tgz, tpz, txz, xar, xz, z, zip
 : A diferencia de los anteriores, esta configuración pertenece a Emuteca.ini, puesto que pertenece al núcleo de Emuteca y no al GUI.
 
-# Cosas puntuales sobre sistemas #
+## Cosas puntuales sobre sistemas ##
 
 Aquí indicaré cosas puntuales sobre sistemas que probablemente serán movidas a sus recpectivas páginas.
 
-## Game Boy Advance ##
+### Game Boy Advance ###
 
-### Juegos: Meet the Robinsons y Petz Vet ###
+#### Juegos: Meet the Robinsons y Petz Vet ####
 
 *NOTA: Desde la versión 0.8, la GBA está preconfigurada por defecto para usar SHA1. Por tanto si se usa la configuración por defecto esto ya no afecta.*
 
@@ -184,9 +198,9 @@ Pero no me iba a basar en los CRC32 u otro sistema similar, sino en la
 estructura creada por el usuario en el árbol de juegos del sistema, así que
 esto no es un problema en este sentido (al menos de forma directa).
 
-## Recreativa (MAME) ##
+### Recreativa (MAME) ###
 
-### Ficheros comprimidos ###
+#### Ficheros comprimidos ####
 
 MAME, sus variantes y otros emuladores tienen varias formas de buscar un juego
 (y sus ROMS).
@@ -216,7 +230,7 @@ con los otros dos modos no debería haber problema.
 
 Resumiendo: Tienen que estar en zip y _Merged / Split_ o _No Merged_.
 
-### Juegos sin ROMS ###
+#### Juegos sin ROMS ####
 Esto está sacado de la información de un script para hacer una base de datos
 con los nombres de los juegos para el MAME en Perl (que no me acuerdo dónde
 lo encontre).
@@ -240,7 +254,7 @@ Algo similar ocurriría con algunos forks del MAME que incluyen el Pong (que no
 tiene ROMS), así que si usas alguna de esas versiones también deberías crear el
 archivo pong.zip vacio para que lo liste Emuteca.
 
-# Cosas puntuales sobre emuladores #
+## Cosas puntuales sobre emuladores ##
 
 No tengo objetivo de explicar la configuración de todas y cada una de las
 configuraciones de los sistemas o los emuladores, pero si indicaré algunos
@@ -249,20 +263,20 @@ trata de un comportamiento extraño inexperado.
 
 Algunas cosas serán movidas a sus respectivas páginas.
 
-## Kega Fusion ##
+### Kega Fusion ###
 
 Joder, con lo bueno que es este emulador...
 
-### Al salir del emulador... ###
+#### Al salir del emulador... ####
 
 Pueden pasar dos cosas.
 
   * **Se muestra un cuadro indicando que se producido el error 1** y no se guarda el tiempo jugado: Pues... el problema es que parece ser que cuando Kega se cierra correctamente devuelve un código de salida con valor 1 en vez de 0 espera Emuteca y como es habitual. Por tanto, muestra el código del error y al creer que ha ocurrido un error no añade el tiempo jugado. Asegurate de indicar en la configuración del emulador que ese es el código de salida para cuando se cierra.
   * **Emuteca se queda minimizada y no responde**: Si se ejecuta con el parámetro `-fullscreen` al pulsar `Esc` se cierra el emulador, pero por algún motivo desconocido Emuteca no detecta que el proceso haya finalizado y continúa esperando.
 
-## NeorageX vX.XX ##
+### NeorageX vX.XX ###
 
-### No ejecuta el juego directamente ###
+#### No ejecuta el juego directamente ####
 
 Lógico, este emulador en ninguna de sus versiones soporta parámetros de la
 línea de comandos... :P y poco provecho se le puede sacar con Emuteca.
@@ -271,9 +285,9 @@ De todas formas, MAME y otros emuladores de recreativas están lo
 suficientemente optimizados para emular este sistema... aunque NeoRage pueda
 ejecutar algunos juegos que los otros no pueden.
 
-## Snes9X ##
+### Snes9X ###
 
-### Se cuelga al cargar un juego ###
+#### Se cuelga al cargar un juego ####
 
 ¿Lo tienes configurado para que se inicie a pantalla completa?
 
@@ -288,9 +302,9 @@ cambiarlo por false) o abriendo el emulador (sin cargar ningún juego, con la
 opción de ejecutar el emulador solo), pulsado ALT+RETORNO para pasarlo a
 ventana y saliendo.
 
-## Visual Pinball ##
+### Visual Pinball ###
 
-### Hacer que ejecute directamente la mesa ###
+#### Hacer que ejecute directamente la mesa ####
 
 Este emulador acepta parámetros por la línea de comandos pero no están muy
 documentados además de ser algo raros.
@@ -301,7 +315,7 @@ escribir el la casilla de edición de parámetros:
 > -play -"%ROM%"
 Atención al guión antes del nombre de la mesa; si no lo hay, no funciona.
 
-# ¿Versión para Linux? #
+## ¿Versión para Linux? ##
 
 Pues... en principio tenía pensado hacer el programa con Lazarus, incluso las
 primerísimas versiones están hechas con él, pero como el componente principal
@@ -326,14 +340,14 @@ Durante una temporada probé con CodeThypon y finalmente volví a Lazarus... Y c
 Pero esto no quiere decir que ahora sea fácilmente portable, ya que estoy seguro de que
 uso bastante código específico de Windows.
 
-# Otros #
+## Otros ##
 
-## ¿Dónde... ##
+### ¿Dónde... ###
 
 La verdad es que no sé porque pongo esta sección, todo se encuentra con
 cualquier buscador en un momentín.
 
-### ... puedo encontrar juegos y ROMS? ###
+#### ... puedo encontrar juegos y ROMS? ####
 
 Tan solo puedo contestar:
 
@@ -347,18 +361,18 @@ Tan solo puedo contestar:
 
 Para las demás mejor enterarse bien de las leyes de tu país...
 
-### ... puedo encontrar emuladores? ###
+#### ... puedo encontrar emuladores? ####
 
 Algunas páginas con noticias sobre emuladores son:
 
-* [Emulatronia](http://www.emulatronia.com/)
+* [Emulatronia](http://www.emulatronia.com/) (Aunque algo abandonada...)
 * [El dominio de Zophar](http://www.zophar.net/) (inglés)
 * [Emulator Zone](http://www.emulator-zone.com/) (inglés)
 
-### ... puedo encontrar imágenes ya hechas para los juegos? ###
+#### ... puedo encontrar imágenes ya hechas para los juegos? ####
 
 * En general:
-  * [QuickPlay Frontend](http://www.quickplayfrontend.com/). La gente que usaba (y sigue usando) QuickPlay tras ser abandonado y no ha tenido ganadas de crearse su propio Front-End para solucionar esos pequeños errorcillos que lo apartaban de la perfección XD. Es una broma, yo también lo usaba y por una tontería (el que las cajas de texto no tenían activado el _wordwrap_) creé Emuteca. Me bajé el código fuente... y ví que vivían dragones ahí (no quiero decir que el código sea malo, puesto que Emuteca lo tendrá peor; pero decidí comenzar otro front-end desde cero en vez de modificarlo). Esta es la razón por la que no me he ofrecido a ayudar a arreglar los fallos.
+  * [QuickPlay Frontend](http://www.quickplayfrontend.com/). La gente que usaba (y sigue usando) QuickPlay tras ser abandonado y no ha tenido ganadas de crearse su propio Front-End para solucionar esos pequeños errorcillos que lo apartaban de la perfección XD. Es una broma, yo también lo usaba y por una tontería creé Emuteca. Me bajé el código fuente... y ví que vivían dragones ahí (no quiero decir que el código sea malo, puesto que Emuteca lo tendrá peor; pero decidí comenzar otro front-end desde cero en vez de modificarlo). Esta es la razón por la que no me he ofrecido a ayudar a arreglar los fallos.
 * MAME:
   * [MAME World](http://mameworld.info/) (Inglés) En la columna derecha, sección "Art Files", además justo encima tiene los enlaces a los archivos auxiliares de este emulador (mameinfo, cheat, history, etc.)
   * [EMU France](http://www.emu-france.com/) (Francés) Tan solo hay que buscar un poco, y aunque no se sepa francés se llega de forma fácil.
@@ -367,7 +381,7 @@ Como sitio especial nombrar [The Video Game Museum](http://www.vgmuseum.com/) qu
 aunque hace mucho que no se actualiza tiene miles de imágenes y se
 pueden extraer para usarla en Emuteca.
 
-### ... puedo encontrar melodías ya hechas para los juegos? ###
+#### ... puedo encontrar melodías ya hechas para los juegos? ####
 
 * [Video Game Music Archive](http://www.vgmusic.com/) (Inglés) Con melodías en formato MIDI (hay tanto intentos por mantenerse fiel al original, como remixes y arreglos).
 * [Zophar](http://www.zophar.net/music.html) (Inglés) En el formato original directamente extraidas de los juegos.
@@ -376,7 +390,7 @@ Por otra parte:
 
 * [Overclocked Remix](http://ocremix.org/)
 
-### ... puedo encontrar más cosas interesantes? ###
+#### ... puedo encontrar más cosas interesantes? ####
   * [EmuMovies](http://www.emumovies.com/) (Inglés) Videos de previsualización de los juegos.
 
   * [Replacement Docs](http://www.replacementdocs.com) (Inglés) Escaneados de los manuales de instrucciones, lamentablemente son PDF y no se pueden poner en Emuteca :/

@@ -1,6 +1,7 @@
 ---
-layout: default
+layout: page
 title: Cuadros de diálogo
+EmuVer: 0.8
 ---
 
 Los cuadros de diálogo diálogo de Emuteca intentan ser lo más sencillos y autoexplicativos posibles.

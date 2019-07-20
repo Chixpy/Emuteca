@@ -1,6 +1,7 @@
 ---
-layout: default
+layout: page
 title: Gestor de Emuladores
+EmuVer: 0.8
 ---
 
 El Gestor de Emuladores es el cuadro de diálogo donde se pueden activar los distintos emuladores.
@@ -11,8 +12,6 @@ El Gestor de Emuladores es el cuadro de diálogo donde se pueden activar los dis
 Para poder seleccionar un emulador en cualquier otra parte de Emuteca, éste debe ser activado desde este cuadro de diálogo.
 
 Además contiene incrustado a la derecha el (Editor de Emuladores)[EmulatorEditor] para poder editarlos también desde este cuadro de diálogo. Para más detalles sobre la configuración de los emuladores (ve a su correspondiente página)[EmulatorEditor].
-
-# Gestor de Emuladores #
 
 Dejando la descripcion del Editor de Emuladores para su página correspondienete, el Gestor cuenta con una barra de botones, una lista con todos los emuladores y los habituales botones para aceptar los cambios hechos en el Gestor.
 

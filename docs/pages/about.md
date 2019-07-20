@@ -1,9 +1,9 @@
 ---
-layout: default
+layout: page
 title: Sobre Emuteca
+EmuVer: 0.8
 ---
-
-## Sobre Emuteca ##
+## Sobre el programa ##
 
 <img src="https://www.gnu.org/graphics/gplv3-with-text-136x68.png" style="float: right;" />Emuteca es un fronten para emuladores creado por Chixpy bajo licencia GNU-GPL 3.
 

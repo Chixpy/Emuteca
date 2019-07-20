@@ -1,4 +1,10 @@
 ---
 layout: default
 ---
+<div class="PageVersion">
+{% if site.EmuVer >= page.EmuVer %}
+  <p>¡¡Página desactualizada!!</p>
+{% endif %}
+  <p>Página revisada para la version: {{ page.EmuVer }}</p>
+</div>
 {{ content }}

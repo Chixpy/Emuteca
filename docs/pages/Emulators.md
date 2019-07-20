@@ -1,10 +1,8 @@
 ---
-layout: default
+layout: page
 title: Emuladores
+EmuVer: 0.8
 ---
-
-# Emuladores #
-
 La configuración de los emuladores puede ser muy variada; desde los más sencillos que simplemente necesitan las rutas del ejecutable y la ROM; hasta otros más complejos que necesitan un identificador del sistema a emular, unos parámetros específicos para cada tipo de archivo e incluso otros especificos para cada ROM.
 
 Más complejo aún, además se pueden usar otros archivos auxiliares para discernir que versión del "emulador" específica es necesaria para ejecutar un juego (Por ejemplo, OpenBOR)

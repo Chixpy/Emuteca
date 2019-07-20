@@ -1,6 +1,7 @@
 ---
-layout: default
+layout: page
 title: Editor de Emuladores
+EmuVer: 0.8
 ---
 
 El Editor de Emuladores es el cuadro de diálogo donde se pueden configurar los distintos emuladores.

@@ -1,9 +1,10 @@
 ---
-layout: default
+layout: page
 title: ¿Por qué...
+EmuVer: 0.8
 ---
 
-# ¿Por qué Emuteca? #
+## ¿Por qué Emuteca? ##
 
 Cuando se crea un programa alternativo a otros que ya existen de características
 similares se tiene que tener unos motivos o características que provoquen la
