@@ -373,13 +373,10 @@ Algunas páginas con noticias sobre emuladores son:
 
 * En general:
   * [QuickPlay Frontend](http://www.quickplayfrontend.com/). La gente que usaba (y sigue usando) QuickPlay tras ser abandonado y no ha tenido ganadas de crearse su propio Front-End para solucionar esos pequeños errorcillos que lo apartaban de la perfección XD. Es una broma, yo también lo usaba y por una tontería creé Emuteca. Me bajé el código fuente... y ví que vivían dragones ahí (no quiero decir que el código sea malo, puesto que Emuteca lo tendrá peor; pero decidí comenzar otro front-end desde cero en vez de modificarlo). Esta es la razón por la que no me he ofrecido a ayudar a arreglar los fallos.
+  * [The Video Game Museum](http://www.vgmuseum.com/)
 * MAME:
   * [MAME World](http://mameworld.info/) (Inglés) En la columna derecha, sección "Art Files", además justo encima tiene los enlaces a los archivos auxiliares de este emulador (mameinfo, cheat, history, etc.)
   * [EMU France](http://www.emu-france.com/) (Francés) Tan solo hay que buscar un poco, y aunque no se sepa francés se llega de forma fácil.
-
-Como sitio especial nombrar [The Video Game Museum](http://www.vgmuseum.com/) que
-aunque hace mucho que no se actualiza tiene miles de imágenes y se
-pueden extraer para usarla en Emuteca.
 
 #### ... puedo encontrar melodías ya hechas para los juegos? ####
 
@@ -391,20 +388,22 @@ Por otra parte:
 * [Overclocked Remix](http://ocremix.org/)
 
 #### ... puedo encontrar más cosas interesantes? ####
-  * [EmuMovies](http://www.emumovies.com/) (Inglés) Videos de previsualización de los juegos.
+* [EmuMovies](http://www.emumovies.com/) (Inglés) Videos de previsualización de los juegos.
 
-  * [Replacement Docs](http://www.replacementdocs.com) (Inglés) Escaneados de los manuales de instrucciones, lamentablemente son PDF y no se pueden poner en Emuteca :/
-  * [MAMEXT](http://www.mamext.net/) - Fork de MAMEUI preparado para usar más imágenes, videos, manuales y demás. Lo interesante es que dichos archivos se pueden descargar de esa misma página.
+* [Replacement Docs](http://www.replacementdocs.com) (Inglés) Escaneados de los manuales de instrucciones, lamentablemente son PDF y no se pueden poner en Emuteca :/
+* [MAMEXT](http://www.mamext.net/) - Fork de MAMEUI preparado para usar más imágenes, videos, manuales y demás. Lo interesante es que dichos archivos se pueden descargar de esa misma página.
 
-  * [GSA](http://www.gsarchives.net) (Inglés) Sprites de videojuegos (Aunque para muchos iconos creo que sería mejor reusar los de MAME)
-  * [The Spriters Resource](http://www.spriters-resource.com/) Otros pocos más
-  * [Sprite Database](http://sdb.drshnaps.com/) Y más...
+* [GSA](http://www.gsarchives.net) (Inglés) Sprites de videojuegos (Aunque para muchos iconos creo que sería mejor reusar los de MAME)
+* [The Spriters Resource](http://www.spriters-resource.com/) Otros pocos más
+* [Sprite Database](http://sdb.drshnaps.com/) Y más...
 
-  * [Games Database](http://www.gamesdbase.com/) De todo un poco.
+* [Games Database](http://www.gamesdbase.com/) De todo un poco.
 
 Si te gustan las partidas jugadas rápidamente...
-  * [TASVideos](http://tasvideos.org/) Estas son hechas con emulador y usando sus ventajas (poder pausar, manejar la suerte, etc.)
-  * [Speed Demos Archive](http://speeddemosarchive.com/) Tiene partidas de este tipo "legales", realizadas por un ser humano en tiempo real.
+
+* [TASVideos](http://tasvideos.org/) Estas son hechas con emulador y usando sus ventajas (poder pausar, manejar la suerte, etc.)
+* [Speed Demos Archive](http://speeddemosarchive.com/) Tiene partidas de este tipo "legales", realizadas por un ser humano en tiempo real.
 
 Y si crees que eres el mejor en un juego...
-  * [Twin Galaxies](http://www.twingalaxies.com/) - Podríamos llamarlo "el registro del Libro Guinness de los videojuegos".
+
+* [Twin Galaxies](http://www.twingalaxies.com/) - Podríamos llamarlo "el registro del Libro Guinness de los videojuegos".

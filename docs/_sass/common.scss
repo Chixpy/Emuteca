@@ -10,8 +10,16 @@ body {
   text-align: justify;
 }
 
+h1, h2, h3 {
+  font-variant: small-caps;
+}
+
 li {
   text-indent: 0;
+}
+
+dt {
+  font-weight: bold;
 }
 
 .PageContent {
@@ -31,7 +39,13 @@ li {
   display: block;
   float: right;
   
+  background-color: #fff;
+  text-color: #000;
   border: 1px solid #000;
   
   text-align: center;
+  
+  margin: 0 $margin;
+  
+  padding: 0 $margin;
 }

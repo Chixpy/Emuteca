@@ -1,10 +1,10 @@
-![Emuteca 0.7.X.X](../../wiki/img/0_7/GameManager%200_7_0_53.png)
+![Emuteca 0.7.X.X](../../wiki/img/0_7/GameManager.png)
 
-[More screenshots / Más imágenes](../../wiki/Screenshots)
+[More screenshots / Más imágenes](https://chixpy.github.io/Emuteca/pages/Screenshots)
 
 Emuteca 0.8 preview...
 
-![Emuteca 0.8 preview](../../wiki/img/0_8/GameManager%200_8_0_119.png)
+![Emuteca 0.8 preview](../../wiki/img/0_8/GameManager.png)
 
 # English #
 _v0.8 is being developed from scratch_; v0.7 information follows:

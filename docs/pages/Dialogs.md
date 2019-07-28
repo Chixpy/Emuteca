@@ -35,8 +35,10 @@ Cuando los cuadros de diálogo se muestran en una ventana, en la parte inferior 
 
 Botón Aceptar
 : Como es evidente, acepta y guarda los cambios realizados.
+
 Botón Cancelar
 : Cancela los cambios sin guardar.
+
 CheckBox Cerrar
 : Hace que se cierre la ventana al pulsar los botones anteriores.
 : A veces puede ser útil querer guardar los cambios sin querer cerrar la ventana. Por ejemplo, si se quieren importar los datos de varios sistema sin tener que volver a abrir el cuadro de diálogo varias veces.
