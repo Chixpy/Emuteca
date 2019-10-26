@@ -1,4 +1,5 @@
 unit ucEmuteca;
+
 {< cEmuteca class unit.
 
   This file is part of Emuteca Core.
@@ -25,7 +26,7 @@ unit ucEmuteca;
 interface
 
 uses
-  Classes, SysUtils, fgl, FileUtil, LazUTF8, LazFileUtils, dateutils,
+  Classes, SysUtils, fgl, FileUtil, LazUTF8, LazFileUtils, dateutils, inifiles,
   // CHX units
   uCHX7zWrapper, uCHXStrUtils,
   // Emuteca Core units
@@ -34,7 +35,7 @@ uses
   uaEmutecaCustomGroup,
   // Emuteca Core units
   ucEmutecaConfig, ucEmutecaEmulatorManager, ucEmutecaSystemManager,
-  ucEmutecaSoftware, ucEmutecaSystem, ucEmutecaEmulator,
+  ucEmutecaSoftware, ucEmutecaSystem, ucEmutecaEmulator, ucEmutecaGroupList, ucEmutecaGroup,
   // Emuteca Core threads
   utEmutecaGetSoftSHA1;
 
@@ -45,6 +46,7 @@ type
   cEmuteca = class(TComponent)
   private
     FBaseFolder: string;
+    FCurrentGroupList: cEmutecaGroupList;
     FGetSoftSHA1Thread: ctEmutecaGetSoftSHA1;
     FConfig: cEmutecaConfig;
     FEmulatorManager: cEmutecaEmulatorManager;
@@ -71,6 +73,7 @@ type
 
     property TempFolder: string read FTempFolder;
     {< Emuteca's TempFolder. }
+    property CurrentGroupList: cEmutecaGroupList read FCurrentGroupList;
 
     procedure LoadConfig(aFile: string);
 
@@ -91,6 +94,8 @@ type
         load icons too, but it's a Emuteca GUI job. }
     procedure UpdateSysEmulators;
     {< (Re)Loads emulators assigned to systems. }
+    procedure UpdateCurrentGroupList(aSystem: cEmutecaSystem;
+  const aWordFilter: string; aTagFile: TIniFile);
 
     function RunSoftware(const aSoftware: cEmutecaSoftware): integer;
     {< Runs a software with its current system emulator. }
@@ -111,6 +116,7 @@ type
     property EmulatorManager: cEmutecaEmulatorManager read FEmulatorManager;
     {< Emulator Manager component. }
   end;
+
   {< Main Emuteca Core class.
 
   It manages and stores all data and relations. }
@@ -148,12 +154,106 @@ end;
 
 procedure cEmuteca.UpdateSysEmulators;
 begin
-    SystemManager.UpdateSystemsEmulators(EmulatorManager.EnabledList);
+  SystemManager.UpdateSystemsEmulators(EmulatorManager.EnabledList);
+end;
+
+procedure cEmuteca.UpdateCurrentGroupList(aSystem: cEmutecaSystem;
+  const aWordFilter: string; aTagFile: TIniFile);
+
+  procedure AddSystemList(aSystem: cEmutecaSystem; aWordFilter: string;
+    aTagFile: TIniFile);
+
+    procedure FilterGroup(aGroup: cEmutecaGroup; const aWordFilter: string);
+    begin
+        if (aWordFilter = '') or
+          (UTF8Pos(aWordFilter, UTF8LowerString(aGroup.Title)) <> 0) then
+        begin
+          CurrentGroupList.Add(aGroup);
+        end;
+    end;
+
+  var
+    FilterIDs: TStringList;
+    i: integer;
+    aGroup: cEmutecaGroup;
+    StrComp: integer;
+
+  begin
+    FilterIDs := TStringList.Create;
+
+    // Sorting groups and tags by ID (for faster comparing)
+    aSystem.GroupManager.VisibleList.Sort(@EmutecaCompareGroupsByID);
+    if Assigned(aTagFile) then
+    begin
+      aTagFile.ReadSectionRaw(aSystem.ID, FilterIDs);
+      FilterIDs.CaseSensitive := False;
+      FilterIDs.Sorted := True;
+    end;
+
+    aWordFilter := UTF8LowerString(UTF8Trim(aWordFilter));
+
+    i := 0;
+    while i < aSystem.GroupManager.VisibleList.Count do
+    begin
+      aGroup := aSystem.GroupManager.VisibleList[i];
+
+      if assigned(aTagFile) then
+      begin
+        if (FilterIDs.Count > 0) then
+        begin
+          // FilterIDs is behind group list, removing
+           while (FilterIDs.Count > 0) and (aGroup.CompareID(FilterIDs[0]) > 0) do
+              FilterIDs.Delete(0);
+
+          // Adding if MatchID
+          if (FilterIDs.Count > 0) and aGroup.MatchID(FilterIDs[0]) then
+            FilterGroup(aGroup, aWordFilter);
+        end
+        else
+          // Fast Exit, no more groups in FilterIDs.
+          i := aSystem.GroupManager.VisibleList.Count;
+      end
+      else
+      begin
+        FilterGroup(aGroup, aWordFilter);
+      end;
+
+      Inc(i);
+    end;
+
+    FilterIDs.Free;
+  end;
+
+var
+  i: integer;
+
+begin
+  CurrentGroupList.Clear;
+
+  if assigned(aSystem) then
+  begin
+    // System data must be loaded
+    SystemManager.LoadSystemData(aSystem);
+
+    AddSystemList(aSystem, aWordFilter, aTagFile);
+  end
+  else
+  begin
+    SystemManager.LoadAllEnabledSystemsData;
+
+    i := 0;
+    while i < SystemManager.EnabledList.Count do
+    begin
+      AddSystemList(SystemManager.EnabledList[i], aWordFilter, aTagFile);
+
+      Inc(i);
+    end;
+  end;
 end;
 
 procedure cEmuteca.LoadConfig(aFile: string);
 begin
-  Config.LoadConfig(aFile); // if empty, then last config file.
+  Config.LoadFromFile(aFile); // if empty, then last config file.
 
   // Temp folder
   if FilenameIsAbsolute(Config.TempSubfolder) then
@@ -178,7 +278,7 @@ end;
 
 procedure cEmuteca.SaveAllData;
 begin
-  // If we do a cancelable loading, ClearData must be False
+  // TODO: If we do a cancelable loading, ClearData must be False
   SystemManager.SaveToFile('', True);
   SystemManager.SaveAllEnabledSystemsData;
   EmulatorManager.SaveToFile('', True);
@@ -267,7 +367,8 @@ begin
   if aSoftware.CachedSystem is cEmutecaSystem then
     aEmulator := cEmutecaSystem(aSoftware.CachedSystem).CurrentEmulator
   else
-    aEmulator := EmulatorManager.EnabledList.ItemById(aSoftware.CachedSystem.MainEmulator);
+    aEmulator := EmulatorManager.EnabledList.ItemById(
+      aSoftware.CachedSystem.MainEmulator);
 
   // TODO: 1.1 Test if emulator support aSoftware extension...
 
@@ -285,7 +386,8 @@ begin
     aSoftware.CachedSystem.WorkingFolder)) <> '' then
     aFolder := aSoftware.CachedSystem.WorkingFolder
   else
-    aFolder := SetAsFolder(TempFolder + aSoftware.CachedSystem.ListFileName) + krsTempGameSubFolder;
+    aFolder := SetAsFolder(TempFolder + aSoftware.CachedSystem.ListFileName) +
+      krsTempGameSubFolder;
 
   //   2.1. If don't exists create new, and delete it at the end.
   NewDir := not DirectoryExistsUTF8(aFolder);
@@ -314,7 +416,7 @@ begin
         ForceDirectoriesUTF8(aFolder);
 
       CompError := w7zExtractFile(CompressedFile, AllFilesMask,
-        aFolder, True, '')
+        aFolder, True, '');
     end
     else
     begin
@@ -413,11 +515,12 @@ begin
 
   FSystemManager := cEmutecaSystemManager.Create(Self);
   FEmulatorManager := cEmutecaEmulatorManager.Create(Self);
+  FCurrentGroupList := cEmutecaGroupList.Create(False);
 end;
 
 destructor cEmuteca.Destroy;
 begin
-  // If we are still caching...
+  // If we are still caching SHA1...
   // Teminate thread if it's running
   if assigned(GetSoftSHA1Thread) then
   begin
@@ -433,8 +536,9 @@ begin
     DirectoryExistsUTF8(TempFolder) then
     DeleteDirectory(TempFolder, False);
 
-  Config.SaveConfig('');
+  Config.SaveToFile('', False);
 
+  FreeAndNil(FCurrentGroupList);
   FreeAndNil(FSystemManager);
   FreeAndNil(FEmulatorManager);
   FreeAndNil(FConfig);

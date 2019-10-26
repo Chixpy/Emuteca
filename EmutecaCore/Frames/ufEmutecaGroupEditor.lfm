@@ -87,6 +87,7 @@ inherited fmEmutecaGroupEditor: TfmEmutecaGroupEditor
   object eGroupID: TEdit[6]
     Left = 0
     Height = 28
+    Hint = 'ID of the group.'
     Top = 0
     Width = 253
     Align = alTop

@@ -1,6 +1,8 @@
-{ About form of Emuteca GUI
+unit ufETKGUIAbout;
 
-  Copyright (C) 2006-2018 Chixpy
+{< TfmETKGUIAbout frame of Emuteca GUI
+
+  Copyright (C) 2006-2019 Chixpy
 
   This source is free software; you can redistribute it and/or modify it under
   the terms of the GNU General Public License as published by the Free
@@ -17,32 +19,40 @@
   to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
   MA 02111-1307, USA.
 }
-unit ufrETKGUIAbout;
-
 {$mode objfpc}{$H+}
 
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs,
+  // CHX classes
   ucCHXImageList,
+  // CHX frames
   ufCHXAbout,
+  // Emuteca Core units
+  uEmutecaConst,
+  // Emuteca Core classes
   ucEmuteca;
 
 type
 
-  { TfrmETKGUIAbout }
+  { TfmETKGUIAbout }
 
-  TfrmETKGUIAbout = class(TfrmCHXAbout)
+  TfmETKGUIAbout = class(TfmCHXAbout)
   private
-    FEmuteca: cEmuteca;
     FCachedIcons: cCHXImageList;
+    FEmuteca: cEmuteca;
     FVersionIcons: cCHXImageList;
     FZoneIcons: cCHXImageMap;
-    procedure SetEmuteca(AValue: cEmuteca);
-    procedure SetCachedIcons(AValue: cCHXImageList);
-    procedure SetVersionIcons(AValue: cCHXImageList);
-    procedure SetZoneIcons(AValue: cCHXImageMap);
+    procedure SetCachedIcons(const AValue: cCHXImageList);
+    procedure SetEmuteca(const AValue: cEmuteca);
+    procedure SetVersionIcons(const AValue: cCHXImageList);
+    procedure SetZoneIcons(const AValue: cCHXImageMap);
+
+  protected
+
+    procedure DoLoadFrameData;
+    procedure DoClearFrameData;
 
   public
     property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
@@ -51,48 +61,51 @@ type
     property VersionIcons: cCHXImageList read FVersionIcons
       write SetVersionIcons;
 
-    procedure UpdateInfo;
 
+    class function SimpleModalForm(aEmuteca: cEmuteca;
+      aCachedIcons, aVersionIcons: cCHXImageList; aZoneIcons: cCHXImageMap;
+      const aGUIConfigIni, aGUIIconsIni: string): integer;
+    //< Creates a form with TfmEmutecaActAddSoft frame.
+
+    constructor Create(TheOwner: TComponent); override;
+    destructor Destroy; override;
   end;
-
-var
-  frmETKGUIAbout: TfrmETKGUIAbout;
 
 implementation
 
 {$R *.lfm}
 
-{ TfrmETKGUIAbout }
+{ TfmETKGUIAbout }
 
-procedure TfrmETKGUIAbout.SetEmuteca(AValue: cEmuteca);
-begin
-  if FEmuteca = AValue then
-    Exit;
-  FEmuteca := AValue;
-end;
-
-procedure TfrmETKGUIAbout.SetCachedIcons(AValue: cCHXImageList);
+procedure TfmETKGUIAbout.SetCachedIcons(const AValue: cCHXImageList);
 begin
   if FCachedIcons = AValue then
     Exit;
   FCachedIcons := AValue;
 end;
 
-procedure TfrmETKGUIAbout.SetVersionIcons(AValue: cCHXImageList);
+procedure TfmETKGUIAbout.SetEmuteca(const AValue: cEmuteca);
+begin
+  if FEmuteca = AValue then
+    Exit;
+  FEmuteca := AValue;
+end;
+
+procedure TfmETKGUIAbout.SetVersionIcons(const AValue: cCHXImageList);
 begin
   if FVersionIcons = AValue then
     Exit;
   FVersionIcons := AValue;
 end;
 
-procedure TfrmETKGUIAbout.SetZoneIcons(AValue: cCHXImageMap);
+procedure TfmETKGUIAbout.SetZoneIcons(const AValue: cCHXImageMap);
 begin
   if FZoneIcons = AValue then
     Exit;
   FZoneIcons := AValue;
 end;
 
-procedure TfrmETKGUIAbout.UpdateInfo;
+procedure TfmETKGUIAbout.DoLoadFrameData;
 var
   i, NGroups, TGroups, NSoft, TSoft: integer;
 begin
@@ -153,6 +166,45 @@ begin
   begin
     mAditional.Lines.Add(Format('Version icons: %0:d', [VersionIcons.Count]));
   end;
+
+  Enabled := True;
+end;
+
+procedure TfmETKGUIAbout.DoClearFrameData;
+begin
+  mAditional.Clear;
+end;
+
+class function TfmETKGUIAbout.SimpleModalForm(aEmuteca: cEmuteca;
+  aCachedIcons, aVersionIcons: cCHXImageList; aZoneIcons: cCHXImageMap;
+  const aGUIConfigIni, aGUIIconsIni: string): integer;
+var
+  aFrame: TfmETKGUIAbout;
+begin
+  aFrame := TfmETKGUIAbout.Create(nil);
+
+  aFrame.Emuteca := aEmuteca;
+  aFrame.CachedIcons := aCachedIcons;
+  aFrame.ZoneIcons := aZoneIcons;
+  aFrame.VersionIcons := aVersionIcons;
+  aFrame.LoadFrameData;
+
+  Result := GenSimpleModalForm(aFrame, 'frmETKGUIAbout',
+    Format(krsFmtWindowCaption, [Application.Title, 'About... Emuteca GUI']),
+    aGUIConfigIni, aGUIIconsIni);
+end;
+
+constructor TfmETKGUIAbout.Create(TheOwner: TComponent);
+begin
+  inherited Create(TheOwner);
+
+  OnLoadFrameData := @DoLoadFrameData;
+  OnClearFrameData := @DoClearFrameData;
+end;
+
+destructor TfmETKGUIAbout.Destroy;
+begin
+  inherited Destroy;
 end;
 
 end.

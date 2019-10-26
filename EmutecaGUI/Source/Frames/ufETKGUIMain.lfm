@@ -1,19 +1,19 @@
 inherited fmETKGUIMain: TfmETKGUIMain
-  Height = 480
+  Height = 481
   Width = 640
-  ClientHeight = 480
+  ClientHeight = 481
   ClientWidth = 640
-  DesignLeft = 387
-  DesignTop = 110
+  DesignLeft = 436
+  DesignTop = 124
   object Splitter1: TSplitter[0]
     Left = 204
-    Height = 480
+    Height = 481
     Top = 0
     Width = 5
   end
   object Splitter2: TSplitter[1]
     Left = 431
-    Height = 480
+    Height = 481
     Top = 0
     Width = 5
     Align = alRight
@@ -21,18 +21,18 @@ inherited fmETKGUIMain: TfmETKGUIMain
   end
   object pMiddle: TPanel[2]
     Left = 213
-    Height = 480
+    Height = 481
     Top = 0
     Width = 214
     Align = alClient
     BevelOuter = bvNone
-    ClientHeight = 480
+    ClientHeight = 481
     ClientWidth = 214
     TabOrder = 2
     object pMain: TPanel
       Left = 0
-      Height = 457
-      Top = 23
+      Height = 453
+      Top = 28
       Width = 214
       Align = alClient
       BevelOuter = bvNone
@@ -40,7 +40,7 @@ inherited fmETKGUIMain: TfmETKGUIMain
     end
     object eSearch: TEdit
       Left = 0
-      Height = 23
+      Height = 28
       Top = 0
       Width = 214
       Align = alTop
@@ -51,7 +51,7 @@ inherited fmETKGUIMain: TfmETKGUIMain
   end
   object pcLeft: TPageControl[3]
     Left = 0
-    Height = 480
+    Height = 481
     Top = 0
     Width = 200
     Align = alLeft
@@ -59,7 +59,7 @@ inherited fmETKGUIMain: TfmETKGUIMain
   end
   object pcSoftware: TPageControl[4]
     Left = 440
-    Height = 480
+    Height = 481
     Top = 0
     Width = 200
     Align = alRight

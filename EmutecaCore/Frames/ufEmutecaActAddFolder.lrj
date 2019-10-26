@@ -1,8 +1,10 @@
 {"version":1,"strings":[
 {"hash":120231245,"name":"tfmemutecaactaddfolder.gbxselectsystem.caption","sourcebytes":[83,101,108,101,99,116,32,97,32,83,121,115,116,101,109],"value":"Select a System"},
 {"hash":253268210,"name":"tfmemutecaactaddfolder.gbxfolder.caption","sourcebytes":[83,101,108,101,99,116,32,102,111,108,100,101,114],"value":"Select folder"},
-{"hash":183343331,"name":"tfmemutecaactaddfolder.chksubfolders.caption","sourcebytes":[83,101,97,114,99,104,32,105,110,32,115,117,98,102,111,108,100,101,114,115],"value":"Search in subfolders"},
-{"hash":83019712,"name":"tfmemutecaactaddfolder.chknozip.hint","sourcebytes":[67,104,101,99,107,32,105,116,32,102,111,114,32,77,65,77,69,32,115,112,101,101,100,117,112],"value":"Check it for MAME speedup"},
+{"hash":183973758,"name":"tfmemutecaactaddfolder.efolder.hint","sourcebytes":[70,111,108,100,101,114,32,102,111,114,32,115,101,97,114,99,104,105,110,103,32,115,111,102,116,119,97,114,101,46],"value":"Folder for searching software."},
+{"hash":131759726,"name":"tfmemutecaactaddfolder.chksubfolders.hint","sourcebytes":[83,99,97,110,32,105,110,32,115,117,98,102,111,108,100,101,114,115,32,116,111,111,46],"value":"Scan in subfolders too."},
+{"hash":249138942,"name":"tfmemutecaactaddfolder.chksubfolders.caption","sourcebytes":[83,101,97,114,99,104,32,105,110,32,115,117,98,102,111,108,100,101,114,115,46],"value":"Search in subfolders."},
+{"hash":180201118,"name":"tfmemutecaactaddfolder.chknozip.hint","sourcebytes":[67,104,101,99,107,32,105,116,32,102,111,114,32,77,65,77,69,32,115,111,102,119,97,114,101,32,115,101,97,114,99,104,32,115,112,101,101,100,117,112,46],"value":"Check it for MAME sofware search speedup."},
 {"hash":129114579,"name":"tfmemutecaactaddfolder.chknozip.caption","sourcebytes":[68,111,110,39,116,32,115,101,97,114,99,104,32,105,110,115,105,100,101,32,99,111,109,112,114,101,115,115,101,100,32,97,114,99,104,105,118,101,115],"value":"Don't search inside compressed archives"},
 {"hash":158081657,"name":"tfmemutecaactaddfolder.rgbgroup.caption","sourcebytes":[71,114,111,117,112,32,98,121],"value":"Group by"},
 {"hash":229999502,"name":"tfmemutecaactaddfolder.rgbfilename.caption","sourcebytes":[73,102,32,100,117,112,108,105,99,97,116,101,32,102,105,108,101,32,102,111,117,110,100,46,46,46],"value":"If duplicate file found..."},

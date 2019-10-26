@@ -25,15 +25,18 @@ unit ucEmutecaConfig;
 interface
 
 uses
-  Classes, SysUtils, LazFileUtils, LazUTF8, Graphics,
-  uCHXStrUtils, uCHXRscStr, uCHX7zWrapper;
+  Classes, SysUtils, LazFileUtils, LazUTF8, Graphics, IniFiles,
+  // CHX units
+  uCHXStrUtils, uCHX7zWrapper,
+  // CHX abstracts
+  uaCHXConfig;
 
 const
   // [Config]
   krsIniSecConfig = 'Config';
   krsIniKeyDataFolder = 'DataFolder';
   krsIniKeyEmulatorsFile = 'EmulatorsFile';
-  krsIniKeyAutoSysFolders = 'AutoSysFolders';
+  krsIniKeyAutoSysFoldersFile = 'AutoSysFolders';
   krsIniKeySystemsFile = 'SystemsFile';
   krsIniKeySysDataFolder = 'SysDataFolder';
   krsIniKeyTagsFolder = 'TagsFolder';
@@ -60,11 +63,10 @@ type
 
   { cEmutecaConfig }
   // TODO: Use caCHXConfig
-  cEmutecaConfig = class(TComponent)
+  cEmutecaConfig = class(caCHXConfig)
   private
-    FAutoSysFolder: string;
+    FAutoSysFoldersFile: string;
     FCompressedExtensions: TStringList;
-    FConfigFile: string;
     FEmulatorsFile: string;
     FSysDataFolder: string;
     FMinPlayTime: integer;
@@ -75,8 +77,7 @@ type
     FSoftFile: string;
     Fz7CMExecutable: string;
     Fz7GExecutable: string;
-    procedure SetAutoSysFolder(AValue: string);
-    procedure SetConfigFile(AValue: string);
+    procedure SetAutoSysFoldersFile(AValue: string);
     procedure SetEmulatorsFile(const AValue: string);
     procedure SetSysDataFolder(AValue: string);
     procedure SetMinPlayTime(AValue: integer);
@@ -104,10 +105,8 @@ type
     {< Systems file.}
     property SysDataFolder: string read FSysDataFolder write SetSysDataFolder;
     {< Systems' data folder (cvs and egl).}
-    property AutoSysFolder: string read FAutoSysFolder write SetAutoSysFolder;
+    property AutoSysFolder: string read FAutoSysFoldersFile write SetAutoSysFoldersFile;
     {< File with automatic folder structure.
-
-      TODO: It's a file, not a folder.
 
       TODO: It's a Emuteca GUI config.
     }
@@ -137,10 +136,9 @@ type
     {< Minimal time playing needed to store in statistics. }
 
   public
-    property ConfigFile: string read FConfigFile write SetConfigFile;
-    procedure LoadConfig(aFileName: string);
-    procedure SaveConfig(aFilename: string);
-    procedure SetDefaultConfig;
+    procedure LoadFromIni(aIniFile: TMemIniFile); override;
+    procedure SaveToIni(aIniFile: TMemIniFile); override;
+    procedure ResetDefaultConfig; override;
 
     constructor Create(aOwner: TComponent); override;
     destructor Destroy; override;
@@ -151,20 +149,12 @@ type
   }
 implementation
 
-uses
-  IniFiles;
-
 { cEmutecaConfig }
-procedure cEmutecaConfig.SetConfigFile(AValue: string);
+procedure cEmutecaConfig.SetAutoSysFoldersFile(AValue: string);
 begin
-  FConfigFile := SetAsFile(AValue);
-end;
-
-procedure cEmutecaConfig.SetAutoSysFolder(AValue: string);
-begin
-  if FAutoSysFolder = AValue then
+  if FAutoSysFoldersFile = AValue then
     Exit;
-  FAutoSysFolder := AValue;
+  FAutoSysFoldersFile := AValue;
 end;
 
 procedure cEmutecaConfig.SetEmulatorsFile(const AValue: string);
@@ -230,118 +220,74 @@ begin
     w7zSetPathTo7zGexe(CreateAbsoluteSearchPath(z7GExecutable, GetCurrentDirUTF8));
 end;
 
-procedure cEmutecaConfig.LoadConfig(aFileName: string);
-var
-  IniFile: TMemIniFile;
-
+procedure cEmutecaConfig.LoadFromIni(aIniFile: TMemIniFile);
 begin
-  if aFilename = '' then
-    aFilename := ConfigFile;
-  if aFilename = '' then
-    raise EInOutError.Create(ClassName + '.ReadConfig: ' +
-      rsENotFilename);
-  { TODO : Raise exception? Warning? create file always? Exit?}
-  //if not FileExistsUTF8(aFilename) then
-
-
-  ConfigFile := aFilename;
-
-  IniFile := TMemIniFile.Create(UTF8ToSys(ConfigFile));
-  try
-    // Config/Data
-    EmulatorsFile := IniFile.ReadString(krsIniSecConfig,
+     // Config/Data
+    EmulatorsFile := aIniFile.ReadString(krsIniSecConfig,
       krsIniKeyEmulatorsFile, EmulatorsFile);
-    SystemsFile := IniFile.ReadString(krsIniSecConfig,
+    SystemsFile := aIniFile.ReadString(krsIniSecConfig,
       krsIniKeySystemsFile, SystemsFile);
-    AutoSysFolder := IniFile.ReadString(krsIniSecConfig,
-      krsIniKeyAutoSysFolders, AutoSysFolder);
-    SysDataFolder := IniFile.ReadString(krsIniSecConfig,
+    AutoSysFolder := aIniFile.ReadString(krsIniSecConfig,
+      krsIniKeyAutoSysFoldersFile, AutoSysFolder);
+    SysDataFolder := aIniFile.ReadString(krsIniSecConfig,
       krsIniKeySysDataFolder, SysDataFolder);
-    TagsFolder := IniFile.ReadString(krsIniSecConfig,
+    TagsFolder := aIniFile.ReadString(krsIniSecConfig,
       krsIniKeyTagsFolder, TagsFolder);
 
     // Tools
-    z7CMExecutable := IniFile.ReadString(krsIniSecTools,
+    z7CMExecutable := aIniFile.ReadString(krsIniSecTools,
       krsIniKey7zCMExecutable, z7CMExecutable);
-    z7GExecutable := IniFile.ReadString(krsIniSecTools,
+    z7GExecutable := aIniFile.ReadString(krsIniSecTools,
       krsIniKey7zGExecutable, z7GExecutable);
 
     // File extensions
     CompressedExtensions.CommaText :=
-      Trim(UTF8LowerCase(IniFile.ReadString(krsIniSecExtensions,
+      Trim(UTF8LowerCase(aIniFile.ReadString(krsIniSecExtensions,
       krsIniKeyCompressedExtensions, CompressedExtensions.CommaText)));
 
     // Temp
-    TempSubfolder := IniFile.ReadString(krsIniSecTemp,
+    TempSubfolder := aIniFile.ReadString(krsIniSecTemp,
       krsIniKeyTempSubfolder, TempSubfolder);
-    TempFile := IniFile.ReadString(krsIniSecTemp,
+    TempFile := aIniFile.ReadString(krsIniSecTemp,
       krsIniKeyTempFile, TempFile);
 
     // Misc
-    MinPlayTime := IniFile.ReadInteger(krsIniSecMisc,
+    MinPlayTime := aIniFile.ReadInteger(krsIniSecMisc,
       krsIniKeyMinPlayTime, MinPlayTime);
 
-  finally
-    FreeAndNil(IniFile);
-  end;
 end;
 
-procedure cEmutecaConfig.SaveConfig(aFilename: string);
-var
-  IniFile: TMemIniFile;
+procedure cEmutecaConfig.SaveToIni(aIniFile: TMemIniFile);
 begin
-  if aFilename = '' then
-    aFilename := ConfigFile;
-  if aFilename = '' then
-    raise EInOutError.Create(ClassName + '.SaveConfig: ' +
-      rsENotFilename);
-  ConfigFile := aFilename;
+  // Config/Data
+  aIniFile.WriteString(krsIniSecConfig, krsIniKeyEmulatorsFile,
+    EmulatorsFile);
+  aIniFile.WriteString(krsIniSecConfig, krsIniKeyAutoSysFoldersFile,
+    AutoSysFolder);
+  aIniFile.WriteString(krsIniSecConfig, krsIniKeySystemsFile, SystemsFile);
+  aIniFile.WriteString(krsIniSecConfig, krsIniKeySysDataFolder,
+    SysDataFolder);
+  aIniFile.WriteString(krsIniSecConfig, krsIniKeyTagsFolder, TagsFolder);
 
-  IniFile := TMemIniFile.Create(UTF8ToSys(ConfigFile));
-  try
+  // Tools
+  aIniFile.WriteString(krsIniSecTools, krsIniKey7zCMExecutable,
+    z7CMExecutable);
+  aIniFile.WriteString(krsIniSecTools, krsIniKey7zGExecutable,
+    z7GExecutable);
 
-    // Config/Data
-    IniFile.WriteString(krsIniSecConfig, krsIniKeyEmulatorsFile,
-      EmulatorsFile);
-    IniFile.WriteString(krsIniSecConfig, krsIniKeyAutoSysFolders,
-      AutoSysFolder);
-    IniFile.WriteString(krsIniSecConfig, krsIniKeySystemsFile, SystemsFile);
-    IniFile.WriteString(krsIniSecConfig, krsIniKeySysDataFolder,
-      SysDataFolder);
-    IniFile.WriteString(krsIniSecConfig, krsIniKeyTagsFolder, TagsFolder);
+  // File extensions
+  aIniFile.WriteString(krsIniSecExtensions, krsIniKeyCompressedExtensions,
+    Trim(UTF8LowerCase(CompressedExtensions.CommaText)));
 
-    // Tools
-    IniFile.WriteString(krsIniSecTools, krsIniKey7zCMExecutable,
-      z7CMExecutable);
-    IniFile.WriteString(krsIniSecTools, krsIniKey7zGExecutable,
-      z7GExecutable);
+  // Temp
+  aIniFile.WriteString(krsIniSecTemp, krsIniKeyTempSubfolder, TempSubfolder);
+  aIniFile.WriteString(krsIniSecTemp, krsIniKeyTempFile, TempFile);
 
-    // File extensions
-    IniFile.WriteString(krsIniSecExtensions, krsIniKeyCompressedExtensions,
-      Trim(UTF8LowerCase(CompressedExtensions.CommaText)));
-
-    // Temp
-    IniFile.WriteString(krsIniSecTemp, krsIniKeyTempSubfolder, TempSubfolder);
-    IniFile.WriteString(krsIniSecTemp, krsIniKeyTempFile, TempFile);
-
-    // Misc
-    IniFile.WriteInteger(krsIniSecMisc, krsIniKeyMinPlayTime, MinPlayTime);
-
-  finally
-    FreeAndNil(IniFile);
-  end;
+  // Misc
+  aIniFile.WriteInteger(krsIniSecMisc, krsIniKeyMinPlayTime, MinPlayTime);
 end;
 
-procedure cEmutecaConfig.SetDefaultConfig;
-  procedure DeleteComprExt(const aExt: string);
-  var
-    aPos: Integer;
-  begin
-    aPos := CompressedExtensions.IndexOf(aExt);
-    if aPos <> -1 then
-      CompressedExtensions.Delete(aPos);
-  end;
-
+procedure cEmutecaConfig.ResetDefaultConfig;
 begin
   // Config/Data
   EmulatorsFile := 'Data/Emulators.ini';
@@ -373,13 +319,13 @@ end;
 
 constructor cEmutecaConfig.Create(aOwner: TComponent);
 begin
-  inherited Create(aOwner);
-
+  // We must create objects before inherited Create, because it calls
+  //    self.ResetDefaultConfig
   FCompressedExtensions := TStringList.Create;
   CompressedExtensions.Sorted := True;
   CompressedExtensions.CaseSensitive := False;
 
-  SetDefaultConfig;
+  inherited Create(aOwner);
 end;
 
 destructor cEmutecaConfig.Destroy;

@@ -1,4 +1,5 @@
 unit ufETKGUIMain;
+
 {< TfmETKGUIMain frame unit.
 
   ----
@@ -28,19 +29,19 @@ unit ufETKGUIMain;
 interface
 
 uses
-  Classes, SysUtils, fgl, FileUtil, Forms, Controls, Graphics, Dialogs,
+  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
   ComCtrls, ExtCtrls, StdCtrls, IniFiles, Menus,
   // CHX
   uCHXStrUtils, ucCHXImageList,
   // CHX frames
-  ufCHXFrame, ufCHXTagTree,
+  ufCHXFrame,
   // Emuteca Core units
   uEmutecaConst, uEmutecaRscStr,
   // Emuteca Core clases
   ucEmuteca, ucEmutecaSystem, ucEmutecaGroupList, ucEmutecaGroup,
   ucEmutecaSoftware, ucEmutecaEmulator,
   // Emuteca Core frames
-  ufEmutecaSystemCBX,
+  ufEmutecaSystemCBX, ufEmutecaTagTree,
   // Emuteca GUI units
   uETKGUIConst, uETKGUIRscStr,
   // Emuteca GUI classes
@@ -67,20 +68,18 @@ type
     Splitter1: TSplitter;
     Splitter2: TSplitter;
     procedure eSearchEditingDone(Sender: TObject);
-
   private
     FCurrentGroup: cEmutecaGroup;
     FCurrentSoft: cEmutecaSoftware;
     FCurrentSystem: cEmutecaSystem;
     FDumpIcons: cCHXImageList;
     FEmuteca: cEmuteca;
-    FfmCHXTagTree: TfmCHXTagTree;
+    FfmCHXTagTree: TfmEmutecaTagTree;
     FfmEmutecaSystemCBX: TfmETKGUIIcnSysCBX;
     FfmSoftEditor: TfmETKGUIFullSoftEditor;
     FfmSoftMedia: TfmETKGUISoftMedia;
     FfmSoftTree: TfmETKGUIIcnSoftTree;
     FfmSystemPanel: TfmETKGUISysPreview;
-    FFullGroupList: cEmutecaGroupList;
     FGUIConfig: cETKGUIConfig;
     FOnEmulatorChanged: TEmutecaReturnEmulatorCB;
     FOnGroupChanged: TEmutecaReturnGroupCB;
@@ -111,9 +110,8 @@ type
     procedure SetZoneIcons(AValue: cCHXImageMap);
 
   protected
-    property FullGroupList: cEmutecaGroupList read FFullGroupList;
 
-    procedure UpdateFullGroupList;
+    procedure UpdateGroupList;
 
     property CurrentSoft: cEmutecaSoftware
       read FCurrentSoft write SetCurrentSoft;
@@ -125,7 +123,7 @@ type
     // Frames
     property fmEmutecaSystemCBX: TfmETKGUIIcnSysCBX read FfmEmutecaSystemCBX;
 
-    property fmCHXTagTree: TfmCHXTagTree read FfmCHXTagTree;
+    property fmCHXTagTree: TfmEmutecaTagTree read FfmCHXTagTree;
 
     property fmSystemPanel: TfmETKGUISysPreview read FfmSystemPanel;
     property fmSoftEditor: TfmETKGUIFullSoftEditor read FfmSoftEditor;
@@ -191,11 +189,6 @@ implementation
 
 { TfmETKGUIMain }
 
-procedure TfmETKGUIMain.eSearchEditingDone(Sender: TObject);
-begin
-  fmSoftTree.TitleFilter := eSearch.Text;
-end;
-
 procedure TfmETKGUIMain.SetDumpIcons(AValue: cCHXImageList);
 begin
   if FDumpIcons = AValue then
@@ -203,6 +196,11 @@ begin
   FDumpIcons := AValue;
 
   fmSoftTree.DumpIconList := DumpIcons;
+end;
+
+procedure TfmETKGUIMain.eSearchEditingDone(Sender: TObject);
+begin
+  UpdateGroupList;
 end;
 
 procedure TfmETKGUIMain.SetCurrentGroup(AValue: cEmutecaGroup);
@@ -243,25 +241,19 @@ begin
     Exit;
   FCurrentSystem := AValue;
 
+  UpdateGroupList;
+
   if Assigned(CurrentSystem) then
   begin
-    Emuteca.SystemManager.LoadSystemData(CurrentSystem);
     GUIConfig.CurrSystem := CurrentSystem.ID;
-    fmSoftTree.GroupList := CurrentSystem.GroupManager.VisibleList;
   end
   else
   begin
-    Emuteca.SystemManager.LoadAllEnabledSystemsData;
-    if FullGroupList.Count = 0 then // If empty populate
-      UpdateFullGroupList;
     GUIConfig.CurrSystem := '';
-    fmSoftTree.GroupList := FullGroupList;
   end;
 
-  if assigned(Emuteca) then
-    Emuteca.CacheData;
 
-  // Using fmSoftTree.GroupList is dirty...
+  // TODO: Using fmSoftTree.GroupList is dirty...
   if assigned(OnGrpListChanged) then
     {var :=} OnGrpListChanged(fmSoftTree.GroupList);
 
@@ -300,7 +292,6 @@ begin
     fmSoftMedia.TempFolder := '';
     fmSoftMedia.Software := nil;
     fmSystemPanel.System := nil;
-    FullGroupList.Clear; // Clear full list
   end;
 
   LoadFrameData;
@@ -403,26 +394,16 @@ begin
   fmSoftTree.ZoneIconMap := ZoneIcons;
 end;
 
-procedure TfmETKGUIMain.UpdateFullGroupList;
-var
-  i, j: integer;
-  aSystem: cEmutecaSystem;
+procedure TfmETKGUIMain.UpdateGroupList;
 begin
-  FullGroupList.Clear;
+  Emuteca.UpdateCurrentGroupList(CurrentSystem, eSearch.Text,
+    fmCHXTagTree.TagsIni);
+  Emuteca.CacheData;
 
-  i := 0;
-  while i < Emuteca.SystemManager.EnabledList.Count do
+  fmSoftTree.GroupList := nil; // Forcing clearing tree
+  if assigned(Emuteca) then
   begin
-    aSystem := Emuteca.SystemManager.EnabledList[i];
-
-    j := 0;
-    while j < aSystem.GroupManager.VisibleList.Count do
-    begin
-      FullGroupList.Add(aSystem.GroupManager.VisibleList[j]);
-      Inc(j);
-    end;
-
-    Inc(i);
+    fmSoftTree.GroupList := Emuteca.CurrentGroupList;
   end;
 end;
 
@@ -468,7 +449,8 @@ end;
 
 procedure TfmETKGUIMain.CheckTags(aList: TStrings);
 begin
-
+  fmCHXTagTree.UpdateTagsIni;
+  UpdateGroupList;
 end;
 
 procedure TfmETKGUIMain.DoClearFrameData;
@@ -537,7 +519,7 @@ constructor TfmETKGUIMain.Create(TheOwner: TComponent);
 
     // Creating and Setting Tags frame
     aTabSheet := pcLeft.AddTabSheet;
-    FfmCHXTagTree := TfmCHXTagTree.Create(aTabSheet);
+    FfmCHXTagTree := TfmEmutecaTagTree.Create(aTabSheet);
     aTabSheet.Caption := rsTagsCaption;
     fmCHXTagTree.OnCheckChange := @CheckTags;
     fmCHXTagTree.Align := alClient;
@@ -571,8 +553,6 @@ constructor TfmETKGUIMain.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
 
-  FFullGroupList := cEmutecaGroupList.Create(False);
-
   CreateFrames;
 
   OnClearFrameData := @DoClearFrameData;
@@ -584,8 +564,6 @@ end;
 
 destructor TfmETKGUIMain.Destroy;
 begin
-  FFullGroupList.Free;
-
   inherited Destroy;
 end;
 

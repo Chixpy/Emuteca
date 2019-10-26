@@ -1,0 +1,4 @@
+inherited fmEmutecaTagTree: TfmEmutecaTagTree
+  DesignLeft = 814
+  DesignTop = 475
+end

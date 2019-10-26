@@ -94,7 +94,6 @@ type
     FOnSelectSoft: TEmutecaReturnSoftCB;
     FpmGroup: TPopupMenu;
     FpmSoft: TPopupMenu;
-    FTitleFilter: string;
     procedure SetGroupList(AValue: cEmutecaGroupList);
     procedure SetGUIConfigFile(AValue: string);
     procedure SetIconsIniFile(AValue: string);
@@ -104,20 +103,10 @@ type
     procedure SetOnSelectSoft(AValue: TEmutecaReturnSoftCB);
     procedure SetpmGroup(AValue: TPopupMenu);
     procedure SetpmSoft(AValue: TPopupMenu);
-    procedure SetTitleFilter(AValue: string);
 
   protected
     procedure UpdateSBNodeCount;
     {< Updates the Status Bar visible node count. }
-
-    procedure DoFilterNodes;
-    {< Shows/Hides node using TitleFilter. }
-    procedure SetFilterHideNodes(Sender: TBaseVirtualTree;
-      Node: PVirtualNode; Data: Pointer; var Abort: boolean);
-    {< Callback for IterateSubtree, to hide filtered nodes. }
-    procedure SetShowAllNodes(Sender: TBaseVirtualTree;
-      Node: PVirtualNode; Data: Pointer; var Abort: boolean);
-    {< Callback for IterateSubtree, to show all nodes. }
 
     procedure SetNodesHeight(Sender: TBaseVirtualTree;
       Node: PVirtualNode; Data: Pointer; var Abort: boolean);
@@ -131,9 +120,6 @@ type
   public
     property GroupList: cEmutecaGroupList read FGroupList write SetGroupList;
     {< GroupList to show. }
-
-    property TitleFilter: string read FTitleFilter write SetTitleFilter;
-    {< String to filter items and hide them. }
 
     // Callbacks on actions
     // --------------------
@@ -836,17 +822,6 @@ begin
   FpmSoft := AValue;
 end;
 
-procedure TfmEmutecaSoftTree.SetTitleFilter(AValue: string);
-begin
-  AValue := UTF8LowerString(AValue);
-  if FTitleFilter = AValue then
-    Exit;
-  FTitleFilter := AValue;
-
-  DoFilterNodes;
-  UpdateSBNodeCount;
-end;
-
 procedure TfmEmutecaSoftTree.DoLoadGUIConfig(aIniFile: TIniFile);
 var
   i: integer;
@@ -927,67 +902,6 @@ begin
     Format(rsFmtNItems, [VDT.RootNodeCount, VDT.VisibleCount]);
 end;
 
-procedure TfmEmutecaSoftTree.DoFilterNodes;
-begin
-  if TitleFilter = '' then
-  begin
-    VDT.IterateSubtree(nil, @SetShowAllNodes, nil);
-  end
-  else
-  begin
-    VDT.IterateSubtree(nil, @SetFilterHideNodes, nil);
-  end;
-
-  // TODO: Add more filters
-end;
-
-procedure TfmEmutecaSoftTree.SetFilterHideNodes(Sender: TBaseVirtualTree;
-  Node: PVirtualNode; Data: Pointer; var Abort: boolean);
-
-  function FilterGroup(aGroup: cEmutecaGroup): boolean;
-  begin
-    Result := UTF8Pos(TitleFilter, UTF8LowerString(aGroup.Title)) <> 0;
-  end;
-
-  function FilterSoft(aSoft: cEmutecaSoftware): boolean;
-  begin
-    Result := UTF8Pos(TitleFilter, UTF8LowerString(aSoft.Title)) <> 0;
-  end;
-
-var
-  pData: ^TObject;
-begin
-  Abort := False;
-
-  //if Assigned(Node^.Parent) then
-  //  Exit; // only work with base nodes
-
-  pData := Sender.GetNodeData(Node);
-  if not assigned(pData) then
-    Exit;
-  if not assigned(pData^) then
-    Exit;
-
-  Sender.BeginUpdate;
-  if pData^ is cEmutecaGroup then
-  begin
-    Sender.IsVisible[Node] := FilterGroup(cEmutecaGroup(pData^));
-  end
-  else if pData^ is cEmutecaSoftware then
-  begin
-    Sender.IsVisible[Node] := FilterSoft(cEmutecaSoftware(pData^));
-  end;
-  Sender.EndUpdate;
-end;
-
-procedure TfmEmutecaSoftTree.SetShowAllNodes(Sender: TBaseVirtualTree;
-  Node: PVirtualNode; Data: Pointer; var Abort: boolean);
-begin
-  Abort := False;
-  Sender.IsVisible[Node] := True;
-  Sender.Expanded[Node^.Parent] := False;
-end;
-
 procedure TfmEmutecaSoftTree.SetNodesHeight(Sender: TBaseVirtualTree;
   Node: PVirtualNode; Data: Pointer; var Abort: boolean);
 begin
@@ -1015,7 +929,6 @@ begin
   VDT.Clear;
   VDT.RootNodeCount := GroupList.Count;
 
-  DoFilterNodes;
   UpdateSBNodeCount;
 end;
 

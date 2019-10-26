@@ -56,7 +56,7 @@ uses
   ufETKGUIScriptManager, ufETKGUIFullSysEditor, ufETKGUIFullEmuEditor,
   ufETKGUIactMergeGroup,
   // Emuteca GUI forms
-  ufrETKGUIAbout,
+  ufETKGUIAbout,
   // Emuteca GUI threads
   utETKGUICacheSysIcons, utETKGUICacheGrpIcons, utETKGUICacheSoftIcons, utETKGUICacheEmuIcons;
 
@@ -423,19 +423,8 @@ end;
 
 procedure TfrmETKGUIMain.HelpOnHelp1Execute(Sender: TObject);
 begin
-  Application.CreateForm(TfrmETKGUIAbout, frmETKGUIAbout);
-  try
-    frmETKGUIAbout.Caption :=
-      Format(krsFmtWindowCaption, [Application.Title, HelpOnHelp1.Caption]);
-    frmETKGUIAbout.Emuteca := Emuteca;
-    frmETKGUIAbout.CachedIcons := IconList;
-    frmETKGUIAbout.ZoneIcons := ZoneIcons;
-    frmETKGUIAbout.VersionIcons := DumpIcons;
-    frmETKGUIAbout.UpdateInfo;
-    frmETKGUIAbout.ShowModal;
-  finally
-    FreeAndNil(frmETKGUIAbout);
-  end;
+  TfmETKGUIAbout.SimpleModalForm(Emuteca,IconList,DumpIcons,ZoneIcons,
+  GUIConfig.DefaultFileName, GUIIconsFile);
 end;
 
 procedure TfrmETKGUIMain.FormCloseQuery(Sender: TObject;

@@ -33,9 +33,9 @@ const
   krsEmuteca = 'Emuteca';
   {< Main 'Emuteca' string. }
 
-  // TODO: Is it used only by Script Manager?
+  // TODO: Is it used only by Media Manager?
   krsVirtualFolderExt = '.(folder)';
-  {< String to identify folders in Script Manager. }
+  {< String to identify folders in Media Manager. }
   krsVirtualExt = '.(ext)';
   {< }
 

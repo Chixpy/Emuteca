@@ -108,8 +108,6 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   ufETKGUISysManager,
   ufETKGUISysPreview,
   ufETKGUIactMergeGroup,
-  // Emuteca GUI forms
-  ufrETKGUIAbout,
   ufrETKGUIMain,
   // Emuteca GUI threads
   utETKGUICacheGrpIcons, utETKGUICacheSysIcons, utETKGUICacheSoftIcons,
@@ -119,7 +117,7 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   ufEmutecaSoftImgPreview, ufEmutecaSoftTxtPreview, ufEmutecaSoftVideoPreview,
   ufCHXImgViewer, ucETKGUIItemCache, uPSI_uaCHXStorable,
   uPSI_uaEmutecaCustomEmu, ufEmutecaEmulatorAdvParamsEditor, ufETKGUIIcnEmuCBX,
-  utETKGUICacheEmuIcons;
+  utETKGUICacheEmuIcons, ufCHXAbout, ufETKGUIAbout, ufEmutecaTagTree;
 
 {$R *.res}
 

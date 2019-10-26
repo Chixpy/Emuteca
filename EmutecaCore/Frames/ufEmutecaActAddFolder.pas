@@ -404,4 +404,10 @@ begin
   inherited Destroy;
 end;
 
+initialization
+  RegisterClass(TfmEmutecaActAddFolder);
+
+finalization
+  UnRegisterClass(TfmEmutecaActAddFolder);
+
 end.

@@ -7,8 +7,8 @@ inherited fmEmutecaSoftTree: TfmEmutecaSoftTree
   DesignTop = 164
   object StatusBar: TStatusBar[0]
     Left = 0
-    Height = 23
-    Top = 343
+    Height = 29
+    Top = 337
     Width = 811
     Panels = <    
       item
@@ -16,13 +16,14 @@ inherited fmEmutecaSoftTree: TfmEmutecaSoftTree
         Width = 200
       end    
       item
+        Alignment = taRightJustify
         Width = 50
       end>
     SimplePanel = False
   end
   object VDT: TVirtualStringTree[1]
     Left = 0
-    Height = 339
+    Height = 333
     Top = 0
     Width = 811
     Align = alClient

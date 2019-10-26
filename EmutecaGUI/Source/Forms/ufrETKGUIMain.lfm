@@ -1,7 +1,7 @@
 inherited frmETKGUIMain: TfrmETKGUIMain
-  Left = 535
+  Left = 762
   Height = 501
-  Top = 221
+  Top = 315
   Caption = 'Main'
   ClientHeight = 476
   Menu = MainMenu

@@ -5,6 +5,38 @@ msgstr "Content-Type: text/plain; charset=UTF-8"
 msgid "Panel"
 msgstr ""
 
+#: tfmchxabout.gbxcompilation.caption
+msgctxt "tfmchxabout.gbxcompilation.caption"
+msgid "Compilation info"
+msgstr ""
+
+#: tfmchxabout.gbximageext.caption
+msgctxt "tfmchxabout.gbximageext.caption"
+msgid "Supported image extensions"
+msgstr ""
+
+#: tfmchxabout.lcompilation.caption
+msgctxt "tfmchxabout.lcompilation.caption"
+msgid "Compilation"
+msgstr ""
+
+#: tfmchxabout.limageext.caption
+msgctxt "tfmchxabout.limageext.caption"
+msgid "ImageExt"
+msgstr ""
+
+#: tfmchxabout.ltitle.caption
+#, fuzzy
+msgctxt "tfmchxabout.ltitle.caption"
+msgid "Title"
+msgstr "Título"
+
+#: tfmchxabout.lversion.caption
+#, fuzzy
+msgctxt "tfmchxabout.lversion.caption"
+msgid "Version"
+msgstr "Versión"
+
 #: tfmchxchklstpropeditor.actadditem.caption
 msgid "Add item"
 msgstr "Añadir objeto"
@@ -423,12 +455,22 @@ msgid "Don't search inside compressed archives"
 msgstr "No buscar dentro de archivos comprimidos."
 
 #: tfmemutecaactaddfolder.chknozip.hint
-msgid "Check it for MAME speedup"
+msgid "Check it for MAME sofware search speedup."
 msgstr ""
 
 #: tfmemutecaactaddfolder.chksubfolders.caption
-msgid "Search in subfolders"
+#, fuzzy
+#| msgid "Search in subfolders"
+msgid "Search in subfolders."
 msgstr "Buscar en subcarpetas"
+
+#: tfmemutecaactaddfolder.chksubfolders.hint
+msgid "Scan in subfolders too."
+msgstr ""
+
+#: tfmemutecaactaddfolder.efolder.hint
+msgid "Folder for searching software."
+msgstr ""
 
 #: tfmemutecaactaddfolder.gbxfolder.caption
 msgid "Select folder"
@@ -674,6 +716,10 @@ msgstr ""
 #: tfmemutecagroupeditor.edeveloper.hint
 msgid "Developer of the software."
 msgstr "Desarrollador del software"
+
+#: tfmemutecagroupeditor.egroupid.hint
+msgid "ID of the group."
+msgstr ""
 
 #: tfmemutecagroupeditor.egroupid.texthint
 msgid "Group ID"
@@ -1519,38 +1565,6 @@ msgstr ""
 msgctxt "tfmsmaskmultifile.toolbutton3.caption"
 msgid "ToolButton3"
 msgstr ""
-
-#: tfrmchxabout.caption
-msgid "CHXAbout"
-msgstr ""
-
-#: tfrmchxabout.gbxcompilation.caption
-msgid "Compilation info"
-msgstr ""
-
-#: tfrmchxabout.gbximageext.caption
-msgid "Supported image extensions"
-msgstr ""
-
-#: tfrmchxabout.lcompilation.caption
-msgid "Compilation"
-msgstr ""
-
-#: tfrmchxabout.limageext.caption
-msgid "ImageExt"
-msgstr ""
-
-#: tfrmchxabout.ltitle.caption
-#, fuzzy
-msgctxt "tfrmchxabout.ltitle.caption"
-msgid "Title"
-msgstr "Título"
-
-#: tfrmchxabout.lversion.caption
-#, fuzzy
-msgctxt "tfrmchxabout.lversion.caption"
-msgid "Version"
-msgstr "Versión"
 
 #: tfrmchxform.caption
 msgid "frmCHXForm"
