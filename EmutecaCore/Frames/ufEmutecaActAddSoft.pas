@@ -100,8 +100,8 @@ type
     procedure UpdateSoftKey;
     procedure UpdateDupInfo;
 
-    function SelectSystem(aSystem: cEmutecaSystem): boolean;
-    function SelectGroup(aGroup: cEmutecaGroup): boolean;
+    procedure SelectSystem(aSystem: cEmutecaSystem);
+    procedure SelectGroup(aGroup: cEmutecaGroup);
 
     procedure DoClearFrameData;
     procedure DoLoadFrameData;
@@ -265,12 +265,10 @@ begin
     lDupFile.Caption := rsFileAlreadyAdded;
 end;
 
-function TfmEmutecaActAddSoft.SelectSystem(aSystem: cEmutecaSystem): boolean;
+procedure TfmEmutecaActAddSoft.SelectSystem(aSystem: cEmutecaSystem);
 var
   ExtFilter: string;
 begin
-  Result := False;
-
   fmSoftEditor.Software := nil;
 
   Software.CachedSystem := aSystem;
@@ -315,13 +313,10 @@ begin
     ProgramDirectory);
 
   UpdateSoftKey;
-
-  Result := True;
 end;
 
-function TfmEmutecaActAddSoft.SelectGroup(aGroup: cEmutecaGroup): boolean;
+procedure TfmEmutecaActAddSoft.SelectGroup(aGroup: cEmutecaGroup);
 begin
-  Result := True;
   Software.CachedGroup := aGroup;
 end;
 

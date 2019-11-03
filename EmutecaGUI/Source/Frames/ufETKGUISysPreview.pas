@@ -78,7 +78,7 @@ type
     FOnChangeEmulator: TEmutecaReturnEmulatorCB;
     FSHA1Folder: string;
     FSystem: cEmutecaSystem;
-    procedure SetCurrentEmu(const aCurrentEmu: cEmutecaEmulator);
+    procedure SetCurrentEmu(aCurrentEmu: cEmutecaEmulator);
     procedure SetGUIConfigIni(AValue: string);
     procedure SetGUIIconsIni(AValue: string);
     procedure SetOnChangeEmulator(
@@ -91,8 +91,6 @@ type
 
     property GUIIconsIni: string read FGUIIconsIni write SetGUIIconsIni;
     property GUIConfigIni: string read FGUIConfigIni write SetGUIConfigIni;
-
-    function DoSelectEmulator(aEmulator: cEmutecaEmulator): boolean;
 
     procedure DoClearFrameData;
     procedure DoLoadFrameData;
@@ -148,14 +146,6 @@ begin
   LoadFrameData;
 end;
 
-function TfmETKGUISysPreview.DoSelectEmulator(aEmulator:
-  cEmutecaEmulator): boolean;
-begin
-  Result := True;
-
-  Self.CurrentEmu := aEmulator;
-end;
-
 procedure TfmETKGUISysPreview.DoLoadGUIIcons(aIconsIni: TIniFile;
   const aBaseFolder: string);
 begin
@@ -171,7 +161,7 @@ constructor TfmETKGUISysPreview.Create(TheOwner: TComponent);
   begin
     FfEmulatorCBX := TfmETKGUIIcnEmuCBX.Create(pEmulator);
 
-    fEmulatorCBX.OnSelectEmulator := @DoSelectEmulator;
+    fEmulatorCBX.OnSelectEmulator := @SetCurrentEmu;
     fEmulatorCBX.Align := alClient;
     fEmulatorCBX.Parent := pEmulator;
   end;
@@ -205,8 +195,7 @@ begin
   FGUIConfigIni := SetAsFile(AValue);
 end;
 
-procedure TfmETKGUISysPreview.SetCurrentEmu(
-  const aCurrentEmu: cEmutecaEmulator);
+procedure TfmETKGUISysPreview.SetCurrentEmu(aCurrentEmu: cEmutecaEmulator);
 begin
   if FCurrentEmu = aCurrentEmu then
     Exit;

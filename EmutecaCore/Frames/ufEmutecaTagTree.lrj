@@ -1,0 +1,13 @@
+{"version":1,"strings":[
+{"hash":44894978,"name":"tfmemutecatagtree.actaddrootfolder.caption","sourcebytes":[65,100,100,32,82,111,111,116,32,70,111,108,100,101,114],"value":"Add Root Folder"},
+{"hash":29529861,"name":"tfmemutecatagtree.actaddrootfile.caption","sourcebytes":[65,100,100,32,82,111,111,116,32,70,105,108,101],"value":"Add Root File"},
+{"hash":259289138,"name":"tfmemutecatagtree.actaddsubfolder.caption","sourcebytes":[65,100,100,32,83,117,98,102,111,108,100,101,114],"value":"Add Subfolder"},
+{"hash":174378069,"name":"tfmemutecatagtree.actaddfile.caption","sourcebytes":[65,100,100,32,70,105,108,101],"value":"Add File"},
+{"hash":56380471,"name":"tfmemutecatagtree.actaddgroup2tagfile.caption","sourcebytes":[65,100,100,32,71,114,111,117,112,32,116,111,32,84,97,103],"value":"Add Group to Tag"},
+{"hash":106909831,"name":"tfmemutecatagtree.actremovegroupfromfile.caption","sourcebytes":[82,101,109,111,118,101,32,71,114,111,117,112,32,102,114,111,109,32,84,97,103],"value":"Remove Group from Tag"},
+{"hash":66642757,"name":"tfmemutecatagtree.actremovetagfile.caption","sourcebytes":[82,101,109,111,118,101,32,84,97,103,32,70,105,108,101],"value":"Remove Tag File"},
+{"hash":202549730,"name":"tfmemutecatagtree.actrenamefolder.caption","sourcebytes":[82,101,110,97,109,101,32,70,111,108,100,101,114],"value":"Rename Folder"},
+{"hash":236511474,"name":"tfmemutecatagtree.actdeletefolder.caption","sourcebytes":[68,101,108,101,116,101,32,70,111,108,100,101,114],"value":"Delete Folder"},
+{"hash":53218469,"name":"tfmemutecatagtree.actrenamefile.caption","sourcebytes":[82,101,110,97,109,101,32,70,105,108,101],"value":"Rename File"},
+{"hash":171839205,"name":"tfmemutecatagtree.actdeletefile.caption","sourcebytes":[68,101,108,101,116,101,32,70,105,108,101],"value":"Delete File"}
+]}

@@ -207,7 +207,7 @@ type
     procedure SetCacheGrpIconsThread(AValue: ctEGUICacheGrpIcons);
     procedure SetCacheSoftIconsThread(AValue: ctEGUICacheSoftIcons);
     procedure SetCacheSysIconsThread(AValue: ctEGUICacheSysIcons);
-    procedure SetCurrentEmu(const aCurrentEmu: cEmutecaEmulator);
+    procedure SetCurrentEmu(aCurrentEmu: cEmutecaEmulator);
     procedure SetCurrentGroup(AValue: cEmutecaGroup);
     procedure SetCurrentSoft(AValue: cEmutecaSoftware);
     procedure SetCurrentSystem(AValue: cEmutecaSystem);
@@ -275,18 +275,14 @@ type
     procedure LoadSearchLinks;
     procedure SearchInInternet(Sender: TObject);
 
-    function RunSoftware(aSoftware: cEmutecaSoftware): boolean;
+    procedure RunSoftware(aSoftware: cEmutecaSoftware);
     //< Run a software
 
     function DoProgressBar(const Title, Info: string;
       const Value, MaxValue: int64; const IsCancelable: boolean): boolean;
     //< Progress bar call back
 
-    function DoChangeSystem(aSystem: cEmutecaSystem): boolean;
-    function DoChangeGrpList(aGroupList: cEmutecaGroupList): boolean;
-    function DoChangeGroup(aGroup: cEmutecaGroup): boolean;
-    function DoChangeSoft(aSoft: cEmutecaSoftware): boolean;
-    function DoChangeEmu(aEmulator: cEmutecaEmulator): boolean;
+    procedure DoChangeGrpList(aGroupList: cEmutecaGroupList);
 
     procedure DoLoadGUIIcons(aIniFile: TIniFile;
       const aBaseFolder: string); virtual;
@@ -322,8 +318,13 @@ begin
     Exit;
   FCurrentGroup := AValue;
 
+  mimmGroup.Enabled := Assigned(CurrentGroup);
+
   if Assigned(CurrentGroup) then
+  begin
     LoadSoftIcons(CurrentGroup.SoftList);
+    CurrentSystem := cEmutecaSystem(CurrentGroup.CachedSystem);
+  end;
 end;
 
 procedure TfrmETKGUIMain.FormCreate(Sender: TObject);
@@ -383,12 +384,12 @@ begin
 
   // Creating main frame
   FfmEmutecaMainFrame := TfmETKGUIMain.Create(Self);
-  fmEmutecaMainFrame.OnSystemChanged := @DoChangeSystem;
+  fmEmutecaMainFrame.OnSystemChanged := @SetCurrentSystem;
   fmEmutecaMainFrame.OnGrpListChanged := @DoChangeGrpList;
-  fmEmutecaMainFrame.OnGroupChanged := @DoChangeGroup;
-  fmEmutecaMainFrame.OnSoftChanged := @DoChangeSoft;
+  fmEmutecaMainFrame.OnGroupChanged := @SetCurrentGroup;
+  fmEmutecaMainFrame.OnSoftChanged := @SetCurrentSoft;
   fmEmutecaMainFrame.OnSoftDblClk := @RunSoftware;
-  fmEmutecaMainFrame.OnEmulatorChanged := @DoChangeEmu;
+  fmEmutecaMainFrame.OnEmulatorChanged := @SetCurrentEmu;
   fmEmutecaMainFrame.pmGroup := pmGroup;
   fmEmutecaMainFrame.pmSoft := pmSoft;
   fmEmutecaMainFrame.DumpIcons := DumpIcons;
@@ -745,7 +746,7 @@ begin
   FCacheSysIconsThread := AValue;
 end;
 
-procedure TfrmETKGUIMain.SetCurrentEmu(const aCurrentEmu: cEmutecaEmulator);
+procedure TfrmETKGUIMain.SetCurrentEmu(aCurrentEmu: cEmutecaEmulator);
 begin
   if FCurrentEmu = aCurrentEmu then
     Exit;
@@ -759,6 +760,13 @@ begin
   if FCurrentSoft = AValue then
     Exit;
   FCurrentSoft := AValue;
+
+  mimmSoft.Enabled := Assigned(CurrentSoft);
+
+  if Assigned(CurrentSoft) then
+    CurrentGroup := cEmutecaGroup(CurrentSoft.CachedGroup)
+  else
+    CurrentGroup := nil;
 end;
 
 procedure TfrmETKGUIMain.SetCurrentSystem(AValue: cEmutecaSystem);
@@ -766,6 +774,11 @@ begin
   if FCurrentSystem = AValue then
     Exit;
   FCurrentSystem := AValue;
+
+  CurrentSoft := nil;
+  CurrentGroup := nil;
+
+  mimmSystem.Enabled := Assigned(CurrentSystem);
 end;
 
 procedure TfrmETKGUIMain.SetGUIIconsFile(AValue: string);
@@ -926,9 +939,8 @@ begin
   // Teminate if it's running
   if assigned(CacheGrpIconsThread) then
   begin
-    CacheGrpIconsThread.OnTerminate := nil;
     CacheGrpIconsThread.Terminate;
-    // CacheGrpIconsThread.WaitFor; Don't wait
+    CacheGrpIconsThread.WaitFor;
   end;
   // Auto freed with FreeOnTerminate and nil
 
@@ -1151,11 +1163,10 @@ begin
   OpenURL(TempStr);
 end;
 
-function TfrmETKGUIMain.RunSoftware(aSoftware: cEmutecaSoftware): boolean;
+procedure TfrmETKGUIMain.RunSoftware(aSoftware: cEmutecaSoftware);
 var
   aError: integer;
 begin
-  Result := False;
   aError := Emuteca.RunSoftware(aSoftware);
 
   case aError of
@@ -1192,8 +1203,6 @@ begin
       ShowMessageFmt(rsRunSoftwareExitCode, [aError]);
     end;
   end;
-
-  Result := aError = 0;
 end;
 
 function TfrmETKGUIMain.DoProgressBar(const Title, Info: string;
@@ -1204,50 +1213,12 @@ begin
     MaxValue, IsCancelable);
 end;
 
-function TfrmETKGUIMain.DoChangeSystem(aSystem: cEmutecaSystem): boolean;
+procedure TfrmETKGUIMain.DoChangeGrpList(aGroupList: cEmutecaGroupList);
 begin
-  Result := True;
   CurrentSoft := nil;
   CurrentGroup := nil;
-  CurrentSystem := aSystem;
 
-  mimmSystem.Enabled := Assigned(aSystem);
-end;
-
-function TfrmETKGUIMain.DoChangeGrpList(aGroupList:
-  cEmutecaGroupList): boolean;
-begin
-  Result := True;
   LoadGrpIcons(aGroupList);
-end;
-
-function TfrmETKGUIMain.DoChangeGroup(aGroup: cEmutecaGroup): boolean;
-begin
-  Result := True;
-
-  mimmGroup.Enabled := Assigned(aGroup);
-
-  if Assigned(aGroup) then
-    Result := DoChangeSystem(cEmutecaSystem(aGroup.CachedSystem));
-  CurrentGroup := aGroup;
-end;
-
-function TfrmETKGUIMain.DoChangeSoft(aSoft: cEmutecaSoftware): boolean;
-begin
-  Result := True;
-
-  mimmSoft.Enabled := Assigned(aSoft);
-
-  if Assigned(aSoft) then
-    Result := DoChangeGroup(cEmutecaGroup(aSoft.CachedGroup));
-  CurrentSoft := aSoft;
-end;
-
-function TfrmETKGUIMain.DoChangeEmu(aEmulator: cEmutecaEmulator): boolean;
-begin
-  Result := True;
-
-  CurrentEmu := aEmulator;
 end;
 
 procedure TfrmETKGUIMain.DoLoadGUIIcons(aIniFile: TIniFile;

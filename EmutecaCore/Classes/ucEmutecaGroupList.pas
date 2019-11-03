@@ -41,14 +41,16 @@ type
     }
   end;
 
-  TEmutecaReturnGrpLstCB = function(aGroupList: cEmutecaGroupList): boolean of object;
+  TEmutecaGrpLstCB = procedure(aGroupList: cEmutecaGroupList) of object;
 
-  function EmutecaCompareGroupsByID(const aGroup1, aGroup2: cEmutecaGroup): integer;
+function EmutecaCompareGroupsByID(
+  const aGroup1, aGroup2: cEmutecaGroup): integer;
 
 
 implementation
 
-function EmutecaCompareGroupsByID(const aGroup1, aGroup2: cEmutecaGroup): integer;
+function EmutecaCompareGroupsByID(
+  const aGroup1, aGroup2: cEmutecaGroup): integer;
 begin
   Result := aGroup1.CompareID(aGroup2.ID);
 end;
@@ -60,7 +62,7 @@ var
   i: integer;
   aGroup: cEmutecaGroup;
 begin
-    if not assigned(aStrList) then
+  if not assigned(aStrList) then
     aStrList := TStringList.Create;
 
   aStrList.BeginUpdate;
@@ -94,4 +96,3 @@ begin
 end;
 
 end.
-

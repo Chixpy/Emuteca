@@ -89,18 +89,18 @@ type
     FGUIConfigFile: string;
     FIconsIniFile: string;
     FOnDblClkGroup: TEmutecaReturnGroupCB;
-    FOnDblClkSoft: TEmutecaReturnSoftCB;
+    FOnDblClkSoft: TEmutecaSoftCB;
     FOnSelectGroup: TEmutecaReturnGroupCB;
-    FOnSelectSoft: TEmutecaReturnSoftCB;
+    FOnSelectSoft: TEmutecaSoftCB;
     FpmGroup: TPopupMenu;
     FpmSoft: TPopupMenu;
     procedure SetGroupList(AValue: cEmutecaGroupList);
     procedure SetGUIConfigFile(AValue: string);
     procedure SetIconsIniFile(AValue: string);
     procedure SetOnDblClkGroup(AValue: TEmutecaReturnGroupCB);
-    procedure SetOnDblClkSoft(AValue: TEmutecaReturnSoftCB);
+    procedure SetOnDblClkSoft(AValue: TEmutecaSoftCB);
     procedure SetOnSelectGroup(AValue: TEmutecaReturnGroupCB);
-    procedure SetOnSelectSoft(AValue: TEmutecaReturnSoftCB);
+    procedure SetOnSelectSoft(AValue: TEmutecaSoftCB);
     procedure SetpmGroup(AValue: TPopupMenu);
     procedure SetpmSoft(AValue: TPopupMenu);
 
@@ -131,10 +131,10 @@ type
     {< Callback when a group is double clicked.
 
       Automatically group childs are expanded. }
-    property OnSelectSoft: TEmutecaReturnSoftCB
+    property OnSelectSoft: TEmutecaSoftCB
       read FOnSelectSoft write SetOnSelectSoft;
     {< Callback when a software is selected. }
-    property OnDblClkSoft: TEmutecaReturnSoftCB
+    property OnDblClkSoft: TEmutecaSoftCB
       read FOnDblClkSoft write SetOnDblClkSoft;
     {< Callback when a software is double clicked. }
 
@@ -787,7 +787,7 @@ begin
   FOnDblClkGroup := AValue;
 end;
 
-procedure TfmEmutecaSoftTree.SetOnDblClkSoft(AValue: TEmutecaReturnSoftCB);
+procedure TfmEmutecaSoftTree.SetOnDblClkSoft(AValue: TEmutecaSoftCB);
 begin
   if FOnDblClkSoft = AValue then
     Exit;
@@ -801,7 +801,7 @@ begin
   FOnSelectGroup := AValue;
 end;
 
-procedure TfmEmutecaSoftTree.SetOnSelectSoft(AValue: TEmutecaReturnSoftCB);
+procedure TfmEmutecaSoftTree.SetOnSelectSoft(AValue: TEmutecaSoftCB);
 begin
   if FOnSelectSoft = AValue then
     Exit;
@@ -899,7 +899,7 @@ end;
 procedure TfmEmutecaSoftTree.UpdateSBNodeCount;
 begin
   StatusBar.Panels[0].Text :=
-    Format(rsFmtNItems, [VDT.RootNodeCount, VDT.VisibleCount]);
+    Format(rsFmtNItems, [VDT.RootNodeCount]);
 end;
 
 procedure TfmEmutecaSoftTree.SetNodesHeight(Sender: TBaseVirtualTree;

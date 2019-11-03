@@ -62,7 +62,7 @@ type
     property fmGroupEditor: TfmEmutecaGroupEditor read FfmGroupEditor;
     property fmSoftEditor: TfmEmutecaSoftEditor read FfmSoftEditor;
 
-    function SelectGroup(aGroup: cEmutecaGroup): boolean;
+    procedure SelectGroup(aGroup: cEmutecaGroup);
 
     // procedure DoClearFrameData;
     procedure DoLoadFrameData;
@@ -179,9 +179,8 @@ begin
   LoadFrameData;
 end;
 
-function TfmETKGUIFullSoftEditor.SelectGroup(aGroup: cEmutecaGroup): boolean;
+procedure TfmETKGUIFullSoftEditor.SelectGroup(aGroup: cEmutecaGroup);
 begin
-  Result := True;
   fmGroupEditor.Group := aGroup;
 end;
 

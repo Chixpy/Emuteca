@@ -106,7 +106,7 @@ type
 
   end;
 
-  TEmutecaReturnSystemCB = function(aSystem: cEmutecaSystem): boolean of
+  TEmutecaReturnSystemCB = procedure(aSystem: cEmutecaSystem) of
     object;
 {< For CallBack functions }
 

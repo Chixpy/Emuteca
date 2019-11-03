@@ -68,6 +68,7 @@ type
     Splitter1: TSplitter;
     Splitter2: TSplitter;
     procedure eSearchEditingDone(Sender: TObject);
+
   private
     FCurrentGroup: cEmutecaGroup;
     FCurrentSoft: cEmutecaSoftware;
@@ -83,9 +84,9 @@ type
     FGUIConfig: cETKGUIConfig;
     FOnEmulatorChanged: TEmutecaReturnEmulatorCB;
     FOnGroupChanged: TEmutecaReturnGroupCB;
-    FOnGrpListChanged: TEmutecaReturnGrpLstCB;
-    FOnSoftChanged: TEmutecaReturnSoftCB;
-    FOnSoftDblClk: TEmutecaReturnSoftCB;
+    FOnGrpListChanged: TEmutecaGrpLstCB;
+    FOnSoftChanged: TEmutecaSoftCB;
+    FOnSoftDblClk: TEmutecaSoftCB;
     FOnSystemChanged: TEmutecaReturnSystemCB;
     FpmGroup: TPopupMenu;
     FpmSoft: TPopupMenu;
@@ -100,9 +101,9 @@ type
     procedure SetOnEmulatorChanged(
       const aOnEmulatorChanged: TEmutecaReturnEmulatorCB);
     procedure SetOnGroupChanged(AValue: TEmutecaReturnGroupCB);
-    procedure SetOnGrpListChanged(AValue: TEmutecaReturnGrpLstCB);
-    procedure SetOnSoftChanged(AValue: TEmutecaReturnSoftCB);
-    procedure SetOnSoftDblClk(AValue: TEmutecaReturnSoftCB);
+    procedure SetOnGrpListChanged(AValue: TEmutecaGrpLstCB);
+    procedure SetOnSoftChanged(AValue: TEmutecaSoftCB);
+    procedure SetOnSoftDblClk(AValue: TEmutecaSoftCB);
     procedure SetOnSystemChanged(AValue: TEmutecaReturnSystemCB);
     procedure SetpmGroup(AValue: TPopupMenu);
     procedure SetpmSoft(AValue: TPopupMenu);
@@ -111,7 +112,7 @@ type
 
   protected
 
-    procedure UpdateGroupList;
+    procedure UpdateGroupList(aList: TStrings);
 
     property CurrentSoft: cEmutecaSoftware
       read FCurrentSoft write SetCurrentSoft;
@@ -130,18 +131,10 @@ type
     property fmSoftMedia: TfmETKGUISoftMedia read FfmSoftMedia;
     property fmSoftTree: TfmETKGUIIcnSoftTree read FfmSoftTree;
 
-    function DoSelectSystem(aSystem: cEmutecaSystem): boolean;
-    //< Select a system
-    function DoSelectGroup(aGroup: cEmutecaGroup): boolean;
-    //< Select a group
-    function DoSelectSoftware(aSoftware: cEmutecaSoftware): boolean;
-    //< Select a software
-    function DoDblClkSoftware(aSoftware: cEmutecaSoftware): boolean;
+    procedure DoDblClkSoftware(aSoftware: cEmutecaSoftware);
     //< Double click on Software
-    function DoSelectEmu(aEmulator: cEmutecaEmulator): boolean;
+    procedure DoSelectEmu(aEmulator: cEmutecaEmulator);
     //< Select a emulator
-    procedure CheckTags(aList: TStrings);
-    //< Check Tags
 
     procedure DoClearFrameData;
     procedure DoLoadFrameData;
@@ -163,14 +156,14 @@ type
 
     property OnSystemChanged: TEmutecaReturnSystemCB
       read FOnSystemChanged write SetOnSystemChanged;
-    property OnGrpListChanged: TEmutecaReturnGrpLstCB
+    property OnGrpListChanged: TEmutecaGrpLstCB
       read FOnGrpListChanged write SetOnGrpListChanged;
     property OnGroupChanged: TEmutecaReturnGroupCB
       read FOnGroupChanged write SetOnGroupChanged;
     {< Callback when selecting a group. }
-    property OnSoftChanged: TEmutecaReturnSoftCB
+    property OnSoftChanged: TEmutecaSoftCB
       read FOnSoftChanged write SetOnSoftChanged;
-    property OnSoftDblClk: TEmutecaReturnSoftCB
+    property OnSoftDblClk: TEmutecaSoftCB
       read FOnSoftDblClk write SetOnSoftDblClk;
     property OnEmulatorChanged: TEmutecaReturnEmulatorCB
       read FOnEmulatorChanged write SetOnEmulatorChanged;
@@ -200,20 +193,23 @@ end;
 
 procedure TfmETKGUIMain.eSearchEditingDone(Sender: TObject);
 begin
-  UpdateGroupList;
+  UpdateGroupList(fmCHXTagTree.CheckedList);
 end;
 
 procedure TfmETKGUIMain.SetCurrentGroup(AValue: cEmutecaGroup);
 begin
+  CurrentSoft := nil;
+
   if FCurrentGroup = AValue then
     Exit;
   FCurrentGroup := AValue;
 
   fmSoftEditor.Group := CurrentGroup;
   fmSoftMedia.Group := CurrentGroup;
+  fmCHXTagTree.CurrentGroup := CurrentGroup;
 
   if assigned(OnGroupChanged) then
-    {var :=} OnGroupChanged(CurrentGroup);
+    OnGroupChanged(CurrentGroup);
 
   if Assigned(CurrentGroup) then
     fmSystemPanel.System := cEmutecaSystem(CurrentGroup.CachedSystem);
@@ -225,23 +221,26 @@ begin
     Exit;
   FCurrentSoft := AValue;
 
+  if assigned(OnSoftChanged) then
+    OnSoftChanged(CurrentSoft);
+
   fmSoftEditor.Software := CurrentSoft;
   fmSoftMedia.Software := CurrentSoft;
 
-  if assigned(OnSoftChanged) then
-    {var :=} OnSoftChanged(CurrentSoft);
-
   if Assigned(CurrentSoft) then
+  begin
     fmSystemPanel.System := cEmutecaSystem(CurrentSoft.CachedSystem);
+    fmCHXTagTree.CurrentGroup := cEmutecaGroup(CurrentSoft.CachedGroup);
+  end;
 end;
 
 procedure TfmETKGUIMain.SetCurrentSystem(AValue: cEmutecaSystem);
 begin
+  CurrentGroup:= nil;
+
   if FCurrentSystem = AValue then
     Exit;
   FCurrentSystem := AValue;
-
-  UpdateGroupList;
 
   if Assigned(CurrentSystem) then
   begin
@@ -252,13 +251,10 @@ begin
     GUIConfig.CurrSystem := '';
   end;
 
-
-  // TODO: Using fmSoftTree.GroupList is dirty...
-  if assigned(OnGrpListChanged) then
-    {var :=} OnGrpListChanged(fmSoftTree.GroupList);
-
   if assigned(OnSystemChanged) then
-    {var :=} OnSystemChanged(CurrentSystem);
+    OnSystemChanged(CurrentSystem);
+
+  UpdateGroupList(fmCHXTagTree.CheckedList);
 
   fmSystemPanel.System := CurrentSystem;
 end;
@@ -278,7 +274,7 @@ begin
 
     fmSoftMedia.TempFolder := Emuteca.TempFolder;
 
-    fmCHXTagTree.Folder :=
+    fmCHXTagTree.TagsFolder :=
       SetAsAbsoluteFile(Emuteca.Config.TagsFolder, Emuteca.BaseFolder);
     // fmSoftTree.GroupList set by DoSelectSystem;
 
@@ -286,7 +282,7 @@ begin
   else
   begin
     fmEmutecaSystemCBX.SystemList := nil;
-    fmCHXTagTree.Folder := '';
+    fmCHXTagTree.TagsFolder := '';
     fmSoftTree.GroupList := nil;
     fmSoftEditor.Software := nil;
     fmSoftMedia.TempFolder := '';
@@ -329,21 +325,21 @@ begin
   FOnGroupChanged := AValue;
 end;
 
-procedure TfmETKGUIMain.SetOnGrpListChanged(AValue: TEmutecaReturnGrpLstCB);
+procedure TfmETKGUIMain.SetOnGrpListChanged(AValue: TEmutecaGrpLstCB);
 begin
   if FOnGrpListChanged = AValue then
     Exit;
   FOnGrpListChanged := AValue;
 end;
 
-procedure TfmETKGUIMain.SetOnSoftChanged(AValue: TEmutecaReturnSoftCB);
+procedure TfmETKGUIMain.SetOnSoftChanged(AValue: TEmutecaSoftCB);
 begin
   if FOnSoftChanged = AValue then
     Exit;
   FOnSoftChanged := AValue;
 end;
 
-procedure TfmETKGUIMain.SetOnSoftDblClk(AValue: TEmutecaReturnSoftCB);
+procedure TfmETKGUIMain.SetOnSoftDblClk(AValue: TEmutecaSoftCB);
 begin
   if FOnSoftDblClk = AValue then
     Exit;
@@ -394,63 +390,35 @@ begin
   fmSoftTree.ZoneIconMap := ZoneIcons;
 end;
 
-procedure TfmETKGUIMain.UpdateGroupList;
+procedure TfmETKGUIMain.UpdateGroupList(aList: TStrings);
 begin
   Emuteca.UpdateCurrentGroupList(CurrentSystem, eSearch.Text,
-    fmCHXTagTree.TagsIni);
-  Emuteca.CacheData;
-
+    aList);
   fmSoftTree.GroupList := nil; // Forcing clearing tree
+
+  if assigned(OnGrpListChanged) then
+    OnGrpListChanged(Emuteca.CurrentGroupList);
+
   if assigned(Emuteca) then
   begin
     fmSoftTree.GroupList := Emuteca.CurrentGroupList;
   end;
+
 end;
 
-function TfmETKGUIMain.DoSelectSystem(aSystem: cEmutecaSystem): boolean;
+procedure TfmETKGUIMain.DoDblClkSoftware(aSoftware: cEmutecaSoftware);
 begin
-  Result := DoSelectGroup(nil);
-
-  CurrentSystem := aSystem;
-end;
-
-function TfmETKGUIMain.DoSelectGroup(aGroup: cEmutecaGroup): boolean;
-begin
-  Result := DoSelectSoftware(nil);
-
-  CurrentGroup := aGroup;
-end;
-
-function TfmETKGUIMain.DoSelectSoftware(aSoftware: cEmutecaSoftware): boolean;
-begin
-  Result := True;
-
-  CurrentSoft := aSoftware;
-end;
-
-function TfmETKGUIMain.DoDblClkSoftware(aSoftware: cEmutecaSoftware): boolean;
-begin
-  Result := True;
-
   if assigned(OnSoftDblClk) then
-    Result := OnSoftDblClk(aSoftware);
+    OnSoftDblClk(aSoftware);
 end;
 
-function TfmETKGUIMain.DoSelectEmu(aEmulator: cEmutecaEmulator): boolean;
+procedure TfmETKGUIMain.DoSelectEmu(aEmulator: cEmutecaEmulator);
 begin
-  Result := True;
-
   if Assigned(CurrentSystem) then
     CurrentSystem.CurrentEmulator := aEmulator;
 
   if Assigned(OnEmulatorChanged) then
-    Result := OnEmulatorChanged(aEmulator);
-end;
-
-procedure TfmETKGUIMain.CheckTags(aList: TStrings);
-begin
-  fmCHXTagTree.UpdateTagsIni;
-  UpdateGroupList;
+    OnEmulatorChanged(aEmulator);
 end;
 
 procedure TfmETKGUIMain.DoClearFrameData;
@@ -471,7 +439,7 @@ begin
   fmEmutecaSystemCBX.SelectedSystem :=
     fmEmutecaSystemCBX.SystemList.ItemById(GUIConfig.CurrSystem);
 
-  DoSelectSystem(fmEmutecaSystemCBX.SelectedSystem);
+  CurrentSystem := fmEmutecaSystemCBX.SelectedSystem;
 end;
 
 procedure TfmETKGUIMain.DoLoadGUIConfig(aIniFile: TIniFile);
@@ -506,7 +474,7 @@ constructor TfmETKGUIMain.Create(TheOwner: TComponent);
     fmEmutecaSystemCBX.cbxSystem.Height := 32;
     fmEmutecaSystemCBX.cbxSystem.ItemHeight := 32;
     fmEmutecaSystemCBX.FirstItem := ETKSysCBXFIAll;
-    fmEmutecaSystemCBX.OnSelectSystem := @DoSelectSystem;
+    fmEmutecaSystemCBX.OnSelectSystem := @SetCurrentSystem;
     fmEmutecaSystemCBX.Parent := pMiddle;
 
     // Creating System Panel
@@ -521,7 +489,7 @@ constructor TfmETKGUIMain.Create(TheOwner: TComponent);
     aTabSheet := pcLeft.AddTabSheet;
     FfmCHXTagTree := TfmEmutecaTagTree.Create(aTabSheet);
     aTabSheet.Caption := rsTagsCaption;
-    fmCHXTagTree.OnCheckChange := @CheckTags;
+    fmCHXTagTree.OnCheckChange := @UpdateGroupList;
     fmCHXTagTree.Align := alClient;
     fmCHXTagTree.Parent := aTabSheet;
 
@@ -543,8 +511,8 @@ constructor TfmETKGUIMain.Create(TheOwner: TComponent);
 
     // Creating SoftTree frame
     FfmSoftTree := TfmETKGUIIcnSoftTree.Create(pMain);
-    fmSoftTree.OnSelectGroup := @DoSelectGroup;
-    fmSoftTree.OnSelectSoft := @DoSelectSoftware;
+    fmSoftTree.OnSelectGroup := @SetCurrentGroup;
+    fmSoftTree.OnSelectSoft := @SetCurrentSoft;
     fmSoftTree.OnDblClkSoft := @DoDblClkSoftware;
     fmSoftTree.Align := alClient;
     fmSoftTree.Parent := pMain;

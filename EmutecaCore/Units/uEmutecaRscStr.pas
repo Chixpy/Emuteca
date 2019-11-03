@@ -109,11 +109,7 @@ resourcestring
   // Formated statistics
   rsFmtNGroups = '%0:d groups';
   rsFmtNVersions = '%0:d versions.';
-  rsFmtNItems = '%1:d visible of %0:d items.';
-  {<
-     %0:d = Number of items.
-     %1:d = Number of visible items.
-  }
+  rsFmtNItems = '%0:d items.';
   rsFmtNTimes = '%0:d times.';
 {< %0:d = Number of times. }
 

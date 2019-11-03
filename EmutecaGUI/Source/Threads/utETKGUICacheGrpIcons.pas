@@ -1,4 +1,5 @@
 unit utETKGUICacheGrpIcons;
+
 {< ctEGUICacheGrpIcons thread class unit of Emuteca GUI.
 
   ----
@@ -112,13 +113,15 @@ begin
   begin
     aGroup := GroupList[i];
 
-    aIcon := aGroup.Stats.Icon;
+    if not Assigned(aGroup.Stats.Icon) then
     begin
       TempStr := EmuTKSearchFirstRelatedFile(aGroup.CachedSystem.IconFolder,
         aGroup.MediaFileName, ImageExt, True, True, TempFolder);
 
       if FileExistsUTF8(TempStr) then
       begin
+      if Terminated then
+          Exit;
         aIcon := IconList[IconList.AddImageFile(TempStr)];
       end
       else
@@ -131,48 +134,48 @@ begin
       if Terminated then
         Exit;
       aGroup.Stats.Icon := aIcon;
+    end;
 
-      // If group have only one software, search its icon.
-      // ufETKGUIIcnSoftTree shows straight its child.
-      if aGroup.SoftList.Count = 1 then
+    // If group have only one software, search its icon.
+    // ufETKGUIIcnSoftTree shows straight its child.
+    if aGroup.SoftList.Count = 1 then
+    begin
+      aSoft := aGroup.SoftList[0];
+
+      if not Assigned(aSoft.Stats.Icon) then
       begin
-        aSoft := aGroup.SoftList[0];
-
-        if not Assigned(aSoft.Stats.Icon) then
+        if aSoft.MatchGroupFile then
         begin
-          if aSoft.MatchGroupFile then
-          begin
-            // Same icon as group
-            if Terminated then
-              Exit;
+          // Same icon as group
+          if Terminated then
+            Exit;
             { Don't use:
                 aSoft.Stats.Icon := aGroup.Stats.Icon;
 
               May be group can be a publisher, year or something
             }
-            aSoft.Stats.Icon := aSoft.CachedGroup.Stats.Icon;
+          aSoft.Stats.Icon := aSoft.CachedGroup.Stats.Icon;
+        end
+        else
+        begin
+          if Terminated then
+            Exit;
+          TempStr :=
+            EmuTKSearchFirstRelatedFile(aSoft.CachedSystem.IconFolder,
+            aSoft.GetMediaFileName, ImageExt, True, True, TempFolder);
+
+          if FileExistsUTF8(TempStr) then
+          begin
+            aIcon := IconList[IconList.AddImageFile(TempStr)];
           end
           else
           begin
-            if Terminated then
-              Exit;
-            TempStr :=
-              EmuTKSearchFirstRelatedFile(aSoft.CachedSystem.IconFolder,
-              aSoft.GetMediaFileName, ImageExt, True, True, TempFolder);
-
-            if FileExistsUTF8(TempStr) then
-            begin
-              aIcon := IconList[IconList.AddImageFile(TempStr)];
-            end
-            else
-            begin
-              aIcon := aSoft.CachedGroup.Stats.Icon;
-            end;
-
-            if Terminated then
-              Exit;
-            aSoft.Stats.Icon := aIcon;
+            aIcon := aSoft.CachedGroup.Stats.Icon;
           end;
+
+          if Terminated then
+            Exit;
+          aSoft.Stats.Icon := aIcon;
         end;
       end;
     end;

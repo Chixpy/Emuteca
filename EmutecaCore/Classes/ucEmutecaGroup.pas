@@ -52,7 +52,7 @@ type
   published
   end;
 
-  TEmutecaReturnGroupCB = function(aGroup: cEmutecaGroup): boolean of
+  TEmutecaReturnGroupCB = procedure(aGroup: cEmutecaGroup) of
     object;
 
 implementation

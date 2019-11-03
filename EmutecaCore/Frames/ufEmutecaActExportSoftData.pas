@@ -71,7 +71,6 @@ type
 
 
     property System: cEmutecaSystem read FSystem write SetSystem;
-    function SelectSystem(aSystem: cEmutecaSystem): boolean;
 
     procedure DoClearFrameData;
     procedure DoLoadFrameData;
@@ -169,13 +168,6 @@ begin
   end;
 end;
 
-function TfmEmutecaActExportSoftData.SelectSystem(aSystem: cEmutecaSystem): boolean;
-begin
-  Result := True;
-
-  System := aSystem;
-end;
-
 procedure TfmEmutecaActExportSoftData.DoClearFrameData;
 begin
   eSoftIDType.Clear;
@@ -254,7 +246,7 @@ constructor TfmEmutecaActExportSoftData.Create(TheOwner: TComponent);
     FfmSystemCBX := TfmEmutecaSystemCBX.Create(pSelectSystem);
     fmSystemCBX.Align := alTop;
     fmSystemCBX.FirstItem := ETKSysCBXFISelect;
-    fmSystemCBX.OnSelectSystem := @SelectSystem;
+    fmSystemCBX.OnSelectSystem := @SetSystem;
     fmSystemCBX.Parent := pSelectSystem;
 
     FfmProgressBar := TfmCHXProgressBar.SimpleForm('');

@@ -68,7 +68,7 @@ type
   protected
     property fmSystemCBX: TfmEmutecaSystemCBX read FfmSystemCBX;
 
-    function SelectSystem(aSystem: cEmutecaSystem): boolean;
+    procedure SelectSystem(aSystem: cEmutecaSystem);
 
     procedure DoLoadFrameData;
     procedure DoSaveFrameData;
@@ -111,10 +111,8 @@ begin
   LoadFrameData;
 end;
 
-function TfmEmutecaActAddFolder.SelectSystem(aSystem: cEmutecaSystem): boolean;
+procedure TfmEmutecaActAddFolder.SelectSystem(aSystem: cEmutecaSystem);
 begin
-  Result := False;
-
   eSystemExtensions.Text := '';
   eSystemExportKey.Text := '';
   eFolder.Text := '';

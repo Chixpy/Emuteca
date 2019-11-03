@@ -129,7 +129,8 @@ procedure TfmETKGUIIcnSoftTree.VDTDrawText(Sender: TBaseVirtualTree;
         IconRect := CellRect;
         IconRect.Right := IconRect.Left + IconRect.Bottom - IconRect.Top;
 
-        aIcon := aGroup.Stats.Icon;
+        if assigned(aGroup) then
+          aIcon := aGroup.Stats.Icon;
         if assigned(aIcon) then
           TargetCanvas.StretchDraw(CorrectAspectRatio(IconRect, aIcon),
             aIcon.Graphic);
@@ -183,7 +184,8 @@ procedure TfmETKGUIIcnSoftTree.VDTDrawText(Sender: TBaseVirtualTree;
         IconRect := CellRect;
         IconRect.Right := IconRect.Left + IconRect.Bottom - IconRect.Top;
 
-        aIcon := aSoft.Stats.Icon;
+        if assigned(aSoft) then
+          aIcon := aSoft.Stats.Icon;
         if assigned(aIcon) then
           TargetCanvas.StretchDraw(CorrectAspectRatio(IconRect, aIcon),
             aIcon.Graphic);

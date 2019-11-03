@@ -74,7 +74,7 @@ type
      It can check if the filenames for media match with groups one.
   }
 
-  TEmutecaReturnSoftCB = function(aSoft: cEmutecaSoftware): boolean of object;
+  TEmutecaSoftCB = procedure(aSoft: cEmutecaSoftware) of object;
 
 implementation
 

@@ -384,6 +384,15 @@ msgctxt "tfmchxscriptmanager.toolbutton2.caption"
 msgid "ToolButton2"
 msgstr ""
 
+#: tfmchxtagtree.actuncheckall.caption
+msgid "Uncheck All"
+msgstr ""
+
+#: tfmchxtagtree.actupdatetagtree.caption
+msgctxt "tfmchxtagtree.actupdatetagtree.caption"
+msgid "Update Tree"
+msgstr ""
+
 #: tfmchxtagtree.vst.header.columns[0].text
 msgctxt "tfmchxtagtree.vst.header.columns[0].text"
 msgid "Title"
@@ -1035,6 +1044,50 @@ msgstr ""
 
 #: tfmemutecasystemmvfeditor.gbxvideofolders.caption
 msgid "Video folders"
+msgstr ""
+
+#: tfmemutecatagtree.actaddfile.caption
+msgid "Add File"
+msgstr ""
+
+#: tfmemutecatagtree.actaddgroup2tagfile.caption
+msgid "Add Group to Tag"
+msgstr ""
+
+#: tfmemutecatagtree.actaddrootfile.caption
+msgid "Add Root File"
+msgstr ""
+
+#: tfmemutecatagtree.actaddrootfolder.caption
+msgid "Add Root Folder"
+msgstr ""
+
+#: tfmemutecatagtree.actaddsubfolder.caption
+msgid "Add Subfolder"
+msgstr ""
+
+#: tfmemutecatagtree.actdeletefile.caption
+msgid "Delete File"
+msgstr ""
+
+#: tfmemutecatagtree.actdeletefolder.caption
+msgid "Delete Folder"
+msgstr ""
+
+#: tfmemutecatagtree.actremovegroupfromfile.caption
+msgid "Remove Group from Tag"
+msgstr ""
+
+#: tfmemutecatagtree.actremovetagfile.caption
+msgid "Remove Tag File"
+msgstr ""
+
+#: tfmemutecatagtree.actrenamefile.caption
+msgid "Rename File"
+msgstr ""
+
+#: tfmemutecatagtree.actrenamefolder.caption
+msgid "Rename Folder"
 msgstr ""
 
 #: tfmetkguiactmergegroup.chkaddtargettolist.caption
@@ -2014,8 +2067,7 @@ msgid "%0:d groups"
 msgstr ""
 
 #: uemutecarscstr.rsfmtnitems
-msgctxt "uemutecarscstr.rsfmtnitems"
-msgid "%1:d visible of %0:d items."
+msgid "%0:d items."
 msgstr ""
 
 #: uemutecarscstr.rsfmtntimes
@@ -2297,6 +2349,50 @@ msgstr ""
 #: ufemutecasystemcbx.rsselectsystem
 msgctxt "ufemutecasystemcbx.rsselectsystem"
 msgid "Select a System"
+msgstr ""
+
+#: ufemutecatagtree.rsaskdelete
+msgid ""
+"Do you want to delete?\n"
+"%0:s\n"
+msgstr ""
+
+#: ufemutecatagtree.rscaptiondeletefile
+msgid "Delete File?"
+msgstr ""
+
+#: ufemutecatagtree.rscaptiondeletefolder
+msgid "Delete Folder?"
+msgstr ""
+
+#: ufemutecatagtree.rscaptionfoldername
+msgid "Folder Name"
+msgstr ""
+
+#: ufemutecatagtree.rscaptiontagsfile
+msgid "Tags File"
+msgstr ""
+
+#: ufemutecatagtree.rsdefaultfilename
+msgctxt "ufemutecatagtree.rsdefaultfilename"
+msgid "Filename"
+msgstr ""
+
+#: ufemutecatagtree.rsdefaultfoldername
+msgctxt "ufemutecatagtree.rsdefaultfoldername"
+msgid "Folder"
+msgstr ""
+
+#: ufemutecatagtree.rswritefoldername
+msgid "Write the folder name"
+msgstr ""
+
+#: ufemutecatagtree.rswritenewtagname
+msgid "Write the new tag name"
+msgstr ""
+
+#: ufemutecatagtree.rswritetagname
+msgid "Write the tag name"
 msgstr ""
 
 #: ufetkguiemumanager.rsemulatorname

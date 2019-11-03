@@ -32,7 +32,7 @@ uses
 type
   cEmutecaEmulator = class(caEmutecaCustomEmu);
 
-  TEmutecaReturnEmulatorCB = function(aEmulator: cEmutecaEmulator): boolean of
+  TEmutecaReturnEmulatorCB = procedure(aEmulator: cEmutecaEmulator) of
     object;
 
 // Emulators don't have anything different from their base abstract class...

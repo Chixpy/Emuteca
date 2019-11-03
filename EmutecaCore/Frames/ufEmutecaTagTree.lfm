@@ -1,4 +1,105 @@
 inherited fmEmutecaTagTree: TfmEmutecaTagTree
   DesignLeft = 814
   DesignTop = 475
+  inherited VST: TVirtualStringTree
+    OnGetPopupMenu = VSTGetPopupMenu
+  end
+  object alEmutecaTagTree: TActionList[4]
+    left = 304
+    top = 152
+    object actAddRootFolder: TAction
+      Category = 'Root'
+      Caption = 'Add Root Folder'
+      OnExecute = actAddRootFolderExecute
+    end
+    object actAddRootFile: TAction
+      Category = 'Root'
+      Caption = 'Add Root File'
+      OnExecute = actAddRootFileExecute
+    end
+    object actAddSubFolder: TAction
+      Category = 'Folder'
+      Caption = 'Add Subfolder'
+      OnExecute = actAddSubFolderExecute
+    end
+    object actAddFile: TAction
+      Category = 'Folder'
+      Caption = 'Add File'
+      OnExecute = actAddFileExecute
+    end
+    object actAddGroup2TagFile: TAction
+      Category = 'File'
+      Caption = 'Add Group to Tag'
+      OnExecute = actAddGroup2TagFileExecute
+    end
+    object actRemoveGroupFromFile: TAction
+      Category = 'File'
+      Caption = 'Remove Group from Tag'
+      OnExecute = actRemoveGroupFromFileExecute
+    end
+    object actRemoveTagFile: TAction
+      Category = 'File'
+      Caption = 'Remove Tag File'
+      OnExecute = actRemoveTagFileExecute
+    end
+    object actRenameFolder: TAction
+      Category = 'Folder'
+      Caption = 'Rename Folder'
+    end
+    object actDeleteFolder: TAction
+      Category = 'Folder'
+      Caption = 'Delete Folder'
+    end
+    object actRenameFile: TAction
+      Category = 'File'
+      Caption = 'Rename File'
+      OnExecute = actRenameFileExecute
+    end
+    object actDeleteFile: TAction
+      Category = 'File'
+      Caption = 'Delete File'
+    end
+  end
+  object pumFile: TPopupMenu[5]
+    left = 112
+    top = 152
+    object mipmAddGroup: TMenuItem
+      Action = actAddGroup2TagFile
+    end
+    object mipmRemoveGroup: TMenuItem
+      Action = actRemoveGroupFromFile
+    end
+    object MenuItem6: TMenuItem
+      Caption = '-'
+    end
+  end
+  object pumFolder: TPopupMenu[6]
+    left = 32
+    top = 152
+    object mipmFAddTagFile: TMenuItem
+      Action = actAddFile
+    end
+    object mipmFAddFolder: TMenuItem
+      Action = actAddSubFolder
+    end
+    object MenuItem2: TMenuItem
+      Caption = '-'
+    end
+    object mipmRenameFolder: TMenuItem
+      Action = actRenameFolder
+    end
+    object mipmDeleteFolder: TMenuItem
+      Action = actDeleteFolder
+    end
+  end
+  object pumRoot: TPopupMenu[7]
+    left = 200
+    top = 152
+    object mipmRAddRootFolder: TMenuItem
+      Action = actAddRootFolder
+    end
+    object mipmRAddRootFile: TMenuItem
+      Action = actAddRootFile
+    end
+  end
 end

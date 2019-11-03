@@ -1906,7 +1906,7 @@ constructor TfmETKGUIMediaManager.Create(TheOwner: TComponent);
   begin
     FfmSystemCBX := TfmEmutecaSystemCBX.Create(gbxSystem);
     fmSystemCBX.FirstItem := ETKSysCBXFISelect;
-    fmSystemCBX.OnSelectSystem := @SelectSystem;
+    fmSystemCBX.OnSelectSystem := @SetCurrSystem;
     fmSystemCBX.Align := alTop;
     fmSystemCBX.Parent := gbxSystem;
 

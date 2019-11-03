@@ -5,31 +5,64 @@ unit ufEmutecaTagTree;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, IniFiles,
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ActnList, Menus,
+  VirtualTrees, IniFiles, LazFileUtils,
+  // CHX units
+  uCHXStrUtils,
   // CHX frames
   ufCHXTagTree,
   // Emuteca units
   ucEmutecaGroup;
+
+resourcestring
+  rsDefaultFolderName = 'Folder';
+  rsDefaultFilename = 'Filename';
+  rsCaptionTagsFile = 'Tags File';
+  rsCaptionFolderName = 'Folder Name';
+  rsWriteTagName = 'Write the tag name';
+  rsWriteFolderName = 'Write the folder name';
+  rsWriteNewTagName = 'Write the new tag name';
+  rsCaptionDeleteFile = 'Delete File?';
+  rsCaptionDeleteFolder = 'Delete Folder?';
+  rsAskDelete = 'Do you want to delete?' + LineEnding + '%0:s';
+
 
 type
 
   { TfmEmutecaTagTree }
 
   TfmEmutecaTagTree = class(TfmCHXTagTree)
+    alEmutecaTagTree: TActionList;
+    mipmRAddRootFile: TMenuItem;
+    mipmRAddRootFolder: TMenuItem;
+    mipmDeleteFolder: TMenuItem;
+    mipmRenameFolder: TMenuItem;
+    pumFile: TPopupMenu;
+    pumFolder: TPopupMenu;
+    pumRoot: TPopupMenu;
+    procedure actAddFileExecute(Sender: TObject);
+    procedure actAddGroup2TagFileExecute(Sender: TObject);
+    procedure actAddRootFileExecute(Sender: TObject);
+    procedure actAddRootFolderExecute(Sender: TObject);
+    procedure actAddSubFolderExecute(Sender: TObject);
+    procedure actRemoveGroupFromFileExecute(Sender: TObject);
+    procedure actRemoveTagFileExecute(Sender: TObject);
+    procedure actRenameFileExecute(Sender: TObject);
+    procedure VSTGetPopupMenu(Sender: TBaseVirtualTree;
+      Node: PVirtualNode; Column: TColumnIndex; const P: TPoint;
+      var AskParent: boolean; var aPopupMenu: TPopupMenu);
+
   private
-    FTagsIni: TMemIniFile;
     FCurrentGroup: cEmutecaGroup;
     procedure SetCurrentGroup(const AValue: cEmutecaGroup);
 
   protected
+    procedure AskFile(Node: PVirtualNode);
+    procedure AskFolder(Node: PVirtualNode);
 
   public
     property CurrentGroup: cEmutecaGroup read FCurrentGroup
       write SetCurrentGroup;
-
-    property TagsIni: TMemIniFile read FTagsIni;
-
-    procedure UpdateTagsIni;
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -41,6 +74,183 @@ implementation
 
 { TfmEmutecaTagTree }
 
+procedure TfmEmutecaTagTree.VSTGetPopupMenu(Sender: TBaseVirtualTree;
+  Node: PVirtualNode; Column: TColumnIndex; const P: TPoint;
+  var AskParent: boolean; var aPopupMenu: TPopupMenu);
+var
+  pData: PCHXTagTreeData;
+begin
+  pData := Sender.GetNodeData(Node);
+
+  AskParent := False;
+
+  if not Assigned(pData) then
+  begin
+    aPopupMenu := pumRoot;
+  end
+  else
+  begin
+    if pData^.FileName = '' then
+      aPopupMenu := pumFolder
+    else
+      aPopupMenu := pumFile;
+  end;
+end;
+
+procedure TfmEmutecaTagTree.actAddRootFileExecute(Sender: TObject);
+begin
+  if not DirectoryExistsUTF8(TagsFolder) then
+    Exit;
+
+  AskFile(nil);
+end;
+
+procedure TfmEmutecaTagTree.actAddFileExecute(Sender: TObject);
+var
+  CurrNode: PVirtualNode;
+  pData: PCHXTagTreeData;
+begin
+  if not DirectoryExistsUTF8(TagsFolder) then
+    Exit;
+
+  CurrNode := VST.GetFirstSelected(False);
+  if not assigned(CurrNode) then
+    Exit;
+
+  pData := VST.GetNodeData(CurrNode);
+  if not assigned(pData) then
+    Exit;
+
+  // If file is selected, add to parents folder
+  if pData^.FileName <> '' then
+    CurrNode := CurrNode^.Parent;
+
+  AskFile(CurrNode);
+end;
+
+procedure TfmEmutecaTagTree.actAddGroup2TagFileExecute(Sender: TObject);
+var
+  CurrNode: PVirtualNode;
+  pData: PCHXTagTreeData;
+  aIniFile: TMemIniFile;
+begin
+  if not Assigned(CurrentGroup) then Exit;
+
+    CurrNode := VST.GetFirstSelected(False);
+  if not assigned(CurrNode) then
+    Exit;
+
+  pData := VST.GetNodeData(CurrNode);
+  if not assigned(pData) then
+    Exit;
+
+    if not FileExistsUTF8(pData^.Folder + pData^.FileName) then
+    Exit;
+
+  aIniFile := TMemIniFile.Create(pData^.Folder + pData^.FileName);
+
+  if Assigned(CurrentGroup.CachedSystem) then
+  aIniFile.WriteString(CurrentGroup.CachedSystem.ID, CurrentGroup.ID, '');
+
+  aIniFile.UpdateFile;
+  aIniFile.Free;
+end;
+
+procedure TfmEmutecaTagTree.actAddRootFolderExecute(Sender: TObject);
+begin
+  if not DirectoryExistsUTF8(TagsFolder) then
+    Exit;
+
+  AskFolder(nil);
+end;
+
+procedure TfmEmutecaTagTree.actAddSubFolderExecute(Sender: TObject);
+var
+  CurrNode: PVirtualNode;
+  pData: PCHXTagTreeData;
+begin
+  if not DirectoryExistsUTF8(TagsFolder) then
+    Exit;
+
+  CurrNode := VST.GetFirstSelected(False);
+  if not assigned(CurrNode) then
+    Exit;
+
+  pData := VST.GetNodeData(CurrNode);
+  if not assigned(pData) then
+    Exit;
+
+  // If file is selected, add to parents folder
+  if pData^.FileName <> '' then
+    CurrNode := CurrNode^.Parent;
+
+  AskFolder(CurrNode);
+end;
+
+procedure TfmEmutecaTagTree.actRemoveGroupFromFileExecute(Sender: TObject);
+var
+  CurrNode: PVirtualNode;
+  pData: PCHXTagTreeData;
+  aIniFile: TMemIniFile;
+begin
+  if not Assigned(CurrentGroup) then Exit;
+
+    CurrNode := VST.GetFirstSelected(False);
+  if not assigned(CurrNode) then
+    Exit;
+
+  pData := VST.GetNodeData(CurrNode);
+  if not assigned(pData) then
+    Exit;
+
+    if not FileExistsUTF8(pData^.Folder + pData^.FileName) then
+    Exit;
+
+  aIniFile := TMemIniFile.Create(pData^.Folder + pData^.FileName);
+
+  if Assigned(CurrentGroup.CachedSystem) then
+  aIniFile.DeleteKey(CurrentGroup.CachedSystem.ID, CurrentGroup.ID);
+
+  aIniFile.UpdateFile;
+  aIniFile.Free;
+end;
+
+procedure TfmEmutecaTagTree.actRemoveTagFileExecute(Sender: TObject);
+var
+  CurrNode: PVirtualNode;
+begin
+  CurrNode := VST.GetFirstSelected(False);
+  if not assigned(CurrNode) then
+    Exit;
+end;
+
+procedure TfmEmutecaTagTree.actRenameFileExecute(Sender: TObject);
+var
+  CurrNode: PVirtualNode;
+  pData: PCHXTagTreeData;
+  FileName: string;
+begin
+  CurrNode := VST.GetFirstSelected(False);
+  if not assigned(CurrNode) then
+    Exit;
+
+  pData := VST.GetNodeData(CurrNode);
+  if not assigned(pData) then
+    Exit;
+
+  FileName := pData^.FileName;
+  if not InputQuery(rsCaptionTagsFile, rsWriteNewTagName, FileName) then
+    Exit;
+  FileName := IncludeTrailingPathDelimiter(pData^.Folder) +
+    CleanFileName(FileName, True, False) + '.ini';
+
+  if FileExistsUTF8(FileName) then
+    Exit;
+
+  if RenameFileUTF8(pData^.Folder + pData^.FileName, FileName) then
+    Pdata^.Title := ExtractFileNameOnly(FileName);
+end;
+
 procedure TfmEmutecaTagTree.SetCurrentGroup(const AValue: cEmutecaGroup);
 begin
   if FCurrentGroup = AValue then
@@ -48,91 +258,77 @@ begin
   FCurrentGroup := AValue;
 end;
 
-procedure TfmEmutecaTagTree.UpdateTagsIni;
+procedure TfmEmutecaTagTree.AskFile(Node: PVirtualNode);
 var
-  i, j: integer;
-  TempIni: TMemIniFile;
-  TempStrList, SecStrLst, Sections: TStringList;
+  pData: PCHXTagTreeData;
+  Folder, FileName: string;
 begin
-  if CheckedList.Count = 0 then
+  if assigned(node) then
   begin
-    FreeAndNil(FTagsIni);
+    pData := VST.GetNodeData(Node);
+    Folder := pData^.Folder;
+    FileName := pData^.FileName;
+  end
+  else
+  begin
+    Folder := TagsFolder;
+    FileName := rsDefaultFilename;
+  end;
+
+  if not InputQuery(rsCaptionTagsFile, rsWriteTagName, FileName) then
     Exit;
-  end;
 
-  if not Assigned(FTagsIni) then
-    FTagsIni := TMemIniFile.Create('', []);
-  TagsIni.Clear;
+  FileName := IncludeTrailingPathDelimiter(Folder) +
+    CleanFileName(FileName, True, False) + '.ini';
 
-  // First ini is straight copied
-  TempIni := TMemIniFile.Create(CheckedList[0], False);
-  TempStrList := TStringList.Create;
-  TempIni.GetStrings(TempStrList);
-  TagsIni.SetStrings(TempStrList);
-  TempIni.Free;
-  TempStrList.Free;
+  if FileExistsUTF8(FileName) then
+    Exit;
 
-  Sections := TStringList.Create;
-  Sections.CaseSensitive := False;
-  // Sections are actually System IDs
-  TagsIni.ReadSections(Sections);
+  // Create and close
+  FileClose(FileCreateUTF8(FileName));
 
-  // Next inis must be compared
-  i := 1;
-  while i < CheckedList.Count do
+  AddFile(FileName, Node);
+end;
+
+procedure TfmEmutecaTagTree.AskFolder(Node: PVirtualNode);
+var
+  pData: PCHXTagTreeData;
+  Folder, FolderName: string;
+begin
+  if assigned(node) then
   begin
-    TempIni := TMemIniFile.Create(CheckedList[i], False);
-
-    j := 0;
-    while j < Sections.Count do
-    begin
-      if TempIni.SectionExists(Sections[j]) then
-      begin
-        //SecStrLst := TStringList.Create;
-        //TagsIni.ReadSectionRaw(Sections[j], SecStrLst);
-        //SecStrLst.CaseSensitive := False;
-        //SecStrLst.Sorted := True;
-        //
-        //TempStrList:= TStringList.Create;
-        //TempIni.ReadSectionRaw(Sections[j], TempStrList);
-        //TempStrList.CaseSensitive := False;
-        //TempStrList.Sorted := True;
-        //
-        //comparar y borrar lo que no coinciden;
-        //
-        //TagsIni.writesectionraw
-        //
-        //TempStrList.Free;
-        //SecStrLst.Free;
-
-        Inc(j);
-      end
-      else
-      begin
-        // Removing section
-        TagsIni.EraseSection(Sections[j]);
-        Sections.Delete(j);
-      end;
-    end;
-
-    TempIni.Free;
-    Inc(i);
+    pData := VST.GetNodeData(Node);
+    FolderName := pData^.Title;
+    Folder := pData^.Folder;
+  end
+  else
+  begin
+    Folder := TagsFolder;
+    FolderName := rsDefaultFolderName;
   end;
 
-Sections.Free;
+  if not InputQuery(rsCaptionFolderName, rsWriteFolderName, FolderName) then
+    Exit;
+
+  FolderName := IncludeTrailingPathDelimiter(Folder) +
+    CleanFileName(FolderName, True, False);
+
+  if DirectoryExistsUTF8(FolderName) then
+    Exit;
+
+  ForceDirectoriesUTF8(FolderName);
+
+  AddFolder(FolderName, Node);
+
 end;
 
 constructor TfmEmutecaTagTree.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
-
-  FTagsIni := nil;
 end;
 
 destructor TfmEmutecaTagTree.Destroy;
 begin
-  FTagsIni.Free;
-
   inherited Destroy;
 end;
 
