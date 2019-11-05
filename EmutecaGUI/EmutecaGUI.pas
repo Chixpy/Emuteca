@@ -117,7 +117,7 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   ufEmutecaSoftImgPreview, ufEmutecaSoftTxtPreview, ufEmutecaSoftVideoPreview,
   ufCHXImgViewer, ucETKGUIItemCache, uPSI_uaCHXStorable,
   uPSI_uaEmutecaCustomEmu, ufEmutecaEmulatorAdvParamsEditor, ufETKGUIIcnEmuCBX,
-  utETKGUICacheEmuIcons, ufCHXAbout, ufETKGUIAbout, ufEmutecaTagTree;
+  utETKGUICacheEmuIcons, ufCHXAbout, ufETKGUIAbout, ufEmutecaTagTree, ucEmutecaTagsFile;
 
 {$R *.res}
 

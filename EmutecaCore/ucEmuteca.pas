@@ -26,17 +26,17 @@ unit ucEmuteca;
 interface
 
 uses
-  Classes, SysUtils, fgl, FileUtil, LazUTF8, LazFileUtils, dateutils, inifiles,
+  Classes, SysUtils, fgl, FileUtil, LazUTF8, LazFileUtils, dateutils,
   // CHX units
   uCHX7zWrapper, uCHXStrUtils,
   // Emuteca Core units
   uEmutecaConst, uEmutecaRscStr,
   // Emuteca Core abstracts
   uaEmutecaCustomGroup,
-  // Emuteca Core units
+  // Emuteca Core classes
   ucEmutecaConfig, ucEmutecaEmulatorManager, ucEmutecaSystemManager,
   ucEmutecaSoftware, ucEmutecaSystem, ucEmutecaEmulator,
-  ucEmutecaGroupList, ucEmutecaGroup,
+  ucEmutecaGroupList, ucEmutecaGroup, ucEmutecaTagsFile,
   // Emuteca Core threads
   utEmutecaGetSoftSHA1;
 
@@ -162,7 +162,7 @@ procedure cEmuteca.UpdateCurrentGroupList(aSystem: cEmutecaSystem;
   const aWordFilter: string; aFileList: TStrings);
 
   procedure AddSystemList(aSystem: cEmutecaSystem; aWordFilter: string;
-    aTagFile: TIniFile);
+    aTagFile: cEmutecaTagsFile);
 
     procedure FilterGroup(aGroup: cEmutecaGroup; const aWordFilter: string);
     begin
@@ -176,6 +176,7 @@ procedure cEmuteca.UpdateCurrentGroupList(aSystem: cEmutecaSystem;
   var
     FilterIDs: TStringList;
     i: integer;
+    aSection: cEmutecaTagsFileSection;
     aGroup: cEmutecaGroup;
     StrComp: integer;
 
@@ -184,21 +185,12 @@ procedure cEmuteca.UpdateCurrentGroupList(aSystem: cEmutecaSystem;
 
     // Sorting groups and tags by ID (for faster comparing)
     aSystem.GroupManager.VisibleList.Sort(@EmutecaCompareGroupsByID);
+
     if Assigned(aTagFile) then
     begin
-      aTagFile.ReadSectionRaw(aSystem.ID, FilterIDs);
-
-         i := 0;
-    while i < FilterIDs.Count do
-    begin
-      FilterIDs[i] := UTF8Trim(FilterIDs[i]);
-      if UTF8EndsText('=', FilterIDs[i]) then
-        FilterIDs[i] := UTF8LeftStr(FilterIDs[i], UTF8Length(FilterIDs[i]) - 1);
-      Inc(i);
-      end;
-
-      FilterIDs.CaseSensitive := False;
-      FilterIDs.Sorted := True;
+       aSection := aTagFile.SectionByName(aSystem.ID);
+      if Assigned(aSection) then
+        FilterIDs.Assign(aSection.Lines);
     end;
 
     aWordFilter := UTF8LowerString(UTF8Trim(aWordFilter));
@@ -223,7 +215,7 @@ procedure cEmuteca.UpdateCurrentGroupList(aSystem: cEmutecaSystem;
         end
         else
           // Fast Exit, no more groups in FilterIDs.
-          i := aSystem.GroupManager.VisibleList.Count;
+          break;
       end
       else
       begin
@@ -237,74 +229,56 @@ procedure cEmuteca.UpdateCurrentGroupList(aSystem: cEmutecaSystem;
   end;
 
 var
-  i, j: integer;
-  aTagFile1, aTagFile2: TMemIniFile;
-  SectionList1: TStringList;
+  i: integer;
+  aTagFile: cEmutecaTagsFile;
 
 begin
   CurrentGroupList.Clear;
-  aTagFile1 := nil;
+  aTagFile := nil;
 
-  // Creating a TagFile ini, for filtering
+  // Creating a TagFile for filtering
   // If filelist is empty, don't filter out games by tag
-  if assigned(aFileList) and (aFileList.Count > 0) then
-  begin
-    // Open first file
-    aTagFile1 := TMemIniFile.Create(aFileList[0]);
-    aTagFile1.CacheUpdates := True; // DON'T Update file
-    SectionList1 := TStringList.Create;
-    aTagFile1.ReadSections(SectionList1);
-
-    i := 1;
-    while (i < aFileList.Count) and (SectionList1.Count > 0) do
+  try
+    if assigned(aFileList) and (aFileList.Count > 0) then
     begin
-      aTagFile2 := TMemIniFile.Create(aFileList[i]);
+      // Open first file
+      aTagFile := cEmutecaTagsFile.Create(nil);
+      aTagFile.LoadFromFile(aFileList[0]);
 
-      j := 0;
-      while j < SectionList1.Count do
+      i := 1;
+      while i < aFileList.Count do
       begin
-        // If a section (System ID) doesn't exists in both files we can delete it
-        if not aTagFile2.SectionExists(SectionList1[j]) then
-        begin
-          aTagFile1.EraseSection(SectionList1[j]);
-          SectionList1.Delete(j);
-        end
-        else
-        begin
-          Inc(j);
-        end;
+        aTagFile.ANDTagsFile(aFileList[i]);
+
+        Inc(i);
       end;
-
-      aTagFile2.Free;
-      Inc(i);
     end;
-    SectionList1.Free;
-  end;
 
-  // Filtering game groups
-  if assigned(aSystem) then
-  begin
-    // System data must be loaded
-    SystemManager.LoadSystemData(aSystem);
-
-    AddSystemList(aSystem, aWordFilter, aTagFile1);
-  end
-  else
-  begin
-    SystemManager.LoadAllEnabledSystemsData;
-
-    i := 0;
-    while i < SystemManager.EnabledList.Count do
+    // Filtering game groups
+    if assigned(aSystem) then
     begin
-      AddSystemList(SystemManager.EnabledList[i], aWordFilter, aTagFile1);
+      // System data must be loaded
+      SystemManager.LoadSystemData(aSystem);
 
-      Inc(i);
+      AddSystemList(aSystem, aWordFilter, aTagFile);
+    end
+    else
+    begin
+      SystemManager.LoadAllEnabledSystemsData;
+
+      i := 0;
+      while i < SystemManager.EnabledList.Count do
+      begin
+        AddSystemList(SystemManager.EnabledList[i], aWordFilter, aTagFile);
+
+        Inc(i);
+      end;
     end;
+
+  finally
+    aTagFile.Free;
+    CacheData;
   end;
-
-  aTagFile1.Free;
-
-  CacheData;
 end;
 
 procedure cEmuteca.LoadConfig(aFile: string);

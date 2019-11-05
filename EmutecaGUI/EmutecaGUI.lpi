@@ -97,7 +97,7 @@
         <PackageName Value="LCL"/>
       </Item7>
     </RequiredPackages>
-    <Units Count="133">
+    <Units Count="134">
       <Unit0>
         <Filename Value="EmutecaGUI.pas"/>
         <IsPartOfProject Value="True"/>
@@ -804,6 +804,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
       </Unit132>
+      <Unit133>
+        <Filename Value="..\EmutecaCore\Classes\ucEmutecaTagsFile.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit133>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
