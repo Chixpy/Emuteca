@@ -6,13 +6,13 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ActnList, Menus,
-  VirtualTrees, IniFiles, LazFileUtils,
+  VirtualTrees, LazFileUtils,
   // CHX units
   uCHXStrUtils,
   // CHX frames
   ufCHXTagTree,
-  // Emuteca units
-  ucEmutecaGroup;
+  // Emuteca classes
+  ucEmutecaGroup, ucEmutecaTagsFile;
 
 resourcestring
   rsDefaultFolderName = 'Folder';
@@ -132,11 +132,12 @@ procedure TfmEmutecaTagTree.actAddGroup2TagFileExecute(Sender: TObject);
 var
   CurrNode: PVirtualNode;
   pData: PCHXTagTreeData;
-  aIniFile: TMemIniFile;
+  aTagFile: cEmutecaTagsFile;
 begin
-  if not Assigned(CurrentGroup) then Exit;
+  if not Assigned(CurrentGroup) then
+    Exit;
 
-    CurrNode := VST.GetFirstSelected(False);
+  CurrNode := VST.GetFirstSelected(False);
   if not assigned(CurrNode) then
     Exit;
 
@@ -144,16 +145,20 @@ begin
   if not assigned(pData) then
     Exit;
 
-    if not FileExistsUTF8(pData^.Folder + pData^.FileName) then
+  if not FileExistsUTF8(pData^.Folder + pData^.FileName) then
     Exit;
 
-  aIniFile := TMemIniFile.Create(pData^.Folder + pData^.FileName);
+  aTagFile := cEmutecaTagsFile.Create(nil);
+  aTagFile.DefaultFileName := pData^.Folder + pData^.FileName;
+  aTagFile.LoadFromFile('');
 
   if Assigned(CurrentGroup.CachedSystem) then
-  aIniFile.WriteString(CurrentGroup.CachedSystem.ID, CurrentGroup.ID, '');
+  begin
+    aTagFile.AddGroup(CurrentGroup.CachedSystem.ID, CurrentGroup.ID);
+    aTagFile.SaveToFile('', True);
+  end;
 
-  aIniFile.UpdateFile;
-  aIniFile.Free;
+  aTagFile.Free;
 end;
 
 procedure TfmEmutecaTagTree.actAddRootFolderExecute(Sender: TObject);
@@ -191,11 +196,12 @@ procedure TfmEmutecaTagTree.actRemoveGroupFromFileExecute(Sender: TObject);
 var
   CurrNode: PVirtualNode;
   pData: PCHXTagTreeData;
-  aIniFile: TMemIniFile;
+  aTagFile: cEmutecaTagsFile;
 begin
-  if not Assigned(CurrentGroup) then Exit;
+  if not Assigned(CurrentGroup) then
+    Exit;
 
-    CurrNode := VST.GetFirstSelected(False);
+  CurrNode := VST.GetFirstSelected(False);
   if not assigned(CurrNode) then
     Exit;
 
@@ -203,16 +209,20 @@ begin
   if not assigned(pData) then
     Exit;
 
-    if not FileExistsUTF8(pData^.Folder + pData^.FileName) then
+  if not FileExistsUTF8(pData^.Folder + pData^.FileName) then
     Exit;
 
-  aIniFile := TMemIniFile.Create(pData^.Folder + pData^.FileName);
+  aTagFile := cEmutecaTagsFile.Create(nil);
+  aTagFile.DefaultFileName := pData^.Folder + pData^.FileName;
+  aTagFile.LoadFromFile('');
 
   if Assigned(CurrentGroup.CachedSystem) then
-  aIniFile.DeleteKey(CurrentGroup.CachedSystem.ID, CurrentGroup.ID);
+  begin
+    aTagFile.RemoveGroup(CurrentGroup.CachedSystem.ID, CurrentGroup.ID);
+    aTagFile.SaveToFile('', True);
+  end;
 
-  aIniFile.UpdateFile;
-  aIniFile.Free;
+  aTagFile.Free;
 end;
 
 procedure TfmEmutecaTagTree.actRemoveTagFileExecute(Sender: TObject);
@@ -222,6 +232,8 @@ begin
   CurrNode := VST.GetFirstSelected(False);
   if not assigned(CurrNode) then
     Exit;
+
+  // TODO: Remove Tag File
 end;
 
 procedure TfmEmutecaTagTree.actRenameFileExecute(Sender: TObject);

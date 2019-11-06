@@ -84,11 +84,14 @@ type
       under the name '' (empty string).
     }
 
+    procedure AddGroup(const aSectionName: string; const aGroupID: string);
+    procedure RemoveGroup(const aSectionName: string; const aGroupID: string);
+
     procedure ANDTagsFile(aFilename: string);
     procedure ANDTagsFile(aStrList: TStrings);
     {< Performs an AND operation with another cEmutecaTagsFile.
 
-      In other words, only keep sectitons and ID that are in both files.
+      In other words, only keep sections and IDs that are in both files.
     }
 
     constructor Create(aOwner: TComponent); override;
@@ -266,6 +269,42 @@ begin
     end;
     Inc(i);
   end;
+end;
+
+procedure cEmutecaTagsFile.AddGroup(const aSectionName: string;
+  const aGroupID: string);
+var
+  aSection: cEmutecaTagsFileSection;
+begin
+  if aGroupID = '' then Exit;
+
+  aSection := SectionByName(aSectionName);
+
+  if not assigned(aSection) then
+  begin
+    aSection := cEmutecaTagsFileSection.Create(self);
+    Sections.Add(aSection);
+  end;
+
+  aSection.Lines.Add(aGroupID);
+end;
+
+procedure cEmutecaTagsFile.RemoveGroup(const aSectionName: string;
+  const aGroupID: string);
+var
+  aSection: cEmutecaTagsFileSection;
+  aPos: integer;
+begin
+  if aGroupID = '' then Exit;
+
+  aSection := SectionByName(aSectionName);
+
+  if not assigned(aSection) then Exit;
+
+  if aSection.Lines.Find(aGroupID, aPos) then aSection.Lines.Delete(aPos);
+
+  // Deleting section if it's empty
+  if aSection.Lines.Count = 0 then Sections.Remove(aSection);
 end;
 
 procedure cEmutecaTagsFile.ANDTagsFile(aFilename: string);
