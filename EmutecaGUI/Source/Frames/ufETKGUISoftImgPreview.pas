@@ -50,8 +50,7 @@ type
     function GetCaptionList: TStrings; override;
     function GetFolder: string; override;
 
-    procedure SetSoftware(AValue: cEmutecaSoftware); override;
-    procedure SetGroup(AValue: cEmutecaGroup); override;
+    procedure UpdateFileList; override;
 
   public
     property SHA1Folder: string read FSHA1Folder write SetSHA1Folder;
@@ -96,27 +95,24 @@ begin
     Result := SetAsFolder(System.ImageFolders[cbxFolderCaption.ItemIndex]);
 end;
 
-procedure TfmETKGUISoftImgPreview.SetSoftware(AValue: cEmutecaSoftware);
+procedure TfmETKGUISoftImgPreview.UpdateFileList;
 begin
-  inherited SetSoftware(AValue);
-
-  if Assigned(AValue) then
+    if Assigned(Software) then
+  begin
+        TfmEmutecaSoftImgPreview(fmListPreview).SaveImageFolder :=
+      SetAsFolder(GetFolder + Software.GetMediaFileName)
+  end
+  else if Assigned(Group) then
+  begin
     TfmEmutecaSoftImgPreview(fmListPreview).SaveImageFolder :=
-      SetAsFolder(GetFolder + AValue.GetMediaFileName)
+      SetAsFolder(GetFolder + Group.MediaFileName)
+  end
   else
+  begin
     TfmEmutecaSoftImgPreview(fmListPreview).SaveImageFolder := '';
+  end;
+
+  inherited UpdateFileList;
 end;
-
-procedure TfmETKGUISoftImgPreview.SetGroup(AValue: cEmutecaGroup);
-begin
-  inherited SetGroup(AValue);
-
-  if Assigned(AValue) then
-    TfmEmutecaSoftImgPreview(fmListPreview).SaveImageFolder :=
-      SetAsFolder(GetFolder + AValue.MediaFileName)
-  else
-    TfmEmutecaSoftImgPreview(fmListPreview).SaveImageFolder := '';
-end;
-
 
 end.

@@ -283,6 +283,7 @@ begin
   if not assigned(aSection) then
   begin
     aSection := cEmutecaTagsFileSection.Create(self);
+    aSection.SectionName := aSectionName;
     Sections.Add(aSection);
   end;
 

@@ -66,7 +66,7 @@ type
 
     property System: caEmutecaCustomSystem read FSystem write SetSystem;
 
-    procedure UpdateFileList;
+    procedure UpdateFileList; virtual;
 
     procedure SetListPreview(AValue: TfmCHXFileListPreview);
     procedure SetSoftware(AValue: cEmutecaSoftware); virtual;
@@ -75,9 +75,9 @@ type
     procedure DoClearFrameData;
     procedure DoLoadFrameData;
 
-    procedure CreateListView; virtual; // TODO: abstract; //-> ERROR?
-    function GetCaptionList: TStrings; virtual; // TODO: abstract; //-> ERROR?
-    function GetFolder: string; virtual; // TODO: abstract; //-> ERROR?
+    procedure CreateListView; virtual; abstract; // TODO: abstract; //-> ERROR?
+    function GetCaptionList: TStrings; virtual; abstract;// TODO: abstract; //-> ERROR?
+    function GetFolder: string; virtual; abstract; // TODO: abstract; //-> ERROR?
 
   public
     property Software: cEmutecaSoftware read FSoftware write SetSoftware;
@@ -147,22 +147,22 @@ begin
   FfmListPreview := AValue;
 end;
 
-procedure TfmaETKGUISoftFoldersPreview.CreateListView;
-begin
-  // This method must be overrided
-end;
+//procedure TfmaETKGUISoftFoldersPreview.CreateListView;
+//begin
+//  // This method must be overrided
+//end;
 
-function TfmaETKGUISoftFoldersPreview.GetCaptionList: TStrings;
-begin
-  // This method must be overrided
-  Result := nil;
-end;
+//function TfmaETKGUISoftFoldersPreview.GetCaptionList: TStrings;
+//begin
+//  // This method must be overrided
+//  Result := nil;
+//end;
 
-function TfmaETKGUISoftFoldersPreview.GetFolder: string;
-begin
-  // This method must be overrided
-  Result := '';
-end;
+//function TfmaETKGUISoftFoldersPreview.GetFolder: string;
+//begin
+//  // This method must be overrided
+//  Result := '';
+//end;
 
 procedure TfmaETKGUISoftFoldersPreview.SetSoftware(AValue: cEmutecaSoftware);
 begin

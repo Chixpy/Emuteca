@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ActnList, Menus,
-  VirtualTrees, LazFileUtils,
+  VirtualTrees, VTHeaderPopup, LazFileUtils,
   // CHX units
   uCHXStrUtils,
   // CHX frames
@@ -32,7 +32,10 @@ type
   { TfmEmutecaTagTree }
 
   TfmEmutecaTagTree = class(TfmCHXTagTree)
+    actAddTagFile: TAction;
     alEmutecaTagTree: TActionList;
+    mipmRemoveTagFile: TMenuItem;
+    mipmRenameFile: TMenuItem;
     mipmRAddRootFile: TMenuItem;
     mipmRAddRootFolder: TMenuItem;
     mipmDeleteFolder: TMenuItem;
@@ -40,13 +43,12 @@ type
     pumFile: TPopupMenu;
     pumFolder: TPopupMenu;
     pumRoot: TPopupMenu;
-    procedure actAddFileExecute(Sender: TObject);
+    procedure actAddTagFileExecute(Sender: TObject);
     procedure actAddGroup2TagFileExecute(Sender: TObject);
     procedure actAddRootFileExecute(Sender: TObject);
     procedure actAddRootFolderExecute(Sender: TObject);
     procedure actAddSubFolderExecute(Sender: TObject);
     procedure actRemoveGroupFromFileExecute(Sender: TObject);
-    procedure actRemoveTagFileExecute(Sender: TObject);
     procedure actRenameFileExecute(Sender: TObject);
     procedure VSTGetPopupMenu(Sender: TBaseVirtualTree;
       Node: PVirtualNode; Column: TColumnIndex; const P: TPoint;
@@ -105,7 +107,7 @@ begin
   AskFile(nil);
 end;
 
-procedure TfmEmutecaTagTree.actAddFileExecute(Sender: TObject);
+procedure TfmEmutecaTagTree.actAddTagFileExecute(Sender: TObject);
 var
   CurrNode: PVirtualNode;
   pData: PCHXTagTreeData;
@@ -225,17 +227,6 @@ begin
   aTagFile.Free;
 end;
 
-procedure TfmEmutecaTagTree.actRemoveTagFileExecute(Sender: TObject);
-var
-  CurrNode: PVirtualNode;
-begin
-  CurrNode := VST.GetFirstSelected(False);
-  if not assigned(CurrNode) then
-    Exit;
-
-  // TODO: Remove Tag File
-end;
-
 procedure TfmEmutecaTagTree.actRenameFileExecute(Sender: TObject);
 var
   CurrNode: PVirtualNode;
@@ -250,7 +241,7 @@ begin
   if not assigned(pData) then
     Exit;
 
-  FileName := pData^.FileName;
+  FileName := ExtractFileNameOnly(pData^.FileName);
   if not InputQuery(rsCaptionTagsFile, rsWriteNewTagName, FileName) then
     Exit;
   FileName := IncludeTrailingPathDelimiter(pData^.Folder) +

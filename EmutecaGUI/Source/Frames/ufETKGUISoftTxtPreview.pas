@@ -45,8 +45,7 @@ type
     function GetCaptionList: TStrings; override;
     function GetFolder: string; override;
 
-    procedure SetSoftware(AValue: cEmutecaSoftware); override;
-    procedure SetGroup(AValue: cEmutecaGroup); override;
+    procedure UpdateFileList; override;
   end;
 
 implementation
@@ -76,26 +75,24 @@ begin
     Result := SetAsFolder(System.TextFolders[cbxFolderCaption.ItemIndex]);
 end;
 
-procedure TfmETKGUISoftTxtPreview.SetSoftware(AValue: cEmutecaSoftware);
+procedure TfmETKGUISoftTxtPreview.UpdateFileList;
 begin
-  inherited SetSoftware(AValue);
-
-  if Assigned(AValue) then
-    TfmEmutecaSoftTxtPreview(fmListPreview).SaveTextFolder :=
-      SetAsFolder(GetFolder + AValue.GetMediaFileName)
+      if Assigned(Software) then
+  begin
+     TfmEmutecaSoftTxtPreview(fmListPreview).SaveTextFolder :=
+      SetAsFolder(GetFolder + Software.GetMediaFileName)
+  end
+  else if Assigned(Group) then
+  begin
+     TfmEmutecaSoftTxtPreview(fmListPreview).SaveTextFolder :=
+      SetAsFolder(GetFolder + Group.MediaFileName)
+  end
   else
-    TfmEmutecaSoftTxtPreview(fmListPreview).SaveTextFolder := '';
-end;
+  begin
+      TfmEmutecaSoftTxtPreview(fmListPreview).SaveTextFolder := '';
+  end;
 
-procedure TfmETKGUISoftTxtPreview.SetGroup(AValue: cEmutecaGroup);
-begin
-  inherited SetGroup(AValue);
-
-  if Assigned(AValue) then
-    TfmEmutecaSoftTxtPreview(fmListPreview).SaveTextFolder :=
-      SetAsFolder(GetFolder + AValue.MediaFileName)
-  else
-    TfmEmutecaSoftTxtPreview(fmListPreview).SaveTextFolder := '';
+  inherited UpdateFileList;
 end;
 
 end.

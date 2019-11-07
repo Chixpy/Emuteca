@@ -22,10 +22,10 @@ inherited fmEmutecaTagTree: TfmEmutecaTagTree
       Caption = 'Add Subfolder'
       OnExecute = actAddSubFolderExecute
     end
-    object actAddFile: TAction
+    object actAddTagFile: TAction
       Category = 'Folder'
-      Caption = 'Add File'
-      OnExecute = actAddFileExecute
+      Caption = 'Add Tag File'
+      OnExecute = actAddTagFileExecute
     end
     object actAddGroup2TagFile: TAction
       Category = 'File'
@@ -40,7 +40,6 @@ inherited fmEmutecaTagTree: TfmEmutecaTagTree
     object actRemoveTagFile: TAction
       Category = 'File'
       Caption = 'Remove Tag File'
-      OnExecute = actRemoveTagFileExecute
     end
     object actRenameFolder: TAction
       Category = 'Folder'
@@ -55,10 +54,6 @@ inherited fmEmutecaTagTree: TfmEmutecaTagTree
       Caption = 'Rename File'
       OnExecute = actRenameFileExecute
     end
-    object actDeleteFile: TAction
-      Category = 'File'
-      Caption = 'Delete File'
-    end
   end
   object pumFile: TPopupMenu[5]
     left = 112
@@ -72,12 +67,18 @@ inherited fmEmutecaTagTree: TfmEmutecaTagTree
     object MenuItem6: TMenuItem
       Caption = '-'
     end
+    object mipmRenameFile: TMenuItem
+      Action = actRenameFile
+    end
+    object mipmRemoveTagFile: TMenuItem
+      Action = actRemoveTagFile
+    end
   end
   object pumFolder: TPopupMenu[6]
     left = 32
     top = 152
     object mipmFAddTagFile: TMenuItem
-      Action = actAddFile
+      Action = actAddTagFile
     end
     object mipmFAddFolder: TMenuItem
       Action = actAddSubFolder

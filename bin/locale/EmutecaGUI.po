@@ -1046,10 +1046,6 @@ msgstr ""
 msgid "Video folders"
 msgstr ""
 
-#: tfmemutecatagtree.actaddfile.caption
-msgid "Add File"
-msgstr ""
-
 #: tfmemutecatagtree.actaddgroup2tagfile.caption
 msgid "Add Group to Tag"
 msgstr ""
@@ -1066,8 +1062,8 @@ msgstr ""
 msgid "Add Subfolder"
 msgstr ""
 
-#: tfmemutecatagtree.actdeletefile.caption
-msgid "Delete File"
+#: tfmemutecatagtree.actaddtagfile.caption
+msgid "Add Tag File"
 msgstr ""
 
 #: tfmemutecatagtree.actdeletefolder.caption
