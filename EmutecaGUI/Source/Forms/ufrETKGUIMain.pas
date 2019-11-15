@@ -32,7 +32,7 @@ uses
   // Misc
   uVersionSupport,
   // CHX units
-  uCHX7zWrapper, uCHXStrUtils, uCHXFileUtils, uCHXImageUtils,
+  uCHX7zWrapper, uCHXStrUtils, uCHXFileUtils, uCHXImageUtils, uCHXMenuUtils,
   // CHX classes
   ucCHXImageList,
   // CHX forms

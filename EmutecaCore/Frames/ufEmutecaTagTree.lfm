@@ -73,6 +73,24 @@ inherited fmEmutecaTagTree: TfmEmutecaTagTree
     object mipmRemoveTagFile: TMenuItem
       Action = actRemoveTagFile
     end
+    object MenuItem1: TMenuItem
+      Caption = '-'
+    end
+    object mipmFFolder: TMenuItem
+      Caption = 'Folder'
+    end
+    object MenuItem3: TMenuItem
+      Caption = '-'
+    end
+    object mipmFRoot: TMenuItem
+      Caption = 'Root'
+    end
+    object MenuItem4: TMenuItem
+      Caption = '-'
+    end
+    object mipmFTree: TMenuItem
+      Caption = 'Tree'
+    end
   end
   object pumFolder: TPopupMenu[6]
     left = 32
@@ -91,6 +109,18 @@ inherited fmEmutecaTagTree: TfmEmutecaTagTree
     end
     object mipmDeleteFolder: TMenuItem
       Action = actDeleteFolder
+    end
+    object MenuItem5: TMenuItem
+      Caption = '-'
+    end
+    object mipmDRoot: TMenuItem
+      Caption = 'Root'
+    end
+    object MenuItem7: TMenuItem
+      Caption = '-'
+    end
+    object mipmDTree: TMenuItem
+      Caption = 'Tree'
     end
   end
   object pumRoot: TPopupMenu[7]

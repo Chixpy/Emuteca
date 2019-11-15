@@ -6,9 +6,9 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ActnList, Menus,
-  VirtualTrees, VTHeaderPopup, LazFileUtils,
+  VirtualTrees, LazFileUtils,
   // CHX units
-  uCHXStrUtils,
+  uCHXStrUtils, uCHXMenuUtils,
   // CHX frames
   ufCHXTagTree,
   // Emuteca classes
@@ -34,6 +34,13 @@ type
   TfmEmutecaTagTree = class(TfmCHXTagTree)
     actAddTagFile: TAction;
     alEmutecaTagTree: TActionList;
+    MenuItem1: TMenuItem;
+    MenuItem7: TMenuItem;
+    mipmDTree: TMenuItem;
+    mipmDRoot: TMenuItem;
+    mipmFFolder: TMenuItem;
+    mipmFRoot: TMenuItem;
+    mipmFTree: TMenuItem;
     mipmRemoveTagFile: TMenuItem;
     mipmRenameFile: TMenuItem;
     mipmRAddRootFile: TMenuItem;
@@ -251,7 +258,10 @@ begin
     Exit;
 
   if RenameFileUTF8(pData^.Folder + pData^.FileName, FileName) then
+  begin
     Pdata^.Title := ExtractFileNameOnly(FileName);
+    Pdata^.FileName := ExtractFileName(FileName);
+  end;
 end;
 
 procedure TfmEmutecaTagTree.SetCurrentGroup(const AValue: cEmutecaGroup);
@@ -326,8 +336,24 @@ begin
 end;
 
 constructor TfmEmutecaTagTree.Create(TheOwner: TComponent);
+
+  procedure CloneMenus;
+  begin
+    // Order is important, it can be an endless loop
+    // Adding pumFolder, pumRoot and pumTree to pumFile.
+    AddSubMenu(pumFolder, mipmFFolder);
+    AddSubMenu(pumRoot, mipmFRoot);
+    AddSubMenu(pmTree, mipmFTree);
+
+    // Adding pumRoot and pumTree to pumFolder.
+    AddSubMenu(pumRoot, mipmDRoot);
+    AddSubMenu(pmTree, mipmDTree);
+  end;
+
 begin
   inherited Create(TheOwner);
+
+  CloneMenus;
 end;
 
 destructor TfmEmutecaTagTree.Destroy;

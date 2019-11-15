@@ -8,5 +8,10 @@
 {"hash":66642757,"name":"tfmemutecatagtree.actremovetagfile.caption","sourcebytes":[82,101,109,111,118,101,32,84,97,103,32,70,105,108,101],"value":"Remove Tag File"},
 {"hash":202549730,"name":"tfmemutecatagtree.actrenamefolder.caption","sourcebytes":[82,101,110,97,109,101,32,70,111,108,100,101,114],"value":"Rename Folder"},
 {"hash":236511474,"name":"tfmemutecatagtree.actdeletefolder.caption","sourcebytes":[68,101,108,101,116,101,32,70,111,108,100,101,114],"value":"Delete Folder"},
-{"hash":53218469,"name":"tfmemutecatagtree.actrenamefile.caption","sourcebytes":[82,101,110,97,109,101,32,70,105,108,101],"value":"Rename File"}
+{"hash":53218469,"name":"tfmemutecatagtree.actrenamefile.caption","sourcebytes":[82,101,110,97,109,101,32,70,105,108,101],"value":"Rename File"},
+{"hash":81144514,"name":"tfmemutecatagtree.mipmffolder.caption","sourcebytes":[70,111,108,100,101,114],"value":"Folder"},
+{"hash":366180,"name":"tfmemutecatagtree.mipmfroot.caption","sourcebytes":[82,111,111,116],"value":"Root"},
+{"hash":374965,"name":"tfmemutecatagtree.mipmftree.caption","sourcebytes":[84,114,101,101],"value":"Tree"},
+{"hash":366180,"name":"tfmemutecatagtree.mipmdroot.caption","sourcebytes":[82,111,111,116],"value":"Root"},
+{"hash":374965,"name":"tfmemutecatagtree.mipmdtree.caption","sourcebytes":[84,114,101,101],"value":"Tree"}
 ]}

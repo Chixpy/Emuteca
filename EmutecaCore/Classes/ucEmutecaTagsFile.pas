@@ -216,11 +216,12 @@ begin
       CurrSection := Sections[i];
 
       if (i <> 0) or (CurrSection.SectionName <> '') then
+      begin
+        aTxtFile.Add('');
         aTxtFile.Add(SectionBegin + CurrSection.SectionName + SectionEnd);
+      end;
 
       aTxtFile.AddStrings(CurrSection.Lines);
-
-      aTxtFile.Add('');
 
       Inc(i);
     end;

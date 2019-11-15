@@ -210,6 +210,7 @@ end;
 procedure caEmutecaCustomGroup.SetYear(AValue: string);
 begin
   AValue := UTF8Trim(AValue);
+  AValue := UTF8StringReplace(AValue, '-', '/', [rfReplaceAll, rfIgnoreCase]);
 
   if FYear = AValue then
     Exit;

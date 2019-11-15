@@ -1086,6 +1086,31 @@ msgstr ""
 msgid "Rename Folder"
 msgstr ""
 
+#: tfmemutecatagtree.mipmdroot.caption
+msgctxt "tfmemutecatagtree.mipmdroot.caption"
+msgid "Root"
+msgstr ""
+
+#: tfmemutecatagtree.mipmdtree.caption
+msgctxt "tfmemutecatagtree.mipmdtree.caption"
+msgid "Tree"
+msgstr ""
+
+#: tfmemutecatagtree.mipmffolder.caption
+msgctxt "tfmemutecatagtree.mipmffolder.caption"
+msgid "Folder"
+msgstr ""
+
+#: tfmemutecatagtree.mipmfroot.caption
+msgctxt "tfmemutecatagtree.mipmfroot.caption"
+msgid "Root"
+msgstr ""
+
+#: tfmemutecatagtree.mipmftree.caption
+msgctxt "tfmemutecatagtree.mipmftree.caption"
+msgid "Tree"
+msgstr ""
+
 #: tfmetkguiactmergegroup.chkaddtargettolist.caption
 msgid "Add merged files to system list."
 msgstr ""
