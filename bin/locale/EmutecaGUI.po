@@ -1855,11 +1855,6 @@ msgstr ""
 msgid "Search emulator in Internet"
 msgstr ""
 
-#: tfrmetkguimain.mimmsearchinternetg.caption
-msgctxt "tfrmetkguimain.mimmsearchinternetg.caption"
-msgid "Search group in Internet"
-msgstr ""
-
 #: tfrmetkguimain.mimmsearchinternets.caption
 msgid "Search system in Internet"
 msgstr ""
@@ -1877,11 +1872,6 @@ msgstr ""
 #: tfrmetkguimain.mipmgsearchinternet.caption
 msgctxt "tfrmetkguimain.mipmgsearchinternet.caption"
 msgid "Search in Internet"
-msgstr ""
-
-#: tfrmetkguimain.mipmssystem.caption
-msgctxt "tfrmetkguimain.mipmssystem.caption"
-msgid "System"
 msgstr ""
 
 #: ucchxscriptengine.rsseecompilationmsg

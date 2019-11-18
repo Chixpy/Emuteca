@@ -1,4 +1,5 @@
 unit ucETKGUIConfig;
+
 {< cETKGUIConfig class unit.
 
   This file is part of Emuteca GUI.
@@ -57,6 +58,7 @@ const
   // [Config]
   krsSectionConfig = 'Config';
   krsKeyEmutecaIni = 'EmutecaIni';
+  krsKeyLangFolder = 'LangFolder';
   krsKeyCurrSystem = 'CurrSystem';
   krsKeySaveOnExit = 'SaveOnExit';
   krsKeySearchFile = 'SearchFile';
@@ -86,6 +88,7 @@ type
     FEmutecaIni: string;
     FGlobalCache: string;
     FImageExtensions: TStringList;
+    FLangFolder: string;
     FMusicExtensions: TStringList;
     FScriptsFolder: string;
     FTextExtensions: TStringList;
@@ -102,6 +105,7 @@ type
     procedure SetDefImgFolder(AValue: string);
     procedure SetEmutecaIni(AValue: string);
     procedure SetGlobalCache(AValue: string);
+    procedure SetLangFolder(const AValue: string);
     procedure SetScriptsFolder(AValue: string);
     procedure Setw7zErrorFileName(AValue: string);
     procedure SetZoneIcnFolder(AValue: string);
@@ -136,13 +140,19 @@ type
     property ImageExtensions: TStringList read FImageExtensions;
 
     // Texts
+    // -----
     property TextExtensions: TStringList read FTextExtensions;
+    //< Text extensions for search.
 
-    // Video
+    // Videos
+    // ------
     property VideoExtensions: TStringList read FVideoExtensions;
+    //< Video extensions for search.
 
     // Music
+    // -----
     property MusicExtensions: TStringList read FMusicExtensions;
+    //< Music extensions for search.
 
     // Tools
     // -----
@@ -153,13 +163,15 @@ type
     // Config/Data
     // -----------
     property EmutecaIni: string read FEmutecaIni write SetEmutecaIni;
-    //< Emuteca config file
+    //< Emuteca config file.
+    property LangFolder: string read FLangFolder write SetLangFolder;
+    //< Folder of languajes files.
     property CurrSystem: string read FCurrSystem write SetCurrSystem;
-    //< Last system used
+    //< Last system used.
     property SaveOnExit: boolean read FSaveOnExit write SetSaveOnExit;
     //< Save software and parent lists on exit?
     property HelpFolder: string read FHelpFolder write SetHelpFolder;
-    //< Folder with help
+    //< Folder with help.
     property SearchFile: string read FSearchFile write SetSearchFile;
     //< File with search configuration
 
@@ -194,6 +206,11 @@ end;
 procedure cETKGUIConfig.SetGlobalCache(AValue: string);
 begin
   FGlobalCache := SetAsFolder(AValue);
+end;
+
+procedure cETKGUIConfig.SetLangFolder(const AValue: string);
+begin
+  FLangFolder := SetAsFolder(AValue);
 end;
 
 procedure cETKGUIConfig.SetScriptsFolder(AValue: string);
@@ -268,6 +285,7 @@ begin
 
   // Config/Data
   EmutecaIni := 'Emuteca.ini';
+  LangFolder := 'locale/';
   CurrSystem := '';
   SaveOnExit := True;
   SearchFile := 'Search.ini';
@@ -315,6 +333,8 @@ begin
   // Config/Data
   EmutecaIni := IniFile.ReadString(krsSectionConfig,
     krsKeyEmutecaIni, EmutecaIni);
+  LangFolder := IniFile.ReadString(krsSectionConfig,
+    krsKeyLangFolder, LangFolder);
   CurrSystem := IniFile.ReadString(krsSectionConfig,
     krsKeyCurrSystem, CurrSystem);
   SaveOnExit := IniFile.ReadBool(krsSectionConfig, krsKeySaveOnExit,
@@ -327,8 +347,8 @@ begin
   // Tools
   ScriptsFolder := IniFile.ReadString(krsSectionTools,
     krsKeyScriptsFolder, ScriptsFolder);
-  mPlayerExe := IniFile.ReadString(krsSectionTools,
-    krsKeyMPlayerExe, mPlayerExe);
+  mPlayerExe := IniFile.ReadString(krsSectionTools, krsKeyMPlayerExe,
+    mPlayerExe);
 
   // Experimental
   GlobalCache := IniFile.ReadString(krsSectionExperimental,
@@ -355,7 +375,7 @@ begin
   IniFile.WriteString(krsSectionVideo, krsKeyVideoExt,
     VideoExtensions.CommaText);
 
-    // Music
+  // Music
   IniFile.WriteString(krsSectionMusic, krsKeyMusicExt,
     MusicExtensions.CommaText);
 

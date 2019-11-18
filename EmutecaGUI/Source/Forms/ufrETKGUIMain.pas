@@ -58,7 +58,8 @@ uses
   // Emuteca GUI forms
   ufETKGUIAbout,
   // Emuteca GUI threads
-  utETKGUICacheSysIcons, utETKGUICacheGrpIcons, utETKGUICacheSoftIcons, utETKGUICacheEmuIcons;
+  utETKGUICacheSysIcons, utETKGUICacheGrpIcons, utETKGUICacheSoftIcons,
+  utETKGUICacheEmuIcons;
 
 type
 
@@ -95,7 +96,6 @@ type
     FileExit1: TFileExit;
     HelpOnHelp1: THelpOnHelp;
     MainMenu: TMainMenu;
-    MenuItem1: TMenuItem;
     MenuItem13: TMenuItem;
     MenuItem15: TMenuItem;
     MenuItem2: TMenuItem;
@@ -104,11 +104,11 @@ type
     MenuItem5: TMenuItem;
     MenuItem6: TMenuItem;
     MenuItem7: TMenuItem;
+    mipmMergeGroupFiles2: TMenuItem;
     mipmSDeleteSoft: TMenuItem;
     mimmOpenEmulatorWeb: TMenuItem;
     mimmSearchInternetE: TMenuItem;
     mimmSearchInternetS: TMenuItem;
-    mimmSearchInternetG: TMenuItem;
     mipmGSearchInternet: TMenuItem;
     mimmRunEmulatorAlone: TMenuItem;
     mimmAbout: TMenuItem;
@@ -130,13 +130,11 @@ type
     mimmImportExport: TMenuItem;
     mimmManagers: TMenuItem;
     mimmMediaManager: TMenuItem;
-    mimmMergeGroupFiles: TMenuItem;
     mimmOpen7zCacheFolder: TMenuItem;
     mimmOpenEmulatorFolder: TMenuItem;
     mimmOpenEmutecaFolder: TMenuItem;
     mimmOpenSystemBaseFolder: TMenuItem;
     mimmOpenTempFolder: TMenuItem;
-    mimmRunSoftware: TMenuItem;
     mimmSaveLists: TMenuItem;
     mimmSaveOnExit: TMenuItem;
     mimmScriptManager: TMenuItem;
@@ -146,9 +144,6 @@ type
     mimmUpdateSystemGroups: TMenuItem;
     mipmSOpenSoftFolder: TMenuItem;
     mipmSRunSoft: TMenuItem;
-    mipmSSOpenSysBaseFolder: TMenuItem;
-    mipmSSystem: TMenuItem;
-    mummOpenSoftFolder: TMenuItem;
     pmGroup: TPopupMenu;
     pmSoft: TPopupMenu;
     stbHelp: TStatusBar;
@@ -252,7 +247,8 @@ type
       read FCacheSysIconsThread write SetCacheSysIconsThread;
     procedure CacheSysIconsThreadTerminated(Sender: TObject);
     //< For use with TThread.OnTerminate, auto nil.
-    property CacheEmuIconsThread: ctETKGUICacheEmuIcons read FCacheEmuIconsThread write SetCacheEmuIconsThread;
+    property CacheEmuIconsThread: ctETKGUICacheEmuIcons
+      read FCacheEmuIconsThread write SetCacheEmuIconsThread;
     procedure CacheEmuIconsThreadTerminated(Sender: TObject);
     //< For use with TThread.OnTerminate, auto nil.
     property CacheGrpIconsThread: ctEGUICacheGrpIcons
@@ -328,6 +324,34 @@ begin
 end;
 
 procedure TfrmETKGUIMain.FormCreate(Sender: TObject);
+
+  procedure CloneMenus;
+  var
+    aItem: TMenuItem;
+  begin
+    // Copying PopUp menús to Main menú.
+    AddSubMenu(pmGroup, mimmGroup);
+    AddSubMenu(pmSoft, mimmSoft);
+
+    // Adding Group, System and Emulator from Main menú to popups.
+    aItem := CloneMenuItem(mimmSystem);
+    aItem.Enabled := True; // It can be always enabled in popup menu
+    pmGroup.Items.Add(aItem);
+    aItem := CloneMenuItem(mimmEmulator);
+    aItem.Enabled := True; // It can be always enabled in popup menu
+    pmGroup.Items.Add(aItem);
+
+    aItem := CloneMenuItem(mimmGroup);
+    aItem.Enabled := True; // It can be always enabled in popup menu
+    pmSoft.Items.Add(aItem);
+    aItem := CloneMenuItem(mimmSystem);
+    aItem.Enabled := True; // It can be always enabled in popup menu
+    pmSoft.Items.Add(aItem);
+    aItem := CloneMenuItem(mimmEmulator);
+    aItem.Enabled := True; // It can be always enabled in popup menu
+    pmSoft.Items.Add(aItem);
+  end;
+
 begin
   // Title of application, usually it's autodeleted in .lpr file...
   Application.Title := Format(rsFmtApplicationTitle,
@@ -336,11 +360,6 @@ begin
   // Changing base folder to parents exe folder.
   BaseFolder := ExtractFileDir(ExcludeTrailingPathDelimiter(ProgramDirectory));
   ChDir(BaseFolder);
-
-  // Loading translation
-  if not DirectoryExistsUTF8(BaseFolder + 'locale') then
-    mkdir(BaseFolder + 'locale');
-  SetDefaultLang('', BaseFolder + 'locale');
 
   // Standard format setting (for .ini and other conversions)
   // This overrides user local settings which can cause errors.
@@ -353,6 +372,11 @@ begin
   FGUIConfig := cETKGUIConfig.Create(self);
   GUIConfig.DefaultFileName := SetAsAbsoluteFile('GUI.ini', BaseFolder);
   GUIConfig.LoadFromFile('');
+
+  // Loading translation
+  if not DirectoryExistsUTF8(BaseFolder + GUIConfig.LangFolder) then
+    mkdir(BaseFolder + GUIConfig.LangFolder);
+  SetDefaultLang('', BaseFolder + GUIConfig.LangFolder);
 
   // Experimental:
   //   - 7z files cache folder
@@ -381,6 +405,9 @@ begin
 
   // Loading search links
   LoadSearchLinks;
+
+  // Copying menu items.
+  CloneMenus;
 
   // Creating main frame
   FfmEmutecaMainFrame := TfmETKGUIMain.Create(Self);
@@ -424,8 +451,8 @@ end;
 
 procedure TfrmETKGUIMain.HelpOnHelp1Execute(Sender: TObject);
 begin
-  TfmETKGUIAbout.SimpleModalForm(Emuteca,IconList,DumpIcons,ZoneIcons,
-  GUIConfig.DefaultFileName, GUIIconsFile);
+  TfmETKGUIAbout.SimpleModalForm(Emuteca, IconList, DumpIcons, ZoneIcons,
+    GUIConfig.DefaultFileName, GUIIconsFile);
 end;
 
 procedure TfrmETKGUIMain.FormCloseQuery(Sender: TObject;
@@ -651,9 +678,8 @@ begin
   if not Assigned(CurrentSoft) then
     Exit;
 
-  if not QuestionDlg('Are you sure',
-    Format(rsAskDeleteItem, [CurrentSoft.Title]),
-    mtConfirmation, [mrYes, mrNo], 0) = mrYes then
+  if not QuestionDlg('Are you sure', Format(rsAskDeleteItem,
+    [CurrentSoft.Title]), mtConfirmation, [mrYes, mrNo], 0) = mrYes then
     Exit;
 
 
@@ -727,7 +753,8 @@ end;
 procedure TfrmETKGUIMain.SetCacheEmuIconsThread(
   const AValue: ctETKGUICacheEmuIcons);
 begin
-  if FCacheEmuIconsThread = AValue then Exit;
+  if FCacheEmuIconsThread = AValue then
+    Exit;
   FCacheEmuIconsThread := AValue;
 end;
 
@@ -1010,7 +1037,6 @@ begin
   if not FileExistsUTF8(aFilename) then
     Exit;
 
-
   aFile := TStringList.Create;
   aSearcher := TStringList.Create;
 
@@ -1055,11 +1081,6 @@ begin
           aMenu.Name := 'mipmGSearcherG' + IntToStr(i);
           aMenu.Action := aAction;
           mipmGSearchInternet.Add(aMenu);
-
-          aMenu := TMenuItem.Create(nil);
-          aMenu.Name := 'mimmSearchInternetG' + IntToStr(i);
-          aMenu.Action := aAction;
-          mimmSearchInternetG.Add(aMenu);
         end;
 
         // Web searcher for System

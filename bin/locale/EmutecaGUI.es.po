@@ -1891,11 +1891,6 @@ msgstr "Gestores"
 msgid "Search emulator in Internet"
 msgstr "Buscar emulador en Internet"
 
-#: tfrmetkguimain.mimmsearchinternetg.caption
-msgctxt "tfrmetkguimain.mimmsearchinternetg.caption"
-msgid "Search group in Internet"
-msgstr "Buscar grupo en Internet"
-
 #: tfrmetkguimain.mimmsearchinternets.caption
 msgid "Search system in Internet"
 msgstr "Buscar sistema en Internet"
@@ -1914,11 +1909,6 @@ msgstr "Sistema"
 msgctxt "tfrmetkguimain.mipmgsearchinternet.caption"
 msgid "Search in Internet"
 msgstr "Buscar en Internet"
-
-#: tfrmetkguimain.mipmssystem.caption
-msgctxt "tfrmetkguimain.mipmssystem.caption"
-msgid "System"
-msgstr "Sistema"
 
 #: ucchxscriptengine.rsseecompilationmsg
 msgid "Compiling."

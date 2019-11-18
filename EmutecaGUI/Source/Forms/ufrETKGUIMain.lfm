@@ -30,12 +30,6 @@ inherited frmETKGUIMain: TfrmETKGUIMain
     object mipmSOpenSoftFolder: TMenuItem
       Action = actOpenSoftFolder
     end
-    object mipmSSystem: TMenuItem
-      Caption = 'System'
-      object mipmSSOpenSysBaseFolder: TMenuItem
-        Action = actOpenSystemBaseFolder
-      end
-    end
     object MenuItem7: TMenuItem
       Caption = '-'
     end
@@ -45,10 +39,13 @@ inherited frmETKGUIMain: TfrmETKGUIMain
   end
   object pmGroup: TPopupMenu[2]
     Images = ActImages
-    left = 204
+    left = 224
     top = 44
     object mipmGSearchInternet: TMenuItem
       Caption = 'Search in Internet'
+    end
+    object mipmMergeGroupFiles2: TMenuItem
+      Action = actMergeGroupFiles
     end
   end
   object MainMenu: TMainMenu[3]
@@ -172,25 +169,10 @@ inherited frmETKGUIMain: TfrmETKGUIMain
     object mimmGroup: TMenuItem
       Caption = 'Group'
       Enabled = False
-      object mimmMergeGroupFiles: TMenuItem
-        Action = actMergeGroupFiles
-      end
-      object mimmSearchInternetG: TMenuItem
-        Caption = 'Search group in Internet'
-      end
     end
     object mimmSoft: TMenuItem
       Caption = 'Software'
       Enabled = False
-      object mimmRunSoftware: TMenuItem
-        Action = actRunSoftware
-      end
-      object MenuItem1: TMenuItem
-        Caption = '-'
-      end
-      object mummOpenSoftFolder: TMenuItem
-        Action = actOpenSoftFolder
-      end
     end
     object mimmHelp: TMenuItem
       Caption = 'Help'
