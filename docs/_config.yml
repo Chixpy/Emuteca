@@ -1,1 +1,6 @@
+title: "Emuteca"
+description: "Frontend para juegos y emuladores"
 theme: jekyll-theme-leap-day
+show_downloads: "true"
+lang: es
+date_format: "%B de %e de %Y"
