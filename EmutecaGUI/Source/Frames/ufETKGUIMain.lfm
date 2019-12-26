@@ -31,22 +31,46 @@ inherited fmETKGUIMain: TfmETKGUIMain
     TabOrder = 2
     object pMain: TPanel
       Left = 0
-      Height = 453
-      Top = 28
+      Height = 481
+      Top = 0
       Width = 214
       Align = alClient
       BevelOuter = bvNone
-      TabOrder = 1
-    end
-    object eSearch: TEdit
-      Left = 0
-      Height = 28
-      Top = 0
-      Width = 214
-      Align = alTop
-      OnEditingDone = eSearchEditingDone
+      ClientHeight = 481
+      ClientWidth = 214
       TabOrder = 0
-      TextHint = 'Filter by name...'
+      object pSearch: TPanel
+        Left = 0
+        Height = 30
+        Top = 0
+        Width = 214
+        Align = alTop
+        AutoSize = True
+        BevelOuter = bvNone
+        ClientHeight = 30
+        ClientWidth = 214
+        TabOrder = 0
+        object eSearch: TEdit
+          Left = 0
+          Height = 30
+          Top = 0
+          Width = 144
+          Align = alClient
+          TabOrder = 0
+          TextHint = 'Filter by name...'
+        end
+        object bSearch: TButton
+          Left = 144
+          Height = 30
+          Top = 0
+          Width = 70
+          Align = alRight
+          AutoSize = True
+          Caption = 'Search'
+          OnClick = bSearchClick
+          TabOrder = 1
+        end
+      end
     end
   end
   object pcLeft: TPageControl[3]

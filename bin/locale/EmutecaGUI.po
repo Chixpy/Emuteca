@@ -73,6 +73,11 @@ msgctxt "tfmchxchklstpropeditor.toolbutton6.caption"
 msgid "ToolButton6"
 msgstr ""
 
+#: tfmchxfilelistpreview.actopenwithdefapp.caption
+msgctxt "tfmchxfilelistpreview.actopenwithdefapp.caption"
+msgid "Open with Default Application"
+msgstr ""
+
 #: tfmchximglistpreview.iimage.hint
 msgid "DblClk to open in Image Viewer"
 msgstr ""
@@ -384,6 +389,10 @@ msgctxt "tfmchxscriptmanager.toolbutton2.caption"
 msgid "ToolButton2"
 msgstr ""
 
+#: tfmchxtagtree.actopentagfolder.caption
+msgid "Open Tags Base Folder"
+msgstr ""
+
 #: tfmchxtagtree.actuncheckall.caption
 msgid "Uncheck All"
 msgstr ""
@@ -391,6 +400,20 @@ msgstr ""
 #: tfmchxtagtree.actupdatetagtree.caption
 msgctxt "tfmchxtagtree.actupdatetagtree.caption"
 msgid "Update Tree"
+msgstr ""
+
+#: tfmchxtagtree.tbtagtree.caption
+msgid "Tag Tree toolbar"
+msgstr ""
+
+#: tfmchxtagtree.toolbutton1.caption
+msgctxt "tfmchxtagtree.toolbutton1.caption"
+msgid "ToolButton1"
+msgstr ""
+
+#: tfmchxtagtree.toolbutton2.caption
+msgctxt "tfmchxtagtree.toolbutton2.caption"
+msgid "ToolButton2"
 msgstr ""
 
 #: tfmchxtagtree.vst.header.columns[0].text
@@ -697,10 +720,6 @@ msgstr ""
 
 #: tfmemutecaemulatoreditor.lworkingfolder.caption
 msgid "Working folder"
-msgstr ""
-
-#: tfmemutecaemulatoreditor.pmiwfemuteca.caption
-msgid "MenuItem1"
 msgstr ""
 
 #: tfmemutecagroupeditor.edeveloper.hint
@@ -1190,6 +1209,10 @@ msgctxt "tfmetkguifullsystemeditor.toolbutton2.caption"
 msgid "ToolButton2"
 msgstr ""
 
+#: tfmetkguimain.bsearch.caption
+msgid "Search"
+msgstr ""
+
 #: tfmetkguimain.esearch.texthint
 msgid "Filter by name..."
 msgstr ""
@@ -1241,7 +1264,7 @@ msgstr ""
 
 #: tfmetkguimediamanager.chkcopyfile.caption
 msgctxt "tfmetkguimediamanager.chkcopyfile.caption"
-msgid "Copy file"
+msgid "Copy file, don't delete source."
 msgstr ""
 
 #: tfmetkguimediamanager.chksimilarfiles.caption
@@ -1337,6 +1360,10 @@ msgstr ""
 #: tfmetkguimediamanager.pagsoftwofile.caption
 msgctxt "tfmetkguimediamanager.pagsoftwofile.caption"
 msgid "Software without file"
+msgstr ""
+
+#: tfmetkguimediamanager.rgbassignmode.caption
+msgid "Assign Mode"
 msgstr ""
 
 #: tfmetkguimediamanager.sbsource.panels[0].text
@@ -2168,6 +2195,10 @@ msgctxt "uemutecarscstr.rsunknown"
 msgid "Unknown"
 msgstr ""
 
+#: uetkguirscstr.rsadvancedcaption
+msgid "Advanced"
+msgstr ""
+
 #: uetkguirscstr.rsaskdeleteitem
 msgid ""
 "Do you want to delete this item from Emuteca?\n"
@@ -2183,6 +2214,10 @@ msgid ""
 "* Change all defined image, music, video folders with created ones.\n"
 "\n"
 "¿Are you sure?\n"
+msgstr ""
+
+#: uetkguirscstr.rsbasiccaption
+msgid "Basic"
 msgstr ""
 
 #: uetkguirscstr.rsdeveloper

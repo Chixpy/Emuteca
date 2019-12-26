@@ -8,6 +8,7 @@ inherited frmETKGUIMain: TfrmETKGUIMain
   OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
   OnDestroy = FormDestroy
+  Position = poDesktopCenter
   object stbHelp: TStatusBar[0]
     Left = 4
     Height = 29

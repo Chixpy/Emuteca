@@ -24,7 +24,7 @@ inherited fmETKGUISysPreview: TfmETKGUISysPreview
     Caption = 'Stats'
     ClientHeight = 160
     ClientWidth = 311
-    TabOrder = 1
+    TabOrder = 2
     object eSysPlayedTime: TEdit
       Left = 0
       Height = 28
@@ -95,7 +95,7 @@ inherited fmETKGUISysPreview: TfmETKGUISysPreview
     Caption = 'Current emulator'
     ClientHeight = 84
     ClientWidth = 311
-    TabOrder = 2
+    TabOrder = 3
     object eEmuPlayedTime: TEdit
       Left = 0
       Height = 28
@@ -103,7 +103,7 @@ inherited fmETKGUISysPreview: TfmETKGUISysPreview
       Width = 311
       Align = alTop
       Enabled = False
-      TabOrder = 0
+      TabOrder = 2
       TextHint = 'Played Time'
     end
     object eEmuNTimes: TEdit
@@ -123,7 +123,7 @@ inherited fmETKGUISysPreview: TfmETKGUISysPreview
       Width = 311
       Align = alTop
       Enabled = False
-      TabOrder = 2
+      TabOrder = 3
       TextHint = 'Last time played'
     end
     object pEmulator: TPanel
@@ -134,7 +134,7 @@ inherited fmETKGUISysPreview: TfmETKGUISysPreview
       Align = alTop
       AutoSize = True
       BevelOuter = bvNone
-      TabOrder = 3
+      TabOrder = 0
     end
   end
   object pSysImage: TPanel[3]
@@ -146,7 +146,7 @@ inherited fmETKGUISysPreview: TfmETKGUISysPreview
     BevelOuter = bvNone
     ClientHeight = 226
     ClientWidth = 315
-    TabOrder = 3
+    TabOrder = 0
     object ToolBar1: TToolBar
       Left = 0
       Height = 26

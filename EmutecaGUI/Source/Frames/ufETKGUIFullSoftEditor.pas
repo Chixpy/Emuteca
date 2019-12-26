@@ -208,8 +208,8 @@ begin
     if fmGroupEditor.Group <> Software.CachedGroup then
     begin
       // If empty; change TEdit, with old group title.
-      if fmSoftEditor.eTitle.Caption = '' then;
-        fmSoftEditor.eTitle.Caption := Software.CachedGroup.Title;
+      if fmSoftEditor.eTitle.Text = '' then
+        fmSoftEditor.eTitle.Text := Software.CachedGroup.Title;
 
       // Assigning new group
       Software.CachedGroup := fmGroupEditor.Group;

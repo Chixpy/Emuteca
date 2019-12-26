@@ -195,12 +195,14 @@ constructor TfmETKGUIFullEmuEditor.Create(TheOwner: TComponent);
     aTabSheet: TTabSheet;
   begin
     aTabSheet := pcProperties.AddTabSheet;
+    aTabSheet.Caption := rsBasicCaption;
     FEmuEditor := TfmEmutecaEmulatorEditor.Create(aTabSheet);
     EmuEditor.SaveButtons := False;
     EmuEditor.Align := alClient;
     EmuEditor.Parent := aTabSheet;
 
     aTabSheet := pcProperties.AddTabSheet;
+    aTabSheet.Caption := rsAdvancedCaption;
     FEmuParamsEditor :=
       TfmEmutecaEmulatorAdvParamsEditor.Create(aTabSheet);
     EmuParamsEditor.SaveButtons := False;

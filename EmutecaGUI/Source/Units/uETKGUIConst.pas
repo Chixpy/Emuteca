@@ -36,8 +36,6 @@ const
   // TODO: Is it used only by Media Manager?
   krsVirtualFolderExt = '.(folder)';
   {< String to identify folders in Media Manager. }
-  krsVirtualExt = '.(ext)';
-  {< }
 
   krsETKGUISystemEditorID = 'frmETKGUIFullSysEditor';
   {< ID for (full) System Editor form. }

@@ -1,28 +1,28 @@
 --- 
 - 
   link: "/"
-  name: Inicio
+  name: "Inicio"
 - 
   link: "/pages/News.html"
-  name: Noticias
+  name: "Noticias"
 - 
   link: "/pages/Why-Emuteca.html"
   name: "¿Por qué..."
 - 
   link: "/pages/Screenshots.html"
-  name: Imágenes
+  name: "Imágenes"
 - 
   link: "/pages/Systems.html"
-  name: Sistemas
+  name: "Sistemas"
 - 
   link: "/pages/Emulators.html"
-  name: Emuladores
+  name: "Emuladores"
 - 
   link: "/pages/Dialogs.html"
-  name: Cuadros de diálogo
+  name: "Cuadros de diálogo"
 - 
   link: "/pages/FAQ.html"
-  name: FAQs
+  name: "FAQs"
 - 
   link: "/pages/About.html"
-  name: Sobre...
+  name: "Sobre..."

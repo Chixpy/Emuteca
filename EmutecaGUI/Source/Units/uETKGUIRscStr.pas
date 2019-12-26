@@ -73,6 +73,8 @@ resourcestring
   rsSoftMediaCaption = 'Soft Media';
   rsTagsCaption = 'Tags';
   rsSystemCaption = 'System';
+  rsBasicCaption  = 'Basic';
+  rsAdvancedCaption = 'Advanced';
 
   rsRunSoftwareUnkError = 'RunSoftware: Unknown Error.' +
     LineEnding + '%0:s' + LineEnding + '%1:s';

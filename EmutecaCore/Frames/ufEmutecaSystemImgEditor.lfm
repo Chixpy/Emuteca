@@ -3,26 +3,26 @@ inherited fmEmutecaSystemImgEditor: TfmEmutecaSystemImgEditor
   Width = 420
   ClientHeight = 398
   ClientWidth = 420
-  DesignLeft = 420
-  DesignTop = 159
+  DesignLeft = 760
+  DesignTop = 253
   inherited pButtons: TPanel
-    Top = 372
+    Top = 368
     Width = 420
     ClientWidth = 420
     TabOrder = 2
     inherited chkCloseOnSave: TCheckBox
-      Left = 57
+      Left = 51
     end
     inherited bSave: TBitBtn
-      Left = 163
+      Left = 162
     end
     inherited bCancel: TBitBtn
-      Left = 282
+      Left = 279
     end
   end
   object gbxImages: TGroupBox[1]
     Left = 0
-    Height = 368
+    Height = 364
     Top = 0
     Width = 207
     Align = alClient
@@ -33,94 +33,124 @@ inherited fmEmutecaSystemImgEditor: TfmEmutecaSystemImgEditor
     ChildSizing.ShrinkVertical = crsScaleChilds
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 1
-    ClientHeight = 348
+    ClientHeight = 339
     ClientWidth = 203
     TabOrder = 0
-    object gbxSystemImage: TGroupBox
+    object PairSplitter1: TPairSplitter
+      Cursor = crVSplit
       Left = 0
-      Height = 174
+      Height = 339
       Top = 0
       Width = 203
-      Caption = 'System image'
-      ClientHeight = 154
-      ClientWidth = 199
-      TabOrder = 0
-      object eSystemImage: TFileNameEdit
+      Align = alClient
+      Position = 200
+      SplitterType = pstVertical
+      object PairSplitterSide1: TPairSplitterSide
+        Cursor = crArrow
         Left = 0
-        Height = 23
+        Height = 200
         Top = 0
-        Width = 199
-        OnAcceptFileName = eSystemImageAcceptFileName
-        DialogKind = dkPictureOpen
-        DialogOptions = [ofNoChangeDir, ofEnableSizing, ofViewDetail]
-        FilterIndex = 0
-        HideDirectories = False
-        ButtonWidth = 23
-        NumGlyphs = 1
-        Flat = True
-        Align = alTop
-        MaxLength = 0
-        TabOrder = 0
-        OnButtonClick = eSystemImageButtonClick
+        Width = 203
+        ClientWidth = 203
+        ClientHeight = 200
+        object gbxSystemImage: TGroupBox
+          Left = 0
+          Height = 200
+          Top = 0
+          Width = 203
+          Align = alClient
+          Caption = 'System image'
+          ClientHeight = 175
+          ClientWidth = 199
+          TabOrder = 0
+          object eSystemImage: TFileNameEdit
+            Left = 0
+            Height = 28
+            Top = 0
+            Width = 199
+            OnAcceptFileName = eSystemImageAcceptFileName
+            DialogKind = dkPictureOpen
+            DialogOptions = [ofNoChangeDir, ofEnableSizing, ofViewDetail]
+            FilterIndex = 0
+            HideDirectories = False
+            ButtonWidth = 23
+            NumGlyphs = 1
+            Flat = True
+            Align = alTop
+            MaxLength = 0
+            TabOrder = 0
+            OnButtonClick = eSystemImageButtonClick
+          end
+          object iSystemImage: TImage
+            Left = 0
+            Height = 147
+            Hint = 'System image|DblClk: Open in Image viewer.'
+            Top = 28
+            Width = 199
+            Align = alClient
+            Center = True
+            OnDblClick = iSystemImageDblClick
+            Proportional = True
+            Stretch = True
+            Transparent = True
+          end
+        end
       end
-      object iSystemImage: TImage
+      object PairSplitterSide2: TPairSplitterSide
+        Cursor = crArrow
         Left = 0
-        Height = 131
-        Hint = 'System image|DblClk: Open in Image viewer.'
-        Top = 23
-        Width = 199
-        Align = alClient
-        Center = True
-        OnDblClick = iSystemImageDblClick
-        Proportional = True
-        Stretch = True
-        Transparent = True
-      end
-    end
-    object gbxSystemBG: TGroupBox
-      Left = 0
-      Height = 174
-      Top = 174
-      Width = 203
-      Caption = 'System background'
-      ClientHeight = 154
-      ClientWidth = 199
-      TabOrder = 1
-      object eSystemBG: TFileNameEdit
-        Left = 0
-        Height = 23
-        Top = 0
-        Width = 199
-        OnAcceptFileName = eSystemBGAcceptFileName
-        DialogKind = dkPictureOpen
-        DialogOptions = [ofNoChangeDir, ofEnableSizing, ofViewDetail]
-        FilterIndex = 0
-        HideDirectories = False
-        ButtonWidth = 23
-        NumGlyphs = 1
-        Flat = True
-        Align = alTop
-        MaxLength = 0
-        TabOrder = 0
-        OnButtonClick = eSystemBGButtonClick
-      end
-      object iSystemBG: TImage
-        Left = 0
-        Height = 131
-        Top = 23
-        Width = 199
-        Align = alClient
-        Center = True
-        OnDblClick = iSystemBGDblClick
-        Proportional = True
-        Stretch = True
-        Transparent = True
+        Height = 134
+        Top = 205
+        Width = 203
+        ClientWidth = 203
+        ClientHeight = 134
+        object gbxSystemBG: TGroupBox
+          Left = 0
+          Height = 134
+          Top = 0
+          Width = 203
+          Align = alClient
+          Caption = 'System background'
+          ClientHeight = 109
+          ClientWidth = 199
+          TabOrder = 0
+          object eSystemBG: TFileNameEdit
+            Left = 0
+            Height = 28
+            Top = 0
+            Width = 199
+            OnAcceptFileName = eSystemBGAcceptFileName
+            DialogKind = dkPictureOpen
+            DialogOptions = [ofNoChangeDir, ofEnableSizing, ofViewDetail]
+            FilterIndex = 0
+            HideDirectories = False
+            ButtonWidth = 23
+            NumGlyphs = 1
+            Flat = True
+            Align = alTop
+            MaxLength = 0
+            TabOrder = 0
+            OnButtonClick = eSystemBGButtonClick
+          end
+          object iSystemBG: TImage
+            Left = 0
+            Height = 81
+            Top = 28
+            Width = 199
+            Align = alClient
+            Center = True
+            OnDblClick = iSystemBGDblClick
+            Proportional = True
+            Stretch = True
+            Transparent = True
+          end
+        end
       end
     end
   end
   object gbxSystemIcons: TGroupBox[2]
     Left = 220
-    Height = 368
+    Height = 364
     Top = 0
     Width = 200
     Align = alRight
@@ -131,21 +161,21 @@ inherited fmEmutecaSystemImgEditor: TfmEmutecaSystemImgEditor
     ChildSizing.ShrinkVertical = crsHomogenousChildResize
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 1
-    ClientHeight = 348
+    ClientHeight = 339
     ClientWidth = 196
     TabOrder = 1
     object gbxSystemIcon: TGroupBox
       Left = 0
-      Height = 148
+      Height = 105
       Top = 0
       Width = 196
       Caption = 'System icon'
-      ClientHeight = 128
+      ClientHeight = 80
       ClientWidth = 192
       TabOrder = 0
       object eSystemIcon: TFileNameEdit
         Left = 0
-        Height = 23
+        Height = 28
         Top = 0
         Width = 192
         OnAcceptFileName = eSystemIconAcceptFileName
@@ -163,8 +193,8 @@ inherited fmEmutecaSystemImgEditor: TfmEmutecaSystemImgEditor
       end
       object iSystemIcon: TImage
         Left = 0
-        Height = 105
-        Top = 23
+        Height = 52
+        Top = 28
         Width = 192
         Align = alClient
         Center = True
@@ -176,18 +206,18 @@ inherited fmEmutecaSystemImgEditor: TfmEmutecaSystemImgEditor
     end
     object gbxIconFolder: TGroupBox
       Left = 0
-      Height = 200
-      Top = 148
+      Height = 234
+      Top = 105
       Width = 196
       AutoSize = True
       Caption = 'Software icons'
-      ClientHeight = 180
+      ClientHeight = 209
       ClientWidth = 192
       TabOrder = 1
       object eSoftIconFolder: TDirectoryEdit
         Left = 0
-        Height = 23
-        Top = 15
+        Height = 28
+        Top = 20
         Width = 192
         DialogOptions = [ofNoChangeDir, ofEnableSizing, ofViewDetail]
         ShowHidden = False
@@ -201,7 +231,7 @@ inherited fmEmutecaSystemImgEditor: TfmEmutecaSystemImgEditor
       end
       object lSoftIconFolder: TLabel
         Left = 0
-        Height = 15
+        Height = 20
         Top = 0
         Width = 192
         Align = alTop
@@ -210,8 +240,8 @@ inherited fmEmutecaSystemImgEditor: TfmEmutecaSystemImgEditor
       end
       object lDefSoftIcon: TLabel
         Left = 0
-        Height = 15
-        Top = 38
+        Height = 20
+        Top = 48
         Width = 192
         Align = alTop
         Caption = 'Default soft icon'
@@ -219,8 +249,8 @@ inherited fmEmutecaSystemImgEditor: TfmEmutecaSystemImgEditor
       end
       object eDefSoftIcon: TFileNameEdit
         Left = 0
-        Height = 23
-        Top = 53
+        Height = 28
+        Top = 68
         Width = 192
         OnAcceptFileName = eDefSoftIconAcceptFileName
         DialogKind = dkPictureOpen
@@ -237,8 +267,8 @@ inherited fmEmutecaSystemImgEditor: TfmEmutecaSystemImgEditor
       end
       object iDefSoftIcon: TImage
         Left = 0
-        Height = 104
-        Top = 76
+        Height = 113
+        Top = 96
         Width = 192
         Align = alClient
         Center = True
@@ -251,7 +281,7 @@ inherited fmEmutecaSystemImgEditor: TfmEmutecaSystemImgEditor
   end
   object Splitter1: TSplitter[3]
     Left = 211
-    Height = 368
+    Height = 364
     Top = 0
     Width = 5
     Align = alRight

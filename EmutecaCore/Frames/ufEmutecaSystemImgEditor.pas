@@ -26,7 +26,7 @@ interface
 
 uses
   Classes, SysUtils, LazFileUtils, Forms, Controls, StdCtrls,
-  EditBtn, ExtCtrls, Buttons, ActnList, ComCtrls, inifiles,
+  EditBtn, ExtCtrls, Buttons, ActnList, ComCtrls, PairSplitter, inifiles,
   // CHX units
   uCHXStrUtils, uCHXDlgUtils,
   // CHX frames
@@ -56,6 +56,9 @@ type
     iSystemImage: TImage;
     lDefSoftIcon: TLabel;
     lSoftIconFolder: TLabel;
+    PairSplitter1: TPairSplitter;
+    PairSplitterSide1: TPairSplitterSide;
+    PairSplitterSide2: TPairSplitterSide;
     Splitter1: TSplitter;
     procedure eDefSoftIconAcceptFileName(Sender: TObject; Var Value: String);
     procedure eDefSoftIconButtonClick(Sender: TObject);

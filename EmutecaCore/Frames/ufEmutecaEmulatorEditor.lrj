@@ -21,6 +21,5 @@
 {"hash":32573550,"name":"tfmemutecaemulatoreditor.actparamromfileextension.caption","sourcebytes":[82,79,77,32,70,105,108,101,32,101,120,116,101,110,115,105,111,110],"value":"ROM File extension"},
 {"hash":234819283,"name":"tfmemutecaemulatoreditor.actparamromextra.caption","sourcebytes":[82,79,77,32,69,120,116,114,97,32,112,97,114,97,109,101,116,101,114,115],"value":"ROM Extra parameters"},
 {"hash":155196574,"name":"tfmemutecaemulatoreditor.actparamromextra.hint","sourcebytes":[65,100,100,32,101,120,116,114,97,32,112,97,114,97,109,101,116,101,114,32,102,114,111,109,32,82,79,77,32,105,110,102,111,46],"value":"Add extra parameter from ROM info."},
-{"hash":180538916,"name":"tfmemutecaemulatoreditor.actparamsyscoreid.caption","sourcebytes":[83,121,115,116,101,109,32,67,111,114,101,32,73,68],"value":"System Core ID"},
-{"hash":94435777,"name":"tfmemutecaemulatoreditor.pmiwfemuteca.caption","sourcebytes":[77,101,110,117,73,116,101,109,49],"value":"MenuItem1"}
+{"hash":180538916,"name":"tfmemutecaemulatoreditor.actparamsyscoreid.caption","sourcebytes":[83,121,115,116,101,109,32,67,111,114,101,32,73,68],"value":"System Core ID"}
 ]}

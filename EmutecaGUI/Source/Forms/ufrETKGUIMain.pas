@@ -334,18 +334,33 @@ procedure TfrmETKGUIMain.FormCreate(Sender: TObject);
     AddSubMenu(pmSoft, mimmSoft);
 
     // Adding Group, System and Emulator from Main menú to popups.
+    aItem := TMenuItem.Create(pmGroup);
+    aItem.Caption := '-';
+    pmGroup.Items.Add(aItem);
     aItem := CloneMenuItem(mimmSystem);
     aItem.Enabled := True; // It can be always enabled in popup menu
+    pmGroup.Items.Add(aItem);
+    aItem := TMenuItem.Create(pmGroup);
+    aItem.Caption := '-';
     pmGroup.Items.Add(aItem);
     aItem := CloneMenuItem(mimmEmulator);
     aItem.Enabled := True; // It can be always enabled in popup menu
     pmGroup.Items.Add(aItem);
 
+    aItem := TMenuItem.Create(pmSoft);
+    aItem.Caption := '-';
+    pmSoft.Items.Add(aItem);
     aItem := CloneMenuItem(mimmGroup);
     aItem.Enabled := True; // It can be always enabled in popup menu
     pmSoft.Items.Add(aItem);
+    aItem := TMenuItem.Create(pmSoft);
+    aItem.Caption := '-';
+    pmSoft.Items.Add(aItem);
     aItem := CloneMenuItem(mimmSystem);
     aItem.Enabled := True; // It can be always enabled in popup menu
+    pmSoft.Items.Add(aItem);
+    aItem := TMenuItem.Create(pmSoft);
+    aItem.Caption := '-';
     pmSoft.Items.Add(aItem);
     aItem := CloneMenuItem(mimmEmulator);
     aItem.Enabled := True; // It can be always enabled in popup menu
@@ -660,6 +675,12 @@ procedure TfrmETKGUIMain.actOpenSystemBaseFolderExecute(Sender: TObject);
 begin
   if not assigned(CurrentSystem) then
     Exit;
+
+  if CurrentSystem.BaseFolder = '' then
+  begin
+    ShowMessage('System base folder is not defined.');
+    Exit;
+  end;
 
   if not OpenDocument(CurrentSystem.BaseFolder) then
     raise EFileNotFoundException.CreateFmt(rsFmtNotFound,

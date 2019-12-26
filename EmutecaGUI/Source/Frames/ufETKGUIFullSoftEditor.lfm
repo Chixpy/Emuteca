@@ -4,25 +4,26 @@ inherited fmETKGUIFullSoftEditor: TfmETKGUIFullSoftEditor
   DesignLeft = 697
   DesignTop = 117
   inherited pButtons: TPanel
-    Top = 361
+    Top = 357
+    TabOrder = 1
   end
   object ScrollBox: TScrollBox[1]
     Left = 0
-    Height = 357
+    Height = 353
     Top = 0
-    Width = 320
-    HorzScrollBar.Page = 65
-    VertScrollBar.Page = 70
+    Width = 400
+    HorzScrollBar.Page = 78
+    VertScrollBar.Page = 85
     Align = alClient
     BorderStyle = bsNone
-    ClientHeight = 357
-    ClientWidth = 320
-    TabOrder = 1
+    ClientHeight = 353
+    ClientWidth = 400
+    TabOrder = 0
     object gbxGroup: TGroupBox
       Left = 0
-      Height = 51
+      Height = 61
       Top = 0
-      Width = 320
+      Width = 400
       Align = alTop
       AutoSize = True
       Caption = 'Group'
@@ -30,25 +31,25 @@ inherited fmETKGUIFullSoftEditor: TfmETKGUIFullSoftEditor
       ChildSizing.TopBottomSpacing = 4
       ChildSizing.HorizontalSpacing = 4
       ChildSizing.VerticalSpacing = 4
-      ClientHeight = 31
-      ClientWidth = 316
+      ClientHeight = 36
+      ClientWidth = 396
       TabOrder = 0
       object pGroupCBX: TPanel
         Left = 4
-        Height = 19
+        Height = 24
         Top = 4
-        Width = 308
+        Width = 388
         Align = alTop
         AutoSize = True
         BevelOuter = bvNone
         ChildSizing.HorizontalSpacing = 4
         ChildSizing.VerticalSpacing = 4
-        ClientHeight = 19
-        ClientWidth = 308
+        ClientHeight = 24
+        ClientWidth = 388
         TabOrder = 0
         object bAddNewGroup: TSpeedButton
-          Left = 285
-          Height = 19
+          Left = 365
+          Height = 24
           Hint = 'Add new group'
           Top = 0
           Width = 23
@@ -62,8 +63,8 @@ inherited fmETKGUIFullSoftEditor: TfmETKGUIFullSoftEditor
       object pGroupEditor: TPanel
         Left = 4
         Height = 0
-        Top = 27
-        Width = 308
+        Top = 32
+        Width = 388
         Align = alTop
         AutoSize = True
         BevelOuter = bvNone
@@ -72,9 +73,9 @@ inherited fmETKGUIFullSoftEditor: TfmETKGUIFullSoftEditor
     end
     object gbxSoft: TGroupBox
       Left = 0
-      Height = 19
-      Top = 51
-      Width = 320
+      Height = 24
+      Top = 61
+      Width = 400
       Align = alTop
       AutoSize = True
       Caption = 'Software'

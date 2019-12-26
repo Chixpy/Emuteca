@@ -60,15 +60,16 @@ type
   { TfmETKGUIMain }
 
   TfmETKGUIMain = class(TfmCHXFrame)
+    bSearch: TButton;
     eSearch: TEdit;
     pcLeft: TPageControl;
     pcSoftware: TPageControl;
     pMain: TPanel;
     pMiddle: TPanel;
+    pSearch: TPanel;
     Splitter1: TSplitter;
     Splitter2: TSplitter;
-    procedure eSearchEditingDone(Sender: TObject);
-
+    procedure bSearchClick(Sender: TObject);
   private
     FCurrentGroup: cEmutecaGroup;
     FCurrentSoft: cEmutecaSoftware;
@@ -191,7 +192,7 @@ begin
   fmSoftTree.DumpIconList := DumpIcons;
 end;
 
-procedure TfmETKGUIMain.eSearchEditingDone(Sender: TObject);
+procedure TfmETKGUIMain.bSearchClick(Sender: TObject);
 begin
   UpdateGroupList(fmCHXTagTree.CheckedList);
 end;

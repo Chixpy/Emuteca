@@ -3,7 +3,6 @@ layout: page
 title: ¿Por qué...
 EmuVer: 0.8
 ---
-
 ## ¿Por qué Emuteca? ##
 
 Cuando se crea un programa alternativo a otros que ya existen de características

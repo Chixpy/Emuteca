@@ -8,22 +8,22 @@ msgstr ""
 #: tfmchxabout.gbxcompilation.caption
 msgctxt "tfmchxabout.gbxcompilation.caption"
 msgid "Compilation info"
-msgstr ""
+msgstr "Información de compilación"
 
 #: tfmchxabout.gbximageext.caption
 msgctxt "tfmchxabout.gbximageext.caption"
 msgid "Supported image extensions"
-msgstr ""
+msgstr "Extensiones de imagen soportadas"
 
 #: tfmchxabout.lcompilation.caption
 msgctxt "tfmchxabout.lcompilation.caption"
 msgid "Compilation"
-msgstr ""
+msgstr "Compilación"
 
 #: tfmchxabout.limageext.caption
 msgctxt "tfmchxabout.limageext.caption"
 msgid "ImageExt"
-msgstr ""
+msgstr "Extensiones de imagen"
 
 #: tfmchxabout.ltitle.caption
 #, fuzzy
@@ -75,9 +75,14 @@ msgctxt "tfmchxchklstpropeditor.toolbutton6.caption"
 msgid "ToolButton6"
 msgstr ""
 
+#: tfmchxfilelistpreview.actopenwithdefapp.caption
+msgctxt "tfmchxfilelistpreview.actopenwithdefapp.caption"
+msgid "Open with Default Application"
+msgstr ""
+
 #: tfmchximglistpreview.iimage.hint
 msgid "DblClk to open in Image Viewer"
-msgstr ""
+msgstr "Doble Click para abrir en el visor de imágenes."
 
 #: tfmchximgviewer.actclose.caption
 msgid "Close window"
@@ -297,7 +302,7 @@ msgstr ""
 
 #: tfmchxscriptmanager.actfolderopen.caption
 msgid "Open folder"
-msgstr ""
+msgstr "Abrir carpeta"
 
 #: tfmchxscriptmanager.actoutputclear.caption
 msgid "actOutputClear"
@@ -329,9 +334,10 @@ msgid "&Reemplazar"
 msgstr ""
 
 #: tfmchxscriptmanager.actstop.caption
+#, fuzzy
 msgctxt "tfmchxscriptmanager.actstop.caption"
 msgid "Stop"
-msgstr ""
+msgstr "Parar"
 
 #: tfmchxscriptmanager.bseparator1.caption
 msgctxt "tfmchxscriptmanager.bseparator1.caption"
@@ -390,6 +396,10 @@ msgctxt "tfmchxscriptmanager.toolbutton2.caption"
 msgid "ToolButton2"
 msgstr ""
 
+#: tfmchxtagtree.actopentagfolder.caption
+msgid "Open Tags Base Folder"
+msgstr ""
+
 #: tfmchxtagtree.actuncheckall.caption
 msgid "Uncheck All"
 msgstr ""
@@ -397,6 +407,20 @@ msgstr ""
 #: tfmchxtagtree.actupdatetagtree.caption
 msgctxt "tfmchxtagtree.actupdatetagtree.caption"
 msgid "Update Tree"
+msgstr ""
+
+#: tfmchxtagtree.tbtagtree.caption
+msgid "Tag Tree toolbar"
+msgstr ""
+
+#: tfmchxtagtree.toolbutton1.caption
+msgctxt "tfmchxtagtree.toolbutton1.caption"
+msgid "ToolButton1"
+msgstr ""
+
+#: tfmchxtagtree.toolbutton2.caption
+msgctxt "tfmchxtagtree.toolbutton2.caption"
+msgid "ToolButton2"
 msgstr ""
 
 #: tfmchxtagtree.vst.header.columns[0].text
@@ -419,36 +443,36 @@ msgstr "Fichero"
 
 #: tfmchxvideolistpreview.actmute.caption
 msgid "Mute"
-msgstr ""
+msgstr "Silenciar"
 
 #: tfmchxvideolistpreview.actmute.hint
 msgid "Mute audio."
-msgstr ""
+msgstr "Silencia el sonido."
 
 #: tfmchxvideolistpreview.actpause.caption
 msgid "Pause"
-msgstr ""
+msgstr "Pausar"
 
 #: tfmchxvideolistpreview.actpause.hint
 msgid "Pauses current media."
-msgstr ""
+msgstr "Pausa la reprodución."
 
 #: tfmchxvideolistpreview.actplay.caption
 msgid "Play"
-msgstr ""
+msgstr "Reproducir"
 
 #: tfmchxvideolistpreview.actplay.hint
 msgid "Plays current media."
-msgstr ""
+msgstr "Reproduce el contenido."
 
 #: tfmchxvideolistpreview.actstop.caption
 msgctxt "tfmchxvideolistpreview.actstop.caption"
 msgid "Stop"
-msgstr ""
+msgstr "Parar"
 
 #: tfmchxvideolistpreview.actstop.hint
 msgid "Stops current media."
-msgstr ""
+msgstr "Para la reproducción."
 
 #: tfmchxvideolistpreview.tbplayer.caption
 msgid "tbPlayer"
@@ -465,21 +489,21 @@ msgstr "No buscar dentro de archivos comprimidos."
 
 #: tfmemutecaactaddfolder.chknozip.hint
 msgid "Check it for MAME sofware search speedup."
-msgstr ""
+msgstr "Marca para acelerar la búsqueda de software de MAME."
 
 #: tfmemutecaactaddfolder.chksubfolders.caption
 #, fuzzy
 #| msgid "Search in subfolders"
 msgid "Search in subfolders."
-msgstr "Buscar en subcarpetas"
+msgstr "Buscar en subcarpetas."
 
 #: tfmemutecaactaddfolder.chksubfolders.hint
 msgid "Scan in subfolders too."
-msgstr ""
+msgstr "Busca en subcarpetas también."
 
 #: tfmemutecaactaddfolder.efolder.hint
 msgid "Folder for searching software."
-msgstr ""
+msgstr "Carpeta para buscar software"
 
 #: tfmemutecaactaddfolder.gbxfolder.caption
 msgid "Select folder"
@@ -496,11 +520,11 @@ msgstr "Información del sistema"
 
 #: tfmemutecaactaddfolder.lsystemexportkey.caption
 msgid "System export key"
-msgstr ""
+msgstr "Clave para exportar el sistema"
 
 #: tfmemutecaactaddfolder.lsystemextensions.caption
 msgid "System extensions"
-msgstr ""
+msgstr "Extensiones del sistema"
 
 #: tfmemutecaactaddfolder.rgbfilename.caption
 msgid "If duplicate file found..."
@@ -717,10 +741,6 @@ msgstr "Página web"
 #: tfmemutecaemulatoreditor.lworkingfolder.caption
 msgid "Working folder"
 msgstr "Carpeta de trabajo"
-
-#: tfmemutecaemulatoreditor.pmiwfemuteca.caption
-msgid "MenuItem1"
-msgstr ""
 
 #: tfmemutecagroupeditor.edeveloper.hint
 msgid "Developer of the software."
@@ -1217,6 +1237,10 @@ msgctxt "tfmetkguifullsystemeditor.toolbutton2.caption"
 msgid "ToolButton2"
 msgstr ""
 
+#: tfmetkguimain.bsearch.caption
+msgid "Search"
+msgstr ""
+
 #: tfmetkguimain.esearch.texthint
 msgid "Filter by name..."
 msgstr "Filtrar por nombre..."
@@ -1268,7 +1292,7 @@ msgstr ""
 
 #: tfmetkguimediamanager.chkcopyfile.caption
 msgctxt "tfmetkguimediamanager.chkcopyfile.caption"
-msgid "Copy file"
+msgid "Copy file, don't delete source."
 msgstr ""
 
 #: tfmetkguimediamanager.chksimilarfiles.caption
@@ -1366,6 +1390,10 @@ msgstr ""
 #: tfmetkguimediamanager.pagsoftwofile.caption
 msgctxt "tfmetkguimediamanager.pagsoftwofile.caption"
 msgid "Software without file"
+msgstr ""
+
+#: tfmetkguimediamanager.rgbassignmode.caption
+msgid "Assign Mode"
 msgstr ""
 
 #: tfmetkguimediamanager.sbsource.panels[0].text
@@ -2223,6 +2251,10 @@ msgctxt "uemutecarscstr.rsunknown"
 msgid "Unknown"
 msgstr "Desconocido"
 
+#: uetkguirscstr.rsadvancedcaption
+msgid "Advanced"
+msgstr ""
+
 #: uetkguirscstr.rsaskdeleteitem
 msgid ""
 "Do you want to delete this item from Emuteca?\n"
@@ -2238,6 +2270,10 @@ msgid ""
 "* Change all defined image, music, video folders with created ones.\n"
 "\n"
 "¿Are you sure?\n"
+msgstr ""
+
+#: uetkguirscstr.rsbasiccaption
+msgid "Basic"
 msgstr ""
 
 #: uetkguirscstr.rsdeveloper

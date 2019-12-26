@@ -1,23 +1,23 @@
 inherited fmETKGUIFullEmuEditor: TfmETKGUIFullEmuEditor
   inherited pButtons: TPanel
-    TabOrder = 1
+    TabOrder = 2
   end
   object pcProperties: TPageControl[1]
     Left = 0
-    Height = 180
+    Height = 236
     Top = 30
-    Width = 320
+    Width = 400
     Align = alClient
-    TabOrder = 0
+    TabOrder = 1
   end
   object ToolBar1: TToolBar[2]
     Left = 0
     Height = 26
     Top = 0
-    Width = 320
+    Width = 400
     Caption = 'ToolBar1'
     Images = ilPropEditor
-    TabOrder = 2
+    TabOrder = 0
     object bOpenEmulatorFolder: TToolButton
       Left = 1
       Top = 2

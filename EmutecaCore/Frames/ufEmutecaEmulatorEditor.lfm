@@ -499,7 +499,7 @@ inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
       Action = actWFROM
     end
     object pmiWFEmuteca: TMenuItem
-      Caption = 'MenuItem1'
+      Action = actWFEmuteca
     end
   end
   object pmParameters: TPopupMenu[8]
