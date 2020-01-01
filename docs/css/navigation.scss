@@ -1,0 +1,31 @@
+.NavDiv { 
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  
+  width: 150px;
+  height: 100%;
+  
+  padding: 0 10px 0 0;
+}
+
+.NavDiv .SiteHeaderIcon {
+  text-align: center;
+}
+
+.NavDiv .NavMain {
+  overflow: auto;
+}
+
+.NavDiv .NavMain ul {
+  font-size: bigger;
+}
+
+.NavDiv .NavMain ul li {
+  display: block;
+  clear: both;
+  
+  border-color: #000;
+}
+

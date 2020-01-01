@@ -1,6 +1,20 @@
+# Plugins
+# -------
+gems:
+  - jekyll-sitemap
+  - jekyll-feed
+  - jekyll-seo-tag
+  
+# Otras interesantes
+# baseurl: /Emuteca (dirección base)
+  
+# Mis variables
+# -------------
 title: "Emuteca"
-description: "Frontend para juegos y emuladores"
-theme: jekyll-theme-leap-day
-show_downloads: "true"
-lang: es
+EmuVer: 0.8
+description: > # > Para multilíneas
+  "Frontend para juegos y emuladores."
+logo: "/Emuteca/img/Icon.png"
+author: "Chixpy"
+lang: "es"
 date_format: "%B de %e de %Y"

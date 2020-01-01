@@ -858,10 +858,21 @@ begin
   CurrPreview.FileList := nil;
   MediaFiles.Clear;
 
-  // TODO: Preview folders and zips
-
   if SupportedExtSL(aFileName, ExtFilter) then
-    MediaFiles.Add(aFolder + aFileName);
+    // Normal media files
+    MediaFiles.Add(aFolder + aFileName)
+  else if UTF8CompareText(ExtractFileExt(aFileName),
+    krsVirtualFolderExt) = 0 then
+    // Hack: Folders: Using EmuTKSearchAllRelatedFiles
+    EmuTKSearchAllRelatedFiles(MediaFiles, aFolder,
+      ExtractFileNameWithoutExt(aFileName), ExtFilter, False, False,
+      Emuteca.TempFolder)
+  else if SupportedExtSL(aFileName, Emuteca.Config.CompressedExtensions) then
+    // Hack: Zips: Using EmuTKSearchAllRelatedFiles
+    EmuTKSearchAllRelatedFiles(MediaFiles, aFolder,
+      ExtractFileNameWithoutExt(aFileName), ExtFilter, True, True,
+      Emuteca.TempFolder);
+
   CurrPreview.FileList := MediaFiles;
 end;
 
