@@ -753,6 +753,7 @@ procedure TfmETKGUIMediaManager.RemoveFileVSTFiles(aFile: string);
     pFileName: PFileRow;
     Nodo: PVirtualNode;
   begin
+    // NextSelected := nil;
     aVST.BeginUpdate;
 
     // From LastChild
@@ -763,6 +764,16 @@ procedure TfmETKGUIMediaManager.RemoveFileVSTFiles(aFile: string);
       if CompareFilenames(pFileName^.FileName + pFileName^.Extension,
         aFile) = 0 then
       begin
+
+        //// Searching contiguos node for selecting
+        //if aVST.Selected[Nodo] then
+        //begin
+        //  NextSelected := aVST.GetNextSibling(Nodo);
+        //
+        //  if not assigned(NextSelected) then
+        //    NextSelected := aVST.GetPreviousSibling(Nodo)
+        //end;
+
         aVST.DeleteNode(Nodo);
         // ...VST is too dynamic, reinit the search
         Nodo := aVST.GetLastChild(nil);
@@ -771,6 +782,11 @@ procedure TfmETKGUIMediaManager.RemoveFileVSTFiles(aFile: string);
         Nodo := aVST.GetPreviousSibling(Nodo);
     end;
     aVST.EndUpdate;
+
+    //if assigned(NextSelected) then
+    //begin
+    //  aVST.Selected[NextSelected] := true;
+    //end;
   end;
 
 begin
@@ -1204,11 +1220,20 @@ begin
 
       if aBool then
       begin
-        if not DeleteFileUTF8(SourcePath) then
+        if IsFolder then
         begin
-          ShowMessageFmt('Error deleting: %0:s', [SourcePath]);
-          Exit;
+          aBool := DeleteDirectory(SourcePath, false);
+        end
+        else
+        begin
+          aBool := DeleteFileUTF8(SourcePath);
         end;
+      end;
+
+      if not aBool then
+      begin
+        ShowMessageFmt('Error deleting: %0:s', [SourcePath]);
+        Exit;
       end;
     end;
     aNode := aVSTFiles.GetNextSibling(aNode);
