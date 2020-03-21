@@ -21,24 +21,8 @@ Todavía en fase de desarrollo pero es funcional.
 {% capture imagefile -%}{{- site.baseurl -}}/img/0_8/GameManager.png{%- endcapture -%}
 {%- include image.html file=imagefile caption="Gestor de juegos" %}
 
-{% capture imagefile -%}{{- site.baseurl -}}/img/0_8/ProgressBar.png{%- endcapture -%}
-{%- include image.html file=imagefile caption="Barra de progreso" %}
-
-
-Build 119: 
-
-* Los juegos con solo una versión se listan directamente
-* El panel derecho se pueden configurar (y se puede añadir vídeo y música)
-
-{% capture imagefile -%}{{- site.baseurl -}}/img/0_8/GameManager%200_8_0_119.png{%- endcapture -%}
-{%- include image.html file=imagefile caption="Gestor de juegos 0.8.0.119" %}
-
-Build 106:
-
-* Se pueden listar los juegos de todos los sistemas simultáneamente
-
-{% capture imagefile -%}{{- site.baseurl -}}/img/0_8/GameManager%200_8_0_106.png{%- endcapture -%}
-{%- include image.html file=imagefile caption="Gestor de juegos 0.8.0.106" %}
+* [Build 119]({{- site.baseurl -}}/img/0_8/GameManager%200_8_0_119.png)
+* [Build 106]({{- site.baseurl -}}/img/0_8/GameManager%200_8_0_106.png)
 
 ## 0.7.X ##
 

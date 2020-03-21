@@ -28,7 +28,7 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="8"/>
-      <BuildNr Value="127"/>
+      <BuildNr Value="129"/>
       <StringTable Comments="Emuteca database editor" InternalName="EmutecaEditorGUI" LegalCopyright="Chixpy" ProductVersion="0.8.0"/>
     </VersionInfo>
     <BuildModes Count="2">
@@ -97,7 +97,7 @@
         <PackageName Value="LCL"/>
       </Item7>
     </RequiredPackages>
-    <Units Count="135">
+    <Units Count="137">
       <Unit0>
         <Filename Value="EmutecaGUI.pas"/>
         <IsPartOfProject Value="True"/>
@@ -812,6 +812,14 @@
         <Filename Value="..\CHXPas\Units\uCHXMenuUtils.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit134>
+      <Unit135>
+        <Filename Value="..\CHXPas\ScriptManager\imports\uPSI_FPCFileUtil.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit135>
+      <Unit136>
+        <Filename Value="..\CHXPas\ScriptManager\imports\uPSI_FPCLazUTF8.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit136>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

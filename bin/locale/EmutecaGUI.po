@@ -82,6 +82,11 @@ msgstr ""
 msgid "DblClk to open in Image Viewer"
 msgstr ""
 
+#: tfmchximglistpreview.limageprops.caption
+msgctxt "tfmchximglistpreview.limageprops.caption"
+msgid "No image loaded"
+msgstr ""
+
 #: tfmchximgviewer.actclose.caption
 msgid "Close window"
 msgstr ""
@@ -281,17 +286,25 @@ msgstr ""
 msgid "Open folder in Explorer"
 msgstr ""
 
+#: tfmchxscriptmanager.actfileopenfolder.hint
+msgid "Open folder of the file with explorer."
+msgstr ""
+
 #: tfmchxscriptmanager.actfilesave.caption
 msgid "Save File"
 msgstr ""
 
+#: tfmchxscriptmanager.actfilesave.hint
+msgid "Quick save of the file."
+msgstr ""
+
 #: tfmchxscriptmanager.actfilesaveas.caption
-msgid "Gu&ardar Como..."
+msgid "Save as..."
 msgstr ""
 
 #: tfmchxscriptmanager.actfilesaveas.hint
 msgctxt "tfmchxscriptmanager.actfilesaveas.hint"
-msgid "Guardar Como"
+msgid "Save with another filename."
 msgstr ""
 
 #: tfmchxscriptmanager.actfolderopen.caption
@@ -2346,6 +2359,15 @@ msgstr ""
 
 #: ufchxchklstpropeditor.rsleclpesavelist
 msgid "Save list"
+msgstr ""
+
+#: ufchximglistpreview.rsimageprops
+msgid "%2:s: %0:d x %1:d"
+msgstr ""
+
+#: ufchximglistpreview.rsnoimageloaded
+msgctxt "ufchximglistpreview.rsnoimageloaded"
+msgid "No image loaded"
 msgstr ""
 
 #: ufchxlistpreview.rstotalitemscount

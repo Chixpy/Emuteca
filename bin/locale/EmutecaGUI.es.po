@@ -78,11 +78,16 @@ msgstr ""
 #: tfmchxfilelistpreview.actopenwithdefapp.caption
 msgctxt "tfmchxfilelistpreview.actopenwithdefapp.caption"
 msgid "Open with Default Application"
-msgstr ""
+msgstr "Abrir con aplicación por defecto"
 
 #: tfmchximglistpreview.iimage.hint
 msgid "DblClk to open in Image Viewer"
 msgstr "Doble Click para abrir en el visor de imágenes."
+
+#: tfmchximglistpreview.limageprops.caption
+msgctxt "tfmchximglistpreview.limageprops.caption"
+msgid "No image loaded"
+msgstr "Ninguna imagen cargada"
 
 #: tfmchximgviewer.actclose.caption
 msgid "Close window"
@@ -287,18 +292,26 @@ msgstr "Ejecutar"
 msgid "Open folder in Explorer"
 msgstr "Abrir carpeta en el explorador"
 
+#: tfmchxscriptmanager.actfileopenfolder.hint
+msgid "Open folder of the file with explorer."
+msgstr ""
+
 #: tfmchxscriptmanager.actfilesave.caption
 msgid "Save File"
 msgstr "Guardar fichero"
 
+#: tfmchxscriptmanager.actfilesave.hint
+msgid "Quick save of the file."
+msgstr "Guarda rápidamente el fichero."
+
 #: tfmchxscriptmanager.actfilesaveas.caption
-msgid "Gu&ardar Como..."
-msgstr ""
+msgid "Save as..."
+msgstr "Guardar como..."
 
 #: tfmchxscriptmanager.actfilesaveas.hint
 msgctxt "tfmchxscriptmanager.actfilesaveas.hint"
-msgid "Guardar Como"
-msgstr ""
+msgid "Save with another filename."
+msgstr "Guarda el fichero con otro nombre."
 
 #: tfmchxscriptmanager.actfolderopen.caption
 msgid "Open folder"
@@ -398,16 +411,16 @@ msgstr ""
 
 #: tfmchxtagtree.actopentagfolder.caption
 msgid "Open Tags Base Folder"
-msgstr ""
+msgstr "Abrir la carpeta base de las etiquetas"
 
 #: tfmchxtagtree.actuncheckall.caption
 msgid "Uncheck All"
-msgstr ""
+msgstr "Desmarcar todos"
 
 #: tfmchxtagtree.actupdatetagtree.caption
 msgctxt "tfmchxtagtree.actupdatetagtree.caption"
 msgid "Update Tree"
-msgstr ""
+msgstr "Actualizar árbol"
 
 #: tfmchxtagtree.tbtagtree.caption
 msgid "Tag Tree toolbar"
@@ -630,22 +643,22 @@ msgstr ""
 #: tfmemutecaemulatoradvparamseditor.gbxextparams.caption
 msgctxt "tfmemutecaemulatoradvparamseditor.gbxextparams.caption"
 msgid "Parameters by extension"
-msgstr ""
+msgstr "Parámetros por extensión"
 
 #: tfmemutecaemulatoradvparamseditor.gbxextrasoftparameters.caption
 msgctxt "tfmemutecaemulatoradvparamseditor.gbxextrasoftparameters.caption"
 msgid "Extra software parameters"
-msgstr ""
+msgstr "Parámetros extra del software"
 
 #: tfmemutecaemulatoradvparamseditor.lcoreparamfmt.caption
 msgctxt "tfmemutecaemulatoradvparamseditor.lcoreparamfmt.caption"
 msgid "Core parameter format"
-msgstr ""
+msgstr "Formato del párametro de núcleo"
 
 #: tfmemutecaemulatoradvparamseditor.lmultiemuid.caption
 msgctxt "tfmemutecaemulatoradvparamseditor.lmultiemuid.caption"
 msgid "Multisystem emulator ID"
-msgstr ""
+msgstr "Identificador del emulador multisistema"
 
 #: tfmemutecaemulatoreditor.actopenwebpage.caption
 msgid "Open Webpage"
@@ -681,7 +694,7 @@ msgstr "Ruta completa de la ROM"
 
 #: tfmemutecaemulatoreditor.actparamsyscoreid.caption
 msgid "System Core ID"
-msgstr ""
+msgstr "Identificador del núcleo del sistema"
 
 #: tfmemutecaemulatoreditor.actwfemulator.caption
 msgid "Emulator folder"
@@ -720,7 +733,7 @@ msgstr "Código de salida"
 
 #: tfmemutecaemulatoreditor.licon.caption
 msgid "Icon"
-msgstr ""
+msgstr "Icono"
 
 #: tfmemutecaemulatoreditor.lid.caption
 msgid "ID"
@@ -748,7 +761,7 @@ msgstr "Desarrollador del software"
 
 #: tfmemutecagroupeditor.egroupid.hint
 msgid "ID of the group."
-msgstr ""
+msgstr "Identificador del grupo."
 
 #: tfmemutecagroupeditor.egroupid.texthint
 msgid "Group ID"
@@ -1156,7 +1169,7 @@ msgstr ""
 #: tfmemutecatagtree.mipmftree.caption
 msgctxt "tfmemutecatagtree.mipmftree.caption"
 msgid "Tree"
-msgstr ""
+msgstr "Árbol"
 
 #: tfmetkguiactmergegroup.chkaddtargettolist.caption
 msgid "Add merged files to system list."
@@ -1169,12 +1182,12 @@ msgstr ""
 #: tfmetkguiactmergegroup.gbxsource.caption
 msgctxt "tfmetkguiactmergegroup.gbxsource.caption"
 msgid "Source"
-msgstr ""
+msgstr "Fuente"
 
 #: tfmetkguiactmergegroup.gbxtarget.caption
 msgctxt "tfmetkguiactmergegroup.gbxtarget.caption"
 msgid "Target"
-msgstr ""
+msgstr "Destino"
 
 #: tfmetkguiactmergegroup.ltargetfolder.caption
 msgid "Target Folder"
@@ -2416,6 +2429,15 @@ msgstr "Zonas"
 
 #: ufchxchklstpropeditor.rsleclpesavelist
 msgid "Save list"
+msgstr ""
+
+#: ufchximglistpreview.rsimageprops
+msgid "%2:s: %0:d x %1:d"
+msgstr ""
+
+#: ufchximglistpreview.rsnoimageloaded
+msgctxt "ufchximglistpreview.rsnoimageloaded"
+msgid "No image loaded"
 msgstr ""
 
 #: ufchxlistpreview.rstotalitemscount

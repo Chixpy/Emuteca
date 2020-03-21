@@ -75,9 +75,9 @@ type
     procedure DoClearFrameData;
     procedure DoLoadFrameData;
 
-    procedure CreateListView; virtual; abstract; // TODO: abstract; //-> ERROR?
-    function GetCaptionList: TStrings; virtual; abstract;// TODO: abstract; //-> ERROR?
-    function GetFolder: string; virtual; abstract; // TODO: abstract; //-> ERROR?
+    procedure CreateListView; virtual; abstract;
+    function GetCaptionList: TStrings; virtual; abstract;
+    function GetFolder: string; virtual; abstract;
 
   public
     property Software: cEmutecaSoftware read FSoftware write SetSoftware;

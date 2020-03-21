@@ -120,7 +120,7 @@ begin
         if Pos('bootleg', aVer) > 0 then
           aPirate := 'Bootleg';
          
-        aZone := krsImportKeepValue;
+        aZone := krsImportKeepValueKey;
         if Pos('World', aVer) > 0 then
           aZone := 'xw'
         else if Pos('JUE', aVer) > 0 then
@@ -170,7 +170,7 @@ begin
           
 
         // Hacked 
-        aHack := krsImportKeepValue        
+        aHack := krsImportKeepValueKey;
         if Pos('hack', aVer) > 0 then
           aHack := 'Hack';
           
@@ -201,8 +201,8 @@ begin
             // Adding to parent list
             // "ID","Title","Sort title","Year","Developer","Media file"
             ParentList.Add('"' + aParent + '","' + aName + '",' +
-              krsImportKeepValue + ',' + krsImportKeepValue + ',' +
-              krsImportKeepValue + ',"' + aParent + '"');
+              krsImportKeepValueKey + ',' + krsImportKeepValueKey + ',' +
+              krsImportKeepValueKey + ',"' + aName + '"');
           end;
         end; // while (ClonesList.Count > 0) and (aPos > 0) do
 
@@ -211,15 +211,15 @@ begin
         // "DumpInfo","Fixed","Trainer","Translation","Pirate","Cracked",
         // "Modified","Hack"
 
-        OutList.Add('"' + aParent + '",' + krsImportKeepValue + ',"' + aID +
-          '",' + krsImportKeepValue + ',' + krsImportKeepValue + ',"' + aName +
-          '",' + krsImportKeepValue + ',' + krsImportKeepValue + ',"' + aVer +
-          '",' + krsImportKeepValue + ',' + krsImportKeepValue + ',' +
-          aZone + ',' + krsImportKeepValue + ',' +
-          krsImportKeepValue + ',' + krsImportKeepValue + ',' +
-          krsImportKeepValue + ',' + krsImportKeepValue + ',' +
-          aPirate + ',' + krsImportKeepValue + ',' +
-          krsImportKeepValue + ',' + krsImportKeepValue);
+        OutList.Add('"' + aParent + '",' + krsImportKeepValueKey + ',"' + aID
+          + '",' + krsImportKeepValueKey + ',' + krsImportKeepValueKey + ',"'
+          + aName + '",' + krsImportKeepValueKey + ',' + krsImportKeepValueKey
+          + ',"' + aVer + '",' + krsImportKeepValueKey + ','
+          + krsImportKeepValueKey + ',' + aZone + ',' + krsImportKeepValueKey
+          + ',' + krsImportKeepValueKey + ',' + krsImportKeepValueKey + ','
+          + krsImportKeepValueKey + ',' + krsImportKeepValueKey + ','
+          + aPirate + ',' + krsImportKeepValueKey + ','
+          + krsImportKeepValueKey + ',' + krsImportKeepValueKey);
       end; // if Pos('"', aName) > 2 then
     end; // while FullList.Count > 0 do
 

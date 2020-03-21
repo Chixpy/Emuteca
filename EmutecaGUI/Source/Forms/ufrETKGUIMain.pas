@@ -175,6 +175,7 @@ type
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
+    procedure FormShow(Sender: TObject);
     procedure HelpOnHelp1Execute(Sender: TObject);
 
   private
@@ -380,9 +381,6 @@ begin
   // This overrides user local settings which can cause errors.
   StandardFormatSettings;
 
-  // Windows Caption
-  Caption := Format(krsFmtWindowCaption, [Application.Title, Caption]);
-
   // Loading GUI config
   FGUIConfig := cETKGUIConfig.Create(self);
   GUIConfig.DefaultFileName := SetAsAbsoluteFile('GUI.ini', BaseFolder);
@@ -462,6 +460,13 @@ begin
   IconList.Free;
   GUIConfig.Free;
   Emuteca.Free;
+end;
+
+procedure TfrmETKGUIMain.FormShow(Sender: TObject);
+begin
+  // Windows Caption
+  // It is removed if set in OnCreate ¿?
+  Self.Caption := Format(krsFmtWindowCaption, [Application.Title, Caption]);
 end;
 
 procedure TfrmETKGUIMain.HelpOnHelp1Execute(Sender: TObject);

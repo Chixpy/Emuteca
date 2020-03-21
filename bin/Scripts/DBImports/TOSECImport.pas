@@ -7,10 +7,13 @@ Imports title, versión, year, publisher, dumpinfo, etc. from filenames.
 Don't changes groups.
 [Data]
 Name=Chixpy
-Version=0.01
-Date=20170923
+Version=0.02
+Date=20200201
 [Changes]
-
+* 0.01 - 20170923
+  * Initial version
+* 0.02 - 20200201
+  * Displaying actual number of analized files.
 [EndInfo]
 }
 program TOSECImport;
@@ -84,9 +87,11 @@ begin
       if aStr <> '' then
         DBList.Add(aStr);
 
-      if (i and 511) = 511 then
-        WriteLn(IntToStr(i) + ' soft files analized.');
       Inc(i);
+      
+      // After Inc(i) is the actual number of files analized.
+      if (i and 512) = 512 then
+        WriteLn(IntToStr(i) + ' soft files analized.');
     end;
     DBList.EndUpdate;
     

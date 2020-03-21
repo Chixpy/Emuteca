@@ -149,22 +149,6 @@ begin
   WriteLn('    CAUTION: You must use ExcludeTrailingPathDelimiter, if you');
   WriteLn('      want to change the extension of a folder.');
 
-  // Files and Folders UTF8
-  WriteLn('');
-  WriteLn('function FileExistsUTF8(const aFileName: String): Boolean;');
-  WriteLn('    Search if a file exists, UTF8 string aware.');
-  WriteLn('    FileExistsUTF8(''' + aFile + ''') -> ' +
-    BoolToStr(FileExistsUTF8(aFile)));
-  WriteLn('    FileExistsUTF8(''' + aFolder + ''') -> ' +
-    BoolToStr(FileExistsUTF8(aFolder)));
-  WriteLn('');
-  WriteLn('function DirectoryExistsUTF8(const aFileName: String): Boolean;');
-  WriteLn('    Search if a folder exists, UTF8 string aware.');
-  WriteLn('    DirectoryExistsUTF8(''' + aFile + ''') -> ' +
-    BoolToStr(DirectoryExistsUTF8(aFile)));
-  WriteLn('    DirectoryExistsUTF8(''' + aFolder + ''') -> ' +
-    BoolToStr(DirectoryExistsUTF8(aFolder)));
-
   // HACK: We can't create Stringlist!!!
   WriteLn('');
   WriteLn('function CreateStringList: TStringList;');
