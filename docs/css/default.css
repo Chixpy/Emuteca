@@ -1,0 +1,159 @@
+@charset "utf-8";
+
+/*
+  Common styles 
+*/
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: #eef;  
+  text-align: justify;
+}
+
+h1, h2, h3, h4 {
+  font-variant: small-caps;
+}
+
+li {
+  text-indent: 0;
+}
+
+dt {
+  font-weight: bold;
+}
+
+/*
+  Header (.SiteHeader)
+*/
+
+.SiteHeader {
+  display: block;
+  clear: both;
+  height: 150px;
+  
+  margin: 0;
+  padding: 0;
+
+  background: url("/Emuteca/img/Header.png");
+  background-repeat: no-repeat;
+  background-position: left top;  
+   
+  font-size: bigger;
+  text-align: center;
+}
+
+.SiteHeader .SiteHeaderIcon {
+  display: block; 
+  float: left;
+  width: 150px;
+  height: 150px;
+  
+  vertical-align: middle;
+  text-align: center;  
+}
+
+.SiteHeader .SiteTitle{
+  font-size: bigger;
+}
+
+.SiteHeader .SiteDesc {
+  font-style: italic;
+}
+
+.SiteHeader .PageTitle {
+ text-align: left; 
+}
+
+/*
+  Navigation (.NavMain)
+*/
+
+.NavMain {
+  display: block;
+  float: left;
+  clear: both;
+  
+  width: 150px;
+  overflow: auto;
+  
+  margin: 0;
+}
+
+.NavMain ul {  
+  list-style-type: none;
+  
+  margin: 0;
+  padding: 0;
+  
+  text-align: center;
+  font-variant: small-caps;
+}
+
+.NavMain ul li {
+  display: block;
+  clear: both;
+   
+  border-bottom: 1px solid #000;
+}
+
+.NavMain ul li a {
+  display: block;
+  text-decoration: none;
+  padding: 2ex;
+}
+
+.NavMain ul li a:hover {
+  background-color: #44f;
+  color: white;
+}
+
+/*
+  Content styles 
+*/
+
+.PageContent {
+  display: block;
+  
+  margin: 0 0 0 150px;  
+  padding: 0 2em;
+  
+  text-indent: -1em;
+}
+
+.PageContent .PageVersion {
+  display: block;
+  float: right;
+  
+  background-color: #fff;
+  text-color: #000;
+  border: 1px solid #000;
+  
+  text-align: center;
+  text-indent: 0;
+  
+  margin: 0 0 0 2em;
+  
+  padding: 0 2em;
+}
+
+
+/*
+  Footer (.SiteFooter)
+*/
+
+.SiteFooter {
+  display: block;
+  
+  background: url("/Emuteca/img/Header.png");
+  background-repeat: no-repeat;
+  background-position: bottom;
+  
+  margin: 0 0 0 150px;  
+  padding: 0 2em;
+  
+  border-top: 1px solid #000;
+}
