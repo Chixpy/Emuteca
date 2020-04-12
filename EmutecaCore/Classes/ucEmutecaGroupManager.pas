@@ -1,4 +1,5 @@
 unit ucEmutecaGroupManager;
+
 {< cEmutecaGroupManager class unit.
 
   This file is part of Emuteca Core.
@@ -25,7 +26,8 @@ unit ucEmutecaGroupManager;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, LazFileUtils, LazUTF8, LConvEncoding, LResources,
+  Classes, SysUtils, FileUtil, LazFileUtils, LazUTF8,
+  LConvEncoding, LResources,
   // CHX abstracts
   uaCHXStorable,
   // Emuteca Core units
@@ -206,7 +208,7 @@ procedure cEmutecaGroupManager.ExportToStrLst(aTxtFile: TStrings);
 var
   ExpGroupList: cEmutecaGroupList;
   i, j, aComp: integer;
-  aGroup, aExpGroup, NewGroup: cEmutecaGroup;
+  aGroup, aExpGroup: cEmutecaGroup;
 begin
   if not Assigned(aTxtFile) then
     Exit;
@@ -221,51 +223,75 @@ begin
     ExpGroupList.Sort(@EmutecaCompareGroupsByID);
 
     // Dragons...
-    i := 0;
-    j := 0;
-    if ExpGroupList.Count > 0 then
-      aExpGroup := ExpGroupList[j]
-    else
-      aExpGroup := nil;
+    i := 0; // FullList item.
+    j := 0; // ExportList item.
+
     while i < FullList.Count do
     begin
       aGroup := FullList[i];
 
-      repeat // until found or aExpGroup > aGroup
-        if Assigned(aExpGroup) then
-        begin
-          if Assigned(aGroup) then
-            aComp := aExpGroup.CompareID(aGroup.ID)
-          else
-            aComp := 1; // This must not happen...
-        end
-        else
-          aComp := 1;
-
-        if aComp < 0 then
-        begin
-          Inc(j);
-          if ExpGroupList.Count > j then
+      if Assigned(aGroup) then
+      begin
+        // Searching a match (0) or ExportList > FullList (1)
+        repeat
+          if j < ExpGroupList.Count then
             aExpGroup := ExpGroupList[j]
           else
             aExpGroup := nil;
-        end;
-      until aComp >= 0;
 
-      if Assigned(aGroup) then
-      begin
-        if aComp = 0 then
-          aExpGroup.ImportFrom(aGroup)
-        else
+          if Assigned(aExpGroup) then
+            aComp := aExpGroup.CompareID(aGroup.ID)
+          else
+            aComp := 1;
+
+          if aComp < 0 then
+            Inc(j);
+        until aComp >= 0;
+
+        // Exporting data
+        if aComp = 0 then // Match
         begin
-          NewGroup := cEmutecaGroup.Create(nil);
-          NewGroup.ID := aGroup.ID;
-          NewGroup.ImportFrom(aGroup);
-          ExpGroupList.Add(NewGroup);
+          aExpGroup.ImportFrom(aGroup); // Importing first match
+        end
+        else
+        begin // Creating new group
+          aExpGroup := cEmutecaGroup.Create(nil);
+          aExpGroup.ID := aGroup.ID;
+          aExpGroup.ImportFrom(aGroup);
+          ExpGroupList.Add(aExpGroup);
         end;
-      end;
 
-      Inc(i);
+        Inc(i); // Next FullList group
+
+        // Cherry picking repeated FullList items
+        aComp := 0;
+        while (i < FullList.Count) and (aComp = 0) do
+        begin
+          aGroup := FullList[i];
+          if Assigned(aGroup) then
+          begin
+            aComp := aExpGroup.CompareID(aGroup.ID);
+            if (aComp = 0) then
+            begin
+              if (aExpGroup.GetActualTitle = '') then
+                aExpGroup.Title := aGroup.GetActualTitle;
+              if (aExpGroup.GetActualSortTitle = '') then
+                aExpGroup.SortTitle := aGroup.GetActualSortTitle;
+              if (aExpGroup.Year = '') then
+                aExpGroup.Year := aGroup.Year;
+              if (aExpGroup.Developer = '') then
+                aExpGroup.Developer := aGroup.Developer;
+              if (aExpGroup.GetActualMediaFilename = '') then
+                aExpGroup.MediaFileName := aGroup.GetActualMediaFilename;
+              Inc(i);
+            end;
+          end
+          else
+            Inc(i);
+        end;
+      end
+      else // Not assigned aGroup?
+        Inc(i);
     end;
 
     // Actually saving to file
@@ -287,6 +313,15 @@ begin
       aTxtFile.Add(aGroup.ExportCommaText);
 
       Inc(i);
+
+      // Cleaning file, skip repeated IDs.
+      aComp := 0;
+      while (i < ExpGroupList.Count) and (aComp = 0) do
+      begin
+        aComp := aGroup.CompareID(ExpGroupList[i].ID);
+        if (aComp = 0) then
+          Inc(i);
+      end;
     end;
 
   finally
@@ -324,7 +359,8 @@ var
   i: integer;
   aGroup: cEmutecaGroup;
 begin
-  if not assigned(aTxtFile) then Exit;
+  if not assigned(aTxtFile) then
+    Exit;
 
   aTxtFile.BeginUpdate;
   try

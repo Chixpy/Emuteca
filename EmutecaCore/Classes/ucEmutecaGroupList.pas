@@ -52,7 +52,20 @@ implementation
 function EmutecaCompareGroupsByID(
   const aGroup1, aGroup2: cEmutecaGroup): integer;
 begin
-  Result := aGroup1.CompareID(aGroup2.ID);
+  if assigned(aGroup1) then
+  begin
+    if assigned(aGroup2) then
+      Result := aGroup1.CompareID(aGroup2.ID)
+    else
+      Result := 1;
+  end
+  else
+  begin
+    if assigned(aGroup2) then
+      Result := -1
+    else
+      Result := 0;
+  end;
 end;
 
 { cEmutecaGroupList }

@@ -256,7 +256,7 @@ procedure cEmutecaSoftManager.ExportToStrLst(aTxtFile: TStrings);
 var
   ExpSoftList: cEmutecaSoftList;
   i, j, aComp: integer;
-  aSoft, aExpSoft, NewSoft: cEmutecaSoftware;
+  aSoft, aExpSoft: cEmutecaSoftware;
 begin
   if not Assigned(aTxtFile) then
     Exit;
@@ -271,55 +271,99 @@ begin
     ExpSoftList.Sort(@EmutecaCompareSoftByID);
 
     // Dragons...
-    i := 0;
-    j := 0;
-    if ExpSoftList.Count > 0 then
-      aExpSoft := ExpSoftList[j]
-    else
-      aExpSoft := nil;
+    i := 0; // FullList item.
+    j := 0; // ExportList item.
+
     while i < FullList.Count do
     begin
       aSoft := FullList[i];
 
-      repeat // until found or aExpSoft > aSoft
-        if Assigned(aExpSoft) then
-        begin
-          if Assigned(aSoft) then
-            aComp := aExpSoft.CompareID(aSoft.ID)
-          else
-            aComp := 1; // This must not happen...
-        end
-        else
-          aComp := 1;
-
-        if aComp < 0 then
-        begin
-          Inc(j);
-          if ExpSoftList.Count > j then
+      if Assigned(aSoft) then
+      begin
+        // Searching a match (0) or ExportList > FullList (1)
+        repeat
+          if j < ExpSoftList.Count then
             aExpSoft := ExpSoftList[j]
           else
             aExpSoft := nil;
-        end;
-      until aComp >= 0;
 
-      if Assigned(aSoft) then
-      begin
-        if aComp = 0 then
-          aExpSoft.ImportFrom(aSoft)
-        else
+          if Assigned(aExpSoft) then
+            aComp := aExpSoft.CompareID(aSoft.ID)
+          else
+            aComp := 1;
+
+          if aComp < 0 then
+            Inc(j);
+        until aComp >= 0;
+
+        // Exporting data
+        if aComp = 0 then // Match
         begin
-          NewSoft := cEmutecaSoftware.Create(nil);
-          NewSoft.ID := aSoft.ID;
-          NewSoft.ImportFrom(aSoft);
-          ExpSoftList.Add(NewSoft);
+          aExpSoft.ImportFrom(aSoft); // Importing first match
+        end
+        else
+        begin // Creating new group
+          aExpSoft := cEmutecaSoftware.Create(nil);
+          aExpSoft.ID := aSoft.ID;
+          aExpSoft.ImportFrom(aSoft);
+          ExpSoftList.Add(aExpSoft);
         end;
-      end;
 
-      Inc(i);
+        Inc(i); // Next FullList group
+
+        // Cherry picking repeated FullList items
+        aComp := 0;
+        while (i < FullList.Count) and (aComp = 0) do
+        begin
+          aSoft := FullList[i];
+          if Assigned(aSoft) then
+          begin
+            aComp := aExpSoft.CompareID(aSoft.ID);
+            if (aComp = 0) then
+            begin
+              if (aExpSoft.GetActualTitle = '') then
+                   aExpSoft.Title := aSoft.GetActualTitle;
+               if (aExpSoft.GetActualSortTitle = '') then
+                   aExpSoft.SortTitle := aSoft.GetActualSortTitle;
+               if (aExpSoft.Version = '') then
+                   aExpSoft.Version := aSoft.Version;
+               if (aExpSoft.Year = '') then
+                   aExpSoft.Year := aSoft.Year;
+               if (aExpSoft.Publisher = '') then
+                   aExpSoft.Publisher := aSoft.Publisher;
+               if (aExpSoft.Zone = '') then
+                   aExpSoft.Zone := aSoft.Zone;
+               if (aExpSoft.DumpInfo = '') then
+                   aExpSoft.DumpInfo := aSoft.DumpInfo;
+               if (aExpSoft.Fixed = '') then
+                   aExpSoft.Fixed := aSoft.Fixed;
+               if (aExpSoft.Trainer = '') then
+                   aExpSoft.Trainer := aSoft.Trainer;
+               if (aExpSoft.Translation = '') then
+                   aExpSoft.Translation := aSoft.Translation;
+               if (aExpSoft.Pirate = '') then
+                   aExpSoft.Pirate := aSoft.Pirate;
+               if (aExpSoft.Cracked = '') then
+                   aExpSoft.Cracked := aSoft.Cracked;
+               if (aExpSoft.Modified = '') then
+                   aExpSoft.Modified := aSoft.Modified;
+               if (aExpSoft.Hack = '') then
+                   aExpSoft.Hack := aSoft.Hack;
+               if (aExpSoft.ExtraParameters.Count = 0) then
+                   aExpSoft.ExtraParameters.AddStrings(aSoft.ExtraParameters);
+
+              Inc(i);
+            end;
+          end
+          else
+            Inc(i);
+        end;
+      end
+      else // Not assigned aGroup?
+        Inc(i);
     end;
 
     // Actually saving to file
-
     ExpSoftList.Sort(@EmutecaCompareSoftByID);
     aTxtFile.Clear; // Clearing to export merged list
     aTxtFile.BeginUpdate;
@@ -338,6 +382,15 @@ begin
       aTxtFile.Add(aSoft.ExportCommaText);
 
       Inc(i);
+
+      // Cleaning file, skip repeated IDs and merging fields if empty.
+      aComp := 0;
+      while (i < ExpSoftList.Count) and (aComp = 0) do
+      begin
+        aComp := aSoft.CompareID(ExpSoftList[i].ID);
+        if (aComp = 0) then
+            Inc(i);
+      end;
     end;
 
   finally
