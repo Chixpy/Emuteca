@@ -273,8 +273,8 @@ begin
             aComp := aExpGroup.CompareID(aGroup.ID);
             if (aComp = 0) then
             begin
-              if (aExpGroup.GetActualTitle = '') then
-                aExpGroup.Title := aGroup.GetActualTitle;
+              //if (aExpGroup.GetActualTitle = '') then
+              //  aExpGroup.Title := aGroup.GetActualTitle;
               if (aExpGroup.GetActualSortTitle = '') then
                 aExpGroup.SortTitle := aGroup.GetActualSortTitle;
               if (aExpGroup.Year = '') then

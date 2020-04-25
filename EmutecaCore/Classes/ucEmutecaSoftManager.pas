@@ -1,4 +1,5 @@
 unit ucEmutecaSoftManager;
+
 {< cEmutecaSoftManager class unit.
 
   ----
@@ -321,36 +322,36 @@ begin
             aComp := aExpSoft.CompareID(aSoft.ID);
             if (aComp = 0) then
             begin
-              if (aExpSoft.GetActualTitle = '') then
-                   aExpSoft.Title := aSoft.GetActualTitle;
-               if (aExpSoft.GetActualSortTitle = '') then
-                   aExpSoft.SortTitle := aSoft.GetActualSortTitle;
-               if (aExpSoft.Version = '') then
-                   aExpSoft.Version := aSoft.Version;
-               if (aExpSoft.Year = '') then
-                   aExpSoft.Year := aSoft.Year;
-               if (aExpSoft.Publisher = '') then
-                   aExpSoft.Publisher := aSoft.Publisher;
-               if (aExpSoft.Zone = '') then
-                   aExpSoft.Zone := aSoft.Zone;
-               if (aExpSoft.DumpInfo = '') then
-                   aExpSoft.DumpInfo := aSoft.DumpInfo;
-               if (aExpSoft.Fixed = '') then
-                   aExpSoft.Fixed := aSoft.Fixed;
-               if (aExpSoft.Trainer = '') then
-                   aExpSoft.Trainer := aSoft.Trainer;
-               if (aExpSoft.Translation = '') then
-                   aExpSoft.Translation := aSoft.Translation;
-               if (aExpSoft.Pirate = '') then
-                   aExpSoft.Pirate := aSoft.Pirate;
-               if (aExpSoft.Cracked = '') then
-                   aExpSoft.Cracked := aSoft.Cracked;
-               if (aExpSoft.Modified = '') then
-                   aExpSoft.Modified := aSoft.Modified;
-               if (aExpSoft.Hack = '') then
-                   aExpSoft.Hack := aSoft.Hack;
-               if (aExpSoft.ExtraParameters.Count = 0) then
-                   aExpSoft.ExtraParameters.AddStrings(aSoft.ExtraParameters);
+              //if (aExpSoft.GetActualTitle = '') then
+              //  aExpSoft.Title := aSoft.GetActualTitle;
+              if (aExpSoft.GetActualSortTitle = '') then
+                aExpSoft.SortTitle := aSoft.GetActualSortTitle;
+              if (aExpSoft.Version = '') then
+                aExpSoft.Version := aSoft.Version;
+              if (aExpSoft.Year = '') then
+                aExpSoft.Year := aSoft.Year;
+              if (aExpSoft.Publisher = '') then
+                aExpSoft.Publisher := aSoft.Publisher;
+              if (aExpSoft.Zone = '') then
+                aExpSoft.Zone := aSoft.Zone;
+              if (aExpSoft.DumpInfo = '') then
+                aExpSoft.DumpInfo := aSoft.DumpInfo;
+              if (aExpSoft.Fixed = '') then
+                aExpSoft.Fixed := aSoft.Fixed;
+              if (aExpSoft.Trainer = '') then
+                aExpSoft.Trainer := aSoft.Trainer;
+              if (aExpSoft.Translation = '') then
+                aExpSoft.Translation := aSoft.Translation;
+              if (aExpSoft.Pirate = '') then
+                aExpSoft.Pirate := aSoft.Pirate;
+              if (aExpSoft.Cracked = '') then
+                aExpSoft.Cracked := aSoft.Cracked;
+              if (aExpSoft.Modified = '') then
+                aExpSoft.Modified := aSoft.Modified;
+              if (aExpSoft.Hack = '') then
+                aExpSoft.Hack := aSoft.Hack;
+              if (aExpSoft.ExtraParameters.Count = 0) then
+                aExpSoft.ExtraParameters.AddStrings(aSoft.ExtraParameters);
 
               Inc(i);
             end;
@@ -389,7 +390,7 @@ begin
       begin
         aComp := aSoft.CompareID(ExpSoftList[i].ID);
         if (aComp = 0) then
-            Inc(i);
+          Inc(i);
       end;
     end;
 
