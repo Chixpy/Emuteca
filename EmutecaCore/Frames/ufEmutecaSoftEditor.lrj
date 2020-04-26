@@ -20,6 +20,5 @@
 {"hash":986067,"name":"tfmemutecasofteditor.gbxextraparameters.caption","sourcebytes":[69,120,116,114,97,32,112,97,114,97,109,101,116,101,114,115],"value":"Extra parameters"},
 {"hash":5966629,"name":"tfmemutecasofteditor.gbxtitle.caption","sourcebytes":[84,105,116,108,101],"value":"Title"},
 {"hash":123072953,"name":"tfmemutecasofteditor.ltitle.caption","sourcebytes":[84,105,116,108,101,32,32,40,69,109,112,116,121,32,61,32,71,114,111,117,112,32,84,105,116,108,101,41],"value":"Title  (Empty = Group Title)"},
-{"hash":151532841,"name":"tfmemutecasofteditor.ltranstitle.caption","sourcebytes":[84,114,97,110,115,108,105,116,101,114,97,116,101,100,32,84,105,116,108,101,32,40,69,109,112,116,121,32,61,32,84,105,116,108,101,41],"value":"Transliterated Title (Empty = Title)"},
 {"hash":121379545,"name":"tfmemutecasofteditor.lsortkey.caption","sourcebytes":[83,111,114,116,32,75,101,121,32,40,69,109,112,116,121,32,61,32,84,114,97,110,115,108,105,116,84,105,116,108,101,41],"value":"Sort Key (Empty = TranslitTitle)"}
 ]}

@@ -671,6 +671,9 @@ begin
   if not assigned(CurrentSystem) then
     Exit;
 
+  if not assigned(CurrentSoft) then
+    Exit;
+
   if not OpenDocument(CurrentSoft.Folder) then
     raise EFileNotFoundException.CreateFmt(rsFmtNotFound,
       [GetCurrentDirUTF8, CurrentSoft.Folder]);

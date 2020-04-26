@@ -664,8 +664,7 @@ procedure TfmEmutecaSoftTree.VDTGetHint(Sender: TBaseVirtualTree;
         HintText := aSoft.CachedSystem.Title + sLineBreak +
           aSoft.CachedSystem.ID;
       1: // Title
-        HintText := aSoft.Title + sLineBreak + aSoft.TranslitTitle +
-          sLineBreak + aSoft.SortTitle;
+        HintText := aSoft.Title + sLineBreak + aSoft.SortTitle;
       2: // Zone / Version
       begin
         if aSoft.Zone <> '' then

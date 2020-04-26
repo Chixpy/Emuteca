@@ -60,12 +60,10 @@ type
     FStats: cEmutecaPlayingStats;
     FTrainer: string;
     FTranslation: string;
-    FTranslitTitle: string;
     FVersion: string;
     FYear: string;
     FZone: string;
     function GetID: string;
-    function GetTranslitTitle: string;
     procedure SetCracked(AValue: string);
     procedure SetDumpInfo(AValue: string);
     procedure SetDumpStatus(AValue: TEmutecaDumpStatus);
@@ -81,7 +79,6 @@ type
     procedure SetSHA1(AValue: TSHA1Digest);
     procedure SetTrainer(AValue: string);
     procedure SetTranslation(AValue: string);
-    procedure SetTranslitTitle(AValue: string);
     procedure SetVersion(AValue: string);
     procedure SetYear(AValue: string);
     procedure SetZone(AValue: string);
@@ -108,8 +105,6 @@ type
     //< Gets actual SortTitle string, not inherited from group or automade.
     function GetActualSortTitle: string;
     //< Gets actual SortTitle string, not inherited from group or automade.
-    function GetActualTranslitTitle: string;
-    //< Gets actual TranslitTitle string, not inherited from group or automade.
     function GetMediaFileName: string;
 
     function SHA1IsEmpty: boolean;
@@ -151,17 +146,6 @@ type
     {< Title.
 
       If empty, then it's same as group ID. }
-    property TranslitTitle: string read GetTranslitTitle
-      write SetTranslitTitle;
-    {< Trasliterated name in english (ASCII7) characters.
-
-    If TranslitTitle = '' then
-      If GetActualTitle <> '' then
-        TranslitTitle = GetActualTitle
-      else
-        TranslitTitle = CachedGroup.ID
-
-    }
     property SortTitle: string read GetSortTitle write SetSortTitle;
     {< Title formated for sorting purposes.
      If SortTitle = '' then
@@ -252,7 +236,7 @@ end;
 function caEmutecaCustomSoft.GetSortTitle: string;
 begin
   if FSortTitle = '' then
-    Result := UTF8LowerString(TranslitTitle)
+    Result := UTF8LowerString(Title)
   else
     Result := FSortTitle;
 end;
@@ -263,14 +247,6 @@ begin
     Result := GroupKey
   else
     Result := FTitle;
-end;
-
-function caEmutecaCustomSoft.GetTranslitTitle: string;
-begin
-  if FTranslitTitle = '' then
-    Result := Title
-  else
-    Result := FTranslitTitle;
 end;
 
 procedure caEmutecaCustomSoft.SetCracked(AValue: string);
@@ -378,7 +354,7 @@ end;
 procedure caEmutecaCustomSoft.SetSortTitle(AValue: string);
 begin
   AValue := UTF8Trim(AValue);
-  if UTF8CompareText(AValue, TranslitTitle) = 0 then
+  if UTF8CompareText(AValue, Title) = 0 then
     FSortTitle := ''
   else
     FSortTitle := AValue;
@@ -420,7 +396,7 @@ begin
   end;
 
   aTxtFile.Add(GetActualTitle);
-  aTxtFile.Add(GetActualTranslitTitle);
+  aTxtFile.Add(''); // aTxtFile.Add(GetActualTranslitTitle);
   aTxtFile.Add(GetActualSortTitle);
 
   aTxtFile.Add(Version);
@@ -456,15 +432,6 @@ begin
   if FTranslation = AValue then
     Exit;
   FTranslation := AValue;
-end;
-
-procedure caEmutecaCustomSoft.SetTranslitTitle(AValue: string);
-begin
-  AValue := UTF8Trim(AValue);
-  if AValue = Title then
-    FTranslitTitle := ''
-  else
-    FTranslitTitle := AValue;
 end;
 
 procedure caEmutecaCustomSoft.SetVersion(AValue: string);
@@ -503,11 +470,6 @@ end;
 function caEmutecaCustomSoft.GetActualSortTitle: string;
 begin
   Result := FSortTitle;
-end;
-
-function caEmutecaCustomSoft.GetActualTranslitTitle: string;
-begin
-  Result := FTranslitTitle;
 end;
 
 function caEmutecaCustomSoft.GetMediaFileName: string;
@@ -586,7 +548,7 @@ begin
     FileName := aTxtFile[4];
 
   Title := aTxtFile[5];
-  TranslitTitle := aTxtFile[6];
+  // TranslitTitle := aTxtFile[6]; Removed
   SortTitle := aTxtFile[7];
 
   Version := aTxtFile[8];
@@ -645,8 +607,8 @@ begin
 
   if aSoft.Title <> krsImportKeepValueKey then
     Self.Title := aSoft.Title;
-  if aSoft.TranslitTitle <> krsImportKeepValueKey then
-    Self.TranslitTitle := aSoft.TranslitTitle;
+//  if aSoft.TranslitTitle <> krsImportKeepValueKey then
+//    Self.TranslitTitle := aSoft.TranslitTitle;
   if aSoft.SortTitle <> krsImportKeepValueKey then
     Self.SortTitle := aSoft.SortTitle;
 

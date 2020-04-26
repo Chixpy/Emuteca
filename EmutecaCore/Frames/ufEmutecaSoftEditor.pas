@@ -53,7 +53,6 @@ type
     eTitle: TEdit;
     eTrainer: TEdit;
     eTranslated: TEdit;
-    eTransTitle: TEdit;
     eVersion: TEdit;
     eYear: TEdit;
     eZone: TEdit;
@@ -73,7 +72,6 @@ type
     lTitle: TLabel;
     lTrainer: TLabel;
     lTranslated: TLabel;
-    lTransTitle: TLabel;
     lVersion: TLabel;
     lYear: TLabel;
     lZone: TLabel;
@@ -127,7 +125,6 @@ procedure TfmEmutecaSoftEditor.DoClearFrameData;
 begin
   eTitle.Clear;
   eSortKey.Clear;
-  eTransTitle.Clear;
 
   eVersion.Clear;
   eYear.Clear;
@@ -162,7 +159,6 @@ begin
 
   eTitle.Text := Software.GetActualTitle;
   eSortKey.Text := Software.GetActualSortTitle;
-  eTransTitle.Text := Software.GetActualTranslitTitle;
 
   eVersion.Text := Software.Version;
   eYear.Text := Software.Year;
@@ -204,7 +200,6 @@ begin
 
   Software.Title := eTitle.Text;
   Software.SortTitle := eSortKey.Text;
-  Software.TranslitTitle := eTransTitle.Text;
 
   Software.Version := eVersion.Text;
   Software.Year := eYear.Text;

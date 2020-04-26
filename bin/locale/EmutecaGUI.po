@@ -860,11 +860,6 @@ msgstr ""
 msgid "Fan Translated"
 msgstr ""
 
-#: tfmemutecasofteditor.ltranstitle.caption
-msgctxt "tfmemutecasofteditor.ltranstitle.caption"
-msgid "Transliterated Title (Empty = Title)"
-msgstr ""
-
 #: tfmemutecasofteditor.lversion.caption
 msgctxt "tfmemutecasofteditor.lversion.caption"
 msgid "Version"
