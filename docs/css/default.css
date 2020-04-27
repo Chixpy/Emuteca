@@ -145,6 +145,18 @@ dt {
   padding: 0 2em;
 }
 
+.PageContent figure {
+    border: #888 solid 1px;
+    padding: 1ex;
+    text-indent: 0;
+    margin: 1ex;
+}
+
+.PageContent figure figcaption{
+    text-align: center;
+    font-size: smaller;
+    font-style: italic;
+}
 
 /*
   Footer (.SiteFooter)
