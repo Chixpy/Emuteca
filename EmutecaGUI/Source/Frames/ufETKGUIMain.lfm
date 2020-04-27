@@ -54,13 +54,13 @@ inherited fmETKGUIMain: TfmETKGUIMain
           Left = 0
           Height = 30
           Top = 0
-          Width = 144
+          Width = 109
           Align = alClient
           TabOrder = 0
           TextHint = 'Filter by name...'
         end
         object bSearch: TButton
-          Left = 144
+          Left = 109
           Height = 30
           Top = 0
           Width = 70
@@ -69,6 +69,17 @@ inherited fmETKGUIMain: TfmETKGUIMain
           Caption = 'Search'
           OnClick = bSearchClick
           TabOrder = 1
+        end
+        object cCancelSearch: TButton
+          Left = 179
+          Height = 30
+          Top = 0
+          Width = 35
+          Align = alRight
+          AutoSize = True
+          Caption = 'X'
+          OnClick = cCancelSearchClick
+          TabOrder = 2
         end
       end
     end

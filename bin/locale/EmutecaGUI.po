@@ -1221,6 +1221,10 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
+#: tfmetkguimain.ccancelsearch.caption
+msgid "X"
+msgstr ""
+
 #: tfmetkguimain.esearch.texthint
 msgid "Filter by name..."
 msgstr ""

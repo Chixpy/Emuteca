@@ -42,7 +42,6 @@ dt {
   background-repeat: no-repeat;
   background-position: left top;  
    
-  font-size: bigger;
   text-align: center;
 }
 
@@ -57,15 +56,20 @@ dt {
 }
 
 .SiteHeader .SiteTitle{
-  font-size: bigger;
+
 }
 
 .SiteHeader .SiteDesc {
+  font-size: larger;
   font-style: italic;
 }
 
 .SiteHeader .PageTitle {
- text-align: left; 
+  margin: 0 0 0 150px;  
+  padding: 1ex 3em 1ex 3em;
+
+  text-align: justify; 
+  text-decoration: underline;  
 }
 
 /*
@@ -119,8 +123,9 @@ dt {
   display: block;
   
   margin: 0 0 0 150px;  
-  padding: 0 2em;
+  padding: 1ex 3em 1ex 4em;
   
+  font-size: larger;
   text-indent: -1em;
 }
 
@@ -153,7 +158,7 @@ dt {
   background-position: bottom;
   
   margin: 0 0 0 150px;  
-  padding: 0 2em;
+  padding: 0 3em;
   
   border-top: 1px solid #000;
 }

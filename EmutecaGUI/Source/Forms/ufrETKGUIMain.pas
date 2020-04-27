@@ -924,7 +924,7 @@ begin
   if not (Assigned(Emuteca) and Assigned(IconList)) then
     Exit;
 
-  // Creating background thread for
+  // Creating background thread for loading system icons.
   FCacheSysIconsThread := ctEGUICacheSysIcons.Create;
   if Assigned(CacheSysIconsThread.FatalException) then
     raise CacheSysIconsThread.FatalException;
@@ -960,7 +960,7 @@ begin
   if not (Assigned(Emuteca) and Assigned(IconList)) then
     Exit;
 
-  // Creating background thread for
+  // Creating background thread for loading emu icons.
   FCacheEmuIconsThread := ctETKGUICacheEmuIcons.Create;
   if Assigned(CacheEmuIconsThread.FatalException) then
     raise CacheEmuIconsThread.FatalException;
@@ -1004,6 +1004,7 @@ begin
     Assigned(GUIConfig)) then
     Exit;
 
+  // Creating background thread for loading group icons.
   FCacheGrpIconsThread := ctEGUICacheGrpIcons.Create;
   if Assigned(CacheGrpIconsThread.FatalException) then
     raise CacheGrpIconsThread.FatalException;

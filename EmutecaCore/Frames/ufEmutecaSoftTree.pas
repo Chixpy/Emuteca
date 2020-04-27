@@ -418,7 +418,7 @@ begin
   if not assigned(pData) then
   begin
     StatusBar.Panels[1].Text := '';
-    OnSelectGroup(nil);
+    OnSelectSoft(nil);
     Exit;
   end;
 

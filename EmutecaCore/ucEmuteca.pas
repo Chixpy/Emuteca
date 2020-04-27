@@ -377,6 +377,8 @@ var
   StartTime: TDateTime;
   TimePlaying: int64;
 begin
+  // TODO: Use ctETKGUICacheEmuIcons, and don't block GUI.
+
   // Trying to document step by step with my bad english
 
   // Uhm. If things go bad from the start, they only can improve :-D

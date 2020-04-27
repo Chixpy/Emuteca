@@ -61,6 +61,7 @@ type
 
   TfmETKGUIMain = class(TfmCHXFrame)
     bSearch: TButton;
+    cCancelSearch: TButton;
     eSearch: TEdit;
     pcLeft: TPageControl;
     pcSoftware: TPageControl;
@@ -70,6 +71,7 @@ type
     Splitter1: TSplitter;
     Splitter2: TSplitter;
     procedure bSearchClick(Sender: TObject);
+    procedure cCancelSearchClick(Sender: TObject);
   private
     FCurrentGroup: cEmutecaGroup;
     FCurrentSoft: cEmutecaSoftware;
@@ -194,6 +196,12 @@ end;
 
 procedure TfmETKGUIMain.bSearchClick(Sender: TObject);
 begin
+  UpdateGroupList(fmCHXTagTree.CheckedList);
+end;
+
+procedure TfmETKGUIMain.cCancelSearchClick(Sender: TObject);
+begin
+  eSearch.Clear;
   UpdateGroupList(fmCHXTagTree.CheckedList);
 end;
 
@@ -393,6 +401,7 @@ end;
 
 procedure TfmETKGUIMain.UpdateGroupList(aList: TStrings);
 begin
+
   Emuteca.UpdateCurrentGroupList(CurrentSystem, eSearch.Text,
     aList);
   fmSoftTree.GroupList := nil; // Forcing clearing tree
@@ -404,7 +413,6 @@ begin
   begin
     fmSoftTree.GroupList := Emuteca.CurrentGroupList;
   end;
-
 end;
 
 procedure TfmETKGUIMain.DoDblClkSoftware(aSoftware: cEmutecaSoftware);

@@ -63,15 +63,18 @@ type
 
   protected
     procedure SetIconColumnsWidth;
-
+    {< Sets fixed width for System and Flags colunms.
+    }
     procedure DoLoadGUIConfig(aIniFile: TIniFile); override;
 
   public
     property DumpIconList: cCHXImageList read FDumpIconList
       write SetDumpIconList;
-    //< Icons of dump info.
+    {< Icons of dump info.
+    }
     property ZoneIconMap: cCHXImageMap read FZoneIconMap write SetZoneIconMap;
-    //< Icons for zones
+    {< Icons for zones.
+    }
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
