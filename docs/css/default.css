@@ -146,16 +146,17 @@ dt {
 }
 
 .PageContent figure {
-    border: #888 solid 1px;
-    padding: 1ex;
-    text-indent: 0;
-    margin: 1ex;
+  border: #888 solid 1px;
+  padding: 1ex;
+  text-indent: 0;
+  margin: auto;
+  max-width: 90%;
 }
 
 .PageContent figure figcaption{
-    text-align: center;
-    font-size: smaller;
-    font-style: italic;
+  text-align: center;
+  font-size: smaller;
+  font-style: italic;
 }
 
 /*
@@ -169,7 +170,7 @@ dt {
   background-repeat: no-repeat;
   background-position: bottom;
   
-  margin: 0 0 0 150px;  
+  margin: 0;  
   padding: 0 3em;
   
   border-top: 1px solid #000;

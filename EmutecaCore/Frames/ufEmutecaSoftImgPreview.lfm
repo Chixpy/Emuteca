@@ -1,13 +1,7 @@
 inherited fmEmutecaSoftImgPreview: TfmEmutecaSoftImgPreview
   inherited tbPreviewList: TToolBar
-    inherited ToolButton6: TToolButton
-      Left = 250
-    end
-    inherited cbxCurrItem: TComboBox
-      Top = 1
-    end
-    object tbPasteImage: TToolButton[8]
-      Left = 206
+    object tbPasteImage: TToolButton[10]
+      Left = 235
       Top = 2
       Action = actAddImageFromClpBrd
       DropdownMenu = pmImageActions
@@ -31,21 +25,25 @@ inherited fmEmutecaSoftImgPreview: TfmEmutecaSoftImgPreview
       Caption = 'Replace with image from Clipboard'
       OnExecute = actReplaceImageFromClpBrdExecute
     end
+    inherited actOpenWithDefApp: TAction[7]
+    end
+    inherited actOpenFileFolder: TAction[8]
+    end
   end
-  object pmImageActions: TPopupMenu[4]
+  object pmImageActions: TPopupMenu[6]
     Images = ilPreviewList
     left = 119
     top = 122
     object mipmImgPasteImage: TMenuItem
       Action = actAddImageFromClpBrd
     end
-    object MenuItem1: TMenuItem
+    object mipmImgReplaceImageFromClpBrd: TMenuItem
       Action = actReplaceImageFromClpBrd
     end
-    object MenuItem2: TMenuItem
+    object mipmImgSepDeleteImage: TMenuItem
       Caption = '-'
     end
-    object MenuItem3: TMenuItem
+    object mipmImgDeleteImage: TMenuItem
       Action = actDeleteImage
     end
   end

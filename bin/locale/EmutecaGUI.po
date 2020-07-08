@@ -73,6 +73,10 @@ msgctxt "tfmchxchklstpropeditor.toolbutton6.caption"
 msgid "ToolButton6"
 msgstr ""
 
+#: tfmchxfilelistpreview.actopenfilefolder.caption
+msgid "Open File Folder"
+msgstr ""
+
 #: tfmchxfilelistpreview.actopenwithdefapp.caption
 msgctxt "tfmchxfilelistpreview.actopenwithdefapp.caption"
 msgid "Open with Default Application"
@@ -111,11 +115,6 @@ msgstr ""
 msgid "Zoom Out"
 msgstr ""
 
-#: tfmchximgviewer.toolbutton2.caption
-msgctxt "tfmchximgviewer.toolbutton2.caption"
-msgid "ToolButton2"
-msgstr ""
-
 #: tfmchxlistpreview.actfirstitem.caption
 msgid "First item"
 msgstr ""
@@ -149,6 +148,7 @@ msgid "Go to previous item."
 msgstr ""
 
 #: tfmchxlistpreview.lmaxitems.caption
+msgctxt "tfmchxlistpreview.lmaxitems.caption"
 msgid "/ 0"
 msgstr ""
 
@@ -156,14 +156,8 @@ msgstr ""
 msgid "tbPreviewList"
 msgstr ""
 
-#: tfmchxlistpreview.toolbutton1.caption
-msgctxt "tfmchxlistpreview.toolbutton1.caption"
-msgid "ToolButton1"
-msgstr ""
-
-#: tfmchxlistpreview.toolbutton6.caption
-msgctxt "tfmchxlistpreview.toolbutton6.caption"
-msgid "ToolButton6"
+#: tfmchxlistpreview.tbsepnavbuttons.caption
+msgid "tbSepNavButtons"
 msgstr ""
 
 #: tfmchxmultifoldereditor.actaddfolder.caption
@@ -2366,7 +2360,7 @@ msgstr ""
 
 #: ufchximglistpreview.rsnoimageloaded
 msgctxt "ufchximglistpreview.rsnoimageloaded"
-msgid "No image loaded"
+msgid "No image loaded."
 msgstr ""
 
 #: ufchxlistpreview.rstotalitemscount

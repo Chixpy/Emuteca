@@ -44,15 +44,15 @@ type
     actAddImageFromClpBrd: TAction;
     actReplaceImageFromClpBrd: TAction;
     MenuItem1: TMenuItem;
-    MenuItem2: TMenuItem;
-    MenuItem3: TMenuItem;
+    mipmImgSepDeleteImage: TMenuItem;
+    mipmImgDeleteImage: TMenuItem;
     mipmImgPasteImage: TMenuItem;
+    mipmImgReplaceImageFromClpBrd: TMenuItem;
     pmImageActions: TPopupMenu;
     tbPasteImage: TToolButton;
     procedure actAddImageFromClpBrdExecute(Sender: TObject);
     procedure actDeleteImageExecute(Sender: TObject);
     procedure actReplaceImageFromClpBrdExecute(Sender: TObject);
-
   private
     FSaveImageFolder: string;
     procedure SetSaveImageFolder(const aSaveImageFolder: string);
