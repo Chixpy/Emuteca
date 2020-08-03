@@ -4,7 +4,7 @@ unit uafETKGUISoftFoldersPreview;
 
   This file is part of Emuteca GUI.
 
-  Copyright (C) 2006-2018 Chixpy
+  Copyright (C) 2006-2020 Chixpy
 
   This source is free software; you can redistribute it and/or modify it under
   the terms of the GNU General Public License as published by the Free
@@ -75,9 +75,9 @@ type
     procedure DoClearFrameData;
     procedure DoLoadFrameData;
 
-    procedure CreateListView; virtual; abstract;
-    function GetCaptionList: TStrings; virtual; abstract;
-    function GetFolder: string; virtual; abstract;
+    procedure CreateListView; virtual; // abstract; -> AbstractError?
+    function GetCaptionList: TStrings; virtual; // abstract; -> AbstractError?
+    function GetFolder: string; virtual; // abstract; -> AbstractError?
 
   public
     property Software: cEmutecaSoftware read FSoftware write SetSoftware;
@@ -147,22 +147,22 @@ begin
   FfmListPreview := AValue;
 end;
 
-//procedure TfmaETKGUISoftFoldersPreview.CreateListView;
-//begin
-//  // This method must be overrided
-//end;
+procedure TfmaETKGUISoftFoldersPreview.CreateListView;
+begin
+  // This method must be overrided, I don't know why it can't be abstract
+end;
 
-//function TfmaETKGUISoftFoldersPreview.GetCaptionList: TStrings;
-//begin
-//  // This method must be overrided
-//  Result := nil;
-//end;
+function TfmaETKGUISoftFoldersPreview.GetCaptionList: TStrings;
+begin
+  // This method must be overrided, I don't know why it can't be abstract
+  Result := nil;
+end;
 
-//function TfmaETKGUISoftFoldersPreview.GetFolder: string;
-//begin
-//  // This method must be overrided
-//  Result := '';
-//end;
+function TfmaETKGUISoftFoldersPreview.GetFolder: string;
+begin
+  // This method must be overrided, I don't know why it can't be abstract
+  Result := '';
+end;
 
 procedure TfmaETKGUISoftFoldersPreview.SetSoftware(AValue: cEmutecaSoftware);
 begin
