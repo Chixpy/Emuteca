@@ -3,7 +3,7 @@ unit ucEmutecaConfig;
 
   This file is part of Emuteca
 
-  Copyright (C) 2006-2017 Chixpy
+  Copyright (C) 2006-2020 Chixpy
 
   This source is free software; you can redistribute it and/or modify it under
   the terms of the GNU General Public License as published by the Free
@@ -62,7 +62,6 @@ const
 type
 
   { cEmutecaConfig }
-  // TODO: Use caCHXConfig
   cEmutecaConfig = class(caCHXConfig)
   private
     FAutoSysFoldersFile: string;
@@ -100,11 +99,11 @@ type
 
     // Config/Data
     property EmulatorsFile: string read FEmulatorsFile write SetEmulatorsFile;
-    {< Emulators file.}
+    {< Emulators file. }
     property SystemsFile: string read FSystemsFile write SetSystemsFile;
-    {< Systems file.}
+    {< Systems file. }
     property SysDataFolder: string read FSysDataFolder write SetSysDataFolder;
-    {< Systems' data folder (cvs and egl).}
+    {< Systems' data folder (cvs and egl). }
     property AutoSysFolder: string read FAutoSysFoldersFile write SetAutoSysFoldersFile;
     {< File with automatic folder structure.
 

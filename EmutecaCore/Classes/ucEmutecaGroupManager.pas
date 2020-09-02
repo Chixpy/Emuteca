@@ -4,7 +4,7 @@ unit ucEmutecaGroupManager;
 
   This file is part of Emuteca Core.
 
-  Copyright (C) 2006-2018 Chixpy
+  Copyright (C) 2006-2020 Chixpy
 
   This source is free software; you can redistribute it and/or modify it under
   the terms of the GNU General Public License as published by the Free
@@ -277,8 +277,8 @@ begin
               //  aExpGroup.Title := aGroup.GetActualTitle;
               if (aExpGroup.GetActualSortTitle = '') then
                 aExpGroup.SortTitle := aGroup.GetActualSortTitle;
-              if (aExpGroup.Year = '') then
-                aExpGroup.Year := aGroup.Year;
+              if (aExpGroup.Date = '') then
+                aExpGroup.Date := aGroup.Date;
               if (aExpGroup.Developer = '') then
                 aExpGroup.Developer := aGroup.Developer;
               if (aExpGroup.GetActualMediaFilename = '') then

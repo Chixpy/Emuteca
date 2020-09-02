@@ -606,7 +606,7 @@ begin
       aFileName := pFileName^;
       pSoft := vstSoftAll.GetNodeData(SoftNode);
       aSoft := pSoft^;
-      FileComp := CompareFilenames(aFileName.FileName, aSoft.GetMediaFileName);
+      FileComp := CompareFilenames(aFileName.FileName, aSoft.MediaFileName);
     end;
 
     // Adding to vst if they don't match
@@ -646,7 +646,7 @@ begin
     if FileComp >= 0 then
     begin
       // Skip soft with same media file
-      TmpStr := aSoft.GetMediaFileName;
+      TmpStr := aSoft.MediaFileName;
 
       SkipComp := 0;
       SoftNode := vstSoftAll.GetNextSibling(SoftNode);
@@ -654,7 +654,7 @@ begin
       begin
         pSoft := vstSoftAll.GetNodeData(SoftNode);
         aSoft := pSoft^;
-        SkipComp := CompareFilenames(aSoft.GetMediaFileName, TmpStr);
+        SkipComp := CompareFilenames(aSoft.MediaFileName, TmpStr);
         if SkipComp = 0 then
           SoftNode := vstSoftAll.GetNextSibling(SoftNode);
       end;
@@ -832,7 +832,7 @@ begin
   while Assigned(Nodo) do
   begin
     pSoft := vstSoftWOFile.GetNodeData(Nodo);
-    if CompareFilenames(pSoft^.GetMediaFileName, aFile) = 0 then
+    if CompareFilenames(pSoft^.MediaFileName, aFile) = 0 then
     begin
       vstSoftWOFile.DeleteNode(Nodo);
       // See RemoveFileFromVSTWO comment
@@ -863,7 +863,7 @@ begin
   CurrPreview.FileList := nil;
   MediaFiles.Clear;
   EmuTKSearchAllRelatedFiles(MediaFiles, TargetFolder,
-    aSoft.GetMediaFileName, ExtFilter, True, True, Emuteca.TempFolder);
+    aSoft.MediaFileName, ExtFilter, True, True, Emuteca.TempFolder);
   CurrPreview.FileList := MediaFiles;
 end;
 
@@ -1898,7 +1898,7 @@ begin
     Exit;
 
   pSoft := Sender.GetNodeData(Node);
-  TargetFile := pSoft^.GetMediaFileName;
+  TargetFile := pSoft^.MediaFileName;
   CurrGroup := cEmutecaGroup(pSoft^.CachedGroup);
 
   ChangeSoftMedia(pSoft^);
@@ -1919,8 +1919,8 @@ begin
     0: Result := UTF8CompareText(pSoft1^.Title, pSoft2^.Title);
     1: Result := UTF8CompareText(pSoft1^.CachedGroup.Title,
         pSoft2^.CachedGroup.Title);
-    2: Result := CompareFilenames(pSoft1^.GetMediaFileName,
-        pSoft2^.GetMediaFileName);
+    2: Result := CompareFilenames(pSoft1^.MediaFileName,
+        pSoft2^.MediaFileName);
     else
       ;
   end;
@@ -1942,7 +1942,7 @@ begin
     ttNormal: case Column of
         0: CellText := pSoft^.Title;
         1: CellText := pSoft^.CachedGroup.Title;
-        2: CellText := pSoft^.GetMediaFileName;
+        2: CellText := pSoft^.MediaFileName;
         else
           ;
       end;

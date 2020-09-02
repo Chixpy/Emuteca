@@ -162,7 +162,7 @@ begin
             Exit;
           TempStr :=
             EmuTKSearchFirstRelatedFile(aSoft.CachedSystem.IconFolder,
-            aSoft.GetMediaFileName, ImageExt, True, True, TempFolder);
+            aSoft.MediaFileName, ImageExt, True, True, TempFolder);
 
           if FileExistsUTF8(TempStr) then
           begin

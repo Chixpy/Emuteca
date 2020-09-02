@@ -100,7 +100,7 @@ begin
     if Assigned(Software) then
   begin
         TfmEmutecaSoftImgPreview(fmListPreview).SaveImageFolder :=
-      SetAsFolder(GetFolder + Software.GetMediaFileName)
+      SetAsFolder(GetFolder + Software.MediaFileName)
   end
   else if Assigned(Group) then
   begin

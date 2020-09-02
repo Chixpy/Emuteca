@@ -4,7 +4,7 @@ unit uaEmutecaCustomSoft;
 
   This file is part of Emuteca Core.
 
-  Copyright (C) 2006-2018 Chixpy
+  Copyright (C) 2006-2020 Chixpy
 
   This source is free software; you can redistribute it and/or modify it under
   the terms of the GNU General Public License as published by the Free
@@ -30,10 +30,10 @@ uses
   Classes, SysUtils, sha1, LazUTF8, LazFileUtils,
   // CHX units
   uCHXStrUtils, uCHXFileUtils,
-  // CHX abstracts
-  uaCHXStorable,
   // Emuteca Core units
   uEmutecaConst, uEmutecaCommon,
+  // Emuteca abstract classes
+  uaEmutecaCustomSGItem,
   // Emuteca Core classes
   ucEmutecaPlayingStats;
 
@@ -41,7 +41,7 @@ type
 
   { caEmutecaCustomSoft }
 
-  caEmutecaCustomSoft = class(caCHXStorableTxt)
+  caEmutecaCustomSoft = class(caEmutecaCustomSGItem)
   private
     FCracked: string;
     FDumpInfo: string;
@@ -52,7 +52,6 @@ type
     FFolder: string;
     FGroupKey: string;
     FHack: string;
-    FID: string;
     FModified: string;
     FPirate: string;
     FPublisher: string;
@@ -61,9 +60,7 @@ type
     FTrainer: string;
     FTranslation: string;
     FVersion: string;
-    FYear: string;
     FZone: string;
-    function GetID: string;
     procedure SetCracked(AValue: string);
     procedure SetDumpInfo(AValue: string);
     procedure SetDumpStatus(AValue: TEmutecaDumpStatus);
@@ -72,7 +69,6 @@ type
     procedure SetFolder(AValue: string);
     procedure SetGroupKey(AValue: string);
     procedure SetHack(AValue: string);
-    procedure SetID(AValue: string);
     procedure SetModified(AValue: string);
     procedure SetPirate(AValue: string);
     procedure SetPublisher(AValue: string);
@@ -80,18 +76,13 @@ type
     procedure SetTrainer(AValue: string);
     procedure SetTranslation(AValue: string);
     procedure SetVersion(AValue: string);
-    procedure SetYear(AValue: string);
     procedure SetZone(AValue: string);
 
   protected
-    FTitle: string;
-    FSortTitle: string;
-
-    function GetTitle: string; virtual;
-    procedure SetTitle(AValue: string); virtual;
-
-    function GetSortTitle: string; virtual;
-    procedure SetSortTitle(AValue: string); virtual;
+    function GetTitle: string; override;
+    procedure SetTitle(AValue: string); override;
+    function GetID: string; override;
+    procedure SetID(AValue: string); override;
 
     procedure DoSaveToStrLst(aTxtFile: TStrings; ExportMode: boolean); virtual;
 
@@ -99,20 +90,10 @@ type
     property SHA1: TSHA1Digest read FSHA1 write SetSHA1;
     {< SHA1 of the file. For searching in SHA1 DB. }
 
-    function GetActualID: string;
-    //< Gets actual ID string, not automade.
-    function GetActualTitle: string;
-    //< Gets actual SortTitle string, not inherited from group or automade.
-    function GetActualSortTitle: string;
-    //< Gets actual SortTitle string, not inherited from group or automade.
-    function GetMediaFileName: string;
-
     function SHA1IsEmpty: boolean;
     function MatchSHA1(aSHA1: TSHA1Digest): boolean;
     function CompareFile(const aFolder, aFile: string): integer;
     function MatchFile(const aFolder, aFile: string): boolean;
-    function MatchID(const aID: string): boolean;
-    function CompareID(const aID: string): integer;
     function MatchGroupKey(const aGroupID: string): boolean;
     function CompareGroupKey(const aGroupID: string): integer;
     function MatchGroupFile: boolean; virtual;
@@ -154,17 +135,15 @@ type
       else
         SortTitle = CachedGroup.ID
     }
+    property MediaFileName: string read GetMediaFileName
+      write SetMediaFileName;
+    {< Name of media files. }
 
     // Release data
     // ------------
     property Version: string read FVersion write SetVersion;
     {< Version (v1.0; PRG1) or release type info (demo, prototype),
-         or both (v1.0RC2, alpha 3). }
-
-    property Year: string read FYear write SetYear;
-    {< Date of the release (no development one).
-
-    Format: YYYY/MM/DD }
+         or both (v1.0RC2, demo). }
 
     property Publisher: string read FPublisher write SetPublisher;
     {< Publisher.
@@ -231,14 +210,6 @@ begin
     Result := SHA1Print(SHA1)
   else
     Result := FID;
-end;
-
-function caEmutecaCustomSoft.GetSortTitle: string;
-begin
-  if FSortTitle = '' then
-    Result := UTF8LowerString(Title)
-  else
-    Result := FSortTitle;
 end;
 
 function caEmutecaCustomSoft.GetTitle: string;
@@ -309,8 +280,16 @@ end;
 procedure caEmutecaCustomSoft.SetID(AValue: string);
 begin
   AValue := UTF8Trim(AValue);
-  if FID = AValue then
+
+  if UTF8CompareText(AValue, ID) = 0 then
     Exit;
+
+  if SHA1IsEmpty then
+  begin
+    // If SHA1 is not calculated, use inherited method
+    inherited SetID(AValue);
+    Exit;
+  end;
 
   if UTF8CompareText(AValue, SHA1Print(SHA1)) = 0 then
     FID := ''
@@ -351,22 +330,12 @@ begin
   FSHA1 := AValue;
 end;
 
-procedure caEmutecaCustomSoft.SetSortTitle(AValue: string);
-begin
-  AValue := UTF8Trim(AValue);
-  if UTF8CompareText(AValue, Title) = 0 then
-    FSortTitle := ''
-  else
-    FSortTitle := AValue;
-end;
 
 procedure caEmutecaCustomSoft.SetTitle(AValue: string);
 begin
   AValue := UTF8Trim(AValue);
-  if FTitle = AValue then
-    Exit;
 
-  if AValue = GroupKey then
+  if UTF8CompareText(AValue, GroupKey) = 0 then
     FTitle := ''
   else
     FTitle := AValue;
@@ -396,11 +365,11 @@ begin
   end;
 
   aTxtFile.Add(GetActualTitle);
-  aTxtFile.Add(''); // aTxtFile.Add(GetActualTranslitTitle);
+  aTxtFile.Add(GetActualMediaFileName); // TranslitTitle changed
   aTxtFile.Add(GetActualSortTitle);
 
   aTxtFile.Add(Version);
-  aTxtFile.Add(Year);
+  aTxtFile.Add(Date);
   aTxtFile.Add(Publisher);
   aTxtFile.Add(Zone);
 
@@ -442,44 +411,9 @@ begin
   FVersion := AValue;
 end;
 
-procedure caEmutecaCustomSoft.SetYear(AValue: string);
-begin
-  AValue := UTF8Trim(AValue);
-  AValue := UTF8StringReplace(AValue, '-', '/', [rfReplaceAll, rfIgnoreCase]);
-
-  if FYear = AValue then
-    Exit;
-  FYear := AValue;
-end;
-
 procedure caEmutecaCustomSoft.SetZone(AValue: string);
 begin
   FZone := UTF8LowerString(UTF8Trim(AValue));
-end;
-
-function caEmutecaCustomSoft.GetActualID: string;
-begin
-  Result := FID;
-end;
-
-function caEmutecaCustomSoft.GetActualTitle: string;
-begin
-  Result := FTitle;
-end;
-
-function caEmutecaCustomSoft.GetActualSortTitle: string;
-begin
-  Result := FSortTitle;
-end;
-
-function caEmutecaCustomSoft.GetMediaFileName: string;
-begin
-  Result := RemoveFromBrackets(ExtractFileNameOnly(FileName));
-
-  // Removing last dots "Super Mario Bros.",
-  // Windows have problems with removing folders ended with dot...
-  if Utf8EndsText('.', Result) then
-    Result[UTF8LengthFast(Result)] := '_';
 end;
 
 function caEmutecaCustomSoft.SHA1IsEmpty: boolean;
@@ -504,16 +438,6 @@ begin
   Result := CompareFile(aFolder, aFile) = 0;
 end;
 
-function caEmutecaCustomSoft.MatchID(const aID: string): boolean;
-begin
-  Result := CompareID(aID) = 0;
-end;
-
-function caEmutecaCustomSoft.CompareID(const aID: string): integer;
-begin
-  Result := UTF8CompareText(Self.ID, aID);
-end;
-
 function caEmutecaCustomSoft.MatchGroupKey(const aGroupID: string): boolean;
 begin
   Result := CompareGroupKey(aGroupID) = 0;
@@ -526,7 +450,7 @@ end;
 
 function caEmutecaCustomSoft.MatchGroupFile: boolean;
 begin
-  Result := CompareFilenames(GroupKey, GetMediaFileName) = 0;
+  Result := CompareFilenames(GroupKey, MediaFileName) = 0;
 end;
 
 procedure caEmutecaCustomSoft.LoadFromStrLst(aTxtFile: TStrings);
@@ -548,11 +472,11 @@ begin
     FileName := aTxtFile[4];
 
   Title := aTxtFile[5];
-  // TranslitTitle := aTxtFile[6]; Removed
+  MediaFileName := aTxtFile[6]; // TranslitTitle changed
   SortTitle := aTxtFile[7];
 
   Version := aTxtFile[8];
-  Year := aTxtFile[9];
+  Date := aTxtFile[9];
   Publisher := aTxtFile[10];
   Zone := aTxtFile[11];
 
@@ -607,15 +531,15 @@ begin
 
   if aSoft.Title <> krsImportKeepValueKey then
     Self.Title := aSoft.Title;
-//  if aSoft.TranslitTitle <> krsImportKeepValueKey then
-//    Self.TranslitTitle := aSoft.TranslitTitle;
+  if aSoft.MediaFileName <> krsImportKeepValueKey then
+    Self.MediaFileName := aSoft.MediaFileName;  // TranslitTitle changed
   if aSoft.SortTitle <> krsImportKeepValueKey then
     Self.SortTitle := aSoft.SortTitle;
 
   if aSoft.Version <> krsImportKeepValueKey then
     Self.Version := aSoft.Version;
-  if aSoft.Year <> krsImportKeepValueKey then
-    Self.Year := aSoft.Year;
+  if aSoft.Date <> krsImportKeepValueKey then
+    Self.Date := aSoft.Date;
   if aSoft.Publisher <> krsImportKeepValueKey then
     Self.Publisher := aSoft.Publisher;
   if aSoft.Zone <> krsImportKeepValueKey then

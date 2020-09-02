@@ -193,7 +193,7 @@ procedure TfmEmutecaSoftTree.VDTGetText(Sender: TBaseVirtualTree;
           3: // Developer
             CellText := aGroup.Developer;
           4: // Year
-            CellText := aGroup.Year;
+            CellText := aGroup.Date;
           5: // Flags
             CellText := '';
           6: // Times
@@ -242,18 +242,18 @@ procedure TfmEmutecaSoftTree.VDTGetText(Sender: TBaseVirtualTree;
             else
               CellText := aSoft.Publisher;
           end;
-          4: // Year
+          4: // Date
           begin
-            if aSoft.Year = '' then
+            if aSoft.Date = '' then
             begin
               if assigned(aSoft.CachedGroup) and
-                (aSoft.CachedGroup.Year <> '') then
-                CellText := '(' + aSoft.CachedGroup.Year + ')'
+                (aSoft.CachedGroup.Date <> '') then
+                CellText := '(' + aSoft.CachedGroup.Date + ')'
               else
                 CellText := '';
             end
             else
-              CellText := aSoft.Year;
+              CellText := aSoft.Date;
           end;
           5: // Flags
           begin
@@ -464,8 +464,8 @@ procedure TfmEmutecaSoftTree.VDTCompareNodes(Sender: TBaseVirtualTree;
         Result := aGroup1.SoftList.Count - aGroup2.SoftList.Count;
       3: // Developer
         Result := UTF8CompareText(aGroup1.Developer, aGroup2.Developer);
-      4: // Year
-        Result := UTF8CompareText(aGroup1.Year, aGroup2.Year);
+      4: // Date
+        Result := UTF8CompareText(aGroup1.Date, aGroup2.Date);
       //      5: // Flags
       //        Result := 0;
       6: // Times
@@ -506,7 +506,7 @@ procedure TfmEmutecaSoftTree.VDTCompareNodes(Sender: TBaseVirtualTree;
       3: // Publisher
         Result := UTF8CompareText(aSoft1.Publisher, aSoft2.Publisher);
       4: // Year
-        Result := UTF8CompareText(aSoft1.Year, aSoft2.Year);
+        Result := UTF8CompareText(aSoft1.Date, aSoft2.Date);
       5: // Flags
       begin
         Result := Ord(aSoft1.DumpStatus) - Ord(aSoft2.DumpStatus);
@@ -549,9 +549,9 @@ procedure TfmEmutecaSoftTree.VDTCompareNodes(Sender: TBaseVirtualTree;
         // Comparing only developers
         Result := UTF8CompareText(aSoft.CachedGroup.Developer,
           aGroup.Developer);
-      4: // Year
+      4: // Date
         // Comparing only developing years
-        Result := UTF8CompareText(aSoft.CachedGroup.Year, aGroup.Year);
+        Result := UTF8CompareText(aSoft.CachedGroup.Date, aGroup.Date);
       // 5: // Flags
       //  Result := 0
       6: // Times Played

@@ -2,11 +2,9 @@ unit ucEmutecaSoftManager;
 
 {< cEmutecaSoftManager class unit.
 
-  ----
-
   This file is part of Emuteca Core.
 
-  Copyright (C) 2011-2018 Chixpy
+  Copyright (C) 2011-2020 Chixpy
 
   This source is free software; you can redistribute it and/or modify it under
   the terms of the GNU General Public License as published by the Free
@@ -328,8 +326,8 @@ begin
                 aExpSoft.SortTitle := aSoft.GetActualSortTitle;
               if (aExpSoft.Version = '') then
                 aExpSoft.Version := aSoft.Version;
-              if (aExpSoft.Year = '') then
-                aExpSoft.Year := aSoft.Year;
+              if (aExpSoft.Date = '') then
+                aExpSoft.Date := aSoft.Date;
               if (aExpSoft.Publisher = '') then
                 aExpSoft.Publisher := aSoft.Publisher;
               if (aExpSoft.Zone = '') then

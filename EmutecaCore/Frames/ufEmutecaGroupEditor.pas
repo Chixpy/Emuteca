@@ -1,5 +1,25 @@
 unit ufEmutecaGroupEditor;
+{< TfmEmutecaGroupEditor form unit.
 
+  This file is part of Emuteca Core.
+
+  Copyright (C) 2011-2020 Chixpy
+
+  This source is free software; you can redistribute it and/or modify it
+  under the terms of the GNU General Public License as published by the Free
+  Software Foundation; either version 3 of the License, or (at your option)
+  any later version.
+
+  This code is distributed in the hope that it will be useful, but WITHOUT
+  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+  FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+  more details.
+
+  A copy of the GNU General Public License is available on the World Wide Web
+  at <http://www.gnu.org/copyleft/gpl.html>. You can also obtain it by
+  writing to the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+  Boston, MA 02111-1307, USA.
+}
 {$mode objfpc}{$H+}
 
 interface
@@ -7,7 +27,9 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
   StdCtrls, Buttons, ActnList,
+  // CHX forms
   ufCHXPropEditor,
+  // Emuteca Core classes
   ucEmutecaGroup;
 
 type
@@ -95,7 +117,7 @@ begin
   if (eDeveloper.ItemIndex = -1) and (Group.Developer <> '') then
     eDeveloper.ItemIndex := eDeveloper.Items.Add(Group.Developer);
 
-  eYear.Text := Group.Year;
+  eYear.Text := Group.Date;
   eMediaFile.Text := Group.GetActualMediaFilename;
 end;
 
@@ -114,7 +136,7 @@ begin
     (eDeveloper.Items.IndexOf(Group.Developer) = -1) then
     eDeveloper.AddItem(Group.Developer, nil);
 
-  Group.Year := eYear.Text;
+  Group.Date := eYear.Text;
   Group.MediaFileName := eMediaFile.Text;
 end;
 

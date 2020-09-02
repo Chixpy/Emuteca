@@ -63,7 +63,7 @@ const
   kEmutecaROMExtensionParamKey = '%EXTPARAM%';
   {< Extra parameter from System.CoreID. }
   kEmutecaROMExtraParamKey = '%EXTRA%';
-{< Extra parameters from Software.ExtraParameter. }
+  {< Extra parameters from Software.ExtraParameter. }
 
 type
   { caEmutecaCustomEmu class.
@@ -105,14 +105,29 @@ type
 
   protected
     procedure DoSaveToIni(aIniFile: TMemIniFile; ExportMode: boolean); virtual;
+    {< Saves emulator config to ini file. }
 
   public
     function CompareID(aID: string): integer;
+    {< Compares Emulator.ID with aID. It's case insensitive. }
     function MatchID(aID: string): boolean;
+    {< Returns @true if aID matchs Emulator.ID. }
 
     function Execute(GameFile: string; ExtraParameters: TStringList;
       SysID: string): integer;
+    {< Executes emulator with a game file.
+
+       @param(GameFile is a string with game filename. Used with Parameters
+          property. )
+       @param(ExtraParameters is a string list with the extra parameters values
+         stored with game. )
+       @param(SysID is a string with ID of system. Used with multicore
+         emulators. )
+       @returns(Integer with emulator exit code. 0 if matches
+         Emulator.ExitCode value. -1 if Something is wrong before launch. )
+  }
     function ExecuteAlone: integer;
+    {< Executes emulator without parameters. }
 
     procedure LoadFromIni(aIniFile: TMemIniFile); override;
     procedure SaveToIni(aIniFile: TMemIniFile); override;
@@ -194,9 +209,13 @@ type
     // Additional info data
     // --------------------
     property Developer: string read FDeveloper write SetDeveloper;
+    {< Developers. }
     property WebPage: string read FWebPage write SetWebPage;
+    {< WebPage. }
     property IconFile: string read FIconFile write SetIconFile;
+    {< Icon for emulator. }
     property InfoFile: string read FInfoFile write SetInfoFile;
+    {< Text info file for emulator. }
 
     // Usage statitics
     // ---------------
@@ -404,7 +423,7 @@ begin
   // Some emulators don't accept linux style in parameters...
   GameFile := SysPath(GameFile);
 
-  // If GameFile is relative to emuteca directory,
+  // If GameFile is relative to Emuteca directory,
   //   absolute path is better right now.
   if not FilenameIsAbsolute(GameFile) then
     GameFile := CreateAbsoluteSearchPath(GameFile, GetCurrentDirUTF8);

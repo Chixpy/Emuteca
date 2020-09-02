@@ -844,6 +844,10 @@ msgstr "Arreglado"
 msgid "Hack"
 msgstr "Hackeado"
 
+#: tfmemutecasofteditor.lmediafilename.caption
+msgid "Media Filename  (Empty = Sort Title)"
+msgstr ""
+
 #: tfmemutecasofteditor.lmodified.caption
 msgid "Modified"
 msgstr "Modificado"
@@ -859,8 +863,9 @@ msgstr "Publicador"
 
 #: tfmemutecasofteditor.lsortkey.caption
 #, fuzzy
+#| msgid "Sort Key (Empty = TranslitTitle)"
 msgctxt "tfmemutecasofteditor.lsortkey.caption"
-msgid "Sort Key (Empty = TranslitTitle)"
+msgid "Sort Key (Empty = Title)"
 msgstr "Clave de ordenación (Vacío = Trasliteración del título)"
 
 #: tfmemutecasofteditor.ltitle.caption

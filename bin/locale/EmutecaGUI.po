@@ -823,6 +823,10 @@ msgstr ""
 msgid "Hack"
 msgstr ""
 
+#: tfmemutecasofteditor.lmediafilename.caption
+msgid "Media Filename  (Empty = Sort Title)"
+msgstr ""
+
 #: tfmemutecasofteditor.lmodified.caption
 msgid "Modified"
 msgstr ""
@@ -838,7 +842,7 @@ msgstr ""
 
 #: tfmemutecasofteditor.lsortkey.caption
 msgctxt "tfmemutecasofteditor.lsortkey.caption"
-msgid "Sort Key (Empty = TranslitTitle)"
+msgid "Sort Key (Empty = Title)"
 msgstr ""
 
 #: tfmemutecasofteditor.ltitle.caption

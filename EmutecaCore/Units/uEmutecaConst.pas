@@ -88,7 +88,7 @@ const
   krsCSVStatsHeader = '"Last Time","Times Played","Playing Time"';
 
   krsCSVSoftHeader = '"Group","SHA1","ID","Folder","FileName",' +
-    '"Title","Transliterated Name","Sort Title","Version","Year","Publisher",'
+    '"Title","Media Filename","Sort Title","Version","Year","Publisher",'
     +
     '"Zone","DumpStatus","Dump Info","Fixed","Trainer","Translation",' +
     '"Pirate","Cracked","Modified","Hack","Extra Parameters"';

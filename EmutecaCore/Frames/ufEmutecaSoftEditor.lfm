@@ -24,7 +24,7 @@ inherited fmEmutecaSoftEditor: TfmEmutecaSoftEditor
   object gbxDumpTags: TGroupBox[1]
     Left = 0
     Height = 317
-    Top = 270
+    Top = 318
     Width = 435
     Align = alTop
     AutoSize = True
@@ -181,7 +181,7 @@ inherited fmEmutecaSoftEditor: TfmEmutecaSoftEditor
   object gbxVersion: TGroupBox[2]
     Left = 0
     Height = 141
-    Top = 125
+    Top = 173
     Width = 435
     Align = alTop
     AutoSize = True
@@ -266,17 +266,17 @@ inherited fmEmutecaSoftEditor: TfmEmutecaSoftEditor
   end
   object gbxExtraParameters: TGroupBox[3]
     Left = 0
-    Height = 158
-    Top = 591
+    Height = 110
+    Top = 639
     Width = 435
     Align = alClient
     Caption = 'Extra parameters'
-    ClientHeight = 133
+    ClientHeight = 85
     ClientWidth = 431
     TabOrder = 3
     object mExtraParameters: TMemo
       Left = 0
-      Height = 133
+      Height = 85
       Top = 0
       Width = 431
       Align = alClient
@@ -287,13 +287,13 @@ inherited fmEmutecaSoftEditor: TfmEmutecaSoftEditor
   end
   object gbxTitle: TGroupBox[4]
     Left = 0
-    Height = 121
+    Height = 169
     Top = 0
     Width = 435
     Align = alTop
     AutoSize = True
     Caption = 'Title'
-    ClientHeight = 96
+    ClientHeight = 144
     ClientWidth = 431
     TabOrder = 4
     object lTitle: TLabel
@@ -319,7 +319,7 @@ inherited fmEmutecaSoftEditor: TfmEmutecaSoftEditor
       Top = 48
       Width = 431
       Align = alTop
-      Caption = 'Sort Key (Empty = TranslitTitle)'
+      Caption = 'Sort Key (Empty = Title)'
       ParentColor = False
     end
     object eSortKey: TEdit
@@ -329,6 +329,23 @@ inherited fmEmutecaSoftEditor: TfmEmutecaSoftEditor
       Width = 431
       Align = alTop
       TabOrder = 1
+    end
+    object lMediaFileName: TLabel
+      Left = 0
+      Height = 20
+      Top = 96
+      Width = 431
+      Align = alTop
+      Caption = 'Media Filename  (Empty = Sort Title)'
+      ParentColor = False
+    end
+    object eMediaFileName: TEdit
+      Left = 0
+      Height = 28
+      Top = 116
+      Width = 431
+      Align = alTop
+      TabOrder = 2
     end
   end
   inherited alPropEditor: TActionList[5]

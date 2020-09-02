@@ -97,7 +97,7 @@
         <PackageName Value="LCL"/>
       </Item7>
     </RequiredPackages>
-    <Units Count="138">
+    <Units Count="139">
       <Unit0>
         <Filename Value="EmutecaGUI.pas"/>
         <IsPartOfProject Value="True"/>
@@ -824,6 +824,10 @@
         <Filename Value="..\EmutecaCore\Threads\utEmutecaRunEmulator.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit137>
+      <Unit138>
+        <Filename Value="..\EmutecaCore\Abstracts\uaEmutecaCustomSGItem.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit138>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

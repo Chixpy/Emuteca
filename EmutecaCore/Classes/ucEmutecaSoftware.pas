@@ -3,7 +3,7 @@ unit ucEmutecaSoftware;
 
   This file is part of Emuteca Core.
 
-  Copyright (C) 2006-2018 Chixpy
+  Copyright (C) 2006-2020 Chixpy
 
   This source is free software; you can redistribute it and/or modify it under
   the terms of the GNU General Public License as published by the Free
@@ -167,7 +167,7 @@ begin
   if Assigned(CachedGroup) then
   begin
     Result := CompareFilenames(CachedGroup.MediaFileName,
-      GetMediaFileName) = 0;
+      MediaFileName) = 0;
   end
   else
     inherited MatchGroupFile;

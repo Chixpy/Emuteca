@@ -206,7 +206,7 @@ begin
   // TODO: Maybe Emuteca Core must do this...
   if Assigned(Software) then
   begin
-    EmuTKSearchAllRelatedFiles(FileList, GetFolder, Software.GetMediaFileName,
+    EmuTKSearchAllRelatedFiles(FileList, GetFolder, Software.MediaFileName,
       FileExt, True, True, TempFolder);
 
     if (FileList.Count = 0) and (not Software.MatchGroupFile) then
