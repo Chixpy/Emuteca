@@ -3,7 +3,7 @@ unit uPSI_ucEmuteca;
 
   This file is part of Emuteca Core.
 
-  Copyright (C) 2011-2018 Chixpy
+  Copyright (C) 2011-2020 Chixpy
 
   This source is free software; you can redistribute it and/or modify it
   under the terms of the GNU General Public License as published by the Free
@@ -24,7 +24,7 @@ unit uPSI_ucEmuteca;
 interface
 
 uses
-  SysUtils, Classes, uPSComponent, uPSRuntime, uPSCompiler,
+  SysUtils, Classes, uPSRuntime, uPSCompiler,
   // Emuteca Core units
   uEmutecaConst, uEmutecaRscStr,
   // Emuteca Core classes
@@ -36,7 +36,6 @@ procedure SIRegister_cEmuteca(CL: TPSPascalCompiler);
 
 procedure RIRegister_ucEmuteca(CL: TPSRuntimeClassImporter);
 procedure RIRegister_cEmuteca(CL: TPSRuntimeClassImporter);
-
 
 implementation
 

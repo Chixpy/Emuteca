@@ -39,6 +39,7 @@ begin
   WriteLn('Emuteca.SystemManager: cEmutecaSystemManager;');
   WriteLn('Emuteca.EmulatorManager: cEmutecaEmulatorManager;');
   WriteLn('  Properties to access Config, System Manager and Emulator Manager.');
+  WriteLn('  These object will be tested in their own test units.');
   WriteLn('');
   WriteLn('DONE.');
 end.

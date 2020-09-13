@@ -31,3 +31,7 @@ Por la parte visible:
 * ¡Música y Vídeo! Usando MPlayer
 
 ## ¿Y cuando se publicará? ##
+
+Pues tampoco puedo anticipar una fecha concreta, ni tampoco puedo decir que sea a corto plazo; aunque funcionalmente se podría decir que está completo hay que pulir muchos flecos y hacer su funcionamiento más intuitivo. 
+
+Soy conciente de que para muchas cosas es necesario tener conocimientos internos del programa para ser usadas adecuadamente o entender porque suceden así.

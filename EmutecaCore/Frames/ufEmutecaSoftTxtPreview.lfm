@@ -1,17 +1,26 @@
 inherited fmEmutecaSoftTxtPreview: TfmEmutecaSoftTxtPreview
   inherited tbPreviewList: TToolBar
-    object tbLockText: TToolButton[8]
-      Left = 190
+    inherited tbSepNavButtons: TToolButton
+      Left = 252
+    end
+    inherited tbOpenFile: TToolButton
+      Left = 314
+    end
+    inherited tbSepOpenFile: TToolButton
+      Left = 371
+    end
+    object tbLockText: TToolButton[7]
+      Left = 210
       Top = 2
       Action = actLockText
       Style = tbsCheck
     end
-    object tbSaveFile: TToolButton[9]
-      Left = 213
+    object tbSaveFile: TToolButton[8]
+      Left = 257
       Top = 2
       Action = actSaveFile
       DropdownMenu = pmTextActions
-      Style = tbsButtonDrop
+      Style = tbsDropDown
     end
   end
   inherited alPreviewList: TActionList
@@ -37,11 +46,15 @@ inherited fmEmutecaSoftTxtPreview: TfmEmutecaSoftTxtPreview
       Caption = 'Delete text file'
       OnExecute = actDeleteFileExecute
     end
+    inherited actOpenWithDefApp: TAction[8]
+    end
+    inherited actOpenFileFolder: TAction[9]
+    end
   end
-  object pmTextActions: TPopupMenu[4]
+  object pmTextActions: TPopupMenu[8]
     Images = ilPreviewList
-    left = 108
-    top = 105
+    Left = 108
+    Top = 105
     object mipmCreateNew: TMenuItem
       Action = actCreateNew
     end
