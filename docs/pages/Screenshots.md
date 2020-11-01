@@ -39,11 +39,6 @@ muestro algunas revisiones internas:
 {% capture imagefile -%}{{- site.baseurl -}}/img/0_7/GameManager%200_7_0_49.png{%- endcapture -%}
 {%- include image.html file=imagefile caption="Gestor de juegos 0.7.0.49" %}
 
-0.7.0.44
-
-{% capture imagefile -%}{{- site.baseurl -}}/img/0_7/GameManager%200_7_0_44.png{%- endcapture -%}
-{%- include image.html file=imagefile caption="Gestor de juegos 0.7.0.44" %}
-
 Gestor de sistemas
 
 {% capture imagefile -%}{{- site.baseurl -}}/img/0_7/SystemManager%200_7_0_49.png{%- endcapture -%}
@@ -66,8 +61,8 @@ Gestor de scripts
 
 Sobre... Emuteca
 
-{% capture imagefile -%}{{- site.baseurl -}}/img/0_7/About%200_7_0_49.png{%- endcapture -%}
-{%- include image.html file=imagefile caption="Sobre... Emuteca 0.7.0.49" %}
+{% capture imagefile -%}{{- site.baseurl -}}/img/0_7/About%200_7_0_53.png{%- endcapture -%}
+{%- include image.html file=imagefile caption="Sobre... Emuteca 0.7.0.53" %}
 
 ## 0.6.X ##
 

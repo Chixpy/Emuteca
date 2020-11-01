@@ -7,5 +7,6 @@
 {"hash":195949822,"name":"tfmemutecasystemimgeditor.gbxsystemicon.caption","sourcebytes":[83,121,115,116,101,109,32,105,99,111,110],"value":"System icon"},
 {"hash":45373811,"name":"tfmemutecasystemimgeditor.gbxiconfolder.caption","sourcebytes":[83,111,102,116,119,97,114,101,32,105,99,111,110,115],"value":"Software icons"},
 {"hash":75658210,"name":"tfmemutecasystemimgeditor.lsofticonfolder.caption","sourcebytes":[83,111,102,116,119,97,114,101,32,105,99,111,110,32,102,111,108,100,101,114],"value":"Software icon folder"},
-{"hash":18497678,"name":"tfmemutecasystemimgeditor.ldefsofticon.caption","sourcebytes":[68,101,102,97,117,108,116,32,115,111,102,116,32,105,99,111,110],"value":"Default soft icon"}
+{"hash":18497678,"name":"tfmemutecasystemimgeditor.ldefsofticon.caption","sourcebytes":[68,101,102,97,117,108,116,32,115,111,102,116,32,105,99,111,110],"value":"Default soft icon"},
+{"hash":69250034,"name":"tfmemutecasystemimgeditor.lsoftlogofolder.caption","sourcebytes":[83,111,102,116,119,97,114,101,32,108,111,103,111,32,102,111,108,100,101,114],"value":"Software logo folder"}
 ]}

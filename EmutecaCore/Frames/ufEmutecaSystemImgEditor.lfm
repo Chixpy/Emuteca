@@ -1,30 +1,30 @@
 inherited fmEmutecaSystemImgEditor: TfmEmutecaSystemImgEditor
-  Height = 398
-  Width = 420
-  ClientHeight = 398
-  ClientWidth = 420
-  DesignLeft = 760
-  DesignTop = 253
+  Height = 486
+  Width = 689
+  ClientHeight = 486
+  ClientWidth = 689
+  DesignLeft = 463
+  DesignTop = 198
   inherited pButtons: TPanel
-    Top = 368
-    Width = 420
-    ClientWidth = 420
+    Top = 456
+    Width = 689
+    ClientWidth = 689
     TabOrder = 2
     inherited chkCloseOnSave: TCheckBox
-      Left = 51
+      Left = 119
     end
     inherited bSave: TBitBtn
-      Left = 162
+      Left = 298
     end
     inherited bCancel: TBitBtn
-      Left = 279
+      Left = 483
     end
   end
   object gbxImages: TGroupBox[1]
     Left = 0
-    Height = 364
+    Height = 452
     Top = 0
-    Width = 207
+    Width = 426
     Align = alClient
     Caption = 'System images'
     ChildSizing.EnlargeHorizontal = crsScaleChilds
@@ -33,15 +33,15 @@ inherited fmEmutecaSystemImgEditor: TfmEmutecaSystemImgEditor
     ChildSizing.ShrinkVertical = crsScaleChilds
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 1
-    ClientHeight = 339
-    ClientWidth = 203
+    ClientHeight = 427
+    ClientWidth = 422
     TabOrder = 0
     object PairSplitter1: TPairSplitter
       Cursor = crVSplit
       Left = 0
-      Height = 339
+      Height = 427
       Top = 0
-      Width = 203
+      Width = 422
       Align = alClient
       Position = 200
       SplitterType = pstVertical
@@ -50,24 +50,24 @@ inherited fmEmutecaSystemImgEditor: TfmEmutecaSystemImgEditor
         Left = 0
         Height = 200
         Top = 0
-        Width = 203
-        ClientWidth = 203
+        Width = 422
+        ClientWidth = 422
         ClientHeight = 200
         object gbxSystemImage: TGroupBox
           Left = 0
           Height = 200
           Top = 0
-          Width = 203
+          Width = 422
           Align = alClient
           Caption = 'System image'
           ClientHeight = 175
-          ClientWidth = 199
+          ClientWidth = 418
           TabOrder = 0
           object eSystemImage: TFileNameEdit
             Left = 0
             Height = 28
             Top = 0
-            Width = 199
+            Width = 418
             OnAcceptFileName = eSystemImageAcceptFileName
             DialogKind = dkPictureOpen
             DialogOptions = [ofNoChangeDir, ofEnableSizing, ofViewDetail]
@@ -79,14 +79,14 @@ inherited fmEmutecaSystemImgEditor: TfmEmutecaSystemImgEditor
             Align = alTop
             MaxLength = 0
             TabOrder = 0
-            OnButtonClick = eSystemImageButtonClick
+            OnButtonClick = FileEditButtonClick
           end
           object iSystemImage: TImage
             Left = 0
             Height = 147
             Hint = 'System image|DblClk: Open in Image viewer.'
             Top = 28
-            Width = 199
+            Width = 418
             Align = alClient
             Center = True
             OnDblClick = iSystemImageDblClick
@@ -99,26 +99,26 @@ inherited fmEmutecaSystemImgEditor: TfmEmutecaSystemImgEditor
       object PairSplitterSide2: TPairSplitterSide
         Cursor = crArrow
         Left = 0
-        Height = 134
+        Height = 222
         Top = 205
-        Width = 203
-        ClientWidth = 203
-        ClientHeight = 134
+        Width = 422
+        ClientWidth = 422
+        ClientHeight = 222
         object gbxSystemBG: TGroupBox
           Left = 0
-          Height = 134
+          Height = 222
           Top = 0
-          Width = 203
+          Width = 422
           Align = alClient
           Caption = 'System background'
-          ClientHeight = 109
-          ClientWidth = 199
+          ClientHeight = 197
+          ClientWidth = 418
           TabOrder = 0
           object eSystemBG: TFileNameEdit
             Left = 0
             Height = 28
             Top = 0
-            Width = 199
+            Width = 418
             OnAcceptFileName = eSystemBGAcceptFileName
             DialogKind = dkPictureOpen
             DialogOptions = [ofNoChangeDir, ofEnableSizing, ofViewDetail]
@@ -130,13 +130,13 @@ inherited fmEmutecaSystemImgEditor: TfmEmutecaSystemImgEditor
             Align = alTop
             MaxLength = 0
             TabOrder = 0
-            OnButtonClick = eSystemBGButtonClick
+            OnButtonClick = FileEditButtonClick
           end
           object iSystemBG: TImage
             Left = 0
-            Height = 81
+            Height = 169
             Top = 28
-            Width = 199
+            Width = 418
             Align = alClient
             Center = True
             OnDblClick = iSystemBGDblClick
@@ -149,10 +149,10 @@ inherited fmEmutecaSystemImgEditor: TfmEmutecaSystemImgEditor
     end
   end
   object gbxSystemIcons: TGroupBox[2]
-    Left = 220
-    Height = 364
+    Left = 439
+    Height = 452
     Top = 0
-    Width = 200
+    Width = 250
     Align = alRight
     Caption = 'System Icons'
     ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
@@ -161,23 +161,23 @@ inherited fmEmutecaSystemImgEditor: TfmEmutecaSystemImgEditor
     ChildSizing.ShrinkVertical = crsHomogenousChildResize
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 1
-    ClientHeight = 339
-    ClientWidth = 196
+    ClientHeight = 427
+    ClientWidth = 246
     TabOrder = 1
     object gbxSystemIcon: TGroupBox
       Left = 0
-      Height = 105
+      Height = 145
       Top = 0
-      Width = 196
+      Width = 246
       Caption = 'System icon'
-      ClientHeight = 80
-      ClientWidth = 192
+      ClientHeight = 120
+      ClientWidth = 242
       TabOrder = 0
       object eSystemIcon: TFileNameEdit
         Left = 0
         Height = 28
         Top = 0
-        Width = 192
+        Width = 242
         OnAcceptFileName = eSystemIconAcceptFileName
         DialogKind = dkPictureOpen
         DialogOptions = [ofNoChangeDir, ofEnableSizing, ofViewDetail]
@@ -189,13 +189,13 @@ inherited fmEmutecaSystemImgEditor: TfmEmutecaSystemImgEditor
         Align = alTop
         MaxLength = 0
         TabOrder = 0
-        OnButtonClick = eSystemIconButtonClick
+        OnButtonClick = FileEditButtonClick
       end
       object iSystemIcon: TImage
         Left = 0
-        Height = 52
+        Height = 92
         Top = 28
-        Width = 192
+        Width = 242
         Align = alClient
         Center = True
         OnDblClick = iSystemIconDblClick
@@ -206,19 +206,19 @@ inherited fmEmutecaSystemImgEditor: TfmEmutecaSystemImgEditor
     end
     object gbxIconFolder: TGroupBox
       Left = 0
-      Height = 234
-      Top = 105
-      Width = 196
+      Height = 282
+      Top = 145
+      Width = 246
       AutoSize = True
       Caption = 'Software icons'
-      ClientHeight = 209
-      ClientWidth = 192
+      ClientHeight = 257
+      ClientWidth = 242
       TabOrder = 1
       object eSoftIconFolder: TDirectoryEdit
         Left = 0
         Height = 28
         Top = 20
-        Width = 192
+        Width = 242
         DialogOptions = [ofNoChangeDir, ofEnableSizing, ofViewDetail]
         ShowHidden = False
         ButtonWidth = 23
@@ -227,13 +227,13 @@ inherited fmEmutecaSystemImgEditor: TfmEmutecaSystemImgEditor
         Align = alTop
         MaxLength = 0
         TabOrder = 0
-        OnButtonClick = eSoftIconFolderButtonClick
+        OnButtonClick = DirEditButtonClick
       end
       object lSoftIconFolder: TLabel
         Left = 0
         Height = 20
         Top = 0
-        Width = 192
+        Width = 242
         Align = alTop
         Caption = 'Software icon folder'
         ParentColor = False
@@ -241,8 +241,8 @@ inherited fmEmutecaSystemImgEditor: TfmEmutecaSystemImgEditor
       object lDefSoftIcon: TLabel
         Left = 0
         Height = 20
-        Top = 48
-        Width = 192
+        Top = 96
+        Width = 242
         Align = alTop
         Caption = 'Default soft icon'
         ParentColor = False
@@ -250,8 +250,8 @@ inherited fmEmutecaSystemImgEditor: TfmEmutecaSystemImgEditor
       object eDefSoftIcon: TFileNameEdit
         Left = 0
         Height = 28
-        Top = 68
-        Width = 192
+        Top = 116
+        Width = 242
         OnAcceptFileName = eDefSoftIconAcceptFileName
         DialogKind = dkPictureOpen
         DialogOptions = [ofNoChangeDir, ofEnableSizing, ofViewDetail]
@@ -263,13 +263,13 @@ inherited fmEmutecaSystemImgEditor: TfmEmutecaSystemImgEditor
         Align = alTop
         MaxLength = 0
         TabOrder = 1
-        OnButtonClick = eDefSoftIconButtonClick
+        OnButtonClick = FileEditButtonClick
       end
       object iDefSoftIcon: TImage
         Left = 0
         Height = 113
-        Top = 96
-        Width = 192
+        Top = 144
+        Width = 242
         Align = alClient
         Center = True
         OnDblClick = iDefSoftIconDblClick
@@ -277,11 +277,35 @@ inherited fmEmutecaSystemImgEditor: TfmEmutecaSystemImgEditor
         Stretch = True
         Transparent = True
       end
+      object eSoftLogoFolder: TDirectoryEdit
+        Left = 0
+        Height = 28
+        Top = 68
+        Width = 242
+        DialogOptions = [ofNoChangeDir, ofEnableSizing, ofViewDetail]
+        ShowHidden = False
+        ButtonWidth = 23
+        NumGlyphs = 1
+        Flat = True
+        Align = alTop
+        MaxLength = 0
+        TabOrder = 2
+        OnButtonClick = DirEditButtonClick
+      end
+      object lSoftLogoFolder: TLabel
+        Left = 0
+        Height = 20
+        Top = 48
+        Width = 242
+        Align = alTop
+        Caption = 'Software logo folder'
+        ParentColor = False
+      end
     end
   end
   object Splitter1: TSplitter[3]
-    Left = 211
-    Height = 364
+    Left = 430
+    Height = 452
     Top = 0
     Width = 5
     Align = alRight

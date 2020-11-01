@@ -1055,6 +1055,10 @@ msgctxt "tfmemutecasystemimgeditor.lsofticonfolder.caption"
 msgid "Software icon folder"
 msgstr ""
 
+#: tfmemutecasystemimgeditor.lsoftlogofolder.caption
+msgid "Software logo folder"
+msgstr ""
+
 #: tfmemutecasystemitfeditor.gbximagefolders.caption
 msgid "Image Folders"
 msgstr ""
@@ -1200,9 +1204,8 @@ msgctxt "tfmetkguifullsystemeditor.actopensystemfolder.caption"
 msgid "Open system folder"
 msgstr ""
 
-#: tfmetkguifullsystemeditor.toolbar1.caption
-msgctxt "tfmetkguifullsystemeditor.toolbar1.caption"
-msgid "ToolBar1"
+#: tfmetkguifullsystemeditor.systoolbar.caption
+msgid "SysToolBar"
 msgstr ""
 
 #: tfmetkguifullsystemeditor.toolbutton1.caption
@@ -1514,7 +1517,17 @@ msgstr ""
 msgid "Remove all panels."
 msgstr ""
 
-#: tfmetkguisoftmedia.toolbar1.caption
+#: tfmetkguisoftmedia.acticonlogofilter.caption
+msgid "Filter Icon && Logo images"
+msgstr ""
+
+#: tfmetkguisoftmedia.piconlogo.caption
+msgctxt "tfmetkguisoftmedia.piconlogo.caption"
+msgid "Icon && Logo"
+msgstr ""
+
+#: tfmetkguisoftmedia.tbsoftmediapanel.caption
+msgctxt "tfmetkguisoftmedia.tbsoftmediapanel.caption"
 msgid "tbSoftMediaPanel"
 msgstr ""
 

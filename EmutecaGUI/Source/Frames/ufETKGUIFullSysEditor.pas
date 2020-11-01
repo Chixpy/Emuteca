@@ -1,4 +1,5 @@
 unit ufETKGUIFullSysEditor;
+
 {< TfmETKGUIFullSystemEditor frame unit.
 
   This file is part of Emuteca GUI.
@@ -34,7 +35,7 @@ uses
   // CHX frames
   ufCHXPropEditor,
   // Emuteca Core common
-  uEmutecaConst,uEmutecaRscStr,
+  uEmutecaConst, uEmutecaRscStr,
   // Emuteca Core clases
   ucEmuteca, ucEmutecaSystem,
   // Emuteca Core frames
@@ -51,7 +52,7 @@ type
     actCreateFolders: TAction;
     actOpenSystemFolder: TAction;
     pcProperties: TPageControl;
-    ToolBar1: TToolBar;
+    SysToolBar: TToolBar;
     bCreateFolders: TToolButton;
     bOpenSystemFolder: TToolButton;
     bSaveSystem: TToolButton;
@@ -89,8 +90,9 @@ type
 
     property SHA1Folder: string read FSHA1Folder write SetSHA1Folder;
 
-    class function SimpleForm(aEmuteca: cEmuteca; aSystem: cEmutecaSystem; aSHA1Folder: string;
-      aGUIIconsIni: string; aGUIConfigIni: string): integer;
+    class function SimpleForm(aEmuteca: cEmuteca;
+      aSystem: cEmutecaSystem; aSHA1Folder: string; aGUIIconsIni: string;
+      aGUIConfigIni: string): integer;
     //< Creates a form with System Editor.
 
     constructor Create(TheOwner: TComponent); override;
@@ -130,29 +132,38 @@ procedure TfmETKGUIFullSystemEditor.actCreateFoldersExecute(Sender: TObject);
     else
       aTitle := aLine[2];
 
-    if aLine[1] = 'i' then
-    begin
-      aSystem.ImageFolders.Add(aFolder);
-      aSystem.ImageCaptions.Add(aTitle);
-    end
-    else if aLine[1] = 't' then
-    begin
-      aSystem.TextFolders.Add(aFolder);
-      aSystem.TextCaptions.Add(aTitle);
-    end
-    else if aLine[1] = 'm' then
-    begin
-      aSystem.MusicFolders.Add(aFolder);
-      aSystem.MusicCaptions.Add(aTitle);
-    end
-    else if aLine[1] = 'v' then
-    begin
-      aSystem.VideoFolders.Add(aFolder);
-      aSystem.VideoCaptions.Add(aTitle);
-    end
-    else if aLine[1] = 'c' then
-    begin
-      aSystem.IconFolder := aFolder;
+    case AnsiLowerCase(aLine[1]) of
+      'i': // Images
+      begin
+        aSystem.ImageFolders.Add(aFolder);
+        aSystem.ImageCaptions.Add(aTitle);
+      end;
+      't': // Texts
+      begin
+        aSystem.TextFolders.Add(aFolder);
+        aSystem.TextCaptions.Add(aTitle);
+      end;
+      'm': // Music
+      begin
+        aSystem.MusicFolders.Add(aFolder);
+        aSystem.MusicCaptions.Add(aTitle);
+      end;
+      'v': // Video
+      begin
+        aSystem.VideoFolders.Add(aFolder);
+        aSystem.VideoCaptions.Add(aTitle);
+      end;
+      'c': // Icon
+      begin
+        aSystem.IconFolder := aFolder;
+      end;
+      'l': // Logo
+      begin
+        aSystem.LogoFolder := aFolder;
+      end;
+
+      else
+        ;
     end;
   end;
 
@@ -161,39 +172,39 @@ var
   i: integer;
   TmpSys: cEmutecaSystem;
 begin
-  if not assigned(Emuteca) then
-    Exit;
-  if not Assigned(System) then
+  if (not assigned(Emuteca)) or (not Assigned(System)) then
     Exit;
 
   // TODO: May be change the logic here:
   //  1. Test if system have changes
   //  2. Ask for save them
 
-  // System will changes internally, so we unload it first.
+  // System will change internally, so we unload it first.
   SaveFrameData; // We must save first
   TmpSys := System;
   System := nil;
 
-  if (TmpSys.BaseFolder = '') or not DirectoryExistsUTF8(TmpSys.BaseFolder) then
+  if (TmpSys.BaseFolder = '') or not DirectoryExistsUTF8(
+    TmpSys.BaseFolder) then
   begin
-    { TODO : Exception :-P }
+    { TODO : Exception :-P... Ask for Base folder. }
     ShowMessageFmt(rsFmtNotFound, [GetCurrentDirUTF8, TmpSys.BaseFolder]);
     Exit;
   end;
   if not FileExistsUTF8(Emuteca.Config.AutoSysFolder) then
   begin
     { TODO : Exception :-P }
-    ShowMessageFmt(rsFmtNotFound, [GetCurrentDirUTF8, Emuteca.Config.AutoSysFolder]);
+    ShowMessageFmt(rsFmtNotFound, [GetCurrentDirUTF8,
+      Emuteca.Config.AutoSysFolder]);
     Exit;
   end;
 
   if MessageDlg(rsWarning, Format(rsAutoFolderWarning, [TmpSys.BaseFolder]),
-    mtWarning, [mbOK, mbCancel],
-    'CreateSystemFolders') = mrCancel then
+    mtWarning, [mbOK, mbCancel], 'CreateSystemFolders') = mrCancel then
     Exit;
 
   TmpSys.IconFolder := '';
+  TmpSys.LogoFolder := '';
   TmpSys.ImageFolders.Clear;
   TmpSys.ImageCaptions.Clear;
   TmpSys.TextFolders.Clear;
@@ -226,9 +237,12 @@ begin
   System := TmpSys;
 end;
 
-procedure TfmETKGUIFullSystemEditor.actOpenSystemFolderExecute(Sender: TObject);
+procedure TfmETKGUIFullSystemEditor.actOpenSystemFolderExecute(
+  Sender: TObject);
 begin
-  if (not Assigned(System)) or (not DirectoryExistsUTF8(System.BaseFolder)) then Exit;
+  if (not Assigned(System)) or
+    (not DirectoryExistsUTF8(System.BaseFolder)) then
+    Exit;
 
   OpenDocument(System.BaseFolder);
 end;

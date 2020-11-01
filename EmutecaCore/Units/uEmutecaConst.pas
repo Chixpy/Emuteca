@@ -88,8 +88,7 @@ const
   krsCSVStatsHeader = '"Last Time","Times Played","Playing Time"';
 
   krsCSVSoftHeader = '"Group","SHA1","ID","Folder","FileName",' +
-    '"Title","Media Filename","Sort Title","Version","Year","Publisher",'
-    +
+    '"Title","Media Filename","Sort Title","Version","Year","Publisher",' +
     '"Zone","DumpStatus","Dump Info","Fixed","Trainer","Translation",' +
     '"Pirate","Cracked","Modified","Hack","Extra Parameters"';
   krsCSVSoftStatsHeader = krsCSVSoftHeader + ',' + krsCSVStatsHeader;
@@ -124,6 +123,7 @@ const
   krsIniKeyBackImage = 'BackImage';
   krsIniKeySoftIcon = 'SoftIcon';
   krsIniKeyIconFolder = 'IconFolder';
+  krsIniKeyLogoFolder = 'LogoFolder';
   krsIniKeyImageFolders = 'ImageFolders';
   krsIniKeyImageCaptions = 'ImageCaptions';
   krsIniKeyText = 'Text';

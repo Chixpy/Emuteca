@@ -27,22 +27,27 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  ComCtrls, ActnList, IniFiles,
+  ComCtrls, ActnList, StdCtrls, Menus, IniFiles,
   // CHX units
-  uCHXImageUtils,
+  uCHXStrUtils, uCHXImageUtils,
   // CHX frames
   ufCHXFrame,
+  // Emuteca common
+  uEmutecaCommon,
   // Emuteca classes
   ucEmutecaGroup, ucEmutecaSoftware,
+  // Emuteca GUI abstract frames
+  uafETKGUISoftFoldersPreview,
   // Emuteca GUI frames
-  uafETKGUISoftFoldersPreview, ufETKGUISoftImgPreview, ufETKGUISoftTxtPreview,
-  ufETKGUISoftMusicPreview, ufETKGUISoftVideoPreview;
+  ufETKGUISoftImgPreview, ufETKGUISoftTxtPreview, ufETKGUISoftMusicPreview,
+  ufETKGUISoftVideoPreview;
 
 const
   krsIniSoftMediaFrameSection = 'SoftMedia';
+  krsIniSoftIconLogoPanelHeight = 'IconLogo_Height';
   krsIniSoftMediaNPanels = 'NPanels';
   krsIniSoftMediaPanelType = 'Panel%0:d_Type';
-  krsIniSoftMediaPanelHeight = 'Panel%0:d_Heigth';
+  krsIniSoftMediaPanelHeight = 'Panel%0:d_Height';
   krsIniSoftMediaPanelCaption = 'Panel%0:d_Caption';
 
   krsIniImagePanelKey = 'Image';
@@ -50,6 +55,9 @@ const
   krsIniVideoPanelKey = 'Video';
   krsIniMusicPanelKey = 'Music';
   krsIniUnknownPanelKey = 'Unknown';
+
+  krsTempIconDir = 'Icon';
+  krsTempLogoDir = 'Logo';
 
 type
 
@@ -61,10 +69,17 @@ type
     actAddMusicPanel: TAction;
     actAddVideoPanel: TAction;
     actClearPanels: TAction;
+    actIconLogoFilter: TAction;
     alMediaPanel: TActionList;
+    iIcon: TImage;
     ilMediaPanel: TImageList;
-    ScrollBox1: TScrollBox;
-    ToolBar1: TToolBar;
+    iLogo: TImage;
+    miILFilterImages: TMenuItem;
+    pIconLogo: TGroupBox;
+    pmIconLogo: TPopupMenu;
+    sbxMediaPanels: TScrollBox;
+    Splitter1: TSplitter;
+    tbSoftMediaPanel: TToolBar;
     tbAddImagePanel: TToolButton;
     tbAddTextPanel: TToolButton;
     tbAddVideoPanel: TToolButton;
@@ -76,7 +91,8 @@ type
     procedure actAddTextPanelExecute(Sender: TObject);
     procedure actAddVideoPanelExecute(Sender: TObject);
     procedure actClearPanelsExecute(Sender: TObject);
-
+    procedure actIconLogoFilterExecute(Sender: TObject);
+    procedure pIconLogoResize(Sender: TObject);
   private
     FGroup: cEmutecaGroup;
     FImageExt: TStrings;
@@ -160,17 +176,59 @@ end;
 procedure TfmETKGUISoftMedia.actClearPanelsExecute(Sender: TObject);
 begin
   // Maybe there is a better way to delete panels...
-  while ScrollBox1.ComponentCount > 0 do
-    ScrollBox1.Components[0].Free;
+  while sbxMediaPanels.ComponentCount > 0 do
+    sbxMediaPanels.Components[0].Free;
+end;
+
+procedure TfmETKGUISoftMedia.actIconLogoFilterExecute(Sender: TObject);
+begin
+  // Test... It seems not to work with png?
+  if actIconLogoFilter.Checked then
+  begin
+    iIcon.AntialiasingMode := amOn;
+    iLogo.AntialiasingMode := amOn;
+  end
+  else
+  begin
+    iIcon.AntialiasingMode := amOff;
+    iLogo.AntialiasingMode := amOff;
+  end;
+end;
+
+procedure TfmETKGUISoftMedia.pIconLogoResize(Sender: TObject);
+begin
+  iIcon.Width := iIcon.Height;
 end;
 
 procedure TfmETKGUISoftMedia.SetGroup(AValue: cEmutecaGroup);
+var
+  aImageFile: String;
 begin
   if FGroup = AValue then
     Exit;
   FGroup := AValue;
 
-  UpdateChildrenGroup(ScrollBox1);
+
+  if Assigned(Group) then
+  begin
+    iIcon.Picture := Group.Stats.Icon;
+
+    aImageFile := EmuTKSearchFirstRelatedFile(Group.CachedSystem.LogoFolder,
+      Group.MediaFileName, ImageExt, True, True,
+      SetAsFolder(TempFolder) + krsTempLogoDir);
+
+    if aImageFile = '' then
+      iLogo.Picture.Clear
+    else
+      iLogo.Picture.LoadFromFile(aImageFile);
+  end
+  else
+  begin
+    iIcon.Picture.Clear;
+    iLogo.Picture.Clear;
+  end;
+
+  UpdateChildrenGroup(sbxMediaPanels);
 
   LoadFrameData;
 end;
@@ -181,7 +239,7 @@ begin
     Exit;
   FImageExt := AValue;
 
-  UpdateChildrenConfig(ScrollBox1);
+  UpdateChildrenConfig(sbxMediaPanels);
 end;
 
 procedure TfmETKGUISoftMedia.SetMPlayerPath(const aMPlayerPath: string);
@@ -190,7 +248,7 @@ begin
     Exit;
   FMPlayerPath := aMPlayerPath;
 
-  UpdateChildrenConfig(ScrollBox1);
+  UpdateChildrenConfig(sbxMediaPanels);
 end;
 
 procedure TfmETKGUISoftMedia.SetMusicExt(const aMusicExt: TStrings);
@@ -199,7 +257,7 @@ begin
     Exit;
   FMusicExt := aMusicExt;
 
-  UpdateChildrenConfig(ScrollBox1);
+  UpdateChildrenConfig(sbxMediaPanels);
 end;
 
 procedure TfmETKGUISoftMedia.SetSHA1Folder(const AValue: string);
@@ -208,27 +266,51 @@ begin
     Exit;
   FSHA1Folder := AValue;
 
-  UpdateChildrenConfig(ScrollBox1);
+  UpdateChildrenConfig(sbxMediaPanels);
 end;
 
 procedure TfmETKGUISoftMedia.SetSoftware(AValue: cEmutecaSoftware);
+var
+  aImageFile: string;
 begin
   if FSoftware = AValue then
     Exit;
   FSoftware := AValue;
 
-  UpdateChildrenSoft(ScrollBox1);
+  if Assigned(FSoftware) then
+  begin
+    iIcon.Picture := FSoftware.Stats.Icon;
+
+    aImageFile := EmuTKSearchFirstRelatedFile(Software.CachedSystem.LogoFolder,
+      Software.MediaFileName, ImageExt, True, True,
+      SetAsFolder(TempFolder) + krsTempIconDir);
+
+    if (aImageFile = '') and (not Software.MatchGroupFile) then
+      aImageFile := EmuTKSearchFirstRelatedFile(
+        Software.CachedSystem.LogoFolder, Software.CachedGroup.MediaFileName,
+        ImageExt, True, True, SetAsFolder(TempFolder) + krsTempLogoDir);
+
+    if aImageFile = '' then
+      iLogo.Picture.Clear
+    else
+      iLogo.Picture.LoadFromFile(aImageFile);
+  end
+  else
+  begin
+    iIcon.Picture.Clear;
+    iLogo.Picture.Clear;
+  end;
+
+  UpdateChildrenSoft(sbxMediaPanels);
 
   LoadFrameData;
 end;
 
 procedure TfmETKGUISoftMedia.SetTempFolder(const aTempFolder: string);
 begin
-  if FTempFolder = aTempFolder then
-    Exit;
-  FTempFolder := aTempFolder;
+  FTempFolder := SetAsFolder(aTempFolder);
 
-  UpdateChildrenConfig(ScrollBox1);
+  UpdateChildrenConfig(sbxMediaPanels);
 end;
 
 procedure TfmETKGUISoftMedia.SetTextExt(AValue: TStrings);
@@ -237,7 +319,7 @@ begin
     Exit;
   FTextExt := AValue;
 
-  UpdateChildrenConfig(ScrollBox1);
+  UpdateChildrenConfig(sbxMediaPanels);
 end;
 
 procedure TfmETKGUISoftMedia.SetVideoExt(const aVideoExt: TStrings);
@@ -246,7 +328,7 @@ begin
     Exit;
   FVideoExt := aVideoExt;
 
-  UpdateChildrenConfig(ScrollBox1);
+  UpdateChildrenConfig(sbxMediaPanels);
 end;
 
 function TfmETKGUISoftMedia.AddMediaPanel(
@@ -257,14 +339,14 @@ var
   aMediaPanel: TfmaETKGUISoftFoldersPreview;
 begin
 
-  aSplitter := TSplitter.Create(ScrollBox1);
+  aSplitter := TSplitter.Create(sbxMediaPanels);
   aSplitter.Align := alTop;
-  aSplitter.Parent := ScrollBox1;
+  aSplitter.Parent := sbxMediaPanels;
 
-  aMediaPanel := aPanelClass.Create(ScrollBox1);
+  aMediaPanel := aPanelClass.Create(sbxMediaPanels);
   // Unique component name
   aMediaPanel.Name := aMediaPanel.Name +
-    IntToStr(ScrollBox1.ComponentCount div 2);
+    IntToStr(sbxMediaPanels.ComponentCount div 2);
 
   // Music preview have fixed size
   if not (aMediaPanel is TfmETKGUISoftMusicPreview) then
@@ -272,9 +354,9 @@ begin
 
   //aMediaPanel.LoadGUIConfig();
 
-  UpdateChildrenConfig(ScrollBox1);
+  UpdateChildrenConfig(sbxMediaPanels);
   aMediaPanel.Align := alTop;
-  aMediaPanel.Parent := ScrollBox1;
+  aMediaPanel.Parent := sbxMediaPanels;
 
   Result := aMediaPanel;
 end;
@@ -368,16 +450,19 @@ var
   PanelType, PanelCaption: string;
   aPanel: TfmaETKGUISoftFoldersPreview;
 begin
+  pIconLogo.Height := aIniFile.ReadInteger(krsIniSoftMediaFrameSection,
+    krsIniSoftIconLogoPanelHeight, pIconLogo.Height);
+
   NPanels := aIniFile.ReadInteger(krsIniSoftMediaFrameSection,
     krsIniSoftMediaNPanels, -1);
 
   if NPanels = -1 then
   begin
     // Default config
-    AddMediaPanel(TfmETKGUISoftMusicPreview, ScrollBox1.ClientWidth);
-    AddMediaPanel(TfmETKGUISoftVideoPreview, ScrollBox1.ClientWidth);
-    AddMediaPanel(TfmETKGUISoftImgPreview, ScrollBox1.ClientWidth);
-    AddMediaPanel(TfmETKGUISoftTxtPreview, ScrollBox1.ClientWidth);
+    AddMediaPanel(TfmETKGUISoftMusicPreview, sbxMediaPanels.ClientWidth);
+    AddMediaPanel(TfmETKGUISoftVideoPreview, sbxMediaPanels.ClientWidth);
+    AddMediaPanel(TfmETKGUISoftImgPreview, sbxMediaPanels.ClientWidth);
+    AddMediaPanel(TfmETKGUISoftTxtPreview, sbxMediaPanels.ClientWidth);
   end
   else
   begin
@@ -390,7 +475,7 @@ begin
         Format(krsIniSoftMediaPanelType, [i]), krsIniUnknownPanelKey);
 
       PanelHeight := aIniFile.ReadInteger(krsIniSoftMediaFrameSection,
-        Format(krsIniSoftMediaPanelHeight, [i]), ScrollBox1.ClientWidth);
+        Format(krsIniSoftMediaPanelHeight, [i]), sbxMediaPanels.ClientWidth);
       PanelCaption := aIniFile.ReadString(krsIniSoftMediaFrameSection,
         Format(krsIniSoftMediaPanelCaption, [i]), '');
 
@@ -416,14 +501,17 @@ var
   i, j: integer;
   aPreview: TComponent;
 begin
-  // ScrollBox1.ComponentCount div 2 => Splitter + MediaPanel
   aIniFile.WriteInteger(krsIniSoftMediaFrameSection,
-    krsIniSoftMediaNPanels, ScrollBox1.ComponentCount div 2);
+    krsIniSoftIconLogoPanelHeight, pIconLogo.Height);
+
+  // sbxMediaPanels.ComponentCount div 2 => Splitter + MediaPanel
+  aIniFile.WriteInteger(krsIniSoftMediaFrameSection,
+    krsIniSoftMediaNPanels, sbxMediaPanels.ComponentCount div 2);
 
   i := 0;
-  while i < ScrollBox1.ComponentCount do
+  while i < sbxMediaPanels.ComponentCount do
   begin
-    aPreview := ScrollBox1.Components[i];
+    aPreview := sbxMediaPanels.Components[i];
     j := i div 2;
 
     if (aPreview is TfmaETKGUISoftFoldersPreview) then

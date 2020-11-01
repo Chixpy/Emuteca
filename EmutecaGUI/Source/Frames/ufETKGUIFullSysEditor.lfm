@@ -6,15 +6,15 @@ inherited fmETKGUIFullSystemEditor: TfmETKGUIFullSystemEditor
   DesignLeft = 393
   DesignTop = 148
   inherited pButtons: TPanel
-    Top = 385
+    Top = 381
     Width = 481
     ClientWidth = 481
     TabOrder = 2
     inherited chkCloseOnSave: TCheckBox
-      Left = 72
+      Left = 67
     end
     inherited bSave: TBitBtn
-      Left = 193
+      Left = 194
     end
     inherited bCancel: TBitBtn
       Left = 327
@@ -22,33 +22,33 @@ inherited fmETKGUIFullSystemEditor: TfmETKGUIFullSystemEditor
   end
   object pcProperties: TPageControl[1]
     Left = 0
-    Height = 351
+    Height = 347
     Top = 30
     Width = 481
     Align = alClient
     TabOrder = 1
   end
-  object ToolBar1: TToolBar[2]
+  object SysToolBar: TToolBar[2]
     Left = 0
     Height = 26
     Top = 0
     Width = 481
-    Caption = 'ToolBar1'
+    Caption = 'SysToolBar'
     Images = ilPropEditor
     TabOrder = 0
     object bCreateFolders: TToolButton
-      Left = 63
+      Left = 75
       Top = 2
       Action = actCreateFolders
     end
     object bOpenSystemFolder: TToolButton
-      Left = 32
+      Left = 38
       Top = 2
       Action = actOpenSystemFolder
     end
     object ToolButton2: TToolButton
-      Left = 24
-      Height = 22
+      Left = 30
+      Height = 28
       Top = 2
       Caption = 'ToolButton2'
       Style = tbsSeparator
@@ -59,8 +59,8 @@ inherited fmETKGUIFullSystemEditor: TfmETKGUIFullSystemEditor
       Action = actFrameOK
     end
     object ToolButton1: TToolButton
-      Left = 55
-      Height = 22
+      Left = 67
+      Height = 28
       Top = 2
       Caption = 'ToolButton1'
       Style = tbsSeparator

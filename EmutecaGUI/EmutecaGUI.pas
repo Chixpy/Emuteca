@@ -104,7 +104,6 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   ufETKGUIScriptManager,
   ufETKGUISoftImgPreview,
   ufETKGUISoftMedia,
-  ufETKGUISoftTxtPreview,
   ufETKGUISysManager,
   ufETKGUISysPreview,
   ufETKGUIactMergeGroup,
@@ -119,7 +118,8 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   uPSI_uaEmutecaCustomEmu, ufEmutecaEmulatorAdvParamsEditor, ufETKGUIIcnEmuCBX,
   utETKGUICacheEmuIcons, ufCHXAbout, ufETKGUIAbout, ufEmutecaTagTree,
   ucEmutecaTagsFile, uCHXMenuUtils, uPSI_FPCFileUtil, uPSI_FPCLazUTF8,
-  utEmutecaRunEmulator, uaEmutecaCustomSGItem;
+  utEmutecaRunEmulator, uaEmutecaCustomSGItem,
+  ufETKGUISoftTxtPreview;
 
 {$R *.res}
 

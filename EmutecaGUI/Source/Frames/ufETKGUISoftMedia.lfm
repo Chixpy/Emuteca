@@ -5,17 +5,17 @@ inherited fmETKGUISoftMedia: TfmETKGUISoftMedia
   ClientWidth = 243
   DesignLeft = 579
   DesignTop = 110
-  object ScrollBox1: TScrollBox[0]
+  object sbxMediaPanels: TScrollBox[0]
     Left = 0
-    Height = 472
-    Top = 0
+    Height = 358
+    Top = 114
     Width = 243
     HorzScrollBar.Page = 1
     VertScrollBar.Page = 1
     Align = alClient
     TabOrder = 0
   end
-  object ToolBar1: TToolBar[1]
+  object tbSoftMediaPanel: TToolBar[1]
     Left = 0
     Height = 30
     Top = 476
@@ -59,10 +59,54 @@ inherited fmETKGUISoftMedia: TfmETKGUISoftMedia
       Action = actClearPanels
     end
   end
-  object alMediaPanel: TActionList[2]
+  object Splitter1: TSplitter[2]
+    Cursor = crVSplit
+    Left = 0
+    Height = 6
+    Top = 104
+    Width = 243
+    Align = alTop
+    ResizeAnchor = akTop
+  end
+  object pIconLogo: TGroupBox[3]
+    Left = 0
+    Height = 100
+    Top = 0
+    Width = 243
+    Align = alTop
+    Caption = 'Icon && Logo'
+    ClientHeight = 75
+    ClientWidth = 239
+    PopupMenu = pmIconLogo
+    TabOrder = 3
+    OnResize = pIconLogoResize
+    object iIcon: TImage
+      Left = 0
+      Height = 75
+      Top = 0
+      Width = 75
+      Align = alLeft
+      Center = True
+      Proportional = True
+      Stretch = True
+      Transparent = True
+    end
+    object iLogo: TImage
+      Left = 75
+      Height = 75
+      Top = 0
+      Width = 164
+      Align = alClient
+      Center = True
+      Proportional = True
+      Stretch = True
+      Transparent = True
+    end
+  end
+  object alMediaPanel: TActionList[4]
     Images = ilMediaPanel
-    left = 32
-    top = 104
+    Left = 40
+    Top = 256
     object actAddImagePanel: TAction
       Category = 'Panels'
       Caption = 'Add image panel'
@@ -89,9 +133,24 @@ inherited fmETKGUISoftMedia: TfmETKGUISoftMedia
       Hint = 'Remove all panels.'
       OnExecute = actClearPanelsExecute
     end
+    object actIconLogoFilter: TAction
+      Category = 'IconLogo'
+      AutoCheck = True
+      Caption = 'Filter Icon && Logo images'
+      OnExecute = actIconLogoFilterExecute
+    end
   end
-  object ilMediaPanel: TImageList[3]
-    left = 112
-    top = 104
+  object ilMediaPanel: TImageList[5]
+    Left = 152
+    Top = 256
+  end
+  object pmIconLogo: TPopupMenu[6]
+    Images = ilMediaPanel
+    Left = 24
+    Top = 152
+    object miILFilterImages: TMenuItem
+      Action = actIconLogoFilter
+      AutoCheck = True
+    end
   end
 end

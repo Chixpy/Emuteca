@@ -47,6 +47,7 @@ type
     FExtensions: TStringList;
     FExtractAll: boolean;
     FListFileName: string;
+    FLogoFolder: string;
     FSoftExportKey: TEmutecaSoftExportKey;
     FIconFile: string;
     FIconFolder: string;
@@ -74,6 +75,7 @@ type
     procedure SetEnabled(AValue: boolean);
     procedure SetExtractAll(AValue: boolean);
     procedure SetListFileName(AValue: string);
+    procedure SetLogoFolder(AValue: string);
     procedure SetSoftExportKey(AValue: TEmutecaSoftExportKey);
     procedure SetIconFile(AValue: string);
     procedure SetIconFolder(AValue: string);
@@ -178,6 +180,8 @@ type
     // ---------------
     property IconFolder: string read FIconFolder write SetIconFolder;
     {< Folder for the icons of the games. }
+        property LogoFolder: string read FLogoFolder write SetLogoFolder;
+    {< Folder for the logos of the games. }
     property ImageFolders: TStringList read FImageFolders;
     {< Folders for the game images. }
     property ImageCaptions: TStringList read FImageCaptions;
@@ -261,6 +265,7 @@ begin
   SoftIconFile := aIniFile.ReadString(ID, krsIniKeySoftIcon, SoftIconFile);
 
   IconFolder := aIniFile.ReadString(ID, krsIniKeyIconFolder, IconFolder);
+    LogoFolder := aIniFile.ReadString(ID, krsIniKeyLogoFolder, LogoFolder);
   ImageFolders.CommaText :=
     aIniFile.ReadString(ID, krsIniKeyImageFolders, ImageFolders.CommaText);
   ImageCaptions.CommaText :=
@@ -352,6 +357,11 @@ end;
 procedure caEmutecaCustomSystem.SetListFileName(AValue: string);
 begin
   FListFileName := CleanFileName(AValue);
+end;
+
+procedure caEmutecaCustomSystem.SetLogoFolder(AValue: string);
+begin
+  FLogoFolder := SetAsFolder(AValue);
 end;
 
 procedure caEmutecaCustomSystem.SetSoftExportKey(
@@ -501,6 +511,7 @@ begin
     aIniFile.DeleteKey(ID, krsIniKeySoftIcon);
 
     aIniFile.DeleteKey(ID, krsIniKeyIconFolder);
+    aIniFile.DeleteKey(ID, krsIniKeyLogoFolder);
     aIniFile.DeleteKey(ID, krsIniKeyImageFolders);
     aIniFile.DeleteKey(ID, krsIniKeyImageCaptions);
 
@@ -532,6 +543,7 @@ begin
     aIniFile.WriteString(ID, krsIniKeySoftIcon, SoftIconFile);
 
     aIniFile.WriteString(ID, krsIniKeyIconFolder, IconFolder);
+    aIniFile.WriteString(ID, krsIniKeyLogoFolder, LogoFolder);
     aIniFile.WriteString(ID, krsIniKeyImageFolders, ImageFolders.CommaText);
     aIniFile.WriteString(ID, krsIniKeyImageCaptions, ImageCaptions.CommaText);
 
