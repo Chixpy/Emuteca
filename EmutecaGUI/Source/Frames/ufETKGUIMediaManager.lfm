@@ -778,8 +778,8 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
   end
   object ActionList: TActionList[7]
     Images = ilActions
-    left = 704
-    top = 16
+    Left = 704
+    Top = 16
     object actAssignFile: TAction
       Category = 'Files'
       Caption = 'Assign file'
@@ -825,13 +825,13 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
     end
   end
   object ilActions: TImageList[8]
-    left = 704
-    top = 88
+    Left = 704
+    Top = 88
   end
   object pumVSTGroups: TPopupMenu[9]
     Images = ilActions
-    left = 216
-    top = 376
+    Left = 216
+    Top = 376
     object migpAssignFile: TMenuItem
       Action = actAssignFile
     end
@@ -856,8 +856,8 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
   end
   object pumVSTFiles: TPopupMenu[10]
     Images = ilActions
-    left = 216
-    top = 72
+    Left = 216
+    Top = 72
     object miflAssignFile: TMenuItem
       Action = actAssignFile
     end
@@ -881,7 +881,7 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
     end
   end
   object SelectDirectoryDialog1: TSelectDirectoryDialog[11]
-    left = 320
-    top = 72
+    Left = 320
+    Top = 72
   end
 end

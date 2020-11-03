@@ -1435,6 +1435,7 @@ begin
 
   lbxImages.Clear;
   lbxImages.Items.Add('Icons'); // Special images folder
+  lbxImages.Items.Add('Logos'); // Special images folder
   lbxImages.Items.AddStrings(CurrSystem.ImageCaptions, False);
   lbxTexts.Items.Assign(CurrSystem.TextCaptions);
   lbxMusic.Items.Assign(CurrSystem.MusicCaptions);
@@ -1539,6 +1540,7 @@ begin
     CurrPreview := fmImagePreview;
     case aLBX.ItemIndex of
       0: UpdateVST(CurrSystem.IconFolder);
+      1: UpdateVST(CurrSystem.LogoFolder);
       else
         UpdateVST(CurrSystem.ImageFolders[aLBX.ItemIndex - 1]);
     end;
