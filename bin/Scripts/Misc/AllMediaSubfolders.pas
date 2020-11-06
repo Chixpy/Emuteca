@@ -1,4 +1,4 @@
-{
+{ Emuteca Script
 [Info]
 This script moves ALL files to subfolders with its name, but
   removing parentesis in folder's name.

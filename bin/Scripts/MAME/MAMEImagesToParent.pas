@@ -60,7 +60,8 @@ begin
       aParent := Trim(aParent);
       
       WriteLn(aClone + ' -> ' + aParent);
-      
+
+      ñññññ      
       
       
       Inc(i);

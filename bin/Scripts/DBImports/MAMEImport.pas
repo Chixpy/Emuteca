@@ -1,4 +1,4 @@
-{
+{ Emuteca Script
 [Info]
 This script creates a database from MAME.
 It needs two txt files created with:
@@ -19,12 +19,8 @@ Date=20171111
 }
 program MAMEImport;
 
-function TestFilename(aFilename: string): boolean;
-begin
-  Result := FileExistsUTF8(aFilename);
-  if not Result then
-    WriteLn('The file "' + aFilename + '" not found.');
-end;
+//uses uETKFileUtils;
+{$I '../Units/uETKFileUtils.pas'}
 
 var
   FullFilename, ClonesFilename, OutFilename: string;
@@ -206,7 +202,7 @@ begin
           end;
         end; // while (ClonesList.Count > 0) and (aPos > 0) do
 
-        // "Group","SHA1","ID","Folder","FileName","Title","TransliteratedName",
+        // "Group","SHA1","ID","Folder","FileName","Title","MediaFileName",
         // "SortTitle","Version","Year","Publisher","Zone","DumpStatus",
         // "DumpInfo","Fixed","Trainer","Translation","Pirate","Cracked",
         // "Modified","Hack"

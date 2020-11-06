@@ -6,7 +6,7 @@ folder changing its filename with folder name. Removes emty folders too;
 For example:
 
 If "BaseFolder\GameName\" has only "RandonName.ext"
-1. "BaseFolder\GameName\RandonName.ext" will be moved to "BaseFolder\GameName.ext"
+1. "BaseFolder\GameName\RandomName.ext" will be moved to "BaseFolder\GameName.ext"
 2. And folder "BaseFolder\GameName\" will be removed.
 
 If "BaseFolder\GameName.ext" already exists, reverse operation is performed;
