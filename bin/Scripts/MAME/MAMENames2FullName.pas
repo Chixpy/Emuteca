@@ -11,16 +11,19 @@ It needs a txt file created with:
 * mame -listfull > MAMEfull.txt
 [Data]
 Name=Chixpy
-Version=0.01
-Date=
+Version=0.02
+Date=20201108
 [Changes]
-0.01
+0.02 20201108
+  * Renaming files to SortTitle, instead actual title.
+0.01 20201105
   + Initial working version
 [EndInfo]
 }
 program MAMENames2FullName;
 
-//uses uETKFileUtils;
+//uses uETKStrUtils, uETKFileUtils;
+{$I '../Units/uETKStrUtils.pas'}
 {$I '../Units/uETKFileUtils.pas'}
 
 var
@@ -56,15 +59,17 @@ begin
   aFileList := CreateStringList;
   FindAllFiles(aFileList, aFolder, '', False); 
   aFileList.Sort;
+  
+  WriteLn('Renaming: ' + IntToStr(AFileList.Count) + ' files.)');
 
   while AFileList.Count > 0 do
   begin
+    if (AFileList.Count and 511) = 511 then
+      WriteLn('Renaming: ' + aFile +  '(' + IntToStr(AFileList.Count) + ' left.)');
+
     aFolder := ExtractFilePath(AFileList[0]);
     aFile := RemoveFromBrackets(ExtractFilenameOnly(AFileList[0]));
     aExt := ExtractFileExt(AFileList[0]);
-
-    if (AFileList.Count and 1023) = 1023 then
-      WriteLn('Renaming: ' + aFile +  '(' + IntToStr(FullList.Count) + ' left.)');
 
     aPos := 1; // Enter the loop
     while (FullList.Count > 0) and (aPos > 0) do
@@ -78,21 +83,25 @@ begin
         aID := Trim(Copy(aName, 1, aPos - 1));
 
         // Extracting Title (+ Version)
-        aName := Trim(Copy(aName, aPos + 1, 1000)); // Removing first '"'
+        aName := Trim(ETKCopyFrom(aName, aPos + 1)); // Removing first '"'
         aName := Trim(Copy(aName, 1, Length(aName) - 1)); // Removing last '"'
-        
+
         aPos := CompareFileNames(aFile, aID);
         if aPos = 0 then // Match, rename file
         begin
-          outFile := SetAsFolder(aFolder) +  CleanFileName(aName, True, False) + aExt;
+          aID := '';
+          ETKFixTitle(aName, aID, outFile); // aID = SortTitle. It is useless.
+          
+//          WriteLn(aName + ' -> ' + aID + ' -> ' + outFile);
           
           if CompareFileNames(ExtractFilenameOnly(outFile), aFile) <> 0 then
           begin
+            outFile := SetAsFolder(aFolder) + outFile + aExt;
             outFile := ETKCheckRenameFile(outFile);
             RenameFile(AFileList[0], outFile);
           end;
           
-          //   aPos := 0; // Exit the loop <-- already aPos <= 0 
+          // aPos := 0; // Exit the loop <-- already aPos <= 0 
         end 
         else if aPos > 0 then // Not match, search next in FullList and try again
         begin
@@ -116,6 +125,5 @@ begin
   WriteLn('');
   WriteLn('');
   WriteLn('DONE');
-  WriteLn('----');   
-  
+  WriteLn('----');     
 end.

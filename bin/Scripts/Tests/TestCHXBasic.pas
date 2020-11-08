@@ -69,7 +69,7 @@ begin
   WriteLn('');
   WriteLn('function BoolToStr(const aBool: Boolean): String;');
   WriteLn('    Another common function that I had imported.');
-  WriteLn('    BoolToStr(True) -> ' + BoolToStr(True)); 
+  WriteLn('    BoolToStr(True) -> ' + BoolToStr(True));
   WriteLn('');
   WriteLn('function UTF8ToSys(const S: String): String; and');
   WriteLn('function SysToUTF8(const S: String): String;');

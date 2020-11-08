@@ -119,7 +119,7 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   utETKGUICacheEmuIcons, ufCHXAbout, ufETKGUIAbout, ufEmutecaTagTree,
   ucEmutecaTagsFile, uCHXMenuUtils, uPSI_FPCFileUtil, uPSI_FPCLazUTF8,
   utEmutecaRunEmulator, uaEmutecaCustomSGItem,
-  ufETKGUISoftTxtPreview;
+  ufETKGUISoftTxtPreview, uPSI_FPCSysUtils;
 
 {$R *.res}
 

@@ -1542,7 +1542,7 @@ begin
       0: UpdateVST(CurrSystem.IconFolder);
       1: UpdateVST(CurrSystem.LogoFolder);
       else
-        UpdateVST(CurrSystem.ImageFolders[aLBX.ItemIndex - 1]);
+        UpdateVST(CurrSystem.ImageFolders[aLBX.ItemIndex - 2]);
     end;
   end
   else if aLBX = lbxTexts then

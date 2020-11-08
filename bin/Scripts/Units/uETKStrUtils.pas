@@ -1,18 +1,29 @@
-{
+{ Emuteca Script unit
 [Info]
-Some common functions for string handling
+Some common functions for string handling.
+
+* ETKCopyFrom: Copy a string from a position to the end.
+* ETKExtractBetween: Copy a string between 2 delimiter strings. 
+* ETKFixTitle: Fixes a Title, and returns its SortTitle and MediaFile too.
+  * Title, The -> The Title
+  * Title (The) -> The Title
+
 [Data]
 Name=Chixpy
-Version=0.03
-Date=20171205
+Version=0.05
+Date=20201108
 [Changes]
+0.05 20201108
+  * ETKFixTitle: SortTitle parameter is cleared.
+0.04 20201105
+  + ETKExtractBetween: Added.
 0.03
   + ETKCopyFrom: Added.
 0.02
-  + ETKFixTitle: Fixing articles.
+  * ETKFixTitle: Fixing articles.
 0.01
   + ETKStrUtilInit.
-  + ETKFixTitle: ' - ' -> ': '
+  * ETKFixTitle: ' - ' -> ': '
 [EndInfo]
 }
 
@@ -22,7 +33,22 @@ var
 function ETKCopyFrom(const aStr: string; aPosition: integer): string;
 // Copies a string from a position to the end.
 begin
-  Result := Copy(aStr, aPosition, 1024); // 1024 is an arbitrary constant
+  Result := Copy(aStr, aPosition, lenght(aStr));
+end;
+
+function ETKExtractBetween(const Value, A, B: string): string;
+var
+  aPos, bPos: Integer;
+begin
+  result := '';
+  aPos := Pos(A, Value);
+  if aPos > 0 then begin
+    aPos := aPos + Length(A);
+    bPos := PosEx(B, Value, aPos);
+    if bPos > 0 then begin
+      result := Copy(Value, aPos, bPos - aPos);
+    end;
+  end;
 end;
 
 procedure ETKFixTitleInit;
@@ -40,9 +66,12 @@ var
 begin
   if Length(ETKArticles) = 0 then ETKFixTitleInit;
 
+  SortTitle := '';
+
   // Replacing ' - ' with ': '
   aTitle := Trim(AnsiReplaceText(aTitle, ' - ', ': '));
-  
+ 
+ 
   // Searching if aTitle has an article.
   //   - The Title -> (Must be in aTitle)
   //   - Title, The -> (Must be SortTitle)
@@ -72,6 +101,7 @@ begin
   end;
   
   // Title, The
+  // TODO: Fix -> Title, The: Subtitle
   if ArticleFound = '' then
   begin  
     i := Low(ETKArticles);
@@ -112,7 +142,7 @@ begin
   // Really not needed now...
   if CompareText(aTitle, SortTitle) = 0 then
     SortTitle := '';
-  
+    
   // Setting MediaFile
   if SortTitle <> '' then
     MediaFile := CleanFileName(SortTitle, true, false)
