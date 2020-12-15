@@ -57,15 +57,15 @@ begin
     'Commercial'];    
 end;
 
-// Internal procedure to log Errors
 procedure TOSECError(const aFile: string; aError: string);
+// Internal procedure to log Errors
 begin
   WriteLn('TOSEC ERROR: ' + aFile);
   WriteLn('  ' + aError);
 end;
 
-// Internal procedure for adding values to a Emuteca tag
 procedure TOSECAddStr(var aTag: string; const aStr: string);
+// Internal procedure for adding values to a Emuteca tag
 begin
   if aTag = '' then 
    aTag := Trim(aStr)
@@ -73,8 +73,8 @@ begin
     aTag := Trim(aTag) + TOSECValueSepBegin + Trim(aStr) + TOSECValueSepEnd;
 end;
   
-// Internal procedure for extracting a TOSEC tag
 function TOSECExtractTag(var Tags: String; Open, Close: String): String;
+// Internal procedure for extracting a TOSEC tag
 var
   oPos, oLength, cPos: Integer;
 begin
@@ -119,8 +119,7 @@ begin
       // and joning next lines if not found
       aPos := Pos('name="', aLine);
       
-      // TODO: Check file end.
-      while (aPos < 1) do
+      while (aPos < 1) and ((i + 1) < aTOSECFile.Count) do
       begin
         Inc(i);
         aLine := aLine + aTOSECFile[i];

@@ -33,20 +33,20 @@ var
 function ETKCopyFrom(const aStr: string; aPosition: integer): string;
 // Copies a string from a position to the end.
 begin
-  Result := Copy(aStr, aPosition, lenght(aStr));
+  Result := Copy(aStr, aPosition, length(aStr));
 end;
 
-function ETKExtractBetween(const Value, A, B: string): string;
+function ETKExtractBetween(const aString, aBegin, aEnd: string): string;
 var
   aPos, bPos: Integer;
 begin
-  result := '';
-  aPos := Pos(A, Value);
+  Result := '';
+  aPos := Pos(aBegin, aString);
   if aPos > 0 then begin
-    aPos := aPos + Length(A);
-    bPos := PosEx(B, Value, aPos);
+    aPos := aPos + Length(aBegin);
+    bPos := PosEx(aEnd, aString, aPos);
     if bPos > 0 then begin
-      result := Copy(Value, aPos, bPos - aPos);
+      Result := Copy(aString, aPos, bPos - aPos);
     end;
   end;
 end;
