@@ -55,7 +55,7 @@ begin
   try
     for j := 0 to TOSECFileNames.Count -1 do
     begin
-      if not FileExistsUTF8(TOSECFilenames[j]) then
+      if not FileExists(TOSECFilenames[j]) then
       begin
         WriteLn('');
         WriteLn('ERROR: ' + TOSECFilenames[j] + ' not found.');
@@ -90,7 +90,7 @@ begin
       Inc(i);
       
       // After Inc(i) is the actual number of files analized.
-      if (i and 512) = 512 then
+      if (i and 511) = 511 then
         WriteLn(IntToStr(i) + ' soft files analized.');
     end;
     DBList.EndUpdate;
