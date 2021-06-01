@@ -2,7 +2,7 @@ This script adds a semitransparent border around the content of a image.
 
 Use mainly for icons and logos, but it's very slow.
 
-You can use ETKIconBorder.exe to do the same thing very much faster. It has simple tools to make transparent the background pixels too.
+You can use ETKIconBorder.exe to do the same thing very much faster. It has simple tools to paint or fill transparent background pixels too.
 
 How to install
 --------------

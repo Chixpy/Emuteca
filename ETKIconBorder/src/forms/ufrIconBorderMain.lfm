@@ -1,0 +1,865 @@
+object frmIconBorder: TfrmIconBorder
+  Left = 188
+  Height = 720
+  Top = 131
+  Width = 1379
+  Caption = 'Emuteca Icon Editor'
+  ClientHeight = 720
+  ClientWidth = 1379
+  DesignTimePPI = 120
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  Position = poMainFormCenter
+  LCLVersion = '2.0.10.0'
+  object gbxInputImage: TGroupBox
+    Left = 222
+    Height = 691
+    Top = 0
+    Width = 588
+    Align = alClient
+    Caption = 'Input image'
+    ClientHeight = 666
+    ClientWidth = 584
+    TabOrder = 2
+    object sbxInputImage: TScrollBox
+      Left = 0
+      Height = 543
+      Top = 123
+      Width = 584
+      HorzScrollBar.Page = 1
+      VertScrollBar.Page = 1
+      Align = alClient
+      ClientHeight = 539
+      ClientWidth = 580
+      TabOrder = 0
+      object pbxInputImage: TPaintBox
+        Cursor = crCross
+        Left = 0
+        Height = 1
+        Top = 0
+        Width = 1
+        OnMouseDown = pbxInputImageMouseDown
+        OnMouseLeave = pbxInputImageMouseLeave
+        OnMouseMove = pbxInputImageMouseMove
+        OnMouseUp = pbxInputImageMouseUp
+        OnPaint = pbxInputImagePaint
+      end
+    end
+    object pToolsInput: TPanel
+      Left = 0
+      Height = 123
+      Top = 0
+      Width = 584
+      Align = alTop
+      AutoSize = True
+      BevelOuter = bvNone
+      ClientHeight = 123
+      ClientWidth = 584
+      TabOrder = 1
+      object gbxZoomInput: TGroupBox
+        Left = 468
+        Height = 123
+        Top = 0
+        Width = 116
+        Align = alRight
+        Caption = 'Zoom'
+        ChildSizing.LeftRightSpacing = 4
+        ChildSizing.TopBottomSpacing = 4
+        ChildSizing.HorizontalSpacing = 4
+        ChildSizing.VerticalSpacing = 4
+        ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+        ChildSizing.ShrinkHorizontal = crsHomogenousChildResize
+        ChildSizing.Layout = cclLeftToRightThenTopToBottom
+        ChildSizing.ControlsPerLine = 1
+        ClientHeight = 98
+        ClientWidth = 112
+        TabOrder = 1
+        object lZoomInput: TLabel
+          Left = 4
+          Height = 22
+          Top = 4
+          Width = 104
+          Alignment = taCenter
+          AutoSize = False
+          Constraints.MinHeight = 22
+          Font.Height = 8
+          Layout = tlCenter
+          ParentColor = False
+          ParentFont = False
+          OptimalFill = True
+        end
+        object pZoomInput: TPanel
+          Left = 4
+          Height = 30
+          Top = 30
+          Width = 104
+          BevelOuter = bvNone
+          ChildSizing.HorizontalSpacing = 4
+          ChildSizing.VerticalSpacing = 4
+          ChildSizing.EnlargeHorizontal = crsScaleChilds
+          ChildSizing.EnlargeVertical = crsHomogenousChildResize
+          ChildSizing.ShrinkHorizontal = crsScaleChilds
+          ChildSizing.ShrinkVertical = crsHomogenousChildResize
+          ChildSizing.Layout = cclLeftToRightThenTopToBottom
+          ChildSizing.ControlsPerLine = 3
+          ClientHeight = 30
+          ClientWidth = 104
+          TabOrder = 0
+          object bZoomOutInput: TButton
+            Left = 0
+            Height = 30
+            Top = 0
+            Width = 32
+            Caption = '/ 2'
+            OnClick = bZoomOutInputClick
+            TabOrder = 0
+          end
+          object bZoom1xInput: TButton
+            Left = 36
+            Height = 30
+            Top = 0
+            Width = 30
+            Caption = '1x'
+            OnClick = bZoom1xInputClick
+            TabOrder = 1
+          end
+          object bZoomInInput: TButton
+            Left = 70
+            Height = 30
+            Top = 0
+            Width = 34
+            Caption = 'x 2'
+            OnClick = bZoomInInputClick
+            TabOrder = 2
+          end
+        end
+        object bAutoZoomInput: TButton
+          Left = 4
+          Height = 30
+          Top = 64
+          Width = 104
+          Caption = 'Auto'
+          OnClick = bAutoZoomInputClick
+          TabOrder = 1
+        end
+      end
+      object pgcImageInput: TPageControl
+        Left = 0
+        Height = 123
+        Top = 0
+        Width = 468
+        ActivePage = pagFillInput
+        Align = alClient
+        TabIndex = 3
+        TabOrder = 0
+        OnChange = pgcImageInputChange
+        object pagCommonInput: TTabSheet
+          Caption = 'Common'
+          ChildSizing.LeftRightSpacing = 4
+          ChildSizing.TopBottomSpacing = 4
+          ChildSizing.HorizontalSpacing = 4
+          ChildSizing.VerticalSpacing = 4
+          ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+          ChildSizing.ShrinkHorizontal = crsHomogenousChildResize
+          ChildSizing.Layout = cclLeftToRightThenTopToBottom
+          ChildSizing.ControlsPerLine = 4
+          ClientHeight = 139
+          ClientWidth = 460
+          object gbxFileInput: TGroupBox
+            Left = 4
+            Height = 131
+            Top = 4
+            Width = 191
+            Caption = 'File'
+            ChildSizing.LeftRightSpacing = 4
+            ChildSizing.TopBottomSpacing = 4
+            ChildSizing.HorizontalSpacing = 4
+            ChildSizing.VerticalSpacing = 4
+            ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+            ChildSizing.Layout = cclLeftToRightThenTopToBottom
+            ChildSizing.ControlsPerLine = 1
+            ClientHeight = 106
+            ClientWidth = 187
+            TabOrder = 0
+            object bDeleteInputFile: TButton
+              Left = 4
+              Height = 30
+              Top = 4
+              Width = 179
+              Caption = 'Delete Input File'
+              OnClick = bDeleteInputFileClick
+              TabOrder = 0
+            end
+            object bOpenInputDir: TButton
+              Left = 4
+              Height = 30
+              Top = 38
+              Width = 179
+              Caption = 'Open Input Dir'
+              OnClick = bOpenInputDirClick
+              TabOrder = 1
+            end
+            object bSaveInput: TButton
+              Left = 4
+              Height = 30
+              Top = 72
+              Width = 179
+              Caption = 'Save Input Image'
+              OnClick = bSaveInputClick
+              TabOrder = 2
+            end
+          end
+          object gbxTransformInput: TGroupBox
+            Left = 199
+            Height = 131
+            Top = 4
+            Width = 257
+            Caption = 'Transform'
+            ChildSizing.LeftRightSpacing = 4
+            ChildSizing.TopBottomSpacing = 4
+            ChildSizing.HorizontalSpacing = 4
+            ChildSizing.VerticalSpacing = 4
+            ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+            ChildSizing.ShrinkHorizontal = crsHomogenousChildResize
+            ChildSizing.Layout = cclLeftToRightThenTopToBottom
+            ChildSizing.ControlsPerLine = 2
+            ClientHeight = 106
+            ClientWidth = 253
+            TabOrder = 1
+            object bFlipHInput: TButton
+              Left = 4
+              Height = 30
+              Top = 4
+              Width = 116
+              Caption = 'Flip H'
+              OnClick = bFlipHInputClick
+              TabOrder = 0
+            end
+            object bFlipVInput: TButton
+              Left = 124
+              Height = 30
+              Top = 4
+              Width = 125
+              Caption = 'Flip V'
+              OnClick = bFlipVInputClick
+              TabOrder = 1
+            end
+            object bRotateCWInput: TButton
+              Left = 4
+              Height = 30
+              Top = 38
+              Width = 116
+              Caption = 'Rotate CW'
+              OnClick = bRotateCWInputClick
+              TabOrder = 2
+            end
+            object bRotateCCWInput: TButton
+              Left = 124
+              Height = 30
+              Top = 38
+              Width = 125
+              Caption = 'Rotate CCW'
+              OnClick = bRotateCCWInputClick
+              TabOrder = 3
+            end
+          end
+        end
+        object pagSelectInput: TTabSheet
+          Caption = 'Select'
+          ClientHeight = 90
+          ClientWidth = 460
+          object bCutSelectionInput: TButton
+            Left = 8
+            Height = 30
+            Top = 48
+            Width = 180
+            Caption = 'Cut to Selection'
+            OnClick = bCutSelectionInputClick
+            TabOrder = 0
+          end
+          object bSelectionTransparentInput: TButton
+            Left = 8
+            Height = 30
+            Top = 8
+            Width = 187
+            Caption = 'Selection to Transparent'
+            OnClick = bSelectionTransparentInputClick
+            TabOrder = 1
+          end
+        end
+        object pagPaintInput: TTabSheet
+          Caption = 'Paint'
+          ClientHeight = 90
+          ClientWidth = 460
+          object bColorPaintInput: TColorButton
+            Left = 8
+            Height = 31
+            Top = 24
+            Width = 72
+            BorderWidth = 2
+            ButtonColorSize = 16
+            ButtonColor = clBlack
+            Enabled = False
+          end
+          object eOpacityPaintInput: TSpinEdit
+            Left = 112
+            Height = 28
+            Top = 24
+            Width = 63
+            MaxValue = 255
+            OnChange = eOpacityPaintInputChange
+            TabOrder = 0
+          end
+          object lColorPaintInput: TLabel
+            Left = 8
+            Height = 20
+            Top = 4
+            Width = 72
+            Caption = 'Paint Color'
+            ParentColor = False
+          end
+          object lOpacityPaintInput: TLabel
+            Left = 112
+            Height = 20
+            Top = 4
+            Width = 87
+            Caption = 'Paint Opacity'
+            ParentColor = False
+          end
+        end
+        object pagFillInput: TTabSheet
+          Caption = 'Fill'
+          ClientHeight = 90
+          ClientWidth = 460
+          object chkDiagonalNeightbours: TCheckBox
+            Left = 8
+            Height = 24
+            Top = 63
+            Width = 171
+            Caption = 'Diagonal Neightbours'
+            Checked = True
+            State = cbChecked
+            TabOrder = 0
+          end
+          object bColorFillInput: TColorButton
+            Left = 8
+            Height = 31
+            Top = 24
+            Width = 76
+            BorderWidth = 2
+            ButtonColorSize = 16
+            ButtonColor = clBlack
+            Enabled = False
+          end
+          object eOpacityFillInput: TSpinEdit
+            Left = 101
+            Height = 28
+            Top = 24
+            Width = 63
+            MaxValue = 255
+            OnChange = eOpacityFillInputChange
+            TabOrder = 1
+          end
+          object lColorFillInput: TLabel
+            Left = 8
+            Height = 20
+            Top = 4
+            Width = 59
+            Caption = 'Fill Color'
+            ParentColor = False
+          end
+          object lOpacityFillInput: TLabel
+            Left = 101
+            Height = 20
+            Top = 4
+            Width = 74
+            Caption = 'Fill Opacity'
+            ParentColor = False
+          end
+          object lToleranceFillInput: TLabel
+            Left = 208
+            Height = 20
+            Top = 4
+            Width = 64
+            Caption = 'Tolerance'
+            ParentColor = False
+          end
+          object eToleranceFillInput: TSpinEdit
+            Left = 208
+            Height = 28
+            Top = 24
+            Width = 63
+            MaxValue = 255
+            OnChange = eOpacityFillInputChange
+            TabOrder = 2
+          end
+        end
+      end
+    end
+  end
+  object Splitter1: TSplitter
+    Left = 216
+    Height = 691
+    Top = 0
+    Width = 6
+  end
+  object Splitter2: TSplitter
+    Left = 810
+    Height = 691
+    Top = 0
+    Width = 6
+    Align = alRight
+    ResizeAnchor = akRight
+  end
+  object StatusBar: TStatusBar
+    Left = 0
+    Height = 29
+    Top = 691
+    Width = 1379
+    Panels = <    
+      item
+        Alignment = taCenter
+        Width = 100
+      end    
+      item
+        Alignment = taCenter
+        Width = 150
+      end    
+      item
+        Alignment = taCenter
+        Width = 180
+      end    
+      item
+        Width = 200
+      end>
+    SimplePanel = False
+  end
+  object gbxLeft: TGroupBox
+    Left = 0
+    Height = 691
+    Top = 0
+    Width = 216
+    Align = alLeft
+    Caption = 'Files'
+    ClientHeight = 666
+    ClientWidth = 212
+    TabOrder = 0
+    object pButtonsFile: TPanel
+      Left = 0
+      Height = 72
+      Top = 0
+      Width = 212
+      Align = alTop
+      AutoSize = True
+      BevelOuter = bvNone
+      ChildSizing.LeftRightSpacing = 4
+      ChildSizing.TopBottomSpacing = 4
+      ChildSizing.HorizontalSpacing = 4
+      ChildSizing.VerticalSpacing = 4
+      ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+      ChildSizing.ShrinkHorizontal = crsHomogenousChildResize
+      ChildSizing.Layout = cclLeftToRightThenTopToBottom
+      ChildSizing.ControlsPerLine = 2
+      ClientHeight = 72
+      ClientWidth = 212
+      TabOrder = 0
+      object bAddFile: TButton
+        Left = 4
+        Height = 30
+        Top = 4
+        Width = 100
+        Caption = 'Add File'
+        OnClick = bAddFileClick
+        TabOrder = 0
+      end
+      object bAddFolder: TButton
+        Left = 108
+        Height = 30
+        Top = 4
+        Width = 100
+        Caption = 'Add Folder'
+        OnClick = bAddFolderClick
+        TabOrder = 1
+      end
+      object bRemoveItem: TButton
+        Left = 4
+        Height = 30
+        Top = 38
+        Width = 100
+        Caption = 'Remove Item'
+        OnClick = bRemoveItemClick
+        TabOrder = 2
+      end
+      object bClearList: TButton
+        Left = 108
+        Height = 30
+        Top = 38
+        Width = 100
+        Caption = 'Clear List'
+        OnClick = bClearListClick
+        TabOrder = 3
+      end
+    end
+    object FileList: TListBox
+      Left = 0
+      Height = 459
+      Top = 72
+      Width = 212
+      Align = alClient
+      IntegralHeight = True
+      ItemHeight = 0
+      OnClick = FileListClick
+      ScrollWidth = 500
+      Sorted = True
+      TabOrder = 1
+    end
+    object pOptions: TPanel
+      Left = 0
+      Height = 135
+      Top = 531
+      Width = 212
+      Align = alBottom
+      AutoSize = True
+      BevelOuter = bvNone
+      ChildSizing.LeftRightSpacing = 4
+      ChildSizing.TopBottomSpacing = 4
+      ChildSizing.HorizontalSpacing = 4
+      ChildSizing.VerticalSpacing = 4
+      ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+      ChildSizing.ShrinkHorizontal = crsHomogenousChildResize
+      ChildSizing.Layout = cclLeftToRightThenTopToBottom
+      ChildSizing.ControlsPerLine = 1
+      ClientHeight = 135
+      ClientWidth = 212
+      TabOrder = 2
+      object rgbBackGround: TRadioGroup
+        Left = 4
+        Height = 97
+        Top = 4
+        Width = 204
+        AutoFill = True
+        AutoSize = True
+        Caption = 'Background'
+        ChildSizing.LeftRightSpacing = 6
+        ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+        ChildSizing.EnlargeVertical = crsHomogenousChildResize
+        ChildSizing.ShrinkHorizontal = crsScaleChilds
+        ChildSizing.ShrinkVertical = crsScaleChilds
+        ChildSizing.Layout = cclLeftToRightThenTopToBottom
+        ChildSizing.ControlsPerLine = 1
+        ClientHeight = 72
+        ClientWidth = 200
+        ItemIndex = 0
+        Items.Strings = (
+          'Checker'
+          'Transparent'
+          'Color'
+        )
+        OnSelectionChanged = rgbBackGroundSelectionChanged
+        TabOrder = 0
+      end
+      object cbxColorBackground: TColorBox
+        Left = 4
+        Height = 26
+        Top = 105
+        Width = 204
+        Style = [cbStandardColors, cbExtendedColors, cbPrettyNames]
+        Enabled = False
+        ItemHeight = 20
+        OnChange = cbxColorBackgroundChange
+        TabOrder = 1
+      end
+    end
+  end
+  object gbxOutputImage: TGroupBox
+    Left = 816
+    Height = 691
+    Top = 0
+    Width = 563
+    Align = alRight
+    Caption = 'Output image'
+    ClientHeight = 666
+    ClientWidth = 559
+    TabOrder = 4
+    object sbxOutputImage: TScrollBox
+      Left = 0
+      Height = 517
+      Top = 149
+      Width = 559
+      HorzScrollBar.Page = 1
+      VertScrollBar.Page = 1
+      Align = alClient
+      ClientHeight = 513
+      ClientWidth = 555
+      TabOrder = 1
+      object pbxOutputImage: TPaintBox
+        Cursor = crCross
+        Left = 0
+        Height = 1
+        Top = 0
+        Width = 1
+        OnPaint = pbxOutputImagePaint
+      end
+    end
+    object pToolsOutput: TPanel
+      Left = 0
+      Height = 149
+      Top = 0
+      Width = 559
+      Align = alTop
+      AutoSize = True
+      BevelOuter = bvNone
+      ClientHeight = 149
+      ClientWidth = 559
+      TabOrder = 0
+      object gbxZoomOuput: TGroupBox
+        Left = 443
+        Height = 149
+        Top = 0
+        Width = 116
+        Align = alRight
+        Caption = 'Zoom'
+        ChildSizing.HorizontalSpacing = 4
+        ChildSizing.VerticalSpacing = 4
+        ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+        ChildSizing.ShrinkHorizontal = crsHomogenousChildResize
+        ChildSizing.Layout = cclLeftToRightThenTopToBottom
+        ChildSizing.ControlsPerLine = 1
+        ClientHeight = 124
+        ClientWidth = 112
+        TabOrder = 0
+        object lZoomOutput: TLabel
+          Left = 0
+          Height = 22
+          Top = 0
+          Width = 112
+          Alignment = taCenter
+          AutoSize = False
+          Constraints.MinHeight = 22
+          Font.Height = 8
+          Layout = tlCenter
+          ParentColor = False
+          ParentFont = False
+          OptimalFill = True
+        end
+        object pZoomOutput: TPanel
+          Left = 0
+          Height = 30
+          Top = 26
+          Width = 112
+          BevelOuter = bvNone
+          ChildSizing.HorizontalSpacing = 4
+          ChildSizing.VerticalSpacing = 4
+          ChildSizing.EnlargeHorizontal = crsScaleChilds
+          ChildSizing.EnlargeVertical = crsHomogenousChildResize
+          ChildSizing.ShrinkHorizontal = crsScaleChilds
+          ChildSizing.ShrinkVertical = crsHomogenousChildResize
+          ChildSizing.Layout = cclLeftToRightThenTopToBottom
+          ChildSizing.ControlsPerLine = 3
+          ClientHeight = 30
+          ClientWidth = 112
+          TabOrder = 0
+          object bZoomOutOutput: TButton
+            Left = 0
+            Height = 30
+            Top = 0
+            Width = 35
+            Caption = '/ 2'
+            OnClick = bZoomOutOutputClick
+            TabOrder = 0
+          end
+          object bZoom1xOutput: TButton
+            Left = 39
+            Height = 30
+            Top = 0
+            Width = 32
+            Caption = '1x'
+            OnClick = bZoom1xOutputClick
+            TabOrder = 1
+          end
+          object bZoomInOutput: TButton
+            Left = 75
+            Height = 30
+            Top = 0
+            Width = 37
+            Caption = 'x 2'
+            OnClick = bZoomInOutputClick
+            TabOrder = 2
+          end
+        end
+        object bAutoZoomOutput: TButton
+          Left = 0
+          Height = 30
+          Top = 60
+          Width = 112
+          Caption = 'Auto'
+          OnClick = bAutoZoomOutputClick
+          TabOrder = 1
+        end
+        object bProcessOutput: TButton
+          Left = 0
+          Height = 30
+          Top = 94
+          Width = 112
+          Caption = 'Process Output'
+          OnClick = bProcessOutputClick
+          TabOrder = 2
+        end
+      end
+      object pgcImageOutput: TPageControl
+        Left = 0
+        Height = 149
+        Top = 0
+        Width = 443
+        ActivePage = pagRemoveEmutecaBorder
+        Align = alClient
+        TabIndex = 2
+        TabOrder = 1
+        OnChange = pgcImageOutputChange
+        object pagCommonOutput: TTabSheet
+          Caption = 'Common'
+          ChildSizing.LeftRightSpacing = 4
+          ChildSizing.TopBottomSpacing = 4
+          ChildSizing.HorizontalSpacing = 4
+          ChildSizing.VerticalSpacing = 4
+          ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+          ChildSizing.ShrinkHorizontal = crsHomogenousChildResize
+          ChildSizing.Layout = cclLeftToRightThenTopToBottom
+          ChildSizing.ControlsPerLine = 2
+          ClientHeight = 116
+          ClientWidth = 435
+          object eOutputFolder: TDirectoryEdit
+            Left = 4
+            Height = 30
+            Top = 4
+            Width = 219
+            ShowHidden = False
+            ButtonWidth = 29
+            NumGlyphs = 1
+            MaxLength = 0
+            TabOrder = 3
+          end
+          object bOpenOutputDir: TButton
+            Left = 227
+            Height = 30
+            Top = 4
+            Width = 204
+            Caption = 'Open Output Dir'
+            OnClick = bOpenOutputDirClick
+            TabOrder = 0
+          end
+          object bSaveOutput: TButton
+            Left = 4
+            Height = 30
+            Top = 38
+            Width = 219
+            Caption = 'Save Output Image'
+            OnClick = bSaveOutputClick
+            TabOrder = 1
+          end
+          object chkOverwriteOutput: TCheckBox
+            Left = 227
+            Height = 30
+            Top = 38
+            Width = 204
+            Caption = 'Overwrite Output'
+            Checked = True
+            State = cbChecked
+            TabOrder = 2
+          end
+          object bReplaceInputFile: TButton
+            Left = 4
+            Height = 30
+            Top = 72
+            Width = 219
+            Caption = 'Replace Input File'
+            OnClick = bReplaceInputFileClick
+            TabOrder = 4
+          end
+        end
+        object pagEmutecaIconBorder: TTabSheet
+          Caption = 'Emuteca Icon'
+          ClientHeight = 116
+          ClientWidth = 435
+          object chkRemoveTransEmutecaIcon: TCheckBox
+            Left = 8
+            Height = 24
+            Top = 8
+            Width = 245
+            Caption = 'Remove (Semi)Transparent pixels'
+            Checked = True
+            State = cbChecked
+            TabOrder = 0
+          end
+          object bColorBorderEmutecaIcon: TColorButton
+            Left = 8
+            Height = 31
+            Top = 40
+            Width = 72
+            BorderWidth = 2
+            ButtonColorSize = 16
+            ButtonColor = clGray
+          end
+          object eOpacityBorderEmutecaIcon: TSpinEdit
+            Left = 112
+            Height = 28
+            Top = 43
+            Width = 63
+            MaxValue = 255
+            TabOrder = 1
+            Value = 128
+          end
+        end
+        object pagRemoveEmutecaBorder: TTabSheet
+          Caption = 'Remove Semitransparent'
+          ClientHeight = 116
+          ClientWidth = 435
+          object chkAutoCropTransparency: TCheckBox
+            Left = 248
+            Height = 24
+            Top = 8
+            Width = 177
+            Caption = 'Autocrop Transparency'
+            Checked = True
+            State = cbChecked
+            TabOrder = 0
+          end
+          object rgbRemoveTrans: TRadioGroup
+            Left = 8
+            Height = 80
+            Top = 7
+            Width = 199
+            AutoFill = True
+            Caption = 'Mode'
+            ChildSizing.LeftRightSpacing = 6
+            ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+            ChildSizing.EnlargeVertical = crsHomogenousChildResize
+            ChildSizing.ShrinkHorizontal = crsScaleChilds
+            ChildSizing.ShrinkVertical = crsScaleChilds
+            ChildSizing.Layout = cclLeftToRightThenTopToBottom
+            ChildSizing.ControlsPerLine = 1
+            ClientHeight = 55
+            ClientWidth = 195
+            ItemIndex = 0
+            Items.Strings = (
+              'Make transparent'
+              'Make opaque'
+            )
+            TabOrder = 1
+          end
+        end
+      end
+    end
+  end
+  object OpenFilesDialog: TOpenDialog
+    Filter = 'PNG|*.png'
+    Options = [ofNoChangeDir, ofAllowMultiSelect, ofFileMustExist, ofEnableSizing, ofViewDetail]
+    Left = 80
+    Top = 112
+  end
+  object SelectDirectoryDialog: TSelectDirectoryDialog
+    Options = [ofNoChangeDir, ofAllowMultiSelect, ofEnableSizing, ofViewDetail]
+    Left = 80
+    Top = 208
+  end
+end
