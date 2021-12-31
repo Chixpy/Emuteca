@@ -76,10 +76,10 @@
     </RunParams>
     <RequiredPackages Count="7">
       <Item1>
-        <PackageName Value="MPlayerControlLaz"/>
+        <PackageName Value="virtualtreeview_package"/>
       </Item1>
       <Item2>
-        <PackageName Value="virtualtreeview_package"/>
+        <PackageName Value="MPlayerControlLaz"/>
       </Item2>
       <Item3>
         <PackageName Value="pascalscript"/>

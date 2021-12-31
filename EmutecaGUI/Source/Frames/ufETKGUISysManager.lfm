@@ -1,36 +1,22 @@
 inherited fmETKGUISysManager: TfmETKGUISysManager
-  inherited pPropChkList: TPanel
-    Height = 522
-    ClientHeight = 522
-    inherited tbPropChkList: TToolBar
-      inherited ToolButton3: TToolButton
-        Height = 22
-      end
-      inherited ToolButton6: TToolButton
-        Height = 22
-      end
+  inherited alPropEditor: TActionList
+    inherited actExportList: TAction
+      Hint = 'Exports the system list with no user data to a file.'
     end
-    inherited clbPropItems: TCheckListBox
-      Height = 473
+    inherited actImportList: TAction
+      Hint = 'Imports data for systems from file (It doesn''t add new ones).'
     end
-    inherited sbPropChkList: TStatusBar
-      Top = 499
-    end
-  end
-  inherited splPropChkList: TSplitter
-    Left = 204
-    Height = 522
   end
   object SaveDialog1: TSaveDialog[6]
     Filter = 'Systems ini file|*.ini|All files|*.*'
     Options = [ofNoChangeDir, ofEnableSizing, ofViewDetail]
-    left = 24
-    top = 256
+    Left = 24
+    Top = 256
   end
   object OpenDialog1: TOpenDialog[7]
     Filter = 'Systems ini file|*.ini|All files|*.*'
     Options = [ofNoChangeDir, ofEnableSizing, ofViewDetail]
-    left = 96
-    top = 256
+    Left = 96
+    Top = 256
   end
 end

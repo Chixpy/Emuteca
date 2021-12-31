@@ -9,9 +9,9 @@ Se trata del tipo de sistema típico, básico y más natural para el que está a
 
 Una versión de un juego es solo un fichero, sin más complicaciones. Además dicho fichero no es modificable (ROM). 
 
-No confundir con [sistemas que usan cassete o disco](Disk-Config), en ese tipo de sistemas una versión de un juego es uno o varios discos y además cada disco puede tener varias caras. Y para rizar el rizo pueden ser modificables. Tampoco es aplicable a CD/DVD.
+No confundir con [sistemas que usan cassete o disco](Disk-Config), en ese tipo de sistemas una versión de un juego es uno o varios discos y además cada disco puede tener varias caras. Y para rizar el rizo pueden ser modificables. Tampoco es aplicable a [CD/DVD/BluRay](CD-Config), que presenta sus propios problemas.
   
-A no ser que el emulador del sistema tenga alguna restricción, no debería haber ningún problema (luego se indicarán para algunos posibles soluciones a algunas limitaciones).
+A no ser que el emulador del sistema tenga alguna restricción, no debería haber ningún problema o complicación a la hora de usar Emuteca con este tipo de sistemas(luego se indicarán para algunos posibles soluciones a algunas limitaciones).
 
 La **organización de los juegos** en el disco duro realmente da igual; lo ejecutará con el emulador correspondiente (si es necesario, descomprimiendo el fichero con anterioridad y borrándolo después).
 

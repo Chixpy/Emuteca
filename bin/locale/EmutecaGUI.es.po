@@ -53,6 +53,14 @@ msgstr "Borrar objeto"
 msgid "Export list"
 msgstr "Exportar lista"
 
+#: tfmchxchklstpropeditor.actframeok.caption
+msgid "Save List"
+msgstr ""
+
+#: tfmchxchklstpropeditor.actframeok.hint
+msgid "Accepts and saves the list."
+msgstr ""
+
 #: tfmchxchklstpropeditor.actimportlist.caption
 msgid "Import list"
 msgstr "Importar lista"
@@ -220,10 +228,18 @@ msgctxt "tfmchxpropeditor.actframecancel.caption"
 msgid "Cancel"
 msgstr "Cancelar"
 
+#: tfmchxpropeditor.actframecancel.hint
+msgid "Cancel not saved changes."
+msgstr ""
+
 #: tfmchxpropeditor.actframeok.caption
 msgctxt "tfmchxpropeditor.actframeok.caption"
 msgid "OK"
 msgstr "OK"
+
+#: tfmchxpropeditor.actframeok.hint
+msgid "Accept and save changes."
+msgstr ""
 
 #: tfmchxpropeditor.chkcloseonsave.caption
 msgctxt "tfmchxpropeditor.chkcloseonsave.caption"
@@ -1584,6 +1600,14 @@ msgstr ""
 
 #: tfmetkguisoftvideopreview.gbxpanel.caption
 msgid "Video"
+msgstr ""
+
+#: tfmetkguisysmanager.actexportlist.hint
+msgid "Exports the system list with no user data to a file."
+msgstr ""
+
+#: tfmetkguisysmanager.actimportlist.hint
+msgid "Imports data for systems from file (It doesn't add new ones)."
 msgstr ""
 
 #: tfmetkguisyspreview.actopensystemfolder.caption

@@ -35,6 +35,8 @@ inherited fmETKGUIFullSystemEditor: TfmETKGUIFullSystemEditor
     Width = 481
     Caption = 'SysToolBar'
     Images = ilPropEditor
+    ParentShowHint = False
+    ShowHint = True
     TabOrder = 0
     object bCreateFolders: TToolButton
       Left = 75
