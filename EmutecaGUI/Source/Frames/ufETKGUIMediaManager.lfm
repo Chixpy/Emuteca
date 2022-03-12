@@ -224,13 +224,13 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
         end
         object pagFilesWOSoft: TTabSheet
           Caption = 'Files without soft'
-          ClientHeight = 227
-          ClientWidth = 471
+          ClientHeight = 211
+          ClientWidth = 385
           object vstFilesWOSoft: TVirtualStringTree
             Left = 0
-            Height = 50
+            Height = 211
             Top = 0
-            Width = 279
+            Width = 385
             Align = alClient
             Colors.UnfocusedColor = clMedGray
             DefaultText = '-- Empty Row!!'
@@ -268,13 +268,13 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
         end
         object pagAllFiles: TTabSheet
           Caption = 'All files'
-          ClientHeight = 227
-          ClientWidth = 471
+          ClientHeight = 211
+          ClientWidth = 385
           object vstFilesAll: TVirtualStringTree
             Left = 0
-            Height = 50
+            Height = 211
             Top = 0
-            Width = 279
+            Width = 385
             Align = alClient
             Colors.UnfocusedColor = clMedGray
             DefaultText = '-- Empty Row!!'
@@ -312,13 +312,13 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
         end
         object pagOtherFiles: TTabSheet
           Caption = 'Other files'
-          ClientHeight = 227
-          ClientWidth = 471
+          ClientHeight = 211
+          ClientWidth = 385
           object vstFilesOtherExt: TVirtualStringTree
             Left = 0
-            Height = 50
+            Height = 211
             Top = 0
-            Width = 279
+            Width = 385
             Align = alClient
             Colors.UnfocusedColor = clMedGray
             DefaultText = '-- Empty Row!!'
@@ -356,13 +356,13 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
         end
         object pagFilesOtherFolder: TTabSheet
           Caption = 'Files from other folder'
-          ClientHeight = 227
-          ClientWidth = 471
+          ClientHeight = 211
+          ClientWidth = 385
           object eOtherFolder: TDirectoryEdit
             Left = 0
-            Height = 23
+            Height = 28
             Top = 0
-            Width = 471
+            Width = 385
             OnAcceptDirectory = eOtherFolderAcceptDirectory
             ShowHidden = False
             ButtonWidth = 23
@@ -373,9 +373,9 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
           end
           object vstFilesOtherFolder: TVirtualStringTree
             Left = 0
-            Height = 50
-            Top = 0
-            Width = 279
+            Height = 183
+            Top = 28
+            Width = 385
             Align = alClient
             Colors.UnfocusedColor = clMedGray
             DefaultText = '-- Empty Row!!'
@@ -472,10 +472,10 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
         Height = 217
         Top = 0
         Width = 393
-        ActivePage = pagGroupsWOFile
+        ActivePage = pagSoftWOFile
         Align = alClient
         PopupMenu = pumVSTGroups
-        TabIndex = 0
+        TabIndex = 1
         TabOrder = 0
         OnChange = pcTargetChange
         object pagGroupsWOFile: TTabSheet
@@ -495,12 +495,12 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
               item
                 Position = 0
                 Text = 'Group'
-                Width = 200
+                Width = 300
               end            
               item
                 Position = 1
                 Text = 'File'
-                Width = 200
+                Width = 300
               end>
             Header.DefaultHeight = 17
             Header.Height = 17
@@ -521,13 +521,13 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
         end
         object pagSoftWOFile: TTabSheet
           Caption = 'Software without file'
-          ClientHeight = 111
-          ClientWidth = 471
+          ClientHeight = 184
+          ClientWidth = 385
           object vstSoftWOFile: TVirtualStringTree
             Left = 0
-            Height = 50
+            Height = 184
             Top = 0
-            Width = 279
+            Width = 385
             Align = alClient
             Colors.UnfocusedColor = clMedGray
             DefaultText = 'Node'
@@ -536,17 +536,17 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
               item
                 Position = 0
                 Text = 'Game'
-                Width = 150
+                Width = 300
               end            
               item
                 Position = 1
                 Text = 'Group'
-                Width = 150
+                Width = 300
               end            
               item
                 Position = 2
                 Text = 'File'
-                Width = 150
+                Width = 300
               end>
             Header.DefaultHeight = 17
             Header.Height = 17
@@ -564,13 +564,13 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
         end
         object pagAllGroups: TTabSheet
           Caption = 'All groups'
-          ClientHeight = 103
-          ClientWidth = 455
+          ClientHeight = 184
+          ClientWidth = 385
           object vstGroupsAll: TVirtualStringTree
             Left = 0
-            Height = 103
+            Height = 184
             Top = 0
-            Width = 455
+            Width = 385
             Align = alClient
             Colors.UnfocusedColor = clMedGray
             DefaultText = 'Node'
@@ -579,12 +579,12 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
               item
                 Position = 0
                 Text = 'Group'
-                Width = 200
+                Width = 300
               end            
               item
                 Position = 1
                 Text = 'File'
-                Width = 200
+                Width = 300
               end>
             Header.DefaultHeight = 17
             Header.Height = 17
@@ -605,13 +605,13 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
         end
         object pagAllSoft: TTabSheet
           Caption = 'All software'
-          ClientHeight = 111
-          ClientWidth = 471
+          ClientHeight = 184
+          ClientWidth = 385
           object vstSoftAll: TVirtualStringTree
             Left = 0
-            Height = 111
+            Height = 184
             Top = 0
-            Width = 471
+            Width = 385
             Align = alClient
             Colors.UnfocusedColor = clMedGray
             DefaultText = 'Node'
@@ -620,17 +620,17 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
               item
                 Position = 0
                 Text = 'Game'
-                Width = 150
+                Width = 300
               end            
               item
                 Position = 1
                 Text = 'Group'
-                Width = 150
+                Width = 300
               end            
               item
                 Position = 2
                 Text = 'File'
-                Width = 150
+                Width = 300
               end>
             Header.DefaultHeight = 17
             Header.Height = 17
@@ -818,10 +818,12 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
     object actRenameGroupFileWithFilename: TAction
       Category = 'Groups'
       Caption = 'Rename group file with current File'
+      OnExecute = actRenameGroupFileWithFilenameExecute
     end
     object actRenameGroupTitleWithFilename: TAction
       Category = 'Groups'
       Caption = 'Rename group title with current File'
+      OnExecute = actRenameGroupTitleWithFilenameExecute
     end
   end
   object ilActions: TImageList[8]

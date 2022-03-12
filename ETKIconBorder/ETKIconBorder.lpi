@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
-    <Version Value="11"/>
+    <Version Value="12"/>
     <PathDelim Value="\"/>
     <General>
+      <Flags>
+        <CompatibilityMode Value="True"/>
+      </Flags>
       <SessionStorage Value="InProjectDir"/>
-      <MainUnit Value="0"/>
       <Title Value="Emuteca Icon Border"/>
       <Scaled Value="True"/>
       <ResourceType Value="res"/>
@@ -13,7 +15,7 @@
       <XPManifest>
         <DpiAware Value="True"/>
         <TextName Value="Chixpy.Emuteca.IconBorder"/>
-        <TextDesc Value="Emuteca's icon editing program."/>
+        <TextDesc Value="Emuteca&apos;s icon editing program."/>
       </XPManifest>
       <Icon Value="0"/>
     </General>
@@ -64,7 +66,6 @@
     </PublishOptions>
     <RunParams>
       <FormatVersion Value="2"/>
-      <Modes Count="0"/>
     </RunParams>
     <RequiredPackages Count="2">
       <Item1>

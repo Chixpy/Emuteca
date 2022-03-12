@@ -1,0 +1,515 @@
+inherited fmEMCImagePropEditor: TfmEMCImagePropEditor
+  Height = 938
+  Width = 302
+  AutoScroll = True
+  ChildSizing.LeftRightSpacing = 4
+  ChildSizing.TopBottomSpacing = 4
+  ChildSizing.EnlargeHorizontal = crsScaleChilds
+  ChildSizing.ShrinkHorizontal = crsHomogenousChildResize
+  ChildSizing.Layout = cclLeftToRightThenTopToBottom
+  ChildSizing.ControlsPerLine = 1
+  ClientHeight = 938
+  ClientWidth = 302
+  DesignLeft = 436
+  DesignTop = 23
+  object lFilename: TLabel[0]
+    Left = 4
+    Height = 20
+    Top = 4
+    Width = 294
+    Caption = 'Filename'
+  end
+  object eFilename: TEdit[1]
+    Left = 4
+    Height = 28
+    Top = 28
+    Width = 294
+    ReadOnly = True
+    TabOrder = 7
+  end
+  object gbxMagazineInfo: TGroupBox[2]
+    Left = 4
+    Height = 157
+    Top = 60
+    Width = 294
+    AutoSize = True
+    Caption = 'Magazine Properties'
+    ChildSizing.LeftRightSpacing = 4
+    ChildSizing.TopBottomSpacing = 4
+    ChildSizing.HorizontalSpacing = 4
+    ChildSizing.VerticalSpacing = 4
+    ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+    ChildSizing.EnlargeVertical = crsHomogenousChildResize
+    ChildSizing.ShrinkHorizontal = crsHomogenousChildResize
+    ChildSizing.ShrinkVertical = crsHomogenousChildResize
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    ChildSizing.ControlsPerLine = 2
+    ClientHeight = 132
+    ClientWidth = 290
+    TabOrder = 4
+    object lMagazine: TLabel
+      Left = 4
+      Height = 28
+      Top = 4
+      Width = 122
+      Caption = 'Magazine'
+      Layout = tlCenter
+    end
+    object cbxMagazine: TComboBox
+      Left = 130
+      Height = 28
+      Top = 4
+      Width = 156
+      AutoComplete = True
+      AutoCompleteText = [cbactEnabled, cbactEndOfLineComplete, cbactSearchAscending]
+      AutoDropDown = True
+      ItemHeight = 20
+      OnEditingDone = TComboBoxEditingDone
+      Sorted = True
+      TabOrder = 0
+    end
+    object lIssue: TLabel
+      Left = 4
+      Height = 28
+      Top = 36
+      Width = 122
+      Caption = 'Issue'
+      Layout = tlCenter
+    end
+    object eIssue: TEdit
+      Left = 130
+      Height = 28
+      Top = 36
+      Width = 156
+      OnEditingDone = TEditEditingDone
+      TabOrder = 1
+    end
+    object lSection: TLabel
+      Left = 4
+      Height = 28
+      Top = 68
+      Width = 122
+      Caption = 'Section'
+      Layout = tlCenter
+    end
+    object cbxSection: TComboBox
+      Left = 130
+      Height = 28
+      Top = 68
+      Width = 156
+      AutoComplete = True
+      AutoCompleteText = [cbactEnabled, cbactEndOfLineComplete, cbactSearchAscending]
+      AutoDropDown = True
+      ItemHeight = 20
+      OnEditingDone = TComboBoxEditingDone
+      Sorted = True
+      TabOrder = 2
+    end
+    object lLanguage: TLabel
+      Left = 4
+      Height = 28
+      Top = 100
+      Width = 122
+      Caption = 'Language'
+      Layout = tlCenter
+    end
+    object cbxLanguage: TComboBox
+      Left = 130
+      Height = 28
+      Top = 100
+      Width = 156
+      AutoComplete = True
+      AutoCompleteText = [cbactEnabled, cbactEndOfLineComplete, cbactSearchAscending]
+      AutoDropDown = True
+      ItemHeight = 20
+      OnEditingDone = TComboBoxEditingDone
+      Sorted = True
+      TabOrder = 3
+    end
+  end
+  object gbxImageProperties: TGroupBox[3]
+    Left = 4
+    Height = 201
+    Top = 221
+    Width = 294
+    AutoSize = True
+    Caption = 'Image Properties'
+    ChildSizing.LeftRightSpacing = 4
+    ChildSizing.TopBottomSpacing = 4
+    ChildSizing.HorizontalSpacing = 4
+    ChildSizing.VerticalSpacing = 4
+    ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+    ChildSizing.EnlargeVertical = crsHomogenousChildResize
+    ChildSizing.ShrinkHorizontal = crsHomogenousChildResize
+    ChildSizing.ShrinkVertical = crsHomogenousChildResize
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    ChildSizing.ControlsPerLine = 1
+    ClientHeight = 176
+    ClientWidth = 290
+    TabOrder = 8
+    object pLangType: TPanel
+      Left = 4
+      Height = 28
+      Top = 4
+      Width = 282
+      AutoSize = True
+      BevelOuter = bvNone
+      ChildSizing.HorizontalSpacing = 4
+      ChildSizing.VerticalSpacing = 4
+      ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+      ChildSizing.EnlargeVertical = crsHomogenousChildResize
+      ChildSizing.ShrinkHorizontal = crsHomogenousChildResize
+      ChildSizing.ShrinkVertical = crsHomogenousChildResize
+      ChildSizing.Layout = cclLeftToRightThenTopToBottom
+      ChildSizing.ControlsPerLine = 2
+      ClientHeight = 28
+      ClientWidth = 282
+      TabOrder = 0
+      object lType: TLabel
+        Left = 0
+        Height = 28
+        Top = 0
+        Width = 105
+        Caption = 'Type'
+        Layout = tlCenter
+      end
+      object cbxType: TComboBox
+        Left = 109
+        Height = 28
+        Top = 0
+        Width = 173
+        AutoComplete = True
+        AutoCompleteText = [cbactEnabled, cbactEndOfLineComplete, cbactSearchAscending]
+        AutoDropDown = True
+        ItemHeight = 20
+        OnEditingDone = TComboBoxEditingDone
+        Sorted = True
+        TabOrder = 0
+      end
+    end
+    object chkMultipage: TCheckBox
+      Left = 4
+      Height = 24
+      Top = 36
+      Width = 282
+      Caption = 'Multipage text'
+      OnEditingDone = chkMultipageEditingDone
+      TabOrder = 1
+    end
+    object lSystem: TLabel
+      Left = 4
+      Height = 20
+      Top = 64
+      Width = 282
+      Caption = 'System'
+    end
+    object cbxSystem: TComboBox
+      Left = 4
+      Height = 28
+      Top = 88
+      Width = 282
+      AutoComplete = True
+      AutoCompleteText = [cbactEnabled, cbactEndOfLineComplete, cbactSearchAscending]
+      AutoDropDown = True
+      ItemHeight = 20
+      OnEditingDone = cbxSystemEditingDone
+      Sorted = True
+      TabOrder = 2
+    end
+    object lGame: TLabel
+      Left = 4
+      Height = 20
+      Top = 120
+      Width = 282
+      Caption = 'Game'
+    end
+    object cbxGame: TComboBox
+      Left = 4
+      Height = 28
+      Top = 144
+      Width = 282
+      AutoComplete = True
+      AutoCompleteText = [cbactEnabled, cbactEndOfLineComplete, cbactSearchAscending]
+      AutoDropDown = True
+      ItemHeight = 20
+      OnEditingDone = TComboBoxEditingDone
+      Sorted = True
+      TabOrder = 3
+    end
+  end
+  object gbxCutRectangle: TGroupBox[4]
+    Left = 4
+    Height = 117
+    Top = 426
+    Width = 294
+    Caption = 'Cut Rectangle'
+    ChildSizing.LeftRightSpacing = 4
+    ChildSizing.TopBottomSpacing = 4
+    ChildSizing.HorizontalSpacing = 4
+    ChildSizing.VerticalSpacing = 4
+    ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+    ChildSizing.EnlargeVertical = crsHomogenousChildResize
+    ChildSizing.ShrinkHorizontal = crsHomogenousChildResize
+    ChildSizing.ShrinkVertical = crsHomogenousChildResize
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    ChildSizing.ControlsPerLine = 1
+    ClientHeight = 92
+    ClientWidth = 290
+    TabOrder = 6
+    object pPointMode: TPanel
+      Left = 4
+      Height = 28
+      Top = 4
+      Width = 282
+      AutoSize = True
+      BevelOuter = bvNone
+      ChildSizing.HorizontalSpacing = 4
+      ChildSizing.VerticalSpacing = 4
+      ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+      ChildSizing.EnlargeVertical = crsHomogenousChildResize
+      ChildSizing.ShrinkHorizontal = crsHomogenousChildResize
+      ChildSizing.ShrinkVertical = crsHomogenousChildResize
+      ChildSizing.Layout = cclLeftToRightThenTopToBottom
+      ChildSizing.ControlsPerLine = 3
+      ClientHeight = 28
+      ClientWidth = 282
+      TabOrder = 0
+      object chkPointMode: TCheckBox
+        Left = 0
+        Height = 28
+        Top = 0
+        Width = 113
+        Caption = 'Point Mode'
+        OnChange = chkPointModeChange
+        TabOrder = 0
+      end
+      object lPMBorder: TLabel
+        Left = 117
+        Height = 28
+        Top = 0
+        Width = 87
+        Alignment = taRightJustify
+        Caption = 'Border (px)'
+        Enabled = False
+        Layout = tlCenter
+      end
+      object ePMBorder: TSpinEdit
+        Left = 208
+        Height = 28
+        Top = 0
+        Width = 74
+        Alignment = taRightJustify
+        Enabled = False
+        MaxValue = 1
+        MinValue = 1
+        TabOrder = 1
+        Value = 20
+      end
+    end
+    object pRect: TPanel
+      Left = 4
+      Height = 52
+      Top = 36
+      Width = 282
+      AutoSize = True
+      BevelOuter = bvNone
+      ChildSizing.HorizontalSpacing = 4
+      ChildSizing.VerticalSpacing = 4
+      ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+      ChildSizing.EnlargeVertical = crsHomogenousChildResize
+      ChildSizing.ShrinkHorizontal = crsHomogenousChildResize
+      ChildSizing.ShrinkVertical = crsHomogenousChildResize
+      ChildSizing.Layout = cclLeftToRightThenTopToBottom
+      ChildSizing.ControlsPerLine = 4
+      ClientHeight = 52
+      ClientWidth = 282
+      TabOrder = 1
+      object lLeft: TLabel
+        Left = 0
+        Height = 20
+        Top = 0
+        Width = 68
+        Alignment = taCenter
+        Caption = 'Left'
+      end
+      object lTop: TLabel
+        Left = 72
+        Height = 20
+        Top = 0
+        Width = 68
+        Alignment = taCenter
+        Caption = 'Top'
+      end
+      object lWidth: TLabel
+        Left = 144
+        Height = 20
+        Top = 0
+        Width = 68
+        Alignment = taCenter
+        Caption = 'Width'
+      end
+      object lHeight: TLabel
+        Left = 216
+        Height = 20
+        Top = 0
+        Width = 66
+        Alignment = taCenter
+        Caption = 'Height'
+      end
+      object eLeft: TSpinEdit
+        Left = 0
+        Height = 28
+        Top = 24
+        Width = 68
+        Alignment = taRightJustify
+        OnChange = eTRectChange
+        TabOrder = 0
+      end
+      object eTop: TSpinEdit
+        Left = 72
+        Height = 28
+        Top = 24
+        Width = 68
+        Alignment = taRightJustify
+        OnChange = eTRectChange
+        TabOrder = 1
+      end
+      object eWidth: TSpinEdit
+        Left = 144
+        Height = 28
+        Top = 24
+        Width = 68
+        Alignment = taRightJustify
+        OnChange = eTRectChange
+        TabOrder = 2
+      end
+      object eHeight: TSpinEdit
+        Left = 216
+        Height = 28
+        Top = 24
+        Width = 66
+        Alignment = taRightJustify
+        OnChange = eTRectChange
+        TabOrder = 3
+      end
+    end
+  end
+  object gbxOutputFile: TGroupBox[5]
+    Left = 4
+    Height = 225
+    Top = 547
+    Width = 294
+    Caption = 'Output File'
+    ChildSizing.LeftRightSpacing = 4
+    ChildSizing.TopBottomSpacing = 4
+    ChildSizing.HorizontalSpacing = 4
+    ChildSizing.VerticalSpacing = 4
+    ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+    ChildSizing.EnlargeVertical = crsHomogenousChildResize
+    ChildSizing.ShrinkHorizontal = crsHomogenousChildResize
+    ChildSizing.ShrinkVertical = crsHomogenousChildResize
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    ChildSizing.ControlsPerLine = 1
+    ClientHeight = 200
+    ClientWidth = 290
+    TabOrder = 5
+    object lBaseOutFolder: TLabel
+      Left = 4
+      Height = 20
+      Top = 4
+      Width = 282
+      Caption = 'Base Output Folder'
+    end
+    object eBaseOutFolder: TDirectoryEdit
+      Left = 4
+      Height = 28
+      Top = 28
+      Width = 282
+      DialogOptions = [ofNoChangeDir, ofEnableSizing, ofViewDetail]
+      ShowHidden = False
+      ButtonWidth = 29
+      NumGlyphs = 1
+      MaxLength = 0
+      TabOrder = 0
+      OnEditingDone = TEditEditingDone
+    end
+    object lOutputFolder: TLabel
+      Left = 4
+      Height = 20
+      Top = 60
+      Width = 282
+      Caption = 'Output Folder'
+    end
+    object eOutputFolder: TEdit
+      Left = 4
+      Height = 28
+      Top = 84
+      Width = 282
+      ReadOnly = True
+      TabOrder = 1
+    end
+    object lOutputFile: TLabel
+      Left = 4
+      Height = 20
+      Top = 116
+      Width = 282
+      Caption = 'Output File'
+    end
+    object eOutputFile: TEdit
+      Left = 4
+      Height = 28
+      Top = 140
+      Width = 282
+      ReadOnly = True
+      TabOrder = 2
+    end
+    object chkResize2048: TCheckBox
+      Left = 4
+      Height = 24
+      Top = 172
+      Width = 282
+      Caption = 'Resize to 2048px if bigger image'
+      Checked = True
+      State = cbChecked
+      TabOrder = 3
+    end
+  end
+  object pEmpty7: TPanel[6]
+    Left = 4
+    Height = 20
+    Top = 776
+    Width = 294
+    BevelOuter = bvNone
+    Constraints.MinHeight = 20
+    TabOrder = 0
+  end
+  object bSave: TButton[7]
+    Left = 4
+    Height = 30
+    Top = 800
+    Width = 294
+    Caption = 'Save'
+    Enabled = False
+    OnClick = bSaveClick
+    TabOrder = 1
+  end
+  object bSaveAndDelete: TButton[8]
+    Left = 4
+    Height = 30
+    Top = 834
+    Width = 294
+    Caption = 'Save and Delete'
+    Enabled = False
+    OnClick = bSaveAndDeleteClick
+    TabOrder = 2
+  end
+  object bDelete: TButton[9]
+    Left = 4
+    Height = 30
+    Top = 868
+    Width = 294
+    Caption = 'Delete File'
+    OnClick = bDeleteClick
+    TabOrder = 3
+  end
+end

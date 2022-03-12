@@ -87,10 +87,28 @@ msgstr ""
 msgid "Open File Folder"
 msgstr ""
 
+#: tfmchxfilelistpreview.actopenfilefolder.hint
+msgid "Open file's folder."
+msgstr ""
+
 #: tfmchxfilelistpreview.actopenwithdefapp.caption
 msgctxt "tfmchxfilelistpreview.actopenwithdefapp.caption"
 msgid "Open with Default Application"
 msgstr "Abrir con aplicación por defecto"
+
+#: tfmchxfilelistpreview.actopenwithdefapp.hint
+msgctxt "tfmchxfilelistpreview.actopenwithdefapp.hint"
+msgid "Open file with default system application."
+msgstr ""
+
+#: tfmchximglistpreview.actopenfilefolder.hint
+msgid "Opens file's folder."
+msgstr ""
+
+#: tfmchximglistpreview.actopenwithdefapp.hint
+msgctxt "tfmchximglistpreview.actopenwithdefapp.hint"
+msgid "Open file with default system application."
+msgstr ""
 
 #: tfmchximglistpreview.iimage.hint
 msgid "DblClk to open in Image Viewer"
@@ -105,11 +123,19 @@ msgstr "Ninguna imagen cargada"
 msgid "Close window"
 msgstr "Cerrar ventana"
 
+#: tfmchximgviewer.actclose.hint
+msgid "Close the window."
+msgstr ""
+
 #: tfmchximgviewer.actoriginalsize.caption
 #, fuzzy
 #| msgid "Original Size"
 msgid "Original size"
 msgstr "Tamaño original"
+
+#: tfmchximgviewer.actoriginalsize.hint
+msgid "Resize image to original size."
+msgstr ""
 
 #: tfmchximgviewer.actstretch.caption
 #, fuzzy
@@ -117,17 +143,33 @@ msgstr "Tamaño original"
 msgid "actStretch"
 msgstr "Adaptar"
 
+#: tfmchximgviewer.actstretch.hint
+msgid "Stretch image to window."
+msgstr ""
+
 #: tfmchximgviewer.acttogglefilelist.caption
 msgid "actToggleFileList"
+msgstr ""
+
+#: tfmchximgviewer.acttogglefilelist.hint
+msgid "Show/Hide file list."
 msgstr ""
 
 #: tfmchximgviewer.actzoomin.caption
 msgid "Zoom In"
 msgstr "Aumentar"
 
+#: tfmchximgviewer.actzoomin.hint
+msgid "Zoom image in."
+msgstr ""
+
 #: tfmchximgviewer.actzoomout.caption
 msgid "Zoom Out"
 msgstr "Encoger"
+
+#: tfmchximgviewer.actzoomout.hint
+msgid "Zoom image out."
+msgstr ""
 
 #: tfmchxlistpreview.actfirstitem.caption
 msgid "First item"
@@ -161,10 +203,18 @@ msgstr "Anterior elemento"
 msgid "Go to previous item."
 msgstr "Ir al elemento anterior."
 
+#: tfmchxlistpreview.cbxcurritem.hint
+msgid "Select item."
+msgstr ""
+
 #: tfmchxlistpreview.lmaxitems.caption
 msgctxt "tfmchxlistpreview.lmaxitems.caption"
 msgid "/ 0"
 msgstr "/ 0"
+
+#: tfmchxlistpreview.lmaxitems.hint
+msgid "Number of items."
+msgstr ""
 
 #: tfmchxlistpreview.tbpreviewlist.caption
 msgid "tbPreviewList"
@@ -245,6 +295,10 @@ msgstr ""
 msgctxt "tfmchxpropeditor.chkcloseonsave.caption"
 msgid "Close"
 msgstr "Cerrar"
+
+#: tfmchxpropeditor.chkcloseonsave.hint
+msgid "Closes windows after accepting or canceling."
+msgstr ""
 
 #: tfmchxscriptmanager.actcompile.caption
 msgid "Syntax check"
@@ -1033,7 +1087,7 @@ msgstr "Emulador principal"
 #: tfmemutecasystemeditor.lmulticoreids.caption
 msgid ""
 "Multicore emulator IDs\n"
-"(ID=core param)\n"
+"(ID=core param)"
 msgstr ""
 
 #: tfmemutecasystemeditor.lotheremulators.caption
@@ -2017,46 +2071,56 @@ msgid "Warning"
 msgstr "Atención"
 
 #: ucchxscriptengine.rssemsgformat
+#, object-pascal-format
 msgid "[%0:s](%1:.4d:%2:.4d): %3:s"
 msgstr "[%0:s](%1:.4d:%2:.4d): %3:s"
 
 #: uchx7zwrapper.rsw7zerrorline
+#, object-pascal-format
 msgid "%0:s - %1:s: %2:s"
 msgstr ""
 
 #: uchx7zwrapper.rsw7zexeerror
+#, object-pascal-format
 msgid ""
 "7z.exe/7zG.exe error %1:d exit code.\n"
-"File: \"%0:s\"\n"
+"File: \"%0:s\""
 msgstr ""
 
 #: uchx7zwrapper.rsw7zexewarning
+#, object-pascal-format
 msgid ""
 "7z.exe/7zG.exe warning %1:d exit code.\n"
-"File: \"%0:s\"\n"
+"File: \"%0:s\""
 msgstr ""
 
 #: uchx7zwrapper.rsw7zfilenotfound
+#, object-pascal-format
 msgid "\"%0:s\" file not found."
 msgstr ""
 
 #: uchx7zwrapper.rsw7znocrc32
+#, object-pascal-format
 msgid "Error extracting CRC32: \"%0:s\""
 msgstr ""
 
 #: uchxrscstr.rscuexcalreadyexists
+#, object-pascal-format
 msgid "\"%0:s\" already exists."
 msgstr ""
 
 #: uchxrscstr.rscuexccardrange
+#, object-pascal-format
 msgid "\"%0:d\" is not in cardinal range."
 msgstr ""
 
 #: uchxrscstr.rscuexcnilparameter
+#, object-pascal-format
 msgid "%0:s: %1:s parameter (%2:s) = nil"
 msgstr ""
 
 #: uchxrscstr.rsenotfilename
+#, object-pascal-format
 msgid "%0:s: Not defined filename"
 msgstr ""
 
@@ -2064,7 +2128,7 @@ msgstr ""
 msgid ""
 "Do you want to save it in a lossless format?\n"
 "YES -> .png (lossless, for screenshots)\n"
-"NO -> .jpg (better for photographs or scans)\n"
+"NO -> .jpg (better for photographs or scans)"
 msgstr ""
 
 #: uemutecarscstr.rscleaningsystemdata
@@ -2074,16 +2138,18 @@ msgid "Cleaning system data..."
 msgstr "Limpiando datos del sistema...."
 
 #: uemutecarscstr.rsconfirmoverwritefile
+#, object-pascal-format
 msgid ""
 "%0:s\n"
 "The file already exists.\n"
-"Do you want overwrite it?\n"
+"Do you want overwrite it?"
 msgstr ""
 
 #: uemutecarscstr.rscorfirmdeletefile
+#, object-pascal-format
 msgid ""
 "%0:s\n"
-"Do you want to delete this file?\n"
+"Do you want to delete this file?"
 msgstr ""
 
 #: uemutecarscstr.rsedsalternate
@@ -2133,9 +2199,10 @@ msgid "Verified"
 msgstr "Verificado"
 
 #: uemutecarscstr.rserrordeletingfile
+#, object-pascal-format
 msgid ""
 "Error deleting:\n"
-"%0:s\n"
+"%0:s"
 msgstr ""
 
 #: uemutecarscstr.rsexportingemulatorlist
@@ -2151,10 +2218,14 @@ msgid "Exporting group list..."
 msgstr "Exportando lista de grupos..."
 
 #: uemutecarscstr.rsexportingnosha1
+#, object-pascal-format, fuzzy
+#| msgid ""
+#| "Warning: We can't export because not all files have SHA1 cached.\n"
+#| "(%2:d/%3:d) %0:s%1:s\n"
 msgctxt "uemutecarscstr.rsexportingnosha1"
 msgid ""
 "Warning: We can't export because not all files have SHA1 cached.\n"
-"(%2:d/%3:d) %0:s%1:s\n"
+"(%2:d/%3:d) %0:s%1:s"
 msgstr ""
 "Atención: No se puede exportar porque no se ha terminado de calcular el SHA1 de todos los ficheros.\n"
 "(%2:d/%3:d) %0:s%1:s\n"
@@ -2203,23 +2274,24 @@ msgid "Text files (*.txt)"
 msgstr ""
 
 #: uemutecarscstr.rsfmtngroups
-#, fuzzy
+#, object-pascal-format, fuzzy
 msgctxt "uemutecarscstr.rsfmtngroups"
 msgid "%0:d groups"
 msgstr "%0:d grupos"
 
 #: uemutecarscstr.rsfmtnitems
+#, object-pascal-format
 msgid "%0:d items."
 msgstr ""
 
 #: uemutecarscstr.rsfmtntimes
-#, fuzzy
+#, object-pascal-format, fuzzy
 msgctxt "uemutecarscstr.rsfmtntimes"
 msgid "%0:d times."
 msgstr "%0:d veces."
 
 #: uemutecarscstr.rsfmtnversions
-#, fuzzy
+#, object-pascal-format, fuzzy
 msgctxt "uemutecarscstr.rsfmtnversions"
 msgid "%0:d versions."
 msgstr "%0:d versiones."
@@ -2235,10 +2307,11 @@ msgid "Importing group list..."
 msgstr ""
 
 #: uemutecarscstr.rsimportingnosha1
+#, object-pascal-format
 msgctxt "uemutecarscstr.rsimportingnosha1"
 msgid ""
 "Warning: Some info could not be imported because some files haven't got SHA1 cached.\n"
-"(%2:d/%3:d) %0:s%1:s\n"
+"(%2:d/%3:d) %0:s%1:s"
 msgstr ""
 
 #: uemutecarscstr.rsimportingsoftlist
@@ -2308,12 +2381,18 @@ msgid "Advanced"
 msgstr ""
 
 #: uetkguirscstr.rsaskdeleteitem
+#, object-pascal-format
 msgid ""
 "Do you want to delete this item from Emuteca?\n"
-"%0:s\n"
+"%0:s"
+msgstr ""
+
+#: uetkguirscstr.rsaskrenamegroupfile
+msgid "Rename group media filename?"
 msgstr ""
 
 #: uetkguirscstr.rsautofolderwarning
+#, object-pascal-format
 msgctxt "uetkguirscstr.rsautofolderwarning"
 msgid ""
 "This action will:\n"
@@ -2321,7 +2400,7 @@ msgid ""
 "* Create many folders in \"%0:s\".\n"
 "* Change all defined image, music, video folders with created ones.\n"
 "\n"
-"¿Are you sure?\n"
+"¿Are you sure?"
 msgstr ""
 
 #: uetkguirscstr.rsbasiccaption
@@ -2359,19 +2438,24 @@ msgid "Filename"
 msgstr "Fichero"
 
 #: uetkguirscstr.rsfmtapplicationtitle
-#, fuzzy
+#, object-pascal-format, fuzzy
 msgctxt "uetkguirscstr.rsfmtapplicationtitle"
 msgid "%0:s %1:s"
 msgstr "%0:s %1:s"
 
 #: uetkguirscstr.rsfmtnotfound
-#, fuzzy
+#, object-pascal-format, fuzzy
+#| msgid ""
+#| "Not Found.\n"
+#| "\n"
+#| "Current folder: %0:s\n"
+#| "Searched file: %1:s\n"
 msgctxt "uetkguirscstr.rsfmtnotfound"
 msgid ""
 "Not Found.\n"
 "\n"
 "Current folder: %0:s\n"
-"Searched file: %1:s\n"
+"Searched file: %1:s"
 msgstr ""
 "No encontrado.\n"
 "\n"
@@ -2390,19 +2474,25 @@ msgctxt "uetkguirscstr.rspublisher"
 msgid "Publisher"
 msgstr "Publicador"
 
+#: uetkguirscstr.rsrenamegrouptitlecaption
+msgid "Rename group title:"
+msgstr ""
+
 #: uetkguirscstr.rsrunsoftware7zerror
 msgid "TfmLEmuTKMain.RunSoftware: Unknown decompress error."
 msgstr ""
 
 #: uetkguirscstr.rsrunsoftwareexitcode
+#, object-pascal-format
 msgid "TfmLEmuTKMain.RunSoftware: Emulator returned: %0:d"
 msgstr ""
 
 #: uetkguirscstr.rsrunsoftwarenoemu
+#, object-pascal-format
 msgid ""
 "RunSoftware: Emulator = nil.\n"
 "%0:s\n"
-"%1:s\n"
+"%1:s"
 msgstr ""
 
 #: uetkguirscstr.rsrunsoftwarenoemuexe
@@ -2414,17 +2504,19 @@ msgid "RunSoftware: Software = nil."
 msgstr ""
 
 #: uetkguirscstr.rsrunsoftwarenosoftfile
+#, object-pascal-format
 msgid ""
 "RunSoftware: Soft file not found.\n"
 "%0:s\n"
-"%1:s\n"
+"%1:s"
 msgstr ""
 
 #: uetkguirscstr.rsrunsoftwareunkerror
+#, object-pascal-format
 msgid ""
 "RunSoftware: Unknown Error.\n"
 "%0:s\n"
-"%1:s\n"
+"%1:s"
 msgstr ""
 
 #: uetkguirscstr.rssofteditorcaption
@@ -2471,6 +2563,7 @@ msgid "Save list"
 msgstr ""
 
 #: ufchximglistpreview.rsimageprops
+#, object-pascal-format
 msgid "%2:s: %0:d x %1:d"
 msgstr ""
 
@@ -2482,14 +2575,17 @@ msgid "No image loaded."
 msgstr "Ninguna imagen cargada"
 
 #: ufchxlistpreview.rstotalitemscount
+#, object-pascal-format
 msgid " / %0:d"
 msgstr ""
 
 #: ufchxprogressbar.rschxpbarlogline
+#, object-pascal-format
 msgid "%0:s - %2:s (%1:s)"
 msgstr "%0:s - %2:s (%1:s)"
 
 #: ufchxprogressbar.rsestimatedtime
+#, object-pascal-format
 msgid "%0:s (Left: %1:s)"
 msgstr "%0:s (Quedan: %1:s)"
 
@@ -2507,13 +2603,15 @@ msgid "All files"
 msgstr "Todos los archivos"
 
 #: ufchxscriptmanager.rsfsmasksavechanges
+#, object-pascal-format
 msgid ""
 "The sourcefile has changed.\n"
 "Save?\n"
-"%s\n"
+"%s"
 msgstr ""
 
 #: ufchxscriptmanager.rsfsmfilesaved
+#, object-pascal-format
 msgid "File saved: %s"
 msgstr ""
 
@@ -2532,9 +2630,10 @@ msgid "Select a System"
 msgstr "Seleciona un sistema"
 
 #: ufemutecatagtree.rsaskdelete
+#, object-pascal-format
 msgid ""
 "Do you want to delete?\n"
-"%0:s\n"
+"%0:s"
 msgstr ""
 
 #: ufemutecatagtree.rscaptiondeletefile

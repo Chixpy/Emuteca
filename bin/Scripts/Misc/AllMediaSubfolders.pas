@@ -3,8 +3,8 @@
 This script moves ALL files to subfolders with its name, but
   removing parentesis in folder's name.
   
-Useful for media files of "Ads", "Reviews" and "Other" folders, as the info in parentesis
-  can be interesting. 
+Useful for media files of "Ads", "Reviews", "Maps" and "Other" folders,
+  as the info in parentesis can be interesting.
   
 Don't confuse with RemoveParentesis.pas wich can be useful for other media folders.
 

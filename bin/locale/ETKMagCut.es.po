@@ -1,0 +1,204 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: tfmchxbgraimgviewer.actautozoom.caption
+msgid "Auto Zoom"
+msgstr ""
+
+#: tfmchxbgraimgviewer.actoriginalsize.caption
+msgid "Original Size"
+msgstr ""
+
+#: tfmchxbgraimgviewer.actzoomin.caption
+msgid "Zoom In"
+msgstr ""
+
+#: tfmchxbgraimgviewer.actzoomout.caption
+msgid "Zoom Out"
+msgstr ""
+
+#: tfmchxfilelist.actaddfile.caption
+msgid "Add File..."
+msgstr "Añadir Fichero..."
+
+#: tfmchxfilelist.actaddfolder.caption
+msgid "Add Folder..."
+msgstr "Añadir Carpeta..."
+
+#: tfmchxfilelist.actclearlist.caption
+msgctxt "tfmchxfilelist.actclearlist.caption"
+msgid "Clear List"
+msgstr "Limpiar Lista"
+
+#: tfmchxfilelist.actremoveitem.caption
+msgctxt "tfmchxfilelist.actremoveitem.caption"
+msgid "Remove Item"
+msgstr "Quitar item"
+
+#: tfmemcimagepropeditor.bdelete.caption
+msgid "Delete File"
+msgstr ""
+
+#: tfmemcimagepropeditor.bsave.caption
+msgid "Save"
+msgstr ""
+
+#: tfmemcimagepropeditor.bsaveanddelete.caption
+msgid "Save and Delete"
+msgstr ""
+
+#: tfmemcimagepropeditor.chkmultipage.caption
+msgid "Multipage text"
+msgstr ""
+
+#: tfmemcimagepropeditor.chkpointmode.caption
+msgid "Point Mode"
+msgstr ""
+
+#: tfmemcimagepropeditor.chkresize2048.caption
+msgid "Resize to 2048px if bigger image"
+msgstr ""
+
+#: tfmemcimagepropeditor.gbxcutrectangle.caption
+msgctxt "tfmemcimagepropeditor.gbxcutrectangle.caption"
+msgid "Cut Rectangle"
+msgstr ""
+
+#: tfmemcimagepropeditor.gbximageproperties.caption
+msgid "Image Properties"
+msgstr ""
+
+#: tfmemcimagepropeditor.gbxmagazineinfo.caption
+msgid "Magazine Properties"
+msgstr ""
+
+#: tfmemcimagepropeditor.gbxoutputfile.caption
+msgctxt "tfmemcimagepropeditor.gbxoutputfile.caption"
+msgid "Output File"
+msgstr ""
+
+#: tfmemcimagepropeditor.lbaseoutfolder.caption
+msgid "Base Output Folder"
+msgstr ""
+
+#: tfmemcimagepropeditor.lfilename.caption
+msgid "Filename"
+msgstr ""
+
+#: tfmemcimagepropeditor.lgame.caption
+msgid "Game"
+msgstr ""
+
+#: tfmemcimagepropeditor.lheight.caption
+msgid "Height"
+msgstr ""
+
+#: tfmemcimagepropeditor.lissue.caption
+msgid "Issue"
+msgstr ""
+
+#: tfmemcimagepropeditor.llanguage.caption
+msgid "Language"
+msgstr ""
+
+#: tfmemcimagepropeditor.lleft.caption
+msgid "Left"
+msgstr ""
+
+#: tfmemcimagepropeditor.lmagazine.caption
+msgid "Magazine"
+msgstr ""
+
+#: tfmemcimagepropeditor.loutputfile.caption
+msgctxt "tfmemcimagepropeditor.loutputfile.caption"
+msgid "Output File"
+msgstr ""
+
+#: tfmemcimagepropeditor.loutputfolder.caption
+msgid "Output Folder"
+msgstr ""
+
+#: tfmemcimagepropeditor.lpmborder.caption
+msgctxt "tfmemcimagepropeditor.lpmborder.caption"
+msgid "Border (px)"
+msgstr ""
+
+#: tfmemcimagepropeditor.lsection.caption
+msgid "Section"
+msgstr ""
+
+#: tfmemcimagepropeditor.lsystem.caption
+msgid "System"
+msgstr ""
+
+#: tfmemcimagepropeditor.ltop.caption
+msgid "Top"
+msgstr ""
+
+#: tfmemcimagepropeditor.ltype.caption
+msgid "Type"
+msgstr ""
+
+#: tfmemcimagepropeditor.lwidth.caption
+msgid "Width"
+msgstr ""
+
+#: tfmemcmain.bcutselection.caption
+msgid "Cut to Selection"
+msgstr ""
+
+#: tfmemcmain.breload.caption
+msgid "Reload Image"
+msgstr ""
+
+#: tfmemcmain.gbxfilelist.caption
+#, fuzzy
+msgctxt "tfmemcmain.gbxfilelist.caption"
+msgid "Files"
+msgstr "Ficheros"
+
+#: tfmemcmain.gbximage.caption
+msgid "Image"
+msgstr ""
+
+#: tfmemcmain.gbxproperties.caption
+msgid "Properties"
+msgstr ""
+
+#: tfrmchxform.caption
+msgid "frmCHXForm"
+msgstr ""
+
+#: tfrmetkmagazinecutter.caption
+msgid "ETK Magazine Cutter"
+msgstr ""
+
+#: uchxrscstr.rscuexcalreadyexists
+#, object-pascal-format
+msgid "\"%0:s\" already exists."
+msgstr ""
+
+#: uchxrscstr.rscuexccardrange
+#, object-pascal-format
+msgid "\"%0:d\" is not in cardinal range."
+msgstr ""
+
+#: uchxrscstr.rscuexcnilparameter
+#, object-pascal-format
+msgid "%0:s: %1:s parameter (%2:s) = nil"
+msgstr ""
+
+#: uchxrscstr.rsenotfilename
+#, object-pascal-format
+msgid "%0:s: Not defined filename"
+msgstr ""
+
+#: uchxrscstr.rsfiledlgmaskdef
+msgid "All files|*.*"
+msgstr ""
+
+#: uchxrscstr.rsfiledlgmaskfmt
+#, object-pascal-format
+msgid "All files|*.*|Supported files|%0:s"
+msgstr ""
+

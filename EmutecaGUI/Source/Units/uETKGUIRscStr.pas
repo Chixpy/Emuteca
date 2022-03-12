@@ -61,8 +61,10 @@ resourcestring
      %0:d = Current folder.
      %1:d = File/folder searched.
   }
+
   rsEmuWebEmpty = 'Emulator''s webpage not configured';
   {< Emulator's web page is empty. }
+
   rsWarning = 'Warning';
   rsAutoFolderWarning = 'This action will:' + LineEnding +
     '* Save current system data.' + LineEnding +
@@ -90,6 +92,9 @@ resourcestring
   rsRunSoftwareExitCode = 'TfmLEmuTKMain.RunSoftware: Emulator returned: %0:d';
 
   rsAskDeleteItem = 'Do you want to delete this item from Emuteca?' + LineEnding + '%0:s';
+
+  rsRenameGroupTitleCaption = 'Rename group title:';
+  rsAskRenameGroupFile ='Rename group media filename?';
 
 implementation
 

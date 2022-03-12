@@ -1,0 +1,9 @@
+inherited frmETKMagazineCutter: TfrmETKMagazineCutter
+  Left = 320
+  Height = 665
+  Top = 130
+  Caption = 'ETK Magazine Cutter'
+  OnCloseQuery = FormCloseQuery
+  OnCreate = FormCreate
+  Position = poScreenCenter
+end

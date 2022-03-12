@@ -244,9 +244,7 @@ end;
 
 procedure TfrmIconBorder.SetBaseDir(AValue: string);
 begin
-  if FBaseDir = AValue then
-    Exit;
-  FBaseDir := AValue;
+  FBaseDir := SetAsFolder(AValue);
 end;
 
 procedure TfrmIconBorder.SetFocusRectInput(AValue: TRect);
@@ -553,6 +551,7 @@ DiagFloodFill(FromColor, ToColor, X + 1, Y + 1);
           Result := True
         else
           Result := FastBGRALinearDiff((pScan + AX)^, S) <= Tolerance;
+          // Result := BGRADiff((pScan + AX)^, S) <= Tolerance;
       end;
     end;
 
@@ -673,11 +672,12 @@ DiagFloodFill(FromColor, ToColor, X + 1, Y + 1);
 begin
   if not chkDiagonalNeightbours.Checked then
   begin
-    // FloodFill is like not checking Diagonal Neightbours
+    // TBGRABitmap.FloodFill don't check Diagonal Neightbours
     ActualInputImage.FloodFill(X, Y, ToColor, fmSet, Tolerance);
   end
   else
   begin
+    // A copy of TBGRABitmap.FloodFill that checks Diagonal Neightbours
     DiagFloodFill(X, Y, ToColor, Tolerance);
   end;
 end;

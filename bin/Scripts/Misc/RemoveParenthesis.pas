@@ -4,7 +4,7 @@ This script removes parentesis from filenames in a folder.
 
 Useful for media files named with NoIntro, GoodXXX, TOSEC scheme.
 
-For "Ads", "Reviews" and "Other" folders, it's better use "RemoveParentesis.pas", as the info in parentesis can be interesting. 
+For "Ads", "Reviews" and "Other" folders, it's better use "AllMediaSubfolders.pas", as the info in parentesis can be interesting.
 
 For example: GameName (USA).ext
  * If the subfolder GameName exists, it will be moved to GameName\GameName (USA).ext

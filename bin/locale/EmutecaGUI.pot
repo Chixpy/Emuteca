@@ -1,0 +1,2497 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: tfmaetkguisoftfolderspreview.gbxpanel.caption
+msgid "Panel"
+msgstr ""
+
+#: tfmchxabout.gbxcompilation.caption
+msgid "Compilation info"
+msgstr ""
+
+#: tfmchxabout.gbximageext.caption
+msgid "Supported image extensions"
+msgstr ""
+
+#: tfmchxabout.lcompilation.caption
+msgid "Compilation"
+msgstr ""
+
+#: tfmchxabout.limageext.caption
+msgid "ImageExt"
+msgstr ""
+
+#: tfmchxabout.ltitle.caption
+msgctxt "tfmchxabout.ltitle.caption"
+msgid "Title"
+msgstr ""
+
+#: tfmchxabout.lversion.caption
+msgctxt "tfmchxabout.lversion.caption"
+msgid "Version"
+msgstr ""
+
+#: tfmchxchklstpropeditor.actadditem.caption
+msgid "Add item"
+msgstr ""
+
+#: tfmchxchklstpropeditor.actcheckall.caption
+msgid "Check all"
+msgstr ""
+
+#: tfmchxchklstpropeditor.actdeleteitem.caption
+msgid "Delete item"
+msgstr ""
+
+#: tfmchxchklstpropeditor.actexportlist.caption
+msgid "Export list"
+msgstr ""
+
+#: tfmchxchklstpropeditor.actframeok.caption
+msgid "Save List"
+msgstr ""
+
+#: tfmchxchklstpropeditor.actframeok.hint
+msgid "Accepts and saves the list."
+msgstr ""
+
+#: tfmchxchklstpropeditor.actimportlist.caption
+msgid "Import list"
+msgstr ""
+
+#: tfmchxchklstpropeditor.actuncheckall.caption
+msgid "Uncheck all"
+msgstr ""
+
+#: tfmchxchklstpropeditor.tbpropchklist.caption
+msgid "tbPropChkList"
+msgstr ""
+
+#: tfmchxchklstpropeditor.toolbutton3.caption
+msgctxt "tfmchxchklstpropeditor.toolbutton3.caption"
+msgid "ToolButton3"
+msgstr ""
+
+#: tfmchxchklstpropeditor.toolbutton6.caption
+msgid "ToolButton6"
+msgstr ""
+
+#: tfmchxfilelistpreview.actopenfilefolder.caption
+msgid "Open File Folder"
+msgstr ""
+
+#: tfmchxfilelistpreview.actopenfilefolder.hint
+msgid "Open file's folder."
+msgstr ""
+
+#: tfmchxfilelistpreview.actopenwithdefapp.caption
+msgid "Open with Default Application"
+msgstr ""
+
+#: tfmchxfilelistpreview.actopenwithdefapp.hint
+msgctxt "tfmchxfilelistpreview.actopenwithdefapp.hint"
+msgid "Open file with default system application."
+msgstr ""
+
+#: tfmchximglistpreview.actopenfilefolder.hint
+msgid "Opens file's folder."
+msgstr ""
+
+#: tfmchximglistpreview.actopenwithdefapp.hint
+msgctxt "tfmchximglistpreview.actopenwithdefapp.hint"
+msgid "Open file with default system application."
+msgstr ""
+
+#: tfmchximglistpreview.iimage.hint
+msgid "DblClk to open in Image Viewer"
+msgstr ""
+
+#: tfmchximglistpreview.limageprops.caption
+msgid "No image loaded"
+msgstr ""
+
+#: tfmchximgviewer.actclose.caption
+msgid "Close window"
+msgstr ""
+
+#: tfmchximgviewer.actclose.hint
+msgid "Close the window."
+msgstr ""
+
+#: tfmchximgviewer.actoriginalsize.caption
+msgid "Original size"
+msgstr ""
+
+#: tfmchximgviewer.actoriginalsize.hint
+msgid "Resize image to original size."
+msgstr ""
+
+#: tfmchximgviewer.actstretch.caption
+msgid "actStretch"
+msgstr ""
+
+#: tfmchximgviewer.actstretch.hint
+msgid "Stretch image to window."
+msgstr ""
+
+#: tfmchximgviewer.acttogglefilelist.caption
+msgid "actToggleFileList"
+msgstr ""
+
+#: tfmchximgviewer.acttogglefilelist.hint
+msgid "Show/Hide file list."
+msgstr ""
+
+#: tfmchximgviewer.actzoomin.caption
+msgid "Zoom In"
+msgstr ""
+
+#: tfmchximgviewer.actzoomin.hint
+msgid "Zoom image in."
+msgstr ""
+
+#: tfmchximgviewer.actzoomout.caption
+msgid "Zoom Out"
+msgstr ""
+
+#: tfmchximgviewer.actzoomout.hint
+msgid "Zoom image out."
+msgstr ""
+
+#: tfmchxlistpreview.actfirstitem.caption
+msgid "First item"
+msgstr ""
+
+#: tfmchxlistpreview.actfirstitem.hint
+msgid "Go to first item"
+msgstr ""
+
+#: tfmchxlistpreview.actlastitem.caption
+msgid "Last item"
+msgstr ""
+
+#: tfmchxlistpreview.actlastitem.hint
+msgid "Go to last item."
+msgstr ""
+
+#: tfmchxlistpreview.actnextitem.caption
+msgid "Next item"
+msgstr ""
+
+#: tfmchxlistpreview.actnextitem.hint
+msgid "Go to next item."
+msgstr ""
+
+#: tfmchxlistpreview.actpreviousitem.caption
+msgid "Previous item"
+msgstr ""
+
+#: tfmchxlistpreview.actpreviousitem.hint
+msgid "Go to previous item."
+msgstr ""
+
+#: tfmchxlistpreview.cbxcurritem.hint
+msgid "Select item."
+msgstr ""
+
+#: tfmchxlistpreview.lmaxitems.caption
+msgid "/ 0"
+msgstr ""
+
+#: tfmchxlistpreview.lmaxitems.hint
+msgid "Number of items."
+msgstr ""
+
+#: tfmchxlistpreview.tbpreviewlist.caption
+msgid "tbPreviewList"
+msgstr ""
+
+#: tfmchxlistpreview.tbsepnavbuttons.caption
+msgid "tbSepNavButtons"
+msgstr ""
+
+#: tfmchxmultifoldereditor.actaddfolder.caption
+msgid "Add folder"
+msgstr ""
+
+#: tfmchxmultifoldereditor.actdeletefolder.caption
+msgid "Delete folder"
+msgstr ""
+
+#: tfmchxmultifoldereditor.actfolderdown.caption
+msgid "Move folder down"
+msgstr ""
+
+#: tfmchxmultifoldereditor.actfolderup.caption
+msgid "Move folder up"
+msgstr ""
+
+#: tfmchxmultifoldereditor.actupdatefolder.caption
+msgid "Update folder"
+msgstr ""
+
+#: tfmchxmultifoldereditor.tbimagefolderbuttons.caption
+msgid "tbImageFolderButtons"
+msgstr ""
+
+#: tfmchxprogressbar.actcancel.caption
+msgctxt "tfmchxprogressbar.actcancel.caption"
+msgid "Cancel"
+msgstr ""
+
+#: tfmchxprogressbar.actupdate100.caption
+msgid "Update = 100 ms"
+msgstr ""
+
+#: tfmchxprogressbar.actupdate1000.caption
+msgid "Update = 1 s"
+msgstr ""
+
+#: tfmchxprogressbar.actupdate250.caption
+msgid "Update = 250 ms"
+msgstr ""
+
+#: tfmchxprogressbar.actupdate500.caption
+msgid "Update = 500 ms"
+msgstr ""
+
+#: tfmchxprogressbar.mipbupdatefrecuency.caption
+msgid "Update frecuency"
+msgstr ""
+
+#: tfmchxpropeditor.actframecancel.caption
+msgctxt "tfmchxpropeditor.actframecancel.caption"
+msgid "Cancel"
+msgstr ""
+
+#: tfmchxpropeditor.actframecancel.hint
+msgid "Cancel not saved changes."
+msgstr ""
+
+#: tfmchxpropeditor.actframeok.caption
+msgctxt "tfmchxpropeditor.actframeok.caption"
+msgid "OK"
+msgstr ""
+
+#: tfmchxpropeditor.actframeok.hint
+msgid "Accept and save changes."
+msgstr ""
+
+#: tfmchxpropeditor.chkcloseonsave.caption
+msgid "Close"
+msgstr ""
+
+#: tfmchxpropeditor.chkcloseonsave.hint
+msgid "Closes windows after accepting or canceling."
+msgstr ""
+
+#: tfmchxscriptmanager.actcompile.caption
+msgid "Syntax check"
+msgstr ""
+
+#: tfmchxscriptmanager.actcompile.hint
+msgid "Checks the script syntax (actually tries to compile)"
+msgstr ""
+
+#: tfmchxscriptmanager.acteditcopy.caption
+msgid "&Copiar"
+msgstr ""
+
+#: tfmchxscriptmanager.acteditcopy.hint
+msgid "Copiar"
+msgstr ""
+
+#: tfmchxscriptmanager.acteditcut.caption
+msgid "Cor&tar"
+msgstr ""
+
+#: tfmchxscriptmanager.acteditcut.hint
+msgid "Cortar"
+msgstr ""
+
+#: tfmchxscriptmanager.acteditdelete.caption
+msgid "&Suprimir"
+msgstr ""
+
+#: tfmchxscriptmanager.acteditdelete.hint
+msgid "Suprimir"
+msgstr ""
+
+#: tfmchxscriptmanager.acteditpaste.caption
+msgid "&Pegar"
+msgstr ""
+
+#: tfmchxscriptmanager.acteditpaste.hint
+msgid "Pegar"
+msgstr ""
+
+#: tfmchxscriptmanager.acteditundo.caption
+msgid "&Deshacer"
+msgstr ""
+
+#: tfmchxscriptmanager.acteditundo.hint
+msgid "Deshacer"
+msgstr ""
+
+#: tfmchxscriptmanager.actexecute.caption
+msgid "Execute"
+msgstr ""
+
+#: tfmchxscriptmanager.actfileopenfolder.caption
+msgid "Open folder in Explorer"
+msgstr ""
+
+#: tfmchxscriptmanager.actfileopenfolder.hint
+msgid "Open folder of the file with explorer."
+msgstr ""
+
+#: tfmchxscriptmanager.actfilesave.caption
+msgid "Save File"
+msgstr ""
+
+#: tfmchxscriptmanager.actfilesave.hint
+msgid "Quick save of the file."
+msgstr ""
+
+#: tfmchxscriptmanager.actfilesaveas.caption
+msgid "Save as..."
+msgstr ""
+
+#: tfmchxscriptmanager.actfilesaveas.hint
+msgid "Save with another filename."
+msgstr ""
+
+#: tfmchxscriptmanager.actfolderopen.caption
+msgid "Open folder"
+msgstr ""
+
+#: tfmchxscriptmanager.actoutputclear.caption
+msgid "actOutputClear"
+msgstr ""
+
+#: tfmchxscriptmanager.actoutputfontedit.caption
+msgid "Seleccionar &Fuente..."
+msgstr ""
+
+#: tfmchxscriptmanager.actoutputfontedit.hint
+msgid "Selector de fuente"
+msgstr ""
+
+#: tfmchxscriptmanager.actoutputsaveas.caption
+msgid "Gu&ardar Como ..."
+msgstr ""
+
+#: tfmchxscriptmanager.actoutputsaveas.hint
+msgid "Guardar Como"
+msgstr ""
+
+#: tfmchxscriptmanager.actsearchfind.caption
+msgid "&Buscar..."
+msgstr ""
+
+#: tfmchxscriptmanager.actsearchreplace.caption
+msgid "&Reemplazar"
+msgstr ""
+
+#: tfmchxscriptmanager.actstop.caption
+msgctxt "tfmchxscriptmanager.actstop.caption"
+msgid "Stop"
+msgstr ""
+
+#: tfmchxscriptmanager.bseparator1.caption
+msgctxt "tfmchxscriptmanager.bseparator1.caption"
+msgid "-"
+msgstr ""
+
+#: tfmchxscriptmanager.bseparator2.caption
+msgctxt "tfmchxscriptmanager.bseparator2.caption"
+msgid "-"
+msgstr ""
+
+#: tfmchxscriptmanager.bseparator3.caption
+msgctxt "tfmchxscriptmanager.bseparator3.caption"
+msgid "-"
+msgstr ""
+
+#: tfmchxscriptmanager.bseparator4.caption
+msgid "bSeparator4"
+msgstr ""
+
+#: tfmchxscriptmanager.bseparator5.caption
+msgid "bSeparator5"
+msgstr ""
+
+#: tfmchxscriptmanager.gbxscript.caption
+msgid "Script"
+msgstr ""
+
+#: tfmchxscriptmanager.lcurrentfile.caption
+msgctxt "tfmchxscriptmanager.lcurrentfile.caption"
+msgid " "
+msgstr ""
+
+#: tfmchxscriptmanager.pagoutput.caption
+msgid "Output"
+msgstr ""
+
+#: tfmchxscriptmanager.pagscriptlist.caption
+msgid "Scripts"
+msgstr ""
+
+#: tfmchxscriptmanager.pagsourcecode.caption
+msgid "Source Code"
+msgstr ""
+
+#: tfmchxscriptmanager.tbeditor.caption
+msgid "tbEditor"
+msgstr ""
+
+#: tfmchxscriptmanager.tboutput.caption
+msgid "tbOutput"
+msgstr ""
+
+#: tfmchxscriptmanager.toolbutton2.caption
+msgctxt "tfmchxscriptmanager.toolbutton2.caption"
+msgid "ToolButton2"
+msgstr ""
+
+#: tfmchxtagtree.actopentagfolder.caption
+msgid "Open Tags Base Folder"
+msgstr ""
+
+#: tfmchxtagtree.actuncheckall.caption
+msgid "Uncheck All"
+msgstr ""
+
+#: tfmchxtagtree.actupdatetagtree.caption
+msgid "Update Tree"
+msgstr ""
+
+#: tfmchxtagtree.tbtagtree.caption
+msgid "Tag Tree toolbar"
+msgstr ""
+
+#: tfmchxtagtree.toolbutton1.caption
+msgctxt "tfmchxtagtree.toolbutton1.caption"
+msgid "ToolButton1"
+msgstr ""
+
+#: tfmchxtagtree.toolbutton2.caption
+msgctxt "tfmchxtagtree.toolbutton2.caption"
+msgid "ToolButton2"
+msgstr ""
+
+#: tfmchxtagtree.vst.header.columns[0].text
+msgctxt "tfmchxtagtree.vst.header.columns[0].text"
+msgid "Title"
+msgstr ""
+
+#: tfmchxtagtree.vst.header.columns[1].text
+msgctxt "tfmchxtagtree.vst.header.columns[1].text"
+msgid "Folder"
+msgstr ""
+
+#: tfmchxtagtree.vst.header.columns[2].text
+msgctxt "tfmchxtagtree.vst.header.columns[2].text"
+msgid "File"
+msgstr ""
+
+#: tfmchxvideolistpreview.actmute.caption
+msgid "Mute"
+msgstr ""
+
+#: tfmchxvideolistpreview.actmute.hint
+msgid "Mute audio."
+msgstr ""
+
+#: tfmchxvideolistpreview.actpause.caption
+msgid "Pause"
+msgstr ""
+
+#: tfmchxvideolistpreview.actpause.hint
+msgid "Pauses current media."
+msgstr ""
+
+#: tfmchxvideolistpreview.actplay.caption
+msgid "Play"
+msgstr ""
+
+#: tfmchxvideolistpreview.actplay.hint
+msgid "Plays current media."
+msgstr ""
+
+#: tfmchxvideolistpreview.actstop.caption
+msgctxt "tfmchxvideolistpreview.actstop.caption"
+msgid "Stop"
+msgstr ""
+
+#: tfmchxvideolistpreview.actstop.hint
+msgid "Stops current media."
+msgstr ""
+
+#: tfmchxvideolistpreview.tbplayer.caption
+msgid "tbPlayer"
+msgstr ""
+
+#: tfmchxvideolistpreview.toolbutton2.caption
+msgctxt "tfmchxvideolistpreview.toolbutton2.caption"
+msgid "ToolButton2"
+msgstr ""
+
+#: tfmemutecaactaddfolder.chknozip.caption
+msgid "Don't search inside compressed archives"
+msgstr ""
+
+#: tfmemutecaactaddfolder.chknozip.hint
+msgid "Check it for MAME sofware search speedup."
+msgstr ""
+
+#: tfmemutecaactaddfolder.chksubfolders.caption
+msgid "Search in subfolders."
+msgstr ""
+
+#: tfmemutecaactaddfolder.chksubfolders.hint
+msgid "Scan in subfolders too."
+msgstr ""
+
+#: tfmemutecaactaddfolder.efolder.hint
+msgid "Folder for searching software."
+msgstr ""
+
+#: tfmemutecaactaddfolder.gbxfolder.caption
+msgid "Select folder"
+msgstr ""
+
+#: tfmemutecaactaddfolder.gbxselectsystem.caption
+msgctxt "tfmemutecaactaddfolder.gbxselectsystem.caption"
+msgid "Select a System"
+msgstr ""
+
+#: tfmemutecaactaddfolder.gbxsysinfo.caption
+msgid "System Info"
+msgstr ""
+
+#: tfmemutecaactaddfolder.lsystemexportkey.caption
+msgid "System export key"
+msgstr ""
+
+#: tfmemutecaactaddfolder.lsystemextensions.caption
+msgid "System extensions"
+msgstr ""
+
+#: tfmemutecaactaddfolder.rgbfilename.caption
+msgid "If duplicate file found..."
+msgstr ""
+
+#: tfmemutecaactaddfolder.rgbgroup.caption
+msgid "Group by"
+msgstr ""
+
+#: tfmemutecaactaddsoft.actaddnewgroup.caption
+msgid "Add new group..."
+msgstr ""
+
+#: tfmemutecaactaddsoft.chkopenasarchive.caption
+msgid "Open as compressed archive"
+msgstr ""
+
+#: tfmemutecaactaddsoft.gbxduplicates.caption
+msgid "Duplicates"
+msgstr ""
+
+#: tfmemutecaactaddsoft.gbxfileselection.caption
+msgid "Select a file"
+msgstr ""
+
+#: tfmemutecaactaddsoft.gbxgroup.caption
+msgid "Group info"
+msgstr ""
+
+#: tfmemutecaactaddsoft.gbxselectsystem.caption
+msgctxt "tfmemutecaactaddsoft.gbxselectsystem.caption"
+msgid "Select a System"
+msgstr ""
+
+#: tfmemutecaactaddsoft.gbxsoftinfo.caption
+msgid "Software Info"
+msgstr ""
+
+#: tfmemutecaactaddsoft.lcompressederror.caption
+msgctxt "tfmemutecaactaddsoft.lcompressederror.caption"
+msgid " "
+msgstr ""
+
+#: tfmemutecaactaddsoft.ldupfile.caption
+msgctxt "tfmemutecaactaddsoft.ldupfile.caption"
+msgid " "
+msgstr ""
+
+#: tfmemutecaactaddsoft.lsysteminfo.caption
+msgid "Supported Extensions"
+msgstr ""
+
+#: tfmemutecaactaddsoft.rgbsoftkey.caption
+msgid "Soft Key"
+msgstr ""
+
+#: tfmemutecaactexportsoftdata.gbxexportfile.caption
+msgid "Export file"
+msgstr ""
+
+#: tfmemutecaactexportsoftdata.gbxsysteminfo.caption
+msgctxt "tfmemutecaactexportsoftdata.gbxsysteminfo.caption"
+msgid "System info"
+msgstr ""
+
+#: tfmemutecaactexportsoftdata.lexportinfo.caption
+msgid "If the file already exists, the data will be merged."
+msgstr ""
+
+#: tfmemutecaactexportsoftdata.lsoftidtype.caption
+msgctxt "tfmemutecaactexportsoftdata.lsoftidtype.caption"
+msgid "Soft ID Type"
+msgstr ""
+
+#: tfmemutecaactimportsoftdata.gbximportfile.caption
+msgid "Import file"
+msgstr ""
+
+#: tfmemutecaactimportsoftdata.gbxsysteminfo.caption
+msgctxt "tfmemutecaactimportsoftdata.gbxsysteminfo.caption"
+msgid "System info"
+msgstr ""
+
+#: tfmemutecaactimportsoftdata.lsoftidtype.caption
+msgctxt "tfmemutecaactimportsoftdata.lsoftidtype.caption"
+msgid "Soft ID Type"
+msgstr ""
+
+#: tfmemutecaemulatoradvparamseditor.gbxcoreid.caption
+msgid "Multisystem core param"
+msgstr ""
+
+#: tfmemutecaemulatoradvparamseditor.gbxextparams.caption
+msgid "Parameters by extension"
+msgstr ""
+
+#: tfmemutecaemulatoradvparamseditor.gbxextrasoftparameters.caption
+msgid "Extra software parameters"
+msgstr ""
+
+#: tfmemutecaemulatoradvparamseditor.lcoreparamfmt.caption
+msgid "Core parameter format"
+msgstr ""
+
+#: tfmemutecaemulatoradvparamseditor.lmultiemuid.caption
+msgid "Multisystem emulator ID"
+msgstr ""
+
+#: tfmemutecaemulatoreditor.actopenwebpage.caption
+msgid "Open Webpage"
+msgstr ""
+
+#: tfmemutecaemulatoreditor.actparamromdir.caption
+msgid "ROM Folder"
+msgstr ""
+
+#: tfmemutecaemulatoreditor.actparamromextra.caption
+msgid "ROM Extra parameters"
+msgstr ""
+
+#: tfmemutecaemulatoreditor.actparamromextra.hint
+msgid "Add extra parameter from ROM info."
+msgstr ""
+
+#: tfmemutecaemulatoreditor.actparamromfileextension.caption
+msgid "ROM File extension"
+msgstr ""
+
+#: tfmemutecaemulatoreditor.actparamromfilename.caption
+msgid "ROM Filename"
+msgstr ""
+
+#: tfmemutecaemulatoreditor.actparamromfilenoext.caption
+msgid "ROM Filename no extension"
+msgstr ""
+
+#: tfmemutecaemulatoreditor.actparamrompath.caption
+msgid "ROM Full path"
+msgstr ""
+
+#: tfmemutecaemulatoreditor.actparamsyscoreid.caption
+msgid "System Core ID"
+msgstr ""
+
+#: tfmemutecaemulatoreditor.actwfemulator.caption
+msgid "Emulator folder"
+msgstr ""
+
+#: tfmemutecaemulatoreditor.actwfemuteca.caption
+msgid "Emuteca folder"
+msgstr ""
+
+#: tfmemutecaemulatoreditor.actwfrom.caption
+msgid "ROM folder"
+msgstr ""
+
+#: tfmemutecaemulatoreditor.gbxbasic.caption
+msgid "Basic configuration"
+msgstr ""
+
+#: tfmemutecaemulatoreditor.gbximages.caption
+msgctxt "tfmemutecaemulatoreditor.gbximages.caption"
+msgid "Images"
+msgstr ""
+
+#: tfmemutecaemulatoreditor.ldeveloper.caption
+msgctxt "tfmemutecaemulatoreditor.ldeveloper.caption"
+msgid "Developer"
+msgstr ""
+
+#: tfmemutecaemulatoreditor.lexepath.caption
+msgid "Exe path"
+msgstr ""
+
+#: tfmemutecaemulatoreditor.lexitcode.caption
+msgid "Exit code"
+msgstr ""
+
+#: tfmemutecaemulatoreditor.licon.caption
+msgid "Icon"
+msgstr ""
+
+#: tfmemutecaemulatoreditor.lid.caption
+msgid "ID"
+msgstr ""
+
+#: tfmemutecaemulatoreditor.lname.caption
+msgid "Name"
+msgstr ""
+
+#: tfmemutecaemulatoreditor.lparameters.caption
+msgid "Parameters"
+msgstr ""
+
+#: tfmemutecaemulatoreditor.lwebpage.caption
+msgid "WebPage"
+msgstr ""
+
+#: tfmemutecaemulatoreditor.lworkingfolder.caption
+msgid "Working folder"
+msgstr ""
+
+#: tfmemutecagroupeditor.edeveloper.hint
+msgid "Developer of the software."
+msgstr ""
+
+#: tfmemutecagroupeditor.egroupid.hint
+msgid "ID of the group."
+msgstr ""
+
+#: tfmemutecagroupeditor.egroupid.texthint
+msgid "Group ID"
+msgstr ""
+
+#: tfmemutecagroupeditor.emediafile.hint
+msgid "Filename for searching media."
+msgstr ""
+
+#: tfmemutecagroupeditor.emediafile.texthint
+msgid "Media filename"
+msgstr ""
+
+#: tfmemutecagroupeditor.esorttitle.hint
+msgid "Title used for sorting."
+msgstr ""
+
+#: tfmemutecagroupeditor.esorttitle.texthint
+msgid "Sort title (Empty = Title)"
+msgstr ""
+
+#: tfmemutecagroupeditor.etitle.hint
+msgid "Title of the group."
+msgstr ""
+
+#: tfmemutecagroupeditor.etitle.texthint
+msgctxt "tfmemutecagroupeditor.etitle.texthint"
+msgid "Title"
+msgstr ""
+
+#: tfmemutecagroupeditor.eyear.hint
+msgid "Date of development."
+msgstr ""
+
+#: tfmemutecagroupeditor.eyear.texthint
+msgid "Date YYYY/MM/DD"
+msgstr ""
+
+#: tfmemutecasofteditor.etranslated.texthint
+msgid "ISO 639-1 code"
+msgstr ""
+
+#: tfmemutecasofteditor.eyear.texthint
+msgid "YYYY/MM/DD"
+msgstr ""
+
+#: tfmemutecasofteditor.ezone.texthint
+msgid "ISO3166-1 alpha-2"
+msgstr ""
+
+#: tfmemutecasofteditor.gbxdumptags.caption
+msgid "Dump Tags"
+msgstr ""
+
+#: tfmemutecasofteditor.gbxextraparameters.caption
+msgid "Extra parameters"
+msgstr ""
+
+#: tfmemutecasofteditor.gbxtitle.caption
+msgctxt "tfmemutecasofteditor.gbxtitle.caption"
+msgid "Title"
+msgstr ""
+
+#: tfmemutecasofteditor.gbxversion.caption
+msgid "Version info"
+msgstr ""
+
+#: tfmemutecasofteditor.lcracked.caption
+msgid "Cracked"
+msgstr ""
+
+#: tfmemutecasofteditor.ldumpinfo.caption
+msgid "Dump info"
+msgstr ""
+
+#: tfmemutecasofteditor.ldumptype.caption
+msgid "Dump type"
+msgstr ""
+
+#: tfmemutecasofteditor.lfixed.caption
+msgid "Fixed"
+msgstr ""
+
+#: tfmemutecasofteditor.lhack.caption
+msgid "Hack"
+msgstr ""
+
+#: tfmemutecasofteditor.lmediafilename.caption
+msgid "Media Filename  (Empty = Sort Title)"
+msgstr ""
+
+#: tfmemutecasofteditor.lmodified.caption
+msgid "Modified"
+msgstr ""
+
+#: tfmemutecasofteditor.lpirate.caption
+msgid "Pirate"
+msgstr ""
+
+#: tfmemutecasofteditor.lpublisher.caption
+msgctxt "tfmemutecasofteditor.lpublisher.caption"
+msgid "Publisher"
+msgstr ""
+
+#: tfmemutecasofteditor.lsortkey.caption
+msgid "Sort Key (Empty = Title)"
+msgstr ""
+
+#: tfmemutecasofteditor.ltitle.caption
+msgid "Title  (Empty = Group Title)"
+msgstr ""
+
+#: tfmemutecasofteditor.ltrainer.caption
+msgid "Trainer"
+msgstr ""
+
+#: tfmemutecasofteditor.ltranslated.caption
+msgid "Fan Translated"
+msgstr ""
+
+#: tfmemutecasofteditor.lversion.caption
+msgctxt "tfmemutecasofteditor.lversion.caption"
+msgid "Version"
+msgstr ""
+
+#: tfmemutecasofteditor.lyear.caption
+msgctxt "tfmemutecasofteditor.lyear.caption"
+msgid "Year"
+msgstr ""
+
+#: tfmemutecasofteditor.lzone.caption
+msgid "Zone"
+msgstr ""
+
+#: tfmemutecasoftimgpreview.actaddimagefromclpbrd.caption
+msgid "Add image from Clipboard..."
+msgstr ""
+
+#: tfmemutecasoftimgpreview.actdeleteimage.caption
+msgid "Delete current image"
+msgstr ""
+
+#: tfmemutecasoftimgpreview.actreplaceimagefromclpbrd.caption
+msgid "Replace with image from Clipboard"
+msgstr ""
+
+#: tfmemutecasofttree.vdt.header.columns[0].text
+msgctxt "tfmemutecasofttree.vdt.header.columns[0].text"
+msgid "System"
+msgstr ""
+
+#: tfmemutecasofttree.vdt.header.columns[10].text
+msgctxt "tfmemutecasofttree.vdt.header.columns[10].text"
+msgid "Folder"
+msgstr ""
+
+#: tfmemutecasofttree.vdt.header.columns[1].text
+msgctxt "tfmemutecasofttree.vdt.header.columns[1].text"
+msgid "Title"
+msgstr ""
+
+#: tfmemutecasofttree.vdt.header.columns[2].text
+msgctxt "tfmemutecasofttree.vdt.header.columns[2].text"
+msgid "Version"
+msgstr ""
+
+#: tfmemutecasofttree.vdt.header.columns[3].text
+msgid "Dev. / Publ."
+msgstr ""
+
+#: tfmemutecasofttree.vdt.header.columns[4].text
+msgctxt "tfmemutecasofttree.vdt.header.columns[4].text"
+msgid "Year"
+msgstr ""
+
+#: tfmemutecasofttree.vdt.header.columns[5].text
+msgid "Flags"
+msgstr ""
+
+#: tfmemutecasofttree.vdt.header.columns[6].text
+msgid "Times Played"
+msgstr ""
+
+#: tfmemutecasofttree.vdt.header.columns[7].text
+msgid "Playing Time"
+msgstr ""
+
+#: tfmemutecasofttree.vdt.header.columns[8].text
+msgid "Last Time"
+msgstr ""
+
+#: tfmemutecasofttree.vdt.header.columns[9].text
+msgctxt "tfmemutecasofttree.vdt.header.columns[9].text"
+msgid "File"
+msgstr ""
+
+#: tfmemutecasofttxtpreview.actcreatenew.caption
+msgid "Create new text file"
+msgstr ""
+
+#: tfmemutecasofttxtpreview.actdeletefile.caption
+msgid "Delete text file"
+msgstr ""
+
+#: tfmemutecasofttxtpreview.actlocktext.caption
+msgid "Lock text"
+msgstr ""
+
+#: tfmemutecasofttxtpreview.actsavefile.caption
+msgid "Save file"
+msgstr ""
+
+#: tfmemutecasystemeditor.chkextractallfiles.caption
+msgid "Extract All Files (If it's in compressed)"
+msgstr ""
+
+#: tfmemutecasystemeditor.etitle.texthint
+msgid "Company Model"
+msgstr ""
+
+#: tfmemutecasystemeditor.gbxbasicinfo.caption
+msgid "Basic Info"
+msgstr ""
+
+#: tfmemutecasystemeditor.gbxemulators.caption
+msgid "Emulators"
+msgstr ""
+
+#: tfmemutecasystemeditor.gbxfiles.caption
+msgid "Files"
+msgstr ""
+
+#: tfmemutecasystemeditor.lbasefolder.caption
+msgid "System base folder"
+msgstr ""
+
+#: tfmemutecasystemeditor.lfileextensions.caption
+msgid "File Extensions (one by line)"
+msgstr ""
+
+#: tfmemutecasystemeditor.lfilename.caption
+msgid "Default filename"
+msgstr ""
+
+#: tfmemutecasystemeditor.lmainemulator.caption
+msgid "Main Emulator"
+msgstr ""
+
+#: tfmemutecasystemeditor.lmulticoreids.caption
+msgid ""
+"Multicore emulator IDs\n"
+"(ID=core param)"
+msgstr ""
+
+#: tfmemutecasystemeditor.lotheremulators.caption
+msgid "Other Emulators"
+msgstr ""
+
+#: tfmemutecasystemeditor.ltitle.caption
+msgctxt "tfmemutecasystemeditor.ltitle.caption"
+msgid "Title"
+msgstr ""
+
+#: tfmemutecasystemeditor.lworkingfolder.caption
+msgid "Working Folder"
+msgstr ""
+
+#: tfmemutecasystemeditor.rgbgamekey.caption
+msgid "Key for Games"
+msgstr ""
+
+#: tfmemutecasystemimgeditor.gbxiconfolder.caption
+msgid "Software icons"
+msgstr ""
+
+#: tfmemutecasystemimgeditor.gbximages.caption
+msgid "System images"
+msgstr ""
+
+#: tfmemutecasystemimgeditor.gbxsystembg.caption
+msgid "System background"
+msgstr ""
+
+#: tfmemutecasystemimgeditor.gbxsystemicon.caption
+msgid "System icon"
+msgstr ""
+
+#: tfmemutecasystemimgeditor.gbxsystemicons.caption
+msgid "System Icons"
+msgstr ""
+
+#: tfmemutecasystemimgeditor.gbxsystemimage.caption
+msgid "System image"
+msgstr ""
+
+#: tfmemutecasystemimgeditor.isystemimage.hint
+msgid "System image|DblClk: Open in Image viewer."
+msgstr ""
+
+#: tfmemutecasystemimgeditor.ldefsofticon.caption
+msgid "Default soft icon"
+msgstr ""
+
+#: tfmemutecasystemimgeditor.lsofticonfolder.caption
+msgid "Software icon folder"
+msgstr ""
+
+#: tfmemutecasystemimgeditor.lsoftlogofolder.caption
+msgid "Software logo folder"
+msgstr ""
+
+#: tfmemutecasystemitfeditor.gbximagefolders.caption
+msgid "Image Folders"
+msgstr ""
+
+#: tfmemutecasystemitfeditor.gbxtextfolders.caption
+msgid "Text Folders"
+msgstr ""
+
+#: tfmemutecasystemmvfeditor.gbxmusicfolders.caption
+msgid "Music folders"
+msgstr ""
+
+#: tfmemutecasystemmvfeditor.gbxvideofolders.caption
+msgid "Video folders"
+msgstr ""
+
+#: tfmemutecatagtree.actaddgroup2tagfile.caption
+msgid "Add Group to Tag"
+msgstr ""
+
+#: tfmemutecatagtree.actaddrootfile.caption
+msgid "Add Root File"
+msgstr ""
+
+#: tfmemutecatagtree.actaddrootfolder.caption
+msgid "Add Root Folder"
+msgstr ""
+
+#: tfmemutecatagtree.actaddsubfolder.caption
+msgid "Add Subfolder"
+msgstr ""
+
+#: tfmemutecatagtree.actaddtagfile.caption
+msgid "Add Tag File"
+msgstr ""
+
+#: tfmemutecatagtree.actdeletefolder.caption
+msgid "Delete Folder"
+msgstr ""
+
+#: tfmemutecatagtree.actremovegroupfromfile.caption
+msgid "Remove Group from Tag"
+msgstr ""
+
+#: tfmemutecatagtree.actremovetagfile.caption
+msgid "Remove Tag File"
+msgstr ""
+
+#: tfmemutecatagtree.actrenamefile.caption
+msgid "Rename File"
+msgstr ""
+
+#: tfmemutecatagtree.actrenamefolder.caption
+msgid "Rename Folder"
+msgstr ""
+
+#: tfmemutecatagtree.mipmdroot.caption
+msgctxt "tfmemutecatagtree.mipmdroot.caption"
+msgid "Root"
+msgstr ""
+
+#: tfmemutecatagtree.mipmdtree.caption
+msgctxt "tfmemutecatagtree.mipmdtree.caption"
+msgid "Tree"
+msgstr ""
+
+#: tfmemutecatagtree.mipmffolder.caption
+msgctxt "tfmemutecatagtree.mipmffolder.caption"
+msgid "Folder"
+msgstr ""
+
+#: tfmemutecatagtree.mipmfroot.caption
+msgctxt "tfmemutecatagtree.mipmfroot.caption"
+msgid "Root"
+msgstr ""
+
+#: tfmemutecatagtree.mipmftree.caption
+msgctxt "tfmemutecatagtree.mipmftree.caption"
+msgid "Tree"
+msgstr ""
+
+#: tfmetkguiactmergegroup.chkaddtargettolist.caption
+msgid "Add merged files to system list."
+msgstr ""
+
+#: tfmetkguiactmergegroup.chkremovesource.caption
+msgid "Remove source files and remove them from system list."
+msgstr ""
+
+#: tfmetkguiactmergegroup.gbxsource.caption
+msgctxt "tfmetkguiactmergegroup.gbxsource.caption"
+msgid "Source"
+msgstr ""
+
+#: tfmetkguiactmergegroup.gbxtarget.caption
+msgctxt "tfmetkguiactmergegroup.gbxtarget.caption"
+msgid "Target"
+msgstr ""
+
+#: tfmetkguiactmergegroup.ltargetfolder.caption
+msgid "Target Folder"
+msgstr ""
+
+#: tfmetkguiactmergegroup.rgpformat.caption
+msgid "Output Format"
+msgstr ""
+
+#: tfmetkguifullemueditor.actopenemulatorfolder.caption
+msgid "Open emulator folder"
+msgstr ""
+
+#: tfmetkguifullemueditor.toolbar1.caption
+msgctxt "tfmetkguifullemueditor.toolbar1.caption"
+msgid "ToolBar1"
+msgstr ""
+
+#: tfmetkguifullsofteditor.actaddnewgroup.caption
+msgctxt "tfmetkguifullsofteditor.actaddnewgroup.caption"
+msgid "Add new group"
+msgstr ""
+
+#: tfmetkguifullsofteditor.baddnewgroup.hint
+msgctxt "tfmetkguifullsofteditor.baddnewgroup.hint"
+msgid "Add new group"
+msgstr ""
+
+#: tfmetkguifullsofteditor.gbxgroup.caption
+msgctxt "tfmetkguifullsofteditor.gbxgroup.caption"
+msgid "Group"
+msgstr ""
+
+#: tfmetkguifullsofteditor.gbxsoft.caption
+msgctxt "tfmetkguifullsofteditor.gbxsoft.caption"
+msgid "Software"
+msgstr ""
+
+#: tfmetkguifullsystemeditor.actcreatefolders.caption
+msgid "Create Folders"
+msgstr ""
+
+#: tfmetkguifullsystemeditor.actopensystemfolder.caption
+msgctxt "tfmetkguifullsystemeditor.actopensystemfolder.caption"
+msgid "Open system folder"
+msgstr ""
+
+#: tfmetkguifullsystemeditor.systoolbar.caption
+msgid "SysToolBar"
+msgstr ""
+
+#: tfmetkguifullsystemeditor.toolbutton1.caption
+msgctxt "tfmetkguifullsystemeditor.toolbutton1.caption"
+msgid "ToolButton1"
+msgstr ""
+
+#: tfmetkguifullsystemeditor.toolbutton2.caption
+msgctxt "tfmetkguifullsystemeditor.toolbutton2.caption"
+msgid "ToolButton2"
+msgstr ""
+
+#: tfmetkguimain.bsearch.caption
+msgid "Search"
+msgstr ""
+
+#: tfmetkguimain.ccancelsearch.caption
+msgid "X"
+msgstr ""
+
+#: tfmetkguimain.esearch.texthint
+msgid "Filter by name..."
+msgstr ""
+
+#: tfmetkguimediamanager.actassignfile.caption
+msgid "Assign file"
+msgstr ""
+
+#: tfmetkguimediamanager.actdeleteallfiles.caption
+msgid "Delete all files"
+msgstr ""
+
+#: tfmetkguimediamanager.actdeletefile.caption
+msgid "Delete file"
+msgstr ""
+
+#: tfmetkguimediamanager.actmoveallfiles.caption
+msgid "Move all files..."
+msgstr ""
+
+#: tfmetkguimediamanager.actmovefile.caption
+msgid "Move file..."
+msgstr ""
+
+#: tfmetkguimediamanager.actrenamegroupfile.caption
+msgid "Rename group file..."
+msgstr ""
+
+#: tfmetkguimediamanager.actrenamegroupfilewithfilename.caption
+msgid "Rename group file with current File"
+msgstr ""
+
+#: tfmetkguimediamanager.actrenamegrouptitle.caption
+msgid "Rename group title..."
+msgstr ""
+
+#: tfmetkguimediamanager.actrenamegrouptitlewithfilename.caption
+msgid "Rename group title with current File"
+msgstr ""
+
+#: tfmetkguimediamanager.chkcopyfile.caption
+msgid "Copy file, don't delete source."
+msgstr ""
+
+#: tfmetkguimediamanager.chksimilarfiles.caption
+msgid "Only show similar filenames"
+msgstr ""
+
+#: tfmetkguimediamanager.gbximages.caption
+msgctxt "tfmetkguimediamanager.gbximages.caption"
+msgid "Images"
+msgstr ""
+
+#: tfmetkguimediamanager.gbxmusic.caption
+msgctxt "tfmetkguimediamanager.gbxmusic.caption"
+msgid "Music"
+msgstr ""
+
+#: tfmetkguimediamanager.gbxotherfiles.caption
+msgid "gbxOtherFiles"
+msgstr ""
+
+#: tfmetkguimediamanager.gbxrename.caption
+msgid "Change filename"
+msgstr ""
+
+#: tfmetkguimediamanager.gbxsource.caption
+msgctxt "tfmetkguimediamanager.gbxsource.caption"
+msgid "Source"
+msgstr ""
+
+#: tfmetkguimediamanager.gbxsystem.caption
+msgctxt "tfmetkguimediamanager.gbxsystem.caption"
+msgid "System"
+msgstr ""
+
+#: tfmetkguimediamanager.gbxtarget.caption
+msgctxt "tfmetkguimediamanager.gbxtarget.caption"
+msgid "Target"
+msgstr ""
+
+#: tfmetkguimediamanager.gbxtexts.caption
+msgid "Texts"
+msgstr ""
+
+#: tfmetkguimediamanager.gbxvideos.caption
+msgid "Videos"
+msgstr ""
+
+#: tfmetkguimediamanager.pagallfiles.caption
+msgctxt "tfmetkguimediamanager.pagallfiles.caption"
+msgid "All files"
+msgstr ""
+
+#: tfmetkguimediamanager.pagallgroups.caption
+msgid "All groups"
+msgstr ""
+
+#: tfmetkguimediamanager.pagallsoft.caption
+msgid "All software"
+msgstr ""
+
+#: tfmetkguimediamanager.pagfilesotherfolder.caption
+msgid "Files from other folder"
+msgstr ""
+
+#: tfmetkguimediamanager.pagfileswogroup.caption
+msgid "Files without group"
+msgstr ""
+
+#: tfmetkguimediamanager.pagfileswosoft.caption
+msgid "Files without soft"
+msgstr ""
+
+#: tfmetkguimediamanager.paggroupswofile.caption
+msgid "Groups without file"
+msgstr ""
+
+#: tfmetkguimediamanager.pagotherfiles.caption
+msgid "Other files"
+msgstr ""
+
+#: tfmetkguimediamanager.pagsoftwofile.caption
+msgid "Software without file"
+msgstr ""
+
+#: tfmetkguimediamanager.rgbassignmode.caption
+msgid "Assign Mode"
+msgstr ""
+
+#: tfmetkguimediamanager.sbsource.panels[0].text
+msgctxt "tfmetkguimediamanager.sbsource.panels[0].text"
+msgid "Source"
+msgstr ""
+
+#: tfmetkguimediamanager.sbtarget.panels[0].text
+msgctxt "tfmetkguimediamanager.sbtarget.panels[0].text"
+msgid "Target"
+msgstr ""
+
+#: tfmetkguimediamanager.vstfilesall.header.columns[0].text
+msgctxt "tfmetkguimediamanager.vstfilesall.header.columns[0].text"
+msgid "Filename"
+msgstr ""
+
+#: tfmetkguimediamanager.vstfilesall.header.columns[1].text
+msgctxt "tfmetkguimediamanager.vstfilesall.header.columns[1].text"
+msgid "Extension"
+msgstr ""
+
+#: tfmetkguimediamanager.vstfilesotherext.header.columns[0].text
+msgctxt "tfmetkguimediamanager.vstfilesotherext.header.columns[0].text"
+msgid "Filename"
+msgstr ""
+
+#: tfmetkguimediamanager.vstfilesotherext.header.columns[1].text
+msgctxt "tfmetkguimediamanager.vstfilesotherext.header.columns[1].text"
+msgid "Extension"
+msgstr ""
+
+#: tfmetkguimediamanager.vstfilesotherfolder.header.columns[0].text
+msgctxt "tfmetkguimediamanager.vstfilesotherfolder.header.columns[0].text"
+msgid "Filename"
+msgstr ""
+
+#: tfmetkguimediamanager.vstfilesotherfolder.header.columns[1].text
+msgctxt "tfmetkguimediamanager.vstfilesotherfolder.header.columns[1].text"
+msgid "Extension"
+msgstr ""
+
+#: tfmetkguimediamanager.vstfileswogroup.header.columns[0].text
+msgctxt "tfmetkguimediamanager.vstfileswogroup.header.columns[0].text"
+msgid "Filename"
+msgstr ""
+
+#: tfmetkguimediamanager.vstfileswogroup.header.columns[1].text
+msgctxt "tfmetkguimediamanager.vstfileswogroup.header.columns[1].text"
+msgid "Extension"
+msgstr ""
+
+#: tfmetkguimediamanager.vstfileswosoft.header.columns[0].text
+msgctxt "tfmetkguimediamanager.vstfileswosoft.header.columns[0].text"
+msgid "Filename"
+msgstr ""
+
+#: tfmetkguimediamanager.vstfileswosoft.header.columns[1].text
+msgctxt "tfmetkguimediamanager.vstfileswosoft.header.columns[1].text"
+msgid "Extension"
+msgstr ""
+
+#: tfmetkguimediamanager.vstgroupsall.header.columns[0].text
+msgctxt "tfmetkguimediamanager.vstgroupsall.header.columns[0].text"
+msgid "Group"
+msgstr ""
+
+#: tfmetkguimediamanager.vstgroupsall.header.columns[1].text
+msgctxt "tfmetkguimediamanager.vstgroupsall.header.columns[1].text"
+msgid "File"
+msgstr ""
+
+#: tfmetkguimediamanager.vstgroupswofile.header.columns[0].text
+msgctxt "tfmetkguimediamanager.vstgroupswofile.header.columns[0].text"
+msgid "Group"
+msgstr ""
+
+#: tfmetkguimediamanager.vstgroupswofile.header.columns[1].text
+msgctxt "tfmetkguimediamanager.vstgroupswofile.header.columns[1].text"
+msgid "File"
+msgstr ""
+
+#: tfmetkguimediamanager.vstsoftall.header.columns[0].text
+msgctxt "tfmetkguimediamanager.vstsoftall.header.columns[0].text"
+msgid "Game"
+msgstr ""
+
+#: tfmetkguimediamanager.vstsoftall.header.columns[1].text
+msgctxt "tfmetkguimediamanager.vstsoftall.header.columns[1].text"
+msgid "Group"
+msgstr ""
+
+#: tfmetkguimediamanager.vstsoftall.header.columns[2].text
+msgctxt "tfmetkguimediamanager.vstsoftall.header.columns[2].text"
+msgid "File"
+msgstr ""
+
+#: tfmetkguimediamanager.vstsoftwofile.header.columns[0].text
+msgctxt "tfmetkguimediamanager.vstsoftwofile.header.columns[0].text"
+msgid "Game"
+msgstr ""
+
+#: tfmetkguimediamanager.vstsoftwofile.header.columns[1].text
+msgctxt "tfmetkguimediamanager.vstsoftwofile.header.columns[1].text"
+msgid "Group"
+msgstr ""
+
+#: tfmetkguimediamanager.vstsoftwofile.header.columns[2].text
+msgctxt "tfmetkguimediamanager.vstsoftwofile.header.columns[2].text"
+msgid "File"
+msgstr ""
+
+#: tfmetkguisoftimgpreview.gbxpanel.caption
+msgid "Image"
+msgstr ""
+
+#: tfmetkguisoftmedia.actaddimagepanel.caption
+msgid "Add image panel"
+msgstr ""
+
+#: tfmetkguisoftmedia.actaddmusicpanel.caption
+msgid "Add music panel"
+msgstr ""
+
+#: tfmetkguisoftmedia.actaddtextpanel.caption
+msgid "Add text panel"
+msgstr ""
+
+#: tfmetkguisoftmedia.actaddvideopanel.caption
+msgid "actAddVideoPanel"
+msgstr ""
+
+#: tfmetkguisoftmedia.actclearpanels.caption
+msgid "Clear panels"
+msgstr ""
+
+#: tfmetkguisoftmedia.actclearpanels.hint
+msgid "Remove all panels."
+msgstr ""
+
+#: tfmetkguisoftmedia.acticonlogofilter.caption
+msgid "Filter Icon && Logo images"
+msgstr ""
+
+#: tfmetkguisoftmedia.piconlogo.caption
+msgid "Icon && Logo"
+msgstr ""
+
+#: tfmetkguisoftmedia.tbsoftmediapanel.caption
+msgid "tbSoftMediaPanel"
+msgstr ""
+
+#: tfmetkguisoftmedia.toolbutton1.caption
+msgctxt "tfmetkguisoftmedia.toolbutton1.caption"
+msgid "ToolButton1"
+msgstr ""
+
+#: tfmetkguisoftmusicpreview.gbxpanel.caption
+msgctxt "tfmetkguisoftmusicpreview.gbxpanel.caption"
+msgid "Music"
+msgstr ""
+
+#: tfmetkguisofttxtpreview.gbxpanel.caption
+msgid "Text"
+msgstr ""
+
+#: tfmetkguisoftvideopreview.gbxpanel.caption
+msgid "Video"
+msgstr ""
+
+#: tfmetkguisysmanager.actexportlist.hint
+msgid "Exports the system list with no user data to a file."
+msgstr ""
+
+#: tfmetkguisysmanager.actimportlist.hint
+msgid "Imports data for systems from file (It doesn't add new ones)."
+msgstr ""
+
+#: tfmetkguisyspreview.actopensystemfolder.caption
+msgctxt "tfmetkguisyspreview.actopensystemfolder.caption"
+msgid "Open system folder"
+msgstr ""
+
+#: tfmetkguisyspreview.actopensystemfolder.hint
+msgid "Open system folder|Opens the system base folder"
+msgstr ""
+
+#: tfmetkguisyspreview.eemulasttime.texthint
+msgctxt "tfmetkguisyspreview.eemulasttime.texthint"
+msgid "Last time played"
+msgstr ""
+
+#: tfmetkguisyspreview.eemuntimes.texthint
+msgctxt "tfmetkguisyspreview.eemuntimes.texthint"
+msgid "# Times"
+msgstr ""
+
+#: tfmetkguisyspreview.eemuplayedtime.texthint
+msgctxt "tfmetkguisyspreview.eemuplayedtime.texthint"
+msgid "Played Time"
+msgstr ""
+
+#: tfmetkguisyspreview.esyslasttime.texthint
+msgctxt "tfmetkguisyspreview.esyslasttime.texthint"
+msgid "Last time played"
+msgstr ""
+
+#: tfmetkguisyspreview.esysngroups.texthint
+msgid "# Groups"
+msgstr ""
+
+#: tfmetkguisyspreview.esysnsoft.texthint
+msgid "# Software"
+msgstr ""
+
+#: tfmetkguisyspreview.esysntimes.texthint
+msgctxt "tfmetkguisyspreview.esysntimes.texthint"
+msgid "# Times"
+msgstr ""
+
+#: tfmetkguisyspreview.esysplayedtime.texthint
+msgctxt "tfmetkguisyspreview.esysplayedtime.texthint"
+msgid "Played Time"
+msgstr ""
+
+#: tfmetkguisyspreview.gbxemulator.caption
+msgid "Current emulator"
+msgstr ""
+
+#: tfmetkguisyspreview.gbxstats.caption
+msgid "Stats"
+msgstr ""
+
+#: tfmetkguisyspreview.lsystemtitle.caption
+msgctxt "tfmetkguisyspreview.lsystemtitle.caption"
+msgid "System"
+msgstr ""
+
+#: tfmetkguisyspreview.toolbar1.caption
+msgctxt "tfmetkguisyspreview.toolbar1.caption"
+msgid "ToolBar1"
+msgstr ""
+
+#: tfmsmaskmultifile.actaddfiles.caption
+msgid "Add files"
+msgstr ""
+
+#: tfmsmaskmultifile.actmovefiledown.caption
+msgid "Move file down"
+msgstr ""
+
+#: tfmsmaskmultifile.actmovefileup.caption
+msgid "Move file up"
+msgstr ""
+
+#: tfmsmaskmultifile.actremovefiles.caption
+msgid "Remove files"
+msgstr ""
+
+#: tfmsmaskmultifile.actsortfilelist.caption
+msgid "Sort file list"
+msgstr ""
+
+#: tfmsmaskmultifile.gbxselectfiles.caption
+msgid "Select file(s)"
+msgstr ""
+
+#: tfmsmaskmultifile.toolbar1.caption
+msgctxt "tfmsmaskmultifile.toolbar1.caption"
+msgid "ToolBar1"
+msgstr ""
+
+#: tfmsmaskmultifile.toolbutton1.caption
+msgctxt "tfmsmaskmultifile.toolbutton1.caption"
+msgid "ToolButton1"
+msgstr ""
+
+#: tfmsmaskmultifile.toolbutton3.caption
+msgctxt "tfmsmaskmultifile.toolbutton3.caption"
+msgid "ToolButton3"
+msgstr ""
+
+#: tfrmchxform.caption
+msgid "frmCHXForm"
+msgstr ""
+
+#: tfrmetkguimain.actaddfolder.caption
+msgid "Scan files from folder..."
+msgstr ""
+
+#: tfrmetkguimain.actaddfolder.hint
+msgid "Scan files from folder...|Open form to add software from a folder."
+msgstr ""
+
+#: tfrmetkguimain.actaddsoft.caption
+msgid "Add Software..."
+msgstr ""
+
+#: tfrmetkguimain.actaddsoft.hint
+msgid "Add Software...|Open form to add a software file."
+msgstr ""
+
+#: tfrmetkguimain.actautosave.caption
+msgid "+Save on Exit"
+msgstr ""
+
+#: tfrmetkguimain.actautosave.hint
+msgid "Save lists on Exit.|Autosave software lists on exit."
+msgstr ""
+
+#: tfrmetkguimain.actcleansystemdata.caption
+msgid "Clean system data"
+msgstr ""
+
+#: tfrmetkguimain.actcleansystemdata.hint
+msgid "Clean current system data|Cleans current system soft not found and groups without soft"
+msgstr ""
+
+#: tfrmetkguimain.acteditemulator.caption
+msgid "Edit emulator..."
+msgstr ""
+
+#: tfrmetkguimain.acteditemulator.hint
+msgid "Edit emulator...|Open editor for current emulator."
+msgstr ""
+
+#: tfrmetkguimain.acteditsystem.caption
+msgid "Edit system..."
+msgstr ""
+
+#: tfrmetkguimain.acteditsystem.hint
+msgid "Edit system...|Open current system editor."
+msgstr ""
+
+#: tfrmetkguimain.actemulatormanager.caption
+msgid "Emulator Manager..."
+msgstr ""
+
+#: tfrmetkguimain.actemulatormanager.hint
+msgid "Emulator Manager...|Open Emulator Manager."
+msgstr ""
+
+#: tfrmetkguimain.actexportsoftdata.caption
+msgid "Export software data..."
+msgstr ""
+
+#: tfrmetkguimain.actexportsoftdata.hint
+msgid "Export software data...|Open form to export software data."
+msgstr ""
+
+#: tfrmetkguimain.actimportsoftdata.caption
+msgid "Import software data..."
+msgstr ""
+
+#: tfrmetkguimain.actimportsoftdata.hint
+msgid "Import software data...|Open form to import software data."
+msgstr ""
+
+#: tfrmetkguimain.actmediamanager.caption
+msgid "Media Manager..."
+msgstr ""
+
+#: tfrmetkguimain.actmediamanager.hint
+msgid "Media Manager...|Open Media Manager."
+msgstr ""
+
+#: tfrmetkguimain.actmergegroupfiles.caption
+msgid "Merge group files..."
+msgstr ""
+
+#: tfrmetkguimain.actmergegroupfiles.hint
+msgid "Merge group files...|Open form to merge current group's sofware in same compressed file."
+msgstr ""
+
+#: tfrmetkguimain.actopen7zcachefolder.caption
+msgid "Open 7z cache folder..."
+msgstr ""
+
+#: tfrmetkguimain.actopen7zcachefolder.hint
+msgid "Open 7z caché folder...|Open 7z caché folder."
+msgstr ""
+
+#: tfrmetkguimain.actopenemulatorfolder.caption
+msgid "Open emulator folder..."
+msgstr ""
+
+#: tfrmetkguimain.actopenemulatorfolder.hint
+msgid "Open emulator folder...|Open current emulator folder."
+msgstr ""
+
+#: tfrmetkguimain.actopenemulatorweb.caption
+msgid "Open emulator website..."
+msgstr ""
+
+#: tfrmetkguimain.actopenemutecafolder.caption
+msgid "Open Emuteca's folder..."
+msgstr ""
+
+#: tfrmetkguimain.actopenemutecafolder.hint
+msgid "Open Emuteca's folder...|Open Emuteca's program folder."
+msgstr ""
+
+#: tfrmetkguimain.actopensoftfolder.caption
+msgid "Open software folder..."
+msgstr ""
+
+#: tfrmetkguimain.actopensoftfolder.hint
+msgid "Open software folder...|Open current software folder."
+msgstr ""
+
+#: tfrmetkguimain.actopensystembasefolder.caption
+msgid "Open system base folder..."
+msgstr ""
+
+#: tfrmetkguimain.actopensystembasefolder.hint
+msgid "Open system base folder...|Open current system base folder."
+msgstr ""
+
+#: tfrmetkguimain.actopentempfolder.caption
+msgid "Open Emuteca's Temp folder..."
+msgstr ""
+
+#: tfrmetkguimain.actopentempfolder.hint
+msgid "Open Emuteca's Temp folder...|Open Emuteca's temporal folder."
+msgstr ""
+
+#: tfrmetkguimain.actremovesoft.caption
+msgid "Remove software from list"
+msgstr ""
+
+#: tfrmetkguimain.actrunemulatoralone.caption
+msgid "Run emulator alone."
+msgstr ""
+
+#: tfrmetkguimain.actrunsoftware.caption
+msgid "Run software"
+msgstr ""
+
+#: tfrmetkguimain.actrunsoftware.hint
+msgid "Run software.|Run current software."
+msgstr ""
+
+#: tfrmetkguimain.actsavelists.caption
+msgid "Save Lists"
+msgstr ""
+
+#: tfrmetkguimain.actsavelists.hint
+msgid "Save Lists.|Saves loaded sofware lists."
+msgstr ""
+
+#: tfrmetkguimain.actscriptmanager.caption
+msgid "Script Manager..."
+msgstr ""
+
+#: tfrmetkguimain.actscriptmanager.hint
+msgid "Script Manager...|Open Script Manager."
+msgstr ""
+
+#: tfrmetkguimain.actsystemmanager.caption
+msgid "System Manager..."
+msgstr ""
+
+#: tfrmetkguimain.actsystemmanager.hint
+msgid "System Manager...|Open System Manager."
+msgstr ""
+
+#: tfrmetkguimain.actupdategrouplist.caption
+msgid "Update group list"
+msgstr ""
+
+#: tfrmetkguimain.actupdategrouplist.hint
+msgid "Update group list.|Reload group list to update changes."
+msgstr ""
+
+#: tfrmetkguimain.caption
+msgid "Main"
+msgstr ""
+
+#: tfrmetkguimain.fileexit1.caption
+msgid "Exit"
+msgstr ""
+
+#: tfrmetkguimain.fileexit1.hint
+msgid "Exit.|Exits Emuteca."
+msgstr ""
+
+#: tfrmetkguimain.helponhelp1.caption
+msgid "About Emuteca..."
+msgstr ""
+
+#: tfrmetkguimain.helponhelp1.hint
+msgid "About Emuteca...|Help about Emuteca."
+msgstr ""
+
+#: tfrmetkguimain.mimmaddfiles.caption
+msgid "Add files..."
+msgstr ""
+
+#: tfrmetkguimain.mimmdebug.caption
+msgid "Debug"
+msgstr ""
+
+#: tfrmetkguimain.mimmemulator.caption
+msgid "Emulator"
+msgstr ""
+
+#: tfrmetkguimain.mimmfile.caption
+msgctxt "tfrmetkguimain.mimmfile.caption"
+msgid "File"
+msgstr ""
+
+#: tfrmetkguimain.mimmgroup.caption
+msgctxt "tfrmetkguimain.mimmgroup.caption"
+msgid "Group"
+msgstr ""
+
+#: tfrmetkguimain.mimmhelp.caption
+msgid "Help"
+msgstr ""
+
+#: tfrmetkguimain.mimmimportexport.caption
+msgid "Import/Export data"
+msgstr ""
+
+#: tfrmetkguimain.mimmmanagers.caption
+msgid "Managers"
+msgstr ""
+
+#: tfrmetkguimain.mimmsearchinternete.caption
+msgid "Search emulator in Internet"
+msgstr ""
+
+#: tfrmetkguimain.mimmsearchinternets.caption
+msgid "Search system in Internet"
+msgstr ""
+
+#: tfrmetkguimain.mimmsoft.caption
+msgctxt "tfrmetkguimain.mimmsoft.caption"
+msgid "Software"
+msgstr ""
+
+#: tfrmetkguimain.mimmsystem.caption
+msgctxt "tfrmetkguimain.mimmsystem.caption"
+msgid "System"
+msgstr ""
+
+#: tfrmetkguimain.mipmgsearchinternet.caption
+msgid "Search in Internet"
+msgstr ""
+
+#: ucchxscriptengine.rsseecompilationmsg
+msgid "Compiling."
+msgstr ""
+
+#: ucchxscriptengine.rsseeexecutionmsg
+msgid "Executing."
+msgstr ""
+
+#: ucchxscriptengine.rsseelerror
+msgid "Error"
+msgstr ""
+
+#: ucchxscriptengine.rsseelinfo
+msgid "Info"
+msgstr ""
+
+#: ucchxscriptengine.rsseelok
+msgctxt "ucchxscriptengine.rsseelok"
+msgid "OK"
+msgstr ""
+
+#: ucchxscriptengine.rsseelwarning
+msgctxt "ucchxscriptengine.rsseelwarning"
+msgid "Warning"
+msgstr ""
+
+#: ucchxscriptengine.rssemsgformat
+#, object-pascal-format
+msgid "[%0:s](%1:.4d:%2:.4d): %3:s"
+msgstr ""
+
+#: uchx7zwrapper.rsw7zerrorline
+#, object-pascal-format
+msgid "%0:s - %1:s: %2:s"
+msgstr ""
+
+#: uchx7zwrapper.rsw7zexeerror
+#, object-pascal-format
+msgid ""
+"7z.exe/7zG.exe error %1:d exit code.\n"
+"File: \"%0:s\""
+msgstr ""
+
+#: uchx7zwrapper.rsw7zexewarning
+#, object-pascal-format
+msgid ""
+"7z.exe/7zG.exe warning %1:d exit code.\n"
+"File: \"%0:s\""
+msgstr ""
+
+#: uchx7zwrapper.rsw7zfilenotfound
+#, object-pascal-format
+msgid "\"%0:s\" file not found."
+msgstr ""
+
+#: uchx7zwrapper.rsw7znocrc32
+#, object-pascal-format
+msgid "Error extracting CRC32: \"%0:s\""
+msgstr ""
+
+#: uchxrscstr.rscuexcalreadyexists
+#, object-pascal-format
+msgid "\"%0:s\" already exists."
+msgstr ""
+
+#: uchxrscstr.rscuexccardrange
+#, object-pascal-format
+msgid "\"%0:d\" is not in cardinal range."
+msgstr ""
+
+#: uchxrscstr.rscuexcnilparameter
+#, object-pascal-format
+msgid "%0:s: %1:s parameter (%2:s) = nil"
+msgstr ""
+
+#: uchxrscstr.rsenotfilename
+#, object-pascal-format
+msgid "%0:s: Not defined filename"
+msgstr ""
+
+#: uemutecarscstr.rschooseimagefileformat
+msgid ""
+"Do you want to save it in a lossless format?\n"
+"YES -> .png (lossless, for screenshots)\n"
+"NO -> .jpg (better for photographs or scans)"
+msgstr ""
+
+#: uemutecarscstr.rscleaningsystemdata
+msgid "Cleaning system data..."
+msgstr ""
+
+#: uemutecarscstr.rsconfirmoverwritefile
+#, object-pascal-format
+msgid ""
+"%0:s\n"
+"The file already exists.\n"
+"Do you want overwrite it?"
+msgstr ""
+
+#: uemutecarscstr.rscorfirmdeletefile
+#, object-pascal-format
+msgid ""
+"%0:s\n"
+"Do you want to delete this file?"
+msgstr ""
+
+#: uemutecarscstr.rsedsalternate
+msgid "Alternate"
+msgstr ""
+
+#: uemutecarscstr.rsedsbaddump
+msgid "BadDump"
+msgstr ""
+
+#: uemutecarscstr.rsedsgood
+msgid "GoodDump"
+msgstr ""
+
+#: uemutecarscstr.rsedskeepvalue
+msgid "Keep value"
+msgstr ""
+
+#: uemutecarscstr.rsedsoverdump
+msgid "OverDump"
+msgstr ""
+
+#: uemutecarscstr.rsedsunderdump
+msgid "UnderDump"
+msgstr ""
+
+#: uemutecarscstr.rsedsunknown
+msgctxt "uemutecarscstr.rsedsunknown"
+msgid "Unknown"
+msgstr ""
+
+#: uemutecarscstr.rsedsverified
+msgid "Verified"
+msgstr ""
+
+#: uemutecarscstr.rserrordeletingfile
+#, object-pascal-format
+msgid ""
+"Error deleting:\n"
+"%0:s"
+msgstr ""
+
+#: uemutecarscstr.rsexportingemulatorlist
+msgid "Exporting emulator list..."
+msgstr ""
+
+#: uemutecarscstr.rsexportinggrouplist
+msgid "Exporting group list..."
+msgstr ""
+
+#: uemutecarscstr.rsexportingnosha1
+#, object-pascal-format
+msgid ""
+"Warning: We can't export because not all files have SHA1 cached.\n"
+"(%2:d/%3:d) %0:s%1:s"
+msgstr ""
+
+#: uemutecarscstr.rsexportingsoftlist
+msgid "Exporting soft list..."
+msgstr ""
+
+#: uemutecarscstr.rsexportingsystemlist
+msgid "Exporting system list..."
+msgstr ""
+
+#: uemutecarscstr.rsfilealreadyadded
+msgid "This file is already added."
+msgstr ""
+
+#: uemutecarscstr.rsfilemaskdescgroup
+msgid "Group list files  (*.egl)"
+msgstr ""
+
+#: uemutecarscstr.rsfilemaskdescini
+msgid "Database files (*.ini)"
+msgstr ""
+
+#: uemutecarscstr.rsfilemaskdescscript
+msgid "Script files (*.pas)"
+msgstr ""
+
+#: uemutecarscstr.rsfilemaskdescsoft
+msgid "Soft list files  (*.csv)"
+msgstr ""
+
+#: uemutecarscstr.rsfilemaskdesctxt
+msgid "Text files (*.txt)"
+msgstr ""
+
+#: uemutecarscstr.rsfmtngroups
+#, object-pascal-format
+msgid "%0:d groups"
+msgstr ""
+
+#: uemutecarscstr.rsfmtnitems
+#, object-pascal-format
+msgid "%0:d items."
+msgstr ""
+
+#: uemutecarscstr.rsfmtntimes
+#, object-pascal-format
+msgid "%0:d times."
+msgstr ""
+
+#: uemutecarscstr.rsfmtnversions
+#, object-pascal-format
+msgid "%0:d versions."
+msgstr ""
+
+#: uemutecarscstr.rsimportingemulatorlist
+msgid "Importing emulator list..."
+msgstr ""
+
+#: uemutecarscstr.rsimportinggrouplist
+msgid "Importing group list..."
+msgstr ""
+
+#: uemutecarscstr.rsimportingnosha1
+#, object-pascal-format
+msgid ""
+"Warning: Some info could not be imported because some files haven't got SHA1 cached.\n"
+"(%2:d/%3:d) %0:s%1:s"
+msgstr ""
+
+#: uemutecarscstr.rsimportingsoftlist
+msgid "Importing soft list..."
+msgstr ""
+
+#: uemutecarscstr.rsimportingsystemlist
+msgid "Importing system list..."
+msgstr ""
+
+#: uemutecarscstr.rsloadingemulatorlist
+msgid "Loading emulator list..."
+msgstr ""
+
+#: uemutecarscstr.rsloadinggrouplist
+msgid "Loading group list..."
+msgstr ""
+
+#: uemutecarscstr.rsloadingsoftlist
+msgid "Loading soft list..."
+msgstr ""
+
+#: uemutecarscstr.rsloadingsystemlist
+msgid "Loading system list..."
+msgstr ""
+
+#: uemutecarscstr.rsnever
+msgid "Never"
+msgstr ""
+
+#: uemutecarscstr.rssavingemulatorlist
+msgid "Saving emulator list..."
+msgstr ""
+
+#: uemutecarscstr.rssavinggrouplist
+msgid "Saving group list..."
+msgstr ""
+
+#: uemutecarscstr.rssavingsoftlist
+msgid "Saving soft list..."
+msgstr ""
+
+#: uemutecarscstr.rssavingsystemlist
+msgid "Saving system list..."
+msgstr ""
+
+#: uemutecarscstr.rsunknown
+msgctxt "uemutecarscstr.rsunknown"
+msgid "Unknown"
+msgstr ""
+
+#: uetkguirscstr.rsadvancedcaption
+msgid "Advanced"
+msgstr ""
+
+#: uetkguirscstr.rsaskdeleteitem
+#, object-pascal-format
+msgid ""
+"Do you want to delete this item from Emuteca?\n"
+"%0:s"
+msgstr ""
+
+#: uetkguirscstr.rsaskrenamegroupfile
+msgid "Rename group media filename?"
+msgstr ""
+
+#: uetkguirscstr.rsautofolderwarning
+#, object-pascal-format
+msgid ""
+"This action will:\n"
+"* Save current system data.\n"
+"* Create many folders in \"%0:s\".\n"
+"* Change all defined image, music, video folders with created ones.\n"
+"\n"
+"¿Are you sure?"
+msgstr ""
+
+#: uetkguirscstr.rsbasiccaption
+msgid "Basic"
+msgstr ""
+
+#: uetkguirscstr.rsdeveloper
+msgctxt "uetkguirscstr.rsdeveloper"
+msgid "Developer"
+msgstr ""
+
+#: uetkguirscstr.rsemuwebempty
+msgid "Emulator's webpage not configured"
+msgstr ""
+
+#: uetkguirscstr.rsetkguiconfigtitle
+msgid "Config Editor"
+msgstr ""
+
+#: uetkguirscstr.rsetkguiemueditortitle
+msgid "Emulator Editor"
+msgstr ""
+
+#: uetkguirscstr.rsetkguisystemeditortitle
+msgid "System Editor"
+msgstr ""
+
+#: uetkguirscstr.rsfilename
+msgctxt "uetkguirscstr.rsfilename"
+msgid "Filename"
+msgstr ""
+
+#: uetkguirscstr.rsfmtapplicationtitle
+#, object-pascal-format
+msgid "%0:s %1:s"
+msgstr ""
+
+#: uetkguirscstr.rsfmtnotfound
+#, object-pascal-format
+msgid ""
+"Not Found.\n"
+"\n"
+"Current folder: %0:s\n"
+"Searched file: %1:s"
+msgstr ""
+
+#: uetkguirscstr.rsgamekey
+msgid "Key"
+msgstr ""
+
+#: uetkguirscstr.rspublisher
+msgctxt "uetkguirscstr.rspublisher"
+msgid "Publisher"
+msgstr ""
+
+#: uetkguirscstr.rsrenamegrouptitlecaption
+msgid "Rename group title:"
+msgstr ""
+
+#: uetkguirscstr.rsrunsoftware7zerror
+msgid "TfmLEmuTKMain.RunSoftware: Unknown decompress error."
+msgstr ""
+
+#: uetkguirscstr.rsrunsoftwareexitcode
+#, object-pascal-format
+msgid "TfmLEmuTKMain.RunSoftware: Emulator returned: %0:d"
+msgstr ""
+
+#: uetkguirscstr.rsrunsoftwarenoemu
+#, object-pascal-format
+msgid ""
+"RunSoftware: Emulator = nil.\n"
+"%0:s\n"
+"%1:s"
+msgstr ""
+
+#: uetkguirscstr.rsrunsoftwarenoemuexe
+msgid "RunSoftware: Emulator executable not found"
+msgstr ""
+
+#: uetkguirscstr.rsrunsoftwarenosoft
+msgid "RunSoftware: Software = nil."
+msgstr ""
+
+#: uetkguirscstr.rsrunsoftwarenosoftfile
+#, object-pascal-format
+msgid ""
+"RunSoftware: Soft file not found.\n"
+"%0:s\n"
+"%1:s"
+msgstr ""
+
+#: uetkguirscstr.rsrunsoftwareunkerror
+#, object-pascal-format
+msgid ""
+"RunSoftware: Unknown Error.\n"
+"%0:s\n"
+"%1:s"
+msgstr ""
+
+#: uetkguirscstr.rssofteditorcaption
+msgid "Soft Editor"
+msgstr ""
+
+#: uetkguirscstr.rssoftmediacaption
+msgid "Soft Media"
+msgstr ""
+
+#: uetkguirscstr.rssystemcaption
+msgctxt "uetkguirscstr.rssystemcaption"
+msgid "System"
+msgstr ""
+
+#: uetkguirscstr.rstagscaption
+msgid "Tags"
+msgstr ""
+
+#: uetkguirscstr.rsversion
+msgctxt "uetkguirscstr.rsversion"
+msgid "Version"
+msgstr ""
+
+#: uetkguirscstr.rswarning
+msgctxt "uetkguirscstr.rswarning"
+msgid "Warning"
+msgstr ""
+
+#: uetkguirscstr.rszones
+msgid "Zones"
+msgstr ""
+
+#: ufchxchklstpropeditor.rsleclpesavelist
+msgid "Save list"
+msgstr ""
+
+#: ufchximglistpreview.rsimageprops
+#, object-pascal-format
+msgid "%2:s: %0:d x %1:d"
+msgstr ""
+
+#: ufchximglistpreview.rsnoimageloaded
+msgid "No image loaded."
+msgstr ""
+
+#: ufchxlistpreview.rstotalitemscount
+#, object-pascal-format
+msgid " / %0:d"
+msgstr ""
+
+#: ufchxprogressbar.rschxpbarlogline
+#, object-pascal-format
+msgid "%0:s - %2:s (%1:s)"
+msgstr ""
+
+#: ufchxprogressbar.rsestimatedtime
+#, object-pascal-format
+msgid "%0:s (Left: %1:s)"
+msgstr ""
+
+#: ufchxprogressbar.rsestimatedtime0
+msgid "Estimated Time to Finish: Unknown"
+msgstr ""
+
+#: ufchxprogressbar.rsprogressbartitle
+msgid "Please Wait..."
+msgstr ""
+
+#: ufchxscriptmanager.rsfsmallfilesmaskdesc
+msgctxt "ufchxscriptmanager.rsfsmallfilesmaskdesc"
+msgid "All files"
+msgstr ""
+
+#: ufchxscriptmanager.rsfsmasksavechanges
+#, object-pascal-format
+msgid ""
+"The sourcefile has changed.\n"
+"Save?\n"
+"%s"
+msgstr ""
+
+#: ufchxscriptmanager.rsfsmfilesaved
+#, object-pascal-format
+msgid "File saved: %s"
+msgstr ""
+
+#: ufchxscriptmanager.rsfsmscriptfilemaskdesc
+msgid "Pascal script file"
+msgstr ""
+
+#: ufemutecasystemcbx.rsallsystems
+msgid "All Systems"
+msgstr ""
+
+#: ufemutecasystemcbx.rsselectsystem
+msgctxt "ufemutecasystemcbx.rsselectsystem"
+msgid "Select a System"
+msgstr ""
+
+#: ufemutecatagtree.rsaskdelete
+#, object-pascal-format
+msgid ""
+"Do you want to delete?\n"
+"%0:s"
+msgstr ""
+
+#: ufemutecatagtree.rscaptiondeletefile
+msgid "Delete File?"
+msgstr ""
+
+#: ufemutecatagtree.rscaptiondeletefolder
+msgid "Delete Folder?"
+msgstr ""
+
+#: ufemutecatagtree.rscaptionfoldername
+msgid "Folder Name"
+msgstr ""
+
+#: ufemutecatagtree.rscaptiontagsfile
+msgid "Tags File"
+msgstr ""
+
+#: ufemutecatagtree.rsdefaultfilename
+msgctxt "ufemutecatagtree.rsdefaultfilename"
+msgid "Filename"
+msgstr ""
+
+#: ufemutecatagtree.rsdefaultfoldername
+msgctxt "ufemutecatagtree.rsdefaultfoldername"
+msgid "Folder"
+msgstr ""
+
+#: ufemutecatagtree.rswritefoldername
+msgid "Write the folder name"
+msgstr ""
+
+#: ufemutecatagtree.rswritenewtagname
+msgid "Write the new tag name"
+msgstr ""
+
+#: ufemutecatagtree.rswritetagname
+msgid "Write the tag name"
+msgstr ""
+
+#: ufetkguiemumanager.rsemulatorname
+msgid "Emulator name."
+msgstr ""
+
+#: ufetkguisysmanager.rssystemnamemodel
+msgid "System name [Company: Model (extra)]."
+msgstr ""
+

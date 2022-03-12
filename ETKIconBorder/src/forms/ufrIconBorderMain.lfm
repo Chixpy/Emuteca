@@ -10,7 +10,7 @@ object frmIconBorder: TfrmIconBorder
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   Position = poMainFormCenter
-  LCLVersion = '2.0.10.0'
+  LCLVersion = '2.2.0.4'
   object gbxInputImage: TGroupBox
     Left = 222
     Height = 691
@@ -23,13 +23,13 @@ object frmIconBorder: TfrmIconBorder
     TabOrder = 2
     object sbxInputImage: TScrollBox
       Left = 0
-      Height = 543
-      Top = 123
+      Height = 494
+      Top = 172
       Width = 584
       HorzScrollBar.Page = 1
       VertScrollBar.Page = 1
       Align = alClient
-      ClientHeight = 539
+      ClientHeight = 490
       ClientWidth = 580
       TabOrder = 0
       object pbxInputImage: TPaintBox
@@ -47,18 +47,18 @@ object frmIconBorder: TfrmIconBorder
     end
     object pToolsInput: TPanel
       Left = 0
-      Height = 123
+      Height = 172
       Top = 0
       Width = 584
       Align = alTop
       AutoSize = True
       BevelOuter = bvNone
-      ClientHeight = 123
+      ClientHeight = 172
       ClientWidth = 584
       TabOrder = 1
       object gbxZoomInput: TGroupBox
         Left = 468
-        Height = 123
+        Height = 172
         Top = 0
         Width = 116
         Align = alRight
@@ -71,7 +71,7 @@ object frmIconBorder: TfrmIconBorder
         ChildSizing.ShrinkHorizontal = crsHomogenousChildResize
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 1
-        ClientHeight = 98
+        ClientHeight = 147
         ClientWidth = 112
         TabOrder = 1
         object lZoomInput: TLabel
@@ -84,7 +84,6 @@ object frmIconBorder: TfrmIconBorder
           Constraints.MinHeight = 22
           Font.Height = 8
           Layout = tlCenter
-          ParentColor = False
           ParentFont = False
           OptimalFill = True
         end
@@ -145,7 +144,7 @@ object frmIconBorder: TfrmIconBorder
       end
       object pgcImageInput: TPageControl
         Left = 0
-        Height = 123
+        Height = 172
         Top = 0
         Width = 468
         ActivePage = pagFillInput
@@ -266,7 +265,7 @@ object frmIconBorder: TfrmIconBorder
         end
         object pagSelectInput: TTabSheet
           Caption = 'Select'
-          ClientHeight = 90
+          ClientHeight = 139
           ClientWidth = 460
           object bCutSelectionInput: TButton
             Left = 8
@@ -289,7 +288,7 @@ object frmIconBorder: TfrmIconBorder
         end
         object pagPaintInput: TTabSheet
           Caption = 'Paint'
-          ClientHeight = 90
+          ClientHeight = 139
           ClientWidth = 460
           object bColorPaintInput: TColorButton
             Left = 8
@@ -316,7 +315,6 @@ object frmIconBorder: TfrmIconBorder
             Top = 4
             Width = 72
             Caption = 'Paint Color'
-            ParentColor = False
           end
           object lOpacityPaintInput: TLabel
             Left = 112
@@ -324,12 +322,11 @@ object frmIconBorder: TfrmIconBorder
             Top = 4
             Width = 87
             Caption = 'Paint Opacity'
-            ParentColor = False
           end
         end
         object pagFillInput: TTabSheet
           Caption = 'Fill'
-          ClientHeight = 90
+          ClientHeight = 139
           ClientWidth = 460
           object chkDiagonalNeightbours: TCheckBox
             Left = 8
@@ -366,7 +363,6 @@ object frmIconBorder: TfrmIconBorder
             Top = 4
             Width = 59
             Caption = 'Fill Color'
-            ParentColor = False
           end
           object lOpacityFillInput: TLabel
             Left = 101
@@ -374,7 +370,6 @@ object frmIconBorder: TfrmIconBorder
             Top = 4
             Width = 74
             Caption = 'Fill Opacity'
-            ParentColor = False
           end
           object lToleranceFillInput: TLabel
             Left = 208
@@ -382,7 +377,6 @@ object frmIconBorder: TfrmIconBorder
             Top = 4
             Width = 64
             Caption = 'Tolerance'
-            ParentColor = False
           end
           object eToleranceFillInput: TSpinEdit
             Left = 208
@@ -638,7 +632,6 @@ object frmIconBorder: TfrmIconBorder
           Constraints.MinHeight = 22
           Font.Height = 8
           Layout = tlCenter
-          ParentColor = False
           ParentFont = False
           OptimalFill = True
         end

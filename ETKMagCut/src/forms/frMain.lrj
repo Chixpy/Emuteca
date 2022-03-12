@@ -1,0 +1,10 @@
+{"version":1,"strings":[
+{"hash":61934978,"name":"tfrmetkmagazinecutter.caption","sourcebytes":[69,84,75,32,77,97,103,97,122,105,110,101,32,67,117,116,116,101,114],"value":"ETK Magazine Cutter"},
+{"hash":5046979,"name":"tfrmetkmagazinecutter.gbxleft.caption","sourcebytes":[70,105,108,101,115],"value":"Files"},
+{"hash":174378069,"name":"tfrmetkmagazinecutter.baddfile.caption","sourcebytes":[65,100,100,32,70,105,108,101],"value":"Add File"},
+{"hash":80892066,"name":"tfrmetkmagazinecutter.baddfolder.caption","sourcebytes":[65,100,100,32,70,111,108,100,101,114],"value":"Add Folder"},
+{"hash":204328669,"name":"tfrmetkmagazinecutter.bremoveitem.caption","sourcebytes":[82,101,109,111,118,101,32,73,116,101,109],"value":"Remove Item"},
+{"hash":138514964,"name":"tfrmetkmagazinecutter.bclearlist.caption","sourcebytes":[67,108,101,97,114,32,76,105,115,116],"value":"Clear List"},
+{"hash":127854081,"name":"tfrmetkmagazinecutter.tabsheet1.caption","sourcebytes":[84,97,98,83,104,101,101,116,49],"value":"TabSheet1"},
+{"hash":127854082,"name":"tfrmetkmagazinecutter.tabsheet2.caption","sourcebytes":[84,97,98,83,104,101,101,116,50],"value":"TabSheet2"}
+]}
