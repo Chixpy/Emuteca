@@ -36,8 +36,7 @@ uses
   ucEMCConfig;
 
 type
-  TEMCOnSaveObjCB = procedure(aFilename: string;
-    DeleteOriginal, Resize2048: boolean) of object;
+  TEMCOnSaveObjCB = procedure(aFilename: string; Resize2048: boolean) of object;
   TEMCOnDeleteObjCB = procedure() of object;
   TEMCOnRectChangeObjCB = procedure(aRect: TRect) of object;
   TEMCOnPointModeChange = procedure(PMEnabled: boolean) of object;
@@ -395,8 +394,7 @@ begin
 
   if assigned(OnSave) then
     OnSave(SetAsFolder(eBaseOutFolder.Text) +
-      SetAsFolder(eOutputFolder.Text) + eOutputFile.Text, DeleteOriginal,
-      chkResize2048.Checked);
+      SetAsFolder(eOutputFolder.Text) + eOutputFile.Text, chkResize2048.Checked);
 
   if cbxMagazine.Items.IndexOf(cbxMagazine.Text) = -1 then
     cbxMagazine.Items.Add(cbxMagazine.Text);
@@ -425,9 +423,12 @@ end;
 procedure TfmEMCImagePropEditor.DoDelete;
 begin
   if assigned(OnDelete) then
-    OnDelete;
-
-  ImageFile := '';
+    OnDelete
+  else
+    // If onDelete is handled, we don't want autoclear the frame.
+    // Maybe another component autoload other file in it, and it's
+    //   cleared again
+    ImageFile := '';
 end;
 
 procedure TfmEMCImagePropEditor.SetRect(aRect: TRect);

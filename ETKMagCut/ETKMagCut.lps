@@ -12,7 +12,7 @@
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="60"/>
+        <UsageCount Value="62"/>
       </Unit>
       <Unit>
         <Filename Value="src\forms\ufrMain.pas"/>
@@ -20,10 +20,10 @@
         <ComponentName Value="frmETKMagazineCutter"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="56"/>
         <CursorPos X="24" Y="86"/>
-        <UsageCount Value="60"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="62"/>
       </Unit>
       <Unit>
         <Filename Value="..\CHXPas\Forms\ufrCHXForm.pas"/>
@@ -34,7 +34,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="18"/>
         <CursorPos X="3" Y="36"/>
-        <UsageCount Value="59"/>
+        <UsageCount Value="61"/>
       </Unit>
       <Unit>
         <Filename Value="..\CHXPas\Frames\ufCHXFrame.pas"/>
@@ -42,11 +42,10 @@
         <ComponentName Value="fmCHXFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="319"/>
         <CursorPos X="3" Y="348"/>
-        <UsageCount Value="59"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="61"/>
       </Unit>
       <Unit>
         <Filename Value="..\CHXPas\Frames\ufCHXFileList.pas"/>
@@ -54,19 +53,17 @@
         <ComponentName Value="fmCHXFileList"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <EditorIndex Value="5"/>
-        <TopLine Value="15"/>
-        <CursorPos X="35" Y="43"/>
-        <UsageCount Value="59"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="129"/>
+        <CursorPos X="3" Y="134"/>
+        <UsageCount Value="61"/>
       </Unit>
       <Unit>
         <Filename Value="..\CHXPas\Misc\uVersionSupport.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="45"/>
-        <UsageCount Value="59"/>
+        <UsageCount Value="61"/>
       </Unit>
       <Unit>
         <Filename Value="..\CHXPas\Units\uCHXStrUtils.pas"/>
@@ -74,7 +71,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="58"/>
         <CursorPos X="10" Y="77"/>
-        <UsageCount Value="59"/>
+        <UsageCount Value="61"/>
       </Unit>
       <Unit>
         <Filename Value="src\frames\ufEMCMain.pas"/>
@@ -82,27 +79,24 @@
         <ComponentName Value="fmEMCMain"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="1"/>
-        <TopLine Value="249"/>
-        <CursorPos X="9" Y="276"/>
-        <UsageCount Value="59"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="259"/>
+        <CursorPos X="9" Y="283"/>
+        <UsageCount Value="61"/>
       </Unit>
       <Unit>
         <Filename Value="src\units\uEMCRscStr.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <CursorPos Y="30"/>
-        <UsageCount Value="59"/>
+        <UsageCount Value="61"/>
       </Unit>
       <Unit>
         <Filename Value="..\CHXPas\Units\uCHXRscStr.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="57" Y="21"/>
-        <UsageCount Value="59"/>
+        <UsageCount Value="61"/>
       </Unit>
       <Unit>
         <Filename Value="..\CHXPas\Units\uCHXConst.pas"/>
@@ -110,13 +104,13 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="15"/>
         <CursorPos Y="50"/>
-        <UsageCount Value="59"/>
+        <UsageCount Value="61"/>
       </Unit>
       <Unit>
         <Filename Value="..\CHXPas\Units\uCHXImageUtils.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="59"/>
+        <UsageCount Value="61"/>
       </Unit>
       <Unit>
         <Filename Value="src\frames\ufEMCImagePropEditor.pas"/>
@@ -124,12 +118,10 @@
         <ComponentName Value="fmEMCImagePropEditor"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <EditorIndex Value="8"/>
-        <TopLine Value="444"/>
-        <CursorPos X="42" Y="453"/>
-        <UsageCount Value="54"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="20"/>
+        <CursorPos X="49" Y="39"/>
+        <UsageCount Value="56"/>
       </Unit>
       <Unit>
         <Filename Value="..\CHXPas\Frames\ufCHXBGRAImgViewerEx.pas"/>
@@ -137,11 +129,10 @@
         <ComponentName Value="fmCHXBGRAImgViewerEx"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="20"/>
         <CursorPos X="3" Y="164"/>
-        <UsageCount Value="53"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="55"/>
       </Unit>
       <Unit>
         <Filename Value="..\CHXPas\Frames\ufCHXBGRAImgViewer.pas"/>
@@ -149,10 +140,11 @@
         <ComponentName Value="fmCHXBGRAImgViewer"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <EditorIndex Value="-1"/>
+        <IsVisibleTab Value="True"/>
         <TopLine Value="87"/>
         <CursorPos X="3" Y="244"/>
-        <UsageCount Value="49"/>
+        <UsageCount Value="51"/>
+        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="..\CHXPas\Abstract\uaCHXConfig.pas"/>
@@ -160,23 +152,22 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="19"/>
         <CursorPos X="3" Y="34"/>
-        <UsageCount Value="33"/>
+        <UsageCount Value="35"/>
       </Unit>
       <Unit>
         <Filename Value="src\classes\ucEMCConfig.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="87"/>
         <CursorPos X="18" Y="106"/>
-        <UsageCount Value="31"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="33"/>
       </Unit>
       <Unit>
         <Filename Value="src\units\uEMCConst.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="13" Y="31"/>
-        <UsageCount Value="31"/>
+        <UsageCount Value="33"/>
       </Unit>
     </Units>
     <RunParams>

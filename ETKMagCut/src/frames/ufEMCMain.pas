@@ -64,8 +64,7 @@ type
     property fmImage: TfmCHXBGRAImgViewerEx read FfmImage;
 
     procedure DoFileSelect(aFile: string);
-    procedure DoFileSave(aFilename: string;
-      DeleteOriginal, Resize2048: boolean);
+    procedure DoFileSave(aFilename: string; Resize2048: boolean);
     procedure DoFileDelete;
     procedure DoRectSelect(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; aRect: TRect);
@@ -142,8 +141,7 @@ begin
   fmImage.ActualImage := CurrentImage;
 end;
 
-procedure TfmEMCMain.DoFileSave(aFilename: string;
-  DeleteOriginal, Resize2048: boolean);
+procedure TfmEMCMain.DoFileSave(aFilename: string; Resize2048: boolean);
 var
   TempImg: TBGRABitmap;
   aSize: integer;
@@ -184,11 +182,6 @@ begin
   TempImg.SaveToFileUTF8(aFilename);
 
   FreeAndNil(TempImg);
-
-  if DeleteOriginal then
-  begin
-    DoFileDelete;
-  end;
 end;
 
 procedure TfmEMCMain.DoFileDelete;
@@ -280,7 +273,21 @@ begin
         fmImage.LoadFrameData;
       end;
     end;
-    mbRight: ;
+    mbRight:
+    begin
+      if Shift = [] then
+      begin
+        // RClick removes current rect
+
+        CurrentRect := CurrentRect.Empty;
+
+        // Updating frames
+        fmPropEditor.SetRect(CurrentRect);
+        fmImage.SelectionRect := CurrentRect;
+        // Changing SelectionRect don't update the image
+        fmImage.LoadFrameData;
+      end;
+    end;
     mbMiddle: ;
     mbExtra1: ;
     mbExtra2: ;
@@ -299,6 +306,7 @@ constructor TfmEMCMain.Create(TheOwner: TComponent);
     FfmFileList := TfmCHXFileList.Create(gbxFileList);
     fmFileList.FileMask := GraphicFileMask(TGraphic);
     fmFileList.OnFileSelect := @DoFileSelect;
+    fmFileList.SelectNextOnRemove := True;
     fmFileList.Align := alClient;
     fmFileList.Parent := gbxFileList;
 
