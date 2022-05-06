@@ -36,8 +36,9 @@ uses
   ucEMCConfig;
 
 type
-  TEMCOnSaveObjCB = procedure(aFilename: string; Resize2048: boolean) of object;
-  TEMCOnDeleteObjCB = procedure() of object;
+  TEMCOnSaveObjCB = procedure(aFilename: string;
+    Resize2048: boolean) of object;
+  TEMCOnProcedureObjCB = procedure() of object;
   TEMCOnRectChangeObjCB = procedure(aRect: TRect) of object;
   TEMCOnPointModeChange = procedure(PMEnabled: boolean) of object;
 
@@ -45,6 +46,7 @@ type
 
   TfmEMCImagePropEditor = class(TfmCHXFrame)
     bDelete: TButton;
+    bJoinNextFile: TButton;
     bSave: TButton;
     bSaveAndDelete: TButton;
     cbxGame: TComboBox;
@@ -87,10 +89,10 @@ type
     lTop: TLabel;
     lType: TLabel;
     pEmpty7: TPanel;
-    pLangType: TPanel;
     pPointMode: TPanel;
     pRect: TPanel;
     procedure bDeleteClick(Sender: TObject);
+    procedure bJoinNextFileClick(Sender: TObject);
     procedure bSaveAndDeleteClick(Sender: TObject);
     procedure bSaveClick(Sender: TObject);
     procedure cbxSystemEditingDone(Sender: TObject);
@@ -104,13 +106,15 @@ type
     FEMCConfig: cEMCConfig;
     FImageFile: string;
     FOnChangeRect: TEMCOnRectChangeObjCB;
-    FOnDelete: TEMCOnDeleteObjCB;
+    FOnDelete: TEMCOnProcedureObjCB;
+    FOnJoinNextFile: TEMCOnProcedureObjCB;
     FOnPMChange: TEMCOnPointModeChange;
     FOnSave: TEMCOnSaveObjCB;
     procedure SetEMCConfig(AValue: cEMCConfig);
     procedure SetImageFile(AValue: string);
     procedure SetOnChangeRect(AValue: TEMCOnRectChangeObjCB);
-    procedure SetOnDelete(AValue: TEMCOnDeleteObjCB);
+    procedure SetOnDelete(AValue: TEMCOnProcedureObjCB);
+    procedure SetOnJoinNextFile(AValue: TEMCOnProcedureObjCB);
     procedure SetOnPMChange(AValue: TEMCOnPointModeChange);
     procedure SetOnSave(AValue: TEMCOnSaveObjCB);
 
@@ -127,10 +131,12 @@ type
     property EMCConfig: cEMCConfig read FEMCConfig write SetEMCConfig;
 
     property OnSave: TEMCOnSaveObjCB read FOnSave write SetOnSave;
-    property OnDelete: TEMCOnDeleteObjCB read FOnDelete write SetOnDelete;
+    property OnDelete: TEMCOnProcedureObjCB read FOnDelete write SetOnDelete;
     property OnChangeRect: TEMCOnRectChangeObjCB
       read FOnChangeRect write SetOnChangeRect;
-    property OnPMChange: TEMCOnPointModeChange read FOnPMChange write SetOnPMChange;
+    property OnPMChange: TEMCOnPointModeChange
+      read FOnPMChange write SetOnPMChange;
+    property OnJoinNextFile: TEMCOnProcedureObjCB read FOnJoinNextFile write SetOnJoinNextFile;
 
     procedure SetRect(aRect: TRect);
 
@@ -210,6 +216,12 @@ begin
   DoDelete;
 end;
 
+procedure TfmEMCImagePropEditor.bJoinNextFileClick(Sender: TObject);
+begin
+    if assigned(OnJoinNextFile) then
+    OnJoinNextFile;
+end;
+
 procedure TfmEMCImagePropEditor.chkMultipageEditingDone(Sender: TObject);
 begin
   MakeFileName;
@@ -261,10 +273,18 @@ begin
   FOnChangeRect := AValue;
 end;
 
-procedure TfmEMCImagePropEditor.SetOnDelete(AValue: TEMCOnDeleteObjCB);
+procedure TfmEMCImagePropEditor.SetOnDelete(AValue: TEMCOnProcedureObjCB);
 begin
   if FOnDelete = AValue then Exit;
   FOnDelete := AValue;
+end;
+
+procedure TfmEMCImagePropEditor.SetOnJoinNextFile(AValue: TEMCOnProcedureObjCB);
+begin
+  if FOnJoinNextFile = AValue then Exit;
+  FOnJoinNextFile := AValue;
+
+  bJoinNextFile.Enabled := Assigned(FOnJoinNextFile);
 end;
 
 procedure TfmEMCImagePropEditor.SetOnPMChange(AValue: TEMCOnPointModeChange);
@@ -394,7 +414,8 @@ begin
 
   if assigned(OnSave) then
     OnSave(SetAsFolder(eBaseOutFolder.Text) +
-      SetAsFolder(eOutputFolder.Text) + eOutputFile.Text, chkResize2048.Checked);
+      SetAsFolder(eOutputFolder.Text) + eOutputFile.Text,
+      chkResize2048.Checked);
 
   if cbxMagazine.Items.IndexOf(cbxMagazine.Text) = -1 then
     cbxMagazine.Items.Add(cbxMagazine.Text);

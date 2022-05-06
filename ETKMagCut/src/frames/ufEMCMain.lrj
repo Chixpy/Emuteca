@@ -3,5 +3,6 @@
 {"hash":5257173,"name":"tfmemcmain.gbximage.caption","sourcebytes":[73,109,97,103,101],"value":"Image"},
 {"hash":5046979,"name":"tfmemcmain.gbxfilelist.caption","sourcebytes":[70,105,108,101,115],"value":"Files"},
 {"hash":63177381,"name":"tfmemcmain.breload.caption","sourcebytes":[82,101,108,111,97,100,32,73,109,97,103,101],"value":"Reload Image"},
-{"hash":84892606,"name":"tfmemcmain.bcutselection.caption","sourcebytes":[67,117,116,32,116,111,32,83,101,108,101,99,116,105,111,110],"value":"Cut to Selection"}
+{"hash":84892606,"name":"tfmemcmain.bcutselection.caption","sourcebytes":[67,117,116,32,116,111,32,83,101,108,101,99,116,105,111,110],"value":"Cut to Selection"},
+{"hash":217628245,"name":"tfmemcmain.breplacefile.caption","sourcebytes":[82,101,112,108,97,99,101,32,70,105,108,101],"value":"Replace File"}
 ]}

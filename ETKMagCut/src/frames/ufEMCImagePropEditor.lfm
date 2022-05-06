@@ -1,6 +1,5 @@
 inherited fmEMCImagePropEditor: TfmEMCImagePropEditor
   Height = 938
-  Width = 302
   AutoScroll = True
   ChildSizing.LeftRightSpacing = 4
   ChildSizing.TopBottomSpacing = 4
@@ -9,21 +8,20 @@ inherited fmEMCImagePropEditor: TfmEMCImagePropEditor
   ChildSizing.Layout = cclLeftToRightThenTopToBottom
   ChildSizing.ControlsPerLine = 1
   ClientHeight = 938
-  ClientWidth = 302
   DesignLeft = 436
   DesignTop = 23
   object lFilename: TLabel[0]
     Left = 4
     Height = 20
     Top = 4
-    Width = 294
+    Width = 392
     Caption = 'Filename'
   end
   object eFilename: TEdit[1]
     Left = 4
     Height = 28
     Top = 28
-    Width = 294
+    Width = 392
     ReadOnly = True
     TabOrder = 7
   end
@@ -31,7 +29,7 @@ inherited fmEMCImagePropEditor: TfmEMCImagePropEditor
     Left = 4
     Height = 157
     Top = 60
-    Width = 294
+    Width = 392
     AutoSize = True
     Caption = 'Magazine Properties'
     ChildSizing.LeftRightSpacing = 4
@@ -45,21 +43,21 @@ inherited fmEMCImagePropEditor: TfmEMCImagePropEditor
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 2
     ClientHeight = 132
-    ClientWidth = 290
+    ClientWidth = 388
     TabOrder = 4
     object lMagazine: TLabel
       Left = 4
       Height = 28
       Top = 4
-      Width = 122
+      Width = 158
       Caption = 'Magazine'
       Layout = tlCenter
     end
     object cbxMagazine: TComboBox
-      Left = 130
+      Left = 166
       Height = 28
       Top = 4
-      Width = 156
+      Width = 218
       AutoComplete = True
       AutoCompleteText = [cbactEnabled, cbactEndOfLineComplete, cbactSearchAscending]
       AutoDropDown = True
@@ -72,15 +70,15 @@ inherited fmEMCImagePropEditor: TfmEMCImagePropEditor
       Left = 4
       Height = 28
       Top = 36
-      Width = 122
+      Width = 158
       Caption = 'Issue'
       Layout = tlCenter
     end
     object eIssue: TEdit
-      Left = 130
+      Left = 166
       Height = 28
       Top = 36
-      Width = 156
+      Width = 218
       OnEditingDone = TEditEditingDone
       TabOrder = 1
     end
@@ -88,15 +86,15 @@ inherited fmEMCImagePropEditor: TfmEMCImagePropEditor
       Left = 4
       Height = 28
       Top = 68
-      Width = 122
+      Width = 158
       Caption = 'Section'
       Layout = tlCenter
     end
     object cbxSection: TComboBox
-      Left = 130
+      Left = 166
       Height = 28
       Top = 68
-      Width = 156
+      Width = 218
       AutoComplete = True
       AutoCompleteText = [cbactEnabled, cbactEndOfLineComplete, cbactSearchAscending]
       AutoDropDown = True
@@ -109,15 +107,15 @@ inherited fmEMCImagePropEditor: TfmEMCImagePropEditor
       Left = 4
       Height = 28
       Top = 100
-      Width = 122
+      Width = 158
       Caption = 'Language'
       Layout = tlCenter
     end
     object cbxLanguage: TComboBox
-      Left = 130
+      Left = 166
       Height = 28
       Top = 100
-      Width = 156
+      Width = 218
       AutoComplete = True
       AutoCompleteText = [cbactEnabled, cbactEndOfLineComplete, cbactSearchAscending]
       AutoDropDown = True
@@ -129,9 +127,9 @@ inherited fmEMCImagePropEditor: TfmEMCImagePropEditor
   end
   object gbxImageProperties: TGroupBox[3]
     Left = 4
-    Height = 201
+    Height = 159
     Top = 221
-    Width = 294
+    Width = 392
     AutoSize = True
     Caption = 'Image Properties'
     ChildSizing.LeftRightSpacing = 4
@@ -143,91 +141,23 @@ inherited fmEMCImagePropEditor: TfmEMCImagePropEditor
     ChildSizing.ShrinkHorizontal = crsHomogenousChildResize
     ChildSizing.ShrinkVertical = crsHomogenousChildResize
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
-    ChildSizing.ControlsPerLine = 1
-    ClientHeight = 176
-    ClientWidth = 290
+    ChildSizing.ControlsPerLine = 2
+    ClientHeight = 134
+    ClientWidth = 388
     TabOrder = 8
-    object pLangType: TPanel
+    object lType: TLabel
       Left = 4
       Height = 28
       Top = 4
-      Width = 282
-      AutoSize = True
-      BevelOuter = bvNone
-      ChildSizing.HorizontalSpacing = 4
-      ChildSizing.VerticalSpacing = 4
-      ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
-      ChildSizing.EnlargeVertical = crsHomogenousChildResize
-      ChildSizing.ShrinkHorizontal = crsHomogenousChildResize
-      ChildSizing.ShrinkVertical = crsHomogenousChildResize
-      ChildSizing.Layout = cclLeftToRightThenTopToBottom
-      ChildSizing.ControlsPerLine = 2
-      ClientHeight = 28
-      ClientWidth = 282
-      TabOrder = 0
-      object lType: TLabel
-        Left = 0
-        Height = 28
-        Top = 0
-        Width = 105
-        Caption = 'Type'
-        Layout = tlCenter
-      end
-      object cbxType: TComboBox
-        Left = 109
-        Height = 28
-        Top = 0
-        Width = 173
-        AutoComplete = True
-        AutoCompleteText = [cbactEnabled, cbactEndOfLineComplete, cbactSearchAscending]
-        AutoDropDown = True
-        ItemHeight = 20
-        OnEditingDone = TComboBoxEditingDone
-        Sorted = True
-        TabOrder = 0
-      end
+      Width = 183
+      Caption = 'Type'
+      Layout = tlCenter
     end
-    object chkMultipage: TCheckBox
-      Left = 4
-      Height = 24
-      Top = 36
-      Width = 282
-      Caption = 'Multipage text'
-      OnEditingDone = chkMultipageEditingDone
-      TabOrder = 1
-    end
-    object lSystem: TLabel
-      Left = 4
-      Height = 20
-      Top = 64
-      Width = 282
-      Caption = 'System'
-    end
-    object cbxSystem: TComboBox
-      Left = 4
+    object cbxType: TComboBox
+      Left = 191
       Height = 28
-      Top = 88
-      Width = 282
-      AutoComplete = True
-      AutoCompleteText = [cbactEnabled, cbactEndOfLineComplete, cbactSearchAscending]
-      AutoDropDown = True
-      ItemHeight = 20
-      OnEditingDone = cbxSystemEditingDone
-      Sorted = True
-      TabOrder = 2
-    end
-    object lGame: TLabel
-      Left = 4
-      Height = 20
-      Top = 120
-      Width = 282
-      Caption = 'Game'
-    end
-    object cbxGame: TComboBox
-      Left = 4
-      Height = 28
-      Top = 144
-      Width = 282
+      Top = 4
+      Width = 193
       AutoComplete = True
       AutoCompleteText = [cbactEnabled, cbactEndOfLineComplete, cbactSearchAscending]
       AutoDropDown = True
@@ -236,12 +166,71 @@ inherited fmEMCImagePropEditor: TfmEMCImagePropEditor
       Sorted = True
       TabOrder = 3
     end
+    object bJoinNextFile: TButton
+      Left = 4
+      Height = 30
+      Top = 36
+      Width = 183
+      Caption = 'Join Next File'
+      Enabled = False
+      OnClick = bJoinNextFileClick
+      TabOrder = 4
+    end
+    object chkMultipage: TCheckBox
+      Left = 191
+      Height = 30
+      Top = 36
+      Width = 193
+      Caption = 'Multipage text'
+      OnEditingDone = chkMultipageEditingDone
+      TabOrder = 0
+    end
+    object lSystem: TLabel
+      Left = 4
+      Height = 28
+      Top = 70
+      Width = 183
+      Caption = 'System'
+    end
+    object cbxSystem: TComboBox
+      Left = 191
+      Height = 28
+      Top = 70
+      Width = 193
+      AutoComplete = True
+      AutoCompleteText = [cbactEnabled, cbactEndOfLineComplete, cbactSearchAscending]
+      AutoDropDown = True
+      ItemHeight = 20
+      OnEditingDone = cbxSystemEditingDone
+      Sorted = True
+      TabOrder = 1
+    end
+    object lGame: TLabel
+      Left = 4
+      Height = 28
+      Top = 102
+      Width = 183
+      Caption = 'Game'
+    end
+    object cbxGame: TComboBox
+      Left = 191
+      Height = 28
+      Top = 102
+      Width = 193
+      AutoComplete = True
+      AutoCompleteText = [cbactEnabled, cbactEndOfLineComplete, cbactSearchAscending]
+      AutoDropDown = True
+      ItemHeight = 20
+      OnEditingDone = TComboBoxEditingDone
+      Sorted = True
+      TabOrder = 2
+    end
   end
   object gbxCutRectangle: TGroupBox[4]
     Left = 4
     Height = 117
-    Top = 426
-    Width = 294
+    Top = 384
+    Width = 392
     Caption = 'Cut Rectangle'
     ChildSizing.LeftRightSpacing = 4
     ChildSizing.TopBottomSpacing = 4
@@ -254,13 +243,13 @@ inherited fmEMCImagePropEditor: TfmEMCImagePropEditor
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 1
     ClientHeight = 92
-    ClientWidth = 290
+    ClientWidth = 388
     TabOrder = 6
     object pPointMode: TPanel
       Left = 4
       Height = 28
       Top = 4
-      Width = 282
+      Width = 380
       AutoSize = True
       BevelOuter = bvNone
       ChildSizing.HorizontalSpacing = 4
@@ -272,32 +261,32 @@ inherited fmEMCImagePropEditor: TfmEMCImagePropEditor
       ChildSizing.Layout = cclLeftToRightThenTopToBottom
       ChildSizing.ControlsPerLine = 3
       ClientHeight = 28
-      ClientWidth = 282
+      ClientWidth = 380
       TabOrder = 0
       object chkPointMode: TCheckBox
         Left = 0
         Height = 28
         Top = 0
-        Width = 113
+        Width = 146
         Caption = 'Point Mode'
         OnChange = chkPointModeChange
         TabOrder = 0
       end
       object lPMBorder: TLabel
-        Left = 117
+        Left = 150
         Height = 28
         Top = 0
-        Width = 87
+        Width = 120
         Alignment = taRightJustify
         Caption = 'Border (px)'
         Enabled = False
         Layout = tlCenter
       end
       object ePMBorder: TSpinEdit
-        Left = 208
+        Left = 274
         Height = 28
         Top = 0
-        Width = 74
+        Width = 106
         Alignment = taRightJustify
         Enabled = False
         MaxValue = 1
@@ -310,7 +299,7 @@ inherited fmEMCImagePropEditor: TfmEMCImagePropEditor
       Left = 4
       Height = 52
       Top = 36
-      Width = 282
+      Width = 380
       AutoSize = True
       BevelOuter = bvNone
       ChildSizing.HorizontalSpacing = 4
@@ -322,37 +311,37 @@ inherited fmEMCImagePropEditor: TfmEMCImagePropEditor
       ChildSizing.Layout = cclLeftToRightThenTopToBottom
       ChildSizing.ControlsPerLine = 4
       ClientHeight = 52
-      ClientWidth = 282
+      ClientWidth = 380
       TabOrder = 1
       object lLeft: TLabel
         Left = 0
         Height = 20
         Top = 0
-        Width = 68
+        Width = 92
         Alignment = taCenter
         Caption = 'Left'
       end
       object lTop: TLabel
-        Left = 72
+        Left = 96
         Height = 20
         Top = 0
-        Width = 68
+        Width = 92
         Alignment = taCenter
         Caption = 'Top'
       end
       object lWidth: TLabel
-        Left = 144
+        Left = 192
         Height = 20
         Top = 0
-        Width = 68
+        Width = 92
         Alignment = taCenter
         Caption = 'Width'
       end
       object lHeight: TLabel
-        Left = 216
+        Left = 288
         Height = 20
         Top = 0
-        Width = 66
+        Width = 92
         Alignment = taCenter
         Caption = 'Height'
       end
@@ -360,34 +349,34 @@ inherited fmEMCImagePropEditor: TfmEMCImagePropEditor
         Left = 0
         Height = 28
         Top = 24
-        Width = 68
+        Width = 92
         Alignment = taRightJustify
         OnChange = eTRectChange
         TabOrder = 0
       end
       object eTop: TSpinEdit
-        Left = 72
+        Left = 96
         Height = 28
         Top = 24
-        Width = 68
+        Width = 92
         Alignment = taRightJustify
         OnChange = eTRectChange
         TabOrder = 1
       end
       object eWidth: TSpinEdit
-        Left = 144
+        Left = 192
         Height = 28
         Top = 24
-        Width = 68
+        Width = 92
         Alignment = taRightJustify
         OnChange = eTRectChange
         TabOrder = 2
       end
       object eHeight: TSpinEdit
-        Left = 216
+        Left = 288
         Height = 28
         Top = 24
-        Width = 66
+        Width = 92
         Alignment = taRightJustify
         OnChange = eTRectChange
         TabOrder = 3
@@ -397,8 +386,8 @@ inherited fmEMCImagePropEditor: TfmEMCImagePropEditor
   object gbxOutputFile: TGroupBox[5]
     Left = 4
     Height = 225
-    Top = 547
-    Width = 294
+    Top = 505
+    Width = 392
     Caption = 'Output File'
     ChildSizing.LeftRightSpacing = 4
     ChildSizing.TopBottomSpacing = 4
@@ -411,20 +400,20 @@ inherited fmEMCImagePropEditor: TfmEMCImagePropEditor
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 1
     ClientHeight = 200
-    ClientWidth = 290
+    ClientWidth = 388
     TabOrder = 5
     object lBaseOutFolder: TLabel
       Left = 4
       Height = 20
       Top = 4
-      Width = 282
+      Width = 380
       Caption = 'Base Output Folder'
     end
     object eBaseOutFolder: TDirectoryEdit
       Left = 4
       Height = 28
       Top = 28
-      Width = 282
+      Width = 380
       DialogOptions = [ofNoChangeDir, ofEnableSizing, ofViewDetail]
       ShowHidden = False
       ButtonWidth = 29
@@ -437,14 +426,14 @@ inherited fmEMCImagePropEditor: TfmEMCImagePropEditor
       Left = 4
       Height = 20
       Top = 60
-      Width = 282
+      Width = 380
       Caption = 'Output Folder'
     end
     object eOutputFolder: TEdit
       Left = 4
       Height = 28
       Top = 84
-      Width = 282
+      Width = 380
       ReadOnly = True
       TabOrder = 1
     end
@@ -452,14 +441,14 @@ inherited fmEMCImagePropEditor: TfmEMCImagePropEditor
       Left = 4
       Height = 20
       Top = 116
-      Width = 282
+      Width = 380
       Caption = 'Output File'
     end
     object eOutputFile: TEdit
       Left = 4
       Height = 28
       Top = 140
-      Width = 282
+      Width = 380
       ReadOnly = True
       TabOrder = 2
     end
@@ -467,7 +456,7 @@ inherited fmEMCImagePropEditor: TfmEMCImagePropEditor
       Left = 4
       Height = 24
       Top = 172
-      Width = 282
+      Width = 380
       Caption = 'Resize to 2048px if bigger image'
       Checked = True
       State = cbChecked
@@ -477,8 +466,8 @@ inherited fmEMCImagePropEditor: TfmEMCImagePropEditor
   object pEmpty7: TPanel[6]
     Left = 4
     Height = 20
-    Top = 776
-    Width = 294
+    Top = 734
+    Width = 392
     BevelOuter = bvNone
     Constraints.MinHeight = 20
     TabOrder = 0
@@ -486,8 +475,8 @@ inherited fmEMCImagePropEditor: TfmEMCImagePropEditor
   object bSave: TButton[7]
     Left = 4
     Height = 30
-    Top = 800
-    Width = 294
+    Top = 758
+    Width = 392
     Caption = 'Save'
     Enabled = False
     OnClick = bSaveClick
@@ -496,8 +485,8 @@ inherited fmEMCImagePropEditor: TfmEMCImagePropEditor
   object bSaveAndDelete: TButton[8]
     Left = 4
     Height = 30
-    Top = 834
-    Width = 294
+    Top = 792
+    Width = 392
     Caption = 'Save and Delete'
     Enabled = False
     OnClick = bSaveAndDeleteClick
@@ -506,8 +495,8 @@ inherited fmEMCImagePropEditor: TfmEMCImagePropEditor
   object bDelete: TButton[9]
     Left = 4
     Height = 30
-    Top = 868
-    Width = 294
+    Top = 826
+    Width = 392
     Caption = 'Delete File'
     OnClick = bDeleteClick
     TabOrder = 3

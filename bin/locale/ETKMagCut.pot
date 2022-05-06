@@ -39,6 +39,10 @@ msgstr ""
 msgid "Delete File"
 msgstr ""
 
+#: tfmemcimagepropeditor.bjoinnextfile.caption
+msgid "Join Next File"
+msgstr ""
+
 #: tfmemcimagepropeditor.bsave.caption
 msgid "Save"
 msgstr ""
@@ -149,6 +153,10 @@ msgstr ""
 
 #: tfmemcmain.breload.caption
 msgid "Reload Image"
+msgstr ""
+
+#: tfmemcmain.breplacefile.caption
+msgid "Replace File"
 msgstr ""
 
 #: tfmemcmain.gbxfilelist.caption

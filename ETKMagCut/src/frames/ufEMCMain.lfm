@@ -47,8 +47,8 @@ inherited fmEMCMain: TfmEMCMain
     TabOrder = 4
     object pButtons: TPanel
       Left = 0
-      Height = 31
-      Top = 613
+      Height = 61
+      Top = 583
       Width = 296
       Align = alBottom
       AutoSize = True
@@ -59,7 +59,7 @@ inherited fmEMCMain: TfmEMCMain
       ChildSizing.ShrinkVertical = crsHomogenousChildResize
       ChildSizing.Layout = cclLeftToRightThenTopToBottom
       ChildSizing.ControlsPerLine = 2
-      ClientHeight = 31
+      ClientHeight = 61
       ClientWidth = 296
       TabOrder = 0
       object bReload: TButton
@@ -79,6 +79,23 @@ inherited fmEMCMain: TfmEMCMain
         Caption = 'Cut to Selection'
         OnClick = bCutSelectionClick
         TabOrder = 1
+      end
+      object pEmpty: TPanel
+        Left = 0
+        Height = 30
+        Top = 31
+        Width = 140
+        TabOrder = 3
+      end
+      object bReplaceFile: TButton
+        Left = 144
+        Height = 30
+        Top = 31
+        Width = 152
+        Caption = 'Replace File'
+        Enabled = False
+        OnClick = bReplaceFileClick
+        TabOrder = 2
       end
     end
   end

@@ -7,6 +7,7 @@
 {"hash":139375349,"name":"tfmemcimagepropeditor.llanguage.caption","sourcebytes":[76,97,110,103,117,97,103,101],"value":"Language"},
 {"hash":196727763,"name":"tfmemcimagepropeditor.gbximageproperties.caption","sourcebytes":[73,109,97,103,101,32,80,114,111,112,101,114,116,105,101,115],"value":"Image Properties"},
 {"hash":376933,"name":"tfmemcimagepropeditor.ltype.caption","sourcebytes":[84,121,112,101],"value":"Type"},
+{"hash":157589493,"name":"tfmemcimagepropeditor.bjoinnextfile.caption","sourcebytes":[74,111,105,110,32,78,101,120,116,32,70,105,108,101],"value":"Join Next File"},
 {"hash":21802948,"name":"tfmemcimagepropeditor.chkmultipage.caption","sourcebytes":[77,117,108,116,105,112,97,103,101,32,116,101,120,116],"value":"Multipage text"},
 {"hash":95464125,"name":"tfmemcimagepropeditor.lsystem.caption","sourcebytes":[83,121,115,116,101,109],"value":"System"},
 {"hash":317493,"name":"tfmemcimagepropeditor.lgame.caption","sourcebytes":[71,97,109,101],"value":"Game"},

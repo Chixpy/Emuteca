@@ -42,23 +42,30 @@ type
   TfmEMCMain = class(TfmCHXFrame)
     bCutSelection: TButton;
     bReload: TButton;
+    bReplaceFile: TButton;
     gbxFileList: TGroupBox;
     gbxImage: TGroupBox;
     gbxProperties: TGroupBox;
     pButtons: TPanel;
+    pEmpty: TPanel;
     Splitter1: TSplitter;
     Splitter2: TSplitter;
     procedure bCutSelectionClick(Sender: TObject);
     procedure bReloadClick(Sender: TObject);
+    procedure bReplaceFileClick(Sender: TObject);
   private
     FCurrentImage: TBGRABitmap;
+    FModifiedImage: Boolean;
     FfmFileList: TfmCHXFileList;
     FfmImage: TfmCHXBGRAImgViewerEx;
     FfmPropEditor: TfmEMCImagePropEditor;
     FEMCConfig: cEMCConfig;
+    procedure SetModifiedImage(AValue: Boolean);
     procedure SetEMCConfig(AValue: cEMCConfig);
 
   protected
+    property ModifiedImage: Boolean read FModifiedImage write SetModifiedImage;
+
     property fmFileList: TfmCHXFileList read FfmFileList;
     property fmPropEditor: TfmEMCImagePropEditor read FfmPropEditor;
     property fmImage: TfmCHXBGRAImgViewerEx read FfmImage;
@@ -66,6 +73,7 @@ type
     procedure DoFileSelect(aFile: string);
     procedure DoFileSave(aFilename: string; Resize2048: boolean);
     procedure DoFileDelete;
+    procedure DoJoinNextFile;
     procedure DoRectSelect(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; aRect: TRect);
     procedure DoRectChange(aRect: TRect);
@@ -97,6 +105,14 @@ begin
   DoFileSelect(fmPropEditor.ImageFile);
 end;
 
+procedure TfmEMCMain.bReplaceFileClick(Sender: TObject);
+begin
+  if fmPropEditor.ImageFile = '' then Exit;
+
+  CurrentImage.SaveToFileUTF8(fmPropEditor.ImageFile);
+  ModifiedImage := False;
+end;
+
 procedure TfmEMCMain.SetEMCConfig(AValue: cEMCConfig);
 begin
   if FEMCConfig = AValue then Exit;
@@ -105,14 +121,31 @@ begin
   fmPropEditor.EMCConfig := EMCConfig;
 end;
 
+procedure TfmEMCMain.SetModifiedImage(AValue: Boolean);
+begin
+  if FModifiedImage = AValue then Exit;
+  FModifiedImage := AValue;
+
+  bReplaceFile.Enabled := AValue;
+end;
+
 procedure TfmEMCMain.bCutSelectionClick(Sender: TObject);
+var
+  FullImageRect: TRect;
 begin
   if CurrentRect.IsEmpty then Exit;
 
   fmImage.ActualImage := nil;
 
-  CurrentRect.Intersect(TRect.Create(0, 0, CurrentImage.Width,
-    CurrentImage.Height));
+  FullImageRect := TRect.Create(0, 0, CurrentImage.Width,
+    CurrentImage.Height);
+
+  // Cropping CurrentRect to image coordinates, It can be outbounds and GetPart
+  //   will wrap arround it
+  CurrentRect.Intersect(FullImageRect);
+
+  // Don't cut it if full image is selected
+  if CurrentRect = FullImageRect then Exit;
 
   BGRAReplace(FCurrentImage, CurrentImage.GetPart(CurrentRect));
   CurrentRect := CurrentRect.Empty;
@@ -120,6 +153,8 @@ begin
   fmImage.ActualImage := CurrentImage;
 
   fmPropEditor.SetRect(CurrentRect);
+
+  ModifiedImage := True;
 end;
 
 procedure TfmEMCMain.DoFileSelect(aFile: string);
@@ -139,6 +174,8 @@ begin
   end;
 
   fmImage.ActualImage := CurrentImage;
+
+  ModifiedImage := False;
 end;
 
 procedure TfmEMCMain.DoFileSave(aFilename: string; Resize2048: boolean);
@@ -186,9 +223,49 @@ end;
 
 procedure TfmEMCMain.DoFileDelete;
 begin
+  ModifiedImage := False;
+
   DeleteFileUTF8(fmPropEditor.ImageFile);
   DoFileSelect('');
   fmFileList.actRemoveItemExecute(nil);
+end;
+
+procedure TfmEMCMain.DoJoinNextFile;
+var
+  NextFileName: string;
+  TempImg, NextImage: TBGRABitmap;
+  aW, aH: integer;
+begin
+  if not Assigned(FCurrentImage) then Exit;
+
+  NextFileName := fmFileList.NextFile;
+
+  if (NextFileName = '') or (not FileExistsUTF8(NextFileName)) then Exit;
+
+  fmImage.ActualImage := nil;
+
+  NextImage := TBGRABitmap.Create(NextFileName, True);
+
+  // New image width and height
+  aW := CurrentImage.Width + NextImage.Width;
+
+  if CurrentImage.Height > NextImage.Height then
+    aH := CurrentImage.Height
+  else
+    aH := NextImage.Height;
+
+  TempImg := TBGRABitmap.Create(aW, aH, BGRA(0,0,0,0));
+
+  TempImg.PutImage(0, 0, CurrentImage, dmDrawWithTransparency);
+  TempImg.PutImage(CurrentImage.Width, 0, NextImage, dmDrawWithTransparency);
+
+  BGRAReplace(FCurrentImage, TempImg);
+
+  FreeAndNil(NextImage);
+
+  fmImage.ActualImage := CurrentImage;
+
+  ModifiedImage := True;
 end;
 
 procedure TfmEMCMain.DoRectSelect(Sender: TObject; Button: TMouseButton;
@@ -315,6 +392,7 @@ constructor TfmEMCMain.Create(TheOwner: TComponent);
     fmPropEditor.OnDelete := @DoFileDelete;
     fmPropEditor.OnChangeRect := @DoRectChange;
     fmPropEditor.OnPMChange := @DoPMEnabled;
+    fmPropEditor.OnJoinNextFile := @DoJoinNextFile;
     fmPropEditor.Align := alClient;
     fmPropEditor.Parent := gbxProperties;
 
@@ -322,6 +400,8 @@ constructor TfmEMCMain.Create(TheOwner: TComponent);
     // Setting fmImage.MouseActionMode and fmImage.OnImgMouseDrag
     DoPMEnabled(fmPropEditor.chkPointMode.Checked);
     fmImage.AutoZoomOnLoad := True;
+    // RClick is used for clear selection rest
+    fmImage.PopUpMenuEnabled := False;
     fmImage.Align := alClient;
     fmImage.Parent := gbxImage;
   end;
