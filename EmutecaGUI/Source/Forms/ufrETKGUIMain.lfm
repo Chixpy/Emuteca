@@ -9,20 +9,20 @@ inherited frmETKGUIMain: TfrmETKGUIMain
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnShow = FormShow
-  Position = poDesktopCenter
+  Position = poScreenCenter
   object stbHelp: TStatusBar[0]
     Left = 4
     Height = 29
     Top = 443
-    Width = 792
+    Width = 1016
     AutoHint = True
     Panels = <>
     SizeGrip = False
   end
   object pmSoft: TPopupMenu[1]
     Images = ActImages
-    left = 148
-    top = 44
+    Left = 148
+    Top = 44
     object mipmSRunSoft: TMenuItem
       Action = actRunSoftware
     end
@@ -41,8 +41,8 @@ inherited frmETKGUIMain: TfrmETKGUIMain
   end
   object pmGroup: TPopupMenu[2]
     Images = ActImages
-    left = 224
-    top = 44
+    Left = 224
+    Top = 44
     object mipmGSearchInternet: TMenuItem
       Caption = 'Search in Internet'
     end
@@ -52,8 +52,8 @@ inherited frmETKGUIMain: TfrmETKGUIMain
   end
   object MainMenu: TMainMenu[3]
     Images = ActImages
-    left = 68
-    top = 44
+    Left = 68
+    Top = 44
     object mimmFile: TMenuItem
       Caption = 'File'
       object mimmAddFiles: TMenuItem
@@ -185,8 +185,8 @@ inherited frmETKGUIMain: TfrmETKGUIMain
   end
   object ActionList: TActionList[4]
     Images = ActImages
-    left = 68
-    top = 100
+    Left = 68
+    Top = 100
     object HelpOnHelp1: THelpOnHelp
       Category = 'Help'
       Caption = 'About Emuteca...'
@@ -348,7 +348,7 @@ inherited frmETKGUIMain: TfrmETKGUIMain
     end
   end
   object ActImages: TImageList[5]
-    left = 68
-    top = 156
+    Left = 68
+    Top = 156
   end
 end

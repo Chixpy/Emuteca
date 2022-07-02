@@ -29,6 +29,8 @@ uses
   StdCtrls, Buttons, ActnList,
   // CHX forms
   ufCHXPropEditor,
+  // Emuteca Core units
+  uEmutecaConst,
   // Emuteca Core classes
   ucEmutecaGroup;
 
@@ -56,6 +58,9 @@ type
 
     procedure FPOObservedChanged(ASender: TObject;
       Operation: TFPObservedOperation; Data: Pointer);
+
+    class function SimpleModalForm(aGroup: cEmutecaGroup;
+      aGUIConfigIni, aGUIIconsIni: string): integer;
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -149,6 +154,27 @@ begin
       else
         ;
     end;
+end;
+
+class function TfmEmutecaGroupEditor.SimpleModalForm(aGroup: cEmutecaGroup;
+  aGUIConfigIni, aGUIIconsIni: string): integer;
+var
+  fmGroupEditor: TfmEmutecaGroupEditor;
+begin
+  if not Assigned(aGroup) then
+    Exit;
+
+  fmGroupEditor := TfmEmutecaGroupEditor.Create(nil);
+  fmGroupEditor.Group := aGroup;
+
+  fmGroupEditor.ButtonClose := True;
+  fmGroupEditor.chkCloseOnSave.Visible := False;
+
+  Result := GenSimpleModalForm(fmGroupEditor, 'frmETKGroupEditor',
+    Format(krsFmtWindowCaption, [Application.Title, 'Group Editor']),
+    aGUIConfigIni, aGUIIconsIni);
+
+  // Autofreed? FreeAndNil(fmGroupEditor);
 end;
 
 constructor TfmEmutecaGroupEditor.Create(TheOwner: TComponent);

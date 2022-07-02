@@ -27,80 +27,91 @@ inherited fmEmutecaSystemEditor: TfmEmutecaSystemEditor
     Width = 312
     Align = alLeft
     BevelOuter = bvNone
+    ChildSizing.HorizontalSpacing = 4
+    ChildSizing.VerticalSpacing = 4
     ClientHeight = 515
     ClientWidth = 312
     TabOrder = 0
     object gbxBasicInfo: TGroupBox
       Left = 0
-      Height = 121
+      Height = 141
       Top = 0
       Width = 312
       Align = alTop
       AutoSize = True
       Caption = 'Basic Info'
-      ClientHeight = 96
+      ChildSizing.LeftRightSpacing = 4
+      ChildSizing.TopBottomSpacing = 4
+      ChildSizing.HorizontalSpacing = 4
+      ChildSizing.VerticalSpacing = 4
+      ChildSizing.ControlsPerLine = 1
+      ClientHeight = 116
       ClientWidth = 308
       TabOrder = 0
       object lTitle: TLabel
-        Left = 0
+        Left = 4
         Height = 20
-        Top = 0
-        Width = 308
+        Top = 4
+        Width = 300
         Align = alTop
         Caption = 'Title'
         ParentColor = False
       end
       object eTitle: TEdit
-        Left = 0
+        Left = 4
         Height = 28
-        Top = 20
-        Width = 308
+        Top = 28
+        Width = 300
         Align = alTop
         TabOrder = 0
         TextHint = 'Company Model'
       end
       object lFileName: TLabel
-        Left = 0
+        Left = 4
         Height = 20
-        Top = 48
-        Width = 308
+        Top = 60
+        Width = 300
         Align = alTop
         Caption = 'Default filename'
         ParentColor = False
       end
       object eExtraInfoFilename: TEdit
-        Left = 0
+        Left = 4
         Height = 28
-        Top = 68
-        Width = 308
+        Top = 84
+        Width = 300
         Align = alTop
         TabOrder = 1
       end
     end
     object gbxEmulators: TGroupBox
       Left = 0
-      Height = 394
-      Top = 121
+      Height = 370
+      Top = 145
       Width = 312
       Align = alClient
       Caption = 'Emulators'
-      ClientHeight = 369
+      ChildSizing.LeftRightSpacing = 4
+      ChildSizing.TopBottomSpacing = 4
+      ChildSizing.HorizontalSpacing = 4
+      ChildSizing.VerticalSpacing = 4
+      ClientHeight = 345
       ClientWidth = 308
       TabOrder = 1
       object lMainEmulator: TLabel
-        Left = 0
+        Left = 4
         Height = 20
-        Top = 0
-        Width = 308
+        Top = 4
+        Width = 300
         Align = alTop
         Caption = 'Main Emulator'
         ParentColor = False
       end
       object cbxMainEmulator: TComboBox
-        Left = 0
+        Left = 4
         Height = 28
-        Top = 20
-        Width = 308
+        Top = 28
+        Width = 300
         Align = alTop
         AutoDropDown = True
         ItemHeight = 20
@@ -109,38 +120,38 @@ inherited fmEmutecaSystemEditor: TfmEmutecaSystemEditor
         TabOrder = 0
       end
       object lOtherEmulators: TLabel
-        Left = 0
+        Left = 4
         Height = 20
-        Top = 48
-        Width = 308
+        Top = 60
+        Width = 300
         Align = alTop
         Caption = 'Other Emulators'
         ParentColor = False
       end
       object clbOtherEmulators: TCheckListBox
-        Left = 0
-        Height = 172
-        Top = 68
-        Width = 308
+        Left = 4
+        Height = 100
+        Top = 84
+        Width = 300
         Align = alTop
         ItemHeight = 0
         Sorted = True
         TabOrder = 1
       end
       object lMultiCoreIDs: TLabel
-        Left = 0
+        Left = 4
         Height = 40
-        Top = 240
-        Width = 308
+        Top = 188
+        Width = 300
         Align = alTop
         Caption = 'Multicore emulator IDs'#13#10'(ID=core param)'
         ParentColor = False
       end
       object mMultiCoreIDs: TMemo
-        Left = 0
-        Height = 89
-        Top = 280
-        Width = 308
+        Left = 4
+        Height = 109
+        Top = 232
+        Width = 300
         Align = alClient
         ScrollBars = ssAutoVertical
         TabOrder = 2
@@ -160,23 +171,30 @@ inherited fmEmutecaSystemEditor: TfmEmutecaSystemEditor
     Width = 586
     Align = alClient
     Caption = 'Files'
+    ChildSizing.LeftRightSpacing = 4
+    ChildSizing.TopBottomSpacing = 4
+    ChildSizing.HorizontalSpacing = 4
+    ChildSizing.VerticalSpacing = 4
+    ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+    ChildSizing.ShrinkHorizontal = crsHomogenousChildResize
+    ChildSizing.ControlsPerLine = 1
     ClientHeight = 490
     ClientWidth = 582
     TabOrder = 1
     object lBaseFolder: TLabel
-      Left = 0
+      Left = 4
       Height = 20
-      Top = 0
-      Width = 582
+      Top = 4
+      Width = 574
       Align = alTop
       Caption = 'System base folder'
       ParentColor = False
     end
     object eBaseFolder: TDirectoryEdit
-      Left = 0
+      Left = 4
       Height = 28
-      Top = 20
-      Width = 582
+      Top = 28
+      Width = 574
       DialogOptions = [ofNoChangeDir, ofEnableSizing, ofViewDetail]
       ShowHidden = False
       ButtonWidth = 23
@@ -187,29 +205,53 @@ inherited fmEmutecaSystemEditor: TfmEmutecaSystemEditor
       TabOrder = 0
       OnButtonClick = eBaseFolderButtonClick
     end
-    object lFileExtensions: TLabel
-      Left = 0
+    object lWorkingFolder: TLabel
+      Left = 4
       Height = 20
-      Top = 193
-      Width = 582
+      Top = 60
+      Width = 574
       Align = alTop
-      Caption = 'File Extensions (one by line)'
+      Caption = 'Working Folder'
       ParentColor = False
     end
-    object mExtensions: TMemo
-      Left = 0
-      Height = 277
-      Top = 213
-      Width = 582
-      Align = alClient
-      ScrollBars = ssAutoBoth
-      TabOrder = 4
+    object eWorkingFolder: TDirectoryEdit
+      Left = 4
+      Height = 28
+      Top = 84
+      Width = 574
+      DialogOptions = [ofNoChangeDir, ofEnableSizing, ofViewDetail]
+      ShowHidden = False
+      ButtonWidth = 23
+      NumGlyphs = 1
+      Flat = True
+      Align = alTop
+      MaxLength = 0
+      TabOrder = 1
+      OnButtonClick = eWorkingFolderButtonClick
+    end
+    object chkExtractAllFiles: TCheckBox
+      Left = 4
+      Height = 24
+      Top = 193
+      Width = 574
+      Align = alTop
+      Caption = 'Extract All Files (If they are compressed)'
+      TabOrder = 3
+    end
+    object chkMergeableGroups: TCheckBox
+      Left = 4
+      Height = 24
+      Top = 221
+      Width = 574
+      Align = alTop
+      Caption = 'Mergeable Groups'
+      TabOrder = 5
     end
     object rgbGameKey: TRadioGroup
-      Left = 0
+      Left = 4
       Height = 73
-      Top = 96
-      Width = 582
+      Top = 116
+      Width = 574
       Align = alTop
       AutoFill = True
       AutoSize = True
@@ -222,7 +264,7 @@ inherited fmEmutecaSystemEditor: TfmEmutecaSystemEditor
       ChildSizing.Layout = cclTopToBottomThenLeftToRight
       ChildSizing.ControlsPerLine = 2
       ClientHeight = 48
-      ClientWidth = 578
+      ClientWidth = 570
       ColumnLayout = clVerticalThenHorizontal
       Columns = 2
       Constraints.MinWidth = 250
@@ -234,38 +276,23 @@ inherited fmEmutecaSystemEditor: TfmEmutecaSystemEditor
       )
       TabOrder = 2
     end
-    object chkExtractAllFiles: TCheckBox
-      Left = 0
-      Height = 24
-      Top = 169
-      Width = 582
-      Align = alTop
-      Caption = 'Extract All Files (If it''s in compressed)'
-      TabOrder = 3
-    end
-    object lWorkingFolder: TLabel
-      Left = 0
+    object lFileExtensions: TLabel
+      Left = 4
       Height = 20
-      Top = 48
-      Width = 582
+      Top = 249
+      Width = 574
       Align = alTop
-      Caption = 'Working Folder'
+      Caption = 'File Extensions (one by line)'
       ParentColor = False
     end
-    object eWorkingFolder: TDirectoryEdit
-      Left = 0
-      Height = 28
-      Top = 68
-      Width = 582
-      DialogOptions = [ofNoChangeDir, ofEnableSizing, ofViewDetail]
-      ShowHidden = False
-      ButtonWidth = 23
-      NumGlyphs = 1
-      Flat = True
-      Align = alTop
-      MaxLength = 0
-      TabOrder = 1
-      OnButtonClick = eWorkingFolderButtonClick
+    object mExtensions: TMemo
+      Left = 4
+      Height = 213
+      Top = 273
+      Width = 574
+      Align = alClient
+      ScrollBars = ssAutoBoth
+      TabOrder = 4
     end
   end
   inherited alPropEditor: TActionList[4]

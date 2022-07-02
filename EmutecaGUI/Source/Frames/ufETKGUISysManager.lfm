@@ -1,4 +1,14 @@
 inherited fmETKGUISysManager: TfmETKGUISysManager
+  inherited pPropChkList: TPanel
+    inherited tbPropChkList: TToolBar
+      inherited ToolButton3: TToolButton
+        Height = 28
+      end
+      inherited ToolButton6: TToolButton
+        Height = 28
+      end
+    end
+  end
   inherited alPropEditor: TActionList
     inherited actExportList: TAction
       Hint = 'Exports the system list with no user data to a file.'

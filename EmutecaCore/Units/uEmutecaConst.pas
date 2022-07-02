@@ -135,6 +135,7 @@ const
   krsIniKeyVideoCaptions = 'VideoCaptions';
   krsIniKeySoftExportKey = 'SoftExportKey';
   krsIniKeyExtractAll = 'ExtractAll';
+  krsIniKeyMergeableGroups = 'MergeableGroups';
 
   // Group
   // Shared Keys: krsIniKeyID, krsIniKeyTitle, krsIniKeySortTitle,

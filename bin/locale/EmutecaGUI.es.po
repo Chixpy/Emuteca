@@ -1047,7 +1047,11 @@ msgid "Save file"
 msgstr "Guardar fichero"
 
 #: tfmemutecasystemeditor.chkextractallfiles.caption
-msgid "Extract All Files (If it's in compressed)"
+msgid "Extract All Files (If they are compressed)"
+msgstr ""
+
+#: tfmemutecasystemeditor.chkmergeablegroups.caption
+msgid "Mergeable Groups"
 msgstr ""
 
 #: tfmemutecasystemeditor.etitle.texthint
@@ -1344,6 +1348,10 @@ msgctxt "tfmetkguimediamanager.actdeletefile.caption"
 msgid "Delete file"
 msgstr "Borrar fichero"
 
+#: tfmetkguimediamanager.acteditgroup.caption
+msgid "Edit Group..."
+msgstr ""
+
 #: tfmetkguimediamanager.actmoveallfiles.caption
 msgctxt "tfmetkguimediamanager.actmoveallfiles.caption"
 msgid "Move all files..."
@@ -1363,11 +1371,6 @@ msgstr "Renombra el fichero del grupo..."
 msgctxt "tfmetkguimediamanager.actrenamegroupfilewithfilename.caption"
 msgid "Rename group file with current File"
 msgstr "Renombrar el fichero del grupo con el fichero actual"
-
-#: tfmetkguimediamanager.actrenamegrouptitle.caption
-msgctxt "tfmetkguimediamanager.actrenamegrouptitle.caption"
-msgid "Rename group title..."
-msgstr "Renombrar el grupo..."
 
 #: tfmetkguimediamanager.actrenamegrouptitlewithfilename.caption
 msgctxt "tfmetkguimediamanager.actrenamegrouptitlewithfilename.caption"
@@ -2124,6 +2127,15 @@ msgstr ""
 msgid "%0:s: Not defined filename"
 msgstr ""
 
+#: uchxrscstr.rsfiledlgmaskdef
+msgid "All files|*.*"
+msgstr ""
+
+#: uchxrscstr.rsfiledlgmaskfmt
+#, object-pascal-format
+msgid "All files|*.*|Supported files|%0:s"
+msgstr ""
+
 #: uemutecarscstr.rschooseimagefileformat
 msgid ""
 "Do you want to save it in a lossless format?\n"
@@ -2387,10 +2399,6 @@ msgid ""
 "%0:s"
 msgstr ""
 
-#: uetkguirscstr.rsaskrenamegroupfile
-msgid "Rename group media filename?"
-msgstr ""
-
 #: uetkguirscstr.rsautofolderwarning
 #, object-pascal-format
 msgctxt "uetkguirscstr.rsautofolderwarning"
@@ -2473,10 +2481,6 @@ msgstr "Clave"
 msgctxt "uetkguirscstr.rspublisher"
 msgid "Publisher"
 msgstr "Publicador"
-
-#: uetkguirscstr.rsrenamegrouptitlecaption
-msgid "Rename group title:"
-msgstr ""
 
 #: uetkguirscstr.rsrunsoftware7zerror
 msgid "TfmLEmuTKMain.RunSoftware: Unknown decompress error."

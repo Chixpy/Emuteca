@@ -41,7 +41,7 @@ uses
   // Emuteca Core classes
   ucEmuteca, ucEmutecaSystem, ucEmutecaGroup, ucEmutecaSoftware,
   // Emuteca Core frames
-  ufEmutecaSystemCBX,
+  ufEmutecaSystemCBX, ufEmutecaGroupEditor,
   // Emuteca GUI units
   uETKGUIConst, uETKGUIRscStr,
   // Emuteca GUI classes
@@ -67,7 +67,7 @@ type
     actRenameGroupFileWithFilename: TAction;
     actMoveAllFiles: TAction;
     actMoveFile: TAction;
-    actRenameGroupTitle: TAction;
+    actEditGroup: TAction;
     actRenameGroupFile: TAction;
     ActionList: TActionList;
     bRename: TBitBtn;
@@ -90,17 +90,13 @@ type
     lbxTexts: TListBox;
     lbxVideos: TListBox;
     MenuItem1: TMenuItem;
-    MenuItem3: TMenuItem;
-    migpRenameGroupFileWithFile: TMenuItem;
-    migpRenameGroupTitleWithFile: TMenuItem;
     miflDeleteAllFiles: TMenuItem;
     miflMoveAllFiles: TMenuItem;
     miflMoveFile: TMenuItem;
     MenuItem4: TMenuItem;
     miflDeleteFile: TMenuItem;
     miflAssignFile: TMenuItem;
-    migpRenameGroupFile: TMenuItem;
-    migpRenameGroupTitle: TMenuItem;
+    migpEditGroup: TMenuItem;
     MenuItem2: TMenuItem;
     migpAssignFile: TMenuItem;
     pCenter: TPanel;
@@ -145,10 +141,7 @@ type
     procedure actDeleteFileExecute(Sender: TObject);
     procedure actMoveAllFilesExecute(Sender: TObject);
     procedure actMoveFileExecute(Sender: TObject);
-    procedure actRenameGroupFileExecute(Sender: TObject);
-    procedure actRenameGroupFileWithFilenameExecute(Sender: TObject);
-    procedure actRenameGroupTitleExecute(Sender: TObject);
-    procedure actRenameGroupTitleWithFilenameExecute(Sender: TObject);
+    procedure actEditGroupExecute(Sender: TObject);
     procedure chkSimilarFilesChange(Sender: TObject);
     procedure eOtherFolderAcceptDirectory(Sender: TObject; var Value: string);
     procedure lbxFolderSelectionChange(Sender: TObject; User: boolean);
@@ -1771,107 +1764,31 @@ begin
   MoveFile;
 end;
 
-procedure TfmETKGUIMediaManager.actRenameGroupFileExecute(Sender: TObject);
+procedure TfmETKGUIMediaManager.actEditGroupExecute(Sender: TObject);
 var
-  NewName: string;
-begin
-  // TODO: Merge with actRenameGroupFileWithFilenameExecute
-  if not Assigned(CurrGroup) then
-    Exit;
-  NewName := CleanFileName(CurrGroup.SortTitle);
-
-  if not InputQuery(self.Caption, rsAskRenameGroupFile, NewName) then
-    Exit;
-
-  CurrGroup.MediaFileName := CleanFileName(NewName);
-
-  TargetFile := CurrGroup.MediaFileName;
-  ChangeGroupMedia(CurrGroup);
-  FilterFiles;
-end;
-
-procedure TfmETKGUIMediaManager.actRenameGroupFileWithFilenameExecute(
-  Sender: TObject);
-var
-  NewName: string;
-begin
-  // TODO: Merge with actRenameGroupFileExecute
-
-  if (not Assigned(CurrGroup)) or (SourceFile = '') then
-    Exit;
-  NewName := ExtractFileNameOnly(SourceFile);
-
-  if not InputQuery(self.Caption, rsAskRenameGroupFile, NewName) then
-    Exit;
-
-  CurrGroup.MediaFileName := CleanFileName(NewName);
-
-  TargetFile := CurrGroup.MediaFileName;
-  ChangeGroupMedia(CurrGroup);
-  FilterFiles;
-end;
-
-procedure TfmETKGUIMediaManager.actRenameGroupTitleExecute(Sender: TObject);
-var
-  NewName: string;
-  OldFileName: string;
+  FormResult: integer;
+  aIconFile, aConfigFile: string;
 begin
   // TODO: Merge with actRenameGroupTitleWithFilenameExecute
 
   if not Assigned(CurrGroup) then
     Exit;
 
-  NewName := CurrGroup.Title;
-  OldFileName := '';
+  if Assigned(GUIConfig) then
+  begin
+    aIconFile := GUIConfig.GUIIcnFile;
+    aConfigFile := GUIConfig.DefaultFileName;
+  end;
 
-  if not InputQuery(self.Caption, rsRenameGroupTitleCaption, NewName) then
-    Exit;
+  FormResult := TfmEmutecaGroupEditor.SimpleModalForm(CurrGroup, aConfigFile,
+    aIconFile);
 
-  OldFileName := CurrGroup.MediaFileName;
-  CurrGroup.Title := NewName;
-  CurrGroup.MediaFileName := OldFileName;
-
-  if MessageDlg(self.Caption, rsAskRenameGroupFile,
-    mtConfirmation, mbYesNo, '') = mrNo then
-    Exit;
-
-  CurrGroup.MediaFileName := CleanFileName(NewName);
-
-  TargetFile := CurrGroup.MediaFileName;
-  ChangeGroupMedia(CurrGroup);
-  FilterFiles;
-end;
-
-procedure TfmETKGUIMediaManager.actRenameGroupTitleWithFilenameExecute(
-  Sender: TObject);
-var
-  NewName: string;
-  OldFileName: string;
-begin
-  // TODO: Merge with actRenameGroupTitleExecute
-
-    if (not Assigned(CurrGroup))  or (SourceFile = '')then
-    Exit;
-
-  NewName := ExtractFileNameOnly(SourceFile);
-  OldFileName := '';
-
-  if not InputQuery(self.Caption, rsRenameGroupTitleCaption, NewName) then
-    Exit;
-
-  OldFileName := CurrGroup.MediaFileName;
-  CurrGroup.Title := NewName;
-  CurrGroup.MediaFileName := OldFileName;
-
-  if MessageDlg(self.Caption, rsAskRenameGroupFile,
-    mtConfirmation, mbYesNo, '') = mrNo then
-    Exit;
-
-  CurrGroup.MediaFileName := CleanFileName(NewName);
-
-  TargetFile := CurrGroup.MediaFileName;
-  ChangeGroupMedia(CurrGroup);
-  FilterFiles;
+  if FormResult = mrOK then
+  begin
+    TargetFile := CurrGroup.MediaFileName;
+    ChangeGroupMedia(CurrGroup);
+    FilterFiles;
+  end;
 end;
 
 procedure TfmETKGUIMediaManager.vstFileFreeNode(Sender: TBaseVirtualTree;

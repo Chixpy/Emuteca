@@ -1000,7 +1000,11 @@ msgid "Save file"
 msgstr ""
 
 #: tfmemutecasystemeditor.chkextractallfiles.caption
-msgid "Extract All Files (If it's in compressed)"
+msgid "Extract All Files (If they are compressed)"
+msgstr ""
+
+#: tfmemutecasystemeditor.chkmergeablegroups.caption
+msgid "Mergeable Groups"
 msgstr ""
 
 #: tfmemutecasystemeditor.etitle.texthint
@@ -1281,6 +1285,10 @@ msgstr ""
 msgid "Delete file"
 msgstr ""
 
+#: tfmetkguimediamanager.acteditgroup.caption
+msgid "Edit Group..."
+msgstr ""
+
 #: tfmetkguimediamanager.actmoveallfiles.caption
 msgid "Move all files..."
 msgstr ""
@@ -1295,10 +1303,6 @@ msgstr ""
 
 #: tfmetkguimediamanager.actrenamegroupfilewithfilename.caption
 msgid "Rename group file with current File"
-msgstr ""
-
-#: tfmetkguimediamanager.actrenamegrouptitle.caption
-msgid "Rename group title..."
 msgstr ""
 
 #: tfmetkguimediamanager.actrenamegrouptitlewithfilename.caption
@@ -2023,6 +2027,15 @@ msgstr ""
 msgid "%0:s: Not defined filename"
 msgstr ""
 
+#: uchxrscstr.rsfiledlgmaskdef
+msgid "All files|*.*"
+msgstr ""
+
+#: uchxrscstr.rsfiledlgmaskfmt
+#, object-pascal-format
+msgid "All files|*.*|Supported files|%0:s"
+msgstr ""
+
 #: uemutecarscstr.rschooseimagefileformat
 msgid ""
 "Do you want to save it in a lossless format?\n"
@@ -2231,10 +2244,6 @@ msgid ""
 "%0:s"
 msgstr ""
 
-#: uetkguirscstr.rsaskrenamegroupfile
-msgid "Rename group media filename?"
-msgstr ""
-
 #: uetkguirscstr.rsautofolderwarning
 #, object-pascal-format
 msgid ""
@@ -2297,10 +2306,6 @@ msgstr ""
 #: uetkguirscstr.rspublisher
 msgctxt "uetkguirscstr.rspublisher"
 msgid "Publisher"
-msgstr ""
-
-#: uetkguirscstr.rsrenamegrouptitlecaption
-msgid "Rename group title:"
 msgstr ""
 
 #: uetkguirscstr.rsrunsoftware7zerror

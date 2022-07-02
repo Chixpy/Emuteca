@@ -48,6 +48,7 @@ type
     FExtractAll: boolean;
     FListFileName: string;
     FLogoFolder: string;
+    FMergeableGroups: boolean;
     FSoftExportKey: TEmutecaSoftExportKey;
     FIconFile: string;
     FIconFolder: string;
@@ -76,6 +77,7 @@ type
     procedure SetExtractAll(AValue: boolean);
     procedure SetListFileName(AValue: string);
     procedure SetLogoFolder(AValue: string);
+    procedure SetMergeableGroups(AValue: boolean);
     procedure SetSoftExportKey(AValue: TEmutecaSoftExportKey);
     procedure SetIconFile(AValue: string);
     procedure SetIconFolder(AValue: string);
@@ -129,6 +131,8 @@ type
 
     property ExtractAll: boolean read FExtractAll write SetExtractAll;
     {< Must all files be extracted from compressed archives? }
+
+    property MergeableGroups: boolean read FMergeableGroups write SetMergeableGroups;
 
     property BaseFolder: string read FBaseFolder write SetBaseFolder;
     {< System base folder
@@ -246,6 +250,7 @@ begin
   Enabled := aIniFile.ReadBool(ID, krsIniKeyEnabled, Enabled);
 
   ExtractAll := aIniFile.ReadBool(ID, krsIniKeyExtractAll, ExtractAll);
+  MergeableGroups := aIniFile.ReadBool(ID, krsIniKeyMergeableGroups, MergeableGroups);
 
   BaseFolder := aIniFile.ReadString(ID, krsIniKeyBaseFolder, BaseFolder);
   WorkingFolder := aIniFile.ReadString(ID, krsIniKeyWorkingFolder,
@@ -362,6 +367,12 @@ end;
 procedure caEmutecaCustomSystem.SetLogoFolder(AValue: string);
 begin
   FLogoFolder := SetAsFolder(AValue);
+end;
+
+procedure caEmutecaCustomSystem.SetMergeableGroups(AValue: boolean);
+begin
+  if FMergeableGroups = AValue then Exit;
+  FMergeableGroups := AValue;
 end;
 
 procedure caEmutecaCustomSystem.SetSoftExportKey(
@@ -486,6 +497,7 @@ begin
   aIniFile.WriteString(ID, krsIniKeyTitle, Title);
   aIniFile.WriteString(ID, krsIniKeyFileName, ListFileName);
   aIniFile.WriteBool(ID, krsIniKeyExtractAll, ExtractAll);
+  aIniFile.WriteBool(ID, krsIniKeyMergeableGroups, MergeableGroups);
 
   aIniFile.WriteString(ID, krsIniKeyMainEmulator, MainEmulator);
 

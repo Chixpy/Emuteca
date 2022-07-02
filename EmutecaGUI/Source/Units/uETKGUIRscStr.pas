@@ -93,9 +93,6 @@ resourcestring
 
   rsAskDeleteItem = 'Do you want to delete this item from Emuteca?' + LineEnding + '%0:s';
 
-  rsRenameGroupTitleCaption = 'Rename group title:';
-  rsAskRenameGroupFile ='Rename group media filename?';
-
 implementation
 
 end.

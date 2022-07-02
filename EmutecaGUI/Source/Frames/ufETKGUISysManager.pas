@@ -298,6 +298,8 @@ var
   aForm: TfrmCHXForm;
   aFrame: TfmETKGUISysManager;
 begin
+  // TODO: Use TfmCHXFrame.GenSimpleModalForm
+
   Result := mrNone;
 
   Application.CreateForm(TfrmCHXForm, aForm);

@@ -45,6 +45,7 @@ type
   TfmEmutecaSystemEditor = class(TfmCHXPropEditor)
     cbxMainEmulator: TComboBox;
     chkExtractAllFiles: TCheckBox;
+    chkMergeableGroups: TCheckBox;
     clbOtherEmulators: TCheckListBox;
     eBaseFolder: TDirectoryEdit;
     eExtraInfoFilename: TEdit;
@@ -168,6 +169,7 @@ begin
   eWorkingFolder.Clear;
   rgbGameKey.ItemIndex := 0;
   chkExtractAllFiles.Checked := False;
+  chkMergeableGroups.Checked := False;
   mExtensions.Clear;
   mMultiCoreIDs.Clear;
 end;
@@ -208,6 +210,7 @@ begin
   System.BaseFolder := eBaseFolder.Text;
   System.WorkingFolder := eWorkingFolder.Text;
   system.ExtractAll := chkExtractAllFiles.Checked;
+  system.MergeableGroups := chkMergeableGroups.Checked;
 
   case rgbGameKey.ItemIndex of
     1: System.SoftExportKey := TEFKCRC32;
@@ -262,6 +265,7 @@ begin
   end;
 
   chkExtractAllFiles.Checked := System.ExtractAll;
+  chkMergeableGroups.Checked := System.MergeableGroups;
 
   System.Extensions.Sort;
   mExtensions.Lines.Assign(System.Extensions);

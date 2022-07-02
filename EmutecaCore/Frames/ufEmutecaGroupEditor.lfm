@@ -1,24 +1,24 @@
 inherited fmEmutecaGroupEditor: TfmEmutecaGroupEditor
-  Height = 276
-  Width = 253
+  Height = 327
+  Width = 464
   AutoScroll = True
-  ClientHeight = 276
-  ClientWidth = 253
+  ClientHeight = 327
+  ClientWidth = 464
   DesignLeft = 540
   DesignTop = 246
   inherited pButtons: TPanel
-    Top = 246
-    Width = 253
-    ClientWidth = 253
+    Top = 297
+    Width = 464
+    ClientWidth = 464
     TabOrder = 4
     inherited chkCloseOnSave: TCheckBox
-      Left = 10
+      Left = 62
     end
     inherited bSave: TBitBtn
-      Left = 80
+      Left = 184
     end
     inherited bCancel: TBitBtn
-      Left = 156
+      Left = 312
     end
   end
   object eTitle: TEdit[1]
@@ -26,7 +26,7 @@ inherited fmEmutecaGroupEditor: TfmEmutecaGroupEditor
     Height = 28
     Hint = 'Title of the group.'
     Top = 32
-    Width = 253
+    Width = 464
     Align = alTop
     ParentShowHint = False
     ShowHint = True
@@ -38,7 +38,7 @@ inherited fmEmutecaGroupEditor: TfmEmutecaGroupEditor
     Height = 28
     Hint = 'Date of development.'
     Top = 128
-    Width = 253
+    Width = 464
     Align = alTop
     ParentShowHint = False
     ShowHint = True
@@ -50,7 +50,7 @@ inherited fmEmutecaGroupEditor: TfmEmutecaGroupEditor
     Height = 28
     Hint = 'Title used for sorting.'
     Top = 64
-    Width = 253
+    Width = 464
     Align = alTop
     ParentShowHint = False
     ShowHint = True
@@ -62,7 +62,7 @@ inherited fmEmutecaGroupEditor: TfmEmutecaGroupEditor
     Height = 28
     Hint = 'Filename for searching media.'
     Top = 160
-    Width = 253
+    Width = 464
     Align = alTop
     ParentShowHint = False
     ShowHint = True
@@ -74,7 +74,7 @@ inherited fmEmutecaGroupEditor: TfmEmutecaGroupEditor
     Height = 28
     Hint = 'Developer of the software.'
     Top = 96
-    Width = 253
+    Width = 464
     Align = alTop
     AutoComplete = True
     AutoCompleteText = [cbactEnabled, cbactEndOfLineComplete, cbactSearchAscending]
@@ -89,7 +89,7 @@ inherited fmEmutecaGroupEditor: TfmEmutecaGroupEditor
     Height = 28
     Hint = 'ID of the group.'
     Top = 0
-    Width = 253
+    Width = 464
     Align = alTop
     TabOrder = 6
     TextHint = 'Group ID'
