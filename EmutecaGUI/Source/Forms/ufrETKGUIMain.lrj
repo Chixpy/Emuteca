@@ -63,5 +63,6 @@
 {"hash":203861982,"name":"tfrmetkguimain.actopen7zcachefolder.hint","sourcebytes":[79,112,101,110,32,55,122,32,99,97,99,104,195,169,32,102,111,108,100,101,114,46,46,46,124,79,112,101,110,32,55,122,32,99,97,99,104,195,169,32,102,111,108,100,101,114,46],"value":"Open 7z cach\u00E9 folder...|Open 7z cach\u00E9 folder."},
 {"hash":95133230,"name":"tfrmetkguimain.actrunemulatoralone.caption","sourcebytes":[82,117,110,32,101,109,117,108,97,116,111,114,32,97,108,111,110,101,46],"value":"Run emulator alone."},
 {"hash":23286862,"name":"tfrmetkguimain.actopenemulatorweb.caption","sourcebytes":[79,112,101,110,32,101,109,117,108,97,116,111,114,32,119,101,98,115,105,116,101,46,46,46],"value":"Open emulator website..."},
-{"hash":34736676,"name":"tfrmetkguimain.actremovesoft.caption","sourcebytes":[82,101,109,111,118,101,32,115,111,102,116,119,97,114,101,32,102,114,111,109,32,108,105,115,116],"value":"Remove software from list"}
+{"hash":34736676,"name":"tfrmetkguimain.actremovesoft.caption","sourcebytes":[82,101,109,111,118,101,32,115,111,102,116,119,97,114,101,32,102,114,111,109,32,108,105,115,116],"value":"Remove software from list"},
+{"hash":81548718,"name":"tfrmetkguimain.acteditgroup.caption","sourcebytes":[69,100,105,116,32,71,114,111,117,112,46,46,46],"value":"Edit Group..."}
 ]}

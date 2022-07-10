@@ -14,7 +14,7 @@ inherited frmETKGUIMain: TfrmETKGUIMain
     Left = 4
     Height = 29
     Top = 443
-    Width = 1016
+    Width = 541
     AutoHint = True
     Panels = <>
     SizeGrip = False
@@ -43,6 +43,9 @@ inherited frmETKGUIMain: TfrmETKGUIMain
     Images = ActImages
     Left = 224
     Top = 44
+    object mipmGEditGroup: TMenuItem
+      Action = actEditGroup
+    end
     object mipmGSearchInternet: TMenuItem
       Caption = 'Search in Internet'
     end
@@ -345,6 +348,11 @@ inherited frmETKGUIMain: TfrmETKGUIMain
       Category = 'Software'
       Caption = 'Remove software from list'
       OnExecute = actRemoveSoftExecute
+    end
+    object actEditGroup: TAction
+      Category = 'Group'
+      Caption = 'Edit Group...'
+      OnExecute = actEditGroupExecute
     end
   end
   object ActImages: TImageList[5]

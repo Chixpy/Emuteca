@@ -46,7 +46,7 @@ uses
   ucEmutecaSoftware, ucEmutecaSoftList, ucEmutecaEmulator,
   // Emuteca Core frames
   ufEmutecaActAddSoft, ufEmutecaActAddFolder, ufEmutecaActExportSoftData,
-  ufEmutecaActImportSoftData,
+  ufEmutecaActImportSoftData, ufEmutecaGroupEditor,
   // Emuteca GUI units
   uETKGUIConst, uETKGUIRscStr,
   // Emuteca GUI classes
@@ -76,6 +76,7 @@ type
     actExportSoftData: TAction;
     ActImages: TImageList;
     actImportSoftData: TAction;
+    actEditGroup: TAction;
     actRemoveSoft: TAction;
     actOpenEmulatorWeb: TAction;
     actRunEmulatorAlone: TAction;
@@ -96,6 +97,7 @@ type
     FileExit1: TFileExit;
     HelpOnHelp1: THelpOnHelp;
     MainMenu: TMainMenu;
+    mipmGEditGroup: TMenuItem;
     MenuItem13: TMenuItem;
     MenuItem15: TMenuItem;
     MenuItem2: TMenuItem;
@@ -152,6 +154,7 @@ type
     procedure actAutoSaveExecute(Sender: TObject);
     procedure actCleanSystemDataExecute(Sender: TObject);
     procedure actEditEmulatorExecute(Sender: TObject);
+    procedure actEditGroupExecute(Sender: TObject);
     procedure actEditSystemExecute(Sender: TObject);
     procedure actEmulatorManagerExecute(Sender: TObject);
     procedure actExportSoftDataExecute(Sender: TObject);
@@ -604,6 +607,15 @@ begin
     GUIIconsFile, GUIConfig.DefaultFileName);
 end;
 
+procedure TfrmETKGUIMain.actEditGroupExecute(Sender: TObject);
+begin
+   if not assigned(CurrentGroup) then
+    Exit;
+
+   TfmEmutecaGroupEditor.SimpleModalForm(CurrentGroup, '',
+     GUIConfig.DefaultFileName, GUIIconsFile);
+end;
+
 procedure TfrmETKGUIMain.actEditSystemExecute(Sender: TObject);
 begin
   if not assigned(CurrentSystem) then
@@ -612,7 +624,7 @@ begin
   // Fix runtime errors, while trying to update if something is changed
   fmEmutecaMainFrame.Emuteca := nil;
 
-  TfmETKGUIFullSystemEditor.SimpleForm(Emuteca, CurrentSystem,
+  TfmETKGUIFullSystemEditor.SimpleModalForm(Emuteca, CurrentSystem,
     SHA1Folder, GUIIconsFile, GUIConfig.DefaultFileName);
   LoadSystemsIcons;
 

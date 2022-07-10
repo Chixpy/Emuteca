@@ -64,11 +64,9 @@ type
     actDeleteFile: TAction;
     actDeleteAllFiles: TAction;
     actRenameGroupTitleWithFilename: TAction;
-    actRenameGroupFileWithFilename: TAction;
     actMoveAllFiles: TAction;
     actMoveFile: TAction;
     actEditGroup: TAction;
-    actRenameGroupFile: TAction;
     ActionList: TActionList;
     bRename: TBitBtn;
     chkCopyFile: TCheckBox;
@@ -90,6 +88,7 @@ type
     lbxTexts: TListBox;
     lbxVideos: TListBox;
     MenuItem1: TMenuItem;
+    migpRenameGroupTitleWithFilename: TMenuItem;
     miflDeleteAllFiles: TMenuItem;
     miflMoveAllFiles: TMenuItem;
     miflMoveFile: TMenuItem;
@@ -142,6 +141,7 @@ type
     procedure actMoveAllFilesExecute(Sender: TObject);
     procedure actMoveFileExecute(Sender: TObject);
     procedure actEditGroupExecute(Sender: TObject);
+    procedure actRenameGroupTitleWithFilenameExecute(Sender: TObject);
     procedure chkSimilarFilesChange(Sender: TObject);
     procedure eOtherFolderAcceptDirectory(Sender: TObject; var Value: string);
     procedure lbxFolderSelectionChange(Sender: TObject; User: boolean);
@@ -338,6 +338,9 @@ type
     procedure MoveAllFiles;
     {< Moves all VISIBLE (i.e. no hidden) files from the current list to
         another folder. }
+
+    procedure OpenGroupEditor(NewTitle: string = '');
+    {< Opens GroupEditor with current selected group, and set a new name.}
 
     procedure DoClearFrameData;
     procedure DoLoadFrameData;
@@ -1382,6 +1385,31 @@ begin
     UpdateVST(TargetFolder);
 end;
 
+procedure TfmETKGUIMediaManager.OpenGroupEditor(NewTitle: string);
+var
+  FormResult: integer;
+  aIconFile, aConfigFile: string;
+begin
+  if not Assigned(CurrGroup) then
+    Exit;
+
+  if Assigned(GUIConfig) then
+  begin
+    aIconFile := GUIConfig.GUIIcnFile;
+    aConfigFile := GUIConfig.DefaultFileName;
+  end;
+
+  FormResult := TfmEmutecaGroupEditor.SimpleModalForm(CurrGroup, NewTitle,
+    aConfigFile, aIconFile);
+
+  if FormResult = mrOK then
+  begin
+    TargetFile := CurrGroup.MediaFileName;
+    ChangeGroupMedia(CurrGroup);
+    FilterFiles;
+  end;
+end;
+
 procedure TfmETKGUIMediaManager.DoClearFrameData;
 begin
 
@@ -1765,30 +1793,20 @@ begin
 end;
 
 procedure TfmETKGUIMediaManager.actEditGroupExecute(Sender: TObject);
-var
-  FormResult: integer;
-  aIconFile, aConfigFile: string;
 begin
-  // TODO: Merge with actRenameGroupTitleWithFilenameExecute
-
   if not Assigned(CurrGroup) then
+   Exit;
+
+  OpenGroupEditor('');
+end;
+
+procedure TfmETKGUIMediaManager.actRenameGroupTitleWithFilenameExecute(
+  Sender: TObject);
+begin
+   if (not Assigned(CurrGroup)) or (SourceFile = '') then
     Exit;
 
-  if Assigned(GUIConfig) then
-  begin
-    aIconFile := GUIConfig.GUIIcnFile;
-    aConfigFile := GUIConfig.DefaultFileName;
-  end;
-
-  FormResult := TfmEmutecaGroupEditor.SimpleModalForm(CurrGroup, aConfigFile,
-    aIconFile);
-
-  if FormResult = mrOK then
-  begin
-    TargetFile := CurrGroup.MediaFileName;
-    ChangeGroupMedia(CurrGroup);
-    FilterFiles;
-  end;
+  OpenGroupEditor(ExtractFileNameOnly(SourceFile));
 end;
 
 procedure TfmETKGUIMediaManager.vstFileFreeNode(Sender: TBaseVirtualTree;

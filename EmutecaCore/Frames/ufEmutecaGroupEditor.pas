@@ -60,7 +60,7 @@ type
       Operation: TFPObservedOperation; Data: Pointer);
 
     class function SimpleModalForm(aGroup: cEmutecaGroup;
-      aGUIConfigIni, aGUIIconsIni: string): integer;
+      NewTitle, aGUIConfigIni, aGUIIconsIni: string): integer;
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -157,7 +157,7 @@ begin
 end;
 
 class function TfmEmutecaGroupEditor.SimpleModalForm(aGroup: cEmutecaGroup;
-  aGUIConfigIni, aGUIIconsIni: string): integer;
+  NewTitle, aGUIConfigIni, aGUIIconsIni: string): integer;
 var
   fmGroupEditor: TfmEmutecaGroupEditor;
 begin
@@ -169,6 +169,9 @@ begin
 
   fmGroupEditor.ButtonClose := True;
   fmGroupEditor.chkCloseOnSave.Visible := False;
+
+  if NewTitle <> '' then
+     fmGroupEditor.eTitle.Text := NewTitle;
 
   Result := GenSimpleModalForm(fmGroupEditor, 'frmETKGroupEditor',
     Format(krsFmtWindowCaption, [Application.Title, 'Group Editor']),

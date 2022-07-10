@@ -1349,6 +1349,7 @@ msgid "Delete file"
 msgstr "Borrar fichero"
 
 #: tfmetkguimediamanager.acteditgroup.caption
+msgctxt "tfmetkguimediamanager.acteditgroup.caption"
 msgid "Edit Group..."
 msgstr ""
 
@@ -1361,16 +1362,6 @@ msgstr "Mover todos los fichero..."
 msgctxt "tfmetkguimediamanager.actmovefile.caption"
 msgid "Move file..."
 msgstr "Mover fichero..."
-
-#: tfmetkguimediamanager.actrenamegroupfile.caption
-msgctxt "tfmetkguimediamanager.actrenamegroupfile.caption"
-msgid "Rename group file..."
-msgstr "Renombra el fichero del grupo..."
-
-#: tfmetkguimediamanager.actrenamegroupfilewithfilename.caption
-msgctxt "tfmetkguimediamanager.actrenamegroupfilewithfilename.caption"
-msgid "Rename group file with current File"
-msgstr "Renombrar el fichero del grupo con el fichero actual"
 
 #: tfmetkguimediamanager.actrenamegrouptitlewithfilename.caption
 msgctxt "tfmetkguimediamanager.actrenamegrouptitlewithfilename.caption"
@@ -1820,6 +1811,11 @@ msgstr ""
 
 #: tfrmetkguimain.acteditemulator.hint
 msgid "Edit emulator...|Open editor for current emulator."
+msgstr ""
+
+#: tfrmetkguimain.acteditgroup.caption
+msgctxt "tfrmetkguimain.acteditgroup.caption"
+msgid "Edit Group..."
 msgstr ""
 
 #: tfrmetkguimain.acteditsystem.caption

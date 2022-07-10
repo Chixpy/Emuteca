@@ -791,10 +791,6 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
       Caption = 'Delete file'
       OnExecute = actDeleteFileExecute
     end
-    object actRenameGroupFile: TAction
-      Category = 'Groups'
-      Caption = 'Rename group file...'
-    end
     object actEditGroup: TAction
       Category = 'Groups'
       Caption = 'Edit Group...'
@@ -815,13 +811,10 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
       Caption = 'Delete all files'
       OnExecute = actDeleteAllFilesExecute
     end
-    object actRenameGroupFileWithFilename: TAction
-      Category = 'Groups'
-      Caption = 'Rename group file with current File'
-    end
     object actRenameGroupTitleWithFilename: TAction
       Category = 'Groups'
       Caption = 'Rename group title with current File'
+      OnExecute = actRenameGroupTitleWithFilenameExecute
     end
   end
   object ilActions: TImageList[8]
@@ -840,6 +833,9 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
     end
     object migpEditGroup: TMenuItem
       Action = actEditGroup
+    end
+    object migpRenameGroupTitleWithFilename: TMenuItem
+      Action = actRenameGroupTitleWithFilename
     end
   end
   object pumVSTFiles: TPopupMenu[10]

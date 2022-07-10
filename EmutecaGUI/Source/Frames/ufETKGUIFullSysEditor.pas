@@ -90,7 +90,7 @@ type
 
     property SHA1Folder: string read FSHA1Folder write SetSHA1Folder;
 
-    class function SimpleForm(aEmuteca: cEmuteca;
+    class function SimpleModalForm(aEmuteca: cEmuteca;
       aSystem: cEmutecaSystem; aSHA1Folder: string; aGUIIconsIni: string;
       aGUIConfigIni: string): integer;
     //< Creates a form with System Editor.
@@ -297,7 +297,7 @@ begin
   fmSysMVFEditor.SaveFrameData;
 end;
 
-class function TfmETKGUIFullSystemEditor.SimpleForm(aEmuteca: cEmuteca;
+class function TfmETKGUIFullSystemEditor.SimpleModalForm(aEmuteca: cEmuteca;
   aSystem: cEmutecaSystem; aSHA1Folder: string; aGUIIconsIni: string;
   aGUIConfigIni: string): integer;
 var
