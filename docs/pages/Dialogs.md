@@ -14,9 +14,10 @@ Esto hace que haya cuadros de diálogo que por el momento solo se usan incrustad
 
 Para más información sobre las propiedades y funcionamiento de algún cuadro de diálogo específico ve a su pantalla correspondiente:
 
+* [Editor de Grupo](Dialogs/GroupEditor)
+* [Editor de Software](Dialogs/SoftwareEditor)
 * [Añadir Software](Dialogs/AddSoftware)
 * [Añadir Carpeta](Dialogs/AddFolder)
-* [Editor de Software](Dialogs/SoftwareEditor)
 * [Importar datos del Software](Dialogs/ImportSoftData)
 * [Exportar datos del Software](Dialogs/ExportSoftData)
 * [Gestor de Sistemas](Dialogs/SystemManager)
