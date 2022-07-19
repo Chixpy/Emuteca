@@ -44,10 +44,10 @@ Pero esto se puede complicar mucho:
     * Aunque se hacer excepciones si el nomber del juego en su versión occidental claramente no es apropiado o la franquicia fue renombrada a posteriori por problemas legales, censura o similar:
       * SNES "Final Fantasy III" (US) -> "Final Fantasy VI"
       * "Dragon Warrior" -> "Dragon Quest"
-  * Si solo salió en Japón: ***Aquí deberían usarse caracteres japoneses*** (y de igual forma con cirílico, griego, árabe si se da el caso).
+  * Si solo salió en Japón: **Aquí deberían usarse caracteres japoneses** (y de igual forma con cirílico, griego, árabe si se da el caso).
   * Si hay incongruencias entre manual, frontal, pantalla de título, &c.; elegir el que mejor convenga para la saga 
     * Title Screen = "David Crane's A Boy and His Blob in... The Rescue of Princess Blobette" ~ Box Front = "David Crane's The Rescue of Princess Blobette starring A Boy and His Blob" -> Elegir el primero
-  * Añadir los "Algo's" como puede ser "Disney's", "David Crane's", "Hudsof's", "John Romero's", etc.
+  * Añadir los "Algo's" como puede ser "Disney's", "David Crane's", "Hudson's", "John Romero's", etc.
   
  En caso de estar vacío se usará el identificador del grupo.
 
@@ -57,19 +57,19 @@ Texto formateado para una correcta ordenación de los juegos de forma alfabétic
 
 Para conseguirla se debería seguir los siguientes pasos:
 
-  * Transliterar (que no traducir) los caracteres no ASCII.
+  1. Transliterar (que no traducir) los caracteres no ASCII.
     * Kanjis, Cirílico, etc.
-  * Eliminar tildes, acentos y otras marcas ortográficas que no deberían intervenir en la ordenación.
+  2. Eliminar tildes, acentos y otras marcas ortográficas que no deberían intervenir en la ordenación.
     * "ê" = "é" = "è" = "ë" -> "e"
     * "ñ" -> "n" (Realmente debería ser "nzz", pero no afectará en casi nada)
-  * Eliminar "Algo's"
-  * Eliminar artículos iniciales ("The", "A", o equivalentes en otros idiomas) del título, no hace falta de los subtítulos.
+  3. Eliminar "Algo's"
+  4. Eliminar artículos iniciales ("The", "A", o equivalentes en otros idiomas) del título, no hace falta de los subtítulos.
     * "El", "La", "Los", "Las", "Una" en español. Cuidado con "Un" puesto que se puede referir al número en vez de ser un artículo.
-  * Cambiar números romanos por arábigos si se refiere al número del capítulo.
-  * *Por decidir: Eliminar números iniciales que funcionen como artículo.*
-  * Añadir "0" a la izquierda del número del capítulo o añadir "1" al primero si es necesario.
+  5. Cambiar números romanos por arábigos si se refiere al número del capítulo.
+  6. *Por decidir: Eliminar números iniciales que funcionen como artículo.*
+  7. Añadir "0" a la izquierda del número del capítulo o añadir "1" al primero si es necesario.
   
-En caso de estar vacío se usará el título del grupo.
+En caso de estar vacío se usará automáticamente el título del grupo.
 
 ### Desarrollador ###
 
@@ -85,6 +85,6 @@ Fecha en la que fue programado o el lanzamiento de la primera versión.
 
 Nombre por el que buscar los fichero multimedia del grupo.
 
-Realmente... desde que se decidió dejar de usar el identificador de MAME para esto, ya no sería necesario usarla. Teniendo bastantes posibilidades de acabar siendo elimininada esta propiedad.
+Realmente... desde que se decidió dejar de usar el identificador de MAME para buscar, ya no sería necesario usarla. Teniendo bastantes posibilidades de acabar siendo elimininada esta propiedad.
 
 En caso de estar vacío se usará la clave de ordenación, modificada automáticamente para que no contenga carateres inválidos nombres de ficheros en Windows.
