@@ -8,7 +8,8 @@ uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, StdCtrls,
   ComCtrls, FileUtil, BGRABitmap, BGRABitmapTypes, Math, Types, lclintf,
   EditBtn, Spin, ColorBox, LazFileUtils,
-  uCHXDlgUtils, uCHXFileUtils;
+  // CHX units
+  uCHXDlgUtils, uCHXFileUtils, uCHXStrUtils;
 
 type
 
@@ -765,6 +766,9 @@ end;
 
 procedure TfrmIconBorder.bDeleteInputFileClick(Sender: TObject);
 begin
+  if FileList.ItemIndex < 0 then
+    Exit;
+
   if not FileExists(FileList.Items[FileList.ItemIndex]) then
     Exit;
 

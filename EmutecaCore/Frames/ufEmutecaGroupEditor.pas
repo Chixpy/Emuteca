@@ -3,7 +3,7 @@ unit ufEmutecaGroupEditor;
 
   This file is part of Emuteca Core.
 
-  Copyright (C) 2011-2020 Chixpy
+  Copyright (C) 2011-2022 Chixpy
 
   This source is free software; you can redistribute it and/or modify it
   under the terms of the GNU General Public License as published by the Free
@@ -27,6 +27,8 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
   StdCtrls, Buttons, ActnList,
+  // CHX units
+  uCHXStrUtils,
   // CHX forms
   ufCHXPropEditor,
   // Emuteca Core units
@@ -171,7 +173,7 @@ begin
   fmGroupEditor.chkCloseOnSave.Visible := False;
 
   if NewTitle <> '' then
-     fmGroupEditor.eTitle.Text := NewTitle;
+    fmGroupEditor.eTitle.Text := UTF8TextReplace(NewTitle, ' - ', ': ');
 
   Result := GenSimpleModalForm(fmGroupEditor, 'frmETKGroupEditor',
     Format(krsFmtWindowCaption, [Application.Title, 'Group Editor']),

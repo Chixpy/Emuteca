@@ -129,11 +129,6 @@ type
       If empty, then it's same as group ID. }
     property SortTitle: string read GetSortTitle write SetSortTitle;
     {< Title formated for sorting purposes.
-     If SortTitle = '' then
-      If GetActualTranslitTitle <> '' then
-        SortTitle = GetActualTranslitTitle
-      else
-        SortTitle = CachedGroup.ID
     }
     property MediaFileName: string read GetMediaFileName
       write SetMediaFileName;

@@ -10,7 +10,7 @@ object frmIconBorder: TfrmIconBorder
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   Position = poMainFormCenter
-  LCLVersion = '2.2.0.4'
+  LCLVersion = '2.2.2.0'
   object gbxInputImage: TGroupBox
     Left = 222
     Height = 691
@@ -84,6 +84,7 @@ object frmIconBorder: TfrmIconBorder
           Constraints.MinHeight = 22
           Font.Height = 8
           Layout = tlCenter
+          ParentColor = False
           ParentFont = False
           OptimalFill = True
         end
@@ -147,9 +148,9 @@ object frmIconBorder: TfrmIconBorder
         Height = 172
         Top = 0
         Width = 468
-        ActivePage = pagFillInput
+        ActivePage = pagCommonInput
         Align = alClient
-        TabIndex = 3
+        TabIndex = 0
         TabOrder = 0
         OnChange = pgcImageInputChange
         object pagCommonInput: TTabSheet
@@ -315,6 +316,7 @@ object frmIconBorder: TfrmIconBorder
             Top = 4
             Width = 72
             Caption = 'Paint Color'
+            ParentColor = False
           end
           object lOpacityPaintInput: TLabel
             Left = 112
@@ -322,6 +324,7 @@ object frmIconBorder: TfrmIconBorder
             Top = 4
             Width = 87
             Caption = 'Paint Opacity'
+            ParentColor = False
           end
         end
         object pagFillInput: TTabSheet
@@ -363,6 +366,7 @@ object frmIconBorder: TfrmIconBorder
             Top = 4
             Width = 59
             Caption = 'Fill Color'
+            ParentColor = False
           end
           object lOpacityFillInput: TLabel
             Left = 101
@@ -370,6 +374,7 @@ object frmIconBorder: TfrmIconBorder
             Top = 4
             Width = 74
             Caption = 'Fill Opacity'
+            ParentColor = False
           end
           object lToleranceFillInput: TLabel
             Left = 208
@@ -377,6 +382,7 @@ object frmIconBorder: TfrmIconBorder
             Top = 4
             Width = 64
             Caption = 'Tolerance'
+            ParentColor = False
           end
           object eToleranceFillInput: TSpinEdit
             Left = 208
@@ -632,6 +638,7 @@ object frmIconBorder: TfrmIconBorder
           Constraints.MinHeight = 22
           Font.Height = 8
           Layout = tlCenter
+          ParentColor = False
           ParentFont = False
           OptimalFill = True
         end
