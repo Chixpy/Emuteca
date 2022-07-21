@@ -831,14 +831,6 @@ msgstr "Identificador del grupo."
 msgid "Group ID"
 msgstr ""
 
-#: tfmemutecagroupeditor.emediafile.hint
-msgid "Filename for searching media."
-msgstr "Nombre de fichero para buscar medios"
-
-#: tfmemutecagroupeditor.emediafile.texthint
-msgid "Media filename"
-msgstr "Nombre de medio"
-
 #: tfmemutecagroupeditor.esorttitle.hint
 msgid "Title used for sorting."
 msgstr "Título usado para ordenar"
@@ -913,10 +905,6 @@ msgstr "Arreglado"
 #: tfmemutecasofteditor.lhack.caption
 msgid "Hack"
 msgstr "Hackeado"
-
-#: tfmemutecasofteditor.lmediafilename.caption
-msgid "Media Filename  (Empty = Sort Title)"
-msgstr ""
 
 #: tfmemutecasofteditor.lmodified.caption
 msgid "Modified"

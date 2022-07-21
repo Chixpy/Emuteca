@@ -47,7 +47,6 @@ type
   protected
     FDate: string;
     FID: string;
-    FMediaFileName: string;
     FSortTitle: string;
     FTitle: string;
     function GetDate: string; virtual;
@@ -57,7 +56,6 @@ type
     function GetTitle: string; virtual;
     procedure SetDate(AValue: string); virtual;
     procedure SetID(AValue: string); virtual;
-    procedure SetMediaFileName(AValue: string); virtual;
     procedure SetSortTitle(AValue: string); virtual;
     procedure SetTitle(AValue: string); virtual;
 
@@ -73,8 +71,6 @@ type
     //< Gets actual SortTitle string, not inherited from group or automade.
     function GetActualSortTitle: string;
     //< Gets actual SortTitle string, not inherited from group or automade.
-    function GetActualMediaFileName: string;
-    //< Gets actual MediaFileName string, not inherited from group or automade.
 
     constructor Create(aOwner: TComponent); override;
     destructor Destroy; override;
@@ -97,11 +93,10 @@ type
 
       Format: YYYY/MM/DD
     }
-    property MediaFileName: string read GetMediaFileName
-      write SetMediaFileName;
+    property MediaFileName: string read GetMediaFileName;
     {< Filename for media files.
 
-      If empty, then returns cleaned Self.SortTitle
+      Returns cleaned Self.SortTitle
     }
 
     property Stats: cEmutecaPlayingStats read FStats;
@@ -129,12 +124,9 @@ end;
 
 function caEmutecaCustomSGItem.GetMediaFileName: string;
 begin
-  if FMediaFileName = '' then
-    Result := CleanFileName(SortTitle, True, False)
-  else
-    Result := FMediaFileName;
+  Result := CleanFileName(SortTitle, True, False);
 
-  // Removing last dots like in "Super Mario Bros.",
+  // HACK: Removing last dot like in "Super Mario Bros.",
   // Windows have problems with removing folders ended with dot...
   if Utf8EndsText('.', Result) then
     Result[UTF8LengthFast(Result)] := '_';
@@ -142,18 +134,20 @@ end;
 
 function caEmutecaCustomSGItem.GetSortTitle: string;
 begin
-  if FSortTitle = '' then
-    Result := Title
-  else
-    Result := FSortTitle;
+  Result := FSortTitle;
+  if Result <> '' then
+    Exit;
+
+  Result := Title;
 end;
 
 function caEmutecaCustomSGItem.GetTitle: string;
 begin
-  if FTitle = '' then
-    Result := ID
-  else
-    Result := FTitle;
+  Result := FTitle;
+  if Result <> '' then
+    Exit;
+
+  Result := ID;
 end;
 
 procedure caEmutecaCustomSGItem.SetDate(AValue: string);
@@ -168,33 +162,19 @@ procedure caEmutecaCustomSGItem.SetID(AValue: string);
 begin
   AValue := UTF8Trim(AValue);
 
-  if UTF8CompareText(AValue, ID) = 0 then Exit;
+  if AValue = ID then
+    Exit;
 
   FID := AValue;
 
   FPONotifyObservers(Self, ooChange, nil);
 end;
 
-procedure caEmutecaCustomSGItem.SetMediaFileName(AValue: string);
-begin
-  AValue := CleanFileName(AValue, True, False);
-
-  // Removing last dot "Super Mario Bros.", Windows have problems with
-  //   removing folders ended with dot
-  if Utf8EndsText('.', AValue) then
-    AValue[UTF8LengthFast(AValue)] := '_';
-
-  if CompareFilenames(AValue, SortTitle) = 0 then
-    FMediaFileName := ''
-  else
-    FMediaFileName := AValue;
-end;
-
 procedure caEmutecaCustomSGItem.SetSortTitle(AValue: string);
 begin
   AValue := UTF8Trim(AValue);
 
-  if UTF8CompareText(AValue, Title) = 0 then
+  if AValue = FTitle then
     FSortTitle := ''
   else
     FSortTitle := AValue;
@@ -204,7 +184,7 @@ procedure caEmutecaCustomSGItem.SetTitle(AValue: string);
 begin
   AValue := UTF8Trim(AValue);
 
-  if UTF8CompareText(AValue, ID) = 0 then
+  if AValue = FID then
     FTitle := ''
   else
     FTitle := AValue;
@@ -225,10 +205,6 @@ begin
   Result := FSortTitle;
 end;
 
-function caEmutecaCustomSGItem.GetActualMediaFileName: string;
-begin
-  Result := FMediaFileName;
-end;
 
 function caEmutecaCustomSGItem.CompareID(aID: string): integer;
 begin

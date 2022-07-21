@@ -1,7 +1,7 @@
 {
 [Info]
 This script removes media subfolder with single file, and moves the file to parent
-folder changing its filename with folder name. Removes emty folders too;
+folder changing its filename with folder name. Removes empty folders too;
 
 For example:
 

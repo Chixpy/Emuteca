@@ -10,7 +10,7 @@ inherited fmEmutecaGroupEditor: TfmEmutecaGroupEditor
     Top = 297
     Width = 464
     ClientWidth = 464
-    TabOrder = 4
+    TabOrder = 3
     inherited chkCloseOnSave: TCheckBox
       Left = 62
     end
@@ -57,19 +57,7 @@ inherited fmEmutecaGroupEditor: TfmEmutecaGroupEditor
     TabOrder = 1
     TextHint = 'Sort title (Empty = Title)'
   end
-  object eMediaFile: TEdit[4]
-    Left = 0
-    Height = 28
-    Hint = 'Filename for searching media.'
-    Top = 160
-    Width = 464
-    Align = alTop
-    ParentShowHint = False
-    ShowHint = True
-    TabOrder = 3
-    TextHint = 'Media filename'
-  end
-  object eDeveloper: TComboBox[5]
+  object eDeveloper: TComboBox[4]
     Left = 0
     Height = 28
     Hint = 'Developer of the software.'
@@ -82,20 +70,20 @@ inherited fmEmutecaGroupEditor: TfmEmutecaGroupEditor
     ParentShowHint = False
     ShowHint = True
     Sorted = True
-    TabOrder = 5
+    TabOrder = 4
   end
-  object eGroupID: TEdit[6]
+  object eGroupID: TEdit[5]
     Left = 0
     Height = 28
     Hint = 'ID of the group.'
     Top = 0
     Width = 464
     Align = alTop
-    TabOrder = 6
+    TabOrder = 5
     TextHint = 'Group ID'
   end
-  inherited alPropEditor: TActionList[7]
+  inherited alPropEditor: TActionList[6]
   end
-  inherited ilPropEditor: TImageList[8]
+  inherited ilPropEditor: TImageList[7]
   end
 end

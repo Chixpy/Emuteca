@@ -88,12 +88,12 @@ const
   krsCSVStatsHeader = '"Last Time","Times Played","Playing Time"';
 
   krsCSVSoftHeader = '"Group","SHA1","ID","Folder","FileName",' +
-    '"Title","Media Filename","Sort Title","Version","Year","Publisher",' +
+    '"Title","[Removed]","Sort Title","Version","Year","Publisher",' +
     '"Zone","DumpStatus","Dump Info","Fixed","Trainer","Translation",' +
     '"Pirate","Cracked","Modified","Hack","Extra Parameters"';
   krsCSVSoftStatsHeader = krsCSVSoftHeader + ',' + krsCSVStatsHeader;
   krsCSVGroupHeader = '"ID","Title","Sort Title","Year","Developer",' +
-    '"Media file"';
+    '"[Removed]"';
   krsCSVGroupStatsHeader = krsCSVGroupHeader + ',' + krsCSVStatsHeader;
 
 

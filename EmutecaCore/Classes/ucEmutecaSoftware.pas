@@ -105,7 +105,7 @@ begin
   if Assigned(CachedGroup) then
     Result := CachedGroup.Title
   else
-    Result := GroupKey;
+    Result := GroupKey; // Faster?
 end;
 
 procedure cEmutecaSoftware.SetCachedGroup(AValue: caEmutecaCustomGroup);
@@ -137,7 +137,10 @@ begin
   if Assigned(CachedGroup) then
   begin
     if AValue = CachedGroup.Title then
-      FTitle := ''
+    begin
+      FTitle := '';
+      FSortTitle := '';
+    end
     else
       FTitle := AValue;
   end
@@ -147,7 +150,15 @@ end;
 
 function cEmutecaSoftware.GetSortTitle: string;
 begin
-  if Assigned(CachedGroup) and (GetActualTitle = '') then
+  Result := FSortTitle;
+  if Result <> '' then
+    Exit;
+
+  Result := FTitle;
+  if Result <> '' then
+    Exit;
+
+  if Assigned(CachedGroup) then
     Result := CachedGroup.SortTitle
   else
     Result := inherited GetSortTitle;
@@ -155,11 +166,18 @@ end;
 
 procedure cEmutecaSoftware.SetSortTitle(AValue: string);
 begin
-  if Assigned(CachedGroup) and (GetActualTitle = '') and
-    (UTF8CompareText(AValue, CachedGroup.SortTitle) = 0) then
-    FSortTitle := ''
-  else
-    inherited SetSortTitle(AValue);
+  AValue := UTF8Trim(AValue);
+  if FSortTitle = AValue then
+    Exit;
+
+  if (AValue = FTitle) or (FTitle = '') then
+  begin
+    // If FTitle is empty then FSortTitle must be empty (use group's SortTitle)
+    FSortTitle := '';
+    Exit;
+  end;
+
+  FSortTitle := AValue;
 end;
 
 function cEmutecaSoftware.MatchGroupFile: boolean;

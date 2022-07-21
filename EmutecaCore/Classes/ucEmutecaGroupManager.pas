@@ -281,8 +281,8 @@ begin
                 aExpGroup.Date := aGroup.Date;
               if (aExpGroup.Developer = '') then
                 aExpGroup.Developer := aGroup.Developer;
-              if (aExpGroup.GetActualMediaFilename = '') then
-                aExpGroup.MediaFileName := aGroup.GetActualMediaFilename;
+              // if (aExpGroup.GetActualMediaFilename = '') then
+              //  aExpGroup.MediaFileName := aGroup.GetActualMediaFilename;
               Inc(i);
             end;
           end

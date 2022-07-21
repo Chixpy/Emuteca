@@ -48,7 +48,6 @@ type
     ePirate: TEdit;
     ePublisher: TComboBox;
     eSortKey: TEdit;
-    eMediaFileName: TEdit;
     eTitle: TEdit;
     eTrainer: TEdit;
     eTranslated: TEdit;
@@ -68,7 +67,6 @@ type
     lPirate: TLabel;
     lPublisher: TLabel;
     lSortKey: TLabel;
-    lMediaFileName: TLabel;
     lTitle: TLabel;
     lTrainer: TLabel;
     lTranslated: TLabel;
@@ -125,7 +123,6 @@ procedure TfmEmutecaSoftEditor.DoClearFrameData;
 begin
   eTitle.Clear;
   eSortKey.Clear;
-  eMediaFileName.Clear;
 
   eVersion.Clear;
   eYear.Clear;
@@ -160,7 +157,6 @@ begin
 
   eTitle.Text := Software.GetActualTitle;
   eSortKey.Text := Software.GetActualSortTitle;
-  eMediaFileName.Text := Software.GetActualMediaFileName;
 
   eVersion.Text := Software.Version;
   eYear.Text := Software.Date;
@@ -202,7 +198,6 @@ begin
 
   Software.Title := eTitle.Text;
   Software.SortTitle := eSortKey.Text;
-  Software.MediaFileName := eMediaFileName.Text;
 
   Software.Version := eVersion.Text;
   Software.Date := eYear.Text;

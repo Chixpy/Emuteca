@@ -112,9 +112,7 @@ type
   published
     // Basic data
     // ----------
-    property ID: string read GetID write SetID;
-    {< ID of the file. Usually SHA1, some systems is filename (MAME) or
-      a custom one (PSX)}
+
     property Folder: string read FFolder write SetFolder;
     {< Folder or archive where the file is in. }
     property FileName: string read FFileName write SetFileName;
@@ -123,16 +121,6 @@ type
     property GroupKey: string read FGroupKey write SetGroupKey;
     {< ID of the CachedGroup. }
 
-    property Title: string read GetTitle write SetTitle;
-    {< Title.
-
-      If empty, then it's same as group ID. }
-    property SortTitle: string read GetSortTitle write SetSortTitle;
-    {< Title formated for sorting purposes.
-    }
-    property MediaFileName: string read GetMediaFileName
-      write SetMediaFileName;
-    {< Name of media files. }
 
     // Release data
     // ------------
@@ -147,6 +135,7 @@ type
 
     property Zone: string read FZone write SetZone;
     {< Zone. }
+
 
     // Version flags. (Based on Cowering + TOSEC)
     // ------------------------------------------
@@ -201,18 +190,20 @@ implementation
 
 function caEmutecaCustomSoft.GetID: string;
 begin
-  if FID = '' then
-    Result := SHA1Print(SHA1)
-  else
-    Result := FID;
+  Result := FID;
+  if Result <> '' then
+    Exit;
+
+  Result := SHA1Print(SHA1);
 end;
 
 function caEmutecaCustomSoft.GetTitle: string;
 begin
-  if FTitle = '' then
-    Result := GroupKey
-  else
-    Result := FTitle;
+  Result := FTitle;
+  if Result <> '' then
+    Exit;
+
+  Result := GroupKey;
 end;
 
 procedure caEmutecaCustomSoft.SetCracked(AValue: string);
@@ -259,6 +250,7 @@ end;
 procedure caEmutecaCustomSoft.SetGroupKey(AValue: string);
 begin
   AValue := UTF8Trim(AValue);
+
   if FGroupKey = AValue then
     Exit;
   FGroupKey := AValue;
@@ -267,6 +259,7 @@ end;
 procedure caEmutecaCustomSoft.SetHack(AValue: string);
 begin
   AValue := UTF8Trim(AValue);
+
   if FHack = AValue then
     Exit;
   FHack := AValue;
@@ -276,7 +269,7 @@ procedure caEmutecaCustomSoft.SetID(AValue: string);
 begin
   AValue := UTF8Trim(AValue);
 
-  if UTF8CompareText(AValue, ID) = 0 then
+  if AValue = ID then
     Exit;
 
   if SHA1IsEmpty then
@@ -330,7 +323,7 @@ procedure caEmutecaCustomSoft.SetTitle(AValue: string);
 begin
   AValue := UTF8Trim(AValue);
 
-  if UTF8CompareText(AValue, GroupKey) = 0 then
+  if AValue = GroupKey then
     FTitle := ''
   else
     FTitle := AValue;
@@ -360,7 +353,7 @@ begin
   end;
 
   aTxtFile.Add(GetActualTitle);
-  aTxtFile.Add(GetActualMediaFileName); // TranslitTitle changed
+  aTxtFile.Add(''); // TranslitTitle and MediaFilename removed
   aTxtFile.Add(GetActualSortTitle);
 
   aTxtFile.Add(Version);
@@ -467,7 +460,7 @@ begin
     FileName := aTxtFile[4];
 
   Title := aTxtFile[5];
-  MediaFileName := aTxtFile[6]; // TranslitTitle changed
+  // MediaFileName := aTxtFile[6]; // MediaFileName and TranslitTitle removed
   SortTitle := aTxtFile[7];
 
   Version := aTxtFile[8];
@@ -526,8 +519,8 @@ begin
 
   if aSoft.Title <> krsImportKeepValueKey then
     Self.Title := aSoft.Title;
-  if aSoft.MediaFileName <> krsImportKeepValueKey then
-    Self.MediaFileName := aSoft.MediaFileName;  // TranslitTitle changed
+  // if aSoft.MediaFileName <> krsImportKeepValueKey then // MediaFileName and
+  //   Self.MediaFileName := aSoft.MediaFileName;         // TranslitTitle changed
   if aSoft.SortTitle <> krsImportKeepValueKey then
     Self.SortTitle := aSoft.SortTitle;
 

@@ -65,6 +65,7 @@ type
     destructor Destroy; override;
 
   published
+
     property Developer: string read FDeveloper write SetDeveloper;
     {< Developer. }
   end;
@@ -91,12 +92,12 @@ begin
   if not assigned(aTxtFile) then
     Exit;
 
-  aTxtFile.Add(ID);
+  aTxtFile.Add(Self.ID);
   aTxtFile.Add(GetActualTitle);
   aTxtFile.Add(GetActualSortTitle);
   aTxtFile.Add(Self.Date);
-  aTxtFile.Add(Developer);
-  aTxtFile.Add(GetActualMediaFilename);
+  aTxtFile.Add(Self.Developer);
+  aTxtFile.Add(''); // Removed aTxtFile.Add(MediaFilename);
 
   Stats.WriteToStrLst(aTxtFile, ExportMode);
 end;
@@ -107,17 +108,17 @@ begin
     Exit;
 
   if aGroup.ID <> krsImportKeepValueKey then
-    ID := aGroup.ID;
+    Self.ID := aGroup.ID;
   if aGroup.Title <> krsImportKeepValueKey then
-    Title := aGroup.Title;
+    Self.Title := aGroup.Title;
   if aGroup.SortTitle <> krsImportKeepValueKey then
-    SortTitle := aGroup.SortTitle;
+    Self.SortTitle := aGroup.SortTitle;
   if aGroup.Date <> krsImportKeepValueKey then
     Self.Date := aGroup.Date;
   if aGroup.Developer <> krsImportKeepValueKey then
-    Developer := aGroup.Developer;
-  if aGroup.MediaFileName <> krsImportKeepValueKey then
-    MediaFileName := aGroup.MediaFileName;
+    Self.Developer := aGroup.Developer;
+  // if aGroup.MediaFileName <> krsImportKeepValueKey then
+  //   MediaFileName := aGroup.MediaFileName;
 end;
 
 procedure caEmutecaCustomGroup.LoadFromStrLst(aTxtFile: TStrings);
@@ -128,12 +129,12 @@ begin
   while aTxtFile.Count < 6 do
     aTxtFile.Add('');
 
-  ID := aTxtFile[0];
-  Title := aTxtFile[1];
-  SortTitle := aTxtFile[2];
+  Self.ID := aTxtFile[0];
+  Self.Title := aTxtFile[1];
+  Self.SortTitle := aTxtFile[2];
   Self.Date := aTxtFile[3];
-  Developer := aTxtFile[4];
-  MediaFileName := aTxtFile[5];
+  Self.Developer := aTxtFile[4];
+  // MediaFileName := aTxtFile[5];
 
   Stats.LoadFromStrLst(aTxtFile, 6);
   // Next := aTxtFile[9]
