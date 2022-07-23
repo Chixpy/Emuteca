@@ -305,7 +305,7 @@ begin
       chi,chq,chw,hxw,msp,scap,squashfs,swm,wim,exe,lit,xar,xz,z,lzma,lzma86,
       r00,tar,taz,tbz,tbz2,tgz,tpz,txz,gz,gzip,lha,lzh,bz2,bzip2,
   }
-  CompressedExtensions.CommaText :='7z,arj,rar,zip,cb7,cba,cbr,cbz';
+  CompressedExtensions.CommaText :='7z,rar,zip,cb7,cbr,cbz';
 
   // Temp
   TempSubfolder := 'tEMpUTECA/';

@@ -99,7 +99,7 @@ funcionamiento del programa:
 * Un juego debe ser un fichero, lo que no impide que este pueda ser un archivo comprimido en si mismo (p.e. MAME); o que aunque sean varios fichero solo uno sea el principal (el que abre el emulador) y se necesite descomprimir todos los demás archivos comprimidos (por ejemplo, un zip con imagen de CD con .cue + .bin + .mp3 + .sub).
 * Un juego no puede ser una carpeta/directorio (el único uso que conozco así es MAME y no es muy común usarlo de esta manera)
 * El CRC32 o e SHA1 (para Importar/Exportar) se hace sobre el fichero en sí, no sobre los datos reales del juego (no extrae las cabeceras u otra información de los distintos formatos de archivos)
-* Solo un nivel de compresión, es decir, si la ROM dentro de un .zip dentro de un .7z, no se listará/descomprimirá/extraerá, sino que solo se podra listar el zip.
+* Solo un nivel de compresión, es decir, si la ROM está dentro de un .zip dentro de un .7z, no se listará/descomprimirá/extraerá, sino que solo se podra listar el zip.
 
 ## Sistemas, Emuladores y formatos soportados ##
 
@@ -112,15 +112,15 @@ ni da soporte a características especiales para ninguno, se puede crear
 cualquier sistema nuevo sin ningún problema y tan solo hay que configurarlo
 (aunque puede ser complicado).
 
-Como ejemplos extremos del funcionamiento, se pueden probar cosas como:
+Como ejemplos extremos del funcionamiento aunque no son prácticos:
 
 * Un sistema en el que define como extensiones "exe", y un emulador cuyo campo con el ejecutable está vacío (o apuntando a cmd.com/command.com), y se convierte en un Front-End de tus juegos de Windows XD XD. (Aunque posiblemente esto [sea mejor hacerlo de otra manera](v0_7-System-Examples#Ejecutables_Windows))
-* Un sistema al que como extensión se define "txt" y el emulador sea el Bloc de Notas (No creo que alguien use este programa para organizar sus documentos pero puede aclarar los conceptos de emulador, sistema y juego).
+* Un sistema que usen la extensión "txt" y el emulador sea el Bloc de Notas.
 * Comprimir los zip de MAME en un 7z por familias (no se gana mucho la verdad); configurar el sistema para que las extensiones sean "zip" y marcar la opción de descoprimir todos los archivos.
 
 ### ¿Qué emuladores soporta? ###
 
-Emuteca ejecuta los emuladores desde la línea de comandos, para poder cargar los juegos directamente el emulador debe soportar hacerlo desde ahí.
+Emuteca ejecuta los emuladores desde la línea de comandos. Para poder cargar los juegos directamente el emulador debe soportar hacerlo desde ahí.
 
 Por lo demás... cualquier emulador es válido, e incluso si no se define ninguna ruta a un ejecutable, Emuteca intenta abrir los archivos con el programa por defecto del sistema.
 
@@ -135,7 +135,7 @@ Primeramente hay que realizar una diferencia; entre los que Emuteca soporta y lo
 
 Por ejemplo, Emuteca internamente soporta los siguientes tipos de imagen según su extensión para poder mostrarlas: png, xpm, bpm, cur, ico, icns, jpeg, jpg, jpe, jfif, tif, tiff, gif, pbm, pgm, ppm.
 
-Realmente esta lista está recortada en el archivo GUI.ini a: bmp, gif, ico, jpg, png.
+Realmente esta lista está recortada en el archivo GUI.ini a: jpg, png.
 
 Esto es util para reducir el número de búsquedas cuando se buscan las imágenes relacionas con un juego o grupo. Siendo configurable según las necesidades
 
@@ -145,23 +145,23 @@ Hecha esta aclaración:
 
 Imágenes
 : Soporta: png, xpm, bpm, cur, ico, icns, jpeg, jpg, jpe, jfif, tif, tiff, gif, pbm, pgm, ppm
-: Preconfigurado: bmp, gif, ico, jpg, png.
+: Preconfigurado: jpg, png.
 
 Textos
 : Soporta: Texto plano (UTF8), 
-: Preconfiguradas: nfo, txt
+: Preconfiguradas: txt
 
 Música
 : Realmente se usa [MPlayer](http://www.mplayerhq.hu) para reproducir la música así que las lista es muy grande 😁
-: Preconfiguradas: mp3,ogg,wav
+: Preconfiguradas: mp3, ogg
 
 Vídeos
 : Obviamente también se usa [MPlayer](http://www.mplayerhq.hu). 
-: Preconfiguradas: avi,mkv,mp4,mpg
+: Preconfiguradas: avi, mkv, mp4, mpg
 
 Comprimidos
 : Se usa [7zip](https://www.7-zip.org/)...
-: Preconfiguradas:  001, 7z, arj, bz2, bzip2, cb7, cba, cbr, cbz, gz, gzip, lha, lit, lzh, lzma, lzma86, r00, rar, tar, taz, tbz, tbz2, tgz, tpz, txz, xar, xz, z, zip
+: Preconfiguradas:  7z, cb7, cbr, cbz, rar, zip
 : A diferencia de los anteriores, esta configuración pertenece a Emuteca.ini, puesto que pertenece al núcleo de Emuteca y no al GUI.
 
 ## Cosas puntuales sobre sistemas ##
