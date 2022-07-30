@@ -1197,10 +1197,11 @@ begin
     begin
       if not Assigned(CurrentGroup) then
         Exit;
+      // Better to search SortTitle than Title.
       if Assigned(CurrentSoft) then
-        TempStr := CurrentSoft.Title
+        TempStr := CurrentSoft.SortTitle
       else
-        TempStr := CurrentGroup.Title;
+        TempStr := CurrentGroup.SortTitle;
     end;
     2:
     begin

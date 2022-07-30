@@ -174,7 +174,7 @@ procedure caEmutecaCustomSGItem.SetSortTitle(AValue: string);
 begin
   AValue := UTF8Trim(AValue);
 
-  if AValue = FTitle then
+  if AValue = Title then
     FSortTitle := ''
   else
     FSortTitle := AValue;
@@ -184,7 +184,7 @@ procedure caEmutecaCustomSGItem.SetTitle(AValue: string);
 begin
   AValue := UTF8Trim(AValue);
 
-  if AValue = FID then
+  if AValue = ID then
     FTitle := ''
   else
     FTitle := AValue;

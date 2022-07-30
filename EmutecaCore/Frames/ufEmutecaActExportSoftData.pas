@@ -1,4 +1,5 @@
 unit ufEmutecaActExportSoftData;
+
 {< TfmEmutecaActExportSoftData frame unit.
 
   This file is part of Emuteca Core.
@@ -26,7 +27,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  Buttons, ActnList, StdCtrls, EditBtn, ComCtrls,
+  Buttons, ActnList, StdCtrls, EditBtn, ComCtrls, LazFileUtils, LazUTF8,
   // CHX units
   uCHXDlgUtils,
   // CHX forms
@@ -47,6 +48,7 @@ type
   { TfmEmutecaActExportSoftData }
 
   TfmEmutecaActExportSoftData = class(TfmCHXPropEditor)
+    chkCopyInBaseFolder: TCheckBox;
     eExportFile: TFileNameEdit;
     eSoftIDType: TEdit;
     gbxExportFile: TGroupBox;
@@ -56,7 +58,6 @@ type
     lWarning: TLabel;
     pSelectSystem: TPanel;
     procedure eExportFileButtonClick(Sender: TObject);
-
   private
     FEmuteca: cEmuteca;
     FfmSystemCBX: TfmEmutecaSystemCBX;
@@ -80,7 +81,9 @@ type
     property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
     //< Emuteca
 
-    class function SimpleForm(aEmuteca: cEmuteca; SelectedSystem: cEmutecaSystem; const aGUIIconsIni, aGUIConfigIni: string): integer;
+    class function SimpleForm(aEmuteca: cEmuteca;
+      SelectedSystem: cEmutecaSystem;
+      const aGUIIconsIni, aGUIConfigIni: string): integer;
     //< Creates a form with AddFolder frame.
 
     constructor Create(TheOwner: TComponent); override;
@@ -148,8 +151,8 @@ begin
 
     if not IsCached then
     begin
-      lWarning.Caption :=  Format(rsExportingNoSHA1,
-         [aSoft.Folder, aSoft.FileName, i, System.SoftManager.FullList.Count]);
+      lWarning.Caption := Format(rsExportingNoSHA1,
+        [aSoft.Folder, aSoft.FileName, i, System.SoftManager.FullList.Count]);
       eExportFile.FileName := '';
     end
     else
@@ -188,25 +191,40 @@ end;
 procedure TfmEmutecaActExportSoftData.DoSaveFrameData;
 var
   SysPBCB: TEmutecaProgressCallBack; // System PB Backup
+  aFileWOExt: string;
 begin
   if (eExportFile.FileName = '') or (not assigned(System)) then
     Exit;
 
-  Self.Enabled:= False;
+  Self.Enabled := False;
 
   SysPBCB := System.ProgressCallBack;
   System.ProgressCallBack := @(fmProgressBar.UpdTextAndBar);
 
-  System.ExportSoftGroupLists(ChangeFileExt(eExportFile.FileName, ''), False);
+  aFileWOExt := ChangeFileExt(eExportFile.FileName, '');
+
+  System.ExportSoftGroupLists(aFileWOExt, False);
 
   System.ProgressCallBack := SysPBCB;
 
-  Self.Enabled:= True;
+  if chkCopyInBaseFolder.Checked then
+  begin
+    if (System.BaseFolder <> '') and DirectoryExistsUTF8(
+      System.BaseFolder) then
+    begin
+      CopyFile(UTF8ToSys(aFileWOExt + krsFileExtGroup),
+        UTF8ToSys(System.BaseFolder + System.ListFileName + krsFileExtGroup));
+      CopyFile(UTF8ToSys(aFileWOExt + krsFileExtSoft),
+        UTF8ToSys(System.BaseFolder + System.ListFileName + krsFileExtSoft));
+    end;
+  end;
+
+  Self.Enabled := True;
 end;
 
 class function TfmEmutecaActExportSoftData.SimpleForm(aEmuteca: cEmuteca;
-  SelectedSystem: cEmutecaSystem; const aGUIIconsIni, aGUIConfigIni: string
-  ): integer;
+  SelectedSystem: cEmutecaSystem;
+  const aGUIIconsIni, aGUIConfigIni: string): integer;
 var
   aForm: TfrmCHXForm;
   aFrame: TfmEmutecaActExportSoftData;
@@ -250,7 +268,7 @@ constructor TfmEmutecaActExportSoftData.Create(TheOwner: TComponent);
     fmSystemCBX.Parent := pSelectSystem;
 
     FfmProgressBar := TfmCHXProgressBar.SimpleForm('');
-end;
+  end;
 
 begin
   inherited Create(TheOwner);

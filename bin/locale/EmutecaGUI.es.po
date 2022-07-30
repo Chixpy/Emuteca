@@ -279,6 +279,7 @@ msgid "Cancel"
 msgstr "Cancelar"
 
 #: tfmchxpropeditor.actframecancel.hint
+msgctxt "tfmchxpropeditor.actframecancel.hint"
 msgid "Cancel not saved changes."
 msgstr ""
 
@@ -659,6 +660,15 @@ msgstr "Extensiones soportadas"
 msgid "Soft Key"
 msgstr "Clave del software"
 
+#: tfmemutecaactexportsoftdata.chkcopyinbasefolder.caption
+msgid "Make a Copy in System Base Folder"
+msgstr ""
+
+#: tfmemutecaactexportsoftdata.chkcopyinbasefolder.hint
+msgctxt "tfmemutecaactexportsoftdata.chkcopyinbasefolder.hint"
+msgid "Cancel not saved changes."
+msgstr ""
+
 #: tfmemutecaactexportsoftdata.gbxexportfile.caption
 #, fuzzy
 msgctxt "tfmemutecaactexportsoftdata.gbxexportfile.caption"
@@ -823,6 +833,12 @@ msgstr "Carpeta de trabajo"
 msgid "Developer of the software."
 msgstr "Desarrollador del software"
 
+#: tfmemutecagroupeditor.edeveloper.texthint
+#, fuzzy
+msgctxt "tfmemutecagroupeditor.edeveloper.texthint"
+msgid "Developer"
+msgstr "Desarrollador"
+
 #: tfmemutecagroupeditor.egroupid.hint
 msgid "ID of the group."
 msgstr "Identificador del grupo."
@@ -844,8 +860,10 @@ msgid "Title of the group."
 msgstr "Título del grupo."
 
 #: tfmemutecagroupeditor.etitle.texthint
+#, fuzzy
+#| msgid "Title"
 msgctxt "tfmemutecagroupeditor.etitle.texthint"
-msgid "Title"
+msgid "Title (Empty = ID)"
 msgstr "Título"
 
 #: tfmemutecagroupeditor.eyear.hint

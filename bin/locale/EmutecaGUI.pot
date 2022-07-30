@@ -265,6 +265,7 @@ msgid "Cancel"
 msgstr ""
 
 #: tfmchxpropeditor.actframecancel.hint
+msgctxt "tfmchxpropeditor.actframecancel.hint"
 msgid "Cancel not saved changes."
 msgstr ""
 
@@ -634,6 +635,15 @@ msgstr ""
 msgid "Soft Key"
 msgstr ""
 
+#: tfmemutecaactexportsoftdata.chkcopyinbasefolder.caption
+msgid "Make a Copy in System Base Folder"
+msgstr ""
+
+#: tfmemutecaactexportsoftdata.chkcopyinbasefolder.hint
+msgctxt "tfmemutecaactexportsoftdata.chkcopyinbasefolder.hint"
+msgid "Cancel not saved changes."
+msgstr ""
+
 #: tfmemutecaactexportsoftdata.gbxexportfile.caption
 msgid "Export file"
 msgstr ""
@@ -784,6 +794,11 @@ msgstr ""
 msgid "Developer of the software."
 msgstr ""
 
+#: tfmemutecagroupeditor.edeveloper.texthint
+msgctxt "tfmemutecagroupeditor.edeveloper.texthint"
+msgid "Developer"
+msgstr ""
+
 #: tfmemutecagroupeditor.egroupid.hint
 msgid "ID of the group."
 msgstr ""
@@ -806,7 +821,7 @@ msgstr ""
 
 #: tfmemutecagroupeditor.etitle.texthint
 msgctxt "tfmemutecagroupeditor.etitle.texthint"
-msgid "Title"
+msgid "Title (Empty = ID)"
 msgstr ""
 
 #: tfmemutecagroupeditor.eyear.hint

@@ -102,7 +102,7 @@ inherited fmEmutecaSoftTree: TfmEmutecaSoftTree
   end
   object VTHPopupMenu: TVTHeaderPopupMenu[2]
     Options = [poResizeToFitItem]
-    left = 584
-    top = 48
+    Left = 584
+    Top = 48
   end
 end

@@ -6,18 +6,18 @@ inherited fmEmutecaActExportSoftData: TfmEmutecaActExportSoftData
   DesignLeft = 427
   DesignTop = 151
   inherited pButtons: TPanel
-    Top = 331
+    Top = 327
     Width = 430
     ClientWidth = 430
     TabOrder = 3
     inherited chkCloseOnSave: TCheckBox
-      Left = 60
+      Left = 54
     end
     inherited bSave: TBitBtn
-      Left = 169
+      Left = 168
     end
     inherited bCancel: TBitBtn
-      Left = 291
+      Left = 288
     end
   end
   object pSelectSystem: TPanel[1]
@@ -32,17 +32,17 @@ inherited fmEmutecaActExportSoftData: TfmEmutecaActExportSoftData
   end
   object gbxSystemInfo: TGroupBox[2]
     Left = 0
-    Height = 261
+    Height = 218
     Top = 4
     Width = 430
     Align = alClient
     Caption = 'System info'
-    ClientHeight = 241
+    ClientHeight = 193
     ClientWidth = 426
     TabOrder = 0
     object lSoftIDType: TLabel
       Left = 0
-      Height = 15
+      Height = 20
       Top = 0
       Width = 426
       Align = alTop
@@ -51,8 +51,8 @@ inherited fmEmutecaActExportSoftData: TfmEmutecaActExportSoftData
     end
     object eSoftIDType: TEdit
       Left = 0
-      Height = 23
-      Top = 15
+      Height = 28
+      Top = 20
       Width = 426
       Align = alTop
       Enabled = False
@@ -62,7 +62,7 @@ inherited fmEmutecaActExportSoftData: TfmEmutecaActExportSoftData
     object lWarning: TLabel
       Left = 0
       Height = 1
-      Top = 38
+      Top = 48
       Width = 426
       Align = alTop
       ParentColor = False
@@ -71,19 +71,19 @@ inherited fmEmutecaActExportSoftData: TfmEmutecaActExportSoftData
   end
   object gbxExportFile: TGroupBox[3]
     Left = 0
-    Height = 58
-    Top = 269
+    Height = 97
+    Top = 226
     Width = 430
     Align = alBottom
     AutoSize = True
     Caption = 'Export file'
-    ClientHeight = 38
+    ClientHeight = 72
     ClientWidth = 426
     TabOrder = 2
     object eExportFile: TFileNameEdit
       Left = 0
-      Height = 23
-      Top = 15
+      Height = 28
+      Top = 20
       Width = 426
       DialogKind = dkSave
       DialogOptions = [ofNoChangeDir, ofEnableSizing, ofDontAddToRecent, ofViewDetail]
@@ -100,12 +100,24 @@ inherited fmEmutecaActExportSoftData: TfmEmutecaActExportSoftData
     end
     object lExportInfo: TLabel
       Left = 0
-      Height = 15
+      Height = 20
       Top = 0
       Width = 426
       Align = alTop
       Caption = 'If the file already exists, the data will be merged.'
       ParentColor = False
+    end
+    object chkCopyInBaseFolder: TCheckBox
+      Left = 0
+      Height = 24
+      Hint = 'Cancel not saved changes.'
+      Top = 48
+      Width = 426
+      Align = alTop
+      Caption = 'Make a Copy in System Base Folder'
+      Checked = True
+      State = cbChecked
+      TabOrder = 1
     end
   end
   inherited alPropEditor: TActionList[4]

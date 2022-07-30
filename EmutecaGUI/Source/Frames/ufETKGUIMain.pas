@@ -1,4 +1,5 @@
 unit ufETKGUIMain;
+
 {< TfmETKGUIMain frame unit.
 
   ----
@@ -29,7 +30,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
-  ComCtrls, ExtCtrls, StdCtrls, IniFiles, Menus,
+  ComCtrls, ExtCtrls, StdCtrls, IniFiles, Menus, LazFileUtils,
   // CHX
   uCHXStrUtils, ucCHXImageList,
   // CHX frames
@@ -244,7 +245,7 @@ end;
 
 procedure TfmETKGUIMain.SetCurrentSystem(AValue: cEmutecaSystem);
 begin
-  CurrentGroup:= nil;
+  CurrentGroup := nil;
 
   if FCurrentSystem = AValue then
     Exit;
@@ -253,10 +254,18 @@ begin
   if Assigned(CurrentSystem) then
   begin
     GUIConfig.CurrSystem := CurrentSystem.ID;
+    // HACK: Load system background in SoftTree
+    if FileExistsUTF8(CurrentSystem.BackgroundFile) then
+      fmSoftTree.VDT.Background.LoadFromFile(CurrentSystem.BackgroundFile)
+    else
+      fmSoftTree.VDT.Background.Clear;
+
   end
   else
   begin
     GUIConfig.CurrSystem := '';
+    // HACK: Load system background in SoftTree
+    fmSoftTree.VDT.Background.Clear;
   end;
 
   if assigned(OnSystemChanged) then

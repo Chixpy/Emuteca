@@ -306,6 +306,7 @@ begin
     while i < ExpGroupList.Count do
     begin
       aGroup := ExpGroupList[i];
+
       if Assigned(ProgressCallBack) then
         ProgressCallBack(rsSavingGroupList, aGroup.Title, i,
           ExpGroupList.Count, False);

@@ -16,6 +16,7 @@ De forma general, y en caso de no haber actualizado la lista, puedes verlos en l
   * [Amstrad CPC](https://github.com/Chixpy/ETKRes-CPC)
   * [Amstrad GX4000](https://github.com/Chixpy/ETKRes-GX4000)
   * [Atari 2600](https://github.com/Chixpy/ETKRes-2600)
+  * [Bandai WonderSwan](https://github.com/Chixpy/ETKRes-WonderSwan)
   * [Microsoft MSDOS](https://github.com/Chixpy/ETKRes-MSDOS)
   * [Misc - Arcade (MAME)](https://github.com/Chixpy/ETKRes-Arcade) (*ATENCIÓN: Hay que configurar a mano los directorios, al ser diferentes del resto de sistemas*)
   * [NEC Turbografx 16 / PC Engine](https://github.com/Chixpy/ETKRes-TG16)

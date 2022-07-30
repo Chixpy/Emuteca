@@ -31,7 +31,7 @@ inherited fmEmutecaGroupEditor: TfmEmutecaGroupEditor
     ParentShowHint = False
     ShowHint = True
     TabOrder = 0
-    TextHint = 'Title'
+    TextHint = 'Title (Empty = ID)'
   end
   object eYear: TEdit[2]
     Left = 0
@@ -71,6 +71,7 @@ inherited fmEmutecaGroupEditor: TfmEmutecaGroupEditor
     ShowHint = True
     Sorted = True
     TabOrder = 4
+    TextHint = 'Developer'
   end
   object eGroupID: TEdit[5]
     Left = 0

@@ -105,7 +105,7 @@ begin
   if Assigned(CachedGroup) then
     Result := CachedGroup.Title
   else
-    Result := GroupKey; // Faster?
+    Result := GroupKey; // Faster than inherited;?
 end;
 
 procedure cEmutecaSoftware.SetCachedGroup(AValue: caEmutecaCustomGroup);
@@ -139,7 +139,7 @@ begin
     if AValue = CachedGroup.Title then
     begin
       FTitle := '';
-      FSortTitle := '';
+      FSortTitle := ''; // FSortTitle must empty if FTitle is empty too
     end
     else
       FTitle := AValue;
@@ -170,7 +170,7 @@ begin
   if FSortTitle = AValue then
     Exit;
 
-  if (AValue = FTitle) or (FTitle = '') then
+  if (AValue = Title) or (FTitle = '') then
   begin
     // If FTitle is empty then FSortTitle must be empty (use group's SortTitle)
     FSortTitle := '';

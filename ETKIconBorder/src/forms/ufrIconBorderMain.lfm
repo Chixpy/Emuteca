@@ -148,9 +148,9 @@ object frmIconBorder: TfrmIconBorder
         Height = 172
         Top = 0
         Width = 468
-        ActivePage = pagCommonInput
+        ActivePage = pagReplaceInput
         Align = alClient
-        TabIndex = 0
+        TabIndex = 4
         TabOrder = 0
         OnChange = pgcImageInputChange
         object pagCommonInput: TTabSheet
@@ -392,6 +392,46 @@ object frmIconBorder: TfrmIconBorder
             MaxValue = 255
             OnChange = eOpacityFillInputChange
             TabOrder = 2
+          end
+        end
+        object pagReplaceInput: TTabSheet
+          Caption = 'Replace'
+          ClientHeight = 139
+          ClientWidth = 460
+          object bColorReplaceInput: TColorButton
+            Left = 8
+            Height = 31
+            Top = 24
+            Width = 72
+            BorderWidth = 2
+            ButtonColorSize = 16
+            ButtonColor = clBlack
+            Enabled = False
+          end
+          object eOpacityReplaceInput: TSpinEdit
+            Left = 112
+            Height = 28
+            Top = 24
+            Width = 63
+            MaxValue = 255
+            OnChange = eOpacityReplaceInputChange
+            TabOrder = 0
+          end
+          object lColorReplaceInput: TLabel
+            Left = 8
+            Height = 20
+            Top = 4
+            Width = 93
+            Caption = 'Replace Color'
+            ParentColor = False
+          end
+          object lOpacityReplaceInput: TLabel
+            Left = 112
+            Height = 20
+            Top = 4
+            Width = 108
+            Caption = 'Replace Opacity'
+            ParentColor = False
           end
         end
       end

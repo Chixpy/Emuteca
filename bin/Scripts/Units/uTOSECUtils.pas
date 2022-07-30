@@ -38,6 +38,7 @@ var
   
 procedure TOSECInit;
 begin
+  // TOSEC Naming Convention v4 (2015-03-23)
   TOSECVideo := ['CGA','EGA','HGC','MCGA','MDA','NTSC','NTSC-PAL',
     'PAL','PAL-60','PAL-NTSC','SVGA','VGA','XGA'];
   TOSECSystem := ['+2','+2a','+3','130XE','A1000','A1200','A1200-A4000','A2000',
@@ -653,7 +654,7 @@ begin
     TOSECAddStr(DBDumpInfo, 'x ' + SoftStr);
   end;
  
-  //"Group","SHA1","ID","Folder","FileName","Title","TransliteratedName",
+  //"Group","SHA1","ID","Folder","FileName","Title","[Removed]",
   //"SortTitle","Version","Year","Publisher","Zone","DumpStatus","DumpInfo",
   //"Fixed","Trainer","Translation","Pirate","Cracked","Modified","Hack"
   Result := '"' + krsImportKeepValueKey + '",,"' + DBID + '","'

@@ -19,8 +19,10 @@ type
     maiPaintPixel,         // Removing pixels by hand
     maiPaintingPixel,
     maiPickingPaintColor,
-    maiFillColor,        // Filling near pixels by color
-    maiFillingColor
+    maiFillColor,          // Fill near pixels by color
+    maiFillingColor,
+    maiReplaceColor,
+    maiReplacingColor      //Replacing clor in full image
     );
 
   TProcessOutputFilter = (
@@ -40,6 +42,7 @@ type
     bColorFillInput: TColorButton;
     bColorPaintInput: TColorButton;
     bColorBorderEmutecaIcon: TColorButton;
+    bColorReplaceInput: TColorButton;
     bCutSelectionInput: TButton;
     bDeleteInputFile: TButton;
     bFlipHInput: TButton;
@@ -65,6 +68,7 @@ type
     chkDiagonalNeightbours: TCheckBox;
     chkOverwriteOutput: TCheckBox;
     chkRemoveTransEmutecaIcon: TCheckBox;
+    eOpacityReplaceInput: TSpinEdit;
     eToleranceFillInput: TSpinEdit;
     eOpacityPaintInput: TSpinEdit;
     eOpacityBorderEmutecaIcon: TSpinEdit;
@@ -79,8 +83,10 @@ type
     gbxZoomOuput: TGroupBox;
     lColorPaintInput: TLabel;
     lColorFillInput: TLabel;
+    lColorReplaceInput: TLabel;
     lOpacityPaintInput: TLabel;
     lOpacityFillInput: TLabel;
+    lOpacityReplaceInput: TLabel;
     lToleranceFillInput: TLabel;
     lZoomInput: TLabel;
     lZoomOutput: TLabel;
@@ -111,6 +117,7 @@ type
     pagCommonOutput: TTabSheet;
     pagEmutecaIconBorder: TTabSheet;
     pagRemoveEmutecaBorder: TTabSheet;
+    pagReplaceInput: TTabSheet;
 
     procedure bAddFileClick(Sender: TObject);
     procedure bAddFolderClick(Sender: TObject);
@@ -140,6 +147,7 @@ type
     procedure cbxColorBackgroundChange(Sender: TObject);
     procedure eOpacityFillInputChange(Sender: TObject);
     procedure eOpacityPaintInputChange(Sender: TObject);
+    procedure eOpacityReplaceInputChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FileListClick(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -256,26 +264,36 @@ begin
 end;
 
 procedure TfrmIconBorder.SetMouseActionInput(AValue: TMouseActionInput);
+var
+  aHint: string;
 begin
   if FMouseActionInput = AValue then
     Exit;
   FMouseActionInput := AValue;
 
   case MouseActionInput of
-    maiSelectRect: StatusBar.Panels[3].Text := 'Drag to select a rectangle.';
-    maiSelectingRect: StatusBar.Panels[3].Text := 'Drag until desired size.';
-    maiPaintPixel: StatusBar.Panels[3].Text :=
-        'L-Click: Paint with desired color and transparency. R-Click: Pick color from current pixel.';
-    maiPaintingPixel: StatusBar.Panels[3].Text :=
-        'Drag to paint with desired color and transparency.';
-    maiPickingPaintColor: StatusBar.Panels[3].Text :=
-        'Color is selected when R-Click is finished.';
-    maiFillColor: StatusBar.Panels[3].Text :=
-        'L-Click: Fill with color and its neightbours. R-Click: Fill while dragging.';
-    maiFillingColor: ;
+    maiSelectRect:
+      aHint := 'Drag to select a rectangle.';
+    maiSelectingRect:
+      aHint := 'Drag until desired size.';
+    maiPaintPixel:
+      aHint := 'L-Click: Paint with desired color and transparency. R-Click: Pick color from current pixel.';
+    maiPaintingPixel:
+      aHint := 'Drag to paint with desired color and transparency.';
+    maiPickingPaintColor:
+      aHint := 'Color is selected when R-Click is finished.';
+    maiFillColor:
+      aHint := 'L-Click: Fill with color and its neightbours. R-Click: Fill while dragging.';
+    // maiFillingColor: ;
+    maiReplaceColor:
+      aHint := 'L-Click: Replace clicked color with desired color and transparency.';
+    maiReplacingColor:
+      aHint := 'Color is replaced when click is finished.';
     else
-      StatusBar.Panels[3].Text := '';
+      aHint := '';
   end;
+
+  StatusBar.Panels[3].Text := aHint;
 end;
 
 procedure TfrmIconBorder.SetOutputDir(AValue: string);
@@ -1283,6 +1301,11 @@ begin
   bColorPaintInput.Enabled := eOpacityPaintInput.Value > 0;
 end;
 
+procedure TfrmIconBorder.eOpacityReplaceInputChange(Sender: TObject);
+begin
+  bColorReplaceInput.Enabled := eOpacityReplaceInput.Value > 0;
+end;
+
 procedure TfrmIconBorder.FileListClick(Sender: TObject);
 begin
   FreeAndNil(FActualInputImage);
@@ -1380,6 +1403,19 @@ begin
         else
           ;
       end;
+    end;
+
+    maiReplaceColor:
+    begin
+      // Wait to mouse up
+      case Button of
+        mbLeft, mbRight:
+        begin
+          MouseActionInput := maiReplacingColor;
+        end;
+        else
+          ;
+      end;
     end
 
     else
@@ -1441,7 +1477,7 @@ begin
 
     maiPaintingPixel: RemovePixelInput(ImgX, ImgY);
 
-    maiPickingPaintColor: ;
+    // maiPickingPaintColor: ;
 
     maiFillingColor:
     begin
@@ -1465,6 +1501,7 @@ var
   ImgX, ImgY: integer;
 
   aPixel: PBGRAPixel;
+  aTPixel: TBGRAPixel;
 begin
   ImgX := X div ZoomInput;
   ImgY := Y div ZoomInput;
@@ -1541,7 +1578,24 @@ begin
         else
           ;
       end;
-    end
+    end;
+
+    maiReplacingColor:
+    begin
+      if Assigned(aPixel) then
+      begin
+        // We need to make a copy because actual pixel color is changed
+        //   when ReplaceColor is called.
+        aTPixel := aPixel^;
+
+        ActualInputImage.ReplaceColor(aTPixel,
+          ColorToBGRA(bColorReplaceInput.ButtonColor, eOpacityReplaceInput.Value));
+
+        ActualInputImage.InvalidateBitmap;
+        DrawImageInput;
+      end;
+      MouseActionInput := maiReplaceColor;
+    end;
 
     else
       ;
@@ -1571,6 +1625,7 @@ begin
     1: MouseActionInput := maiSelectRect;
     2: MouseActionInput := maiPaintPixel;
     3: MouseActionInput := maiFillColor;
+    4: MouseActionInput := maiReplaceColor;
     else
       ;
   end;

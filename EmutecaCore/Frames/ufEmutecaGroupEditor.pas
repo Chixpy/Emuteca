@@ -113,8 +113,8 @@ begin
     Exit;
   end;
 
-  eGroupID.Text := Group.ID;
-  eTitle.Text := Group.Title;
+  eGroupID.Text := Group.GetActualID;
+  eTitle.Text := Group.GetActualTitle;
   eSortTitle.Text := Group.GetActualSortTitle;
 
   eDeveloper.Text := Group.Developer;
