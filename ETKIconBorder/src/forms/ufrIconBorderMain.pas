@@ -57,6 +57,9 @@ type
     bSaveInput: TButton;
     bSaveOutput: TButton;
     bSelectionTransparentInput: TButton;
+    bTransparentPaint: TButton;
+    bTransparentPaint1: TButton;
+    bTransparentPaint2: TButton;
     bZoom1xOutput: TButton;
     bZoomInInput: TButton;
     bZoom1xInput: TButton;
@@ -65,6 +68,7 @@ type
     bZoomOutOutput: TButton;
     cbxColorBackground: TColorBox;
     chkAutoCropTransparency: TCheckBox;
+    chkCopyReplaceToFill: TCheckBox;
     chkDiagonalNeightbours: TCheckBox;
     chkOverwriteOutput: TCheckBox;
     chkRemoveTransEmutecaIcon: TCheckBox;
@@ -76,6 +80,7 @@ type
     eOutputFolder: TDirectoryEdit;
     FileList: TListBox;
     gbxFileInput: TGroupBox;
+    gbxFileOutput: TGroupBox;
     gbxOutputImage: TGroupBox;
     gbxInputImage: TGroupBox;
     gbxTransformInput: TGroupBox;
@@ -87,6 +92,7 @@ type
     lOpacityPaintInput: TLabel;
     lOpacityFillInput: TLabel;
     lOpacityReplaceInput: TLabel;
+    lOutputFolder: TLabel;
     lToleranceFillInput: TLabel;
     lZoomInput: TLabel;
     lZoomOutput: TLabel;
@@ -114,7 +120,6 @@ type
     pagSelectInput: TTabSheet;
     pagPaintInput: TTabSheet;
     pagFillInput: TTabSheet;
-    pagCommonOutput: TTabSheet;
     pagEmutecaIconBorder: TTabSheet;
     pagRemoveEmutecaBorder: TTabSheet;
     pagReplaceInput: TTabSheet;
@@ -138,6 +143,9 @@ type
     procedure bSaveInputClick(Sender: TObject);
     procedure bSaveOutputClick(Sender: TObject);
     procedure bSelectionTransparentInputClick(Sender: TObject);
+    procedure bTransparentPaint1Click(Sender: TObject);
+    procedure bTransparentPaint2Click(Sender: TObject);
+    procedure bTransparentPaintClick(Sender: TObject);
     procedure bZoom1xInputClick(Sender: TObject);
     procedure bZoom1xOutputClick(Sender: TObject);
     procedure bZoomInInputClick(Sender: TObject);
@@ -282,9 +290,8 @@ begin
       aHint := 'Drag to paint with desired color and transparency.';
     maiPickingPaintColor:
       aHint := 'Color is selected when R-Click is finished.';
-    maiFillColor:
+    maiFillColor, maiFillingColor:
       aHint := 'L-Click: Fill with color and its neightbours. R-Click: Fill while dragging.';
-    // maiFillingColor: ;
     maiReplaceColor:
       aHint := 'L-Click: Replace clicked color with desired color and transparency.';
     maiReplacingColor:
@@ -1237,6 +1244,24 @@ begin
   DrawImageInput;
 end;
 
+procedure TfrmIconBorder.bTransparentPaint1Click(Sender: TObject);
+begin
+  bColorFillInput.Enabled := False;
+  eOpacityFillInput.Value := 0;
+end;
+
+procedure TfrmIconBorder.bTransparentPaint2Click(Sender: TObject);
+begin
+  bColorReplaceInput.Enabled := False;
+  eOpacityReplaceInput.Value := 0;
+end;
+
+procedure TfrmIconBorder.bTransparentPaintClick(Sender: TObject);
+begin
+  bColorPaintInput.Enabled := False;
+  eOpacityPaintInput.Value := 0;
+end;
+
 procedure TfrmIconBorder.bZoom1xInputClick(Sender: TObject);
 begin
   if not Assigned(ActualInputImage) then
@@ -1584,9 +1609,16 @@ begin
     begin
       if Assigned(aPixel) then
       begin
+
         // We need to make a copy because actual pixel color is changed
         //   when ReplaceColor is called.
         aTPixel := aPixel^;
+
+        if chkCopyReplaceToFill.Checked then
+        begin
+          bColorFillInput.ButtonColor := BGRAToColor(aTPixel);
+          eOpacityFillInput.Value := aTPixel.alpha;
+        end;
 
         ActualInputImage.ReplaceColor(aTPixel,
           ColorToBGRA(bColorReplaceInput.ButtonColor, eOpacityReplaceInput.Value));
@@ -1634,9 +1666,8 @@ end;
 procedure TfrmIconBorder.pgcImageOutputChange(Sender: TObject);
 begin
   case pgcImageOutput.PageIndex of
-    // 0: Common
-    1: ProcessOutputFilter := pofEmutecaIconBorder;
-    2: ProcessOutputFilter := pofRemoveIconBorder;
+    0: ProcessOutputFilter := pofEmutecaIconBorder;
+    1: ProcessOutputFilter := pofRemoveIconBorder;
     else
       ;
   end;

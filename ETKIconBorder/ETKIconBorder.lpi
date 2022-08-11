@@ -23,8 +23,8 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="5"/>
-      <RevisionNr Value="3"/>
-      <BuildNr Value="13"/>
+      <RevisionNr Value="4"/>
+      <BuildNr Value="14"/>
     </VersionInfo>
     <BuildModes Count="2">
       <Item1 Name="Debug" Default="True"/>
