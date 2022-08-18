@@ -44,6 +44,7 @@ type
     bColorBorderEmutecaIcon: TColorButton;
     bColorReplaceInput: TColorButton;
     bCutSelectionInput: TButton;
+    bDefaultIconBorder: TButton;
     bDeleteInputFile: TButton;
     bFlipHInput: TButton;
     bFlipVInput: TButton;
@@ -58,8 +59,8 @@ type
     bSaveOutput: TButton;
     bSelectionTransparentInput: TButton;
     bTransparentPaint: TButton;
-    bTransparentPaint1: TButton;
-    bTransparentPaint2: TButton;
+    bTransparentFill: TButton;
+    bTransparentReplace: TButton;
     bZoom1xOutput: TButton;
     bZoomInInput: TButton;
     bZoom1xInput: TButton;
@@ -130,6 +131,7 @@ type
     procedure bAutoZoomOutputClick(Sender: TObject);
     procedure bClearListClick(Sender: TObject);
     procedure bCutSelectionInputClick(Sender: TObject);
+    procedure bDefaultIconBorderClick(Sender: TObject);
     procedure bDeleteInputFileClick(Sender: TObject);
     procedure bFlipHInputClick(Sender: TObject);
     procedure bFlipVInputClick(Sender: TObject);
@@ -143,8 +145,8 @@ type
     procedure bSaveInputClick(Sender: TObject);
     procedure bSaveOutputClick(Sender: TObject);
     procedure bSelectionTransparentInputClick(Sender: TObject);
-    procedure bTransparentPaint1Click(Sender: TObject);
-    procedure bTransparentPaint2Click(Sender: TObject);
+    procedure bTransparentFillClick(Sender: TObject);
+    procedure bTransparentReplaceClick(Sender: TObject);
     procedure bTransparentPaintClick(Sender: TObject);
     procedure bZoom1xInputClick(Sender: TObject);
     procedure bZoom1xOutputClick(Sender: TObject);
@@ -285,13 +287,15 @@ begin
     maiSelectingRect:
       aHint := 'Drag until desired size.';
     maiPaintPixel:
-      aHint := 'L-Click: Paint with desired color and transparency. R-Click: Pick color from current pixel.';
+      aHint :=
+        'L-Click: Paint with desired color and transparency. R-Click: Pick color from current pixel.';
     maiPaintingPixel:
       aHint := 'Drag to paint with desired color and transparency.';
     maiPickingPaintColor:
       aHint := 'Color is selected when R-Click is finished.';
     maiFillColor, maiFillingColor:
-      aHint := 'L-Click: Fill with color and its neightbours. R-Click: Fill while dragging.';
+      aHint :=
+        'L-Click: Fill with color and its neightbours. R-Click: Fill while dragging.';
     maiReplaceColor:
       aHint := 'L-Click: Replace clicked color with desired color and transparency.';
     maiReplacingColor:
@@ -577,7 +581,7 @@ DiagFloodFill(FromColor, ToColor, X + 1, Y + 1);
           Result := True
         else
           Result := FastBGRALinearDiff((pScan + AX)^, S) <= Tolerance;
-          // Result := BGRADiff((pScan + AX)^, S) <= Tolerance;
+        // Result := BGRADiff((pScan + AX)^, S) <= Tolerance;
       end;
     end;
 
@@ -787,6 +791,13 @@ begin
   StatusBar.Panels[2].Text := '';
 
   AutoZoomInput;
+end;
+
+procedure TfrmIconBorder.bDefaultIconBorderClick(Sender: TObject);
+begin
+  bColorBorderEmutecaIcon.Enabled := True;
+  bColorBorderEmutecaIcon.ButtonColor := clGray;
+  eOpacityBorderEmutecaIcon.Value := 128;
 end;
 
 procedure TfrmIconBorder.bDeleteInputFileClick(Sender: TObject);
@@ -1042,6 +1053,14 @@ procedure TfrmIconBorder.bProcessOutputClick(Sender: TObject);
     i: integer;
   begin
 
+    // Hack (1/2): If opacity is 255, it will fail. So we change it to 254,
+    //   a then we will revert again to 255
+
+    if eOpacityBorderEmutecaIcon.Value = 255 then
+      eOpacityBorderEmutecaIcon.Value := 254;
+
+    // Adding transparent border, and making sure that there are not solid
+    //   pixel in the borders
     TempImg := TBGRABitmap.Create(ActualOutputImage.Width +
       2, ActualOutputImage.Height + 2, BGRA(0, 0, 0, 0));
 
@@ -1115,6 +1134,21 @@ procedure TfrmIconBorder.bProcessOutputClick(Sender: TObject);
 
       Inc(aColor);
     end;
+
+    // Hack (2/2): Reverting again to 255
+    if eOpacityBorderEmutecaIcon.Value = 254 then
+    begin
+      eOpacityBorderEmutecaIcon.Value := 255;
+
+      aColor := ActualOutputImage.Data;
+      for i := 1 to ActualOutputImage.NbPixels do
+      begin
+        if aColor^.alpha = 254 then
+          aColor^.Alpha := 255;
+        Inc(aColor);
+      end;
+    end;
+
   end;
 
 begin
@@ -1148,12 +1182,12 @@ begin
           AutoReduceOutput;
         end;
         else
-          begin
-            RemoveSemitransparentPixels;
-            if chkAutoCropTransparency.Checked then
-              AutoCropTransparentOutput;
-            AutoReduceOutput;
-          end;
+        begin
+          RemoveSemitransparentPixels;
+          if chkAutoCropTransparency.Checked then
+            AutoCropTransparentOutput;
+          AutoReduceOutput;
+        end;
       end;
     end;
 
@@ -1244,13 +1278,13 @@ begin
   DrawImageInput;
 end;
 
-procedure TfrmIconBorder.bTransparentPaint1Click(Sender: TObject);
+procedure TfrmIconBorder.bTransparentFillClick(Sender: TObject);
 begin
   bColorFillInput.Enabled := False;
   eOpacityFillInput.Value := 0;
 end;
 
-procedure TfrmIconBorder.bTransparentPaint2Click(Sender: TObject);
+procedure TfrmIconBorder.bTransparentReplaceClick(Sender: TObject);
 begin
   bColorReplaceInput.Enabled := False;
   eOpacityReplaceInput.Value := 0;
@@ -1508,8 +1542,10 @@ begin
     begin
       if ssRight in Shift then // Right: Removing while painting
       begin
-        RemoveSameColorNeighboursInput(ImgX, ImgY, ColorToBGRA(bColorFillInput.ButtonColor,
-              eOpacityFillInput.Value), eToleranceFillInput.value);
+        RemoveSameColorNeighboursInput(ImgX, ImgY,
+          ColorToBGRA(bColorFillInput.ButtonColor,
+          eOpacityFillInput.Value),
+          eToleranceFillInput.Value);
         ActualInputImage.InvalidateBitmap;
         DrawImageInput;
       end; // Left: Wait until mouse up
@@ -1593,8 +1629,10 @@ begin
         begin
           if Assigned(aPixel) then
           begin
-            RemoveSameColorNeighboursInput(ImgX, ImgY, ColorToBGRA(bColorFillInput.ButtonColor,
-              eOpacityFillInput.Value), eToleranceFillInput.value);
+            RemoveSameColorNeighboursInput(ImgX, ImgY,
+              ColorToBGRA(bColorFillInput.ButtonColor,
+              eOpacityFillInput.Value),
+              eToleranceFillInput.Value);
             ActualInputImage.InvalidateBitmap;
             DrawImageInput;
           end;
@@ -1621,7 +1659,8 @@ begin
         end;
 
         ActualInputImage.ReplaceColor(aTPixel,
-          ColorToBGRA(bColorReplaceInput.ButtonColor, eOpacityReplaceInput.Value));
+          ColorToBGRA(bColorReplaceInput.ButtonColor,
+          eOpacityReplaceInput.Value));
 
         ActualInputImage.InvalidateBitmap;
         DrawImageInput;

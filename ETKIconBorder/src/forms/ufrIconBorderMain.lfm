@@ -358,13 +358,13 @@ object frmIconBorder: TfrmIconBorder
             OnChange = eOpacityFillInputChange
             TabOrder = 2
           end
-          object bTransparentPaint1: TButton
+          object bTransparentFill: TButton
             Left = 208
             Height = 31
             Top = 56
             Width = 94
             Caption = 'Transparent'
-            OnClick = bTransparentPaint1Click
+            OnClick = bTransparentFillClick
             TabOrder = 3
           end
         end
@@ -407,13 +407,13 @@ object frmIconBorder: TfrmIconBorder
             Caption = 'Replace Opacity'
             ParentColor = False
           end
-          object bTransparentPaint2: TButton
+          object bTransparentReplace: TButton
             Left = 224
             Height = 31
             Top = 24
             Width = 94
             Caption = 'Transparent'
-            OnClick = bTransparentPaint2Click
+            OnClick = bTransparentReplaceClick
             TabOrder = 1
           end
           object chkCopyReplaceToFill: TCheckBox
@@ -849,6 +849,15 @@ object frmIconBorder: TfrmIconBorder
             MaxValue = 255
             TabOrder = 1
             Value = 128
+          end
+          object bDefaultIconBorder: TButton
+            Left = 8
+            Height = 31
+            Top = 80
+            Width = 94
+            Caption = 'Default'
+            OnClick = bDefaultIconBorderClick
+            TabOrder = 2
           end
         end
         object pagRemoveEmutecaBorder: TTabSheet

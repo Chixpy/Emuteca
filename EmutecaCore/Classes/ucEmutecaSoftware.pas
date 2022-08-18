@@ -131,8 +131,10 @@ end;
 procedure cEmutecaSoftware.SetTitle(AValue: string);
 begin
   AValue := UTF8Trim(AValue);
-  if FTitle = AValue then
-    Exit;
+
+  // Uhm... we want to check Group Title first if CachedGroup is assigned.
+  // if FTitle = AValue then
+  //   Exit;
 
   if Assigned(CachedGroup) then
   begin
@@ -142,7 +144,9 @@ begin
       FSortTitle := ''; // FSortTitle must empty if FTitle is empty too
     end
     else
+    begin
       FTitle := AValue;
+    end;
   end
   else
     inherited SetTitle(AValue);

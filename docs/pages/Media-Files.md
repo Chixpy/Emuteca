@@ -26,6 +26,7 @@ De forma general, y en caso de no haber actualizado la lista, puedes verlos en l
   * [Sega GameGear](https://github.com/Chixpy/ETKRes-GameGear)
   * [Sega Master System](https://github.com/Chixpy/ETKRes-MasterSystem)
   * [Sega MegaDrive / Genesis](https://github.com/Chixpy/ETKRes-MegaDrive)
+  * [SNK Neo Geo Pocket](https://github.com/Chixpy/ETKRes-NGPocket)
   * [Sinclair ZX Spectrum](https://github.com/Chixpy/ETKRes-ZXSpectrum)
 
 Hay dos formas de usarlos:
