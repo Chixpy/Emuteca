@@ -38,6 +38,8 @@ uses
   ufrCHXForm,
   // Emuteca Core units
   uEmutecaConst, uEmutecaRscStr, uEmutecaCommon,
+  // Emuteca Core abstract classes
+  uaEmutecaCustomSGItem,
   // Emuteca Core classes
   ucEmuteca, ucEmutecaSystem, ucEmutecaGroup, ucEmutecaSoftware,
   // Emuteca Core frames
@@ -57,8 +59,6 @@ type
 
   { TfmETKGUIMediaManager }
 
-  // TODO: Simplify this. Many copypasted code can be functions.
-
   TfmETKGUIMediaManager = class(TfmCHXFrame)
     actAssignFile: TAction;
     actDeleteFile: TAction;
@@ -70,7 +70,6 @@ type
     ActionList: TActionList;
     bRename: TBitBtn;
     chkCopyFile: TCheckBox;
-    chkSimilarFiles: TCheckBox;
     eOtherFolder: TDirectoryEdit;
     gbxImages: TGroupBox;
     gbxMusic: TGroupBox;
@@ -108,7 +107,7 @@ type
     pSimilar: TPanel;
     pTextPreview: TPanel;
     pumVSTGroups: TPopupMenu;
-    rgbAssignMode: TRadioGroup;
+    rgbFilterMode: TRadioGroup;
     sbSource: TStatusBar;
     sbTarget: TStatusBar;
     SelectDirectoryDialog1: TSelectDirectoryDialog;
@@ -147,7 +146,7 @@ type
     procedure lbxFolderSelectionChange(Sender: TObject; User: boolean);
     procedure pcSourceChange(Sender: TObject);
     procedure pcTargetChange(Sender: TObject);
-    procedure rgbAssignModeClick(Sender: TObject);
+    procedure rgbFilterModeSelectionChanged(Sender: TObject);
     procedure tbSimilarThresoldClick(Sender: TObject);
     procedure vstFileCompareNodes(Sender: TBaseVirtualTree;
       Node1, Node2: PVirtualNode; Column: TColumnIndex; var Result: integer);
@@ -163,18 +162,17 @@ type
       const HitInfo: THitInfo);
     procedure vstGroupCompareNodes(Sender: TBaseVirtualTree;
       Node1, Node2: PVirtualNode; Column: TColumnIndex; var Result: integer);
-    procedure vstGroupKeyDown(Sender: TObject; var Key: word;
+    procedure vstSGKeyDown(Sender: TObject; var Key: word;
       Shift: TShiftState);
     procedure vstFileFreeNode(Sender: TBaseVirtualTree; Node: PVirtualNode);
     procedure vstFileGetText(Sender: TBaseVirtualTree;
       Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType;
       var CellText: string);
-    procedure vstGroupsChange(Sender: TBaseVirtualTree; Node: PVirtualNode);
+    procedure vstSoftGroupChange(Sender: TBaseVirtualTree; Node: PVirtualNode);
     procedure vstGroupsAllInitNode(Sender: TBaseVirtualTree;
       ParentNode, Node: PVirtualNode;
       var InitialStates: TVirtualNodeInitStates);
     procedure vstKeyPress(Sender: TObject; var Key: char);
-    procedure vstSoftChange(Sender: TBaseVirtualTree; Node: PVirtualNode);
     procedure vstSoftCompareNodes(Sender: TBaseVirtualTree;
       Node1, Node2: PVirtualNode; Column: TColumnIndex; var Result: integer);
     procedure vstSoftGetText(Sender: TBaseVirtualTree;
@@ -185,7 +183,7 @@ type
       var CellText: string);
 
   private
-    FCurrGroup: cEmutecaGroup;
+    FCurrentSG: caEmutecaCustomSGItem;
     FCurrPreview: TfmCHXFileListPreview;
     FCurrSystem: cEmutecaSystem;
     FEmuteca: cEmuteca;
@@ -201,7 +199,7 @@ type
     FSourceFolder: string;
     FTargetFile: string;
     FTargetFolder: string;
-    procedure SetCurrGroup(AValue: cEmutecaGroup);
+    procedure SetCurrentSG(AValue: caEmutecaCustomSGItem);
     procedure SetCurrPreview(AValue: TfmCHXFileListPreview);
     procedure SetCurrSystem(AValue: cEmutecaSystem);
     procedure SetEmuteca(AValue: cEmuteca);
@@ -225,8 +223,9 @@ type
     // ----------
     property CurrSystem: cEmutecaSystem read FCurrSystem write SetCurrSystem;
     {< Current selected system. }
-    property CurrGroup: cEmutecaGroup read FCurrGroup write SetCurrGroup;
-    {< Current selected group. }
+    property CurrentSG: caEmutecaCustomSGItem
+      read FCurrentSG write SetCurrentSG;
+    {< Current selected soft or group. }
     property ExtFilter: TStrings read FExtFilter write SetExtFilter;
     {< Extensions of the current selected Media. }
     property CurrPreview: TfmCHXFileListPreview
@@ -243,13 +242,13 @@ type
     property TargetFolder: string read FTargetFolder write SetTargetFolder;
     {< Folder of the target file. }
 
-    procedure UpdateStatusBars;
-    {< Previews the file renaming change in the status bars.
-    }
     procedure UpdateVST(aFolder: string);
     {< Update the Virtual String Trees.
       @param(aFolder Folder where search the files and media.)
     }
+
+    procedure FilterLists;
+    {< Filters list with similar filename or groups (depending on filter mode) }
 
     function SelectSystem(aSystem: cEmutecaSystem): boolean;
     {< Selects a system. }
@@ -258,16 +257,12 @@ type
     {< Loads CurrSystem folders in lbx. }
     procedure LoadSystemSoft;
 
+
     // File lists
     // ----------
 
     function GetCurrentFilesVST: TCustomVirtualStringTree;
-    {< Returns the current file list shown.
-    }
-
-    procedure FilterFiles;
-    {< Show only files with similar name to current selected game or group.
-    }
+    {< Returns the current file list shown. }
 
     function AddFileCB(aFolder: string; Info: TSearchRec): boolean;
     {< Adds a file to the lists.
@@ -291,7 +286,12 @@ type
     }
 
 
-    // Group / Soft list
+    // Group / Soft lists
+    // ------------------
+
+    function GetCurrentGSVST: TCustomVirtualStringTree;
+    {< Returns the current file list shown. }
+
     procedure RemoveGroupSoftWOFile(aFile: string);
     {< Remove groups from vstGroupsWOFile and  vstSoftWOFile lists that have
          aFile.
@@ -301,14 +301,13 @@ type
 
 
     // Media
-    procedure ChangeGroupMedia(aGroup: cEmutecaGroup);
-    {< Change the media preview to the group media.
-      @param(aGroup The game group with it's media will be previewed.)
+    // -----
+
+    procedure ChangeSGMedia(SGItem: caEmutecaCustomSGItem);
+    {< Change the media preview to the current soft or group media.
+      @param(SGItem The soft or  group with it's media will be previewed.)
     }
-    procedure ChangeSoftMedia(aSoft: cEmutecaSoftware);
-    {< Change the media preview to the soft media.
-      @param(aGame The game with it's media will be previewed.)
-    }
+
     procedure ChangeFileMedia(aFolder, aFileName: string);
     {< Change the media preview to the file.
       @param(aFolder Folder were the file is.)
@@ -377,25 +376,25 @@ end;
 procedure TfmETKGUIMediaManager.SetSourceFile(const AValue: string);
 begin
   FSourceFile := SetAsFile(AValue);
-  UpdateStatusBars;
+  sbSource.Panels[1].Text := SourceFolder + SourceFile;
 end;
 
 procedure TfmETKGUIMediaManager.SetSourceFolder(const AValue: string);
 begin
   FSourceFolder := SetAsFolder(AValue);
-  UpdateStatusBars;
+  sbSource.Panels[1].Text := SourceFolder + SourceFile;
 end;
 
 procedure TfmETKGUIMediaManager.SetTargetFile(const AValue: string);
 begin
   FTargetFile := SetAsFile(AValue);
-  UpdateStatusBars;
+  sbTarget.Panels[1].Text := TargetFolder + TargetFile;
 end;
 
 procedure TfmETKGUIMediaManager.SetTargetFolder(const AValue: string);
 begin
   FTargetFolder := SetAsFolder(AValue);
-  UpdateStatusBars;
+  sbTarget.Panels[1].Text := TargetFolder + TargetFile;
 end;
 
 procedure TfmETKGUIMediaManager.DoLoadGUIIcons(aIconsIni: TIniFile;
@@ -403,30 +402,6 @@ procedure TfmETKGUIMediaManager.DoLoadGUIIcons(aIconsIni: TIniFile;
 begin
   ReadActionsIconsIni(aIconsIni, aBaseFolder, Self.Name,
     ilActions, ActionList);
-end;
-
-procedure TfmETKGUIMediaManager.UpdateStatusBars;
-begin
-  sbSource.Panels[1].Text := SourceFolder + SourceFile;
-
-  case rgbAssignMode.ItemIndex of
-    1: // <MediaFileName>/<Filename>.<ext>
-    begin
-      sbTarget.Panels[1].Text :=
-        TargetFolder + SetAsFolder(TargetFile) + SourceFile;
-    end;
-    2: // <MediaFileName>.zip/<Filename>.<ext>
-    begin
-      sbTarget.Panels[1].Text :=
-        TargetFolder + SetAsFolder(TargetFile + '.zip') + SourceFile;
-    end;
-    else
-      // 0: // <MediaFileName>.<ext>
-    begin
-      sbTarget.Panels[1].Text :=
-        TargetFolder + TargetFile + ExtractFileExt(SourceFile);
-    end;
-  end;
 end;
 
 procedure TfmETKGUIMediaManager.UpdateVST(aFolder: string);
@@ -505,8 +480,8 @@ begin
     end;
 
 
-    // Adding to vst if they don't match
-    // if FileComp = 0 then // Match!! only skip files
+    // Adding to VST if they don't match
+    // if FileComp = 0 then Match!! only skip files
     if FileComp < 0 then
     begin // Not match, File is behind Group
       pFileName := vstFilesWOGroup.GetNodeData(
@@ -670,36 +645,104 @@ begin
   CurrSystem := aSystem;
 end;
 
-procedure TfmETKGUIMediaManager.FilterFiles;
-var
-  FileNode: PVirtualNode;
-  pFileName: PFileRow;
-  aVST: TCustomVirtualStringTree;
-begin
-  aVST := GetCurrentFilesVST;
-  if not Assigned(aVST) then
-    Exit;
+procedure TfmETKGUIMediaManager.FilterLists;
 
-  aVST.BeginUpdate;
-  FileNode := aVST.GetFirstChild(nil);
-  while assigned(FileNode) do
+  procedure FilterFiles;
+  var
+    FileNode: PVirtualNode;
+    pFileName: PFileRow;
+    aVST: TCustomVirtualStringTree;
   begin
-    if chkSimilarFiles.Checked and (TargetFile <> '') then
+    aVST := GetCurrentFilesVST;
+    if not Assigned(aVST) then
+      Exit;
+
+    aVST.BeginUpdate;
+    FileNode := aVST.GetFirstChild(nil);
+    while assigned(FileNode) do
     begin
+
       pFileName := aVST.GetNodeData(FileNode);
 
       aVST.IsVisible[FileNode] :=
         TextSimilarity(TargetFile, pFileName^.FileName) >=
         tbSimilarThresold.Position;
-    end
-    else
+
+      FileNode := aVST.GetNextSibling(FileNode);
+    end;
+    aVST.EndUpdate;
+  end;
+
+  procedure FilterSoftGroups;
+  var
+    SGNode: PVirtualNode;
+    pSoftGroup: ^caEmutecaCustomSGItem;
+    aVST: TCustomVirtualStringTree;
+    SourceFileName: string;
+  begin
+    aVST := GetCurrentGSVST;
+    if not Assigned(aVST) then
+      Exit;
+
+    SourceFileName := ExtractFileNameWithoutExt(SourceFile);
+
+    aVST.BeginUpdate;
+    SGNode := aVST.GetFirstChild(nil);
+    while assigned(SGNode) do
     begin
-      aVST.IsVisible[FileNode] := True;
+      pSoftGroup := aVST.GetNodeData(SGNode);
+
+      aVST.IsVisible[SGNode] :=
+        TextSimilarity(SourceFileName, pSoftGroup^.MediaFileName) >=
+        tbSimilarThresold.Position;
+
+      SGNode := aVST.GetNextSibling(SGNode);
+
+    end;
+    aVST.EndUpdate;
+  end;
+
+  procedure MakeVSTNodesVisible(aVST: TCustomVirtualStringTree);
+  var
+    aVSTNode: PVirtualNode;
+  begin
+    if not Assigned(aVST) then
+      Exit;
+
+    aVST.BeginUpdate;
+    aVSTNode := aVST.GetFirstChild(nil);
+    while assigned(aVSTNode) do
+    begin
+      aVST.IsVisible[aVSTNode] := True;
+
+      aVSTNode := aVST.GetNextSibling(aVSTNode);
+    end;
+    aVST.EndUpdate;
+  end;
+
+begin // procedure TfmETKGUIMediaManager.FilterLists;
+
+  case rgbFilterMode.ItemIndex of
+    1: begin
+      if TargetFile = '' then
+        MakeVSTNodesVisible(GetCurrentFilesVST)
+      else
+        FilterFiles;
     end;
 
-    FileNode := aVST.GetNextSibling(FileNode);
+    2: begin
+      if SourceFile = '' then
+        MakeVSTNodesVisible(GetCurrentGSVST)
+      else
+        FilterSoftGroups;
+    end;
+
+    else
+    begin
+      MakeVSTNodesVisible(GetCurrentGSVST);
+      MakeVSTNodesVisible(GetCurrentFilesVST);
+    end;
   end;
-  aVST.EndUpdate;
 end;
 
 function TfmETKGUIMediaManager.AddFileCB(aFolder: string;
@@ -767,7 +810,7 @@ procedure TfmETKGUIMediaManager.RemoveFileVSTFiles(aFile: string);
         //if aVST.Selected[Nodo] then
         //begin
         //  NextSelected := aVST.GetNextSibling(Nodo);
-        //
+
         //  if not assigned(NextSelected) then
         //    NextSelected := aVST.GetPreviousSibling(Nodo)
         //end;
@@ -799,6 +842,21 @@ begin
   if CompareFilenames(SourceFolder,
     SetAsFolder(eOtherFolder.Directory)) = 0 then
     RemoveFileFromVST(vstFilesOtherFolder, aFile);
+end;
+
+function TfmETKGUIMediaManager.GetCurrentGSVST: TCustomVirtualStringTree;
+begin
+
+  // TODO: Make this... "dinamic"; search vst in current page...
+
+  case pcTarget.ActivePageIndex of
+    0: Result := vstGroupsWOFile;
+    1: Result := vstSoftWOFile;
+    2: Result := vstGroupsAll;
+    3: Result := vstSoftAll;
+    else
+      Result := nil;
+  end;
 end;
 
 procedure TfmETKGUIMediaManager.RemoveGroupSoftWOFile(aFile: string);
@@ -843,25 +901,14 @@ begin
 
 end;
 
-procedure TfmETKGUIMediaManager.ChangeGroupMedia(aGroup: cEmutecaGroup);
+procedure TfmETKGUIMediaManager.ChangeSGMedia(SGItem: caEmutecaCustomSGItem);
 begin
   if not Assigned(CurrPreview) then
     Exit;
   CurrPreview.FileList := nil;
   MediaFiles.Clear;
   EmuTKSearchAllRelatedFiles(MediaFiles, TargetFolder,
-    aGroup.MediaFileName, ExtFilter, True, True, Emuteca.TempFolder);
-  CurrPreview.FileList := MediaFiles;
-end;
-
-procedure TfmETKGUIMediaManager.ChangeSoftMedia(aSoft: cEmutecaSoftware);
-begin
-  if not Assigned(CurrPreview) then
-    Exit;
-  CurrPreview.FileList := nil;
-  MediaFiles.Clear;
-  EmuTKSearchAllRelatedFiles(MediaFiles, TargetFolder,
-    aSoft.MediaFileName, ExtFilter, True, True, Emuteca.TempFolder);
+    SGItem.MediaFileName, ExtFilter, True, True, Emuteca.TempFolder);
   CurrPreview.FileList := MediaFiles;
 end;
 
@@ -946,7 +993,7 @@ var
   TargetPath: string;
   SourcePath: string;
   SourceIsFolder: boolean;
-  aBool: boolean;
+  AllOK: boolean;
 begin
   if (SourceFolder = PathDelim) or (SourceFolder = '') then
     Exit;
@@ -960,170 +1007,127 @@ begin
   // Source
   // ------
   SourcePath := SourceFolder + SourceFile;
+
   // Testing if it's a folder
   SourceIsFolder := CompareFileExt(SourceFile, krsVirtualFolderExt) = 0;
   if SourceIsFolder then // Removing virtual extension of folders
     SourcePath := ExtractFileNameWithoutExt(SourcePath);
+
   // Checking source existence, may be it's redundant...
+  AllOK := False;
   if SourceIsFolder then
-    aBool := DirectoryExistsUTF8(SourcePath)
+    AllOK := DirectoryExistsUTF8(SourcePath)
   else
-    aBool := FileExistsUTF8(SourcePath);
-  if not aBool then
+    AllOK := FileExistsUTF8(SourcePath);
+  if not AllOK then
     Exit;
 
   // Target
   // ------
-  case rgbAssignMode.ItemIndex of
-    1: // <TargetFolder>/<TargetFile>/<Filename>.<ext>
-    begin
-      TargetPath := TargetFolder + TargetFile;
 
-      if SourceIsFolder then
-      begin
-        // Source is a folder, move all files or rename the folder
-        if not DirectoryExistsUTF8(TargetPath) then
-        begin
-          // Rename the folder
-          if chkCopyFile.Checked then
-          begin
-            // HACK: Where is CopyDirTreeUTF8?
-            CopyDirTree(UTF8ToSys(SourcePath), UTF8ToSys(TargetPath),
-              [cffCreateDestDirectory]);
-          end
-          else
-          begin
-            RenameFileUTF8(SourcePath, TargetPath);
-          end;
-        end
-        else
-        begin
-          // Move all files
-          // HACK: Where is CopyDirTreeUTF8?
-          if CopyDirTree(UTF8ToSys(SourcePath), UTF8ToSys(TargetPath),
-            [cffCreateDestDirectory]) then
-            // Delete only if copy went well and not in copy mode.
-            if not chkCopyFile.Checked then
-              // HACK: DeleteDirectoryUTF8 don't exists
-              DeleteDirectory(UTF8ToSys(TargetPath), False);
-        end;
-      end
-      else if SupportedExtSL(SourceFile,
-        Emuteca.Config.CompressedExtensions) then
-      begin
-        // TODO: Source is a compressed archive, extract all files to folder
-        ShowMessage('Not implemented');
+  TargetPath := TargetFolder + TargetFile;
+
+
+  // Dragons
+  // -------
+
+  AllOK := False;
+  if SourceIsFolder then // Source is a folder
+  begin
+    if DirectoryExistsUTF8(TargetPath) then
+    begin
+      // Testing if they are the same folder...
+      if CompareFilenames(TargetPath, SourcePath) = 0 then
         Exit;
+
+      // Copy all files.
+
+      // TODO: Decide between:
+      //   - Overwrite files: add [cffOverwriteFile] flag in CopyDirTree
+      //   - Keep and autorename repeated filenames (making a custom function)
+      //     or TSearcher (see CopyDirTree)
+
+      // HACK: Where is CopyDirTreeUTF8?
+      AllOK := CopyDirTree(UTF8ToSys(SourcePath), UTF8ToSys(TargetPath),
+        [cffPreserveTime]);
+
+      // Delete Source only if copy went well and not in copy mode.
+      if AllOK and (not chkCopyFile.Checked) then
+        // HACK: DeleteDirectoryUTF8 don't exists
+        DeleteDirectory(UTF8ToSys(SourcePath), False);
+    end
+    else // Target folder don't exists
+    begin
+      if chkCopyFile.Checked then
+      begin
+        // HACK: Where is CopyDirTreeUTF8?
+        AllOK := CopyDirTree(UTF8ToSys(SourcePath),
+          UTF8ToSys(TargetPath), [cffCreateDestDirectory, cffPreserveTime]);
       end
       else
       begin
-        // Source is a single file, move to the folder
-        TargetPath := SetAsFolder(TargetPath) + SourceFile;
-
-        // Checking target existence
-        if FileExistsUTF8(TargetPath) then
-        begin
-          if MessageDlg(Format(rsConfirmOverwriteFile, [TargetPath]),
-            mtConfirmation, [mbYes, mbNo], -1) = mrNo then
-            // TODO 2: Rename file?
-            Exit
-          else
-          begin
-            DeleteFileUTF8(TargetPath);
-          end;
-        end;
-
-        if chkCopyFile.Checked then
-        begin
-          // HACK: Where is CopyFileUTF8 and CopyDirTreeUTF8?
-          CopyFile(UTF8ToSys(SourcePath), UTF8ToSys(TargetPath),
-            [cffOverwriteFile, cffCreateDestDirectory], True);
-        end
-        else
-        begin
-          if not ForceDirectoriesUTF8(ExtractFileDir(TargetPath)) then
-            // TODO: Show error creating folder
-            Exit;
-          if not RenameFileUTF8(SourcePath, TargetPath) then
-            // TODO: Show error renaming file
-            Exit;
-        end;
-      end;
-
-    end;
-    2: // <TargetFolder>/<TargetFile>.zip/<Filename>.<ext>
-    begin
-      if SourceIsFolder then
-      begin
-        // TODO: Source is a folder, compress all files
-        ShowMessage('Not implemented');
-        Exit;
-      end
-      else if SupportedExtSL(SourceFile,
-        Emuteca.Config.CompressedExtensions) then
-      begin
-        // TODO: Source is a compressed archive, add all files or or rename the archive
-        ShowMessage('Not implemented');
-        Exit;
-      end
-      else
-      begin
-        // TODO: Source is a single file, add to archive
-        ShowMessage('Not implemented');
-        Exit;
+        AllOK := RenameFileUTF8(SourcePath, TargetPath);
       end;
     end;
-    else // 0: // <TargetFolder>/<TargetFile>.<ext>
+  end
+  else // Source is a file
+  begin
+    if DirectoryExistsUTF8(TargetPath) then
     begin
+      TargetPath := CHXCheckFileRename(SetAsFolder(TargetPath) + SourceFile);
+      AllOK := True;
+    end
+    else // Target is not a folder
+    begin
+      TargetPath := TargetPath + ExtractFileExt(SourceFile);
+      AllOK := True;
 
-      TargetPath := TargetFolder + TargetFile;
-      if not SourceIsFolder then
-        TargetPath := TargetPath + ExtractFileExt(SourceFile);
       // Testing if they are the same file...
       if CompareFilenames(TargetPath, SourcePath) = 0 then
         Exit;
 
-      // Checking target existence
-      if SourceIsFolder then
-        aBool := DirectoryExistsUTF8(TargetPath)
-      else
-        aBool := FileExistsUTF8(TargetPath);
-      if aBool then
-      begin
-        if MessageDlg(Format(rsConfirmOverwriteFile, [TargetPath]),
-          mtConfirmation, [mbYes, mbNo], -1) = mrNo then
-          // TODO 2: Merge folders?
-          Exit
-        else
-        begin
-          if SourceIsFolder then
-            // HACK: DeleteDirectoryUTF8 don't exists
-            DeleteDirectory(UTF8ToSys(TargetPath), False)
-          else
-            DeleteFileUTF8(TargetPath);
-        end;
-      end;
+      if FileExistsUTF8(TargetPath) then
+      begin // File already exists, creating new folder and moving both files.
 
+        // Moving already existing file
+        AllOK := ForceDirectoriesUTF8(ExtractFileNameWithoutExt(TargetPath));
+
+        if AllOK then
+           AllOK := RenameFileUTF8(TargetPath,
+           SetAsFolder(ExtractFileNameWithoutExt(TargetPath)) +
+             ExtractFileName(TargetPath));
+
+        // Setting the new target file inside the folder
+        TargetPath := SetAsFolder(ExtractFileNameWithoutExt(TargetPath)) +
+          SourceFile;
+      end;
+    end;
+
+    if AllOK then
+    begin
       // Copy or rename the file
       if chkCopyFile.Checked then
       begin
-        // HACK: Where is CopyFileUTF8 and CopyDirTreeUTF8?
-        if not SourceIsFolder then
-          CopyFile(UTF8ToSys(SourcePath), UTF8ToSys(TargetPath),
-            [cffOverwriteFile, cffCreateDestDirectory], True)
-        else
-        begin
-          CopyDirTree(UTF8ToSys(SourcePath), UTF8ToSys(TargetPath),
-            [cffOverwriteFile, cffCreateDestDirectory]);
-        end;
+        AllOK := CopyFile(UTF8ToSys(SourcePath), UTF8ToSys(TargetPath),
+          [cffCreateDestDirectory, cffPreserveTime], True);
       end
       else
       begin
-        RenameFileUTF8(SourcePath, TargetPath);
+        AllOK := RenameFileUTF8(SourcePath, TargetPath);
       end;
-
     end;
   end;
+
+  if not AllOK then
+  begin
+    ShowMessage('There was an error:' + LineEnding + SourcePath +
+      LineEnding + TargetPath);
+    Exit;
+  end;
+
+
+   { TODO: Add new filename to AllFiles list... but maybe we want to keep
+     already processed files hidden...
 
   // Quick update of VST lists
   // -------------------------
@@ -1137,7 +1141,7 @@ begin
     else // 0: // <TargetFolder>/<TargetFile>.<ext>
       AddFileVSTAllFiles(TargetFile + ExtractFileExt(SourceFile));
   end;
-
+  }
 
   // Removing Source file from ALL vstFiles
   if not chkCopyFile.Checked then
@@ -1157,7 +1161,7 @@ begin
     TargetFile := '';
   end;
 
-  FilterFiles;
+  FilterLists;
 end;
 
 procedure TfmETKGUIMediaManager.DeleteFile;
@@ -1220,7 +1224,7 @@ begin
       begin
         if IsFolder then
         begin
-          aBool := DeleteDirectory(SourcePath, false);
+          aBool := DeleteDirectory(SourcePath, False);
         end
         else
         begin
@@ -1390,7 +1394,8 @@ var
   FormResult: integer;
   aIconFile, aConfigFile: string;
 begin
-  if not Assigned(CurrGroup) then
+
+  if (not Assigned(CurrentSG)) or (not (CurrentSG is cEmutecaGroup)) then
     Exit;
 
   if Assigned(GUIConfig) then
@@ -1399,14 +1404,14 @@ begin
     aConfigFile := GUIConfig.DefaultFileName;
   end;
 
-  FormResult := TfmEmutecaGroupEditor.SimpleModalForm(CurrGroup, NewTitle,
-    aConfigFile, aIconFile);
+  FormResult := TfmEmutecaGroupEditor.SimpleModalForm(
+    cEmutecaGroup(CurrentSG), NewTitle, aConfigFile, aIconFile);
 
-  if FormResult = mrOK then
+  if FormResult = mrOk then
   begin
-    TargetFile := CurrGroup.MediaFileName;
-    ChangeGroupMedia(CurrGroup);
-    FilterFiles;
+    TargetFile := CurrentSG.MediaFileName;
+    ChangeSGMedia(CurrentSG);
+    FilterLists;
   end;
 end;
 
@@ -1500,6 +1505,7 @@ function TfmETKGUIMediaManager.GetCurrentFilesVST: TCustomVirtualStringTree;
 begin
 
   // TODO: Make this... "dinamic"; search vst in current page...
+
   case pcSource.ActivePageIndex of
     0: Result := vstFilesWOGroup;
     1: Result := vstFilesWOSoft;
@@ -1615,16 +1621,15 @@ begin
   TargetFile := '';
 end;
 
-procedure TfmETKGUIMediaManager.rgbAssignModeClick(Sender: TObject);
+procedure TfmETKGUIMediaManager.rgbFilterModeSelectionChanged(Sender: TObject);
 begin
-  UpdateStatusBars;
+  FilterLists;
 end;
 
 procedure TfmETKGUIMediaManager.tbSimilarThresoldClick(Sender: TObject);
 begin
   // In TrackBar, this method means end of changing it.
-  if chkSimilarFiles.Checked then
-    FilterFiles;
+  FilterLists;
 end;
 
 procedure TfmETKGUIMediaManager.vstFileCompareNodes(Sender: TBaseVirtualTree;
@@ -1698,6 +1703,9 @@ begin
   end;
 
   ChangeFileMedia(SourceFolder, SourceFile);
+
+  if rgbFilterMode.ItemIndex = 2 then
+    FilterLists;
 end;
 
 procedure TfmETKGUIMediaManager.vstNodeClick(Sender: TBaseVirtualTree;
@@ -1743,7 +1751,7 @@ begin
   end;
 end;
 
-procedure TfmETKGUIMediaManager.vstGroupKeyDown(Sender: TObject;
+procedure TfmETKGUIMediaManager.vstSGKeyDown(Sender: TObject;
   var Key: word; Shift: TShiftState);
 begin
   if Shift = [] then
@@ -1758,7 +1766,7 @@ end;
 
 procedure TfmETKGUIMediaManager.chkSimilarFilesChange(Sender: TObject);
 begin
-  FilterFiles;
+  FilterLists;
 end;
 
 procedure TfmETKGUIMediaManager.eOtherFolderAcceptDirectory(Sender: TObject;
@@ -1794,8 +1802,8 @@ end;
 
 procedure TfmETKGUIMediaManager.actEditGroupExecute(Sender: TObject);
 begin
-  if not Assigned(CurrGroup) then
-   Exit;
+  if (not Assigned(CurrentSG)) or (not (CurrentSG is cEmutecaGroup)) then
+    Exit;
 
   OpenGroupEditor('');
 end;
@@ -1803,7 +1811,8 @@ end;
 procedure TfmETKGUIMediaManager.actRenameGroupTitleWithFilenameExecute(
   Sender: TObject);
 begin
-   if (not Assigned(CurrGroup)) or (SourceFile = '') then
+  if (not Assigned(CurrentSG)) or (not (CurrentSG is cEmutecaGroup)) or
+    (SourceFile = '') then
     Exit;
 
   OpenGroupEditor(ExtractFileNameOnly(SourceFile));
@@ -1843,10 +1852,10 @@ begin
   end;
 end;
 
-procedure TfmETKGUIMediaManager.vstGroupsChange(Sender: TBaseVirtualTree;
+procedure TfmETKGUIMediaManager.vstSoftGroupChange(Sender: TBaseVirtualTree;
   Node: PVirtualNode);
 var
-  PData: ^cEmutecaGroup;
+  PData: ^caEmutecaCustomSGItem;
 begin
   TargetFile := '';
 
@@ -1854,11 +1863,13 @@ begin
     Exit;
 
   PData := Sender.GetNodeData(Node);
-  CurrGroup := PData^;
+  CurrentSG := PData^;
 
-  TargetFile := CurrGroup.MediaFileName;
-  ChangeGroupMedia(CurrGroup);
-  FilterFiles;
+  TargetFile := CurrentSG.MediaFileName;
+  ChangeSGMedia(CurrentSG);
+
+  if rgbFilterMode.ItemIndex = 1 then
+    FilterLists;
 end;
 
 procedure TfmETKGUIMediaManager.vstGroupsAllInitNode(Sender: TBaseVirtualTree;
@@ -1880,25 +1891,6 @@ begin
     else
       ;
   end;
-end;
-
-procedure TfmETKGUIMediaManager.vstSoftChange(Sender: TBaseVirtualTree;
-  Node: PVirtualNode);
-var
-  pSoft: ^cEmutecaSoftware;
-begin
-  TargetFile := '';
-
-  if (not assigned(Sender)) or (not assigned(Node)) then
-    Exit;
-
-  pSoft := Sender.GetNodeData(Node);
-  TargetFile := pSoft^.MediaFileName;
-  CurrGroup := cEmutecaGroup(pSoft^.CachedGroup);
-
-  ChangeSoftMedia(pSoft^);
-
-  FilterFiles;
 end;
 
 procedure TfmETKGUIMediaManager.vstSoftCompareNodes(Sender: TBaseVirtualTree;
@@ -2019,11 +2011,10 @@ begin
   LoadSysFolders;
 end;
 
-procedure TfmETKGUIMediaManager.SetCurrGroup(AValue: cEmutecaGroup);
+procedure TfmETKGUIMediaManager.SetCurrentSG(AValue: caEmutecaCustomSGItem);
 begin
-  if FCurrGroup = AValue then
-    Exit;
-  FCurrGroup := AValue;
+  if FCurrentSG = AValue then Exit;
+  FCurrentSG := AValue;
 end;
 
 procedure TfmETKGUIMediaManager.SetCurrPreview(AValue: TfmCHXFileListPreview);

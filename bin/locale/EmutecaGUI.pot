@@ -1309,10 +1309,6 @@ msgstr ""
 msgid "Copy file, don't delete source."
 msgstr ""
 
-#: tfmetkguimediamanager.chksimilarfiles.caption
-msgid "Only show similar filenames"
-msgstr ""
-
 #: tfmetkguimediamanager.gbximages.caption
 msgctxt "tfmetkguimediamanager.gbximages.caption"
 msgid "Images"
@@ -1391,8 +1387,8 @@ msgstr ""
 msgid "Software without file"
 msgstr ""
 
-#: tfmetkguimediamanager.rgbassignmode.caption
-msgid "Assign Mode"
+#: tfmetkguimediamanager.rgbfiltermode.caption
+msgid "Filter Mode"
 msgstr ""
 
 #: tfmetkguimediamanager.sbsource.panels[0].text
