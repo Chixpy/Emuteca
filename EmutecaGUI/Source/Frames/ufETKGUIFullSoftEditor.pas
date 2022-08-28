@@ -1,4 +1,5 @@
 unit ufETKGUIFullSoftEditor;
+
 {< TfmETKGUIFullSoftEditor frame unit.
 
   This file is part of Emuteca GUI.
@@ -27,8 +28,12 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
   StdCtrls, Buttons, ActnList,
+    // CHX units
+  uCHXStrUtils,
   // CHX frames
   ufCHXPropEditor,
+  // Emuteca Core units
+  uEmutecaConst, uEmutecaRscStr,
   // Emuteca Core classes
   ucEmutecaSystem, ucEmutecaGroup, ucEmutecaSoftware,
   // Emuteca Core frames
@@ -71,6 +76,9 @@ type
   public
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
+
+    class function SimpleModalForm(aSoft: cEmutecaSoftware;
+      NewTitle, aGUIConfigIni, aGUIIconsIni: string): integer;
 
   published
     property Software: cEmutecaSoftware read FSoftware write SetSoftware;
@@ -254,6 +262,32 @@ end;
 destructor TfmETKGUIFullSoftEditor.Destroy;
 begin
   inherited Destroy;
+end;
+
+class function TfmETKGUIFullSoftEditor.SimpleModalForm(aSoft: cEmutecaSoftware;
+  NewTitle, aGUIConfigIni, aGUIIconsIni: string): integer;
+var
+  fmFullSoftEditor: TfmETKGUIFullSoftEditor;
+begin
+  if not Assigned(aSoft) then
+    Exit;
+
+  fmFullSoftEditor := TfmETKGUIFullSoftEditor.Create(nil);
+  fmFullSoftEditor.Software := aSoft;
+
+  fmFullSoftEditor.ButtonClose := True;
+  fmFullSoftEditor.chkCloseOnSave.Visible := False;
+
+
+  if NewTitle <> '' then
+    fmFullSoftEditor.fmSoftEditor.eTitle.Text :=
+      UTF8TextReplace(NewTitle, ' - ', ': ');
+
+  Result := GenSimpleModalForm(fmFullSoftEditor, 'frmETKGUIFullSoftEditor',
+    Format(krsFmtWindowCaption, [Application.Title, 'Software Editor']),
+    aGUIConfigIni, aGUIIconsIni);
+
+  // Autofreed? FreeAndNil(fmGroupEditor);
 end;
 
 end.

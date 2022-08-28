@@ -410,10 +410,10 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
         Height = 332
         Top = 0
         Width = 393
-        ActivePage = pagGroupsWOFile
+        ActivePage = pagAllGroups
         Align = alClient
         PopupMenu = pumVSTGroups
-        TabIndex = 0
+        TabIndex = 2
         TabOrder = 0
         OnChange = pcTargetChange
         object pagGroupsWOFile: TTabSheet
@@ -489,6 +489,7 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
             Header.DefaultHeight = 17
             Header.Height = 17
             Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoShowSortGlyphs, hoVisible]
+            PopupMenu = pumVSTSoft
             TabOrder = 0
             TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScrollOnExpand, toAutoSort, toAutoTristateTracking, toAutoDeleteMovedNodes]
             TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning]
@@ -576,6 +577,7 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
             Header.DefaultHeight = 17
             Header.Height = 17
             Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoShowSortGlyphs, hoVisible]
+            PopupMenu = pumVSTSoft
             TabOrder = 0
             TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScrollOnExpand, toAutoSort, toAutoTristateTracking, toAutoDeleteMovedNodes]
             TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning]
@@ -807,8 +809,18 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
     end
     object actRenameGroupTitleWithFilename: TAction
       Category = 'Groups'
-      Caption = 'Rename group title with current File'
+      Caption = 'Rename group title with current file'
       OnExecute = actRenameGroupTitleWithFilenameExecute
+    end
+    object actEditSoft: TAction
+      Category = 'Software'
+      Caption = 'Edit Software'
+      OnExecute = actEditSoftExecute
+    end
+    object actRenameSoftTitleWithFilename: TAction
+      Category = 'Software'
+      Caption = 'Rename soft title with current file'
+      OnExecute = actRenameSoftTitleWithFilenameExecute
     end
   end
   object ilActions: TImageList[8]
@@ -817,8 +829,8 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
   end
   object pumVSTGroups: TPopupMenu[9]
     Images = ilActions
-    Left = 216
-    Top = 376
+    Left = 264
+    Top = 384
     object migpAssignFile: TMenuItem
       Action = actAssignFile
     end
@@ -834,8 +846,8 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
   end
   object pumVSTFiles: TPopupMenu[10]
     Images = ilActions
-    Left = 216
-    Top = 72
+    Left = 248
+    Top = 80
     object miflAssignFile: TMenuItem
       Action = actAssignFile
     end
@@ -859,7 +871,23 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
     end
   end
   object SelectDirectoryDialog1: TSelectDirectoryDialog[11]
-    Left = 320
-    Top = 72
+    Left = 392
+    Top = 80
+  end
+  object pumVSTSoft: TPopupMenu[12]
+    Left = 384
+    Top = 384
+    object misfAssignFile: TMenuItem
+      Action = actAssignFile
+    end
+    object Separator1: TMenuItem
+      Caption = '-'
+    end
+    object misfEditSoftware: TMenuItem
+      Action = actEditSoft
+    end
+    object migpRenameSoftTitleWithFilename: TMenuItem
+      Action = actRenameSoftTitleWithFilename
+    end
   end
 end

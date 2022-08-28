@@ -1,4 +1,5 @@
 unit ufEmutecaSoftEditor;
+
 {< TfmEmutecaSoftEditor form unit.
 
   This file is part of Emuteca Core.

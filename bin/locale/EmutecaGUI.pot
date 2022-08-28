@@ -1293,6 +1293,10 @@ msgctxt "tfmetkguimediamanager.acteditgroup.caption"
 msgid "Edit Group..."
 msgstr ""
 
+#: tfmetkguimediamanager.acteditsoft.caption
+msgid "Edit Software"
+msgstr ""
+
 #: tfmetkguimediamanager.actmoveallfiles.caption
 msgid "Move all files..."
 msgstr ""
@@ -1302,7 +1306,11 @@ msgid "Move file..."
 msgstr ""
 
 #: tfmetkguimediamanager.actrenamegrouptitlewithfilename.caption
-msgid "Rename group title with current File"
+msgid "Rename group title with current file"
+msgstr ""
+
+#: tfmetkguimediamanager.actrenamesofttitlewithfilename.caption
+msgid "Rename soft title with current file"
 msgstr ""
 
 #: tfmetkguimediamanager.chkcopyfile.caption

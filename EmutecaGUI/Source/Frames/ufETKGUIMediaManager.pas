@@ -43,7 +43,7 @@ uses
   // Emuteca Core classes
   ucEmuteca, ucEmutecaSystem, ucEmutecaGroup, ucEmutecaSoftware,
   // Emuteca Core frames
-  ufEmutecaSystemCBX, ufEmutecaGroupEditor,
+  ufEmutecaSystemCBX, ufEmutecaGroupEditor, ufETKGUIFullSoftEditor,
   // Emuteca GUI units
   uETKGUIConst, uETKGUIRscStr,
   // Emuteca GUI classes
@@ -63,6 +63,8 @@ type
     actAssignFile: TAction;
     actDeleteFile: TAction;
     actDeleteAllFiles: TAction;
+    actEditSoft: TAction;
+    actRenameSoftTitleWithFilename: TAction;
     actRenameGroupTitleWithFilename: TAction;
     actMoveAllFiles: TAction;
     actMoveFile: TAction;
@@ -87,6 +89,9 @@ type
     lbxTexts: TListBox;
     lbxVideos: TListBox;
     MenuItem1: TMenuItem;
+    migpRenameSoftTitleWithFilename: TMenuItem;
+    misfEditSoftware: TMenuItem;
+    misfAssignFile: TMenuItem;
     migpRenameGroupTitleWithFilename: TMenuItem;
     miflDeleteAllFiles: TMenuItem;
     miflMoveAllFiles: TMenuItem;
@@ -107,10 +112,12 @@ type
     pSimilar: TPanel;
     pTextPreview: TPanel;
     pumVSTGroups: TPopupMenu;
+    pumVSTSoft: TPopupMenu;
     rgbFilterMode: TRadioGroup;
     sbSource: TStatusBar;
     sbTarget: TStatusBar;
     SelectDirectoryDialog1: TSelectDirectoryDialog;
+    Separator1: TMenuItem;
     Splitter1: TSplitter;
     Splitter2: TSplitter;
     Splitter3: TSplitter;
@@ -137,10 +144,12 @@ type
     procedure actAssignFileExecute(Sender: TObject);
     procedure actDeleteAllFilesExecute(Sender: TObject);
     procedure actDeleteFileExecute(Sender: TObject);
+    procedure actEditSoftExecute(Sender: TObject);
     procedure actMoveAllFilesExecute(Sender: TObject);
     procedure actMoveFileExecute(Sender: TObject);
     procedure actEditGroupExecute(Sender: TObject);
     procedure actRenameGroupTitleWithFilenameExecute(Sender: TObject);
+    procedure actRenameSoftTitleWithFilenameExecute(Sender: TObject);
     procedure chkSimilarFilesChange(Sender: TObject);
     procedure eOtherFolderAcceptDirectory(Sender: TObject; var Value: string);
     procedure lbxFolderSelectionChange(Sender: TObject; User: boolean);
@@ -340,6 +349,8 @@ type
 
     procedure OpenGroupEditor(NewTitle: string = '');
     {< Opens GroupEditor with current selected group, and set a new name.}
+    procedure OpenSoftEditor(NewTitle: string = '');
+    {< Opens SoftEditor with current selected group, and set a new name.}
 
     procedure DoClearFrameData;
     procedure DoLoadFrameData;
@@ -1093,9 +1104,9 @@ begin
         AllOK := ForceDirectoriesUTF8(ExtractFileNameWithoutExt(TargetPath));
 
         if AllOK then
-           AllOK := RenameFileUTF8(TargetPath,
-           SetAsFolder(ExtractFileNameWithoutExt(TargetPath)) +
-             ExtractFileName(TargetPath));
+          AllOK := RenameFileUTF8(TargetPath,
+            SetAsFolder(ExtractFileNameWithoutExt(TargetPath)) +
+            ExtractFileName(TargetPath));
 
         // Setting the new target file inside the folder
         TargetPath := SetAsFolder(ExtractFileNameWithoutExt(TargetPath)) +
@@ -1394,7 +1405,6 @@ var
   FormResult: integer;
   aIconFile, aConfigFile: string;
 begin
-
   if (not Assigned(CurrentSG)) or (not (CurrentSG is cEmutecaGroup)) then
     Exit;
 
@@ -1406,6 +1416,31 @@ begin
 
   FormResult := TfmEmutecaGroupEditor.SimpleModalForm(
     cEmutecaGroup(CurrentSG), NewTitle, aConfigFile, aIconFile);
+
+  if FormResult = mrOk then
+  begin
+    TargetFile := CurrentSG.MediaFileName;
+    ChangeSGMedia(CurrentSG);
+    FilterLists;
+  end;
+end;
+
+procedure TfmETKGUIMediaManager.OpenSoftEditor(NewTitle: string);
+var
+  FormResult: integer;
+  aIconFile, aConfigFile: string;
+begin
+  if (not Assigned(CurrentSG)) or (not (CurrentSG is cEmutecaSoftware)) then
+    Exit;
+
+  if Assigned(GUIConfig) then
+  begin
+    aIconFile := GUIConfig.GUIIcnFile;
+    aConfigFile := GUIConfig.DefaultFileName;
+  end;
+
+  FormResult := TfmETKGUIFullSoftEditor.SimpleModalForm(
+    cEmutecaSoftware(CurrentSG), NewTitle, aConfigFile, aIconFile);
 
   if FormResult = mrOk then
   begin
@@ -1790,6 +1825,14 @@ begin
   DeleteFile;
 end;
 
+procedure TfmETKGUIMediaManager.actEditSoftExecute(Sender: TObject);
+begin
+  if (not Assigned(CurrentSG)) or (not (CurrentSG is cEmutecaSoftware)) then
+    Exit;
+
+  OpenSoftEditor('');
+end;
+
 procedure TfmETKGUIMediaManager.actMoveAllFilesExecute(Sender: TObject);
 begin
   MoveAllFiles;
@@ -1816,6 +1859,16 @@ begin
     Exit;
 
   OpenGroupEditor(ExtractFileNameOnly(SourceFile));
+end;
+
+procedure TfmETKGUIMediaManager.actRenameSoftTitleWithFilenameExecute(
+  Sender: TObject);
+begin
+  if (not Assigned(CurrentSG)) or (not (CurrentSG is cEmutecaSoftware)) or
+    (SourceFile = '') then
+    Exit;
+
+  OpenSoftEditor(ExtractFileNameOnly(SourceFile));
 end;
 
 procedure TfmETKGUIMediaManager.vstFileFreeNode(Sender: TBaseVirtualTree;
