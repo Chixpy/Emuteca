@@ -29,7 +29,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls,
   StdCtrls, ActnList, ExtCtrls, LCLType, Clipbrd, Menus, LazFileUtils,
   // CHX units
-  uCHXStrUtils,
+  uCHXRscStr, uCHXStrUtils,
   // CHX frames
   ufCHXImgListPreview,
   // Emuteca Core units
@@ -40,18 +40,14 @@ type
   { TfmEmutecaSoftImgPreview }
 
   TfmEmutecaSoftImgPreview = class(TfmCHXImgListPreview)
-    actDeleteImage: TAction;
     actAddImageFromClpBrd: TAction;
     actReplaceImageFromClpBrd: TAction;
     MenuItem1: TMenuItem;
-    mipmImgSepDeleteImage: TMenuItem;
-    mipmImgDeleteImage: TMenuItem;
     mipmImgPasteImage: TMenuItem;
     mipmImgReplaceImageFromClpBrd: TMenuItem;
     pmImageActions: TPopupMenu;
     tbPasteImage: TToolButton;
     procedure actAddImageFromClpBrdExecute(Sender: TObject);
-    procedure actDeleteImageExecute(Sender: TObject);
     procedure actReplaceImageFromClpBrdExecute(Sender: TObject);
   private
     FSaveImageFolder: string;
@@ -109,26 +105,6 @@ begin
   SaveImageToFile(aFileName);
 
   FileList.Add(aFileName);
-end;
-
-procedure TfmEmutecaSoftImgPreview.actDeleteImageExecute(Sender: TObject);
-begin
-  if not (ItemIndex in [0..ItemCount]) then
-    Exit;
-
-  // TODO: <game>.zip/file.png test....
-
-  if MessageDlg(Format(rsCorfirmDeleteFile, [FileList[ItemIndex]]),
-    mtConfirmation, [mbYes, mbNo], -1) = mrNo then
-    Exit;
-
-  if not DeleteFileUTF8(FileList[ItemIndex]) then
-  begin
-    ShowMessageFmt(rsErrorDeletingFile, [FileList[ItemIndex]]);
-    Exit;
-  end;
-
-  FileList.Delete(ItemIndex);
 end;
 
 procedure TfmEmutecaSoftImgPreview.actReplaceImageFromClpBrdExecute(

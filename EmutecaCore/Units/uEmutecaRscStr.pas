@@ -5,7 +5,7 @@ unit uEmutecaRscStr;
 
   This file is part of Emuteca Core.
 
-  Copyright (C) 2011-2018 Chixpy
+  Copyright (C) 2011-2022 Chixpy
 
   This source is free software; you can redistribute it and/or modify it
   under the terms of the GNU General Public License as published by the Free
@@ -46,10 +46,7 @@ resourcestring
   rsConfirmOverwriteFile = '%0:s' + LineEnding +
     'The file already exists.' + LineEnding +
     'Do you want overwrite it?';
-  rsCorfirmDeleteFile = '%0:s' + LineEnding +
-    'Do you want to delete this file?';
-  rsErrorDeletingFile = 'Error deleting:' + LineEnding +
-    '%0:s';
+
 
   // List action
   rsLoadingSystemList = 'Loading system list...';

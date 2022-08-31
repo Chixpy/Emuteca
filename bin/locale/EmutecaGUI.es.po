@@ -83,6 +83,11 @@ msgctxt "tfmchxchklstpropeditor.toolbutton6.caption"
 msgid "ToolButton6"
 msgstr ""
 
+#: tfmchxfilelistpreview.actdeletefile.caption
+msgctxt "tfmchxfilelistpreview.actdeletefile.caption"
+msgid "Delete File"
+msgstr ""
+
 #: tfmchxfilelistpreview.actopenfilefolder.caption
 msgid "Open File Folder"
 msgstr ""
@@ -101,13 +106,12 @@ msgctxt "tfmchxfilelistpreview.actopenwithdefapp.hint"
 msgid "Open file with default system application."
 msgstr ""
 
-#: tfmchximglistpreview.actopenfilefolder.hint
-msgid "Opens file's folder."
+#: tfmchxfilelistpreview.actrenamefile.caption
+msgid "Rename/Move File"
 msgstr ""
 
-#: tfmchximglistpreview.actopenwithdefapp.hint
-msgctxt "tfmchximglistpreview.actopenwithdefapp.hint"
-msgid "Open file with default system application."
+#: tfmchximglistpreview.actopenfilefolder.hint
+msgid "Opens file's folder."
 msgstr ""
 
 #: tfmchximglistpreview.iimage.hint
@@ -978,10 +982,6 @@ msgctxt "tfmemutecasoftimgpreview.actaddimagefromclpbrd.caption"
 msgid "Add image from Clipboard..."
 msgstr "Añadir imagen del portapapeles..."
 
-#: tfmemutecasoftimgpreview.actdeleteimage.caption
-msgid "Delete current image"
-msgstr ""
-
 #: tfmemutecasoftimgpreview.actreplaceimagefromclpbrd.caption
 msgid "Replace with image from Clipboard"
 msgstr ""
@@ -1038,10 +1038,6 @@ msgstr "Fichero"
 
 #: tfmemutecasofttxtpreview.actcreatenew.caption
 msgid "Create new text file"
-msgstr ""
-
-#: tfmemutecasofttxtpreview.actdeletefile.caption
-msgid "Delete text file"
 msgstr ""
 
 #: tfmemutecasofttxtpreview.actlocktext.caption
@@ -2112,6 +2108,14 @@ msgstr ""
 msgid "Error extracting CRC32: \"%0:s\""
 msgstr ""
 
+#: uchxrscstr.rscorfirmdeletefile
+#, object-pascal-format
+msgctxt "uchxrscstr.rscorfirmdeletefile"
+msgid ""
+"%0:s\n"
+"Do you want to delete this file?"
+msgstr ""
+
 #: uchxrscstr.rscuexcalreadyexists
 #, object-pascal-format
 msgid "\"%0:s\" already exists."
@@ -2132,13 +2136,37 @@ msgstr ""
 msgid "%0:s: Not defined filename"
 msgstr ""
 
+#: uchxrscstr.rserrordeletingfile
+#, object-pascal-format
+msgctxt "uchxrscstr.rserrordeletingfile"
+msgid ""
+"Error deleting:\n"
+"%0:s"
+msgstr ""
+
+#: uchxrscstr.rserrorrenamingfile
+#, object-pascal-format
+msgid ""
+"Error renaming:\n"
+"%0:s\n"
+"to:\n"
+"%1:s"
+msgstr ""
+
 #: uchxrscstr.rsfiledlgmaskdef
 msgid "All files|*.*"
 msgstr ""
 
 #: uchxrscstr.rsfiledlgmaskfmt
 #, object-pascal-format
-msgid "All files|*.*|Supported files|%0:s"
+msgid "Supported files|%0:s|All files|*.*"
+msgstr ""
+
+#: uchxrscstr.rsfiledontexists
+#, object-pascal-format
+msgid ""
+"%0:s\n"
+"Don't exists."
 msgstr ""
 
 #: uemutecarscstr.rschooseimagefileformat
@@ -2160,13 +2188,6 @@ msgid ""
 "%0:s\n"
 "The file already exists.\n"
 "Do you want overwrite it?"
-msgstr ""
-
-#: uemutecarscstr.rscorfirmdeletefile
-#, object-pascal-format
-msgid ""
-"%0:s\n"
-"Do you want to delete this file?"
 msgstr ""
 
 #: uemutecarscstr.rsedsalternate
@@ -2214,13 +2235,6 @@ msgstr "Desconocido"
 msgctxt "uemutecarscstr.rsedsverified"
 msgid "Verified"
 msgstr "Verificado"
-
-#: uemutecarscstr.rserrordeletingfile
-#, object-pascal-format
-msgid ""
-"Error deleting:\n"
-"%0:s"
-msgstr ""
 
 #: uemutecarscstr.rsexportingemulatorlist
 #, fuzzy

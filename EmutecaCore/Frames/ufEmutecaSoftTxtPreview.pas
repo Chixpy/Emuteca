@@ -4,7 +4,7 @@ unit ufEmutecaSoftTxtPreview;
 
   This file is part of Emuteca Core.
 
-  Copyright (C) 2018-2019 Chixpy
+  Copyright (C) 2018-2022 Chixpy
 
   This source is free software; you can redistribute it and/or modify it under
   the terms of the GNU General Public License as published by the Free
@@ -29,7 +29,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls,
   StdCtrls, ActnList, Menus, LazFileUtils,
   // CHX units
-  uCHXStrUtils,
+  uCHXRscStr, uCHXStrUtils,
   // CHX frames
   ufCHXTxtListPreview,
   // Emuteca Core units
@@ -41,18 +41,14 @@ type
 
   TfmEmutecaSoftTxtPreview = class(TfmCHXTxtListPreview)
     actCreateNew: TAction;
-    actDeleteFile: TAction;
     actSaveFile: TAction;
     actLockText: TAction;
-    MenuItem1: TMenuItem;
-    mipmDeleteFile: TMenuItem;
     mipmSaveFile: TMenuItem;
     mipmCreateNew: TMenuItem;
     pmTextActions: TPopupMenu;
     tbLockText: TToolButton;
     tbSaveFile: TToolButton;
     procedure actCreateNewExecute(Sender: TObject);
-    procedure actDeleteFileExecute(Sender: TObject);
     procedure actLockTextExecute(Sender: TObject);
     procedure actSaveFileExecute(Sender: TObject);
 
@@ -99,26 +95,6 @@ begin
   SaveTextToFile(aFileName);
 
   FileList.Add(aFileName);
-end;
-
-procedure TfmEmutecaSoftTxtPreview.actDeleteFileExecute(Sender: TObject);
-begin
-  if not (ItemIndex in [0..ItemCount]) then
-    Exit;
-
-  // TODO: <game>.zip/file.txt test....
-
-  if MessageDlg(Format(rsCorfirmDeleteFile, [FileList[ItemIndex]]),
-    mtConfirmation, [mbYes, mbNo], -1) = mrNo then
-    Exit;
-
-  if not DeleteFileUTF8(FileList[ItemIndex]) then
-  begin
-    ShowMessageFmt(rsErrorDeletingFile, [FileList[ItemIndex]]);
-    Exit;
-  end;
-
-  FileList.Delete(ItemIndex);
 end;
 
 procedure TfmEmutecaSoftTxtPreview.actSaveFileExecute(Sender: TObject);

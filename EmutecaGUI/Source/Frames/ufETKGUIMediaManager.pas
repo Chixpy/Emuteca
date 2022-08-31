@@ -4,7 +4,7 @@ unit ufETKGUIMediaManager;
 
   This file is part of Emuteca GUI.
 
-  Copyright (C) 2006-2020 Chixpy
+  Copyright (C) 2006-2022 Chixpy
 
   This source is free software; you can redistribute it and/or modify it under
   the terms of the GNU General Public License as published by the Free
@@ -30,7 +30,7 @@ uses
   Graphics, Dialogs, ExtCtrls, ComCtrls, StdCtrls, ActnList,
   LCLType, Buttons, EditBtn, Menus, LazFileUtils, LazUTF8, IniFiles,
   // CHX units
-  uCHXStrUtils, uCHXImageUtils, uCHXFileUtils, uCHXDlgUtils,
+  uCHXRscStr, uCHXStrUtils, uCHXImageUtils, uCHXFileUtils, uCHXDlgUtils,
   // CHX frames
   ufCHXFrame, ufCHXFileListPreview, ufCHXImgListPreview,
   ufCHXTxtListPreview, ufCHXProgressBar,

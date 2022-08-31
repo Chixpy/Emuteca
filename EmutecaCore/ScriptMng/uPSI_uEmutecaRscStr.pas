@@ -51,10 +51,6 @@ begin
     rsChooseImageFileFormat);
   CL.AddConstantN('rsConfirmOverwriteFile', 'String').SetString(
     rsConfirmOverwriteFile);
-  CL.AddConstantN('rsCorfirmDeleteFile', 'String').SetString(
-    rsCorfirmDeleteFile);
-  CL.AddConstantN('rsErrorDeletingFile', 'String').SetString(
-    rsErrorDeletingFile);
 
   // List action
   // -----------

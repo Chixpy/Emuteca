@@ -7,11 +7,12 @@ uXXX = Unit.
 ucXXX = Class unit.
 uaXXX = Abstract class unit.
 ufXXX = Frame unit.
+ufrXXX = Form unit.
 uafXXX = Abstract Frame unit.
 uafrXXX = Abstract Form unit.
 
-xEmuTKXXX = Emuteca core unit
-xLEmuTKXXX = GUI unit.
+xEmuTKXXX = Emuteca core unit (but xEmutecaXXX is actually used...)
+xETKGUIKXXX = GUI unit.
 
 (0.7) Making a database from games
 ----------------------------
