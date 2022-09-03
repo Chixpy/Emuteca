@@ -13,6 +13,9 @@ Name=Chixpy
 Version=0.05
 Date=20201108
 [Changes]
+0.06 20220831
+  m ETKFixTitle: Removing unused MediaFile and changed SortTitle (Remove article) as new standard
+      in Emuteca.
 0.05 20201108
   * ETKFixTitle: SortTitle parameter is cleared.
 0.04 20201105
@@ -59,7 +62,7 @@ begin
     'L''', 'Le', 'Les', 'Une', 'Des'];
 end;
   
-procedure ETKFixTitle(var aTitle: string; out SortTitle, MediaFile: string);
+procedure ETKFixTitle(var aTitle: string; out SortTitle: string);
 var
   i: integer;
   ArticleFound: string;
@@ -74,7 +77,7 @@ begin
  
   // Searching if aTitle has an article.
   //   - The Title -> (Must be in aTitle)
-  //   - Title, The -> (Must be SortTitle)
+  //   - Title, The -> (Must be SortTitle, without ', The')
   //   - Title (The) -> Covert to previous syntax
   
   // To check if already changed and Keeping actual article
@@ -95,7 +98,7 @@ begin
     begin
       aTitle := Trim(AnsiLeftStr(aTitle, Length(aTitle) - Length(ArticleFound)
         - 3));
-      SortTitle := aTitle + ', ' + ArticleFound;
+      SortTitle := aTitle;
       aTitle := ArticleFound + ' ' + aTitle;
     end;
   end;
@@ -114,9 +117,9 @@ begin
     end;  
     if ArticleFound <> '' then
     begin
-      SortTitle := aTitle;
-      aTitle := ArticleFound + ' ' + Trim(AnsiLeftStr(aTitle, Length(aTitle)
+      SortTitle := Trim(AnsiLeftStr(aTitle, Length(aTitle)
         - Length(ArticleFound) - 2));
+      aTitle := ArticleFound + ' ' + SortTitle;
     end; 
   end;  
   
@@ -133,8 +136,7 @@ begin
     end;  
     if ArticleFound <> '' then
     begin
-      SortTitle := Trim(ETKCopyFrom(aTitle, Length(ArticleFound) + 1)) + ', ' +
-        ArticleFound;
+      SortTitle := Trim(ETKCopyFrom(aTitle, Length(ArticleFound) + 1));
       // Don't change aTitle
     end; 
   end; 
@@ -143,9 +145,9 @@ begin
   if CompareText(aTitle, SortTitle) = 0 then
     SortTitle := '';
     
-  // Setting MediaFile
-  if SortTitle <> '' then
-    MediaFile := CleanFileName(SortTitle, true, false)
-  else    
-    MediaFile := CleanFileName(aTitle, true, false);
+  //// Setting MediaFile
+  //if SortTitle <> '' then
+  //  MediaFile := CleanFileName(SortTitle, true, false)
+  //else    
+  //  MediaFile := CleanFileName(aTitle, true, false);
 end;

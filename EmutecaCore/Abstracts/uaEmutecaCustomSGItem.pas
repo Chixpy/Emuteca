@@ -138,7 +138,7 @@ begin
   if Result <> '' then
     Exit;
 
-  Result := Title;
+  Result := UTF8TextReplace(Title, ':', ' -');
 end;
 
 function caEmutecaCustomSGItem.GetTitle: string;
@@ -171,10 +171,13 @@ begin
 end;
 
 procedure caEmutecaCustomSGItem.SetSortTitle(AValue: string);
+var
+  aTitle: string;
 begin
-  AValue := UTF8Trim(AValue);
+  AValue := UTF8TextReplace(UTF8Trim(AValue), ':', ' -');
+  aTitle := UTF8TextReplace(UTF8Trim(Title), ':', ' -');
 
-  if AValue = Title then
+  if (AValue = aTitle) then
     FSortTitle := ''
   else
     FSortTitle := AValue;

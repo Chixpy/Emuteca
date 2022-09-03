@@ -7,9 +7,12 @@ It's far from perfect.
 Only to include in other programs.
 [Data]
 Name=Chixpy
-Version=0.08
-Date=20171212
+Version=0.09
+Date=20220901
 [Changes]
+0.09 20220901
+  f TOSECExtractInfo: Some system don't use "[!]" flag, so keep current
+      DumpStatus if none is found.
 0.08 20171212
   f TOSECExtractSoftLine: Better flags search.
 0.07
@@ -276,7 +279,7 @@ begin
   
   // FIX: Checking wrong article position after version
   // "Game v 1, The"
-  ETKFixTitle(DBTitle, DBSortTitle, TempStr); //DBSortTitle and TempStr unused
+  ETKFixTitle(DBTitle, DBSortTitle); //DBSortTitle and TempStr unused
   
   aPos := RPos(' ', DBTitle);
   if (aPos > 1) then
@@ -342,7 +345,7 @@ begin
   
   // Checking well placed article before version
   //  and setting DBSortTitle
-  ETKFixTitle(DBTitle, DBSortTitle, TempStr); //TempStr unused
+  ETKFixTitle(DBTitle, DBSortTitle); //TempStr unused
 
   
   // Adding Demo in Version
@@ -595,7 +598,7 @@ begin
   // Although some flags can coexist: [a][o]
   // We only keep the worst one
   
-  DBDumpStatus := DumpSt2Key(edsGood);
+  DBDumpStatus := '';
   
   TempStr := TOSECExtractTag(SoftStr, '[!', ']');
   if TempStr <> '' then
@@ -629,7 +632,10 @@ begin
   begin    
     DBDumpStatus := DumpSt2Key(edsUnderDump);
     TOSECAddStr(DBDumpInfo, 'u ' + TempStr)
-  end;    
+  end;
+
+  if DBDumpStatus = '' then
+    DBDumpStatus := krsImportKeepValueKey;
     
   // Extra data
   // -----------------

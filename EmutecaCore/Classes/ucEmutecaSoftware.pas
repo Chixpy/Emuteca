@@ -1,4 +1,5 @@
 unit ucEmutecaSoftware;
+
 {< cEmutecaSoftware class unit.
 
   This file is part of Emuteca Core.
@@ -26,6 +27,8 @@ interface
 
 uses
   Classes, SysUtils, LazFileUtils, LazUTF8,
+  // CHX units
+  uCHXStrUtils,
   // Emuteca Core abstracts
   uaEmutecaCustomSystem, uaEmutecaCustomGroup, uaEmutecaCustomSoft;
 
@@ -158,7 +161,7 @@ begin
   if Result <> '' then
     Exit;
 
-  Result := FTitle;
+  Result := UTF8TextReplace(FTitle, ':', ' -');
   if Result <> '' then
     Exit;
 
@@ -170,18 +173,14 @@ end;
 
 procedure cEmutecaSoftware.SetSortTitle(AValue: string);
 begin
-  AValue := UTF8Trim(AValue);
-  if FSortTitle = AValue then
-    Exit;
-
-  if (AValue = Title) or (FTitle = '') then
+  if (FTitle = '') then
   begin
     // If FTitle is empty then FSortTitle must be empty (use group's SortTitle)
     FSortTitle := '';
     Exit;
   end;
 
-  FSortTitle := AValue;
+  inherited SetSortTitle(AValue);
 end;
 
 function cEmutecaSoftware.MatchGroupFile: boolean;
