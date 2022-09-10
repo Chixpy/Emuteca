@@ -8,7 +8,6 @@ inherited fmEmutecaSoftTxtPreview: TfmEmutecaSoftTxtPreview
     end
     inherited tbSepOpenFile: TToolButton
       Left = 371
-      Height = 29
     end
     object tbLockText: TToolButton[7]
       Left = 210
@@ -23,11 +22,6 @@ inherited fmEmutecaSoftTxtPreview: TfmEmutecaSoftTxtPreview
       DropdownMenu = pmTextActions
       Style = tbsDropDown
     end
-  end
-  inherited mText: TMemo
-    Height = 266
-    Top = 34
-    Width = 400
   end
   inherited ilPreviewList: TImageList
     Bitmap = {
@@ -197,8 +191,8 @@ inherited fmEmutecaSoftTxtPreview: TfmEmutecaSoftTxtPreview
   end
   object pmTextActions: TPopupMenu[9]
     Images = ilPreviewList
-    Left = 108
-    Top = 105
+    Left = 56
+    Top = 120
     object mipmCreateNew: TMenuItem
       Action = actCreateNew
     end

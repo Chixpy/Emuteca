@@ -161,7 +161,7 @@ begin
   if Result <> '' then
     Exit;
 
-  Result := UTF8TextReplace(FTitle, ':', ' -');
+  Result := FormatSortTitle(FTitle);
   if Result <> '' then
     Exit;
 

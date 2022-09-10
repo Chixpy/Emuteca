@@ -99,11 +99,9 @@ end;
 
 procedure TfmEmutecaSoftTxtPreview.actSaveFileExecute(Sender: TObject);
 begin
-  if (ItemIndex in [0..ItemCount]) then
+  if (ItemIndex in [0..ItemCount-1]) then
   begin
-    // TODO: <game>.zip/file.txt test....
-
-    mText.Lines.SaveToFile(FileList[ItemIndex]);
+    SaveTextToFile(FileList[ItemIndex]);
   end
   else
     actCreateNew.Execute;
@@ -126,6 +124,8 @@ begin
 end;
 
 procedure TfmEmutecaSoftTxtPreview.SaveTextToFile(aFile: string);
+var
+  aSL: TStringList;
 begin
   // Checking if file already exists...
   if FileExistsUTF8(aFile) then
@@ -133,7 +133,7 @@ begin
     if MessageDlg(Format(rsConfirmOverwriteFile, [aFile]),
       mtConfirmation, [mbYes, mbNo], 0) = mrYes then
     begin
-      if not DeleteFileUTF8(FileList[ItemIndex]) then
+      if not DeleteFileUTF8(aFile) then
       begin
         ShowMessageFmt(rsErrorDeletingFile, [aFile]);
         Exit;
@@ -149,7 +149,13 @@ begin
   if not DirectoryExistsUTF8(ExtractFileDir(aFile)) then
     ForceDirectoriesUTF8(ExtractFileDir(aFile));
 
-  mText.Lines.SaveToFile(aFile);
+  // HACK: Fixing a windows "feature/bug" when WordWrap is activated in TMemo.
+  //   Windows actually adds no wanted linebreaks in the string lines and then
+  //   are saved when mText.Lines.SaveToFile(aFile) is used.
+  aSL := TStringList.Create;
+  aSL.Text := mText.Text;
+  aSL.SaveToFile(aFile);
+  aSL.Free;
 end;
 
 constructor TfmEmutecaSoftTxtPreview.Create(TheOwner: TComponent);

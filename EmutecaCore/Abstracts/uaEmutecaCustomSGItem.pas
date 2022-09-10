@@ -59,6 +59,8 @@ type
     procedure SetSortTitle(AValue: string); virtual;
     procedure SetTitle(AValue: string); virtual;
 
+    function FormatSortTitle(const aString: string): string;
+
   public
     function CompareID(aID: string): integer;
     {< Compares aID with current Group ID (case insensitive). }
@@ -138,7 +140,7 @@ begin
   if Result <> '' then
     Exit;
 
-  Result := UTF8TextReplace(Title, ':', ' -');
+  Result := FormatSortTitle(Title);
 end;
 
 function caEmutecaCustomSGItem.GetTitle: string;
@@ -174,8 +176,8 @@ procedure caEmutecaCustomSGItem.SetSortTitle(AValue: string);
 var
   aTitle: string;
 begin
-  AValue := UTF8TextReplace(UTF8Trim(AValue), ':', ' -');
-  aTitle := UTF8TextReplace(UTF8Trim(Title), ':', ' -');
+  AValue := FormatSortTitle(AValue);
+  aTitle := FormatSortTitle(Title);
 
   if (AValue = aTitle) then
     FSortTitle := ''
@@ -191,6 +193,12 @@ begin
     FTitle := ''
   else
     FTitle := AValue;
+end;
+
+function caEmutecaCustomSGItem.FormatSortTitle(const aString: string): string;
+begin
+  Result := UTF8TextReplace(UTF8Trim(aString), ': ', ' - ');
+  Result := UTF8TextReplace(Result, ' & ', ' and ');
 end;
 
 function caEmutecaCustomSGItem.GetActualID: string;
