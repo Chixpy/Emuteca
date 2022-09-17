@@ -1,0 +1,8 @@
+inherited frMain: TfrMain
+  Left = 489
+  Top = 229
+  AutoSize = False
+  Caption = 'Main'
+  OnCloseQuery = FormCloseQuery
+  OnCreate = FormCreate
+end

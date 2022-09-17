@@ -574,6 +574,7 @@ begin
       pSoft := nil;
       pFileName := vstFilesWOGroup.GetNodeData(FileNode);
       aFileName := pFileName^;
+      // Advance File
       FileComp := -1;
     end
     else if not assigned(FileNode) then
@@ -582,6 +583,7 @@ begin
       aSoft := pSoft^;
       pFileName := nil;
       Finalize(aFileName);
+      // Advance soft
       FileComp := 1;
     end
     else
@@ -590,6 +592,7 @@ begin
       aFileName := pFileName^;
       pSoft := vstSoftAll.GetNodeData(SoftNode);
       aSoft := pSoft^;
+
       FileComp := CompareFilenames(aFileName.FileName, aSoft.MediaFileName);
     end;
 

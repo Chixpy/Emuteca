@@ -20,8 +20,9 @@
         <ComponentName Value="frmETKMagazineCutter"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="9"/>
-        <TopLine Value="56"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="4"/>
+        <TopLine Value="68"/>
         <CursorPos X="24" Y="86"/>
         <UsageCount Value="67"/>
         <Loaded Value="True"/>
@@ -55,7 +56,7 @@
         <ComponentName Value="fmCHXFileList"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="1"/>
         <TopLine Value="170"/>
         <CursorPos X="3" Y="185"/>
         <UsageCount Value="66"/>
@@ -82,8 +83,7 @@
         <ComponentName Value="fmEMCMain"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <IsVisibleTab Value="True"/>
-        <TopLine Value="95"/>
+        <TopLine Value="86"/>
         <CursorPos X="55" Y="112"/>
         <UsageCount Value="66"/>
         <Loaded Value="True"/>
@@ -123,7 +123,7 @@
         <ComponentName Value="fmEMCImagePropEditor"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="5"/>
         <TopLine Value="217"/>
         <CursorPos X="19" Y="222"/>
         <UsageCount Value="61"/>
@@ -136,7 +136,7 @@
         <ComponentName Value="fmCHXBGRAImgViewerEx"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="3"/>
         <TopLine Value="289"/>
         <CursorPos X="35" Y="308"/>
         <UsageCount Value="60"/>
@@ -149,7 +149,7 @@
         <ComponentName Value="fmCHXBGRAImgViewer"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="2"/>
         <TopLine Value="340"/>
         <CursorPos X="61" Y="306"/>
         <UsageCount Value="56"/>

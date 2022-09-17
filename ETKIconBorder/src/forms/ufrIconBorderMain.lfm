@@ -859,6 +859,15 @@ object frmIconBorder: TfrmIconBorder
             OnClick = bDefaultIconBorderClick
             TabOrder = 2
           end
+          object bBlackIconBorder: TButton
+            Left = 112
+            Height = 31
+            Top = 80
+            Width = 94
+            Caption = 'Black'
+            OnClick = bBlackIconBorderClick
+            TabOrder = 3
+          end
         end
         object pagRemoveEmutecaBorder: TTabSheet
           Caption = 'Remove Semitransparent'

@@ -187,11 +187,14 @@ function cEmutecaSoftware.MatchGroupFile: boolean;
 begin
   if Assigned(CachedGroup) then
   begin
-    Result := CompareFilenames(CachedGroup.MediaFileName,
-      MediaFileName) = 0;
+    if (GetActualTitle = '') {and (GetActualSortTitle = '')} then
+      Result := True
+    else
+      Result := CompareFilenames(CachedGroup.MediaFileName,
+        MediaFileName) = 0;
   end
   else
-    inherited MatchGroupFile;
+    Result := inherited MatchGroupFile;
 end;
 
 procedure cEmutecaSoftware.FPOObservedChanged(ASender: TObject;

@@ -45,6 +45,7 @@ type
     bColorReplaceInput: TColorButton;
     bCutSelectionInput: TButton;
     bDefaultIconBorder: TButton;
+    bBlackIconBorder: TButton;
     bDeleteInputFile: TButton;
     bFlipHInput: TButton;
     bFlipVInput: TButton;
@@ -129,6 +130,7 @@ type
     procedure bAddFolderClick(Sender: TObject);
     procedure bAutoZoomInputClick(Sender: TObject);
     procedure bAutoZoomOutputClick(Sender: TObject);
+    procedure bBlackIconBorderClick(Sender: TObject);
     procedure bClearListClick(Sender: TObject);
     procedure bCutSelectionInputClick(Sender: TObject);
     procedure bDefaultIconBorderClick(Sender: TObject);
@@ -769,6 +771,13 @@ end;
 procedure TfrmIconBorder.bAutoZoomOutputClick(Sender: TObject);
 begin
   AutoZoomOutput;
+end;
+
+procedure TfrmIconBorder.bBlackIconBorderClick(Sender: TObject);
+begin
+  bColorBorderEmutecaIcon.Enabled := True;
+  bColorBorderEmutecaIcon.ButtonColor := clBlack;
+  eOpacityBorderEmutecaIcon.Value := 255;
 end;
 
 procedure TfrmIconBorder.bClearListClick(Sender: TObject);

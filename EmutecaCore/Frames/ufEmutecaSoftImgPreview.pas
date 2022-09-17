@@ -112,8 +112,6 @@ procedure TfmEmutecaSoftImgPreview.actReplaceImageFromClpBrdExecute(
 begin
   if (ItemIndex in [0..ItemCount]) then
   begin
-    // TODO: <game>.zip/file.png test....
-
     if not LoadImageFromClpBrd then
       Exit;
 
@@ -173,7 +171,7 @@ begin
     if MessageDlg(Format(rsConfirmOverwriteFile, [aFile]),
       mtConfirmation, [mbYes, mbNo], 0) = mrYes then
     begin
-      if not DeleteFileUTF8(FileList[ItemIndex]) then
+      if not DeleteFileUTF8(aFile) then
       begin
         ShowMessageFmt(rsErrorDeletingFile, [aFile]);
         Exit;

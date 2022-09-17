@@ -27,7 +27,7 @@ interface
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ComCtrls,
   ExtCtrls, FileUtil, LazFileUtils, LCLTranslator,
-  // Miscelaneous unit
+  // Miscelaneous units
   uVersionSupport,
   // CHX units
   uCHXStrUtils, uCHXConst,

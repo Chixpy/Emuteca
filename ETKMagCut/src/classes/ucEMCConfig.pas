@@ -55,15 +55,16 @@ type
     FTypes: TStringList;
     FVideogames: TStringList;
     procedure SetBaseOutFolder(AValue: string);
+    
   public
     procedure LoadFromIni(aIniFile: TMemIniFile); override;
     procedure ResetDefaultConfig; override;
     {< Sets config properties to default values. }
+    procedure SaveToIni(aIniFile: TMemIniFile); override;
 
     constructor Create(aOwner: TComponent); override;
     destructor Destroy; override;
-    procedure SaveToIni(aIniFile: TMemIniFile); override;
-
+    
   published
     property BaseOutFolder: string read FBaseOutFolder write SetBaseOutFolder;
 
