@@ -29,7 +29,7 @@ uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls,
   ComCtrls, EditBtn, FileUtil, LazFileUtils, LazUTF8, LCLIntf, FPReadJPEG,
   // CHX units
-  uCHXRscStr, uCHXStrUtils, uCHXExecute, uCHX7zWrapper,
+  uCHXRscStr, uCHXStrUtils, uCHXExecute, uCHX7zWrapper, uCHXDlgUtils,
   // CHX frames
   ufCHXFrame, ufCHXImgListPreview,
   // ETKPDF2CBX classes
@@ -185,6 +185,9 @@ begin
       bMakeCBX.Enabled := True;
     end;
   end;
+
+  if ePDFFile.DialogFiles.Count > 0 then
+   ePDFFile.InitialDir := ExtractFileDir(ePDFFile.DialogFiles[0]);
 end;
 
 
@@ -639,13 +642,7 @@ begin
   P2CConfig.SevenZipExe := e7zExecutable.Text;
   P2CConfig.ImgEditorExe := eImgEditorExecutable.Text;
   P2CConfig.ImgEditorParams := eImgEditorParams.Text;
-
-  if ePDFFile.DialogFiles.Count > 0 then
-    P2CConfig.LastFolder := ExtractFileDir(ePDFFile.DialogFiles[0])
-  else
-  if ePDFFile.FileName <> '' then
-    P2CConfig.LastFolder := ExtractFileDir(ePDFFile.FileName);
-  // else keep initial one
+  P2CConfig.LastFolder := ePDFFile.InitialDir;
 end;
 
 procedure TfmP2CMain.DoClearFrameData;

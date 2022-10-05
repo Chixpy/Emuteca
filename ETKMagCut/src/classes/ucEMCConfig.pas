@@ -88,18 +88,14 @@ end;
 
 procedure cEMCConfig.LoadFromIni(aIniFile: TMemIniFile);
 begin
-  BaseOutFolder := aIniFile.ReadString(krsFoldersSection, krsBaseOutFolderKey, '');
+  BaseOutFolder := aIniFile.ReadString(krsFoldersSection, krsBaseOutFolderKey, BaseOutFolder);
 
-  Magazines.CommaText := aIniFile.ReadString(
-    krsListsSection, krsMagazinesKey, '');
-  Sections.CommaText := aIniFile.ReadString(krsListsSection,
-    krsSectionsKey, '');
-  Languages.CommaText := aIniFile.ReadString(
-    krsListsSection, krsLanguagesKey, '');
-  Types.CommaText := aIniFile.ReadString(krsListsSection, krsTypesKey, '');
-  Systems.CommaText := aIniFile.ReadString(krsListsSection, krsSystemsKey, '');
-  Videogames.CommaText := aIniFile.ReadString(
-    krsListsSection, krsVideogamesKey, '');
+  Magazines.CommaText := aIniFile.ReadString(krsListsSection, krsMagazinesKey, Magazines.CommaText);
+  Sections.CommaText := aIniFile.ReadString(krsListsSection, krsSectionsKey, Sections.CommaText);
+  Languages.CommaText := aIniFile.ReadString(krsListsSection, krsLanguagesKey, Languages.CommaText);
+  Types.CommaText := aIniFile.ReadString(krsListsSection, krsTypesKey, Types.CommaText);
+  Systems.CommaText := aIniFile.ReadString(krsListsSection, krsSystemsKey, Systems.CommaText);
+  Videogames.CommaText := aIniFile.ReadString(krsListsSection, krsVideogamesKey, Videogames.CommaText);
 end;
 
 procedure cEMCConfig.ResetDefaultConfig;

@@ -1,36 +1,36 @@
-object frmIconBorder: TfrmIconBorder
-  Left = 188
-  Height = 720
-  Top = 131
-  Width = 1379
+inherited frmIconBorder: TfrmIconBorder
+  Left = 270
+  Height = 747
+  Top = 130
+  Width = 1267
+  AutoSize = False
   Caption = 'Emuteca Icon Editor'
-  ClientHeight = 720
-  ClientWidth = 1379
-  DesignTimePPI = 120
+  ClientHeight = 747
+  ClientWidth = 1267
+  OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   Position = poMainFormCenter
-  LCLVersion = '2.2.2.0'
-  object gbxInputImage: TGroupBox
-    Left = 222
-    Height = 691
-    Top = 0
-    Width = 588
+  object gbxInputImage: TGroupBox[0]
+    Left = 234
+    Height = 706
+    Top = 4
+    Width = 516
     Align = alClient
     Caption = 'Input image'
-    ClientHeight = 666
-    ClientWidth = 584
+    ClientHeight = 681
+    ClientWidth = 512
     TabOrder = 2
     object sbxInputImage: TScrollBox
       Left = 0
-      Height = 528
+      Height = 543
       Top = 138
-      Width = 584
+      Width = 512
       HorzScrollBar.Page = 1
       VertScrollBar.Page = 1
       Align = alClient
-      ClientHeight = 524
-      ClientWidth = 580
+      ClientHeight = 539
+      ClientWidth = 508
       TabOrder = 0
       object pbxInputImage: TPaintBox
         Cursor = crCross
@@ -49,15 +49,15 @@ object frmIconBorder: TfrmIconBorder
       Left = 0
       Height = 138
       Top = 0
-      Width = 584
+      Width = 512
       Align = alTop
       AutoSize = True
       BevelOuter = bvNone
       ClientHeight = 138
-      ClientWidth = 584
+      ClientWidth = 512
       TabOrder = 1
       object gbxZoomInput: TGroupBox
-        Left = 468
+        Left = 396
         Height = 138
         Top = 0
         Width = 116
@@ -147,7 +147,7 @@ object frmIconBorder: TfrmIconBorder
         Left = 118
         Height = 138
         Top = 0
-        Width = 350
+        Width = 278
         ActivePage = pagReplaceInput
         Align = alClient
         TabIndex = 4
@@ -164,12 +164,12 @@ object frmIconBorder: TfrmIconBorder
           ChildSizing.Layout = cclLeftToRightThenTopToBottom
           ChildSizing.ControlsPerLine = 4
           ClientHeight = 105
-          ClientWidth = 342
+          ClientWidth = 270
           object gbxTransformInput: TGroupBox
             Left = 4
             Height = 97
             Top = 4
-            Width = 334
+            Width = 262
             Caption = 'Transform'
             ChildSizing.LeftRightSpacing = 4
             ChildSizing.TopBottomSpacing = 4
@@ -180,22 +180,22 @@ object frmIconBorder: TfrmIconBorder
             ChildSizing.Layout = cclLeftToRightThenTopToBottom
             ChildSizing.ControlsPerLine = 2
             ClientHeight = 72
-            ClientWidth = 330
+            ClientWidth = 258
             TabOrder = 0
             object bFlipHInput: TButton
               Left = 4
               Height = 30
               Top = 4
-              Width = 155
+              Width = 119
               Caption = 'Flip H'
               OnClick = bFlipHInputClick
               TabOrder = 0
             end
             object bFlipVInput: TButton
-              Left = 163
+              Left = 127
               Height = 30
               Top = 4
-              Width = 163
+              Width = 127
               Caption = 'Flip V'
               OnClick = bFlipVInputClick
               TabOrder = 1
@@ -204,16 +204,16 @@ object frmIconBorder: TfrmIconBorder
               Left = 4
               Height = 30
               Top = 38
-              Width = 155
+              Width = 119
               Caption = 'Rotate CW'
               OnClick = bRotateCWInputClick
               TabOrder = 2
             end
             object bRotateCCWInput: TButton
-              Left = 163
+              Left = 127
               Height = 30
               Top = 38
-              Width = 163
+              Width = 127
               Caption = 'Rotate CCW'
               OnClick = bRotateCCWInputClick
               TabOrder = 3
@@ -223,7 +223,7 @@ object frmIconBorder: TfrmIconBorder
         object pagSelectInput: TTabSheet
           Caption = 'Select'
           ClientHeight = 105
-          ClientWidth = 342
+          ClientWidth = 270
           object bCutSelectionInput: TButton
             Left = 8
             Height = 30
@@ -246,7 +246,7 @@ object frmIconBorder: TfrmIconBorder
         object pagPaintInput: TTabSheet
           Caption = 'Paint'
           ClientHeight = 105
-          ClientWidth = 342
+          ClientWidth = 270
           object bColorPaintInput: TColorButton
             Left = 8
             Height = 31
@@ -295,7 +295,7 @@ object frmIconBorder: TfrmIconBorder
         object pagFillInput: TTabSheet
           Caption = 'Fill'
           ClientHeight = 105
-          ClientWidth = 342
+          ClientWidth = 270
           object chkDiagonalNeightbours: TCheckBox
             Left = 8
             Height = 24
@@ -371,7 +371,7 @@ object frmIconBorder: TfrmIconBorder
         object pagReplaceInput: TTabSheet
           Caption = 'Replace'
           ClientHeight = 105
-          ClientWidth = 342
+          ClientWidth = 270
           object bColorReplaceInput: TColorButton
             Left = 8
             Height = 31
@@ -478,25 +478,25 @@ object frmIconBorder: TfrmIconBorder
       end
     end
   end
-  object Splitter1: TSplitter
-    Left = 216
-    Height = 691
-    Top = 0
+  object Splitter1: TSplitter[1]
+    Left = 224
+    Height = 706
+    Top = 4
     Width = 6
   end
-  object Splitter2: TSplitter
-    Left = 810
-    Height = 691
-    Top = 0
+  object Splitter2: TSplitter[2]
+    Left = 754
+    Height = 706
+    Top = 4
     Width = 6
     Align = alRight
     ResizeAnchor = akRight
   end
-  object StatusBar: TStatusBar
-    Left = 0
+  object StatusBar: TStatusBar[3]
+    Left = 4
     Height = 29
-    Top = 691
-    Width = 1379
+    Top = 714
+    Width = 1259
     Panels = <    
       item
         Alignment = taCenter
@@ -515,14 +515,14 @@ object frmIconBorder: TfrmIconBorder
       end>
     SimplePanel = False
   end
-  object gbxLeft: TGroupBox
-    Left = 0
-    Height = 691
-    Top = 0
+  object gbxLeft: TGroupBox[4]
+    Left = 4
+    Height = 706
+    Top = 4
     Width = 216
     Align = alLeft
     Caption = 'Files'
-    ClientHeight = 666
+    ClientHeight = 681
     ClientWidth = 212
     TabOrder = 0
     object pButtonsFile: TPanel
@@ -583,7 +583,7 @@ object frmIconBorder: TfrmIconBorder
     end
     object FileList: TListBox
       Left = 0
-      Height = 411
+      Height = 426
       Top = 120
       Width = 212
       Align = alClient
@@ -597,7 +597,7 @@ object frmIconBorder: TfrmIconBorder
     object pOptions: TPanel
       Left = 0
       Height = 135
-      Top = 531
+      Top = 546
       Width = 212
       Align = alBottom
       AutoSize = True
@@ -671,28 +671,29 @@ object frmIconBorder: TfrmIconBorder
       Align = alTop
       MaxLength = 0
       TabOrder = 3
+      OnChange = eOutputFolderChange
     end
   end
-  object gbxOutputImage: TGroupBox
-    Left = 816
-    Height = 691
-    Top = 0
-    Width = 563
+  object gbxOutputImage: TGroupBox[5]
+    Left = 764
+    Height = 706
+    Top = 4
+    Width = 499
     Align = alRight
     Caption = 'Output image'
-    ClientHeight = 666
-    ClientWidth = 559
+    ClientHeight = 681
+    ClientWidth = 495
     TabOrder = 4
     object sbxOutputImage: TScrollBox
       Left = 0
-      Height = 507
+      Height = 522
       Top = 159
-      Width = 559
+      Width = 495
       HorzScrollBar.Page = 1
       VertScrollBar.Page = 1
       Align = alClient
-      ClientHeight = 503
-      ClientWidth = 555
+      ClientHeight = 518
+      ClientWidth = 491
       TabOrder = 1
       object pbxOutputImage: TPaintBox
         Cursor = crCross
@@ -707,15 +708,15 @@ object frmIconBorder: TfrmIconBorder
       Left = 0
       Height = 159
       Top = 0
-      Width = 559
+      Width = 495
       Align = alTop
       AutoSize = True
       BevelOuter = bvNone
       ClientHeight = 159
-      ClientWidth = 559
+      ClientWidth = 495
       TabOrder = 0
       object gbxZoomOuput: TGroupBox
-        Left = 443
+        Left = 379
         Height = 159
         Top = 0
         Width = 116
@@ -812,7 +813,7 @@ object frmIconBorder: TfrmIconBorder
         Left = 165
         Height = 159
         Top = 0
-        Width = 278
+        Width = 214
         ActivePage = pagEmutecaIconBorder
         Align = alClient
         TabIndex = 0
@@ -821,7 +822,7 @@ object frmIconBorder: TfrmIconBorder
         object pagEmutecaIconBorder: TTabSheet
           Caption = 'Emuteca Icon'
           ClientHeight = 126
-          ClientWidth = 270
+          ClientWidth = 206
           object chkRemoveTransEmutecaIcon: TCheckBox
             Left = 8
             Height = 24
@@ -880,12 +881,12 @@ object frmIconBorder: TfrmIconBorder
           ChildSizing.Layout = cclLeftToRightThenTopToBottom
           ChildSizing.ControlsPerLine = 1
           ClientHeight = 126
-          ClientWidth = 270
+          ClientWidth = 206
           object rgbRemoveTrans: TRadioGroup
             Left = 4
             Height = 73
             Top = 4
-            Width = 262
+            Width = 198
             AutoFill = True
             Caption = 'Mode'
             ChildSizing.LeftRightSpacing = 6
@@ -896,7 +897,7 @@ object frmIconBorder: TfrmIconBorder
             ChildSizing.Layout = cclLeftToRightThenTopToBottom
             ChildSizing.ControlsPerLine = 1
             ClientHeight = 48
-            ClientWidth = 258
+            ClientWidth = 194
             ItemIndex = 0
             Items.Strings = (
               'Make transparent'
@@ -908,7 +909,7 @@ object frmIconBorder: TfrmIconBorder
             Left = 4
             Height = 24
             Top = 81
-            Width = 262
+            Width = 198
             Caption = 'Autocrop Transparency'
             Checked = True
             State = cbChecked
@@ -975,13 +976,13 @@ object frmIconBorder: TfrmIconBorder
       end
     end
   end
-  object OpenFilesDialog: TOpenDialog
+  object OpenFilesDialog: TOpenDialog[6]
     Filter = 'PNG|*.png'
     Options = [ofNoChangeDir, ofAllowMultiSelect, ofFileMustExist, ofEnableSizing, ofViewDetail]
     Left = 80
     Top = 112
   end
-  object SelectDirectoryDialog: TSelectDirectoryDialog
+  object SelectDirectoryDialog: TSelectDirectoryDialog[7]
     Options = [ofNoChangeDir, ofAllowMultiSelect, ofEnableSizing, ofViewDetail]
     Left = 80
     Top = 208

@@ -296,19 +296,19 @@ begin
         // A testing to diferenciate version with any other word...
         //   if TempStr[2] = number we can be sure that is a version.
         if (TempStr[2] <= '9') and (TempStr[2] >= '0') then
-          TOSECAddStr(DBVersion, 'v ' + Trim(ETKCopyFrom(TempStr, 2)));
+          TOSECAddStr(DBVersion, 'v' + Trim(ETKCopyFrom(TempStr, 2)));
       end
       else if (Length(TempStr) > 4) then
       begin
         if (Pos('rev', LowerCase(TempStr)) = 1) then
         begin // try revXXXXXX
           if (TempStr[4] <= '9') and (TempStr[4] >= '0') then
-            TOSECAddStr(DBVersion, 'v rev' + Trim(ETKCopyFrom(TempStr, 4)));
+            TOSECAddStr(DBVersion, 'Rev' + Trim(ETKCopyFrom(TempStr, 4)));
         end
         else if (Pos('prg', LowerCase(TempStr)) = 1) then
         begin // try PRGXXXXXX
           if (TempStr[4] <= '9') and (TempStr[4] >= '0') then
-            TOSECAddStr(DBVersion, 'v PRG' + Trim(ETKCopyFrom(TempStr, 4)));
+            TOSECAddStr(DBVersion, 'PRG' + Trim(ETKCopyFrom(TempStr, 4)));
         end;
       end;
     end;

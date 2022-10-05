@@ -22,7 +22,7 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="1"/>
-      <BuildNr Value="1"/>
+      <BuildNr Value="4"/>
     </VersionInfo>
     <BuildModes>
       <Item Name="Debug" Default="True"/>
@@ -176,6 +176,10 @@
       </Unit>
       <Unit>
         <Filename Value="..\CHXPas\Units\uCHX7zWrapper.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\CHXPas\Units\uCHXDlgUtils.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit>
     </Units>

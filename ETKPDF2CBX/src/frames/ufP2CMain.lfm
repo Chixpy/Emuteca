@@ -245,8 +245,6 @@ inherited fmP2CMain: TfmP2CMain
             Width = 332
             Align = alTop
             Caption = 'Convert files to JPG'
-            Checked = True
-            State = cbChecked
             TabOrder = 2
           end
           object chkDeletePDF: TCheckBox

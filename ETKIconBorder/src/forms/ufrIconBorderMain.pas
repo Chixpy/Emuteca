@@ -7,9 +7,18 @@ interface
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, StdCtrls,
   ComCtrls, FileUtil, BGRABitmap, BGRABitmapTypes, Math, Types, lclintf,
-  EditBtn, Spin, ColorBox, LazFileUtils,
+  EditBtn, Spin, ColorBox, LazFileUtils, LCLTranslator,
+  // Misc units
+  uVersionSupport,
   // CHX units
-  uCHXDlgUtils, uCHXFileUtils, uCHXStrUtils;
+  uCHXConst, uCHXRscStr, uCHXDlgUtils, uCHXFileUtils, uCHXStrUtils,
+  // CHX classes
+  ucEIBConfig,
+  // CHX forms
+  ufrCHXForm;
+
+const
+  krsEIBName = 'ETKIconBorder';
 
 type
 
@@ -22,7 +31,7 @@ type
     maiFillColor,          // Fill near pixels by color
     maiFillingColor,
     maiReplaceColor,
-    maiReplacingColor      //Replacing clor in full image
+    maiReplacingColor      //Replacing color in full image
     );
 
   TProcessOutputFilter = (
@@ -33,7 +42,7 @@ type
 
   { TfrmIconBorder }
 
-  TfrmIconBorder = class(TForm)
+  TfrmIconBorder = class(TfrmCHXForm)
     bAddFile: TButton;
     bAddFolder: TButton;
     bAutoZoomInput: TButton;
@@ -160,6 +169,8 @@ type
     procedure eOpacityFillInputChange(Sender: TObject);
     procedure eOpacityPaintInputChange(Sender: TObject);
     procedure eOpacityReplaceInputChange(Sender: TObject);
+    procedure eOutputFolderChange(Sender: TObject);
+    procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure FormCreate(Sender: TObject);
     procedure FileListClick(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -179,10 +190,9 @@ type
   private
     FActualInputImage: TBGRABitmap;
     FActualOutputImage: TBGRABitmap;
-    FBaseDir: string;
+    FEIBConfig: cEIBConfig;
     FFocusRectInput: TRect;
     FMouseActionInput: TMouseActionInput;
-    FOutputDir: string;
     FProcessOutputFilter: TProcessOutputFilter;
     FSelectionInput: TRect;
     FVisibleInputImage: TBGRABitmap;
@@ -190,16 +200,17 @@ type
     FZoomInput: integer;
     FZoomOutput: integer;
 
-    procedure SetBaseDir(AValue: string);
+    procedure SetEIBConfig(AValue: cEIBConfig);
     procedure SetFocusRectInput(AValue: TRect);
     procedure SetMouseActionInput(AValue: TMouseActionInput);
-    procedure SetOutputDir(AValue: string);
     procedure SetProcessOutputFilter(AValue: TProcessOutputFilter);
     procedure SetSelectionInput(AValue: TRect);
     procedure SetZoomInput(AValue: integer);
     procedure SetZoomOutput(AValue: integer);
 
   protected
+    property  EIBConfig: cEIBConfig read FEIBConfig write SetEIBConfig;
+
     procedure DrawImageInput;
     procedure DrawImageOutput;
 
@@ -213,10 +224,6 @@ type
     function SelectionZoomInput: TRect;
 
   public
-    property BaseDir: string read FBaseDir write SetBaseDir;
-    {< Shared Base dir for dialogs. }
-    property OutputDir: string read FOutputDir write SetOutputDir;
-
     property ActualInputImage: TBGRABitmap read FActualInputImage;
     property ActualOutputImage: TBGRABitmap read FActualOutputImage;
     {< Actual images. }
@@ -262,10 +269,10 @@ end;
 {$R *.lfm}
 
 { TfrmIconBorder }
-
-procedure TfrmIconBorder.SetBaseDir(AValue: string);
+procedure TfrmIconBorder.SetEIBConfig(AValue: cEIBConfig);
 begin
-  FBaseDir := SetAsFolder(AValue);
+  if FEIBConfig = AValue then Exit;
+  FEIBConfig := AValue;
 end;
 
 procedure TfrmIconBorder.SetFocusRectInput(AValue: TRect);
@@ -307,13 +314,6 @@ begin
   end;
 
   StatusBar.Panels[3].Text := aHint;
-end;
-
-procedure TfrmIconBorder.SetOutputDir(AValue: string);
-begin
-  if FOutputDir = AValue then
-    Exit;
-  FOutputDir := AValue;
 end;
 
 procedure TfrmIconBorder.SetProcessOutputFilter(AValue: TProcessOutputFilter);
@@ -725,13 +725,13 @@ end;
 
 procedure TfrmIconBorder.bAddFileClick(Sender: TObject);
 begin
-  SetDlgInitialDir(OpenFilesDialog, BaseDir);
+  SetDlgInitialDir(OpenFilesDialog, EIBConfig.LastInFolder);
 
   if not OpenFilesDialog.Execute then
     Exit;
 
   if OpenFilesDialog.Files.Count > 0 then
-    BaseDir := ExtractFileDir(OpenFilesDialog.Files[0]);
+    EIBConfig.LastInFolder := ExtractFileDir(OpenFilesDialog.Files[0]);
 
   FileList.Items.AddStrings(OpenFilesDialog.Files, False);
 end;
@@ -741,13 +741,13 @@ var
   i: integer;
   slFiles: TStringList;
 begin
-  SetDlgInitialDir(SelectDirectoryDialog, BaseDir);
+  SetDlgInitialDir(SelectDirectoryDialog, EIBConfig.LastInFolder);
 
   if not SelectDirectoryDialog.Execute then
     Exit;
 
   if SelectDirectoryDialog.Files.Count > 0 then
-    BaseDir := ExtractFileDir(SelectDirectoryDialog.Files[0]);
+    EIBConfig.LastInFolder := ExtractFileDir(SelectDirectoryDialog.Files[0]);
 
   i := 0;
   slFiles := TStringList.Create;
@@ -1374,6 +1374,19 @@ begin
   bColorReplaceInput.Enabled := eOpacityReplaceInput.Value > 0;
 end;
 
+procedure TfrmIconBorder.eOutputFolderChange(Sender: TObject);
+begin
+  EIBConfig.LastOutFolder := eOutputFolder.Directory;
+end;
+
+procedure TfrmIconBorder.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+begin
+  CanClose := True;
+
+  EIBConfig.SaveToFile('', False);
+  FreeAndNil(FEIBConfig);
+end;
+
 procedure TfrmIconBorder.FileListClick(Sender: TObject);
 begin
   FreeAndNil(FActualInputImage);
@@ -1396,7 +1409,43 @@ begin
 end;
 
 procedure TfrmIconBorder.FormCreate(Sender: TObject);
+var
+  BaseFolder: string;
+  TempStr: string;
 begin
+  // Title of application, usually it's autodeleted in .lpr file...
+  Application.Title := Format(krsFmtApplicationTitle,
+    [Application.Title, GetFileVersion]);
+
+  // Changing current folder to parents exe folder.
+  BaseFolder := ExtractFileDir(ExcludeTrailingPathDelimiter(ProgramDirectory));
+  ChDir(BaseFolder);
+
+  // Loading translation
+  TempStr := IncludeTrailingPathDelimiter(BaseFolder) + krsLocaleFolder;
+  if not DirectoryExistsUTF8(TempStr) then
+    mkdir(TempStr);
+  SetDefaultLang('', TempStr);
+
+  // Standard format setting (for .ini and other conversions)
+  // This overrides user local settings which can cause errors.
+  StandardFormatSettings;
+
+  // Windows Caption
+  Caption := Format(krsFmtWindowCaption, [Application.Title, Caption]);
+
+  // Loading GUI config
+  FEIBConfig := cEIBConfig.Create(self);
+  EIBConfig.DefaultFileName := SetAsAbsoluteFile(krsEIBName + '.ini', BaseFolder);
+
+  LoadGUIConfig(EIBConfig.DefaultFileName);
+  EIBConfig.LoadFromFile('');
+
+
+  // TODO: Move all logic code to a CHXFrame
+  // CreateFrames;
+
+
   ZoomInput := 1;
   ZoomOutput := 1;
 
@@ -1405,8 +1454,9 @@ begin
 
   pgcImageOutput.PageIndex := 0;
   ProcessOutputFilter := pofEmutecaIconBorder;
-  eOutputFolder.Directory :=
-    IncludeTrailingPathDelimiter(GetCurrentDir) + 'Saved';
+  eOutputFolder.Directory := ExcludeTrailingPathDelimiter(SysPath(EIBConfig.LastOutFolder));
+  SelectDirectoryDialog.InitialDir := ExcludeTrailingPathDelimiter(SysPath(EIBConfig.LastInFolder));
+  OpenFilesDialog.InitialDir := ExcludeTrailingPathDelimiter(SysPath(EIBConfig.LastInFolder));
 end;
 
 procedure TfrmIconBorder.FormDestroy(Sender: TObject);
