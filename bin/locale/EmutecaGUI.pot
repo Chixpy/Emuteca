@@ -2036,6 +2036,13 @@ msgstr ""
 msgid "%0:s: Not defined filename"
 msgstr ""
 
+#: uchxrscstr.rserrorcreatingfile
+#, object-pascal-format
+msgid ""
+"Error creating:\n"
+"%0:s"
+msgstr ""
+
 #: uchxrscstr.rserrordeletingfile
 #, object-pascal-format
 msgctxt "uchxrscstr.rserrordeletingfile"
@@ -2062,11 +2069,11 @@ msgstr ""
 msgid "Supported files|%0:s|All files|*.*"
 msgstr ""
 
-#: uchxrscstr.rsfiledontexists
+#: uchxrscstr.rsfilenotfound
 #, object-pascal-format
 msgid ""
 "%0:s\n"
-"Don't exists."
+"not found."
 msgstr ""
 
 #: uemutecarscstr.rschooseimagefileformat

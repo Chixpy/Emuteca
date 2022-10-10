@@ -1,9 +1,11 @@
 inherited frmETKGUIMain: TfrmETKGUIMain
-  Left = 762
-  Height = 501
-  Top = 315
+  Left = 317
+  Height = 700
+  Top = 115
+  Width = 1024
   Caption = 'Main'
-  ClientHeight = 476
+  ClientHeight = 675
+  ClientWidth = 1024
   Menu = MainMenu
   OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
@@ -13,8 +15,8 @@ inherited frmETKGUIMain: TfrmETKGUIMain
   object stbHelp: TStatusBar[0]
     Left = 4
     Height = 29
-    Top = 443
-    Width = 541
+    Top = 642
+    Width = 1016
     AutoHint = True
     Panels = <>
     SizeGrip = False

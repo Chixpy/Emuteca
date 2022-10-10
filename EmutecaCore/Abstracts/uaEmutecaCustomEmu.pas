@@ -63,7 +63,7 @@ const
   kEmutecaROMExtensionParamKey = '%EXTPARAM%';
   {< Extra parameter from System.CoreID. }
   kEmutecaROMExtraParamKey = '%EXTRA%';
-  {< Extra parameters from Software.ExtraParameter. }
+{< Extra parameters from Software.ExtraParameter. }
 
 type
   { caEmutecaCustomEmu class.
@@ -411,9 +411,9 @@ function caEmutecaCustomEmu.Execute(GameFile: string;
   ExtraParameters: TStringList; SysID: string): integer;
 var
   i, j: integer;
-  ActualWorkDir: string;
+  ActualWorkDir, sOutput, sError: string;
   ActualParam, Extra, TempExtra: string;
-  msOutput, msError: TMemoryStream;
+  aSL: TStringList;
 begin
   Result := -1;
 
@@ -514,35 +514,36 @@ begin
 
   // GO, GO, GO!!
   // ------------
+  sOutput := '';
+  sError := '';
 
-  msError := TMemoryStream.Create;
-  msOutput := TMemoryStream.Create;
-  try
-    // Hack for run system executables ;P
-    // ... and try to open with default player
-    if ExeFile = '' then
-    begin
-      if SupportedExtCT(ActualParam, 'exe,com,bat,cmd') then
-        ExecuteCMDArray(ActualWorkDir, ActualParam, [], msOutput,
-          msError, Result)
-      else
-        // This don't keep statistics because don't wait until closed
-        //   and file is deleted if it's extracted...
-        OpenDocument(ActualParam);
-    end
+  // Hack for run system executables ;P
+  // ... and try to open with default player
+  if ExeFile = '' then
+  begin
+    if SupportedExtCT(ActualParam, 'exe,com,bat,cmd') then
+      ExecuteCMDArray(ActualWorkDir, ActualParam, [], sOutput,
+        sError, Result)
     else
-      ExecuteCMDString(ActualWorkDir, ExeFile, ActualParam,
-        msOutput, msError, Result);
+      // This don't keep statistics because don't wait until closed
+      //   and file is deleted if it's extracted...
+      OpenDocument(ActualParam);
+  end
+  else
+    ExecuteCMDString(ActualWorkDir, ExeFile, ActualParam,
+      sOutput, sError, Result);
 
-    // TODO: Make this configurable and let open they from GUI
-    if msError.Size > 0 then
-      msError.SaveToFile('Error.txt');
-    if msOutput.Size > 0 then
-      msOutput.SaveToFile('Output.txt');
-  finally
-    msError.Free;
-    msOutput.Free;
-  end;
+  // TODO: Make this configurable and let open they from GUI
+  aSL := TStringList.Create;
+  aSL.Text := sError;
+  if aSL.Count > 0 then
+    aSL.SaveToFile('Error.txt');
+  aSL.Text := sOutput;
+  if aSL.Count > 0 then
+    aSL.SaveToFile('Output.txt');
+  FreeAndNil(aSL);
+
+
   // Hack: If normal exit code <> 0, compare and set to 0
   //   So, this way 0 always is the correct exit of the program,
   //     and Managers don't care about wich is the actual code
@@ -554,6 +555,7 @@ end;
 function caEmutecaCustomEmu.ExecuteAlone: integer;
 var
   TempDir: string;
+  sError, sOutput: string;
 begin
   Result := -1;
 
@@ -570,7 +572,7 @@ begin
   TempDir := AnsiReplaceText(TempDir, kEmutecaCurrentDirKey,
     GetCurrentDirUTF8);
 
-  ExecuteCMDArray(TempDir, ExeFile, [], nil, nil, Result);
+  ExecuteCMDArray(TempDir, ExeFile, [], sError, sOutput, Result);
 
   if Result = ExitCode then
     Result := 0;
