@@ -64,6 +64,7 @@ type
     actDeleteFile: TAction;
     actDeleteAllFiles: TAction;
     actEditSoft: TAction;
+    actRenameFile: TAction;
     actRenameSoftTitleWithFilename: TAction;
     actRenameGroupTitleWithFilename: TAction;
     actMoveAllFiles: TAction;
@@ -89,6 +90,7 @@ type
     lbxTexts: TListBox;
     lbxVideos: TListBox;
     MenuItem1: TMenuItem;
+    miflRenameFile: TMenuItem;
     migpRenameSoftTitleWithFilename: TMenuItem;
     misfEditSoftware: TMenuItem;
     misfAssignFile: TMenuItem;
@@ -114,10 +116,13 @@ type
     pumVSTGroups: TPopupMenu;
     pumVSTSoft: TPopupMenu;
     rgbFilterMode: TRadioGroup;
+    sbSourceList: TStatusBar;
     sbSource: TStatusBar;
     sbTarget: TStatusBar;
+    sbTargetList: TStatusBar;
     SelectDirectoryDialog1: TSelectDirectoryDialog;
     Separator1: TMenuItem;
+    Separator2: TMenuItem;
     Splitter1: TSplitter;
     Splitter2: TSplitter;
     Splitter3: TSplitter;
@@ -148,6 +153,7 @@ type
     procedure actMoveAllFilesExecute(Sender: TObject);
     procedure actMoveFileExecute(Sender: TObject);
     procedure actEditGroupExecute(Sender: TObject);
+    procedure actRenameFileExecute(Sender: TObject);
     procedure actRenameGroupTitleWithFilenameExecute(Sender: TObject);
     procedure actRenameSoftTitleWithFilenameExecute(Sender: TObject);
     procedure chkSimilarFilesChange(Sender: TObject);
@@ -346,6 +352,8 @@ type
     procedure MoveAllFiles;
     {< Moves all VISIBLE (i.e. no hidden) files from the current list to
         another folder. }
+    procedure RenameFile;
+    {< Renames manually a file. If already exists "(n)" is added automatically.}
 
     procedure OpenGroupEditor(NewTitle: string = '');
     {< Opens GroupEditor with current selected group, and set a new name.}
@@ -426,6 +434,7 @@ var
   pSoft: ^cEmutecaSoftware;
   TmpStr: string;
   FileComp, SkipComp: integer;
+  aVST: TCustomVirtualStringTree;
 begin
   aFolder := SetAsFolder(aFolder);
   if not DirectoryExistsUTF8(aFolder) then
@@ -651,6 +660,14 @@ begin
   vstSoftWOFile.EndUpdate;
 
   fmProgressBar.Finish;
+
+  aVST := GetCurrentFilesVST;
+  if Assigned(aVST) then
+    sbSourceList.SimpleText := format(rsFmtNItems, [aVST.VisibleCount]);
+
+  aVST := GetCurrentGSVST;
+  if Assigned(aVST) then
+    sbTargetList.SimpleText := format(rsFmtNItems, [aVST.VisibleCount]);
 end;
 
 function TfmETKGUIMediaManager.SelectSystem(aSystem: cEmutecaSystem): boolean;
@@ -661,13 +678,11 @@ end;
 
 procedure TfmETKGUIMediaManager.FilterLists;
 
-  procedure FilterFiles;
+  procedure FilterFiles(aVST: TCustomVirtualStringTree);
   var
     FileNode: PVirtualNode;
     pFileName: PFileRow;
-    aVST: TCustomVirtualStringTree;
   begin
-    aVST := GetCurrentFilesVST;
     if not Assigned(aVST) then
       Exit;
 
@@ -687,14 +702,12 @@ procedure TfmETKGUIMediaManager.FilterLists;
     aVST.EndUpdate;
   end;
 
-  procedure FilterSoftGroups;
+  procedure FilterSoftGroups(aVST: TCustomVirtualStringTree);
   var
     SGNode: PVirtualNode;
     pSoftGroup: ^caEmutecaCustomSGItem;
-    aVST: TCustomVirtualStringTree;
     SourceFileName: string;
   begin
-    aVST := GetCurrentGSVST;
     if not Assigned(aVST) then
       Exit;
 
@@ -734,27 +747,52 @@ procedure TfmETKGUIMediaManager.FilterLists;
     aVST.EndUpdate;
   end;
 
+var
+  aVST: TCustomVirtualStringTree;
 begin // procedure TfmETKGUIMediaManager.FilterLists;
 
   case rgbFilterMode.ItemIndex of
     1: begin
+      aVST := GetCurrentFilesVST;
+      if not Assigned(aVST) then
+        Exit;
       if TargetFile = '' then
-        MakeVSTNodesVisible(GetCurrentFilesVST)
+      begin
+        MakeVSTNodesVisible(aVST);
+      end
       else
-        FilterFiles;
+        FilterFiles(aVST);
+
+      sbSourceList.SimpleText := format(rsFmtNItems, [aVST.VisibleCount]);
     end;
 
     2: begin
+      aVST := GetCurrentGSVST;
+      if not Assigned(aVST) then
+        Exit;
       if SourceFile = '' then
-        MakeVSTNodesVisible(GetCurrentGSVST)
+        MakeVSTNodesVisible(aVST)
       else
-        FilterSoftGroups;
+        FilterSoftGroups(aVST);
+
+      sbTargetList.SimpleText := format(rsFmtNItems, [aVST.VisibleCount]);
     end;
 
     else
     begin
-      MakeVSTNodesVisible(GetCurrentGSVST);
-      MakeVSTNodesVisible(GetCurrentFilesVST);
+      aVST := GetCurrentGSVST;
+      if Assigned(aVST) then
+      begin
+        MakeVSTNodesVisible(aVST);
+        sbTargetList.SimpleText := format(rsFmtNItems, [aVST.VisibleCount]);
+      end;
+
+      aVST := GetCurrentFilesVST;
+      if Assigned(aVST) then
+      begin
+        MakeVSTNodesVisible(GetCurrentFilesVST);
+        sbSourceList.SimpleText := format(rsFmtNItems, [aVST.VisibleCount]);
+      end;
     end;
   end;
 end;
@@ -1183,6 +1221,8 @@ begin
   if (SourceFile = '') or (SourceFolder = '') then
     Exit;
 
+  // TODO: Add support for folders
+
   if MessageDlg(Format(rsCorfirmDeleteFile, [SourceFolder + SourceFile]),
     mtConfirmation, [mbYes, mbNo], -1) = mrNo then
     Exit;
@@ -1401,6 +1441,35 @@ begin
   // Full update of VSTs
   if CompareFilenames(SourceFolder, TargetFolder) = 0 then
     UpdateVST(TargetFolder);
+end;
+
+procedure TfmETKGUIMediaManager.RenameFile;
+var
+  NewFileName: string;
+begin
+  if (SourceFile = '') or (SourceFolder = '') then
+    Exit;
+
+  NewFileName := InputBox(rsRenameFileCaption, rsRenameFile,
+    ExtractFileNameWithoutExt(SourceFile));
+
+  NewFileName := NewFileName + ExtractFileExt(SourceFile);
+
+  if CompareFilenames(NewFileName, SourceFile) = 0 then Exit;
+
+  NewFileName := CHXCheckFileRename(SourceFolder + NewFileName);
+
+  // TODO: Add support for folders
+
+  if not RenameFileUTF8(SourceFolder + SourceFile, NewFileName) then
+  begin
+    ShowMessageFmt(rsErrorRenamingFile,
+      [SourceFile, ExtractFileName(NewFileName)]);
+    Exit;
+  end;
+
+  RemoveFileVSTFiles(SourceFile);
+  SourceFile := '';
 end;
 
 procedure TfmETKGUIMediaManager.OpenGroupEditor(NewTitle: string);
@@ -1641,6 +1710,8 @@ begin
 end;
 
 procedure TfmETKGUIMediaManager.pcSourceChange(Sender: TObject);
+var
+  aVST: TCustomVirtualStringTree;
 begin
   vstFilesAll.ClearSelection;
   vstFilesOtherExt.ClearSelection;
@@ -1648,15 +1719,25 @@ begin
   vstFilesWOGroup.ClearSelection;
   vstFilesWOSoft.ClearSelection;
   SourceFile := '';
+
+  aVST := GetCurrentFilesVST;
+  if Assigned(aVST) then
+    sbSourceList.SimpleText := format(rsFmtNItems, [aVST.VisibleCount]);
 end;
 
 procedure TfmETKGUIMediaManager.pcTargetChange(Sender: TObject);
+var
+  aVST: TCustomVirtualStringTree;
 begin
   vstGroupsAll.ClearSelection;
   vstGroupsWOFile.ClearSelection;
   vstSoftAll.ClearSelection;
   vstSoftWOFile.ClearSelection;
   TargetFile := '';
+
+  aVST := GetCurrentGSVST;
+  if Assigned(aVST) then
+    sbTargetList.SimpleText := format(rsFmtNItems, [aVST.VisibleCount]);
 end;
 
 procedure TfmETKGUIMediaManager.rgbFilterModeSelectionChanged(Sender: TObject);
@@ -1697,6 +1778,7 @@ begin
     case Key of
       VK_RETURN: actAssignFile.Execute;
       VK_DELETE: actDeleteFile.Execute;
+      VK_F2: actRenameFile.Execute;
       else
         ;
     end;
@@ -1852,6 +1934,11 @@ begin
     Exit;
 
   OpenGroupEditor('');
+end;
+
+procedure TfmETKGUIMediaManager.actRenameFileExecute(Sender: TObject);
+begin
+  RenameFile;
 end;
 
 procedure TfmETKGUIMediaManager.actRenameGroupTitleWithFilenameExecute(

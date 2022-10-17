@@ -7,9 +7,16 @@ It's far from perfect.
 Only to include in other programs.
 [Data]
 Name=Chixpy
-Version=0.09
-Date=20220901
+Version=0.10
+Date=20221022
 [Changes]
+0.10 20221022
+  f ¡¡WOOOPS!! System flag was not readed correctly. So sometimes was added to
+    zone tag...
+  f Little fix in version tag
+  c Removed "()[]" from Version and DumpInfo.
+  c Removed some pseudo-flags added in version tag: "System". "Video", etc.
+  c Languaje flag ignored.
 0.09 20220901
   f TOSECExtractInfo: Some system don't use "[!]" flag, so keep current
       DumpStatus if none is found.
@@ -44,7 +51,8 @@ begin
   // TOSEC Naming Convention v4 (2015-03-23)
   TOSECVideo := ['CGA','EGA','HGC','MCGA','MDA','NTSC','NTSC-PAL',
     'PAL','PAL-60','PAL-NTSC','SVGA','VGA','XGA'];
-  TOSECSystem := ['+2','+2a','+3','130XE','A1000','A1200','A1200-A4000','A2000',
+  TOSECSystem := ['+2','+2a','+2b','+3', '16K', '48K', '64K', '64K-128K',
+    '128K', '130XE','A1000','A1200','A1200-A4000','A2000',
     'A2000-A3000','A2024','A2500-A3000UX','A3000','A4000','A4000T','A500',
     'A500+','A500-A1000-A2000','A500-A1000-A2000-CDTV','A500-A1200',
     'A500-A1200-A2000-A4000','A500-A2000','A500-A600-A2000','A570','A600',
@@ -268,14 +276,14 @@ begin
   // * ', The' / ', A' / ', El' / etc. 
   // * Some games have "Game, The v 1", others "Game v 1, The" (wrong)
   // * Version tags:
-  //   Game v1
-  //   Game v 1
-  //   Game Rev1
-  //   Game Rev 1
-  //   Game set 1
-  //   Game PRG 1
-  //   Game Whatever
-  //   Too many cases...  
+  //   Game v1    <--- OK, if version is a number
+  //   Game v 1   <--- OK, unless "v" is part of the title itself
+  //   Game Rev1  <--- OK, if version is a number
+  //   Game Rev 1 <--- OK, unless "v" is part of the title itself
+  //   Game set 1 <--- Not searched in title
+  //   Game PRG1  <--- 2022: Seems that they are "rev PRGX" now
+  //   Game Whatever <--- It will with title
+  //   Too many cases...
   
   // FIX: Checking wrong article position after version
   // "Game v 1, The"
@@ -303,12 +311,7 @@ begin
         if (Pos('rev', LowerCase(TempStr)) = 1) then
         begin // try revXXXXXX
           if (TempStr[4] <= '9') and (TempStr[4] >= '0') then
-            TOSECAddStr(DBVersion, 'Rev' + Trim(ETKCopyFrom(TempStr, 4)));
-        end
-        else if (Pos('prg', LowerCase(TempStr)) = 1) then
-        begin // try PRGXXXXXX
-          if (TempStr[4] <= '9') and (TempStr[4] >= '0') then
-            TOSECAddStr(DBVersion, 'PRG' + Trim(ETKCopyFrom(TempStr, 4)));
+            TOSECAddStr(DBVersion, 'v' + Trim(ETKCopyFrom(TempStr, 4)));
         end;
       end;
     end;
@@ -325,15 +328,11 @@ begin
          
         if Pos('v ', LowerCase(TempStr)) = 1 then
         begin // try v XXXXXX
-          TOSECAddStr(DBVersion, 'v ' + Trim(ETKCopyFrom(TempStr, 2)));
+          TOSECAddStr(DBVersion, 'v' + Trim(ETKCopyFrom(TempStr, 3)));
         end
         else if Pos('rev ', LowerCase(TempStr)) = 1 then
         begin // try rev XXXXXX
-          TOSECAddStr(DBVersion, 'v rev' + Trim(ETKCopyFrom(TempStr, 4)));
-        end
-        else if Pos('prg ', LowerCase(TempStr)) = 1 then
-        begin // try PRG XXXXXX
-          TOSECAddStr(DBVersion, 'v PRG' + Trim(ETKCopyFrom(TempStr, 4)));
+          TOSECAddStr(DBVersion, 'v' + Trim(ETKCopyFrom(TempStr, 5)));
         end;
       end;     
     end;    
@@ -382,31 +381,39 @@ begin
     DBPublisher := krsImportKeepValueKey
   else
     DBPublisher := TempStr;  
-   
-   
-  // Next flag ()
+
+  // Next flag (), But is used at the end because "()" can be inside "[]"
   //TempStr := TOSECExtractTag(SoftStr, '(', ')');
   
   // System (opt)
   // -----------------
   // '(' + System + ')'
-  
-  
-  i := 0;
-  while i <= High(TOSECSystem) do
+  if Pos('(', SoftStr) = 1 then
   begin
-    if TempStr = TOSECSystem[i] then
+    aPos := Pos(')', SoftStr);
+    if aPos = 0 then
     begin
-      TOSECAddStr(DBVersion, 'System ' + TempStr);
-      SoftStr := Trim(ETKCopyFrom(SoftStr, aPos + 1));
-      i := High(TOSECSystem); // Break;
+      TOSECError(aSoftLine, 'No ")" found at SYSTEM flag.');
+      Exit;
     end;
-    Inc(i);
+
+    TempStr := Copy(SoftStr, 2, aPos - 2);
+
+    i := Low(TOSECSystem);
+    while i <= High(TOSECSystem) do
+    begin
+      if TempStr = TOSECSystem[i] then
+      begin
+        TOSECAddStr(DBVersion, TempStr);
+        SoftStr := Trim(ETKCopyFrom(SoftStr, aPos + 1));
+        i := High(TOSECSystem); // Break;
+      end;
+      Inc(i);
+    end;
   end;
-    
   
 
-  // Video
+  // Video (opt)
   // -----------------
   // '(' + ('PAL'|'NTSC'|etc.) + ')'
   if Pos('(', SoftStr) = 1 then
@@ -425,7 +432,7 @@ begin
     begin
       if TempStr = TOSECVideo[i] then
       begin
-        TOSECAddStr(DBVersion, 'Video ' + TempStr);
+        TOSECAddStr(DBVersion, TempStr);
         SoftStr := Trim(ETKCopyFrom(SoftStr, aPos + 1));
         i := High(TOSECVideo); // Break;
       end;
@@ -452,9 +459,21 @@ begin
     i := Low(TOSECCopyright);
     while (i <= High(TOSECCopyright)) and (TempStr <> '') do
     begin
-      if TOSECCopyright[i] = TempStr then TempStr := '';
+      if TOSECCopyright[i] = TempStr then
+      begin
+        TempStr := '';
+        i := High(TOSECCopyright); // Break;
+      end;
       Inc(i);
-    end;    
+    end;
+
+    // Dirty check of development status or system
+    //   (example checking dash in "US-EU")
+    if (Length(TempStr) > 2) then
+    begin
+      if TempStr[3] <> '-' then
+        TempStr := '';
+    end;
 
     if ((Length(TempStr) + 1) mod 3 = 0) and (TempStr = AnsiUpperCase(TempStr))
     then
@@ -475,10 +494,8 @@ begin
   // If (M) found then don't try to search language
   TempStr := TOSECExtractTag(SoftStr, '(M', ')');
   if TempStr = '' then
-  begin  
-  
+  begin
     // Actual search
-    // TODO: It's added to version, but this must go as tag...
     if Pos('(', SoftStr) = 1 then
     begin
       aPos := Pos(')', SoftStr);
@@ -490,13 +507,20 @@ begin
           
       TempStr := Copy(SoftStr, 2, aPos - 2);
       
-      // We don't need to check Copyright tag because is lowercase...
+      // We don't need to check Copyright tag because is lowercase... but
+      //   dirty check for development status (checking dash in "en-es")
+      if (Length(TempStr) > 2) then
+      begin
+        if TempStr[3] <> '-' then
+          TempStr := '';
+      end;
 
       if ((Length(TempStr) + 1) mod 3 = 0) and (TempStr = AnsiLowerCase(TempStr))
       then
       begin
-        TempStr := AnsiReplaceText(TempStr, '-', ',');
-        TOSECAddStr(DBVersion, 'Language ' + TempStr);
+        // Ignoring language tag after all XD
+        // TempStr := AnsiReplaceText(TempStr, '-', ',');
+        // TOSECAddStr(DBVersion, TempStr);
         SoftStr := Trim(ETKCopyFrom(SoftStr, aPos + 1));
       end;    
     end;
@@ -522,7 +546,7 @@ begin
     begin
       if TempStr = TOSECCopyright[i] then
       begin
-        TOSECAddStr(DBVersion, 'Copyright ' + TOSECCopyrightStr[i]);
+        TOSECAddStr(DBVersion, TOSECCopyrightStr[i]);
         SoftStr := Trim(ETKCopyFrom(SoftStr, aPos + 1));
         i := High(TOSECCopyright); // Break;
       end;
@@ -548,7 +572,9 @@ begin
   // -----------------
   // (Media Label)
 
-  // Automatically added at the end.  
+  // Automatically added at the end.
+
+  // Dump flags: "[]"
 
   // Cracked
   // -----------------
@@ -641,23 +667,23 @@ begin
   // -----------------
   // [more info]
   // Unhandled flags...
-  TempStr := TOSECExtractTag(SoftStr, '(', ')');
-  while TempStr <> '' do
-  begin
-    TOSECAddStr(DBVersion, '(' + TempStr + ')');
-    TempStr := TOSECExtractTag(SoftStr, '(', ')');
-  end;
-
   TempStr := TOSECExtractTag(SoftStr, '[', ']');
   while TempStr <> '' do
   begin
-    TOSECAddStr(DBDumpInfo, '[' + TempStr + ']');
+    TOSECAddStr(DBDumpInfo, TempStr);
     TempStr := TOSECExtractTag(SoftStr, '[', ']');
+  end;
+
+  TempStr := TOSECExtractTag(SoftStr, '(', ')');
+  while TempStr <> '' do
+  begin
+    TOSECAddStr(DBVersion, TempStr);
+    TempStr := TOSECExtractTag(SoftStr, '(', ')');
   end;
 
   if SoftStr <> '' then
   begin
-    TOSECAddStr(DBDumpInfo, 'x ' + SoftStr);
+    TOSECAddStr(DBDumpInfo, SoftStr);
   end;
  
   //"Group","SHA1","ID","Folder","FileName","Title","[Removed]",

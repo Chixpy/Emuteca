@@ -49,5 +49,6 @@
 {"hash":47140547,"name":"tfmetkguimediamanager.actdeleteallfiles.caption","sourcebytes":[68,101,108,101,116,101,32,97,108,108,32,102,105,108,101,115],"value":"Delete all files"},
 {"hash":70224373,"name":"tfmetkguimediamanager.actrenamegrouptitlewithfilename.caption","sourcebytes":[82,101,110,97,109,101,32,103,114,111,117,112,32,116,105,116,108,101,32,119,105,116,104,32,99,117,114,114,101,110,116,32,102,105,108,101],"value":"Rename group title with current file"},
 {"hash":241941861,"name":"tfmetkguimediamanager.acteditsoft.caption","sourcebytes":[69,100,105,116,32,83,111,102,116,119,97,114,101],"value":"Edit Software"},
-{"hash":31863381,"name":"tfmetkguimediamanager.actrenamesofttitlewithfilename.caption","sourcebytes":[82,101,110,97,109,101,32,115,111,102,116,32,116,105,116,108,101,32,119,105,116,104,32,99,117,114,114,101,110,116,32,102,105,108,101],"value":"Rename soft title with current file"}
+{"hash":31863381,"name":"tfmetkguimediamanager.actrenamesofttitlewithfilename.caption","sourcebytes":[82,101,110,97,109,101,32,115,111,102,116,32,116,105,116,108,101,32,119,105,116,104,32,99,117,114,114,101,110,116,32,102,105,108,101],"value":"Rename soft title with current file"},
+{"hash":76433950,"name":"tfmetkguimediamanager.actrenamefile.caption","sourcebytes":[82,101,110,97,109,101,32,102,105,108,101,32,109,97,110,117,97,108,108,121,46,46,46],"value":"Rename file manually..."}
 ]}

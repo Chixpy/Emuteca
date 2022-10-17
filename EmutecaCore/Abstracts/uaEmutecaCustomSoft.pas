@@ -125,8 +125,8 @@ type
     // Release data
     // ------------
     property Version: string read FVersion write SetVersion;
-    {< Version (v1.0; PRG1) or release type info (demo, prototype),
-         or both (v1.0RC2, demo). }
+    {< Version (v1.0; PRG1) or release type info (demo; prototype),
+         or both (v1.0RC2; demo). }
 
     property Publisher: string read FPublisher write SetPublisher;
     {< Publisher.
@@ -208,7 +208,7 @@ end;
 
 procedure caEmutecaCustomSoft.SetCracked(AValue: string);
 begin
-  AValue := UTF8Trim(AValue);
+  AValue := CleanInfo(AValue);
   if FCracked = AValue then
     Exit;
   FCracked := AValue;
@@ -216,7 +216,7 @@ end;
 
 procedure caEmutecaCustomSoft.SetDumpInfo(AValue: string);
 begin
-  AValue := UTF8Trim(AValue);
+  AValue := CleanInfo(AValue);
   if FDumpInfo = AValue then
     Exit;
   FDumpInfo := AValue;
@@ -236,7 +236,7 @@ end;
 
 procedure caEmutecaCustomSoft.SetFixed(AValue: string);
 begin
-  AValue := UTF8Trim(AValue);
+  AValue := CleanInfo(AValue);
   if FFixed = AValue then
     Exit;
   FFixed := AValue;
@@ -258,7 +258,7 @@ end;
 
 procedure caEmutecaCustomSoft.SetHack(AValue: string);
 begin
-  AValue := UTF8Trim(AValue);
+  AValue := CleanInfo(AValue);
 
   if FHack = AValue then
     Exit;
@@ -289,7 +289,7 @@ end;
 
 procedure caEmutecaCustomSoft.SetModified(AValue: string);
 begin
-  AValue := UTF8Trim(AValue);
+  AValue := CleanInfo(AValue);
   if FModified = AValue then
     Exit;
   FModified := AValue;
@@ -297,7 +297,7 @@ end;
 
 procedure caEmutecaCustomSoft.SetPirate(AValue: string);
 begin
-  AValue := UTF8Trim(AValue);
+  AValue := CleanInfo(AValue);
   if FPirate = AValue then
     Exit;
   FPirate := AValue;
@@ -305,7 +305,7 @@ end;
 
 procedure caEmutecaCustomSoft.SetPublisher(AValue: string);
 begin
-  AValue := UTF8Trim(AValue);
+  AValue := CleanInfo(AValue);
   if FPublisher = AValue then
     Exit;
   FPublisher := AValue;
@@ -375,9 +375,10 @@ begin
   Stats.WriteToStrLst(aTxtFile, ExportMode);
 end;
 
+
 procedure caEmutecaCustomSoft.SetTrainer(AValue: string);
 begin
-  AValue := UTF8Trim(AValue);
+  AValue := CleanInfo(AValue);
   if FTrainer = AValue then
     Exit;
   FTrainer := AValue;
@@ -385,7 +386,7 @@ end;
 
 procedure caEmutecaCustomSoft.SetTranslation(AValue: string);
 begin
-  AValue := UTF8Trim(AValue);
+  AValue := CleanInfo(AValue);
   if FTranslation = AValue then
     Exit;
   FTranslation := AValue;
@@ -393,7 +394,8 @@ end;
 
 procedure caEmutecaCustomSoft.SetVersion(AValue: string);
 begin
-  AValue := UTF8Trim(AValue);
+  AValue := CleanInfo(AValue);
+
   if FVersion = AValue then
     Exit;
   FVersion := AValue;
@@ -401,7 +403,17 @@ end;
 
 procedure caEmutecaCustomSoft.SetZone(AValue: string);
 begin
-  FZone := UTF8LowerString(UTF8Trim(AValue));
+  AValue := UTF8TextReplace(AValue, '-', ',');
+  AValue := UTF8TextReplace(AValue, ' ', '');
+  AValue := UTF8LowerString(UTF8Trim(AValue));
+
+  // Validating: 'en' or 'en,es[,pt]'...
+  // Maybe we don't want lost info...
+  //if Length(AValue) > 2 then
+  //  if AValue[3] <> ',' then
+  //    Exit;
+
+  FZone := AValue
 end;
 
 function caEmutecaCustomSoft.SHA1IsEmpty: boolean;

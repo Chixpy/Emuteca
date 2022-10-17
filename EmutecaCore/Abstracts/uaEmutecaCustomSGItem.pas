@@ -60,6 +60,7 @@ type
     procedure SetTitle(AValue: string); virtual;
 
     function FormatSortTitle(const aString: string): string;
+    function CleanInfo(const aString: string): string;
 
   public
     function CompareID(aID: string): integer;
@@ -199,6 +200,30 @@ function caEmutecaCustomSGItem.FormatSortTitle(const aString: string): string;
 begin
   Result := UTF8TextReplace(UTF8Trim(aString), ': ', ' - ');
   Result := UTF8TextReplace(Result, ' & ', ' and ');
+end;
+
+function caEmutecaCustomSGItem.CleanInfo(const aString: string): string;
+begin
+  Result := aString;
+
+  // TODO: Not completely sure about this...
+  Result := UTF8StringReplace(Result, ') (', '; ', [rfReplaceAll, rfIgnoreCase]);
+  Result := UTF8StringReplace(Result, ')(', '; ', [rfReplaceAll, rfIgnoreCase]);
+
+  Result := UTF8StringReplace(Result, '] [', '; ', [rfReplaceAll, rfIgnoreCase]);
+  Result := UTF8StringReplace(Result, '][', '; ', [rfReplaceAll, rfIgnoreCase]);
+
+  Result := UTF8StringReplace(Result, ') [', '; ', [rfReplaceAll, rfIgnoreCase]);
+  Result := UTF8StringReplace(Result, '] (', '; ', [rfReplaceAll, rfIgnoreCase]);
+  Result := UTF8StringReplace(Result, ')[', '; ', [rfReplaceAll, rfIgnoreCase]);
+  Result := UTF8StringReplace(Result, '](', '; ', [rfReplaceAll, rfIgnoreCase]);
+
+  Result := UTF8StringReplace(Result, ']', '', [rfReplaceAll, rfIgnoreCase]);
+  Result := UTF8StringReplace(Result, '[', '', [rfReplaceAll, rfIgnoreCase]);
+  Result := UTF8StringReplace(Result, ')', '', [rfReplaceAll, rfIgnoreCase]);
+  Result := UTF8StringReplace(Result, '(', '', [rfReplaceAll, rfIgnoreCase]);
+
+  Result := UTF8Trim(Result);
 end;
 
 function caEmutecaCustomSGItem.GetActualID: string;

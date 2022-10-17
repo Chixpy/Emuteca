@@ -1369,6 +1369,10 @@ msgctxt "tfmetkguimediamanager.actmovefile.caption"
 msgid "Move file..."
 msgstr "Mover fichero..."
 
+#: tfmetkguimediamanager.actrenamefile.caption
+msgid "Rename file manually..."
+msgstr ""
+
 #: tfmetkguimediamanager.actrenamegrouptitlewithfilename.caption
 msgctxt "tfmetkguimediamanager.actrenamegrouptitlewithfilename.caption"
 msgid "Rename group title with current file"
@@ -2174,6 +2178,20 @@ msgstr ""
 msgid ""
 "%0:s\n"
 "not found."
+msgstr ""
+
+#: uchxrscstr.rsfmtitemcount
+#, object-pascal-format
+msgctxt "uchxrscstr.rsfmtitemcount"
+msgid "%0:d / %0:d"
+msgstr ""
+
+#: uchxrscstr.rsrenamefile
+msgid "Rename this file:"
+msgstr ""
+
+#: uchxrscstr.rsrenamefilecaption
+msgid "Renaming file"
 msgstr ""
 
 #: uemutecarscstr.rschooseimagefileformat

@@ -105,10 +105,13 @@ resourcestring
 
   // Formated statistics
   rsFmtNGroups = '%0:d groups';
+  {< %0:d = Number of groups. }
   rsFmtNVersions = '%0:d versions.';
+  {< %0:d = Number of versions. }
   rsFmtNItems = '%0:d items.';
+  {< %0:d = Number of items. }
   rsFmtNTimes = '%0:d times.';
-{< %0:d = Number of times. }
+  {< %0:d = Number of times. }
 
 const
     EmutecaDumpStatusStr: array [TEmutecaDumpStatus] of string =

@@ -143,7 +143,7 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
       TabOrder = 0
       object pcSource: TPageControl
         Left = 0
-        Height = 275
+        Height = 246
         Top = 0
         Width = 393
         ActivePage = pagFilesWOGroup
@@ -153,11 +153,11 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
         OnChange = pcSourceChange
         object pagFilesWOGroup: TTabSheet
           Caption = 'Files without group'
-          ClientHeight = 242
+          ClientHeight = 213
           ClientWidth = 385
           object vstFilesWOGroup: TVirtualStringTree
             Left = 0
-            Height = 242
+            Height = 213
             Top = 0
             Width = 385
             Align = alClient
@@ -197,11 +197,11 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
         end
         object pagFilesWOSoft: TTabSheet
           Caption = 'Files without soft'
-          ClientHeight = 242
+          ClientHeight = 213
           ClientWidth = 385
           object vstFilesWOSoft: TVirtualStringTree
             Left = 0
-            Height = 242
+            Height = 213
             Top = 0
             Width = 385
             Align = alClient
@@ -241,11 +241,11 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
         end
         object pagAllFiles: TTabSheet
           Caption = 'All files'
-          ClientHeight = 242
+          ClientHeight = 213
           ClientWidth = 385
           object vstFilesAll: TVirtualStringTree
             Left = 0
-            Height = 242
+            Height = 213
             Top = 0
             Width = 385
             Align = alClient
@@ -285,11 +285,11 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
         end
         object pagOtherFiles: TTabSheet
           Caption = 'Other files'
-          ClientHeight = 242
+          ClientHeight = 213
           ClientWidth = 385
           object vstFilesOtherExt: TVirtualStringTree
             Left = 0
-            Height = 242
+            Height = 213
             Top = 0
             Width = 385
             Align = alClient
@@ -329,7 +329,7 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
         end
         object pagFilesOtherFolder: TTabSheet
           Caption = 'Files from other folder'
-          ClientHeight = 242
+          ClientHeight = 213
           ClientWidth = 385
           object eOtherFolder: TDirectoryEdit
             Left = 0
@@ -346,7 +346,7 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
           end
           object vstFilesOtherFolder: TVirtualStringTree
             Left = 0
-            Height = 214
+            Height = 185
             Top = 28
             Width = 385
             Align = alClient
@@ -385,6 +385,14 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
           end
         end
       end
+      object sbSourceList: TStatusBar
+        Left = 0
+        Height = 29
+        Top = 246
+        Width = 393
+        Panels = <>
+        SizeGrip = False
+      end
     end
     object Splitter3: TSplitter
       Cursor = crVSplit
@@ -407,22 +415,22 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
       TabOrder = 2
       object pcTarget: TPageControl
         Left = 0
-        Height = 332
+        Height = 303
         Top = 0
         Width = 393
-        ActivePage = pagAllGroups
+        ActivePage = pagSoftWOFile
         Align = alClient
         PopupMenu = pumVSTGroups
-        TabIndex = 2
+        TabIndex = 1
         TabOrder = 0
         OnChange = pcTargetChange
         object pagGroupsWOFile: TTabSheet
           Caption = 'Groups without file'
-          ClientHeight = 299
+          ClientHeight = 270
           ClientWidth = 385
           object vstGroupsWOFile: TVirtualStringTree
             Left = 0
-            Height = 299
+            Height = 270
             Top = 0
             Width = 385
             Align = alClient
@@ -459,11 +467,11 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
         end
         object pagSoftWOFile: TTabSheet
           Caption = 'Software without file'
-          ClientHeight = 299
+          ClientHeight = 270
           ClientWidth = 385
           object vstSoftWOFile: TVirtualStringTree
             Left = 0
-            Height = 299
+            Height = 270
             Top = 0
             Width = 385
             Align = alClient
@@ -505,11 +513,11 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
         end
         object pagAllGroups: TTabSheet
           Caption = 'All groups'
-          ClientHeight = 299
+          ClientHeight = 270
           ClientWidth = 385
           object vstGroupsAll: TVirtualStringTree
             Left = 0
-            Height = 299
+            Height = 270
             Top = 0
             Width = 385
             Align = alClient
@@ -547,11 +555,11 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
         end
         object pagAllSoft: TTabSheet
           Caption = 'All software'
-          ClientHeight = 299
+          ClientHeight = 270
           ClientWidth = 385
           object vstSoftAll: TVirtualStringTree
             Left = 0
-            Height = 299
+            Height = 270
             Top = 0
             Width = 385
             Align = alClient
@@ -591,6 +599,14 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
             OnNodeClick = vstNodeClick
           end
         end
+      end
+      object sbTargetList: TStatusBar
+        Left = 0
+        Height = 29
+        Top = 303
+        Width = 393
+        Panels = <>
+        SizeGrip = False
       end
     end
   end
@@ -822,6 +838,11 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
       Caption = 'Rename soft title with current file'
       OnExecute = actRenameSoftTitleWithFilenameExecute
     end
+    object actRenameFile: TAction
+      Category = 'Files'
+      Caption = 'Rename file manually...'
+      OnExecute = actRenameFileExecute
+    end
   end
   object ilActions: TImageList[8]
     Left = 704
@@ -852,6 +873,12 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
       Action = actAssignFile
     end
     object MenuItem1: TMenuItem
+      Caption = '-'
+    end
+    object miflRenameFile: TMenuItem
+      Action = actRenameFile
+    end
+    object Separator2: TMenuItem
       Caption = '-'
     end
     object miflMoveFile: TMenuItem

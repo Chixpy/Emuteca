@@ -80,7 +80,7 @@ implementation
 
 procedure caEmutecaCustomGroup.SetDeveloper(AValue: string);
 begin
-  AValue := UTF8Trim(AValue);
+  AValue := CleanInfo(AValue);
   if FDeveloper = AValue then
     Exit;
   FDeveloper := AValue;
