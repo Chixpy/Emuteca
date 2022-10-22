@@ -1778,6 +1778,15 @@ msgctxt "tfmsmaskmultifile.toolbutton3.caption"
 msgid "ToolButton3"
 msgstr ""
 
+#: tfmsmaskoption.lquestion.caption
+msgctxt "tfmsmaskoption.lquestion.caption"
+msgid " "
+msgstr ""
+
+#: tfmsmaskoption.rgbanswer.caption
+msgid "Choose"
+msgstr ""
+
 #: tfrmchxform.caption
 msgid "frmCHXForm"
 msgstr ""

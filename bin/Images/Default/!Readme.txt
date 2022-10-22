@@ -19,5 +19,6 @@ SysImage.png
   Created from scratch. Public domain.
   
 NOTES:
-  (*) Emuteca's border type: 1px, black, 0.625% opacity. 
-      In Extras\Gimp script\icon-border.scm, there is a GIMP Script.
+  (*) Emuteca's border type: 1px, 128,128,128,128 (Half transparent grey) 
+      - "Tools\ETKIconBorder.exe" is a program to edit icons and add Emuteca's border.
+      - In "Tools\Icon Border Gimp script\icon-border.scm", there is a GIMP Script.

@@ -97,7 +97,7 @@
         <PackageName Value="LCL"/>
       </Item7>
     </RequiredPackages>
-    <Units Count="140">
+    <Units Count="141">
       <Unit0>
         <Filename Value="EmutecaGUI.pas"/>
         <IsPartOfProject Value="True"/>
@@ -832,6 +832,13 @@
         <Filename Value="..\CHXPas\ScriptManager\imports\uPSI_FPCSysUtils.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit139>
+      <Unit140>
+        <Filename Value="..\CHXPas\ScriptManager\frames\ufSMAskOption.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fmSMAskOption"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+      </Unit140>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

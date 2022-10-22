@@ -8,12 +8,14 @@ Don't changes groups.
 [Data]
 Name=Chixpy
 Version=0.02
-Date=20200201
+Date=20221019
 [Changes]
+* 0.03 - 20200201
+  f Adapting to new uTOSECUtils.pas (v0.12).
+* 0.02 - 20200201
+  a Displaying actual number of analized files.
 * 0.01 - 20170923
   * Initial version
-* 0.02 - 20200201
-  * Displaying actual number of analized files.
 [EndInfo]
 }
 program TOSECImport;
@@ -34,6 +36,8 @@ begin
     WriteLn('Error: No Database file selected.');
     Exit;
   end;
+
+  WriteLn('Output File: ' + DBFilename);
 
   TOSECFileNames := CreateStringList;
   TOSECFileNames.Duplicates := dupIgnore;
@@ -106,6 +110,8 @@ begin
     TOSECFile.Free;
     TOSECFileNames.Free;
   end;
+
+  TOSECFinish;
 
   WriteLn('');
   WriteLn('DONE');

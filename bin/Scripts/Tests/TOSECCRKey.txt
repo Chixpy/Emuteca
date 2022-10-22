@@ -1,0 +1,9 @@
+CW
+CW-R
+FW
+GW
+GW-R
+LW
+PD
+SW
+SW-R

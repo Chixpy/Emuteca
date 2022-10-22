@@ -3,10 +3,11 @@
 This script test some basic functions added to Pascal Script from uPSI_CHXBasic.
 [Data]
 Name=Chixpy
-Version=0.01
-Date=20170919
+Version=0.02
+Date=20221021
 [Changes]
-
+0.02 - 20221021
+  + AskOption example
 [EndInfo]
 }
 program TestCHXBasic;
@@ -86,23 +87,39 @@ begin
 
   // Dialogs
   WriteLn('');
-  WriteLn('function AskFolder(const aTitle, DefFolder: String): String; and');
+  WriteLn('function AskFolder(const aTitle, DefFolder: String): String;');
+  aFolder := AskFolder('Select a random folder', '');
+  WriteLn('    You can ask for a folder.');
+  WriteLn('    aFolder = ' + aFolder);
+  WriteLn('');
+
   WriteLn('function AskFile(const aTitle, aExt, DefFile: String): String;');
+  aFile := AskFile('Select random file', '', aFolder);
+  WriteLn('    Asking for a file.');
+  WriteLn('    aFile   = ' + aFile);
+  WriteLn('');
+
   WriteLn('function AskMultiFile(aFileList: TStrings; const aTitle: string;');
   WriteLn('  const aExtFilter: string; const DefFolder: string): boolean');
-  aFolder := AskFolder('Select a random folder', '');
-  aFile := AskFile('Select random file', '', aFolder);
+  WriteLn('    Asking for multiple files.');
   aFileList := CreateStringList;
   AskMultiFile(aFileList, 'Select many files', '', aFolder) // Result: Boolean
-  WriteLn('    You can ask for files or folders!!!');
-  WriteLn('    aFolder = ' + aFolder);
-  WriteLn('    aFile   = ' + aFile);
   for i := 0 to aFileList.Count - 1 do
     WriteLn('    aFileList[' + IntToStr(i) + '] = ' + aFileList[i]);
+  WriteLn('');
+
+  WriteLn('function AskOption(const aCaption, aQuestion: string');
+  WriteLn('  aOptionList: TStrings): integer');
+  i := AskOption('Select random option', 'One of selected files', aFileList);
+  if i = -1 then
+    WriteLn('    You canceled the option select or there was no options.')
+  else
+    WriteLn('    You selected: ' + IntToStr(i) + ' = ' + aFileList[i]);
+  WriteLn('');
   aFileList.Free;
-  WriteLn('');
-  WriteLn('');
+
   // Filename strings
+  WriteLn('');
   WriteLn('There are some functions to simplify this kind of strings');
   WriteLn('  many of them tested in TestCHXStrUtils. But here are some');
   WriteLn('  basic added.');

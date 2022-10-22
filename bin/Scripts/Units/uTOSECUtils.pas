@@ -1,19 +1,26 @@
 {
 [Info]
-Some common functions and data for TOSEC.
+Some common functions and data for TOSEC. It's far from perfect.
 
-It's far from perfect.
-
-Only to include in other programs.
+Only to include in other programs. Remember call TOSECFinish at the end of
+  main program.
 [Data]
 Name=Chixpy
-Version=0.10
-Date=20221022
+Version=0.12
+Date=20221021
 [Changes]
-0.10 20221022
+0.12 20221021
+  c System, Video arrays changed to file loaded TStringLists.
+  f Faster? searching of System and Video, thenks to sorted TStringLists.
+0.11 20221018
+  f Ignoring "[aka XXX]" flag, so not marked as alternate dump [a].
+  f Better zone and language testing
+  f Reverting to GoodDump, if DumpStatus it not found.
+  c Zone is no keeped by default.
+0.10 20221016
   f ¡¡WOOOPS!! System flag was not readed correctly. So sometimes was added to
     zone tag...
-  f Little fix in version tag
+  f Little fix in version tag.
   c Removed "()[]" from Version and DumpInfo.
   c Removed some pseudo-flags added in version tag: "System". "Video", etc.
   c Languaje flag ignored.
@@ -41,32 +48,44 @@ const
   TOSECValueSepEnd = '';
   
 var
-  TOSECVideo: Array of string;
-  TOSECSystem: Array of string;
-  TOSECCopyright: Array of string;
-  TOSECCopyrightStr: Array of string;
-  
+  TOSECVideoList: TStringList;
+  TOSECSystemList: TStringList;
+  TOSECCopyrightList: TStringList;
+  TOSECCopyrightStrList: TStringList;
+
 procedure TOSECInit;
 begin
-  // TOSEC Naming Convention v4 (2015-03-23)
-  TOSECVideo := ['CGA','EGA','HGC','MCGA','MDA','NTSC','NTSC-PAL',
-    'PAL','PAL-60','PAL-NTSC','SVGA','VGA','XGA'];
-  TOSECSystem := ['+2','+2a','+2b','+3', '16K', '48K', '64K', '64K-128K',
-    '128K', '130XE','A1000','A1200','A1200-A4000','A2000',
-    'A2000-A3000','A2024','A2500-A3000UX','A3000','A4000','A4000T','A500',
-    'A500+','A500-A1000-A2000','A500-A1000-A2000-CDTV','A500-A1200',
-    'A500-A1200-A2000-A4000','A500-A2000','A500-A600-A2000','A570','A600',
-    'A600HD','AGA','AGA-CD32','Aladdin Deck Enhancer','CD32','CDTV',
-    'Computrainer','Doctor PC Jr.','ECS','ECS-AGA','Executive','Mega ST',
-    'Mega-STE','OCS','OCS-AGA','ORCH80','Osbourne 1','PIANO90','PlayChoice-10',
-    'Plus4','Primo-A','Primo-A64','Primo-B','Primo-B64','Pro-Primo','ST','STE',
-    'STE-Falcon','TT','TURBO-R GT','TURBO-R ST','VS DualSystem','VS UniSystem'];
-  TOSECCopyright := ['CW','CW-R','FW','GW','GW-R','LW','PD','SW','SW-R'];
-  TOSECCopyrightStr := ['Cardware','Cardware (registered)','Freeware','Giftware',
-    'Giftware (registered)','Licenceware','Public Domain','Shareware',
-    'Shareware (registered)',
-    // Not in CopyrightStr, but used if none found
-    'Commercial'];    
+  TOSECVideoList := CreateStringList;
+  TOSECVideoList.LoadFromFile('Scripts\Units\TOSECVideo.txt');
+  TOSECVideoList.CaseSensitive := True;
+  TOSECVideoList.Sorted := True;
+
+  TOSECSystemList := CreateStringList;
+  TOSECSystemList.LoadFromFile('Scripts\Units\TOSECSystem.txt');
+  TOSECSystemList.CaseSensitive := True;
+  TOSECSystemList.Sorted := True;
+
+  TOSECCopyrightList := CreateStringList;
+  TOSECCopyrightList.LoadFromFile('Scripts\Units\TOSECCRKey.txt');
+  TOSECCopyrightList.CaseSensitive := True;
+  TOSECCopyrightList.Sorted := True;
+
+  TOSECCopyrightStrList := CreateStringList;
+  TOSECCopyrightStrList.LoadFromFile('Scripts\Units\TOSECCRStr.txt');
+  TOSECCopyrightStrList.CaseSensitive := True;
+  TOSECCopyrightStrList.Sorted := True;
+end;
+
+procedure TOSECFinish;
+begin
+  // TOSECVideoList.SaveToFile('Scripts\Tests\TOSECVideo.txt');
+  TOSECVideoList.Free;
+  // TOSECSystemList.SaveToFile('Scripts\Tests\TOSECSystem.txt');
+  TOSECSystemList.Free;
+  // TOSECCopyrightList.SaveToFile('Scripts\Tests\TOSECCRKey.txt');
+  TOSECCopyrightList.Free;
+  // TOSECCopyrightStrList.SaveToFile('Scripts\Tests\TOSECCRStr.txt');
+  TOSECCopyrightStrList.Free;
 end;
 
 procedure TOSECError(const aFile: string; aError: string);
@@ -203,7 +222,7 @@ begin
   DBVersion := '';
   DBYear := '';
   DBPublisher := '';
-  DBZone := '@'; // Keep zone
+  DBZone := '';
   DBDumpStatus := '';
   DBDumpInfo := '';
   DBFixed := '';
@@ -220,7 +239,7 @@ begin
   SoftStr := AnsiReplaceText(SoftStr, '&amp;', '&');
   SoftStr := AnsiReplaceText(SoftStr, '&apos;', '''');
   
-  if Length(TOSECVideo) = 0 then
+  if not assigned(TOSECCopyrightStrList) then
     TOSECInit;
     
   // Complete TOSEC info and order:
@@ -349,7 +368,7 @@ begin
   
   // Adding Demo in Version
   if TempDemo <> '' then
-    TOSECAddStr(DBVersion, 'Demo ' + TempDemo);
+    TOSECAddStr(DBVersion, Trim('Demo ' + TempDemo));
     
   // TAGS
   // ====
@@ -384,7 +403,8 @@ begin
 
   // Next flag (), But is used at the end because "()" can be inside "[]"
   //TempStr := TOSECExtractTag(SoftStr, '(', ')');
-  
+
+
   // System (opt)
   // -----------------
   // '(' + System + ')'
@@ -399,15 +419,24 @@ begin
 
     TempStr := Copy(SoftStr, 2, aPos - 2);
 
-    i := Low(TOSECSystem);
-    while i <= High(TOSECSystem) do
+    i := 0;
+    while i < TOSECSystemList.Count do
     begin
-      if TempStr = TOSECSystem[i] then
+      if TOSECSystemList[i] > TempStr then
+      // TOSECSystemList is sorted, so we can skip searching
       begin
-        TOSECAddStr(DBVersion, TempStr);
-        SoftStr := Trim(ETKCopyFrom(SoftStr, aPos + 1));
-        i := High(TOSECSystem); // Break;
+        i := TOSECSystemList.Count; // Break;
+      end
+      else
+      begin
+        if TempStr = TOSECSystemList[i] then
+        begin
+          TOSECAddStr(DBVersion, TempStr);
+          SoftStr := Trim(ETKCopyFrom(SoftStr, aPos + 1));
+          i := TOSECSystemList.Count; // Break;
+        end;
       end;
+
       Inc(i);
     end;
   end;
@@ -427,21 +456,30 @@ begin
 
     TempStr := Copy(SoftStr, 2, aPos - 2);
 
-    i := Low(TOSECVideo);
-    while i <= High(TOSECVideo) do
+    i := 0;
+    while i < TOSECVideoList.Count do
     begin
-      if TempStr = TOSECVideo[i] then
+      if TOSECVideoList[i] > TempStr then
+      // TOSECVideoList is sorted, so we can skip searching
       begin
-        TOSECAddStr(DBVersion, TempStr);
-        SoftStr := Trim(ETKCopyFrom(SoftStr, aPos + 1));
-        i := High(TOSECVideo); // Break;
+        i := TOSECVideoList.Count; // Break;
+      end
+      else
+      begin
+        if TempStr = TOSECVideoList[i] then
+        begin
+          TOSECAddStr(DBVersion, TempStr);
+          SoftStr := Trim(ETKCopyFrom(SoftStr, aPos + 1));
+          i := TOSECVideoList.Count; // Break;
+        end;
       end;
+
       Inc(i);
     end;
   end;
 
   // Country
-  // -----------------
+  // -------
   // '(' + Country + ')' -> US, EU, JP, ... US-EU
   if Pos('(', SoftStr) = 1 then
   begin
@@ -454,29 +492,52 @@ begin
         
     TempStr := Copy(SoftStr, 2, aPos - 2);
     
-    // Check if no its a Copyright tag...
-    // GW = Guinea-Bisau and CW = Curaçao ... :-/
-    i := Low(TOSECCopyright);
-    while (i <= High(TOSECCopyright)) and (TempStr <> '') do
+    // Dirty check of development status or system
+    //   and testing uppercase
+    i := 1;
+    while i <= Length(TempStr) do
     begin
-      if TOSECCopyright[i] = TempStr then
-      begin
-        TempStr := '';
-        i := High(TOSECCopyright); // Break;
+      case (i mod 3) of
+        0: begin
+          if TempStr[i] <> '-' then
+            TempStr := '';
+        end;
+        else
+        begin
+          if (TempStr[i] < 'A') or  (TempStr[i] > 'Z') then
+            TempStr := '';
+        end;
       end;
+
       Inc(i);
     end;
 
-    // Dirty check of development status or system
-    //   (example checking dash in "US-EU")
-    if (Length(TempStr) > 2) then
+    // Dirty check if not is a Copyright tag...
+    // GW = Guinea-Bisau and CW = Curaçao ... :-/
+    if TempStr <> '' then
     begin
-      if TempStr[3] <> '-' then
-        TempStr := '';
+      i := 0;
+      while i < TOSECCopyrightList.Count do
+      begin
+        if TOSECCopyrightList[i] > TempStr then
+        // TOSECCopyrightList is sorted, so we can skip searching
+        begin
+          i := TOSECCopyrightList.Count; // Break;
+        end
+        else
+        begin
+          if TempStr = TOSECCopyrightList[i] then
+          begin
+            TempStr := '';
+            i := TOSECCopyrightList.Count; // Break;
+          end;
+        end;
+
+        Inc(i);
+      end;
     end;
 
-    if ((Length(TempStr) + 1) mod 3 = 0) and (TempStr = AnsiUpperCase(TempStr))
-    then
+    if ((Length(TempStr) + 1) mod 3) = 0 then
     begin
       // 'AS' = American Samoa -> 'XA' = asia
       TempStr := AnsiReplaceText(TempStr, 'as', 'xa');
@@ -490,7 +551,7 @@ begin
   // --------
   // // '(' + Language + ')' -> es, pt, fr, ... es-pt
   
-  // Removing (M) flag, it don't actually says wich languages has.
+  // Removing (M) flag, it don't actually says wich languages.
   // If (M) found then don't try to search language
   TempStr := TOSECExtractTag(SoftStr, '(M', ')');
   if TempStr = '' then
@@ -507,16 +568,28 @@ begin
           
       TempStr := Copy(SoftStr, 2, aPos - 2);
       
-      // We don't need to check Copyright tag because is lowercase... but
-      //   dirty check for development status (checking dash in "en-es")
-      if (Length(TempStr) > 2) then
+      // Dirty check of well formated language
+      //   and testing lowercase
+      i := 1;
+      while i <= Length(TempStr) do
       begin
-        if TempStr[3] <> '-' then
-          TempStr := '';
+        case (i mod 3) of
+          0: begin
+            if TempStr[i] <> '-' then
+              TempStr := '';
+          end;
+          else
+          begin
+            if (TempStr[i] < 'a') or (TempStr[i] > 'z') then
+              TempStr := '';
+          end;
+        end;
+        Inc(i);
       end;
 
-      if ((Length(TempStr) + 1) mod 3 = 0) and (TempStr = AnsiLowerCase(TempStr))
-      then
+      // We don't need to check Copyright tag because it is lowercase...
+
+      if ((Length(TempStr) + 1) mod 3) = 0 then
       begin
         // Ignoring language tag after all XD
         // TempStr := AnsiReplaceText(TempStr, '-', ',');
@@ -541,15 +614,24 @@ begin
     
     TempStr := Copy(SoftStr, 2, aPos - 2);
 
-    i := Low(TOSECCopyright);
-    while i <= High(TOSECCopyright) do
+    i := 0;
+    while i < TOSECCopyrightList.Count do
     begin
-      if TempStr = TOSECCopyright[i] then
+      if TOSECCopyrightList[i] > TempStr then
+      // TOSECCopyrightList is sorted, so we can skip searching
       begin
-        TOSECAddStr(DBVersion, TOSECCopyrightStr[i]);
-        SoftStr := Trim(ETKCopyFrom(SoftStr, aPos + 1));
-        i := High(TOSECCopyright); // Break;
+        i := TOSECCopyrightList.Count; // Break;
+      end
+      else
+      begin
+        if TempStr = TOSECCopyrightList[i] then
+        begin
+          TOSECAddStr(DBVersion, TOSECCopyrightStrList[i]);
+          SoftStr := Trim(ETKCopyFrom(SoftStr, aPos + 1));
+          i := TOSECCopyrightList.Count; // Break;
+        end;
       end;
+
       Inc(i);
     end;
   end;
@@ -594,13 +676,15 @@ begin
   // Modified
   // -----------------
   // [m]
+
+  // Removing NES '[mapper XX]'
+  TempStr := TOSECExtractTag(SoftStr, '[mapper', ']');
+
   DBModified := TOSECExtractTag(SoftStr, '[m', ']');
-  // Restoring missidentified NES '[mapper 34]'
-  if Pos('apper', DBModified) = 1 then
-  begin
-    SoftStr := SoftStr + '[m' + DBModified + ']';
-    DBModified := '';
-  end;
+
+  // Restoring '[mapper XX]'
+  if TempStr <> '' then
+    SoftStr := '[mapper ' + TempStr + ']' + SoftStr;
 
   // Pirated
   // -----------------
@@ -624,14 +708,15 @@ begin
   // Although some flags can coexist: [a][o]
   // We only keep the worst one
   
-  DBDumpStatus := '';
-  
   TempStr := TOSECExtractTag(SoftStr, '[!', ']');
   if TempStr <> '' then
   begin
     DBDumpStatus := DumpSt2Key(edsVerified);
   end;
-  
+
+  // Removing [aka ] flag...
+  TOSECExtractTag(SoftStr, '[aka', ']');
+
   TempStr := TOSECExtractTag(SoftStr, '[a', ']');
   if TempStr <> '' then
   begin
@@ -661,7 +746,7 @@ begin
   end;
 
   if DBDumpStatus = '' then
-    DBDumpStatus := krsImportKeepValueKey;
+    DBDumpStatus := DumpSt2Key(edsGood);
     
   // Extra data
   // -----------------
