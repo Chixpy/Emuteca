@@ -1,4 +1,4 @@
-{
+{ Emuteca Script unit
 [Info]
 Some common functions and data for TOSEC. It's far from perfect.
 
@@ -169,6 +169,12 @@ begin
       end;
       
       aTitle := ExtractFilenameOnly(AnsiLeftStr(aLine, aPos - 1));
+      // XML Entities...
+      aTitle := AnsiReplaceText(aTitle, '&amp;', '&');
+      aTitle := AnsiReplaceText(aTitle, '&apos;', '''');
+      // Trying to change ' & ' if used to separate multiple games...
+      aTitle := AnsiReplaceText(aTitle, ') & ', ') + ');
+      aTitle := AnsiReplaceText(aTitle, '] & ', '] + ');
       aLine := ETKCopyFrom(aLine, aPos + 1);
       
       // Searching "<aIDKey>=" key for ID
@@ -234,11 +240,7 @@ begin
   DBHack := '';
   TempDemo := '';
   SoftStr := aSoftLine
-  
-  // XML Entities...
-  SoftStr := AnsiReplaceText(SoftStr, '&amp;', '&');
-  SoftStr := AnsiReplaceText(SoftStr, '&apos;', '''');
-  
+   
   if not assigned(TOSECCopyrightStrList) then
     TOSECInit;
     
@@ -252,7 +254,10 @@ begin
   // ID + TOSECIDSep + TOSEC Title
   aPos := Pos(TOSECIDSep, SoftStr);
   if aPos < 2 then
+  begin
+    TOSECError(aSoftLine, 'No "ID|Title" found.');
     Exit;
+  end;
     
   DBID := AnsiLeftStr(SoftStr, aPos - 1);
   SoftStr := ETKCopyFrom(SoftStr, aPos + 1);
@@ -272,12 +277,15 @@ begin
   aPos := RPosEx(' (', SoftStr, aPos);
   if aPos < 1 then
   begin
-    TOSECError(aSoftLine, 'No flags found.');
-    Exit;
+    // No flags found, but has a title...
+    DBTitle := SoftStr
+    SoftStr := '';
+  end
+  else
+  begin  
+    DBTitle := Trim(AnsiLeftStr(SoftStr, aPos - 1)); // Title [+ version] [+ Demo]
+    SoftStr := Trim(ETKCopyFrom(SoftStr, aPos)); // Flags 
   end;
-  
-  DBTitle := Trim(AnsiLeftStr(SoftStr, aPos - 1)); // Title [+ version] [+ Demo]
-  SoftStr := Trim(ETKCopyFrom(SoftStr, aPos)); // Flags 
      
   // Demo (opt)
   // -----------------
@@ -306,7 +314,7 @@ begin
   
   // FIX: Checking wrong article position after version
   // "Game v 1, The"
-  ETKFixTitle(DBTitle, DBSortTitle); //DBSortTitle and TempStr unused
+  ETKFixTitle(DBTitle, DBSortTitle); //DBSortTitle is unused
   
   aPos := RPos(' ', DBTitle);
   if (aPos > 1) then
@@ -363,7 +371,7 @@ begin
   
   // Checking well placed article before version
   //  and setting DBSortTitle
-  ETKFixTitle(DBTitle, DBSortTitle); //TempStr unused
+  ETKFixTitle(DBTitle, DBSortTitle);
 
   
   // Adding Demo in Version

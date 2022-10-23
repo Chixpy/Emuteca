@@ -3,8 +3,8 @@
 This script tests uTOSECUtils.
 [Data]
 Name=Chixpy
-Version=0.01
-Date=20171009
+Version=
+Date=20221023
 [Changes]
 
 [EndInfo]
@@ -27,8 +27,8 @@ begin
   WriteLn('');
 
   TOSECTests := [
-    'Soft Title, The v 1 (demo) (Year)(Publisher)(A3000)(MCGA)(Country)' +
-    '(Language)(SW)(Devstatus)(Media Type)(Media Label)[cr][f][h][m]' +
+    'Soft Title, The v 1 (demo) (Year)(Publisher)(A3000)(MCGA)(US)' +
+    '(en-es)(SW)(Devstatus)(Media Type)(Media Label)[cr][f][h][m]' +
     '[p][t][tr][o][u][v][b][a][!][more info]',
     'Soft Title (Year)(Publisher)',
     'Soft Title v10, The (Year)(Publisher)',
@@ -43,22 +43,22 @@ begin
   // Expected output
   TOSECOutput := [
     // 0 - Full Flags
-    '',
+    'This error is only to show full flags',
     // 1 - Soft Title (Year)(Publisher)
-    '@,,1,@,@,"Soft Title",@,"","","Year","Publisher",' +
-    '"@","","","","","","","","",""',
+    '"@",,"1","@","@","Soft Title","@","","","Year","Publisher",' +
+    '"","","","","","","","","",""',
     // 2 - Soft Title v10, The (Year)(Publisher)
-    '@,,2,@,@,"The Soft Title",@,"Soft Title, The","v 10","Year",' +
-    '"Publisher","@","","","","","","","","",""',
+    '"@",,"2","@","@","The Soft Title","@","Soft Title","v10","Year",' +
+    '"Publisher","","","","","","","","","",""',
     // 3 - Soft Title, The v10 (Year)(Publisher)
-    '@,,3,@,@,"The Soft Title",@,"Soft Title, The","v 10","Year",' +
-    '"Publisher","@","","","","","","","","",""',
+    '"@",,"3","@","@","The Soft Title","@","Soft Title","v10","Year",' +
+    '"Publisher","","","","","","","","","",""',
     // 4 - Soft Title v 10, The (Year)(Publisher)
-    '@,,4,@,@,"The Soft Title",@,"Soft Title, The","v 10","Year",' +
-    '"Publisher","@","","","","","","","","",""',
+    '"@",,"4","@","@","The Soft Title","@","Soft Title","v10","Year",' +
+    '"Publisher","","","","","","","","","",""',
     // 5 - Soft Title, The v 10 (Year)(Publisher)
-    '@,,5,@,@,"The Soft Title",@,"Soft Title, The","v 10","Year",' +
-    '"Publisher","@","","","","","","","","",""',
+    '"@",,"5","@","@","The Soft Title","@","Soft Title","v10","Year",' +
+    '"Publisher","","","","","","","","","",""',
     // 6 - Soft Title, The v 10 (Year) <- NO PUBLISHER
     '',
     // 7 - Soft Title, The v 10 (Publisher) <- NO YEAR (Gives publisher error)

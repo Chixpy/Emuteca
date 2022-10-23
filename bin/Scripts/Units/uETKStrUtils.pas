@@ -10,9 +10,12 @@ Some common functions for string handling.
 
 [Data]
 Name=Chixpy
-Version=0.05
-Date=20201108
+Version=0.07
+Date=20221022
 [Changes]
+0.07 20221022
+  + IsArticle: Added. 
+  m Better ETKFixTitle adding multigame support
 0.06 20220831
   m ETKFixTitle: Removing unused MediaFile and changed SortTitle (Remove article) as new standard
       in Emuteca.
@@ -61,93 +64,176 @@ begin
     'El', 'La', 'Los', 'Las', 'Un', 'Una', 'Unos', 'Unas',
     'L''', 'Le', 'Les', 'Une', 'Des'];
 end;
-  
-procedure ETKFixTitle(var aTitle: string; out SortTitle: string);
+
+function IsArticle(const aString: string): boolean;
 var
   i: integer;
-  ArticleFound: string;
 begin
   if Length(ETKArticles) = 0 then ETKFixTitleInit;
-
-  SortTitle := '';
-
-  // Replacing ' - ' with ': '
-  aTitle := Trim(AnsiReplaceText(aTitle, ' - ', ': '));
- 
- 
-  // Searching if aTitle has an article.
-  //   - The Title -> (Must be in aTitle)
-  //   - Title, The -> (Must be SortTitle, without ', The')
-  //   - Title (The) -> Covert to previous syntax
   
-  // To check if already changed and Keeping actual article
-  ArticleFound := '';
+  Result := false;
   
-  // (The)
-  if ArticleFound = '' then
+  i := Low(ETKArticles);
+  while i <= High(ETKArticles) do
   begin
-    i := Low(ETKArticles);
-    while (ArticleFound = '') and (i <= High(ETKArticles)) do
-    begin      
-      if AnsiEndsStr(' (' + ETKArticles[i] + ')', aTitle) then
-        ArticleFound := ETKArticles[i]
-      else
-        Inc(i);
-    end;  
-    if ArticleFound <> '' then
+    if aString = ETKArticles[i] then
     begin
-      aTitle := Trim(AnsiLeftStr(aTitle, Length(aTitle) - Length(ArticleFound)
-        - 3));
-      SortTitle := aTitle;
-      aTitle := ArticleFound + ' ' + aTitle;
-    end;
-  end;
-  
-  // Title, The
-  // TODO: Fix -> Title, The: Subtitle
-  if ArticleFound = '' then
-  begin  
-    i := Low(ETKArticles);
-    while (ArticleFound = '') and (i <= High(ETKArticles)) do
-    begin
-      if AnsiEndsStr(', ' + ETKArticles[i], aTitle) then
-        ArticleFound := ETKArticles[i]
-      else
-        Inc(i);
-    end;  
-    if ArticleFound <> '' then
-    begin
-      SortTitle := Trim(AnsiLeftStr(aTitle, Length(aTitle)
-        - Length(ArticleFound) - 2));
-      aTitle := ArticleFound + ' ' + SortTitle;
-    end; 
-  end;  
-  
-  // The Title
-  if ArticleFound = '' then
-  begin  
-    i := Low(ETKArticles);
-    while (ArticleFound = '') and (i <= High(ETKArticles)) do
-    begin
-      if AnsiStartsStr(ETKArticles[i] + ' ', aTitle) then
-        ArticleFound := ETKArticles[i]
-      else
-        Inc(i);
-    end;  
-    if ArticleFound <> '' then
-    begin
-      SortTitle := Trim(ETKCopyFrom(aTitle, Length(ArticleFound) + 1));
-      // Don't change aTitle
-    end; 
-  end; 
-  
-  // Really not needed now...
-  if CompareText(aTitle, SortTitle) = 0 then
-    SortTitle := '';
+      Result := true;
+      i := High(ETKArticles); // Break while
+    end;    
     
-  //// Setting MediaFile
-  //if SortTitle <> '' then
-  //  MediaFile := CleanFileName(SortTitle, true, false)
-  //else    
-  //  MediaFile := CleanFileName(aTitle, true, false);
+    Inc(i);
+  end;
+end;
+
+    procedure DoFixTitle(var aTitle: string; out SortTitle: string);
+    var
+     aPos: integer;
+     aArticle: string;
+    begin
+      // Searching if aTitle has an article.
+      //   - The Title -> (Must be in aTitle)
+      //   - Title, The -> (Must be SortTitle, without ', The')
+      //   - Title (The) -> Covert to previous syntax
+
+      // Testing 'Title, The'
+      aPos := RPos(',', aTitle);
+      if aPos > 0 then
+      begin
+        aArticle := Trim(ETKCopyFrom(aTitle, aPos + 1));
+
+        if IsArticle(aArticle) then
+        begin
+          SortTitle := Trim(LeftStr(aTitle, aPos - 1));
+          aTitle := aArticle + ' ' + SortTitle;
+          Exit;
+        end;
+      end;
+
+      // Testing 'The Title'...
+      aPos := Pos(' ', aTitle);
+
+      // KitKat
+      if aPos <= 0 then // TitleIsOneWord, so no article
+      begin
+        SortTitle := aTitle;
+        Exit;
+      end;
+
+      // Testing 'The Title' 2
+      aArticle := LeftStr(aTitle, aPos - 1);
+      if IsArticle(aArticle) then
+      begin
+        SortTitle := Trim(ETKCopyFrom(aTitle, aPos));
+        Exit;
+      end;
+
+      // Testing 'Title (The)'
+      if aTitle[Length(aTitle)] = ')' then
+      begin
+        aPos := RPos('(', aTitle);
+
+        if aPos > 0 then
+        begin
+          aArticle := Trim(Copy(aTitle, aPos + 1, Length(aTitle) -  aPos - 1));
+          if IsArticle(aArticle) then
+          begin
+            SortTitle := Trim(LeftStr(aTitle, aPos - 1));
+            aTitle := aArticle + ' ' + SortTitle;
+            Exit;
+          end;
+        end;
+      end;
+
+      // No article found
+      SortTitle := aTitle;
+    end;
+
+
+  procedure SplitSubTitles(var aTitle: string; out SortTitle: string);
+  var
+    slTitleList: TStringList;
+    TempTitle, TempSort: string;
+    i: integer;
+  begin
+    SortTitle := '';
+
+    // Splitting multiple subtiltes
+    // 'Game 1, The: Chapter 1: Subtitle, The'
+    slTitleList := CreateStringList;
+    TempTitle := AnsiReplaceText(aTitle, ': ', '|');
+    slTitleList.AddDelimitedText(TempTitle, '|', true);
+
+    aTitle := ''; // Reseting Title
+    i := 0;
+    while i < slTitleList.Count do
+    begin
+      TempTitle := Trim(slTitleList[i]);
+      DoFixTitle(TempTitle, TempSort);
+
+      // First letter uppercase
+      if length(TempSort) > 0 then
+        TempSort := UpperCase(AnsiLeftStr(TempSort, 1)) + 
+          ETKCopyFrom(TempSort, 2);
+      if length(TempTitle) > 0 then
+        TempTitle := UpperCase(AnsiLeftStr(TempTitle, 1)) + 
+          ETKCopyFrom(TempTitle, 2);
+            
+      if i > 0 then
+      begin
+        SortTitle := SortTitle + ' - ' + TempSort;
+        aTitle := aTitle + ': ' + TempTitle;
+      end
+      else
+      begin
+        SortTitle := TempSort;
+        aTitle := TempTitle;
+      end;
+      
+      Inc(i);
+    end;
+
+    slTitleList.Free;
+  end;
+
+procedure ETKFixTitle(var aTitle: string; out SortTitle: string);
+var
+  slGameList: TStringList;
+  TempTitle, TempSort: string;
+  i: integer;
+begin
+  aTitle := AnsiReplaceText(aTitle, ' - ', ': ');
+
+  SortTitle := '';  
+ 
+  // Splitting multiple games
+  // 'Game 1, The: Subtitle + Game 2: Subtitle, The + Game, A'
+  slGameList := CreateStringList;
+  aTitle := AnsiReplaceText(aTitle, ' + ', '|');
+  slGameList.AddDelimitedText(aTitle, '|', true);
+  
+  aTitle := ''; // Reseting Title
+  i := 0;
+  while i < slGameList.Count do
+  begin
+    TempTitle := slGameList[i];
+    SplitSubTitles(TempTitle, TempSort);
+     
+    if i > 0 then
+    begin
+      SortTitle := SortTitle + ' + ' + TempSort;
+      aTitle := aTitle + ' + ' + TempTitle;
+    end
+    else
+    begin
+      SortTitle := TempSort;
+      aTitle := TempTitle;
+    end;
+      
+    Inc(i);
+  end;
+
+  if SortTitle = aTitle then SortTitle := '';
+  
+  slGameList.Free;
 end;

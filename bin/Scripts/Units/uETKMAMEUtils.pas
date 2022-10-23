@@ -1,4 +1,4 @@
-{
+{ Emuteca Script unit
 [Info]
 Some common functions and data for MAME.
 
