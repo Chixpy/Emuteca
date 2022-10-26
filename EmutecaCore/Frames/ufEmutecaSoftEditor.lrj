@@ -11,14 +11,12 @@
 {"hash":95406836,"name":"tfmemutecasofteditor.lmodified.caption","sourcebytes":[77,111,100,105,102,105,101,100],"value":"Modified"},
 {"hash":321435,"name":"tfmemutecasofteditor.lhack.caption","sourcebytes":[72,97,99,107],"value":"Hack"},
 {"hash":30047951,"name":"tfmemutecasofteditor.gbxversion.caption","sourcebytes":[86,101,114,115,105,111,110,32,105,110,102,111],"value":"Version info"},
-{"hash":214540302,"name":"tfmemutecasofteditor.lversion.caption","sourcebytes":[86,101,114,115,105,111,110],"value":"Version"},
-{"hash":154192242,"name":"tfmemutecasofteditor.lpublisher.caption","sourcebytes":[80,117,98,108,105,115,104,101,114],"value":"Publisher"},
-{"hash":392066,"name":"tfmemutecasofteditor.lyear.caption","sourcebytes":[89,101,97,114],"value":"Year"},
+{"hash":214540302,"name":"tfmemutecasofteditor.eversion.texthint","sourcebytes":[86,101,114,115,105,111,110],"value":"Version"},
+{"hash":154192242,"name":"tfmemutecasofteditor.epublisher.texthint","sourcebytes":[80,117,98,108,105,115,104,101,114],"value":"Publisher"},
 {"hash":205794660,"name":"tfmemutecasofteditor.eyear.texthint","sourcebytes":[89,89,89,89,47,77,77,47,68,68],"value":"YYYY/MM/DD"},
-{"hash":398917,"name":"tfmemutecasofteditor.lzone.caption","sourcebytes":[90,111,110,101],"value":"Zone"},
 {"hash":81879810,"name":"tfmemutecasofteditor.ezone.texthint","sourcebytes":[73,83,79,51,49,54,54,45,49,32,97,108,112,104,97,45,50],"value":"ISO3166-1 alpha-2"},
 {"hash":986067,"name":"tfmemutecasofteditor.gbxextraparameters.caption","sourcebytes":[69,120,116,114,97,32,112,97,114,97,109,101,116,101,114,115],"value":"Extra parameters"},
 {"hash":5966629,"name":"tfmemutecasofteditor.gbxtitle.caption","sourcebytes":[84,105,116,108,101],"value":"Title"},
-{"hash":123072953,"name":"tfmemutecasofteditor.ltitle.caption","sourcebytes":[84,105,116,108,101,32,32,40,69,109,112,116,121,32,61,32,71,114,111,117,112,32,84,105,116,108,101,41],"value":"Title  (Empty = Group Title)"},
-{"hash":96910201,"name":"tfmemutecasofteditor.lsortkey.caption","sourcebytes":[83,111,114,116,32,75,101,121,32,40,69,109,112,116,121,32,61,32,84,105,116,108,101,41],"value":"Sort Key (Empty = Title)"}
+{"hash":123072953,"name":"tfmemutecasofteditor.etitle.texthint","sourcebytes":[84,105,116,108,101,32,32,40,69,109,112,116,121,32,61,32,71,114,111,117,112,32,84,105,116,108,101,41],"value":"Title  (Empty = Group Title)"},
+{"hash":96910201,"name":"tfmemutecasofteditor.esortkey.texthint","sourcebytes":[83,111,114,116,32,75,101,121,32,40,69,109,112,116,121,32,61,32,84,105,116,108,101,41],"value":"Sort Key (Empty = Title)"}
 ]}

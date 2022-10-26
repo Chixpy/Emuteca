@@ -3,32 +3,32 @@ msgstr "Content-Type: text/plain; charset=UTF-8"
 
 #: tfmchxbgraimgviewer.actautozoom.caption
 msgid "Auto Zoom"
-msgstr ""
+msgstr "Zoom automático"
 
 #: tfmchxbgraimgviewer.actoriginalsize.caption
 msgid "Original Size"
-msgstr ""
+msgstr "Tamaño original"
 
 #: tfmchxbgraimgviewer.actzoomin.caption
 msgid "Zoom In"
-msgstr ""
+msgstr "Aumentar zoom"
 
 #: tfmchxbgraimgviewer.actzoomout.caption
 msgid "Zoom Out"
-msgstr ""
+msgstr "Disminuir zoom"
 
 #: tfmchxfilelist.actaddfile.caption
 msgid "Add File..."
-msgstr "Añadir Fichero..."
+msgstr "Añadir fichero..."
 
 #: tfmchxfilelist.actaddfolder.caption
 msgid "Add Folder..."
-msgstr "Añadir Carpeta..."
+msgstr "Añadir carpeta..."
 
 #: tfmchxfilelist.actclearlist.caption
 msgctxt "tfmchxfilelist.actclearlist.caption"
 msgid "Clear List"
-msgstr "Limpiar Lista"
+msgstr "Limpiar lista"
 
 #: tfmchxfilelist.actremoveitem.caption
 msgctxt "tfmchxfilelist.actremoveitem.caption"
@@ -37,141 +37,140 @@ msgstr "Quitar item"
 
 #: tfmemcimagepropeditor.bdelete.caption
 msgid "Delete File"
-msgstr ""
+msgstr "Borrar archivo"
 
 #: tfmemcimagepropeditor.bjoinnextfile.caption
 msgid "Join Next File"
-msgstr ""
+msgstr "Unir siguiente archivo"
 
 #: tfmemcimagepropeditor.bsave.caption
 msgid "Save"
-msgstr ""
+msgstr "Guardar"
 
 #: tfmemcimagepropeditor.bsaveanddelete.caption
 msgid "Save and Delete"
-msgstr ""
+msgstr "Guardar y borrar"
 
 #: tfmemcimagepropeditor.chkmultipage.caption
 msgid "Multipage text"
-msgstr ""
+msgstr "Texto multipágina"
 
 #: tfmemcimagepropeditor.chkpointmode.caption
 msgid "Point Mode"
-msgstr ""
+msgstr "Modo por puntos"
 
 #: tfmemcimagepropeditor.chkresize2048.caption
 msgid "Resize to 2048px if bigger image"
-msgstr ""
+msgstr "Redimensionar a 2048px si es más grande"
 
 #: tfmemcimagepropeditor.gbxcutrectangle.caption
 msgctxt "tfmemcimagepropeditor.gbxcutrectangle.caption"
 msgid "Cut Rectangle"
-msgstr ""
+msgstr "Rectángulo de corte"
 
 #: tfmemcimagepropeditor.gbximageproperties.caption
 msgid "Image Properties"
-msgstr ""
+msgstr "Propiedades de la imagen"
 
 #: tfmemcimagepropeditor.gbxmagazineinfo.caption
 msgid "Magazine Properties"
-msgstr ""
+msgstr "Propiedades de la revista"
 
 #: tfmemcimagepropeditor.gbxoutputfile.caption
 msgctxt "tfmemcimagepropeditor.gbxoutputfile.caption"
 msgid "Output File"
-msgstr ""
+msgstr "Fichero de salida"
 
 #: tfmemcimagepropeditor.lbaseoutfolder.caption
 msgid "Base Output Folder"
-msgstr ""
+msgstr "Carpeta base de salida"
 
 #: tfmemcimagepropeditor.lfilename.caption
 msgid "Filename"
-msgstr ""
+msgstr "Nombre de fichero"
 
 #: tfmemcimagepropeditor.lgame.caption
 msgid "Game"
-msgstr ""
+msgstr "Juego
 
 #: tfmemcimagepropeditor.lheight.caption
 msgid "Height"
-msgstr ""
+msgstr "Altura"
 
 #: tfmemcimagepropeditor.lissue.caption
-msgid "Issue"
+msgid "Número"
 msgstr ""
 
 #: tfmemcimagepropeditor.llanguage.caption
 msgid "Language"
-msgstr ""
+msgstr "Lenguaje"
 
 #: tfmemcimagepropeditor.lleft.caption
 msgid "Left"
-msgstr ""
+msgstr "Izquierda"
 
 #: tfmemcimagepropeditor.lmagazine.caption
 msgid "Magazine"
-msgstr ""
+msgstr "Revista"
 
 #: tfmemcimagepropeditor.loutputfile.caption
 msgctxt "tfmemcimagepropeditor.loutputfile.caption"
 msgid "Output File"
-msgstr ""
+msgstr "Fichero de salida"
 
 #: tfmemcimagepropeditor.loutputfolder.caption
 msgid "Output Folder"
-msgstr ""
+msgstr "Carpeta de salida"
 
 #: tfmemcimagepropeditor.lpmborder.caption
 msgctxt "tfmemcimagepropeditor.lpmborder.caption"
 msgid "Border (px)"
-msgstr ""
+msgstr "Borde (px)"
 
 #: tfmemcimagepropeditor.lsection.caption
 msgid "Section"
-msgstr ""
+msgstr "Sección"
 
 #: tfmemcimagepropeditor.lsystem.caption
 msgid "System"
-msgstr ""
+msgstr "Sistema"
 
 #: tfmemcimagepropeditor.ltop.caption
 msgid "Top"
-msgstr ""
+msgstr "Arriba"
 
 #: tfmemcimagepropeditor.ltype.caption
 msgid "Type"
-msgstr ""
+msgstr "Tipo"
 
 #: tfmemcimagepropeditor.lwidth.caption
 msgid "Width"
-msgstr ""
+msgstr "Ancho"
 
 #: tfmemcmain.bcutselection.caption
 msgid "Cut to Selection"
-msgstr ""
+msgstr "Recortar a selección"
 
 #: tfmemcmain.breload.caption
 msgid "Reload Image"
-msgstr ""
+msgstr "Recargar imagen"
 
 #: tfmemcmain.breplacefile.caption
 msgid "Replace File"
-msgstr ""
+msgstr "Reemplazar fichero"
 
 #: tfmemcmain.gbxfilelist.caption
-#, fuzzy
 msgctxt "tfmemcmain.gbxfilelist.caption"
 msgid "Files"
 msgstr "Ficheros"
 
 #: tfmemcmain.gbximage.caption
 msgid "Image"
-msgstr ""
+msgstr "Imagen"
 
 #: tfmemcmain.gbxproperties.caption
 msgid "Properties"
-msgstr ""
+msgstr "Propiedades"
 
 #: tfrmchxform.caption
 msgid "frmCHXForm"
@@ -184,29 +183,29 @@ msgstr ""
 #: uchxrscstr.rscuexcalreadyexists
 #, object-pascal-format
 msgid "\"%0:s\" already exists."
-msgstr ""
+msgstr "\"%0:s\" ya existe."
 
 #: uchxrscstr.rscuexccardrange
 #, object-pascal-format
 msgid "\"%0:d\" is not in cardinal range."
-msgstr ""
+msgstr "\"%0:d\" número fuera de rango cardinal."
 
 #: uchxrscstr.rscuexcnilparameter
 #, object-pascal-format
 msgid "%0:s: %1:s parameter (%2:s) = nil"
-msgstr ""
+msgstr "%0:s: Parámetro %1:s (%2:s) = nil"
 
 #: uchxrscstr.rsenotfilename
 #, object-pascal-format
 msgid "%0:s: Not defined filename"
-msgstr ""
+msgstr "%0:s: No se ha definido un nombre de fichero"
 
 #: uchxrscstr.rsfiledlgmaskdef
 msgid "All files|*.*"
-msgstr ""
+msgstr "Todos los ficheros|*.*"
 
 #: uchxrscstr.rsfiledlgmaskfmt
 #, object-pascal-format
 msgid "All files|*.*|Supported files|%0:s"
-msgstr ""
+msgstr "Todos los fichero|*.*|Ficheros soportados|%0:s"
 

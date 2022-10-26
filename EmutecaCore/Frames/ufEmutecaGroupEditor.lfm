@@ -4,13 +4,15 @@ inherited fmEmutecaGroupEditor: TfmEmutecaGroupEditor
   AutoScroll = True
   ClientHeight = 327
   ClientWidth = 464
+  ParentShowHint = False
+  ShowHint = True
   DesignLeft = 540
   DesignTop = 246
   inherited pButtons: TPanel
     Top = 297
     Width = 464
     ClientWidth = 464
-    TabOrder = 3
+    TabOrder = 2
     inherited chkCloseOnSave: TCheckBox
       Left = 62
     end
@@ -33,19 +35,7 @@ inherited fmEmutecaGroupEditor: TfmEmutecaGroupEditor
     TabOrder = 0
     TextHint = 'Title (Empty = ID)'
   end
-  object eYear: TEdit[2]
-    Left = 0
-    Height = 28
-    Hint = 'Date of development.'
-    Top = 128
-    Width = 464
-    Align = alTop
-    ParentShowHint = False
-    ShowHint = True
-    TabOrder = 2
-    TextHint = 'Date YYYY/MM/DD'
-  end
-  object eSortTitle: TEdit[3]
+  object eSortTitle: TEdit[2]
     Left = 0
     Height = 28
     Hint = 'Title used for sorting.'
@@ -57,7 +47,7 @@ inherited fmEmutecaGroupEditor: TfmEmutecaGroupEditor
     TabOrder = 1
     TextHint = 'Sort title (Empty = Title)'
   end
-  object eDeveloper: TComboBox[4]
+  object eDeveloper: TComboBox[3]
     Left = 0
     Height = 28
     Hint = 'Developer of the software.'
@@ -70,18 +60,55 @@ inherited fmEmutecaGroupEditor: TfmEmutecaGroupEditor
     ParentShowHint = False
     ShowHint = True
     Sorted = True
-    TabOrder = 4
+    TabOrder = 3
     TextHint = 'Developer'
   end
-  object eGroupID: TEdit[5]
+  object eGroupID: TEdit[4]
     Left = 0
     Height = 28
     Hint = 'ID of the group.'
     Top = 0
     Width = 464
     Align = alTop
-    TabOrder = 5
+    TabOrder = 4
     TextHint = 'Group ID'
+  end
+  object pDateSort: TPanel[5]
+    Left = 0
+    Height = 28
+    Top = 128
+    Width = 464
+    Align = alTop
+    AutoSize = True
+    BevelOuter = bvNone
+    ChildSizing.HorizontalSpacing = 4
+    ChildSizing.VerticalSpacing = 4
+    ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+    ChildSizing.ShrinkHorizontal = crsHomogenousChildResize
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    ChildSizing.ControlsPerLine = 2
+    ClientHeight = 28
+    ClientWidth = 464
+    TabOrder = 5
+    object eYear: TEdit
+      Left = 0
+      Height = 28
+      Hint = 'Date of development.'
+      Top = 0
+      Width = 189
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 0
+      TextHint = 'Date YYYY/MM/DD'
+    end
+    object chkSortMultigameTitles: TCheckBox
+      Left = 193
+      Height = 28
+      Top = 0
+      Width = 271
+      Caption = 'Sort multigame titles'
+      TabOrder = 1
+    end
   end
   inherited alPropEditor: TActionList[6]
   end

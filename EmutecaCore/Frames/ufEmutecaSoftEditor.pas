@@ -66,15 +66,10 @@ type
     lHack: TLabel;
     lModified: TLabel;
     lPirate: TLabel;
-    lPublisher: TLabel;
-    lSortKey: TLabel;
-    lTitle: TLabel;
     lTrainer: TLabel;
     lTranslated: TLabel;
-    lVersion: TLabel;
-    lYear: TLabel;
-    lZone: TLabel;
     mExtraParameters: TMemo;
+    pYearZone: TPanel;
 
   private
     FSoftware: cEmutecaSoftware;

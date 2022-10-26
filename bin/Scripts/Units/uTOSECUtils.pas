@@ -6,14 +6,18 @@ Only to include in other programs. Remember call TOSECFinish at the end of
   main program.
 [Data]
 Name=Chixpy
-Version=0.12
-Date=20221021
+Version=0.13
+Date=20221023
 [Changes]
+0.13 20221023
+  f It seems that can be many [aka] flags... ignoring all.
 0.12 20221021
   c System, Video arrays changed to file loaded TStringLists.
   f Faster? searching of System and Video, thenks to sorted TStringLists.
 0.11 20221018
-  f Ignoring "[aka XXX]" flag, so not marked as alternate dump [a].
+  f Ignoring "[aka XXX]" flag, so it's not marked as alternate dump [a].
+    We don't need to know alternate names in tags, it's the purpourse of
+    Emuteca groups...
   f Better zone and language testing
   f Reverting to GoodDump, if DumpStatus it not found.
   c Zone is no keeped by default.
@@ -30,8 +34,8 @@ Date=20221021
 0.08 20171212
   f TOSECExtractSoftLine: Better flags search.
 0.07
-  + TOSECExtractSoftLine: Lenguajes searched, so Copyright may be work better.
-  - TOSECExtractSoftLine: Don't Group.
+  + TOSECExtractSoftLine: Languages searched, so Copyright may be work better.
+  - TOSECExtractSoftLine: Don't change current groups.
 0.06
   m TOSECExtractSoftLine: Group by (Sort)Title
 0.05
@@ -723,7 +727,9 @@ begin
   end;
 
   // Removing [aka ] flag...
-  TOSECExtractTag(SoftStr, '[aka', ']');
+  TempStr := 'x';
+  while TempStr <> '' do
+    TempStr := TOSECExtractTag(SoftStr, '[aka', ']');
 
   TempStr := TOSECExtractTag(SoftStr, '[a', ']');
   if TempStr <> '' then

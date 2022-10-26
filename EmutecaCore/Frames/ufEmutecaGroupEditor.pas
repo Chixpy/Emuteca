@@ -1,4 +1,5 @@
 unit ufEmutecaGroupEditor;
+
 {< TfmEmutecaGroupEditor form unit.
 
   This file is part of Emuteca Core.
@@ -26,7 +27,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  StdCtrls, Buttons, ActnList,
+  StdCtrls, Buttons, ActnList, LazUTF8,
   // CHX units
   uCHXStrUtils,
   // CHX forms
@@ -34,18 +35,20 @@ uses
   // Emuteca Core units
   uEmutecaConst,
   // Emuteca Core classes
-  ucEmutecaGroup;
+  ucEmutecaGroup, ucEmutecaSoftware;
 
 type
 
   { TfmEmutecaGroupEditor }
 
   TfmEmutecaGroupEditor = class(TfmCHXPropEditor, IFPObserver)
+    chkSortMultigameTitles: TCheckBox;
     eDeveloper: TComboBox;
     eGroupID: TEdit;
     eSortTitle: TEdit;
     eTitle: TEdit;
     eYear: TEdit;
+    pDateSort: TPanel;
   private
     FGroup: cEmutecaGroup;
     procedure SetGroup(AValue: cEmutecaGroup);
@@ -54,6 +57,8 @@ type
     procedure DoClearFrameData;
     procedure DoLoadFrameData;
     procedure DoSaveFrameData;
+
+    procedure SortMultigame;
 
   public
 
@@ -141,6 +146,147 @@ begin
     eDeveloper.AddItem(Group.Developer, nil);
 
   Group.Date := eYear.Text;
+
+  if chkSortMultigameTitles.Checked then
+  begin
+    SortMultigame;
+    chkSortMultigameTitles.Checked := False; // Auto-Uncheck
+  end;
+end;
+
+procedure TfmEmutecaGroupEditor.SortMultigame;
+var
+  sID, sTitle, sSortTitle, sLowest: string;
+  sOldTitle, sOldSortTitle: string;
+  slSortTitle, slTitle, slID, slSorter: TStringList;
+  i, iLowest: integer;
+  EmptyTitle, EmptySort: boolean;
+  aSoft: cEmutecaSoftware;
+begin
+  if not Assigned(Group) then
+    Exit;
+
+  if Pos(' + ', Group.ID) <= 0 then
+    Exit;
+
+  // ID can't be empty
+  EmptyTitle := Trim(Group.GetActualTitle) = '';
+  EmptySort := Trim(Group.GetActualSortTitle) = '';
+
+  sID := UTF8TextReplace(Group.ID, ' + ', '|');
+  sTitle := UTF8TextReplace(Group.GetActualTitle, ' + ', '|');
+  sSortTitle := UTF8TextReplace(Group.GetActualSortTitle, ' + ', '|');
+
+  slID := TStringList.Create;
+  slTitle := TStringList.Create;
+  slSortTitle := TStringList.Create;
+
+  slID.Sorted := False;
+  slTitle.Sorted := False;
+  slSortTitle.Sorted := False;
+  slID.CaseSensitive := False;
+  slTitle.CaseSensitive := False;
+  slSortTitle.CaseSensitive := False;
+
+  slID.AddDelimitedtext(sID, '|', True);
+  if not EmptyTitle then
+    slTitle.AddDelimitedtext(sTitle, '|', True);
+  if not EmptySort then
+    slSortTitle.AddDelimitedtext(sSortTitle, '|', True);
+
+  sID := '';
+  sTitle := '';
+  sSortTitle := '';
+
+  if EmptySort then
+    slSorter := slID
+  else
+    slSorter := slSortTitle;
+
+  if ((not EmptyTitle) and (slSorter.Count <> slTitle.Count)) or
+    ((not EmptySort) and (slSorter.Count <> slID.Count)) then
+  begin
+    // There is not the same number of games in Title or Sortitle than ID
+    slSortTitle.Free;
+    slTitle.Free;
+    slID.Free;
+
+    Exit;
+  end;
+
+  while slSorter.Count > 0 do
+  begin
+    sLowest := slSorter[0];
+    iLowest := 0;
+
+    i := 1;
+    while i < slSorter.Count do
+    begin
+      if UTF8CompareText(sLowest, slSorter[i]) > 0 then
+      begin
+        sLowest := slSorter[i];
+        iLowest := i;
+      end;
+
+      Inc(i);
+    end;
+
+    if sID = '' then
+    begin
+      sID := slID[iLowest];
+      if not EmptyTitle then
+        sTitle := slTitle[iLowest];
+      if not EmptySort then
+        sSortTitle := slSortTitle[iLowest];
+    end
+    else
+    begin
+      sID := sID + ' + ' + slID[iLowest];
+      if not EmptyTitle then
+        sTitle := sTitle + ' + ' + slTitle[iLowest];
+      if not EmptySort then
+        sSortTitle := sSortTitle + ' + ' + slSortTitle[iLowest];
+    end;
+
+
+    slID.Delete(iLowest);
+    if not EmptyTitle then
+      slTitle.Delete(iLowest);
+    if not EmptySort then
+      slSortTitle.Delete(iLowest);
+  end;
+
+  // We don't need StringList
+  slSortTitle.Free;
+  slTitle.Free;
+  slID.Free;
+
+  // Keep old data for soft childrens
+  sOldTitle := Group.Title; // Title or ID (if empty)
+  sOldSortTitle := Group.GetActualSortTitle;
+
+  Group.ID := sID;
+  if not EmptyTitle then
+    Group.Title := sTitle;
+  if not EmptySort then
+    Group.SortTitle := sSortTitle;
+
+  i := 0;
+  while i < Group.SoftList.Count do
+  begin
+    aSoft := Group.SoftList[i];
+
+    // if title is empty, copy old group data to keep game order in software
+    if aSoft.GetActualTitle = '' then
+    begin
+      aSoft.Title := sOldTitle;
+      aSoft.SortTitle := sOldSortTitle;
+    end;
+
+    Inc(i);
+  end;
+
+  LoadFrameData;
 end;
 
 procedure TfmEmutecaGroupEditor.FPOObservedChanged(ASender: TObject;
@@ -159,6 +305,8 @@ class function TfmEmutecaGroupEditor.SimpleModalForm(aGroup: cEmutecaGroup;
 var
   fmGroupEditor: TfmEmutecaGroupEditor;
 begin
+  Result := mrAbort;
+
   if not Assigned(aGroup) then
     Exit;
 
@@ -189,7 +337,7 @@ end;
 
 destructor TfmEmutecaGroupEditor.Destroy;
 begin
-    if Assigned(FGroup) then
+  if Assigned(FGroup) then
     FGroup.FPODetachObserver(Self);
 
   inherited Destroy;

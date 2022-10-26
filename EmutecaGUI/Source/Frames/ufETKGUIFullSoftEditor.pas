@@ -208,6 +208,9 @@ end;
 
 procedure TfmETKGUIFullSoftEditor.DoSaveFrameData;
 begin
+  if Assigned(Software) then
+    fmSoftEditor.SaveFrameData;
+
   fmGroupEditor.SaveFrameData;
 
   if Assigned(Software) then
@@ -217,12 +220,16 @@ begin
     begin
       // If empty; change TEdit, with old group title.
       if fmSoftEditor.eTitle.Text = '' then
+      begin
         fmSoftEditor.eTitle.Text := Software.CachedGroup.Title;
+        fmSoftEditor.eSortKey.Text := Software.CachedGroup.GetActualSortTitle;
+      end;
 
       // Assigning new group
       Software.CachedGroup := fmGroupEditor.Group;
     end;
 
+    // Saving again, LOL
     fmSoftEditor.SaveFrameData;
   end;
 end;

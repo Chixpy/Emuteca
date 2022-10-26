@@ -276,7 +276,8 @@ begin
   ComprFileList := TStringList.Create;
   try
     if assigned(Emuteca.ProgressCallBack) then
-      Continue := Emuteca.ProgressCallBack('Making list of all files', Format('This can take a while. Searching for: %0:s',
+      Continue := Emuteca.ProgressCallBack('Making list of all files',
+        Format('This can take a while. Searching for: %0:s',
         [aSystem.Extensions.CommaText]), 1, 100, True);
 
     // 1.- Straight search of all files
@@ -318,6 +319,9 @@ begin
         j := 0;
         while j < ComprFileList.Count do
         begin
+          if assigned(Emuteca.ProgressCallBack) then
+            Continue := Emuteca.ProgressCallBack('Adding files',
+              ComprFileList[j], i, FileList.Count, True);
           if SupportedExtSL(ComprFileList[j], aSystem.Extensions) then
             AddFile(aFolder + aFile, ComprFileList[j], aSystem, CacheSoftList);
           Inc(j);

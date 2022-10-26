@@ -794,6 +794,10 @@ msgstr ""
 msgid "Working folder"
 msgstr ""
 
+#: tfmemutecagroupeditor.chksortmultigametitles.caption
+msgid "Sort multigame titles"
+msgstr ""
+
 #: tfmemutecagroupeditor.edeveloper.hint
 msgid "Developer of the software."
 msgstr ""
@@ -836,8 +840,28 @@ msgstr ""
 msgid "Date YYYY/MM/DD"
 msgstr ""
 
+#: tfmemutecasofteditor.epublisher.texthint
+msgctxt "tfmemutecasofteditor.epublisher.texthint"
+msgid "Publisher"
+msgstr ""
+
+#: tfmemutecasofteditor.esortkey.texthint
+msgctxt "tfmemutecasofteditor.esortkey.texthint"
+msgid "Sort Key (Empty = Title)"
+msgstr ""
+
+#: tfmemutecasofteditor.etitle.texthint
+msgctxt "tfmemutecasofteditor.etitle.texthint"
+msgid "Title  (Empty = Group Title)"
+msgstr ""
+
 #: tfmemutecasofteditor.etranslated.texthint
 msgid "ISO 639-1 code"
+msgstr ""
+
+#: tfmemutecasofteditor.eversion.texthint
+msgctxt "tfmemutecasofteditor.eversion.texthint"
+msgid "Version"
 msgstr ""
 
 #: tfmemutecasofteditor.eyear.texthint
@@ -893,39 +917,12 @@ msgstr ""
 msgid "Pirate"
 msgstr ""
 
-#: tfmemutecasofteditor.lpublisher.caption
-msgctxt "tfmemutecasofteditor.lpublisher.caption"
-msgid "Publisher"
-msgstr ""
-
-#: tfmemutecasofteditor.lsortkey.caption
-msgid "Sort Key (Empty = Title)"
-msgstr ""
-
-#: tfmemutecasofteditor.ltitle.caption
-msgid "Title  (Empty = Group Title)"
-msgstr ""
-
 #: tfmemutecasofteditor.ltrainer.caption
 msgid "Trainer"
 msgstr ""
 
 #: tfmemutecasofteditor.ltranslated.caption
 msgid "Fan Translated"
-msgstr ""
-
-#: tfmemutecasofteditor.lversion.caption
-msgctxt "tfmemutecasofteditor.lversion.caption"
-msgid "Version"
-msgstr ""
-
-#: tfmemutecasofteditor.lyear.caption
-msgctxt "tfmemutecasofteditor.lyear.caption"
-msgid "Year"
-msgstr ""
-
-#: tfmemutecasofteditor.lzone.caption
-msgid "Zone"
 msgstr ""
 
 #: tfmemutecasoftimgpreview.actaddimagefromclpbrd.caption
