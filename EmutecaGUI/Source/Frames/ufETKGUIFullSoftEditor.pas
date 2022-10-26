@@ -207,6 +207,8 @@ begin
 end;
 
 procedure TfmETKGUIFullSoftEditor.DoSaveFrameData;
+var
+  OldTitle, OldSortKey: string;
 begin
   if Assigned(Software) then
     fmSoftEditor.SaveFrameData;
@@ -218,20 +220,30 @@ begin
     // If group is changed assign it to software; and keep Title if empty.
     if fmGroupEditor.Group <> Software.CachedGroup then
     begin
-      // If empty; change TEdit, with old group title.
-      if fmSoftEditor.eTitle.Text = '' then
+      OldTitle := '';
+
+      // If empty, keep old title
+      if Software.GetActualTitle = '' then
       begin
-        fmSoftEditor.eTitle.Text := Software.CachedGroup.Title;
-        fmSoftEditor.eSortKey.Text := Software.CachedGroup.GetActualSortTitle;
+        OldTitle := Software.CachedGroup.Title;
+        OldSortKey := Software.CachedGroup.GetActualSortTitle
       end;
 
-      // Assigning new group
+      // Assign new group
       Software.CachedGroup := fmGroupEditor.Group;
-    end;
 
-    // Saving again, LOL
-    fmSoftEditor.SaveFrameData;
+      // Restore old title and sort
+      if OldTitle <> '' then
+      begin
+         Software.Title := OldTitle;
+         Software.SortTitle := OldSortKey;
+      end;
+    end;
   end;
+
+  // Load automatic changes: i.e. changing ': ' to ' - ' in SortTitle
+  fmGroupEditor.LoadFrameData;
+  fmSoftEditor.LoadFrameData;
 end;
 
 constructor TfmETKGUIFullSoftEditor.Create(TheOwner: TComponent);

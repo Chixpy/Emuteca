@@ -219,6 +219,9 @@ begin
   Software.Modified := eModified.Text;
   Software.Hack := eHack.Text;
   Software.ExtraParameters.Assign(mExtraParameters.Lines);
+
+  // Load automatic changes: i.e. changing ': ' to ' - ' in SortTitle
+  LoadFrameData;
 end;
 
 procedure TfmEmutecaSoftEditor.FPOObservedChanged(ASender: TObject;

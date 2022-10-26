@@ -152,6 +152,9 @@ begin
     SortMultigame;
     chkSortMultigameTitles.Checked := False; // Auto-Uncheck
   end;
+
+  // Load automatic changes: i.e. changing ': ' to ' - ' in SortTitle
+  LoadFrameData;
 end;
 
 procedure TfmEmutecaGroupEditor.SortMultigame;
@@ -285,8 +288,6 @@ begin
 
     Inc(i);
   end;
-
-  LoadFrameData;
 end;
 
 procedure TfmEmutecaGroupEditor.FPOObservedChanged(ASender: TObject;

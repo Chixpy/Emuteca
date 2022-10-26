@@ -95,17 +95,17 @@ inherited fmEmutecaGroupEditor: TfmEmutecaGroupEditor
       Height = 28
       Hint = 'Date of development.'
       Top = 0
-      Width = 189
+      Width = 199
       ParentShowHint = False
       ShowHint = True
       TabOrder = 0
       TextHint = 'Date YYYY/MM/DD'
     end
     object chkSortMultigameTitles: TCheckBox
-      Left = 193
+      Left = 203
       Height = 28
       Top = 0
-      Width = 271
+      Width = 261
       Caption = 'Sort multigame titles'
       TabOrder = 1
     end
