@@ -180,17 +180,9 @@ begin
 end;
 
 procedure TfmEmutecaSoftEditor.DoSaveFrameData;
-var
-  aSystem: cEmutecaSystem;
 begin
-  aSystem := cEmutecaSystem(Software.CachedSystem);
-
-  if (not assigned(Software)) or (not assigned(aSystem)) then
-  begin
-    // TODO: Exception
-    ShowMessage('TfmEmutecaSoftEditor: Can''t save Software data.');
+  if not assigned(Software) then
     Exit;
-  end;
 
   Software.Title := eTitle.Text;
   Software.SortTitle := eSortKey.Text;

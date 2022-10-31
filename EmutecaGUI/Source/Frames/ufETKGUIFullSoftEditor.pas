@@ -210,17 +210,24 @@ procedure TfmETKGUIFullSoftEditor.DoSaveFrameData;
 var
   OldTitle, OldSortKey: string;
 begin
-  if Assigned(Software) then
+  if Assigned(Software) and fmGroupEditor.chkSortMultigameTitles.Checked then
     fmSoftEditor.SaveFrameData;
 
   fmGroupEditor.SaveFrameData;
 
   if Assigned(Software) then
   begin
+    // Loading if title in group was sorted.
+    if fmGroupEditor.chkSortMultigameTitles.Checked then
+      fmSoftEditor.LoadFrameData;
+
+    fmSoftEditor.SaveFrameData;
+
     // If group is changed assign it to software; and keep Title if empty.
     if fmGroupEditor.Group <> Software.CachedGroup then
     begin
       OldTitle := '';
+      OldSortKey := '';
 
       // If empty, keep old title
       if Software.GetActualTitle = '' then
@@ -239,11 +246,14 @@ begin
          Software.SortTitle := OldSortKey;
       end;
     end;
+
+    // Load automatic changes: i.e. changing ': ' to ' - ' in SortTitle
+    fmSoftEditor.LoadFrameData;
   end;
 
   // Load automatic changes: i.e. changing ': ' to ' - ' in SortTitle
   fmGroupEditor.LoadFrameData;
-  fmSoftEditor.LoadFrameData;
+
 end;
 
 constructor TfmETKGUIFullSoftEditor.Create(TheOwner: TComponent);
@@ -288,6 +298,8 @@ class function TfmETKGUIFullSoftEditor.SimpleModalForm(aSoft: cEmutecaSoftware;
 var
   fmFullSoftEditor: TfmETKGUIFullSoftEditor;
 begin
+  Result := -1;
+
   if not Assigned(aSoft) then
     Exit;
 

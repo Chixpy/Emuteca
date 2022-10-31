@@ -148,10 +148,7 @@ begin
   Group.Date := eYear.Text;
 
   if chkSortMultigameTitles.Checked then
-  begin
     SortMultigame;
-    chkSortMultigameTitles.Checked := False; // Auto-Uncheck
-  end;
 
   // Load automatic changes: i.e. changing ': ' to ' - ' in SortTitle
   LoadFrameData;
