@@ -58,12 +58,6 @@ type
       write SetSoftGroupLoaded;
     {< Are system soft and groups allready loaded? }
 
-    procedure CleanGroupList;
-    {< Removes empty groups.
-
-      Used by CleanSoftGroupLists and ExportSoftGroupLists.
-    }
-
     procedure DoSaveToIni(aIniFile: TIniFile; ExportMode: Boolean); override;
 
   public
@@ -87,6 +81,11 @@ type
     {< Add groups to software. }
     procedure CleanSoftGroupLists;
     {< Removes parents without soft and Soft not found. }
+    procedure CleanGroupList;
+    {< Removes empty groups.
+
+      Used by CleanSoftGroupLists and ExportSoftGroupLists.
+    }
 
     procedure LoadEmulatorsFrom(aEmuList: cEmutecaEmulatorList);
     {< Updates EmulatorList from aEmuList. }

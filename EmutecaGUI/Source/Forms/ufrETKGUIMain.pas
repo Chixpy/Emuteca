@@ -775,6 +775,7 @@ begin
   fmEmutecaMainFrame.Emuteca := nil;
 
   CurrentSystem.CacheGroups;
+  CurrentSystem.CleanGroupList;
 
   fmEmutecaMainFrame.Emuteca := Emuteca;
 end;
