@@ -109,6 +109,8 @@ begin
 end;
 
 procedure TfmEmutecaGroupEditor.DoLoadFrameData;
+var
+  i: Integer;
 begin
   Enabled := Assigned(Group);
 
@@ -122,10 +124,13 @@ begin
   eTitle.Text := Group.GetActualTitle;
   eSortTitle.Text := Group.GetActualSortTitle;
 
-  eDeveloper.Text := Group.Developer;
-  // Adding to ComboBox List
-  if (eDeveloper.ItemIndex = -1) and (Group.Developer <> '') then
-    eDeveloper.ItemIndex := eDeveloper.Items.Add(Group.Developer);
+  i := eDeveloper.Items.IndexOf(Group.Developer);
+  if i >= 0 then
+    eDeveloper.ItemIndex := i
+  else if Group.Developer <> '' then // Adding to ComboBox List
+    eDeveloper.ItemIndex := eDeveloper.Items.Add(Group.Developer)
+  else
+    eDeveloper.Text := '';
 
   eYear.Text := Group.Date;
 end;

@@ -16,20 +16,36 @@ Ficheros que contienen varios juegos y compilaciones:
 Títulos:
   * Título del juego... difícil ¿eh?
   * En caso de incongruencia elegir el título más completo con subtítulo.
+  * Mantener nombres de compañía, creadores, etc. y similares al comienzo del título: Por ejemplo: "Disney's", "Hudson's", etc.
+    * Sin embargo hay que diferenciar cosas como "Tecmo World Cup" o "Konami Tennis" que forman parte real del título del juego.
+    * Aquí el truco sería si tienen apóstrofe o fórmulas similares como "Disney presents".
   * Respetar el formato de numeración usado.
-  * En el lenguaje original y caracteres latinos.
+  * En el lenguaje original y si hace falta con caracteres no latinos.
   * Subtítulos separados por ': '.
   
-Identificador:
-  * Título transliterado con carácteres latinos.
-  * Sin artículos iniciales, en los subtítulos tampoco.
+Identificador (sólo para grupos):
+  * Con MAME usar el identificador propio del MAME. Además tienen el identificador de la ROM padre.
+  * ***Título*** transliterado con carácteres latinos.
+  * Se mantienen los nombres de compañía: "Disney's"
+  * Sin artículos iniciales, en los subtítulos tampoco. Se quitan incluso si el título del juego contiene el nombre de una compañia.
+  * Ejemplos:
+    * "Disney's _The_ Lion King" → "Disney's Lion King"
   
 Clave de ordenación:
-  * Es el identificador con los número de partes normalizado a números arábigos.
-  * Sustituciones de caracteres en nombres de fichero no permitidos por Windows.
+  * ***Identificador*** con los número de partes normalizado a números arábigos.
+  * Se quitan los nombres de compañías iniciales, como por ejemplo "Disney's"
+  * Sustitución de caracteres en nombres de fichero no permitidos por Windows.
   * NO pueden terminar en punto '.', sustituirlo por '_'; Windows da algunos problemas si las carpetas terminan en punto '.'
   * ': ' → ' - '
   * '&' → ' and '
+  
+### Ejemplos ###
+| Título | Identificador | Clave de ordenación |
+| -- | -- | -- |
+| The Emuteca Example | Emuteca Example | Emuteca Example |
+| The Emuteca Example II: The Twist | Emuteca Example II: Twist | Emuteca Example 2: Twist |
+| Disney's _The_ Lion King | Disney's Lion King | Lion King |
+
   
 ## MAME ##
 

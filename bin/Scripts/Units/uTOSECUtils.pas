@@ -75,9 +75,10 @@ begin
   TOSECCopyrightList.Sorted := True;
 
   TOSECCopyrightStrList := CreateStringList;
+  TOSECCopyrightStrList.CaseSensitive := False;
+  TOSECCopyrightStrList.Sorted := False;
   TOSECCopyrightStrList.LoadFromFile('Scripts\Units\TOSECCRStr.txt');
-  TOSECCopyrightStrList.CaseSensitive := True;
-  TOSECCopyrightStrList.Sorted := True;
+
 end;
 
 procedure TOSECFinish;

@@ -142,6 +142,8 @@ begin
 end;
 
 procedure TfmEmutecaSoftEditor.DoLoadFrameData;
+var
+  i: integer;
 begin
   Enabled := assigned(Software);
 
@@ -157,10 +159,13 @@ begin
   eVersion.Text := Software.Version;
   eYear.Text := Software.Date;
 
-  ePublisher.Text := Software.Publisher;
-  // Adding to ComboBox List
-  if (ePublisher.ItemIndex = -1) and (Software.Publisher <> '') then
-    ePublisher.ItemIndex := ePublisher.Items.Add(Software.Publisher);
+  i := ePublisher.Items.IndexOf(Software.Publisher);
+  if i >= 0 then
+    ePublisher.ItemIndex := i
+  else if Software.Publisher <> '' then // Adding to ComboBox List
+    ePublisher.ItemIndex := ePublisher.Items.Add(Software.Publisher)
+  else
+    ePublisher.Text := '';
 
   eZone.Text := Software.Zone;
 
