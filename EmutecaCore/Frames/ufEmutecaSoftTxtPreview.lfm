@@ -2,12 +2,14 @@ inherited fmEmutecaSoftTxtPreview: TfmEmutecaSoftTxtPreview
   inherited tbPreviewList: TToolBar
     inherited tbSepNavButtons: TToolButton
       Left = 252
+      Height = 29
     end
     inherited tbOpenFile: TToolButton
       Left = 314
     end
     inherited tbSepOpenFile: TToolButton
       Left = 371
+      Height = 29
     end
     object tbLockText: TToolButton[7]
       Left = 210
@@ -22,6 +24,17 @@ inherited fmEmutecaSoftTxtPreview: TfmEmutecaSoftTxtPreview
       DropdownMenu = pmTextActions
       Style = tbsDropDown
     end
+  end
+  inherited mText: TMemo
+    Height = 266
+    Top = 34
+    Width = 400
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -17
+    Font.Name = 'Courier New'
+    Font.Pitch = fpFixed
+    Font.Quality = fqDraft
+    ParentFont = False
   end
   inherited ilPreviewList: TImageList
     Bitmap = {

@@ -9,11 +9,14 @@ Usefull for MAME image sets, as Emuteca DB by default uses game titles for searc
 
 It needs a txt file created with:
 * mame -listfull > MAMEfull.txt
+Also you can found one file in "Database/MAME lists" folder
 [Data]
 Name=Chixpy
-Version=0.02
-Date=20201108
+Version=1.0
+Date=20230105
 [Changes]
+1.0
+  * Adapting to uETKStrUtils.pas/ETKFixTitle changes.
 0.02 20201108
   * Renaming files to SortTitle, instead actual title.
 0.01 20201105
@@ -89,12 +92,16 @@ begin
         aPos := CompareFileNames(aFile, aID);
         if aPos = 0 then // Match, rename file
         begin
-          aID := '';
-          ETKFixTitle(aName, aID, outFile); // aID = SortTitle. It is useless.
+          ETKFixTitle(aName, outFile);
+          if outFile = '' then
+            outFile := CleanFilename(aName, true, false)
+          else
+            outFile := CleanFilename(outFile, true, false);
+
           
-//          WriteLn(aName + ' -> ' + aID + ' -> ' + outFile);
+          // WriteLn(aName + ' -> ' + outFile);
           
-          if CompareFileNames(ExtractFilenameOnly(outFile), aFile) <> 0 then
+          if CompareFileNames(outFile, aFile) <> 0 then
           begin
             outFile := SetAsFolder(aFolder) + outFile + aExt;
             outFile := ETKCheckRenameFile(outFile);

@@ -48,10 +48,12 @@ var
 begin
   Result := '';
   aPos := Pos(aBegin, aString);
-  if aPos > 0 then begin
+  if aPos > 0 then 
+    begin
     aPos := aPos + Length(aBegin);
     bPos := PosEx(aEnd, aString, aPos);
-    if bPos > 0 then begin
+    if bPos > 0 then 
+     begin
       Result := Copy(aString, aPos, bPos - aPos);
     end;
   end;
@@ -60,6 +62,9 @@ end;
 procedure ETKFixTitleInit;
 // Inits arrays for ETKFixTitle (automatically called)
 begin
+  // Some articles are not added because is most likely to
+  //   meaning other thing in another language
+  //   - 'Die' in German -> 'Die by the Sword'
   ETKArticles := ['The', 'A', 
     'El', 'La', 'Los', 'Las', 'Un', 'Una', 'Unos', 'Unas',
     'L''', 'Le', 'Les', 'Une', 'Des'];

@@ -3,7 +3,6 @@ inherited frmIconBorder: TfrmIconBorder
   Height = 747
   Top = 130
   Width = 1267
-  AutoSize = False
   Caption = 'Emuteca Icon Editor'
   ClientHeight = 747
   ClientWidth = 1267

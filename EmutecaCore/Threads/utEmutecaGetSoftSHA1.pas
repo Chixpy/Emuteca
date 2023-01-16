@@ -93,6 +93,7 @@ begin
     CurrSysPos := 0;
     while (not Terminated) and (CurrSysPos < SystemManager.FullList.Count) do
     begin
+
       SoftList := SystemManager.FullList[CurrSysPos].SoftManager.FullList;
 
       CurrSoftPos := 0;

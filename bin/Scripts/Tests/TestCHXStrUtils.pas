@@ -21,7 +21,7 @@ begin
   WriteLn('------------');    
   WriteLn('function UTF8TextReplace(const S, OldPattern, NewPattern: string; ALanguage: string): string');
   WriteLn('    Replaces a text with another inside a string, case insesitive.');  
-  WriteLn('    You can set ALanguage is for special collations (''es''), but use ''''.');  
+  WriteLn('    You can set ALanguage for special collations (''es''), but use ''''.');  
   WriteLn('    UTF8TextReplace(''Example'', ''ex'', ''An ex'', '''') -> ' +
     UTF8TextReplace('Example', 'ex', 'An ex', ''));
   WriteLn('');  

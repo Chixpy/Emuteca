@@ -1,0 +1,22 @@
+<root>
+  <parent>
+    <Tag1>Tag1 Example 1: Simple content</Tag1>
+  </parent>
+  <parent>
+    <Tag1>
+    Tag1 Example 2: 
+    Multiline tag
+    </Tag1>
+  </parent>
+  <parent>
+    <Tag1>
+    Tag1 Example 3: Some XML entities &amp; &gt; &lt;</Tag1>
+  </parent>
+  <parent>
+    <Tag1 attrib="This is the attribute">Tag1 Example 4 with attribute</Tag1>
+  </parent> 
+  <parent>
+    <Tag1 attrib="Empty tag, with an attribute" />
+  </parent>
+  <parent><Tag1>Tag1 Example 6: Simple one line tags and content</Tag1></parent>
+</root>

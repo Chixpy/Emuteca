@@ -6,9 +6,11 @@ Only to include in other programs. Remember call TOSECFinish at the end of
   main program.
 [Data]
 Name=Chixpy
-Version=0.13
-Date=20221023
+Version=0.14
+Date=20221211
 [Changes]
+0.14 20221211
+  f Better return string for TOSECExtractInfo using TStringList.CommaText
 0.13 20221023
   f It seems that can be many [aka] flags... ignoring all.
 0.12 20221021
@@ -224,6 +226,7 @@ var
   DBZone, DBDumpStatus, DBDumpInfo, DBFixed, DBTrainer, DBTranslation,
   DBPirate, DBCracked, DBModified, DBHack: string;
   TempStr, SoftStr, TempDemo: string;
+  aSL: TStringList;
   i, aPos: Integer;
 begin
   Result := '';
@@ -785,15 +788,33 @@ begin
   begin
     TOSECAddStr(DBDumpInfo, SoftStr);
   end;
- 
-  //"Group","SHA1","ID","Folder","FileName","Title","[Removed]",
-  //"SortTitle","Version","Year","Publisher","Zone","DumpStatus","DumpInfo",
-  //"Fixed","Trainer","Translation","Pirate","Cracked","Modified","Hack"
-  Result := '"' + krsImportKeepValueKey + '",,"' + DBID + '","'
-    + krsImportKeepValueKey + '","' + krsImportKeepValueKey + '","' + DBTitle
-    + '","' + krsImportKeepValueKey + '","' + DBSortTitle + '","' + DBVersion
-    + '","' + DBYear + '","' + DBPublisher + '","' + DBZone + '","'
-    + DBDumpStatus + '","' + DBDumpInfo + '","' + DBFixed + '","'
-    + DBTrainer + '","' + DBTranslation + '","' + DBPirate + '","'
-    + DBCracked + '","' + DBModified + '","' + DBHack + '"'
+  
+  aSL := CreateStringList;
+  try
+    aSL.Add(krsImportKeepValueKey); // Group
+    aSL.Add(''); // SHA1
+    aSL.Add(DBID); // ID
+    aSL.Add(krsImportKeepValueKey); // Folder
+    aSL.Add(krsImportKeepValueKey); // FileName
+    aSL.Add(DBTitle); // Title
+    aSL.Add(''); // [Removed]
+    aSL.Add(DBSortTitle); // SortTitle
+    aSL.Add(DBVersion); // Version
+    aSL.Add(DBYear); // Year
+    aSL.Add(DBPublisher); // Publisher
+    aSL.Add(DBZone); // Zone
+    aSL.Add(DBDumpStatus); // DumpStatus
+    aSL.Add(DBDumpInfo); // DumpInfo
+    aSL.Add(DBFixed); // Fixed
+    aSL.Add(DBTrainer); // Trainer
+    aSL.Add(DBTranslation); // Translation
+    aSL.Add(DBPirate); // Pirate
+    aSL.Add(DBCracked); // Cracked
+    aSL.Add(DBModified); // Modified
+    aSL.Add(DBHack); // Hack
+    
+    Result := aSL.CommaText;
+  finally
+    aSL.Free
+  end;
 end;

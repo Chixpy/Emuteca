@@ -17,6 +17,16 @@ uses
   // CHX forms
   ufrCHXForm;
 
+{ TODO:
+    - Move logic to CHXFrames.
+    - Make ResourceStrings or constant strings.
+    - Make a shared Color Button and Transparency SpinEdit for Fill and Paint
+      (although sometimes is usefull to have separated ones).
+    - Better logic with pixel color picking (Maybe don't wait to mouse button
+      is released).
+    - Fix selection rectangle when scrollbars are shown.
+}
+
 const
   krsEIBName = 'ETKIconBorder';
 
@@ -170,7 +180,7 @@ type
     procedure eOpacityPaintInputChange(Sender: TObject);
     procedure eOpacityReplaceInputChange(Sender: TObject);
     procedure eOutputFolderChange(Sender: TObject);
-    procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+    procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure FormCreate(Sender: TObject);
     procedure FileListClick(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -209,7 +219,7 @@ type
     procedure SetZoomOutput(AValue: integer);
 
   protected
-    property  EIBConfig: cEIBConfig read FEIBConfig write SetEIBConfig;
+    property EIBConfig: cEIBConfig read FEIBConfig write SetEIBConfig;
 
     procedure DrawImageInput;
     procedure DrawImageOutput;
@@ -297,14 +307,14 @@ begin
       aHint := 'Drag until desired size.';
     maiPaintPixel:
       aHint :=
-        'L-Click: Paint with desired color and transparency. R-Click: Pick color from current pixel.';
+        'L-Click: Paint a pixel. R-Click: Pick color from pixel.';
     maiPaintingPixel:
       aHint := 'Drag to paint with desired color and transparency.';
     maiPickingPaintColor:
-      aHint := 'Color is selected when R-Click is finished.';
+      aHint := 'Color is selected when click release.';
     maiFillColor, maiFillingColor:
       aHint :=
-        'L-Click: Fill with color and its neightbours. R-Click: Fill while dragging.';
+        'L-Click: Fill with color. R-Click: Fill while dragging. M-Click: Pick color from pixel.';
     maiReplaceColor:
       aHint := 'L-Click: Replace clicked color with desired color and transparency.';
     maiReplacingColor:
@@ -380,7 +390,7 @@ end;
 procedure TfrmIconBorder.DrawImageInput;
 var
   Temp: TBGRABitmap;
-  ZWidth, ZHeight: integer;
+  ZWidth, ZHeight, ZCheck: integer;
 begin
   FreeAndNil(FVisibleInputImage);
 
@@ -408,9 +418,13 @@ begin
     2: // Color
       VisibleInputImage.Fill(ColorToBGRA(cbxColorBackground.Selected));
     else
-      // Checker
+    begin
+      // Checker background
+      ZCheck := max(6, ZoomInput shr 1); // div 2
+
       VisibleInputImage.DrawCheckers(Rect(0, 0, ZWidth, ZHeight),
-        BGRA(224, 224, 224), BGRA(192, 192, 192));
+        BGRA(192, 192, 192), BGRA(160, 160, 160), ZCheck, ZCheck);
+    end;
   end;
 
   Temp := ActualInputImage.Resample(ActualInputImage.Width *
@@ -422,7 +436,7 @@ begin
 
   if not SelectionInput.isEmpty then
     VisibleInputImage.Rectangle(SelectionZoomInput,
-      BGRA(127, 127, 127, 255), dmXor);
+      BGRA(255, 0, 255), dmSet);
 
   pbxInputImage.Invalidate;
 end;
@@ -430,7 +444,7 @@ end;
 procedure TfrmIconBorder.DrawImageOutput;
 var
   Temp: TBGRABitmap;
-  ZWidth, ZHeight: integer;
+  ZWidth, ZHeight, ZCheck: integer;
 begin
   FreeAndNil(FVisibleOutputImage);
 
@@ -458,9 +472,14 @@ begin
     2: // Color
       VisibleOutputImage.Fill(ColorToBGRA(cbxColorBackground.Selected));
     else
-      // Checker
+    begin
+      // Checker background
+      ZCheck := max(6, ZoomOutput shr 1); // div 2
+
       VisibleOutputImage.DrawCheckers(Rect(0, 0, ZWidth, ZHeight),
-        BGRA(224, 224, 224), BGRA(192, 192, 192));
+        BGRA(192, 192, 192), BGRA(160, 160, 160), ZCheck, ZCheck);
+    end;
+
   end;
 
   Temp := ActualOutputImage.Resample(ActualOutputImage.Width *
@@ -472,7 +491,7 @@ begin
 
   //if not SelectionInput.isEmpty then
   //  VisibleInputImage.Rectangle(SelectionZoomInput,
-  //    BGRA(255, 255, 255), dmXor);
+  //    BGRA(255, 0, 255), dmSet);
 
   pbxOutputImage.Invalidate;
 end;
@@ -530,7 +549,7 @@ end;
 procedure TfrmIconBorder.RemoveSameColorNeighboursInput(X, Y: integer;
   ToColor: TBGRAPixel; Tolerance: byte);
 
-{ Recursive can create an Stack overflow easyly
+{ Recursive can easy create a Stack Overflow error
 if (not InRange(X, 0, ActualInputImage.Width - 1)) or
   (not InRange(Y, 0, ActualInputImage.Height - 1)) then
   Exit;
@@ -1290,18 +1309,21 @@ end;
 procedure TfrmIconBorder.bTransparentFillClick(Sender: TObject);
 begin
   bColorFillInput.Enabled := False;
+  bColorFillInput.ButtonColor := clBlack;
   eOpacityFillInput.Value := 0;
 end;
 
 procedure TfrmIconBorder.bTransparentReplaceClick(Sender: TObject);
 begin
   bColorReplaceInput.Enabled := False;
+  bColorReplaceInput.ButtonColor := clBlack;
   eOpacityReplaceInput.Value := 0;
 end;
 
 procedure TfrmIconBorder.bTransparentPaintClick(Sender: TObject);
 begin
   bColorPaintInput.Enabled := False;
+  bColorPaintInput.ButtonColor := clBlack;
   eOpacityPaintInput.Value := 0;
 end;
 
@@ -1379,7 +1401,8 @@ begin
   EIBConfig.LastOutFolder := eOutputFolder.Directory;
 end;
 
-procedure TfrmIconBorder.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+procedure TfrmIconBorder.FormCloseQuery(Sender: TObject;
+  var CanClose: boolean);
 begin
   CanClose := True;
 
@@ -1436,7 +1459,8 @@ begin
 
   // Loading GUI config
   FEIBConfig := cEIBConfig.Create(self);
-  EIBConfig.DefaultFileName := SetAsAbsoluteFile(krsEIBName + '.ini', BaseFolder);
+  EIBConfig.DefaultFileName :=
+    SetAsAbsoluteFile(krsEIBName + '.ini', BaseFolder);
 
   LoadGUIConfig(EIBConfig.DefaultFileName);
   EIBConfig.LoadFromFile('');
@@ -1454,9 +1478,12 @@ begin
 
   pgcImageOutput.PageIndex := 0;
   ProcessOutputFilter := pofEmutecaIconBorder;
-  eOutputFolder.Directory := ExcludeTrailingPathDelimiter(SysPath(EIBConfig.LastOutFolder));
-  SelectDirectoryDialog.InitialDir := ExcludeTrailingPathDelimiter(SysPath(EIBConfig.LastInFolder));
-  OpenFilesDialog.InitialDir := ExcludeTrailingPathDelimiter(SysPath(EIBConfig.LastInFolder));
+  eOutputFolder.Directory :=
+    ExcludeTrailingPathDelimiter(SysPath(EIBConfig.LastOutFolder));
+  SelectDirectoryDialog.InitialDir :=
+    ExcludeTrailingPathDelimiter(SysPath(EIBConfig.LastInFolder));
+  OpenFilesDialog.InitialDir :=
+    ExcludeTrailingPathDelimiter(SysPath(EIBConfig.LastInFolder));
 end;
 
 procedure TfrmIconBorder.FormDestroy(Sender: TObject);
@@ -1518,6 +1545,10 @@ begin
         begin
           MouseActionInput := maiFillingColor;
         end;
+        mbMiddle:
+        begin
+          MouseActionInput := maiPickingPaintColor;
+        end
         else
           ;
       end;
@@ -1575,22 +1606,24 @@ begin
   case MouseActionInput of
     maiSelectingRect:
     begin
+      // Removing previous Rect
       CurrSelection := SelectionZoomInput;
       CurrSelection.Offset(-sbxInputImage.HorzScrollBar.Position,
         -sbxInputImage.VertScrollBar.Position);
-      pbxInputImage.Canvas.DrawFocusRect(CurrSelection);
+      sbxInputImage.Canvas.DrawFocusRect(CurrSelection);
 
-      FSelectionInput.BottomRight :=
-        Point(ImgX + 1, ImgY + 1);
+      // Updating Selection Rect
+      FSelectionInput.BottomRight := Point(ImgX + 1, ImgY + 1);
 
       StatusBar.Panels[2].Text :=
         Format('(%5d, %5d)-(%5d, %5d)', [SelectionInput.Left,
         SelectionInput.Top, SelectionInput.Right, SelectionInput.Bottom]);
 
+      // Drawing new Rect
       CurrSelection := SelectionZoomInput;
       CurrSelection.Offset(-sbxInputImage.HorzScrollBar.Position,
         -sbxInputImage.VertScrollBar.Position);
-      pbxInputImage.Canvas.DrawFocusRect(CurrSelection);
+      sbxInputImage.Canvas.DrawFocusRect(CurrSelection);
     end;
 
     maiPaintingPixel: RemovePixelInput(ImgX, ImgY);
@@ -1619,7 +1652,7 @@ procedure TfrmIconBorder.pbxInputImageMouseUp(Sender: TObject;
   Button: TMouseButton; Shift: TShiftState; X, Y: integer);
 var
   ImgX, ImgY: integer;
-
+  CurrSelection: TRect;
   aPixel: PBGRAPixel;
   aTPixel: TBGRAPixel;
 begin
@@ -1637,7 +1670,11 @@ begin
       case Button of
         mbLeft:
         begin
-          pbxInputImage.Canvas.DrawFocusRect(SelectionZoomInput);
+          // Removing previous Rect, because can be drawn outside pbxInputImage
+          CurrSelection := SelectionZoomInput;
+          CurrSelection.Offset(-sbxInputImage.HorzScrollBar.Position,
+            -sbxInputImage.VertScrollBar.Position);
+          sbxInputImage.Canvas.DrawFocusRect(CurrSelection);
 
           SelectionInput.NormalizeRect;
 
@@ -1668,17 +1705,35 @@ begin
       if Assigned(aPixel) then
       begin
         if aPixel^.alpha <> 0 then
-          bColorPaintInput.ButtonColor := aPixel^.ToColor
+        begin
+          bColorPaintInput.ButtonColor := aPixel^.ToColor;
+          bColorFillInput.ButtonColor := aPixel^.ToColor;
+        end
         else
+        begin
           bColorPaintInput.ButtonColor := clBlack;
+          bColorFillInput.ButtonColor := clBlack;
+        end;
         eOpacityPaintInput.Value := aPixel^.alpha;
+        eOpacityFillInput.Value := aPixel^.alpha;
       end
       else
       begin
         bColorPaintInput.ButtonColor := clBlack;
         eOpacityPaintInput.Value := 0;
       end;
-      MouseActionInput := maiPaintPixel;
+
+      // TODO: Do this in a better way...
+      case Button of
+        mbRight: // Selecting color in Paint
+        begin
+          MouseActionInput := maiPaintPixel;
+        end;
+        mbMiddle: // Selecting color in Fill
+        begin
+          MouseActionInput := maiFillColor;
+        end;
+      end;
     end;
 
     maiFillingColor:

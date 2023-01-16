@@ -92,7 +92,7 @@ type
     {< Runs background threads.
 
       Now only calculates SHA1 of files in background. It was used to
-        load icons too, but it's a Emuteca GUI job. }
+        load icons too, but now it's a Emuteca GUI job. }
     procedure UpdateSysEmulators;
     {< (Re)Loads emulators assigned to systems. }
     procedure UpdateCurrentGroupList(aSystem: cEmutecaSystem;

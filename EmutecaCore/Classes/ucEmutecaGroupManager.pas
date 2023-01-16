@@ -115,22 +115,21 @@ procedure cEmutecaGroupManager.ActLoadStrLst(aGrpLst: cEmutecaGroupList;
 var
   aGroup: cEmutecaGroup;
   i: integer;
-
 begin
   // aGrpLst.BeginUpdate;
-  aGrpLst.Capacity := aGrpLst.Count + aTxtFile.Count + 1; // Speed Up?
+  aGrpLst.Capacity := aGrpLst.Count + aTxtFile.Count; // Speed Up?
   i := 1; // Skipping Header
   while i < aTxtFile.Count do
   begin
     aGroup := cEmutecaGroup.Create(nil);
     aGroup.CommaText := aTxtFile[i];
     aGroup.CachedSystem := System;
+    aGrpLst.Add(aGroup);
 
     if Assigned(ProgressCallBack) then
       ProgressCallBack(rsLoadingGroupList, aGroup.Title,
         i, aTxtFile.Count, False);
 
-    aGrpLst.Add(aGroup);
     Inc(i);
   end;
   // aGrpLst.EndUpdate;

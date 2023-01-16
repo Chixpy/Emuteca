@@ -1,7 +1,7 @@
 unit utETKGUICacheSoftIcons;
 {< ctEGUICacheSoftIcons thread class unit of Emuteca GUI.
 
-  ----
+  This file is part of Emuteca GUI.
 
   Copyright (C) 2006-2018 Chixpy
 

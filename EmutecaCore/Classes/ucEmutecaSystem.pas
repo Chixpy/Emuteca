@@ -120,13 +120,21 @@ begin
 
   SoftManager.LoadFromFile(aFile + krsFileExtSoft);
 
-  { TODO 1 : Si el fichero 'aFile + krsFileExtGroup' no existe,
-      Emuteca muestra un error de SIGEVN. Si se comenta la línea también.
+  { TODO 1: If the file "aFile + krsFileExtGroup" doesn't exists, Emuteca shows
+      an SIGEVN error when Application.Run is executed in EmutecaGUI.pas.
+      After accepting Emuteca works without problem.
 
-      Si el fichero existe y está vacío funciona perfectamente.
+    If the file its empty, it works well... And the grouplist is empty anyway.
 
-      Con el SoftManager no sucede eso, funcionando si no existe su fichero.
+    This must fixed in a proper way...
+
+    HACK: So we create a new empty file.
   }
+  if not FileExistsUTF8(aFile + krsFileExtGroup) then
+  begin
+    FileClose(FileCreateUTF8(aFile + krsFileExtGroup));
+  end;
+
   GroupManager.LoadFromFile(aFile + krsFileExtGroup);
 
   SoftGroupLoaded := True;

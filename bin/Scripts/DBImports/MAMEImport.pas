@@ -93,6 +93,7 @@ begin
         // Extracting Title (+ Version)
         aName := Trim(Copy(aName, aPos + 1, 1000)); // Removing first '"'
         aName := Trim(Copy(aName, 1, Length(aName) - 1)); // Removing last '"'
+        aName := AnsiReplaceText(aName, '"', '');
 
         if (FullList.Count and 1023) = 1023 then
           WriteLn('Reading: ' + aName +  '(' + IntToStr(FullList.Count) + ' left.)');
@@ -207,10 +208,9 @@ begin
         // "DumpInfo","Fixed","Trainer","Translation","Pirate","Cracked",
         // "Modified","Hack"
 
-        OutList.Add('"' + aParent + '",' + krsImportKeepValueKey + ',"' + aID
+        OutList.Add('"' + aParent + '",,"' + aID
           + '",' + krsImportKeepValueKey + ',' + krsImportKeepValueKey + ',"'
-          + aName + '",' + krsImportKeepValueKey + ',' + krsImportKeepValueKey
-          + ',"' + aVer + '",' + krsImportKeepValueKey + ','
+          + aName + '",,,"' + aVer + '",' + krsImportKeepValueKey + ','
           + krsImportKeepValueKey + ',' + aZone + ',' + krsImportKeepValueKey
           + ',' + krsImportKeepValueKey + ',' + krsImportKeepValueKey + ','
           + krsImportKeepValueKey + ',' + krsImportKeepValueKey + ','

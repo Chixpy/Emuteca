@@ -13,14 +13,16 @@ For example: GameName (USA).ext
 
 [Data]
 Name=Chixpy
-Version=1.01
-Date=20200201
+Version=1.02
+Date=20230108
 
 [Changes]
+* 1.02 - 20230108
+  f Folders problems with folders ending with a dot '.'
+* 1.01 - 20200201
+  + Cancel, if ask folder is cancelled
 * 1.00 - 20200126
   * Initial version
-* 1.01 - 20200201
-  + Cancel, if ask folder is cancelled;
 
 [EndInfo]
 }
@@ -57,6 +59,11 @@ begin
   begin
    aFolder := ExtractFilePath(AFileList[i]);
    aFile := RemoveFromBrackets(ExtractFilenameOnly(AFileList[i]));
+   // Windows bug fix: Folder names ended in a dot '.' cause some problems
+   //   creating and deleting them. Emuteca actually change them in SortName
+   //   automatically.
+   if aFile[Length(aFile)] = '.' then
+     aFile[Length(aFile)] := '_';
    aExt := ExtractFileExt(AFileList[i]);
 
    // WriteLn(aFolder);
