@@ -4,7 +4,7 @@ unit uaEmutecaCustomEmu;
 
   This file is part of Emuteca Core.
 
-  Copyright (C) 2006-2018 Chixpy
+  Copyright (C) 2006-2023 Chixpy
 
   This source is free software; you can redistribute it and/or modify it under
   the terms of the GNU General Public License as published by the Free
@@ -41,28 +41,28 @@ const
   // Keys for command line parameters for emulators
   // ----------------------------------------------
   // Working folders
-  kEmutecaEmuDirKey = '%EMUDIR%';
+  krsEmutecaEmuDirKey = '%EMUDIR%';
   {< Emulator's directory key. }
-  kEmutecaROMDirKey = '%ROMDIR%';
+  krsEmutecaROMDirKey = '%ROMDIR%';
   {< ROM's directory key. }
-  kEmutecaCurrentDirKey = '%CURRENTDIR%';
+  krsEmutecaCurrentDirKey = '%CURRENTDIR%';
   {< Current directory key. }
 
   // Parameters
   //kEmutecaROMDirKey = '%ROMDIR%'; <- Same as Working Folders
-  kEmutecaROMPathKey = '%ROM%';
+  krsEmutecaROMPathKey = '%ROM%';
   {< ROM full path. }
-  kEmutecaROMFileNameKey = '%ROMNAME%';
+  krsEmutecaROMFileNameKey = '%ROMNAME%';
   {< ROM filename. }
-  kEmutecaROMFileNameNoExtKey = '%ROMNAMENOEXT%';
+  krsEmutecaROMFileNameNoExtKey = '%ROMNAMENOEXT%';
   {< ROM filename without extension. }
-  kEmutecaROMFileExtKey = '%ROMEXT%';
+  krsEmutecaROMFileExtKey = '%ROMEXT%';
   {< ROM file extension. }
-  kEmutecaROMSysIDKey = '%SYSID%';
+  krsEmutecaROMSysIDKey = '%SYSID%';
   {< Extra parameter from System.CoreID. }
-  kEmutecaROMExtensionParamKey = '%EXTPARAM%';
+  krsEmutecaROMExtensionParamKey = '%EXTPARAM%';
   {< Extra parameter from System.CoreID. }
-  kEmutecaROMExtraParamKey = '%EXTRA%';
+  krsEmutecaROMExtraParamKey = '%EXTRA%';
 {< Extra parameters from Software.ExtraParameter. }
 
 type
@@ -95,7 +95,6 @@ type
     procedure SetEnabled(AValue: boolean);
     procedure SetExeFile(AValue: string);
     procedure SetExitCode(AValue: integer);
-    procedure SetFileExt(AValue: TStringList);
     procedure SetIconFile(AValue: string);
     procedure SetID(AValue: string);
     procedure SetInfoFile(AValue: string);
@@ -196,7 +195,7 @@ type
     {< Strings to encapsulate %EXTRA% parameters from software.
     }
 
-    property FileExt: TStringList read FFileExt write SetFileExt;
+    property FileExt: TStringList read FFileExt;
     {< Extensions used by the emulator.
 
     Only one extension in every string, without dot.
@@ -355,13 +354,6 @@ begin
   FExitCode := AValue;
 end;
 
-procedure caEmutecaCustomEmu.SetFileExt(AValue: TStringList);
-begin
-  if FFileExt = AValue then
-    Exit;
-  FFileExt := AValue;
-end;
-
 procedure caEmutecaCustomEmu.SetIconFile(AValue: string);
 begin
   FIconFile := SetAsFile(UTF8Trim(AValue));
@@ -373,8 +365,8 @@ begin
 
   FStats := cEmutecaPlayingStats.Create(Self);
 
-  WorkingFolder := kEmutecaEmuDirKey;
-  Parameters := '"' + kEmutecaROMPathKey + '"';
+  WorkingFolder := krsEmutecaEmuDirKey;
+  Parameters := '"' + krsEmutecaROMPathKey + '"';
 
   FFileExt := TStringList.Create;
 
@@ -430,11 +422,11 @@ begin
 
   // Working directory
   ActualWorkDir := WorkingFolder;
-  ActualWorkDir := AnsiReplaceText(ActualWorkDir, kEmutecaEmuDirKey,
+  ActualWorkDir := AnsiReplaceText(ActualWorkDir, krsEmutecaEmuDirKey,
     ExtractFileDir(ExeFile));
-  ActualWorkDir := AnsiReplaceText(ActualWorkDir, kEmutecaROMDirKey,
+  ActualWorkDir := AnsiReplaceText(ActualWorkDir, krsEmutecaROMDirKey,
     ExtractFileDir(GameFile));
-  ActualWorkDir := AnsiReplaceText(ActualWorkDir, kEmutecaCurrentDirKey,
+  ActualWorkDir := AnsiReplaceText(ActualWorkDir, krsEmutecaCurrentDirKey,
     GetCurrentDirUTF8);
   ActualWorkDir := SysPath(ActualWorkDir);
 
@@ -442,8 +434,8 @@ begin
   ActualParam := Parameters;
 
   // Setting SysID parameter
-  Extra := AnsiReplaceText(CoreIDParamFormat, kEmutecaROMSysIDKey, SysID);
-  ActualParam := AnsiReplaceText(ActualParam, kEmutecaROMSysIDKey,
+  Extra := AnsiReplaceText(CoreIDParamFormat, krsEmutecaROMSysIDKey, SysID);
+  ActualParam := AnsiReplaceText(ActualParam, krsEmutecaROMSysIDKey,
     Trim(Extra));
 
   // Setting Extension specific parameters
@@ -462,7 +454,7 @@ begin
       Extra := Extra + ExtensionParamFormat.ValueFromIndex[j] + ' ';
     Inc(j);
   end;
-  ActualParam := AnsiReplaceText(ActualParam, kEmutecaROMExtensionParamKey,
+  ActualParam := AnsiReplaceText(ActualParam, krsEmutecaROMExtensionParamKey,
     Trim(Extra));
 
   // Setting Extra parameters from software
@@ -495,20 +487,20 @@ begin
       Inc(j);
     end;
   end;
-  ActualParam := AnsiReplaceText(ActualParam, kEmutecaROMExtraParamKey,
+  ActualParam := AnsiReplaceText(ActualParam, krsEmutecaROMExtraParamKey,
     Trim(Extra));
 
   // Changing common parameters
-  ActualParam := AnsiReplaceText(ActualParam, kEmutecaROMPathKey, GameFile);
-  ActualParam := AnsiReplaceText(ActualParam, kEmutecaROMDirKey,
+  ActualParam := AnsiReplaceText(ActualParam, krsEmutecaROMPathKey, GameFile);
+  ActualParam := AnsiReplaceText(ActualParam, krsEmutecaROMDirKey,
     ExtractFileDir(GameFile));
-  ActualParam := AnsiReplaceText(ActualParam, kEmutecaEmuDirKey,
+  ActualParam := AnsiReplaceText(ActualParam, krsEmutecaEmuDirKey,
     ExtractFileDir(ExeFile));
-  ActualParam := AnsiReplaceText(ActualParam, kEmutecaROMFileNameKey,
+  ActualParam := AnsiReplaceText(ActualParam, krsEmutecaROMFileNameKey,
     ExtractFileName(GameFile));
-  ActualParam := AnsiReplaceText(ActualParam, kEmutecaROMFileNameNoExtKey,
+  ActualParam := AnsiReplaceText(ActualParam, krsEmutecaROMFileNameNoExtKey,
     ExtractFileNameWithoutExt(ExtractFileName(GameFile)));
-  ActualParam := AnsiReplaceText(ActualParam, kEmutecaROMFileExtKey,
+  ActualParam := AnsiReplaceText(ActualParam, krsEmutecaROMFileExtKey,
     ExtractFileExt(GameFile));
   ActualParam := Trim(ActualParam);
 
@@ -564,12 +556,12 @@ begin
 
   // Changing working folder
   TempDir := SysPath(WorkingFolder);
-  TempDir := AnsiReplaceText(TempDir, kEmutecaEmuDirKey,
+  TempDir := AnsiReplaceText(TempDir, krsEmutecaEmuDirKey,
     ExtractFileDir(ExeFile));
   // Here ROMDIR is changed to EmuDir too
-  TempDir := AnsiReplaceText(TempDir, kEmutecaROMDirKey,
+  TempDir := AnsiReplaceText(TempDir, krsEmutecaROMDirKey,
     ExtractFileDir(ExeFile));
-  TempDir := AnsiReplaceText(TempDir, kEmutecaCurrentDirKey,
+  TempDir := AnsiReplaceText(TempDir, krsEmutecaCurrentDirKey,
     GetCurrentDirUTF8);
 
   ExecuteCMDArray(TempDir, ExeFile, [], sError, sOutput, Result);

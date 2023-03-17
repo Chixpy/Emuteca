@@ -181,6 +181,15 @@ inherited frmETKGUIMain: TfrmETKGUIMain
       Caption = 'Software'
       Enabled = False
     end
+    object mimmTools: TMenuItem
+      Caption = 'Tools'
+      object mimmRunETKIconBorderIcon: TMenuItem
+        Action = actRunETKIconBorderIcon
+      end
+      object mimmRunETKIconBorderLogo: TMenuItem
+        Action = actRunETKIconBorderLogo
+      end
+    end
     object mimmHelp: TMenuItem
       Caption = 'Help'
       object mimmAbout: TMenuItem
@@ -355,6 +364,18 @@ inherited frmETKGUIMain: TfrmETKGUIMain
       Category = 'Group'
       Caption = 'Edit Group...'
       OnExecute = actEditGroupExecute
+    end
+    object actRunETKIconBorderIcon: TAction
+      Category = 'Tools'
+      Caption = 'ETKIconBorder (Icon)'
+      Hint = 'Run ETKIconBorder using system''s icon folder as output.'
+      OnExecute = actRunETKIconBorderIconExecute
+    end
+    object actRunETKIconBorderLogo: TAction
+      Category = 'Tools'
+      Caption = 'ETKIconBorder (Logo)'
+      Hint = 'Run ETKIconBorder using system''s logo folder as output.'
+      OnExecute = actRunETKIconBorderLogoExecute
     end
   end
   object ActImages: TImageList[5]

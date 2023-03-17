@@ -12,6 +12,7 @@
 {"hash":227149396,"name":"tfrmetkguimain.mimmsearchinternete.caption","sourcebytes":[83,101,97,114,99,104,32,101,109,117,108,97,116,111,114,32,105,110,32,73,110,116,101,114,110,101,116],"value":"Search emulator in Internet"},
 {"hash":5150400,"name":"tfrmetkguimain.mimmgroup.caption","sourcebytes":[71,114,111,117,112],"value":"Group"},
 {"hash":98295077,"name":"tfrmetkguimain.mimmsoft.caption","sourcebytes":[83,111,102,116,119,97,114,101],"value":"Software"},
+{"hash":5989939,"name":"tfrmetkguimain.mimmtools.caption","sourcebytes":[84,111,111,108,115],"value":"Tools"},
 {"hash":322608,"name":"tfrmetkguimain.mimmhelp.caption","sourcebytes":[72,101,108,112],"value":"Help"},
 {"hash":114949806,"name":"tfrmetkguimain.helponhelp1.caption","sourcebytes":[65,98,111,117,116,32,69,109,117,116,101,99,97,46,46,46],"value":"About Emuteca..."},
 {"hash":83578670,"name":"tfrmetkguimain.helponhelp1.hint","sourcebytes":[65,98,111,117,116,32,69,109,117,116,101,99,97,46,46,46,124,72,101,108,112,32,97,98,111,117,116,32,69,109,117,116,101,99,97,46],"value":"About Emuteca...|Help about Emuteca."},
@@ -64,5 +65,9 @@
 {"hash":95133230,"name":"tfrmetkguimain.actrunemulatoralone.caption","sourcebytes":[82,117,110,32,101,109,117,108,97,116,111,114,32,97,108,111,110,101,46],"value":"Run emulator alone."},
 {"hash":23286862,"name":"tfrmetkguimain.actopenemulatorweb.caption","sourcebytes":[79,112,101,110,32,101,109,117,108,97,116,111,114,32,119,101,98,115,105,116,101,46,46,46],"value":"Open emulator website..."},
 {"hash":34736676,"name":"tfrmetkguimain.actremovesoft.caption","sourcebytes":[82,101,109,111,118,101,32,115,111,102,116,119,97,114,101,32,102,114,111,109,32,108,105,115,116],"value":"Remove software from list"},
-{"hash":81548718,"name":"tfrmetkguimain.acteditgroup.caption","sourcebytes":[69,100,105,116,32,71,114,111,117,112,46,46,46],"value":"Edit Group..."}
+{"hash":81548718,"name":"tfrmetkguimain.acteditgroup.caption","sourcebytes":[69,100,105,116,32,71,114,111,117,112,46,46,46],"value":"Edit Group..."},
+{"hash":56143049,"name":"tfrmetkguimain.actrunetkiconbordericon.caption","sourcebytes":[69,84,75,73,99,111,110,66,111,114,100,101,114,32,40,73,99,111,110,41],"value":"ETKIconBorder (Icon)"},
+{"hash":59523918,"name":"tfrmetkguimain.actrunetkiconbordericon.hint","sourcebytes":[82,117,110,32,69,84,75,73,99,111,110,66,111,114,100,101,114,32,117,115,105,110,103,32,115,121,115,116,101,109,39,115,32,105,99,111,110,32,102,111,108,100,101,114,32,97,115,32,111,117,116,112,117,116,46],"value":"Run ETKIconBorder using system's icon folder as output."},
+{"hash":57038041,"name":"tfrmetkguimain.actrunetkiconborderlogo.caption","sourcebytes":[69,84,75,73,99,111,110,66,111,114,100,101,114,32,40,76,111,103,111,41],"value":"ETKIconBorder (Logo)"},
+{"hash":42959054,"name":"tfrmetkguimain.actrunetkiconborderlogo.hint","sourcebytes":[82,117,110,32,69,84,75,73,99,111,110,66,111,114,100,101,114,32,117,115,105,110,103,32,115,121,115,116,101,109,39,115,32,108,111,103,111,32,102,111,108,100,101,114,32,97,115,32,111,117,116,112,117,116,46],"value":"Run ETKIconBorder using system's logo folder as output."}
 ]}

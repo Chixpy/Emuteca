@@ -1,4 +1,5 @@
 unit uPSI_uEmutecaConst;
+
 {< Exports of uEmutecaConst for Pascal Script engine of Emuteca.
 
   ----
@@ -27,12 +28,12 @@ unit uPSI_uEmutecaConst;
 interface
 
 uses
-    SysUtils, Classes, uPSComponent, uPSRuntime, uPSCompiler,
-    // Emuteca Core units
-    uEmutecaConst;
+  SysUtils, Classes, uPSComponent, uPSRuntime, uPSCompiler,
+  // Emuteca Core units
+  uEmutecaConst;
 
-  procedure SIRegister_uEmutecaConst(CL: TPSPascalCompiler);
-  procedure RIRegister_uEmutecaConst_Routines(S: TPSExec);
+procedure SIRegister_uEmutecaConst(CL: TPSPascalCompiler);
+procedure RIRegister_uEmutecaConst_Routines(S: TPSExec);
 
 implementation
 
@@ -61,11 +62,15 @@ begin
 
   // EXIT CODES for handling some errors
   // -----------------------------------
-  CL.AddConstantN('kErrorRunSoftUnknown', 'LongInt').SetInt(kErrorRunSoftUnknown);
-  CL.AddConstantN('kErrorRunSoftNoSoft', 'LongInt').SetInt(kErrorRunSoftNoSoft);
+  CL.AddConstantN('kErrorRunSoftUnknown', 'LongInt').SetInt(
+    kErrorRunSoftUnknown);
+  CL.AddConstantN('kErrorRunSoftNoSoft', 'LongInt').SetInt(
+    kErrorRunSoftNoSoft);
   CL.AddConstantN('kErrorRunSoftNoEmu', 'LongInt').SetInt(kErrorRunSoftNoEmu);
-  CL.AddConstantN('kErrorRunSoftNoSoftFile', 'LongInt').SetInt(kErrorRunSoftNoSoftFile);
-  CL.AddConstantN('kErrorRunSoftNoEmuFile', 'LongInt').SetInt(kErrorRunSoftNoEmuFile);
+  CL.AddConstantN('kErrorRunSoftNoSoftFile', 'LongInt').SetInt(
+    kErrorRunSoftNoSoftFile);
+  CL.AddConstantN('kErrorRunSoftNoEmuFile', 'LongInt').SetInt(
+    kErrorRunSoftNoEmuFile);
   CL.AddConstantN('kError7zDecompress', 'LongInt').SetInt(kError7zDecompress);
 
   // CSV list headers
@@ -165,8 +170,10 @@ begin
   // Emulator
   // Shared Keys: krsIniKeyEnabled, krsIniKeyTitle, krsIniKeyWorkingFolder,
   //   krsIniKeyIcon, krsIniKeyImage, krsIniKeyDeveloper, krsIniKeyExtensions
-  CL.AddConstantN('krsIniKeyParameters', 'String').SetString(krsIniKeyParameters);
-  CL.AddConstantN('krsIniKeyExtraParamFmt', 'String').SetString(krsIniKeyExtraParamFmt);
+  CL.AddConstantN('krsIniKeyParameters', 'String').SetString(
+    krsIniKeyParameters);
+  CL.AddConstantN('krsIniKeyExtraParamFmt', 'String').SetString(
+    krsIniKeyExtraParamFmt);
   CL.AddConstantN('krsIniKeyExitCode', 'String').SetString(krsIniKeyExitCode);
   CL.AddConstantN('krsIniKeyExeFile', 'String').SetString(krsIniKeyExeFile);
   CL.AddConstantN('krsIniKeyWebPage', 'String').SetString(krsIniKeyWebPage);
@@ -197,22 +204,26 @@ begin
   CL.AddConstantN('krsEDSUnknown', 'String').SetString(krsEDSUnknown);
   CL.AddConstantN('krsEDSKeepValue', 'String').SetString(krsEDSKeepValue);
 
-    // Constant for DumpStatus, fixed (for databases)
+  // Constant for DumpStatus, fixed (for databases)
   CL.AddConstantN('krsEDSVerifiedKey', 'String').SetString(krsEDSVerifiedKey);
   CL.AddConstantN('krsEDSGoodKey', 'String').SetString(krsEDSGoodKey);
-  CL.AddConstantN('krsEDSAlternateKey', 'String').SetString(krsEDSAlternateKey);
+  CL.AddConstantN('krsEDSAlternateKey', 'String').SetString(
+    krsEDSAlternateKey);
   CL.AddConstantN('krsEDSOverDumpKey', 'String').SetString(krsEDSOverDumpKey);
   CL.AddConstantN('krsEDSBadDumpKey', 'String').SetString(krsEDSBadDumpKey);
-  CL.AddConstantN('krsEDSUnderDumpKey', 'String').SetString(krsEDSUnderDumpKey);
+  CL.AddConstantN('krsEDSUnderDumpKey', 'String').SetString(
+    krsEDSUnderDumpKey);
   CL.AddConstantN('krsEDSUnknownKey', 'String').SetString(krsEDSUnknownKey);
 
   // Key when importing to keep current value
-  CL.AddConstantN('krsImportKeepValueKey', 'String').SetString(krsImportKeepValueKey);
+  CL.AddConstantN('krsImportKeepValueKey', 'String').SetString(
+    krsImportKeepValueKey);
 
   // Internal folders
-  CL.AddConstantN('krsTemp7zCacheFolder', 'String').SetString(krsTemp7zCacheFolder);
+  CL.AddConstantN('krsTemp7zCacheFolder', 'String').SetString(
+    krsTemp7zCacheFolder);
 
-    // TYPES
+  // TYPES
   // =====
   CL.AddTypeS('TEmutecaSoftExportKey',
     '(TEFKSHA1, TEFKCRC32, TEFKFileName, TEFKCustom)');
@@ -250,4 +261,3 @@ begin
 end;
 
 end.
-

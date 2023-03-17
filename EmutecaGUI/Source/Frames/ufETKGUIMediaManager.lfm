@@ -146,9 +146,9 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
         Height = 246
         Top = 0
         Width = 393
-        ActivePage = pagFilesWOGroup
+        ActivePage = pagOtherFiles
         Align = alClient
-        TabIndex = 0
+        TabIndex = 3
         TabOrder = 0
         OnChange = pcSourceChange
         object pagFilesWOGroup: TTabSheet

@@ -126,7 +126,7 @@ begin
   aPos := Pos(aSearch, aLine);
   while (aPos < 1) and (XMLFile.Count > cLine) do
   begin
-    Result:= Trim(Result + #13#10 + Trim(aLine));
+    Result:= Trim(Result + LineEnding + Trim(aLine));
     aLine := XMLFile[cLine];
     Inc(cLine);
     aPos := Pos(aSearch, aLine);
@@ -136,7 +136,7 @@ begin
     if Result <> '' then
         Dec(cLine);
     cChar := aPos + Length(aSearch) + 1; // +1 -> '>'
-    Result:= Trim(Result + #13#10 + Trim(Copy(aLine, 1, cChar - 1)));
+    Result:= Trim(Result + LineEnding + Trim(Copy(aLine, 1, cChar - 1)));
   end;
 end;
 

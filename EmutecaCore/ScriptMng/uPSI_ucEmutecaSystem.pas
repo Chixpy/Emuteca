@@ -3,7 +3,7 @@ unit uPSI_ucEmutecaSystem;
 
   This file is part of Emuteca Core.
 
-  Copyright (C) 2011-2019 Chixpy
+  Copyright (C) 2011-2023 Chixpy
 
   This source is free software; you can redistribute it and/or modify it
   under the terms of the GNU General Public License as published by the Free
@@ -45,12 +45,9 @@ type
       const ri: TPSRuntimeClassImporter); override;
   end;
 
-
-{ compile-time registration functions }
 procedure SIRegister_cEmutecaSystem(CL: TPSPascalCompiler);
 procedure SIRegister_ucEmutecaSystem(CL: TPSPascalCompiler);
 
-{ run-time registration functions }
 procedure RIRegister_cEmutecaSystem(CL: TPSRuntimeClassImporter);
 procedure RIRegister_ucEmutecaSystem(CL: TPSRuntimeClassImporter);
 
@@ -69,12 +66,14 @@ begin
   with CL.AddClassN(CL.FindClass('caEmutecaCustomSystem'), 'cEmutecaSystem') do
   begin
     RegisterProperty('ProgressCallBack', 'TEmutecaProgressCallBack', iptrw);
-    RegisterMethod('Procedure AddSoft( aSoft : cEmutecaSoftware)');
-    RegisterMethod('Procedure LoadSoftGroupLists( aFile : string)');
-    RegisterMethod('Procedure ImportSoftGroupLists( aFile : string)');
-    RegisterMethod('Procedure SaveSoftGroupLists( aFile : string; ExportMode : boolean)');
+
     RegisterProperty('GroupManager', 'cEmutecaGroupManager', iptr);
     RegisterProperty('SoftManager', 'cEmutecaSoftManager', iptr);
+
+    RegisterMethod('procedure AddSoft(aSoft : cEmutecaSoftware)');
+    RegisterMethod('procedure LoadSoftGroupLists(aFile : string)');
+    RegisterMethod('procedure ImportSoftGroupLists(aFile : string)');
+    RegisterMethod('procedure SaveSoftGroupLists(aFile : string; ExportMode : boolean)');
   end;
 end;
 
@@ -82,50 +81,43 @@ end;
 procedure SIRegister_ucEmutecaSystem(CL: TPSPascalCompiler);
 begin
   SIRegister_cEmutecaSystem(CL);
-  CL.AddTypeS('TEmutecaReturnSystemCB',
-    'Function ( aSystem : cEmutecaSystem) :' + ' boolean');
+
+  CL.AddTypeS('TEmutecaReturnSystemCB', 'function (aSystem : cEmutecaSystem) : boolean');
 end;
 
-(* === run-time registration functions === *)
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaSystemSoftManager_R(Self: cEmutecaSystem;
-  var T: cEmutecaSoftManager);
+procedure cEmutecaSystemProgressCallBack_R(Self: cEmutecaSystem; var T: TEmutecaProgressCallBack);
 begin
-  T := Self.SoftManager;
+  T := Self.ProgressCallBack;
 end;
 
-(*----------------------------------------------------------------------------*)
-procedure cEmutecaSystemGroupManager_R(Self: cEmutecaSystem;
-  var T: cEmutecaGroupManager);
-begin
-  T := Self.GroupManager;
-end;
-
-procedure cEmutecaSystemProgressCallBack_W(Self: cEmutecaSystem;
-  const T: TEmutecaProgressCallBack);
+procedure cEmutecaSystemProgressCallBack_W(Self: cEmutecaSystem; const T: TEmutecaProgressCallBack);
 begin
   Self.ProgressCallBack := T;
 end;
 
-procedure cEmutecaSystemProgressCallBack_R(Self: cEmutecaSystem;
-  var T: TEmutecaProgressCallBack);
+procedure cEmutecaSystemGroupManager_R(Self: cEmutecaSystem; var T: cEmutecaGroupManager);
 begin
-  T := Self.ProgressCallBack;
+  T := Self.GroupManager;
+end;
+
+procedure cEmutecaSystemSoftManager_R(Self: cEmutecaSystem; var T: cEmutecaSoftManager);
+begin
+  T := Self.SoftManager;
 end;
 
 procedure RIRegister_cEmutecaSystem(CL: TPSRuntimeClassImporter);
 begin
   with CL.Add(cEmutecaSystem) do
   begin
-    RegisterPropertyHelper(@cEmutecaSystemProgressCallBack_R,
-      @cEmutecaSystemProgressCallBack_W, 'ProgressCallBack');
-    RegisterMethod(@cEmutecaSystem.AddSoft, 'AddSoft');
-    RegisterMethod(@cEmutecaSystem.LoadSoftGroupLists, 'LoadSoftGroupLists');
-    RegisterMethod(@cEmutecaSystem.ImportSoftGroupLists,
-      'ImportSoftGroupLists');
-    RegisterMethod(@cEmutecaSystem.SaveSoftGroupLists, 'SaveSoftGroupLists');
+    RegisterPropertyHelper(@cEmutecaSystemProgressCallBack_R, @cEmutecaSystemProgressCallBack_W, 'ProgressCallBack');
+
     RegisterPropertyHelper(@cEmutecaSystemGroupManager_R, nil, 'GroupManager');
     RegisterPropertyHelper(@cEmutecaSystemSoftManager_R, nil, 'SoftManager');
+
+    RegisterMethod(@cEmutecaSystem.AddSoft, 'AddSoft');
+    RegisterMethod(@cEmutecaSystem.LoadSoftGroupLists, 'LoadSoftGroupLists');
+    RegisterMethod(@cEmutecaSystem.ImportSoftGroupLists, 'ImportSoftGroupLists');
+    RegisterMethod(@cEmutecaSystem.SaveSoftGroupLists, 'SaveSoftGroupLists');
   end;
 end;
 
@@ -139,8 +131,7 @@ begin
   SIRegister_ucEmutecaSystem(CompExec.comp);
 end;
 
-procedure TPSImport_ucEmutecaSystem.ExecImport1(CompExec: TPSScript;
-  const ri: TPSRuntimeClassImporter);
+procedure TPSImport_ucEmutecaSystem.ExecImport1(CompExec: TPSScript; const ri: TPSRuntimeClassImporter);
 begin
   RIRegister_ucEmutecaSystem(ri);
 end;

@@ -96,6 +96,8 @@ type
     {< 7z.exe path. }
     property z7GExecutable: string read Fz7GExecutable write Setz7GExecutable;
     {< 7zG.exe path. }
+     property CompressedExtensions: TStringList read FCompressedExtensions;
+    {< List of compressed file extensions. }
 
     // Config/Data
     property EmulatorsFile: string read FEmulatorsFile write SetEmulatorsFile;
@@ -115,9 +117,6 @@ type
       TODO: Is it a Emuteca GUI config?.
     }
 
-    // File extensions
-    property CompressedExtensions: TStringList read FCompressedExtensions;
-    {< List of compressed file extensions. }
 
     // Temp folder/file
     property TempSubfolder: string read FTempSubFolder write SetTempSubFolder;

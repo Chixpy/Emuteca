@@ -25,25 +25,23 @@ interface
 
 uses
   SysUtils, Classes, uPSComponent, uPSRuntime, uPSCompiler,
-  LazFileUtils, LazUTF8,
+  // Emuteca Core units
   uEmutecaConst,
+  // Emuteca Core abstracts
   uaEmutecaCustomManager;
 
 type
-  (*----------------------------------------------------------------------------*)
+
   TPSImport_uaEmutecaCustomManager = class(TPSPlugin)
     procedure CompileImport1(CompExec: TPSScript); override;
     procedure ExecImport1(CompExec: TPSScript;
       const ri: TPSRuntimeClassImporter); override;
   end;
 
-
-{ compile-time registration functions }
 procedure SIRegister_caEmutecaCustomManagerTxt(CL: TPSPascalCompiler);
 procedure SIRegister_caEmutecaCustomManagerIni(CL: TPSPascalCompiler);
 procedure SIRegister_uaEmutecaCustomManager(CL: TPSPascalCompiler);
 
-{ run-time registration functions }
 procedure RIRegister_caEmutecaCustomManagerTxt(CL: TPSRuntimeClassImporter);
 procedure RIRegister_caEmutecaCustomManagerIni(CL: TPSRuntimeClassImporter);
 procedure RIRegister_uaEmutecaCustomManager(CL: TPSRuntimeClassImporter);

@@ -97,15 +97,15 @@ end;
 
 procedure TfmETKGUISoftImgPreview.UpdateFileList;
 begin
-    if Assigned(Software) then
+  if Assigned(Software) then
   begin
-        TfmEmutecaSoftImgPreview(fmListPreview).SaveImageFolder :=
-      SetAsFolder(GetFolder + Software.MediaFileName)
+    TfmEmutecaSoftImgPreview(fmListPreview).SaveImageFolder :=
+      SetAsFolder(GetFolder + Software.MediaFileName);
   end
   else if Assigned(Group) then
   begin
     TfmEmutecaSoftImgPreview(fmListPreview).SaveImageFolder :=
-      SetAsFolder(GetFolder + Group.MediaFileName)
+      SetAsFolder(GetFolder + Group.MediaFileName);
   end
   else
   begin

@@ -143,10 +143,10 @@ inherited frmIconBorder: TfrmIconBorder
         end
       end
       object pgcImageInput: TPageControl
-        Left = 118
+        Left = 120
         Height = 138
         Top = 0
-        Width = 278
+        Width = 276
         ActivePage = pagReplaceInput
         Align = alClient
         TabIndex = 4
@@ -163,12 +163,12 @@ inherited frmIconBorder: TfrmIconBorder
           ChildSizing.Layout = cclLeftToRightThenTopToBottom
           ChildSizing.ControlsPerLine = 4
           ClientHeight = 105
-          ClientWidth = 270
+          ClientWidth = 268
           object gbxTransformInput: TGroupBox
             Left = 4
             Height = 97
             Top = 4
-            Width = 262
+            Width = 260
             Caption = 'Transform'
             ChildSizing.LeftRightSpacing = 4
             ChildSizing.TopBottomSpacing = 4
@@ -179,22 +179,22 @@ inherited frmIconBorder: TfrmIconBorder
             ChildSizing.Layout = cclLeftToRightThenTopToBottom
             ChildSizing.ControlsPerLine = 2
             ClientHeight = 72
-            ClientWidth = 258
+            ClientWidth = 256
             TabOrder = 0
             object bFlipHInput: TButton
               Left = 4
               Height = 30
               Top = 4
-              Width = 119
+              Width = 118
               Caption = 'Flip H'
               OnClick = bFlipHInputClick
               TabOrder = 0
             end
             object bFlipVInput: TButton
-              Left = 127
+              Left = 126
               Height = 30
               Top = 4
-              Width = 127
+              Width = 126
               Caption = 'Flip V'
               OnClick = bFlipVInputClick
               TabOrder = 1
@@ -203,16 +203,16 @@ inherited frmIconBorder: TfrmIconBorder
               Left = 4
               Height = 30
               Top = 38
-              Width = 119
+              Width = 118
               Caption = 'Rotate CW'
               OnClick = bRotateCWInputClick
               TabOrder = 2
             end
             object bRotateCCWInput: TButton
-              Left = 127
+              Left = 126
               Height = 30
               Top = 38
-              Width = 127
+              Width = 126
               Caption = 'Rotate CCW'
               OnClick = bRotateCCWInputClick
               TabOrder = 3
@@ -222,7 +222,7 @@ inherited frmIconBorder: TfrmIconBorder
         object pagSelectInput: TTabSheet
           Caption = 'Select'
           ClientHeight = 105
-          ClientWidth = 270
+          ClientWidth = 268
           object bCutSelectionInput: TButton
             Left = 8
             Height = 30
@@ -245,7 +245,7 @@ inherited frmIconBorder: TfrmIconBorder
         object pagPaintInput: TTabSheet
           Caption = 'Paint'
           ClientHeight = 105
-          ClientWidth = 270
+          ClientWidth = 268
           object bColorPaintInput: TColorButton
             Left = 8
             Height = 31
@@ -294,7 +294,7 @@ inherited frmIconBorder: TfrmIconBorder
         object pagFillInput: TTabSheet
           Caption = 'Fill'
           ClientHeight = 105
-          ClientWidth = 270
+          ClientWidth = 268
           object chkDiagonalNeightbours: TCheckBox
             Left = 8
             Height = 24
@@ -370,7 +370,7 @@ inherited frmIconBorder: TfrmIconBorder
         object pagReplaceInput: TTabSheet
           Caption = 'Replace'
           ClientHeight = 105
-          ClientWidth = 270
+          ClientWidth = 268
           object bColorReplaceInput: TColorButton
             Left = 8
             Height = 31
@@ -432,7 +432,7 @@ inherited frmIconBorder: TfrmIconBorder
         Left = 0
         Height = 138
         Top = 0
-        Width = 118
+        Width = 120
         Align = alLeft
         AutoSize = True
         Caption = 'Input File'
@@ -445,33 +445,30 @@ inherited frmIconBorder: TfrmIconBorder
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 1
         ClientHeight = 113
-        ClientWidth = 114
+        ClientWidth = 116
         TabOrder = 2
         object bDeleteInputFile: TButton
           Left = 4
           Height = 30
           Top = 4
-          Width = 106
-          Caption = 'Delete File'
-          OnClick = bDeleteInputFileClick
+          Width = 108
+          Action = actDeleteFile
           TabOrder = 0
         end
         object bOpenInputDir: TButton
           Left = 4
           Height = 30
           Top = 38
-          Width = 106
-          Caption = 'Open Dir'
-          OnClick = bOpenInputDirClick
+          Width = 108
+          Action = actOpenInpDir
           TabOrder = 1
         end
         object bSaveInput: TButton
           Left = 4
           Height = 30
           Top = 72
-          Width = 106
-          Caption = 'Replace File'
-          OnClick = bSaveInputClick
+          Width = 108
+          Action = actReplaceFile
           TabOrder = 2
         end
       end
@@ -548,8 +545,7 @@ inherited frmIconBorder: TfrmIconBorder
         Height = 30
         Top = 4
         Width = 100
-        Caption = 'Add File'
-        OnClick = bAddFileClick
+        Action = actAddFile
         TabOrder = 0
       end
       object bAddFolder: TButton
@@ -557,8 +553,7 @@ inherited frmIconBorder: TfrmIconBorder
         Height = 30
         Top = 4
         Width = 100
-        Caption = 'Add Folder'
-        OnClick = bAddFolderClick
+        Action = actAddFolder
         TabOrder = 1
       end
       object bRemoveItem: TButton
@@ -566,8 +561,7 @@ inherited frmIconBorder: TfrmIconBorder
         Height = 30
         Top = 38
         Width = 100
-        Caption = 'Remove Item'
-        OnClick = bRemoveItemClick
+        Action = actRemoveItem
         TabOrder = 2
       end
       object bClearList: TButton
@@ -575,8 +569,7 @@ inherited frmIconBorder: TfrmIconBorder
         Height = 30
         Top = 38
         Width = 100
-        Caption = 'Clear List'
-        OnClick = bClearListClick
+        Action = actClearList
         TabOrder = 3
       end
     end
@@ -586,10 +579,11 @@ inherited frmIconBorder: TfrmIconBorder
       Top = 120
       Width = 212
       Align = alClient
+      ExtendedSelect = False
       IntegralHeight = True
       ItemHeight = 0
       OnClick = FileListClick
-      ScrollWidth = 500
+      ScrollWidth = 1024
       Sorted = True
       TabOrder = 1
     end
@@ -809,10 +803,10 @@ inherited frmIconBorder: TfrmIconBorder
         end
       end
       object pgcImageOutput: TPageControl
-        Left = 165
+        Left = 156
         Height = 159
         Top = 0
-        Width = 214
+        Width = 223
         ActivePage = pagEmutecaIconBorder
         Align = alClient
         TabIndex = 0
@@ -821,7 +815,7 @@ inherited frmIconBorder: TfrmIconBorder
         object pagEmutecaIconBorder: TTabSheet
           Caption = 'Emuteca Icon'
           ClientHeight = 126
-          ClientWidth = 206
+          ClientWidth = 215
           object chkRemoveTransEmutecaIcon: TCheckBox
             Left = 8
             Height = 24
@@ -880,12 +874,12 @@ inherited frmIconBorder: TfrmIconBorder
           ChildSizing.Layout = cclLeftToRightThenTopToBottom
           ChildSizing.ControlsPerLine = 1
           ClientHeight = 126
-          ClientWidth = 206
+          ClientWidth = 215
           object rgbRemoveTrans: TRadioGroup
             Left = 4
             Height = 73
             Top = 4
-            Width = 198
+            Width = 207
             AutoFill = True
             Caption = 'Mode'
             ChildSizing.LeftRightSpacing = 6
@@ -896,7 +890,7 @@ inherited frmIconBorder: TfrmIconBorder
             ChildSizing.Layout = cclLeftToRightThenTopToBottom
             ChildSizing.ControlsPerLine = 1
             ClientHeight = 48
-            ClientWidth = 194
+            ClientWidth = 203
             ItemIndex = 0
             Items.Strings = (
               'Make transparent'
@@ -908,7 +902,7 @@ inherited frmIconBorder: TfrmIconBorder
             Left = 4
             Height = 24
             Top = 81
-            Width = 198
+            Width = 207
             Caption = 'Autocrop Transparency'
             Checked = True
             State = cbChecked
@@ -920,7 +914,7 @@ inherited frmIconBorder: TfrmIconBorder
         Left = 0
         Height = 159
         Top = 0
-        Width = 165
+        Width = 156
         Align = alLeft
         AutoSize = True
         Caption = 'Output File'
@@ -933,40 +927,37 @@ inherited frmIconBorder: TfrmIconBorder
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 1
         ClientHeight = 134
-        ClientWidth = 161
+        ClientWidth = 152
         TabOrder = 2
         object bReplaceInputFile: TButton
           Left = 4
           Height = 30
           Top = 4
-          Width = 153
-          Caption = 'Replace Input File'
-          OnClick = bReplaceInputFileClick
+          Width = 144
+          Action = actReplaceInpFile
           TabOrder = 0
         end
         object bOpenOutputDir: TButton
           Left = 4
           Height = 30
           Top = 38
-          Width = 153
-          Caption = 'Open Output Dir'
-          OnClick = bOpenOutputDirClick
+          Width = 144
+          Action = actOpenOutDir
           TabOrder = 1
         end
         object bSaveOutput: TButton
           Left = 4
           Height = 30
           Top = 72
-          Width = 153
-          Caption = 'Save Output Image'
-          OnClick = bSaveOutputClick
+          Width = 144
+          Action = actSaveOutput
           TabOrder = 2
         end
         object chkOverwriteOutput: TCheckBox
           Left = 4
           Height = 24
           Top = 106
-          Width = 153
+          Width = 144
           Caption = 'Overwrite Output'
           Checked = True
           State = cbChecked
@@ -985,5 +976,59 @@ inherited frmIconBorder: TfrmIconBorder
     Options = [ofNoChangeDir, ofAllowMultiSelect, ofEnableSizing, ofViewDetail]
     Left = 80
     Top = 208
+  end
+  object alMain: TActionList[8]
+    Left = 272
+    Top = 304
+    object actAddFile: TAction
+      Category = 'FileList'
+      Caption = 'Add File'
+      OnExecute = actAddFileExecute
+    end
+    object actAddFolder: TAction
+      Category = 'FileList'
+      Caption = 'Add Folder'
+      OnExecute = actAddFolderExecute
+    end
+    object actRemoveItem: TAction
+      Category = 'FileList'
+      Caption = 'Remove Item'
+      OnExecute = actRemoveItemExecute
+    end
+    object actClearList: TAction
+      Category = 'FileList'
+      Caption = 'Clear List'
+      OnExecute = actClearListExecute
+    end
+    object actDeleteFile: TAction
+      Category = 'InputImage'
+      Caption = 'Delete File'
+      OnExecute = actDeleteFileExecute
+    end
+    object actOpenInpDir: TAction
+      Category = 'InputImage'
+      Caption = 'Open Folder'
+      OnExecute = actOpenInpDirExecute
+    end
+    object actReplaceFile: TAction
+      Category = 'InputImage'
+      Caption = 'Replace File'
+      OnExecute = actReplaceFileExecute
+    end
+    object actReplaceInpFile: TAction
+      Category = 'OutputImage'
+      Caption = 'Replace Input File'
+      OnExecute = actReplaceInpFileExecute
+    end
+    object actOpenOutDir: TAction
+      Category = 'OutputImage'
+      Caption = 'Open Output Dir'
+      OnExecute = actOpenOutDirExecute
+    end
+    object actSaveOutput: TAction
+      Category = 'OutputImage'
+      Caption = 'Save Output'
+      OnExecute = actSaveOutputExecute
+    end
   end
 end

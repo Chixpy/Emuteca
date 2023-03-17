@@ -4,7 +4,7 @@ unit ufrETKGUIMain;
 
   This file is part of Emuteca GUI.
 
-  Copyright (C) 2011-2019 Chixpy
+  Copyright (C) 2011-2023 Chixpy
 
   This source is free software; you can redistribute it and/or modify it
   under the terms of the GNU General Public License as published by the Free
@@ -32,7 +32,8 @@ uses
   // Misc
   uVersionSupport,
   // CHX units
-  uCHX7zWrapper, uCHXStrUtils, uCHXFileUtils, uCHXImageUtils, uCHXMenuUtils,
+  uCHXRscStr, uCHX7zWrapper, uCHXStrUtils, uCHXFileUtils, uCHXImageUtils,
+  uCHXMenuUtils, uCHXExecute,
   // CHX classes
   ucCHXImageList,
   // CHX forms
@@ -77,6 +78,8 @@ type
     ActImages: TImageList;
     actImportSoftData: TAction;
     actEditGroup: TAction;
+    actRunETKIconBorderLogo: TAction;
+    actRunETKIconBorderIcon: TAction;
     actRemoveSoft: TAction;
     actOpenEmulatorWeb: TAction;
     actRunEmulatorAlone: TAction;
@@ -97,6 +100,9 @@ type
     FileExit1: TFileExit;
     HelpOnHelp1: THelpOnHelp;
     MainMenu: TMainMenu;
+    mimmRunETKIconBorderIcon: TMenuItem;
+    mimmRunETKIconBorderLogo: TMenuItem;
+    mimmTools: TMenuItem;
     mipmGEditGroup: TMenuItem;
     MenuItem13: TMenuItem;
     MenuItem15: TMenuItem;
@@ -170,6 +176,8 @@ type
     procedure actOpenTempFolderExecute(Sender: TObject);
     procedure actRemoveSoftExecute(Sender: TObject);
     procedure actRunEmulatorAloneExecute(Sender: TObject);
+    procedure actRunETKIconBorderIconExecute(Sender: TObject);
+    procedure actRunETKIconBorderLogoExecute(Sender: TObject);
     procedure actRunSoftwareExecute(Sender: TObject);
     procedure actSaveListsExecute(Sender: TObject);
     procedure actScriptManagerExecute(Sender: TObject);
@@ -715,21 +723,83 @@ begin
 end;
 
 procedure TfrmETKGUIMain.actRemoveSoftExecute(Sender: TObject);
+var
+  aGroup: cEmutecaGroup;
+  aSystem: cEmutecaSystem;
 begin
   if not Assigned(CurrentSoft) then
+    Exit;
+
+  if (not (CurrentSoft.CachedGroup is cEmutecaGroup)) or
+    (not (CurrentSoft.CachedSystem is cEmutecaSystem)) then
+    // This must not happen
     Exit;
 
   if not QuestionDlg('Are you sure', Format(rsAskDeleteItem,
     [CurrentSoft.Title]), mtConfirmation, [mrYes, mrNo], 0) = mrYes then
     Exit;
 
+  aGroup := cEmutecaGroup(CurrentSoft.CachedGroup);
+  aGroup.SoftList.Remove(CurrentSoft); // Removing from group
 
-  // TODO: Remove software from the system...
+  aSystem := cEmutecaSystem(CurrentSoft.CachedSystem);
+  aSystem.SoftManager.VisibleList.Remove(CurrentSoft); // Removing from system;
+  aSystem.SoftManager.FullList.Remove(CurrentSoft); // Removing from system 2;
+
+  CurrentSoft.Free;
+  CurrentSoft := nil;
+
+  // Updating group list.
+  actUpdateGroupList.Execute;
 end;
 
 procedure TfrmETKGUIMain.actRunEmulatorAloneExecute(Sender: TObject);
 begin
   CurrentEmu.ExecuteAlone;
+end;
+
+procedure TfrmETKGUIMain.actRunETKIconBorderIconExecute(Sender: TObject);
+var
+  WorkDir, OutFolder: string;
+  sError, sOutput: string;
+  ExitC : integer;
+begin
+  if not FileExistsUTF8(GUIConfig.IconBorder) then
+  begin
+    ShowMessageFmt(rsFileNotFound, [GUIConfig.IconBorder]);
+    Exit;
+  end;
+
+  WorkDir := ExtractFileDir(GUIConfig.IconBorder);
+  OutFolder := '';
+  if Assigned(CurrentSystem) then
+    OutFolder := SysPath(CurrentSystem.IconFolder);
+
+  ExecuteCMDArray(WorkDir, GUIConfig.IconBorder, [OutFolder], sError, sOutput, ExitC);
+
+  // TODO 3: Show a message if IconBorder or WorkDir not found.
+end;
+
+procedure TfrmETKGUIMain.actRunETKIconBorderLogoExecute(Sender: TObject);
+var
+  WorkDir, OutFolder: string;
+  sError, sOutput: string;
+  ExitC : integer;
+begin
+  if not FileExistsUTF8(GUIConfig.IconBorder) then
+  begin
+    ShowMessageFmt(rsFileNotFound, [GUIConfig.IconBorder]);
+    Exit;
+  end;
+
+  WorkDir := ExtractFileDir(GUIConfig.IconBorder);
+  OutFolder := '';
+  if Assigned(CurrentSystem) then
+    OutFolder := SysPath(CurrentSystem.LogoFolder);
+
+  ExecuteCMDArray(WorkDir, GUIConfig.IconBorder, [OutFolder], sError, sOutput, ExitC);
+
+  // TODO 3: Show a message if IconBorder or WorkDir not found.
 end;
 
 procedure TfrmETKGUIMain.actRunSoftwareExecute(Sender: TObject);

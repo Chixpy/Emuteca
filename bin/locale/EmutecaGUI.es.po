@@ -1940,6 +1940,22 @@ msgstr ""
 msgid "Run emulator alone."
 msgstr ""
 
+#: tfrmetkguimain.actrunetkiconbordericon.caption
+msgid "ETKIconBorder (Icon)"
+msgstr ""
+
+#: tfrmetkguimain.actrunetkiconbordericon.hint
+msgid "Run ETKIconBorder using system's icon folder as output."
+msgstr ""
+
+#: tfrmetkguimain.actrunetkiconborderlogo.caption
+msgid "ETKIconBorder (Logo)"
+msgstr ""
+
+#: tfrmetkguimain.actrunetkiconborderlogo.hint
+msgid "Run ETKIconBorder using system's logo folder as output."
+msgstr ""
+
 #: tfrmetkguimain.actrunsoftware.caption
 msgid "Run software"
 msgstr ""
@@ -2051,6 +2067,10 @@ msgstr "Software"
 msgctxt "tfrmetkguimain.mimmsystem.caption"
 msgid "System"
 msgstr "Sistema"
+
+#: tfrmetkguimain.mimmtools.caption
+msgid "Tools"
+msgstr ""
 
 #: tfrmetkguimain.mipmgsearchinternet.caption
 msgctxt "tfrmetkguimain.mipmgsearchinternet.caption"

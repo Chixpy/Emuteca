@@ -68,6 +68,7 @@ const
   krsSectionTools = 'Tools';
   krsKeyScriptsFolder = 'ScriptsFolder';
   krsKeyMPlayerExe = 'mPlayerExe';
+  krsKeyETKIconBorder = 'ETKIconBorder';
 
   // [Experimental]
   krsSectionExperimental = 'Experimental';
@@ -87,6 +88,7 @@ type
     FDefImgFolder: string;
     FEmutecaIni: string;
     FGlobalCache: string;
+    FIconBorder: string;
     FImageExtensions: TStringList;
     FLangFolder: string;
     FMusicExtensions: TStringList;
@@ -105,6 +107,7 @@ type
     procedure SetDefImgFolder(AValue: string);
     procedure SetEmutecaIni(AValue: string);
     procedure SetGlobalCache(AValue: string);
+    procedure SetIconBorder(AValue: string);
     procedure SetLangFolder(const AValue: string);
     procedure SetScriptsFolder(AValue: string);
     procedure Setw7zErrorFileName(AValue: string);
@@ -159,6 +162,7 @@ type
     property ScriptsFolder: string read FScriptsFolder write SetScriptsFolder;
     property mPlayerExe: string read FmPlayerExe write SetmPlayerExe;
     //< Path to mPlayer[2].exe
+    property IconBorder: string read FIconBorder write SetIconBorder;
 
     // Config/Data
     // -----------
@@ -206,6 +210,11 @@ end;
 procedure cETKGUIConfig.SetGlobalCache(AValue: string);
 begin
   FGlobalCache := SetAsFolder(AValue);
+end;
+
+procedure cETKGUIConfig.SetIconBorder(AValue: string);
+begin
+  FIconBorder := SetAsFile(AValue);
 end;
 
 procedure cETKGUIConfig.SetLangFolder(const AValue: string);
@@ -294,6 +303,7 @@ begin
   // Tools
   ScriptsFolder := 'Scripts/';
   mPlayerExe := 'Tools/mplayer/mplayer.exe';
+  IconBorder := 'Tools/ETKIconBorder.exe';
 
   // Experimental
   GlobalCache := 'SHA1Cache/';
@@ -307,18 +317,16 @@ begin
     krsKeyDefImgFolder, DefImgFolder);
   ZoneIcnFolder := IniFile.ReadString(krsSectionImages,
     krsKeyZoneIcnFolder, ZoneIcnFolder);
-  DumpIcnFolder := IniFile.ReadString(krsSectionImages,
-    krsKeyDumpIcnFolder, DumpIcnFolder);
-  GUIIcnFile := IniFile.ReadString(krsSectionImages,
-    krsKeyGUIIcnFile, GUIIcnFile);
+  DumpIcnFolder := IniFile.ReadString(krsSectionImages, krsKeyDumpIcnFolder,
+    DumpIcnFolder);
+  GUIIcnFile := IniFile.ReadString(krsSectionImages, krsKeyGUIIcnFile,
+    GUIIcnFile);
   ImageExtensions.CommaText :=
-    IniFile.ReadString(krsSectionImages, krsKeyImgExt,
-    ImageExtensions.CommaText);
+    IniFile.ReadString(krsSectionImages, krsKeyImgExt, ImageExtensions.CommaText);
 
   // Texts
   TextExtensions.CommaText :=
-    IniFile.ReadString(krsSectionTexts, krsKeyTxtExt,
-    TextExtensions.CommaText);
+    IniFile.ReadString(krsSectionTexts, krsKeyTxtExt, TextExtensions.CommaText);
 
   // Video
   VideoExtensions.CommaText :=
@@ -349,6 +357,8 @@ begin
     krsKeyScriptsFolder, ScriptsFolder);
   mPlayerExe := IniFile.ReadString(krsSectionTools, krsKeyMPlayerExe,
     mPlayerExe);
+  IconBorder := IniFile.ReadString(krsSectionTools, krsKeyETKIconBorder,
+    IconBorder);
 
   // Experimental
   GlobalCache := IniFile.ReadString(krsSectionExperimental,
@@ -389,7 +399,7 @@ begin
   // Tools
   IniFile.WriteString(krsSectionTools, krsKeyScriptsFolder, ScriptsFolder);
   IniFile.WriteString(krsSectionTools, krsKeyMPlayerExe, mPlayerExe);
-
+  IniFile.WriteString(krsSectionTools, krsKeyETKIconBorder, IconBorder);
 
   IniFile.WriteString(krsSectionExperimental, krsKeyGlobalCache, GlobalCache);
   IniFile.WriteString(krsSectionExperimental, krsKeyw7zErrorFileName,
@@ -398,6 +408,7 @@ end;
 
 constructor cETKGUIConfig.Create(aOwner: TComponent);
 begin
+
   // We must create objects before calling inherited, because
   //   ResetDefaultConfig is called
   FImageExtensions := TStringList.Create;

@@ -1,4 +1,5 @@
 unit ufEmutecaSoftTree;
+
 {< TfmEmutecaSoftTree frame unit.
 
   This file is part of Emuteca Core.
@@ -430,9 +431,9 @@ begin
       OnSelectSoft(aSoft);
   end
   else
+  if pData^ is cEmutecaGroup then
   begin
-    if pData^ is cEmutecaGroup then
-      aGroup := cEmutecaGroup(pData^);
+    aGroup := cEmutecaGroup(pData^);
     StatusBar.Panels[1].Text := aGroup.ID;
     if Assigned(OnSelectGroup) then
       OnSelectGroup(aGroup);
@@ -539,7 +540,8 @@ procedure TfmEmutecaSoftTree.VDTCompareNodes(Sender: TBaseVirtualTree;
         Result := UTF8CompareText(aSoft.CachedSystem.Title,
           aGroup.CachedSystem.Title);
       1: // Title
-        Result := UTF8CompareText(aSoft.CachedGroup.SortTitle, aGroup.SortTitle);
+        Result := UTF8CompareText(aSoft.CachedGroup.SortTitle,
+          aGroup.SortTitle);
       2: // Version
       begin
         // aSoft = 1 version; aGroup > 1 version

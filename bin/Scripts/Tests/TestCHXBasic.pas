@@ -3,9 +3,11 @@
 This script test some basic functions added to Pascal Script from uPSI_CHXBasic.
 [Data]
 Name=Chixpy
-Version=0.02
-Date=20221021
+Version=0.03
+Date=20230116
 [Changes]
+0.03 - 20230116
+  + LineEnding
 0.02 - 20221021
   + AskOption example
 [EndInfo]
@@ -23,14 +25,24 @@ begin
   WriteLn('This Script will test some basic functions added to Pascal Script.');
   WriteLn('');
 
+  WriteLn('Some basic types');
+  WriteLn('----------------');
   WriteLn('');
   WriteLn('type SizeInt = Int64');
   WriteLn('type SizeUInt = Int64 (must be QWord...)');
 
   WriteLn('');
   WriteLn('');
+  
+  WriteLn('Some basic constants');
+  WriteLn('--------------------');
+  WriteLn('');
+  WriteLn('const LineEnding = #13#10 (Win)');
 
-  WriteLn('Some Basic functions');
+  WriteLn('');
+  WriteLn('');
+
+  WriteLn('Some basic functions');
   WriteLn('--------------------');
 
   // General strings

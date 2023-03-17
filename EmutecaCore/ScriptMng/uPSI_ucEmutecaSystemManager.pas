@@ -2,11 +2,9 @@ unit uPSI_ucEmutecaSystemManager;
 
 {< Exports of ucEmutecaSystemManager for Pascal Script engine of Emuteca.
 
-  ----
-
   This file is part of Emuteca Core.
 
-  Copyright (C) 2011-2018 Chixpy
+  Copyright (C) 2011-2023 Chixpy
 
   This source is free software; you can redistribute it and/or modify it
   under the terms of the GNU General Public License as published by the Free
@@ -64,23 +62,43 @@ begin
   with CL.AddClassN(CL.FindClass('caCHXStorableIni'),
       'cEmutecaSystemManager') do
   begin
+    RegisterProperty('ProgressCallBack', 'TEmutecaProgressCallBack', iptrw);
+
     RegisterProperty('TempFolder', 'string', iptrw);
     RegisterProperty('SysDataFolder', 'string', iptrw);
-    RegisterMethod('Procedure ClearData');
-    RegisterMethod('Procedure LoadData');
-    RegisterMethod('Procedure SaveData');
-    RegisterMethod('Procedure UpdateEnabledList');
-    RegisterProperty('ProgressCallBack', 'TEmutecaProgressCallBack', iptrw);
-    RegisterMethod('Procedure AssingAllTo( aList : TStrings)');
-    RegisterMethod('Procedure AssingEnabledTo( aList : TStrings)');
+    
     RegisterProperty('FullList', 'cEmutecaSystemList', iptr);
     RegisterProperty('EnabledList', 'cEmutecaSystemList', iptr);
+
+    RegisterMethod('function AddSystem(aID: string): cEmutecaSystem;');
+    
+    RegisterMethod('procedure LoadSystemData(aSystem: cEmutecaSystem);');
+    RegisterMethod('procedure SaveSystemData(aSystem: cEmutecaSystem; ClearFile: Boolean);');
+    RegisterMethod('procedure LoadAllEnabledSystemsData;');
+    RegisterMethod('procedure SaveAllEnabledSystemsData;');
+
+    RegisterMethod('Procedure ClearData');
+    // RegisterMethod('Procedure LoadData');
+    // RegisterMethod('Procedure SaveData');
+    RegisterMethod('Procedure UpdateEnabledList');
   end;
 end;
 
 procedure SIRegister_ucEmutecaSystemManager(CL: TPSPascalCompiler);
 begin
   SIRegister_cEmutecaSystemManager(CL);
+end;
+
+procedure cEmutecaSystemManagerProgressCallBack_R(Self: cEmutecaSystemManager;
+  var T: TEmutecaProgressCallBack);
+begin
+  T := Self.ProgressCallBack;
+end;
+
+procedure cEmutecaSystemManagerProgressCallBack_W(Self: cEmutecaSystemManager;
+  const T: TEmutecaProgressCallBack);
+begin
+  Self.ProgressCallBack := T;
 end;
 
 procedure cEmutecaSystemManagerEnabledList_R(Self: cEmutecaSystemManager;
@@ -95,28 +113,10 @@ begin
   T := Self.FullList;
 end;
 
-procedure cEmutecaSystemManagerProgressCallBack_W(Self: cEmutecaSystemManager;
-  const T: TEmutecaProgressCallBack);
-begin
-  Self.ProgressCallBack := T;
-end;
-
-procedure cEmutecaSystemManagerProgressCallBack_R(Self: cEmutecaSystemManager;
-  var T: TEmutecaProgressCallBack);
-begin
-  T := Self.ProgressCallBack;
-end;
-
-procedure cEmutecaSystemManagerSysDataFolder_W(Self: cEmutecaSystemManager;
-  const T: string);
-begin
-  Self.SysDataFolder := T;
-end;
-
-procedure cEmutecaSystemManagerSysDataFolder_R(Self: cEmutecaSystemManager;
+procedure cEmutecaSystemManagerTempFolder_R(Self: cEmutecaSystemManager;
   var T: string);
 begin
-  T := Self.SysDataFolder;
+  T := Self.TempFolder;
 end;
 
 procedure cEmutecaSystemManagerTempFolder_W(Self: cEmutecaSystemManager;
@@ -125,30 +125,42 @@ begin
   Self.TempFolder := T;
 end;
 
-procedure cEmutecaSystemManagerTempFolder_R(Self: cEmutecaSystemManager;
+procedure cEmutecaSystemManagerSysDataFolder_R(Self: cEmutecaSystemManager;
   var T: string);
 begin
-  T := Self.TempFolder;
+  T := Self.SysDataFolder;
+end;
+
+procedure cEmutecaSystemManagerSysDataFolder_W(Self: cEmutecaSystemManager;
+  const T: string);
+begin
+  Self.SysDataFolder := T;
 end;
 
 procedure RIRegister_cEmutecaSystemManager(CL: TPSRuntimeClassImporter);
 begin
   with CL.Add(cEmutecaSystemManager) do
   begin
-    RegisterPropertyHelper(@cEmutecaSystemManagerTempFolder_R,
-      @cEmutecaSystemManagerTempFolder_W, 'TempFolder');
-    RegisterPropertyHelper(@cEmutecaSystemManagerSysDataFolder_R,
-      @cEmutecaSystemManagerSysDataFolder_W, 'SysDataFolder');
-    RegisterMethod(@cEmutecaSystemManager.ClearData, 'ClearData');
+    RegisterPropertyHelper(@cEmutecaSystemManagerProgressCallBack_R, @cEmutecaSystemManagerProgressCallBack_W, 'ProgressCallBack');
+    
+    RegisterPropertyHelper(@cEmutecaSystemManagerTempFolder_R, @cEmutecaSystemManagerTempFolder_W, 'TempFolder');
+    RegisterPropertyHelper(@cEmutecaSystemManagerSysDataFolder_R, @cEmutecaSystemManagerSysDataFolder_W, 'SysDataFolder');
+      
+     RegisterPropertyHelper(@cEmutecaSystemManagerFullList_R, nil, 'FullList');
+    RegisterPropertyHelper(@cEmutecaSystemManagerEnabledList_R, nil, 'EnabledList');
+    
+    RegisterMethod(@cEmutecaSystemManager.LoadSystemData, 'LoadSystemData');
+    RegisterMethod(@cEmutecaSystemManager.SaveSystemData, 'SaveSystemData');
+    RegisterMethod(@cEmutecaSystemManager.LoadAllEnabledSystemsData, 'LoadAllEnabledSystemsData');
+    RegisterMethod(@cEmutecaSystemManager.SaveAllEnabledSystemsData, 'SaveAllEnabledSystemsData');
+    
+    // RegisterMethod(@cEmutecaSystemManager.ClearData, 'ClearData');
     //    RegisterMethod(@cEmutecaSystemManager.LoadData, 'LoadData');
     //    RegisterMethod(@cEmutecaSystemManager.SaveData, 'SaveData');
     RegisterMethod(@cEmutecaSystemManager.UpdateEnabledList,
       'UpdateEnabledList');
-    RegisterPropertyHelper(@cEmutecaSystemManagerProgressCallBack_R,
-      @cEmutecaSystemManagerProgressCallBack_W, 'ProgressCallBack');
-    RegisterPropertyHelper(@cEmutecaSystemManagerFullList_R, nil, 'FullList');
-    RegisterPropertyHelper(@cEmutecaSystemManagerEnabledList_R,
-      nil, 'EnabledList');
+
+
   end;
 end;
 
@@ -157,14 +169,12 @@ begin
   RIRegister_cEmutecaSystemManager(CL);
 end;
 
-procedure TPSImport_ucEmutecaSystemManager.CompileImport1(
-  CompExec: TPSScript);
+procedure TPSImport_ucEmutecaSystemManager.CompileImport1(CompExec: TPSScript);
 begin
   SIRegister_ucEmutecaSystemManager(CompExec.comp);
 end;
 
-procedure TPSImport_ucEmutecaSystemManager.ExecImport1(CompExec: TPSScript;
-  const ri: TPSRuntimeClassImporter);
+procedure TPSImport_ucEmutecaSystemManager.ExecImport1(CompExec: TPSScript; const ri: TPSRuntimeClassImporter);
 begin
   RIRegister_ucEmutecaSystemManager(ri);
 end;

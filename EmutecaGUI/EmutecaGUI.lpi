@@ -28,7 +28,7 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="8"/>
-      <BuildNr Value="139"/>
+      <BuildNr Value="141"/>
       <StringTable Comments="Emuteca database editor" InternalName="EmutecaEditorGUI" LegalCopyright="Chixpy" ProductVersion="0.8.0"/>
     </VersionInfo>
     <BuildModes Count="2">
@@ -97,7 +97,7 @@
         <PackageName Value="LCL"/>
       </Item7>
     </RequiredPackages>
-    <Units Count="141">
+    <Units Count="146">
       <Unit0>
         <Filename Value="EmutecaGUI.pas"/>
         <IsPartOfProject Value="True"/>
@@ -839,6 +839,26 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
       </Unit140>
+      <Unit141>
+        <Filename Value="..\EmutecaCore\ScriptMng\uPSI_ucEmutecaSystemList.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit141>
+      <Unit142>
+        <Filename Value="..\EmutecaCore\ScriptMng\uPSI_uaEmutecaCustomSGItem.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit142>
+      <Unit143>
+        <Filename Value="..\EmutecaCore\ScriptMng\uPSI_ucEmutecaEmuList.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit143>
+      <Unit144>
+        <Filename Value="..\EmutecaCore\ScriptMng\uPSI_ucEmutecaGroupList.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit144>
+      <Unit145>
+        <Filename Value="..\EmutecaCore\ScriptMng\uPSI_ucEmutecaSoftList.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit145>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

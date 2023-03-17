@@ -118,8 +118,10 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   uPSI_uaEmutecaCustomEmu, ufEmutecaEmulatorAdvParamsEditor, ufETKGUIIcnEmuCBX,
   utETKGUICacheEmuIcons, ufCHXAbout, ufETKGUIAbout, ufEmutecaTagTree,
   ucEmutecaTagsFile, uCHXMenuUtils, uPSI_FPCFileUtil, uPSI_FPCLazUTF8,
-  utEmutecaRunEmulator, uaEmutecaCustomSGItem,
-  ufETKGUISoftTxtPreview, uPSI_FPCSysUtils, ufSMAskOption;
+  utEmutecaRunEmulator, uaEmutecaCustomSGItem, ufETKGUISoftTxtPreview,
+  uPSI_FPCSysUtils, ufSMAskOption, uPSI_ucEmutecaSystemList,
+  uPSI_uaEmutecaCustomSGItem, uPSI_ucEmutecaEmuList, uPSI_ucEmutecaGroupList,
+  uPSI_ucEmutecaSoftList;
 
 {$R *.res}
 

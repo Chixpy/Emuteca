@@ -21,15 +21,15 @@ unit uPSI_ucEmutecaEmulator;
 }
 {$mode objfpc}{$H+}
 
-// TODO: Clean this unit
 interface
 
 uses
   SysUtils, Classes, uPSComponent, uPSRuntime, uPSCompiler,
+  // Emuteca Core classes
   ucEmutecaEmulator;
 
 type
-  (*----------------------------------------------------------------------------*)
+
   TPSImport_ucEmutecaEmulator = class(TPSPlugin)
   protected
     procedure CompileImport1(CompExec: TPSScript); override;
@@ -37,12 +37,10 @@ type
       const ri: TPSRuntimeClassImporter); override;
   end;
 
-
-{ compile-time registration functions }
-procedure SIRegister_cEmutecaEmulator(CL: TPSPascalCompiler);
+procedure SIRegister_cEmutecaEmulator(
+  CL: TPSPascalCompiler);
 procedure SIRegister_ucEmutecaEmulator(CL: TPSPascalCompiler);
 
-{ run-time registration functions }
 procedure RIRegister_cEmutecaEmulator(CL: TPSRuntimeClassImporter);
 procedure RIRegister_ucEmutecaEmulator(CL: TPSRuntimeClassImporter);
 
@@ -55,8 +53,6 @@ begin
   RegisterComponents('Pascal Script', [TPSImport_ucEmutecaEmulator]);
 end;
 
-(* === compile-time registration functions === *)
-(*----------------------------------------------------------------------------*)
 procedure SIRegister_cEmutecaEmulator(CL: TPSPascalCompiler);
 begin
   //with RegClassS(CL,'caEmutecaCustomEmu', 'cEmutecaEmulator') do
@@ -66,45 +62,35 @@ begin
   end;
 end;
 
-(*----------------------------------------------------------------------------*)
 procedure SIRegister_ucEmutecaEmulator(CL: TPSPascalCompiler);
 begin
   SIRegister_cEmutecaEmulator(CL);
 end;
 
-
-
-(*----------------------------------------------------------------------------*)
-procedure RIRegister_cEmutecaEmulator(CL: TPSRuntimeClassImporter);
+procedure
+RIRegister_cEmutecaEmulator(CL: TPSRuntimeClassImporter);
 begin
   with CL.Add(cEmutecaEmulator) do
   begin
   end;
 end;
 
-(*----------------------------------------------------------------------------*)
 procedure RIRegister_ucEmutecaEmulator(CL: TPSRuntimeClassImporter);
 begin
   RIRegister_cEmutecaEmulator(CL);
 end;
 
-
-
 { TPSImport_ucEmutecaEmulator }
-(*----------------------------------------------------------------------------*)
+
 procedure TPSImport_ucEmutecaEmulator.CompileImport1(CompExec: TPSScript);
 begin
   SIRegister_ucEmutecaEmulator(CompExec.comp);
 end;
 
-(*----------------------------------------------------------------------------*)
 procedure TPSImport_ucEmutecaEmulator.ExecImport1(CompExec: TPSScript;
   const ri: TPSRuntimeClassImporter);
 begin
   RIRegister_ucEmutecaEmulator(ri);
 end;
-
-(*----------------------------------------------------------------------------*)
-
 
 end.

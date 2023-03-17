@@ -1,7 +1,8 @@
 unit uPSI_uaEmutecaCustomGroup;
+
 {< caEmutecaCustomGroup import for Pascal Script.
 
-  Copyright (C) 2018-2019 Chixpy
+  Copyright (C) 2018-2023 Chixpy
 
   This source is free software; you can redistribute it and/or modify it
   under the terms of the GNU General Public License as published by the Free
@@ -22,14 +23,14 @@ unit uPSI_uaEmutecaCustomGroup;
 interface
 
 uses
-  SysUtils, Classes, uPSComponent, uPSRuntime, uPSCompiler, IniFiles, LazUTF8,
-  uaCHXStorable, uEmutecaCommon, ucEmutecaPlayingStats,
+  SysUtils, Classes, uPSComponent, uPSRuntime, uPSCompiler,
+  // CHX abstracts
   uaEmutecaCustomGroup;
 
 type
 
   TPSImport_uaEmutecaCustomGroup = class(TPSPlugin)
-  protected
+  public
     procedure CompileImport1(CompExec: TPSScript); override;
     procedure ExecImport1(CompExec: TPSScript;
       const ri: TPSRuntimeClassImporter); override;
@@ -56,40 +57,20 @@ end;
 
 procedure SIRegister_caEmutecaCustomGroup(CL: TPSPascalCompiler);
 begin
-  //with RegClassS(CL,'caCHXStorableTxt', 'caEmutecaCustomGroup') do
-  with CL.AddClassN(CL.FindClass('caCHXStorableTxt'),
+  //with RegClassS(CL,'caEmutecaCustomSGItem', 'caEmutecaCustomGroup') do
+  with CL.AddClassN(CL.FindClass('caEmutecaCustomSGItem'),
       'caEmutecaCustomGroup') do
   begin
-    RegisterMethod('function GetActualTitle: string;');
-    RegisterMethod('function GetActualSortTitle: string;');
-    RegisterMethod('function GetActualMediaFilename: string;');
-    RegisterMethod('function CompareID(aID: string): integer;');
-    RegisterMethod('function MatchID(aID: string): boolean;');
-    RegisterMethod('procedure LoadFromStrLst(aTxtFile: TStrings); override;');
-    RegisterMethod('procedure ExportToStrLst(aTxtFile: TStrings); virtual;');
-    RegisterMethod('procedure SaveToStrLst(aTxtFile: TStrings); override;');
+    RegisterProperty('Developer', 'string', iptrw);
+
     RegisterMethod('function ExportCommaText: string;');
     RegisterMethod('procedure ImportFrom(aGroup: caEmutecaCustomGroup);');
-
-    RegisterProperty('ID', 'string', iptrw);
-    RegisterProperty('Title', 'string', iptrw);
-    RegisterProperty('SortTitle', 'string', iptrw);
-    RegisterProperty('Year', 'string', iptrw);
-    RegisterProperty('Developer', 'string', iptrw);
-    RegisterProperty('MediaFileName', 'string', iptrw);
-    RegisterProperty('Stats', 'cEmutecaPlayingStats', iptr);
   end;
 end;
 
 procedure SIRegister_uaEmutecaCustomGroup(CL: TPSPascalCompiler);
 begin
   SIRegister_caEmutecaCustomGroup(CL);
-end;
-
-procedure caEmutecaCustomGroupStats_R(Self: caEmutecaCustomGroup;
-  var T: cEmutecaPlayingStats);
-begin
-  T := Self.Stats;
 end;
 
 procedure caEmutecaCustomGroupDeveloper_W(Self: caEmutecaCustomGroup;
@@ -104,88 +85,15 @@ begin
   T := Self.Developer;
 end;
 
-procedure caEmutecaCustomGroupYear_W(Self: caEmutecaCustomGroup;
-  const T: string);
-begin
-  Self.Year := T;
-end;
-
-procedure caEmutecaCustomGroupYear_R(Self: caEmutecaCustomGroup;
-  var T: string);
-begin
-  T := Self.Year;
-end;
-
-procedure caEmutecaCustomGroupTitle_W(Self: caEmutecaCustomGroup;
-  const T: string);
-begin
-  Self.Title := T;
-end;
-
-procedure caEmutecaCustomGroupTitle_R(Self: caEmutecaCustomGroup;
-  var T: string);
-begin
-  T := Self.Title;
-end;
-
-procedure caEmutecaCustomGroupSortTitle_W(Self: caEmutecaCustomGroup;
-  const T: string);
-begin
-  Self.SortTitle := T;
-end;
-
-procedure caEmutecaCustomGroupSortTitle_R(Self: caEmutecaCustomGroup;
-  var T: string);
-begin
-  T := Self.SortTitle;
-end;
-
-procedure caEmutecaCustomGroupMediaFileName_W(Self: caEmutecaCustomGroup;
-  const T: string);
-begin
-  Self.MediaFileName := T;
-end;
-
-procedure caEmutecaCustomGroupMediaFileName_R(Self: caEmutecaCustomGroup;
-  var T: string);
-begin
-  T := Self.MediaFileName;
-end;
-
-procedure caEmutecaCustomGroupID_W(Self: caEmutecaCustomGroup;
-  const T: string);
-begin
-  Self.ID := T;
-end;
-
-procedure caEmutecaCustomGroupID_R(Self: caEmutecaCustomGroup; var T: string);
-begin
-  T := Self.ID;
-end;
-
 procedure RIRegister_caEmutecaCustomGroup(CL: TPSRuntimeClassImporter);
 begin
   with CL.Add(caEmutecaCustomGroup) do
   begin
-    RegisterMethod(@caEmutecaCustomGroup.GetActualTitle, 'GetActualTitle');
-    RegisterMethod(@caEmutecaCustomGroup.GetActualSortTitle, 'GetActualSortTitle');
-    RegisterMethod(@caEmutecaCustomGroup.GetActualMediaFilename, 'GetActualMediaFilename');
-    RegisterMethod(@caEmutecaCustomGroup.CompareID, 'CompareID');
-    RegisterMethod(@caEmutecaCustomGroup.MatchID, 'MatchID');
-    RegisterVirtualMethod(@caEmutecaCustomGroup.LoadFromStrLst, 'LoadFromStrLst');
-    RegisterVirtualMethod(@caEmutecaCustomGroup.ExportToStrLst, 'ExportToStrLst');
-    RegisterVirtualMethod(@caEmutecaCustomGroup.SaveToStrLst, 'SaveToStrLst');
+    RegisterPropertyHelper(@caEmutecaCustomGroupDeveloper_R,
+      @caEmutecaCustomGroupDeveloper_W, 'Developer');
+
     RegisterMethod(@caEmutecaCustomGroup.ExportCommaText, 'ExportCommaText');
     RegisterMethod(@caEmutecaCustomGroup.ImportFrom, 'ImportFrom');
-
-
-    RegisterPropertyHelper(@caEmutecaCustomGroupID_R, @caEmutecaCustomGroupID_W, 'ID');
-    RegisterPropertyHelper(@caEmutecaCustomGroupTitle_R, @caEmutecaCustomGroupTitle_W, 'Title');
-    RegisterPropertyHelper(@caEmutecaCustomGroupSortTitle_R, @caEmutecaCustomGroupSortTitle_W, 'SortTitle');
-    RegisterPropertyHelper(@caEmutecaCustomGroupYear_R, @caEmutecaCustomGroupYear_W, 'Year');
-    RegisterPropertyHelper(@caEmutecaCustomGroupDeveloper_R, @caEmutecaCustomGroupDeveloper_W, 'Developer');
-    RegisterPropertyHelper(@caEmutecaCustomGroupMediaFileName_R, @caEmutecaCustomGroupMediaFileName_W, 'MediaFileName');
-    RegisterPropertyHelper(@caEmutecaCustomGroupStats_R, nil, 'Stats');
   end;
 end;
 

@@ -149,12 +149,12 @@ end;
 
 procedure TfmEmutecaEmulatorEditor.actWFEmulatorExecute(Sender: TObject);
 begin
-  eWorkingFolder.Text := kEmutecaEmuDirKey;
+  eWorkingFolder.Text := krsEmutecaEmuDirKey;
 end;
 
 procedure TfmEmutecaEmulatorEditor.actWFEmutecaExecute(Sender: TObject);
 begin
-  eWorkingFolder.Text := kEmutecaCurrentDirKey;
+  eWorkingFolder.Text := krsEmutecaCurrentDirKey;
 end;
 
 procedure TfmEmutecaEmulatorEditor.actOpenWebPageExecute(Sender: TObject);
@@ -166,44 +166,44 @@ end;
 
 procedure TfmEmutecaEmulatorEditor.actParamROMDirExecute(Sender: TObject);
 begin
-  eParameters.SelText := kEmutecaROMDirKey;
+  eParameters.SelText := krsEmutecaROMDirKey;
 end;
 
 procedure TfmEmutecaEmulatorEditor.actParamROMExtraExecute(Sender: TObject);
 begin
-  eParameters.SelText := kEmutecaROMExtraParamKey;
+  eParameters.SelText := krsEmutecaROMExtraParamKey;
 end;
 
 procedure TfmEmutecaEmulatorEditor.actParamROMFileExtensionExecute(
   Sender: TObject);
 begin
-  eParameters.SelText := kEmutecaROMFileExtKey;
+  eParameters.SelText := krsEmutecaROMFileExtKey;
 end;
 
 procedure TfmEmutecaEmulatorEditor.actParamROMFilenameExecute(Sender: TObject);
 begin
-  eParameters.SelText := kEmutecaROMFileNameKey;
+  eParameters.SelText := krsEmutecaROMFileNameKey;
 end;
 
 procedure TfmEmutecaEmulatorEditor.actParamROMFileNoExtExecute(
   Sender: TObject);
 begin
-  eParameters.SelText := kEmutecaROMFileNameNoExtKey;
+  eParameters.SelText := krsEmutecaROMFileNameNoExtKey;
 end;
 
 procedure TfmEmutecaEmulatorEditor.actParamROMPathExecute(Sender: TObject);
 begin
-  eParameters.SelText := kEmutecaROMPathKey;
+  eParameters.SelText := krsEmutecaROMPathKey;
 end;
 
 procedure TfmEmutecaEmulatorEditor.actParamSysCoreIDExecute(Sender: TObject);
 begin
-  eParameters.SelText := kEmutecaROMSysIDKey;
+  eParameters.SelText := krsEmutecaROMSysIDKey;
 end;
 
 procedure TfmEmutecaEmulatorEditor.actWFROMExecute(Sender: TObject);
 begin
-  eWorkingFolder.Text := kEmutecaROMDirKey;
+  eWorkingFolder.Text := krsEmutecaROMDirKey;
 end;
 
 procedure TfmEmutecaEmulatorEditor.bParametersClick(Sender: TObject);

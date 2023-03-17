@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, StdCtrls,
   ComCtrls, FileUtil, BGRABitmap, BGRABitmapTypes, Math, Types, lclintf,
-  EditBtn, Spin, ColorBox, LazFileUtils, LCLTranslator,
+  EditBtn, Spin, ColorBox, LazFileUtils, LCLTranslator, ActnList,
   // Misc units
   uVersionSupport,
   // CHX units
@@ -24,7 +24,6 @@ uses
       (although sometimes is usefull to have separated ones).
     - Better logic with pixel color picking (Maybe don't wait to mouse button
       is released).
-    - Fix selection rectangle when scrollbars are shown.
 }
 
 const
@@ -53,6 +52,17 @@ type
   { TfrmIconBorder }
 
   TfrmIconBorder = class(TfrmCHXForm)
+    actAddFile: TAction;
+    actAddFolder: TAction;
+    actClearList: TAction;
+    actDeleteFile: TAction;
+    actSaveOutput: TAction;
+    actOpenOutDir: TAction;
+    actReplaceInpFile: TAction;
+    actReplaceFile: TAction;
+    actOpenInpDir: TAction;
+    actRemoveItem: TAction;
+    alMain: TActionList;
     bAddFile: TButton;
     bAddFolder: TButton;
     bAutoZoomInput: TButton;
@@ -145,26 +155,26 @@ type
     pagRemoveEmutecaBorder: TTabSheet;
     pagReplaceInput: TTabSheet;
 
-    procedure bAddFileClick(Sender: TObject);
-    procedure bAddFolderClick(Sender: TObject);
+    procedure actAddFileExecute(Sender: TObject);
+    procedure actAddFolderExecute(Sender: TObject);
+    procedure actClearListExecute(Sender: TObject);
+    procedure actDeleteFileExecute(Sender: TObject);
+    procedure actOpenInpDirExecute(Sender: TObject);
+    procedure actOpenOutDirExecute(Sender: TObject);
+    procedure actRemoveItemExecute(Sender: TObject);
+    procedure actReplaceFileExecute(Sender: TObject);
+    procedure actReplaceInpFileExecute(Sender: TObject);
+    procedure actSaveOutputExecute(Sender: TObject);
     procedure bAutoZoomInputClick(Sender: TObject);
     procedure bAutoZoomOutputClick(Sender: TObject);
     procedure bBlackIconBorderClick(Sender: TObject);
-    procedure bClearListClick(Sender: TObject);
     procedure bCutSelectionInputClick(Sender: TObject);
     procedure bDefaultIconBorderClick(Sender: TObject);
-    procedure bDeleteInputFileClick(Sender: TObject);
     procedure bFlipHInputClick(Sender: TObject);
     procedure bFlipVInputClick(Sender: TObject);
-    procedure bOpenInputDirClick(Sender: TObject);
-    procedure bOpenOutputDirClick(Sender: TObject);
     procedure bProcessOutputClick(Sender: TObject);
-    procedure bRemoveItemClick(Sender: TObject);
-    procedure bReplaceInputFileClick(Sender: TObject);
     procedure bRotateCCWInputClick(Sender: TObject);
     procedure bRotateCWInputClick(Sender: TObject);
-    procedure bSaveInputClick(Sender: TObject);
-    procedure bSaveOutputClick(Sender: TObject);
     procedure bSelectionTransparentInputClick(Sender: TObject);
     procedure bTransparentFillClick(Sender: TObject);
     procedure bTransparentReplaceClick(Sender: TObject);
@@ -742,7 +752,7 @@ begin
   Result.NormalizeRect;
 end;
 
-procedure TfrmIconBorder.bAddFileClick(Sender: TObject);
+procedure TfrmIconBorder.actAddFileExecute(Sender: TObject);
 begin
   SetDlgInitialDir(OpenFilesDialog, EIBConfig.LastInFolder);
 
@@ -755,7 +765,7 @@ begin
   FileList.Items.AddStrings(OpenFilesDialog.Files, False);
 end;
 
-procedure TfrmIconBorder.bAddFolderClick(Sender: TObject);
+procedure TfrmIconBorder.actAddFolderExecute(Sender: TObject);
 var
   i: integer;
   slFiles: TStringList;
@@ -782,6 +792,111 @@ begin
   slFiles.Free;
 end;
 
+procedure TfrmIconBorder.actClearListExecute(Sender: TObject);
+begin
+  FileList.Clear;
+  FreeAndNil(FActualInputImage);
+  DrawImageInput;
+  FreeAndNil(FActualOutputImage);
+  DrawImageOutput;
+end;
+
+procedure TfrmIconBorder.actDeleteFileExecute(Sender: TObject);
+begin
+  if FileList.ItemIndex < 0 then
+    Exit;
+
+  if not FileExists(FileList.Items[FileList.ItemIndex]) then
+    Exit;
+
+  if not DeleteFileUTF8(FileList.Items[FileList.ItemIndex]) then
+    Exit;
+
+  actRemoveItem.Execute;
+end;
+
+procedure TfrmIconBorder.actOpenInpDirExecute(Sender: TObject);
+begin
+  if FileList.ItemIndex < 0 then
+    Exit;
+
+  OpenDocument(ExtractFileDir(FileList.Items[FileList.ItemIndex]));
+end;
+
+procedure TfrmIconBorder.actOpenOutDirExecute(Sender: TObject);
+begin
+  if DirectoryExistsUTF8(eOutputFolder.Directory) then
+    OpenDocument(eOutputFolder.Directory);
+end;
+
+procedure TfrmIconBorder.actRemoveItemExecute(Sender: TObject);
+var
+  i: integer;
+begin
+  i := FileList.ItemIndex;
+
+  FileList.DeleteSelected;
+  FreeAndNil(FActualInputImage);
+  DrawImageInput;
+  FreeAndNil(FActualOutputImage);
+  DrawImageOutput;
+
+  if i >= FileList.Count then i := FileList.Count - 1;
+
+  if i >= 0 then
+  begin
+    FileList.ItemIndex := i;
+    FileList.Click;
+  end;
+end;
+
+procedure TfrmIconBorder.actReplaceFileExecute(Sender: TObject);
+begin
+  if (not Assigned(ActualInputImage)) or (FileList.ItemIndex = -1) then
+    Exit;
+
+  ActualInputImage.SaveToFileUTF8(FileList.Items[FileList.ItemIndex]);
+end;
+
+procedure TfrmIconBorder.actReplaceInpFileExecute(Sender: TObject);
+var
+  aFile: string;
+begin
+  if (not Assigned(ActualOutputImage)) or (FileList.ItemIndex = -1) then
+    Exit;
+
+  aFile := FileList.Items[FileList.ItemIndex];
+
+  if not chkOverwriteOutput.Checked then
+  begin
+    // File already exists, so we add the new file to de list
+    aFile := CHXCheckFileRename(aFile);
+    FileList.Items.Add(aFile);
+  end;
+
+  ActualOutputImage.SaveToFileUTF8(aFile);
+
+  FileList.Click;
+end;
+
+procedure TfrmIconBorder.actSaveOutputExecute(Sender: TObject);
+var
+  aFile: string;
+begin
+  if (not Assigned(ActualOutputImage)) or (FileList.ItemIndex = -1) then
+    Exit;
+
+  aFile := eOutputFolder.Directory;
+  ForceDirectoriesUTF8(aFile);
+  aFile := IncludeTrailingPathDelimiter(aFile) +
+    ExtractFileName(FileList.Items[FileList.ItemIndex]);
+
+  if not chkOverwriteOutput.Checked then
+    aFile := CHXCheckFileRename(aFile);
+
+  ActualOutputImage.SaveToFileUTF8(aFile);
+end;
+
 procedure TfrmIconBorder.bAutoZoomInputClick(Sender: TObject);
 begin
   AutoZoomInput;
@@ -797,15 +912,6 @@ begin
   bColorBorderEmutecaIcon.Enabled := True;
   bColorBorderEmutecaIcon.ButtonColor := clBlack;
   eOpacityBorderEmutecaIcon.Value := 255;
-end;
-
-procedure TfrmIconBorder.bClearListClick(Sender: TObject);
-begin
-  FileList.Clear;
-  FreeAndNil(FActualInputImage);
-  DrawImageInput;
-  FreeAndNil(FActualOutputImage);
-  DrawImageOutput;
 end;
 
 procedure TfrmIconBorder.bCutSelectionInputClick(Sender: TObject);
@@ -828,20 +934,6 @@ begin
   eOpacityBorderEmutecaIcon.Value := 128;
 end;
 
-procedure TfrmIconBorder.bDeleteInputFileClick(Sender: TObject);
-begin
-  if FileList.ItemIndex < 0 then
-    Exit;
-
-  if not FileExists(FileList.Items[FileList.ItemIndex]) then
-    Exit;
-
-  if not DeleteFileUTF8(FileList.Items[FileList.ItemIndex]) then
-    Exit;
-
-  bRemoveItemClick(nil);
-end;
-
 procedure TfrmIconBorder.bFlipHInputClick(Sender: TObject);
 begin
   ActualInputImage.HorizontalFlip;
@@ -852,19 +944,6 @@ procedure TfrmIconBorder.bFlipVInputClick(Sender: TObject);
 begin
   ActualInputImage.VerticalFlip;
   DrawImageInput;
-end;
-
-procedure TfrmIconBorder.bOpenInputDirClick(Sender: TObject);
-begin
-  if FileList.ItemIndex < 0 then
-    Exit;
-
-  OpenDocument(ExtractFileDir(FileList.Items[FileList.ItemIndex]));
-end;
-
-procedure TfrmIconBorder.bOpenOutputDirClick(Sender: TObject);
-begin
-  OpenDocument(eOutputFolder.Directory);
 end;
 
 procedure TfrmIconBorder.bProcessOutputClick(Sender: TObject);
@@ -1228,36 +1307,6 @@ begin
   AutoZoomOutput;
 end;
 
-procedure TfrmIconBorder.bRemoveItemClick(Sender: TObject);
-begin
-  FileList.DeleteSelected;
-  FreeAndNil(FActualInputImage);
-  DrawImageInput;
-  FreeAndNil(FActualOutputImage);
-  DrawImageOutput;
-end;
-
-procedure TfrmIconBorder.bReplaceInputFileClick(Sender: TObject);
-var
-  aFile: string;
-begin
-  if (not Assigned(ActualOutputImage)) or (FileList.ItemIndex = -1) then
-    Exit;
-
-  aFile := FileList.Items[FileList.ItemIndex];
-
-  if not chkOverwriteOutput.Checked then
-  begin
-    // File already exists, so we add the new file to de list
-    aFile := CHXCheckFileRename(aFile);
-    FileList.Items.Add(aFile);
-  end;
-
-  ActualOutputImage.SaveToFileUTF8(aFile);
-
-  FileList.Click;
-end;
-
 procedure TfrmIconBorder.bRotateCCWInputClick(Sender: TObject);
 begin
   BGRAReplace(FActualInputImage, ActualInputImage.RotateCCW);
@@ -1268,32 +1317,6 @@ procedure TfrmIconBorder.bRotateCWInputClick(Sender: TObject);
 begin
   BGRAReplace(FActualInputImage, ActualInputImage.RotateCW);
   DrawImageInput;
-end;
-
-procedure TfrmIconBorder.bSaveInputClick(Sender: TObject);
-begin
-  if (not Assigned(ActualInputImage)) or (FileList.ItemIndex = -1) then
-    Exit;
-
-  ActualInputImage.SaveToFileUTF8(FileList.Items[FileList.ItemIndex]);
-end;
-
-procedure TfrmIconBorder.bSaveOutputClick(Sender: TObject);
-var
-  aFile: string;
-begin
-  if (not Assigned(ActualOutputImage)) or (FileList.ItemIndex = -1) then
-    Exit;
-
-  aFile := eOutputFolder.Directory;
-  ForceDirectoriesUTF8(aFile);
-  aFile := IncludeTrailingPathDelimiter(aFile) +
-    ExtractFileName(FileList.Items[FileList.ItemIndex]);
-
-  if not chkOverwriteOutput.Checked then
-    aFile := CHXCheckFileRename(aFile);
-
-  ActualOutputImage.SaveToFileUTF8(aFile);
 end;
 
 procedure TfrmIconBorder.bSelectionTransparentInputClick(Sender: TObject);
@@ -1411,6 +1434,8 @@ begin
 end;
 
 procedure TfrmIconBorder.FileListClick(Sender: TObject);
+var
+  aFile: string;
 begin
   FreeAndNil(FActualInputImage);
   FreeAndNil(FVisibleInputImage);
@@ -1420,13 +1445,24 @@ begin
 
   SelectionInput := SelectionInput.Empty;
 
+  // No item selected
   if FileList.ItemIndex < 0 then
   begin
     DrawImageInput;
     Exit;
   end;
 
-  FActualInputImage := TBGRABitmap.Create(FileList.Items[FileList.ItemIndex]);
+  aFile := FileList.Items[FileList.ItemIndex];
+
+  if not FileExistsUTF8(aFile) then
+  begin
+    ShowMessageFmt(rsFileNotFound, [aFile]);
+    FileList.Items.Delete(FileList.ItemIndex);
+    DrawImageInput;
+    Exit;
+  end;
+
+  FActualInputImage := TBGRABitmap.Create(aFile);
 
   AutoZoomInput;
 end;
@@ -1465,10 +1501,8 @@ begin
   LoadGUIConfig(EIBConfig.DefaultFileName);
   EIBConfig.LoadFromFile('');
 
-
   // TODO: Move all logic code to a CHXFrame
   // CreateFrames;
-
 
   ZoomInput := 1;
   ZoomOutput := 1;
@@ -1484,6 +1518,19 @@ begin
     ExcludeTrailingPathDelimiter(SysPath(EIBConfig.LastInFolder));
   OpenFilesDialog.InitialDir :=
     ExcludeTrailingPathDelimiter(SysPath(EIBConfig.LastInFolder));
+
+  // Reading commandline parameters
+  if ParamCount > 0 then
+  begin
+    // First parameter OutFolder
+    if ParamStr(1) <> '' then
+      eOutputFolder.Directory := ParamStr(1);
+    // Second parameter InFile
+    if ParamStr(2) <> '' then
+      FileList.Items.Add(ParamStr(2));
+    // We don't want change EIBConfig on Exit
+    EIBConfig.DefaultFileName := '';
+  end;
 end;
 
 procedure TfrmIconBorder.FormDestroy(Sender: TObject);

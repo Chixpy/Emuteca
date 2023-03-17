@@ -1806,6 +1806,9 @@ begin
   end;
 
   ChangeFileMedia(SourceFolder, SourceFile);
+
+  if rgbFilterMode.ItemIndex = 2 then
+    FilterLists;
 end;
 
 procedure TfmETKGUIMediaManager.vstFilesChange(Sender: TBaseVirtualTree;
