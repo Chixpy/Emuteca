@@ -1462,7 +1462,15 @@ begin
     Exit;
   end;
 
-  FActualInputImage := TBGRABitmap.Create(aFile);
+  try
+    FActualInputImage := TBGRABitmap.Create(aFile);
+  except
+    FreeAndNil(FActualInputImage);
+    ShowMessageFmt(rsErrorLoadingFile, [aFile]);
+    FileList.Items.Delete(FileList.ItemIndex);
+    DrawImageInput;
+    Exit;
+  end;
 
   AutoZoomInput;
 end;

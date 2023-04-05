@@ -90,7 +90,7 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
       Height = 300
       Top = 0
       Width = 350
-      Align = alTop
+      Align = alClient
       BevelOuter = bvNone
       TabOrder = 0
     end
@@ -100,15 +100,15 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
       Height = 5
       Top = 300
       Width = 350
-      Align = alTop
-      ResizeAnchor = akTop
+      Align = alBottom
+      ResizeAnchor = akBottom
     end
     object pTextPreview: TPanel
       Left = 0
       Height = 278
       Top = 305
       Width = 350
-      Align = alClient
+      Align = alBottom
       BevelOuter = bvNone
       TabOrder = 1
     end
@@ -146,9 +146,9 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
         Height = 246
         Top = 0
         Width = 393
-        ActivePage = pagOtherFiles
+        ActivePage = pagFilesOtherFolder
         Align = alClient
-        TabIndex = 3
+        TabIndex = 4
         TabOrder = 0
         OnChange = pcSourceChange
         object pagFilesWOGroup: TTabSheet
@@ -331,23 +331,10 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
           Caption = 'Files from other folder'
           ClientHeight = 213
           ClientWidth = 385
-          object eOtherFolder: TDirectoryEdit
-            Left = 0
-            Height = 28
-            Top = 0
-            Width = 385
-            OnAcceptDirectory = eOtherFolderAcceptDirectory
-            ShowHidden = False
-            ButtonWidth = 23
-            NumGlyphs = 1
-            Align = alTop
-            MaxLength = 0
-            TabOrder = 0
-          end
           object vstFilesOtherFolder: TVirtualStringTree
             Left = 0
-            Height = 185
-            Top = 28
+            Height = 183
+            Top = 30
             Width = 385
             Align = alClient
             Colors.UnfocusedColor = clMedGray
@@ -369,7 +356,7 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
             Header.Height = 17
             Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoShowSortGlyphs, hoVisible]
             PopupMenu = pumVSTFiles
-            TabOrder = 1
+            TabOrder = 0
             TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScrollOnExpand, toAutoSort, toAutoTristateTracking, toAutoDeleteMovedNodes]
             TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning, toFullRowDrag]
             TreeOptions.PaintOptions = [toPopupMode, toShowButtons, toShowDropmark, toShowHorzGridLines, toShowTreeLines, toShowVertGridLines, toThemeAware, toUseBlendedImages, toFullVertGridLines]
@@ -382,6 +369,40 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
             OnKeyDown = vstFileKeyDown
             OnKeyPress = vstKeyPress
             OnNodeClick = vstNodeClick
+          end
+          object pFilesOtherFolderDir: TPanel
+            Left = 0
+            Height = 30
+            Top = 0
+            Width = 385
+            Align = alTop
+            AutoSize = True
+            BevelOuter = bvNone
+            ClientHeight = 30
+            ClientWidth = 385
+            TabOrder = 1
+            object bAutoAssign: TButton
+              Left = 291
+              Height = 30
+              Top = 0
+              Width = 94
+              Action = actAutoAssign
+              Align = alRight
+              TabOrder = 0
+            end
+            object eOtherFolder: TDirectoryEdit
+              Left = 0
+              Height = 30
+              Top = 0
+              Width = 291
+              OnAcceptDirectory = eOtherFolderAcceptDirectory
+              ShowHidden = False
+              ButtonWidth = 23
+              NumGlyphs = 1
+              Align = alClient
+              MaxLength = 0
+              TabOrder = 1
+            end
           end
         end
       end
@@ -842,6 +863,11 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
       Category = 'Files'
       Caption = 'Rename file manually...'
       OnExecute = actRenameFileExecute
+    end
+    object actAutoAssign: TAction
+      Category = 'Files'
+      Caption = 'Auto Assign'
+      OnExecute = actAutoAssignExecute
     end
   end
   object ilActions: TImageList[8]

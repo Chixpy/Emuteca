@@ -4,7 +4,7 @@ unit ufETKGUIMediaManager;
 
   This file is part of Emuteca GUI.
 
-  Copyright (C) 2006-2022 Chixpy
+  Copyright (C) 2006-2023 Chixpy
 
   This source is free software; you can redistribute it and/or modify it under
   the terms of the GNU General Public License as published by the Free
@@ -49,6 +49,17 @@ uses
   // Emuteca GUI classes
   ucETKGUIConfig;
 
+const
+  krsETKMMFormName = 'frmETKGUIMediaManager';
+
+resourcestring
+  rsETKMMSearching = 'Searching...';
+  rsETKMMSomeTime = 'This can take some time';
+  rsETKMMFilesGroups = 'Files without group and groups without file';
+  rsETKMMFilesSoft = 'Files without soft and soft without file';
+  rsETKMMDeleteAll = 'Do you want delete ALL visible files?';
+  rsETKMMFormCaption = 'Media Manager';
+
 type
   // Data stored in File Trees
   TFileRow = record
@@ -64,6 +75,7 @@ type
     actDeleteFile: TAction;
     actDeleteAllFiles: TAction;
     actEditSoft: TAction;
+    actAutoAssign: TAction;
     actRenameFile: TAction;
     actRenameSoftTitleWithFilename: TAction;
     actRenameGroupTitleWithFilename: TAction;
@@ -71,6 +83,7 @@ type
     actMoveFile: TAction;
     actEditGroup: TAction;
     ActionList: TActionList;
+    bAutoAssign: TButton;
     bRename: TBitBtn;
     chkCopyFile: TCheckBox;
     eOtherFolder: TDirectoryEdit;
@@ -107,6 +120,7 @@ type
     pCenter: TPanel;
     pcSource: TPageControl;
     pcTarget: TPageControl;
+    pFilesOtherFolderDir: TPanel;
     pImagePreview: TPanel;
     pLeft: TScrollBox;
     pumVSTFiles: TPopupMenu;
@@ -147,13 +161,23 @@ type
     vstSoftAll: TVirtualStringTree;
     vstSoftWOFile: TVirtualStringTree;
     procedure actAssignFileExecute(Sender: TObject);
+    {< Renames (or copies) selected file to required filename by selected
+       group or soft. }
+    procedure actAutoAssignExecute(Sender: TObject);
     procedure actDeleteAllFilesExecute(Sender: TObject);
+    {< Deletes all VISIBLE (i.e. no hidden) files from the current list
+       FROM DISC PHYSICALLY. }
     procedure actDeleteFileExecute(Sender: TObject);
+    {< Deletes current selected (source) file FROM DISC PHYSICALLY. }
     procedure actEditSoftExecute(Sender: TObject);
     procedure actMoveAllFilesExecute(Sender: TObject);
+    {< Moves all VISIBLE (i.e. no hidden) files from the current list to
+        another folder. }
     procedure actMoveFileExecute(Sender: TObject);
+    {< Moves current selected (source) file to another folder. }
     procedure actEditGroupExecute(Sender: TObject);
     procedure actRenameFileExecute(Sender: TObject);
+    {< Renames manually a file. If already exists "(n)" is added automatically.}
     procedure actRenameGroupTitleWithFilenameExecute(Sender: TObject);
     procedure actRenameSoftTitleWithFilenameExecute(Sender: TObject);
     procedure chkSimilarFilesChange(Sender: TObject);
@@ -265,6 +289,9 @@ type
     procedure FilterLists;
     {< Filters list with similar filename or groups (depending on filter mode) }
 
+    procedure UpdateListCount;
+    {< Updates status bars with item count. }
+
     function SelectSystem(aSystem: cEmutecaSystem): boolean;
     {< Selects a system. }
 
@@ -338,22 +365,6 @@ type
     }
 
     procedure UpdateFileOtherFolder(aFolder: string);
-
-    procedure AssignFile;
-    {< Renames (or copies) selected file to required filename by selected
-      group or soft. }
-    procedure DeleteFile;
-    {< Deletes current selected (source) file FROM DISC PHYSICALLY. }
-    procedure DeleteAllFiles;
-    {< Deletes all VISIBLE (i.e. no hidden) files from the current list
-         FROM DISC PHYSICALLY. }
-    procedure MoveFile;
-    {< Moves current selected (source) file to another folder. }
-    procedure MoveAllFiles;
-    {< Moves all VISIBLE (i.e. no hidden) files from the current list to
-        another folder. }
-    procedure RenameFile;
-    {< Renames manually a file. If already exists "(n)" is added automatically.}
 
     procedure OpenGroupEditor(NewTitle: string = '');
     {< Opens GroupEditor with current selected group, and set a new name.}
@@ -450,8 +461,8 @@ begin
   vstFilesAll.Clear;
   vstFilesOtherExt.BeginUpdate;
   vstFilesOtherExt.Clear;
-  fmProgressBar.UpdTextAndBar('Searching files...',
-    'This can take some time', 1, 4, False);
+  fmProgressBar.UpdTextAndBar(rsETKMMSearching,
+    rsETKMMSomeTime, 1, 4, False);
   IterateFolderObj(aFolder, @AddFileCB, False);
   vstFilesAll.EndUpdate;
   vstFilesOtherExt.EndUpdate;
@@ -459,8 +470,8 @@ begin
   // vstFilesAll -> vstFilesWOGroup and
   //   vstGroupsAll -> vstGroupsWOFile.
   // ----------------------------------
-  fmProgressBar.UpdTextAndBar('Searching...',
-    'Files without group and groups without file', 2, 4, False);
+  fmProgressBar.UpdTextAndBar(rsETKMMSearching,
+    rsETKMMFilesGroups, 2, 4, False);
 
   // Sorting vstFilesAll and vstGroupsAll to iterate them;
   vstFilesAll.SortTree(0, VirtualTrees.sdAscending, True); // By filename
@@ -560,8 +571,8 @@ begin
   // vstFilesWOGroup -> vstFilesWOSoft and
   //   vstSoftAll -> vstSoftWOFile.
   // -------------------------------------
-  fmProgressBar.UpdTextAndBar('Searching...',
-    'Files without soft and soft without file', 3, 4, False);
+  fmProgressBar.UpdTextAndBar(rsETKMMSearching,
+    rsETKMMFilesSoft, 3, 4, False);
 
   // Sorting vstFilesWOGroup and vstvstAllGroups to iterate them;
   vstFilesWOGroup.SortTree(0, VirtualTrees.sdAscending, True); // By filename
@@ -661,13 +672,7 @@ begin
 
   fmProgressBar.Finish;
 
-  aVST := GetCurrentFilesVST;
-  if Assigned(aVST) then
-    sbSourceList.SimpleText := format(rsFmtNItems, [aVST.VisibleCount]);
-
-  aVST := GetCurrentGSVST;
-  if Assigned(aVST) then
-    sbTargetList.SimpleText := format(rsFmtNItems, [aVST.VisibleCount]);
+  UpdateListCount;
 end;
 
 function TfmETKGUIMediaManager.SelectSystem(aSystem: cEmutecaSystem): boolean;
@@ -762,8 +767,6 @@ begin // procedure TfmETKGUIMediaManager.FilterLists;
       end
       else
         FilterFiles(aVST);
-
-      sbSourceList.SimpleText := format(rsFmtNItems, [aVST.VisibleCount]);
     end;
 
     2: begin
@@ -774,8 +777,6 @@ begin // procedure TfmETKGUIMediaManager.FilterLists;
         MakeVSTNodesVisible(aVST)
       else
         FilterSoftGroups(aVST);
-
-      sbTargetList.SimpleText := format(rsFmtNItems, [aVST.VisibleCount]);
     end;
 
     else
@@ -784,17 +785,30 @@ begin // procedure TfmETKGUIMediaManager.FilterLists;
       if Assigned(aVST) then
       begin
         MakeVSTNodesVisible(aVST);
-        sbTargetList.SimpleText := format(rsFmtNItems, [aVST.VisibleCount]);
       end;
 
       aVST := GetCurrentFilesVST;
       if Assigned(aVST) then
       begin
-        MakeVSTNodesVisible(GetCurrentFilesVST);
-        sbSourceList.SimpleText := format(rsFmtNItems, [aVST.VisibleCount]);
+        MakeVSTNodesVisible(aVST);
       end;
     end;
   end;
+
+  UpdateListCount;
+end;
+
+procedure TfmETKGUIMediaManager.UpdateListCount;
+var
+  aVST: TCustomVirtualStringTree;
+begin
+  aVST := GetCurrentFilesVST;
+  if Assigned(aVST) then
+    sbSourceList.SimpleText := Format(rsFmtNItems, [aVST.VisibleCount]);
+
+  aVST := GetCurrentGSVST;
+  if Assigned(aVST) then
+    sbTargetList.SimpleText := Format(rsFmtNItems, [aVST.VisibleCount]);
 end;
 
 function TfmETKGUIMediaManager.AddFileCB(aFolder: string;
@@ -894,6 +908,8 @@ begin
   if CompareFilenames(SourceFolder,
     SetAsFolder(eOtherFolder.Directory)) = 0 then
     RemoveFileFromVST(vstFilesOtherFolder, aFile);
+
+  UpdateListCount;
 end;
 
 function TfmETKGUIMediaManager.GetCurrentGSVST: TCustomVirtualStringTree;
@@ -1032,444 +1048,14 @@ begin
     Exit;
 
   vstFilesOtherFolder.BeginUpdate;
-  fmProgressBar.UpdTextAndBar('Searching files...',
-    'This can take some time', 1, 2, False);
+  fmProgressBar.UpdTextAndBar(rsETKMMSearching, rsETKMMSomeTime,
+    1, 2, False);
   IterateFolderObj(aFolder, @AddFilesOtherFolderCB, False);
   vstFilesOtherFolder.EndUpdate;
 
   fmProgressBar.Finish;
-end;
 
-procedure TfmETKGUIMediaManager.AssignFile;
-var
-  TargetPath: string;
-  SourcePath: string;
-  SourceIsFolder: boolean;
-  AllOK: boolean;
-begin
-  if (SourceFolder = PathDelim) or (SourceFolder = '') then
-    Exit;
-  if (TargetFolder = PathDelim) or (TargetFolder = '') then
-    Exit;
-  if SourceFile = '' then
-    Exit;
-  if TargetFile = '' then
-    Exit;
-
-  // Source
-  // ------
-  SourcePath := SourceFolder + SourceFile;
-
-  // Testing if it's a folder
-  SourceIsFolder := CompareFileExt(SourceFile, krsVirtualFolderExt) = 0;
-  if SourceIsFolder then // Removing virtual extension of folders
-    SourcePath := ExtractFileNameWithoutExt(SourcePath);
-
-  // Checking source existence, may be it's redundant...
-  AllOK := False;
-  if SourceIsFolder then
-    AllOK := DirectoryExistsUTF8(SourcePath)
-  else
-    AllOK := FileExistsUTF8(SourcePath);
-  if not AllOK then
-    Exit;
-
-  // Target
-  // ------
-
-  TargetPath := TargetFolder + TargetFile;
-
-
-  // Dragons
-  // -------
-
-  AllOK := False;
-  if SourceIsFolder then // Source is a folder
-  begin
-    if DirectoryExistsUTF8(TargetPath) then
-    begin
-      // Testing if they are the same folder...
-      if CompareFilenames(TargetPath, SourcePath) = 0 then
-        Exit;
-
-      // Copy all files.
-
-      // TODO: Decide between:
-      //   - Overwrite files: add [cffOverwriteFile] flag in CopyDirTree
-      //   - Keep and autorename repeated filenames (making a custom function)
-      //     or TSearcher (see CopyDirTree)
-
-      // HACK: Where is CopyDirTreeUTF8?
-      AllOK := CopyDirTree(UTF8ToSys(SourcePath), UTF8ToSys(TargetPath),
-        [cffPreserveTime]);
-
-      // Delete Source only if copy went well and not in copy mode.
-      if AllOK and (not chkCopyFile.Checked) then
-        // HACK: DeleteDirectoryUTF8 don't exists
-        DeleteDirectory(UTF8ToSys(SourcePath), False);
-    end
-    else // Target folder don't exists
-    begin
-      if chkCopyFile.Checked then
-      begin
-        // HACK: Where is CopyDirTreeUTF8?
-        AllOK := CopyDirTree(UTF8ToSys(SourcePath),
-          UTF8ToSys(TargetPath), [cffCreateDestDirectory, cffPreserveTime]);
-      end
-      else
-      begin
-        AllOK := RenameFileUTF8(SourcePath, TargetPath);
-      end;
-    end;
-  end
-  else // Source is a file
-  begin
-    if DirectoryExistsUTF8(TargetPath) then
-    begin
-      TargetPath := CHXCheckFileRename(SetAsFolder(TargetPath) + SourceFile);
-      AllOK := True;
-    end
-    else // Target is not a folder
-    begin
-      TargetPath := TargetPath + ExtractFileExt(SourceFile);
-      AllOK := True;
-
-      // Testing if they are the same file...
-      if CompareFilenames(TargetPath, SourcePath) = 0 then
-        Exit;
-
-      if FileExistsUTF8(TargetPath) then
-      begin // File already exists, creating new folder and moving both files.
-
-        // Moving already existing file
-        AllOK := ForceDirectoriesUTF8(ExtractFileNameWithoutExt(TargetPath));
-
-        if AllOK then
-          AllOK := RenameFileUTF8(TargetPath,
-            SetAsFolder(ExtractFileNameWithoutExt(TargetPath)) +
-            ExtractFileName(TargetPath));
-
-        // Setting the new target file inside the folder
-        TargetPath := SetAsFolder(ExtractFileNameWithoutExt(TargetPath)) +
-          SourceFile;
-      end;
-    end;
-
-    if AllOK then
-    begin
-      // Copy or rename the file
-      if chkCopyFile.Checked then
-      begin
-        AllOK := CopyFile(UTF8ToSys(SourcePath), UTF8ToSys(TargetPath),
-          [cffCreateDestDirectory, cffPreserveTime], True);
-      end
-      else
-      begin
-        AllOK := RenameFileUTF8(SourcePath, TargetPath);
-      end;
-    end;
-  end;
-
-  if not AllOK then
-  begin
-    ShowMessage('There was an error:' + LineEnding + SourcePath +
-      LineEnding + TargetPath);
-    Exit;
-  end;
-
-
-   { TODO: Add new filename to AllFiles list... but maybe we want to keep
-     already processed files hidden...
-
-  // Quick update of VST lists
-  // -------------------------
-
-  // Adding TargetFile.
-  case rgbAssignMode.ItemIndex of
-    1: // <TargetFolder>/<TargetFile>/<Filename>.<ext>
-      AddFileVSTAllFiles(TargetFile + krsVirtualFolderExt);
-    2: // <TargetFolder>/<TargetFile>.zip/<Filename>.<ext>
-      AddFileVSTAllFiles(TargetFile + '.zip');
-    else // 0: // <TargetFolder>/<TargetFile>.<ext>
-      AddFileVSTAllFiles(TargetFile + ExtractFileExt(SourceFile));
-  end;
-  }
-
-  // Removing Source file from ALL vstFiles
-  if not chkCopyFile.Checked then
-    RemoveFileVSTFiles(SourceFile);
-
-  // Removing Target file from vstGroupWOFile or vstSoftWOFile.
-  if not chkCopyFile.Checked then
-    RemoveGroupSoftWOFile(TargetFile);
-
-  SourceFile := '';
-
-  // Clear TargetFile only if pagGroupsWOFile or vstSoftWOFile is active because
-  //  the group is deleted from their list.
-  if (GetCurrentFilesVST = vstGroupsWOFile) or
-    (GetCurrentFilesVST = vstSoftWOFile) then
-  begin
-    TargetFile := '';
-  end;
-
-  FilterLists;
-end;
-
-procedure TfmETKGUIMediaManager.DeleteFile;
-begin
-  if (SourceFile = '') or (SourceFolder = '') then
-    Exit;
-
-  // TODO: Add support for folders
-
-  if MessageDlg(Format(rsCorfirmDeleteFile, [SourceFolder + SourceFile]),
-    mtConfirmation, [mbYes, mbNo], -1) = mrNo then
-    Exit;
-
-  if not DeleteFileUTF8(SourceFolder + SourceFile) then
-  begin
-    ShowMessageFmt(rsErrorDeletingFile, [SourceFolder + SourceFile]);
-    Exit;
-  end;
-
-  RemoveFileVSTFiles(SourceFile);
-  SourceFile := '';
-end;
-
-procedure TfmETKGUIMediaManager.DeleteAllFiles;
-var
-  aVSTFiles: TCustomVirtualStringTree;
-  aNode: PVirtualNode;
-  pFile: PFileRow;
-  IsFolder, aBool: boolean;
-  SourcePath: string;
-begin
-  aVSTFiles := GetCurrentFilesVST;
-  if not Assigned(aVSTFiles) then
-    Exit;
-
-  if MessageDlg('Do you want delete ALL visible files?',
-    mtConfirmation, [mbYes, mbNo], -1) = mrNo then
-    Exit;
-
-  aNode := aVSTFiles.GetFirstChild(nil);
-  while Assigned(aNode) do
-  begin
-    if aVSTFiles.IsVisible[aNode] then
-    begin
-      pFile := aVSTFiles.GetNodeData(aNode);
-
-      // SourceFolder is in sync with current VSTFile
-      // Testing if it's a folder, and removing virtual folder extension.
-      IsFolder := CompareFileExt(pFile^.Extension, krsVirtualFolderExt) = 0;
-      if IsFolder then
-        SourcePath := SourceFolder + pFile^.FileName
-      else
-        SourcePath := SourceFolder + pFile^.FileName + pFile^.Extension;
-
-      // Checking source existence, may be it's redundant...
-      if IsFolder then
-        aBool := DirectoryExistsUTF8(SourcePath)
-      else
-        aBool := FileExistsUTF8(SourcePath);
-
-      if aBool then
-      begin
-        if IsFolder then
-        begin
-          aBool := DeleteDirectory(SourcePath, False);
-        end
-        else
-        begin
-          aBool := DeleteFileUTF8(SourcePath);
-        end;
-      end;
-
-      if not aBool then
-      begin
-        ShowMessageFmt('Error deleting: %0:s', [SourcePath]);
-        Exit;
-      end;
-    end;
-    aNode := aVSTFiles.GetNextSibling(aNode);
-  end;
-
-  // Clear vstFilesOtherFolder if needed
-  if CompareFilenames(SourceFolder,
-    SetAsFolder(eOtherFolder.Directory)) = 0 then
-    UpdateFileOtherFolder(SourceFolder);
-
-  // Full update of VSTs
-  if CompareFilenames(SourceFolder, TargetFolder) = 0 then
-    UpdateVST(TargetFolder);
-end;
-
-procedure TfmETKGUIMediaManager.MoveFile;
-var
-  SourcePath, TargetPath: string;
-  IsFolder, aBool: boolean;
-begin
-  if (SourceFile = '') or (SourceFolder = '') then
-    Exit;
-
-  SetDlgInitialDir(SelectDirectoryDialog1, SourceFolder);
-  if not SelectDirectoryDialog1.Execute then
-    Exit;
-
-  // Testing if it's a folder, and removing virtual folder extension.
-  IsFolder := CompareFileExt(SourceFile, krsVirtualFolderExt) = 0;
-  if IsFolder then
-    SourcePath := SourceFolder + ExtractFileNameOnly(SourceFile)
-  else
-    SourcePath := SourceFolder + SourceFile;
-
-  // Checking source existence, may be it's redundant...
-  if IsFolder then
-    aBool := DirectoryExistsUTF8(SourcePath)
-  else
-    aBool := FileExistsUTF8(SourcePath);
-  if not aBool then
-    Exit;
-
-  TargetPath := SetAsFolder(SelectDirectoryDialog1.FileName) +
-    ExtractFileName(SourcePath);
-
-  // Checking target existence for files
-  if IsFolder then
-    aBool := DirectoryExistsUTF8(TargetPath)
-  else
-    aBool := FileExistsUTF8(TargetPath);
-  if aBool then
-  begin
-    if MessageDlg(Format('%0:s already exists. ¿Overwrite?', [TargetPath]),
-      mtConfirmation, [mbYes, mbNo], -1) = mrNo then
-      // TODO 2: Merge folders?
-      Exit
-    else
-    begin
-      if IsFolder then
-        DeleteDirectory(UTF8ToSys(TargetPath), False)
-      else
-        DeleteFileUTF8(TargetPath);
-    end;
-  end;
-
-  RenameFileUTF8(SourcePath, TargetPath);
-  // Removing Source file from ALL vstFiles
-  RemoveFileVSTFiles(SourceFile);
-
-  SourceFile := '';
-end;
-
-procedure TfmETKGUIMediaManager.MoveAllFiles;
-var
-  aVSTFiles: TCustomVirtualStringTree;
-  aNode: PVirtualNode;
-  pFile: pFileRow;
-  IsFolder, aBool: boolean;
-  SourcePath, TargetPath: string;
-begin
-  aVSTFiles := GetCurrentFilesVST;
-
-  if not Assigned(aVSTFiles) then
-    Exit;
-
-  SetDlgInitialDir(SelectDirectoryDialog1, SourceFolder);
-  if not SelectDirectoryDialog1.Execute then
-    Exit;
-
-  aNode := aVSTFiles.GetFirstChild(nil);
-  while Assigned(aNode) do
-  begin
-    if aVSTFiles.IsVisible[aNode] then
-    begin
-      pFile := aVSTFiles.GetNodeData(aNode);
-
-      // SourceFolder is in sync with current VSTFile
-      // Testing if it's a folder, and removing virtual folder extension.
-      IsFolder := CompareFileExt(pFile^.Extension, krsVirtualFolderExt) = 0;
-      if IsFolder then
-        SourcePath := SourceFolder + pFile^.FileName
-      else
-        SourcePath := SourceFolder + pFile^.FileName + pFile^.Extension;
-
-      // Checking source existence, may be it's redundant...
-      if IsFolder then
-        aBool := DirectoryExistsUTF8(SourcePath)
-      else
-        aBool := FileExistsUTF8(SourcePath);
-
-      if aBool then
-      begin
-        TargetPath := SetAsFolder(SelectDirectoryDialog1.FileName) +
-          ExtractFileName(SourcePath);
-
-        // Checking target existence for files
-        if IsFolder then
-          aBool := DirectoryExistsUTF8(TargetPath)
-        else
-          aBool := FileExistsUTF8(TargetPath);
-
-        if aBool then
-        begin
-          if MessageDlg(Format('%0:s already exists. ¿Overwrite?',
-            [TargetPath]), mtConfirmation, [mbYes, mbNo], -1) = mrYes then
-          begin
-            if IsFolder then
-              DeleteDirectory(UTF8ToSys(TargetPath), False)
-            else
-              DeleteFileUTF8(TargetPath);
-
-            RenameFileUTF8(SourcePath, TargetPath);
-          end;
-          // TODO: Merge Folders
-        end
-        else
-          RenameFileUTF8(SourcePath, TargetPath);
-      end;
-    end;
-
-    aNode := aVSTFiles.GetNextSibling(aNode);
-  end;
-
-  // Clear vstFilesOtherFolder if needed
-  if CompareFilenames(SourceFolder,
-    SetAsFolder(eOtherFolder.Directory)) = 0 then
-    UpdateFileOtherFolder(SourceFolder);
-
-  // Full update of VSTs
-  if CompareFilenames(SourceFolder, TargetFolder) = 0 then
-    UpdateVST(TargetFolder);
-end;
-
-procedure TfmETKGUIMediaManager.RenameFile;
-var
-  NewFileName: string;
-begin
-  if (SourceFile = '') or (SourceFolder = '') then
-    Exit;
-
-  NewFileName := InputBox(rsRenameFileCaption, rsRenameFile,
-    ExtractFileNameWithoutExt(SourceFile));
-
-  NewFileName := NewFileName + ExtractFileExt(SourceFile);
-
-  if CompareFilenames(NewFileName, SourceFile) = 0 then Exit;
-
-  NewFileName := CHXCheckFileRename(SourceFolder + NewFileName);
-
-  // TODO: Add support for folders
-
-  if not RenameFileUTF8(SourceFolder + SourceFile, NewFileName) then
-  begin
-    ShowMessageFmt(rsErrorRenamingFile,
-      [SourceFile, ExtractFileName(NewFileName)]);
-    Exit;
-  end;
-
-  RemoveFileVSTFiles(SourceFile);
-  SourceFile := '';
+  UpdateListCount;
 end;
 
 procedure TfmETKGUIMediaManager.OpenGroupEditor(NewTitle: string);
@@ -1899,18 +1485,332 @@ begin
 end;
 
 procedure TfmETKGUIMediaManager.actAssignFileExecute(Sender: TObject);
+var
+  TargetPath: string;
+  SourcePath: string;
+  SourceIsFolder: boolean;
+  AllOK: boolean;
 begin
-  AssignFile;
+  if (SourceFolder = PathDelim) or (SourceFolder = '') then
+    Exit;
+  if (TargetFolder = PathDelim) or (TargetFolder = '') then
+    Exit;
+  if SourceFile = '' then
+    Exit;
+  if TargetFile = '' then
+    Exit;
+
+  // Source
+  // ------
+  SourcePath := SourceFolder + SourceFile;
+
+  // Testing if it's a folder
+  SourceIsFolder := CompareFileExt(SourceFile, krsVirtualFolderExt) = 0;
+  if SourceIsFolder then // Removing virtual extension of folders
+    SourcePath := ExtractFileNameWithoutExt(SourcePath);
+
+  // Checking source existence, may be it's redundant...
+  AllOK := False;
+  if SourceIsFolder then
+    AllOK := DirectoryExistsUTF8(SourcePath)
+  else
+    AllOK := FileExistsUTF8(SourcePath);
+  if not AllOK then
+    Exit;
+
+  // Target
+  // ------
+
+  TargetPath := TargetFolder + TargetFile;
+
+
+  // Dragons
+  // -------
+
+  AllOK := False;
+  if SourceIsFolder then // Source is a folder
+  begin
+    if DirectoryExistsUTF8(TargetPath) then
+    begin
+      // Testing if they are the same folder...
+      if CompareFilenames(TargetPath, SourcePath) = 0 then
+        Exit;
+
+      // Copy all files.
+
+      // TODO: Decide between:
+      //   - Overwrite files: add [cffOverwriteFile] flag in CopyDirTree
+      //   - Keep and autorename repeated filenames (making a custom function)
+      //     or TSearcher (see CopyDirTree)
+
+      // HACK: Where is CopyDirTreeUTF8?
+      AllOK := CopyDirTree(UTF8ToSys(SourcePath), UTF8ToSys(TargetPath),
+        [cffPreserveTime]);
+
+      // Delete Source only if copy went well and not in copy mode.
+      if AllOK and (not chkCopyFile.Checked) then
+        // HACK: DeleteDirectoryUTF8 don't exists
+        DeleteDirectory(UTF8ToSys(SourcePath), False);
+    end
+    else // Target folder don't exists
+    begin
+      if chkCopyFile.Checked then
+      begin
+        // HACK: Where is CopyDirTreeUTF8?
+        AllOK := CopyDirTree(UTF8ToSys(SourcePath),
+          UTF8ToSys(TargetPath), [cffCreateDestDirectory, cffPreserveTime]);
+      end
+      else
+      begin
+        AllOK := RenameFileUTF8(SourcePath, TargetPath);
+      end;
+    end;
+  end
+  else // Source is a file
+  begin
+    if DirectoryExistsUTF8(TargetPath) then
+    begin
+      TargetPath := CHXCheckFileRename(SetAsFolder(TargetPath) + SourceFile);
+      AllOK := True;
+    end
+    else // Target is not a folder
+    begin
+      TargetPath := TargetPath + ExtractFileExt(SourceFile);
+      AllOK := True;
+
+      // Testing if they are the same file...
+      if CompareFilenames(TargetPath, SourcePath) = 0 then
+        Exit;
+
+      if FileExistsUTF8(TargetPath) then
+      begin // File already exists, creating new folder and moving both files.
+
+        // Moving already existing file
+        AllOK := ForceDirectoriesUTF8(ExtractFileNameWithoutExt(TargetPath));
+
+        if AllOK then
+          AllOK := RenameFileUTF8(TargetPath,
+            SetAsFolder(ExtractFileNameWithoutExt(TargetPath)) +
+            ExtractFileName(TargetPath));
+
+        // Setting the new target file inside the folder
+        TargetPath := SetAsFolder(ExtractFileNameWithoutExt(TargetPath)) +
+          SourceFile;
+      end;
+    end;
+
+    if AllOK then
+    begin
+      // Copy or rename the file
+      if chkCopyFile.Checked then
+      begin
+        AllOK := CopyFile(UTF8ToSys(SourcePath), UTF8ToSys(TargetPath),
+          [cffCreateDestDirectory, cffPreserveTime], True);
+      end
+      else
+      begin
+        AllOK := RenameFileUTF8(SourcePath, TargetPath);
+      end;
+    end;
+  end;
+
+  if not AllOK then
+  begin
+    ShowMessageFmt(rsErrorRenamingFile, [SourcePath, TargetPath]);
+    Exit;
+  end;
+
+
+   { TODO: Add new filename to AllFiles list... but maybe we want to keep
+     already processed files hidden...
+
+  // Quick update of VST lists
+  // -------------------------
+
+  // Adding TargetFile.
+  case rgbAssignMode.ItemIndex of
+    1: // <TargetFolder>/<TargetFile>/<Filename>.<ext>
+      AddFileVSTAllFiles(TargetFile + krsVirtualFolderExt);
+    2: // <TargetFolder>/<TargetFile>.zip/<Filename>.<ext>
+      AddFileVSTAllFiles(TargetFile + '.zip');
+    else // 0: // <TargetFolder>/<TargetFile>.<ext>
+      AddFileVSTAllFiles(TargetFile + ExtractFileExt(SourceFile));
+  end;
+  }
+
+  // Removing Source file from ALL vstFiles
+  if not chkCopyFile.Checked then
+    RemoveFileVSTFiles(SourceFile);
+
+  // Removing Target file from vstGroupWOFile or vstSoftWOFile.
+  if not chkCopyFile.Checked then
+    RemoveGroupSoftWOFile(TargetFile);
+
+  SourceFile := '';
+
+  // Clear TargetFile only if pagGroupsWOFile or vstSoftWOFile is active because
+  //  the group is deleted from their list.
+  if (GetCurrentFilesVST = vstGroupsWOFile) or
+    (GetCurrentFilesVST = vstSoftWOFile) then
+  begin
+    TargetFile := '';
+  end;
+
+  FilterLists;
+end;
+
+procedure TfmETKGUIMediaManager.actAutoAssignExecute(Sender: TObject);
+var
+  aVSTFiles, aVSTTarget: TCustomVirtualStringTree;
+  PTarget: ^caEmutecaCustomSGItem;
+  pFileName: PFileRow;
+  NodoF, NodoT: PVirtualNode;
+  ContinueOp: Boolean;
+  Cont: integer;
+
+begin
+  aVSTFiles := GetCurrentFilesVST;
+
+  // Testing if it is vstFilesOtherFolder
+  if (not Assigned(aVSTFiles)) or (aVSTFiles <> vstFilesOtherFolder) then
+    Exit;
+
+  aVSTTarget := GetCurrentGSVST;
+
+  { TODO: This is sloooow. }
+
+  ContinueOp := fmProgressBar.UpdTextAndBar(rsETKMMSearching,
+    rsETKMMSomeTime, 1, aVSTFiles.VisibleCount, True);
+  Cont := 0;
+  // From LastChild
+  NodoF := aVSTFiles.GetLastChild(nil);
+  while Assigned(NodoF) and ContinueOp do
+  begin
+    pFileName := aVSTFiles.GetNodeData(NodoF);
+    NodoF := aVSTFiles.GetPreviousSibling(NodoF);
+    Inc(Cont);
+
+    NodoT := aVSTTarget.GetLastChild(nil);
+    while Assigned(NodoT) and ContinueOp do
+    begin
+      PTarget := aVSTTarget.GetNodeData(NodoT);
+
+      if CompareFilenames(pFileName^.FileName, PTarget^.MediaFileName) = 0 then
+      begin
+        SourceFolder := eOtherFolder.Directory;
+        SourceFile := pFileName^.FileName + pFileName^.Extension;
+        TargetFile := PTarget^.MediaFileName;
+
+        Dec(Cont);
+        ContinueOp := fmProgressBar.UpdTextAndBar(rsETKMMSearching,
+          SourceFile, Cont, aVSTFiles.VisibleCount, True);
+
+        actAssignFileExecute(nil);
+
+        NodoT := nil; // Next file
+      end
+      else
+        NodoT := aVSTTarget.GetPreviousSibling(NodoT);
+    end;
+  end;
+
+  fmProgressBar.UpdTextAndBar('', '', 0, 0, True);
+
+  SourceFile := '';
+  TargetFile := '';
 end;
 
 procedure TfmETKGUIMediaManager.actDeleteAllFilesExecute(Sender: TObject);
+var
+  aVSTFiles: TCustomVirtualStringTree;
+  aNode: PVirtualNode;
+  pFile: PFileRow;
+  IsFolder, aBool: boolean;
+  SourcePath: string;
 begin
-  DeleteAllFiles;
+  aVSTFiles := GetCurrentFilesVST;
+  if not Assigned(aVSTFiles) then
+    Exit;
+
+  if MessageDlg(rsETKMMDeleteAll, mtConfirmation, [mbYes, mbNo],
+    -1) = mrNo then
+    Exit;
+
+  aNode := aVSTFiles.GetFirstChild(nil);
+  while Assigned(aNode) do
+  begin
+    if aVSTFiles.IsVisible[aNode] then
+    begin
+      pFile := aVSTFiles.GetNodeData(aNode);
+
+      // SourceFolder is in sync with current VSTFile
+      // Testing if it's a folder, and removing virtual folder extension.
+      IsFolder := CompareFileExt(pFile^.Extension, krsVirtualFolderExt) = 0;
+      if IsFolder then
+        SourcePath := SourceFolder + pFile^.FileName
+      else
+        SourcePath := SourceFolder + pFile^.FileName + pFile^.Extension;
+
+      // Checking source existence, may be it's redundant...
+      if IsFolder then
+        aBool := DirectoryExistsUTF8(SourcePath)
+      else
+        aBool := FileExistsUTF8(SourcePath);
+
+      if aBool then
+      begin
+        if IsFolder then
+        begin
+          aBool := DeleteDirectory(SourcePath, False);
+        end
+        else
+        begin
+          aBool := DeleteFileUTF8(SourcePath);
+        end;
+      end;
+
+      if not aBool then
+      begin
+        ShowMessageFmt(rsErrorDeletingFile, [SourcePath]);
+        Exit;
+      end;
+    end;
+    aNode := aVSTFiles.GetNextSibling(aNode);
+  end;
+
+  // Clear vstFilesOtherFolder if needed
+  if CompareFilenames(SourceFolder,
+    SetAsFolder(eOtherFolder.Directory)) = 0 then
+    UpdateFileOtherFolder(SourceFolder);
+
+  // Full update of VSTs
+  if CompareFilenames(SourceFolder, TargetFolder) = 0 then
+    UpdateVST(TargetFolder);
+
+  UpdateListCount;
 end;
 
 procedure TfmETKGUIMediaManager.actDeleteFileExecute(Sender: TObject);
 begin
-  DeleteFile;
+  if (SourceFile = '') or (SourceFolder = '') then
+    Exit;
+
+  // TODO: Add support for folders
+
+  if MessageDlg(Format(rsCorfirmDeleteFile, [SourceFolder + SourceFile]),
+    mtConfirmation, [mbYes, mbNo], -1) = mrNo then
+    Exit;
+
+  if not DeleteFileUTF8(SourceFolder + SourceFile) then
+  begin
+    ShowMessageFmt(rsErrorDeletingFile, [SourceFolder + SourceFile]);
+    Exit;
+  end;
+
+  RemoveFileVSTFiles(SourceFile);
+  SourceFile := '';
+
+  UpdateListCount;
 end;
 
 procedure TfmETKGUIMediaManager.actEditSoftExecute(Sender: TObject);
@@ -1922,13 +1822,145 @@ begin
 end;
 
 procedure TfmETKGUIMediaManager.actMoveAllFilesExecute(Sender: TObject);
+var
+  aVSTFiles: TCustomVirtualStringTree;
+  aNode: PVirtualNode;
+  pFile: pFileRow;
+  IsFolder, aBool: boolean;
+  SourcePath, TargetPath: string;
 begin
-  MoveAllFiles;
+  aVSTFiles := GetCurrentFilesVST;
+
+  if not Assigned(aVSTFiles) then
+    Exit;
+
+  SetDlgInitialDir(SelectDirectoryDialog1, SourceFolder);
+  if not SelectDirectoryDialog1.Execute then
+    Exit;
+
+  aNode := aVSTFiles.GetFirstChild(nil);
+  while Assigned(aNode) do
+  begin
+    if aVSTFiles.IsVisible[aNode] then
+    begin
+      pFile := aVSTFiles.GetNodeData(aNode);
+
+      // SourceFolder is in sync with current VSTFile
+      // Testing if it's a folder, and removing virtual folder extension.
+      IsFolder := CompareFileExt(pFile^.Extension, krsVirtualFolderExt) = 0;
+      if IsFolder then
+        SourcePath := SourceFolder + pFile^.FileName
+      else
+        SourcePath := SourceFolder + pFile^.FileName + pFile^.Extension;
+
+      // Checking source existence, may be it's redundant...
+      if IsFolder then
+        aBool := DirectoryExistsUTF8(SourcePath)
+      else
+        aBool := FileExistsUTF8(SourcePath);
+
+      if aBool then
+      begin
+        TargetPath := SetAsFolder(SelectDirectoryDialog1.FileName) +
+          ExtractFileName(SourcePath);
+
+        // Checking target existence for files
+        if IsFolder then
+          aBool := DirectoryExistsUTF8(TargetPath)
+        else
+          aBool := FileExistsUTF8(TargetPath);
+
+        if aBool then
+        begin
+          if MessageDlg(Format(rsCUExcAlreadyExistsAsk, [TargetPath]),
+            mtConfirmation, [mbYes, mbNo], -1) = mrYes then
+          begin
+            if IsFolder then
+              DeleteDirectory(UTF8ToSys(TargetPath), False)
+            else
+              DeleteFileUTF8(TargetPath);
+
+            RenameFileUTF8(SourcePath, TargetPath);
+          end;
+          // TODO: Merge Folders
+        end
+        else
+          RenameFileUTF8(SourcePath, TargetPath);
+      end;
+    end;
+
+    aNode := aVSTFiles.GetNextSibling(aNode);
+  end;
+
+  // Clear vstFilesOtherFolder if needed
+  if CompareFilenames(SourceFolder,
+    SetAsFolder(eOtherFolder.Directory)) = 0 then
+    UpdateFileOtherFolder(SourceFolder);
+
+  // Full update of VSTs
+  if CompareFilenames(SourceFolder, TargetFolder) = 0 then
+    UpdateVST(TargetFolder);
+
+  UpdateListCount;
 end;
 
 procedure TfmETKGUIMediaManager.actMoveFileExecute(Sender: TObject);
+var
+  SourcePath, TargetPath: string;
+  IsFolder, aBool: boolean;
 begin
-  MoveFile;
+  if (SourceFile = '') or (SourceFolder = '') then
+    Exit;
+
+  SetDlgInitialDir(SelectDirectoryDialog1, SourceFolder);
+  if not SelectDirectoryDialog1.Execute then
+    Exit;
+
+  // Testing if it's a folder, and removing virtual folder extension.
+  IsFolder := CompareFileExt(SourceFile, krsVirtualFolderExt) = 0;
+  if IsFolder then
+    SourcePath := SourceFolder + ExtractFileNameOnly(SourceFile)
+  else
+    SourcePath := SourceFolder + SourceFile;
+
+  // Checking source existence, may be it's redundant...
+  if IsFolder then
+    aBool := DirectoryExistsUTF8(SourcePath)
+  else
+    aBool := FileExistsUTF8(SourcePath);
+  if not aBool then
+    Exit;
+
+  TargetPath := SetAsFolder(SelectDirectoryDialog1.FileName) +
+    ExtractFileName(SourcePath);
+
+  // Checking target existence for files
+  if IsFolder then
+    aBool := DirectoryExistsUTF8(TargetPath)
+  else
+    aBool := FileExistsUTF8(TargetPath);
+  if aBool then
+  begin
+    if MessageDlg(Format(rsCUExcAlreadyExistsAsk, [TargetPath]),
+      mtConfirmation, [mbYes, mbNo], -1) = mrNo then
+      // TODO 2: Merge folders?
+      Exit
+    else
+    begin
+      if IsFolder then
+        DeleteDirectory(UTF8ToSys(TargetPath), False)
+      else
+        DeleteFileUTF8(TargetPath);
+    end;
+  end;
+
+  RenameFileUTF8(SourcePath, TargetPath);
+  // Removing Source file from ALL vstFiles
+  RemoveFileVSTFiles(SourceFile);
+
+  SourceFile := '';
+
+  UpdateListCount;
 end;
 
 procedure TfmETKGUIMediaManager.actEditGroupExecute(Sender: TObject);
@@ -1940,8 +1972,33 @@ begin
 end;
 
 procedure TfmETKGUIMediaManager.actRenameFileExecute(Sender: TObject);
+var
+  NewFileName: string;
 begin
-  RenameFile;
+  if (SourceFile = '') or (SourceFolder = '') then
+    Exit;
+
+  NewFileName := InputBox(rsRenameFileCaption, rsRenameFile,
+    ExtractFileNameWithoutExt(SourceFile));
+
+  NewFileName := NewFileName + ExtractFileExt(SourceFile);
+
+  if CompareFilenames(NewFileName, SourceFile) = 0 then Exit;
+
+  NewFileName := CHXCheckFileRename(SourceFolder + NewFileName);
+
+  // TODO: Add support for folders
+
+  if not RenameFileUTF8(SourceFolder + SourceFile, NewFileName) then
+  begin
+    ShowMessageFmt(rsErrorRenamingFile,
+      [SourceFile, ExtractFileName(NewFileName)]);
+    Exit;
+  end;
+
+  // FEAT/BUG: It's easier removing from the lists than renaming the items
+  RemoveFileVSTFiles(SourceFile);
+  SourceFile := '';
 end;
 
 procedure TfmETKGUIMediaManager.actRenameGroupTitleWithFilenameExecute(
@@ -2181,9 +2238,9 @@ begin
 
   Application.CreateForm(TfrmCHXForm, aForm);
   try
-    aForm.Name := 'frmETKGUIMediaManager';
+    aForm.Name := krsETKMMFormName;
     aForm.Caption := Format(krsFmtWindowCaption,
-      [Application.Title, 'Media Manager']);
+      [Application.Title, rsETKMMFormCaption]);
 
     aFrame := TfmETKGUIMediaManager.Create(aForm);
     aFrame.Align := alClient;

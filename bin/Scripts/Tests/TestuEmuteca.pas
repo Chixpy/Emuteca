@@ -54,9 +54,10 @@ begin
   WriteLn('p Emuteca.LoadAllData;');  
   WriteLn('p Emuteca.SaveAllData;');
   WriteLn('  Saves current state of Emuteca, games, groups, emulators and systems.');
-  
-  RegisterMethod('procedure CleanSystems;');
-  RegisterMethod('procedure CacheData;');
+
+  WriteLn('');
+  WriteLn('procedure CleanSystems;');
+  WriteLn('procedure CacheData;');
     
   WriteLn('');
   WriteLn('function Emuteca.RunSoftware(const aSoftware: cEmutecaSoftware): integer');
@@ -76,9 +77,10 @@ begin
   WriteLn('    - aMaxValue: Total number of items.'); 
   WriteLn('    - IsCancelable: Can the user cancel the process?'); 
   WriteLn('    - Result: If true continue processing.'); 
-  
-  RegisterMethod('procedure UpdateSysEmulators;');
-  RegisterMethod('procedure UpdateCurrentGroupList(aSystem: cEmutecaSystem; const aWordFilter: string; aFileList: TStrings);');
+
+  WriteLn('');
+  WriteLn('procedure UpdateSysEmulators;');
+  WriteLn('procedure UpdateCurrentGroupList(aSystem: cEmutecaSystem; const aWordFilter: string; aFileList: TStrings);');
 
 
   WriteLn('');

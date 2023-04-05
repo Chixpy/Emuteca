@@ -1273,6 +1273,10 @@ msgstr ""
 msgid "Assign file"
 msgstr ""
 
+#: tfmetkguimediamanager.actautoassign.caption
+msgid "Auto Assign"
+msgstr ""
+
 #: tfmetkguimediamanager.actdeleteallfiles.caption
 msgid "Delete all files"
 msgstr ""
@@ -2051,6 +2055,13 @@ msgstr ""
 msgid "\"%0:s\" already exists."
 msgstr ""
 
+#: uchxrscstr.rscuexcalreadyexistsask
+#, object-pascal-format
+msgid ""
+"\"%0:s\" already exists.\n"
+"Replace it?"
+msgstr ""
+
 #: uchxrscstr.rscuexccardrange
 #, object-pascal-format
 msgid "\"%0:d\" is not in cardinal range."
@@ -2078,6 +2089,13 @@ msgstr ""
 msgctxt "uchxrscstr.rserrordeletingfile"
 msgid ""
 "Error deleting:\n"
+"%0:s"
+msgstr ""
+
+#: uchxrscstr.rserrorloadingfile
+#, object-pascal-format
+msgid ""
+"Error loading:\n"
 "%0:s"
 msgstr ""
 
@@ -2564,6 +2582,30 @@ msgstr ""
 
 #: ufetkguiemumanager.rsemulatorname
 msgid "Emulator name."
+msgstr ""
+
+#: ufetkguimediamanager.rsetkmmdeleteall
+msgid "Do you want delete ALL visible files?"
+msgstr ""
+
+#: ufetkguimediamanager.rsetkmmfilesgroups
+msgid "Files without group and groups without file"
+msgstr ""
+
+#: ufetkguimediamanager.rsetkmmfilessoft
+msgid "Files without soft and soft without file"
+msgstr ""
+
+#: ufetkguimediamanager.rsetkmmformcaption
+msgid "Media Manager"
+msgstr ""
+
+#: ufetkguimediamanager.rsetkmmsearching
+msgid "Searching..."
+msgstr ""
+
+#: ufetkguimediamanager.rsetkmmsometime
+msgid "This can take some time"
 msgstr ""
 
 #: ufetkguisysmanager.rssystemnamemodel
