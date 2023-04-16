@@ -121,7 +121,8 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   utEmutecaRunEmulator, uaEmutecaCustomSGItem, ufETKGUISoftTxtPreview,
   uPSI_FPCSysUtils, ufSMAskOption, uPSI_ucEmutecaSystemList,
   uPSI_uaEmutecaCustomSGItem, uPSI_ucEmutecaEmuList, uPSI_ucEmutecaGroupList,
-  uPSI_ucEmutecaSoftList;
+  uPSI_ucEmutecaSoftList, uPSI_uEmutecaGUIDialogs, uPSI_FPCDateUtils, 
+fETKGUICompareSG;
 
 {$R *.res}
 

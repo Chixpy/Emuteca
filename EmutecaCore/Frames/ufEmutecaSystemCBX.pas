@@ -25,7 +25,9 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
+  // CHX frames
   ufCHXFrame,
+  // Emuteca Core classes
   ucEmutecaSystemList, ucEmutecaSystem;
 
 resourcestring

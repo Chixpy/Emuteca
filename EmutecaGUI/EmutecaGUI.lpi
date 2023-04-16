@@ -42,7 +42,7 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="..\CHXPas\Abstract;..\CHXPas\Classes;..\CHXPas\Forms;..\CHXPas\Frames;..\CHXPas\Misc;..\CHXPas\ScriptManager;..\CHXPas\ScriptManager\Frames;..\CHXPas\ScriptManager\Imports;..\CHXPas\Units;..\EmutecaCore;..\EmutecaCore\Abstracts;..\EmutecaCore\Classes;..\EmutecaCore\Frames;..\EmutecaCore\ScriptMng;..\EmutecaCore\Threads;..\EmutecaCore\Units;Source\Forms;Source\Threads;Source\Units;Source\Classes;Source\Frames;Source\Abstracts;Source\ScriptMng"/>
+            <OtherUnitFiles Value="..\CHXPas\Abstract;..\CHXPas\Classes;..\CHXPas\Forms;..\CHXPas\Frames;..\CHXPas\Misc;..\CHXPas\ScriptManager;..\CHXPas\ScriptManager\Frames;..\CHXPas\ScriptManager\Imports;..\CHXPas\Units;..\EmutecaCore;..\EmutecaCore\Abstracts;..\EmutecaCore\Classes;..\EmutecaCore\Frames;..\EmutecaCore\ScriptMng;..\EmutecaCore\Threads;..\EmutecaCore\Units;Source\Forms;Source\Threads;Source\Units;Source\Classes;Source\Frames;Source\Abstracts;Source\ScriptMng;Source\Units\ScriptMng;Source\Units\ScriptMng\Forms;Source\Units\ScriptMng\Frames"/>
             <UnitOutputDirectory Value="..\lib\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
@@ -97,7 +97,7 @@
         <PackageName Value="LCL"/>
       </Item7>
     </RequiredPackages>
-    <Units Count="146">
+    <Units Count="149">
       <Unit0>
         <Filename Value="EmutecaGUI.pas"/>
         <IsPartOfProject Value="True"/>
@@ -859,6 +859,21 @@
         <Filename Value="..\EmutecaCore\ScriptMng\uPSI_ucEmutecaSoftList.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit145>
+      <Unit146>
+        <Filename Value="Source\Units\ScriptMng\uPSI_uEmutecaGUIDialogs.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit146>
+      <Unit147>
+        <Filename Value="..\CHXPas\ScriptManager\imports\uPSI_FPCDateUtils.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit147>
+      <Unit148>
+        <Filename Value="Source\Units\ScriptMng\Frames\fETKGUICompareSG.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fmETKGUICompareSG"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+      </Unit148>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -869,7 +884,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="..\CHXPas\Abstract;..\CHXPas\Classes;..\CHXPas\Forms;..\CHXPas\Frames;..\CHXPas\Misc;..\CHXPas\ScriptManager;..\CHXPas\ScriptManager\Frames;..\CHXPas\ScriptManager\Imports;..\CHXPas\Units;..\EmutecaCore;..\EmutecaCore\Abstracts;..\EmutecaCore\Classes;..\EmutecaCore\Frames;..\EmutecaCore\ScriptMng;..\EmutecaCore\Threads;..\EmutecaCore\Units;Source\Forms;Source\Threads;Source\Units;Source\Classes;Source\Frames;Source\Abstracts;Source\ScriptMng"/>
+      <OtherUnitFiles Value="..\CHXPas\Abstract;..\CHXPas\Classes;..\CHXPas\Forms;..\CHXPas\Frames;..\CHXPas\Misc;..\CHXPas\ScriptManager;..\CHXPas\ScriptManager\Frames;..\CHXPas\ScriptManager\Imports;..\CHXPas\Units;..\EmutecaCore;..\EmutecaCore\Abstracts;..\EmutecaCore\Classes;..\EmutecaCore\Frames;..\EmutecaCore\ScriptMng;..\EmutecaCore\Threads;..\EmutecaCore\Units;Source\Forms;Source\Threads;Source\Units;Source\Classes;Source\Frames;Source\Abstracts;Source\ScriptMng;Source\Units\ScriptMng;Source\Units\ScriptMng\Forms;Source\Units\ScriptMng\Frames"/>
       <UnitOutputDirectory Value="..\lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>

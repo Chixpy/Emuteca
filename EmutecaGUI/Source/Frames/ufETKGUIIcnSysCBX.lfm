@@ -1,9 +1,11 @@
 inherited fmETKGUIIcnSysCBX: TfmETKGUIIcnSysCBX
   Height = 301
+  Width = 493
   ClientHeight = 301
+  ClientWidth = 493
   inherited cbxSystem: TComboBox
     Height = 30
-    Width = 400
+    Width = 493
     ItemHeight = 24
     OnDrawItem = cbxSystemDrawItem
     Style = csOwnerDrawFixed

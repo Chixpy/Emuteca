@@ -1,4 +1,5 @@
 unit ufETKGUIIcnSysCBX;
+
 {< TfmETKGUIIcnSysCBX frame unit.
 
   This file is part of Emuteca GUI.
@@ -29,9 +30,13 @@ uses
   Types, StdCtrls, LCLType,
   // CHX units
   uCHXImageUtils,
-  // Emuteca classes
-  ucEmutecaSystem,
-  // Emuteca frames
+  // CHX frames
+  ufCHXPropEditor,
+  // CHX forms
+  ufrCHXForm,
+  // Emuteca Core classes
+  ucEmutecaSystem, ucEmutecaSystemList,
+  // Emuteca Core frames
   ufEmutecaSystemCBX;
 
 type
@@ -42,6 +47,13 @@ type
   private
     FDefSysIcon: TPicture;
     procedure SetDefSysIcon(AValue: TPicture);
+
+  protected
+
+  public
+    class function SimpleDialog(aSystemList: cEmutecaSystemList):
+      cEmutecaSystem;
+
   published
     property DefSysIcon: TPicture read FDefSysIcon write SetDefSysIcon;
 
@@ -60,6 +72,47 @@ begin
   if FDefSysIcon = AValue then
     Exit;
   FDefSysIcon := AValue;
+end;
+
+class function TfmETKGUIIcnSysCBX.SimpleDialog(aSystemList:
+  cEmutecaSystemList): cEmutecaSystem;
+var
+  aETKGUIIcnSysCBX: TfmETKGUIIcnSysCBX;
+  aDialogFrame: TfmCHXPropEditor;
+  aForm: TfrmCHXForm;
+begin
+  Result := nil;
+
+  Application.CreateForm(TfrmCHXForm, aForm);
+  try
+    aForm.Name := 'frmETKGUIIcnSysCBX';
+    aForm.Caption := 'System selection';
+    aForm.AutoSize := True;
+
+    aDialogFrame := TfmCHXPropEditor.Create(aForm);
+    aDialogFrame.Align := alClient;
+    aDialogFrame.Parent := aForm;
+    aDialogFrame.chkCloseOnSave.Visible := False;
+    aDialogFrame.Enabled := True;
+
+    // If aDialogFrame is not the owner of aETKGUIIcnSysCBX then
+    //   it isn't freed when aForm is closed, so we can read SelectedSystem
+    // aETKGUIIcnSysCBX := TfmETKGUIIcnSysCBX.Create(aDialogFrame);
+    aETKGUIIcnSysCBX := TfmETKGUIIcnSysCBX.Create(nil);
+    aETKGUIIcnSysCBX.Align := alClient;
+    aETKGUIIcnSysCBX.Parent := aDialogFrame;
+
+    aETKGUIIcnSysCBX.FirstItem := ETKSysCBXFISelect;
+    aETKGUIIcnSysCBX.SystemList := aSystemList;
+    aETKGUIIcnSysCBX.SelectedSystem := nil;
+
+    if aForm.ShowModal = mrOk then
+      Result := aETKGUIIcnSysCBX.SelectedSystem;
+
+  finally
+    aForm.Free;
+    aETKGUIIcnSysCBX.Free;
+  end;
 end;
 
 procedure TfmETKGUIIcnSysCBX.cbxSystemDrawItem(Control: TWinControl;
@@ -94,7 +147,8 @@ begin
     aIcon := DefSysIcon;
 
   if assigned(aIcon) then
-    aCBXS.Canvas.StretchDraw(CorrectAspectRatio(IconRect, aIcon), aIcon.Graphic);
+    aCBXS.Canvas.StretchDraw(CorrectAspectRatio(IconRect, aIcon),
+      aIcon.Graphic);
 
   // Text
   aCBXS.Canvas.TextOut(IconRect.Right + 4, ARect.Top, aCBXS.Items[Index]);

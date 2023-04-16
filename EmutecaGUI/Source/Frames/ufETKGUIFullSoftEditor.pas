@@ -28,7 +28,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
   StdCtrls, Buttons, ActnList,
-    // CHX units
+  // CHX units
   uCHXStrUtils,
   // CHX frames
   ufCHXPropEditor,
@@ -298,7 +298,7 @@ class function TfmETKGUIFullSoftEditor.SimpleModalForm(aSoft: cEmutecaSoftware;
 var
   fmFullSoftEditor: TfmETKGUIFullSoftEditor;
 begin
-  Result := -1;
+  Result := mrNone;
 
   if not Assigned(aSoft) then
     Exit;

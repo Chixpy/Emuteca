@@ -1,6 +1,5 @@
 unit uPSI_ucEmutecaEmulatorManager;
-
-{< Exports of ucEmutecaSystem for Pascal Script engine of Emuteca.
+{< Exports of ucEmutecaEmulatorManager for Pascal Script engine of Emuteca.
 
   This file is part of Emuteca Core.
 
@@ -34,8 +33,6 @@ uses
 
 type
 
-  { TPSImport_ucEmuteca }
-
   { TPSImport_ucEmutecaEmulatorManager }
 
   TPSImport_ucEmutecaEmulatorManager = class(TPSPlugin)
@@ -50,8 +47,14 @@ procedure SIRegister_cEmutecaEmulatorManager(CL: TPSPascalCompiler);
 procedure RIRegister_ucEmutecaEmulatorManager(CL: TPSRuntimeClassImporter);
 procedure RIRegister_cEmutecaEmulatorManager(CL: TPSRuntimeClassImporter);
 
+procedure Register;
 
 implementation
+
+procedure Register;
+begin
+    RegisterComponents('Pascal Script', [TPSImport_ucEmutecaEmulatorManager]);
+end;
 
 procedure SIRegister_cEmutecaEmulatorManager(CL: TPSPascalCompiler);
 begin
@@ -73,24 +76,7 @@ end;
 
 procedure SIRegister_ucEmutecaEmulatorManager(CL: TPSPascalCompiler);
 begin
-  CL.AddConstantN('rsLoadingEmulatorList', 'String').SetString(
-    'Loading emulator list...');
-  CL.AddConstantN('rsSavingEmulatorList', 'String').SetString(
-    'Saving emulator list...');
-
   SIRegister_cEmutecaEmulatorManager(CL);
-end;
-
-procedure cEmutecaSystemManagerProgressCallBack_W(
-  Self: cEmutecaEmulatorManager; const T: TEmutecaProgressCallBack);
-begin
-  Self.ProgressCallBack := T;
-end;
-
-procedure cEmutecaSystemManagerProgressCallBack_R(
-  Self: cEmutecaEmulatorManager; var T: TEmutecaProgressCallBack);
-begin
-  T := Self.ProgressCallBack;
 end;
 
 procedure cEmutecaEmulatorManagerProgressCallBack_R(
@@ -141,8 +127,6 @@ procedure RIRegister_ucEmutecaEmulatorManager(CL: TPSRuntimeClassImporter);
 begin
   RIRegister_cEmutecaEmulatorManager(CL);
 end;
-
-{ TPSImport_ucEmutecaEmulatorManager }
 
 procedure TPSImport_ucEmutecaEmulatorManager.CompileImport1(
   CompExec: TPSScript);

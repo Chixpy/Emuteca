@@ -1,0 +1,60 @@
+inherited fmETKGUICompareSG: TfmETKGUICompareSG
+  Height = 949
+  Width = 814
+  ClientHeight = 949
+  ClientWidth = 814
+  DesignLeft = 583
+  DesignTop = 1
+  inherited pButtons: TPanel
+    Top = 919
+    Width = 814
+    ClientWidth = 814
+    inherited chkCloseOnSave: TCheckBox
+      Left = 150
+    end
+    inherited bSave: TBitBtn
+      Left = 360
+    end
+    inherited bCancel: TBitBtn
+      Left = 576
+    end
+  end
+  object sbxMain: TScrollBox[1]
+    Left = 0
+    Height = 915
+    Top = 0
+    Width = 814
+    HorzScrollBar.Page = 406
+    VertScrollBar.Page = 50
+    Align = alClient
+    ClientHeight = 911
+    ClientWidth = 810
+    TabOrder = 1
+    object pLeft: TPanel
+      Left = 0
+      Height = 911
+      Top = 0
+      Width = 400
+      Align = alLeft
+      TabOrder = 0
+    end
+    object Splitter1: TSplitter
+      Left = 400
+      Height = 911
+      Top = 0
+      Width = 6
+    end
+    object pRight: TPanel
+      Left = 406
+      Height = 911
+      Top = 0
+      Width = 404
+      Align = alClient
+      TabOrder = 2
+    end
+  end
+  inherited alPropEditor: TActionList[2]
+  end
+  inherited ilPropEditor: TImageList[3]
+  end
+end

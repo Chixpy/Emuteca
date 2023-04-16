@@ -43,7 +43,9 @@ uses
   uPSI_ucEmutecaGroupList, uPSI_ucEmutecaSoftList,
   uPSI_ucEmutecaEmulatorManager, uPSI_ucEmutecaSystemManager,
   uPSI_ucEmutecaGroupManager, uPSI_ucEmutecaSoftManager,
-  uPSI_ucEmutecaConfig, uPSI_ucEmuteca;
+  uPSI_ucEmutecaConfig, uPSI_ucEmuteca,
+  // TODO: THIS must be in a cEmutecaScriptEngine child...
+  uPSI_uEmutecaGUIDialogs;
 
 type
 
@@ -99,30 +101,33 @@ begin
 
   SIRegister_ucEmutecaPlayingStats(x);
 
-  SIRegister_uaEmutecaCustomSGItem(x);
   SIRegister_uaEmutecaCustomEmu(x);
-  SIRegister_uaEmutecaCustomSystem(x);
+  SIRegister_uaEmutecaCustomSGItem(x);
   SIRegister_uaEmutecaCustomGroup(x);
   SIRegister_uaEmutecaCustomSoft(x);
+  SIRegister_uaEmutecaCustomSystem(x);
   SIRegister_uaEmutecaCustomManager(x);
 
   SIRegister_ucEmutecaEmulator(x);
-  SIRegister_ucEmutecaSystem(x);
-  SIRegister_ucEmutecaGroup(x);
-  SIRegister_ucEmutecaSoftware(x);
-
   SIRegister_ucEmutecaEmulatorList(x);
-  SIRegister_ucEmutecaSystemList(x);
-  SIRegister_ucEmutecaGroupList(x);
-  SIRegister_ucEmutecaSoftList(x);
-
   SIRegister_ucEmutecaEmulatorManager(x);
-  SIRegister_ucEmutecaSystemManager(x);
-  SIRegister_ucEmutecaGroupManager(x);
+
+  SIRegister_ucEmutecaSoftware(x);
+  SIRegister_ucEmutecaSoftList(x);
   SIRegister_ucEmutecaSoftManager(x);
+
+  SIRegister_ucEmutecaGroup(x);
+  SIRegister_ucEmutecaGroupList(x);
+  SIRegister_ucEmutecaGroupManager(x);
+
+  SIRegister_ucEmutecaSystem(x);
+  SIRegister_ucEmutecaSystemList(x);
+  SIRegister_ucEmutecaSystemManager(x);
 
   SIRegister_ucEmutecaConfig(x);
   SIRegister_ucEmuteca(x);
+
+  SIRegister_uEmutecaGUIDialogs(x);
 end;
 
 procedure cEmutecaScriptEngine.PasScriptOnExecImport(Sender: TObject;
@@ -160,6 +165,8 @@ begin
 
   RIRegister_ucEmutecaConfig(x);
   RIRegister_ucEmuteca(x);
+
+  RIRegister_uEmutecaGUIDialogs_Routines(se);
 end;
 
 procedure cEmutecaScriptEngine.PasScriptOnCompile(Sender: TPSScript);
@@ -174,8 +181,7 @@ procedure cEmutecaScriptEngine.PasScriptOnExecute(Sender: TPSScript);
 begin
   inherited PasScriptOnExecute(Sender);
 
-  Sender.SetPointerToData('Emuteca', @FEmuteca,
-    Sender.FindNamedType('cEmuteca'));
+  Sender.SetPointerToData('Emuteca', @FEmuteca, Sender.FindNamedType('cEmuteca'));
 end;
 
 function cEmutecaScriptEngine.PasScriptOnFindUnknownFile(Sender: TObject;

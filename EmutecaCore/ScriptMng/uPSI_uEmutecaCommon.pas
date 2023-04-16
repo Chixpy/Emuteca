@@ -1,8 +1,5 @@
 unit uPSI_uEmutecaCommon;
-
-{< Exports of uEmutecaCommon for Pascal Script engine of Emuteca.
-
-  ----
+{< uEmutecaCommon imports for Pascal Script engine of Emuteca.
 
   This file is part of Emuteca Core.
 
@@ -76,8 +73,6 @@ begin
     'aExtList: TStrings): string');
 end;
 
-(* === run-time registration functions === *)
-(*----------------------------------------------------------------------------*)
 procedure RIRegister_uEmutecaCommon_Routines(S: TPSExec);
 begin
   S.RegisterDelphiFunction(@Str2SoftExportKey, 'Str2SoftExportKey',

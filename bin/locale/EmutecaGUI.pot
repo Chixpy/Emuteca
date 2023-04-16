@@ -1983,11 +1983,15 @@ msgid "Search in Internet"
 msgstr ""
 
 #: ucchxscriptengine.rsseecompilationmsg
-msgid "Compiling."
+msgid "Compiling script."
 msgstr ""
 
 #: ucchxscriptengine.rsseeexecutionmsg
-msgid "Executing."
+msgid "Executing script."
+msgstr ""
+
+#: ucchxscriptengine.rsseefinishedmsg
+msgid "Script finished."
 msgstr ""
 
 #: ucchxscriptengine.rsseelerror

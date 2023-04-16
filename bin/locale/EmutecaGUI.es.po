@@ -2082,12 +2082,20 @@ msgid "Search in Internet"
 msgstr "Buscar en Internet"
 
 #: ucchxscriptengine.rsseecompilationmsg
-msgid "Compiling."
+#, fuzzy
+#| msgid "Compiling."
+msgid "Compiling script."
 msgstr "Compilando."
 
 #: ucchxscriptengine.rsseeexecutionmsg
-msgid "Executing."
+#, fuzzy
+#| msgid "Executing."
+msgid "Executing script."
 msgstr "Ejecutando."
+
+#: ucchxscriptengine.rsseefinishedmsg
+msgid "Script finished."
+msgstr ""
 
 #: ucchxscriptengine.rsseelerror
 msgid "Error"
