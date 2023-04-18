@@ -115,9 +115,13 @@ begin
             aSoftList[i]);       
       end;
     end;
+    Inc(i);
   end;
   
   aSL.Free; 
 
-  if Abort then  WriteLn('Aborted!');
+  if Abort then
+    WriteLn('Aborted!')
+  else
+    WriteLn('Finished!');
 end.
