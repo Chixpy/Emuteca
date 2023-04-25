@@ -87,7 +87,7 @@ begin
   try
     aForm.Name := 'frmETKGUIIcnSysCBX';
     aForm.Caption := 'System selection';
-    aForm.AutoSize := True;
+    //aForm.AutoSize := False;
 
     aDialogFrame := TfmCHXPropEditor.Create(aForm);
     aDialogFrame.Align := alClient;

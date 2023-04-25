@@ -36,6 +36,8 @@ inherited fmETKGUIactMergeGroup: TfmETKGUIactMergeGroup
       Width = 712
       Align = alBottom
       Caption = 'Remove source files and remove them from system list.'
+      Checked = True
+      State = cbChecked
       TabOrder = 0
     end
     object clbSourceFiles: TCheckListBox
