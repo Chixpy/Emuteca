@@ -67,15 +67,20 @@ begin
         if aDate = '' then 
           aDate := aSoft.Date
         else
-          if aDate > aSoft.Date then // '1999/02/03' > '1999'....
-            aDate := aSoft.Date;
+        begin
+          if aSoft.Date <> '' then
+          begin
+            if aDate > aSoft.Date then // '1999/02/03' > '1999' ...
+              aDate := aSoft.Date;
+          end;
+        end;
             
         Inc(j);
       end; 
 
       if (aGroup.Developer = '') and (aDev <> '-') then 
         aGroup.Developer := aDev;      
-      if (aGroup.Date = '') and (aDate <> '') then 
+      if (aGroup.Date = '') and (aDate <> '') then
         aGroup.Date := aDate; 
     end;    
     

@@ -486,10 +486,13 @@ constructor TfmETKGUIMain.Create(TheOwner: TComponent);
     // Creating and Setting the System ComboBox
     FfmEmutecaSystemCBX := TfmETKGUIIcnSysCBX.Create(pMiddle);
     fmEmutecaSystemCBX.Align := alTop;
+
+
     // TODO: Configurable
-    fmEmutecaSystemCBX.cbxSystem.Font.Height := 32;
     fmEmutecaSystemCBX.cbxSystem.Height := 32;
-    fmEmutecaSystemCBX.cbxSystem.ItemHeight := 32;
+    fmEmutecaSystemCBX.cbxSystem.Font.Height := fmEmutecaSystemCBX.cbxSystem.Height;
+    fmEmutecaSystemCBX.cbxSystem.ItemHeight := fmEmutecaSystemCBX.cbxSystem.Height;
+
     fmEmutecaSystemCBX.FirstItem := ETKSysCBXFIAll;
     fmEmutecaSystemCBX.OnSelectSystem := @SetCurrentSystem;
     fmEmutecaSystemCBX.Parent := pMiddle;

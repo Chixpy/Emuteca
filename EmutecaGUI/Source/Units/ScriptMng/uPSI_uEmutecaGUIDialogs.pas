@@ -68,6 +68,7 @@ begin
   Result := mrNone;
   if not assigned(aGroup) then Exit;
 
+  // Result := TfmEmutecaGroupEditor.SimpleModalForm(aGroup, '', aGUIConfigIni, aGUIIconsIni);
   Result := TfmEmutecaGroupEditor.SimpleModalForm(aGroup, '', '', '');
 end;
 
@@ -76,6 +77,7 @@ begin
   Result := mrNone;
   if not assigned(aSoft) then Exit;
 
+  // Result := TfmETKGUIFullSoftEditor.SimpleModalForm(aSoft, '', aGUIConfigIni, aGUIIconsIni);
   Result := TfmETKGUIFullSoftEditor.SimpleModalForm(aSoft, '', '', '');
 end;
 
@@ -84,6 +86,7 @@ begin
   Result := mrNone;
   if (not assigned(aSG1)) or (not assigned(aSG2)) then Exit;
 
+  // Result := TfmETKGUICompareSG.SimpleModalForm(aSG1, aSG2, aGUIConfigIni, aGUIIconsIni);
   Result := TfmETKGUICompareSG.SimpleModalForm(aSG1, aSG2, '', '');
 end;
 

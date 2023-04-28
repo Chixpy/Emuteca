@@ -180,9 +180,23 @@ msgstr ""
 msgid "ETK Magazine Cutter"
 msgstr ""
 
+#: uchxrscstr.rscorfirmdeletefile
+#, object-pascal-format
+msgid ""
+"%0:s\n"
+"Do you want to delete this file?"
+msgstr ""
+
 #: uchxrscstr.rscuexcalreadyexists
 #, object-pascal-format
 msgid "\"%0:s\" already exists."
+msgstr ""
+
+#: uchxrscstr.rscuexcalreadyexistsask
+#, object-pascal-format
+msgid ""
+"\"%0:s\" already exists.\n"
+"Replace it?"
 msgstr ""
 
 #: uchxrscstr.rscuexccardrange
@@ -200,12 +214,62 @@ msgstr ""
 msgid "%0:s: Not defined filename"
 msgstr ""
 
+#: uchxrscstr.rserrorcreatingfile
+#, object-pascal-format
+msgid ""
+"Error creating:\n"
+"%0:s"
+msgstr ""
+
+#: uchxrscstr.rserrordeletingfile
+#, object-pascal-format
+msgid ""
+"Error deleting:\n"
+"%0:s"
+msgstr ""
+
+#: uchxrscstr.rserrorloadingfile
+#, object-pascal-format
+msgid ""
+"Error loading:\n"
+"%0:s"
+msgstr ""
+
+#: uchxrscstr.rserrorrenamingfile
+#, object-pascal-format
+msgid ""
+"Error renaming:\n"
+"%0:s\n"
+"to:\n"
+"%1:s"
+msgstr ""
+
 #: uchxrscstr.rsfiledlgmaskdef
 msgid "All files|*.*"
 msgstr ""
 
 #: uchxrscstr.rsfiledlgmaskfmt
 #, object-pascal-format
-msgid "All files|*.*|Supported files|%0:s"
+msgid "Supported files|%0:s|All files|*.*"
+msgstr ""
+
+#: uchxrscstr.rsfilenotfound
+#, object-pascal-format
+msgid ""
+"%0:s\n"
+"not found."
+msgstr ""
+
+#: uchxrscstr.rsfmtitemcount
+#, object-pascal-format
+msgid "%0:d / %0:d"
+msgstr ""
+
+#: uchxrscstr.rsrenamefile
+msgid "Rename this file:"
+msgstr ""
+
+#: uchxrscstr.rsrenamefilecaption
+msgid "Renaming file"
 msgstr ""
 

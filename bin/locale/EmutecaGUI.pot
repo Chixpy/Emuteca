@@ -1205,6 +1205,14 @@ msgstr ""
 msgid "Output Format"
 msgstr ""
 
+#: tfmetkguicomparesg.actg1tog2.caption
+msgid "Assign Group 1"
+msgstr ""
+
+#: tfmetkguicomparesg.actg2tog1.caption
+msgid "Assign Group 2"
+msgstr ""
+
 #: tfmetkguifullemueditor.actopenemulatorfolder.caption
 msgid "Open emulator folder"
 msgstr ""
@@ -1312,6 +1320,11 @@ msgstr ""
 
 #: tfmetkguimediamanager.actrenamesofttitlewithfilename.caption
 msgid "Rename soft title with current file"
+msgstr ""
+
+#: tfmetkguimediamanager.actrunsoftware.caption
+msgctxt "tfmetkguimediamanager.actrunsoftware.caption"
+msgid "Run software"
 msgstr ""
 
 #: tfmetkguimediamanager.chkcopyfile.caption
@@ -1863,6 +1876,7 @@ msgid "Run ETKIconBorder using system's logo folder as output."
 msgstr ""
 
 #: tfrmetkguimain.actrunsoftware.caption
+msgctxt "tfrmetkguimain.actrunsoftware.caption"
 msgid "Run software"
 msgstr ""
 

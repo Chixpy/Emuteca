@@ -26,7 +26,8 @@ unit fETKGUICompareSG;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls,
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, StdCtrls,
+  ActnList,
   // CHX frames
   ufCHXPropEditor,
   // Emuteca Core units
@@ -43,10 +44,18 @@ type
   { TfmETKGUICompareSG }
 
   TfmETKGUICompareSG = class(TfmCHXPropEditor)
+    actG2ToG1: TAction;
+    actG1ToG2: TAction;
+    bG2ToG1: TButton;
+    bG1ToG2: TButton;
     pLeft: TPanel;
+    pLeftUp: TPanel;
+    pRightUp: TPanel;
     pRight: TPanel;
     sbxMain: TScrollBox;
     Splitter1: TSplitter;
+    procedure actG1ToG2Execute(Sender: TObject);
+    procedure actG2ToG1Execute(Sender: TObject);
 
   private
     FfmSGEditorLeft: TfmETKGUIFullSoftEditor;
@@ -82,6 +91,16 @@ implementation
 {$R *.lfm}
 
 { TfmETKGUICompareSG }
+
+procedure TfmETKGUICompareSG.actG2ToG1Execute(Sender: TObject);
+begin
+  fmSGEditorLeft.ChangeSoftGroup(fmSGEditorRight.Group);
+end;
+
+procedure TfmETKGUICompareSG.actG1ToG2Execute(Sender: TObject);
+begin
+  fmSGEditorRight.ChangeSoftGroup(fmSGEditorLeft.Group);
+end;
 
 procedure TfmETKGUICompareSG.SetSGLeft(AValue: caEmutecaCustomSGItem);
 begin
@@ -154,7 +173,9 @@ begin
   end;
 
   AssignSGItem(fmSGEditorLeft, SGLeft);
+  bG2ToG1.Enabled := SGLeft is cEmutecaSoftware;
   AssignSGItem(fmSGEditorRight, SGRight);
+  bG1ToG2.Enabled := SGRight is cEmutecaSoftware;
 end;
 
 constructor TfmETKGUICompareSG.Create(TheOwner: TComponent);

@@ -16,6 +16,7 @@ inherited fmEMCImagePropEditor: TfmEMCImagePropEditor
     Top = 4
     Width = 392
     Caption = 'Filename'
+    ParentColor = False
   end
   object eFilename: TEdit[1]
     Left = 4
@@ -52,6 +53,7 @@ inherited fmEMCImagePropEditor: TfmEMCImagePropEditor
       Width = 158
       Caption = 'Magazine'
       Layout = tlCenter
+      ParentColor = False
     end
     object cbxMagazine: TComboBox
       Left = 166
@@ -73,6 +75,7 @@ inherited fmEMCImagePropEditor: TfmEMCImagePropEditor
       Width = 158
       Caption = 'Issue'
       Layout = tlCenter
+      ParentColor = False
     end
     object eIssue: TEdit
       Left = 166
@@ -89,6 +92,7 @@ inherited fmEMCImagePropEditor: TfmEMCImagePropEditor
       Width = 158
       Caption = 'Section'
       Layout = tlCenter
+      ParentColor = False
     end
     object cbxSection: TComboBox
       Left = 166
@@ -110,6 +114,7 @@ inherited fmEMCImagePropEditor: TfmEMCImagePropEditor
       Width = 158
       Caption = 'Language'
       Layout = tlCenter
+      ParentColor = False
     end
     object cbxLanguage: TComboBox
       Left = 166
@@ -152,6 +157,7 @@ inherited fmEMCImagePropEditor: TfmEMCImagePropEditor
       Width = 183
       Caption = 'Type'
       Layout = tlCenter
+      ParentColor = False
     end
     object cbxType: TComboBox
       Left = 191
@@ -191,6 +197,7 @@ inherited fmEMCImagePropEditor: TfmEMCImagePropEditor
       Top = 70
       Width = 183
       Caption = 'System'
+      ParentColor = False
     end
     object cbxSystem: TComboBox
       Left = 191
@@ -211,6 +218,7 @@ inherited fmEMCImagePropEditor: TfmEMCImagePropEditor
       Top = 102
       Width = 183
       Caption = 'Game'
+      ParentColor = False
     end
     object cbxGame: TComboBox
       Left = 191
@@ -281,6 +289,7 @@ inherited fmEMCImagePropEditor: TfmEMCImagePropEditor
         Caption = 'Border (px)'
         Enabled = False
         Layout = tlCenter
+        ParentColor = False
       end
       object ePMBorder: TSpinEdit
         Left = 274
@@ -320,6 +329,7 @@ inherited fmEMCImagePropEditor: TfmEMCImagePropEditor
         Width = 92
         Alignment = taCenter
         Caption = 'Left'
+        ParentColor = False
       end
       object lTop: TLabel
         Left = 96
@@ -328,6 +338,7 @@ inherited fmEMCImagePropEditor: TfmEMCImagePropEditor
         Width = 92
         Alignment = taCenter
         Caption = 'Top'
+        ParentColor = False
       end
       object lWidth: TLabel
         Left = 192
@@ -336,6 +347,7 @@ inherited fmEMCImagePropEditor: TfmEMCImagePropEditor
         Width = 92
         Alignment = taCenter
         Caption = 'Width'
+        ParentColor = False
       end
       object lHeight: TLabel
         Left = 288
@@ -344,6 +356,7 @@ inherited fmEMCImagePropEditor: TfmEMCImagePropEditor
         Width = 92
         Alignment = taCenter
         Caption = 'Height'
+        ParentColor = False
       end
       object eLeft: TSpinEdit
         Left = 0
@@ -408,6 +421,7 @@ inherited fmEMCImagePropEditor: TfmEMCImagePropEditor
       Top = 4
       Width = 380
       Caption = 'Base Output Folder'
+      ParentColor = False
     end
     object eBaseOutFolder: TDirectoryEdit
       Left = 4
@@ -428,6 +442,7 @@ inherited fmEMCImagePropEditor: TfmEMCImagePropEditor
       Top = 60
       Width = 380
       Caption = 'Output Folder'
+      ParentColor = False
     end
     object eOutputFolder: TEdit
       Left = 4
@@ -443,6 +458,7 @@ inherited fmEMCImagePropEditor: TfmEMCImagePropEditor
       Top = 116
       Width = 380
       Caption = 'Output File'
+      ParentColor = False
     end
     object eOutputFile: TEdit
       Left = 4

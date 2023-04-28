@@ -20,7 +20,6 @@
         <ComponentName Value="frmETKMagazineCutter"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="4"/>
         <TopLine Value="68"/>
         <CursorPos X="24" Y="86"/>
@@ -61,6 +60,7 @@
         <CursorPos X="3" Y="185"/>
         <UsageCount Value="66"/>
         <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="..\CHXPas\Misc\uVersionSupport.pas"/>
@@ -83,7 +83,7 @@
         <ComponentName Value="fmEMCMain"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <TopLine Value="86"/>
+        <TopLine Value="121"/>
         <CursorPos X="55" Y="112"/>
         <UsageCount Value="66"/>
         <Loaded Value="True"/>
@@ -123,9 +123,10 @@
         <ComponentName Value="fmEMCImagePropEditor"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="5"/>
-        <TopLine Value="217"/>
-        <CursorPos X="19" Y="222"/>
+        <TopLine Value="19"/>
+        <CursorPos X="3" Y="405"/>
         <UsageCount Value="61"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -150,10 +151,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <EditorIndex Value="2"/>
-        <TopLine Value="340"/>
+        <TopLine Value="339"/>
         <CursorPos X="61" Y="306"/>
         <UsageCount Value="56"/>
         <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="..\CHXPas\Abstract\uaCHXConfig.pas"/>

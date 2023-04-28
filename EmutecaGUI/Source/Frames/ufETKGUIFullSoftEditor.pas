@@ -74,6 +74,11 @@ type
     procedure DoSaveFrameData;
 
   public
+    procedure ChangeSoftGroup(aGroup: cEmutecaGroup);
+    {< Changes the group of the soft.
+
+      Change is not saved until OK button is pressed (or cascade saved);
+    }
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
 
@@ -254,6 +259,12 @@ begin
   // Load automatic changes: i.e. changing ': ' to ' - ' in SortTitle
   fmGroupEditor.LoadFrameData;
 
+end;
+
+procedure TfmETKGUIFullSoftEditor.ChangeSoftGroup(aGroup: cEmutecaGroup);
+begin
+  fmGroupCBX.SelectedGroup := aGroup;
+  SelectGroup(aGroup);
 end;
 
 constructor TfmETKGUIFullSoftEditor.Create(TheOwner: TComponent);

@@ -87,12 +87,15 @@ begin
   try
     aForm.Name := 'frmETKGUIIcnSysCBX';
     aForm.Caption := 'System selection';
-    //aForm.AutoSize := False;
 
     aDialogFrame := TfmCHXPropEditor.Create(aForm);
     aDialogFrame.Align := alClient;
+    aDialogFrame.AutoSize := True;
     aDialogFrame.Parent := aForm;
     aDialogFrame.chkCloseOnSave.Visible := False;
+    // As it's a simple frame with the combobox we will make a little bigger
+
+    aDialogFrame.Constraints.MinWidth := 600;
     aDialogFrame.Enabled := True;
 
     // If aDialogFrame is not the owner of aETKGUIIcnSysCBX then
@@ -100,11 +103,18 @@ begin
     // aETKGUIIcnSysCBX := TfmETKGUIIcnSysCBX.Create(aDialogFrame);
     aETKGUIIcnSysCBX := TfmETKGUIIcnSysCBX.Create(nil);
     aETKGUIIcnSysCBX.Align := alClient;
+
+    aETKGUIIcnSysCBX.cbxSystem.Height := 40;
+    aETKGUIIcnSysCBX.cbxSystem.Font.Height := aETKGUIIcnSysCBX.cbxSystem.Height;
+    aETKGUIIcnSysCBX.cbxSystem.ItemHeight := aETKGUIIcnSysCBX.cbxSystem.Height;
+
     aETKGUIIcnSysCBX.Parent := aDialogFrame;
 
     aETKGUIIcnSysCBX.FirstItem := ETKSysCBXFISelect;
     aETKGUIIcnSysCBX.SystemList := aSystemList;
     aETKGUIIcnSysCBX.SelectedSystem := nil;
+
+    aForm.AutoSize := True;
 
     if aForm.ShowModal = mrOk then
       Result := aETKGUIIcnSysCBX.SelectedSystem;

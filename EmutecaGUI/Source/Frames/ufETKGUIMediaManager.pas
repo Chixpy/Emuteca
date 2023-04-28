@@ -76,6 +76,7 @@ type
     actDeleteAllFiles: TAction;
     actEditSoft: TAction;
     actAutoAssign: TAction;
+    actRunSoftware: TAction;
     actRenameFile: TAction;
     actRenameSoftTitleWithFilename: TAction;
     actRenameGroupTitleWithFilename: TAction;
@@ -103,6 +104,7 @@ type
     lbxTexts: TListBox;
     lbxVideos: TListBox;
     MenuItem1: TMenuItem;
+    migpRunSoftware: TMenuItem;
     miflRenameFile: TMenuItem;
     migpRenameSoftTitleWithFilename: TMenuItem;
     misfEditSoftware: TMenuItem;
@@ -137,6 +139,7 @@ type
     SelectDirectoryDialog1: TSelectDirectoryDialog;
     Separator1: TMenuItem;
     Separator2: TMenuItem;
+    Separator3: TMenuItem;
     Splitter1: TSplitter;
     Splitter2: TSplitter;
     Splitter3: TSplitter;
@@ -180,6 +183,7 @@ type
     {< Renames manually a file. If already exists "(n)" is added automatically.}
     procedure actRenameGroupTitleWithFilenameExecute(Sender: TObject);
     procedure actRenameSoftTitleWithFilenameExecute(Sender: TObject);
+    procedure actRunSoftwareExecute(Sender: TObject);
     procedure chkSimilarFilesChange(Sender: TObject);
     procedure eOtherFolderAcceptDirectory(Sender: TObject; var Value: string);
     procedure lbxFolderSelectionChange(Sender: TObject; User: boolean);
@@ -1665,7 +1669,7 @@ var
   PTarget: ^caEmutecaCustomSGItem;
   pFileName: PFileRow;
   NodoF, NodoT: PVirtualNode;
-  ContinueOp: Boolean;
+  ContinueOp: boolean;
   Cont: integer;
 
 begin
@@ -2019,6 +2023,13 @@ begin
     Exit;
 
   OpenSoftEditor(ExtractFileNameOnly(SourceFile));
+end;
+
+procedure TfmETKGUIMediaManager.actRunSoftwareExecute(Sender: TObject);
+begin
+  if (not Assigned(CurrentSG)) or (not (CurrentSG is cEmutecaSoftware)) then
+    Exit;
+  Emuteca.RunSoftware(cEmutecaSoftware(CurrentSG));
 end;
 
 procedure TfmETKGUIMediaManager.vstFileFreeNode(Sender: TBaseVirtualTree;

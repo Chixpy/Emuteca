@@ -869,6 +869,11 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
       Caption = 'Auto Assign'
       OnExecute = actAutoAssignExecute
     end
+    object actRunSoftware: TAction
+      Category = 'Software'
+      Caption = 'Run software'
+      OnExecute = actRunSoftwareExecute
+    end
   end
   object ilActions: TImageList[8]
     Left = 704
@@ -941,6 +946,12 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
     end
     object migpRenameSoftTitleWithFilename: TMenuItem
       Action = actRenameSoftTitleWithFilename
+    end
+    object Separator3: TMenuItem
+      Caption = '-'
+    end
+    object migpRunSoftware: TMenuItem
+      Action = actRunSoftware
     end
   end
 end

@@ -352,9 +352,7 @@ begin
     Exit;
   end;
 
-  eOutputFolder.Text := SetAsFolder(cbxSystem.Text) +
-    SetAsFolder('Image') + SetAsFolder(cbxType.Text) +
-    SetAsFolder(cbxGame.Text);
+  eOutputFolder.Text := SetAsFolder(cbxSystem.Text) + SetAsFolder(cbxType.Text);
 
   FullFileName := SetAsFolder(eBaseOutFolder.Text) +
     SetAsFolder(eOutputFolder.Text) + cbxGame.Text;
