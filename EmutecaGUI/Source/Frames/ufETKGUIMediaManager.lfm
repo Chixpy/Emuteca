@@ -439,10 +439,10 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
         Height = 303
         Top = 0
         Width = 393
-        ActivePage = pagSoftWOFile
+        ActivePage = pagAllGroups
         Align = alClient
         PopupMenu = pumVSTGroups
-        TabIndex = 1
+        TabIndex = 2
         TabOrder = 0
         OnChange = pcTargetChange
         object pagGroupsWOFile: TTabSheet
@@ -461,12 +461,12 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
             Header.Columns = <            
               item
                 Position = 0
-                Text = 'Group'
+                Text = 'File'
                 Width = 300
               end            
               item
                 Position = 1
-                Text = 'File'
+                Text = 'Group'
                 Width = 300
               end>
             Header.DefaultHeight = 17
@@ -502,17 +502,17 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
             Header.Columns = <            
               item
                 Position = 0
-                Text = 'Game'
+                Text = 'File'
                 Width = 300
               end            
               item
                 Position = 1
-                Text = 'Group'
+                Text = 'Game'
                 Width = 300
               end            
               item
                 Position = 2
-                Text = 'File'
+                Text = 'Group'
                 Width = 300
               end>
             Header.DefaultHeight = 17
@@ -548,12 +548,12 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
             Header.Columns = <            
               item
                 Position = 0
-                Text = 'Group'
+                Text = 'File'
                 Width = 300
               end            
               item
                 Position = 1
-                Text = 'File'
+                Text = 'Group'
                 Width = 300
               end>
             Header.DefaultHeight = 17
@@ -590,17 +590,17 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
             Header.Columns = <            
               item
                 Position = 0
-                Text = 'Game'
+                Text = 'File'
                 Width = 300
               end            
               item
                 Position = 1
-                Text = 'Group'
+                Text = 'Game'
                 Width = 300
               end            
               item
                 Position = 2
-                Text = 'File'
+                Text = 'Group'
                 Width = 300
               end>
             Header.DefaultHeight = 17

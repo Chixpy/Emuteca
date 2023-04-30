@@ -1,4 +1,5 @@
 unit ufEmutecaActAddFolder;
+
 {< TfmEmutecaActAddFolder frame unit.
 
   This file is part of Emuteca Core.
@@ -76,8 +77,9 @@ type
   public
     property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
 
-    class function SimpleForm(aEmuteca: cEmuteca; SelectedSystem: cEmutecaSystem;
-      const aGUIIconsIni: string; const aGUIConfigIni: string): integer;
+    class function SimpleForm(aEmuteca: cEmuteca;
+      SelectedSystem: cEmutecaSystem; const aGUIIconsIni: string;
+      const aGUIConfigIni: string): integer;
     //< Creates a form with TfmEmutecaActAddFolder frame.
 
     constructor Create(TheOwner: TComponent); override;
@@ -144,7 +146,7 @@ procedure TfmEmutecaActAddFolder.DoSaveFrameData;
     aCacheSoftList: cEmutecaSoftList);
   var
     aSoft: cEmutecaSoftware;
-    aComp: Integer;
+    aComp: integer;
     Found: boolean;
   begin
     // aCacheSoftList is sorted.
@@ -250,7 +252,7 @@ var
   aFile, aFolder: string;
   i, j: integer;
   CacheSoftList: cEmutecaSoftList;
-  Continue: Boolean;
+  Continue: boolean;
 begin
   if not assigned(Emuteca) then
     Exit;
@@ -283,7 +285,8 @@ begin
     // 1.- Straight search of all files
     aFileMask := FileMaskFromStringList(aSystem.Extensions);
     if not chkNoZip.Checked then
-      aFileMask := aFileMask + ';' + FileMaskFromStringList(Emuteca.Config.CompressedExtensions);
+      aFileMask := aFileMask + ';' + FileMaskFromStringList(
+        Emuteca.Config.CompressedExtensions);
 
     FileList.BeginUpdate;
     FileList.Sorted := False;
@@ -298,32 +301,35 @@ begin
       aFolder := SetAsFolder(ExtractFilePath(FileList[i]));
       aFile := SetAsFile(ExtractFileName(FileList[i]));
 
-      if assigned(Emuteca.ProgressCallBack) then
-        Continue := Emuteca.ProgressCallBack('Adding files', FileList[i],
-          i, FileList.Count, True);
-
       if SupportedExtSL(aFile, aSystem.Extensions) then
       begin // it's a supported file
+
+        if assigned(Emuteca.ProgressCallBack) then
+          Continue := Emuteca.ProgressCallBack('Adding files',
+            FileList[i], i, FileList.Count, True);
+
         AddFile(aFolder, aFile, aSystem, CacheSoftList);
       end
       else if (not chkNoZip.Checked) and SupportedExtSL(aFile,
         Emuteca.Config.CompressedExtensions) then
       begin // It´s a compressed archive (not supported by system)
-
         ComprFileList.BeginUpdate;
         ComprFileList.Clear;
         ComprFileList.Sorted := False;
         w7zListFiles(aFolder + aFile, ComprFileList, True, '');
         ComprFileList.Sorted := True;
         ComprFileList.EndUpdate;
+
         j := 0;
         while j < ComprFileList.Count do
         begin
           if assigned(Emuteca.ProgressCallBack) then
             Continue := Emuteca.ProgressCallBack('Adding files',
               ComprFileList[j], i, FileList.Count, True);
+
           if SupportedExtSL(ComprFileList[j], aSystem.Extensions) then
             AddFile(aFolder + aFile, ComprFileList[j], aSystem, CacheSoftList);
+
           Inc(j);
         end;
       end;
@@ -336,7 +342,7 @@ begin
     Emuteca.CacheData;
 
     if assigned(Emuteca.ProgressCallBack) then
-      Emuteca.ProgressCallBack('', '',  0, 0, False);
+      Emuteca.ProgressCallBack('', '', 0, 0, False);
 
     ComprFileList.Free;
     FileList.Free;

@@ -1475,52 +1475,52 @@ msgstr ""
 
 #: tfmetkguimediamanager.vstgroupsall.header.columns[0].text
 msgctxt "tfmetkguimediamanager.vstgroupsall.header.columns[0].text"
-msgid "Group"
+msgid "File"
 msgstr ""
 
 #: tfmetkguimediamanager.vstgroupsall.header.columns[1].text
 msgctxt "tfmetkguimediamanager.vstgroupsall.header.columns[1].text"
-msgid "File"
+msgid "Group"
 msgstr ""
 
 #: tfmetkguimediamanager.vstgroupswofile.header.columns[0].text
 msgctxt "tfmetkguimediamanager.vstgroupswofile.header.columns[0].text"
-msgid "Group"
+msgid "File"
 msgstr ""
 
 #: tfmetkguimediamanager.vstgroupswofile.header.columns[1].text
 msgctxt "tfmetkguimediamanager.vstgroupswofile.header.columns[1].text"
-msgid "File"
+msgid "Group"
 msgstr ""
 
 #: tfmetkguimediamanager.vstsoftall.header.columns[0].text
 msgctxt "tfmetkguimediamanager.vstsoftall.header.columns[0].text"
-msgid "Game"
+msgid "File"
 msgstr ""
 
 #: tfmetkguimediamanager.vstsoftall.header.columns[1].text
 msgctxt "tfmetkguimediamanager.vstsoftall.header.columns[1].text"
-msgid "Group"
+msgid "Game"
 msgstr ""
 
 #: tfmetkguimediamanager.vstsoftall.header.columns[2].text
 msgctxt "tfmetkguimediamanager.vstsoftall.header.columns[2].text"
-msgid "File"
+msgid "Group"
 msgstr ""
 
 #: tfmetkguimediamanager.vstsoftwofile.header.columns[0].text
 msgctxt "tfmetkguimediamanager.vstsoftwofile.header.columns[0].text"
-msgid "Game"
+msgid "File"
 msgstr ""
 
 #: tfmetkguimediamanager.vstsoftwofile.header.columns[1].text
 msgctxt "tfmetkguimediamanager.vstsoftwofile.header.columns[1].text"
-msgid "Group"
+msgid "Game"
 msgstr ""
 
 #: tfmetkguimediamanager.vstsoftwofile.header.columns[2].text
 msgctxt "tfmetkguimediamanager.vstsoftwofile.header.columns[2].text"
-msgid "File"
+msgid "Group"
 msgstr ""
 
 #: tfmetkguisoftimgpreview.gbxpanel.caption

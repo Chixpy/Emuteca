@@ -1,7 +1,7 @@
 unit ucEmutecaSoftList;
 {< cEmutecaSoftList class unit.
 
-  Copyright (C) 2006-2019 Chixpy
+  Copyright (C) 2006-2023 Chixpy
   
   This file is part of Emuteca
 
@@ -47,6 +47,7 @@ type
 function EmutecaCompareSoftByID(const aSoft1, aSoft2: cEmutecaSoftware): integer;
 function EmutecaCompareSoftByGroupKey(const aSoft1, aSoft2: cEmutecaSoftware): integer;
 function EmutecaCompareSoftByFileName(const aSoft1, aSoft2: cEmutecaSoftware): integer;
+function EmutecaCompareSoftByFlags(const aSoft1, aSoft2: cEmutecaSoftware): integer;
 
 
 implementation
@@ -67,6 +68,20 @@ function EmutecaCompareSoftByFileName(const aSoft1, aSoft2: cEmutecaSoftware
   ): integer;
 begin
   Result := aSoft1.CompareFile(aSoft2.Folder, aSoft2.FileName);
+end;
+
+function EmutecaCompareSoftByFlags(const aSoft1, aSoft2: cEmutecaSoftware
+  ): integer;
+begin
+  Result := Ord(aSoft1.DumpStatus) - Ord(aSoft2.DumpStatus);
+
+  if Result <> 0 then Exit;
+
+  Result := UTF8CompareText(aSoft1.Fixed, aSoft2.Fixed);
+
+  if Result <> 0 then Exit;
+
+  Result := UTF8CompareText(aSoft1.Translation, aSoft2.Translation);
 end;
 
 { cEmutecaSoftList }

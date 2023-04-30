@@ -1562,54 +1562,73 @@ msgid "Extension"
 msgstr "Extensión"
 
 #: tfmetkguimediamanager.vstgroupsall.header.columns[0].text
+#, fuzzy
+#| msgid "Group"
 msgctxt "tfmetkguimediamanager.vstgroupsall.header.columns[0].text"
-msgid "Group"
+msgid "File"
 msgstr "Grupo"
 
 #: tfmetkguimediamanager.vstgroupsall.header.columns[1].text
+#, fuzzy
+#| msgid "File"
 msgctxt "tfmetkguimediamanager.vstgroupsall.header.columns[1].text"
-msgid "File"
+msgid "Group"
 msgstr "Fichero"
 
 #: tfmetkguimediamanager.vstgroupswofile.header.columns[0].text
+#, fuzzy
+#| msgid "Group"
 msgctxt "tfmetkguimediamanager.vstgroupswofile.header.columns[0].text"
-msgid "Group"
+msgid "File"
 msgstr "Grupo"
 
 #: tfmetkguimediamanager.vstgroupswofile.header.columns[1].text
+#, fuzzy
+#| msgid "File"
 msgctxt "tfmetkguimediamanager.vstgroupswofile.header.columns[1].text"
-msgid "File"
+msgid "Group"
 msgstr "Fichero"
 
 #: tfmetkguimediamanager.vstsoftall.header.columns[0].text
 #, fuzzy
+#| msgid "Game"
 msgctxt "tfmetkguimediamanager.vstsoftall.header.columns[0].text"
-msgid "Game"
+msgid "File"
 msgstr "Software"
 
 #: tfmetkguimediamanager.vstsoftall.header.columns[1].text
+#, fuzzy
+#| msgid "Group"
 msgctxt "tfmetkguimediamanager.vstsoftall.header.columns[1].text"
-msgid "Group"
+msgid "Game"
 msgstr "Grupo"
 
 #: tfmetkguimediamanager.vstsoftall.header.columns[2].text
+#, fuzzy
+#| msgid "File"
 msgctxt "tfmetkguimediamanager.vstsoftall.header.columns[2].text"
-msgid "File"
+msgid "Group"
 msgstr "Fichero"
 
 #: tfmetkguimediamanager.vstsoftwofile.header.columns[0].text
+#, fuzzy
+#| msgid "Game"
 msgctxt "tfmetkguimediamanager.vstsoftwofile.header.columns[0].text"
-msgid "Game"
+msgid "File"
 msgstr "Software"
 
 #: tfmetkguimediamanager.vstsoftwofile.header.columns[1].text
+#, fuzzy
+#| msgid "Group"
 msgctxt "tfmetkguimediamanager.vstsoftwofile.header.columns[1].text"
-msgid "Group"
+msgid "Game"
 msgstr "Grupo"
 
 #: tfmetkguimediamanager.vstsoftwofile.header.columns[2].text
+#, fuzzy
+#| msgid "File"
 msgctxt "tfmetkguimediamanager.vstsoftwofile.header.columns[2].text"
-msgid "File"
+msgid "Group"
 msgstr "Fichero"
 
 #: tfmetkguisoftimgpreview.gbxpanel.caption

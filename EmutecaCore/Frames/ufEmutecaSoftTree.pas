@@ -486,6 +486,7 @@ procedure TfmEmutecaSoftTree.VDTCompareNodes(Sender: TBaseVirtualTree;
 
   end;
 
+  {
   function CompareSoftware(aSoft1, aSoft2: cEmutecaSoftware;
     Column: TColumnIndex): integer;
   begin
@@ -570,9 +571,11 @@ procedure TfmEmutecaSoftTree.VDTCompareNodes(Sender: TBaseVirtualTree;
         ;
     end;
   end;
+  }
 
 var
   pData1, pData2: ^TObject;
+  aGroup1, aGroup2: cEmutecaGroup;
 begin
   Result := 0;
   pData1 := VDT.GetNodeData(Node1);
@@ -580,6 +583,24 @@ begin
 
   if (not assigned(pData1^)) or (not assigned(pData2^)) then
     Exit;
+
+  if pData1^ is cEmutecaGroup then
+   aGroup1 := cEmutecaGroup(pData1^)
+  else if pData1^ is cEmutecaSoftware then
+    aGroup1 := cEmutecaGroup(cEmutecaSoftware(pData1^).CachedGroup)
+  else
+    Exit;
+
+  if pData2^ is cEmutecaGroup then
+   aGroup2 := cEmutecaGroup(pData2^)
+  else if pData2^ is cEmutecaSoftware then
+    aGroup2 := cEmutecaGroup(cEmutecaSoftware(pData2^).CachedGroup)
+  else
+    Exit;
+
+  Result := CompareGroups(aGroup1, aGroup2, Column);
+
+  {
 
   if pData1^ is cEmutecaGroup then
   begin
@@ -609,11 +630,11 @@ begin
     end
     else
     begin
-      Result := CompareSoftware(cEmutecaSoftware(pData1^),
-        cEmutecaSoftware(pData2^), Column);
+      //Result := CompareSoftware(cEmutecaSoftware(pData1^),
+      //  cEmutecaSoftware(pData2^), Column);
     end;
   end;
-
+  }
 end;
 
 procedure TfmEmutecaSoftTree.VDTDblClick(Sender: TObject);

@@ -479,7 +479,7 @@ begin
 
   // Sorting vstFilesAll and vstGroupsAll to iterate them;
   vstFilesAll.SortTree(0, VirtualTrees.sdAscending, True); // By filename
-  vstGroupsAll.SortTree(1, VirtualTrees.sdAscending, True); // By filename
+  vstGroupsAll.SortTree(0, VirtualTrees.sdAscending, True); // By filename
 
   vstFilesWOGroup.BeginUpdate;
   vstFilesWOGroup.Clear;
@@ -580,7 +580,7 @@ begin
 
   // Sorting vstFilesWOGroup and vstvstAllGroups to iterate them;
   vstFilesWOGroup.SortTree(0, VirtualTrees.sdAscending, True); // By filename
-  vstSoftAll.SortTree(2, VirtualTrees.sdAscending, True); // By filename
+  vstSoftAll.SortTree(0, VirtualTrees.sdAscending, True); // By filename
 
   vstFilesWOSoft.BeginUpdate;
   vstFilesWOSoft.Clear;
@@ -1070,6 +1070,9 @@ begin
   if (not Assigned(CurrentSG)) or (not (CurrentSG is cEmutecaGroup)) then
     Exit;
 
+  aIconFile := '';
+  aConfigFile := '';
+
   if Assigned(GUIConfig) then
   begin
     aIconFile := GUIConfig.GUIIcnFile;
@@ -1079,12 +1082,12 @@ begin
   FormResult := TfmEmutecaGroupEditor.SimpleModalForm(
     cEmutecaGroup(CurrentSG), NewTitle, aConfigFile, aIconFile);
 
-  if FormResult = mrOk then
-  begin
-    TargetFile := CurrentSG.MediaFileName;
-    ChangeSGMedia(CurrentSG);
-    FilterLists;
-  end;
+  if FormResult <> mrOk then Exit;
+
+
+  TargetFile := CurrentSG.MediaFileName;
+  ChangeSGMedia(CurrentSG);
+  FilterLists;
 end;
 
 procedure TfmETKGUIMediaManager.OpenSoftEditor(NewTitle: string);
@@ -1095,6 +1098,9 @@ begin
   if (not Assigned(CurrentSG)) or (not (CurrentSG is cEmutecaSoftware)) then
     Exit;
 
+  aIconFile := '';
+  aConfigFile := '';
+
   if Assigned(GUIConfig) then
   begin
     aIconFile := GUIConfig.GUIIcnFile;
@@ -1104,12 +1110,12 @@ begin
   FormResult := TfmETKGUIFullSoftEditor.SimpleModalForm(
     cEmutecaSoftware(CurrentSG), NewTitle, aConfigFile, aIconFile);
 
-  if FormResult = mrOk then
-  begin
+  if FormResult <> mrOk then Exit;
+
     TargetFile := CurrentSG.MediaFileName;
     ChangeSGMedia(CurrentSG);
     FilterLists;
-  end;
+
 end;
 
 procedure TfmETKGUIMediaManager.DoClearFrameData;
@@ -1456,9 +1462,9 @@ begin
   pGroup2 := Sender.GetNodeData(Node2);
 
   case Column of
-    0: Result := UTF8CompareText(pGroup1^.Title, pGroup2^.Title);
-    1: Result := CompareFilenames(pGroup1^.MediaFileName,
+    0: Result := CompareFilenames(pGroup1^.MediaFileName,
         pGroup2^.MediaFileName);
+    1: Result := UTF8CompareText(pGroup1^.Title, pGroup2^.Title);
     else
       ;
   end;
@@ -2117,11 +2123,11 @@ begin
   pSoft2 := Sender.GetNodeData(Node2);
 
   case Column of
-    0: Result := UTF8CompareText(pSoft1^.Title, pSoft2^.Title);
-    1: Result := UTF8CompareText(pSoft1^.CachedGroup.Title,
-        pSoft2^.CachedGroup.Title);
-    2: Result := CompareFilenames(pSoft1^.MediaFileName,
+    0: Result := CompareFilenames(pSoft1^.MediaFileName,
         pSoft2^.MediaFileName);
+    1: Result := UTF8CompareText(pSoft1^.Title, pSoft2^.Title);
+    2: Result := UTF8CompareText(pSoft1^.CachedGroup.Title,
+        pSoft2^.CachedGroup.Title);
     else
       ;
   end;
@@ -2141,9 +2147,9 @@ begin
 
   case TextType of
     ttNormal: case Column of
-        0: CellText := pSoft^.Title;
-        1: CellText := pSoft^.CachedGroup.Title;
-        2: CellText := pSoft^.MediaFileName;
+        0: CellText := pSoft^.MediaFileName;
+        1: CellText := pSoft^.Title;
+        2: CellText := pSoft^.CachedGroup.Title;
         else
           ;
       end;
@@ -2165,9 +2171,10 @@ begin
     Exit;
 
   case TextType of
-    ttNormal: case Column of
-        0: CellText := pGroup^.Title;
-        1: CellText := pGroup^.MediaFileName;
+    ttNormal:
+      case Column of
+        0: CellText := pGroup^.MediaFileName;
+        1: CellText := pGroup^.Title;
         else
           ;
       end;

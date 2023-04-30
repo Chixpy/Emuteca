@@ -3,7 +3,7 @@ unit ucEmutecaSystem;
 
   This file is part of Emuteca Core.
 
-  Copyright (C) 2006-2019 Chixpy
+  Copyright (C) 2006-2023 Chixpy
 
   This source is free software; you can redistribute it and/or modify it under
   the terms of the GNU General Public License as published by the Free
@@ -288,10 +288,10 @@ begin
 
   // Uhm? Backwards? B-P
   i := GroupManager.FullList.Count - 1;
+  aGroup := nil;
   if i >= 0 then
-    aGroup := GroupManager.FullList[i]
-  else
-    aGroup := nil;
+    aGroup := GroupManager.FullList[i];
+
   j := SoftManager.FullList.Count;
   while j >= 1 do
   begin
@@ -324,6 +324,15 @@ begin
 
     aGroup.SoftList.Add(aSoft);
     aSoft.CachedGroup := aGroup;
+  end;
+
+  // Sorting
+  i := 0;
+  while i < GroupManager.FullList.Count do
+  begin
+    aGroup := GroupManager.FullList[i];
+    aGroup.SoftList.Sort(@EmutecaCompareSoftByFlags);
+    Inc(i);
   end;
 
   // Adding to visible list groups with soft
