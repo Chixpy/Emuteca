@@ -6,16 +6,20 @@ Only to include in other programs. Remember call TOSECFinish at the end of
   main program.
 [Data]
 Name=Chixpy
-Version=0.14
-Date=20221211
+Version=0.15
+Date=20230503
 [Changes]
+0.15 20230503
+  c Formating translation to "languaje/Translator/version", actually
+    translation version is not extracted.
+  c Multiple valued tags separated separte them with "/"
 0.14 20221211
   f Better return string for TOSECExtractInfo using TStringList.CommaText
 0.13 20221023
   f It seems that can be many [aka] flags... ignoring all.
 0.12 20221021
   c System, Video arrays changed to file loaded TStringLists.
-  f Faster? searching of System and Video, thenks to sorted TStringLists.
+  f Faster? searching of System and Video, thanks to sorted TStringLists.
 0.11 20221018
   f Ignoring "[aka XXX]" flag, so it's not marked as alternate dump [a].
     We don't need to know alternate names in tags, it's the purpourse of
@@ -297,7 +301,7 @@ begin
      
   // Demo (opt)
   // -----------------
-  // ' (demo' + ['-' + KindOfDemo] + ') '
+  // " (demo[-KindOfDemo]) "  <- It have spaces arround it but I don't care
   // Extracting from DBTitle, and keep in TempDemo for adding it later
   TempDemo := TOSECExtractTag(DBTitle, '(demo', ')');
   if TempDemo <> '' then
@@ -391,7 +395,7 @@ begin
 
   // Year (obl)
   // -----------------
-  // '(' + YYYY [+ '-' + MM [+ '-' + DD]] + ')'
+  // "(YYYY[-MM[-DD]])"
   TempStr := TOSECExtractTag(SoftStr, '(', ')');
   if TempStr = '' then
   begin
@@ -405,7 +409,7 @@ begin
     
   // Publisher (obl)
   // -----------------
-  // '(' + PublisherName + ')'
+  // "(Publisher[ - Publisher])"
   TempStr := TOSECExtractTag(SoftStr, '(', ')');
   if TempStr = '' then
   begin
@@ -415,7 +419,8 @@ begin
   if TempStr = '-' then
     DBPublisher := krsImportKeepValueKey
   else
-    DBPublisher := TempStr;  
+    DBPublisher := TempStr;
+  DBPublisher := AnsiReplaceText(DBPublisher, ' - ', '/');
 
   // Next flag (), But is used at the end because "()" can be inside "[]"
   //TempStr := TOSECExtractTag(SoftStr, '(', ')');
@@ -423,7 +428,7 @@ begin
 
   // System (opt)
   // -----------------
-  // '(' + System + ')'
+  // "(System)" -> Fixed list of systems
   if Pos('(', SoftStr) = 1 then
   begin
     aPos := Pos(')', SoftStr);
@@ -460,7 +465,7 @@ begin
 
   // Video (opt)
   // -----------------
-  // '(' + ('PAL'|'NTSC'|etc.) + ')'
+  // "(Video)" -> Fixed list of video
   if Pos('(', SoftStr) = 1 then
   begin
     aPos := Pos(')', SoftStr);
@@ -496,7 +501,7 @@ begin
 
   // Country
   // -------
-  // '(' + Country + ')' -> US, EU, JP, ... US-EU
+  // "(Country)" -> US, EU, JP, ... US-EU
   if Pos('(', SoftStr) = 1 then
   begin
     aPos := Pos(')', SoftStr);
@@ -565,7 +570,7 @@ begin
   
   // Language
   // --------
-  // // '(' + Language + ')' -> es, pt, fr, ... es-pt
+  // "(Language)" -> es, pt, fr, ... es-pt
   
   // Removing (M) flag, it don't actually says wich languages.
   // If (M) found then don't try to search language
@@ -617,7 +622,7 @@ begin
 
   // Copyright
   // -----------------
-  // (Copyright)
+  // "(Copyright)" -> Fixed list
   
   if Pos('(', SoftStr) = 1 then
   begin
@@ -676,22 +681,22 @@ begin
 
   // Cracked
   // -----------------
-  // '[cr' [+ ' ' + Cracker] + ']'
+  // "[cr Cracker]"
   DBCracked := TOSECExtractTag(SoftStr, '[cr', ']');
 
   // Fixed
   // -----------------
-  // [f]
+  // "[f Fix Fixer]"
   DBFixed := TOSECExtractTag(SoftStr, '[f', ']');
 
   // Hacked
   // -----------------
-  // [h]
+  // "[h Hack Hacker]"
   DBHack := TOSECExtractTag(SoftStr, '[h', ']');
 
   // Modified
   // -----------------
-  // [m]
+  // "[m Modification]"
 
   // Removing NES '[mapper XX]'
   TempStr := TOSECExtractTag(SoftStr, '[mapper', ']');
@@ -704,19 +709,33 @@ begin
 
   // Pirated
   // -----------------
-  // [p]
+  // "[p Pirate]"
   DBPirate := TOSECExtractTag(SoftStr, '[p', ']');
 
   // Traslated
   // -----------------
   // It must be searched before [t]
-  // [tr]
+  // "[tr language Translator]"
   DBTranslation := TOSECExtractTag(SoftStr, '[tr', ']');
+
+  // Formating to "Language;Translator;Version"...
+  // ... but translation version is in another tag and "[v" is used for virus
+  if Lenght(DBTranslation) > 3 then
+  begin
+    i := Pos(' ', DBTranslation);
+    if i > 0 then
+      DBTranslation[i] := '/'
+    else
+      DBTranslation := DBTranslation + '/';
+    DBTranslation := DBTranslation + '/';
+  end;
+
 
   // Trained
   // -----------------
-  // [t]
+  // "[t +x Trainer]"
   DBTrainer := TOSECExtractTag(SoftStr, '[t', ']');
+  DBTrainer := AnsiReplaceText(DBTrainer, ' - ', '/');
 
   // Verified, Good, Alternate, OverDump, BadDump, UnderDump
   // -------------------------------------------------------

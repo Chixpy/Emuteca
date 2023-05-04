@@ -69,7 +69,7 @@ type
     actAddMusicPanel: TAction;
     actAddVideoPanel: TAction;
     actClearPanels: TAction;
-    actIconLogoFilter: TAction;
+    actOpenIconInViewer: TAction;
     alMediaPanel: TActionList;
     iIcon: TImage;
     ilMediaPanel: TImageList;
@@ -91,7 +91,6 @@ type
     procedure actAddTextPanelExecute(Sender: TObject);
     procedure actAddVideoPanelExecute(Sender: TObject);
     procedure actClearPanelsExecute(Sender: TObject);
-    procedure actIconLogoFilterExecute(Sender: TObject);
     procedure pIconLogoResize(Sender: TObject);
   private
     FGroup: cEmutecaGroup;
@@ -178,21 +177,6 @@ begin
   // Maybe there is a better way to delete panels...
   while sbxMediaPanels.ComponentCount > 0 do
     sbxMediaPanels.Components[0].Free;
-end;
-
-procedure TfmETKGUISoftMedia.actIconLogoFilterExecute(Sender: TObject);
-begin
-  // Test... It seems not to work with png?
-  if actIconLogoFilter.Checked then
-  begin
-    iIcon.AntialiasingMode := amOn;
-    iLogo.AntialiasingMode := amOn;
-  end
-  else
-  begin
-    iIcon.AntialiasingMode := amOff;
-    iLogo.AntialiasingMode := amOff;
-  end;
 end;
 
 procedure TfmETKGUISoftMedia.pIconLogoResize(Sender: TObject);
@@ -299,6 +283,7 @@ begin
   begin
     iIcon.Picture.Clear;
     iLogo.Picture.Clear;
+    Group := nil;;
   end;
 
   UpdateChildrenSoft(sbxMediaPanels);

@@ -401,8 +401,11 @@ inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
       Lines.Strings = (
         'Parameters help:'
         '  · %ROM% = ROM full path.'
-        '  · %ROMNAME% = ROM filename.'
-        '  · %ROMNAMENOEXT% = ROM filename without extension.'
+        '  · %ROMNOEXT% = ROM full path without extension.'
+        '  · %ROMDIR% = ROM folder.'
+        '  · %ROMLASTDIR% = ROM last folder name.'
+        '  · %ROMNAME% = ROM filename, without folder.'
+        '  · %ROMNAMENOEXT% = ROM filename without extension. (MAME)'
         '  · %ROMEXT% = ROM file extension.'
         '  · %SYSID% = Advanced extra parameter from System.CoreID'
         '  · %EXTPARAM% = Advanced extra parameter from ROM extension.'
@@ -426,8 +429,8 @@ inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
     ParentFont = False
   end
   inherited alPropEditor: TActionList[5]
-    left = 288
-    top = 440
+    Left = 288
+    Top = 440
     object actWFEmulator: TAction[2]
       Category = 'PUWFolder'
       Caption = 'Emulator folder'
@@ -486,12 +489,12 @@ inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
     end
   end
   inherited ilPropEditor: TImageList[6]
-    left = 328
-    top = 520
+    Left = 328
+    Top = 520
   end
   object pmWFolder: TPopupMenu[7]
-    left = 40
-    top = 520
+    Left = 40
+    Top = 520
     object pmiWFEmu: TMenuItem
       Action = actWFEmulator
     end
@@ -503,8 +506,8 @@ inherited fmEmutecaEmulatorEditor: TfmEmutecaEmulatorEditor
     end
   end
   object pmParameters: TPopupMenu[8]
-    left = 152
-    top = 520
+    Left = 152
+    Top = 520
     object pmiParamROMPath: TMenuItem
       Action = actParamROMPath
     end

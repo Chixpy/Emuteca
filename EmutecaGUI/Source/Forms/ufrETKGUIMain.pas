@@ -1329,7 +1329,7 @@ begin
     begin
       ShowMessage(rsRunSoftwareNoEmuExe);
     end;
-    kError7zDecompress:
+    kError7zDecompress, kError7zDecompress - 1, kError7zDecompress - 2:
     begin
       ShowMessage(rsRunSoftware7zError);
     end;

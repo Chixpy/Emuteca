@@ -1,4 +1,5 @@
 unit ucEmutecaSoftList;
+
 {< cEmutecaSoftList class unit.
 
   Copyright (C) 2006-2023 Chixpy
@@ -44,36 +45,64 @@ type
   end;
 
 // Functions for sorting lists
-function EmutecaCompareSoftByID(const aSoft1, aSoft2: cEmutecaSoftware): integer;
-function EmutecaCompareSoftByGroupKey(const aSoft1, aSoft2: cEmutecaSoftware): integer;
-function EmutecaCompareSoftByFileName(const aSoft1, aSoft2: cEmutecaSoftware): integer;
-function EmutecaCompareSoftByFlags(const aSoft1, aSoft2: cEmutecaSoftware): integer;
+function EmutecaCompareSoftByID(
+  const aSoft1, aSoft2: cEmutecaSoftware): integer;
+function EmutecaCompareSoftByGroupKey(
+  const aSoft1, aSoft2: cEmutecaSoftware): integer;
+function EmutecaCompareSoftByFileName(
+  const aSoft1, aSoft2: cEmutecaSoftware): integer;
+function EmutecaCompareSoftByFlags(
+  const aSoft1, aSoft2: cEmutecaSoftware): integer;
 
 
 implementation
 
-function EmutecaCompareSoftByID(const aSoft1, aSoft2: cEmutecaSoftware
-  ): integer;
+function EmutecaCompareSoftByID(
+  const aSoft1, aSoft2: cEmutecaSoftware): integer;
 begin
   Result := aSoft1.CompareID(aSoft2.ID);
 end;
 
-function EmutecaCompareSoftByGroupKey(const aSoft1, aSoft2: cEmutecaSoftware
-  ): integer;
+function EmutecaCompareSoftByGroupKey(
+  const aSoft1, aSoft2: cEmutecaSoftware): integer;
 begin
   Result := aSoft1.CompareGroupKey(aSoft2.GroupKey);
 end;
 
-function EmutecaCompareSoftByFileName(const aSoft1, aSoft2: cEmutecaSoftware
-  ): integer;
+function EmutecaCompareSoftByFileName(
+  const aSoft1, aSoft2: cEmutecaSoftware): integer;
 begin
   Result := aSoft1.CompareFile(aSoft2.Folder, aSoft2.FileName);
 end;
 
-function EmutecaCompareSoftByFlags(const aSoft1, aSoft2: cEmutecaSoftware
-  ): integer;
+function EmutecaCompareSoftByFlags(
+  const aSoft1, aSoft2: cEmutecaSoftware): integer;
 begin
   Result := Ord(aSoft1.DumpStatus) - Ord(aSoft2.DumpStatus);
+
+  if Result <> 0 then Exit;
+
+  Result := UTF8CompareText(aSoft1.Hack, aSoft2.Hack);
+
+  if Result <> 0 then Exit;
+
+  Result := UTF8CompareText(aSoft1.Trainer, aSoft2.Trainer);
+
+  if Result <> 0 then Exit;
+
+  Result := UTF8CompareText(aSoft1.Cracked, aSoft2.Cracked);
+
+  if Result <> 0 then Exit;
+
+  Result := UTF8CompareText(aSoft1.Pirate, aSoft2.Pirate);
+
+  if Result <> 0 then Exit;
+
+  Result := UTF8CompareText(aSoft1.Translation, aSoft2.Translation);
+
+  if Result <> 0 then Exit;
+
+  Result := UTF8CompareText(aSoft1.Modified, aSoft2.Modified);
 
   if Result <> 0 then Exit;
 
@@ -81,7 +110,7 @@ begin
 
   if Result <> 0 then Exit;
 
-  Result := UTF8CompareText(aSoft1.Translation, aSoft2.Translation);
+  Result := UTF8CompareText(aSoft1.SortTitle, aSoft2.SortTitle);
 end;
 
 { cEmutecaSoftList }

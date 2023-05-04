@@ -4,9 +4,11 @@ This script searches for groups with same Media Filenames and versions with
   same filename that groups (except the one wich owned it). 
 [Data]
 Name=Chixpy
-Version=0.01
+Version=1.1
 Date=20230415
 [Changes]
+1.1 - 20230501
+  + Added comparison between soft filenames.
 0.01 - 20230415
   + Initial version
 [EndInfo]
@@ -55,7 +57,7 @@ begin
   aSL.Sort;
   
   Abort := False;   
-  WriteLn('Comparíng filenames between groups');
+  WriteLn('Comparíng filenames of groups');
   WriteLn('There are ' + IntToStr(aGroupList.Count) + ' groups.'); 
   i := 0;
   while (i + 1 < aSL.Count) and (not Abort) do
@@ -83,15 +85,20 @@ begin
   begin
     aSL.AddObject(LowerCase(aGroupList[i].MediaFileName), aGroupList[i]);
     Inc(i);
-  end;
-  
+  end;  
   aSL.Sorted := True;
 
   WriteLn('');
-  if Abort then  WriteLn('Aborted!');
+  if Abort then  
+  begin
+    aSL.Free;
+    WriteLn('Aborted!');
+    exit;
+  end;
 
   WriteLn('Comparíng filenames between versions and groups.');
-  WriteLn('There are ' + IntToStr(aSoftList.Count) + ' versions.');
+  WriteLn('There are ' + IntToStr(aSoftList.Count) + ' versions and ' + 
+    IntToStr(aGroupList.Count) + ' groups.');
   WriteLn('Please wait.');
 
   i := 0;
@@ -112,11 +119,60 @@ begin
           WriteLn('');
 
           Abort := mrCancel = ETKCompareSG(cEmutecaGroup(aSL.Objects[j]), 
-            aSoftList[i]);       
+            aSoftList[i]);
+
+          // Updating Group list
+          aSL[j] := LowerCase(cEmutecaGroup(aSL.Objects[j]).MediaFileName);
+          aSL.Sort;
       end;
     end;
+
     Inc(i);
   end;
+  
+  if Abort then  
+  begin
+    aSL.Free;
+    WriteLn('Aborted!');
+    exit;
+  end;
+  
+  aSL.Clear;
+  aSL.Sorted := False;
+  WriteLn('');
+  WriteLn('Updating soft filenames');
+  i := 0;
+  while i < aSoftList.Count do
+  begin
+    aSL.AddObject(LowerCase(aSoftList[i].MediaFileName), aSoftList[i]);
+    Inc(i);
+  end;  
+  aSL.Sorted := True; 
+ 
+  WriteLn('Comparíng filenames of soft in different group.');
+  WriteLn('There are ' + IntToStr(aSoftList.Count) + ' groups.'); 
+  i := 0;
+  while (i + 1 < aSL.Count) and (not Abort) do
+  begin
+    // Compare soft in different group
+    if (aSL[i] = aSL[i + 1]) and 
+      (cEmutecaSoftware(aSL.Objects[i]).CachedGroup <> cEmutecaSoftware(aSL.Objects[i + 1]).CachedGroup)
+      then
+    begin    
+        WriteLn('');
+        WriteLn(aSL[i] + ' <- ' + cEmutecaSoftware(aSL.Objects[i]).Title + 
+          ' {' + cEmutecaSoftware(aSL.Objects[i]).CachedGroup.Title + '}' +        
+          + ' | ' +
+          cEmutecaSoftware(aSL.Objects[i + 1]).Title + 
+          ' {' + cEmutecaSoftware(aSL.Objects[i + 1]).CachedGroup.Title + '}');
+        WriteLn('');
+        
+        Abort := mrCancel = ETKCompareSG(cEmutecaSoftware(aSL.Objects[i]),
+          cEmutecaSoftware(aSL.Objects[i + 1]));
+    end;    
+  
+    Inc(i);
+  end;    
   
   aSL.Free; 
 

@@ -209,8 +209,8 @@ procedure TfmETKGUIMain.SetCurrentGroup(AValue: cEmutecaGroup);
 begin
   CurrentSoft := nil;
 
-  if FCurrentGroup = AValue then
-    Exit;
+  //if FCurrentGroup = AValue then
+  //  Exit;
   FCurrentGroup := AValue;
 
   fmSoftEditor.Group := CurrentGroup;

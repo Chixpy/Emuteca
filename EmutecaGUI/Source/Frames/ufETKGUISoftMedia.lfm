@@ -1,15 +1,15 @@
 inherited fmETKGUISoftMedia: TfmETKGUISoftMedia
-  Height = 506
-  Width = 243
-  ClientHeight = 506
-  ClientWidth = 243
+  Height = 696
+  Width = 481
+  ClientHeight = 696
+  ClientWidth = 481
   DesignLeft = 579
   DesignTop = 110
   object sbxMediaPanels: TScrollBox[0]
     Left = 0
-    Height = 358
+    Height = 548
     Top = 114
-    Width = 243
+    Width = 481
     HorzScrollBar.Page = 1
     VertScrollBar.Page = 1
     Align = alClient
@@ -18,8 +18,8 @@ inherited fmETKGUISoftMedia: TfmETKGUISoftMedia
   object tbSoftMediaPanel: TToolBar[1]
     Left = 0
     Height = 30
-    Top = 476
-    Width = 243
+    Top = 666
+    Width = 481
     Align = alBottom
     AutoSize = True
     BorderSpacing.Top = 3
@@ -64,7 +64,7 @@ inherited fmETKGUISoftMedia: TfmETKGUISoftMedia
     Left = 0
     Height = 6
     Top = 104
-    Width = 243
+    Width = 481
     Align = alTop
     ResizeAnchor = akTop
   end
@@ -72,11 +72,11 @@ inherited fmETKGUISoftMedia: TfmETKGUISoftMedia
     Left = 0
     Height = 100
     Top = 0
-    Width = 243
+    Width = 481
     Align = alTop
     Caption = 'Icon && Logo'
     ClientHeight = 75
-    ClientWidth = 239
+    ClientWidth = 477
     PopupMenu = pmIconLogo
     TabOrder = 3
     OnResize = pIconLogoResize
@@ -95,7 +95,7 @@ inherited fmETKGUISoftMedia: TfmETKGUISoftMedia
       Left = 75
       Height = 75
       Top = 0
-      Width = 164
+      Width = 402
       Align = alClient
       Center = True
       Proportional = True
@@ -133,11 +133,10 @@ inherited fmETKGUISoftMedia: TfmETKGUISoftMedia
       Hint = 'Remove all panels.'
       OnExecute = actClearPanelsExecute
     end
-    object actIconLogoFilter: TAction
+    object actOpenIconInViewer: TAction
       Category = 'IconLogo'
       AutoCheck = True
-      Caption = 'Filter Icon && Logo images'
-      OnExecute = actIconLogoFilterExecute
+      Caption = 'Open Icon in Image Viewer'
     end
   end
   object ilMediaPanel: TImageList[5]
@@ -149,7 +148,7 @@ inherited fmETKGUISoftMedia: TfmETKGUISoftMedia
     Left = 24
     Top = 152
     object miILFilterImages: TMenuItem
-      Action = actIconLogoFilter
+      Action = actOpenIconInViewer
       AutoCheck = True
     end
   end

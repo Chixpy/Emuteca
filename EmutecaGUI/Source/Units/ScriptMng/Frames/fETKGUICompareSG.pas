@@ -46,8 +46,13 @@ type
   TfmETKGUICompareSG = class(TfmCHXPropEditor)
     actG2ToG1: TAction;
     actG1ToG2: TAction;
+    actMergeToG2: TAction;
+    actMergeToG1: TAction;
     bG2ToG1: TButton;
     bG1ToG2: TButton;
+    bMergeToG1: TButton;
+    bMergeToG2: TButton;
+    lWarning: TLabel;
     pLeft: TPanel;
     pLeftUp: TPanel;
     pRightUp: TPanel;
@@ -56,7 +61,8 @@ type
     Splitter1: TSplitter;
     procedure actG1ToG2Execute(Sender: TObject);
     procedure actG2ToG1Execute(Sender: TObject);
-
+    procedure actMergeToG1Execute(Sender: TObject);
+    procedure actMergeToG2Execute(Sender: TObject);
   private
     FfmSGEditorLeft: TfmETKGUIFullSoftEditor;
     FfmSGEditorRight: TfmETKGUIFullSoftEditor;
@@ -72,6 +78,8 @@ type
     procedure DoClearFrameData;
     procedure DoLoadFrameData;
     // procedure DoSaveFrameData;
+
+    procedure MergeGroups(SourceGroup, TargetGroup: cEmutecaGroup);
 
   public
     constructor Create(TheOwner: TComponent); override;
@@ -95,6 +103,32 @@ implementation
 procedure TfmETKGUICompareSG.actG2ToG1Execute(Sender: TObject);
 begin
   fmSGEditorLeft.ChangeSoftGroup(fmSGEditorRight.Group);
+end;
+
+procedure TfmETKGUICompareSG.actMergeToG1Execute(Sender: TObject);
+var
+  aGroup: cEmutecaGroup;
+begin
+  aGroup := fmSGEditorRight.Group;
+  MergeGroups(aGroup, fmSGEditorLeft.Group);
+
+  // Reseting Right Panel
+  fmSGEditorRight.Group := nil;
+  fmSGEditorRight.Group := aGroup;
+end;
+
+procedure TfmETKGUICompareSG.actMergeToG2Execute(Sender: TObject);
+var
+  aGroup: cEmutecaGroup;
+begin
+  aGroup := fmSGEditorLeft.Group;
+
+  MergeGroups(aGroup, fmSGEditorRight.Group);
+
+  // Reseting Left Panel
+  aGroup.Title := '!!Empty group to delete';
+  fmSGEditorLeft.Group := nil;
+  fmSGEditorLeft.Group := aGroup;
 end;
 
 procedure TfmETKGUICompareSG.actG1ToG2Execute(Sender: TObject);
@@ -174,8 +208,34 @@ begin
 
   AssignSGItem(fmSGEditorLeft, SGLeft);
   bG2ToG1.Enabled := SGLeft is cEmutecaSoftware;
+  // fmSGEditorLeft.fmSoftEditor.Enabled := SGLeft is cEmutecaSoftware;
+
   AssignSGItem(fmSGEditorRight, SGRight);
   bG1ToG2.Enabled := SGRight is cEmutecaSoftware;
+  // fmSGEditorRight.fmSoftEditor.Enabled := SGRight is cEmutecaSoftware;
+end;
+
+procedure TfmETKGUICompareSG.MergeGroups(SourceGroup, TargetGroup: cEmutecaGroup
+  );
+var
+  i: Integer;
+  aSoft: cEmutecaSoftware;
+begin
+  i := 0;
+  while i < SourceGroup.SoftList.Count do
+  begin
+    aSoft := SourceGroup.SoftList[i];
+
+    aSoft.CachedGroup := TargetGroup;
+
+    if aSoft.GetActualTitle = '' then
+    begin
+      aSoft.Title := SourceGroup.Title;
+      aSoft.SortTitle := SourceGroup.GetActualSortTitle;
+    end;
+
+    Inc(i);
+  end;
 end;
 
 constructor TfmETKGUICompareSG.Create(TheOwner: TComponent);

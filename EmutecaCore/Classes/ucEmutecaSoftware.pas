@@ -118,6 +118,7 @@ begin
 
   if Assigned(FCachedGroup) then
   begin
+    FCachedGroup.FPONotifyObservers(Self, ooDeleteItem, nil);
     FCachedGroup.FPODetachObserver(Self);
   end;
 
@@ -126,9 +127,10 @@ begin
   if Assigned(FCachedGroup) then
   begin
     FCachedGroup.FPOAttachObserver(Self);
+    FCachedGroup.FPONotifyObservers(Self, ooAddItem, nil);
     GroupKey := CachedGroup.ID;
   end;
-  // else GroupKey := ''; We don't want to delete old GroupKey
+  // else GroupKey := ''; We don't want to delete old GroupKey if not assigned
 end;
 
 procedure cEmutecaSoftware.SetTitle(AValue: string);

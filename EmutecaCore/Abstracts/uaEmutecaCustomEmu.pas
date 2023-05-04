@@ -49,21 +49,26 @@ const
   {< Current directory key. }
 
   // Parameters
-  //kEmutecaROMDirKey = '%ROMDIR%'; <- Same as Working Folders
   krsEmutecaROMPathKey = '%ROM%';
-  {< ROM full path. }
-  krsEmutecaROMFileNameKey = '%ROMNAME%';
-  {< ROM filename. }
-  krsEmutecaROMFileNameNoExtKey = '%ROMNAMENOEXT%';
+  {< ROM full path key. }
+  krsEmutecaROMPathNoExtKey = '%ROMNOEXT%';
   {< ROM filename without extension. }
+  //kEmutecaROMDirKey = '%ROMDIR%'; <- Same as Working Folders
+  {< ROM's directory key. }
+  krsEmutecaROMLastFolderKey = '%ROMLASTDIR%';
+  {< ROM's last folder key. }
+  krsEmutecaROMFileNameKey = '%ROMNAME%';
+  {< ROM filename only key. }
+  krsEmutecaROMFileNameNoExtKey = '%ROMNAMENOEXT%';
+  {< ROM filename only without extension key. }
   krsEmutecaROMFileExtKey = '%ROMEXT%';
-  {< ROM file extension. }
+  {< ROM file extension key. }
   krsEmutecaROMSysIDKey = '%SYSID%';
-  {< Extra parameter from System.CoreID. }
+  {< Extra parameter from System.CoreID key. }
   krsEmutecaROMExtensionParamKey = '%EXTPARAM%';
-  {< Extra parameter from System.CoreID. }
+  {< Extra parameter from System.CoreID key. }
   krsEmutecaROMExtraParamKey = '%EXTRA%';
-{< Extra parameters from Software.ExtraParameter. }
+{< Extra parameters from Software.ExtraParameter key. }
 
 type
   { caEmutecaCustomEmu class.
@@ -168,8 +173,13 @@ type
        @definitionList(
          @itemLabel(%ROM%)
          @item(Full ROM path.)
+         @itemLabel(%ROMNOEXT%)
+         @item(Full ROM path without extension. Usefull to change file
+           extension.)
          @itemLabel(%ROMDIR%)
          @item(ROM's folder.)
+         @itemLabel(%ROMLASTDIR%)
+         @item(ROM's last folder name.)
          @itemLabel(%ROMNAME%)
          @item(ROM filename with extension, but without folder.)
          @itemLabel(%ROMNAMENOEXT%)
@@ -454,6 +464,8 @@ begin
       Extra := Extra + ExtensionParamFormat.ValueFromIndex[j] + ' ';
     Inc(j);
   end;
+  if Extra = '' then
+    Extra := ExtensionParamFormat.Values['*'];
   ActualParam := AnsiReplaceText(ActualParam, krsEmutecaROMExtensionParamKey,
     Trim(Extra));
 
@@ -492,8 +504,12 @@ begin
 
   // Changing common parameters
   ActualParam := AnsiReplaceText(ActualParam, krsEmutecaROMPathKey, GameFile);
+  ActualParam := AnsiReplaceText(ActualParam, krsEmutecaROMPathNoExtKey,
+    ExtractFileNameWithoutExt(GameFile));
   ActualParam := AnsiReplaceText(ActualParam, krsEmutecaROMDirKey,
     ExtractFileDir(GameFile));
+  ActualParam := AnsiReplaceText(ActualParam, krsEmutecaROMLastFolderKey,
+    ExtractFileName(ExtractFileDir(GameFile)));
   ActualParam := AnsiReplaceText(ActualParam, krsEmutecaEmuDirKey,
     ExtractFileDir(ExeFile));
   ActualParam := AnsiReplaceText(ActualParam, krsEmutecaROMFileNameKey,

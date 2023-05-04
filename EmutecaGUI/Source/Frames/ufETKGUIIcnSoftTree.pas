@@ -280,10 +280,7 @@ procedure TfmETKGUIIcnSoftTree.VDTDrawText(Sender: TBaseVirtualTree;
             case i of
               2: // Translation;
               begin
-                if (TmpStr[1] = '+') then
-                  TmpStr := Trim(UTF8Copy(TmpStr, 2, 3))
-                else  // GoodXXX or "-" TOSEC
-                  TmpStr := Trim(UTF8Copy(TmpStr, 1, 3));
+                TmpStr := Trim(UTF8Copy(TmpStr, 1, 2));
 
                 //Drawing text over icon
                 DrawText(TargetCanvas.Handle, PChar(TmpStr), -1, IconRect,

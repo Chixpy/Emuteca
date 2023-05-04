@@ -1,4 +1,13 @@
 {"version":1,"strings":[
+{"hash":347380,"name":"tfmetkguicomparesg.bsave.caption","sourcebytes":[78,101,120,116],"value":"Next"},
+{"hash":4691604,"name":"tfmetkguicomparesg.bcancel.caption","sourcebytes":[65,98,111,114,116],"value":"Abort"},
+{"hash":218380664,"name":"tfmetkguicomparesg.lwarning.caption","sourcebytes":[82,101,109,101,109,98,101,114,32,116,111,32,115,97,118,101,32,115,111,102,116,47,103,114,111,117,112,32,99,104,97,110,103,101,115,32,105,110,100,105,118,105,100,117,97,108,108,121,32,97,116,32,116,104,101,32,98,111,116,116,111,109,32,111,102,32,115,99,114,111,108,108,98,111,120],"value":"Remember to save soft/group changes individually at the bottom of scrollbox"},
 {"hash":69805810,"name":"tfmetkguicomparesg.actg2tog1.caption","sourcebytes":[65,115,115,105,103,110,32,71,114,111,117,112,32,50],"value":"Assign Group 2"},
-{"hash":69805809,"name":"tfmetkguicomparesg.actg1tog2.caption","sourcebytes":[65,115,115,105,103,110,32,71,114,111,117,112,32,49],"value":"Assign Group 1"}
+{"hash":71268640,"name":"tfmetkguicomparesg.actg2tog1.hint","sourcebytes":[65,115,115,105,103,110,32,116,104,105,115,32,115,111,102,116,32,116,111,32,114,105,103,104,116,32,103,114,111,117,112,32],"value":"Assign this soft to right group "},
+{"hash":69805809,"name":"tfmetkguicomparesg.actg1tog2.caption","sourcebytes":[65,115,115,105,103,110,32,71,114,111,117,112,32,49],"value":"Assign Group 1"},
+{"hash":11554272,"name":"tfmetkguicomparesg.actg1tog2.hint","sourcebytes":[65,115,115,105,103,110,32,116,104,105,115,32,115,111,102,116,32,116,111,32,108,101,102,116,32,103,114,111,117,112,32],"value":"Assign this soft to left group "},
+{"hash":120249457,"name":"tfmetkguicomparesg.actmergetog1.caption","sourcebytes":[77,101,114,103,101,32,116,111,32,71,49],"value":"Merge to G1"},
+{"hash":238257749,"name":"tfmetkguicomparesg.actmergetog1.hint","sourcebytes":[65,115,115,105,103,110,32,97,108,108,32,115,111,102,116,32,111,102,32,116,104,105,115,32,103,114,111,117,112,32,116,111,32,116,104,101,32,108,101,102,116,32,111,110,101],"value":"Assign all soft of this group to the left one"},
+{"hash":120249458,"name":"tfmetkguicomparesg.actmergetog2.caption","sourcebytes":[77,101,114,103,101,32,116,111,32,71,50],"value":"Merge to G2"},
+{"hash":61251557,"name":"tfmetkguicomparesg.actmergetog2.hint","sourcebytes":[65,115,115,105,103,110,32,97,108,108,32,115,111,102,116,32,111,102,32,116,104,105,115,32,103,114,111,117,112,32,116,111,32,116,104,101,32,114,105,103,104,116,32,111,110,101],"value":"Assign all soft of this group to the right one"}
 ]}

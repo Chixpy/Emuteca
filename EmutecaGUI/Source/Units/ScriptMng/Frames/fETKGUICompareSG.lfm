@@ -10,33 +10,37 @@ inherited fmETKGUICompareSG: TfmETKGUICompareSG
     Width = 814
     ClientWidth = 814
     inherited chkCloseOnSave: TCheckBox
-      Left = 150
+      Left = 149
     end
     inherited bSave: TBitBtn
-      Left = 360
+      Left = 358
+      Width = 77
+      Caption = 'Next'
     end
     inherited bCancel: TBitBtn
-      Left = 576
+      Left = 584
+      Width = 84
+      Caption = 'Abort'
     end
   end
   object sbxMain: TScrollBox[1]
     Left = 0
-    Height = 760
-    Top = 0
+    Height = 736
+    Top = 24
     Width = 814
-    HorzScrollBar.Page = 534
+    HorzScrollBar.Page = 628
     VertScrollBar.Page = 63
     Align = alClient
-    ClientHeight = 756
+    ClientHeight = 732
     ClientWidth = 810
     TabOrder = 1
     object pLeft: TPanel
       Left = 0
-      Height = 756
+      Height = 732
       Top = 0
       Width = 400
       Align = alLeft
-      ClientHeight = 756
+      ClientHeight = 732
       ClientWidth = 400
       TabOrder = 0
       object pLeftUp: TPanel
@@ -56,24 +60,34 @@ inherited fmETKGUICompareSG: TfmETKGUICompareSG
           Top = 0
           Width = 126
           Action = actG2ToG1
+          Align = alLeft
           AutoSize = True
           TabOrder = 0
+        end
+        object bMergeToG2: TButton
+          Left = 126
+          Height = 30
+          Top = 0
+          Width = 94
+          Action = actMergeToG2
+          Align = alLeft
+          TabOrder = 1
         end
       end
     end
     object Splitter1: TSplitter
       Left = 400
-      Height = 756
+      Height = 732
       Top = 0
       Width = 6
     end
     object pRight: TPanel
       Left = 406
-      Height = 756
+      Height = 732
       Top = 0
       Width = 404
       Align = alClient
-      ClientHeight = 756
+      ClientHeight = 732
       ClientWidth = 404
       TabOrder = 2
       object pRightUp: TPanel
@@ -93,24 +107,60 @@ inherited fmETKGUICompareSG: TfmETKGUICompareSG
           Top = 0
           Width = 126
           Action = actG1ToG2
+          Align = alLeft
           AutoSize = True
           TabOrder = 0
+        end
+        object bMergeToG1: TButton
+          Left = 126
+          Height = 30
+          Top = 0
+          Width = 94
+          Action = actMergeToG1
+          Align = alLeft
+          TabOrder = 1
         end
       end
     end
   end
-  inherited alPropEditor: TActionList[2]
+  object lWarning: TLabel[2]
+    Left = 0
+    Height = 20
+    Top = 0
+    Width = 814
+    Align = alTop
+    Alignment = taCenter
+    Caption = 'Remember to save soft/group changes individually at the bottom of scrollbox'
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+  end
+  inherited alPropEditor: TActionList[3]
     object actG2ToG1: TAction[2]
       Category = 'Compare'
       Caption = 'Assign Group 2'
+      Hint = 'Assign this soft to right group '
       OnExecute = actG2ToG1Execute
     end
     object actG1ToG2: TAction[3]
       Category = 'Compare'
       Caption = 'Assign Group 1'
+      Hint = 'Assign this soft to left group '
       OnExecute = actG1ToG2Execute
     end
+    object actMergeToG1: TAction[4]
+      Category = 'Compare'
+      Caption = 'Merge to G1'
+      Hint = 'Assign all soft of this group to the left one'
+      OnExecute = actMergeToG1Execute
+    end
+    object actMergeToG2: TAction[5]
+      Category = 'Compare'
+      Caption = 'Merge to G2'
+      Hint = 'Assign all soft of this group to the right one'
+      OnExecute = actMergeToG2Execute
+    end
   end
-  inherited ilPropEditor: TImageList[3]
+  inherited ilPropEditor: TImageList[4]
   end
 end
