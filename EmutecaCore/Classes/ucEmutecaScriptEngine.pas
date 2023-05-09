@@ -141,27 +141,28 @@ begin
 
   RIRegister_ucEmutecaPlayingStats(x);
 
-  RIRegister_uaEmutecaCustomSGItem(x);
   RIRegister_uaEmutecaCustomEmu(x);
-  RIRegister_uaEmutecaCustomSystem(x);
+  RIRegister_uaEmutecaCustomSGItem(x);
   RIRegister_uaEmutecaCustomGroup(x);
   RIRegister_uaEmutecaCustomSoft(x);
+  RIRegister_uaEmutecaCustomSystem(x);
   RIRegister_uaEmutecaCustomManager(x);
 
   RIRegister_ucEmutecaEmulator(x);
-  RIRegister_ucEmutecaSystem(x);
-  RIRegister_ucEmutecaGroup(x);
-  RIRegister_ucEmutecaSoftware(x);
-
   RIRegister_ucEmutecaEmulatorList(x);
-  RIRegister_ucEmutecaSystemList(x);
-  RIRegister_ucEmutecaGroupList(x);
-  RIRegister_ucEmutecaSoftList(x);
-
   RIRegister_ucEmutecaEmulatorManager(x);
-  RIRegister_ucEmutecaSystemManager(x);
-  RIRegister_ucEmutecaGroupManager(x);
+
+  RIRegister_ucEmutecaSoftware(x);
+  RIRegister_ucEmutecaSoftList(x);
   RIRegister_ucEmutecaSoftManager(x);
+
+  RIRegister_ucEmutecaGroup(x);
+  RIRegister_ucEmutecaGroupList(x);
+  RIRegister_ucEmutecaGroupManager(x);
+
+  RIRegister_ucEmutecaSystem(x);
+  RIRegister_ucEmutecaSystemList(x);
+  RIRegister_ucEmutecaSystemManager(x);
 
   RIRegister_ucEmutecaConfig(x);
   RIRegister_ucEmuteca(x);

@@ -267,7 +267,7 @@ begin
     //// 4. If nothing found, search ONLY ONE from every compressed archive.
     //// Folder/*.zip/aFileName.mext
 
-    // COMENTED: Too sloooow..., keeped for reference
+    // REMOVED: Too sloooow..., keeped for reference
 
     //CompressedArchives := TStringList.Create;
     //try
@@ -326,7 +326,7 @@ begin
 
     //// 4. Without extracting
 
-    // COMENTED: Too sloooow..., keeped for reference
+    // REMOVED: Too sloooow..., keeped for reference
 
     //CompressedArchives := TStringList.Create;
     //TempStrLst := TStringList.Create;
@@ -461,7 +461,7 @@ begin
     //// 4. If nothing found, search ONLY ONE from every compressed archive.
     //// Folder/*.zip/aFileName.mext
 
-    // COMENTED: Too sloooow..., keeped for reference
+    // REMOVED: Too sloooow..., keeped for reference
 
     //CompressedArchives := TStringList.Create;
     //try
@@ -513,7 +513,7 @@ begin
 
     //// 4. Without extracting
 
-    // COMENTED: Too sloooow..., keeped for reference
+    // REMOVED: Too sloooow..., keeped for reference
 
     //CompressedArchives := TStringList.Create;
     //TempStrLst := TStringList.Create;
