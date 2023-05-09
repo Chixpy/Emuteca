@@ -93,9 +93,9 @@ resourcestring
 
   // Strings for DumpStatus, translatable
   // ------------------------------------
-  rsEDSVerified = 'Verified';
+  rsEDSFavorite = 'Favorite';
   rsEDSGood = 'GoodDump';
-  rsEDSAlternate = 'Alternate';
+//  rsEDSAlternate = 'Alternate';
   rsEDSOverDump = 'OverDump';
   rsEDSBadDump = 'BadDump';
   rsEDSUnderDump = 'UnderDump';
@@ -115,7 +115,7 @@ resourcestring
 
 const
     EmutecaDumpStatusStr: array [TEmutecaDumpStatus] of string =
-    (rsEDSVerified, rsEDSGood, rsEDSAlternate, rsEDSOverDump,
+    (rsEDSFavorite, rsEDSGood, {rsEDSAlternate,} rsEDSOverDump,
     rsEDSBadDump, rsEDSUnderDump, rsEDSUnknown, rsEDSKeepValue);
 //< Strings for DumpStatus (localizable)
 

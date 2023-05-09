@@ -2361,17 +2361,15 @@ msgid ""
 "Do you want overwrite it?"
 msgstr ""
 
-#: uemutecarscstr.rsedsalternate
-#, fuzzy
-msgctxt "uemutecarscstr.rsedsalternate"
-msgid "Alternate"
-msgstr "Alternativa"
-
 #: uemutecarscstr.rsedsbaddump
 #, fuzzy
 msgctxt "uemutecarscstr.rsedsbaddump"
 msgid "BadDump"
 msgstr "Copia mala"
+
+#: uemutecarscstr.rsedsfavorite
+msgid "Favorite"
+msgstr ""
 
 #: uemutecarscstr.rsedsgood
 #, fuzzy
@@ -2401,11 +2399,6 @@ msgstr "Copia incompleta"
 msgctxt "uemutecarscstr.rsedsunknown"
 msgid "Unknown"
 msgstr "Desconocido"
-
-#: uemutecarscstr.rsedsverified
-msgctxt "uemutecarscstr.rsedsverified"
-msgid "Verified"
-msgstr "Verificado"
 
 #: uemutecarscstr.rsexportingemulatorlist
 #, fuzzy

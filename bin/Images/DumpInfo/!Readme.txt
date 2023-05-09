@@ -2,10 +2,11 @@ ICONS FOR DUMP INFO
 -------------------
 
 General: Added a semitransparent grey border (128, 128, 128, 128)
-
+  
 Alternate.png 
   CC-BY - Silk icon set 1.3 (Read license below).
   Modified adding "a" from DejaVu Serif Bold font.
+  2023/05/09: Not used anymore.
   
 BadDump.png
   CC-BY - Silk icon set 1.3 (Read license below).
@@ -46,7 +47,7 @@ UnderDump.png
 Unknown.png 
   CC-BY - Silk icon set 1.3 (Read license below).
   
-Verified.png
+Favorite.png
   CC-BY - Silk icon set 1.3 (Read license below).
   
   

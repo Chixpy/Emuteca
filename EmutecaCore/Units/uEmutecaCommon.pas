@@ -158,10 +158,10 @@ begin
 
   if (aString = DumpSt2Key(edsGood)) then // krsedsGoodKey = ''
     Result := edsGood
-  else if (aString[1] = DumpSt2Key(edsVerified)) then
-    Result := edsVerified
-  else if (aString[1] = DumpSt2Key(edsAlternate)) then
-    Result := edsAlternate
+  else if (aString[1] = DumpSt2Key(edsFavorite)) then
+    Result := edsFavorite
+  else if (aString[1] = 'a' {DumpSt2Key(edsAlternate)}) then
+    Result := edsGood
   else if (aString[1] = DumpSt2Key(edsOverDump)) then
     Result := edsOverDump
   else if (aString[1] = DumpSt2Key(edsBadDump)) then

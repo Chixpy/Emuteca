@@ -2239,12 +2239,12 @@ msgid ""
 "Do you want overwrite it?"
 msgstr ""
 
-#: uemutecarscstr.rsedsalternate
-msgid "Alternate"
-msgstr ""
-
 #: uemutecarscstr.rsedsbaddump
 msgid "BadDump"
+msgstr ""
+
+#: uemutecarscstr.rsedsfavorite
+msgid "Favorite"
 msgstr ""
 
 #: uemutecarscstr.rsedsgood
@@ -2266,10 +2266,6 @@ msgstr ""
 #: uemutecarscstr.rsedsunknown
 msgctxt "uemutecarscstr.rsedsunknown"
 msgid "Unknown"
-msgstr ""
-
-#: uemutecarscstr.rsedsverified
-msgid "Verified"
 msgstr ""
 
 #: uemutecarscstr.rsexportingemulatorlist

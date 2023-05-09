@@ -546,7 +546,7 @@ begin
     Self.Zone := aSoft.Zone;
 
   // We well keep verified / favorited dumps
-  if (Self.DumpStatus <> edsVerified) and (aSoft.DumpStatus <> edsKeepValue) then
+  if (Self.DumpStatus <> edsFavorite) and (aSoft.DumpStatus <> edsKeepValue) then
     Self.DumpStatus := aSoft.DumpStatus;
   if aSoft.DumpInfo <> krsImportKeepValueKey then
     Self.DumpInfo := aSoft.DumpInfo;

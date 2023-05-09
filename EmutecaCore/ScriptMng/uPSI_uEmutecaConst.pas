@@ -195,9 +195,9 @@ begin
   CL.AddConstantN('krsSEKCustom', 'String').SetString(krsSEKCustom);
 
   // Constant for DumpStatus, fixed (for example, icon filenames)
-  CL.AddConstantN('krsEDSVerified', 'String').SetString(krsEDSVerified);
+  CL.AddConstantN('krsEDSFavorite', 'String').SetString(krsEDSFavorite);
   CL.AddConstantN('krsEDSGood', 'String').SetString(krsEDSGood);
-  CL.AddConstantN('krsEDSAlternate', 'String').SetString(krsEDSAlternate);
+//  CL.AddConstantN('krsEDSAlternate', 'String').SetString(krsEDSAlternate);
   CL.AddConstantN('krsEDSOverDump', 'String').SetString(krsEDSOverDump);
   CL.AddConstantN('krsEDSBadDump', 'String').SetString(krsEDSBadDump);
   CL.AddConstantN('krsEDSUnderDump', 'String').SetString(krsEDSUnderDump);
@@ -205,10 +205,10 @@ begin
   CL.AddConstantN('krsEDSKeepValue', 'String').SetString(krsEDSKeepValue);
 
   // Constant for DumpStatus, fixed (for databases)
-  CL.AddConstantN('krsEDSVerifiedKey', 'String').SetString(krsEDSVerifiedKey);
+  CL.AddConstantN('krsEDSFavoriteKey', 'String').SetString(krsEDSFavoriteKey);
   CL.AddConstantN('krsEDSGoodKey', 'String').SetString(krsEDSGoodKey);
-  CL.AddConstantN('krsEDSAlternateKey', 'String').SetString(
-    krsEDSAlternateKey);
+//  CL.AddConstantN('krsEDSAlternateKey', 'String').SetString(
+//    krsEDSAlternateKey);
   CL.AddConstantN('krsEDSOverDumpKey', 'String').SetString(krsEDSOverDumpKey);
   CL.AddConstantN('krsEDSBadDumpKey', 'String').SetString(krsEDSBadDumpKey);
   CL.AddConstantN('krsEDSUnderDumpKey', 'String').SetString(
@@ -228,7 +228,7 @@ begin
   CL.AddTypeS('TEmutecaSoftExportKey',
     '(TEFKSHA1, TEFKCRC32, TEFKFileName, TEFKCustom)');
   CL.AddTypeS('TEmutecaDumpStatus',
-    '(edsVerified, edsGood, edsAlternate, edsOverDump, edsBadDump, edsUnderDump, edsUnknown, edsKeepValue)');
+    '(edsFavorite, edsGood, edsOverDump, edsBadDump, edsUnderDump, edsUnknown, edsKeepValue)');
 
   CL.AddTypeS('TEmutecaProgressCallBack',
     'function(const Title, Info1, Info2: string; const Value, MaxValue: int64) : boolean');
@@ -241,17 +241,13 @@ begin
     //< Strings for FileKeys (fixed constants, used for ini files, etc. )
 
     EmutecaDumpStatusKey: array [TEmutecaDumpStatus] of string =
-      (krsEDSVerifiedKey, krsEDSGoodKey, krsEDSAlternateKey, krsEDSOverDumpKey,
+      (krsEDSFavoriteKey, krsEDSGoodKey, krsEDSOverDumpKey,
       krsEDSBadDumpKey, krsEDSUnderDumpKey, krsEDSUnknownKey, krsImportKeepValueKey);
     //< Keys for DumpStatus, used in IniFiles
     EmutecaDumpStatusStrK: array [TEmutecaDumpStatus] of string =
-      (krsEDSVerified, krsEDSGood, krsEDSAlternate, krsEDSOverDump,
+      (krsEDSFavorite, krsEDSGood, krsEDSOverDump,
       krsEDSBadDump, krsEDSUnderDump, krsEDSUnknown, krsEDSKeepValue);
   //< Strings for DumpStatus (fixed constants, used for icon filenames, etc. )
-    EmutecaDumpStatusStr: array [TEmutecaDumpStatus] of string =
-      (rsEDSVerified, rsEDSGood, rsEDSAlternate, rsEDSOverDump,
-      rsEDSBadDump, rsEDSUnderDump, rsEDSUnknown, rsEDSKeepValue);
-    //< Strings for DumpStatus (localizable)
   }
 end;
 

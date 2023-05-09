@@ -6,9 +6,13 @@ Only to include in other programs. Remember call TOSECFinish at the end of
   main program.
 [Data]
 Name=Chixpy
-Version=0.15
-Date=20230503
+Version=0.16
+Date=20230509
 [Changes]
+0.16 20230509
+  - Removed Alternate DumpStatus in Emuteca.
+  c Verified -> Favorite DumpStatus
+  c  "/" -> " / "
 0.15 20230503
   c Formating translation to "languaje/Translator/version", actually
     translation version is not extracted.
@@ -420,7 +424,7 @@ begin
     DBPublisher := krsImportKeepValueKey
   else
     DBPublisher := TempStr;
-  DBPublisher := AnsiReplaceText(DBPublisher, ' - ', '/');
+  DBPublisher := AnsiReplaceText(DBPublisher, ' - ', ' / ');
 
   // Next flag (), But is used at the end because "()" can be inside "[]"
   //TempStr := TOSECExtractTag(SoftStr, '(', ')');
@@ -728,6 +732,8 @@ begin
     else
       DBTranslation := DBTranslation + '/';
     DBTranslation := DBTranslation + '/';
+    DBTranslation := AnsiReplaceText(DBTranslation, '/', ' / ');
+    DBTranslation := Trim(AnsiReplaceText(DBTranslation, '  ', ' '));
   end;
 
 
@@ -735,7 +741,12 @@ begin
   // -----------------
   // "[t +x Trainer]"
   DBTrainer := TOSECExtractTag(SoftStr, '[t', ']');
-  DBTrainer := AnsiReplaceText(DBTrainer, ' - ', '/');
+  DBTrainer := AnsiReplaceText(DBTrainer, ' - ', ' / ');
+
+  // Removing [aka ] flags...
+  TempStr := 'x';
+  while TempStr <> '' do
+    TempStr := TOSECExtractTag(SoftStr, '[aka', ']');
 
   // Verified, Good, Alternate, OverDump, BadDump, UnderDump
   // -------------------------------------------------------
@@ -746,20 +757,16 @@ begin
   TempStr := TOSECExtractTag(SoftStr, '[!', ']');
   if TempStr <> '' then
   begin
-    DBDumpStatus := DumpSt2Key(edsVerified);
+    DBDumpStatus := DumpSt2Key(edsFavorite);
   end;
 
-  // Removing [aka ] flag...
-  TempStr := 'x';
-  while TempStr <> '' do
-    TempStr := TOSECExtractTag(SoftStr, '[aka', ']');
-
+//  2023/02/09: Removed from Emuteca
   TempStr := TOSECExtractTag(SoftStr, '[a', ']');
-  if TempStr <> '' then
-  begin
-    DBDumpStatus := DumpSt2Key(edsAlternate);
-    TOSECAddStr(DBDumpInfo, 'a ' + TempStr)
-  end;  
+//  if TempStr <> '' then
+//  begin
+//    DBDumpStatus := DumpSt2Key(edsAlternate);
+//    TOSECAddStr(DBDumpInfo, 'a ' + TempStr)
+//  end;  
   
   TempStr := TOSECExtractTag(SoftStr, '[o', ']');
   if TempStr <> '' then

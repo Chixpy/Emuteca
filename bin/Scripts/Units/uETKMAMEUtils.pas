@@ -7,9 +7,11 @@ It's far from perfect.
 Only to include in other programs.
 [Data]
 Name=Chixpy
-Version=0.01
-Date=20221211
+Version=0.02
+Date=20230509
 [Changes]
+0.03 20230509
+  c Verified -> Favorite DumpStatus
 0.02 20230106
   f XMLMAMEExtractTag: Not all machines have year, manufacturer or driver
     tags...
@@ -234,12 +236,12 @@ begin
   if Length(aVersionLine[5]) > 0 then
   begin
     case aVersionLine[5][1] of
-      'g': DBStatus := DumpSt2Key(edsVerified);
+      'g': DBStatus := DumpSt2Key(edsFavorite);
       'i': DBStatus := DumpSt2Key(edsGood);
       'p': DBStatus := DumpSt2Key(edsBadDump);
     end;
   end;
-  
+
   aSL := CreateStringList;
   try
     // Creating version string

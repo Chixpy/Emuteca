@@ -100,9 +100,9 @@ begin
 
   // Strings for DumpStatus, translatable
   // ------------------------------------
-  CL.AddConstantN('rsEDSVerified', 'String').SetString(rsEDSVerified);
+  CL.AddConstantN('rsEDSFavorite', 'String').SetString(rsEDSFavorite);
   CL.AddConstantN('rsEDSGood', 'String').SetString(rsEDSGood);
-  CL.AddConstantN('rsEDSAlternate', 'String').SetString(rsEDSAlternate);
+//  CL.AddConstantN('rsEDSAlternate', 'String').SetString(rsEDSAlternate);
   CL.AddConstantN('rsEDSOverDump', 'String').SetString(rsEDSOverDump);
   CL.AddConstantN('rsEDSBadDump', 'String').SetString(rsEDSBadDump);
   CL.AddConstantN('rsEDSUnderDump', 'String').SetString(rsEDSUnderDump);

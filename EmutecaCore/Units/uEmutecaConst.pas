@@ -189,9 +189,9 @@ const
   krsSEKCustom = 'Custom';
 
   // Constant for DumpStatus, fixed (for icon filenames)
-  krsEDSVerified = 'Verified';
+  krsEDSFavorite = 'Favorite';
   krsEDSGood = 'GoodDump';
-  krsEDSAlternate = 'Alternate';
+//  krsEDSAlternate = 'Alternate';
   krsEDSOverDump = 'OverDump';
   krsEDSBadDump = 'BadDump';
   krsEDSUnderDump = 'UnderDump';
@@ -199,9 +199,9 @@ const
   krsEDSKeepValue = 'KeepValue';
 
   // Constant for DumpStatus, fixed (for databases)
-  krsEDSVerifiedKey = '!';
+  krsEDSFavoriteKey = '!';
   krsEDSGoodKey = '';
-  krsEDSAlternateKey = 'a';
+//  krsEDSAlternateKey = 'a';
   krsEDSOverDumpKey = 'o';
   krsEDSBadDumpKey = 'b';
   krsEDSUnderDumpKey = 'u';
@@ -215,7 +215,7 @@ const
 
 type
   TEmutecaSoftExportKey = (TEFKSHA1, TEFKCRC32, TEFKFileName, TEFKCustom);
-  TEmutecaDumpStatus = (edsVerified, edsGood, edsAlternate, edsOverDump,
+  TEmutecaDumpStatus = (edsFavorite, edsGood, {edsAlternate,} edsOverDump,
     edsBadDump, edsUnderDump, edsUnknown, edsKeepValue);
 
   TEmutecaProgressCallBack = function(const aAction, aInfo: string;
@@ -229,12 +229,12 @@ const
   //< Strings for FileKeys (fixed constants, used for ini files, etc. )
 
   EmutecaDumpStatusKey: array [TEmutecaDumpStatus] of string =
-    (krsEDSVerifiedKey, krsEDSGoodKey, krsEDSAlternateKey, krsEDSOverDumpKey,
+    (krsEDSFavoriteKey, krsEDSGoodKey, {krsEDSAlternateKey,} krsEDSOverDumpKey,
     krsEDSBadDumpKey, krsEDSUnderDumpKey, krsEDSUnknownKey,
     krsImportKeepValueKey);
   //< Keys for DumpStatus, used in IniFiles
   EmutecaDumpStatusStrK: array [TEmutecaDumpStatus] of string =
-    (krsEDSVerified, krsEDSGood, krsEDSAlternate, krsEDSOverDump,
+    (krsEDSFavorite, krsEDSGood, {krsEDSAlternate,} krsEDSOverDump,
     krsEDSBadDump, krsEDSUnderDump, krsEDSUnknown, krsEDSKeepValue);
 //< Strings for DumpStatus (fixed constants, used for icon filenames, etc. )
 
