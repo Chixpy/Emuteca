@@ -4,8 +4,8 @@ This script searches for groups with same Media Filenames and versions with
   same filename that groups (except the one wich owned it). 
 [Data]
 Name=Chixpy
-Version=1.1
-Date=20230415
+Version=1.2
+Date=20230501
 [Changes]
 1.1 - 20230501
   + Added comparison between soft filenames.
@@ -110,7 +110,7 @@ begin
       aFile := LowerCase(aSoftList[i].MediaFileName);      
       
       j := aSL.IndexOf(aFile);
-      if j <> -1 then
+      if (j <> -1) then
       begin
           WriteLn('');
           WriteLn(aFile + ' <- ' + cEmutecaGroup(aSL.Objects[j]).Title +
@@ -122,8 +122,9 @@ begin
             aSoftList[i]);
 
           // Updating Group list
+          aSL.Sorted := False;
           aSL[j] := LowerCase(cEmutecaGroup(aSL.Objects[j]).MediaFileName);
-          aSL.Sort;
+          aSL.Sorted := True;
       end;
     end;
 

@@ -1,6 +1,15 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=UTF-8"
 
+#: fetkguicomparesg.rsetkguicsggroup
+#, object-pascal-format
+msgid "Soft Count: %0:d"
+msgstr ""
+
+#: fetkguicomparesg.rsetkguicsggroupmerged
+msgid "!!! Please use \"System/Update group list\" in main menu."
+msgstr ""
+
 #: tfmaetkguisoftfolderspreview.gbxpanel.caption
 msgid "Panel"
 msgstr ""
@@ -97,12 +106,12 @@ msgstr "Abre la carpeta donde se encuentra el fichero."
 #: tfmchxfilelistpreview.actopenwithdefapp.caption
 msgctxt "tfmchxfilelistpreview.actopenwithdefapp.caption"
 msgid "Open with Default Application"
-msgstr "Abrir con aplicación por defecto"
+msgstr "Abrir con la aplicación por defecto"
 
 #: tfmchxfilelistpreview.actopenwithdefapp.hint
 msgctxt "tfmchxfilelistpreview.actopenwithdefapp.hint"
 msgid "Open file with default system application."
-msgstr "Abrir fichero con aplicación por defecto del sistema."
+msgstr "Abre fichero con la aplicación por defecto del sistema."
 
 #: tfmchxfilelistpreview.actrenamefile.caption
 msgid "Rename/Move File"
@@ -130,8 +139,6 @@ msgid "Close the window."
 msgstr "Cierra la ventana."
 
 #: tfmchximgviewer.actoriginalsize.caption
-#, fuzzy
-#| msgid "Original Size"
 msgid "Original size"
 msgstr "Tamaño original"
 
@@ -1071,7 +1078,7 @@ msgstr "Extraer todos los ficheros (si están comprimidos)"
 
 #: tfmemutecasystemeditor.chkmergeablegroups.caption
 msgid "Mergeable Groups"
-msgstr ""
+msgstr "Grupos fusionables en un fichero comprimido"
 
 #: tfmemutecasystemeditor.etitle.texthint
 msgid "Company Model"
@@ -1290,7 +1297,7 @@ msgstr "Formato de salida"
 
 #: tfmetkguicomparesg.actg1tog2.caption
 msgid "Assign Group 1"
-msgstr ""
+msgstr "Asignar Grupo 1"
 
 #: tfmetkguicomparesg.actg1tog2.hint
 msgid "Assign this soft to left group "
@@ -1298,7 +1305,7 @@ msgstr ""
 
 #: tfmetkguicomparesg.actg2tog1.caption
 msgid "Assign Group 2"
-msgstr ""
+msgstr "Asignar Grupo 2"
 
 #: tfmetkguicomparesg.actg2tog1.hint
 msgid "Assign this soft to right group "
@@ -1322,11 +1329,11 @@ msgstr ""
 
 #: tfmetkguicomparesg.bcancel.caption
 msgid "Abort"
-msgstr ""
+msgstr "Abortar"
 
 #: tfmetkguicomparesg.bsave.caption
 msgid "Next"
-msgstr ""
+msgstr "Siguiente"
 
 #: tfmetkguicomparesg.lwarning.caption
 msgid "Remember to save soft/group changes individually at the bottom of scrollbox"
@@ -1403,7 +1410,7 @@ msgstr "Asignar fichero"
 
 #: tfmetkguimediamanager.actautoassign.caption
 msgid "Auto Assign"
-msgstr ""
+msgstr "Auto asignar"
 
 #: tfmetkguimediamanager.actdeleteallfiles.caption
 msgctxt "tfmetkguimediamanager.actdeleteallfiles.caption"
@@ -1450,7 +1457,7 @@ msgstr "Renombrar software con el nombre del fichero seleccionado"
 #: tfmetkguimediamanager.actrunsoftware.caption
 msgctxt "tfmetkguimediamanager.actrunsoftware.caption"
 msgid "Run software"
-msgstr ""
+msgstr "Ejecutar software"
 
 #: tfmetkguimediamanager.chkcopyfile.caption
 msgctxt "tfmetkguimediamanager.chkcopyfile.caption"
@@ -1893,14 +1900,6 @@ msgstr "Añadir software..."
 msgid "Add Software...|Open form to add a software file."
 msgstr ""
 
-#: tfrmetkguimain.actautosave.caption
-msgid "+Save on Exit"
-msgstr "+ Guardar al salir"
-
-#: tfrmetkguimain.actautosave.hint
-msgid "Save lists on Exit.|Autosave software lists on exit."
-msgstr "Guarda las listas al salir.|Autoguarda las listas de software al salir."
-
 #: tfrmetkguimain.actcleansystemdata.caption
 msgid "Clean system data"
 msgstr "Limpiar datos del sistema"
@@ -1936,6 +1935,26 @@ msgstr "Gestor de emuladores..."
 
 #: tfrmetkguimain.actemulatormanager.hint
 msgid "Emulator Manager...|Open Emulator Manager."
+msgstr ""
+
+#: tfrmetkguimain.actexit.caption
+#, fuzzy
+msgctxt "tfrmetkguimain.actexit.caption"
+msgid "Exit"
+msgstr "Salir"
+
+#: tfrmetkguimain.actexit.hint
+msgid "Exit Emuteca|Exits Emuteca saving changes."
+msgstr ""
+
+#: tfrmetkguimain.actexitwosaving.caption
+msgctxt "tfrmetkguimain.actexitwosaving.caption"
+msgid "Exit without saving"
+msgstr ""
+
+#: tfrmetkguimain.actexitwosaving.hint
+msgctxt "tfrmetkguimain.actexitwosaving.hint"
+msgid "Exit Emuteca|Exits Emuteca without saving changes."
 msgstr ""
 
 #: tfrmetkguimain.actexportsoftdata.caption
@@ -2028,7 +2047,7 @@ msgstr ""
 
 #: tfrmetkguimain.actrunemulatoralone.caption
 msgid "Run emulator alone."
-msgstr ""
+msgstr "Ejecutar emulador sin software"
 
 #: tfrmetkguimain.actrunetkiconbordericon.caption
 msgid "ETKIconBorder (Icon)"
@@ -2047,9 +2066,10 @@ msgid "Run ETKIconBorder using system's logo folder as output."
 msgstr ""
 
 #: tfrmetkguimain.actrunsoftware.caption
+#, fuzzy
 msgctxt "tfrmetkguimain.actrunsoftware.caption"
 msgid "Run software"
-msgstr ""
+msgstr "Ejecutar software"
 
 #: tfrmetkguimain.actrunsoftware.hint
 msgid "Run software.|Run current software."
@@ -2091,14 +2111,6 @@ msgstr "Actualizar lista de grupos.|Recarga la lista de grupos para actualizar l
 msgid "Main"
 msgstr "Principal"
 
-#: tfrmetkguimain.fileexit1.caption
-msgid "Exit"
-msgstr "Salir"
-
-#: tfrmetkguimain.fileexit1.hint
-msgid "Exit.|Exits Emuteca."
-msgstr "Salir.|Sale de Emuteca."
-
 #: tfrmetkguimain.helponhelp1.caption
 msgid "About Emuteca..."
 msgstr "Sobre Emuteca..."
@@ -2109,7 +2121,7 @@ msgstr "Sobre Emuteca...|Abre el cuadro de información de Emuteca."
 
 #: tfrmetkguimain.mimmaddfiles.caption
 msgid "Add files..."
-msgstr ""
+msgstr "Añadir ficehros..."
 
 #: tfrmetkguimain.mimmdebug.caption
 msgid "Debug"
@@ -2161,7 +2173,7 @@ msgstr "Sistema"
 
 #: tfrmetkguimain.mimmtools.caption
 msgid "Tools"
-msgstr ""
+msgstr "Utilidades"
 
 #: tfrmetkguimain.mipmgsearchinternet.caption
 msgctxt "tfrmetkguimain.mipmgsearchinternet.caption"
@@ -2169,20 +2181,16 @@ msgid "Search in Internet"
 msgstr "Buscar en Internet"
 
 #: ucchxscriptengine.rsseecompilationmsg
-#, fuzzy
-#| msgid "Compiling."
 msgid "Compiling script."
-msgstr "Compilando."
+msgstr "Compilando script."
 
 #: ucchxscriptengine.rsseeexecutionmsg
-#, fuzzy
-#| msgid "Executing."
 msgid "Executing script."
-msgstr "Ejecutando."
+msgstr "Ejecutando script."
 
 #: ucchxscriptengine.rsseefinishedmsg
 msgid "Script finished."
-msgstr ""
+msgstr "Script finalizado."
 
 #: ucchxscriptengine.rsseelerror
 msgid "Error"
@@ -2326,11 +2334,11 @@ msgstr ""
 
 #: uchxrscstr.rsrenamefile
 msgid "Rename this file:"
-msgstr ""
+msgstr "Renombre este fichero:"
 
 #: uchxrscstr.rsrenamefilecaption
 msgid "Renaming file"
-msgstr ""
+msgstr "Renombrado fichero"
 
 #: uemutecarscstr.rschooseimagefileformat
 msgid ""
@@ -2526,17 +2534,17 @@ msgstr ""
 #: uemutecarscstr.rsloadinggrouplist
 msgctxt "uemutecarscstr.rsloadinggrouplist"
 msgid "Loading group list..."
-msgstr ""
+msgstr "Cargando lista de grupos..."
 
 #: uemutecarscstr.rsloadingsoftlist
 msgctxt "uemutecarscstr.rsloadingsoftlist"
 msgid "Loading soft list..."
-msgstr ""
+msgstr "Cargando lista de software..."
 
 #: uemutecarscstr.rsloadingsystemlist
 msgctxt "uemutecarscstr.rsloadingsystemlist"
 msgid "Loading system list..."
-msgstr ""
+msgstr "Cargando lista de sistemas..."
 
 #: uemutecarscstr.rsnever
 #, fuzzy
@@ -2547,22 +2555,22 @@ msgstr "Nunca"
 #: uemutecarscstr.rssavingemulatorlist
 msgctxt "uemutecarscstr.rssavingemulatorlist"
 msgid "Saving emulator list..."
-msgstr ""
+msgstr "Guardando lista de emuladores..."
 
 #: uemutecarscstr.rssavinggrouplist
 msgctxt "uemutecarscstr.rssavinggrouplist"
 msgid "Saving group list..."
-msgstr ""
+msgstr "Guardando lista de grupos..."
 
 #: uemutecarscstr.rssavingsoftlist
 msgctxt "uemutecarscstr.rssavingsoftlist"
 msgid "Saving soft list..."
-msgstr ""
+msgstr "Guardando lista de software..."
 
 #: uemutecarscstr.rssavingsystemlist
 msgctxt "uemutecarscstr.rssavingsystemlist"
 msgid "Saving system list..."
-msgstr ""
+msgstr "Guardando lista de sistemas..."
 
 #: uemutecarscstr.rsunknown
 #, fuzzy
@@ -2572,7 +2580,7 @@ msgstr "Desconocido"
 
 #: uetkguirscstr.rsadvancedcaption
 msgid "Advanced"
-msgstr ""
+msgstr "Avanzada"
 
 #: uetkguirscstr.rsaskdeleteitem
 #, object-pascal-format
@@ -2595,7 +2603,7 @@ msgstr ""
 
 #: uetkguirscstr.rsbasiccaption
 msgid "Basic"
-msgstr ""
+msgstr "Básica"
 
 #: uetkguirscstr.rsdeveloper
 #, fuzzy
@@ -2605,21 +2613,21 @@ msgstr "Desarrollador"
 
 #: uetkguirscstr.rsemuwebempty
 msgid "Emulator's webpage not configured"
-msgstr ""
+msgstr "La página web del emulador no ha sido configurada"
 
 #: uetkguirscstr.rsetkguiconfigtitle
 msgid "Config Editor"
-msgstr ""
+msgstr "Editor de Configuración"
 
 #: uetkguirscstr.rsetkguiemueditortitle
 msgctxt "uetkguirscstr.rsetkguiemueditortitle"
 msgid "Emulator Editor"
-msgstr ""
+msgstr "Editor de Emuladores"
 
 #: uetkguirscstr.rsetkguisystemeditortitle
 msgctxt "uetkguirscstr.rsetkguisystemeditortitle"
 msgid "System Editor"
-msgstr ""
+msgstr "Editor de Sistemas"
 
 #: uetkguirscstr.rsfilename
 #, fuzzy
@@ -2746,7 +2754,7 @@ msgstr "Zonas"
 
 #: ufchxchklstpropeditor.rsleclpesavelist
 msgid "Save list"
-msgstr ""
+msgstr "Guardar lista"
 
 #: ufchximglistpreview.rsimageprops
 #, object-pascal-format
@@ -2795,15 +2803,18 @@ msgid ""
 "Save?\n"
 "%s"
 msgstr ""
+"El fichero ha sido modificado.\n"
+"¿Guardarlo?\n"
+"%s"
 
 #: ufchxscriptmanager.rsfsmfilesaved
 #, object-pascal-format
 msgid "File saved: %s"
-msgstr ""
+msgstr "Fichero guardado: %s"
 
 #: ufchxscriptmanager.rsfsmscriptfilemaskdesc
 msgid "Pascal script file"
-msgstr ""
+msgstr "Fichero Pascal Script"
 
 #: ufemutecasystemcbx.rsallsystems
 msgid "All Systems"
@@ -2813,7 +2824,7 @@ msgstr "Todos los sistemas"
 #, fuzzy
 msgctxt "ufemutecasystemcbx.rsselectsystem"
 msgid "Select a System"
-msgstr "Seleciona un sistema"
+msgstr "Selecciona un sistema"
 
 #: ufemutecatagtree.rsaskdelete
 #, object-pascal-format
@@ -2821,22 +2832,24 @@ msgid ""
 "Do you want to delete?\n"
 "%0:s"
 msgstr ""
+"¿Quieres borrarlo?\n"
+"%0:s"
 
 #: ufemutecatagtree.rscaptiondeletefile
 msgid "Delete File?"
-msgstr ""
+msgstr "¿Borrar fichero?"
 
 #: ufemutecatagtree.rscaptiondeletefolder
 msgid "Delete Folder?"
-msgstr ""
+msgstr "¿Borrar carpeta?"
 
 #: ufemutecatagtree.rscaptionfoldername
 msgid "Folder Name"
-msgstr ""
+msgstr "Nombre de la Carpeta"
 
 #: ufemutecatagtree.rscaptiontagsfile
 msgid "Tags File"
-msgstr ""
+msgstr "Fichero de etiquetas"
 
 #: ufemutecatagtree.rsdefaultfilename
 #, fuzzy
@@ -2852,15 +2865,15 @@ msgstr "Carpeta"
 
 #: ufemutecatagtree.rswritefoldername
 msgid "Write the folder name"
-msgstr ""
+msgstr "Escribe el nombre de la carpeta"
 
 #: ufemutecatagtree.rswritenewtagname
 msgid "Write the new tag name"
-msgstr ""
+msgstr "Escribe el nombre de la nueva etiqueta"
 
 #: ufemutecatagtree.rswritetagname
 msgid "Write the tag name"
-msgstr ""
+msgstr "Escribe el nombre de la etiqueta"
 
 #: ufetkguiemumanager.rsemulatorname
 msgid "Emulator name."
@@ -2868,27 +2881,27 @@ msgstr "Nombre del emulador."
 
 #: ufetkguimediamanager.rsetkmmdeleteall
 msgid "Do you want delete ALL visible files?"
-msgstr ""
+msgstr "¿Queres borrar TODOS los ficheros visibles?"
 
 #: ufetkguimediamanager.rsetkmmfilesgroups
 msgid "Files without group and groups without file"
-msgstr ""
+msgstr "Ficheros sin grupo y grupos sin fichero"
 
 #: ufetkguimediamanager.rsetkmmfilessoft
 msgid "Files without soft and soft without file"
-msgstr ""
+msgstr "Ficheros sin software y software sin fichero"
 
 #: ufetkguimediamanager.rsetkmmformcaption
 msgid "Media Manager"
-msgstr ""
+msgstr "Gestor de Medios"
 
 #: ufetkguimediamanager.rsetkmmsearching
 msgid "Searching..."
-msgstr ""
+msgstr "Buscando..."
 
 #: ufetkguimediamanager.rsetkmmsometime
 msgid "This can take some time"
-msgstr ""
+msgstr "Esto puede llevar algo de tiempo"
 
 #: ufetkguisysmanager.rssystemnamemodel
 msgid "System name [Company: Model (extra)]."

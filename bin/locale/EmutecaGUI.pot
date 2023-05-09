@@ -1,6 +1,15 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=UTF-8"
 
+#: fetkguicomparesg.rsetkguicsggroup
+#, object-pascal-format
+msgid "Soft Count: %0:d"
+msgstr ""
+
+#: fetkguicomparesg.rsetkguicsggroupmerged
+msgid "!!! Please use \"System/Update group list\" in main menu."
+msgstr ""
+
 #: tfmaetkguisoftfolderspreview.gbxpanel.caption
 msgid "Panel"
 msgstr ""
@@ -1774,14 +1783,6 @@ msgstr ""
 msgid "Add Software...|Open form to add a software file."
 msgstr ""
 
-#: tfrmetkguimain.actautosave.caption
-msgid "+Save on Exit"
-msgstr ""
-
-#: tfrmetkguimain.actautosave.hint
-msgid "Save lists on Exit.|Autosave software lists on exit."
-msgstr ""
-
 #: tfrmetkguimain.actcleansystemdata.caption
 msgid "Clean system data"
 msgstr ""
@@ -1817,6 +1818,25 @@ msgstr ""
 
 #: tfrmetkguimain.actemulatormanager.hint
 msgid "Emulator Manager...|Open Emulator Manager."
+msgstr ""
+
+#: tfrmetkguimain.actexit.caption
+msgctxt "tfrmetkguimain.actexit.caption"
+msgid "Exit"
+msgstr ""
+
+#: tfrmetkguimain.actexit.hint
+msgid "Exit Emuteca|Exits Emuteca saving changes."
+msgstr ""
+
+#: tfrmetkguimain.actexitwosaving.caption
+msgctxt "tfrmetkguimain.actexitwosaving.caption"
+msgid "Exit without saving"
+msgstr ""
+
+#: tfrmetkguimain.actexitwosaving.hint
+msgctxt "tfrmetkguimain.actexitwosaving.hint"
+msgid "Exit Emuteca|Exits Emuteca without saving changes."
 msgstr ""
 
 #: tfrmetkguimain.actexportsoftdata.caption
@@ -1970,14 +1990,6 @@ msgstr ""
 
 #: tfrmetkguimain.caption
 msgid "Main"
-msgstr ""
-
-#: tfrmetkguimain.fileexit1.caption
-msgid "Exit"
-msgstr ""
-
-#: tfrmetkguimain.fileexit1.hint
-msgid "Exit.|Exits Emuteca."
 msgstr ""
 
 #: tfrmetkguimain.helponhelp1.caption

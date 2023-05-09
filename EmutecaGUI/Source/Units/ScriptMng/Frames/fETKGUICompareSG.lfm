@@ -23,24 +23,35 @@ inherited fmETKGUICompareSG: TfmETKGUICompareSG
       Caption = 'Abort'
     end
   end
-  object sbxMain: TScrollBox[1]
+  object lWarning: TLabel[1]
+    Left = 0
+    Height = 20
+    Top = 0
+    Width = 814
+    Align = alTop
+    Alignment = taCenter
+    Caption = 'Remember to save soft/group changes individually at the bottom of scrollbox'
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+  end
+  object sbxMain: TPanel[2]
     Left = 0
     Height = 736
     Top = 24
     Width = 814
-    HorzScrollBar.Page = 628
-    VertScrollBar.Page = 63
     Align = alClient
-    ClientHeight = 732
-    ClientWidth = 810
+    BevelOuter = bvNone
+    ClientHeight = 736
+    ClientWidth = 814
     TabOrder = 1
     object pLeft: TPanel
       Left = 0
-      Height = 732
+      Height = 736
       Top = 0
       Width = 400
       Align = alLeft
-      ClientHeight = 732
+      ClientHeight = 736
       ClientWidth = 400
       TabOrder = 0
       object pLeftUp: TPanel
@@ -73,33 +84,43 @@ inherited fmETKGUICompareSG: TfmETKGUICompareSG
           Align = alLeft
           TabOrder = 1
         end
+        object lSoftCount1: TLabel
+          Left = 220
+          Height = 30
+          Top = 0
+          Width = 178
+          Align = alClient
+          Layout = tlCenter
+          ParentColor = False
+          WordWrap = True
+        end
       end
     end
     object Splitter1: TSplitter
       Left = 400
-      Height = 732
+      Height = 736
       Top = 0
       Width = 6
     end
     object pRight: TPanel
       Left = 406
-      Height = 732
+      Height = 736
       Top = 0
-      Width = 404
+      Width = 408
       Align = alClient
-      ClientHeight = 732
-      ClientWidth = 404
+      ClientHeight = 736
+      ClientWidth = 408
       TabOrder = 2
       object pRightUp: TPanel
         Left = 1
         Height = 30
         Top = 1
-        Width = 402
+        Width = 406
         Align = alTop
         AutoSize = True
         BevelOuter = bvNone
         ClientHeight = 30
-        ClientWidth = 402
+        ClientWidth = 406
         TabOrder = 0
         object bG1ToG2: TButton
           Left = 0
@@ -120,20 +141,18 @@ inherited fmETKGUICompareSG: TfmETKGUICompareSG
           Align = alLeft
           TabOrder = 1
         end
+        object lSoftCount2: TLabel
+          Left = 220
+          Height = 30
+          Top = 0
+          Width = 186
+          Align = alClient
+          Layout = tlCenter
+          ParentColor = False
+          WordWrap = True
+        end
       end
     end
-  end
-  object lWarning: TLabel[2]
-    Left = 0
-    Height = 20
-    Top = 0
-    Width = 814
-    Align = alTop
-    Alignment = taCenter
-    Caption = 'Remember to save soft/group changes individually at the bottom of scrollbox'
-    Font.Style = [fsBold]
-    ParentColor = False
-    ParentFont = False
   end
   inherited alPropEditor: TActionList[3]
     object actG2ToG1: TAction[2]

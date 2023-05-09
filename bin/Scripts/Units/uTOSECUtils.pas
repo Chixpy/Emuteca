@@ -720,7 +720,7 @@ begin
 
   // Formating to "Language;Translator;Version"...
   // ... but translation version is in another tag and "[v" is used for virus
-  if Lenght(DBTranslation) > 3 then
+  if Length(DBTranslation) > 3 then
   begin
     i := Pos(' ', DBTranslation);
     if i > 0 then

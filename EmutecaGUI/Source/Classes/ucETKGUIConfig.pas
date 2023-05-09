@@ -60,7 +60,6 @@ const
   krsKeyEmutecaIni = 'EmutecaIni';
   krsKeyLangFolder = 'LangFolder';
   krsKeyCurrSystem = 'CurrSystem';
-  krsKeySaveOnExit = 'SaveOnExit';
   krsKeySearchFile = 'SearchFile';
   krsKeyHelpFolder = 'HelpFolder';
 
@@ -100,7 +99,6 @@ type
     FHelpFolder: string;
     FGUIIcnFile: string;
     FmPlayerExe: string;
-    FSaveOnExit: boolean;
     FSearchFile: string;
     FDumpIcnFolder: string;
     procedure SetCurrSystem(AValue: string);
@@ -115,7 +113,6 @@ type
     procedure SetHelpFolder(AValue: string);
     procedure SetGUIIcnFile(AValue: string);
     procedure SetmPlayerExe(AValue: string);
-    procedure SetSaveOnExit(AValue: boolean);
     procedure SetSearchFile(AValue: string);
     procedure SetDumpIcnFolder(AValue: string);
 
@@ -172,8 +169,6 @@ type
     //< Folder of languajes files.
     property CurrSystem: string read FCurrSystem write SetCurrSystem;
     //< Last system used.
-    property SaveOnExit: boolean read FSaveOnExit write SetSaveOnExit;
-    //< Save software and parent lists on exit?
     property HelpFolder: string read FHelpFolder write SetHelpFolder;
     //< Folder with help.
     property SearchFile: string read FSearchFile write SetSearchFile;
@@ -252,13 +247,6 @@ begin
   FmPlayerExe := SetAsFile(AValue);
 end;
 
-procedure cETKGUIConfig.SetSaveOnExit(AValue: boolean);
-begin
-  if FSaveOnExit = AValue then
-    Exit;
-  FSaveOnExit := AValue;
-end;
-
 procedure cETKGUIConfig.SetSearchFile(AValue: string);
 begin
   FSearchFile := SetAsFile(AValue);
@@ -296,7 +284,6 @@ begin
   EmutecaIni := 'Emuteca.ini';
   LangFolder := 'locale/';
   CurrSystem := '';
-  SaveOnExit := True;
   SearchFile := 'Search.ini';
   HelpFolder := 'Help';
 
@@ -345,8 +332,6 @@ begin
     krsKeyLangFolder, LangFolder);
   CurrSystem := IniFile.ReadString(krsSectionConfig,
     krsKeyCurrSystem, CurrSystem);
-  SaveOnExit := IniFile.ReadBool(krsSectionConfig, krsKeySaveOnExit,
-    SaveOnExit);
   SearchFile := IniFile.ReadString(krsSectionConfig,
     krsKeySearchFile, SearchFile);
   HelpFolder := IniFile.ReadString(krsSectionConfig,
@@ -392,7 +377,6 @@ begin
   // Data
   IniFile.WriteString(krsSectionConfig, krsKeyEmutecaIni, EmutecaIni);
   IniFile.WriteString(krsSectionConfig, krsKeyCurrSystem, CurrSystem);
-  IniFile.WriteBool(krsSectionConfig, krsKeySaveOnExit, SaveOnExit);
   IniFile.WriteString(krsSectionConfig, krsKeySearchFile, SearchFile);
   IniFile.WriteString(krsSectionConfig, krsKeyHelpFolder, HelpFolder);
 

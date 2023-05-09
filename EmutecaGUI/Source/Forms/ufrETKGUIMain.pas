@@ -69,7 +69,6 @@ type
   TfrmETKGUIMain = class(TfrmCHXForm)
     actAddFolder: TAction;
     actAddSoft: TAction;
-    actAutoSave: TAction;
     actCleanSystemData: TAction;
     actEditEmulator: TAction;
     actEditSystem: TAction;
@@ -78,6 +77,7 @@ type
     ActImages: TImageList;
     actImportSoftData: TAction;
     actEditGroup: TAction;
+    actExitWOSaving: TAction;
     actRunETKIconBorderLogo: TAction;
     actRunETKIconBorderIcon: TAction;
     actRemoveSoft: TAction;
@@ -97,9 +97,10 @@ type
     actScriptManager: TAction;
     actSystemManager: TAction;
     actUpdateGroupList: TAction;
-    FileExit1: TFileExit;
+    actExit: TFileExit;
     HelpOnHelp1: THelpOnHelp;
     MainMenu: TMainMenu;
+    mimmExit: TMenuItem;
     mimmRunETKIconBorderIcon: TMenuItem;
     mimmRunETKIconBorderLogo: TMenuItem;
     mimmTools: TMenuItem;
@@ -129,7 +130,7 @@ type
     mimmEditSystem: TMenuItem;
     mimmEmulator: TMenuItem;
     mimmEmulatorManager: TMenuItem;
-    mimmExit: TMenuItem;
+    mimmExitWSaving: TMenuItem;
     mimmExport: TMenuItem;
     mimmFile: TMenuItem;
     mimmGroup: TMenuItem;
@@ -144,7 +145,6 @@ type
     mimmOpenSystemBaseFolder: TMenuItem;
     mimmOpenTempFolder: TMenuItem;
     mimmSaveLists: TMenuItem;
-    mimmSaveOnExit: TMenuItem;
     mimmScriptManager: TMenuItem;
     mimmSoft: TMenuItem;
     mimmSystem: TMenuItem;
@@ -157,12 +157,12 @@ type
     stbHelp: TStatusBar;
     procedure actAddFolderExecute(Sender: TObject);
     procedure actAddSoftExecute(Sender: TObject);
-    procedure actAutoSaveExecute(Sender: TObject);
     procedure actCleanSystemDataExecute(Sender: TObject);
     procedure actEditEmulatorExecute(Sender: TObject);
     procedure actEditGroupExecute(Sender: TObject);
     procedure actEditSystemExecute(Sender: TObject);
     procedure actEmulatorManagerExecute(Sender: TObject);
+    procedure actExitWOSavingExecute(Sender: TObject);
     procedure actExportSoftDataExecute(Sender: TObject);
     procedure actImportSoftDataExecute(Sender: TObject);
     procedure actMediaManagerExecute(Sender: TObject);
@@ -206,6 +206,7 @@ type
     FGUIConfig: cETKGUIConfig;
     FGUIIconsFile: string;
     FIconList: cCHXImageList;
+    FSaveOnExit: boolean;
     FSHA1Folder: string;
     Fw7zErrorFileName: string;
     FZoneIcons: cCHXImageMap;
@@ -219,6 +220,7 @@ type
     procedure SetCurrentSoft(AValue: cEmutecaSoftware);
     procedure SetCurrentSystem(AValue: cEmutecaSystem);
     procedure SetGUIIconsFile(AValue: string);
+    procedure SetSaveOnExit(AValue: boolean);
     procedure SetSHA1Folder(AValue: string);
     procedure Setw7zErrorFileName(AValue: string);
 
@@ -254,6 +256,8 @@ type
     property w7zErrorFileName: string read Fw7zErrorFileName
       write Setw7zErrorFileName;
     //< File for w7z errors and warnings
+
+    property SaveOnExit: boolean read FSaveOnExit write SetSaveOnExit;
 
     property CacheSysIconsThread: ctEGUICacheSysIcons
       read FCacheSysIconsThread write SetCacheSysIconsThread;
@@ -456,8 +460,7 @@ begin
 
   fmEmutecaMainFrame.Parent := Self;
 
-  // Misc
-  actAutoSave.Checked := GUIConfig.SaveOnExit;
+  SaveOnExit := True;
 
   // if there is not enabled systems then open SysManager
   if Emuteca.SystemManager.EnabledList.Count = 0 then
@@ -489,11 +492,12 @@ end;
 procedure TfrmETKGUIMain.FormCloseQuery(Sender: TObject;
   var CanClose: boolean);
 begin
+  GUIConfig.SaveToFile('', False); // File has Forms config too, don't delete
+
+  if SaveOnExit then Emuteca.SaveAllData;
+
   // If CacheSysIconsThread is not terminated, maybe last SHA1 is not saved;
   //   but at least not all work is losed on error...
-  GUIConfig.SaveToFile('', False); // File has Forms config too, don't delete
-  if GUIConfig.SaveOnExit then
-    Emuteca.SaveAllData;
 
   // Teminate threads if they are running.
   if Assigned(CacheSoftIconsThread) then
@@ -526,7 +530,7 @@ begin
     CacheEmuIconsThread.Terminate;
     CacheEmuIconsThread.WaitFor;
   end;
-  // CacheSysIconsThread.Free; Auto freed with FreeOnTerminate
+  // CacheEmuIconsThread.Free; Auto freed with FreeOnTerminate
 
   CanClose := True;
 end;
@@ -542,6 +546,12 @@ begin
   Emuteca.UpdateSysEmulators;
 
   fmEmutecaMainFrame.Emuteca := Emuteca;
+end;
+
+procedure TfrmETKGUIMain.actExitWOSavingExecute(Sender: TObject);
+begin
+  SaveOnExit := False;
+  actExit.Execute;
 end;
 
 procedure TfrmETKGUIMain.actExportSoftDataExecute(Sender: TObject);
@@ -581,11 +591,6 @@ begin
     GUIConfig.DefaultFileName);
 
   fmEmutecaMainFrame.Emuteca := Emuteca;
-end;
-
-procedure TfrmETKGUIMain.actAutoSaveExecute(Sender: TObject);
-begin
-  GUIConfig.SaveOnExit := actAutoSave.Checked;
 end;
 
 procedure TfrmETKGUIMain.actCleanSystemDataExecute(Sender: TObject);
@@ -923,6 +928,12 @@ end;
 procedure TfrmETKGUIMain.SetGUIIconsFile(AValue: string);
 begin
   FGUIIconsFile := SetAsAbsoluteFile(AValue, BaseFolder);
+end;
+
+procedure TfrmETKGUIMain.SetSaveOnExit(AValue: boolean);
+begin
+  if FSaveOnExit = AValue then Exit;
+  FSaveOnExit := AValue;
 end;
 
 procedure TfrmETKGUIMain.SetSHA1Folder(AValue: string);

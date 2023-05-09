@@ -103,15 +103,14 @@ inherited frmETKGUIMain: TfrmETKGUIMain
       object mimmSaveLists: TMenuItem
         Action = actSaveLists
       end
-      object mimmSaveOnExit: TMenuItem
-        Action = actAutoSave
-        AutoCheck = True
-      end
       object MenuItem15: TMenuItem
         Caption = '-'
       end
+      object mimmExitWSaving: TMenuItem
+        Action = actExitWOSaving
+      end
       object mimmExit: TMenuItem
-        Action = FileExit1
+        Action = actExit
       end
     end
     object mimmManagers: TMenuItem
@@ -207,11 +206,6 @@ inherited frmETKGUIMain: TfrmETKGUIMain
       Hint = 'About Emuteca...|Help about Emuteca.'
       OnExecute = HelpOnHelp1Execute
     end
-    object FileExit1: TFileExit
-      Category = 'File'
-      Caption = 'Exit'
-      Hint = 'Exit.|Exits Emuteca.'
-    end
     object actEmulatorManager: TAction
       Category = 'Managers'
       Caption = 'Emulator Manager...'
@@ -253,13 +247,6 @@ inherited frmETKGUIMain: TfrmETKGUIMain
       Caption = 'Save Lists'
       Hint = 'Save Lists.|Saves loaded sofware lists.'
       OnExecute = actSaveListsExecute
-    end
-    object actAutoSave: TAction
-      Category = 'File'
-      AutoCheck = True
-      Caption = '+Save on Exit'
-      Hint = 'Save lists on Exit.|Autosave software lists on exit.'
-      OnExecute = actAutoSaveExecute
     end
     object actOpenTempFolder: TAction
       Category = 'File'
@@ -376,6 +363,17 @@ inherited frmETKGUIMain: TfrmETKGUIMain
       Caption = 'ETKIconBorder (Logo)'
       Hint = 'Run ETKIconBorder using system''s logo folder as output.'
       OnExecute = actRunETKIconBorderLogoExecute
+    end
+    object actExit: TFileExit
+      Category = 'File'
+      Caption = 'Exit'
+      Hint = 'Exit Emuteca|Exits Emuteca saving changes.'
+    end
+    object actExitWOSaving: TAction
+      Category = 'File'
+      Caption = 'Exit without saving'
+      Hint = 'Exit Emuteca|Exits Emuteca without saving changes.'
+      OnExecute = actExitWOSavingExecute
     end
   end
   object ActImages: TImageList[5]

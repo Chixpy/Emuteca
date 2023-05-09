@@ -39,6 +39,10 @@ uses
   // Emuteca GUI frames
   ufETKGUIFullSoftEditor;
 
+resourcestring
+  rsETKGUICSGGroupMerged = '!!! Please use "System/Update group list" in main menu.';
+  rsETKGUICSGGroup = 'Soft Count: %0:d';
+
 type
 
   { TfmETKGUICompareSG }
@@ -48,16 +52,18 @@ type
     actG1ToG2: TAction;
     actMergeToG2: TAction;
     actMergeToG1: TAction;
-    bG2ToG1: TButton;
     bG1ToG2: TButton;
+    bG2ToG1: TButton;
     bMergeToG1: TButton;
     bMergeToG2: TButton;
+    lSoftCount1: TLabel;
+    lSoftCount2: TLabel;
     lWarning: TLabel;
     pLeft: TPanel;
     pLeftUp: TPanel;
-    pRightUp: TPanel;
     pRight: TPanel;
-    sbxMain: TScrollBox;
+    pRightUp: TPanel;
+    sbxMain: TPanel;
     Splitter1: TSplitter;
     procedure actG1ToG2Execute(Sender: TObject);
     procedure actG2ToG1Execute(Sender: TObject);
@@ -113,6 +119,8 @@ begin
   MergeGroups(aGroup, fmSGEditorLeft.Group);
 
   // Reseting Right Panel
+  aGroup.Title := rsETKGUICSGGroupMerged;
+  aGroup.SortTitle := '';
   fmSGEditorRight.Group := nil;
   fmSGEditorRight.Group := aGroup;
 end;
@@ -126,7 +134,8 @@ begin
   MergeGroups(aGroup, fmSGEditorRight.Group);
 
   // Reseting Left Panel
-  aGroup.Title := '!!Empty group to delete';
+  aGroup.Title := rsETKGUICSGGroupMerged;
+  aGroup.SortTitle := '';
   fmSGEditorLeft.Group := nil;
   fmSGEditorLeft.Group := aGroup;
 end;
@@ -161,7 +170,7 @@ end;
 procedure TfmETKGUICompareSG.DoLoadFrameData;
 
   procedure AssignSGItem(aFrame: TfmETKGUIFullSoftEditor;
-    aSG: caEmutecaCustomSGItem);
+    aSG: caEmutecaCustomSGItem; CountLabel: TLabel);
   var
     aSoft: cEmutecaSoftware;
     aGroup: cEmutecaGroup;
@@ -170,6 +179,7 @@ procedure TfmETKGUICompareSG.DoLoadFrameData;
     if aSG is cEmutecaGroup then
     begin
       aGroup := cEmutecaGroup(aSG);
+      CountLabel.Caption := Format(rsETKGUICSGGroup, [aGroup.SoftList.Count]);
 
       // Displaying a example soft of the group with same filename
       i := 0;
@@ -192,7 +202,12 @@ procedure TfmETKGUICompareSG.DoLoadFrameData;
         aFrame.Group := aGroup;
     end
     else if aSG is cEmutecaSoftware then
-      aFrame.Software := cEmutecaSoftware(aSG)
+    begin
+      aSoft := cEmutecaSoftware(aSG);
+      aGroup := cEmutecaGroup(aSoft.CachedGroup);
+      CountLabel.Caption := Format(rsETKGUICSGGroup, [aGroup.SoftList.Count]);
+      aFrame.Software := aSoft;
+    end
     else
       Exit;
   end;
@@ -206,11 +221,11 @@ begin
     Exit;
   end;
 
-  AssignSGItem(fmSGEditorLeft, SGLeft);
+  AssignSGItem(fmSGEditorLeft, SGLeft, lSoftCount1);
   bG2ToG1.Enabled := SGLeft is cEmutecaSoftware;
   // fmSGEditorLeft.fmSoftEditor.Enabled := SGLeft is cEmutecaSoftware;
 
-  AssignSGItem(fmSGEditorRight, SGRight);
+  AssignSGItem(fmSGEditorRight, SGRight, lSoftCount2);
   bG1ToG2.Enabled := SGRight is cEmutecaSoftware;
   // fmSGEditorRight.fmSoftEditor.Enabled := SGRight is cEmutecaSoftware;
 end;
@@ -221,8 +236,8 @@ var
   i: Integer;
   aSoft: cEmutecaSoftware;
 begin
-  i := 0;
-  while i < SourceGroup.SoftList.Count do
+  i := SourceGroup.SoftList.Count - 1;
+  while i >= 0 do
   begin
     aSoft := SourceGroup.SoftList[i];
 
@@ -234,7 +249,7 @@ begin
       aSoft.SortTitle := SourceGroup.GetActualSortTitle;
     end;
 
-    Inc(i);
+    Dec(i);
   end;
 end;
 
