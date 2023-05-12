@@ -754,12 +754,6 @@ begin
   // Although some flags can coexist: [a][o]
   // We only keep the worst one
   
-  TempStr := TOSECExtractTag(SoftStr, '[!', ']');
-  if TempStr <> '' then
-  begin
-    DBDumpStatus := DumpSt2Key(edsFavorite);
-  end;
-
 //  2023/02/09: Removed from Emuteca
   TempStr := TOSECExtractTag(SoftStr, '[a', ']');
 //  if TempStr <> '' then
@@ -768,25 +762,28 @@ begin
 //    TOSECAddStr(DBDumpInfo, 'a ' + TempStr)
 //  end;  
   
+  TempStr := TOSECExtractTag(SoftStr, '[!', ']');
+  if TempStr <> '' then
+  begin
+    DBDumpStatus := DumpSt2Key(edsFavorite);
+  end;
+
   TempStr := TOSECExtractTag(SoftStr, '[o', ']');
   if TempStr <> '' then
   begin
     DBDumpStatus := DumpSt2Key(edsOverDump);
-    TOSECAddStr(DBDumpInfo, 'o ' + TempStr)
   end;  
   
   TempStr := TOSECExtractTag(SoftStr, '[b', ']');
   if TempStr <> '' then
   begin
     DBDumpStatus := DumpSt2Key(edsBadDump);
-    TOSECAddStr(DBDumpInfo, 'b ' + TempStr)
   end; 
 
   TempStr := TOSECExtractTag(SoftStr, '[u', ']');
   if TempStr <> '' then
   begin    
     DBDumpStatus := DumpSt2Key(edsUnderDump);
-    TOSECAddStr(DBDumpInfo, 'u ' + TempStr)
   end;
 
   if DBDumpStatus = '' then

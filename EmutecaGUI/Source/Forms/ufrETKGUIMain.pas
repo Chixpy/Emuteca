@@ -78,6 +78,9 @@ type
     actImportSoftData: TAction;
     actEditGroup: TAction;
     actExitWOSaving: TAction;
+    actRunDBEditorSoft: TAction;
+    actRunDBEditorGroups: TAction;
+    actRunDBEditor: TAction;
     actRunETKIconBorderLogo: TAction;
     actRunETKIconBorderIcon: TAction;
     actRemoveSoft: TAction;
@@ -100,6 +103,9 @@ type
     actExit: TFileExit;
     HelpOnHelp1: THelpOnHelp;
     MainMenu: TMainMenu;
+    mimmRunDBEditorSoft: TMenuItem;
+    mimmRunDBEditorGroups: TMenuItem;
+    mimmRunDBEditor: TMenuItem;
     mimmExit: TMenuItem;
     mimmRunETKIconBorderIcon: TMenuItem;
     mimmRunETKIconBorderLogo: TMenuItem;
@@ -154,6 +160,7 @@ type
     mipmSRunSoft: TMenuItem;
     pmGroup: TPopupMenu;
     pmSoft: TPopupMenu;
+    Separator1: TMenuItem;
     stbHelp: TStatusBar;
     procedure actAddFolderExecute(Sender: TObject);
     procedure actAddSoftExecute(Sender: TObject);
@@ -175,6 +182,9 @@ type
     procedure actOpenSystemBaseFolderExecute(Sender: TObject);
     procedure actOpenTempFolderExecute(Sender: TObject);
     procedure actRemoveSoftExecute(Sender: TObject);
+    procedure actRunDBEditorExecute(Sender: TObject);
+    procedure actRunDBEditorGroupsExecute(Sender: TObject);
+    procedure actRunDBEditorSoftExecute(Sender: TObject);
     procedure actRunEmulatorAloneExecute(Sender: TObject);
     procedure actRunETKIconBorderIconExecute(Sender: TObject);
     procedure actRunETKIconBorderLogoExecute(Sender: TObject);
@@ -228,7 +238,7 @@ type
     property fmEmutecaMainFrame: TfmETKGUIMain read FfmEmutecaMainFrame;
     //< Main Frame
     property fmProgressBar: TfmCHXProgressBar read FfmProgressBar;
-    //< Ganeral Progress Bar
+    //< General Progress Bar
 
     property Emuteca: cEmuteca read FEmuteca;
     //< Main Emuteca Core
@@ -622,11 +632,11 @@ end;
 
 procedure TfrmETKGUIMain.actEditGroupExecute(Sender: TObject);
 begin
-   if not assigned(CurrentGroup) then
+  if not assigned(CurrentGroup) then
     Exit;
 
-   TfmEmutecaGroupEditor.SimpleModalForm(CurrentGroup, '',
-     GUIConfig.DefaultFileName, GUIIconsFile);
+  TfmEmutecaGroupEditor.SimpleModalForm(CurrentGroup, '',
+    GUIConfig.DefaultFileName, GUIIconsFile);
 end;
 
 procedure TfrmETKGUIMain.actEditSystemExecute(Sender: TObject);
@@ -758,6 +768,103 @@ begin
   actUpdateGroupList.Execute;
 end;
 
+procedure TfrmETKGUIMain.actRunDBEditorExecute(Sender: TObject);
+var
+  sError, sOutput: string;
+  ExitC: integer;
+begin
+  if not FileExistsUTF8(GUIConfig.DBEditor) then
+  begin
+    ShowMessageFmt(rsFileNotFound, [GUIConfig.DBEditor]);
+    Exit;
+  end;
+
+  ExecuteCMDString(ExtractFileDir(GUIConfig.DBEditor),
+    GUIConfig.DBEditor, '', sError, sOutput, ExitC);
+end;
+
+procedure TfrmETKGUIMain.actRunDBEditorGroupsExecute(Sender: TObject);
+var
+  SysPBCB: TEmutecaProgressCallBack;
+  aFileWOExt: string;
+  sError, sOutput: string;
+  ExitC: integer;
+begin
+  if not FileExistsUTF8(GUIConfig.DBEditor) then
+  begin
+    ShowMessageFmt(rsFileNotFound, [GUIConfig.DBEditor]);
+    Exit;
+  end;
+
+  if CurrentSystem = nil then
+  begin
+    ShowMessage(rsSelectSystem);
+    Exit;
+  end;
+
+  fmEmutecaMainFrame.Emuteca := nil;
+
+  SysPBCB := CurrentSystem.ProgressCallBack;
+  CurrentSystem.ProgressCallBack := @(fmProgressBar.UpdTextAndBar);
+
+  aFileWOExt := Emuteca.TempFolder + CurrentSystem.ListFileName;
+
+  CurrentSystem.ExportSoftGroupLists(aFileWOExt, False);
+
+  ExecuteCMDArray(ExtractFileDir(GUIConfig.DBEditor), GUIConfig.DBEditor,
+    [aFileWOExt + krsFileExtGroup], sError, sOutput, ExitC);
+
+  CurrentSystem.ImportSoftGroupLists(aFileWOExt);
+
+  DeleteFileUTF8(aFileWOExt + krsFileExtSoft);
+  DeleteFileUTF8(aFileWOExt + krsFileExtGroup);
+
+  CurrentSystem.ProgressCallBack := SysPBCB;
+
+  fmEmutecaMainFrame.Emuteca := Emuteca;
+end;
+
+procedure TfrmETKGUIMain.actRunDBEditorSoftExecute(Sender: TObject);
+var
+  SysPBCB: TEmutecaProgressCallBack;
+  aFileWOExt: string;
+  sError, sOutput: string;
+  ExitC: integer;
+begin
+  if not FileExistsUTF8(GUIConfig.DBEditor) then
+  begin
+    ShowMessageFmt(rsFileNotFound, [GUIConfig.DBEditor]);
+    Exit;
+  end;
+
+  if CurrentSystem = nil then
+  begin
+    ShowMessage(rsSelectSystem);
+    Exit;
+  end;
+
+  fmEmutecaMainFrame.Emuteca := nil;
+
+  SysPBCB := CurrentSystem.ProgressCallBack;
+  CurrentSystem.ProgressCallBack := @(fmProgressBar.UpdTextAndBar);
+
+  aFileWOExt := Emuteca.TempFolder + CurrentSystem.ListFileName;
+
+  CurrentSystem.ExportSoftGroupLists(aFileWOExt, False);
+
+  ExecuteCMDArray(ExtractFileDir(GUIConfig.DBEditor), GUIConfig.DBEditor,
+    [aFileWOExt + krsFileExtSoft], sError, sOutput, ExitC);
+
+  CurrentSystem.ImportSoftGroupLists(aFileWOExt);
+
+  DeleteFileUTF8(aFileWOExt + krsFileExtSoft);
+  DeleteFileUTF8(aFileWOExt + krsFileExtGroup);
+
+  CurrentSystem.ProgressCallBack := SysPBCB;
+
+  fmEmutecaMainFrame.Emuteca := Emuteca;
+end;
+
 procedure TfrmETKGUIMain.actRunEmulatorAloneExecute(Sender: TObject);
 begin
   CurrentEmu.ExecuteAlone;
@@ -767,7 +874,7 @@ procedure TfrmETKGUIMain.actRunETKIconBorderIconExecute(Sender: TObject);
 var
   WorkDir, OutFolder: string;
   sError, sOutput: string;
-  ExitC : integer;
+  ExitC: integer;
 begin
   if not FileExistsUTF8(GUIConfig.IconBorder) then
   begin
@@ -780,7 +887,8 @@ begin
   if Assigned(CurrentSystem) then
     OutFolder := SysPath(CurrentSystem.IconFolder);
 
-  ExecuteCMDArray(WorkDir, GUIConfig.IconBorder, [OutFolder], sError, sOutput, ExitC);
+  ExecuteCMDArray(WorkDir, GUIConfig.IconBorder, [OutFolder],
+    sError, sOutput, ExitC);
 
   // TODO 3: Show a message if IconBorder or WorkDir not found.
 end;
@@ -789,7 +897,7 @@ procedure TfrmETKGUIMain.actRunETKIconBorderLogoExecute(Sender: TObject);
 var
   WorkDir, OutFolder: string;
   sError, sOutput: string;
-  ExitC : integer;
+  ExitC: integer;
 begin
   if not FileExistsUTF8(GUIConfig.IconBorder) then
   begin
@@ -802,7 +910,8 @@ begin
   if Assigned(CurrentSystem) then
     OutFolder := SysPath(CurrentSystem.LogoFolder);
 
-  ExecuteCMDArray(WorkDir, GUIConfig.IconBorder, [OutFolder], sError, sOutput, ExitC);
+  ExecuteCMDArray(WorkDir, GUIConfig.IconBorder, [OutFolder],
+    sError, sOutput, ExitC);
 
   // TODO 3: Show a message if IconBorder or WorkDir not found.
 end;

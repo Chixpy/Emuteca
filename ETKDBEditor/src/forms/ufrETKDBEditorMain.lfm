@@ -1,0 +1,8 @@
+inherited frmETKDBEditorMain: TfrmETKDBEditorMain
+  Left = 451
+  Height = 640
+  Top = 171
+  Width = 965
+  Caption = 'frmETKDBEditorMain'
+  OnCreate = FormCreate
+end

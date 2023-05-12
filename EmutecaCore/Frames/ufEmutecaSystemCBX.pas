@@ -3,7 +3,7 @@ unit ufEmutecaSystemCBX;
 
   This file is part of Emuteca Core.
 
-  Copyright (C) 2011-2019 Chixpy
+  Copyright (C) 2011-2023 Chixpy
 
   This source is free software; you can redistribute it and/or modify it
   under the terms of the GNU General Public License as published by the Free
@@ -27,12 +27,10 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
   // CHX frames
   ufCHXFrame,
+  // Emuteca units
+  uETKGUIRscStr,
   // Emuteca Core classes
   ucEmutecaSystemList, ucEmutecaSystem;
-
-resourcestring
-  rsAllSystems = 'All Systems';
-  rsSelectSystem = 'Select a System';
 
 type
   TETKSysCBXFirstItem = (ETKSysCBXFINone, ETKSysCBXFISelect, ETKSysCBXFIAll);

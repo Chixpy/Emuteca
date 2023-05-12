@@ -188,6 +188,18 @@ inherited frmETKGUIMain: TfrmETKGUIMain
       object mimmRunETKIconBorderLogo: TMenuItem
         Action = actRunETKIconBorderLogo
       end
+      object Separator1: TMenuItem
+        Caption = '-'
+      end
+      object mimmRunDBEditor: TMenuItem
+        Action = actRunDBEditor
+      end
+      object mimmRunDBEditorGroups: TMenuItem
+        Action = actRunDBEditorGroups
+      end
+      object mimmRunDBEditorSoft: TMenuItem
+        Action = actRunDBEditorSoft
+      end
     end
     object mimmHelp: TMenuItem
       Caption = 'Help'
@@ -374,6 +386,24 @@ inherited frmETKGUIMain: TfrmETKGUIMain
       Caption = 'Exit without saving'
       Hint = 'Exit Emuteca|Exits Emuteca without saving changes.'
       OnExecute = actExitWOSavingExecute
+    end
+    object actRunDBEditor: TAction
+      Category = 'Tools'
+      Caption = 'DB Editor'
+      Hint = 'Run EDEditor without DB loaded.'
+      OnExecute = actRunDBEditorExecute
+    end
+    object actRunDBEditorGroups: TAction
+      Category = 'Tools'
+      Caption = 'DB Editor with Group List'
+      Hint = 'Run DBEditor with current group list.|Runs DBEditor, exporting current group list and importing it after it was edited. '
+      OnExecute = actRunDBEditorGroupsExecute
+    end
+    object actRunDBEditorSoft: TAction
+      Category = 'Tools'
+      Caption = 'DB Editor with Soft List'
+      Hint = 'Run DBEditor with current group list.|Runs DBEditor, exporting current soft list and importing it after it was edited. '
+      OnExecute = actRunDBEditorSoftExecute
     end
   end
   object ActImages: TImageList[5]

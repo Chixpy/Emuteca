@@ -4,7 +4,7 @@ unit uETKGUIRscStr;
 
   This file is part of Emuteca GUI.
 
-  Copyright (C) 2011-2018 Chixpy
+  Copyright (C) 2011-2023 Chixpy
 
   This source is free software; you can redistribute it and/or modify it
   under the terms of the GNU General Public License as published by the Free
@@ -61,6 +61,9 @@ resourcestring
      %0:d = Current folder.
      %1:d = File/folder searched.
   }
+
+  rsAllSystems = 'All Systems';
+  rsSelectSystem = 'Select a System';
 
   rsEmuWebEmpty = 'Emulator''s webpage not configured';
   {< Emulator's web page is empty. }

@@ -1,0 +1,8 @@
+{"version":1,"strings":[
+{"hash":315140,"name":"tfmetkdbeditor.actexit.caption","sourcebytes":[69,120,105,116],"value":"Exit"},
+{"hash":5866242,"name":"tfmetkdbeditor.actexit.hint","sourcebytes":[83,97,108,105,114],"value":"Salir"},
+{"hash":107745630,"name":"tfmetkdbeditor.actopenfile.caption","sourcebytes":[79,112,101,110,46,46,46],"value":"Open..."},
+{"hash":83933006,"name":"tfmetkdbeditor.actopenfile.hint","sourcebytes":[79,112,101,110,115,32,97,32,102,105,108,101,46],"value":"Opens a file."},
+{"hash":160203102,"name":"tfmetkdbeditor.actsavefile.caption","sourcebytes":[83,97,118,101,46,46,46],"value":"Save..."},
+{"hash":212807327,"name":"tfmetkdbeditor.actsavefile.hint","sourcebytes":[71,117,97,114,100,97,114,32,67,111,109,111],"value":"Guardar Como"}
+]}

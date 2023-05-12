@@ -2045,6 +2045,30 @@ msgstr ""
 msgid "Remove software from list"
 msgstr ""
 
+#: tfrmetkguimain.actrundbeditor.caption
+msgid "DB Editor"
+msgstr ""
+
+#: tfrmetkguimain.actrundbeditor.hint
+msgid "Run EDEditor without DB loaded."
+msgstr ""
+
+#: tfrmetkguimain.actrundbeditorgroups.caption
+msgid "DB Editor with Group List"
+msgstr ""
+
+#: tfrmetkguimain.actrundbeditorgroups.hint
+msgid "Run DBEditor with current group list.|Runs DBEditor, exporting current group list and importing it after it was edited. "
+msgstr ""
+
+#: tfrmetkguimain.actrundbeditorsoft.caption
+msgid "DB Editor with Soft List"
+msgstr ""
+
+#: tfrmetkguimain.actrundbeditorsoft.hint
+msgid "Run DBEditor with current group list.|Runs DBEditor, exporting current soft list and importing it after it was edited. "
+msgstr ""
+
 #: tfrmetkguimain.actrunemulatoralone.caption
 msgid "Run emulator alone."
 msgstr "Ejecutar emulador sin software"
@@ -2575,6 +2599,12 @@ msgstr "Desconocido"
 msgid "Advanced"
 msgstr "Avanzada"
 
+#: uetkguirscstr.rsallsystems
+#, fuzzy
+msgctxt "uetkguirscstr.rsallsystems"
+msgid "All Systems"
+msgstr "Todos los sistemas"
+
 #: uetkguirscstr.rsaskdeleteitem
 #, object-pascal-format
 msgid ""
@@ -2706,6 +2736,12 @@ msgid ""
 "%1:s"
 msgstr ""
 
+#: uetkguirscstr.rsselectsystem
+#, fuzzy
+msgctxt "uetkguirscstr.rsselectsystem"
+msgid "Select a System"
+msgstr "Seleciona un sistema"
+
 #: uetkguirscstr.rssofteditorcaption
 msgctxt "uetkguirscstr.rssofteditorcaption"
 msgid "Soft Editor"
@@ -2810,6 +2846,7 @@ msgid "Pascal script file"
 msgstr "Fichero Pascal Script"
 
 #: ufemutecasystemcbx.rsallsystems
+msgctxt "ufemutecasystemcbx.rsallsystems"
 msgid "All Systems"
 msgstr "Todos los sistemas"
 
