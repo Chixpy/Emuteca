@@ -46,6 +46,7 @@ type
     bExit: TButton;
     bOpenFile: TButton;
     bSaveFile: TButton;
+    chkFastEditMode: TCheckBox;
     ilMain: TImageList;
     mimmExit: TMenuItem;
     mimmSave: TMenuItem;
@@ -59,6 +60,7 @@ type
     procedure actOpenFileBeforeExecute(Sender: TObject);
     procedure actSaveFileAccept(Sender: TObject);
     procedure actSaveFileBeforeExecute(Sender: TObject);
+    procedure chkFastEditModeChange(Sender: TObject);
   private
     FCurrFile: string;
     procedure SetCurrFile(AValue: string);
@@ -113,6 +115,26 @@ begin
 
   actSaveFile.Dialog.FileName := SysPath(CurrFile);
   actSaveFile.Dialog.InitialDir := ExtractFileDir(actSaveFile.Dialog.FileName);
+end;
+
+procedure TfmETKDBEditor.chkFastEditModeChange(Sender: TObject);
+var
+  Options: TGridOptions;
+begin
+  Options := sgMain.Options;
+
+  if chkFastEditMode.Checked then
+  begin
+    Include(Options, goAlwaysShowEditor);
+    Exclude(Options, goRangeSelect);
+  end
+  else
+  begin
+    Exclude(Options, goAlwaysShowEditor);
+    Include(Options, goRangeSelect);
+  end;
+
+  sgMain.Options := Options;
 end;
 
 procedure TfmETKDBEditor.SetCurrFile(AValue: string);

@@ -10,6 +10,8 @@ Name=Chixpy
 Version=0.02
 Date=20221019
 [Changes]
+* 0.04 - 20230514
+  c Changed progress log to a temporized one.
 * 0.03 - 20200201
   f Adapting to new uTOSECUtils.pas (v0.12).
 * 0.02 - 20200201
@@ -27,6 +29,7 @@ var
   DBFilename, aStr: string;
   TOSECFileNames, TOSECFile, SoftList, DBList: TStringList;
   i, j: LongInt;
+  aTimer: TDateTime;
 begin
   DBFilename := AskFile('Database file for output',
     'Emuteca soft DB|' + krsFileMaskSoft,
@@ -82,6 +85,7 @@ begin
     WriteLn(IntToStr(SoftList.Count) + ' soft files found.');
     WriteLn('');
 
+    aTimer := Now;
     DBList.BeginUpdate;
     i := 0;
     while i < SoftList.Count do
@@ -92,10 +96,12 @@ begin
         DBList.Add(aStr);
 
       Inc(i);
-      
-      // After Inc(i) is the actual number of files analized.
-      if (i and 511) = 511 then
+
+      if SecondsBetween(Now, aTimer) > 15 then
+      begin
         WriteLn(IntToStr(i) + ' soft files analized.');
+        aTimer := Now;
+      end;
     end;
     DBList.EndUpdate;
     

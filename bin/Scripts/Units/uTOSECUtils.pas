@@ -6,12 +6,16 @@ Only to include in other programs. Remember call TOSECFinish at the end of
   main program.
 [Data]
 Name=Chixpy
-Version=0.16
-Date=20230509
+Version=0.17
+Date=20230513
 [Changes]
+0.17 20230513
+  - Removed "Registered"ware in TOSECCRStr.txt, as they are "full" versions,
+    unless otherwise stated ("demo, promo"). "Public Domain" too.
+  + Trying to get translation version in "[v..]" tag
 0.16 20230509
   - Removed Alternate DumpStatus in Emuteca.
-  c Verified -> Favorite DumpStatus
+  c "Verified" -> "Favorite" DumpStatus Emuteca's change.
   c  "/" -> " / "
 0.15 20230503
   c Formating translation to "languaje/Translator/version", actually
@@ -133,7 +137,7 @@ begin
   if cPos = 0 then Exit; // Not closed?
 
   Result := Trim(Copy(Tags, oPos + oLength, cPos - oPos - oLength));
-  if Result = '' then Result := '1'; // [a]
+  if Result = '' then Result := '1'; // [b]
 
   // Removing readed tag
   Tags := Trim(AnsiLeftStr(Tags, oPos - 1) + ETKCopyFrom(Tags, 
@@ -687,7 +691,8 @@ begin
   // -----------------
   // "[cr Cracker]"
   DBCracked := TOSECExtractTag(SoftStr, '[cr', ']');
-
+  DBCracked := AnsiReplaceText(DBCracked, ' - ', ' / ');
+  
   // Fixed
   // -----------------
   // "[f Fix Fixer]"
@@ -719,26 +724,87 @@ begin
   // Traslated
   // -----------------
   // It must be searched before [t]
-  // "[tr language Translator]"
+  // "[tr Language Translator]"
   DBTranslation := TOSECExtractTag(SoftStr, '[tr', ']');
 
-  // Formating to "Language;Translator;Version"...
-  // ... but translation version is in another tag and "[v" is used for virus
+  // Formating to "Language / Translator / Version"
+  // Posible formats... :-( 
+  //   "[tr Language Translator]"
+  //   "[tr Language Version Translator]"
+  //   "[tr Language Translator][vXXXX, Other, dump, tags]"
+  //   "[tr Language Translator][v.XXXX, Other, dump, tags]"
+  // And... [v] [v Virus],  
+  // Sometimes it doesn't have "v" or it's only a percentage... "100%"
+  TempStr := ''; // Used to store version
   if Length(DBTranslation) > 3 then
   begin
-    i := Pos(' ', DBTranslation);
-    if i > 0 then
-      DBTranslation[i] := '/'
+    aPos := Pos(' ', DBTranslation);
+    if aPos > 0 then
+    begin
+      DBTranslation[aPos] := '/'; // "Language/Translator"
+      
+      // Testing "Language/Version Translator"
+      if Length(DBTranslation) > (aPos + 2) then
+      begin
+        if DBTranslation[aPos + 1] = 'v' then
+        begin
+          i := Pos(' ', DBTranslation);
+          if aPos > 0 then
+          begin
+            TempStr := Trim(Copy(DBTranslation, aPos + 2, i - aPos - 2));
+            DBTranslation := Copy(DBTranslation, 1, aPos) + 
+              ETKCopyFrom(DBTranslation, i + 1);
+          end;
+        end;        
+      end;
+    end
     else
       DBTranslation := DBTranslation + '/';
     DBTranslation := DBTranslation + '/';
+    
+    // Trying [tr ...][vXXXX, Other, dump, tags]
+    if TempStr = '' then
+    begin
+      TempStr := TOSECExtractTag(SoftStr, '[v', ']');
+      if TempStr <> '' then
+      begin
+        // Is it a virus tag "[v Virus]"?
+        if (TempStr = '1') or (TempStr[1] = ' ') then
+        begin
+          // Restoring it
+          SoftStr := SoftStr + '[v ' + TempStr + ']';
+          TempStr := '';
+        end
+        else
+        begin    
+          // Sometimes it is "vXXXXX" others "v.XXXX"...
+          if TempStr[1] = '.' then
+            TempStr := ETKCopyFrom(TempStr, 2); 
+            
+          // Sometimes it is "[v1.0, other tag, other...]" :-(
+          aPos := Pos(',', TempStr);
+          if aPos > 1 then
+          begin
+            // Restoring other DumpStatus tags
+            SoftStr := SoftStr + '[' + 
+              AnsiReplaceText(ETKCopyFrom(TempStr, aPos + 1), ',', '][') + ']';
+            TempStr := Copy(TempStr, 1, aPos - 1);          
+          end;
+        end;
+      end;      
+    end;
+    
+    // Translation version found.
+    if TempStr <> '' then
+      DBTranslation := DBTranslation + 'v' + TempStr;
+    
     DBTranslation := AnsiReplaceText(DBTranslation, '/', ' / ');
     DBTranslation := Trim(AnsiReplaceText(DBTranslation, '  ', ' '));
   end;
 
 
   // Trained
-  // -----------------
+  // -------
   // "[t +x Trainer]"
   DBTrainer := TOSECExtractTag(SoftStr, '[t', ']');
   DBTrainer := AnsiReplaceText(DBTrainer, ' - ', ' / ');
@@ -787,11 +853,12 @@ begin
   end;
 
   if DBDumpStatus = '' then
+    // DBDumpStatus := krsImportKeepValueKey;
     DBDumpStatus := DumpSt2Key(edsGood);
     
   // Extra data
   // -----------------
-  // [more info]
+  // [v][more info]
   // Unhandled flags...
   TempStr := TOSECExtractTag(SoftStr, '[', ']');
   while TempStr <> '' do

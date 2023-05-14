@@ -19,7 +19,7 @@ inherited fmETKDBEditor: TfmETKDBEditor
     FixedCols = 0
     FixedRows = 0
     MouseWheelOption = mwGrid
-    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goDrawFocusSelected, goColSizing, goEditing, goTabs, goAlwaysShowEditor, goRelaxedRowSelect, goDblClickAutoSize, goSmoothScroll, goHeaderPushedLook, goFixedColSizing, goCellEllipsis, goRowHighlight]
+    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goDrawFocusSelected, goColSizing, goEditing, goTabs, goAlwaysShowEditor, goRelaxedRowSelect, goDblClickAutoSize, goHeaderPushedLook, goFixedColSizing, goCellEllipsis, goRowHighlight]
     RowCount = 0
     TabOrder = 0
     UseXORFeatures = True
@@ -45,7 +45,7 @@ inherited fmETKDBEditor: TfmETKDBEditor
     ClientWidth = 832
     TabOrder = 2
     object bExit: TButton
-      Left = 162
+      Left = 105
       Height = 30
       Top = 0
       Width = 50
@@ -53,7 +53,7 @@ inherited fmETKDBEditor: TfmETKDBEditor
       TabOrder = 0
     end
     object bOpenFile: TButton
-      Left = 374
+      Left = 260
       Height = 30
       Top = 0
       Width = 71
@@ -61,12 +61,24 @@ inherited fmETKDBEditor: TfmETKDBEditor
       TabOrder = 1
     end
     object bSaveFile: TButton
-      Left = 607
+      Left = 436
       Height = 30
       Top = 0
       Width = 66
       Action = actSaveFile
       TabOrder = 2
+    end
+    object chkFastEditMode: TCheckBox
+      Left = 607
+      Height = 30
+      Hint = 'Toggles edit on cell select.|Faster cell edit, but multiple cells can''t be selected.'
+      Top = 0
+      Width = 123
+      Caption = 'Fast Edit Mode'
+      Checked = True
+      OnChange = chkFastEditModeChange
+      State = cbChecked
+      TabOrder = 3
     end
   end
   object alMain: TActionList[3]

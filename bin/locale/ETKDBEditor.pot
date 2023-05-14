@@ -27,6 +27,14 @@ msgctxt "tfmetkdbeditor.actsavefile.hint"
 msgid "Guardar Como"
 msgstr ""
 
+#: tfmetkdbeditor.chkfasteditmode.caption
+msgid "Fast Edit Mode"
+msgstr ""
+
+#: tfmetkdbeditor.chkfasteditmode.hint
+msgid "Toggles edit on cell select.|Faster cell edit, but multiple cells can't be selected."
+msgstr ""
+
 #: tfrmchxform.caption
 msgid "frmCHXForm"
 msgstr ""
