@@ -110,9 +110,9 @@ begin
   if aGroup.ID <> krsImportKeepValueKey then
     Self.ID := aGroup.ID;
   if aGroup.Title <> krsImportKeepValueKey then
-    Self.Title := aGroup.Title;
+    Self.Title := aGroup.GetActualTitle;
   if aGroup.SortTitle <> krsImportKeepValueKey then
-    Self.SortTitle := aGroup.SortTitle;
+    Self.SortTitle := aGroup.GetActualSortTitle;
   if aGroup.Date <> krsImportKeepValueKey then
     Self.Date := aGroup.Date;
   if aGroup.Developer <> krsImportKeepValueKey then

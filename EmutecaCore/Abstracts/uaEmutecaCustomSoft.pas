@@ -530,11 +530,11 @@ begin
     Self.GroupKey := aSoft.GroupKey;
 
   if aSoft.Title <> krsImportKeepValueKey then
-    Self.Title := aSoft.Title;
+    Self.Title := aSoft.GetActualTitle;
   // if aSoft.MediaFileName <> krsImportKeepValueKey then // MediaFileName and
   //   Self.MediaFileName := aSoft.MediaFileName;         // TranslitTitle changed
   if aSoft.SortTitle <> krsImportKeepValueKey then
-    Self.SortTitle := aSoft.SortTitle;
+    Self.SortTitle := aSoft.GetActualSortTitle;
 
   if aSoft.Version <> krsImportKeepValueKey then
     Self.Version := aSoft.Version;

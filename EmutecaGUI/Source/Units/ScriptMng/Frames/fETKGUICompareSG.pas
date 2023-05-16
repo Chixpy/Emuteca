@@ -243,12 +243,6 @@ begin
 
     aSoft.CachedGroup := TargetGroup;
 
-    if aSoft.GetActualTitle = '' then
-    begin
-      aSoft.Title := SourceGroup.Title;
-      aSoft.SortTitle := SourceGroup.GetActualSortTitle;
-    end;
-
     Dec(i);
   end;
 end;

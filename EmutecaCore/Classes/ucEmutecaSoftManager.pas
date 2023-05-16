@@ -298,17 +298,20 @@ begin
         // Exporting data
         if aComp = 0 then // Match
         begin
-          aExpSoft.ImportFrom(aSoft); // Importing first match
+          // Importing first match
+          aExpSoft.ImportFrom(aSoft);
+          // aExpSoft.CachedSystem := aSoft.CachedSystem;
         end
         else
-        begin // Creating new group
+        begin // Creating new soft
           aExpSoft := cEmutecaSoftware.Create(nil);
           aExpSoft.ID := aSoft.ID;
           aExpSoft.ImportFrom(aSoft);
+          // aExpSoft.CachedSystem := aSoft.CachedSystem;
           ExpSoftList.Add(aExpSoft);
         end;
 
-        Inc(i); // Next FullList group
+        Inc(i); // Next FullList soft
 
         // Cherry picking repeated FullList items
         aComp := 0;
@@ -358,7 +361,7 @@ begin
             Inc(i);
         end;
       end
-      else // Not assigned aGroup?
+      else // Not assigned aSoft?
         Inc(i);
     end;
 

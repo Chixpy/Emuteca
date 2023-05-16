@@ -326,7 +326,7 @@ begin
     aSoft.CachedGroup := aGroup;
   end;
 
-  // Sorting
+  // Sorting soft in group
   i := 0;
   while i < GroupManager.FullList.Count do
   begin

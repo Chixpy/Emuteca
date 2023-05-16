@@ -212,8 +212,6 @@ begin
 end;
 
 procedure TfmETKGUIFullSoftEditor.DoSaveFrameData;
-var
-  OldTitle, OldSortKey: string;
 begin
   if Assigned(Software) and fmGroupEditor.chkSortMultigameTitles.Checked then
     fmSoftEditor.SaveFrameData;
@@ -228,29 +226,10 @@ begin
 
     fmSoftEditor.SaveFrameData;
 
-    // If group is changed assign it to software; and keep Title if empty.
+    // If group is changed assign it to software.
     if fmGroupEditor.Group <> Software.CachedGroup then
-    begin
-      OldTitle := '';
-      OldSortKey := '';
-
-      // If empty, keep old title
-      if Software.GetActualTitle = '' then
-      begin
-        OldTitle := Software.CachedGroup.Title;
-        OldSortKey := Software.CachedGroup.GetActualSortTitle
-      end;
-
       // Assign new group
       Software.CachedGroup := fmGroupEditor.Group;
-
-      // Restore old title and sort
-      if OldTitle <> '' then
-      begin
-         Software.Title := OldTitle;
-         Software.SortTitle := OldSortKey;
-      end;
-    end;
 
     // Load automatic changes: i.e. changing ': ' to ' - ' in SortTitle
     fmSoftEditor.LoadFrameData;

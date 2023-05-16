@@ -112,12 +112,24 @@ begin
 end;
 
 procedure cEmutecaSoftware.SetCachedGroup(AValue: caEmutecaCustomGroup);
+var
+  aTitle, aSort: string;
 begin
   if FCachedGroup = AValue then
     Exit;
 
+  // Keeping Title and Sort
+  aTitle := FTitle;
+  aSort := FSortTitle;
+
   if Assigned(FCachedGroup) then
   begin
+    if aTitle = '' then
+    begin
+      aTitle := Title;
+      aSort := SortTitle;
+    end;
+
     FCachedGroup.FPONotifyObservers(Self, ooDeleteItem, nil);
     FCachedGroup.FPODetachObserver(Self);
   end;
@@ -131,6 +143,9 @@ begin
     GroupKey := CachedGroup.ID;
   end;
   // else GroupKey := ''; We don't want to delete old GroupKey if not assigned
+
+  Title := aTitle;
+  SortTitle := aSort;
 end;
 
 procedure cEmutecaSoftware.SetTitle(AValue: string);
