@@ -79,8 +79,10 @@ type
 
     procedure CacheGroups;
     {< Add groups to software. }
+    procedure UnCacheGroups;
+    {< Remove cached groups from software. }
     procedure CleanSoftGroupLists;
-    {< Removes parents without soft and Soft not found. }
+    {< Removes groups without soft and Soft not found. }
     procedure CleanGroupList;
     {< Removes empty groups.
 
@@ -146,6 +148,8 @@ procedure cEmutecaSystem.ImportSoftGroupLists(const aFile: string);
 begin
   if not SoftGroupLoaded then
     Exit;
+
+  UnCacheGroups;
 
   if FileExistsUTF8(aFile + krsFileExtSoft) then
     SoftManager.ImportFromFile(aFile + krsFileExtSoft);
@@ -320,7 +324,11 @@ begin
 
     // (Group < Soft) -> Ops, group doesn't exist
     if (aComp > 0) then
+    begin
       aGroup := GroupManager.FullList[GroupManager.AddGroup(aSoft.GroupKey)];
+      GroupManager.FullList.Sort(@EmutecaCompareGroupsByID);
+      i := GroupManager.FullList.Count - 1;
+    end;
 
     aGroup.SoftList.Add(aSoft);
     aSoft.CachedGroup := aGroup;
@@ -343,6 +351,19 @@ begin
     aGroup := GroupManager.FullList[i];
     if aGroup.SoftList.Count > 0 then
       GroupManager.VisibleList.Add(aGroup);
+    Inc(i);
+  end;
+end;
+
+procedure cEmutecaSystem.UnCacheGroups;
+var
+  i: Integer;
+begin
+  i := 0;
+  while i < SoftManager.FullList.Count do
+  begin
+    SoftManager.FullList[i].CachedGroup := nil;
+
     Inc(i);
   end;
 end;
@@ -407,9 +428,10 @@ var
   i: integer;
   aGroup: cEmutecaGroup;
 begin
-  if assigned(ProgressCallBack) then
-    ProgressCallBack(rsCleaningSystemData,
-      'Cleaning empty groups.', 1, 2, False);
+  // This is fast...
+  // if assigned(ProgressCallBack) then
+  //   ProgressCallBack(rsCleaningSystemData,
+  //     'Cleaning empty groups.', 1, 2, False);
 
   i := 0;
   while i < GroupManager.FullList.Count do
@@ -422,8 +444,8 @@ begin
       Inc(i);
   end;
 
-  if assigned(ProgressCallBack) then
-    ProgressCallBack('', '', 0, 0, False);
+  // if assigned(ProgressCallBack) then
+  //   ProgressCallBack('', '', 0, 0, False);
 end;
 
 procedure cEmutecaSystem.DoSaveToIni(aIniFile: TIniFile; ExportMode: Boolean);

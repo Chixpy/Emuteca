@@ -202,45 +202,43 @@ begin
     ImpSoftList.Sort(@EmutecaCompareSoftByID);
     FullList.Sort(@EmutecaCompareSoftByID);
 
-    // Dragons... Backwards
-    i := ImpSoftList.Count - 1;
-    if i >= 0 then
-      aImpSoft := ImpSoftList[i]
-    else
-      aImpSoft := nil;
-    j := FullList.Count;
-    while j > 0 do
+    i := 0;
+    aImpSoft := nil;
+    if ImpSoftList.Count > 0 then
+       aImpSoft := ImpSoftList[i];
+
+    j := 0;
+    while (j < FullList.Count) and assigned(aImpSoft) do
     begin
-      Dec(j);
       aSoft := FullList[j];
 
-      if assigned(ProgressCallBack) then
-        ProgressCallBack(rsImportingSoftList, aSoft.Title,
-          FullList.Count - j, FullList.Count, False);
+      aComp := aSoft.CompareID(aImpSoft.ID);
 
-      if assigned(aImpSoft) then
-        aComp := aSoft.CompareID(aImpSoft.ID)
-      else
-        aComp := 1; // aSoft.CompareSoftKey('');
-
-      // aSoft < aImpSoft -> Try Previous Soft2
-      while aComp < 0 do
+      // aSoft > aImpSoft -> Test next aImpSoft
+      while (aComp > 0) and assigned(aImpSoft) do
       begin
-        Dec(i);
-        if i >= 0 then
+        Inc(i);
+
+        if i < ImpSoftList.Count then
           aImpSoft := ImpSoftList[i]
         else
           aImpSoft := nil;
 
         if assigned(aImpSoft) then
-          aComp := aSoft.CompareID(aImpSoft.ID)
-        else
-          aComp := 1; // aSoft.CompareSoftKey('');
+          aComp := aSoft.CompareID(aImpSoft.ID);
       end;
-      // aSoft > aImpSoft -> Not found.
+
+      // aSoft < aImpSoft -> Not found.
       // aSoft = aImpSoft -> Match.
-      if aComp = 0 then
+
+      if (aComp = 0) and assigned(aImpSoft) then // Match
         aSoft.ImportFrom(aImpSoft);
+
+      Inc(j);
+
+      if assigned(ProgressCallBack) then
+         ProgressCallBack(rsImportingSoftList, aSoft.Title, j, FullList.Count,
+           False);
     end;
 
   finally
