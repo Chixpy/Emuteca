@@ -168,8 +168,9 @@ begin
     Result := edsBadDump
   else if (aString[1] = DumpSt2Key(edsUnderDump)) then
     Result := edsUnderDump
-  else if (aString[1] = DumpSt2Key(edsUnknown)) then
-    Result := edsUnknown
+  // Unknown is default and cost the same comparisons
+  //else if (aString[1] = DumpSt2Key(edsUnknown)) then
+  //  Result := edsUnknown
   else if (aString[1] = DumpSt2Key(edsKeepValue)) then
     Result := edsKeepValue
   else

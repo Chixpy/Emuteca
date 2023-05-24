@@ -15,9 +15,11 @@ If "BaseFolder\GameName.ext" already exists, reverse operation is performed;
 
 [Data]
 Name=Chixpy
-Version=1.00
-Date=2020XXXX
+Version=1.01
+Date=20230522
 [Changes]
+* 1.01 - 20230522
+  * Little formating in output log text.
 * 1.00
   * Initial version
 
@@ -56,6 +58,7 @@ begin
     nFiles := FilesInFolder(AFolderList[i], '');
     if nFiles = 1 then
     begin
+      WriteLn('');
       aFileList.Clear;
       FindAllFiles(aFileList, AFolderList[i], '', False);
 
@@ -68,21 +71,24 @@ begin
       begin
         // File already exists, so we move it to the folder
         RenameFile(outFile, ETKCheckRenameFile(SetAsFolder(AFolderList[i]) + ExtractFilename(outFile)));
-        WriteLn(outFile + ' -> ' + ETKCheckRenameFile(SetAsFolder(AFolderList[i]) + ExtractFilename(outFile)));
+        WriteLn('Found: ' + outFile);
+        WriteLn('Moved to:' + ETKCheckRenameFile(SetAsFolder(AFolderList[i]) + ExtractFilename(outFile)));
       end
       else
       begin
         // Moving to base folder and removing the initial subfolder
         RenameFile(AFileList[0], outFile);
         RemoveDir(AFolderList[i]);
-        WriteLn(AFileList[0] + ' -> ' + outFile);
-        WriteLn(AFolderList[i] + ' deleted.');
+        WriteLn('Found 1 file folder: ' + AFileList[0]);
+        WriteLn('Moved to: ' + outFile);
+        WriteLn('Deleted: ' + AFolderList[i]);
       end;
     end
     else if nFiles = 0 then  // Subfolder is empty, removing it
     begin
-        RemoveDir(AFolderList[i]);
-        WriteLn(AFolderList[i] + ' deleted.');
+      RemoveDir(AFolderList[i]);
+      WriteLn('');
+      WriteLn('Deleted empty folder: ' + AFolderList[i]);
     end;
 
   

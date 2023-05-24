@@ -191,23 +191,21 @@ const
   // Constant for DumpStatus, fixed (for icon filenames)
   krsEDSFavorite = 'Favorite';
   krsEDSGood = 'GoodDump';
-//  krsEDSAlternate = 'Alternate';
+  //krsEDSAlternate = 'Alternate';
+  krsEDSUnknown = 'Unknown';
   krsEDSOverDump = 'OverDump';
   krsEDSBadDump = 'BadDump';
   krsEDSUnderDump = 'UnderDump';
-  krsEDSUnknown = 'Unknown';
   krsEDSKeepValue = 'KeepValue';
 
   // Constant for DumpStatus, fixed (for databases)
   krsEDSFavoriteKey = '!';
   krsEDSGoodKey = '';
-//  krsEDSAlternateKey = 'a';
+  //krsEDSAlternateKey = 'a';
+  krsEDSUnknownKey = '?';
   krsEDSOverDumpKey = 'o';
   krsEDSBadDumpKey = 'b';
   krsEDSUnderDumpKey = 'u';
-  krsEDSUnknownKey = '?';
-
-  // Key for import file to keep current value
   krsImportKeepValueKey = '@';
 
   // Dirs
@@ -215,8 +213,8 @@ const
 
 type
   TEmutecaSoftExportKey = (TEFKSHA1, TEFKCRC32, TEFKFileName, TEFKCustom);
-  TEmutecaDumpStatus = (edsFavorite, edsGood, {edsAlternate,} edsOverDump,
-    edsBadDump, edsUnderDump, edsUnknown, edsKeepValue);
+  TEmutecaDumpStatus = (edsFavorite, edsGood, {edsAlternate,} edsUnknown,
+    edsOverDump, edsBadDump, edsUnderDump,  edsKeepValue);
 
   TEmutecaProgressCallBack = function(const aAction, aInfo: string;
     const aValue, aMaxValue: int64; const IsCancelable: boolean): boolean of
@@ -229,13 +227,13 @@ const
   //< Strings for FileKeys (fixed constants, used for ini files, etc. )
 
   EmutecaDumpStatusKey: array [TEmutecaDumpStatus] of string =
-    (krsEDSFavoriteKey, krsEDSGoodKey, {krsEDSAlternateKey,} krsEDSOverDumpKey,
-    krsEDSBadDumpKey, krsEDSUnderDumpKey, krsEDSUnknownKey,
+    (krsEDSFavoriteKey, krsEDSGoodKey, {krsEDSAlternateKey,} krsEDSUnknownKey,
+    krsEDSOverDumpKey, krsEDSBadDumpKey, krsEDSUnderDumpKey,
     krsImportKeepValueKey);
   //< Keys for DumpStatus, used in IniFiles
   EmutecaDumpStatusStrK: array [TEmutecaDumpStatus] of string =
-    (krsEDSFavorite, krsEDSGood, {krsEDSAlternate,} krsEDSOverDump,
-    krsEDSBadDump, krsEDSUnderDump, krsEDSUnknown, krsEDSKeepValue);
+    (krsEDSFavorite, krsEDSGood, {krsEDSAlternate,} krsEDSUnknown,
+    krsEDSOverDump, krsEDSBadDump, krsEDSUnderDump,  krsEDSKeepValue);
 //< Strings for DumpStatus (fixed constants, used for icon filenames, etc. )
 
 

@@ -102,11 +102,11 @@ begin
   // ------------------------------------
   CL.AddConstantN('rsEDSFavorite', 'String').SetString(rsEDSFavorite);
   CL.AddConstantN('rsEDSGood', 'String').SetString(rsEDSGood);
-//  CL.AddConstantN('rsEDSAlternate', 'String').SetString(rsEDSAlternate);
+  //CL.AddConstantN('rsEDSAlternate', 'String').SetString(rsEDSAlternate);
+  CL.AddConstantN('rsEDSUnknown', 'String').SetString(rsEDSUnknown);
   CL.AddConstantN('rsEDSOverDump', 'String').SetString(rsEDSOverDump);
   CL.AddConstantN('rsEDSBadDump', 'String').SetString(rsEDSBadDump);
   CL.AddConstantN('rsEDSUnderDump', 'String').SetString(rsEDSUnderDump);
-  CL.AddConstantN('rsEDSUnknown', 'String').SetString(rsEDSUnknown);
   CL.AddConstantN('rsEDSKeepValue', 'String').SetString(rsEDSKeepValue);
 
 

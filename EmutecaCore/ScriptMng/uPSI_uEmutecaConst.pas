@@ -198,10 +198,10 @@ begin
   CL.AddConstantN('krsEDSFavorite', 'String').SetString(krsEDSFavorite);
   CL.AddConstantN('krsEDSGood', 'String').SetString(krsEDSGood);
 //  CL.AddConstantN('krsEDSAlternate', 'String').SetString(krsEDSAlternate);
+  CL.AddConstantN('krsEDSUnknown', 'String').SetString(krsEDSUnknown);
   CL.AddConstantN('krsEDSOverDump', 'String').SetString(krsEDSOverDump);
   CL.AddConstantN('krsEDSBadDump', 'String').SetString(krsEDSBadDump);
   CL.AddConstantN('krsEDSUnderDump', 'String').SetString(krsEDSUnderDump);
-  CL.AddConstantN('krsEDSUnknown', 'String').SetString(krsEDSUnknown);
   CL.AddConstantN('krsEDSKeepValue', 'String').SetString(krsEDSKeepValue);
 
   // Constant for DumpStatus, fixed (for databases)
@@ -228,7 +228,7 @@ begin
   CL.AddTypeS('TEmutecaSoftExportKey',
     '(TEFKSHA1, TEFKCRC32, TEFKFileName, TEFKCustom)');
   CL.AddTypeS('TEmutecaDumpStatus',
-    '(edsFavorite, edsGood, edsOverDump, edsBadDump, edsUnderDump, edsUnknown, edsKeepValue)');
+    '(edsFavorite, edsGood, edsUnknown, edsOverDump, edsBadDump, edsUnderDump, edsKeepValue)');
 
   CL.AddTypeS('TEmutecaProgressCallBack',
     'function(const Title, Info1, Info2: string; const Value, MaxValue: int64) : boolean');
@@ -241,12 +241,12 @@ begin
     //< Strings for FileKeys (fixed constants, used for ini files, etc. )
 
     EmutecaDumpStatusKey: array [TEmutecaDumpStatus] of string =
-      (krsEDSFavoriteKey, krsEDSGoodKey, krsEDSOverDumpKey,
-      krsEDSBadDumpKey, krsEDSUnderDumpKey, krsEDSUnknownKey, krsImportKeepValueKey);
+      (krsEDSFavoriteKey, krsEDSGoodKey, krsEDSUnknownKey, krsEDSOverDumpKey,
+      krsEDSBadDumpKey, krsEDSUnderDumpKey, krsImportKeepValueKey);
     //< Keys for DumpStatus, used in IniFiles
     EmutecaDumpStatusStrK: array [TEmutecaDumpStatus] of string =
-      (krsEDSFavorite, krsEDSGood, krsEDSOverDump,
-      krsEDSBadDump, krsEDSUnderDump, krsEDSUnknown, krsEDSKeepValue);
+      (krsEDSFavorite, krsEDSGood, krsEDSUnknown, krsEDSOverDump,
+      krsEDSBadDump, krsEDSUnderDump, krsEDSKeepValue);
   //< Strings for DumpStatus (fixed constants, used for icon filenames, etc. )
   }
 end;

@@ -1342,6 +1342,10 @@ msgstr ""
 msgid "Assign file"
 msgstr ""
 
+#: tfmetkguimediamanager.actassigntogroup.caption
+msgid "Assign to Group"
+msgstr ""
+
 #: tfmetkguimediamanager.actautoassign.caption
 msgid "Auto Assign"
 msgstr ""

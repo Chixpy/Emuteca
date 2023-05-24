@@ -814,35 +814,10 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
     Images = ilActions
     Left = 704
     Top = 16
-    object actAssignFile: TAction
-      Category = 'Files'
-      Caption = 'Assign file'
-      OnExecute = actAssignFileExecute
-    end
-    object actDeleteFile: TAction
-      Category = 'Files'
-      Caption = 'Delete file'
-      OnExecute = actDeleteFileExecute
-    end
     object actEditGroup: TAction
       Category = 'Groups'
       Caption = 'Edit Group...'
       OnExecute = actEditGroupExecute
-    end
-    object actMoveFile: TAction
-      Category = 'Files'
-      Caption = 'Move file...'
-      OnExecute = actMoveFileExecute
-    end
-    object actMoveAllFiles: TAction
-      Category = 'Files'
-      Caption = 'Move all files...'
-      OnExecute = actMoveAllFilesExecute
-    end
-    object actDeleteAllFiles: TAction
-      Category = 'Files'
-      Caption = 'Delete all files'
-      OnExecute = actDeleteAllFilesExecute
     end
     object actRenameGroupTitleWithFilename: TAction
       Category = 'Groups'
@@ -859,6 +834,41 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
       Caption = 'Rename soft title with current file'
       OnExecute = actRenameSoftTitleWithFilenameExecute
     end
+    object actRunSoftware: TAction
+      Category = 'Software'
+      Caption = 'Run software'
+      OnExecute = actRunSoftwareExecute
+    end
+    object actAssignFile: TAction
+      Category = 'Files'
+      Caption = 'Assign file'
+      OnExecute = actAssignFileExecute
+    end
+    object actAssignToGroup: TAction
+      Category = 'Files'
+      Caption = 'Assign to Group'
+      OnExecute = actAssignToGroupExecute
+    end
+    object actDeleteFile: TAction
+      Category = 'Files'
+      Caption = 'Delete file'
+      OnExecute = actDeleteFileExecute
+    end
+    object actMoveFile: TAction
+      Category = 'Files'
+      Caption = 'Move file...'
+      OnExecute = actMoveFileExecute
+    end
+    object actMoveAllFiles: TAction
+      Category = 'Files'
+      Caption = 'Move all files...'
+      OnExecute = actMoveAllFilesExecute
+    end
+    object actDeleteAllFiles: TAction
+      Category = 'Files'
+      Caption = 'Delete all files'
+      OnExecute = actDeleteAllFilesExecute
+    end
     object actRenameFile: TAction
       Category = 'Files'
       Caption = 'Rename file manually...'
@@ -868,11 +878,6 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
       Category = 'Files'
       Caption = 'Auto Assign'
       OnExecute = actAutoAssignExecute
-    end
-    object actRunSoftware: TAction
-      Category = 'Software'
-      Caption = 'Run software'
-      OnExecute = actRunSoftwareExecute
     end
   end
   object ilActions: TImageList[8]
@@ -937,6 +942,9 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
     Top = 384
     object misfAssignFile: TMenuItem
       Action = actAssignFile
+    end
+    object misfAssignToGroup: TMenuItem
+      Action = actAssignToGroup
     end
     object Separator1: TMenuItem
       Caption = '-'

@@ -76,6 +76,7 @@ type
     actDeleteAllFiles: TAction;
     actEditSoft: TAction;
     actAutoAssign: TAction;
+    actAssignToGroup: TAction;
     actRunSoftware: TAction;
     actRenameFile: TAction;
     actRenameSoftTitleWithFilename: TAction;
@@ -104,6 +105,7 @@ type
     lbxTexts: TListBox;
     lbxVideos: TListBox;
     MenuItem1: TMenuItem;
+    misfAssignToGroup: TMenuItem;
     migpRunSoftware: TMenuItem;
     miflRenameFile: TMenuItem;
     migpRenameSoftTitleWithFilename: TMenuItem;
@@ -164,6 +166,7 @@ type
     vstSoftAll: TVirtualStringTree;
     vstSoftWOFile: TVirtualStringTree;
     procedure actAssignFileExecute(Sender: TObject);
+    procedure actAssignToGroupExecute(Sender: TObject);
     {< Renames (or copies) selected file to required filename by selected
        group or soft. }
     procedure actAutoAssignExecute(Sender: TObject);
@@ -1112,9 +1115,9 @@ begin
 
   if FormResult <> mrOk then Exit;
 
-    TargetFile := CurrentSG.MediaFileName;
-    ChangeSGMedia(CurrentSG);
-    FilterLists;
+  TargetFile := CurrentSG.MediaFileName;
+  ChangeSGMedia(CurrentSG);
+  FilterLists;
 
 end;
 
@@ -1667,6 +1670,23 @@ begin
   end;
 
   FilterLists;
+end;
+
+procedure TfmETKGUIMediaManager.actAssignToGroupExecute(Sender: TObject);
+var
+  aGroup: cEmutecaGroup;
+begin
+  if not (CurrentSG is cEmutecaSoftware) then Exit;
+
+  aGroup := cEmutecaGroup(cEmutecaSoftware(CurrentSG).CachedGroup);
+
+  if not assigned(aGroup) then Exit;
+
+  TargetFile := aGroup.MediaFileName;
+
+  if TargetFile = '' then Exit;
+
+  actAssignFile.Execute;
 end;
 
 procedure TfmETKGUIMediaManager.actAutoAssignExecute(Sender: TObject);

@@ -1408,6 +1408,10 @@ msgctxt "tfmetkguimediamanager.actassignfile.caption"
 msgid "Assign file"
 msgstr "Asignar fichero"
 
+#: tfmetkguimediamanager.actassigntogroup.caption
+msgid "Assign to Group"
+msgstr ""
+
 #: tfmetkguimediamanager.actautoassign.caption
 msgid "Auto Assign"
 msgstr "Auto asignar"
