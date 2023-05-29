@@ -86,7 +86,7 @@ inherited fmEmutecaSoftEditor: TfmEmutecaSoftEditor
       Top = 68
       Width = 225
       TabOrder = 2
-      TextHint = 'Fix/Fixer'
+      TextHint = 'Fix / Fixer'
     end
     object lTrainer: TLabel
       Left = 4
@@ -102,7 +102,7 @@ inherited fmEmutecaSoftEditor: TfmEmutecaSoftEditor
       Top = 100
       Width = 225
       TabOrder = 3
-      TextHint = 'Cheat1; Cheat2/Author'
+      TextHint = 'Cheat1; Cheat2 / Author'
     end
     object lTranslated: TLabel
       Left = 4
@@ -118,7 +118,7 @@ inherited fmEmutecaSoftEditor: TfmEmutecaSoftEditor
       Top = 132
       Width = 225
       TabOrder = 4
-      TextHint = 'ISO 639-1/Translator/Version'
+      TextHint = 'ISO 639-1'
     end
     object lPirate: TLabel
       Left = 4
@@ -221,7 +221,7 @@ inherited fmEmutecaSoftEditor: TfmEmutecaSoftEditor
       ItemHeight = 20
       Sorted = True
       TabOrder = 1
-      TextHint = 'Publisher'
+      TextHint = 'Publisher1 / Publisher2'
     end
     object pYearZone: TPanel
       Left = 4

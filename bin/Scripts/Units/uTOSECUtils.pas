@@ -6,12 +6,20 @@ Only to include in other programs. Remember call TOSECFinish at the end of
   main program.
 [Data]
 Name=Chixpy
-Version=0.17
-Date=20230513
+Version=0.19
+Date=20230529
 [Changes]
+0.19 20230529
+  c ¡¡AAAHHH!! Some TOSEC dats actually have hacker in publisher field, so we
+    keep the original again when a hack (and trainer) is found). 
+    Actually this script is used only to create an initial "official", but...
+0.18 20230527
+  c Translation version and author moved to "Version" and "Publisher" fields.
+  - Removing original Publisher and Year from translated, hacked or trained 
+    software (Cracked, Modified, Pirated or Fixed keep original).
 0.17 20230513
   - Removed "Registered"ware in TOSECCRStr.txt, as they are "full" versions,
-    unless otherwise stated ("demo, promo"). "Public Domain" too.
+    unless otherwise stated ("demo, promo"). "Public Domain" removed too.
   + Trying to get translation version in "[v..]" tag
 0.16 20230509
   - Removed Alternate DumpStatus in Emuteca.
@@ -62,8 +70,7 @@ Date=20230513
 
 const
   TOSECIDSep = '|';
-  TOSECValueSepBegin = '; ';
-  TOSECValueSepEnd = '';
+  TOSECValueSep = ' / ';
   
 var
   TOSECVideoList: TStringList;
@@ -120,7 +127,7 @@ begin
   if aTag = '' then 
    aTag := Trim(aStr)
   else
-    aTag := Trim(aTag) + TOSECValueSepBegin + Trim(aStr) + TOSECValueSepEnd;
+    aTag := Trim(aTag) + TOSECValueSep + Trim(aStr);
 end;
   
 function TOSECExtractTag(var Tags: String; Open, Close: String): String;
@@ -413,7 +420,7 @@ begin
   if TempStr = '-' then
     DBYear := krsImportKeepValueKey
   else
-    DBYear := AnsiReplaceText(TempStr, '-', '/');
+    DBYear := AnsiReplaceText(TempStr, '-', '/'); // Don't use TOSECValueSep
     
   // Publisher (obl)
   // -----------------
@@ -428,7 +435,7 @@ begin
     DBPublisher := krsImportKeepValueKey
   else
     DBPublisher := TempStr;
-  DBPublisher := AnsiReplaceText(DBPublisher, ' - ', ' / ');
+  DBPublisher := AnsiReplaceText(DBPublisher, ' - ', TOSECValueSep);
 
   // Next flag (), But is used at the end because "()" can be inside "[]"
   //TempStr := TOSECExtractTag(SoftStr, '(', ')');
@@ -691,7 +698,8 @@ begin
   // -----------------
   // "[cr Cracker]"
   DBCracked := TOSECExtractTag(SoftStr, '[cr', ']');
-  DBCracked := AnsiReplaceText(DBCracked, ' - ', ' / ');
+  DBCracked := AnsiReplaceText(DBCracked, ' - ', TOSECValueSep);
+
   
   // Fixed
   // -----------------
@@ -727,7 +735,6 @@ begin
   // "[tr Language Translator]"
   DBTranslation := TOSECExtractTag(SoftStr, '[tr', ']');
 
-  // Formating to "Language / Translator / Version"
   // Posible formats... :-( 
   //   "[tr Language Translator]"
   //   "[tr Language Version Translator]"
@@ -735,32 +742,31 @@ begin
   //   "[tr Language Translator][v.XXXX, Other, dump, tags]"
   // And... [v] [v Virus],  
   // Sometimes it doesn't have "v" or it's only a percentage... "100%"
+  
   TempStr := ''; // Used to store version
   if Length(DBTranslation) > 3 then
   begin
+    // Searching for Version and Translator
     aPos := Pos(' ', DBTranslation);
     if aPos > 0 then
     begin
-      DBTranslation[aPos] := '/'; // "Language/Translator"
-      
-      // Testing "Language/Version Translator"
-      if Length(DBTranslation) > (aPos + 2) then
+      // "[tr Language Translator]"
+      DBPublisher := Trim(ETKCopyFrom(DBTranslation, aPos + 1));
+      DBTranslation := Trim(Copy(DBTranslation, 1, aPos - 1));  
+    
+      // "[tr Language Version Translator]"
+      if (DBPublisher <> '') and (DBPublisher[1] = 'v') then
       begin
-        if DBTranslation[aPos + 1] = 'v' then
-        begin
-          i := Pos(' ', DBTranslation);
-          if aPos > 0 then
-          begin
-            TempStr := Trim(Copy(DBTranslation, aPos + 2, i - aPos - 2));
-            DBTranslation := Copy(DBTranslation, 1, aPos) + 
-              ETKCopyFrom(DBTranslation, i + 1);
-          end;
-        end;        
+        aPos := Pos(' ', DBPublisher);
+   
+        if aPos > 0 then
+        begin  
+          TempStr := Trim(Copy(DBPublisher, 1, aPos - 1));
+          DBPublisher := Trim(ETKCopyFrom(DBPublisher, aPos + 1));
+        end; 
       end;
-    end
-    else
-      DBTranslation := DBTranslation + '/';
-    DBTranslation := DBTranslation + '/';
+      // TODO: Test percentaje "45%" 
+    end;
     
     // Trying [tr ...][vXXXX, Other, dump, tags]
     if TempStr = '' then
@@ -779,8 +785,12 @@ begin
         begin    
           // Sometimes it is "vXXXXX" others "v.XXXX"...
           if TempStr[1] = '.' then
-            TempStr := ETKCopyFrom(TempStr, 2); 
+            TempStr := ETKCopyFrom(TempStr, 2);
+
+          TempStr := 'v' + TempStr;
             
+          // Sometimes it is "[v1.0, other tag, other...]" :-(
+          // Sometimes it is "[other tag, other, trans v, ...]" :-(
           // Sometimes it is "[v1.0, other tag, other...]" :-(
           aPos := Pos(',', TempStr);
           if aPos > 1 then
@@ -788,26 +798,39 @@ begin
             // Restoring other DumpStatus tags
             SoftStr := SoftStr + '[' + 
               AnsiReplaceText(ETKCopyFrom(TempStr, aPos + 1), ',', '][') + ']';
-            TempStr := Copy(TempStr, 1, aPos - 1);          
+            TempStr := Copy(TempStr, 1, aPos - 1);
           end;
         end;
       end;      
     end;
-    
-    // Translation version found.
-    if TempStr <> '' then
-      DBTranslation := DBTranslation + 'v' + TempStr;
-    
-    DBTranslation := AnsiReplaceText(DBTranslation, '/', ' / ');
-    DBTranslation := Trim(AnsiReplaceText(DBTranslation, '  ', ' '));
   end;
-
+  // Translation version found.
+  if TempStr <> '' then
+    TOSECAddStr(DBVersion, TempStr);
 
   // Trained
   // -------
   // "[t +x Trainer]"
   DBTrainer := TOSECExtractTag(SoftStr, '[t', ']');
-  DBTrainer := AnsiReplaceText(DBTrainer, ' - ', ' / ');
+  DBTrainer := AnsiReplaceText(DBTrainer, ' - ', TOSECValueSep);
+  // Translation author and version have preference
+  if (DBTranslation = '') and (DBTrainer <> '') then
+  begin
+    if DBTrainer[1] = '+' then
+    begin    
+      aPos := Pos(' ', DBTrainer);
+      if aPos > 0 then
+      begin
+        DBPublisher := Trim(ETKCopyFrom(DBTrainer, aPos + 1));
+        DBTrainer := Trim(Copy(DBTrainer, 1, aPos - 1));
+      end;
+    end
+    else if (DBTrainer[1] < '0') or (DBTrainer[1] > '9') then
+    begin
+      DBPublisher := DBTrainer;
+      DBTrainer := '1';
+    end;
+  end;
 
   // Removing [aka ] flags...
   TempStr := 'x';
@@ -820,7 +843,7 @@ begin
   // Although some flags can coexist: [a][o]
   // We only keep the worst one
   
-//  2023/02/09: Removed from Emuteca
+  // 2023/02/09: "a" flag removed from Emuteca
   TempStr := TOSECExtractTag(SoftStr, '[a', ']');
 //  if TempStr <> '' then
 //  begin

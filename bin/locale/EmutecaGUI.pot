@@ -854,7 +854,7 @@ msgid "Cracker"
 msgstr ""
 
 #: tfmemutecasofteditor.efixed.texthint
-msgid "Fix/Fixer"
+msgid "Fix / Fixer"
 msgstr ""
 
 #: tfmemutecasofteditor.emodified.texthint
@@ -863,7 +863,7 @@ msgstr ""
 
 #: tfmemutecasofteditor.epublisher.texthint
 msgctxt "tfmemutecasofteditor.epublisher.texthint"
-msgid "Publisher"
+msgid "Publisher1 / Publisher2"
 msgstr ""
 
 #: tfmemutecasofteditor.esortkey.texthint
@@ -877,11 +877,11 @@ msgid "Title  (Empty = Group Title)"
 msgstr ""
 
 #: tfmemutecasofteditor.etrainer.texthint
-msgid "Cheat1; Cheat2/Author"
+msgid "Cheat1; Cheat2 / Author"
 msgstr ""
 
 #: tfmemutecasofteditor.etranslated.texthint
-msgid "ISO 639-1/Translator/Version"
+msgid "ISO 639-1"
 msgstr ""
 
 #: tfmemutecasofteditor.eversion.texthint
