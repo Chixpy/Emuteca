@@ -15,9 +15,11 @@ If "BaseFolder\GameName.ext" already exists, reverse operation is performed;
 
 [Data]
 Name=Chixpy
-Version=1.01
-Date=20230522
+Version=1.02
+Date=20230611
 [Changes]
+* 1.02 - 20230522
+  * Little formating in output log text.
 * 1.01 - 20230522
   * Little formating in output log text.
 * 1.00
@@ -39,12 +41,13 @@ begin
   aFolder := AskFolder('Select base folder', '');
   if aFolder = '' then
   begin
-    WriteLn('');
-    WriteLn('');
     WriteLn('CANCELLED');
     WriteLn('---------');
+    WriteLn('');
     Exit;
   end;
+
+  WriteLn('Searching folders with 1 file in: ' + aFolder);
 
   aFolderList := CreateStringList;
   aFileList := CreateStringList;  
@@ -90,7 +93,6 @@ begin
       WriteLn('');
       WriteLn('Deleted empty folder: ' + AFolderList[i]);
     end;
-
   
     Inc(i);
   end;
@@ -101,5 +103,6 @@ begin
   WriteLn('');
   WriteLn('DONE');
   WriteLn('----');
+  WriteLn('');
 
 end.
