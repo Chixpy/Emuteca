@@ -508,16 +508,13 @@ procedure cEmutecaSystem.CleanSoftGroupLists;
           Found := FileExistsUTF8(aSoft.Folder + aSoft.FileName)
         else
         begin
-        { Old, simple and slow way... Calculates SHA1 of 7z with every soft!!!
-        Found := w7zFileExists(aSoft.Folder, aSoft.FileName, '') = 0;
-        }
 
-          // New, complex and faster way
+        // Old, simple and slow way... Calculates SHA1 of 7z with every soft!
+        // Found := w7zFileExists(aSoft.Folder, aSoft.FileName, '') = 0;
 
           if CompareFilenames(Last7z, ExcludeTrailingPathDelimiter(
             aSoft.Folder)) <> 0 then
           begin
-            // It's a new non cached 7z
             Last7z := ExcludeTrailingPathDelimiter(aSoft.Folder);
             CompFileList.Clear;
             if FileExistsUTF8(Last7z) then // Hides file not found error.
@@ -528,9 +525,7 @@ procedure cEmutecaSystem.CleanSoftGroupLists;
           j := 0;
           while (not Found) and (j < CompFileList.Count) do
           begin
-            Found := CompareFilenames(CompFileList[j], aSoft.FileName) = 0;
-            if Found then
-              CompFileList.Delete(j);
+            Found := aSoft.CompareFile(Last7z, CompFileList[j]) = 0;
             Inc(j);
           end;
         end;
