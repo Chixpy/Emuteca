@@ -1,4 +1,5 @@
 unit ucEmutecaSystem;
+
 {< cEmutecaSystem class unit.
 
   This file is part of Emuteca Core.
@@ -58,7 +59,7 @@ type
       write SetSoftGroupLoaded;
     {< Are system soft and groups allready loaded? }
 
-    procedure DoSaveToIni(aIniFile: TIniFile; ExportMode: Boolean); override;
+    procedure DoSaveToIni(aIniFile: TIniFile; ExportMode: boolean); override;
 
   public
 
@@ -68,7 +69,8 @@ type
 
     property EmulatorList: cEmutecaEmulatorList read FEmulatorList;
     {< List of current assigned and enabled emulators. }
-    property CurrentEmulator: cEmutecaEmulator read FCurrentEmulator write SetCurrentEmulator;
+    property CurrentEmulator: cEmutecaEmulator
+      read FCurrentEmulator write SetCurrentEmulator;
     {< Current assigned emulator. }
 
     procedure ClearData;
@@ -107,8 +109,7 @@ type
 
   end;
 
-  TEmutecaReturnSystemCB = procedure(aSystem: cEmutecaSystem) of
-    object;
+  TEmutecaReturnSystemCB = procedure(aSystem: cEmutecaSystem) of object;
 {< For CallBack functions }
 
 implementation
@@ -263,7 +264,7 @@ begin
     MainEmulator := CurrentEmulator.ID;
   end
   else
-   MainEmulator := '';
+    MainEmulator := '';
 end;
 
 procedure cEmutecaSystem.CacheGroups;
@@ -357,7 +358,7 @@ end;
 
 procedure cEmutecaSystem.UnCacheGroups;
 var
-  i: Integer;
+  i: integer;
 begin
   i := 0;
   while i < SoftManager.FullList.Count do
@@ -448,13 +449,13 @@ begin
   //   ProgressCallBack('', '', 0, 0, False);
 end;
 
-procedure cEmutecaSystem.DoSaveToIni(aIniFile: TIniFile; ExportMode: Boolean);
+procedure cEmutecaSystem.DoSaveToIni(aIniFile: TIniFile; ExportMode: boolean);
 var
-  i: Integer;
+  i: integer;
 begin
   inherited DoSaveToIni(aIniFile, ExportMode);
 
-    // Emulators
+  // Emulators
   if Assigned(CurrentEmulator) then
     aIniFile.WriteString(ID, krsIniKeyMainEmulator, CurrentEmulator.ID)
   else
@@ -509,8 +510,8 @@ procedure cEmutecaSystem.CleanSoftGroupLists;
         else
         begin
 
-        // Old, simple and slow way... Calculates SHA1 of 7z with every soft!
-        // Found := w7zFileExists(aSoft.Folder, aSoft.FileName, '') = 0;
+          // Old, simple and slow way... Calculates SHA1 of 7z with every soft!
+          // Found := w7zFileExists(aSoft.Folder, aSoft.FileName, '') = 0;
 
           if CompareFilenames(Last7z, ExcludeTrailingPathDelimiter(
             aSoft.Folder)) <> 0 then

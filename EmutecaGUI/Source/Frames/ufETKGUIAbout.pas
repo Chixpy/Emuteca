@@ -2,7 +2,7 @@ unit ufETKGUIAbout;
 
 {< TfmETKGUIAbout frame of Emuteca GUI
 
-  Copyright (C) 2006-2019 Chixpy
+  Copyright (C) 2006-2023 Chixpy
 
   This source is free software; you can redistribute it and/or modify it under
   the terms of the GNU General Public License as published by the Free
@@ -51,8 +51,6 @@ type
 
   protected
 
-    procedure DoLoadFrameData;
-    procedure DoClearFrameData;
 
   public
     property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
@@ -61,6 +59,8 @@ type
     property VersionIcons: cCHXImageList read FVersionIcons
       write SetVersionIcons;
 
+    procedure LoadFrameData; override;
+    procedure ClearFrameData; override;
 
     class function SimpleModalForm(aEmuteca: cEmuteca;
       aCachedIcons, aVersionIcons: cCHXImageList; aZoneIcons: cCHXImageMap;
@@ -105,10 +105,12 @@ begin
   FZoneIcons := AValue;
 end;
 
-procedure TfmETKGUIAbout.DoLoadFrameData;
+procedure TfmETKGUIAbout.LoadFrameData;
 var
   i, NGroups, TGroups, NSoft, TSoft: integer;
 begin
+  inherited LoadFrameData;
+
   mAditional.Clear;
 
   if assigned(Emuteca) then
@@ -170,8 +172,9 @@ begin
   Enabled := True;
 end;
 
-procedure TfmETKGUIAbout.DoClearFrameData;
+procedure TfmETKGUIAbout.ClearFrameData;
 begin
+  inherited  ClearFrameData;
   mAditional.Clear;
 end;
 
@@ -197,9 +200,6 @@ end;
 constructor TfmETKGUIAbout.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
-
-  OnLoadFrameData := @DoLoadFrameData;
-  OnClearFrameData := @DoClearFrameData;
 end;
 
 destructor TfmETKGUIAbout.Destroy;
@@ -207,4 +207,9 @@ begin
   inherited Destroy;
 end;
 
+initialization
+  RegisterClass(TfmETKGUIAbout);
+
+finalization
+  UnRegisterClass(TfmETKGUIAbout);
 end.

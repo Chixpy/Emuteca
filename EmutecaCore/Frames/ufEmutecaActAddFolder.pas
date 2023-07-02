@@ -4,7 +4,7 @@ unit ufEmutecaActAddFolder;
 
   This file is part of Emuteca Core.
 
-  Copyright (C) 2011-2018 Chixpy
+  Copyright (C) 2011-2023 Chixpy
 
   This source is free software; you can redistribute it and/or modify it under
   the terms of the GNU General Public License as published by the Free
@@ -71,11 +71,11 @@ type
 
     procedure SelectSystem(aSystem: cEmutecaSystem);
 
-    procedure DoLoadFrameData;
-    procedure DoSaveFrameData;
-
   public
     property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
+
+    procedure LoadFrameData; override;
+    procedure SaveFrameData; override;
 
     class function SimpleForm(aEmuteca: cEmuteca;
       SelectedSystem: cEmutecaSystem; const aGUIIconsIni: string;
@@ -129,8 +129,10 @@ begin
   SetDirEditInitialDir(eFolder, aSystem.BaseFolder);
 end;
 
-procedure TfmEmutecaActAddFolder.DoLoadFrameData;
+procedure TfmEmutecaActAddFolder.LoadFrameData;
 begin
+  inherited LoadFrameData;
+
   Enabled := Assigned(Emuteca);
 
   //if not Enabled then
@@ -140,7 +142,7 @@ begin
   //end;
 end;
 
-procedure TfmEmutecaActAddFolder.DoSaveFrameData;
+procedure TfmEmutecaActAddFolder.SaveFrameData;
 
   procedure AddFile(aFolder, aFile: string; aSystem: cEmutecaSystem;
     aCacheSoftList: cEmutecaSoftList);
@@ -254,6 +256,8 @@ var
   CacheSoftList: cEmutecaSoftList;
   Continue: boolean;
 begin
+  inherited SaveFrameData;
+
   if not assigned(Emuteca) then
     Exit;
 
@@ -402,9 +406,6 @@ begin
   inherited Create(TheOwner);
 
   CreateFrames;
-
-  OnLoadFrameData := @DoLoadFrameData;
-  OnSaveFrameData := @DoSaveFrameData;
 end;
 
 destructor TfmEmutecaActAddFolder.Destroy;

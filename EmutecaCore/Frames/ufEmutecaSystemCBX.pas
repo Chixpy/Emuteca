@@ -202,9 +202,6 @@ end;
 constructor TfmEmutecaSystemCBX.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
-
-    OnClearFrameData := @DoClearFrameData;
-  OnLoadFrameData := @DoLoadFrameData;
 end;
 
 destructor TfmEmutecaSystemCBX.Destroy;
@@ -212,4 +209,9 @@ begin
   inherited Destroy;
 end;
 
+initialization
+  RegisterClass(TfmEmutecaSystemCBX);
+
+finalization
+  UnRegisterClass(TfmEmutecaSystemCBX);
 end.

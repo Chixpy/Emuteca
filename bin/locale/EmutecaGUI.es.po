@@ -2369,6 +2369,14 @@ msgstr "Renombre este fichero:"
 msgid "Renaming file"
 msgstr "Renombrado fichero"
 
+#: uchxrscstr.rssavechanges
+msgid "Do you want to save current changes?"
+msgstr ""
+
+#: uchxrscstr.rssavechangescaption
+msgid "Save changes"
+msgstr ""
+
 #: uemutecarscstr.rschooseimagefileformat
 msgid ""
 "Do you want to save it in a lossless format?\n"
@@ -2786,10 +2794,6 @@ msgctxt "uetkguirscstr.rszones"
 msgid "Zones"
 msgstr "Zonas"
 
-#: ufchxchklstpropeditor.rsleclpesavelist
-msgid "Save list"
-msgstr "Guardar lista"
-
 #: ufchximglistpreview.rsimageprops
 #, object-pascal-format
 msgid "%2:s: %0:d x %1:d"
@@ -2849,17 +2853,6 @@ msgstr "Fichero guardado: %s"
 #: ufchxscriptmanager.rsfsmscriptfilemaskdesc
 msgid "Pascal script file"
 msgstr "Fichero Pascal Script"
-
-#: ufemutecasystemcbx.rsallsystems
-msgctxt "ufemutecasystemcbx.rsallsystems"
-msgid "All Systems"
-msgstr "Todos los sistemas"
-
-#: ufemutecasystemcbx.rsselectsystem
-#, fuzzy
-msgctxt "ufemutecasystemcbx.rsselectsystem"
-msgid "Select a System"
-msgstr "Selecciona un sistema"
 
 #: ufemutecatagtree.rsaskdelete
 #, object-pascal-format

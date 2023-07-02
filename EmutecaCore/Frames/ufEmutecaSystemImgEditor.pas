@@ -4,7 +4,7 @@ unit ufEmutecaSystemImgEditor;
 
   This file is part of Emuteca Core.
 
-  Copyright (C) 2011-2018 Chixpy
+  Copyright (C) 2011-2023 Chixpy
 
   This source is free software; you can redistribute it and/or modify it
   under the terms of the GNU General Public License as published by the Free
@@ -92,13 +92,9 @@ type
 
     procedure UpdateImage(aTImage: TImage; aFile: string);
 
-    procedure DoClearFrameData;
-    procedure DoLoadFrameData;
-    procedure DoSaveFrameData;
-
     procedure DoLoadGUIIcons(aIconsIni: TIniFile; const aBaseFolder: string);
       override;
-    procedure DoLoadGUIConfig(aIniFile: TIniFile);
+    procedure DoLoadGUIConfig(aIniFile: TIniFile); override;
 
   public
     { public declarations }
@@ -106,6 +102,10 @@ type
     //< System to edit.
     property SHA1Folder: string read FSHA1Folder write SetSHA1Folder;
     //< SHA1 Folder (for image viewer)
+
+    procedure ClearFrameData; override;
+    procedure LoadFrameData; override;
+    procedure SaveFrameData; override;
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -189,10 +189,12 @@ begin
   FGUIIconsIni := SetAsFile(AValue);
 end;
 
-procedure TfmEmutecaSystemImgEditor.DoSaveFrameData;
+procedure TfmEmutecaSystemImgEditor.SaveFrameData;
 begin
   if not Enabled then
     Exit;
+
+  inherited SaveFrameData;
 
   System.IconFile := eSystemIcon.FileName;
   System.ImageFile := eSystemImage.FileName;
@@ -206,16 +208,21 @@ procedure TfmEmutecaSystemImgEditor.DoLoadGUIIcons(aIconsIni: TIniFile;
   const aBaseFolder: string);
 begin
   inherited DoLoadGUIIcons(aIconsIni, aBaseFolder);
+
   GUIIconsIni := aIconsIni.FileName;
 end;
 
 procedure TfmEmutecaSystemImgEditor.DoLoadGUIConfig(aIniFile: TIniFile);
 begin
+  inherited DoLoadGUIConfig(aIniFile);
+
   GUIConfigIni := aIniFile.FileName;
 end;
 
-procedure TfmEmutecaSystemImgEditor.DoLoadFrameData;
+procedure TfmEmutecaSystemImgEditor.LoadFrameData;
 begin
+  inherited LoadFrameData;
+
   Enabled := Assigned(System);
 
   if not Enabled then
@@ -240,12 +247,6 @@ end;
 constructor TfmEmutecaSystemImgEditor.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
-
-  OnClearFrameData := @DoClearFrameData;
-  OnLoadFrameData := @DoLoadFrameData;
-  OnSaveFrameData := @DoSaveFrameData;
-  OnLoadGUIConfig := @DoLoadGUIConfig;
-  OnLoadGUIIcons := @DoLoadGUIIcons;
 end;
 
 destructor TfmEmutecaSystemImgEditor.Destroy;
@@ -253,8 +254,10 @@ begin
   inherited Destroy;
 end;
 
-procedure TfmEmutecaSystemImgEditor.DoClearFrameData;
+procedure TfmEmutecaSystemImgEditor.ClearFrameData;
 begin
+  inherited ClearFrameData;
+
   eSystemImage.Clear;
   iSystemImage.Picture.Clear;
   eSystemBG.Clear;
@@ -301,4 +304,10 @@ begin
     SetFileEditInitialDir(TFileNameEdit(Sender), '');
 end;
 
+initialization
+  RegisterClass(cEmutecaSystem);
+
+finalization
+  UnRegisterClass(cEmutecaSystem);
+  
 end.

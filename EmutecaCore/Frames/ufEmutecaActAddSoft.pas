@@ -1,11 +1,9 @@
 unit ufEmutecaActAddSoft;
 { Frame to add sofware.
 
-  ----
-
   This file is part of Emuteca Core.
 
-  Copyright (C) 2011-2018 Chixpy
+  Copyright (C) 2011-2023 Chixpy
 
   This source is free software; you can redistribute it and/or modify it under
   the terms of the GNU General Public License as published by the Free
@@ -103,12 +101,13 @@ type
     procedure SelectSystem(aSystem: cEmutecaSystem);
     procedure SelectGroup(aGroup: cEmutecaGroup);
 
-    procedure DoClearFrameData;
-    procedure DoLoadFrameData;
-    procedure DoSaveFrameData;
 
   public
     property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
+
+    procedure ClearFrameData; override;
+    procedure LoadFrameData; override;
+    procedure SaveFrameData; override;
 
     class function SimpleForm(aEmuteca: cEmuteca; SelectedSystem: cEmutecaSystem;
       const aGUIIconsIni: string; const aGUIConfigIni: string): integer;
@@ -124,8 +123,10 @@ implementation
 
 { TfmEmutecaActAddSoft }
 
-procedure TfmEmutecaActAddSoft.DoClearFrameData;
+procedure TfmEmutecaActAddSoft.ClearFrameData;
 begin
+  inherited ClearFrameData;
+
   fmSystemCBX.SelectedSystem := nil;
   fmGroupCBX.SelectedGroup := nil;
   fmSoftEditor.Software := nil;
@@ -467,9 +468,12 @@ begin
     SupportedExtSL(eFile.FileName, Emuteca.Config.CompressedExtensions);
 end;
 
-procedure TfmEmutecaActAddSoft.DoLoadFrameData;
+procedure TfmEmutecaActAddSoft.LoadFrameData;
 begin
+  inherited LoadFrameData;
+
   Enabled := Assigned(Software) and Assigned(Emuteca);
+
   if not Enabled then
   begin
     ClearFrameData;
@@ -477,10 +481,12 @@ begin
   end;
 end;
 
-procedure TfmEmutecaActAddSoft.DoSaveFrameData;
+procedure TfmEmutecaActAddSoft.SaveFrameData;
 var
   aSystem: cEmutecaSystem;
 begin
+  inherited SaveFrameData;
+
   fmSoftEditor.SaveFrameData;
 
   aSystem := cEmutecaSystem(Software.CachedSystem);
@@ -504,36 +510,21 @@ class function TfmEmutecaActAddSoft.SimpleForm(aEmuteca: cEmuteca;
   SelectedSystem: cEmutecaSystem; const aGUIIconsIni: string;
   const aGUIConfigIni: string): integer;
 var
-  aForm: TfrmCHXForm;
   aFrame: TfmEmutecaActAddSoft;
 begin
-  Result := mrNone;
+  aFrame := TfmEmutecaActAddSoft.Create(nil);
+  aFrame.SaveButtons := True;
+  aFrame.ButtonClose := True;
+  aFrame.Align := alClient;
 
-  Application.CreateForm(TfrmCHXForm, aForm);
-  try
-    aForm.Name := 'frmEmutecaActAddSoft';
-    aForm.Caption := Format(krsFmtWindowCaption,
-      [Application.Title, 'Add Software...']);
-    aForm.AutoSize := True;
+  aFrame.Emuteca := aEmuteca;
+  aFrame.fmSystemCBX.SelectedSystem := SelectedSystem;
+  // fmSystemCBX.SelectedSystem don't trigger SetSystem() callback.
+  aFrame.SelectSystem(SelectedSystem);
 
-    aFrame := TfmEmutecaActAddSoft.Create(aForm);
-    aFrame.SaveButtons := True;
-    aFrame.ButtonClose := True;
-    aFrame.Align := alClient;
-
-    aFrame.Emuteca := aEmuteca;
-    aFrame.fmSystemCBX.SelectedSystem := SelectedSystem;
-    // fmSystemCBX.SelectedSystem don't trigger SetSystem() callback.
-    aFrame.SelectSystem(SelectedSystem);
-
-    aForm.LoadGUIConfig(aGUIConfigIni);
-    aForm.LoadGUIIcons(aGUIIconsIni);
-    aFrame.Parent := aForm;
-
-    Result := aForm.ShowModal;
-  finally
-    aForm.Free;
-  end;
+  Result := GenSimpleModalForm(aFrame, 'frmEmutecaActAddSoft',
+  Format(krsFmtWindowCaption, [Application.Title, 'Add Software...']),
+  aGUIIconsIni, aGUIConfigIni);
 end;
 
 constructor TfmEmutecaActAddSoft.Create(TheOwner: TComponent);
@@ -563,10 +554,6 @@ begin
 
   Enabled := False;
 
-  OnClearFrameData := @DoClearFrameData;
-  OnLoadFrameData := @DoLoadFrameData;
-  OnSaveFrameData := @DoSaveFrameData;
-
   CreateFrames;
 
   FSoftware := cEmutecaSoftware.Create(nil);
@@ -578,4 +565,9 @@ begin
   inherited Destroy;
 end;
 
+initialization
+  RegisterClass(TfmEmutecaActAddSoft);
+
+finalization
+  UnRegisterClass(TfmEmutecaActAddSoft);
 end.

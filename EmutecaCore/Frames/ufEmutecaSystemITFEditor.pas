@@ -1,5 +1,26 @@
 unit ufEmutecaSystemITFEditor;
 
+ {< TfmEmutecaSystemITFEditor frame unit.
+
+  This file is part of Emuteca Core.
+
+  Copyright (C) 2011-2023 Chixpy
+
+  This source is free software; you can redistribute it and/or modify it
+  under the terms of the GNU General Public License as published by the Free
+  Software Foundation; either version 3 of the License, or (at your option)
+  any later version.
+
+  This code is distributed in the hope that it will be useful, but WITHOUT
+  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+  FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+  more details.
+
+  A copy of the GNU General Public License is available on the World Wide Web
+  at <http://www.gnu.org/copyleft/gpl.html>. You can also obtain it by
+  writing to the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+  Boston, MA 02111-1307, USA.
+}
 {$mode objfpc}{$H+}
 
 interface
@@ -29,13 +50,11 @@ type
     property fmImageFolders: TfmCHXMultiFolderEditor read FfmImageFolders;
     property fmTextFolders: TfmCHXMultiFolderEditor read FfmTextFolders;
 
-    procedure DoClearFrameData;
-    procedure DoLoadFrameData;
-    procedure DoSaveFrameData;
-
   public
     property System: cEmutecaSystem read FSystem write SetSystem;
 
+    procedure LoadFrameData; override;
+    procedure SaveFrameData; override;
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -57,10 +76,10 @@ begin
   begin
     fmImageFolders.FolderList := System.ImageFolders;
     fmImageFolders.CaptionList := System.ImageCaptions;
-    fmImageFolders.InitialFolder :=System.BaseFolder;
+    fmImageFolders.InitialFolder := System.BaseFolder;
     fmTextFolders.FolderList := System.TextFolders;
     fmTextFolders.CaptionList := System.TextCaptions;
-    fmTextFolders.InitialFolder :=System.BaseFolder;
+    fmTextFolders.InitialFolder := System.BaseFolder;
   end
   else
   begin
@@ -73,13 +92,10 @@ begin
   LoadFrameData;
 end;
 
-procedure TfmEmutecaSystemITFEditor.DoClearFrameData;
+procedure TfmEmutecaSystemITFEditor.LoadFrameData;
 begin
+  inherited LoadFrameData;
 
-end;
-
-procedure TfmEmutecaSystemITFEditor.DoLoadFrameData;
-begin
   Enabled := assigned(System);
 
   if not Enabled then
@@ -89,8 +105,10 @@ begin
   end;
 end;
 
-procedure TfmEmutecaSystemITFEditor.DoSaveFrameData;
+procedure TfmEmutecaSystemITFEditor.SaveFrameData;
 begin
+  inherited SaveFrameData;
+
   fmImageFolders.SaveFrameData;
   fmTextFolders.SaveFrameData;
 end;
@@ -116,10 +134,6 @@ begin
   inherited Create(TheOwner);
 
   CreateFrames;
-
-  OnClearFrameData := @DoClearFrameData;
-  OnLoadFrameData := @DoLoadFrameData;
-  OnSaveFrameData := @DoSaveFrameData;
 end;
 
 destructor TfmEmutecaSystemITFEditor.Destroy;
@@ -127,4 +141,9 @@ begin
   inherited Destroy;
 end;
 
+initialization
+  RegisterClass(TfmEmutecaSystemITFEditor);
+
+finalization
+  UnRegisterClass(TfmEmutecaSystemITFEditor);
 end.

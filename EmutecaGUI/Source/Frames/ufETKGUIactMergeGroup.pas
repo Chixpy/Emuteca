@@ -3,7 +3,7 @@ unit ufETKGUIactMergeGroup;
 
   This file is part of Emuteca GUI.
 
-  Copyright (C) 2011-2018 Chixpy
+  Copyright (C) 2011-2023 Chixpy
 
   This source is free software; you can redistribute it and/or modify it
   under the terms of the GNU General Public License as published by the Free
@@ -49,17 +49,17 @@ type
     gbxTarget: TGroupBox;
     lTargetFolder: TLabel;
     rgpFormat: TRadioGroup;
+
   private
     FGroup: cEmutecaGroup;
     procedure SetGroup(AValue: cEmutecaGroup);
 
   protected
-    procedure DoClearFrameData;
-    procedure DoLoadFrameData;
-    procedure DoSaveFrameData;
 
   public
     property Group: cEmutecaGroup read FGroup write SetGroup;
+
+    procedure SaveFrameData; override;
 
     // Creates a form with AddSoft frame.
     class function SimpleForm(aGroup: cEmutecaGroup; aGUIIconsIni: string;
@@ -81,20 +81,12 @@ begin
   FGroup:=AValue;
 end;
 
-procedure TfmETKGUIactMergeGroup.DoClearFrameData;
-begin
-
-end;
-
-procedure TfmETKGUIactMergeGroup.DoLoadFrameData;
-begin
-
-end;
-
-procedure TfmETKGUIactMergeGroup.DoSaveFrameData;
+procedure TfmETKGUIactMergeGroup.SaveFrameData;
 var
   i: integer;
 begin
+  inherited SaveFrameData;
+
   i := 0;
   while i < clbSourceFiles.Count do
   begin
@@ -103,7 +95,6 @@ begin
     if chkRemoveSource.Checked then ;
     // Remove Sourcefiles (If inside a zip/7z remove it too)
   end;
-
 end;
 
 class function TfmETKGUIactMergeGroup.SimpleForm(aGroup: cEmutecaGroup;
@@ -143,10 +134,6 @@ begin
   inherited Create(TheOwner);
 
   Enabled := False;
-
-  OnClearFrameData := @DoClearFrameData;
-  OnLoadFrameData := @DoLoadFrameData;
-  OnSaveFrameData := @DoSaveFrameData;
 end;
 
 destructor TfmETKGUIactMergeGroup.Destroy;
@@ -154,5 +141,10 @@ begin
   inherited Destroy;
 end;
 
+initialization
+  RegisterClass(TfmETKGUIactMergeGroup);
+
+finalization
+  UnRegisterClass(TfmETKGUIactMergeGroup);
 end.
 

@@ -4,7 +4,7 @@ unit ufEmutecaSoftTxtPreview;
 
   This file is part of Emuteca Core.
 
-  Copyright (C) 2018-2022 Chixpy
+  Copyright (C) 2018-2023 Chixpy
 
   This source is free software; you can redistribute it and/or modify it under
   the terms of the GNU General Public License as published by the Free
@@ -57,13 +57,13 @@ type
     procedure SetSaveTextFolder(const aSaveTextFolder: string);
 
   protected
-    procedure DoClearFrameData; override;
-
     procedure SaveTextToFile(aFile: string);
 
   public
     property SaveTextFolder: string read FSaveTextFolder
       write SetSaveTextFolder;
+
+    procedure ClearFrameData; override;
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -99,7 +99,7 @@ end;
 
 procedure TfmEmutecaSoftTxtPreview.actSaveFileExecute(Sender: TObject);
 begin
-  if (ItemIndex in [0..ItemCount-1]) then
+  if (ItemIndex in [0..ItemCount - 1]) then
   begin
     SaveTextToFile(FileList[ItemIndex]);
   end
@@ -115,9 +115,9 @@ begin
   Enabled := SaveTextFolder <> '';
 end;
 
-procedure TfmEmutecaSoftTxtPreview.DoClearFrameData;
+procedure TfmEmutecaSoftTxtPreview.ClearFrameData;
 begin
-  inherited DoClearFrameData;
+  inherited ClearFrameData;
 
   // Enabling buttons because a text can be added.
   Enabled := SaveTextFolder <> '';
@@ -170,4 +170,9 @@ begin
   inherited Destroy;
 end;
 
+initialization
+  RegisterClass(TfmEmutecaSoftTxtPreview);
+
+finalization
+  UnRegisterClass(TfmEmutecaSoftTxtPreview);
 end.

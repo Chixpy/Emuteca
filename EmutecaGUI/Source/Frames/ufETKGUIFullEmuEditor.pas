@@ -70,9 +70,9 @@ type
     property EmuParamsEditor: TfmEmutecaEmulatorAdvParamsEditor
       read FEmuParamsEditor;
 
-    procedure DoClearFrameData;
-    procedure DoLoadFrameData;
-    procedure DoSaveFrameData;
+    procedure ClearFrameData; override;
+    procedure LoadFrameData; override;
+    procedure SaveFrameData; override;
 
   public
     { public declarations }
@@ -126,14 +126,18 @@ begin
   //fmEmuImgEditor.SHA1Folder := SHA1Folder;
 end;
 
-procedure TfmETKGUIFullEmuEditor.DoClearFrameData;
+procedure TfmETKGUIFullEmuEditor.ClearFrameData;
 begin
+  inherited ClearFrameData;
+
   EmuEditor.ClearFrameData;
   EmuParamsEditor.ClearFrameData;
 end;
 
-procedure TfmETKGUIFullEmuEditor.DoLoadFrameData;
+procedure TfmETKGUIFullEmuEditor.LoadFrameData;
 begin
+  inherited LoadFrameData;
+
   Enabled := Assigned(Emulator);
 
   if not Enabled then
@@ -143,8 +147,10 @@ begin
   end;
 end;
 
-procedure TfmETKGUIFullEmuEditor.DoSaveFrameData;
+procedure TfmETKGUIFullEmuEditor.SaveFrameData;
 begin
+  inherited SaveFrameData;
+
   EmuEditor.SaveFrameData;
   EmuParamsEditor.SaveFrameData;
 end;
@@ -214,15 +220,17 @@ begin
   inherited Create(TheOwner);
 
   CreatePages;
-
-  OnClearFrameData := @DoClearFrameData;
-  OnLoadFrameData := @DoLoadFrameData;
-  OnSaveFrameData := @DoSaveFrameData;
 end;
 
 destructor TfmETKGUIFullEmuEditor.Destroy;
 begin
   inherited Destroy;
 end;
+
+initialization
+  RegisterClass(TfmETKGUIFullEmuEditor);
+
+finalization
+  UnRegisterClass(TfmETKGUIFullEmuEditor);
 
 end.

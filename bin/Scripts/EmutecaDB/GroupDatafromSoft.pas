@@ -28,6 +28,7 @@ begin
   if not assigned(aSystem) then
   begin
     WriteLn('No system was selected.');
+    Exit;
   end
   else
   begin

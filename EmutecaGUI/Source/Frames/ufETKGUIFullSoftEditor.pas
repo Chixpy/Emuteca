@@ -4,7 +4,7 @@ unit ufETKGUIFullSoftEditor;
 
   This file is part of Emuteca GUI.
 
-  Copyright (C) 2011-2022 Chixpy
+  Copyright (C) 2011-2023 Chixpy
 
   This source is free software; you can redistribute it and/or modify it
   under the terms of the GNU General Public License as published by the Free
@@ -69,10 +69,6 @@ type
 
     procedure SelectGroup(aGroup: cEmutecaGroup);
 
-    // procedure DoClearFrameData;
-    procedure DoLoadFrameData;
-    procedure DoSaveFrameData;
-
   public
     procedure ChangeSoftGroup(aGroup: cEmutecaGroup);
     {< Changes the group of the soft.
@@ -81,6 +77,9 @@ type
     }
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
+
+    procedure LoadFrameData; override;
+    procedure SaveFrameData; override;
 
     class function SimpleModalForm(aSoft: cEmutecaSoftware;
       NewTitle, aGUIConfigIni, aGUIIconsIni: string): integer;
@@ -197,8 +196,10 @@ begin
   fmGroupEditor.Group := aGroup;
 end;
 
-procedure TfmETKGUIFullSoftEditor.DoLoadFrameData;
+procedure TfmETKGUIFullSoftEditor.LoadFrameData;
 begin
+  inherited LoadFrameData;
+
   Enabled := Assigned(Software) or Assigned(Group);
 
   if not Enabled then
@@ -211,8 +212,10 @@ begin
   gbxSoft.Enabled := Assigned(Software);
 end;
 
-procedure TfmETKGUIFullSoftEditor.DoSaveFrameData;
+procedure TfmETKGUIFullSoftEditor.SaveFrameData;
 begin
+  inherited SaveFrameData;
+
   if Assigned(Software) and fmGroupEditor.chkSortMultigameTitles.Checked then
     fmSoftEditor.SaveFrameData;
 
@@ -272,10 +275,6 @@ begin
   inherited Create(TheOwner);
 
   CreateFrames;
-
-  // OnClearFrameData := @DoClearFrameData;
-  OnLoadFrameData := @DoLoadFrameData;
-  OnSaveFrameData := @DoSaveFrameData;
 end;
 
 destructor TfmETKGUIFullSoftEditor.Destroy;
@@ -311,4 +310,10 @@ begin
   // Autofreed? FreeAndNil(fmGroupEditor);
 end;
 
+initialization
+  RegisterClass(cEmutecaSystem);
+
+finalization
+  UnRegisterClass(cEmutecaSystem);
+  
 end.

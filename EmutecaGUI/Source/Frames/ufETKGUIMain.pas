@@ -139,10 +139,8 @@ type
     procedure DoSelectEmu(aEmulator: cEmutecaEmulator);
     //< Select a emulator
 
-    procedure DoClearFrameData;
-    procedure DoLoadFrameData;
-    procedure DoLoadGUIConfig(aIniFile: TIniFile);
-    procedure DoSaveGUIConfig(aIniFile: TIniFile);
+    procedure DoLoadGUIConfig(aIniFile: TIniFile); override;
+    procedure DoSaveGUIConfig(aIniFile: TIniFile); override;
 
   public
 
@@ -173,6 +171,8 @@ type
 
     property pmSoft: TPopupMenu read FpmSoft write SetpmSoft;
     property pmGroup: TPopupMenu read FpmGroup write SetpmGroup;
+
+    procedure LoadFrameData; override;
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -438,13 +438,11 @@ begin
     OnEmulatorChanged(aEmulator);
 end;
 
-procedure TfmETKGUIMain.DoClearFrameData;
-begin
-  // Nothing
-end;
 
-procedure TfmETKGUIMain.DoLoadFrameData;
+procedure TfmETKGUIMain.LoadFrameData;
 begin
+  inherited LoadFrameData;
+
   Enabled := Assigned(Emuteca) and Assigned(GUIConfig);
 
   if not Enabled then
@@ -461,6 +459,8 @@ end;
 
 procedure TfmETKGUIMain.DoLoadGUIConfig(aIniFile: TIniFile);
 begin
+  inherited DoLoadGUIConfig(aIniFile);
+
   pcLeft.Width := aIniFile.ReadInteger(krsIniMainFrameSection,
     krsIniMainFrameLeftPanelWidth, pcLeft.Width);
   pcSoftware.Width := aIniFile.ReadInteger(krsIniMainFrameSection,
@@ -469,6 +469,8 @@ end;
 
 procedure TfmETKGUIMain.DoSaveGUIConfig(aIniFile: TIniFile);
 begin
+  inherited DoSaveGUIConfig(aIniFile);
+
   aIniFile.WriteInteger(krsIniMainFrameSection, krsIniMainFrameLeftPanelWidth,
     pcLeft.Width);
   aIniFile.WriteInteger(krsIniMainFrameSection,
@@ -542,12 +544,6 @@ begin
   inherited Create(TheOwner);
 
   CreateFrames;
-
-  OnClearFrameData := @DoClearFrameData;
-  OnLoadFrameData := @DoLoadFrameData;
-
-  OnLoadGUIConfig := @DoLoadGUIConfig;
-  OnSaveGUIConfig := @DoSaveGUIConfig;
 end;
 
 destructor TfmETKGUIMain.Destroy;
@@ -555,4 +551,9 @@ begin
   inherited Destroy;
 end;
 
+initialization
+  RegisterClass(TfmETKGUIMain);
+
+finalization
+  UnRegisterClass(TfmETKGUIMain);
 end.

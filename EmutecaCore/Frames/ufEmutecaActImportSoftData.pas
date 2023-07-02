@@ -2,11 +2,9 @@ unit ufEmutecaActImportSoftData;
 
 {< TfmEmutecaActImportSoftData frame unit.
 
-  ----
-
   This file is part of Emuteca Core.
 
-  Copyright (C) 2006-2018 Chixpy
+  Copyright (C) 2006-2023 Chixpy
 
   This source is free software; you can redistribute it and/or modify it under
   the terms of the GNU General Public License as published by the Free
@@ -71,13 +69,13 @@ type
 
     property System: cEmutecaSystem read FSystem write SetSystem;
 
-    // procedure DoClearFrameData;
-    procedure DoLoadFrameData;
-    procedure DoSaveFrameData;
 
   public
     property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
     //< Emuteca
+
+    procedure LoadFrameData; override;
+    procedure SaveFrameData; override;
 
     class function SimpleForm(aEmuteca: cEmuteca;
       SelectedSystem: cEmutecaSystem;
@@ -165,8 +163,10 @@ begin
   LoadFrameData;
 end;
 
-procedure TfmEmutecaActImportSoftData.DoLoadFrameData;
+procedure TfmEmutecaActImportSoftData.LoadFrameData;
 begin
+  inherited LoadFrameData;
+
   Enabled := Assigned(Emuteca);
 
   if not Enabled then
@@ -176,10 +176,12 @@ begin
   end;
 end;
 
-procedure TfmEmutecaActImportSoftData.DoSaveFrameData;
+procedure TfmEmutecaActImportSoftData.SaveFrameData;
 var
   SysPBCB: TEmutecaProgressCallBack; // System PB Backup
 begin
+  inherited SaveFrameData;
+
   if (eImportFile.FileName = '') or (not assigned(System)) then
     Exit;
 
@@ -247,10 +249,6 @@ begin
 
   CreateFrames;
 
-  // OnClearFrameData := @DoClearFrameData;
-  OnLoadFrameData := @DoLoadFrameData;
-  OnSaveFrameData := @DoSaveFrameData;
-
   // Extension filter
   eImportFile.Filter := rsFileMaskDescSoft + '|' + krsFileMaskSoft;
 end;
@@ -260,4 +258,10 @@ begin
   inherited Destroy;
 end;
 
+initialization
+  RegisterClass(TfmEmutecaActImportSoftData);
+
+finalization
+  UnRegisterClass(TfmEmutecaActImportSoftData);
+  
 end.

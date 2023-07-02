@@ -1,4 +1,5 @@
 unit ufETKGUIEmuManager;
+
 {< TfmETKGUIEmuManager frame unit.
 
   ----
@@ -36,7 +37,7 @@ uses
   // CHX forms
   ufrCHXForm,
   // Emuteca Core units
-  uEmutecaConst,uEmutecaRscStr,
+  uEmutecaConst, uEmutecaRscStr,
   // Emuteca Core classes
   ucEmutecaEmulatorManager, ucEmutecaEmulator,
   // Emuteca GUI frames
@@ -74,15 +75,15 @@ type
     procedure SetCheckedAll(aBool: boolean); override;
 
   protected
-    procedure DoClearFrameData; override;
-    procedure DoLoadFrameData;
-    procedure DOSaveFrameData;
 
   public
     property EmuManager: cEmutecaEmulatorManager
       read FEmuManager write SetEmuManager;
 
     property SHA1Folder: string read FSHA1Folder write SetSHA1Folder;
+
+    procedure LoadFrameData; override;
+    procedure SaveFrameData; override;
 
     // Creates a form with Emulator Manager.
     class function SimpleForm(aEmuManager: cEmutecaEmulatorManager;
@@ -112,11 +113,6 @@ procedure TfmETKGUIEmuManager.SetSHA1Folder(AValue: string);
 begin
   FSHA1Folder := SetAsFolder(AValue);
   fmEmuEditor.SHA1Folder := SHA1Folder;
-end;
-
-procedure TfmETKGUIEmuManager.DoClearFrameData;
-begin
-  inherited ClearFrameData;
 end;
 
 procedure TfmETKGUIEmuManager.SetCheckedAll(aBool: boolean);
@@ -172,7 +168,8 @@ begin
 
   fmEmuEditor.Emulator := nil;
 
-  aEmulator := cEmutecaEmulator(clbPropItems.Items.Objects[clbPropItems.ItemIndex]);
+  aEmulator := cEmutecaEmulator(
+    clbPropItems.Items.Objects[clbPropItems.ItemIndex]);
   try
     // If already in enabled list remove here too.
     EmuManager.EnabledList.Remove(aEmulator);
@@ -207,18 +204,19 @@ begin
   EmuManager.ImportFromFile(OpenDialog1.FileName);
 end;
 
-procedure TfmETKGUIEmuManager.DoLoadFrameData;
+procedure TfmETKGUIEmuManager.LoadFrameData;
 var
   i: integer;
 begin
+  inherited LoadFrameData;
+
   Enabled := Assigned(EmuManager);
 
-
-    if not Enabled then
-    begin
-      ClearFrameData;
-      Exit;
-    end;
+  if not Enabled then
+  begin
+    ClearFrameData;
+    Exit;
+  end;
 
   clbPropItems.Clear;
   EmuManager.FullList.AssignToStrLst(clbPropItems.Items);
@@ -232,12 +230,14 @@ begin
   end;
 end;
 
-procedure TfmETKGUIEmuManager.DoSaveFrameData;
+procedure TfmETKGUIEmuManager.SaveFrameData;
 begin
+  inherited SaveFrameData;
+
   if not assigned(EmuManager) then
     Exit;
 
-   // Saving current system data
+  // Saving current system data
   if assigned(fmEmuEditor.Emulator) then fmEmuEditor.SaveFrameData;
 
   EmuManager.UpdateEnabledList;
@@ -250,9 +250,9 @@ var
   aForm: TfrmCHXForm;
   aFrame: TfmETKGUIEmuManager;
 begin
-    Result := mrNone;
+  Result := mrNone;
 
-      Application.CreateForm(TfrmCHXForm, aForm);
+  Application.CreateForm(TfrmCHXForm, aForm);
   try
     aForm.Name := 'frmETKGUIEmuManager';
     aForm.Caption := Format(krsFmtWindowCaption,
@@ -302,15 +302,17 @@ begin
   fmEmuEditor.ButtonClose := False;
   fmEmuEditor.Align := alClient;
   fmEmuEditor.Parent := Self;
-
-  OnClearFrameData := @DoClearFrameData;
-  OnLoadFrameData := @DoLoadFrameData;
-  OnSaveFrameData := @DoSaveFrameData;
 end;
 
 destructor TfmETKGUIEmuManager.Destroy;
 begin
   inherited Destroy;
 end;
+
+initialization
+  RegisterClass(TfmETKGUIEmuManager);
+
+finalization
+  UnRegisterClass(TfmETKGUIEmuManager);
 
 end.

@@ -4,7 +4,7 @@ unit ufETKGUIFullSysEditor;
 
   This file is part of Emuteca GUI.
 
-  Copyright (C) 2011-2018 Chixpy
+  Copyright (C) 2011-2023 Chixpy
 
   This source is free software; you can redistribute it and/or modify it
   under the terms of the GNU General Public License as published by the Free
@@ -79,16 +79,14 @@ type
     property fmSysITFEditor: TfmEmutecaSystemITFEditor read FfmSysITFEditor;
     property fmSysMVFEditor: TfmEmutecaSystemMVFEditor read FfmSysMVFEditor;
 
-    procedure DoClearFrameData;
-    procedure DoLoadFrameData;
-    procedure DOSaveFrameData;
-
-
   public
     property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
     property System: cEmutecaSystem read FSystem write SetSystem;
 
     property SHA1Folder: string read FSHA1Folder write SetSHA1Folder;
+
+    procedure LoadFrameData; override;
+    procedure SaveFrameData;  override;
 
     class function SimpleModalForm(aEmuteca: cEmuteca;
       aSystem: cEmutecaSystem; aSHA1Folder: string; aGUIIconsIni: string;
@@ -285,12 +283,10 @@ begin
   LoadFrameData;
 end;
 
-procedure TfmETKGUIFullSystemEditor.DoClearFrameData;
+procedure TfmETKGUIFullSystemEditor.SaveFrameData;
 begin
-end;
+  inherited SaveFrameData;
 
-procedure TfmETKGUIFullSystemEditor.DOSaveFrameData;
-begin
   fmSysEditor.SaveFrameData;
   fmSysImgEditor.SaveFrameData;
   fmSysITFEditor.SaveFrameData;
@@ -337,8 +333,10 @@ begin
   end;
 end;
 
-procedure TfmETKGUIFullSystemEditor.DoLoadFrameData;
+procedure TfmETKGUIFullSystemEditor.LoadFrameData;
 begin
+  inherited LoadFrameData;
+
   Enabled := Assigned(Emuteca) and Assigned(System);
 
   if not Enabled then
@@ -391,15 +389,18 @@ begin
   inherited Create(TheOwner);
 
   CreatePages;
-
-  OnClearFrameData := @DoClearFrameData;
-  OnLoadFrameData := @DoLoadFrameData;
-  OnSaveFrameData := @DoSaveFrameData;
 end;
 
 destructor TfmETKGUIFullSystemEditor.Destroy;
 begin
   inherited Destroy;
 end;
+
+initialization
+  RegisterClass(TfmETKGUIFullSystemEditor);
+
+finalization
+  UnRegisterClass(TfmETKGUIFullSystemEditor);
+
 
 end.

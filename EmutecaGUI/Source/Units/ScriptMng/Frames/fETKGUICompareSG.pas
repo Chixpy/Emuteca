@@ -81,15 +81,14 @@ type
     property fmSGEditorLeft: TfmETKGUIFullSoftEditor read FfmSGEditorLeft;
     property fmSGEditorRight: TfmETKGUIFullSoftEditor read FfmSGEditorRight;
 
-    procedure DoClearFrameData;
-    procedure DoLoadFrameData;
-    // procedure DoSaveFrameData;
-
     procedure MergeGroups(SourceGroup, TargetGroup: cEmutecaGroup);
 
   public
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
+
+    procedure ClearFrameData; override;
+    procedure LoadFrameData; override;
 
     class function SimpleModalForm(aSG1, aSG2: caEmutecaCustomSGItem;
       aGUIConfigIni, aGUIIconsIni: string): integer;
@@ -161,13 +160,15 @@ begin
   LoadFrameData;
 end;
 
-procedure TfmETKGUICompareSG.DoClearFrameData;
+procedure TfmETKGUICompareSG.ClearFrameData;
 begin
+  inherited ClearFrameData;
+
   fmSGEditorLeft.Group := nil;
   fmSGEditorRight.Group := nil;
 end;
 
-procedure TfmETKGUICompareSG.DoLoadFrameData;
+procedure TfmETKGUICompareSG.LoadFrameData;
 
   procedure AssignSGItem(aFrame: TfmETKGUIFullSoftEditor;
     aSG: caEmutecaCustomSGItem; CountLabel: TLabel);
@@ -213,6 +214,8 @@ procedure TfmETKGUICompareSG.DoLoadFrameData;
   end;
 
 begin
+  inherited LoadFrameData;
+
   Enabled := Assigned(SGLeft) and Assigned(SGRight) and (SGLeft <> SGRight);
 
   if not Enabled then
@@ -268,10 +271,6 @@ begin
   inherited Create(TheOwner);
 
   CreateFrames;
-
-  OnClearFrameData := @DoClearFrameData;
-  OnLoadFrameData := @DoLoadFrameData;
-  //OnSaveFrameData := @DoSaveFrameData;
 end;
 
 destructor TfmETKGUICompareSG.Destroy;
@@ -301,4 +300,10 @@ begin
     aGUIConfigIni, aGUIIconsIni);
 end;
 
+initialization
+  RegisterClass(TfmETKGUICompareSG);
+
+finalization
+  UnRegisterClass(TfmETKGUICompareSG);
+  
 end.

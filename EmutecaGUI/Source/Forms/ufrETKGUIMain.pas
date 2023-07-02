@@ -307,7 +307,7 @@ type
     procedure DoChangeGrpList(aGroupList: cEmutecaGroupList);
 
     procedure DoLoadGUIIcons(aIniFile: TIniFile;
-      const aBaseFolder: string); virtual;
+      const aBaseFolder: string); override;
 
 
   public
@@ -1479,6 +1479,7 @@ end;
 procedure TfrmETKGUIMain.DoLoadGUIIcons(aIniFile: TIniFile;
   const aBaseFolder: string);
 begin
+  inherited DoLoadGUIIcons(aIniFile, aBaseFolder);
   // Icons for TActions
   ReadActionsIconsIni(aIniFile, aBaseFolder, Name, ActImages, ActionList);
 
@@ -1491,8 +1492,6 @@ end;
 constructor TfrmETKGUIMain.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
-
-  OnLoadGUIIcons := @DoLoadGUIIcons;
 end;
 
 destructor TfrmETKGUIMain.Destroy;
@@ -1500,4 +1499,9 @@ begin
   inherited Destroy;
 end;
 
+initialization
+  RegisterClass(TfrmETKGUIMain);
+
+finalization
+  UnRegisterClass(TfrmETKGUIMain);
 end.

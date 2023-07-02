@@ -123,9 +123,9 @@ type
     procedure UpdateChildrenSoft(aComponent: TComponent);
     //< Updates soft of all media panels.
 
-    procedure DoLoadGUIConfig(aIniFile: TIniFile);
-    procedure DoSaveGUIConfig(aIniFile: TIniFile);
-    procedure DoLoadGUIIcons(aIconsIni: TIniFile; const aBaseFolder: string);
+    procedure DoLoadGUIConfig(aIniFile: TIniFile); override;
+    procedure DoSaveGUIConfig(aIniFile: TIniFile); override;
+    procedure DoLoadGUIIcons(aIconsIni: TIniFile; const aBaseFolder: string); override;
 
   public
     property Software: cEmutecaSoftware read FSoftware write SetSoftware;
@@ -435,6 +435,8 @@ var
   PanelType, PanelCaption: string;
   aPanel: TfmaETKGUISoftFoldersPreview;
 begin
+  inherited DoLoadGUIConfig(aIniFile);
+
   pIconLogo.Height := aIniFile.ReadInteger(krsIniSoftMediaFrameSection,
     krsIniSoftIconLogoPanelHeight, pIconLogo.Height);
 
@@ -486,6 +488,8 @@ var
   i, j: integer;
   aPreview: TComponent;
 begin
+  inherited DoSaveGUIConfig(aIniFile);
+
   aIniFile.WriteInteger(krsIniSoftMediaFrameSection,
     krsIniSoftIconLogoPanelHeight, pIconLogo.Height);
 
@@ -530,6 +534,8 @@ end;
 procedure TfmETKGUISoftMedia.DoLoadGUIIcons(aIconsIni: TIniFile;
   const aBaseFolder: string);
 begin
+  inherited DoLoadGUIIcons(aIconsIni, aBaseFolder);
+
   ReadActionsIconsIni(aIconsIni, aBaseFolder, Self.Name,
     ilMediaPanel, alMediaPanel);
 end;
@@ -540,10 +546,6 @@ begin
 
   // This frame can be enabled while empty to add frames and add/delete frames
   Enabled := True;
-
-  OnLoadGUIConfig := @DoLoadGUIConfig;
-  OnSaveGUIConfig := @DoSaveGUIConfig;
-  OnLoadGUIIcons := @DoLoadGUIIcons;
 end;
 
 destructor TfmETKGUISoftMedia.Destroy;
@@ -551,4 +553,9 @@ begin
   inherited Destroy;
 end;
 
+initialization
+  RegisterClass(TfmETKGUISoftMedia);
+
+finalization
+  UnRegisterClass(TfmETKGUISoftMedia);
 end.

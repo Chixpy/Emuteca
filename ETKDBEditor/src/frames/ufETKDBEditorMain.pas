@@ -1,4 +1,5 @@
 unit ufETKDBEditorMain;
+
 {< Main frame of ETK DB Editor.
 
   This file is part of Emuteca.
@@ -25,10 +26,11 @@ unit ufETKDBEditorMain;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, Grids, Menus, ActnList,
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, Grids,
+  Menus, ActnList,
   ComCtrls, StdActns, ExtCtrls, Buttons, StdCtrls, LazFileUtils,
   // CHX units
-  uCHXStrUtils,
+  uCHXRscStr, uCHXStrUtils,
   // CHX frames
   ufCHXFrame,
   // Emuteca Core units
@@ -61,18 +63,18 @@ type
     procedure actSaveFileAccept(Sender: TObject);
     procedure actSaveFileBeforeExecute(Sender: TObject);
     procedure chkFastEditModeChange(Sender: TObject);
+
   private
     FCurrFile: string;
     procedure SetCurrFile(AValue: string);
 
   protected
 
-    procedure DoClearFrameData;
-    procedure DoLoadFrameData;
-
   public
+    procedure ClearFrameData; override;
+    procedure LoadFrameData; override;
 
-  constructor Create(TheOwner: TComponent); override;
+    constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
 
   published
@@ -97,7 +99,8 @@ begin
   if CurrFile <> '' then
   begin
     actOpenFile.Dialog.FileName := SysPath(CurrFile);
-    actOpenFile.Dialog.InitialDir := ExtractFileDir(actOpenFile.Dialog.FileName);
+    actOpenFile.Dialog.InitialDir :=
+      ExtractFileDir(actOpenFile.Dialog.FileName);
   end;
 end;
 
@@ -147,18 +150,25 @@ begin
   LoadFrameData;
 end;
 
-procedure TfmETKDBEditor.DoClearFrameData;
+procedure TfmETKDBEditor.ClearFrameData;
 begin
+  inherited ClearFrameData;
+
   sgMain.Clear;
+  sbMain.SimpleText := '';
 end;
 
-procedure TfmETKDBEditor.DoLoadFrameData;
+procedure TfmETKDBEditor.LoadFrameData;
 begin
-  ClearFrameData;
+  inherited LoadFrameData;
 
   sgMain.Enabled := FileExistsUTF8(CurrFile);
 
-  if not Enabled then Exit;
+  if not sgMain.Enabled then
+  begin
+    ClearFrameData;
+    Exit;
+  end;
 
   sgMain.LoadFromCSVFile(CurrFile);
   sgMain.FixedRows := 1;
@@ -170,11 +180,9 @@ constructor TfmETKDBEditor.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
 
-  OnLoadFrameData := @DoLoadFrameData;
-  OnClearFrameData := @DoClearFrameData;
-
-  actOpenFile.Dialog.Filter := 'Emuteca DBs|' + krsFileMaskGroup + ';' +
-    krsFileMaskSoft + '|All Files|*.*';
+  actOpenFile.Dialog.Filter :=
+    'Emuteca DBs|' + krsFileMaskGroup + ';' + krsFileMaskSoft +
+    '|All Files|*.*';
   actSaveFile.Dialog.Filter := actOpenFile.Dialog.Filter;
 
   Enabled := True;
@@ -182,8 +190,12 @@ end;
 
 destructor TfmETKDBEditor.Destroy;
 begin
+  if FileExistsUTF8(CurrFile) and
+    (mrYes = MessageDlg(rsSaveChangesCaption, rsSaveChanges,
+    mtConfirmation, [mbYes, mbNo], '')) then
+    sgMain.SaveToCSVFile(CurrFile);
+
   inherited Destroy;
 end;
 
 end.
-

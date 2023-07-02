@@ -1,9 +1,10 @@
 unit ufETKGUISysManager;
+
 {< TfmETKGUISysManager frame unit.
 
   This file is part of Emuteca GUI.
 
-  Copyright (C) 2006-2018 Chixpy
+  Copyright (C) 2006-2023 Chixpy
 
   This source is free software; you can redistribute it and/or modify it under
   the terms of the GNU General Public License as published by the Free
@@ -42,7 +43,7 @@ uses
 
 resourcestring
   rsSystemNameModel = 'System name [Company: Model (extra)].';
-  {< Title of Add System dialog}
+{< Title of Add System dialog}
 
 type
   { TfmETKGUISysManager }
@@ -72,10 +73,6 @@ type
     procedure OnListClickCheck(aObject: TObject; aBool: boolean); override;
     procedure SetCheckedAll(aBool: boolean); override;
 
-    procedure DoClearFrameData; override;
-    procedure DoLoadFrameData;
-    procedure DoSaveFrameData;
-
   public
     property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
     //< Needed by fmSysEditor.
@@ -86,10 +83,14 @@ type
       aGUIIconsIni: string; aGUIConfigIni: string): integer;
     //< Creates a form with System Manager frame.
 
+    procedure LoadFrameData; override;
+    procedure SaveFrameData; override;
+
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
   end;
-  {< Frame for System Manager. }
+
+{< Frame for System Manager. }
 
 
 implementation
@@ -97,12 +98,6 @@ implementation
 {$R *.lfm}
 
 { TfmETKGUISysManager }
-
-procedure TfmETKGUISysManager.DoClearFrameData;
-begin
-  inherited ClearFrameData;
-end;
-
 procedure TfmETKGUISysManager.SetCheckedAll(aBool: boolean);
 begin
   // DO NOTHING, ENABLING SYSTEMS IS DONE ON SAVING LIST TO TEST
@@ -210,10 +205,12 @@ begin
   Emuteca.SystemManager.ImportFromFile(OpenDialog1.FileName);
 end;
 
-procedure TfmETKGUISysManager.DoLoadFrameData;
+procedure TfmETKGUISysManager.LoadFrameData;
 var
   i: integer;
 begin
+  inherited LoadFrameData;
+
   Enabled := assigned(Emuteca);
 
   if not Enabled then
@@ -233,12 +230,14 @@ begin
   end;
 end;
 
-procedure TfmETKGUISysManager.DoSaveFrameData;
+procedure TfmETKGUISysManager.SaveFrameData;
 var
   i: integer;
   aSystem: cEmutecaSystem;
   aPBCB: TEmutecaProgressCallBack;
 begin
+  inherited SaveFrameData;
+
   if not assigned(Emuteca) then
     Exit;
 
@@ -268,9 +267,9 @@ begin
         // Saving soft of previously enabled systems ...
         // ... if not loaded its not saved
 
-          Emuteca.SystemManager.SaveSystemData(aSystem, True);
-          // Unloading System Data
-          aSystem.UnloadSoftGroupLists;
+        Emuteca.SystemManager.SaveSystemData(aSystem, True);
+        // Unloading System Data
+        aSystem.UnloadSoftGroupLists;
       end
       else
       begin
@@ -288,42 +287,25 @@ begin
   end;
   fmProgressBar.Finish;
 
-
   Emuteca.SystemManager.UpdateEnabledList;
 end;
 
 class function TfmETKGUISysManager.SimpleForm(aEmuteca: cEmuteca;
   aSHA1Folder: string; aGUIIconsIni: string; aGUIConfigIni: string): integer;
 var
-  aForm: TfrmCHXForm;
   aFrame: TfmETKGUISysManager;
 begin
-  // TODO: Use TfmCHXFrame.GenSimpleModalForm
+  aFrame := TfmETKGUISysManager.Create(nil);
+  aFrame.SaveButtons := True;
+  aFrame.ButtonClose := True;
+  aFrame.Align := alClient;
 
-  Result := mrNone;
+  aFrame.SHA1Folder := aSHA1Folder;
+  aFrame.Emuteca := aEmuteca;
 
-  Application.CreateForm(TfrmCHXForm, aForm);
-  try
-    aForm.Name := 'frmETKGUISysManager';
-    aForm.Caption := Format(krsFmtWindowCaption,
-      [Application.Title, 'System Manager']);
-
-    aFrame := TfmETKGUISysManager.Create(aForm);
-    aFrame.SaveButtons := True;
-    aFrame.ButtonClose := True;
-    aFrame.Align := alClient;
-
-    aFrame.SHA1Folder := aSHA1Folder;
-    aFrame.Emuteca := aEmuteca;
-
-    aForm.LoadGUIConfig(aGUIConfigIni);
-    aForm.LoadGUIIcons(aGUIIconsIni);
-    aFrame.Parent := aForm;
-
-    Result := aForm.ShowModal;
-  finally
-    aForm.Free;
-  end;
+  Result := GenSimpleModalForm(aFrame, 'frmETKGUISysManager',
+    Format(krsFmtWindowCaption, [Application.Title, 'System Manager']),
+    aGUIIconsIni, aGUIConfigIni);
 end;
 
 constructor TfmETKGUISysManager.Create(TheOwner: TComponent);
@@ -337,16 +319,16 @@ begin
   fmSysEditor.Parent := Self;
 
   FfmProgressBar := TfmCHXProgressBar.SimpleForm('');
-
-  OnClearFrameData := @DoClearFrameData;
-  OnLoadFrameData := @DoLoadFrameData;
-  OnSaveFrameData := @DoSaveFrameData;
 end;
 
 destructor TfmETKGUISysManager.Destroy;
 begin
-
   inherited Destroy;
 end;
 
+initialization
+  RegisterClass(TfmETKGUISysManager);
+
+finalization
+  UnRegisterClass(TfmETKGUISysManager);
 end.

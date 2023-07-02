@@ -4,7 +4,7 @@ unit ufEmutecaSoftImgPreview;
 
   This file is part of Emuteca GUI.
 
-  Copyright (C) 2018-2018 Chixpy
+  Copyright (C) 2018-2023 Chixpy
 
   This source is free software; you can redistribute it and/or modify it under
   the terms of the GNU General Public License as published by the Free
@@ -54,14 +54,14 @@ type
     procedure SetSaveImageFolder(const aSaveImageFolder: string);
 
   protected
-    procedure DoClearFrameData; override;
-
     function LoadImageFromClpBrd: boolean;
     procedure SaveImageToFile(aFile: string);
 
   public
     property SaveImageFolder: string read FSaveImageFolder
       write SetSaveImageFolder;
+
+    procedure ClearFrameData; override;
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -129,9 +129,9 @@ begin
   Enabled := SaveImageFolder <> '';
 end;
 
-procedure TfmEmutecaSoftImgPreview.DoClearFrameData;
+procedure TfmEmutecaSoftImgPreview.ClearFrameData;
 begin
-  inherited DoClearFrameData;
+  inherited ClearFrameData;
 
   // Enabling buttons because a image can be added.
   Enabled := SaveImageFolder <> '';

@@ -4,7 +4,7 @@ unit ufEmutecaSoftTree;
 
   This file is part of Emuteca Core.
 
-  Copyright (C) 2006-2018 Chixpy
+  Copyright (C) 2006-2023 Chixpy
 
   This source is free software; you can redistribute it and/or modify it under
   the terms of the GNU General Public License as published by the Free
@@ -113,10 +113,8 @@ type
       Node: PVirtualNode; Data: Pointer; var Abort: boolean);
     {< Callback for IterateSubtree, sets node height to default (changed) one.}
 
-    procedure DoClearFrameData;
-    procedure DoLoadFrameData;
-    procedure DoLoadGUIConfig(aIniFile: TIniFile); virtual;
-    procedure DoSaveGUIConfig(aIniFile: TIniFile); virtual;
+    procedure DoLoadGUIConfig(aIniFile: TIniFile); override;
+    procedure DoSaveGUIConfig(aIniFile: TIniFile); override;
 
   public
     property GroupList: cEmutecaGroupList read FGroupList write SetGroupList;
@@ -144,6 +142,10 @@ type
     {< PopUp menu used when RClick on a software. }
     property pmGroup: TPopupMenu read FpmGroup write SetpmGroup;
     {< PopUp menu used when RClick on a group. }
+
+    procedure ClearFrameData; override;
+    procedure LoadFrameData; override;
+
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -585,14 +587,14 @@ begin
     Exit;
 
   if pData1^ is cEmutecaGroup then
-   aGroup1 := cEmutecaGroup(pData1^)
+    aGroup1 := cEmutecaGroup(pData1^)
   else if pData1^ is cEmutecaSoftware then
     aGroup1 := cEmutecaGroup(cEmutecaSoftware(pData1^).CachedGroup)
   else
     Exit;
 
   if pData2^ is cEmutecaGroup then
-   aGroup2 := cEmutecaGroup(pData2^)
+    aGroup2 := cEmutecaGroup(pData2^)
   else if pData2^ is cEmutecaSoftware then
     aGroup2 := cEmutecaGroup(cEmutecaSoftware(pData2^).CachedGroup)
   else
@@ -931,15 +933,19 @@ begin
   Sender.NodeHeight[Node] := VDT.DefaultNodeHeight;
 end;
 
-procedure TfmEmutecaSoftTree.DoClearFrameData;
+procedure TfmEmutecaSoftTree.ClearFrameData;
 begin
+  inherited ClearFrameData;
+
   VDT.Clear;
   VDT.RootNodeCount := 0;
   UpdateSBNodeCount;
 end;
 
-procedure TfmEmutecaSoftTree.DoLoadFrameData;
+procedure TfmEmutecaSoftTree.LoadFrameData;
 begin
+  inherited LoadFrameData;
+
   Enabled := assigned(GroupList);
 
   if not Enabled then
@@ -958,17 +964,17 @@ constructor TfmEmutecaSoftTree.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
   VDT.NodeDataSize := SizeOf(TObject);
-
-  OnClearFrameData := @DoClearFrameData;
-  OnLoadFrameData := @DoLoadFrameData;
-
-  OnLoadGUIConfig := @DoLoadGUIConfig;
-  OnSaveGUIConfig := @DoSaveGUIConfig;
 end;
 
 destructor TfmEmutecaSoftTree.Destroy;
 begin
   inherited Destroy;
 end;
+
+initialization
+  RegisterClass(TfmEmutecaSoftTree);
+
+finalization
+  UnRegisterClass(TfmEmutecaSoftTree);
 
 end.

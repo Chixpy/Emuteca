@@ -29,12 +29,12 @@ type
     property fmMusicFolders: TfmCHXMultiFolderEditor read FfmMusicFolders;
     property fmVideoFolders: TfmCHXMultiFolderEditor read FfmVideoFolders;
 
-    procedure DoClearFrameData;
-    procedure DoLoadFrameData;
-    procedure DoSaveFrameData;
 
   public
     property System: cEmutecaSystem read FSystem write SetSystem;
+
+    procedure LoadFrameData; override;
+    procedure SaveFrameData;  override;
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -72,12 +72,10 @@ begin
   LoadFrameData;
 end;
 
-procedure TfmEmutecaSystemMVFEditor.DoClearFrameData;
+procedure TfmEmutecaSystemMVFEditor.LoadFrameData;
 begin
-end;
+  inherited LoadFrameData;
 
-procedure TfmEmutecaSystemMVFEditor.DoLoadFrameData;
-begin
   Enabled := assigned(System);
 
   if not Enabled then
@@ -87,8 +85,10 @@ begin
   end;
 end;
 
-procedure TfmEmutecaSystemMVFEditor.DoSaveFrameData;
+procedure TfmEmutecaSystemMVFEditor.SaveFrameData;
 begin
+  inherited SaveFrameData;
+
   fmMusicFolders.SaveFrameData;
   fmVideoFolders.SaveFrameData;
 end;
@@ -114,15 +114,17 @@ begin
   inherited Create(TheOwner);
 
   CreateFrames;
-
-  OnClearFrameData := @DoClearFrameData;
-  OnLoadFrameData := @DoLoadFrameData;
-  OnSaveFrameData := @DoSaveFrameData;
 end;
 
 destructor TfmEmutecaSystemMVFEditor.Destroy;
 begin
   inherited Destroy;
 end;
+
+initialization
+  RegisterClass(TfmEmutecaSystemMVFEditor);
+
+finalization
+  UnRegisterClass(TfmEmutecaSystemMVFEditor);
 
 end.

@@ -2248,6 +2248,14 @@ msgstr ""
 msgid "Renaming file"
 msgstr ""
 
+#: uchxrscstr.rssavechanges
+msgid "Do you want to save current changes?"
+msgstr ""
+
+#: uchxrscstr.rssavechangescaption
+msgid "Save changes"
+msgstr ""
+
 #: uemutecarscstr.rschooseimagefileformat
 msgid ""
 "Do you want to save it in a lossless format?\n"
@@ -2584,10 +2592,6 @@ msgstr ""
 msgid "Zones"
 msgstr ""
 
-#: ufchxchklstpropeditor.rsleclpesavelist
-msgid "Save list"
-msgstr ""
-
 #: ufchximglistpreview.rsimageprops
 #, object-pascal-format
 msgid "%2:s: %0:d x %1:d"
@@ -2640,16 +2644,6 @@ msgstr ""
 
 #: ufchxscriptmanager.rsfsmscriptfilemaskdesc
 msgid "Pascal script file"
-msgstr ""
-
-#: ufemutecasystemcbx.rsallsystems
-msgctxt "ufemutecasystemcbx.rsallsystems"
-msgid "All Systems"
-msgstr ""
-
-#: ufemutecasystemcbx.rsselectsystem
-msgctxt "ufemutecasystemcbx.rsselectsystem"
-msgid "Select a System"
 msgstr ""
 
 #: ufemutecatagtree.rsaskdelete

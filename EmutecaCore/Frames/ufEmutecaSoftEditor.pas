@@ -4,7 +4,7 @@ unit ufEmutecaSoftEditor;
 
   This file is part of Emuteca Core.
 
-  Copyright (C) 2011-2020 Chixpy
+  Copyright (C) 2011-2023 Chixpy
 
   This source is free software; you can redistribute it and/or modify it
   under the terms of the GNU General Public License as published by the Free
@@ -76,11 +76,11 @@ type
     procedure SetSoftware(AValue: cEmutecaSoftware);
 
   protected
-    procedure DoClearFrameData;
-    procedure DoLoadFrameData;
-    procedure DoSaveFrameData;
 
   public
+    procedure ClearFrameData; override;
+    procedure LoadFrameData; override;
+    procedure SaveFrameData; override;
 
     procedure FPOObservedChanged(ASender: TObject;
       Operation: TFPObservedOperation; Data: Pointer);
@@ -115,8 +115,10 @@ begin
   LoadFrameData;
 end;
 
-procedure TfmEmutecaSoftEditor.DoClearFrameData;
+procedure TfmEmutecaSoftEditor.ClearFrameData;
 begin
+  inherited ClearFrameData;
+
   eTitle.Clear;
   eSortKey.Clear;
 
@@ -141,10 +143,12 @@ begin
   mExtraParameters.Clear;
 end;
 
-procedure TfmEmutecaSoftEditor.DoLoadFrameData;
+procedure TfmEmutecaSoftEditor.LoadFrameData;
 var
   i: integer;
 begin
+  inherited LoadFrameData;
+
   Enabled := assigned(Software);
 
   if not Enabled then
@@ -184,8 +188,10 @@ begin
 
 end;
 
-procedure TfmEmutecaSoftEditor.DoSaveFrameData;
+procedure TfmEmutecaSoftEditor.SaveFrameData;
 begin
+  inherited SaveFrameData;
+
   if not assigned(Software) then
     Exit;
 
@@ -238,10 +244,6 @@ var
 begin
   inherited Create(TheOwner);
 
-  OnClearFrameData := @DoClearFrameData;
-  OnLoadFrameData := @DoLoadFrameData;
-  OnSaveFrameData := @DoSaveFrameData;
-
   // Adding DumpTypes
   for i in EmutecaDumpStatusStr do
     cbxDumpType.AddItem(i, nil);
@@ -256,4 +258,10 @@ begin
   inherited Destroy;
 end;
 
+initialization
+  RegisterClass(TfmEmutecaSoftEditor);
+
+finalization
+  UnRegisterClass(TfmEmutecaSoftEditor);
+  
 end.

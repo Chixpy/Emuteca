@@ -4,9 +4,9 @@ inherited fmEmutecaSystemITFEditor: TfmEmutecaSystemITFEditor
   end
   object gbxImageFolders: TGroupBox[1]
     Left = 0
-    Height = 54
+    Height = 99
     Top = 0
-    Width = 320
+    Width = 400
     Align = alClient
     Caption = 'Image Folders'
     TabOrder = 0
@@ -15,16 +15,16 @@ inherited fmEmutecaSystemITFEditor: TfmEmutecaSystemITFEditor
     Cursor = crVSplit
     Left = 0
     Height = 5
-    Top = 54
-    Width = 320
+    Top = 103
+    Width = 400
     Align = alBottom
     ResizeAnchor = akBottom
   end
   object gbxTextFolders: TGroupBox[3]
     Left = 0
     Height = 154
-    Top = 59
-    Width = 320
+    Top = 112
+    Width = 400
     Align = alBottom
     Caption = 'Text Folders'
     TabOrder = 1

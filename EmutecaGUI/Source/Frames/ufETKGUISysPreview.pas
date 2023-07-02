@@ -1,8 +1,6 @@
 unit ufETKGUISysPreview;
 {< TfmETKGUISysPreview frame unit.
 
-  ----
-
   This file is part of Emuteca GUI.
 
   Copyright (C) 2011-2017 Chixpy
@@ -92,11 +90,8 @@ type
     property GUIIconsIni: string read FGUIIconsIni write SetGUIIconsIni;
     property GUIConfigIni: string read FGUIConfigIni write SetGUIConfigIni;
 
-    procedure DoClearFrameData;
-    procedure DoLoadFrameData;
-
-    procedure DoLoadGUIConfig(aIniFile: TIniFile);
-    procedure DoLoadGUIIcons(aIconsIni: TIniFile; const aBaseFolder: string);
+    procedure DoLoadGUIConfig(aIniFile: TIniFile); override;
+    procedure DoLoadGUIIcons(aIconsIni: TIniFile; const aBaseFolder: string); override;
 
   public
     property System: cEmutecaSystem read FSystem write SetSystem;
@@ -108,6 +103,9 @@ type
     property OnChangeEmulator: TEmutecaReturnEmulatorCB
       read FOnChangeEmulator write SetOnChangeEmulator;
     {< Callback when selecting an emulator. }
+
+      procedure ClearFrameData; override;
+    procedure LoadFrameData; override;
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -149,6 +147,8 @@ end;
 procedure TfmETKGUISysPreview.DoLoadGUIIcons(aIconsIni: TIniFile;
   const aBaseFolder: string);
 begin
+  inherited DoLoadGUIIcons(aIconsIni, aBaseFolder);
+
   GUIIconsIni := aIconsIni.FileName;
   ReadActionsIconsIni(aIconsIni, aBaseFolder, Self.Name,
     ilActions, ActionList);
@@ -170,12 +170,6 @@ begin
   inherited Create(TheOwner);
 
   CreateFrames;
-
-  OnClearFrameData := @DoClearFrameData;
-  OnLoadFrameData := @DoLoadFrameData;
-
-  OnLoadGUIIcons := @DoLoadGUIIcons;
-  OnLoadGUIConfig := @DoLoadGUIConfig;
 end;
 
 destructor TfmETKGUISysPreview.Destroy;
@@ -234,8 +228,10 @@ begin
   FOnChangeEmulator := aOnSelectEmulator;
 end;
 
-procedure TfmETKGUISysPreview.DoClearFrameData;
+procedure TfmETKGUISysPreview.ClearFrameData;
 begin
+  inherited ClearFrameData;
+
   SysImage.Picture.Clear;
 
   lSystemTitle.Caption := 'System';
@@ -251,8 +247,10 @@ begin
   eEmuLastTime.Clear;
 end;
 
-procedure TfmETKGUISysPreview.DoLoadFrameData;
+procedure TfmETKGUISysPreview.LoadFrameData;
 begin
+  inherited LoadFrameData;
+
   Enabled := Assigned(System);
 
   if not Enabled then
@@ -282,7 +280,14 @@ end;
 
 procedure TfmETKGUISysPreview.DoLoadGUIConfig(aIniFile: TIniFile);
 begin
+  inherited DoLoadGUIConfig(aIniFile);
+
   GUIConfigIni := aIniFile.FileName;
 end;
 
+initialization
+  RegisterClass(TfmETKGUISysPreview);
+
+finalization
+  UnRegisterClass(TfmETKGUISysPreview);
 end.

@@ -1,36 +1,24 @@
 inherited fmETKGUIEmuManager: TfmETKGUIEmuManager
   inherited pPropChkList: TPanel
-    Height = 522
-    ClientHeight = 522
     inherited tbPropChkList: TToolBar
       inherited ToolButton3: TToolButton
-        Height = 22
+        Height = 28
       end
       inherited ToolButton6: TToolButton
-        Height = 22
+        Height = 28
       end
     end
-    inherited clbPropItems: TCheckListBox
-      Height = 473
-    end
-    inherited sbPropChkList: TStatusBar
-      Top = 499
-    end
-  end
-  inherited splPropChkList: TSplitter
-    Left = 204
-    Height = 522
   end
   object OpenDialog1: TOpenDialog[6]
     Filter = 'Emulators ini file|*.ini|All files|*.*'
     Options = [ofNoChangeDir, ofEnableSizing, ofViewDetail]
-    left = 96
-    top = 256
+    Left = 96
+    Top = 256
   end
   object SaveDialog1: TSaveDialog[7]
     Filter = 'Emulators ini file|*.ini|All files|*.*'
     Options = [ofNoChangeDir, ofEnableSizing, ofViewDetail]
-    left = 24
-    top = 256
+    Left = 24
+    Top = 256
   end
 end

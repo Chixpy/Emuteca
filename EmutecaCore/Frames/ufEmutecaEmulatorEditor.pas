@@ -4,7 +4,7 @@ unit ufEmutecaEmulatorEditor;
 
   This file is part of Emuteca Core.
 
-  Copyright (C) 2006-2018 Chixpy
+  Copyright (C) 2006-2023 Chixpy
 
   This source is free software; you can redistribute it and/or modify it under
   the terms of the GNU General Public License as published by the Free
@@ -115,12 +115,13 @@ type
     procedure SetEmulator(AValue: cEmutecaEmulator);
 
   protected
-    procedure DoClearFrameData;
-    procedure DoLoadFrameData;
-    procedure DoSaveFrameData;
 
   public
     property Emulator: cEmutecaEmulator read FEmulator write SetEmulator;
+
+    procedure ClearFrameData; override;
+    procedure LoadFrameData; override;
+    procedure SaveFrameData; override;
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -136,10 +137,6 @@ implementation
 constructor TfmEmutecaEmulatorEditor.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
-
-  OnClearFrameData := @DoClearFrameData;
-  OnLoadFrameData := @DoLoadFrameData;
-  OnSaveFrameData := @DoSaveFrameData;
 end;
 
 destructor TfmEmutecaEmulatorEditor.Destroy;
@@ -246,8 +243,10 @@ begin
   LoadFrameData;
 end;
 
-procedure TfmEmutecaEmulatorEditor.DoClearFrameData;
+procedure TfmEmutecaEmulatorEditor.ClearFrameData;
 begin
+  inherited ClearFrameData;
+
   lID.Caption := ' ';
   eName.Clear;
   eDeveloper.Clear;
@@ -262,14 +261,17 @@ begin
   eExitCode.Value := 0;
 end;
 
-procedure TfmEmutecaEmulatorEditor.DoLoadFrameData;
+procedure TfmEmutecaEmulatorEditor.LoadFrameData;
 begin
-  ClearFrameData;
+  inherited LoadFrameData;
 
   Enabled := assigned(Emulator);
 
   if not Enabled then
+  begin
+    ClearFrameData;
     Exit;
+  end;
 
   lID.Caption := Emulator.ID;
   eName.Text := Emulator.Title;
@@ -285,8 +287,10 @@ begin
   eExitCode.Value := Emulator.ExitCode;
 end;
 
-procedure TfmEmutecaEmulatorEditor.DoSaveFrameData;
+procedure TfmEmutecaEmulatorEditor.SaveFrameData;
 begin
+  inherited SaveFrameData;
+
   Emulator.Title := eName.Text;
   Emulator.Developer := eDeveloper.Text;
   Emulator.WebPage := eWebPage.Text;
@@ -300,4 +304,9 @@ begin
   Emulator.ExitCode := eExitCode.Value;
 end;
 
+initialization
+  RegisterClass(TfmEmutecaEmulatorEditor);
+
+finalization
+  UnRegisterClass(TfmEmutecaEmulatorEditor);
 end.

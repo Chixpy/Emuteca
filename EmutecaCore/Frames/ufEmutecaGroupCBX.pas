@@ -1,5 +1,25 @@
 unit ufEmutecaGroupCBX;
+{< TfmEmutecaGroupCBX frame unit.
 
+  This file is part of Emuteca Core.
+
+  Copyright (C) 2006-2023 Chixpy
+
+  This source is free software; you can redistribute it and/or modify it under
+  the terms of the GNU General Public License as published by the Free
+  Software Foundation; either version 3 of the License, or (at your option)
+  any later version.
+
+  This code is distributed in the hope that it will be useful, but WITHOUT ANY
+  WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+  FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+  details.
+
+  A copy of the GNU General Public License is available on the World Wide Web
+  at <http://www.gnu.org/copyleft/gpl.html>. You can also obtain it by writing
+  to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
+  MA 02111-1307, USA.
+}
 {$mode objfpc}{$H+}
 
 interface
@@ -17,6 +37,7 @@ type
   TfmEmutecaGroupCBX = class(TfmCHXFrame)
     cbxGroup: TComboBox;
     procedure cbxGroupChange(Sender: TObject);
+
   private
     FGroupList: cEmutecaGroupList;
     FOnSelectGroup: TEmutecaReturnGroupCB;
@@ -26,8 +47,7 @@ type
     procedure SetSelectedGroup(AValue: cEmutecaGroup);
 
   protected
-    procedure DoClearFrameData;
-    procedure DoLoadFrameData;
+    procedure LoadFrameData; override;
 
   public
 
@@ -41,6 +61,8 @@ type
     property OnSelectGroup: TEmutecaReturnGroupCB
       read FOnSelectGroup write SetOnSelectGroup;
     {< Callback when selecting a group. }
+
+    procedure ClearFrameData; override;
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -103,13 +125,17 @@ begin
   cbxGroup.ItemIndex := aPos;
 end;
 
-procedure TfmEmutecaGroupCBX.DoClearFrameData;
+procedure TfmEmutecaGroupCBX.ClearFrameData;
 begin
+  inherited ClearFrameData;
+
   cbxGroup.Clear;
 end;
 
-procedure TfmEmutecaGroupCBX.DoLoadFrameData;
+procedure TfmEmutecaGroupCBX.LoadFrameData;
 begin
+  inherited LoadFrameData;
+
   Enabled := Assigned(GroupList);
 
   if not Enabled then
@@ -133,14 +159,17 @@ end;
 constructor TfmEmutecaGroupCBX.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
-
-  OnClearFrameData := @DoClearFrameData;
-  OnLoadFrameData := @DoLoadFrameData;
 end;
 
 destructor TfmEmutecaGroupCBX.Destroy;
 begin
   inherited Destroy;
 end;
+
+initialization
+  RegisterClass(TfmEmutecaGroupCBX);
+
+finalization
+  UnRegisterClass(TfmEmutecaGroupCBX);
 
 end.

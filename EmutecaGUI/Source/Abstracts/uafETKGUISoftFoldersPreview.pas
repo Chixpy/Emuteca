@@ -4,7 +4,7 @@ unit uafETKGUISoftFoldersPreview;
 
   This file is part of Emuteca GUI.
 
-  Copyright (C) 2006-2020 Chixpy
+  Copyright (C) 2006-2023 Chixpy
 
   This source is free software; you can redistribute it and/or modify it under
   the terms of the GNU General Public License as published by the Free
@@ -72,8 +72,6 @@ type
     procedure SetSoftware(AValue: cEmutecaSoftware); virtual;
     procedure SetGroup(AValue: cEmutecaGroup); virtual;
 
-    procedure DoClearFrameData;
-    procedure DoLoadFrameData;
 
     procedure CreateListView; virtual; // abstract; -> AbstractError?
     function GetCaptionList: TStrings; virtual; // abstract; -> AbstractError?
@@ -88,6 +86,9 @@ type
     property FileExt: TStrings read FFileExt write SetFileExt;
 
     property LastCaption: string read FLastCaption write SetLastCaption;
+
+    procedure ClearFrameData; override;
+    procedure LoadFrameData;  override;
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -225,15 +226,19 @@ begin
   fmListPreview.FileList := FileList;
 end;
 
-procedure TfmaETKGUISoftFoldersPreview.DoClearFrameData;
+procedure TfmaETKGUISoftFoldersPreview.ClearFrameData;
 begin
+  inherited ClearFrameData;
+
   cbxFolderCaption.Clear;
 end;
 
-procedure TfmaETKGUISoftFoldersPreview.DoLoadFrameData;
+procedure TfmaETKGUISoftFoldersPreview.LoadFrameData;
 var
   aIndex: integer;
 begin
+  inherited LoadFrameData;
+
   Enabled := Assigned(System);
 
   if not Enabled then
@@ -264,9 +269,6 @@ begin
   FFileList := TStringList.Create;
 
   CreateListView;
-
-  OnClearFrameData := @DoClearFrameData;
-  OnLoadFrameData := @DoLoadFrameData;
 end;
 
 destructor TfmaETKGUISoftFoldersPreview.Destroy;
@@ -275,5 +277,11 @@ begin
 
   inherited Destroy;
 end;
+
+initialization
+  RegisterClass(TfmaETKGUISoftFoldersPreview);
+
+finalization
+  UnRegisterClass(TfmaETKGUISoftFoldersPreview);
 
 end.

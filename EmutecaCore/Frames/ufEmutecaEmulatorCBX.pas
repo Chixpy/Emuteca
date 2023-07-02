@@ -3,7 +3,7 @@ unit ufEmutecaEmulatorCBX;
 
   This file is part of Emuteca Core.
 
-  Copyright (C) 2011-2019 Chixpy
+  Copyright (C) 2011-2023 Chixpy
 
   This source is free software; you can redistribute it and/or modify it
   under the terms of the GNU General Public License as published by the Free
@@ -47,8 +47,6 @@ type
     procedure SetSelectedEmulator(AValue: cEmutecaEmulator);
 
   protected
-    procedure DoClearFrameData;
-    procedure DoLoadFrameData;
 
   public
 
@@ -63,6 +61,9 @@ type
     property OnSelectEmulator: TEmutecaReturnEmulatorCB
       read FOnSelectEmulator write SetOnSelectEmulator;
     {< Callback when selecting a group. }
+
+    procedure ClearFrameData; override;
+    procedure LoadFrameData; override;
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -128,13 +129,17 @@ begin
     {Var := } OnSelectEmulator(SelectedEmulator);
 end;
 
-procedure TfmEmutecaEmulatorCBX.DoClearFrameData;
+procedure TfmEmutecaEmulatorCBX.ClearFrameData;
 begin
+  inherited ClearFrameData;
+
   cbxEmulator.Clear;
 end;
 
-procedure TfmEmutecaEmulatorCBX.DoLoadFrameData;
+procedure TfmEmutecaEmulatorCBX.LoadFrameData;
 begin
+  inherited LoadFrameData;
+
   Enabled := Assigned(EmulatorList);
 
   if not Enabled then
@@ -158,9 +163,6 @@ end;
 constructor TfmEmutecaEmulatorCBX.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
-
-  OnClearFrameData := @DoClearFrameData;
-  OnLoadFrameData := @DoLoadFrameData;
 end;
 
 destructor TfmEmutecaEmulatorCBX.Destroy;
@@ -168,4 +170,9 @@ begin
   inherited Destroy;
 end;
 
+initialization
+  RegisterClass(TfmEmutecaEmulatorCBX);
+
+finalization
+  UnRegisterClass(TfmEmutecaEmulatorCBX);
 end.

@@ -4,7 +4,7 @@ unit ufEmutecaGroupEditor;
 
   This file is part of Emuteca Core.
 
-  Copyright (C) 2011-2022 Chixpy
+  Copyright (C) 2011-2023 Chixpy
 
   This source is free software; you can redistribute it and/or modify it
   under the terms of the GNU General Public License as published by the Free
@@ -54,13 +54,13 @@ type
     procedure SetGroup(AValue: cEmutecaGroup);
 
   protected
-    procedure DoClearFrameData;
-    procedure DoLoadFrameData;
-    procedure DoSaveFrameData;
+    procedure LoadFrameData; override;
 
     procedure SortMultigame;
 
   public
+    procedure ClearFrameData; override;
+    procedure SaveFrameData; override;
 
     procedure FPOObservedChanged(ASender: TObject;
       Operation: TFPObservedOperation; Data: Pointer);
@@ -98,20 +98,12 @@ begin
   LoadFrameData;
 end;
 
-procedure TfmEmutecaGroupEditor.DoClearFrameData;
-begin
-  eGroupID.Clear;
-  eTitle.Clear;
-  eSortTitle.Clear;
-  // eDeveloper.Clear; We don't want to clear item list.
-  eDeveloper.Text := '';
-  eYear.Clear;
-end;
-
-procedure TfmEmutecaGroupEditor.DoLoadFrameData;
+procedure TfmEmutecaGroupEditor.LoadFrameData;
 var
   i: Integer;
 begin
+  inherited LoadFrameData;
+
   Enabled := Assigned(Group);
 
   if not Enabled then
@@ -135,8 +127,22 @@ begin
   eYear.Text := Group.Date;
 end;
 
-procedure TfmEmutecaGroupEditor.DoSaveFrameData;
+procedure TfmEmutecaGroupEditor.ClearFrameData;
 begin
+  inherited ClearFrameData;
+
+  eGroupID.Clear;
+  eTitle.Clear;
+  eSortTitle.Clear;
+  // eDeveloper.Clear; We don't want to clear item list.
+  eDeveloper.Text := '';
+  eYear.Clear;
+end;
+
+procedure TfmEmutecaGroupEditor.SaveFrameData;
+begin
+  inherited SaveFrameData;
+
   if not Assigned(Group) then
     Exit;
 
@@ -292,6 +298,7 @@ begin
   end;
 end;
 
+
 procedure TfmEmutecaGroupEditor.FPOObservedChanged(ASender: TObject;
   Operation: TFPObservedOperation; Data: Pointer);
 begin
@@ -332,10 +339,6 @@ end;
 constructor TfmEmutecaGroupEditor.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
-
-  OnClearFrameData := @DoClearFrameData;
-  OnLoadFrameData := @DoLoadFrameData;
-  OnSaveFrameData := @DoSaveFrameData;
 end;
 
 destructor TfmEmutecaGroupEditor.Destroy;
@@ -346,4 +349,9 @@ begin
   inherited Destroy;
 end;
 
+initialization
+  RegisterClass(TfmEmutecaGroupEditor);
+
+finalization
+  UnRegisterClass(TfmEmutecaGroupEditor);
 end.

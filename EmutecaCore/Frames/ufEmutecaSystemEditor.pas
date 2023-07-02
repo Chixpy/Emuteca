@@ -1,11 +1,9 @@
 unit ufEmutecaSystemEditor;
 {< TfmEmutecaSystemEditor frame unit.
 
-  ----
-
   This file is part of Emuteca Core.
 
-  Copyright (C) 2006-2018 Chixpy
+  Copyright (C) 2006-2023 Chixpy
 
   This source is free software; you can redistribute it and/or modify it under
   the terms of the GNU General Public License as published by the Free
@@ -79,15 +77,17 @@ type
     procedure UpdateLists;
 
   protected
-    procedure DoClearFrameData;
-    procedure DoLoadFrameData;
-    procedure DoSaveFrameData;
 
   public
     property System: cEmutecaSystem read FSystem write SetSystem;
 
     property EmuManager: cEmutecaEmulatorManager
       read FEmuManager write SetEmuManager;
+
+        procedure ClearFrameData; override;
+    procedure LoadFrameData; override;
+    procedure SaveFrameData; override;
+
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
   end;
@@ -148,10 +148,6 @@ end;
 constructor TfmEmutecaSystemEditor.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
-
-  OnClearFrameData := @DoClearFrameData;
-  OnLoadFrameData := @DoLoadFrameData;
-  OnSaveFrameData := @DoSaveFrameData;
 end;
 
 destructor TfmEmutecaSystemEditor.Destroy;
@@ -159,8 +155,10 @@ begin
   inherited Destroy;
 end;
 
-procedure TfmEmutecaSystemEditor.DoClearFrameData;
+procedure TfmEmutecaSystemEditor.ClearFrameData;
 begin
+  inherited ClearFrameData;
+
   eExtraInfoFilename.Clear;
   eTitle.Clear;
   cbxMainEmulator.ItemIndex := -1;
@@ -174,10 +172,14 @@ begin
   mMultiCoreIDs.Clear;
 end;
 
-procedure TfmEmutecaSystemEditor.DoSaveFrameData;
+procedure TfmEmutecaSystemEditor.SaveFrameData;
 var
   i, j: integer;
 begin
+  if not Enabled then Exit;
+
+  inherited SaveFrameData;
+
   System.ListFileName := eExtraInfoFilename.Text;
   System.Title := eTitle.Text;
 
@@ -226,15 +228,20 @@ begin
   System.Extensions.Sort;
 end;
 
-procedure TfmEmutecaSystemEditor.DoLoadFrameData;
+procedure TfmEmutecaSystemEditor.LoadFrameData;
 var
   aEmulator: cEmutecaEmulator;
   i: integer;
 begin
-  ClearFrameData;
+  inherited LoadFrameData;
 
-  if (not assigned(System)) or (not assigned(EmuManager)) then
+  Enabled := assigned(System) and assigned(EmuManager);
+
+  if not Enabled then
+  begin
+    ClearFrameData;
     Exit;
+  end;
 
   eTitle.Text := System.Title;
   eExtraInfoFilename.Text := System.ListFileName;
@@ -274,4 +281,9 @@ begin
   mMultiCoreIDs.Lines.Assign(System.CoreIDs);
 end;
 
+initialization
+  RegisterClass(TfmEmutecaSystemEditor);
+
+finalization
+  UnRegisterClass(TfmEmutecaSystemEditor);
 end.

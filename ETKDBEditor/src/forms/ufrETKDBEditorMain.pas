@@ -104,6 +104,8 @@ begin
   // Windows Caption
   Caption := Format(krsFmtWindowCaption, [Application.Title, Caption]);
 
+  CreateFrames;
+
   // Loading GUI config
   // FEMCConfig := cEMCConfig.Create(self);
   // EMCConfig.DefaultFileName := SetAsAbsoluteFile(krsEMCName + '.ini', BaseFolder);
@@ -111,7 +113,7 @@ begin
   LoadGUIConfig(SetAsAbsoluteFile(krsDBEName + '.ini', BaseFolder));
   // EMCConfig.LoadFromFile('');
 
-  CreateFrames;
+
 
   // Reading commandline parameters
   if ParamCount > 0 then

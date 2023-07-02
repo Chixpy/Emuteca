@@ -378,9 +378,7 @@ type
     procedure OpenSoftEditor(NewTitle: string = '');
     {< Opens SoftEditor with current selected group, and set a new name.}
 
-    procedure DoClearFrameData;
-    procedure DoLoadFrameData;
-    procedure DoLoadGUIIcons(aIconsIni: TIniFile; const aBaseFolder: string);
+    procedure DoLoadGUIIcons(aIconsIni: TIniFile; const aBaseFolder: string); override;
 
   public
     property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
@@ -389,6 +387,8 @@ type
     {< Folder SHA1 caché is stored. }
     property GUIConfig: cETKGUIConfig read FGUIConfig write SetGUIConfig;
     {< Config of GUI. }
+
+    procedure LoadFrameData; override;
 
     class function SimpleForm(aEmuteca: cEmuteca;
       SelectedSystem: cEmutecaSystem; aGUIIconsIni: string;
@@ -437,6 +437,8 @@ end;
 procedure TfmETKGUIMediaManager.DoLoadGUIIcons(aIconsIni: TIniFile;
   const aBaseFolder: string);
 begin
+  inherited DoLoadGUIIcons(aIconsIni, aBaseFolder);
+
   ReadActionsIconsIni(aIconsIni, aBaseFolder, Self.Name,
     ilActions, ActionList);
 end;
@@ -1121,13 +1123,10 @@ begin
 
 end;
 
-procedure TfmETKGUIMediaManager.DoClearFrameData;
+procedure TfmETKGUIMediaManager.LoadFrameData;
 begin
+  inherited LoadFrameData;
 
-end;
-
-procedure TfmETKGUIMediaManager.DoLoadFrameData;
-begin
   Enabled := assigned(Emuteca);
 
   if not Enabled then
@@ -2339,10 +2338,6 @@ begin
   pcTarget.ActivePageIndex := 0;
 
   FMediaFiles := TStringList.Create;
-
-  OnClearFrameData := @DoClearFrameData;
-  OnLoadFrameData := @DoLoadFrameData;
-  OnLoadGUIIcons := @DoLoadGUIIcons;
 end;
 
 destructor TfmETKGUIMediaManager.Destroy;
@@ -2352,4 +2347,9 @@ begin
   inherited Destroy;
 end;
 
+initialization
+  RegisterClass(TfmETKGUIMediaManager);
+
+finalization
+  UnRegisterClass(TfmETKGUIMediaManager);
 end.
