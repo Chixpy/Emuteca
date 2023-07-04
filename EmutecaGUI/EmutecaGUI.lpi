@@ -62,6 +62,11 @@
               </Win32>
             </Options>
           </Linking>
+          <Other>
+            <CompilerMessages>
+              <IgnoredMessages idx6058="True"/>
+            </CompilerMessages>
+          </Other>
         </CompilerOptions>
       </Item2>
     </BuildModes>
@@ -865,7 +870,7 @@
         <IsPartOfProject Value="True"/>
       </Unit147>
       <Unit148>
-        <Filename Value="Source\Units\ScriptMng\Frames\fETKGUICompareSG.pas"/>
+        <Filename Value="Source\Units\ScriptMng\Frames\ufETKGUICompareSG.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fmETKGUICompareSG"/>
         <HasResources Value="True"/>

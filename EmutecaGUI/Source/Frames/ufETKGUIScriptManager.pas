@@ -59,7 +59,7 @@ type
 
     // Creates a form with Script Manager.
     class function SimpleForm(aEmuteca: cEmuteca; aBaseFolder: string;
-      aGUIIconsIni: string; aGUIConfigIni: string): integer;
+      aGUIConfigIni: string; aGUIIconsIni: string): integer;
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -116,7 +116,7 @@ begin
 end;
 
 class function TfmETKGUIScriptManager.SimpleForm(aEmuteca: cEmuteca;
-  aBaseFolder: string; aGUIIconsIni: string; aGUIConfigIni: string): integer;
+  aBaseFolder: string; aGUIConfigIni: string; aGUIIconsIni: string): integer;
 var
   aFrame: TfmETKGUIScriptManager;
 begin
@@ -128,7 +128,7 @@ begin
 
   Result := GenSimpleModalForm(aFrame, 'frmETKGUIScriptManager',
     Format(krsFmtWindowCaption, [Application.Title, 'Script Manager']),
-    aGUIIconsIni, aGUIConfigIni);
+    aGUIConfigIni, aGUIIconsIni);
 end;
 
 constructor TfmETKGUIScriptManager.Create(TheOwner: TComponent);

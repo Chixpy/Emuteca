@@ -1,4 +1,5 @@
 unit ufEmutecaActAddSoft;
+
 { Frame to add sofware.
 
   This file is part of Emuteca Core.
@@ -109,8 +110,9 @@ type
     procedure LoadFrameData; override;
     procedure SaveFrameData; override;
 
-    class function SimpleForm(aEmuteca: cEmuteca; SelectedSystem: cEmutecaSystem;
-      const aGUIIconsIni: string; const aGUIConfigIni: string): integer;
+    class function SimpleForm(aEmuteca: cEmuteca;
+      SelectedSystem: cEmutecaSystem;
+      const aGUIConfigIni, aGUIIconsIni: string): integer;
     //< Creates a form with TfmEmutecaActAddSoft frame.
 
     constructor Create(TheOwner: TComponent); override;
@@ -153,7 +155,8 @@ begin
 
   Software.CachedGroup := fmGroupCBX.SelectedGroup;
   if not Assigned(Software.CachedGroup) then
-    Software.GroupKey := ExtractFileNameOnly(ExcludeTrailingPathDelimiter(Software.Folder));
+    Software.GroupKey := ExtractFileNameOnly(
+      ExcludeTrailingPathDelimiter(Software.Folder));
 
   Software.Title := ExtractFileNameOnly(Software.FileName);
 
@@ -176,8 +179,8 @@ begin
 
   Software.CachedGroup := fmGroupCBX.SelectedGroup;
   if not Assigned(Software.CachedGroup) then
-  Software.GroupKey := ExtractFileNameOnly(
-    ExcludeTrailingPathDelimiter(Software.Folder));
+    Software.GroupKey := ExtractFileNameOnly(
+      ExcludeTrailingPathDelimiter(Software.Folder));
   Software.Title := ExtractFileNameOnly(Software.FileName);
 
   UpdateSoftKey;
@@ -278,7 +281,7 @@ begin
   begin
     // Loading data if not already loaded
     Emuteca.SystemManager.LoadSystemData(aSystem);
-    fmGroupCBX.GroupList := aSystem.GroupManager.FullList
+    fmGroupCBX.GroupList := aSystem.GroupManager.FullList;
   end
   else
     fmGroupCBX.GroupList := nil;
@@ -305,7 +308,8 @@ begin
 
   ExtFilter := 'All suported files' + '|';
   if Software.CachedSystem.Extensions.Count > 0 then
-    ExtFilter := ExtFilter + FileMaskFromStringList(Software.CachedSystem.Extensions) + ';';
+    ExtFilter := ExtFilter + FileMaskFromStringList(
+      Software.CachedSystem.Extensions) + ';';
   ExtFilter := ExtFilter + FileMaskFromCommaText(w7zGetFileExts);
   ExtFilter := ExtFilter + '|' + 'All files' + '|' + AllFilesMask;
   eFile.Filter := ExtFilter;
@@ -339,7 +343,8 @@ begin
 
   GroupTitle := Software.Title;
 
-  if InputQuery('New group', 'Name of the new group.', GroupTitle) = false then Exit;
+  if InputQuery('New group', 'Name of the new group.', GroupTitle) = False then
+    Exit;
 
   aGroup := cEmutecaGroup.Create(nil);
   aGroup.ID := GroupTitle;
@@ -507,8 +512,8 @@ begin
 end;
 
 class function TfmEmutecaActAddSoft.SimpleForm(aEmuteca: cEmuteca;
-  SelectedSystem: cEmutecaSystem; const aGUIIconsIni: string;
-  const aGUIConfigIni: string): integer;
+  SelectedSystem: cEmutecaSystem;
+  const aGUIConfigIni, aGUIIconsIni: string): integer;
 var
   aFrame: TfmEmutecaActAddSoft;
 begin
@@ -523,8 +528,8 @@ begin
   aFrame.SelectSystem(SelectedSystem);
 
   Result := GenSimpleModalForm(aFrame, 'frmEmutecaActAddSoft',
-  Format(krsFmtWindowCaption, [Application.Title, 'Add Software...']),
-  aGUIIconsIni, aGUIConfigIni);
+    Format(krsFmtWindowCaption, [Application.Title, 'Add Software...']),
+    aGUIConfigIni, aGUIIconsIni);
 end;
 
 constructor TfmEmutecaActAddSoft.Create(TheOwner: TComponent);

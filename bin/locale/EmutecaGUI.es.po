@@ -1,15 +1,6 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=UTF-8"
 
-#: fetkguicomparesg.rsetkguicsggroup
-#, object-pascal-format
-msgid "Soft Count: %0:d"
-msgstr ""
-
-#: fetkguicomparesg.rsetkguicsggroupmerged
-msgid "!!! Please use \"System/Update group list\" in main menu."
-msgstr ""
-
 #: tfmaetkguisoftfolderspreview.gbxpanel.caption
 msgid "Panel"
 msgstr ""
@@ -582,7 +573,7 @@ msgstr "No buscar dentro de archivos comprimidos."
 
 #: tfmemutecaactaddfolder.chknozip.hint
 msgid "Check it for MAME sofware search speedup."
-msgstr "Marca para acelerar la búsqueda de software de MAME."
+msgstr "Marcar para acelerar la búsqueda de software de MAME."
 
 #: tfmemutecaactaddfolder.chksubfolders.caption
 #, fuzzy
@@ -596,7 +587,7 @@ msgstr "Busca en subcarpetas también."
 
 #: tfmemutecaactaddfolder.efolder.hint
 msgid "Folder for searching software."
-msgstr "Carpeta para buscar software"
+msgstr "Carpeta para buscar software."
 
 #: tfmemutecaactaddfolder.gbxfolder.caption
 msgid "Select folder"
@@ -728,7 +719,7 @@ msgstr "Tipo de identificación del soft"
 #: tfmemutecaemulatoradvparamseditor.gbxcoreid.caption
 msgctxt "tfmemutecaemulatoradvparamseditor.gbxcoreid.caption"
 msgid "Multisystem core param"
-msgstr ""
+msgstr "Parámetros del núcleo en multisistema"
 
 #: tfmemutecaemulatoradvparamseditor.gbxextparams.caption
 msgctxt "tfmemutecaemulatoradvparamseditor.gbxextparams.caption"
@@ -847,7 +838,7 @@ msgstr "Carpeta de trabajo"
 
 #: tfmemutecagroupeditor.chksortmultigametitles.caption
 msgid "Sort multigame titles"
-msgstr ""
+msgstr "Ordenar múltiples títulos"
 
 #: tfmemutecagroupeditor.edeveloper.hint
 msgid "Developer of the software."
@@ -861,7 +852,7 @@ msgstr "Desarrollador"
 
 #: tfmemutecagroupeditor.egroupid.hint
 msgid "ID of the group."
-msgstr "Identificador del grupo."
+msgstr "Clave usada como identificador del grupo."
 
 #: tfmemutecagroupeditor.egroupid.texthint
 msgid "Group ID"
@@ -904,24 +895,24 @@ msgstr ""
 
 #: tfmemutecasofteditor.emodified.texthint
 msgid "Modification"
-msgstr ""
+msgstr "Modificación"
 
 #: tfmemutecasofteditor.epublisher.texthint
 #, fuzzy
 #| msgid "Publisher"
 msgctxt "tfmemutecasofteditor.epublisher.texthint"
 msgid "Publisher1 / Publisher2"
-msgstr "Publicador"
+msgstr "Publicador1 / Publisher2"
 
 #: tfmemutecasofteditor.esortkey.texthint
 msgctxt "tfmemutecasofteditor.esortkey.texthint"
 msgid "Sort Key (Empty = Title)"
-msgstr ""
+msgstr "Clave de ordenación (Vacío = Título)"
 
 #: tfmemutecasofteditor.etitle.texthint
 msgctxt "tfmemutecasofteditor.etitle.texthint"
 msgid "Title  (Empty = Group Title)"
-msgstr ""
+msgstr "Título (Vacío = Título del grupo)"
 
 #: tfmemutecasofteditor.etrainer.texthint
 msgid "Cheat1; Cheat2 / Author"
@@ -999,7 +990,7 @@ msgstr "Con trucos"
 
 #: tfmemutecasofteditor.ltranslated.caption
 msgid "Fan Translated"
-msgstr "Traducción amateur"
+msgstr "Traducción fan"
 
 #: tfmemutecasoftimgpreview.actaddimagefromclpbrd.caption
 #, fuzzy
@@ -1296,50 +1287,6 @@ msgstr "Carpeta de destino"
 msgid "Output Format"
 msgstr "Formato de salida"
 
-#: tfmetkguicomparesg.actg1tog2.caption
-msgid "Assign Group 1"
-msgstr "Asignar Grupo 1"
-
-#: tfmetkguicomparesg.actg1tog2.hint
-msgid "Assign this soft to left group "
-msgstr ""
-
-#: tfmetkguicomparesg.actg2tog1.caption
-msgid "Assign Group 2"
-msgstr "Asignar Grupo 2"
-
-#: tfmetkguicomparesg.actg2tog1.hint
-msgid "Assign this soft to right group "
-msgstr ""
-
-#: tfmetkguicomparesg.actmergetog1.caption
-msgid "Merge to G1"
-msgstr ""
-
-#: tfmetkguicomparesg.actmergetog1.hint
-msgid "Assign all soft of this group to the left one"
-msgstr ""
-
-#: tfmetkguicomparesg.actmergetog2.caption
-msgid "Merge to G2"
-msgstr ""
-
-#: tfmetkguicomparesg.actmergetog2.hint
-msgid "Assign all soft of this group to the right one"
-msgstr ""
-
-#: tfmetkguicomparesg.bcancel.caption
-msgid "Abort"
-msgstr "Abortar"
-
-#: tfmetkguicomparesg.bsave.caption
-msgid "Next"
-msgstr "Siguiente"
-
-#: tfmetkguicomparesg.lwarning.caption
-msgid "Remember to save soft/group changes individually at the bottom of scrollbox"
-msgstr ""
-
 #: tfmetkguifullemueditor.actopenemulatorfolder.caption
 msgid "Open emulator folder"
 msgstr "Abrir capeta del emulador"
@@ -1411,7 +1358,7 @@ msgstr "Asignar fichero"
 
 #: tfmetkguimediamanager.actassigntogroup.caption
 msgid "Assign to Group"
-msgstr ""
+msgstr "Assignar al grupo"
 
 #: tfmetkguimediamanager.actautoassign.caption
 msgid "Auto Assign"
@@ -1448,7 +1395,7 @@ msgstr "Mover fichero..."
 
 #: tfmetkguimediamanager.actrenamefile.caption
 msgid "Rename file manually..."
-msgstr ""
+msgstr "Renombrar manualmente..."
 
 #: tfmetkguimediamanager.actrenamegrouptitlewithfilename.caption
 msgctxt "tfmetkguimediamanager.actrenamegrouptitlewithfilename.caption"
@@ -1632,70 +1579,70 @@ msgstr "Extensión"
 #| msgid "Group"
 msgctxt "tfmetkguimediamanager.vstgroupsall.header.columns[0].text"
 msgid "File"
-msgstr "Grupo"
+msgstr "Fichero"
 
 #: tfmetkguimediamanager.vstgroupsall.header.columns[1].text
 #, fuzzy
 #| msgid "File"
 msgctxt "tfmetkguimediamanager.vstgroupsall.header.columns[1].text"
 msgid "Group"
-msgstr "Fichero"
+msgstr "Grupo"
 
 #: tfmetkguimediamanager.vstgroupswofile.header.columns[0].text
 #, fuzzy
 #| msgid "Group"
 msgctxt "tfmetkguimediamanager.vstgroupswofile.header.columns[0].text"
 msgid "File"
-msgstr "Grupo"
+msgstr "Fichero"
 
 #: tfmetkguimediamanager.vstgroupswofile.header.columns[1].text
 #, fuzzy
 #| msgid "File"
 msgctxt "tfmetkguimediamanager.vstgroupswofile.header.columns[1].text"
 msgid "Group"
-msgstr "Fichero"
+msgstr "Grupo"
 
 #: tfmetkguimediamanager.vstsoftall.header.columns[0].text
 #, fuzzy
 #| msgid "Game"
 msgctxt "tfmetkguimediamanager.vstsoftall.header.columns[0].text"
 msgid "File"
-msgstr "Software"
+msgstr "Fichero"
 
 #: tfmetkguimediamanager.vstsoftall.header.columns[1].text
 #, fuzzy
 #| msgid "Group"
 msgctxt "tfmetkguimediamanager.vstsoftall.header.columns[1].text"
 msgid "Game"
-msgstr "Grupo"
+msgstr "Juego"
 
 #: tfmetkguimediamanager.vstsoftall.header.columns[2].text
 #, fuzzy
 #| msgid "File"
 msgctxt "tfmetkguimediamanager.vstsoftall.header.columns[2].text"
 msgid "Group"
-msgstr "Fichero"
+msgstr "Grupo"
 
 #: tfmetkguimediamanager.vstsoftwofile.header.columns[0].text
 #, fuzzy
 #| msgid "Game"
 msgctxt "tfmetkguimediamanager.vstsoftwofile.header.columns[0].text"
 msgid "File"
-msgstr "Software"
+msgstr "Fichero"
 
 #: tfmetkguimediamanager.vstsoftwofile.header.columns[1].text
 #, fuzzy
 #| msgid "Group"
 msgctxt "tfmetkguimediamanager.vstsoftwofile.header.columns[1].text"
 msgid "Game"
-msgstr "Grupo"
+msgstr "Juego"
 
 #: tfmetkguimediamanager.vstsoftwofile.header.columns[2].text
 #, fuzzy
 #| msgid "File"
 msgctxt "tfmetkguimediamanager.vstsoftwofile.header.columns[2].text"
 msgid "Group"
-msgstr "Fichero"
+msgstr "Grupo"
 
 #: tfmetkguisoftimgpreview.gbxpanel.caption
 msgid "Image"
@@ -1727,7 +1674,7 @@ msgstr "Quita todos los paneles"
 
 #: tfmetkguisoftmedia.actopeniconinviewer.caption
 msgid "Open Icon in Image Viewer"
-msgstr ""
+msgstr "Abrir icono en el Visor de Imágenes"
 
 #: tfmetkguisoftmedia.piconlogo.caption
 msgctxt "tfmetkguisoftmedia.piconlogo.caption"
@@ -1936,7 +1883,7 @@ msgstr ""
 
 #: tfrmetkguimain.actemulatormanager.caption
 msgid "Emulator Manager..."
-msgstr "Gestor de emuladores..."
+msgstr "Gestor de Emuladores..."
 
 #: tfrmetkguimain.actemulatormanager.hint
 msgid "Emulator Manager...|Open Emulator Manager."
@@ -2004,7 +1951,7 @@ msgstr ""
 
 #: tfrmetkguimain.actopenemulatorfolder.caption
 msgid "Open emulator folder..."
-msgstr "Abris carpeta del emulador"
+msgstr "Abrir carpeta del emulador"
 
 #: tfrmetkguimain.actopenemulatorfolder.hint
 msgid "Open emulator folder...|Open current emulator folder."
@@ -2150,11 +2097,11 @@ msgstr "Sobre Emuteca...|Abre el cuadro de información de Emuteca."
 
 #: tfrmetkguimain.mimmaddfiles.caption
 msgid "Add files..."
-msgstr "Añadir ficehros..."
+msgstr "Añadir ficheros..."
 
 #: tfrmetkguimain.mimmdebug.caption
 msgid "Debug"
-msgstr ""
+msgstr "Depuración"
 
 #: tfrmetkguimain.mimmemulator.caption
 msgid "Emulator"
@@ -2271,7 +2218,7 @@ msgstr ""
 #: uchx7zwrapper.rsw7znocrc32
 #, object-pascal-format
 msgid "Error extracting CRC32: \"%0:s\""
-msgstr ""
+msgstr "Error extrayendo CRC32: \"%0:s\""
 
 #: uchxrscstr.rscorfirmdeletefile
 #, object-pascal-format
@@ -2280,11 +2227,13 @@ msgid ""
 "%0:s\n"
 "Do you want to delete this file?"
 msgstr ""
+"%0:s\n"
+"¿Quieres borrar este fichero?"
 
 #: uchxrscstr.rscuexcalreadyexists
 #, object-pascal-format
 msgid "\"%0:s\" already exists."
-msgstr ""
+msgstr "\"%0:s\" ya existe."
 
 #: uchxrscstr.rscuexcalreadyexistsask
 #, object-pascal-format
@@ -2292,6 +2241,8 @@ msgid ""
 "\"%0:s\" already exists.\n"
 "Replace it?"
 msgstr ""
+"\"%0:s\" ya existe.\n"
+"¿Desea reemplazarlo?"
 
 #: uchxrscstr.rscuexccardrange
 #, object-pascal-format
@@ -2902,6 +2853,17 @@ msgstr "Escribe el nombre de la nueva etiqueta"
 #: ufemutecatagtree.rswritetagname
 msgid "Write the tag name"
 msgstr "Escribe el nombre de la etiqueta"
+
+#: ufetkguicomparesg.rsetkguicsggroup
+#, object-pascal-format
+msgctxt "ufetkguicomparesg.rsetkguicsggroup"
+msgid "Soft Count: %0:d"
+msgstr ""
+
+#: ufetkguicomparesg.rsetkguicsggroupmerged
+msgctxt "ufetkguicomparesg.rsetkguicsggroupmerged"
+msgid "!!! Please use \"System/Update group list\" in main menu."
+msgstr ""
 
 #: ufetkguiemumanager.rsemulatorname
 msgid "Emulator name."

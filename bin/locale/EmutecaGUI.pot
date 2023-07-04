@@ -1,15 +1,6 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=UTF-8"
 
-#: fetkguicomparesg.rsetkguicsggroup
-#, object-pascal-format
-msgid "Soft Count: %0:d"
-msgstr ""
-
-#: fetkguicomparesg.rsetkguicsggroupmerged
-msgid "!!! Please use \"System/Update group list\" in main menu."
-msgstr ""
-
 #: tfmaetkguisoftfolderspreview.gbxpanel.caption
 msgid "Panel"
 msgstr ""
@@ -1228,50 +1219,6 @@ msgstr ""
 
 #: tfmetkguiactmergegroup.rgpformat.caption
 msgid "Output Format"
-msgstr ""
-
-#: tfmetkguicomparesg.actg1tog2.caption
-msgid "Assign Group 1"
-msgstr ""
-
-#: tfmetkguicomparesg.actg1tog2.hint
-msgid "Assign this soft to left group "
-msgstr ""
-
-#: tfmetkguicomparesg.actg2tog1.caption
-msgid "Assign Group 2"
-msgstr ""
-
-#: tfmetkguicomparesg.actg2tog1.hint
-msgid "Assign this soft to right group "
-msgstr ""
-
-#: tfmetkguicomparesg.actmergetog1.caption
-msgid "Merge to G1"
-msgstr ""
-
-#: tfmetkguicomparesg.actmergetog1.hint
-msgid "Assign all soft of this group to the left one"
-msgstr ""
-
-#: tfmetkguicomparesg.actmergetog2.caption
-msgid "Merge to G2"
-msgstr ""
-
-#: tfmetkguicomparesg.actmergetog2.hint
-msgid "Assign all soft of this group to the right one"
-msgstr ""
-
-#: tfmetkguicomparesg.bcancel.caption
-msgid "Abort"
-msgstr ""
-
-#: tfmetkguicomparesg.bsave.caption
-msgid "Next"
-msgstr ""
-
-#: tfmetkguicomparesg.lwarning.caption
-msgid "Remember to save soft/group changes individually at the bottom of scrollbox"
 msgstr ""
 
 #: tfmetkguifullemueditor.actopenemulatorfolder.caption
@@ -2689,6 +2636,17 @@ msgstr ""
 
 #: ufemutecatagtree.rswritetagname
 msgid "Write the tag name"
+msgstr ""
+
+#: ufetkguicomparesg.rsetkguicsggroup
+#, object-pascal-format
+msgctxt "ufetkguicomparesg.rsetkguicsggroup"
+msgid "Soft Count: %0:d"
+msgstr ""
+
+#: ufetkguicomparesg.rsetkguicsggroupmerged
+msgctxt "ufetkguicomparesg.rsetkguicsggroupmerged"
+msgid "!!! Please use \"System/Update group list\" in main menu."
 msgstr ""
 
 #: ufetkguiemumanager.rsemulatorname

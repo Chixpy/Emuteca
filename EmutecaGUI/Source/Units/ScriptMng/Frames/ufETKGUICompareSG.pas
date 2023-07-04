@@ -1,4 +1,4 @@
-unit fETKGUICompareSG;
+unit ufETKGUICompareSG;
 
 {< TfmETKGUICompareSG frame unit.
 

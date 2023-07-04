@@ -79,7 +79,7 @@ type
 
     class function SimpleForm(aEmuteca: cEmuteca;
       SelectedSystem: cEmutecaSystem;
-      const aGUIIconsIni, aGUIConfigIni: string): integer;
+      const aGUIConfigIni, aGUIIconsIni: string): integer;
     //< Creates a form with AddFolder frame.
 
     constructor Create(TheOwner: TComponent); override;
@@ -198,20 +198,13 @@ begin
 end;
 
 class function TfmEmutecaActImportSoftData.SimpleForm(aEmuteca: cEmuteca;
-  SelectedSystem: cEmutecaSystem; const aGUIIconsIni, aGUIConfigIni: string): integer;
+  SelectedSystem: cEmutecaSystem;
+  const aGUIConfigIni, aGUIIconsIni: string): integer;
 var
-  aForm: TfrmCHXForm;
   aFrame: TfmEmutecaActImportSoftData;
 begin
-  Result := mrNone;
+  aFrame := TfmEmutecaActImportSoftData.Create(nil);
 
-  Application.CreateForm(TfrmCHXForm, aForm);
-  try
-    aForm.Name := 'frmEmutecaActImportSoftData';
-    aForm.Caption := Format(krsFmtWindowCaption,
-      [Application.Title, 'Import soft data...']);
-
-    aFrame := TfmEmutecaActImportSoftData.Create(aForm);
     aFrame.SaveButtons := True;
     aFrame.ButtonClose := True;
     aFrame.Align := alClient;
@@ -220,15 +213,9 @@ begin
     aFrame.fmSystemCBX.SelectedSystem := SelectedSystem;
     // fmSystemCBX.SelectedSystem don't trigger SetSystem() callback.
     aFrame.System := SelectedSystem;
-
-    aForm.LoadGUIConfig(aGUIConfigIni);
-    aForm.LoadGUIIcons(aGUIIconsIni);
-    aFrame.Parent := aForm;
-
-    Result := aForm.ShowModal;
-  finally
-    aForm.Free;
-  end;
+    Result := GenSimpleModalForm(aFrame, 'frmEmutecaActImportSoftData',
+      Format(krsFmtWindowCaption, [Application.Title, 'Import soft data...']),
+      aGUIConfigIni, aGUIIconsIni);
 end;
 
 constructor TfmEmutecaActImportSoftData.Create(TheOwner: TComponent);
@@ -263,5 +250,5 @@ initialization
 
 finalization
   UnRegisterClass(TfmEmutecaActImportSoftData);
-  
+
 end.

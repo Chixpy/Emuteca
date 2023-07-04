@@ -378,7 +378,8 @@ type
     procedure OpenSoftEditor(NewTitle: string = '');
     {< Opens SoftEditor with current selected group, and set a new name.}
 
-    procedure DoLoadGUIIcons(aIconsIni: TIniFile; const aBaseFolder: string); override;
+    procedure DoLoadGUIIcons(aIconsIni: TIniFile;
+      const aBaseFolder: string); override;
 
   public
     property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
@@ -1089,7 +1090,6 @@ begin
 
   if FormResult <> mrOk then Exit;
 
-
   TargetFile := CurrentSG.MediaFileName;
   ChangeSGMedia(CurrentSG);
   FilterLists;
@@ -1120,7 +1120,6 @@ begin
   TargetFile := CurrentSG.MediaFileName;
   ChangeSGMedia(CurrentSG);
   FilterLists;
-
 end;
 
 procedure TfmETKGUIMediaManager.LoadFrameData;
@@ -2268,18 +2267,10 @@ class function TfmETKGUIMediaManager.SimpleForm(aEmuteca: cEmuteca;
   SelectedSystem: cEmutecaSystem; aGUIIconsIni: string;
   aGUIConfig: cETKGUIConfig): integer;
 var
-  aForm: TfrmCHXForm;
   aFrame: TfmETKGUIMediaManager;
 begin
-  Result := mrNone;
+  aFrame := TfmETKGUIMediaManager.Create(nil);
 
-  Application.CreateForm(TfrmCHXForm, aForm);
-  try
-    aForm.Name := krsETKMMFormName;
-    aForm.Caption := Format(krsFmtWindowCaption,
-      [Application.Title, rsETKMMFormCaption]);
-
-    aFrame := TfmETKGUIMediaManager.Create(aForm);
     aFrame.Align := alClient;
 
     aFrame.GUIConfig := aGUIConfig;
@@ -2288,14 +2279,9 @@ begin
     // fmSystemCBX.SelectedSystem don't trigger SetSystem() callback.
     aFrame.SelectSystem(SelectedSystem);
 
-    aFrame.Parent := aForm;
-
-    aForm.LoadGUIConfig(aGUIConfig.DefaultFileName);
-    aForm.LoadGUIIcons(aGUIIconsIni);
-    Result := aForm.ShowModal;
-  finally
-    aForm.Free;
-  end;
+    Result := GenSimpleModalForm(aFrame, krsETKMMFormName,
+      Format(krsFmtWindowCaption, [Application.Title, rsETKMMFormCaption]),
+      aGUIConfig.DefaultFileName, aGUIIconsIni);
 end;
 
 constructor TfmETKGUIMediaManager.Create(TheOwner: TComponent);

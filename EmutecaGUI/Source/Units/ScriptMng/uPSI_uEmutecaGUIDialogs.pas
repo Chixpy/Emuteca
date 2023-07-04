@@ -38,7 +38,7 @@ uses
   // Emuteca GUI frames
   ufEmutecaGroupEditor, ufETKGUIFullSoftEditor, ufETKGUIIcnSysCBX,
   // Emuteca GUI PS frames
-  fETKGUICompareSG;
+  ufETKGUICompareSG;
 
 procedure SIRegister_uEmutecaGUIDialogs(CL: TPSPascalCompiler);
 procedure RIRegister_uEmutecaGUIDialogs_Routines(S: TPSExec);

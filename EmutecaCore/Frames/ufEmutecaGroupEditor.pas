@@ -54,12 +54,11 @@ type
     procedure SetGroup(AValue: cEmutecaGroup);
 
   protected
-    procedure LoadFrameData; override;
-
     procedure SortMultigame;
 
   public
     procedure ClearFrameData; override;
+    procedure LoadFrameData; override;
     procedure SaveFrameData; override;
 
     procedure FPOObservedChanged(ASender: TObject;
@@ -168,11 +167,11 @@ end;
 procedure TfmEmutecaGroupEditor.SortMultigame;
 var
   sID, sTitle, sSortTitle, sLowest: string;
-  sOldTitle, sOldSortTitle: string;
+  //sOldTitle, sOldSortTitle: string;
   slSortTitle, slTitle, slID, slSorter: TStringList;
   i, iLowest: integer;
   EmptyTitle, EmptySort: boolean;
-  aSoft: cEmutecaSoftware;
+  //aSoft: cEmutecaSoftware;
 begin
   if not Assigned(Group) then
     Exit;
@@ -272,9 +271,12 @@ begin
   slTitle.Free;
   slID.Free;
 
-  // Keep old data for soft childrens
-  sOldTitle := Group.Title; // Title or ID (if empty)
-  sOldSortTitle := Group.GetActualSortTitle;
+  // Uhm... NOP, sort in soft too
+  //
+  //// Keep old data for soft
+  //sOldTitle := Group.Title; // Title or ID (if empty)
+  //sOldSortTitle := Group.GetActualSortTitle;
+
 
   Group.ID := sID;
   if not EmptyTitle then
@@ -282,20 +284,22 @@ begin
   if not EmptySort then
     Group.SortTitle := sSortTitle;
 
-  i := 0;
-  while i < Group.SoftList.Count do
-  begin
-    aSoft := Group.SoftList[i];
+  // Uhm... NOP^2
+  //i := 0;
+  //while i < Group.SoftList.Count do
+  //begin
+  //  aSoft := Group.SoftList[i];
+  //
+  //  // if title is empty, copy old group data to keep game order in software
+  //  if aSoft.GetActualTitle = '' then
+  //  begin
+  //    aSoft.Title := sOldTitle;
+  //    aSoft.SortTitle := sOldSortTitle;
+  //  end;
+  //
+  //  Inc(i);
+  //end;
 
-    // if title is empty, copy old group data to keep game order in software
-    if aSoft.GetActualTitle = '' then
-    begin
-      aSoft.Title := sOldTitle;
-      aSoft.SortTitle := sOldSortTitle;
-    end;
-
-    Inc(i);
-  end;
 end;
 
 
@@ -315,7 +319,7 @@ class function TfmEmutecaGroupEditor.SimpleModalForm(aGroup: cEmutecaGroup;
 var
   fmGroupEditor: TfmEmutecaGroupEditor;
 begin
-  Result := mrAbort;
+  Result := mrNone;
 
   if not Assigned(aGroup) then
     Exit;
@@ -332,8 +336,6 @@ begin
   Result := GenSimpleModalForm(fmGroupEditor, 'frmETKGroupEditor',
     Format(krsFmtWindowCaption, [Application.Title, 'Group Editor']),
     aGUIConfigIni, aGUIIconsIni);
-
-  // Autofreed? FreeAndNil(fmGroupEditor);
 end;
 
 constructor TfmEmutecaGroupEditor.Create(TheOwner: TComponent);

@@ -551,7 +551,7 @@ begin
   fmEmutecaMainFrame.Emuteca := nil;
 
   TfmETKGUIEmuManager.SimpleForm(Emuteca.EmulatorManager,
-    SHA1Folder, GUIIconsFile, GUIConfig.DefaultFileName);
+    SHA1Folder, GUIConfig.DefaultFileName, GUIIconsFile);
 
   Emuteca.UpdateSysEmulators;
 
@@ -566,8 +566,8 @@ end;
 
 procedure TfrmETKGUIMain.actExportSoftDataExecute(Sender: TObject);
 begin
-  TfmEmutecaActExportSoftData.SimpleForm(Emuteca, CurrentSystem, GUIIconsFile,
-    GUIConfig.DefaultFileName);
+  TfmEmutecaActExportSoftData.SimpleForm(Emuteca, CurrentSystem,
+    GUIConfig.DefaultFileName, GUIIconsFile);
 end;
 
 procedure TfrmETKGUIMain.actImportSoftDataExecute(Sender: TObject);
@@ -575,8 +575,8 @@ begin
   // Fix runtime errors, while trying to update if something is changed
   fmEmutecaMainFrame.Emuteca := nil;
 
-  TfmEmutecaActImportSoftData.SimpleForm(Emuteca, CurrentSystem, GUIIconsFile,
-    GUIConfig.DefaultFileName);
+  TfmEmutecaActImportSoftData.SimpleForm(Emuteca, CurrentSystem,
+    GUIConfig.DefaultFileName, GUIIconsFile);
 
   fmEmutecaMainFrame.Emuteca := Emuteca;
 end;
@@ -586,8 +586,8 @@ begin
   // Fix runtime errors, while trying to update if something is changed
   fmEmutecaMainFrame.Emuteca := nil;
 
-  TfmEmutecaActAddFolder.SimpleForm(Emuteca, CurrentSystem, GUIIconsFile,
-    GUIConfig.DefaultFileName);
+  TfmEmutecaActAddFolder.SimpleForm(Emuteca, CurrentSystem,
+    GUIConfig.DefaultFileName, GUIIconsFile);
 
   fmEmutecaMainFrame.Emuteca := Emuteca;
 end;
@@ -933,7 +933,7 @@ begin
 
   TfmETKGUIScriptManager.SimpleForm(Emuteca,
     SetAsAbsoluteFile(GUIConfig.ScriptsFolder, BaseFolder),
-    GUIIconsFile, GUIConfig.DefaultFileName);
+    GUIConfig.DefaultFileName, GUIIconsFile);
 
   fmEmutecaMainFrame.Emuteca := Emuteca;
 end;

@@ -43,6 +43,9 @@ uses
   // Emuteca Core frames
   ufEmutecaSystemCBX;
 
+const
+  krsfrmEmutecaActExportSoftData = 'frmEmutecaActExportSoftData';
+
 type
 
   { TfmEmutecaActExportSoftData }
@@ -83,7 +86,7 @@ type
 
     class function SimpleForm(aEmuteca: cEmuteca;
       SelectedSystem: cEmutecaSystem;
-      const aGUIIconsIni, aGUIConfigIni: string): integer;
+      const aGUIConfigIni, aGUIIconsIni: string): integer;
     //< Creates a form with AddFolder frame.
 
     constructor Create(TheOwner: TComponent); override;
@@ -230,37 +233,24 @@ end;
 
 class function TfmEmutecaActExportSoftData.SimpleForm(aEmuteca: cEmuteca;
   SelectedSystem: cEmutecaSystem;
-  const aGUIIconsIni, aGUIConfigIni: string): integer;
+  const aGUIConfigIni, aGUIIconsIni: string): integer;
 var
-  aForm: TfrmCHXForm;
   aFrame: TfmEmutecaActExportSoftData;
 begin
-  Result := mrNone;
+  aFrame := TfmEmutecaActExportSoftData.Create(nil);
 
-  Application.CreateForm(TfrmCHXForm, aForm);
-  try
-    aForm.Name := 'frmEmutecaActExportSoftData';
-    aForm.Caption := Format(krsFmtWindowCaption,
-      [Application.Title, 'Export soft data']);
+  aFrame.SaveButtons := True;
+  aFrame.ButtonClose := True;
+  aFrame.Align := alClient;
 
-    aFrame := TfmEmutecaActExportSoftData.Create(aForm);
-    aFrame.SaveButtons := True;
-    aFrame.ButtonClose := True;
-    aFrame.Align := alClient;
+  aFrame.Emuteca := aEmuteca;
+  aFrame.fmSystemCBX.SelectedSystem := SelectedSystem;
+  // fmSystemCBX.SelectedSystem don't trigger SetSystem() callback.
+  aFrame.System := SelectedSystem;
 
-    aFrame.Emuteca := aEmuteca;
-    aFrame.fmSystemCBX.SelectedSystem := SelectedSystem;
-    // fmSystemCBX.SelectedSystem don't trigger SetSystem() callback.
-    aFrame.System := SelectedSystem;
-
-    aForm.LoadGUIConfig(aGUIConfigIni);
-    aForm.LoadGUIIcons(aGUIIconsIni);
-    aFrame.Parent := aForm;
-
-    Result := aForm.ShowModal;
-  finally
-    aForm.Free;
-  end;
+  Result := GenSimpleModalForm(aFrame, krsfrmEmutecaActExportSoftData,
+    Format(krsFmtWindowCaption, [Application.Title, 'Export soft data']),
+    aGUIConfigIni, aGUIIconsIni);
 end;
 
 constructor TfmEmutecaActExportSoftData.Create(TheOwner: TComponent);

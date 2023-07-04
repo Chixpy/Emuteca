@@ -52,18 +52,21 @@ type
     procedure SetSystemList(AValue: cEmutecaSystemList);
 
   protected
-    procedure DoClearFrameData;
-    procedure DoLoadFrameData;
+
 
   public
     property SystemList: cEmutecaSystemList
       read FSystemList write SetSystemList;
+
     property SelectedSystem: cEmutecaSystem
       read FSelectedSystem write SetSelectedSystem;
     property OnSelectSystem: TEmutecaReturnSystemCB
       read FOnSelectSystem write SetOnSelectSystem;
 
     property FirstItem: TETKSysCBXFirstItem read FFirstItem write SetFirstItem;
+
+    procedure ClearFrameData; override;
+    procedure LoadFrameData; override;
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -165,13 +168,17 @@ begin
   LoadFrameData;
 end;
 
-procedure TfmEmutecaSystemCBX.DoClearFrameData;
+procedure TfmEmutecaSystemCBX.ClearFrameData;
 begin
+  inherited ClearFrameData;
+
   cbxSystem.Clear;
 end;
 
-procedure TfmEmutecaSystemCBX.DoLoadFrameData;
+procedure TfmEmutecaSystemCBX.LoadFrameData;
 begin
+  inherited LoadFrameData;
+
   Enabled := Assigned(SystemList);
 
   if not Enabled then

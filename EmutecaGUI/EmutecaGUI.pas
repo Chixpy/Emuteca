@@ -1,4 +1,5 @@
 program EmutecaGUI;
+
 {< Main program of Emuteca GUI.
 
   This file is part of Emuteca GUI.
@@ -25,30 +26,50 @@ program EmutecaGUI;
 uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   cthreads, {$ENDIF} {$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, mplayercontrollaz, lazcontrols, pascalscript,
+  Forms,
+  mplayercontrollaz,
+  lazcontrols,
+  pascalscript,
   // CHX units
-  uCHXDlgUtils, uCHXImageUtils, uCHXExecute, uCHXConst, uCHXRscStr,
+  uCHXConst,
+  uCHXDlgUtils,
+  uCHXExecute,
+  uCHXImageUtils,
+  uCHXMenuUtils,
+  uCHXRscStr,
   // CHX abstract classes
   uaCHXConfig,
   uaCHXStorable,
   // CHX frames
+  ufCHXAbout,
   ufCHXChkLstPropEditor,
+  ufCHXFileListPreview,
   ufCHXFrame,
   ufCHXImgListPreview,
+  ufCHXImgViewer,
   ufCHXListPreview,
   ufCHXMultiFolderEditor,
+  ufCHXProgressBar,
   ufCHXPropEditor,
   ufCHXScriptManager,
-  ufCHXFileListPreview,
   ufCHXTagTree,
   ufCHXTxtListPreview,
-  // CHX Script Engine stuff
+  ufCHXVideoListPreview,
+  // CHX Pascal Script imported units
   uPSI_CHXBasic,
-  ufSMAskMultiFile,
+  uPSI_FPCDateUtils,
+  uPSI_FPCFileUtil,
+  uPSI_FPCLazUTF8,
+  uPSI_FPCSysUtils,
+  uPSI_uaCHXStorable,
   // Emuteca units
+  uEmutecaConst,
+  uEmutecaRscStr,
   // Emuteca abstract classes
+  uaEmutecaCustomEmu,
   uaEmutecaCustomGroup,
   uaEmutecaCustomManager,
+  uaEmutecaCustomSGItem,
   uaEmutecaCustomSoft,
   uaEmutecaCustomSystem,
   // Emuteca classes
@@ -67,36 +88,62 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   ucEmutecaSystem,
   ucEmutecaSystemList,
   ucEmutecaSystemManager,
+  ucEmutecaTagsFile,
   // Emuteca frames
   ufEmutecaActAddFolder,
   ufEmutecaActAddSoft,
   ufEmutecaActExportSoftData,
   ufEmutecaActImportSoftData,
+  ufEmutecaEmulatorAdvParamsEditor,
   ufEmutecaEmulatorCBX,
   ufEmutecaEmulatorEditor,
   ufEmutecaGroupCBX,
   ufEmutecaGroupEditor,
   ufEmutecaSoftEditor,
+  ufEmutecaSoftImgPreview,
   ufEmutecaSoftTree,
+  ufEmutecaSoftTxtPreview,
+  ufEmutecaSoftVideoPreview,
   ufEmutecaSystemCBX,
   ufEmutecaSystemEditor,
-  ufEmutecaSystemImgEditor,
   ufEmutecaSystemITFEditor,
+  ufEmutecaSystemImgEditor,
   ufEmutecaSystemMVFEditor,
+  ufEmutecaTagTree,
+  // Emuteca Pascal Script imported units
+  uPSI_uEmutecaConst,
+  uPSI_uEmutecaGUIDialogs,
+  uPSI_uEmutecaRscStr,
+  uPSI_uaEmutecaCustomEmu,
+  uPSI_uaEmutecaCustomSGItem,
+  uPSI_ucEmutecaEmuList,
+  uPSI_ucEmutecaGroupList,
+  uPSI_ucEmutecaSoftList,
+  uPSI_ucEmutecaSystemList,
+  // Emuteca Pascal Script frames
+  ufSMAskMultiFile,
+  ufSMAskOption,
   // Emuteca threads
   utEmutecaGetSoftSHA1,
-  // Emuteca GUI units
+  utEmutecaRunEmulator,
+  // ETKGUI units
   uETKGUICommon,
-  // Emuteca GUI abstracts
+  uETKGUIConst,
+  uETKGUIRscStr,
+  // ETKGUI abstract classes
   uafETKGUISoftFoldersPreview,
-  // Emuteca GUI classes
+  // ETKGUI classes
   ucETKGUIConfig,
-  // Emuteca GUI frames
-  ufCHXProgressBar,
+  ucETKGUIItemCache,
+  // ETKGUI frames
+  ufETKGUIAbout,
+  ufETKGUICompareSG,
   ufETKGUIEmuManager,
+  ufETKGUIFullConfigEditor,
   ufETKGUIFullEmuEditor,
   ufETKGUIFullSoftEditor,
   ufETKGUIFullSysEditor,
+  ufETKGUIIcnEmuCBX,
   ufETKGUIIcnSoftTree,
   ufETKGUIIcnSysCBX,
   ufETKGUIMain,
@@ -104,25 +151,20 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   ufETKGUIScriptManager,
   ufETKGUISoftImgPreview,
   ufETKGUISoftMedia,
+  ufETKGUISoftMusicPreview,
+  ufETKGUISoftTxtPreview,
+  ufETKGUISoftVideoPreview,
   ufETKGUISysManager,
   ufETKGUISysPreview,
   ufETKGUIactMergeGroup,
+  // ETKGUI Forms
   ufrETKGUIMain,
-  // Emuteca GUI threads
-  utETKGUICacheGrpIcons, utETKGUICacheSysIcons, utETKGUICacheSoftIcons,
-  ufETKGUISoftVideoPreview, ufCHXVideoListPreview, ufETKGUISoftMusicPreview,
-  uEmutecaRscStr, uEmutecaConst, uaEmutecaCustomEmu, uPSI_uEmutecaConst,
-  uPSI_uEmutecaRscStr, uETKGUIConst, uETKGUIRscStr, ufETKGUIFullConfigEditor,
-  ufEmutecaSoftImgPreview, ufEmutecaSoftTxtPreview, ufEmutecaSoftVideoPreview,
-  ufCHXImgViewer, ucETKGUIItemCache, uPSI_uaCHXStorable,
-  uPSI_uaEmutecaCustomEmu, ufEmutecaEmulatorAdvParamsEditor, ufETKGUIIcnEmuCBX,
-  utETKGUICacheEmuIcons, ufCHXAbout, ufETKGUIAbout, ufEmutecaTagTree,
-  ucEmutecaTagsFile, uCHXMenuUtils, uPSI_FPCFileUtil, uPSI_FPCLazUTF8,
-  utEmutecaRunEmulator, uaEmutecaCustomSGItem, ufETKGUISoftTxtPreview,
-  uPSI_FPCSysUtils, ufSMAskOption, uPSI_ucEmutecaSystemList,
-  uPSI_uaEmutecaCustomSGItem, uPSI_ucEmutecaEmuList, uPSI_ucEmutecaGroupList,
-  uPSI_ucEmutecaSoftList, uPSI_uEmutecaGUIDialogs, uPSI_FPCDateUtils, 
-fETKGUICompareSG;
+  // ETKGUI threads
+  utETKGUICacheEmuIcons,
+  utETKGUICacheGrpIcons,
+  utETKGUICacheSoftIcons,
+  utETKGUICacheSysIcons;
+
 
 {$R *.res}
 

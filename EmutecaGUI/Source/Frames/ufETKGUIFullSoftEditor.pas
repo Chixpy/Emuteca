@@ -293,6 +293,7 @@ begin
     Exit;
 
   fmFullSoftEditor := TfmETKGUIFullSoftEditor.Create(nil);
+
   fmFullSoftEditor.Software := aSoft;
 
   fmFullSoftEditor.ButtonClose := True;
@@ -306,14 +307,12 @@ begin
   Result := GenSimpleModalForm(fmFullSoftEditor, 'frmETKGUIFullSoftEditor',
     Format(krsFmtWindowCaption, [Application.Title, 'Software Editor']),
     aGUIConfigIni, aGUIIconsIni);
-
-  // Autofreed? FreeAndNil(fmGroupEditor);
 end;
 
 initialization
-  RegisterClass(cEmutecaSystem);
+  RegisterClass(TfmETKGUIFullSoftEditor);
 
 finalization
-  UnRegisterClass(cEmutecaSystem);
+  UnRegisterClass(TfmETKGUIFullSoftEditor);
   
 end.

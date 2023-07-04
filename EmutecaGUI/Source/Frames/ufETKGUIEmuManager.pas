@@ -87,8 +87,8 @@ type
 
     // Creates a form with Emulator Manager.
     class function SimpleForm(aEmuManager: cEmutecaEmulatorManager;
-      aSHA1Folder: string; aGUIIconsIni: string;
-      aGUIConfigIni: string): integer;
+      aSHA1Folder: string; aGUIConfigIni: string;
+      aGUIIconsIni: string): integer;
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -245,35 +245,22 @@ end;
 
 class function TfmETKGUIEmuManager.SimpleForm(
   aEmuManager: cEmutecaEmulatorManager; aSHA1Folder: string;
-  aGUIIconsIni: string; aGUIConfigIni: string): integer;
+  aGUIConfigIni: string; aGUIIconsIni: string): integer;
 var
-  aForm: TfrmCHXForm;
   aFrame: TfmETKGUIEmuManager;
 begin
-  Result := mrNone;
+  aFrame := TfmETKGUIEmuManager.Create(nil);
 
-  Application.CreateForm(TfrmCHXForm, aForm);
-  try
-    aForm.Name := 'frmETKGUIEmuManager';
-    aForm.Caption := Format(krsFmtWindowCaption,
-      [Application.Title, 'Emulator Manager']);
+  aFrame.SaveButtons := True;
+  aFrame.ButtonClose := True;
+  aFrame.Align := alClient;
 
-    aFrame := TfmETKGUIEmuManager.Create(aForm);
-    aFrame.SaveButtons := True;
-    aFrame.ButtonClose := True;
-    aFrame.Align := alClient;
+  aFrame.SHA1Folder := aSHA1Folder;
+  aFrame.EmuManager := aEmuManager;
 
-    aFrame.SHA1Folder := aSHA1Folder;
-    aFrame.EmuManager := aEmuManager;
-
-    aForm.LoadGUIConfig(aGUIConfigIni);
-    aForm.LoadGUIIcons(aGUIIconsIni);
-    aFrame.Parent := aForm;
-
-    Result := aForm.ShowModal;
-  finally
-    aForm.Free;
-  end;
+  Result := GenSimpleModalForm(aFrame, 'frmETKGUIEmuManager',
+    Format(krsFmtWindowCaption, [Application.Title, 'Emulator Manager']),
+    aGUIConfigIni, aGUIIconsIni);
 end;
 
 procedure TfmETKGUIEmuManager.OnListClick(aObject: TObject);

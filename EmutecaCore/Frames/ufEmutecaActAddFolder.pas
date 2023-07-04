@@ -78,8 +78,8 @@ type
     procedure SaveFrameData; override;
 
     class function SimpleForm(aEmuteca: cEmuteca;
-      SelectedSystem: cEmutecaSystem; const aGUIIconsIni: string;
-      const aGUIConfigIni: string): integer;
+      SelectedSystem: cEmutecaSystem;
+      const aGUIConfigIni, aGUIIconsIni: string): integer;
     //< Creates a form with TfmEmutecaActAddFolder frame.
 
     constructor Create(TheOwner: TComponent); override;
@@ -357,21 +357,12 @@ begin
 end;
 
 class function TfmEmutecaActAddFolder.SimpleForm(aEmuteca: cEmuteca;
-  SelectedSystem: cEmutecaSystem; const aGUIIconsIni: string;
-  const aGUIConfigIni: string): integer;
+  SelectedSystem: cEmutecaSystem;
+  const aGUIConfigIni, aGUIIconsIni: string): integer;
 var
-  aForm: TfrmCHXForm;
   aFrame: TfmEmutecaActAddFolder;
 begin
-  Result := mrNone;
-
-  Application.CreateForm(TfrmCHXForm, aForm);
-  try
-    aForm.Name := 'frmEmutecaActAddFolder';
-    aForm.Caption := Format(krsFmtWindowCaption,
-      [Application.Title, 'Add Folder']);
-
-    aFrame := TfmEmutecaActAddFolder.Create(aForm);
+  aFrame := TfmEmutecaActAddFolder.Create(nil);
     aFrame.SaveButtons := True;
     aFrame.ButtonClose := True;
     aFrame.Align := alClient;
@@ -381,14 +372,9 @@ begin
     // fmSystemCBX.SelectedSystem don't trigger SetSystem() callback.
     aFrame.SelectSystem(SelectedSystem);
 
-    aForm.LoadGUIConfig(aGUIConfigIni);
-    aForm.LoadGUIIcons(aGUIIconsIni);
-    aFrame.Parent := aForm;
-
-    Result := aForm.ShowModal;
-  finally
-    aForm.Free;
-  end;
+    Result := GenSimpleModalForm(aFrame, 'frmEmutecaActAddFolder',
+      Format(krsFmtWindowCaption, [Application.Title, 'Add Folder']),
+      aGUIConfigIni, aGUIIconsIni);
 end;
 
 constructor TfmEmutecaActAddFolder.Create(TheOwner: TComponent);
