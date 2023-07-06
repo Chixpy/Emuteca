@@ -1,15 +1,15 @@
 inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
-  Height = 728
-  Width = 973
-  ClientHeight = 728
-  ClientWidth = 973
+  Height = 658
+  Width = 1037
+  ClientHeight = 658
+  ClientWidth = 1037
   DesignLeft = 352
   DesignTop = 151
   object sbTarget: TStatusBar[0]
     Left = 0
     Height = 29
-    Top = 699
-    Width = 973
+    Top = 629
+    Width = 1037
     Panels = <    
       item
         Alignment = taCenter
@@ -25,8 +25,8 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
   object sbSource: TStatusBar[1]
     Left = 0
     Height = 29
-    Top = 666
-    Width = 973
+    Top = 596
+    Width = 1037
     Panels = <    
       item
         Alignment = taCenter
@@ -41,36 +41,36 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
   end
   object Splitter1: TSplitter[2]
     Left = 204
-    Height = 662
+    Height = 592
     Top = 0
     Width = 5
   end
   object pRight: TPanel[3]
-    Left = 623
-    Height = 662
+    Left = 780
+    Height = 592
     Top = 0
-    Width = 350
+    Width = 257
     Align = alRight
     BevelOuter = bvNone
-    ClientHeight = 662
-    ClientWidth = 350
+    ClientHeight = 592
+    ClientWidth = 257
     TabOrder = 4
     object gbxRename: TGroupBox
       Left = 0
       Height = 79
-      Top = 583
-      Width = 350
+      Top = 513
+      Width = 257
       Align = alBottom
       AutoSize = True
       Caption = 'Change filename'
       ClientHeight = 54
-      ClientWidth = 346
+      ClientWidth = 253
       TabOrder = 3
       object chkCopyFile: TCheckBox
         Left = 0
         Height = 24
         Top = 0
-        Width = 346
+        Width = 253
         Align = alTop
         Caption = 'Copy file, don''t delete source.'
         TabOrder = 0
@@ -79,7 +79,7 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
         Left = 0
         Height = 30
         Top = 24
-        Width = 346
+        Width = 253
         Action = actAssignFile
         Align = alTop
         TabOrder = 1
@@ -87,9 +87,9 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
     end
     object pImagePreview: TPanel
       Left = 0
-      Height = 300
+      Height = 230
       Top = 0
-      Width = 350
+      Width = 257
       Align = alClient
       BevelOuter = bvNone
       TabOrder = 0
@@ -98,24 +98,24 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
       Cursor = crVSplit
       Left = 0
       Height = 5
-      Top = 300
-      Width = 350
+      Top = 230
+      Width = 257
       Align = alBottom
       ResizeAnchor = akBottom
     end
     object pTextPreview: TPanel
       Left = 0
       Height = 278
-      Top = 305
-      Width = 350
+      Top = 235
+      Width = 257
       Align = alBottom
       BevelOuter = bvNone
       TabOrder = 1
     end
   end
   object Splitter2: TSplitter[4]
-    Left = 614
-    Height = 662
+    Left = 771
+    Height = 592
     Top = 0
     Width = 5
     Align = alRight
@@ -123,43 +123,43 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
   end
   object pCenter: TPanel[5]
     Left = 213
-    Height = 662
+    Height = 592
     Top = 0
-    Width = 397
+    Width = 554
     Align = alClient
     BevelOuter = bvNone
-    ClientHeight = 662
-    ClientWidth = 397
+    ClientHeight = 592
+    ClientWidth = 554
     TabOrder = 2
     object gbxSource: TGroupBox
       Left = 0
-      Height = 300
+      Height = 243
       Top = 0
-      Width = 397
+      Width = 554
       Align = alTop
       Caption = 'Source'
-      ClientHeight = 275
-      ClientWidth = 393
+      ClientHeight = 218
+      ClientWidth = 550
       TabOrder = 0
       object pcSource: TPageControl
         Left = 0
-        Height = 246
+        Height = 189
         Top = 0
-        Width = 393
+        Width = 550
         ActivePage = pagFilesOtherFolder
         Align = alClient
         TabIndex = 4
         TabOrder = 0
         OnChange = pcSourceChange
-        object pagFilesWOGroup: TTabSheet
-          Caption = 'Files without group'
-          ClientHeight = 213
-          ClientWidth = 385
-          object vstFilesWOGroup: TVirtualStringTree
+        object pagFilesWOSoft: TTabSheet
+          Caption = 'Files without soft'
+          ClientHeight = 156
+          ClientWidth = 542
+          object vstFilesWOSoft: TVirtualStringTree
             Left = 0
-            Height = 213
+            Height = 156
             Top = 0
-            Width = 385
+            Width = 542
             Align = alClient
             Colors.UnfocusedColor = clMedGray
             DefaultText = '-- Empty Row!!'
@@ -178,7 +178,7 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
               end>
             Header.DefaultHeight = 17
             Header.Height = 17
-            Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoShowSortGlyphs, hoVisible]
+            Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoShowSortGlyphs, hoVisible, hoHeaderClickAutoSort]
             PopupMenu = pumVSTFiles
             TabOrder = 0
             TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScrollOnExpand, toAutoSort, toAutoTristateTracking, toAutoDeleteMovedNodes]
@@ -195,15 +195,15 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
             OnNodeClick = vstNodeClick
           end
         end
-        object pagFilesWOSoft: TTabSheet
-          Caption = 'Files without soft'
-          ClientHeight = 213
-          ClientWidth = 385
-          object vstFilesWOSoft: TVirtualStringTree
+        object pagFilesWOGroup: TTabSheet
+          Caption = 'Files without group'
+          ClientHeight = 156
+          ClientWidth = 542
+          object vstFilesWOGroup: TVirtualStringTree
             Left = 0
-            Height = 213
+            Height = 156
             Top = 0
-            Width = 385
+            Width = 542
             Align = alClient
             Colors.UnfocusedColor = clMedGray
             DefaultText = '-- Empty Row!!'
@@ -222,7 +222,7 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
               end>
             Header.DefaultHeight = 17
             Header.Height = 17
-            Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoShowSortGlyphs, hoVisible]
+            Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoShowSortGlyphs, hoVisible, hoHeaderClickAutoSort]
             PopupMenu = pumVSTFiles
             TabOrder = 0
             TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScrollOnExpand, toAutoSort, toAutoTristateTracking, toAutoDeleteMovedNodes]
@@ -241,13 +241,13 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
         end
         object pagAllFiles: TTabSheet
           Caption = 'All files'
-          ClientHeight = 213
-          ClientWidth = 385
+          ClientHeight = 156
+          ClientWidth = 542
           object vstFilesAll: TVirtualStringTree
             Left = 0
-            Height = 213
+            Height = 156
             Top = 0
-            Width = 385
+            Width = 542
             Align = alClient
             Colors.UnfocusedColor = clMedGray
             DefaultText = '-- Empty Row!!'
@@ -285,13 +285,13 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
         end
         object pagOtherFiles: TTabSheet
           Caption = 'Other files'
-          ClientHeight = 213
-          ClientWidth = 385
+          ClientHeight = 156
+          ClientWidth = 542
           object vstFilesOtherExt: TVirtualStringTree
             Left = 0
-            Height = 213
+            Height = 156
             Top = 0
-            Width = 385
+            Width = 542
             Align = alClient
             Colors.UnfocusedColor = clMedGray
             DefaultText = '-- Empty Row!!'
@@ -329,13 +329,13 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
         end
         object pagFilesOtherFolder: TTabSheet
           Caption = 'Files from other folder'
-          ClientHeight = 213
-          ClientWidth = 385
+          ClientHeight = 156
+          ClientWidth = 542
           object vstFilesOtherFolder: TVirtualStringTree
             Left = 0
-            Height = 183
+            Height = 126
             Top = 30
-            Width = 385
+            Width = 542
             Align = alClient
             Colors.UnfocusedColor = clMedGray
             DefaultText = '-- Empty Row!!'
@@ -354,7 +354,7 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
               end>
             Header.DefaultHeight = 17
             Header.Height = 17
-            Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoShowSortGlyphs, hoVisible]
+            Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoShowSortGlyphs, hoVisible, hoHeaderClickAutoSort]
             PopupMenu = pumVSTFiles
             TabOrder = 0
             TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScrollOnExpand, toAutoSort, toAutoTristateTracking, toAutoDeleteMovedNodes]
@@ -374,15 +374,15 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
             Left = 0
             Height = 30
             Top = 0
-            Width = 385
+            Width = 542
             Align = alTop
             AutoSize = True
             BevelOuter = bvNone
             ClientHeight = 30
-            ClientWidth = 385
+            ClientWidth = 542
             TabOrder = 1
             object bAutoAssign: TButton
-              Left = 291
+              Left = 448
               Height = 30
               Top = 0
               Width = 94
@@ -394,7 +394,7 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
               Left = 0
               Height = 30
               Top = 0
-              Width = 291
+              Width = 448
               OnAcceptDirectory = eOtherFolderAcceptDirectory
               ShowHidden = False
               ButtonWidth = 23
@@ -409,8 +409,8 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
       object sbSourceList: TStatusBar
         Left = 0
         Height = 29
-        Top = 246
-        Width = 393
+        Top = 189
+        Width = 550
         Panels = <>
         SizeGrip = False
       end
@@ -419,41 +419,41 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
       Cursor = crVSplit
       Left = 0
       Height = 5
-      Top = 300
-      Width = 397
+      Top = 243
+      Width = 554
       Align = alTop
       ResizeAnchor = akTop
     end
     object gbxTarget: TGroupBox
       Left = 0
-      Height = 357
-      Top = 305
-      Width = 397
+      Height = 344
+      Top = 248
+      Width = 554
       Align = alClient
       Caption = 'Target'
-      ClientHeight = 332
-      ClientWidth = 393
+      ClientHeight = 319
+      ClientWidth = 550
       TabOrder = 2
       object pcTarget: TPageControl
         Left = 0
-        Height = 303
+        Height = 290
         Top = 0
-        Width = 393
-        ActivePage = pagAllGroups
+        Width = 550
+        ActivePage = pagAllSoft
         Align = alClient
         PopupMenu = pumVSTGroups
-        TabIndex = 2
+        TabIndex = 3
         TabOrder = 0
         OnChange = pcTargetChange
         object pagGroupsWOFile: TTabSheet
           Caption = 'Groups without file'
-          ClientHeight = 270
-          ClientWidth = 385
+          ClientHeight = 257
+          ClientWidth = 542
           object vstGroupsWOFile: TVirtualStringTree
             Left = 0
-            Height = 270
+            Height = 163
             Top = 0
-            Width = 385
+            Width = 542
             Align = alClient
             Colors.UnfocusedColor = clMedGray
             DefaultText = 'Node'
@@ -471,7 +471,7 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
               end>
             Header.DefaultHeight = 17
             Header.Height = 17
-            Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoShowSortGlyphs, hoVisible]
+            Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoShowSortGlyphs, hoVisible, hoHeaderClickAutoSort]
             PopupMenu = pumVSTGroups
             TabOrder = 0
             TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScrollOnExpand, toAutoSort, toAutoTristateTracking, toAutoDeleteMovedNodes]
@@ -485,16 +485,66 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
             OnKeyPress = vstKeyPress
             OnNodeClick = vstNodeClick
           end
+          object vstSoftOfGroupsWOFile: TVirtualStringTree
+            Left = 0
+            Height = 88
+            Top = 169
+            Width = 542
+            Align = alBottom
+            Colors.UnfocusedColor = clMedGray
+            DefaultText = 'Node'
+            Header.AutoSizeIndex = 0
+            Header.Columns = <            
+              item
+                Position = 0
+                Text = 'File'
+                Width = 300
+              end            
+              item
+                Position = 1
+                Text = 'Game'
+                Width = 300
+              end            
+              item
+                Position = 2
+                Text = 'Group'
+                Width = 300
+              end>
+            Header.DefaultHeight = 17
+            Header.Height = 17
+            Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoShowSortGlyphs, hoVisible, hoHeaderClickAutoSort]
+            PopupMenu = pumVSTSoft
+            TabOrder = 1
+            TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScrollOnExpand, toAutoSort, toAutoTristateTracking, toAutoDeleteMovedNodes]
+            TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning]
+            TreeOptions.PaintOptions = [toPopupMode, toShowButtons, toShowDropmark, toShowHorzGridLines, toShowTreeLines, toShowVertGridLines, toThemeAware, toUseBlendedImages, toFullVertGridLines]
+            TreeOptions.SelectionOptions = [toFullRowSelect]
+            OnChange = vstSoftGroupChange
+            OnCompareNodes = vstSoftCompareNodes
+            OnGetText = vstSoftGetText
+            OnKeyDown = vstSGKeyDown
+            OnKeyPress = vstKeyPress
+            OnNodeClick = vstNodeClick
+          end
+          object Splitter6: TSplitter
+            Cursor = crVSplit
+            Left = 0
+            Height = 6
+            Top = 163
+            Width = 542
+            Align = alBottom
+            ResizeAnchor = akBottom
+          end
         end
         object pagSoftWOFile: TTabSheet
           Caption = 'Software without file'
-          ClientHeight = 270
-          ClientWidth = 385
+          ClientHeight = 257
+          ClientWidth = 542
           object vstSoftWOFile: TVirtualStringTree
             Left = 0
-            Height = 270
+            Height = 257
             Top = 0
-            Width = 385
+            Width = 542
             Align = alClient
             Colors.UnfocusedColor = clMedGray
             DefaultText = 'Node'
@@ -517,7 +567,7 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
               end>
             Header.DefaultHeight = 17
             Header.Height = 17
-            Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoShowSortGlyphs, hoVisible]
+            Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoShowSortGlyphs, hoVisible, hoHeaderClickAutoSort]
             PopupMenu = pumVSTSoft
             TabOrder = 0
             TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScrollOnExpand, toAutoSort, toAutoTristateTracking, toAutoDeleteMovedNodes]
@@ -534,13 +584,13 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
         end
         object pagAllGroups: TTabSheet
           Caption = 'All groups'
-          ClientHeight = 270
-          ClientWidth = 385
+          ClientHeight = 257
+          ClientWidth = 542
           object vstGroupsAll: TVirtualStringTree
             Left = 0
-            Height = 270
+            Height = 163
             Top = 0
-            Width = 385
+            Width = 542
             Align = alClient
             Colors.UnfocusedColor = clMedGray
             DefaultText = 'Node'
@@ -558,7 +608,7 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
               end>
             Header.DefaultHeight = 17
             Header.Height = 17
-            Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoShowSortGlyphs, hoVisible]
+            Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoShowSortGlyphs, hoVisible, hoHeaderClickAutoSort]
             PopupMenu = pumVSTGroups
             TabOrder = 0
             TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScrollOnExpand, toAutoSort, toAutoTristateTracking, toAutoDeleteMovedNodes]
@@ -573,16 +623,66 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
             OnKeyPress = vstKeyPress
             OnNodeClick = vstNodeClick
           end
+          object vstSoftOfGroupsAll: TVirtualStringTree
+            Left = 0
+            Height = 88
+            Top = 169
+            Width = 542
+            Align = alBottom
+            Colors.UnfocusedColor = clMedGray
+            DefaultText = 'Node'
+            Header.AutoSizeIndex = 0
+            Header.Columns = <            
+              item
+                Position = 0
+                Text = 'File'
+                Width = 300
+              end            
+              item
+                Position = 1
+                Text = 'Game'
+                Width = 300
+              end            
+              item
+                Position = 2
+                Text = 'Group'
+                Width = 300
+              end>
+            Header.DefaultHeight = 17
+            Header.Height = 17
+            Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoShowSortGlyphs, hoVisible, hoHeaderClickAutoSort]
+            PopupMenu = pumVSTSoft
+            TabOrder = 1
+            TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScrollOnExpand, toAutoSort, toAutoTristateTracking, toAutoDeleteMovedNodes]
+            TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning]
+            TreeOptions.PaintOptions = [toPopupMode, toShowButtons, toShowDropmark, toShowHorzGridLines, toShowTreeLines, toShowVertGridLines, toThemeAware, toUseBlendedImages, toFullVertGridLines]
+            TreeOptions.SelectionOptions = [toFullRowSelect]
+            OnChange = vstSoftGroupChange
+            OnCompareNodes = vstSoftCompareNodes
+            OnGetText = vstSoftGetText
+            OnKeyDown = vstSGKeyDown
+            OnKeyPress = vstKeyPress
+            OnNodeClick = vstNodeClick
+          end
+          object Splitter5: TSplitter
+            Cursor = crVSplit
+            Left = 0
+            Height = 6
+            Top = 163
+            Width = 542
+            Align = alBottom
+            ResizeAnchor = akBottom
+          end
         end
         object pagAllSoft: TTabSheet
           Caption = 'All software'
-          ClientHeight = 270
-          ClientWidth = 385
+          ClientHeight = 257
+          ClientWidth = 542
           object vstSoftAll: TVirtualStringTree
             Left = 0
-            Height = 270
+            Height = 257
             Top = 0
-            Width = 385
+            Width = 542
             Align = alClient
             Colors.UnfocusedColor = clMedGray
             DefaultText = 'Node'
@@ -605,7 +705,7 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
               end>
             Header.DefaultHeight = 17
             Header.Height = 17
-            Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoShowSortGlyphs, hoVisible]
+            Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoShowSortGlyphs, hoVisible, hoHeaderClickAutoSort]
             PopupMenu = pumVSTSoft
             TabOrder = 0
             TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScrollOnExpand, toAutoSort, toAutoTristateTracking, toAutoDeleteMovedNodes]
@@ -624,8 +724,8 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
       object sbTargetList: TStatusBar
         Left = 0
         Height = 29
-        Top = 303
-        Width = 393
+        Top = 290
+        Width = 550
         Panels = <>
         SizeGrip = False
       end
@@ -633,13 +733,13 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
   end
   object pLeft: TScrollBox[6]
     Left = 0
-    Height = 662
+    Height = 592
     Top = 0
     Width = 200
     HorzScrollBar.Page = 143
-    VertScrollBar.Page = 658
+    VertScrollBar.Page = 588
     Align = alLeft
-    ClientHeight = 658
+    ClientHeight = 588
     ClientWidth = 175
     TabOrder = 0
     object gbxSystem: TGroupBox

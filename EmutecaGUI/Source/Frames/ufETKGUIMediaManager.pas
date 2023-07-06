@@ -52,6 +52,14 @@ uses
 const
   krsETKMMFormName = 'frmETKGUIMediaManager';
 
+  krsIniETKMediaMngSection = 'Media Manager';
+  {< Config file section name. }
+  krsIniETKMediaMngVSTColumnsFmt = '%0:s_Column%1:d_Witdh';
+  krsIniETKMediaMngPLeftWitdh = 'PLeft_Width';
+  krsIniETKMediaMngPRightWidth = 'PRight_Width';
+  krsIniETKMediaMngSourceHeight = 'Source_Height';
+  krsIniETKMediaMngSoftGHeight = 'SoftG_Height';
+
 resourcestring
   rsETKMMSearching = 'Searching...';
   rsETKMMSomeTime = 'This can take some time';
@@ -155,6 +163,8 @@ type
     pagSoftWOFile: TTabSheet;
     pagOtherFiles: TTabSheet;
     Splitter4: TSplitter;
+    Splitter5: TSplitter;
+    Splitter6: TSplitter;
     tbSimilarThresold: TTrackBar;
     vstFilesAll: TVirtualStringTree;
     vstFilesOtherExt: TVirtualStringTree;
@@ -163,8 +173,10 @@ type
     vstFilesOtherFolder: TVirtualStringTree;
     vstGroupsAll: TVirtualStringTree;
     vstGroupsWOFile: TVirtualStringTree;
+    vstSoftOfGroupsAll: TVirtualStringTree;
     vstSoftAll: TVirtualStringTree;
     vstSoftWOFile: TVirtualStringTree;
+    vstSoftOfGroupsWOFile: TVirtualStringTree;
     procedure actAssignFileExecute(Sender: TObject);
     procedure actAssignToGroupExecute(Sender: TObject);
     {< Renames (or copies) selected file to required filename by selected
@@ -305,7 +317,8 @@ type
     procedure LoadSysFolders;
     {< Loads CurrSystem folders in lbx. }
     procedure LoadSystemSoft;
-
+    {< Loads software from the system in vstSoftAll, except software wich
+      its filename is the same of its group's filename. }
 
     // File lists
     // ----------
@@ -378,6 +391,8 @@ type
     procedure OpenSoftEditor(NewTitle: string = '');
     {< Opens SoftEditor with current selected group, and set a new name.}
 
+    procedure DoLoadGUIConfig(aIniFile: TIniFile); override;
+    procedure DoSaveGUIConfig(aIniFile: TIniFile); override;
     procedure DoLoadGUIIcons(aIconsIni: TIniFile;
       const aBaseFolder: string); override;
 
@@ -1122,6 +1137,105 @@ begin
   FilterLists;
 end;
 
+procedure TfmETKGUIMediaManager.DoLoadGUIConfig(aIniFile: TIniFile);
+
+  procedure LoadVSTConfig(aIniFile: TIniFile; aVST: TVirtualStringTree);
+  var
+    i: integer;
+  begin
+    i := 0;
+    while i < aVST.Header.Columns.Count do
+    begin
+      // Columns width
+      aVST.Header.Columns.Items[i].Width :=
+        aIniFile.ReadInteger(krsIniETKMediaMngSection,
+        Format(krsIniETKMediaMngVSTColumnsFmt, [aVST.Name, i]),
+        aVST.Header.Columns.Items[i].Width);
+
+      Inc(i);
+    end;
+  end;
+
+begin
+  inherited DoLoadGUIConfig(aIniFile);
+
+  pLeft.Width := aIniFile.ReadInteger(krsIniETKMediaMngSection,
+    krsIniETKMediaMngPLeftWitdh, pLeft.Width);
+
+  pRight.Width := aIniFile.ReadInteger(krsIniETKMediaMngSection,
+    krsIniETKMediaMngPRightWidth, pRight.Width);
+
+  gbxSource.Height := aIniFile.ReadInteger(krsIniETKMediaMngSection,
+    krsIniETKMediaMngSourceHeight, gbxSource.Height);
+
+  vstSoftOfGroupsWOFile.Height :=
+    aIniFile.ReadInteger(krsIniETKMediaMngSection,
+    krsIniETKMediaMngSoftGHeight, vstSoftOfGroupsWOFile.Height);
+
+  // Read the same of vstSoftOfGroupsWOFile
+  vstSoftOfGroupsAll.Height :=
+    aIniFile.ReadInteger(krsIniETKMediaMngSection,
+    krsIniETKMediaMngSoftGHeight, vstSoftOfGroupsAll.Height);
+
+  LoadVSTConfig(aIniFile, vstFilesAll);
+  LoadVSTConfig(aIniFile, vstFilesOtherExt);
+  LoadVSTConfig(aIniFile, vstFilesOtherFolder);
+  LoadVSTConfig(aIniFile, vstFilesWOGroup);
+  LoadVSTConfig(aIniFile, vstFilesWOSoft);
+  LoadVSTConfig(aIniFile, vstGroupsAll);
+  LoadVSTConfig(aIniFile, vstGroupsWOFile);
+  LoadVSTConfig(aIniFile, vstSoftAll);
+  LoadVSTConfig(aIniFile, vstSoftOfGroupsAll);
+  LoadVSTConfig(aIniFile, vstSoftOfGroupsWOFile);
+  LoadVSTConfig(aIniFile, vstSoftWOFile);
+end;
+
+procedure TfmETKGUIMediaManager.DoSaveGUIConfig(aIniFile: TIniFile);
+
+  procedure SaveVSTConfig(aIniFile: TIniFile; aVST: TVirtualStringTree);
+  var
+    i: integer;
+  begin
+    i := 0;
+    while i < aVST.Header.Columns.Count do
+    begin
+      // Columns width
+      aIniFile.WriteInteger(krsIniETKMediaMngSection,
+        Format(krsIniETKMediaMngVSTColumnsFmt, [aVST.Name, i]),
+        aVST.Header.Columns.Items[i].Width);
+
+      Inc(i);
+    end;
+  end;
+
+begin
+  inherited DoSaveGUIConfig(aIniFile);
+
+  aIniFile.WriteInteger(krsIniETKMediaMngSection,
+    krsIniETKMediaMngPLeftWitdh, pLeft.Width);
+
+  aIniFile.WriteInteger(krsIniETKMediaMngSection,
+    krsIniETKMediaMngPRightWidth, pRight.Width);
+
+  aIniFile.WriteInteger(krsIniETKMediaMngSection,
+    krsIniETKMediaMngSourceHeight, gbxSource.Height);
+
+  aIniFile.WriteInteger(krsIniETKMediaMngSection,
+    krsIniETKMediaMngSoftGHeight, vstSoftOfGroupsWOFile.Height);
+
+  SaveVSTConfig(aIniFile, vstFilesAll);
+  SaveVSTConfig(aIniFile, vstFilesOtherExt);
+  SaveVSTConfig(aIniFile, vstFilesOtherFolder);
+  SaveVSTConfig(aIniFile, vstFilesWOGroup);
+  SaveVSTConfig(aIniFile, vstFilesWOSoft);
+  SaveVSTConfig(aIniFile, vstGroupsAll);
+  SaveVSTConfig(aIniFile, vstGroupsWOFile);
+  SaveVSTConfig(aIniFile, vstSoftAll);
+  SaveVSTConfig(aIniFile, vstSoftOfGroupsAll);
+  SaveVSTConfig(aIniFile, vstSoftOfGroupsWOFile);
+  SaveVSTConfig(aIniFile, vstSoftWOFile);
+end;
+
 procedure TfmETKGUIMediaManager.LoadFrameData;
 begin
   inherited LoadFrameData;
@@ -1133,7 +1247,6 @@ begin
     ClearFrameData;
     Exit;
   end;
-
 end;
 
 procedure TfmETKGUIMediaManager.LoadSysFolders;
@@ -1145,14 +1258,16 @@ begin
   lbxOtherFiles.Clear;
 
   vstGroupsAll.Clear;
-  vstSoftAll.Clear;
   vstGroupsWOFile.Clear;
+  vstSoftAll.Clear;
+  vstSoftOfGroupsAll.Clear;
+  vstSoftOfGroupsWOFile.Clear;
   vstSoftWOFile.Clear;
   vstFilesAll.Clear;
   vstFilesOtherExt.Clear;
   vstFilesWOGroup.Clear;
   vstFilesWOSoft.Clear;
-  // vstFilesOtherFolder.Clear; Not needed
+  // vstFilesOtherFolder.Clear; Not needed to clear
 
   SourceFile := '';
   SourceFolder := '';
@@ -1211,8 +1326,8 @@ begin
   // TODO: Make this... "dinamic"; search vst in current page...
 
   case pcSource.ActivePageIndex of
-    0: Result := vstFilesWOGroup;
-    1: Result := vstFilesWOSoft;
+    0: Result := vstFilesWOSoft;
+    1: Result := vstFilesWOGroup;
     2: Result := vstFilesAll;
     3: Result := vstFilesOtherExt;
     4: Result := vstFilesOtherFolder;
@@ -1329,6 +1444,8 @@ begin
   vstGroupsAll.ClearSelection;
   vstGroupsWOFile.ClearSelection;
   vstSoftAll.ClearSelection;
+  vstSoftOfGroupsAll.Clear; // Clear all items
+  vstSoftOfGroupsWOFile.Clear; // Clear all items
   vstSoftWOFile.ClearSelection;
   TargetFile := '';
 
@@ -2092,16 +2209,63 @@ end;
 
 procedure TfmETKGUIMediaManager.vstSoftGroupChange(Sender: TBaseVirtualTree;
   Node: PVirtualNode);
+
+  procedure LoadGroupSoft(aVST: TVirtualStringTree; aGroup: cEmutecaGroup);
+  var
+    i: integer;
+    aSoft: cEmutecaSoftware;
+    pSoft: ^cEmutecaSoftware;
+  begin
+    aVST.Clear;
+
+    if not Assigned(aGroup) then
+      Exit;
+
+    aVST.BeginUpdate;
+    i := 0;
+    while i < aGroup.SoftList.Count do
+    begin
+      aSoft := aGroup.SoftList[i];
+
+      pSoft := aVST.GetNodeData(aVST.AddChild(nil));
+      pSoft^ := aSoft;
+
+      Inc(i);
+    end;
+    aVST.EndUpdate;
+  end;
+
 var
   PData: ^caEmutecaCustomSGItem;
 begin
   TargetFile := '';
+
+  // Cleaning Group Softlist
+  if Sender = vstGroupsAll then
+  begin
+    vstSoftOfGroupsAll.Clear;
+  end
+  else if Sender = vstGroupsWOFile then
+  begin
+    vstSoftOfGroupsWOFile.Clear;
+  end;
 
   if (not assigned(Sender)) or (not assigned(Node)) then
     Exit;
 
   PData := Sender.GetNodeData(Node);
   CurrentSG := PData^;
+
+  // Adding soft from group
+  if Sender = vstGroupsAll then
+  begin
+    LoadGroupSoft(vstSoftOfGroupsAll, cEmutecaGroup(CurrentSG));
+  end
+  else if Sender = vstGroupsWOFile then
+  begin
+    LoadGroupSoft(vstSoftOfGroupsWOFile, cEmutecaGroup(CurrentSG));
+  end;
+
 
   TargetFile := CurrentSG.MediaFileName;
   ChangeSGMedia(CurrentSG);
@@ -2143,7 +2307,11 @@ begin
   case Column of
     0: Result := CompareFilenames(pSoft1^.MediaFileName,
         pSoft2^.MediaFileName);
-    1: Result := UTF8CompareText(pSoft1^.Title, pSoft2^.Title);
+    1: begin
+      Result := UTF8CompareText(pSoft1^.Zone, pSoft2^.Zone);
+      if Result = 0 then
+        Result := UTF8CompareText(pSoft1^.Title, pSoft2^.Title);
+    end;
     2: Result := UTF8CompareText(pSoft1^.CachedGroup.Title,
         pSoft2^.CachedGroup.Title);
     else
@@ -2166,7 +2334,7 @@ begin
   case TextType of
     ttNormal: case Column of
         0: CellText := pSoft^.MediaFileName;
-        1: CellText := pSoft^.Title;
+        1: CellText := '(' + pSoft^.Zone + ') ' + pSoft^.Title;
         2: CellText := pSoft^.CachedGroup.Title;
         else
           ;
@@ -2271,17 +2439,17 @@ var
 begin
   aFrame := TfmETKGUIMediaManager.Create(nil);
 
-    aFrame.Align := alClient;
+  aFrame.Align := alClient;
 
-    aFrame.GUIConfig := aGUIConfig;
-    aFrame.Emuteca := aEmuteca;
-    aFrame.fmSystemCBX.SelectedSystem := SelectedSystem;
-    // fmSystemCBX.SelectedSystem don't trigger SetSystem() callback.
-    aFrame.SelectSystem(SelectedSystem);
+  aFrame.GUIConfig := aGUIConfig;
+  aFrame.Emuteca := aEmuteca;
+  aFrame.fmSystemCBX.SelectedSystem := SelectedSystem;
+  // fmSystemCBX.SelectedSystem don't trigger SetSystem() callback.
+  aFrame.SelectSystem(SelectedSystem);
 
-    Result := GenSimpleModalForm(aFrame, krsETKMMFormName,
-      Format(krsFmtWindowCaption, [Application.Title, rsETKMMFormCaption]),
-      aGUIConfig.DefaultFileName, aGUIIconsIni);
+  Result := GenSimpleModalForm(aFrame, krsETKMMFormName,
+    Format(krsFmtWindowCaption, [Application.Title, rsETKMMFormCaption]),
+    aGUIConfig.DefaultFileName, aGUIIconsIni);
 end;
 
 constructor TfmETKGUIMediaManager.Create(TheOwner: TComponent);
@@ -2314,6 +2482,8 @@ begin
   vstGroupsWOFile.NodeDataSize := SizeOf(cEmutecaGroup);
   vstSoftAll.NodeDataSize := SizeOf(cEmutecaSoftware);
   vstSoftWOFile.NodeDataSize := SizeOf(cEmutecaSoftware);
+  vstSoftOfGroupsAll.NodeDataSize := SizeOf(cEmutecaSoftware);
+  vstSoftOfGroupsWOFile.NodeDataSize := SizeOf(cEmutecaSoftware);
   vstFilesAll.NodeDataSize := SizeOf(TFileRow);
   vstFilesOtherExt.NodeDataSize := SizeOf(TFileRow);
   vstFilesWOGroup.NodeDataSize := SizeOf(TFileRow);

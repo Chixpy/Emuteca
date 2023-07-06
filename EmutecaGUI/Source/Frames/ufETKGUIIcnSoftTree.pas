@@ -161,6 +161,8 @@ procedure TfmETKGUIIcnSoftTree.VDTDrawText(Sender: TBaseVirtualTree;
     i: integer;
     TmpStr: string;
   begin
+    aIcon := nil;
+
     case Column of
       0: // System
       begin

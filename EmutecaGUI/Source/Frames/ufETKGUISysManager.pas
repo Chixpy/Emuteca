@@ -305,7 +305,7 @@ begin
 
   Result := GenSimpleModalForm(aFrame, 'frmETKGUISysManager',
     Format(krsFmtWindowCaption, [Application.Title, 'System Manager']),
-    aGUIIconsIni, aGUIConfigIni);
+    aGUIConfigIni, aGUIIconsIni);
 end;
 
 constructor TfmETKGUISysManager.Create(TheOwner: TComponent);

@@ -1623,6 +1623,40 @@ msgctxt "tfmetkguimediamanager.vstsoftall.header.columns[2].text"
 msgid "Group"
 msgstr "Grupo"
 
+#: tfmetkguimediamanager.vstsoftofgroupsall.header.columns[0].text
+#, fuzzy
+msgctxt "tfmetkguimediamanager.vstsoftofgroupsall.header.columns[0].text"
+msgid "File"
+msgstr "Fichero"
+
+#: tfmetkguimediamanager.vstsoftofgroupsall.header.columns[1].text
+msgctxt "tfmetkguimediamanager.vstsoftofgroupsall.header.columns[1].text"
+msgid "Game"
+msgstr ""
+
+#: tfmetkguimediamanager.vstsoftofgroupsall.header.columns[2].text
+#, fuzzy
+msgctxt "tfmetkguimediamanager.vstsoftofgroupsall.header.columns[2].text"
+msgid "Group"
+msgstr "Grupo"
+
+#: tfmetkguimediamanager.vstsoftofgroupswofile.header.columns[0].text
+#, fuzzy
+msgctxt "tfmetkguimediamanager.vstsoftofgroupswofile.header.columns[0].text"
+msgid "File"
+msgstr "Fichero"
+
+#: tfmetkguimediamanager.vstsoftofgroupswofile.header.columns[1].text
+msgctxt "tfmetkguimediamanager.vstsoftofgroupswofile.header.columns[1].text"
+msgid "Game"
+msgstr ""
+
+#: tfmetkguimediamanager.vstsoftofgroupswofile.header.columns[2].text
+#, fuzzy
+msgctxt "tfmetkguimediamanager.vstsoftofgroupswofile.header.columns[2].text"
+msgid "Group"
+msgstr "Grupo"
+
 #: tfmetkguimediamanager.vstsoftwofile.header.columns[0].text
 #, fuzzy
 #| msgid "Game"
