@@ -79,8 +79,8 @@ type
     property SHA1Folder: string read FSHA1Folder write SetSHA1Folder;
     //< Folder with image statistiscs files.
 
-    class function SimpleForm(aEmuteca: cEmuteca; aSHA1Folder: string;
-      aGUIIconsIni: string; aGUIConfigIni: string): integer;
+    class function SimpleForm(aEmuteca: cEmuteca; const aSHA1Folder,
+      aGUIConfigIni, aGUIIconsIni: string): integer;
     //< Creates a form with System Manager frame.
 
     procedure LoadFrameData; override;
@@ -291,7 +291,7 @@ begin
 end;
 
 class function TfmETKGUISysManager.SimpleForm(aEmuteca: cEmuteca;
-  aSHA1Folder: string; aGUIIconsIni: string; aGUIConfigIni: string): integer;
+  const aSHA1Folder, aGUIConfigIni, aGUIIconsIni: string): integer;
 var
   aFrame: TfmETKGUISysManager;
 begin

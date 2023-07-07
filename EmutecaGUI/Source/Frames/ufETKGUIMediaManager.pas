@@ -407,8 +407,8 @@ type
     procedure LoadFrameData; override;
 
     class function SimpleForm(aEmuteca: cEmuteca;
-      SelectedSystem: cEmutecaSystem; aGUIIconsIni: string;
-      aGUIConfig: cETKGUIConfig): integer;
+      SelectedSystem: cEmutecaSystem; aGUIConfig: cETKGUIConfig;
+      const aGUIIconsIni: string): integer;
     {< Creates a form with Media Manager. }
 
     constructor Create(TheOwner: TComponent); override;
@@ -2432,8 +2432,8 @@ begin
 end;
 
 class function TfmETKGUIMediaManager.SimpleForm(aEmuteca: cEmuteca;
-  SelectedSystem: cEmutecaSystem; aGUIIconsIni: string;
-  aGUIConfig: cETKGUIConfig): integer;
+  SelectedSystem: cEmutecaSystem; aGUIConfig: cETKGUIConfig;
+  const aGUIIconsIni: string): integer;
 var
   aFrame: TfmETKGUIMediaManager;
 begin

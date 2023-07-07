@@ -656,8 +656,13 @@ end;
 
 procedure TfrmETKGUIMain.actMediaManagerExecute(Sender: TObject);
 begin
+  fmEmutecaMainFrame.Emuteca := nil;
+
   TfmETKGUIMediaManager.SimpleForm(Emuteca, CurrentSystem,
-    GUIIconsFile, GUIConfig);
+    GUIConfig, GUIIconsFile);
+  LoadSystemsIcons; // Reloads system icons, they can be changed
+
+  fmEmutecaMainFrame.Emuteca := Emuteca;
 end;
 
 procedure TfrmETKGUIMain.actMergeGroupFilesExecute(Sender: TObject);
@@ -943,8 +948,8 @@ begin
   // Fix runtime errors, while trying to update if something is changed
   fmEmutecaMainFrame.Emuteca := nil;
 
-  TfmETKGUISysManager.SimpleForm(Emuteca, SHA1Folder, GUIIconsFile,
-    GUIConfig.DefaultFileName);
+  TfmETKGUISysManager.SimpleForm(Emuteca, SHA1Folder,
+    GUIConfig.DefaultFileName, GUIIconsFile);
   LoadSystemsIcons; // Reloads system icons
 
   fmEmutecaMainFrame.Emuteca := Emuteca;
