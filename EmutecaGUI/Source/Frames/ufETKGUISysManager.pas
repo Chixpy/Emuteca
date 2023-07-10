@@ -295,6 +295,11 @@ class function TfmETKGUISysManager.SimpleForm(aEmuteca: cEmuteca;
 var
   aFrame: TfmETKGUISysManager;
 begin
+  Result := mrNone;
+
+  if not assigned(aEmuteca) then
+    Exit;
+
   aFrame := TfmETKGUISysManager.Create(nil);
   aFrame.SaveButtons := True;
   aFrame.ButtonClose := True;

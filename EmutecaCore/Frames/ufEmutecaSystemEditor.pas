@@ -1,4 +1,5 @@
 unit ufEmutecaSystemEditor;
+
 {< TfmEmutecaSystemEditor frame unit.
 
   This file is part of Emuteca Core.
@@ -84,7 +85,7 @@ type
     property EmuManager: cEmutecaEmulatorManager
       read FEmuManager write SetEmuManager;
 
-        procedure ClearFrameData; override;
+    procedure ClearFrameData; override;
     procedure LoadFrameData; override;
     procedure SaveFrameData; override;
 

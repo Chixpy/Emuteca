@@ -81,8 +81,7 @@ type
     property SHA1Folder: string read FSHA1Folder write SetSHA1Folder;
 
     class function SimpleModalForm(aEmulator: cEmutecaEmulator;
-      const aSHA1Folder: string; const aGUIIconsIni: string;
-      const aGUIConfigIni: string): integer;
+      const aSHA1Folder, aGUIConfigIni, aGUIIconsIni: string): integer;
     //< Creates a form with Emulatoe Editor.
 
     constructor Create(TheOwner: TComponent); override;
@@ -156,42 +155,27 @@ begin
 end;
 
 class function TfmETKGUIFullEmuEditor.SimpleModalForm(
-  aEmulator: cEmutecaEmulator; const aSHA1Folder: string;
-  const aGUIIconsIni: string; const aGUIConfigIni: string): integer;
+  aEmulator: cEmutecaEmulator; const aSHA1Folder, aGUIConfigIni,
+  aGUIIconsIni: string): integer;
 var
-  aForm: TfrmCHXForm;
   aFrame: TfmETKGUIFullEmuEditor;
 begin
   Result := mrNone;
 
   if not assigned(aEmulator) then
-  begin
-    Result := mrAbort;
     Exit;
-  end;
 
-  Application.CreateForm(TfrmCHXForm, aForm);
-  try
-    aForm.Name := krsETKGUIEmuEditorID;
-    aForm.Caption := Format(krsFmtWindowCaption,
-      [Application.Title, rsETKGUIEmuEditorTitle]);
+  aFrame := TfmETKGUIFullEmuEditor.Create(nil);
+  aFrame.SaveButtons := True;
+  aFrame.ButtonClose := True;
+  aFrame.Align := alClient;
 
-    aFrame := TfmETKGUIFullEmuEditor.Create(aForm);
-    aFrame.SaveButtons := True;
-    aFrame.ButtonClose := True;
-    aFrame.Align := alClient;
+  aFrame.SHA1Folder := aSHA1Folder;
+  aFrame.Emulator := aEmulator;
 
-    aFrame.SHA1Folder := aSHA1Folder;
-    aFrame.Emulator := aEmulator;
-
-    aForm.LoadGUIConfig(aGUIConfigIni);
-    aForm.LoadGUIIcons(aGUIIconsIni);
-    aFrame.Parent := aForm;
-
-    Result := aForm.ShowModal;
-  finally
-    aForm.Free;
-  end;
+  Result := GenSimpleModalForm(aFrame, krsETKGUIEmuEditorID,
+    Format(krsFmtWindowCaption, [Application.Title, rsETKGUIEmuEditorTitle]),
+    aGUIConfigIni, aGUIIconsIni);
 end;
 
 constructor TfmETKGUIFullEmuEditor.Create(TheOwner: TComponent);

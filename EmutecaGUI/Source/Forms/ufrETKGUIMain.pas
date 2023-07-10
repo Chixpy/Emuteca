@@ -627,7 +627,7 @@ begin
     Exit;
 
   TfmETKGUIFullEmuEditor.SimpleModalForm(CurrentEmu, SHA1Folder,
-    GUIIconsFile, GUIConfig.DefaultFileName);
+    GUIConfig.DefaultFileName, GUIIconsFile);
 end;
 
 procedure TfrmETKGUIMain.actEditGroupExecute(Sender: TObject);
@@ -648,7 +648,7 @@ begin
   fmEmutecaMainFrame.Emuteca := nil;
 
   TfmETKGUIFullSystemEditor.SimpleModalForm(Emuteca, CurrentSystem,
-    SHA1Folder, GUIIconsFile, GUIConfig.DefaultFileName);
+    SHA1Folder, GUIConfig.DefaultFileName, GUIIconsFile);
   LoadSystemsIcons;
 
   fmEmutecaMainFrame.Emuteca := Emuteca;

@@ -51,8 +51,10 @@ begin
     'function ETKAskSystem(aSystemList: cEmutecaSystemList): cEmutecaSystem;');
 
   CL.AddDelphiFunction('function ETKEditGroup(aGroup: cEmutecaGroup): integer;');
-  CL.AddDelphiFunction('function ETKEditSoft(aSoft: cEmutecaSoftware): integer;');
-  CL.AddDelphiFunction('function ETKCompareSG(aSG1, aSG2: caEmutecaCustomSGItem): integer;');
+  CL.AddDelphiFunction(
+    'function ETKEditSoft(aSoft: cEmutecaSoftware): integer;');
+  CL.AddDelphiFunction(
+    'function ETKCompareSG(aSG1, aSG2: caEmutecaCustomSGItem): integer;');
 end;
 
 function ETKAskSystem(aSystemList: cEmutecaSystemList): cEmutecaSystem;

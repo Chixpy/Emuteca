@@ -89,8 +89,8 @@ type
     procedure SaveFrameData;  override;
 
     class function SimpleModalForm(aEmuteca: cEmuteca;
-      aSystem: cEmutecaSystem; aSHA1Folder: string; aGUIIconsIni: string;
-      aGUIConfigIni: string): integer;
+      aSystem: cEmutecaSystem;
+      const aSHA1Folder, aGUIConfigIni, aGUIIconsIni: string): integer;
     //< Creates a form with System Editor.
 
     constructor Create(TheOwner: TComponent); override;
@@ -294,43 +294,28 @@ begin
 end;
 
 class function TfmETKGUIFullSystemEditor.SimpleModalForm(aEmuteca: cEmuteca;
-  aSystem: cEmutecaSystem; aSHA1Folder: string; aGUIIconsIni: string;
-  aGUIConfigIni: string): integer;
+  aSystem: cEmutecaSystem; const aSHA1Folder, aGUIConfigIni,
+  aGUIIconsIni: string): integer;
 var
-  aForm: TfrmCHXForm;
   aFrame: TfmETKGUIFullSystemEditor;
 begin
   Result := mrNone;
 
   if (not assigned(aEmuteca)) or (not assigned(aSystem)) then
-  begin
-    Result := mrAbort;
     Exit;
-  end;
 
-  Application.CreateForm(TfrmCHXForm, aForm);
-  try
-    aForm.Name := krsETKGUISystemEditorID;
-    aForm.Caption := Format(krsFmtWindowCaption,
-      [Application.Title, rsETKGUISystemEditorTitle]);
+  aFrame := TfmETKGUIFullSystemEditor.Create(nil);
+  aFrame.SaveButtons := True;
+  aFrame.ButtonClose := True;
+  aFrame.Align := alClient;
 
-    aFrame := TfmETKGUIFullSystemEditor.Create(aForm);
-    aFrame.SaveButtons := True;
-    aFrame.ButtonClose := True;
-    aFrame.Align := alClient;
+  aFrame.SHA1Folder := aSHA1Folder;
+  aFrame.Emuteca := aEmuteca;
+  aFrame.System := aSystem;
 
-    aFrame.SHA1Folder := aSHA1Folder;
-    aFrame.Emuteca := aEmuteca;
-    aFrame.System := aSystem;
-
-    aForm.LoadGUIConfig(aGUIConfigIni);
-    aForm.LoadGUIIcons(aGUIIconsIni);
-    aFrame.Parent := aForm;
-
-    Result := aForm.ShowModal;
-  finally
-    aForm.Free;
-  end;
+  Result := GenSimpleModalForm(aFrame, krsETKGUISystemEditorID,
+    Format(krsFmtWindowCaption, [Application.Title, rsETKGUISystemEditorTitle]),
+    aGUIConfigIni, aGUIIconsIni);
 end;
 
 procedure TfmETKGUIFullSystemEditor.LoadFrameData;
