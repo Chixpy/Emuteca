@@ -150,6 +150,7 @@ procedure TfmEmutecaActAddFolder.SaveFrameData;
     aSoft: cEmutecaSoftware;
     aComp: integer;
     Found: boolean;
+    aStr1, aStr2: string;
   begin
     // aCacheSoftList is sorted.
     // aFolder, aFile will enter this procedure sorted too.
@@ -224,17 +225,39 @@ procedure TfmEmutecaActAddFolder.SaveFrameData;
           aSoft.ID := '';
       end;
 
-      aSoft.Title := RemoveFromBrackets(ExtractFileNameOnly(aSoft.FileName));
-      aSoft.Version := CopyFromBrackets(ExtractFileNameOnly(aSoft.FileName));
+      if SimpleStringSplit(ExtractFileNameOnly(aSoft.FileName),
+        ' (', aStr1, aStr2) > 1 then
+      begin
+        // Title (VerInfo) [DumpInfo]
+        aSoft.Title := aStr1;
+        SimpleStringSplit('(' + aStr2, '[', aStr1, aStr2);
+        aSoft.Version := aStr1;
+        aSoft.DumpInfo := '[' + aStr2;
+      end
+      else
+      begin
+        // Title [DumpInfo]
+        SimpleStringSplit(aStr1, '[', aStr1, aStr2);
+        aSoft.Title := aStr1;
+        if aStr2 <> '' then
+          aSoft.DumpInfo := '[' + aStr2;
+      end;
+
 
       case rgbGroup.ItemIndex of
         1: // Group by filename
-          aSoft.GroupKey :=
-            RemoveFromBrackets(ExtractFileNameOnly(aSoft.FileName))
+        begin
+          SimpleStringSplit(ExtractFileNameOnly(aSoft.FileName), ' (', aStr1, aStr2);
+          SimpleStringSplit(aStr1, '[', aStr1, aStr2);
+          aSoft.GroupKey := aStr1;
+        end
         else
-          aSoft.GroupKey :=
-            RemoveFromBrackets(ExtractFileNameOnly(
-            ExcludeTrailingPathDelimiter(aSoft.Folder)));
+        begin
+          SimpleStringSplit(ExtractFileNameOnly(
+            ExcludeTrailingPathDelimiter(aSoft.Folder)), ' (', aStr1, aStr2);
+          SimpleStringSplit(aStr1, '[', aStr1, aStr2);
+          aSoft.GroupKey := aStr1;
+        end;
       end;
 
       // We don't want to do whole articles thing here, but...
@@ -363,18 +386,18 @@ var
   aFrame: TfmEmutecaActAddFolder;
 begin
   aFrame := TfmEmutecaActAddFolder.Create(nil);
-    aFrame.SaveButtons := True;
-    aFrame.ButtonClose := True;
-    aFrame.Align := alClient;
+  aFrame.SaveButtons := True;
+  aFrame.ButtonClose := True;
+  aFrame.Align := alClient;
 
-    aFrame.Emuteca := aEmuteca;
-    aFrame.fmSystemCBX.SelectedSystem := SelectedSystem;
-    // fmSystemCBX.SelectedSystem don't trigger SetSystem() callback.
-    aFrame.SelectSystem(SelectedSystem);
+  aFrame.Emuteca := aEmuteca;
+  aFrame.fmSystemCBX.SelectedSystem := SelectedSystem;
+  // fmSystemCBX.SelectedSystem don't trigger SetSystem() callback.
+  aFrame.SelectSystem(SelectedSystem);
 
-    Result := GenSimpleModalForm(aFrame, 'frmEmutecaActAddFolder',
-      Format(krsFmtWindowCaption, [Application.Title, 'Add Folder']),
-      aGUIConfigIni, aGUIIconsIni);
+  Result := GenSimpleModalForm(aFrame, 'frmEmutecaActAddFolder',
+    Format(krsFmtWindowCaption, [Application.Title, 'Add Folder']),
+    aGUIConfigIni, aGUIIconsIni);
 end;
 
 constructor TfmEmutecaActAddFolder.Create(TheOwner: TComponent);

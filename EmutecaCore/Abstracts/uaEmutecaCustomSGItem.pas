@@ -207,16 +207,16 @@ begin
   Result := aString;
 
   // TODO: Not completely sure about this...
-  Result := UTF8StringReplace(Result, ') (', '; ', [rfReplaceAll, rfIgnoreCase]);
-  Result := UTF8StringReplace(Result, ')(', '; ', [rfReplaceAll, rfIgnoreCase]);
+  Result := UTF8StringReplace(Result, ') (', ' / ', [rfReplaceAll, rfIgnoreCase]);
+  Result := UTF8StringReplace(Result, ')(', ' / ', [rfReplaceAll, rfIgnoreCase]);
 
-  Result := UTF8StringReplace(Result, '] [', '; ', [rfReplaceAll, rfIgnoreCase]);
-  Result := UTF8StringReplace(Result, '][', '; ', [rfReplaceAll, rfIgnoreCase]);
+  Result := UTF8StringReplace(Result, '] [', ' / ', [rfReplaceAll, rfIgnoreCase]);
+  Result := UTF8StringReplace(Result, '][', ' / ', [rfReplaceAll, rfIgnoreCase]);
 
-  Result := UTF8StringReplace(Result, ') [', '; ', [rfReplaceAll, rfIgnoreCase]);
-  Result := UTF8StringReplace(Result, '] (', '; ', [rfReplaceAll, rfIgnoreCase]);
-  Result := UTF8StringReplace(Result, ')[', '; ', [rfReplaceAll, rfIgnoreCase]);
-  Result := UTF8StringReplace(Result, '](', '; ', [rfReplaceAll, rfIgnoreCase]);
+  Result := UTF8StringReplace(Result, ') [', ' / ', [rfReplaceAll, rfIgnoreCase]);
+  Result := UTF8StringReplace(Result, '] (', ' / ', [rfReplaceAll, rfIgnoreCase]);
+  Result := UTF8StringReplace(Result, ')[', ' / ', [rfReplaceAll, rfIgnoreCase]);
+  Result := UTF8StringReplace(Result, '](', ' / ', [rfReplaceAll, rfIgnoreCase]);
 
   Result := UTF8StringReplace(Result, ']', '', [rfReplaceAll, rfIgnoreCase]);
   Result := UTF8StringReplace(Result, '[', '', [rfReplaceAll, rfIgnoreCase]);

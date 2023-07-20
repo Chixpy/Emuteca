@@ -132,6 +132,7 @@ procedure TfmETKGUIIcnSoftTree.VDTDrawText(Sender: TBaseVirtualTree;
         IconRect := CellRect;
         IconRect.Right := IconRect.Left + IconRect.Bottom - IconRect.Top;
 
+        aIcon := nil;
         if assigned(aGroup) then
           aIcon := aGroup.Stats.Icon;
         if assigned(aIcon) then

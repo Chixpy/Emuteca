@@ -393,12 +393,14 @@ function EmuTKSearchFirstRelatedFile(aFolder: string;
 var
   CompressedArchives: TStringList;
   TempStrLst: TStringList;
+  TempStr: string;
   i: integer;
 begin
   Result := '';
 
   aFolder := SetAsFolder(aFolder);
-  aFileName := RemoveFromBrackets(ExtractFileNameOnly(aFileName));
+
+  SimpleStringSplit(ExtractFileNameOnly(aFileName), ' (', aFileName, TempStr);
 
   if (aFileName = '') or (aFolder = '') or
     (not DirectoryExistsUTF8(aFolder)) or (not assigned(Extensions)) or
