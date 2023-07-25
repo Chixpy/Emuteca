@@ -247,7 +247,8 @@ procedure TfmEmutecaActAddFolder.SaveFrameData;
       case rgbGroup.ItemIndex of
         1: // Group by filename
         begin
-          SimpleStringSplit(ExtractFileNameOnly(aSoft.FileName), ' (', aStr1, aStr2);
+          SimpleStringSplit(ExtractFileNameOnly(aSoft.FileName),
+            ' (', aStr1, aStr2);
           SimpleStringSplit(aStr1, '[', aStr1, aStr2);
           aSoft.GroupKey := aStr1;
         end
