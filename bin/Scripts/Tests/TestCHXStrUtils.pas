@@ -3,13 +3,16 @@
 This script tests some basic functions added to Pascal Script from uCHXStrUtils.
 [Data]
 Name=Chixpy
-Version=0.01
-Date=20171014
+Version=1.0
+Date=20230801
 [Changes]
-
+v1.0 - 20230801
+  * Updating to current uCHXStrUtils.
 [EndInfo]
 }
 program TestCHXStrUtils;
+var
+  Str1, Str2: string;
 begin
   WriteLn('Hello!');
   WriteLn('');
@@ -24,7 +27,14 @@ begin
   WriteLn('    You can set ALanguage for special collations (''es''), but use ''''.');  
   WriteLn('    UTF8TextReplace(''Example'', ''ex'', ''An ex'', '''') -> ' +
     UTF8TextReplace('Example', 'ex', 'An ex', ''));
-  WriteLn('');  
+  WriteLn('');
+  WriteLn('function SimpleStringSplit(const aString, aDelimiter: string; var aStr1, aStr2: string): integer');
+  WriteLn('    Splits aString in two strings aStr1 (left string) and aStr2 (right string).');
+  SimpleStringSplit('1stStr @ 2ndStr', ' @ ', Str1, Str2);
+  WriteLn('    SimpleStringSplit(''1stStr @ 2ndStr'', '' @ '', Str1, Str2) -> ');
+  WriteLn('      Str1 = ' + Str1);
+  WriteLn('      Str2 = ' + Str2);
+  WriteLn('');
   WriteLn('function RemoveFromBrackets(const aString: string): string');
   WriteLn('    Removes from fist "(" or "[" found.');
   WriteLn('    RemoveFromBrackets(''Example (This will be deleted'') -> ' +
