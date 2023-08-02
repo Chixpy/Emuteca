@@ -61,9 +61,9 @@ type
   public
     property Emulator: cEmutecaEmulator read FEmulator write SetEmulator;
 
-    procedure DoClearFrameData;
-    procedure DoLoadFrameData;
-    procedure DoSaveFrameData;
+    procedure ClearFrameData; override;
+    procedure LoadFrameData; override;
+    procedure SaveFrameData; override;
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -84,7 +84,7 @@ begin
   LoadFrameData;
 end;
 
-procedure TfmEmutecaEmulatorAdvParamsEditor.DoClearFrameData;
+procedure TfmEmutecaEmulatorAdvParamsEditor.ClearFrameData;
 begin
   inherited ClearFrameData;
 
@@ -94,7 +94,7 @@ begin
   mExtraParameters.Clear;
 end;
 
-procedure TfmEmutecaEmulatorAdvParamsEditor.DoLoadFrameData;
+procedure TfmEmutecaEmulatorAdvParamsEditor.LoadFrameData;
 begin
   inherited LoadFrameData;
 
@@ -112,7 +112,7 @@ begin
   mExtraParameters.Lines.Assign(Emulator.ExtraParamFormat);
 end;
 
-procedure TfmEmutecaEmulatorAdvParamsEditor.DoSaveFrameData;
+procedure TfmEmutecaEmulatorAdvParamsEditor.SaveFrameData;
 begin
   inherited SaveFrameData;
 

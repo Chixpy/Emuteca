@@ -70,15 +70,15 @@ type
     property EmuParamsEditor: TfmEmutecaEmulatorAdvParamsEditor
       read FEmuParamsEditor;
 
-    procedure ClearFrameData; override;
-    procedure LoadFrameData; override;
-    procedure SaveFrameData; override;
-
   public
     { public declarations }
     property Emulator: cEmutecaEmulator read FEmulator write SetEmulator;
 
     property SHA1Folder: string read FSHA1Folder write SetSHA1Folder;
+
+    procedure ClearFrameData; override;
+    procedure LoadFrameData; override;
+    procedure SaveFrameData; override;
 
     class function SimpleModalForm(aEmulator: cEmutecaEmulator;
       const aSHA1Folder, aGUIConfigIni, aGUIIconsIni: string): integer;
