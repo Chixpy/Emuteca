@@ -60,6 +60,7 @@ type
     procedure SetTitle(AValue: string); virtual;
 
     function FormatSortTitle(const aString: string): string;
+    
     function CleanInfo(const aString: string): string;
 
   public
@@ -198,6 +199,18 @@ end;
 
 function caEmutecaCustomSGItem.FormatSortTitle(const aString: string): string;
 begin
+  // Change some Windows invalid characters, as EmutecaCore, that
+  //   are changed in diferent way than CleanFileName.
+  
+  // Actually ': ' is changed to ' - ', but we want to sort with ' - ',
+  //   because sorting this happens:
+  // Game
+  // Game - First Part  <- Go before Second Part
+  // Game 2
+  // Game 2 - Second Part
+  // Game 2: Second Part
+  // Game: First Part <- Go after Second Part   
+  
   Result := UTF8TextReplace(UTF8Trim(aString), ': ', ' - ');
   Result := UTF8TextReplace(Result, ' & ', ' and ');
 end;

@@ -28,7 +28,7 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="8"/>
-      <BuildNr Value="146"/>
+      <BuildNr Value="148"/>
       <StringTable Comments="Emuteca database editor" InternalName="EmutecaEditorGUI" LegalCopyright="Chixpy" ProductVersion="0.8.0"/>
     </VersionInfo>
     <BuildModes Count="2">
@@ -66,6 +66,11 @@
             <CompilerMessages>
               <IgnoredMessages idx6058="True"/>
             </CompilerMessages>
+            <CustomOptions Value="-dPS_USESSUPPORT
+-FcUTF8"/>
+            <OtherDefines Count="1">
+              <Define0 Value="PS_USESSUPPORT"/>
+            </OtherDefines>
           </Other>
         </CompilerOptions>
       </Item2>
@@ -915,7 +920,11 @@
       </Options>
     </Linking>
     <Other>
-      <CustomOptions Value="-FcUTF8"/>
+      <CustomOptions Value="-FcUTF8
+-dPS_USESSUPPORT"/>
+      <OtherDefines Count="1">
+        <Define0 Value="PS_USESSUPPORT"/>
+      </OtherDefines>
     </Other>
   </CompilerOptions>
   <Debugging>

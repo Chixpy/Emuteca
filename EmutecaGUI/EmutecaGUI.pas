@@ -22,6 +22,7 @@ program EmutecaGUI;
   MA 02111-1307, USA.
 }
 {$mode objfpc}{$H+}
+{$DEFINE PS_USESSUPPORT}
 
 uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   cthreads, {$ENDIF} {$ENDIF}

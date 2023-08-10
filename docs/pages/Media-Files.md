@@ -16,16 +16,22 @@ De forma general, y en caso de no haber actualizado la lista, puedes verlos en l
   * [Amstrad CPC](https://github.com/Chixpy/ETKRes-CPC)
   * [Amstrad GX4000](https://github.com/Chixpy/ETKRes-GX4000)
   * [Atari 2600](https://github.com/Chixpy/ETKRes-2600)
+  * [Atari 5200](https://github.com/Chixpy/ETKRes-5200)
+  * [Atari 7800](https://github.com/Chixpy/ETKRes-7800)
+  * [Atari Lynx](https://github.com/Chixpy/ETKRes-Lynx)
   * [Bandai WonderSwan](https://github.com/Chixpy/ETKRes-WonderSwan)
   * [Microsoft MSDOS](https://github.com/Chixpy/ETKRes-MSDOS)
   * [Misc - Arcade (MAME)](https://github.com/Chixpy/ETKRes-Arcade) (*ATENCIÓN: Hay que configurar a mano los directorios, al ser diferentes del resto de sistemas*)
   * [NEC Turbografx 16 / PC Engine](https://github.com/Chixpy/ETKRes-TG16)
-  * [Nintendo Game Boy](https://github.com/Chixpy/ETKRes-GameBoy)
+  * [Nintendo GameBoy](https://github.com/Chixpy/ETKRes-GameBoy)
+  * [Nintendo GameBoy Advance](https://github.com/Chixpy/ETKRes-GBA)
   * [Nintendo NES](https://github.com/Chixpy/ETKRes-NES)
   * [Nintendo SNES](https://github.com/Chixpy/ETKRes-SNES)
-  * [Sega GameGear](https://github.com/Chixpy/ETKRes-GameGear)
+  * [Nintendo Virtual Boy](https://github.com/Chixpy/ETKRes-VirtualBoy)
+  * [Sega GameGear](https://github.com/Chixpy/ETKRes-GameGear) 
   * [Sega Master System](https://github.com/Chixpy/ETKRes-MasterSystem)
   * [Sega MegaDrive / Genesis](https://github.com/Chixpy/ETKRes-MegaDrive)
+  * [Sega SG1000](https://github.com/Chixpy/ETKRes-SG1000)  
   * [SNK Neo Geo Pocket](https://github.com/Chixpy/ETKRes-NGPocket)
   * [Sinclair ZX Spectrum](https://github.com/Chixpy/ETKRes-ZXSpectrum)
 
@@ -69,7 +75,7 @@ Para aprovechar el funcionamiento de Emuteca se indican una serie de recomendaci
 
 #### Imágenes
 
-Dependiendo del tipo de imagen
+Dependiendo del tipo de imagen se tiene unas normas generales.
 
 ##### Capturas de pantalla jugando, Pantallas de título
 
@@ -90,11 +96,11 @@ De forma general para cualquier captura de pantalla del juego se deberían aplic
 Esto es aplicable a todas las **imágenes escaneadas** de revistas y **fotografías**:
 
   1. Formato `jpg` y que la calidad que sea bastante aceptable si es posible.
-    * El término *calidad* depende del compresor
+    * El término *calidad* depende del compresor.
   2. El lado más largo que sea de 2048px como máximo
     * Respetar la relación de aspecto en caso de ener que hacer más pequeña la imagen.
     * Si la imagen de por sí es más pequeña, no hacerla más grande.
-    * Por supuesto, es preferible cortar primero y redimensionar despues
+    * Por supuesto, es preferible cortar primero y redimensionar después
   3. Intentar no reguardar la imagen varias veces. Al ser un formato con pérdida se va deteriorando la calidad.
     * Hay transformaciones que es posible realizar de forma especial sin que la calidad se vea afectada.
     * Se puede tolerar que la imagen no esté totalmente recta...
@@ -102,7 +108,7 @@ Esto es aplicable a todas las **imágenes escaneadas** de revistas y **fotograf�
 Para material del juego:
 
   * Frontal, lomo y trasera de la caja: Recortados de forma separada y sin ningún tipo de borde.
-  * Media (Cartucho, CD, Disquete, etc.): Escaneado o fotografía del frontal del medio (no solo la etiqueta) y sin bordes.
+  * Media (Cartucho, CD, Disquete, etc.): Escaneado o fotografía del frontal del medio (no solo la etiqueta) y sin bordes a ser posible.
 
 Para textos de revistas y anuncios:
 

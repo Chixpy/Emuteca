@@ -75,6 +75,7 @@ inherited fmETKGUISoftMedia: TfmETKGUISoftMedia
     Width = 481
     Align = alTop
     Caption = 'Icon && Logo'
+    ChildSizing.HorizontalSpacing = 4
     ClientHeight = 75
     ClientWidth = 477
     PopupMenu = pmIconLogo
@@ -92,10 +93,10 @@ inherited fmETKGUISoftMedia: TfmETKGUISoftMedia
       Transparent = True
     end
     object iLogo: TImage
-      Left = 75
+      Left = 79
       Height = 75
       Top = 0
-      Width = 402
+      Width = 398
       Align = alClient
       Center = True
       Proportional = True
@@ -133,10 +134,12 @@ inherited fmETKGUISoftMedia: TfmETKGUISoftMedia
       Hint = 'Remove all panels.'
       OnExecute = actClearPanelsExecute
     end
-    object actOpenIconInViewer: TAction
-      Category = 'IconLogo'
+    object actLoadMediaFiles: TAction
+      Category = 'Secret'
       AutoCheck = True
-      Caption = 'Open Icon in Image Viewer'
+      Caption = 'Load Media Files'
+      Checked = True
+      OnExecute = actLoadMediaFilesExecute
     end
   end
   object ilMediaPanel: TImageList[5]
@@ -148,7 +151,7 @@ inherited fmETKGUISoftMedia: TfmETKGUISoftMedia
     Left = 24
     Top = 152
     object miILFilterImages: TMenuItem
-      Action = actOpenIconInViewer
+      Action = actLoadMediaFiles
       AutoCheck = True
     end
   end

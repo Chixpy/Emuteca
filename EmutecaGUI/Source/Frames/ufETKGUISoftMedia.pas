@@ -69,7 +69,7 @@ type
     actAddMusicPanel: TAction;
     actAddVideoPanel: TAction;
     actClearPanels: TAction;
-    actOpenIconInViewer: TAction;
+    actLoadMediaFiles: TAction;
     alMediaPanel: TActionList;
     iIcon: TImage;
     ilMediaPanel: TImageList;
@@ -91,6 +91,7 @@ type
     procedure actAddTextPanelExecute(Sender: TObject);
     procedure actAddVideoPanelExecute(Sender: TObject);
     procedure actClearPanelsExecute(Sender: TObject);
+    procedure actLoadMediaFilesExecute(Sender: TObject);
     procedure pIconLogoResize(Sender: TObject);
   private
     FGroup: cEmutecaGroup;
@@ -125,7 +126,8 @@ type
 
     procedure DoLoadGUIConfig(aIniFile: TIniFile); override;
     procedure DoSaveGUIConfig(aIniFile: TIniFile); override;
-    procedure DoLoadGUIIcons(aIconsIni: TIniFile; const aBaseFolder: string); override;
+    procedure DoLoadGUIIcons(aIconsIni: TIniFile;
+      const aBaseFolder: string); override;
 
   public
     property Software: cEmutecaSoftware read FSoftware write SetSoftware;
@@ -179,6 +181,13 @@ begin
     sbxMediaPanels.Components[0].Free;
 end;
 
+procedure TfmETKGUISoftMedia.actLoadMediaFilesExecute(Sender: TObject);
+begin
+  // Cleaning panels
+  Software := nil;
+  Group := nil;
+end;
+
 procedure TfmETKGUISoftMedia.pIconLogoResize(Sender: TObject);
 begin
   iIcon.Width := iIcon.Height;
@@ -186,12 +195,16 @@ end;
 
 procedure TfmETKGUISoftMedia.SetGroup(AValue: cEmutecaGroup);
 var
-  aImageFile: String;
+  aImageFile: string;
 begin
   if FGroup = AValue then
     Exit;
-  FGroup := AValue;
 
+  // Clear panels if disabled
+  if actLoadMediaFiles.Checked then
+    FGroup := AValue
+  else
+    FGroup := nil;
 
   if Assigned(Group) then
   begin
@@ -259,7 +272,13 @@ var
 begin
   if FSoftware = AValue then
     Exit;
-  FSoftware := AValue;
+
+  // Clear panels if disabled
+  if actLoadMediaFiles.Checked then
+    FSoftware := AValue
+  else
+    FSoftware := nil;
+
 
   if Assigned(FSoftware) then
   begin
@@ -283,7 +302,8 @@ begin
   begin
     iIcon.Picture.Clear;
     iLogo.Picture.Clear;
-    Group := nil;;
+    Group := nil;
+    ;
   end;
 
   UpdateChildrenSoft(sbxMediaPanels);

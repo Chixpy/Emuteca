@@ -8,5 +8,5 @@
 {"hash":233427356,"name":"tfmetkguisoftmedia.actaddvideopanel.caption","sourcebytes":[97,99,116,65,100,100,86,105,100,101,111,80,97,110,101,108],"value":"actAddVideoPanel"},
 {"hash":63370355,"name":"tfmetkguisoftmedia.actclearpanels.caption","sourcebytes":[67,108,101,97,114,32,112,97,110,101,108,115],"value":"Clear panels"},
 {"hash":78179310,"name":"tfmetkguisoftmedia.actclearpanels.hint","sourcebytes":[82,101,109,111,118,101,32,97,108,108,32,112,97,110,101,108,115,46],"value":"Remove all panels."},
-{"hash":16833538,"name":"tfmetkguisoftmedia.actopeniconinviewer.caption","sourcebytes":[79,112,101,110,32,73,99,111,110,32,105,110,32,73,109,97,103,101,32,86,105,101,119,101,114],"value":"Open Icon in Image Viewer"}
+{"hash":85626179,"name":"tfmetkguisoftmedia.actloadmediafiles.caption","sourcebytes":[76,111,97,100,32,77,101,100,105,97,32,70,105,108,101,115],"value":"Load Media Files"}
 ]}

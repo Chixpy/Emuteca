@@ -2,8 +2,6 @@ unit ufETKGUIFullEmuEditor;
 
 {< TfmETKGUIFullEmuEditor frame unit.
 
-  ----
-
   This file is part of Emuteca GUI.
 
   Copyright (C) 2006-2018 Chixpy

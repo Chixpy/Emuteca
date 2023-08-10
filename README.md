@@ -64,6 +64,10 @@ Entre sus características están:
   * En las versiones 0.6.X que fueron compiladas con Delphi, se puede reproducir un vídeo o música asignada al juego seleccionado (solo lo he probado con MPEGs y MIDIs). Ya veremos como lo soluciono para Lazarus...
 
 ## Noticias ##
+  * 20230809: ¡WOW! Hace mucho tiempo que no actualizo esto y ha habido muchas mejoras en todo este tiempo:
+    * Se han añadido [varios programas auxiliares](https://github.com/Chixpy/Emuteca/tree/master/bin/Tools): ETKDBEditor, ETKIconBorder, ETKPDF2CBX y ETKMagCut. Aunque hay que mejorar la integración con EmutecaGUI.
+    * Una [página web propia](https://chixpy.github.io/Emuteca/)
+    * [Repositorios auxiliares](https://chixpy.github.io/Emuteca/pages/Media-Files.html)para poder bajar imagenes, textos y demás ficheros para los sistemas.
   * 20190617: Lazarus 2.0 y soporte para elegir núcleo en emuladores multisistema.
   * 20171024: Volviendo a usar Lazarus en vez de CodeTyphon
   * 2016XXXX: Retomando un poco esto. Y continúa en 2017...
@@ -77,5 +81,5 @@ Entre sus características están:
   * 20100524: Subida la versión de la rama 0.6.2.38, ([Lista de cambios](../../wiki/Changes-List)), pero se resumen en la palabra **transparencia**.
   * 20100410: Google me ha avisado de que hay un problema con las descargas, y he encontrado que se encuentra infectado con un curioso virus que afecta a los compiladores de Delphi. Y del que pondré más información posteriormente. Por el momento he borrado todas las descargas.
   * 20100202: Versión 0.6.1.36. Que arregla algunos fallitos respecto a la anterior versión. ([Lista de cambios](../../wiki/Changes-List))
-  * 20100202:Lanzada la versión 0.6.0.35. ([Lista de cambios](../../wiki/Changes-List))
-  * 20090814:Lanzada la versión 0.5.0.22. ([Lista de cambios](../../wiki/Changes-List))
+  * 20100202: Lanzada la versión 0.6.0.35. ([Lista de cambios](../../wiki/Changes-List))
+  * 20090814: Lanzada la versión 0.5.0.22. ([Lista de cambios](../../wiki/Changes-List))

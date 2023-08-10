@@ -4,15 +4,18 @@ Some common functions for string handling.
 
 * ETKCopyFrom: Copy a string from a position to the end.
 * ETKExtractBetween: Copy a string between 2 delimiter strings. 
-* ETKFixTitle: Fixes a Title, and returns its SortTitle and MediaFile too.
+* ETKFixSortTitle and ETKFixGrpId: Fixes a Title, and returns its SortTitle
+  or normalized GroupID (Remember, some systems use their own GroupID).
   * Title, The -> The Title
   * Title (The) -> The Title
 
 [Data]
 Name=Chixpy
-Version=0.07
-Date=20221022
+Version=0.08
+Date=20230810
 [Changes]
+0.08 20230810
+  c ETKFixTitle: Splited in ETKFixSortTitle and ETKFixGrpId.
 0.07 20221022
   + IsArticle: Added. 
   m Better ETKFixTitle adding multigame support
@@ -91,7 +94,9 @@ begin
   end;
 end;
 
-    procedure DoFixTitle(var aTitle: string; out SortTitle: string);
+// Padded procedures and functions are "private", not for use out of this
+//   unit.
+    procedure DoActualFixTitle(var aTitle: string; out SortTitle: string);
     var
      aPos: integer;
      aArticle: string;
@@ -174,7 +179,7 @@ end;
     while i < slTitleList.Count do
     begin
       TempTitle := Trim(slTitleList[i]);
-      DoFixTitle(TempTitle, TempSort);
+      DoActualFixTitle(TempTitle, TempSort);
 
       // First letter uppercase
       if length(TempSort) > 0 then
@@ -186,7 +191,7 @@ end;
             
       if i > 0 then
       begin
-        SortTitle := SortTitle + ' - ' + TempSort;
+        SortTitle := SortTitle + ': ' + TempSort;
         aTitle := aTitle + ': ' + TempTitle;
       end
       else
@@ -201,44 +206,75 @@ end;
     slTitleList.Free;
   end;
 
-procedure ETKFixTitle(var aTitle: string; out SortTitle: string);
-var
-  slGameList: TStringList;
-  TempTitle, TempSort: string;
-  i: integer;
-begin
-  aTitle := AnsiReplaceText(aTitle, ' - ', ': ');
-
-  SortTitle := '';  
- 
-  // Splitting multiple games
-  // 'Game 1, The: Subtitle + Game 2: Subtitle, The + Game, A'
-  slGameList := CreateStringList;
-  aTitle := AnsiReplaceText(aTitle, ' + ', '|');
-  slGameList.AddDelimitedText(aTitle, '|', true);
-  
-  aTitle := ''; // Reseting Title
-  i := 0;
-  while i < slGameList.Count do
+  procedure DoFixTitle(var aTitle: string; out SortTitle: string);
+  var
+    slGameList: TStringList;
+    TempTitle, TempSort: string;
+    i: integer;
   begin
-    TempTitle := slGameList[i];
-    SplitSubTitles(TempTitle, TempSort);
-     
-    if i > 0 then
-    begin
-      SortTitle := SortTitle + ' + ' + TempSort;
-      aTitle := aTitle + ' + ' + TempTitle;
-    end
-    else
-    begin
-      SortTitle := TempSort;
-      aTitle := TempTitle;
-    end;
-      
-    Inc(i);
-  end;
+    aTitle := AnsiReplaceText(aTitle, ' - ', ': ');
 
-  if SortTitle = aTitle then SortTitle := '';
+    SortTitle := '';
+ 
+    // Splitting multiple games
+    // 'Game 1, The: Subtitle + Game 2: Subtitle, The + Game, A'
+    slGameList := CreateStringList;
+    aTitle := AnsiReplaceText(aTitle, ' + ', '|');
+    slGameList.AddDelimitedText(aTitle, '|', true);
   
+    aTitle := ''; // Reseting Title
+    i := 0;
+    while i < slGameList.Count do
+    begin
+      TempTitle := slGameList[i];
+      SplitSubTitles(TempTitle, TempSort);
+     
+      if i > 0 then
+      begin
+        SortTitle := SortTitle + ' + ' + TempSort;
+        aTitle := aTitle + ' + ' + TempTitle;
+      end
+      else
+      begin
+        SortTitle := TempSort;
+        aTitle := TempTitle;
+      end;
+      
+      Inc(i);
+    end;
+
   slGameList.Free;
 end;
+
+procedure ETKFixGrpID(var aTitle: string; out GroupID: string);
+begin
+  DoFixTitle(aTitle, GroupID);
+end;
+
+procedure ETKFixSortTitle(var aTitle: string; out SortTitle: string);
+begin
+  DoFixTitle(aTitle, SortTitle);
+
+  if SortTitle = aTitle then
+    SortTitle := '';
+
+  // Changing some Windows invalid characters, as EmutecaCore's
+  //   uaEmutecaCustomSGItem, that are changed in diferent way than
+  //   CleanFileName.
+
+  // TODO: Maybe is better to make public and import the method
+  //   caEmutecaCustomSGItem.FormatSortTitle?
+
+  // Actually ': ' is changed to ' - ', but we want to sort with ' - ',
+  //   because we want to sort...:
+  // Game
+  // Game - First Part  <- Go before Second Part
+  // Game 2
+  // Game 2 - Second Part
+  // Game 2: Second Part
+  // Game: First Part <- Go after Second Part
+
+  SortTitle := AnsiReplaceText(SortTitle, ': ', ' - ');
+  SortTitle := AnsiReplaceText(SortTitle, ' & ', ' and ');
+end;
+

@@ -1706,9 +1706,9 @@ msgstr "Quitar paneles"
 msgid "Remove all panels."
 msgstr "Quita todos los paneles"
 
-#: tfmetkguisoftmedia.actopeniconinviewer.caption
-msgid "Open Icon in Image Viewer"
-msgstr "Abrir icono en el Visor de Imágenes"
+#: tfmetkguisoftmedia.actloadmediafiles.caption
+msgid "Load Media Files"
+msgstr ""
 
 #: tfmetkguisoftmedia.piconlogo.caption
 msgctxt "tfmetkguisoftmedia.piconlogo.caption"
@@ -2219,11 +2219,6 @@ msgstr "OK"
 msgctxt "ucchxscriptengine.rsseelwarning"
 msgid "Warning"
 msgstr "Atención"
-
-#: ucchxscriptengine.rssemsgformat
-#, object-pascal-format
-msgid "[%0:s](%1:.4d:%2:.4d): %3:s"
-msgstr "[%0:s](%1:.4d:%2:.4d): %3:s"
 
 #: uchx7zwrapper.rsw7zerrorline
 #, object-pascal-format
