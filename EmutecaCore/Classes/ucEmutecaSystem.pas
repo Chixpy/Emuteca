@@ -433,7 +433,7 @@ var
 begin
   if not Assigned(aSoft) then Exit;
 
-  // Teorically we can delete soft from another system...
+  // Tecnically we can delete soft from another system...
   if aSoft.CachedSystem <> Self then Exit;
 
   aGroup := cEmutecaGroup(aSoft.CachedGroup);
@@ -442,7 +442,9 @@ begin
   SoftManager.VisibleList.Remove(aSoft); // Removing from system;
   SoftManager.FullList.Remove(aSoft); // Removing from system 2;
 
-  aSoft.Free;
+  // SoftManager.FullList is de Software's owner
+  //   it will free it when removed from the list.
+  // aSoft.Free;
 
   // Cleaning empty groups
   CleanGroupList;
@@ -453,7 +455,7 @@ var
   i: integer;
   aGroup: cEmutecaGroup;
 begin
-  // This is fast...
+  // This is fast... < 20.000 group
   // if assigned(ProgressCallBack) then
   //   ProgressCallBack(rsCleaningSystemData,
   //     'Cleaning empty groups.', 1, 2, False);
