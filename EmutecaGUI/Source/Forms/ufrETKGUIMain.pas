@@ -28,7 +28,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
   LazFileUtils, LCLIntf, IniFiles, LCLTranslator, ActnList, StdActns, Menus,
-  ComCtrls, LazUTF8,
+  ComCtrls, LazUTF8, Clipbrd,
   // Misc
   uVersionSupport,
   // CHX units
@@ -78,6 +78,7 @@ type
     actImportSoftData: TAction;
     actEditGroup: TAction;
     actExitWOSaving: TAction;
+    actCopyFileName2ClipBoard: TAction;
     actRunDBEditorSoft: TAction;
     actRunDBEditorGroups: TAction;
     actRunDBEditor: TAction;
@@ -103,6 +104,7 @@ type
     actExit: TFileExit;
     HelpOnHelp1: THelpOnHelp;
     MainMenu: TMainMenu;
+    mipmSCopyFileName2ClipBoard: TMenuItem;
     mimmRunDBEditorSoft: TMenuItem;
     mimmRunDBEditorGroups: TMenuItem;
     mimmRunDBEditor: TMenuItem;
@@ -165,6 +167,7 @@ type
     procedure actAddFolderExecute(Sender: TObject);
     procedure actAddSoftExecute(Sender: TObject);
     procedure actCleanSystemDataExecute(Sender: TObject);
+    procedure actCopyFileName2ClipBoardExecute(Sender: TObject);
     procedure actEditEmulatorExecute(Sender: TObject);
     procedure actEditGroupExecute(Sender: TObject);
     procedure actEditSystemExecute(Sender: TObject);
@@ -619,6 +622,12 @@ begin
   CurrentSystem.ProgressCallBack := aPCB;
 
   fmEmutecaMainFrame.Emuteca := Emuteca;
+end;
+
+procedure TfrmETKGUIMain.actCopyFileName2ClipBoardExecute(Sender: TObject);
+begin
+  if not Assigned(CurrentSoft) then Exit;
+  Clipboard.AsText := CurrentSoft.FileName;
 end;
 
 procedure TfrmETKGUIMain.actEditEmulatorExecute(Sender: TObject);

@@ -1790,6 +1790,10 @@ msgstr ""
 msgid "Clean current system data|Cleans current system soft not found and groups without soft"
 msgstr ""
 
+#: tfrmetkguimain.actcopyfilename2clipboard.caption
+msgid "Copy Filename to Clipboard"
+msgstr ""
+
 #: tfrmetkguimain.acteditemulator.caption
 msgid "Edit emulator..."
 msgstr ""

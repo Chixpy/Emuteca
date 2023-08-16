@@ -31,6 +31,9 @@ inherited frmETKGUIMain: TfrmETKGUIMain
     object MenuItem5: TMenuItem
       Caption = '-'
     end
+    object mipmSCopyFileName2ClipBoard: TMenuItem
+      Action = actCopyFileName2ClipBoard
+    end
     object mipmSOpenSoftFolder: TMenuItem
       Action = actOpenSoftFolder
     end
@@ -404,6 +407,11 @@ inherited frmETKGUIMain: TfrmETKGUIMain
       Caption = 'DB Editor with Soft List'
       Hint = 'Run DBEditor with current group list.|Runs DBEditor, exporting current soft list and importing it after it was edited. '
       OnExecute = actRunDBEditorSoftExecute
+    end
+    object actCopyFileName2ClipBoard: TAction
+      Category = 'Software'
+      Caption = 'Copy Filename to Clipboard'
+      OnExecute = actCopyFileName2ClipBoardExecute
     end
   end
   object ActImages: TImageList[5]

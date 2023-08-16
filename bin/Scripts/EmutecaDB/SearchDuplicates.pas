@@ -28,16 +28,26 @@ begin
   Result := True;
   if FileList.Count < 2 then Exit;
 
-  // Adding option to keep all files
-  FileList.Add('Keep all files')
+  // Adding option to keep all files and show the group
+  // if the file is the same all file are in the same group
+  //   unless some hand-made editing in current session
+  FileList.Add('Keep all files (Group: ' +
+    cEmutecaSoftware(FileList.Objects[0]).CachedGroup.Title +
+    ')')
   
   j := AskOption('Duplicated files found', 
-          'Which file do you want to keep in the list?', FileList);
+          'Which file do you want to KEEP in the list?', FileList);
 
   if j = -1 then
   begin
     Result := False;
     Exit;
+  end;
+
+  // Lastoption: Keep all files
+  if j = (FileList.Count - 1) then
+  begin
+   Exit;
   end;
 
   WriteLn('');
@@ -130,7 +140,9 @@ begin
       slFiles.Clear;
     end;
     
-    slFiles.AddObject(SetAsFolder(aSoft.Folder) + aSoft.FileName, aSoft);
+    slFiles.AddObject(ExtractRelativepath(SetAsFolder(aSystem.BaseFolder),
+      SetAsFolder(aSoft.Folder) + aSoft.FileName),
+      aSoft);
     
     Inc(i);
   end;  
