@@ -77,6 +77,7 @@ begin
 
     RegisterMethod('procedure AddSoft(aSoft : cEmutecaSoftware)');
     RegisterMethod('procedure AddGroup(aGroup: cEmutecaGroup)');
+    RegisterMethod('procedure RemoveSoft(aSoft: cEmutecaSoftware);');
 
     RegisterMethod('procedure CacheGroups');
     RegisterMethod('procedure CleanSoftGroupLists');
@@ -155,6 +156,7 @@ begin
 
     RegisterMethod(@cEmutecaSystem.AddSoft, 'AddSoft');
     RegisterMethod(@cEmutecaSystem.AddGroup, 'AddGroup');
+    RegisterMethod(@cEmutecaSystem.RemoveSoft, 'RemoveSoft');
 
     RegisterMethod(@cEmutecaSystem.CacheGroups, 'CacheGroups');
     RegisterMethod(@cEmutecaSystem.CleanSoftGroupLists, 'CleanSoftGroupLists');

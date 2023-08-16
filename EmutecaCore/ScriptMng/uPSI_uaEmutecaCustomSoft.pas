@@ -58,7 +58,9 @@ begin
   with CL.AddClassN(CL.FindClass('caEmutecaCustomSGItem'),
       'caEmutecaCustomSoft') do
   begin
-    RegisterProperty('SHA1', 'TSHA1Digest', iptrw);
+    // Use TSHA1Digest instead of TSHA1Digest
+    // RegisterProperty('SHA1', 'TSHA1Digest', iptrw);
+    RegisterProperty('SHA1', 'string', iptrw);
 
     RegisterProperty('Folder', 'string', iptrw);
     RegisterProperty('FileName', 'string', iptrw);
@@ -99,15 +101,15 @@ begin
 end;
 
 procedure caEmutecaCustomSoftSHA1_R(Self: caEmutecaCustomSoft;
-  var T: TSHA1Digest);
+  var T: string);
 begin
-  T := Self.SHA1;
+  T := SHA1Print(Self.SHA1);
 end;
 
 procedure caEmutecaCustomSoftSHA1_W(Self: caEmutecaCustomSoft;
-  const T: TSHA1Digest);
+  const T: string);
 begin
-  Self.SHA1 := T;
+  Self.SHA1 := SHA1String(T);
 end;
 
 procedure caEmutecaCustomSoftFolder_R(Self: caEmutecaCustomSoft;

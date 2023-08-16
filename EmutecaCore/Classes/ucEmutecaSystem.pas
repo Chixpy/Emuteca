@@ -78,6 +78,9 @@ type
     {< Safe way to add software (adds group if needed, and link them). }
     procedure AddGroup(aGroup: cEmutecaGroup);
     {< Safe way to add groups (adds group in full list and visile list). }
+    procedure RemoveSoft(aSoft: cEmutecaSoftware);
+    {< Safe way to remove software (removes it from its group,
+      visible and full lists). }
 
     procedure CacheGroups;
     {< Add groups to software. }
@@ -88,7 +91,7 @@ type
     procedure CleanGroupList;
     {< Removes empty groups.
 
-      Used by CleanSoftGroupLists and ExportSoftGroupLists.
+      Used by CleanSoftGroupLists, ExportSoftGroupLists and RemoveSoft.
     }
 
     procedure LoadEmulatorsFrom(aEmuList: cEmutecaEmulatorList);
@@ -424,6 +427,27 @@ begin
       GroupManager.VisibleList.Add(aGroup);
 end;
 
+procedure cEmutecaSystem.RemoveSoft(aSoft: cEmutecaSoftware);
+var
+  aGroup: cEmutecaGroup;
+begin
+  if not Assigned(aSoft) then Exit;
+
+  // Teorically we can delete soft from another system...
+  if aSoft.CachedSystem <> Self then Exit;
+
+  aGroup := cEmutecaGroup(aSoft.CachedGroup);
+  aGroup.SoftList.Remove(aSoft); // Removing from group
+
+  SoftManager.VisibleList.Remove(aSoft); // Removing from system;
+  SoftManager.FullList.Remove(aSoft); // Removing from system 2;
+
+  aSoft.Free;
+
+  // Cleaning empty groups
+  CleanGroupList;
+end;
+
 procedure cEmutecaSystem.CleanGroupList;
 var
   i: integer;
@@ -532,7 +556,11 @@ procedure cEmutecaSystem.CleanSoftGroupLists;
         end;
 
         if not Found then
+        begin
+          // Groups are updated later...
+          // RemoveSoft(SoftManager.FullList[i])
           SoftManager.FullList.Delete(i)
+        end
         else
           Inc(i);
       end;

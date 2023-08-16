@@ -1,7 +1,8 @@
 {
 [Info]
 Script fix SortTitles:
-  * Search groups and Software with articles (The, A, El, etc.) and fix them.
+  * Search groups and software with articles (The, A, El, etc.) and fix them.
+  * Search for roman numerals (I, II, III, IV, etc.)
 [Data]
 Name=Chixpy
 Version=0.01
@@ -14,7 +15,7 @@ Date=20230810
 program FixSortTitles;
 
 //uses uETKStrUtils;
-{$I '../Units/uETKStrUtils.pas'}
+{$I 'uETKStrUtils.pas'}
 
 var
   aSystem: cEmutecaSystem;
@@ -24,10 +25,13 @@ var
   aSoft: cEmutecaSoftware;
   aID, aTitle, aSortTitle: string;
   i, j: integer;
+  Abort: Boolean;
+  
 
   DEBUG: Boolean;
   CHANGEGRPID: Boolean;
   KEEPSORTTITLE: Boolean;
+
 begin
   i := AskYesNoCancel('Preview Changes', 'Do you want to only preview changes?');
   if i = mrCancel then
@@ -35,7 +39,7 @@ begin
     WriteLn('¡Canceled!');
     Exit;
   end;
-  DEBUG := TRUE;
+  DEBUG := i = mrYes;
 
   i := AskYesNoCancel('Group Ids', 'Change group IDs too?');
   if i = mrCancel then
@@ -165,6 +169,73 @@ begin
     end;
 
     Inc(j);
+  end;
+  
+  WriteLn('');
+  WriteLn('');
+  WriteLn('Searching roman numerals in SortTitle of groups:');
+  WriteLn('');
+  
+  Abort := False;
+  i := 0;
+  while (i < aGroupList.Count) and (not Abort) do
+  begin  
+    aGroup := aGroupList[i];
+ 
+//    Not neeeded...
+//    IF (NOT KEEPSORTTITLE) OR (aGroup.GetActualSortTitle = '') THEN
+//    BEGIN
+      // ' ' is usefull for I, V and X
+      aSortTitle := aGroup.SortTitle + ' ';   
+
+      // We can try to change automatically but better to ask...
+      //   Metal Slug XX, MegaMan X, etc...
+      //   so we can do fewer searches.
+      if (Pos(' I ', aSortTitle) > 0) or (Pos('II', aSortTitle) > 0) or
+        (Pos('IV', aSortTitle) > 0) or (Pos(' V ' , aSortTitle) > 0) or
+        (Pos('VI', aSortTitle) > 0) or
+        (Pos('IX', aSortTitle) > 0) or (Pos(' X ' , aSortTitle) > 0) or
+        (Pos('XI', aSortTitle) > 0) or
+        (Pos('XV' , aSortTitle) > 0) or (Pos('XX' , aSortTitle) > 0)
+      then
+      begin
+        Abort := ETKEditGroup(aGroup) = mrCancel;
+      end;            
+//    END;
+  
+    Inc(i);
+  end;
+  
+  WriteLn('');
+  WriteLn('');
+  WriteLn('Searching roman numerals in SortTitle of software:');
+  WriteLn('');
+  
+  i := 0;
+  while (i < aSoftList.Count) and (not abort) do
+  begin  
+    aSoft := aSoftList[i];
+ 
+    if aSoft.GetActualTitle <> '' then // Only search non inherited titles
+    begin
+      aSortTitle := aSoft.SortTitle + ' ';   
+
+      // We can try to change automatically but better to ask...
+      //   Metal Slug XX, MegaMan X, etc...
+      //   so we can do fewer searches.
+      if (Pos(' I ', aSortTitle) > 0) or (Pos('II', aSortTitle) > 0) or
+        (Pos('IV', aSortTitle) > 0) or (Pos(' V ' , aSortTitle) > 0) or
+        (Pos('VI', aSortTitle) > 0) or
+        (Pos('IX', aSortTitle) > 0) or (Pos(' X ' , aSortTitle) > 0) or
+        (Pos('XI', aSortTitle) > 0) or
+        (Pos('XV' , aSortTitle) > 0) or (Pos('XX' , aSortTitle) > 0)
+      then
+      begin
+        Abort := mrCancel = ETKEditSoft(aSoft);
+      end;
+    end;      
+  
+    Inc(i);
   end;
   
   WriteLn('');

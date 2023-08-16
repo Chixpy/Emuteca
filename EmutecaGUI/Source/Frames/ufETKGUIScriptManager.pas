@@ -111,8 +111,6 @@ end;
 procedure TfmETKGUIScriptManager.SetBaseFolder(const aFolder: string);
 begin
   inherited SetBaseFolder(aFolder);
-
-  ScriptEngine.CommonUnitFolder := SetAsFolder(aFolder) + 'Units';
 end;
 
 class function TfmETKGUIScriptManager.SimpleForm(aEmuteca: cEmuteca;

@@ -301,6 +301,10 @@ msgstr "Cerrar"
 msgid "Closes windows after accepting or canceling."
 msgstr "Cierra la ventana después de aceptar o cancelar los cambios."
 
+#: tfmchxscriptmanager.actchangebasefolder.caption
+msgid "Change Base Folder"
+msgstr ""
+
 #: tfmchxscriptmanager.actcompile.caption
 msgid "Syntax check"
 msgstr "Comprobar sintaxis"
@@ -337,6 +341,15 @@ msgstr ""
 
 #: tfmchxscriptmanager.acteditdelete.hint
 msgid "Suprimir"
+msgstr ""
+
+#: tfmchxscriptmanager.acteditfonteditor.caption
+msgid "Seleccionar &Fuente del editor..."
+msgstr ""
+
+#: tfmchxscriptmanager.acteditfonteditor.hint
+msgctxt "tfmchxscriptmanager.acteditfonteditor.hint"
+msgid "Selector de fuente"
 msgstr ""
 
 #: tfmchxscriptmanager.acteditpaste.caption
@@ -397,6 +410,7 @@ msgid "Seleccionar &Fuente..."
 msgstr ""
 
 #: tfmchxscriptmanager.actoutputfontedit.hint
+msgctxt "tfmchxscriptmanager.actoutputfontedit.hint"
 msgid "Selector de fuente"
 msgstr ""
 
@@ -444,6 +458,10 @@ msgstr ""
 
 #: tfmchxscriptmanager.bseparator5.caption
 msgid "bSeparator5"
+msgstr ""
+
+#: tfmchxscriptmanager.bseparator6.caption
+msgid "bSeparator6"
 msgstr ""
 
 #: tfmchxscriptmanager.gbxscript.caption

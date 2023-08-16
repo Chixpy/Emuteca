@@ -66,8 +66,8 @@
             <CompilerMessages>
               <IgnoredMessages idx6058="True"/>
             </CompilerMessages>
-            <CustomOptions Value="-dPS_USESSUPPORT
--FcUTF8"/>
+            <CustomOptions Value="-FcUTF8
+-dPS_USESSUPPORT"/>
             <OtherDefines Count="1">
               <Define0 Value="PS_USESSUPPORT"/>
             </OtherDefines>

@@ -744,7 +744,6 @@ end;
 
 procedure TfrmETKGUIMain.actRemoveSoftExecute(Sender: TObject);
 var
-  aGroup: cEmutecaGroup;
   aSystem: cEmutecaSystem;
 begin
   if not Assigned(CurrentSoft) then
@@ -759,15 +758,10 @@ begin
     [CurrentSoft.Title]), mtConfirmation, [mrYes, mrNo], 0) = mrYes then
     Exit;
 
-  aGroup := cEmutecaGroup(CurrentSoft.CachedGroup);
-  aGroup.SoftList.Remove(CurrentSoft); // Removing from group
-
   aSystem := cEmutecaSystem(CurrentSoft.CachedSystem);
-  aSystem.SoftManager.VisibleList.Remove(CurrentSoft); // Removing from system;
-  aSystem.SoftManager.FullList.Remove(CurrentSoft); // Removing from system 2;
+  aSystem.RemoveSoft(CurrentSoft);
 
-  CurrentSoft.Free;
-  CurrentSoft := nil;
+  CurrentSoft := nil; // Unselecting current soft
 
   // Updating group list.
   actUpdateGroupList.Execute;
