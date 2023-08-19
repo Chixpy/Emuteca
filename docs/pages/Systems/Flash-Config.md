@@ -35,9 +35,9 @@ Por lo demás, en la parte de la gestión no se diferencia de un [sistema de car
 
 No merece la pena comprimirlos individualmente, ni siquiera con 7z. Los .swf son directamente archivos comprimidos con zlib (7Zip los puede abrir y reabrir el fichero interno) y por tanto no gana casi nada de espacio. 
 
-De la misma forma, TAMPOCO se gana espacio al agrupar varias versiones dentro de un mismo archivo puesto que los ficheros son totalmente diferentes por esa compresión.
+De la misma forma, TAMPOCO se gana espacio al agrupar varias versiones dentro de un mismo archivo puesto que los ficheros son totalmente diferentes por esa compresión. Ya que una pequeña variación entre versiones al comprimirse puede resultar en archivos muy diferentes.
 
-Sim embargo, no es mala idea agrupar las versiones en un archivo comprimido NO SÓLIDO.
+Sin embargo, no es mala idea agrupar las versiones en un archivo comprimido NO SÓLIDO.
 
 
 ### No todos los .swf "funcionan" de esta forma ###
@@ -47,7 +47,11 @@ Según esté programado el .swf, puede impedir su correcto funcionamiento con pr
   * Que esté programado para funcionar en un servidor concreto.
   * Que busque algún recurso en internet y éste ya no se encuentre disponible. A veces aunque no lo encuentre permite continuar (sobre todo si es publicidad).
     * También puede suceder que .swf sea tan solo realmente un frame para cargar otro .swf.
-  * Que necesite algún parámetro en la url del archivo. Esto realmente no es problema porque Flash Player Projector permite pasar los parámetros como de una url se tratara "archivo.swf?param1&param2=valor2", pero hay que saber que párametros espera y el valor...  
+  * Que necesite algún parámetro en la url del archivo. Esto realmente no es problema porque Flash Player Projector permite pasar los parámetros como de una url se tratara "archivo.swf?param1&param2=valor2", pero hay que saber que parámetros espera y el valor...  
+  
+De esta forma aquellos .swf que no funcionan por estas razones son marcados como BadDumps en Emuteca.
 
 Existe un proyecto llamado [FlashPoint Archive](https://flashpointarchive.org/) encargado de preservar todos estos archivos y hackearles para que continúen funcionando, a base de método que van mucho más allá del propósito de Emuteca. De hecho, desde el punto de vista de Emuteca, FlashPoint es un emulador.
+
+
 

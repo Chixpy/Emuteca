@@ -13,6 +13,7 @@ inherited fmETKGUISoftMedia: TfmETKGUISoftMedia
     HorzScrollBar.Page = 1
     VertScrollBar.Page = 1
     Align = alClient
+    BorderStyle = bsNone
     TabOrder = 0
   end
   object tbSoftMediaPanel: TToolBar[1]

@@ -16,14 +16,14 @@ En esta página se intentará explicar el funcionamiento genéral de Emuteca. Pa
 * [Arcade (MAME)](Systems/Arcade-Config): Ciertamente es aplicable, en parte, a Final Burn Alpha y otros emuladores.
 * [Mapas de Doom](Systems/Doom-Config): Aplicable también sus derivados Doom II, Heretic, Hexxen y Strife.
 * [Mapas de Quake](Systems/Quake-Config): Quake tiene una forma diferente de funcionar de Doom. 
-* [Mapas de Duke Nukem 3D](Systems/Duke-Nukem-3D-Config).
+* [Mapas de Duke Nukem 3D](Systems/DukeNukem3D-Config).
 * [Adobe Flash Player](Systems/Flash-Config).
 
 Esbozos e ideas no desarrolladas:
 
 * [DOSBox](Systems/DOSBox-Config)
 * [Visual Pinball](Systems/VisualPinball-Config)
-* [Acorn Archimedes](Systems/Acorn_Archimedes)
+* [Acorn Archimedes](Systems/Archimedes-Config)
 
 ## Emuladores ##
 
