@@ -2379,6 +2379,10 @@ msgstr ""
 msgid "Save changes"
 msgstr ""
 
+#: uemutecarscstr.rscachinggroups
+msgid "Caching software groups"
+msgstr ""
+
 #: uemutecarscstr.rschooseimagefileformat
 msgid ""
 "Do you want to save it in a lossless format?\n"
@@ -2603,6 +2607,14 @@ msgstr "Guardando lista de software..."
 msgctxt "uemutecarscstr.rssavingsystemlist"
 msgid "Saving system list..."
 msgstr "Guardando lista de sistemas..."
+
+#: uemutecarscstr.rssortingsoftlist
+msgid "Sorting soft list..."
+msgstr ""
+
+#: uemutecarscstr.rstakeawhile
+msgid "This can take a while..."
+msgstr ""
 
 #: uemutecarscstr.rsunknown
 #, fuzzy

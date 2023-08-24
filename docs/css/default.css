@@ -142,6 +142,7 @@ dt {
   text-color: #000;
   border: 1px solid #000;
   
+  text-size: smaller;
   text-align: center;
   text-indent: 0;
   
@@ -150,8 +151,9 @@ dt {
   padding: 0 2em;
 }
 
+/* Images */
 .PageContent figure {
-  border: #888 solid 1px;
+  border: #888 dotted 1px;
   padding: 1ex;
   text-indent: 0;
   margin: auto;

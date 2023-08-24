@@ -36,6 +36,7 @@ resourcestring
   // Misc
   rsNever = 'Never';
   rsUnknown = 'Unknown';
+  rsTakeAWhile = 'This can take a while...';
 
   // File actions
   rsFileAlreadyAdded = 'This file is already added.';
@@ -66,6 +67,8 @@ resourcestring
   rsImportingEmulatorList = 'Importing emulator list...';
   rsExportingEmulatorList = 'Exporting emulator list...';
   rsCleaningSystemData = 'Cleaning system data...';
+  rsSortingSoftList = 'Sorting soft list...';
+  rsCachingGroups = 'Caching software groups';
 
   // Importing/Exporting Warnings
   rsImportingNoSHA1 =

@@ -146,6 +146,11 @@ var
 begin
   // aSoftLst.BeginUpdate;
   aSoftLst.Capacity := aSoftLst.Count + aTxtFile.Count; // Speed Up?
+
+  if Assigned(ProgressCallBack) then
+    ProgressCallBack(rsLoadingSoftList, '', 0,
+      aTxtFile.Count, False);
+
   i := 1; // Skipping Header
   while i < aTxtFile.Count do
   begin

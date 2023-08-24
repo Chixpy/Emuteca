@@ -72,6 +72,7 @@ type
     Splitter2: TSplitter;
     procedure bSearchClick(Sender: TObject);
     procedure cCancelSearchClick(Sender: TObject);
+
   private
     FCurrentGroup: cEmutecaGroup;
     FCurrentSoft: cEmutecaSoftware;
@@ -254,6 +255,7 @@ begin
   if Assigned(CurrentSystem) then
   begin
     GUIConfig.CurrSystem := CurrentSystem.ID;
+
     // HACK: Load system background in SoftTree
     if FileExistsUTF8(CurrentSystem.BackgroundFile) then
       fmSoftTree.VDT.Background.LoadFromFile(CurrentSystem.BackgroundFile)
@@ -264,6 +266,7 @@ begin
   else
   begin
     GUIConfig.CurrSystem := '';
+
     // HACK: Load system background in SoftTree
     fmSoftTree.VDT.Background.Clear;
   end;
@@ -492,8 +495,10 @@ constructor TfmETKGUIMain.Create(TheOwner: TComponent);
 
     // TODO: Configurable
     fmEmutecaSystemCBX.cbxSystem.Height := 32;
-    fmEmutecaSystemCBX.cbxSystem.Font.Height := fmEmutecaSystemCBX.cbxSystem.Height;
-    fmEmutecaSystemCBX.cbxSystem.ItemHeight := fmEmutecaSystemCBX.cbxSystem.Height;
+    fmEmutecaSystemCBX.cbxSystem.Font.Height :=
+      fmEmutecaSystemCBX.cbxSystem.Height;
+    fmEmutecaSystemCBX.cbxSystem.ItemHeight :=
+      fmEmutecaSystemCBX.cbxSystem.Height;
 
     fmEmutecaSystemCBX.FirstItem := ETKSysCBXFIAll;
     fmEmutecaSystemCBX.OnSelectSystem := @SetCurrentSystem;

@@ -4,7 +4,7 @@ unit ucEmutecaGroupManager;
 
   This file is part of Emuteca Core.
 
-  Copyright (C) 2006-2020 Chixpy
+  Copyright (C) 2006-2023 Chixpy
 
   This source is free software; you can redistribute it and/or modify it under
   the terms of the GNU General Public License as published by the Free
@@ -118,6 +118,11 @@ var
 begin
   // aGrpLst.BeginUpdate;
   aGrpLst.Capacity := aGrpLst.Count + aTxtFile.Count; // Speed Up?
+
+  if Assigned(ProgressCallBack) then
+    ProgressCallBack(rsLoadingGroupList, '',
+      0, aTxtFile.Count, False);
+
   i := 1; // Skipping Header
   while i < aTxtFile.Count do
   begin

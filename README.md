@@ -4,7 +4,7 @@
 
 Emuteca 0.8 preview...
 
-![Emuteca 0.8 preview](../../wiki/img/0_8/GameManager.png)
+![Emuteca 0.8 preview](../../wiki/img/current/GameManager.png)
 
 # English #
 _v0.8 is being developed from scratch_; v0.7 information follows:

@@ -124,8 +124,6 @@ begin
   if SoftGroupLoaded then
     Exit;
 
-  SoftManager.LoadFromFile(aFile + krsFileExtSoft);
-
   { TODO 1: If the file "aFile + krsFileExtGroup" doesn't exists, Emuteca shows
       an SIGEVN error when Application.Run is executed in EmutecaGUI.pas.
       After accepting Emuteca works without problem.
@@ -141,7 +139,10 @@ begin
     FileClose(FileCreateUTF8(aFile + krsFileExtGroup));
   end;
 
+
   GroupManager.LoadFromFile(aFile + krsFileExtGroup);
+
+  SoftManager.LoadFromFile(aFile + krsFileExtSoft);
 
   SoftGroupLoaded := True;
 
@@ -288,55 +289,89 @@ begin
     Inc(i);
   end;
 
+  // TODO: Something is wrong here
+
   // Updating soft groups and groups softlists.
   // ------------------------------------------
-  // Here are dragons
+  if assigned(ProgressCallBack) then
+    ProgressCallBack(rsSortingSoftList, rsTakeAWhile, 1, 100, False);
   GroupManager.FullList.Sort(@EmutecaCompareGroupsByID);
   SoftManager.FullList.Sort(@EmutecaCompareSoftByGroupKey);
 
-  // Uhm? Backwards? B-P
-  i := GroupManager.FullList.Count - 1;
-  aGroup := nil;
-  if i >= 0 then
-    aGroup := GroupManager.FullList[i];
+  // i = Current group index;
+  // j = Current soft index;
+  // Soft and groups are sorted
+  // Backwards is usually faster and we can do a little trick
 
-  j := SoftManager.FullList.Count;
-  while j >= 1 do
+
+  if assigned(ProgressCallBack) then
+    ProgressCallBack(rsCachingGroups, '', 1, 100, False);
+
+  // Selecting first group
+  i := GroupManager.FullList.Count - 1;
+  if i >= 0 then
+    aGroup := GroupManager.FullList[i]
+  else
+    aGroup := nil;
+
+  // Iterating soft searching it's group
+  j := SoftManager.FullList.Count - 1;
+  while j >= 0 do
   begin
-    Dec(j);
     aSoft := SoftManager.FullList[j];
+    if assigned(ProgressCallBack) then
+      ProgressCallBack(rsCachingGroups,
+        aSoft.Title, SoftManager.FullList.Count - j,
+        SoftManager.FullList.Count, False);
 
     if assigned(aGroup) then
-      aComp := aSoft.CompareGroupKey(aGroup.ID)
-    else
-      aComp := 1; // aSoft.CompareGroupKey('');
-
-    // Group > Soft -> Try Previous group
-    while aComp < 0 do
     begin
-      Dec(i);
-      if i >= 0 then
-        aGroup := GroupManager.FullList[i]
-      else
-        aGroup := nil;
+      aComp := aSoft.CompareGroupKey(aGroup.ID);
 
-      if assigned(aGroup) then
-        aComp := aSoft.CompareGroupKey(aGroup.ID)
-      else
-        aComp := 1; // aSoft.CompareGroupKey('');
-    end;
+      if aComp = 0 then // match
+      begin
+        aGroup.SoftList.Add(aSoft);
+        aSoft.CachedGroup := aGroup;
+        Dec(j); // Next soft
+      end
+      else if aComp < 0 then // Group > Soft
+      begin
+        Dec(i); // Try next group
+        if i >= 0 then
+          aGroup := GroupManager.FullList[i]
+        else
+          aGroup := nil;
+      end
+      else // if aComp > 0 then // Group < Soft
+      begin
+        // Group don't exists, creating new one and reset i
 
-    // (Group < Soft) -> Ops, group doesn't exist
-    if (aComp > 0) then
+        // Speed Hack:
+        //   Grouplist is sorted by id.
+
+        //   The new group is added at the end of the list but all
+        //     not searched groups continue sorted.
+        //   Sorting the group list can be a little slow for > 20.000 groups
+
+        //   So we can don't sort the list becuse they are a match or bigger
+        //     then current soft.id
+        //   (A better hack is to keep last real match position)
+        GroupManager.AddGroup(aSoft.GroupKey);
+        i := GroupManager.FullList.Count - 1;
+        aGroup := GroupManager.FullList[i];
+      end;
+    end
+    else // Group don't exists (), creating new one and reset i
     begin
-      aGroup := GroupManager.FullList[GroupManager.AddGroup(aSoft.GroupKey)];
+      GroupManager.AddGroup(aSoft.GroupKey);
       GroupManager.FullList.Sort(@EmutecaCompareGroupsByID);
       i := GroupManager.FullList.Count - 1;
+      aGroup := GroupManager.FullList[i];
     end;
-
-    aGroup.SoftList.Add(aSoft);
-    aSoft.CachedGroup := aGroup;
   end;
+
+  if assigned(ProgressCallBack) then
+    ProgressCallBack('', '', 0, 0, False);
 
   // Sorting soft in group
   i := 0;
@@ -458,12 +493,15 @@ begin
   // This is fast... < 20.000 group
   // if assigned(ProgressCallBack) then
   //   ProgressCallBack(rsCleaningSystemData,
-  //     'Cleaning empty groups.', 1, 2, False);
+  //     'Cleaning empty groups.', 0, GroupManager.FullList.Count, False);
 
   i := 0;
   while i < GroupManager.FullList.Count do
   begin
     aGroup := GroupManager.FullList[i];
+
+    //   ProgressCallBack(rsCleaningSystemData,
+    //     'Cleaning empty groups.', i, GroupManager.FullList.Count, False);
 
     if aGroup.SoftList.Count <= 0 then
       GroupManager.FullList.Delete(i)
@@ -511,8 +549,8 @@ procedure cEmutecaSystem.CleanSoftGroupLists;
   begin
     // Sorting by filename
     if assigned(ProgressCallBack) then
-      ProgressCallBack('Sorting soft list by filename...',
-        'This can take a while.', 1, 100, False);
+      ProgressCallBack(rsSortingSoftList,
+        rsTakeAWhile, 1, 100, False);
     SoftManager.FullList.Sort(@EmutecaCompareSoftByFileName);
 
     i := 0;
@@ -561,7 +599,7 @@ procedure cEmutecaSystem.CleanSoftGroupLists;
         begin
           // Groups are updated later...
           // RemoveSoft(SoftManager.FullList[i])
-          SoftManager.FullList.Delete(i)
+          SoftManager.FullList.Delete(i);
         end
         else
           Inc(i);

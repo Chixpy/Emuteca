@@ -149,15 +149,15 @@ begin
 
   if ExportMode then
   begin
-    aIniFile.DeleteKey(Section, krsIniKeyPlayingTime);
-    aIniFile.DeleteKey(Section, krsIniKeyPlayingTime);
+    aIniFile.DeleteKey(Section, krsIniKeyLastTime);
+    aIniFile.DeleteKey(Section, krsIniKeyTimesPlayed);
     aIniFile.DeleteKey(Section, krsIniKeyPlayingTime);
   end
   else
   begin
-    aIniFile.WriteInt64(Section, krsIniKeyPlayingTime, PlayingTime);
-    aIniFile.WriteInt64(Section, krsIniKeyTimesPlayed, TimesPlayed);
     aIniFile.WriteDateTime(Section, krsIniKeyLastTime, LastTime);
+    aIniFile.WriteInt64(Section, krsIniKeyTimesPlayed, TimesPlayed);
+    aIniFile.WriteInt64(Section, krsIniKeyPlayingTime, PlayingTime);
   end;
 end;
 
@@ -170,9 +170,7 @@ begin
   if not assigned(aIniFile) then
     Exit;
 
-  TmpString := aIniFile.ReadString(Section, krsIniKeyLastTime, '');
-  if TmpString <> '' then
-    LastTime := StrToDateTimeDef(TmpString, LastTime);
+  LastTime := aIniFile.ReadDateTime(Section, krsIniKeyLastTime, LastTime);
   TmpString := aIniFile.ReadString(Section, krsIniKeyPlayingTime, '');
   PlayingTime := StrToInt64Def(TmpString, PlayingTime);
   TmpString := aIniFile.ReadString(Section, krsIniKeyTimesPlayed, '');

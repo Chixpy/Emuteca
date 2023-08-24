@@ -102,6 +102,7 @@ begin
         aSoft := SoftList[CurrSoftPos];
         aFolder := aSoft.Folder;
         aFile := aSoft.FileName;
+        // aSha1 := kCHXSHA1Empty; Not needed
 
         if aSoft.SHA1IsEmpty then
         begin
@@ -121,6 +122,7 @@ begin
               aSoft.SHA1 := aSha1;
           end;
         end;
+
         Inc(CurrSoftPos);
       end;
       Inc(CurrSysPos);
