@@ -24,7 +24,7 @@ inherited fmEMCImagePropEditor: TfmEMCImagePropEditor
     Top = 28
     Width = 392
     ReadOnly = True
-    TabOrder = 7
+    TabOrder = 4
   end
   object gbxMagazineInfo: TGroupBox[2]
     Left = 4
@@ -45,7 +45,7 @@ inherited fmEMCImagePropEditor: TfmEMCImagePropEditor
     ChildSizing.ControlsPerLine = 2
     ClientHeight = 132
     ClientWidth = 388
-    TabOrder = 4
+    TabOrder = 1
     object lMagazine: TLabel
       Left = 4
       Height = 28
@@ -149,7 +149,7 @@ inherited fmEMCImagePropEditor: TfmEMCImagePropEditor
     ChildSizing.ControlsPerLine = 2
     ClientHeight = 134
     ClientWidth = 388
-    TabOrder = 8
+    TabOrder = 5
     object lType: TLabel
       Left = 4
       Height = 28
@@ -252,7 +252,7 @@ inherited fmEMCImagePropEditor: TfmEMCImagePropEditor
     ChildSizing.ControlsPerLine = 1
     ClientHeight = 92
     ClientWidth = 388
-    TabOrder = 6
+    TabOrder = 3
     object pPointMode: TPanel
       Left = 4
       Height = 28
@@ -414,7 +414,7 @@ inherited fmEMCImagePropEditor: TfmEMCImagePropEditor
     ChildSizing.ControlsPerLine = 1
     ClientHeight = 200
     ClientWidth = 388
-    TabOrder = 5
+    TabOrder = 2
     object lBaseOutFolder: TLabel
       Left = 4
       Height = 20
@@ -488,33 +488,59 @@ inherited fmEMCImagePropEditor: TfmEMCImagePropEditor
     Constraints.MinHeight = 20
     TabOrder = 0
   end
-  object bSave: TButton[7]
+  object pButtons: TPanel[7]
     Left = 4
-    Height = 30
+    Height = 77
     Top = 758
     Width = 392
-    Caption = 'Save'
-    Enabled = False
-    OnClick = bSaveClick
-    TabOrder = 1
-  end
-  object bSaveAndDelete: TButton[8]
-    Left = 4
-    Height = 30
-    Top = 792
-    Width = 392
-    Caption = 'Save and Delete'
-    Enabled = False
-    OnClick = bSaveAndDeleteClick
-    TabOrder = 2
-  end
-  object bDelete: TButton[9]
-    Left = 4
-    Height = 30
-    Top = 826
-    Width = 392
-    Caption = 'Delete File'
-    OnClick = bDeleteClick
-    TabOrder = 3
+    ChildSizing.LeftRightSpacing = 4
+    ChildSizing.TopBottomSpacing = 4
+    ChildSizing.HorizontalSpacing = 8
+    ChildSizing.VerticalSpacing = 8
+    ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+    ChildSizing.ShrinkHorizontal = crsHomogenousChildResize
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    ChildSizing.ControlsPerLine = 2
+    ClientHeight = 77
+    ClientWidth = 392
+    TabOrder = 6
+    object bClearSelection: TButton
+      Left = 4
+      Height = 30
+      Top = 4
+      Width = 184
+      Caption = 'Clear Selection'
+      OnClick = bClearSelectionClick
+      TabOrder = 3
+    end
+    object bSave: TButton
+      Left = 196
+      Height = 30
+      Top = 4
+      Width = 192
+      Caption = 'Save'
+      Enabled = False
+      OnClick = bSaveClick
+      TabOrder = 0
+    end
+    object bDelete: TButton
+      Left = 4
+      Height = 30
+      Top = 42
+      Width = 184
+      Caption = 'Delete File'
+      OnClick = bDeleteClick
+      TabOrder = 2
+    end
+    object bSaveAndDelete: TButton
+      Left = 196
+      Height = 30
+      Top = 42
+      Width = 192
+      Caption = 'Save and Delete'
+      Enabled = False
+      OnClick = bSaveAndDeleteClick
+      TabOrder = 1
+    end
   end
 end

@@ -1,4 +1,5 @@
 unit ucEmutecaGroup;
+
 {< cEmutecaGroup class unit.
 
   This file is part of Emuteca Core.
@@ -26,6 +27,8 @@ interface
 
 uses
   Classes, SysUtils, LazFileUtils, LazUTF8,
+  // Emuteca Core units
+  uEmutecaConst,
   // Emuteca Core abstracts
   uaEmutecaCustomSystem, uaEmutecaCustomGroup,
   // Emuteca Core classes
@@ -46,14 +49,21 @@ type
     property CachedSystem: caEmutecaCustomSystem
       read FCachedSystem write SetCachedSystem;
 
+    function IsSoftSHA1Cached: integer;
+    {< Checks if all software have SHA1 cache.
+
+      Returns how many files don't have SHA1.
+        0 = All soft have SHA1.
+        -1 = No System is assigned.
+        -2 = System don't use SHA1.
+    }
     constructor Create(aOwner: TComponent); override;
     destructor Destroy; override;
 
   published
   end;
 
-  TEmutecaReturnGroupCB = procedure(aGroup: cEmutecaGroup) of
-    object;
+  TEmutecaReturnGroupCB = procedure(aGroup: cEmutecaGroup) of object;
 
 implementation
 
@@ -64,6 +74,33 @@ begin
   if FCachedSystem = AValue then
     Exit;
   FCachedSystem := AValue;
+end;
+
+function cEmutecaGroup.IsSoftSHA1Cached: integer;
+var
+  i: Integer;
+begin
+  Result := 0;
+
+  if not Assigned(CachedSystem) then
+  begin
+    Result := -1;
+    Exit;
+  end;
+
+  if CachedSystem.SoftExportKey <> TEFKSHA1 then
+  begin
+    Result := -2;
+    Exit;
+  end;
+
+  i := SoftList.Count - 1;
+  while i >= 0 do
+  begin
+    if SoftList[i].SHA1IsEmpty then
+      Inc(Result);
+    Dec(i);
+  end;
 end;
 
 constructor cEmutecaGroup.Create(aOwner: TComponent);

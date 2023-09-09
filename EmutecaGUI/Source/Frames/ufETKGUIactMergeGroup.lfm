@@ -1,113 +1,133 @@
 inherited fmETKGUIactMergeGroup: TfmETKGUIactMergeGroup
   Height = 499
-  Width = 716
+  Width = 1025
+  ChildSizing.LeftRightSpacing = 4
+  ChildSizing.TopBottomSpacing = 4
+  ChildSizing.HorizontalSpacing = 8
+  ChildSizing.VerticalSpacing = 8
   ClientHeight = 499
-  ClientWidth = 716
-  DesignLeft = 503
-  DesignTop = 117
+  ClientWidth = 1025
+  DesignLeft = 373
+  DesignTop = 123
   inherited pButtons: TPanel
-    Top = 469
-    Width = 716
-    ClientWidth = 716
+    Left = 4
+    Top = 465
+    Width = 1017
+    ClientWidth = 1017
     inherited chkCloseOnSave: TCheckBox
-      Left = 125
+      Left = 201
     end
     inherited bSave: TBitBtn
-      Left = 310
+      Left = 462
     end
     inherited bCancel: TBitBtn
-      Left = 501
+      Left = 729
     end
   end
   object gbxSource: TGroupBox[1]
-    Left = 0
-    Height = 315
-    Top = 0
-    Width = 716
+    Left = 4
+    Height = 227
+    Top = 4
+    Width = 1017
     Align = alClient
     Caption = 'Source'
-    ClientHeight = 290
-    ClientWidth = 712
+    ChildSizing.LeftRightSpacing = 4
+    ChildSizing.TopBottomSpacing = 4
+    ChildSizing.HorizontalSpacing = 8
+    ChildSizing.VerticalSpacing = 8
+    ClientHeight = 202
+    ClientWidth = 1013
     TabOrder = 1
     object chkRemoveSource: TCheckBox
-      Left = 0
+      Left = 4
       Height = 24
-      Top = 266
-      Width = 712
+      Top = 142
+      Width = 1005
       Align = alBottom
-      Caption = 'Remove source files and remove them from system list.'
+      Caption = 'Remove software''s system list.'
       Checked = True
+      OnChange = chkRemoveSourceChange
       State = cbChecked
       TabOrder = 0
     end
     object clbSourceFiles: TCheckListBox
-      Left = 0
-      Height = 266
-      Top = 0
-      Width = 712
+      Left = 4
+      Height = 130
+      Top = 4
+      Width = 1005
       Align = alClient
       ItemHeight = 0
       TabOrder = 1
     end
+    object chkDeleteFiles: TCheckBox
+      Left = 32
+      Height = 24
+      Top = 174
+      Width = 977
+      Align = alBottom
+      BorderSpacing.Left = 32
+      Caption = 'Actually delete files.'
+      TabOrder = 2
+    end
   end
   object gbxTarget: TGroupBox[2]
-    Left = 0
-    Height = 146
-    Top = 319
-    Width = 716
+    Left = 4
+    Height = 218
+    Top = 239
+    Width = 1017
     Align = alBottom
     AutoSize = True
     Caption = 'Target'
-    ClientHeight = 121
-    ClientWidth = 712
+    ChildSizing.LeftRightSpacing = 4
+    ChildSizing.TopBottomSpacing = 4
+    ChildSizing.HorizontalSpacing = 8
+    ChildSizing.VerticalSpacing = 8
+    ClientHeight = 193
+    ClientWidth = 1013
     TabOrder = 2
-    object chkAddTargetToList: TCheckBox
-      Left = 0
-      Height = 24
-      Top = 48
-      Width = 712
-      Align = alTop
-      Caption = 'Add merged files to system list.'
-      TabOrder = 0
-    end
     object eTargetFolder: TDirectoryEdit
-      Left = 0
+      Left = 4
       Height = 28
-      Top = 20
-      Width = 712
+      Top = 32
+      Width = 1005
       ShowHidden = False
       ButtonWidth = 29
       NumGlyphs = 1
       Align = alTop
       MaxLength = 0
-      TabOrder = 1
+      TabOrder = 0
     end
     object lTargetFolder: TLabel
-      Left = 0
+      Left = 4
       Height = 20
-      Top = 0
-      Width = 712
+      Top = 4
+      Width = 1005
       Align = alTop
       Caption = 'Target Folder'
       ParentColor = False
     end
     object rgpFormat: TRadioGroup
-      Left = 0
-      Height = 49
-      Top = 72
-      Width = 712
-      Align = alClient
+      Left = 4
+      Height = 57
+      Hint = 'Creates a .zip or .7z (solid archive).'#13#10#13#10'No compression creates a subfolder with the files.'
+      Top = 68
+      Width = 1005
+      Align = alTop
       AutoFill = True
+      AutoSize = True
       Caption = 'Output Format'
-      ChildSizing.LeftRightSpacing = 6
+      ChildSizing.LeftRightSpacing = 4
+      ChildSizing.TopBottomSpacing = 4
+      ChildSizing.HorizontalSpacing = 8
+      ChildSizing.VerticalSpacing = 8
       ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
       ChildSizing.EnlargeVertical = crsHomogenousChildResize
       ChildSizing.ShrinkHorizontal = crsScaleChilds
       ChildSizing.ShrinkVertical = crsScaleChilds
       ChildSizing.Layout = cclLeftToRightThenTopToBottom
       ChildSizing.ControlsPerLine = 3
-      ClientHeight = 24
-      ClientWidth = 708
+      ClientHeight = 32
+      ClientWidth = 1001
       Columns = 3
       ItemIndex = 2
       Items.Strings = (
@@ -115,11 +135,37 @@ inherited fmETKGUIactMergeGroup: TfmETKGUIactMergeGroup
         'ZIP'
         '7Z'
       )
+      TabOrder = 1
+    end
+    object chxIgnoreRedundant: TCheckBox
+      Left = 4
+      Height = 24
+      Top = 165
+      Width = 1005
+      Align = alTop
+      Caption = 'Don''t add redundant files (Same SHA1)'
+      Checked = True
+      State = cbChecked
       TabOrder = 2
+    end
+    object chkAddTargetToList: TCheckBox
+      Left = 4
+      Height = 24
+      Top = 133
+      Width = 1005
+      Align = alTop
+      Caption = 'Add merged files to system list.'
+      Checked = True
+      State = cbChecked
+      TabOrder = 3
     end
   end
   inherited alPropEditor: TActionList[3]
+    Left = 56
+    Top = 48
   end
   inherited ilPropEditor: TImageList[4]
+    Left = 168
+    Top = 48
   end
 end

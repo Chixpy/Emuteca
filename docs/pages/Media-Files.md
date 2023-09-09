@@ -82,12 +82,16 @@ Dependiendo del tipo de imagen se tiene unas normas generales.
 De forma general para cualquier captura de pantalla del juego se deberían aplicar las siguientes normas:
 
   1. Capturas en la resolución nativa del sistema y sin corregir la relación de aspecto.
+  
     * Esto puede ser algo complicado en sistemas *analógicos* (Atari 2600) y pseudosistemas en los que se puede cambiar la resolución (Quake)
     * Lamentablemente muchos sistemas no tienen una resolución interna 4:3 aunque se visualizaran en ese tipo de pantallas. 
     * Automatizar la corrección de aspecto puede ser ciertamente complicado... [El formato `png` tiene un bonito parámetro pero no se usa](http://www.libpng.org/pub/png/book/chapter11.html#png.ch11.div.8)
+    
   2. Sin marquesinas ni bordes externos no dibujables.
+  
     * No es lo mismo que eliminar lar partes vacías que pudiera haber.
     * Por ejemplo: Esto incluye los bordes de Super GameBoy
+    
   3. No usar ningún tipo de filtro o suavizado. Tecnicamente al no reescalar la imagen no se hace uso de ello...
   4. Usar un formato sin pérdida... En resumen, usar el formato `png`
 
@@ -96,12 +100,17 @@ De forma general para cualquier captura de pantalla del juego se deberían aplic
 Esto es aplicable a todas las **imágenes escaneadas** de revistas y **fotografías**:
 
   1. Formato `jpg` y que la calidad que sea bastante aceptable si es posible.
+  
     * El término *calidad* depende del compresor.
+    
   2. El lado más largo que sea de 2048px como máximo
+  
     * Respetar la relación de aspecto en caso de ener que hacer más pequeña la imagen.
     * Si la imagen de por sí es más pequeña, no hacerla más grande.
     * Por supuesto, es preferible cortar primero y redimensionar después
+    
   3. Intentar no reguardar la imagen varias veces. Al ser un formato con pérdida se va deteriorando la calidad.
+  
     * Hay transformaciones que es posible realizar de forma especial sin que la calidad se vea afectada.
     * Se puede tolerar que la imagen no esté totalmente recta...
 

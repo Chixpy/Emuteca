@@ -1,8 +1,11 @@
 {"version":1,"strings":[
 {"hash":94816405,"name":"tfmetkguiactmergegroup.gbxsource.caption","sourcebytes":[83,111,117,114,99,101],"value":"Source"},
-{"hash":197030366,"name":"tfmetkguiactmergegroup.chkremovesource.caption","sourcebytes":[82,101,109,111,118,101,32,115,111,117,114,99,101,32,102,105,108,101,115,32,97,110,100,32,114,101,109,111,118,101,32,116,104,101,109,32,102,114,111,109,32,115,121,115,116,101,109,32,108,105,115,116,46],"value":"Remove source files and remove them from system list."},
+{"hash":127780350,"name":"tfmetkguiactmergegroup.chkremovesource.caption","sourcebytes":[82,101,109,111,118,101,32,115,111,102,116,119,97,114,101,39,115,32,115,121,115,116,101,109,32,108,105,115,116,46],"value":"Remove software's system list."},
+{"hash":126593022,"name":"tfmetkguiactmergegroup.chkdeletefiles.caption","sourcebytes":[65,99,116,117,97,108,108,121,32,100,101,108,101,116,101,32,102,105,108,101,115,46],"value":"Actually delete files."},
 {"hash":94932420,"name":"tfmetkguiactmergegroup.gbxtarget.caption","sourcebytes":[84,97,114,103,101,116],"value":"Target"},
-{"hash":230133726,"name":"tfmetkguiactmergegroup.chkaddtargettolist.caption","sourcebytes":[65,100,100,32,109,101,114,103,101,100,32,102,105,108,101,115,32,116,111,32,115,121,115,116,101,109,32,108,105,115,116,46],"value":"Add merged files to system list."},
 {"hash":241104626,"name":"tfmetkguiactmergegroup.ltargetfolder.caption","sourcebytes":[84,97,114,103,101,116,32,70,111,108,100,101,114],"value":"Target Folder"},
-{"hash":35524532,"name":"tfmetkguiactmergegroup.rgpformat.caption","sourcebytes":[79,117,116,112,117,116,32,70,111,114,109,97,116],"value":"Output Format"}
+{"hash":151050766,"name":"tfmetkguiactmergegroup.rgpformat.hint","sourcebytes":[67,114,101,97,116,101,115,32,97,32,46,122,105,112,32,111,114,32,46,55,122,32,40,115,111,108,105,100,32,97,114,99,104,105,118,101,41,46,13,10,13,10,78,111,32,99,111,109,112,114,101,115,115,105,111,110,32,99,114,101,97,116,101,115,32,97,32,115,117,98,102,111,108,100,101,114,32,119,105,116,104,32,116,104,101,32,102,105,108,101,115,46],"value":"Creates a .zip or .7z (solid archive).\r\n\r\nNo compression creates a subfolder with the files."},
+{"hash":35524532,"name":"tfmetkguiactmergegroup.rgpformat.caption","sourcebytes":[79,117,116,112,117,116,32,70,111,114,109,97,116],"value":"Output Format"},
+{"hash":60068873,"name":"tfmetkguiactmergegroup.chxignoreredundant.caption","sourcebytes":[68,111,110,39,116,32,97,100,100,32,114,101,100,117,110,100,97,110,116,32,102,105,108,101,115,32,40,83,97,109,101,32,83,72,65,49,41],"value":"Don't add redundant files (Same SHA1)"},
+{"hash":230133726,"name":"tfmetkguiactmergegroup.chkaddtargettolist.caption","sourcebytes":[65,100,100,32,109,101,114,103,101,100,32,102,105,108,101,115,32,116,111,32,115,121,115,116,101,109,32,108,105,115,116,46],"value":"Add merged files to system list."}
 ]}

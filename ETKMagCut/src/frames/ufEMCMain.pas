@@ -77,6 +77,7 @@ type
     procedure DoRectSelect(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; aRect: TRect);
     procedure DoRectChange(aRect: TRect);
+    procedure DoRectClear;
     procedure DoPMEnabled(PMEnabled: boolean);
     procedure DoPMClick(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: integer);
@@ -291,6 +292,39 @@ begin
   fmImage.LoadFrameData;
 end;
 
+procedure TfmEMCMain.DoRectClear;
+var
+  TopLeft, TopRight, BottomLeft, BottomRight: TPointF;
+begin
+  if not Assigned(FCurrentImage) then Exit;
+
+  if CurrentRect.IsEmpty then Exit;
+
+  fmImage.ActualImage := nil;
+
+  TopLeft.x := CurrentRect.Left;
+  TopLeft.y := CurrentRect.Top;
+  TopRight.x := CurrentRect.Right;
+  TopRight.y := CurrentRect.Top;
+  BottomLeft.x := CurrentRect.Left;
+  BottomLeft.y := CurrentRect.Bottom;
+  BottomRight.x := CurrentRect.Right;
+  BottomRight.y := CurrentRect.Bottom;
+
+
+  CurrentImage.FillQuadLinearColor(
+    TopLeft, TopRight, BottomRight, BottomLeft,
+    CurrentImage.GetPixel(CurrentRect.Left, CurrentRect.Top),
+    CurrentImage.GetPixel(CurrentRect.Right, CurrentRect.Top),
+    CurrentImage.GetPixel(CurrentRect.Right, CurrentRect.Bottom),
+    CurrentImage.GetPixel(CurrentRect.Left, CurrentRect.Bottom)
+    );
+
+  fmImage.ActualImage := CurrentImage;
+
+  ModifiedImage := True;
+end;
+
 procedure TfmEMCMain.DoPMEnabled(PMEnabled: boolean);
 begin
   if PMEnabled then
@@ -391,6 +425,7 @@ constructor TfmEMCMain.Create(TheOwner: TComponent);
     fmPropEditor.OnSave := @DoFileSave;
     fmPropEditor.OnDelete := @DoFileDelete;
     fmPropEditor.OnChangeRect := @DoRectChange;
+    fmPropEditor.OnRectClear := @DoRectClear;
     fmPropEditor.OnPMChange := @DoPMEnabled;
     fmPropEditor.OnJoinNextFile := @DoJoinNextFile;
     fmPropEditor.Align := alClient;

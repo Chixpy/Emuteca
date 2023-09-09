@@ -35,6 +35,10 @@ msgctxt "tfmchxfilelist.actremoveitem.caption"
 msgid "Remove Item"
 msgstr "Quitar item"
 
+#: tfmemcimagepropeditor.bclearselection.caption
+msgid "Clear Selection"
+msgstr ""
+
 #: tfmemcimagepropeditor.bdelete.caption
 msgid "Delete File"
 msgstr "Borrar archivo"
@@ -272,5 +276,13 @@ msgstr ""
 
 #: uchxrscstr.rsrenamefilecaption
 msgid "Renaming file"
+msgstr ""
+
+#: uchxrscstr.rssavechanges
+msgid "Do you want to save current changes?"
+msgstr ""
+
+#: uchxrscstr.rssavechangescaption
+msgid "Save changes"
 msgstr ""
 

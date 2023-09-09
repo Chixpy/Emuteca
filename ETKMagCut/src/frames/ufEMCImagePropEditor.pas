@@ -39,12 +39,13 @@ type
   TEMCOnSaveObjCB = procedure(aFilename: string;
     Resize2048: boolean) of object;
   TEMCOnProcedureObjCB = procedure() of object;
-  TEMCOnRectChangeObjCB = procedure(aRect: TRect) of object;
+  TEMCProcRectObjCB = procedure(aRect: TRect) of object;
   TEMCOnPointModeChange = procedure(PMEnabled: boolean) of object;
 
   { TfmEMCImagePropEditor }
 
   TfmEMCImagePropEditor = class(TfmCHXFrame)
+    bClearSelection: TButton;
     bDelete: TButton;
     bJoinNextFile: TButton;
     bSave: TButton;
@@ -88,9 +89,11 @@ type
     lSystem: TLabel;
     lTop: TLabel;
     lType: TLabel;
+    pButtons: TPanel;
     pEmpty7: TPanel;
     pPointMode: TPanel;
     pRect: TPanel;
+    procedure bClearSelectionClick(Sender: TObject);
     procedure bDeleteClick(Sender: TObject);
     procedure bJoinNextFileClick(Sender: TObject);
     procedure bSaveAndDeleteClick(Sender: TObject);
@@ -105,23 +108,22 @@ type
   private
     FEMCConfig: cEMCConfig;
     FImageFile: string;
-    FOnChangeRect: TEMCOnRectChangeObjCB;
+    FOnChangeRect: TEMCProcRectObjCB;
+    FOnRectClear: TEMCOnProcedureObjCB;
     FOnDelete: TEMCOnProcedureObjCB;
     FOnJoinNextFile: TEMCOnProcedureObjCB;
     FOnPMChange: TEMCOnPointModeChange;
     FOnSave: TEMCOnSaveObjCB;
     procedure SetEMCConfig(AValue: cEMCConfig);
     procedure SetImageFile(AValue: string);
-    procedure SetOnChangeRect(AValue: TEMCOnRectChangeObjCB);
+    procedure SetOnChangeRect(AValue: TEMCProcRectObjCB);
+    procedure SetOnRectClear(AValue: TEMCOnProcedureObjCB);
     procedure SetOnDelete(AValue: TEMCOnProcedureObjCB);
     procedure SetOnJoinNextFile(AValue: TEMCOnProcedureObjCB);
     procedure SetOnPMChange(AValue: TEMCOnPointModeChange);
     procedure SetOnSave(AValue: TEMCOnSaveObjCB);
 
   protected
-    procedure DoClearFrame;
-    procedure DoLoadFrame;
-
     procedure MakeFileName;
 
     procedure DoSave(DeleteOriginal: boolean);
@@ -132,15 +134,21 @@ type
 
     property OnSave: TEMCOnSaveObjCB read FOnSave write SetOnSave;
     property OnDelete: TEMCOnProcedureObjCB read FOnDelete write SetOnDelete;
-    property OnChangeRect: TEMCOnRectChangeObjCB
+    property OnChangeRect: TEMCProcRectObjCB
       read FOnChangeRect write SetOnChangeRect;
+    property OnRectClear: TEMCOnProcedureObjCB
+      read FOnRectClear write SetOnRectClear;
     property OnPMChange: TEMCOnPointModeChange
       read FOnPMChange write SetOnPMChange;
-    property OnJoinNextFile: TEMCOnProcedureObjCB read FOnJoinNextFile write SetOnJoinNextFile;
+    property OnJoinNextFile: TEMCOnProcedureObjCB
+      read FOnJoinNextFile write SetOnJoinNextFile;
 
     procedure SetRect(aRect: TRect);
 
     procedure SaveEMCConfig;
+
+    procedure ClearFrameData; override;
+    procedure LoadFrameData; override;
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -216,9 +224,15 @@ begin
   DoDelete;
 end;
 
+procedure TfmEMCImagePropEditor.bClearSelectionClick(Sender: TObject);
+begin
+  if assigned(OnRectClear) then
+    OnRectClear;
+end;
+
 procedure TfmEMCImagePropEditor.bJoinNextFileClick(Sender: TObject);
 begin
-    if assigned(OnJoinNextFile) then
+  if assigned(OnJoinNextFile) then
     OnJoinNextFile;
 end;
 
@@ -247,7 +261,7 @@ procedure TfmEMCImagePropEditor.SetImageFile(AValue: string);
 begin
   FImageFile := (AValue);
 
-  DoLoadFrame;
+  LoadFrameData;
 end;
 
 procedure TfmEMCImagePropEditor.SetEMCConfig(AValue: cEMCConfig);
@@ -267,10 +281,16 @@ begin
   cbxGame.Items.AddStrings(EMCConfig.Videogames);
 end;
 
-procedure TfmEMCImagePropEditor.SetOnChangeRect(AValue: TEMCOnRectChangeObjCB);
+procedure TfmEMCImagePropEditor.SetOnChangeRect(AValue: TEMCProcRectObjCB);
 begin
   if FOnChangeRect = AValue then Exit;
   FOnChangeRect := AValue;
+end;
+
+procedure TfmEMCImagePropEditor.SetOnRectClear(AValue: TEMCOnProcedureObjCB);
+begin
+  if FOnRectClear = AValue then Exit;
+  FOnRectClear := AValue;
 end;
 
 procedure TfmEMCImagePropEditor.SetOnDelete(AValue: TEMCOnProcedureObjCB);
@@ -279,7 +299,8 @@ begin
   FOnDelete := AValue;
 end;
 
-procedure TfmEMCImagePropEditor.SetOnJoinNextFile(AValue: TEMCOnProcedureObjCB);
+procedure TfmEMCImagePropEditor.SetOnJoinNextFile(AValue:
+  TEMCOnProcedureObjCB);
 begin
   if FOnJoinNextFile = AValue then Exit;
   FOnJoinNextFile := AValue;
@@ -299,8 +320,10 @@ begin
   FOnSave := AValue;
 end;
 
-procedure TfmEMCImagePropEditor.DoClearFrame;
+procedure TfmEMCImagePropEditor.ClearFrameData;
 begin
+  inherited;
+
   eFilename.Clear;
   eOutputFolder.Clear;
   eOutputFile.Clear;
@@ -314,8 +337,10 @@ begin
   Enabled := False;
 end;
 
-procedure TfmEMCImagePropEditor.DoLoadFrame;
+procedure TfmEMCImagePropEditor.LoadFrameData;
 begin
+  inherited;
+
   if (ImageFile = '') or not FileExistsUTF8(ImageFile) then
   begin
     ClearFrameData;
@@ -352,7 +377,8 @@ begin
     Exit;
   end;
 
-  eOutputFolder.Text := SetAsFolder(cbxSystem.Text) + SetAsFolder(cbxType.Text);
+  eOutputFolder.Text := SetAsFolder(cbxSystem.Text) +
+    SetAsFolder(cbxType.Text);
 
   FullFileName := SetAsFolder(eBaseOutFolder.Text) +
     SetAsFolder(eOutputFolder.Text) + cbxGame.Text;
@@ -487,9 +513,6 @@ end;
 constructor TfmEMCImagePropEditor.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
-
-  OnClearFrameData := @DoClearFrame;
-  OnLoadFrameData := @DoLoadFrame;
 
   // Enabling lPMBorder and ePMBorder if chkPointMode.Enabled;
   chkPointModeChange(chkPointMode);

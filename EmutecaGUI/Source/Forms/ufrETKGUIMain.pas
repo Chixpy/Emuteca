@@ -29,11 +29,9 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
   LazFileUtils, LCLIntf, IniFiles, LCLTranslator, ActnList, StdActns, Menus,
   ComCtrls, LazUTF8, Clipbrd,
-  // Misc
-  uVersionSupport,
   // CHX units
   uCHXRscStr, uCHX7zWrapper, uCHXStrUtils, uCHXFileUtils, uCHXImageUtils,
-  uCHXMenuUtils, uCHXExecute,
+  uCHXMenuUtils, uCHXExecute, uCHXVerInfo,
   // CHX classes
   ucCHXImageList,
   // CHX forms
@@ -349,6 +347,12 @@ begin
   begin
     LoadSoftIcons(CurrentGroup.SoftList);
     CurrentSystem := cEmutecaSystem(CurrentGroup.CachedSystem);
+
+    actMergeGroupFiles.Enabled := CurrentSystem.MergeableGroups;
+  end
+  else
+  begin
+    actMergeGroupFiles.Enabled := False;
   end;
 end;
 
@@ -763,7 +767,7 @@ begin
     // This must not happen
     Exit;
 
-  if not QuestionDlg('Are you sure', Format(rsAskDeleteItem,
+  if not QuestionDlg('Are you sure?', Format(rsAskDeleteItem,
     [CurrentSoft.Title]), mtConfirmation, [mrYes, mrNo], 0) = mrYes then
     Exit;
 

@@ -1217,8 +1217,16 @@ msgstr ""
 msgid "Add merged files to system list."
 msgstr ""
 
+#: tfmetkguiactmergegroup.chkdeletefiles.caption
+msgid "Actually delete files."
+msgstr ""
+
 #: tfmetkguiactmergegroup.chkremovesource.caption
-msgid "Remove source files and remove them from system list."
+msgid "Remove software's system list."
+msgstr ""
+
+#: tfmetkguiactmergegroup.chxignoreredundant.caption
+msgid "Don't add redundant files (Same SHA1)"
 msgstr ""
 
 #: tfmetkguiactmergegroup.gbxsource.caption
@@ -1237,6 +1245,13 @@ msgstr ""
 
 #: tfmetkguiactmergegroup.rgpformat.caption
 msgid "Output Format"
+msgstr ""
+
+#: tfmetkguiactmergegroup.rgpformat.hint
+msgid ""
+"Creates a .zip or .7z (solid archive).\n"
+"\n"
+"No compression creates a subfolder with the files."
 msgstr ""
 
 #: tfmetkguifullemueditor.actopenemulatorfolder.caption

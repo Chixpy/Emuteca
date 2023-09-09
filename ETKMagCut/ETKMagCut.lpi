@@ -30,7 +30,7 @@
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="1"/>
       <MinorVersionNr Value="1"/>
-      <BuildNr Value="12"/>
+      <BuildNr Value="14"/>
       <StringTable CompanyName="Chixpy" FileDescription="Magazine cutter for Emuteca" InternalName="ETKMagCut" OriginalFilename="ETKMagCut" ProductName="ETKMagCut"/>
     </VersionInfo>
     <BuildModes>

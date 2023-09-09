@@ -94,6 +94,15 @@ type
       Used by CleanSoftGroupLists, ExportSoftGroupLists and RemoveSoft.
     }
 
+    function IsSoftSHA1Cached: integer;
+    {< Checks if all software have SHA1 cache.
+
+      Returns how many files don't have SHA1.
+        0 = All soft have SHA1.
+        -1 = Soft and groups are not loaded.
+        -2 = System don't use SHA1.
+    }
+
     procedure LoadEmulatorsFrom(aEmuList: cEmutecaEmulatorList);
     {< Updates EmulatorList from aEmuList. }
 
@@ -511,6 +520,33 @@ begin
 
   // if assigned(ProgressCallBack) then
   //   ProgressCallBack('', '', 0, 0, False);
+end;
+
+function cEmutecaSystem.IsSoftSHA1Cached: integer;
+var
+  i: integer;
+begin
+  Result := 0;
+
+  if not SoftGroupLoaded then
+  begin
+    Result := -1;
+    Exit;
+  end;
+
+  if SoftExportKey <> TEFKSHA1 then
+  begin
+    Result := -2;
+    Exit;
+  end;
+
+  i := SoftManager.FullList.Count - 1;
+  while i >= 0 do
+  begin
+    if SoftManager.FullList[i].SHA1IsEmpty then
+      Inc(Result);
+    Dec(i);
+  end;
 end;
 
 procedure cEmutecaSystem.DoSaveToIni(aIniFile: TIniFile; ExportMode: boolean);

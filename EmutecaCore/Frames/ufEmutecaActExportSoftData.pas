@@ -123,7 +123,7 @@ end;
 procedure TfmEmutecaActExportSoftData.SetSystem(AValue: cEmutecaSystem);
 var
   aSoft: cEmutecaSoftware;
-  IsCached: boolean;
+  iNotCached: integer;
   i: integer;
 begin
   if FSystem = AValue then
@@ -138,25 +138,15 @@ begin
     Emuteca.SystemManager.LoadSystemData(System);
 
     // Testing if all files have SHA1 cached
-    IsCached := True;
-    if System.SoftExportKey = TEFKSHA1 then
-    begin
-      i := 0;
-      while IsCached and (i < System.SoftManager.FullList.Count) do
-      begin
-        aSoft := System.SoftManager.FullList[i];
-        IsCached := not aSoft.SHA1IsEmpty;
-        Inc(i);
-      end;
-    end;
+    iNotCached := System.IsSoftSHA1Cached;
 
-    eExportFile.Enabled := IsCached;
-
-    if not IsCached then
+    if iNotCached <= 0 then
     begin
       lWarning.Caption := Format(rsExportingNoSHA1,
-        [aSoft.Folder, aSoft.FileName, i, System.SoftManager.FullList.Count]);
+        [aSoft.Folder, aSoft.FileName, iNotCached,
+        System.SoftManager.FullList.Count]);
       eExportFile.FileName := '';
+      bSave.Enabled := False;
     end
     else
     begin
@@ -164,13 +154,15 @@ begin
       eExportFile.FileName :=
         ExtractFilePath(eExportFile.FileName) + System.ListFileName +
         krsFileExtSoft;
+      bSave.Enabled := True;
     end;
   end
   else
   begin
     eSoftIDType.Clear;
-    lWarning.Caption := '';
-    eExportFile.Enabled := False;
+    lWarning.Caption := 'Warning: There is not assigned system.';
+    eExportFile.FileName := '';
+    bSave.Enabled := False;
   end;
 end;
 

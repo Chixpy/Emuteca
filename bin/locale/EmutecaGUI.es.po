@@ -1283,9 +1283,19 @@ msgstr "Árbol"
 msgid "Add merged files to system list."
 msgstr "Añadir ficheros reagrupados a la lista del sistema"
 
+#: tfmetkguiactmergegroup.chkdeletefiles.caption
+msgid "Actually delete files."
+msgstr ""
+
 #: tfmetkguiactmergegroup.chkremovesource.caption
-msgid "Remove source files and remove them from system list."
+#, fuzzy
+#| msgid "Remove source files and remove them from system list."
+msgid "Remove software's system list."
 msgstr "Borrar archivos de origen (y quitarlos de la lista del sistema)"
+
+#: tfmetkguiactmergegroup.chxignoreredundant.caption
+msgid "Don't add redundant files (Same SHA1)"
+msgstr ""
 
 #: tfmetkguiactmergegroup.gbxsource.caption
 msgctxt "tfmetkguiactmergegroup.gbxsource.caption"
@@ -1304,6 +1314,13 @@ msgstr "Carpeta de destino"
 #: tfmetkguiactmergegroup.rgpformat.caption
 msgid "Output Format"
 msgstr "Formato de salida"
+
+#: tfmetkguiactmergegroup.rgpformat.hint
+msgid ""
+"Creates a .zip or .7z (solid archive).\n"
+"\n"
+"No compression creates a subfolder with the files."
+msgstr ""
 
 #: tfmetkguifullemueditor.actopenemulatorfolder.caption
 msgid "Open emulator folder"

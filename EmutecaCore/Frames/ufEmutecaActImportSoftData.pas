@@ -96,7 +96,7 @@ implementation
 procedure TfmEmutecaActImportSoftData.SetSystem(AValue: cEmutecaSystem);
 var
   aSoft: cEmutecaSoftware;
-  IsCached: boolean;
+  iNotCached: integer;
   i: integer;
 begin
   if FSystem = AValue then
@@ -111,22 +111,13 @@ begin
     Emuteca.SystemManager.LoadSystemData(System);
 
     // Testing if all files have SHA1 cached
-    IsCached := True;
-    if System.SoftExportKey = TEFKSHA1 then
-    begin
-      i := 0;
-      while IsCached and (i < System.SoftManager.FullList.Count) do
-      begin
-        aSoft := System.SoftManager.FullList[i];
-        IsCached := not aSoft.SHA1IsEmpty;
-        Inc(i);
-      end;
-    end;
+    iNotCached := System.IsSoftSHA1Cached;
 
-    if not IsCached then
+    if iNotCached <= 0 then
     begin
       lWarning.Caption := Format(rsImportingNoSHA1,
-        [aSoft.Folder, aSoft.FileName, i, System.SoftManager.FullList.Count]);
+        [aSoft.Folder, aSoft.FileName, iNotCached,
+        System.SoftManager.FullList.Count]);
     end
     else
       lWarning.Caption := '';
@@ -139,7 +130,6 @@ begin
     lWarning.Caption := '';
     eImportFile.Enabled := False;
   end;
-
 end;
 
 procedure TfmEmutecaActImportSoftData.eImportFileButtonClick(Sender: TObject);
@@ -205,17 +195,17 @@ var
 begin
   aFrame := TfmEmutecaActImportSoftData.Create(nil);
 
-    aFrame.SaveButtons := True;
-    aFrame.ButtonClose := True;
-    aFrame.Align := alClient;
+  aFrame.SaveButtons := True;
+  aFrame.ButtonClose := True;
+  aFrame.Align := alClient;
 
-    aFrame.Emuteca := aEmuteca;
-    aFrame.fmSystemCBX.SelectedSystem := SelectedSystem;
-    // fmSystemCBX.SelectedSystem don't trigger SetSystem() callback.
-    aFrame.System := SelectedSystem;
-    Result := GenSimpleModalForm(aFrame, 'frmEmutecaActImportSoftData',
-      Format(krsFmtWindowCaption, [Application.Title, 'Import soft data...']),
-      aGUIConfigIni, aGUIIconsIni);
+  aFrame.Emuteca := aEmuteca;
+  aFrame.fmSystemCBX.SelectedSystem := SelectedSystem;
+  // fmSystemCBX.SelectedSystem don't trigger SetSystem() callback.
+  aFrame.System := SelectedSystem;
+  Result := GenSimpleModalForm(aFrame, 'frmEmutecaActImportSoftData',
+    Format(krsFmtWindowCaption, [Application.Title, 'Import soft data...']),
+    aGUIConfigIni, aGUIIconsIni);
 end;
 
 constructor TfmEmutecaActImportSoftData.Create(TheOwner: TComponent);

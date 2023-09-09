@@ -34,7 +34,7 @@ uses
   // Emuteca Core units
   uEmutecaConst, uEmutecaRscStr,
   // Emuteca Core classes
-  ucEmutecaGroup;
+  ucEmutecaGroup, ucEmutecaSoftware;
 
 type
 
@@ -42,14 +42,16 @@ type
 
   TfmETKGUIactMergeGroup = class(TfmCHXPropEditor)
     chkAddTargetToList: TCheckBox;
+    chkDeleteFiles: TCheckBox;
     chkRemoveSource: TCheckBox;
+    chxIgnoreRedundant: TCheckBox;
     clbSourceFiles: TCheckListBox;
     eTargetFolder: TDirectoryEdit;
     gbxSource: TGroupBox;
     gbxTarget: TGroupBox;
     lTargetFolder: TLabel;
     rgpFormat: TRadioGroup;
-
+    procedure chkRemoveSourceChange(Sender: TObject);
   private
     FGroup: cEmutecaGroup;
     procedure SetGroup(AValue: cEmutecaGroup);
@@ -59,7 +61,9 @@ type
   public
     property Group: cEmutecaGroup read FGroup write SetGroup;
 
+    procedure LoadFrameData; override;
     procedure SaveFrameData; override;
+      procedure ClearFrameData; override;
 
     // Creates a form with AddSoft frame.
     class function SimpleForm(aGroup: cEmutecaGroup; aGUIIconsIni: string;
@@ -75,10 +79,55 @@ implementation
 
 { TfmETKGUIactMergeGroup }
 
+procedure TfmETKGUIactMergeGroup.chkRemoveSourceChange(Sender: TObject);
+begin
+  if chkRemoveSource.Checked then
+  begin
+    chkDeleteFiles.Enabled := True;
+  end
+  else
+  begin
+    chkDeleteFiles.Checked := False;
+    chkDeleteFiles.Enabled := False;
+  end;
+end;
+
 procedure TfmETKGUIactMergeGroup.SetGroup(AValue: cEmutecaGroup);
 begin
   if FGroup=AValue then Exit;
   FGroup:=AValue;
+
+  LoadFrameData;
+end;
+
+procedure TfmETKGUIactMergeGroup.LoadFrameData;
+var
+  i: Integer;
+  aSoft: cEmutecaSoftware;
+begin
+  inherited LoadFrameData;
+
+  Enabled := Assigned(Group);
+
+  if not Enabled then
+  begin
+    ClearFrameData;
+    Exit;
+  end;
+
+  i := 0;
+  while i < Group.SoftList.Count do
+  begin
+    aSoft := Group.SoftList[i];
+    clbSourceFiles.AddItem(aSoft.Folder + aSoft.FileName, aSoft);
+    inc(i);
+  end;
+
+  // Checking all
+  clbSourceFiles.CheckAll(cbChecked, False, True);
+
+  // Have all soft cached its SHA1? Or another IDType?
+  chxIgnoreRedundant.Enabled := Group.IsSoftSHA1Cached in [0,-2];
 end;
 
 procedure TfmETKGUIactMergeGroup.SaveFrameData;
@@ -87,53 +136,63 @@ var
 begin
   inherited SaveFrameData;
 
+  if eTargetFolder.Directory = '' then
+  begin
+    ShowMessage('No output folder selected.');
+    Exit;
+  end;
+
+  // Removing unchecked from list
+  i := clbSourceFiles.Count;
+  while i > 0 do
+  begin
+    Dec(i);
+    if not clbSourceFiles.Checked[i] then
+      clbSourceFiles.Items.Delete(i);
+  end;
+
+
+
   i := 0;
   while i < clbSourceFiles.Count do
   begin
     // Extract/Copy Files to Temp folder
 
-    if chkRemoveSource.Checked then ;
+    Etc.
+
     // Remove Sourcefiles (If inside a zip/7z remove it too)
   end;
+end;
+
+procedure TfmETKGUIactMergeGroup.ClearFrameData;
+begin
+  inherited ClearFrameData;
+
+  clbSourceFiles.Clear;
 end;
 
 class function TfmETKGUIactMergeGroup.SimpleForm(aGroup: cEmutecaGroup;
   aGUIIconsIni: string; aGUIConfigIni: string): integer;
 var
-  aForm: TfrmCHXForm;
   aFrame: TfmETKGUIactMergeGroup;
 begin
   Result := mrNone;
 
-  Application.CreateForm(TfrmCHXForm, aForm);
-  try
-    aForm.Name := 'frmETKGUIactMergeGroup';
-    aForm.Caption := Format(krsFmtWindowCaption,
-      [Application.Title, 'Merge group files...']);
-    aForm.AutoSize := True;
+  aFrame := TfmETKGUIactMergeGroup.Create(nil);
+  aFrame.SaveButtons := True;
+  aFrame.ButtonClose := True;
+  aFrame.Align := alClient;
 
-    aFrame := TfmETKGUIactMergeGroup.Create(aForm);
-    aFrame.SaveButtons := True;
-    aFrame.ButtonClose := True;
-    aFrame.Align := alClient;
+  aFrame.Group := aGroup;
 
-    aFrame.Group := aGroup;
-
-    aForm.LoadGUIConfig(aGUIConfigIni);
-    aForm.LoadGUIIcons(aGUIIconsIni);
-    aFrame.Parent := aForm;
-
-    Result := aForm.ShowModal;
-  finally
-    aForm.Free;
-  end;
+  Result := GenSimpleModalForm(aFrame, 'frmETKGUIactMergeGroup',
+    Format(krsFmtWindowCaption, [Application.Title, 'Merge group files...']),
+    aGUIConfigIni, aGUIIconsIni);
 end;
 
 constructor TfmETKGUIactMergeGroup.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
-
-  Enabled := False;
 end;
 
 destructor TfmETKGUIactMergeGroup.Destroy;
