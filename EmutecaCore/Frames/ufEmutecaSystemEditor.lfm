@@ -180,7 +180,7 @@ inherited fmEmutecaSystemEditor: TfmEmutecaSystemEditor
     ChildSizing.ControlsPerLine = 1
     ClientHeight = 490
     ClientWidth = 582
-    TabOrder = 1
+    TabOrder = 2
     object lBaseFolder: TLabel
       Left = 4
       Height = 20
@@ -245,7 +245,7 @@ inherited fmEmutecaSystemEditor: TfmEmutecaSystemEditor
       Width = 574
       Align = alTop
       Caption = 'Mergeable Groups'
-      TabOrder = 5
+      TabOrder = 4
     end
     object rgbGameKey: TRadioGroup
       Left = 4
@@ -292,7 +292,7 @@ inherited fmEmutecaSystemEditor: TfmEmutecaSystemEditor
       Width = 574
       Align = alClient
       ScrollBars = ssAutoBoth
-      TabOrder = 4
+      TabOrder = 5
     end
   end
   inherited alPropEditor: TActionList[4]

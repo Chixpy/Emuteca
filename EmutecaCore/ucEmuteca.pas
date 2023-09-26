@@ -5,21 +5,6 @@ unit ucEmuteca;
   This file is part of Emuteca Core.
 
   Copyright (C) 2006-2018 Chixpy
-
-  This source is free software; you can redistribute it and/or modify it under
-  the terms of the GNU General Public License as published by the Free
-  Software Foundation; either version 3 of the License, or (at your option)
-  any later version.
-
-  This code is distributed in the hope that it will be useful, but WITHOUT ANY
-  WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-  FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
-  details.
-
-  A copy of the GNU General Public License is available on the World Wide Web
-  at <http://www.gnu.org/copyleft/gpl.html>. You can also obtain it by writing
-  to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
-  MA 02111-1307, USA.
 }
 {$mode objfpc}{$H+}
 
@@ -42,7 +27,10 @@ uses
 
 type
 
-  { cEmuteca }
+  { cEmuteca
+
+    This is the main Emuteca Core class.
+  }
 
   cEmuteca = class(TComponent)
   private
@@ -74,6 +62,7 @@ type
 
     property TempFolder: string read FTempFolder;
     {< Emuteca's TempFolder. }
+
     property CurrentGroupList: cEmutecaGroupList read FCurrentGroupList;
 
     procedure LoadConfig(aFile: string);
@@ -188,7 +177,7 @@ procedure cEmuteca.UpdateCurrentGroupList(aSystem: cEmutecaSystem;
 
     if Assigned(aTagFile) then
     begin
-       aSection := aTagFile.SectionByName(aSystem.ID);
+      aSection := aTagFile.SectionByName(aSystem.ID);
       if Assigned(aSection) then
         FilterIDs.Assign(aSection.Lines);
     end;
@@ -377,11 +366,14 @@ var
   StartTime: TDateTime;
   TimePlaying: int64;
 begin
-  // TODO: Use ctETKGUICacheEmuIcons, and don't block GUI.
+  // TODO: Use utEmutecaRunEmulator, and don't block GUI.
 
   // Trying to document step by step with my bad english
 
   // Uhm. If things go bad from the start, they only can improve :-D
+
+  { TODO : Sometimes Last Time, Count or Times is reset }
+
   Result := kErrorRunSoftUnknown;
 
   if not assigned(aSoftware) then
@@ -583,3 +575,19 @@ initialization
 finalization
   UnRegisterClass(cEmuteca);
 end.
+{
+This source is free software; you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free
+Software Foundation; either version 3 of the License, or (at your option)
+any later version.
+
+This code is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+details.
+
+A copy of the GNU General Public License is available on the World Wide Web
+at <http://www.gnu.org/copyleft/gpl.html>. You can also obtain it by writing
+to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
+MA 02111-1307, USA.
+}

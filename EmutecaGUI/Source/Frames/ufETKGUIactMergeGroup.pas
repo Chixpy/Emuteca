@@ -4,21 +4,6 @@ unit ufETKGUIactMergeGroup;
   This file is part of Emuteca GUI.
 
   Copyright (C) 2011-2023 Chixpy
-
-  This source is free software; you can redistribute it and/or modify it
-  under the terms of the GNU General Public License as published by the Free
-  Software Foundation; either version 3 of the License, or (at your option)
-  any later version.
-
-  This code is distributed in the hope that it will be useful, but WITHOUT
-  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-  FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
-  more details.
-
-  A copy of the GNU General Public License is available on the World Wide Web
-  at <http://www.gnu.org/copyleft/gpl.html>. You can also obtain it by
-  writing to the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
-  Boston, MA 02111-1307, USA.
 }
 {$mode objfpc}{$H+}
 
@@ -127,7 +112,8 @@ begin
   clbSourceFiles.CheckAll(cbChecked, False, True);
 
   // Have all soft cached its SHA1? Or another IDType?
-  chxIgnoreRedundant.Enabled := Group.IsSoftSHA1Cached in [0,-2];
+  chxIgnoreRedundant.Enabled := (Group.IsSoftSHA1Cached >= -2) and
+    (Group.IsSoftSHA1Cached <= 0);
 end;
 
 procedure TfmETKGUIactMergeGroup.SaveFrameData;
@@ -158,7 +144,7 @@ begin
   begin
     // Extract/Copy Files to Temp folder
 
-    Etc.
+    // Etc.
 
     // Remove Sourcefiles (If inside a zip/7z remove it too)
   end;
@@ -206,4 +192,19 @@ initialization
 finalization
   UnRegisterClass(TfmETKGUIactMergeGroup);
 end.
+{
+This source is free software; you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free
+Software Foundation; either version 3 of the License, or (at your option)
+any later version.
 
+This code is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+details.
+
+A copy of the GNU General Public License is available on the World Wide Web
+at <http://www.gnu.org/copyleft/gpl.html>. You can also obtain it by writing
+to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
+MA 02111-1307, USA.
+}

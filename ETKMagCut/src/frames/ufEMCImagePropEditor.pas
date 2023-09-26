@@ -278,7 +278,6 @@ begin
   cbxLanguage.Items.AddStrings(EMCConfig.Languages);
   cbxType.Items.AddStrings(EMCConfig.Types);
   cbxSystem.Items.AddStrings(EMCConfig.Systems);
-  cbxGame.Items.AddStrings(EMCConfig.Videogames);
 end;
 
 procedure TfmEMCImagePropEditor.SetOnChangeRect(AValue: TEMCProcRectObjCB);
@@ -499,14 +498,13 @@ procedure TfmEMCImagePropEditor.SaveEMCConfig;
 begin
   if assigned(EMCConfig) then
   begin
-    EMCConfig.BaseOutFolder := eBaseOutFolder.Text;
+      EMCConfig.BaseOutFolder := eBaseOutFolder.Text;
 
     EMCConfig.Magazines.AddStrings(cbxMagazine.Items, True);
     EMCConfig.Sections.AddStrings(cbxSection.Items, True);
     EMCConfig.Languages.AddStrings(cbxLanguage.Items, True);
     EMCConfig.Types.AddStrings(cbxType.Items, True);
     EMCConfig.Systems.AddStrings(cbxSystem.Items, True);
-    EMCConfig.Videogames.AddStrings(cbxGame.Items, True);
   end;
 end;
 

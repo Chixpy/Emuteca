@@ -1,38 +1,22 @@
 unit uPSI_uEmutecaRscStr;
- {< Exports of uEmutecaRscStr for Pascal Script engine of Emuteca.
 
-  ----
+ {< Exports of uEmutecaRscStr for Pascal Script engine of Emuteca.
 
   This file is part of Emuteca Core.
 
   Copyright (C) 2011-2018 Chixpy
-
-  This source is free software; you can redistribute it and/or modify it
-  under the terms of the GNU General Public License as published by the Free
-  Software Foundation; either version 3 of the License, or (at your option)
-  any later version.
-
-  This code is distributed in the hope that it will be useful, but WITHOUT
-  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-  FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
-  more details.
-
-  A copy of the GNU General Public License is available on the World Wide Web
-  at <http://www.gnu.org/copyleft/gpl.html>. You can also obtain it by
-  writing to the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
-  Boston, MA 02111-1307, USA.
 }
 {$mode objfpc}{$H+}
 
 interface
 
 uses
-    SysUtils, Classes, uPSComponent, uPSRuntime, uPSCompiler,
-    // Emuteca Core units
-    uEmutecaRscStr;
+  SysUtils, Classes, uPSComponent, uPSRuntime, uPSCompiler,
+  // Emuteca Core units
+  uEmutecaRscStr;
 
-  procedure SIRegister_uEmutecaRscStr(CL: TPSPascalCompiler);
-  procedure RIRegister_uEmutecaRscStr_Routines(S: TPSExec);
+procedure SIRegister_uEmutecaRscStr(CL: TPSPascalCompiler);
+procedure RIRegister_uEmutecaRscStr_Routines(S: TPSExec);
 
 implementation
 
@@ -75,9 +59,12 @@ begin
     rsImportingSoftList);
   CL.AddConstantN('rsExportingSoftList', 'String').SetString(
     rsExportingSoftList);
-  CL.AddConstantN('rsLoadingEmulatorList', 'String').SetString(rsLoadingEmulatorList);
-  CL.AddConstantN('rsSavingEmulatorList', 'String').SetString(rsSavingEmulatorList);
-  CL.AddConstantN('rsImportingEmulatorList', 'String').SetString(rsImportingEmulatorList);
+  CL.AddConstantN('rsLoadingEmulatorList', 'String').SetString(
+    rsLoadingEmulatorList);
+  CL.AddConstantN('rsSavingEmulatorList', 'String').SetString(
+    rsSavingEmulatorList);
+  CL.AddConstantN('rsImportingEmulatorList', 'String').SetString(
+    rsImportingEmulatorList);
   CL.AddConstantN('rsExportingEmulatorList', 'String').SetString(
     rsExportingEmulatorList);
   CL.AddConstantN('rsCleaningSystemData', 'String').SetString(
@@ -125,3 +112,19 @@ end;
 
 
 end.
+{
+This source is free software; you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free
+Software Foundation; either version 3 of the License, or (at your option)
+any later version.
+
+This code is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+details.
+
+A copy of the GNU General Public License is available on the World Wide Web
+at <http://www.gnu.org/copyleft/gpl.html>. You can also obtain it by writing
+to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
+MA 02111-1307, USA.
+}

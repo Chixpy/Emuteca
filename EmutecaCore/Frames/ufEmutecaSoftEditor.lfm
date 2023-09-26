@@ -10,7 +10,7 @@ inherited fmEmutecaSoftEditor: TfmEmutecaSoftEditor
     Top = 753
     Width = 435
     ClientWidth = 435
-    TabOrder = 2
+    TabOrder = 4
     inherited chkCloseOnSave: TCheckBox
       Left = 55
     end
@@ -39,7 +39,7 @@ inherited fmEmutecaSoftEditor: TfmEmutecaSoftEditor
     ChildSizing.ControlsPerLine = 2
     ClientHeight = 292
     ClientWidth = 431
-    TabOrder = 1
+    TabOrder = 2
     object lDumpType: TLabel
       Left = 4
       Height = 28
@@ -200,7 +200,7 @@ inherited fmEmutecaSoftEditor: TfmEmutecaSoftEditor
     ChildSizing.Layout = cclTopToBottomThenLeftToRight
     ClientHeight = 100
     ClientWidth = 431
-    TabOrder = 0
+    TabOrder = 1
     object eVersion: TEdit
       Left = 4
       Height = 28
@@ -289,7 +289,7 @@ inherited fmEmutecaSoftEditor: TfmEmutecaSoftEditor
     Caption = 'Title'
     ClientHeight = 56
     ClientWidth = 431
-    TabOrder = 4
+    TabOrder = 0
     object eTitle: TEdit
       Left = 0
       Height = 28

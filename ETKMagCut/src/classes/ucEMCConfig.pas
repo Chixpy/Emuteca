@@ -37,7 +37,6 @@ const
   krsLanguagesKey = 'Languages';
   krsTypesKey = 'Types';
   krsSystemsKey = 'Systems';
-  krsVideogamesKey = 'Videogames';
 
   krsFoldersSection = 'Folders';
   krsBaseOutFolderKey = 'BaseOutFolder';
@@ -53,7 +52,6 @@ type
     FSections: TStringList;
     FSystems: TStringList;
     FTypes: TStringList;
-    FVideogames: TStringList;
     procedure SetBaseOutFolder(AValue: string);
     
   public
@@ -73,7 +71,6 @@ type
     property Languages: TStringList read FLanguages;
     property Types: TStringList read FTypes;
     property Systems: TStringList read FSystems;
-    property Videogames: TStringList read FVideogames;
   end;
 
 implementation
@@ -95,7 +92,6 @@ begin
   Languages.CommaText := aIniFile.ReadString(krsListsSection, krsLanguagesKey, Languages.CommaText);
   Types.CommaText := aIniFile.ReadString(krsListsSection, krsTypesKey, Types.CommaText);
   Systems.CommaText := aIniFile.ReadString(krsListsSection, krsSystemsKey, Systems.CommaText);
-  Videogames.CommaText := aIniFile.ReadString(krsListsSection, krsVideogamesKey, Videogames.CommaText);
 end;
 
 procedure cEMCConfig.ResetDefaultConfig;
@@ -107,7 +103,6 @@ begin
   Languages.Clear;
   Types.Clear;
   Systems.Clear;
-  Videogames.Clear;
 end;
 
 constructor cEMCConfig.Create(aOwner: TComponent);
@@ -127,9 +122,6 @@ begin
   FSystems := TStringList.Create;
   Systems.Sorted := True;
   Systems.Duplicates := dupIgnore;
-  FVideogames := TStringList.Create;
-  Videogames.Sorted := True;
-  Videogames.Duplicates := dupIgnore;
 
   inherited Create(aOwner);
 end;
@@ -141,7 +133,6 @@ begin
   FreeAndNil(FLanguages);
   FreeAndNil(FTypes);
   FreeAndNil(FSystems);
-  FreeAndNil(FVideogames);
 
   inherited Destroy;
 end;
@@ -155,7 +146,6 @@ begin
   aIniFile.WriteString(krsListsSection, krsLanguagesKey, Languages.CommaText);
   aIniFile.WriteString(krsListsSection, krsTypesKey, Types.CommaText);
   aIniFile.WriteString(krsListsSection, krsSystemsKey, Systems.CommaText);
-  aIniFile.WriteString(krsListsSection, krsVideogamesKey, Videogames.CommaText);
 end;
 
 end.

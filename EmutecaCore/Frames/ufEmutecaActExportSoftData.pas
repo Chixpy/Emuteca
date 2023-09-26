@@ -5,21 +5,6 @@ unit ufEmutecaActExportSoftData;
   This file is part of Emuteca Core.
 
   Copyright (C) 2006-2023 Chixpy
-
-  This source is free software; you can redistribute it and/or modify it under
-  the terms of the GNU General Public License as published by the Free
-  Software Foundation; either version 3 of the License, or (at your option)
-  any later version.
-
-  This code is distributed in the hope that it will be useful, but WITHOUT ANY
-  WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-  FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
-  details.
-
-  A copy of the GNU General Public License is available on the World Wide Web
-  at <http://www.gnu.org/copyleft/gpl.html>. You can also obtain it by writing
-  to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
-  MA 02111-1307, USA.
 }
 {$mode objfpc}{$H+}
 
@@ -124,46 +109,50 @@ procedure TfmEmutecaActExportSoftData.SetSystem(AValue: cEmutecaSystem);
 var
   aSoft: cEmutecaSoftware;
   iNotCached: integer;
-  i: integer;
 begin
   if FSystem = AValue then
     Exit;
   FSystem := AValue;
 
-  if Assigned(System) then
-  begin
-    eSoftIDType.Text := SoftExportKey2StrK(System.SoftExportKey);
-
-    // Loading data if not already loaded
-    Emuteca.SystemManager.LoadSystemData(System);
-
-    // Testing if all files have SHA1 cached
-    iNotCached := System.IsSoftSHA1Cached;
-
-    if iNotCached <= 0 then
-    begin
-      lWarning.Caption := Format(rsExportingNoSHA1,
-        [aSoft.Folder, aSoft.FileName, iNotCached,
-        System.SoftManager.FullList.Count]);
-      eExportFile.FileName := '';
-      bSave.Enabled := False;
-    end
-    else
-    begin
-      lWarning.Caption := '';
-      eExportFile.FileName :=
-        ExtractFilePath(eExportFile.FileName) + System.ListFileName +
-        krsFileExtSoft;
-      bSave.Enabled := True;
-    end;
-  end
-  else
+  if not Assigned(System) then
   begin
     eSoftIDType.Clear;
-    lWarning.Caption := 'Warning: There is not assigned system.';
+    lWarning.Caption := rsNoSystem;
     eExportFile.FileName := '';
+    eExportFile.Enabled := False;
     bSave.Enabled := False;
+    Exit;
   end;
+
+  eSoftIDType.Text := SoftExportKey2StrK(System.SoftExportKey);
+
+  // Loading data if not already loaded
+  Emuteca.SystemManager.LoadSystemData(System);
+
+  // Testing if all files have SHA1 cached
+  iNotCached := System.IsSoftSHA1Cached;
+
+  if iNotCached > 0 then
+  begin
+    // Actually, this maybe is not the current chaching software
+    aSoft := System.SoftManager.FullList[iNotCached];
+    lWarning.Caption := Format(rsExportingNoSHA1,
+      [aSoft.Folder, aSoft.FileName, iNotCached,
+      System.SoftManager.FullList.Count]);
+    eExportFile.FileName := '';
+    eExportFile.Enabled := False;
+    bSave.Enabled := False;
+    Exit;
+  end;
+
+  lWarning.Caption := '';
+
+  eExportFile.FileName :=
+    ExtractFilePath(eExportFile.FileName) + System.ListFileName +
+    krsFileExtSoft;
+  eExportFile.Enabled := True;
+
+  bSave.Enabled := True;
 end;
 
 procedure TfmEmutecaActExportSoftData.ClearFrameData;
@@ -278,3 +267,19 @@ initialization
 finalization
   UnRegisterClass(TfmEmutecaActExportSoftData);
 end.
+{
+This source is free software; you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free
+Software Foundation; either version 3 of the License, or (at your option)
+any later version.
+
+This code is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+details.
+
+A copy of the GNU General Public License is available on the World Wide Web
+at <http://www.gnu.org/copyleft/gpl.html>. You can also obtain it by writing
+to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
+MA 02111-1307, USA.
+}

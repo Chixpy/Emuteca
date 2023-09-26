@@ -8,8 +8,8 @@ inherited fmEMCImagePropEditor: TfmEMCImagePropEditor
   ChildSizing.Layout = cclLeftToRightThenTopToBottom
   ChildSizing.ControlsPerLine = 1
   ClientHeight = 938
-  DesignLeft = 436
-  DesignTop = 23
+  DesignLeft = 437
+  DesignTop = 4
   object lFilename: TLabel[0]
     Left = 4
     Height = 20
@@ -490,9 +490,10 @@ inherited fmEMCImagePropEditor: TfmEMCImagePropEditor
   end
   object pButtons: TPanel[7]
     Left = 4
-    Height = 77
+    Height = 76
     Top = 758
     Width = 392
+    BevelOuter = bvNone
     ChildSizing.LeftRightSpacing = 4
     ChildSizing.TopBottomSpacing = 4
     ChildSizing.HorizontalSpacing = 8
@@ -501,7 +502,7 @@ inherited fmEMCImagePropEditor: TfmEMCImagePropEditor
     ChildSizing.ShrinkHorizontal = crsHomogenousChildResize
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 2
-    ClientHeight = 77
+    ClientHeight = 76
     ClientWidth = 392
     TabOrder = 6
     object bClearSelection: TButton

@@ -5,27 +5,12 @@ unit uaEmutecaCustomEmu;
   This file is part of Emuteca Core.
 
   Copyright (C) 2006-2023 Chixpy
-
-  This source is free software; you can redistribute it and/or modify it under
-  the terms of the GNU General Public License as published by the Free
-  Software Foundation; either version 3 of the License, or (at your option)
-  any later version.
-
-  This code is distributed in the hope that it will be useful, but WITHOUT ANY
-  WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-  FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
-  details.
-
-  A copy of the GNU General Public License is available on the World Wide Web
-  at <http://www.gnu.org/copyleft/gpl.html>. You can also obtain it by writing
-  to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
-  MA 02111-1307, USA.
 }
 {$mode objfpc}{$H+}
 
 interface
 
-uses  Classes, SysUtils, FileUtil, StrUtils, LazUTF8, LazFileUtils,
+uses Classes, SysUtils, FileUtil, StrUtils, LazUTF8, LazFileUtils,
   IniFiles, lclintf,
   // CHX units
   uCHXStrUtils, uCHXExecute,
@@ -211,7 +196,7 @@ type
     Only one extension in every string, without dot.
     }
 
-    property ExitCode: integer read FExitCode write SetExitCode;
+    property ExitCode: integer read FExitCode write SetExitCode default 0;
     {< Code returned by emulator in usual conditions. Emuteca will not show
          an error message if this code is returned. }
 
@@ -436,8 +421,8 @@ begin
     ExtractFileDir(ExeFile));
   ActualWorkDir := AnsiReplaceText(ActualWorkDir, krsEmutecaROMDirKey,
     ExtractFileDir(GameFile));
-  ActualWorkDir := AnsiReplaceText(ActualWorkDir, krsEmutecaCurrentDirKey,
-    GetCurrentDirUTF8);
+  ActualWorkDir := AnsiReplaceText(ActualWorkDir,
+    krsEmutecaCurrentDirKey, GetCurrentDirUTF8);
   ActualWorkDir := SysPath(ActualWorkDir);
 
   // Parameters
@@ -538,8 +523,8 @@ begin
       OpenDocument(ActualParam);
   end
   else
-    ExecuteCMDString(ActualWorkDir, ExeFile, ActualParam,
-      sOutput, sError, Result);
+    ExecuteCMDString(ActualWorkDir, ExeFile, ActualParam, sOutput,
+      sError, Result);
 
   // TODO: Make this configurable and let open they from GUI
   aSL := TStringList.Create;
@@ -645,3 +630,19 @@ initialization
 finalization
   UnRegisterClass(caEmutecaCustomEmu);
 end.
+{
+This source is free software; you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free
+Software Foundation; either version 3 of the License, or (at your option)
+any later version.
+
+This code is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+details.
+
+A copy of the GNU General Public License is available on the World Wide Web
+at <http://www.gnu.org/copyleft/gpl.html>. You can also obtain it by writing
+to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
+MA 02111-1307, USA.
+}

@@ -1,12 +1,15 @@
 inherited fmEmutecaActImportSoftData: TfmEmutecaActImportSoftData
   inherited pButtons: TPanel
     TabOrder = 3
+    inherited bCancel: TBitBtn
+      Cancel = False
+    end
   end
   object pSelectSystem: TPanel[1]
     Left = 0
     Height = 0
     Top = 0
-    Width = 320
+    Width = 400
     Align = alTop
     AutoSize = True
     BevelOuter = bvNone
@@ -14,28 +17,28 @@ inherited fmEmutecaActImportSoftData: TfmEmutecaActImportSoftData
   end
   object gbxSystemInfo: TGroupBox[2]
     Left = 0
-    Height = 170
-    Top = 0
-    Width = 320
+    Height = 205
+    Top = 4
+    Width = 400
     Align = alClient
     Caption = 'System info'
-    ClientHeight = 150
-    ClientWidth = 316
+    ClientHeight = 180
+    ClientWidth = 396
     TabOrder = 0
     object lSoftIDType: TLabel
       Left = 0
-      Height = 15
+      Height = 20
       Top = 0
-      Width = 316
+      Width = 396
       Align = alTop
       Caption = 'Soft ID Type'
       ParentColor = False
     end
     object eSoftIDType: TEdit
       Left = 0
-      Height = 23
-      Top = 15
-      Width = 316
+      Height = 28
+      Top = 20
+      Width = 396
       Align = alTop
       Enabled = False
       ReadOnly = True
@@ -43,30 +46,34 @@ inherited fmEmutecaActImportSoftData: TfmEmutecaActImportSoftData
     end
     object lWarning: TLabel
       Left = 0
-      Height = 112
-      Top = 38
-      Width = 316
+      Height = 132
+      Top = 48
+      Width = 396
       Align = alClient
+      Alignment = taCenter
+      Font.Style = [fsBold, fsUnderline]
+      Layout = tlCenter
       ParentColor = False
+      ParentFont = False
       WordWrap = True
     end
   end
   object gbxImportFile: TGroupBox[3]
     Left = 0
-    Height = 43
-    Top = 170
-    Width = 320
+    Height = 53
+    Top = 213
+    Width = 400
     Align = alBottom
     AutoSize = True
     Caption = 'Import file'
-    ClientHeight = 23
-    ClientWidth = 316
+    ClientHeight = 28
+    ClientWidth = 396
     TabOrder = 2
     object eImportFile: TFileNameEdit
       Left = 0
-      Height = 23
+      Height = 28
       Top = 0
-      Width = 316
+      Width = 396
       DialogOptions = [ofNoChangeDir, ofFileMustExist, ofEnableSizing, ofDontAddToRecent, ofViewDetail]
       FilterIndex = 0
       HideDirectories = False

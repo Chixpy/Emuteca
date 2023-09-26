@@ -9,7 +9,7 @@ inherited fmEmutecaSystemImgEditor: TfmEmutecaSystemImgEditor
     Top = 456
     Width = 689
     ClientWidth = 689
-    TabOrder = 2
+    TabOrder = 3
     inherited chkCloseOnSave: TCheckBox
       Left = 119
     end
@@ -163,7 +163,7 @@ inherited fmEmutecaSystemImgEditor: TfmEmutecaSystemImgEditor
     ChildSizing.ControlsPerLine = 1
     ClientHeight = 427
     ClientWidth = 246
-    TabOrder = 1
+    TabOrder = 2
     object gbxSystemIcon: TGroupBox
       Left = 0
       Height = 145
@@ -262,7 +262,7 @@ inherited fmEmutecaSystemImgEditor: TfmEmutecaSystemImgEditor
         Flat = True
         Align = alTop
         MaxLength = 0
-        TabOrder = 1
+        TabOrder = 2
         OnButtonClick = FileEditButtonClick
       end
       object iDefSoftIcon: TImage
@@ -289,7 +289,7 @@ inherited fmEmutecaSystemImgEditor: TfmEmutecaSystemImgEditor
         Flat = True
         Align = alTop
         MaxLength = 0
-        TabOrder = 2
+        TabOrder = 1
         OnButtonClick = DirEditButtonClick
       end
       object lSoftLogoFolder: TLabel

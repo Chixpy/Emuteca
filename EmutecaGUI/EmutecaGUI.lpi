@@ -64,7 +64,7 @@
           </Linking>
           <Other>
             <CompilerMessages>
-              <IgnoredMessages idx6058="True"/>
+              <IgnoredMessages idx6058="True" idx3124="True" idx3123="True"/>
             </CompilerMessages>
             <CustomOptions Value="-FcUTF8
 -dPS_USESSUPPORT"/>
@@ -920,6 +920,9 @@
       </Options>
     </Linking>
     <Other>
+      <CompilerMessages>
+        <IgnoredMessages idx6058="True" idx3124="True" idx3123="True"/>
+      </CompilerMessages>
       <CustomOptions Value="-FcUTF8
 -dPS_USESSUPPORT"/>
       <OtherDefines Count="1">

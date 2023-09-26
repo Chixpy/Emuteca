@@ -28,7 +28,7 @@ inherited fmEmutecaActExportSoftData: TfmEmutecaActExportSoftData
     Align = alTop
     AutoSize = True
     BevelOuter = bvNone
-    TabOrder = 1
+    TabOrder = 0
   end
   object gbxSystemInfo: TGroupBox[2]
     Left = 0
@@ -39,7 +39,7 @@ inherited fmEmutecaActExportSoftData: TfmEmutecaActExportSoftData
     Caption = 'System info'
     ClientHeight = 193
     ClientWidth = 426
-    TabOrder = 0
+    TabOrder = 1
     object lSoftIDType: TLabel
       Left = 0
       Height = 20
@@ -64,8 +64,12 @@ inherited fmEmutecaActExportSoftData: TfmEmutecaActExportSoftData
       Height = 1
       Top = 48
       Width = 426
-      Align = alTop
+      Align = alClient
+      Alignment = taCenter
+      Font.Style = [fsBold]
+      Layout = tlCenter
       ParentColor = False
+      ParentFont = False
       WordWrap = True
     end
   end

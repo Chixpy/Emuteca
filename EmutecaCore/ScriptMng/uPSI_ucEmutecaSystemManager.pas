@@ -5,21 +5,6 @@ unit uPSI_ucEmutecaSystemManager;
   This file is part of Emuteca Core.
 
   Copyright (C) 2011-2023 Chixpy
-
-  This source is free software; you can redistribute it and/or modify it
-  under the terms of the GNU General Public License as published by the Free
-  Software Foundation; either version 3 of the License, or (at your option)
-  any later version.
-
-  This code is distributed in the hope that it will be useful, but WITHOUT
-  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-  FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
-  more details.
-
-  A copy of the GNU General Public License is available on the World Wide Web
-  at <http://www.gnu.org/copyleft/gpl.html>. You can also obtain it by
-  writing to the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
-  Boston, MA 02111-1307, USA.
 }
 {$mode objfpc}{$H+}
 
@@ -66,12 +51,12 @@ begin
 
     RegisterProperty('TempFolder', 'string', iptrw);
     RegisterProperty('SysDataFolder', 'string', iptrw);
-    
+
     RegisterProperty('FullList', 'cEmutecaSystemList', iptr);
     RegisterProperty('EnabledList', 'cEmutecaSystemList', iptr);
 
     RegisterMethod('function AddSystem(aID: string): cEmutecaSystem;');
-    
+
     RegisterMethod('procedure LoadSystemData(aSystem: cEmutecaSystem);');
     RegisterMethod('procedure SaveSystemData(aSystem: cEmutecaSystem; ClearFile: Boolean);');
     RegisterMethod('procedure LoadAllEnabledSystemsData;');
@@ -141,25 +126,30 @@ procedure RIRegister_cEmutecaSystemManager(CL: TPSRuntimeClassImporter);
 begin
   with CL.Add(cEmutecaSystemManager) do
   begin
-    RegisterPropertyHelper(@cEmutecaSystemManagerProgressCallBack_R, @cEmutecaSystemManagerProgressCallBack_W, 'ProgressCallBack');
-    
-    RegisterPropertyHelper(@cEmutecaSystemManagerTempFolder_R, @cEmutecaSystemManagerTempFolder_W, 'TempFolder');
-    RegisterPropertyHelper(@cEmutecaSystemManagerSysDataFolder_R, @cEmutecaSystemManagerSysDataFolder_W, 'SysDataFolder');
-      
-     RegisterPropertyHelper(@cEmutecaSystemManagerFullList_R, nil, 'FullList');
-    RegisterPropertyHelper(@cEmutecaSystemManagerEnabledList_R, nil, 'EnabledList');
-    
+    RegisterPropertyHelper(@cEmutecaSystemManagerProgressCallBack_R,
+      @cEmutecaSystemManagerProgressCallBack_W, 'ProgressCallBack');
+
+    RegisterPropertyHelper(@cEmutecaSystemManagerTempFolder_R,
+      @cEmutecaSystemManagerTempFolder_W, 'TempFolder');
+    RegisterPropertyHelper(@cEmutecaSystemManagerSysDataFolder_R,
+      @cEmutecaSystemManagerSysDataFolder_W, 'SysDataFolder');
+
+    RegisterPropertyHelper(@cEmutecaSystemManagerFullList_R, nil, 'FullList');
+    RegisterPropertyHelper(@cEmutecaSystemManagerEnabledList_R,
+      nil, 'EnabledList');
+
     RegisterMethod(@cEmutecaSystemManager.LoadSystemData, 'LoadSystemData');
     RegisterMethod(@cEmutecaSystemManager.SaveSystemData, 'SaveSystemData');
-    RegisterMethod(@cEmutecaSystemManager.LoadAllEnabledSystemsData, 'LoadAllEnabledSystemsData');
-    RegisterMethod(@cEmutecaSystemManager.SaveAllEnabledSystemsData, 'SaveAllEnabledSystemsData');
-    
+    RegisterMethod(@cEmutecaSystemManager.LoadAllEnabledSystemsData,
+      'LoadAllEnabledSystemsData');
+    RegisterMethod(@cEmutecaSystemManager.SaveAllEnabledSystemsData,
+      'SaveAllEnabledSystemsData');
+
     // RegisterMethod(@cEmutecaSystemManager.ClearData, 'ClearData');
     //    RegisterMethod(@cEmutecaSystemManager.LoadData, 'LoadData');
     //    RegisterMethod(@cEmutecaSystemManager.SaveData, 'SaveData');
     RegisterMethod(@cEmutecaSystemManager.UpdateEnabledList,
       'UpdateEnabledList');
-
 
   end;
 end;
@@ -174,10 +164,27 @@ begin
   SIRegister_ucEmutecaSystemManager(CompExec.comp);
 end;
 
-procedure TPSImport_ucEmutecaSystemManager.ExecImport1(CompExec: TPSScript; const ri: TPSRuntimeClassImporter);
+procedure TPSImport_ucEmutecaSystemManager.ExecImport1(CompExec: TPSScript;
+  const ri: TPSRuntimeClassImporter);
 begin
   RIRegister_ucEmutecaSystemManager(ri);
 end;
 
 
 end.
+{
+This source is free software; you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free
+Software Foundation; either version 3 of the License, or (at your option)
+any later version.
+
+This code is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+details.
+
+A copy of the GNU General Public License is available on the World Wide Web
+at <http://www.gnu.org/copyleft/gpl.html>. You can also obtain it by writing
+to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
+MA 02111-1307, USA.
+}

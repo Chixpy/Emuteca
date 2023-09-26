@@ -4,21 +4,6 @@ unit uaEmutecaCustomSystem;
   This file is part of Emuteca Core.
 
   Copyright (C) 2006-2019 Chixpy
-
-  This source is free software; you can redistribute it and/or modify it under
-  the terms of the GNU General Public License as published by the Free
-  Software Foundation; either version 3 of the License, or (at your option)
-  any later version.
-
-  This code is distributed in the hope that it will be useful, but WITHOUT ANY
-  WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-  FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
-  details.
-
-  A copy of the GNU General Public License is available on the World Wide Web
-  at <http://www.gnu.org/copyleft/gpl.html>. You can also obtain it by writing
-  to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
-  MA 02111-1307, USA.
 }
 {$mode objfpc}{$H+}
 
@@ -126,13 +111,13 @@ type
     property ListFileName: string read GetListFileName write SetListFileName;
     {< Name used for soft and group files. }
 
-    property Enabled: boolean read FEnabled write SetEnabled;
+    property Enabled: boolean read FEnabled write SetEnabled default False;
     {< Is the system visible? }
 
-    property ExtractAll: boolean read FExtractAll write SetExtractAll;
+    property ExtractAll: boolean read FExtractAll write SetExtractAll default False;
     {< Must all files be extracted from compressed archives? }
 
-    property MergeableGroups: boolean read FMergeableGroups write SetMergeableGroups;
+    property MergeableGroups: boolean read FMergeableGroups write SetMergeableGroups default False;
 
     property BaseFolder: string read FBaseFolder write SetBaseFolder;
     {< System base folder
@@ -218,7 +203,7 @@ type
     // Import
     // ------
     property SoftExportKey: TEmutecaSoftExportKey
-      read FSoftExportKey write SetSoftExportKey;
+      read FSoftExportKey write SetSoftExportKey default TEFKSHA1;
     {< Default key (CRC/SHA) to be used as game identifiers
        (when importing/exporting data). }
     property Extensions: TStringList read FExtensions;
@@ -592,6 +577,8 @@ begin
   inherited Create(AOwner);
 
   Enabled := False;
+  ExtractAll := False;
+  MergeableGroups := False;
   SoftExportKey := TEFKSHA1;
 
   FExtensions := TStringList.Create;
@@ -652,3 +639,19 @@ initialization
 finalization
   UnRegisterClass(caEmutecaCustomSystem);
 end.
+{
+This source is free software; you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free
+Software Foundation; either version 3 of the License, or (at your option)
+any later version.
+
+This code is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+details.
+
+A copy of the GNU General Public License is available on the World Wide Web
+at <http://www.gnu.org/copyleft/gpl.html>. You can also obtain it by writing
+to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
+MA 02111-1307, USA.
+}

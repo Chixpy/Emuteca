@@ -149,7 +149,7 @@ msgstr "Adapta el tamaño de la imagen a la ventana."
 
 #: tfmchximgviewer.acttogglefilelist.caption
 msgid "actToggleFileList"
-msgstr ""
+msgstr "Lista de ficheros"
 
 #: tfmchximgviewer.acttogglefilelist.hint
 msgid "Show/Hide file list."
@@ -303,7 +303,7 @@ msgstr "Cierra la ventana después de aceptar o cancelar los cambios."
 
 #: tfmchxscriptmanager.actchangebasefolder.caption
 msgid "Change Base Folder"
-msgstr ""
+msgstr "Cambiar carpeta base"
 
 #: tfmchxscriptmanager.actcompile.caption
 msgid "Syntax check"
@@ -403,7 +403,7 @@ msgstr "Abrir carpeta"
 
 #: tfmchxscriptmanager.actoutputclear.caption
 msgid "actOutputClear"
-msgstr ""
+msgstr "Limpiar salida"
 
 #: tfmchxscriptmanager.actoutputfontedit.caption
 msgid "Seleccionar &Fuente..."
@@ -686,7 +686,7 @@ msgstr "Clave del software"
 
 #: tfmemutecaactexportsoftdata.chkcopyinbasefolder.caption
 msgid "Make a Copy in System Base Folder"
-msgstr "Guardar una copia en la caroeta base del sistema"
+msgstr "Guardar una copia en la carpeta base del sistema"
 
 #: tfmemutecaactexportsoftdata.chkcopyinbasefolder.hint
 #, fuzzy
@@ -920,7 +920,7 @@ msgstr "Modificación"
 #| msgid "Publisher"
 msgctxt "tfmemutecasofteditor.epublisher.texthint"
 msgid "Publisher1 / Publisher2"
-msgstr "Publicador1 / Publisher2"
+msgstr "Publicador1 / Publicador2"
 
 #: tfmemutecasofteditor.esortkey.texthint
 msgctxt "tfmemutecasofteditor.esortkey.texthint"
@@ -934,7 +934,7 @@ msgstr "Título (Vacío = Título del grupo)"
 
 #: tfmemutecasofteditor.etrainer.texthint
 msgid "Cheat1; Cheat2 / Author"
-msgstr ""
+msgstr "Truco1; Truco2 / Autor"
 
 #: tfmemutecasofteditor.etranslated.texthint
 #, fuzzy
@@ -1285,7 +1285,7 @@ msgstr "Añadir ficheros reagrupados a la lista del sistema"
 
 #: tfmetkguiactmergegroup.chkdeletefiles.caption
 msgid "Actually delete files."
-msgstr ""
+msgstr "Borrar ficheros realmente"
 
 #: tfmetkguiactmergegroup.chkremovesource.caption
 #, fuzzy
@@ -1295,7 +1295,7 @@ msgstr "Borrar archivos de origen (y quitarlos de la lista del sistema)"
 
 #: tfmetkguiactmergegroup.chxignoreredundant.caption
 msgid "Don't add redundant files (Same SHA1)"
-msgstr ""
+msgstr "No añadir ficheros redundantes (mismo SHA1)"
 
 #: tfmetkguiactmergegroup.gbxsource.caption
 msgctxt "tfmetkguiactmergegroup.gbxsource.caption"
@@ -1393,7 +1393,7 @@ msgstr "Asignar fichero"
 
 #: tfmetkguimediamanager.actassigntogroup.caption
 msgid "Assign to Group"
-msgstr "Assignar al grupo"
+msgstr "Asignar al grupo"
 
 #: tfmetkguimediamanager.actautoassign.caption
 msgid "Auto Assign"
@@ -1430,7 +1430,7 @@ msgstr "Mover fichero..."
 
 #: tfmetkguimediamanager.actrenamefile.caption
 msgid "Rename file manually..."
-msgstr "Renombrar manualmente..."
+msgstr "Renombrar fichero manualmente..."
 
 #: tfmetkguimediamanager.actrenamegrouptitlewithfilename.caption
 msgctxt "tfmetkguimediamanager.actrenamegrouptitlewithfilename.caption"
@@ -1667,7 +1667,7 @@ msgstr "Fichero"
 #: tfmetkguimediamanager.vstsoftofgroupsall.header.columns[1].text
 msgctxt "tfmetkguimediamanager.vstsoftofgroupsall.header.columns[1].text"
 msgid "Game"
-msgstr ""
+msgstr "Software"
 
 #: tfmetkguimediamanager.vstsoftofgroupsall.header.columns[2].text
 #, fuzzy
@@ -1682,9 +1682,10 @@ msgid "File"
 msgstr "Fichero"
 
 #: tfmetkguimediamanager.vstsoftofgroupswofile.header.columns[1].text
+#, fuzzy
 msgctxt "tfmetkguimediamanager.vstsoftofgroupswofile.header.columns[1].text"
 msgid "Game"
-msgstr ""
+msgstr "Software"
 
 #: tfmetkguimediamanager.vstsoftofgroupswofile.header.columns[2].text
 #, fuzzy
@@ -1919,7 +1920,7 @@ msgstr "Añadir software..."
 
 #: tfrmetkguimain.actaddsoft.hint
 msgid "Add Software...|Open form to add a software file."
-msgstr ""
+msgstr "Añadir software...|Abre el formulario para añadir un fichero de software."
 
 #: tfrmetkguimain.actcleansystemdata.caption
 msgid "Clean system data"
@@ -1931,7 +1932,7 @@ msgstr ""
 
 #: tfrmetkguimain.actcopyfilename2clipboard.caption
 msgid "Copy Filename to Clipboard"
-msgstr ""
+msgstr "Nombre del fichero al portapapeles."
 
 #: tfrmetkguimain.acteditemulator.caption
 msgid "Edit emulator..."
@@ -1939,7 +1940,7 @@ msgstr "Editar emulador..."
 
 #: tfrmetkguimain.acteditemulator.hint
 msgid "Edit emulator...|Open editor for current emulator."
-msgstr ""
+msgstr "Editar emulator...|Abre el editor del emulador actual."
 
 #: tfrmetkguimain.acteditgroup.caption
 msgctxt "tfrmetkguimain.acteditgroup.caption"
@@ -1970,12 +1971,12 @@ msgstr "Salir"
 
 #: tfrmetkguimain.actexit.hint
 msgid "Exit Emuteca|Exits Emuteca saving changes."
-msgstr ""
+msgstr "Salir de Emuteca|Sale de Emuteca guardando los cambios."
 
 #: tfrmetkguimain.actexitwosaving.caption
 msgctxt "tfrmetkguimain.actexitwosaving.caption"
 msgid "Exit without saving"
-msgstr ""
+msgstr "Salir sin guardar los cambios."
 
 #: tfrmetkguimain.actexitwosaving.hint
 msgctxt "tfrmetkguimain.actexitwosaving.hint"
@@ -2396,6 +2397,10 @@ msgstr ""
 msgid "Save changes"
 msgstr ""
 
+#: uchxverinfo.chxversionnoinfo
+msgid "No build information available"
+msgstr ""
+
 #: uemutecarscstr.rscachinggroups
 msgid "Caching software groups"
 msgstr ""
@@ -2604,6 +2609,10 @@ msgstr "Cargando lista de sistemas..."
 msgctxt "uemutecarscstr.rsnever"
 msgid "Never"
 msgstr "Nunca"
+
+#: uemutecarscstr.rsnosystem
+msgid "Warning: No system was selected."
+msgstr ""
 
 #: uemutecarscstr.rssavingemulatorlist
 msgctxt "uemutecarscstr.rssavingemulatorlist"
