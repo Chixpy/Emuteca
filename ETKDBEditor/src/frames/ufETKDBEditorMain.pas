@@ -114,7 +114,8 @@ end;
 
 procedure TfmETKDBEditor.actSaveFileBeforeExecute(Sender: TObject);
 begin
-  if CurrFile = '' then Exit;
+  if CurrFile = '' then
+    Exit;
 
   actSaveFile.Dialog.FileName := SysPath(CurrFile);
   actSaveFile.Dialog.InitialDir := ExtractFileDir(actSaveFile.Dialog.FileName);
@@ -146,6 +147,9 @@ begin
   // if FCurrFile = AValue then Exit;
 
   FCurrFile := AValue;
+
+  // Enable if a file is loaded.
+  actSaveFile.Enabled := FileExistsUTF8(CurrFile);
 
   LoadFrameData;
 end;

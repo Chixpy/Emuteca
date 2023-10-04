@@ -1,6 +1,8 @@
 {"version":1,"strings":[
 {"hash":195956335,"name":"tfmemutecaactexportsoftdata.gbxsysteminfo.caption","sourcebytes":[83,121,115,116,101,109,32,105,110,102,111],"value":"System info"},
 {"hash":146830885,"name":"tfmemutecaactexportsoftdata.lsoftidtype.caption","sourcebytes":[83,111,102,116,32,73,68,32,84,121,112,101],"value":"Soft ID Type"},
+{"hash":82406515,"name":"tfmemutecaactexportsoftdata.lgroups.caption","sourcebytes":[71,114,111,117,112,115],"value":"Groups"},
+{"hash":98295077,"name":"tfmemutecaactexportsoftdata.lsoftware.caption","sourcebytes":[83,111,102,116,119,97,114,101],"value":"Software"},
 {"hash":153762117,"name":"tfmemutecaactexportsoftdata.gbxexportfile.caption","sourcebytes":[69,120,112,111,114,116,32,102,105,108,101],"value":"Export file"},
 {"hash":13083470,"name":"tfmemutecaactexportsoftdata.lexportinfo.caption","sourcebytes":[73,102,32,116,104,101,32,102,105,108,101,32,97,108,114,101,97,100,121,32,101,120,105,115,116,115,44,32,116,104,101,32,100,97,116,97,32,119,105,108,108,32,98,101,32,109,101,114,103,101,100,46],"value":"If the file already exists, the data will be merged."},
 {"hash":108873454,"name":"tfmemutecaactexportsoftdata.chkcopyinbasefolder.hint","sourcebytes":[67,97,110,99,101,108,32,110,111,116,32,115,97,118,101,100,32,99,104,97,110,103,101,115,46],"value":"Cancel not saved changes."},

@@ -60,12 +60,16 @@ type
       read FProgressCallBack write SetProgressBar;
     {< Callback function to show progress. }
 
-    property TempFolder: string read FTempFolder;
+    property TempFolder: string read FTempFolder; // write SetTempFolder;
     {< Emuteca's TempFolder. }
 
     property CurrentGroupList: cEmutecaGroupList read FCurrentGroupList;
+    {< Current group list.
+
+      Updated UpdateCurrentGroupList.}
 
     procedure LoadConfig(aFile: string);
+    {< Loads the Emuteca config from a file. }
 
     procedure ClearAllData;
     {< Removes all loaded data. }
@@ -84,8 +88,15 @@ type
         load icons too, but now it's a Emuteca GUI job. }
     procedure UpdateSysEmulators;
     {< (Re)Loads emulators assigned to systems. }
+
     procedure UpdateCurrentGroupList(aSystem: cEmutecaSystem;
       const aWordFilter: string; aFileList: TStrings);
+    { Updates CurrentGroupList.
+
+      @param(aSystem System to list. nil to list all enabled systems.)
+      @param(aWordFilter Filter groups by name. )
+      @param(aFileList List of tag files to filter groups. )
+    }
 
     function RunSoftware(const aSoftware: cEmutecaSoftware): integer;
     {< Runs a software with its current system emulator. }
@@ -167,8 +178,6 @@ procedure cEmuteca.UpdateCurrentGroupList(aSystem: cEmutecaSystem;
     i: integer;
     aSection: cEmutecaTagsFileSection;
     aGroup: cEmutecaGroup;
-    StrComp: integer;
-
   begin
     FilterIDs := TStringList.Create;
 
@@ -204,7 +213,8 @@ procedure cEmuteca.UpdateCurrentGroupList(aSystem: cEmutecaSystem;
         end
         else
           // Fast Exit, no more groups in FilterIDs.
-          break;
+          // Break;
+          i := aSystem.GroupManager.VisibleList.Count;
       end
       else
       begin
@@ -368,11 +378,9 @@ var
 begin
   // TODO: Use utEmutecaRunEmulator, and don't block GUI.
 
-  // Trying to document step by step with my bad english
+  // Trying to document step by step with my bad english :-P
 
   // Uhm. If things go bad from the start, they only can improve :-D
-
-  { TODO : Sometimes Last Time, Count or Times is reset }
 
   Result := kErrorRunSoftUnknown;
 

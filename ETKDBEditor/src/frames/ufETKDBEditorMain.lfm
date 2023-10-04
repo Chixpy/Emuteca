@@ -103,6 +103,7 @@ inherited fmETKDBEditor: TfmETKDBEditor
       Category = 'File'
       Caption = 'Save...'
       Dialog.Options = [ofNoChangeDir, ofEnableSizing, ofViewDetail]
+      Enabled = False
       Hint = 'Guardar Como'
       BeforeExecute = actSaveFileBeforeExecute
       OnAccept = actSaveFileAccept

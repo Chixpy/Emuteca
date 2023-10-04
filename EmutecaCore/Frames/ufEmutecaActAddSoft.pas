@@ -513,7 +513,7 @@ begin
   aFrame.SelectSystem(SelectedSystem);
 
   Result := GenSimpleModalForm(aFrame, 'frmEmutecaActAddSoft',
-    Format(krsFmtWindowCaption, [Application.Title, 'Add Software...']),
+    Format(krsFmtWindowCaption, [Application.Title, rsFormAddSoftware]),
     aGUIConfigIni, aGUIIconsIni);
 end;
 

@@ -712,11 +712,22 @@ msgctxt "tfmemutecaactexportsoftdata.lexportinfo.caption"
 msgid "If the file already exists, the data will be merged."
 msgstr "Si el fichero ya existe, los datos serán combinados."
 
+#: tfmemutecaactexportsoftdata.lgroups.caption
+msgctxt "tfmemutecaactexportsoftdata.lgroups.caption"
+msgid "Groups"
+msgstr ""
+
 #: tfmemutecaactexportsoftdata.lsoftidtype.caption
 #, fuzzy
 msgctxt "tfmemutecaactexportsoftdata.lsoftidtype.caption"
 msgid "Soft ID Type"
 msgstr "Tipo de identificación del soft"
+
+#: tfmemutecaactexportsoftdata.lsoftware.caption
+#, fuzzy
+msgctxt "tfmemutecaactexportsoftdata.lsoftware.caption"
+msgid "Software"
+msgstr "Software"
 
 #: tfmemutecaactimportsoftdata.gbximportfile.caption
 msgid "Import file"
@@ -728,11 +739,32 @@ msgctxt "tfmemutecaactimportsoftdata.gbxsysteminfo.caption"
 msgid "System info"
 msgstr "Información del sistema"
 
+#: tfmemutecaactimportsoftdata.gbxsysteminfo1.caption
+msgctxt "tfmemutecaactimportsoftdata.gbxsysteminfo1.caption"
+msgid "System info"
+msgstr ""
+
+#: tfmemutecaactimportsoftdata.lgroups.caption
+msgctxt "tfmemutecaactimportsoftdata.lgroups.caption"
+msgid "Groups"
+msgstr ""
+
 #: tfmemutecaactimportsoftdata.lsoftidtype.caption
 #, fuzzy
 msgctxt "tfmemutecaactimportsoftdata.lsoftidtype.caption"
 msgid "Soft ID Type"
 msgstr "Tipo de identificación del soft"
+
+#: tfmemutecaactimportsoftdata.lsoftidtype1.caption
+msgctxt "tfmemutecaactimportsoftdata.lsoftidtype1.caption"
+msgid "Soft ID Type"
+msgstr ""
+
+#: tfmemutecaactimportsoftdata.lsoftware.caption
+#, fuzzy
+msgctxt "tfmemutecaactimportsoftdata.lsoftware.caption"
+msgid "Software"
+msgstr "Software"
 
 #: tfmemutecaemulatoradvparamseditor.gbxcoreid.caption
 msgctxt "tfmemutecaemulatoradvparamseditor.gbxcoreid.caption"
@@ -2556,6 +2588,30 @@ msgctxt "uemutecarscstr.rsfmtnversions"
 msgid "%0:d versions."
 msgstr "%0:d versiones."
 
+#: uemutecarscstr.rsformaddfolder
+msgid "Add Folder"
+msgstr ""
+
+#: uemutecarscstr.rsformaddsoftware
+msgid "Add Software"
+msgstr ""
+
+#: uemutecarscstr.rsformexportsoftdata
+msgid "Export soft data"
+msgstr ""
+
+#: uemutecarscstr.rsformgroupeditor
+msgid "Group Editor"
+msgstr ""
+
+#: uemutecarscstr.rsformimportsoftdata
+msgid "Import soft data"
+msgstr ""
+
+#: uemutecarscstr.rsformmergegroupfiles
+msgid "Merge group files"
+msgstr ""
+
 #: uemutecarscstr.rsimportingemulatorlist
 msgctxt "uemutecarscstr.rsimportingemulatorlist"
 msgid "Importing emulator list..."
@@ -2609,6 +2665,10 @@ msgstr "Cargando lista de sistemas..."
 msgctxt "uemutecarscstr.rsnever"
 msgid "Never"
 msgstr "Nunca"
+
+#: uemutecarscstr.rsnooutputfolder
+msgid "No output folder selected."
+msgstr ""
 
 #: uemutecarscstr.rsnosystem
 msgid "Warning: No system was selected."

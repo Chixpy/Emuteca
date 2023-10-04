@@ -61,8 +61,8 @@ inherited fmEmutecaActExportSoftData: TfmEmutecaActExportSoftData
     end
     object lWarning: TLabel
       Left = 0
-      Height = 1
-      Top = 48
+      Height = 49
+      Top = 144
       Width = 426
       Align = alClient
       Alignment = taCenter
@@ -71,6 +71,44 @@ inherited fmEmutecaActExportSoftData: TfmEmutecaActExportSoftData
       ParentColor = False
       ParentFont = False
       WordWrap = True
+    end
+    object lGroups: TLabel
+      Left = 0
+      Height = 20
+      Top = 48
+      Width = 426
+      Align = alTop
+      Caption = 'Groups'
+      ParentColor = False
+    end
+    object eGroups: TEdit
+      Left = 0
+      Height = 28
+      Top = 68
+      Width = 426
+      Align = alTop
+      Enabled = False
+      ReadOnly = True
+      TabOrder = 1
+    end
+    object eSoft: TEdit
+      Left = 0
+      Height = 28
+      Top = 116
+      Width = 426
+      Align = alTop
+      Enabled = False
+      ReadOnly = True
+      TabOrder = 2
+    end
+    object lSoftware: TLabel
+      Left = 0
+      Height = 20
+      Top = 96
+      Width = 426
+      Align = alTop
+      Caption = 'Software'
+      ParentColor = False
     end
   end
   object gbxExportFile: TGroupBox[3]

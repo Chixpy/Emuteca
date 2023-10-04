@@ -28,15 +28,29 @@ uses
 
 type
 
-  { TfmEmutecaActImportSoftData }
+  { TfmEmutecaActImportSoftData frame.
+
+    Basic frame for import software data.
+
+    It detects if all system's software have SHA1 cached. If not then
+      shows a warning, but it lets to import partial data anyway.
+  }
 
   TfmEmutecaActImportSoftData = class(TfmCHXPropEditor)
+    eGroups: TEdit;
     eImportFile: TFileNameEdit;
+    eSoft: TEdit;
     eSoftIDType: TEdit;
+    eSoftIDType1: TEdit;
     gbxImportFile: TGroupBox;
     gbxSystemInfo: TGroupBox;
+    gbxSystemInfo1: TGroupBox;
+    lGroups: TLabel;
     lSoftIDType: TLabel;
+    lSoftIDType1: TLabel;
+    lSoftware: TLabel;
     lWarning: TLabel;
+    lWarning1: TLabel;
     pSelectSystem: TPanel;
     procedure eImportFileButtonClick(Sender: TObject);
 
@@ -57,7 +71,7 @@ type
 
   public
     property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
-    //< Emuteca
+    // Emuteca object
 
     procedure LoadFrameData; override;
     procedure SaveFrameData; override;
@@ -65,7 +79,7 @@ type
     class function SimpleForm(aEmuteca: cEmuteca;
       SelectedSystem: cEmutecaSystem;
       const aGUIConfigIni, aGUIIconsIni: string): integer;
-    //< Creates a form with AddFolder frame.
+    //< Creates a form with ActImportSoftData frame.
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -90,6 +104,8 @@ begin
   if not Assigned(System) then
   begin
     eSoftIDType.Clear;
+    eGroups.Clear;
+    eSoft.Clear;
     lWarning.Caption := rsNoSystem;
     eImportFile.Enabled := False;
     bSave.Enabled := False;
@@ -99,6 +115,9 @@ begin
   eSoftIDType.Text := SoftExportKey2StrK(System.SoftExportKey);
 
   Emuteca.SystemManager.LoadSystemData(System);
+
+  eGroups.Text := System.GroupManager.FullList.Count.ToString;
+  eSoft.Text := System.SoftManager.FullList.Count.ToString;
 
   iNotCached := System.IsSoftSHA1Cached;
 
@@ -190,7 +209,7 @@ begin
   // fmSystemCBX.SelectedSystem don't trigger SetSystem() callback.
   aFrame.System := SelectedSystem;
   Result := GenSimpleModalForm(aFrame, 'frmEmutecaActImportSoftData',
-    Format(krsFmtWindowCaption, [Application.Title, 'Import soft data...']),
+    Format(krsFmtWindowCaption, [Application.Title, rsFormImportSoftData]),
     aGUIConfigIni, aGUIIconsIni);
 end;
 

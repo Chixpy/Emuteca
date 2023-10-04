@@ -1,5 +1,9 @@
 {"version":1,"strings":[
 {"hash":195956335,"name":"tfmemutecaactimportsoftdata.gbxsysteminfo.caption","sourcebytes":[83,121,115,116,101,109,32,105,110,102,111],"value":"System info"},
 {"hash":146830885,"name":"tfmemutecaactimportsoftdata.lsoftidtype.caption","sourcebytes":[83,111,102,116,32,73,68,32,84,121,112,101],"value":"Soft ID Type"},
-{"hash":154569029,"name":"tfmemutecaactimportsoftdata.gbximportfile.caption","sourcebytes":[73,109,112,111,114,116,32,102,105,108,101],"value":"Import file"}
+{"hash":154569029,"name":"tfmemutecaactimportsoftdata.gbximportfile.caption","sourcebytes":[73,109,112,111,114,116,32,102,105,108,101],"value":"Import file"},
+{"hash":195956335,"name":"tfmemutecaactimportsoftdata.gbxsysteminfo1.caption","sourcebytes":[83,121,115,116,101,109,32,105,110,102,111],"value":"System info"},
+{"hash":146830885,"name":"tfmemutecaactimportsoftdata.lsoftidtype1.caption","sourcebytes":[83,111,102,116,32,73,68,32,84,121,112,101],"value":"Soft ID Type"},
+{"hash":82406515,"name":"tfmemutecaactimportsoftdata.lgroups.caption","sourcebytes":[71,114,111,117,112,115],"value":"Groups"},
+{"hash":98295077,"name":"tfmemutecaactimportsoftdata.lsoftware.caption","sourcebytes":[83,111,102,116,119,97,114,101],"value":"Software"}
 ]}

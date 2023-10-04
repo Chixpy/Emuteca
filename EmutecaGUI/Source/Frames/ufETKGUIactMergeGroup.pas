@@ -124,7 +124,7 @@ begin
 
   if eTargetFolder.Directory = '' then
   begin
-    ShowMessage('No output folder selected.');
+    ShowMessage(rsNoOutputFolder);
     Exit;
   end;
 
@@ -172,7 +172,7 @@ begin
   aFrame.Group := aGroup;
 
   Result := GenSimpleModalForm(aFrame, 'frmETKGUIactMergeGroup',
-    Format(krsFmtWindowCaption, [Application.Title, 'Merge group files...']),
+    Format(krsFmtWindowCaption, [Application.Title, rsFormMergeGroupFiles]),
     aGUIConfigIni, aGUIIconsIni);
 end;
 

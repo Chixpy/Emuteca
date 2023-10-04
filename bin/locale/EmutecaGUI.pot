@@ -679,9 +679,19 @@ msgstr ""
 msgid "If the file already exists, the data will be merged."
 msgstr ""
 
+#: tfmemutecaactexportsoftdata.lgroups.caption
+msgctxt "tfmemutecaactexportsoftdata.lgroups.caption"
+msgid "Groups"
+msgstr ""
+
 #: tfmemutecaactexportsoftdata.lsoftidtype.caption
 msgctxt "tfmemutecaactexportsoftdata.lsoftidtype.caption"
 msgid "Soft ID Type"
+msgstr ""
+
+#: tfmemutecaactexportsoftdata.lsoftware.caption
+msgctxt "tfmemutecaactexportsoftdata.lsoftware.caption"
+msgid "Software"
 msgstr ""
 
 #: tfmemutecaactimportsoftdata.gbximportfile.caption
@@ -693,9 +703,29 @@ msgctxt "tfmemutecaactimportsoftdata.gbxsysteminfo.caption"
 msgid "System info"
 msgstr ""
 
+#: tfmemutecaactimportsoftdata.gbxsysteminfo1.caption
+msgctxt "tfmemutecaactimportsoftdata.gbxsysteminfo1.caption"
+msgid "System info"
+msgstr ""
+
+#: tfmemutecaactimportsoftdata.lgroups.caption
+msgctxt "tfmemutecaactimportsoftdata.lgroups.caption"
+msgid "Groups"
+msgstr ""
+
 #: tfmemutecaactimportsoftdata.lsoftidtype.caption
 msgctxt "tfmemutecaactimportsoftdata.lsoftidtype.caption"
 msgid "Soft ID Type"
+msgstr ""
+
+#: tfmemutecaactimportsoftdata.lsoftidtype1.caption
+msgctxt "tfmemutecaactimportsoftdata.lsoftidtype1.caption"
+msgid "Soft ID Type"
+msgstr ""
+
+#: tfmemutecaactimportsoftdata.lsoftware.caption
+msgctxt "tfmemutecaactimportsoftdata.lsoftware.caption"
+msgid "Software"
 msgstr ""
 
 #: tfmemutecaemulatoradvparamseditor.gbxcoreid.caption
@@ -2388,6 +2418,30 @@ msgstr ""
 msgid "%0:d versions."
 msgstr ""
 
+#: uemutecarscstr.rsformaddfolder
+msgid "Add Folder"
+msgstr ""
+
+#: uemutecarscstr.rsformaddsoftware
+msgid "Add Software"
+msgstr ""
+
+#: uemutecarscstr.rsformexportsoftdata
+msgid "Export soft data"
+msgstr ""
+
+#: uemutecarscstr.rsformgroupeditor
+msgid "Group Editor"
+msgstr ""
+
+#: uemutecarscstr.rsformimportsoftdata
+msgid "Import soft data"
+msgstr ""
+
+#: uemutecarscstr.rsformmergegroupfiles
+msgid "Merge group files"
+msgstr ""
+
 #: uemutecarscstr.rsimportingemulatorlist
 msgid "Importing emulator list..."
 msgstr ""
@@ -2429,6 +2483,10 @@ msgstr ""
 
 #: uemutecarscstr.rsnever
 msgid "Never"
+msgstr ""
+
+#: uemutecarscstr.rsnooutputfolder
+msgid "No output folder selected."
 msgstr ""
 
 #: uemutecarscstr.rsnosystem

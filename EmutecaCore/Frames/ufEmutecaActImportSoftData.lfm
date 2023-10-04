@@ -86,8 +86,89 @@ inherited fmEmutecaActImportSoftData: TfmEmutecaActImportSoftData
       OnButtonClick = eImportFileButtonClick
     end
   end
-  inherited alPropEditor: TActionList[4]
+  object gbxSystemInfo1: TGroupBox[4]
+    Left = 0
+    Height = 205
+    Top = 4
+    Width = 400
+    Align = alClient
+    Caption = 'System info'
+    ClientHeight = 180
+    ClientWidth = 396
+    TabOrder = 4
+    object lSoftIDType1: TLabel
+      Left = 0
+      Height = 20
+      Top = 0
+      Width = 396
+      Align = alTop
+      Caption = 'Soft ID Type'
+      ParentColor = False
+    end
+    object eSoftIDType1: TEdit
+      Left = 0
+      Height = 28
+      Top = 20
+      Width = 396
+      Align = alTop
+      Enabled = False
+      ReadOnly = True
+      TabOrder = 0
+    end
+    object lWarning1: TLabel
+      Left = 0
+      Height = 36
+      Top = 144
+      Width = 396
+      Align = alClient
+      Alignment = taCenter
+      Font.Style = [fsBold]
+      Layout = tlCenter
+      ParentColor = False
+      ParentFont = False
+      WordWrap = True
+    end
+    object lGroups: TLabel
+      Left = 0
+      Height = 20
+      Top = 48
+      Width = 396
+      Align = alTop
+      Caption = 'Groups'
+      ParentColor = False
+    end
+    object eGroups: TEdit
+      Left = 0
+      Height = 28
+      Top = 68
+      Width = 396
+      Align = alTop
+      Enabled = False
+      ReadOnly = True
+      TabOrder = 1
+    end
+    object eSoft: TEdit
+      Left = 0
+      Height = 28
+      Top = 116
+      Width = 396
+      Align = alTop
+      Enabled = False
+      ReadOnly = True
+      TabOrder = 2
+    end
+    object lSoftware: TLabel
+      Left = 0
+      Height = 20
+      Top = 96
+      Width = 396
+      Align = alTop
+      Caption = 'Software'
+      ParentColor = False
+    end
   end
-  inherited ilPropEditor: TImageList[5]
+  inherited alPropEditor: TActionList[5]
+  end
+  inherited ilPropEditor: TImageList[6]
   end
 end

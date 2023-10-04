@@ -38,10 +38,14 @@ type
   TfmEmutecaActExportSoftData = class(TfmCHXPropEditor)
     chkCopyInBaseFolder: TCheckBox;
     eExportFile: TFileNameEdit;
+    eSoft: TEdit;
     eSoftIDType: TEdit;
+    eGroups: TEdit;
     gbxExportFile: TGroupBox;
     gbxSystemInfo: TGroupBox;
     lExportInfo: TLabel;
+    lGroups: TLabel;
+    lSoftware: TLabel;
     lSoftIDType: TLabel;
     lWarning: TLabel;
     pSelectSystem: TPanel;
@@ -117,6 +121,8 @@ begin
   if not Assigned(System) then
   begin
     eSoftIDType.Clear;
+    eGroups.Clear;
+    eSoft.Clear;
     lWarning.Caption := rsNoSystem;
     eExportFile.FileName := '';
     eExportFile.Enabled := False;
@@ -126,8 +132,10 @@ begin
 
   eSoftIDType.Text := SoftExportKey2StrK(System.SoftExportKey);
 
-  // Loading data if not already loaded
   Emuteca.SystemManager.LoadSystemData(System);
+
+  eGroups.Text := System.GroupManager.FullList.Count.ToString;
+  eSoft.Text := System.SoftManager.FullList.Count.ToString;
 
   // Testing if all files have SHA1 cached
   iNotCached := System.IsSoftSHA1Cached;
@@ -230,7 +238,7 @@ begin
   aFrame.System := SelectedSystem;
 
   Result := GenSimpleModalForm(aFrame, krsfrmEmutecaActExportSoftData,
-    Format(krsFmtWindowCaption, [Application.Title, 'Export soft data']),
+    Format(krsFmtWindowCaption, [Application.Title, rsFormExportSoftData]),
     aGUIConfigIni, aGUIIconsIni);
 end;
 

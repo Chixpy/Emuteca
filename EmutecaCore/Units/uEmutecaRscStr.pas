@@ -1,7 +1,7 @@
 unit uEmutecaRscStr;
 {< Localizable strings unit of Emuteca Core.
 
-  Mainly used for example frames.
+  Mainly used by basic Emuteca frames.
 
   This file is part of Emuteca Core.
 
@@ -18,11 +18,18 @@ uses
 
 resourcestring
 
+  // Simple forms titles
+  rsFormExportSoftData = 'Export soft data';
+  rsFormMergeGroupFiles = 'Merge group files';
+  rsFormGroupEditor = 'Group Editor';
+
+
   // Misc
   rsNever = 'Never';
   rsUnknown = 'Unknown';
   rsTakeAWhile = 'This can take a while...';
   rsNoSystem = 'Warning: No system was selected.';
+  rsNoOutputFolder = 'No output folder selected.';
 
   // File actions
   rsFileAlreadyAdded = 'This file is already added.';
@@ -100,6 +107,9 @@ resourcestring
   rsFmtNItems = '%0:d items.';
   {< %0:d = Number of items. }
   rsFmtNTimes = '%0:d times.';
+  rsFormImportSoftData = 'Import soft data';
+  rsFormAddSoftware = 'Add Software';
+  rsFormAddFolder = 'Add Folder';
   {< %0:d = Number of times. }
 
 const

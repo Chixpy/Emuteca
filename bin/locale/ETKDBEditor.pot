@@ -144,6 +144,10 @@ msgstr ""
 msgid "Save changes"
 msgstr ""
 
+#: uemutecarscstr.rscachinggroups
+msgid "Caching software groups"
+msgstr ""
+
 #: uemutecarscstr.rschooseimagefileformat
 msgid ""
 "Do you want to save it in a lossless format?\n"
@@ -259,6 +263,30 @@ msgstr ""
 msgid "%0:d versions."
 msgstr ""
 
+#: uemutecarscstr.rsformaddfolder
+msgid "Add Folder"
+msgstr ""
+
+#: uemutecarscstr.rsformaddsoftware
+msgid "Add Software"
+msgstr ""
+
+#: uemutecarscstr.rsformexportsoftdata
+msgid "Export soft data"
+msgstr ""
+
+#: uemutecarscstr.rsformgroupeditor
+msgid "Group Editor"
+msgstr ""
+
+#: uemutecarscstr.rsformimportsoftdata
+msgid "Import soft data"
+msgstr ""
+
+#: uemutecarscstr.rsformmergegroupfiles
+msgid "Merge group files"
+msgstr ""
+
 #: uemutecarscstr.rsimportingemulatorlist
 msgid "Importing emulator list..."
 msgstr ""
@@ -302,6 +330,14 @@ msgstr ""
 msgid "Never"
 msgstr ""
 
+#: uemutecarscstr.rsnooutputfolder
+msgid "No output folder selected."
+msgstr ""
+
+#: uemutecarscstr.rsnosystem
+msgid "Warning: No system was selected."
+msgstr ""
+
 #: uemutecarscstr.rssavingemulatorlist
 msgid "Saving emulator list..."
 msgstr ""
@@ -316,6 +352,14 @@ msgstr ""
 
 #: uemutecarscstr.rssavingsystemlist
 msgid "Saving system list..."
+msgstr ""
+
+#: uemutecarscstr.rssortingsoftlist
+msgid "Sorting soft list..."
+msgstr ""
+
+#: uemutecarscstr.rstakeawhile
+msgid "This can take a while..."
 msgstr ""
 
 #: uemutecarscstr.rsunknown

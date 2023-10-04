@@ -382,7 +382,7 @@ begin
   aFrame.SelectSystem(SelectedSystem);
 
   Result := GenSimpleModalForm(aFrame, 'frmEmutecaActAddFolder',
-    Format(krsFmtWindowCaption, [Application.Title, 'Add Folder']),
+    Format(krsFmtWindowCaption, [Application.Title, rsFormAddFolder]),
     aGUIConfigIni, aGUIIconsIni);
 end;
 

@@ -18,7 +18,7 @@ uses
   // CHX forms
   ufCHXPropEditor,
   // Emuteca Core units
-  uEmutecaConst,
+  uEmutecaConst, uEmutecaRscStr,
   // Emuteca Core classes
   ucEmutecaGroup, ucEmutecaSoftware;
 
@@ -319,7 +319,7 @@ begin
     fmGroupEditor.eTitle.Text := UTF8TextReplace(NewTitle, ' - ', ': ');
 
   Result := GenSimpleModalForm(fmGroupEditor, 'frmETKGroupEditor',
-    Format(krsFmtWindowCaption, [Application.Title, 'Group Editor']),
+    Format(krsFmtWindowCaption, [Application.Title, rsFormGroupEditor]),
     aGUIConfigIni, aGUIIconsIni);
 end;
 
