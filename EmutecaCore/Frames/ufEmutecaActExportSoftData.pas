@@ -130,9 +130,9 @@ begin
     Exit;
   end;
 
-  eSoftIDType.Text := SoftExportKey2StrK(System.SoftExportKey);
-
   Emuteca.SystemManager.LoadSystemData(System);
+
+  eSoftIDType.Text := SoftExportKey2StrK(System.SoftExportKey);
 
   eGroups.Text := System.GroupManager.FullList.Count.ToString;
   eSoft.Text := System.SoftManager.FullList.Count.ToString;

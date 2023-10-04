@@ -1,12 +1,12 @@
 inherited fmEmutecaActExportSoftData: TfmEmutecaActExportSoftData
-  Height = 357
+  Height = 400
   Width = 430
-  ClientHeight = 357
+  ClientHeight = 400
   ClientWidth = 430
   DesignLeft = 427
   DesignTop = 151
   inherited pButtons: TPanel
-    Top = 327
+    Top = 370
     Width = 430
     ClientWidth = 430
     TabOrder = 3
@@ -32,12 +32,12 @@ inherited fmEmutecaActExportSoftData: TfmEmutecaActExportSoftData
   end
   object gbxSystemInfo: TGroupBox[2]
     Left = 0
-    Height = 218
+    Height = 261
     Top = 4
     Width = 430
     Align = alClient
     Caption = 'System info'
-    ClientHeight = 193
+    ClientHeight = 236
     ClientWidth = 426
     TabOrder = 1
     object lSoftIDType: TLabel
@@ -61,7 +61,7 @@ inherited fmEmutecaActExportSoftData: TfmEmutecaActExportSoftData
     end
     object lWarning: TLabel
       Left = 0
-      Height = 49
+      Height = 92
       Top = 144
       Width = 426
       Align = alClient
@@ -114,7 +114,7 @@ inherited fmEmutecaActExportSoftData: TfmEmutecaActExportSoftData
   object gbxExportFile: TGroupBox[3]
     Left = 0
     Height = 97
-    Top = 226
+    Top = 269
     Width = 430
     Align = alBottom
     AutoSize = True

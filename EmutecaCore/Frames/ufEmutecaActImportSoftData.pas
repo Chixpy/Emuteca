@@ -107,18 +107,20 @@ begin
     eGroups.Clear;
     eSoft.Clear;
     lWarning.Caption := rsNoSystem;
+    eImportFile.FileName := '';
     eImportFile.Enabled := False;
     bSave.Enabled := False;
     Exit;
   end;
 
-  eSoftIDType.Text := SoftExportKey2StrK(System.SoftExportKey);
-
   Emuteca.SystemManager.LoadSystemData(System);
+
+  eSoftIDType.Text := SoftExportKey2StrK(System.SoftExportKey);
 
   eGroups.Text := System.GroupManager.FullList.Count.ToString;
   eSoft.Text := System.SoftManager.FullList.Count.ToString;
 
+  // Testing if all files have SHA1 cached
   iNotCached := System.IsSoftSHA1Cached;
 
   if iNotCached > 0 then

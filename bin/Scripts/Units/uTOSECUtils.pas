@@ -341,7 +341,7 @@ begin
   
   // FIX: Checking wrong article position after version
   // "Game v 1, The"
-  ETKFixTitle(DBTitle, DBSortTitle); //DBSortTitle is unused
+  ETKFixSortTitle(DBTitle, DBSortTitle); //DBSortTitle is unused
   
   aPos := RPos(' ', DBTitle);
   if (aPos > 1) then
@@ -398,7 +398,7 @@ begin
   
   // Checking well placed article before version
   //  and setting DBSortTitle
-  ETKFixTitle(DBTitle, DBSortTitle);
+  ETKFixSortTitle(DBTitle, DBSortTitle);
 
   
   // Adding Demo in Version

@@ -1,5 +1,8 @@
 inherited fmEmutecaActImportSoftData: TfmEmutecaActImportSoftData
+  Height = 400
+  ClientHeight = 400
   inherited pButtons: TPanel
+    Top = 370
     TabOrder = 3
     inherited bCancel: TBitBtn
       Cancel = False
@@ -17,12 +20,12 @@ inherited fmEmutecaActImportSoftData: TfmEmutecaActImportSoftData
   end
   object gbxSystemInfo: TGroupBox[2]
     Left = 0
-    Height = 205
+    Height = 305
     Top = 4
     Width = 400
     Align = alClient
     Caption = 'System info'
-    ClientHeight = 180
+    ClientHeight = 280
     ClientWidth = 396
     TabOrder = 0
     object lSoftIDType: TLabel
@@ -46,7 +49,7 @@ inherited fmEmutecaActImportSoftData: TfmEmutecaActImportSoftData
     end
     object lWarning: TLabel
       Left = 0
-      Height = 132
+      Height = 232
       Top = 48
       Width = 396
       Align = alClient
@@ -61,7 +64,7 @@ inherited fmEmutecaActImportSoftData: TfmEmutecaActImportSoftData
   object gbxImportFile: TGroupBox[3]
     Left = 0
     Height = 53
-    Top = 213
+    Top = 313
     Width = 400
     Align = alBottom
     AutoSize = True
@@ -88,12 +91,12 @@ inherited fmEmutecaActImportSoftData: TfmEmutecaActImportSoftData
   end
   object gbxSystemInfo1: TGroupBox[4]
     Left = 0
-    Height = 205
+    Height = 305
     Top = 4
     Width = 400
     Align = alClient
     Caption = 'System info'
-    ClientHeight = 180
+    ClientHeight = 280
     ClientWidth = 396
     TabOrder = 4
     object lSoftIDType1: TLabel
@@ -117,7 +120,7 @@ inherited fmEmutecaActImportSoftData: TfmEmutecaActImportSoftData
     end
     object lWarning1: TLabel
       Left = 0
-      Height = 36
+      Height = 136
       Top = 144
       Width = 396
       Align = alClient
