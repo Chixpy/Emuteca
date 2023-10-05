@@ -35,6 +35,10 @@ msgstr ""
 msgid "Toggles edit on cell select.|Faster cell edit, but multiple cells can't be selected."
 msgstr ""
 
+#: tfmetkdbeditor.sbmain.panels[1].text
+msgid "NO Fast Edit: CTRL+A: Paste a cell in multiple selected cells."
+msgstr ""
+
 #: tfrmchxform.caption
 msgid "frmCHXForm"
 msgstr ""

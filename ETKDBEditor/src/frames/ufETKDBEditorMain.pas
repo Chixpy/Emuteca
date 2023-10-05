@@ -27,7 +27,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, Grids,
-  Menus, ActnList,
+  Menus, ActnList, LCLType, Clipbrd,
   ComCtrls, StdActns, ExtCtrls, Buttons, StdCtrls, LazFileUtils,
   // CHX units
   uCHXRscStr, uCHXStrUtils,
@@ -63,7 +63,10 @@ type
     procedure actSaveFileAccept(Sender: TObject);
     procedure actSaveFileBeforeExecute(Sender: TObject);
     procedure chkFastEditModeChange(Sender: TObject);
-
+    procedure sgMainGetCellHint(Sender: TObject; ACol, ARow: integer;
+      var HintText: string);
+    procedure sgMainKeyDown(Sender: TObject; var Key: word;
+      Shift: TShiftState);
   private
     FCurrFile: string;
     procedure SetCurrFile(AValue: string);
@@ -110,6 +113,8 @@ begin
   FCurrFile := actSaveFile.Dialog.FileName;
 
   sgMain.SaveToCSVFile(CurrFile);
+
+  sgMain.Modified := False;
 end;
 
 procedure TfmETKDBEditor.actSaveFileBeforeExecute(Sender: TObject);
@@ -139,6 +144,48 @@ begin
   end;
 
   sgMain.Options := Options;
+end;
+
+procedure TfmETKDBEditor.sgMainGetCellHint(Sender: TObject;
+  ACol, ARow: integer; var HintText: string);
+begin
+  HintText := sgMain.Cells[ACol, ARow];
+end;
+
+procedure TfmETKDBEditor.sgMainKeyDown(Sender: TObject;
+  var Key: word; Shift: TShiftState);
+var
+  i, j: LongInt;
+begin
+
+  if chkFastEditMode.Checked then
+    Exit;
+
+  case Key of
+    VK_DELETE: begin
+      sgMain.Clean(sgMain.Selection, []);
+      // Don't process further
+      Key := 0;
+    end;
+    VK_A: begin
+      if ssModifier in Shift then
+      begin
+        i := sgMain.Selection.Top;
+        while i <= sgMain.Selection.Bottom do
+        begin
+          j := sgMain.Selection.Left;
+          while j <= sgMain.Selection.Right do
+          begin
+            sgMain.Cells[j, i] := Clipboard.AsText;
+            Inc(j);
+          end;
+          Inc(i);
+        end;
+      end;
+      // Don't process further
+      Key := 0;
+    end;
+  end;
 end;
 
 procedure TfmETKDBEditor.SetCurrFile(AValue: string);
@@ -175,9 +222,12 @@ begin
   end;
 
   sgMain.LoadFromCSVFile(CurrFile);
-  sgMain.FixedRows := 1;
+  if sgMain.RowCount > 0 then
+    sgMain.FixedRows := 1; // Empty files error
 
   sbMain.SimpleText := Format('%0:d rows.', [sgMain.RowCount - 1]);
+
+  sgMain.Modified := False;
 end;
 
 constructor TfmETKDBEditor.Create(TheOwner: TComponent);
@@ -194,7 +244,7 @@ end;
 
 destructor TfmETKDBEditor.Destroy;
 begin
-  if FileExistsUTF8(CurrFile) and
+  if sgMain.Modified and FileExistsUTF8(CurrFile) and
     (mrYes = MessageDlg(rsSaveChangesCaption, rsSaveChanges,
     mtConfirmation, [mbYes, mbNo], '')) then
     sgMain.SaveToCSVFile(CurrFile);

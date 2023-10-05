@@ -3,6 +3,8 @@ inherited fmETKDBEditor: TfmETKDBEditor
   Width = 832
   ClientHeight = 575
   ClientWidth = 832
+  ParentShowHint = False
+  ShowHint = True
   DesignLeft = 461
   DesignTop = 215
   object sgMain: TStringGrid[0]
@@ -12,6 +14,7 @@ inherited fmETKDBEditor: TfmETKDBEditor
     Width = 832
     Align = alClient
     AlternateColor = clInfoBk
+    CellHintPriority = chpTruncOnly
     ColCount = 0
     ColumnClickSorts = True
     DefaultColWidth = 150
@@ -19,17 +22,29 @@ inherited fmETKDBEditor: TfmETKDBEditor
     FixedCols = 0
     FixedRows = 0
     MouseWheelOption = mwGrid
-    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goDrawFocusSelected, goColSizing, goEditing, goTabs, goAlwaysShowEditor, goRelaxedRowSelect, goDblClickAutoSize, goHeaderPushedLook, goFixedColSizing, goCellEllipsis, goRowHighlight]
+    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goDrawFocusSelected, goColSizing, goEditing, goTabs, goAlwaysShowEditor, goThumbTracking, goRelaxedRowSelect, goDblClickAutoSize, goHeaderPushedLook, goFixedColSizing, goTruncCellHints, goCellEllipsis, goRowHighlight]
+    ParentShowHint = False
     RowCount = 0
+    ShowHint = True
     TabOrder = 0
     UseXORFeatures = True
+    OnGetCellHint = sgMainGetCellHint
+    OnKeyDown = sgMainKeyDown
   end
   object sbMain: TStatusBar[1]
     Left = 0
     Height = 29
     Top = 546
     Width = 832
-    Panels = <>
+    Panels = <    
+      item
+        Width = 200
+      end    
+      item
+        Text = 'NO Fast Edit: CTRL+A: Paste a cell in multiple selected cells.'
+        Width = 50
+      end>
+    SimplePanel = False
   end
   object pButtons: TPanel[2]
     Left = 0
