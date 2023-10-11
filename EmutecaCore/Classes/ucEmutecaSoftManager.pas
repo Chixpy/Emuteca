@@ -193,9 +193,10 @@ begin
     FullList.Sort(@EmutecaCompareSoftByID);
 
     i := 0;
-    aImpSoft := nil;
     if ImpSoftList.Count > 0 then
-       aImpSoft := ImpSoftList[i];
+      aImpSoft := ImpSoftList[i]
+    else
+      aImpSoft := nil;
 
     j := 0;
     while (j < FullList.Count) and assigned(aImpSoft) do
@@ -215,7 +216,9 @@ begin
           aImpSoft := nil;
 
         if assigned(aImpSoft) then
-          aComp := aSoft.CompareID(aImpSoft.ID);
+          aComp := aSoft.CompareID(aImpSoft.ID)
+        else
+          aComp := -1;
       end;
 
       // aSoft < aImpSoft -> Not found.

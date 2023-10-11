@@ -130,64 +130,66 @@ end;
 
 procedure cEmutecaGroupManager.ImportFromStrLst(aTxtFile: TStrings);
 var
-  aGrpLst: cEmutecaGroupList;
+  aImpGroupLst: cEmutecaGroupList;
   i, j, aComp: integer;
-  aGroup1, aGroup2: cEmutecaGroup;
+  aGroup, aImpGroup: cEmutecaGroup;
 begin
   if not Assigned(aTxtFile) then
     Exit;
 
-  aGrpLst := cEmutecaGroupList.Create(True);
+  aImpGroupLst := cEmutecaGroupList.Create(True);
   try
     // Loading import group list
-    ActLoadStrLst(aGrpLst, aTxtFile);
+    ActLoadStrLst(aImpGroupLst, aTxtFile);
 
-    aGrpLst.Sort(@EmutecaCompareGroupsByID);
+    // Sorting by ID both lists
+    aImpGroupLst.Sort(@EmutecaCompareGroupsByID);
     FullList.Sort(@EmutecaCompareGroupsByID);
 
-    i := aGrpLst.Count - 1;
-    if i >= 0 then
-      aGroup2 := aGrpLst[i]
+    i := 0;
+    if aImpGroupLst.Count > 0 then
+      aImpGroup := aImpGroupLst[i]
     else
-      aGroup2 := nil;
-    j := FullList.Count;
-    while j > 0 do
+      aImpGroup := nil;
+
+    j := 0;
+    while (j < FullList.Count) and assigned(aImpGroup) do
     begin
-      Dec(j);
-      aGroup1 := FullList[j];
+      aGroup := FullList[j];
+
+      aComp := aGroup.CompareID(aImpGroup.ID);
+
+      // aGroup > aImpGroup -> Test next aImpGroup
+      while (aComp > 0) and assigned(aImpGroup) do
+      begin
+        Inc(i);
+
+        if i < aImpGroupLst.Count then
+          aImpGroup := aImpGroupLst[i]
+        else
+          aImpGroup := nil;
+
+        if assigned(aImpGroup) then
+          aComp := aGroup.CompareID(aImpGroup.ID)
+        else
+          aComp := -1;
+      end;
+
+      // aGroup < aImpGroup -> Not found.
+      // aGroup = aImpGroup -> Match.
+
+      if (aComp = 0) and assigned(aImpGroup) then // Match
+        aGroup.ImportFrom(aImpGroup);
+
+      Inc(j);
 
       if assigned(ProgressCallBack) then
-        ProgressCallBack(rsImportingGroupList, aGroup1.Title,
-          j, FullList.Count,
-          False);
-
-      if assigned(aGroup2) then
-        aComp := aGroup1.CompareID(aGroup2.ID)
-      else
-        aComp := 1; // aGroup1.CompareID('');
-
-      // aGroup1 < aGroup2 -> Try Previous group2
-      while aComp < 0 do
-      begin
-        Dec(i);
-        if i >= 0 then
-          aGroup2 := aGrpLst[i]
-        else
-          aGroup2 := nil;
-
-        if assigned(aGroup2) then
-          aComp := aGroup1.CompareID(aGroup2.ID)
-        else
-          aComp := 1; // aGroup1.CompareID('');
-      end;
-      // aGroup1 > aGroup2 -> Not found.
-      // aGroup1 = aGroup2 -> Match.
-      if aComp = 0 then
-        aGroup1.ImportFrom(aGroup2);
+         ProgressCallBack(rsImportingGroupList, aGroup.Title, j, FullList.Count,
+           False);
     end;
 
   finally
-    aGrpLst.Free;
+    aImpGroupLst.Free;
   end;
   if assigned(ProgressCallBack) then
     ProgressCallBack('', '', 0, 0, False);

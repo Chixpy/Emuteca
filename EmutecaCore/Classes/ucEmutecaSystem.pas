@@ -162,6 +162,8 @@ end;
 
 procedure cEmutecaSystem.ExportSoftGroupLists(const aFile: string;
   ClearFile: boolean);
+var
+  aFolder: string;
 begin
   if not SoftGroupLoaded then
     Exit;
@@ -169,8 +171,10 @@ begin
   if aFile = '' then
     Exit;
 
-  if not DirectoryExistsUTF8(ExtractFileDir(aFile)) then
-    ForceDirectoriesUTF8(ExtractFileDir(aFile));
+  aFolder := ExtractFileDir(aFile);
+
+  if (aFolder <> '') and (not DirectoryExistsUTF8(aFolder)) then
+    ForceDirectoriesUTF8(aFolder);
 
   CleanGroupList; // Removing hidden empty groups before exporting.
 
@@ -180,6 +184,8 @@ end;
 
 procedure cEmutecaSystem.SaveSoftGroupLists(const aFile: string;
   ClearFile: boolean);
+var
+  aFolder: String;
 begin
   // If not loaded, don't overwrite with empty file.
   if not SoftGroupLoaded then
@@ -188,8 +194,10 @@ begin
   if aFile = '' then
     Exit;
 
-  if not DirectoryExistsUTF8(ExtractFileDir(aFile)) then
-    ForceDirectoriesUTF8(ExtractFileDir(aFile));
+  aFolder := ExtractFileDir(aFile);
+
+  if (aFolder <> '') and (not DirectoryExistsUTF8(aFolder)) then
+    ForceDirectoriesUTF8(aFolder);
 
   GroupManager.SaveToFile(aFile + krsFileExtGroup, ClearFile);
   SoftManager.SaveToFile(aFile + krsFileExtSoft, ClearFile);

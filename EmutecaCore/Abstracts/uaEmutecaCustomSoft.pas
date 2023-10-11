@@ -516,8 +516,8 @@ begin
 
   if aSoft.Title <> krsImportKeepValueKey then
     Self.Title := aSoft.GetActualTitle;
-  // if aSoft.MediaFileName <> krsImportKeepValueKey then // MediaFileName and
-  //   Self.MediaFileName := aSoft.MediaFileName;         // TranslitTitle changed
+  // if aSoft.MediaFileName <> krsImportKeepValueKey then // Old MediaFileName and
+  //   Self.MediaFileName := aSoft.MediaFileName;         // and TranslitTitle
   if aSoft.SortTitle <> krsImportKeepValueKey then
     Self.SortTitle := aSoft.GetActualSortTitle;
 

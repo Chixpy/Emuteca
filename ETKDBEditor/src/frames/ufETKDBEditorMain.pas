@@ -177,13 +177,23 @@ begin
           while j <= sgMain.Selection.Right do
           begin
             sgMain.Cells[j, i] := Clipboard.AsText;
+
+            // Removing line endings
+            sgMain.Cells[j, i] :=
+              UTF8TextReplace(sgMain.Cells[j, i], #13#10, ' ');
+            sgMain.Cells[j, i] :=
+              UTF8TextReplace(sgMain.Cells[j, i], #13, ' ');
+            sgMain.Cells[j, i] :=
+              UTF8TextReplace(sgMain.Cells[j, i], #10, ' ');
+            sgMain.Cells[j, i] := Trim(sgMain.Cells[j, i]);
+
             Inc(j);
           end;
           Inc(i);
         end;
+        // Don't process further
+        Key := 0;
       end;
-      // Don't process further
-      Key := 0;
     end;
   end;
 end;
