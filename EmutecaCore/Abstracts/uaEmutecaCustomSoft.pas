@@ -445,7 +445,7 @@ begin
 
   // Dirty error fix
   while aTxtFile.Count < 22 do
-    aTxtFile.Add('');
+    aTxtFile.Add(krsImportKeepValueKey);
 
   GroupKey := aTxtFile[0];
   SHA1 := StringToSHA1Digest(aTxtFile[1]);

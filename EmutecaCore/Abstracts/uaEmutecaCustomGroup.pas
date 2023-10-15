@@ -112,7 +112,7 @@ begin
     Exit;
 
   while aTxtFile.Count < 6 do
-    aTxtFile.Add('');
+    aTxtFile.Add(krsImportKeepValueKey);
 
   Self.ID := aTxtFile[0];
   Self.Title := aTxtFile[1];

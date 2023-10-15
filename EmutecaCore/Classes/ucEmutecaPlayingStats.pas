@@ -154,8 +154,10 @@ begin
     Exit;
 
   LastTime := aIniFile.ReadDateTime(Section, krsIniKeyLastTime, LastTime);
-  PlayingTime := aIniFile.ReadInt64(Section, krsIniKeyPlayingTime, PlayingTime);
-  TimesPlayed := aIniFile.ReadInt64(Section, krsIniKeyTimesPlayed, TimesPlayed);
+  PlayingTime := aIniFile.ReadInt64(Section, krsIniKeyPlayingTime,
+    PlayingTime);
+  TimesPlayed := aIniFile.ReadInt64(Section, krsIniKeyTimesPlayed,
+    TimesPlayed);
 end;
 
 procedure cEmutecaPlayingStats.WriteToStrLst(aTxtFile: TStrings;
@@ -181,6 +183,8 @@ end;
 
 procedure cEmutecaPlayingStats.LoadFromStrLst(aTxtFile: TStrings;
   const NLine: integer);
+var
+  aStr: string;
 begin
   // TODO: Exception...
   if not Assigned(aTxtFile) then
@@ -189,9 +193,15 @@ begin
   if NLine + 3 > aTxtFile.Count then
     Exit;
 
-  LastTime := StrToDateTimeDef(aTxtFile[Nline], LastTime);
-  TimesPlayed := StrToInt64Def(aTxtFile[Nline + 1], TimesPlayed);
-  PlayingTime := StrToInt64Def(aTxtFile[Nline + 2], PlayingTime);
+  aStr := aTxtFile[Nline];
+  if (aStr <> '') and (aStr <> krsImportKeepValueKey) then
+    LastTime := StrToDateTimeDef(aStr, LastTime);
+  aStr := aTxtFile[Nline + 1];
+  if (aStr <> '') and (aStr <> krsImportKeepValueKey) then
+    TimesPlayed := StrToInt64Def(aStr, TimesPlayed);
+  aStr := aTxtFile[Nline + 2];
+  if (aStr <> '') and (aStr <> krsImportKeepValueKey) then
+    PlayingTime := StrToInt64Def(aStr, PlayingTime);
 end;
 
 constructor cEmutecaPlayingStats.Create(aOwner: TComponent);
