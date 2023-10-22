@@ -84,7 +84,8 @@ end;
 
 procedure TfmEmutecaGroupEditor.LoadFrameData;
 var
-  i: Integer;
+  i: integer;
+  aDev: string;
 begin
   inherited LoadFrameData;
 
@@ -100,13 +101,20 @@ begin
   eTitle.Text := Group.GetActualTitle;
   eSortTitle.Text := Group.GetActualSortTitle;
 
-  i := eDeveloper.Items.IndexOf(Group.Developer);
-  if i >= 0 then
-    eDeveloper.ItemIndex := i
-  else if Group.Developer <> '' then // Adding to ComboBox List
-    eDeveloper.ItemIndex := eDeveloper.Items.Add(Group.Developer)
+  // Adding publishers from software to ComboBox list
+  i := 0;
+  while i < Group.SoftList.Count do
+  begin
+    aDev := Group.SoftList[i].Publisher;
+    AddToStringList(eDeveloper.Items, aDev);
+    Inc(i);
+  end;
+
+  i := AddToStringList(eDeveloper.Items, Group.Developer);
+  if i < 0 then
+    eDeveloper.Text := ''
   else
-    eDeveloper.Text := '';
+    eDeveloper.ItemIndex := i;
 
   eYear.Text := Group.Date;
 end;
@@ -257,7 +265,7 @@ begin
   slID.Free;
 
   // Uhm... NOP, sort in soft too
-  //
+
   //// Keep old data for soft
   //sOldTitle := Group.Title; // Title or ID (if empty)
   //sOldSortTitle := Group.GetActualSortTitle;
@@ -274,14 +282,14 @@ begin
   //while i < Group.SoftList.Count do
   //begin
   //  aSoft := Group.SoftList[i];
-  //
+
   //  // if title is empty, copy old group data to keep game order in software
   //  if aSoft.GetActualTitle = '' then
   //  begin
   //    aSoft.Title := sOldTitle;
   //    aSoft.SortTitle := sOldSortTitle;
   //  end;
-  //
+
   //  Inc(i);
   //end;
 
