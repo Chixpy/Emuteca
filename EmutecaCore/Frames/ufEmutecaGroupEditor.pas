@@ -169,16 +169,17 @@ begin
   if not Assigned(Group) then
     Exit;
 
-  if Pos(' + ', Group.ID) <= 0 then
+  if Pos(' | ', Group.ID) <= 0 then
     Exit;
 
   // ID can't be empty
   EmptyTitle := Trim(Group.GetActualTitle) = '';
   EmptySort := Trim(Group.GetActualSortTitle) = '';
 
-  sID := UTF8TextReplace(Group.ID, ' + ', '|');
-  sTitle := UTF8TextReplace(Group.GetActualTitle, ' + ', '|');
-  sSortTitle := UTF8TextReplace(Group.GetActualSortTitle, ' + ', '|');
+  // Delimiter must be a char...
+  sID := UTF8TextReplace(Group.ID, ' | ', '|');
+  sTitle := UTF8TextReplace(Group.GetActualTitle, ' | ', '|');
+  sSortTitle := UTF8TextReplace(Group.GetActualSortTitle, ' | ', '|');
 
   slID := TStringList.Create;
   slTitle := TStringList.Create;
@@ -244,11 +245,11 @@ begin
     end
     else
     begin
-      sID := sID + ' + ' + slID[iLowest];
+      sID := sID + ' | ' + slID[iLowest];
       if not EmptyTitle then
-        sTitle := sTitle + ' + ' + slTitle[iLowest];
+        sTitle := sTitle + ' | ' + slTitle[iLowest];
       if not EmptySort then
-        sSortTitle := sSortTitle + ' + ' + slSortTitle[iLowest];
+        sSortTitle := sSortTitle + ' | ' + slSortTitle[iLowest];
     end;
 
 

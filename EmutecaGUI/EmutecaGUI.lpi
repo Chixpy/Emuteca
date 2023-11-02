@@ -28,7 +28,7 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="8"/>
-      <BuildNr Value="150"/>
+      <BuildNr Value="151"/>
       <StringTable Comments="Emuteca database editor" InternalName="EmutecaEditorGUI" LegalCopyright="Chixpy" ProductVersion="0.8.0"/>
     </VersionInfo>
     <BuildModes Count="2">

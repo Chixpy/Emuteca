@@ -4,7 +4,7 @@ unit uaEmutecaCustomSGItem;
 
   This file is part of Emuteca Core.
 
-  Copyright (C) 2020-2020 Chixpy
+  Copyright (C) 2020-2023 Chixpy
 }
 {$mode objfpc}{$H+}
 
@@ -20,6 +20,9 @@ uses
   uEmutecaConst,
   // Emuteca Core classes
   ucEmutecaPlayingStats;
+
+const
+  krsValueSep = ' | ';
 
 type
 
@@ -45,7 +48,7 @@ type
     procedure SetTitle(AValue: string); virtual;
 
     function FormatSortTitle(const aString: string): string;
-    
+
     function CleanInfo(const aString: string): string;
 
   public
@@ -149,7 +152,7 @@ end;
 
 procedure caEmutecaCustomSGItem.SetID(AValue: string);
 begin
-  AValue := UTF8Trim(AValue);
+  AValue := UTF8Trim(UTF8TextReplace(AValue, ' + ', ' | '));
 
   if AValue = ID then
     Exit;
@@ -186,7 +189,7 @@ function caEmutecaCustomSGItem.FormatSortTitle(const aString: string): string;
 begin
   // Change some Windows invalid characters, as EmutecaCore, that
   //   are changed in diferent way than CleanFileName.
-  
+
   // Actually ': ' is changed to ' - ', but we want to sort with ' - ',
   //   because sorting this happens:
   // Game
@@ -195,7 +198,7 @@ begin
   // Game 2 - Second Part
   // Game 2: Second Part
   // Game: First Part <- Go after Second Part   
-  
+
   Result := UTF8TextReplace(UTF8Trim(aString), ': ', ' - ');
   Result := UTF8TextReplace(Result, ' & ', ' and ');
 end;
@@ -205,16 +208,24 @@ begin
   Result := aString;
 
   // TODO: Not completely sure about this...
-  Result := UTF8StringReplace(Result, ') (', ' / ', [rfReplaceAll, rfIgnoreCase]);
-  Result := UTF8StringReplace(Result, ')(', ' / ', [rfReplaceAll, rfIgnoreCase]);
+  Result := UTF8StringReplace(Result, ') (', krsValueSep,
+    [rfReplaceAll, rfIgnoreCase]);
+  Result := UTF8StringReplace(Result, ')(', krsValueSep,
+    [rfReplaceAll, rfIgnoreCase]);
 
-  Result := UTF8StringReplace(Result, '] [', ' / ', [rfReplaceAll, rfIgnoreCase]);
-  Result := UTF8StringReplace(Result, '][', ' / ', [rfReplaceAll, rfIgnoreCase]);
+  Result := UTF8StringReplace(Result, '] [', krsValueSep,
+    [rfReplaceAll, rfIgnoreCase]);
+  Result := UTF8StringReplace(Result, '][', krsValueSep,
+    [rfReplaceAll, rfIgnoreCase]);
 
-  Result := UTF8StringReplace(Result, ') [', ' / ', [rfReplaceAll, rfIgnoreCase]);
-  Result := UTF8StringReplace(Result, '] (', ' / ', [rfReplaceAll, rfIgnoreCase]);
-  Result := UTF8StringReplace(Result, ')[', ' / ', [rfReplaceAll, rfIgnoreCase]);
-  Result := UTF8StringReplace(Result, '](', ' / ', [rfReplaceAll, rfIgnoreCase]);
+  Result := UTF8StringReplace(Result, ') [', krsValueSep,
+    [rfReplaceAll, rfIgnoreCase]);
+  Result := UTF8StringReplace(Result, '] (', krsValueSep,
+    [rfReplaceAll, rfIgnoreCase]);
+  Result := UTF8StringReplace(Result, ')[', krsValueSep,
+    [rfReplaceAll, rfIgnoreCase]);
+  Result := UTF8StringReplace(Result, '](', krsValueSep,
+    [rfReplaceAll, rfIgnoreCase]);
 
   Result := UTF8StringReplace(Result, ']', '', [rfReplaceAll, rfIgnoreCase]);
   Result := UTF8StringReplace(Result, '[', '', [rfReplaceAll, rfIgnoreCase]);

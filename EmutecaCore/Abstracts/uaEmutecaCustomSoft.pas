@@ -388,7 +388,7 @@ end;
 
 procedure caEmutecaCustomSoft.SetZone(AValue: string);
 begin
-  AValue := UTF8TextReplace(AValue, '-', ',');
+  AValue := UTF8TextReplace(AValue, ',', '-');
   AValue := UTF8TextReplace(AValue, ' ', '');
   AValue := UTF8LowerString(UTF8Trim(AValue));
 

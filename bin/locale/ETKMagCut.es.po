@@ -28,7 +28,7 @@ msgstr "Añadir carpeta..."
 #: tfmchxfilelist.actclearlist.caption
 msgctxt "tfmchxfilelist.actclearlist.caption"
 msgid "Clear List"
-msgstr "Limpiar lista"
+msgstr "Vaciar lista"
 
 #: tfmchxfilelist.actremoveitem.caption
 msgctxt "tfmchxfilelist.actremoveitem.caption"
@@ -37,7 +37,7 @@ msgstr "Quitar item"
 
 #: tfmemcimagepropeditor.bclearselection.caption
 msgid "Clear Selection"
-msgstr ""
+msgstr "Borrar cuadro"
 
 #: tfmemcimagepropeditor.bdelete.caption
 msgid "Delete File"
@@ -45,7 +45,7 @@ msgstr "Borrar archivo"
 
 #: tfmemcimagepropeditor.bjoinnextfile.caption
 msgid "Join Next File"
-msgstr "Unir siguiente archivo"
+msgstr "Unir siguiente"
 
 #: tfmemcimagepropeditor.bsave.caption
 msgid "Save"
@@ -57,7 +57,7 @@ msgstr "Guardar y borrar"
 
 #: tfmemcimagepropeditor.chkmultipage.caption
 msgid "Multipage text"
-msgstr "Texto multipágina"
+msgstr "Multipágina"
 
 #: tfmemcimagepropeditor.chkpointmode.caption
 msgid "Point Mode"
@@ -65,7 +65,7 @@ msgstr "Modo por puntos"
 
 #: tfmemcimagepropeditor.chkresize2048.caption
 msgid "Resize to 2048px if bigger image"
-msgstr "Redimensionar a 2048px si es más grande"
+msgstr "Redimensionar a 2048px"
 
 #: tfmemcimagepropeditor.gbxcutrectangle.caption
 msgctxt "tfmemcimagepropeditor.gbxcutrectangle.caption"
@@ -95,7 +95,7 @@ msgstr "Nombre de fichero"
 
 #: tfmemcimagepropeditor.lgame.caption
 msgid "Game"
-msgstr "Jueg"
+msgstr "Juego"
 
 #: tfmemcimagepropeditor.lheight.caption
 msgid "Height"
@@ -103,7 +103,7 @@ msgstr "Altura"
 
 #: tfmemcimagepropeditor.lissue.caption
 msgid "Issue"
-msgstr ""
+msgstr "Número"
 
 #: tfmemcimagepropeditor.llanguage.caption
 msgid "Language"
@@ -190,6 +190,8 @@ msgid ""
 "%0:s\n"
 "Do you want to delete this file?"
 msgstr ""
+"%0:s\n"
+"¿Quieres borrar este fichero?"
 
 #: uchxrscstr.rscuexcalreadyexists
 #, object-pascal-format
@@ -256,7 +258,7 @@ msgstr "Todos los ficheros|*.*"
 #, object-pascal-format, fuzzy
 #| msgid "All files|*.*|Supported files|%0:s"
 msgid "Supported files|%0:s|All files|*.*"
-msgstr "Todos los fichero|*.*|Ficheros soportados|%0:s"
+msgstr "Ficheros soportados|%0:s|Todos los fichero|*.*"
 
 #: uchxrscstr.rsfilenotfound
 #, object-pascal-format
@@ -272,17 +274,17 @@ msgstr ""
 
 #: uchxrscstr.rsrenamefile
 msgid "Rename this file:"
-msgstr ""
+msgstr "Renombrar este fichero:"
 
 #: uchxrscstr.rsrenamefilecaption
 msgid "Renaming file"
-msgstr ""
+msgstr "Renombrando fichero"
 
 #: uchxrscstr.rssavechanges
 msgid "Do you want to save current changes?"
-msgstr ""
+msgstr "¿Quieres guardar los cambios?"
 
 #: uchxrscstr.rssavechangescaption
 msgid "Save changes"
-msgstr ""
+msgstr "Guardar cambios"
 

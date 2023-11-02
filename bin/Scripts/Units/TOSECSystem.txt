@@ -1,15 +1,15 @@
 +2
-+2a
 +2A-+3
++2a
 +2b
 +3
+128K
+130XE
 16K
 48K
 48K-128K
 64K
 64K-128K
-128K
-130XE
 A1000
 A1200
 A1200-A4000
@@ -41,6 +41,8 @@ Doctor PC Jr.
 ECS
 ECS-AGA
 Executive
+II+
+IIE
 Mega ST
 Mega-STE
 OCS

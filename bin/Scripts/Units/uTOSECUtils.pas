@@ -6,13 +6,22 @@ Only to include in other programs. Remember call TOSECFinish at the end of
   main program.
 [Data]
 Name=Chixpy
-Version=0.19
-Date=20230529
+Version=0.20
+Date=20231101
 [Changes]
+0.20 20231101
+  c Don't remove not empty fields.
+  c Reworked a little all the code.
+  f Some single value tags added ' /' at the end.
+  c Changed:
+    - Multivalue flags separator: " / " -> " | ".
+    - Tags without a value: "1" -> "*".
+    - Zone: "," -> "-"
+  + Added a const for debuging in TOSECExtractInfo
 0.19 20230529
   c ¡¡AAAHHH!! Some TOSEC dats actually have hacker in publisher field, so we
     keep the original again when a hack (and trainer) is found). 
-    Actually this script is used only to create an initial "official", but...
+    Actually this script is used only to create an initial Emuteca DB, but...
 0.18 20230527
   c Translation version and author moved to "Version" and "Publisher" fields.
   - Removing original Publisher and Year from translated, hacked or trained 
@@ -70,7 +79,8 @@ Date=20230529
 
 const
   TOSECIDSep = '|';
-  TOSECValueSep = ' / ';
+  TOSECValueSep = ' | ';
+  TOSECTagWOVal = '*';
   
 var
   TOSECVideoList: TStringList;
@@ -121,13 +131,17 @@ begin
   WriteLn('  ' + aError);
 end;
 
-procedure TOSECAddStr(var aTag: string; const aStr: string);
+procedure TOSECAddStr(var aTag: string; aStr: string);
 // Internal procedure for adding values to a Emuteca tag
 begin
+  aStr := Trim(aStr);
+  aTag := Trim(aTag);
+  if aStr = '' then Exit;
+
   if aTag = '' then 
-   aTag := Trim(aStr)
+   aTag := aStr
   else
-    aTag := Trim(aTag) + TOSECValueSep + Trim(aStr);
+    aTag := aTag + TOSECValueSep + aStr;
 end;
   
 function TOSECExtractTag(var Tags: String; Open, Close: String): String;
@@ -144,10 +158,10 @@ begin
   if cPos = 0 then Exit; // Not closed?
 
   Result := Trim(Copy(Tags, oPos + oLength, cPos - oPos - oLength));
-  if Result = '' then Result := '1'; // [b]
+  if Result = '' then Result := TOSECTagWOVal; // Tag without value "[!]"
 
   // Removing readed tag
-  Tags := Trim(AnsiLeftStr(Tags, oPos - 1) + ETKCopyFrom(Tags, 
+  Tags := Trim(Copy(Tags, 1, oPos - 1) + ETKCopyFrom(Tags,
     cPos + Length(Close)));
 end;
 
@@ -244,74 +258,96 @@ var
   DBID, DBTitle, DBSortTitle, DBVersion, DBYear, DBPublisher,
   DBZone, DBDumpStatus, DBDumpInfo, DBFixed, DBTrainer, DBTranslation,
   DBPirate, DBCracked, DBModified, DBHack: string;
-  TempStr, SoftStr, TempDemo: string;
+  VerStr, DIStr, TempStr, TempDemo: string;
   aSL: TStringList;
   i, aPos: Integer;
+  CorrectFlag, DEBUG: Boolean;
 begin
+  DEBUG := False;
+  
   Result := '';
-  DBID := '';
-  DBTitle := '';
-  DBSortTitle := '';
-  DBVersion := '';
-  DBYear := '';
-  DBPublisher := '';
-  DBZone := '';
-  DBDumpStatus := '';
-  DBDumpInfo := '';
-  DBFixed := '';
-  DBTrainer := '';
-  DBTranslation := '';
-  DBPirate := '';
-  DBCracked := '';
-  DBModified := '';
-  DBHack := '';
-  TempDemo := '';
-  SoftStr := aSoftLine
+  
+  DBID := ''; 
+  DBTitle := ''; 
+  DBSortTitle := ''; 
+  DBVersion := ''; 
+  DBYear := ''; 
+  DBPublisher := ''; 
+  DBZone := ''; 
+  DBDumpStatus := ''; 
+  DBDumpInfo := ''; 
+  DBFixed := ''; 
+  DBTrainer := ''; 
+  DBTranslation := ''; 
+  DBPirate := ''; 
+  DBCracked := ''; 
+  DBModified := ''; 
+  DBHack := ''; 
+  DIStr := '';
+  
+  VerStr := aSoftLine
    
   if not assigned(TOSECCopyrightStrList) then
     TOSECInit;
-    
-  // Complete TOSEC info and order:
-  //   Title version, The v 1 (demo) (Year)(Publisher)(System)(Video)(Country)
-  //  (Language)(Copyright)(Devstatus)(Media Type)(Media Label)[cr][f][h][m]
-  //  [p][t][tr][o][u][v][b][a][!][more info].ext  
-  
+      
   // ID
   // --
-  // ID + TOSECIDSep + TOSEC Title
-  aPos := Pos(TOSECIDSep, SoftStr);
+  // VerStr: ID + TOSECIDSep + TOSEC Filename
+  aPos := Pos(TOSECIDSep, VerStr);
   if aPos < 2 then
   begin
-    TOSECError(aSoftLine, 'No "ID|Title" found.');
+    TOSECError(aSoftLine, 'No "ID' + TOSECIDSep + 'Title" found.');
     Exit;
   end;
     
-  DBID := AnsiLeftStr(SoftStr, aPos - 1);
-  SoftStr := ETKCopyFrom(SoftStr, aPos + 1);
+  DBID := Trim(AnsiLeftStr(VerStr, aPos - 1));
+  VerStr := Trim(ETKCopyFrom(VerStr, aPos + Length(TOSECIDSep)));
+
+  if DBID = '' then
+  begin
+    TOSECError(aSoftLine, 'No "ID" found.');
+    Exit;
+  end;
+
+  if VerStr = '' then
+  begin
+    TOSECError(aSoftLine, 'No "Title" found.');
+    Exit;
+  end;
   
+  // Complete TOSEC filename info and order:
+  //  Title, The v1 (demo) (Year)(Publisher)(System)(Video)(Country)
+  //  (Language)(Copyright)(Devstatus)(Media Type)(Media Label)[cr][f][h][m]
+  //  [p][t][tr][o][u][v][b][a][!][more info].ext  
+
+  // FIX:
+  // Splitting version and dump info because "(" can be inside "[]" tags.
+  // For example: Metroid - Wall Jump (2004)(VL-Tone)[h][Metroid (Eu)] 
+  aPos := Pos(')[', VerStr);
+  if aPos > 1 then
+  begin
+    DIStr := ETKCopyFrom(VerStr, aPos + 1); // Dump Info
+    VerStr := Copy(VerStr, 1, aPos); // Title + Version
+  end;
+
   // Title (+ Version) (+ Demo)
   // -----------------
   // Anything before a flag
   // FIX: Searching mandatory space, some game have '(' in Title
-  //   and ' (' too.. 
-  // FIX2: Searching ' (' from right, then '(demo)' will be in DBTitle.
-  // FIX3: Searching from first ')[', this will fix:
-  //   Metroid - Wall Jump (2004)(VL-Tone)[h][Metroid (Eu)]
+  //   and ' (' too.. so we will search ' (' from right, 
+  //   then '(demo)' will be in DBTitle to extract it later.
   
-  aPos := Pos(')[', SoftStr);
-  if aPos < 1 then
-    aPos := Length(SoftStr);
-  aPos := RPosEx(' (', SoftStr, aPos);
+  aPos := RPos(' (', VerStr);
   if aPos < 1 then
   begin
     // No flags found, but has a title...
-    DBTitle := SoftStr
-    SoftStr := '';
+    DBTitle := VerStr
+    VerStr := '';
   end
   else
   begin  
-    DBTitle := Trim(AnsiLeftStr(SoftStr, aPos - 1)); // Title [+ version] [+ Demo]
-    SoftStr := Trim(ETKCopyFrom(SoftStr, aPos)); // Flags 
+    DBTitle := Trim(AnsiLeftStr(VerStr, aPos - 1)); // Title [+ version] [+ Demo]
+    VerStr := Trim(ETKCopyFrom(VerStr, aPos)); // Flags 
   end;
      
   // Demo (opt)
@@ -357,14 +393,14 @@ begin
       begin // try vXXXXXX
         // A testing to diferenciate version with any other word...
         //   if TempStr[2] = number we can be sure that is a version.
-        if (TempStr[2] <= '9') and (TempStr[2] >= '0') then
+        if (TempStr[2] >= '0') and (TempStr[2] <= '9') then
           TOSECAddStr(DBVersion, 'v' + Trim(ETKCopyFrom(TempStr, 2)));
       end
       else if (Length(TempStr) > 4) then
       begin
         if (Pos('rev', LowerCase(TempStr)) = 1) then
         begin // try revXXXXXX
-          if (TempStr[4] <= '9') and (TempStr[4] >= '0') then
+          if (TempStr[2] >= '0') and (TempStr[2] <= '9') then
             TOSECAddStr(DBVersion, 'v' + Trim(ETKCopyFrom(TempStr, 4)));
         end;
       end;
@@ -395,345 +431,266 @@ begin
       // Version not found: Restoring Title
       DBTitle := DBTitle + ' ' + TempStr;  
   end;  
-  
+
+ 
   // Checking well placed article before version
   //  and setting DBSortTitle
   ETKFixSortTitle(DBTitle, DBSortTitle);
-
-  
+   
   // Adding Demo in Version
   if TempDemo <> '' then
-    TOSECAddStr(DBVersion, Trim('Demo ' + TempDemo));
-    
-  // TAGS
-  // ====
+  begin
+    if TempDemo = TOSECTagWOVal then TempDemo := '';
+    TOSECAddStr(DBVersion, 'Demo ' + TempDemo);
+  end;
+  
+  // =============
+  // REQUIRED TAGS
+  // =============
 
   // Year (obl)
-  // -----------------
+  // ----------
   // "(YYYY[-MM[-DD]])"
-  TempStr := TOSECExtractTag(SoftStr, '(', ')');
+  TempStr := TOSECExtractTag(VerStr, '(', ')');
   if TempStr = '' then
   begin
     TOSECError(aSoftLine, 'No YEAR found.');
     Exit;
   end;
-  if TempStr = '-' then
-    DBYear := krsImportKeepValueKey
-  else
-    DBYear := AnsiReplaceText(TempStr, '-', '/'); // Don't use TOSECValueSep
-    
+  if TempStr <> '-' then
+    DBYear := TempStr; // '-' is automatically changed to '/' by Emuteca.
+
   // Publisher (obl)
-  // -----------------
+  // ---------------
   // "(Publisher[ - Publisher])"
-  TempStr := TOSECExtractTag(SoftStr, '(', ')');
+  TempStr := TOSECExtractTag(VerStr, '(', ')');
   if TempStr = '' then
   begin
     TOSECError(aSoftLine, 'No YEAR or PUBLISHER found.');
     Exit;
   end;  
   if TempStr = '-' then
-    DBPublisher := krsImportKeepValueKey
+    DBPublisher := ''
   else
     DBPublisher := TempStr;
-  DBPublisher := AnsiReplaceText(DBPublisher, ' - ', TOSECValueSep);
+  DBPublisher := AnsiReplaceText(DBPublisher, ' - ', TOSECValueSep); 
 
-  // Next flag (), But is used at the end because "()" can be inside "[]"
-  //TempStr := TOSECExtractTag(SoftStr, '(', ')');
-
-
+  // ===================
+  // OTHER VERSION FLAGS
+  // ===================
+  
+  // Next version flag...
+  TempStr := TOSECExtractTag(VerStr, '(', ')');
+  
   // System (opt)
   // -----------------
-  // "(System)" -> Fixed list of systems
-  if Pos('(', SoftStr) = 1 then
+  // "(System)" -> Fixed list of systems  
+  if TempStr <> '' then
   begin
-    aPos := Pos(')', SoftStr);
-    if aPos = 0 then
+    aPos := TOSECSystemList.IndexOf(TempStr);
+    
+    if aPos >= 0 then // Found
     begin
-      TOSECError(aSoftLine, 'No ")" found at SYSTEM flag.');
-      Exit;
+      TOSECAddStr(DBVersion, TempStr);
+      // Next version flag...
+      TempStr := TOSECExtractTag(VerStr, '(', ')');
     end;
-
-    TempStr := Copy(SoftStr, 2, aPos - 2);
-
-    i := 0;
-    while i < TOSECSystemList.Count do
-    begin
-      if TOSECSystemList[i] > TempStr then
-      // TOSECSystemList is sorted, so we can skip searching
-      begin
-        i := TOSECSystemList.Count; // Break;
-      end
-      else
-      begin
-        if TempStr = TOSECSystemList[i] then
-        begin
-          TOSECAddStr(DBVersion, TempStr);
-          SoftStr := Trim(ETKCopyFrom(SoftStr, aPos + 1));
-          i := TOSECSystemList.Count; // Break;
-        end;
-      end;
-
-      Inc(i);
-    end;
-  end;
-  
+  end;  
 
   // Video (opt)
   // -----------------
-  // "(Video)" -> Fixed list of video
-  if Pos('(', SoftStr) = 1 then
+  // "(Video)" -> Fixed list of video flag
+  if TempStr <> '' then
   begin
-    aPos := Pos(')', SoftStr);
-    if aPos = 0 then
+    aPos := TOSECVideoList.IndexOf(TempStr);
+
+    if aPos >= 0 then // Found
     begin
-      TOSECError(aSoftLine, 'No ")" found at VIDEO flag.');
-      Exit;
-    end;
-
-    TempStr := Copy(SoftStr, 2, aPos - 2);
-
-    i := 0;
-    while i < TOSECVideoList.Count do
-    begin
-      if TOSECVideoList[i] > TempStr then
-      // TOSECVideoList is sorted, so we can skip searching
-      begin
-        i := TOSECVideoList.Count; // Break;
-      end
-      else
-      begin
-        if TempStr = TOSECVideoList[i] then
-        begin
-          TOSECAddStr(DBVersion, TempStr);
-          SoftStr := Trim(ETKCopyFrom(SoftStr, aPos + 1));
-          i := TOSECVideoList.Count; // Break;
-        end;
-      end;
-
-      Inc(i);
+      TOSECAddStr(DBVersion, TempStr);
+      // Next version flag...
+      TempStr := TOSECExtractTag(VerStr, '(', ')');
     end;
   end;
 
   // Country
   // -------
   // "(Country)" -> US, EU, JP, ... US-EU
-  if Pos('(', SoftStr) = 1 then
-  begin
-    aPos := Pos(')', SoftStr);
-    if aPos = 0 then
-    begin
-      TOSECError(aSoftLine, 'No ")" found at COUNTRY flag.');
-      Exit;
-    end;
-        
-    TempStr := Copy(SoftStr, 2, aPos - 2);
+  if TempStr <> '' then
+  begin     
+    // Checking string lenght: 2, 5, 8, 11...
+    CorrectFlag := ((Length(TempStr) + 1) mod 3) = 0; 
+
+    // Check if not is a Copyright tag...
+    // GW = Guinea-Bisau and CW = Curaçao ... :-/
+    // But it will be added later.
+    if CorrectFlag and (TOSECCopyrightList.IndexOf(TempStr) >= 0) then
+      CorrectFlag := False;    
     
-    // Dirty check of development status or system
-    //   and testing uppercase
+    // Testing string format.
     i := 1;
-    while i <= Length(TempStr) do
+    while CorrectFlag and (i <= Length(TempStr)) do
     begin
       case (i mod 3) of
-        0: begin
+        0: begin // Country separator
           if TempStr[i] <> '-' then
-            TempStr := '';
+            CorrectFlag := False;
         end;
         else
-        begin
-          if (TempStr[i] < 'A') or  (TempStr[i] > 'Z') then
-            TempStr := '';
+        begin // Uppercase letter
+          if (TempStr[i] < 'A') or (TempStr[i] > 'Z') then
+            CorrectFlag := False;
         end;
       end;
 
       Inc(i);
     end;
 
-    // Dirty check if not is a Copyright tag...
-    // GW = Guinea-Bisau and CW = Curaçao ... :-/
-    if TempStr <> '' then
-    begin
-      i := 0;
-      while i < TOSECCopyrightList.Count do
-      begin
-        if TOSECCopyrightList[i] > TempStr then
-        // TOSECCopyrightList is sorted, so we can skip searching
-        begin
-          i := TOSECCopyrightList.Count; // Break;
-        end
-        else
-        begin
-          if TempStr = TOSECCopyrightList[i] then
-          begin
-            TempStr := '';
-            i := TOSECCopyrightList.Count; // Break;
-          end;
-        end;
-
-        Inc(i);
-      end;
-    end;
-
-    if ((Length(TempStr) + 1) mod 3) = 0 then
+    if CorrectFlag then
     begin
       // 'AS' = American Samoa -> 'XA' = asia
       TempStr := AnsiReplaceText(TempStr, 'as', 'xa');
-            
-      DBZone := LowerCase(AnsiReplaceText(TempStr, '-', ','));
-      SoftStr := Trim(ETKCopyFrom(SoftStr, aPos + 1));
+      
+      DBZone := LowerCase(TempStr);
+      // Next version flag...
+      TempStr := TOSECExtractTag(VerStr, '(', ')');
     end;    
   end;
-  
+
   // Language
   // --------
-  // "(Language)" -> es, pt, fr, ... es-pt
-  
-  // Removing (M) flag, it don't actually says wich languages.
-  // If (M) found then don't try to search language
-  TempStr := TOSECExtractTag(SoftStr, '(M', ')');
-  if TempStr = '' then
+  // "(Language)" -> es, pt, fr, ... es-pt and "(M)" flag 
+  // Actually we want to remove both to extract copyright flag.  
+  if TempStr <> '' then
   begin
-    // Actual search
-    if Pos('(', SoftStr) = 1 then
-    begin
-      aPos := Pos(')', SoftStr);
-      if aPos = 0 then
+    if TempStr[1] = 'M' then
+    begin // '(Mx)'
+      if Length(TempStr) > 1 then
       begin
-        TOSECError(aSoftLine, 'No ")" found at LANGUAGE flag.');
-        Exit;
+        if (TempStr[2] >= '0') or (TempStr[2] <= '9') then
+          TempStr := TOSECExtractTag(VerStr, '(', ')');
+      end
+      else
+      begin
+        TempStr := TOSECExtractTag(VerStr, '(', ')');
       end;
-          
-      TempStr := Copy(SoftStr, 2, aPos - 2);
+    end
+    else
+    begin // '(es-en)'
+      // Checking string lenght: 2, 5, 8, 11...
+      CorrectFlag := ((Length(TempStr) + 1) mod 3) = 0; 
       
-      // Dirty check of well formated language
-      //   and testing lowercase
+      // We don't need to check Copyright tag because it is lowercase...
+ 
+      // Testing string format.
       i := 1;
-      while i <= Length(TempStr) do
+      while CorrectFlag and (i <= Length(TempStr)) do
       begin
         case (i mod 3) of
-          0: begin
+          0: begin // Language separator
             if TempStr[i] <> '-' then
-              TempStr := '';
+              CorrectFlag := False;
           end;
           else
-          begin
+          begin // Lowercase letter
             if (TempStr[i] < 'a') or (TempStr[i] > 'z') then
-              TempStr := '';
+              CorrectFlag := False;
           end;
         end;
+
         Inc(i);
       end;
 
-      // We don't need to check Copyright tag because it is lowercase...
-
-      if ((Length(TempStr) + 1) mod 3) = 0 then
-      begin
-        // Ignoring language tag after all XD
-        // TempStr := AnsiReplaceText(TempStr, '-', ',');
-        // TOSECAddStr(DBVersion, TempStr);
-        SoftStr := Trim(ETKCopyFrom(SoftStr, aPos + 1));
-      end;    
+      if CorrectFlag then
+        // Next version flag...
+        TempStr := TOSECExtractTag(VerStr, '(', ')');      
     end;
   end;
 
   // Copyright
   // -----------------
   // "(Copyright)" -> Fixed list
-  
-  if Pos('(', SoftStr) = 1 then
+  if TempStr <> '' then
   begin
-    aPos := Pos(')', SoftStr);
-    if aPos = 0 then
+     aPos := TOSECCopyrightList.IndexOf(TempStr);
+
+    if aPos >= 0 then // Found
     begin
-      TOSECError(aSoftLine, 'No ")" found at COPYRIGHT flag.');
-      Exit;
+      TOSECAddStr(DBVersion, TOSECCopyrightStrList[aPos]);
+      // Next version flag...
+      TempStr := TOSECExtractTag(VerStr, '(', ')');
     end;
+  end; 
     
-    TempStr := Copy(SoftStr, 2, aPos - 2);
-
-    i := 0;
-    while i < TOSECCopyrightList.Count do
-    begin
-      if TOSECCopyrightList[i] > TempStr then
-      // TOSECCopyrightList is sorted, so we can skip searching
-      begin
-        i := TOSECCopyrightList.Count; // Break;
-      end
-      else
-      begin
-        if TempStr = TOSECCopyrightList[i] then
-        begin
-          TOSECAddStr(DBVersion, TOSECCopyrightStrList[i]);
-          SoftStr := Trim(ETKCopyFrom(SoftStr, aPos + 1));
-          i := TOSECCopyrightList.Count; // Break;
-        end;
-      end;
-
-      Inc(i);
-    end;
-  end;
-  
-  // Development status
-  // -----------------
+  // Extra version data
+  // ------------------
   // (Devstatus)
-  
-  // Automatically added at the end.
-  // TODO 2: Maybe add as flag
-  
-  // Media type
-  // -----------------
   // (Media Type)
-
-  // Automatically added at the end.
-  // TODO 2: Maybe add as flag
-
-  // Media label
-  // -----------------
   // (Media Label)
+  // Another unhandled flags  
+  while TempStr <> '' do
+  begin
+    TOSECAddStr(DBVersion, TempStr);
+    TempStr := TOSECExtractTag(VerStr, '(', ')');
+  end;
 
-  // Automatically added at the end.
+  if VerStr <> '' then
+  begin
+    TOSECAddStr(DBVersion, VerStr);
+  end;
 
+  // ================
   // Dump flags: "[]"
+  // ================
 
   // Cracked
   // -----------------
   // "[cr Cracker]"
-  DBCracked := TOSECExtractTag(SoftStr, '[cr', ']');
-  DBCracked := AnsiReplaceText(DBCracked, ' - ', TOSECValueSep);
-
+  TempStr := TOSECExtractTag(DIStr, '[cr', ']');
+  TempStr := AnsiReplaceText(TempStr, ' - ', TOSECValueSep);
+  if TempStr <> '' then
+    DBCracked := TempStr;
   
   // Fixed
   // -----------------
   // "[f Fix Fixer]"
-  DBFixed := TOSECExtractTag(SoftStr, '[f', ']');
+  TempStr := TOSECExtractTag(DIStr, '[f', ']');
+  if TempStr <> '' then
+    DBFixed := TempStr;
 
   // Hacked
   // -----------------
   // "[h Hack Hacker]"
-  DBHack := TOSECExtractTag(SoftStr, '[h', ']');
+  TempStr := TOSECExtractTag(DIStr, '[h', ']');
+  if TempStr <> '' then
+    DBHack := TempStr;
 
   // Modified
   // -----------------
   // "[m Modification]"
 
   // Removing NES '[mapper XX]'
-  TempStr := TOSECExtractTag(SoftStr, '[mapper', ']');
+  TempDemo := TOSECExtractTag(DIStr, '[mapper', ']');
 
-  DBModified := TOSECExtractTag(SoftStr, '[m', ']');
+  TempStr := TOSECExtractTag(DIStr, '[m', ']');
+  if TempStr <> '' then
+    DBModified := TempStr;
 
   // Restoring '[mapper XX]'
-  if TempStr <> '' then
-    SoftStr := '[mapper ' + TempStr + ']' + SoftStr;
+  if TempDemo <> '' then
+    DIStr := DIStr + '[Mapper ' + TempDemo + ']';
 
   // Pirated
   // -----------------
   // "[p Pirate]"
-  DBPirate := TOSECExtractTag(SoftStr, '[p', ']');
+  TempStr := TOSECExtractTag(DIStr, '[p', ']');
+  if TempStr <> '' then
+    DBPirate := TempStr;
 
   // Traslated
   // -----------------
   // It must be searched before [t]
   // "[tr Language Translator]"
-  DBTranslation := TOSECExtractTag(SoftStr, '[tr', ']');
+  DBTranslation := TOSECExtractTag(DIStr, '[tr', ']');
 
   // Posible formats... :-( 
   //   "[tr Language Translator]"
@@ -771,14 +728,14 @@ begin
     // Trying [tr ...][vXXXX, Other, dump, tags]
     if TempStr = '' then
     begin
-      TempStr := TOSECExtractTag(SoftStr, '[v', ']');
+      TempStr := TOSECExtractTag(DIStr, '[v', ']');
       if TempStr <> '' then
       begin
         // Is it a virus tag "[v Virus]"?
         if (TempStr = '1') or (TempStr[1] = ' ') then
         begin
           // Restoring it
-          SoftStr := SoftStr + '[v ' + TempStr + ']';
+          DIStr := DIStr + '[v ' + TempStr + ']';
           TempStr := '';
         end
         else
@@ -796,7 +753,7 @@ begin
           if aPos > 1 then
           begin
             // Restoring other DumpStatus tags
-            SoftStr := SoftStr + '[' + 
+            DIStr := DIStr + '[' + 
               AnsiReplaceText(ETKCopyFrom(TempStr, aPos + 1), ',', '][') + ']';
             TempStr := Copy(TempStr, 1, aPos - 1);
           end;
@@ -811,7 +768,7 @@ begin
   // Trained
   // -------
   // "[t +x Trainer]"
-  DBTrainer := TOSECExtractTag(SoftStr, '[t', ']');
+  DBTrainer := TOSECExtractTag(DIStr, '[t', ']');
   DBTrainer := AnsiReplaceText(DBTrainer, ' - ', TOSECValueSep);
   // Translation author and version have preference
   if (DBTranslation = '') and (DBTrainer <> '') then
@@ -825,17 +782,17 @@ begin
         DBTrainer := Trim(Copy(DBTrainer, 1, aPos - 1));
       end;
     end
-    else if (DBTrainer[1] < '0') or (DBTrainer[1] > '9') then
+    else if (DBTrainer[1] > '9') and (DBTrainer[1] <> TOSECTagWOVal) then
     begin
       DBPublisher := DBTrainer;
-      DBTrainer := '1';
+      DBTrainer := TOSECTagWOVal;
     end;
   end;
 
   // Removing [aka ] flags...
   TempStr := 'x';
   while TempStr <> '' do
-    TempStr := TOSECExtractTag(SoftStr, '[aka', ']');
+    TempStr := TOSECExtractTag(DIStr, '[aka ', ']');
 
   // Verified, Good, Alternate, OverDump, BadDump, UnderDump
   // -------------------------------------------------------
@@ -844,64 +801,101 @@ begin
   // We only keep the worst one
   
   // 2023/02/09: "a" flag removed from Emuteca
-  TempStr := TOSECExtractTag(SoftStr, '[a', ']');
-//  if TempStr <> '' then
-//  begin
-//    DBDumpStatus := DumpSt2Key(edsAlternate);
-//    TOSECAddStr(DBDumpInfo, 'a ' + TempStr)
-//  end;  
-  
-  TempStr := TOSECExtractTag(SoftStr, '[!', ']');
+  TempStr := TOSECExtractTag(DIStr, '[a', ']');
   if TempStr <> '' then
   begin
-    DBDumpStatus := DumpSt2Key(edsFavorite);
+    if (TempStr[1] > '9') and (TempStr[1] <> TOSECTagWOVal) then
+      DIStr := DIStr + '[A' + TempStr  + ']';
+  end;
+  
+  TempStr := TOSECExtractTag(DIStr, '[!', ']');
+  if TempStr <> '' then
+  begin
+    if (TempStr[1] > '9') and (TempStr[1] <> TOSECTagWOVal) then
+      DIStr := DIStr + '[!' + TempStr + ']'
+    else
+      DBDumpStatus := DumpSt2Key(edsFavorite);
   end;
 
-  TempStr := TOSECExtractTag(SoftStr, '[o', ']');
+  TempStr := TOSECExtractTag(DIStr, '[o', ']');
   if TempStr <> '' then
   begin
-    DBDumpStatus := DumpSt2Key(edsOverDump);
-  end;  
+    if (TempStr[1] > '9') and (TempStr[1] <> TOSECTagWOVal) then
+      DIStr := DIStr + '[O' + TempStr + ']'
+    else
+      DBDumpStatus := DumpSt2Key(edsOverDump);
+  end;
   
-  TempStr := TOSECExtractTag(SoftStr, '[b', ']');
+  TempStr := TOSECExtractTag(DIStr, '[b', ']');
   if TempStr <> '' then
   begin
-    DBDumpStatus := DumpSt2Key(edsBadDump);
-  end; 
-
-  TempStr := TOSECExtractTag(SoftStr, '[u', ']');
-  if TempStr <> '' then
-  begin    
-    DBDumpStatus := DumpSt2Key(edsUnderDump);
+    if (TempStr[1] > '9') and (TempStr[1] <> TOSECTagWOVal) then
+      DIStr := DIStr + '[B' + TempStr + ']'
+    else
+      DBDumpStatus := DumpSt2Key(edsBadDump);
   end;
 
-  if DBDumpStatus = '' then
-    // DBDumpStatus := krsImportKeepValueKey;
-    DBDumpStatus := DumpSt2Key(edsGood);
-    
+  TempStr := TOSECExtractTag(DIStr, '[u', ']');
+  if TempStr <> '' then
+  begin
+    if (TempStr[1] > '9') and (TempStr[1] <> TOSECTagWOVal) then
+      DIStr := DIStr + '[U' + TempStr + ']'
+    else
+      DBDumpStatus := DumpSt2Key(edsUnderDump);
+  end;
+
   // Extra data
   // -----------------
   // [v][more info]
   // Unhandled flags...
-  TempStr := TOSECExtractTag(SoftStr, '[', ']');
+  TempStr := TOSECExtractTag(DIStr, '[', ']');
   while TempStr <> '' do
   begin
     TOSECAddStr(DBDumpInfo, TempStr);
-    TempStr := TOSECExtractTag(SoftStr, '[', ']');
+    TempStr := TOSECExtractTag(DIStr, '[', ']');
   end;
 
-  TempStr := TOSECExtractTag(SoftStr, '(', ')');
-  while TempStr <> '' do
+  if DIStr <> '' then
   begin
-    TOSECAddStr(DBVersion, TempStr);
-    TempStr := TOSECExtractTag(SoftStr, '(', ')');
-  end;
-
-  if SoftStr <> '' then
-  begin
-    TOSECAddStr(DBDumpInfo, SoftStr);
+    TOSECAddStr(DBDumpInfo, DIStr);
   end;
   
+  // Keep values not extracted
+  if DBVersion = '' then DBVersion := krsImportKeepValueKey;
+  if DBYear = '' then DBYear := krsImportKeepValueKey;
+  if DBPublisher = '' then DBPublisher := krsImportKeepValueKey;
+  if DBZone = '' then DBZone := krsImportKeepValueKey;
+  if DBDumpStatus = '' then DBDumpStatus := krsImportKeepValueKey;
+  if DBDumpInfo = '' then DBDumpInfo := krsImportKeepValueKey;
+  if DBFixed = '' then DBFixed := krsImportKeepValueKey;
+  if DBTrainer = '' then DBTrainer := krsImportKeepValueKey;
+  if DBTranslation = '' then DBTranslation := krsImportKeepValueKey;
+  if DBPirate = '' then DBPirate := krsImportKeepValueKey;
+  if DBCracked = '' then DBCracked := krsImportKeepValueKey;
+  if DBModified = '' then DBModified := krsImportKeepValueKey;
+  if DBHack = '' then DBHack := krsImportKeepValueKey;    
+    
+// For testing purpouses
+if DEBUG then WriteLn('');
+if DEBUG then WriteLn(aSoftLine);
+if DEBUG then WriteLn('         DBID: ' + DBID); // ID
+if DEBUG then WriteLn('      DBTitle: ' + DBTitle); // Title
+if DEBUG then WriteLn('  DBSortTitle: ' + DBSortTitle); // SortTitle
+if DEBUG then WriteLn('    DBVersion: ' + DBVersion); // Version
+if DEBUG then WriteLn('       DBYear: ' + DBYear); // Year
+if DEBUG then WriteLn('  DBPublisher: ' + DBPublisher); // Publisher
+if DEBUG then WriteLn('       DBZone: ' + DBZone); // Zone
+if DEBUG then WriteLn(' DBDumpStatus: ' + DBDumpStatus); // DumpStatus
+if DEBUG then WriteLn('   DBDumpInfo: ' + DBDumpInfo); // DumpInfo
+if DEBUG then WriteLn('      DBFixed: ' + DBFixed); // Fixed
+if DEBUG then WriteLn('    DBTrainer: ' + DBTrainer); // Trainer
+if DEBUG then WriteLn('DBTranslation: ' + DBTranslation); // Translation
+if DEBUG then WriteLn('     DBPirate: ' + DBPirate); // Pirate
+if DEBUG then WriteLn('    DBCracked: ' + DBCracked); // Cracked
+if DEBUG then WriteLn('   DBModified: ' + DBModified); // Modified
+if DEBUG then WriteLn('       DBHack: ' + DBHack); // Hack
+
+  // Finishing
   aSL := CreateStringList;
   try
     aSL.Add(krsImportKeepValueKey); // Group

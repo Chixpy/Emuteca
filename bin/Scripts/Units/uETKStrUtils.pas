@@ -11,9 +11,11 @@ Some common functions for string handling.
 
 [Data]
 Name=Chixpy
-Version=0.08
-Date=20230810
+Version=0.09
+Date=20231102
 [Changes]
+0.09 20230810
+  c ETKFixTitle: ' + ' -> ' | ' for multiple games.
 0.08 20230810
   c ETKFixTitle: Splited in ETKFixSortTitle and ETKFixGrpId.
 0.07 20221022
@@ -220,6 +222,7 @@ end;
     // 'Game 1, The: Subtitle + Game 2: Subtitle, The + Game, A'
     slGameList := CreateStringList;
     aTitle := AnsiReplaceText(aTitle, ' + ', '|');
+    aTitle := AnsiReplaceText(aTitle, ' | ', '|');
     slGameList.AddDelimitedText(aTitle, '|', true);
   
     aTitle := ''; // Reseting Title
@@ -231,8 +234,8 @@ end;
      
       if i > 0 then
       begin
-        SortTitle := SortTitle + ' + ' + TempSort;
-        aTitle := aTitle + ' + ' + TempTitle;
+        SortTitle := SortTitle + ' | ' + TempSort;
+        aTitle := aTitle + ' | ' + TempTitle;
       end
       else
       begin

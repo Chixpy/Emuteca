@@ -15,10 +15,10 @@ Contact: mjames@gmail.com
 
 ---------------------
   
-eu,us.png
+eu-us.png
   Combination of eu.png and jp.png  
 
-jp,us.png
+jp-us.png
   Combination of us.png and jp.png 
   
 xa.png

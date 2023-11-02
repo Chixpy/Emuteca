@@ -1,4 +1,5 @@
 unit uaEmutecaCustomSystem;
+
 {< caEmutecaCustomSystem abstract class unit.
 
   This file is part of Emuteca Core.
@@ -81,7 +82,7 @@ type
 
     Who knows if somebody edited the .ini file by hand...
     }
-    procedure DoSaveToIni(aIniFile: TIniFile; ExportMode: Boolean); virtual;
+    procedure DoSaveToIni(aIniFile: TIniFile; ExportMode: boolean); virtual;
 
   public
     property TempFolder: string read FTempFolder write SetTempFolder;
@@ -114,10 +115,12 @@ type
     property Enabled: boolean read FEnabled write SetEnabled default False;
     {< Is the system visible? }
 
-    property ExtractAll: boolean read FExtractAll write SetExtractAll default False;
+    property ExtractAll: boolean
+      read FExtractAll write SetExtractAll default False;
     {< Must all files be extracted from compressed archives? }
 
-    property MergeableGroups: boolean read FMergeableGroups write SetMergeableGroups default False;
+    property MergeableGroups: boolean read FMergeableGroups
+      write SetMergeableGroups default False;
 
     property BaseFolder: string read FBaseFolder write SetBaseFolder;
     {< System base folder
@@ -169,7 +172,7 @@ type
     // ---------------
     property IconFolder: string read FIconFolder write SetIconFolder;
     {< Folder for the icons of the games. }
-        property LogoFolder: string read FLogoFolder write SetLogoFolder;
+    property LogoFolder: string read FLogoFolder write SetLogoFolder;
     {< Folder for the logos of the games. }
     property ImageFolders: TStringList read FImageFolders;
     {< Folders for the game images. }
@@ -235,7 +238,8 @@ begin
   Enabled := aIniFile.ReadBool(ID, krsIniKeyEnabled, Enabled);
 
   ExtractAll := aIniFile.ReadBool(ID, krsIniKeyExtractAll, ExtractAll);
-  MergeableGroups := aIniFile.ReadBool(ID, krsIniKeyMergeableGroups, MergeableGroups);
+  MergeableGroups := aIniFile.ReadBool(ID, krsIniKeyMergeableGroups,
+    MergeableGroups);
 
   BaseFolder := aIniFile.ReadString(ID, krsIniKeyBaseFolder, BaseFolder);
   WorkingFolder := aIniFile.ReadString(ID, krsIniKeyWorkingFolder,
@@ -245,7 +249,8 @@ begin
   MainEmulator := aIniFile.ReadString(ID, krsIniKeyMainEmulator, MainEmulator);
   OtherEmulators.CommaText :=
     aIniFile.ReadString(ID, krsIniKeyOtherEmulators, OtherEmulators.CommaText);
-  CoreIDs.CommaText :=  aIniFile.ReadString(ID, krsIniKeyCoreIDs, CoreIDs.CommaText);
+  CoreIDs.CommaText := aIniFile.ReadString(ID, krsIniKeyCoreIDs,
+    CoreIDs.CommaText);
 
   // Images
   IconFile := aIniFile.ReadString(ID, krsIniKeyIcon, IconFile);
@@ -255,7 +260,7 @@ begin
   SoftIconFile := aIniFile.ReadString(ID, krsIniKeySoftIcon, SoftIconFile);
 
   IconFolder := aIniFile.ReadString(ID, krsIniKeyIconFolder, IconFolder);
-    LogoFolder := aIniFile.ReadString(ID, krsIniKeyLogoFolder, LogoFolder);
+  LogoFolder := aIniFile.ReadString(ID, krsIniKeyLogoFolder, LogoFolder);
   ImageFolders.CommaText :=
     aIniFile.ReadString(ID, krsIniKeyImageFolders, ImageFolders.CommaText);
   ImageCaptions.CommaText :=
@@ -414,7 +419,7 @@ end;
 
 procedure caEmutecaCustomSystem.SetSoftIconFile(AValue: string);
 begin
-  FSoftIconFile := SetAsFile(AValue)
+  FSoftIconFile := SetAsFile(AValue);
 end;
 
 procedure caEmutecaCustomSystem.SetTempFolder(AValue: string);
@@ -473,7 +478,7 @@ begin
 end;
 
 procedure caEmutecaCustomSystem.DoSaveToIni(aIniFile: TIniFile;
-  ExportMode: Boolean);
+  ExportMode: boolean);
 begin
   if not Assigned(aIniFile) then
     Exit;

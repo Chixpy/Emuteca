@@ -20,10 +20,12 @@
         <ComponentName Value="frmETKDBEditorMain"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="110"/>
-        <CursorPos X="86" Y="111"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="105"/>
+        <CursorPos X="14" Y="122"/>
         <UsageCount Value="44"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="..\CHXPas\Forms\ufrCHXForm.pas"/>
@@ -52,8 +54,7 @@
         <ComponentName Value="fmETKDBEditor"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <IsVisibleTab Value="True"/>
-        <TopLine Value="172"/>
+        <TopLine Value="191"/>
         <CursorPos X="13" Y="189"/>
         <UsageCount Value="43"/>
         <Loaded Value="True"/>
@@ -251,12 +252,33 @@
         <CursorPos X="3" Y="272"/>
         <UsageCount Value="10"/>
       </Unit>
+      <Unit>
+        <Filename Value="D:\Programas\Inst\Lazarus\fpc\3.2.2\source\rtl\inc\systemh.inc"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="1504"/>
+        <CursorPos X="11" Y="1518"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="D:\Programas\Inst\Lazarus\fpc\3.2.2\source\rtl\win\syswin.inc"/>
+        <EditorIndex Value="4"/>
+        <TopLine Value="340"/>
+        <CursorPos X="5" Y="342"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="D:\Programas\Inst\Lazarus\fpc\3.2.2\source\rtl\objpas\objpas.pp"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="302"/>
+        <CursorPos X="3" Y="305"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit>
     </Units>
-    <JumpHistory HistoryIndex="26">
-      <Position>
-        <Filename Value="src\frames\ufETKDBEditorMain.pas"/>
-        <Caret Line="118" Column="22" TopLine="115"/>
-      </Position>
+    <JumpHistory HistoryIndex="29">
       <Position>
         <Filename Value="src\frames\ufETKDBEditorMain.pas"/>
         <Caret Line="120" Column="17" TopLine="107"/>
@@ -360,6 +382,22 @@
       <Position>
         <Filename Value="src\frames\ufETKDBEditorMain.pas"/>
         <Caret Line="161" Column="14" TopLine="150"/>
+      </Position>
+      <Position>
+        <Filename Value="src\forms\ufrETKDBEditorMain.pas"/>
+        <Caret Line="122" Column="14" TopLine="105"/>
+      </Position>
+      <Position>
+        <Filename Value="D:\Programas\Inst\Lazarus\fpc\3.2.2\source\rtl\inc\systemh.inc"/>
+        <Caret Line="1518" Column="11" TopLine="1504"/>
+      </Position>
+      <Position>
+        <Filename Value="src\forms\ufrETKDBEditorMain.pas"/>
+        <Caret Line="122" Column="14" TopLine="105"/>
+      </Position>
+      <Position>
+        <Filename Value="D:\Programas\Inst\Lazarus\fpc\3.2.2\source\rtl\objpas\objpas.pp"/>
+        <Caret Line="148" Column="15" TopLine="134"/>
       </Position>
     </JumpHistory>
     <RunParams>
