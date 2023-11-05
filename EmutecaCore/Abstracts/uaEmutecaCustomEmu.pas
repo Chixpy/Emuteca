@@ -386,7 +386,7 @@ end;
 
 function caEmutecaCustomEmu.CompareID(aID: string): integer;
 begin
-  Result := UTF8CompareText(ID, aID);
+  Result := UTF8CompareText(ID, UTF8Trim(aID));
 end;
 
 function caEmutecaCustomEmu.MatchID(aID: string): boolean;

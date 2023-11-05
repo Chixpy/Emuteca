@@ -21,6 +21,7 @@ type
     object;
 
 // Emulators don't have anything different from their base abstract class...
+
 implementation
 
 initialization

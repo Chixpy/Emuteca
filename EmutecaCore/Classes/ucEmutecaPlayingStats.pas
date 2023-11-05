@@ -177,7 +177,7 @@ begin
   begin
     aTxtFile.Add(DateTimeToStr(LastTime));
     aTxtFile.Add(TimesPlayed.ToString);
-    aTxtFile.Add(IntToStr(PlayingTime));
+    aTxtFile.Add(PlayingTime.ToString);
   end;
 end;
 

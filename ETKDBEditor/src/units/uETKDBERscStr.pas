@@ -1,10 +1,12 @@
-unit uETKDBEConst;
-{< Constants of ETK DB Editor.
+unit uETKDBERscStr;
+
+{< Resource strings for of ETK DB Editor.
 
   This file is part of Emuteca.
 
   Copyright (C) 2023 Chixpy
 }
+
 {$mode ObjFPC}{$H+}
 
 interface
@@ -12,8 +14,8 @@ interface
 uses
   Classes, SysUtils;
 
-const
-  krsDBEName = 'ETKDBEditor';
+resourcestring
+  rsCellInfoFmt = '%d : %d [%d rows]';
 
 implementation
 

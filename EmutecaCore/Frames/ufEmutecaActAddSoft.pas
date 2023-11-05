@@ -479,6 +479,10 @@ begin
 
   fmSoftEditor.SaveFrameData;
 
+  // No group was assigned
+  if not Assigned(Software.CachedGroup) then
+    Software.GroupKey:=Software.Title;
+
   aSystem := cEmutecaSystem(Software.CachedSystem);
 
   if not assigned(aSystem) then

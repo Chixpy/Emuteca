@@ -176,7 +176,7 @@ begin
   EmptyTitle := Trim(Group.GetActualTitle) = '';
   EmptySort := Trim(Group.GetActualSortTitle) = '';
 
-  // Delimiter must be a char...
+  // Delimiter must be a char for TStringList
   sID := UTF8TextReplace(Group.ID, ' | ', '|');
   sTitle := UTF8TextReplace(Group.GetActualTitle, ' | ', '|');
   sSortTitle := UTF8TextReplace(Group.GetActualSortTitle, ' | ', '|');

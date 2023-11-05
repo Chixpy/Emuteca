@@ -24,6 +24,8 @@ const
     With ending folder separator.
   }
 
+  krsValueSeparator = ' | ';
+
 
   // File extensions
   // ---------------

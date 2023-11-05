@@ -152,7 +152,7 @@ end;
 
 procedure caEmutecaCustomSGItem.SetID(AValue: string);
 begin
-  AValue := UTF8Trim(UTF8TextReplace(AValue, ' + ', ' | '));
+  AValue := UTF8Trim(AValue);
 
   if AValue = ID then
     Exit;
@@ -253,7 +253,7 @@ end;
 
 function caEmutecaCustomSGItem.CompareID(aID: string): integer;
 begin
-  Result := UTF8CompareText(Self.ID, aID);
+  Result := UTF8CompareText(Self.ID, UTF8Trim(aID));
 end;
 
 function caEmutecaCustomSGItem.MatchID(aID: string): boolean;

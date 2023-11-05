@@ -28,10 +28,8 @@ interface
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, FileUtil,
   LazFileUtils, LCLTranslator,
-  // Misc units
-  uVersionSupport,
   // CHX units
-  uCHXConst, uCHXRscStr, uCHXStrUtils,
+  uCHXConst, uCHXRscStr, uCHXStrUtils, uCHXVerInfo,
   // CHX forms
   ufrCHXForm,
   // DB Editor units
@@ -108,12 +106,10 @@ begin
 
   // Loading GUI config
   // FEMCConfig := cEMCConfig.Create(self);
-  // EMCConfig.DefaultFileName := SetAsAbsoluteFile(krsEMCName + '.ini', BaseFolder);
+  // EMCConfig.DefaultFileName := SetAsAbsoluteFile(krsDBEName + krsIniFileExt, BaseFolder);
 
-  LoadGUIConfig(SetAsAbsoluteFile(krsDBEName + '.ini', BaseFolder));
+  LoadGUIConfig(SetAsAbsoluteFile(krsDBEName + krsIniFileExt, BaseFolder));
   // EMCConfig.LoadFromFile('');
-
-
 
   // Reading commandline parameters
   if ParamCount > 0 then

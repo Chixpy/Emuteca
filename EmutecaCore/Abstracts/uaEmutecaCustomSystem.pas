@@ -574,7 +574,7 @@ end;
 
 function caEmutecaCustomSystem.CompareID(aID: string): integer;
 begin
-  Result := UTF8CompareText(Self.ID, aID);
+  Result := UTF8CompareText(Self.ID, UTF8Trim(aID));
 end;
 
 constructor caEmutecaCustomSystem.Create(AOwner: TComponent);

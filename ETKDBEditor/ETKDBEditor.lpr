@@ -11,8 +11,8 @@ uses
   {$ENDIF}
   Interfaces, // this includes the LCL widgetset
   Forms, ufrETKDBEditorMain, ufrCHXForm, ufCHXFrame, uCHXImageUtils,
-  uCHXStrUtils, uCHXRscStr, uCHXConst, uVersionSupport, uEmutecaRscStr,
-  uEmutecaConst, ufETKDBEditorMain, uETKDBEConst
+  uCHXStrUtils, uCHXRscStr, uCHXConst, uEmutecaRscStr,
+  uEmutecaConst, ufETKDBEditorMain, uETKDBEConst, uETKDBERscStr
   { you can add units after this };
 
 {$R *.res}

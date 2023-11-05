@@ -74,10 +74,13 @@ resourcestring
   // File mask descriptions
   // ----------------------
   rsFileMaskDescGroup =
-    'Group list files  (' + krsFileMaskGroup + ')';
+    'Group list files (' + krsFileMaskGroup + ')';
   {< Description of file mask for group lists. }
   rsFileMaskDescSoft =
-    'Soft list files  (' + krsFileMaskSoft + ')';
+    'Soft list files (' + krsFileMaskSoft + ')';
+  {< Description of file mask for soft lists. }
+  rsFileMaskDescDB =
+    'Emuteca DB files (' + krsFileMaskSoft + ',' + krsFileMaskGroup + ')';
   {< Description of file mask for soft lists. }
   rsFileMaskDescINI = 'Database files (' + krsFileMaskINI + ')';
   {< Description of file mask for ini databases (Systems, Emulators, ...). }

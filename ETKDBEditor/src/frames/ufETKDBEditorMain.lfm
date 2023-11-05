@@ -9,8 +9,8 @@ inherited fmETKDBEditor: TfmETKDBEditor
   DesignTop = 215
   object sgMain: TStringGrid[0]
     Left = 0
-    Height = 507
-    Top = 35
+    Height = 508
+    Top = 34
     Width = 832
     Align = alClient
     AlternateColor = clInfoBk
@@ -21,6 +21,7 @@ inherited fmETKDBEditor: TfmETKDBEditor
     Enabled = False
     FixedCols = 0
     FixedRows = 0
+    Flat = True
     MouseWheelOption = mwGrid
     Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goDrawFocusSelected, goColSizing, goEditing, goTabs, goAlwaysShowEditor, goThumbTracking, goRelaxedRowSelect, goDblClickAutoSize, goHeaderPushedLook, goFixedColSizing, goTruncCellHints, goCellEllipsis, goRowHighlight]
     ParentShowHint = False
@@ -30,6 +31,8 @@ inherited fmETKDBEditor: TfmETKDBEditor
     UseXORFeatures = True
     OnGetCellHint = sgMainGetCellHint
     OnKeyDown = sgMainKeyDown
+    OnSelectCell = sgMainSelectCell
+    OnValidateEntry = sgMainValidateEntry
   end
   object sbMain: TStatusBar[1]
     Left = 0
@@ -38,6 +41,7 @@ inherited fmETKDBEditor: TfmETKDBEditor
     Width = 832
     Panels = <    
       item
+        Alignment = taCenter
         Width = 200
       end    
       item
@@ -48,19 +52,21 @@ inherited fmETKDBEditor: TfmETKDBEditor
   end
   object pButtons: TPanel[2]
     Left = 0
-    Height = 31
+    Height = 30
     Top = 0
     Width = 832
     Align = alTop
     AutoSize = True
+    BevelOuter = bvNone
     ChildSizing.EnlargeHorizontal = crsHomogenousSpaceResize
+    ChildSizing.ShrinkHorizontal = crsHomogenousSpaceResize
     ChildSizing.Layout = cclTopToBottomThenLeftToRight
     ChildSizing.ControlsPerLine = 1
-    ClientHeight = 31
+    ClientHeight = 30
     ClientWidth = 832
     TabOrder = 2
     object bExit: TButton
-      Left = 105
+      Left = 41
       Height = 30
       Top = 0
       Width = 50
@@ -68,7 +74,7 @@ inherited fmETKDBEditor: TfmETKDBEditor
       TabOrder = 0
     end
     object bOpenFile: TButton
-      Left = 260
+      Left = 132
       Height = 30
       Top = 0
       Width = 71
@@ -76,7 +82,7 @@ inherited fmETKDBEditor: TfmETKDBEditor
       TabOrder = 1
     end
     object bSaveFile: TButton
-      Left = 436
+      Left = 244
       Height = 30
       Top = 0
       Width = 66
@@ -84,7 +90,7 @@ inherited fmETKDBEditor: TfmETKDBEditor
       TabOrder = 2
     end
     object chkFastEditMode: TCheckBox
-      Left = 607
+      Left = 351
       Height = 30
       Hint = 'Toggles edit on cell select.|Faster cell edit, but multiple cells can''t be selected.'
       Top = 0
@@ -94,6 +100,40 @@ inherited fmETKDBEditor: TfmETKDBEditor
       OnChange = chkFastEditModeChange
       State = cbChecked
       TabOrder = 3
+    end
+    object pFastMove: TPanel
+      Left = 515
+      Height = 30
+      Top = 0
+      Width = 276
+      BevelOuter = bvNone
+      ChildSizing.LeftRightSpacing = 4
+      ChildSizing.HorizontalSpacing = 4
+      ClientHeight = 30
+      ClientWidth = 276
+      TabOrder = 4
+      object lFastMove: TLabel
+        Left = 4
+        Height = 30
+        Top = 0
+        Width = 139
+        Align = alLeft
+        Alignment = taRightJustify
+        Caption = 'Fast Move to Column'
+        Layout = tlCenter
+        ParentColor = False
+      end
+      object cbxFastMove: TComboBox
+        Left = 147
+        Height = 28
+        Top = 0
+        Width = 125
+        Align = alClient
+        ItemHeight = 20
+        ReadOnly = True
+        Style = csDropDownList
+        TabOrder = 0
+      end
     end
   end
   object alMain: TActionList[3]

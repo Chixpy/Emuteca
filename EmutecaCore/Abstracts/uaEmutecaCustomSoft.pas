@@ -430,7 +430,7 @@ end;
 
 function caEmutecaCustomSoft.CompareGroupKey(const aGroupID: string): integer;
 begin
-  Result := UTF8CompareText(Self.GroupKey, aGroupID);
+  Result := UTF8CompareText(Self.GroupKey, UTF8Trim(aGroupID));
 end;
 
 function caEmutecaCustomSoft.MatchGroupFile: boolean;

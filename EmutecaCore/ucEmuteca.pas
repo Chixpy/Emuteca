@@ -4,7 +4,7 @@ unit ucEmuteca;
 
   This file is part of Emuteca Core.
 
-  Copyright (C) 2006-2018 Chixpy
+  Copyright (C) 2006-2023 Chixpy
 }
 {$mode objfpc}{$H+}
 
@@ -86,6 +86,10 @@ type
 
       Now only calculates SHA1 of files in background. It was used to
         load icons too, but now it's a Emuteca GUI job. }
+
+    procedure CacheDataStop;
+    {< Stops background threads. }
+
     procedure UpdateSysEmulators;
     {< (Re)Loads emulators assigned to systems. }
 
@@ -127,16 +131,7 @@ implementation
 { cEmuteca }
 procedure cEmuteca.CacheData;
 begin
-  // Teminate thread if it's running
-  if assigned(GetSoftSHA1Thread) then
-  begin
-    // Don't auto nil GetSoftSHA1Thread, only terminate it.
-    // GetSoftSHA1Thread will be reused.
-    GetSoftSHA1Thread.OnTerminate := nil;
-    GetSoftSHA1Thread.Terminate;
-    //GetSoftSHA1Thread.WaitFor; Don't wait
-  end;
-  // GetSoftSHA1Thread.Free; Auto freed with FreeOnTerminate
+  CacheDataStop;
 
   if (TempFolder = '') or (not Assigned(SystemManager)) then
     Exit;
@@ -151,6 +146,18 @@ begin
   GetSoftSHA1Thread.TempFolder := TempFolder;
   GetSoftSHA1Thread.SystemManager := SystemManager;
   GetSoftSHA1Thread.Start;
+end;
+
+procedure cEmuteca.CacheDataStop;
+begin
+  if assigned(GetSoftSHA1Thread) then
+  begin
+    GetSoftSHA1Thread.OnTerminate := nil; // Be sure that it isn't nil
+    GetSoftSHA1Thread.Terminate;
+    GetSoftSHA1Thread.WaitFor;
+    // GetSoftSHA1Thread.Free; Auto freed with FreeOnTerminate
+    GetSoftSHA1Thread := nil;
+  end;
 end;
 
 procedure cEmuteca.UpdateSysEmulators;
@@ -552,15 +559,7 @@ end;
 
 destructor cEmuteca.Destroy;
 begin
-  // If we are still caching SHA1...
-  // Teminate thread if it's running
-  if assigned(GetSoftSHA1Thread) then
-  begin
-    GetSoftSHA1Thread.OnTerminate := nil;
-    GetSoftSHA1Thread.Terminate;
-    GetSoftSHA1Thread.WaitFor;
-  end;
-  // GetSoftSHA1Thread.Free; Auto freed with FreeOnTerminate
+  CacheDataStop;
 
   // Deleting temp folder
   // TODO: Crappy segurity check... :-(

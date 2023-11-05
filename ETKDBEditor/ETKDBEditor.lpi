@@ -5,6 +5,7 @@
     <PathDelim Value="\"/>
     <General>
       <SessionStorage Value="InProjectDir"/>
+      <AutoCreateForms Value="False"/>
       <Title Value="ETKDBEditor"/>
       <Scaled Value="True"/>
       <ResourceType Value="res"/>
@@ -27,7 +28,7 @@
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="1"/>
       <RevisionNr Value="2"/>
-      <BuildNr Value="4"/>
+      <BuildNr Value="5"/>
     </VersionInfo>
     <BuildModes>
       <Item Name="Debug" Default="True"/>
@@ -40,7 +41,7 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="src\forms;..\CHXPas\Forms;..\CHXPas\Frames;src\frames;..\CHXPas\Units;..\CHXPas\Misc;src\units;..\EmutecaCore\Units"/>
+            <OtherUnitFiles Value="..\CHXPas\Forms;..\CHXPas\Frames;..\CHXPas\Units;..\EmutecaCore\Units;src\forms;src\frames;src\units"/>
             <UnitOutputDirectory Value="..\lib\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
@@ -125,10 +126,6 @@
         <IsPartOfProject Value="True"/>
       </Unit>
       <Unit>
-        <Filename Value="..\CHXPas\Misc\uVersionSupport.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit>
-      <Unit>
         <Filename Value="src\units\uETKDBEConst.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit>
@@ -138,6 +135,14 @@
       </Unit>
       <Unit>
         <Filename Value="..\EmutecaCore\Units\uEmutecaConst.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\CHXPas\Units\uCHXVerInfo.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="src\units\uETKDBERscStr.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit>
     </Units>
@@ -150,7 +155,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="src\forms;..\CHXPas\Forms;..\CHXPas\Frames;src\frames;..\CHXPas\Units;..\CHXPas\Misc;src\units;..\EmutecaCore\Units"/>
+      <OtherUnitFiles Value="..\CHXPas\Forms;..\CHXPas\Frames;..\CHXPas\Units;..\EmutecaCore\Units;src\forms;src\frames;src\units"/>
       <UnitOutputDirectory Value="..\lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>

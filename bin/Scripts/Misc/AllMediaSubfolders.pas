@@ -1,12 +1,13 @@
 { Emuteca Script
 [Info]
-This script moves ALL files to subfolders with its name, but
-  removing parentesis in folder's name.
+This script moves ALL files to subfolders with its name, but removing
+  parentesis in folder's name.
   
 Useful for media files of "Ads", "Reviews", "Maps" and "Other" folders,
   as the info in parentesis can be interesting.
   
-Don't confuse with RemoveParentesis.pas wich can be useful for other media folders.
+Don't confuse with RemoveParentesis.pas wich can be useful for other
+  media folders.
 
 For example: GameName (Magazine XX - Section YY).ext
  * It will renamed to: GameName/GameName (Magazine XX - Section YY).ext
@@ -24,7 +25,7 @@ Date=20230108
 
 [EndInfo]
 }
-program RemoveParentesis;
+program AllMediaSubfolders;
 
 //uses uETKFileUtils;
 {$I '../Units/uETKFileUtils.pas'}
@@ -57,7 +58,7 @@ begin
   begin
     aFolder := ExtractFilePath(AFileList[i]);
     aFile := RemoveFromBrackets(ExtractFilenameOnly(AFileList[i]));
-    // Windows bug fix: Folder names ended in a dot '.' cause some problems
+    // Windows BUG FIX: Folder names ended in a dot '.' cause some problems
     //   creating and deleting them. Emuteca actually change them in SortName
     //   automatically.
     if aFile[Length(aFile)] = '.' then

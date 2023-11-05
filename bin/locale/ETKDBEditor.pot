@@ -35,6 +35,10 @@ msgstr ""
 msgid "Toggles edit on cell select.|Faster cell edit, but multiple cells can't be selected."
 msgstr ""
 
+#: tfmetkdbeditor.lfastmove.caption
+msgid "Fast Move to Column"
+msgstr ""
+
 #: tfmetkdbeditor.sbmain.panels[1].text
 msgid "NO Fast Edit: CTRL+A: Paste a cell in multiple selected cells."
 msgstr ""
@@ -148,6 +152,10 @@ msgstr ""
 msgid "Save changes"
 msgstr ""
 
+#: uchxverinfo.chxversionnoinfo
+msgid "No build information available"
+msgstr ""
+
 #: uemutecarscstr.rscachinggroups
 msgid "Caching software groups"
 msgstr ""
@@ -227,8 +235,12 @@ msgstr ""
 msgid "This file is already added."
 msgstr ""
 
+#: uemutecarscstr.rsfilemaskdescdb
+msgid "Emuteca DB files (*.csv,*.egl)"
+msgstr ""
+
 #: uemutecarscstr.rsfilemaskdescgroup
-msgid "Group list files  (*.egl)"
+msgid "Group list files (*.egl)"
 msgstr ""
 
 #: uemutecarscstr.rsfilemaskdescini
@@ -240,7 +252,7 @@ msgid "Script files (*.pas)"
 msgstr ""
 
 #: uemutecarscstr.rsfilemaskdescsoft
-msgid "Soft list files  (*.csv)"
+msgid "Soft list files (*.csv)"
 msgstr ""
 
 #: uemutecarscstr.rsfilemaskdesctxt
@@ -369,5 +381,10 @@ msgstr ""
 #: uemutecarscstr.rsunknown
 msgctxt "uemutecarscstr.rsunknown"
 msgid "Unknown"
+msgstr ""
+
+#: uetkdberscstr.rscellinfofmt
+#, object-pascal-format
+msgid "%d : %d [%d rows]"
 msgstr ""
 
