@@ -4,7 +4,7 @@ inherited frmETKGUIMain: TfrmETKGUIMain
   Top = 115
   Width = 1024
   Caption = 'Main'
-  ClientHeight = 675
+  ClientHeight = 700
   ClientWidth = 1024
   Menu = MainMenu
   OnCloseQuery = FormCloseQuery
@@ -15,7 +15,7 @@ inherited frmETKGUIMain: TfrmETKGUIMain
   object stbHelp: TStatusBar[0]
     Left = 4
     Height = 29
-    Top = 642
+    Top = 667
     Width = 1016
     AutoHint = True
     Panels = <>
@@ -193,9 +193,6 @@ inherited frmETKGUIMain: TfrmETKGUIMain
       end
       object Separator1: TMenuItem
         Caption = '-'
-      end
-      object mimmRunDBEditor: TMenuItem
-        Action = actRunDBEditor
       end
       object mimmRunDBEditorGroups: TMenuItem
         Action = actRunDBEditorGroups
@@ -389,12 +386,6 @@ inherited frmETKGUIMain: TfrmETKGUIMain
       Caption = 'Exit without saving'
       Hint = 'Exit Emuteca|Exits Emuteca without saving changes.'
       OnExecute = actExitWOSavingExecute
-    end
-    object actRunDBEditor: TAction
-      Category = 'Tools'
-      Caption = 'DB Editor'
-      Hint = 'Run EDEditor without DB loaded.'
-      OnExecute = actRunDBEditorExecute
     end
     object actRunDBEditorGroups: TAction
       Category = 'Tools'

@@ -242,6 +242,7 @@ begin
   aText := UTF8TextReplace(aText, #13#10, krsValueSeparator);
   aText := UTF8TextReplace(aText, #13, krsValueSeparator);
   aText := UTF8TextReplace(aText, #10, krsValueSeparator);
+  aText := FormatCellText(aText);
 
   i := sgMain.Selection.Top;
   while i <= sgMain.Selection.Bottom do

@@ -142,7 +142,7 @@ begin
 
   if iNotCached > 0 then
   begin
-    // Actually, this maybe is not the current chaching software
+    // Actually, this maybe is not the current caching software
     aSoft := System.SoftManager.FullList[iNotCached];
     lWarning.Caption := Format(rsExportingNoSHA1,
       [aSoft.Folder, aSoft.FileName, iNotCached,

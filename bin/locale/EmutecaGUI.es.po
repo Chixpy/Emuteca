@@ -2103,14 +2103,6 @@ msgstr ""
 msgid "Remove software from list"
 msgstr ""
 
-#: tfrmetkguimain.actrundbeditor.caption
-msgid "DB Editor"
-msgstr ""
-
-#: tfrmetkguimain.actrundbeditor.hint
-msgid "Run EDEditor without DB loaded."
-msgstr ""
-
 #: tfrmetkguimain.actrundbeditorgroups.caption
 msgid "DB Editor with Group List"
 msgstr ""
@@ -2540,9 +2532,13 @@ msgctxt "uemutecarscstr.rsfilealreadyadded"
 msgid "This file is already added."
 msgstr "El fichero ya está añadido."
 
+#: uemutecarscstr.rsfilemaskdescdb
+msgid "Emuteca DB files (*.csv,*.egl)"
+msgstr ""
+
 #: uemutecarscstr.rsfilemaskdescgroup
 msgctxt "uemutecarscstr.rsfilemaskdescgroup"
-msgid "Group list files  (*.egl)"
+msgid "Group list files (*.egl)"
 msgstr ""
 
 #: uemutecarscstr.rsfilemaskdescini
@@ -2557,7 +2553,7 @@ msgstr ""
 
 #: uemutecarscstr.rsfilemaskdescsoft
 msgctxt "uemutecarscstr.rsfilemaskdescsoft"
-msgid "Soft list files  (*.csv)"
+msgid "Soft list files (*.csv)"
 msgstr ""
 
 #: uemutecarscstr.rsfilemaskdesctxt

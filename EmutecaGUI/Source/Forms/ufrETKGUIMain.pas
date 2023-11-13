@@ -64,7 +64,6 @@ type
     actCopyFileName2ClipBoard: TAction;
     actRunDBEditorSoft: TAction;
     actRunDBEditorGroups: TAction;
-    actRunDBEditor: TAction;
     actRunETKIconBorderLogo: TAction;
     actRunETKIconBorderIcon: TAction;
     actRemoveSoft: TAction;
@@ -90,7 +89,6 @@ type
     mipmSCopyFileName2ClipBoard: TMenuItem;
     mimmRunDBEditorSoft: TMenuItem;
     mimmRunDBEditorGroups: TMenuItem;
-    mimmRunDBEditor: TMenuItem;
     mimmExit: TMenuItem;
     mimmRunETKIconBorderIcon: TMenuItem;
     mimmRunETKIconBorderLogo: TMenuItem;
@@ -826,7 +824,7 @@ var
   SysPBCB: TEmutecaProgressCallBack;
   aFileWOExt: string;
   sError, sOutput: string;
-  ExitC: integer;
+  iNotCached, ExitC: LongInt;
 begin
   if not FileExistsUTF8(GUIConfig.DBEditor) then
   begin
@@ -834,9 +832,22 @@ begin
     Exit;
   end;
 
-  if CurrentSystem = nil then
+  if not assigned(CurrentSystem) then
   begin
     ShowMessage(rsSelectSystem);
+    Exit;
+  end;
+
+  iNotCached := CurrentSystem.IsSoftSHA1Cached;
+
+  if iNotCached > 0 then
+  begin
+    // TODO: Actually this is not current file.
+    ShowMessageFmt(rsExportingNoSHA1,
+      [CurrentSystem.SoftManager.FullList[iNotCached].Folder,
+      CurrentSystem.SoftManager.FullList[iNotCached].FileName,
+      iNotCached,
+      CurrentSystem.SoftManager.FullList.Count]);
     Exit;
   end;
 

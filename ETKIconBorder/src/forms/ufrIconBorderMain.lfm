@@ -147,9 +147,9 @@ inherited frmIconBorder: TfrmIconBorder
         Height = 138
         Top = 0
         Width = 276
-        ActivePage = pagReplaceInput
+        ActivePage = pagSelectInput
         Align = alClient
-        TabIndex = 4
+        TabIndex = 1
         TabOrder = 0
         OnChange = pgcImageInputChange
         object pagCommonInput: TTabSheet
@@ -694,6 +694,9 @@ inherited frmIconBorder: TfrmIconBorder
         Height = 1
         Top = 0
         Width = 1
+        OnMouseDown = pbxOutputImageMouseDown
+        OnMouseMove = pbxOutputImageMouseMove
+        OnMouseUp = pbxOutputImageMouseUp
         OnPaint = pbxOutputImagePaint
       end
     end
