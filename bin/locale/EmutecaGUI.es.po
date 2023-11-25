@@ -2425,6 +2425,10 @@ msgstr ""
 msgid "No build information available"
 msgstr ""
 
+#: uemutecarscstr.rsaddingfiles
+msgid "Adding files"
+msgstr ""
+
 #: uemutecarscstr.rscachinggroups
 msgid "Caching software groups"
 msgstr ""
@@ -2655,6 +2659,10 @@ msgstr "Cargando lista de software..."
 msgctxt "uemutecarscstr.rsloadingsystemlist"
 msgid "Loading system list..."
 msgstr "Cargando lista de sistemas..."
+
+#: uemutecarscstr.rsmakingfilelist
+msgid "Making list of all files"
+msgstr ""
 
 #: uemutecarscstr.rsnever
 #, fuzzy

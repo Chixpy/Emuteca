@@ -28,30 +28,47 @@ type
   { TfmETKDBEditor }
 
   TfmETKDBEditor = class(TfmCHXFrame)
+    actReplace : TAction;
     alMain : TActionList;
     actExit : TFileExit;
     actOpenFile : TFileOpen;
     actSaveFile : TFileSaveAs;
     bExit : TButton;
     bOpenFile : TButton;
+    bReplace : TButton;
     bSaveFile : TButton;
     cbxFastMove : TComboBox;
+    cbxColReplace : TComboBox;
+    chk1Col : TCheckBox;
     chkFastEditMode : TCheckBox;
+    eReplace : TEdit;
+    eReplaceWith : TEdit;
     ilMain : TImageList;
     lFastMove : TLabel;
+    lReplace : TLabel;
+    lReplaceWith : TLabel;
+    lInColumn : TLabel;
     mimmExit : TMenuItem;
     mimmSave : TMenuItem;
     mimmOpen : TMenuItem;
     mimmFile : TMenuItem;
-    pButtons : TPanel;
+    pcRubber : TPageControl;
     pFastMove : TPanel;
+    pReplace : TPanel;
+    pReplaceWith : TPanel;
+    pReplaceIn : TPanel;
     sbMain : TStatusBar;
     Separator1 : TMenuItem;
     sgMain : TStringGrid;
+    tsReplace : TTabSheet;
+    tsEdit : TTabSheet;
+    tsFile : TTabSheet;
     procedure actOpenFileAccept(Sender : TObject);
     procedure actOpenFileBeforeExecute(Sender : TObject);
+    procedure actReplaceExecute(Sender : TObject);
     procedure actSaveFileAccept(Sender : TObject);
     procedure actSaveFileBeforeExecute(Sender : TObject);
+    procedure chk1ColChange(Sender : TObject);
     procedure chkFastEditModeChange(Sender : TObject);
     procedure sgMainGetCellHint(Sender : TObject; ACol, ARow : integer;
       var HintText : string);
@@ -121,6 +138,25 @@ begin
   end;
 end;
 
+procedure TfmETKDBEditor.actReplaceExecute(Sender : TObject);
+var
+  i : LongInt;
+  aText: String;
+begin
+  if eReplace.Text = '' then Exit;
+
+  i := 1; //Don't replace header
+  while i < sgMain.RowCount do
+  begin
+    aText := sgMain.Cells[cbxColReplace.ItemIndex, i];
+    // Case sensitive replace
+    aText := UTF8StringReplace(aText, eReplace.Text, eReplaceWith.Text,
+      [rfReplaceAll]);
+    sgMain.Cells[cbxColReplace.ItemIndex, i] := FormatCellText(aText);
+    Inc(i);
+  end;
+end;
+
 procedure TfmETKDBEditor.actSaveFileAccept(Sender : TObject);
 begin
   // FCurrFile, so we don't load it's contents again
@@ -138,6 +174,14 @@ begin
 
   actSaveFile.Dialog.FileName := SysPath(CurrFile);
   actSaveFile.Dialog.InitialDir := ExtractFileDir(actSaveFile.Dialog.FileName);
+end;
+
+procedure TfmETKDBEditor.chk1ColChange(Sender : TObject);
+begin
+  if (sgMain.ColCount > 0) and (not chk1Col.Checked) then
+    sgMain.FixedCols := 1
+  else
+    sgMain.FixedCols := 0;
 end;
 
 procedure TfmETKDBEditor.chkFastEditModeChange(Sender : TObject);
@@ -314,6 +358,12 @@ function TfmETKDBEditor.FormatCellText(aText : string) : string;
 begin
   Result := aText;
 
+  // Removing line endings
+  Result := UTF8TextReplace(Result, #9, krsValueSeparator);
+  Result := UTF8TextReplace(Result, #13#10, krsValueSeparator);
+  Result := UTF8TextReplace(Result, #13, krsValueSeparator);
+  Result := UTF8TextReplace(Result, #10, krsValueSeparator);
+
   // Removing double spaces
   while UTF8Pos('  ', Result) > 0 do
     Result := UTF8TextReplace(Result, '  ', ' ');
@@ -324,7 +374,7 @@ begin
   while UTF8Pos('||', Result) > 0 do
     Result := UTF8TextReplace(Result, '||', '|');
 
-  // Removing spaces and separators at
+  // Removing spaces and separators at begining and ending
   while (not Result.IsEmpty) and ((Result[1] = ' ') or (Result[1] = '|')) do
     Result := Copy(Result, 2, Length(Result));
   while (not Result.IsEmpty) and ((Result[Length(Result)] = ' ') or
@@ -362,16 +412,20 @@ begin
   begin
     sgMain.FixedRows := 1;
 
-    if sgMain.ColCount > 0 then
-      sgMain.FixedCols := 1;
+    if (sgMain.ColCount > 0) and (not chk1Col.Checked) then
+      sgMain.FixedCols := 1
+    else
+      sgMain.FixedCols := 0;
 
     i := 0;
     while i < sgMain.ColCount do
     begin
       cbxFastMove.AddItem(sgMain.Cells[i, 0], nil);
+      cbxColReplace.AddItem(sgMain.Cells[i, 0], nil);
       Inc(i);
     end;
     cbxFastMove.ItemIndex := 0;
+    cbxColReplace.ItemIndex := 0;
   end;
 
   sbMain.Panels[0].Text := Format(rsCellInfoFmt, [0, 0, sgMain.RowCount]);
@@ -387,6 +441,8 @@ begin
     rsFileMaskDescDB + '|' + krsFileMaskGroup + ';' + krsFileMaskSoft +
     '|' + rsFileDlgMaskDef;
   actSaveFile.Dialog.Filter := actOpenFile.Dialog.Filter;
+
+  pcRubber.ActivePageIndex := 0; // Always first page
 
   Enabled := True;
 end;

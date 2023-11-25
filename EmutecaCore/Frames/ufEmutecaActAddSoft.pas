@@ -34,49 +34,49 @@ type
   { TfmEmutecaActAddSoft }
 
   TfmEmutecaActAddSoft = class(TfmCHXPropEditor)
-    actAddNewGroup: TAction;
-    bAddNewGroup: TSpeedButton;
-    cbxInnerFile: TComboBox;
-    chkOpenAsArchive: TCheckBox;
-    eFile: TFileNameEdit;
-    eVersionKey: TEdit;
-    gbxFileSelection: TGroupBox;
-    gbxDuplicates: TGroupBox;
-    gbxGroup: TGroupBox;
-    gbxSelectSystem: TGroupBox;
-    gbxSoftInfo: TGroupBox;
-    lCompressedError: TLabel;
-    lDupFile: TLabel;
-    lSystemInfo: TLabel;
-    pInfo: TPanel;
-    pSelectFile: TPanel;
-    rgbSoftKey: TRadioGroup;
-    Splitter1: TSplitter;
-    procedure actAddNewGroupExecute(Sender: TObject);
-    procedure cbxInnerFileChange(Sender: TObject);
-    procedure chkOpenAsArchiveChange(Sender: TObject);
-    procedure eFileAcceptFileName(Sender: TObject; var Value: string);
-    procedure eFileEditingDone(Sender: TObject);
-    procedure eVersionKeyEditingDone(Sender: TObject);
-    procedure rgbSoftKeySelectionChanged(Sender: TObject);
+    actAddNewGroup : TAction;
+    bAddNewGroup : TSpeedButton;
+    cbxInnerFile : TComboBox;
+    chkOpenAsArchive : TCheckBox;
+    eFile : TFileNameEdit;
+    eVersionKey : TEdit;
+    gbxFileSelection : TGroupBox;
+    gbxDuplicates : TGroupBox;
+    gbxGroup : TGroupBox;
+    gbxSelectSystem : TGroupBox;
+    gbxSoftInfo : TGroupBox;
+    lCompressedError : TLabel;
+    lDupFile : TLabel;
+    lSystemInfo : TLabel;
+    pInfo : TPanel;
+    pSelectFile : TPanel;
+    rgbSoftKey : TRadioGroup;
+    Splitter1 : TSplitter;
+    procedure actAddNewGroupExecute(Sender : TObject);
+    procedure cbxInnerFileChange(Sender : TObject);
+    procedure chkOpenAsArchiveChange(Sender : TObject);
+    procedure eFileAcceptFileName(Sender : TObject; var Value : string);
+    procedure eFileEditingDone(Sender : TObject);
+    procedure eVersionKeyEditingDone(Sender : TObject);
+    procedure rgbSoftKeySelectionChanged(Sender : TObject);
 
   private
-    FfmSystemCBX: TfmEmutecaSystemCBX;
-    FfmSoftEditor: TfmEmutecaSoftEditor;
+    FfmSystemCBX : TfmEmutecaSystemCBX;
+    FfmSoftEditor : TfmEmutecaSoftEditor;
 
   private
-    FEmuteca: cEmuteca;
-    FfmGroupCBX: TfmEmutecaGroupCBX;
-    FSoftware: cEmutecaSoftware;
-    procedure SetEmuteca(AValue: cEmuteca);
-    procedure SetSoftware(AValue: cEmutecaSoftware);
+    FEmuteca : cEmuteca;
+    FfmGroupCBX : TfmEmutecaGroupCBX;
+    FSoftware : cEmutecaSoftware;
+    procedure SetEmuteca(AValue : cEmuteca);
+    procedure SetSoftware(AValue : cEmutecaSoftware);
 
   protected
-    property fmSoftEditor: TfmEmutecaSoftEditor read FfmSoftEditor;
-    property fmSystemCBX: TfmEmutecaSystemCBX read FfmSystemCBX;
-    property fmGroupCBX: TfmEmutecaGroupCBX read FfmGroupCBX;
+    property fmSoftEditor : TfmEmutecaSoftEditor read FfmSoftEditor;
+    property fmSystemCBX : TfmEmutecaSystemCBX read FfmSystemCBX;
+    property fmGroupCBX : TfmEmutecaGroupCBX read FfmGroupCBX;
 
-    property Software: cEmutecaSoftware read FSoftware write SetSoftware;
+    property Software : cEmutecaSoftware read FSoftware write SetSoftware;
 
     procedure SelectFile;
     procedure UpdateFileData;
@@ -84,23 +84,23 @@ type
     procedure UpdateSoftKey;
     procedure UpdateDupInfo;
 
-    procedure SelectSystem(aSystem: cEmutecaSystem);
-    procedure SelectGroup(aGroup: cEmutecaGroup);
+    procedure SelectSystem(aSystem : cEmutecaSystem);
+    procedure SelectGroup(aGroup : cEmutecaGroup);
 
 
   public
-    property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
+    property Emuteca : cEmuteca read FEmuteca write SetEmuteca;
 
     procedure ClearFrameData; override;
     procedure LoadFrameData; override;
     procedure SaveFrameData; override;
 
-    class function SimpleForm(aEmuteca: cEmuteca;
-      SelectedSystem: cEmutecaSystem;
-      const aGUIConfigIni, aGUIIconsIni: string): integer;
+    class function SimpleForm(aEmuteca : cEmuteca;
+      SelectedSystem : cEmutecaSystem;
+      const aGUIConfigIni, aGUIIconsIni : string) : integer;
     //< Creates a form with TfmEmutecaActAddSoft frame.
 
-    constructor Create(TheOwner: TComponent); override;
+    constructor Create(TheOwner : TComponent); override;
     destructor Destroy; override;
   end;
 
@@ -176,7 +176,7 @@ end;
 
 procedure TfmEmutecaActAddSoft.UpdateSoftKey;
 var
-  aFile: string;
+  aFile : string;
 begin
   // We use selected rgbSoftKey, not system default
   if not chkOpenAsArchive.Checked then
@@ -229,9 +229,9 @@ end;
 
 procedure TfmEmutecaActAddSoft.UpdateDupInfo;
 var
-  aSoftList: cEmutecaSoftList;
-  i: integer;
-  FoundFile: boolean;
+  aSoftList : cEmutecaSoftList;
+  i : integer;
+  FoundFile : boolean;
 begin
   lDupFile.Caption := '';
 
@@ -254,9 +254,9 @@ begin
     lDupFile.Caption := rsFileAlreadyAdded;
 end;
 
-procedure TfmEmutecaActAddSoft.SelectSystem(aSystem: cEmutecaSystem);
+procedure TfmEmutecaActAddSoft.SelectSystem(aSystem : cEmutecaSystem);
 var
-  ExtFilter: string;
+  ExtFilter : string;
 begin
   fmSoftEditor.Software := nil;
 
@@ -305,21 +305,21 @@ begin
   UpdateSoftKey;
 end;
 
-procedure TfmEmutecaActAddSoft.SelectGroup(aGroup: cEmutecaGroup);
+procedure TfmEmutecaActAddSoft.SelectGroup(aGroup : cEmutecaGroup);
 begin
   Software.CachedGroup := aGroup;
 end;
 
-procedure TfmEmutecaActAddSoft.cbxInnerFileChange(Sender: TObject);
+procedure TfmEmutecaActAddSoft.cbxInnerFileChange(Sender : TObject);
 begin
   UpdateInnerFileData;
 end;
 
-procedure TfmEmutecaActAddSoft.actAddNewGroupExecute(Sender: TObject);
+procedure TfmEmutecaActAddSoft.actAddNewGroupExecute(Sender : TObject);
 var
-  GroupTitle: string;
-  aGroup: cEmutecaGroup;
-  aSystem: cEmutecaSystem;
+  GroupTitle : string;
+  aGroup : cEmutecaGroup;
+  aSystem : cEmutecaSystem;
 begin
   if not Assigned(Software) then Exit;
   if not Assigned(Software.CachedSystem) then Exit;
@@ -345,9 +345,9 @@ begin
   Software.CachedGroup := aGroup;
 end;
 
-procedure TfmEmutecaActAddSoft.chkOpenAsArchiveChange(Sender: TObject);
+procedure TfmEmutecaActAddSoft.chkOpenAsArchiveChange(Sender : TObject);
 
-  procedure AnError(aText: string);
+  procedure AnError(aText : string);
   begin
     lCompressedError.Caption := aText;
     chkOpenAsArchive.Checked := False;
@@ -395,8 +395,8 @@ begin
   end;
 end;
 
-procedure TfmEmutecaActAddSoft.eFileAcceptFileName(Sender: TObject;
-  var Value: string);
+procedure TfmEmutecaActAddSoft.eFileAcceptFileName(Sender : TObject;
+  var Value : string);
 begin
   // It's called before Text is updated
   eFile.Text := Value;
@@ -404,22 +404,22 @@ begin
   SelectFile;
 end;
 
-procedure TfmEmutecaActAddSoft.eFileEditingDone(Sender: TObject);
+procedure TfmEmutecaActAddSoft.eFileEditingDone(Sender : TObject);
 begin
   SelectFile;
 end;
 
-procedure TfmEmutecaActAddSoft.eVersionKeyEditingDone(Sender: TObject);
+procedure TfmEmutecaActAddSoft.eVersionKeyEditingDone(Sender : TObject);
 begin
   Software.ID := eVersionKey.Text;
 end;
 
-procedure TfmEmutecaActAddSoft.rgbSoftKeySelectionChanged(Sender: TObject);
+procedure TfmEmutecaActAddSoft.rgbSoftKeySelectionChanged(Sender : TObject);
 begin
   UpdateSoftKey;
 end;
 
-procedure TfmEmutecaActAddSoft.SetEmuteca(AValue: cEmuteca);
+procedure TfmEmutecaActAddSoft.SetEmuteca(AValue : cEmuteca);
 begin
   if FEmuteca = AValue then
     Exit;
@@ -436,7 +436,7 @@ begin
   LoadFrameData;
 end;
 
-procedure TfmEmutecaActAddSoft.SetSoftware(AValue: cEmutecaSoftware);
+procedure TfmEmutecaActAddSoft.SetSoftware(AValue : cEmutecaSoftware);
 begin
   if FSoftware = AValue then
     Exit;
@@ -473,20 +473,27 @@ end;
 
 procedure TfmEmutecaActAddSoft.SaveFrameData;
 var
-  aSystem: cEmutecaSystem;
+  aSystem : cEmutecaSystem;
 begin
   inherited SaveFrameData;
+
+  if not assigned(Emuteca) then
+    Exit;
 
   fmSoftEditor.SaveFrameData;
 
   // No group was assigned
   if not Assigned(Software.CachedGroup) then
-    Software.GroupKey:=Software.Title;
+    Software.GroupKey := Software.Title;
 
   aSystem := cEmutecaSystem(Software.CachedSystem);
 
   if not assigned(aSystem) then
     Exit;
+
+  // Loading data if not already loaded
+  Emuteca.CacheDataStop;
+  Emuteca.SystemManager.LoadSystemData(aSystem);
 
   aSystem.AddSoft(Software);
 
@@ -500,11 +507,11 @@ begin
   fmSoftEditor.Software := Software;
 end;
 
-class function TfmEmutecaActAddSoft.SimpleForm(aEmuteca: cEmuteca;
-  SelectedSystem: cEmutecaSystem;
-  const aGUIConfigIni, aGUIIconsIni: string): integer;
+class function TfmEmutecaActAddSoft.SimpleForm(aEmuteca : cEmuteca;
+  SelectedSystem : cEmutecaSystem;
+  const aGUIConfigIni, aGUIIconsIni : string) : integer;
 var
-  aFrame: TfmEmutecaActAddSoft;
+  aFrame : TfmEmutecaActAddSoft;
 begin
   aFrame := TfmEmutecaActAddSoft.Create(nil);
   aFrame.SaveButtons := True;
@@ -521,7 +528,7 @@ begin
     aGUIConfigIni, aGUIIconsIni);
 end;
 
-constructor TfmEmutecaActAddSoft.Create(TheOwner: TComponent);
+constructor TfmEmutecaActAddSoft.Create(TheOwner : TComponent);
 
   procedure CreateFrames;
   begin

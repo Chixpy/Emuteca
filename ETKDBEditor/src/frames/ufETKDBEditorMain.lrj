@@ -1,12 +1,20 @@
 {"version":1,"strings":[
 {"hash":128983758,"name":"tfmetkdbeditor.sbmain.panels[1].text","sourcebytes":[78,79,32,70,97,115,116,32,69,100,105,116,58,32,67,84,82,76,43,65,58,32,80,97,115,116,101,32,97,32,99,101,108,108,32,105,110,32,109,117,108,116,105,112,108,101,32,115,101,108,101,99,116,101,100,32,99,101,108,108,115,46],"value":"NO Fast Edit: CTRL+A: Paste a cell in multiple selected cells."},
+{"hash":315429,"name":"tfmetkdbeditor.tsfile.caption","sourcebytes":[70,105,108,101],"value":"File"},
+{"hash":310020,"name":"tfmetkdbeditor.tsedit.caption","sourcebytes":[69,100,105,116],"value":"Edit"},
+{"hash":145115756,"name":"tfmetkdbeditor.chk1col.caption","sourcebytes":[49,115,116,32,67,111,108],"value":"1st Col"},
 {"hash":142890366,"name":"tfmetkdbeditor.chkfasteditmode.hint","sourcebytes":[84,111,103,103,108,101,115,32,101,100,105,116,32,111,110,32,99,101,108,108,32,115,101,108,101,99,116,46,124,70,97,115,116,101,114,32,99,101,108,108,32,101,100,105,116,44,32,98,117,116,32,109,117,108,116,105,112,108,101,32,99,101,108,108,115,32,99,97,110,39,116,32,98,101,32,115,101,108,101,99,116,101,100,46],"value":"Toggles edit on cell select.|Faster cell edit, but multiple cells can't be selected."},
 {"hash":147032789,"name":"tfmetkdbeditor.chkfasteditmode.caption","sourcebytes":[70,97,115,116,32,69,100,105,116,32,77,111,100,101],"value":"Fast Edit Mode"},
-{"hash":250158254,"name":"tfmetkdbeditor.lfastmove.caption","sourcebytes":[70,97,115,116,32,77,111,118,101,32,116,111,32,67,111,108,117,109,110],"value":"Fast Move to Column"},
+{"hash":17126670,"name":"tfmetkdbeditor.lfastmove.caption","sourcebytes":[65,76,84,43,65,32,67,111,108,117,109,110],"value":"ALT+A Column"},
+{"hash":147269573,"name":"tfmetkdbeditor.tsreplace.caption","sourcebytes":[82,101,112,108,97,99,101],"value":"Replace"},
+{"hash":147269573,"name":"tfmetkdbeditor.lreplace.caption","sourcebytes":[82,101,112,108,97,99,101],"value":"Replace"},
+{"hash":217821912,"name":"tfmetkdbeditor.lreplacewith.caption","sourcebytes":[82,101,112,108,97,99,101,32,119,105,116,104],"value":"Replace with"},
+{"hash":78007358,"name":"tfmetkdbeditor.lincolumn.caption","sourcebytes":[105,110,32,67,111,108,117,109,110],"value":"in Column"},
 {"hash":315140,"name":"tfmetkdbeditor.actexit.caption","sourcebytes":[69,120,105,116],"value":"Exit"},
 {"hash":5866242,"name":"tfmetkdbeditor.actexit.hint","sourcebytes":[83,97,108,105,114],"value":"Salir"},
 {"hash":107745630,"name":"tfmetkdbeditor.actopenfile.caption","sourcebytes":[79,112,101,110,46,46,46],"value":"Open..."},
 {"hash":83933006,"name":"tfmetkdbeditor.actopenfile.hint","sourcebytes":[79,112,101,110,115,32,97,32,102,105,108,101,46],"value":"Opens a file."},
 {"hash":160203102,"name":"tfmetkdbeditor.actsavefile.caption","sourcebytes":[83,97,118,101,46,46,46],"value":"Save..."},
-{"hash":212807327,"name":"tfmetkdbeditor.actsavefile.hint","sourcebytes":[71,117,97,114,100,97,114,32,67,111,109,111],"value":"Guardar Como"}
+{"hash":212807327,"name":"tfmetkdbeditor.actsavefile.hint","sourcebytes":[71,117,97,114,100,97,114,32,67,111,109,111],"value":"Guardar Como"},
+{"hash":147269573,"name":"tfmetkdbeditor.actreplace.caption","sourcebytes":[82,101,112,108,97,99,101],"value":"Replace"}
 ]}

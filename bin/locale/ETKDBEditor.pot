@@ -17,6 +17,11 @@ msgstr ""
 msgid "Opens a file."
 msgstr ""
 
+#: tfmetkdbeditor.actreplace.caption
+msgctxt "tfmetkdbeditor.actreplace.caption"
+msgid "Replace"
+msgstr ""
+
 #: tfmetkdbeditor.actsavefile.caption
 msgctxt "tfmetkdbeditor.actsavefile.caption"
 msgid "Save..."
@@ -25,6 +30,10 @@ msgstr ""
 #: tfmetkdbeditor.actsavefile.hint
 msgctxt "tfmetkdbeditor.actsavefile.hint"
 msgid "Guardar Como"
+msgstr ""
+
+#: tfmetkdbeditor.chk1col.caption
+msgid "1st Col"
 msgstr ""
 
 #: tfmetkdbeditor.chkfasteditmode.caption
@@ -36,11 +45,37 @@ msgid "Toggles edit on cell select.|Faster cell edit, but multiple cells can't b
 msgstr ""
 
 #: tfmetkdbeditor.lfastmove.caption
-msgid "Fast Move to Column"
+msgid "ALT+A Column"
+msgstr ""
+
+#: tfmetkdbeditor.lincolumn.caption
+msgid "in Column"
+msgstr ""
+
+#: tfmetkdbeditor.lreplace.caption
+msgctxt "tfmetkdbeditor.lreplace.caption"
+msgid "Replace"
+msgstr ""
+
+#: tfmetkdbeditor.lreplacewith.caption
+msgid "Replace with"
 msgstr ""
 
 #: tfmetkdbeditor.sbmain.panels[1].text
 msgid "NO Fast Edit: CTRL+A: Paste a cell in multiple selected cells."
+msgstr ""
+
+#: tfmetkdbeditor.tsedit.caption
+msgid "Edit"
+msgstr ""
+
+#: tfmetkdbeditor.tsfile.caption
+msgid "File"
+msgstr ""
+
+#: tfmetkdbeditor.tsreplace.caption
+msgctxt "tfmetkdbeditor.tsreplace.caption"
+msgid "Replace"
 msgstr ""
 
 #: tfrmchxform.caption
@@ -154,6 +189,10 @@ msgstr ""
 
 #: uchxverinfo.chxversionnoinfo
 msgid "No build information available"
+msgstr ""
+
+#: uemutecarscstr.rsaddingfiles
+msgid "Adding files"
 msgstr ""
 
 #: uemutecarscstr.rscachinggroups
@@ -340,6 +379,10 @@ msgstr ""
 
 #: uemutecarscstr.rsloadingsystemlist
 msgid "Loading system list..."
+msgstr ""
+
+#: uemutecarscstr.rsmakingfilelist
+msgid "Making list of all files"
 msgstr ""
 
 #: uemutecarscstr.rsnever

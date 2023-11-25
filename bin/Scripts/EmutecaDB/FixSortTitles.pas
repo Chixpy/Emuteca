@@ -33,7 +33,8 @@ var
   KEEPSORTTITLE: Boolean;
 
 begin
-  i := AskYesNoCancel('Preview Changes', 'Do you want to only preview changes?');
+  i := AskYesNoCancel('Preview Changes',
+    'Do you want to only preview automatic changes?');
   if i = mrCancel then
   begin
     WriteLn('¡Canceled!');

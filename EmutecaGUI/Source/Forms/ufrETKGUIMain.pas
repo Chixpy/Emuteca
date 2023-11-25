@@ -50,267 +50,272 @@ type
   { TfrmETKGUIMain }
 
   TfrmETKGUIMain = class(TfrmCHXForm)
-    actAddFolder: TAction;
-    actAddSoft: TAction;
-    actCleanSystemData: TAction;
-    actEditEmulator: TAction;
-    actEditSystem: TAction;
-    actEmulatorManager: TAction;
-    actExportSoftData: TAction;
-    ActImages: TImageList;
-    actImportSoftData: TAction;
-    actEditGroup: TAction;
-    actExitWOSaving: TAction;
-    actCopyFileName2ClipBoard: TAction;
-    actRunDBEditorSoft: TAction;
-    actRunDBEditorGroups: TAction;
-    actRunETKIconBorderLogo: TAction;
-    actRunETKIconBorderIcon: TAction;
-    actRemoveSoft: TAction;
-    actOpenEmulatorWeb: TAction;
-    actRunEmulatorAlone: TAction;
-    ActionList: TActionList;
-    actMediaManager: TAction;
-    actMergeGroupFiles: TAction;
-    actOpen7zCacheFolder: TAction;
-    actOpenEmulatorFolder: TAction;
-    actOpenEmutecaFolder: TAction;
-    actOpenSoftFolder: TAction;
-    actOpenSystemBaseFolder: TAction;
-    actOpenTempFolder: TAction;
-    actRunSoftware: TAction;
-    actSaveLists: TAction;
-    actScriptManager: TAction;
-    actSystemManager: TAction;
-    actUpdateGroupList: TAction;
-    actExit: TFileExit;
-    HelpOnHelp1: THelpOnHelp;
-    MainMenu: TMainMenu;
-    mipmSCopyFileName2ClipBoard: TMenuItem;
-    mimmRunDBEditorSoft: TMenuItem;
-    mimmRunDBEditorGroups: TMenuItem;
-    mimmExit: TMenuItem;
-    mimmRunETKIconBorderIcon: TMenuItem;
-    mimmRunETKIconBorderLogo: TMenuItem;
-    mimmTools: TMenuItem;
-    mipmGEditGroup: TMenuItem;
-    MenuItem13: TMenuItem;
-    MenuItem15: TMenuItem;
-    MenuItem2: TMenuItem;
-    MenuItem3: TMenuItem;
-    MenuItem4: TMenuItem;
-    MenuItem5: TMenuItem;
-    MenuItem6: TMenuItem;
-    MenuItem7: TMenuItem;
-    mipmMergeGroupFiles2: TMenuItem;
-    mipmSDeleteSoft: TMenuItem;
-    mimmOpenEmulatorWeb: TMenuItem;
-    mimmSearchInternetE: TMenuItem;
-    mimmSearchInternetS: TMenuItem;
-    mipmGSearchInternet: TMenuItem;
-    mimmRunEmulatorAlone: TMenuItem;
-    mimmAbout: TMenuItem;
-    mimmAddFiles: TMenuItem;
-    mimmAddSoft: TMenuItem;
-    mimmAddSoftFolder: TMenuItem;
-    mimmCleanSystem: TMenuItem;
-    mimmDebug: TMenuItem;
-    mimmEditEmulator: TMenuItem;
-    mimmEditSystem: TMenuItem;
-    mimmEmulator: TMenuItem;
-    mimmEmulatorManager: TMenuItem;
-    mimmExitWSaving: TMenuItem;
-    mimmExport: TMenuItem;
-    mimmFile: TMenuItem;
-    mimmGroup: TMenuItem;
-    mimmHelp: TMenuItem;
-    mimmImport: TMenuItem;
-    mimmImportExport: TMenuItem;
-    mimmManagers: TMenuItem;
-    mimmMediaManager: TMenuItem;
-    mimmOpen7zCacheFolder: TMenuItem;
-    mimmOpenEmulatorFolder: TMenuItem;
-    mimmOpenEmutecaFolder: TMenuItem;
-    mimmOpenSystemBaseFolder: TMenuItem;
-    mimmOpenTempFolder: TMenuItem;
-    mimmSaveLists: TMenuItem;
-    mimmScriptManager: TMenuItem;
-    mimmSoft: TMenuItem;
-    mimmSystem: TMenuItem;
-    mimmSystemManager: TMenuItem;
-    mimmUpdateSystemGroups: TMenuItem;
-    mipmSOpenSoftFolder: TMenuItem;
-    mipmSRunSoft: TMenuItem;
-    pmGroup: TPopupMenu;
-    pmSoft: TPopupMenu;
-    Separator1: TMenuItem;
-    stbHelp: TStatusBar;
-    procedure actAddFolderExecute(Sender: TObject);
-    procedure actAddSoftExecute(Sender: TObject);
-    procedure actCleanSystemDataExecute(Sender: TObject);
-    procedure actCopyFileName2ClipBoardExecute(Sender: TObject);
-    procedure actEditEmulatorExecute(Sender: TObject);
-    procedure actEditGroupExecute(Sender: TObject);
-    procedure actEditSystemExecute(Sender: TObject);
-    procedure actEmulatorManagerExecute(Sender: TObject);
-    procedure actExitWOSavingExecute(Sender: TObject);
-    procedure actExportSoftDataExecute(Sender: TObject);
-    procedure actImportSoftDataExecute(Sender: TObject);
-    procedure actMediaManagerExecute(Sender: TObject);
-    procedure actMergeGroupFilesExecute(Sender: TObject);
-    procedure actOpen7zCacheFolderExecute(Sender: TObject);
-    procedure actOpenEmulatorFolderExecute(Sender: TObject);
-    procedure actOpenEmulatorWebExecute(Sender: TObject);
-    procedure actOpenEmutecaFolderExecute(Sender: TObject);
-    procedure actOpenSoftFolderExecute(Sender: TObject);
-    procedure actOpenSystemBaseFolderExecute(Sender: TObject);
-    procedure actOpenTempFolderExecute(Sender: TObject);
-    procedure actRemoveSoftExecute(Sender: TObject);
-    procedure actRunDBEditorExecute(Sender: TObject);
-    procedure actRunDBEditorGroupsExecute(Sender: TObject);
-    procedure actRunDBEditorSoftExecute(Sender: TObject);
-    procedure actRunEmulatorAloneExecute(Sender: TObject);
-    procedure actRunETKIconBorderIconExecute(Sender: TObject);
-    procedure actRunETKIconBorderLogoExecute(Sender: TObject);
-    procedure actRunSoftwareExecute(Sender: TObject);
-    procedure actSaveListsExecute(Sender: TObject);
-    procedure actScriptManagerExecute(Sender: TObject);
-    procedure actSystemManagerExecute(Sender: TObject);
-    procedure actUpdateGroupListExecute(Sender: TObject);
-    procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
-    procedure FormCreate(Sender: TObject);
-    procedure FormDestroy(Sender: TObject);
-    procedure FormShow(Sender: TObject);
-    procedure HelpOnHelp1Execute(Sender: TObject);
+    actAddFolder : TAction;
+    actAddSoft : TAction;
+    actCleanSystemData : TAction;
+    actEditEmulator : TAction;
+    actEditSystem : TAction;
+    actEmulatorManager : TAction;
+    actExportSoftData : TAction;
+    ActImages : TImageList;
+    actImportSoftData : TAction;
+    actEditGroup : TAction;
+    actExitWOSaving : TAction;
+    actCopyFileName2ClipBoard : TAction;
+    actRunDBEditorSoft : TAction;
+    actRunDBEditorGroups : TAction;
+    actRunETKIconBorderLogo : TAction;
+    actRunETKIconBorderIcon : TAction;
+    actRemoveSoft : TAction;
+    actOpenEmulatorWeb : TAction;
+    actRunEmulatorAlone : TAction;
+    ActionList : TActionList;
+    actMediaManager : TAction;
+    actMergeGroupFiles : TAction;
+    actOpen7zCacheFolder : TAction;
+    actOpenEmulatorFolder : TAction;
+    actOpenEmutecaFolder : TAction;
+    actOpenSoftFolder : TAction;
+    actOpenSystemBaseFolder : TAction;
+    actOpenTempFolder : TAction;
+    actRunSoftware : TAction;
+    actSaveLists : TAction;
+    actScriptManager : TAction;
+    actSystemManager : TAction;
+    actUpdateGroupList : TAction;
+    actExit : TFileExit;
+    HelpOnHelp1 : THelpOnHelp;
+    MainMenu : TMainMenu;
+    mipmSCopyFileName2ClipBoard : TMenuItem;
+    mimmRunDBEditorSoft : TMenuItem;
+    mimmRunDBEditorGroups : TMenuItem;
+    mimmExit : TMenuItem;
+    mimmRunETKIconBorderIcon : TMenuItem;
+    mimmRunETKIconBorderLogo : TMenuItem;
+    mimmTools : TMenuItem;
+    mipmGEditGroup : TMenuItem;
+    MenuItem13 : TMenuItem;
+    MenuItem15 : TMenuItem;
+    MenuItem2 : TMenuItem;
+    MenuItem3 : TMenuItem;
+    MenuItem4 : TMenuItem;
+    MenuItem5 : TMenuItem;
+    MenuItem6 : TMenuItem;
+    MenuItem7 : TMenuItem;
+    mipmMergeGroupFiles2 : TMenuItem;
+    mipmSDeleteSoft : TMenuItem;
+    mimmOpenEmulatorWeb : TMenuItem;
+    mimmSearchInternetE : TMenuItem;
+    mimmSearchInternetS : TMenuItem;
+    mipmGSearchInternet : TMenuItem;
+    mimmRunEmulatorAlone : TMenuItem;
+    mimmAbout : TMenuItem;
+    mimmAddFiles : TMenuItem;
+    mimmAddSoft : TMenuItem;
+    mimmAddSoftFolder : TMenuItem;
+    mimmCleanSystem : TMenuItem;
+    mimmDebug : TMenuItem;
+    mimmEditEmulator : TMenuItem;
+    mimmEditSystem : TMenuItem;
+    mimmEmulator : TMenuItem;
+    mimmEmulatorManager : TMenuItem;
+    mimmExitWSaving : TMenuItem;
+    mimmExport : TMenuItem;
+    mimmFile : TMenuItem;
+    mimmGroup : TMenuItem;
+    mimmHelp : TMenuItem;
+    mimmImport : TMenuItem;
+    mimmImportExport : TMenuItem;
+    mimmManagers : TMenuItem;
+    mimmMediaManager : TMenuItem;
+    mimmOpen7zCacheFolder : TMenuItem;
+    mimmOpenEmulatorFolder : TMenuItem;
+    mimmOpenEmutecaFolder : TMenuItem;
+    mimmOpenSystemBaseFolder : TMenuItem;
+    mimmOpenTempFolder : TMenuItem;
+    mimmSaveLists : TMenuItem;
+    mimmScriptManager : TMenuItem;
+    mimmSoft : TMenuItem;
+    mimmSystem : TMenuItem;
+    mimmSystemManager : TMenuItem;
+    mimmUpdateSystemGroups : TMenuItem;
+    mipmSOpenSoftFolder : TMenuItem;
+    mipmSRunSoft : TMenuItem;
+    pmGroup : TPopupMenu;
+    pmSoft : TPopupMenu;
+    Separator1 : TMenuItem;
+    stbHelp : TStatusBar;
+    procedure actAddFolderExecute(Sender : TObject);
+    procedure actAddSoftExecute(Sender : TObject);
+    procedure actCleanSystemDataExecute(Sender : TObject);
+    procedure actCopyFileName2ClipBoardExecute(Sender : TObject);
+    procedure actEditEmulatorExecute(Sender : TObject);
+    procedure actEditGroupExecute(Sender : TObject);
+    procedure actEditSystemExecute(Sender : TObject);
+    procedure actEmulatorManagerExecute(Sender : TObject);
+    procedure actExitWOSavingExecute(Sender : TObject);
+    procedure actExportSoftDataExecute(Sender : TObject);
+    procedure actImportSoftDataExecute(Sender : TObject);
+    procedure actMediaManagerExecute(Sender : TObject);
+    procedure actMergeGroupFilesExecute(Sender : TObject);
+    procedure actOpen7zCacheFolderExecute(Sender : TObject);
+    procedure actOpenEmulatorFolderExecute(Sender : TObject);
+    procedure actOpenEmulatorWebExecute(Sender : TObject);
+    procedure actOpenEmutecaFolderExecute(Sender : TObject);
+    procedure actOpenSoftFolderExecute(Sender : TObject);
+    procedure actOpenSystemBaseFolderExecute(Sender : TObject);
+    procedure actOpenTempFolderExecute(Sender : TObject);
+    procedure actRemoveSoftExecute(Sender : TObject);
+    procedure actRunDBEditorExecute(Sender : TObject);
+    procedure actRunDBEditorGroupsExecute(Sender : TObject);
+    procedure actRunDBEditorSoftExecute(Sender : TObject);
+    procedure actRunEmulatorAloneExecute(Sender : TObject);
+    procedure actRunETKIconBorderIconExecute(Sender : TObject);
+    procedure actRunETKIconBorderLogoExecute(Sender : TObject);
+    procedure actRunSoftwareExecute(Sender : TObject);
+    procedure actSaveListsExecute(Sender : TObject);
+    procedure actScriptManagerExecute(Sender : TObject);
+    procedure actSystemManagerExecute(Sender : TObject);
+    procedure actUpdateGroupListExecute(Sender : TObject);
+    procedure FormCloseQuery(Sender : TObject; var CanClose : boolean);
+    procedure FormCreate(Sender : TObject);
+    procedure FormDestroy(Sender : TObject);
+    procedure FormShow(Sender : TObject);
+    procedure HelpOnHelp1Execute(Sender : TObject);
 
   private
-    FBaseFolder: string;
-    FCacheEmuIconsThread: ctETKGUICacheEmuIcons;
-    FCacheGrpIconsThread: ctEGUICacheGrpIcons;
-    FCacheSoftIconsThread: ctEGUICacheSoftIcons;
-    FCacheSysIconsThread: ctEGUICacheSysIcons;
-    FCurrentEmu: cEmutecaEmulator;
-    FCurrentGroup: cEmutecaGroup;
-    FCurrentSoft: cEmutecaSoftware;
-    FCurrentSystem: cEmutecaSystem;
-    FDumpIcons: cCHXImageList;
-    FEmuteca: cEmuteca;
-    FfmEmutecaMainFrame: TfmETKGUIMain;
-    FfmProgressBar: TfmCHXProgressBar;
-    FGUIConfig: cETKGUIConfig;
-    FGUIIconsFile: string;
-    FIconList: cCHXImageList;
-    FSaveOnExit: boolean;
-    FSHA1Folder: string;
-    Fw7zErrorFileName: string;
-    FZoneIcons: cCHXImageMap;
-    procedure SetBaseFolder(AValue: string);
-    procedure SetCacheEmuIconsThread(const AValue: ctETKGUICacheEmuIcons);
-    procedure SetCacheGrpIconsThread(AValue: ctEGUICacheGrpIcons);
-    procedure SetCacheSoftIconsThread(AValue: ctEGUICacheSoftIcons);
-    procedure SetCacheSysIconsThread(AValue: ctEGUICacheSysIcons);
-    procedure SetCurrentEmu(aCurrentEmu: cEmutecaEmulator);
-    procedure SetCurrentGroup(AValue: cEmutecaGroup);
-    procedure SetCurrentSoft(AValue: cEmutecaSoftware);
-    procedure SetCurrentSystem(AValue: cEmutecaSystem);
-    procedure SetGUIIconsFile(AValue: string);
-    procedure SetSaveOnExit(AValue: boolean);
-    procedure SetSHA1Folder(AValue: string);
-    procedure Setw7zErrorFileName(AValue: string);
+    FBaseFolder : string;
+    FCacheEmuIconsThread : ctETKGUICacheEmuIcons;
+    FCacheGrpIconsThread : ctEGUICacheGrpIcons;
+    FCacheSoftIconsThread : ctEGUICacheSoftIcons;
+    FCacheSysIconsThread : ctEGUICacheSysIcons;
+    FCurrentEmu : cEmutecaEmulator;
+    FCurrentGroup : cEmutecaGroup;
+    FCurrentSoft : cEmutecaSoftware;
+    FCurrentSystem : cEmutecaSystem;
+    FDumpIcons : cCHXImageList;
+    FEmuteca : cEmuteca;
+    FfmEmutecaMainFrame : TfmETKGUIMain;
+    FfmProgressBar : TfmCHXProgressBar;
+    FGUIConfig : cETKGUIConfig;
+    FGUIIconsFile : string;
+    FIconList : cCHXImageList;
+    FSaveOnExit : boolean;
+    FSHA1Folder : string;
+    Fw7zErrorFileName : string;
+    FZoneIcons : cCHXImageMap;
+    procedure SetBaseFolder(AValue : string);
+    procedure SetCacheEmuIconsThread(const AValue : ctETKGUICacheEmuIcons);
+    procedure SetCacheGrpIconsThread(AValue : ctEGUICacheGrpIcons);
+    procedure SetCacheSoftIconsThread(AValue : ctEGUICacheSoftIcons);
+    procedure SetCacheSysIconsThread(AValue : ctEGUICacheSysIcons);
+    procedure SetCurrentEmu(aCurrentEmu : cEmutecaEmulator);
+    procedure SetCurrentGroup(AValue : cEmutecaGroup);
+    procedure SetCurrentSoft(AValue : cEmutecaSoftware);
+    procedure SetCurrentSystem(AValue : cEmutecaSystem);
+    procedure SetGUIIconsFile(AValue : string);
+    procedure SetSaveOnExit(AValue : boolean);
+    procedure SetSHA1Folder(AValue : string);
+    procedure Setw7zErrorFileName(AValue : string);
 
   protected
-    property fmEmutecaMainFrame: TfmETKGUIMain read FfmEmutecaMainFrame;
+    property fmEmutecaMainFrame : TfmETKGUIMain read FfmEmutecaMainFrame;
     //< Main Frame
-    property fmProgressBar: TfmCHXProgressBar read FfmProgressBar;
+    property fmProgressBar : TfmCHXProgressBar read FfmProgressBar;
     //< General Progress Bar
 
-    property Emuteca: cEmuteca read FEmuteca;
+    property Emuteca : cEmuteca read FEmuteca;
     //< Main Emuteca Core
-    property GUIConfig: cETKGUIConfig read FGUIConfig;
+    property GUIConfig : cETKGUIConfig read FGUIConfig;
     //< GUI config
 
-    property IconList: cCHXImageList read FIconList;
+    property IconList : cCHXImageList read FIconList;
     //< Icons for parents, soft, systems and emulators
-    property DumpIcons: cCHXImageList read FDumpIcons;
+    property DumpIcons : cCHXImageList read FDumpIcons;
     //< Icons for dump info
-    property ZoneIcons: cCHXImageMap read FZoneIcons;
+    property ZoneIcons : cCHXImageMap read FZoneIcons;
     //< Icons for zones
 
-    property CurrentSystem: cEmutecaSystem
+    property CurrentSystem : cEmutecaSystem
       read FCurrentSystem write SetCurrentSystem;
-    property CurrentGroup: cEmutecaGroup read FCurrentGroup
-      write SetCurrentGroup;
-    property CurrentSoft: cEmutecaSoftware
+    property CurrentGroup : cEmutecaGroup
+      read FCurrentGroup write SetCurrentGroup;
+    property CurrentSoft : cEmutecaSoftware
       read FCurrentSoft write SetCurrentSoft;
-    property CurrentEmu: cEmutecaEmulator read FCurrentEmu write SetCurrentEmu;
+    property CurrentEmu : cEmutecaEmulator
+      read FCurrentEmu write SetCurrentEmu;
 
 
-    property SHA1Folder: string read FSHA1Folder write SetSHA1Folder;
+    property SHA1Folder : string read FSHA1Folder write SetSHA1Folder;
     //< Global Cache folder
-    property w7zErrorFileName: string read Fw7zErrorFileName
-      write Setw7zErrorFileName;
+    property w7zErrorFileName : string
+      read Fw7zErrorFileName write Setw7zErrorFileName;
     //< File for w7z errors and warnings
 
-    property SaveOnExit: boolean read FSaveOnExit write SetSaveOnExit;
+    property SaveOnExit : boolean read FSaveOnExit write SetSaveOnExit;
 
-    property CacheSysIconsThread: ctEGUICacheSysIcons
+    property CacheSysIconsThread : ctEGUICacheSysIcons
       read FCacheSysIconsThread write SetCacheSysIconsThread;
-    procedure CacheSysIconsThreadTerminated(Sender: TObject);
+    procedure CacheSysIconsThreadTerminated(Sender : TObject);
     //< For use with TThread.OnTerminate, auto nil.
-    property CacheEmuIconsThread: ctETKGUICacheEmuIcons
+    property CacheEmuIconsThread : ctETKGUICacheEmuIcons
       read FCacheEmuIconsThread write SetCacheEmuIconsThread;
-    procedure CacheEmuIconsThreadTerminated(Sender: TObject);
+    procedure CacheEmuIconsThreadTerminated(Sender : TObject);
     //< For use with TThread.OnTerminate, auto nil.
-    property CacheGrpIconsThread: ctEGUICacheGrpIcons
+    property CacheGrpIconsThread : ctEGUICacheGrpIcons
       read FCacheGrpIconsThread write SetCacheGrpIconsThread;
-    procedure CacheGrpIconsThreadTerminated(Sender: TObject);
+    procedure CacheGrpIconsThreadTerminated(Sender : TObject);
     //< For use with TThread.OnTerminate, auto nil.
-    property CacheSoftIconsThread: ctEGUICacheSoftIcons
+    property CacheSoftIconsThread : ctEGUICacheSoftIcons
       read FCacheSoftIconsThread write SetCacheSoftIconsThread;
-    procedure CacheSoftIconsThreadTerminated(Sender: TObject);
+    procedure CacheSoftIconsThreadTerminated(Sender : TObject);
     //< For use with TThread.OnTerminate, auto nil.
 
     procedure LoadIcons;
     procedure LoadSystemsIcons;
+    procedure LoadSystemsIconsStop;
     procedure LoadEmuIcons;
-    function AddZoneIcon(aFolder: string; FileInfo: TSearchRec): boolean;
+    procedure LoadEmuIconsStop;
+    function AddZoneIcon(aFolder : string; FileInfo : TSearchRec) : boolean;
     //< Add Zone icon to list
-    procedure LoadGrpIcons(aGroupList: cEmutecaGroupList);
-    procedure LoadSoftIcons(aSoftList: cEmutecaSoftList);
+    procedure LoadGrpIcons(aGroupList : cEmutecaGroupList);
+    procedure LoadGrpIconsStop;
+    procedure LoadSoftIcons(aSoftList : cEmutecaSoftList);
+    procedure LoadSoftIconsStop;
 
     procedure LoadSearchLinks;
-    procedure SearchInInternet(Sender: TObject);
+    procedure SearchInInternet(Sender : TObject);
 
-    procedure RunSoftware(aSoftware: cEmutecaSoftware);
+    procedure RunSoftware(aSoftware : cEmutecaSoftware);
     //< Run a software
 
-    function DoProgressBar(const Title, Info: string;
-      const Value, MaxValue: int64; const IsCancelable: boolean): boolean;
+    function DoProgressBar(const Title, Info : string;
+      const Value, MaxValue : int64; const IsCancelable : boolean) : boolean;
     //< Progress bar call back
 
-    procedure DoChangeGrpList(aGroupList: cEmutecaGroupList);
+    procedure DoChangeGrpList(aGroupList : cEmutecaGroupList);
 
-    procedure DoLoadGUIIcons(aIniFile: TIniFile;
-      const aBaseFolder: string); override;
+    procedure DoLoadGUIIcons(aIniFile : TIniFile;
+      const aBaseFolder : string); override;
 
 
   public
-    constructor Create(TheOwner: TComponent); override;
+    constructor Create(TheOwner : TComponent); override;
     destructor Destroy; override;
 
   published
-    property BaseFolder: string read FBaseFolder write SetBaseFolder;
+    property BaseFolder : string read FBaseFolder write SetBaseFolder;
     {< Base folder for Emuteca data.
 
        It was ProgramDirectory, but with the program in a subfolder it's
           ProgramDirectory's parent folder.
     }
 
-    property GUIIconsFile: string read FGUIIconsFile write SetGUIIconsFile;
+    property GUIIconsFile : string read FGUIIconsFile write SetGUIIconsFile;
   end;
 
 var
-  frmETKGUIMain: TfrmETKGUIMain;
+  frmETKGUIMain : TfrmETKGUIMain;
 
 implementation
 
@@ -318,7 +323,7 @@ implementation
 
 { TfrmETKGUIMain }
 
-procedure TfrmETKGUIMain.SetCurrentGroup(AValue: cEmutecaGroup);
+procedure TfrmETKGUIMain.SetCurrentGroup(AValue : cEmutecaGroup);
 begin
   if FCurrentGroup = AValue then
     Exit;
@@ -339,11 +344,11 @@ begin
   end;
 end;
 
-procedure TfrmETKGUIMain.FormCreate(Sender: TObject);
+procedure TfrmETKGUIMain.FormCreate(Sender : TObject);
 
   procedure CloneMenus;
   var
-    aItem: TMenuItem;
+    aItem : TMenuItem;
   begin
     // Copying PopUp menús to Main menú.
     AddSubMenu(pmGroup, mimmGroup);
@@ -467,7 +472,7 @@ begin
     actSystemManager.Execute;
 end;
 
-procedure TfrmETKGUIMain.FormDestroy(Sender: TObject);
+procedure TfrmETKGUIMain.FormDestroy(Sender : TObject);
 begin
   ZoneIcons.Free;
   DumpIcons.Free;
@@ -476,66 +481,35 @@ begin
   Emuteca.Free;
 end;
 
-procedure TfrmETKGUIMain.FormShow(Sender: TObject);
+procedure TfrmETKGUIMain.FormShow(Sender : TObject);
 begin
   // Windows Caption
   // It is removed if set in OnCreate ¿?
   Self.Caption := Format(krsFmtWindowCaption, [Application.Title, Caption]);
 end;
 
-procedure TfrmETKGUIMain.HelpOnHelp1Execute(Sender: TObject);
+procedure TfrmETKGUIMain.HelpOnHelp1Execute(Sender : TObject);
 begin
   TfmETKGUIAbout.SimpleModalForm(Emuteca, IconList, DumpIcons, ZoneIcons,
     GUIConfig.DefaultFileName, GUIIconsFile);
 end;
 
-procedure TfrmETKGUIMain.FormCloseQuery(Sender: TObject;
-  var CanClose: boolean);
+procedure TfrmETKGUIMain.FormCloseQuery(Sender : TObject;
+  var CanClose : boolean);
 begin
   GUIConfig.SaveToFile('', False); // File has Forms config too, don't delete
 
   if SaveOnExit then Emuteca.SaveAllData;
 
-  // If CacheSysIconsThread is not terminated, maybe last SHA1 is not saved;
-  //   but at least not all work is losed on error...
-
-  // Teminate threads if they are running.
-  if Assigned(CacheSoftIconsThread) then
-  begin
-    CacheSoftIconsThread.OnTerminate := nil;
-    CacheSoftIconsThread.Terminate;
-    CacheSoftIconsThread.WaitFor;
-  end;
-  // CacheSoftIconsThread.Free; Auto freed with FreeOnTerminate
-
-  if Assigned(CacheGrpIconsThread) then
-  begin
-    CacheGrpIconsThread.OnTerminate := nil;
-    CacheGrpIconsThread.Terminate;
-    CacheGrpIconsThread.WaitFor;
-  end;
-  // CacheGrpIconsThread.Free; Auto freed with FreeOnTerminate
-
-  if Assigned(CacheSysIconsThread) then
-  begin
-    CacheSysIconsThread.OnTerminate := nil;
-    CacheSysIconsThread.Terminate;
-    CacheSysIconsThread.WaitFor;
-  end;
-  // CacheSysIconsThread.Free; Auto freed with FreeOnTerminate
-
-  if Assigned(CacheEmuIconsThread) then
-  begin
-    CacheEmuIconsThread.OnTerminate := nil;
-    CacheEmuIconsThread.Terminate;
-    CacheEmuIconsThread.WaitFor;
-  end;
-  // CacheEmuIconsThread.Free; Auto freed with FreeOnTerminate
+  LoadSystemsIconsStop;
+  LoadEmuIconsStop;
+  LoadGrpIconsStop;
+  LoadSoftIconsStop;
 
   CanClose := True;
 end;
 
-procedure TfrmETKGUIMain.actEmulatorManagerExecute(Sender: TObject);
+procedure TfrmETKGUIMain.actEmulatorManagerExecute(Sender : TObject);
 begin
   // Fix runtime errors, while trying to update if something is changed
   fmEmutecaMainFrame.Emuteca := nil;
@@ -548,19 +522,19 @@ begin
   fmEmutecaMainFrame.Emuteca := Emuteca;
 end;
 
-procedure TfrmETKGUIMain.actExitWOSavingExecute(Sender: TObject);
+procedure TfrmETKGUIMain.actExitWOSavingExecute(Sender : TObject);
 begin
   SaveOnExit := False;
   actExit.Execute;
 end;
 
-procedure TfrmETKGUIMain.actExportSoftDataExecute(Sender: TObject);
+procedure TfrmETKGUIMain.actExportSoftDataExecute(Sender : TObject);
 begin
   TfmEmutecaActExportSoftData.SimpleForm(Emuteca, CurrentSystem,
     GUIConfig.DefaultFileName, GUIIconsFile);
 end;
 
-procedure TfrmETKGUIMain.actImportSoftDataExecute(Sender: TObject);
+procedure TfrmETKGUIMain.actImportSoftDataExecute(Sender : TObject);
 begin
   // Fix runtime errors, while trying to update if something is changed
   fmEmutecaMainFrame.Emuteca := nil;
@@ -571,7 +545,7 @@ begin
   fmEmutecaMainFrame.Emuteca := Emuteca;
 end;
 
-procedure TfrmETKGUIMain.actAddFolderExecute(Sender: TObject);
+procedure TfrmETKGUIMain.actAddFolderExecute(Sender : TObject);
 begin
   // Fix runtime errors, while trying to update if something is changed
   fmEmutecaMainFrame.Emuteca := nil;
@@ -582,7 +556,7 @@ begin
   fmEmutecaMainFrame.Emuteca := Emuteca;
 end;
 
-procedure TfrmETKGUIMain.actAddSoftExecute(Sender: TObject);
+procedure TfrmETKGUIMain.actAddSoftExecute(Sender : TObject);
 begin
   // Fix runtime errors, while trying to update if something is changed
   fmEmutecaMainFrame.Emuteca := nil;
@@ -593,9 +567,9 @@ begin
   fmEmutecaMainFrame.Emuteca := Emuteca;
 end;
 
-procedure TfrmETKGUIMain.actCleanSystemDataExecute(Sender: TObject);
+procedure TfrmETKGUIMain.actCleanSystemDataExecute(Sender : TObject);
 var
-  aPCB: TEmutecaProgressCallBack;
+  aPCB : TEmutecaProgressCallBack;
 begin
   // TODO: Make this a script?
   if not assigned(CurrentSystem) then
@@ -611,13 +585,13 @@ begin
   fmEmutecaMainFrame.Emuteca := Emuteca;
 end;
 
-procedure TfrmETKGUIMain.actCopyFileName2ClipBoardExecute(Sender: TObject);
+procedure TfrmETKGUIMain.actCopyFileName2ClipBoardExecute(Sender : TObject);
 begin
   if not Assigned(CurrentSoft) then Exit;
   Clipboard.AsText := CurrentSoft.FileName;
 end;
 
-procedure TfrmETKGUIMain.actEditEmulatorExecute(Sender: TObject);
+procedure TfrmETKGUIMain.actEditEmulatorExecute(Sender : TObject);
 begin
   if not assigned(CurrentEmu) then
     Exit;
@@ -626,7 +600,7 @@ begin
     GUIConfig.DefaultFileName, GUIIconsFile);
 end;
 
-procedure TfrmETKGUIMain.actEditGroupExecute(Sender: TObject);
+procedure TfrmETKGUIMain.actEditGroupExecute(Sender : TObject);
 begin
   if not assigned(CurrentGroup) then
     Exit;
@@ -635,7 +609,7 @@ begin
     GUIConfig.DefaultFileName, GUIIconsFile);
 end;
 
-procedure TfrmETKGUIMain.actEditSystemExecute(Sender: TObject);
+procedure TfrmETKGUIMain.actEditSystemExecute(Sender : TObject);
 begin
   if not assigned(CurrentSystem) then
     Exit;
@@ -650,7 +624,7 @@ begin
   fmEmutecaMainFrame.Emuteca := Emuteca;
 end;
 
-procedure TfrmETKGUIMain.actMediaManagerExecute(Sender: TObject);
+procedure TfrmETKGUIMain.actMediaManagerExecute(Sender : TObject);
 begin
   fmEmutecaMainFrame.Emuteca := nil;
 
@@ -661,20 +635,20 @@ begin
   fmEmutecaMainFrame.Emuteca := Emuteca;
 end;
 
-procedure TfrmETKGUIMain.actMergeGroupFilesExecute(Sender: TObject);
+procedure TfrmETKGUIMain.actMergeGroupFilesExecute(Sender : TObject);
 begin
   TfmETKGUIactMergeGroup.SimpleForm(CurrentGroup, GUIIconsFile,
     GUIConfig.DefaultFileName);
 end;
 
-procedure TfrmETKGUIMain.actOpen7zCacheFolderExecute(Sender: TObject);
+procedure TfrmETKGUIMain.actOpen7zCacheFolderExecute(Sender : TObject);
 begin
   if not OpenDocument(w7zGetCacheDir) then
     raise EFileNotFoundException.CreateFmt(rsFmtNotFound,
       [GetCurrentDirUTF8, ExtractFileDir(w7zGetCacheDir)]);
 end;
 
-procedure TfrmETKGUIMain.actOpenEmulatorFolderExecute(Sender: TObject);
+procedure TfrmETKGUIMain.actOpenEmulatorFolderExecute(Sender : TObject);
 begin
   if not Assigned(CurrentEmu) then
     Exit;
@@ -684,7 +658,7 @@ begin
       [GetCurrentDirUTF8, ExtractFileDir(CurrentEmu.ExeFile)]);
 end;
 
-procedure TfrmETKGUIMain.actOpenEmulatorWebExecute(Sender: TObject);
+procedure TfrmETKGUIMain.actOpenEmulatorWebExecute(Sender : TObject);
 begin
   if not assigned(CurrentEmu) then
     Exit;
@@ -695,14 +669,14 @@ begin
     OpenURL(CurrentEmu.WebPage);
 end;
 
-procedure TfrmETKGUIMain.actOpenEmutecaFolderExecute(Sender: TObject);
+procedure TfrmETKGUIMain.actOpenEmutecaFolderExecute(Sender : TObject);
 begin
   if not OpenDocument(BaseFolder) then
     raise EFileNotFoundException.CreateFmt(rsFmtNotFound,
       [GetCurrentDirUTF8, BaseFolder]);
 end;
 
-procedure TfrmETKGUIMain.actOpenSoftFolderExecute(Sender: TObject);
+procedure TfrmETKGUIMain.actOpenSoftFolderExecute(Sender : TObject);
 begin
   if not assigned(CurrentSystem) then
     Exit;
@@ -715,7 +689,7 @@ begin
       [GetCurrentDirUTF8, CurrentSoft.Folder]);
 end;
 
-procedure TfrmETKGUIMain.actOpenSystemBaseFolderExecute(Sender: TObject);
+procedure TfrmETKGUIMain.actOpenSystemBaseFolderExecute(Sender : TObject);
 begin
   if not assigned(CurrentSystem) then
     Exit;
@@ -731,16 +705,16 @@ begin
       [GetCurrentDirUTF8, CurrentSystem.BaseFolder]);
 end;
 
-procedure TfrmETKGUIMain.actOpenTempFolderExecute(Sender: TObject);
+procedure TfrmETKGUIMain.actOpenTempFolderExecute(Sender : TObject);
 begin
   if not OpenDocument(Emuteca.TempFolder) then
     raise EFileNotFoundException.CreateFmt(rsFmtNotFound,
       [GetCurrentDirUTF8, Emuteca.TempFolder]);
 end;
 
-procedure TfrmETKGUIMain.actRemoveSoftExecute(Sender: TObject);
+procedure TfrmETKGUIMain.actRemoveSoftExecute(Sender : TObject);
 var
-  aSystem: cEmutecaSystem;
+  aSystem : cEmutecaSystem;
 begin
   if not Assigned(CurrentSoft) then
     Exit;
@@ -763,10 +737,10 @@ begin
   actUpdateGroupList.Execute;
 end;
 
-procedure TfrmETKGUIMain.actRunDBEditorExecute(Sender: TObject);
+procedure TfrmETKGUIMain.actRunDBEditorExecute(Sender : TObject);
 var
-  sError, sOutput: string;
-  ExitC: integer;
+  sError, sOutput : string;
+  ExitC : integer;
 begin
   if not FileExistsUTF8(GUIConfig.DBEditor) then
   begin
@@ -778,12 +752,12 @@ begin
     GUIConfig.DBEditor, '', sError, sOutput, ExitC);
 end;
 
-procedure TfrmETKGUIMain.actRunDBEditorGroupsExecute(Sender: TObject);
+procedure TfrmETKGUIMain.actRunDBEditorGroupsExecute(Sender : TObject);
 var
-  SysPBCB: TEmutecaProgressCallBack;
-  aFileWOExt: string;
-  sError, sOutput: string;
-  ExitC: integer;
+  SysPBCB : TEmutecaProgressCallBack;
+  aFileWOExt : string;
+  sError, sOutput : string;
+  ExitC , iNotCached: integer;
 begin
   if not FileExistsUTF8(GUIConfig.DBEditor) then
   begin
@@ -791,9 +765,21 @@ begin
     Exit;
   end;
 
-  if CurrentSystem = nil then
+  if not assigned(CurrentSystem) then
   begin
     ShowMessage(rsSelectSystem);
+    Exit;
+  end;
+
+  iNotCached := CurrentSystem.IsSoftSHA1Cached;
+
+  if iNotCached > 0 then
+  begin
+    // TODO: Actually this is not current file.
+    ShowMessageFmt(rsExportingNoSHA1,
+      [CurrentSystem.SoftManager.FullList[iNotCached].Folder,
+      CurrentSystem.SoftManager.FullList[iNotCached].FileName,
+      iNotCached, CurrentSystem.SoftManager.FullList.Count]);
     Exit;
   end;
 
@@ -819,12 +805,12 @@ begin
   fmEmutecaMainFrame.Emuteca := Emuteca;
 end;
 
-procedure TfrmETKGUIMain.actRunDBEditorSoftExecute(Sender: TObject);
+procedure TfrmETKGUIMain.actRunDBEditorSoftExecute(Sender : TObject);
 var
-  SysPBCB: TEmutecaProgressCallBack;
-  aFileWOExt: string;
-  sError, sOutput: string;
-  iNotCached, ExitC: LongInt;
+  SysPBCB : TEmutecaProgressCallBack;
+  aFileWOExt : string;
+  sError, sOutput : string;
+  iNotCached, ExitC : LongInt;
 begin
   if not FileExistsUTF8(GUIConfig.DBEditor) then
   begin
@@ -846,8 +832,7 @@ begin
     ShowMessageFmt(rsExportingNoSHA1,
       [CurrentSystem.SoftManager.FullList[iNotCached].Folder,
       CurrentSystem.SoftManager.FullList[iNotCached].FileName,
-      iNotCached,
-      CurrentSystem.SoftManager.FullList.Count]);
+      iNotCached, CurrentSystem.SoftManager.FullList.Count]);
     Exit;
   end;
 
@@ -873,16 +858,16 @@ begin
   fmEmutecaMainFrame.Emuteca := Emuteca;
 end;
 
-procedure TfrmETKGUIMain.actRunEmulatorAloneExecute(Sender: TObject);
+procedure TfrmETKGUIMain.actRunEmulatorAloneExecute(Sender : TObject);
 begin
   CurrentEmu.ExecuteAlone;
 end;
 
-procedure TfrmETKGUIMain.actRunETKIconBorderIconExecute(Sender: TObject);
+procedure TfrmETKGUIMain.actRunETKIconBorderIconExecute(Sender : TObject);
 var
-  WorkDir, OutFolder: string;
-  sError, sOutput: string;
-  ExitC: integer;
+  WorkDir, OutFolder : string;
+  sError, sOutput : string;
+  ExitC : integer;
 begin
   if not FileExistsUTF8(GUIConfig.IconBorder) then
   begin
@@ -901,11 +886,11 @@ begin
   // TODO 3: Show a message if IconBorder or WorkDir not found.
 end;
 
-procedure TfrmETKGUIMain.actRunETKIconBorderLogoExecute(Sender: TObject);
+procedure TfrmETKGUIMain.actRunETKIconBorderLogoExecute(Sender : TObject);
 var
-  WorkDir, OutFolder: string;
-  sError, sOutput: string;
-  ExitC: integer;
+  WorkDir, OutFolder : string;
+  sError, sOutput : string;
+  ExitC : integer;
 begin
   if not FileExistsUTF8(GUIConfig.IconBorder) then
   begin
@@ -924,17 +909,17 @@ begin
   // TODO 3: Show a message if IconBorder or WorkDir not found.
 end;
 
-procedure TfrmETKGUIMain.actRunSoftwareExecute(Sender: TObject);
+procedure TfrmETKGUIMain.actRunSoftwareExecute(Sender : TObject);
 begin
   RunSoftware(CurrentSoft);
 end;
 
-procedure TfrmETKGUIMain.actSaveListsExecute(Sender: TObject);
+procedure TfrmETKGUIMain.actSaveListsExecute(Sender : TObject);
 begin
   Emuteca.SaveAllData;
 end;
 
-procedure TfrmETKGUIMain.actScriptManagerExecute(Sender: TObject);
+procedure TfrmETKGUIMain.actScriptManagerExecute(Sender : TObject);
 begin
   // Fix runtime errors, while trying to update if something is changed
   fmEmutecaMainFrame.Emuteca := nil;
@@ -946,7 +931,7 @@ begin
   fmEmutecaMainFrame.Emuteca := Emuteca;
 end;
 
-procedure TfrmETKGUIMain.actSystemManagerExecute(Sender: TObject);
+procedure TfrmETKGUIMain.actSystemManagerExecute(Sender : TObject);
 begin
   // Fix runtime errors, while trying to update if something is changed
   fmEmutecaMainFrame.Emuteca := nil;
@@ -958,7 +943,7 @@ begin
   fmEmutecaMainFrame.Emuteca := Emuteca;
 end;
 
-procedure TfrmETKGUIMain.actUpdateGroupListExecute(Sender: TObject);
+procedure TfrmETKGUIMain.actUpdateGroupListExecute(Sender : TObject);
 begin
   if not Assigned(CurrentSystem) then
     Exit;
@@ -972,20 +957,20 @@ begin
   fmEmutecaMainFrame.Emuteca := Emuteca;
 end;
 
-procedure TfrmETKGUIMain.SetCacheGrpIconsThread(AValue: ctEGUICacheGrpIcons);
+procedure TfrmETKGUIMain.SetCacheGrpIconsThread(AValue : ctEGUICacheGrpIcons);
 begin
   if FCacheGrpIconsThread = AValue then
     Exit;
   FCacheGrpIconsThread := AValue;
 end;
 
-procedure TfrmETKGUIMain.SetBaseFolder(AValue: string);
+procedure TfrmETKGUIMain.SetBaseFolder(AValue : string);
 begin
   FBaseFolder := SetAsFolder(AValue);
 end;
 
 procedure TfrmETKGUIMain.SetCacheEmuIconsThread(
-  const AValue: ctETKGUICacheEmuIcons);
+  const AValue : ctETKGUICacheEmuIcons);
 begin
   if FCacheEmuIconsThread = AValue then
     Exit;
@@ -993,21 +978,21 @@ begin
 end;
 
 procedure TfrmETKGUIMain.SetCacheSoftIconsThread(
-  AValue: ctEGUICacheSoftIcons);
+  AValue : ctEGUICacheSoftIcons);
 begin
   if FCacheSoftIconsThread = AValue then
     Exit;
   FCacheSoftIconsThread := AValue;
 end;
 
-procedure TfrmETKGUIMain.SetCacheSysIconsThread(AValue: ctEGUICacheSysIcons);
+procedure TfrmETKGUIMain.SetCacheSysIconsThread(AValue : ctEGUICacheSysIcons);
 begin
   if FCacheSysIconsThread = AValue then
     Exit;
   FCacheSysIconsThread := AValue;
 end;
 
-procedure TfrmETKGUIMain.SetCurrentEmu(aCurrentEmu: cEmutecaEmulator);
+procedure TfrmETKGUIMain.SetCurrentEmu(aCurrentEmu : cEmutecaEmulator);
 begin
   if FCurrentEmu = aCurrentEmu then
     Exit;
@@ -1016,7 +1001,7 @@ begin
   mimmEmulator.Enabled := Assigned(CurrentEmu);
 end;
 
-procedure TfrmETKGUIMain.SetCurrentSoft(AValue: cEmutecaSoftware);
+procedure TfrmETKGUIMain.SetCurrentSoft(AValue : cEmutecaSoftware);
 begin
   if FCurrentSoft = AValue then
     Exit;
@@ -1030,7 +1015,7 @@ begin
     CurrentGroup := nil;
 end;
 
-procedure TfrmETKGUIMain.SetCurrentSystem(AValue: cEmutecaSystem);
+procedure TfrmETKGUIMain.SetCurrentSystem(AValue : cEmutecaSystem);
 begin
   if FCurrentSystem = AValue then
     Exit;
@@ -1042,52 +1027,52 @@ begin
   mimmSystem.Enabled := Assigned(CurrentSystem);
 end;
 
-procedure TfrmETKGUIMain.SetGUIIconsFile(AValue: string);
+procedure TfrmETKGUIMain.SetGUIIconsFile(AValue : string);
 begin
   FGUIIconsFile := SetAsAbsoluteFile(AValue, BaseFolder);
 end;
 
-procedure TfrmETKGUIMain.SetSaveOnExit(AValue: boolean);
+procedure TfrmETKGUIMain.SetSaveOnExit(AValue : boolean);
 begin
   if FSaveOnExit = AValue then Exit;
   FSaveOnExit := AValue;
 end;
 
-procedure TfrmETKGUIMain.SetSHA1Folder(AValue: string);
+procedure TfrmETKGUIMain.SetSHA1Folder(AValue : string);
 begin
   FSHA1Folder := SetAsFolder(SetAsAbsoluteFile(AValue, BaseFolder));
   w7zSetGlobalCache(SHA1Folder);
 end;
 
-procedure TfrmETKGUIMain.Setw7zErrorFileName(AValue: string);
+procedure TfrmETKGUIMain.Setw7zErrorFileName(AValue : string);
 begin
   Fw7zErrorFileName := SetAsFolder(SetAsAbsoluteFile(AValue, BaseFolder));
   w7zSetErrorListFile(w7zErrorFileName);
 end;
 
-procedure TfrmETKGUIMain.CacheSysIconsThreadTerminated(Sender: TObject);
+procedure TfrmETKGUIMain.CacheSysIconsThreadTerminated(Sender : TObject);
 begin
   CacheSysIconsThread := nil;
 end;
 
-procedure TfrmETKGUIMain.CacheEmuIconsThreadTerminated(Sender: TObject);
+procedure TfrmETKGUIMain.CacheEmuIconsThreadTerminated(Sender : TObject);
 begin
   CacheEmuIconsThread := nil;
 end;
 
-procedure TfrmETKGUIMain.CacheGrpIconsThreadTerminated(Sender: TObject);
+procedure TfrmETKGUIMain.CacheGrpIconsThreadTerminated(Sender : TObject);
 begin
   CacheGrpIconsThread := nil;
 end;
 
-procedure TfrmETKGUIMain.CacheSoftIconsThreadTerminated(Sender: TObject);
+procedure TfrmETKGUIMain.CacheSoftIconsThreadTerminated(Sender : TObject);
 begin
   CacheSoftIconsThread := nil;
 end;
 
 procedure TfrmETKGUIMain.LoadIcons;
 var
-  aFolder, aFile: string;
+  aFolder, aFile : string;
 begin
   // Zone icons
   ZoneIcons.Clear;
@@ -1123,14 +1108,7 @@ end;
 
 procedure TfrmETKGUIMain.LoadSystemsIcons;
 begin
-  // Teminate if it's running
-  if assigned(CacheSysIconsThread) then
-  begin
-    CacheSysIconsThread.OnTerminate := nil;
-    CacheSysIconsThread.Terminate;
-    // CacheSysIconsThread.WaitFor; Don't wait
-  end;
-  // Auto freed with FreeOnTerminate and set to nil
+  LoadSystemsIconsStop;
 
   if not (Assigned(Emuteca) and Assigned(IconList)) then
     Exit;
@@ -1157,16 +1135,23 @@ begin
   CacheSysIconsThread.Start;
 end;
 
-procedure TfrmETKGUIMain.LoadEmuIcons;
+procedure TfrmETKGUIMain.LoadSystemsIconsStop;
 begin
   // Teminate if it's running
-  if assigned(CacheEmuIconsThread) then
+  if assigned(CacheSysIconsThread) then
   begin
-    CacheEmuIconsThread.OnTerminate := nil;
-    CacheEmuIconsThread.Terminate;
-    // CacheEmuIconsThread.WaitFor; Don't wait
+    CacheSysIconsThread.OnTerminate := nil; // Be sure that it  nil
+    CacheSysIconsThread.Terminate;
+    if not CacheSysIconsThread.Finished then
+      CacheSysIconsThread.WaitFor;
+    // CacheSysIconsThread.Free; Auto freed with FreeOnTerminate
+    CacheSysIconsThread := nil;
   end;
-  // Auto freed with FreeOnTerminate and set to nil
+end;
+
+procedure TfrmETKGUIMain.LoadEmuIcons;
+begin
+  LoadEmuIconsStop;
 
   if not (Assigned(Emuteca) and Assigned(IconList)) then
     Exit;
@@ -1187,8 +1172,22 @@ begin
   CacheEmuIconsThread.Start;
 end;
 
-function TfrmETKGUIMain.AddZoneIcon(aFolder: string;
-  FileInfo: TSearchRec): boolean;
+procedure TfrmETKGUIMain.LoadEmuIconsStop;
+begin
+  // Teminate if it's running
+  if assigned(CacheEmuIconsThread) then
+  begin
+    CacheEmuIconsThread.OnTerminate := nil; // Be sure that it  nil
+    CacheEmuIconsThread.Terminate;
+    if not CacheEmuIconsThread.Finished then
+      CacheEmuIconsThread.WaitFor;
+    // CacheEmuIconsThread.Free; Auto freed with FreeOnTerminate
+    CacheEmuIconsThread := nil;
+  end;
+end;
+
+function TfrmETKGUIMain.AddZoneIcon(aFolder : string;
+  FileInfo : TSearchRec) : boolean;
 begin
   Result := True; // Don't Stop
 
@@ -1201,15 +1200,9 @@ begin
     aFolder + FileInfo.Name);
 end;
 
-procedure TfrmETKGUIMain.LoadGrpIcons(aGroupList: cEmutecaGroupList);
+procedure TfrmETKGUIMain.LoadGrpIcons(aGroupList : cEmutecaGroupList);
 begin
-  // Teminate if it's running
-  if assigned(CacheGrpIconsThread) then
-  begin
-    CacheGrpIconsThread.Terminate;
-    CacheGrpIconsThread.WaitFor;
-  end;
-  // Auto freed with FreeOnTerminate and nil
+  LoadGrpIconsStop;
 
   if not (Assigned(aGroupList) and Assigned(IconList) and
     Assigned(GUIConfig)) then
@@ -1231,7 +1224,21 @@ begin
   CacheGrpIconsThread.Start;
 end;
 
-procedure TfrmETKGUIMain.LoadSoftIcons(aSoftList: cEmutecaSoftList);
+procedure TfrmETKGUIMain.LoadGrpIconsStop;
+begin
+  // Teminate if it's running
+  if assigned(CacheGrpIconsThread) then
+  begin
+    CacheGrpIconsThread.OnTerminate := nil; // Be sure that it  nil
+    CacheGrpIconsThread.Terminate;
+    if not CacheGrpIconsThread.Finished then
+      CacheGrpIconsThread.WaitFor;
+    // CacheGrpIconsThread.Free; Auto freed with FreeOnTerminate
+    CacheGrpIconsThread := nil;
+  end;
+end;
+
+procedure TfrmETKGUIMain.LoadSoftIcons(aSoftList : cEmutecaSoftList);
 begin
   // Teminate if it's running
   if assigned(CacheSoftIconsThread) then
@@ -1261,15 +1268,29 @@ begin
   CacheSoftIconsThread.Start;
 end;
 
+procedure TfrmETKGUIMain.LoadSoftIconsStop;
+begin
+  // Teminate if it's running
+  if assigned(CacheSoftIconsThread) then
+  begin
+    CacheSoftIconsThread.OnTerminate := nil; // Be sure that it  nil
+    CacheSoftIconsThread.Terminate;
+    if not CacheSoftIconsThread.Finished then
+      CacheSoftIconsThread.WaitFor;
+    // CacheSoftIconsThread.Free; Auto freed with FreeOnTerminate
+    CacheSoftIconsThread := nil;
+  end;
+end;
+
 procedure TfrmETKGUIMain.LoadSearchLinks;
 var
-  aFile: TStringList;
-  aSearcher: TStringList;
-  i: integer;
-  aPos: integer;
-  aAction: TAction;
-  aMenu: TMenuItem;
-  aFilename: string;
+  aFile : TStringList;
+  aSearcher : TStringList;
+  i : integer;
+  aPos : integer;
+  aAction : TAction;
+  aMenu : TMenuItem;
+  aFilename : string;
 begin
   aFilename := SetAsAbsoluteFile(GUIConfig.SearchFile, BaseFolder);
 
@@ -1382,10 +1403,10 @@ begin
   end;
 end;
 
-procedure TfrmETKGUIMain.SearchInInternet(Sender: TObject);
+procedure TfrmETKGUIMain.SearchInInternet(Sender : TObject);
 var
-  aAction: TCustomAction;
-  TempStr: string;
+  aAction : TCustomAction;
+  TempStr : string;
 begin
   if not (Sender is TCustomAction) then
     Exit;
@@ -1426,9 +1447,9 @@ begin
   OpenURL(TempStr);
 end;
 
-procedure TfrmETKGUIMain.RunSoftware(aSoftware: cEmutecaSoftware);
+procedure TfrmETKGUIMain.RunSoftware(aSoftware : cEmutecaSoftware);
 var
-  aError: integer;
+  aError : integer;
 begin
   aError := Emuteca.RunSoftware(aSoftware);
 
@@ -1468,15 +1489,15 @@ begin
   end;
 end;
 
-function TfrmETKGUIMain.DoProgressBar(const Title, Info: string;
-  const Value, MaxValue: int64; const IsCancelable: boolean): boolean;
+function TfrmETKGUIMain.DoProgressBar(const Title, Info : string;
+  const Value, MaxValue : int64; const IsCancelable : boolean) : boolean;
 begin
   // We asume that fmCHXProgressBar is always created...
   Result := fmProgressBar.UpdTextAndBar(Title, Info, Value,
     MaxValue, IsCancelable);
 end;
 
-procedure TfrmETKGUIMain.DoChangeGrpList(aGroupList: cEmutecaGroupList);
+procedure TfrmETKGUIMain.DoChangeGrpList(aGroupList : cEmutecaGroupList);
 begin
   CurrentSoft := nil;
   CurrentGroup := nil;
@@ -1484,8 +1505,8 @@ begin
   LoadGrpIcons(aGroupList);
 end;
 
-procedure TfrmETKGUIMain.DoLoadGUIIcons(aIniFile: TIniFile;
-  const aBaseFolder: string);
+procedure TfrmETKGUIMain.DoLoadGUIIcons(aIniFile : TIniFile;
+  const aBaseFolder : string);
 begin
   inherited DoLoadGUIIcons(aIniFile, aBaseFolder);
   // Icons for TActions
@@ -1497,7 +1518,7 @@ begin
   ReadMenuIconsIni(aIniFile, aBaseFolder, Name, ActImages, pmSoft);
 end;
 
-constructor TfrmETKGUIMain.Create(TheOwner: TComponent);
+constructor TfrmETKGUIMain.Create(TheOwner : TComponent);
 begin
   inherited Create(TheOwner);
 end;

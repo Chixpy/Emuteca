@@ -703,6 +703,9 @@ begin
   TempStr := ''; // Used to store version
   if Length(DBTranslation) > 3 then
   begin
+    // If soft is translated then Publisher is the translator
+    DBPublisher := krsImportKeepValueKey; 
+    
     // Searching for Version and Translator
     aPos := Pos(' ', DBTranslation);
     if aPos > 0 then

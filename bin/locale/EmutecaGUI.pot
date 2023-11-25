@@ -2291,6 +2291,10 @@ msgstr ""
 msgid "No build information available"
 msgstr ""
 
+#: uemutecarscstr.rsaddingfiles
+msgid "Adding files"
+msgstr ""
+
 #: uemutecarscstr.rscachinggroups
 msgid "Caching software groups"
 msgstr ""
@@ -2475,6 +2479,10 @@ msgstr ""
 
 #: uemutecarscstr.rsloadingsystemlist
 msgid "Loading system list..."
+msgstr ""
+
+#: uemutecarscstr.rsmakingfilelist
+msgid "Making list of all files"
 msgstr ""
 
 #: uemutecarscstr.rsnever

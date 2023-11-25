@@ -34,41 +34,41 @@ type
 
   cEmuteca = class(TComponent)
   private
-    FBaseFolder: string;
-    FCurrentGroupList: cEmutecaGroupList;
-    FGetSoftSHA1Thread: ctEmutecaGetSoftSHA1;
-    FConfig: cEmutecaConfig;
-    FEmulatorManager: cEmutecaEmulatorManager;
-    FProgressCallBack: TEmutecaProgressCallBack;
-    FSystemManager: cEmutecaSystemManager;
-    FTempFolder: string;
-    procedure SetBaseFolder(AValue: string);
-    procedure SetGetSoftSHA1Thread(AValue: ctEmutecaGetSoftSHA1);
-    procedure SetProgressBar(AValue: TEmutecaProgressCallBack);
+    FBaseFolder : string;
+    FCurrentGroupList : cEmutecaGroupList;
+    FGetSoftSHA1Thread : ctEmutecaGetSoftSHA1;
+    FConfig : cEmutecaConfig;
+    FEmulatorManager : cEmutecaEmulatorManager;
+    FProgressCallBack : TEmutecaProgressCallBack;
+    FSystemManager : cEmutecaSystemManager;
+    FTempFolder : string;
+    procedure SetBaseFolder(AValue : string);
+    procedure SetGetSoftSHA1Thread(AValue : ctEmutecaGetSoftSHA1);
+    procedure SetProgressBar(AValue : TEmutecaProgressCallBack);
 
   protected
-    property GetSoftSHA1Thread: ctEmutecaGetSoftSHA1
+    property GetSoftSHA1Thread : ctEmutecaGetSoftSHA1
       read FGetSoftSHA1Thread write SetGetSoftSHA1Thread;
-    procedure GetSoftSHA1ThreadThreadTerminated(Sender: TObject);
+    procedure GetSoftSHA1ThreadThreadTerminated(Sender : TObject);
     {< Used with ctEmutecaGetSoftSHA1.OnTerminate to change GetSoftSHA1Thread
       to @nil. }
 
-    procedure SetTempFolder(AValue: string);
+    procedure SetTempFolder(AValue : string);
 
   public
-    property ProgressCallBack: TEmutecaProgressCallBack
+    property ProgressCallBack : TEmutecaProgressCallBack
       read FProgressCallBack write SetProgressBar;
     {< Callback function to show progress. }
 
-    property TempFolder: string read FTempFolder; // write SetTempFolder;
+    property TempFolder : string read FTempFolder; // write SetTempFolder;
     {< Emuteca's TempFolder. }
 
-    property CurrentGroupList: cEmutecaGroupList read FCurrentGroupList;
+    property CurrentGroupList : cEmutecaGroupList read FCurrentGroupList;
     {< Current group list.
 
       Updated UpdateCurrentGroupList.}
 
-    procedure LoadConfig(aFile: string);
+    procedure LoadConfig(aFile : string);
     {< Loads the Emuteca config from a file. }
 
     procedure ClearAllData;
@@ -93,8 +93,8 @@ type
     procedure UpdateSysEmulators;
     {< (Re)Loads emulators assigned to systems. }
 
-    procedure UpdateCurrentGroupList(aSystem: cEmutecaSystem;
-      const aWordFilter: string; aFileList: TStrings);
+    procedure UpdateCurrentGroupList(aSystem : cEmutecaSystem;
+      const aWordFilter : string; aFileList : TStrings);
     { Updates CurrentGroupList.
 
       @param(aSystem System to list. nil to list all enabled systems.)
@@ -102,23 +102,23 @@ type
       @param(aFileList List of tag files to filter groups. )
     }
 
-    function RunSoftware(const aSoftware: cEmutecaSoftware): integer;
+    function RunSoftware(const aSoftware : cEmutecaSoftware) : integer;
     {< Runs a software with its current system emulator. }
 
-    constructor Create(aOwner: TComponent); override;
+    constructor Create(aOwner : TComponent); override;
     destructor Destroy; override;
 
   published
-    property BaseFolder: string read FBaseFolder write SetBaseFolder;
+    property BaseFolder : string read FBaseFolder write SetBaseFolder;
     {< Base folder for relative config paths. }
 
-    property Config: cEmutecaConfig read FConfig;
+    property Config : cEmutecaConfig read FConfig;
     {< Config component. }
 
-    property SystemManager: cEmutecaSystemManager read FSystemManager;
+    property SystemManager : cEmutecaSystemManager read FSystemManager;
     {< System Manager component. }
 
-    property EmulatorManager: cEmutecaEmulatorManager read FEmulatorManager;
+    property EmulatorManager : cEmutecaEmulatorManager read FEmulatorManager;
     {< Emulator Manager component. }
   end;
 
@@ -152,9 +152,10 @@ procedure cEmuteca.CacheDataStop;
 begin
   if assigned(GetSoftSHA1Thread) then
   begin
-    GetSoftSHA1Thread.OnTerminate := nil; // Be sure that it isn't nil
+    GetSoftSHA1Thread.OnTerminate := nil; // Be sure that it  nil
     GetSoftSHA1Thread.Terminate;
-    GetSoftSHA1Thread.WaitFor;
+    if not GetSoftSHA1Thread.Finished then
+      GetSoftSHA1Thread.WaitFor;
     // GetSoftSHA1Thread.Free; Auto freed with FreeOnTerminate
     GetSoftSHA1Thread := nil;
   end;
@@ -165,13 +166,13 @@ begin
   SystemManager.UpdateSystemsEmulators(EmulatorManager.EnabledList);
 end;
 
-procedure cEmuteca.UpdateCurrentGroupList(aSystem: cEmutecaSystem;
-  const aWordFilter: string; aFileList: TStrings);
+procedure cEmuteca.UpdateCurrentGroupList(aSystem : cEmutecaSystem;
+  const aWordFilter : string; aFileList : TStrings);
 
-  procedure AddSystemList(aSystem: cEmutecaSystem; aWordFilter: string;
-    aTagFile: cEmutecaTagsFile);
+  procedure AddSystemList(aSystem : cEmutecaSystem; aWordFilter : string;
+    aTagFile : cEmutecaTagsFile);
 
-    procedure FilterGroup(aGroup: cEmutecaGroup; const aWordFilter: string);
+    procedure FilterGroup(aGroup : cEmutecaGroup; const aWordFilter : string);
     begin
       if (aWordFilter = '') or
         (UTF8Pos(aWordFilter, UTF8LowerString(aGroup.Title)) <> 0) then
@@ -181,10 +182,10 @@ procedure cEmuteca.UpdateCurrentGroupList(aSystem: cEmutecaSystem;
     end;
 
   var
-    FilterIDs: TStringList;
-    i: integer;
-    aSection: cEmutecaTagsFileSection;
-    aGroup: cEmutecaGroup;
+    FilterIDs : TStringList;
+    i : integer;
+    aSection : cEmutecaTagsFileSection;
+    aGroup : cEmutecaGroup;
   begin
     FilterIDs := TStringList.Create;
 
@@ -235,8 +236,8 @@ procedure cEmuteca.UpdateCurrentGroupList(aSystem: cEmutecaSystem;
   end;
 
 var
-  i: integer;
-  aTagFile: cEmutecaTagsFile;
+  i : integer;
+  aTagFile : cEmutecaTagsFile;
 
 begin
   CurrentGroupList.Clear;
@@ -287,7 +288,7 @@ begin
   end;
 end;
 
-procedure cEmuteca.LoadConfig(aFile: string);
+procedure cEmuteca.LoadConfig(aFile : string);
 begin
   Config.LoadFromFile(aFile); // if empty, then last config file.
 
@@ -322,10 +323,10 @@ end;
 
 procedure cEmuteca.CleanSystems;
 var
-  i: integer;
-  aSystem: cEmutecaSystem;
-  SysPCB: TEmutecaProgressCallBack;
-  Continue: boolean;
+  i : integer;
+  aSystem : cEmutecaSystem;
+  SysPCB : TEmutecaProgressCallBack;
+  Continue : boolean;
 begin
   i := 0;
   Continue := True;
@@ -374,14 +375,14 @@ begin
   CacheData;
 end;
 
-function cEmuteca.RunSoftware(const aSoftware: cEmutecaSoftware): integer;
+function cEmuteca.RunSoftware(const aSoftware : cEmutecaSoftware) : integer;
 var
-  aEmulator: cEmutecaEmulator;
-  CompressedFile, aFolder, RomFile, SysID: string;
-  Compressed, NewDir: boolean;
-  CompError: integer;
-  StartTime: TDateTime;
-  TimePlaying: int64;
+  aEmulator : cEmutecaEmulator;
+  CompressedFile, aFolder, RomFile, SysID : string;
+  Compressed, NewDir : boolean;
+  CompError : integer;
+  StartTime : TDateTime;
+  TimePlaying : int64;
 begin
   // TODO: Use utEmutecaRunEmulator, and don't block GUI.
 
@@ -516,36 +517,36 @@ begin
   end;
 end;
 
-procedure cEmuteca.SetProgressBar(AValue: TEmutecaProgressCallBack);
+procedure cEmuteca.SetProgressBar(AValue : TEmutecaProgressCallBack);
 begin
   FProgressCallBack := AValue;
   EmulatorManager.ProgressCallBack := ProgressCallBack;
   SystemManager.ProgressCallBack := ProgressCallBack;
 end;
 
-procedure cEmuteca.GetSoftSHA1ThreadThreadTerminated(Sender: TObject);
+procedure cEmuteca.GetSoftSHA1ThreadThreadTerminated(Sender : TObject);
 begin
   GetSoftSHA1Thread := nil;
 end;
 
-procedure cEmuteca.SetTempFolder(AValue: string);
+procedure cEmuteca.SetTempFolder(AValue : string);
 begin
   FTempFolder := SetAsFolder(AValue);
 end;
 
-procedure cEmuteca.SetGetSoftSHA1Thread(AValue: ctEmutecaGetSoftSHA1);
+procedure cEmuteca.SetGetSoftSHA1Thread(AValue : ctEmutecaGetSoftSHA1);
 begin
   if FGetSoftSHA1Thread = AValue then
     Exit;
   FGetSoftSHA1Thread := AValue;
 end;
 
-procedure cEmuteca.SetBaseFolder(AValue: string);
+procedure cEmuteca.SetBaseFolder(AValue : string);
 begin
   FBaseFolder := SetAsFolder(AValue);
 end;
 
-constructor cEmuteca.Create(aOwner: TComponent);
+constructor cEmuteca.Create(aOwner : TComponent);
 begin
   inherited Create(aOwner);
 

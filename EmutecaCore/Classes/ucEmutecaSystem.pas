@@ -441,8 +441,8 @@ begin
   end;
 
   // Faster than CacheGroups;
-  if aGroup.SoftList.Count > 0 then
-    if GroupManager.VisibleList.IndexOf(aGroup) = -1 then
+  if (aGroup.SoftList.Count > 0) and
+    (GroupManager.VisibleList.IndexOf(aGroup) = -1) then
       GroupManager.VisibleList.Add(aGroup);
 end;
 

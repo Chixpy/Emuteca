@@ -17,13 +17,13 @@ uses
   uEmutecaConst;
 
 resourcestring
-
+  rsAddingFiles = 'Adding files';
   // Simple forms titles
   rsFormExportSoftData = 'Export soft data';
   rsFormMergeGroupFiles = 'Merge group files';
   rsFormGroupEditor = 'Group Editor';
 
-
+  rsMakingFileList = 'Making list of all files';
   // Misc
   rsNever = 'Never';
   rsUnknown = 'Unknown';

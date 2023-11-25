@@ -9,8 +9,8 @@ inherited fmETKDBEditor: TfmETKDBEditor
   DesignTop = 215
   object sgMain: TStringGrid[0]
     Left = 0
-    Height = 508
-    Top = 34
+    Height = 467
+    Top = 75
     Width = 832
     Align = alClient
     AlternateColor = clInfoBk
@@ -50,89 +50,237 @@ inherited fmETKDBEditor: TfmETKDBEditor
       end>
     SimplePanel = False
   end
-  object pButtons: TPanel[2]
+  object pcRubber: TPageControl[2]
     Left = 0
-    Height = 30
+    Height = 71
     Top = 0
     Width = 832
+    ActivePage = tsReplace
     Align = alTop
-    AutoSize = True
-    BevelOuter = bvNone
-    ChildSizing.EnlargeHorizontal = crsHomogenousSpaceResize
-    ChildSizing.ShrinkHorizontal = crsHomogenousSpaceResize
-    ChildSizing.Layout = cclTopToBottomThenLeftToRight
-    ChildSizing.ControlsPerLine = 1
-    ClientHeight = 30
-    ClientWidth = 832
+    TabIndex = 2
     TabOrder = 2
-    object bExit: TButton
-      Left = 41
-      Height = 30
-      Top = 0
-      Width = 50
-      Action = actExit
-      TabOrder = 0
-    end
-    object bOpenFile: TButton
-      Left = 132
-      Height = 30
-      Top = 0
-      Width = 71
-      Action = actOpenFile
-      TabOrder = 1
-    end
-    object bSaveFile: TButton
-      Left = 244
-      Height = 30
-      Top = 0
-      Width = 66
-      Action = actSaveFile
-      TabOrder = 2
-    end
-    object chkFastEditMode: TCheckBox
-      Left = 351
-      Height = 30
-      Hint = 'Toggles edit on cell select.|Faster cell edit, but multiple cells can''t be selected.'
-      Top = 0
-      Width = 123
-      Caption = 'Fast Edit Mode'
-      Checked = True
-      OnChange = chkFastEditModeChange
-      State = cbChecked
-      TabOrder = 3
-    end
-    object pFastMove: TPanel
-      Left = 515
-      Height = 30
-      Top = 0
-      Width = 276
-      BevelOuter = bvNone
+    object tsFile: TTabSheet
+      Caption = 'File'
       ChildSizing.LeftRightSpacing = 4
-      ChildSizing.HorizontalSpacing = 4
-      ClientHeight = 30
-      ClientWidth = 276
-      TabOrder = 4
-      object lFastMove: TLabel
-        Left = 4
+      ChildSizing.TopBottomSpacing = 4
+      ChildSizing.HorizontalSpacing = 8
+      ChildSizing.VerticalSpacing = 8
+      ChildSizing.EnlargeHorizontal = crsHomogenousSpaceResize
+      ChildSizing.ShrinkHorizontal = crsHomogenousSpaceResize
+      ChildSizing.Layout = cclTopToBottomThenLeftToRight
+      ChildSizing.ControlsPerLine = 1
+      ClientHeight = 38
+      ClientWidth = 824
+      object bExit: TButton
+        Left = 162
         Height = 30
-        Top = 0
-        Width = 139
-        Align = alLeft
-        Alignment = taRightJustify
-        Caption = 'Fast Move to Column'
-        Layout = tlCenter
-        ParentColor = False
-      end
-      object cbxFastMove: TComboBox
-        Left = 147
-        Height = 28
-        Top = 0
-        Width = 125
-        Align = alClient
-        ItemHeight = 20
-        ReadOnly = True
-        Style = csDropDownList
+        Top = 4
+        Width = 50
+        Action = actExit
+        AutoSize = True
         TabOrder = 0
+      end
+      object bOpenFile: TButton
+        Left = 374
+        Height = 30
+        Top = 4
+        Width = 71
+        Action = actOpenFile
+        AutoSize = True
+        TabOrder = 1
+      end
+      object bSaveFile: TButton
+        Left = 607
+        Height = 30
+        Top = 4
+        Width = 66
+        Action = actSaveFile
+        AutoSize = True
+        TabOrder = 2
+      end
+    end
+    object tsEdit: TTabSheet
+      Caption = 'Edit'
+      ChildSizing.LeftRightSpacing = 4
+      ChildSizing.TopBottomSpacing = 4
+      ChildSizing.HorizontalSpacing = 8
+      ChildSizing.VerticalSpacing = 8
+      ChildSizing.EnlargeHorizontal = crsHomogenousSpaceResize
+      ChildSizing.Layout = cclTopToBottomThenLeftToRight
+      ChildSizing.ControlsPerLine = 1
+      ClientHeight = 38
+      ClientWidth = 824
+      object chk1Col: TCheckBox
+        Left = 109
+        Height = 28
+        Top = 4
+        Width = 69
+        Caption = '1st Col'
+        OnChange = chk1ColChange
+        TabOrder = 2
+      end
+      object chkFastEditMode: TCheckBox
+        Left = 287
+        Height = 28
+        Hint = 'Toggles edit on cell select.|Faster cell edit, but multiple cells can''t be selected.'
+        Top = 4
+        Width = 123
+        Caption = 'Fast Edit Mode'
+        Checked = True
+        OnChange = chkFastEditModeChange
+        State = cbChecked
+        TabOrder = 0
+      end
+      object pFastMove: TPanel
+        Left = 519
+        Height = 28
+        Top = 4
+        Width = 207
+        BevelOuter = bvNone
+        ChildSizing.HorizontalSpacing = 8
+        ChildSizing.VerticalSpacing = 8
+        ClientHeight = 28
+        ClientWidth = 207
+        TabOrder = 1
+        object lFastMove: TLabel
+          Left = 0
+          Height = 28
+          Top = 0
+          Width = 99
+          Align = alLeft
+          Alignment = taRightJustify
+          Caption = 'ALT+A Column'
+          Layout = tlCenter
+          ParentColor = False
+        end
+        object cbxFastMove: TComboBox
+          Left = 107
+          Height = 28
+          Top = 0
+          Width = 100
+          Align = alClient
+          ItemHeight = 20
+          ReadOnly = True
+          Style = csDropDownList
+          TabOrder = 0
+        end
+      end
+    end
+    object tsReplace: TTabSheet
+      AutoSize = True
+      Caption = 'Replace'
+      ChildSizing.LeftRightSpacing = 4
+      ChildSizing.TopBottomSpacing = 4
+      ChildSizing.HorizontalSpacing = 8
+      ChildSizing.VerticalSpacing = 8
+      ChildSizing.EnlargeHorizontal = crsHomogenousSpaceResize
+      ChildSizing.Layout = cclTopToBottomThenLeftToRight
+      ChildSizing.ControlsPerLine = 1
+      ClientHeight = 38
+      ClientWidth = 824
+      object pReplace: TPanel
+        Left = 40
+        Height = 30
+        Top = 4
+        Width = 161
+        BevelOuter = bvNone
+        ChildSizing.HorizontalSpacing = 8
+        ChildSizing.VerticalSpacing = 8
+        ClientHeight = 30
+        ClientWidth = 161
+        TabOrder = 0
+        object lReplace: TLabel
+          Left = 0
+          Height = 30
+          Top = 0
+          Width = 53
+          Align = alLeft
+          Alignment = taRightJustify
+          Caption = 'Replace'
+          Layout = tlCenter
+          ParentColor = False
+        end
+        object eReplace: TEdit
+          Left = 61
+          Height = 30
+          Top = 0
+          Width = 100
+          Align = alClient
+          TabOrder = 0
+        end
+      end
+      object pReplaceWith: TPanel
+        Left = 241
+        Height = 30
+        Top = 4
+        Width = 193
+        BevelOuter = bvNone
+        ChildSizing.HorizontalSpacing = 8
+        ChildSizing.VerticalSpacing = 8
+        ClientHeight = 30
+        ClientWidth = 193
+        TabOrder = 1
+        object lReplaceWith: TLabel
+          Left = 0
+          Height = 30
+          Top = 0
+          Width = 85
+          Align = alLeft
+          Alignment = taRightJustify
+          Caption = 'Replace with'
+          Layout = tlCenter
+          ParentColor = False
+        end
+        object eReplaceWith: TEdit
+          Left = 93
+          Height = 30
+          Top = 0
+          Width = 100
+          Align = alClient
+          TabOrder = 0
+        end
+      end
+      object pReplaceIn: TPanel
+        Left = 474
+        Height = 30
+        Top = 4
+        Width = 200
+        BevelOuter = bvNone
+        ChildSizing.HorizontalSpacing = 8
+        ChildSizing.VerticalSpacing = 8
+        ClientHeight = 30
+        ClientWidth = 200
+        TabOrder = 2
+        object lInColumn: TLabel
+          Left = 0
+          Height = 30
+          Top = 0
+          Width = 67
+          Align = alLeft
+          Alignment = taRightJustify
+          Caption = 'in Column'
+          Layout = tlCenter
+          ParentColor = False
+        end
+        object cbxColReplace: TComboBox
+          Left = 75
+          Height = 28
+          Top = 0
+          Width = 125
+          Align = alClient
+          ItemHeight = 20
+          ReadOnly = True
+          Style = csDropDownList
+          TabOrder = 0
+        end
+      end
+      object bReplace: TButton
+        Left = 714
+        Height = 30
+        Top = 4
+        Width = 79
+        Action = actReplace
+        TabOrder = 3
       end
     end
   end
@@ -162,6 +310,11 @@ inherited fmETKDBEditor: TfmETKDBEditor
       Hint = 'Guardar Como'
       BeforeExecute = actSaveFileBeforeExecute
       OnAccept = actSaveFileAccept
+    end
+    object actReplace: TAction
+      Category = 'Replace'
+      Caption = 'Replace'
+      OnExecute = actReplaceExecute
     end
   end
   object ilMain: TImageList[4]

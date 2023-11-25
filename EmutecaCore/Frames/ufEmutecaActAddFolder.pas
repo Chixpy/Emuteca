@@ -210,6 +210,9 @@ procedure TfmEmutecaActAddFolder.SaveFrameData;
           aSoft.ID := '';
       end;
 
+      aStr1 := '';
+       aStr2 := '';
+
       if SimpleStringSplit(ExtractFileNameOnly(aSoft.FileName),
         ' (', aStr1, aStr2) > 1 then
       begin
@@ -227,7 +230,6 @@ procedure TfmEmutecaActAddFolder.SaveFrameData;
         if aStr2 <> '' then
           aSoft.DumpInfo := '[' + aStr2;
       end;
-
 
       case rgbGroup.ItemIndex of
         1: // Group by filename
@@ -280,6 +282,7 @@ begin
   Self.Enabled := False;
 
   // Loading data if not already loaded
+  Emuteca.CacheDataStop;
   Emuteca.SystemManager.LoadSystemData(aSystem);
 
   // Copy actual soft list to CacheSoftList
@@ -291,14 +294,14 @@ begin
   ComprFileList := TStringList.Create;
   try
     if assigned(Emuteca.ProgressCallBack) then
-      Continue := Emuteca.ProgressCallBack('Making list of all files',
+      Continue := Emuteca.ProgressCallBack(rsMakingFileList,
         Format('This can take a while. Searching for: %0:s',
         [aSystem.Extensions.CommaText]), 1, 100, True);
 
     // 1.- Straight search of all files
     aFileMask := FileMaskFromStringList(aSystem.Extensions);
     if not chkNoZip.Checked then
-      aFileMask := aFileMask + ';' + FileMaskFromStringList(
+      aFileMask := aFileMask + PathSeparator + FileMaskFromStringList(
         Emuteca.Config.CompressedExtensions);
 
     FileList.BeginUpdate;
@@ -318,7 +321,7 @@ begin
       begin // it's a supported file
 
         if assigned(Emuteca.ProgressCallBack) then
-          Continue := Emuteca.ProgressCallBack('Adding files',
+          Continue := Emuteca.ProgressCallBack(rsAddingFiles,
             FileList[i], i, FileList.Count, True);
 
         AddFile(aFolder, aFile, aSystem, CacheSoftList);
@@ -337,7 +340,7 @@ begin
         while j < ComprFileList.Count do
         begin
           if assigned(Emuteca.ProgressCallBack) then
-            Continue := Emuteca.ProgressCallBack('Adding files',
+            Continue := Emuteca.ProgressCallBack(rsAddingFiles,
               ComprFileList[j], i, FileList.Count, True);
 
           if SupportedExtSL(ComprFileList[j], aSystem.Extensions) then
@@ -351,7 +354,6 @@ begin
     end;
 
   finally
-
     Emuteca.CacheData;
 
     if assigned(Emuteca.ProgressCallBack) then

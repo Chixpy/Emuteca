@@ -9,7 +9,7 @@
         <Filename Value="ETKDBEditor.lpr"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="58"/>
+        <UsageCount Value="64"/>
       </Unit>
       <Unit>
         <Filename Value="src\forms\ufrETKDBEditorMain.pas"/>
@@ -19,7 +19,7 @@
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="52" Y="32"/>
-        <UsageCount Value="58"/>
+        <UsageCount Value="64"/>
       </Unit>
       <Unit>
         <Filename Value="..\CHXPas\Forms\ufrCHXForm.pas"/>
@@ -30,7 +30,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="228"/>
         <CursorPos X="45" Y="213"/>
-        <UsageCount Value="58"/>
+        <UsageCount Value="64"/>
       </Unit>
       <Unit>
         <Filename Value="..\CHXPas\Frames\ufCHXFrame.pas"/>
@@ -41,7 +41,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="338"/>
         <CursorPos X="27" Y="184"/>
-        <UsageCount Value="58"/>
+        <UsageCount Value="64"/>
       </Unit>
       <Unit>
         <Filename Value="src\frames\ufETKDBEditorMain.pas"/>
@@ -50,9 +50,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="258"/>
-        <CursorPos X="50" Y="252"/>
-        <UsageCount Value="57"/>
+        <TopLine Value="136"/>
+        <CursorPos X="5" Y="151"/>
+        <UsageCount Value="63"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
@@ -61,15 +61,14 @@
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="14" Y="30"/>
-        <UsageCount Value="54"/>
+        <UsageCount Value="60"/>
       </Unit>
       <Unit>
         <Filename Value="..\CHXPas\Units\uCHXStrUtils.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="-1"/>
         <CursorPos X="25" Y="18"/>
-        <UsageCount Value="54"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="60"/>
       </Unit>
       <Unit>
         <Filename Value="..\CHXPas\Units\uCHXRscStr.pas"/>
@@ -77,14 +76,14 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="57"/>
         <CursorPos X="19" Y="68"/>
-        <UsageCount Value="54"/>
+        <UsageCount Value="60"/>
       </Unit>
       <Unit>
         <Filename Value="..\CHXPas\Units\uCHXConst.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="16" Y="32"/>
-        <UsageCount Value="54"/>
+        <UsageCount Value="60"/>
       </Unit>
       <Unit>
         <Filename Value="src\units\uETKDBEConst.pas"/>
@@ -92,14 +91,14 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="7"/>
         <CursorPos X="18" Y="35"/>
-        <UsageCount Value="50"/>
+        <UsageCount Value="56"/>
       </Unit>
       <Unit>
         <Filename Value="..\EmutecaCore\Units\uEmutecaRscStr.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="20"/>
-        <UsageCount Value="47"/>
+        <UsageCount Value="53"/>
       </Unit>
       <Unit>
         <Filename Value="..\EmutecaCore\Units\uEmutecaConst.pas"/>
@@ -107,15 +106,14 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="31"/>
         <CursorPos X="3" Y="32"/>
-        <UsageCount Value="47"/>
+        <UsageCount Value="53"/>
       </Unit>
       <Unit>
         <Filename Value="..\CHXPas\Units\uCHXVerInfo.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="-1"/>
         <CursorPos X="6" Y="10"/>
-        <UsageCount Value="28"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="34"/>
       </Unit>
       <Unit>
         <Filename Value="src\units\uETKDBERscStr.pas"/>
@@ -123,33 +121,33 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="5"/>
         <CursorPos X="16" Y="18"/>
-        <UsageCount Value="27"/>
+        <UsageCount Value="33"/>
       </Unit>
       <Unit>
         <Filename Value="..\CHXPas\Misc\uVersionSupport.pas"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="33" Y="215"/>
-        <UsageCount Value="42"/>
+        <UsageCount Value="41"/>
       </Unit>
       <Unit>
         <Filename Value="D:\Programas\Inst\Lazarus\components\lazutils\translations.pas"/>
         <UnitName Value="Translations"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
       </Unit>
       <Unit>
         <Filename Value="D:\Programas\Inst\Lazarus\lcl\defaulttranslator.pas"/>
         <UnitName Value="DefaultTranslator"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="16" Y="15"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
       </Unit>
       <Unit>
         <Filename Value="D:\Programas\Inst\Lazarus\lcl\lcltranslator.pas"/>
         <UnitName Value="LCLTranslator"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="71"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
       </Unit>
       <Unit>
         <Filename Value="D:\Programas\Inst\Lazarus\lcl\forms.pp"/>
@@ -157,14 +155,14 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="53"/>
         <CursorPos X="40" Y="69"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit>
       <Unit>
         <Filename Value="D:\Programas\Inst\Lazarus\lcl\include\customform.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="1725"/>
         <CursorPos X="3" Y="1732"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="7"/>
       </Unit>
       <Unit>
         <Filename Value="D:\Programas\Inst\Lazarus\lcl\grids.pas"/>
@@ -172,7 +170,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="7614"/>
         <CursorPos X="18" Y="7540"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="10"/>
       </Unit>
       <Unit>
         <Filename Value="D:\Programas\Inst\Lazarus\lcl\dialogs.pp"/>
@@ -180,21 +178,21 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="717"/>
         <CursorPos X="3" Y="35"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit>
       <Unit>
         <Filename Value="D:\Programas\Inst\Lazarus\lcl\include\promptdialog.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="1048"/>
         <CursorPos X="26" Y="1083"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="7"/>
       </Unit>
       <Unit>
         <Filename Value="D:\Programas\Inst\Lazarus\components\lazutils\uitypes.pas"/>
         <UnitName Value="UITypes"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="3" Y="34"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit>
       <Unit>
         <Filename Value="D:\Programas\Inst\Lazarus\fpc\3.2.2\source\packages\rtl-objpas\src\inc\system.uitypes.pp"/>
@@ -202,7 +200,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="179"/>
         <CursorPos X="32" Y="198"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit>
       <Unit>
         <Filename Value="D:\Programas\Inst\Lazarus\lcl\stdactns.pas"/>
@@ -210,7 +208,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="106"/>
         <CursorPos X="3" Y="124"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="7"/>
       </Unit>
       <Unit>
         <Filename Value="D:\Programas\Inst\Lazarus\lcl\actnlist.pas"/>
@@ -218,14 +216,14 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="97"/>
         <CursorPos X="3" Y="150"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="7"/>
       </Unit>
       <Unit>
         <Filename Value="D:\Programas\Inst\Lazarus\fpc\3.2.2\source\rtl\objpas\classes\classesh.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="94"/>
         <CursorPos X="36" Y="101"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="11"/>
       </Unit>
       <Unit>
         <Filename Value="D:\Programas\Inst\Lazarus\lcl\controls.pp"/>
@@ -233,14 +231,14 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="67"/>
         <CursorPos X="3" Y="81"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="10"/>
       </Unit>
       <Unit>
         <Filename Value="D:\Programas\Inst\Lazarus\components\lazutils\lcsvutils.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="172"/>
         <CursorPos X="3" Y="213"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit>
       <Unit>
         <Filename Value="D:\Programas\Inst\Lazarus\lcl\clipbrd.pp"/>
@@ -248,90 +246,90 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="211"/>
         <CursorPos X="14" Y="223"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="11"/>
       </Unit>
       <Unit>
         <Filename Value="D:\Programas\Inst\Lazarus\fpc\3.2.2\source\rtl\inc\typshrdh.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="100"/>
         <CursorPos X="18" Y="109"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit>
       <Unit>
         <Filename Value="D:\Programas\Inst\Lazarus\fpc\3.2.2\source\rtl\inc\typshrd.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="270"/>
         <CursorPos X="3" Y="272"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit>
       <Unit>
         <Filename Value="D:\Programas\Inst\Lazarus\fpc\3.2.2\source\rtl\inc\systemh.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="1504"/>
         <CursorPos X="11" Y="1518"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit>
       <Unit>
         <Filename Value="D:\Programas\Inst\Lazarus\fpc\3.2.2\source\rtl\win\syswin.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="340"/>
         <CursorPos X="5" Y="342"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit>
       <Unit>
         <Filename Value="D:\Programas\Inst\Lazarus\fpc\3.2.2\source\rtl\objpas\objpas.pp"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="274"/>
         <CursorPos X="3" Y="305"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit>
       <Unit>
         <Filename Value="D:\Programas\Inst\Lazarus\fpc\3.2.2\source\rtl\inc\objpash.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="201"/>
         <CursorPos X="21" Y="215"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit>
       <Unit>
         <Filename Value="D:\Programas\Inst\Lazarus\fpc\3.2.2\source\rtl\inc\objpas.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="331"/>
         <CursorPos X="12" Y="334"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit>
       <Unit>
         <Filename Value="D:\Programas\Inst\Lazarus\lcl\include\clipbrd.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="328"/>
         <CursorPos X="3" Y="333"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="10"/>
       </Unit>
       <Unit>
         <Filename Value="D:\Programas\Inst\Lazarus\lcl\include\customcombobox.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="885"/>
         <CursorPos X="27" Y="899"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit>
       <Unit>
         <Filename Value="D:\Programas\Inst\Lazarus\fpc\3.2.2\source\rtl\objpas\sysutils\syshelph.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="160"/>
         <CursorPos X="11" Y="65"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit>
       <Unit>
         <Filename Value="D:\Programas\Inst\Lazarus\fpc\3.2.2\source\rtl\objpas\sysutils\syshelp.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="160"/>
         <CursorPos X="3" Y="163"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit>
       <Unit>
         <Filename Value="D:\Programas\Inst\Lazarus\fpc\3.2.2\source\rtl\objpas\sysutils\sysstrh.inc"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="2"/>
         <TopLine Value="14"/>
-        <CursorPos X="54" Y="28"/>
+        <CursorPos X="40" Y="28"/>
         <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit>
@@ -341,21 +339,21 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="412"/>
         <CursorPos X="3" Y="482"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit>
       <Unit>
         <Filename Value="D:\Programas\Inst\Lazarus\lcl\include\wincontrol.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="5682"/>
         <CursorPos Y="5699"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit>
       <Unit>
         <Filename Value="D:\Programas\Inst\Lazarus\lcl\include\control.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="2011"/>
         <CursorPos Y="2028"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit>
       <Unit>
         <Filename Value="D:\Programas\Inst\Lazarus\components\lazutils\lazmethodlist.pas"/>
@@ -363,58 +361,114 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="184"/>
         <CursorPos Y="208"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit>
       <Unit>
         <Filename Value="D:\Programas\Inst\Lazarus\components\lazutils\lazutf8.pas"/>
         <UnitName Value="LazUTF8"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="1"/>
         <TopLine Value="108"/>
         <CursorPos X="10" Y="122"/>
         <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit>
     </Units>
-    <JumpHistory HistoryIndex="17">
+    <JumpHistory HistoryIndex="29">
       <Position>
         <Filename Value="src\frames\ufETKDBEditorMain.pas"/>
-        <Caret Line="167" TopLine="152"/>
+        <Caret Line="242" Column="33" TopLine="233"/>
       </Position>
       <Position>
         <Filename Value="src\frames\ufETKDBEditorMain.pas"/>
-        <Caret Line="263" Column="25" TopLine="248"/>
+        <Caret Line="243" Column="33" TopLine="234"/>
       </Position>
       <Position>
         <Filename Value="src\frames\ufETKDBEditorMain.pas"/>
-        <Caret Line="259" Column="21" TopLine="231"/>
+        <Caret Line="249" Column="33" TopLine="240"/>
       </Position>
       <Position>
         <Filename Value="src\frames\ufETKDBEditorMain.pas"/>
-        <Caret Line="15" Column="46"/>
+        <Caret Line="189" Column="3" TopLine="187"/>
       </Position>
       <Position>
         <Filename Value="src\frames\ufETKDBEditorMain.pas"/>
-        <Caret Line="222" Column="47" TopLine="210"/>
+        <Caret Line="188" Column="3" TopLine="186"/>
       </Position>
       <Position>
         <Filename Value="src\frames\ufETKDBEditorMain.pas"/>
-        <Caret Line="403" Column="3" TopLine="235"/>
+        <Caret Line="189" Column="3" TopLine="187"/>
       </Position>
       <Position>
         <Filename Value="src\frames\ufETKDBEditorMain.pas"/>
-        <Caret Line="215" TopLine="200"/>
+        <Caret Line="188" Column="3" TopLine="186"/>
       </Position>
       <Position>
         <Filename Value="src\frames\ufETKDBEditorMain.pas"/>
-        <Caret Line="224" TopLine="200"/>
+        <Caret Line="185" Column="3" TopLine="185"/>
       </Position>
       <Position>
         <Filename Value="src\frames\ufETKDBEditorMain.pas"/>
-        <Caret Line="222" Column="31" TopLine="203"/>
+        <Caret Line="423" Column="54" TopLine="400"/>
       </Position>
       <Position>
         <Filename Value="src\frames\ufETKDBEditorMain.pas"/>
-        <Caret Line="220" Column="19" TopLine="204"/>
+        <Caret Line="66" Column="25" TopLine="42"/>
+      </Position>
+      <Position>
+        <Filename Value="src\frames\ufETKDBEditorMain.pas"/>
+        <Caret Line="260" Column="9" TopLine="237"/>
+      </Position>
+      <Position>
+        <Filename Value="src\frames\ufETKDBEditorMain.pas"/>
+        <Caret Line="83" Column="15" TopLine="70"/>
+      </Position>
+      <Position>
+        <Filename Value="src\frames\ufETKDBEditorMain.pas"/>
+        <Caret Line="252" Column="3" TopLine="249"/>
+      </Position>
+      <Position>
+        <Filename Value="src\frames\ufETKDBEditorMain.pas"/>
+        <Caret Line="110" Column="15" TopLine="97"/>
+      </Position>
+      <Position>
+        <Filename Value="src\frames\ufETKDBEditorMain.pas"/>
+        <Caret Line="410" Column="18" TopLine="387"/>
+      </Position>
+      <Position>
+        <Filename Value="src\frames\ufETKDBEditorMain.pas"/>
+        <Caret Line="279" Column="24" TopLine="265"/>
+      </Position>
+      <Position>
+        <Filename Value="src\frames\ufETKDBEditorMain.pas"/>
+        <Caret Line="152" Column="18" TopLine="133"/>
+      </Position>
+      <Position>
+        <Filename Value="src\frames\ufETKDBEditorMain.pas"/>
+        <Caret Line="149" Column="24" TopLine="134"/>
+      </Position>
+      <Position>
+        <Filename Value="src\frames\ufETKDBEditorMain.pas"/>
+        <Caret Line="144" Column="33" TopLine="129"/>
+      </Position>
+      <Position>
+        <Filename Value="src\frames\ufETKDBEditorMain.pas"/>
+        <Caret Line="143" Column="24" TopLine="129"/>
+      </Position>
+      <Position>
+        <Filename Value="src\frames\ufETKDBEditorMain.pas"/>
+        <Caret Line="148" Column="12" TopLine="131"/>
+      </Position>
+      <Position>
+        <Filename Value="src\frames\ufETKDBEditorMain.pas"/>
+        <Caret Line="150" Column="48" TopLine="137"/>
+      </Position>
+      <Position>
+        <Filename Value="src\frames\ufETKDBEditorMain.pas"/>
+        <Caret Line="151" Column="7" TopLine="137"/>
+      </Position>
+      <Position>
+        <Filename Value="src\frames\ufETKDBEditorMain.pas"/>
+        <Caret Line="152" Column="50" TopLine="137"/>
       </Position>
       <Position>
         <Filename Value="D:\Programas\Inst\Lazarus\components\lazutils\lazutf8.pas"/>
@@ -422,31 +476,23 @@
       </Position>
       <Position>
         <Filename Value="src\frames\ufETKDBEditorMain.pas"/>
-        <Caret Line="222" Column="20" TopLine="204"/>
+        <Caret Line="150" Column="30" TopLine="137"/>
       </Position>
       <Position>
         <Filename Value="src\frames\ufETKDBEditorMain.pas"/>
-        <Caret Line="89" Column="54" TopLine="73"/>
+        <Caret Line="268" Column="22" TopLine="268"/>
       </Position>
       <Position>
         <Filename Value="src\frames\ufETKDBEditorMain.pas"/>
-        <Caret Line="314" Column="24" TopLine="223"/>
+        <Caret Line="269" Column="22" TopLine="269"/>
       </Position>
       <Position>
         <Filename Value="src\frames\ufETKDBEditorMain.pas"/>
-        <Caret Line="331" TopLine="314"/>
+        <Caret Line="152" Column="89" TopLine="138"/>
       </Position>
       <Position>
         <Filename Value="src\frames\ufETKDBEditorMain.pas"/>
-        <Caret Line="324" Column="15" TopLine="312"/>
-      </Position>
-      <Position>
-        <Filename Value="..\CHXPas\Units\uCHXVerInfo.pas"/>
-        <Caret Line="10" Column="6"/>
-      </Position>
-      <Position>
-        <Filename Value="src\frames\ufETKDBEditorMain.pas"/>
-        <Caret Line="69" Column="25" TopLine="61"/>
+        <Caret Line="150" TopLine="138"/>
       </Position>
     </JumpHistory>
     <RunParams>
