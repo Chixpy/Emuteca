@@ -10,11 +10,11 @@ uses
   athreads,
   {$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, ufrMain, ufrCHXForm, uVersionSupport, uCHXConst, uCHXStrUtils,
+  Forms, ufrMain, ufrCHXForm, uCHXConst, uCHXStrUtils,
   uCHXRscStr, uCHXFileUtils, uCHXImageUtils, uCHXExecute, uCHX7zWrapper,
-  uCHXDlgUtils, uaCHXConfig, uaCHXStorable, ufCHXFrame, ufCHXImgListPreview,
-  ufCHXFileListPreview, ufCHXImgViewer, ufCHXListPreview, uP2CConst, ufP2CMain,
-  ucP2CConfig
+  uCHXDlgUtils, uCHXVerInfo, uaCHXConfig, uaCHXStorable, ufCHXFrame,
+  ufCHXImgListPreview, ufCHXFileListPreview, ufCHXImgViewer, ufCHXListPreview,
+  uP2CConst, ufP2CMain, ucP2CConfig
   { you can add units after this };
 
 {$R *.res}

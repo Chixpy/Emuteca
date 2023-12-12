@@ -9,7 +9,7 @@
         <Filename Value="ETKDBEditor.lpr"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="64"/>
+        <UsageCount Value="65"/>
       </Unit>
       <Unit>
         <Filename Value="src\forms\ufrETKDBEditorMain.pas"/>
@@ -19,7 +19,7 @@
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="52" Y="32"/>
-        <UsageCount Value="64"/>
+        <UsageCount Value="65"/>
       </Unit>
       <Unit>
         <Filename Value="..\CHXPas\Forms\ufrCHXForm.pas"/>
@@ -30,7 +30,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="228"/>
         <CursorPos X="45" Y="213"/>
-        <UsageCount Value="64"/>
+        <UsageCount Value="65"/>
       </Unit>
       <Unit>
         <Filename Value="..\CHXPas\Frames\ufCHXFrame.pas"/>
@@ -41,7 +41,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="338"/>
         <CursorPos X="27" Y="184"/>
-        <UsageCount Value="64"/>
+        <UsageCount Value="65"/>
       </Unit>
       <Unit>
         <Filename Value="src\frames\ufETKDBEditorMain.pas"/>
@@ -50,9 +50,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="136"/>
-        <CursorPos X="5" Y="151"/>
-        <UsageCount Value="63"/>
+        <TopLine Value="256"/>
+        <CursorPos X="3" Y="260"/>
+        <UsageCount Value="64"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
@@ -61,14 +61,14 @@
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="14" Y="30"/>
-        <UsageCount Value="60"/>
+        <UsageCount Value="61"/>
       </Unit>
       <Unit>
         <Filename Value="..\CHXPas\Units\uCHXStrUtils.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="25" Y="18"/>
-        <UsageCount Value="60"/>
+        <UsageCount Value="61"/>
       </Unit>
       <Unit>
         <Filename Value="..\CHXPas\Units\uCHXRscStr.pas"/>
@@ -76,14 +76,14 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="57"/>
         <CursorPos X="19" Y="68"/>
-        <UsageCount Value="60"/>
+        <UsageCount Value="61"/>
       </Unit>
       <Unit>
         <Filename Value="..\CHXPas\Units\uCHXConst.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="16" Y="32"/>
-        <UsageCount Value="60"/>
+        <UsageCount Value="61"/>
       </Unit>
       <Unit>
         <Filename Value="src\units\uETKDBEConst.pas"/>
@@ -91,14 +91,14 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="7"/>
         <CursorPos X="18" Y="35"/>
-        <UsageCount Value="56"/>
+        <UsageCount Value="57"/>
       </Unit>
       <Unit>
         <Filename Value="..\EmutecaCore\Units\uEmutecaRscStr.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="20"/>
-        <UsageCount Value="53"/>
+        <UsageCount Value="54"/>
       </Unit>
       <Unit>
         <Filename Value="..\EmutecaCore\Units\uEmutecaConst.pas"/>
@@ -106,14 +106,14 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="31"/>
         <CursorPos X="3" Y="32"/>
-        <UsageCount Value="53"/>
+        <UsageCount Value="54"/>
       </Unit>
       <Unit>
         <Filename Value="..\CHXPas\Units\uCHXVerInfo.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="6" Y="10"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="35"/>
       </Unit>
       <Unit>
         <Filename Value="src\units\uETKDBERscStr.pas"/>
@@ -121,7 +121,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="5"/>
         <CursorPos X="16" Y="18"/>
-        <UsageCount Value="33"/>
+        <UsageCount Value="34"/>
       </Unit>
       <Unit>
         <Filename Value="..\CHXPas\Misc\uVersionSupport.pas"/>
@@ -330,7 +330,7 @@
         <EditorIndex Value="2"/>
         <TopLine Value="14"/>
         <CursorPos X="40" Y="28"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="12"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -369,27 +369,11 @@
         <EditorIndex Value="1"/>
         <TopLine Value="108"/>
         <CursorPos X="10" Y="122"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="12"/>
         <Loaded Value="True"/>
       </Unit>
     </Units>
     <JumpHistory HistoryIndex="29">
-      <Position>
-        <Filename Value="src\frames\ufETKDBEditorMain.pas"/>
-        <Caret Line="242" Column="33" TopLine="233"/>
-      </Position>
-      <Position>
-        <Filename Value="src\frames\ufETKDBEditorMain.pas"/>
-        <Caret Line="243" Column="33" TopLine="234"/>
-      </Position>
-      <Position>
-        <Filename Value="src\frames\ufETKDBEditorMain.pas"/>
-        <Caret Line="249" Column="33" TopLine="240"/>
-      </Position>
-      <Position>
-        <Filename Value="src\frames\ufETKDBEditorMain.pas"/>
-        <Caret Line="189" Column="3" TopLine="187"/>
-      </Position>
       <Position>
         <Filename Value="src\frames\ufETKDBEditorMain.pas"/>
         <Caret Line="188" Column="3" TopLine="186"/>
@@ -493,6 +477,22 @@
       <Position>
         <Filename Value="src\frames\ufETKDBEditorMain.pas"/>
         <Caret Line="150" TopLine="138"/>
+      </Position>
+      <Position>
+        <Filename Value="src\frames\ufETKDBEditorMain.pas"/>
+        <Caret Line="73" Column="28" TopLine="58"/>
+      </Position>
+      <Position>
+        <Filename Value="src\frames\ufETKDBEditorMain.pas"/>
+        <Caret Line="347" Column="42" TopLine="344"/>
+      </Position>
+      <Position>
+        <Filename Value="src\frames\ufETKDBEditorMain.pas"/>
+        <Caret Line="316" Column="37" TopLine="307"/>
+      </Position>
+      <Position>
+        <Filename Value="src\frames\ufETKDBEditorMain.pas"/>
+        <Caret Line="79" Column="26" TopLine="66"/>
       </Position>
     </JumpHistory>
     <RunParams>

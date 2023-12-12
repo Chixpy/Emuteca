@@ -1,61 +1,59 @@
 inherited fmP2CMain: TfmP2CMain
-  Height = 710
-  Width = 986
-  ClientHeight = 710
-  ClientWidth = 986
+  Height = 768
+  Width = 1024
+  ClientHeight = 768
+  ClientWidth = 1024
   DesignLeft = 414
   DesignTop = 91
   object pgcMain: TPageControl[0]
     Left = 0
-    Height = 677
+    Height = 735
     Top = 0
-    Width = 986
+    Width = 1024
     ActivePage = pagConvert
     Align = alClient
     TabIndex = 0
     TabOrder = 0
     object pagConvert: TTabSheet
       Caption = 'Convert'
-      ClientHeight = 644
-      ClientWidth = 978
+      ChildSizing.LeftRightSpacing = 4
+      ChildSizing.TopBottomSpacing = 4
+      ChildSizing.HorizontalSpacing = 8
+      ChildSizing.VerticalSpacing = 8
+      ClientHeight = 702
+      ClientWidth = 1016
       object gbxImagesPreview: TGroupBox
-        Left = 352
-        Height = 644
-        Top = 0
-        Width = 626
+        Left = 372
+        Height = 694
+        Top = 4
+        Width = 640
         Align = alClient
         Caption = 'Images preview'
         TabOrder = 0
       end
       object Splitter1: TSplitter
-        Left = 346
-        Height = 644
-        Top = 0
+        Left = 358
+        Height = 694
+        Top = 4
         Width = 6
       end
       object pLeft: TPanel
-        Left = 0
-        Height = 644
-        Top = 0
+        Left = 4
+        Height = 694
+        Top = 4
         Width = 346
         Align = alLeft
-        ChildSizing.VerticalSpacing = 4
-        ClientHeight = 644
+        ClientHeight = 694
         ClientWidth = 346
         TabOrder = 2
         object gbxInput: TGroupBox
           Left = 1
-          Height = 227
+          Height = 251
           Top = 1
           Width = 344
           Align = alTop
-          AutoSize = True
           Caption = 'Input'
-          ChildSizing.LeftRightSpacing = 4
-          ChildSizing.TopBottomSpacing = 4
-          ChildSizing.HorizontalSpacing = 4
-          ChildSizing.VerticalSpacing = 4
-          ClientHeight = 202
+          ClientHeight = 226
           ClientWidth = 340
           TabOrder = 0
           object lPDFFile: TLabel
@@ -64,6 +62,7 @@ inherited fmP2CMain: TfmP2CMain
             Top = 4
             Width = 332
             Align = alTop
+            BorderSpacing.Around = 4
             Caption = 'PDF File'
             ParentColor = False
           end
@@ -80,34 +79,31 @@ inherited fmP2CMain: TfmP2CMain
             ButtonWidth = 29
             NumGlyphs = 1
             Align = alTop
+            BorderSpacing.Around = 4
             MaxLength = 0
             TabOrder = 0
             OnChange = ePDFFileChange
           end
           object gbxPasswords: TGroupBox
-            Left = 4
-            Height = 85
-            Top = 113
-            Width = 332
+            Left = 0
+            Height = 89
+            Top = 117
+            Width = 340
             Align = alTop
-            AutoSize = True
             Caption = 'Passwords (If PDF is locked)'
-            ChildSizing.LeftRightSpacing = 4
-            ChildSizing.TopBottomSpacing = 4
-            ChildSizing.HorizontalSpacing = 4
-            ChildSizing.VerticalSpacing = 4
             ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
             ChildSizing.ShrinkHorizontal = crsHomogenousChildResize
             ChildSizing.Layout = cclTopToBottomThenLeftToRight
             ChildSizing.ControlsPerLine = 2
-            ClientHeight = 60
-            ClientWidth = 328
+            ClientHeight = 64
+            ClientWidth = 336
             TabOrder = 1
             object lOwnerPassword: TLabel
               Left = 4
               Height = 20
               Top = 4
-              Width = 163
+              Width = 167
+              BorderSpacing.Around = 4
               Caption = 'Owner password'
               ParentColor = False
             end
@@ -115,34 +111,36 @@ inherited fmP2CMain: TfmP2CMain
               Left = 4
               Height = 28
               Top = 28
-              Width = 163
+              Width = 167
+              BorderSpacing.Around = 4
               TabOrder = 0
             end
             object lUserPassword: TLabel
-              Left = 171
+              Left = 175
               Height = 20
               Top = 4
-              Width = 153
+              Width = 157
+              BorderSpacing.Around = 4
               Caption = 'User password'
               ParentColor = False
             end
             object eUserPassword: TEdit
-              Left = 171
+              Left = 175
               Height = 28
               Top = 28
-              Width = 153
+              Width = 157
+              BorderSpacing.Around = 4
               TabOrder = 1
             end
           end
           object rgbPDFExtractor: TRadioGroup
-            Left = 4
-            Height = 49
+            Left = 0
+            Height = 57
             Hint = 'PDFImages is recomended if pages are scanned images.'#13#10'If PDF is composed with text + images + effects, PDFtoPNG gives better results. '
             Top = 60
-            Width = 332
+            Width = 340
             Align = alTop
             AutoFill = True
-            AutoSize = True
             Caption = 'PDF Extractor'
             ChildSizing.LeftRightSpacing = 6
             ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
@@ -151,8 +149,8 @@ inherited fmP2CMain: TfmP2CMain
             ChildSizing.ShrinkVertical = crsScaleChilds
             ChildSizing.Layout = cclLeftToRightThenTopToBottom
             ChildSizing.ControlsPerLine = 2
-            ClientHeight = 24
-            ClientWidth = 328
+            ClientHeight = 32
+            ClientWidth = 336
             Columns = 2
             ItemIndex = 0
             Items.Strings = (
@@ -163,50 +161,47 @@ inherited fmP2CMain: TfmP2CMain
           end
         end
         object bExtractPages: TButton
-          Left = 1
+          Left = 5
           Height = 31
-          Top = 232
-          Width = 344
+          Top = 256
+          Width = 336
           Align = alTop
+          BorderSpacing.Around = 4
           Caption = 'Extract pages'
           Enabled = False
           OnClick = bExtractPagesClick
           TabOrder = 1
         end
         object bTempFolder: TButton
-          Left = 1
+          Left = 5
           Height = 31
-          Top = 267
-          Width = 344
+          Top = 291
+          Width = 336
           Align = alTop
+          BorderSpacing.Around = 4
           Caption = 'Open Temp folder'
           OnClick = bTempFolderClick
           TabOrder = 2
         end
         object gbxOutput: TGroupBox
           Left = 1
-          Height = 166
-          Top = 337
+          Height = 114
+          Top = 505
           Width = 344
-          Align = alTop
+          Align = alBottom
           AutoSize = True
           Caption = 'Output'
-          ChildSizing.LeftRightSpacing = 4
-          ChildSizing.TopBottomSpacing = 4
-          ChildSizing.HorizontalSpacing = 4
-          ChildSizing.VerticalSpacing = 4
-          ClientHeight = 141
+          ClientHeight = 89
           ClientWidth = 340
           TabOrder = 3
           object rgbOutputFormat: TRadioGroup
-            Left = 4
-            Height = 49
-            Hint = 'CBZ (Zip) is recommended. JPEG and PNG are usually compressed by itself.'#13#10'CB7 is a solid archive (all files must be extracted to extract one file).'
-            Top = 4
-            Width = 332
+            Left = 0
+            Height = 57
+            Hint = 'CBZ is recommended. JPEG and PNG are usually compressed by itself.'#13#10'CB7 is a solid archive (all files must be extracted to extract one file).'
+            Top = 0
+            Width = 340
             Align = alTop
             AutoFill = True
-            AutoSize = True
             Caption = 'Output Format'
             ChildSizing.LeftRightSpacing = 6
             ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
@@ -215,81 +210,87 @@ inherited fmP2CMain: TfmP2CMain
             ChildSizing.ShrinkVertical = crsScaleChilds
             ChildSizing.Layout = cclTopToBottomThenLeftToRight
             ChildSizing.ControlsPerLine = 1
-            ClientHeight = 24
-            ClientWidth = 328
+            ClientHeight = 32
+            ClientWidth = 336
             ColumnLayout = clVerticalThenHorizontal
-            Columns = 2
-            ItemIndex = 0
+            Columns = 3
+            ItemIndex = 2
             Items.Strings = (
-              'CBZ (Zip, Recom.)'
+              'CBZ (zip)'
               'CB7 (7z)'
+              'Subfolder'
             )
             ParentShowHint = False
             ShowHint = True
             TabOrder = 0
           end
-          object chkResize2048: TCheckBox
-            Left = 4
-            Height = 24
-            Top = 57
-            Width = 332
-            Align = alTop
-            Caption = 'Resize to 2048px max.'
-            Enabled = False
-            TabOrder = 1
-          end
-          object chkConvert2JPG: TCheckBox
-            Left = 4
-            Height = 24
-            Top = 85
-            Width = 332
-            Align = alTop
-            Caption = 'Convert files to JPG'
-            TabOrder = 2
-          end
           object chkDeletePDF: TCheckBox
             Left = 4
             Height = 24
-            Top = 113
+            Top = 61
             Width = 332
             Align = alTop
+            BorderSpacing.Around = 4
             Caption = 'Delete source PDF'
             Checked = True
             State = cbChecked
-            TabOrder = 3
+            TabOrder = 1
           end
         end
         object bMakeCBX: TButton
-          Left = 1
+          Left = 5
           Height = 31
-          Top = 507
-          Width = 344
-          Align = alTop
+          Top = 623
+          Width = 336
+          Align = alBottom
+          BorderSpacing.Around = 4
           Caption = 'Make CBX'
           Enabled = False
           OnClick = bMakeCBXClick
           TabOrder = 4
         end
-        object bReloadImages: TButton
-          Left = 1
-          Height = 31
-          Top = 302
-          Width = 344
-          Align = alTop
-          Caption = 'Reload Images'
-          Enabled = False
-          OnClick = bReloadImagesClick
-          TabOrder = 5
-        end
         object bOpenOutputFolder: TButton
-          Left = 1
+          Left = 5
           Height = 31
-          Top = 542
-          Width = 344
-          Align = alTop
+          Top = 658
+          Width = 336
+          Align = alBottom
+          BorderSpacing.Around = 4
           Caption = 'Open Output Folder'
           OnClick = bOpenOutputFolderClick
+          TabOrder = 5
+        end
+        object gbxFiles: TGroupBox
+          Left = 1
+          Height = 179
+          Top = 326
+          Width = 344
+          Align = alClient
+          Caption = 'Files'
+          ClientHeight = 154
+          ClientWidth = 340
           TabOrder = 6
+          object bReloadFiles: TButton
+            Left = 4
+            Height = 31
+            Top = 4
+            Width = 332
+            Align = alTop
+            BorderSpacing.Around = 4
+            Caption = 'Reload Files'
+            Enabled = False
+            OnClick = bReloadFilesClick
+            TabOrder = 0
+          end
+          object lbxFiles: TListBox
+            Left = 0
+            Height = 115
+            Top = 39
+            Width = 340
+            Align = alClient
+            ItemHeight = 0
+            TabOrder = 1
+          end
         end
       end
     end
@@ -302,13 +303,13 @@ inherited fmP2CMain: TfmP2CMain
       ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
       ChildSizing.ShrinkHorizontal = crsHomogenousChildResize
       ChildSizing.ControlsPerLine = 1
-      ClientHeight = 644
-      ClientWidth = 978
+      ClientHeight = 702
+      ClientWidth = 1016
       object lPDFtoPNGExecutable: TLabel
         Left = 4
         Height = 20
         Top = 68
-        Width = 970
+        Width = 1008
         Align = alTop
         Caption = 'PDFtoPNG executable'
         ParentColor = False
@@ -317,7 +318,7 @@ inherited fmP2CMain: TfmP2CMain
         Left = 4
         Height = 28
         Top = 96
-        Width = 970
+        Width = 1008
         DialogTitle = 'PDFtoPNG Executable'
         DialogOptions = [ofNoChangeDir, ofFileMustExist, ofEnableSizing, ofViewDetail]
         Filter = 'Executable files|*.exe;*.bat|All files|*.*'
@@ -333,7 +334,7 @@ inherited fmP2CMain: TfmP2CMain
         Left = 4
         Height = 20
         Top = 132
-        Width = 970
+        Width = 1008
         Align = alTop
         Caption = '7z executable'
         ParentColor = False
@@ -342,7 +343,7 @@ inherited fmP2CMain: TfmP2CMain
         Left = 4
         Height = 28
         Top = 160
-        Width = 970
+        Width = 1008
         DialogTitle = '7za Executable'
         DialogOptions = [ofNoChangeDir, ofFileMustExist, ofEnableSizing, ofViewDetail]
         Filter = 'Executable files|*.exe;*.bat|All files|*.*'
@@ -359,7 +360,7 @@ inherited fmP2CMain: TfmP2CMain
         Left = 4
         Height = 20
         Top = 196
-        Width = 970
+        Width = 1008
         Align = alTop
         Caption = 'Image Editor executable'
         ParentColor = False
@@ -368,7 +369,7 @@ inherited fmP2CMain: TfmP2CMain
         Left = 4
         Height = 28
         Top = 224
-        Width = 970
+        Width = 1008
         DialogTitle = 'Image Editor Executable'
         DialogOptions = [ofNoChangeDir, ofFileMustExist, ofEnableSizing, ofViewDetail]
         Filter = 'Executable files|*.exe;*.bat|All files|*.*'
@@ -384,7 +385,7 @@ inherited fmP2CMain: TfmP2CMain
         Left = 4
         Height = 20
         Top = 260
-        Width = 970
+        Width = 1008
         Align = alTop
         Caption = 'Image Editor parameters'
         ParentColor = False
@@ -393,7 +394,7 @@ inherited fmP2CMain: TfmP2CMain
         Left = 4
         Height = 28
         Top = 316
-        Width = 970
+        Width = 1008
         Align = alTop
         TabOrder = 3
       end
@@ -401,12 +402,12 @@ inherited fmP2CMain: TfmP2CMain
         Left = 4
         Height = 30
         Top = 352
-        Width = 970
+        Width = 1008
         Align = alTop
         AutoSize = True
         BevelOuter = bvNone
         ClientHeight = 30
-        ClientWidth = 970
+        ClientWidth = 1008
         TabOrder = 4
         object bSaveConfig: TButton
           Left = 0
@@ -420,7 +421,7 @@ inherited fmP2CMain: TfmP2CMain
           TabOrder = 0
         end
         object bReloadConfig: TButton
-          Left = 849
+          Left = 887
           Height = 30
           Top = 0
           Width = 121
@@ -434,7 +435,7 @@ inherited fmP2CMain: TfmP2CMain
         Left = 4
         Height = 20
         Top = 288
-        Width = 970
+        Width = 1008
         Align = alTop
         Caption = '%FILE% → Current filename'
         ParentColor = False
@@ -443,7 +444,7 @@ inherited fmP2CMain: TfmP2CMain
         Left = 4
         Height = 28
         Top = 32
-        Width = 970
+        Width = 1008
         DialogTitle = 'PDFImages Executable'
         DialogOptions = [ofNoChangeDir, ofFileMustExist, ofEnableSizing, ofViewDetail]
         Filter = 'Executable files|*.exe;*.bat|All files|*.*'
@@ -459,7 +460,7 @@ inherited fmP2CMain: TfmP2CMain
         Left = 4
         Height = 20
         Top = 4
-        Width = 970
+        Width = 1008
         Align = alTop
         Caption = 'PDFImages executable'
         ParentColor = False
@@ -467,14 +468,15 @@ inherited fmP2CMain: TfmP2CMain
     end
     object pagConsoleLog: TTabSheet
       Caption = 'Console Log'
-      ClientHeight = 644
-      ClientWidth = 978
+      ClientHeight = 702
+      ClientWidth = 1016
       object mConsoleLog: TMemo
         Left = 0
-        Height = 644
+        Height = 702
         Top = 0
-        Width = 978
+        Width = 1016
         Align = alClient
+        HideSelection = False
         ReadOnly = True
         ScrollBars = ssAutoBoth
         TabOrder = 0
@@ -484,8 +486,8 @@ inherited fmP2CMain: TfmP2CMain
   object StatusBar: TStatusBar[1]
     Left = 0
     Height = 29
-    Top = 681
-    Width = 986
+    Top = 739
+    Width = 1024
     Panels = <>
   end
 end

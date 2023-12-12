@@ -18,6 +18,10 @@
       </XPManifest>
       <Icon Value="0"/>
     </General>
+    <i18n>
+      <EnableI18N Value="True"/>
+      <OutDir Value="..\bin\locale"/>
+    </i18n>
     <VersionInfo>
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
@@ -35,7 +39,7 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="src\forms;..\CHXPas\Forms;..\CHXPas\Misc;src\units;..\CHXPas\Units;..\CHXPas\Abstract;..\CHXPas\Frames;src\frames;src\classes"/>
+            <OtherUnitFiles Value="..\CHXPas\Abstract;..\CHXPas\Forms;..\CHXPas\Frames;..\CHXPas\Units;src\classes;src\forms;src\frames;src\units"/>
             <UnitOutputDirectory Value="..\lib\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
@@ -88,10 +92,6 @@
         <ComponentName Value="frmCHXForm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-      </Unit>
-      <Unit>
-        <Filename Value="..\CHXPas\Misc\uVersionSupport.pas"/>
-        <IsPartOfProject Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="src\units\uP2CConst.pas"/>
@@ -182,6 +182,10 @@
         <Filename Value="..\CHXPas\Units\uCHXDlgUtils.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit>
+      <Unit>
+        <Filename Value="..\CHXPas\Units\uCHXVerInfo.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -192,7 +196,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="src\forms;..\CHXPas\Forms;..\CHXPas\Misc;src\units;..\CHXPas\Units;..\CHXPas\Abstract;..\CHXPas\Frames;src\frames;src\classes"/>
+      <OtherUnitFiles Value="..\CHXPas\Abstract;..\CHXPas\Forms;..\CHXPas\Frames;..\CHXPas\Units;src\classes;src\forms;src\frames;src\units"/>
       <UnitOutputDirectory Value="..\lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>

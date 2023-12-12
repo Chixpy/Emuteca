@@ -1,25 +1,9 @@
 unit ucP2CConfig;
-
 {< cP2CConfig class unit.
 
   This file is part of ETK PDF2CBX.
 
   Copyright (C) 2022 Chixpy
-
-  This source is free software; you can redistribute it and/or modify it under
-  the terms of the GNU General Public License as published by the Free
-  Software Foundation; either version 3 of the License, or (at your option)
-  any later version.
-
-  This code is distributed in the hope that it will be useful, but WITHOUT ANY
-  WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-  FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
-  details.
-
-  A copy of the GNU General Public License is available on the World Wide Web
-  at <http://www.gnu.org/copyleft/gpl.html>. You can also obtain it by writing
-  to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
-  MA 02111-1307, USA.
 }
 {$mode ObjFPC}{$H+}
 
@@ -31,6 +15,16 @@ uses
   uCHXStrUtils,
   // CHX abstracts
   uaCHXConfig;
+
+const
+  P2CIniExeSect = 'Executables';
+  P2CIniPDFtoPNGKey = 'PDFtoPNG';
+  P2CIniPDFImagesKey = 'PDFImages';
+  P2CIni7zKey = '7z';
+  P2CIniImageEditorKey = 'ImageEditor';
+  P2CIniImageEditorParamsKey = 'ImageEditorParams';
+  P2CIniOptSect = 'Options';
+  P2CIniLastFolderKey = 'LastFolder';
 
 type
 
@@ -108,16 +102,14 @@ end;
 
 procedure cP2CConfig.LoadFromIni(aIniFile: TMemIniFile);
 begin
-  PDFtoPNGExe := aIniFile.ReadString('Executables', 'PDFtoPNG', PDFtoPNGExe);
-  PDFImagesExe := aIniFile.ReadString('Executables', 'PDFImages', PDFImagesExe);
-  SevenZipExe := aIniFile.ReadString('Executables', '7z', SevenZipExe);
-  ImgEditorExe := aIniFile.ReadString('Executables', 'ImageEditor',
+  PDFtoPNGExe := aIniFile.ReadString(P2CIniExeSect, P2CIniPDFtoPNGKey, PDFtoPNGExe);
+  PDFImagesExe := aIniFile.ReadString(P2CIniExeSect, P2CIniPDFImagesKey, PDFImagesExe);
+  SevenZipExe := aIniFile.ReadString(P2CIniExeSect, P2CIni7zKey, SevenZipExe);
+  ImgEditorExe := aIniFile.ReadString(P2CIniExeSect, P2CIniImageEditorKey,
     ImgEditorExe);
-  ImgEditorParams := aIniFile.ReadString('Executables',
-    'ImageEditorParams', ImgEditorParams);
+  ImgEditorParams := aIniFile.ReadString(P2CIniExeSect, P2CIniImageEditorParamsKey, ImgEditorParams);
 
-  LastFolder := aIniFile.ReadString('Options',
-    'LastFolder', LastFolder);
+  LastFolder := aIniFile.ReadString(P2CIniOptSect, P2CIniLastFolderKey, LastFolder);
 end;
 
 procedure cP2CConfig.ResetDefaultConfig;
@@ -133,13 +125,13 @@ end;
 
 procedure cP2CConfig.SaveToIni(aIniFile: TMemIniFile);
 begin
-  aIniFile.WriteString('Executables', 'PDFtoPNG', PDFtoPNGExe);
-  aIniFile.WriteString('Executables', 'PDFImages', PDFImagesExe);
-  aIniFile.WriteString('Executables', '7z', SevenZipExe);
-  aIniFile.WriteString('Executables', 'ImageEditor', ImgEditorExe);
-  aIniFile.WriteString('Executables', 'ImageEditorParams', ImgEditorParams);
+  aIniFile.WriteString(P2CIniExeSect, P2CIniPDFtoPNGKey, PDFtoPNGExe);
+  aIniFile.WriteString(P2CIniExeSect, P2CIniPDFImagesKey, PDFImagesExe);
+  aIniFile.WriteString(P2CIniExeSect, P2CIni7zKey, SevenZipExe);
+  aIniFile.WriteString(P2CIniExeSect, P2CIniImageEditorKey, ImgEditorExe);
+  aIniFile.WriteString(P2CIniExeSect, P2CIniImageEditorParamsKey, ImgEditorParams);
 
-  aIniFile.WriteString('Options', 'LastFolder', LastFolder);
+  aIniFile.WriteString(P2CIniOptSect, P2CIniLastFolderKey, LastFolder);
 
   aIniFile.UpdateFile;
 end;
@@ -155,3 +147,19 @@ begin
 end;
 
 end.
+{
+  This source is free software; you can redistribute it and/or modify it under
+  the terms of the GNU General Public License as published by the Free
+  Software Foundation; either version 3 of the License, or (at your option)
+  any later version.
+
+  This code is distributed in the hope that it will be useful, but WITHOUT ANY
+  WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+  FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+  details.
+
+  A copy of the GNU General Public License is available on the World Wide Web
+  at <http://www.gnu.org/copyleft/gpl.html>. You can also obtain it by writing
+  to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
+  MA 02111-1307, USA.
+}

@@ -12,7 +12,7 @@
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="56"/>
+        <UsageCount Value="68"/>
       </Unit>
       <Unit>
         <Filename Value="src\forms\ufrMain.pas"/>
@@ -23,7 +23,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="111"/>
         <CursorPos Y="129"/>
-        <UsageCount Value="56"/>
+        <UsageCount Value="68"/>
       </Unit>
       <Unit>
         <Filename Value="..\CHXPas\Forms\ufrCHXForm.pas"/>
@@ -32,30 +32,23 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="38"/>
-        <CursorPos X="10" Y="213"/>
-        <UsageCount Value="56"/>
-      </Unit>
-      <Unit>
-        <Filename Value="..\CHXPas\Misc\uVersionSupport.pas"/>
-        <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
-        <CursorPos X="21"/>
-        <UsageCount Value="55"/>
+        <TopLine Value="16"/>
+        <CursorPos X="32" Y="30"/>
+        <UsageCount Value="68"/>
       </Unit>
       <Unit>
         <Filename Value="src\units\uP2CConst.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="29" Y="11"/>
-        <UsageCount Value="55"/>
+        <UsageCount Value="67"/>
       </Unit>
       <Unit>
         <Filename Value="..\CHXPas\Units\uCHXConst.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="17"/>
-        <UsageCount Value="55"/>
+        <UsageCount Value="67"/>
       </Unit>
       <Unit>
         <Filename Value="..\CHXPas\Abstract\uaCHXConfig.pas"/>
@@ -63,27 +56,30 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="12"/>
         <CursorPos X="3" Y="34"/>
-        <UsageCount Value="55"/>
+        <UsageCount Value="67"/>
       </Unit>
       <Unit>
         <Filename Value="..\CHXPas\Abstract\uaCHXStorable.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="61" Y="12"/>
-        <UsageCount Value="55"/>
+        <UsageCount Value="67"/>
       </Unit>
       <Unit>
         <Filename Value="..\CHXPas\Units\uCHXStrUtils.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
-        <UsageCount Value="55"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="313"/>
+        <CursorPos X="3" Y="315"/>
+        <UsageCount Value="67"/>
+        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="..\CHXPas\Units\uCHXRscStr.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="16"/>
-        <UsageCount Value="55"/>
+        <UsageCount Value="67"/>
       </Unit>
       <Unit>
         <Filename Value="..\CHXPas\Frames\ufCHXFrame.pas"/>
@@ -92,9 +88,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="36"/>
-        <CursorPos X="8" Y="24"/>
-        <UsageCount Value="55"/>
+        <TopLine Value="35"/>
+        <CursorPos X="15" Y="46"/>
+        <UsageCount Value="67"/>
       </Unit>
       <Unit>
         <Filename Value="src\frames\ufP2CMain.pas"/>
@@ -103,20 +99,18 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="165"/>
-        <CursorPos X="67" Y="190"/>
-        <UsageCount Value="53"/>
+        <TopLine Value="469"/>
+        <CursorPos X="20" Y="483"/>
+        <UsageCount Value="65"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="src\classes\ucP2CConfig.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="1"/>
-        <TopLine Value="92"/>
-        <CursorPos X="3" Y="96"/>
-        <UsageCount Value="53"/>
-        <Loaded Value="True"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="58" Y="134"/>
+        <UsageCount Value="65"/>
       </Unit>
       <Unit>
         <Filename Value="..\CHXPas\Frames\ufCHXImgListPreview.pas"/>
@@ -126,7 +120,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="95"/>
         <CursorPos Y="112"/>
-        <UsageCount Value="53"/>
+        <UsageCount Value="65"/>
       </Unit>
       <Unit>
         <Filename Value="..\CHXPas\Frames\ufCHXFileListPreview.pas"/>
@@ -135,9 +129,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="120"/>
-        <CursorPos X="34" Y="138"/>
-        <UsageCount Value="52"/>
+        <TopLine Value="45"/>
+        <CursorPos X="40" Y="58"/>
+        <UsageCount Value="64"/>
       </Unit>
       <Unit>
         <Filename Value="..\CHXPas\Frames\ufCHXImgViewer.pas"/>
@@ -146,23 +140,23 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="310"/>
-        <CursorPos X="3" Y="140"/>
-        <UsageCount Value="52"/>
+        <TopLine Value="35"/>
+        <CursorPos X="7" Y="48"/>
+        <UsageCount Value="64"/>
       </Unit>
       <Unit>
         <Filename Value="..\CHXPas\Units\uCHXFileUtils.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="49"/>
-        <UsageCount Value="52"/>
+        <UsageCount Value="64"/>
       </Unit>
       <Unit>
         <Filename Value="..\CHXPas\Units\uCHXImageUtils.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="62" Y="27"/>
-        <UsageCount Value="52"/>
+        <UsageCount Value="64"/>
       </Unit>
       <Unit>
         <Filename Value="..\CHXPas\Frames\ufCHXListPreview.pas"/>
@@ -171,7 +165,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="52"/>
+        <UsageCount Value="64"/>
       </Unit>
       <Unit>
         <Filename Value="..\CHXPas\Units\uCHXExecute.pas"/>
@@ -179,15 +173,16 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="64"/>
         <CursorPos X="10" Y="83"/>
-        <UsageCount Value="46"/>
+        <UsageCount Value="58"/>
       </Unit>
       <Unit>
         <Filename Value="..\CHXPas\Units\uCHX7zWrapper.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="184"/>
-        <CursorPos X="17" Y="1056"/>
-        <UsageCount Value="30"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="1108"/>
+        <CursorPos X="18" Y="1124"/>
+        <UsageCount Value="42"/>
+        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="..\CHXPas\Units\uCHXDlgUtils.pas"/>
@@ -195,7 +190,22 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="82"/>
         <CursorPos X="63" Y="30"/>
-        <UsageCount Value="21"/>
+        <UsageCount Value="33"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\CHXPas\Units\uCHXVerInfo.pas"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="-1"/>
+        <WindowIndex Value="-1"/>
+        <TopLine Value="-1"/>
+        <CursorPos X="-1" Y="-1"/>
+        <UsageCount Value="32"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\CHXPas\Misc\uVersionSupport.pas"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="33" Y="223"/>
+        <UsageCount Value="54"/>
       </Unit>
       <Unit>
         <Filename Value="D:\Programas\Inst\Lazarus\components\lazutils\lazfileutils.pas"/>
@@ -203,21 +213,21 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="606"/>
         <CursorPos X="3" Y="611"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit>
       <Unit>
         <Filename Value="D:\Programas\Inst\Lazarus\components\lazutils\fileutil.pas"/>
         <UnitName Value="FileUtil"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="79"/>
-        <CursorPos X="10" Y="97"/>
+        <TopLine Value="194"/>
+        <CursorPos X="10" Y="208"/>
         <UsageCount Value="10"/>
       </Unit>
       <Unit>
         <Filename Value="D:\Programas\Inst\Lazarus\components\lazutils\fileutil.inc"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="468"/>
-        <CursorPos X="3" Y="488"/>
+        <TopLine Value="313"/>
+        <CursorPos X="3" Y="323"/>
         <UsageCount Value="10"/>
       </Unit>
       <Unit>
@@ -225,28 +235,28 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="20"/>
         <CursorPos X="10" Y="40"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="7"/>
       </Unit>
       <Unit>
         <Filename Value="D:\Programas\Inst\Lazarus\fpc\3.2.2\source\rtl\objpas\sysutils\osutil.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="244"/>
         <CursorPos X="3" Y="256"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="7"/>
       </Unit>
       <Unit>
         <Filename Value="D:\Programas\Inst\Lazarus\fpc\3.2.2\source\rtl\objpas\sysutils\sysutilh.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="89"/>
         <CursorPos X="4" Y="107"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="7"/>
       </Unit>
       <Unit>
         <Filename Value="D:\Programas\Inst\Lazarus\components\lazutils\winlazfileutils.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="397"/>
         <CursorPos Y="415"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="10"/>
       </Unit>
       <Unit>
         <Filename Value="D:\Programas\Inst\Lazarus\lcl\graphics.pp"/>
@@ -254,165 +264,169 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="1764"/>
         <CursorPos X="14" Y="1795"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="10"/>
       </Unit>
       <Unit>
         <Filename Value="D:\Programas\Inst\Lazarus\fpc\3.2.2\source\packages\fcl-image\src\fpreadpnm.pp"/>
         <UnitName Value="FPReadPNM"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="6" Y="21"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit>
       <Unit>
         <Filename Value="D:\Programas\Inst\Lazarus\fpc\3.2.2\source\packages\fcl-image\src\fpreadxpm.pp"/>
         <UnitName Value="FPReadXPM"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit>
       <Unit>
         <Filename Value="D:\Programas\Inst\Lazarus\lcl\include\picture.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="685"/>
         <CursorPos X="3" Y="688"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="10"/>
       </Unit>
       <Unit>
         <Filename Value="D:\Programas\Inst\Lazarus\fpc\3.2.2\source\packages\fcl-image\src\fpreadjpeg.pas"/>
         <UnitName Value="FPReadJPEG"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="16" Y="20"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit>
       <Unit>
         <Filename Value="D:\Programas\Inst\Lazarus\lcl\editbtn.pas"/>
         <UnitName Value="EditBtn"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="371"/>
         <CursorPos X="56" Y="378"/>
+        <UsageCount Value="9"/>
+      </Unit>
+      <Unit>
+        <Filename Value="D:\Programas\Inst\Lazarus\fpc\3.2.2\source\rtl\objpas\sysutils\syshelph.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="631"/>
+        <CursorPos X="14" Y="645"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="D:\Programas\Inst\Lazarus\fpc\3.2.2\source\rtl\objpas\sysutils\syshelpb.inc"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="3" Y="29"/>
+        <UsageCount Value="10"/>
       </Unit>
     </Units>
-    <JumpHistory HistoryIndex="29">
+    <JumpHistory HistoryIndex="27">
       <Position>
         <Filename Value="src\frames\ufP2CMain.pas"/>
-        <Caret Line="667" TopLine="640"/>
-      </Position>
-      <Position>
-        <Filename Value="src\frames\ufP2CMain.pas"/>
-        <Caret Line="587" TopLine="569"/>
+        <Caret Line="223" Column="42" TopLine="215"/>
       </Position>
       <Position>
         <Filename Value="src\frames\ufP2CMain.pas"/>
-        <Caret Line="667" TopLine="640"/>
+        <Caret Line="184" Column="29" TopLine="175"/>
       </Position>
       <Position>
         <Filename Value="src\frames\ufP2CMain.pas"/>
-        <Caret Line="601" TopLine="591"/>
+        <Caret Line="246" Column="28" TopLine="218"/>
       </Position>
       <Position>
         <Filename Value="src\frames\ufP2CMain.pas"/>
-        <Caret Line="587" TopLine="569"/>
+        <Caret Line="433" Column="51" TopLine="416"/>
       </Position>
       <Position>
         <Filename Value="src\frames\ufP2CMain.pas"/>
-        <Caret Line="588" TopLine="581"/>
+        <Caret Line="250" Column="45" TopLine="237"/>
       </Position>
       <Position>
         <Filename Value="src\frames\ufP2CMain.pas"/>
-        <Caret Line="602" TopLine="581"/>
+        <Caret Line="133" Column="25" TopLine="120"/>
       </Position>
       <Position>
         <Filename Value="src\frames\ufP2CMain.pas"/>
-        <Caret Line="667" TopLine="639"/>
+        <Caret Line="393" Column="3" TopLine="390"/>
       </Position>
       <Position>
         <Filename Value="src\frames\ufP2CMain.pas"/>
-        <Caret Line="602" TopLine="584"/>
+        <Caret Line="134" Column="22" TopLine="121"/>
       </Position>
       <Position>
         <Filename Value="src\frames\ufP2CMain.pas"/>
-        <Caret Line="613" Column="63" TopLine="584"/>
+        <Caret Line="392" Column="29" TopLine="378"/>
       </Position>
       <Position>
         <Filename Value="src\frames\ufP2CMain.pas"/>
-        <Caret Line="597" Column="85" TopLine="583"/>
+        <Caret Line="134" Column="22" TopLine="134"/>
       </Position>
       <Position>
         <Filename Value="src\frames\ufP2CMain.pas"/>
-        <Caret Line="485" Column="27" TopLine="412"/>
+        <Caret Line="139" Column="15" TopLine="121"/>
       </Position>
       <Position>
         <Filename Value="src\frames\ufP2CMain.pas"/>
-        <Caret Line="120" Column="15" TopLine="103"/>
+        <Caret Line="638" Column="22" TopLine="562"/>
       </Position>
       <Position>
         <Filename Value="src\frames\ufP2CMain.pas"/>
-        <Caret Line="310" Column="3" TopLine="221"/>
+        <Caret Line="138" Column="15" TopLine="127"/>
       </Position>
       <Position>
         <Filename Value="src\frames\ufP2CMain.pas"/>
-        <Caret Line="109" Column="14" TopLine="92"/>
+        <Caret Line="316" Column="8" TopLine="169"/>
       </Position>
       <Position>
         <Filename Value="src\frames\ufP2CMain.pas"/>
-        <Caret Line="101" Column="15" TopLine="92"/>
+        <Caret Line="316" Column="36" TopLine="117"/>
       </Position>
       <Position>
         <Filename Value="src\frames\ufP2CMain.pas"/>
-        <Caret Line="122" Column="22" TopLine="91"/>
+        <Caret Line="16" Column="57" TopLine="2"/>
       </Position>
       <Position>
         <Filename Value="src\frames\ufP2CMain.pas"/>
-        <Caret Line="357" Column="41" TopLine="347"/>
+        <Caret Line="484" Column="8" TopLine="113"/>
       </Position>
       <Position>
         <Filename Value="src\frames\ufP2CMain.pas"/>
-        <Caret Line="113" Column="15" TopLine="96"/>
+        <Caret Line="473" Column="9" TopLine="460"/>
+      </Position>
+      <Position>
+        <Filename Value="..\CHXPas\Units\uCHX7zWrapper.pas"/>
+        <Caret Line="183" Column="10" TopLine="169"/>
       </Position>
       <Position>
         <Filename Value="src\frames\ufP2CMain.pas"/>
-        <Caret Line="585" Column="20" TopLine="562"/>
+        <Caret Line="473" Column="40" TopLine="462"/>
       </Position>
       <Position>
         <Filename Value="src\frames\ufP2CMain.pas"/>
-        <Caret Line="591" Column="20" TopLine="568"/>
+        <Caret Line="474" Column="11" TopLine="462"/>
+      </Position>
+      <Position>
+        <Filename Value="..\CHXPas\Units\uCHX7zWrapper.pas"/>
+        <Caret Line="183" Column="10" TopLine="169"/>
       </Position>
       <Position>
         <Filename Value="src\frames\ufP2CMain.pas"/>
-        <Caret Line="440" TopLine="416"/>
+        <Caret Line="476" Column="62" TopLine="461"/>
       </Position>
       <Position>
         <Filename Value="src\frames\ufP2CMain.pas"/>
-        <Caret Line="503" Column="38" TopLine="499"/>
+        <Caret Line="476" Column="62" TopLine="461"/>
       </Position>
       <Position>
         <Filename Value="src\frames\ufP2CMain.pas"/>
-        <Caret Line="630" TopLine="630"/>
+        <Caret Line="317" TopLine="300"/>
       </Position>
       <Position>
         <Filename Value="src\frames\ufP2CMain.pas"/>
-        <Caret Line="649" TopLine="271"/>
+        <Caret Line="412" Column="63" TopLine="397"/>
       </Position>
       <Position>
         <Filename Value="src\frames\ufP2CMain.pas"/>
-        <Caret Line="652" Column="46" TopLine="635"/>
+        <Caret Line="481" Column="42" TopLine="469"/>
       </Position>
       <Position>
-        <Filename Value="src\classes\ucP2CConfig.pas"/>
-        <Caret Line="63" Column="14" TopLine="46"/>
-      </Position>
-      <Position>
-        <Filename Value="src\classes\ucP2CConfig.pas"/>
-        <Caret Line="50" Column="15" TopLine="47"/>
-      </Position>
-      <Position>
-        <Filename Value="src\frames\ufP2CMain.pas"/>
-        <Caret Line="168" TopLine="147"/>
-      </Position>
-      <Position>
-        <Filename Value="src\frames\ufP2CMain.pas"/>
-        <Caret Line="164" TopLine="146"/>
+        <Filename Value="..\CHXPas\Units\uCHXStrUtils.pas"/>
+        <Caret Line="70" Column="10" TopLine="56"/>
       </Position>
     </JumpHistory>
     <RunParams>

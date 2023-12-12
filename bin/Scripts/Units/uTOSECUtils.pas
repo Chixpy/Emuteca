@@ -6,9 +6,11 @@ Only to include in other programs. Remember call TOSECFinish at the end of
   main program.
 [Data]
 Name=Chixpy
-Version=0.20
-Date=20231101
+Version=0.21
+Date=20231125
 [Changes]
+0.21 20231125
+  c Don't remove date or publisher when fan translation is found.
 0.20 20231101
   c Don't remove not empty fields.
   c Reworked a little all the code.
@@ -704,15 +706,16 @@ begin
   if Length(DBTranslation) > 3 then
   begin
     // If soft is translated then Publisher is the translator
-    DBPublisher := krsImportKeepValueKey; 
+    DBPublisher := krsImportKeepValueKey;
+    DBYear := krsImportKeepValueKey;
     
     // Searching for Version and Translator
     aPos := Pos(' ', DBTranslation);
     if aPos > 0 then
     begin
       // "[tr Language Translator]"
-      DBPublisher := Trim(ETKCopyFrom(DBTranslation, aPos + 1));
-      DBTranslation := Trim(Copy(DBTranslation, 1, aPos - 1));  
+      DBPublisher := Trim(ETKCopyFrom(DBTranslation, aPos));
+      DBTranslation := Trim(Copy(DBTranslation, 1, aPos));
     
       // "[tr Language Version Translator]"
       if (DBPublisher <> '') and (DBPublisher[1] = 'v') then
@@ -721,8 +724,8 @@ begin
    
         if aPos > 0 then
         begin  
-          TempStr := Trim(Copy(DBPublisher, 1, aPos - 1));
-          DBPublisher := Trim(ETKCopyFrom(DBPublisher, aPos + 1));
+          TempStr := Trim(Copy(DBPublisher, 1, aPos));
+          DBPublisher := Trim(ETKCopyFrom(DBPublisher, aPos));
         end; 
       end;
       // TODO: Test percentaje "45%" 

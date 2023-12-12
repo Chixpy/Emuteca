@@ -207,7 +207,8 @@ end;
 procedure TfmETKDBEditor.sgMainGetCellHint(Sender : TObject;
   ACol, ARow : integer; var HintText : string);
 begin
-  HintText := sgMain.Cells[ACol, ARow];
+  HintText := UTF8StringReplace(sgMain.Cells[ACol, ARow], ' | ', LineEnding,
+      [rfReplaceAll]);
 end;
 
 procedure TfmETKDBEditor.sgMainKeyDown(Sender : TObject;
@@ -320,7 +321,7 @@ begin
     else
       sgMain.Cells[cbxFastMove.ItemIndex, sgMain.Row] :=
         FormatCellText(sgMain.Cells[cbxFastMove.ItemIndex, sgMain.Row] +
-        krsValueSeparator + Clipboard.AsText);
+        krsValueSeparator + FormatCellText(Clipboard.AsText));
   end
   else
   begin
@@ -341,7 +342,9 @@ begin
           else
             aText := aText + krsValueSeparator + sgMain.Cells[j, i];
 
-          sgMain.Cells[j, i] := EmptyStr;
+          // First columns can't be empty
+          if j <> 0 then
+            sgMain.Cells[j, i] := EmptyStr;
         end;
 
         Inc(j);

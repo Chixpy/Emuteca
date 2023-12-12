@@ -5,21 +5,6 @@ unit ufP2CMain;
   This file is part of ETK PDF2CBX.
 
   Copyright (C) 2022 Chixpy
-
-  This source is free software; you can redistribute it and/or modify it under
-  the terms of the GNU General Public License as published by the Free
-  Software Foundation; either version 3 of the License, or (at your option)
-  any later version.
-
-  This code is distributed in the hope that it will be useful, but WITHOUT ANY
-  WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-  FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
-  details.
-
-  A copy of the GNU General Public License is available on the World Wide Web
-  at <http://www.gnu.org/copyleft/gpl.html>. You can also obtain it by writing
-  to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
-  MA 02111-1307, USA.
 }
 {$mode ObjFPC}{$H+}
 
@@ -29,115 +14,132 @@ uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls,
   ComCtrls, EditBtn, FileUtil, LazFileUtils, LazUTF8, LCLIntf, FPReadJPEG,
   // CHX units
-  uCHXRscStr, uCHXStrUtils, uCHXExecute, uCHX7zWrapper, uCHXDlgUtils,
+  uCHXRscStr, uCHXStrUtils, uCHXExecute, uCHX7zWrapper,
   // CHX frames
   ufCHXFrame, ufCHXImgListPreview,
   // ETKPDF2CBX classes
   ucP2CConfig;
 
+const
+  kPNMFileMask = '*.pnm;*.pbm;*.pgm;*.ppm';
+
+resourcestring
+  rsPNMFiles = 'WARNING: There are PNM files that you may want to convert and then reload the images.';
+
+  rsPDFtoPNGErr1 = 'PDFtoPNG: Error opening a PDF file.';
+  rsPDFtoPNGErr2 = 'PDFtoPNG: Error opening an output file.';
+  rsPDFtoPNGErr3 = 'PDFtoPNG: Error related to PDF permissions.';
+  rsPDFtoPNGErr99 = 'PDFtoPNG: Unknown error.';
+  rsPDFtoPNGErrX = 'PDFtoPNG: No handled error.';
+
+  rsPDFImagesErr1 = 'PDFImages: Error opening a PDF file.';
+  rsPDFImagesErr2 = 'PDFImages: Error opening an output file.';
+  rsPDFImagesErr3 = 'PDFImages: Error related to PDF permissions.';
+  rsPDFImagesErr99 = 'PDFImages: Unknown error.';
+  rsPDFImagesErrX = 'PDFImages: No handled error.';
+
 type
 
-  { TfmP2CMain }
+  { TfmP2CMain
+
+    Main frame of ETKPDF2CBX.
+  }
 
   TfmP2CMain = class(TfmCHXFrame)
-    bMakeCBX: TButton;
-    bExtractPages: TButton;
-    bOpenOutputFolder: TButton;
-    bReloadConfig: TButton;
-    bReloadImages: TButton;
-    bSaveConfig: TButton;
-    bTempFolder: TButton;
-    chkConvert2JPG: TCheckBox;
-    chkDeletePDF: TCheckBox;
-    chkResize2048: TCheckBox;
-    eImgEditorExecutable: TFileNameEdit;
-    eImgEditorParams: TEdit;
-    eOwnerPassword: TEdit;
-    ePDFImagesExecutable: TFileNameEdit;
-    eUserPassword: TEdit;
-    ePDFtoPNGExecutable: TFileNameEdit;
-    e7zExecutable: TFileNameEdit;
-    ePDFFile: TFileNameEdit;
-    gbxImagesPreview: TGroupBox;
-    gbxInput: TGroupBox;
-    gbxOutput: TGroupBox;
-    gbxPasswords: TGroupBox;
-    l7zExecutable: TLabel;
-    lImgEditorExecutable: TLabel;
-    lImgEditorParams: TLabel;
-    lOwnerPassword: TLabel;
-    lParamsHelp: TLabel;
-    lPDFFile: TLabel;
-    lPDFtoPNGExecutable: TLabel;
-    lPDFImagesExecutable: TLabel;
-    lUserPassword: TLabel;
-    mConsoleLog: TMemo;
-    pConfigButtons: TPanel;
-    pgcMain: TPageControl;
-    pLeft: TPanel;
-    rgbOutputFormat: TRadioGroup;
-    rgbPDFExtractor: TRadioGroup;
-    Splitter1: TSplitter;
-    pagConvert: TTabSheet;
-    pagConfig: TTabSheet;
-    StatusBar: TStatusBar;
-    pagConsoleLog: TTabSheet;
-    procedure bExtractPagesClick(Sender: TObject);
-    procedure bMakeCBXClick(Sender: TObject);
-    procedure bOpenOutputFolderClick(Sender: TObject);
-    procedure bReloadImagesClick(Sender: TObject);
-    procedure bSaveConfigClick(Sender: TObject);
-    procedure bTempFolderClick(Sender: TObject);
-    procedure e7zExecutableEditingDone(Sender: TObject);
-    procedure ePDFFileChange(Sender: TObject);
+    bMakeCBX : TButton;
+    bExtractPages : TButton;
+    bOpenOutputFolder : TButton;
+    bReloadConfig : TButton;
+    bReloadFiles : TButton;
+    bSaveConfig : TButton;
+    bTempFolder : TButton;
+    chkDeletePDF : TCheckBox;
+    eImgEditorExecutable : TFileNameEdit;
+    eImgEditorParams : TEdit;
+    eOwnerPassword : TEdit;
+    ePDFImagesExecutable : TFileNameEdit;
+    eUserPassword : TEdit;
+    ePDFtoPNGExecutable : TFileNameEdit;
+    e7zExecutable : TFileNameEdit;
+    ePDFFile : TFileNameEdit;
+    gbxFiles : TGroupBox;
+    gbxImagesPreview : TGroupBox;
+    gbxInput : TGroupBox;
+    gbxOutput : TGroupBox;
+    gbxPasswords : TGroupBox;
+    l7zExecutable : TLabel;
+    lbxFiles : TListBox;
+    lImgEditorExecutable : TLabel;
+    lImgEditorParams : TLabel;
+    lOwnerPassword : TLabel;
+    lParamsHelp : TLabel;
+    lPDFFile : TLabel;
+    lPDFtoPNGExecutable : TLabel;
+    lPDFImagesExecutable : TLabel;
+    lUserPassword : TLabel;
+    mConsoleLog : TMemo;
+    pConfigButtons : TPanel;
+    pgcMain : TPageControl;
+    pLeft : TPanel;
+    rgbOutputFormat : TRadioGroup;
+    rgbPDFExtractor : TRadioGroup;
+    Splitter1 : TSplitter;
+    pagConvert : TTabSheet;
+    pagConfig : TTabSheet;
+    StatusBar : TStatusBar;
+    pagConsoleLog : TTabSheet;
+    procedure bExtractPagesClick(Sender : TObject);
+    procedure bMakeCBXClick(Sender : TObject);
+    procedure bOpenOutputFolderClick(Sender : TObject);
+    procedure bReloadFilesClick(Sender : TObject);
+    procedure bSaveConfigClick(Sender : TObject);
+    procedure bTempFolderClick(Sender : TObject);
+    procedure e7zExecutableEditingDone(Sender : TObject);
+    procedure ePDFFileChange(Sender : TObject);
 
   private
-    FfmImgListPreview: TfmCHXImgListPreview;
-    FImageList: TStringList;
-    FImageMask: string;
-    FP2CConfig: cP2CConfig;
-    FPDFExtracted: boolean;
-    FTempFolder: string;
-    procedure SetImageMask(AValue: string);
-    procedure SetP2CConfig(AValue: cP2CConfig);
-    procedure SetPDFExtracted(AValue: boolean);
-    procedure SetTempFolder(AValue: string);
+    FfmImgListPreview : TfmCHXImgListPreview;
+    FImageList : TStringList;
+    FImageMask : string;
+    FP2CConfig : cP2CConfig;
+    FPDFExtracted : boolean;
+    FTempFolder : string;
+    procedure SetImageMask(AValue : string);
+    procedure SetP2CConfig(AValue : cP2CConfig);
+    procedure SetPDFExtracted(AValue : boolean);
+    procedure SetTempFolder(AValue : string);
 
   protected
-    property ImageMask: string read FImageMask write SetImageMask;
+    property ImageMask : string read FImageMask write SetImageMask;
 
-    property ImageList: TStringList read FImageList;
-    property TempFolder: string read FTempFolder write SetTempFolder;
-    property PDFExtracted: boolean read FPDFExtracted write SetPDFExtracted;
+    property ImageList : TStringList read FImageList;
+    property TempFolder : string read FTempFolder write SetTempFolder;
+    property PDFExtracted : boolean read FPDFExtracted write SetPDFExtracted;
 
-    property fmImgListPreview: TfmCHXImgListPreview read FfmImgListPreview;
+    property fmImgListPreview : TfmCHXImgListPreview read FfmImgListPreview;
 
     procedure Set7zWrapper;
 
-    function ClearTempFolder: boolean;
+    function ClearTempFolder : boolean;
     procedure LoadImages;
-    procedure PDFtoPNGExtractFiles(aPDFFile: string);
-    procedure PDFImagesExtractFiles(aPDFFile: string);
+    procedure PDFtoPNGExtractFiles(aPDFFile : string);
+    procedure PDFImagesExtractFiles(aPDFFile : string);
 
-    procedure PDFExtractFiles(aPDFFile: string);
+    procedure PDFExtractFiles(aPDFFile : string);
 
-    procedure Convert2JPG;
-
-    procedure PrintExtractLog(CMDLine: TStringList;
-      msOutput, msError: TMemoryStream);
-
-    procedure LoadConfig;
-
-    procedure DoClearFrameData;
-    procedure DoLoadFrameData;
-
+    procedure PrintExtractLog(CMDLine : TStringList;
+      const sOutput, sError : string);
 
   public
-    property P2CConfig: cP2CConfig read FP2CConfig write SetP2CConfig;
+    property P2CConfig : cP2CConfig read FP2CConfig write SetP2CConfig;
 
+    procedure LoadConfig;
     procedure SaveConfig;
 
-    constructor Create(TheOwner: TComponent); override;
+    procedure ClearFrameData; override;
+    procedure LoadFrameData; override;
+
+    constructor Create(TheOwner : TComponent); override;
     destructor Destroy; override;
   end;
 
@@ -147,22 +149,22 @@ implementation
 
 { TfmP2CMain }
 
-procedure TfmP2CMain.bSaveConfigClick(Sender: TObject);
+procedure TfmP2CMain.bSaveConfigClick(Sender : TObject);
 begin
   SaveConfig;
 end;
 
-procedure TfmP2CMain.bTempFolderClick(Sender: TObject);
+procedure TfmP2CMain.bTempFolderClick(Sender : TObject);
 begin
   OpenDocument(TempFolder);
 end;
 
-procedure TfmP2CMain.e7zExecutableEditingDone(Sender: TObject);
+procedure TfmP2CMain.e7zExecutableEditingDone(Sender : TObject);
 begin
   Set7zWrapper;
 end;
 
-procedure TfmP2CMain.ePDFFileChange(Sender: TObject);
+procedure TfmP2CMain.ePDFFileChange(Sender : TObject);
 begin
   bExtractPages.Enabled := False;
   bMakeCBX.Enabled := False;
@@ -187,22 +189,20 @@ begin
   end;
 
   if ePDFFile.DialogFiles.Count > 0 then
-   ePDFFile.InitialDir := ExtractFileDir(ePDFFile.DialogFiles[0]);
+    ePDFFile.InitialDir := ExtractFileDir(ePDFFile.DialogFiles[0]);
 end;
 
 
-procedure TfmP2CMain.PDFtoPNGExtractFiles(aPDFFile: string);
+procedure TfmP2CMain.PDFtoPNGExtractFiles(aPDFFile : string);
 var
-  Options: TStringList;
-  msError, msOutput: TMemoryStream;
-  outError: integer;
+  Options : TStringList;
+  sError, sOutput : string;
+  outError : integer;
 begin
   if not FileExistsUTF8(aPDFFile) then
     Exit;
 
   Options := TStringList.Create;
-  msError := TMemoryStream.Create;
-  msOutput := TMemoryStream.Create;
   try
 
     Options.Add('-r');
@@ -225,44 +225,40 @@ begin
     Options.Add(SysPath(TempFolder) + 'Page');
 
     if not ExecuteCMDSL('', P2CConfig.PDFtoPNGExe, Options,
-      msOutput, msError, outError) then
+      sOutput, sError, outError) then
       raise EFileNotFoundException.CreateFmt(rsFileNotFound,
         [P2CConfig.PDFtoPNGExe]);
 
     case outError of
       0: ; // OK
-      1: ShowMessage('PDFtoPNG: Error opening a PDF file.');
-      2: ShowMessage('PDFtoPNG: Error opening an output file.');
-      3: ShowMessage('PDFtoPNG: Error related to PDF permissions.');
-      99: ShowMessage('PDFtoPNG: Unknown error.');
+      1: ShowMessage(rsPDFtoPNGErr1);
+      2: ShowMessage(rsPDFtoPNGErr2);
+      3: ShowMessage(rsPDFtoPNGErr3);
+      99: ShowMessage(rsPDFtoPNGErr99);
       else
-        ShowMessage('PDFtoPNG: No handled error.');
+        ShowMessage(rsPDFtoPNGErrX);
     end;
 
     if outError = 0 then
       PDFExtracted := True;
 
-    PrintExtractLog(Options, msOutput, msError);
+    PrintExtractLog(Options, sOutput, sError);
 
   finally
     FreeAndNil(Options);
-    FreeAndNil(msError);
-    FreeAndNil(msOutput);
   end;
 end;
 
-procedure TfmP2CMain.PDFImagesExtractFiles(aPDFFile: string);
+procedure TfmP2CMain.PDFImagesExtractFiles(aPDFFile : string);
 var
-  Options: TStringList;
-  msError, msOutput: TMemoryStream;
-  outError: integer;
+  Options : TStringList;
+  sError, sOutput : string;
+  outError : integer;
 begin
   if not FileExistsUTF8(aPDFFile) then
     Exit;
 
   Options := TStringList.Create;
-  msError := TMemoryStream.Create;
-  msOutput := TMemoryStream.Create;
   try
 
     Options.Add('-j');
@@ -284,33 +280,31 @@ begin
     Options.Add(SysPath(TempFolder) + 'Page');
 
     if not ExecuteCMDSL('', P2CConfig.PDFImagesExe, Options,
-      msOutput, msError, outError) then
+      sOutput, sError, outError) then
       raise EFileNotFoundException.CreateFmt(rsFileNotFound,
         [P2CConfig.PDFImagesExe]);
 
     case outError of
       0: ; // OK
-      1: ShowMessage('PDFImages: Error opening a PDF file.');
-      2: ShowMessage('PDFImages: Error opening an output file.');
-      3: ShowMessage('PDFImages: Error related to PDF permissions.');
-      99: ShowMessage('PDFImages: Unknown error.');
+      1: ShowMessage(rsPDFImagesErr1);
+      2: ShowMessage(rsPDFImagesErr2);
+      3: ShowMessage(rsPDFImagesErr3);
+      99: ShowMessage(rsPDFImagesErr99);
       else
-        ShowMessage('PDFImages: No handled error.');
+        ShowMessage(rsPDFImagesErrX);
     end;
 
     if outError = 0 then
       PDFExtracted := True;
 
-    PrintExtractLog(Options, msOutput, msError);
+    PrintExtractLog(Options, sOutput, sError);
 
   finally
     FreeAndNil(Options);
-    FreeAndNil(msError);
-    FreeAndNil(msOutput);
   end;
 end;
 
-procedure TfmP2CMain.PDFExtractFiles(aPDFFile: string);
+procedure TfmP2CMain.PDFExtractFiles(aPDFFile : string);
 begin
   if not FileExistsUTF8(aPDFFile) then Exit;
   case rgbPDFExtractor.ItemIndex of
@@ -322,105 +316,29 @@ begin
   end;
 end;
 
-procedure TfmP2CMain.Convert2JPG;
-
-  procedure DoConvert(aFile: string);
-  var
-    InImage: TPicture;
-    OutImage: TJPEGImage;
-    oFile: string;
-    FileExt: string;
-  begin
-
-    if not FileExistsUTF8(aFile) then
-      Exit;
-
-    FileExt := ExtractFileExt(aFile);
-
-    // '.jpg' -> Do nothing
-    if CompareText(FileExt, '.jpg') = 0 then
-      Exit;
-
-    oFile := ChangeFileExt(aFile, '.jpg');
-
-    // '.jpeg' -> Change to '.jpg'
-    if CompareText(FileExt, '.jpeg') = 0 then
-    begin
-      RenameFileUTF8(aFile, oFile);
-      mConsoleLog.Lines.Add('Renaming image: ' + aFile);
-      Exit;
-    end;
-
-    mConsoleLog.Lines.Add('Converting image: ' + aFile);
-
-    InImage := TPicture.Create;
-    OutImage := TJPEGImage.Create;
-    try
-      InImage.LoadFromFile(aFile);
-
-      OutImage.CompressionQuality := 90;
-      OutImage.Performance := jpBestQuality;
-      OutImage.Assign(InImage.Graphic);
-      OutImage.SaveToFile(oFile);
-
-      DeleteFileUTF8(aFile);
-
-    finally
-      FreeAndNil(InImage);
-      FreeAndNil(OutImage);
-    end;
-  end;
-
-var
-  aFileList: TStringList;
-  i: integer;
-begin
-  mConsoleLog.Lines.Add('');
-  mConsoleLog.Lines.Add('CONVERTING TO JPG');
-  mConsoleLog.Lines.Add('-----------------');
-
-  aFileList := FindAllFiles(TempFolder, ImageMask);
-
-  i := 0;
-  while i < aFileList.Count do
-  begin
-    DoConvert(aFileList[i]);
-    Inc(i);
-  end;
-  aFileList.Free;
-end;
-
-procedure TfmP2CMain.PrintExtractLog(CMDLine: TStringList;
-  msOutput, msError: TMemoryStream);
-var
-  aStrList: TStringList;
+procedure TfmP2CMain.PrintExtractLog(CMDLine : TStringList;
+  const sOutput, sError : string);
 begin
   mConsoleLog.Clear;
   mConsoleLog.Lines.Add('COMMAND LINE');
   mConsoleLog.Lines.Add('------------');
   mConsoleLog.Lines.AddStrings(CMDLine, False);
 
-  aStrList := TStringList.Create;
-
-  aStrList.LoadFromStream(msOutput);
   mConsoleLog.Lines.Add('');
   mConsoleLog.Lines.Add('OUTPUT');
   mConsoleLog.Lines.Add('------');
-  mConsoleLog.Lines.AddStrings(aStrList, False);
+  mConsoleLog.Lines.Add(sOutput);
 
-  aStrList.LoadFromStream(msError);
   mConsoleLog.Lines.Add('');
   mConsoleLog.Lines.Add('ERROR');
   mConsoleLog.Lines.Add('-----');
-  mConsoleLog.Lines.AddStrings(aStrList, False);
+  mConsoleLog.Lines.Add(sError);
   mConsoleLog.Lines.Add('');
-
-  aStrList.Free;
 end;
 
-procedure TfmP2CMain.bExtractPagesClick(Sender: TObject);
+procedure TfmP2CMain.bExtractPagesClick(Sender : TObject);
 var
-  aPDFFile: string;
+  aPDFFile : string;
 begin
   if ePDFFile.DialogFiles.Count <> 1 then
   begin
@@ -443,6 +361,7 @@ begin
   StatusBar.SimpleText := 'Please Wait. Extracting images from: ' + aPDFFile;
   Self.Repaint;
 
+
   PDFExtractFiles(aPDFFile);
 
   StatusBar.SimpleText := 'Finished. Extracted images from: ' + aPDFFile;
@@ -452,58 +371,61 @@ begin
     LoadImages;
 end;
 
-procedure TfmP2CMain.bMakeCBXClick(Sender: TObject);
+procedure TfmP2CMain.bMakeCBXClick(Sender : TObject);
 var
-  PDFFile: string;
-  ZipFile: string;
-  ZipType: string;
-  i: integer;
+  PDFFile : string;
+  ZipFile : string;
+  i, AnError : integer;
 begin
+  AnError := 0;
+
   i := 0;
   while i < ePDFFile.DialogFiles.Count do
   begin
+    PDFFile := ePDFFile.DialogFiles[i];
 
-  PDFFile := ePDFFile.DialogFiles[i];
-
-  StatusBar.SimpleText := 'Please Wait. Creating CBX: ' + PDFFile;
-  Self.Repaint;
-
-  case rgbOutputFormat.ItemIndex of
-      1: begin
-        ZipFile := ExtractFileNameWithoutExt(ePDFFile.DialogFiles[i]) + '.cb7';
-        ZipType := '7z';
-      end;
-      else
-      begin
-        ZipFile := ExtractFileNameWithoutExt(ePDFFile.DialogFiles[i]) + '.cbz';
-        ZipType := 'zip';
-      end;
-    end;
-    Inc(i);
+    StatusBar.SimpleText := 'Please Wait. Creating CBX: ' + PDFFile;
+    Self.Repaint;
 
     // If there is only 1 file its already extracted
     if not PDFExtracted then
       PDFExtractFiles(PDFFile);
 
-    // TODO: Resize to 2048px max
+    ZipFile := ExtractFileNameWithoutExt(PDFFile);
 
-    if chkConvert2JPG.Checked then
-    begin
-      StatusBar.SimpleText := 'Please Wait. Converting to JPEG';
-      Self.Repaint;
-      Convert2JPG;
+    case rgbOutputFormat.ItemIndex of
+      0: begin
+        ZipFile := ZipFile + '.cbz';
+        // AnError > 1 -> Error
+        AnError := w7zCompressFolder(ZipFile, TempFolder, False, True, 'zip');
+      end;
+      1: begin
+        ZipFile := ZipFile + '.cb7';
+        // AnError > 1 -> Error
+        AnError := w7zCompressFolder(ZipFile, TempFolder, False, True, '7z');
+      end;
+      else
+      begin
+        // True = 1; False = 0
+        // We want AnError > 1 on False and AnError < 1 on True
+        AnError := -(CopyDirTree(TempFolder,
+          IncludeTrailingPathDelimiter(ZipFile),
+          [cffOverwriteFile, cffCreateDestDirectory, cffPreserveTime]).ToInteger) + 2;
+      end;
     end;
+    Inc(i);
 
-    w7zCompressFolder(ZipFile, TempFolder, False, True, ZipType);
+    if AnError > 1 then
+      ShowMessage('Error while creating CBX.');
 
     ImageList.Clear;
     ClearTempFolder;
     PDFExtracted := False;
 
-    if chkDeletePDF.Checked then
+    if chkDeletePDF.Checked and (AnError < 2) then
       DeleteFileUTF8(PDFFile);
 
-    StatusBar.SimpleText := 'Finished. Creating CBX: ' + PDFFile;
+    StatusBar.SimpleText := 'Finished. Creating CBX: ' + ZipFile;
     Self.Repaint;
   end;
 
@@ -516,41 +438,48 @@ begin
 
   bMakeCBX.Enabled := False;
   fmImgListPreview.FileList := nil;
+  lbxFiles.Clear;
   ImageList.Clear;
 end;
 
-procedure TfmP2CMain.bOpenOutputFolderClick(Sender: TObject);
+procedure TfmP2CMain.bOpenOutputFolderClick(Sender : TObject);
 begin
   if ePDFFile.DialogFiles.Count > 0 then
     OpenDocument(ExtractFileDir(ePDFFile.DialogFiles[0]))
-  else
-  if ePDFFile.FileName <> '' then
+  else if ePDFFile.FileName <> '' then
     OpenDocument(ExtractFileDir(ePDFFile.FileName));
 end;
 
-procedure TfmP2CMain.bReloadImagesClick(Sender: TObject);
+procedure TfmP2CMain.bReloadFilesClick(Sender : TObject);
 begin
   if PDFExtracted then
     LoadImages;
 end;
 
 procedure TfmP2CMain.LoadImages;
+
+var
+  i: LongInt;
 begin
   ImageList.Clear;
   fmImgListPreview.FileList := nil;
   StatusBar.SimpleText := '';
 
   // HACK: Warning the user that are some PNM files
-  FindAllFiles(ImageList, TempFolder, '*.pnm;*.pbm;*.pgm;*.ppm');
+  ImageList.Clear;
+  FindAllFiles(ImageList, TempFolder, kPNMFileMask);
   if ImageList.Count > 0 then
+    StatusBar.SimpleText := rsPNMFiles;
+
+  // Listing all files
+  ImageList.Clear;
+  lbxFiles.Clear;
+  FindAllFiles(ImageList, TempFolder, AllFilesMask);
+  i:=0;
+  while i < ImageList.Count do
   begin
-    if ImageList.Count > 1 then
-      StatusBar.SimpleText :=
-        'WARNING: There are ' + IntToStr(ImageList.Count) +
-        ' PNM files that you may want to convert and then reload the images.'
-    else
-      StatusBar.SimpleText :=
-        'WARNING: There is a PNM file that you may want to convert and then reload the images.';
+    lbxFiles.Items.Add(SetAsRelativeFile(ImageList[i], TempFolder));
+    Inc(i);
   end;
 
   ImageList.Clear;
@@ -558,7 +487,7 @@ begin
   fmImgListPreview.FileList := ImageList;
 end;
 
-procedure TfmP2CMain.SetP2CConfig(AValue: cP2CConfig);
+procedure TfmP2CMain.SetP2CConfig(AValue : cP2CConfig);
 begin
   if FP2CConfig = AValue then Exit;
   FP2CConfig := AValue;
@@ -566,28 +495,28 @@ begin
   LoadFrameData;
 end;
 
-procedure TfmP2CMain.SetImageMask(AValue: string);
+procedure TfmP2CMain.SetImageMask(AValue : string);
 begin
   if FImageMask = AValue then Exit;
   FImageMask := AValue;
 end;
 
-procedure TfmP2CMain.SetPDFExtracted(AValue: boolean);
+procedure TfmP2CMain.SetPDFExtracted(AValue : boolean);
 begin
   FPDFExtracted := AValue;
 
-  bReloadImages.Enabled := PDFExtracted;
+  bReloadFiles.Enabled := PDFExtracted;
   bMakeCBX.Enabled := PDFExtracted;
 end;
 
-procedure TfmP2CMain.SetTempFolder(AValue: string);
+procedure TfmP2CMain.SetTempFolder(AValue : string);
 begin
   FTempFolder := SetAsFolder(AValue);
 end;
 
 procedure TfmP2CMain.Set7zWrapper;
 var
-  aPath: string;
+  aPath : string;
 begin
   w7zSetPathTo7zexe(e7zExecutable.Text);
 
@@ -599,7 +528,7 @@ begin
     w7zSetPathTo7zGexe('');
 end;
 
-function TfmP2CMain.ClearTempFolder: boolean;
+function TfmP2CMain.ClearTempFolder : boolean;
 begin
   Result := False;
 
@@ -645,7 +574,7 @@ begin
   P2CConfig.LastFolder := ePDFFile.InitialDir;
 end;
 
-procedure TfmP2CMain.DoClearFrameData;
+procedure TfmP2CMain.ClearFrameData;
 begin
   ePDFtoPNGExecutable.Text := '';
   ePDFImagesExecutable.Text := '';
@@ -655,7 +584,7 @@ begin
   eImgEditorParams.Text := '';
 end;
 
-procedure TfmP2CMain.DoLoadFrameData;
+procedure TfmP2CMain.LoadFrameData;
 begin
   Enabled := assigned(P2CConfig);
 
@@ -668,14 +597,11 @@ begin
   LoadConfig;
 end;
 
-constructor TfmP2CMain.Create(TheOwner: TComponent);
+constructor TfmP2CMain.Create(TheOwner : TComponent);
 var
-  i: integer;
+  i : integer;
 begin
   inherited Create(TheOwner);
-
-  OnClearFrameData := @DoClearFrameData;
-  OnLoadFrameData := @DoLoadFrameData;
 
   FfmImgListPreview := TfmCHXImgListPreview.Create(gbxImagesPreview);
   fmImgListPreview.Align := alClient;
@@ -707,3 +633,19 @@ begin
 end;
 
 end.
+{
+  This source is free software; you can redistribute it and/or modify it under
+  the terms of the GNU General Public License as published by the Free
+  Software Foundation; either version 3 of the License, or (at your option)
+  any later version.
+
+  This code is distributed in the hope that it will be useful, but WITHOUT ANY
+  WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+  FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+  details.
+
+  A copy of the GNU General Public License is available on the World Wide Web
+  at <http://www.gnu.org/copyleft/gpl.html>. You can also obtain it by writing
+  to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
+  MA 02111-1307, USA.
+}
