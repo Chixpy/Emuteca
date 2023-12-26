@@ -492,8 +492,8 @@ begin
     Exit;
 
   // Loading data if not already loaded
-  Emuteca.CacheDataStop;
   Emuteca.SystemManager.LoadSystemData(aSystem);
+  Emuteca.CacheDataStop;
 
   aSystem.AddSoft(Software);
 

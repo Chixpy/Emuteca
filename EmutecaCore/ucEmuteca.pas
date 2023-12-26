@@ -384,7 +384,10 @@ var
   StartTime : TDateTime;
   TimePlaying : int64;
 begin
-  // TODO: Use utEmutecaRunEmulator, and don't block GUI.
+  {
+    TODO: Create utEmutecaRunEmulator (or in a generic thread in uCHXExecute)
+      and don't block GUI. So we can use Emuteca if Emulator hangs.
+  }
 
   // Trying to document step by step with my bad english :-P
 

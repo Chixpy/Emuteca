@@ -282,8 +282,8 @@ begin
   Self.Enabled := False;
 
   // Loading data if not already loaded
-  Emuteca.CacheDataStop;
   Emuteca.SystemManager.LoadSystemData(aSystem);
+  Emuteca.CacheDataStop;
 
   // Copy actual soft list to CacheSoftList
   CacheSoftList := cEmutecaSoftList.Create(False);
