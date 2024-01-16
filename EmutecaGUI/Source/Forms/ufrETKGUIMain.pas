@@ -742,14 +742,14 @@ var
   sError, sOutput : string;
   ExitC : integer;
 begin
-  if not FileExistsUTF8(GUIConfig.DBEditor) then
+  if not FileExistsUTF8(GUIConfig.ETKDBEditor) then
   begin
-    ShowMessageFmt(rsFileNotFound, [GUIConfig.DBEditor]);
+    ShowMessageFmt(rsFileNotFound, [GUIConfig.ETKDBEditor]);
     Exit;
   end;
 
-  ExecuteCMDString(ExtractFileDir(GUIConfig.DBEditor),
-    GUIConfig.DBEditor, '', sError, sOutput, ExitC);
+  ExecuteCMDString(ExtractFileDir(GUIConfig.ETKDBEditor),
+    GUIConfig.ETKDBEditor, '', sError, sOutput, ExitC);
 end;
 
 procedure TfrmETKGUIMain.actRunDBEditorGroupsExecute(Sender : TObject);
@@ -759,9 +759,9 @@ var
   sError, sOutput : string;
   ExitC , iNotCached: integer;
 begin
-  if not FileExistsUTF8(GUIConfig.DBEditor) then
+  if not FileExistsUTF8(GUIConfig.ETKDBEditor) then
   begin
-    ShowMessageFmt(rsFileNotFound, [GUIConfig.DBEditor]);
+    ShowMessageFmt(rsFileNotFound, [GUIConfig.ETKDBEditor]);
     Exit;
   end;
 
@@ -792,7 +792,7 @@ begin
 
   CurrentSystem.ExportSoftGroupLists(aFileWOExt, False);
 
-  ExecuteCMDArray(ExtractFileDir(GUIConfig.DBEditor), GUIConfig.DBEditor,
+  ExecuteCMDArray(ExtractFileDir(GUIConfig.ETKDBEditor), GUIConfig.ETKDBEditor,
     [aFileWOExt + krsFileExtGroup], sError, sOutput, ExitC);
 
   CurrentSystem.ImportSoftGroupLists(aFileWOExt);
@@ -812,9 +812,9 @@ var
   sError, sOutput : string;
   iNotCached, ExitC : LongInt;
 begin
-  if not FileExistsUTF8(GUIConfig.DBEditor) then
+  if not FileExistsUTF8(GUIConfig.ETKDBEditor) then
   begin
-    ShowMessageFmt(rsFileNotFound, [GUIConfig.DBEditor]);
+    ShowMessageFmt(rsFileNotFound, [GUIConfig.ETKDBEditor]);
     Exit;
   end;
 
@@ -845,7 +845,7 @@ begin
 
   CurrentSystem.ExportSoftGroupLists(aFileWOExt, False);
 
-  ExecuteCMDArray(ExtractFileDir(GUIConfig.DBEditor), GUIConfig.DBEditor,
+  ExecuteCMDArray(ExtractFileDir(GUIConfig.ETKDBEditor), GUIConfig.ETKDBEditor,
     [aFileWOExt + krsFileExtSoft], sError, sOutput, ExitC);
 
   CurrentSystem.ImportSoftGroupLists(aFileWOExt);
@@ -869,18 +869,18 @@ var
   sError, sOutput : string;
   ExitC : integer;
 begin
-  if not FileExistsUTF8(GUIConfig.IconBorder) then
+  if not FileExistsUTF8(GUIConfig.ETKIconBorder) then
   begin
-    ShowMessageFmt(rsFileNotFound, [GUIConfig.IconBorder]);
+    ShowMessageFmt(rsFileNotFound, [GUIConfig.ETKIconBorder]);
     Exit;
   end;
 
-  WorkDir := ExtractFileDir(GUIConfig.IconBorder);
+  WorkDir := ExtractFileDir(GUIConfig.ETKIconBorder);
   OutFolder := '';
   if Assigned(CurrentSystem) then
     OutFolder := SysPath(CurrentSystem.IconFolder);
 
-  ExecuteCMDArray(WorkDir, GUIConfig.IconBorder, [OutFolder],
+  ExecuteCMDArray(WorkDir, GUIConfig.ETKIconBorder, [OutFolder],
     sError, sOutput, ExitC);
 
   // TODO 3: Show a message if IconBorder or WorkDir not found.
@@ -892,18 +892,18 @@ var
   sError, sOutput : string;
   ExitC : integer;
 begin
-  if not FileExistsUTF8(GUIConfig.IconBorder) then
+  if not FileExistsUTF8(GUIConfig.ETKIconBorder) then
   begin
-    ShowMessageFmt(rsFileNotFound, [GUIConfig.IconBorder]);
+    ShowMessageFmt(rsFileNotFound, [GUIConfig.ETKIconBorder]);
     Exit;
   end;
 
-  WorkDir := ExtractFileDir(GUIConfig.IconBorder);
+  WorkDir := ExtractFileDir(GUIConfig.ETKIconBorder);
   OutFolder := '';
   if Assigned(CurrentSystem) then
     OutFolder := SysPath(CurrentSystem.LogoFolder);
 
-  ExecuteCMDArray(WorkDir, GUIConfig.IconBorder, [OutFolder],
+  ExecuteCMDArray(WorkDir, GUIConfig.ETKIconBorder, [OutFolder],
     sError, sOutput, ExitC);
 
   // TODO 3: Show a message if IconBorder or WorkDir not found.

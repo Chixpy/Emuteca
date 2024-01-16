@@ -22,43 +22,67 @@ const
   // [Images]
   krsSectionImages = 'Images';
   krsKeyDefImgFolder = 'DefImgFolder';
+  krsDefDefImgFolder = 'Images/Default';
   krsKeyGUIIcnFile = 'GUIIcnFile';
+  krsDefGUIIcnFile = 'Images/GUI/Icons.ini';
   krsKeyDumpIcnFolder = 'DumpIcnFolder';
+  krsDefDumpIcnFolder = 'Images/DumpInfo';
   krsKeyZoneIcnFolder = 'ZoneIcnFolder';
+  krsDefZoneIcnFolder = 'Images/Zone';
   krsKeyImgExt = 'ImageExt';
+  krsDefImgExt = 'png,jpg';
+  { Lazarus supports:
+      bmp,cur,gif,icns,ico,jfif,jpe,jpeg,jpg,pbm,pgm,png,ppm,tif,tiff,xpm
+
+    But I will cut them a little for faster searching.
+  }
 
   // [Texts]
   krsSectionTexts = 'Texts';
   krsKeyTxtExt = 'TxtExt';
+  krsDefTxtExt = 'txt,nfo';
 
 
   // [Video]
   krsSectionVideo = 'Video';
   krsKeyVideoExt = 'VideoExt';
+  krsDefVideoExt = 'mpg,avi,mkv,mp4';
 
   // [Music]
   krsSectionMusic = 'Music';
   krsKeyMusicExt = 'MusicExt';
+  krsDefMusicExt = 'mp3,ogg,wav';
 
   // [Config]
   krsSectionConfig = 'Config';
   krsKeyEmutecaIni = 'EmutecaIni';
+  krsDefEmutecaIni = 'Emuteca.ini';
   krsKeyLangFolder = 'LangFolder';
+  krsDefLangFolder = 'locale/';
   krsKeyCurrSystem = 'CurrSystem';
+  krsDefCurrSystem = '';
   krsKeySearchFile = 'SearchFile';
+  krsDefSearchFile = 'Search.ini';
   krsKeyHelpFolder = 'HelpFolder';
+  krsDefHelpFolder = 'Help';
 
   // [Tools]
   krsSectionTools = 'Tools';
   krsKeyScriptsFolder = 'ScriptsFolder';
+  krsDefScriptsFolder = 'Scripts/';
   krsKeyMPlayerExe = 'mPlayerExe';
+  krsDefmPlayerExe = 'Tools/mplayer/mplayer.exe';
   krsKeyETKIconBorder = 'ETKIconBorder';
+  krsDefETKIconBorder = 'Tools/ETKIconBorder.exe';
   krsKeyETKDBEditor = 'ETKDBEditor';
+  krsDefETKDBEditor = 'Tools/ETKDBEditor.exe';
 
   // [Experimental]
   krsSectionExperimental = 'Experimental';
   krsKeyGlobalCache = 'GlobalCache';
+  krsDefGlobalCache = 'SHA1Cache/';
   krsKeyw7zErrorFileName = 'w7zErrorFileName';
+  krsDefw7zErrorFileName = 'w7zErrors.log';
 
 type
 
@@ -70,11 +94,11 @@ type
   cETKGUIConfig = class(caCHXConfig)
   private
     FCurrSystem: string;
-    FDBEditor: string;
+    FETKDBEditor: string;
     FDefImgFolder: string;
     FEmutecaIni: string;
     FGlobalCache: string;
-    FIconBorder: string;
+    FETKIconBorder: string;
     FImageExtensions: TStringList;
     FLangFolder: string;
     FMusicExtensions: TStringList;
@@ -89,11 +113,11 @@ type
     FSearchFile: string;
     FDumpIcnFolder: string;
     procedure SetCurrSystem(AValue: string);
-    procedure SetDBEditor(AValue: string);
+    procedure SetETKDBEditor(AValue: string);
     procedure SetDefImgFolder(AValue: string);
     procedure SetEmutecaIni(AValue: string);
     procedure SetGlobalCache(AValue: string);
-    procedure SetIconBorder(AValue: string);
+    procedure SetETKIconBorder(AValue: string);
     procedure SetLangFolder(const AValue: string);
     procedure SetScriptsFolder(AValue: string);
     procedure Setw7zErrorFileName(AValue: string);
@@ -147,8 +171,8 @@ type
     property ScriptsFolder: string read FScriptsFolder write SetScriptsFolder;
     property mPlayerExe: string read FmPlayerExe write SetmPlayerExe;
     //< Path to mPlayer[2].exe
-    property IconBorder: string read FIconBorder write SetIconBorder;
-    property DBEditor: string read FDBEditor write SetDBEditor;
+    property ETKIconBorder: string read FETKIconBorder write SetETKIconBorder;
+    property ETKDBEditor: string read FETKDBEditor write SetETKDBEditor;
 
     // Config/Data
     // -----------
@@ -186,9 +210,9 @@ begin
   FCurrSystem := AValue;
 end;
 
-procedure cETKGUIConfig.SetDBEditor(AValue: string);
+procedure cETKGUIConfig.SetETKDBEditor(AValue: string);
 begin
-  FDBEditor := SetAsFile(AValue);
+  FETKDBEditor := SetAsFile(AValue);
 end;
 
 procedure cETKGUIConfig.SetEmutecaIni(AValue: string);
@@ -201,9 +225,9 @@ begin
   FGlobalCache := SetAsFolder(AValue);
 end;
 
-procedure cETKGUIConfig.SetIconBorder(AValue: string);
+procedure cETKGUIConfig.SetETKIconBorder(AValue: string);
 begin
-  FIconBorder := SetAsFile(AValue);
+  FETKIconBorder := SetAsFile(AValue);
 end;
 
 procedure cETKGUIConfig.SetLangFolder(const AValue: string);
@@ -254,42 +278,37 @@ end;
 procedure cETKGUIConfig.ResetDefaultConfig;
 begin
   // Images
-  DefImgFolder := 'Images/Default';
-  GUIIcnFile := 'Images/GUI/Icons.ini';
-  ZoneIcnFolder := 'Images/Zone';
-  DumpIcnFolder := 'Images/DumpInfo';
-
-
-  // Lazarus supports:
-  //  bmp,cur,gif,icns,ico,jfif,jpe,jpeg,jpg,pbm,pgm,png,ppm,tif,tiff,xpm
-  // But I will cut them a little for faster searching
-  ImageExtensions.CommaText := 'png,jpg';
+  DefImgFolder := krsDefDefImgFolder;
+  GUIIcnFile := krsDefGUIIcnFile;
+  ZoneIcnFolder := krsDefZoneIcnFolder;
+  DumpIcnFolder := krsDefDumpIcnFolder;
+  ImageExtensions.CommaText := krsDefImgExt;
 
   // Texts
-  TextExtensions.CommaText := 'txt,nfo';
+  TextExtensions.CommaText := krsDefTxtExt;
 
   // Video
-  VideoExtensions.CommaText := 'mpg,avi,mkv,mp4';
+  VideoExtensions.CommaText := krsDefVideoExt;
 
   // Music
-  MusicExtensions.CommaText := 'mp3,ogg,wav';
+  MusicExtensions.CommaText := krsDefMusicExt;
 
   // Config/Data
-  EmutecaIni := 'Emuteca.ini';
-  LangFolder := 'locale/';
-  CurrSystem := '';
-  SearchFile := 'Search.ini';
-  HelpFolder := 'Help';
+  EmutecaIni := krsDefEmutecaIni;
+  LangFolder := krsDefLangFolder;
+  CurrSystem := krsDefCurrSystem;
+  SearchFile := krsDefSearchFile;
+  HelpFolder := krsDefHelpFolder;
 
   // Tools
-  ScriptsFolder := 'Scripts/';
-  mPlayerExe := 'Tools/mplayer/mplayer.exe';
-  IconBorder := 'Tools/ETKIconBorder.exe';
-  DBEditor := 'Tools/ETKDBEditor.exe';
+  ScriptsFolder := krsDefScriptsFolder;
+  mPlayerExe := krsDefmPlayerExe;
+  ETKIconBorder := krsDefETKIconBorder;
+  ETKDBEditor := krsDefETKDBEditor;
 
   // Experimental
-  GlobalCache := 'SHA1Cache/';
-  w7zErrorFileName := 'w7zErrors.log';
+  GlobalCache := krsDefGlobalCache;
+  w7zErrorFileName := krsDefw7zErrorFileName;
 end;
 
 procedure cETKGUIConfig.LoadFromIni(IniFile: TMemIniFile);
@@ -337,10 +356,10 @@ begin
     krsKeyScriptsFolder, ScriptsFolder);
   mPlayerExe := IniFile.ReadString(krsSectionTools, krsKeyMPlayerExe,
     mPlayerExe);
-  IconBorder := IniFile.ReadString(krsSectionTools, krsKeyETKIconBorder,
-    IconBorder);
-  DBEditor := IniFile.ReadString(krsSectionTools, krsKeyETKDBEditor,
-    DBEditor);
+  ETKIconBorder := IniFile.ReadString(krsSectionTools, krsKeyETKIconBorder,
+    ETKIconBorder);
+  ETKDBEditor := IniFile.ReadString(krsSectionTools, krsKeyETKDBEditor,
+    ETKDBEditor);
 
   // Experimental
   GlobalCache := IniFile.ReadString(krsSectionExperimental,
@@ -380,8 +399,8 @@ begin
   // Tools
   IniFile.WriteString(krsSectionTools, krsKeyScriptsFolder, ScriptsFolder);
   IniFile.WriteString(krsSectionTools, krsKeyMPlayerExe, mPlayerExe);
-  IniFile.WriteString(krsSectionTools, krsKeyETKIconBorder, IconBorder);
-  IniFile.WriteString(krsSectionTools, krsKeyETKDBEditor, DBEditor);
+  IniFile.WriteString(krsSectionTools, krsKeyETKIconBorder, ETKIconBorder);
+  IniFile.WriteString(krsSectionTools, krsKeyETKDBEditor, ETKDBEditor);
 
   IniFile.WriteString(krsSectionExperimental, krsKeyGlobalCache, GlobalCache);
   IniFile.WriteString(krsSectionExperimental, krsKeyw7zErrorFileName,

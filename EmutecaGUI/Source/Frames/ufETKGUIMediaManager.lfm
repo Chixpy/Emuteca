@@ -736,7 +736,7 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
     Height = 592
     Top = 0
     Width = 200
-    HorzScrollBar.Page = 143
+    HorzScrollBar.Page = 140
     VertScrollBar.Page = 588
     Align = alLeft
     ClientHeight = 588
@@ -769,8 +769,8 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
         Width = 171
         Align = alClient
         ItemHeight = 0
-        OnSelectionChange = lbxFolderSelectionChange
         TabOrder = 0
+        OnSelectionChange = lbxFolderSelectionChange
       end
     end
     object gbxTexts: TGroupBox
@@ -790,8 +790,8 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
         Width = 171
         Align = alClient
         ItemHeight = 0
-        OnSelectionChange = lbxFolderSelectionChange
         TabOrder = 0
+        OnSelectionChange = lbxFolderSelectionChange
       end
     end
     object gbxVideos: TGroupBox
@@ -811,8 +811,8 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
         Width = 171
         Align = alClient
         ItemHeight = 0
-        OnSelectionChange = lbxFolderSelectionChange
         TabOrder = 0
+        OnSelectionChange = lbxFolderSelectionChange
       end
     end
     object gbxMusic: TGroupBox
@@ -832,8 +832,8 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
         Width = 171
         Align = alClient
         ItemHeight = 0
-        OnSelectionChange = lbxFolderSelectionChange
         TabOrder = 0
+        OnSelectionChange = lbxFolderSelectionChange
       end
     end
     object gbxOtherFiles: TGroupBox
@@ -853,8 +853,8 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
         Width = 171
         Align = alClient
         ItemHeight = 0
-        OnSelectionChange = lbxFolderSelectionChange
         TabOrder = 0
+        OnSelectionChange = lbxFolderSelectionChange
       end
     end
     object pSimilar: TPanel
@@ -876,7 +876,7 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
         Frequency = 5
         Max = 100
         PageSize = 5
-        Position = 50
+        Position = 33
         Align = alTop
         OnClick = tbSimilarThresoldClick
         TabOrder = 0

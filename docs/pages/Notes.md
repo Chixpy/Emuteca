@@ -19,7 +19,7 @@ Aquí hay alguna cosilla aleatoría sobre el programa y funcionamiento antes de 
 
   - Título del juego... difícil ¿eh?
   - En grupos se hereda del identificador.
-  - En caso de incongruencia elegir el título más completo con subtítulo. Aunque para el soft, mejor intentar mantener el título de la versión especifica
+  - En caso de incongruencia elegir el título más completo con subtítulo. Aunque para el soft, mejor intentar mantener el título de la versión especifica.
   - Mantener nombres de compañía, creadores, etc. y similares al comienzo del título: Por ejemplo: "Disney's", "Hudson's", etc.
     - Sin embargo hay que diferenciar cosas como "Tecmo World Cup" o "Konami Tennis" que forman parte real del título del juego. Sobre todo si son título "simples"
     - Aquí el truco sería si tienen apóstrofe o fórmulas similares como "Disney presents".
@@ -57,7 +57,7 @@ Aquí hay alguna cosilla aleatoría sobre el programa y funcionamiento antes de 
 ### Traducciones amateur
 
   - ISO 639-1: Algunos ejemplos:
-    - `Cro` -> `hr`; `Swe` -> `sv`; `Dut` -> `nl`; `Bra` -> `pt`
+    - `Cro` -> `hr`; `Swe` -> `sv`; `Dut` -> `nl`; `Bra` -> `pt`; `Ser` -> `sr`
   - Para chino...: `zh` -> Genérico; `zS` -> Simplificado; `zT`-> Tradicional
   
 ## MAME ##

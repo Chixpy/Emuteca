@@ -189,23 +189,26 @@ begin
   fmListPreview.FileList := nil;
   FileList.Clear;
 
-  // TODO: Maybe Emuteca Core must do this...
+  // TODO: Emuteca Core must do this if we want to do it configurable
+  // TODO ZipMedia: Make configurable search media in zip (default off)
   if Assigned(Software) then
   begin
     EmuTKSearchAllRelatedFiles(FileList, GetFolder, Software.MediaFileName,
-      FileExt, True, True, TempFolder);
+      FileExt, False, True, TempFolder);
 
     if (FileList.Count = 0) and (not Software.MatchGroupFile) then
     begin
       if Assigned(Software.CachedGroup) then
+      // TODO ZipMedia: Make configurable search media in zip (default off)
         EmuTKSearchAllRelatedFiles(FileList, GetFolder,
-          Software.CachedGroup.MediaFileName, FileExt, True, True, TempFolder);
+          Software.CachedGroup.MediaFileName, FileExt, False, True, TempFolder);
     end;
   end
   else if Assigned(Group) then
   begin
-    EmuTKSearchAllRelatedFiles(FileList, GetFolder, Group.MediaFileName,
-      FileExt, True, True, TempFolder);
+    // TODO ZipMedia: Make configurable search media in zip (default off)
+  EmuTKSearchAllRelatedFiles(FileList, GetFolder, Group.MediaFileName,
+      FileExt, False, True, TempFolder);
   end;
 
   fmListPreview.FileList := FileList;

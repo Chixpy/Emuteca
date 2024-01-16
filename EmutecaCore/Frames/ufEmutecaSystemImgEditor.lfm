@@ -12,12 +12,13 @@ inherited fmEmutecaSystemImgEditor: TfmEmutecaSystemImgEditor
     TabOrder = 3
     inherited chkCloseOnSave: TCheckBox
       Left = 119
+      Width = 57
     end
     inherited bSave: TBitBtn
-      Left = 298
+      Left = 295
     end
     inherited bCancel: TBitBtn
-      Left = 483
+      Left = 480
     end
   end
   object gbxImages: TGroupBox[1]
@@ -36,116 +37,36 @@ inherited fmEmutecaSystemImgEditor: TfmEmutecaSystemImgEditor
     ClientHeight = 427
     ClientWidth = 422
     TabOrder = 0
-    object PairSplitter1: TPairSplitter
-      Cursor = crVSplit
+    object eSystemImage: TFileNameEdit
       Left = 0
-      Height = 427
+      Height = 28
       Top = 0
       Width = 422
+      OnAcceptFileName = eSystemImageAcceptFileName
+      DialogKind = dkPictureOpen
+      DialogOptions = [ofNoChangeDir, ofEnableSizing, ofViewDetail]
+      FilterIndex = 0
+      HideDirectories = False
+      ButtonWidth = 23
+      NumGlyphs = 1
+      Flat = True
+      Align = alTop
+      MaxLength = 0
+      TabOrder = 0
+      OnButtonClick = FileEditButtonClick
+    end
+    object iSystemImage: TImage
+      Left = 0
+      Height = 399
+      Hint = 'System image|DblClk: Open in Image viewer.'
+      Top = 28
+      Width = 422
       Align = alClient
-      Position = 200
-      SplitterType = pstVertical
-      object PairSplitterSide1: TPairSplitterSide
-        Cursor = crArrow
-        Left = 0
-        Height = 200
-        Top = 0
-        Width = 422
-        ClientWidth = 422
-        ClientHeight = 200
-        object gbxSystemImage: TGroupBox
-          Left = 0
-          Height = 200
-          Top = 0
-          Width = 422
-          Align = alClient
-          Caption = 'System image'
-          ClientHeight = 175
-          ClientWidth = 418
-          TabOrder = 0
-          object eSystemImage: TFileNameEdit
-            Left = 0
-            Height = 28
-            Top = 0
-            Width = 418
-            OnAcceptFileName = eSystemImageAcceptFileName
-            DialogKind = dkPictureOpen
-            DialogOptions = [ofNoChangeDir, ofEnableSizing, ofViewDetail]
-            FilterIndex = 0
-            HideDirectories = False
-            ButtonWidth = 23
-            NumGlyphs = 1
-            Flat = True
-            Align = alTop
-            MaxLength = 0
-            TabOrder = 0
-            OnButtonClick = FileEditButtonClick
-          end
-          object iSystemImage: TImage
-            Left = 0
-            Height = 147
-            Hint = 'System image|DblClk: Open in Image viewer.'
-            Top = 28
-            Width = 418
-            Align = alClient
-            Center = True
-            OnDblClick = iSystemImageDblClick
-            Proportional = True
-            Stretch = True
-            Transparent = True
-          end
-        end
-      end
-      object PairSplitterSide2: TPairSplitterSide
-        Cursor = crArrow
-        Left = 0
-        Height = 222
-        Top = 205
-        Width = 422
-        ClientWidth = 422
-        ClientHeight = 222
-        object gbxSystemBG: TGroupBox
-          Left = 0
-          Height = 222
-          Top = 0
-          Width = 422
-          Align = alClient
-          Caption = 'System background'
-          ClientHeight = 197
-          ClientWidth = 418
-          TabOrder = 0
-          object eSystemBG: TFileNameEdit
-            Left = 0
-            Height = 28
-            Top = 0
-            Width = 418
-            OnAcceptFileName = eSystemBGAcceptFileName
-            DialogKind = dkPictureOpen
-            DialogOptions = [ofNoChangeDir, ofEnableSizing, ofViewDetail]
-            FilterIndex = 0
-            HideDirectories = False
-            ButtonWidth = 23
-            NumGlyphs = 1
-            Flat = True
-            Align = alTop
-            MaxLength = 0
-            TabOrder = 0
-            OnButtonClick = FileEditButtonClick
-          end
-          object iSystemBG: TImage
-            Left = 0
-            Height = 169
-            Top = 28
-            Width = 418
-            Align = alClient
-            Center = True
-            OnDblClick = iSystemBGDblClick
-            Proportional = True
-            Stretch = True
-            Transparent = True
-          end
-        end
-      end
+      Center = True
+      OnDblClick = iSystemImageDblClick
+      Proportional = True
+      Stretch = True
+      Transparent = True
     end
   end
   object gbxSystemIcons: TGroupBox[2]
@@ -163,7 +84,7 @@ inherited fmEmutecaSystemImgEditor: TfmEmutecaSystemImgEditor
     ChildSizing.ControlsPerLine = 1
     ClientHeight = 427
     ClientWidth = 246
-    TabOrder = 2
+    TabOrder = 1
     object gbxSystemIcon: TGroupBox
       Left = 0
       Height = 145

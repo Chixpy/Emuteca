@@ -194,9 +194,9 @@ begin
   if Assigned(Group) then
   begin
     iIcon.Picture := Group.Stats.Icon;
-
+    // TODO ZipMedia: Make configurable search media in zip (default off)
     aImageFile := EmuTKSearchFirstRelatedFile(Group.CachedSystem.LogoFolder,
-      Group.MediaFileName, ImageExt, True, True,
+      Group.MediaFileName, ImageExt, False, True,
       SetAsFolder(TempFolder) + krsTempLogoDir);
 
     if aImageFile = '' then
@@ -269,14 +269,16 @@ begin
   begin
     iIcon.Picture := FSoftware.Stats.Icon;
 
+    // TODO ZipMedia: Make configurable search media in zip (default off)
     aImageFile := EmuTKSearchFirstRelatedFile(Software.CachedSystem.LogoFolder,
-      Software.MediaFileName, ImageExt, True, True,
+      Software.MediaFileName, ImageExt, False, True,
       SetAsFolder(TempFolder) + krsTempIconDir);
 
     if (aImageFile = '') and (not Software.MatchGroupFile) then
+    // TODO ZipMedia: Make configurable search media in zip (default off)
       aImageFile := EmuTKSearchFirstRelatedFile(
         Software.CachedSystem.LogoFolder, Software.CachedGroup.MediaFileName,
-        ImageExt, True, True, SetAsFolder(TempFolder) + krsTempLogoDir);
+        ImageExt, False, True, SetAsFolder(TempFolder) + krsTempLogoDir);
 
     if aImageFile = '' then
       iLogo.Picture.Clear

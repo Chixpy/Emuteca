@@ -143,8 +143,8 @@ type
     It show a tree structure with group-soft relationship, unless a group
       only have one software with it's showed straight.
 
-    With TitleFilter property, nodes not matching are hidden, empty string will
-      show all.
+    With TitleFilter property, nodes not matching in group title will be hidden,
+      an empty string will show all groups.
 
     OnSelectX are callbacks functions for some common events.
 

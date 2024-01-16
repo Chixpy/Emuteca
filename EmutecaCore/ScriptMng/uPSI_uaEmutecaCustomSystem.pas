@@ -61,7 +61,6 @@ begin
 
     RegisterProperty('IconFile', 'string', iptrw);
     RegisterProperty('ImageFile', 'string', iptrw);
-    RegisterProperty('BackgroundFile', 'string', iptrw);
     RegisterProperty('SoftIconFile', 'string', iptrw);
 
     RegisterProperty('IconFolder', 'string', iptrw);
@@ -249,18 +248,6 @@ begin
   Self.ImageFile := T;
 end;
 
-procedure caEmutecaCustomSystemBackgroundFile_R(Self: caEmutecaCustomSystem;
-  var T: string);
-begin
-  T := Self.BackgroundFile;
-end;
-
-procedure caEmutecaCustomSystemBackgroundFile_W(Self: caEmutecaCustomSystem;
-  const T: string);
-begin
-  Self.BackgroundFile := T;
-end;
-
 procedure caEmutecaCustomSystemSoftIconFile_R(Self: caEmutecaCustomSystem;
   var T: string);
 begin
@@ -416,8 +403,6 @@ begin
       @caEmutecaCustomSystemIconFile_W, 'IconFile');
     RegisterPropertyHelper(@caEmutecaCustomSystemImageFile_R,
       @caEmutecaCustomSystemImageFile_W, 'ImageFile');
-    RegisterPropertyHelper(@caEmutecaCustomSystemBackgroundFile_R,
-      @caEmutecaCustomSystemBackgroundFile_W, 'BackgroundFile');
     RegisterPropertyHelper(@caEmutecaCustomSystemSoftIconFile_R,
       @caEmutecaCustomSystemSoftIconFile_W, 'SoftIconFile');
 

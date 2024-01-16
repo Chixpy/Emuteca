@@ -30,7 +30,7 @@ uses
   // Emuteca Core frames
   ufEmutecaSystemCBX, ufEmutecaGroupEditor, ufETKGUIFullSoftEditor,
   // Emuteca GUI units
-  uETKGUIConst, uETKGUIRscStr,
+  uETKGUIConst,
   // Emuteca GUI classes
   ucETKGUIConfig;
 
@@ -985,8 +985,9 @@ begin
     Exit;
   CurrPreview.FileList := nil;
   MediaFiles.Clear;
+  // TODO ZipMedia: Make configurable search media in zip (default off)
   EmuTKSearchAllRelatedFiles(MediaFiles, TargetFolder,
-    SGItem.MediaFileName, ExtFilter, True, True, Emuteca.TempFolder);
+    SGItem.MediaFileName, ExtFilter, False, True, Emuteca.TempFolder);
   CurrPreview.FileList := MediaFiles;
 end;
 
@@ -1006,11 +1007,14 @@ begin
     EmuTKSearchAllRelatedFiles(MediaFiles, aFolder,
       ExtractFileNameWithoutExt(aFileName), ExtFilter, False, False,
       Emuteca.TempFolder)
-  else if SupportedExtSL(aFileName, Emuteca.Config.CompressedExtensions) then
+      // TODO ZipMedia: Make configurable search media in zip (default off)
+    {
+    else if SupportedExtSL(aFileName, Emuteca.Config.CompressedExtensions) then
     // Hack: Zips: Using EmuTKSearchAllRelatedFiles
     EmuTKSearchAllRelatedFiles(MediaFiles, aFolder,
       ExtractFileNameWithoutExt(aFileName), ExtFilter, True, True,
-      Emuteca.TempFolder);
+      Emuteca.TempFolder)
+    };
 
   CurrPreview.FileList := MediaFiles;
 end;

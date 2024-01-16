@@ -108,8 +108,9 @@ begin
       begin
         if Terminated then
           Exit;
+        // TODO ZipMedia: Make configurable search media in zip (default off)
         TempStr := EmuTKSearchFirstRelatedFile(aSoft.CachedSystem.IconFolder,
-          aSoft.MediaFileName, ImageExt, True, True, TempFolder);
+          aSoft.MediaFileName, ImageExt, False, True, TempFolder);
 
         if FileExistsUTF8(TempStr) then
         begin

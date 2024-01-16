@@ -26,7 +26,6 @@ type
 
   caEmutecaCustomSystem = class(caCHXStorableIni)
   private
-    FBackgroundFile: string;
     FBaseFolder: string;
     FCoreIDs: TStringList;
     FEnabled: boolean;
@@ -57,7 +56,6 @@ type
     FVideoCaptions: TStringList;
     FVideoFolders: TStringList;
     function GetListFileName: string;
-    procedure SetBackgroundFile(AValue: string);
     procedure SetBaseFolder(AValue: string);
     procedure SetEnabled(AValue: boolean);
     procedure SetExtractAll(AValue: boolean);
@@ -162,9 +160,6 @@ type
     {< Path to the icon of the system. }
     property ImageFile: string read FImage write SetImage;
     {< Path to image of the system. }
-    property BackgroundFile: string read FBackgroundFile
-      write SetBackgroundFile;
-    {< Image used for as background. }
     property SoftIconFile: string read FSoftIconFile write SetSoftIconFile;
     {< Default soft icon. }
 
@@ -255,8 +250,6 @@ begin
   // Images
   IconFile := aIniFile.ReadString(ID, krsIniKeyIcon, IconFile);
   ImageFile := aIniFile.ReadString(ID, krsIniKeyImage, ImageFile);
-  BackgroundFile := aIniFile.ReadString(ID, krsIniKeyBackImage,
-    BackgroundFile);
   SoftIconFile := aIniFile.ReadString(ID, krsIniKeySoftIcon, SoftIconFile);
 
   IconFolder := aIniFile.ReadString(ID, krsIniKeyIconFolder, IconFolder);
@@ -321,11 +314,6 @@ end;
 procedure caEmutecaCustomSystem.SetBaseFolder(AValue: string);
 begin
   FBaseFolder := SetAsFolder(AValue);
-end;
-
-procedure caEmutecaCustomSystem.SetBackgroundFile(AValue: string);
-begin
-  FBackgroundFile := SetAsFile(AValue);
 end;
 
 function caEmutecaCustomSystem.GetListFileName: string;
@@ -541,7 +529,6 @@ begin
     // Images
     aIniFile.WriteString(ID, krsIniKeyIcon, IconFile);
     aIniFile.WriteString(ID, krsIniKeyImage, ImageFile);
-    aIniFile.WriteString(ID, krsIniKeyBackImage, BackgroundFile);
     aIniFile.WriteString(ID, krsIniKeySoftIcon, SoftIconFile);
 
     aIniFile.WriteString(ID, krsIniKeyIconFolder, IconFolder);

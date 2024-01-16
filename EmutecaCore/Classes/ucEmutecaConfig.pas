@@ -19,30 +19,47 @@ uses
 const
   // [Config]
   krsIniSecConfig = 'Config';
-  krsIniKeyDataFolder = 'DataFolder';
   krsIniKeyEmulatorsFile = 'EmulatorsFile';
+  krsDefEmulatorsFile = 'Data/Emulators.ini';
   krsIniKeyAutoSysFoldersFile = 'AutoSysFolders';
+  krsDefAutoSysFolder = 'Data/SysFolders.csv';
   krsIniKeySystemsFile = 'SystemsFile';
+  krsDefSystemsFile = 'Data/Systems.ini';
   krsIniKeySysDataFolder = 'SysDataFolder';
+  krsDefSysDataFolder = 'Systems/';
   krsIniKeyTagsFolder = 'TagsFolder';
+  krsDefTagsFolder = 'Tags/';
 
   // [Tools]
   krsIniSecTools = 'Tools';
   krsIniKey7zCMExecutable = '7zCMExecutable';
+  krsDefz7CMExecutable = 'Tools/7zip/7z.exe';
   krsIniKey7zGExecutable = '7zGExecutable';
+  krsDefz7GExecutable = 'Tools/7zip/7zG.exe';
 
   // [Extensions]
   krsIniSecExtensions = 'Extensions';
   krsIniKeyCompressedExtensions = 'CompressedExtensions';
+  krsDefCompressedExtensions = '7z,rar,zip,cb7,cbr,cbz';
+  {< CompressedExtensions.CommaText := w7zGetFileExts;
+
+    Removed ext: 001,cab,chm,dll,iso,img,jar,msi,swf,ntfs,ppt,doc,xls,xpi,vhd,
+      deb,rpm,cpio,cramfs,dmg,fat,flv,mbr,nsis,sys,bpl,hfs,hxi,hxq,hxr,hxs,
+      chi,chq,chw,hxw,msp,scap,squashfs,swm,wim,exe,lit,xar,xz,z,lzma,lzma86,
+      r00,tar,taz,tbz,tbz2,tgz,tpz,txz,gz,gzip,lha,lzh,bz2,bzip2
+  }
 
   // [Temp]
   krsIniSecTemp = 'Temp';
   krsIniKeyTempSubfolder = 'TempSubfolder';
+  krsDefTempSubfolder = 'tEMpUTECA/';
   krsIniKeyTempFile = 'TempFile';
+  krsDefTempFile = 'Emuteca.tmp';
 
   // [Misc]
   krsIniSecMisc = 'Misc';
   krsIniKeyMinPlayTime = 'MinPlayTime';
+  kDefMinPlayTime = 60;
 
 type
 
@@ -273,30 +290,23 @@ end;
 procedure cEmutecaConfig.ResetDefaultConfig;
 begin
   // Config/Data
-  EmulatorsFile := 'Data/Emulators.ini';
-  AutoSysFolder := 'Data/SysFolders.csv';
-  SystemsFile := 'Data/Systems.ini';
-  SysDataFolder := 'Systems/';
-  TagsFolder := 'Tags/';
+  EmulatorsFile := krsDefEmulatorsFile;
+  AutoSysFolder := krsDefAutoSysFolder;
+  SystemsFile := krsDefSystemsFile;
+  SysDataFolder := krsDefSysDataFolder;
+  TagsFolder := krsDefTagsFolder;
 
   // Tools
-  z7CMExecutable := 'Tools/7zip/7z.exe';
-  z7GExecutable := 'Tools/7zip/7zG.exe';
-  { CompressedExtensions.CommaText := w7zGetFileExts;
-
-    Removed ext: 001,cab,chm,dll,iso,img,jar,msi,swf,ntfs,ppt,doc,,xls,xpi,vhd,
-      deb,rpm,cpio,cramfs,dmg,fat,flv,mbr,nsis,sys,bpl,hfs,hxi,hxq,hxr,hxs,
-      chi,chq,chw,hxw,msp,scap,squashfs,swm,wim,exe,lit,xar,xz,z,lzma,lzma86,
-      r00,tar,taz,tbz,tbz2,tgz,tpz,txz,gz,gzip,lha,lzh,bz2,bzip2,
-  }
-  CompressedExtensions.CommaText :='7z,rar,zip,cb7,cbr,cbz';
+  z7CMExecutable := krsDefz7CMExecutable;
+  z7GExecutable := krsDefz7CMExecutable;
+  CompressedExtensions.CommaText :=krsDefCompressedExtensions;
 
   // Temp
-  TempSubfolder := 'tEMpUTECA/';
-  TempFile := 'Emuteca.tmp';
+  TempSubfolder := krsDefTempSubfolder;
+  TempFile := krsDefTempFile;
 
   // Misc
-  MinPlayTime := 60;
+  MinPlayTime := kDefMinPlayTime;
 
 end;
 

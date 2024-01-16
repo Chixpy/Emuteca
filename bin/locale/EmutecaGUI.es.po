@@ -1189,11 +1189,6 @@ msgctxt "tfmemutecasystemimgeditor.gbximages.caption"
 msgid "System images"
 msgstr "Imágenes del sistema"
 
-#: tfmemutecasystemimgeditor.gbxsystembg.caption
-msgctxt "tfmemutecasystemimgeditor.gbxsystembg.caption"
-msgid "System background"
-msgstr "Fondo de sistema"
-
 #: tfmemutecasystemimgeditor.gbxsystemicon.caption
 msgctxt "tfmemutecasystemimgeditor.gbxsystemicon.caption"
 msgid "System icon"
@@ -1203,11 +1198,6 @@ msgstr "Icono del sistema"
 msgctxt "tfmemutecasystemimgeditor.gbxsystemicons.caption"
 msgid "System Icons"
 msgstr "Iconos del sistema"
-
-#: tfmemutecasystemimgeditor.gbxsystemimage.caption
-msgctxt "tfmemutecasystemimgeditor.gbxsystemimage.caption"
-msgid "System image"
-msgstr "Imagen del sistema"
 
 #: tfmemutecasystemimgeditor.isystemimage.hint
 msgctxt "tfmemutecasystemimgeditor.isystemimage.hint"

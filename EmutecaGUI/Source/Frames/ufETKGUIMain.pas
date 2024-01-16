@@ -238,20 +238,10 @@ begin
   if Assigned(CurrentSystem) then
   begin
     GUIConfig.CurrSystem := CurrentSystem.ID;
-
-    // HACK: Load system background in SoftTree
-    if FileExistsUTF8(CurrentSystem.BackgroundFile) then
-      fmSoftTree.VDT.Background.LoadFromFile(CurrentSystem.BackgroundFile)
-    else
-      fmSoftTree.VDT.Background.Clear;
-
   end
   else
   begin
     GUIConfig.CurrSystem := '';
-
-    // HACK: Load system background in SoftTree
-    fmSoftTree.VDT.Background.Clear;
   end;
 
   if assigned(OnSystemChanged) then

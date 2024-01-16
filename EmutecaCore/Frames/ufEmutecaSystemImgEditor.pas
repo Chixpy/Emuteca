@@ -28,32 +28,23 @@ type
     eSoftIconFolder: TDirectoryEdit;
     eSoftLogoFolder: TDirectoryEdit;
     eSystemIcon: TFileNameEdit;
-    eSystemBG: TFileNameEdit;
     eDefSoftIcon: TFileNameEdit;
     eSystemImage: TFileNameEdit;
     gbxIconFolder: TGroupBox;
     gbxImages: TGroupBox;
     gbxSystemIcon: TGroupBox;
-    gbxSystemBG: TGroupBox;
     gbxSystemIcons: TGroupBox;
-    gbxSystemImage: TGroupBox;
     iSystemIcon: TImage;
-    iSystemBG: TImage;
     iDefSoftIcon: TImage;
     iSystemImage: TImage;
     lDefSoftIcon: TLabel;
     lSoftIconFolder: TLabel;
     lSoftLogoFolder: TLabel;
-    PairSplitter1: TPairSplitter;
-    PairSplitterSide1: TPairSplitterSide;
-    PairSplitterSide2: TPairSplitterSide;
     Splitter1: TSplitter;
     procedure eDefSoftIconAcceptFileName(Sender: TObject; var Value: string);
-    procedure eSystemBGAcceptFileName(Sender: TObject; var Value: string);
     procedure eSystemIconAcceptFileName(Sender: TObject; var Value: string);
     procedure eSystemImageAcceptFileName(Sender: TObject; var Value: string);
     procedure iDefSoftIconDblClick(Sender: TObject);
-    procedure iSystemBGDblClick(Sender: TObject);
     procedure iSystemIconDblClick(Sender: TObject);
     procedure iSystemImageDblClick(Sender: TObject);
 
@@ -114,12 +105,6 @@ begin
     GUIConfigIni);
 end;
 
-procedure TfmEmutecaSystemImgEditor.iSystemBGDblClick(Sender: TObject);
-begin
-  TfmCHXImgViewer.SimpleFormI(eSystemBG.Text, SHA1Folder, GUIIconsIni,
-    GUIConfigIni);
-end;
-
 procedure TfmEmutecaSystemImgEditor.iSystemIconDblClick(Sender: TObject);
 begin
   TfmCHXImgViewer.SimpleFormI(eSystemIcon.Text, SHA1Folder, GUIIconsIni,
@@ -136,12 +121,6 @@ procedure TfmEmutecaSystemImgEditor.eSystemIconAcceptFileName(Sender: TObject;
   var Value: string);
 begin
   UpdateImage(iSystemIcon, Value);
-end;
-
-procedure TfmEmutecaSystemImgEditor.eSystemBGAcceptFileName(Sender: TObject;
-  var Value: string);
-begin
-  UpdateImage(iSystemBG, Value);
 end;
 
 procedure TfmEmutecaSystemImgEditor.eDefSoftIconAcceptFileName(Sender: TObject;
@@ -183,7 +162,6 @@ begin
 
   System.IconFile := eSystemIcon.FileName;
   System.ImageFile := eSystemImage.FileName;
-  System.BackgroundFile := eSystemBG.FileName;
   System.IconFolder := eSoftIconFolder.Directory;
   System.LogoFolder := eSoftLogoFolder.Directory;
   System.SoftIconFile := eDefSoftIcon.FileName;
@@ -218,8 +196,6 @@ begin
 
   eSystemImage.FileName := System.ImageFile;
   UpdateImage(iSystemImage, eSystemImage.FileName);
-  eSystemBG.FileName := System.BackgroundFile;
-  UpdateImage(iSystemBG, eSystemBG.FileName);
   eSystemIcon.FileName := System.IconFile;
   UpdateImage(iSystemIcon, eSystemIcon.FileName);
   eSoftIconFolder.Directory := System.IconFolder;
@@ -245,8 +221,6 @@ begin
 
   eSystemImage.Clear;
   iSystemImage.Picture.Clear;
-  eSystemBG.Clear;
-  iSystemBG.Picture.Clear;
   eSystemIcon.Clear;
   iSystemIcon.Picture.Clear;
   eSoftIconFolder.Clear;

@@ -1130,20 +1130,12 @@ msgstr ""
 msgid "System images"
 msgstr ""
 
-#: tfmemutecasystemimgeditor.gbxsystembg.caption
-msgid "System background"
-msgstr ""
-
 #: tfmemutecasystemimgeditor.gbxsystemicon.caption
 msgid "System icon"
 msgstr ""
 
 #: tfmemutecasystemimgeditor.gbxsystemicons.caption
 msgid "System Icons"
-msgstr ""
-
-#: tfmemutecasystemimgeditor.gbxsystemimage.caption
-msgid "System image"
 msgstr ""
 
 #: tfmemutecasystemimgeditor.isystemimage.hint

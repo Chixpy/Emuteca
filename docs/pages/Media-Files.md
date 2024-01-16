@@ -5,9 +5,8 @@ EmuVer: 0.8
 ---
 Emuteca, además de listar, agrupar y ejecutar emuladores con sus juegos, también permite visualizar y reproducir contenido relacionado con el software como pueden ser imágenes, manuales, textos, vídeos o música.
 
-Realmente, excepto el soporte para archivos comprimidos, la capacidad de visualizar y reproducir este tipo de contenido relacionado es dependiente de la interfaz (EmutecaGUI) puesto que el núcleo (EmutecaCore) tan solo se encarga de buscar, descomprimir y poner a su disposicion los ficheros encontrados.
+Realmente, excepto el soporte para archivos comprimidos, la capacidad de visualizar y reproducir este tipo de contenido relacionado es dependiente de la interfaz (EmutecaGUI) puesto que el núcleo (EmutecaCore) tan solo se encarga de buscar y poner a su disposicion los ficheros encontrados.
 
-En un futuro, puede que el buscar ficheros dentro de archivos comprimidos sea eliminado por varias razones; o al menos tenerlo desactivado por defecto y se pueda activar.
 
 ## Repositorios
 
@@ -20,6 +19,7 @@ De forma general, y en caso de no haber actualizado la lista, puedes verlos en l
   - [Atari 2600](https://github.com/Chixpy/ETKRes-2600)
   - [Atari 5200](https://github.com/Chixpy/ETKRes-5200)
   - [Atari 7800](https://github.com/Chixpy/ETKRes-7800)
+  - [Atari Jaguar](https://github.com/Chixpy/ETKRes-Jaguar)
   - [Atari Lynx](https://github.com/Chixpy/ETKRes-Lynx)
   - [Bandai WonderSwan](https://github.com/Chixpy/ETKRes-WonderSwan)
   - [Microsoft MSDOS](https://github.com/Chixpy/ETKRes-MSDOS)
@@ -59,14 +59,11 @@ Emuteca soporta multitud de formatos para los distintos tipos de archivos. De fo
   - **Música**: `mp3`, `ogg`
     * Soportado: Cualquier formato soportado por MPlayer
     
-De la misma forma en caso de usar los archivos dentro de un archivo comprimido, Emuteca también soporta multitud de formatos de los cuales tan solo están activados unos pocos.
+A partir de la version 0.8.0.154 se ha desactivado la búsqueda de los ficheros dentro de archivos comprimidos.
 
-  - **Archivos commprimidos**: `7z`, `rar`, `zip`, `cb7`, `cbr`, `cbz`  
-    - Soportado: Cualquier formato soportado por 7Zip, la lista es muy larga, pero incluye formatos como `arj`, `lhz`, `iso` o `bzip`
+De todas formas, no era recomendable usar estos ficheros dentro de archivos comprimidos puesto que (excepto los `txt`) ya son archivos con algún tipo de compresión por si mismo y tan solo se ganaría espacio de framentación interna (espacio no ocupado en los bloques del disco duro).
 
-De todas formas, es recomendable no usar estos ficheros dentro de archivos comprimidos puesto que (excepto los `txt`) ya son archivos con algún tipo de compresión por si mismo y tan solo se ganaría espacio de framentación interna (espacio no ocupado en los bloques del disco duro).
-
-En caso de usarse, entonces también es recomendable usar un formato que no sea sólido para evitar la necesidad de descomprimir todos los datos anteriores antes de llegar al archivo buscado.
+En caso de usarse, entonces también era recomendable usar un formato que no sea sólido para evitar la necesidad de descomprimir todos los datos anteriores antes de llegar al archivo buscado.
 
 ### Funcionamiento general de Emuteca
 
