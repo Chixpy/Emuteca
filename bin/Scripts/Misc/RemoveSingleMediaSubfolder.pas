@@ -15,9 +15,11 @@ If "BaseFolder\GameName.ext" already exists, reverse operation is performed;
 
 [Data]
 Name=Chixpy
-Version=1.02
-Date=20230611
+Version=1.03
+Date=20240119
 [Changes]
+* 1.03 - 20240119
+  * Showing script name.
 * 1.02 - 20230522
   * Little formating in output log text.
 * 1.01 - 20230522
@@ -38,6 +40,10 @@ var
   i, nFiles: integer;
   
 begin
+  WriteLn('RemoveSingleMediaSubfolder.pas');
+  WriteLn('------------------------------');
+  WriteLn('');
+
   aFolder := AskFolder('Select base folder', '');
   if aFolder = '' then
   begin
@@ -99,7 +105,6 @@ begin
 
   aFileList.Free;  
   aFolderList.Free;  
-  WriteLn('');
   WriteLn('');
   WriteLn('DONE');
   WriteLn('----');

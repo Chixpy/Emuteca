@@ -93,9 +93,6 @@
         <PackageName Value="virtualtreeview_package"/>
       </Item>
       <Item>
-        <PackageName Value="MPlayerControlLaz"/>
-      </Item>
-      <Item>
         <PackageName Value="pascalscript"/>
       </Item>
       <Item>
@@ -661,27 +658,6 @@
         <ResourceBaseClass Value="Form"/>
       </Unit>
       <Unit>
-        <Filename Value="Source\Frames\ufETKGUISoftVideoPreview.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="fmETKGUISoftVideoPreview"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Frame"/>
-      </Unit>
-      <Unit>
-        <Filename Value="..\CHXPas\Frames\ufCHXVideoListPreview.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="fmCHXVideoListPreview"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Frame"/>
-      </Unit>
-      <Unit>
-        <Filename Value="Source\Frames\ufETKGUISoftMusicPreview.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="fmETKGUISoftMusicPreview"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Frame"/>
-      </Unit>
-      <Unit>
         <Filename Value="..\CHXPas\Units\uCHXImageUtils.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit>
@@ -743,13 +719,6 @@
         <Filename Value="..\EmutecaCore\Frames\ufEmutecaSoftTxtPreview.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fmEmutecaSoftTxtPreview"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Frame"/>
-      </Unit>
-      <Unit>
-        <Filename Value="..\EmutecaCore\Frames\ufEmutecaSoftVideoPreview.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="fmEmutecaSoftVideoPreview"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
       </Unit>
@@ -884,6 +853,13 @@
       <Unit>
         <Filename Value="..\CHXPas\Units\uCHXVerInfo.pas"/>
         <IsPartOfProject Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\EmutecaCore\Frames\ufEmutecaSystemOFEditor.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fmEmutecaSystemOFEditor"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
       </Unit>
     </Units>
   </ProjectOptions>

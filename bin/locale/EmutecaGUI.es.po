@@ -543,48 +543,6 @@ msgctxt "tfmchxtagtree.vst.header.columns[2].text"
 msgid "File"
 msgstr "Fichero"
 
-#: tfmchxvideolistpreview.actmute.caption
-msgid "Mute"
-msgstr "Silenciar"
-
-#: tfmchxvideolistpreview.actmute.hint
-msgid "Mute audio."
-msgstr "Silencia el sonido."
-
-#: tfmchxvideolistpreview.actpause.caption
-msgid "Pause"
-msgstr "Pausar"
-
-#: tfmchxvideolistpreview.actpause.hint
-msgid "Pauses current media."
-msgstr "Pausa la reprodución."
-
-#: tfmchxvideolistpreview.actplay.caption
-msgid "Play"
-msgstr "Reproducir"
-
-#: tfmchxvideolistpreview.actplay.hint
-msgid "Plays current media."
-msgstr "Reproduce el contenido."
-
-#: tfmchxvideolistpreview.actstop.caption
-msgctxt "tfmchxvideolistpreview.actstop.caption"
-msgid "Stop"
-msgstr "Parar"
-
-#: tfmchxvideolistpreview.actstop.hint
-msgid "Stops current media."
-msgstr "Para la reproducción."
-
-#: tfmchxvideolistpreview.tbplayer.caption
-msgid "tbPlayer"
-msgstr ""
-
-#: tfmchxvideolistpreview.toolbutton2.caption
-msgctxt "tfmchxvideolistpreview.toolbutton2.caption"
-msgid "ToolButton2"
-msgstr ""
-
 #: tfmemutecaactaddfolder.chknozip.caption
 msgid "Don't search inside compressed archives"
 msgstr "No buscar dentro de archivos comprimidos."
@@ -1234,6 +1192,11 @@ msgstr "Carpetas de música"
 msgid "Video folders"
 msgstr "Carpetas de vídeos"
 
+#: tfmemutecasystemofeditor.gbxotherfolders.caption
+msgctxt "tfmemutecasystemofeditor.gbxotherfolders.caption"
+msgid "Other Folders"
+msgstr ""
+
 #: tfmemutecatagtree.actaddgroup2tagfile.caption
 msgid "Add Group to Tag"
 msgstr "Añadir grupo a la etiqueta"
@@ -1450,6 +1413,14 @@ msgctxt "tfmetkguimediamanager.actmovefile.caption"
 msgid "Move file..."
 msgstr "Mover fichero..."
 
+#: tfmetkguimediamanager.actopenfiledefapp.caption
+msgid "Open File with Default Application"
+msgstr ""
+
+#: tfmetkguimediamanager.actopentargetfolder.caption
+msgid "Open Target Folder"
+msgstr ""
+
 #: tfmetkguimediamanager.actrenamefile.caption
 msgid "Rename file manually..."
 msgstr "Renombrar fichero manualmente..."
@@ -1483,9 +1454,9 @@ msgctxt "tfmetkguimediamanager.gbxmusic.caption"
 msgid "Music"
 msgstr "Música"
 
-#: tfmetkguimediamanager.gbxotherfiles.caption
-msgctxt "tfmetkguimediamanager.gbxotherfiles.caption"
-msgid "gbxOtherFiles"
+#: tfmetkguimediamanager.gbxotherfolders.caption
+msgctxt "tfmetkguimediamanager.gbxotherfolders.caption"
+msgid "Other Folders"
 msgstr ""
 
 #: tfmetkguimediamanager.gbxrename.caption
@@ -1520,6 +1491,10 @@ msgstr "Textos"
 msgctxt "tfmetkguimediamanager.gbxvideos.caption"
 msgid "Videos"
 msgstr "Vídeos"
+
+#: tfmetkguimediamanager.lfilterthreshold.caption
+msgid "Filter Threshold"
+msgstr ""
 
 #: tfmetkguimediamanager.pagallfiles.caption
 #, fuzzy
@@ -1744,17 +1719,9 @@ msgstr "Imagen"
 msgid "Add image panel"
 msgstr "Añadir panel de imágenes"
 
-#: tfmetkguisoftmedia.actaddmusicpanel.caption
-msgid "Add music panel"
-msgstr "Añadir panel de música"
-
 #: tfmetkguisoftmedia.actaddtextpanel.caption
 msgid "Add text panel"
 msgstr "Añadir panel de textos"
-
-#: tfmetkguisoftmedia.actaddvideopanel.caption
-msgid "actAddVideoPanel"
-msgstr ""
 
 #: tfmetkguisoftmedia.actclearpanels.caption
 msgid "Clear panels"
@@ -1768,8 +1735,9 @@ msgstr "Quita todos los paneles"
 msgid "Load Media Files"
 msgstr ""
 
-#: tfmetkguisoftmedia.piconlogo.caption
-msgctxt "tfmetkguisoftmedia.piconlogo.caption"
+#: tfmetkguisoftmedia.gbxiconlogo.caption
+#, fuzzy
+msgctxt "tfmetkguisoftmedia.gbxiconlogo.caption"
 msgid "Icon && Logo"
 msgstr "Icono y logo"
 
@@ -1783,19 +1751,9 @@ msgctxt "tfmetkguisoftmedia.toolbutton1.caption"
 msgid "ToolButton1"
 msgstr ""
 
-#: tfmetkguisoftmusicpreview.gbxpanel.caption
-#, fuzzy
-msgctxt "tfmetkguisoftmusicpreview.gbxpanel.caption"
-msgid "Music"
-msgstr "Música"
-
 #: tfmetkguisofttxtpreview.gbxpanel.caption
 msgid "Text"
 msgstr "Texto"
-
-#: tfmetkguisoftvideopreview.gbxpanel.caption
-msgid "Video"
-msgstr "Vídeo"
 
 #: tfmetkguisysmanager.actexportlist.hint
 msgid "Exports the system list with no user data to a file."

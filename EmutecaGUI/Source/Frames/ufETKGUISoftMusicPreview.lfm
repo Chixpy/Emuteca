@@ -1,5 +1,0 @@
-inherited fmETKGUISoftMusicPreview: TfmETKGUISoftMusicPreview
-  inherited gbxPanel: TGroupBox
-    Caption = 'Music'
-  end
-end

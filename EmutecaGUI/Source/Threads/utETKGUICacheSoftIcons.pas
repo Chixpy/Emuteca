@@ -108,7 +108,9 @@ begin
       begin
         if Terminated then
           Exit;
-        // TODO ZipMedia: Make configurable search media in zip (default off)
+        { #todo 3 -oChixpy -cZipMedia :
+          Make configurable search media in zip (default off)
+        }
         TempStr := EmuTKSearchFirstRelatedFile(aSoft.CachedSystem.IconFolder,
           aSoft.MediaFileName, ImageExt, False, True, TempFolder);
 

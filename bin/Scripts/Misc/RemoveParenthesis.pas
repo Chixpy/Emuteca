@@ -13,10 +13,12 @@ For example: GameName (USA).ext
 
 [Data]
 Name=Chixpy
-Version=1.02
-Date=20230108
+Version=1.03
+Date=20240119
 
 [Changes]
+* 1.03 - 20240119
+  f Showing in console script name, foled and filemask
 * 1.02 - 20230108
   f Folders problems with folders ending with a dot '.'
 * 1.01 - 20200201
@@ -37,15 +39,20 @@ var
   i, j: integer;  
   
 begin
+  WriteLn('RemoveParentesis.pas');
+  WriteLn('--------------------');
+  WriteLn('');
+
   aFolder := AskFolder('Select folder', '');
   if aFolder = '' then
   begin
-    WriteLn('');
-    WriteLn('');
     WriteLn('CANCELLED');
     WriteLn('---------');
     Exit;
   end;
+
+  WriteLn('Moving files from: ' + aFolder);
+  WriteLn('');
 
   aFile := ReadLn('Write FileMask (Empty = All files)', '');
 
@@ -105,10 +112,10 @@ begin
    Inc(i);
   end;
 
-  AFileList.Free;  
-  WriteLn('');
+  AFileList.Free;
   WriteLn('');
   WriteLn('DONE');
   WriteLn('----');
+  WriteLn('');
 
 end.

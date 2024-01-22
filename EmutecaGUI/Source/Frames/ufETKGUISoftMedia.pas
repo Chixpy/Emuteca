@@ -24,8 +24,7 @@ uses
   // Emuteca GUI abstract frames
   uafETKGUISoftFoldersPreview,
   // Emuteca GUI frames
-  ufETKGUISoftImgPreview, ufETKGUISoftTxtPreview, ufETKGUISoftMusicPreview,
-  ufETKGUISoftVideoPreview;
+  ufETKGUISoftImgPreview, ufETKGUISoftTxtPreview;
 
 const
   krsIniSoftMediaFrameSection = 'SoftMedia';
@@ -51,8 +50,6 @@ type
   TfmETKGUISoftMedia = class(TfmCHXFrame)
     actAddImagePanel: TAction;
     actAddTextPanel: TAction;
-    actAddMusicPanel: TAction;
-    actAddVideoPanel: TAction;
     actClearPanels: TAction;
     actLoadMediaFiles: TAction;
     alMediaPanel: TActionList;
@@ -60,24 +57,21 @@ type
     ilMediaPanel: TImageList;
     iLogo: TImage;
     miILFilterImages: TMenuItem;
-    pIconLogo: TGroupBox;
+    gbxIconLogo: TGroupBox;
+    pIconLogoButtons : TPanel;
     pmIconLogo: TPopupMenu;
     sbxMediaPanels: TScrollBox;
     Splitter1: TSplitter;
     tbSoftMediaPanel: TToolBar;
     tbAddImagePanel: TToolButton;
     tbAddTextPanel: TToolButton;
-    tbAddVideoPanel: TToolButton;
-    tbAddMusicPanel: TToolButton;
     ToolButton1: TToolButton;
     tbClearPanels: TToolButton;
     procedure actAddImagePanelExecute(Sender: TObject);
-    procedure actAddMusicPanelExecute(Sender: TObject);
     procedure actAddTextPanelExecute(Sender: TObject);
-    procedure actAddVideoPanelExecute(Sender: TObject);
     procedure actClearPanelsExecute(Sender: TObject);
     procedure actLoadMediaFilesExecute(Sender: TObject);
-    procedure pIconLogoResize(Sender: TObject);
+    procedure gbxIconLogoResize(Sender: TObject);
   private
     FGroup: cEmutecaGroup;
     FImageExt: TStrings;
@@ -144,20 +138,12 @@ begin
   AddMediaPanel(TfmETKGUISoftImgPreview, ClientWidth);
 end;
 
-procedure TfmETKGUISoftMedia.actAddMusicPanelExecute(Sender: TObject);
-begin
-  AddMediaPanel(TfmETKGUISoftMusicPreview, ClientWidth);
-end;
 
 procedure TfmETKGUISoftMedia.actAddTextPanelExecute(Sender: TObject);
 begin
   AddMediaPanel(TfmETKGUISoftTxtPreview, ClientWidth);
 end;
 
-procedure TfmETKGUISoftMedia.actAddVideoPanelExecute(Sender: TObject);
-begin
-  AddMediaPanel(TfmETKGUISoftVideoPreview, ClientWidth);
-end;
 
 procedure TfmETKGUISoftMedia.actClearPanelsExecute(Sender: TObject);
 begin
@@ -173,7 +159,7 @@ begin
   Group := nil;
 end;
 
-procedure TfmETKGUISoftMedia.pIconLogoResize(Sender: TObject);
+procedure TfmETKGUISoftMedia.gbxIconLogoResize(Sender: TObject);
 begin
   iIcon.Width := iIcon.Height;
 end;
@@ -194,7 +180,9 @@ begin
   if Assigned(Group) then
   begin
     iIcon.Picture := Group.Stats.Icon;
-    // TODO ZipMedia: Make configurable search media in zip (default off)
+    { #todo 3 -oChixpy -cZipMedia :
+      Make configurable search media in zip (default off)
+    }
     aImageFile := EmuTKSearchFirstRelatedFile(Group.CachedSystem.LogoFolder,
       Group.MediaFileName, ImageExt, False, True,
       SetAsFolder(TempFolder) + krsTempLogoDir);
@@ -269,13 +257,17 @@ begin
   begin
     iIcon.Picture := FSoftware.Stats.Icon;
 
-    // TODO ZipMedia: Make configurable search media in zip (default off)
+    { #todo 3 -oChixpy -cZipMedia :
+      Make configurable search media in zip (default off)
+    }
     aImageFile := EmuTKSearchFirstRelatedFile(Software.CachedSystem.LogoFolder,
       Software.MediaFileName, ImageExt, False, True,
       SetAsFolder(TempFolder) + krsTempIconDir);
 
     if (aImageFile = '') and (not Software.MatchGroupFile) then
-    // TODO ZipMedia: Make configurable search media in zip (default off)
+    { #todo 3 -oChixpy -cZipMedia :
+      Make configurable search media in zip (default off)
+    }
       aImageFile := EmuTKSearchFirstRelatedFile(
         Software.CachedSystem.LogoFolder, Software.CachedGroup.MediaFileName,
         ImageExt, False, True, SetAsFolder(TempFolder) + krsTempLogoDir);
@@ -340,10 +332,6 @@ begin
   aMediaPanel.Name := aMediaPanel.Name +
     IntToStr(sbxMediaPanels.ComponentCount div 2);
 
-  // Music preview have fixed size
-  if not (aMediaPanel is TfmETKGUISoftMusicPreview) then
-    aMediaPanel.Height := aHeight;
-
   //aMediaPanel.LoadGUIConfig();
 
   UpdateChildrenConfig(sbxMediaPanels);
@@ -375,16 +363,6 @@ begin
       else if (aChild is TfmETKGUISoftTxtPreview) then
       begin
         TfmETKGUISoftTxtPreview(aChild).FileExt := TextExt;
-      end
-      else if (aChild is TfmETKGUISoftVideoPreview) then
-      begin
-        TfmETKGUISoftVideoPreview(aChild).FileExt := VideoExt;
-        TfmETKGUISoftVideoPreview(aChild).MPlayerPath := MPlayerPath;
-      end
-      else if (aChild is TfmETKGUISoftMusicPreview) then
-      begin
-        TfmETKGUISoftMusicPreview(aChild).FileExt := MusicExt;
-        TfmETKGUISoftMusicPreview(aChild).MPlayerPath := MPlayerPath;
       end;
     end
     else
@@ -444,8 +422,8 @@ var
 begin
   inherited DoLoadGUIConfig(aIniFile);
 
-  pIconLogo.Height := aIniFile.ReadInteger(krsIniSoftMediaFrameSection,
-    krsIniSoftIconLogoPanelHeight, pIconLogo.Height);
+  gbxIconLogo.Height := aIniFile.ReadInteger(krsIniSoftMediaFrameSection,
+    krsIniSoftIconLogoPanelHeight, pIconLogoButtons.Height);
 
   NPanels := aIniFile.ReadInteger(krsIniSoftMediaFrameSection,
     krsIniSoftMediaNPanels, -1);
@@ -453,8 +431,6 @@ begin
   if NPanels = -1 then
   begin
     // Default config
-    AddMediaPanel(TfmETKGUISoftMusicPreview, sbxMediaPanels.ClientWidth);
-    AddMediaPanel(TfmETKGUISoftVideoPreview, sbxMediaPanels.ClientWidth);
     AddMediaPanel(TfmETKGUISoftImgPreview, sbxMediaPanels.ClientWidth);
     AddMediaPanel(TfmETKGUISoftTxtPreview, sbxMediaPanels.ClientWidth);
   end
@@ -473,11 +449,7 @@ begin
       PanelCaption := aIniFile.ReadString(krsIniSoftMediaFrameSection,
         Format(krsIniSoftMediaPanelCaption, [i]), '');
 
-      if CompareText(PanelType, krsIniMusicPanelKey) = 0 then
-        aPanel := AddMediaPanel(TfmETKGUISoftMusicPreview, PanelHeight)
-      else if CompareText(PanelType, krsIniVideoPanelKey) = 0 then
-        aPanel := AddMediaPanel(TfmETKGUISoftVideoPreview, PanelHeight)
-      else if CompareText(PanelType, krsIniTextPanelKey) = 0 then
+      if CompareText(PanelType, krsIniTextPanelKey) = 0 then
         aPanel := AddMediaPanel(TfmETKGUISoftTxtPreview, PanelHeight)
       else if CompareText(PanelType, krsIniImagePanelKey) = 0 then
         aPanel := AddMediaPanel(TfmETKGUISoftImgPreview, PanelHeight);
@@ -498,7 +470,7 @@ begin
   inherited DoSaveGUIConfig(aIniFile);
 
   aIniFile.WriteInteger(krsIniSoftMediaFrameSection,
-    krsIniSoftIconLogoPanelHeight, pIconLogo.Height);
+    krsIniSoftIconLogoPanelHeight, pIconLogoButtons.Height);
 
   // sbxMediaPanels.ComponentCount div 2 => Splitter + MediaPanel
   aIniFile.WriteInteger(krsIniSoftMediaFrameSection,
@@ -512,13 +484,7 @@ begin
 
     if (aPreview is TfmaETKGUISoftFoldersPreview) then
     begin
-      if aPreview is TfmETKGUISoftMusicPreview then
-        aIniFile.WriteString(krsIniSoftMediaFrameSection,
-          Format(krsIniSoftMediaPanelType, [j]), krsIniMusicPanelKey)
-      else if aPreview is TfmETKGUISoftVideoPreview then
-        aIniFile.WriteString(krsIniSoftMediaFrameSection,
-          Format(krsIniSoftMediaPanelType, [j]), krsIniVideoPanelKey)
-      else if aPreview is TfmETKGUISoftImgPreview then
+      if aPreview is TfmETKGUISoftImgPreview then
         aIniFile.WriteString(krsIniSoftMediaFrameSection,
           Format(krsIniSoftMediaPanelType, [j]), krsIniImagePanelKey)
       else if aPreview is TfmETKGUISoftTxtPreview then

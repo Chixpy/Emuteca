@@ -4,7 +4,7 @@ unit ufETKGUIFullSysEditor;
 
   This file is part of Emuteca GUI.
 
-  Copyright (C) 2011-2023 Chixpy
+  Copyright (C) 2011-2024 Chixpy
 }
 {$mode objfpc}{$H+}
 
@@ -26,6 +26,7 @@ uses
   // Emuteca Core frames
   ufEmutecaSystemEditor, ufEmutecaSystemImgEditor,
   ufEmutecaSystemITFEditor, ufEmutecaSystemMVFEditor,
+  ufEmutecaSystemOFEditor,
   // Emteca GUI units
   uETKGUIConst, uETKGUIRscStr;
 
@@ -52,6 +53,7 @@ type
     FfmSysEditor: TfmEmutecaSystemEditor;
     FfmSysImgEditor: TfmEmutecaSystemImgEditor;
     FfmSysMVFEditor: TfmEmutecaSystemMVFEditor;
+    FfmSysOFEditor : TfmEmutecaSystemOFEditor;
     FSHA1Folder: string;
     FSystem: cEmutecaSystem;
     procedure SetEmuteca(AValue: cEmuteca);
@@ -63,6 +65,7 @@ type
     property fmSysImgEditor: TfmEmutecaSystemImgEditor read FfmSysImgEditor;
     property fmSysITFEditor: TfmEmutecaSystemITFEditor read FfmSysITFEditor;
     property fmSysMVFEditor: TfmEmutecaSystemMVFEditor read FfmSysMVFEditor;
+    property fmSysOFEditor: TfmEmutecaSystemOFEditor read FfmSysOFEditor;
 
   public
     property Emuteca: cEmuteca read FEmuteca write SetEmuteca;
@@ -136,6 +139,11 @@ procedure TfmETKGUIFullSystemEditor.actCreateFoldersExecute(Sender: TObject);
         aSystem.VideoFolders.Add(aFolder);
         aSystem.VideoCaptions.Add(aTitle);
       end;
+      'o': // Other Folders
+      begin
+        aSystem.OtherFolders.Add(aFolder);
+        aSystem.OtherFCapt.Add(aTitle);
+      end;
       'c': // Icon
       begin
         aSystem.IconFolder := aFolder;
@@ -183,7 +191,7 @@ begin
   end;
 
   if MessageDlg(rsWarning, Format(rsAutoFolderWarning, [TmpSys.BaseFolder]),
-    mtWarning, [mbOK, mbCancel], 'CreateSystemFolders') = mrCancel then
+    mtWarning, [mbOK, mbCancel], 0) = mrCancel then
     Exit;
 
   TmpSys.IconFolder := '';
@@ -196,6 +204,9 @@ begin
   TmpSys.MusicCaptions.Clear;
   TmpSys.VideoFolders.Clear;
   TmpSys.VideoCaptions.Clear;
+  TmpSys.OtherFolders.Clear;
+  TmpSys.OtherFExt.Clear;
+  TmpSys.OtherFCapt.Clear;
 
 
   aLine := TStringList.Create;
@@ -264,6 +275,7 @@ begin
   fmSysImgEditor.System := System;
   fmSysITFEditor.System := System;
   fmSysMVFEditor.System := System;
+  fmSysOFEditor.System := System;
 
   LoadFrameData;
 end;
@@ -276,6 +288,8 @@ begin
   fmSysImgEditor.SaveFrameData;
   fmSysITFEditor.SaveFrameData;
   fmSysMVFEditor.SaveFrameData;
+  fmSysOFEditor.SaveFrameData;
+
 end;
 
 class function TfmETKGUIFullSystemEditor.SimpleModalForm(aEmuteca: cEmuteca;
@@ -347,12 +361,20 @@ constructor TfmETKGUIFullSystemEditor.Create(TheOwner: TComponent);
     fmSysITFEditor.Parent := aTabSheet;
 
     aTabSheet := pcProperties.AddTabSheet;
-    aTabSheet.Caption := 'Music & Video';
+    aTabSheet.Caption := 'Vídeo & Music';
     FfmSysMVFEditor := TfmEmutecaSystemMVFEditor.Create(aTabSheet);
     fmSysMVFEditor.SaveButtons := False;
     fmSysMVFEditor.ButtonClose := False;
     fmSysMVFEditor.Align := alClient;
     fmSysMVFEditor.Parent := aTabSheet;
+
+     aTabSheet := pcProperties.AddTabSheet;
+    aTabSheet.Caption := 'Other Folders';
+    FfmSysOFEditor := TfmEmutecaSystemOFEditor.Create(aTabSheet);
+    FfmSysOFEditor.SaveButtons := False;
+    FfmSysOFEditor.ButtonClose := False;
+    FfmSysOFEditor.Align := alClient;
+    FfmSysOFEditor.Parent := aTabSheet;
   end;
 
 begin

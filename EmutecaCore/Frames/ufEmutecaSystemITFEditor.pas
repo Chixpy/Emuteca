@@ -3,7 +3,7 @@ unit ufEmutecaSystemITFEditor;
 
   This file is part of Emuteca Core.
 
-  Copyright (C) 2011-2023 Chixpy
+  Copyright (C) 2011-2024 Chixpy
 }
 {$mode objfpc}{$H+}
 
@@ -12,7 +12,9 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
   Buttons, ActnList, StdCtrls,
+  // CHX frames
   ufCHXPropEditor, ufCHXMultiFolderEditor,
+  // EmutecaCore classes
   ucEmutecaSystem;
 
 type

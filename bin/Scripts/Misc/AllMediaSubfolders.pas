@@ -4,7 +4,7 @@ This script moves ALL files to subfolders with its name, but removing
   parentesis in folder's name.
   
 Useful for media files of "Ads", "Reviews", "Maps" and "Other" folders,
-  as the info in parentesis can be interesting.
+  as the info in parentesis can be useful and interesting.
   
 Don't confuse with RemoveParentesis.pas wich can be useful for other
   media folders.
@@ -14,14 +14,16 @@ For example: GameName (Magazine XX - Section YY).ext
 
 [Data]
 Name=Chixpy
-Version=1.01
-Date=20230108
+Version=1.02
+Date=20240119
 
 [Changes]
+* 1.02 - 20240119
+  * Showing in console script name, folder and the filemask used.
 * 1.01 - 20230108
   f Folders problems with folders ending with a dot '.'
 * 1.00 - 20200909
-  * Initial version
+  * Initial version.
 
 [EndInfo]
 }
@@ -36,17 +38,25 @@ var
   i, j: integer;  
   
 begin
+  WriteLn('AllMediaSubfolders.pas');
+  WriteLn('----------------------');
+  WriteLn('');
+
   aFolder := AskFolder('Select folder', '');
   if aFolder = '' then
   begin
-    WriteLn('');
-    WriteLn('');
     WriteLn('CANCELLED');
     WriteLn('---------');
+    WriteLn('');
     Exit;
   end;
 
+  WriteLn('Moving files from: ' + aFolder);
+
   aFile := ReadLn('Write FileMask (Empty = All files)', '');
+
+  WriteLn('FileMask: ' + aFile);
+  WriteLn('');
 
   // TODO: Preguntar si se esta seguro realizar la operación
 
@@ -82,9 +92,10 @@ begin
   end;
 
   AFileList.Free;  
-  WriteLn('');
+
   WriteLn('');
   WriteLn('DONE');
   WriteLn('----');
+  WriteLn('');
 
 end.

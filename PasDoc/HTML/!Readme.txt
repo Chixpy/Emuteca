@@ -1,0 +1,1 @@
+Output directory for PasDoc documentation in HTML format.

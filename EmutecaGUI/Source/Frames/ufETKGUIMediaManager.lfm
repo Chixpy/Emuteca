@@ -1,14 +1,14 @@
 inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
-  Height = 658
+  Height = 800
   Width = 1037
-  ClientHeight = 658
+  ClientHeight = 800
   ClientWidth = 1037
   DesignLeft = 352
   DesignTop = 151
   object sbTarget: TStatusBar[0]
     Left = 0
     Height = 29
-    Top = 629
+    Top = 771
     Width = 1037
     Panels = <    
       item
@@ -25,7 +25,7 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
   object sbSource: TStatusBar[1]
     Left = 0
     Height = 29
-    Top = 596
+    Top = 738
     Width = 1037
     Panels = <    
       item
@@ -41,24 +41,24 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
   end
   object Splitter1: TSplitter[2]
     Left = 204
-    Height = 592
+    Height = 734
     Top = 0
     Width = 5
   end
   object pRight: TPanel[3]
     Left = 780
-    Height = 592
+    Height = 734
     Top = 0
     Width = 257
     Align = alRight
     BevelOuter = bvNone
-    ClientHeight = 592
+    ClientHeight = 734
     ClientWidth = 257
     TabOrder = 4
     object gbxRename: TGroupBox
       Left = 0
       Height = 79
-      Top = 513
+      Top = 655
       Width = 257
       Align = alBottom
       AutoSize = True
@@ -87,7 +87,7 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
     end
     object pImagePreview: TPanel
       Left = 0
-      Height = 230
+      Height = 372
       Top = 0
       Width = 257
       Align = alClient
@@ -98,7 +98,7 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
       Cursor = crVSplit
       Left = 0
       Height = 5
-      Top = 230
+      Top = 372
       Width = 257
       Align = alBottom
       ResizeAnchor = akBottom
@@ -106,7 +106,7 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
     object pTextPreview: TPanel
       Left = 0
       Height = 278
-      Top = 235
+      Top = 377
       Width = 257
       Align = alBottom
       BevelOuter = bvNone
@@ -115,7 +115,7 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
   end
   object Splitter2: TSplitter[4]
     Left = 771
-    Height = 592
+    Height = 734
     Top = 0
     Width = 5
     Align = alRight
@@ -123,12 +123,12 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
   end
   object pCenter: TPanel[5]
     Left = 213
-    Height = 592
+    Height = 734
     Top = 0
     Width = 554
     Align = alClient
     BevelOuter = bvNone
-    ClientHeight = 592
+    ClientHeight = 734
     ClientWidth = 554
     TabOrder = 2
     object gbxSource: TGroupBox
@@ -356,7 +356,7 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
             Header.Height = 17
             Header.Options = [hoColumnResize, hoDblClickResize, hoDrag, hoShowSortGlyphs, hoVisible, hoHeaderClickAutoSort]
             PopupMenu = pumVSTFiles
-            TabOrder = 0
+            TabOrder = 1
             TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScrollOnExpand, toAutoSort, toAutoTristateTracking, toAutoDeleteMovedNodes]
             TreeOptions.MiscOptions = [toAcceptOLEDrop, toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning, toFullRowDrag]
             TreeOptions.PaintOptions = [toPopupMode, toShowButtons, toShowDropmark, toShowHorzGridLines, toShowTreeLines, toShowVertGridLines, toThemeAware, toUseBlendedImages, toFullVertGridLines]
@@ -380,7 +380,7 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
             BevelOuter = bvNone
             ClientHeight = 30
             ClientWidth = 542
-            TabOrder = 1
+            TabOrder = 0
             object bAutoAssign: TButton
               Left = 448
               Height = 30
@@ -388,7 +388,7 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
               Width = 94
               Action = actAutoAssign
               Align = alRight
-              TabOrder = 0
+              TabOrder = 1
             end
             object eOtherFolder: TDirectoryEdit
               Left = 0
@@ -401,7 +401,7 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
               NumGlyphs = 1
               Align = alClient
               MaxLength = 0
-              TabOrder = 1
+              TabOrder = 0
             end
           end
         end
@@ -426,32 +426,32 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
     end
     object gbxTarget: TGroupBox
       Left = 0
-      Height = 344
+      Height = 486
       Top = 248
       Width = 554
       Align = alClient
       Caption = 'Target'
-      ClientHeight = 319
+      ClientHeight = 461
       ClientWidth = 550
       TabOrder = 2
       object pcTarget: TPageControl
         Left = 0
-        Height = 290
+        Height = 432
         Top = 0
         Width = 550
-        ActivePage = pagAllSoft
+        ActivePage = pagSoftWOFile
         Align = alClient
         PopupMenu = pumVSTGroups
-        TabIndex = 3
+        TabIndex = 1
         TabOrder = 0
         OnChange = pcTargetChange
         object pagGroupsWOFile: TTabSheet
           Caption = 'Groups without file'
-          ClientHeight = 257
+          ClientHeight = 399
           ClientWidth = 542
           object vstGroupsWOFile: TVirtualStringTree
             Left = 0
-            Height = 163
+            Height = 305
             Top = 0
             Width = 542
             Align = alClient
@@ -488,7 +488,7 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
           object vstSoftOfGroupsWOFile: TVirtualStringTree
             Left = 0
             Height = 88
-            Top = 169
+            Top = 311
             Width = 542
             Align = alBottom
             Colors.UnfocusedColor = clMedGray
@@ -530,7 +530,7 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
             Cursor = crVSplit
             Left = 0
             Height = 6
-            Top = 163
+            Top = 305
             Width = 542
             Align = alBottom
             ResizeAnchor = akBottom
@@ -538,11 +538,11 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
         end
         object pagSoftWOFile: TTabSheet
           Caption = 'Software without file'
-          ClientHeight = 257
+          ClientHeight = 399
           ClientWidth = 542
           object vstSoftWOFile: TVirtualStringTree
             Left = 0
-            Height = 257
+            Height = 399
             Top = 0
             Width = 542
             Align = alClient
@@ -584,11 +584,11 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
         end
         object pagAllGroups: TTabSheet
           Caption = 'All groups'
-          ClientHeight = 257
+          ClientHeight = 399
           ClientWidth = 542
           object vstGroupsAll: TVirtualStringTree
             Left = 0
-            Height = 163
+            Height = 305
             Top = 0
             Width = 542
             Align = alClient
@@ -626,7 +626,7 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
           object vstSoftOfGroupsAll: TVirtualStringTree
             Left = 0
             Height = 88
-            Top = 169
+            Top = 311
             Width = 542
             Align = alBottom
             Colors.UnfocusedColor = clMedGray
@@ -668,7 +668,7 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
             Cursor = crVSplit
             Left = 0
             Height = 6
-            Top = 163
+            Top = 305
             Width = 542
             Align = alBottom
             ResizeAnchor = akBottom
@@ -676,11 +676,11 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
         end
         object pagAllSoft: TTabSheet
           Caption = 'All software'
-          ClientHeight = 257
+          ClientHeight = 399
           ClientWidth = 542
           object vstSoftAll: TVirtualStringTree
             Left = 0
-            Height = 257
+            Height = 399
             Top = 0
             Width = 542
             Align = alClient
@@ -724,7 +724,7 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
       object sbTargetList: TStatusBar
         Left = 0
         Height = 29
-        Top = 290
+        Top = 432
         Width = 550
         Panels = <>
         SizeGrip = False
@@ -733,20 +733,20 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
   end
   object pLeft: TScrollBox[6]
     Left = 0
-    Height = 592
+    Height = 734
     Top = 0
     Width = 200
-    HorzScrollBar.Page = 140
-    VertScrollBar.Page = 588
+    HorzScrollBar.Page = 155
+    VertScrollBar.Page = 468
     Align = alLeft
-    ClientHeight = 588
-    ClientWidth = 175
+    ClientHeight = 730
+    ClientWidth = 196
     TabOrder = 0
     object gbxSystem: TGroupBox
       Left = 0
       Height = 24
       Top = 0
-      Width = 175
+      Width = 196
       Align = alTop
       AutoSize = True
       Caption = 'System'
@@ -754,138 +754,153 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
     end
     object gbxImages: TGroupBox
       Left = 0
-      Height = 120
-      Top = 152
-      Width = 175
+      Height = 53
+      Top = 172
+      Width = 196
       Align = alTop
+      AutoSize = True
       Caption = 'Images'
-      ClientHeight = 95
-      ClientWidth = 171
-      TabOrder = 1
-      object lbxImages: TListBox
+      ClientHeight = 28
+      ClientWidth = 192
+      TabOrder = 2
+      object cbxImages: TComboBox
         Left = 0
-        Height = 95
+        Height = 28
         Top = 0
-        Width = 171
-        Align = alClient
-        ItemHeight = 0
+        Width = 192
+        Align = alTop
+        AutoDropDown = True
+        ItemHeight = 20
+        Style = csDropDownList
         TabOrder = 0
-        OnSelectionChange = lbxFolderSelectionChange
+        OnSelect = cbxFolderSelected
       end
     end
     object gbxTexts: TGroupBox
       Left = 0
-      Height = 120
-      Top = 272
-      Width = 175
+      Height = 53
+      Top = 225
+      Width = 196
       Align = alTop
+      AutoSize = True
       Caption = 'Texts'
-      ClientHeight = 95
-      ClientWidth = 171
-      TabOrder = 2
-      object lbxTexts: TListBox
+      ClientHeight = 28
+      ClientWidth = 192
+      TabOrder = 3
+      object cbxTexts: TComboBox
         Left = 0
-        Height = 95
+        Height = 28
         Top = 0
-        Width = 171
-        Align = alClient
-        ItemHeight = 0
+        Width = 192
+        Align = alTop
+        AutoDropDown = True
+        ItemHeight = 20
+        Style = csDropDownList
         TabOrder = 0
-        OnSelectionChange = lbxFolderSelectionChange
+        OnSelect = cbxFolderSelected
       end
     end
     object gbxVideos: TGroupBox
       Left = 0
-      Height = 120
-      Top = 512
-      Width = 175
+      Height = 53
+      Top = 331
+      Width = 196
       Align = alTop
+      AutoSize = True
       Caption = 'Videos'
-      ClientHeight = 95
-      ClientWidth = 171
-      TabOrder = 4
-      object lbxVideos: TListBox
+      ClientHeight = 28
+      ClientWidth = 192
+      TabOrder = 5
+      object cbxVideos: TComboBox
         Left = 0
-        Height = 95
+        Height = 28
         Top = 0
-        Width = 171
-        Align = alClient
-        ItemHeight = 0
+        Width = 192
+        Align = alTop
+        AutoDropDown = True
+        ItemHeight = 20
+        Style = csDropDownList
         TabOrder = 0
-        OnSelectionChange = lbxFolderSelectionChange
+        OnSelect = cbxFolderSelected
       end
     end
     object gbxMusic: TGroupBox
       Left = 0
-      Height = 120
-      Top = 392
-      Width = 175
+      Height = 53
+      Top = 278
+      Width = 196
       Align = alTop
+      AutoSize = True
       Caption = 'Music'
-      ClientHeight = 95
-      ClientWidth = 171
-      TabOrder = 3
-      object lbxMusic: TListBox
+      ClientHeight = 28
+      ClientWidth = 192
+      TabOrder = 4
+      object cbxMusic: TComboBox
         Left = 0
-        Height = 95
+        Height = 28
         Top = 0
-        Width = 171
-        Align = alClient
-        ItemHeight = 0
+        Width = 192
+        Align = alTop
+        AutoDropDown = True
+        ItemHeight = 20
+        Style = csDropDownList
         TabOrder = 0
-        OnSelectionChange = lbxFolderSelectionChange
+        OnSelect = cbxFolderSelected
       end
     end
-    object gbxOtherFiles: TGroupBox
+    object gbxOtherFolders: TGroupBox
       Left = 0
-      Height = 120
-      Top = 632
-      Width = 175
+      Height = 53
+      Top = 384
+      Width = 196
       Align = alTop
-      Caption = 'gbxOtherFiles'
-      ClientHeight = 95
-      ClientWidth = 171
-      TabOrder = 5
-      object lbxOtherFiles: TListBox
+      AutoSize = True
+      Caption = 'Other Folders'
+      ClientHeight = 28
+      ClientWidth = 192
+      TabOrder = 6
+      object cbxOtherFolders: TComboBox
         Left = 0
-        Height = 95
+        Height = 28
         Top = 0
-        Width = 171
-        Align = alClient
-        ItemHeight = 0
+        Width = 192
+        Align = alTop
+        AutoDropDown = True
+        ItemHeight = 20
+        Style = csDropDownList
         TabOrder = 0
-        OnSelectionChange = lbxFolderSelectionChange
+        OnSelect = cbxFolderSelected
       end
     end
     object pSimilar: TPanel
       Left = 0
-      Height = 128
+      Height = 148
       Top = 24
-      Width = 175
+      Width = 196
       Align = alTop
       AutoSize = True
       BevelOuter = bvNone
-      ClientHeight = 128
-      ClientWidth = 175
-      TabOrder = 6
+      ClientHeight = 148
+      ClientWidth = 196
+      TabOrder = 1
       object tbSimilarThresold: TTrackBar
         Left = 0
         Height = 31
-        Top = 97
-        Width = 175
+        Top = 117
+        Width = 196
         Frequency = 5
         Max = 100
         PageSize = 5
-        Position = 33
+        Position = 30
         Align = alTop
         OnClick = tbSimilarThresoldClick
-        TabOrder = 0
+        TabOrder = 1
       end
       object rgbFilterMode: TRadioGroup
         Left = 0
         Height = 97
         Top = 0
-        Width = 175
+        Width = 196
         Align = alTop
         AutoFill = True
         AutoSize = True
@@ -898,7 +913,7 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 1
         ClientHeight = 72
-        ClientWidth = 171
+        ClientWidth = 192
         ItemIndex = 0
         Items.Strings = (
           'None'
@@ -906,8 +921,26 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
           'Filter Groups'
         )
         OnSelectionChanged = rgbFilterModeSelectionChanged
-        TabOrder = 1
+        TabOrder = 0
       end
+      object lFilterThreshold: TLabel
+        Left = 0
+        Height = 20
+        Top = 97
+        Width = 196
+        Align = alTop
+        Caption = 'Filter Threshold'
+      end
+    end
+    object bOpenFolder: TButton
+      Left = 0
+      Height = 31
+      Top = 437
+      Width = 196
+      Action = actOpenTargetFolder
+      Align = alTop
+      TabOrder = 7
+      OnClick = bOpenFolderClick
     end
   end
   object ActionList: TActionList[7]
@@ -943,6 +976,7 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
       Category = 'Files'
       Caption = 'Assign file'
       OnExecute = actAssignFileExecute
+      ShortCut = 16449
     end
     object actAssignToGroup: TAction
       Category = 'Files'
@@ -953,6 +987,7 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
       Category = 'Files'
       Caption = 'Delete file'
       OnExecute = actDeleteFileExecute
+      ShortCut = 8238
     end
     object actMoveFile: TAction
       Category = 'Files'
@@ -973,11 +1008,22 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
       Category = 'Files'
       Caption = 'Rename file manually...'
       OnExecute = actRenameFileExecute
+      ShortCut = 113
     end
     object actAutoAssign: TAction
       Category = 'Files'
       Caption = 'Auto Assign'
       OnExecute = actAutoAssignExecute
+    end
+    object actOpenTargetFolder: TAction
+      Category = 'Folder'
+      Caption = 'Open Target Folder'
+      OnExecute = actOpenTargetFolderExecute
+    end
+    object actOpenFileDefApp: TAction
+      Category = 'Files'
+      Caption = 'Open File with Default Application'
+      OnExecute = actOpenFileDefAppExecute
     end
   end
   object ilActions: TImageList[8]
@@ -1010,6 +1056,9 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
     end
     object MenuItem1: TMenuItem
       Caption = '-'
+    end
+    object miflOpenFileDefApp: TMenuItem
+      Action = actOpenFileDefApp
     end
     object miflRenameFile: TMenuItem
       Action = actRenameFile

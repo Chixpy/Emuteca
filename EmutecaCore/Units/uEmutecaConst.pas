@@ -121,6 +121,10 @@ const
   krsIniKeyMusicCaptions = 'MusicCaptions';
   krsIniKeyVideoFolders = 'VideoFolders';
   krsIniKeyVideoCaptions = 'VideoCaptions';
+  krsIniKeyOtherFolders = 'OtherFolders';
+  krsIniKeyOtherFExt = 'OtherFExt';
+  krsIniKeyOtherFCapt = 'OtherFCaptions';
+
   krsIniKeySoftExportKey = 'SoftExportKey';
   krsIniKeyExtractAll = 'ExtractAll';
   krsIniKeyMergeableGroups = 'MergeableGroups';

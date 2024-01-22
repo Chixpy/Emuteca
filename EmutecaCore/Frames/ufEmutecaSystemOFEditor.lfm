@@ -1,0 +1,36 @@
+inherited fmEmutecaSystemOFEditor: TfmEmutecaSystemOFEditor
+  Height = 409
+  Width = 578
+  ClientHeight = 409
+  ClientWidth = 578
+  DesignLeft = 554
+  inherited pButtons: TPanel
+    Top = 379
+    Width = 578
+    ClientWidth = 578
+    inherited chkCloseOnSave: TCheckBox
+      Left = 92
+      Width = 57
+    end
+    inherited bSave: TBitBtn
+      Left = 241
+    end
+    inherited bCancel: TBitBtn
+      Left = 399
+      Cancel = False
+    end
+  end
+  object gbxOtherFolders: TGroupBox[1]
+    Left = 0
+    Height = 375
+    Top = 0
+    Width = 578
+    Align = alClient
+    Caption = 'Other Folders'
+    TabOrder = 1
+  end
+  inherited alPropEditor: TActionList[2]
+  end
+  inherited ilPropEditor: TImageList[3]
+  end
+end

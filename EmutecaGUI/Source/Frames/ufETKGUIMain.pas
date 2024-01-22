@@ -296,9 +296,6 @@ begin
   fmSoftMedia.TextExt := GUIConfig.TextExtensions;
   fmSoftMedia.VideoExt := GUIConfig.VideoExtensions;
   fmSoftMedia.MusicExt := GUIConfig.MusicExtensions;
-  fmSoftMedia.MPlayerPath :=
-    SetAsAbsoluteFile(GUIConfig.mPlayerExe,
-    ExtractFileDir(GUIConfig.DefaultFileName));
 
   LoadFrameData;
 end;

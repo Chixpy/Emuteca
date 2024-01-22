@@ -22,6 +22,7 @@ De forma general, y en caso de no haber actualizado la lista, puedes verlos en l
   - [Atari Jaguar](https://github.com/Chixpy/ETKRes-Jaguar)
   - [Atari Lynx](https://github.com/Chixpy/ETKRes-Lynx)
   - [Bandai WonderSwan](https://github.com/Chixpy/ETKRes-WonderSwan)
+  - [Bally Astrocade](https://github.com/Chixpy/ETKRes-Astrocade)
   - [Microsoft MSDOS](https://github.com/Chixpy/ETKRes-MSDOS)
   - [Misc - Arcade (MAME)](https://github.com/Chixpy/ETKRes-Arcade) (*ATENCIÓN: Hay que configurar a mano los directorios, al ser diferentes del resto de sistemas*)
   - [NEC Turbografx 16 / PC Engine](https://github.com/Chixpy/ETKRes-TG16)
@@ -48,18 +49,18 @@ Hay dos formas de usarlos:
 
 ### Formatos soportados y activados
 
-Emuteca soporta multitud de formatos para los distintos tipos de archivos. De forma práctica, tan solo están activados los más útiles ya que afecta a la velocidad a la hora de buscar. Aunque se pueden activar más editando el archivo `GUI.ini` es preferible convertir los archivos a estos formatos
+Emuteca soporta multitud de formatos para los distintos tipos de archivos. De forma práctica, tan solo están activados los más útiles ya que afecta a la velocidad a la hora de buscar. Aunque se pueden activar más editando el archivo `GUI.ini` es preferible convertir los archivos a estos formatos:
 
   - **Imagen**: `jpg`, `png`
-    * Soportados: `bmp`, `cur`, `gif`, `icns`, `ico`, `jfif`, `jpe`, `jpeg`, `jpg`, `pbm`, `pgm`, `png`, `ppm`, `tif`, `tiff`, `xpm`
+    - Soportados: `bmp`, `cur`, `gif`, `icns`, `ico`, `jfif`, `jpe`, `jpeg`, `jpg`, `pbm`, `pgm`, `png`, `ppm`, `tif`, `tiff`, `xpm`
   - **Texto**: `txt`
-    * Soportado: Archivos de texto plano
+    - Soportado: Archivos de texto plano
   - **Video**: `avi`, `mkv`, `mp4`, `mpg`
-    * Soportado: Cualquier formato soportado por MPlayer
+    - Soportado: Cualquier formato soportado por MPlayer
   - **Música**: `mp3`, `ogg`
-    * Soportado: Cualquier formato soportado por MPlayer
+    - Soportado: Cualquier formato soportado por MPlayer
     
-A partir de la version 0.8.0.154 se ha desactivado la búsqueda de los ficheros dentro de archivos comprimidos.
+A partir de la version 0.8.0.154 se ha desactivado la búsqueda de los ficheros dentro de archivos comprimidos. Aunque se tiene pensado que en un futuro sea configurable.
 
 De todas formas, no era recomendable usar estos ficheros dentro de archivos comprimidos puesto que (excepto los `txt`) ya son archivos con algún tipo de compresión por si mismo y tan solo se ganaría espacio de framentación interna (espacio no ocupado en los bloques del disco duro).
 
@@ -67,7 +68,16 @@ En caso de usarse, entonces también era recomendable usar un formato que no sea
 
 ### Funcionamiento general de Emuteca
 
-  - TODO: Explicar como Emuteca busca los archivos.
+De forma general, la búsqueda de cualquier tipo de ficheros multimedia para cada juego se realiza de la siguiente forma, parando la búsqueda en cuanto encuentra algo:
+
+  1. Todos los ficheros de los formatos activados dentro de una carpeta con la clave de ordenación como nombre.
+    - `MediaFolder\SoftSortTitle\*.ext`.
+  2. Sólo un archivo que tenga como nombre la clave de ordenación y una de las extensiones activadas.
+    - `MediaFolder\*.ext`
+    - Es decir, si hay un `jpg` y un `png` con el mismo nombre solo selecionanará un archivo.
+  3. Repetir los pasos anteriores pero con la clave de ordenación del grupo al que pertenece el juego.
+
+Para iconos y logos tan solo seleccionará un solo fichero aunque haya varios dentro de una carpeta en el paso 1.
 
 ### Recomendaciones
 
@@ -139,7 +149,7 @@ No extraerlos de fotografías o escaneados.
 
 Alternativamente también incluye un script para GIMP que añade el borde semitransparente una vez se ha creado el fondo transparente... Pero es muuuuuuyyyy lento.
 
-#### Textos ####
+#### Textos 
 
 Esto es simple, para que se vea en una TextBox:
   1. Texto plano.
@@ -147,12 +157,11 @@ Esto es simple, para que se vea en una TextBox:
   3. Linea vacía entre párrafos.
   4. Sin saltos de línea dentro de los párrafos. El TextBox tiene activado el WordWrap
   5. Es aceptable usar MarkDown
-
   
-#### Vídeos ####
+#### Vídeos 
 
 Que sean a resolución y framerate nativo, si puede ser.
 
-#### Música ####
+#### Música 
 
 Que no tengan mucha pérdida de calidad.

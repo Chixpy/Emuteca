@@ -3,7 +3,7 @@ unit ufEmutecaSystemMVFEditor;
 
   This file is part of Emuteca Core.
 
-  Copyright (C) 2019-2023 Chixpy
+  Copyright (C) 2019-2024 Chixpy
 }
 
 {$mode objfpc}{$H+}

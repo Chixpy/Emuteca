@@ -519,48 +519,6 @@ msgctxt "tfmchxtagtree.vst.header.columns[2].text"
 msgid "File"
 msgstr ""
 
-#: tfmchxvideolistpreview.actmute.caption
-msgid "Mute"
-msgstr ""
-
-#: tfmchxvideolistpreview.actmute.hint
-msgid "Mute audio."
-msgstr ""
-
-#: tfmchxvideolistpreview.actpause.caption
-msgid "Pause"
-msgstr ""
-
-#: tfmchxvideolistpreview.actpause.hint
-msgid "Pauses current media."
-msgstr ""
-
-#: tfmchxvideolistpreview.actplay.caption
-msgid "Play"
-msgstr ""
-
-#: tfmchxvideolistpreview.actplay.hint
-msgid "Plays current media."
-msgstr ""
-
-#: tfmchxvideolistpreview.actstop.caption
-msgctxt "tfmchxvideolistpreview.actstop.caption"
-msgid "Stop"
-msgstr ""
-
-#: tfmchxvideolistpreview.actstop.hint
-msgid "Stops current media."
-msgstr ""
-
-#: tfmchxvideolistpreview.tbplayer.caption
-msgid "tbPlayer"
-msgstr ""
-
-#: tfmchxvideolistpreview.toolbutton2.caption
-msgctxt "tfmchxvideolistpreview.toolbutton2.caption"
-msgid "ToolButton2"
-msgstr ""
-
 #: tfmemutecaactaddfolder.chknozip.caption
 msgid "Don't search inside compressed archives"
 msgstr ""
@@ -1170,6 +1128,11 @@ msgstr ""
 msgid "Video folders"
 msgstr ""
 
+#: tfmemutecasystemofeditor.gbxotherfolders.caption
+msgctxt "tfmemutecasystemofeditor.gbxotherfolders.caption"
+msgid "Other Folders"
+msgstr ""
+
 #: tfmemutecatagtree.actaddgroup2tagfile.caption
 msgid "Add Group to Tag"
 msgstr ""
@@ -1377,6 +1340,14 @@ msgstr ""
 msgid "Move file..."
 msgstr ""
 
+#: tfmetkguimediamanager.actopenfiledefapp.caption
+msgid "Open File with Default Application"
+msgstr ""
+
+#: tfmetkguimediamanager.actopentargetfolder.caption
+msgid "Open Target Folder"
+msgstr ""
+
 #: tfmetkguimediamanager.actrenamefile.caption
 msgid "Rename file manually..."
 msgstr ""
@@ -1408,8 +1379,9 @@ msgctxt "tfmetkguimediamanager.gbxmusic.caption"
 msgid "Music"
 msgstr ""
 
-#: tfmetkguimediamanager.gbxotherfiles.caption
-msgid "gbxOtherFiles"
+#: tfmetkguimediamanager.gbxotherfolders.caption
+msgctxt "tfmetkguimediamanager.gbxotherfolders.caption"
+msgid "Other Folders"
 msgstr ""
 
 #: tfmetkguimediamanager.gbxrename.caption
@@ -1437,6 +1409,10 @@ msgstr ""
 
 #: tfmetkguimediamanager.gbxvideos.caption
 msgid "Videos"
+msgstr ""
+
+#: tfmetkguimediamanager.lfilterthreshold.caption
+msgid "Filter Threshold"
 msgstr ""
 
 #: tfmetkguimediamanager.pagallfiles.caption
@@ -1628,16 +1604,8 @@ msgstr ""
 msgid "Add image panel"
 msgstr ""
 
-#: tfmetkguisoftmedia.actaddmusicpanel.caption
-msgid "Add music panel"
-msgstr ""
-
 #: tfmetkguisoftmedia.actaddtextpanel.caption
 msgid "Add text panel"
-msgstr ""
-
-#: tfmetkguisoftmedia.actaddvideopanel.caption
-msgid "actAddVideoPanel"
 msgstr ""
 
 #: tfmetkguisoftmedia.actclearpanels.caption
@@ -1652,7 +1620,8 @@ msgstr ""
 msgid "Load Media Files"
 msgstr ""
 
-#: tfmetkguisoftmedia.piconlogo.caption
+#: tfmetkguisoftmedia.gbxiconlogo.caption
+msgctxt "tfmetkguisoftmedia.gbxiconlogo.caption"
 msgid "Icon && Logo"
 msgstr ""
 
@@ -1665,17 +1634,8 @@ msgctxt "tfmetkguisoftmedia.toolbutton1.caption"
 msgid "ToolButton1"
 msgstr ""
 
-#: tfmetkguisoftmusicpreview.gbxpanel.caption
-msgctxt "tfmetkguisoftmusicpreview.gbxpanel.caption"
-msgid "Music"
-msgstr ""
-
 #: tfmetkguisofttxtpreview.gbxpanel.caption
 msgid "Text"
-msgstr ""
-
-#: tfmetkguisoftvideopreview.gbxpanel.caption
-msgid "Video"
 msgstr ""
 
 #: tfmetkguisysmanager.actexportlist.hint

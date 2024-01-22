@@ -31,10 +31,10 @@ const
   krsDefZoneIcnFolder = 'Images/Zone';
   krsKeyImgExt = 'ImageExt';
   krsDefImgExt = 'png,jpg';
-  { Lazarus supports:
-      bmp,cur,gif,icns,ico,jfif,jpe,jpeg,jpg,pbm,pgm,png,ppm,tif,tiff,xpm
+  {< Lazarus supports:
+       bmp,cur,gif,icns,ico,jfif,jpe,jpeg,jpg,pbm,pgm,png,ppm,tif,tiff,xpm
 
-    But I will cut them a little for faster searching.
+     But I will cut them a little for faster searching.
   }
 
   // [Texts]
@@ -46,7 +46,7 @@ const
   // [Video]
   krsSectionVideo = 'Video';
   krsKeyVideoExt = 'VideoExt';
-  krsDefVideoExt = 'mpg,avi,mkv,mp4';
+  krsDefVideoExt = 'mp4,mkv,mpg,avi';
 
   // [Music]
   krsSectionMusic = 'Music';
@@ -70,8 +70,6 @@ const
   krsSectionTools = 'Tools';
   krsKeyScriptsFolder = 'ScriptsFolder';
   krsDefScriptsFolder = 'Scripts/';
-  krsKeyMPlayerExe = 'mPlayerExe';
-  krsDefmPlayerExe = 'Tools/mplayer/mplayer.exe';
   krsKeyETKIconBorder = 'ETKIconBorder';
   krsDefETKIconBorder = 'Tools/ETKIconBorder.exe';
   krsKeyETKDBEditor = 'ETKDBEditor';
@@ -109,7 +107,6 @@ type
     FZoneIcnFolder: string;
     FHelpFolder: string;
     FGUIIcnFile: string;
-    FmPlayerExe: string;
     FSearchFile: string;
     FDumpIcnFolder: string;
     procedure SetCurrSystem(AValue: string);
@@ -124,7 +121,6 @@ type
     procedure SetZoneIcnFolder(AValue: string);
     procedure SetHelpFolder(AValue: string);
     procedure SetGUIIcnFile(AValue: string);
-    procedure SetmPlayerExe(AValue: string);
     procedure SetSearchFile(AValue: string);
     procedure SetDumpIcnFolder(AValue: string);
 
@@ -169,8 +165,6 @@ type
     // Tools
     // -----
     property ScriptsFolder: string read FScriptsFolder write SetScriptsFolder;
-    property mPlayerExe: string read FmPlayerExe write SetmPlayerExe;
-    //< Path to mPlayer[2].exe
     property ETKIconBorder: string read FETKIconBorder write SetETKIconBorder;
     property ETKDBEditor: string read FETKDBEditor write SetETKDBEditor;
 
@@ -260,11 +254,6 @@ begin
   FGUIIcnFile := SetAsFile(AValue);
 end;
 
-procedure cETKGUIConfig.SetmPlayerExe(AValue: string);
-begin
-  FmPlayerExe := SetAsFile(AValue);
-end;
-
 procedure cETKGUIConfig.SetSearchFile(AValue: string);
 begin
   FSearchFile := SetAsFile(AValue);
@@ -302,7 +291,6 @@ begin
 
   // Tools
   ScriptsFolder := krsDefScriptsFolder;
-  mPlayerExe := krsDefmPlayerExe;
   ETKIconBorder := krsDefETKIconBorder;
   ETKDBEditor := krsDefETKDBEditor;
 
@@ -354,8 +342,6 @@ begin
   // Tools
   ScriptsFolder := IniFile.ReadString(krsSectionTools,
     krsKeyScriptsFolder, ScriptsFolder);
-  mPlayerExe := IniFile.ReadString(krsSectionTools, krsKeyMPlayerExe,
-    mPlayerExe);
   ETKIconBorder := IniFile.ReadString(krsSectionTools, krsKeyETKIconBorder,
     ETKIconBorder);
   ETKDBEditor := IniFile.ReadString(krsSectionTools, krsKeyETKDBEditor,
@@ -398,7 +384,6 @@ begin
 
   // Tools
   IniFile.WriteString(krsSectionTools, krsKeyScriptsFolder, ScriptsFolder);
-  IniFile.WriteString(krsSectionTools, krsKeyMPlayerExe, mPlayerExe);
   IniFile.WriteString(krsSectionTools, krsKeyETKIconBorder, ETKIconBorder);
   IniFile.WriteString(krsSectionTools, krsKeyETKDBEditor, ETKDBEditor);
 

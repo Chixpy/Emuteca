@@ -1,12 +1,29 @@
 inherited fmEmutecaSystemITFEditor: TfmEmutecaSystemITFEditor
+  Height = 463
+  Width = 678
+  ClientHeight = 463
+  ClientWidth = 678
   inherited pButtons: TPanel
+    Top = 433
+    Width = 678
+    ClientWidth = 678
     TabOrder = 3
+    inherited chkCloseOnSave: TCheckBox
+      Left = 117
+      Width = 57
+    end
+    inherited bSave: TBitBtn
+      Left = 291
+    end
+    inherited bCancel: TBitBtn
+      Left = 474
+    end
   end
   object gbxImageFolders: TGroupBox[1]
     Left = 0
-    Height = 99
+    Height = 187
     Top = 0
-    Width = 400
+    Width = 678
     Align = alClient
     Caption = 'Image Folders'
     TabOrder = 0
@@ -15,19 +32,19 @@ inherited fmEmutecaSystemITFEditor: TfmEmutecaSystemITFEditor
     Cursor = crVSplit
     Left = 0
     Height = 5
-    Top = 103
-    Width = 400
+    Top = 191
+    Width = 678
     Align = alBottom
     ResizeAnchor = akBottom
   end
   object gbxTextFolders: TGroupBox[3]
     Left = 0
-    Height = 154
-    Top = 112
-    Width = 400
+    Height = 229
+    Top = 200
+    Width = 678
     Align = alBottom
     Caption = 'Text Folders'
-    TabOrder = 2
+    TabOrder = 1
   end
   inherited alPropEditor: TActionList[4]
   end

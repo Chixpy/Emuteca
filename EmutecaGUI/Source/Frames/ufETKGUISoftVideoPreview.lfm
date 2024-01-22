@@ -1,5 +1,0 @@
-inherited fmETKGUISoftVideoPreview: TfmETKGUISoftVideoPreview
-  inherited gbxPanel: TGroupBox
-    Caption = 'Video'
-  end
-end

@@ -1,24 +1,42 @@
 inherited fmEmutecaSystemMVFEditor: TfmEmutecaSystemMVFEditor
+  Height = 463
+  Width = 657
+  ClientHeight = 463
+  ClientWidth = 657
   DesignLeft = 540
   DesignTop = 191
   inherited pButtons: TPanel
+    Top = 433
+    Width = 657
+    ClientWidth = 657
     TabOrder = 3
+    inherited chkCloseOnSave: TCheckBox
+      Left = 111
+      Width = 57
+    end
+    inherited bSave: TBitBtn
+      Left = 279
+    end
+    inherited bCancel: TBitBtn
+      Left = 456
+      Cancel = False
+    end
   end
   object gbxMusicFolders: TGroupBox[1]
     Left = 0
-    Height = 99
-    Top = 0
-    Width = 400
-    Align = alClient
+    Height = 202
+    Top = 227
+    Width = 657
+    Align = alBottom
     Caption = 'Music folders'
     TabOrder = 0
   end
   object gbxVideoFolders: TGroupBox[2]
     Left = 0
-    Height = 154
-    Top = 112
-    Width = 400
-    Align = alBottom
+    Height = 214
+    Top = 0
+    Width = 657
+    Align = alClient
     Caption = 'Video folders'
     TabOrder = 1
   end
@@ -26,8 +44,8 @@ inherited fmEmutecaSystemMVFEditor: TfmEmutecaSystemMVFEditor
     Cursor = crVSplit
     Left = 0
     Height = 5
-    Top = 103
-    Width = 400
+    Top = 218
+    Width = 657
     Align = alBottom
     ResizeAnchor = akBottom
   end

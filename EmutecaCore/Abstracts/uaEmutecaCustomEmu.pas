@@ -526,7 +526,7 @@ begin
     ExecuteCMDString(ActualWorkDir, ExeFile, ActualParam, sOutput,
       sError, Result);
 
-  // TODO: Make this configurable and let open they from GUI
+  // TODO: Make this configurable and open from GUI.
   aSL := TStringList.Create;
   aSL.Text := sError;
   if aSL.Count > 0 then
@@ -536,10 +536,13 @@ begin
     aSL.SaveToFile('Output.txt');
   FreeAndNil(aSL);
 
+  { #done -oChixpy :
 
-  // Hack: If normal exit code <> 0, compare and set to 0
-  //   So, this way 0 always is the correct exit of the program,
-  //     and Managers don't care about wich is the actual code
+    If normal Exit Code <> 0, compare with it and set to 0.
+
+    So, this way 0 always is the correct exit of the program,
+        and Managers don't care about wich is the actual code
+  }
   if Result = ExitCode then
     Result := 0;
 

@@ -26,108 +26,110 @@ type
 
   caEmutecaCustomSystem = class(caCHXStorableIni)
   private
-    FBaseFolder: string;
-    FCoreIDs: TStringList;
-    FEnabled: boolean;
-    FExtensions: TStringList;
-    FExtractAll: boolean;
-    FListFileName: string;
-    FLogoFolder: string;
-    FMergeableGroups: boolean;
-    FSoftExportKey: TEmutecaSoftExportKey;
-    FIconFile: string;
-    FIconFolder: string;
-    FID: string;
-    FImage: string;
-    FImageCaptions: TStringList;
-    FImageFolders: TStringList;
-    FInfoText: string;
-    FMainEmulator: string;
-    FMusicCaptions: TStringList;
-    FMusicFolders: TStringList;
-    FOtherEmulators: TStringList;
-    FSoftIconFile: string;
-    FStats: cEmutecaPlayingStats;
-    FTempFolder: string;
-    FWorkingFolder: string;
-    FTextCaptions: TStringList;
-    FTextFolders: TStringList;
-    FTitle: string;
-    FVideoCaptions: TStringList;
-    FVideoFolders: TStringList;
-    function GetListFileName: string;
-    procedure SetBaseFolder(AValue: string);
-    procedure SetEnabled(AValue: boolean);
-    procedure SetExtractAll(AValue: boolean);
-    procedure SetListFileName(AValue: string);
-    procedure SetLogoFolder(AValue: string);
-    procedure SetMergeableGroups(AValue: boolean);
-    procedure SetSoftExportKey(AValue: TEmutecaSoftExportKey);
-    procedure SetIconFile(AValue: string);
-    procedure SetIconFolder(AValue: string);
-    procedure SetID(AValue: string);
-    procedure SetImage(AValue: string);
-    procedure SetInfoText(AValue: string);
-    procedure SetMainEmulator(AValue: string);
-    procedure SetSoftIconFile(AValue: string);
-    procedure SetTempFolder(AValue: string);
-    procedure SetWorkingFolder(AValue: string);
-    procedure SetTitle(AValue: string);
+    FBaseFolder : string;
+    FCoreIDs : TStringList;
+    FEnabled : boolean;
+    FExtensions : TStringList;
+    FExtractAll : boolean;
+    FListFileName : string;
+    FLogoFolder : string;
+    FMergeableGroups : boolean;
+    FOtherFCapt : TStringList;
+    FOtherFExt : TStringList;
+    FOtherFolders : TStringList;
+    FSoftExportKey : TEmutecaSoftExportKey;
+    FIconFile : string;
+    FIconFolder : string;
+    FID : string;
+    FImage : string;
+    FImageCaptions : TStringList;
+    FImageFolders : TStringList;
+    FInfoText : string;
+    FMainEmulator : string;
+    FMusicCaptions : TStringList;
+    FMusicFolders : TStringList;
+    FOtherEmulators : TStringList;
+    FSoftIconFile : string;
+    FStats : cEmutecaPlayingStats;
+    FTempFolder : string;
+    FWorkingFolder : string;
+    FTextCaptions : TStringList;
+    FTextFolders : TStringList;
+    FTitle : string;
+    FVideoCaptions : TStringList;
+    FVideoFolders : TStringList;
+    function GetListFileName : string;
+    procedure SetBaseFolder(AValue : string);
+    procedure SetEnabled(AValue : boolean);
+    procedure SetExtractAll(AValue : boolean);
+    procedure SetListFileName(AValue : string);
+    procedure SetLogoFolder(AValue : string);
+    procedure SetMergeableGroups(AValue : boolean);
+    procedure SetSoftExportKey(AValue : TEmutecaSoftExportKey);
+    procedure SetIconFile(AValue : string);
+    procedure SetIconFolder(AValue : string);
+    procedure SetID(AValue : string);
+    procedure SetImage(AValue : string);
+    procedure SetInfoText(AValue : string);
+    procedure SetMainEmulator(AValue : string);
+    procedure SetSoftIconFile(AValue : string);
+    procedure SetTempFolder(AValue : string);
+    procedure SetWorkingFolder(AValue : string);
+    procedure SetTitle(AValue : string);
 
   protected
-    procedure FixFolderListData(FolderList, CaptionList: TStrings);
+    procedure FixFolderListData(FolderList, CaptionList : TStrings);
     {< Try to fix some incosistences in folders and its captions.
 
     Who knows if somebody edited the .ini file by hand...
     }
-    procedure DoSaveToIni(aIniFile: TIniFile; ExportMode: boolean); virtual;
-
+    procedure DoSaveToIni(aIniFile : TIniFile; ExportMode : boolean); virtual;
   public
-    property TempFolder: string read FTempFolder write SetTempFolder;
+    property TempFolder : string read FTempFolder write SetTempFolder;
     {< System temp folder for decompressing media. }
 
-    function MatchID(aID: string): boolean;
-    function CompareID(aID: string): integer;
+    function MatchID(aID : string) : boolean;
+    function CompareID(aID : string) : integer;
 
-    procedure LoadFromIni(aIniFile: TMemIniFile); override;
-    procedure SaveToIni(aIniFile: TMemIniFile); override;
-    procedure ExportToIni(aIniFile: TMemIniFile); virtual;
-    procedure ImportFromIni(aIniFile: TMemIniFile); virtual;
+    procedure LoadFromIni(aIniFile : TMemIniFile); override;
+    procedure SaveToIni(aIniFile : TMemIniFile); override;
+    procedure ExportToIni(aIniFile : TMemIniFile); virtual;
+    procedure ImportFromIni(aIniFile : TMemIniFile); virtual;
 
-    constructor Create(AOwner: TComponent); override;
+    constructor Create(AOwner : TComponent); override;
     destructor Destroy; override;
 
   published
 
     // Basic Info
     // ----------
-    property ID: string read FID write SetID;
+    property ID : string read FID write SetID;
     {< ID of the system. }
 
-    property Title: string read FTitle write SetTitle;
+    property Title : string read FTitle write SetTitle;
     {< Visible name (Usually "%Company%: %Model% %(info)%"}
 
-    property ListFileName: string read GetListFileName write SetListFileName;
+    property ListFileName : string read GetListFileName write SetListFileName;
     {< Name used for soft and group files. }
 
-    property Enabled: boolean read FEnabled write SetEnabled default False;
+    property Enabled : boolean read FEnabled write SetEnabled default False;
     {< Is the system visible? }
 
-    property ExtractAll: boolean
+    property ExtractAll : boolean
       read FExtractAll write SetExtractAll default False;
     {< Must all files be extracted from compressed archives? }
 
-    property MergeableGroups: boolean read FMergeableGroups
-      write SetMergeableGroups default False;
+    property MergeableGroups : boolean
+      read FMergeableGroups write SetMergeableGroups default False;
 
-    property BaseFolder: string read FBaseFolder write SetBaseFolder;
+    property BaseFolder : string read FBaseFolder write SetBaseFolder;
     {< System base folder
 
        Used by default to store some data if the file isn't defined
          (System image or text).
     }
 
-    property WorkingFolder: string read FWorkingFolder write SetWorkingFolder;
+    property WorkingFolder : string read FWorkingFolder write SetWorkingFolder;
     {< Temp folder for decompress Software, it's recommended leave it empty
          so Emuteca will use OS Temp folder.
 
@@ -143,74 +145,83 @@ type
 
     // Emulator related
     // ----------------
-    property MainEmulator: string read FMainEmulator write SetMainEmulator;
+    property MainEmulator : string read FMainEmulator write SetMainEmulator;
     {< Main emulator ID. }
-    property OtherEmulators: TStringList read FOtherEmulators;
+    property OtherEmulators : TStringList read FOtherEmulators;
     {< Ids of other emulators for the system.
 
     It holds enabled, disabled and inexistent emulator ids too.
       This is different from EmulatorList only current enabled ones.}
-    property CoreIDs: TStringList read FCoreIDs;
+    property CoreIDs : TStringList read FCoreIDs;
     {< MultiEmulator Core IDs }
 
 
     // System Images
     // -------------
-    property IconFile: string read FIconFile write SetIconFile;
+    property IconFile : string read FIconFile write SetIconFile;
     {< Path to the icon of the system. }
-    property ImageFile: string read FImage write SetImage;
+    property ImageFile : string read FImage write SetImage;
     {< Path to image of the system. }
-    property SoftIconFile: string read FSoftIconFile write SetSoftIconFile;
+    property SoftIconFile : string read FSoftIconFile write SetSoftIconFile;
     {< Default soft icon. }
 
     // Soft image dirs
     // ---------------
-    property IconFolder: string read FIconFolder write SetIconFolder;
+    property IconFolder : string read FIconFolder write SetIconFolder;
     {< Folder for the icons of the games. }
-    property LogoFolder: string read FLogoFolder write SetLogoFolder;
+    property LogoFolder : string read FLogoFolder write SetLogoFolder;
     {< Folder for the logos of the games. }
-    property ImageFolders: TStringList read FImageFolders;
+    property ImageFolders : TStringList read FImageFolders;
     {< Folders for the game images. }
-    property ImageCaptions: TStringList read FImageCaptions;
+    property ImageCaptions : TStringList read FImageCaptions;
     {< Captions for the folders of game's images. }
 
     // Texts
     // -----
-    property InfoText: string read FInfoText write SetInfoText;
+    property InfoText : string read FInfoText write SetInfoText;
     {< Path to text file of the system. }
 
-    property TextFolders: TStringList read FTextFolders;
+    property TextFolders : TStringList read FTextFolders;
     {< Folders for game texts. }
-    property TextCaptions: TStringList read FTextCaptions;
+    property TextCaptions : TStringList read FTextCaptions;
     {< Captions for the folders of game's texts. }
 
     // Music
     // -----
-    property MusicFolders: TStringList read FMusicFolders;
+    property MusicFolders : TStringList read FMusicFolders;
     {< Folders for game music. }
-    property MusicCaptions: TStringList read FMusicCaptions;
+    property MusicCaptions : TStringList read FMusicCaptions;
     {< Captions for the folders of game's music. }
 
     // Video
     // -----
-    property VideoFolders: TStringList read FVideoFolders;
+    property VideoFolders : TStringList read FVideoFolders;
     {< Folders for game videos. }
-    property VideoCaptions: TStringList read FVideoCaptions;
+    property VideoCaptions : TStringList read FVideoCaptions;
     {< Captions for the folders of game's video. }
+
+    // Other folders
+    // -------------
+    property OtherFolders : TStringList read FOtherFolders;
+    {< Other Folders for game files not suported by Emuteca. }
+    property OtherFExt : TStringList read FOtherFExt;
+    {< Extensions searched in OtherFolders. }
+    property OtherFCapt : TStringList read FOtherFCapt;
+    {< Captions for the OtherFolders. }
 
     // Import
     // ------
-    property SoftExportKey: TEmutecaSoftExportKey
+    property SoftExportKey : TEmutecaSoftExportKey
       read FSoftExportKey write SetSoftExportKey default TEFKSHA1;
     {< Default key (CRC/SHA) to be used as game identifiers
        (when importing/exporting data). }
-    property Extensions: TStringList read FExtensions;
+    property Extensions : TStringList read FExtensions;
     {< Extensions used by the system.
 
     Only one extension in every string, without dot.
     }
 
-    property Stats: cEmutecaPlayingStats read FStats;
+    property Stats : cEmutecaPlayingStats read FStats;
 
   end;
 
@@ -218,7 +229,7 @@ implementation
 
 { caEmutecaCustomSystem }
 
-procedure caEmutecaCustomSystem.LoadFromIni(aIniFile: TMemIniFile);
+procedure caEmutecaCustomSystem.LoadFromIni(aIniFile : TMemIniFile);
 begin
   if not Assigned(aIniFile) then
     Exit;
@@ -279,6 +290,14 @@ begin
   VideoCaptions.CommaText :=
     aIniFile.ReadString(ID, krsIniKeyVideoCaptions, VideoCaptions.CommaText);
 
+  // Other Folders
+  OtherFolders.CommaText :=
+    aIniFile.ReadString(ID, krsIniKeyOtherFolders, OtherFolders.CommaText);
+  OtherFExt.CommaText :=
+    aIniFile.ReadString(ID, krsIniKeyOtherFExt, OtherFExt.CommaText);
+  OtherFCapt.CommaText :=
+    aIniFile.ReadString(ID, krsIniKeyOtherFCapt, OtherFCapt.CommaText);
+
   // Import
   SoftExportKey := Str2SoftExportKey(
     aIniFile.ReadString(ID, krsIniKeySoftExportKey,
@@ -293,85 +312,90 @@ begin
   FixFolderListData(TextFolders, TextCaptions);
   FixFolderListData(MusicFolders, MusicCaptions);
   FixFolderListData(VideoFolders, VideoCaptions);
+  FixFolderListData(OtherFolders, OtherFCapt);
+
+  // We can't use FixFolderListData for this
+  while OtherFolders.Count > OtherFExt.Count do
+    OtherFExt.Add(EmptyStr);
 end;
 
-procedure caEmutecaCustomSystem.ExportToIni(aIniFile: TMemIniFile);
+procedure caEmutecaCustomSystem.ExportToIni(aIniFile : TMemIniFile);
 begin
   DoSaveToIni(aIniFile, True);
 end;
 
-procedure caEmutecaCustomSystem.ImportFromIni(aIniFile: TMemIniFile);
+procedure caEmutecaCustomSystem.ImportFromIni(aIniFile : TMemIniFile);
 begin
   // Simply load from file, when exporting user data is removed
   LoadFromIni(aIniFile);
 end;
 
-procedure caEmutecaCustomSystem.SaveToIni(aIniFile: TMemIniFile);
+procedure caEmutecaCustomSystem.SaveToIni(aIniFile : TMemIniFile);
 begin
   DoSaveToIni(aIniFile, False);
 end;
 
-procedure caEmutecaCustomSystem.SetBaseFolder(AValue: string);
+procedure caEmutecaCustomSystem.SetBaseFolder(AValue : string);
 begin
   FBaseFolder := SetAsFolder(AValue);
 end;
 
-function caEmutecaCustomSystem.GetListFileName: string;
+function caEmutecaCustomSystem.GetListFileName : string;
 begin
   if FListFileName = '' then
     ListFileName := ID;
   Result := FListFileName;
 end;
 
-procedure caEmutecaCustomSystem.SetEnabled(AValue: boolean);
+procedure caEmutecaCustomSystem.SetEnabled(AValue : boolean);
 begin
   if FEnabled = AValue then
     Exit;
   FEnabled := AValue;
 end;
 
-procedure caEmutecaCustomSystem.SetExtractAll(AValue: boolean);
+procedure caEmutecaCustomSystem.SetExtractAll(AValue : boolean);
 begin
   if FExtractAll = AValue then
     Exit;
   FExtractAll := AValue;
 end;
 
-procedure caEmutecaCustomSystem.SetListFileName(AValue: string);
+procedure caEmutecaCustomSystem.SetListFileName(AValue : string);
 begin
   FListFileName := CleanFileName(AValue);
 end;
 
-procedure caEmutecaCustomSystem.SetLogoFolder(AValue: string);
+procedure caEmutecaCustomSystem.SetLogoFolder(AValue : string);
 begin
   FLogoFolder := SetAsFolder(AValue);
 end;
 
-procedure caEmutecaCustomSystem.SetMergeableGroups(AValue: boolean);
+procedure caEmutecaCustomSystem.SetMergeableGroups(AValue : boolean);
 begin
   if FMergeableGroups = AValue then Exit;
   FMergeableGroups := AValue;
 end;
 
 procedure caEmutecaCustomSystem.SetSoftExportKey(
-  AValue: TEmutecaSoftExportKey);
+  AValue : TEmutecaSoftExportKey);
 begin
   if FSoftExportKey = AValue then
     Exit;
   FSoftExportKey := AValue;
 end;
 
-procedure caEmutecaCustomSystem.SetIconFile(AValue: string);
+procedure caEmutecaCustomSystem.SetIconFile(AValue : string);
 begin
   FIconFile := SetAsFile(AValue);
 end;
 
-procedure caEmutecaCustomSystem.SetIconFolder(AValue: string);
+procedure caEmutecaCustomSystem.SetIconFolder(AValue : string);
 begin
   FIconFolder := SetAsFolder(AValue);
 end;
 
-procedure caEmutecaCustomSystem.SetID(AValue: string);
+procedure caEmutecaCustomSystem.SetID(AValue : string);
 begin
   AValue := UTF8Trim(AValue);
   if FID = AValue then
@@ -384,17 +408,17 @@ begin
   FPONotifyObservers(Self, ooChange, nil);
 end;
 
-procedure caEmutecaCustomSystem.SetImage(AValue: string);
+procedure caEmutecaCustomSystem.SetImage(AValue : string);
 begin
   FImage := SetAsFile(AValue);
 end;
 
-procedure caEmutecaCustomSystem.SetInfoText(AValue: string);
+procedure caEmutecaCustomSystem.SetInfoText(AValue : string);
 begin
   FInfoText := SetAsFile(AValue);
 end;
 
-procedure caEmutecaCustomSystem.SetMainEmulator(AValue: string);
+procedure caEmutecaCustomSystem.SetMainEmulator(AValue : string);
 begin
   AValue := UTF8Trim(AValue);
   if FMainEmulator = AValue then
@@ -405,22 +429,22 @@ begin
     OtherEmulators.Add(MainEmulator);
 end;
 
-procedure caEmutecaCustomSystem.SetSoftIconFile(AValue: string);
+procedure caEmutecaCustomSystem.SetSoftIconFile(AValue : string);
 begin
   FSoftIconFile := SetAsFile(AValue);
 end;
 
-procedure caEmutecaCustomSystem.SetTempFolder(AValue: string);
+procedure caEmutecaCustomSystem.SetTempFolder(AValue : string);
 begin
   FTempFolder := SetAsFolder(AValue) + SetAsFolder(ID);
 end;
 
-procedure caEmutecaCustomSystem.SetWorkingFolder(AValue: string);
+procedure caEmutecaCustomSystem.SetWorkingFolder(AValue : string);
 begin
   FWorkingFolder := SetAsFolder(AValue);
 end;
 
-procedure caEmutecaCustomSystem.SetTitle(AValue: string);
+procedure caEmutecaCustomSystem.SetTitle(AValue : string);
 begin
   AValue := UTF8Trim(AValue);
   if FTitle = AValue then
@@ -429,9 +453,9 @@ begin
 end;
 
 procedure caEmutecaCustomSystem.FixFolderListData(FolderList,
-  CaptionList: TStrings);
+  CaptionList : TStrings);
 var
-  i: integer;
+  i : integer;
 begin
   // Removing empty Folders and associated captions.
   i := 0;
@@ -465,8 +489,8 @@ begin
     CaptionList.Delete(CaptionList.Count - 1);
 end;
 
-procedure caEmutecaCustomSystem.DoSaveToIni(aIniFile: TIniFile;
-  ExportMode: boolean);
+procedure caEmutecaCustomSystem.DoSaveToIni(aIniFile : TIniFile;
+  ExportMode : boolean);
 begin
   if not Assigned(aIniFile) then
     Exit;
@@ -518,6 +542,12 @@ begin
     // Video
     aIniFile.DeleteKey(ID, krsIniKeyVideoFolders);
     aIniFile.DeleteKey(ID, krsIniKeyVideoCaptions);
+
+    // Other Folders
+    aIniFile.DeleteKey(ID, krsIniKeyOtherFolders);
+    aIniFile.DeleteKey(ID, krsIniKeyOtherFExt);
+    aIniFile.DeleteKey(ID, krsIniKeyOtherFCapt);
+
   end
   else
   begin
@@ -549,22 +579,28 @@ begin
     // Video
     aIniFile.WriteString(ID, krsIniKeyVideoFolders, VideoFolders.CommaText);
     aIniFile.WriteString(ID, krsIniKeyVideoCaptions, VideoCaptions.CommaText);
+
+    // Other Folders
+    aIniFile.WriteString(ID, krsIniKeyOtherFolders, OtherFolders.CommaText);
+    aIniFile.WriteString(ID, krsIniKeyOtherFExt, OtherFExt.CommaText);
+    aIniFile.WriteString(ID, krsIniKeyOtherFCapt, OtherFCapt.CommaText);
+
   end;
 
   Stats.WriteToIni(aIniFile, ID, ExportMode);
 end;
 
-function caEmutecaCustomSystem.MatchID(aID: string): boolean;
+function caEmutecaCustomSystem.MatchID(aID : string) : boolean;
 begin
   Result := CompareID(aID) = 0;
 end;
 
-function caEmutecaCustomSystem.CompareID(aID: string): integer;
+function caEmutecaCustomSystem.CompareID(aID : string) : integer;
 begin
   Result := UTF8CompareText(Self.ID, UTF8Trim(aID));
 end;
 
-constructor caEmutecaCustomSystem.Create(AOwner: TComponent);
+constructor caEmutecaCustomSystem.Create(AOwner : TComponent);
 begin
   inherited Create(AOwner);
 
@@ -598,6 +634,10 @@ begin
   FVideoCaptions := TStringList.Create;
   FVideoFolders := TStringList.Create;
 
+  FOtherFolders := TStringList.Create;
+  FOtherFExt := TStringList.Create;
+  FOtherFCapt := TStringList.Create;
+
   FStats := cEmutecaPlayingStats.Create(Self);
 end;
 
@@ -619,6 +659,10 @@ begin
 
   VideoCaptions.Free;
   VideoFolders.Free;
+
+  OtherFolders.Free;
+  OtherFExt.Free;
+  OtherFCapt.Free;
 
   Stats.Free;
 

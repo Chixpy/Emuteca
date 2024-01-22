@@ -13,7 +13,6 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   cthreads, {$ENDIF} {$ENDIF}
   Interfaces, // this includes the LCL widgetset
   Forms,
-  mplayercontrollaz,
   lazcontrols,
   pascalscript,
   // CHX units
@@ -40,7 +39,6 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   ufCHXScriptManager,
   ufCHXTagTree,
   ufCHXTxtListPreview,
-  ufCHXVideoListPreview,
   // CHX Pascal Script imported units
   uPSI_CHXBasic,
   uPSI_FPCDateUtils,
@@ -89,7 +87,6 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   ufEmutecaSoftImgPreview,
   ufEmutecaSoftTree,
   ufEmutecaSoftTxtPreview,
-  ufEmutecaSoftVideoPreview,
   ufEmutecaSystemCBX,
   ufEmutecaSystemEditor,
   ufEmutecaSystemITFEditor,
@@ -137,9 +134,7 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   ufETKGUIScriptManager,
   ufETKGUISoftImgPreview,
   ufETKGUISoftMedia,
-  ufETKGUISoftMusicPreview,
   ufETKGUISoftTxtPreview,
-  ufETKGUISoftVideoPreview,
   ufETKGUISysManager,
   ufETKGUISysPreview,
   ufETKGUIactMergeGroup,
@@ -149,7 +144,7 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   utETKGUICacheEmuIcons,
   utETKGUICacheGrpIcons,
   utETKGUICacheSoftIcons,
-  utETKGUICacheSysIcons;
+  utETKGUICacheSysIcons, ufEmutecaSystemOFEditor;
 
 
 {$R *.res}

@@ -7,8 +7,8 @@ inherited fmETKGUISoftMedia: TfmETKGUISoftMedia
   DesignTop = 110
   object sbxMediaPanels: TScrollBox[0]
     Left = 0
-    Height = 548
-    Top = 114
+    Height = 561
+    Top = 135
     Width = 481
     HorzScrollBar.Page = 1
     VertScrollBar.Page = 1
@@ -16,96 +16,97 @@ inherited fmETKGUISoftMedia: TfmETKGUISoftMedia
     BorderStyle = bsNone
     TabOrder = 0
   end
-  object tbSoftMediaPanel: TToolBar[1]
-    Left = 0
-    Height = 30
-    Top = 666
-    Width = 481
-    Align = alBottom
-    AutoSize = True
-    BorderSpacing.Top = 3
-    Caption = 'tbSoftMediaPanel'
-    Images = ilMediaPanel
-    TabOrder = 1
-    object tbAddImagePanel: TToolButton
-      Left = 1
-      Top = 2
-      Action = actAddImagePanel
-    end
-    object tbAddTextPanel: TToolButton
-      Left = 30
-      Top = 2
-      Action = actAddTextPanel
-    end
-    object tbAddVideoPanel: TToolButton
-      Left = 88
-      Top = 2
-      Action = actAddVideoPanel
-    end
-    object tbAddMusicPanel: TToolButton
-      Left = 59
-      Top = 2
-      Action = actAddMusicPanel
-    end
-    object ToolButton1: TToolButton
-      Left = 117
-      Height = 28
-      Top = 2
-      Caption = 'ToolButton1'
-      Style = tbsSeparator
-    end
-    object tbClearPanels: TToolButton
-      Left = 125
-      Top = 2
-      Action = actClearPanels
-    end
-  end
-  object Splitter1: TSplitter[2]
+  object Splitter1: TSplitter[1]
     Cursor = crVSplit
     Left = 0
     Height = 6
-    Top = 104
+    Top = 125
     Width = 481
     Align = alTop
     ResizeAnchor = akTop
   end
-  object pIconLogo: TGroupBox[3]
+  object pIconLogoButtons: TPanel[2]
     Left = 0
-    Height = 100
+    Height = 121
     Top = 0
     Width = 481
     Align = alTop
-    Caption = 'Icon && Logo'
-    ChildSizing.HorizontalSpacing = 4
-    ClientHeight = 75
-    ClientWidth = 477
-    PopupMenu = pmIconLogo
-    TabOrder = 3
-    OnResize = pIconLogoResize
-    object iIcon: TImage
-      Left = 0
-      Height = 75
-      Top = 0
-      Width = 75
-      Align = alLeft
-      Center = True
-      Proportional = True
-      Stretch = True
-      Transparent = True
+    BevelOuter = bvNone
+    ClientHeight = 121
+    ClientWidth = 481
+    TabOrder = 2
+    object tbSoftMediaPanel: TToolBar
+      Left = 457
+      Height = 118
+      Top = 3
+      Width = 24
+      Align = alRight
+      AutoSize = True
+      BorderSpacing.Top = 3
+      Caption = 'tbSoftMediaPanel'
+      Images = ilMediaPanel
+      TabOrder = 0
+      object tbAddImagePanel: TToolButton
+        Left = 1
+        Top = 2
+        Action = actAddImagePanel
+      end
+      object tbAddTextPanel: TToolButton
+        Left = 1
+        Top = 24
+        Action = actAddTextPanel
+      end
+      object ToolButton1: TToolButton
+        Left = 1
+        Top = 46
+        Width = 23
+        Caption = 'ToolButton1'
+        Style = tbsSeparator
+      end
+      object tbClearPanels: TToolButton
+        Left = 1
+        Top = 68
+        Action = actClearPanels
+      end
     end
-    object iLogo: TImage
-      Left = 79
-      Height = 75
+    object gbxIconLogo: TGroupBox
+      Left = 0
+      Height = 121
       Top = 0
-      Width = 398
+      Width = 457
       Align = alClient
-      Center = True
-      Proportional = True
-      Stretch = True
-      Transparent = True
+      Caption = 'Icon && Logo'
+      ChildSizing.HorizontalSpacing = 4
+      ClientHeight = 96
+      ClientWidth = 453
+      PopupMenu = pmIconLogo
+      TabOrder = 1
+      OnResize = gbxIconLogoResize
+      object iIcon: TImage
+        Left = 0
+        Height = 96
+        Top = 0
+        Width = 96
+        Align = alLeft
+        Center = True
+        Proportional = True
+        Stretch = True
+        Transparent = True
+      end
+      object iLogo: TImage
+        Left = 100
+        Height = 96
+        Top = 0
+        Width = 353
+        Align = alClient
+        Center = True
+        Proportional = True
+        Stretch = True
+        Transparent = True
+      end
     end
   end
-  object alMediaPanel: TActionList[4]
+  object alMediaPanel: TActionList[3]
     Images = ilMediaPanel
     Left = 40
     Top = 256
@@ -118,16 +119,6 @@ inherited fmETKGUISoftMedia: TfmETKGUISoftMedia
       Category = 'Panels'
       Caption = 'Add text panel'
       OnExecute = actAddTextPanelExecute
-    end
-    object actAddMusicPanel: TAction
-      Category = 'Panels'
-      Caption = 'Add music panel'
-      OnExecute = actAddMusicPanelExecute
-    end
-    object actAddVideoPanel: TAction
-      Category = 'Panels'
-      Caption = 'actAddVideoPanel'
-      OnExecute = actAddVideoPanelExecute
     end
     object actClearPanels: TAction
       Category = 'Panels'
@@ -143,11 +134,11 @@ inherited fmETKGUISoftMedia: TfmETKGUISoftMedia
       OnExecute = actLoadMediaFilesExecute
     end
   end
-  object ilMediaPanel: TImageList[5]
+  object ilMediaPanel: TImageList[4]
     Left = 152
     Top = 256
   end
-  object pmIconLogo: TPopupMenu[6]
+  object pmIconLogo: TPopupMenu[5]
     Images = ilMediaPanel
     Left = 24
     Top = 152
