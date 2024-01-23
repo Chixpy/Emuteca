@@ -4,7 +4,7 @@ unit ucETKGUIConfig;
 
   This file is part of Emuteca GUI.
 
-  Copyright (C) 2006-2019 Chixpy
+  Copyright (C) 2006-2024 Chixpy
 }
 {$mode objfpc}{$H+}
 
@@ -74,6 +74,10 @@ const
   krsDefETKIconBorder = 'Tools/ETKIconBorder.exe';
   krsKeyETKDBEditor = 'ETKDBEditor';
   krsDefETKDBEditor = 'Tools/ETKDBEditor.exe';
+  krsKeyETKMagCut = 'ETKMagCut';
+  krsDefETKMagCut = 'Tools/ETKMagCut.exe';
+  krsKeyETKPDF2CBX = 'ETKPDF2CBX';
+  krsDefETKPDF2CBX = 'Tools/ETKPDF2CBX.exe';
 
   // [Experimental]
   krsSectionExperimental = 'Experimental';
@@ -91,100 +95,105 @@ type
   }
   cETKGUIConfig = class(caCHXConfig)
   private
-    FCurrSystem: string;
-    FETKDBEditor: string;
-    FDefImgFolder: string;
-    FEmutecaIni: string;
-    FGlobalCache: string;
-    FETKIconBorder: string;
-    FImageExtensions: TStringList;
-    FLangFolder: string;
-    FMusicExtensions: TStringList;
-    FScriptsFolder: string;
-    FTextExtensions: TStringList;
-    FVideoExtensions: TStringList;
-    Fw7zErrorFileName: string;
-    FZoneIcnFolder: string;
-    FHelpFolder: string;
-    FGUIIcnFile: string;
-    FSearchFile: string;
-    FDumpIcnFolder: string;
-    procedure SetCurrSystem(AValue: string);
-    procedure SetETKDBEditor(AValue: string);
-    procedure SetDefImgFolder(AValue: string);
-    procedure SetEmutecaIni(AValue: string);
-    procedure SetGlobalCache(AValue: string);
-    procedure SetETKIconBorder(AValue: string);
-    procedure SetLangFolder(const AValue: string);
-    procedure SetScriptsFolder(AValue: string);
-    procedure Setw7zErrorFileName(AValue: string);
-    procedure SetZoneIcnFolder(AValue: string);
-    procedure SetHelpFolder(AValue: string);
-    procedure SetGUIIcnFile(AValue: string);
-    procedure SetSearchFile(AValue: string);
-    procedure SetDumpIcnFolder(AValue: string);
-
+    FCurrSystem : string;
+    FETKDBEditor : string;
+    FDefImgFolder : string;
+    FEmutecaIni : string;
+    FETKMagCut : string;
+    FETKPDF2CBX : string;
+    FGlobalCache : string;
+    FETKIconBorder : string;
+    FImageExtensions : TStringList;
+    FLangFolder : string;
+    FMusicExtensions : TStringList;
+    FScriptsFolder : string;
+    FTextExtensions : TStringList;
+    FVideoExtensions : TStringList;
+    Fw7zErrorFileName : string;
+    FZoneIcnFolder : string;
+    FHelpFolder : string;
+    FGUIIcnFile : string;
+    FSearchFile : string;
+    FDumpIcnFolder : string;
+    procedure SetCurrSystem(AValue : string);
+    procedure SetETKDBEditor(AValue : string);
+    procedure SetDefImgFolder(AValue : string);
+    procedure SetEmutecaIni(AValue : string);
+    procedure SetETKMagCut(const aValue : string);
+    procedure SetETKPDF2CBX(const aValue : string);
+    procedure SetGlobalCache(AValue : string);
+    procedure SetETKIconBorder(AValue : string);
+    procedure SetLangFolder(const AValue : string);
+    procedure SetScriptsFolder(AValue : string);
+    procedure Setw7zErrorFileName(AValue : string);
+    procedure SetZoneIcnFolder(AValue : string);
+    procedure SetHelpFolder(AValue : string);
+    procedure SetGUIIcnFile(AValue : string);
+    procedure SetSearchFile(AValue : string);
+    procedure SetDumpIcnFolder(AValue : string);
   public
     procedure ResetDefaultConfig; override;
 
-    procedure LoadFromIni(IniFile: TMemIniFile); override;
-    procedure SaveToIni(IniFile: TMemIniFile); override;
+    procedure LoadFromIni(IniFile : TMemIniFile); override;
+    procedure SaveToIni(IniFile : TMemIniFile); override;
 
 
-    constructor Create(aOwner: TComponent); override;
+    constructor Create(aOwner : TComponent); override;
     destructor Destroy; override;
 
   published
     // Images
     // ------
-    property DefImgFolder: string read FDefImgFolder write SetDefImgFolder;
+    property DefImgFolder : string read FDefImgFolder write SetDefImgFolder;
     //< Folder with default images and icons for soft, parents and systems.
-    property GUIIcnFile: string read FGUIIcnFile write SetGUIIcnFile;
+    property GUIIcnFile : string read FGUIIcnFile write SetGUIIcnFile;
     //< File for GUI Icons
-    property ZoneIcnFolder: string read FZoneIcnFolder write SetZoneIcnFolder;
+    property ZoneIcnFolder : string read FZoneIcnFolder write SetZoneIcnFolder;
     //< Folder with flags of zones
-    property DumpIcnFolder: string read FDumpIcnFolder write SetDumpIcnFolder;
+    property DumpIcnFolder : string read FDumpIcnFolder write SetDumpIcnFolder;
     //< Folder with icons for Dump Status
-    property ImageExtensions: TStringList read FImageExtensions;
+    property ImageExtensions : TStringList read FImageExtensions;
 
     // Texts
     // -----
-    property TextExtensions: TStringList read FTextExtensions;
+    property TextExtensions : TStringList read FTextExtensions;
     //< Text extensions for search.
 
     // Videos
     // ------
-    property VideoExtensions: TStringList read FVideoExtensions;
+    property VideoExtensions : TStringList read FVideoExtensions;
     //< Video extensions for search.
 
     // Music
     // -----
-    property MusicExtensions: TStringList read FMusicExtensions;
+    property MusicExtensions : TStringList read FMusicExtensions;
     //< Music extensions for search.
 
     // Tools
     // -----
-    property ScriptsFolder: string read FScriptsFolder write SetScriptsFolder;
-    property ETKIconBorder: string read FETKIconBorder write SetETKIconBorder;
-    property ETKDBEditor: string read FETKDBEditor write SetETKDBEditor;
+    property ScriptsFolder : string read FScriptsFolder write SetScriptsFolder;
+    property ETKIconBorder : string read FETKIconBorder write SetETKIconBorder;
+    property ETKDBEditor : string read FETKDBEditor write SetETKDBEditor;
+    property ETKMagCut : string read FETKMagCut write SetETKMagCut;
+    property ETKPDF2CBX : string read FETKPDF2CBX write SetETKPDF2CBX;
 
     // Config/Data
     // -----------
-    property EmutecaIni: string read FEmutecaIni write SetEmutecaIni;
+    property EmutecaIni : string read FEmutecaIni write SetEmutecaIni;
     //< Emuteca config file.
-    property LangFolder: string read FLangFolder write SetLangFolder;
+    property LangFolder : string read FLangFolder write SetLangFolder;
     //< Folder of languajes files.
-    property CurrSystem: string read FCurrSystem write SetCurrSystem;
+    property CurrSystem : string read FCurrSystem write SetCurrSystem;
     //< Last system used.
-    property HelpFolder: string read FHelpFolder write SetHelpFolder;
+    property HelpFolder : string read FHelpFolder write SetHelpFolder;
     //< Folder with help.
-    property SearchFile: string read FSearchFile write SetSearchFile;
+    property SearchFile : string read FSearchFile write SetSearchFile;
     //< File with search configuration
 
     // Experimental
-    property GlobalCache: string read FGlobalCache write SetGlobalCache;
+    property GlobalCache : string read FGlobalCache write SetGlobalCache;
 
-    property w7zErrorFileName: string read Fw7zErrorFileName
+    property w7zErrorFileName : string read Fw7zErrorFileName
       write Setw7zErrorFileName;
   end;
 
@@ -192,74 +201,84 @@ implementation
 
 { cETKGUIConfig }
 
-procedure cETKGUIConfig.SetDefImgFolder(AValue: string);
+procedure cETKGUIConfig.SetDefImgFolder(AValue : string);
 begin
   FDefImgFolder := SetAsFolder(AValue);
 end;
 
-procedure cETKGUIConfig.SetCurrSystem(AValue: string);
+procedure cETKGUIConfig.SetCurrSystem(AValue : string);
 begin
   if FCurrSystem = AValue then
     Exit;
   FCurrSystem := AValue;
 end;
 
-procedure cETKGUIConfig.SetETKDBEditor(AValue: string);
+procedure cETKGUIConfig.SetETKDBEditor(AValue : string);
 begin
   FETKDBEditor := SetAsFile(AValue);
 end;
 
-procedure cETKGUIConfig.SetEmutecaIni(AValue: string);
+procedure cETKGUIConfig.SetEmutecaIni(AValue : string);
 begin
   FEmutecaIni := SetAsFile(AValue);
 end;
 
-procedure cETKGUIConfig.SetGlobalCache(AValue: string);
+procedure cETKGUIConfig.SetETKMagCut(const aValue : string);
+begin
+  FETKMagCut := SetAsFile(AValue);
+end;
+
+procedure cETKGUIConfig.SetETKPDF2CBX(const aValue : string);
+begin
+  FETKPDF2CBX := SetAsFile(AValue);
+end;
+
+procedure cETKGUIConfig.SetGlobalCache(AValue : string);
 begin
   FGlobalCache := SetAsFolder(AValue);
 end;
 
-procedure cETKGUIConfig.SetETKIconBorder(AValue: string);
+procedure cETKGUIConfig.SetETKIconBorder(AValue : string);
 begin
   FETKIconBorder := SetAsFile(AValue);
 end;
 
-procedure cETKGUIConfig.SetLangFolder(const AValue: string);
+procedure cETKGUIConfig.SetLangFolder(const AValue : string);
 begin
   FLangFolder := SetAsFolder(AValue);
 end;
 
-procedure cETKGUIConfig.SetScriptsFolder(AValue: string);
+procedure cETKGUIConfig.SetScriptsFolder(AValue : string);
 begin
   FScriptsFolder := SetAsFolder(AValue);
 end;
 
-procedure cETKGUIConfig.Setw7zErrorFileName(AValue: string);
+procedure cETKGUIConfig.Setw7zErrorFileName(AValue : string);
 begin
   Fw7zErrorFileName := SetAsFile(AValue);
 end;
 
-procedure cETKGUIConfig.SetZoneIcnFolder(AValue: string);
+procedure cETKGUIConfig.SetZoneIcnFolder(AValue : string);
 begin
   FZoneIcnFolder := SetAsFolder(AValue);
 end;
 
-procedure cETKGUIConfig.SetHelpFolder(AValue: string);
+procedure cETKGUIConfig.SetHelpFolder(AValue : string);
 begin
   FHelpFolder := SetAsFolder(AValue);
 end;
 
-procedure cETKGUIConfig.SetGUIIcnFile(AValue: string);
+procedure cETKGUIConfig.SetGUIIcnFile(AValue : string);
 begin
   FGUIIcnFile := SetAsFile(AValue);
 end;
 
-procedure cETKGUIConfig.SetSearchFile(AValue: string);
+procedure cETKGUIConfig.SetSearchFile(AValue : string);
 begin
   FSearchFile := SetAsFile(AValue);
 end;
 
-procedure cETKGUIConfig.SetDumpIcnFolder(AValue: string);
+procedure cETKGUIConfig.SetDumpIcnFolder(AValue : string);
 begin
   FDumpIcnFolder := SetAsFolder(AValue);
 end;
@@ -293,29 +312,33 @@ begin
   ScriptsFolder := krsDefScriptsFolder;
   ETKIconBorder := krsDefETKIconBorder;
   ETKDBEditor := krsDefETKDBEditor;
+  ETKMagCut := krsDefETKMagCut;
+  ETKPDF2CBX := krsDefETKPDF2CBX;
 
   // Experimental
   GlobalCache := krsDefGlobalCache;
   w7zErrorFileName := krsDefw7zErrorFileName;
 end;
 
-procedure cETKGUIConfig.LoadFromIni(IniFile: TMemIniFile);
+procedure cETKGUIConfig.LoadFromIni(IniFile : TMemIniFile);
 begin
   // Images
   DefImgFolder := IniFile.ReadString(krsSectionImages,
     krsKeyDefImgFolder, DefImgFolder);
   ZoneIcnFolder := IniFile.ReadString(krsSectionImages,
     krsKeyZoneIcnFolder, ZoneIcnFolder);
-  DumpIcnFolder := IniFile.ReadString(krsSectionImages, krsKeyDumpIcnFolder,
-    DumpIcnFolder);
+  DumpIcnFolder := IniFile.ReadString(krsSectionImages,
+    krsKeyDumpIcnFolder, DumpIcnFolder);
   GUIIcnFile := IniFile.ReadString(krsSectionImages, krsKeyGUIIcnFile,
     GUIIcnFile);
   ImageExtensions.CommaText :=
-    IniFile.ReadString(krsSectionImages, krsKeyImgExt, ImageExtensions.CommaText);
+    IniFile.ReadString(krsSectionImages, krsKeyImgExt,
+    ImageExtensions.CommaText);
 
   // Texts
   TextExtensions.CommaText :=
-    IniFile.ReadString(krsSectionTexts, krsKeyTxtExt, TextExtensions.CommaText);
+    IniFile.ReadString(krsSectionTexts, krsKeyTxtExt,
+    TextExtensions.CommaText);
 
   // Video
   VideoExtensions.CommaText :=
@@ -342,10 +365,14 @@ begin
   // Tools
   ScriptsFolder := IniFile.ReadString(krsSectionTools,
     krsKeyScriptsFolder, ScriptsFolder);
-  ETKIconBorder := IniFile.ReadString(krsSectionTools, krsKeyETKIconBorder,
-    ETKIconBorder);
+  ETKIconBorder := IniFile.ReadString(krsSectionTools,
+    krsKeyETKIconBorder, ETKIconBorder);
   ETKDBEditor := IniFile.ReadString(krsSectionTools, krsKeyETKDBEditor,
     ETKDBEditor);
+  ETKMagCut := IniFile.ReadString(krsSectionTools, krsKeyETKMagCut,
+    ETKMagCut);
+  ETKPDF2CBX := IniFile.ReadString(krsSectionTools, krsKeyETKPDF2CBX,
+    ETKPDF2CBX);
 
   // Experimental
   GlobalCache := IniFile.ReadString(krsSectionExperimental,
@@ -354,7 +381,7 @@ begin
     krsKeyw7zErrorFileName, w7zErrorFileName);
 end;
 
-procedure cETKGUIConfig.SaveToIni(IniFile: TMemIniFile);
+procedure cETKGUIConfig.SaveToIni(IniFile : TMemIniFile);
 begin
   // Images
   IniFile.WriteString(krsSectionImages, krsKeyDefImgFolder, DefImgFolder);
@@ -386,13 +413,14 @@ begin
   IniFile.WriteString(krsSectionTools, krsKeyScriptsFolder, ScriptsFolder);
   IniFile.WriteString(krsSectionTools, krsKeyETKIconBorder, ETKIconBorder);
   IniFile.WriteString(krsSectionTools, krsKeyETKDBEditor, ETKDBEditor);
+  IniFile.WriteString(krsSectionTools, krsKeyETKMagCut, ETKMagCut);
+  IniFile.WriteString(krsSectionTools, krsKeyETKPDF2CBX, ETKPDF2CBX);
 
   IniFile.WriteString(krsSectionExperimental, krsKeyGlobalCache, GlobalCache);
-  IniFile.WriteString(krsSectionExperimental, krsKeyw7zErrorFileName,
-    w7zErrorFileName);
+  IniFile.WriteString(krsSectionExperimental, krsKeyw7zErrorFileName, w7zErrorFileName);
 end;
 
-constructor cETKGUIConfig.Create(aOwner: TComponent);
+constructor cETKGUIConfig.Create(aOwner : TComponent);
 begin
 
   // We must create objects before calling inherited, because

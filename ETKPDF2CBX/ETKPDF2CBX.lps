@@ -70,7 +70,7 @@
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="1"/>
         <TopLine Value="313"/>
-        <CursorPos X="3" Y="315"/>
+        <CursorPos Y="315"/>
         <UsageCount Value="67"/>
         <Loaded Value="True"/>
       </Unit>
@@ -100,7 +100,7 @@
         <ResourceBaseClass Value="Frame"/>
         <IsVisibleTab Value="True"/>
         <TopLine Value="469"/>
-        <CursorPos X="20" Y="483"/>
+        <CursorPos X="7" Y="483"/>
         <UsageCount Value="65"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>

@@ -1307,20 +1307,40 @@ msgstr ""
 msgid "Assign file"
 msgstr ""
 
+#: tfmetkguimediamanager.actassignfile.hint
+msgid "Assign file to current group/software.|Renames current file to selected group/software sortkey."
+msgstr ""
+
 #: tfmetkguimediamanager.actassigntogroup.caption
 msgid "Assign to Group"
+msgstr ""
+
+#: tfmetkguimediamanager.actassigntogroup.hint
+msgid "Assign file to current software's group.|Renames current file to group's sortkey of selected software."
 msgstr ""
 
 #: tfmetkguimediamanager.actautoassign.caption
 msgid "Auto Assign"
 msgstr ""
 
+#: tfmetkguimediamanager.actautoassign.hint
+msgid "Assign automatically all matched files.|Moves all files wich match with current group/software list."
+msgstr ""
+
 #: tfmetkguimediamanager.actdeleteallfiles.caption
 msgid "Delete all files"
 msgstr ""
 
+#: tfmetkguimediamanager.actdeleteallfiles.hint
+msgid "Delete all visible files.|Removes from disk all visible files in the list."
+msgstr ""
+
 #: tfmetkguimediamanager.actdeletefile.caption
 msgid "Delete file"
+msgstr ""
+
+#: tfmetkguimediamanager.actdeletefile.hint
+msgid "Delete current file.|Removes from disk select file."
 msgstr ""
 
 #: tfmetkguimediamanager.acteditgroup.caption
@@ -1328,16 +1348,32 @@ msgctxt "tfmetkguimediamanager.acteditgroup.caption"
 msgid "Edit Group..."
 msgstr ""
 
+#: tfmetkguimediamanager.acteditgroup.hint
+msgid "Edit current group.|Opens a form for edit current group."
+msgstr ""
+
 #: tfmetkguimediamanager.acteditsoft.caption
-msgid "Edit Software"
+msgid "Edit Software..."
+msgstr ""
+
+#: tfmetkguimediamanager.acteditsoft.hint
+msgid "Edit current software.|Opens a form to edit current software."
 msgstr ""
 
 #: tfmetkguimediamanager.actmoveallfiles.caption
 msgid "Move all files..."
 msgstr ""
 
+#: tfmetkguimediamanager.actmoveallfiles.hint
+msgid "Move all visible files to another folder.|Opens a dialog asking a folder where all visible files in the list will be moved."
+msgstr ""
+
 #: tfmetkguimediamanager.actmovefile.caption
 msgid "Move file..."
+msgstr ""
+
+#: tfmetkguimediamanager.actmovefile.hint
+msgid "Move current file to another folder.|Opens a dialog ask a folder where the file will be moved."
 msgstr ""
 
 #: tfmetkguimediamanager.actopenfiledefapp.caption
@@ -1348,12 +1384,24 @@ msgstr ""
 msgid "Open Target Folder"
 msgstr ""
 
+#: tfmetkguimediamanager.actopentargetfolder.hint
+msgid "Open current media base folder in explorer.|Opens in explorer"
+msgstr ""
+
 #: tfmetkguimediamanager.actrenamefile.caption
 msgid "Rename file manually..."
 msgstr ""
 
+#: tfmetkguimediamanager.actrenamefile.hint
+msgid "Rename current file.|Opens a dialog asking a new filename."
+msgstr ""
+
 #: tfmetkguimediamanager.actrenamegrouptitlewithfilename.caption
-msgid "Rename group title with current file"
+msgid "File to Group Title..."
+msgstr ""
+
+#: tfmetkguimediamanager.actrenamegrouptitlewithfilename.hint
+msgid "Rename group title with current file.|Opens a form to edit current group with title changed to current file."
 msgstr ""
 
 #: tfmetkguimediamanager.actrenamesofttitlewithfilename.caption
@@ -1363,6 +1411,10 @@ msgstr ""
 #: tfmetkguimediamanager.actrunsoftware.caption
 msgctxt "tfmetkguimediamanager.actrunsoftware.caption"
 msgid "Run software"
+msgstr ""
+
+#: tfmetkguimediamanager.actrunsoftware.hint
+msgid "Run current software.|Runs current software with default system emulator."
 msgstr ""
 
 #: tfmetkguimediamanager.chkcopyfile.caption
@@ -1768,7 +1820,7 @@ msgid "Scan files from folder..."
 msgstr ""
 
 #: tfrmetkguimain.actaddfolder.hint
-msgid "Scan files from folder...|Open form to add software from a folder."
+msgid "Scan files from folder...|Open a form to add software from a folder."
 msgstr ""
 
 #: tfrmetkguimain.actaddsoft.caption
@@ -1776,7 +1828,7 @@ msgid "Add Software..."
 msgstr ""
 
 #: tfrmetkguimain.actaddsoft.hint
-msgid "Add Software...|Open form to add a software file."
+msgid "Add Software...|Opens a form to add a software file."
 msgstr ""
 
 #: tfrmetkguimain.actcleansystemdata.caption
@@ -1784,11 +1836,15 @@ msgid "Clean system data"
 msgstr ""
 
 #: tfrmetkguimain.actcleansystemdata.hint
-msgid "Clean current system data|Cleans current system soft not found and groups without soft"
+msgid "Clean current system data|Cleans current system soft not found and groups without soft."
 msgstr ""
 
 #: tfrmetkguimain.actcopyfilename2clipboard.caption
 msgid "Copy Filename to Clipboard"
+msgstr ""
+
+#: tfrmetkguimain.actcopyfilename2clipboard.hint
+msgid "Copy Filename to Clipboard.|Copies current software filename to clipboard."
 msgstr ""
 
 #: tfrmetkguimain.acteditemulator.caption
@@ -1796,7 +1852,7 @@ msgid "Edit emulator..."
 msgstr ""
 
 #: tfrmetkguimain.acteditemulator.hint
-msgid "Edit emulator...|Open editor for current emulator."
+msgid "Edit emulator...|Opens editor for current emulator."
 msgstr ""
 
 #: tfrmetkguimain.acteditgroup.caption
@@ -1804,12 +1860,16 @@ msgctxt "tfrmetkguimain.acteditgroup.caption"
 msgid "Edit Group..."
 msgstr ""
 
+#: tfrmetkguimain.acteditgroup.hint
+msgid "Edit current group|Opens Group Editor with current group."
+msgstr ""
+
 #: tfrmetkguimain.acteditsystem.caption
 msgid "Edit system..."
 msgstr ""
 
 #: tfrmetkguimain.acteditsystem.hint
-msgid "Edit system...|Open current system editor."
+msgid "Edit system...|Opens system editor with current system."
 msgstr ""
 
 #: tfrmetkguimain.actemulatormanager.caption
@@ -1817,7 +1877,7 @@ msgid "Emulator Manager..."
 msgstr ""
 
 #: tfrmetkguimain.actemulatormanager.hint
-msgid "Emulator Manager...|Open Emulator Manager."
+msgid "Emulator Manager...|Opens Emulator Manager."
 msgstr ""
 
 #: tfrmetkguimain.actexit.caption
@@ -1826,7 +1886,7 @@ msgid "Exit"
 msgstr ""
 
 #: tfrmetkguimain.actexit.hint
-msgid "Exit Emuteca|Exits Emuteca saving changes."
+msgid "Exit Emuteca|Exits Emuteca, saving changes."
 msgstr ""
 
 #: tfrmetkguimain.actexitwosaving.caption
@@ -1836,7 +1896,7 @@ msgstr ""
 
 #: tfrmetkguimain.actexitwosaving.hint
 msgctxt "tfrmetkguimain.actexitwosaving.hint"
-msgid "Exit Emuteca|Exits Emuteca without saving changes."
+msgid "Exit Emuteca|Exits Emuteca, without saving changes."
 msgstr ""
 
 #: tfrmetkguimain.actexportsoftdata.caption
@@ -1844,7 +1904,7 @@ msgid "Export software data..."
 msgstr ""
 
 #: tfrmetkguimain.actexportsoftdata.hint
-msgid "Export software data...|Open form to export software data."
+msgid "Export software data...|Opens a form to export software data."
 msgstr ""
 
 #: tfrmetkguimain.actimportsoftdata.caption
@@ -1852,7 +1912,7 @@ msgid "Import software data..."
 msgstr ""
 
 #: tfrmetkguimain.actimportsoftdata.hint
-msgid "Import software data...|Open form to import software data."
+msgid "Import software data...|Opens a form to import software data."
 msgstr ""
 
 #: tfrmetkguimain.actmediamanager.caption
@@ -1860,7 +1920,7 @@ msgid "Media Manager..."
 msgstr ""
 
 #: tfrmetkguimain.actmediamanager.hint
-msgid "Media Manager...|Open Media Manager."
+msgid "Media Manager...|Opens Media Manager."
 msgstr ""
 
 #: tfrmetkguimain.actmergegroupfiles.caption
@@ -1868,7 +1928,7 @@ msgid "Merge group files..."
 msgstr ""
 
 #: tfrmetkguimain.actmergegroupfiles.hint
-msgid "Merge group files...|Open form to merge current group's sofware in same compressed file."
+msgid "Merge group files...|Opens a form to merge current group's sofware in same compressed file."
 msgstr ""
 
 #: tfrmetkguimain.actopen7zcachefolder.caption
@@ -1876,7 +1936,7 @@ msgid "Open 7z cache folder..."
 msgstr ""
 
 #: tfrmetkguimain.actopen7zcachefolder.hint
-msgid "Open 7z caché folder...|Open 7z caché folder."
+msgid "Open 7z caché folder...|Opens 7z caché folder in Explorer."
 msgstr ""
 
 #: tfrmetkguimain.actopenemulatorfolder.caption
@@ -1884,11 +1944,15 @@ msgid "Open emulator folder..."
 msgstr ""
 
 #: tfrmetkguimain.actopenemulatorfolder.hint
-msgid "Open emulator folder...|Open current emulator folder."
+msgid "Open emulator folder...|Opens current emulator folder in Explorer."
 msgstr ""
 
 #: tfrmetkguimain.actopenemulatorweb.caption
 msgid "Open emulator website..."
+msgstr ""
+
+#: tfrmetkguimain.actopenemulatorweb.hint
+msgid "Open emulator website.|Open current emulator's website in the default internet navigator."
 msgstr ""
 
 #: tfrmetkguimain.actopenemutecafolder.caption
@@ -1896,7 +1960,7 @@ msgid "Open Emuteca's folder..."
 msgstr ""
 
 #: tfrmetkguimain.actopenemutecafolder.hint
-msgid "Open Emuteca's folder...|Open Emuteca's program folder."
+msgid "Open Emuteca's folder...|Opens Emuteca's program folder in Explorer."
 msgstr ""
 
 #: tfrmetkguimain.actopensoftfolder.caption
@@ -1904,7 +1968,7 @@ msgid "Open software folder..."
 msgstr ""
 
 #: tfrmetkguimain.actopensoftfolder.hint
-msgid "Open software folder...|Open current software folder."
+msgid "Open software folder...|Opens current software folder in Explorer."
 msgstr ""
 
 #: tfrmetkguimain.actopensystembasefolder.caption
@@ -1912,7 +1976,7 @@ msgid "Open system base folder..."
 msgstr ""
 
 #: tfrmetkguimain.actopensystembasefolder.hint
-msgid "Open system base folder...|Open current system base folder."
+msgid "Open system base folder...|Opens current system base folder in Explorer."
 msgstr ""
 
 #: tfrmetkguimain.actopentempfolder.caption
@@ -1920,47 +1984,67 @@ msgid "Open Emuteca's Temp folder..."
 msgstr ""
 
 #: tfrmetkguimain.actopentempfolder.hint
-msgid "Open Emuteca's Temp folder...|Open Emuteca's temporal folder."
+msgid "Open Emuteca's Temp folder...|Opens Emuteca's temporal folder in Explorer.."
 msgstr ""
 
 #: tfrmetkguimain.actremovesoft.caption
 msgid "Remove software from list"
 msgstr ""
 
-#: tfrmetkguimain.actrundbeditorgroups.caption
-msgid "DB Editor with Group List"
-msgstr ""
-
-#: tfrmetkguimain.actrundbeditorgroups.hint
-msgid "Run DBEditor with current group list.|Runs DBEditor, exporting current group list and importing it after it was edited. "
-msgstr ""
-
-#: tfrmetkguimain.actrundbeditorsoft.caption
-msgid "DB Editor with Soft List"
-msgstr ""
-
-#: tfrmetkguimain.actrundbeditorsoft.hint
-msgid "Run DBEditor with current group list.|Runs DBEditor, exporting current soft list and importing it after it was edited. "
+#: tfrmetkguimain.actremovesoft.hint
+msgid "Remove current software|Removes current software from Emuteca list (It don't delete actual file from disk)."
 msgstr ""
 
 #: tfrmetkguimain.actrunemulatoralone.caption
 msgid "Run emulator alone."
 msgstr ""
 
-#: tfrmetkguimain.actrunetkiconbordericon.caption
-msgid "ETKIconBorder (Icon)"
+#: tfrmetkguimain.actrunemulatoralone.hint
+msgid "Run emulator without software|Runs current emulator without any software."
 msgstr ""
 
-#: tfrmetkguimain.actrunetkiconbordericon.hint
-msgid "Run ETKIconBorder using system's icon folder as output."
+#: tfrmetkguimain.actrunetkdbeditorgroup.caption
+msgctxt "tfrmetkguimain.actrunetkdbeditorgroup.caption"
+msgid "DB Editor with Group List"
 msgstr ""
 
-#: tfrmetkguimain.actrunetkiconborderlogo.caption
-msgid "ETKIconBorder (Logo)"
+#: tfrmetkguimain.actrunetkdbeditorgroup.hint
+msgctxt "tfrmetkguimain.actrunetkdbeditorgroup.hint"
+msgid "Run DBEditor with current group list.|Runs DBEditor, exporting current group list and importing it after it was edited. "
 msgstr ""
 
-#: tfrmetkguimain.actrunetkiconborderlogo.hint
-msgid "Run ETKIconBorder using system's logo folder as output."
+#: tfrmetkguimain.actrunetkdbeditorsoft.caption
+msgctxt "tfrmetkguimain.actrunetkdbeditorsoft.caption"
+msgid "DB Editor with Soft List"
+msgstr ""
+
+#: tfrmetkguimain.actrunetkdbeditorsoft.hint
+msgctxt "tfrmetkguimain.actrunetkdbeditorsoft.hint"
+msgid "Run DBEditor with current soft list.|Runs DBEditor, exporting current soft list and importing it after it was edited. "
+msgstr ""
+
+#: tfrmetkguimain.actrunetkiconborder.caption
+msgid "ETKIconBorder"
+msgstr ""
+
+#: tfrmetkguimain.actrunetkiconborder.hint
+msgid "Run ETKIconBorder.|Runs ETKIconBorder for creating icons and logos."
+msgstr ""
+
+#: tfrmetkguimain.actrunetkmagcut.caption
+msgid "ETKMagCut"
+msgstr ""
+
+#: tfrmetkguimain.actrunetkmagcut.hint
+msgid "Run ETKMagCut.|Runs ETKMagCut for extracting magazine articles."
+msgstr ""
+
+#: tfrmetkguimain.actrunetkpdf2cbx.caption
+msgid "ETKPDF2CBX"
+msgstr ""
+
+#: tfrmetkguimain.actrunetkpdf2cbx.hint
+msgid "Run ETKMagCut.|Runs ETKPDF2CBX for extracting magazine pages from PDFs."
 msgstr ""
 
 #: tfrmetkguimain.actrunsoftware.caption
@@ -1969,7 +2053,7 @@ msgid "Run software"
 msgstr ""
 
 #: tfrmetkguimain.actrunsoftware.hint
-msgid "Run software.|Run current software."
+msgid "Run software.|Runs current software with current emulator."
 msgstr ""
 
 #: tfrmetkguimain.actsavelists.caption
@@ -1985,7 +2069,7 @@ msgid "Script Manager..."
 msgstr ""
 
 #: tfrmetkguimain.actscriptmanager.hint
-msgid "Script Manager...|Open Script Manager."
+msgid "Script Manager...|Opens Script Manager."
 msgstr ""
 
 #: tfrmetkguimain.actsystemmanager.caption
@@ -1993,7 +2077,7 @@ msgid "System Manager..."
 msgstr ""
 
 #: tfrmetkguimain.actsystemmanager.hint
-msgid "System Manager...|Open System Manager."
+msgid "System Manager...|Opens System Manager."
 msgstr ""
 
 #: tfrmetkguimain.actupdategrouplist.caption
@@ -2001,7 +2085,7 @@ msgid "Update group list"
 msgstr ""
 
 #: tfrmetkguimain.actupdategrouplist.hint
-msgid "Update group list.|Reload group list to update changes."
+msgid "Update group list.|Reloads group list to update changes."
 msgstr ""
 
 #: tfrmetkguimain.caption

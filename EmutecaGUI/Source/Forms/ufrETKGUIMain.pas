@@ -4,7 +4,7 @@ unit ufrETKGUIMain;
 
   This file is part of Emuteca GUI.
 
-  Copyright (C) 2011-2023 Chixpy
+  Copyright (C) 2011-2024 Chixpy
 }
 {$mode objfpc}{$H+}
 
@@ -62,10 +62,11 @@ type
     actEditGroup : TAction;
     actExitWOSaving : TAction;
     actCopyFileName2ClipBoard : TAction;
-    actRunDBEditorSoft : TAction;
-    actRunDBEditorGroups : TAction;
-    actRunETKIconBorderLogo : TAction;
-    actRunETKIconBorderIcon : TAction;
+    actRunETKPDF2CBX : TAction;
+    actRunETKDBEditorSoft : TAction;
+    actRunETKDBEditorGroup : TAction;
+    actRunETKMagCut : TAction;
+    actRunETKIconBorder : TAction;
     actRemoveSoft : TAction;
     actOpenEmulatorWeb : TAction;
     actRunEmulatorAlone : TAction;
@@ -86,6 +87,7 @@ type
     actExit : TFileExit;
     HelpOnHelp1 : THelpOnHelp;
     MainMenu : TMainMenu;
+    mimmRunETKPDF2CBX : TMenuItem;
     mipmSCopyFileName2ClipBoard : TMenuItem;
     mimmRunDBEditorSoft : TMenuItem;
     mimmRunDBEditorGroups : TMenuItem;
@@ -167,11 +169,12 @@ type
     procedure actOpenTempFolderExecute(Sender : TObject);
     procedure actRemoveSoftExecute(Sender : TObject);
     procedure actRunDBEditorExecute(Sender : TObject);
-    procedure actRunDBEditorGroupsExecute(Sender : TObject);
-    procedure actRunDBEditorSoftExecute(Sender : TObject);
+    procedure actRunETKDBEditorGroupExecute(Sender : TObject);
+    procedure actRunETKDBEditorSoftExecute(Sender : TObject);
     procedure actRunEmulatorAloneExecute(Sender : TObject);
-    procedure actRunETKIconBorderIconExecute(Sender : TObject);
-    procedure actRunETKIconBorderLogoExecute(Sender : TObject);
+    procedure actRunETKIconBorderExecute(Sender : TObject);
+    procedure actRunETKMagCutExecute(Sender : TObject);
+    procedure actRunETKPDF2CBXExecute(Sender : TObject);
     procedure actRunSoftwareExecute(Sender : TObject);
     procedure actSaveListsExecute(Sender : TObject);
     procedure actScriptManagerExecute(Sender : TObject);
@@ -561,8 +564,8 @@ begin
   // Fix runtime errors, while trying to update if something is changed
   fmEmutecaMainFrame.Emuteca := nil;
 
-  TfmEmutecaActAddSoft.SimpleForm(Emuteca, CurrentSystem, GUIIconsFile,
-    GUIConfig.DefaultFileName);
+  TfmEmutecaActAddSoft.SimpleForm(Emuteca, CurrentSystem,
+    GUIConfig.DefaultFileName, GUIIconsFile);
 
   fmEmutecaMainFrame.Emuteca := Emuteca;
 end;
@@ -752,7 +755,7 @@ begin
     GUIConfig.ETKDBEditor, '', sError, sOutput, ExitC);
 end;
 
-procedure TfrmETKGUIMain.actRunDBEditorGroupsExecute(Sender : TObject);
+procedure TfrmETKGUIMain.actRunETKDBEditorGroupExecute(Sender : TObject);
 var
   SysPBCB : TEmutecaProgressCallBack;
   aFileWOExt : string;
@@ -805,7 +808,7 @@ begin
   fmEmutecaMainFrame.Emuteca := Emuteca;
 end;
 
-procedure TfrmETKGUIMain.actRunDBEditorSoftExecute(Sender : TObject);
+procedure TfrmETKGUIMain.actRunETKDBEditorSoftExecute(Sender : TObject);
 var
   SysPBCB : TEmutecaProgressCallBack;
   aFileWOExt : string;
@@ -863,7 +866,7 @@ begin
   CurrentEmu.ExecuteAlone;
 end;
 
-procedure TfrmETKGUIMain.actRunETKIconBorderIconExecute(Sender : TObject);
+procedure TfrmETKGUIMain.actRunETKIconBorderExecute(Sender : TObject);
 var
   WorkDir, OutFolder : string;
   sError, sOutput : string;
@@ -878,35 +881,44 @@ begin
   WorkDir := ExtractFileDir(GUIConfig.ETKIconBorder);
   OutFolder := '';
   if Assigned(CurrentSystem) then
-    OutFolder := SysPath(CurrentSystem.IconFolder);
+    OutFolder := SysPath(CurrentSystem.BaseFolder);
 
   ExecuteCMDArray(WorkDir, GUIConfig.ETKIconBorder, [OutFolder],
     sError, sOutput, ExitC);
-
-  // TODO 3: Show a message if IconBorder or WorkDir not found.
 end;
 
-procedure TfrmETKGUIMain.actRunETKIconBorderLogoExecute(Sender : TObject);
+procedure TfrmETKGUIMain.actRunETKMagCutExecute(Sender : TObject);
 var
-  WorkDir, OutFolder : string;
+  WorkDir : string;
   sError, sOutput : string;
   ExitC : integer;
 begin
-  if not FileExistsUTF8(GUIConfig.ETKIconBorder) then
+  if not FileExistsUTF8(GUIConfig.ETKMagCut) then
   begin
-    ShowMessageFmt(rsFileNotFound, [GUIConfig.ETKIconBorder]);
+    ShowMessageFmt(rsFileNotFound, [GUIConfig.ETKMagCut]);
     Exit;
   end;
 
-  WorkDir := ExtractFileDir(GUIConfig.ETKIconBorder);
-  OutFolder := '';
-  if Assigned(CurrentSystem) then
-    OutFolder := SysPath(CurrentSystem.LogoFolder);
+  WorkDir := ExtractFileDir(GUIConfig.ETKMagCut);
 
-  ExecuteCMDArray(WorkDir, GUIConfig.ETKIconBorder, [OutFolder],
-    sError, sOutput, ExitC);
+  ExecuteCMDString(WorkDir, GUIConfig.ETKMagCut, '', sError, sOutput, ExitC);
+end;
 
-  // TODO 3: Show a message if IconBorder or WorkDir not found.
+procedure TfrmETKGUIMain.actRunETKPDF2CBXExecute(Sender : TObject);
+var
+  WorkDir : string;
+  sError, sOutput : string;
+  ExitC : integer;
+begin
+  if not FileExistsUTF8(GUIConfig.ETKPDF2CBX) then
+  begin
+    ShowMessageFmt(rsFileNotFound, [GUIConfig.ETKPDF2CBX]);
+    Exit;
+  end;
+
+  WorkDir := ExtractFileDir(GUIConfig.ETKPDF2CBX);
+
+  ExecuteCMDString(WorkDir, GUIConfig.ETKPDF2CBX, '', sError, sOutput, ExitC);
 end;
 
 procedure TfrmETKGUIMain.actRunSoftwareExecute(Sender : TObject);

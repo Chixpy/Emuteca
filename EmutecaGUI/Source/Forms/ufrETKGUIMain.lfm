@@ -186,19 +186,22 @@ inherited frmETKGUIMain: TfrmETKGUIMain
     object mimmTools: TMenuItem
       Caption = 'Tools'
       object mimmRunETKIconBorderIcon: TMenuItem
-        Action = actRunETKIconBorderIcon
+        Action = actRunETKIconBorder
+      end
+      object mimmRunETKPDF2CBX: TMenuItem
+        Action = actRunETKPDF2CBX
       end
       object mimmRunETKIconBorderLogo: TMenuItem
-        Action = actRunETKIconBorderLogo
+        Action = actRunETKMagCut
       end
       object Separator1: TMenuItem
         Caption = '-'
       end
       object mimmRunDBEditorGroups: TMenuItem
-        Action = actRunDBEditorGroups
+        Action = actRunETKDBEditorGroup
       end
       object mimmRunDBEditorSoft: TMenuItem
-        Action = actRunDBEditorSoft
+        Action = actRunETKDBEditorSoft
       end
     end
     object mimmHelp: TMenuItem
@@ -221,37 +224,37 @@ inherited frmETKGUIMain: TfrmETKGUIMain
     object actEmulatorManager: TAction
       Category = 'Managers'
       Caption = 'Emulator Manager...'
-      Hint = 'Emulator Manager...|Open Emulator Manager.'
+      Hint = 'Emulator Manager...|Opens Emulator Manager.'
       OnExecute = actEmulatorManagerExecute
     end
     object actSystemManager: TAction
       Category = 'Managers'
       Caption = 'System Manager...'
-      Hint = 'System Manager...|Open System Manager.'
+      Hint = 'System Manager...|Opens System Manager.'
       OnExecute = actSystemManagerExecute
     end
     object actScriptManager: TAction
       Category = 'Managers'
       Caption = 'Script Manager...'
-      Hint = 'Script Manager...|Open Script Manager.'
+      Hint = 'Script Manager...|Opens Script Manager.'
       OnExecute = actScriptManagerExecute
     end
     object actMediaManager: TAction
       Category = 'Managers'
       Caption = 'Media Manager...'
-      Hint = 'Media Manager...|Open Media Manager.'
+      Hint = 'Media Manager...|Opens Media Manager.'
       OnExecute = actMediaManagerExecute
     end
     object actAddFolder: TAction
       Category = 'File'
       Caption = 'Scan files from folder...'
-      Hint = 'Scan files from folder...|Open form to add software from a folder.'
+      Hint = 'Scan files from folder...|Open a form to add software from a folder.'
       OnExecute = actAddFolderExecute
     end
     object actAddSoft: TAction
       Category = 'File'
       Caption = 'Add Software...'
-      Hint = 'Add Software...|Open form to add a software file.'
+      Hint = 'Add Software...|Opens a form to add a software file.'
       OnExecute = actAddSoftExecute
     end
     object actSaveLists: TAction
@@ -263,146 +266,158 @@ inherited frmETKGUIMain: TfrmETKGUIMain
     object actOpenTempFolder: TAction
       Category = 'File'
       Caption = 'Open Emuteca''s Temp folder...'
-      Hint = 'Open Emuteca''s Temp folder...|Open Emuteca''s temporal folder.'
+      Hint = 'Open Emuteca''s Temp folder...|Opens Emuteca''s temporal folder in Explorer..'
       OnExecute = actOpenTempFolderExecute
     end
     object actExportSoftData: TAction
       Category = 'File'
       Caption = 'Export software data...'
-      Hint = 'Export software data...|Open form to export software data.'
+      Hint = 'Export software data...|Opens a form to export software data.'
       OnExecute = actExportSoftDataExecute
     end
     object actImportSoftData: TAction
       Category = 'File'
       Caption = 'Import software data...'
-      Hint = 'Import software data...|Open form to import software data.'
+      Hint = 'Import software data...|Opens a form to import software data.'
       OnExecute = actImportSoftDataExecute
     end
     object actCleanSystemData: TAction
       Category = 'System'
       Caption = 'Clean system data'
-      Hint = 'Clean current system data|Cleans current system soft not found and groups without soft'
+      Hint = 'Clean current system data|Cleans current system soft not found and groups without soft.'
       OnExecute = actCleanSystemDataExecute
     end
     object actUpdateGroupList: TAction
       Category = 'System'
       Caption = 'Update group list'
-      Hint = 'Update group list.|Reload group list to update changes.'
+      Hint = 'Update group list.|Reloads group list to update changes.'
       OnExecute = actUpdateGroupListExecute
     end
     object actMergeGroupFiles: TAction
       Category = 'Group'
       Caption = 'Merge group files...'
-      Hint = 'Merge group files...|Open form to merge current group''s sofware in same compressed file.'
+      Hint = 'Merge group files...|Opens a form to merge current group''s sofware in same compressed file.'
       OnExecute = actMergeGroupFilesExecute
+      Visible = False
     end
     object actRunSoftware: TAction
       Category = 'Software'
       Caption = 'Run software'
-      Hint = 'Run software.|Run current software.'
+      Hint = 'Run software.|Runs current software with current emulator.'
       OnExecute = actRunSoftwareExecute
     end
     object actOpenSoftFolder: TAction
       Category = 'Software'
       Caption = 'Open software folder...'
-      Hint = 'Open software folder...|Open current software folder.'
+      Hint = 'Open software folder...|Opens current software folder in Explorer.'
       OnExecute = actOpenSoftFolderExecute
     end
     object actEditSystem: TAction
       Category = 'System'
       Caption = 'Edit system...'
-      Hint = 'Edit system...|Open current system editor.'
+      Hint = 'Edit system...|Opens system editor with current system.'
       OnExecute = actEditSystemExecute
     end
     object actEditEmulator: TAction
       Category = 'Emulator'
       Caption = 'Edit emulator...'
-      Hint = 'Edit emulator...|Open editor for current emulator.'
+      Hint = 'Edit emulator...|Opens editor for current emulator.'
       OnExecute = actEditEmulatorExecute
     end
     object actOpenSystemBaseFolder: TAction
       Category = 'System'
       Caption = 'Open system base folder...'
-      Hint = 'Open system base folder...|Open current system base folder.'
+      Hint = 'Open system base folder...|Opens current system base folder in Explorer.'
       OnExecute = actOpenSystemBaseFolderExecute
     end
     object actOpenEmutecaFolder: TAction
       Category = 'File'
       Caption = 'Open Emuteca''s folder...'
-      Hint = 'Open Emuteca''s folder...|Open Emuteca''s program folder.'
+      Hint = 'Open Emuteca''s folder...|Opens Emuteca''s program folder in Explorer.'
       OnExecute = actOpenEmutecaFolderExecute
     end
     object actOpenEmulatorFolder: TAction
       Category = 'Emulator'
       Caption = 'Open emulator folder...'
-      Hint = 'Open emulator folder...|Open current emulator folder.'
+      Hint = 'Open emulator folder...|Opens current emulator folder in Explorer.'
       OnExecute = actOpenEmulatorFolderExecute
     end
     object actOpen7zCacheFolder: TAction
       Category = 'File'
       Caption = 'Open 7z cache folder...'
-      Hint = 'Open 7z caché folder...|Open 7z caché folder.'
+      Hint = 'Open 7z caché folder...|Opens 7z caché folder in Explorer.'
       OnExecute = actOpen7zCacheFolderExecute
     end
     object actRunEmulatorAlone: TAction
       Category = 'Emulator'
       Caption = 'Run emulator alone.'
+      Hint = 'Run emulator without software|Runs current emulator without any software.'
       OnExecute = actRunEmulatorAloneExecute
     end
     object actOpenEmulatorWeb: TAction
       Category = 'Emulator'
       Caption = 'Open emulator website...'
+      Hint = 'Open emulator website.|Open current emulator''s website in the default internet navigator.'
       OnExecute = actOpenEmulatorWebExecute
     end
     object actRemoveSoft: TAction
       Category = 'Software'
       Caption = 'Remove software from list'
+      Hint = 'Remove current software|Removes current software from Emuteca list (It don''t delete actual file from disk).'
       OnExecute = actRemoveSoftExecute
     end
     object actEditGroup: TAction
       Category = 'Group'
       Caption = 'Edit Group...'
+      Hint = 'Edit current group|Opens Group Editor with current group.'
       OnExecute = actEditGroupExecute
     end
-    object actRunETKIconBorderIcon: TAction
+    object actRunETKIconBorder: TAction
       Category = 'Tools'
-      Caption = 'ETKIconBorder (Icon)'
-      Hint = 'Run ETKIconBorder using system''s icon folder as output.'
-      OnExecute = actRunETKIconBorderIconExecute
+      Caption = 'ETKIconBorder'
+      Hint = 'Run ETKIconBorder.|Runs ETKIconBorder for creating icons and logos.'
+      OnExecute = actRunETKIconBorderExecute
     end
-    object actRunETKIconBorderLogo: TAction
+    object actRunETKMagCut: TAction
       Category = 'Tools'
-      Caption = 'ETKIconBorder (Logo)'
-      Hint = 'Run ETKIconBorder using system''s logo folder as output.'
-      OnExecute = actRunETKIconBorderLogoExecute
+      Caption = 'ETKMagCut'
+      Hint = 'Run ETKMagCut.|Runs ETKMagCut for extracting magazine articles.'
+      OnExecute = actRunETKMagCutExecute
     end
     object actExit: TFileExit
       Category = 'File'
       Caption = 'Exit'
-      Hint = 'Exit Emuteca|Exits Emuteca saving changes.'
+      Hint = 'Exit Emuteca|Exits Emuteca, saving changes.'
     end
     object actExitWOSaving: TAction
       Category = 'File'
       Caption = 'Exit without saving'
-      Hint = 'Exit Emuteca|Exits Emuteca without saving changes.'
+      Hint = 'Exit Emuteca|Exits Emuteca, without saving changes.'
       OnExecute = actExitWOSavingExecute
     end
-    object actRunDBEditorGroups: TAction
+    object actRunETKDBEditorGroup: TAction
       Category = 'Tools'
       Caption = 'DB Editor with Group List'
       Hint = 'Run DBEditor with current group list.|Runs DBEditor, exporting current group list and importing it after it was edited. '
-      OnExecute = actRunDBEditorGroupsExecute
+      OnExecute = actRunETKDBEditorGroupExecute
     end
-    object actRunDBEditorSoft: TAction
+    object actRunETKDBEditorSoft: TAction
       Category = 'Tools'
       Caption = 'DB Editor with Soft List'
-      Hint = 'Run DBEditor with current group list.|Runs DBEditor, exporting current soft list and importing it after it was edited. '
-      OnExecute = actRunDBEditorSoftExecute
+      Hint = 'Run DBEditor with current soft list.|Runs DBEditor, exporting current soft list and importing it after it was edited. '
+      OnExecute = actRunETKDBEditorSoftExecute
     end
     object actCopyFileName2ClipBoard: TAction
       Category = 'Software'
       Caption = 'Copy Filename to Clipboard'
+      Hint = 'Copy Filename to Clipboard.|Copies current software filename to clipboard.'
       OnExecute = actCopyFileName2ClipBoardExecute
+    end
+    object actRunETKPDF2CBX: TAction
+      Category = 'Tools'
+      Caption = 'ETKPDF2CBX'
+      Hint = 'Run ETKMagCut.|Runs ETKPDF2CBX for extracting magazine pages from PDFs.'
+      OnExecute = actRunETKPDF2CBXExecute
     end
   end
   object ActImages: TImageList[5]

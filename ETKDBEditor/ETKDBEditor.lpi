@@ -11,7 +11,7 @@
       <ResourceType Value="res"/>
       <UseXPManifest Value="True"/>
       <XPManifest>
-        <DpiAware Value="True"/>
+        <DpiAware Value="True/PM_V2"/>
         <LongPathAware Value="True"/>
         <AnsiUTF8 Value="True"/>
         <TextName Value="Chixpy.Emuteca.ETKDBEditor"/>
@@ -53,6 +53,7 @@
           <Linking>
             <Debugging>
               <GenerateDebugInfo Value="False"/>
+              <DebugInfoType Value="dsDwarf3"/>
             </Debugging>
             <LinkSmart Value="True"/>
             <Options>

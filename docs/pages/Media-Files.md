@@ -5,14 +5,14 @@ EmuVer: 0.8
 ---
 Emuteca, además de listar, agrupar y ejecutar emuladores con sus juegos, también permite visualizar y reproducir contenido relacionado con el software como pueden ser imágenes, manuales, textos, vídeos o música.
 
-Realmente, excepto el soporte para archivos comprimidos, la capacidad de visualizar y reproducir este tipo de contenido relacionado es dependiente de la interfaz (EmutecaGUI) puesto que el núcleo (EmutecaCore) tan solo se encarga de buscar y poner a su disposicion los ficheros encontrados.
+Realmente, excepto el soporte para archivos comprimidos, la capacidad de visualizar y reproducir este tipo de contenido relacionado es dependiente de la interfaz (EmutecaGUI por el momento) puesto que el núcleo (EmutecaCore) tan solo se encarga de buscar y poner a su disposicion los ficheros encontrados.
 
 
 ## Repositorios
 
 Para algunos sistemas existen unos repositorios creados para ser usados directamente con Emuteca (si se usan las carpetas que se crearían por defecto con [el botón correspondiente](Dialogs/Auto-Config-Folders)). La verdad es que por el momento distan mucho de estar completos, optimizados o totalmente asignados a los grupos y juegos.
 
-De forma general, y en caso de no haber actualizado la lista, puedes verlos en los [Repositorios de Chixpy en GitHub](https://github.com/Chixpy?tab=repositories&q=ETKRes&type=&language=&sort=name)
+De forma general, y en caso de no estar actualizada esta lista la lista, puedes verlos en los [Repositorios de Chixpy en GitHub](https://github.com/Chixpy?tab=repositories&q=ETKRes&type=&language=&sort=name)
 
   - [Amstrad CPC](https://github.com/Chixpy/ETKRes-CPC)
   - [Amstrad GX4000](https://github.com/Chixpy/ETKRes-GX4000)
@@ -49,16 +49,16 @@ Hay dos formas de usarlos:
 
 ### Formatos soportados y activados
 
-Emuteca soporta multitud de formatos para los distintos tipos de archivos. De forma práctica, tan solo están activados los más útiles ya que afecta a la velocidad a la hora de buscar. Aunque se pueden activar más editando el archivo `GUI.ini` es preferible convertir los archivos a estos formatos:
+Emuteca GUI soporta multitud de formatos para los distintos tipos de archivos. De forma práctica, tan solo están activados los más útiles ya que afecta a la velocidad a la hora de buscar. Aunque se pueden activar más editando el archivo `GUI.ini` es preferible convertir los archivos a estos formatos:
 
   - **Imagen**: `jpg`, `png`
     - Soportados: `bmp`, `cur`, `gif`, `icns`, `ico`, `jfif`, `jpe`, `jpeg`, `jpg`, `pbm`, `pgm`, `png`, `ppm`, `tif`, `tiff`, `xpm`
   - **Texto**: `txt`
     - Soportado: Archivos de texto plano
   - **Video**: `avi`, `mkv`, `mp4`, `mpg`
-    - Soportado: Cualquier formato soportado por MPlayer
+    - Soportado: Originalmente los soportados por mPlayer, pero el componente ha dejado de funcionar.
   - **Música**: `mp3`, `ogg`
-    - Soportado: Cualquier formato soportado por MPlayer
+    - Soportado: Originalmente los soportados por mPlayer, pero el componente ha dejado de funcionar.
     
 A partir de la version 0.8.0.154 se ha desactivado la búsqueda de los ficheros dentro de archivos comprimidos. Aunque se tiene pensado que en un futuro sea configurable.
 
@@ -70,12 +70,12 @@ En caso de usarse, entonces también era recomendable usar un formato que no sea
 
 De forma general, la búsqueda de cualquier tipo de ficheros multimedia para cada juego se realiza de la siguiente forma, parando la búsqueda en cuanto encuentra algo:
 
-  1. Todos los ficheros de los formatos activados dentro de una carpeta con la clave de ordenación como nombre.
+  - 1º Todos los ficheros de los formatos activados dentro de una carpeta con la clave de ordenación como nombre.
     - `MediaFolder\SoftSortTitle\*.ext`.
-  2. Sólo un archivo que tenga como nombre la clave de ordenación y una de las extensiones activadas.
+  - 2º Sólo un archivo que tenga como nombre la clave de ordenación y una de las extensiones activadas.
     - `MediaFolder\*.ext`
     - Es decir, si hay un `jpg` y un `png` con el mismo nombre solo selecionanará un archivo.
-  3. Repetir los pasos anteriores pero con la clave de ordenación del grupo al que pertenece el juego.
+  - 3º Repetir los pasos anteriores pero con la clave de ordenación del grupo al que pertenece el juego.
 
 Para iconos y logos tan solo seleccionará un solo fichero aunque haya varios dentro de una carpeta en el paso 1.
 
@@ -91,27 +91,27 @@ Dependiendo del tipo de imagen se tiene unas normas generales.
 
 De forma general para cualquier captura de pantalla del juego se deberían aplicar las siguientes normas:
 
-  1. Capturas en la resolución nativa del sistema y sin corregir la relación de aspecto.  
+  - Capturas en la resolución nativa del sistema y sin corregir la relación de aspecto.  
     - Esto puede ser algo complicado en sistemas *analógicos* (Atari 2600) y pseudosistemas en los que se puede cambiar la resolución (Quake)
     - Lamentablemente muchos sistemas no tienen una resolución interna 4:3 aunque se visualizaran en ese tipo de pantallas. 
     - Automatizar la corrección de aspecto puede ser ciertamente complicado... [El formato `png` tiene un bonito parámetro pero no se usa](http://www.libpng.org/pub/png/book/chapter11.html#png.ch11.div.8)    
-  2. Sin marquesinas ni bordes externos no dibujables.  
+  - Sin marquesinas ni bordes externos no dibujables.  
     - No es lo mismo que eliminar lar partes vacías que pudiera haber.
     - Por ejemplo: Esto incluye los bordes de Super GameBoy.    
-  3. No usar ningún tipo de filtro o suavizado. Tecnicamente al no reescalar la imagen no se hace uso de ello...
-  4. Usar un formato sin pérdida... En resumen, usar el formato `png`
+  - No usar ningún tipo de filtro o suavizado. Tecnicamente al no reescalar la imagen no se hace uso de ello...
+  - Usar un formato sin pérdida... En resumen, usar el formato `png`
 
 ##### Frontal, Traseras, Análisis, Anuncios, etc.
 
 Esto es aplicable a todas las **imágenes escaneadas** de revistas y **fotografías**:
 
-  1. Formato `jpg` y que la calidad que sea bastante aceptable si es posible.  
+  - Formato `jpg` y que la calidad que sea bastante aceptable si es posible.  
     - El término *calidad* depende del compresor.    
-  2. El lado más largo que sea de 2048px como máximo  
+  - El lado más largo que sea de 2048px como máximo  
     - Respetar la relación de aspecto en caso de ener que hacer más pequeña la imagen.
     - Si la imagen de por sí es más pequeña, no hacerla más grande.
     - Por supuesto, es preferible cortar primero y redimensionar después.    
-  3. Intentar no reguardar la imagen varias veces. Al ser un formato con pérdida se va deteriorando la calidad.  
+  - Intentar no reguardar la imagen varias veces. Al ser un formato con pérdida se va deteriorando la calidad.  
     - Hay transformaciones que es posible realizar de forma especial sin que la calidad se vea afectada.
     - Se puede tolerar que la imagen no esté totalmente recta.
 
@@ -139,10 +139,10 @@ Emuteca tan solo usa una imagen de cada tipo para cada grupo o juego. Y normalme
   
 No extraerlos de fotografías o escaneados.
 
-  1. Usar el formato `png` con fondo transparente.
-  2. Tamaño original (sin redimensionar a un tamaño fijo), sin filtros ni bordes vacíos (ni alrededor, ni para hacerlo cuadrado). Emuteca redimensiona y centra de forma automática.
-  3. En caso de que los "píxeles" del la imagen sean 2x2, 3x3, etc. redimensionar para que sean de 1x1.
-  4. Una vez extraidos se añade un borde de gris medio y semitransparente (RGBA: 128, 128, 128, 128 / #80808080)
+  - Usar el formato `png` con fondo transparente.
+  - Tamaño original (sin redimensionar a un tamaño fijo), sin filtros ni bordes vacíos (ni alrededor, ni para hacerlo cuadrado). Emuteca redimensiona y centra de forma automática.
+  - En caso de que los "píxeles" del la imagen sean 2x2, 3x3, etc. redimensionar para que sean de 1x1.
+  - Una vez extraidos se añade un borde de gris medio y semitransparente (RGBA: 128, 128, 128, 128 / #80808080)
 
 
 [Emuteca](https://github.com/chixpy/emuteca) incluye en su distribución la herramienta [ETKIconBorder](https://github.com/Chixpy/Emuteca/blob/master/bin/Tools/ETKIconBorder.exe). Que es un simple editor de imágenes para recortar, extraer, poner fondo transparente y aplicar un filtro que añade el borde automáticamente.
@@ -152,11 +152,11 @@ Alternativamente también incluye un script para GIMP que añade el borde semitr
 #### Textos 
 
 Esto es simple, para que se vea en una TextBox:
-  1. Texto plano.
-  2. UTF 8 sin cabecera.
-  3. Linea vacía entre párrafos.
-  4. Sin saltos de línea dentro de los párrafos. El TextBox tiene activado el WordWrap
-  5. Es aceptable usar MarkDown
+  - Texto plano.
+  - UTF 8 sin cabecera.
+  - Línea vacía entre párrafos.
+  - Sin saltos de línea dentro de los párrafos. El TextBox tiene activado el WordWrap
+  - Es aceptable usar MarkDown
   
 #### Vídeos 
 

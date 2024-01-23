@@ -673,7 +673,7 @@ msgstr "Si el fichero ya existe, los datos serán combinados."
 #: tfmemutecaactexportsoftdata.lgroups.caption
 msgctxt "tfmemutecaactexportsoftdata.lgroups.caption"
 msgid "Groups"
-msgstr ""
+msgstr "Grupos"
 
 #: tfmemutecaactexportsoftdata.lsoftidtype.caption
 #, fuzzy
@@ -700,12 +700,12 @@ msgstr "Información del sistema"
 #: tfmemutecaactimportsoftdata.gbxsysteminfo1.caption
 msgctxt "tfmemutecaactimportsoftdata.gbxsysteminfo1.caption"
 msgid "System info"
-msgstr ""
+msgstr "Información del sistema"
 
 #: tfmemutecaactimportsoftdata.lgroups.caption
 msgctxt "tfmemutecaactimportsoftdata.lgroups.caption"
 msgid "Groups"
-msgstr ""
+msgstr "Grupos"
 
 #: tfmemutecaactimportsoftdata.lsoftidtype.caption
 #, fuzzy
@@ -716,7 +716,7 @@ msgstr "Tipo de identificación del soft"
 #: tfmemutecaactimportsoftdata.lsoftidtype1.caption
 msgctxt "tfmemutecaactimportsoftdata.lsoftidtype1.caption"
 msgid "Soft ID Type"
-msgstr ""
+msgstr "Tipo de identificación del soft"
 
 #: tfmemutecaactimportsoftdata.lsoftware.caption
 #, fuzzy
@@ -1376,42 +1376,80 @@ msgctxt "tfmetkguimediamanager.actassignfile.caption"
 msgid "Assign file"
 msgstr "Asignar fichero"
 
+#: tfmetkguimediamanager.actassignfile.hint
+msgid "Assign file to current group/software.|Renames current file to selected group/software sortkey."
+msgstr ""
+
 #: tfmetkguimediamanager.actassigntogroup.caption
 msgid "Assign to Group"
 msgstr "Asignar al grupo"
 
+#: tfmetkguimediamanager.actassigntogroup.hint
+msgid "Assign file to current software's group.|Renames current file to group's sortkey of selected software."
+msgstr ""
+
 #: tfmetkguimediamanager.actautoassign.caption
 msgid "Auto Assign"
 msgstr "Auto asignar"
+
+#: tfmetkguimediamanager.actautoassign.hint
+msgid "Assign automatically all matched files.|Moves all files wich match with current group/software list."
+msgstr ""
 
 #: tfmetkguimediamanager.actdeleteallfiles.caption
 msgctxt "tfmetkguimediamanager.actdeleteallfiles.caption"
 msgid "Delete all files"
 msgstr "Borrar todos los fichero"
 
+#: tfmetkguimediamanager.actdeleteallfiles.hint
+msgid "Delete all visible files.|Removes from disk all visible files in the list."
+msgstr ""
+
 #: tfmetkguimediamanager.actdeletefile.caption
 msgctxt "tfmetkguimediamanager.actdeletefile.caption"
 msgid "Delete file"
 msgstr "Borrar fichero"
+
+#: tfmetkguimediamanager.actdeletefile.hint
+msgid "Delete current file.|Removes from disk select file."
+msgstr ""
 
 #: tfmetkguimediamanager.acteditgroup.caption
 msgctxt "tfmetkguimediamanager.acteditgroup.caption"
 msgid "Edit Group..."
 msgstr "Editar grupo..."
 
+#: tfmetkguimediamanager.acteditgroup.hint
+msgid "Edit current group.|Opens a form for edit current group."
+msgstr ""
+
 #: tfmetkguimediamanager.acteditsoft.caption
-msgid "Edit Software"
+#, fuzzy
+#| msgid "Edit Software"
+msgid "Edit Software..."
 msgstr "Editar software..."
+
+#: tfmetkguimediamanager.acteditsoft.hint
+msgid "Edit current software.|Opens a form to edit current software."
+msgstr ""
 
 #: tfmetkguimediamanager.actmoveallfiles.caption
 msgctxt "tfmetkguimediamanager.actmoveallfiles.caption"
 msgid "Move all files..."
 msgstr "Mover todos los fichero..."
 
+#: tfmetkguimediamanager.actmoveallfiles.hint
+msgid "Move all visible files to another folder.|Opens a dialog asking a folder where all visible files in the list will be moved."
+msgstr ""
+
 #: tfmetkguimediamanager.actmovefile.caption
 msgctxt "tfmetkguimediamanager.actmovefile.caption"
 msgid "Move file..."
 msgstr "Mover fichero..."
+
+#: tfmetkguimediamanager.actmovefile.hint
+msgid "Move current file to another folder.|Opens a dialog ask a folder where the file will be moved."
+msgstr ""
 
 #: tfmetkguimediamanager.actopenfiledefapp.caption
 msgid "Open File with Default Application"
@@ -1421,14 +1459,28 @@ msgstr ""
 msgid "Open Target Folder"
 msgstr ""
 
+#: tfmetkguimediamanager.actopentargetfolder.hint
+msgid "Open current media base folder in explorer.|Opens in explorer"
+msgstr ""
+
 #: tfmetkguimediamanager.actrenamefile.caption
 msgid "Rename file manually..."
 msgstr "Renombrar fichero manualmente..."
 
+#: tfmetkguimediamanager.actrenamefile.hint
+msgid "Rename current file.|Opens a dialog asking a new filename."
+msgstr ""
+
 #: tfmetkguimediamanager.actrenamegrouptitlewithfilename.caption
+#, fuzzy
+#| msgid "Rename group title with current file"
 msgctxt "tfmetkguimediamanager.actrenamegrouptitlewithfilename.caption"
-msgid "Rename group title with current file"
+msgid "File to Group Title..."
 msgstr "Renombrar grupo con el nombre del fichero seleccionado"
+
+#: tfmetkguimediamanager.actrenamegrouptitlewithfilename.hint
+msgid "Rename group title with current file.|Opens a form to edit current group with title changed to current file."
+msgstr ""
 
 #: tfmetkguimediamanager.actrenamesofttitlewithfilename.caption
 msgid "Rename soft title with current file"
@@ -1438,6 +1490,10 @@ msgstr "Renombrar software con el nombre del fichero seleccionado"
 msgctxt "tfmetkguimediamanager.actrunsoftware.caption"
 msgid "Run software"
 msgstr "Ejecutar software"
+
+#: tfmetkguimediamanager.actrunsoftware.hint
+msgid "Run current software.|Runs current software with default system emulator."
+msgstr ""
 
 #: tfmetkguimediamanager.chkcopyfile.caption
 msgctxt "tfmetkguimediamanager.chkcopyfile.caption"
@@ -1891,7 +1947,7 @@ msgid "Scan files from folder..."
 msgstr "Escanear ficheros de una carpeta..."
 
 #: tfrmetkguimain.actaddfolder.hint
-msgid "Scan files from folder...|Open form to add software from a folder."
+msgid "Scan files from folder...|Open a form to add software from a folder."
 msgstr ""
 
 #: tfrmetkguimain.actaddsoft.caption
@@ -1899,7 +1955,9 @@ msgid "Add Software..."
 msgstr "Añadir software..."
 
 #: tfrmetkguimain.actaddsoft.hint
-msgid "Add Software...|Open form to add a software file."
+#, fuzzy
+#| msgid "Add Software...|Open form to add a software file."
+msgid "Add Software...|Opens a form to add a software file."
 msgstr "Añadir software...|Abre el formulario para añadir un fichero de software."
 
 #: tfrmetkguimain.actcleansystemdata.caption
@@ -1907,19 +1965,25 @@ msgid "Clean system data"
 msgstr "Limpiar datos del sistema"
 
 #: tfrmetkguimain.actcleansystemdata.hint
-msgid "Clean current system data|Cleans current system soft not found and groups without soft"
+msgid "Clean current system data|Cleans current system soft not found and groups without soft."
 msgstr ""
 
 #: tfrmetkguimain.actcopyfilename2clipboard.caption
 msgid "Copy Filename to Clipboard"
 msgstr "Nombre del fichero al portapapeles."
 
+#: tfrmetkguimain.actcopyfilename2clipboard.hint
+msgid "Copy Filename to Clipboard.|Copies current software filename to clipboard."
+msgstr ""
+
 #: tfrmetkguimain.acteditemulator.caption
 msgid "Edit emulator..."
 msgstr "Editar emulador..."
 
 #: tfrmetkguimain.acteditemulator.hint
-msgid "Edit emulator...|Open editor for current emulator."
+#, fuzzy
+#| msgid "Edit emulator...|Open editor for current emulator."
+msgid "Edit emulator...|Opens editor for current emulator."
 msgstr "Editar emulator...|Abre el editor del emulador actual."
 
 #: tfrmetkguimain.acteditgroup.caption
@@ -1927,12 +1991,16 @@ msgctxt "tfrmetkguimain.acteditgroup.caption"
 msgid "Edit Group..."
 msgstr "Editar grupo..."
 
+#: tfrmetkguimain.acteditgroup.hint
+msgid "Edit current group|Opens Group Editor with current group."
+msgstr ""
+
 #: tfrmetkguimain.acteditsystem.caption
 msgid "Edit system..."
 msgstr "Editar sistema..."
 
 #: tfrmetkguimain.acteditsystem.hint
-msgid "Edit system...|Open current system editor."
+msgid "Edit system...|Opens system editor with current system."
 msgstr ""
 
 #: tfrmetkguimain.actemulatormanager.caption
@@ -1940,8 +2008,8 @@ msgid "Emulator Manager..."
 msgstr "Gestor de Emuladores..."
 
 #: tfrmetkguimain.actemulatormanager.hint
-msgid "Emulator Manager...|Open Emulator Manager."
-msgstr ""
+msgid "Emulator Manager...|Opens Emulator Manager."
+msgstr "Gestor de emuladores...|Abre el gestor de emuladores."
 
 #: tfrmetkguimain.actexit.caption
 #, fuzzy
@@ -1950,8 +2018,8 @@ msgid "Exit"
 msgstr "Salir"
 
 #: tfrmetkguimain.actexit.hint
-msgid "Exit Emuteca|Exits Emuteca saving changes."
-msgstr "Salir de Emuteca|Sale de Emuteca guardando los cambios."
+msgid "Exit Emuteca|Exits Emuteca, saving changes."
+msgstr "Salir de Emuteca|Sale de Emuteca, guardando los cambios."
 
 #: tfrmetkguimain.actexitwosaving.caption
 msgctxt "tfrmetkguimain.actexitwosaving.caption"
@@ -1960,31 +2028,31 @@ msgstr "Salir sin guardar los cambios."
 
 #: tfrmetkguimain.actexitwosaving.hint
 msgctxt "tfrmetkguimain.actexitwosaving.hint"
-msgid "Exit Emuteca|Exits Emuteca without saving changes."
-msgstr ""
+msgid "Exit Emuteca|Exits Emuteca, without saving changes."
+msgstr "Salir de Emuteca|Sale de Emuteca, SIN guardar los cambios."
 
 #: tfrmetkguimain.actexportsoftdata.caption
 msgid "Export software data..."
 msgstr "Exportar datos del software..."
 
 #: tfrmetkguimain.actexportsoftdata.hint
-msgid "Export software data...|Open form to export software data."
-msgstr ""
+msgid "Export software data...|Opens a form to export software data."
+msgstr "Exportar datos del software...|Abre un formulario para exportar datos del software."
 
 #: tfrmetkguimain.actimportsoftdata.caption
 msgid "Import software data..."
 msgstr "Importar datos del software..."
 
 #: tfrmetkguimain.actimportsoftdata.hint
-msgid "Import software data...|Open form to import software data."
-msgstr ""
+msgid "Import software data...|Opens a form to import software data."
+msgstr "Importar datos del software...|Abre un formulario para importar datos del software."
 
 #: tfrmetkguimain.actmediamanager.caption
 msgid "Media Manager..."
 msgstr "Gestor multimedia"
 
 #: tfrmetkguimain.actmediamanager.hint
-msgid "Media Manager...|Open Media Manager."
+msgid "Media Manager...|Opens Media Manager."
 msgstr ""
 
 #: tfrmetkguimain.actmergegroupfiles.caption
@@ -1992,7 +2060,7 @@ msgid "Merge group files..."
 msgstr ""
 
 #: tfrmetkguimain.actmergegroupfiles.hint
-msgid "Merge group files...|Open form to merge current group's sofware in same compressed file."
+msgid "Merge group files...|Opens a form to merge current group's sofware in same compressed file."
 msgstr ""
 
 #: tfrmetkguimain.actopen7zcachefolder.caption
@@ -2000,7 +2068,7 @@ msgid "Open 7z cache folder..."
 msgstr "Abrir carpeta de caché de 7z..."
 
 #: tfrmetkguimain.actopen7zcachefolder.hint
-msgid "Open 7z caché folder...|Open 7z caché folder."
+msgid "Open 7z caché folder...|Opens 7z caché folder in Explorer."
 msgstr ""
 
 #: tfrmetkguimain.actopenemulatorfolder.caption
@@ -2008,19 +2076,23 @@ msgid "Open emulator folder..."
 msgstr "Abrir carpeta del emulador"
 
 #: tfrmetkguimain.actopenemulatorfolder.hint
-msgid "Open emulator folder...|Open current emulator folder."
+msgid "Open emulator folder...|Opens current emulator folder in Explorer."
 msgstr ""
 
 #: tfrmetkguimain.actopenemulatorweb.caption
 msgid "Open emulator website..."
 msgstr "Abrir página web del emulador..."
 
+#: tfrmetkguimain.actopenemulatorweb.hint
+msgid "Open emulator website.|Open current emulator's website in the default internet navigator."
+msgstr ""
+
 #: tfrmetkguimain.actopenemutecafolder.caption
 msgid "Open Emuteca's folder..."
 msgstr "Abrir carpeta de Emuteca..."
 
 #: tfrmetkguimain.actopenemutecafolder.hint
-msgid "Open Emuteca's folder...|Open Emuteca's program folder."
+msgid "Open Emuteca's folder...|Opens Emuteca's program folder in Explorer."
 msgstr ""
 
 #: tfrmetkguimain.actopensoftfolder.caption
@@ -2028,7 +2100,7 @@ msgid "Open software folder..."
 msgstr "Abrir carpeta del software"
 
 #: tfrmetkguimain.actopensoftfolder.hint
-msgid "Open software folder...|Open current software folder."
+msgid "Open software folder...|Opens current software folder in Explorer."
 msgstr ""
 
 #: tfrmetkguimain.actopensystembasefolder.caption
@@ -2036,7 +2108,7 @@ msgid "Open system base folder..."
 msgstr ""
 
 #: tfrmetkguimain.actopensystembasefolder.hint
-msgid "Open system base folder...|Open current system base folder."
+msgid "Open system base folder...|Opens current system base folder in Explorer."
 msgstr ""
 
 #: tfrmetkguimain.actopentempfolder.caption
@@ -2044,48 +2116,68 @@ msgid "Open Emuteca's Temp folder..."
 msgstr ""
 
 #: tfrmetkguimain.actopentempfolder.hint
-msgid "Open Emuteca's Temp folder...|Open Emuteca's temporal folder."
+msgid "Open Emuteca's Temp folder...|Opens Emuteca's temporal folder in Explorer.."
 msgstr ""
 
 #: tfrmetkguimain.actremovesoft.caption
 msgid "Remove software from list"
-msgstr ""
+msgstr "Quitar software de la lista"
 
-#: tfrmetkguimain.actrundbeditorgroups.caption
-msgid "DB Editor with Group List"
-msgstr ""
-
-#: tfrmetkguimain.actrundbeditorgroups.hint
-msgid "Run DBEditor with current group list.|Runs DBEditor, exporting current group list and importing it after it was edited. "
-msgstr ""
-
-#: tfrmetkguimain.actrundbeditorsoft.caption
-msgid "DB Editor with Soft List"
-msgstr ""
-
-#: tfrmetkguimain.actrundbeditorsoft.hint
-msgid "Run DBEditor with current group list.|Runs DBEditor, exporting current soft list and importing it after it was edited. "
+#: tfrmetkguimain.actremovesoft.hint
+msgid "Remove current software|Removes current software from Emuteca list (It don't delete actual file from disk)."
 msgstr ""
 
 #: tfrmetkguimain.actrunemulatoralone.caption
 msgid "Run emulator alone."
 msgstr "Ejecutar emulador sin software"
 
-#: tfrmetkguimain.actrunetkiconbordericon.caption
-msgid "ETKIconBorder (Icon)"
+#: tfrmetkguimain.actrunemulatoralone.hint
+msgid "Run emulator without software|Runs current emulator without any software."
+msgstr "Ejecutar emulador sin software|Arranca el emulador sin ningún software."
+
+#: tfrmetkguimain.actrunetkdbeditorgroup.caption
+msgctxt "tfrmetkguimain.actrunetkdbeditorgroup.caption"
+msgid "DB Editor with Group List"
 msgstr ""
 
-#: tfrmetkguimain.actrunetkiconbordericon.hint
-msgid "Run ETKIconBorder using system's icon folder as output."
+#: tfrmetkguimain.actrunetkdbeditorgroup.hint
+msgctxt "tfrmetkguimain.actrunetkdbeditorgroup.hint"
+msgid "Run DBEditor with current group list.|Runs DBEditor, exporting current group list and importing it after it was edited. "
 msgstr ""
 
-#: tfrmetkguimain.actrunetkiconborderlogo.caption
-msgid "ETKIconBorder (Logo)"
+#: tfrmetkguimain.actrunetkdbeditorsoft.caption
+msgctxt "tfrmetkguimain.actrunetkdbeditorsoft.caption"
+msgid "DB Editor with Soft List"
 msgstr ""
 
-#: tfrmetkguimain.actrunetkiconborderlogo.hint
-msgid "Run ETKIconBorder using system's logo folder as output."
+#: tfrmetkguimain.actrunetkdbeditorsoft.hint
+msgctxt "tfrmetkguimain.actrunetkdbeditorsoft.hint"
+msgid "Run DBEditor with current soft list.|Runs DBEditor, exporting current soft list and importing it after it was edited. "
 msgstr ""
+
+#: tfrmetkguimain.actrunetkiconborder.caption
+msgid "ETKIconBorder"
+msgstr ""
+
+#: tfrmetkguimain.actrunetkiconborder.hint
+msgid "Run ETKIconBorder.|Runs ETKIconBorder for creating icons and logos."
+msgstr "Ejecutar ETKIconBorder.|Arranca ETKIconBorder para la creación de iconos y logos."
+
+#: tfrmetkguimain.actrunetkmagcut.caption
+msgid "ETKMagCut"
+msgstr ""
+
+#: tfrmetkguimain.actrunetkmagcut.hint
+msgid "Run ETKMagCut.|Runs ETKMagCut for extracting magazine articles."
+msgstr "Ejecutar ETKMagCut.|Arranca ETKMagCut para la extracción de artículos de revistas."
+
+#: tfrmetkguimain.actrunetkpdf2cbx.caption
+msgid "ETKPDF2CBX"
+msgstr ""
+
+#: tfrmetkguimain.actrunetkpdf2cbx.hint
+msgid "Run ETKMagCut.|Runs ETKPDF2CBX for extracting magazine pages from PDFs."
+msgstr "Ejecutar ETKMagCut.|Arranca ETKPDF2CBX para extraer páginas de revistas en PDF."
 
 #: tfrmetkguimain.actrunsoftware.caption
 #, fuzzy
@@ -2094,7 +2186,7 @@ msgid "Run software"
 msgstr "Ejecutar software"
 
 #: tfrmetkguimain.actrunsoftware.hint
-msgid "Run software.|Run current software."
+msgid "Run software.|Runs current software with current emulator."
 msgstr ""
 
 #: tfrmetkguimain.actsavelists.caption
@@ -2110,7 +2202,9 @@ msgid "Script Manager..."
 msgstr "Gestor de scripts..."
 
 #: tfrmetkguimain.actscriptmanager.hint
-msgid "Script Manager...|Open Script Manager."
+#, fuzzy
+#| msgid "Script Manager...|Open Script Manager."
+msgid "Script Manager...|Opens Script Manager."
 msgstr "Gestor de scripts...|Abre el gestor de scripts."
 
 #: tfrmetkguimain.actsystemmanager.caption
@@ -2118,7 +2212,9 @@ msgid "System Manager..."
 msgstr "Gestor de sistemas..."
 
 #: tfrmetkguimain.actsystemmanager.hint
-msgid "System Manager...|Open System Manager."
+#, fuzzy
+#| msgid "System Manager...|Open System Manager."
+msgid "System Manager...|Opens System Manager."
 msgstr "Gestor de sistemas...|Abre el gestor de sistemas."
 
 #: tfrmetkguimain.actupdategrouplist.caption
@@ -2126,7 +2222,9 @@ msgid "Update group list"
 msgstr "Actualizar lista de grupos"
 
 #: tfrmetkguimain.actupdategrouplist.hint
-msgid "Update group list.|Reload group list to update changes."
+#, fuzzy
+#| msgid "Update group list.|Reload group list to update changes."
+msgid "Update group list.|Reloads group list to update changes."
 msgstr "Actualizar lista de grupos.|Recarga la lista de grupos para actualizar los cambios."
 
 #: tfrmetkguimain.caption
@@ -2254,7 +2352,7 @@ msgstr ""
 #: uchx7zwrapper.rsw7zfilenotfound
 #, object-pascal-format
 msgid "\"%0:s\" file not found."
-msgstr ""
+msgstr "\"%0:s\" fichero no encontrado."
 
 #: uchx7zwrapper.rsw7znocrc32
 #, object-pascal-format
@@ -2306,6 +2404,8 @@ msgid ""
 "Error creating:\n"
 "%0:s"
 msgstr ""
+"Error creando:\n"
+"%0:s"
 
 #: uchxrscstr.rserrordeletingfile
 #, object-pascal-format
@@ -2314,6 +2414,8 @@ msgid ""
 "Error deleting:\n"
 "%0:s"
 msgstr ""
+"Error borrando:\n"
+"%0:s"
 
 #: uchxrscstr.rserrorloadingfile
 #, object-pascal-format
@@ -2321,6 +2423,8 @@ msgid ""
 "Error loading:\n"
 "%0:s"
 msgstr ""
+"Error cargando:\n"
+"%0:s"
 
 #: uchxrscstr.rserrorrenamingfile
 #, object-pascal-format
@@ -2330,6 +2434,10 @@ msgid ""
 "to:\n"
 "%1:s"
 msgstr ""
+"Error renombrando:\n"
+"%0:s\n"
+"hacia:\n"
+"%1:s"
 
 #: uchxrscstr.rsfiledlgmaskdef
 msgid "All files|*.*"
@@ -2338,7 +2446,7 @@ msgstr ""
 #: uchxrscstr.rsfiledlgmaskfmt
 #, object-pascal-format
 msgid "Supported files|%0:s|All files|*.*"
-msgstr ""
+msgstr "Ficheros soportados|%0:s|Todos los ficheros|*.*"
 
 #: uchxrscstr.rsfilenotfound
 #, object-pascal-format
@@ -2346,6 +2454,8 @@ msgid ""
 "%0:s\n"
 "not found."
 msgstr ""
+"%0:s\n"
+"no encontrado."
 
 #: uchxrscstr.rsfmtitemcount
 #, object-pascal-format
@@ -2363,19 +2473,19 @@ msgstr "Renombrado fichero"
 
 #: uchxrscstr.rssavechanges
 msgid "Do you want to save current changes?"
-msgstr ""
+msgstr "¿Quieres guardar los cambios actuales?"
 
 #: uchxrscstr.rssavechangescaption
 msgid "Save changes"
-msgstr ""
+msgstr "Guardar cambios"
 
 #: uchxverinfo.chxversionnoinfo
 msgid "No build information available"
-msgstr ""
+msgstr "No hay información de construcción"
 
 #: uemutecarscstr.rsaddingfiles
 msgid "Adding files"
-msgstr ""
+msgstr "Añadiendo ficheros"
 
 #: uemutecarscstr.rscachinggroups
 msgid "Caching software groups"
@@ -2387,6 +2497,9 @@ msgid ""
 "YES -> .png (lossless, for screenshots)\n"
 "NO -> .jpg (better for photographs or scans)"
 msgstr ""
+"¿Quieres guardo en un formato sin pérdida?\n"
+"SI -> .png (Sin pérdida, para capturas de pantalla)\n"
+"NO -> .jpg (Mejor para fotografías y escaneados)"
 
 #: uemutecarscstr.rscleaningsystemdata
 #, fuzzy
@@ -2401,6 +2514,9 @@ msgid ""
 "The file already exists.\n"
 "Do you want overwrite it?"
 msgstr ""
+"%0:s\n"
+"El fichero ya existe.\n"
+"?Quieres sobreescribirlo?"
 
 #: uemutecarscstr.rsedsbaddump
 #, fuzzy
@@ -2486,32 +2602,32 @@ msgstr "El fichero ya está añadido."
 
 #: uemutecarscstr.rsfilemaskdescdb
 msgid "Emuteca DB files (*.csv,*.egl)"
-msgstr ""
+msgstr "Bases de datos de Emuteca (*.csv,*.egl)"
 
 #: uemutecarscstr.rsfilemaskdescgroup
 msgctxt "uemutecarscstr.rsfilemaskdescgroup"
 msgid "Group list files (*.egl)"
-msgstr ""
+msgstr "Ficheros de lista de grupos (*.egl)"
 
 #: uemutecarscstr.rsfilemaskdescini
 msgctxt "uemutecarscstr.rsfilemaskdescini"
 msgid "Database files (*.ini)"
-msgstr ""
+msgstr "Bases de datos (*.ini)"
 
 #: uemutecarscstr.rsfilemaskdescscript
 msgctxt "uemutecarscstr.rsfilemaskdescscript"
 msgid "Script files (*.pas)"
-msgstr ""
+msgstr "Ficheros de script (*.pas)"
 
 #: uemutecarscstr.rsfilemaskdescsoft
 msgctxt "uemutecarscstr.rsfilemaskdescsoft"
 msgid "Soft list files (*.csv)"
-msgstr ""
+msgstr "Ficheros de lista de software (*.csv)"
 
 #: uemutecarscstr.rsfilemaskdesctxt
 msgctxt "uemutecarscstr.rsfilemaskdesctxt"
 msgid "Text files (*.txt)"
-msgstr ""
+msgstr "Ficheros de texto (*.txt)"
 
 #: uemutecarscstr.rsfmtngroups
 #, object-pascal-format, fuzzy
@@ -2522,7 +2638,7 @@ msgstr "%0:d grupos"
 #: uemutecarscstr.rsfmtnitems
 #, object-pascal-format
 msgid "%0:d items."
-msgstr ""
+msgstr "%0:d elementos"
 
 #: uemutecarscstr.rsfmtntimes
 #, object-pascal-format, fuzzy
@@ -2538,37 +2654,37 @@ msgstr "%0:d versiones."
 
 #: uemutecarscstr.rsformaddfolder
 msgid "Add Folder"
-msgstr ""
+msgstr "Añadir carpeta"
 
 #: uemutecarscstr.rsformaddsoftware
 msgid "Add Software"
-msgstr ""
+msgstr "Añadir software"
 
 #: uemutecarscstr.rsformexportsoftdata
 msgid "Export soft data"
-msgstr ""
+msgstr "Importar datos del software"
 
 #: uemutecarscstr.rsformgroupeditor
 msgid "Group Editor"
-msgstr ""
+msgstr "Editor de grupos."
 
 #: uemutecarscstr.rsformimportsoftdata
 msgid "Import soft data"
-msgstr ""
+msgstr "Importando datos del software."
 
 #: uemutecarscstr.rsformmergegroupfiles
 msgid "Merge group files"
-msgstr ""
+msgstr "Juntar ficheros del grupo"
 
 #: uemutecarscstr.rsimportingemulatorlist
 msgctxt "uemutecarscstr.rsimportingemulatorlist"
 msgid "Importing emulator list..."
-msgstr ""
+msgstr "Importando lista de emuladores..."
 
 #: uemutecarscstr.rsimportinggrouplist
 msgctxt "uemutecarscstr.rsimportinggrouplist"
 msgid "Importing group list..."
-msgstr ""
+msgstr "Importando lista de grupos."
 
 #: uemutecarscstr.rsimportingnosha1
 #, object-pascal-format
@@ -2581,17 +2697,17 @@ msgstr ""
 #: uemutecarscstr.rsimportingsoftlist
 msgctxt "uemutecarscstr.rsimportingsoftlist"
 msgid "Importing soft list..."
-msgstr ""
+msgstr "Importando lista de software..."
 
 #: uemutecarscstr.rsimportingsystemlist
 msgctxt "uemutecarscstr.rsimportingsystemlist"
 msgid "Importing system list..."
-msgstr ""
+msgstr "Importando lista de sistemas."
 
 #: uemutecarscstr.rsloadingemulatorlist
 msgctxt "uemutecarscstr.rsloadingemulatorlist"
 msgid "Loading emulator list..."
-msgstr ""
+msgstr "Cargando lista de emuladores..."
 
 #: uemutecarscstr.rsloadinggrouplist
 msgctxt "uemutecarscstr.rsloadinggrouplist"
@@ -2610,7 +2726,7 @@ msgstr "Cargando lista de sistemas..."
 
 #: uemutecarscstr.rsmakingfilelist
 msgid "Making list of all files"
-msgstr ""
+msgstr "Creando lista con todos los ficheros"
 
 #: uemutecarscstr.rsnever
 #, fuzzy
@@ -2620,11 +2736,11 @@ msgstr "Nunca"
 
 #: uemutecarscstr.rsnooutputfolder
 msgid "No output folder selected."
-msgstr ""
+msgstr "No se ha elegido una carpeta de salida."
 
 #: uemutecarscstr.rsnosystem
 msgid "Warning: No system was selected."
-msgstr ""
+msgstr "ATención: No hay systema seleccionadp."
 
 #: uemutecarscstr.rssavingemulatorlist
 msgctxt "uemutecarscstr.rssavingemulatorlist"
@@ -2648,11 +2764,11 @@ msgstr "Guardando lista de sistemas..."
 
 #: uemutecarscstr.rssortingsoftlist
 msgid "Sorting soft list..."
-msgstr ""
+msgstr "Oerdenando list de software..."
 
 #: uemutecarscstr.rstakeawhile
 msgid "This can take a while..."
-msgstr ""
+msgstr "Esto puede tardar un rato..."
 
 #: uemutecarscstr.rsunknown
 #, fuzzy
@@ -2959,12 +3075,12 @@ msgstr "Escribe el nombre de la etiqueta"
 #, object-pascal-format
 msgctxt "ufetkguicomparesg.rsetkguicsggroup"
 msgid "Soft Count: %0:d"
-msgstr ""
+msgstr "Soft Count: %0:d"
 
 #: ufetkguicomparesg.rsetkguicsggroupmerged
 msgctxt "ufetkguicomparesg.rsetkguicsggroupmerged"
 msgid "!!! Please use \"System/Update group list\" in main menu."
-msgstr ""
+msgstr "¡¡¡Por favor, usa la opción  \"System/Update group list\" en el menu principal."
 
 #: ufetkguiemumanager.rsemulatorname
 msgid "Emulator name."

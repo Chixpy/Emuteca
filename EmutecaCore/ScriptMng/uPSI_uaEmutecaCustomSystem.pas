@@ -78,6 +78,10 @@ begin
     RegisterProperty('VideoFolders', 'TStringList', iptr);
     RegisterProperty('VideoCaptions', 'TStringList', iptr);
 
+    RegisterProperty('OtherFolders', 'TStringList', iptr);
+    RegisterProperty('OtherFExt', 'TStringList', iptr);
+    RegisterProperty('OtherFCapt', 'TStringList', iptr);
+
     RegisterProperty('SoftExportKey', 'TEmutecaSoftExportKey', iptrw);
     RegisterProperty('Extensions', 'TStringList', iptr);
     RegisterProperty('Stats', 'cEmutecaPlayingStats', iptr);
@@ -344,6 +348,24 @@ begin
   T := Self.VideoCaptions;
 end;
 
+procedure caEmutecaCustomSystemOtherFolders_R(Self: caEmutecaCustomSystem;
+  var T: TStringList);
+begin
+  T := Self.OtherFolders;
+end;
+
+procedure caEmutecaCustomSystemOtherFExt_R(Self: caEmutecaCustomSystem;
+  var T: TStringList);
+begin
+  T := Self.OtherFExt;
+end;
+
+procedure caEmutecaCustomSystemOtherFCapt_R(Self: caEmutecaCustomSystem;
+  var T: TStringList);
+begin
+  T := Self.OtherFCapt;
+end;
+
 procedure caEmutecaCustomSystemSoftExportKey_R(Self: caEmutecaCustomSystem;
   var T: TEmutecaSoftExportKey);
 begin
@@ -431,6 +453,13 @@ begin
       nil, 'VideoFolders');
     RegisterPropertyHelper(@caEmutecaCustomSystemVideoCaptions_R,
       nil, 'VideoCaptions');
+
+    RegisterPropertyHelper(@caEmutecaCustomSystemOtherFolders_R,
+      nil, 'OtherFolders');
+    RegisterPropertyHelper(@caEmutecaCustomSystemOtherFExt_R,
+      nil, 'OtherFExt');
+    RegisterPropertyHelper(@caEmutecaCustomSystemOtherFCapt_R,
+      nil, 'OtherFCapt');
 
     RegisterPropertyHelper(@caEmutecaCustomSystemSoftExportKey_R,
       @caEmutecaCustomSystemSoftExportKey_W, 'SoftExportKey');

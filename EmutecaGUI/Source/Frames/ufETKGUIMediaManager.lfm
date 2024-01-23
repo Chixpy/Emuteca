@@ -950,16 +950,19 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
     object actEditGroup: TAction
       Category = 'Groups'
       Caption = 'Edit Group...'
+      Hint = 'Edit current group.|Opens a form for edit current group.'
       OnExecute = actEditGroupExecute
     end
     object actRenameGroupTitleWithFilename: TAction
       Category = 'Groups'
-      Caption = 'Rename group title with current file'
+      Caption = 'File to Group Title...'
+      Hint = 'Rename group title with current file.|Opens a form to edit current group with title changed to current file.'
       OnExecute = actRenameGroupTitleWithFilenameExecute
     end
     object actEditSoft: TAction
       Category = 'Software'
-      Caption = 'Edit Software'
+      Caption = 'Edit Software...'
+      Hint = 'Edit current software.|Opens a form to edit current software.'
       OnExecute = actEditSoftExecute
     end
     object actRenameSoftTitleWithFilename: TAction
@@ -970,54 +973,64 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
     object actRunSoftware: TAction
       Category = 'Software'
       Caption = 'Run software'
+      Hint = 'Run current software.|Runs current software with default system emulator.'
       OnExecute = actRunSoftwareExecute
     end
     object actAssignFile: TAction
       Category = 'Files'
       Caption = 'Assign file'
+      Hint = 'Assign file to current group/software.|Renames current file to selected group/software sortkey.'
       OnExecute = actAssignFileExecute
       ShortCut = 16449
     end
     object actAssignToGroup: TAction
       Category = 'Files'
       Caption = 'Assign to Group'
+      Hint = 'Assign file to current software''s group.|Renames current file to group''s sortkey of selected software.'
       OnExecute = actAssignToGroupExecute
     end
     object actDeleteFile: TAction
       Category = 'Files'
       Caption = 'Delete file'
+      Hint = 'Delete current file.|Removes from disk select file.'
       OnExecute = actDeleteFileExecute
       ShortCut = 8238
     end
     object actMoveFile: TAction
       Category = 'Files'
       Caption = 'Move file...'
+      Hint = 'Move current file to another folder.|Opens a dialog ask a folder where the file will be moved.'
       OnExecute = actMoveFileExecute
     end
     object actMoveAllFiles: TAction
       Category = 'Files'
       Caption = 'Move all files...'
+      Hint = 'Move all visible files to another folder.|Opens a dialog asking a folder where all visible files in the list will be moved.'
       OnExecute = actMoveAllFilesExecute
     end
     object actDeleteAllFiles: TAction
       Category = 'Files'
       Caption = 'Delete all files'
+      Hint = 'Delete all visible files.|Removes from disk all visible files in the list.'
       OnExecute = actDeleteAllFilesExecute
     end
     object actRenameFile: TAction
       Category = 'Files'
       Caption = 'Rename file manually...'
+      Hint = 'Rename current file.|Opens a dialog asking a new filename.'
       OnExecute = actRenameFileExecute
       ShortCut = 113
     end
     object actAutoAssign: TAction
       Category = 'Files'
       Caption = 'Auto Assign'
+      Hint = 'Assign automatically all matched files.|Moves all files wich match with current group/software list.'
       OnExecute = actAutoAssignExecute
     end
     object actOpenTargetFolder: TAction
       Category = 'Folder'
       Caption = 'Open Target Folder'
+      Hint = 'Open current media base folder in explorer.|Opens in explorer'
       OnExecute = actOpenTargetFolderExecute
     end
     object actOpenFileDefApp: TAction
