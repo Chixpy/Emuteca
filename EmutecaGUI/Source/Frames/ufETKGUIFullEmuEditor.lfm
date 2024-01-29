@@ -1,6 +1,13 @@
 inherited fmETKGUIFullEmuEditor: TfmETKGUIFullEmuEditor
   inherited pButtons: TPanel
     TabOrder = 2
+    inherited chkCloseOnSave: TCheckBox
+      Left = 47
+      Width = 57
+    end
+    inherited bSave: TBitBtn
+      Left = 151
+    end
   end
   object pcProperties: TPageControl[1]
     Left = 0
@@ -15,7 +22,6 @@ inherited fmETKGUIFullEmuEditor: TfmETKGUIFullEmuEditor
     Height = 26
     Top = 0
     Width = 400
-    Caption = 'ToolBar1'
     Images = ilPropEditor
     TabOrder = 0
     object bOpenEmulatorFolder: TToolButton
@@ -28,6 +34,7 @@ inherited fmETKGUIFullEmuEditor: TfmETKGUIFullEmuEditor
     object actOpenEmulatorFolder: TAction[2]
       Category = 'Emulator'
       Caption = 'Open emulator folder'
+      Hint = 'Open emulator folder in Explorer. | Opens emulator folder in Explorer.'
       OnExecute = actOpenEmulatorFolderExecute
     end
   end

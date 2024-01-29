@@ -209,6 +209,15 @@ inherited frmETKGUIMain: TfrmETKGUIMain
       object mimmAbout: TMenuItem
         Action = HelpOnHelp1
       end
+      object Separator2: TMenuItem
+        Caption = '-'
+      end
+      object mimmEmutecaWebSite: TMenuItem
+        Action = actEmutecaWebSite
+      end
+      object mimmEmutecaGithub: TMenuItem
+        Action = actEmutecaGithub
+      end
     end
   end
   object ActionList: TActionList[4]
@@ -418,6 +427,16 @@ inherited frmETKGUIMain: TfrmETKGUIMain
       Caption = 'ETKPDF2CBX'
       Hint = 'Run ETKMagCut.|Runs ETKPDF2CBX for extracting magazine pages from PDFs.'
       OnExecute = actRunETKPDF2CBXExecute
+    end
+    object actEmutecaWebSite: TAction
+      Category = 'Help'
+      Caption = 'Emuteca website...'
+      OnExecute = actEmutecaWebSiteExecute
+    end
+    object actEmutecaGithub: TAction
+      Category = 'Help'
+      Caption = 'Emuteca in Github'
+      OnExecute = actEmutecaGithubExecute
     end
   end
   object ActImages: TImageList[5]

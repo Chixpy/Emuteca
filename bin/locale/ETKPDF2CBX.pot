@@ -5,12 +5,20 @@ msgstr "Content-Type: text/plain; charset=UTF-8"
 msgid "Delete File"
 msgstr ""
 
+#: tfmchxfilelistpreview.actdeletefile.hint
+msgid "Deletes file from disc."
+msgstr ""
+
+#: tfmchxfilelistpreview.actfirstitem.hint
+msgid "Go to first item."
+msgstr ""
+
 #: tfmchxfilelistpreview.actopenfilefolder.caption
 msgid "Open File Folder"
 msgstr ""
 
 #: tfmchxfilelistpreview.actopenfilefolder.hint
-msgid "Open file's folder."
+msgid "Open file's folder in Explorer."
 msgstr ""
 
 #: tfmchxfilelistpreview.actopenwithdefapp.caption
@@ -18,11 +26,23 @@ msgid "Open with Default Application"
 msgstr ""
 
 #: tfmchxfilelistpreview.actopenwithdefapp.hint
-msgid "Open file with default system application."
+msgid "Open file with default application."
 msgstr ""
 
 #: tfmchxfilelistpreview.actrenamefile.caption
 msgid "Rename/Move File"
+msgstr ""
+
+#: tfmchxfilelistpreview.actrenamefile.hint
+msgid "Rename or move file."
+msgstr ""
+
+#: tfmchxfilelistpreview.cbxcurritem.hint
+msgid "Select an item."
+msgstr ""
+
+#: tfmchxfilelistpreview.savedialog1.title
+msgid "Save file as..."
 msgstr ""
 
 #: tfmchximglistpreview.actopenfilefolder.hint
@@ -50,11 +70,11 @@ msgid "Original size"
 msgstr ""
 
 #: tfmchximgviewer.actoriginalsize.hint
-msgid "Resize image to original size."
+msgid "View image in original size."
 msgstr ""
 
 #: tfmchximgviewer.actstretch.caption
-msgid "actStretch"
+msgid "Stretch"
 msgstr ""
 
 #: tfmchximgviewer.actstretch.hint
@@ -62,7 +82,7 @@ msgid "Stretch image to window."
 msgstr ""
 
 #: tfmchximgviewer.acttogglefilelist.caption
-msgid "actToggleFileList"
+msgid "Toggle Filelist"
 msgstr ""
 
 #: tfmchximgviewer.acttogglefilelist.hint
@@ -127,14 +147,6 @@ msgstr ""
 
 #: tfmchxlistpreview.lmaxitems.hint
 msgid "Number of items."
-msgstr ""
-
-#: tfmchxlistpreview.tbpreviewlist.caption
-msgid "tbPreviewList"
-msgstr ""
-
-#: tfmchxlistpreview.tbsepnavbuttons.caption
-msgid "tbSepNavButtons"
 msgstr ""
 
 #: tfmp2cmain.bextractpages.caption
@@ -360,7 +372,7 @@ msgstr ""
 
 #: uchxrscstr.rsfiledlgmaskfmt
 #, object-pascal-format
-msgid "Supported files|%0:s|All files|*.*"
+msgid "Supported files (%0:s)|%0:s|All files|*.*"
 msgstr ""
 
 #: uchxrscstr.rsfilenotfound
@@ -392,7 +404,7 @@ msgid "Save changes"
 msgstr ""
 
 #: uchxverinfo.chxversionnoinfo
-msgid "No build information available"
+msgid "No build information available."
 msgstr ""
 
 #: ufchximglistpreview.rsimageprops

@@ -86,7 +86,7 @@ inherited fmEmutecaActAddFolder: TfmEmutecaActAddFolder
     ClientWidth = 396
     ItemIndex = 0
     Items.Strings = (
-      'Folder name..'
+      'Folder name.'
       'Filename.'
     )
     TabOrder = 2

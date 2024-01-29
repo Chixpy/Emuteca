@@ -69,10 +69,11 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
       object chkCopyFile: TCheckBox
         Left = 0
         Height = 24
+        Hint = 'Copy file instead of renaming it. | Copies the file, without deleting original.'
         Top = 0
         Width = 253
         Align = alTop
-        Caption = 'Copy file, don''t delete source.'
+        Caption = 'Copy file.'
         TabOrder = 0
       end
       object bRename: TBitBtn
@@ -146,9 +147,9 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
         Height = 189
         Top = 0
         Width = 550
-        ActivePage = pagFilesOtherFolder
+        ActivePage = pagFilesWOGroup
         Align = alClient
-        TabIndex = 4
+        TabIndex = 1
         TabOrder = 0
         OnChange = pcSourceChange
         object pagFilesWOSoft: TTabSheet
@@ -935,6 +936,7 @@ inherited fmETKGUIMediaManager: TfmETKGUIMediaManager
     object bOpenFolder: TButton
       Left = 0
       Height = 31
+      Hint = 'Open target folder in explorer.|Opens media base folder in explorer '
       Top = 437
       Width = 196
       Action = actOpenTargetFolder

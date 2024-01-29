@@ -49,7 +49,7 @@ type
     Splitter1: TSplitter;
     SysImage: TImage;
     ToolBar1: TToolBar;
-    ToolButton1: TToolButton;
+    bOpenSystemFolder: TToolButton;
     procedure actOpenSystemFolderExecute(Sender: TObject);
     procedure SysImageDblClick(Sender: TObject);
 

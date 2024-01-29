@@ -11,10 +11,10 @@ inherited fmEmutecaActAddSoft: TfmEmutecaActAddSoft
     ClientWidth = 594
     TabOrder = 3
     inherited chkCloseOnSave: TCheckBox
-      Left = 95
+      Left = 96
     end
     inherited bSave: TBitBtn
-      Left = 250
+      Left = 249
     end
     inherited bCancel: TBitBtn
       Left = 411
@@ -54,13 +54,13 @@ inherited fmEmutecaActAddSoft: TfmEmutecaActAddSoft
     end
     object gbxFileSelection: TGroupBox
       Left = 0
-      Height = 125
+      Height = 106
       Top = 45
       Width = 285
       Align = alTop
       AutoSize = True
       Caption = 'Select a file'
-      ClientHeight = 100
+      ClientHeight = 81
       ClientWidth = 281
       Enabled = False
       TabOrder = 1
@@ -89,28 +89,27 @@ inherited fmEmutecaActAddSoft: TfmEmutecaActAddSoft
         Align = alTop
         Caption = 'Open as compressed archive'
         Enabled = False
-        OnChange = chkOpenAsArchiveChange
         TabOrder = 1
+        OnChange = chkOpenAsArchiveChange
       end
       object cbxInnerFile: TComboBox
         Left = 0
         Height = 28
-        Top = 72
+        Top = 53
         Width = 281
         Align = alTop
         Enabled = False
         ItemHeight = 20
-        OnChange = cbxInnerFileChange
         Style = csDropDownList
         TabOrder = 2
+        OnChange = cbxInnerFileChange
       end
       object lCompressedError: TLabel
         Left = 0
-        Height = 20
+        Height = 1
         Top = 52
         Width = 281
         Align = alTop
-        Caption = ' '
         Font.Color = clRed
         Font.Style = [fsBold]
         ParentColor = False
@@ -120,7 +119,7 @@ inherited fmEmutecaActAddSoft: TfmEmutecaActAddSoft
     object rgbSoftKey: TRadioGroup
       Left = 0
       Height = 73
-      Top = 170
+      Top = 151
       Width = 285
       Align = alTop
       AutoFill = True
@@ -149,31 +148,30 @@ inherited fmEmutecaActAddSoft: TfmEmutecaActAddSoft
     object eVersionKey: TEdit
       Left = 0
       Height = 28
-      Top = 243
+      Top = 224
       Width = 285
       Align = alTop
       Enabled = False
-      OnEditingDone = eVersionKeyEditingDone
       TabOrder = 3
+      OnEditingDone = eVersionKeyEditingDone
     end
     object gbxDuplicates: TGroupBox
       Left = 0
-      Height = 45
-      Top = 271
+      Height = 26
+      Top = 252
       Width = 285
       Align = alTop
       AutoSize = True
       Caption = 'Duplicates'
-      ClientHeight = 20
+      ClientHeight = 1
       ClientWidth = 281
       TabOrder = 4
       object lDupFile: TLabel
         Left = 0
-        Height = 20
+        Height = 1
         Top = 0
         Width = 281
         Align = alTop
-        Caption = ' '
         Font.Style = [fsBold]
         ParentColor = False
         ParentFont = False
@@ -231,7 +229,8 @@ inherited fmEmutecaActAddSoft: TfmEmutecaActAddSoft
   inherited alPropEditor: TActionList[4]
     object actAddNewGroup: TAction[2]
       Category = 'Groups'
-      Caption = 'Add new group...'
+      Caption = '+'
+      Hint = 'Add new group.'
       OnExecute = actAddNewGroupExecute
     end
   end

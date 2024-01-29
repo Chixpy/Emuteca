@@ -332,6 +332,8 @@ begin
   aMediaPanel.Name := aMediaPanel.Name +
     IntToStr(sbxMediaPanels.ComponentCount div 2);
 
+  aMediaPanel.Height := aHeight;
+
   //aMediaPanel.LoadGUIConfig();
 
   UpdateChildrenConfig(sbxMediaPanels);

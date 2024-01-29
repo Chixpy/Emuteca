@@ -1,7 +1,4 @@
 {"version":1,"strings":[
-{"hash":190953474,"name":"tfmetkguifullsystemeditor.systoolbar.caption","sourcebytes":[83,121,115,84,111,111,108,66,97,114],"value":"SysToolBar"},
-{"hash":160486418,"name":"tfmetkguifullsystemeditor.toolbutton2.caption","sourcebytes":[84,111,111,108,66,117,116,116,111,110,50],"value":"ToolButton2"},
-{"hash":160486417,"name":"tfmetkguifullsystemeditor.toolbutton1.caption","sourcebytes":[84,111,111,108,66,117,116,116,111,110,49],"value":"ToolButton1"},
 {"hash":100274035,"name":"tfmetkguifullsystemeditor.actcreatefolders.caption","sourcebytes":[67,114,101,97,116,101,32,70,111,108,100,101,114,115],"value":"Create Folders"},
 {"hash":112869810,"name":"tfmetkguifullsystemeditor.actopensystemfolder.caption","sourcebytes":[79,112,101,110,32,115,121,115,116,101,109,32,102,111,108,100,101,114],"value":"Open system folder"}
 ]}

@@ -254,7 +254,7 @@ msgstr ""
 
 #: uchxrscstr.rsfiledlgmaskfmt
 #, object-pascal-format
-msgid "Supported files|%0:s|All files|*.*"
+msgid "Supported files (%0:s)|%0:s|All files|*.*"
 msgstr ""
 
 #: uchxrscstr.rsfilenotfound

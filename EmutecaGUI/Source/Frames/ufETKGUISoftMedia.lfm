@@ -43,7 +43,6 @@ inherited fmETKGUISoftMedia: TfmETKGUISoftMedia
       Align = alRight
       AutoSize = True
       BorderSpacing.Top = 3
-      Caption = 'tbSoftMediaPanel'
       Images = ilMediaPanel
       TabOrder = 0
       object tbAddImagePanel: TToolButton
@@ -59,8 +58,7 @@ inherited fmETKGUISoftMedia: TfmETKGUISoftMedia
       object ToolButton1: TToolButton
         Left = 1
         Top = 46
-        Width = 23
-        Caption = 'ToolButton1'
+        Width = 8
         Style = tbsSeparator
       end
       object tbClearPanels: TToolButton

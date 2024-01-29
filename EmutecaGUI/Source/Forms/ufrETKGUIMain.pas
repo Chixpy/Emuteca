@@ -62,6 +62,8 @@ type
     actEditGroup : TAction;
     actExitWOSaving : TAction;
     actCopyFileName2ClipBoard : TAction;
+    actEmutecaGithub : TAction;
+    actEmutecaWebSite : TAction;
     actRunETKPDF2CBX : TAction;
     actRunETKDBEditorSoft : TAction;
     actRunETKDBEditorGroup : TAction;
@@ -87,6 +89,8 @@ type
     actExit : TFileExit;
     HelpOnHelp1 : THelpOnHelp;
     MainMenu : TMainMenu;
+    mimmEmutecaGithub : TMenuItem;
+    mimmEmutecaWebSite : TMenuItem;
     mimmRunETKPDF2CBX : TMenuItem;
     mipmSCopyFileName2ClipBoard : TMenuItem;
     mimmRunDBEditorSoft : TMenuItem;
@@ -146,6 +150,7 @@ type
     pmGroup : TPopupMenu;
     pmSoft : TPopupMenu;
     Separator1 : TMenuItem;
+    Separator2 : TMenuItem;
     stbHelp : TStatusBar;
     procedure actAddFolderExecute(Sender : TObject);
     procedure actAddSoftExecute(Sender : TObject);
@@ -155,6 +160,7 @@ type
     procedure actEditGroupExecute(Sender : TObject);
     procedure actEditSystemExecute(Sender : TObject);
     procedure actEmulatorManagerExecute(Sender : TObject);
+    procedure actEmutecaGithubExecute(Sender : TObject);
     procedure actExitWOSavingExecute(Sender : TObject);
     procedure actExportSoftDataExecute(Sender : TObject);
     procedure actImportSoftDataExecute(Sender : TObject);
@@ -167,6 +173,7 @@ type
     procedure actOpenSoftFolderExecute(Sender : TObject);
     procedure actOpenSystemBaseFolderExecute(Sender : TObject);
     procedure actOpenTempFolderExecute(Sender : TObject);
+    procedure actEmutecaWebSiteExecute(Sender : TObject);
     procedure actRemoveSoftExecute(Sender : TObject);
     procedure actRunDBEditorExecute(Sender : TObject);
     procedure actRunETKDBEditorGroupExecute(Sender : TObject);
@@ -525,6 +532,11 @@ begin
   fmEmutecaMainFrame.Emuteca := Emuteca;
 end;
 
+procedure TfrmETKGUIMain.actEmutecaGithubExecute(Sender : TObject);
+begin
+  OpenURL('https://github.com/chixpy/emuteca');
+end;
+
 procedure TfrmETKGUIMain.actExitWOSavingExecute(Sender : TObject);
 begin
   SaveOnExit := False;
@@ -713,6 +725,11 @@ begin
   if not OpenDocument(Emuteca.TempFolder) then
     raise EFileNotFoundException.CreateFmt(rsFmtNotFound,
       [GetCurrentDirUTF8, Emuteca.TempFolder]);
+end;
+
+procedure TfrmETKGUIMain.actEmutecaWebSiteExecute(Sender : TObject);
+begin
+  OpenURL('https://chixpy.github.io/Emuteca/');
 end;
 
 procedure TfrmETKGUIMain.actRemoveSoftExecute(Sender : TObject);

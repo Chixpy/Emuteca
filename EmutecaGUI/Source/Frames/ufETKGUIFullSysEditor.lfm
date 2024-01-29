@@ -34,7 +34,6 @@ inherited fmETKGUIFullSystemEditor: TfmETKGUIFullSystemEditor
     Height = 26
     Top = 0
     Width = 481
-    Caption = 'SysToolBar'
     Images = ilPropEditor
     ParentShowHint = False
     ShowHint = True
@@ -51,9 +50,8 @@ inherited fmETKGUIFullSystemEditor: TfmETKGUIFullSystemEditor
     end
     object ToolButton2: TToolButton
       Left = 30
-      Height = 8
+      Height = 28
       Top = 2
-      Caption = 'ToolButton2'
       Style = tbsSeparator
     end
     object bSaveSystem: TToolButton
@@ -63,9 +61,8 @@ inherited fmETKGUIFullSystemEditor: TfmETKGUIFullSystemEditor
     end
     object ToolButton1: TToolButton
       Left = 67
-      Height = 8
+      Height = 28
       Top = 2
-      Caption = 'ToolButton1'
       Style = tbsSeparator
     end
   end

@@ -1,270 +1,296 @@
 msgid ""
-msgstr "Content-Type: text/plain; charset=UTF-8"
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: Chixpy\n"
+"Language-Team: \n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.4.2\n"
 
 #: tfmchxfilelistpreview.actdeletefile.caption
 msgid "Delete File"
-msgstr ""
+msgstr "Borrar fichero"
+
+#: tfmchxfilelistpreview.actdeletefile.hint
+msgid "Deletes file from disc."
+msgstr "Borra el fichero del disco."
+
+#: tfmchxfilelistpreview.actfirstitem.hint
+msgid "Go to first item."
+msgstr "Ir al primer elemento."
 
 #: tfmchxfilelistpreview.actopenfilefolder.caption
 msgid "Open File Folder"
-msgstr ""
+msgstr "Abrir carpeta del fichero"
 
 #: tfmchxfilelistpreview.actopenfilefolder.hint
-msgid "Open file's folder."
-msgstr ""
+msgid "Open file's folder in Explorer."
+msgstr "Abrir carpeta del fichero en el Explorador."
 
 #: tfmchxfilelistpreview.actopenwithdefapp.caption
 msgid "Open with Default Application"
-msgstr ""
+msgstr "Abrir con la aplicación por defecto"
 
 #: tfmchxfilelistpreview.actopenwithdefapp.hint
-msgid "Open file with default system application."
-msgstr ""
+msgid "Open file with default application."
+msgstr "Abrir fichero con la aplicación por defecto."
 
 #: tfmchxfilelistpreview.actrenamefile.caption
 msgid "Rename/Move File"
-msgstr ""
+msgstr "Renombrar/Mover fichero"
+
+#: tfmchxfilelistpreview.actrenamefile.hint
+msgid "Rename or move file."
+msgstr "Renombrar o mover el fichero."
+
+#: tfmchxfilelistpreview.cbxcurritem.hint
+msgid "Select an item."
+msgstr "Selecciona un elemento."
+
+#: tfmchxfilelistpreview.savedialog1.title
+msgid "Save file as..."
+msgstr "Guardar fichero como..."
 
 #: tfmchximglistpreview.actopenfilefolder.hint
 msgid "Opens file's folder."
-msgstr ""
+msgstr "Abre la carpeta del fichero."
 
 #: tfmchximglistpreview.iimage.hint
 msgid "DblClk to open in Image Viewer"
-msgstr ""
+msgstr "Doble clic para abrir en el Visor de Imágenes"
 
 #: tfmchximglistpreview.limageprops.caption
 msgid "No image loaded"
-msgstr ""
+msgstr "Sin imagen cargada"
 
 #: tfmchximgviewer.actclose.caption
 msgid "Close window"
-msgstr ""
+msgstr "Cerrar ventana"
 
 #: tfmchximgviewer.actclose.hint
 msgid "Close the window."
-msgstr ""
+msgstr "Cerrar la ventana."
 
 #: tfmchximgviewer.actoriginalsize.caption
 msgid "Original size"
-msgstr ""
+msgstr "Tamaño original"
 
 #: tfmchximgviewer.actoriginalsize.hint
-msgid "Resize image to original size."
-msgstr ""
+msgid "View image in original size."
+msgstr "Ver la imagen a su tamaño original."
 
 #: tfmchximgviewer.actstretch.caption
-msgid "actStretch"
-msgstr ""
+msgid "Stretch"
+msgstr "Adaptar"
 
 #: tfmchximgviewer.actstretch.hint
 msgid "Stretch image to window."
-msgstr ""
+msgstr "Adapta la imagen a la ventana."
 
 #: tfmchximgviewer.acttogglefilelist.caption
-msgid "actToggleFileList"
-msgstr ""
+msgid "Toggle Filelist"
+msgstr "Alternar lista de ficheros"
 
 #: tfmchximgviewer.acttogglefilelist.hint
 msgid "Show/Hide file list."
-msgstr ""
+msgstr "Mostrar/Ocultar la lista de ficheros."
 
 #: tfmchximgviewer.actzoomin.caption
 msgid "Zoom In"
-msgstr ""
+msgstr "Acercar zoom"
 
 #: tfmchximgviewer.actzoomin.hint
 msgid "Zoom image in."
-msgstr ""
+msgstr "Acercar zoom de la imagen."
 
 #: tfmchximgviewer.actzoomout.caption
 msgid "Zoom Out"
-msgstr ""
+msgstr "Alejar zoom"
 
 #: tfmchximgviewer.actzoomout.hint
 msgid "Zoom image out."
-msgstr ""
+msgstr "Alejar zoom de la imagen."
 
 #: tfmchxlistpreview.actfirstitem.caption
 msgid "First item"
-msgstr ""
+msgstr "Primer elemento"
 
 #: tfmchxlistpreview.actfirstitem.hint
 msgid "Go to first item"
-msgstr ""
+msgstr "Ir al primer elemento"
 
 #: tfmchxlistpreview.actlastitem.caption
 msgid "Last item"
-msgstr ""
+msgstr "Ültimo elemento"
 
 #: tfmchxlistpreview.actlastitem.hint
 msgid "Go to last item."
-msgstr ""
+msgstr "Ir al último elemento."
 
 #: tfmchxlistpreview.actnextitem.caption
 msgid "Next item"
-msgstr ""
+msgstr "Elemento siguiente"
 
 #: tfmchxlistpreview.actnextitem.hint
 msgid "Go to next item."
-msgstr ""
+msgstr "Ir al elemento siguiente."
 
 #: tfmchxlistpreview.actpreviousitem.caption
 msgid "Previous item"
-msgstr ""
+msgstr "Elemento anterior"
 
 #: tfmchxlistpreview.actpreviousitem.hint
 msgid "Go to previous item."
-msgstr ""
+msgstr "Ir al elemento anterior."
 
 #: tfmchxlistpreview.cbxcurritem.hint
 msgid "Select item."
-msgstr ""
+msgstr "Elegir elemento."
 
 #: tfmchxlistpreview.lmaxitems.caption
 msgid "/ 0"
-msgstr ""
+msgstr "/ 0"
 
 #: tfmchxlistpreview.lmaxitems.hint
 msgid "Number of items."
-msgstr ""
-
-#: tfmchxlistpreview.tbpreviewlist.caption
-msgid "tbPreviewList"
-msgstr ""
-
-#: tfmchxlistpreview.tbsepnavbuttons.caption
-msgid "tbSepNavButtons"
-msgstr ""
+msgstr "Número de elementos."
 
 #: tfmp2cmain.bextractpages.caption
 msgid "Extract pages"
-msgstr ""
+msgstr "Extraer páginas"
 
 #: tfmp2cmain.bmakecbx.caption
 msgid "Make CBX"
-msgstr ""
+msgstr "Crear CBX"
 
 #: tfmp2cmain.bopenoutputfolder.caption
 msgid "Open Output Folder"
-msgstr ""
+msgstr "Abrir carpeta de salida"
 
 #: tfmp2cmain.breloadconfig.caption
 msgid "Reload Config"
-msgstr ""
+msgstr "Recargar configuración"
 
 #: tfmp2cmain.breloadfiles.caption
 msgid "Reload Files"
-msgstr ""
+msgstr "Recargar ficheros"
 
 #: tfmp2cmain.bsaveconfig.caption
 msgid "Save Config"
-msgstr ""
+msgstr "Guardar configuración"
 
 #: tfmp2cmain.btempfolder.caption
 msgid "Open Temp folder"
-msgstr ""
+msgstr "Abrir carpeta temporal"
 
 #: tfmp2cmain.chkdeletepdf.caption
 msgid "Delete source PDF"
-msgstr ""
+msgstr "Borrar el PDF fuente"
 
 #: tfmp2cmain.gbxfiles.caption
 msgid "Files"
-msgstr ""
+msgstr "Ficheros"
 
 #: tfmp2cmain.gbximagespreview.caption
 msgid "Images preview"
-msgstr ""
+msgstr "Previsualización de imágenes"
 
 #: tfmp2cmain.gbxinput.caption
 msgid "Input"
-msgstr ""
+msgstr "Entrada"
 
 #: tfmp2cmain.gbxoutput.caption
 msgid "Output"
-msgstr ""
+msgstr "Salida"
 
 #: tfmp2cmain.gbxpasswords.caption
 msgid "Passwords (If PDF is locked)"
-msgstr ""
+msgstr "Contraseñas (Si el PDF está protegido)"
 
 #: tfmp2cmain.l7zexecutable.caption
 msgid "7z executable"
-msgstr ""
+msgstr "Ejecutable de 7z"
 
 #: tfmp2cmain.limgeditorexecutable.caption
 msgid "Image Editor executable"
-msgstr ""
+msgstr "Ejecutable del editor de imágenes"
 
 #: tfmp2cmain.limgeditorparams.caption
 msgid "Image Editor parameters"
-msgstr ""
+msgstr "Parámetros del editor de imágenes"
 
 #: tfmp2cmain.lownerpassword.caption
 msgid "Owner password"
-msgstr ""
+msgstr "Contraseña de propietario"
 
 #: tfmp2cmain.lparamshelp.caption
 msgid "%FILE% → Current filename"
-msgstr ""
+msgstr "%FILE% → Nombre del fichero actual"
 
 #: tfmp2cmain.lpdffile.caption
 msgid "PDF File"
-msgstr ""
+msgstr "Fichero PDF"
 
 #: tfmp2cmain.lpdfimagesexecutable.caption
 msgid "PDFImages executable"
-msgstr ""
+msgstr "Ejecutable de PDFImages"
 
 #: tfmp2cmain.lpdftopngexecutable.caption
 msgid "PDFtoPNG executable"
-msgstr ""
+msgstr "Ejecutable de PDFtoPNG"
 
 #: tfmp2cmain.luserpassword.caption
 msgid "User password"
-msgstr ""
+msgstr "Contraseña de usuario"
 
 #: tfmp2cmain.pagconfig.caption
 msgid "Config"
-msgstr ""
+msgstr "Configuración"
 
 #: tfmp2cmain.pagconsolelog.caption
 msgid "Console Log"
-msgstr ""
+msgstr "Registro de la consola"
 
 #: tfmp2cmain.pagconvert.caption
 msgid "Convert"
-msgstr ""
+msgstr "Convertir"
 
 #: tfmp2cmain.rgboutputformat.caption
 msgid "Output Format"
-msgstr ""
+msgstr "Formato de salida"
 
 #: tfmp2cmain.rgboutputformat.hint
 msgid ""
 "CBZ is recommended. JPEG and PNG are usually compressed by itself.\n"
 "CB7 is a solid archive (all files must be extracted to extract one file)."
 msgstr ""
+"Se recomienda CBZ. JPEG y PNG normalmente son comprimidos por si mismos.\n"
+"CB7 es un archivo sólido (todos los ficheros deben ser extraídos para extraer un fichero)."
 
 #: tfmp2cmain.rgbpdfextractor.caption
 msgid "PDF Extractor"
-msgstr ""
+msgstr "Extractor de PDF"
 
 #: tfmp2cmain.rgbpdfextractor.hint
 msgid ""
 "PDFImages is recomended if pages are scanned images.\n"
 "If PDF is composed with text + images + effects, PDFtoPNG gives better results. "
 msgstr ""
+"PDFImages es recomendable si las páginas son imágenes escaneadas.\n"
+"Si el PDF está compuesto por texto + imágenes + efectos, PDFtoPNG ofrece mejores resultados."
 
 #: tfrmchxform.caption
 msgid "frmCHXForm"
-msgstr ""
+msgstr "frmCHXForm"
 
 #: uchx7zwrapper.rsw7zerrorline
 #, object-pascal-format
 msgid "%0:s - %1:s: %2:s"
-msgstr ""
+msgstr "%0:s - %1:s: %2:s"
 
 #: uchx7zwrapper.rsw7zexeerror
 #, object-pascal-format
@@ -272,6 +298,8 @@ msgid ""
 "7z.exe/7zG.exe error %1:d exit code.\n"
 "File: \"%0:s\""
 msgstr ""
+"Error de 7z.exe/7zG.exe con código de salida %1:d\n"
+"Archivo: \"%0:s\""
 
 #: uchx7zwrapper.rsw7zexewarning
 #, object-pascal-format
@@ -279,16 +307,18 @@ msgid ""
 "7z.exe/7zG.exe warning %1:d exit code.\n"
 "File: \"%0:s\""
 msgstr ""
+"Advertencia de 7z.exe/7zG.exe con código de salida %1:d\n"
+"Archivo: \"%0:s\""
 
 #: uchx7zwrapper.rsw7zfilenotfound
 #, object-pascal-format
 msgid "\"%0:s\" file not found."
-msgstr ""
+msgstr "\"%0:s\" fichero no encontrado."
 
 #: uchx7zwrapper.rsw7znocrc32
 #, object-pascal-format
 msgid "Error extracting CRC32: \"%0:s\""
-msgstr ""
+msgstr "Error al extraer el CRC32: \"%0:s\""
 
 #: uchxrscstr.rscorfirmdeletefile
 #, object-pascal-format
@@ -296,11 +326,13 @@ msgid ""
 "%0:s\n"
 "Do you want to delete this file?"
 msgstr ""
+"%0:s\n"
+"¿Quiere borrar este fichero?"
 
 #: uchxrscstr.rscuexcalreadyexists
 #, object-pascal-format
 msgid "\"%0:s\" already exists."
-msgstr ""
+msgstr "\"%0:s\" ya existe."
 
 #: uchxrscstr.rscuexcalreadyexistsask
 #, object-pascal-format
@@ -308,21 +340,23 @@ msgid ""
 "\"%0:s\" already exists.\n"
 "Replace it?"
 msgstr ""
+"\"%0:s\" ya existe.\n"
+"¿Quiere reemplazarlo?"
 
 #: uchxrscstr.rscuexccardrange
 #, object-pascal-format
 msgid "\"%0:d\" is not in cardinal range."
-msgstr ""
+msgstr "\"%0:d\" fuera del rango de cardinal."
 
 #: uchxrscstr.rscuexcnilparameter
 #, object-pascal-format
 msgid "%0:s: %1:s parameter (%2:s) = nil"
-msgstr ""
+msgstr "%0:s: Parámetro %1:s (%2:s) = nil"
 
 #: uchxrscstr.rsenotfilename
 #, object-pascal-format
 msgid "%0:s: Not defined filename"
-msgstr ""
+msgstr "%0:s: Nombre de fichero no definido"
 
 #: uchxrscstr.rserrorcreatingfile
 #, object-pascal-format
@@ -330,6 +364,8 @@ msgid ""
 "Error creating:\n"
 "%0:s"
 msgstr ""
+"Error creando:\n"
+"%0:s"
 
 #: uchxrscstr.rserrordeletingfile
 #, object-pascal-format
@@ -337,6 +373,8 @@ msgid ""
 "Error deleting:\n"
 "%0:s"
 msgstr ""
+"Error borrando:\n"
+"%0:s"
 
 #: uchxrscstr.rserrorloadingfile
 #, object-pascal-format
@@ -344,6 +382,8 @@ msgid ""
 "Error loading:\n"
 "%0:s"
 msgstr ""
+"Error cargando:\n"
+"%0:s"
 
 #: uchxrscstr.rserrorrenamingfile
 #, object-pascal-format
@@ -353,15 +393,19 @@ msgid ""
 "to:\n"
 "%1:s"
 msgstr ""
+"Error renombrando:\n"
+"%0:s\n"
+"hacia:\n"
+"%1:s"
 
 #: uchxrscstr.rsfiledlgmaskdef
 msgid "All files|*.*"
-msgstr ""
+msgstr "Todos los ficheros|*.*"
 
 #: uchxrscstr.rsfiledlgmaskfmt
 #, object-pascal-format
-msgid "Supported files|%0:s|All files|*.*"
-msgstr ""
+msgid "Supported files (%0:s)|%0:s|All files|*.*"
+msgstr "Ficheros soportados (%0:s)|%0:s|Todos los ficheros|*.*"
 
 #: uchxrscstr.rsfilenotfound
 #, object-pascal-format
@@ -369,87 +413,88 @@ msgid ""
 "%0:s\n"
 "not found."
 msgstr ""
+"%0:s\n"
+"no encontrado."
 
 #: uchxrscstr.rsfmtitemcount
 #, object-pascal-format
 msgid "%0:d / %0:d"
-msgstr ""
+msgstr "%0:d / %0:d"
 
 #: uchxrscstr.rsrenamefile
 msgid "Rename this file:"
-msgstr ""
+msgstr "Renombrar este fichero:"
 
 #: uchxrscstr.rsrenamefilecaption
 msgid "Renaming file"
-msgstr ""
+msgstr "Renombrando fichero"
 
 #: uchxrscstr.rssavechanges
 msgid "Do you want to save current changes?"
-msgstr ""
+msgstr "¿Quiere guardar los cambios actuales?"
 
 #: uchxrscstr.rssavechangescaption
 msgid "Save changes"
-msgstr ""
+msgstr "Guardar cambios"
 
 #: uchxverinfo.chxversionnoinfo
-msgid "No build information available"
-msgstr ""
+msgid "No build information available."
+msgstr "No está disponible la información de construcción."
 
 #: ufchximglistpreview.rsimageprops
 #, object-pascal-format
 msgid "%2:s: %0:d x %1:d"
-msgstr ""
+msgstr "%2:s: %0:d x %1:d"
 
 #: ufchximglistpreview.rsnoimageloaded
 msgid "No image loaded."
-msgstr ""
+msgstr "Sin imagen cargada."
 
 #: ufchxlistpreview.rstotalitemscount
 #, object-pascal-format
 msgid " / %0:d"
-msgstr ""
+msgstr " / %0:d"
 
 #: ufp2cmain.rspdfimageserr1
 msgid "PDFImages: Error opening a PDF file."
-msgstr ""
+msgstr "PDFImages: Error abriendo un PDF."
 
 #: ufp2cmain.rspdfimageserr2
 msgid "PDFImages: Error opening an output file."
-msgstr ""
+msgstr "PDFImages: Error al abrir un archivo de salida."
 
 #: ufp2cmain.rspdfimageserr3
 msgid "PDFImages: Error related to PDF permissions."
-msgstr ""
+msgstr "PDFImages: Error relacionado con los permisos del PDF."
 
 #: ufp2cmain.rspdfimageserr99
 msgid "PDFImages: Unknown error."
-msgstr ""
+msgstr "PDFImages: Error desconocido."
 
 #: ufp2cmain.rspdfimageserrx
 msgid "PDFImages: No handled error."
-msgstr ""
+msgstr "PDFImages: Error no manejado."
 
 #: ufp2cmain.rspdftopngerr1
 msgid "PDFtoPNG: Error opening a PDF file."
-msgstr ""
+msgstr "PDFtoPNG: Error abriendo un fichero PDF."
 
 #: ufp2cmain.rspdftopngerr2
 msgid "PDFtoPNG: Error opening an output file."
-msgstr ""
+msgstr "PDFtoPNG: Error al abrir un archivo de salida."
 
 #: ufp2cmain.rspdftopngerr3
 msgid "PDFtoPNG: Error related to PDF permissions."
-msgstr ""
+msgstr "PDFtoPNG: Error relacionado con los permisos del PDF."
 
 #: ufp2cmain.rspdftopngerr99
 msgid "PDFtoPNG: Unknown error."
-msgstr ""
+msgstr "PDFtoPNG: Error desconocido."
 
 #: ufp2cmain.rspdftopngerrx
 msgid "PDFtoPNG: No handled error."
-msgstr ""
+msgstr "PDFtoPNG: Error no manejado."
 
 #: ufp2cmain.rspnmfiles
 msgid "WARNING: There are PNM files that you may want to convert and then reload the images."
-msgstr ""
-
+msgstr "ATENCIÓN: Hay ficheros PNM que querrá convertir y entonces recargar las imágenes."
