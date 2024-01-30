@@ -1,0 +1,1 @@
+This is the default folder where system lists are stored.
