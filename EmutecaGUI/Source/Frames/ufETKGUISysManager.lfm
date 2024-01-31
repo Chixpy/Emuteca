@@ -1,5 +1,25 @@
 inherited fmETKGUISysManager: TfmETKGUISysManager
+  Height = 618
+  Width = 1028
+  ClientHeight = 618
+  ClientWidth = 1028
+  inherited pButtons: TPanel
+    Top = 588
+    Width = 1028
+    ClientWidth = 1028
+    inherited chkCloseOnSave: TCheckBox
+      Left = 195
+    end
+    inherited bSave: TBitBtn
+      Left = 447
+    end
+    inherited bCancel: TBitBtn
+      Left = 745
+    end
+  end
   inherited pPropChkList: TPanel
+    Height = 584
+    ClientHeight = 584
     inherited tbPropChkList: TToolBar
       inherited ToolButton3: TToolButton
         Height = 28
@@ -8,6 +28,15 @@ inherited fmETKGUISysManager: TfmETKGUISysManager
         Height = 28
       end
     end
+    inherited clbPropItems: TCheckListBox
+      Height = 529
+    end
+    inherited sbPropChkList: TStatusBar
+      Top = 555
+    end
+  end
+  inherited splPropChkList: TSplitter
+    Height = 584
   end
   inherited alPropEditor: TActionList
     inherited actExportList: TAction

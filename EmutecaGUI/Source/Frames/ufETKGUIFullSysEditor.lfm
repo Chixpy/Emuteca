@@ -12,7 +12,6 @@ inherited fmETKGUIFullSystemEditor: TfmETKGUIFullSystemEditor
     TabOrder = 2
     inherited chkCloseOnSave: TCheckBox
       Left = 67
-      Width = 57
     end
     inherited bSave: TBitBtn
       Left = 191
@@ -35,8 +34,6 @@ inherited fmETKGUIFullSystemEditor: TfmETKGUIFullSystemEditor
     Top = 0
     Width = 481
     Images = ilPropEditor
-    ParentShowHint = False
-    ShowHint = True
     TabOrder = 0
     object bCreateFolders: TToolButton
       Left = 75
@@ -70,6 +67,7 @@ inherited fmETKGUIFullSystemEditor: TfmETKGUIFullSystemEditor
     object actCreateFolders: TAction[2]
       Category = 'System'
       Caption = 'Create Folders'
+      Hint = 'Autoconfigure creating subfolders in system base folder.'
       OnExecute = actCreateFoldersExecute
     end
     object actOpenSystemFolder: TAction[3]

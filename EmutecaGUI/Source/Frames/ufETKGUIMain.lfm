@@ -1,19 +1,19 @@
 inherited fmETKGUIMain: TfmETKGUIMain
-  Height = 481
-  Width = 640
-  ClientHeight = 481
-  ClientWidth = 640
+  Height = 600
+  Width = 940
+  ClientHeight = 600
+  ClientWidth = 940
   DesignLeft = 436
   DesignTop = 124
   object Splitter1: TSplitter[0]
     Left = 204
-    Height = 481
+    Height = 600
     Top = 0
     Width = 5
   end
   object Splitter2: TSplitter[1]
-    Left = 431
-    Height = 481
+    Left = 531
+    Height = 600
     Top = 0
     Width = 5
     Align = alRight
@@ -21,82 +21,82 @@ inherited fmETKGUIMain: TfmETKGUIMain
   end
   object pMiddle: TPanel[2]
     Left = 213
-    Height = 481
+    Height = 600
     Top = 0
-    Width = 214
+    Width = 314
     Align = alClient
     BevelOuter = bvNone
-    ClientHeight = 481
-    ClientWidth = 214
+    ClientHeight = 600
+    ClientWidth = 314
     TabOrder = 2
     object pMain: TPanel
       Left = 0
-      Height = 481
+      Height = 600
       Top = 0
-      Width = 214
+      Width = 314
       Align = alClient
       BevelOuter = bvNone
-      ClientHeight = 481
-      ClientWidth = 214
+      ClientHeight = 600
+      ClientWidth = 314
       TabOrder = 0
       object pSearch: TPanel
         Left = 0
         Height = 30
         Top = 0
-        Width = 214
+        Width = 314
         Align = alTop
         AutoSize = True
         BevelOuter = bvNone
         ClientHeight = 30
-        ClientWidth = 214
+        ClientWidth = 314
         TabOrder = 0
         object eSearch: TEdit
           Left = 0
           Height = 30
           Top = 0
-          Width = 109
+          Width = 209
           Align = alClient
           TabOrder = 0
           TextHint = 'Filter by name...'
         end
         object bSearch: TButton
-          Left = 109
+          Left = 209
           Height = 30
           Top = 0
           Width = 70
           Align = alRight
           AutoSize = True
           Caption = 'Search'
-          OnClick = bSearchClick
           TabOrder = 1
+          OnClick = bSearchClick
         end
         object cCancelSearch: TButton
-          Left = 179
+          Left = 279
           Height = 30
           Top = 0
           Width = 35
           Align = alRight
           AutoSize = True
           Caption = 'X'
-          OnClick = cCancelSearchClick
           TabOrder = 2
+          OnClick = cCancelSearchClick
         end
       end
     end
   end
   object pcLeft: TPageControl[3]
     Left = 0
-    Height = 481
+    Height = 600
     Top = 0
     Width = 200
     Align = alLeft
     TabOrder = 0
   end
   object pcSoftware: TPageControl[4]
-    Left = 440
-    Height = 481
+    Left = 540
+    Height = 600
     Top = 0
-    Width = 200
+    Width = 400
     Align = alRight
     TabOrder = 4
   end

@@ -1274,6 +1274,10 @@ msgstr "Software"
 msgid "Create Folders"
 msgstr "Crear carpetas"
 
+#: tfmetkguifullsystemeditor.actcreatefolders.hint
+msgid "Autoconfigure creating subfolders in system base folder."
+msgstr "Autoconfigurar creando subcarpetas en la carpeta base del sistema."
+
 #: tfmetkguifullsystemeditor.actopensystemfolder.caption
 msgctxt "tfmetkguifullsystemeditor.actopensystemfolder.caption"
 msgid "Open system folder"

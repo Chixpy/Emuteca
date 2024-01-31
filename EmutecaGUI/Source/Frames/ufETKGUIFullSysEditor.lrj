@@ -1,4 +1,5 @@
 {"version":1,"strings":[
 {"hash":100274035,"name":"tfmetkguifullsystemeditor.actcreatefolders.caption","sourcebytes":[67,114,101,97,116,101,32,70,111,108,100,101,114,115],"value":"Create Folders"},
+{"hash":152441550,"name":"tfmetkguifullsystemeditor.actcreatefolders.hint","sourcebytes":[65,117,116,111,99,111,110,102,105,103,117,114,101,32,99,114,101,97,116,105,110,103,32,115,117,98,102,111,108,100,101,114,115,32,105,110,32,115,121,115,116,101,109,32,98,97,115,101,32,102,111,108,100,101,114,46],"value":"Autoconfigure creating subfolders in system base folder."},
 {"hash":112869810,"name":"tfmetkguifullsystemeditor.actopensystemfolder.caption","sourcebytes":[79,112,101,110,32,115,121,115,116,101,109,32,102,111,108,100,101,114],"value":"Open system folder"}
 ]}

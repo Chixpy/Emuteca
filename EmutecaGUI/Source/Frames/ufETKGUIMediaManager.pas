@@ -389,6 +389,7 @@ type
     procedure DoSaveGUIConfig(aIniFile : TIniFile); override;
     procedure DoLoadGUIIcons(aIconsIni : TIniFile;
       const aBaseFolder : string); override;
+
   public
     property Emuteca : cEmuteca read FEmuteca write SetEmuteca;
     {< Emuteca Core. }
@@ -1118,8 +1119,8 @@ begin
   if (not Assigned(CurrentSG)) or (not (CurrentSG is cEmutecaSoftware)) then
     Exit;
 
-  aIconFile := '';
-  aConfigFile := '';
+  aIconFile := EmptyStr;
+  aConfigFile := EmptyStr;
 
   if Assigned(GUIConfig) then
   begin
@@ -1373,7 +1374,7 @@ begin
   vstSoftOfGroupsAll.Clear; // Clear all items
   vstSoftOfGroupsWOFile.Clear; // Clear all items
   vstSoftWOFile.ClearSelection;
-  TargetFile := '';
+  TargetFile := EmptyStr;
 
   aVST := GetCurrentGSVST;
   if Assigned(aVST) then
@@ -1435,7 +1436,7 @@ procedure TfmETKGUIMediaManager.vstFilesOtherFolderChange(
 var
   aFileRow : PFileRow;
 begin
-  SourceFile := '';
+  SourceFile := EmptyStr;
   SourceFolder := eOtherFolder.Text;
 
   if assigned(Sender) and assigned(Node) then
@@ -1545,13 +1546,13 @@ var
   SourceIsFolder : boolean;
   AllOK : boolean;
 begin
-  if (SourceFolder = PathDelim) or (SourceFolder = '') then
+  if (SourceFolder = PathDelim) or (SourceFolder = EmptyStr) then
     Exit;
-  if (TargetFolder = PathDelim) or (TargetFolder = '') then
+  if (TargetFolder = PathDelim) or (TargetFolder = EmptyStr) then
     Exit;
-  if SourceFile = '' then
+  if SourceFile = EmptyStr then
     Exit;
-  if TargetFile = '' then
+  if TargetFile = EmptyStr then
     Exit;
 
   // Source
@@ -1700,14 +1701,14 @@ begin
   if not chkCopyFile.Checked then
     RemoveGroupSoftWOFile(TargetFile);
 
-  SourceFile := '';
+  SourceFile := EmptyStr;
 
   // Clear TargetFile only if pagGroupsWOFile or vstSoftWOFile is active because
   //  the group is deleted from their list.
   if (GetCurrentFilesVST = vstGroupsWOFile) or
     (GetCurrentFilesVST = vstSoftWOFile) then
   begin
-    TargetFile := '';
+    TargetFile := EmptyStr;
   end;
 
   FilterLists;
@@ -1725,7 +1726,7 @@ begin
 
   TargetFile := aGroup.MediaFileName;
 
-  if TargetFile = '' then Exit;
+  if TargetFile = EmptyStr then Exit;
 
   actAssignFile.Execute;
 end;
@@ -1784,10 +1785,10 @@ begin
     end;
   end;
 
-  fmProgressBar.UpdTextAndBar('', '', 0, 0, True);
+  fmProgressBar.UpdTextAndBar(EmptyStr, EmptyStr, 0, 0, True);
 
-  SourceFile := '';
-  TargetFile := '';
+  SourceFile := EmptyStr;
+  TargetFile := EmptyStr;
 end;
 
 procedure TfmETKGUIMediaManager.actDeleteAllFilesExecute(Sender : TObject);
@@ -1862,7 +1863,7 @@ end;
 
 procedure TfmETKGUIMediaManager.actDeleteFileExecute(Sender : TObject);
 begin
-  if (SourceFile = '') or (SourceFolder = '') then
+  if (SourceFile = EmptyStr) or (SourceFolder = EmptyStr) then
     Exit;
 
   // TODO: Add support for folders
@@ -1878,7 +1879,7 @@ begin
   end;
 
   RemoveFileVSTFiles(SourceFile);
-  SourceFile := '';
+  SourceFile := EmptyStr;
 
   UpdateListCount;
 end;
@@ -1888,7 +1889,7 @@ begin
   if (not Assigned(CurrentSG)) or (not (CurrentSG is cEmutecaSoftware)) then
     Exit;
 
-  OpenSoftEditor('');
+  OpenSoftEditor(EmptyStr);
 end;
 
 procedure TfmETKGUIMediaManager.actMoveAllFilesExecute(Sender : TObject);
@@ -1979,7 +1980,7 @@ var
   SourcePath, TargetPath : string;
   IsFolder, aBool : boolean;
 begin
-  if (SourceFile = '') or (SourceFolder = '') then
+  if (SourceFile = EmptyStr) or (SourceFolder = EmptyStr) then
     Exit;
 
   SetDlgInitialDir(SelectDirectoryDialog1, SourceFolder);
@@ -2046,7 +2047,7 @@ var
   aFileName: string;
 begin
   // Removing fake folder extension
-  aFileName := UTF8TextReplace(SourceFile, krsVirtualFolderExt, '');
+  aFileName := UTF8TextReplace(SourceFile, krsVirtualFolderExt, EmptyStr);
   OpenDocument(SourceFolder + aFileName);
 end;
 
@@ -2059,7 +2060,7 @@ procedure TfmETKGUIMediaManager.actRenameFileExecute(Sender : TObject);
 var
   NewFileName : string;
 begin
-  if (SourceFile = '') or (SourceFolder = '') then
+  if (SourceFile = EmptyStr) or (SourceFolder = EmptyStr) then
     Exit;
 
   NewFileName := InputBox(rsRenameFileCaption, rsRenameFile,
