@@ -1,70 +1,60 @@
-![Emuteca 0.7.X.X](../../wiki/img/0_7/GameManager.png)
-
-[More screenshots / Más imágenes](https://chixpy.github.io/Emuteca/pages/Screenshots)
-
-Emuteca 0.8 preview...
-
 ![Emuteca 0.8 preview](../../wiki/img/current/GameManager.png)
 
-# English #
-_v0.8 is being developed from scratch_; v0.7 information follows:
+## English 
 
 **Emuteca** is an emulator front-end for any system, like [QuickPlay](http://www.quickplayfrontend.com/) (or [here in GitHub](https://github.com/tonywoode/quickPlay)). Now, it's in English; and it can be translated to any language (I think so...).
 
-It's not complete, but it's stable and usable... :-|
 
 Features:
-  - Support for ROMs inside a 7z, zip, rar, and any other format that [7zip](http://www.7-zip.org/) can handle; and extract the ROM (or all files) before launching the emulator. Alternatively, you can use the compressed file itself as a ROM; for example, while you are using MAME.
-  - Group games by families or groups. In many system a ''family'' means different versions of a game; while in others it's better use families to handle the different files which belong to the same game (computer games with many discs).
-  - It launchs any emulator from command line; althought only some are preconfigured as example, you can add many as you want. Some emulators don't support launch a game from command line but you can use Emuteca to decompress the ROM before lauching the emulator or only for management purposes.
-  - You can add, edit, delete or disable any system with the System Manager.
-  - Emulator Manager lets you to configure the command line for the emulators.
-  - It has a Media Manager to rename media files and assign them to a family or a game.
-  - It's in English by default, but can be translated.
-  - In 0.6.X versions, created with Delphi... You can assign a video or/and a music file to a game and it can be autoplayed when selecting the game (actually, only MPEG and MIDI were tested). Someday in 0.7.X this feature will return...
-  - Other little things that you may discover XD.
-Some things, like video and music folders (except _demo_ folders in 0.6.X), are useless...
 
-Although video and music previews are dropped in 0.7.X and it's main goal is port from Delphi to Lazarus, this new version had some new features:
-  - Script Manager to execute Pascal scripts to do some hard work with the game list. There are some example scripts:
-    - Extract data from TOSEC or GoodXXX filenames.
-    - Change ' - ' title delimiter to ': '
-    - Group games that are in the same archive (7z,zip,etc.) or folder (after compressed with GoodMerge)
-    - Merge in the same archive (7z) all games in a group.
-    - ...and some others.
-    - **WARNING 1**: Scripts that create a TStringlist generate a memory leak (TStringList.Free don't work as expected O\_o ).
-    - **WARNING 2**: As all executable code, it can be used to do dangerous things.
-  - Game media files (images, texts, etc.) search is more flexible.
-  - Icons for perfect dumps, zones, bad dumps, etc.
+  - Support for ROMs inside a `7z`, `zip` or `rar`, and it can be configured for any other format that [7zip](http://www.7-zip.org/) can handle. And then extract the ROM (or all files) before launching the emulator. Alternatively, you can use the compressed file itself as a ROM; for example, while you are using MAME.
+  - Game versions are grouped together.
+  - Launch any emulator from command line and some are preconfigured as example, but you can add many as you want. 
+    - Some emulators don't support launch a game from command line but you can use Emuteca to decompress the ROM before lauching the emulator or only for management purposes.
+  - **System Manager** lets enable, configure and add any system. It can create a folder structure (from a base folder) for each system where you can put related system files and autoconfiguring it.
+  - **Emulator Manager** lets configure the command line for the emulators. Many of them are preconfigured and only is needed to set their `.exe` path.
+  - **Media Manager** lets rename media files and assign them to a group or a game.
+  - **Script Manager** lets create and run scripts, in [Pascal Script](https://wiki.lazarus.freepascal.org/Pascal_Script). They can be for general purporse or manipulate Emuteca's data.
+    - **WARNING 1**: To create a TStringList, `CreateStringList` function must be used. If normal constructor is used it created a memory leak on object destruction.
+    - **WARNING 2**: As all executable code, it can be used to do harmful things.
+  - Includes some external tools (in `Tools` folder):  
+    - **ETKDBEditor**: A very basic database editor of `.cvs` and `.egl`.
+    - **ETKIconBorder**: To make icons and logos, and add a semitransparent border.
+    - **ETKPDF2CBX**: A frontend to extract pages from PDF with `pdfimages` or `pdftopng`. (Actually this tool is from [Comicteca](https://github.com/Chixpy/Comicteca))
+    - **ETKMagCut**: To extract magazine texts.
+  - It's in English by default, but can be translated with any `.po` editor.
 
-## Traslation ##
-If you want to traslate Emuteca 0.6.XX to another language or fix any misspelled sentence:
-  1. Run Emuteca at least once (this will create some config files, and the translation file of the strings used). If you want, open any other window like System Manager, Emulator Manager, etc... this action will add their strings to the traslation file too.
-  1. The default file with the strings is "i18n\en.lng" and you only need to edit this file. With Emuteca is included only es.lng for Spanish, but at first run "en.lng" will be created.
-  1. If you want, you can copy or rename the file and change Emuteca.ini accordily... (and send me the translation XD to include it in next version)
+Sorry, there is not more documentation in English; if you want, you can help me to translate the documentation to any languaje.
 
-From version 0.7.55 and later Emuteca is translated by .po/.mo files. So, you must translate using a .po editor a file in ´locale´ subfolder; and save it with the name `Emuteca.xx.po`. `xx` is the 2 characters code of your system language (it can be `xx_XX`, too). Language can be changed by [command line](../../wiki/CommandLine).
+## Spanish
 
-Sorry, not more documentation in English; if you want, you can help me to translate the documentation to any languaje.
-
-# Spanish #
-_La versión 0.8 está siendo desarrollada desde cero_; a continuación información de la versión 0.7.
-
-No es una traducción literal de lo anterior, pero como todas las páginas de la wiki están en español... [¡recórretelas!](../../wiki) o su [página web](https://chixpy.github.io/Emuteca).
-
-Emuteca es un interfaz (front-end) de emuladores de cualquier sistema para Windows, estilo QuickPlay. Ahora por defecto está en inglés, pero incluyo la traducción al español. Para usarlo edita el archivo "Emuteca.ini" y cambia "`File=en.lng`" por "`File=es.lng`".
+**Emuteca** es un *Front-End* para emuladores de cualquier sistema, originalmente basado en [QuickPlay](http://www.quickplayfrontend.com/) ([también en GitHub](https://github.com/tonywoode/quickPlay)). 
 
 Entre sus características están:
-  - Soporte de ROM en 7z, zip, rar, en definitiva todos los formatos que soporta [7zip](http://www.7-zip.org/) (alternativamente también se puede hacer que los propios archivos comprimidos sean la ROM en sí, por ejemplo con MAME)
-  - Agrupación de juegos por familias, y agrupar los listados por desarrollador, año y palabras clave
-  - Soporta básicamente cualquier emulador que permita ejecutar juegos desde la línea de comandos.
-  - Tiene gestor de sistemas para añadir, modificar y eliminar la configuración de sistemas.
-  - Gestor emuladores donde definir los parámetros de la línea de comandos para ejecutar directamente el juego.
-  - Gestor de archivos multimedia para renombrar los archivos correspondientes semiautomáticamente.
-  - En las versiones 0.6.X que fueron compiladas con Delphi, se puede reproducir un vídeo o música asignada al juego seleccionado (solo lo he probado con MPEGs y MIDIs). Ya veremos como lo soluciono para Lazarus...
 
-## Noticias ##
-  - 20230110: Actualizado a Lazarus 3.0. Aunque se pueden guardar los proyectos en modo compatibilidad, los guardo en el nuevo formato.
+  - Soporte de ROM en 7z, zip o rar, y se puede configurar para soportar todos los formatos que soporta [7zip](http://www.7-zip.org/). Y extraer la ROM (o todos los ficheros) antes de lanzar el emulador. Alternativamente se usar el propio archivo comprimido como ROM; por ejemplo para MAME.
+  - Las versiones de un juegos son agrupadas.
+  - Lanza caulquier emulador desde la línea de comandos y algunos están preconfigurados como ejemplo, aunque se pueden añadir los que se quiera.
+    - Algunos emuladores no soportan ejecutar un juego desde la línea de comandos, pero Emuteca puede ser útil para descomprimirlo en una carpeta conocida antes de lanzar el emulador o con el propósito de organizarlo. 
+  - El **Gestor de Sistemas** permite activar, configurar y añadir cualquier sistema. Con él puedes crear una estructura de carpetas (desde una carpeta base) dónde poner los ficheros relativos a cada sistema, autoconfigurándolos en el proceso.
+  - El **Gestor de Emuladores** permite configurar la línea de comandos de los emuladores. Bastantes están preconfigurados y sólo es necesario configurar la ruta de su executable.
+  - El **Gestor de Medio** para renombrar ficheros y asignarlo a un grupo o a un juego.
+  - El **Gestor de Scripts** para crear y ejecutar scripts, en [Pascal Script](https://wiki.lazarus.freepascal.org/Pascal_Script). Estos pueden ser de propósito general o manipular los datos de Emuteca.
+    - **ATENCIÓN 1**: Para crear una TStringList, se debe usar la función `CreateStringList`. Si se usa el constructor normal, se creará un *leak* de memoria en su destrucción.
+    - **ATENCIÓN 2**: Cómo to código ejecutable, puede usar para hacer cosas dañinas.
+  - Se incluyen algunas utilidades externas (en la carpeta `Tools`):  
+    - **ETKDBEditor**: Un editor muy básico de bases de datos para `.cvs` and `.egl`.
+    - **ETKIconBorder**: Para crear iconos y logos, y añadir un borde semitransparente.
+    - **ETKPDF2CBX**: Un *Front-End* para extraer páginas de PDF con `pdfimages` or `pdftopng`. (Realmente esta utilidad es de [Comicteca](https://github.com/Chixpy/Comicteca))
+    - **ETKMagCut**: Para extraer textos de las revistas.
+  - Por defecto está en Inglés, pero puede ser traducido con cualquier editor de `.po`. Y además ya está traducido al español.
+
+Toda la demás documentación está en español en su [página web](https://chixpy.github.io/Emuteca) mientras que la [wiki en GitHub](../../wiki) tiene información más técnica.
+
+## Noticias 
+
+  - 20240131: Subida la versión 0.8.0.155
+  - 20240110: Actualizado a Lazarus 3.0. Aunque se pueden guardar los proyectos en modo compatibilidad, los guardo en el nuevo formato.
   - 20230809: ¡WOW! Hace mucho tiempo que no actualizo esto y ha habido muchas mejoras en todo este tiempo:
     - Se han añadido [varios programas auxiliares](https://github.com/Chixpy/Emuteca/tree/master/bin/Tools): ETKDBEditor, ETKIconBorder, ETKPDF2CBX y ETKMagCut. Aunque hay que mejorar la integración con EmutecaGUI.
     - Una [página web propia](https://chixpy.github.io/Emuteca/)

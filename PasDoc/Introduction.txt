@@ -1,13 +1,13 @@
-@shorttitle(Emuteca: Introduction)
-@title(General introduction to Emuteca)
+@shorttitle(Emuteca Source Documentation)
+@title(Source Documentation of Emuteca)
 
-By now, Emuteca is split in two subprojects
+Emuteca is split in two subprojects:
 
 @definitionList(
-  @itemLabel(Emuteca Core @(cEmuteca@))
+  @itemLabel(Emuteca Core: cEmuteca)
     @item(It is the database engine and some sample forms.)
-  @itemLabel(Emuteca GUI @(TfmETKGUIMain@)
-    @item(It is a full working GUI and Editor with media support.)
+  @itemLabel(Emuteca GUI: TfmETKGUIMain@)
+    @item(It is a full working GUI and database editor with media support.)
 )
 
-In the future, may be an SDL playing only GUI will be developed.
+In the future, may be an SDL GUI only for playing will be developed.
