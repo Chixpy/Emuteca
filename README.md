@@ -1,4 +1,4 @@
-![Emuteca 0.8 preview](../../wiki/img/current/GameManager.png)
+![Emuteca 0.8 preview](../../wiki/img/curr/GameManager.png)
 
 ## English 
 

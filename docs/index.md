@@ -4,7 +4,7 @@ La versión 0.8.X está desarrollada desde cero nuevamente; y aunque es perfecta
 
 Tampoco se recomienda usar las versiones 0.7 o anteriores (además son incompatibles entre sí).
 
-{% capture imagefile -%}{{- site.baseurl -}}/img/GameManager_0_8_0_119.png{%- endcapture -%}
+{% capture imagefile -%}{{- site.baseurl -}}/img/current/GameManager.png{%- endcapture -%}
 {%- include image.html file=imagefile caption="Emuteca GUI 0.8" %}
 
 [Página del proyecto en GitHub](https://github.com/Chixpy/Emuteca).
