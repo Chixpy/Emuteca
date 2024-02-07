@@ -3,6 +3,7 @@ layout: page
 title: Configuración sistemas de cartuchos
 EmuVer: 0.8
 ---
+
 ## RPCEmu ##
 
 Según parece RPCEmu no soporta cargar imágenes de disto a traves de la línea de comandos.

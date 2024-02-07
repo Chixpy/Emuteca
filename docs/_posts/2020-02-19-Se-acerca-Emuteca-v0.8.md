@@ -16,21 +16,21 @@ Aparte de eso, la versión v0.8 fue creada básicamente desde el principio, porq
 
 Varias cosas internas importantes:
 
-* Mayor rapidez a la hora de cargar y listar los juegos.
-* Hace tareas largas que no interfieren en el funcionamiento del usuario en segundo plano.
-* Independizar el funcionamiento interno respecto a la interfaz.
-* Mayor modularización para reusar de forma rápida los distintos componentes.
+  - Mayor rapidez a la hora de cargar y listar los juegos.
+  - Hace tareas largas que no interfieren en el funcionamiento del usuario en segundo plano.
+  - Independizar el funcionamiento interno respecto a la interfaz.
+  - Mayor modularización para reusar de forma rápida los distintos componentes.
 
 Por la parte visible:
 
-* Poder listar todos los sistemas a la vez.
-* Árbol de etiquetas para filtrar los juegos.
-* Se puede poner un icono por defecto para el software de cada sistema.
-* Soporte de emuladores multisistema, pudiendo elegir el núcleo a usa dependiendo del sistema.
-* Se pueden definir parámetros distintos dependiendo de la extensión de la ROM.
-* ~~¡Música y Vídeo! Usando MPlayer~~
+  - Poder listar todos los sistemas a la vez.
+  - Árbol de etiquetas para filtrar los juegos.
+  - Se puede poner un icono por defecto para el software de cada sistema.
+  - Soporte de emuladores multisistema, pudiendo elegir el núcleo a usa dependiendo del sistema.
+  - Se pueden definir parámetros distintos dependiendo de la extensión de la ROM.
+  - ~~¡Música y Vídeo! Usando MPlayer~~
 
-## ¿Y cuando se publicará? ##
+## ¿Y cuando se publicará?
 
 Pues tampoco puedo anticipar una fecha concreta, ni tampoco puedo decir que sea a corto plazo; aunque funcionalmente se podría decir que está completo hay que pulir muchos flecos y hacer su funcionamiento más intuitivo. 
 

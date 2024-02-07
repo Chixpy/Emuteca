@@ -10,24 +10,25 @@ Además la forma en que han sido programados permite que se puedan mostrar en su
 
 Esto hace que haya cuadros de diálogo que por el momento solo se usan incrustados o solo con ventana propia; pero para el programa funcionan de la misma forma. De hecho, internamente hay una jerarquía más compleja de *frames* para la reutilización de componentes.
 
-## Propiedades de cuadros de diálogo ##
+## Propiedades de cuadros de diálogo
 
 Para más información sobre las propiedades y funcionamiento de algún cuadro de diálogo específico ve a su pantalla correspondiente:
 
-* [Editor de Grupo](Dialogs/GroupEditor)
-* [Editor de Software](Dialogs/SoftwareEditor)
-* [Añadir Software](Dialogs/AddSoftware)
-* [Añadir Carpeta](Dialogs/AddFolder)
-* [Importar datos del Software](Dialogs/ImportSoftData)
-* [Exportar datos del Software](Dialogs/ExportSoftData)
-* [Gestor de Sistemas](Dialogs/SystemManager)
-* [Editor de Sistemas](Dialogs/SystemEditor)
-* [Gestor de Emuladores](Dialogs/EmulatorManager)
-* [Editor de Emuladores](Dialogs/EmulatorEditor)
-* [Gestor de Multimedia](Dialogs/MediaManager)
-* [Gestor de Scripts](Dialogs/ScriptsManager)
+  - [Editor de Grupo](Dialogs/GroupEditor)
+  - [Editor de Software](Dialogs/SoftwareEditor)
+  - [Añadir Software](Dialogs/AddSoftware)
+  - [Añadir Carpeta](Dialogs/AddFolder)
+  - [Importar datos del Software](Dialogs/ImportSoftData)
+  - [Exportar datos del Software](Dialogs/ExportSoftData)
+  - [Gestor de Sistemas](Dialogs/SystemManager)
+  - [Editor de Sistemas](Dialogs/SystemEditor)
+  - [Gestor de Emuladores](Dialogs/EmulatorManager)
+  - [Editor de Emuladores](Dialogs/EmulatorEditor)
+  - [Gestor de Multimedia](Dialogs/MediaManager)
+  - [Gestor de Scripts](Dialogs/ScriptsManager)
+  - 
 
-## Las ventanas en general ##
+## Las ventanas en general
 
 Cuando los cuadros de diálogo se muestran en una ventana, en la parte inferior pueden aparecer dos botones y un CheckBox:
 
@@ -45,7 +46,7 @@ CheckBox Cerrar
 : A veces puede ser útil querer guardar los cambios sin querer cerrar la ventana. Por ejemplo, si se quieren importar los datos de varios sistema sin tener que volver a abrir el cuadro de diálogo varias veces.
 : Cuando está desactivado, el botón Aceptar guarda los cambios y por tanto el botón Cancelar no cancelará los cambios ya guardados.
 
-## Cuadros incrustados ##
+## Cuadros incrustados
 
 Los cuadros incrustados ya no tienen la CheckBox para cerrarlos; y pueden no tener tampoco los botones si el componente donde están controla en cascada cuando se aceptan o cancelan los cambios.
 

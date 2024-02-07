@@ -4,7 +4,8 @@ title: Emuladores
 EmuVer: 0.8
 ---
 
-## Instalando PinMAME ##
+## Instalando PinMAME
+
 Here's how to setup PinMAME and VPinMAME in QuickPlay:
 
 1. Go to http://pinmame.retrogames.com and download the following:

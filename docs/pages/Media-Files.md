@@ -3,6 +3,7 @@ layout: page
 title: Ficheros de Medios
 EmuVer: 0.8
 ---
+
 Emuteca, además de listar, agrupar y ejecutar emuladores con sus juegos, también permite visualizar y reproducir contenido relacionado con el software como pueden ser imágenes, manuales, textos, vídeos o música.
 
 Realmente, excepto el soporte para archivos comprimidos, la capacidad de visualizar y reproducir este tipo de contenido relacionado es dependiente de la interfaz (EmutecaGUI por el momento) puesto que el núcleo (EmutecaCore) tan solo se encarga de buscar y poner a su disposicion los ficheros encontrados.

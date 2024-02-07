@@ -4,7 +4,7 @@ title: Notas varias
 EmuVer: 0.8
 ---
 
-Aquí hay alguna cosilla aleatoría sobre el programa y funcionamiento antes de ponerlo dónde le correspondería.
+Aquí hay alguna cosilla aleatoria sobre el programa y funcionamiento antes de ponerlo dónde le correspondería.
 
 ## Títulos, identificadores y claves de ordenación
 
@@ -39,13 +39,13 @@ Aquí hay alguna cosilla aleatoría sobre el programa y funcionamiento antes de 
   
 ### Clave de ordenación:
 
-  * Heredada del título (aunque para los grupos la mayoría de las veces conviene)
-  * ***Identificador*** con los número de partes normalizado a números arábigos.
-  * Se quitan los nombres de compañías iniciales, como por ejemplo "Disney's"
-  * Sustitución de caracteres en nombres de fichero no permitidos por Windows.
-  * NO pueden terminar en punto '.', sustituirlo por '_'; Windows da algunos problemas si las carpetas terminan en punto '.'
-  * ': ' → ' - '
-  * '&' → ' and '
+  - Heredada del título (aunque para los grupos la mayoría de las veces conviene)
+  - ***Identificador*** con los número de partes normalizado a números arábigos.
+  - Se quitan los nombres de compañías iniciales, como por ejemplo "Disney's"
+  - Sustitución de caracteres en nombres de fichero no permitidos por Windows.
+  - NO pueden terminar en punto '.', sustituirlo por '_'; Windows da algunos problemas si las carpetas terminan en punto '.'
+  - ': ' → ' - '
+  - '&' → ' and '
   
 | Título | Identificador | Clave de ordenación |
 | -- | -- | -- |

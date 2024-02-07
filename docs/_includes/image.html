@@ -1,9 +1,0 @@
-<figure class="Image">
-   <a href="{{- include.url | default: include.file -}}">
-     <img src="{{- include.file -}}" style="margin: auto; max-width: {{- include.max-width | default: "100%" -}};"
-      alt="{{- include.alt | default: include.caption -}}" />
-   </a>
-   <figcaption>
-     <a href="{{- include.url | default: include.file -}}">{{- include.caption | default: include.alt -}}</a>
-   </figcaption>   
-</figure>

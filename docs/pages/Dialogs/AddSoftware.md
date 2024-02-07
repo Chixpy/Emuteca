@@ -3,10 +3,10 @@ layout: page
 title: Añadir software
 EmuVer: 0.8
 ---
+
 La ventana *Añadir software* sirve para añadir juegos a la lista de forma individual, posiblemente sea usada sólo de forma esporádica y puntual.
 
-{% capture imagefile -%}{{- site.baseurl -}}/img/Dialogs/AddSoftware.png{%- endcapture -%}
-{%- include image.html file=imagefile caption="Añadir software" %}
+![Imagen del diálogo Añadir software...](../../img/Dialogs/AddSoftware.png)
 
 Para ello se selecciona el sistema, y mostrará la lista de extensiones soportadas por dicho sistema.
 

@@ -3,6 +3,7 @@ layout: page
 title: Lista de cambios
 EmuVer: 0.8
 ---
+
 Si quieres ver la evolución visual del programa puedes ir a la [galería de imágenes](Screenshots)
 
 ## 0.8.0.XX
