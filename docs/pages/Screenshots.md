@@ -17,53 +17,43 @@ se ven más cosas (es la que se adapta al tamaño de la ventana).
 
 ## 0.8 ##
 
-Todavía en fase de desarrollo pero es funcional.
-
-{% capture imagefile -%}{{- site.baseurl -}}/img/0_8/GameManager.png{%- endcapture -%}
-{%- include image.html file=imagefile caption="Gestor de juegos" %}
+![Gestor de juegos](../img/0_8/GameManager.png)
 
   - [Build 119]({{- site.baseurl -}}/img/0_8/GameManager%200_8_0_119.png)
   - [Build 106]({{- site.baseurl -}}/img/0_8/GameManager%200_8_0_106.png)
 
-## 0.7.X ##
+## 0.7.X
 
 A pesar de que nunca dejó de ser una beta estaba bastante avanzada, y aquí
 muestro algunas revisiones internas:
 
-0.7.0.53
+### 0.7.0.53
 
-{% capture imagefile -%}{{- site.baseurl -}}/img/0_7/GameManager%200_7_0_53.png{%- endcapture -%}
-{%- include image.html file=imagefile caption="Gestor de juegos 0.7.0.53" %}
+![Gestor de juegos 0.7.0.53](../img/0_7/GameManager%200_7_0_53.png)
 
-0.7.0.49
+### 0.7.0.49
 
-{% capture imagefile -%}{{- site.baseurl -}}/img/0_7/GameManager%200_7_0_49.png{%- endcapture -%}
-{%- include image.html file=imagefile caption="Gestor de juegos 0.7.0.49" %}
+![Gestor de juegos 0.7.0.49](../img/0_7/GameManager%200_7_0_49.png)
 
 Gestor de sistemas
 
-{% capture imagefile -%}{{- site.baseurl -}}/img/0_7/SystemManager%200_7_0_49.png{%- endcapture -%}
-{%- include image.html file=imagefile caption="Gestor de sistemas 0.7.0.49" %}
+![Gestor de sistemas 0.7.0.49](../img/0_7/SystemManager%200_7_0_49.png)
 
 Gestor de emuladores
 
-{% capture imagefile -%}{{- site.baseurl -}}/img/0_7/EmulatorManager%200_7_0_49.png{%- endcapture -%}
-{%- include image.html file=imagefile caption="Gestor de emuladores 0.7.0.49" %}
+![Gestor de emuladores 0.7.0.49](../img/0_7/EmulatorManager%200_7_0_49.png)
 
 Gestor multimedia
 
-{% capture imagefile -%}{{- site.baseurl -}}/img/0_7/MediaManager%200_7_0_49.png{%- endcapture -%}
-{%- include image.html file=imagefile caption="Gestor multimedia 0.7.0.49" %}
+![Gestor multimedia 0.7.0.49](../img/0_7/MediaManager%200_7_0_49.png)
 
 Gestor de scripts
 
-{% capture imagefile -%}{{- site.baseurl -}}/img/0_7/ScriptManager%200_7_0_49.png{%- endcapture -%}
-{%- include image.html file=imagefile caption="Gestor de scripts 0.7.0.49" %}
+![Gestor de scripts 0.7.0.49](../img/0_7/ScriptManager%200_7_0_49.png)
 
 Sobre... Emuteca
 
-{% capture imagefile -%}{{- site.baseurl -}}/img/0_7/About%200_7_0_53.png{%- endcapture -%}
-{%- include image.html file=imagefile caption="Sobre... Emuteca 0.7.0.53" %}
+![Sobre... Emuteca 0.7.0.53](../img/0_7/About%200_7_0_53.png)
 
 ## 0.6.X ##
 

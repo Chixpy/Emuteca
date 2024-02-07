@@ -25,15 +25,13 @@ Para más información sobre las propiedades y funcionamiento de algún cuadro d
   - [Gestor de Emuladores](Dialogs/EmulatorManager)
   - [Editor de Emuladores](Dialogs/EmulatorEditor)
   - [Gestor de Multimedia](Dialogs/MediaManager)
-  - [Gestor de Scripts](Dialogs/ScriptsManager)
-  - 
+  - [Gestor de Scripts](Dialogs/ScriptsManager) 
 
 ## Las ventanas en general
 
 Cuando los cuadros de diálogo se muestran en una ventana, en la parte inferior pueden aparecer dos botones y un CheckBox:
 
-{% capture imagefile -%}{{- site.baseurl -}}/img/Dialogs/AddFolder.png{%- endcapture -%}
-{%- include image.html file=imagefile caption="Ventana de cuadro de diálogo" %}
+![Ventana de cuadro de diálogo](../img/Dialogs/AddFolder.png)
 
 Botón Aceptar
 : Como es evidente, acepta y guarda los cambios realizados.
@@ -48,19 +46,14 @@ CheckBox Cerrar
 
 ## Cuadros incrustados
 
-Los cuadros incrustados ya no tienen la CheckBox para cerrarlos; y pueden no tener tampoco los botones si el componente donde están controla en cascada cuando se aceptan o cancelan los cambios.
-
-{% capture imagefile -%}{{- site.baseurl -}}/img/Dialogs/AddSoftware.png{%- endcapture -%}
-{%- include image.html file=imagefile caption="Editor de Software incrustado en Añadir software" %}
+Los cuadros incrustados ya no tienen la CheckBox para cerrarlos; y pueden no tener tampoco los botones si el componente donde están los controla en cascada cuando se aceptan o cancelan los cambios.
 
 En la imagen el [Editor de Software](Dialogs/SoftwareEditor) está incrustado en la ventana de [Añadir Software](Dialogs/AddSoftware) pero solo se muestran los botones del *Editor de Software* para aceptar todos los cambios.
 
-{% capture imagefile -%}{{- site.baseurl -}}/img/Dialogs/AddSoftware.png{%- endcapture -%}
-{%- include image.html file=imagefile caption="Editor de Software incrustado en Añadir software" %}
+![Editor de Software incrustado en Añadir software](../img/Dialogs/AddSoftware.png)
 
-Sin embargo, en el [Gestor de Sistemas](Dialogs/SystemManager) que tiene incrustado el [Editor de Sistemas](Dialogs/SystemEditor):
+Sin embargo, en el [Gestor de Sistemas](Dialogs/SystemManager) que tiene incrustado el [Editor de Sistemas](Dialogs/SystemEditor) y como se puede ver que el [Editor de Sistemas](Dialogs/SystemEditor) tiene sus propios botones para guardar o cancelar los cambios del sistema seleccionado.
 
-{% capture imagefile -%}{{- site.baseurl -}}/img/Dialogs/SystemManager.png{%- endcapture -%}
-{%- include image.html file=imagefile caption="Editor de Sistemas incrustado en Gestor de Sistemas" %}
+![Editor de Sistemas incrustado en Gestor de Sistemas](../img/Dialogs/SystemManager.png)
 
-Se puede ver que el [Editor de Sistemas](Dialogs/SystemEditor) tiene sus propios botones para guardar o cancelar los cambios del sistema seleccionado. Y además recuerda que si quieres guardar los cambios debes hacerlo expresamente antes de seleccionar otro sistema. 
+En este caso, además debes recordar que si quieres guardar los cambios debes hacerlo expresamente antes de seleccionar otro sistema. 

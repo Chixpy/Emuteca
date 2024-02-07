@@ -119,8 +119,7 @@ Por lo demás... cualquier emulador es válido, e incluso si no se define ningun
 
 Parte de esta información se puede encontrar en la caja de diálogo "Acerca de Emuteca..."
 
-{% capture imagefile -%}{{- site.baseurl -}}/img/Dialogs/AboutBox.png{%- endcapture -%}
-{%- include image.html file=imagefile caption="Sobre... Emuteca" %}
+![Sobre... Emuteca](../img/Dialogs/AboutBox.png)
 
 Primeramente hay que realizar una diferencia; entre los que Emuteca soporta y lo que está configurado. 
 
@@ -317,8 +316,7 @@ versión 0.7.
 
 Durante una temporada probé con CodeThypon y finalmente volví a Lazarus... Y cuando comencé a reescribir la versión 0.8...
 
-{% capture imagefile -%}{{- site.baseurl -}}/img/TestLinux.png{%- endcapture -%}
-{%- include image.html file=imagefile caption="Test tempranero con Linux" %}
+![Test tempranero con Linux](../img/TestLinux.png)
 
 Pero esto no quiere decir que ahora sea fácilmente portable, ya que estoy seguro de que
 uso bastante código específico de Windows.

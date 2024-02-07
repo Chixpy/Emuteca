@@ -10,6 +10,4 @@ Más complejo aún, además se pueden usar otros archivos auxiliares para discer
 
 También hay emuladores que de nada sirve, puesto que no soportan ejecutar el juego desde la línea de comandos. Aunque se puede aprovechar Emuteca para las tareas de organización, descompresión y colocación de los archivos de la ROM en un lugar cómodo para usar con el emulador.
 
-{% capture imagefile -%}{{- site.baseurl -}}/img/WhyEmuteca/Inside7z.png{%- endcapture -%}
-{%- include image.html file=imagefile caption="ROM dentro de un 7z" %}
-
+![ROM dentro de un 7z](../img/WhyEmuteca/Inside7z.png)
