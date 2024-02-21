@@ -26,7 +26,8 @@ De forma general, y en caso de no estar actualizada esta lista la lista, puedes 
   - [Bally Astrocade](https://github.com/Chixpy/ETKRes-Astrocade)
   - [Microsoft MSDOS](https://github.com/Chixpy/ETKRes-MSDOS)
   - [Misc - Arcade (MAME)](https://github.com/Chixpy/ETKRes-Arcade) (*ATENCIÓN: Hay que configurar a mano los directorios, al ser diferentes del resto de sistemas*)
-  - [NEC Turbografx 16 / PC Engine](https://github.com/Chixpy/ETKRes-TG16)
+  - [NEC Turbografx 16 / PC Engine](https://github.com/Chixpy/ETKRes-TG16)  - 
+  - [Nintendo 64](https://github.com/Chixpy/ETKRes-N64)
   - [Nintendo GameBoy](https://github.com/Chixpy/ETKRes-GameBoy)
   - [Nintendo GameBoy Advance](https://github.com/Chixpy/ETKRes-GBA)
   - [Nintendo NES](https://github.com/Chixpy/ETKRes-NES)

@@ -585,6 +585,10 @@ msgctxt "tfmemutecaactexportsoftdata.chkcopyinbasefolder.hint"
 msgid "Cancel not saved changes."
 msgstr ""
 
+#: tfmemutecaactexportsoftdata.chkreplaceegl.caption
+msgid "... but replace groups (.egl) file."
+msgstr ""
+
 #: tfmemutecaactexportsoftdata.gbxexportfile.caption
 msgid "Export file"
 msgstr ""
@@ -595,7 +599,7 @@ msgid "System info"
 msgstr ""
 
 #: tfmemutecaactexportsoftdata.lexportinfo.caption
-msgid "If the file already exists, the data will be merged."
+msgid "If the file already exists, the data will be merged..."
 msgstr ""
 
 #: tfmemutecaactexportsoftdata.lgroups.caption

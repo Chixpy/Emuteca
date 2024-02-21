@@ -11,10 +11,10 @@ inherited fmEmutecaActExportSoftData: TfmEmutecaActExportSoftData
     ClientWidth = 430
     TabOrder = 3
     inherited chkCloseOnSave: TCheckBox
-      Left = 54
+      Left = 55
     end
     inherited bSave: TBitBtn
-      Left = 168
+      Left = 167
     end
     inherited bCancel: TBitBtn
       Left = 288
@@ -32,12 +32,12 @@ inherited fmEmutecaActExportSoftData: TfmEmutecaActExportSoftData
   end
   object gbxSystemInfo: TGroupBox[2]
     Left = 0
-    Height = 261
+    Height = 237
     Top = 4
     Width = 430
     Align = alClient
     Caption = 'System info'
-    ClientHeight = 236
+    ClientHeight = 212
     ClientWidth = 426
     TabOrder = 1
     object lSoftIDType: TLabel
@@ -61,7 +61,7 @@ inherited fmEmutecaActExportSoftData: TfmEmutecaActExportSoftData
     end
     object lWarning: TLabel
       Left = 0
-      Height = 92
+      Height = 68
       Top = 144
       Width = 426
       Align = alClient
@@ -113,13 +113,13 @@ inherited fmEmutecaActExportSoftData: TfmEmutecaActExportSoftData
   end
   object gbxExportFile: TGroupBox[3]
     Left = 0
-    Height = 97
-    Top = 269
+    Height = 121
+    Top = 245
     Width = 430
     Align = alBottom
     AutoSize = True
     Caption = 'Export file'
-    ClientHeight = 72
+    ClientHeight = 96
     ClientWidth = 426
     TabOrder = 2
     object eExportFile: TFileNameEdit
@@ -146,20 +146,29 @@ inherited fmEmutecaActExportSoftData: TfmEmutecaActExportSoftData
       Top = 0
       Width = 426
       Align = alTop
-      Caption = 'If the file already exists, the data will be merged.'
+      Caption = 'If the file already exists, the data will be merged...'
       ParentColor = False
     end
     object chkCopyInBaseFolder: TCheckBox
       Left = 0
       Height = 24
       Hint = 'Cancel not saved changes.'
-      Top = 48
+      Top = 72
       Width = 426
       Align = alTop
       Caption = 'Make a Copy in System Base Folder'
       Checked = True
       State = cbChecked
       TabOrder = 1
+    end
+    object chkReplaceEGL: TCheckBox
+      Left = 0
+      Height = 24
+      Top = 48
+      Width = 426
+      Align = alTop
+      Caption = '... but replace groups (.egl) file.'
+      TabOrder = 2
     end
   end
   inherited alPropEditor: TActionList[4]

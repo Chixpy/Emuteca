@@ -1915,7 +1915,8 @@ begin
   ImgX := (X div ZoomOutput) + XOffset;
   ImgY := (Y div ZoomOutput) + YOffset;
 
-  if (ImgX < 0) or (ImgY < 0) then
+  if (ImgX < 0) or (ImgY < 0) or
+    (ImgX >= ActualInputImage.Width) or (ImgY >= ActualInputImage.Height) then
     Exit;
 
   DoImageMouseDown(Button, Shift, ImgX, ImgY);
@@ -1929,7 +1930,8 @@ begin
   ImgX := (X div ZoomOutput) + XOffset;
   ImgY := (Y div ZoomOutput) + YOffset;
 
-  if (ImgX < 0) or (ImgY < 0) then
+  if (ImgX < 0) or (ImgY < 0) or
+    (ImgX >= ActualInputImage.Width) or (ImgY >= ActualInputImage.Height) then
     Exit;
 
   DoImageMouseMove(Shift, ImgX, ImgY);
@@ -1943,7 +1945,8 @@ begin
   ImgX := (X div ZoomOutput) + XOffset;
   ImgY := (Y div ZoomOutput) + YOffset;
 
-  if (ImgX < 0) or (ImgY < 0) then
+  if (ImgX < 0) or (ImgY < 0) or
+    (ImgX >= ActualInputImage.Width) or (ImgY >= ActualInputImage.Height) then
     Exit;
 
   DoImageMouseUp(Button, Shift, ImgX, ImgY);

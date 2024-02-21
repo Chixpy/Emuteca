@@ -607,6 +607,10 @@ msgctxt "tfmemutecaactexportsoftdata.chkcopyinbasefolder.hint"
 msgid "Cancel not saved changes."
 msgstr "Cancela los cambios no guardados."
 
+#: tfmemutecaactexportsoftdata.chkreplaceegl.caption
+msgid "... but replace groups (.egl) file."
+msgstr ""
+
 #: tfmemutecaactexportsoftdata.gbxexportfile.caption
 msgctxt "tfmemutecaactexportsoftdata.gbxexportfile.caption"
 msgid "Export file"
@@ -618,8 +622,10 @@ msgid "System info"
 msgstr "Información del sistema"
 
 #: tfmemutecaactexportsoftdata.lexportinfo.caption
+#, fuzzy
+#| msgid "If the file already exists, the data will be merged."
 msgctxt "tfmemutecaactexportsoftdata.lexportinfo.caption"
-msgid "If the file already exists, the data will be merged."
+msgid "If the file already exists, the data will be merged..."
 msgstr "Si el fichero ya existe, los datos serán fusionados."
 
 #: tfmemutecaactexportsoftdata.lgroups.caption
@@ -2956,3 +2962,4 @@ msgstr "Esto puede llevar algo de tiempo"
 #: ufetkguisysmanager.rssystemnamemodel
 msgid "System name [Company: Model (extra)]."
 msgstr "Nombre del sistema [Compañía: Modelo (extra)]"
+

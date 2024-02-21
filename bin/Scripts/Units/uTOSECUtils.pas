@@ -6,9 +6,11 @@ Only to include in other programs. Remember call TOSECFinish at the end of
   main program.
 [Data]
 Name=Chixpy
-Version=0.21
-Date=20231125
+Version=0.22
+Date=20240208
 [Changes]
+0.22 20240208
+  f Fixing 0.21 changes...
 0.21 20231125
   c Don't remove date or publisher when fan translation is found.
 0.20 20231101
@@ -694,6 +696,14 @@ begin
   // "[tr Language Translator]"
   DBTranslation := TOSECExtractTag(DIStr, '[tr', ']');
 
+  // If soft is translated then Publisher is the translator and year
+  //   the translation date
+  if DBTranslation <> '' then
+  begin
+    DBPublisher := '';
+    DBYear := '';
+  end;
+
   // Posible formats... :-( 
   //   "[tr Language Translator]"
   //   "[tr Language Version Translator]"
@@ -705,10 +715,6 @@ begin
   TempStr := ''; // Used to store version
   if Length(DBTranslation) > 3 then
   begin
-    // If soft is translated then Publisher is the translator
-    DBPublisher := krsImportKeepValueKey;
-    DBYear := krsImportKeepValueKey;
-    
     // Searching for Version and Translator
     aPos := Pos(' ', DBTranslation);
     if aPos > 0 then

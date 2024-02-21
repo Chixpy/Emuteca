@@ -83,9 +83,9 @@ inherited frmIconBorder: TfrmIconBorder
           Constraints.MinHeight = 22
           Font.Height = 8
           Layout = tlCenter
+          OptimalFill = True
           ParentColor = False
           ParentFont = False
-          OptimalFill = True
         end
         object pZoomInput: TPanel
           Left = 4
@@ -110,8 +110,8 @@ inherited frmIconBorder: TfrmIconBorder
             Top = 0
             Width = 32
             Caption = '/ 2'
-            OnClick = bZoomOutInputClick
             TabOrder = 0
+            OnClick = bZoomOutInputClick
           end
           object bZoom1xInput: TButton
             Left = 36
@@ -119,8 +119,8 @@ inherited frmIconBorder: TfrmIconBorder
             Top = 0
             Width = 30
             Caption = '1x'
-            OnClick = bZoom1xInputClick
             TabOrder = 1
+            OnClick = bZoom1xInputClick
           end
           object bZoomInInput: TButton
             Left = 70
@@ -128,8 +128,8 @@ inherited frmIconBorder: TfrmIconBorder
             Top = 0
             Width = 34
             Caption = 'x 2'
-            OnClick = bZoomInInputClick
             TabOrder = 2
+            OnClick = bZoomInInputClick
           end
         end
         object bAutoZoomInput: TButton
@@ -138,8 +138,8 @@ inherited frmIconBorder: TfrmIconBorder
           Top = 64
           Width = 104
           Caption = 'Auto'
-          OnClick = bAutoZoomInputClick
           TabOrder = 1
+          OnClick = bAutoZoomInputClick
         end
       end
       object pgcImageInput: TPageControl
@@ -187,8 +187,8 @@ inherited frmIconBorder: TfrmIconBorder
               Top = 4
               Width = 118
               Caption = 'Flip H'
-              OnClick = bFlipHInputClick
               TabOrder = 0
+              OnClick = bFlipHInputClick
             end
             object bFlipVInput: TButton
               Left = 126
@@ -196,8 +196,8 @@ inherited frmIconBorder: TfrmIconBorder
               Top = 4
               Width = 126
               Caption = 'Flip V'
-              OnClick = bFlipVInputClick
               TabOrder = 1
+              OnClick = bFlipVInputClick
             end
             object bRotateCWInput: TButton
               Left = 4
@@ -205,8 +205,8 @@ inherited frmIconBorder: TfrmIconBorder
               Top = 38
               Width = 118
               Caption = 'Rotate CW'
-              OnClick = bRotateCWInputClick
               TabOrder = 2
+              OnClick = bRotateCWInputClick
             end
             object bRotateCCWInput: TButton
               Left = 126
@@ -214,8 +214,8 @@ inherited frmIconBorder: TfrmIconBorder
               Top = 38
               Width = 126
               Caption = 'Rotate CCW'
-              OnClick = bRotateCCWInputClick
               TabOrder = 3
+              OnClick = bRotateCCWInputClick
             end
           end
         end
@@ -229,8 +229,8 @@ inherited frmIconBorder: TfrmIconBorder
             Top = 48
             Width = 180
             Caption = 'Cut to Selection'
-            OnClick = bCutSelectionInputClick
             TabOrder = 0
+            OnClick = bCutSelectionInputClick
           end
           object bSelectionTransparentInput: TButton
             Left = 8
@@ -238,8 +238,8 @@ inherited frmIconBorder: TfrmIconBorder
             Top = 8
             Width = 187
             Caption = 'Selection to Transparent'
-            OnClick = bSelectionTransparentInputClick
             TabOrder = 1
+            OnClick = bSelectionTransparentInputClick
           end
         end
         object pagPaintInput: TTabSheet
@@ -287,8 +287,8 @@ inherited frmIconBorder: TfrmIconBorder
             Top = 24
             Width = 94
             Caption = 'Transparent'
-            OnClick = bTransparentPaintClick
             TabOrder = 1
+            OnClick = bTransparentPaintClick
           end
         end
         object pagFillInput: TTabSheet
@@ -299,7 +299,7 @@ inherited frmIconBorder: TfrmIconBorder
             Left = 8
             Height = 24
             Top = 63
-            Width = 171
+            Width = 168
             Caption = 'Diagonal Neightbours'
             Checked = True
             State = cbChecked
@@ -363,8 +363,8 @@ inherited frmIconBorder: TfrmIconBorder
             Top = 56
             Width = 94
             Caption = 'Transparent'
-            OnClick = bTransparentFillClick
             TabOrder = 3
+            OnClick = bTransparentFillClick
           end
         end
         object pagReplaceInput: TTabSheet
@@ -412,15 +412,15 @@ inherited frmIconBorder: TfrmIconBorder
             Top = 24
             Width = 94
             Caption = 'Transparent'
-            OnClick = bTransparentReplaceClick
             TabOrder = 1
+            OnClick = bTransparentReplaceClick
           end
           object chkCopyReplaceToFill: TCheckBox
             Left = 8
             Height = 24
             Hint = 'Copies last replaced color to fill color (usefull to correct mistakes)'
             Top = 64
-            Width = 237
+            Width = 234
             Caption = 'Copy replaced color to Fill color'
             Checked = True
             State = cbChecked
@@ -582,10 +582,10 @@ inherited frmIconBorder: TfrmIconBorder
       ExtendedSelect = False
       IntegralHeight = True
       ItemHeight = 0
-      OnClick = FileListClick
       ScrollWidth = 1024
       Sorted = True
       TabOrder = 1
+      OnClick = FileListClick
     end
     object pOptions: TPanel
       Left = 0
@@ -737,9 +737,9 @@ inherited frmIconBorder: TfrmIconBorder
           Constraints.MinHeight = 22
           Font.Height = 8
           Layout = tlCenter
+          OptimalFill = True
           ParentColor = False
           ParentFont = False
-          OptimalFill = True
         end
         object pZoomOutput: TPanel
           Left = 0
@@ -764,8 +764,8 @@ inherited frmIconBorder: TfrmIconBorder
             Top = 0
             Width = 35
             Caption = '/ 2'
-            OnClick = bZoomOutOutputClick
             TabOrder = 0
+            OnClick = bZoomOutOutputClick
           end
           object bZoom1xOutput: TButton
             Left = 39
@@ -773,8 +773,8 @@ inherited frmIconBorder: TfrmIconBorder
             Top = 0
             Width = 32
             Caption = '1x'
-            OnClick = bZoom1xOutputClick
             TabOrder = 1
+            OnClick = bZoom1xOutputClick
           end
           object bZoomInOutput: TButton
             Left = 75
@@ -782,8 +782,8 @@ inherited frmIconBorder: TfrmIconBorder
             Top = 0
             Width = 37
             Caption = 'x 2'
-            OnClick = bZoomInOutputClick
             TabOrder = 2
+            OnClick = bZoomInOutputClick
           end
         end
         object bAutoZoomOutput: TButton
@@ -792,8 +792,8 @@ inherited frmIconBorder: TfrmIconBorder
           Top = 60
           Width = 112
           Caption = 'Auto'
-          OnClick = bAutoZoomOutputClick
           TabOrder = 1
+          OnClick = bAutoZoomOutputClick
         end
         object bProcessOutput: TButton
           Left = 0
@@ -801,8 +801,8 @@ inherited frmIconBorder: TfrmIconBorder
           Top = 94
           Width = 112
           Caption = 'Process Output'
-          OnClick = bProcessOutputClick
           TabOrder = 2
+          OnClick = bProcessOutputClick
         end
       end
       object pgcImageOutput: TPageControl
@@ -823,7 +823,7 @@ inherited frmIconBorder: TfrmIconBorder
             Left = 8
             Height = 24
             Top = 8
-            Width = 245
+            Width = 242
             Caption = 'Remove (Semi)Transparent pixels'
             Checked = True
             State = cbChecked
@@ -853,8 +853,8 @@ inherited frmIconBorder: TfrmIconBorder
             Top = 80
             Width = 94
             Caption = 'Default'
-            OnClick = bDefaultIconBorderClick
             TabOrder = 2
+            OnClick = bDefaultIconBorderClick
           end
           object bBlackIconBorder: TButton
             Left = 112
@@ -862,8 +862,8 @@ inherited frmIconBorder: TfrmIconBorder
             Top = 80
             Width = 94
             Caption = 'Black'
-            OnClick = bBlackIconBorderClick
             TabOrder = 3
+            OnClick = bBlackIconBorderClick
           end
         end
         object pagRemoveEmutecaBorder: TTabSheet

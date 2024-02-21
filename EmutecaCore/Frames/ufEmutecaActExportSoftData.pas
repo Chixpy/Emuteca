@@ -37,6 +37,7 @@ type
 
   TfmEmutecaActExportSoftData = class(TfmCHXPropEditor)
     chkCopyInBaseFolder: TCheckBox;
+    chkReplaceEGL : TCheckBox;
     eExportFile: TFileNameEdit;
     eSoft: TEdit;
     eSoftIDType: TEdit;
@@ -200,6 +201,10 @@ begin
   System.ProgressCallBack := @(fmProgressBar.UpdTextAndBar);
 
   aFileWOExt := ChangeFileExt(eExportFile.FileName, '');
+
+  // We can modify cSystem.ExportSoftGroupLists to use 2 parameters...
+  if chkReplaceEGL.Checked and FileExistsUTF8(aFileWOExt + krsFileExtGroup) then
+    DeleteFileUTF8(aFileWOExt + krsFileExtGroup);
 
   System.ExportSoftGroupLists(aFileWOExt, False);
 
