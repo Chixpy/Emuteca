@@ -463,8 +463,8 @@ begin
   FVisibleInputImage := TBGRABitmap.Create(ZWidth, ZHeight);
 
   case rgbBackGround.ItemIndex of
-    1: ; // Transparent
-    2: // Color
+    1: VisibleInputImage.Fill(BGRA(255,0,255)); // Magenta
+    2: // Custom Color
       VisibleInputImage.Fill(ColorToBGRA(cbxColorBackground.Selected));
     else
     begin
@@ -517,7 +517,7 @@ begin
   FVisibleOutputImage := TBGRABitmap.Create(ZWidth, ZHeight);
 
   case rgbBackGround.ItemIndex of
-    1: ; // Transparent
+    1: VisibleOutputImage.Fill(BGRA(255,0,255)); // Magenta
     2: // Color
       VisibleOutputImage.Fill(ColorToBGRA(cbxColorBackground.Selected));
     else

@@ -626,7 +626,7 @@ inherited frmIconBorder: TfrmIconBorder
         ItemIndex = 0
         Items.Strings = (
           'Checker'
-          'Transparent'
+          'Magenta'
           'Color'
         )
         OnSelectionChanged = rgbBackGroundSelectionChanged
