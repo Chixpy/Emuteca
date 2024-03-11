@@ -111,36 +111,36 @@ inherited fmETKDBEditor: TfmETKDBEditor
       ClientHeight = 38
       ClientWidth = 824
       object chk1Col: TCheckBox
-        Left = 109
+        Left = 104
         Height = 28
         Top = 4
-        Width = 69
+        Width = 66
         Caption = '1st Col'
-        OnChange = chk1ColChange
         TabOrder = 2
+        OnChange = chk1ColChange
       end
       object chkFastEditMode: TCheckBox
-        Left = 287
+        Left = 274
         Height = 28
         Hint = 'Toggles edit on cell select.|Faster cell edit, but multiple cells can''t be selected.'
         Top = 4
-        Width = 123
+        Width = 120
         Caption = 'Fast Edit Mode'
         Checked = True
-        OnChange = chkFastEditModeChange
         State = cbChecked
         TabOrder = 0
+        OnChange = chkFastEditModeChange
       end
       object pFastMove: TPanel
-        Left = 519
+        Left = 498
         Height = 28
         Top = 4
-        Width = 207
+        Width = 232
         BevelOuter = bvNone
         ChildSizing.HorizontalSpacing = 8
         ChildSizing.VerticalSpacing = 8
         ClientHeight = 28
-        ClientWidth = 207
+        ClientWidth = 232
         TabOrder = 1
         object lFastMove: TLabel
           Left = 0
@@ -157,7 +157,7 @@ inherited fmETKDBEditor: TfmETKDBEditor
           Left = 107
           Height = 28
           Top = 0
-          Width = 100
+          Width = 125
           Align = alClient
           ItemHeight = 20
           ReadOnly = True
@@ -173,21 +173,21 @@ inherited fmETKDBEditor: TfmETKDBEditor
       ChildSizing.TopBottomSpacing = 4
       ChildSizing.HorizontalSpacing = 8
       ChildSizing.VerticalSpacing = 8
-      ChildSizing.EnlargeHorizontal = crsHomogenousSpaceResize
+      ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
       ChildSizing.Layout = cclTopToBottomThenLeftToRight
       ChildSizing.ControlsPerLine = 1
       ClientHeight = 38
       ClientWidth = 824
       object pReplace: TPanel
-        Left = 40
+        Left = 4
         Height = 30
         Top = 4
-        Width = 161
+        Width = 201
         BevelOuter = bvNone
         ChildSizing.HorizontalSpacing = 8
         ChildSizing.VerticalSpacing = 8
         ClientHeight = 30
-        ClientWidth = 161
+        ClientWidth = 201
         TabOrder = 0
         object lReplace: TLabel
           Left = 0
@@ -204,21 +204,21 @@ inherited fmETKDBEditor: TfmETKDBEditor
           Left = 61
           Height = 30
           Top = 0
-          Width = 100
+          Width = 140
           Align = alClient
           TabOrder = 0
         end
       end
       object pReplaceWith: TPanel
-        Left = 241
+        Left = 213
         Height = 30
         Top = 4
-        Width = 193
+        Width = 233
         BevelOuter = bvNone
         ChildSizing.HorizontalSpacing = 8
         ChildSizing.VerticalSpacing = 8
         ClientHeight = 30
-        ClientWidth = 193
+        ClientWidth = 233
         TabOrder = 1
         object lReplaceWith: TLabel
           Left = 0
@@ -235,21 +235,21 @@ inherited fmETKDBEditor: TfmETKDBEditor
           Left = 93
           Height = 30
           Top = 0
-          Width = 100
+          Width = 140
           Align = alClient
           TabOrder = 0
         end
       end
       object pReplaceIn: TPanel
-        Left = 474
+        Left = 454
         Height = 30
         Top = 4
-        Width = 200
+        Width = 240
         BevelOuter = bvNone
         ChildSizing.HorizontalSpacing = 8
         ChildSizing.VerticalSpacing = 8
         ClientHeight = 30
-        ClientWidth = 200
+        ClientWidth = 240
         TabOrder = 2
         object lInColumn: TLabel
           Left = 0
@@ -266,7 +266,7 @@ inherited fmETKDBEditor: TfmETKDBEditor
           Left = 75
           Height = 28
           Top = 0
-          Width = 125
+          Width = 165
           Align = alClient
           ItemHeight = 20
           ReadOnly = True
@@ -275,10 +275,10 @@ inherited fmETKDBEditor: TfmETKDBEditor
         end
       end
       object bReplace: TButton
-        Left = 714
+        Left = 702
         Height = 30
         Top = 4
-        Width = 79
+        Width = 118
         Action = actReplace
         TabOrder = 3
       end
